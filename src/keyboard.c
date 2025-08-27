@@ -1,7 +1,7 @@
 #include <kernel.h>
 
-void keyboard_handler(uint8_t isr, uint64_t errorcode, uint64_t irq, void* opaque);
-unsigned char translate_keycode(unsigned char scancode, uint8_t escaped, uint8_t shift_state, [[maybe_unused]] uint8_t ctrl_state, [[maybe_unused]] uint8_t alt_state);
+void keyboard_handler(uint8_t isr, uint64_t errorcode, uint64_t irq, void *opaque);
+unsigned char translate_keycode(unsigned char scancode, uint8_t escaped, uint8_t shift_state, uint8_t ctrl_state, uint8_t alt_state);
 static void push_to_buffer(char x);
 
 static char keyboard_buffer[KEYBOARD_BUFFER_SIZE];
@@ -13,25 +13,37 @@ static bool shift_state = false;
 static bool ctrl_state = false;
 static bool alt_state = false;
 
-static struct key_state key_states[256] = { 0 };
+static struct key_state key_states[256] = {0};
 
 /* UK mappings of scan codes to characters, based in part off http://www.ee.bgu.ac.il/~microlab/MicroLab/Labs/ScanCodes.htm */
 
-static char keyboard_scan_map_lower[MAX_SCANCODE] = {0, 27, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 8, 9, 'q', 'w', 'e',
-					'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', 13, 0 /* CTRL */, 'a', 's', 'd', 'f', 'g', 'h',
-					'j', 'k', 'l', ';', '\'', '#', 0 /* LEFT SHIFT*/, '\\', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',',
-					'.', '/', 0 /* RIGHT SHIFT */, 0 /* PRT SCR */, 0 /* ALT */, ' ', 0 /* CAPS LOCK */, 0 /* F1 */,
-					 0 /* F2 */, 0 /* F3 */, 0 /* F4 */, 0 /* F5 */, 0 /* F6 */, 0 /* F7 */, 0 /* F8 */, 0 /* F9 */,
-					 0 /* F10 */, 0 /* NUMLOCK */, 0 /* SCROLL LOCK */, 0 /* HOME */, 0 /* UP */, 0 /* PGUP */,
-					'-', '4', '5', '6', '+', '1', '2', '3', '0', '.'};
+static char keyboard_scan_map_lower[MAX_SCANCODE] = {0, 27, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=',
+						     8, 9, 'q', 'w', 'e',
+						     'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', 13, 0 /* CTRL */, 'a',
+						     's', 'd', 'f', 'g', 'h',
+						     'j', 'k', 'l', ';', '\'', '#', 0 /* LEFT SHIFT*/, '\\', 'z', 'x',
+						     'c', 'v', 'b', 'n', 'm', ',',
+						     '.', '/', 0 /* RIGHT SHIFT */, 0 /* PRT SCR */, 0 /* ALT */, ' ',
+						     0 /* CAPS LOCK */, 0 /* F1 */,
+						     0 /* F2 */, 0 /* F3 */, 0 /* F4 */, 0 /* F5 */, 0 /* F6 */,
+						     0 /* F7 */, 0 /* F8 */, 0 /* F9 */,
+						     0 /* F10 */, 0 /* NUMLOCK */, 0 /* SCROLL LOCK */, 0 /* HOME */,
+						     0 /* UP */, 0 /* PGUP */,
+						     '-', '4', '5', '6', '+', '1', '2', '3', '0', '.'};
 
-static char keyboard_scan_map_upper[MAX_SCANCODE] = {0, 27, '!', '@', '~', '$', '%', '^', '&', '*', '(', ')', '_', '+', 8, 9, 'Q', 'W', 'E',
-					'R', 'T', 'Y', 'U', 'I', 'O', 'P', '{', '}', 13, 0 /* CTRL */, 'A', 'S', 'D', 'F', 'G', 'H',
-					'J', 'K', 'L', ':', '"', '~', 0 /* LEFT SHIFT*/, '|', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<',
-					'>', '?', 0 /* RIGHT SHIFT */, 0 /* PRT SCR */, 0 /* ALT */, ' ', 0 /* CAPS LOCK */, 0 /* F1 */,
-					 0 /* F2 */, 0 /* F3 */, 0 /* F4 */, 0 /* F5 */, 0 /* F6 */, 0 /* F7 */, 0 /* F8 */, 0 /* F9 */,
-					 0 /* F10 */, 0 /* NUMLOCK */, 0 /* SCROLL LOCK */, 0 /* HOME */, 0 /* UP */, 0 /* PGUP */,
-					'-', '4', '5', '6', '+', '1', '2', '3', '0', '.'};
+static char keyboard_scan_map_upper[MAX_SCANCODE] = {0, 27, '!', '@', '~', '$', '%', '^', '&', '*', '(', ')', '_', '+',
+						     8, 9, 'Q', 'W', 'E',
+						     'R', 'T', 'Y', 'U', 'I', 'O', 'P', '{', '}', 13, 0 /* CTRL */, 'A',
+						     'S', 'D', 'F', 'G', 'H',
+						     'J', 'K', 'L', ':', '"', '~', 0 /* LEFT SHIFT*/, '|', 'Z', 'X',
+						     'C', 'V', 'B', 'N', 'M', '<',
+						     '>', '?', 0 /* RIGHT SHIFT */, 0 /* PRT SCR */, 0 /* ALT */, ' ',
+						     0 /* CAPS LOCK */, 0 /* F1 */,
+						     0 /* F2 */, 0 /* F3 */, 0 /* F4 */, 0 /* F5 */, 0 /* F6 */,
+						     0 /* F7 */, 0 /* F8 */, 0 /* F9 */,
+						     0 /* F10 */, 0 /* NUMLOCK */, 0 /* SCROLL LOCK */, 0 /* HOME */,
+						     0 /* UP */, 0 /* PGUP */,
+						     '-', '4', '5', '6', '+', '1', '2', '3', '0', '.'};
 
 
 /**
@@ -43,24 +55,24 @@ static char keyboard_scan_map_upper[MAX_SCANCODE] = {0, 27, '!', '@', '~', '$', 
  *
  * Advances *p to the end of the token.
  */
-static char parse_token(const char** p) {
-	const char* s = *p;
+static char parse_token(const char **p) {
+	const char *s = *p;
 	char c = 0;
 
 	if (*s == '&') {     /* hex literal, e.g. &41 = 'A' */
 		s++;
-		const char* start = s;
+		const char *start = s;
 		while ((*s >= '0' && *s <= '9') ||
 		       (*s >= 'A' && *s <= 'F') ||
 		       (*s >= 'a' && *s <= 'f')) {
 			s++;
 		}
 		char buf[16];
-		size_t len = (size_t)(s - start);
+		size_t len = (size_t) (s - start);
 		if (len >= sizeof(buf)) len = sizeof(buf) - 1;
 		for (size_t i = 0; i < len; i++) buf[i] = start[i];
 		buf[len] = 0;
-		c = (char)atoll(buf, 16);
+		c = (char) atoll(buf, 16);
 	} else {             /* bare character literal */
 		c = *s++;
 	}
@@ -84,61 +96,83 @@ static char parse_token(const char** p) {
  * - Two tokens may follow: normal (unshifted) and shifted.
  * - If only one token is given, shifted = normal.
  */
-void load_keymap_from_string(const char* text) {
-	const char* p = text;
+void load_keymap_from_string(const char *text) {
+	const char *p = text;
 
 	while (*p) {
 		/* skip leading whitespace and carriage returns */
-		while (*p == ' ' || *p == '\t' || *p == '\r') p++;
-		if (*p == 0) break;
+		while (*p == ' ' || *p == '\t' || *p == '\r') {
+			p++;
+		}
+		if (*p == 0) {
+			break;
+		}
 
 		/* skip comment lines */
 		if (*p == '#') {
-			while (*p && *p != '\n') p++;
+			while (*p && *p != '\n') {
+				p++;
+			}
 			continue;
 		}
 
 		/* expect scancode starting with & */
 		if (*p != '&') {
 			/* invalid line: skip until next line */
-			while (*p && *p != '\n') p++;
-			if (*p == '\n') p++;
+			while (*p && *p != '\n') {
+				p++;
+			}
+			if (*p == '\n') {
+				p++;
+			}
 			continue;
 		}
 		p++; /* skip '&' */
 
 		/* parse hex scancode */
-		const char* start = p;
-		while ((*p >= '0' && *p <= '9') ||
-		       (*p >= 'A' && *p <= 'F') ||
-		       (*p >= 'a' && *p <= 'f')) {
+		const char *start = p;
+		while ((*p >= '0' && *p <= '9') || (*p >= 'A' && *p <= 'F') || (*p >= 'a' && *p <= 'f')) {
 			p++;
 		}
 
 		char buf[16];
-		size_t len = (size_t)(p - start);
-		if (len >= sizeof(buf)) len = sizeof(buf) - 1;
-		for (size_t i = 0; i < len; i++) buf[i] = start[i];
+		size_t len = (size_t) (p - start);
+		if (len >= sizeof(buf)) {
+			len = sizeof(buf) - 1;
+		}
+		for (size_t i = 0; i < len; i++) {
+			buf[i] = start[i];
+		}
 		buf[len] = 0;
 
-		unsigned int scancode = (unsigned int)atoll(buf, 16);
+		unsigned int scancode = (unsigned int) atoll(buf, 16);
 
 		/* parse up to 2 tokens (normal + shift) */
 		char normal = 0, shift = 0;
 		int field = 0;
 		while (*p && *p != '\n') {
 			/* skip whitespace */
-			while (*p == ' ' || *p == '\t') p++;
-			if (*p == 0 || *p == '\n') break;
+			while (*p == ' ' || *p == '\t') {
+				p++;
+			}
+			if (*p == 0 || *p == '\n') {
+				break;
+			}
 
 			char tok = parse_token(&p);
-			if (field == 0) normal = tok;
-			else if (field == 1) shift = tok;
+			if (field == 0) {
+				normal = tok;
+			}
+			else if (field == 1) {
+				shift = tok;
+			}
 			field++;
 		}
 
 		/* if only one token, make shift=normal */
-		if (field == 1) shift = normal;
+		if (field == 1) {
+			shift = normal;
+		}
 
 		/* store mapping if valid */
 		if (scancode < MAX_SCANCODE) {
@@ -147,12 +181,13 @@ void load_keymap_from_string(const char* text) {
 		}
 
 		/* consume newline if present */
-		if (*p == '\n') p++;
+		if (*p == '\n') {
+			p++;
+		}
 	}
 }
 
-void keyboard_repeat_tick()
-{
+void keyboard_repeat_tick() {
 	for (int i = 0; i < 256; i++) {
 		if (key_states[i].down) {
 			key_states[i].ticks_held++;
@@ -170,8 +205,7 @@ void keyboard_repeat_tick()
 }
 
 
-void init_keyboard()
-{
+void init_keyboard() {
 	char devname[16];
 	buffer_write_ptr = 0;
 	buffer_read_ptr = 0;
@@ -182,45 +216,34 @@ void init_keyboard()
 
 
 // Map a keyboard scan code to an ASCII value
-unsigned char translate_keycode(unsigned char scancode, uint8_t _escaped, uint8_t _shift_state, [[maybe_unused]] uint8_t _ctrl_state, [[maybe_unused]] uint8_t _alt_state)
-{
+unsigned char translate_keycode(unsigned char scancode, uint8_t _escaped, uint8_t _shift_state, uint8_t _ctrl_state, uint8_t _alt_state) {
 	if (_escaped) {
 		switch (scancode) {
 			/* Alt+# or Alt+3 for # symbol, a kludge for vnc/qemu */
 			case 0x48:
 				return KEY_UP;
-			break;
 			case 0x50:
 				return KEY_DOWN;
-			break;
 			case 0x4B:
 				return KEY_LEFT;
-			break;
 			case 0x4D:
 				return KEY_RIGHT;
-			break;
 			case 0x47:
 				return KEY_HOME;
-			break;
 			case 0x4F:
 				return KEY_END;
-			break;
 			case 0x49:
 				return KEY_PAGEUP;
-			break;
 			case 0x51:
 				return KEY_PAGEDOWN;
-			break;
 			case 0x52:
 				return KEY_INS;
-			break;
 			case 0x53:
 				return KEY_DEL;
-			break;
 			default: {
 				escaped = false;
+				break;
 			}
-			break;
 		}
 	}
 	if (_escaped) {
@@ -247,23 +270,19 @@ unsigned char translate_keycode(unsigned char scancode, uint8_t _escaped, uint8_
 	}
 }
 
-bool ctrl_held()
-{
+bool ctrl_held() {
 	return ctrl_state;
 }
 
-bool shift_held()
-{
+bool shift_held() {
 	return shift_state;
 }
 
-bool alt_held()
-{
+bool alt_held() {
 	return alt_state;
 }
 
-bool caps_lock_on()
-{
+bool caps_lock_on() {
 	return caps_lock;
 }
 
@@ -277,7 +296,7 @@ static void push_to_buffer(char x) {
 	}
 #endif
 	if (ctrl_held() && shift_held() && x == 'D') {
-		const char* log = dprintf_buffer_snapshot();
+		const char *log = dprintf_buffer_snapshot();
 		kprintf("\n%s\n", log);
 		kfree_null(&log);
 		return;
@@ -292,65 +311,66 @@ static void push_to_buffer(char x) {
 	}
 }
 
-void keyboard_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t errorcode, [[maybe_unused]] uint64_t irq, [[maybe_unused]] void* opaque)
-{
-	uint8_t new_scan_code = inb(0x60);
+void keyboard_handler(uint8_t isr, uint64_t errorcode, uint64_t irq, void *opaque) {
+	uint8_t sc = inb(0x60);
 
-	if (escaped) {
-		new_scan_code += 256;
+	if (sc == 0xE0) {
+		escaped = true;
+		return; /* wait for the next byte */
 	}
-	switch(new_scan_code) {
-		case 0x2a:
+
+	uint8_t was_escaped = escaped;   /* one-shot */
+	escaped = false;                 /* consume E0 regardless of outcome */
+
+	switch (sc) {
+		case 0x2A:
 		case 0x36:
 			shift_state = true;
-		break;
-		case 0x3A:
-			caps_lock = true;
-		break;
-		case 0xBA:
-			caps_lock = false;
-		break;
-		case 0xaa:
-		case 0xb6:
+			break;
+		case 0xAA:
+		case 0xB6:
 			shift_state = false;
-		break;
-		case 0x1d:
+			break;
+		case 0x1D:
 			ctrl_state = true;
-		break;
-		case 0x9d:
+			break;
+		case 0x9D:
 			ctrl_state = false;
-		break;
+			break;
 		case 0x38:
 			alt_state = true;
-		break;
-		case 0xb8:
+			break;
+		case 0xB8:
 			alt_state = false;
-		break;
-		case 0xe0:
-			escaped = true;
-		break;
-		default:
-			if ((new_scan_code & 0x80) == 0) {
-				// key press (make)
-				if (!key_states[new_scan_code].down) {
-					key_states[new_scan_code].down = true;
-					key_states[new_scan_code].ticks_held = 0;
+			break;
+		case 0x3A:
+			caps_lock = true;
+			break;
+		case 0xBA:
+			caps_lock = false;
+			break;
 
-					// First event: translate and push
-					char x = translate_keycode(new_scan_code, escaped, shift_state, ctrl_state, alt_state);
-					if (x) push_to_buffer(x);
+		default: {
+			if ((sc & 0x80) == 0) {
+				/* make */
+				if (!key_states[sc].down) {
+					key_states[sc].down = true;
+					key_states[sc].ticks_held = 0;
+					unsigned char ch = translate_keycode(sc, was_escaped, shift_state, ctrl_state, alt_state);
+					if (ch) {
+						push_to_buffer(ch);
+					}
 				}
 			} else {
-				// key release (break)
-				key_states[new_scan_code & 0x7F].down = false;
+				/* break */
+				key_states[sc & 0x7F].down = false;
 			}
- 		break;
+		}
+			break;
 	}
-
 }
 
-bool key_waiting()
-{
+bool key_waiting() {
 	return (buffer_read_ptr < buffer_write_ptr);
 }
 
@@ -362,8 +382,7 @@ unsigned char kpeek() {
 	return keyboard_buffer[buffer_read_ptr];
 }
 
-unsigned char kgetc()
-{
+unsigned char kgetc() {
 	if (buffer_read_ptr >= buffer_write_ptr) {
 		return 255;
 	}
@@ -371,8 +390,7 @@ unsigned char kgetc()
 	return keyboard_buffer[buffer_read_ptr++];
 }
 
-_Noreturn void reboot(void)
-{
+_Noreturn void reboot(void) {
 	__asm__ volatile ("cli");
 
 	/* Flush any pending data in the 8042 output buffer (status bit 0). */
@@ -380,7 +398,7 @@ _Noreturn void reboot(void)
 		if ((inb(0x64) & 0x01) == 0) {
 			break;
 		}
-		(void)inb(0x60);
+		(void) inb(0x60);
 	}
 
 	/* Request reset */
