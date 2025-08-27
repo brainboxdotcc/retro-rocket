@@ -22,11 +22,10 @@
 #include <kernel.h>
 #include <debugger.h>
 
-char* clean_basic(const char* program, char* output_buffer)
-{
+char *clean_basic(const char *program, char *output_buffer) {
 	bool in_quotes = false;
 	uint16_t bracket_depth = 0;
-	const char* p = program;
+	const char *p = program;
 	char *d = output_buffer;
 	while (*p) {
 		while (*p == '\r') {
@@ -65,12 +64,11 @@ char* clean_basic(const char* program, char* output_buffer)
 	return output_buffer;
 }
 
-const char* auto_number(const char* program, uint64_t line, uint64_t increment)
-{
+const char *auto_number(const char *program, uint64_t line, uint64_t increment) {
 	size_t new_size_max = strlen(program) * 5;
-	char* newprog = kmalloc(new_size_max);
+	char *newprog = kmalloc(new_size_max);
 	char line_buffer[MAX_STRINGLEN];
-	char* line_ptr = line_buffer;
+	char *line_ptr = line_buffer;
 	bool insert_line = true, ended = false;
 	if (!newprog) {
 		return NULL;
@@ -102,7 +100,7 @@ const char* auto_number(const char* program, uint64_t line, uint64_t increment)
 		*line_ptr++ = *program++;
 	}
 	strlcat(newprog, "\n", new_size_max);
-	const char* corrected = strdup(newprog);
+	const char *corrected = strdup(newprog);
 	kfree_null(&newprog);
 	return corrected;
 }
@@ -118,20 +116,19 @@ int line_compare(const void *a, const void *b, void *udata) {
 	return la->line_number == lb->line_number ? 0 : (la->line_number < lb->line_number ? -1 : 1);
 }
 
-bool basic_hash_lines(struct basic_ctx* ctx, char** error)
-{
+bool basic_hash_lines(struct basic_ctx *ctx, char **error) {
 	/* Build doubly linked list of line number references */
-	uint64_t last_line = 0xFFFFFFFF;
-	char* program = ctx->ptr;
+	int64_t last_line = LONG_MAX;
+	const char *program = ctx->ptr;
 	while (*program) {
-		uint64_t line = atoi(program);
-		if (last_line != 0xFFFFFFFF && (line <= last_line)) {
+		int64_t line = atoi(program);
+		if (last_line != LONG_MAX && (line <= last_line)) {
 			*error = "Misordered lines in BASIC program";
 			basic_destroy(ctx);
 			return false;
 		}
 		last_line = line;
-		if (hashmap_set(ctx->lines, &(ub_line_ref){ .line_number = line, .ptr = program })) {
+		if (hashmap_set(ctx->lines, &(ub_line_ref) {.line_number = line, .ptr = program})) {
 			*error = "Line hashed twice in BASIC program (internal error)";
 			basic_destroy(ctx);
 			return false;
@@ -148,16 +145,15 @@ bool basic_hash_lines(struct basic_ctx* ctx, char** error)
 	return true;
 }
 
-struct basic_ctx* basic_init(const char *program, uint32_t pid, const char* file, char** error)
-{
+struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file, char **error) {
 	if (!isdigit(*program)) {
 		/* Program is not line numbered! Auto-number it. */
-		const char* numbered = auto_number(program, 10, 10);
-		struct basic_ctx* c = basic_init(numbered, pid, file, error);
+		const char *numbered = auto_number(program, 10, 10);
+		struct basic_ctx *c = basic_init(numbered, pid, file, error);
 		kfree_null(&numbered);
 		return c;
 	}
-	struct basic_ctx* ctx = kmalloc(sizeof(struct basic_ctx));
+	struct basic_ctx *ctx = kmalloc(sizeof(struct basic_ctx));
 	if (ctx == NULL) {
 		*error = "Out of memory";
 		return NULL;
@@ -181,14 +177,11 @@ struct basic_ctx* basic_init(const char *program, uint32_t pid, const char* file
 	ctx->int_array_variables = NULL;
 	ctx->string_array_variables = NULL;
 	ctx->double_array_variables = NULL;
-	for (i = 0; i < MAX_CALL_STACK_DEPTH; i++)
-		ctx->local_int_variables[i] = NULL;
-	for (i = 0; i < MAX_CALL_STACK_DEPTH; i++)
-		ctx->local_string_variables[i] = NULL;
-	for (i = 0; i < MAX_CALL_STACK_DEPTH; i++)
-		ctx->local_double_variables[i] = NULL;
 	ctx->oldlen = 0;
 	ctx->fn_return = NULL;
+	memset(ctx->local_int_variables, NULL, sizeof(ctx->local_int_variables));
+	memset(ctx->local_string_variables, NULL, sizeof(ctx->local_string_variables));
+	memset(ctx->local_double_variables, NULL, sizeof(ctx->local_double_variables));
 	// We allocate 5000 bytes extra on the end of the program for EVAL space,
 	// as EVAL appends to the program on lines EVAL_LINE and EVAL_LINE + 1.
 	ctx->program_ptr = kmalloc(strlen(program) + 5000);
@@ -207,10 +200,8 @@ struct basic_ctx* basic_init(const char *program, uint32_t pid, const char* file
 	/* Special for empty string storage */
 	*ctx->string_gc_storage = 0;
 	ctx->string_gc_storage_next = ctx->string_gc_storage + 1;
-	dprintf("New buddy init\n");
 	ctx->allocator = kmalloc(sizeof(buddy_allocator_t));
 	buddy_init(ctx->allocator, 6, 20, 20);
-	dprintf("New buddy init done\n");
 	ctx->lines = hashmap_new(sizeof(ub_line_ref), 0, 5923530135432, 458397058, line_hash, line_compare, NULL, NULL);
 
 	// Clean extra whitespace from the program
@@ -222,7 +213,6 @@ struct basic_ctx* basic_init(const char *program, uint32_t pid, const char* file
 	ctx->graphics_colour = 0xFFFFFF;
 
 	// Scan the program for functions and procedures
-
 	tokenizer_init(ctx->program_ptr, ctx);
 	if (!basic_parse_fn(ctx)) {
 		*error = "Duplicate function name";
@@ -241,11 +231,9 @@ struct basic_ctx* basic_init(const char *program, uint32_t pid, const char* file
 	return ctx;
 }
 
-void yield_statement(struct basic_ctx* ctx)
-{
+void yield_statement(struct basic_ctx *ctx) {
 	accept_or_return(YIELD, ctx);
 	accept_or_return(NEWLINE, ctx);
-	__asm__ volatile("hlt");
 }
 
 /**
@@ -256,13 +244,12 @@ void yield_statement(struct basic_ctx* ctx)
  * 
  * @param ctx BASIC context
  */
-void library_statement(struct basic_ctx* ctx)
-{
+void library_statement(struct basic_ctx *ctx) {
 	accept_or_return(LIBRARY, ctx);
-	const char* lib_file = str_expr(ctx);
+	const char *lib_file = str_expr(ctx);
 
 	/* Validate the file exists and is not a directory */
-	fs_directory_entry_t* file_info = fs_get_file_info(lib_file);
+	fs_directory_entry_t *file_info = fs_get_file_info(lib_file);
 	accept_or_return(NEWLINE, ctx);
 
 	if (basic_in_eval(ctx)) {
@@ -282,18 +269,18 @@ void library_statement(struct basic_ctx* ctx)
 
 	/* Load the library file from VFS */
 	size_t library_len = file_info->size;
-	char* temp_library = kmalloc(library_len + 1);
+	char *temp_library = kmalloc(library_len + 1);
 	if (!temp_library) {
 		tokenizer_error_printf(ctx, "Not enough memory to load library file '%s'", lib_file);
 		return;
 	}
-	char* clean_library = kmalloc(library_len + 1);
+	char *clean_library = kmalloc(library_len + 1);
 	if (!clean_library) {
 		kfree_null(&temp_library);
 		tokenizer_error_printf(ctx, "Not enough memory to load library file '%s'", lib_file);
 		return;
 	}
-	if (!fs_read_file(file_info, 0, library_len, (uint8_t*)temp_library)) {
+	if (!fs_read_file(file_info, 0, library_len, (uint8_t *) temp_library)) {
 		tokenizer_error_printf(ctx, "Error reading library file '%s'", lib_file);
 		kfree_null(&temp_library);
 		kfree_null(&clean_library);
@@ -311,7 +298,7 @@ void library_statement(struct basic_ctx* ctx)
 	}
 
 	/* Auto-number the library to be above the existing program statements */
-	const char* numbered = auto_number(clean_library, ctx->highest_line + 10, 10);
+	const char *numbered = auto_number(clean_library, ctx->highest_line + 10, 10);
 	library_len = strlen(numbered);
 
 	/* Append the renumbered library to the end of the program (this reallocates
@@ -347,7 +334,7 @@ void library_statement(struct basic_ctx* ctx)
 	char error[MAX_STRINGLEN];
 	hashmap_free(ctx->lines);
 	ctx->lines = hashmap_new(sizeof(ub_line_ref), 0, 5923530135432, 458397058, line_hash, line_compare, NULL, NULL);
-	if (!basic_hash_lines(ctx, (char**)&error)) {
+	if (!basic_hash_lines(ctx, (char **) &error)) {
 		tokenizer_error_print(ctx, error);
 		return;
 	}
@@ -358,13 +345,13 @@ void library_statement(struct basic_ctx* ctx)
 	tokenizer_init(ctx->program_ptr, ctx);
 
 	/* Look for constructor PROC with same name as library */
-	struct ub_proc_fn_def* def = basic_find_fn(file_info->filename, ctx);
+	struct ub_proc_fn_def *def = basic_find_fn(file_info->filename, ctx);
 	if (def) {
 		dprintf("Calling initialisation constructor '%s' on line %ld with return to line %ld\n", file_info->filename, def->line, next_line);
 		if (ctx->call_stack_ptr < MAX_CALL_STACK_DEPTH) {
 			ctx->call_stack[ctx->call_stack_ptr] = next_line;
-			init_local_heap(ctx);
 			ctx->call_stack_ptr++;
+			init_local_heap(ctx);
 			ctx->fn_type = RT_NONE;
 			jump_linenum(def->line, ctx);
 		} else {
@@ -377,9 +364,8 @@ void library_statement(struct basic_ctx* ctx)
 	}
 }
 
-struct basic_ctx* basic_clone(struct basic_ctx* old)
-{
-	struct basic_ctx* ctx = buddy_malloc(old->allocator, sizeof(struct basic_ctx));
+struct basic_ctx *basic_clone(struct basic_ctx *old) {
+	struct basic_ctx *ctx = buddy_malloc(old->allocator, sizeof(struct basic_ctx));
 	int i;
 
 	ctx->if_nest_level = old->if_nest_level;
@@ -400,22 +386,14 @@ struct basic_ctx* basic_clone(struct basic_ctx* old)
 	ctx->debug_breakpoints = old->debug_breakpoints;
 	ctx->debug_breakpoint_count = old->debug_breakpoint_count;
 	ctx->allocator = old->allocator;
-	memcpy(ctx->sprites, old->sprites, sizeof(ctx->sprites));
 
-	for (i = 0; i < MAX_CALL_STACK_DEPTH; i++) {
-		ctx->local_int_variables[i] = old->local_int_variables[i];
-	}
-	for (i = 0; i < MAX_CALL_STACK_DEPTH; i++) {
-		ctx->local_string_variables[i] = old->local_string_variables[i];
-	}
-	for (i = 0; i < MAX_CALL_STACK_DEPTH; i++) {
-		ctx->local_double_variables[i] = old->local_double_variables[i];
-	}
-	for (i = 0; i < MAX_LOOP_STACK_DEPTH; i++) {
-		ctx->for_stack[i] = old->for_stack[i];
-		ctx->repeat_stack[i] = old->repeat_stack[i];
-		ctx->while_stack[i] = old->while_stack[i];
-	}
+	memcpy(ctx->sprites, old->sprites, sizeof(ctx->sprites));
+	memcpy(ctx->local_int_variables, old->local_int_variables, sizeof(ctx->local_int_variables));
+	memcpy(ctx->local_string_variables, old->local_string_variables, sizeof(ctx->local_string_variables));
+	memcpy(ctx->local_double_variables, old->local_double_variables, sizeof(ctx->local_double_variables));
+	memcpy(ctx->for_stack, old->for_stack, sizeof(ctx->for_stack));
+	memcpy(ctx->repeat_stack, old->repeat_stack, sizeof(ctx->repeat_stack));
+	memcpy(ctx->while_stack, old->while_stack, sizeof(ctx->while_stack));
 
 	ctx->oldlen = old->oldlen;
 	ctx->fn_return = NULL;
@@ -435,8 +413,7 @@ struct basic_ctx* basic_clone(struct basic_ctx* old)
 }
 
 
-void basic_destroy(struct basic_ctx* ctx)
-{
+void basic_destroy(struct basic_ctx *ctx) {
 	for (uint32_t sprite_handle = 0; sprite_handle < MAX_SPRITES; ++sprite_handle) {
 		if (ctx->sprites[sprite_handle]) {
 			free_sprite(ctx, sprite_handle);
@@ -453,8 +430,7 @@ void basic_destroy(struct basic_ctx* ctx)
 	kfree_null(&ctx);
 }
 
-bool accept(int token, struct basic_ctx* ctx)
-{
+bool accept(int token, struct basic_ctx *ctx) {
 	if (token != tokenizer_token(ctx)) {
 		GENERATE_ENUM_STRING_NAMES(TOKEN, token_names)
 		tokenizer_error_printf(ctx, "Expected %s got %s", token_names[token], token_names[tokenizer_token(ctx)]);
@@ -464,9 +440,8 @@ bool accept(int token, struct basic_ctx* ctx)
 	return true;
 }
 
-bool jump_linenum(int64_t linenum, struct basic_ctx* ctx)
-{
-	ub_line_ref* line = hashmap_get(ctx->lines, &(ub_line_ref){ .line_number = linenum });
+bool jump_linenum(int64_t linenum, struct basic_ctx *ctx) {
+	ub_line_ref *line = hashmap_get(ctx->lines, &(ub_line_ref) {.line_number = linenum});
 	if (!line) {
 		tokenizer_error_printf(ctx, "No such line %ld", linenum);
 		return false;
@@ -476,8 +451,7 @@ bool jump_linenum(int64_t linenum, struct basic_ctx* ctx)
 	return true;
 }
 
-void goto_statement(struct basic_ctx* ctx)
-{
+void goto_statement(struct basic_ctx *ctx) {
 	accept_or_return(GOTO, ctx);
 	jump_linenum(tokenizer_num(ctx, NUMBER), ctx);
 }
@@ -487,30 +461,33 @@ void goto_statement(struct basic_ctx* ctx)
  * 
  * @param ctx BASIC context
  */
-void free_local_heap(struct basic_ctx* ctx)
-{
-	while (ctx->local_string_variables[ctx->call_stack_ptr]) {
-		struct ub_var_string* next = ctx->local_string_variables[ctx->call_stack_ptr]->next;
-		buddy_free(ctx->allocator, ctx->local_string_variables[ctx->call_stack_ptr]->value);
-		buddy_free(ctx->allocator, ctx->local_string_variables[ctx->call_stack_ptr]->varname);
-		buddy_free(ctx->allocator, ctx->local_string_variables[ctx->call_stack_ptr]);
-		ctx->local_string_variables[ctx->call_stack_ptr] = next;
+void free_local_heap(struct basic_ctx *ctx) {
+	size_t i = ctx->call_stack_ptr;
+	struct ub_var_string *strings = ctx->local_string_variables[i];
+	while (strings) {
+		struct ub_var_string *next = strings->next;
+		buddy_free(ctx->allocator, strings->value);
+		buddy_free(ctx->allocator, strings->varname);
+		buddy_free(ctx->allocator, strings);
+		strings = next;
 	}
-	while (ctx->local_int_variables[ctx->call_stack_ptr]) {
-		struct ub_var_int* next = ctx->local_int_variables[ctx->call_stack_ptr]->next;
-		buddy_free(ctx->allocator, ctx->local_int_variables[ctx->call_stack_ptr]->varname);
-		buddy_free(ctx->allocator, ctx->local_int_variables[ctx->call_stack_ptr]);
-		ctx->local_int_variables[ctx->call_stack_ptr] = next;
+	ctx->local_string_variables[i] = NULL;
+	struct ub_var_int *ints = ctx->local_int_variables[i];
+	while (ints) {
+		struct ub_var_int *next = ints->next;
+		buddy_free(ctx->allocator, ints->varname);
+		buddy_free(ctx->allocator, ints);
+		ints = next;
 	}
-	while (ctx->local_double_variables[ctx->call_stack_ptr]) {
-		struct ub_var_double* next = ctx->local_double_variables[ctx->call_stack_ptr]->next;
-		buddy_free(ctx->allocator, ctx->local_double_variables[ctx->call_stack_ptr]->varname);
-		buddy_free(ctx->allocator, ctx->local_double_variables[ctx->call_stack_ptr]);
-		ctx->local_double_variables[ctx->call_stack_ptr] = next;
+	ctx->local_int_variables[i] = NULL;
+	struct ub_var_double *doubles = ctx->local_double_variables[i];
+	while (doubles) {
+		struct ub_var_double *next = doubles->next;
+		buddy_free(ctx->allocator, doubles->varname);
+		buddy_free(ctx->allocator, doubles);
+		doubles = next;
 	}
-	ctx->local_int_variables[ctx->call_stack_ptr] = NULL;
-	ctx->local_string_variables[ctx->call_stack_ptr] = NULL;
-	ctx->local_double_variables[ctx->call_stack_ptr] = NULL;
+	ctx->local_double_variables[i] = NULL;
 }
 
 /**
@@ -518,28 +495,27 @@ void free_local_heap(struct basic_ctx* ctx)
  * 
  * @param ctx 
  */
-void init_local_heap(struct basic_ctx* ctx)
-{
-	ctx->local_int_variables[ctx->call_stack_ptr] = NULL;
-	ctx->local_string_variables[ctx->call_stack_ptr] = NULL;
-	ctx->local_double_variables[ctx->call_stack_ptr] = NULL;
+void init_local_heap(struct basic_ctx *ctx) {
+	uint64_t i = ctx->call_stack_ptr;
+	ctx->local_int_variables[i] = NULL;
+	ctx->local_string_variables[i] = NULL;
+	ctx->local_double_variables[i] = NULL;
 }
 
-void chain_statement(struct basic_ctx* ctx)
-{
+void chain_statement(struct basic_ctx *ctx) {
 	uint32_t cpu = logical_cpu_id();
-	process_t* proc = proc_cur(cpu);
+	process_t *proc = proc_cur(cpu);
 	accept_or_return(CHAIN, ctx);
-	const char* pn = str_expr(ctx);
-	process_t* p = proc_load(pn, proc->pid, proc->csd);
+	const char *pn = str_expr(ctx);
+	process_t *p = proc_load(pn, proc->pid, proc->csd);
 	if (p == NULL) {
 		accept_or_return(NEWLINE, ctx);
 		return;
 	}
-	struct basic_ctx* new_proc = p->code;
-	struct ub_var_int* cur_int = ctx->int_variables;
-	struct ub_var_string* cur_str = ctx->str_variables;
-	struct ub_var_double* cur_double = ctx->double_variables;
+	struct basic_ctx *new_proc = p->code;
+	struct ub_var_int *cur_int = ctx->int_variables;
+	struct ub_var_string *cur_str = ctx->str_variables;
+	struct ub_var_double *cur_double = ctx->double_variables;
 
 	/* Inherit global variables into new process */
 	for (; cur_int; cur_int = cur_int->next) {
@@ -562,15 +538,13 @@ void chain_statement(struct basic_ctx* ctx)
 	accept_or_return(NEWLINE, ctx);
 }
 
-bool basic_in_eval(struct basic_ctx* ctx)
-{
+bool basic_in_eval(struct basic_ctx *ctx) {
 	return (ctx->current_linenum == EVAL_LINE);
 }
 
-void eval_statement(struct basic_ctx* ctx)
-{
+void eval_statement(struct basic_ctx *ctx) {
 	accept_or_return(EVAL, ctx);
-	const char* v = str_expr(ctx);
+	const char *v = str_expr(ctx);
 	accept_or_return(NEWLINE, ctx);
 
 	if (basic_in_eval(ctx)) {
@@ -600,14 +574,14 @@ void eval_statement(struct basic_ctx* ctx)
 		if (last > 13) {
 			strlcat(ctx->program_ptr, "\n", ctx->oldlen + 5000);
 		}
-		const char* line_eval = (ctx->program_ptr + strlen(ctx->program_ptr));
+		const char *line_eval = (ctx->program_ptr + strlen(ctx->program_ptr));
 		strlcat(ctx->program_ptr, STRINGIFY(EVAL_LINE)" ", ctx->oldlen + 5000);
 		strlcat(ctx->program_ptr, clean_v, ctx->oldlen + 5000);
-		const char* line_eval_end = (ctx->program_ptr + strlen(ctx->program_ptr) + 1);
+		const char *line_eval_end = (ctx->program_ptr + strlen(ctx->program_ptr) + 1);
 		strlcat(ctx->program_ptr, "\n"STRINGIFY(EVAL_END_LINE)" RETURN\n", ctx->oldlen + 5000);
 
-		hashmap_set(ctx->lines, &(ub_line_ref){ .line_number = EVAL_LINE, .ptr = line_eval });
-		hashmap_set(ctx->lines, &(ub_line_ref){ .line_number = EVAL_END_LINE, .ptr = line_eval_end });
+		hashmap_set(ctx->lines, &(ub_line_ref) {.line_number = EVAL_LINE, .ptr = line_eval});
+		hashmap_set(ctx->lines, &(ub_line_ref) {.line_number = EVAL_END_LINE, .ptr = line_eval_end});
 
 		/**
 		 * @brief An EVAL jumps to the line number at the end of the program
@@ -626,13 +600,12 @@ void eval_statement(struct basic_ctx* ctx)
 		ctx->oldlen = 0;
 		ctx->eval_linenum = 0;
 		/* Delete references to the eval lines */
-		hashmap_delete(ctx->lines, &(ub_line_ref){ .line_number = EVAL_LINE });
-		hashmap_delete(ctx->lines, &(ub_line_ref){ .line_number = EVAL_END_LINE });
+		hashmap_delete(ctx->lines, &(ub_line_ref) {.line_number = EVAL_LINE});
+		hashmap_delete(ctx->lines, &(ub_line_ref) {.line_number = EVAL_END_LINE});
 	}
 }
 
-void rem_statement(struct basic_ctx* ctx)
-{
+void rem_statement(struct basic_ctx *ctx) {
 	accept_or_return(REM, ctx);
 	while (*ctx->nextptr && *ctx->nextptr != '\n') ctx->nextptr++;
 	tokenizer_next(ctx);
@@ -643,14 +616,13 @@ bool basic_esc() {
 	return (kpeek() == 27 && ctrl_held());
 }
 
-void basic_run(struct basic_ctx* ctx)
-{
+void basic_run(struct basic_ctx *ctx) {
 	if (basic_finished(ctx)) {
 		return;
 	}
 	/* TODO Make sure this only runs for foreground processes! */
 	if (basic_esc() && !ctx->errored) {
-		(void)kgetc();
+		(void) kgetc();
 		tokenizer_error_print(ctx, "Escape");
 	}
 	line_statement(ctx);
@@ -667,7 +639,6 @@ void basic_run(struct basic_ctx* ctx)
 	gc(ctx);
 }
 
-bool basic_finished(struct basic_ctx* ctx)
-{
+bool basic_finished(struct basic_ctx *ctx) {
 	return ctx->ended || tokenizer_finished(ctx);
 }

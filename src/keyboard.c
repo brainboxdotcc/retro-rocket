@@ -14,6 +14,7 @@ static bool ctrl_state = false;
 static bool alt_state = false;
 
 static struct key_state key_states[256] = {0};
+static uint8_t key_was_extended[256] = {0};
 
 /* UK mappings of scan codes to characters, based in part off http://www.ee.bgu.ac.il/~microlab/MicroLab/Labs/ScanCodes.htm */
 
@@ -197,7 +198,7 @@ void keyboard_repeat_tick() {
 			}
 			if (key_states[i].ticks_held > REPEAT_DELAY_TICKS &&
 			    (key_states[i].ticks_held - REPEAT_DELAY_TICKS) % REPEAT_RATE_TICKS == 0) {
-				unsigned char ch = translate_keycode(i, escaped, shift_state, ctrl_state, alt_state);
+				unsigned char ch = translate_keycode(i, key_was_extended[i], shift_state, ctrl_state, alt_state);
 				push_to_buffer(ch);
 			}
 		}
@@ -355,6 +356,8 @@ void keyboard_handler(uint8_t isr, uint64_t errorcode, uint64_t irq, void *opaqu
 				if (!key_states[sc].down) {
 					key_states[sc].down = true;
 					key_states[sc].ticks_held = 0;
+					key_was_extended[sc] = was_escaped ? 1 : 0;
+
 					unsigned char ch = translate_keycode(sc, was_escaped, shift_state, ctrl_state, alt_state);
 					if (ch) {
 						push_to_buffer(ch);
@@ -363,6 +366,7 @@ void keyboard_handler(uint8_t isr, uint64_t errorcode, uint64_t irq, void *opaqu
 			} else {
 				/* break */
 				key_states[sc & 0x7F].down = false;
+				key_was_extended[sc & 0x7F] = 0;
 			}
 		}
 			break;
