@@ -17,10 +17,10 @@ We’ll start simple and build up.
 Open the editor:
 
 ```
-edit hello
+edit
 ```
 
-Type this and save (Ctrl+S):
+Type this and save (Ctrl+S) with the name: `hello`
 
 ```
 PRINT "Hello, Retro Rocket!"
@@ -46,10 +46,10 @@ You should see the message appear. That’s your first program!
 Open a new file:
 
 ```
-edit mathsdemo
+edit
 ```
 
-Type and save:
+Type and save (Ctrl+S) as `mathsdemo`:
 
 ```
 A = 2
@@ -84,10 +84,10 @@ Use the right suffix when you want a real or string. Integers have no suffix.
 Open:
 
 ```
-edit hello_you
+edit
 ```
 
-Type and save:
+Type and save (Ctrl+S) as `hello_you`:
 
 ```
 PRINT "What is your name?"
@@ -113,10 +113,10 @@ hello_you
 Open:
 
 ```
-edit agegate
+edit
 ```
 
-Type and save:
+Type and save (Ctrl+S) as `agegate`:
 
 ```
 PRINT "How old are you?"
@@ -138,22 +138,12 @@ Run it and try different ages.\
 **A counting loop**
 
 ```
-edit count
-```
-
-```
 FOR I = 1 TO 5
   PRINT "Number "; I
 NEXT
 ```
 
-Run with `count`.
-
 **A condition‑driven loop**
-
-```
-edit countdown
-```
 
 ```
 N = 5
@@ -164,8 +154,6 @@ ENDWHILE
 PRINT "Lift‑off!"
 ```
 
-Run with `countdown`.
-
 ---
 
 ## 6) Breaking code into procedures and functions
@@ -173,10 +161,6 @@ Run with `countdown`.
 Procedures are reusable blocks that don’t return a value. Functions return a value.
 
 **Procedure example**
-
-```
-edit greet
-```
 
 ```
 DEF PROC Greet(NAME$)
@@ -187,13 +171,7 @@ PROC Greet("Ada")
 PROC Greet("Grace")
 ```
 
-Run with `greet`.
-
 **Function example**
-
-```
-edit add
-```
 
 ```
 DEF FN Add(A, B)
@@ -201,8 +179,6 @@ DEF FN Add(A, B)
 
 PRINT "2 + 3 = "; FN Add(2, 3)
 ```
-
-Run with `add`.
 
 **Notes**
 
@@ -215,10 +191,10 @@ Run with `add`.
 ## 7) A tiny project: Guess the number
 
 ```
-edit guess
+edit
 ```
 
-Type and save:
+Type and save (Ctrl+S) as `guess`:
 
 ```
 PRINT "I am thinking of a number between 1 and 10."
