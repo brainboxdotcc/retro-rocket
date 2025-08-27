@@ -9,44 +9,6 @@ bool conditional(struct basic_ctx* ctx) {
 	return up_conditional(ctx);
 }
 
-/*
-bool conditional(struct basic_ctx* ctx)
-{
-	char current_line[MAX_STRINGLEN];
-	char* pos = strchr(ctx->ptr, '\n');
-	char* end = strchr(ctx->ptr, 0);
-	bool stringlike = false, real = false;
-	strlcpy(current_line, ctx->ptr, pos ? pos - ctx->ptr + 1 : end - ctx->ptr + 1);
-	for (char* n = current_line; *n && *n != '\n'; ++n) {
-		if (strlen(n) >= 2 && isalnum(*n) && *(n + 1) == '$') {
-			stringlike = true; // String variable
-			break;
-		} else if (strlen(n) >= 2 && isalnum(*n) && *(n + 1) == '#') {
-			real = true; // Real variable
-			break;
-		} else if (strlen(n) >= 3 && isdigit(*n) && *(n + 1) == '.' && isdigit(*(n + 2))) {
-			real = true; // Decimal number
-			break;
-		} else if (strlen(n) >= 5 && *n == ' ' && *(n + 1) == 'T' && *(n + 2) == 'H' && *(n + 3) == 'E' && *(n + 4) == 'N') {
-			break;
-		} else if (*n == '\n') {
-			break;
-		}
-	}
-
-	bool r = false;
-	if (!real) {
-		int64_t ri = stringlike ? str_relation(ctx) :  relation(ctx);
-		r = (ri != 0);
-	} else {
-		double rd;
-		double_relation(ctx, &rd);
-		r = (rd != 0.0);
-	}
-	return r;
-}
-*/
-
 void else_statement(struct basic_ctx* ctx)
 {
 	/* If we get to an ELSE, this means that we executed a THEN part of a block IF,
