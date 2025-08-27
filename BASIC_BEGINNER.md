@@ -163,28 +163,27 @@ Procedures are reusable blocks that don’t return a value. Functions return a v
 **Procedure example**
 
 ```
-DEF PROC Greet(NAME$)
+DEF PROCGreet(NAME$)
   PRINT "Hello, "; NAME$
 ENDPROC
 
-PROC Greet("Ada")
-PROC Greet("Grace")
+PROCGreet("Ada")
+PROCGreet("Grace")
 ```
 
 **Function example**
 
 ```
-DEF FN Add(A, B)
+DEF FNAdd(A, B)
  = A + B
 
-PRINT "2 + 3 = "; FN Add(2, 3)
+PRINT "2 + 3 = "; FNAdd(2, 3)
 ```
 
 **Notes**
 
-- Call a procedure with `PROC Name(...)`.
-- Call a function with `FN Name(...)`. The line starting with `=` returns the value.
-- Prefer `PROC`/`FN` over older styles like `GOTO`/`GOSUB`.
+- Call a procedure with `PROCName(...)`.
+- Call a function with `FNName(...)`. The line starting with `=` returns the value.
 
 ---
 
