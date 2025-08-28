@@ -585,8 +585,7 @@ void proc_statement(struct basic_ctx* ctx)
 		}
 		return;
 	}
-	char err[MAX_STRINGLEN];
-	snprintf(err, MAX_STRINGLEN, "No such PROC %s", procname);
+	tokenizer_error_printf(ctx, "No such PROC %s", procname);
 }
 
 void def_statement(struct basic_ctx* ctx)
