@@ -372,9 +372,9 @@ void dput(const char n) {
  * trigger scrolling if the character would be off-screen.
  */
 void put(const char n) {
-	if (n != 27) {
+	/*if (n != 27) {
 		dput(n);
-	}
+	}*/
 	ft_write(ft_ctx, &n, 1);
 }
 
@@ -399,7 +399,7 @@ void dputstring(const char* message)
  */
 void putstring(const char* message)
 {
-	dputstring(message);
+	//dputstring(message);
 	ft_write(ft_ctx, message, strlen(message));
 }
 

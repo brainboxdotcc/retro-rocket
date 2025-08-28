@@ -8,6 +8,10 @@ dirty = FALSE
 DIM content$, max
 lastfind$ = ""
 
+lastrepl$ = ""
+hit_line = 0
+hit_pos = 0
+
 
 REM load file, draw UI, start editor input loop
 PROCload(ARGS$)
@@ -211,8 +215,8 @@ DEF PROCsearch
 	INPUT find$
 	IF find$ <> "" THEN lastfind$ = find$
 	IF lastfind$ = "" THEN
-	    PROCendPrompt
-	    ENDPROC
+		PROCendPrompt
+		ENDPROC
 	ENDIF
 	PROCdoFind(lastfind$)
 ENDPROC
@@ -262,15 +266,8 @@ DEF PROCmoveCursorToHit(L, pos)
 	currentx = pos
 	IF currentx > (TERMWIDTH - 1) THEN currentx = TERMWIDTH - 1
     PROCtext
-ENDPROC
-
-REM search and replace
-DEF PROCreplace
-	PROCprompt("Search text")
-	INPUT find$
-	PROCprompt("Replace text")
-	INPUT replace$
-	dirty = TRUE
+	PROCprompt("Replace this occurrence? (Y)es/(N)o/(A)ll/(Q)uit")
+    CURSOR currentx + 1, currenty + 2
 ENDPROC
 
 REM handle escape key
@@ -434,3 +431,115 @@ DEF PROCjoinAbove
 	currenty = currenty - 1
 	lines = lines - 1
 ENDPROC
+
+REM ----------------------------
+
+REM search and replace (interactive)
+DEF PROCreplace
+	PROCprompt("Search text")
+	INPUT find$
+	IF find$ <> "" THEN lastfind$ = find$
+	IF lastfind$ = "" THEN
+		PROCendPrompt
+ 		ENDPROC
+	ENDIF
+	PROCendPrompt
+	PROCprompt("Replace with")
+	INPUT repl$
+	IF repl$ <> "" THEN lastrepl$ = repl$
+	PROCendPrompt
+	PROCreplaceLoop(lastfind$, lastrepl$)
+ENDPROC
+
+REM interactive replace loop with Y/N/A/Q controls; wraps once
+DEF PROCreplaceLoop(find$, repl$)
+	all_mode = FALSE
+	did_wrap = FALSE
+	next_line = top + currenty
+	next_col = currentx + 1
+	PROCdraw
+	REPEAT
+		IF FNnextHit(next_line, next_col, find$) = FALSE THEN
+			IF did_wrap = FALSE THEN
+				did_wrap = TRUE
+				next_line = 0
+				next_col = 0
+			ELSE
+			    PROCtext
+                ENDPROC
+			ENDIF
+		ELSE
+			IF all_mode = TRUE THEN
+				PROCreplaceAtHit(find$, repl$)
+				dirty = TRUE
+				next_line = hit_line
+				next_col = hit_pos + LEN(repl$)
+			ELSE
+    			PROCmoveCursorToHit(hit_line, hit_pos)
+				KGET k$
+				PROCendPrompt
+				uk$ = UPPER$(k$)
+				IF uk$ = "Y" THEN
+					PROCreplaceAtHit(find$, repl$)
+					dirty = TRUE
+					next_line = hit_line
+					next_col = hit_pos + LEN(repl$)
+				ENDIF
+				IF uk$ = "N" THEN
+					next_line = hit_line
+					next_col = hit_pos + 1
+				ENDIF
+				IF uk$ = "A" THEN
+					all_mode = TRUE
+					PROCreplaceAtHit(find$, repl$)
+					dirty = TRUE
+					next_line = hit_line
+					next_col = hit_pos + LEN(repl$)
+				ENDIF
+				IF uk$ = "Q" THEN
+				    PROCtext
+                    ENDPROC
+                ENDIF
+				IF uk$ <> "Q" AND uk$ <> "A" AND uk$ <> "N" AND uk$ <> "Y" THEN
+					next_line = hit_line
+					next_col = hit_pos
+				ENDIF
+			ENDIF
+		ENDIF
+	UNTIL FALSE
+	PROCtext
+ENDPROC
+
+REM replace the current hit with repl$, update cursor and window
+DEF PROCreplaceAtHit(find$, repl$)
+	hay$ = content$(hit_line)
+	start$ = MID$(hay$, 0, hit_pos)
+	end$ = MID$(hay$, hit_pos + LEN(find$), LEN(hay$))
+	content$(hit_line) = start$ + repl$ + end$
+
+	REM place cursor just after the replaced text
+	new_pos = LEN(start$) + LEN(repl$)
+	currentx = new_pos
+	IF currentx > (TERMWIDTH - 1) THEN currentx = TERMWIDTH - 1
+
+	PROCmoveCursorToHit(hit_line, currentx)
+ENDPROC
+
+REM find next hit from (line_from,col_from); sets hit_line/hit_pos; TRUE if found
+DEF FNnextHit(line_from, col_from, needle$)
+	FOR L = line_from TO lines - 1
+		hay$ = content$(L)
+		IF L = line_from THEN
+			search_from = col_from
+		ELSE
+			search_from = 0
+		ENDIF
+		sub$ = MID$(hay$, search_from, LEN(hay$))
+		pos_rel = INSTR(sub$, needle$)
+		IF pos_rel > 0 THEN
+			hit_line = L
+			hit_pos = search_from + pos_rel - 1
+			=TRUE
+		ENDIF
+	NEXT
+=FALSE

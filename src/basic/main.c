@@ -22,6 +22,8 @@
 #include <kernel.h>
 #include <debugger.h>
 
+extern bool debug;
+
 char *clean_basic(const char *program, char *output_buffer) {
 	bool in_quotes = false;
 	uint16_t bracket_depth = 0;
@@ -76,9 +78,15 @@ const char *auto_number(const char *program, uint64_t line, uint64_t increment) 
 	*newprog = 0;
 	while (true) {
 		if (insert_line) {
-			while (*program == '\n') {
-				*line_ptr++ = '\n';
-				program++;
+			if (*program == '\n') {
+				/* Empty line: output REM */
+				snprintf(line_buffer, MAX_STRINGLEN, "%lu REM", line);
+				line += increment;
+				insert_line = true; /* stay in insert mode for next line */
+				program++;          /* consume the newline */
+				strlcat(newprog, line_buffer, new_size_max);
+				strlcat(newprog, "\n", new_size_max);
+				continue;
 			}
 			snprintf(line_buffer, MAX_STRINGLEN, "%lu ", line);
 			line += increment;
@@ -102,6 +110,7 @@ const char *auto_number(const char *program, uint64_t line, uint64_t increment) 
 	strlcat(newprog, "\n", new_size_max);
 	const char *corrected = strdup(newprog);
 	kfree_null(&newprog);
+	dprintf("*** AUTO NUMBERED ***\n%s\n***********\n", corrected);
 	return corrected;
 }
 
@@ -148,7 +157,7 @@ bool basic_hash_lines(struct basic_ctx *ctx, char **error) {
 struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file, char **error) {
 	if (!isdigit(*program)) {
 		/* Program is not line numbered! Auto-number it. */
-		const char *numbered = auto_number(program, 10, 10);
+		const char *numbered = auto_number(program, 1, 1);
 		struct basic_ctx *c = basic_init(numbered, pid, file, error);
 		kfree_null(&numbered);
 		return c;
@@ -172,6 +181,7 @@ struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file
 	memset(ctx->sprites, 0, sizeof(ctx->sprites));
 	ctx->str_variables = NULL;
 	ctx->fn_type = RT_MAIN;
+	ctx->eval_linenum = 0;
 	ctx->double_variables = NULL;
 	ctx->int_array_variables = NULL;
 	ctx->string_array_variables = NULL;
@@ -298,7 +308,7 @@ void library_statement(struct basic_ctx *ctx) {
 	}
 
 	/* Auto-number the library to be above the existing program statements */
-	const char *numbered = auto_number(clean_library, ctx->highest_line + 10, 10);
+	const char *numbered = auto_number(clean_library, ctx->highest_line + 1, 1);
 	library_len = strlen(numbered);
 
 	/* Append the renumbered library to the end of the program (this reallocates
@@ -374,6 +384,7 @@ struct basic_ctx *basic_clone(struct basic_ctx *old) {
 	ctx->sleep_until = old->sleep_until;
 	ctx->int_variables = old->int_variables;
 	ctx->str_variables = old->str_variables;
+	ctx->eval_linenum = old->eval_linenum;
 	ctx->double_variables = old->double_variables;
 	ctx->int_array_variables = old->int_array_variables;
 	ctx->string_array_variables = old->string_array_variables;
@@ -608,9 +619,10 @@ void eval_statement(struct basic_ctx *ctx) {
 
 void rem_statement(struct basic_ctx *ctx) {
 	accept_or_return(REM, ctx);
-	while (*ctx->nextptr && *ctx->nextptr != '\n') ctx->nextptr++;
+	while (tokenizer_token(ctx) != NEWLINE && tokenizer_token(ctx) != ENDOFINPUT) {
+		tokenizer_next(ctx);
+	};
 	tokenizer_next(ctx);
-	accept_or_return(NEWLINE, ctx);
 }
 
 bool basic_esc() {
@@ -626,7 +638,10 @@ void basic_run(struct basic_ctx *ctx) {
 		(void) kgetc();
 		tokenizer_error_print(ctx, "Escape");
 	}
-	line_statement(ctx);
+	if (debug) {
+		dprintf("BASIC RUN\n");
+	}
+ 	line_statement(ctx);
 	if (ctx->errored) {
 		ctx->errored = false;
 		if (ctx->call_stack_ptr > 0) {

@@ -358,6 +358,7 @@ void tokenizer_error_print(struct basic_ctx* ctx, const char* error)
 	if (ctx->eval_linenum == 0) {
 		if (ctx->ended == 0) {
 			if (ctx->error_handler) {
+				dprintf("ERROR handled\n");
 				struct ub_proc_fn_def* def = basic_find_fn(ctx->error_handler, ctx);
 				if (def && ctx->call_stack_ptr < MAX_CALL_STACK_DEPTH) {
 					buddy_free(ctx->allocator, ctx->error_handler);
@@ -393,6 +394,7 @@ void tokenizer_error_print(struct basic_ctx* ctx, const char* error)
 			if (ctx->claimed_flip) {
 				set_video_auto_flip(true);
 			}
+			dprintf("ERROR unhandled\n");
 			ctx->ended = true;
 			setforeground(COLOUR_LIGHTRED);
 			kprintf("Error on line %ld: %s\n", ctx->current_linenum, error);
@@ -416,6 +418,7 @@ void tokenizer_error_print(struct basic_ctx* ctx, const char* error)
 			setforeground(COLOUR_WHITE);
 		}
 	} else {
+		dprintf("error in eval\n");
 		if (!ctx->errored) {
 			ctx->errored = true;
 			setforeground(COLOUR_LIGHTRED);

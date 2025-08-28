@@ -4,6 +4,8 @@
  */
 #include <kernel.h>
 
+extern bool debug;
+
 const struct g_cpuid_vendor cpuid_vendors[] =
 {
 	{ "VENDOR_AMD_K5$",     "AMDisbetter!" },
@@ -252,6 +254,7 @@ void basic_set_string_variable(const char* var, const char* value, struct basic_
 
 void basic_set_int_variable(const char* var, int64_t value, struct basic_ctx* ctx, bool local, bool global)
 {
+	bool setting_n = debug && (strcmp(var, "N") == 0);
 	struct ub_var_int* list[] = {
 		ctx->int_variables,
 		ctx->local_int_variables[ctx->call_stack_ptr]
@@ -263,14 +266,18 @@ void basic_set_int_variable(const char* var, int64_t value, struct basic_ctx* ct
 	}
 	size_t len = strlen(var);
 	if (list[local] == NULL) {
+		if (setting_n) {
+			dprintf("Setting N with list[local] == NULL (list is empty)\n");
+		}
 		if (local) {
+			if (setting_n) dprintf("Setting N in local stack set (list is empty)\n");
 			ctx->local_int_variables[ctx->call_stack_ptr] = buddy_malloc(ctx->allocator, sizeof(struct ub_var_int));
 			ctx->local_int_variables[ctx->call_stack_ptr]->next = NULL;
 			ctx->local_int_variables[ctx->call_stack_ptr]->varname = buddy_strdup(ctx->allocator, var);
 			ctx->local_int_variables[ctx->call_stack_ptr]->name_length = len;
 			ctx->local_int_variables[ctx->call_stack_ptr]->value = value;
 		} else {
-			//dprintf("Set int variable '%s' to '%d' (default)\n", var, value);
+			if (setting_n) dprintf("Set N in global set\n");
 			ctx->int_variables = buddy_malloc(ctx->allocator, sizeof(struct ub_var_int));
 			ctx->int_variables->next = NULL;
 			ctx->int_variables->varname = buddy_strdup(ctx->allocator, var);
@@ -279,10 +286,12 @@ void basic_set_int_variable(const char* var, int64_t value, struct basic_ctx* ct
 		}
 		return;
 	} else {
+		if (setting_n) dprintf("Set N, non-empty, %s\n", local ? "locals" : "globals");
 		struct ub_var_int* cur = local ? ctx->local_int_variables[ctx->call_stack_ptr] : ctx->int_variables;
 		for (; cur; cur = cur->next) {
 			if (len == cur->name_length && !strcmp(var, cur->varname)) {
 				//dprintf("Set int variable '%s' to '%d' (updating)\n", var, value);
+				if (setting_n) dprintf("Update existing N\n");
 				cur->value = value;
 				return;
 			}
@@ -295,7 +304,9 @@ void basic_set_int_variable(const char* var, int64_t value, struct basic_ctx* ct
 		newvar->value = value;
 		if (local) {
 			ctx->local_int_variables[ctx->call_stack_ptr] = newvar;
+			if (setting_n) dprintf("Add new N to local set\n");
 		} else {
+			if (setting_n) dprintf("Add new N to global set\n");
 			ctx->int_variables = newvar;
 		}
 	}
@@ -420,10 +431,8 @@ const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx)
 		while (cur) {
 			if (len == cur->name_length && !strcmp(var, cur->varname)) {
 				/* move-to-front optimisation */
-				if (prev) {
-					/* unlink */
+				/*if (prev) {
 					prev->next = cur->next;
-					/* relink at head */
 					if (j == 0) {
 						cur->next = ctx->str_variables;
 						ctx->str_variables = cur;
@@ -431,7 +440,7 @@ const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx)
 						cur->next = ctx->local_string_variables[j];
 						ctx->local_string_variables[j] = cur;
 					}
-				}
+				}*/
 				return cur->value;
 			}
 			prev = cur;
@@ -538,7 +547,7 @@ int64_t basic_get_int_variable(const char* var, struct basic_ctx* ctx)
 				}
 
 				/* move-to-front optimisation */
-				if (prev) {
+				/*if (prev) {
 					// unlink
 					prev->next = cur->next;
 					// relink at head
@@ -549,7 +558,7 @@ int64_t basic_get_int_variable(const char* var, struct basic_ctx* ctx)
 						cur->next = ctx->local_int_variables[j];
 						ctx->local_int_variables[j] = cur;
 					}
-				}
+				}*/
 				return v;
 			}
 			prev = cur;
@@ -591,10 +600,8 @@ bool basic_get_double_variable(const char* var, struct basic_ctx* ctx, double* r
 			if (len == cur->name_length && !strcmp(var, cur->varname)) {
 				*res = cur->value;
 				/* move-to-front optimisation */
-				if (prev) {
-					/* unlink */
+				/*if (prev) {
 					prev->next = cur->next;
-					/* relink at head */
 					if (j == 0) {
 						cur->next = ctx->double_variables;
 						ctx->double_variables = cur;
@@ -602,7 +609,7 @@ bool basic_get_double_variable(const char* var, struct basic_ctx* ctx, double* r
 						cur->next = ctx->local_double_variables[j];
 						ctx->local_double_variables[j] = cur;
 					}
-				}
+				}*/
 				return true;
 			}
 			prev = cur;

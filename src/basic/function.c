@@ -4,6 +4,8 @@
  */
 #include <kernel.h>
 
+extern bool debug;
+
 struct basic_int_fn builtin_int[] =
 {
 	{ basic_abs,                 "ABS"           },
@@ -575,6 +577,7 @@ void proc_statement(struct basic_ctx* ctx)
 
 		if (ctx->call_stack_ptr < MAX_CALL_STACK_DEPTH) {
 			ctx->call_stack[ctx->call_stack_ptr] = tokenizer_num(ctx, NUMBER);
+			if (debug) dprintf("PROC from %lu returning line %lu, PROC %s on line %lu\n", ctx->current_linenum, ctx->call_stack[ctx->call_stack_ptr], procname, def->line);
 			ctx->call_stack_ptr++;
 			jump_linenum(def->line, ctx);
 		} else {
@@ -638,6 +641,7 @@ void endproc_statement(struct basic_ctx* ctx)
 		/* Now restore the *caller*'s return type. */
 		ctx->fn_type = ctx->fn_type_stack[ctx->call_stack_ptr];
 
+		if (debug) dprintf("ENDPROC back to line %lu stack pos %lu\n", ctx->call_stack[ctx->call_stack_ptr], ctx->call_stack_ptr);
 		jump_linenum(ctx->call_stack[ctx->call_stack_ptr], ctx);
 	} else {
 		tokenizer_error_print(ctx, "ENDPROC when not inside PROC");

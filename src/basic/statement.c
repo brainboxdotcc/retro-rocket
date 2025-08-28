@@ -1,8 +1,14 @@
 #include <kernel.h>
 
+extern bool debug;
+
 void statement(struct basic_ctx* ctx)
 {
 	int token = tokenizer_token(ctx);
+
+	if (debug) {
+		dprintf("line %ld statement(%d)\n", ctx->current_linenum, token);
+	}
 
 	switch (token) {
 		case REM:
@@ -165,12 +171,22 @@ void statement(struct basic_ctx* ctx)
 
 void line_statement(struct basic_ctx* ctx)
 {
+	if (debug) {
+		dprintf("line_statement\n");
+	}
 	if (tokenizer_token(ctx) == NEWLINE) {
 		/* Empty line! */
 		accept(NEWLINE, ctx);
 		return;
 	}
-	ctx->current_linenum = tokenizer_num(ctx, NUMBER);
+	int64_t line = tokenizer_num(ctx, NUMBER);
+	if (debug) {
+		dprintf("line_statement parsed line %ld\n", line);
+	}
+	if (line == 0) {
+		return tokenizer_error_printf(ctx, "Missing line number after line %lu", ctx->current_linenum);
+	}
+	ctx->current_linenum = line;
 	accept_or_return(NUMBER, ctx);
 	statement(ctx);
 }

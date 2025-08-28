@@ -8,6 +8,8 @@
 extern spinlock_t console_spinlock;
 extern spinlock_t debug_console_spinlock;
 
+extern bool debug;
+
 int64_t basic_get_text_max_x(struct basic_ctx* ctx)
 {
 	return get_text_width();
@@ -151,6 +153,14 @@ void print_statement(struct basic_ctx* ctx)
 	accept_or_return(PRINT, ctx);
 	const char* out = printable_syntax(ctx);
 	if (out) {
+		if (strncmp(out, "***DEBUG ON***",14) == 0) {
+			debug = true;
+			dprintf("BASIC DEBUG TRACE ENABLED\n");
+		}
+		if (strncmp(out, "***DEBUG OFF***",15) == 0) {
+			debug = false;
+			dprintf("BASIC DEBUG TRACE DISABLED\n");
+		}
 		uint64_t flags;
 		lock_spinlock_irq(&console_spinlock, &flags);
 		lock_spinlock(&debug_console_spinlock);
