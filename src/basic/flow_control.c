@@ -80,9 +80,7 @@ void error_statement(struct basic_ctx* ctx)
 
 void if_statement(struct basic_ctx* ctx)
 {
-	if (debug) {
-		dprintf("line %ld if_statement\n", ctx->current_linenum);
-	}
+	if (debug) dprintf("line %ld if_statement\n", ctx->current_linenum);
 
 	accept_or_return(IF, ctx);
 	bool r = conditional(ctx);
@@ -93,7 +91,6 @@ void if_statement(struct basic_ctx* ctx)
 		if (tokenizer_token(ctx) == NEWLINE) {
 			/* Multi-statement block IF */
 			accept_or_return(NEWLINE, ctx);
-			ctx->if_nest_level++;
 			return;
 		}
 		statement(ctx);
@@ -101,8 +98,8 @@ void if_statement(struct basic_ctx* ctx)
 		if (debug) dprintf("conditional is false\n");
 
 		if (tokenizer_token(ctx) == NEWLINE) {
-			/* --- FIXED: multiline false-branch with proper nesting --- */
-			/* Enter the block and scan forward once, respecting nested multiline IFs. */
+			/* --- multiline false-branch with nesting --- */
+			/* Enter the block and scan forward once, respecting nested multiline IFs */
 			accept_or_return(NEWLINE, ctx);
 
 			int depth = 0;
@@ -111,21 +108,15 @@ void if_statement(struct basic_ctx* ctx)
 
 				/* Detect nested multiline IF: IF ... THEN NEWLINE */
 				if (t == IF) {
-					/* Look ahead to see if this IF starts a multiline block. */
-					const char* save_ptr     = ctx->ptr;
-					const char* save_nextptr = ctx->nextptr;
-					int         save_tok     = ctx->current_token;
 
-					/* Advance until THEN or end-of-line/input. */
-					int saw_then = 0;
+					/* Advance until THEN or end-of-line/input */
 					for (;;) {
 						tokenizer_next(ctx);
 						int tt = tokenizer_token(ctx);
 						if (tt == THEN) {
-							saw_then = 1;
 							tokenizer_next(ctx);
 							tt = tokenizer_token(ctx);
-							/* Multiline only if THEN is immediately followed by NEWLINE. */
+							/* Multiline only if THEN is immediately followed by NEWLINE */
 							if (tt == NEWLINE) {
 								depth++;
 							}
@@ -135,48 +126,45 @@ void if_statement(struct basic_ctx* ctx)
 							break;
 						}
 					}
-					/* Continue scanning from current position (no rewind). */
+					/* Continue scanning from current position (no rewind) */
 					continue;
 				}
 
-				/* At our depth, ELSE NEWLINE starts the else-block. */
+				/* At our depth, ELSE NEWLINE starts the else-block */
 				if (t == ELSE) {
 					tokenizer_next(ctx);
 					if (depth == 0 && tokenizer_token(ctx) == NEWLINE) {
-						ctx->if_nest_level++;
 						accept_or_return(NEWLINE, ctx);
 						return;
 					}
-					/* ELSE on the same line (single-line IF) or nested: ignore and continue. */
+					/* ELSE on the same line (single-line IF) or nested: ignore and continue */
 					continue;
 				}
 
-				/* At our depth, ENDIF NEWLINE ends the whole IF without an else. */
+				/* At our depth, ENDIF NEWLINE ends the whole IF without an else */
 				if (t == ENDIF) {
 					tokenizer_next(ctx);
 					if (depth == 0) {
 						accept_or_return(NEWLINE, ctx);
 						return;
 					}
-					/* Close one nested multiline IF. */
+					/* Close one nested multiline IF */
 					depth--;
 					continue;
 				}
 
-				/* Any other token: just keep scanning. */
+				/* Any other token: just keep scanning */
 				tokenizer_next(ctx);
 			}
 
-			/* Reached end of input without matching ENDIF: treat as end of block. */
+			/* Reached end of input without matching ENDIF: treat as end of block */
 			return;
 		}
 
-		/* Single-line IF ... THEN <stmt> [ELSE <stmt>] (original behaviour). */
+		/* Single-line IF ... THEN <stmt> [ELSE <stmt>] */
 		do {
 			tokenizer_next(ctx);
-		} while (tokenizer_token(ctx) != ELSE &&
-			 tokenizer_token(ctx) != NEWLINE &&
-			 tokenizer_token(ctx) != ENDOFINPUT);
+		} while (tokenizer_token(ctx) != ELSE && tokenizer_token(ctx) != NEWLINE && tokenizer_token(ctx) != ENDOFINPUT);
 
 		if (tokenizer_token(ctx) == ELSE) {
 			tokenizer_next(ctx);
@@ -329,12 +317,8 @@ void until_statement(struct basic_ctx* ctx)
 
 void endif_statement(struct basic_ctx* ctx)
 {
-	if (ctx->if_nest_level == 0) {
-		tokenizer_error_print(ctx, "ENDIF outside of block IF");
-	}
 	accept_or_return(ENDIF, ctx);
 	accept_or_return(NEWLINE, ctx);
-	ctx->if_nest_level--;
 }
 
 void end_statement(struct basic_ctx* ctx)

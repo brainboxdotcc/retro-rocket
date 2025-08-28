@@ -378,7 +378,7 @@ void library_statement(struct basic_ctx *ctx) {
 struct basic_ctx *basic_clone(struct basic_ctx *old) {
 	struct basic_ctx *ctx = buddy_malloc(old->allocator, sizeof(struct basic_ctx));
 
-	ctx->if_nest_level = old->if_nest_level;
+	ctx->if_nest_level = 0;
 	ctx->current_token = NO_TOKEN;
 	ctx->error_handler = old->error_handler;
 	ctx->sleep_until = old->sleep_until;

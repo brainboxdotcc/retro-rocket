@@ -21,6 +21,8 @@
 
 #include <kernel.h>
 
+extern bool debug;
+
 #define MAX_NUMLEN 32
 
 /**
@@ -357,6 +359,7 @@ void tokenizer_error_print(struct basic_ctx* ctx, const char* error)
 	basic_set_int_variable("ERRLINE", ctx->current_linenum, ctx, false, false);
 	if (ctx->eval_linenum == 0) {
 		if (ctx->ended == 0) {
+			debug = false;
 			if (ctx->error_handler) {
 				dprintf("ERROR handled\n");
 				struct ub_proc_fn_def* def = basic_find_fn(ctx->error_handler, ctx);

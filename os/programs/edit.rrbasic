@@ -35,7 +35,7 @@ DEF PROCdraw
 	CURSOR 2, TERMHEIGHT
 	PRINT "ESC EXIT"; CHR$(9); "^S SAVE"; CHR$(9); CHR$(9); "^W WHEREIS"; CHR$(9); "^R REPLACE";
 	CURSOR TERMWIDTH - 15, TERMHEIGHT
-	PRINT currentx; ","; top + currenty;
+	PRINT currentx; ","; top + currenty; " ";
 	CURSOR 1, 0
 	PROCclearLineFromCursor
 	CURSOR TERMWIDTH / 2 - 2, 0
@@ -455,6 +455,7 @@ REM interactive replace loop with Y/N/A/Q controls; wraps once
 DEF PROCreplaceLoop(find$, repl$)
 	all_mode = FALSE
 	did_wrap = FALSE
+	exit_replace = FALSE
 	next_line = top + currenty
 	next_col = currentx + 1
 	PROCdraw
@@ -466,7 +467,7 @@ DEF PROCreplaceLoop(find$, repl$)
 				next_col = 0
 			ELSE
 			    PROCtext
-                ENDPROC
+			    exit_replace = TRUE
 			ENDIF
 		ELSE
 			IF all_mode = TRUE THEN
@@ -498,7 +499,7 @@ DEF PROCreplaceLoop(find$, repl$)
 				ENDIF
 				IF uk$ = "Q" THEN
 				    PROCtext
-                    ENDPROC
+                    exit_replace = TRUE
                 ENDIF
 				IF uk$ <> "Q" AND uk$ <> "A" AND uk$ <> "N" AND uk$ <> "Y" THEN
 					next_line = hit_line
@@ -506,7 +507,7 @@ DEF PROCreplaceLoop(find$, repl$)
 				ENDIF
 			ENDIF
 		ENDIF
-	UNTIL FALSE
+	UNTIL exit_replace = TRUE
 	PROCtext
 ENDPROC
 
@@ -543,3 +544,4 @@ DEF FNnextHit(line_from, col_from, needle$)
 		ENDIF
 	NEXT
 =FALSE
+

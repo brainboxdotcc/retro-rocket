@@ -316,11 +316,7 @@ int64_t basic_eval_int_fn(const char* fn_name, struct basic_ctx* ctx)
 				break;
 			}
 		}
-		if (atomic->fn_return == NULL) {
-			tokenizer_error_print(ctx, "End of function without returning value");
-		} else {
-			rv = (int64_t)atomic->fn_return;
-		}
+		rv = (int64_t)atomic->fn_return;
 
 		/* Copy list heads back (int/str/double).
 		 * Move-to-front inside atomic may change them,
@@ -602,14 +598,18 @@ void def_statement(struct basic_ctx* ctx)
 
 void eq_statement(struct basic_ctx* ctx)
 {
+	if (debug) dprintf("eq_statement\n");
 	accept_or_return(EQUALS, ctx);
 
 	if (ctx->fn_type == RT_STRING) {
+		if (debug) dprintf("eq_statement return string\n");
 		ctx->fn_return = (void*)str_expr(ctx);
 	} else if (ctx->fn_type == RT_FLOAT) {
+		if (debug) dprintf("eq_statement return double\n");
 		double_expr(ctx, (void*)&ctx->fn_return);
 	} else if (ctx->fn_type == RT_INT) {
 		ctx->fn_return = (void*)expr(ctx);
+		if (debug) dprintf("eq_statement return int %ld\n", (int64_t)ctx->fn_return);
 	} else if (ctx->fn_type == RT_NONE) {
 		tokenizer_error_print(ctx, "Can't return a value from a PROC");
 		return;
@@ -639,6 +639,8 @@ void endproc_statement(struct basic_ctx* ctx)
 
 		/* Now restore the *caller*'s return type. */
 		ctx->fn_type = ctx->fn_type_stack[ctx->call_stack_ptr];
+
+		ctx->if_nest_level = 0; // If we exit a proc, we clear the nest level
 
 		if (debug) dprintf("ENDPROC back to line %lu stack pos %lu\n", ctx->call_stack[ctx->call_stack_ptr], ctx->call_stack_ptr);
 		jump_linenum(ctx->call_stack[ctx->call_stack_ptr], ctx);

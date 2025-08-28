@@ -431,7 +431,7 @@ const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx)
 		while (cur) {
 			if (len == cur->name_length && !strcmp(var, cur->varname)) {
 				/* move-to-front optimisation */
-				/*if (prev) {
+				if (prev) {
 					prev->next = cur->next;
 					if (j == 0) {
 						cur->next = ctx->str_variables;
@@ -440,7 +440,7 @@ const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx)
 						cur->next = ctx->local_string_variables[j];
 						ctx->local_string_variables[j] = cur;
 					}
-				}*/
+				}
 				return cur->value;
 			}
 			prev = cur;
@@ -547,7 +547,7 @@ int64_t basic_get_int_variable(const char* var, struct basic_ctx* ctx)
 				}
 
 				/* move-to-front optimisation */
-				/*if (prev) {
+				if (prev) {
 					// unlink
 					prev->next = cur->next;
 					// relink at head
@@ -558,7 +558,7 @@ int64_t basic_get_int_variable(const char* var, struct basic_ctx* ctx)
 						cur->next = ctx->local_int_variables[j];
 						ctx->local_int_variables[j] = cur;
 					}
-				}*/
+				}
 				return v;
 			}
 			prev = cur;
@@ -600,7 +600,7 @@ bool basic_get_double_variable(const char* var, struct basic_ctx* ctx, double* r
 			if (len == cur->name_length && !strcmp(var, cur->varname)) {
 				*res = cur->value;
 				/* move-to-front optimisation */
-				/*if (prev) {
+				if (prev) {
 					prev->next = cur->next;
 					if (j == 0) {
 						cur->next = ctx->double_variables;
@@ -609,7 +609,7 @@ bool basic_get_double_variable(const char* var, struct basic_ctx* ctx, double* r
 						cur->next = ctx->local_double_variables[j];
 						ctx->local_double_variables[j] = cur;
 					}
-				}*/
+				}
 				return true;
 			}
 			prev = cur;

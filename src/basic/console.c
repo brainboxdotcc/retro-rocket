@@ -156,10 +156,12 @@ void print_statement(struct basic_ctx* ctx)
 		if (strncmp(out, "***DEBUG ON***",14) == 0) {
 			debug = true;
 			dprintf("BASIC DEBUG TRACE ENABLED\n");
+			return;
 		}
 		if (strncmp(out, "***DEBUG OFF***",15) == 0) {
 			debug = false;
 			dprintf("BASIC DEBUG TRACE DISABLED\n");
+			return;
 		}
 		uint64_t flags;
 		lock_spinlock_irq(&console_spinlock, &flags);
