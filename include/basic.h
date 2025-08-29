@@ -26,6 +26,8 @@
  */
 #pragma once
 
+#define basic_debug if (debug) dprintf
+
 #include "basic/defines.h"
 #include "basic/structs.h"
 #include "basic/context.h"

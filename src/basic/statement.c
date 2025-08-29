@@ -6,9 +6,7 @@ void statement(struct basic_ctx* ctx)
 {
 	int token = tokenizer_token(ctx);
 
-	if (debug) {
-		dprintf("line %ld statement(%d)\n", ctx->current_linenum, token);
-	}
+	basic_debug("line %ld statement(%d)\n", ctx->current_linenum, token);
 
 	switch (token) {
 		case REM:
@@ -171,18 +169,14 @@ void statement(struct basic_ctx* ctx)
 
 void line_statement(struct basic_ctx* ctx)
 {
-	if (debug) {
-		dprintf("line_statement\n");
-	}
+	basic_debug("line_statement\n");
 	if (tokenizer_token(ctx) == NEWLINE) {
 		/* Empty line! */
 		accept(NEWLINE, ctx);
 		return;
 	}
 	int64_t line = tokenizer_num(ctx, NUMBER);
-	if (debug) {
-		dprintf("line_statement parsed line %ld\n", line);
-	}
+	basic_debug("line_statement parsed line %ld\n", line);
 	if (line == 0) {
 		return tokenizer_error_printf(ctx, "Missing line number after line %lu", ctx->current_linenum);
 	}

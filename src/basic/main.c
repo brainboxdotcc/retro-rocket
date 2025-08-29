@@ -638,9 +638,7 @@ void basic_run(struct basic_ctx *ctx) {
 		(void) kgetc();
 		tokenizer_error_print(ctx, "Escape");
 	}
-	if (debug) {
-		dprintf("BASIC RUN\n");
-	}
+	basic_debug("BASIC RUN\n");
  	line_statement(ctx);
 	if (ctx->errored) {
 		ctx->errored = false;

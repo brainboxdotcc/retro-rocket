@@ -8,9 +8,7 @@
 extern bool debug;
 
 bool conditional(struct basic_ctx* ctx) {
-	if (debug) {
-		dprintf("line %ld conditional\n", ctx->current_linenum);
-	}
+	basic_debug("line %ld conditional\n", ctx->current_linenum);
 
 	return up_conditional(ctx);
 }
@@ -80,14 +78,14 @@ void error_statement(struct basic_ctx* ctx)
 
 void if_statement(struct basic_ctx* ctx)
 {
-	if (debug) dprintf("line %ld if_statement\n", ctx->current_linenum);
+	basic_debug("line %ld if_statement\n", ctx->current_linenum);
 
 	accept_or_return(IF, ctx);
 	bool r = conditional(ctx);
 	accept_or_return(THEN, ctx);
 
 	if (r) {
-		if (debug) dprintf("conditional is true\n");
+		basic_debug("conditional is true\n");
 		if (tokenizer_token(ctx) == NEWLINE) {
 			/* Multi-statement block IF */
 			accept_or_return(NEWLINE, ctx);
@@ -95,7 +93,7 @@ void if_statement(struct basic_ctx* ctx)
 		}
 		statement(ctx);
 	} else {
-		if (debug) dprintf("conditional is false\n");
+		basic_debug("conditional is false\n");
 
 		if (tokenizer_token(ctx) == NEWLINE) {
 			/* --- multiline false-branch with nesting --- */
