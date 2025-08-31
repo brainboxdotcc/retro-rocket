@@ -22,8 +22,19 @@ uint32_t dns_addr = 0, gateway_addr = 0, netmask = 0;
 struct hashmap *frag_map = NULL;
 static size_t frag_mem_total = 0;
 
-void get_ip_str(char* ip_str, const uint8_t* ip)
-{
+/* Loopback helpers */
+static const uint8_t loopback_addr[4] = {127, 0, 0, 1};
+static uint8_t ip_scratch_a[TCP_MAX_PACKET_SIZE + 1];
+static uint8_t ip_scratch_b[TCP_MAX_PACKET_SIZE + 1];
+static int ip_scratch_sel = 0; /* 0 => A, 1 => B */
+
+void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len);
+
+static inline bool ip_is_loopback(const uint8_t *ip) {
+	return ip[0] == 127; /* 127.0.0.0/8 */
+}
+
+void get_ip_str(char* ip_str, const uint8_t* ip) {
 	snprintf(ip_str, 16, "%d.%d.%d.%d", ip[0], ip[1], ip[2], ip[3]);
 }
 
@@ -263,14 +274,7 @@ void ip_send_packet(uint8_t* dst_ip, void* data, uint16_t len, uint8_t protocol)
 	uint64_t flags;
 	lock_spinlock_irq(&tcp_send_spinlock, &flags);
 	uint8_t dst_hardware_addr[6] = { 0, 0, 0, 0, 0, 0 };
-	static ip_packet_t* packet = NULL;
-	if (packet == NULL) {
-		packet = kmalloc(TCP_MAX_PACKET_SIZE + 1);
-	}
-	if (!packet) {
-		unlock_spinlock_irq(&tcp_send_spinlock, flags);
-		return;
-	}
+	ip_packet_t *packet = (ip_packet_t *)(ip_scratch_sel ? ip_scratch_b : ip_scratch_a);
 	memset(packet, 0, sizeof(ip_packet_t));
 	packet->version = IP_IPV4;
 	packet->ihl = sizeof(ip_packet_t) / sizeof(uint32_t); // header length is in 32 bit words
@@ -283,7 +287,6 @@ void ip_send_packet(uint8_t* dst_ip, void* data, uint16_t len, uint8_t protocol)
 	packet->frag.fragment_offset_high = 0;
 	packet->frag.fragment_offset_low = 0;
 	packet->ttl = 64;
-	// XXX: This is hard coded until other protocols are supported.
 	packet->protocol = protocol;
 
 	gethostaddr(my_ip);
@@ -295,6 +298,12 @@ void ip_send_packet(uint8_t* dst_ip, void* data, uint16_t len, uint8_t protocol)
 
 	memcpy(packet->src_ip, my_ip, 4);
 	memcpy(packet->dst_ip, dst_ip, 4);
+
+	/* Force localhost source before checksum if 127/8 */
+	if (ip_is_loopback(dst_ip)) {
+		memcpy(packet->src_ip, loopback_addr, 4);
+	}
+
 	void* packet_data = (void*)packet + packet->ihl * 4;
 	memcpy(packet_data, data, len);
 	*((uint8_t*)(&packet->version_ihl_ptr)) = htonb(*((uint8_t*)(&packet->version_ihl_ptr)), 4);
@@ -304,12 +313,25 @@ void ip_send_packet(uint8_t* dst_ip, void* data, uint16_t len, uint8_t protocol)
 	packet->header_checksum = htons(ip_calculate_checksum(packet));
 	// Attempt to resolve ARP or find in arp cache table
 
+	if (ip_is_loopback(dst_ip)) {
+		ip_scratch_sel ^= 1;
+
+		uint16_t pkt_len = ntohs(packet->length);
+		unlock_spinlock_irq(&tcp_send_spinlock, flags);
+
+		ip_handle_packet(packet, pkt_len);
+		return;
+	}
+
 	if (netmask != 0 && our_ip != 0 && target_ip != 0 && ((our_ip & netmask) != (target_ip & netmask))) {
 		/* We need to redirect this packet to the router's MAC address */
 		if (!arp_lookup(dst_hardware_addr, (uint8_t*)&our_gateway)) {
-			queue_packet(dst_ip, packet, packet->length);
+			ip_packet_t *heap_copy = kmalloc(ntohs(packet->length));
+			if (heap_copy) {
+				memcpy(heap_copy, packet, ntohs(packet->length));
+				queue_packet(dst_ip, heap_copy, heap_copy->length);
+			}
 			arp_send_packet(zero_hardware_addr, (uint8_t*)&our_gateway);
-			packet = NULL; // ensures another is allocated next time we enter the function
 			unlock_spinlock_irq(&tcp_send_spinlock, flags);
 			return;
 		}
@@ -318,9 +340,12 @@ void ip_send_packet(uint8_t* dst_ip, void* data, uint16_t len, uint8_t protocol)
 
 	if (!redirected && !arp_lookup(dst_hardware_addr, dst_ip)) {
 		/* Send ARP packet, and add to queue for this mac address */
-		queue_packet(dst_ip, packet, packet->length);
+		ip_packet_t *heap_copy = kmalloc(ntohs(packet->length));
+		if (heap_copy) {
+			memcpy(heap_copy, packet, ntohs(packet->length));
+			queue_packet(dst_ip, heap_copy, heap_copy->length);
+		}
 		arp_send_packet(zero_hardware_addr, dst_ip);
-		packet = NULL; // ensures another is allocated next time we enter the function
 		unlock_spinlock_irq(&tcp_send_spinlock, flags);
 		return;
 	}
@@ -408,6 +433,11 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 	*((uint8_t*)(packet->flags_fragment_ptr)) = ntohb(*((uint8_t*)(packet->flags_fragment_ptr)), 3);
 	add_random_entropy(packet->header_checksum ^ (*(uint32_t*)packet->src_ip));
 	if (packet->version == IP_IPV4) {
+		/* Drop illegal on-wire 127/8 traffic (RFC 1122) */
+		if (packet->dst_ip[0] == 127 || packet->src_ip[0] == 127) {
+			return;
+		}
+
 		get_ip_str(src_ip, packet->src_ip);
 		void * data_ptr = (void*)packet + packet->ihl * 4;
 		size_t data_len = ntohs(packet->length) - (packet->ihl * 4);

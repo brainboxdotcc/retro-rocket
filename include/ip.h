@@ -21,9 +21,18 @@ enum ip_type_t {
  * @brief Sub-protocols, TCP and UDP
  */
 enum ip_proto_t {
-	PROTOCOL_ICMP = 1,
-	PROTOCOL_TCP = 6,
-	PROTOCOL_UDP = 17,
+	PROTOCOL_ICMP   = 1,   /* Internet Control Message Protocol */
+	PROTOCOL_IGMP   = 2,   /* Internet Group Management Protocol */
+	PROTOCOL_TCP    = 6,   /* Transmission Control Protocol */
+	PROTOCOL_UDP    = 17,  /* User Datagram Protocol */
+	PROTOCOL_GRE    = 47,  /* Generic Routing Encapsulation */
+	PROTOCOL_ESP    = 50,  /* Encapsulating Security Payload (IPsec) */
+	PROTOCOL_AH     = 51,  /* Authentication Header (IPsec) */
+	PROTOCOL_IPV6   = 41,  /* IPv6 encapsulation */
+	PROTOCOL_OSPF   = 89,  /* Open Shortest Path First */
+	PROTOCOL_PIM    = 103, /* Protocol Independent Multicast */
+	PROTOCOL_SCTP   = 132, /* Stream Control Transmission Protocol */
+	PROTOCOL_VRRP   = 112, /* Virtual Router Redundancy Protocol */
 };
 
 /**

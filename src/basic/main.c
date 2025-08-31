@@ -110,7 +110,7 @@ const char *auto_number(const char *program, uint64_t line, uint64_t increment) 
 	strlcat(newprog, "\n", new_size_max);
 	const char *corrected = strdup(newprog);
 	kfree_null(&newprog);
-	dprintf("*** AUTO NUMBERED ***\n%s\n***********\n", corrected);
+	basic_debug("*** AUTO NUMBERED ***\n%s\n***********\n", corrected);
 	return corrected;
 }
 
