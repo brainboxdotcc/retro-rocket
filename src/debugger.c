@@ -198,7 +198,7 @@ void gdb_data(uint32_t src_ip, uint16_t src_port, uint8_t* data, uint32_t length
 	}
 }
 
-void debug_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, void* data, uint32_t length)
+void debug_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, void* data, uint32_t length, void* opaque)
 {
 	uint8_t identifier = *(uint8_t*)data;
 	switch (identifier) {
@@ -359,7 +359,7 @@ void init_debug()
 	setforeground(COLOUR_WHITE);
 	kprintf("(%ld bytes)\n", filesize);
 
-	udp_register_daemon(DEBUG_DST_PORT, &debug_handle_packet);
+	udp_register_daemon(DEBUG_DST_PORT, &debug_handle_packet, NULL);
 }
 
 const char* findsymbol(uint64_t address, uint64_t* offset) {

@@ -241,3 +241,5 @@ void sockwrite_statement(struct basic_ctx* ctx)
 	}
 }
 
+static void basic_udp_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, void* data, uint32_t length, void* opaque) {
+}

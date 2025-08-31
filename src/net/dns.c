@@ -168,7 +168,7 @@ static int dns_make_payload(const char * const name, const uint8_t rr, const uns
  * @param data raw packet data
  * @param length length of packet
  */
-void dns_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, void* data, uint32_t length) {
+void dns_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, void* data, uint32_t length, void* opaque) {
 	dns_header_t* packet = (dns_header_t*)data;
 	uint16_t inbound_id = ntohs(packet->id);
 	dns_request_t findrequest = { .id = inbound_id };
@@ -534,7 +534,7 @@ void init_dns()
 	dns_replies = hashmap_new(sizeof(dns_request_t), 0, 6453563734, 7645356235, dns_request_hash, dns_request_compare, NULL, NULL);
 	dns_cache = hashmap_new(sizeof(dns_cache_entry_t), 0, 6453563734, 7645356235, dns_cache_hash, dns_cache_compare, NULL, NULL);
 	/* Let the IP stack decide on the port number to use */
-	dns_query_port = udp_register_daemon(0, &dns_handle_packet);
+	dns_query_port = udp_register_daemon(0, &dns_handle_packet, NULL);
 	if (dns_query_port == 0) {
 		kprintf("Could not bind DNS port! DNS queries will not resolve.\n");
 	}

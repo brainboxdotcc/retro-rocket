@@ -1,6 +1,6 @@
 #include <kernel.h>
 
-void dhcp_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, void* data, [[maybe_unused]] uint32_t length) {
+void dhcp_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, void* data, uint32_t length, void* opaque) {
 	dhcp_packet_t* packet = (dhcp_packet_t*)data;
 	if(packet->op == DHCP_REPLY) {
 		uint8_t* type = get_dhcp_options(packet, OPT_TYPE);
@@ -48,7 +48,7 @@ void dhcp_discover() {
 	uint8_t request_ip[4] = { 0, 0, 0, 0 };
 	uint8_t dst_ip[4] = { 0xff, 0xff, 0xff, 0xff };
 	dhcp_packet_t packet;
-	udp_register_daemon(DHCP_DST_PORT, &dhcp_handle_packet);
+	udp_register_daemon(DHCP_DST_PORT, &dhcp_handle_packet, NULL);
 	memset(&packet, 0, sizeof(dhcp_packet_t));
 	uint16_t optsize = make_dhcp_packet(&packet, DHCPDISCOVER, request_ip, DHCP_TRANSACTION_IDENTIFIER, 0);
 	udp_send_packet(dst_ip, DHCP_DST_PORT, DHCP_SRC_PORT, &packet, optsize);

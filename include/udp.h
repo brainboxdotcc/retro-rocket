@@ -8,7 +8,7 @@
 #include "kernel.h"
 
 // Interrupt handler definition
-typedef void (*udp_daemon_handler)(uint32_t, uint16_t, uint16_t, void*, uint32_t);
+typedef void (*udp_daemon_handler)(uint32_t, uint16_t, uint16_t, void*, uint32_t, void* opaque);
 
 /**
  * @brief Raw structure for UDP
@@ -55,6 +55,7 @@ void udp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, udp_packet_t*
  * @param dst_port destination port to listen on. If 0 is passed, a random port above or equal to 1024
  * is allocated for use and will be returned as the return value.
  * @param handler handler for incoming packets
+ * @param opaque Opaque pointer passed to the handler
  * @return port number that was allocated
  */
-uint16_t udp_register_daemon(uint16_t dst_port, udp_daemon_handler handler);
+uint16_t udp_register_daemon(uint16_t dst_port, udp_daemon_handler handler, void* opaque);

@@ -95,7 +95,7 @@ uint32_t ntohl(uint32_t netlong) {
 
 void network_up()
 {
-	kprintf(" arp,");
+	kprintf(" ARP,");
 	arp_init();
 	kprintf(" IP,");
 	ip_init();
