@@ -365,7 +365,6 @@ static bool seek_to_matching_token(struct basic_ctx* ctx, int open_tok, int clos
 	}
 }
 
-
 void while_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(WHILE, ctx);

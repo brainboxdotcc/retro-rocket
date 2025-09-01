@@ -24,6 +24,19 @@ function(copy_basic_lib TARGETFILE SOURCEFILE)
     add_dependencies(ISO basic_${SOURCEFILE})
 endfunction()
 
+function(copy_basic_driver TARGETFILE SOURCEFILE)
+    set(FILENAME "${CMAKE_SOURCE_DIR}/os/programs/drivers/${SOURCEFILE}")
+    set(OUTNAME "${CMAKE_BINARY_DIR}/iso/programs/drivers/${TARGETFILE}")
+    get_filename_component(basic_name ${TARGETFILE} NAME_WE)
+    set(OUTNAME_WE "${CMAKE_BINARY_DIR}/iso/programs/drivers/${basic_name}")
+    add_custom_command(OUTPUT ${OUTNAME_WE}
+            COMMAND mkdir -p "${CMAKE_BINARY_DIR}/iso/programs/drivers" && cp ${FILENAME} ${OUTNAME_WE}
+            DEPENDS ${FILENAME})
+    add_custom_target(basic_${SOURCEFILE} ALL DEPENDS ${OUTNAME_WE})
+    add_dependencies("kernel.bin" basic_${SOURCEFILE})
+    add_dependencies(ISO basic_${SOURCEFILE})
+endfunction()
+
 function(copy_system_keymap SOURCEFILE)
     set(FILENAME "${CMAKE_SOURCE_DIR}/os/system/keymaps/${SOURCEFILE}")
     set(OUTNAME "${CMAKE_BINARY_DIR}/iso/system/keymaps/${SOURCEFILE}")
@@ -96,8 +109,6 @@ function(run TARGETFILE)
 	-cpu host \
 	--enable-kvm \
 	-smp 8 \
-	-usb \
-	-usbdevice mouse \
 	-m 4096 \
 	-drive id=disk,file=${HARD_DISK_IMAGE},format=raw,if=none \
 	-device ahci,id=ahci \
@@ -140,6 +151,6 @@ function(iso TARGETFILE SOURCEFILE)
     set(OUTNAME "${CMAKE_BINARY_DIR}/${TARGETFILE}")
     add_custom_command(OUTPUT ${OUTNAME}
         COMMAND php ../build-boot-image.php && xorriso -as mkisofs --quiet -b limine-cd.bin -joliet -no-emul-boot -boot-load-size 4 -boot-info-table -V "RETROROCKET" --protective-msdos-label "${CMAKE_BINARY_DIR}/iso" -o "${CMAKE_BINARY_DIR}/rr.iso"
-        DEPENDS SYMBOLS "kernel.bin" "RUN_run.sh" "DEBUG_debug.sh" ${basic_program_list} ${basic_library_list} ${KEYMAP_TARGETS} ${TIMEZONE_TARGETS} ${IMAGE_TARGETS})
+        DEPENDS SYMBOLS "kernel.bin" "RUN_run.sh" "DEBUG_debug.sh" ${basic_program_list} ${basic_library_list} ${basic_driver_list} ${KEYMAP_TARGETS} ${TIMEZONE_TARGETS} ${IMAGE_TARGETS})
     add_dependencies(ISO SYMBOLS "kernel.bin" "RUN_run.sh" "DEBUG_debug.sh" "config_limine.cfg")
 endfunction()

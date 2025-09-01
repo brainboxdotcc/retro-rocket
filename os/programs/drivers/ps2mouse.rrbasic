@@ -4,7 +4,7 @@ UDPBIND "127.0.0.1", MOUSE_UDP_PORT
 
 done = 0
 spins = 0
-WHILE spins < 64 AND done = 0
+REPEAT
   s = INPORT(&64)
   IF BITAND(s, 1) <> 0 AND BITAND(s, &20) <> 0 THEN
     discard = INPORT(&60)
@@ -12,13 +12,11 @@ WHILE spins < 64 AND done = 0
     done = 1
   ENDIF
   spins = spins + 1
-ENDWHILE
+UNTIL spins > 64 OR done = 1
 
-OUTPORT &64, &A8
-
-ok = FNmouse_send(&FF)
-ok = FNmouse_send(&F6)
-ok = FNmouse_send(&F4)
+PROCmouse_send(&FF)
+PROCmouse_send(&F6)
+PROCmouse_send(&F4)
 
 x = 0
 y = 0
@@ -26,10 +24,14 @@ buttons = 0
 DIM pkt,3
 idx = 0
 
-WHILE TRUE
-  b = FNread_mouse_byte
+REPEAT
+  b = FNread_mouse_byte()
   IF b >= 0 THEN
-    valid_first = NOT (idx = 0 AND BITAND(b, 8) = 0)
+    IF idx = 0 AND BITAND(b, 8) = 0 THEN
+        valid_first = 0
+    ELSE
+        valid_first = 1
+    ENDIF
     IF valid_first = 1 THEN
       pkt(idx) = b
       idx = idx + 1
@@ -59,16 +61,16 @@ WHILE TRUE
   ENDIF
 
   PROCudp_handle_request
-ENDWHILE
+UNTIL FALSE
 
 DEF PROCudp_handle_request
-  buf$ = UDPREAD$(port)
+  buf$ = UDPREAD$(MOUSE_UDP_PORT)
   IF buf$ = "" THEN
     ENDPROC
   ENDIF
 
-  from_ip$ = UDPLASTIP$()
-  from_port = UDPLASTSOURCEPORT()
+  from_ip$ = UDPLASTIP$
+  from_port = UDPLASTSOURCEPORT
 
   IF buf$ = "GET" THEN
     resp$ = STR$(x) + " " + STR$(y) + " " + STR$(buttons)
@@ -78,34 +80,34 @@ ENDPROC
 
 DEF PROCwait_ibf_clear(max_spins)
   spins = 0
-  WHILE BITAND(INPORT(&64), 2) <> 0 AND spins < max_spins
+  REPEAT
     spins = spins + 1
-  ENDWHILE
+  UNTIL BITAND(INPORT(&64), 2) = 0 OR spins > max_spins
 ENDPROC
 
 DEF FNread_mouse_byte
   s = INPORT(&64)
   IF BITAND(s, 1) = 0 THEN
-    = -1
+    =-1
   ENDIF
   IF BITAND(s, &20) = 0 THEN
-    = -1
+    =-1
   ENDIF
-= INPORT(&60)
+=INPORT(&60)
 
-DEF FNmouse_send(b)
+DEF PROCmouse_send(b)
   tries = 0
-  WHILE tries < 3
+  ack = 0
+  REPEAT
     PROCwait_ibf_clear(64)
     OUTPORT &64, &D4
     PROCwait_ibf_clear(64)
     OUTPORT &60, b
-
     ack = 0
     resend = 0
     spins = 0
-    WHILE spins < 128 AND ack = 0 AND resend = 0
-      r = FNread_mouse_byte
+    REPEAT
+      r = FNread_mouse_byte()
       IF r = &FA THEN
         ack = 1
       ENDIF
@@ -113,12 +115,7 @@ DEF FNmouse_send(b)
         resend = 1
       ENDIF
       spins = spins + 1
-    ENDWHILE
-
-    IF ack = 1 THEN
-      = 1
-    ENDIF
-
+    UNTIL spins > 128 OR ack = 1 OR resend = 1
     tries = tries + 1
-  ENDWHILE
-= 0
+  UNTIL tries > 3 OR ack = 1
+ENDPROC

@@ -31,7 +31,7 @@ static int ip_scratch_sel = 0; /* 0 => A, 1 => B */
 void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len);
 
 static inline bool ip_is_loopback(const uint8_t *ip) {
-	return ip[0] == 127; /* 127.0.0.0/8 */
+	return ip[3] == 127; /* 127.0.0.0/8 */
 }
 
 void get_ip_str(char* ip_str, const uint8_t* ip) {
@@ -433,10 +433,6 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 	*((uint8_t*)(packet->flags_fragment_ptr)) = ntohb(*((uint8_t*)(packet->flags_fragment_ptr)), 3);
 	add_random_entropy(packet->header_checksum ^ (*(uint32_t*)packet->src_ip));
 	if (packet->version == IP_IPV4) {
-		/* Drop illegal on-wire 127/8 traffic (RFC 1122) */
-		if (packet->dst_ip[0] == 127 || packet->src_ip[0] == 127) {
-			return;
-		}
 
 		get_ip_str(src_ip, packet->src_ip);
 		void * data_ptr = (void*)packet + packet->ihl * 4;

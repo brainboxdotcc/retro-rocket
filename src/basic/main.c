@@ -522,6 +522,11 @@ void chain_statement(struct basic_ctx *ctx) {
 	accept_or_return(CHAIN, ctx);
 	const char *pn = str_expr(ctx);
 	process_t *p = proc_load(pn, proc->pid, proc->csd);
+	bool background = false;
+	if (tokenizer_token(ctx) == COMMA) {
+		tokenizer_next(ctx);
+		background = expr(ctx);
+	}
 	if (p == NULL) {
 		accept_or_return(NEWLINE, ctx);
 		return;
@@ -548,7 +553,9 @@ void chain_statement(struct basic_ctx *ctx) {
 		}
 	}
 
-	proc_wait(proc, p->pid);
+	if (!background) {
+		proc_wait(proc, p->pid);
+	}
 	accept_or_return(NEWLINE, ctx);
 }
 

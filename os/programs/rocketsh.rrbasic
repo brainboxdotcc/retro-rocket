@@ -70,6 +70,7 @@ DEF PROCbuiltins
 	IF command$ = "cd" THEN PROCbuiltinChdir
 	IF command$ = "up" THEN PROCbuiltinUp
 	IF command$ = "run" THEN PROCbuiltinRun
+	IF command$ = "task" THEN PROCbuiltinTask
 	IF command$ = "version" THEN PROCversion
 ENDPROC
 
@@ -120,7 +121,13 @@ ENDPROC
 
 REM run command without awareness of shell (no ARGS$)
 DEF PROCbuiltinRun
-	EVAL "CHAIN " + CHR$(34) + ARGS$ + CHR$(34)
+	EVAL "CHAIN " + CHR$(34) + PATH$ + "/" + ARGS$ + CHR$(34)
+	builtin = TRUE
+ENDPROC
+
+REM run command without awareness of shell (no ARGS$) in background
+DEF PROCbuiltinTask
+	EVAL "CHAIN " + CHR$(34) + PATH$ + "/" + ARGS$ + CHR$(34) +",TRUE"
 	builtin = TRUE
 ENDPROC
 

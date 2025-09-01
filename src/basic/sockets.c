@@ -252,11 +252,13 @@ static void basic_udp_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t
 	}
 	queued_udp_packet* packet = buddy_malloc(ctx->allocator, sizeof(queued_udp_packet));
 	char ip[MAX_STRINGLEN];
-	get_ip_str(ip, src_ip);
+	src_ip = ntohl(src_ip);
+	get_ip_str(ip, (uint8_t*)&src_ip);
 	packet->length = length;
 	packet->data = buddy_strdup(ctx->allocator, data);
 	packet->ip = buddy_strdup(ctx->allocator, ip);
 	packet->source_port = src_port;
+	dprintf("UDPREAD handle packet from %s TO PORT %d SOURCE %d\n", ip, dst_port, src_port);
 	packet->next = NULL;
 	uint64_t flags;
 	lock_spinlock_irq(&udp_read_lock, &flags);
@@ -287,7 +289,9 @@ void udpwrite_statement(struct basic_ctx* ctx) {
 	if (strlen(data) == 0 || strlen(data) > 65530) {
 		tokenizer_error_print(ctx, "Invalid UDP packet length");
 	}
-	udp_send_packet(str_to_ip(dest_ip), source_port, dest_port, (void*)data, strlen(data));
+	uint32_t dest = htonl(str_to_ip(dest_ip));
+	dprintf("UDPWRITE to %08x ON PORT %ld\n", dest, dest_port);
+	udp_send_packet((uint8_t*)&dest, source_port, dest_port, (void*)data, strlen(data) + 1); // including the NULL terminator
 }
 
 void udpbind_statement(struct basic_ctx* ctx) {
@@ -317,14 +321,10 @@ void udpunbind_statement(struct basic_ctx* ctx) {
 }
 
 int64_t basic_udplastsourceport(struct basic_ctx* ctx) {
-	PARAMS_START;
-	PARAMS_END("UDPLASTSOURCEPORT","");
 	return ctx->last_packet.source_port;
 }
 
 char* basic_udplastip(struct basic_ctx* ctx) {
-	PARAMS_START;
-	PARAMS_END("UDPLASTAIP$","");
 	return ctx->last_packet.ip ? (char*)ctx->last_packet.ip : "";
 }
 
@@ -361,6 +361,7 @@ char* basic_udpread(struct basic_ctx* ctx) {
 		}
 		buddy_free(ctx->allocator, queue);
 	}
+
 	unlock_spinlock_irq(&udp_read_lock, flags);
 	return ctx->last_packet.data ? (char*)ctx->last_packet.data : "";
 }
