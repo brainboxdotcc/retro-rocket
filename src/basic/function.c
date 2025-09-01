@@ -73,6 +73,7 @@ struct basic_int_fn builtin_int[] =
 	{ basic_bitand,              "BITAND"            },
 	{ basic_biteor,              "BITEOR"            },
 	{ basic_bitnot,              "BITNOT"            },
+	{ basic_bitnor,              "BITNOR"            },
 	{ basic_bitnand,             "BITNAND"           },
 	{ basic_bitxnor,             "BITXNOR"           },
 	{ basic_bitshl,              "BITSHL"            },

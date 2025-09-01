@@ -105,36 +105,308 @@ char* basic_intoasc(struct basic_ctx* ctx);
  */
 int64_t basic_cpuid(struct basic_ctx* ctx);
 
+/**
+ * @brief Implements the BASIC statement OUTPORT.
+ *
+ * BASIC syntax:
+ * @code
+ *   OUTPORT port, value
+ * @endcode
+ *
+ * Writes an 8-bit value to the specified I/O port.
+ *
+ * @param ctx Interpreter context (supplies arguments and error reporting).
+ *
+ * @note The value is truncated to 8 bits before being written.
+ * @warning Raises a runtime error if the number or type of arguments is invalid.
+ */
 void outport_statement(struct basic_ctx* ctx);
 
+/**
+ * @brief Implements the BASIC statement OUTPORTW.
+ *
+ * BASIC syntax:
+ * @code
+ *   OUTPORTW port, value
+ * @endcode
+ *
+ * Writes a 16-bit value to the specified I/O port.
+ *
+ * @param ctx Interpreter context.
+ *
+ * @note The value is truncated to 16 bits before being written.
+ * @warning Raises a runtime error if the number or type of arguments is invalid.
+ */
 void outportw_statement(struct basic_ctx* ctx);
 
+/**
+ * @brief Implements the BASIC statement OUTPORTD.
+ *
+ * BASIC syntax:
+ * @code
+ *   OUTPORTD port, value
+ * @endcode
+ *
+ * Writes a 32-bit value to the specified I/O port.
+ *
+ * @param ctx Interpreter context.
+ *
+ * @note The value is truncated to 32 bits before being written.
+ * @warning Raises a runtime error if the number or type of arguments is invalid.
+ */
 void outportd_statement(struct basic_ctx* ctx);
 
+/**
+ * @brief Implements the BASIC statement OUTPORT.
+ *
+ * Writes an 8-bit value to an I/O port.
+ *
+ * BASIC syntax:
+ * @code
+ *   OUTPORT port, value
+ * @endcode
+ *
+ * @param ctx Interpreter context (provides parameters and error reporting).
+ *
+ * @note The value is truncated to 8 bits before the write.
+ * @warning Raises a runtime error if the argument count or types are invalid.
+ */
+void outport_statement(struct basic_ctx* ctx);
+
+/**
+ * @brief Implements the BASIC statement OUTPORTW.
+ *
+ * Writes a 16-bit value to an I/O port.
+ *
+ * BASIC syntax:
+ * @code
+ *   OUTPORTW port, value
+ * @endcode
+ *
+ * @param ctx Interpreter context.
+ *
+ * @note The value is truncated to 16 bits before the write.
+ * @warning Raises a runtime error if the argument count or types are invalid.
+ */
+void outportw_statement(struct basic_ctx* ctx);
+
+/**
+ * @brief Implements the BASIC statement OUTPORTD.
+ *
+ * Writes a 32-bit value to an I/O port.
+ *
+ * BASIC syntax:
+ * @code
+ *   OUTPORTD port, value
+ * @endcode
+ *
+ * @param ctx Interpreter context.
+ *
+ * @note The value is truncated to 32 bits before the write.
+ * @warning Raises a runtime error if the argument count or types are invalid.
+ */
+void outportd_statement(struct basic_ctx* ctx);
+
+/**
+ * @brief Implements the BASIC function INPORT.
+ *
+ * Reads an 8-bit value from an I/O port.
+ *
+ * BASIC syntax:
+ * @code
+ *   v = INPORT(port)
+ * @endcode
+ *
+ * @param ctx Interpreter context.
+ * @return 8-bit value (0–255) widened to int64_t.
+ *
+ * @warning Raises a runtime error if the argument count or types are invalid.
+ */
 int64_t basic_inport(struct basic_ctx* ctx);
 
+/**
+ * @brief Implements the BASIC function INPORTW.
+ *
+ * Reads a 16-bit value from an I/O port.
+ *
+ * BASIC syntax:
+ * @code
+ *   v = INPORTW(port)
+ * @endcode
+ *
+ * @param ctx Interpreter context.
+ * @return 16-bit value (0–65535) widened to int64_t.
+ *
+ * @warning Raises a runtime error if the argument count or types are invalid.
+ */
 int64_t basic_inportw(struct basic_ctx* ctx);
 
+/**
+ * @brief Implements the BASIC function INPORTD.
+ *
+ * Reads a 32-bit value from an I/O port.
+ *
+ * BASIC syntax:
+ * @code
+ *   v = INPORTD(port)
+ * @endcode
+ *
+ * @param ctx Interpreter context.
+ * @return 32-bit value widened to int64_t.
+ *
+ * @warning Raises a runtime error if the argument count or types are invalid.
+ */
 int64_t basic_inportd(struct basic_ctx* ctx);
 
+/**
+ * @brief Implements BITOR(a, b) — bitwise OR.
+ *
+ * BASIC syntax:
+ * @code
+ *   r = BITOR(a, b)
+ * @endcode
+ *
+ * @param ctx Interpreter context.
+ * @return (a | b) as int64_t.
+ */
 int64_t basic_bitor(struct basic_ctx* ctx);
 
+/**
+ * @brief Implements BITAND(a, b) — bitwise AND.
+ *
+ * BASIC syntax:
+ * @code
+ *   r = BITAND(a, b)
+ * @endcode
+ *
+ * @param ctx Interpreter context.
+ * @return (a & b) as int64_t.
+ */
 int64_t basic_bitand(struct basic_ctx* ctx);
 
+/**
+ * @brief Implements BITNOT(a) — bitwise complement.
+ *
+ * BASIC syntax:
+ * @code
+ *   r = BITNOT(a)
+ * @endcode
+ *
+ * @param ctx Interpreter context.
+ * @return (~a) as int64_t.
+ *
+ * @note Two’s-complement semantics on 64-bit integers.
+ */
 int64_t basic_bitnot(struct basic_ctx* ctx);
 
+/**
+ * @brief Implements BITEOR(a, b) — bitwise XOR (BBC EOR).
+ *
+ * BASIC syntax:
+ * @code
+ *   r = BITEOR(a, b)
+ * @endcode
+ *
+ * @param ctx Interpreter context.
+ * @return (a ^ b) as int64_t.
+ */
 int64_t basic_biteor(struct basic_ctx* ctx);
 
+/**
+ * @brief Implements BITNAND(a, b) — bitwise NAND.
+ *
+ * BASIC syntax:
+ * @code
+ *   r = BITNAND(a, b)
+ * @endcode
+ *
+ * @param ctx Interpreter context.
+ * @return ~(a & b) as int64_t.
+ */
 int64_t basic_bitnand(struct basic_ctx* ctx);
 
+/**
+ * @brief Implements BITNOR(a, b) — bitwise NOR.
+ *
+ * BASIC syntax:
+ * @code
+ *   r = BITNOR(a, b)
+ * @endcode
+ *
+ * @param ctx Interpreter context.
+ * @return ~(a | b) as int64_t.
+ */
 int64_t basic_bitnor(struct basic_ctx* ctx);
 
+/**
+ * @brief Implements BITXNOR(a, b) — bitwise equivalence.
+ *
+ * BASIC syntax:
+ * @code
+ *   r = BITXNOR(a, b)
+ * @endcode
+ *
+ * @param ctx Interpreter context.
+ * @return ~(a ^ b) as int64_t.
+ */
 int64_t basic_bitxnor(struct basic_ctx* ctx);
 
+/**
+ * @brief Implements BITSHL(a, n) — logical left shift.
+ *
+ * BASIC syntax:
+ * @code
+ *   r = BITSHL(a, n)
+ * @endcode
+ *
+ * @param ctx Interpreter context.
+ * @return a << n, computed in 64-bit.
+ *
+ * @note Implementations typically clamp n to 0–63.
+ */
 int64_t basic_bitshl(struct basic_ctx* ctx);
 
+/**
+ * @brief Implements BITSHR(a, n) — logical right shift.
+ *
+ * BASIC syntax:
+ * @code
+ *   r = BITSHR(a, n)
+ * @endcode
+ *
+ * @param ctx Interpreter context.
+ * @return Logical shift right of a by n (uses unsigned semantics), widened to int64_t.
+ *
+ * @note Implementations typically clamp n to 0–63.
+ */
 int64_t basic_bitshr(struct basic_ctx* ctx);
 
+/**
+ * @brief Implements BITROL(a, n, width) — rotate left within width bits.
+ *
+ * BASIC syntax:
+ * @code
+ *   r = BITROL(a, n, width)
+ * @endcode
+ *
+ * @param ctx Interpreter context.
+ * @return a rotated left by n within the lowest @p width bits.
+ *
+ * @note Width is usually 1–64; the result is masked to @p width bits.
+ */
 int64_t basic_bitrol(struct basic_ctx* ctx);
 
+/**
+ * @brief Implements BITROR(a, n, width) — rotate right within width bits.
+ *
+ * BASIC syntax:
+ * @code
+ *   r = BITROR(a, n, width)
+ * @endcode
+ *
+ * @param ctx Interpreter context.
+ * @return a rotated right by n within the lowest @p width bits.
+ *
+ * @note Width is usually 1–64; the result is masked to @p width bits.
+ */
 int64_t basic_bitror(struct basic_ctx* ctx);
