@@ -330,11 +330,6 @@ typedef struct basic_ctx {
 	 */
 	buddy_allocator_t* allocator;
 
-	queued_udp_packet* udp_packets[65536];
-	queued_udp_packet* udp_list_tail[65536];
-
-	spinlock_t udp_read_lock;
-
 	queued_udp_packet last_packet;
 } basic_ctx;
 

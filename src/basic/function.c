@@ -69,6 +69,16 @@ struct basic_int_fn builtin_int[] =
 	{ basic_inportd,             "INPORTD"           },
 	{ basic_inport,              "INPORT"            },
 	{ basic_udplastsourceport,   "UDPLASTSOURCEPORT" },
+	{ basic_bitor,               "BITOR"             },
+	{ basic_bitand,              "BITAND"            },
+	{ basic_biteor,              "BITEOR"            },
+	{ basic_bitnot,              "BITNOT"            },
+	{ basic_bitnand,             "BITNAND"           },
+	{ basic_bitxnor,             "BITXNOR"           },
+	{ basic_bitshl,              "BITSHL"            },
+	{ basic_bitshr,              "BITSHR"            },
+	{ basic_bitrol,              "BITROL"            },
+	{ basic_bitror,              "BITROR"            },
 	{ NULL,                      NULL                },
 };
 

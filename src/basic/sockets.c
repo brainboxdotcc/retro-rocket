@@ -4,6 +4,10 @@
  */
 #include <kernel.h>
 
+static queued_udp_packet* udp_packets[65536] = {0};
+static queued_udp_packet* udp_list_tail[65536] = {0};
+static spinlock_t udp_read_lock = 0;
+
 /**
  * @brief Idle callback to check if socket is ready to read.
  *
@@ -255,16 +259,16 @@ static void basic_udp_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t
 	packet->source_port = src_port;
 	packet->next = NULL;
 	uint64_t flags;
-	lock_spinlock_irq(&ctx->udp_read_lock, &flags);
-	packet->prev = (struct queued_udp_packet*)ctx->udp_list_tail[dst_port];
-	if (ctx->udp_list_tail[dst_port] == NULL) {
-		ctx->udp_list_tail[dst_port] = packet;
-		ctx->udp_packets[dst_port] = packet;
+	lock_spinlock_irq(&udp_read_lock, &flags);
+	packet->prev = (struct queued_udp_packet*)udp_list_tail[dst_port];
+	if (udp_list_tail[dst_port] == NULL) {
+		udp_list_tail[dst_port] = packet;
+		udp_packets[dst_port] = packet;
 	} else {
-		ctx->udp_list_tail[dst_port]->next = (struct queued_udp_packet*)packet;
-		ctx->udp_list_tail[dst_port] = packet;
+		udp_list_tail[dst_port]->next = (struct queued_udp_packet*)packet;
+		udp_list_tail[dst_port] = packet;
 	}
-	unlock_spinlock_irq(&ctx->udp_read_lock, flags);
+	unlock_spinlock_irq(&udp_read_lock, flags);
 }
 
 void udpwrite_statement(struct basic_ctx* ctx) {
@@ -340,23 +344,23 @@ char* basic_udpread(struct basic_ctx* ctx) {
 	}
 	memset(&ctx->last_packet, 0, sizeof(ctx->last_packet));
 	uint64_t flags;
-	lock_spinlock_irq(&ctx->udp_read_lock, &flags);
-	queued_udp_packet* queue = ctx->udp_packets[port];
+	lock_spinlock_irq(&udp_read_lock, &flags);
+	queued_udp_packet* queue = udp_packets[port];
 	if (queue) {
 		ctx->last_packet = *queue;
-		if (queue == ctx->udp_list_tail[port]) {
+		if (queue == udp_list_tail[port]) {
 			/* This packet is the tail packet */
-			ctx->udp_list_tail[port] = (queued_udp_packet *)ctx->udp_list_tail[port]->prev;
-			if (ctx->udp_list_tail[port]) {
-				ctx->udp_list_tail[port]->next = NULL;
+			udp_list_tail[port] = (queued_udp_packet *)udp_list_tail[port]->prev;
+			if (udp_list_tail[port]) {
+				udp_list_tail[port]->next = NULL;
 			}
 		}
-		ctx->udp_packets[port] = (queued_udp_packet *)queue->next;
-		if (ctx->udp_packets[port]) {
-			ctx->udp_packets[port]->prev = NULL;
+		udp_packets[port] = (queued_udp_packet *)queue->next;
+		if (udp_packets[port]) {
+			udp_packets[port]->prev = NULL;
 		}
 		buddy_free(ctx->allocator, queue);
 	}
-	unlock_spinlock_irq(&ctx->udp_read_lock, flags);
+	unlock_spinlock_irq(&udp_read_lock, flags);
 	return ctx->last_packet.data ? (char*)ctx->last_packet.data : "";
 }

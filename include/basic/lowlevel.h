@@ -116,3 +116,25 @@ int64_t basic_inport(struct basic_ctx* ctx);
 int64_t basic_inportw(struct basic_ctx* ctx);
 
 int64_t basic_inportd(struct basic_ctx* ctx);
+
+int64_t basic_bitor(struct basic_ctx* ctx);
+
+int64_t basic_bitand(struct basic_ctx* ctx);
+
+int64_t basic_bitnot(struct basic_ctx* ctx);
+
+int64_t basic_biteor(struct basic_ctx* ctx);
+
+int64_t basic_bitnand(struct basic_ctx* ctx);
+
+int64_t basic_bitnor(struct basic_ctx* ctx);
+
+int64_t basic_bitxnor(struct basic_ctx* ctx);
+
+int64_t basic_bitshl(struct basic_ctx* ctx);
+
+int64_t basic_bitshr(struct basic_ctx* ctx);
+
+int64_t basic_bitrol(struct basic_ctx* ctx);
+
+int64_t basic_bitror(struct basic_ctx* ctx);

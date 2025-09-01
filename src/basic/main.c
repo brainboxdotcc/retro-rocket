@@ -171,10 +171,7 @@ struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file
 	ctx->debug_status = 0;
 	ctx->debug_breakpoints = NULL;
 	ctx->debug_breakpoint_count = 0;
-	memset(ctx->udp_packets, 0, sizeof(ctx->udp_packets));
-	memset(ctx->udp_list_tail, 0, sizeof(ctx->udp_list_tail));
-	memset(&ctx->last_packet, 0, sizeof(ctx->last_packet));
-	init_spinlock(&ctx->udp_read_lock);
+	memset(&ctx->last_packet, 0, sizeof(queued_udp_packet));
 	ctx->if_nest_level = 0;
 	ctx->errored = false;
 	ctx->error_handler = NULL;
@@ -386,10 +383,7 @@ struct basic_ctx *basic_clone(struct basic_ctx *old) {
 	ctx->current_token = NO_TOKEN;
 	ctx->error_handler = old->error_handler;
 	ctx->sleep_until = old->sleep_until;
-	memset(ctx->udp_packets, 0, sizeof(ctx->udp_packets));
-	memset(ctx->udp_list_tail, 0, sizeof(ctx->udp_list_tail));
-	memset(&ctx->last_packet, 0, sizeof(ctx->last_packet));
-	init_spinlock(&ctx->udp_read_lock);
+	memset(&ctx->last_packet, 0, sizeof(queued_udp_packet));
 	ctx->int_variables = old->int_variables;
 	ctx->str_variables = old->str_variables;
 	ctx->eval_linenum = old->eval_linenum;

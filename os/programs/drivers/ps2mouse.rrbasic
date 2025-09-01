@@ -6,19 +6,13 @@ done = 0
 spins = 0
 WHILE spins < 64 AND done = 0
   s = INPORT(&64)
-  IF (s AND 1) <> 0 AND (s AND &20) <> 0 THEN
+  IF BITAND(s, 1) <> 0 AND BITAND(s, &20) <> 0 THEN
     discard = INPORT(&60)
   ELSE
     done = 1
   ENDIF
   spins = spins + 1
 ENDWHILE
-
-OUTPORT &64, &20
-cmd = INPORT(&60)
-cmd = cmd OR &10
-OUTPORT &64, &60
-OUTPORT &60, cmd
 
 OUTPORT &64, &A8
 
@@ -35,7 +29,7 @@ idx = 0
 WHILE TRUE
   b = FNread_mouse_byte
   IF b >= 0 THEN
-    valid_first = NOT (idx = 0 AND (b AND 8) = 0)
+    valid_first = NOT (idx = 0 AND BITAND(b, 8) = 0)
     IF valid_first = 1 THEN
       pkt(idx) = b
       idx = idx + 1
@@ -47,17 +41,17 @@ WHILE TRUE
 
         dx = b1
         dy = b2
-        IF (b0 AND &10) <> 0 THEN
+        IF BITAND(b0, &10) <> 0 THEN
           dx = dx - 256
         ENDIF
-        IF (b0 AND &20) <> 0 THEN
+        IF BITAND(b0, &20) <> 0 THEN
           dy = dy - 256
         ENDIF
 
         x = x + dx
         y = y - dy
 
-        buttons = b0 AND 7
+        buttons = BITAND(b0, 7)
 
         idx = 0
       ENDIF
@@ -84,17 +78,17 @@ ENDPROC
 
 DEF PROCwait_ibf_clear(max_spins)
   spins = 0
-  WHILE (INPORT(&64) AND 2) <> 0 AND spins < max_spins
+  WHILE BITAND(INPORT(&64), 2) <> 0 AND spins < max_spins
     spins = spins + 1
   ENDWHILE
 ENDPROC
 
 DEF FNread_mouse_byte
   s = INPORT(&64)
-  IF (s AND 1) = 0 THEN
+  IF BITAND(s, 1) = 0 THEN
     = -1
   ENDIF
-  IF (s AND &20) = 0 THEN
+  IF BITAND(s, &20) = 0 THEN
     = -1
   ENDIF
 = INPORT(&60)
