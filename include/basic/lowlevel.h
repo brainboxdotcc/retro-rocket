@@ -104,3 +104,15 @@ char* basic_intoasc(struct basic_ctx* ctx);
  * @return The CPUID result of the specified register.
  */
 int64_t basic_cpuid(struct basic_ctx* ctx);
+
+void outport_statement(struct basic_ctx* ctx);
+
+void outportw_statement(struct basic_ctx* ctx);
+
+void outportd_statement(struct basic_ctx* ctx);
+
+int64_t basic_inport(struct basic_ctx* ctx);
+
+int64_t basic_inportw(struct basic_ctx* ctx);
+
+int64_t basic_inportd(struct basic_ctx* ctx);

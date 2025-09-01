@@ -148,6 +148,12 @@
     T(ENDWHILE) \
     T(SLEEP) \
     T(CONTINUE) \
+    T(UDPBIND) \
+    T(UDPUNBIND) \
+    T(UDPWRITE)  \
+    T(OUTPORT) \
+    T(OUTPORTW) \
+    T(OUTPORTD) \
     T(KGET)
 
 GENERATE_ENUM_LIST(TOKEN, token_t)

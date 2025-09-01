@@ -91,3 +91,11 @@ void connect_statement(struct basic_ctx* ctx);
  * @param ctx BASIC context.
  */
 void sockread_statement(struct basic_ctx* ctx);
+
+void udpwrite_statement(struct basic_ctx* ctx);
+
+void udpbind_statement(struct basic_ctx* ctx);
+
+void udpunbind_statement(struct basic_ctx* ctx);
+
+char* basic_udpread(struct basic_ctx* ctx);

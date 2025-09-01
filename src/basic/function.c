@@ -65,6 +65,9 @@ struct basic_int_fn builtin_int[] =
 	{ basic_getweekday,          "WEEKDAY"       },
 	{ basic_getyear,             "YEAR"          },
 	{ basic_get_day_of_year,     "YDAY"          },
+	{ basic_inportw,             "INPORTW"       },
+	{ basic_inportd,             "INPORTD"       },
+	{ basic_inport,              "INPORT"        },
 	{ NULL,                      NULL            },
 };
 
@@ -129,6 +132,7 @@ struct basic_str_fn builtin_str[] =
 	{ basic_date,                "DATE$"         },
 	{ basic_time,                "TIME$"         },
 	{ basic_get_upstr,           "UPTIME$"       },
+	{ basic_udpread,             "UDPREAD$"      },
 	{ NULL,                      NULL            },
 };
 

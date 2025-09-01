@@ -52,6 +52,15 @@ void udp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, udp_packet_t*
 	}
 }
 
+bool udp_unregister_daemon(uint16_t dst_port, udp_daemon_handler handler) {
+	if (daemons[dst_port].func == handler) {
+		daemons[dst_port].func = NULL;
+		daemons[dst_port].opaque = NULL;
+		return true;
+	}
+	return false;
+}
+
 uint16_t udp_register_daemon(uint16_t dst_port, udp_daemon_handler handler, void* opaque) {
 
 	if (dst_port == 0) {

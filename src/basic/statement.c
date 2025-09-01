@@ -83,6 +83,12 @@ void statement(struct basic_ctx* ctx)
 			return connect_statement(ctx);
 		case SOCKCLOSE:
 			return sockclose_statement(ctx);
+		case OUTPORT:
+			return outport_statement(ctx);
+		case OUTPORTW:
+			return outportw_statement(ctx);
+		case OUTPORTD:
+			return outportd_statement(ctx);
 		case POINT:
 			return point_statement(ctx);
 		case CLS:
@@ -158,6 +164,12 @@ void statement(struct basic_ctx* ctx)
 			return off_statement(ctx);
 		case SLEEP:
 			return sleep_statement(ctx);
+		case UDPWRITE:
+			return udpwrite_statement(ctx);
+		case UDPBIND:
+			return udpbind_statement(ctx);
+		case UDPUNBIND:
+			return udpunbind_statement(ctx);
 		case NEWLINE:
 			/* Blank trailing line at end of program, ignore */
 			return;

@@ -159,3 +159,57 @@ int64_t basic_cpuid(struct basic_ctx* ctx)
 	return get_cpuid_reg(ctx, reg);
 }
 
+int64_t basic_inport(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t port = intval;
+	PARAMS_END("INPORT", -1);
+	return inb(port);
+}
+
+int64_t basic_inportw(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t port = intval;
+	PARAMS_END("INPORTW", -1);
+	return inw(port);
+}
+
+int64_t basic_inportd(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t port = intval;
+	PARAMS_END("INPORTD", -1);
+	return inl(port);
+}
+
+void outport_statement(struct basic_ctx* ctx) {
+	accept_or_return(OUTPORT, ctx);
+	int64_t port = expr(ctx);
+	accept_or_return(COMMA, ctx);
+	int64_t value = expr(ctx) & 0xFF;
+	accept_or_return(NEWLINE, ctx);
+	outb(port, value);
+}
+
+void outportw_statement(struct basic_ctx* ctx) {
+	accept_or_return(OUTPORTW, ctx);
+	int64_t port = expr(ctx);
+	accept_or_return(COMMA, ctx);
+	int64_t value = expr(ctx) & 0xFFFF;
+	accept_or_return(NEWLINE, ctx);
+	outw(port, value);
+}
+
+void outportd_statement(struct basic_ctx* ctx) {
+	accept_or_return(OUTPORTD, ctx);
+	int64_t port = expr(ctx);
+	accept_or_return(COMMA, ctx);
+	int64_t value = expr(ctx) & 0xFFFFFFFF;
+	accept_or_return(NEWLINE, ctx);
+	outl(port, value);
+}
+

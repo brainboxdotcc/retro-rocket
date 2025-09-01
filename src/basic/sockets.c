@@ -242,4 +242,109 @@ void sockwrite_statement(struct basic_ctx* ctx)
 }
 
 static void basic_udp_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, void* data, uint32_t length, void* opaque) {
+	basic_ctx* ctx = (basic_ctx*)opaque;
+	if (!opaque) {
+		return;
+	}
+	queued_udp_packet* packet = buddy_malloc(ctx->allocator, sizeof(queued_udp_packet));
+	char ip[MAX_STRINGLEN];
+	get_ip_str(ip, src_ip);
+	packet->length = length;
+	packet->data = buddy_strdup(ctx->allocator, data);
+	packet->ip = buddy_strdup(ctx->allocator, ip);
+	packet->source_port = src_port;
+	packet->next = NULL;
+	uint64_t flags;
+	lock_spinlock_irq(&ctx->udp_read_lock, &flags);
+	packet->prev = (struct queued_udp_packet*)ctx->udp_list_tail[dst_port];
+	if (ctx->udp_list_tail[dst_port] == NULL) {
+		ctx->udp_list_tail[dst_port] = packet;
+		ctx->udp_packets[dst_port] = packet;
+	} else {
+		ctx->udp_list_tail[dst_port]->next = (struct queued_udp_packet*)packet;
+		ctx->udp_list_tail[dst_port] = packet;
+	}
+	unlock_spinlock_irq(&ctx->udp_read_lock, flags);
+}
+
+void udpwrite_statement(struct basic_ctx* ctx) {
+	accept_or_return(UDPWRITE, ctx);
+	const char* dest_ip = str_expr(ctx);
+	accept_or_return(COMMA, ctx);
+	int64_t source_port = expr(ctx);
+	accept_or_return(COMMA, ctx);
+	int64_t dest_port = expr(ctx);
+	accept_or_return(COMMA, ctx);
+	const char* data = str_expr(ctx);
+	accept_or_return(NEWLINE, ctx);
+	if (source_port > 65535 || source_port < 0 || dest_port > 65535 || dest_port < 0) {
+		tokenizer_error_print(ctx, "Invalid UDP port number");
+	}
+	if (strlen(data) == 0 || strlen(data) > 65530) {
+		tokenizer_error_print(ctx, "Invalid UDP packet length");
+	}
+	udp_send_packet(str_to_ip(dest_ip), source_port, dest_port, (void*)data, strlen(data));
+}
+
+void udpbind_statement(struct basic_ctx* ctx) {
+	accept_or_return(UDPBIND, ctx);
+	const char* bind_ip = str_expr(ctx);
+	(void)bind_ip;
+	accept_or_return(COMMA, ctx);
+	int64_t port = expr(ctx);
+	if (port > 65535 || port < 0) {
+		tokenizer_error_print(ctx, "Invalid UDP port number");
+	}
+	accept_or_return(NEWLINE, ctx);
+	udp_register_daemon(port, &basic_udp_handle_packet, ctx);
+}
+
+void udpunbind_statement(struct basic_ctx* ctx) {
+	accept_or_return(UDPUNBIND, ctx);
+	const char* bind_ip = str_expr(ctx);
+	(void)bind_ip;
+	accept_or_return(COMMA, ctx);
+	int64_t port = expr(ctx);
+	if (port > 65535 || port < 0) {
+		tokenizer_error_print(ctx, "Invalid UDP port number");
+	}
+	accept_or_return(NEWLINE, ctx);
+	udp_unregister_daemon(port, &basic_udp_handle_packet);
+}
+
+char* basic_udpread(struct basic_ctx* ctx) {
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("UDPREAD$","");
+	int64_t port = intval;
+	if (port > 65535 || port < 0) {
+		tokenizer_error_print(ctx, "Invalid UDP port number");
+	}
+	if (ctx->last_packet.ip) {
+		buddy_free(ctx->allocator, ctx->last_packet.ip);
+	}
+	if (ctx->last_packet.data) {
+		buddy_free(ctx->allocator, ctx->last_packet.data);
+	}
+	memset(&ctx->last_packet, 0, sizeof(ctx->last_packet));
+	uint64_t flags;
+	lock_spinlock_irq(&ctx->udp_read_lock, &flags);
+	queued_udp_packet* queue = ctx->udp_packets[port];
+	if (queue) {
+		ctx->last_packet = *queue;
+		if (queue == ctx->udp_list_tail[port]) {
+			/* This packet is the tail packet */
+			ctx->udp_list_tail[port] = (queued_udp_packet *)ctx->udp_list_tail[port]->prev;
+			if (ctx->udp_list_tail[port]) {
+				ctx->udp_list_tail[port]->next = NULL;
+			}
+		}
+		ctx->udp_packets[port] = (queued_udp_packet *)queue->next;
+		if (ctx->udp_packets[port]) {
+			ctx->udp_packets[port]->prev = NULL;
+		}
+		buddy_free(ctx->allocator, queue);
+	}
+	unlock_spinlock_irq(&ctx->udp_read_lock, flags);
+	return ctx->last_packet.data ? (char*)ctx->last_packet.data : "";
 }

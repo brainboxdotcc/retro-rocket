@@ -7,6 +7,14 @@
 #include <stdbool.h>
 #include "buddy_allocator.h"
 
+typedef struct {
+	uint16_t source_port;
+	const char* ip;
+	const char* data;
+	uint64_t length;
+	struct queued_udp_packet* prev;
+	struct queued_udp_packet* next;
+} queued_udp_packet;
 
 /**
  * @brief BASIC program context.
@@ -321,6 +329,13 @@ typedef struct basic_ctx {
 	 * The allocator is used to manage dynamic memory for the program's variables and data structures.
 	 */
 	buddy_allocator_t* allocator;
+
+	queued_udp_packet* udp_packets[65536];
+	queued_udp_packet* udp_list_tail[65536];
+
+	spinlock_t udp_read_lock;
+
+	queued_udp_packet last_packet;
 } basic_ctx;
 
 /**
