@@ -1,9 +1,9 @@
 CLS
+SPRITELOAD cursor,"/images/cursor.png"
 UDPBIND "127.0.0.1", 9999
 X = GRAPHICS_WIDTH / 2
 Y = GRAPHICS_HEIGHT / 2
-GCOL RGB(255,255,0)
-POINT X, Y
+PLOT cursor, X, Y
 REPEAT
     CURSOR 0, 0
     UDPWRITE "127.0.0.1", 9999, 14501, "GET"
@@ -17,12 +17,11 @@ REPEAT
         NEW_Y = VAL(Y$)
         IF NEW_X <> X OR NEW_Y <> Y THEN
             GCOL 0
-            POINT X, Y
+            RECTANGLE X, Y, X + 32, Y + 45
             M = VAL(M$)
-            GCOL RGB(255,255,0)
             X = NEW_X
             Y = NEW_Y
-            POINT X, Y
+            PLOT cursor, X, Y
         ENDIF
     ENDIF
 UNTIL INKEY$ <> ""
