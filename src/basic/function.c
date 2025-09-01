@@ -80,6 +80,10 @@ struct basic_int_fn builtin_int[] =
 	{ basic_bitshr,              "BITSHR"            },
 	{ basic_bitrol,              "BITROL"            },
 	{ basic_bitror,              "BITROR"            },
+	{ basic_peekq,               "PEEKQ"             },
+	{ basic_peekd,               "PEEKD"             },
+	{ basic_peekw,               "PEEKW"             },
+	{ basic_peek,                "PEEK"              },
 	{ NULL,                      NULL                },
 };
 

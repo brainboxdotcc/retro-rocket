@@ -1,28 +1,19 @@
 CLS
+LIBRARY LIB$ + "/mouse"
 SPRITELOAD cursor,"/images/cursor.png"
-UDPBIND "127.0.0.1", 9999
-X = GRAPHICS_WIDTH / 2
-Y = GRAPHICS_HEIGHT / 2
-PLOT cursor, X, Y
+X = 0
+Y = 0
 REPEAT
-    CURSOR 0, 0
-    UDPWRITE "127.0.0.1", 9999, 14501, "GET"
-    PACKET$ = UDPREAD$(9999)
-    IF PACKET$ <> "" THEN
-        PRINT PACKET$
-        X$ = TOKENIZE$(PACKET$, " ")
-        Y$ = TOKENIZE$(PACKET$, " ")
-        M$ = TOKENIZE$(PACKET$, " ")
-        NEW_X = VAL(X$)
-        NEW_Y = VAL(Y$)
-        IF NEW_X <> X OR NEW_Y <> Y THEN
-            GCOL 0
-            RECTANGLE X, Y, X + 32, Y + 45
-            M = VAL(M$)
-            X = NEW_X
-            Y = NEW_Y
-            PLOT cursor, X, Y
-        ENDIF
+    PROCfetch_mouse()
+    NEW_X = FNmouse_x()
+    NEW_Y = FNmouse_y()
+    IF NEW_X <> X OR NEW_Y <> Y THEN
+        GCOL 0
+        RECTANGLE X, Y, X + 32, Y + 45
+        X = NEW_X
+        Y = NEW_Y
+        PLOT cursor, X, Y
     ENDIF
 UNTIL INKEY$ <> ""
-UDPUNBIND "127.0.0.1", 9999
+PROCmouse_done()
+END

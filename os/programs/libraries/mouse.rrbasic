@@ -1,0 +1,43 @@
+DEF PROCmouse
+    __MOUSE_X = GRAPHICS_WIDTH / 2
+    __MOUSE_Y = GRAPHICS_HEIGHT / 2
+    __MOUSE_LMB = FALSE
+    __MOUSE_RMB = FALSE
+    __MOUSE_MMB = FALSE
+    UDPBIND "127.0.0.1", 14502 + PID
+ENDPROC
+
+DEF PROCmouse_done
+    UDPUNBIND "127.0.0.1", 14502 + PID
+ENDPROC
+
+DEF PROCfetch_mouse
+    UDPWRITE "127.0.0.1", 14502 + PID, 14501, "GET"
+    PACKET$ = UDPREAD$(14502 + PID)
+    IF PACKET$ <> "" THEN
+        X$ = TOKENIZE$(PACKET$, " ")
+        Y$ = TOKENIZE$(PACKET$, " ")
+        M$ = TOKENIZE$(PACKET$, " ")
+        __MOUSE_X = VAL(X$)
+        __MOUSE_Y = VAL(Y$)
+        __MOUSE_BUTTONS = VAL(M$)
+        __MOUSE_LMB = BITAND(__MOUSE_BUTTONS, 1)
+        __MOUSE_RMB = BITSHR(BITAND(__MOUSE_BUTTONS, 2), 1)
+        __MOUSE_MMB = BITSHR(BITAND(__MOUSE_BUTTONS, 4), 2)
+    ENDIF
+ENDPROC
+
+DEF FNmouse_x
+=__MOUSE_X
+
+DEF FNmouse_y
+=__MOUSE_Y
+
+DEF FNmouse_lmb
+=__MOUSE_LMB
+
+DEF FNmouse_rmb
+=__MOUSE_RMB
+
+DEF FNmouse_mmb
+=__MOUSE_MMB

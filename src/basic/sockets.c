@@ -250,6 +250,7 @@ static void basic_udp_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t
 	if (!opaque) {
 		return;
 	}
+	dprintf("basic_udp_handle_packet %u\n", dst_port);
 	queued_udp_packet* packet = buddy_malloc(ctx->allocator, sizeof(queued_udp_packet));
 	char ip[MAX_STRINGLEN];
 	src_ip = ntohl(src_ip);
@@ -345,6 +346,7 @@ char* basic_udpread(struct basic_ctx* ctx) {
 	lock_spinlock_irq(&udp_read_lock, &flags);
 	queued_udp_packet* queue = udp_packets[port];
 	if (queue) {
+		dprintf("non empty queue");
 		ctx->last_packet = *queue;
 		if (queue == udp_list_tail[port]) {
 			/* This packet is the tail packet */

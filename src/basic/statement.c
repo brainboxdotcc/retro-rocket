@@ -63,6 +63,14 @@ void statement(struct basic_ctx* ctx)
 			return next_statement(ctx);
 		case END:
 			return end_statement(ctx);
+		case POKE:
+			return poke_statement(ctx);
+		case POKEW:
+			return pokew_statement(ctx);
+		case POKED:
+			return poked_statement(ctx);
+		case POKEQ:
+			return pokeq_statement(ctx);
 		case ENDIF:
 			return endif_statement(ctx);
 		case INPUT:

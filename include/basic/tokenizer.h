@@ -124,6 +124,10 @@
     T(DIM) \
     T(REDIM) \
     T(PUSH) \
+    T(POKE) \
+    T(POKEW) \
+    T(POKED) \
+    T(POKEQ) \
     T(POP) \
     T(LOCAL) \
     T(CHDIR) \
