@@ -18,9 +18,13 @@ PROCmouse_send(&FF)
 PROCmouse_send(&F6)
 PROCmouse_send(&F4)
 
-x = 0
-y = 0
+x = GRAPHICS_WIDTH / 2
+y = GRAPHICS_HEIGHT / 2
 buttons = 0
+
+MAXX = GRAPHICS_WIDTH - 1
+MAXY = GRAPHICS_HEIGHT - 1
+
 DIM pkt,3
 idx = 0
 
@@ -52,6 +56,11 @@ REPEAT
 
         x = x + dx
         y = y - dy
+
+        IF x < 0 THEN x = 0
+        IF x > MAXX THEN x = MAXX
+        IF y < 0 THEN y = 0
+        IF y > MAXY THEN y = MAXY
 
         buttons = BITAND(b0, 7)
 

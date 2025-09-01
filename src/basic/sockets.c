@@ -258,7 +258,6 @@ static void basic_udp_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t
 	packet->data = buddy_strdup(ctx->allocator, data);
 	packet->ip = buddy_strdup(ctx->allocator, ip);
 	packet->source_port = src_port;
-	dprintf("UDPREAD handle packet from %s TO PORT %d SOURCE %d\n", ip, dst_port, src_port);
 	packet->next = NULL;
 	uint64_t flags;
 	lock_spinlock_irq(&udp_read_lock, &flags);
@@ -290,7 +289,6 @@ void udpwrite_statement(struct basic_ctx* ctx) {
 		tokenizer_error_print(ctx, "Invalid UDP packet length");
 	}
 	uint32_t dest = htonl(str_to_ip(dest_ip));
-	dprintf("UDPWRITE to %08x ON PORT %ld\n", dest, dest_port);
 	udp_send_packet((uint8_t*)&dest, source_port, dest_port, (void*)data, strlen(data) + 1); // including the NULL terminator
 }
 
@@ -360,6 +358,11 @@ char* basic_udpread(struct basic_ctx* ctx) {
 			udp_packets[port]->prev = NULL;
 		}
 		buddy_free(ctx->allocator, queue);
+	} else {
+		ctx->last_packet.ip = buddy_strdup(ctx->allocator, "0.0.0.0");
+		ctx->last_packet.data = buddy_strdup(ctx->allocator, "");
+		ctx->last_packet.length = 0;
+		ctx->last_packet.source_port = 0;
 	}
 
 	unlock_spinlock_irq(&udp_read_lock, flags);

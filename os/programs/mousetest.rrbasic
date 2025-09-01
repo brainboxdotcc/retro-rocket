@@ -1,0 +1,29 @@
+CLS
+UDPBIND "127.0.0.1", 9999
+X = GRAPHICS_WIDTH / 2
+Y = GRAPHICS_HEIGHT / 2
+GCOL RGB(255,255,0)
+POINT X, Y
+REPEAT
+    CURSOR 0, 0
+    UDPWRITE "127.0.0.1", 9999, 14501, "GET"
+    PACKET$ = UDPREAD$(9999)
+    IF PACKET$ <> "" THEN
+        PRINT PACKET$
+        X$ = TOKENIZE$(PACKET$, " ")
+        Y$ = TOKENIZE$(PACKET$, " ")
+        M$ = TOKENIZE$(PACKET$, " ")
+        NEW_X = VAL(X$)
+        NEW_Y = VAL(Y$)
+        IF NEW_X <> X OR NEW_Y <> Y THEN
+            GCOL 0
+            POINT X, Y
+            M = VAL(M$)
+            GCOL RGB(255,255,0)
+            X = NEW_X
+            Y = NEW_Y
+            POINT X, Y
+        ENDIF
+    ENDIF
+UNTIL INKEY$ <> ""
+UDPUNBIND "127.0.0.1", 9999
