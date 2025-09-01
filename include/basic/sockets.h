@@ -99,3 +99,7 @@ void udpbind_statement(struct basic_ctx* ctx);
 void udpunbind_statement(struct basic_ctx* ctx);
 
 char* basic_udpread(struct basic_ctx* ctx);
+
+int64_t basic_udplastsourceport(struct basic_ctx* ctx);
+
+char* basic_udplastip(struct basic_ctx* ctx);

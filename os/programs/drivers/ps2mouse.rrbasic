@@ -1,0 +1,130 @@
+MOUSE_UDP_PORT = 14501
+
+UDPBIND "127.0.0.1", MOUSE_UDP_PORT
+
+done = 0
+spins = 0
+WHILE spins < 64 AND done = 0
+  s = INPORT(&64)
+  IF (s AND 1) <> 0 AND (s AND &20) <> 0 THEN
+    discard = INPORT(&60)
+  ELSE
+    done = 1
+  ENDIF
+  spins = spins + 1
+ENDWHILE
+
+OUTPORT &64, &20
+cmd = INPORT(&60)
+cmd = cmd OR &10
+OUTPORT &64, &60
+OUTPORT &60, cmd
+
+OUTPORT &64, &A8
+
+ok = FNmouse_send(&FF)
+ok = FNmouse_send(&F6)
+ok = FNmouse_send(&F4)
+
+x = 0
+y = 0
+buttons = 0
+DIM pkt,3
+idx = 0
+
+WHILE TRUE
+  b = FNread_mouse_byte
+  IF b >= 0 THEN
+    valid_first = NOT (idx = 0 AND (b AND 8) = 0)
+    IF valid_first = 1 THEN
+      pkt(idx) = b
+      idx = idx + 1
+
+      IF idx = 3 THEN
+        b0 = pkt(0)
+        b1 = pkt(1)
+        b2 = pkt(2)
+
+        dx = b1
+        dy = b2
+        IF (b0 AND &10) <> 0 THEN
+          dx = dx - 256
+        ENDIF
+        IF (b0 AND &20) <> 0 THEN
+          dy = dy - 256
+        ENDIF
+
+        x = x + dx
+        y = y - dy
+
+        buttons = b0 AND 7
+
+        idx = 0
+      ENDIF
+    ENDIF
+  ENDIF
+
+  PROCudp_handle_request
+ENDWHILE
+
+DEF PROCudp_handle_request
+  buf$ = UDPREAD$(port)
+  IF buf$ = "" THEN
+    ENDPROC
+  ENDIF
+
+  from_ip$ = UDPLASTIP$()
+  from_port = UDPLASTSOURCEPORT()
+
+  IF buf$ = "GET" THEN
+    resp$ = STR$(x) + " " + STR$(y) + " " + STR$(buttons)
+    UDPWRITE from_ip$, MOUSE_UDP_PORT, from_port, resp$
+  ENDIF
+ENDPROC
+
+DEF PROCwait_ibf_clear(max_spins)
+  spins = 0
+  WHILE (INPORT(&64) AND 2) <> 0 AND spins < max_spins
+    spins = spins + 1
+  ENDWHILE
+ENDPROC
+
+DEF FNread_mouse_byte
+  s = INPORT(&64)
+  IF (s AND 1) = 0 THEN
+    = -1
+  ENDIF
+  IF (s AND &20) = 0 THEN
+    = -1
+  ENDIF
+= INPORT(&60)
+
+DEF FNmouse_send(b)
+  tries = 0
+  WHILE tries < 3
+    PROCwait_ibf_clear(64)
+    OUTPORT &64, &D4
+    PROCwait_ibf_clear(64)
+    OUTPORT &60, b
+
+    ack = 0
+    resend = 0
+    spins = 0
+    WHILE spins < 128 AND ack = 0 AND resend = 0
+      r = FNread_mouse_byte
+      IF r = &FA THEN
+        ack = 1
+      ENDIF
+      IF r = &FE THEN
+        resend = 1
+      ENDIF
+      spins = spins + 1
+    ENDWHILE
+
+    IF ack = 1 THEN
+      = 1
+    ENDIF
+
+    tries = tries + 1
+  ENDWHILE
+= 0

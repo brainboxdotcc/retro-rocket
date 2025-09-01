@@ -312,6 +312,18 @@ void udpunbind_statement(struct basic_ctx* ctx) {
 	udp_unregister_daemon(port, &basic_udp_handle_packet);
 }
 
+int64_t basic_udplastsourceport(struct basic_ctx* ctx) {
+	PARAMS_START;
+	PARAMS_END("UDPLASTSOURCEPORT","");
+	return ctx->last_packet.source_port;
+}
+
+char* basic_udplastip(struct basic_ctx* ctx) {
+	PARAMS_START;
+	PARAMS_END("UDPLASTAIP$","");
+	return ctx->last_packet.ip ? (char*)ctx->last_packet.ip : "";
+}
+
 char* basic_udpread(struct basic_ctx* ctx) {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
