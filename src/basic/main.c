@@ -378,7 +378,10 @@ void library_statement(struct basic_ctx *ctx) {
 
 struct basic_ctx *basic_clone(struct basic_ctx *old) {
 	struct basic_ctx *ctx = buddy_malloc(old->allocator, sizeof(struct basic_ctx));
-
+	if (!ctx) {
+		tokenizer_error_printf(old, "Out of memory");
+		return NULL;
+	}
 	ctx->if_nest_level = 0;
 	ctx->current_token = NO_TOKEN;
 	ctx->error_handler = old->error_handler;

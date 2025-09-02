@@ -229,6 +229,9 @@ const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx)
 		begin_comma_list(def, ctx);
 		while (extract_comma_list(def, ctx));
 		struct basic_ctx* atomic = basic_clone(ctx);
+		if (!atomic) {
+			return "";
+		}
 		atomic->fn_type = RT_STRING;
 		jump_linenum(def->line, atomic);
 
@@ -327,6 +330,9 @@ int64_t basic_eval_int_fn(const char* fn_name, struct basic_ctx* ctx)
 		begin_comma_list(def, ctx);
 		while (extract_comma_list(def, ctx));
 		struct basic_ctx* atomic = basic_clone(ctx);
+		if (!atomic) {
+			return 0;
+		}
 		atomic->fn_type = RT_INT;
 		jump_linenum(def->line, atomic);
 
@@ -368,6 +374,10 @@ void basic_eval_double_fn(const char* fn_name, struct basic_ctx* ctx, double* re
 		begin_comma_list(def, ctx);
 		while (extract_comma_list(def, ctx));
 		struct basic_ctx* atomic = basic_clone(ctx);
+		if (!atomic) {
+			*res = 0;
+			return;
+		}
 		atomic->fn_type = RT_FLOAT;
 		jump_linenum(def->line, atomic);
 
