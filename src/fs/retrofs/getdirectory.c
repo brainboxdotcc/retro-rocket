@@ -43,6 +43,9 @@ fs_directory_entry_t *rfs_walk_directory(fs_tree_t *tree, rfs_t *info, uint64_t 
 			}
 			/* Process entry */
 			fs_directory_entry_t *file = kmalloc(sizeof(fs_directory_entry_t));
+			if (!file) {
+				return NULL;
+			}
 			file->filename = strdup(entry->filename);
 			file->alt_filename = strdup(entry->filename);
 			file->lbapos = entry->sector_start;

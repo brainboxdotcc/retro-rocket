@@ -60,10 +60,15 @@ int read_fat(fat32_t* info)
 	info->numberoffats = par->numberoffats;
 	info->fatsize = par->sectorsperfat;
 	info->info = kmalloc(sizeof(fat32_fs_info_t));
+	if (!info->info) {
+		kfree_null(&buffer);
+		return 0;
+	}
 	info->clustersize = par->sectorspercluster;
 	info->clustersize *= sd->block_size;
 
 	if (info->clustersize == 0) {
+		kfree_null(&buffer);
 		fs_set_error(FS_ERR_IS_EXFAT);
 		return 0;
 	}

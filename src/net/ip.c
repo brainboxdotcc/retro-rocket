@@ -538,6 +538,10 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 				/* We have complete packet, all fragments - reassemble the data part and free everything */
 				ip_packet_frag_t* cur = fragmented->ordered_list;
 				data_ptr = kmalloc(fragmented->size);
+				if (!data_ptr) {
+					dprintf("Can't allocate memory for frag\n");
+					return;
+				}
 				data_len = fragmented->size;
 				/* Set flag to indicate we need to free the data_ptr later */
 				fragment_to_free = true;

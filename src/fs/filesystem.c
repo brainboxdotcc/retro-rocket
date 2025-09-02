@@ -178,6 +178,9 @@ bool vfs_path_add_child(const char* path, const char* child) {
 	}
 	if (exists->child_count == 0) {
 		exists->children = kmalloc(sizeof(char*));
+		if (!exists->children) {
+			return false;
+		}
 		exists->children[0] = strdup(child);
 		exists->child_count = 1;
 	} else {
@@ -196,6 +199,9 @@ bool vfs_path_add_child(const char* path, const char* child) {
 		}
 		exists->child_count++;
 		exists->children[exists->child_count - 1] = strdup(child);
+		if (!exists->children[exists->child_count - 1]) {
+			return false;
+		}
 	}
 	return true;
 }
@@ -662,6 +668,9 @@ fs_directory_entry_t* fs_create_directory(const char* pathandfile)
 		if (lbapos) {
 			dprintf("Driver createdirectory %lu\n", lbapos);
 			new_entry = kmalloc(sizeof(fs_directory_entry_t));
+			if (!new_entry) {
+				return NULL;
+			}
 			datetime_t dt;
 			get_datetime(&dt);
 			get_weekday_from_date(&dt);
@@ -683,6 +692,10 @@ fs_directory_entry_t* fs_create_directory(const char* pathandfile)
 			directory->files = new_entry;
 			/* TODO add to FS tree, dont forget responsible_driver ptr! */
 			fs_tree_t* new_dir  = kmalloc(sizeof(fs_tree_t));
+			if (!new_dir) {
+				kfree_null(&new_entry);
+				return NULL;
+			}
 			new_dir->next = directory->child_dirs;
 			new_dir->device = directory->device;
 			strlcpy(new_dir->device_name, directory->device_name, 16);

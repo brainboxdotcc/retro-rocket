@@ -40,6 +40,9 @@ int parse_pvd(iso9660 *info, unsigned char *buffer) {
 
 	size_t j = 0;
 	info->volume_name = kmalloc(strlen(pvd->volumeidentifier) + 1);
+	if (!info->volume_name) {
+		return false;
+	}
 	for (ptr = pvd->volumeidentifier; *ptr && j < strlen(pvd->volumeidentifier); ++ptr) {
 		info->volume_name[j++] = *ptr;
 	}
@@ -363,6 +366,9 @@ int iso9660_attach(const char *device, const char *path) {
 
 void init_iso9660() {
 	iso9660_fs = kmalloc(sizeof(filesystem_t));
+	if (!iso9660_fs) {
+		return;
+	}
 	strlcpy(iso9660_fs->name, "iso9660", 31);
 	iso9660_fs->mount = iso9660_attach;
 	iso9660_fs->getdir = iso_get_directory;

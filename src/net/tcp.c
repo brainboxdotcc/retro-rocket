@@ -291,6 +291,9 @@ tcp_conn_t* tcp_send_segment(tcp_conn_t *conn, uint32_t seq, uint8_t flags, cons
 	tcp_options_t options = { .mss = flags & TCP_SYN ? 1460 : 0 };
 	uint16_t length = sizeof(tcp_segment_t) + count + (flags & TCP_SYN ? 4 : 0);
 	tcp_segment_t* packet = kmalloc(length);
+	if (!packet) {
+		return NULL;
+	}
 
 	memset(packet, 0, length);
 	packet->src_port = conn->local_port;
@@ -441,7 +444,14 @@ tcp_segment_t* tcp_ord_list_insert(tcp_conn_t* conn, tcp_segment_t* segment, siz
 
 	// allocate new node
 	tcp_ordered_list_t *new = kmalloc(sizeof(tcp_ordered_list_t));
+	if (!new) {
+		return NULL;
+	}
 	new->segment = kmalloc(len + tcp_header_size(segment));
+	if (!new->segment) {
+		kfree_null(&new);
+		return NULL;
+	}
 	memcpy(new->segment, segment, len + tcp_header_size(segment));
 	new->len = len;
 	new->prev = NULL;

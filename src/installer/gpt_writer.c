@@ -218,6 +218,9 @@ bool prepare_rfs_partition(storage_device_t* dev) {
 	uint8_t partitionid = 0;
 	char found_guid[64];
 	rfs_t *info = kmalloc(sizeof(rfs_t));
+	if (!info) {
+		return false;
+	}
 	memset(info, 0, sizeof(rfs_t));
 	uint64_t start = 0, length = 0;
 	info->dev = dev;

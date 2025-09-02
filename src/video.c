@@ -293,6 +293,9 @@ void rr_console_init_from_limine(void) {
 	screen_graphics_stride = fb->pitch;
 	rr_fb_bytes  = rr_fb_pitch * rr_fb_height;  // full bytes, includes padding per row
 	rr_fb_back = kmalloc(rr_fb_bytes);
+	if (!rr_fb_back) {
+		preboot_fail("Out of memory for backbuffer");
+	}
 	memset(rr_fb_back, 0, rr_fb_bytes);
 }
 

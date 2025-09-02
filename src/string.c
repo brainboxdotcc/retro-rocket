@@ -245,8 +245,10 @@ char* strdup(const char* string)
 	}
 	uint32_t len = strlen(string);
 	char* result = kmalloc(len + 1);
-	strlcpy(result, string, len + 1);
-	*(result + len) = 0;
+	if (result) {
+		strlcpy(result, string, len + 1);
+		*(result + len) = 0;
+	}
 	return result;
 }
 

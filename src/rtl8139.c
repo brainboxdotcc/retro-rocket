@@ -306,8 +306,6 @@ void init_rtl8139() {
 
 	rtl_outl(RxBuf, rtl8139_device.rx_buffer);
 
-	kprintf("RX buffer assigned at %08x\n", rtl8139_device.rx_buffer);
-
 	rtl_outb(RxEarlyThresh, 0x3C);
 
 	for(int i=0; i < 4; i++) {
@@ -341,6 +339,9 @@ void init_rtl8139() {
 	make_unique_device_name("net", rtl8139_device.name, sizeof(rtl8139_device.name));
 
 	netdev_t* net = kmalloc(sizeof(netdev_t));
+	if (!net) {
+		return;
+	}
 	net->opaque = &rtl8139_device;
 	net->deviceid = (RTL8139_VENDOR_ID << 16) | RTL8139_DEVICE_ID;
 	strlcpy(net->name, rtl8139_device.name, 16);

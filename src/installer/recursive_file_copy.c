@@ -12,6 +12,9 @@ bool copy_file(const char* source, const char* destination) {
 	fs_directory_entry_t* info = fs_get_file_info(source);
 	if (info && !(info->flags & FS_DIRECTORY) && info->size > 0) {
 		void *file_contents = kmalloc(info->size);
+		if (!file_contents) {
+			return false;
+		}
 		bool read_success = fs_read_file(info, 0, info->size, file_contents);
 		if (!read_success) {
 			error_page("Error reading '%s' (%s)\n", source, fs_strerror(fs_get_error()));
