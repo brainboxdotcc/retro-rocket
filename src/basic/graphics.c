@@ -25,6 +25,9 @@ int64_t alloc_sprite(struct basic_ctx* ctx)
 	for (uint64_t i = 0; i < MAX_SPRITES; ++i) {
 		if (ctx->sprites[i] == NULL) {
 			ctx->sprites[i] = buddy_malloc(ctx->allocator, sizeof(sprite_t));
+			if (!ctx->sprites[i]) {
+				return -1;
+			}
 			ctx->sprites[i]->width = 0;
 			ctx->sprites[i]->height = 0;
 			ctx->sprites[i]->pixels = NULL;

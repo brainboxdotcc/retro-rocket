@@ -131,10 +131,16 @@ bool basic_dim_int_array(const char* var, int64_t size, struct basic_ctx* ctx)
 		}
 	}
 	struct ub_var_int_array* new = buddy_malloc(ctx->allocator, sizeof(ub_var_int_array));
+	if (!new) {
+		return false;
+	}
 	new->itemcount = size;
 	new->next = ctx->int_array_variables;
 	new->varname = buddy_strdup(ctx->allocator, var);
 	new->values = buddy_malloc(ctx->allocator, sizeof(int64_t) * size);
+	if (!new->values) {
+		return false;
+	}
 	for (int64_t v = 0; v < size; ++v) {
 		new->values[v] = 0;
 	}
@@ -165,10 +171,16 @@ bool basic_dim_string_array(const char* var, int64_t size, struct basic_ctx* ctx
 		}
 	}
 	struct ub_var_string_array* new = buddy_malloc(ctx->allocator, sizeof(ub_var_string_array));
+	if (!new) {
+		return false;
+	}
 	new->itemcount = size;
 	new->next = ctx->string_array_variables;
 	new->varname = buddy_strdup(ctx->allocator, var);
 	new->values = buddy_malloc(ctx->allocator, sizeof(char*) * size);
+	if (!new->values) {
+		return false;
+	}
 	for (int64_t v = 0; v < size; ++v) {
 		new->values[v] = NULL;
 	}
@@ -199,10 +211,16 @@ bool basic_dim_double_array(const char* var, int64_t size, struct basic_ctx* ctx
 		}
 	}
 	struct ub_var_double_array* new = buddy_malloc(ctx->allocator, sizeof(ub_var_double_array));
+	if (!new) {
+		return false;
+	}
 	new->itemcount = size;
 	new->next = ctx->double_array_variables;
 	new->varname = buddy_strdup(ctx->allocator, var);
 	new->values = buddy_malloc(ctx->allocator, sizeof(double) * size);
+	if (!new->values) {
+		return false;
+	}
 	for (int64_t v = 0; v < size; ++v) {
 		new->values[v] = 0.0;
 	}

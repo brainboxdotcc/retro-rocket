@@ -203,8 +203,8 @@ struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file
 	}
 	ctx->string_gc_storage = kmalloc(STRING_GC_AREA_SIZE);
 	if (!ctx->string_gc_storage) {
-		kfree_null(&ctx);
 		kfree_null(&ctx->program_ptr);
+		kfree_null(&ctx);
 		*error = "Out of memory";
 		return NULL;
 	}
@@ -212,6 +212,12 @@ struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file
 	*ctx->string_gc_storage = 0;
 	ctx->string_gc_storage_next = ctx->string_gc_storage + 1;
 	ctx->allocator = kmalloc(sizeof(buddy_allocator_t));
+	if (!ctx->allocator) {
+		kfree_null(&ctx->program_ptr);
+		kfree_null(&ctx);
+		*error = "Out of memory";
+		return NULL;
+	}
 	buddy_init(ctx->allocator, 6, 20, 20);
 	ctx->lines = hashmap_new(sizeof(ub_line_ref), 0, 5923530135432, 458397058, line_hash, line_compare, NULL, NULL);
 

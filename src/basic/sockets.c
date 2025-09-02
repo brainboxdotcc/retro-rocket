@@ -251,7 +251,11 @@ static void basic_udp_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t
 		return;
 	}
 	dprintf("basic_udp_handle_packet %u\n", dst_port);
+	// TODO: Protect this against concurrent access
 	queued_udp_packet* packet = buddy_malloc(ctx->allocator, sizeof(queued_udp_packet));
+	if (!packet) {
+		return;
+	}
 	char ip[MAX_STRINGLEN];
 	src_ip = ntohl(src_ip);
 	get_ip_str(ip, (uint8_t*)&src_ip);

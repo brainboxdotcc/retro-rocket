@@ -205,6 +205,10 @@ void basic_set_string_variable(const char* var, const char* value, struct basic_
 	if (list[local] == NULL) {
 		if (local) {
 			ctx->local_string_variables[ctx->call_stack_ptr] = buddy_malloc(ctx->allocator, sizeof(struct ub_var_string));
+			if (!ctx->local_string_variables[ctx->call_stack_ptr]) {
+				tokenizer_error_print(ctx, "Out of memory");
+				return;
+			}
 			ctx->local_string_variables[ctx->call_stack_ptr]->next = NULL;
 			ctx->local_string_variables[ctx->call_stack_ptr]->varname = buddy_strdup(ctx->allocator, var);
 			ctx->local_string_variables[ctx->call_stack_ptr]->value = buddy_strdup(ctx->allocator, value);
@@ -212,6 +216,10 @@ void basic_set_string_variable(const char* var, const char* value, struct basic_
 			ctx->local_string_variables[ctx->call_stack_ptr]->name_length = len;
 		} else {
 			ctx->str_variables = buddy_malloc(ctx->allocator, sizeof(struct ub_var_string));
+			if (!ctx->str_variables) {
+				tokenizer_error_print(ctx, "Out of memory");
+				return;
+			}
 			ctx->str_variables->next = NULL;
 			ctx->str_variables->varname = buddy_strdup(ctx->allocator, var);
 			ctx->str_variables->value = buddy_strdup(ctx->allocator, value);
@@ -239,6 +247,10 @@ void basic_set_string_variable(const char* var, const char* value, struct basic_
 			}
 		}
 		struct ub_var_string* newvar = buddy_malloc(ctx->allocator, sizeof(struct ub_var_string));
+		if (!newvar) {
+			tokenizer_error_print(ctx, "Out of memory");
+			return;
+		}
 		newvar->next = (local ? ctx->local_string_variables[ctx->call_stack_ptr] : ctx->str_variables);
 		newvar->varname = buddy_strdup(ctx->allocator, var);
 		newvar->value = buddy_strdup(ctx->allocator, value);
@@ -266,19 +278,22 @@ void basic_set_int_variable(const char* var, int64_t value, struct basic_ctx* ct
 	}
 	size_t len = strlen(var);
 	if (list[local] == NULL) {
-		if (setting_n) {
-			dprintf("Setting N with list[local] == NULL (list is empty)\n");
-		}
 		if (local) {
-			if (setting_n) dprintf("Setting N in local stack set (list is empty)\n");
 			ctx->local_int_variables[ctx->call_stack_ptr] = buddy_malloc(ctx->allocator, sizeof(struct ub_var_int));
+			if (!ctx->local_int_variables[ctx->call_stack_ptr]) {
+				tokenizer_error_print(ctx, "Out of memory");
+				return;
+			}
 			ctx->local_int_variables[ctx->call_stack_ptr]->next = NULL;
 			ctx->local_int_variables[ctx->call_stack_ptr]->varname = buddy_strdup(ctx->allocator, var);
 			ctx->local_int_variables[ctx->call_stack_ptr]->name_length = len;
 			ctx->local_int_variables[ctx->call_stack_ptr]->value = value;
 		} else {
-			if (setting_n) dprintf("Set N in global set\n");
 			ctx->int_variables = buddy_malloc(ctx->allocator, sizeof(struct ub_var_int));
+			if (!ctx->int_variables) {
+				tokenizer_error_print(ctx, "Out of memory");
+				return;
+			}
 			ctx->int_variables->next = NULL;
 			ctx->int_variables->varname = buddy_strdup(ctx->allocator, var);
 			ctx->int_variables->name_length = len;
@@ -286,7 +301,6 @@ void basic_set_int_variable(const char* var, int64_t value, struct basic_ctx* ct
 		}
 		return;
 	} else {
-		if (setting_n) dprintf("Set N, non-empty, %s\n", local ? "locals" : "globals");
 		struct ub_var_int* cur = local ? ctx->local_int_variables[ctx->call_stack_ptr] : ctx->int_variables;
 		for (; cur; cur = cur->next) {
 			if (len == cur->name_length && !strcmp(var, cur->varname)) {
@@ -298,6 +312,10 @@ void basic_set_int_variable(const char* var, int64_t value, struct basic_ctx* ct
 		}
 		//dprintf("Set int variable '%s' to '%d'\n", var, value);
 		struct ub_var_int* newvar = buddy_malloc(ctx->allocator, sizeof(struct ub_var_int));
+		if (!newvar) {
+			tokenizer_error_print(ctx, "Out of memory");
+			return;
+		}
 		newvar->next = (local ? ctx->local_int_variables[ctx->call_stack_ptr] : ctx->int_variables);
 		newvar->varname = buddy_strdup(ctx->allocator, var);
 		newvar->name_length = len;
@@ -328,12 +346,20 @@ void basic_set_double_variable(const char* var, double value, struct basic_ctx* 
 	if (list[local] == NULL) {
 		if (local) {
 			ctx->local_double_variables[ctx->call_stack_ptr] = buddy_malloc(ctx->allocator, sizeof(struct ub_var_double));
+			if (!ctx->local_double_variables[ctx->call_stack_ptr]) {
+				tokenizer_error_print(ctx, "Out of memory");
+				return;
+			}
 			ctx->local_double_variables[ctx->call_stack_ptr]->next = NULL;
 			ctx->local_double_variables[ctx->call_stack_ptr]->varname = buddy_strdup(ctx->allocator, var);
 			ctx->local_double_variables[ctx->call_stack_ptr]->name_length = len;
 			ctx->local_double_variables[ctx->call_stack_ptr]->value = value;
 		} else {
 			ctx->double_variables = buddy_malloc(ctx->allocator, sizeof(struct ub_var_double));
+			if (!ctx->double_variables) {
+				tokenizer_error_print(ctx, "Out of memory");
+				return;
+			}
 			ctx->double_variables->next = NULL;
 			ctx->double_variables->varname = buddy_strdup(ctx->allocator, var);
 			ctx->double_variables->name_length = len;
@@ -350,8 +376,11 @@ void basic_set_double_variable(const char* var, double value, struct basic_ctx* 
 				return;
 			}
 		}
-		//dprintf("Set double variable '%s' to '%s'\n", var, double_to_string(value, buffer, MAX_STRINGLEN, 0));
 		struct ub_var_double* newvar = buddy_malloc(ctx->allocator, sizeof(struct ub_var_double));
+		if (!newvar) {
+			tokenizer_error_print(ctx, "Out of memory");
+			return;
+		}
 		newvar->next = (local ? ctx->local_double_variables[ctx->call_stack_ptr] : ctx->double_variables);
 		newvar->varname = buddy_strdup(ctx->allocator, var);
 		newvar->name_length = len;

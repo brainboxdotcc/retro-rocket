@@ -430,6 +430,9 @@ bool basic_parse_fn(struct basic_ctx* ctx)
 			char const* lineend = program;
 			
 			char* linetext = buddy_malloc(ctx->allocator, lineend - linestart + 1);
+			if (!linetext) {
+				return false;
+			}
 			strlcpy(linetext, linestart, lineend - linestart + 1);
 
 			char* search = linetext;
@@ -469,6 +472,9 @@ bool basic_parse_fn(struct basic_ctx* ctx)
 				}
 
 				struct ub_proc_fn_def* def = buddy_malloc(ctx->allocator, sizeof(struct ub_proc_fn_def));
+				if (!def) {
+					return false;
+				}
 				def->name = buddy_strdup(ctx->allocator, name);
 				def->type = type;
 				def->line = currentline;
@@ -491,7 +497,9 @@ bool basic_parse_fn(struct basic_ctx* ctx)
 						if (*search == ',' || *search == ')') {
 							pname[pni] = 0;
 							struct ub_param* par = buddy_malloc(ctx->allocator, sizeof(struct ub_param));
-
+							if (!par) {
+								return false;
+							}
 							par->next = NULL;
 							par->name = buddy_strdup(ctx->allocator, pname);
 
