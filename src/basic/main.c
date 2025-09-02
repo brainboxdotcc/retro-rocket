@@ -158,6 +158,10 @@ struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file
 	if (!isdigit(*program)) {
 		/* Program is not line numbered! Auto-number it. */
 		const char *numbered = auto_number(program, 1, 1);
+		if (!numbered) {
+			*error = "Out of memory";
+			return NULL;
+		}
 		struct basic_ctx *c = basic_init(numbered, pid, file, error);
 		kfree_null(&numbered);
 		return c;
@@ -316,6 +320,9 @@ void library_statement(struct basic_ctx *ctx) {
 
 	/* Auto-number the library to be above the existing program statements */
 	const char *numbered = auto_number(clean_library, ctx->highest_line + 1, 1);
+	if (!numbered) {
+		return;
+	}
 	library_len = strlen(numbered);
 
 	/* Append the renumbered library to the end of the program (this reallocates

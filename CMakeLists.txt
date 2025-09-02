@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.22)
 project(retrorocket C ASM ASM_NASM)
 
+set_property(GLOBAL PROPERTY RULE_MESSAGES ON)
+set_property(GLOBAL PROPERTY TARGET_MESSAGES OFF)
+
 option(USE_E1000 "Use the e1000 NIC driver in QEMU instead of rtl8139" ON)
 option(PROFILE_KERNEL "Profile the kernel, and output callgrind compatible file via COM1" OFF)
 

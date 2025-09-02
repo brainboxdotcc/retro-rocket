@@ -24,6 +24,8 @@
 #include "cv.h"
 #include "printf.h"
 #include "hashmap.h"
+#include "vector.h"
+#include "map.h"
 #include "random.h"
 #include "video.h"
 #include "string.h"

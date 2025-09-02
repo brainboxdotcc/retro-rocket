@@ -76,7 +76,7 @@ bool check_input_in_progress(process_t* proc, void* opaque)
 	if (basic_esc()) {
 		return false;
 	}
-	return kinput(10240) == 0;
+	return kinput(MAX_STRINGLEN) == 0;
 }
 
 /**

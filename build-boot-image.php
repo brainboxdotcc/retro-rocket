@@ -100,7 +100,7 @@ if (!is_file($limineCfgSrc)) {
 
 $bytes = $sizeMiB * 1024 * 1024;
 
-echo ">> Creating {$sizeMiB} MiB image: {$outImage}\n";
+echo ">> Creating boot FS image: {$outImage}\n";
 if ($haveTruncate) {
     runCommand("truncate -s " . escapeshellarg((string)$bytes) . " " . escapeshellarg($outImage));
 } else {
@@ -110,26 +110,15 @@ if ($haveTruncate) {
 echo ">> Formatting FAT32 with label '{$label}'\n";
 runCommand("mformat -i " . escapeshellarg($outImage) . " -F -v " . escapeshellarg($label) . " ::");
 
-/* ------------------------ populate files -------------------------- */
-
 echo ">> Creating EFI directory structure\n";
 runCommand("mmd -i " . escapeshellarg($outImage) . " ::/EFI");
 runCommand("mmd -i " . escapeshellarg($outImage) . " ::/EFI/BOOT");
 
-echo ">> Copying Limine UEFI loader\n";
+echo ">> Copying files to boot image\n";
 runCommand("mcopy -i " . escapeshellarg($outImage) . " -sp " . escapeshellarg($limineBoot) . " ::/EFI/BOOT/BOOTX64.EFI");
-
-echo ">> Copying limine.cfg verbatim\n";
 runCommand("mcopy -i " . escapeshellarg($outImage) . " -sp " . escapeshellarg($limineCfgSrc) . " ::/limine.cfg");
-
-echo ">> Copying kernel to /kernel.bin\n";
 runCommand("mcopy -i " . escapeshellarg($outImage) . " -sp " . escapeshellarg($kernelPath) . " ::/kernel.bin");
-
-echo ">> Copying symbols to /kernel.sym\n";
 runCommand("mcopy -i " . escapeshellarg($outImage) . " -sp " . escapeshellarg($symbolPath) . " ::/kernel.sym");
-
-/* --------------------------- summary ------------------------------ */
 
 echo ">> Done.\n";
 echo "Image ready: {$outImage}\n";
-echo "Write this raw FAT32 partition image into the ESP’s LBA range in your GPT.\n";
