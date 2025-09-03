@@ -25,38 +25,34 @@
 extern bool debug;
 
 void *varmap_malloc(size_t size, void *udata) {
-	struct buddy_allocator *a = (struct buddy_allocator *)udata;
+	struct buddy_allocator *a = udata;
 	return buddy_malloc(a, size);
 }
 
 void *varmap_realloc(void *ptr, size_t size, void *udata) {
-	struct buddy_allocator *a = (struct buddy_allocator *)udata;
+	struct buddy_allocator *a = udata;
 	return buddy_realloc(a, ptr, size);
 }
 
 void varmap_free(const void *ptr, void *udata) {
-	if (ptr != NULL) {
-		struct buddy_allocator *a = (struct buddy_allocator *)udata;
-		buddy_free(a, ptr);
-	}
+	struct buddy_allocator *a = udata;
+	buddy_free(a, ptr);
 }
 
 /* Assumes each ub_var_* has: char *varname; size_t name_length; */
 uint64_t varmap_hash(const void *item, uint64_t seed0, uint64_t seed1) {
-	const ub_var_int *v = (const ub_var_int *)item; /* name fields layout-compatible */
+	const ub_var_int *v = item; /* name fields layout-compatible */
 	const char *s = v->varname ? v->varname : "";
 	size_t len = v->name_length ? v->name_length : strlen(s);
 	return hashmap_sip(s, len, seed0, seed1);
 }
 
 int varmap_compare(const void *a, const void *b, void *udata) {
-	(void)udata;
-	const ub_var_int *va = (const ub_var_int *)a;
-	const ub_var_int *vb = (const ub_var_int *)b;
+	const ub_var_int *va = a;
+	const ub_var_int *vb = b;
 
 	size_t la = va->name_length ? va->name_length : (va->varname ? strlen(va->varname) : 0);
 	size_t lb = vb->name_length ? vb->name_length : (vb->varname ? strlen(vb->varname) : 0);
-
 	if (la != lb) {
 		return (la < lb) ? -1 : 1;
 	}
@@ -69,39 +65,31 @@ int varmap_compare(const void *a, const void *b, void *udata) {
 /* ===== Element free (udata = struct buddy_allocator*) ===== */
 
 void varmap_elfree_int(const void *item, void *udata) {
-	const ub_var_int *v = (const ub_var_int *)item;
-	dprintf("elfree_int '%s'\n", v->varname);
+	const ub_var_int *v = item;
 	if (v && v->varname) {
-		struct buddy_allocator *a = (struct buddy_allocator *)udata;
-		buddy_free(a, (void *)v->varname);
+		struct buddy_allocator *a = udata;
+		buddy_free(a, v->varname);
 	}
 }
 
 void varmap_elfree_double(const void *item, void *udata) {
-	const ub_var_double *v = (const ub_var_double *)item;
+	const ub_var_double *v = item;
 	if (v && v->varname) {
-		dprintf("elfree_double '%s'\n", v->varname);
-		struct buddy_allocator *a = (struct buddy_allocator *)udata;
-		buddy_free(a, (void *)v->varname);
+		struct buddy_allocator *a = udata;
+		buddy_free(a, v->varname);
 	}
 }
 
 /* IMPORTANT: strings free both name AND value */
 void varmap_elfree_string(const void *item, void *udata) {
-	const ub_var_string *v = (const ub_var_string *)item;
+	const ub_var_string *v = item;
 	if (!v) {
 		return;
 	}
-	dprintf("elfree_string '%s'\n", v->varname);
-	struct buddy_allocator *a = (struct buddy_allocator *)udata;
-	if (v->varname) {
-		buddy_free(a, (void *)v->varname);
-	}
-	if (v->value) {
-		buddy_free(a, (void *)v->value);
-	}
+	struct buddy_allocator *a = udata;
+	buddy_free(a, v->varname);
+	buddy_free(a, v->value);
 }
-
 
 char *clean_basic(const char *program, char *output_buffer) {
 	bool in_quotes = false;
@@ -258,7 +246,7 @@ struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file
 		*error = "Out of memory";
 		return NULL;
 	}
-	buddy_init(ctx->allocator, 6, 20, 20);
+	buddy_init(ctx->allocator, 6, 26, 26);
 	ctx->debug_status = 0;
 	ctx->debug_breakpoints = NULL;
 	ctx->debug_breakpoint_count = 0;
@@ -525,11 +513,6 @@ struct basic_ctx *basic_clone(struct basic_ctx *old) {
 
 
 void basic_destroy(struct basic_ctx *ctx) {
-	for (uint32_t sprite_handle = 0; sprite_handle < MAX_SPRITES; ++sprite_handle) {
-		if (ctx->sprites[sprite_handle]) {
-			free_sprite(ctx, sprite_handle);
-		}
-	}
 	ctx->string_gc_storage_next = NULL;
 	/* I'm not your pal, buddy... 😂 */
 	buddy_destroy(ctx->allocator);
