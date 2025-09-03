@@ -188,6 +188,13 @@ bool valid_int_var(const char* name)
     return valid_suffix_var(name, '\0');
 }
 
+static void update_string(struct basic_ctx* ctx, ub_var_string* str, size_t len, bool propagate_global, const char* varname, const char* value) {
+	str->name_length = len;
+	str->global = propagate_global;
+	str->varname = buddy_strdup(ctx->allocator, varname);
+	str->value = buddy_strdup(ctx->allocator, value);
+}
+
 void basic_set_string_variable(const char* var, const char* value, struct basic_ctx* ctx, bool local, bool propagate_global) {
 	struct hashmap* locals = ctx->local_string_variables[ctx->call_stack_ptr];
 	struct hashmap* globals = ctx->str_variables;
@@ -203,32 +210,30 @@ void basic_set_string_variable(const char* var, const char* value, struct basic_
 	if (local && locals && (found = hashmap_get(locals, &(ub_var_string) { .varname = var }))) {
 		buddy_free(ctx->allocator, found->varname);
 		buddy_free(ctx->allocator, found->value);
-		found->name_length = len;
-		found->global = propagate_global;
-		found->varname = buddy_strdup(ctx->allocator, var);
-		found->value = buddy_strdup(ctx->allocator, value);
+		update_string(ctx, found, len, propagate_global, var, value);
 		oom = !hashmap_set(locals, found) && hashmap_oom(locals);
 	} else if ((found = hashmap_get(globals, &(ub_var_string) { .varname = var }))) {
 		buddy_free(ctx->allocator, found->varname);
 		buddy_free(ctx->allocator, found->value);
-		found->name_length = len;
-		found->global = propagate_global;
-		found->varname = buddy_strdup(ctx->allocator, var);
-		found->value = buddy_strdup(ctx->allocator, value);
+		update_string(ctx, found, len, propagate_global, var, value);
 		oom = !hashmap_set(globals, found) && hashmap_oom(globals);
 	} else {
 		struct hashmap* target = local && locals ? locals : globals;
 		ub_var_string new;
-		new.name_length = len;
-		new.global = propagate_global;
-		new.varname = buddy_strdup(ctx->allocator, var);
-		new.value = buddy_strdup(ctx->allocator, value);
+		update_string(ctx, &new, len, propagate_global, var, value);
 		oom = !hashmap_set(target, &new) && hashmap_oom(target);
 	}
 	if (oom) {
 		tokenizer_error_print(ctx, "Out of memory");
 		return;
 	}
+}
+
+static void update_int(struct basic_ctx* ctx, ub_var_int* integer, size_t len, bool propagate_global, const char* varname, int64_t value) {
+	integer->name_length = len;
+	integer->global = propagate_global;
+	integer->varname = buddy_strdup(ctx->allocator, varname);
+	integer->value = value;
 }
 
 void basic_set_int_variable(const char* var, int64_t value, struct basic_ctx* ctx, bool local, bool propagate_global) {
@@ -246,35 +251,32 @@ void basic_set_int_variable(const char* var, int64_t value, struct basic_ctx* ct
 	if (local && locals && (found = hashmap_get(locals, &(ub_var_int) { .varname = var }))) {
 		basic_debug("local set '%s' %p\n", var, ctx->allocator);
 		buddy_free(ctx->allocator, found->varname);
-		found->name_length = len;
-		found->global = propagate_global;
-		found->varname = buddy_strdup(ctx->allocator, var);
-		found->value = value;
+		update_int(ctx, found, len, propagate_global, var, value);
 		oom = !hashmap_set(locals, found) && hashmap_oom(locals);
 	} else if ((found = hashmap_get(globals, &(ub_var_int) { .varname = var }))) {
 		basic_debug("global set '%s' %p %p\n", var, found->varname, ctx->allocator);
 		buddy_free(ctx->allocator, found->varname);
-		found->name_length = len;
-		found->global = propagate_global;
-		found->varname = buddy_strdup(ctx->allocator, var);
-		basic_debug("strdup'd\n");
-		found->value = value;
+		update_int(ctx, found, len, propagate_global, var, value);
 		oom = !hashmap_set(globals, found) && hashmap_oom(globals);
 		basic_debug("set, oom=%d\n", oom);
 	} else {
 		struct hashmap* target = local && locals ? locals : globals;
 		basic_debug("%s create '%s' %p\n", target == globals ? "global" : "local", var, ctx->allocator);
 		ub_var_int new;
-		new.name_length = len;
-		new.global = propagate_global;
-		new.varname = buddy_strdup(ctx->allocator, var);
-		new.value = value;
+		update_int(ctx, &new, len, propagate_global, var, value);
 		oom = !hashmap_set(target, &new) && hashmap_oom(target);
 	}
 	if (oom) {
 		tokenizer_error_print(ctx, "Out of memory");
 		return;
 	}
+}
+
+static void update_double(struct basic_ctx* ctx, ub_var_double* dbl, size_t len, bool propagate_global, const char* varname, double value) {
+	dbl->name_length = len;
+	dbl->global = propagate_global;
+	dbl->varname = buddy_strdup(ctx->allocator, varname);
+	dbl->value = value;
 }
 
 void basic_set_double_variable(const char* var, double value, struct basic_ctx* ctx, bool local, bool propagate_global)
@@ -292,25 +294,16 @@ void basic_set_double_variable(const char* var, double value, struct basic_ctx* 
 	bool oom = false;
 	if (local && locals && (found = hashmap_get(locals, &(ub_var_double) { .varname = var }))) {
 		buddy_free(ctx->allocator, found->varname);
-		found->name_length = len;
-		found->global = propagate_global;
-		found->varname = buddy_strdup(ctx->allocator, var);
-		found->value = value;
+		update_double(ctx, found, len, propagate_global, var, value);
 		oom = !hashmap_set(locals, found) && hashmap_oom(locals);
 	} else if ((found = hashmap_get(globals, &(ub_var_double) { .varname = var }))) {
 		buddy_free(ctx->allocator, found->varname);
-		found->name_length = len;
-		found->global = propagate_global;
-		found->varname = buddy_strdup(ctx->allocator, var);
-		found->value = value;
+		update_double(ctx, found, len, propagate_global, var, value);
 		oom = !hashmap_set(globals, found) && hashmap_oom(globals);
 	} else {
 		struct hashmap* target = local && locals ? locals : globals;
 		ub_var_double new;
-		new.name_length = len;
-		new.global = propagate_global;
-		new.varname = buddy_strdup(ctx->allocator, var);
-		new.value = value;
+		update_double(ctx, &new, len, propagate_global, var, value);
 		oom = !hashmap_set(target, &new) && hashmap_oom(target);
 	}
 	if (oom) {

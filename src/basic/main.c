@@ -350,8 +350,6 @@ void library_statement(struct basic_ctx *ctx) {
 	accept_or_return(LIBRARY, ctx);
 	const char *lib_file = str_expr(ctx);
 
-	dprintf("START REHASH ALLOCATOR: %p\n", ctx->allocator);
-
 	/* Validate the file exists and is not a directory */
 	fs_directory_entry_t *file_info = fs_get_file_info(lib_file);
 	accept_or_return(NEWLINE, ctx);
@@ -369,7 +367,7 @@ void library_statement(struct basic_ctx *ctx) {
 	 * (we need to look ahead and take note of this because the entire program
 	 * pointer structure will be rebuilt and any old ctx->ptr will be invalid!)
 	 */
-	uint64_t next_line = tokenizer_num(ctx, NUMBER);
+	int64_t next_line = tokenizer_num(ctx, NUMBER);
 
 	/* Load the library file from VFS */
 	size_t library_len = file_info->size;
@@ -440,7 +438,6 @@ void library_statement(struct basic_ctx *ctx) {
 	 */
 	char error[MAX_STRINGLEN];
 	hashmap_free(ctx->lines);
-	basic_debug("PRE REHASH ALLOCATOR: %p\n", ctx->allocator);
 	ctx->lines = hashmap_new_with_allocator(varmap_malloc, varmap_realloc, varmap_free, sizeof(ub_line_ref), 0, 5923530135432, 458397058, line_hash, line_compare, NULL, ctx->allocator);
 	if (!basic_hash_lines(ctx, (char **) &error)) {
 		tokenizer_error_print(ctx, error);
@@ -457,23 +454,15 @@ void library_statement(struct basic_ctx *ctx) {
 	if (def) {
 		basic_debug("Calling initialisation constructor '%s' on line %ld with return to line %ld\n", file_info->filename, def->line, next_line);
 		if (ctx->call_stack_ptr < MAX_CALL_STACK_DEPTH) {
-			basic_debug("1\n");
 			ctx->call_stack[ctx->call_stack_ptr] = next_line;
-			basic_debug("2\n");
 			ctx->fn_type_stack[ctx->call_stack_ptr] = ctx->fn_type; // save caller’s type
-			basic_debug("3\n");
 			ctx->call_stack_ptr++;
-			basic_debug("4\n");
 			init_local_heap(ctx);
-			basic_debug("5\n");
 			ctx->fn_type = RT_NONE;
-			basic_debug("6 -> %lu\n", def->line);
 			jump_linenum(def->line, ctx);
-			basic_debug("7 -> %p\n", ctx->allocator);
 		} else {
 			tokenizer_error_printf(ctx, "Call stack exhausted when calling constructor PROC for library '%s'", lib_file);
 		}
-		basic_debug("done\n");
 		return;
 	} else {
 		dprintf("Library '%s' has no initialisation constructor, continue at line %ld\n", file_info->filename, next_line);
