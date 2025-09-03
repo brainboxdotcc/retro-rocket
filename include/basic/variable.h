@@ -47,9 +47,9 @@ const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx);
  * @param value The value to set for the string variable.
  * @param ctx The current BASIC context.
  * @param local Boolean indicating whether the variable is local.
- * @param global Boolean indicating whether the variable is global.
+ * @param propagate_global Boolean indicating whether the variable is propagated globally to child programs.
  */
-void basic_set_string_variable(const char* var, const char* value, struct basic_ctx* ctx, bool local, bool global);
+void basic_set_string_variable(const char* var, const char* value, struct basic_ctx* ctx, bool local, bool propagate_global);
 
 /**
  * @brief Set the value of a double (real) variable.
@@ -60,9 +60,9 @@ void basic_set_string_variable(const char* var, const char* value, struct basic_
  * @param value The value to set for the double variable.
  * @param ctx The current BASIC context.
  * @param local Boolean indicating whether the variable is local.
- * @param global Boolean indicating whether the variable is global.
+ * @param propagate_global Boolean indicating whether the variable is propagated globally to child programs.
  */
-void basic_set_double_variable(const char* var, const double value, struct basic_ctx* ctx, bool local, bool global);
+void basic_set_double_variable(const char* var, const double value, struct basic_ctx* ctx, bool local, bool propagate_global);
 
 /**
  * @brief Set the value of an integer variable.
@@ -73,9 +73,9 @@ void basic_set_double_variable(const char* var, const double value, struct basic
  * @param value The value to set for the integer variable.
  * @param ctx The current BASIC context.
  * @param local Boolean indicating whether the variable is local.
- * @param global Boolean indicating whether the variable is global.
+ * @param propagate_global Boolean indicating whether the variable is propagated globally to child programs.
  */
-void basic_set_int_variable(const char* var, int64_t value, struct basic_ctx* ctx, bool local, bool global);
+void basic_set_int_variable(const char* var, int64_t value, struct basic_ctx* ctx, bool local, bool propagate_global);
 
 /**
  * @brief Get the numeric value of a variable.

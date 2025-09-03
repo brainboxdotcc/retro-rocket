@@ -60,7 +60,6 @@ typedef struct ub_var_string {
 	size_t name_length; ///< Length of the variable name
 	char* value; ///< The value of the string variable
 	bool global; ///< True if the variable is global, false if local
-	struct ub_var_string* next; ///< Pointer to the next string variable (for chaining)
 } ub_var_string;
 
 /**

@@ -24,6 +24,85 @@
 
 extern bool debug;
 
+void *varmap_malloc(size_t size, void *udata) {
+	struct buddy_allocator *a = (struct buddy_allocator *)udata;
+	return buddy_malloc(a, size);
+}
+
+void *varmap_realloc(void *ptr, size_t size, void *udata) {
+	struct buddy_allocator *a = (struct buddy_allocator *)udata;
+	return buddy_realloc(a, ptr, size);
+}
+
+void varmap_free(const void *ptr, void *udata) {
+	if (ptr != NULL) {
+		struct buddy_allocator *a = (struct buddy_allocator *)udata;
+		buddy_free(a, ptr);
+	}
+}
+
+/* Assumes each ub_var_* has: char *varname; size_t name_length; */
+uint64_t varmap_hash(const void *item, uint64_t seed0, uint64_t seed1) {
+	const ub_var_int *v = (const ub_var_int *)item; /* name fields layout-compatible */
+	const char *s = v->varname ? v->varname : "";
+	size_t len = v->name_length ? v->name_length : strlen(s);
+	return hashmap_sip(s, len, seed0, seed1);
+}
+
+int varmap_compare(const void *a, const void *b, void *udata) {
+	(void)udata;
+	const ub_var_int *va = (const ub_var_int *)a;
+	const ub_var_int *vb = (const ub_var_int *)b;
+
+	size_t la = va->name_length ? va->name_length : (va->varname ? strlen(va->varname) : 0);
+	size_t lb = vb->name_length ? vb->name_length : (vb->varname ? strlen(vb->varname) : 0);
+
+	if (la != lb) {
+		return (la < lb) ? -1 : 1;
+	}
+	if (la == 0) {
+		return 0;
+	}
+	return strcmp(va->varname, vb->varname);
+}
+
+/* ===== Element free (udata = struct buddy_allocator*) ===== */
+
+void varmap_elfree_int(const void *item, void *udata) {
+	const ub_var_int *v = (const ub_var_int *)item;
+	dprintf("elfree_int '%s'\n", v->varname);
+	if (v && v->varname) {
+		struct buddy_allocator *a = (struct buddy_allocator *)udata;
+		buddy_free(a, (void *)v->varname);
+	}
+}
+
+void varmap_elfree_double(const void *item, void *udata) {
+	const ub_var_double *v = (const ub_var_double *)item;
+	if (v && v->varname) {
+		dprintf("elfree_double '%s'\n", v->varname);
+		struct buddy_allocator *a = (struct buddy_allocator *)udata;
+		buddy_free(a, (void *)v->varname);
+	}
+}
+
+/* IMPORTANT: strings free both name AND value */
+void varmap_elfree_string(const void *item, void *udata) {
+	const ub_var_string *v = (const ub_var_string *)item;
+	if (!v) {
+		return;
+	}
+	dprintf("elfree_string '%s'\n", v->varname);
+	struct buddy_allocator *a = (struct buddy_allocator *)udata;
+	if (v->varname) {
+		buddy_free(a, (void *)v->varname);
+	}
+	if (v->value) {
+		buddy_free(a, (void *)v->value);
+	}
+}
+
+
 char *clean_basic(const char *program, char *output_buffer) {
 	bool in_quotes = false;
 	uint16_t bracket_depth = 0;
@@ -172,6 +251,14 @@ struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file
 		return NULL;
 	}
 
+	ctx->allocator = kmalloc(sizeof(buddy_allocator_t));
+	if (!ctx->allocator) {
+		kfree_null(&ctx->program_ptr);
+		kfree_null(&ctx);
+		*error = "Out of memory";
+		return NULL;
+	}
+	buddy_init(ctx->allocator, 6, 20, 20);
 	ctx->debug_status = 0;
 	ctx->debug_breakpoints = NULL;
 	ctx->debug_breakpoint_count = 0;
@@ -182,12 +269,14 @@ struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file
 	ctx->claimed_flip = false;
 	ctx->sleep_until = 0;
 	ctx->current_token = NO_TOKEN;
-	ctx->int_variables = NULL;
 	memset(ctx->sprites, 0, sizeof(ctx->sprites));
-	ctx->str_variables = NULL;
+
+	ctx->int_variables = hashmap_new_with_allocator(varmap_malloc, varmap_realloc, varmap_free, sizeof(struct ub_var_int), 0, SEED0, SEED1, varmap_hash, varmap_compare, varmap_elfree_int, ctx->allocator);
+	ctx->str_variables = hashmap_new_with_allocator(varmap_malloc, varmap_realloc, varmap_free, sizeof(struct ub_var_string), 0, SEED0, SEED1, varmap_hash, varmap_compare, varmap_elfree_string, ctx->allocator);
+	ctx->double_variables = hashmap_new_with_allocator(varmap_malloc, varmap_realloc, varmap_free, sizeof(struct ub_var_double), 0, SEED0, SEED1, varmap_hash, varmap_compare, varmap_elfree_double, ctx->allocator);
+
 	ctx->fn_type = RT_MAIN;
 	ctx->eval_linenum = 0;
-	ctx->double_variables = NULL;
 	ctx->int_array_variables = NULL;
 	ctx->string_array_variables = NULL;
 	ctx->double_array_variables = NULL;
@@ -215,15 +304,7 @@ struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file
 	/* Special for empty string storage */
 	*ctx->string_gc_storage = 0;
 	ctx->string_gc_storage_next = ctx->string_gc_storage + 1;
-	ctx->allocator = kmalloc(sizeof(buddy_allocator_t));
-	if (!ctx->allocator) {
-		kfree_null(&ctx->program_ptr);
-		kfree_null(&ctx);
-		*error = "Out of memory";
-		return NULL;
-	}
-	buddy_init(ctx->allocator, 6, 20, 20);
-	ctx->lines = hashmap_new(sizeof(ub_line_ref), 0, 5923530135432, 458397058, line_hash, line_compare, NULL, NULL);
+	ctx->lines = hashmap_new_with_allocator(varmap_malloc, varmap_realloc, varmap_free, sizeof(ub_line_ref), 0, 5923530135432, 458397058, line_hash, line_compare, NULL, ctx->allocator);
 
 	// Clean extra whitespace from the program
 	ctx->program_ptr = clean_basic(program, ctx->program_ptr);
@@ -268,6 +349,8 @@ void yield_statement(struct basic_ctx *ctx) {
 void library_statement(struct basic_ctx *ctx) {
 	accept_or_return(LIBRARY, ctx);
 	const char *lib_file = str_expr(ctx);
+
+	dprintf("START REHASH ALLOCATOR: %p\n", ctx->allocator);
 
 	/* Validate the file exists and is not a directory */
 	fs_directory_entry_t *file_info = fs_get_file_info(lib_file);
@@ -357,7 +440,8 @@ void library_statement(struct basic_ctx *ctx) {
 	 */
 	char error[MAX_STRINGLEN];
 	hashmap_free(ctx->lines);
-	ctx->lines = hashmap_new(sizeof(ub_line_ref), 0, 5923530135432, 458397058, line_hash, line_compare, NULL, NULL);
+	basic_debug("PRE REHASH ALLOCATOR: %p\n", ctx->allocator);
+	ctx->lines = hashmap_new_with_allocator(varmap_malloc, varmap_realloc, varmap_free, sizeof(ub_line_ref), 0, 5923530135432, 458397058, line_hash, line_compare, NULL, ctx->allocator);
 	if (!basic_hash_lines(ctx, (char **) &error)) {
 		tokenizer_error_print(ctx, error);
 		return;
@@ -371,17 +455,25 @@ void library_statement(struct basic_ctx *ctx) {
 	/* Look for constructor PROC with same name as library */
 	struct ub_proc_fn_def *def = basic_find_fn(file_info->filename, ctx);
 	if (def) {
-		dprintf("Calling initialisation constructor '%s' on line %ld with return to line %ld\n", file_info->filename, def->line, next_line);
+		basic_debug("Calling initialisation constructor '%s' on line %ld with return to line %ld\n", file_info->filename, def->line, next_line);
 		if (ctx->call_stack_ptr < MAX_CALL_STACK_DEPTH) {
+			basic_debug("1\n");
 			ctx->call_stack[ctx->call_stack_ptr] = next_line;
+			basic_debug("2\n");
 			ctx->fn_type_stack[ctx->call_stack_ptr] = ctx->fn_type; // save caller’s type
+			basic_debug("3\n");
 			ctx->call_stack_ptr++;
+			basic_debug("4\n");
 			init_local_heap(ctx);
+			basic_debug("5\n");
 			ctx->fn_type = RT_NONE;
+			basic_debug("6 -> %lu\n", def->line);
 			jump_linenum(def->line, ctx);
+			basic_debug("7 -> %p\n", ctx->allocator);
 		} else {
 			tokenizer_error_printf(ctx, "Call stack exhausted when calling constructor PROC for library '%s'", lib_file);
 		}
+		basic_debug("done\n");
 		return;
 	} else {
 		dprintf("Library '%s' has no initialisation constructor, continue at line %ld\n", file_info->filename, next_line);
@@ -493,30 +585,11 @@ void goto_statement(struct basic_ctx *ctx) {
  */
 void free_local_heap(struct basic_ctx *ctx) {
 	size_t i = ctx->call_stack_ptr;
-	struct ub_var_string *strings = ctx->local_string_variables[i];
-	while (strings) {
-		struct ub_var_string *next = strings->next;
-		buddy_free(ctx->allocator, strings->value);
-		buddy_free(ctx->allocator, strings->varname);
-		buddy_free(ctx->allocator, strings);
-		strings = next;
-	}
+	hashmap_free(ctx->local_int_variables[i]);
+	hashmap_free(ctx->local_string_variables[i]);
+	hashmap_free(ctx->local_double_variables[i]);
 	ctx->local_string_variables[i] = NULL;
-	struct ub_var_int *ints = ctx->local_int_variables[i];
-	while (ints) {
-		struct ub_var_int *next = ints->next;
-		buddy_free(ctx->allocator, ints->varname);
-		buddy_free(ctx->allocator, ints);
-		ints = next;
-	}
 	ctx->local_int_variables[i] = NULL;
-	struct ub_var_double *doubles = ctx->local_double_variables[i];
-	while (doubles) {
-		struct ub_var_double *next = doubles->next;
-		buddy_free(ctx->allocator, doubles->varname);
-		buddy_free(ctx->allocator, doubles);
-		doubles = next;
-	}
 	ctx->local_double_variables[i] = NULL;
 }
 
@@ -527,9 +600,9 @@ void free_local_heap(struct basic_ctx *ctx) {
  */
 void init_local_heap(struct basic_ctx *ctx) {
 	uint64_t i = ctx->call_stack_ptr;
-	ctx->local_int_variables[i] = NULL;
-	ctx->local_string_variables[i] = NULL;
-	ctx->local_double_variables[i] = NULL;
+	ctx->local_int_variables[i] = hashmap_new_with_allocator(varmap_malloc, varmap_realloc, varmap_free, sizeof(struct ub_var_int), 0, SEED0, SEED1, varmap_hash, varmap_compare, varmap_elfree_int, ctx->allocator);
+	ctx->local_string_variables[i] = hashmap_new_with_allocator(varmap_malloc, varmap_realloc, varmap_free, sizeof(struct ub_var_string), 0, SEED0, SEED1, varmap_hash, varmap_compare, varmap_elfree_string, ctx->allocator);
+	ctx->local_double_variables[i] = hashmap_new_with_allocator(varmap_malloc, varmap_realloc, varmap_free, sizeof(struct ub_var_double), 0, SEED0, SEED1, varmap_hash, varmap_compare, varmap_elfree_double, ctx->allocator);
 }
 
 void chain_statement(struct basic_ctx *ctx) {
@@ -547,27 +620,46 @@ void chain_statement(struct basic_ctx *ctx) {
 		accept_or_return(NEWLINE, ctx);
 		return;
 	}
-	struct basic_ctx *new_proc = p->code;
-	struct ub_var_int *cur_int = ctx->int_variables;
-	struct ub_var_string *cur_str = ctx->str_variables;
-	struct ub_var_double *cur_double = ctx->double_variables;
 
-	/* Inherit global variables into new process */
-	for (; cur_int; cur_int = cur_int->next) {
-		if (cur_int->global) {
-			basic_set_int_variable(cur_int->varname, cur_int->value, new_proc, false, true);
+	/* Inherit GLOBAL-propagated variables into the new process by walking the maps */
+	struct basic_ctx *new_proc = p->code;
+
+	/* Integers */
+	if (ctx->int_variables) {
+		size_t i = 0;
+		void *item = NULL;
+		while (hashmap_iter(ctx->int_variables, &i, &item)) {
+			struct ub_var_int *v = (struct ub_var_int *)item;
+			if (v->global) {
+				basic_set_int_variable(v->varname, v->value, new_proc, false, true);
+			}
 		}
 	}
-	for (; cur_str; cur_str = cur_str->next) {
-		if (cur_str->global) {
-			basic_set_string_variable(cur_str->varname, cur_str->value, new_proc, false, true);
+
+	/* Strings */
+	if (ctx->str_variables) {
+		size_t i = 0;
+		void *item = NULL;
+		while (hashmap_iter(ctx->str_variables, &i, &item)) {
+			struct ub_var_string *v = (struct ub_var_string *)item;
+			if (v->global) {
+				basic_set_string_variable(v->varname, v->value, new_proc, false, true);
+			}
 		}
 	}
-	for (; cur_double; cur_double = cur_double->next) {
-		if (cur_double->global) {
-			basic_set_double_variable(cur_double->varname, cur_double->value, new_proc, false, true);
+
+	/* Doubles */
+	if (ctx->double_variables) {
+		size_t i = 0;
+		void *item = NULL;
+		while (hashmap_iter(ctx->double_variables, &i, &item)) {
+			struct ub_var_double *v = (struct ub_var_double *)item;
+			if (v->global) {
+				basic_set_double_variable(v->varname, v->value, new_proc, false, true);
+			}
 		}
 	}
+
 
 	if (!background) {
 		proc_wait(proc, p->pid);

@@ -128,17 +128,17 @@ typedef struct basic_ctx {
 	 *
 	 * Each index in this array corresponds to a specific depth in the call stack.
 	 */
-	struct ub_var_int* local_int_variables[MAX_CALL_STACK_DEPTH];
+	struct hashmap* local_int_variables[MAX_CALL_STACK_DEPTH]; // ub_var_int*
 
 	/**
 	 * @brief Local string variable stack for function/procedure scopes.
 	 */
-	struct ub_var_string* local_string_variables[MAX_CALL_STACK_DEPTH];
+	struct hashmap* local_string_variables[MAX_CALL_STACK_DEPTH]; // ub_var_string*
 
 	/**
 	 * @brief Local double (real) variable stack for function/procedure scopes.
 	 */
-	struct ub_var_double* local_double_variables[MAX_CALL_STACK_DEPTH];
+	struct hashmap* local_double_variables[MAX_CALL_STACK_DEPTH]; // ub_var_double*
 
 	/**
 	 * @brief Call stack for return line numbers during function, procedure, or `GOSUB` calls.
@@ -215,17 +215,17 @@ typedef struct basic_ctx {
 	 *
 	 * Stores all globally scoped integer variables in the program.
 	 */
-	struct ub_var_int* int_variables;
+	struct hashmap* int_variables; // ub_var_int*
 
 	/**
 	 * @brief Global string variable list.
 	 */
-	struct ub_var_string* str_variables;
+	struct hashmap* str_variables; // ub_var_string*
 
 	/**
 	 * @brief Global double variable list.
 	 */
-	struct ub_var_double* double_variables;
+	struct hashmap* double_variables; // ub_var_double*
 
 	/**
 	 * @brief Global integer array variable list.

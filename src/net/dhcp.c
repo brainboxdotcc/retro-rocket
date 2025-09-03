@@ -395,7 +395,7 @@ uint16_t make_dhcp_packet(dhcp_packet_t* packet, uint8_t msg_type, uint8_t* requ
 	if (server_ip != 0) {
 		*(options++) = OPT_SERVER_IP;
 		*(options++) = 4;
-		*((uint32_t*)(options)) = server_ip; /* already in network order */
+		memcpy(options, &server_ip, 4); /* already in network order */
 		options += 4;
 	}
 

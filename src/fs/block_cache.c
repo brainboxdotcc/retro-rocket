@@ -239,16 +239,16 @@ static void evict_one(block_cache_t *c)
 	}
 }
 
-void* cache_malloc(size_t size) {
+void* cache_malloc(size_t size, void* udata) {
 	void* p = buddy_malloc(&cache_allocator, size);
 	return p;
 }
 
-void* cache_realloc(void* ptr, size_t size) {
+void* cache_realloc(void* ptr, size_t size, void* udata) {
 	return buddy_realloc(&cache_allocator, ptr, size);
 }
 
-void cache_free(const void* ptr) {
+void cache_free(const void* ptr, void* udata) {
 	buddy_free(&cache_allocator, ptr);
 }
 

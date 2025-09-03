@@ -28,6 +28,9 @@
 
 #define basic_debug if (debug) dprintf
 
+#define SEED0 0x12345678abcdefULL
+#define SEED1 0xfedcba9876543210ULL
+
 #include "basic/defines.h"
 #include "basic/structs.h"
 #include "basic/context.h"

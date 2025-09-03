@@ -66,6 +66,8 @@ void let_statement(struct basic_ctx* ctx, bool global, bool local)
 	const char* _expr;
 	double f_expr = 0;
 
+	basic_debug("LET statement\n");
+
 	var = tokenizer_variable_name(ctx);
 
 	if (varname_is_int_array_access(ctx, var)) {
@@ -79,8 +81,7 @@ void let_statement(struct basic_ctx* ctx, bool global, bool local)
 		basic_set_int_array_variable(var, index, value, ctx);
 		accept_or_return(NEWLINE, ctx);
 		return;
-	}
-	if (varname_is_string_array_access(ctx, var)) {
+	} else if (varname_is_string_array_access(ctx, var)) {
 		int64_t index = arr_expr_set_index(ctx, var);
 		const char* value = str_expr(ctx);
 		if (index == -1) {
@@ -91,8 +92,7 @@ void let_statement(struct basic_ctx* ctx, bool global, bool local)
 		basic_set_string_array_variable(var, index, value, ctx);
 		accept_or_return(NEWLINE, ctx);
 		return;
-	}
-	if (varname_is_double_array_access(ctx, var)) {
+	} else if (varname_is_double_array_access(ctx, var)) {
 		int64_t index = arr_expr_set_index(ctx, var);
 		double value = 0;
 		double_expr(ctx, &value);
@@ -112,13 +112,16 @@ void let_statement(struct basic_ctx* ctx, bool global, bool local)
 	switch (var[strlen(var) - 1]) {
 		case '$':
 			_expr = str_expr(ctx);
+			basic_debug("Setting string variable '%s'\n", var);
 			basic_set_string_variable(var, _expr, ctx, local, global);
 		break;
 		case '#':
+			basic_debug("Setting double variable '%s'\n", var);
 			double_expr(ctx, &f_expr);
 			basic_set_double_variable(var, f_expr, ctx, local, global);
 		break;
 		default:
+			basic_debug("Setting int variable '%s' local=%d global=%d\n", var, local, global);
 			basic_set_int_variable(var, expr(ctx), ctx, local, global);
 		break;
 	}
@@ -185,211 +188,134 @@ bool valid_int_var(const char* name)
     return valid_suffix_var(name, '\0');
 }
 
-void basic_set_string_variable(const char* var, const char* value, struct basic_ctx* ctx, bool local, bool global)
-{
-	bool error_set = false;
-	struct ub_var_string* list[] = {
-		ctx->str_variables,
-		ctx->local_string_variables[ctx->call_stack_ptr]
-	};
+void basic_set_string_variable(const char* var, const char* value, struct basic_ctx* ctx, bool local, bool propagate_global) {
+	struct hashmap* locals = ctx->local_string_variables[ctx->call_stack_ptr];
+	struct hashmap* globals = ctx->str_variables;
 
-	if (*value && !strcmp(var, "ERR$")) {
-		error_set = true;
-	}
-
+	size_t len = strlen(var);
 	if (!valid_string_var(var)) {
 		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return;
 	}
-	size_t len = strlen(var);
-	if (list[local] == NULL) {
-		if (local) {
-			ctx->local_string_variables[ctx->call_stack_ptr] = buddy_malloc(ctx->allocator, sizeof(struct ub_var_string));
-			if (!ctx->local_string_variables[ctx->call_stack_ptr]) {
-				tokenizer_error_print(ctx, "Out of memory");
-				return;
-			}
-			ctx->local_string_variables[ctx->call_stack_ptr]->next = NULL;
-			ctx->local_string_variables[ctx->call_stack_ptr]->varname = buddy_strdup(ctx->allocator, var);
-			ctx->local_string_variables[ctx->call_stack_ptr]->value = buddy_strdup(ctx->allocator, value);
-			ctx->local_string_variables[ctx->call_stack_ptr]->global = global;
-			ctx->local_string_variables[ctx->call_stack_ptr]->name_length = len;
-		} else {
-			ctx->str_variables = buddy_malloc(ctx->allocator, sizeof(struct ub_var_string));
-			if (!ctx->str_variables) {
-				tokenizer_error_print(ctx, "Out of memory");
-				return;
-			}
-			ctx->str_variables->next = NULL;
-			ctx->str_variables->varname = buddy_strdup(ctx->allocator, var);
-			ctx->str_variables->value = buddy_strdup(ctx->allocator, value);
-			ctx->str_variables->name_length = len;
-			ctx->str_variables->global = global;
-		}
-		return;
+
+	ub_var_string* found = NULL;
+	bool oom = false;
+	if (local && locals && (found = hashmap_get(locals, &(ub_var_string) { .varname = var }))) {
+		buddy_free(ctx->allocator, found->varname);
+		buddy_free(ctx->allocator, found->value);
+		found->name_length = len;
+		found->global = propagate_global;
+		found->varname = buddy_strdup(ctx->allocator, var);
+		found->value = buddy_strdup(ctx->allocator, value);
+		oom = !hashmap_set(locals, found) && hashmap_oom(locals);
+	} else if ((found = hashmap_get(globals, &(ub_var_string) { .varname = var }))) {
+		buddy_free(ctx->allocator, found->varname);
+		buddy_free(ctx->allocator, found->value);
+		found->name_length = len;
+		found->global = propagate_global;
+		found->varname = buddy_strdup(ctx->allocator, var);
+		found->value = buddy_strdup(ctx->allocator, value);
+		oom = !hashmap_set(globals, found) && hashmap_oom(globals);
 	} else {
-		struct ub_var_string* cur = ctx->str_variables;
-		if (local) {
-			cur = ctx->local_string_variables[ctx->call_stack_ptr];
-		}
-		for (; cur; cur = cur->next) {
-			if (len == cur->name_length && !strcmp(var, cur->varname))	{
-				if (error_set && *cur->value) {
-					/* If ERR$ is set, can't change it except to empty */
-					return;
-				} else if (error_set) {
-					dprintf("Set ERR$ to: '%s'\n", value);
-				}
-				buddy_free(ctx->allocator, cur->value);
-				cur->value = buddy_strdup(ctx->allocator, value);
-				cur->global = global;
-				return;
-			}
-		}
-		struct ub_var_string* newvar = buddy_malloc(ctx->allocator, sizeof(struct ub_var_string));
-		if (!newvar) {
-			tokenizer_error_print(ctx, "Out of memory");
-			return;
-		}
-		newvar->next = (local ? ctx->local_string_variables[ctx->call_stack_ptr] : ctx->str_variables);
-		newvar->varname = buddy_strdup(ctx->allocator, var);
-		newvar->value = buddy_strdup(ctx->allocator, value);
-		newvar->name_length = len;
-		newvar->global = global;
-		if (local) {
-			ctx->local_string_variables[ctx->call_stack_ptr] = newvar;
-		} else {
-			ctx->str_variables = newvar;
-		}
+		struct hashmap* target = local && locals ? locals : globals;
+		ub_var_string new;
+		new.name_length = len;
+		new.global = propagate_global;
+		new.varname = buddy_strdup(ctx->allocator, var);
+		new.value = buddy_strdup(ctx->allocator, value);
+		oom = !hashmap_set(target, &new) && hashmap_oom(target);
+	}
+	if (oom) {
+		tokenizer_error_print(ctx, "Out of memory");
+		return;
 	}
 }
 
-void basic_set_int_variable(const char* var, int64_t value, struct basic_ctx* ctx, bool local, bool global)
-{
-	bool setting_n = debug && (strcmp(var, "N") == 0);
-	struct ub_var_int* list[] = {
-		ctx->int_variables,
-		ctx->local_int_variables[ctx->call_stack_ptr]
-	};
+void basic_set_int_variable(const char* var, int64_t value, struct basic_ctx* ctx, bool local, bool propagate_global) {
+	struct hashmap* locals = ctx->local_int_variables[ctx->call_stack_ptr];
+	struct hashmap* globals = ctx->int_variables;
 
+	size_t len = strlen(var);
 	if (!valid_int_var(var)) {
 		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return;
 	}
-	size_t len = strlen(var);
-	if (list[local] == NULL) {
-		if (local) {
-			ctx->local_int_variables[ctx->call_stack_ptr] = buddy_malloc(ctx->allocator, sizeof(struct ub_var_int));
-			if (!ctx->local_int_variables[ctx->call_stack_ptr]) {
-				tokenizer_error_print(ctx, "Out of memory");
-				return;
-			}
-			ctx->local_int_variables[ctx->call_stack_ptr]->next = NULL;
-			ctx->local_int_variables[ctx->call_stack_ptr]->varname = buddy_strdup(ctx->allocator, var);
-			ctx->local_int_variables[ctx->call_stack_ptr]->name_length = len;
-			ctx->local_int_variables[ctx->call_stack_ptr]->value = value;
-		} else {
-			ctx->int_variables = buddy_malloc(ctx->allocator, sizeof(struct ub_var_int));
-			if (!ctx->int_variables) {
-				tokenizer_error_print(ctx, "Out of memory");
-				return;
-			}
-			ctx->int_variables->next = NULL;
-			ctx->int_variables->varname = buddy_strdup(ctx->allocator, var);
-			ctx->int_variables->name_length = len;
-			ctx->int_variables->value = value;
-		}
-		return;
+
+	ub_var_int* found = NULL;
+	bool oom = false;
+	if (local && locals && (found = hashmap_get(locals, &(ub_var_int) { .varname = var }))) {
+		basic_debug("local set '%s' %p\n", var, ctx->allocator);
+		buddy_free(ctx->allocator, found->varname);
+		found->name_length = len;
+		found->global = propagate_global;
+		found->varname = buddy_strdup(ctx->allocator, var);
+		found->value = value;
+		oom = !hashmap_set(locals, found) && hashmap_oom(locals);
+	} else if ((found = hashmap_get(globals, &(ub_var_int) { .varname = var }))) {
+		basic_debug("global set '%s' %p %p\n", var, found->varname, ctx->allocator);
+		buddy_free(ctx->allocator, found->varname);
+		found->name_length = len;
+		found->global = propagate_global;
+		found->varname = buddy_strdup(ctx->allocator, var);
+		basic_debug("strdup'd\n");
+		found->value = value;
+		oom = !hashmap_set(globals, found) && hashmap_oom(globals);
+		basic_debug("set, oom=%d\n", oom);
 	} else {
-		struct ub_var_int* cur = local ? ctx->local_int_variables[ctx->call_stack_ptr] : ctx->int_variables;
-		for (; cur; cur = cur->next) {
-			if (len == cur->name_length && !strcmp(var, cur->varname)) {
-				//dprintf("Set int variable '%s' to '%d' (updating)\n", var, value);
-				if (setting_n) dprintf("Update existing N\n");
-				cur->value = value;
-				return;
-			}
-		}
-		//dprintf("Set int variable '%s' to '%d'\n", var, value);
-		struct ub_var_int* newvar = buddy_malloc(ctx->allocator, sizeof(struct ub_var_int));
-		if (!newvar) {
-			tokenizer_error_print(ctx, "Out of memory");
-			return;
-		}
-		newvar->next = (local ? ctx->local_int_variables[ctx->call_stack_ptr] : ctx->int_variables);
-		newvar->varname = buddy_strdup(ctx->allocator, var);
-		newvar->name_length = len;
-		newvar->value = value;
-		if (local) {
-			ctx->local_int_variables[ctx->call_stack_ptr] = newvar;
-			if (setting_n) dprintf("Add new N to local set\n");
-		} else {
-			if (setting_n) dprintf("Add new N to global set\n");
-			ctx->int_variables = newvar;
-		}
+		struct hashmap* target = local && locals ? locals : globals;
+		basic_debug("%s create '%s' %p\n", target == globals ? "global" : "local", var, ctx->allocator);
+		ub_var_int new;
+		new.name_length = len;
+		new.global = propagate_global;
+		new.varname = buddy_strdup(ctx->allocator, var);
+		new.value = value;
+		oom = !hashmap_set(target, &new) && hashmap_oom(target);
+	}
+	if (oom) {
+		tokenizer_error_print(ctx, "Out of memory");
+		return;
 	}
 }
 
-void basic_set_double_variable(const char* var, double value, struct basic_ctx* ctx, bool local, bool global)
+void basic_set_double_variable(const char* var, double value, struct basic_ctx* ctx, bool local, bool propagate_global)
 {
-	struct ub_var_double* list[] = {
-		ctx->double_variables,
-		ctx->local_double_variables[ctx->call_stack_ptr]
-	};
+	struct hashmap* locals = ctx->local_double_variables[ctx->call_stack_ptr];
+	struct hashmap* globals = ctx->double_variables;
 
+	size_t len = strlen(var);
 	if (!valid_double_var(var)) {
 		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return;
 	}
 
-	size_t len = strlen(var);
-	if (list[local] == NULL) {
-		if (local) {
-			ctx->local_double_variables[ctx->call_stack_ptr] = buddy_malloc(ctx->allocator, sizeof(struct ub_var_double));
-			if (!ctx->local_double_variables[ctx->call_stack_ptr]) {
-				tokenizer_error_print(ctx, "Out of memory");
-				return;
-			}
-			ctx->local_double_variables[ctx->call_stack_ptr]->next = NULL;
-			ctx->local_double_variables[ctx->call_stack_ptr]->varname = buddy_strdup(ctx->allocator, var);
-			ctx->local_double_variables[ctx->call_stack_ptr]->name_length = len;
-			ctx->local_double_variables[ctx->call_stack_ptr]->value = value;
-		} else {
-			ctx->double_variables = buddy_malloc(ctx->allocator, sizeof(struct ub_var_double));
-			if (!ctx->double_variables) {
-				tokenizer_error_print(ctx, "Out of memory");
-				return;
-			}
-			ctx->double_variables->next = NULL;
-			ctx->double_variables->varname = buddy_strdup(ctx->allocator, var);
-			ctx->double_variables->name_length = len;
-			ctx->double_variables->value = value;
-		}
-		return;
+	ub_var_double* found = NULL;
+	bool oom = false;
+	if (local && locals && (found = hashmap_get(locals, &(ub_var_double) { .varname = var }))) {
+		buddy_free(ctx->allocator, found->varname);
+		found->name_length = len;
+		found->global = propagate_global;
+		found->varname = buddy_strdup(ctx->allocator, var);
+		found->value = value;
+		oom = !hashmap_set(locals, found) && hashmap_oom(locals);
+	} else if ((found = hashmap_get(globals, &(ub_var_double) { .varname = var }))) {
+		buddy_free(ctx->allocator, found->varname);
+		found->name_length = len;
+		found->global = propagate_global;
+		found->varname = buddy_strdup(ctx->allocator, var);
+		found->value = value;
+		oom = !hashmap_set(globals, found) && hashmap_oom(globals);
 	} else {
-		struct ub_var_double* cur = ctx->double_variables;
-		if (local)
-			cur = ctx->local_double_variables[ctx->call_stack_ptr];
-		for (; cur; cur = cur->next) {
-			if (len == cur->name_length && !strcmp(var, cur->varname)) {
-				cur->value = value;
-				return;
-			}
-		}
-		struct ub_var_double* newvar = buddy_malloc(ctx->allocator, sizeof(struct ub_var_double));
-		if (!newvar) {
-			tokenizer_error_print(ctx, "Out of memory");
-			return;
-		}
-		newvar->next = (local ? ctx->local_double_variables[ctx->call_stack_ptr] : ctx->double_variables);
-		newvar->varname = buddy_strdup(ctx->allocator, var);
-		newvar->name_length = len;
-		newvar->value = value;
-		if (local) {
-			ctx->local_double_variables[ctx->call_stack_ptr] = newvar;
-		} else {
-			ctx->double_variables = newvar;
-		}
+		struct hashmap* target = local && locals ? locals : globals;
+		ub_var_double new;
+		new.name_length = len;
+		new.global = propagate_global;
+		new.varname = buddy_strdup(ctx->allocator, var);
+		new.value = value;
+		oom = !hashmap_set(target, &new) && hashmap_oom(target);
+	}
+	if (oom) {
+		tokenizer_error_print(ctx, "Out of memory");
+		return;
 	}
 }
 
@@ -412,69 +338,27 @@ char varname_is_double_function(const char* varname) {
 	return (*varname == 'F' && *(varname + 1) == 'N' && strchr(varname, '#') && !strchr(varname, '$'));
 }
 
-const char* basic_test_string_variable(const char* var, struct basic_ctx* ctx)
-{
-	struct ub_var_string* list[] = {
-		ctx->local_string_variables[ctx->call_stack_ptr],
-		ctx->str_variables
-	};
-	size_t len = strlen(var);
-	for (int j = 0; j < 2; j++) {
-		struct ub_var_string* cur = list[j];
-		for (; cur; cur = cur->next) {
-			if (len == cur->name_length && !strcmp(var, cur->varname)) {
-				return cur->value;
-			}
-		}
-	}
-	return NULL;
-}
-
 const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx)
 {
 	char* retv;
 	if (basic_builtin_str_fn(var, ctx, &retv)) {
 		return retv;
-	}
-
-	if (varname_is_string_function(var)) {
+	} else if (varname_is_string_function(var)) {
 		const char* res = basic_eval_str_fn(var, ctx);
 		return res;
-	}
-
-	if (varname_is_string_array_access(ctx, var)) {
+	} else if (varname_is_string_array_access(ctx, var)) {
 		return basic_get_string_array_variable(var, arr_variable_index(ctx), ctx);
 	}
 
-	struct ub_var_string* list[ctx->call_stack_ptr + 1];
-	int64_t j;
-	for (j = ctx->call_stack_ptr; j > 0; --j) {
-		list[j] = ctx->local_string_variables[j];
-	}
-	list[0] = ctx->str_variables;
-	size_t len = strlen(var);
-
-	for (j = ctx->call_stack_ptr; j >= 0; --j) {
-		struct ub_var_string* cur = list[j];
-		struct ub_var_string* prev = NULL;
-		while (cur) {
-			if (len == cur->name_length && !strcmp(var, cur->varname)) {
-				/* move-to-front optimisation */
-				if (prev) {
-					prev->next = cur->next;
-					if (j == 0) {
-						cur->next = ctx->str_variables;
-						ctx->str_variables = cur;
-					} else {
-						cur->next = ctx->local_string_variables[j];
-						ctx->local_string_variables[j] = cur;
-					}
-				}
-				return cur->value;
-			}
-			prev = cur;
-			cur = cur->next;
+	ub_var_string* found = NULL;
+	for (size_t j = ctx->call_stack_ptr; j > 0; --j) {
+		struct hashmap* list = ctx->local_string_variables[j];
+		if (list && (found = hashmap_get(list, &(ub_var_string) { .varname = var }))) {
+			return found->value;
 		}
+	}
+	if ((found = hashmap_get(ctx->str_variables, &(ub_var_string) { .varname = var }))) {
+		return found->value;
 	}
 
 	tokenizer_error_printf(ctx, "No such string variable '%s'", var);
@@ -483,60 +367,45 @@ const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx)
 
 bool basic_double_variable_exists(const char* var, struct basic_ctx* ctx)
 {
-	struct ub_var_double* list[ctx->call_stack_ptr + 1];
-	int64_t j;
-	for (j = ctx->call_stack_ptr; j > 0; --j) {
-		list[j] = ctx->local_double_variables[j];
-	}
-	list[0] = ctx->double_variables;
-	size_t len = strlen(var);
-	for (j = ctx->call_stack_ptr; j >= 0; --j) {
-		struct ub_var_double* cur = list[j];
-		for (; cur; cur = cur->next) {
-			if (len == cur->name_length && !strcmp(var, cur->varname))	{
-				return true;
-			}
+	ub_var_double* found = NULL;
+	for (size_t j = ctx->call_stack_ptr; j > 0; --j) {
+		struct hashmap* list = ctx->local_double_variables[j];
+		if (list && (found = hashmap_get(list, &(ub_var_double) { .varname = var }))) {
+			return true;
 		}
+	}
+	if ((found = hashmap_get(ctx->double_variables, &(ub_var_double) { .varname = var }))) {
+		return true;
 	}
 	return false;
 }
 
 bool basic_string_variable_exists(const char* var, struct basic_ctx* ctx)
 {
-	struct ub_var_string* list[ctx->call_stack_ptr + 1];
-	int64_t j;
-	for (j = ctx->call_stack_ptr; j > 0; --j) {
-		list[j] = ctx->local_string_variables[j];
-	}
-	list[0] = ctx->str_variables;
-	size_t len = strlen(var);
-	for (j = ctx->call_stack_ptr; j >= 0; --j) {
-		struct ub_var_string* cur = list[j];
-		for (; cur; cur = cur->next) {
-			if (len == cur->name_length && !strcmp(var, cur->varname)) {
-				return true;
-			}
+	ub_var_string* found = NULL;
+	for (size_t j = ctx->call_stack_ptr; j > 0; --j) {
+		struct hashmap* list = ctx->local_string_variables[j];
+		if (list && (found = hashmap_get(list, &(ub_var_string) { .varname = var }))) {
+			return true;
 		}
+	}
+	if ((found = hashmap_get(ctx->str_variables, &(ub_var_string) { .varname = var }))) {
+		return true;
 	}
 	return false;
 }
 
 bool basic_int_variable_exists(const char* var, struct basic_ctx* ctx)
 {
-	struct ub_var_int* list[ctx->call_stack_ptr + 1];
-	int64_t j;
-	for (j = ctx->call_stack_ptr; j > 0; --j) {
-		list[j] = ctx->local_int_variables[j];
-	}
-	list[0] = ctx->int_variables;
-	size_t len = strlen(var);
-	for (j = ctx->call_stack_ptr; j >= 0; --j) {
-		struct ub_var_int* cur = list[j];
-		for (; cur; cur = cur->next) {
-			if (len == cur->name_length && !strcmp(var, cur->varname)) {
-				return true;
-			}
+	ub_var_int* found = NULL;
+	for (size_t j = ctx->call_stack_ptr; j > 0; --j) {
+		struct hashmap* list = ctx->local_int_variables[j];
+		if (list && (found = hashmap_get(list, &(ub_var_int) { .varname = var }))) {
+			return true;
 		}
+	}
+	if ((found = hashmap_get(ctx->int_variables, &(ub_var_int) { .varname = var }))) {
+		return true;
 	}
 	return false;
 }
@@ -546,53 +415,21 @@ int64_t basic_get_int_variable(const char* var, struct basic_ctx* ctx)
 	int64_t retv = 0;
 	if (basic_builtin_int_fn(var, ctx, &retv)) {
 		return retv;
-	}
-
-	if (varname_is_function(var)) {
+	} else if (varname_is_function(var)) {
 		return basic_eval_int_fn(var, ctx);
-	}
-
-	if (varname_is_int_array_access(ctx, var)) {
+	} else if (varname_is_int_array_access(ctx, var)) {
 		return basic_get_int_array_variable(var, arr_variable_index(ctx), ctx);
 	}
 
-	struct ub_var_int* list[ctx->call_stack_ptr + 1];
-	int64_t j;
-	for (j = ctx->call_stack_ptr; j > 0; --j) {
-		list[j] = ctx->local_int_variables[j];
-	}
-	list[0] = ctx->int_variables;
-
-	size_t len = strlen(var);
-	for (j = ctx->call_stack_ptr; j >= 0; --j) {
-		struct ub_var_int* cur = list[j];
-		struct ub_var_int* prev = NULL;
-		while (cur) {
-			if (len == cur->name_length && !strcmp(var, cur->varname)) {
-				/* If ERR is read, it resets its value */
-				int64_t v = cur->value;
-				if (len == 3 && !strcmp(var, "ERR")) {
-					basic_set_int_variable("ERR", 0, ctx, false, false);
-				}
-
-				/* move-to-front optimisation */
-				if (prev) {
-					// unlink
-					prev->next = cur->next;
-					// relink at head
-					if (j == 0) {
-						cur->next = ctx->int_variables;
-						ctx->int_variables = cur;
-					} else {
-						cur->next = ctx->local_int_variables[j];
-						ctx->local_int_variables[j] = cur;
-					}
-				}
-				return v;
-			}
-			prev = cur;
-			cur = cur->next;
+	ub_var_int* found = NULL;
+	for (size_t j = ctx->call_stack_ptr; j > 0; --j) {
+		struct hashmap* list = ctx->local_int_variables[j];
+		if (list && (found = hashmap_get(list, &(ub_var_int) { .varname = var }))) {
+			return found->value;
 		}
+	}
+	if ((found = hashmap_get(ctx->int_variables, &(ub_var_int) { .varname = var }))) {
+		return found->value;
 	}
 
 	tokenizer_error_printf(ctx, "No such integer variable '%s'", var);
@@ -603,53 +440,31 @@ bool basic_get_double_variable(const char* var, struct basic_ctx* ctx, double* r
 {
 	if (basic_builtin_double_fn(var, ctx, res)) {
 		return true;
-	}
-
-	if (varname_is_double_function(var)) {
+	} else if (varname_is_double_function(var)) {
 		basic_eval_double_fn(var, ctx, res);
 		return true;
-	}
-
-	if (varname_is_double_array_access(ctx, var)) {
+	} else if (varname_is_double_array_access(ctx, var)) {
 		return basic_get_double_array_variable(var, arr_variable_index(ctx), ctx, res);
 	}
 
-	struct ub_var_double* list[ctx->call_stack_ptr + 1];
-	int64_t j;
-	for (j = ctx->call_stack_ptr; j > 0; --j) {
-		list[j] = ctx->local_double_variables[j];
-	}
-	list[0] = ctx->double_variables;
-
 	size_t len = strlen(var);
-	for (j = ctx->call_stack_ptr; j >= 0; --j) {
-		struct ub_var_double* cur = list[j];
-		struct ub_var_double* prev = NULL;
-		while (cur) {
-			if (len == cur->name_length && !strcmp(var, cur->varname)) {
-				*res = cur->value;
-				/* move-to-front optimisation */
-				if (prev) {
-					prev->next = cur->next;
-					if (j == 0) {
-						cur->next = ctx->double_variables;
-						ctx->double_variables = cur;
-					} else {
-						cur->next = ctx->local_double_variables[j];
-						ctx->local_double_variables[j] = cur;
-					}
-				}
-				return true;
-			}
-			prev = cur;
-			cur = cur->next;
+	ub_var_double* found = NULL;
+	for (size_t j = ctx->call_stack_ptr; j > 0; --j) {
+		struct hashmap* list = ctx->local_double_variables[j];
+		if (list && (found = hashmap_get(list, &(ub_var_double) { .varname = var }))) {
+			*res = found->value;
+			return true;
 		}
+	}
+	if ((found = hashmap_get(ctx->double_variables, &(ub_var_double) { .varname = var }))) {
+		*res = found->value;
+		return true;
 	}
 
 	if (var[len - 1] == '#') {
 		tokenizer_error_printf(ctx, "No such real variable '%s'", var);
+		*res = 0.0; /* No such variable */
 	}
-	*res = 0.0; /* No such variable */
 	return false;
 }
 
