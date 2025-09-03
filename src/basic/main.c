@@ -253,7 +253,7 @@ struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file
 
 	ctx->allocator = kmalloc(sizeof(buddy_allocator_t));
 	if (!ctx->allocator) {
-		kfree_null(&ctx->program_ptr);
+		buddy_free(ctx->allocator, ctx->program_ptr);
 		kfree_null(&ctx);
 		*error = "Out of memory";
 		return NULL;
@@ -288,15 +288,15 @@ struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file
 	memset(ctx->local_double_variables, NULL, sizeof(ctx->local_double_variables));
 	// We allocate 5000 bytes extra on the end of the program for EVAL space,
 	// as EVAL appends to the program on lines EVAL_LINE and EVAL_LINE + 1.
-	ctx->program_ptr = kmalloc(strlen(program) + 5000);
+	ctx->program_ptr = buddy_malloc(ctx->allocator, strlen(program) + 5000);
 	if (ctx->program_ptr == NULL) {
 		kfree_null(&ctx);
 		*error = "Out of memory";
 		return NULL;
 	}
-	ctx->string_gc_storage = kmalloc(STRING_GC_AREA_SIZE);
+	ctx->string_gc_storage = buddy_malloc(ctx->allocator, STRING_GC_AREA_SIZE);
 	if (!ctx->string_gc_storage) {
-		kfree_null(&ctx->program_ptr);
+		buddy_free(ctx->allocator, ctx->program_ptr);
 		kfree_null(&ctx);
 		*error = "Out of memory";
 		return NULL;
@@ -410,7 +410,7 @@ void library_statement(struct basic_ctx *ctx) {
 	 * ctx->program_ptr invalidating ctx->ptr and ctx->next_ptr - the tokeinizer
 	 * must be reinitailised and the line hash rebuilt)
 	 */
-	ctx->program_ptr = krealloc(ctx->program_ptr, strlen(ctx->program_ptr) + 5000 + library_len);
+	ctx->program_ptr = buddy_realloc(ctx->allocator, ctx->program_ptr, strlen(ctx->program_ptr) + 5000 + library_len);
 	if (!ctx->program_ptr) {
 		tokenizer_error_printf(ctx, "Not enough memory to load library file '%s'", lib_file);
 		kfree_null(&numbered);
@@ -530,14 +530,10 @@ void basic_destroy(struct basic_ctx *ctx) {
 			free_sprite(ctx, sprite_handle);
 		}
 	}
-	kfree_null(&ctx->string_gc_storage);
 	ctx->string_gc_storage_next = NULL;
-	hashmap_free(ctx->lines);
-	basic_free_defs(ctx);
 	/* I'm not your pal, buddy... 😂 */
 	buddy_destroy(ctx->allocator);
 	kfree_null(&ctx->allocator);
-	kfree_null(&ctx->program_ptr);
 	kfree_null(&ctx);
 }
 
