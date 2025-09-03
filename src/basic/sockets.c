@@ -250,7 +250,6 @@ static void basic_udp_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t
 	if (!opaque) {
 		return;
 	}
-	dprintf("basic_udp_handle_packet %u\n", dst_port);
 	// TODO: Protect this against concurrent access
 	queued_udp_packet* packet = buddy_malloc(ctx->allocator, sizeof(queued_udp_packet));
 	if (!packet) {

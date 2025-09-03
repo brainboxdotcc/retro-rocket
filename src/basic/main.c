@@ -513,6 +513,7 @@ struct basic_ctx *basic_clone(struct basic_ctx *old) {
 
 
 void basic_destroy(struct basic_ctx *ctx) {
+	assert(ctx != NULL, "basic_destroy: Null BASIC context");
 	ctx->string_gc_storage_next = NULL;
 	/* I'm not your pal, buddy... 😂 */
 	buddy_destroy(ctx->allocator);
