@@ -44,7 +44,7 @@ uint32_t get_isn()
 	}
 
 	// delta since init
-	uint32_t delta = (get_ticks() - isn_tick_base) * 2500; // 250k/sec
+	uint32_t delta = (get_ticks() - isn_tick_base) * 250; // 250k/sec
 
 	return isn_rand_base + delta;
 }
@@ -100,11 +100,13 @@ uint64_t tcp_conn_hash(const void *item, uint64_t seed0, uint64_t seed1)
 	return ((uint64_t)fa->local_addr << 32) + ((uint64_t)fa->remote_addr);
 }
 
-void tcp_free(tcp_conn_t* conn)
+void tcp_free(tcp_conn_t* conn, bool with_lock)
 {
 	uint64_t flags;
 
-	lock_spinlock_irq(&lock, &flags);
+	if (with_lock) {
+		lock_spinlock_irq(&lock, &flags);
+	}
 	// Delete any outstanding segments
 	for (tcp_ordered_list_t* t = conn->segment_list; t; ) {
 		tcp_ordered_list_t* next = t->next;
@@ -123,7 +125,9 @@ void tcp_free(tcp_conn_t* conn)
 
 	// Remove the TCB
 	hashmap_delete(tcb, conn);
-	unlock_spinlock_irq(&lock, flags);
+	if (with_lock) {
+		unlock_spinlock_irq(&lock, flags);
+	}
 }
 
 uint16_t tcp_calculate_checksum(ip_packet_t* packet, tcp_segment_t* segment, size_t len)
@@ -290,12 +294,8 @@ tcp_conn_t* tcp_send_segment(tcp_conn_t *conn, uint32_t seq, uint8_t flags, cons
 	ip_packet_t encap;
 	tcp_options_t options = { .mss = flags & TCP_SYN ? 1460 : 0 };
 	uint16_t length = sizeof(tcp_segment_t) + count + (flags & TCP_SYN ? 4 : 0);
-	tcp_segment_t* packet = kmalloc(length);
-	if (!packet) {
-		return NULL;
-	}
-
-	memset(packet, 0, length);
+	tcp_segment_t packet[length];
+	memset(&packet, 0, length);
 	packet->src_port = conn->local_port;
 	packet->dst_port = conn->remote_port;
 	packet->seq = seq;
@@ -339,8 +339,6 @@ tcp_conn_t* tcp_send_segment(tcp_conn_t *conn, uint32_t seq, uint8_t flags, cons
 	if (flags & (TCP_SYN | TCP_FIN)) {
 		++conn->snd_nxt;
 	}
-
-	kfree_null(&packet);
 
 	return conn;
 }
@@ -689,7 +687,7 @@ bool tcp_state_receive_rst(ip_packet_t* encap_packet, tcp_segment_t* segment, tc
 		case TCP_SYN_RECEIVED:
 			// Connection refused
 			dprintf("*** TCP *** Connection refused\n");
-			tcp_free(conn);
+			tcp_free(conn, true);
 			break;
 		case TCP_ESTABLISHED:
 		case TCP_FIN_WAIT_1:
@@ -697,14 +695,14 @@ bool tcp_state_receive_rst(ip_packet_t* encap_packet, tcp_segment_t* segment, tc
 		case TCP_CLOSE_WAIT:
 			// Connection reset by peer
 			dprintf("*** TCP *** Connection reset by peer\n");
-			tcp_free(conn);
+			tcp_free(conn, true);
 			break;
 		case TCP_CLOSING:
 		case TCP_LAST_ACK:
 		case TCP_TIME_WAIT:
 			// Connection closed
 			dprintf("*** TCP *** Connection gracefully closed\n");
-			tcp_free(conn);
+			tcp_free(conn, true);
 			break;
 		default:
 			break;
@@ -741,7 +739,7 @@ bool tcp_handle_data_in(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_c
 
 	// insert packet into ordered list
 	tcp_ord_list_insert(conn, segment, payload_len);
-	// check ordered list is complete (no seq gaps), if it is deliver queued data to client
+	// check ordered list is complete (no seq gaps), if it is delivered queued data to client
 	tcp_process_queue(conn, segment, payload_len);
 	// acknowlege receipt
 	tcp_send_ack(conn);
@@ -1030,11 +1028,10 @@ void tcp_idle()
 					kfree_null(&conn->send_buffer);
 					conn->send_buffer = new_buf;
 					conn->send_buffer_len = new_len;
-					dprintf("Size buffer down, new size %lu, amount to send %lu\n", new_len, amount_to_send);
 				}
 			}
 		} else if (conn->state == TCP_TIME_WAIT && seq_gte(get_isn(), conn->msl_time)) {
-			tcp_free(conn);
+			tcp_free(conn, false);
 			break;
 		}
 	}
@@ -1168,7 +1165,7 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 	new_conn->fd = tcp_allocate_fd(new_conn);
 	if (new_conn->fd == -1) {
 		dprintf("tcp_connect() allocation of fd failed\n");
-		tcp_free(new_conn);
+		tcp_free(new_conn, false);
 		unlock_spinlock_irq(&lock, flags);
 		return TCP_ERROR_OUT_OF_DESCRIPTORS;
 	}
@@ -1180,37 +1177,44 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 
 int tcp_close(tcp_conn_t* conn)
 {
+	dprintf("tcp_close()\n");
 	if (conn == NULL) {
 		return TCP_ERROR_INVALID_CONNECTION;
 	}
 	uint64_t flags;
 	lock_spinlock_irq(&lock, &flags);
+	dprintf("tcp_close() - spin locked\n");
 	switch (conn->state) {
 		case TCP_LISTEN:
 		case TCP_SYN_SENT:
-			tcp_free(conn);
+			dprintf("tcp_close() - LISTEN or SYN_SENT\n");
+			tcp_free(conn, false);
 			unlock_spinlock_irq(&lock, flags);
 			return 0;
 		case TCP_SYN_RECEIVED:
 			// TODO - if segments have been queued, wait for ESTABLISHED
 			// before entering FIN-WAIT-1
+			dprintf("tcp_close() - SYN_RECV\n");
 			tcp_send_segment(conn, conn->snd_nxt, TCP_FIN | TCP_ACK, NULL, 0);
 			tcp_set_state(conn, TCP_FIN_WAIT_1);
 			unlock_spinlock_irq(&lock, flags);
 			return 0;
 		case TCP_ESTABLISHED:
 			// TODO - queue FIN after any outstanding segments
+			dprintf("tcp_close() - ESTABLISHED\n");
 			tcp_send_segment(conn, conn->snd_nxt, TCP_FIN | TCP_ACK, NULL, 0);
 			tcp_set_state(conn, TCP_FIN_WAIT_1);
 			unlock_spinlock_irq(&lock, flags);
 			return 0;
 		case TCP_CLOSE_WAIT:
 			// queue FIN and state transition after sends
+			dprintf("tcp_close() - CLOSE_WAIT\n");
 			tcp_send_segment(conn, conn->snd_nxt, TCP_FIN | TCP_ACK, NULL, 0);
 			tcp_set_state(conn, TCP_LAST_ACK);
 			unlock_spinlock_irq(&lock, flags);
 			return 0;
 		default:
+			dprintf("tcp_close() - DEFAULT\n");
 			// connection error, already closing
 			unlock_spinlock_irq(&lock, flags);
 			return TCP_ERROR_ALREADY_CLOSING;
@@ -1251,7 +1255,7 @@ int connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port, bo
 	time_t start = get_ticks();
 	while (conn && conn->state < TCP_ESTABLISHED) {
 		__asm__ volatile("hlt");
-		if (get_ticks() - start > 300) {
+		if (get_ticks() - start > 3000) {
 			return TCP_CONNECTION_TIMED_OUT;
 		}
 	};
@@ -1373,7 +1377,7 @@ int tcp_listen(uint32_t addr, uint16_t port, int backlog)
 	new_conn->fd = tcp_allocate_fd(new_conn);
 	if (new_conn->fd == -1) {
 		queue_free(new_conn->pending);
-		tcp_free(new_conn);
+		tcp_free(new_conn, false);
 		unlock_spinlock_irq(&lock, flags);
 		return TCP_ERROR_OUT_OF_DESCRIPTORS;
 	}
@@ -1425,7 +1429,7 @@ int tcp_accept(int socket)
 
 	conn->fd = tcp_allocate_fd(conn);
 	if (conn->fd == -1) {
-		tcp_free(conn);
+		tcp_free(conn, false);
 		unlock_spinlock_irq(&lock, flags);
 		return TCP_ERROR_OUT_OF_DESCRIPTORS;
 	}

@@ -502,7 +502,6 @@ uint32_t dns_blocking_wait_for_result(uint32_t request_id, uint32_t timeout_ms)
 	if (timeout_ms == 0) {
 		timeout_ms = 5000;
 	}
-	timeout_ms /= 10; // Timer is only 1 centi-second resolution, not 1ms
 	time_t now = get_ticks();
 
 	while (!dns_request_is_completed(request_id)) {

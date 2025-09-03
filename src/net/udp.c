@@ -17,21 +17,14 @@ uint16_t udp_calculate_checksum(udp_packet_t * packet) {
 void udp_send_packet(uint8_t * dst_ip, uint16_t src_port, uint16_t dst_port, void * data, uint16_t len) {
 	uint64_t flags;
 	lock_spinlock_irq(&udp_lock, &flags);
-	static udp_packet_t * packet = NULL;
-	if (packet == NULL) {
-		packet = kmalloc(UDP_MAX_PACKET);
-	}
 	uint16_t length = sizeof(udp_packet_t) + len;
-	if (!packet) {
-		unlock_spinlock_irq(&udp_lock, flags);
-		return;
-	}
+	uint8_t p[length];
+	udp_packet_t* packet = (udp_packet_t*)p;
 	memset(packet, 0, sizeof(udp_packet_t));
 	packet->src_port = htons(src_port);
 	packet->dst_port = htons(dst_port);
 	packet->length = htons(length);
 	packet->checksum = udp_calculate_checksum(packet);
-
 	// Copy data over
 	memcpy((void*)packet + sizeof(udp_packet_t), data, len);
 	ip_send_packet(dst_ip, packet, length, PROTOCOL_UDP);

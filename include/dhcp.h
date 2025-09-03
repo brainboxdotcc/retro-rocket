@@ -127,3 +127,5 @@ void* get_dhcp_options(dhcp_packet_t* packet, uint8_t type);
  * @return packet size of constructed packet including options
  */
 uint16_t make_dhcp_packet(dhcp_packet_t* packet, uint8_t msg_type, uint8_t* request_ip, uint32_t xid, uint32_t server_ip);
+
+void dhcp_init(void);

@@ -23,18 +23,16 @@
 /**
  * @brief Delay before held keys begin to auto-repeat.
  *
- * Measured in scheduler ticks (centi-seconds, i.e. 1/100 s).
- * A value of 25 = 250 ms delay before repeat starts.
+ * Measured in miliseconds
  */
-#define REPEAT_DELAY_TICKS 25
+#define REPEAT_DELAY_TICKS 250
 
 /**
  * @brief Interval between auto-repeats once a key is held down.
  *
- * Measured in scheduler ticks (centi-seconds, i.e. 1/100 s).
- * A value of 5 = 50 ms between repeats (~20 chars/sec).
+ * Measured in milliseconds
  */
-#define REPEAT_RATE_TICKS   5
+#define REPEAT_RATE_TICKS   50
 
 /**
  * @brief Size of the circular keyboard buffer in bytes.

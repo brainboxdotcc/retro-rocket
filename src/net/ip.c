@@ -5,8 +5,8 @@
  */
 
 #define MAX_REASSEMBLIES 64
-#define FRAG_TIMEOUT_TICKS 300 // ~30s at 100Hz
-#define FRAG_GC_INTERVAL 150 // ~15s at 100Hz
+#define FRAG_TIMEOUT_TICKS 3000 // ~30s at 1000Hz
+#define FRAG_GC_INTERVAL 1500 // ~15s at 1000Hz
 #define FRAG_MEM_LIMIT (2 * 1024 * 1024)
 #define TCP_MAX_PACKET_SIZE (65536 + sizeof(ip_packet_t))
 
@@ -584,7 +584,6 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 
 void ip6_handle_packet([[maybe_unused]] void* packet, [[maybe_unused]] int n_len)
 {
-	dprintf("IP6 packet - not implemented\n");
 }
 
 void ip_init()

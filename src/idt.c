@@ -106,7 +106,7 @@ void init_idt() {
 	cpu_serialise();
 	remap_irqs_to_ioapic();
 	cpu_serialise();
-	init_lapic_timer(100);
+	init_lapic_timer(1000);
 	cpu_serialise();
 	apic_setup_ap();
 #else

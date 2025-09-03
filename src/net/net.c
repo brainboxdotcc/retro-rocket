@@ -102,7 +102,7 @@ void network_up()
 	kprintf(" TCP,");
 	tcp_init();
 	kprintf(" DHCP,");
-	dhcp_discover();
+	dhcp_init();
 	kprintf(" DNS");
 	init_dns();
 	kprintf("\n");

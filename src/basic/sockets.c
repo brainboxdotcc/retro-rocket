@@ -350,7 +350,6 @@ char* basic_udpread(struct basic_ctx* ctx) {
 	lock_spinlock_irq(&udp_read_lock, &flags);
 	queued_udp_packet* queue = udp_packets[port];
 	if (queue) {
-		dprintf("non empty queue");
 		ctx->last_packet = *queue;
 		if (queue == udp_list_tail[port]) {
 			/* This packet is the tail packet */
