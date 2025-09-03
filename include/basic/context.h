@@ -5,6 +5,7 @@
 #pragma once
 #include <stdint.h>
 #include <stdbool.h>
+#include "tokenizer.h"
 #include "buddy_allocator.h"
 
 typedef struct {
@@ -42,10 +43,9 @@ typedef struct basic_ctx {
 	/**
 	 * @brief Current token type.
 	 *
-	 * A numeric representation of the token between `ptr` and `nextptr`. The value
-	 * should always be within the `token_t` enum.
+	 * A numeric representation of the token between `ptr` and `nextptr`.
 	 */
-	int current_token;
+	enum token_t current_token;
 
 	/**
 	 * @brief Current line number in the program.
@@ -119,7 +119,7 @@ typedef struct basic_ctx {
 	char string[MAX_STRINGLEN];
 
 	/**
-	 * Return types of the call stack
+	 * @brief Return types of the call stack
 	 */
 	ub_return_type fn_type_stack[MAX_CALL_STACK_DEPTH];
 
@@ -174,7 +174,7 @@ typedef struct basic_ctx {
 	uint64_t while_stack[MAX_LOOP_STACK_DEPTH];
 
 	/**
-	 * @brief Pointer indicating the current position in the repeat stack.
+	 * @brief Pointer indicating the current position in the while stack.
 	 */
 	uint64_t while_stack_ptr;
 
