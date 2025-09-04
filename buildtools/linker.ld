@@ -42,6 +42,11 @@ SECTIONS {
 		KEEP (*(.fini_array))
 		__FINI_END__ = .;
 
+		. = ALIGN(8);
+		__start_kw_array = .;
+		KEEP(*(SORT_BY_NAME(.kw.*)))
+		__stop_kw_array = .;
+
 		. = ALIGN(0x1000);
 	}
 

@@ -207,3 +207,6 @@
 	if (!accept(token, ctx)) { \
 		return; \
 	}
+
+/* Drop each keyword into its own section, name = .kw.<keyword>. */
+#define DECL_KEYWORD(name) static const int kw_##name __attribute__((section(".kw." #name), used)) = name;

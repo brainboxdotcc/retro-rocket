@@ -34,10 +34,21 @@
  * The following #define generates an enum of token types, along with a corresponding array of string
  * representations for each token. These are used in basic.c to perform tokenization during program parsing.
  */
-#define GENERATE_ENUM(ENUM) ENUM,
-#define GENERATE_STRING(STRING) #STRING,
+#define GENERATE_ENUM(NAME, ...) NAME,
+#define GENERATE_STRING(NAME, ...) #NAME,
 #define GENERATE_ENUM_LIST(MACRO, NAME) enum NAME { MACRO(GENERATE_ENUM) };
 #define GENERATE_ENUM_STRING_NAMES(MACRO, NAME) const char* NAME [] = { MACRO(GENERATE_STRING) };
+
+/* Markers for readability in the TOKEN list */
+#define STMT     STMT
+#define NONSTMT  NONSTMT
+
+/* Conditional emit: only statement keywords produce a const in .kw.<name> */
+#define EMIT_STMT(name) \
+    static const int kw_##name __attribute__((section(".kw." #name), used)) = name;
+#define EMIT_NONSTMT(name) /* nothing */
+
+#define EMIT_FROM_FLAG(name, flag) EMIT_##flag(name)
 
 /**
  * @brief All tokens recognised by the interpreter. Note that built in function names are NOT
@@ -48,117 +59,118 @@
  * enum, which is built and used within basic.c for tokenization.
  */
 #define TOKEN(T) \
-    T(NO_TOKEN) 	/* 0 */ \
-    T(ERROR) 		/* 1 */ \
-    T(ENDOFINPUT) 	/* 2 */ \
-    T(NUMBER) 		/* 3 */ \
-    T(HEXNUMBER) 	/* 4 */ \
-    T(STRING) 		/* 5 */ \
-    T(VARIABLE) 	/* 6 */ \
-    T(LET) 		/* 7 */ \
-    T(PRINT) 		/* 8 */ \
-    T(IF) 		/* 9 */ \
-    T(THEN) 		/* 10 */ \
-    T(ELSE) 		/* 11 */ \
-    T(CHAIN) 		/* 12 */ \
-    T(FOR) 		/* 13 */ \
-    T(STEP) 		/* 14 */ \
-    T(TO) 		/* 15 */ \
-    T(NEXT) 		/* 16 */ \
-    T(CURSOR) 		/* 17 */ \
-    T(GOTO) 		/* 18 */ \
-    T(GOSUB) 		/* 19 */ \
-    T(RETURN) 		/* 20 */ \
-    T(CALL) 		/* 21 */ \
-    T(INPUT) 		/* 22 */ \
-    T(COLOUR) 		/* 23 */ \
-    T(COLOR) 		/* 24 */ \
-    T(BACKGROUND) 	/* 25 */ \
-    T(EVAL) 		/* 26 */ \
-    T(CLOSE) 		/* 27 */ \
-    T(DEF) 		/* 28 */ \
-    T(PROC) 		/* 29 */ \
-    T(ENDPROC) 		/* 30 */ \
-    T(FN) 		/* 31 */ \
-    T(END) 		/* 32 */ \
-    T(REM) 		/* 33 */ \
-    T(COMMA) 		/* 34 */ \
-    T(SEMICOLON) 	/* 35 */ \
-    T(PLUS) 		/* 36 */ \
-    T(MINUS) 		/* 37 */ \
-    T(AND) 		/* 38 */ \
-    T(OR) 		/* 39 */ \
-    T(NOT) 		/* 40 */ \
-    T(EOR) 		/* 41 */ \
-    T(ASTERISK) 	/* 42 */ \
-    T(SLASH) 		/* 43 */ \
-    T(MOD) 		/* 44 */ \
-    T(OPENBRACKET) 	/* 45 */ \
-    T(CLOSEBRACKET) 	/* 46 */ \
-    T(LESSTHAN) 	/* 47 */ \
-    T(GREATERTHAN) 	/* 48 */ \
-    T(EQUALS) 		/* 49 */ \
-    T(NEWLINE) 		/* 50 */ \
-    T(AMPERSAND) 	/* 51 */ \
-    T(TILDE) 		/* 52 */ \
-    T(GLOBAL) 		/* 53 */ \
-    T(SOCKREAD) 	/* 54 */ \
-    T(SOCKWRITE) 	/* 55 */ \
-    T(CONNECT) 		/* 56 */ \
-    T(SOCKCLOSE) 	/* 57 */ \
-    T(CLS) 		/* 58 */ \
-    T(GCOL) 		/* 59 */ \
-    T(LINE) 		/* 60 */ \
-    T(TRIANGLE) 	/* 61 */ \
-    T(RECTANGLE) 	/* 62 */ \
-    T(CIRCLE) 		/* 63 */ \
-    T(POINT) 		/* 64 */ \
-    T(DATA) 		/* 65 */ \
-    T(RESTORE) 		/* 66 */ \
-    T(WRITE) 		/* 67 */ \
-    T(MKDIR) 		/* 68 */ \
-    T(RMDIR) 		/* 69 */ \
-    T(DELETE) 		/* 70 */ \
-    T(REPEAT) 		/* 71 */ \
-    T(UNTIL) 		/* 72 */ \
-    T(DIM) 		/* 73 */ \
-    T(REDIM) 		/* 74 */ \
-    T(PUSH) 		/* 75 */ \
-    T(POKE) 		/* 76 */ \
-    T(POKEW) 		/* 77 */ \
-    T(POKED) 		/* 78 */ \
-    T(POKEQ) 		/* 79 */ \
-    T(POP) 		/* 80 */ \
-    T(LOCAL) 		/* 81 */ \
-    T(CHDIR) 		/* 82 */ \
-    T(LIBRARY) 		/* 83 */ \
-    T(YIELD) 		/* 84 */ \
-    T(SETVARI) 		/* 85 */ \
-    T(SETVARR) 		/* 86 */ \
-    T(SETVARS) 		/* 87 */ \
-    T(SPRITELOAD) 	/* 88 */ \
-    T(SPRITEFREE) 	/* 89 */ \
-    T(PLOT) 		/* 90 */ \
-    T(AUTOFLIP) 	/* 91 */ \
-    T(FLIP) 		/* 92 */ \
-    T(KEYMAP) 		/* 93 */ \
-    T(MOUNT) 		/* 94 */ \
-    T(SETTIMEZONE) 	/* 95 */ \
-    T(ENDIF) 		/* 96 */ \
-    T(PLOTQUAD) 	/* 97 */ \
-    T(ON) 		/* 98 */ \
-    T(OFF) 		/* 99 */ \
-    T(WHILE) 		/* 100 */ \
-    T(ENDWHILE) 	/* 101 */ \
-    T(SLEEP) 		/* 102 */ \
-    T(CONTINUE) 	/* 103 */ \
-    T(UDPBIND) 		/* 104 */ \
-    T(UDPUNBIND) 	/* 105 */ \
-    T(UDPWRITE) 	/* 106 */ \
-    T(OUTPORT) 		/* 107 */ \
-    T(OUTPORTW) 	/* 108 */ \
-    T(OUTPORTD) 	/* 109 */ \
-    T(KGET) 		/* 110 */ \
+    T(NO_TOKEN, NONSTMT) 	/* 0 */ \
+    T(ERROR, STMT) 		/* 1 */ \
+    T(ENDOFINPUT, NONSTMT) 	/* 2 */ \
+    T(NUMBER, NONSTMT) 		/* 3 */ \
+    T(HEXNUMBER, NONSTMT) 	/* 4 */ \
+    T(STRING, NONSTMT) 		/* 5 */ \
+    T(VARIABLE, NONSTMT) 	/* 6 */ \
+    T(LET, STMT) 		/* 7 */ \
+    T(PRINT, STMT) 		/* 8 */ \
+    T(IF, STMT) 		/* 9 */ \
+    T(THEN, STMT) 		/* 10 */ \
+    T(ELSE, STMT) 		/* 11 */ \
+    T(CHAIN, STMT) 		/* 12 */ \
+    T(FOR, STMT) 		/* 13 */ \
+    T(STEP, STMT) 		/* 14 */ \
+    T(TO, STMT) 		/* 15 */ \
+    T(NEXT, STMT) 		/* 16 */ \
+    T(CURSOR, STMT) 		/* 17 */ \
+    T(GOTO, STMT) 		/* 18 */ \
+    T(GOSUB, STMT) 		/* 19 */ \
+    T(RETURN, STMT) 		/* 20 */ \
+    T(CALL, STMT) 		/* 21 */ \
+    T(INPUT, STMT) 		/* 22 */ \
+    T(COLOUR, STMT) 		/* 23 */ \
+    T(COLOR, STMT) 		/* 24 */ \
+    T(BACKGROUND, STMT) 	/* 25 */ \
+    T(EVAL, STMT) 		/* 26 */ \
+    T(CLOSE, STMT) 		/* 27 */ \
+    T(DEF, STMT) 		/* 28 */ \
+    T(PROC, STMT) 		/* 29 */ \
+    T(ENDPROC, STMT) 		/* 30 */ \
+    T(FN, NONSTMT) 		/* 31 */ \
+    T(END, STMT) 		/* 32 */ \
+    T(REM, STMT) 		/* 33 */ \
+    T(COMMA, NONSTMT) 		/* 34 */ \
+    T(SEMICOLON, NONSTMT) 	/* 35 */ \
+    T(PLUS, NONSTMT) 		/* 36 */ \
+    T(MINUS, NONSTMT) 		/* 37 */ \
+    T(AND, STMT) 		/* 38 */ \
+    T(OR, STMT) 		/* 39 */ \
+    T(NOT, STMT) 		/* 40 */ \
+    T(EOR, STMT) 		/* 41 */ \
+    T(ASTERISK, NONSTMT) 	/* 42 */ \
+    T(SLASH, NONSTMT) 		/* 43 */ \
+    T(MOD, NONSTMT) 		/* 44 */ \
+    T(OPENBRACKET, NONSTMT) 	/* 45 */ \
+    T(CLOSEBRACKET, NONSTMT) 	/* 46 */ \
+    T(LESSTHAN, NONSTMT) 	/* 47 */ \
+    T(GREATERTHAN, NONSTMT) 	/* 48 */ \
+    T(EQUALS, NONSTMT) 		/* 49 */ \
+    T(NEWLINE, NONSTMT) 	/* 50 */ \
+    T(AMPERSAND, NONSTMT) 	/* 51 */ \
+    T(TILDE, NONSTMT) 		/* 52 */ \
+    T(GLOBAL, STMT) 		/* 53 */ \
+    T(SOCKREAD, STMT) 		/* 54 */ \
+    T(SOCKWRITE, STMT) 		/* 55 */ \
+    T(CONNECT, STMT) 		/* 56 */ \
+    T(SOCKCLOSE, STMT) 		/* 57 */ \
+    T(CLS, STMT) 		/* 58 */ \
+    T(GCOL, STMT) 		/* 59 */ \
+    T(LINE, STMT) 		/* 60 */ \
+    T(TRIANGLE, STMT) 		/* 61 */ \
+    T(RECTANGLE, STMT) 		/* 62 */ \
+    T(CIRCLE, STMT) 		/* 63 */ \
+    T(POINT, STMT) 		/* 64 */ \
+    T(DATA, STMT) 		/* 65 */ \
+    T(RESTORE, STMT) 		/* 66 */ \
+    T(WRITE, STMT) 		/* 67 */ \
+    T(MKDIR, STMT) 		/* 68 */ \
+    T(RMDIR, STMT) 		/* 69 */ \
+    T(DELETE, STMT) 		/* 70 */ \
+    T(REPEAT, STMT) 		/* 71 */ \
+    T(UNTIL, STMT) 		/* 72 */ \
+    T(DIM, STMT) 		/* 73 */ \
+    T(REDIM, STMT) 		/* 74 */ \
+    T(PUSH, STMT) 		/* 75 */ \
+    T(POKE, STMT) 		/* 76 */ \
+    T(POKEW, STMT) 		/* 77 */ \
+    T(POKED, STMT) 		/* 78 */ \
+    T(POKEQ, STMT) 		/* 79 */ \
+    T(POP, STMT) 		/* 80 */ \
+    T(LOCAL, STMT) 		/* 81 */ \
+    T(CHDIR, STMT) 		/* 82 */ \
+    T(LIBRARY, STMT) 		/* 83 */ \
+    T(YIELD, STMT) 		/* 84 */ \
+    T(SETVARI, STMT) 		/* 85 */ \
+    T(SETVARR, STMT) 		/* 86 */ \
+    T(SETVARS, STMT) 		/* 87 */ \
+    T(SPRITELOAD, STMT) 	/* 88 */ \
+    T(SPRITEFREE, STMT) 	/* 89 */ \
+    T(PLOT, STMT) 		/* 90 */ \
+    T(AUTOFLIP, STMT) 		/* 91 */ \
+    T(FLIP, STMT) 		/* 92 */ \
+    T(KEYMAP, STMT) 		/* 93 */ \
+    T(MOUNT, STMT) 		/* 94 */ \
+    T(SETTIMEZONE, STMT) 	/* 95 */ \
+    T(ENDIF, STMT) 		/* 96 */ \
+    T(PLOTQUAD, STMT)	 	/* 97 */ \
+    T(ON, STMT) 		/* 98 */ \
+    T(OFF, STMT) 		/* 99 */ \
+    T(WHILE, STMT) 		/* 100 */ \
+    T(ENDWHILE, STMT) 		/* 101 */ \
+    T(SLEEP, STMT) 		/* 102 */ \
+    T(CONTINUE, STMT) 		/* 103 */ \
+    T(UDPBIND, STMT) 		/* 104 */ \
+    T(UDPUNBIND, STMT) 		/* 105 */ \
+    T(UDPWRITE, STMT) 		/* 106 */ \
+    T(OUTPORT, STMT) 		/* 107 */ \
+    T(OUTPORTW, STMT) 		/* 108 */ \
+    T(OUTPORTD, STMT) 		/* 109 */ \
+    T(KGET, STMT) 		/* 110 */ \
+
 
 GENERATE_ENUM_LIST(TOKEN, token_t)
 
