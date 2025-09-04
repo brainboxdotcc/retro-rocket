@@ -445,7 +445,7 @@ void dhcp_init(void) {
 	udp_register_daemon(DHCP_DST_PORT, &dhcp_handle_packet, NULL);
 
 	/* Background task is called every 1 ms in interrupt context */
-	proc_register_idle(&dhcp_background, IDLE_BACKGROUND);
+	proc_register_idle(&dhcp_background, IDLE_BACKGROUND, 1);
 
 	/* Kick off initial discovery */
 	dhcp_discover();

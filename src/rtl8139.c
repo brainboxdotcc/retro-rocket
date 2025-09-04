@@ -144,23 +144,6 @@ void rtl8139_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t err
 	in_interrupt = false;
 }
 
-void rtl8139_timer()
-{
-	/* For packet timeouts, unused at present */
-	//rtl8139_handler(rtl8139_device.irq + 32, 0, rtl8139_device.irq, &rtl8139_device);
-
-	static bool last_bufe = false;
-	bool bufe_now = rtl_inb(ChipCmd) & CR_BUFE;
-
-	if (bufe_now && !last_bufe) {
-		kprintf("RX buffer became empty\n");
-	}
-	if (!bufe_now && last_bufe) {
-		kprintf("RX buffer no longer empty\n");
-	}
-	last_bufe = bufe_now;
-}
-
 char* read_mac_addr() {
 	uint32_t mac_part1 = rtl_inl(MAC0);
 	uint16_t mac_part2 = rtl_inw(MAC1);
@@ -331,8 +314,6 @@ void init_rtl8139() {
 
 	char* mac_address = read_mac_addr();
 	kprintf("RTL8139: MAC=%s IO=%04x MMIO=%08x IRQ=%d (PIN#%c)\n", mac_address, rtl8139_device.io_base, rtl8139_device.mem_base, irq_num, irq_pin + 'A' - 1);
-
-	proc_register_idle(rtl8139_timer, IDLE_FOREGROUND);
 
 	rtl8139_device.active = true;
 

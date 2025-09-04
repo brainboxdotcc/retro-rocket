@@ -64,7 +64,10 @@ void timer_callback(uint8_t isr, uint64_t errorcode, uint64_t irq, void* opaque)
 	ticks++;
 
 	for (idle_timer_t* i = timer_idles; i; i = i->next) {
-		i->func();
+		if (i->next_tick > get_ticks()) {
+			i->func();
+			i->next_tick = i->frequency + get_ticks();
+		}
 	}
 
 	if (beep_end != 0 && ticks > beep_end) {

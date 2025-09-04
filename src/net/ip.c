@@ -590,6 +590,6 @@ void ip_init()
 {
 	ethernet_register_iee802_number(ETHERNET_TYPE_IP, (ethernet_protocol_t)ip_handle_packet);
 	ethernet_register_iee802_number(ETHERNET_TYPE_IP6, (ethernet_protocol_t)ip6_handle_packet);
-	proc_register_idle(ip_idle, IDLE_BACKGROUND);
-	proc_register_idle(ip_foreground, IDLE_FOREGROUND);
+	proc_register_idle(ip_idle, IDLE_BACKGROUND, 1);
+	proc_register_idle(ip_foreground, IDLE_FOREGROUND, 1);
 }

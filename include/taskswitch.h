@@ -114,6 +114,8 @@ typedef void (*proc_idle_timer_t)(void);
 typedef struct idle_timer {
 	proc_idle_timer_t func;       /**< Function pointer for callback */
 	struct idle_timer* next;      /**< Next idle timer in list */
+	uint64_t next_tick;           /**< Next tick time in get_ticks() */
+	uint64_t frequency;           /**< Tick frequency in ms */
 } idle_timer_t;
 
 /**
@@ -217,8 +219,9 @@ pid_t proc_id(int64_t index);
  *
  * @param handler Function pointer, void(void)
  * @param type Foreground or background idle type
+ * @param frequency_ms Frequency of tick in milliseconds
  */
-void proc_register_idle(proc_idle_timer_t handler, idle_type_t type);
+void proc_register_idle(proc_idle_timer_t handler, idle_type_t type, uint64_t frequency_ms);
 
 /**
  * @brief Change the CSD (current selected directory) of a process.

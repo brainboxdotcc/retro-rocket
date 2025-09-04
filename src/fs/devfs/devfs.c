@@ -85,5 +85,5 @@ void init_devfs(void) {
 	init_debuglog();
 
 	/* Periodically update sizes */
-	proc_register_idle(devfs_update_sizes, IDLE_FOREGROUND);
+	proc_register_idle(devfs_update_sizes, IDLE_FOREGROUND, 100);
 }

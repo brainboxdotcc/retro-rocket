@@ -1044,7 +1044,7 @@ void tcp_idle()
 void tcp_init()
 {
 	tcb = hashmap_new(sizeof(tcp_conn_t), 0, 6, 28, tcp_conn_hash, tcp_conn_compare, NULL, NULL);
-	proc_register_idle(tcp_idle, IDLE_FOREGROUND);
+	proc_register_idle(tcp_idle, IDLE_FOREGROUND, 1);
 }
 
 /**
