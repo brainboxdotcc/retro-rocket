@@ -397,7 +397,7 @@ void statement(struct basic_ctx* ctx);
  * @param ctx The BASIC context.
  * @return True if the token matches, false otherwise.
  */
-bool accept(int token, struct basic_ctx* ctx);
+bool accept(enum token_t token, struct basic_ctx* ctx);
 
 /**
  * @brief Parse function definitions in the BASIC program.

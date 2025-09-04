@@ -292,7 +292,7 @@ void tokenizer_init(const char *program, struct basic_ctx* ctx)
 	ctx->current_token = get_next_token(ctx);
 }
 
-int tokenizer_token(struct basic_ctx* ctx)
+enum token_t  tokenizer_token(struct basic_ctx* ctx)
 {
 	return ctx->current_token;
 }
@@ -311,12 +311,12 @@ void tokenizer_next(struct basic_ctx* ctx)
 	ctx->current_token = get_next_token(ctx);
 }
 
-int64_t tokenizer_num(struct basic_ctx* ctx, int token)
+int64_t tokenizer_num(struct basic_ctx* ctx, enum token_t token)
 {
 	return token == NUMBER ? atoll(ctx->ptr, 10) : atoll(ctx->ptr, 16);
 }
 
-void tokenizer_fnum(struct basic_ctx* ctx, int token, double* f)
+void tokenizer_fnum(struct basic_ctx* ctx, enum token_t token, double* f)
 {
 	atof(ctx->ptr, f);
 }
@@ -371,7 +371,6 @@ void tokenizer_error_print(struct basic_ctx* ctx, const char* error)
 		if (ctx->ended == 0) {
 			debug = false;
 			if (ctx->error_handler) {
-				dprintf("ERROR handled\n");
 				struct ub_proc_fn_def* def = basic_find_fn(ctx->error_handler, ctx);
 				if (def && ctx->call_stack_ptr < MAX_CALL_STACK_DEPTH) {
 					buddy_free(ctx->allocator, ctx->error_handler);
@@ -407,7 +406,6 @@ void tokenizer_error_print(struct basic_ctx* ctx, const char* error)
 			if (ctx->claimed_flip) {
 				set_video_auto_flip(true);
 			}
-			dprintf("ERROR unhandled\n");
 			ctx->ended = true;
 			setforeground(COLOUR_LIGHTRED);
 			kprintf("Error on line %ld: %s\n", ctx->current_linenum, error);
@@ -422,7 +420,6 @@ void tokenizer_error_print(struct basic_ctx* ctx, const char* error)
 					offset = 1;
 				}
 				kprintf("%s\n", l);
-				dprintf("offset=%lu\n", offset);
 				for (size_t x = 0; x < offset - 1; ++x) {
 					put(' ');
 				}
@@ -431,7 +428,6 @@ void tokenizer_error_print(struct basic_ctx* ctx, const char* error)
 			setforeground(COLOUR_WHITE);
 		}
 	} else {
-		dprintf("error in eval\n");
 		if (!ctx->errored) {
 			ctx->errored = true;
 			setforeground(COLOUR_LIGHTRED);
@@ -442,7 +438,7 @@ void tokenizer_error_print(struct basic_ctx* ctx, const char* error)
 	}
 }
 
-int tokenizer_finished(struct basic_ctx* ctx)
+bool tokenizer_finished(struct basic_ctx* ctx)
 {
 	return *ctx->ptr == 0 || ctx->current_token == ENDOFINPUT;
 }

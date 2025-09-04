@@ -48,117 +48,117 @@
  * enum, which is built and used within basic.c for tokenization.
  */
 #define TOKEN(T) \
-    T(NO_TOKEN) \
-    T(ERROR) \
-    T(ENDOFINPUT) \
-    T(NUMBER) \
-    T(HEXNUMBER) \
-    T(STRING) \
-    T(VARIABLE) \
-    T(LET) \
-    T(PRINT) \
-    T(IF) \
-    T(THEN) \
-    T(ELSE) \
-    T(CHAIN) \
-    T(FOR) \
-    T(STEP) \
-    T(TO) \
-    T(NEXT) \
-    T(CURSOR) \
-    T(GOTO) \
-    T(GOSUB) \
-    T(RETURN) \
-    T(CALL) \
-    T(INPUT) \
-    T(COLOUR) \
-    T(COLOR) \
-    T(BACKGROUND) \
-    T(EVAL) \
-    T(CLOSE) \
-    T(DEF) \
-    T(PROC) \
-    T(ENDPROC) \
-    T(FN) \
-    T(END) \
-    T(REM) \
-    T(COMMA) \
-    T(SEMICOLON) \
-    T(PLUS) \
-    T(MINUS) \
-    T(AND) \
-    T(OR) \
-    T(NOT) \
-    T(EOR) \
-    T(ASTERISK) \
-    T(SLASH) \
-    T(MOD) \
-    T(OPENBRACKET) \
-    T(CLOSEBRACKET) \
-    T(LESSTHAN) \
-    T(GREATERTHAN) \
-    T(EQUALS) \
-    T(NEWLINE) \
-    T(AMPERSAND) \
-    T(TILDE) \
-    T(GLOBAL) \
-    T(SOCKREAD) \
-    T(SOCKWRITE) \
-    T(CONNECT) \
-    T(SOCKCLOSE) \
-    T(CLS) \
-    T(GCOL) \
-    T(LINE) \
-    T(TRIANGLE) \
-    T(RECTANGLE) \
-    T(CIRCLE) \
-    T(POINT) \
-    T(DATA) \
-    T(RESTORE) \
-    T(WRITE) \
-    T(MKDIR) \
-    T(RMDIR) \
-    T(DELETE) \
-    T(REPEAT) \
-    T(UNTIL) \
-    T(DIM) \
-    T(REDIM) \
-    T(PUSH) \
-    T(POKE) \
-    T(POKEW) \
-    T(POKED) \
-    T(POKEQ) \
-    T(POP) \
-    T(LOCAL) \
-    T(CHDIR) \
-    T(LIBRARY) \
-    T(YIELD) \
-    T(SETVARI) \
-    T(SETVARR) \
-    T(SETVARS) \
-    T(SPRITELOAD) \
-    T(SPRITEFREE) \
-    T(PLOT) \
-    T(AUTOFLIP) \
-    T(FLIP) \
-    T(KEYMAP) \
-    T(MOUNT) \
-    T(SETTIMEZONE) \
-    T(ENDIF) \
-    T(PLOTQUAD) \
-    T(ON) \
-    T(OFF) \
-    T(WHILE) \
-    T(ENDWHILE) \
-    T(SLEEP) \
-    T(CONTINUE) \
-    T(UDPBIND) \
-    T(UDPUNBIND) \
-    T(UDPWRITE)  \
-    T(OUTPORT) \
-    T(OUTPORTW) \
-    T(OUTPORTD) \
-    T(KGET)
+    T(NO_TOKEN) 	/* 0 */ \
+    T(ERROR) 		/* 1 */ \
+    T(ENDOFINPUT) 	/* 2 */ \
+    T(NUMBER) 		/* 3 */ \
+    T(HEXNUMBER) 	/* 4 */ \
+    T(STRING) 		/* 5 */ \
+    T(VARIABLE) 	/* 6 */ \
+    T(LET) 		/* 7 */ \
+    T(PRINT) 		/* 8 */ \
+    T(IF) 		/* 9 */ \
+    T(THEN) 		/* 10 */ \
+    T(ELSE) 		/* 11 */ \
+    T(CHAIN) 		/* 12 */ \
+    T(FOR) 		/* 13 */ \
+    T(STEP) 		/* 14 */ \
+    T(TO) 		/* 15 */ \
+    T(NEXT) 		/* 16 */ \
+    T(CURSOR) 		/* 17 */ \
+    T(GOTO) 		/* 18 */ \
+    T(GOSUB) 		/* 19 */ \
+    T(RETURN) 		/* 20 */ \
+    T(CALL) 		/* 21 */ \
+    T(INPUT) 		/* 22 */ \
+    T(COLOUR) 		/* 23 */ \
+    T(COLOR) 		/* 24 */ \
+    T(BACKGROUND) 	/* 25 */ \
+    T(EVAL) 		/* 26 */ \
+    T(CLOSE) 		/* 27 */ \
+    T(DEF) 		/* 28 */ \
+    T(PROC) 		/* 29 */ \
+    T(ENDPROC) 		/* 30 */ \
+    T(FN) 		/* 31 */ \
+    T(END) 		/* 32 */ \
+    T(REM) 		/* 33 */ \
+    T(COMMA) 		/* 34 */ \
+    T(SEMICOLON) 	/* 35 */ \
+    T(PLUS) 		/* 36 */ \
+    T(MINUS) 		/* 37 */ \
+    T(AND) 		/* 38 */ \
+    T(OR) 		/* 39 */ \
+    T(NOT) 		/* 40 */ \
+    T(EOR) 		/* 41 */ \
+    T(ASTERISK) 	/* 42 */ \
+    T(SLASH) 		/* 43 */ \
+    T(MOD) 		/* 44 */ \
+    T(OPENBRACKET) 	/* 45 */ \
+    T(CLOSEBRACKET) 	/* 46 */ \
+    T(LESSTHAN) 	/* 47 */ \
+    T(GREATERTHAN) 	/* 48 */ \
+    T(EQUALS) 		/* 49 */ \
+    T(NEWLINE) 		/* 50 */ \
+    T(AMPERSAND) 	/* 51 */ \
+    T(TILDE) 		/* 52 */ \
+    T(GLOBAL) 		/* 53 */ \
+    T(SOCKREAD) 	/* 54 */ \
+    T(SOCKWRITE) 	/* 55 */ \
+    T(CONNECT) 		/* 56 */ \
+    T(SOCKCLOSE) 	/* 57 */ \
+    T(CLS) 		/* 58 */ \
+    T(GCOL) 		/* 59 */ \
+    T(LINE) 		/* 60 */ \
+    T(TRIANGLE) 	/* 61 */ \
+    T(RECTANGLE) 	/* 62 */ \
+    T(CIRCLE) 		/* 63 */ \
+    T(POINT) 		/* 64 */ \
+    T(DATA) 		/* 65 */ \
+    T(RESTORE) 		/* 66 */ \
+    T(WRITE) 		/* 67 */ \
+    T(MKDIR) 		/* 68 */ \
+    T(RMDIR) 		/* 69 */ \
+    T(DELETE) 		/* 70 */ \
+    T(REPEAT) 		/* 71 */ \
+    T(UNTIL) 		/* 72 */ \
+    T(DIM) 		/* 73 */ \
+    T(REDIM) 		/* 74 */ \
+    T(PUSH) 		/* 75 */ \
+    T(POKE) 		/* 76 */ \
+    T(POKEW) 		/* 77 */ \
+    T(POKED) 		/* 78 */ \
+    T(POKEQ) 		/* 79 */ \
+    T(POP) 		/* 80 */ \
+    T(LOCAL) 		/* 81 */ \
+    T(CHDIR) 		/* 82 */ \
+    T(LIBRARY) 		/* 83 */ \
+    T(YIELD) 		/* 84 */ \
+    T(SETVARI) 		/* 85 */ \
+    T(SETVARR) 		/* 86 */ \
+    T(SETVARS) 		/* 87 */ \
+    T(SPRITELOAD) 	/* 88 */ \
+    T(SPRITEFREE) 	/* 89 */ \
+    T(PLOT) 		/* 90 */ \
+    T(AUTOFLIP) 	/* 91 */ \
+    T(FLIP) 		/* 92 */ \
+    T(KEYMAP) 		/* 93 */ \
+    T(MOUNT) 		/* 94 */ \
+    T(SETTIMEZONE) 	/* 95 */ \
+    T(ENDIF) 		/* 96 */ \
+    T(PLOTQUAD) 	/* 97 */ \
+    T(ON) 		/* 98 */ \
+    T(OFF) 		/* 99 */ \
+    T(WHILE) 		/* 100 */ \
+    T(ENDWHILE) 	/* 101 */ \
+    T(SLEEP) 		/* 102 */ \
+    T(CONTINUE) 	/* 103 */ \
+    T(UDPBIND) 		/* 104 */ \
+    T(UDPUNBIND) 	/* 105 */ \
+    T(UDPWRITE) 	/* 106 */ \
+    T(OUTPORT) 		/* 107 */ \
+    T(OUTPORTW) 	/* 108 */ \
+    T(OUTPORTD) 	/* 109 */ \
+    T(KGET) 		/* 110 */ \
 
 GENERATE_ENUM_LIST(TOKEN, token_t)
 
@@ -183,7 +183,7 @@ void tokenizer_next(struct basic_ctx* ctx);
  * @param ctx context
  * @return int token
  */
-int tokenizer_token(struct basic_ctx* ctx);
+enum token_t tokenizer_token(struct basic_ctx* ctx);
 
 /**
  * @brief Get integer number as next token
@@ -193,7 +193,7 @@ int tokenizer_token(struct basic_ctx* ctx);
  * @param token token (NUMBER or HEXNUMBER)
  * @return int64_t number read from program
  */
-int64_t tokenizer_num(struct basic_ctx* ctx, int token);
+int64_t tokenizer_num(struct basic_ctx* ctx, enum token_t token);
 
 /**
  * @brief Get real number as next token
@@ -203,7 +203,7 @@ int64_t tokenizer_num(struct basic_ctx* ctx, int token);
  * @param token token (NUMBER)
  * @param f number read from program
  */
-void tokenizer_fnum(struct basic_ctx* ctx, int token, double* f);
+void tokenizer_fnum(struct basic_ctx* ctx, enum token_t token, double* f);
 
 /**
  * @brief Get a variable name as next token
@@ -232,7 +232,7 @@ bool tokenizer_string(char *dest, int len, struct basic_ctx* ctx);
  * @param ctx context
  * @return int true if the program has finished
  */
-int tokenizer_finished(struct basic_ctx* ctx);
+bool tokenizer_finished(struct basic_ctx* ctx);
 
 /**
  * @brief display an error to the terminal and end the program

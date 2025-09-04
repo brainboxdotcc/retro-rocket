@@ -165,7 +165,7 @@ void print_statement(struct basic_ctx* ctx);
  * @param ctx The BASIC context.
  * @param tok The token for the colour.
  */
-void colour_statement(struct basic_ctx* ctx, int tok);
+void colour_statement(struct basic_ctx* ctx, enum token_t tok);
 
 /**
  * @brief Set the text background colour.

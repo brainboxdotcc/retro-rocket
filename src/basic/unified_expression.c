@@ -73,14 +73,14 @@ static up_value up_factor(struct basic_ctx *ctx);
 /* ---------- Factor ---------- */
 /* factor := NUMBER | HEXNUMBER | STRING | VARIABLE | '(' expr ')' */
 static up_value up_factor(struct basic_ctx *ctx) {
-	int tok = tokenizer_token(ctx);
+	enum token_t tok = tokenizer_token(ctx);
 
 	switch (tok) {
 		case NUMBER: {
 			/* Distinguish 123 vs 1.23 by peeking a dot in the lexeme. */
 			const char *p = ctx->ptr;
-			while (isdigit((unsigned char) *p)) p++;
-			if (*p == '.' && isdigit((unsigned char) p[1])) {
+			while (isdigit(*p)) p++;
+			if (*p == '.' && isdigit(p[1])) {
 				double d = 0.0;
 				tokenizer_fnum(ctx, tok, &d);
 				accept(NUMBER, ctx);
@@ -188,7 +188,7 @@ static up_value up_unary(struct basic_ctx *ctx) {
 	bool saw_sign = false;
 
 	while (1) {
-		int t = tokenizer_token(ctx);
+		enum token_t t = tokenizer_token(ctx);
 		if (t == PLUS) {
 			saw_sign = true;
 			tokenizer_next(ctx);
@@ -229,7 +229,7 @@ static up_value up_term(struct basic_ctx *ctx) {
 	up_value acc = up_unary(ctx);
 
 	for (;;) {
-		int op = tokenizer_token(ctx);
+		enum token_t op = tokenizer_token(ctx);
 		if (op != ASTERISK && op != SLASH && op != MOD) {
 			break;
 		}
@@ -303,6 +303,7 @@ static up_value up_term(struct basic_ctx *ctx) {
 					}
 				}
 				break;
+			default:
 		}
 	}
 
@@ -318,7 +319,7 @@ static up_value up_value_expr(struct basic_ctx *ctx) {
 	up_value acc = up_term(ctx);
 
 	for (;;) {
-		int op = tokenizer_token(ctx);
+		enum token_t op = tokenizer_token(ctx);
 		if (op != PLUS && op != MINUS) {
 			break;
 		}
@@ -378,12 +379,12 @@ static up_value up_value_expr(struct basic_ctx *ctx) {
  */
 static up_value up_relation_expr(struct basic_ctx *ctx) {
 	up_value lhs = up_value_expr(ctx);
-	int op = tokenizer_token(ctx);
+	enum token_t op = tokenizer_token(ctx);
 
 	while (op == LESSTHAN || op == GREATERTHAN || op == EQUALS) {
 		tokenizer_next(ctx);
 
-		int secondary = tokenizer_token(ctx);
+		enum token_t secondary = tokenizer_token(ctx);
 		int mode = 0; /* 0: plain, 1: or_equal, 2: not_equal */
 		if (op == LESSTHAN || op == GREATERTHAN) {
 			if (secondary == EQUALS) {
@@ -476,7 +477,7 @@ bool up_conditional(struct basic_ctx *ctx) {
 	up_value acc = parse_bool_term(ctx);
 
 	for (;;) {
-		int tk = tokenizer_token(ctx);
+		enum token_t tk = tokenizer_token(ctx);
 		if (tk == AND) {
 			tokenizer_next(ctx);
 			up_value rhs = parse_bool_term(ctx);

@@ -4,7 +4,7 @@ extern bool debug;
 
 void statement(struct basic_ctx* ctx)
 {
-	int token = tokenizer_token(ctx);
+	enum token_t token = tokenizer_token(ctx);
 
 	basic_debug("line %ld statement(%d)\n", ctx->current_linenum, token);
 

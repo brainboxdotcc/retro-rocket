@@ -102,7 +102,7 @@ void if_statement(struct basic_ctx* ctx)
 
 			int depth = 0;
 			while (!tokenizer_finished(ctx)) {
-				int t = tokenizer_token(ctx);
+				enum token_t t = tokenizer_token(ctx);
 
 				/* Detect nested multiline IF: IF ... THEN NEWLINE */
 				if (t == IF) {
@@ -110,7 +110,7 @@ void if_statement(struct basic_ctx* ctx)
 					/* Advance until THEN or end-of-line/input */
 					for (;;) {
 						tokenizer_next(ctx);
-						int tt = tokenizer_token(ctx);
+						enum token_t tt = tokenizer_token(ctx);
 						if (tt == THEN) {
 							tokenizer_next(ctx);
 							tt = tokenizer_token(ctx);
@@ -325,12 +325,12 @@ void end_statement(struct basic_ctx* ctx)
 	ctx->ended = true;
 }
 
-static bool seek_to_matching_token(struct basic_ctx* ctx, int open_tok, int close_tok, const char* name) {
+static bool seek_to_matching_token(struct basic_ctx* ctx, enum token_t open_tok, enum token_t close_tok, const char* name) {
 	int depth = 1;
 	int64_t line = 0;
 
 	for (;;) {
-		int tok = tokenizer_token(ctx);
+		enum token_t tok = tokenizer_token(ctx);
 
 		if (tok == ENDOFINPUT) {
 			tokenizer_error_printf(ctx, "Unclosed %s", name);
@@ -408,7 +408,7 @@ void continue_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(CONTINUE, ctx);
 
-	int kind = tokenizer_token(ctx);
+	enum token_t kind = tokenizer_token(ctx);
 	if (kind != WHILE && kind != FOR && kind != REPEAT) {
 		tokenizer_error_print(ctx, "CONTINUE must be followed by WHILE, FOR, or REPEAT");
 		return;

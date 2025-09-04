@@ -172,7 +172,7 @@ void print_statement(struct basic_ctx* ctx)
 	}
 }
 
-void colour_statement(struct basic_ctx* ctx, int tok)
+void colour_statement(struct basic_ctx* ctx, enum token_t tok)
 {
 	accept_or_return(tok, ctx);
 	setforeground(expr(ctx));

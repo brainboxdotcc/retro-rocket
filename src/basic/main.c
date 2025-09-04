@@ -521,7 +521,7 @@ void basic_destroy(struct basic_ctx *ctx) {
 	kfree_null(&ctx);
 }
 
-bool accept(int token, struct basic_ctx *ctx) {
+bool accept(enum token_t token, struct basic_ctx *ctx) {
 	if (token != tokenizer_token(ctx)) {
 		GENERATE_ENUM_STRING_NAMES(TOKEN, token_names)
 		tokenizer_error_printf(ctx, "Expected %s got %s", token_names[token], token_names[tokenizer_token(ctx)]);
