@@ -41,7 +41,9 @@ bool copy_file(const char* source, const char* destination) {
 
 		return true;
 	}
-	error_page("Could not get info for '%s' or file is empty\n", source);
+	if (!info) {
+		error_page("Could not get info for '%s'\n", source);
+	}
 	return false;
 }
 
