@@ -118,6 +118,7 @@ foreach(mod ${MODULE_DIRS})
             add_custom_command(OUTPUT ${MOD_OUT}
                     COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/iso/system/modules
                     COMMAND ${CMAKE_LINKER} -r -o ${MOD_OUT} $<TARGET_OBJECTS:mod_${mod}>
+                    COMMAND ${CMAKE_COMMAND} -E touch ${MOD_OUT}
                     DEPENDS mod_${mod}
                     VERBATIM
             )

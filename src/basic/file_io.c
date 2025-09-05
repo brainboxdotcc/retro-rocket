@@ -8,7 +8,6 @@ const char* make_full_path(struct basic_ctx* ctx, const char* relative)
 {
 	uint8_t cpu = logical_cpu_id();
 	if (*relative == '/') {
-		dprintf("make_full_path %s -> %s\n", relative, relative);
 		return relative;
 	}
 
@@ -16,17 +15,14 @@ const char* make_full_path(struct basic_ctx* ctx, const char* relative)
 	char qualified_path[MAX_STRINGLEN];
 
 	if (*relative == 0) {
-		dprintf("make_full_path %s -> %s\n", relative, csd);
 		return csd;
 	}
 
 	if (*csd == '/' && *(csd+1) == 0) {
 		snprintf(qualified_path, MAX_STRINGLEN, "%s%s", csd, relative);
-		dprintf("make_full_path %s -> %s\n", relative, qualified_path);
 		return gc_strdup(ctx, qualified_path);
 	}
 	snprintf(qualified_path, MAX_STRINGLEN, "%s/%s", csd, relative);
-	dprintf("make_full_path %s -> %s\n", relative, qualified_path);
 	return gc_strdup(ctx, qualified_path);
 }
 

@@ -14,6 +14,16 @@
 #include <kernel.h>
 #include <stdbool.h>
 
+/**
+ * @brief module ABI version the kernel expects
+ *
+ * @note If we change the ABI at all, we must bump this by 1.
+ * It is used in the names of the init/exit functions of each module,
+ * so an incompatible module is outright rejected before it can wreak
+ * havoc in the kernel space.
+ */
+#define KMOD_ABI 100
+
 /* ELF identification */
 #define EI_NIDENT      16   /**< Size of e_ident[] array */
 
@@ -127,7 +137,28 @@ typedef struct elf_rela {
 typedef bool (*module_init_fn)(void);  /**< Prototype for module initialiser */
 typedef void (*module_exit_fn)(void);  /**< Prototype for module finaliser */
 
+/**
+ * @brief Set this prefix on all module_init/module_exit functions in modules
+ */
 #define EXPORTED __attribute__((visibility("default")))
+
+/**
+ * @brief helpers to form symbol names
+ */
+#define MOD_CAT2(a,b) a##b
+#define MOD_CAT(a,b)  MOD_CAT2(a,b)
+#define MOD_INIT_SYM(ver) MOD_CAT(mod_init_v, ver)
+#define MOD_EXIT_SYM(ver) MOD_CAT(mod_exit_v, ver)
+
+/* stringification */
+#define STR2(x) #x
+#define STR(x) STR2(x)
+
+/**
+ * @brief canonical names as strings
+ */
+#define MOD_INIT_NAME_STR "mod_init_v" STR(KMOD_ABI)
+#define MOD_EXIT_NAME_STR "mod_exit_v" STR(KMOD_ABI)
 
 /**
  * @brief Describes a loaded and relocated module image
@@ -137,8 +168,9 @@ typedef void (*module_exit_fn)(void);  /**< Prototype for module finaliser */
  * lookup, and resolves conventional entry points named mod_init and mod_exit
  */
 typedef struct module {
-	char name[64];			/**< Optional friendly name, not set by the loader */
+	const char* name;		/**< Module name */
 	uint8_t *base;			/**< Base of contiguous allocation holding SHF_ALLOC sections */
+	void* raw_bits;			/**< For symbol resolution by other modules */
 	size_t size;			/**< Total size of the contiguous allocation */
 	const elf_sym *symtab;		/**< Pointer to the module's SHT_SYMTAB within the file buffer */
 	size_t sym_count;		/**< Number of entries in symtab */
@@ -156,9 +188,9 @@ typedef struct module {
  * @brief Load and relocate a module from an in-memory ELF64 ET_REL buffer, then call its initialiser
  *
  * Validates the ELF header, allocates a single contiguous region for all SHF_ALLOC sections,
- * copies/zeros contents with correct alignment, loads symtab/strtab, applies all SHT_RELA
- * relocations, resolves undefined globals against the kernel dynamic symbol table
- * (kernel must keep .dynsym/.dynstr), resolves mod_init/mod_exit, then calls mod_init
+ * copies/zeros contents with correct alignment, applies all SHT_RELA relocations, resolves
+ * undefined globals against the kernel dynamic symbol table (from kernel.sym),
+ * resolves versioned mod_init/mod_exit, then calls mod_init
  *
  * @param file pointer to the ELF bytes
  * @param len  size of the ELF buffer in bytes
@@ -178,7 +210,7 @@ bool module_load_from_memory(const void *file, size_t len, module *out);
  * @param m module descriptor previously returned by module_load_from_memory
  * @return true on success, false if @p m is NULL or teardown fails
  */
-bool module_unload(module *m);
+bool module_internal_unload(module *m);
 
 /**
  * @brief Resolve a kernel global by name via the kernel dynamic symbol table
@@ -297,3 +329,34 @@ uintptr_t module_resolve_symbol_addr(const module *m, const elf_sym *s);
  *          externals should appear as R_X86_64_64 when modules are built with -mcmodel=large -fno-pic -fno-plt
  */
 bool module_apply_relocations(const uint8_t *file, const elf_shdr *sh, size_t shnum, module *m);
+
+/**
+ * @brief Initialise the module registry and loader state
+ *
+ * Creates the in-kernel hashmap used to track loaded modules keyed by name
+ * Must be called once before any other module operations
+ */
+void init_modules(void);
+
+/**
+ * @brief Load and start a module by name
+ *
+ * Constructs the path /system/modules/<name>.ko, reads the file, relocates it,
+ * resolves externals against the kernel symbol index, and calls mod_init
+ * Returns false if the module is already loaded or on any failure
+ *
+ * @param name NUL-terminated module base name without extension or path
+ * @return true on success, false on error
+ */
+bool load_module(const char *name);
+
+/**
+ * @brief Stop and unload a loaded module by name
+ *
+ * Locates the module in the registry, calls mod_exit if present, frees all
+ * allocations associated with the image, and removes the entry from the registry
+ *
+ * @param name NUL-terminated module base name
+ * @return true on success, false if not found or unload failed
+ */
+bool unload_module(const char *name);

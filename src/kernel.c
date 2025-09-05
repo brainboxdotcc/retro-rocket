@@ -28,23 +28,7 @@ void kmain()
 		preboot_fail("Failed to mount boot drive to VFS!");
 	}
 
-	/*module test;
-	fs_directory_entry_t * f = fs_get_file_info("/system/modules/test.ko");
-	if (f) {
-		dprintf("*** MOD TEST: Got info on test.ko size %lu\n", f->size);
-		void* module_content = kmalloc(f->size);
-		if (fs_read_file(f, 0, f->size, module_content)) {
-			dprintf("*** LOADING TEST MODULE test.ko ***\n");
-			if (module_load_from_memory(module_content, f->size, &test)) {
-				module_unload(&test);
-			}
-			dprintf("*** DONE WITH TEST MODULE test.ko ***\n");
-		} else {
-			dprintf("Couldnt read test.ko\n");
-		}
-	} else {
-		dprintf("*** MOD TEST: Cant get info on test.ko\n");
-	}*/
+	//load_module("test");
 
 	init_process();
 }

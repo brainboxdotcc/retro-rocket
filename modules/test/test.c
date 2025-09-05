@@ -1,10 +1,10 @@
 #include <kernel.h>
 
-bool EXPORTED mod_init(void) {
+bool EXPORTED MOD_INIT_SYM(KMOD_ABI)(void) {
 	dprintf("test.ko: mod_init called!\n");
 	return true;
 }
 
-void EXPORTED mod_exit(void) {
+void EXPORTED MOD_EXIT_SYM(KMOD_ABI)(void) {
 	dprintf("test.ko: mod_exit called!\n");
 }

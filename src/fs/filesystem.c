@@ -243,7 +243,6 @@ bool make_vfs_path(const char* path, fs_tree_t* node) {
 		kfree_null(&pathinfo);
 		find.parent = pathname;
 		void* new_item = hashmap_set(vfs_hash, &find);
-		dprintf("VFS tree branch: %s\n", path);
 		/* If parent doesn't exist, create it */
 		bool parent_is_root = (strcmp(find.parent, "/") == 0);
 		if (!find_vfs_path(find.parent)) {
@@ -1004,7 +1003,6 @@ void retrieve_node_from_driver(fs_tree_t* node)
 	 * delete the old content first to avoid a memleak.
 	 */
 
-	dprintf("retrieve_node_from_driver\n");
 	if (node == NULL) {
 		return;
 	}
@@ -1142,11 +1140,9 @@ uint8_t verify_path(const char* path)
 fs_tree_t* walk_to_node(fs_tree_t* current_node, const char* path)
 {
 	if (!verify_path(path)) {
-		dprintf("walk_to_node: Verify path failed: %s\n", path);
 		return NULL;
 	}
 	if (!strcmp(path, "/")) {
-		dprintf("walk_to_node: returning root of tree: %s\n", path);
 		return fs_tree;
 	}
 	/* First build the dir stack */
@@ -1164,7 +1160,6 @@ fs_tree_t* walk_to_node(fs_tree_t* current_node, const char* path)
 		if (*parse == '/') {
 			*parse = 0;
 			walk->name = strdup(last);
-			dprintf("Dirstack part: '%s'\n", walk->name);
 			last = parse + 1;
 
                         dirstack_t* next = kmalloc(sizeof(dirstack_t));
@@ -1179,9 +1174,7 @@ fs_tree_t* walk_to_node(fs_tree_t* current_node, const char* path)
 	}
 	walk->next = NULL;
 	walk->name = strdup(last);
-	dprintf("Made dirstack: '%s'\n", path);
 	fs_tree_t* result = walk_to_node_internal(current_node, ds);
-	dprintf("Walked nodes, got result %p\n", result);
 	while (ds) {
 		dirstack_t* next = ds->next;
 		kfree_null(&ds->name);
@@ -1191,8 +1184,7 @@ fs_tree_t* walk_to_node(fs_tree_t* current_node, const char* path)
 	return result;
 }
 
-fs_directory_entry_t* find_file_in_dir(fs_tree_t* directory, const char* filename)
-{
+fs_directory_entry_t* find_file_in_dir(fs_tree_t* directory, const char* filename)  {
 	if (!directory || !filename) {
 		fs_set_error(FS_ERR_INVALID_ARG);
 		return NULL;
@@ -1511,7 +1503,6 @@ int attach_filesystem(const char* virtual_path, filesystem_t* fs, void* opaque)
 	}
 	item->responsible_driver = (void*)fs;
 	item->name = !strcmp(virtual_path, "/") ? strdup("/") : fs_get_name_part(virtual_path);
-	dprintf("Attach virtual path '%s' -> '%s'", virtual_path, item->name ? item->name : "<NULL>");
 	item->opaque = opaque;
 	item->dirty = 1;
 	item->files = NULL;

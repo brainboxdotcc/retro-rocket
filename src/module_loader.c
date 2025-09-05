@@ -1,5 +1,7 @@
 #include <kernel.h>
 
+static struct hashmap* modules;
+
 const void *kernel_dlsym(const char *name) {
 	if (!name) {
 		return NULL;
@@ -97,7 +99,7 @@ bool module_place_sections(const uint8_t *file, const elf_shdr *sh, size_t shnum
 	m->size = address_align_up(total, max_align ? max_align : 16);
 	m->base = kmalloc_aligned(m->size, max_align > 16 ? max_align : 16);
 	if (m->base == NULL) {
-		dprintf("module_place_sections: allocation failed (%zu bytes)\n", m->size);
+		dprintf("module_place_sections: allocation failed (%lu bytes)\n", m->size);
 		return false;
 	}
 	memset(m->base, 0, m->size);
@@ -360,11 +362,11 @@ bool module_load_from_memory(const void *file, size_t len, module *out) {
 		return false;
 	}
 
-	out->init_fn = (module_init_fn) module_dlsym_local(out, "mod_init");
-	out->exit_fn = (module_exit_fn) module_dlsym_local(out, "mod_exit");
+	out->init_fn = (module_init_fn) module_dlsym_local(out, MOD_INIT_NAME_STR);
+	out->exit_fn = (module_exit_fn) module_dlsym_local(out, MOD_EXIT_NAME_STR);
 
 	if (out->init_fn == NULL) {
-		dprintf("module_load_from_memory: mod_init not found\n");
+		dprintf("module_load_from_memory: ABI %u required, missing %s()\n", KMOD_ABI, MOD_INIT_NAME_STR);
 		kfree_aligned(&out->base);
 		return false;
 	}
@@ -380,7 +382,7 @@ bool module_load_from_memory(const void *file, size_t len, module *out) {
 	return true;
 }
 
-bool module_unload(module *m) {
+bool module_internal_unload(module *m) {
 	if (m == NULL) {
 		return false;
 	}
@@ -390,6 +392,91 @@ bool module_unload(module *m) {
 	}
 
 	kfree_aligned(&m->base);
-	memset(m, 0, sizeof(*m));
+	m->base = NULL;
+	m->exit_fn = NULL;
+	m->init_fn = NULL;
+	m->placed_count = 0;
+	m->symtab = NULL;
+	m->strtab = NULL;
+	m->sym_count = 0;
+	return true;
+}
+
+static int module_compare(const void *a, const void *b, void *udata) {
+	const module* ma = a;
+	const module* mb = b;
+	return strcmp(ma->name, mb->name);
+}
+
+static uint64_t module_hash(const void *item, uint64_t seed0, uint64_t seed1) {
+	const module* a = item;
+	return hashmap_sip(a->name, strlen(a->name), seed0, seed1);
+}
+
+static void module_hash_free(const void* item, void* udata) {
+	const module* m = item;
+	kfree(m->raw_bits);
+	kfree(m->name);
+}
+
+void init_modules(void) {
+	if (modules) {
+		return;
+	}
+	modules = hashmap_new(sizeof(module), 0, mt_rand(), mt_rand(), module_hash, module_compare, module_hash_free, NULL);
+}
+
+bool load_module(const char* name) {
+	module m = {};
+	char path[MAX_STRINGLEN];
+	snprintf(path, MAX_STRINGLEN, "/system/modules/%s.ko", name);
+	m.name = strdup(name);
+	if (!m.name) {
+		dprintf("Out of memory\n");
+		return false;
+	}
+	if (hashmap_get(modules, &m)) {
+		dprintf("Module %s already loaded\n", name);
+		kfree_null(&m.name);
+		return false;
+	}
+	fs_directory_entry_t * f = fs_get_file_info(path);
+	if (!f || (f->flags & FS_DIRECTORY) != 0) {
+		kfree_null(&m.name);
+		dprintf("Module %s does not exist or is a directory\n", name);
+		return false;
+	}
+	void* module_content = kmalloc(f->size);
+	if (!module_content) {
+		kfree_null(&m.name);
+		dprintf("Out of memory loading module %s\n", name);
+		return false;
+	}
+	if (!fs_read_file(f, 0, f->size, module_content)) {
+		kfree_null(&module_content);
+		kfree_null(&m.name);
+		dprintf("Failed to read file %s to load module %s: %s\n", path, name, fs_strerror(fs_get_error()));
+		return false;
+	}
+	m.raw_bits = module_content;
+	if (!module_load_from_memory(module_content, f->size, &m)) {
+		kfree_null(&module_content);
+		kfree_null(&m.name);
+		return false;
+	}
+	hashmap_set(modules, &m);
+	return true;
+}
+
+bool unload_module(const char* name) {
+	module* mod = hashmap_get(modules, &(module){ .name = name });
+	if (!mod) {
+		dprintf("Module %s is not loaded\n", name);
+		return false;
+	}
+	if (!module_internal_unload(mod)) {
+		return false;
+	}
+	hashmap_delete(modules, mod);
 	return true;
 }

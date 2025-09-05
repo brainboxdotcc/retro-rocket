@@ -69,7 +69,6 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 				info->volume_name = strdup(dotless);
 				highest_lfn_order = -1;
 				memset(&lfns, 0, sizeof(lfns));
-				dprintf("volume id\n");
 			} else if ((entry->attr & ATTR_LONG_NAME) == ATTR_LONG_NAME) {
 				/* LFN entry: stash by sequence index (mask off 0x40) */
 				lfn_t* lfn = (lfn_t*)entry;
@@ -80,12 +79,10 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 						highest_lfn_order = (int16_t)idx;
 					}
 				}
-				dprintf("long name\n");
 			} else {
 				/* SFN (regular file/dir) - build entry, optionally with LFN */
 				char sfn[13];
 				char sfn_dotless[13];
-				dprintf("short name\n");
 				parse_short_name(entry, sfn, sfn_dotless);
 
 				fs_directory_entry_t* file = kmalloc(sizeof(fs_directory_entry_t));
@@ -130,8 +127,6 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 
 				file->next = list;
 				list = file;
-
-				dprintf("Append name\n");
 			}
 
 			next_entry:
