@@ -43,8 +43,9 @@ bool copy_file(const char* source, const char* destination) {
 	}
 	if (!info) {
 		error_page("Could not get info for '%s'\n", source);
+		return false;
 	}
-	return false;
+	return true;
 }
 
 bool copy_directory(const char* source, const char* destination) {
