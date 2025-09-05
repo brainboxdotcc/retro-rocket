@@ -118,11 +118,12 @@ foreach(mod ${MODULE_DIRS})
             add_custom_command(OUTPUT ${MOD_OUT}
                     COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/iso/system/modules
                     COMMAND ${CMAKE_LINKER} -r -o ${MOD_OUT} $<TARGET_OBJECTS:mod_${mod}>
-                    DEPENDS $<TARGET_OBJECTS:mod_${mod}>
+                    DEPENDS mod_${mod}
                     VERBATIM
             )
 
             add_custom_target(module_${mod} ALL DEPENDS ${MOD_OUT})
+            add_dependencies(module_${mod} mod_${mod})
             add_dependencies(ISO module_${mod})
             list(APPEND MODULE_TARGETS module_${mod})
             list(APPEND MODULE_KO_FILES ${MOD_OUT})
