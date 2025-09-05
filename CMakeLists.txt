@@ -132,7 +132,7 @@ foreach(mod ${MODULE_DIRS})
 endforeach()
 
 # make a single stamp that depends on all .ko files and inject it into iso() deps via IMAGE_TARGETS
-set(MODULES_STAMP ${CMAKE_BINARY_DIR}/iso/system/modules/modules.stamp)
+set(MODULES_STAMP ${CMAKE_BINARY_DIR}/.modules.stamp)
 add_custom_command(OUTPUT ${MODULES_STAMP}
         COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/iso/system/modules
         COMMAND ${CMAKE_COMMAND} -E touch ${MODULES_STAMP}
