@@ -127,6 +127,8 @@ typedef struct elf_rela {
 typedef bool (*module_init_fn)(void);  /**< Prototype for module initialiser */
 typedef void (*module_exit_fn)(void);  /**< Prototype for module finaliser */
 
+#define EXPORTED __attribute__((visibility("default")))
+
 /**
  * @brief Describes a loaded and relocated module image
  *
