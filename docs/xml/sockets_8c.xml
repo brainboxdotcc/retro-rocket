@@ -4,27 +4,21 @@
     <compoundname>sockets.c</compoundname>
     <includes refid="kernel_8h" local="no">kernel.h</includes>
     <incdepgraph>
-      <node id="52">
+      <node id="57">
         <label>ata.h</label>
         <link refid="ata_8h"/>
       </node>
       <node id="4">
         <label>stdbool.h</label>
       </node>
-      <node id="20">
+      <node id="22">
         <label>basic.h</label>
         <link refid="basic_8h"/>
-        <childnode refid="21" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
         <childnode refid="23" relation="include">
         </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
         <childnode refid="25" relation="include">
-        </childnode>
-        <childnode refid="26" relation="include">
-        </childnode>
-        <childnode refid="27" relation="include">
         </childnode>
         <childnode refid="28" relation="include">
         </childnode>
@@ -52,21 +46,31 @@
         </childnode>
         <childnode refid="40" relation="include">
         </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
       </node>
-      <node id="23">
+      <node id="25">
         <label>basic/context.h</label>
         <link refid="context_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
         </childnode>
       </node>
-      <node id="83">
+      <node id="88">
         <label>stdarg.h</label>
       </node>
-      <node id="55">
+      <node id="60">
         <label>ramdisk.h</label>
         <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
@@ -75,7 +79,7 @@
       <node id="14">
         <label>stdatomic.h</label>
       </node>
-      <node id="26">
+      <node id="29">
         <label>basic/validation.h</label>
         <link refid="validation_8h"/>
         <childnode refid="3" relation="include">
@@ -83,7 +87,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="36">
+      <node id="39">
         <label>basic/graphics.h</label>
         <link refid="graphics_8h"/>
         <childnode refid="3" relation="include">
@@ -91,13 +95,13 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="67">
+      <node id="72">
         <label>acpi.h</label>
         <link refid="acpi_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="24">
         <label>basic/structs.h</label>
         <link refid="structs_8h"/>
         <childnode refid="3" relation="include">
@@ -105,13 +109,16 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="71">
+      <node id="76">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="24">
+      <node id="67">
+        <label>stdnoreturn.h</label>
+      </node>
+      <node id="27">
         <label>buddy_allocator.h</label>
         <link refid="buddy__allocator_8h"/>
         <childnode refid="5" relation="include">
@@ -119,13 +126,19 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="78">
+      <node id="83">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="58">
+      <node id="44">
+        <label>basic/peekpoke.h</label>
+        <link refid="peekpoke_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="63">
         <label>fat32.h</label>
         <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
@@ -141,13 +154,13 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="76">
+      <node id="81">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="56">
+      <node id="61">
         <label>iso9660.h</label>
         <link refid="iso9660_8h"/>
         <childnode refid="2" relation="include">
@@ -163,13 +176,13 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="74">
+      <node id="79">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="49">
+      <node id="53">
         <label>devicename.h</label>
         <link refid="devicename_8h"/>
         <childnode refid="2" relation="include">
@@ -182,13 +195,13 @@
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="79">
+      <node id="84">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="30">
         <label>basic/variable.h</label>
         <link refid="variable_8h"/>
         <childnode refid="3" relation="include">
@@ -196,13 +209,13 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="69">
+      <node id="74">
         <label>rtl8139.h</label>
         <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="48">
+      <node id="52">
         <label>stdlib.h</label>
         <link refid="stdlib_8h"/>
         <childnode refid="5" relation="include">
@@ -219,14 +232,22 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="43">
+      <node id="47">
         <label>ioapic.h</label>
         <link refid="ioapic_8h"/>
       </node>
       <node id="5">
         <label>stddef.h</label>
       </node>
-      <node id="34">
+      <node id="90">
+        <label>module.h</label>
+        <link refid="module_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
         <label>basic/array.h</label>
         <link refid="array_8h"/>
         <childnode refid="3" relation="include">
@@ -234,7 +255,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="32">
+      <node id="35">
         <label>basic/flow_control.h</label>
         <link refid="flow__control_8h"/>
         <childnode refid="3" relation="include">
@@ -245,9 +266,11 @@
       <node id="6">
         <label>limits.h</label>
       </node>
-      <node id="61">
+      <node id="66">
         <label>keyboard.h</label>
         <link refid="keyboard_8h"/>
+        <childnode refid="67" relation="include">
+        </childnode>
       </node>
       <node id="13">
         <label>cv.h</label>
@@ -267,19 +290,19 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="70">
+      <node id="75">
         <label>e1000.h</label>
         <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="64">
+      <node id="70">
         <label>lapic_timer.h</label>
         <link refid="lapic__timer_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="34">
         <label>basic/builtin_real_functions.h</label>
         <link refid="builtin__real__functions_8h"/>
         <childnode refid="3" relation="include">
@@ -290,37 +313,37 @@
       <node id="7">
         <label>limine.h</label>
       </node>
-      <node id="62">
+      <node id="68">
         <label>input.h</label>
         <link refid="input_8h"/>
       </node>
-      <node id="80">
+      <node id="85">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="18">
+      <node id="20">
         <label>video.h</label>
         <link refid="video_8h"/>
       </node>
-      <node id="82">
+      <node id="87">
         <label>serial.h</label>
         <link refid="serial_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="83" relation="include">
+        <childnode refid="88" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="75">
+      <node id="80">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="35">
+      <node id="38">
         <label>basic/sockets.h</label>
         <link refid="sockets_8h"/>
         <childnode refid="3" relation="include">
@@ -328,17 +351,25 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="23">
         <label>basic/defines.h</label>
         <link refid="defines_8h"/>
       </node>
-      <node id="72">
+      <node id="17">
+        <label>vector.h</label>
+        <link refid="vector_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="77">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="28">
+      <node id="31">
         <label>basic/builtin_integer_functions.h</label>
         <link refid="builtin__integer__functions_8h"/>
         <childnode refid="3" relation="include">
@@ -346,23 +377,23 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="53">
+      <node id="58">
         <label>filesystem.h</label>
         <link refid="filesystem_8h"/>
       </node>
-      <node id="47">
+      <node id="51">
         <label>maths.h</label>
         <link refid="maths_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="57">
+      <node id="62">
         <label>devfs.h</label>
         <link refid="devfs_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="28">
         <label>basic/expression.h</label>
         <link refid="expression_8h"/>
         <childnode refid="3" relation="include">
@@ -370,11 +401,11 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="60">
+      <node id="65">
         <label>errorhandler.h</label>
         <link refid="errorhandler_8h"/>
       </node>
-      <node id="29">
+      <node id="32">
         <label>basic/builtin_string_functions.h</label>
         <link refid="builtin__string__functions_8h"/>
         <childnode refid="3" relation="include">
@@ -382,7 +413,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="73">
+      <node id="78">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
@@ -421,15 +452,11 @@
         </childnode>
         <childnode refid="19" relation="include">
         </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
         <childnode refid="10" relation="include">
-        </childnode>
-        <childnode refid="41" relation="include">
-        </childnode>
-        <childnode refid="42" relation="include">
-        </childnode>
-        <childnode refid="43" relation="include">
-        </childnode>
-        <childnode refid="44" relation="include">
         </childnode>
         <childnode refid="45" relation="include">
         </childnode>
@@ -453,8 +480,6 @@
         </childnode>
         <childnode refid="55" relation="include">
         </childnode>
-        <childnode refid="56" relation="include">
-        </childnode>
         <childnode refid="57" relation="include">
         </childnode>
         <childnode refid="58" relation="include">
@@ -471,19 +496,19 @@
         </childnode>
         <childnode refid="64" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
         <childnode refid="65" relation="include">
         </childnode>
         <childnode refid="66" relation="include">
-        </childnode>
-        <childnode refid="67" relation="include">
         </childnode>
         <childnode refid="68" relation="include">
         </childnode>
         <childnode refid="69" relation="include">
         </childnode>
         <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
         </childnode>
         <childnode refid="71" relation="include">
         </childnode>
@@ -505,22 +530,34 @@
         </childnode>
         <childnode refid="80" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
         <childnode refid="81" relation="include">
         </childnode>
         <childnode refid="82" relation="include">
         </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
         <childnode refid="84" relation="include">
         </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
       </node>
-      <node id="41">
+      <node id="45">
         <label>memcpy.h</label>
         <link refid="memcpy_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="37">
+      <node id="40">
         <label>basic/console.h</label>
         <link refid="console_8h"/>
         <childnode refid="3" relation="include">
@@ -528,25 +565,25 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="54">
+      <node id="59">
         <label>partition.h</label>
         <link refid="partition_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="19">
         <label>random.h</label>
         <link refid="random_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="84">
+      <node id="89">
         <label>debug_ringbuffer.h</label>
         <link refid="debug__ringbuffer_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="66">
+      <node id="71">
         <label>taskswitch.h</label>
         <link refid="taskswitch_8h"/>
         <childnode refid="2" relation="include">
@@ -564,19 +601,19 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="68">
+      <node id="73">
         <label>net.h</label>
         <link refid="net_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="44">
+      <node id="48">
         <label>timer.h</label>
         <link refid="timer_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="39">
+      <node id="42">
         <label>basic/reflection.h</label>
         <link refid="reflection_8h"/>
         <childnode refid="3" relation="include">
@@ -584,11 +621,11 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="59">
+      <node id="64">
         <label>debugger.h</label>
         <link refid="debugger_8h"/>
       </node>
-      <node id="30">
+      <node id="33">
         <label>basic/builtin_file_io_functions.h</label>
         <link refid="builtin__file__io__functions_8h"/>
         <childnode refid="3" relation="include">
@@ -596,25 +633,39 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="50">
+      <node id="54">
         <label>interrupt.h</label>
         <link refid="interrupt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="45">
+      <node id="49">
         <label>kmalloc.h</label>
         <link refid="kmalloc_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="65">
-        <label>basic/tokenizer.h</label>
+      <node id="56">
+        <label>scsi.h</label>
+        <link refid="scsi_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>map.h</label>
+        <link refid="map_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>tokenizer.h</label>
         <link refid="tokenizer_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="33">
+      <node id="36">
         <label>basic/lowlevel.h</label>
         <link refid="lowlevel_8h"/>
         <childnode refid="3" relation="include">
@@ -622,29 +673,31 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="46">
+      <node id="50">
         <label>pci.h</label>
         <link refid="pci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="42">
+      <node id="46">
         <label>apic.h</label>
         <link refid="apic_8h"/>
       </node>
-      <node id="19">
+      <node id="21">
         <label>string.h</label>
         <link refid="string_8h"/>
-        <childnode refid="20" relation="include">
+        <childnode refid="22" relation="include">
         </childnode>
       </node>
-      <node id="51">
+      <node id="55">
         <label>ahci.h</label>
         <link refid="ahci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
       </node>
-      <node id="38">
+      <node id="41">
         <label>basic/process.h</label>
         <link refid="process_8h"/>
         <childnode refid="3" relation="include">
@@ -652,19 +705,19 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="77">
+      <node id="82">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="81">
+      <node id="86">
         <label>retrofs.h</label>
         <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="40">
+      <node id="43">
         <label>basic/datetime.h</label>
         <link refid="datetime_8h"/>
         <childnode refid="3" relation="include">
@@ -672,7 +725,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="63">
+      <node id="69">
         <label>clock.h</label>
         <link refid="clock_8h"/>
         <childnode refid="2" relation="include">
@@ -681,6 +734,50 @@
         </childnode>
       </node>
     </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="sockets_8c_1a4e13b111b477d8e9ee5dd416f378adf2" prot="public" static="yes" mutable="no">
+        <type><ref refid="structqueued__udp__packet" kindref="compound">queued_udp_packet</ref> *</type>
+        <definition>queued_udp_packet* udp_packets[65536]</definition>
+        <argsstring>[65536]</argsstring>
+        <name>udp_packets</name>
+        <initializer>= {0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/basic/sockets.c" line="7" column="26" bodyfile="src/basic/sockets.c" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sockets_8c_1aee0aad636eb1f1937c2b758adf942cc5" prot="public" static="yes" mutable="no">
+        <type><ref refid="structqueued__udp__packet" kindref="compound">queued_udp_packet</ref> *</type>
+        <definition>queued_udp_packet* udp_list_tail[65536]</definition>
+        <argsstring>[65536]</argsstring>
+        <name>udp_list_tail</name>
+        <initializer>= {0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/basic/sockets.c" line="8" column="26" bodyfile="src/basic/sockets.c" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sockets_8c_1a0d66df9d6b24c10fa37895962dfd89d0" prot="public" static="yes" mutable="no">
+        <type><ref refid="spinlock_8h_1af82eed01f0304d83276dda764b213779" kindref="member">spinlock_t</ref></type>
+        <definition>spinlock_t udp_read_lock</definition>
+        <argsstring></argsstring>
+        <name>udp_read_lock</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/basic/sockets.c" line="9" column="19" bodyfile="src/basic/sockets.c" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
       <sectiondef kind="func">
       <memberdef kind="function" id="sockets_8c_1aa85d276506798949c34af8f5cfc18185" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -723,7 +820,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/sockets.c" line="17" column="6" bodyfile="src/basic/sockets.c" bodystart="17" bodyend="20"/>
+        <location file="src/basic/sockets.c" line="21" column="6" bodyfile="src/basic/sockets.c" bodystart="21" bodyend="27"/>
       </memberdef>
       <memberdef kind="function" id="sockets_8c_1acc7edf1c75bf52eec246686ba690c0e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -753,7 +850,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/sockets.c" line="33" column="6" bodyfile="src/basic/sockets.c" bodystart="33" bodyend="87"/>
+        <location file="src/basic/sockets.c" line="40" column="6" bodyfile="src/basic/sockets.c" bodystart="40" bodyend="94"/>
       </memberdef>
       <memberdef kind="function" id="sockets_8c_1abc958efc5a855338d27771377b9a9693" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -782,7 +879,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/sockets.c" line="89" column="6" bodyfile="src/basic/sockets.c" bodystart="89" bodyend="123"/>
+        <location file="src/basic/sockets.c" line="96" column="6" bodyfile="src/basic/sockets.c" bodystart="96" bodyend="130"/>
       </memberdef>
       <memberdef kind="function" id="sockets_8c_1a2aafe651b1769f80c4ae4e61edaecda2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -811,7 +908,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/sockets.c" line="125" column="6" bodyfile="src/basic/sockets.c" bodystart="125" bodyend="141"/>
+        <location file="src/basic/sockets.c" line="132" column="6" bodyfile="src/basic/sockets.c" bodystart="132" bodyend="148"/>
       </memberdef>
       <memberdef kind="function" id="sockets_8c_1adb77a2b4e41e8af4241cd9e6a49d9eea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -842,7 +939,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/sockets.c" line="143" column="6" bodyfile="src/basic/sockets.c" bodystart="143" bodyend="168"/>
+        <location file="src/basic/sockets.c" line="150" column="6" bodyfile="src/basic/sockets.c" bodystart="150" bodyend="175"/>
       </memberdef>
       <memberdef kind="function" id="sockets_8c_1aac6ae9f61fd4e475b5d2898fec1590f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -873,7 +970,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/sockets.c" line="170" column="9" bodyfile="src/basic/sockets.c" bodystart="170" bodyend="182"/>
+        <location file="src/basic/sockets.c" line="177" column="9" bodyfile="src/basic/sockets.c" bodystart="177" bodyend="189"/>
       </memberdef>
       <memberdef kind="function" id="sockets_8c_1a8226fac5478897a6c5b5762b56c3009d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -904,7 +1001,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/sockets.c" line="184" column="6" bodyfile="src/basic/sockets.c" bodystart="184" bodyend="214"/>
+        <location file="src/basic/sockets.c" line="191" column="6" bodyfile="src/basic/sockets.c" bodystart="191" bodyend="221"/>
       </memberdef>
       <memberdef kind="function" id="sockets_8c_1a045e5dbdfcb4c88a964ebeccaf8d5344" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -935,7 +1032,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/sockets.c" line="216" column="6" bodyfile="src/basic/sockets.c" bodystart="216" bodyend="225"/>
+        <location file="src/basic/sockets.c" line="223" column="6" bodyfile="src/basic/sockets.c" bodystart="223" bodyend="232"/>
       </memberdef>
       <memberdef kind="function" id="sockets_8c_1a1a4e67a19d87086f7b689cd84ae74532" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -965,7 +1062,146 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/sockets.c" line="227" column="6" bodyfile="src/basic/sockets.c" bodystart="227" bodyend="239"/>
+        <location file="src/basic/sockets.c" line="234" column="6" bodyfile="src/basic/sockets.c" bodystart="234" bodyend="246"/>
+      </memberdef>
+      <memberdef kind="function" id="sockets_8c_1a8f08d4eb135129e5e5d5c4e4f253ef65" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void basic_udp_handle_packet</definition>
+        <argsstring>(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, void *data, uint32_t length, void *opaque)</argsstring>
+        <name>basic_udp_handle_packet</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>src_ip</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>src_port</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>dst_port</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>length</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>opaque</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/basic/sockets.c" line="248" column="13" bodyfile="src/basic/sockets.c" bodystart="248" bodyend="277"/>
+      </memberdef>
+      <memberdef kind="function" id="sockets_8c_1a102fe8bd6efad3a7e78d292bdb1d1edf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void udpwrite_statement</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>udpwrite_statement</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/basic/sockets.c" line="279" column="6" bodyfile="src/basic/sockets.c" bodystart="279" bodyend="297"/>
+      </memberdef>
+      <memberdef kind="function" id="sockets_8c_1a9f1285e7f8bb58def11ad3507f65af62" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void udpbind_statement</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>udpbind_statement</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/basic/sockets.c" line="299" column="6" bodyfile="src/basic/sockets.c" bodystart="299" bodyend="310"/>
+      </memberdef>
+      <memberdef kind="function" id="sockets_8c_1a41d71643aa72cda495e2d8537387e010" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void udpunbind_statement</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>udpunbind_statement</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/basic/sockets.c" line="312" column="6" bodyfile="src/basic/sockets.c" bodystart="312" bodyend="323"/>
+      </memberdef>
+      <memberdef kind="function" id="sockets_8c_1a6013f837ac42424cb00ce3608c21fcfb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t basic_udplastsourceport</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_udplastsourceport</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/basic/sockets.c" line="325" column="9" bodyfile="src/basic/sockets.c" bodystart="325" bodyend="327"/>
+      </memberdef>
+      <memberdef kind="function" id="sockets_8c_1a426d38050f594e9de370125aa663e2d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_udplastip</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_udplastip</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/basic/sockets.c" line="329" column="6" bodyfile="src/basic/sockets.c" bodystart="329" bodyend="331"/>
+      </memberdef>
+      <memberdef kind="function" id="sockets_8c_1ae108efebb03837bf9b166e89a8973fda" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_udpread</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_udpread</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/basic/sockets.c" line="333" column="6" bodyfile="src/basic/sockets.c" bodystart="333" bodyend="374"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

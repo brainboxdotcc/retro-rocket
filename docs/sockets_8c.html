@@ -85,7 +85,8 @@ $(document).ready(function(){initNavTree('sockets_8c.html',''); initResizable();
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">sockets.c File Reference</div>  </div>
 </div><!--header-->
@@ -124,6 +125,29 @@ Functions</h2></td></tr>
 <tr class="memitem:a1a4e67a19d87086f7b689cd84ae74532"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sockets_8c.html#a1a4e67a19d87086f7b689cd84ae74532">sockwrite_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
 <tr class="memdesc:a1a4e67a19d87086f7b689cd84ae74532"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the SOCKWRITE statement in BASIC.  <a href="sockets_8c.html#a1a4e67a19d87086f7b689cd84ae74532">More...</a><br /></td></tr>
 <tr class="separator:a1a4e67a19d87086f7b689cd84ae74532"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f08d4eb135129e5e5d5c4e4f253ef65"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sockets_8c.html#a8f08d4eb135129e5e5d5c4e4f253ef65">basic_udp_handle_packet</a> (uint32_t <a class="el" href="ip_8h.html#a468dda4615d8c0d9e631e02372619dc1">src_ip</a>, uint16_t <a class="el" href="udp_8h.html#ab98974981cf4c143fcee028643f313e6">src_port</a>, uint16_t <a class="el" href="udp_8h.html#ae18defed4756b8c15e34718f51e86e55">dst_port</a>, void *<a class="el" href="udp_8h.html#a5c239a1bb87b52b0f1d6d68c4749cd2a">data</a>, uint32_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>, void *opaque)</td></tr>
+<tr class="separator:a8f08d4eb135129e5e5d5c4e4f253ef65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a102fe8bd6efad3a7e78d292bdb1d1edf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sockets_8c.html#a102fe8bd6efad3a7e78d292bdb1d1edf">udpwrite_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a102fe8bd6efad3a7e78d292bdb1d1edf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f1285e7f8bb58def11ad3507f65af62"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sockets_8c.html#a9f1285e7f8bb58def11ad3507f65af62">udpbind_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a9f1285e7f8bb58def11ad3507f65af62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41d71643aa72cda495e2d8537387e010"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sockets_8c.html#a41d71643aa72cda495e2d8537387e010">udpunbind_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a41d71643aa72cda495e2d8537387e010"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6013f837ac42424cb00ce3608c21fcfb"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sockets_8c.html#a6013f837ac42424cb00ce3608c21fcfb">basic_udplastsourceport</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a6013f837ac42424cb00ce3608c21fcfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a426d38050f594e9de370125aa663e2d7"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sockets_8c.html#a426d38050f594e9de370125aa663e2d7">basic_udplastip</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a426d38050f594e9de370125aa663e2d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae108efebb03837bf9b166e89a8973fda"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sockets_8c.html#ae108efebb03837bf9b166e89a8973fda">basic_udpread</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="separator:ae108efebb03837bf9b166e89a8973fda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a4e13b111b477d8e9ee5dd416f378adf2"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structqueued__udp__packet.html">queued_udp_packet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sockets_8c.html#a4e13b111b477d8e9ee5dd416f378adf2">udp_packets</a> [65536] = {0}</td></tr>
+<tr class="separator:a4e13b111b477d8e9ee5dd416f378adf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee0aad636eb1f1937c2b758adf942cc5"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structqueued__udp__packet.html">queued_udp_packet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sockets_8c.html#aee0aad636eb1f1937c2b758adf942cc5">udp_list_tail</a> [65536] = {0}</td></tr>
+<tr class="separator:aee0aad636eb1f1937c2b758adf942cc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d66df9d6b24c10fa37895962dfd89d0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="spinlock_8h.html#af82eed01f0304d83276dda764b213779">spinlock_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sockets_8c.html#a0d66df9d6b24c10fa37895962dfd89d0">udp_read_lock</a> = 0</td></tr>
+<tr class="separator:a0d66df9d6b24c10fa37895962dfd89d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>BASIC network socket functions. </p>
@@ -237,6 +261,120 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>1 if the socket is connected, 0 if not. </dd></dl>
+
+</div>
+</div>
+<a id="a8f08d4eb135129e5e5d5c4e4f253ef65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f08d4eb135129e5e5d5c4e4f253ef65">&#9670;&nbsp;</a></span>basic_udp_handle_packet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void basic_udp_handle_packet </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>src_ip</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>src_port</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>dst_port</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>length</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>opaque</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a426d38050f594e9de370125aa663e2d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a426d38050f594e9de370125aa663e2d7">&#9670;&nbsp;</a></span>basic_udplastip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* basic_udplastip </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6013f837ac42424cb00ce3608c21fcfb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6013f837ac42424cb00ce3608c21fcfb">&#9670;&nbsp;</a></span>basic_udplastsourceport()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int64_t basic_udplastsourceport </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae108efebb03837bf9b166e89a8973fda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae108efebb03837bf9b166e89a8973fda">&#9670;&nbsp;</a></span>basic_udpread()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* basic_udpread </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -389,13 +527,134 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a9f1285e7f8bb58def11ad3507f65af62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f1285e7f8bb58def11ad3507f65af62">&#9670;&nbsp;</a></span>udpbind_statement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void udpbind_statement </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a41d71643aa72cda495e2d8537387e010"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41d71643aa72cda495e2d8537387e010">&#9670;&nbsp;</a></span>udpunbind_statement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void udpunbind_statement </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a102fe8bd6efad3a7e78d292bdb1d1edf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a102fe8bd6efad3a7e78d292bdb1d1edf">&#9670;&nbsp;</a></span>udpwrite_statement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void udpwrite_statement </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="aee0aad636eb1f1937c2b758adf942cc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee0aad636eb1f1937c2b758adf942cc5">&#9670;&nbsp;</a></span>udp_list_tail</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structqueued__udp__packet.html">queued_udp_packet</a>* udp_list_tail[65536] = {0}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4e13b111b477d8e9ee5dd416f378adf2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e13b111b477d8e9ee5dd416f378adf2">&#9670;&nbsp;</a></span>udp_packets</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structqueued__udp__packet.html">queued_udp_packet</a>* udp_packets[65536] = {0}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0d66df9d6b24c10fa37895962dfd89d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d66df9d6b24c10fa37895962dfd89d0">&#9670;&nbsp;</a></span>udp_read_lock</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="spinlock_8h.html#af82eed01f0304d83276dda764b213779">spinlock_t</a> udp_read_lock = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_38cd9eca440b760dc966f21b1f8d8f41.html">basic</a></li><li class="navelem"><a class="el" href="sockets_8c.html">sockets.c</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -100,7 +100,8 @@ $(document).ready(function(){initNavTree('structstorage__device__t.html',''); in
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structstorage__device__t__coll__graph.svg" width="468" height="142"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="structstorage__device__t__coll__graph.svg" width="100%" height="473"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -117,6 +118,9 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a5ba455dae844ff9aae01e950f8271495"><td class="memItemLeft" align="right" valign="top"><a class="el" href="filesystem_8h.html#afbf0a8246b98b1f4ddca666aeb3fae3d">block_write</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstorage__device__t.html#a5ba455dae844ff9aae01e950f8271495">blockwrite</a></td></tr>
 <tr class="memdesc:a5ba455dae844ff9aae01e950f8271495"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer for <a class="el" href="structstorage__device__t.html#a5ba455dae844ff9aae01e950f8271495" title="Function pointer for blockwrite() Block writes are always expected to be in increments of block_size.">blockwrite()</a> Block writes are always expected to be in increments of block_size.  <a href="structstorage__device__t.html#a5ba455dae844ff9aae01e950f8271495">More...</a><br /></td></tr>
 <tr class="separator:a5ba455dae844ff9aae01e950f8271495"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83be64332c628fbd7e4bb26a2b99c0a8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="filesystem_8h.html#a2d0c9e25e8d9c2f9445bcc9ec361b658">block_clear</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstorage__device__t.html#a83be64332c628fbd7e4bb26a2b99c0a8">blockclear</a></td></tr>
+<tr class="memdesc:a83be64332c628fbd7e4bb26a2b99c0a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark blocks as freed on the device.  <a href="structstorage__device__t.html#a83be64332c628fbd7e4bb26a2b99c0a8">More...</a><br /></td></tr>
+<tr class="separator:a83be64332c628fbd7e4bb26a2b99c0a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a62fabd3b49e19f188297d179ffbcd090"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstorage__device__t.html#a62fabd3b49e19f188297d179ffbcd090">block_size</a></td></tr>
 <tr class="memdesc:a62fabd3b49e19f188297d179ffbcd090"><td class="mdescLeft">&#160;</td><td class="mdescRight">The block size read and write operations. This is usually a sector size on disk drives.  <a href="structstorage__device__t.html#a62fabd3b49e19f188297d179ffbcd090">More...</a><br /></td></tr>
 <tr class="separator:a62fabd3b49e19f188297d179ffbcd090"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -126,6 +130,15 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a66eebca62325df9d8c0a0286c92ffa0c"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstorage__device__t.html#a66eebca62325df9d8c0a0286c92ffa0c">opaque2</a></td></tr>
 <tr class="memdesc:a66eebca62325df9d8c0a0286c92ffa0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">An opaque pointer value which can be given meaning by the storage device driver.  <a href="structstorage__device__t.html#a66eebca62325df9d8c0a0286c92ffa0c">More...</a><br /></td></tr>
 <tr class="separator:a66eebca62325df9d8c0a0286c92ffa0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea0ee034b905cc4c4341da47b53c5c81"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstorage__device__t.html#aea0ee034b905cc4c4341da47b53c5c81">opaque3</a></td></tr>
+<tr class="memdesc:aea0ee034b905cc4c4341da47b53c5c81"><td class="mdescLeft">&#160;</td><td class="mdescRight">An opaque pointer value which can be given meaning by the storage device driver.  <a href="structstorage__device__t.html#aea0ee034b905cc4c4341da47b53c5c81">More...</a><br /></td></tr>
+<tr class="separator:aea0ee034b905cc4c4341da47b53c5c81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c0774ad75aecd4366351434d2c220f3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structstorage__device__ui__t.html">storage_device_ui_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstorage__device__t.html#a6c0774ad75aecd4366351434d2c220f3">ui</a></td></tr>
+<tr class="memdesc:a6c0774ad75aecd4366351434d2c220f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">User interface strings, model name, capacity, type as human-readable text.  <a href="structstorage__device__t.html#a6c0774ad75aecd4366351434d2c220f3">More...</a><br /></td></tr>
+<tr class="separator:a6c0774ad75aecd4366351434d2c220f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b52242d9773b1f3872ad33408c6fd6a"><td class="memItemLeft" align="right" valign="top">struct block_cache *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstorage__device__t.html#a4b52242d9773b1f3872ad33408c6fd6a">cache</a></td></tr>
+<tr class="memdesc:a4b52242d9773b1f3872ad33408c6fd6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Block cache for the device.  <a href="structstorage__device__t.html#a4b52242d9773b1f3872ad33408c6fd6a">More...</a><br /></td></tr>
+<tr class="separator:a4b52242d9773b1f3872ad33408c6fd6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1b4bda1ebedc6cf141f8f157a663d14"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structstorage__device__t.html">storage_device_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstorage__device__t.html#ad1b4bda1ebedc6cf141f8f157a663d14">next</a></td></tr>
 <tr class="memdesc:ad1b4bda1ebedc6cf141f8f157a663d14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to next storage device, or NULL.  <a href="structstorage__device__t.html#ad1b4bda1ebedc6cf141f8f157a663d14">More...</a><br /></td></tr>
 <tr class="separator:ad1b4bda1ebedc6cf141f8f157a663d14"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -148,6 +161,22 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The block size read and write operations. This is usually a sector size on disk drives. </p>
+
+</div>
+</div>
+<a id="a83be64332c628fbd7e4bb26a2b99c0a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83be64332c628fbd7e4bb26a2b99c0a8">&#9670;&nbsp;</a></span>blockclear</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="filesystem_8h.html#a2d0c9e25e8d9c2f9445bcc9ec361b658">block_clear</a> storage_device_t::blockclear</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mark blocks as freed on the device. </p>
 
 </div>
 </div>
@@ -180,6 +209,22 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Function pointer for <a class="el" href="structstorage__device__t.html#a5ba455dae844ff9aae01e950f8271495" title="Function pointer for blockwrite() Block writes are always expected to be in increments of block_size.">blockwrite()</a> Block writes are always expected to be in increments of block_size. </p>
+
+</div>
+</div>
+<a id="a4b52242d9773b1f3872ad33408c6fd6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b52242d9773b1f3872ad33408c6fd6a">&#9670;&nbsp;</a></span>cache</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct block_cache* storage_device_t::cache</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Block cache for the device. </p>
 
 </div>
 </div>
@@ -247,6 +292,22 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a id="aea0ee034b905cc4c4341da47b53c5c81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea0ee034b905cc4c4341da47b53c5c81">&#9670;&nbsp;</a></span>opaque3</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* storage_device_t::opaque3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>An opaque pointer value which can be given meaning by the storage device driver. </p>
+
+</div>
+</div>
 <a id="a4b7e3635e869e1e8b2245665ee988547"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4b7e3635e869e1e8b2245665ee988547">&#9670;&nbsp;</a></span>size</h2>
 
@@ -263,13 +324,29 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a id="a6c0774ad75aecd4366351434d2c220f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c0774ad75aecd4366351434d2c220f3">&#9670;&nbsp;</a></span>ui</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structstorage__device__ui__t.html">storage_device_ui_t</a> storage_device_t::ui</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>User interface strings, model name, capacity, type as human-readable text. </p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structstorage__device__t.html">storage_device_t</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:58 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

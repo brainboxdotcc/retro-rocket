@@ -8,28 +8,28 @@
         <definition>uint64_t bucket::hash</definition>
         <argsstring></argsstring>
         <name>hash</name>
-        <bitfield>48</bitfield>
+        <bitfield> 48</bitfield>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/hashmap.c" line="23" column="10" bodyfile="src/hashmap.c" bodystart="23" bodyend="-1"/>
+        <location file="src/containers/hashmap.c" line="30" column="10" bodyfile="src/containers/hashmap.c" bodystart="30" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbucket_1aff058987cbb6c62399b7b5b45f2212b6" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
         <definition>uint64_t bucket::dib</definition>
         <argsstring></argsstring>
         <name>dib</name>
-        <bitfield>16</bitfield>
+        <bitfield> 16</bitfield>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/hashmap.c" line="24" column="10" bodyfile="src/hashmap.c" bodystart="24" bodyend="-1"/>
+        <location file="src/containers/hashmap.c" line="31" column="10" bodyfile="src/containers/hashmap.c" bodystart="31" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -49,7 +49,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="src/hashmap.c" line="22" column="1" bodyfile="src/hashmap.c" bodystart="22" bodyend="25"/>
+    <location file="src/containers/hashmap.c" line="29" column="1" bodyfile="src/containers/hashmap.c" bodystart="29" bodyend="32"/>
     <listofallmembers>
       <member refid="structbucket_1aff058987cbb6c62399b7b5b45f2212b6" prot="public" virt="non-virtual"><scope>bucket</scope><name>dib</name></member>
       <member refid="structbucket_1a015474534bef39c6120bdd2503d6b9d0" prot="public" virt="non-virtual"><scope>bucket</scope><name>hash</name></member>

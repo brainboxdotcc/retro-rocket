@@ -1,5 +1,10 @@
 var searchData=
 [
-  ['init_5ffunc_5ft_6177',['init_func_t',['../init_8c.html#abcfc5207c5152ac36be24fd03cfda4bb',1,'init.c']]],
-  ['isr_5ft_6178',['isr_t',['../idt_8h.html#a7a3af27140adcc73f278f9d9c9dcd4bc',1,'idt.h']]]
+  ['hashmap_5fallocator_7275',['hashmap_allocator',['../hashmap_8h.html#a84e1541ebaae44d640953da111175724',1,'hashmap.h']]],
+  ['hashmap_5fcompare_5ffn_7276',['hashmap_compare_fn',['../hashmap_8h.html#ae5bfaacdf57aaec6f8e95b9375af85c3',1,'hashmap.h']]],
+  ['hashmap_5felfree_5ffn_7277',['hashmap_elfree_fn',['../hashmap_8h.html#a37ed308a890839d65354aaabbd81e151',1,'hashmap.h']]],
+  ['hashmap_5fhash_5ffn_7278',['hashmap_hash_fn',['../hashmap_8h.html#ad4b6740ff6182ab764172ec817958b15',1,'hashmap.h']]],
+  ['hashmap_5fiter_5ffn_7279',['hashmap_iter_fn',['../hashmap_8h.html#a5dd0027590908524e2b8812f1d2e6ba9',1,'hashmap.h']]],
+  ['hashmap_5freallocator_7280',['hashmap_reallocator',['../hashmap_8h.html#a9b9407668f00cfe5fa9bb02ddd2efb7d',1,'hashmap.h']]],
+  ['hashmap_5freleaser_7281',['hashmap_releaser',['../hashmap_8h.html#a597bd7a56022ec65170922921947a3b6',1,'hashmap.h']]]
 ];

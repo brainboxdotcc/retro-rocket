@@ -1,14 +1,14 @@
 var basic_2main_8c =
 [
-    [ "NEGATE_STATEMENT", "basic_2main_8c.html#a41d8a3751accd3178a7e15e42f003206", null ],
-    [ "accept", "basic_2main_8c.html#ad9ce2b562c925c1acc36a9d05208a478", null ],
+    [ "accept", "basic_2main_8c.html#ab79777e712e0923be5f3db844cbcc67f", null ],
     [ "auto_number", "basic_2main_8c.html#abe85e6c3f39d917b9cb89daec8bd49da", null ],
     [ "basic_clone", "basic_2main_8c.html#a6b1deaef88f7495c4c736cd527d350f4", null ],
     [ "basic_destroy", "basic_2main_8c.html#af018882ffc2e5fc5f888c4dea3ecf17c", null ],
+    [ "basic_esc", "basic_2main_8c.html#ac7bb6804126a4bedcc4a9c7b43f7ca1f", null ],
     [ "basic_finished", "basic_2main_8c.html#ab8aa7186bd4407c90642c4aef3288b7b", null ],
     [ "basic_hash_lines", "basic_2main_8c.html#a44ed64f6ff4e39653e508971cbb313e6", null ],
     [ "basic_in_eval", "basic_2main_8c.html#a978cd0a306639177cb02c2f12549916c", null ],
-    [ "basic_init", "basic_2main_8c.html#aab15b37afdb180943e1fd31c41caa981", null ],
+    [ "basic_init", "basic_2main_8c.html#a2884943f1e5e729091d03a0d9b00e818", null ],
     [ "basic_run", "basic_2main_8c.html#a56b04c55856eb16c14cb74068a770ca3", null ],
     [ "chain_statement", "basic_2main_8c.html#aa805a28917e301954771c63ba3713d4a", null ],
     [ "clean_basic", "basic_2main_8c.html#adbea79f9655e5767c84d845207e08964", null ],
@@ -20,8 +20,15 @@ var basic_2main_8c =
     [ "library_statement", "basic_2main_8c.html#ad4bc068a37938522b9addf519de12756", null ],
     [ "line_compare", "basic_2main_8c.html#aa5520b91c0ef46358fd0c4bd74050993", null ],
     [ "line_hash", "basic_2main_8c.html#ab863a74ae2ae042854039be9356b084d", null ],
-    [ "line_statement", "basic_2main_8c.html#a2b822df8abb6e9bec6bd0033f1a60e17", null ],
     [ "rem_statement", "basic_2main_8c.html#a53b019c43274358836f64a396b2b6431", null ],
-    [ "statement", "basic_2main_8c.html#a4af325fda4cf09dde88a6f61d3f11b46", null ],
-    [ "yield_statement", "basic_2main_8c.html#a14e5c07fad2912482b0dc026fadd3c3a", null ]
+    [ "varmap_compare", "basic_2main_8c.html#acc7dd32259c6558095decfb12e3fcfdc", null ],
+    [ "varmap_elfree_double", "basic_2main_8c.html#afd1a5f15a9448f9c16d749f8e0c14bf2", null ],
+    [ "varmap_elfree_int", "basic_2main_8c.html#a2ae2a4ac1f15d66a1f5326d1262011ab", null ],
+    [ "varmap_elfree_string", "basic_2main_8c.html#ac952d43e929c00ed767d1a8267d5358e", null ],
+    [ "varmap_free", "basic_2main_8c.html#a4605dc42e71374f484656a815318a61f", null ],
+    [ "varmap_hash", "basic_2main_8c.html#a88fe36fa46c8ba22ab29fd675f76a49e", null ],
+    [ "varmap_malloc", "basic_2main_8c.html#ad7942bf037f39521235a4f2b62f9fa89", null ],
+    [ "varmap_realloc", "basic_2main_8c.html#a5f12e0df472a1dcb818e267e6e247ba3", null ],
+    [ "yield_statement", "basic_2main_8c.html#a14e5c07fad2912482b0dc026fadd3c3a", null ],
+    [ "debug", "basic_2main_8c.html#a398527b3e9e358c345c5047b16871957", null ]
 ];

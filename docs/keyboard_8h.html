@@ -96,7 +96,8 @@ $(document).ready(function(){initNavTree('keyboard_8h.html',''); initResizable()
 
 <p>Low-level keyboard input driver for Retro Rocket.  
 <a href="#details">More...</a></p>
-<table class="memberdecls">
+<div class="textblock"><code>#include &lt;stdnoreturn.h&gt;</code><br />
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkey__state.html">key_state</a></td></tr>
@@ -105,10 +106,10 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a449ccc57026c5272a583c9bc04ed3acb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#a449ccc57026c5272a583c9bc04ed3acb">REPEAT_DELAY_TICKS</a>&#160;&#160;&#160;25</td></tr>
+<tr class="memitem:a449ccc57026c5272a583c9bc04ed3acb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#a449ccc57026c5272a583c9bc04ed3acb">REPEAT_DELAY_TICKS</a>&#160;&#160;&#160;250</td></tr>
 <tr class="memdesc:a449ccc57026c5272a583c9bc04ed3acb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delay before held keys begin to auto-repeat.  <a href="keyboard_8h.html#a449ccc57026c5272a583c9bc04ed3acb">More...</a><br /></td></tr>
 <tr class="separator:a449ccc57026c5272a583c9bc04ed3acb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4712beea8d600e863ebd00c72c770b8e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#a4712beea8d600e863ebd00c72c770b8e">REPEAT_RATE_TICKS</a>&#160;&#160;&#160;5</td></tr>
+<tr class="memitem:a4712beea8d600e863ebd00c72c770b8e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#a4712beea8d600e863ebd00c72c770b8e">REPEAT_RATE_TICKS</a>&#160;&#160;&#160;50</td></tr>
 <tr class="memdesc:a4712beea8d600e863ebd00c72c770b8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interval between auto-repeats once a key is held down.  <a href="keyboard_8h.html#a4712beea8d600e863ebd00c72c770b8e">More...</a><br /></td></tr>
 <tr class="separator:a4712beea8d600e863ebd00c72c770b8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c28e05d04961202172037075ea93d40"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#a5c28e05d04961202172037075ea93d40">KEYBOARD_BUFFER_SIZE</a>&#160;&#160;&#160;1024</td></tr>
@@ -142,9 +143,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ac3a72156d4bbba013e4d62801992794d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#ac3a72156d4bbba013e4d62801992794d">init_keyboard</a> ()</td></tr>
 <tr class="memdesc:ac3a72156d4bbba013e4d62801992794d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialises the keyboard driver.  <a href="keyboard_8h.html#ac3a72156d4bbba013e4d62801992794d">More...</a><br /></td></tr>
 <tr class="separator:ac3a72156d4bbba013e4d62801992794d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af186c1d48613bd858b7f774e5bd47935"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#af186c1d48613bd858b7f774e5bd47935">kgetc</a> (<a class="el" href="structconsole.html">console</a> *cons)</td></tr>
-<tr class="memdesc:af186c1d48613bd858b7f774e5bd47935"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the next key from the keyboard buffer.  <a href="keyboard_8h.html#af186c1d48613bd858b7f774e5bd47935">More...</a><br /></td></tr>
-<tr class="separator:af186c1d48613bd858b7f774e5bd47935"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adeef92b49557a51527be9cd292d12ad7"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#adeef92b49557a51527be9cd292d12ad7">kgetc</a> ()</td></tr>
+<tr class="memdesc:adeef92b49557a51527be9cd292d12ad7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the next key from the keyboard buffer.  <a href="keyboard_8h.html#adeef92b49557a51527be9cd292d12ad7">More...</a><br /></td></tr>
+<tr class="separator:adeef92b49557a51527be9cd292d12ad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f6948e7b53d94c61b16fafea0cd73ec"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#a2f6948e7b53d94c61b16fafea0cd73ec">kpeek</a> ()</td></tr>
+<tr class="memdesc:a2f6948e7b53d94c61b16fafea0cd73ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks the next key in the keyboard buffer.  <a href="keyboard_8h.html#a2f6948e7b53d94c61b16fafea0cd73ec">More...</a><br /></td></tr>
+<tr class="separator:a2f6948e7b53d94c61b16fafea0cd73ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afdb02475d45b894eb5ec2a57b4100eea"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#afdb02475d45b894eb5ec2a57b4100eea">ctrl_held</a> ()</td></tr>
 <tr class="memdesc:afdb02475d45b894eb5ec2a57b4100eea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests if the CTRL key is currently held down.  <a href="keyboard_8h.html#afdb02475d45b894eb5ec2a57b4100eea">More...</a><br /></td></tr>
 <tr class="separator:afdb02475d45b894eb5ec2a57b4100eea"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -162,6 +166,8 @@ Functions</h2></td></tr>
 <tr class="separator:ab5cfd80e1528c2d400a6833d10d8c364"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86378414e15a4c45269f773f9bc1a34c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#a86378414e15a4c45269f773f9bc1a34c">key_waiting</a> ()</td></tr>
 <tr class="separator:a86378414e15a4c45269f773f9bc1a34c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c2b65b8f7fbaf40e3c116962d44f586"><td class="memItemLeft" align="right" valign="top">_Noreturn void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#a9c2b65b8f7fbaf40e3c116962d44f586">reboot</a> (void)</td></tr>
+<tr class="separator:a9c2b65b8f7fbaf40e3c116962d44f586"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Low-level keyboard input driver for Retro Rocket. </p>
@@ -214,13 +220,13 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define REPEAT_DELAY_TICKS&#160;&#160;&#160;25</td>
+          <td class="memname">#define REPEAT_DELAY_TICKS&#160;&#160;&#160;250</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Delay before held keys begin to auto-repeat. </p>
-<p>Measured in scheduler ticks (centi-seconds, i.e. 1/100 s). A value of 25 = 250 ms delay before repeat starts. </p>
+<p>Measured in miliseconds </p>
 
 </div>
 </div>
@@ -231,13 +237,13 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define REPEAT_RATE_TICKS&#160;&#160;&#160;5</td>
+          <td class="memname">#define REPEAT_RATE_TICKS&#160;&#160;&#160;50</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Interval between auto-repeats once a key is held down. </p>
-<p>Measured in scheduler ticks (centi-seconds, i.e. 1/100 s). A value of 5 = 50 ms between repeats (~20 chars/sec). </p>
+<p>Measured in milliseconds </p>
 
 </div>
 </div>
@@ -255,7 +261,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Extended (non-ASCII) keys. </p>
-<p>These are returned by <a class="el" href="keyboard_8h.html#af186c1d48613bd858b7f774e5bd47935">kgetc()</a> when pressed. BASIC exposes them directly via INKEY$. </p>
+<p>These are returned by <a class="el" href="keyboard_8h.html#adeef92b49557a51527be9cd292d12ad7">kgetc()</a> when pressed. BASIC exposes them directly via INKEY$. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a28ea8f371588faf8c0f361fd56c0db0ba5d9c9ba1d8f2c6f6737db37d3f449071"></a>KEY_PAGEUP&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a28ea8f371588faf8c0f361fd56c0db0ba5996c34d86df2b3c1be741aeb35bdbc4"></a>KEY_PAGEDOWN&#160;</td><td class="fielddoc"></td></tr>
@@ -369,8 +375,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="af186c1d48613bd858b7f774e5bd47935"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af186c1d48613bd858b7f774e5bd47935">&#9670;&nbsp;</a></span>kgetc()</h2>
+<a id="adeef92b49557a51527be9cd292d12ad7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adeef92b49557a51527be9cd292d12ad7">&#9670;&nbsp;</a></span>kgetc()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -378,14 +384,39 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">unsigned char kgetc </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structconsole.html">console</a> *&#160;</td>
-          <td class="paramname"><em>cons</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Reads the next key from the keyboard buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cons</td><td>Current console (unused, reserved for future use). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>ASCII character or extended key constant, or 255 if no input is available. </dd></dl>
+
+</div>
+</div>
+<a id="a2f6948e7b53d94c61b16fafea0cd73ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f6948e7b53d94c61b16fafea0cd73ec">&#9670;&nbsp;</a></span>kpeek()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char kpeek </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks the next key in the keyboard buffer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cons</td><td>Current console (unused, reserved for future use). </td></tr>
@@ -423,6 +454,24 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a9c2b65b8f7fbaf40e3c116962d44f586"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c2b65b8f7fbaf40e3c116962d44f586">&#9670;&nbsp;</a></span>reboot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">_Noreturn void reboot </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a91e9663f1e43e4aca8439739c3b10c69"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a91e9663f1e43e4aca8439739c3b10c69">&#9670;&nbsp;</a></span>shift_held()</h2>
 
@@ -449,7 +498,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="keyboard_8h.html">keyboard.h</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

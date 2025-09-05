@@ -93,13 +93,12 @@ $(document).ready(function(){initNavTree('stdlib_8c.html',''); initResizable(); 
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="kernel_8h.html">kernel.h</a>&gt;</code><br />
-<code>#include &lt;wchar.h&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a02a84f6f51ade73c96471f806d099e8d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#a02a84f6f51ade73c96471f806d099e8d">SWAP</a>(<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>,  <a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>,  count,  <a class="el" href="fat32_8h.html#ab2c6b258f02add8fdf4cfc7c371dd772">size</a>,  tmp)</td></tr>
+<tr class="memitem:a02a84f6f51ade73c96471f806d099e8d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#a02a84f6f51ade73c96471f806d099e8d">SWAP</a>(a,  b,  count,  <a class="el" href="fat32_8h.html#ab2c6b258f02add8fdf4cfc7c371dd772">size</a>,  tmp)</td></tr>
 <tr class="separator:a02a84f6f51ade73c96471f806d099e8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a192dc1ff6f60e0fb9bc1e7a2c930c8a3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#a192dc1ff6f60e0fb9bc1e7a2c930c8a3">COPY</a>(<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>,  <a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>,  count,  <a class="el" href="fat32_8h.html#ab2c6b258f02add8fdf4cfc7c371dd772">size</a>,  tmp1,  tmp2)</td></tr>
+<tr class="memitem:a192dc1ff6f60e0fb9bc1e7a2c930c8a3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#a192dc1ff6f60e0fb9bc1e7a2c930c8a3">COPY</a>(a,  b,  count,  <a class="el" href="fat32_8h.html#ab2c6b258f02add8fdf4cfc7c371dd772">size</a>,  tmp1,  tmp2)</td></tr>
 <tr class="separator:a192dc1ff6f60e0fb9bc1e7a2c930c8a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d7e2899e4c5ef00783ad463aebe5d44"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#a4d7e2899e4c5ef00783ad463aebe5d44">CREATE</a>(initval,  nmemb,  par_i,  child_i,  par,  child,  <a class="el" href="fat32_8h.html#ab2c6b258f02add8fdf4cfc7c371dd772">size</a>,  count,  tmp)</td></tr>
 <tr class="separator:a4d7e2899e4c5ef00783ad463aebe5d44"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -115,13 +114,13 @@ Macros</h2></td></tr>
 <tr class="separator:a4fde6f920105b98041f56311572ac8cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0b8608ec2dfaf6ebed81e416d0159e1f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#a0b8608ec2dfaf6ebed81e416d0159e1f">SWAPTYPE_LONG</a>&#160;&#160;&#160;5</td></tr>
 <tr class="separator:a0b8608ec2dfaf6ebed81e416d0159e1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afef1a97466ccf80f01c2e3b9f348cc7b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#afef1a97466ccf80f01c2e3b9f348cc7b">TYPE_ALIGNED</a>(TYPE,  <a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>,  es)&#160;&#160;&#160;	(((char *)<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a> - (char *)0) % sizeof(TYPE) == 0 &amp;&amp; es % sizeof(TYPE) == 0)</td></tr>
+<tr class="memitem:afef1a97466ccf80f01c2e3b9f348cc7b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#afef1a97466ccf80f01c2e3b9f348cc7b">TYPE_ALIGNED</a>(TYPE,  a,  es)&#160;&#160;&#160;	(((char *)a - (char *)0) % sizeof(TYPE) == 0 &amp;&amp; es % sizeof(TYPE) == 0)</td></tr>
 <tr class="separator:afef1a97466ccf80f01c2e3b9f348cc7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a94e98b172e7b50dde8c112d1617d446d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#a94e98b172e7b50dde8c112d1617d446d">swapcode</a>(TYPE,  parmi,  parmj,  <a class="el" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>)</td></tr>
+<tr class="memitem:a94e98b172e7b50dde8c112d1617d446d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#a94e98b172e7b50dde8c112d1617d446d">swapcode</a>(TYPE,  parmi,  parmj,  n)</td></tr>
 <tr class="separator:a94e98b172e7b50dde8c112d1617d446d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ca5ecd34b04d6a243c054ac3a57f68d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#a3ca5ecd34b04d6a243c054ac3a57f68d">swap</a>(<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>,  <a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>)</td></tr>
+<tr class="memitem:a3ca5ecd34b04d6a243c054ac3a57f68d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#a3ca5ecd34b04d6a243c054ac3a57f68d">swap</a>(a,  b)</td></tr>
 <tr class="separator:a3ca5ecd34b04d6a243c054ac3a57f68d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a584c607dc0b230ebfdde9a157887c6a9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#a584c607dc0b230ebfdde9a157887c6a9">vecswap</a>(<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>,  <a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>,  <a class="el" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>)&#160;&#160;&#160;if ((<a class="el" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>) &gt; 0) <a class="el" href="stdlib_8c.html#ab66c3e98f7ae007575e4a42bcc4a859a">swapfunc</a>(<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, <a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>, <a class="el" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>, swaptype)</td></tr>
+<tr class="memitem:a584c607dc0b230ebfdde9a157887c6a9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#a584c607dc0b230ebfdde9a157887c6a9">vecswap</a>(a,  b,  n)&#160;&#160;&#160;if ((n) &gt; 0) <a class="el" href="stdlib_8c.html#ab66c3e98f7ae007575e4a42bcc4a859a">swapfunc</a>(a, b, n, swaptype)</td></tr>
 <tr class="separator:a584c607dc0b230ebfdde9a157887c6a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -159,11 +158,11 @@ Functions</h2></td></tr>
 <tr class="separator:af3bab84625a1d45d1cc0c98cee392f4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab66c3e98f7ae007575e4a42bcc4a859a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#ab66c3e98f7ae007575e4a42bcc4a859a">swapfunc</a> (char *, char *, size_t, int)</td></tr>
 <tr class="separator:ab66c3e98f7ae007575e4a42bcc4a859a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a7693a64c3ae4c335db15c2e7eeac52"><td class="memItemLeft" align="right" valign="top">static unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#a3a7693a64c3ae4c335db15c2e7eeac52">min</a> (unsigned long <a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, unsigned long <a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>)</td></tr>
+<tr class="memitem:a3a7693a64c3ae4c335db15c2e7eeac52"><td class="memItemLeft" align="right" valign="top">static unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#a3a7693a64c3ae4c335db15c2e7eeac52">min</a> (unsigned long a, unsigned long b)</td></tr>
 <tr class="separator:a3a7693a64c3ae4c335db15c2e7eeac52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60cea9141ca389f74bbeeac2e0f7a076"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#a60cea9141ca389f74bbeeac2e0f7a076">introsort</a> (char *<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, size_t <a class="el" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>, size_t es, size_t maxdepth, int swaptype, int(*cmp)(const void *, const void *))</td></tr>
+<tr class="memitem:a60cea9141ca389f74bbeeac2e0f7a076"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#a60cea9141ca389f74bbeeac2e0f7a076">introsort</a> (char *a, size_t n, size_t es, size_t maxdepth, int swaptype, int(*cmp)(const void *, const void *))</td></tr>
 <tr class="separator:a60cea9141ca389f74bbeeac2e0f7a076"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4b5dcfee552bc7f3e1cce5fec547711"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#ab4b5dcfee552bc7f3e1cce5fec547711">qsort</a> (void *<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, size_t <a class="el" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>, size_t es, int(*cmp)(const void *, const void *))</td></tr>
+<tr class="memitem:ab4b5dcfee552bc7f3e1cce5fec547711"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#ab4b5dcfee552bc7f3e1cce5fec547711">qsort</a> (void *a, size_t n, size_t es, int(*cmp)(const void *, const void *))</td></tr>
 <tr class="memdesc:ab4b5dcfee552bc7f3e1cce5fec547711"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quicksort.  <a href="stdlib_8c.html#ab4b5dcfee552bc7f3e1cce5fec547711">More...</a><br /></td></tr>
 <tr class="separator:ab4b5dcfee552bc7f3e1cce5fec547711"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4476a5dc418924ee3ad18ce699581dfd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdiv__t.html">div_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#a4476a5dc418924ee3ad18ce699581dfd">div</a> (int numer, int denom)</td></tr>
@@ -178,16 +177,16 @@ Functions</h2></td></tr>
 <tr class="memitem:ae23144bcbb8e3742b00eb687c36654d1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#ae23144bcbb8e3742b00eb687c36654d1">rand</a> (void)</td></tr>
 <tr class="memdesc:ae23144bcbb8e3742b00eb687c36654d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a pseudo-random number.  <a href="stdlib_8c.html#ae23144bcbb8e3742b00eb687c36654d1">More...</a><br /></td></tr>
 <tr class="separator:ae23144bcbb8e3742b00eb687c36654d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9cf9e32bd0f978d081907297dff8822"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#ad9cf9e32bd0f978d081907297dff8822">mblen</a> (const char *str, size_t <a class="el" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>)</td></tr>
+<tr class="memitem:ad9cf9e32bd0f978d081907297dff8822"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#ad9cf9e32bd0f978d081907297dff8822">mblen</a> (const char *str, size_t n)</td></tr>
 <tr class="memdesc:ad9cf9e32bd0f978d081907297dff8822"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine the number of bytes in the next multibyte character.  <a href="stdlib_8c.html#ad9cf9e32bd0f978d081907297dff8822">More...</a><br /></td></tr>
 <tr class="separator:ad9cf9e32bd0f978d081907297dff8822"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c01be10218767784680ca9654c25da0"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#a0c01be10218767784680ca9654c25da0">mbstowcs</a> (wchar_t *pwcs, const char *str, size_t <a class="el" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>)</td></tr>
+<tr class="memitem:a0c01be10218767784680ca9654c25da0"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#a0c01be10218767784680ca9654c25da0">mbstowcs</a> (wchar_t *pwcs, const char *str, size_t n)</td></tr>
 <tr class="memdesc:a0c01be10218767784680ca9654c25da0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a multibyte string to a wide-character string.  <a href="stdlib_8c.html#a0c01be10218767784680ca9654c25da0">More...</a><br /></td></tr>
 <tr class="separator:a0c01be10218767784680ca9654c25da0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e53443f6f3cee3255cc2b43bddf5627"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#a3e53443f6f3cee3255cc2b43bddf5627">mbtowc</a> (wchar_t *pwc, const char *str, size_t <a class="el" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>)</td></tr>
+<tr class="memitem:a3e53443f6f3cee3255cc2b43bddf5627"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#a3e53443f6f3cee3255cc2b43bddf5627">mbtowc</a> (wchar_t *pwc, const char *str, size_t n)</td></tr>
 <tr class="memdesc:a3e53443f6f3cee3255cc2b43bddf5627"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert the next multibyte character to a wide character.  <a href="stdlib_8c.html#a3e53443f6f3cee3255cc2b43bddf5627">More...</a><br /></td></tr>
 <tr class="separator:a3e53443f6f3cee3255cc2b43bddf5627"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2ef4b7026332a8d40d9340870d7a400"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#aa2ef4b7026332a8d40d9340870d7a400">wcstombs</a> (char *str, const wchar_t *pwcs, size_t <a class="el" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>)</td></tr>
+<tr class="memitem:aa2ef4b7026332a8d40d9340870d7a400"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#aa2ef4b7026332a8d40d9340870d7a400">wcstombs</a> (char *str, const wchar_t *pwcs, size_t n)</td></tr>
 <tr class="memdesc:aa2ef4b7026332a8d40d9340870d7a400"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a wide-character string to a multibyte string.  <a href="stdlib_8c.html#aa2ef4b7026332a8d40d9340870d7a400">More...</a><br /></td></tr>
 <tr class="separator:aa2ef4b7026332a8d40d9340870d7a400"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a44f1616f3ea0c21a5c603b68dac56ea5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_8c.html#a44f1616f3ea0c21a5c603b68dac56ea5">wctomb</a> (char *str, wchar_t wchar)</td></tr>
@@ -210,13 +209,13 @@ Variables</h2></td></tr>
           <td class="memname">#define COPY</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, </td>
+          <td class="paramname">a, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>, </td>
+          <td class="paramname">b, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -251,14 +250,12 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    { \</div>
 <div class="line">    count = <a class="code" href="fat32_8h.html#ab2c6b258f02add8fdf4cfc7c371dd772">size</a>; \</div>
-<div class="line">    tmp1 = <a class="code" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>; \</div>
-<div class="line">    tmp2 = <a class="code" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>; \</div>
+<div class="line">    tmp1 = a; \</div>
+<div class="line">    tmp2 = b; \</div>
 <div class="line">    do { \</div>
 <div class="line">        *tmp1++ = *tmp2++; \</div>
 <div class="line">    } <span class="keywordflow">while</span> (--count); \</div>
 <div class="line">}</div>
-<div class="ttc" id="aahci_8h_html_a4313c9563516f94387762ab05763456b"><div class="ttname"><a href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a></div><div class="ttdeci">uint8_t b</div><div class="ttdef"><b>Definition:</b> ahci.h:7</div></div>
-<div class="ttc" id="aahci_8h_html_af4007aacd75b22aee32dba9ea96082c0"><div class="ttname"><a href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a></div><div class="ttdeci">uint8_t a</div><div class="ttdef"><b>Definition:</b> ahci.h:7</div></div>
 <div class="ttc" id="afat32_8h_html_ab2c6b258f02add8fdf4cfc7c371dd772"><div class="ttname"><a href="fat32_8h.html#ab2c6b258f02add8fdf4cfc7c371dd772">size</a></div><div class="ttdeci">uint32_t size</div><div class="ttdef"><b>Definition:</b> fat32.h:11</div></div>
 </div><!-- fragment -->
 </div>
@@ -456,13 +453,13 @@ Variables</h2></td></tr>
           <td class="memname">#define swap</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, </td>
+          <td class="paramname">a, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>&#160;</td>
+          <td class="paramname">b&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -474,19 +471,19 @@ Variables</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">do</span> {                \</div>
 <div class="line">    switch (swaptype) {             \</div>
 <div class="line">    case <a class="code" href="stdlib_8c.html#a4fde6f920105b98041f56311572ac8cb">SWAPTYPE_INT</a>: {                \</div>
-<div class="line">        int t = *(<span class="keywordtype">int</span> *)(<a class="code" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>);            \</div>
-<div class="line">        *(<span class="keywordtype">int</span> *)(<a class="code" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>) = *(<span class="keywordtype">int</span> *)(<a class="code" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>);      \</div>
-<div class="line">        *(<span class="keywordtype">int</span> *)(<a class="code" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>) = t;            \</div>
+<div class="line">        int t = *(<span class="keywordtype">int</span> *)(a);            \</div>
+<div class="line">        *(<span class="keywordtype">int</span> *)(a) = *(<span class="keywordtype">int</span> *)(b);      \</div>
+<div class="line">        *(<span class="keywordtype">int</span> *)(b) = t;            \</div>
 <div class="line">        break;                  \</div>
 <div class="line">        }                       \</div>
 <div class="line">    case <a class="code" href="stdlib_8c.html#a0b8608ec2dfaf6ebed81e416d0159e1f">SWAPTYPE_LONG</a>: {               \</div>
-<div class="line">        long t = *(<span class="keywordtype">long</span> *)(<a class="code" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>);          \</div>
-<div class="line">        *(<span class="keywordtype">long</span> *)(<a class="code" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>) = *(<span class="keywordtype">long</span> *)(<a class="code" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>);        \</div>
-<div class="line">        *(<span class="keywordtype">long</span> *)(<a class="code" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>) = t;           \</div>
+<div class="line">        long t = *(<span class="keywordtype">long</span> *)(a);          \</div>
+<div class="line">        *(<span class="keywordtype">long</span> *)(a) = *(<span class="keywordtype">long</span> *)(b);        \</div>
+<div class="line">        *(<span class="keywordtype">long</span> *)(b) = t;           \</div>
 <div class="line">        break;                  \</div>
 <div class="line">        }                       \</div>
 <div class="line">    default:                    \</div>
-<div class="line">        swapfunc(<a class="code" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, <a class="code" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>, es, swaptype);       \</div>
+<div class="line">        swapfunc(a, b, es, swaptype);       \</div>
 <div class="line">    }                       \</div>
 <div class="line">} <span class="keywordflow">while</span> (0)</div>
 <div class="ttc" id="astdlib_8c_html_a0b8608ec2dfaf6ebed81e416d0159e1f"><div class="ttname"><a href="stdlib_8c.html#a0b8608ec2dfaf6ebed81e416d0159e1f">SWAPTYPE_LONG</a></div><div class="ttdeci">#define SWAPTYPE_LONG</div><div class="ttdef"><b>Definition:</b> stdlib.c:387</div></div>
@@ -504,13 +501,13 @@ Variables</h2></td></tr>
           <td class="memname">#define SWAP</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, </td>
+          <td class="paramname">a, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>, </td>
+          <td class="paramname">b, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -540,9 +537,9 @@ Variables</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">    { \</div>
 <div class="line">    count = <a class="code" href="fat32_8h.html#ab2c6b258f02add8fdf4cfc7c371dd772">size</a>; \</div>
 <div class="line">    do { \</div>
-<div class="line">        tmp = *<a class="code" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>; \</div>
-<div class="line">        *<a class="code" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>++ = *<a class="code" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>; \</div>
-<div class="line">        *<a class="code" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>++ = tmp; \</div>
+<div class="line">        tmp = *a; \</div>
+<div class="line">        *a++ = *b; \</div>
+<div class="line">        *b++ = tmp; \</div>
 <div class="line">    } <span class="keywordflow">while</span> (--count); \</div>
 <div class="line">}</div>
 </div><!-- fragment -->
@@ -576,7 +573,7 @@ Variables</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><a class="el" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>&#160;</td>
+          <td class="paramname">n&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -586,18 +583,15 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    {       \</div>
-<div class="line">    size_t <a class="code" href="ahci_8h.html#a752abcfe7ce5874cd9e8012a0346a37b">i</a> = (<a class="code" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>) / <span class="keyword">sizeof</span> (TYPE);         \</div>
-<div class="line">    TYPE *<a class="code" href="ahci_8h.html#a758f6c558cc8d68e2a25f13e046eae6f">pi</a> = (TYPE *) (parmi);            \</div>
+<div class="line">    size_t i = (n) / <span class="keyword">sizeof</span> (TYPE);         \</div>
+<div class="line">    TYPE *pi = (TYPE *) (parmi);            \</div>
 <div class="line">    TYPE *pj = (TYPE *) (parmj);            \</div>
 <div class="line">    do {                        \</div>
-<div class="line">        TYPE    t = *<a class="code" href="ahci_8h.html#a758f6c558cc8d68e2a25f13e046eae6f">pi</a>;            \</div>
-<div class="line">        *<a class="code" href="ahci_8h.html#a758f6c558cc8d68e2a25f13e046eae6f">pi</a>++ = *pj;                \</div>
+<div class="line">        TYPE    t = *pi;            \</div>
+<div class="line">        *pi++ = *pj;                \</div>
 <div class="line">        *pj++ = t;              \</div>
-<div class="line">        } <span class="keywordflow">while</span> (--<a class="code" href="ahci_8h.html#a752abcfe7ce5874cd9e8012a0346a37b">i</a> &gt; 0);              \</div>
+<div class="line">        } <span class="keywordflow">while</span> (--i &gt; 0);              \</div>
 <div class="line">}</div>
-<div class="ttc" id="aahci_8h_html_a5a648f5ec00c526b0dfa2df7a272c6c0"><div class="ttname"><a href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a></div><div class="ttdeci">uint8_t n</div><div class="ttdef"><b>Definition:</b> ahci.h:4</div></div>
-<div class="ttc" id="aahci_8h_html_a752abcfe7ce5874cd9e8012a0346a37b"><div class="ttname"><a href="ahci_8h.html#a752abcfe7ce5874cd9e8012a0346a37b">i</a></div><div class="ttdeci">uint8_t i</div><div class="ttdef"><b>Definition:</b> ahci.h:5</div></div>
-<div class="ttc" id="aahci_8h_html_a758f6c558cc8d68e2a25f13e046eae6f"><div class="ttname"><a href="ahci_8h.html#a758f6c558cc8d68e2a25f13e046eae6f">pi</a></div><div class="ttdeci">uint32_t pi</div><div class="ttdef"><b>Definition:</b> ahci.h:4</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -687,7 +681,7 @@ Variables</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, </td>
+          <td class="paramname">a, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -698,7 +692,7 @@ Variables</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;	(((char *)<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a> - (char *)0) % sizeof(TYPE) == 0 &amp;&amp; es % sizeof(TYPE) == 0)</td>
+          <td></td><td>&#160;&#160;&#160;	(((char *)a - (char *)0) % sizeof(TYPE) == 0 &amp;&amp; es % sizeof(TYPE) == 0)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -715,24 +709,24 @@ Variables</h2></td></tr>
           <td class="memname">#define vecswap</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, </td>
+          <td class="paramname">a, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>, </td>
+          <td class="paramname">b, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><a class="el" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>&#160;</td>
+          <td class="paramname">n&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;if ((<a class="el" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>) &gt; 0) <a class="el" href="stdlib_8c.html#ab66c3e98f7ae007575e4a42bcc4a859a">swapfunc</a>(<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, <a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>, <a class="el" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>, swaptype)</td>
+          <td></td><td>&#160;&#160;&#160;if ((n) &gt; 0) <a class="el" href="stdlib_8c.html#ab66c3e98f7ae007575e4a42bcc4a859a">swapfunc</a>(a, b, n, swaptype)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1709,7 +1703,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="stdlib_8c.html">stdlib.c</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

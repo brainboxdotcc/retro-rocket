@@ -94,7 +94,7 @@ $(document).ready(function(){initNavTree('retrofs_8h.html',''); initResizable();
 </div><!--header-->
 <div class="contents">
 
-<p>Core structures, constants, and API definitions for RetroFS — an ADFS 'L' format–inspired filesystem for Retro Rocket.  
+<p>Core structures, constants, and API definitions for RetroFS - an ADFS 'L' format–inspired filesystem for Retro Rocket.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;<a class="el" href="kernel_8h.html">kernel.h</a>&gt;</code><br />
 </div><table class="memberdecls">
@@ -128,7 +128,7 @@ Macros</h2></td></tr>
 <tr class="separator:a2edcb522edb2eb0eda942e933b1353d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f0b46f13df6e029244c1d1bbce20606"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a3f0b46f13df6e029244c1d1bbce20606">RFS_L2_GROUPS_PER_SUPER</a>&#160;&#160;&#160;(1024ULL)</td></tr>
 <tr class="separator:a3f0b46f13df6e029244c1d1bbce20606"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb65d4847594b25424eb2a304e7741c1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#afb65d4847594b25424eb2a304e7741c1">ALIGN_UP</a>(x,  <a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>)&#160;&#160;&#160;(((x) + ((<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>) - 1)) &amp; ~((<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>) - 1))</td></tr>
+<tr class="memitem:afb65d4847594b25424eb2a304e7741c1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#afb65d4847594b25424eb2a304e7741c1">ALIGN_UP</a>(x,  a)&#160;&#160;&#160;(((x) + ((a) - 1)) &amp; ~((a) - 1))</td></tr>
 <tr class="memdesc:afb65d4847594b25424eb2a304e7741c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Align a value upwards to the next multiple of <code>a</code>.  <a href="retrofs_8h.html#afb65d4847594b25424eb2a304e7741c1">More...</a><br /></td></tr>
 <tr class="separator:afb65d4847594b25424eb2a304e7741c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Filesystem Constants</div></td></tr>
@@ -138,7 +138,7 @@ Macros</h2></td></tr>
 <tr class="separator:a2b7d6124b62b834bfaceb921b4b2b1bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa4a364442c5a3451da2edade32468c08"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#aa4a364442c5a3451da2edade32468c08">RFS_FS_MAP_BITS_PER_SECTOR</a>&#160;&#160;&#160;(512 / sizeof(uint64_t))</td></tr>
 <tr class="separator:aa4a364442c5a3451da2edade32468c08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23c6a84effa5b35824246bbaee17d507"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a23c6a84effa5b35824246bbaee17d507">RFS_MAP_READ_CHUNK_SECTORS</a>&#160;&#160;&#160;128ULL</td></tr>
+<tr class="memitem:a23c6a84effa5b35824246bbaee17d507"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a23c6a84effa5b35824246bbaee17d507">RFS_MAP_READ_CHUNK_SECTORS</a>&#160;&#160;&#160;16ULL</td></tr>
 <tr class="separator:a23c6a84effa5b35824246bbaee17d507"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a54cc1fc2306ba1d8e64c6c23895570fd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a54cc1fc2306ba1d8e64c6c23895570fd">RFS_DEFAULT_DIR_SIZE</a>&#160;&#160;&#160;64</td></tr>
 <tr class="memdesc:a54cc1fc2306ba1d8e64c6c23895570fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default number of sectors allocated for a directory block.  <a href="retrofs_8h.html#a54cc1fc2306ba1d8e64c6c23895570fd">More...</a><br /></td></tr>
@@ -179,12 +179,15 @@ Functions</h2></td></tr>
 <tr class="memitem:afe6611ac18c6910947bc99f12691a936"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#afe6611ac18c6910947bc99f12691a936">rfs_format</a> (<a class="el" href="structrfs__t.html">rfs_t</a> *info)</td></tr>
 <tr class="memdesc:afe6611ac18c6910947bc99f12691a936"><td class="mdescLeft">&#160;</td><td class="mdescRight">Format a block device or partition with a fresh RetroFS filesystem.  <a href="retrofs_8h.html#afe6611ac18c6910947bc99f12691a936">More...</a><br /></td></tr>
 <tr class="separator:afe6611ac18c6910947bc99f12691a936"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7aa41789c8d357a0e0d8d83bc0ff7580"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a7aa41789c8d357a0e0d8d83bc0ff7580">rfs_read_device</a> (<a class="el" href="structrfs__t.html">rfs_t</a> *rfs, uint64_t start_sectors, uint64_t size_bytes, void *buffer)</td></tr>
+<tr class="memitem:a7aa41789c8d357a0e0d8d83bc0ff7580"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a7aa41789c8d357a0e0d8d83bc0ff7580">rfs_read_device</a> (<a class="el" href="structrfs__t.html">rfs_t</a> *rfs, uint64_t start_sectors, uint64_t size_bytes, void *<a class="el" href="input_8c.html#aff2566f4c366b48d73479bef43ee4d2e">buffer</a>)</td></tr>
 <tr class="memdesc:a7aa41789c8d357a0e0d8d83bc0ff7580"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read raw sectors from the underlying device.  <a href="retrofs_8h.html#a7aa41789c8d357a0e0d8d83bc0ff7580">More...</a><br /></td></tr>
 <tr class="separator:a7aa41789c8d357a0e0d8d83bc0ff7580"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af68c31483d4d81b83304d6aabf979a39"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#af68c31483d4d81b83304d6aabf979a39">rfs_write_device</a> (<a class="el" href="structrfs__t.html">rfs_t</a> *rfs, uint64_t start_sectors, uint64_t size_bytes, const void *buffer)</td></tr>
+<tr class="memitem:af68c31483d4d81b83304d6aabf979a39"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#af68c31483d4d81b83304d6aabf979a39">rfs_write_device</a> (<a class="el" href="structrfs__t.html">rfs_t</a> *rfs, uint64_t start_sectors, uint64_t size_bytes, const void *<a class="el" href="input_8c.html#aff2566f4c366b48d73479bef43ee4d2e">buffer</a>)</td></tr>
 <tr class="memdesc:af68c31483d4d81b83304d6aabf979a39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write raw sectors to the underlying device.  <a href="retrofs_8h.html#af68c31483d4d81b83304d6aabf979a39">More...</a><br /></td></tr>
 <tr class="separator:af68c31483d4d81b83304d6aabf979a39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaab69cffd8e814e0b6b83d6fededdff9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#aaab69cffd8e814e0b6b83d6fededdff9">rfs_clear_device</a> (<a class="el" href="structrfs__t.html">rfs_t</a> *rfs, uint64_t start_sectors, uint64_t size_bytes)</td></tr>
+<tr class="memdesc:aaab69cffd8e814e0b6b83d6fededdff9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hint to the storage driver that we can clear blocks on the device, e.g. TRIM or similar.  <a href="retrofs_8h.html#aaab69cffd8e814e0b6b83d6fededdff9">More...</a><br /></td></tr>
+<tr class="separator:aaab69cffd8e814e0b6b83d6fededdff9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae89881aa48831a06f9f7b87c7062a64d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#ae89881aa48831a06f9f7b87c7062a64d">rfs_find_free_extent</a> (<a class="el" href="structrfs__t.html">rfs_t</a> *info, uint64_t need, uint64_t *out_start_sector)</td></tr>
 <tr class="memdesc:ae89881aa48831a06f9f7b87c7062a64d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find a contiguous extent of free sectors.  <a href="retrofs_8h.html#ae89881aa48831a06f9f7b87c7062a64d">More...</a><br /></td></tr>
 <tr class="separator:ae89881aa48831a06f9f7b87c7062a64d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -200,7 +203,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a6dc1377127abd3436b8c3c1da78dadbc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a6dc1377127abd3436b8c3c1da78dadbc">rfs_unlink_file</a> (void *dir, const char *<a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a>)</td></tr>
 <tr class="memdesc:a6dc1377127abd3436b8c3c1da78dadbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a file from a directory.  <a href="retrofs_8h.html#a6dc1377127abd3436b8c3c1da78dadbc">More...</a><br /></td></tr>
 <tr class="separator:a6dc1377127abd3436b8c3c1da78dadbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a469381f22dcd59d3aedddf42376197fe"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a469381f22dcd59d3aedddf42376197fe">rfs_read_file</a> (void *f, uint64_t <a class="el" href="retrofs_8h.html#af821c0f1bf4d36fbe0a3f5776b71139b">start</a>, uint32_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>, unsigned char *buffer)</td></tr>
+<tr class="memitem:a469381f22dcd59d3aedddf42376197fe"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a469381f22dcd59d3aedddf42376197fe">rfs_read_file</a> (void *f, uint64_t <a class="el" href="retrofs_8h.html#af821c0f1bf4d36fbe0a3f5776b71139b">start</a>, uint32_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>, unsigned char *<a class="el" href="input_8c.html#aff2566f4c366b48d73479bef43ee4d2e">buffer</a>)</td></tr>
 <tr class="memdesc:a469381f22dcd59d3aedddf42376197fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read part or all of a file.  <a href="retrofs_8h.html#a469381f22dcd59d3aedddf42376197fe">More...</a><br /></td></tr>
 <tr class="separator:a469381f22dcd59d3aedddf42376197fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1eeda8efed6e103f25d8505e302fddfc"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a1eeda8efed6e103f25d8505e302fddfc">rfs_create_file</a> (void *dir, const char *<a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a>, size_t <a class="el" href="fat32_8h.html#ab2c6b258f02add8fdf4cfc7c371dd772">size</a>)</td></tr>
@@ -212,7 +215,7 @@ Functions</h2></td></tr>
 <tr class="memitem:affa287b51abff9d794e8d6d066553031"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#affa287b51abff9d794e8d6d066553031">rfs_unlink_dir</a> (void *dir, const char *<a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a>)</td></tr>
 <tr class="memdesc:affa287b51abff9d794e8d6d066553031"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove an empty directory from its parent.  <a href="retrofs_8h.html#affa287b51abff9d794e8d6d066553031">More...</a><br /></td></tr>
 <tr class="separator:affa287b51abff9d794e8d6d066553031"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5aac434718e1e16dfacc5630b6eada02"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a5aac434718e1e16dfacc5630b6eada02">rfs_write_file</a> (void *f, uint64_t <a class="el" href="retrofs_8h.html#af821c0f1bf4d36fbe0a3f5776b71139b">start</a>, uint32_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>, unsigned char *buffer)</td></tr>
+<tr class="memitem:a5aac434718e1e16dfacc5630b6eada02"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a5aac434718e1e16dfacc5630b6eada02">rfs_write_file</a> (void *f, uint64_t <a class="el" href="retrofs_8h.html#af821c0f1bf4d36fbe0a3f5776b71139b">start</a>, uint32_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>, unsigned char *<a class="el" href="input_8c.html#aff2566f4c366b48d73479bef43ee4d2e">buffer</a>)</td></tr>
 <tr class="memdesc:a5aac434718e1e16dfacc5630b6eada02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write part or all of a file.  <a href="retrofs_8h.html#a5aac434718e1e16dfacc5630b6eada02">More...</a><br /></td></tr>
 <tr class="separator:a5aac434718e1e16dfacc5630b6eada02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a423e724ebf6c540c67cb3a0f59f8ea48"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a423e724ebf6c540c67cb3a0f59f8ea48">rfs_truncate_file</a> (void *f, size_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>)</td></tr>
@@ -236,12 +239,12 @@ Functions</h2></td></tr>
 <tr class="memitem:add03ce7aa17db9f02d70ddd7e039582a"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#add03ce7aa17db9f02d70ddd7e039582a">rfs_get_free_space</a> (void *fs)</td></tr>
 <tr class="memdesc:add03ce7aa17db9f02d70ddd7e039582a"><td class="mdescLeft">&#160;</td><td class="mdescRight">VFS endpoint to get free space on the filesystem in bytes.  <a href="retrofs_8h.html#add03ce7aa17db9f02d70ddd7e039582a">More...</a><br /></td></tr>
 <tr class="separator:add03ce7aa17db9f02d70ddd7e039582a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a973f04214c7ac8bc21d8b7ca5e9af016"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a973f04214c7ac8bc21d8b7ca5e9af016">_Static_assert</a> (sizeof(<a class="el" href="unionrfs__directory__entry__t.html">rfs_directory_entry_t</a>)==(512/2), &quot;Directory <a class="el" href="retrofs_8h.html#a9e23ed0731911d7a25af7df173bc276d">entry</a> must be exactly half <a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a> sector&quot;)</td></tr>
+<tr class="memitem:a973f04214c7ac8bc21d8b7ca5e9af016"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a973f04214c7ac8bc21d8b7ca5e9af016">_Static_assert</a> (sizeof(<a class="el" href="unionrfs__directory__entry__t.html">rfs_directory_entry_t</a>)==(512/2), &quot;Directory <a class="el" href="retrofs_8h.html#a9e23ed0731911d7a25af7df173bc276d">entry</a> must be exactly half a sector&quot;)</td></tr>
 <tr class="separator:a973f04214c7ac8bc21d8b7ca5e9af016"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a335f2a703c781091af9729a95b375a46"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a335f2a703c781091af9729a95b375a46">_Static_assert</a> (sizeof(<a class="el" href="unionrfs__description__block__padded__t.html">rfs_description_block_padded_t</a>)==512, &quot;Description block must be exactly one sector&quot;)</td></tr>
 <tr class="separator:a335f2a703c781091af9729a95b375a46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0d930c2237e216498190b72eef4a60f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#aa0d930c2237e216498190b72eef4a60f">_Static_assert</a> (128ULL *512&lt;=(4ULL *1024 *1024), &quot;AHCI PRDT <a class="el" href="retrofs_8h.html#a9e23ed0731911d7a25af7df173bc276d">entry</a> must be &lt;= 4 MiB&quot;)</td></tr>
-<tr class="separator:aa0d930c2237e216498190b72eef4a60f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17381b14c297188eb3e61ad008d821b3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a17381b14c297188eb3e61ad008d821b3">_Static_assert</a> (16ULL *512&lt;=(4ULL *1024 *1024), &quot;AHCI PRDT <a class="el" href="retrofs_8h.html#a9e23ed0731911d7a25af7df173bc276d">entry</a> must be &lt;= 4 MiB&quot;)</td></tr>
+<tr class="separator:a17381b14c297188eb3e61ad008d821b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -295,7 +298,7 @@ Variables</h2></td></tr>
 <tr class="separator:a9e23ed0731911d7a25af7df173bc276d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Core structures, constants, and API definitions for RetroFS — an ADFS 'L' format–inspired filesystem for Retro Rocket. </p>
+<div class="textblock"><p>Core structures, constants, and API definitions for RetroFS - an ADFS 'L' format–inspired filesystem for Retro Rocket. </p>
 <dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>)</dd></dl>
 <p>RetroFS is a sector-based filesystem inspired by the Acorn ADFS 'L' format. It is optimised for simplicity of implementation and fast free-space allocation, achieved by caching the entire multi-level free space map in RAM. This approach trades higher memory usage (~200 MB/TB) for minimal device I/O during allocation and deletion, making it well-suited to systems where RAM is plentiful relative to storage speed.</p>
 <p>The on-disk format is compact and self-contained, with a fixed-size description block, hierarchical free space map, and half-sector directory entries. The in-memory layout is designed for fast lookups and minimal pointer chasing.</p>
@@ -317,12 +320,12 @@ Variables</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>&#160;</td>
+          <td class="paramname">a&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;(((x) + ((<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>) - 1)) &amp; ~((<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>) - 1))</td>
+          <td></td><td>&#160;&#160;&#160;(((x) + ((a) - 1)) &amp; ~((a) - 1))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -479,7 +482,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define RFS_MAP_READ_CHUNK_SECTORS&#160;&#160;&#160;128ULL</td>
+          <td class="memname">#define RFS_MAP_READ_CHUNK_SECTORS&#160;&#160;&#160;16ULL</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -550,6 +553,7 @@ Variables</h2></td></tr>
 <p>There is actually more to an ethernet frame than this (see the STD documents!) but we don't have access to it from the software.</p>
 <p>Definition of a DHCP packet.</p>
 <p>Format of an ARP packet (per RFC 826)</p>
+<p>Register FIS: Host to Device (H2D).</p>
 <p>Root System Description Table (RSDT)</p>
 <p>Generic ACPI System Description Table Header.</p>
 <p>This structure serves as the entry point to the ACPI system description tables. Its location is typically found by scanning the BIOS memory range. It may point to either the RSDT (ACPI 1.0) or XSDT (ACPI 2.0+).</p>
@@ -558,8 +562,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="aa0d930c2237e216498190b72eef4a60f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0d930c2237e216498190b72eef4a60f">&#9670;&nbsp;</a></span>_Static_assert() <span class="overload">[1/3]</span></h2>
+<a id="a17381b14c297188eb3e61ad008d821b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17381b14c297188eb3e61ad008d821b3">&#9670;&nbsp;</a></span>_Static_assert() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -567,7 +571,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">_Static_assert </td>
           <td>(</td>
-          <td class="paramtype">128ULL *512&lt;=&#160;</td>
+          <td class="paramtype">16ULL *512&lt;=&#160;</td>
           <td class="paramname">4ULL *1024 *1024, </td>
         </tr>
         <tr>
@@ -629,7 +633,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">&quot;Directory <a class="el" href="retrofs_8h.html#a9e23ed0731911d7a25af7df173bc276d">entry</a> must be exactly half <a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a> sector&quot;&#160;</td>
+          <td class="paramtype">&quot;Directory <a class="el" href="retrofs_8h.html#a9e23ed0731911d7a25af7df173bc276d">entry</a> must be exactly half a sector&quot;&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -849,6 +853,51 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Number of sectors required to store <code>bytes</code>. </dd></dl>
+
+</div>
+</div>
+<a id="aaab69cffd8e814e0b6b83d6fededdff9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaab69cffd8e814e0b6b83d6fededdff9">&#9670;&nbsp;</a></span>rfs_clear_device()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool rfs_clear_device </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structrfs__t.html">rfs_t</a> *&#160;</td>
+          <td class="paramname"><em>rfs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>start_sectors</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>size_bytes</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Hint to the storage driver that we can clear blocks on the device, e.g. TRIM or similar. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rfs</td><td>Filesystem context </td></tr>
+    <tr><td class="paramname">start_sectors</td><td>Sector index (relative to the filesystem start) </td></tr>
+    <tr><td class="paramname">size_bytes</td><td>Number of bytes to write (must be a multiple of sector size). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on success, false on error or not supported </dd></dl>
 
 </div>
 </div>
@@ -2020,7 +2069,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="retrofs_8h.html">retrofs.h</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

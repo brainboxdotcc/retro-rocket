@@ -99,10 +99,10 @@ Functions</h2></td></tr>
 <tr class="separator:a3d6685ea4e8aa18a8dd29b8176160c7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac52a39e7254f694e587db4722ecc682b"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns_8c.html#ac52a39e7254f694e587db4722ecc682b">dns_collect_request</a> (uint16_t <a class="el" href="dns_8c.html#a4fc3a0c58dfbd1e68224521185cb9384">id</a>, char *result, size_t max)</td></tr>
 <tr class="separator:ac52a39e7254f694e587db4722ecc682b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec754e70a500d0e523ad0ef9643be6db"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns_8c.html#aec754e70a500d0e523ad0ef9643be6db">dns_request_compare</a> (const void *<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, const void *<a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>, [[maybe_unused]] void *udata)</td></tr>
+<tr class="memitem:aec754e70a500d0e523ad0ef9643be6db"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns_8c.html#aec754e70a500d0e523ad0ef9643be6db">dns_request_compare</a> (const void *a, const void *b, [[maybe_unused]] void *udata)</td></tr>
 <tr class="memdesc:aec754e70a500d0e523ad0ef9643be6db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Comparison function for hash table of DNS requests.  <a href="dns_8c.html#aec754e70a500d0e523ad0ef9643be6db">More...</a><br /></td></tr>
 <tr class="separator:aec754e70a500d0e523ad0ef9643be6db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a747a70ba9f127e95c1eaa5c6d6705253"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns_8c.html#a747a70ba9f127e95c1eaa5c6d6705253">dns_cache_compare</a> (const void *<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, const void *<a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>, [[maybe_unused]] void *udata)</td></tr>
+<tr class="memitem:a747a70ba9f127e95c1eaa5c6d6705253"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns_8c.html#a747a70ba9f127e95c1eaa5c6d6705253">dns_cache_compare</a> (const void *a, const void *b, [[maybe_unused]] void *udata)</td></tr>
 <tr class="separator:a747a70ba9f127e95c1eaa5c6d6705253"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae79b7629d9864fde9bcab08cf5276342"><td class="memItemLeft" align="right" valign="top">static uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns_8c.html#ae79b7629d9864fde9bcab08cf5276342">dns_request_hash</a> (const void *item, uint64_t seed0, uint64_t seed1)</td></tr>
 <tr class="memdesc:ae79b7629d9864fde9bcab08cf5276342"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hash two DNS requests by ID.  <a href="dns_8c.html#ae79b7629d9864fde9bcab08cf5276342">More...</a><br /></td></tr>
@@ -118,9 +118,9 @@ Functions</h2></td></tr>
 <tr class="memitem:abc1cba8678d9f7892ef121460a45f92c"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns_8c.html#abc1cba8678d9f7892ef121460a45f92c">dns_make_payload</a> (const char *const <a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a>, const uint8_t rr, const unsigned short <a class="el" href="dns_8h.html#a118a4169f698293e0d445879b11e88c5">rr_class</a>, unsigned char *const <a class="el" href="tcp_8h.html#a6f6c2642db097f0b28399640e13dd102">payload</a>)</td></tr>
 <tr class="memdesc:abc1cba8678d9f7892ef121460a45f92c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build a binary payload for a request for a specific type of DNS entry.  <a href="dns_8c.html#abc1cba8678d9f7892ef121460a45f92c">More...</a><br /></td></tr>
 <tr class="separator:abc1cba8678d9f7892ef121460a45f92c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a88fc51c93321db43c9f27e3ce5a4e72f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns_8c.html#a88fc51c93321db43c9f27e3ce5a4e72f">dns_handle_packet</a> (uint32_t <a class="el" href="ip_8h.html#a468dda4615d8c0d9e631e02372619dc1">src_ip</a>, uint16_t <a class="el" href="udp_8h.html#ab98974981cf4c143fcee028643f313e6">src_port</a>, uint16_t <a class="el" href="udp_8h.html#ae18defed4756b8c15e34718f51e86e55">dst_port</a>, void *<a class="el" href="udp_8h.html#a5c239a1bb87b52b0f1d6d68c4749cd2a">data</a>, uint32_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>)</td></tr>
-<tr class="memdesc:a88fc51c93321db43c9f27e3ce5a4e72f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle inbound packet from the IP stack.  <a href="dns_8c.html#a88fc51c93321db43c9f27e3ce5a4e72f">More...</a><br /></td></tr>
-<tr class="separator:a88fc51c93321db43c9f27e3ce5a4e72f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abff79c86ad9552c3f0529882c064c79a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns_8c.html#abff79c86ad9552c3f0529882c064c79a">dns_handle_packet</a> (uint32_t <a class="el" href="ip_8h.html#a468dda4615d8c0d9e631e02372619dc1">src_ip</a>, uint16_t <a class="el" href="udp_8h.html#ab98974981cf4c143fcee028643f313e6">src_port</a>, uint16_t <a class="el" href="udp_8h.html#ae18defed4756b8c15e34718f51e86e55">dst_port</a>, void *<a class="el" href="udp_8h.html#a5c239a1bb87b52b0f1d6d68c4749cd2a">data</a>, uint32_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>, void *opaque)</td></tr>
+<tr class="memdesc:abff79c86ad9552c3f0529882c064c79a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle inbound packet from the IP stack.  <a href="dns_8c.html#abff79c86ad9552c3f0529882c064c79a">More...</a><br /></td></tr>
+<tr class="separator:abff79c86ad9552c3f0529882c064c79a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4bc729f8e54bb7b1e1614145d2841131"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns_8c.html#a4bc729f8e54bb7b1e1614145d2841131">fill_resource_record</a> (resource_record_t *rr, const unsigned char *input)</td></tr>
 <tr class="separator:a4bc729f8e54bb7b1e1614145d2841131"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22c2693ed12557013fd31417117869e8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns_8c.html#a22c2693ed12557013fd31417117869e8">dns_request_is_completed</a> (uint16_t <a class="el" href="dns_8c.html#a4fc3a0c58dfbd1e68224521185cb9384">id</a>)</td></tr>
@@ -317,8 +317,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a88fc51c93321db43c9f27e3ce5a4e72f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a88fc51c93321db43c9f27e3ce5a4e72f">&#9670;&nbsp;</a></span>dns_handle_packet()</h2>
+<a id="abff79c86ad9552c3f0529882c064c79a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abff79c86ad9552c3f0529882c064c79a">&#9670;&nbsp;</a></span>dns_handle_packet()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -351,7 +351,13 @@ Variables</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>length</em>&#160;</td>
+          <td class="paramname"><em>length</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>opaque</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1004,7 +1010,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c72b25b75abe208498b36a3e44a3726c.html">net</a></li><li class="navelem"><a class="el" href="dns_8c.html">dns.c</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:44 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

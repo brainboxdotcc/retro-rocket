@@ -1,11 +1,11 @@
 var structahci__fis__reg__d2h__t =
 [
-    [ "counth", "structahci__fis__reg__d2h__t.html#aee87f29a3613c0b87e456f5308d9fd87", null ],
-    [ "countl", "structahci__fis__reg__d2h__t.html#ace6b982f3a9252301b11b69acd67ed35", null ],
+    [ "count_high", "structahci__fis__reg__d2h__t.html#adf728f28629639ffea749e30e21c78b3", null ],
+    [ "count_low", "structahci__fis__reg__d2h__t.html#a5ecf4bb8ecf95845a53f6e301526d771", null ],
     [ "device", "structahci__fis__reg__d2h__t.html#aeff899077dd58ae3a728da211986aed9", null ],
     [ "error", "structahci__fis__reg__d2h__t.html#a9e8a35ea749b5d2baa3b6824a2680997", null ],
     [ "fis_type", "structahci__fis__reg__d2h__t.html#affff6d57ce8e8bed3de2ceca01712b1c", null ],
-    [ "i", "structahci__fis__reg__d2h__t.html#a371cecb9115c922cd1861386b645fb37", null ],
+    [ "interrupt", "structahci__fis__reg__d2h__t.html#a08431009782d2698144fdd20117ec616", null ],
     [ "lba0", "structahci__fis__reg__d2h__t.html#a7339a389569c46625b43aa2f8d884d1c", null ],
     [ "lba1", "structahci__fis__reg__d2h__t.html#ae7791b600d69b5b70d45d6b06f3ef12f", null ],
     [ "lba2", "structahci__fis__reg__d2h__t.html#a829a53a3f81be13d399976b0a0fdb4c4", null ],

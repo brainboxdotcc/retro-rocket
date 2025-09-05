@@ -1,10 +1,6 @@
 var searchData=
 [
-  ['tcp_5ferror_5fcode_5ft_6230',['tcp_error_code_t',['../tcp_8h.html#a0e8857463897e2e9a825c6702298cebe',1,'tcp.h']]],
-  ['tcp_5ferror_5ft_6231',['tcp_error_t',['../tcp_8h.html#aaf511b41b755c1d7f9222a29a88a11a7',1,'tcp.h']]],
-  ['tcp_5fopt_5ft_6232',['tcp_opt_t',['../tcp_8h.html#a60a5a207acb5e708bf37736360c3001f',1,'tcp.h']]],
-  ['tcp_5fport_5ftype_5ft_6233',['tcp_port_type_t',['../tcp_8h.html#aee0c1c2ac9ad5818e178340cf8812c8e',1,'tcp.h']]],
-  ['tcp_5fstate_5fflags_5ft_6234',['tcp_state_flags_t',['../tcp_8h.html#ab68d796822bee7cef7004d5928dff8ff',1,'tcp.h']]],
-  ['tcp_5fstate_5ft_6235',['tcp_state_t',['../tcp_8h.html#a30a6f4a8caaf05f882c7c7ecb1e8d83f',1,'tcp.h']]],
-  ['token_5ft_6236',['token_t',['../tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfe',1,'tokenizer.h']]]
+  ['scsi_5fadditional_5fsense_5fcode_5fqualifier_5ft_7340',['scsi_additional_sense_code_qualifier_t',['../scsi_8h.html#a8545aad73b77f61eb65a7f61117eec51',1,'scsi.h']]],
+  ['scsi_5fadditional_5fsense_5fcode_5ft_7341',['scsi_additional_sense_code_t',['../scsi_8h.html#ab5df6d96bbf6cf687849581e976419f6',1,'scsi.h']]],
+  ['scsi_5fsense_5fkey_5ft_7342',['scsi_sense_key_t',['../scsi_8h.html#a9355b0372f49295777f09d38c721a1c2',1,'scsi.h']]]
 ];

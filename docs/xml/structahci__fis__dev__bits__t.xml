@@ -12,10 +12,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>FIS type (FIS_TYPE_DEV_BITS) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="215" column="11" bodyfile="include/ahci.h" bodystart="215" bodyend="-1"/>
+        <location file="include/ahci.h" line="192" column="9" bodyfile="include/ahci.h" bodystart="192" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__dev__bits__t_1aedac9583b37601addf5320d9a48a7a38" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -26,10 +27,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Port multiplier port </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="216" column="11" bodyfile="include/ahci.h" bodystart="216" bodyend="-1"/>
+        <location file="include/ahci.h" line="193" column="9" bodyfile="include/ahci.h" bodystart="193" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__dev__bits__t_1a22c0c1e6fbe4f8b5520030b672905f52" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -40,52 +42,56 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Reserved, must be zero </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="217" column="11" bodyfile="include/ahci.h" bodystart="217" bodyend="-1"/>
+        <location file="include/ahci.h" line="194" column="9" bodyfile="include/ahci.h" bodystart="194" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__fis__dev__bits__t_1a020ccee3be8424ec1341567efc800740" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__fis__dev__bits__t_1ad7272015159b11547d3d7e2f3c0cf080" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
-        <definition>uint8_t ahci_fis_dev_bits_t::i</definition>
+        <definition>uint8_t ahci_fis_dev_bits_t::interrupt</definition>
         <argsstring></argsstring>
-        <name>i</name>
+        <name>interrupt</name>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Interrupt bit (I) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="218" column="11" bodyfile="include/ahci.h" bodystart="218" bodyend="-1"/>
+        <location file="include/ahci.h" line="195" column="9" bodyfile="include/ahci.h" bodystart="195" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__fis__dev__bits__t_1ae7576eabaf3b33001a1c5743975c4834" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__fis__dev__bits__t_1a9cae690486404eb1f78312180edf79e5" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
-        <definition>uint8_t ahci_fis_dev_bits_t::n</definition>
+        <definition>uint8_t ahci_fis_dev_bits_t::notification</definition>
         <argsstring></argsstring>
-        <name>n</name>
+        <name>notification</name>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Notification (N) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="219" column="11" bodyfile="include/ahci.h" bodystart="219" bodyend="-1"/>
+        <location file="include/ahci.h" line="196" column="9" bodyfile="include/ahci.h" bodystart="196" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__fis__dev__bits__t_1ab7c605b298ef67f3b049320440fc9564" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__fis__dev__bits__t_1aca0feca5982719771804ee970a13fe5c" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
-        <definition>uint8_t ahci_fis_dev_bits_t::statusl</definition>
+        <definition>uint8_t ahci_fis_dev_bits_t::status_low</definition>
         <argsstring></argsstring>
-        <name>statusl</name>
+        <name>status_low</name>
         <bitfield>3</bitfield>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Status bits [2:0] </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="220" column="11" bodyfile="include/ahci.h" bodystart="220" bodyend="-1"/>
+        <location file="include/ahci.h" line="197" column="9" bodyfile="include/ahci.h" bodystart="197" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__dev__bits__t_1a27e9339c5e3fbc9ca80f8e56047bba0f" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -96,24 +102,26 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Reserved, must be zero </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="221" column="11" bodyfile="include/ahci.h" bodystart="221" bodyend="-1"/>
+        <location file="include/ahci.h" line="198" column="9" bodyfile="include/ahci.h" bodystart="198" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__fis__dev__bits__t_1a819605e953d223f335a94a294d06f72b" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__fis__dev__bits__t_1aaecc442a49438eb6ea77575ebd68e0d4" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
-        <definition>uint8_t ahci_fis_dev_bits_t::statush</definition>
+        <definition>uint8_t ahci_fis_dev_bits_t::status_high</definition>
         <argsstring></argsstring>
-        <name>statush</name>
+        <name>status_high</name>
         <bitfield>3</bitfield>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Status bits [7:5] (packed MSBs) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="222" column="11" bodyfile="include/ahci.h" bodystart="222" bodyend="-1"/>
+        <location file="include/ahci.h" line="199" column="9" bodyfile="include/ahci.h" bodystart="199" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__dev__bits__t_1ae3dcd209a8e96818d7c713cf0dc4d9bb" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -124,10 +132,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Reserved, must be zero </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="223" column="11" bodyfile="include/ahci.h" bodystart="223" bodyend="-1"/>
+        <location file="include/ahci.h" line="200" column="9" bodyfile="include/ahci.h" bodystart="200" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__dev__bits__t_1a6d262c8d475c5711df8a673e47bf0022" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -137,15 +146,20 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Error register (valid if ERR set) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="224" column="11" bodyfile="include/ahci.h" bodystart="224" bodyend="-1"/>
+        <location file="include/ahci.h" line="201" column="9" bodyfile="include/ahci.h" bodystart="201" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Set Device Bits (SDB) FIS (device-&gt;host asynchronous notification). </para>
     </briefdescription>
     <detaileddescription>
+<para><simplesect kind="note"><para>Reconstruct the full ATA Status as (status_low | (status_high &lt;&lt; 3)). </para>
+</simplesect>
+</para>
     </detaileddescription>
     <collaborationgraph>
       <node id="2">
@@ -157,30 +171,30 @@
         <childnode refid="2" relation="usage">
           <edgelabel>error</edgelabel>
           <edgelabel>fis_type</edgelabel>
-          <edgelabel>i</edgelabel>
-          <edgelabel>n</edgelabel>
+          <edgelabel>interrupt</edgelabel>
+          <edgelabel>notification</edgelabel>
           <edgelabel>pmport</edgelabel>
           <edgelabel>rsvd</edgelabel>
           <edgelabel>rsvd2</edgelabel>
           <edgelabel>rsvd3</edgelabel>
-          <edgelabel>statush</edgelabel>
-          <edgelabel>statusl</edgelabel>
+          <edgelabel>status_high</edgelabel>
+          <edgelabel>status_low</edgelabel>
           <edgelabel>...</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="include/ahci.h" line="214" column="1" bodyfile="include/ahci.h" bodystart="214" bodyend="225"/>
+    <location file="include/ahci.h" line="191" column="1" bodyfile="include/ahci.h" bodystart="191" bodyend="202"/>
     <listofallmembers>
       <member refid="structahci__fis__dev__bits__t_1a6d262c8d475c5711df8a673e47bf0022" prot="public" virt="non-virtual"><scope>ahci_fis_dev_bits_t</scope><name>error</name></member>
       <member refid="structahci__fis__dev__bits__t_1aacac7f256a878c872ef1161c9b1e12ae" prot="public" virt="non-virtual"><scope>ahci_fis_dev_bits_t</scope><name>fis_type</name></member>
-      <member refid="structahci__fis__dev__bits__t_1a020ccee3be8424ec1341567efc800740" prot="public" virt="non-virtual"><scope>ahci_fis_dev_bits_t</scope><name>i</name></member>
-      <member refid="structahci__fis__dev__bits__t_1ae7576eabaf3b33001a1c5743975c4834" prot="public" virt="non-virtual"><scope>ahci_fis_dev_bits_t</scope><name>n</name></member>
+      <member refid="structahci__fis__dev__bits__t_1ad7272015159b11547d3d7e2f3c0cf080" prot="public" virt="non-virtual"><scope>ahci_fis_dev_bits_t</scope><name>interrupt</name></member>
+      <member refid="structahci__fis__dev__bits__t_1a9cae690486404eb1f78312180edf79e5" prot="public" virt="non-virtual"><scope>ahci_fis_dev_bits_t</scope><name>notification</name></member>
       <member refid="structahci__fis__dev__bits__t_1aedac9583b37601addf5320d9a48a7a38" prot="public" virt="non-virtual"><scope>ahci_fis_dev_bits_t</scope><name>pmport</name></member>
       <member refid="structahci__fis__dev__bits__t_1a22c0c1e6fbe4f8b5520030b672905f52" prot="public" virt="non-virtual"><scope>ahci_fis_dev_bits_t</scope><name>rsvd</name></member>
       <member refid="structahci__fis__dev__bits__t_1a27e9339c5e3fbc9ca80f8e56047bba0f" prot="public" virt="non-virtual"><scope>ahci_fis_dev_bits_t</scope><name>rsvd2</name></member>
       <member refid="structahci__fis__dev__bits__t_1ae3dcd209a8e96818d7c713cf0dc4d9bb" prot="public" virt="non-virtual"><scope>ahci_fis_dev_bits_t</scope><name>rsvd3</name></member>
-      <member refid="structahci__fis__dev__bits__t_1a819605e953d223f335a94a294d06f72b" prot="public" virt="non-virtual"><scope>ahci_fis_dev_bits_t</scope><name>statush</name></member>
-      <member refid="structahci__fis__dev__bits__t_1ab7c605b298ef67f3b049320440fc9564" prot="public" virt="non-virtual"><scope>ahci_fis_dev_bits_t</scope><name>statusl</name></member>
+      <member refid="structahci__fis__dev__bits__t_1aaecc442a49438eb6ea77575ebd68e0d4" prot="public" virt="non-virtual"><scope>ahci_fis_dev_bits_t</scope><name>status_high</name></member>
+      <member refid="structahci__fis__dev__bits__t_1aca0feca5982719771804ee970a13fe5c" prot="public" virt="non-virtual"><scope>ahci_fis_dev_bits_t</scope><name>status_low</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

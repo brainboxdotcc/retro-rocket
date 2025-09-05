@@ -112,9 +112,9 @@ Data Fields</h2></td></tr>
 <tr class="memitem:abbd42e56aa70c8d98d14f961ce7c1023"><td class="memItemLeft" align="right" valign="top">char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#abbd42e56aa70c8d98d14f961ce7c1023">nextptr</a></td></tr>
 <tr class="memdesc:abbd42e56aa70c8d98d14f961ce7c1023"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the character after the next token.  <a href="structbasic__ctx.html#abbd42e56aa70c8d98d14f961ce7c1023">More...</a><br /></td></tr>
 <tr class="separator:abbd42e56aa70c8d98d14f961ce7c1023"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c3d193580956e83adf2c7af95168a2d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a8c3d193580956e83adf2c7af95168a2d">current_token</a></td></tr>
-<tr class="memdesc:a8c3d193580956e83adf2c7af95168a2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current token type.  <a href="structbasic__ctx.html#a8c3d193580956e83adf2c7af95168a2d">More...</a><br /></td></tr>
-<tr class="separator:a8c3d193580956e83adf2c7af95168a2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a553b33ad72c2dfe93617d313d74314d8"><td class="memItemLeft" align="right" valign="top">enum <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfe">token_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a553b33ad72c2dfe93617d313d74314d8">current_token</a></td></tr>
+<tr class="memdesc:a553b33ad72c2dfe93617d313d74314d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current token type.  <a href="structbasic__ctx.html#a553b33ad72c2dfe93617d313d74314d8">More...</a><br /></td></tr>
+<tr class="separator:a553b33ad72c2dfe93617d313d74314d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9c6cb436ab16d8036eb779e01556bc8"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#aa9c6cb436ab16d8036eb779e01556bc8">current_linenum</a></td></tr>
 <tr class="memdesc:aa9c6cb436ab16d8036eb779e01556bc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current line number in the program.  <a href="structbasic__ctx.html#aa9c6cb436ab16d8036eb779e01556bc8">More...</a><br /></td></tr>
 <tr class="separator:aa9c6cb436ab16d8036eb779e01556bc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -124,9 +124,15 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a4996c445c7fe37e6a9a5d9fc8930eac7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a4996c445c7fe37e6a9a5d9fc8930eac7">ended</a></td></tr>
 <tr class="memdesc:a4996c445c7fe37e6a9a5d9fc8930eac7"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if the program has ended.  <a href="structbasic__ctx.html#a4996c445c7fe37e6a9a5d9fc8930eac7">More...</a><br /></td></tr>
 <tr class="separator:a4996c445c7fe37e6a9a5d9fc8930eac7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fe2868024a71123b721d04be05517d3"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a5fe2868024a71123b721d04be05517d3">error_handler</a></td></tr>
+<tr class="memdesc:a5fe2868024a71123b721d04be05517d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">If non-null, points at the error handling procedure for the program. In the event of an error, instead of terminating the program, the error handling procedure is called instead. After the error is handled, the line after the error is executed.  <a href="structbasic__ctx.html#a5fe2868024a71123b721d04be05517d3">More...</a><br /></td></tr>
+<tr class="separator:a5fe2868024a71123b721d04be05517d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2f7c0563bf30f810cd6d22cfa414674"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#af2f7c0563bf30f810cd6d22cfa414674">claimed_flip</a></td></tr>
 <tr class="memdesc:af2f7c0563bf30f810cd6d22cfa414674"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if the program has "claimed flipping".  <a href="structbasic__ctx.html#af2f7c0563bf30f810cd6d22cfa414674">More...</a><br /></td></tr>
 <tr class="separator:af2f7c0563bf30f810cd6d22cfa414674"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a577807427e54773fac869d65d1025b2b"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a577807427e54773fac869d65d1025b2b">sleep_until</a></td></tr>
+<tr class="memdesc:a577807427e54773fac869d65d1025b2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">When the current SLEEP instruction will end or 0 if not sleeping.  <a href="structbasic__ctx.html#a577807427e54773fac869d65d1025b2b">More...</a><br /></td></tr>
+<tr class="separator:a577807427e54773fac869d65d1025b2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0675a0370047966ece4a370a7022ec21"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a0675a0370047966ece4a370a7022ec21">program_ptr</a></td></tr>
 <tr class="memdesc:a0675a0370047966ece4a370a7022ec21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the program's entire text (untokenized).  <a href="structbasic__ctx.html#a0675a0370047966ece4a370a7022ec21">More...</a><br /></td></tr>
 <tr class="separator:a0675a0370047966ece4a370a7022ec21"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,15 +148,18 @@ Data Fields</h2></td></tr>
 <tr class="memitem:add37c368272fb5e346655e7e7200d75c"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#add37c368272fb5e346655e7e7200d75c">string</a> [<a class="el" href="defines_8h.html#a90bf9480b781825abfeb3f500d75531c">MAX_STRINGLEN</a>]</td></tr>
 <tr class="memdesc:add37c368272fb5e346655e7e7200d75c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local buffer for parsing function/procedure parameter lists.  <a href="structbasic__ctx.html#add37c368272fb5e346655e7e7200d75c">More...</a><br /></td></tr>
 <tr class="separator:add37c368272fb5e346655e7e7200d75c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a62460c65721f4da8613ac883686ff015"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structub__var__int.html">ub_var_int</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a62460c65721f4da8613ac883686ff015">local_int_variables</a> [<a class="el" href="defines_8h.html#a36568dfcd0f5dfaaeebb51d3c9aeb303">MAX_CALL_STACK_DEPTH</a>]</td></tr>
-<tr class="memdesc:a62460c65721f4da8613ac883686ff015"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local integer variable stack for function/procedure scopes.  <a href="structbasic__ctx.html#a62460c65721f4da8613ac883686ff015">More...</a><br /></td></tr>
-<tr class="separator:a62460c65721f4da8613ac883686ff015"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e434d6e31009b5f14f2305645d64589"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structub__var__string.html">ub_var_string</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a6e434d6e31009b5f14f2305645d64589">local_string_variables</a> [<a class="el" href="defines_8h.html#a36568dfcd0f5dfaaeebb51d3c9aeb303">MAX_CALL_STACK_DEPTH</a>]</td></tr>
-<tr class="memdesc:a6e434d6e31009b5f14f2305645d64589"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local string variable stack for function/procedure scopes.  <a href="structbasic__ctx.html#a6e434d6e31009b5f14f2305645d64589">More...</a><br /></td></tr>
-<tr class="separator:a6e434d6e31009b5f14f2305645d64589"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4b03bf1d9f45ccda06b66715d6f35b3"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structub__var__double.html">ub_var_double</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#aa4b03bf1d9f45ccda06b66715d6f35b3">local_double_variables</a> [<a class="el" href="defines_8h.html#a36568dfcd0f5dfaaeebb51d3c9aeb303">MAX_CALL_STACK_DEPTH</a>]</td></tr>
-<tr class="memdesc:aa4b03bf1d9f45ccda06b66715d6f35b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local double (real) variable stack for function/procedure scopes.  <a href="structbasic__ctx.html#aa4b03bf1d9f45ccda06b66715d6f35b3">More...</a><br /></td></tr>
-<tr class="separator:aa4b03bf1d9f45ccda06b66715d6f35b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45eafca15a311592eaf288ed05ac3a90"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structs_8h.html#a2279cec37b8a81d5f18e78d7335b1966">ub_return_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a45eafca15a311592eaf288ed05ac3a90">fn_type_stack</a> [<a class="el" href="defines_8h.html#a36568dfcd0f5dfaaeebb51d3c9aeb303">MAX_CALL_STACK_DEPTH</a>]</td></tr>
+<tr class="memdesc:a45eafca15a311592eaf288ed05ac3a90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return types of the call stack.  <a href="structbasic__ctx.html#a45eafca15a311592eaf288ed05ac3a90">More...</a><br /></td></tr>
+<tr class="separator:a45eafca15a311592eaf288ed05ac3a90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd9103d408780dd299a58d2575bcacf9"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structhashmap.html">hashmap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#afd9103d408780dd299a58d2575bcacf9">local_int_variables</a> [<a class="el" href="defines_8h.html#a36568dfcd0f5dfaaeebb51d3c9aeb303">MAX_CALL_STACK_DEPTH</a>]</td></tr>
+<tr class="memdesc:afd9103d408780dd299a58d2575bcacf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local integer variable stack for function/procedure scopes.  <a href="structbasic__ctx.html#afd9103d408780dd299a58d2575bcacf9">More...</a><br /></td></tr>
+<tr class="separator:afd9103d408780dd299a58d2575bcacf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a121958655e928bf6ba895f9c56138df0"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structhashmap.html">hashmap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a121958655e928bf6ba895f9c56138df0">local_string_variables</a> [<a class="el" href="defines_8h.html#a36568dfcd0f5dfaaeebb51d3c9aeb303">MAX_CALL_STACK_DEPTH</a>]</td></tr>
+<tr class="memdesc:a121958655e928bf6ba895f9c56138df0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local string variable stack for function/procedure scopes.  <a href="structbasic__ctx.html#a121958655e928bf6ba895f9c56138df0">More...</a><br /></td></tr>
+<tr class="separator:a121958655e928bf6ba895f9c56138df0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46055c43d83708d0243eda143e6cdc9d"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structhashmap.html">hashmap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a46055c43d83708d0243eda143e6cdc9d">local_double_variables</a> [<a class="el" href="defines_8h.html#a36568dfcd0f5dfaaeebb51d3c9aeb303">MAX_CALL_STACK_DEPTH</a>]</td></tr>
+<tr class="memdesc:a46055c43d83708d0243eda143e6cdc9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local double (real) variable stack for function/procedure scopes.  <a href="structbasic__ctx.html#a46055c43d83708d0243eda143e6cdc9d">More...</a><br /></td></tr>
+<tr class="separator:a46055c43d83708d0243eda143e6cdc9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a545d43671e4ee6aeae650e368cda6a6c"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a545d43671e4ee6aeae650e368cda6a6c">call_stack</a> [<a class="el" href="defines_8h.html#a36568dfcd0f5dfaaeebb51d3c9aeb303">MAX_CALL_STACK_DEPTH</a>]</td></tr>
 <tr class="memdesc:a545d43671e4ee6aeae650e368cda6a6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call stack for return line numbers during function, procedure, or <code>GOSUB</code> calls.  <a href="structbasic__ctx.html#a545d43671e4ee6aeae650e368cda6a6c">More...</a><br /></td></tr>
 <tr class="separator:a545d43671e4ee6aeae650e368cda6a6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -163,6 +172,12 @@ Data Fields</h2></td></tr>
 <tr class="memitem:af0df0c483df2af35521a6ef256685c2c"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#af0df0c483df2af35521a6ef256685c2c">repeat_stack_ptr</a></td></tr>
 <tr class="memdesc:af0df0c483df2af35521a6ef256685c2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer indicating the current position in the repeat stack.  <a href="structbasic__ctx.html#af0df0c483df2af35521a6ef256685c2c">More...</a><br /></td></tr>
 <tr class="separator:af0df0c483df2af35521a6ef256685c2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18ad3c395e1b9920ba62dca6710e43a5"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a18ad3c395e1b9920ba62dca6710e43a5">while_stack</a> [<a class="el" href="defines_8h.html#ad70e9ba1e1b2bbdb011ab487c2cb353d">MAX_LOOP_STACK_DEPTH</a>]</td></tr>
+<tr class="memdesc:a18ad3c395e1b9920ba62dca6710e43a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">While stack for handling <code>WHILE...ENDWHILE</code> loop control.  <a href="structbasic__ctx.html#a18ad3c395e1b9920ba62dca6710e43a5">More...</a><br /></td></tr>
+<tr class="separator:a18ad3c395e1b9920ba62dca6710e43a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88c0b0dab90488188e31e958685e5414"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a88c0b0dab90488188e31e958685e5414">while_stack_ptr</a></td></tr>
+<tr class="memdesc:a88c0b0dab90488188e31e958685e5414"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer indicating the current position in the while stack.  <a href="structbasic__ctx.html#a88c0b0dab90488188e31e958685e5414">More...</a><br /></td></tr>
+<tr class="separator:a88c0b0dab90488188e31e958685e5414"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a674578281de38ae65285c41f7479a8c7"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a674578281de38ae65285c41f7479a8c7">oldlen</a></td></tr>
 <tr class="memdesc:a674578281de38ae65285c41f7479a8c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Previous length of the program text, used to detect an <code>EVAL</code> in progress.  <a href="structbasic__ctx.html#a674578281de38ae65285c41f7479a8c7">More...</a><br /></td></tr>
 <tr class="separator:a674578281de38ae65285c41f7479a8c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -178,15 +193,15 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a157282323b4469c50186c57519abbfea"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structub__proc__fn__def.html">ub_proc_fn_def</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a157282323b4469c50186c57519abbfea">defs</a></td></tr>
 <tr class="memdesc:a157282323b4469c50186c57519abbfea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definitions of procedures and functions in the program.  <a href="structbasic__ctx.html#a157282323b4469c50186c57519abbfea">More...</a><br /></td></tr>
 <tr class="separator:a157282323b4469c50186c57519abbfea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7353606faa47b1bc7c83cdaf0f3fc80f"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structub__var__int.html">ub_var_int</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a7353606faa47b1bc7c83cdaf0f3fc80f">int_variables</a></td></tr>
-<tr class="memdesc:a7353606faa47b1bc7c83cdaf0f3fc80f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global integer variable list.  <a href="structbasic__ctx.html#a7353606faa47b1bc7c83cdaf0f3fc80f">More...</a><br /></td></tr>
-<tr class="separator:a7353606faa47b1bc7c83cdaf0f3fc80f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1984d27dcc6d88275a5ee10bbcdb5441"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structub__var__string.html">ub_var_string</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a1984d27dcc6d88275a5ee10bbcdb5441">str_variables</a></td></tr>
-<tr class="memdesc:a1984d27dcc6d88275a5ee10bbcdb5441"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global string variable list.  <a href="structbasic__ctx.html#a1984d27dcc6d88275a5ee10bbcdb5441">More...</a><br /></td></tr>
-<tr class="separator:a1984d27dcc6d88275a5ee10bbcdb5441"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4195c623115051bc81d4a9572a324ea5"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structub__var__double.html">ub_var_double</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a4195c623115051bc81d4a9572a324ea5">double_variables</a></td></tr>
-<tr class="memdesc:a4195c623115051bc81d4a9572a324ea5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global double variable list.  <a href="structbasic__ctx.html#a4195c623115051bc81d4a9572a324ea5">More...</a><br /></td></tr>
-<tr class="separator:a4195c623115051bc81d4a9572a324ea5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a364f10b4f5bb09ee59f6129dd92c639a"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structhashmap.html">hashmap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a364f10b4f5bb09ee59f6129dd92c639a">int_variables</a></td></tr>
+<tr class="memdesc:a364f10b4f5bb09ee59f6129dd92c639a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global integer variable list.  <a href="structbasic__ctx.html#a364f10b4f5bb09ee59f6129dd92c639a">More...</a><br /></td></tr>
+<tr class="separator:a364f10b4f5bb09ee59f6129dd92c639a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6094612eee1763d1c3512bf1f30f132"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structhashmap.html">hashmap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#ab6094612eee1763d1c3512bf1f30f132">str_variables</a></td></tr>
+<tr class="memdesc:ab6094612eee1763d1c3512bf1f30f132"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global string variable list.  <a href="structbasic__ctx.html#ab6094612eee1763d1c3512bf1f30f132">More...</a><br /></td></tr>
+<tr class="separator:ab6094612eee1763d1c3512bf1f30f132"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afff479307b1acce86dd6ac5100e55e17"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structhashmap.html">hashmap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#afff479307b1acce86dd6ac5100e55e17">double_variables</a></td></tr>
+<tr class="memdesc:afff479307b1acce86dd6ac5100e55e17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global double variable list.  <a href="structbasic__ctx.html#afff479307b1acce86dd6ac5100e55e17">More...</a><br /></td></tr>
+<tr class="separator:afff479307b1acce86dd6ac5100e55e17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1127413b4863f8920fa6570589565116"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structub__var__int__array.html">ub_var_int_array</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a1127413b4863f8920fa6570589565116">int_array_variables</a></td></tr>
 <tr class="memdesc:a1127413b4863f8920fa6570589565116"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global integer array variable list.  <a href="structbasic__ctx.html#a1127413b4863f8920fa6570589565116">More...</a><br /></td></tr>
 <tr class="separator:a1127413b4863f8920fa6570589565116"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -196,9 +211,6 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a1d891d5892b28d38c0aa4363a071069b"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structub__var__double__array.html">ub_var_double_array</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a1d891d5892b28d38c0aa4363a071069b">double_array_variables</a></td></tr>
 <tr class="memdesc:a1d891d5892b28d38c0aa4363a071069b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global double array variable list.  <a href="structbasic__ctx.html#a1d891d5892b28d38c0aa4363a071069b">More...</a><br /></td></tr>
 <tr class="separator:a1d891d5892b28d38c0aa4363a071069b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5db8745b7e7112b990a61ebdebb165b8"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structconsole.html">console</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a5db8745b7e7112b990a61ebdebb165b8">cons</a></td></tr>
-<tr class="memdesc:a5db8745b7e7112b990a61ebdebb165b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Console object used for I/O operations in the program.  <a href="structbasic__ctx.html#a5db8745b7e7112b990a61ebdebb165b8">More...</a><br /></td></tr>
-<tr class="separator:a5db8745b7e7112b990a61ebdebb165b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af890048e3ab646719bad1a1f951757c0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structs_8h.html#a2279cec37b8a81d5f18e78d7335b1966">ub_return_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#af890048e3ab646719bad1a1f951757c0">fn_type</a></td></tr>
 <tr class="memdesc:af890048e3ab646719bad1a1f951757c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expected return type of the function being executed.  <a href="structbasic__ctx.html#af890048e3ab646719bad1a1f951757c0">More...</a><br /></td></tr>
 <tr class="separator:af890048e3ab646719bad1a1f951757c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -241,6 +253,8 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a92747689d9e4685e334c3f94cad5a9dd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbuddy__allocator__t.html">buddy_allocator_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a92747689d9e4685e334c3f94cad5a9dd">allocator</a></td></tr>
 <tr class="memdesc:a92747689d9e4685e334c3f94cad5a9dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buddy allocator used for managing the program's heap.  <a href="structbasic__ctx.html#a92747689d9e4685e334c3f94cad5a9dd">More...</a><br /></td></tr>
 <tr class="separator:a92747689d9e4685e334c3f94cad5a9dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b76328ebab6ec94ebd2451ccd8bcc79"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structqueued__udp__packet.html">queued_udp_packet</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a3b76328ebab6ec94ebd2451ccd8bcc79">last_packet</a></td></tr>
+<tr class="separator:a3b76328ebab6ec94ebd2451ccd8bcc79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>BASIC program context. </p>
@@ -331,22 +345,6 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a5db8745b7e7112b990a61ebdebb165b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5db8745b7e7112b990a61ebdebb165b8">&#9670;&nbsp;</a></span>cons</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">struct <a class="el" href="structconsole.html">console</a>* basic_ctx::cons</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Console object used for I/O operations in the program. </p>
-
-</div>
-</div>
 <a id="aa9c6cb436ab16d8036eb779e01556bc8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa9c6cb436ab16d8036eb779e01556bc8">&#9670;&nbsp;</a></span>current_linenum</h2>
 
@@ -363,20 +361,20 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a8c3d193580956e83adf2c7af95168a2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c3d193580956e83adf2c7af95168a2d">&#9670;&nbsp;</a></span>current_token</h2>
+<a id="a553b33ad72c2dfe93617d313d74314d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a553b33ad72c2dfe93617d313d74314d8">&#9670;&nbsp;</a></span>current_token</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int basic_ctx::current_token</td>
+          <td class="memname">enum <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfe">token_t</a> basic_ctx::current_token</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Current token type. </p>
-<p>A numeric representation of the token between <code>ptr</code> and <code>nextptr</code>. The value should always be within the <code>token_t</code> enum. </p>
+<p>A numeric representation of the token between <code>ptr</code> and <code>nextptr</code>. </p>
 
 </div>
 </div>
@@ -463,14 +461,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a4195c623115051bc81d4a9572a324ea5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4195c623115051bc81d4a9572a324ea5">&#9670;&nbsp;</a></span>double_variables</h2>
+<a id="afff479307b1acce86dd6ac5100e55e17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afff479307b1acce86dd6ac5100e55e17">&#9670;&nbsp;</a></span>double_variables</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct <a class="el" href="structub__var__double.html">ub_var_double</a>* basic_ctx::double_variables</td>
+          <td class="memname">struct <a class="el" href="structhashmap.html">hashmap</a>* basic_ctx::double_variables</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -493,6 +491,22 @@ Data Fields</h2></td></tr>
 
 <p>True if the program has ended. </p>
 <p>This occurs when the program reaches an explicit <code>END</code> statement or falls off the end of the program, triggering termination. </p>
+
+</div>
+</div>
+<a id="a5fe2868024a71123b721d04be05517d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5fe2868024a71123b721d04be05517d3">&#9670;&nbsp;</a></span>error_handler</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* basic_ctx::error_handler</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>If non-null, points at the error handling procedure for the program. In the event of an error, instead of terminating the program, the error handling procedure is called instead. After the error is handled, the line after the error is executed. </p>
 
 </div>
 </div>
@@ -560,6 +574,22 @@ Data Fields</h2></td></tr>
 
 <p>Expected return type of the function being executed. </p>
 <p>This is used when executing a function atomically to determine the type of the return value. </p>
+
+</div>
+</div>
+<a id="a45eafca15a311592eaf288ed05ac3a90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45eafca15a311592eaf288ed05ac3a90">&#9670;&nbsp;</a></span>fn_type_stack</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structs_8h.html#a2279cec37b8a81d5f18e78d7335b1966">ub_return_type</a> basic_ctx::fn_type_stack[<a class="el" href="defines_8h.html#a36568dfcd0f5dfaaeebb51d3c9aeb303">MAX_CALL_STACK_DEPTH</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return types of the call stack. </p>
 
 </div>
 </div>
@@ -662,14 +692,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a7353606faa47b1bc7c83cdaf0f3fc80f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7353606faa47b1bc7c83cdaf0f3fc80f">&#9670;&nbsp;</a></span>int_variables</h2>
+<a id="a364f10b4f5bb09ee59f6129dd92c639a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a364f10b4f5bb09ee59f6129dd92c639a">&#9670;&nbsp;</a></span>int_variables</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct <a class="el" href="structub__var__int.html">ub_var_int</a>* basic_ctx::int_variables</td>
+          <td class="memname">struct <a class="el" href="structhashmap.html">hashmap</a>* basic_ctx::int_variables</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -711,6 +741,20 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a id="a3b76328ebab6ec94ebd2451ccd8bcc79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b76328ebab6ec94ebd2451ccd8bcc79">&#9670;&nbsp;</a></span>last_packet</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structqueued__udp__packet.html">queued_udp_packet</a> basic_ctx::last_packet</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a069084d2fc5fc7c6623473da3b0ff500"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a069084d2fc5fc7c6623473da3b0ff500">&#9670;&nbsp;</a></span>lines</h2>
 
@@ -728,14 +772,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="aa4b03bf1d9f45ccda06b66715d6f35b3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4b03bf1d9f45ccda06b66715d6f35b3">&#9670;&nbsp;</a></span>local_double_variables</h2>
+<a id="a46055c43d83708d0243eda143e6cdc9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46055c43d83708d0243eda143e6cdc9d">&#9670;&nbsp;</a></span>local_double_variables</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct <a class="el" href="structub__var__double.html">ub_var_double</a>* basic_ctx::local_double_variables[<a class="el" href="defines_8h.html#a36568dfcd0f5dfaaeebb51d3c9aeb303">MAX_CALL_STACK_DEPTH</a>]</td>
+          <td class="memname">struct <a class="el" href="structhashmap.html">hashmap</a>* basic_ctx::local_double_variables[<a class="el" href="defines_8h.html#a36568dfcd0f5dfaaeebb51d3c9aeb303">MAX_CALL_STACK_DEPTH</a>]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -744,14 +788,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a62460c65721f4da8613ac883686ff015"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a62460c65721f4da8613ac883686ff015">&#9670;&nbsp;</a></span>local_int_variables</h2>
+<a id="afd9103d408780dd299a58d2575bcacf9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd9103d408780dd299a58d2575bcacf9">&#9670;&nbsp;</a></span>local_int_variables</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct <a class="el" href="structub__var__int.html">ub_var_int</a>* basic_ctx::local_int_variables[<a class="el" href="defines_8h.html#a36568dfcd0f5dfaaeebb51d3c9aeb303">MAX_CALL_STACK_DEPTH</a>]</td>
+          <td class="memname">struct <a class="el" href="structhashmap.html">hashmap</a>* basic_ctx::local_int_variables[<a class="el" href="defines_8h.html#a36568dfcd0f5dfaaeebb51d3c9aeb303">MAX_CALL_STACK_DEPTH</a>]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -761,14 +805,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a6e434d6e31009b5f14f2305645d64589"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e434d6e31009b5f14f2305645d64589">&#9670;&nbsp;</a></span>local_string_variables</h2>
+<a id="a121958655e928bf6ba895f9c56138df0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a121958655e928bf6ba895f9c56138df0">&#9670;&nbsp;</a></span>local_string_variables</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct <a class="el" href="structub__var__string.html">ub_var_string</a>* basic_ctx::local_string_variables[<a class="el" href="defines_8h.html#a36568dfcd0f5dfaaeebb51d3c9aeb303">MAX_CALL_STACK_DEPTH</a>]</td>
+          <td class="memname">struct <a class="el" href="structhashmap.html">hashmap</a>* basic_ctx::local_string_variables[<a class="el" href="defines_8h.html#a36568dfcd0f5dfaaeebb51d3c9aeb303">MAX_CALL_STACK_DEPTH</a>]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -895,6 +939,22 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a id="a577807427e54773fac869d65d1025b2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a577807427e54773fac869d65d1025b2b">&#9670;&nbsp;</a></span>sleep_until</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int64_t basic_ctx::sleep_until</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>When the current SLEEP instruction will end or 0 if not sleeping. </p>
+
+</div>
+</div>
 <a id="a7b3df60380a6aad6b61e39594b7b6f6d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7b3df60380a6aad6b61e39594b7b6f6d">&#9670;&nbsp;</a></span>sprites</h2>
 
@@ -911,14 +971,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a1984d27dcc6d88275a5ee10bbcdb5441"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1984d27dcc6d88275a5ee10bbcdb5441">&#9670;&nbsp;</a></span>str_variables</h2>
+<a id="ab6094612eee1763d1c3512bf1f30f132"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6094612eee1763d1c3512bf1f30f132">&#9670;&nbsp;</a></span>str_variables</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct <a class="el" href="structub__var__string.html">ub_var_string</a>* basic_ctx::str_variables</td>
+          <td class="memname">struct <a class="el" href="structhashmap.html">hashmap</a>* basic_ctx::str_variables</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -992,13 +1052,46 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a id="a18ad3c395e1b9920ba62dca6710e43a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18ad3c395e1b9920ba62dca6710e43a5">&#9670;&nbsp;</a></span>while_stack</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t basic_ctx::while_stack[<a class="el" href="defines_8h.html#ad70e9ba1e1b2bbdb011ab487c2cb353d">MAX_LOOP_STACK_DEPTH</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>While stack for handling <code>WHILE...ENDWHILE</code> loop control. </p>
+<p>Holds the return line numbers for each level of loop nesting. </p>
+
+</div>
+</div>
+<a id="a88c0b0dab90488188e31e958685e5414"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88c0b0dab90488188e31e958685e5414">&#9670;&nbsp;</a></span>while_stack_ptr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t basic_ctx::while_stack_ptr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pointer indicating the current position in the while stack. </p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structbasic__ctx.html">basic_ctx</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -105,10 +105,10 @@ Functions</h2></td></tr>
 <tr class="memitem:ad914f703f6be6bb5d7cc4fb10b6200d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interrupt_8c.html#ad914f703f6be6bb5d7cc4fb10b6200d2">remap_irqs_to_ioapic</a> ()</td></tr>
 <tr class="memdesc:ad914f703f6be6bb5d7cc4fb10b6200d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remap legacy IRQs 0–23 to IOAPIC redirection entries.  <a href="interrupt_8c.html#ad914f703f6be6bb5d7cc4fb10b6200d2">More...</a><br /></td></tr>
 <tr class="separator:ad914f703f6be6bb5d7cc4fb10b6200d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3eb7f114423d53a7d7f47c250a0987a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interrupt_8c.html#ac3eb7f114423d53a7d7f47c250a0987a">register_interrupt_handler</a> (uint8_t <a class="el" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>, <a class="el" href="idt_8h.html#a7a3af27140adcc73f278f9d9c9dcd4bc">isr_t</a> handler, <a class="el" href="unionpci__dev__t.html">pci_dev_t</a> <a class="el" href="ahci_8h.html#a2376f17d1e7367401184b2a3978bcd3a">device</a>, void *opaque)</td></tr>
+<tr class="memitem:ac3eb7f114423d53a7d7f47c250a0987a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interrupt_8c.html#ac3eb7f114423d53a7d7f47c250a0987a">register_interrupt_handler</a> (uint8_t n, <a class="el" href="idt_8h.html#a7a3af27140adcc73f278f9d9c9dcd4bc">isr_t</a> handler, <a class="el" href="unionpci__dev__t.html">pci_dev_t</a> <a class="el" href="ahci_8h.html#a2376f17d1e7367401184b2a3978bcd3a">device</a>, void *opaque)</td></tr>
 <tr class="memdesc:ac3eb7f114423d53a7d7f47c250a0987a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register an interrupt handler for a given ISR or IRQ line.  <a href="interrupt_8c.html#ac3eb7f114423d53a7d7f47c250a0987a">More...</a><br /></td></tr>
 <tr class="separator:ac3eb7f114423d53a7d7f47c250a0987a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80dd45c30be406207765a89f1b22c9c4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interrupt_8c.html#a80dd45c30be406207765a89f1b22c9c4">deregister_interrupt_handler</a> (uint8_t <a class="el" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>, <a class="el" href="idt_8h.html#a7a3af27140adcc73f278f9d9c9dcd4bc">isr_t</a> handler)</td></tr>
+<tr class="memitem:a80dd45c30be406207765a89f1b22c9c4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interrupt_8c.html#a80dd45c30be406207765a89f1b22c9c4">deregister_interrupt_handler</a> (uint8_t n, <a class="el" href="idt_8h.html#a7a3af27140adcc73f278f9d9c9dcd4bc">isr_t</a> handler)</td></tr>
 <tr class="memdesc:a80dd45c30be406207765a89f1b22c9c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deregister an interrupt handler for a specific ISR or IRQ.  <a href="interrupt_8c.html#a80dd45c30be406207765a89f1b22c9c4">More...</a><br /></td></tr>
 <tr class="separator:a80dd45c30be406207765a89f1b22c9c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d73abd59b89a5a05e28966f82f76c8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interrupt_8c.html#a8d73abd59b89a5a05e28966f82f76c8d">local_apic_clear_interrupt</a> ()</td></tr>
@@ -325,7 +325,7 @@ Variables</h2></td></tr>
 <p>For IRQ sharing, you must provide the <code>device</code> field correctly so that handlers for multiple PCI devices on the same line can be tracked and dispatched safely. This is a requirement of shared interrupt delivery.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">n</td><td>Interrupt number — 0–31 are reserved ISRs; 32+ are IRQs. </td></tr>
+    <tr><td class="paramname">n</td><td>Interrupt number - 0–31 are reserved ISRs; 32+ are IRQs. </td></tr>
     <tr><td class="paramname">handler</td><td>Function pointer to the interrupt handler. </td></tr>
     <tr><td class="paramname">device</td><td>For PCI devices, specify the device node responsible. Used to manage IRQ sharing. </td></tr>
     <tr><td class="paramname">opaque</td><td>A user-defined pointer passed to the handler on invocation. </td></tr>
@@ -403,7 +403,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="interrupt_8c.html">interrupt.c</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

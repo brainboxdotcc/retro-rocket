@@ -91,84 +91,95 @@ $(document).ready(function(){initNavTree('structahci__hba__prdt__entry__t.html',
 </div><!--header-->
 <div class="contents">
 
+<p>Physical Region Descriptor Table (PRDT) entry.  
+ <a href="structahci__hba__prdt__entry__t.html#details">More...</a></p>
+
 <p><code>#include &lt;ahci.h&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for ahci_hba_prdt_entry_t:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structahci__hba__prdt__entry__t__coll__graph.svg" width="178" height="200"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="structahci__hba__prdt__entry__t__coll__graph.svg" width="227" height="200"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a66e3bcde78ddb8d71480788c18e21d6e"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__hba__prdt__entry__t.html#a66e3bcde78ddb8d71480788c18e21d6e">dba</a></td></tr>
-<tr class="separator:a66e3bcde78ddb8d71480788c18e21d6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c1fbeeaa46eb5af8658e7b54a50c913"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__hba__prdt__entry__t.html#a7c1fbeeaa46eb5af8658e7b54a50c913">dbau</a></td></tr>
-<tr class="separator:a7c1fbeeaa46eb5af8658e7b54a50c913"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac822c48f017702644bf30f7501269cc0"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__hba__prdt__entry__t.html#ac822c48f017702644bf30f7501269cc0">data_address_lower</a></td></tr>
+<tr class="separator:ac822c48f017702644bf30f7501269cc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e582589847a642468e2f83a9c59420d"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__hba__prdt__entry__t.html#a4e582589847a642468e2f83a9c59420d">data_address_upper</a></td></tr>
+<tr class="separator:a4e582589847a642468e2f83a9c59420d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a50d7eae089f4b6db0916b5ff69f04094"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__hba__prdt__entry__t.html#a50d7eae089f4b6db0916b5ff69f04094">rsv0</a></td></tr>
 <tr class="separator:a50d7eae089f4b6db0916b5ff69f04094"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad18fa77ebbc24061b03ca271af4d41d6"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__hba__prdt__entry__t.html#ad18fa77ebbc24061b03ca271af4d41d6">dbc</a>:22</td></tr>
-<tr class="separator:ad18fa77ebbc24061b03ca271af4d41d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9d9d242a41eafec88c2058bb314425e"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__hba__prdt__entry__t.html#ae9d9d242a41eafec88c2058bb314425e">byte_count</a>:22</td></tr>
+<tr class="separator:ae9d9d242a41eafec88c2058bb314425e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a217e5595f7940d52851ec218eb9cd0d3"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__hba__prdt__entry__t.html#a217e5595f7940d52851ec218eb9cd0d3">rsv1</a>:9</td></tr>
 <tr class="separator:a217e5595f7940d52851ec218eb9cd0d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01062a616fc5f949054077da9b8076b4"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__hba__prdt__entry__t.html#a01062a616fc5f949054077da9b8076b4">i</a>:1</td></tr>
-<tr class="separator:a01062a616fc5f949054077da9b8076b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20e312c1e74f13b07dd6142a3098e821"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__hba__prdt__entry__t.html#a20e312c1e74f13b07dd6142a3098e821">interrupt</a>:1</td></tr>
+<tr class="separator:a20e312c1e74f13b07dd6142a3098e821"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Field Documentation</h2>
-<a id="a66e3bcde78ddb8d71480788c18e21d6e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66e3bcde78ddb8d71480788c18e21d6e">&#9670;&nbsp;</a></span>dba</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Physical Region Descriptor Table (PRDT) entry. </p>
+<dl class="section note"><dt>Note</dt><dd>byte_count is encoded as (N - 1); N must be even; N ≤ 4 MiB. </dd></dl>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a id="ae9d9d242a41eafec88c2058bb314425e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9d9d242a41eafec88c2058bb314425e">&#9670;&nbsp;</a></span>byte_count</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t ahci_hba_prdt_entry_t::dba</td>
+          <td class="memname">uint32_t ahci_hba_prdt_entry_t::byte_count</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Byte count minus 1 (max 4 MiB - 1) </p>
 
 </div>
 </div>
-<a id="a7c1fbeeaa46eb5af8658e7b54a50c913"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c1fbeeaa46eb5af8658e7b54a50c913">&#9670;&nbsp;</a></span>dbau</h2>
+<a id="ac822c48f017702644bf30f7501269cc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac822c48f017702644bf30f7501269cc0">&#9670;&nbsp;</a></span>data_address_lower</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t ahci_hba_prdt_entry_t::dbau</td>
+          <td class="memname">uint32_t ahci_hba_prdt_entry_t::data_address_lower</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Data base address (lower) </p>
 
 </div>
 </div>
-<a id="ad18fa77ebbc24061b03ca271af4d41d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad18fa77ebbc24061b03ca271af4d41d6">&#9670;&nbsp;</a></span>dbc</h2>
+<a id="a4e582589847a642468e2f83a9c59420d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e582589847a642468e2f83a9c59420d">&#9670;&nbsp;</a></span>data_address_upper</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t ahci_hba_prdt_entry_t::dbc</td>
+          <td class="memname">uint32_t ahci_hba_prdt_entry_t::data_address_upper</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Data base address (upper) </p>
 
 </div>
 </div>
-<a id="a01062a616fc5f949054077da9b8076b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a01062a616fc5f949054077da9b8076b4">&#9670;&nbsp;</a></span>i</h2>
+<a id="a20e312c1e74f13b07dd6142a3098e821"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20e312c1e74f13b07dd6142a3098e821">&#9670;&nbsp;</a></span>interrupt</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t ahci_hba_prdt_entry_t::i</td>
+          <td class="memname">uint32_t ahci_hba_prdt_entry_t::interrupt</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Interrupt on completion (IOC) </p>
 
 </div>
 </div>
@@ -183,6 +194,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Reserved, must be zero </p>
 
 </div>
 </div>
@@ -197,6 +209,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Reserved, must be zero </p>
 
 </div>
 </div>
@@ -206,7 +219,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structahci__hba__prdt__entry__t.html">ahci_hba_prdt_entry_t</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

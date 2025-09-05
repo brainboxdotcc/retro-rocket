@@ -87,9 +87,6 @@ $(document).ready(function(){initNavTree('globals_vars_p.html',''); initResizabl
 &#160;
 
 <h3><a id="index_p"></a>- p -</h3><ul>
-<li>p
-: <a class="el" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">ahci.h</a>
-</li>
 <li>p_entry
 : <a class="el" href="partition_8h.html#acbc7f7a079bfdfcb4f87f46d9b062fc6">partition.h</a>
 </li>
@@ -127,8 +124,8 @@ $(document).ready(function(){initNavTree('globals_vars_p.html',''); initResizabl
 <li>pci_size_map
 : <a class="el" href="pci_8c.html#a8336b879b82556964a89f56680cab7b0">pci.c</a>
 </li>
-<li>pi
-: <a class="el" href="ahci_8h.html#a758f6c558cc8d68e2a25f13e046eae6f">ahci.h</a>
+<li>pio_setup_fis
+: <a class="el" href="ahci_8h.html#ae6b8596c5c8bf7e6134a06307f63a959">ahci.h</a>
 </li>
 <li>pm_timer_32bit
 : <a class="el" href="acpi_8c.html#a859b8276dfe15c616c65ce0f40affdb5">acpi.c</a>
@@ -139,17 +136,20 @@ $(document).ready(function(){initNavTree('globals_vars_p.html',''); initResizabl
 <li>pm_timer_port
 : <a class="el" href="acpi_8c.html#af341083fb60fbfa4b1febc30e3d3eb46">acpi.c</a>
 </li>
-<li>pmp
-: <a class="el" href="ahci_8h.html#aa6e468acbc4b19ae7e019c417f00d00a">ahci.h</a>
-</li>
 <li>pmport
 : <a class="el" href="ahci_8h.html#a992e274c1d71ede460beb0d8af125622">ahci.h</a>
 </li>
 <li>pointer_to_other_sdt
 : <a class="el" href="acpi_8h.html#ab0b5c2612ca3de9e099f4f8652f5a6e7">acpi.h</a>
 </li>
+<li>port_multiplier_port
+: <a class="el" href="ahci_8h.html#af23d5a6ba81779ead9d99275fda199c0">ahci.h</a>
+</li>
 <li>ports
 : <a class="el" href="ahci_8h.html#a5f1a604579819241e224bf29b305671c">ahci.h</a>
+</li>
+<li>ports_implemented
+: <a class="el" href="ahci_8h.html#a4b125c0884506c8bfdb802a8394e826a">ahci.h</a>
 </li>
 <li>prdbc
 : <a class="el" href="ahci_8h.html#ac8d39c461915c7810aba1d549a0309aa">ahci.h</a>
@@ -157,14 +157,14 @@ $(document).ready(function(){initNavTree('globals_vars_p.html',''); initResizabl
 <li>prdt_entry
 : <a class="el" href="ahci_8h.html#aab699e89e2d277835a68abc61a481565">ahci.h</a>
 </li>
-<li>prdtl
-: <a class="el" href="ahci_8h.html#aef2da437ff6b7a93f6b302a955338c0f">ahci.h</a>
+<li>prdt_length_entries
+: <a class="el" href="ahci_8h.html#af479470216ead0dcdcb1dc1ef4b992e1">ahci.h</a>
+</li>
+<li>prefetchable
+: <a class="el" href="ahci_8h.html#a541f7cf2157c5192c992718093d78ec5">ahci.h</a>
 </li>
 <li>prefix_hash
 : <a class="el" href="devicename_8c.html#a30be8225f9a75af8d7138812d1eb6ba6">devicename.c</a>
-</li>
-<li>prng_state
-: <a class="el" href="installer_8c.html#a0b0ca642e9b69f286dd5f7a607b47250">installer.c</a>
 </li>
 <li>problem_ptr
 : <a class="el" href="icmp_8h.html#a0978f7814c3396f9cbc83c829daaff37">icmp.h</a>
@@ -184,6 +184,9 @@ $(document).ready(function(){initNavTree('globals_vars_p.html',''); initResizabl
 <li>process_count
 : <a class="el" href="taskswitch_8c.html#aa56fabba3ca96349f6e8cde48042e1b4">taskswitch.c</a>
 </li>
+<li>progress
+: <a class="el" href="recursive__file__copy_8c.html#a4fb4072ccd44ea481eecfa5e74818db4">recursive_file_copy.c</a>
+</li>
 <li>protocol
 : <a class="el" href="arp_8h.html#ab551400c74271f35d0c79f81d29cffbb">arp.h</a>
 , <a class="el" href="ip_8h.html#ad124d3d2e02c729afa303c775295278e">ip.h</a>
@@ -195,9 +198,6 @@ $(document).ready(function(){initNavTree('globals_vars_p.html',''); initResizabl
 <li>protocol_handlers
 : <a class="el" href="ethernet_8c.html#a96244217c935a68e73c705b04ecb5419">ethernet.c</a>
 </li>
-<li>psfis
-: <a class="el" href="ahci_8h.html#aa8e971bf194d04be60c75169ccc8f61a">ahci.h</a>
-</li>
 <li>psh
 : <a class="el" href="tcp_8h.html#aa57f85f2cd7e7dfaf63771983d255949">tcp.h</a>
 </li>
@@ -207,7 +207,7 @@ $(document).ready(function(){initNavTree('globals_vars_p.html',''); initResizabl
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:58 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -134,6 +134,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a7325151b4f78d0f05b3fae69ef70c401"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphics_8h.html#a7325151b4f78d0f05b3fae69ef70c401">flip_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
 <tr class="memdesc:a7325151b4f78d0f05b3fae69ef70c401"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manually flip the video buffer to display the current drawing.  <a href="graphics_8h.html#a7325151b4f78d0f05b3fae69ef70c401">More...</a><br /></td></tr>
 <tr class="separator:a7325151b4f78d0f05b3fae69ef70c401"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4d8b57312663598bf6f25e26139ed83"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphics_8h.html#ae4d8b57312663598bf6f25e26139ed83">plotquad_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="memdesc:ae4d8b57312663598bf6f25e26139ed83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements the BASIC <code>PLOTQUAD</code> statement.  <a href="graphics_8h.html#ae4d8b57312663598bf6f25e26139ed83">More...</a><br /></td></tr>
+<tr class="separator:ae4d8b57312663598bf6f25e26139ed83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a1a6d6cda81ba5d50ae5b9e7b78594d37"></a>
@@ -418,6 +421,36 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ae4d8b57312663598bf6f25e26139ed83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4d8b57312663598bf6f25e26139ed83">&#9670;&nbsp;</a></span>plotquad_statement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void plotquad_statement </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Implements the BASIC <code>PLOTQUAD</code> statement. </p>
+<p>Parses and executes the <code>PLOTQUAD</code> keyword from the BASIC interpreter. This statement expects a sprite handle followed by four (x,y) coordinate pairs, defining the quadrilateral to which the sprite should be mapped.</p>
+<p>The coordinates may describe any convex quad, allowing sprites to be drawn with skew and perspective. Internally this delegates to the textured-quad blitter (<code>plot_sprite_quad</code>) to perform the actual rendering.</p>
+<p>Example usage in BASIC: </p><div class="fragment"><div class="line"><a class="code" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea9baf8972a026ab13e4cd839632d5a134">PLOTQUAD</a> SPRITEHANDLE, 100,100, 200,120, 190,220, 90,210</div>
+<div class="ttc" id="atokenizer_8h_html_a4ebc26c81c029670805b51af165f9cfea9baf8972a026ab13e4cd839632d5a134"><div class="ttname"><a href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea9baf8972a026ab13e4cd839632d5a134">PLOTQUAD</a></div><div class="ttdeci">@ PLOTQUAD</div><div class="ttdef"><b>Definition:</b> tokenizer.h:175</div></div>
+</div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>Pointer to the BASIC execution context, containing parser state, sprite table, and current program environment. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a13e735601b49512ba7d757f3dcdbc067"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a13e735601b49512ba7d757f3dcdbc067">&#9670;&nbsp;</a></span>point_statement()</h2>
 
@@ -502,7 +535,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_1e5d3661ed79af157d57e64a38265d09.html">basic</a></li><li class="navelem"><a class="el" href="graphics_8h.html">graphics.h</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

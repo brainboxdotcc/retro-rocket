@@ -123,12 +123,14 @@ Functions</h2></td></tr>
 <tr class="separator:afeb4d71308108181d31f8644756b87ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0811e5743c01e952a6108956f51cfaa5"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="printf_8c.html#a0811e5743c01e952a6108956f51cfaa5">vsprintf_help</a> (unsigned <a class="el" href="serial_8h.html#adc08ed1554f35803d229aeaf11216b3f">c</a>, void **ptr, const void *max)</td></tr>
 <tr class="separator:a0811e5743c01e952a6108956f51cfaa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0ca54b8d1d72520cd648fb57ce0dda2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="printf_8c.html#ac0ca54b8d1d72520cd648fb57ce0dda2">vsnprintf</a> (char *<a class="el" href="ahci_8c.html#a2c5f4ef732286b78e31ec8d1cb238215">buf</a>, size_t max, const char *<a class="el" href="serial_8h.html#a381d684d94e6e91dee650357e8f02fa8">fmt</a>, <a class="el" href="printf_8h.html#af53f622e3b6c080daeb167c1955d7ec1">va_list</a> args)</td></tr>
+<tr class="memitem:ac0ca54b8d1d72520cd648fb57ce0dda2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="printf_8c.html#ac0ca54b8d1d72520cd648fb57ce0dda2">vsnprintf</a> (char *buf, size_t max, const char *<a class="el" href="serial_8h.html#a381d684d94e6e91dee650357e8f02fa8">fmt</a>, <a class="el" href="printf_8h.html#af53f622e3b6c080daeb167c1955d7ec1">va_list</a> args)</td></tr>
 <tr class="separator:ac0ca54b8d1d72520cd648fb57ce0dda2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27f605c4aa6533029bdc816a4a9d06ff"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="printf_8c.html#a27f605c4aa6533029bdc816a4a9d06ff">snprintf</a> (char *<a class="el" href="ahci_8c.html#a2c5f4ef732286b78e31ec8d1cb238215">buf</a>, size_t max, const char *<a class="el" href="serial_8h.html#a381d684d94e6e91dee650357e8f02fa8">fmt</a>,...)</td></tr>
+<tr class="memitem:a27f605c4aa6533029bdc816a4a9d06ff"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="printf_8c.html#a27f605c4aa6533029bdc816a4a9d06ff">snprintf</a> (char *buf, size_t max, const char *<a class="el" href="serial_8h.html#a381d684d94e6e91dee650357e8f02fa8">fmt</a>,...)</td></tr>
 <tr class="separator:a27f605c4aa6533029bdc816a4a9d06ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e0d7a33300b50de64b6b130218516cd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="printf_8c.html#a6e0d7a33300b50de64b6b130218516cd">vprintf_help</a> (unsigned <a class="el" href="serial_8h.html#adc08ed1554f35803d229aeaf11216b3f">c</a>, [[maybe_unused]] void **ptr, [[maybe_unused]] const void *max)</td></tr>
 <tr class="separator:a6e0d7a33300b50de64b6b130218516cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26aae297c3c0f344cc0de97f14413a12"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="printf_8c.html#a26aae297c3c0f344cc0de97f14413a12">append_debug_buf</a> (char x)</td></tr>
+<tr class="separator:a26aae297c3c0f344cc0de97f14413a12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8d56afc678f12cbb4d75ca6e6cc94b9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="printf_8c.html#aa8d56afc678f12cbb4d75ca6e6cc94b9">dvprintf_help</a> (unsigned <a class="el" href="serial_8h.html#adc08ed1554f35803d229aeaf11216b3f">c</a>, [[maybe_unused]] void **ptr, [[maybe_unused]] const void *max)</td></tr>
 <tr class="separator:aa8d56afc678f12cbb4d75ca6e6cc94b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc23aaaff6fcb9a669853efe712ba4b7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="printf_8c.html#acc23aaaff6fcb9a669853efe712ba4b7">vprintf</a> (const char *<a class="el" href="serial_8h.html#a381d684d94e6e91dee650357e8f02fa8">fmt</a>, <a class="el" href="printf_8h.html#af53f622e3b6c080daeb167c1955d7ec1">va_list</a> args)</td></tr>
@@ -203,6 +205,32 @@ Intent</h1>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a26aae297c3c0f344cc0de97f14413a12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26aae297c3c0f344cc0de97f14413a12">&#9670;&nbsp;</a></span>append_debug_buf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void append_debug_buf </td>
+          <td>(</td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="afeb4d71308108181d31f8644756b87ee"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afeb4d71308108181d31f8644756b87ee">&#9670;&nbsp;</a></span>do_printf()</h2>
 
@@ -816,7 +844,7 @@ Intent</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="printf_8c.html">printf.c</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

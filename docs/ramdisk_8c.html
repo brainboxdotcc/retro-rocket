@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('ramdisk_8c.html',''); initResizable();
 <div class="title">ramdisk.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="kernel_8h.html">kernel.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="kernel_8h.html">kernel.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
@@ -101,13 +101,13 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a37f90a5904ee56d477454ae2eba96c49"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ramdisk_8c.html#a37f90a5904ee56d477454ae2eba96c49">rd_compare</a> (const void *<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, const void *<a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>, [[maybe_unused]] void *udata)</td></tr>
+<tr class="memitem:a37f90a5904ee56d477454ae2eba96c49"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ramdisk_8c.html#a37f90a5904ee56d477454ae2eba96c49">rd_compare</a> (const void *a, const void *b, [[maybe_unused]] void *udata)</td></tr>
 <tr class="separator:a37f90a5904ee56d477454ae2eba96c49"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf4f4915f8c5cbc18304e4517e00728f"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ramdisk_8c.html#acf4f4915f8c5cbc18304e4517e00728f">rd_hash</a> (const void *item, uint64_t seed0, uint64_t seed1)</td></tr>
 <tr class="separator:acf4f4915f8c5cbc18304e4517e00728f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07882831ac9b8d52c84cc34797accc14"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ramdisk_8c.html#a07882831ac9b8d52c84cc34797accc14">rd_block_read</a> (void *dev, uint64_t <a class="el" href="retrofs_8h.html#af821c0f1bf4d36fbe0a3f5776b71139b">start</a>, uint32_t bytes, unsigned char *buffer)</td></tr>
+<tr class="memitem:a07882831ac9b8d52c84cc34797accc14"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ramdisk_8c.html#a07882831ac9b8d52c84cc34797accc14">rd_block_read</a> (void *dev, uint64_t <a class="el" href="retrofs_8h.html#af821c0f1bf4d36fbe0a3f5776b71139b">start</a>, uint32_t bytes, unsigned char *<a class="el" href="input_8c.html#aff2566f4c366b48d73479bef43ee4d2e">buffer</a>)</td></tr>
 <tr class="separator:a07882831ac9b8d52c84cc34797accc14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a250527c229275ab883106f4e22db3b88"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ramdisk_8c.html#a250527c229275ab883106f4e22db3b88">rd_block_write</a> (void *dev, uint64_t <a class="el" href="retrofs_8h.html#af821c0f1bf4d36fbe0a3f5776b71139b">start</a>, uint32_t bytes, const unsigned char *buffer)</td></tr>
+<tr class="memitem:a250527c229275ab883106f4e22db3b88"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ramdisk_8c.html#a250527c229275ab883106f4e22db3b88">rd_block_write</a> (void *dev, uint64_t <a class="el" href="retrofs_8h.html#af821c0f1bf4d36fbe0a3f5776b71139b">start</a>, uint32_t bytes, const unsigned char *<a class="el" href="input_8c.html#aff2566f4c366b48d73479bef43ee4d2e">buffer</a>)</td></tr>
 <tr class="separator:a250527c229275ab883106f4e22db3b88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af84c012f7363b70081ad1db8212a3e24"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ramdisk_8c.html#af84c012f7363b70081ad1db8212a3e24">init_ramdisk</a> (size_t blocks, size_t blocksize)</td></tr>
 <tr class="separator:af84c012f7363b70081ad1db8212a3e24"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -342,8 +342,8 @@ Variables</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7d71b6c457a61cbf03a04bfdc57b6110.html">fs</a></li><li class="navelem"><a class="el" href="ramdisk_8c.html">ramdisk.c</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_46a300e4974f45ffe4be063a03f2fd9d.html">block</a></li><li class="navelem"><a class="el" href="ramdisk_8c.html">ramdisk.c</a></li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

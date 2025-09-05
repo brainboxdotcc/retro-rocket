@@ -87,12 +87,14 @@ $(document).ready(function(){initNavTree('hashmap_8c.html',''); initResizable();
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">hashmap.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Open-addressed hashmap (Robin Hood), with allocator udata support.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &lt;stddef.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="hashmap_8h.html">hashmap.h</a>&quot;</code><br />
@@ -106,78 +108,90 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a1de2481f51a86cbfa0b7d0cdd4d68a69"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a1de2481f51a86cbfa0b7d0cdd4d68a69">U8TO64_LE</a>(<a class="el" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>)</td></tr>
+<tr class="memitem:a1de2481f51a86cbfa0b7d0cdd4d68a69"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a1de2481f51a86cbfa0b7d0cdd4d68a69">U8TO64_LE</a>(p)</td></tr>
 <tr class="separator:a1de2481f51a86cbfa0b7d0cdd4d68a69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46b0f26e70f8e8ad39288d04bc710077"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a46b0f26e70f8e8ad39288d04bc710077">U64TO8_LE</a>(<a class="el" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>,  v)</td></tr>
+<tr class="memitem:a46b0f26e70f8e8ad39288d04bc710077"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a46b0f26e70f8e8ad39288d04bc710077">U64TO8_LE</a>(p,  v)</td></tr>
 <tr class="separator:a46b0f26e70f8e8ad39288d04bc710077"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a08af2fb25b17973248d8cc16f9aa7c46"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a08af2fb25b17973248d8cc16f9aa7c46">U32TO8_LE</a>(<a class="el" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>,  v)</td></tr>
+<tr class="memitem:a08af2fb25b17973248d8cc16f9aa7c46"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a08af2fb25b17973248d8cc16f9aa7c46">U32TO8_LE</a>(p,  v)</td></tr>
 <tr class="separator:a08af2fb25b17973248d8cc16f9aa7c46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:addd42b95ef425979d1d0dca095dec800"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#addd42b95ef425979d1d0dca095dec800">ROTL</a>(x,  <a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>)&#160;&#160;&#160;(uint64_t)(((x) &lt;&lt; (<a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>)) | ((x) &gt;&gt; (64 - (<a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>))))</td></tr>
+<tr class="memitem:addd42b95ef425979d1d0dca095dec800"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#addd42b95ef425979d1d0dca095dec800">ROTL</a>(x,  b)&#160;&#160;&#160;(uint64_t)(((x) &lt;&lt; (b)) | ((x) &gt;&gt; (64 - (b))))</td></tr>
 <tr class="separator:addd42b95ef425979d1d0dca095dec800"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd545ba6d36990ee5903ff4d0e6edecf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#abd545ba6d36990ee5903ff4d0e6edecf">SIPROUND</a></td></tr>
 <tr class="separator:abd545ba6d36990ee5903ff4d0e6edecf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff6ce4cae0564b039bbb4ef0cbdc0032"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#aff6ce4cae0564b039bbb4ef0cbdc0032">ROTL32</a>(x,  <a class="el" href="ahci_8h.html#a4c5c6ceb8ed33456261fa907136e0c3a">r</a>)&#160;&#160;&#160;((x &lt;&lt; <a class="el" href="ahci_8h.html#a4c5c6ceb8ed33456261fa907136e0c3a">r</a>) | (x &gt;&gt; (32 - <a class="el" href="ahci_8h.html#a4c5c6ceb8ed33456261fa907136e0c3a">r</a>)))</td></tr>
+<tr class="memitem:aff6ce4cae0564b039bbb4ef0cbdc0032"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#aff6ce4cae0564b039bbb4ef0cbdc0032">ROTL32</a>(x,  r)&#160;&#160;&#160;((x &lt;&lt; r) | (x &gt;&gt; (32 - r)))</td></tr>
 <tr class="separator:aff6ce4cae0564b039bbb4ef0cbdc0032"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a35851ba6b08c118345278effc46695e6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a35851ba6b08c118345278effc46695e6">FMIX32</a>(h)&#160;&#160;&#160;h^=h&gt;&gt;16; h*=0x85ebca6b; h^=h&gt;&gt;13; h*=0xc2b2ae35; h^=h&gt;&gt;16;</td></tr>
 <tr class="separator:a35851ba6b08c118345278effc46695e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a7dc1056536642aa43d3aa827d1b6f638"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a7dc1056536642aa43d3aa827d1b6f638">hashmap_set_allocator</a> ([[maybe_unused]] void *(*malloc)(size_t), [[maybe_unused]] void(*free)(const void *))</td></tr>
-<tr class="separator:a7dc1056536642aa43d3aa827d1b6f638"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6e431b9a7b2c064d535c122dda9d699"><td class="memItemLeft" align="right" valign="top">static struct <a class="el" href="structbucket.html">bucket</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#ab6e431b9a7b2c064d535c122dda9d699">bucket_at</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *map, size_t index)</td></tr>
+<tr class="memitem:af146ccd372f893320e9b85196de805d9"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#af146ccd372f893320e9b85196de805d9">standard_malloc</a> (size_t <a class="el" href="fat32_8h.html#ab2c6b258f02add8fdf4cfc7c371dd772">size</a>, void *udata)</td></tr>
+<tr class="separator:af146ccd372f893320e9b85196de805d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c6dd1ad93471fb46b851ca066e125e5"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a0c6dd1ad93471fb46b851ca066e125e5">standard_realloc</a> (void *ptr, size_t <a class="el" href="fat32_8h.html#ab2c6b258f02add8fdf4cfc7c371dd772">size</a>, void *udata)</td></tr>
+<tr class="separator:a0c6dd1ad93471fb46b851ca066e125e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fe4cc1cb79c21e516fc1da494c0a4f9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a5fe4cc1cb79c21e516fc1da494c0a4f9">standard_free</a> (const void *ptr, void *udata)</td></tr>
+<tr class="separator:a5fe4cc1cb79c21e516fc1da494c0a4f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6e431b9a7b2c064d535c122dda9d699"><td class="memItemLeft" align="right" valign="top">static struct <a class="el" href="structbucket.html">bucket</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#ab6e431b9a7b2c064d535c122dda9d699">bucket_at</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *<a class="el" href="structmap.html">map</a>, size_t index)</td></tr>
 <tr class="separator:ab6e431b9a7b2c064d535c122dda9d699"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd51f19208a97a09c05e957c9568fa02"><td class="memItemLeft" align="right" valign="top">static void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#abd51f19208a97a09c05e957c9568fa02">bucket_item</a> (struct <a class="el" href="structbucket.html">bucket</a> *<a class="el" href="retrofs_8h.html#a9e23ed0731911d7a25af7df173bc276d">entry</a>)</td></tr>
 <tr class="separator:abd51f19208a97a09c05e957c9568fa02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a610ea24126c720ed3cb6b071e5c595"><td class="memItemLeft" align="right" valign="top">static uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a4a610ea24126c720ed3cb6b071e5c595">get_hash</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *map, const void *key)</td></tr>
+<tr class="memitem:a4a610ea24126c720ed3cb6b071e5c595"><td class="memItemLeft" align="right" valign="top">static uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a4a610ea24126c720ed3cb6b071e5c595">get_hash</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *<a class="el" href="structmap.html">map</a>, const void *key)</td></tr>
 <tr class="separator:a4a610ea24126c720ed3cb6b071e5c595"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a902396e346ce17278c1c5d8ba3f287fa"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structhashmap.html">hashmap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a902396e346ce17278c1c5d8ba3f287fa">hashmap_new_with_allocator</a> (void *(*<a class="el" href="hashmap_8c.html#a3a187ffa18b39dac0041bf95945f8938">_malloc</a>)(size_t), void *(*<a class="el" href="hashmap_8c.html#a9e5b9c1f22acde8a5b26109547509cc5">_realloc</a>)(void *, size_t), void(*<a class="el" href="hashmap_8c.html#a9c4c8922b16d819cb501a2d282b101f2">_free</a>)(const void *), size_t elsize, size_t <a class="el" href="ahci_8h.html#a8de1478f7db47c6c3a1f9587ef382579">cap</a>, uint64_t seed0, uint64_t seed1, uint64_t(*hash)(const void *item, uint64_t seed0, uint64_t seed1), int(*compare)(const void *<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, const void *<a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>, void *udata), void(*elfree)(const void *item), void *udata)</td></tr>
-<tr class="separator:a902396e346ce17278c1c5d8ba3f287fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5deb1768129efb6534fb02365b2da3e6"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structhashmap.html">hashmap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a5deb1768129efb6534fb02365b2da3e6">hashmap_new</a> (size_t elsize, size_t <a class="el" href="ahci_8h.html#a8de1478f7db47c6c3a1f9587ef382579">cap</a>, uint64_t seed0, uint64_t seed1, uint64_t(*hash)(const void *item, uint64_t seed0, uint64_t seed1), int(*compare)(const void *<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, const void *<a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>, void *udata), void(*elfree)(const void *item), void *udata)</td></tr>
-<tr class="separator:a5deb1768129efb6534fb02365b2da3e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aefd5ca2ccf06b6935d161a62457c35b4"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#aefd5ca2ccf06b6935d161a62457c35b4">free_elements</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *map)</td></tr>
+<tr class="memitem:a435d0e27a2f744753cd3694cd7546489"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structhashmap.html">hashmap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a435d0e27a2f744753cd3694cd7546489">hashmap_new_with_allocator</a> (<a class="el" href="hashmap_8h.html#a84e1541ebaae44d640953da111175724">hashmap_allocator</a> _malloc, <a class="el" href="hashmap_8h.html#a9b9407668f00cfe5fa9bb02ddd2efb7d">hashmap_reallocator</a> _realloc, <a class="el" href="hashmap_8h.html#a597bd7a56022ec65170922921947a3b6">hashmap_releaser</a> _free, size_t elsize, size_t cap, uint64_t seed0, uint64_t seed1, <a class="el" href="hashmap_8h.html#ad4b6740ff6182ab764172ec817958b15">hashmap_hash_fn</a> hash, <a class="el" href="hashmap_8h.html#ae5bfaacdf57aaec6f8e95b9375af85c3">hashmap_compare_fn</a> compare, <a class="el" href="hashmap_8h.html#a37ed308a890839d65354aaabbd81e151">hashmap_elfree_fn</a> elfree, void *udata)</td></tr>
+<tr class="memdesc:a435d0e27a2f744753cd3694cd7546489"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new hashmap with custom allocators.  <a href="hashmap_8c.html#a435d0e27a2f744753cd3694cd7546489">More...</a><br /></td></tr>
+<tr class="separator:a435d0e27a2f744753cd3694cd7546489"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6a663c261ae740a81f069e0eff30b4d"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structhashmap.html">hashmap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#ae6a663c261ae740a81f069e0eff30b4d">hashmap_new</a> (size_t elsize, size_t cap, uint64_t seed0, uint64_t seed1, <a class="el" href="hashmap_8h.html#ad4b6740ff6182ab764172ec817958b15">hashmap_hash_fn</a> hash, <a class="el" href="hashmap_8h.html#ae5bfaacdf57aaec6f8e95b9375af85c3">hashmap_compare_fn</a> compare, <a class="el" href="hashmap_8h.html#a37ed308a890839d65354aaabbd81e151">hashmap_elfree_fn</a> elfree, void *udata)</td></tr>
+<tr class="memdesc:ae6a663c261ae740a81f069e0eff30b4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new hashmap with standard kernel allocators.  <a href="hashmap_8c.html#ae6a663c261ae740a81f069e0eff30b4d">More...</a><br /></td></tr>
+<tr class="separator:ae6a663c261ae740a81f069e0eff30b4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefd5ca2ccf06b6935d161a62457c35b4"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#aefd5ca2ccf06b6935d161a62457c35b4">free_elements</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *<a class="el" href="structmap.html">map</a>)</td></tr>
 <tr class="separator:aefd5ca2ccf06b6935d161a62457c35b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab09b4f126a08c1e716bac424b1927f19"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#ab09b4f126a08c1e716bac424b1927f19">hashmap_clear</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *map, bool update_cap)</td></tr>
+<tr class="memitem:ab09b4f126a08c1e716bac424b1927f19"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#ab09b4f126a08c1e716bac424b1927f19">hashmap_clear</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *<a class="el" href="structmap.html">map</a>, bool update_cap)</td></tr>
+<tr class="memdesc:ab09b4f126a08c1e716bac424b1927f19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear all items from the map.  <a href="hashmap_8c.html#ab09b4f126a08c1e716bac424b1927f19">More...</a><br /></td></tr>
 <tr class="separator:ab09b4f126a08c1e716bac424b1927f19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11b1dc972a7885c19300ab906151deac"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a11b1dc972a7885c19300ab906151deac">resize</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *map, size_t new_cap)</td></tr>
+<tr class="memitem:a11b1dc972a7885c19300ab906151deac"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a11b1dc972a7885c19300ab906151deac">resize</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *<a class="el" href="structmap.html">map</a>, size_t new_cap)</td></tr>
 <tr class="separator:a11b1dc972a7885c19300ab906151deac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f0cd71606aace704e5381aa88f5bf79"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a3f0cd71606aace704e5381aa88f5bf79">hashmap_set</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *map, const void *item)</td></tr>
+<tr class="memitem:a3f0cd71606aace704e5381aa88f5bf79"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a3f0cd71606aace704e5381aa88f5bf79">hashmap_set</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *<a class="el" href="structmap.html">map</a>, const void *item)</td></tr>
+<tr class="memdesc:a3f0cd71606aace704e5381aa88f5bf79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert or replace an item.  <a href="hashmap_8c.html#a3f0cd71606aace704e5381aa88f5bf79">More...</a><br /></td></tr>
 <tr class="separator:a3f0cd71606aace704e5381aa88f5bf79"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2344cf3a3b1f5583f3e38004a09f3df5"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a2344cf3a3b1f5583f3e38004a09f3df5">hashmap_get</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *map, const void *key)</td></tr>
+<tr class="memitem:a2344cf3a3b1f5583f3e38004a09f3df5"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a2344cf3a3b1f5583f3e38004a09f3df5">hashmap_get</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *<a class="el" href="structmap.html">map</a>, const void *key)</td></tr>
+<tr class="memdesc:a2344cf3a3b1f5583f3e38004a09f3df5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Look up an item by key.  <a href="hashmap_8c.html#a2344cf3a3b1f5583f3e38004a09f3df5">More...</a><br /></td></tr>
 <tr class="separator:a2344cf3a3b1f5583f3e38004a09f3df5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad3c9111f88493b810d832bb2e61b523"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#aad3c9111f88493b810d832bb2e61b523">hashmap_probe</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *map, uint64_t position)</td></tr>
+<tr class="memitem:aad3c9111f88493b810d832bb2e61b523"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#aad3c9111f88493b810d832bb2e61b523">hashmap_probe</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *<a class="el" href="structmap.html">map</a>, uint64_t position)</td></tr>
+<tr class="memdesc:aad3c9111f88493b810d832bb2e61b523"><td class="mdescLeft">&#160;</td><td class="mdescRight">Probe a raw bucket position.  <a href="hashmap_8c.html#aad3c9111f88493b810d832bb2e61b523">More...</a><br /></td></tr>
 <tr class="separator:aad3c9111f88493b810d832bb2e61b523"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90f07fcd841a03908ba90514f124f054"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a90f07fcd841a03908ba90514f124f054">hashmap_delete</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *map, void *key)</td></tr>
+<tr class="memitem:a90f07fcd841a03908ba90514f124f054"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a90f07fcd841a03908ba90514f124f054">hashmap_delete</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *<a class="el" href="structmap.html">map</a>, void *key)</td></tr>
+<tr class="memdesc:a90f07fcd841a03908ba90514f124f054"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove an item by key.  <a href="hashmap_8c.html#a90f07fcd841a03908ba90514f124f054">More...</a><br /></td></tr>
 <tr class="separator:a90f07fcd841a03908ba90514f124f054"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf2d7645190129fb4880ba452c6436ce"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#acf2d7645190129fb4880ba452c6436ce">hashmap_count</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *map)</td></tr>
+<tr class="memitem:acf2d7645190129fb4880ba452c6436ce"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#acf2d7645190129fb4880ba452c6436ce">hashmap_count</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *<a class="el" href="structmap.html">map</a>)</td></tr>
+<tr class="memdesc:acf2d7645190129fb4880ba452c6436ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of stored items.  <a href="hashmap_8c.html#acf2d7645190129fb4880ba452c6436ce">More...</a><br /></td></tr>
 <tr class="separator:acf2d7645190129fb4880ba452c6436ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97ab64db6070065a0e8b5afc23793342"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a97ab64db6070065a0e8b5afc23793342">hashmap_free</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *map)</td></tr>
+<tr class="memitem:a97ab64db6070065a0e8b5afc23793342"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a97ab64db6070065a0e8b5afc23793342">hashmap_free</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *<a class="el" href="structmap.html">map</a>)</td></tr>
+<tr class="memdesc:a97ab64db6070065a0e8b5afc23793342"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free a hashmap and its storage.  <a href="hashmap_8c.html#a97ab64db6070065a0e8b5afc23793342">More...</a><br /></td></tr>
 <tr class="separator:a97ab64db6070065a0e8b5afc23793342"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad07477cf9562c5c78b5dcde3ccf8aced"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#ad07477cf9562c5c78b5dcde3ccf8aced">hashmap_oom</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *map)</td></tr>
+<tr class="memitem:ad07477cf9562c5c78b5dcde3ccf8aced"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#ad07477cf9562c5c78b5dcde3ccf8aced">hashmap_oom</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *<a class="el" href="structmap.html">map</a>)</td></tr>
+<tr class="memdesc:ad07477cf9562c5c78b5dcde3ccf8aced"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test whether the previous <code>hashmap_set</code> failed due to OOM.  <a href="hashmap_8c.html#ad07477cf9562c5c78b5dcde3ccf8aced">More...</a><br /></td></tr>
 <tr class="separator:ad07477cf9562c5c78b5dcde3ccf8aced"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43b4811046853d778bde1c2077b36f41"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a43b4811046853d778bde1c2077b36f41">hashmap_scan</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *map, bool(*iter)(const void *item, void *udata), void *udata)</td></tr>
-<tr class="separator:a43b4811046853d778bde1c2077b36f41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc4cede290fdcdc96168de2c86373882"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#abc4cede290fdcdc96168de2c86373882">hashmap_iter</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *map, size_t *<a class="el" href="ahci_8h.html#a752abcfe7ce5874cd9e8012a0346a37b">i</a>, void **item)</td></tr>
+<tr class="memitem:a4008679515a2c5238c44d519e73fc403"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a4008679515a2c5238c44d519e73fc403">hashmap_scan</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *<a class="el" href="structmap.html">map</a>, <a class="el" href="hashmap_8h.html#a5dd0027590908524e2b8812f1d2e6ba9">hashmap_iter_fn</a> iter, void *udata)</td></tr>
+<tr class="memdesc:a4008679515a2c5238c44d519e73fc403"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterate over every item in the map.  <a href="hashmap_8c.html#a4008679515a2c5238c44d519e73fc403">More...</a><br /></td></tr>
+<tr class="separator:a4008679515a2c5238c44d519e73fc403"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc4cede290fdcdc96168de2c86373882"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#abc4cede290fdcdc96168de2c86373882">hashmap_iter</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *<a class="el" href="structmap.html">map</a>, size_t *i, void **item)</td></tr>
+<tr class="memdesc:abc4cede290fdcdc96168de2c86373882"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cursor-based iterator over items.  <a href="hashmap_8c.html#abc4cede290fdcdc96168de2c86373882">More...</a><br /></td></tr>
 <tr class="separator:abc4cede290fdcdc96168de2c86373882"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a8cca7159f7f79fe7e8cecabd12648d"><td class="memItemLeft" align="right" valign="top">static uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a0a8cca7159f7f79fe7e8cecabd12648d">SIP64</a> (const uint8_t *in, const size_t inlen, uint64_t seed0, uint64_t seed1)</td></tr>
 <tr class="separator:a0a8cca7159f7f79fe7e8cecabd12648d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a810127aa9d92e070833ded11c3914669"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a810127aa9d92e070833ded11c3914669">MM86128</a> (const void *key, const int <a class="el" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a>, uint32_t seed, void *out)</td></tr>
 <tr class="separator:a810127aa9d92e070833ded11c3914669"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a8e35929f3fa17f10b93594e89e98ad"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a9a8e35929f3fa17f10b93594e89e98ad">hashmap_sip</a> (const void *<a class="el" href="udp_8h.html#a5c239a1bb87b52b0f1d6d68c4749cd2a">data</a>, size_t <a class="el" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a>, uint64_t seed0, uint64_t seed1)</td></tr>
+<tr class="memdesc:a9a8e35929f3fa17f10b93594e89e98ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">SipHash-2-4.  <a href="hashmap_8c.html#a9a8e35929f3fa17f10b93594e89e98ad">More...</a><br /></td></tr>
 <tr class="separator:a9a8e35929f3fa17f10b93594e89e98ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4691bdceb0c876a591566f65074d0b1"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#ad4691bdceb0c876a591566f65074d0b1">hashmap_murmur</a> (const void *<a class="el" href="udp_8h.html#a5c239a1bb87b52b0f1d6d68c4749cd2a">data</a>, size_t <a class="el" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a>, uint64_t seed0, [[maybe_unused]] uint64_t seed1)</td></tr>
-<tr class="separator:ad4691bdceb0c876a591566f65074d0b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a3a187ffa18b39dac0041bf95945f8938"><td class="memItemLeft" align="right" valign="top">static void *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a3a187ffa18b39dac0041bf95945f8938">_malloc</a> )(size_t) = NULL</td></tr>
-<tr class="separator:a3a187ffa18b39dac0041bf95945f8938"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e5b9c1f22acde8a5b26109547509cc5"><td class="memItemLeft" align="right" valign="top">static void *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a9e5b9c1f22acde8a5b26109547509cc5">_realloc</a> )(void *, size_t) = NULL</td></tr>
-<tr class="separator:a9e5b9c1f22acde8a5b26109547509cc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c4c8922b16d819cb501a2d282b101f2"><td class="memItemLeft" align="right" valign="top">static void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a9c4c8922b16d819cb501a2d282b101f2">_free</a> )(const void *) = NULL</td></tr>
-<tr class="separator:a9c4c8922b16d819cb501a2d282b101f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c0b2f39f3fc7c42bb022a0a9b40791a"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8c.html#a9c0b2f39f3fc7c42bb022a0a9b40791a">hashmap_murmur</a> (const void *<a class="el" href="udp_8h.html#a5c239a1bb87b52b0f1d6d68c4749cd2a">data</a>, size_t <a class="el" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a>, uint64_t seed0,[[maybe_unused]] uint64_t seed1)</td></tr>
+<tr class="separator:a9c0b2f39f3fc7c42bb022a0a9b40791a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Open-addressed hashmap (Robin Hood), with allocator udata support. </p>
+<p>Updated by Craig Edwards, September 2025, to allow <code>udata</code> to be passed to the allocator functions. This enables contextual/arena allocators (e.g., per BASIC interpreter context) without altering external call sites.</p>
+<p>Based on tidwall hashmap, copyright 2020 Joshua J Baker. All rights reserved. Use of this source code is governed by an MIT-style licence that can be found in the LICENSE file. <a href="https://github.com/tidwall/hashmap.c">https://github.com/tidwall/hashmap.c</a> </p>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a35851ba6b08c118345278effc46695e6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a35851ba6b08c118345278effc46695e6">&#9670;&nbsp;</a></span>FMIX32</h2>
 
@@ -212,12 +226,12 @@ Variables</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>&#160;</td>
+          <td class="paramname">b&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;(uint64_t)(((x) &lt;&lt; (<a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>)) | ((x) &gt;&gt; (64 - (<a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>))))</td>
+          <td></td><td>&#160;&#160;&#160;(uint64_t)(((x) &lt;&lt; (b)) | ((x) &gt;&gt; (64 - (b))))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -240,12 +254,12 @@ Variables</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><a class="el" href="ahci_8h.html#a4c5c6ceb8ed33456261fa907136e0c3a">r</a>&#160;</td>
+          <td class="paramname">r&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;((x &lt;&lt; <a class="el" href="ahci_8h.html#a4c5c6ceb8ed33456261fa907136e0c3a">r</a>) | (x &gt;&gt; (32 - <a class="el" href="ahci_8h.html#a4c5c6ceb8ed33456261fa907136e0c3a">r</a>)))</td>
+          <td></td><td>&#160;&#160;&#160;((x &lt;&lt; r) | (x &gt;&gt; (32 - r)))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -263,14 +277,14 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    { v0 += v1; v1 = <a class="code" href="hashmap_8c.html#addd42b95ef425979d1d0dca095dec800">ROTL</a>(v1, 13); \</div>
-<div class="line">      v1 ^= v0; v0 = <a class="code" href="hashmap_8c.html#addd42b95ef425979d1d0dca095dec800">ROTL</a>(v0, 32); \</div>
-<div class="line">      v2 += v3; v3 = <a class="code" href="hashmap_8c.html#addd42b95ef425979d1d0dca095dec800">ROTL</a>(v3, 16); \</div>
-<div class="line">      v3 ^= v2; \</div>
-<div class="line">      v0 += v3; v3 = <a class="code" href="hashmap_8c.html#addd42b95ef425979d1d0dca095dec800">ROTL</a>(v3, 21); \</div>
-<div class="line">      v3 ^= v0; \</div>
-<div class="line">      v2 += v1; v1 = <a class="code" href="hashmap_8c.html#addd42b95ef425979d1d0dca095dec800">ROTL</a>(v1, 17); \</div>
-<div class="line">      v1 ^= v2; v2 = <a class="code" href="hashmap_8c.html#addd42b95ef425979d1d0dca095dec800">ROTL</a>(v2, 32); }</div>
+<b>Value:</b><div class="fragment"><div class="line">        { v0 += v1; v1 = <a class="code" href="hashmap_8c.html#addd42b95ef425979d1d0dca095dec800">ROTL</a>(v1, 13); \</div>
+<div class="line">          v1 ^= v0; v0 = <a class="code" href="hashmap_8c.html#addd42b95ef425979d1d0dca095dec800">ROTL</a>(v0, 32); \</div>
+<div class="line">          v2 += v3; v3 = <a class="code" href="hashmap_8c.html#addd42b95ef425979d1d0dca095dec800">ROTL</a>(v3, 16); \</div>
+<div class="line">          v3 ^= v2; \</div>
+<div class="line">          v0 += v3; v3 = <a class="code" href="hashmap_8c.html#addd42b95ef425979d1d0dca095dec800">ROTL</a>(v3, 21); \</div>
+<div class="line">          v3 ^= v0; \</div>
+<div class="line">          v2 += v1; v1 = <a class="code" href="hashmap_8c.html#addd42b95ef425979d1d0dca095dec800">ROTL</a>(v1, 17); \</div>
+<div class="line">          v1 ^= v2; v2 = <a class="code" href="hashmap_8c.html#addd42b95ef425979d1d0dca095dec800">ROTL</a>(v2, 32); }</div>
 <div class="ttc" id="ahashmap_8c_html_addd42b95ef425979d1d0dca095dec800"><div class="ttname"><a href="hashmap_8c.html#addd42b95ef425979d1d0dca095dec800">ROTL</a></div><div class="ttdeci">#define ROTL(x, b)</div></div>
 </div><!-- fragment -->
 </div>
@@ -285,7 +299,7 @@ Variables</h2></td></tr>
           <td class="memname">#define U32TO8_LE</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><a class="el" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>, </td>
+          <td class="paramname">p, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -300,11 +314,10 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    { (<a class="code" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>)[0] = (uint8_t)((v)); \</div>
-<div class="line">      (<a class="code" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>)[1] = (uint8_t)((v) &gt;&gt; 8); \</div>
-<div class="line">      (<a class="code" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>)[2] = (uint8_t)((v) &gt;&gt; 16); \</div>
-<div class="line">      (<a class="code" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>)[3] = (uint8_t)((v) &gt;&gt; 24); }</div>
-<div class="ttc" id="aahci_8h_html_a6519522ad9a6f45e7a8d25d31392a977"><div class="ttname"><a href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a></div><div class="ttdeci">uint8_t p</div><div class="ttdef"><b>Definition:</b> ahci.h:4</div></div>
+<b>Value:</b><div class="fragment"><div class="line">        { (p)[0] = (uint8_t)((v)); \</div>
+<div class="line">          (p)[1] = (uint8_t)((v) &gt;&gt; 8); \</div>
+<div class="line">          (p)[2] = (uint8_t)((v) &gt;&gt; 16); \</div>
+<div class="line">          (p)[3] = (uint8_t)((v) &gt;&gt; 24); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -318,7 +331,7 @@ Variables</h2></td></tr>
           <td class="memname">#define U64TO8_LE</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><a class="el" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>, </td>
+          <td class="paramname">p, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -333,8 +346,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    { <a class="code" href="hashmap_8c.html#a08af2fb25b17973248d8cc16f9aa7c46">U32TO8_LE</a>((<a class="code" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>), (uint32_t)((v))); \</div>
-<div class="line">      U32TO8_LE((<a class="code" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>) + 4, (uint32_t)((v) &gt;&gt; 32)); }</div>
+<b>Value:</b><div class="fragment"><div class="line">        { <a class="code" href="hashmap_8c.html#a08af2fb25b17973248d8cc16f9aa7c46">U32TO8_LE</a>((p), (uint32_t)((v))); \</div>
+<div class="line">          U32TO8_LE((p) + 4, (uint32_t)((v) &gt;&gt; 32)); }</div>
 <div class="ttc" id="ahashmap_8c_html_a08af2fb25b17973248d8cc16f9aa7c46"><div class="ttname"><a href="hashmap_8c.html#a08af2fb25b17973248d8cc16f9aa7c46">U32TO8_LE</a></div><div class="ttdeci">#define U32TO8_LE(p, v)</div></div>
 </div><!-- fragment -->
 </div>
@@ -349,15 +362,15 @@ Variables</h2></td></tr>
           <td class="memname">#define U8TO64_LE</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><a class="el" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a></td><td>)</td>
+          <td class="paramname">p</td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    {  (((uint64_t)((<a class="code" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>)[0])) | ((uint64_t)((<a class="code" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>)[1]) &lt;&lt; 8) | \</div>
-<div class="line">        ((uint64_t)((<a class="code" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>)[2]) &lt;&lt; 16) | ((uint64_t)((<a class="code" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>)[3]) &lt;&lt; 24) | \</div>
-<div class="line">        ((uint64_t)((<a class="code" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>)[4]) &lt;&lt; 32) | ((uint64_t)((<a class="code" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>)[5]) &lt;&lt; 40) | \</div>
-<div class="line">        ((uint64_t)((<a class="code" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>)[6]) &lt;&lt; 48) | ((uint64_t)((<a class="code" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>)[7]) &lt;&lt; 56)) }</div>
+<b>Value:</b><div class="fragment"><div class="line">        {  (((uint64_t)((p)[0])) | ((uint64_t)((p)[1]) &lt;&lt; 8) | \</div>
+<div class="line">                ((uint64_t)((p)[2]) &lt;&lt; 16) | ((uint64_t)((p)[3]) &lt;&lt; 24) | \</div>
+<div class="line">                ((uint64_t)((p)[4]) &lt;&lt; 32) | ((uint64_t)((p)[5]) &lt;&lt; 40) | \</div>
+<div class="line">                ((uint64_t)((p)[6]) &lt;&lt; 48) | ((uint64_t)((p)[7]) &lt;&lt; 56)) }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -512,6 +525,16 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Clear all items from the map. </p>
+<p>Each element is passed to <code>elfree</code> (if provided). If <code>update_cap</code> is true, internal capacity is trimmed to the current number of buckets to avoid new allocations on the clear.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>Hashmap handle. </td></tr>
+    <tr><td class="paramname">update_cap</td><td>When true, shrink capacity to current bucket count. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="acf2d7645190129fb4880ba452c6436ce"></a>
@@ -529,6 +552,15 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Get the number of stored items. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>Hashmap handle. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Item count. </dd></dl>
 
 </div>
 </div>
@@ -548,7 +580,7 @@ Variables</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>key</em>&#160;</td>
+          <td class="paramname"><em>item</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -557,6 +589,16 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Remove an item by key. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>Hashmap handle. </td></tr>
+    <tr><td class="paramname">item</td><td>Key to delete. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the removed item, or NULL if not found. </dd></dl>
 
 </div>
 </div>
@@ -576,6 +618,15 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Free a hashmap and its storage. </p>
+<p>Calls <code>elfree</code> for each element if provided, then releases internal buffers via the map’s allocator callbacks.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>Hashmap handle (may be NULL). </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a2344cf3a3b1f5583f3e38004a09f3df5"></a>
@@ -594,7 +645,7 @@ Variables</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const void *&#160;</td>
-          <td class="paramname"><em>key</em>&#160;</td>
+          <td class="paramname"><em>item</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -603,6 +654,16 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Look up an item by key. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>Hashmap handle. </td></tr>
+    <tr><td class="paramname">item</td><td>Key to search for. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to stored item, or NULL if not found. </dd></dl>
 
 </div>
 </div>
@@ -638,10 +699,22 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Cursor-based iterator over items. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>Hashmap handle. </td></tr>
+    <tr><td class="paramname">i</td><td>Cursor (initialise to 0; updated on each call). </td></tr>
+    <tr><td class="paramname">item</td><td>Out: pointer to the current stored item. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if an item was produced; false if iteration is complete.</dd></dl>
+<p>Note: If <code>hashmap_delete</code> is called during iteration, the bucket layout may change. Reset the cursor to 0 to restart iteration safely. </p>
+
 </div>
 </div>
-<a id="ad4691bdceb0c876a591566f65074d0b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad4691bdceb0c876a591566f65074d0b1">&#9670;&nbsp;</a></span>hashmap_murmur()</h2>
+<a id="a9c0b2f39f3fc7c42bb022a0a9b40791a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c0b2f39f3fc7c42bb022a0a9b40791a">&#9670;&nbsp;</a></span>hashmap_murmur()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -680,8 +753,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a5deb1768129efb6534fb02365b2da3e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5deb1768129efb6534fb02365b2da3e6">&#9670;&nbsp;</a></span>hashmap_new()</h2>
+<a id="ae6a663c261ae740a81f069e0eff30b4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6a663c261ae740a81f069e0eff30b4d">&#9670;&nbsp;</a></span>hashmap_new()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -713,19 +786,19 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint64_t(*)(const void *item, uint64_t seed0, uint64_t seed1)&#160;</td>
+          <td class="paramtype"><a class="el" href="hashmap_8h.html#ad4b6740ff6182ab764172ec817958b15">hashmap_hash_fn</a>&#160;</td>
           <td class="paramname"><em>hash</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int(*)(const void *<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, const void *<a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>, void *udata)&#160;</td>
+          <td class="paramtype"><a class="el" href="hashmap_8h.html#ae5bfaacdf57aaec6f8e95b9375af85c3">hashmap_compare_fn</a>&#160;</td>
           <td class="paramname"><em>compare</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">void(*)(const void *item)&#160;</td>
+          <td class="paramtype"><a class="el" href="hashmap_8h.html#a37ed308a890839d65354aaabbd81e151">hashmap_elfree_fn</a>&#160;</td>
           <td class="paramname"><em>elfree</em>, </td>
         </tr>
         <tr>
@@ -742,10 +815,26 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Create a new hashmap with standard kernel allocators. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">elsize</td><td>Size in bytes of each element stored by the map. </td></tr>
+    <tr><td class="paramname">cap</td><td>Initial capacity hint (0 defaults to 16). </td></tr>
+    <tr><td class="paramname">seed0</td><td>First 64-bit hash seed. </td></tr>
+    <tr><td class="paramname">seed1</td><td>Second 64-bit hash seed. </td></tr>
+    <tr><td class="paramname">hash</td><td>Hash function for items. </td></tr>
+    <tr><td class="paramname">compare</td><td>Comparison function for items. </td></tr>
+    <tr><td class="paramname">elfree</td><td>Optional element destructor (may be NULL). </td></tr>
+    <tr><td class="paramname">udata</td><td>User data passed to <code>compare</code> (and may be used internally). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Handle to a new hashmap, or NULL on OOM. </dd></dl>
+
 </div>
 </div>
-<a id="a902396e346ce17278c1c5d8ba3f287fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a902396e346ce17278c1c5d8ba3f287fa">&#9670;&nbsp;</a></span>hashmap_new_with_allocator()</h2>
+<a id="a435d0e27a2f744753cd3694cd7546489"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a435d0e27a2f744753cd3694cd7546489">&#9670;&nbsp;</a></span>hashmap_new_with_allocator()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -753,19 +842,19 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">struct <a class="el" href="structhashmap.html">hashmap</a>* hashmap_new_with_allocator </td>
           <td>(</td>
-          <td class="paramtype">void *(*)(size_t)&#160;</td>
+          <td class="paramtype"><a class="el" href="hashmap_8h.html#a84e1541ebaae44d640953da111175724">hashmap_allocator</a>&#160;</td>
           <td class="paramname"><em>_malloc</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">void *(*)(void *, size_t)&#160;</td>
+          <td class="paramtype"><a class="el" href="hashmap_8h.html#a9b9407668f00cfe5fa9bb02ddd2efb7d">hashmap_reallocator</a>&#160;</td>
           <td class="paramname"><em>_realloc</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">void(*)(const void *)&#160;</td>
+          <td class="paramtype"><a class="el" href="hashmap_8h.html#a597bd7a56022ec65170922921947a3b6">hashmap_releaser</a>&#160;</td>
           <td class="paramname"><em>_free</em>, </td>
         </tr>
         <tr>
@@ -795,19 +884,19 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint64_t(*)(const void *item, uint64_t seed0, uint64_t seed1)&#160;</td>
+          <td class="paramtype"><a class="el" href="hashmap_8h.html#ad4b6740ff6182ab764172ec817958b15">hashmap_hash_fn</a>&#160;</td>
           <td class="paramname"><em>hash</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int(*)(const void *<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, const void *<a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>, void *udata)&#160;</td>
+          <td class="paramtype"><a class="el" href="hashmap_8h.html#ae5bfaacdf57aaec6f8e95b9375af85c3">hashmap_compare_fn</a>&#160;</td>
           <td class="paramname"><em>compare</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">void(*)(const void *item)&#160;</td>
+          <td class="paramtype"><a class="el" href="hashmap_8h.html#a37ed308a890839d65354aaabbd81e151">hashmap_elfree_fn</a>&#160;</td>
           <td class="paramname"><em>elfree</em>, </td>
         </tr>
         <tr>
@@ -823,6 +912,25 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Create a new hashmap with custom allocators. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_malloc</td><td>Allocator callback (required). </td></tr>
+    <tr><td class="paramname">_realloc</td><td>Reallocator callback (required). </td></tr>
+    <tr><td class="paramname">_free</td><td>Releaser callback (required). </td></tr>
+    <tr><td class="paramname">elsize</td><td>Size in bytes of each element stored by the map. </td></tr>
+    <tr><td class="paramname">cap</td><td>Initial capacity hint (0 defaults to 16). </td></tr>
+    <tr><td class="paramname">seed0</td><td>First 64-bit hash seed. </td></tr>
+    <tr><td class="paramname">seed1</td><td>Second 64-bit hash seed. </td></tr>
+    <tr><td class="paramname">hash</td><td>Hash function for items. </td></tr>
+    <tr><td class="paramname">compare</td><td>Comparison function for items. </td></tr>
+    <tr><td class="paramname">elfree</td><td>Optional element destructor (may be NULL). </td></tr>
+    <tr><td class="paramname">udata</td><td>User data passed to allocator callbacks and <code>compare</code>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Handle to a new hashmap, or NULL on OOM. </dd></dl>
 
 </div>
 </div>
@@ -841,6 +949,15 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Test whether the previous <code>hashmap_set</code> failed due to OOM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>Hashmap handle. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the last set operation ran out of memory. </dd></dl>
 
 </div>
 </div>
@@ -870,10 +987,20 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Probe a raw bucket position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>Hashmap handle. </td></tr>
+    <tr><td class="paramname">position</td><td>Bucket index (will be reduced modulo bucket count). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to stored item at that bucket, or NULL. </dd></dl>
+
 </div>
 </div>
-<a id="a43b4811046853d778bde1c2077b36f41"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a43b4811046853d778bde1c2077b36f41">&#9670;&nbsp;</a></span>hashmap_scan()</h2>
+<a id="a4008679515a2c5238c44d519e73fc403"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4008679515a2c5238c44d519e73fc403">&#9670;&nbsp;</a></span>hashmap_scan()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -887,7 +1014,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool(*)(const void *item, void *udata)&#160;</td>
+          <td class="paramtype"><a class="el" href="hashmap_8h.html#a5dd0027590908524e2b8812f1d2e6ba9">hashmap_iter_fn</a>&#160;</td>
           <td class="paramname"><em>iter</em>, </td>
         </tr>
         <tr>
@@ -903,6 +1030,17 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Iterate over every item in the map. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>Hashmap handle. </td></tr>
+    <tr><td class="paramname">iter</td><td>Callback invoked for each item; return false to stop early. </td></tr>
+    <tr><td class="paramname">udata</td><td>User data passed to <code>iter</code>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>false if iteration was stopped early, true otherwise. </dd></dl>
 
 </div>
 </div>
@@ -932,33 +1070,16 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="a7dc1056536642aa43d3aa827d1b6f638"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7dc1056536642aa43d3aa827d1b6f638">&#9670;&nbsp;</a></span>hashmap_set_allocator()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hashmap_set_allocator </td>
-          <td>(</td>
-          <td class="paramtype">[[maybe_unused] ] void *(*)(size_t)&#160;</td>
-          <td class="paramname"><em>malloc</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">[[maybe_unused] ] void(*)(const void *)&#160;</td>
-          <td class="paramname"><em>free</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p>Insert or replace an item. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>Hashmap handle. </td></tr>
+    <tr><td class="paramname">item</td><td>Item to insert (by value). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the replaced item if it existed, otherwise NULL.</dd></dl>
+<p>On allocation failure returns NULL and sets the sticky OOM flag (see <code>hashmap_oom</code>). </p>
 
 </div>
 </div>
@@ -999,6 +1120,18 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>SipHash-2-4. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>Input buffer. </td></tr>
+    <tr><td class="paramname">len</td><td>Length in bytes. </td></tr>
+    <tr><td class="paramname">seed0</td><td>First 64-bit seed. </td></tr>
+    <tr><td class="paramname">seed1</td><td>Second 64-bit seed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>64-bit hash value. </dd></dl>
 
 </div>
 </div>
@@ -1134,91 +1267,92 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<h2 class="groupheader">Variable Documentation</h2>
-<a id="a9c4c8922b16d819cb501a2d282b101f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c4c8922b16d819cb501a2d282b101f2">&#9670;&nbsp;</a></span>_free</h2>
+<a id="a5fe4cc1cb79c21e516fc1da494c0a4f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5fe4cc1cb79c21e516fc1da494c0a4f9">&#9670;&nbsp;</a></span>standard_free()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void(* _free) (const void *) </td>
+          <td class="memname">void standard_free </td>
           <td>(</td>
           <td class="paramtype">const void *&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td> = NULL</td>
+          <td class="paramname"><em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>udata</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a3a187ffa18b39dac0041bf95945f8938"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a187ffa18b39dac0041bf95945f8938">&#9670;&nbsp;</a></span>_malloc</h2>
+<a id="af146ccd372f893320e9b85196de805d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af146ccd372f893320e9b85196de805d9">&#9670;&nbsp;</a></span>standard_malloc()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void*(* _malloc) (size_t) </td>
+          <td class="memname">void* standard_malloc </td>
           <td>(</td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td> = NULL</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>udata</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a9e5b9c1f22acde8a5b26109547509cc5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e5b9c1f22acde8a5b26109547509cc5">&#9670;&nbsp;</a></span>_realloc</h2>
+<a id="a0c6dd1ad93471fb46b851ca066e125e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c6dd1ad93471fb46b851ca066e125e5">&#9670;&nbsp;</a></span>standard_realloc()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void*(* _realloc) (void *, size_t) </td>
+          <td class="memname">void* standard_realloc </td>
           <td>(</td>
           <td class="paramtype">void *&#160;</td>
-          <td class="paramname">, </td>
+          <td class="paramname"><em>ptr</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname">&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>udata</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> = NULL</td>
+          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
@@ -1228,8 +1362,8 @@ Variables</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="hashmap_8c.html">hashmap.c</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_0b61c55142250c0cc363383afd8075a4.html">containers</a></li><li class="navelem"><a class="el" href="hashmap_8c.html">hashmap.c</a></li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

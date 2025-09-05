@@ -7,6 +7,7 @@ var printf_8c =
       [ "STATE_MODIFIERS", "printf_8c.html#a955a8838398640452f0a08b3c7f886bfa0e32dbec910be64732c4fcc980ae4467", null ],
       [ "STATE_CONVERSION", "printf_8c.html#a955a8838398640452f0a08b3c7f886bfa136fe548fd241bab6557b5af26fde1b3", null ]
     ] ],
+    [ "append_debug_buf", "printf_8c.html#a26aae297c3c0f344cc0de97f14413a12", null ],
     [ "do_printf", "printf_8c.html#afeb4d71308108181d31f8644756b87ee", null ],
     [ "dprintf", "printf_8c.html#a571270f690c35549229075bb963eabe7", null ],
     [ "dvprintf", "printf_8c.html#abf3a700d17878099cbecbb7633dfdd3b", null ],

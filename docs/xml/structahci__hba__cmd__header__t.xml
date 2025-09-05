@@ -4,103 +4,110 @@
     <compoundname>ahci_hba_cmd_header_t</compoundname>
     <includes local="no">ahci.h</includes>
       <sectiondef kind="public-attrib">
-      <memberdef kind="variable" id="structahci__hba__cmd__header__t_1ac9fb87ffb611456dc95c5981e8005515" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__cmd__header__t_1a6f69c46f346510392721e9ca555dbcdd" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
-        <definition>uint8_t ahci_hba_cmd_header_t::cfl</definition>
+        <definition>uint8_t ahci_hba_cmd_header_t::command_fis_length</definition>
         <argsstring></argsstring>
-        <name>cfl</name>
+        <name>command_fis_length</name>
         <bitfield>5</bitfield>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Command FIS length (DWORDs, 2–16) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="254" column="10" bodyfile="include/ahci.h" bodystart="254" bodyend="-1"/>
+        <location file="include/ahci.h" line="225" column="9" bodyfile="include/ahci.h" bodystart="225" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__cmd__header__t_1a92525972c34de5f04b0eb31a3073307e" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__cmd__header__t_1a49e549b621d5277ddc6b6d5aff7840f2" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
-        <definition>uint8_t ahci_hba_cmd_header_t::a</definition>
+        <definition>uint8_t ahci_hba_cmd_header_t::atapi</definition>
         <argsstring></argsstring>
-        <name>a</name>
+        <name>atapi</name>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>ATAPI command (1 = ATAPI) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="255" column="10" bodyfile="include/ahci.h" bodystart="255" bodyend="-1"/>
+        <location file="include/ahci.h" line="226" column="9" bodyfile="include/ahci.h" bodystart="226" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__cmd__header__t_1aeb06318c2f2dec40f2ba0a550db489a6" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__cmd__header__t_1a360d626d866f61a8858b14a0e2cd2a04" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
-        <definition>uint8_t ahci_hba_cmd_header_t::w</definition>
+        <definition>uint8_t ahci_hba_cmd_header_t::write</definition>
         <argsstring></argsstring>
-        <name>w</name>
+        <name>write</name>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Direction: 1 = H2D write, 0 = D2H read </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="256" column="10" bodyfile="include/ahci.h" bodystart="256" bodyend="-1"/>
+        <location file="include/ahci.h" line="227" column="9" bodyfile="include/ahci.h" bodystart="227" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__cmd__header__t_1ab312ba155fd704a3b3da9e11595d5e67" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__cmd__header__t_1a5b76606989b4e9f4b2136a6061e92797" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
-        <definition>uint8_t ahci_hba_cmd_header_t::p</definition>
+        <definition>uint8_t ahci_hba_cmd_header_t::prefetchable</definition>
         <argsstring></argsstring>
-        <name>p</name>
+        <name>prefetchable</name>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Prefetchable hint </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="257" column="10" bodyfile="include/ahci.h" bodystart="257" bodyend="-1"/>
+        <location file="include/ahci.h" line="228" column="9" bodyfile="include/ahci.h" bodystart="228" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__cmd__header__t_1ad3d47d98d30269480bdbccc7b4fd18a8" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__cmd__header__t_1afa3817f07fe21340cc587de9c61bf699" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
-        <definition>uint8_t ahci_hba_cmd_header_t::r</definition>
+        <definition>uint8_t ahci_hba_cmd_header_t::reset</definition>
         <argsstring></argsstring>
-        <name>r</name>
+        <name>reset</name>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Device reset </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="259" column="10" bodyfile="include/ahci.h" bodystart="259" bodyend="-1"/>
+        <location file="include/ahci.h" line="229" column="9" bodyfile="include/ahci.h" bodystart="229" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__cmd__header__t_1acf47481ee5c486055ca92049248af7f4" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__cmd__header__t_1ad03018bb311610cc36ec014dda05594c" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
-        <definition>uint8_t ahci_hba_cmd_header_t::b</definition>
+        <definition>uint8_t ahci_hba_cmd_header_t::built_in_self_test</definition>
         <argsstring></argsstring>
-        <name>b</name>
+        <name>built_in_self_test</name>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>BIST </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="260" column="10" bodyfile="include/ahci.h" bodystart="260" bodyend="-1"/>
+        <location file="include/ahci.h" line="230" column="9" bodyfile="include/ahci.h" bodystart="230" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__cmd__header__t_1a646175d325e505b0f15245f1c5a7e2d8" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__cmd__header__t_1aad9143fc8c4e3ba3cb5edda3101280bb" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
-        <definition>uint8_t ahci_hba_cmd_header_t::c</definition>
+        <definition>uint8_t ahci_hba_cmd_header_t::clear_busy_on_ok</definition>
         <argsstring></argsstring>
-        <name>c</name>
+        <name>clear_busy_on_ok</name>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Clear busy upon R_OK </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="261" column="10" bodyfile="include/ahci.h" bodystart="261" bodyend="-1"/>
+        <location file="include/ahci.h" line="231" column="9" bodyfile="include/ahci.h" bodystart="231" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__hba__cmd__header__t_1af83dbc9acd62d32bb0e82bf28ca87b2f" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -111,37 +118,40 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Reserved, must be zero </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="262" column="10" bodyfile="include/ahci.h" bodystart="262" bodyend="-1"/>
+        <location file="include/ahci.h" line="232" column="9" bodyfile="include/ahci.h" bodystart="232" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__cmd__header__t_1a3aaa9f983563403105a577203468b91c" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__cmd__header__t_1af9ef986d378f710d815a85e840ce0173" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
-        <definition>uint8_t ahci_hba_cmd_header_t::pmp</definition>
+        <definition>uint8_t ahci_hba_cmd_header_t::port_multiplier_port</definition>
         <argsstring></argsstring>
-        <name>pmp</name>
+        <name>port_multiplier_port</name>
         <bitfield>4</bitfield>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Port multiplier port </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="263" column="10" bodyfile="include/ahci.h" bodystart="263" bodyend="-1"/>
+        <location file="include/ahci.h" line="233" column="9" bodyfile="include/ahci.h" bodystart="233" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__cmd__header__t_1ada4888bbb1d7aded6d363aa025beb685" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__cmd__header__t_1a76213af74c27353718b401a83762b804" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
-        <definition>uint16_t ahci_hba_cmd_header_t::prdtl</definition>
+        <definition>uint16_t ahci_hba_cmd_header_t::prdt_length_entries</definition>
         <argsstring></argsstring>
-        <name>prdtl</name>
+        <name>prdt_length_entries</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>PRDT length in entries </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="265" column="10" bodyfile="include/ahci.h" bodystart="265" bodyend="-1"/>
+        <location file="include/ahci.h" line="234" column="10" bodyfile="include/ahci.h" bodystart="234" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__hba__cmd__header__t_1ad8879c18128f8aee8e639c423c1ca06f" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -151,36 +161,39 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Bytes transferred by HBA (read-only to host) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="269" column="10" bodyfile="include/ahci.h" bodystart="269" bodyend="-1"/>
+        <location file="include/ahci.h" line="235" column="19" bodyfile="include/ahci.h" bodystart="235" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__cmd__header__t_1a6b0cdd1b98b66c4fea10cf220aec3e40" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__cmd__header__t_1a52885823ae0dec6ce69ed7ccd0bc27ad" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t ahci_hba_cmd_header_t::ctba</definition>
+        <definition>uint32_t ahci_hba_cmd_header_t::command_table_base_lower</definition>
         <argsstring></argsstring>
-        <name>ctba</name>
+        <name>command_table_base_lower</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Command Table Base Address (CTBA) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="272" column="10" bodyfile="include/ahci.h" bodystart="272" bodyend="-1"/>
+        <location file="include/ahci.h" line="236" column="10" bodyfile="include/ahci.h" bodystart="236" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__cmd__header__t_1ab8363928d1136a2f6474d11fc54c313e" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__cmd__header__t_1adc080e4e412950b1a2d851c740d8c754" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t ahci_hba_cmd_header_t::ctbau</definition>
+        <definition>uint32_t ahci_hba_cmd_header_t::command_table_base_upper</definition>
         <argsstring></argsstring>
-        <name>ctbau</name>
+        <name>command_table_base_upper</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>CTBA upper 32 bits </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="273" column="10" bodyfile="include/ahci.h" bodystart="273" bodyend="-1"/>
+        <location file="include/ahci.h" line="237" column="10" bodyfile="include/ahci.h" bodystart="237" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__hba__cmd__header__t_1acbde5cf0bffe8029de1e204e77a1c9bc" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -190,15 +203,22 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Reserved, must be zero </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="276" column="10" bodyfile="include/ahci.h" bodystart="276" bodyend="-1"/>
+        <location file="include/ahci.h" line="238" column="10" bodyfile="include/ahci.h" bodystart="238" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Command Header (one per command slot). </para>
     </briefdescription>
     <detaileddescription>
+<para><simplesect kind="note"><para>command_fis_length is measured in DWORDs (2–16). </para>
+</simplesect>
+<simplesect kind="note"><para>prdbc is written by HBA with bytes actually transferred. </para>
+</simplesect>
+</para>
     </detaileddescription>
     <collaborationgraph>
       <node id="2">
@@ -214,43 +234,43 @@
         <label>ahci_hba_cmd_header_t</label>
         <link refid="structahci__hba__cmd__header__t"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>prdtl</edgelabel>
+          <edgelabel>prdt_length_entries</edgelabel>
         </childnode>
         <childnode refid="3" relation="usage">
-          <edgelabel>ctba</edgelabel>
-          <edgelabel>ctbau</edgelabel>
+          <edgelabel>command_table_base_lower</edgelabel>
+          <edgelabel>command_table_base_upper</edgelabel>
           <edgelabel>prdbc</edgelabel>
           <edgelabel>rsv1</edgelabel>
         </childnode>
         <childnode refid="4" relation="usage">
-          <edgelabel>a</edgelabel>
-          <edgelabel>b</edgelabel>
-          <edgelabel>c</edgelabel>
-          <edgelabel>cfl</edgelabel>
-          <edgelabel>p</edgelabel>
-          <edgelabel>pmp</edgelabel>
-          <edgelabel>r</edgelabel>
+          <edgelabel>atapi</edgelabel>
+          <edgelabel>built_in_self_test</edgelabel>
+          <edgelabel>clear_busy_on_ok</edgelabel>
+          <edgelabel>command_fis_length</edgelabel>
+          <edgelabel>port_multiplier_port</edgelabel>
+          <edgelabel>prefetchable</edgelabel>
+          <edgelabel>reset</edgelabel>
           <edgelabel>rsv0</edgelabel>
-          <edgelabel>w</edgelabel>
+          <edgelabel>write</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="include/ahci.h" line="251" column="1" bodyfile="include/ahci.h" bodystart="252" bodyend="277"/>
+    <location file="include/ahci.h" line="224" column="1" bodyfile="include/ahci.h" bodystart="224" bodyend="239"/>
     <listofallmembers>
-      <member refid="structahci__hba__cmd__header__t_1a92525972c34de5f04b0eb31a3073307e" prot="public" virt="non-virtual"><scope>ahci_hba_cmd_header_t</scope><name>a</name></member>
-      <member refid="structahci__hba__cmd__header__t_1acf47481ee5c486055ca92049248af7f4" prot="public" virt="non-virtual"><scope>ahci_hba_cmd_header_t</scope><name>b</name></member>
-      <member refid="structahci__hba__cmd__header__t_1a646175d325e505b0f15245f1c5a7e2d8" prot="public" virt="non-virtual"><scope>ahci_hba_cmd_header_t</scope><name>c</name></member>
-      <member refid="structahci__hba__cmd__header__t_1ac9fb87ffb611456dc95c5981e8005515" prot="public" virt="non-virtual"><scope>ahci_hba_cmd_header_t</scope><name>cfl</name></member>
-      <member refid="structahci__hba__cmd__header__t_1a6b0cdd1b98b66c4fea10cf220aec3e40" prot="public" virt="non-virtual"><scope>ahci_hba_cmd_header_t</scope><name>ctba</name></member>
-      <member refid="structahci__hba__cmd__header__t_1ab8363928d1136a2f6474d11fc54c313e" prot="public" virt="non-virtual"><scope>ahci_hba_cmd_header_t</scope><name>ctbau</name></member>
-      <member refid="structahci__hba__cmd__header__t_1ab312ba155fd704a3b3da9e11595d5e67" prot="public" virt="non-virtual"><scope>ahci_hba_cmd_header_t</scope><name>p</name></member>
-      <member refid="structahci__hba__cmd__header__t_1a3aaa9f983563403105a577203468b91c" prot="public" virt="non-virtual"><scope>ahci_hba_cmd_header_t</scope><name>pmp</name></member>
+      <member refid="structahci__hba__cmd__header__t_1a49e549b621d5277ddc6b6d5aff7840f2" prot="public" virt="non-virtual"><scope>ahci_hba_cmd_header_t</scope><name>atapi</name></member>
+      <member refid="structahci__hba__cmd__header__t_1ad03018bb311610cc36ec014dda05594c" prot="public" virt="non-virtual"><scope>ahci_hba_cmd_header_t</scope><name>built_in_self_test</name></member>
+      <member refid="structahci__hba__cmd__header__t_1aad9143fc8c4e3ba3cb5edda3101280bb" prot="public" virt="non-virtual"><scope>ahci_hba_cmd_header_t</scope><name>clear_busy_on_ok</name></member>
+      <member refid="structahci__hba__cmd__header__t_1a6f69c46f346510392721e9ca555dbcdd" prot="public" virt="non-virtual"><scope>ahci_hba_cmd_header_t</scope><name>command_fis_length</name></member>
+      <member refid="structahci__hba__cmd__header__t_1a52885823ae0dec6ce69ed7ccd0bc27ad" prot="public" virt="non-virtual"><scope>ahci_hba_cmd_header_t</scope><name>command_table_base_lower</name></member>
+      <member refid="structahci__hba__cmd__header__t_1adc080e4e412950b1a2d851c740d8c754" prot="public" virt="non-virtual"><scope>ahci_hba_cmd_header_t</scope><name>command_table_base_upper</name></member>
+      <member refid="structahci__hba__cmd__header__t_1af9ef986d378f710d815a85e840ce0173" prot="public" virt="non-virtual"><scope>ahci_hba_cmd_header_t</scope><name>port_multiplier_port</name></member>
       <member refid="structahci__hba__cmd__header__t_1ad8879c18128f8aee8e639c423c1ca06f" prot="public" virt="non-virtual"><scope>ahci_hba_cmd_header_t</scope><name>prdbc</name></member>
-      <member refid="structahci__hba__cmd__header__t_1ada4888bbb1d7aded6d363aa025beb685" prot="public" virt="non-virtual"><scope>ahci_hba_cmd_header_t</scope><name>prdtl</name></member>
-      <member refid="structahci__hba__cmd__header__t_1ad3d47d98d30269480bdbccc7b4fd18a8" prot="public" virt="non-virtual"><scope>ahci_hba_cmd_header_t</scope><name>r</name></member>
+      <member refid="structahci__hba__cmd__header__t_1a76213af74c27353718b401a83762b804" prot="public" virt="non-virtual"><scope>ahci_hba_cmd_header_t</scope><name>prdt_length_entries</name></member>
+      <member refid="structahci__hba__cmd__header__t_1a5b76606989b4e9f4b2136a6061e92797" prot="public" virt="non-virtual"><scope>ahci_hba_cmd_header_t</scope><name>prefetchable</name></member>
+      <member refid="structahci__hba__cmd__header__t_1afa3817f07fe21340cc587de9c61bf699" prot="public" virt="non-virtual"><scope>ahci_hba_cmd_header_t</scope><name>reset</name></member>
       <member refid="structahci__hba__cmd__header__t_1af83dbc9acd62d32bb0e82bf28ca87b2f" prot="public" virt="non-virtual"><scope>ahci_hba_cmd_header_t</scope><name>rsv0</name></member>
       <member refid="structahci__hba__cmd__header__t_1acbde5cf0bffe8029de1e204e77a1c9bc" prot="public" virt="non-virtual"><scope>ahci_hba_cmd_header_t</scope><name>rsv1</name></member>
-      <member refid="structahci__hba__cmd__header__t_1aeb06318c2f2dec40f2ba0a550db489a6" prot="public" virt="non-virtual"><scope>ahci_hba_cmd_header_t</scope><name>w</name></member>
+      <member refid="structahci__hba__cmd__header__t_1a360d626d866f61a8858b14a0e2cd2a04" prot="public" virt="non-virtual"><scope>ahci_hba_cmd_header_t</scope><name>write</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

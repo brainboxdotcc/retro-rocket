@@ -94,21 +94,13 @@ $(document).ready(function(){initNavTree('double__expression_8c.html',''); initR
 <p>BASIC double/real expression functions.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;<a class="el" href="kernel_8h.html">kernel.h</a>&gt;</code><br />
+<code>#include &quot;<a class="el" href="unified__expression_8h.html">basic/unified_expression.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a8e8b181bcae987357ac15f1da80cb2b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="double__expression_8c.html#a8e8b181bcae987357ac15f1da80cb2b2">double_varfactor</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx, double *res)</td></tr>
-<tr class="separator:a8e8b181bcae987357ac15f1da80cb2b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b7f6dfef81b9819da3211eeb0852615"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="double__expression_8c.html#a1b7f6dfef81b9819da3211eeb0852615">double_factor</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx, double *res)</td></tr>
-<tr class="separator:a1b7f6dfef81b9819da3211eeb0852615"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39fa6a8523e7ad45102f2a80f8b21ec9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="double__expression_8c.html#a39fa6a8523e7ad45102f2a80f8b21ec9">double_term</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx, double *res)</td></tr>
-<tr class="separator:a39fa6a8523e7ad45102f2a80f8b21ec9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74736577f6e6c03730accb1bf6609a30"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="double__expression_8c.html#a74736577f6e6c03730accb1bf6609a30">double_expr</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx, double *res)</td></tr>
 <tr class="memdesc:a74736577f6e6c03730accb1bf6609a30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates a full real (double) expression.  <a href="double__expression_8c.html#a74736577f6e6c03730accb1bf6609a30">More...</a><br /></td></tr>
 <tr class="separator:a74736577f6e6c03730accb1bf6609a30"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ee284d90bf47b74190b99f3ca1931f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="double__expression_8c.html#a8ee284d90bf47b74190b99f3ca1931f1">double_relation</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx, double *res)</td></tr>
-<tr class="memdesc:a8ee284d90bf47b74190b99f3ca1931f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates a relational real (double) expression.  <a href="double__expression_8c.html#a8ee284d90bf47b74190b99f3ca1931f1">More...</a><br /></td></tr>
-<tr class="separator:a8ee284d90bf47b74190b99f3ca1931f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>BASIC double/real expression functions. </p>
@@ -151,135 +143,13 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a1b7f6dfef81b9819da3211eeb0852615"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1b7f6dfef81b9819da3211eeb0852615">&#9670;&nbsp;</a></span>double_factor()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void double_factor </td>
-          <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
-          <td class="paramname"><em>ctx</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double *&#160;</td>
-          <td class="paramname"><em>res</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a8ee284d90bf47b74190b99f3ca1931f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8ee284d90bf47b74190b99f3ca1931f1">&#9670;&nbsp;</a></span>double_relation()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void double_relation </td>
-          <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
-          <td class="paramname"><em>ctx</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double *&#160;</td>
-          <td class="paramname"><em>res</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Evaluates a relational real (double) expression. </p>
-<p>This function evaluates relational expressions (e.g., &lt;, &gt;, ==) for real numbers. It returns <code>1</code> for true and <code>0</code> for false.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ctx</td><td>A pointer to the current BASIC program context. </td></tr>
-    <tr><td class="paramname">res</td><td>A pointer to a double where the result will be stored. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a39fa6a8523e7ad45102f2a80f8b21ec9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39fa6a8523e7ad45102f2a80f8b21ec9">&#9670;&nbsp;</a></span>double_term()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void double_term </td>
-          <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
-          <td class="paramname"><em>ctx</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double *&#160;</td>
-          <td class="paramname"><em>res</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a8e8b181bcae987357ac15f1da80cb2b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e8b181bcae987357ac15f1da80cb2b2">&#9670;&nbsp;</a></span>double_varfactor()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void double_varfactor </td>
-          <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
-          <td class="paramname"><em>ctx</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double *&#160;</td>
-          <td class="paramname"><em>res</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_38cd9eca440b760dc966f21b1f8d8f41.html">basic</a></li><li class="navelem"><a class="el" href="double__expression_8c.html">double_expression.c</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:44 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -98,7 +98,7 @@ $(document).ready(function(){initNavTree('iso9660_8c.html',''); initResizable();
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:acd97520fa9d19a65a5218fdd6be9a8a4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iso9660_8c.html#acd97520fa9d19a65a5218fdd6be9a8a4">VERIFY_ISO9660</a>(<a class="el" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>)</td></tr>
+<tr class="memitem:acd97520fa9d19a65a5218fdd6be9a8a4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iso9660_8c.html#acd97520fa9d19a65a5218fdd6be9a8a4">VERIFY_ISO9660</a>(n)</td></tr>
 <tr class="separator:acd97520fa9d19a65a5218fdd6be9a8a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af38e3d4c89886891f174ad20136125df"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iso9660_8c.html#af38e3d4c89886891f174ad20136125df">MAX_REASONABLE_ISO_DIR_SIZE</a>&#160;&#160;&#160;1024 * 1024</td></tr>
 <tr class="separator:af38e3d4c89886891f174ad20136125df"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -110,15 +110,15 @@ Functions</h2></td></tr>
 <tr class="memitem:a4fc7f27e860d86239b2a1a06d5c77dd3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structiso9660.html">iso9660</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iso9660_8c.html#a4fc7f27e860d86239b2a1a06d5c77dd3">iso_mount_volume</a> (const char *<a class="el" href="ahci_8h.html#a2376f17d1e7367401184b2a3978bcd3a">device</a>)</td></tr>
 <tr class="memdesc:a4fc7f27e860d86239b2a1a06d5c77dd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mount an ISO 9660 filesystem on a given block device name.  <a href="iso9660_8c.html#a4fc7f27e860d86239b2a1a06d5c77dd3">More...</a><br /></td></tr>
 <tr class="separator:a4fc7f27e860d86239b2a1a06d5c77dd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d75868b40cec962bdb13b743c7d6b08"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iso9660_8c.html#a9d75868b40cec962bdb13b743c7d6b08">iso_read_file</a> (void *file, uint64_t <a class="el" href="retrofs_8h.html#af821c0f1bf4d36fbe0a3f5776b71139b">start</a>, uint32_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>, unsigned char *buffer)</td></tr>
+<tr class="memitem:a9d75868b40cec962bdb13b743c7d6b08"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iso9660_8c.html#a9d75868b40cec962bdb13b743c7d6b08">iso_read_file</a> (void *file, uint64_t <a class="el" href="retrofs_8h.html#af821c0f1bf4d36fbe0a3f5776b71139b">start</a>, uint32_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>, unsigned char *<a class="el" href="input_8c.html#aff2566f4c366b48d73479bef43ee4d2e">buffer</a>)</td></tr>
 <tr class="separator:a9d75868b40cec962bdb13b743c7d6b08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa160a1ffc5b7625df37b54781e97c134"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iso9660_8c.html#aa160a1ffc5b7625df37b54781e97c134">parse_boot</a> ([[maybe_unused]] <a class="el" href="structiso9660.html">iso9660</a> *info, [[maybe_unused]] unsigned char *buffer)</td></tr>
+<tr class="memitem:aa160a1ffc5b7625df37b54781e97c134"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iso9660_8c.html#aa160a1ffc5b7625df37b54781e97c134">parse_boot</a> ([[maybe_unused]] <a class="el" href="structiso9660.html">iso9660</a> *info, [[maybe_unused]] unsigned char *<a class="el" href="input_8c.html#aff2566f4c366b48d73479bef43ee4d2e">buffer</a>)</td></tr>
 <tr class="separator:aa160a1ffc5b7625df37b54781e97c134"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05ce30664507442d8f3f5accd19aa975"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iso9660_8c.html#a05ce30664507442d8f3f5accd19aa975">parse_pvd</a> (<a class="el" href="structiso9660.html">iso9660</a> *info, unsigned char *buffer)</td></tr>
+<tr class="memitem:a05ce30664507442d8f3f5accd19aa975"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iso9660_8c.html#a05ce30664507442d8f3f5accd19aa975">parse_pvd</a> (<a class="el" href="structiso9660.html">iso9660</a> *info, unsigned char *<a class="el" href="input_8c.html#aff2566f4c366b48d73479bef43ee4d2e">buffer</a>)</td></tr>
 <tr class="separator:a05ce30664507442d8f3f5accd19aa975"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3fbedc5f73fed33bff13269bcd610a4e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iso9660_8c.html#a3fbedc5f73fed33bff13269bcd610a4e">parse_svd</a> (<a class="el" href="structiso9660.html">iso9660</a> *info, unsigned char *buffer)</td></tr>
+<tr class="memitem:a3fbedc5f73fed33bff13269bcd610a4e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iso9660_8c.html#a3fbedc5f73fed33bff13269bcd610a4e">parse_svd</a> (<a class="el" href="structiso9660.html">iso9660</a> *info, unsigned char *<a class="el" href="input_8c.html#aff2566f4c366b48d73479bef43ee4d2e">buffer</a>)</td></tr>
 <tr class="separator:a3fbedc5f73fed33bff13269bcd610a4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6722c31b1548e80b0dd873989f0c2fbb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iso9660_8c.html#a6722c31b1548e80b0dd873989f0c2fbb">parse_vpd</a> ([[maybe_unused]] <a class="el" href="structiso9660.html">iso9660</a> *info, [[maybe_unused]] unsigned char *buffer)</td></tr>
+<tr class="memitem:a6722c31b1548e80b0dd873989f0c2fbb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iso9660_8c.html#a6722c31b1548e80b0dd873989f0c2fbb">parse_vpd</a> ([[maybe_unused]] <a class="el" href="structiso9660.html">iso9660</a> *info, [[maybe_unused]] unsigned char *<a class="el" href="input_8c.html#aff2566f4c366b48d73479bef43ee4d2e">buffer</a>)</td></tr>
 <tr class="separator:a6722c31b1548e80b0dd873989f0c2fbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79b56ffc5e2a8c95ac4e7078591312d8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structfs__directory__entry__t.html">fs_directory_entry_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iso9660_8c.html#a79b56ffc5e2a8c95ac4e7078591312d8">hunt_entry</a> (<a class="el" href="structiso9660.html">iso9660</a> *info, const char *<a class="el" href="retrofs_8h.html#ad9769d3d3ba7e8920ae13e0f71e0ca6e">filename</a>, uint32_t <a class="el" href="tcp_8h.html#a24acab6663ca0c43fab3a6b82602362c">flags</a>)</td></tr>
 <tr class="separator:a79b56ffc5e2a8c95ac4e7078591312d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -160,14 +160,13 @@ Variables</h2></td></tr>
           <td class="memname">#define VERIFY_ISO9660</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><a class="el" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a></td><td>)</td>
+          <td class="paramname">n</td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">                                (<a class="code" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>-&gt;standardidentifier[0] == <span class="charliteral">&#39;C&#39;</span> &amp;&amp; <a class="code" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>-&gt;standardidentifier[1] == <span class="charliteral">&#39;D&#39;</span> \</div>
-<div class="line">                                &amp;&amp; <a class="code" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>-&gt;standardidentifier[2] == <span class="charliteral">&#39;0&#39;</span> &amp;&amp; <a class="code" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>-&gt;standardidentifier[3] == <span class="charliteral">&#39;0&#39;</span> &amp;&amp; <a class="code" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>-&gt;standardidentifier[4] == <span class="charliteral">&#39;1&#39;</span>)</div>
-<div class="ttc" id="aahci_8h_html_a5a648f5ec00c526b0dfa2df7a272c6c0"><div class="ttname"><a href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a></div><div class="ttdeci">uint8_t n</div><div class="ttdef"><b>Definition:</b> ahci.h:4</div></div>
+<b>Value:</b><div class="fragment"><div class="line">                                (n-&gt;standardidentifier[0] == <span class="charliteral">&#39;C&#39;</span> &amp;&amp; n-&gt;standardidentifier[1] == <span class="charliteral">&#39;D&#39;</span> \</div>
+<div class="line">                                &amp;&amp; n-&gt;standardidentifier[2] == <span class="charliteral">&#39;0&#39;</span> &amp;&amp; n-&gt;standardidentifier[3] == <span class="charliteral">&#39;0&#39;</span> &amp;&amp; n-&gt;standardidentifier[4] == <span class="charliteral">&#39;1&#39;</span>)</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -520,7 +519,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7d71b6c457a61cbf03a04bfdc57b6110.html">fs</a></li><li class="navelem"><a class="el" href="iso9660_8c.html">iso9660.c</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

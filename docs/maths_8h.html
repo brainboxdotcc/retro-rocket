@@ -95,8 +95,12 @@ $(document).ready(function(){initNavTree('maths_8h.html',''); initResizable(); }
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a3acffbd305ee72dcd4593c0d8af64a4f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maths_8h.html#a3acffbd305ee72dcd4593c0d8af64a4f">MIN</a>(<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>,  <a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>)&#160;&#160;&#160;({ __auto_type _a = (<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>); __auto_type _b = (<a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>); _a &lt; _b ? _a : _b; })</td></tr>
+<tr class="memitem:a3acffbd305ee72dcd4593c0d8af64a4f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maths_8h.html#a3acffbd305ee72dcd4593c0d8af64a4f">MIN</a>(a,  b)&#160;&#160;&#160;(((a) &lt; (b)) ? (a) : (b))</td></tr>
 <tr class="separator:a3acffbd305ee72dcd4593c0d8af64a4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa99ec4acc4ecb2dc3c2d05da15d0e3f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maths_8h.html#afa99ec4acc4ecb2dc3c2d05da15d0e3f">MAX</a>(a,  b)&#160;&#160;&#160;(((a) &gt; (b)) ? (a) : (b))</td></tr>
+<tr class="separator:afa99ec4acc4ecb2dc3c2d05da15d0e3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49fc908b537b2bfd13462453f83267c0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maths_8h.html#a49fc908b537b2bfd13462453f83267c0">CLAMP</a>(v,  lo,  hi)&#160;&#160;&#160;(((v) &lt; (lo)) ? (lo) : (((v) &gt; (hi)) ? (hi) : (v)))</td></tr>
+<tr class="separator:a49fc908b537b2bfd13462453f83267c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -105,7 +109,7 @@ Functions</h2></td></tr>
 <tr class="memitem:ae09fae943b521903337acf54ffda37c1"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maths_8h.html#ae09fae943b521903337acf54ffda37c1">pow</a> (double <a class="el" href="gdt_8c.html#aeca790c0426654358d031f8180e84aca">base</a>, double <a class="el" href="maths_8c.html#ae09128febbbe6372cde4fa0c65608a42">exp</a>)</td></tr>
 <tr class="memdesc:ae09fae943b521903337acf54ffda37c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raise base to the power of exp.  <a href="maths_8h.html#ae09fae943b521903337acf54ffda37c1">More...</a><br /></td></tr>
 <tr class="separator:ae09fae943b521903337acf54ffda37c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73776fd605fa19612cdeaa699c517cf8"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maths_8h.html#a73776fd605fa19612cdeaa699c517cf8">factorial</a> (int <a class="el" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>)</td></tr>
+<tr class="memitem:a73776fd605fa19612cdeaa699c517cf8"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maths_8h.html#a73776fd605fa19612cdeaa699c517cf8">factorial</a> (int n)</td></tr>
 <tr class="memdesc:a73776fd605fa19612cdeaa699c517cf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate factorial (n!)  <a href="maths_8h.html#a73776fd605fa19612cdeaa699c517cf8">More...</a><br /></td></tr>
 <tr class="separator:a73776fd605fa19612cdeaa699c517cf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a6d3351dcbcb2fff9de9a5eee71f2f1"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maths_8h.html#a9a6d3351dcbcb2fff9de9a5eee71f2f1">sin</a> (double rads)</td></tr>
@@ -164,6 +168,68 @@ Functions</h2></td></tr>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2025 </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a49fc908b537b2bfd13462453f83267c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49fc908b537b2bfd13462453f83267c0">&#9670;&nbsp;</a></span>CLAMP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLAMP</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">v, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">lo, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">hi&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;(((v) &lt; (lo)) ? (lo) : (((v) &gt; (hi)) ? (hi) : (v)))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afa99ec4acc4ecb2dc3c2d05da15d0e3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa99ec4acc4ecb2dc3c2d05da15d0e3f">&#9670;&nbsp;</a></span>MAX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">a, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">b&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;(((a) &gt; (b)) ? (a) : (b))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a3acffbd305ee72dcd4593c0d8af64a4f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3acffbd305ee72dcd4593c0d8af64a4f">&#9670;&nbsp;</a></span>MIN</h2>
 
@@ -174,18 +240,18 @@ Functions</h2></td></tr>
           <td class="memname">#define MIN</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, </td>
+          <td class="paramname">a, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>&#160;</td>
+          <td class="paramname">b&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;({ __auto_type _a = (<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>); __auto_type _b = (<a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>); _a &lt; _b ? _a : _b; })</td>
+          <td></td><td>&#160;&#160;&#160;(((a) &lt; (b)) ? (a) : (b))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -775,7 +841,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="maths_8h.html">maths.h</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

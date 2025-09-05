@@ -4,70 +4,75 @@
     <compoundname>ahci_hba_mem_t</compoundname>
     <includes local="no">ahci.h</includes>
       <sectiondef kind="public-attrib">
-      <memberdef kind="variable" id="structahci__hba__mem__t_1a134246ca01a8e970a57f4df6c25ffe7d" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__mem__t_1a59786576c7dbb933e6040153f5f3b8c4" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t ahci_hba_mem_t::cap</definition>
+        <definition>uint32_t ahci_hba_mem_t::host_capabilities</definition>
         <argsstring></argsstring>
-        <name>cap</name>
+        <name>host_capabilities</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x00, Host Capabilities (CAP) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="192" column="10" bodyfile="include/ahci.h" bodystart="192" bodyend="-1"/>
+        <location file="include/ahci.h" line="171" column="10" bodyfile="include/ahci.h" bodystart="171" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__mem__t_1a1d935ecd9e3b038c81e26e4e28b77be9" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__mem__t_1ad28e478c49317624ca43ca7397b8a340" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t ahci_hba_mem_t::ghc</definition>
+        <definition>uint32_t ahci_hba_mem_t::global_host_control</definition>
         <argsstring></argsstring>
-        <name>ghc</name>
+        <name>global_host_control</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x04, Global Host Control (GHC) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="193" column="10" bodyfile="include/ahci.h" bodystart="193" bodyend="-1"/>
+        <location file="include/ahci.h" line="172" column="10" bodyfile="include/ahci.h" bodystart="172" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__mem__t_1a5f0818745d8fc0da85cc17a85815cff9" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__mem__t_1a5970c1d24212a7e3fb92083b396a65cb" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t ahci_hba_mem_t::is</definition>
+        <definition>uint32_t ahci_hba_mem_t::interrupt_status</definition>
         <argsstring></argsstring>
-        <name>is</name>
+        <name>interrupt_status</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x08, Interrupt Status (IS) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="194" column="10" bodyfile="include/ahci.h" bodystart="194" bodyend="-1"/>
+        <location file="include/ahci.h" line="173" column="10" bodyfile="include/ahci.h" bodystart="173" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__mem__t_1a1d1c1772ac7e3009aaaa3198a95aef3f" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__mem__t_1af4117ea55d61fe4a7aefbea4fc42000c" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t ahci_hba_mem_t::pi</definition>
+        <definition>uint32_t ahci_hba_mem_t::ports_implemented</definition>
         <argsstring></argsstring>
-        <name>pi</name>
+        <name>ports_implemented</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x0C, Ports Implemented bitmask (PI) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="195" column="10" bodyfile="include/ahci.h" bodystart="195" bodyend="-1"/>
+        <location file="include/ahci.h" line="174" column="10" bodyfile="include/ahci.h" bodystart="174" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__mem__t_1a74c55d339a8104bea69039718203e6c7" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__mem__t_1a8b461ed159bd7c8a952ec2a63ca356d4" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t ahci_hba_mem_t::vs</definition>
+        <definition>uint32_t ahci_hba_mem_t::version</definition>
         <argsstring></argsstring>
-        <name>vs</name>
+        <name>version</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x10, Version (VS) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="196" column="10" bodyfile="include/ahci.h" bodystart="196" bodyend="-1"/>
+        <location file="include/ahci.h" line="175" column="10" bodyfile="include/ahci.h" bodystart="175" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__hba__mem__t_1acf4d9682c526b36230d3d729bd40498d" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -77,10 +82,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x14, Command Completion Coalescing Control </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="197" column="10" bodyfile="include/ahci.h" bodystart="197" bodyend="-1"/>
+        <location file="include/ahci.h" line="176" column="10" bodyfile="include/ahci.h" bodystart="176" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__hba__mem__t_1afe6503131119c1cf8b8418b87d088209" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -90,10 +96,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x18, Command Completion Coalescing Ports </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="198" column="10" bodyfile="include/ahci.h" bodystart="198" bodyend="-1"/>
+        <location file="include/ahci.h" line="177" column="10" bodyfile="include/ahci.h" bodystart="177" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__hba__mem__t_1a04b75318cbb35eaa6d159dcbb84fd74d" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -103,10 +110,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x1C, Enclosure Management Location </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="199" column="10" bodyfile="include/ahci.h" bodystart="199" bodyend="-1"/>
+        <location file="include/ahci.h" line="178" column="10" bodyfile="include/ahci.h" bodystart="178" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__hba__mem__t_1a9355c2e872e4cf93a0e2d29e9cae7f99" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -116,36 +124,39 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x20, Enclosure Management Control </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="200" column="10" bodyfile="include/ahci.h" bodystart="200" bodyend="-1"/>
+        <location file="include/ahci.h" line="179" column="10" bodyfile="include/ahci.h" bodystart="179" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__mem__t_1ad123e740e2e0c205a755307997413471" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__mem__t_1acda7eabf5e435cfc6822ae09752aff26" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t ahci_hba_mem_t::cap2</definition>
+        <definition>uint32_t ahci_hba_mem_t::extended_host_capabilities</definition>
         <argsstring></argsstring>
-        <name>cap2</name>
+        <name>extended_host_capabilities</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x24, Extended Host Capabilities (CAP2) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="201" column="10" bodyfile="include/ahci.h" bodystart="201" bodyend="-1"/>
+        <location file="include/ahci.h" line="180" column="10" bodyfile="include/ahci.h" bodystart="180" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__mem__t_1a92316fc5da386759aad77e13d6d95ff1" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__mem__t_1ae141455b3ee9e4f6993980b3bd3729e2" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t ahci_hba_mem_t::bohc</definition>
+        <definition>uint32_t ahci_hba_mem_t::bios_handoff_control</definition>
         <argsstring></argsstring>
-        <name>bohc</name>
+        <name>bios_handoff_control</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x28, BIOS/OS Handoff Control and Status (BOHC) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="202" column="10" bodyfile="include/ahci.h" bodystart="202" bodyend="-1"/>
+        <location file="include/ahci.h" line="181" column="10" bodyfile="include/ahci.h" bodystart="181" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__hba__mem__t_1a86678552011a3e74f5b7ff676c926a01" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -155,10 +166,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x2C–0x9F, Reserved </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="205" column="10" bodyfile="include/ahci.h" bodystart="205" bodyend="-1"/>
+        <location file="include/ahci.h" line="182" column="9" bodyfile="include/ahci.h" bodystart="182" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__hba__mem__t_1a0f439393ae9c260fd35c1f7565147e35" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -168,10 +180,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0xA0–0xFF, Vendor specific </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="208" column="10" bodyfile="include/ahci.h" bodystart="208" bodyend="-1"/>
+        <location file="include/ahci.h" line="183" column="9" bodyfile="include/ahci.h" bodystart="183" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__hba__mem__t_1a7a19c4ffadeeebd055da4d72d38f79df" prot="public" static="no" mutable="no">
         <type><ref refid="structahci__hba__port__t" kindref="compound">ahci_hba_port_t</ref></type>
@@ -181,13 +194,15 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x100–, Port control registers (Px) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="211" column="16" bodyfile="include/ahci.h" bodystart="211" bodyend="-1"/>
+        <location file="include/ahci.h" line="184" column="16" bodyfile="include/ahci.h" bodystart="184" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>AHCI Host Bus Adapter (HBA) memory-mapped register space. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
@@ -199,16 +214,16 @@
           <edgelabel>ports</edgelabel>
         </childnode>
         <childnode refid="3" relation="usage">
-          <edgelabel>bohc</edgelabel>
-          <edgelabel>cap</edgelabel>
-          <edgelabel>cap2</edgelabel>
+          <edgelabel>bios_handoff_control</edgelabel>
           <edgelabel>ccc_ctl</edgelabel>
           <edgelabel>ccc_pts</edgelabel>
           <edgelabel>em_ctl</edgelabel>
           <edgelabel>em_loc</edgelabel>
-          <edgelabel>ghc</edgelabel>
-          <edgelabel>is</edgelabel>
-          <edgelabel>pi</edgelabel>
+          <edgelabel>extended_host_capabilities</edgelabel>
+          <edgelabel>global_host_control</edgelabel>
+          <edgelabel>host_capabilities</edgelabel>
+          <edgelabel>interrupt_status</edgelabel>
+          <edgelabel>ports_implemented</edgelabel>
           <edgelabel>...</edgelabel>
         </childnode>
         <childnode refid="4" relation="usage">
@@ -226,36 +241,36 @@
         <label>ahci_hba_port_t</label>
         <link refid="structahci__hba__port__t"/>
         <childnode refid="3" relation="usage">
-          <edgelabel>ci</edgelabel>
-          <edgelabel>clb</edgelabel>
-          <edgelabel>clbu</edgelabel>
           <edgelabel>cmd</edgelabel>
-          <edgelabel>fb</edgelabel>
-          <edgelabel>fbs</edgelabel>
-          <edgelabel>fbu</edgelabel>
-          <edgelabel>ie</edgelabel>
-          <edgelabel>is</edgelabel>
+          <edgelabel>command_issue</edgelabel>
+          <edgelabel>command_list_base_addr_lower</edgelabel>
+          <edgelabel>command_list_base_addr_upper</edgelabel>
+          <edgelabel>fis_base_addr_lower</edgelabel>
+          <edgelabel>fis_base_addr_upper</edgelabel>
+          <edgelabel>fis_switch_control</edgelabel>
+          <edgelabel>interrupt_enable</edgelabel>
+          <edgelabel>interrupt_status</edgelabel>
           <edgelabel>rsv0</edgelabel>
           <edgelabel>...</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="include/ahci.h" line="190" column="1" bodyfile="include/ahci.h" bodystart="190" bodyend="212"/>
+    <location file="include/ahci.h" line="169" column="1" bodyfile="include/ahci.h" bodystart="169" bodyend="185"/>
     <listofallmembers>
-      <member refid="structahci__hba__mem__t_1a92316fc5da386759aad77e13d6d95ff1" prot="public" virt="non-virtual"><scope>ahci_hba_mem_t</scope><name>bohc</name></member>
-      <member refid="structahci__hba__mem__t_1a134246ca01a8e970a57f4df6c25ffe7d" prot="public" virt="non-virtual"><scope>ahci_hba_mem_t</scope><name>cap</name></member>
-      <member refid="structahci__hba__mem__t_1ad123e740e2e0c205a755307997413471" prot="public" virt="non-virtual"><scope>ahci_hba_mem_t</scope><name>cap2</name></member>
+      <member refid="structahci__hba__mem__t_1ae141455b3ee9e4f6993980b3bd3729e2" prot="public" virt="non-virtual"><scope>ahci_hba_mem_t</scope><name>bios_handoff_control</name></member>
       <member refid="structahci__hba__mem__t_1acf4d9682c526b36230d3d729bd40498d" prot="public" virt="non-virtual"><scope>ahci_hba_mem_t</scope><name>ccc_ctl</name></member>
       <member refid="structahci__hba__mem__t_1afe6503131119c1cf8b8418b87d088209" prot="public" virt="non-virtual"><scope>ahci_hba_mem_t</scope><name>ccc_pts</name></member>
       <member refid="structahci__hba__mem__t_1a9355c2e872e4cf93a0e2d29e9cae7f99" prot="public" virt="non-virtual"><scope>ahci_hba_mem_t</scope><name>em_ctl</name></member>
       <member refid="structahci__hba__mem__t_1a04b75318cbb35eaa6d159dcbb84fd74d" prot="public" virt="non-virtual"><scope>ahci_hba_mem_t</scope><name>em_loc</name></member>
-      <member refid="structahci__hba__mem__t_1a1d935ecd9e3b038c81e26e4e28b77be9" prot="public" virt="non-virtual"><scope>ahci_hba_mem_t</scope><name>ghc</name></member>
-      <member refid="structahci__hba__mem__t_1a5f0818745d8fc0da85cc17a85815cff9" prot="public" virt="non-virtual"><scope>ahci_hba_mem_t</scope><name>is</name></member>
-      <member refid="structahci__hba__mem__t_1a1d1c1772ac7e3009aaaa3198a95aef3f" prot="public" virt="non-virtual"><scope>ahci_hba_mem_t</scope><name>pi</name></member>
+      <member refid="structahci__hba__mem__t_1acda7eabf5e435cfc6822ae09752aff26" prot="public" virt="non-virtual"><scope>ahci_hba_mem_t</scope><name>extended_host_capabilities</name></member>
+      <member refid="structahci__hba__mem__t_1ad28e478c49317624ca43ca7397b8a340" prot="public" virt="non-virtual"><scope>ahci_hba_mem_t</scope><name>global_host_control</name></member>
+      <member refid="structahci__hba__mem__t_1a59786576c7dbb933e6040153f5f3b8c4" prot="public" virt="non-virtual"><scope>ahci_hba_mem_t</scope><name>host_capabilities</name></member>
+      <member refid="structahci__hba__mem__t_1a5970c1d24212a7e3fb92083b396a65cb" prot="public" virt="non-virtual"><scope>ahci_hba_mem_t</scope><name>interrupt_status</name></member>
       <member refid="structahci__hba__mem__t_1a7a19c4ffadeeebd055da4d72d38f79df" prot="public" virt="non-virtual"><scope>ahci_hba_mem_t</scope><name>ports</name></member>
+      <member refid="structahci__hba__mem__t_1af4117ea55d61fe4a7aefbea4fc42000c" prot="public" virt="non-virtual"><scope>ahci_hba_mem_t</scope><name>ports_implemented</name></member>
       <member refid="structahci__hba__mem__t_1a86678552011a3e74f5b7ff676c926a01" prot="public" virt="non-virtual"><scope>ahci_hba_mem_t</scope><name>rsv</name></member>
       <member refid="structahci__hba__mem__t_1a0f439393ae9c260fd35c1f7565147e35" prot="public" virt="non-virtual"><scope>ahci_hba_mem_t</scope><name>vendor</name></member>
-      <member refid="structahci__hba__mem__t_1a74c55d339a8104bea69039718203e6c7" prot="public" virt="non-virtual"><scope>ahci_hba_mem_t</scope><name>vs</name></member>
+      <member refid="structahci__hba__mem__t_1a8b461ed159bd7c8a952ec2a63ca356d4" prot="public" virt="non-virtual"><scope>ahci_hba_mem_t</scope><name>version</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

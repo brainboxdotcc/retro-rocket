@@ -151,14 +151,13 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">if</span> (remain &gt; offset) { \</div>
-<div class="line">        for (<span class="keywordtype">size_t</span> <a class="code" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a> = 0; <a class="code" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a> &lt; number_chars; ++<a class="code" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>) { \</div>
-<div class="line">            lfn[*entry_count].member[<a class="code" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>] = 0; \</div>
-<div class="line">            if (<a class="code" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a> + offset &lt; remaining) { \</div>
-<div class="line">                lfn[*entry_count].member[<a class="code" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>] = <a class="code" href="retrofs_8h.html#ad9769d3d3ba7e8920ae13e0f71e0ca6e">filename</a>[<a class="code" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a> + offset]; \</div>
+<div class="line">        for (<span class="keywordtype">size_t</span> n = 0; n &lt; number_chars; ++n) { \</div>
+<div class="line">            lfn[*entry_count].member[n] = 0; \</div>
+<div class="line">            if (n + offset &lt; remaining) { \</div>
+<div class="line">                lfn[*entry_count].member[n] = <a class="code" href="retrofs_8h.html#ad9769d3d3ba7e8920ae13e0f71e0ca6e">filename</a>[n + offset]; \</div>
 <div class="line">            } \</div>
 <div class="line">        } \</div>
 <div class="line">    }</div>
-<div class="ttc" id="aahci_8h_html_a5a648f5ec00c526b0dfa2df7a272c6c0"><div class="ttname"><a href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a></div><div class="ttdeci">uint8_t n</div><div class="ttdef"><b>Definition:</b> ahci.h:4</div></div>
 <div class="ttc" id="aretrofs_8h_html_ad9769d3d3ba7e8920ae13e0f71e0ca6e"><div class="ttname"><a href="retrofs_8h.html#ad9769d3d3ba7e8920ae13e0f71e0ca6e">filename</a></div><div class="ttdeci">char filename[128]</div><div class="ttdef"><b>Definition:</b> retrofs.h:1</div></div>
 </div><!-- fragment -->
 </div>
@@ -348,7 +347,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7d71b6c457a61cbf03a04bfdc57b6110.html">fs</a></li><li class="navelem"><a class="el" href="dir_d8087835a33a8f67fdc73e9057e91a4d.html">fat32</a></li><li class="navelem"><a class="el" href="lfn_8c.html">lfn.c</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

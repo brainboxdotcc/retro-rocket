@@ -2,6 +2,7 @@ var filesystem_8h =
 [
     [ "fs_directory_entry_t", "structfs__directory__entry__t.html", "structfs__directory__entry__t" ],
     [ "filesystem_t", "structfilesystem__t.html", "structfilesystem__t" ],
+    [ "storage_device_ui_t", "structstorage__device__ui__t.html", "structstorage__device__ui__t" ],
     [ "storage_device_t", "structstorage__device__t.html", "structstorage__device__t" ],
     [ "fs_tree_t", "structfs__tree__t.html", "structfs__tree__t" ],
     [ "fs_handle_t", "structfs__handle__t.html", "structfs__handle__t" ],
@@ -14,6 +15,7 @@ var filesystem_8h =
     [ "FS_DIRECTORY", "filesystem_8h.html#ad7b6b046dfb46cc575f4b9dd418df545", null ],
     [ "FS_MOUNTPOINT", "filesystem_8h.html#a5bc0261888d6a9d3b88c2d19693627bb", null ],
     [ "IOBUFSZ", "filesystem_8h.html#afa125c2bcf72549ba6ccf3e4811c120f", null ],
+    [ "block_clear", "filesystem_8h.html#a2d0c9e25e8d9c2f9445bcc9ec361b658", null ],
     [ "block_read", "filesystem_8h.html#aedade13300b3b7656d01691660c3d275", null ],
     [ "block_write", "filesystem_8h.html#afbf0a8246b98b1f4ddca666aeb3fae3d", null ],
     [ "create_dir", "filesystem_8h.html#a9676f2719a89837cd7ad99e3671cda52", null ],
@@ -63,7 +65,21 @@ var filesystem_8h =
       [ "FS_ERR_NO_SUCH_DEVICE", "filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319ad2f843422eadb25d3679a536dc87dc35", null ],
       [ "FS_ERR_LFN_TOO_LONG", "filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a1067d73be030e98f1916209e8b091b84", null ],
       [ "FS_ERR_IS_EXFAT", "filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a10138bb5a366ed5d4853a9f7f07b54de", null ],
-      [ "FS_ERR_BAD_CLUSTER", "filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a00956205568c812c36eb888f92819665", null ]
+      [ "FS_ERR_BAD_CLUSTER", "filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a00956205568c812c36eb888f92819665", null ],
+      [ "FS_ERR_INTERNAL", "filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a01381c31b16e84f370a1a55cc3a5ff5c", null ],
+      [ "FS_ERR_OUT_OF_BOUNDS", "filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319ad42371c3c060e0480e4aed076667d31a", null ],
+      [ "FS_ERR_AHCI_HOSTBUS_FATAL", "filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319ae56aaf58f3d054e11c51b6d06e2593a6", null ],
+      [ "FS_ERR_AHCI_HOSTBUS_DATA", "filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a21ea7f665ae75cb593241b7d5d73f9df", null ],
+      [ "FS_ERR_AHCI_LINK_ERROR", "filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a47d37139fd434843897d30fce32dcf01", null ],
+      [ "FS_ERR_AHCI_TASKFILE", "filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319ab6c4430e066d07deee6fef57ecc7f30f", null ],
+      [ "FS_ERR_ATAPI_CHECK", "filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319acb69611efdacc01ef47aad0a8b448cee", null ],
+      [ "FS_ERR_TIMEOUT", "filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a38b23ddea5c91a6f5ccdfb66f1dcb764", null ],
+      [ "FS_ERR_NO_MEDIA", "filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a60aa355c123a016d658e16e0d34bc4e5", null ],
+      [ "FS_ERR_DEVICE_LOCKED", "filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a8bd7733c6cc50484019a6bdac7b939db", null ],
+      [ "FS_ERR_DEVICE_BUSY", "filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a40997d92bf5ba4cebb2779d51672ae58", null ],
+      [ "FS_ERR_DEVICE_UNSUPPORTED", "filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a640fe52559f65290739719b6120de1ac", null ],
+      [ "FS_ERR_HW_ERROR", "filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a8686598c4e850f75f0ccf9e10681b1c1", null ],
+      [ "FS_ERR_DATA_ERROR", "filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a31afc44c38f75a748e047352fc0a4389", null ]
     ] ],
     [ "fs_handle_type_t", "filesystem_8h.html#a9d25bbf2120c5e2876b6c34e297336d3", [
       [ "file_input", "filesystem_8h.html#a9d25bbf2120c5e2876b6c34e297336d3a9287f360250a7c0e5085c332fdb7e195", null ],
@@ -95,6 +111,7 @@ var filesystem_8h =
     [ "fs_strerror", "filesystem_8h.html#a389259c7565d2dd06c28fecfacc60210", null ],
     [ "fs_truncate_file", "filesystem_8h.html#a3692a5983409c6e8f74cbe0c5c3435f4", null ],
     [ "ftruncate", "filesystem_8h.html#ab7aad6d7661082e4aa5ec28badba8ca5", null ],
+    [ "get_all_storage_devices", "filesystem_8h.html#a8bda163cc0a19da8167ee8bc1ef791a5", null ],
     [ "init_filesystem", "filesystem_8h.html#a47cfa7087b707560af1b5a669dfc69b3", null ],
     [ "install_gpt_esp_rfs_whole_image", "filesystem_8h.html#a793a111d7f44baa4a95c112fb27bb8b4", null ],
     [ "installer", "filesystem_8h.html#a66f4ed82d39af1235c0e2dc51e9f52be", null ],
@@ -103,6 +120,9 @@ var filesystem_8h =
     [ "register_filesystem", "filesystem_8h.html#a90ae435cc1f4e6cccba5cc179c2bd81c", null ],
     [ "register_storage_device", "filesystem_8h.html#a1c947f6ecb49c4c29193dbfb80f48913", null ],
     [ "rmdir", "filesystem_8h.html#a570282ae7ba596263ec812b368d99b34", null ],
+    [ "storage_device_clear_blocks", "filesystem_8h.html#ace4f979fd8dbfeb64abac7f8aa7459aa", null ],
+    [ "storage_disable_cache", "filesystem_8h.html#afa79f452dd70bcb6b4b974380e1b0aed", null ],
+    [ "storage_enable_cache", "filesystem_8h.html#a6741f416c17912b2f82d16f5ee5c1565", null ],
     [ "unlink", "filesystem_8h.html#af3cee068f32a919cdd638e0578c1e5f8", null ],
     [ "write_storage_device", "filesystem_8h.html#af0bd536bc656fb56dab8eb32e721375b", null ]
 ];

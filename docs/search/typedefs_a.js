@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['pid_5ft_6183',['pid_t',['../taskswitch_8h.html#a7a26cb7f5678736cec66712d6df1d4ed',1,'taskswitch.h']]],
-  ['proc_5fidle_5ftimer_5ft_6184',['proc_idle_timer_t',['../taskswitch_8h.html#a82c77e5c902b86503a57e02bb4314bad',1,'taskswitch.h']]]
+  ['net_5fget_5fmac_7289',['net_get_mac',['../net_8h.html#a06c1490a805db8501048d3b019628214',1,'net.h']]],
+  ['net_5fsend_5fpacket_7290',['net_send_packet',['../net_8h.html#a40c2873d3b8225afed868de2ebc79538',1,'net.h']]]
 ];

@@ -7,13 +7,15 @@ var variable_8c =
     [ "basic_get_numeric_variable", "variable_8c.html#a46cef0a6e745ef1947f3666ef18e2c99", null ],
     [ "basic_get_string_variable", "variable_8c.html#ae636ca2f3ebb3b2d12929587b998bb21", null ],
     [ "basic_int_variable_exists", "variable_8c.html#a02cb6072b5475bea18fc8d39f54fa1b7", null ],
-    [ "basic_set_double_variable", "variable_8c.html#aae981cc5816799d8e4f991e2b8fdee7e", null ],
-    [ "basic_set_int_variable", "variable_8c.html#a3d66422a4fcb7d011bd9bdd6ce68c36b", null ],
-    [ "basic_set_string_variable", "variable_8c.html#aa09a0d5b3cb727af7675a2b8ac2ba74a", null ],
+    [ "basic_set_double_variable", "variable_8c.html#a54407f1cf447b69cf48a42397a3035e9", null ],
+    [ "basic_set_int_variable", "variable_8c.html#aeebc1e806dd78c397608eb37b80195d5", null ],
+    [ "basic_set_string_variable", "variable_8c.html#af1e6eaa0b44741d35ea6f11c031a0420", null ],
     [ "basic_string_variable_exists", "variable_8c.html#ae9c342e06df1aa6a33395f385c46138b", null ],
-    [ "basic_test_string_variable", "variable_8c.html#a418eb7273f93b75bb1fc94ce0f916722", null ],
     [ "let_statement", "variable_8c.html#ac127b0839b0590fcef5ab5f6e1667b61", null ],
     [ "set_system_variables", "variable_8c.html#ab4a551ec8e1d5bbf9fab39fb206ea0fa", null ],
+    [ "update_double", "variable_8c.html#a349ff03353e4301fc12a74d8f1b6c5e7", null ],
+    [ "update_int", "variable_8c.html#ac194dc337603f2e7ef89969cdef3b3e4", null ],
+    [ "update_string", "variable_8c.html#ad4ee1c58ab86df9aaa34b2ae2a12a43e", null ],
     [ "valid_double_var", "variable_8c.html#af12fcb4c5efc346a3a296505dce0a74f", null ],
     [ "valid_int_var", "variable_8c.html#a9e892389dc272853d51b1bbbb49f4411", null ],
     [ "valid_string_var", "variable_8c.html#ad783607ef9114bb476aec066a2d5e5eb", null ],
@@ -21,5 +23,6 @@ var variable_8c =
     [ "varname_is_double_function", "variable_8c.html#a65092257bf0f96d3012e0b55755760e2", null ],
     [ "varname_is_function", "variable_8c.html#a82854afbcae01e2666ce41e5449eaa5b", null ],
     [ "varname_is_string_function", "variable_8c.html#aeb13a596e0e6f645e4ec6778282269b6", null ],
-    [ "cpuid_vendors", "variable_8c.html#a28d1f9bb0438d5209d0a4ca5617289c2", null ]
+    [ "cpuid_vendors", "variable_8c.html#a28d1f9bb0438d5209d0a4ca5617289c2", null ],
+    [ "debug", "variable_8c.html#a398527b3e9e358c345c5047b16871957", null ]
 ];

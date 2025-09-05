@@ -95,9 +95,9 @@ $(document).ready(function(){initNavTree('taskswitch_8c.html',''); initResizable
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aa489f46acde8e80831f0432a1da6e695"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structprocess__t.html">process_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8c.html#aa489f46acde8e80831f0432a1da6e695">proc_load</a> (const char *fullpath, struct <a class="el" href="structconsole.html">console</a> *cons, <a class="el" href="taskswitch_8h.html#a7a26cb7f5678736cec66712d6df1d4ed">pid_t</a> parent_pid, const char *csd)</td></tr>
-<tr class="memdesc:aa489f46acde8e80831f0432a1da6e695"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load and start a new BASIC process.  <a href="taskswitch_8c.html#aa489f46acde8e80831f0432a1da6e695">More...</a><br /></td></tr>
-<tr class="separator:aa489f46acde8e80831f0432a1da6e695"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ddb02d538d102946f6b3d888c881bbd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structprocess__t.html">process_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8c.html#a1ddb02d538d102946f6b3d888c881bbd">proc_load</a> (const char *fullpath, <a class="el" href="taskswitch_8h.html#a7a26cb7f5678736cec66712d6df1d4ed">pid_t</a> parent_pid, const char *csd)</td></tr>
+<tr class="memdesc:a1ddb02d538d102946f6b3d888c881bbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load and start a new BASIC process.  <a href="taskswitch_8c.html#a1ddb02d538d102946f6b3d888c881bbd">More...</a><br /></td></tr>
+<tr class="separator:a1ddb02d538d102946f6b3d888c881bbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8769acde79d259426e68e9e4fba6544"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structprocess__t.html">process_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8c.html#aa8769acde79d259426e68e9e4fba6544">proc_cur</a> (uint8_t logical_cpu)</td></tr>
 <tr class="memdesc:aa8769acde79d259426e68e9e4fba6544"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get current process for a logical CPU.  <a href="taskswitch_8c.html#aa8769acde79d259426e68e9e4fba6544">More...</a><br /></td></tr>
 <tr class="separator:aa8769acde79d259426e68e9e4fba6544"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -136,7 +136,7 @@ Functions</h2></td></tr>
 <tr class="separator:af07a4cb6343c2ca5228d36287bd60a91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52e01dc185bad0060a679bb691f0f908"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8c.html#a52e01dc185bad0060a679bb691f0f908">process_hash</a> (const void *item, uint64_t seed0, uint64_t seed1)</td></tr>
 <tr class="separator:a52e01dc185bad0060a679bb691f0f908"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66a5b7697b004c2f36dfd98efc5bee1b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8c.html#a66a5b7697b004c2f36dfd98efc5bee1b">process_compare</a> (const void *<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, const void *<a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>, void *udata)</td></tr>
+<tr class="memitem:a66a5b7697b004c2f36dfd98efc5bee1b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8c.html#a66a5b7697b004c2f36dfd98efc5bee1b">process_compare</a> (const void *a, const void *b, void *udata)</td></tr>
 <tr class="separator:a66a5b7697b004c2f36dfd98efc5bee1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a891b299b6b04305ac2665e45ce591204"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8c.html#a891b299b6b04305ac2665e45ce591204">wakeup_callback</a> ([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t errorcode, [[maybe_unused]] uint64_t irq, [[maybe_unused]] void *opaque)</td></tr>
 <tr class="separator:a891b299b6b04305ac2665e45ce591204"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -152,9 +152,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a7844baa5edadb538de03bc3494e947cc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8c.html#a7844baa5edadb538de03bc3494e947cc">proc_ended</a> (<a class="el" href="structprocess__t.html">process_t</a> *proc)</td></tr>
 <tr class="memdesc:a7844baa5edadb538de03bc3494e947cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if a program has ended.  <a href="taskswitch_8c.html#a7844baa5edadb538de03bc3494e947cc">More...</a><br /></td></tr>
 <tr class="separator:a7844baa5edadb538de03bc3494e947cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2dd4ffab2aaabd37998ec3b3216af48"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8c.html#ad2dd4ffab2aaabd37998ec3b3216af48">proc_register_idle</a> (<a class="el" href="taskswitch_8h.html#a82c77e5c902b86503a57e02bb4314bad">proc_idle_timer_t</a> handler, <a class="el" href="taskswitch_8h.html#ab6c8a1a3016b13baf9af7476cceac7d4">idle_type_t</a> <a class="el" href="icmp_8h.html#a1d127017fb298b889f4ba24752d08b8e">type</a>)</td></tr>
-<tr class="memdesc:ad2dd4ffab2aaabd37998ec3b3216af48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register an idle callback function.  <a href="taskswitch_8c.html#ad2dd4ffab2aaabd37998ec3b3216af48">More...</a><br /></td></tr>
-<tr class="separator:ad2dd4ffab2aaabd37998ec3b3216af48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8aba103d4e6a8611d80988c084a94cb6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8c.html#a8aba103d4e6a8611d80988c084a94cb6">proc_register_idle</a> (<a class="el" href="taskswitch_8h.html#a82c77e5c902b86503a57e02bb4314bad">proc_idle_timer_t</a> handler, <a class="el" href="taskswitch_8h.html#ab6c8a1a3016b13baf9af7476cceac7d4">idle_type_t</a> <a class="el" href="icmp_8h.html#a1d127017fb298b889f4ba24752d08b8e">type</a>, uint64_t frequency_ms)</td></tr>
+<tr class="memdesc:a8aba103d4e6a8611d80988c084a94cb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register an idle callback function.  <a href="taskswitch_8c.html#a8aba103d4e6a8611d80988c084a94cb6">More...</a><br /></td></tr>
+<tr class="separator:a8aba103d4e6a8611d80988c084a94cb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -420,8 +420,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="aa489f46acde8e80831f0432a1da6e695"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa489f46acde8e80831f0432a1da6e695">&#9670;&nbsp;</a></span>proc_load()</h2>
+<a id="a1ddb02d538d102946f6b3d888c881bbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ddb02d538d102946f6b3d888c881bbd">&#9670;&nbsp;</a></span>proc_load()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -431,12 +431,6 @@ Variables</h2></td></tr>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>fullpath</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">struct <a class="el" href="structconsole.html">console</a> *&#160;</td>
-          <td class="paramname"><em>cons</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -492,8 +486,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="ad2dd4ffab2aaabd37998ec3b3216af48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad2dd4ffab2aaabd37998ec3b3216af48">&#9670;&nbsp;</a></span>proc_register_idle()</h2>
+<a id="a8aba103d4e6a8611d80988c084a94cb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8aba103d4e6a8611d80988c084a94cb6">&#9670;&nbsp;</a></span>proc_register_idle()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -508,7 +502,13 @@ Variables</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="taskswitch_8h.html#ab6c8a1a3016b13baf9af7476cceac7d4">idle_type_t</a>&#160;</td>
-          <td class="paramname"><em>type</em>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>frequency_ms</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -523,6 +523,7 @@ Variables</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">handler</td><td>Function pointer, void(void) </td></tr>
     <tr><td class="paramname">type</td><td>Foreground or background idle type </td></tr>
+    <tr><td class="paramname">frequency_ms</td><td>Frequency of tick in milliseconds </td></tr>
   </table>
   </dd>
 </dl>
@@ -1046,7 +1047,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="taskswitch_8c.html">taskswitch.c</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

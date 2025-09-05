@@ -210,10 +210,10 @@ Functions</h2></td></tr>
 <tr class="memitem:ad4725afcb96cfe437fd7a748129b1f33"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#ad4725afcb96cfe437fd7a748129b1f33">closesocket</a> (int socket)</td></tr>
 <tr class="memdesc:ad4725afcb96cfe437fd7a748129b1f33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close a TCP connection.  <a href="tcp_8h.html#ad4725afcb96cfe437fd7a748129b1f33">More...</a><br /></td></tr>
 <tr class="separator:ad4725afcb96cfe437fd7a748129b1f33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5787e23039c4a2243cbc968a48431d2e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#a5787e23039c4a2243cbc968a48431d2e">send</a> (int socket, const void *buffer, uint32_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>)</td></tr>
+<tr class="memitem:a5787e23039c4a2243cbc968a48431d2e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#a5787e23039c4a2243cbc968a48431d2e">send</a> (int socket, const void *<a class="el" href="input_8c.html#aff2566f4c366b48d73479bef43ee4d2e">buffer</a>, uint32_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>)</td></tr>
 <tr class="memdesc:a5787e23039c4a2243cbc968a48431d2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send data to an open socket.  <a href="tcp_8h.html#a5787e23039c4a2243cbc968a48431d2e">More...</a><br /></td></tr>
 <tr class="separator:a5787e23039c4a2243cbc968a48431d2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6df7b901b1a9f3ec7046f958f9e7cf36"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#a6df7b901b1a9f3ec7046f958f9e7cf36">recv</a> (int socket, void *buffer, uint32_t maxlen, bool blocking, uint32_t timeout)</td></tr>
+<tr class="memitem:a6df7b901b1a9f3ec7046f958f9e7cf36"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#a6df7b901b1a9f3ec7046f958f9e7cf36">recv</a> (int socket, void *<a class="el" href="input_8c.html#aff2566f4c366b48d73479bef43ee4d2e">buffer</a>, uint32_t maxlen, bool blocking, uint32_t timeout)</td></tr>
 <tr class="memdesc:a6df7b901b1a9f3ec7046f958f9e7cf36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive data from an open socket. The data is buffered, and this function will fill the buffer when there is data in the buffer to read.  <a href="tcp_8h.html#a6df7b901b1a9f3ec7046f958f9e7cf36">More...</a><br /></td></tr>
 <tr class="separator:a6df7b901b1a9f3ec7046f958f9e7cf36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae4013d43c90be7603c80e7224765d830"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#ae4013d43c90be7603c80e7224765d830">sock_ready_to_read</a> (int socket)</td></tr>
@@ -285,29 +285,29 @@ Variables</h2></td></tr>
 <tr class="separator:a930b8af71e65676a79c0305e85f6afb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25a251c7c0f741bd8f0e75df6b508554"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#a25a251c7c0f741bd8f0e75df6b508554">bits2</a></td></tr>
 <tr class="separator:a25a251c7c0f741bd8f0e75df6b508554"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ded146b0e253100d88c0d6b58dc26d4"><td class="memItemLeft" >struct {</td></tr>
-<tr class="memitem:a1f83daad97bda2c360e389653cb7049d"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#acb7bc06bed6f6408d719334fc41698c7">reserved</a>:4</td></tr>
-<tr class="separator:a1f83daad97bda2c360e389653cb7049d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7fe1d977e27d5f0986a30b291438136a"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#a2765e58b2af2f95eff3a9cc58d3457cd">off</a>:4</td></tr>
-<tr class="separator:a7fe1d977e27d5f0986a30b291438136a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7a64283aeb89f3a44e33ea95f17faf9"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#a48dcf0f2005f7f1028d2cbbc2c6cde85">fin</a>:1</td></tr>
-<tr class="separator:af7a64283aeb89f3a44e33ea95f17faf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abdcc5b9e6f45f6000f5978460ee837b4"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#a6d4faeeef4a9d0ef93ef5f82d55c81c4">syn</a>:1</td></tr>
-<tr class="separator:abdcc5b9e6f45f6000f5978460ee837b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9bdc66370236db722492f343268f610e"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#ae3c5671ace344f0a71df58053220460c">rst</a>:1</td></tr>
-<tr class="separator:a9bdc66370236db722492f343268f610e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab92c4c90c378656b34b82c57fe17d9f"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#aa57f85f2cd7e7dfaf63771983d255949">psh</a>:1</td></tr>
-<tr class="separator:aab92c4c90c378656b34b82c57fe17d9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a591ca55f984b7a68dfa88f37f55fd05e"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#aa533772dce834aeb2548cfc69927771a">ack</a>:1</td></tr>
-<tr class="separator:a591ca55f984b7a68dfa88f37f55fd05e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab930d95942bb2f7ea5275d3f8b9208cc"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#a56ba4bc84a66f0341227909ace888133">urg</a>:1</td></tr>
-<tr class="separator:ab930d95942bb2f7ea5275d3f8b9208cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b09cb66bfd8b4c7be643d41dfef3dd1"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#aa04063153ef1fa465f5ac9ef8fd310b8">ece</a>:1</td></tr>
-<tr class="separator:a8b09cb66bfd8b4c7be643d41dfef3dd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a4b3231ae54949158ceed9ab63965dd"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#abfb13dc43f3ea474fa8e87816e50e34d">cwr</a>:1</td></tr>
-<tr class="separator:a4a4b3231ae54949158ceed9ab63965dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ded146b0e253100d88c0d6b58dc26d4"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:a1ded146b0e253100d88c0d6b58dc26d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47f82bbb7a0554f3af26b20d621b23f0"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:a423d4239d73d4db2a06a47101ee19107"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#acb7bc06bed6f6408d719334fc41698c7">reserved</a>:4</td></tr>
+<tr class="separator:a423d4239d73d4db2a06a47101ee19107"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b98a7b8b19718d7d8ffab3350d03a6a"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#a2765e58b2af2f95eff3a9cc58d3457cd">off</a>:4</td></tr>
+<tr class="separator:a6b98a7b8b19718d7d8ffab3350d03a6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1122eadd51c27246e9887b3204be22a4"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#a48dcf0f2005f7f1028d2cbbc2c6cde85">fin</a>:1</td></tr>
+<tr class="separator:a1122eadd51c27246e9887b3204be22a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5eda68d882cb8401d4e9d9c47d049e1d"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#a6d4faeeef4a9d0ef93ef5f82d55c81c4">syn</a>:1</td></tr>
+<tr class="separator:a5eda68d882cb8401d4e9d9c47d049e1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af56c9da3df4697de8386f036279c0c06"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#ae3c5671ace344f0a71df58053220460c">rst</a>:1</td></tr>
+<tr class="separator:af56c9da3df4697de8386f036279c0c06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeeea14480acdc65b829e09de27258b65"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#aa57f85f2cd7e7dfaf63771983d255949">psh</a>:1</td></tr>
+<tr class="separator:aeeea14480acdc65b829e09de27258b65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6e0f5ec8c9b30675392ae2f79ed9f51"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#aa533772dce834aeb2548cfc69927771a">ack</a>:1</td></tr>
+<tr class="separator:af6e0f5ec8c9b30675392ae2f79ed9f51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa18d75403d7b981672c6a3d8e315fd1"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#a56ba4bc84a66f0341227909ace888133">urg</a>:1</td></tr>
+<tr class="separator:aaa18d75403d7b981672c6a3d8e315fd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a524fd5993b7eec921fa686fc526bba31"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#aa04063153ef1fa465f5ac9ef8fd310b8">ece</a>:1</td></tr>
+<tr class="separator:a524fd5993b7eec921fa686fc526bba31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64ffa122d31c643e31fb498405c889c4"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#abfb13dc43f3ea474fa8e87816e50e34d">cwr</a>:1</td></tr>
+<tr class="separator:a64ffa122d31c643e31fb498405c889c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47f82bbb7a0554f3af26b20d621b23f0"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:a47f82bbb7a0554f3af26b20d621b23f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab98974981cf4c143fcee028643f313e6"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#ab98974981cf4c143fcee028643f313e6">src_port</a></td></tr>
 <tr class="separator:ab98974981cf4c143fcee028643f313e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae18defed4756b8c15e34718f51e86e55"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#ae18defed4756b8c15e34718f51e86e55">dst_port</a></td></tr>
@@ -539,6 +539,7 @@ Variables</h2></td></tr>
 <p>There is actually more to an ethernet frame than this (see the STD documents!) but we don't have access to it from the software.</p>
 <p>Definition of a DHCP packet.</p>
 <p>Format of an ARP packet (per RFC 826)</p>
+<p>Register FIS: Host to Device (H2D).</p>
 <p>Root System Description Table (RSDT)</p>
 <p>Generic ACPI System Description Table Header.</p>
 <p>This structure serves as the entry point to the ACPI system description tables. Its location is typically found by scanning the BIOS memory range. It may point to either the RSDT (ACPI 1.0) or XSDT (ACPI 2.0+).</p>
@@ -1346,8 +1347,8 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="a1ded146b0e253100d88c0d6b58dc26d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ded146b0e253100d88c0d6b58dc26d4">&#9670;&nbsp;</a></span></h2>
+<a id="a47f82bbb7a0554f3af26b20d621b23f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47f82bbb7a0554f3af26b20d621b23f0">&#9670;&nbsp;</a></span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1388,9 +1389,33 @@ Variables</h2></td></tr>
 <p>Long filename entry, overlays a <a class="el" href="structdirectory__entry__t.html" title="A directory entry, e.g. file, volume label, directory, long filename entry.">directory_entry_t</a>. These entries repeat before a non-lfn entry, each holding up to 13 UCS-2 characters. Note that they are not stored in order, the 'order' attribute indicates which order they go in.</p>
 <p>FAT32 BIOS parameter block (BPB), stored in the boot sector of the drive.</p>
 <p>A directory entry, e.g. file, volume label, directory, long filename entry.</p>
+<p>Command Table (points to CFIS/ACMD and PRDT).</p>
+<p>Physical Region Descriptor Table (PRDT) entry.</p>
+<p>Command Header (one per command slot).</p>
+<p>Received FIS area layout in system memory (per-port).</p>
+<p>Set Device Bits (SDB) FIS (device-&gt;host asynchronous notification).</p>
+<p>AHCI Host Bus Adapter (HBA) memory-mapped register space.</p>
+<p>AHCI Port register block (Px*).</p>
+<p>DMA Setup FIS (bidirectional).</p>
+<p>PIO Setup FIS (device to host).</p>
+<p>Data FIS (bidirectional payload).</p>
+<p>Register FIS: Device to Host (D2H).</p>
 <p>Root System Description Table (RSDT)</p>
 <p>All ACPI tables begin with this header. It is used to identify table type, length, version, and source information.</p>
 <p>Points to other system description tables using 32-bit addresses. Superseded by XSDT in ACPI 2.0+ which uses 64-bit addresses.</p>
+<dl class="section note"><dt>Note</dt><dd>dma_buffer_offset low 2 bits must be 0 (DWORD aligned). </dd>
+<dd>
+transfer_count bit 0 must be 0 (even byte count).</dd>
+<dd>
+Addresses labelled "base address" require the documented alignment (1 KiB for CLB, 256 B for FB).</dd>
+<dd>
+Reconstruct the full ATA Status as (status_low | (status_high &lt;&lt; 3)).</dd>
+<dd>
+command_fis_length is measured in DWORDs (2–16). </dd>
+<dd>
+prdbc is written by HBA with bytes actually transferred.</dd>
+<dd>
+byte_count is encoded as (N - 1); N must be even; N ≤ 4 MiB.</dd></dl>
 <p>This is always the first entry in a directory block.</p>
 <p>Each directory block sector contains two of these (half-sector entries).</p>
 <p>Blocks until transmitter is ready.</p>
@@ -1779,7 +1804,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="tcp_8h.html">tcp.h</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -105,7 +105,7 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ad764c2aa37885804440de04b78f78c2b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#ad764c2aa37885804440de04b78f78c2b">STRING_GC_AREA_SIZE</a>&#160;&#160;&#160;(64 * 1024 * 1024)</td></tr>
+<tr class="memitem:ad764c2aa37885804440de04b78f78c2b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#ad764c2aa37885804440de04b78f78c2b">STRING_GC_AREA_SIZE</a>&#160;&#160;&#160;(128 * 1024)</td></tr>
 <tr class="separator:ad764c2aa37885804440de04b78f78c2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -119,10 +119,10 @@ Functions</h2></td></tr>
 <tr class="memitem:a7f886f6fb9d16724acb21dca4110ec29"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#a7f886f6fb9d16724acb21dca4110ec29">stricmp</a> (const char *s1, const char *s2)</td></tr>
 <tr class="memdesc:a7f886f6fb9d16724acb21dca4110ec29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare two strings (case-insensitive).  <a href="string_8h.html#a7f886f6fb9d16724acb21dca4110ec29">More...</a><br /></td></tr>
 <tr class="separator:a7f886f6fb9d16724acb21dca4110ec29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a519d57d33362a8ed067cf5fe6937324e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#a519d57d33362a8ed067cf5fe6937324e">strncmp</a> (const char *s1, const char *s2, uint32_t <a class="el" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>)</td></tr>
+<tr class="memitem:a519d57d33362a8ed067cf5fe6937324e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#a519d57d33362a8ed067cf5fe6937324e">strncmp</a> (const char *s1, const char *s2, uint32_t n)</td></tr>
 <tr class="memdesc:a519d57d33362a8ed067cf5fe6937324e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare first n characters of two strings (case-sensitive).  <a href="string_8h.html#a519d57d33362a8ed067cf5fe6937324e">More...</a><br /></td></tr>
 <tr class="separator:a519d57d33362a8ed067cf5fe6937324e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abfcaa2fc7116e670ae5e1041998efae4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#abfcaa2fc7116e670ae5e1041998efae4">strnicmp</a> (const char *s1, const char *s2, uint32_t <a class="el" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>)</td></tr>
+<tr class="memitem:abfcaa2fc7116e670ae5e1041998efae4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#abfcaa2fc7116e670ae5e1041998efae4">strnicmp</a> (const char *s1, const char *s2, uint32_t n)</td></tr>
 <tr class="memdesc:abfcaa2fc7116e670ae5e1041998efae4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare first n characters of two strings (case-insensitive).  <a href="string_8h.html#abfcaa2fc7116e670ae5e1041998efae4">More...</a><br /></td></tr>
 <tr class="separator:abfcaa2fc7116e670ae5e1041998efae4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e77664365c4f7bd9f260f8ccb89a438"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#a5e77664365c4f7bd9f260f8ccb89a438">toupper</a> (char low)</td></tr>
@@ -179,13 +179,13 @@ Functions</h2></td></tr>
 <tr class="memitem:ae962141cec555c1952c6869a06a3b633"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#ae962141cec555c1952c6869a06a3b633">atoull</a> (const char *<a class="el" href="serial_8h.html#ab87f55bd0280d90925050a4188c14ab5">s</a>)</td></tr>
 <tr class="memdesc:ae962141cec555c1952c6869a06a3b633"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert string to 64-bit unsigned integer.  <a href="string_8h.html#ae962141cec555c1952c6869a06a3b633">More...</a><br /></td></tr>
 <tr class="separator:ae962141cec555c1952c6869a06a3b633"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0afa881f98f6ddd2bf7e2b469dd176a6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#a0afa881f98f6ddd2bf7e2b469dd176a6">atof</a> (const char *<a class="el" href="serial_8h.html#ab87f55bd0280d90925050a4188c14ab5">s</a>, double *<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>)</td></tr>
+<tr class="memitem:a0afa881f98f6ddd2bf7e2b469dd176a6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#a0afa881f98f6ddd2bf7e2b469dd176a6">atof</a> (const char *<a class="el" href="serial_8h.html#ab87f55bd0280d90925050a4188c14ab5">s</a>, double *a)</td></tr>
 <tr class="memdesc:a0afa881f98f6ddd2bf7e2b469dd176a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert string to floating point.  <a href="string_8h.html#a0afa881f98f6ddd2bf7e2b469dd176a6">More...</a><br /></td></tr>
 <tr class="separator:a0afa881f98f6ddd2bf7e2b469dd176a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa80441bd92270f050b0796561243f410"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#aa80441bd92270f050b0796561243f410">abs</a> (int <a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>)</td></tr>
+<tr class="memitem:aa80441bd92270f050b0796561243f410"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#aa80441bd92270f050b0796561243f410">abs</a> (int a)</td></tr>
 <tr class="memdesc:aa80441bd92270f050b0796561243f410"><td class="mdescLeft">&#160;</td><td class="mdescRight">Absolute value of integer.  <a href="string_8h.html#aa80441bd92270f050b0796561243f410">More...</a><br /></td></tr>
 <tr class="separator:aa80441bd92270f050b0796561243f410"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2504e01693d9eac955a61ea1e2403b5"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#ac2504e01693d9eac955a61ea1e2403b5">labs</a> (int64_t <a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>)</td></tr>
+<tr class="memitem:ac2504e01693d9eac955a61ea1e2403b5"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#ac2504e01693d9eac955a61ea1e2403b5">labs</a> (int64_t a)</td></tr>
 <tr class="memdesc:ac2504e01693d9eac955a61ea1e2403b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Absolute value of 64-bit integer.  <a href="string_8h.html#ac2504e01693d9eac955a61ea1e2403b5">More...</a><br /></td></tr>
 <tr class="separator:ac2504e01693d9eac955a61ea1e2403b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c992c1c3ddcc8d245640fd5443d1a10"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#a4c992c1c3ddcc8d245640fd5443d1a10">strrev</a> (char *<a class="el" href="serial_8h.html#ab87f55bd0280d90925050a4188c14ab5">s</a>)</td></tr>
@@ -194,7 +194,7 @@ Functions</h2></td></tr>
 <tr class="memitem:aa2b85ab247957bb2017ef8c6c6a63c94"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#aa2b85ab247957bb2017ef8c6c6a63c94">do_atoi</a> (int64_t *<a class="el" href="tcp_8h.html#aa8b6a0c5900928c04c0cb42248821ce5">dst</a>, char *target, unsigned radix)</td></tr>
 <tr class="memdesc:aa2b85ab247957bb2017ef8c6c6a63c94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core atoi implementation.  <a href="string_8h.html#aa2b85ab247957bb2017ef8c6c6a63c94">More...</a><br /></td></tr>
 <tr class="separator:aa2b85ab247957bb2017ef8c6c6a63c94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a702eb30b232e61f4c7b3fdde181c1494"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#a702eb30b232e61f4c7b3fdde181c1494">do_itoa</a> (int64_t target, char *<a class="el" href="ahci_8c.html#a2c5f4ef732286b78e31ec8d1cb238215">buf</a>, unsigned radix)</td></tr>
+<tr class="memitem:a702eb30b232e61f4c7b3fdde181c1494"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#a702eb30b232e61f4c7b3fdde181c1494">do_itoa</a> (int64_t target, char *buf, unsigned radix)</td></tr>
 <tr class="memdesc:a702eb30b232e61f4c7b3fdde181c1494"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert integer to string.  <a href="string_8h.html#a702eb30b232e61f4c7b3fdde181c1494">More...</a><br /></td></tr>
 <tr class="separator:a702eb30b232e61f4c7b3fdde181c1494"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c05a458deff028ef4d4e64059098db4"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#a0c05a458deff028ef4d4e64059098db4">strrchr</a> (const char *<a class="el" href="serial_8h.html#ab87f55bd0280d90925050a4188c14ab5">s</a>, int <a class="el" href="serial_8h.html#adc08ed1554f35803d229aeaf11216b3f">c</a>)</td></tr>
@@ -203,6 +203,15 @@ Functions</h2></td></tr>
 <tr class="memitem:a706b36f3a672f84685576723c3928baa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#a706b36f3a672f84685576723c3928baa">strcasecmp</a> (const char *s1, const char *s2)</td></tr>
 <tr class="memdesc:a706b36f3a672f84685576723c3928baa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Case-insensitive string comparison.  <a href="string_8h.html#a706b36f3a672f84685576723c3928baa">More...</a><br /></td></tr>
 <tr class="separator:a706b36f3a672f84685576723c3928baa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8021fcf7265ca5b8ae631d17f31ba15b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#a8021fcf7265ca5b8ae631d17f31ba15b">strtolower</a> (char *<a class="el" href="serial_8h.html#ab87f55bd0280d90925050a4188c14ab5">s</a>)</td></tr>
+<tr class="memdesc:a8021fcf7265ca5b8ae631d17f31ba15b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a string to lowercase in place.  <a href="string_8h.html#a8021fcf7265ca5b8ae631d17f31ba15b">More...</a><br /></td></tr>
+<tr class="separator:a8021fcf7265ca5b8ae631d17f31ba15b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac319470f8e7e20f275971834815759c6"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#ac319470f8e7e20f275971834815759c6">strlen_ansi</a> (const char *<a class="el" href="serial_8h.html#ab87f55bd0280d90925050a4188c14ab5">s</a>)</td></tr>
+<tr class="memdesc:ac319470f8e7e20f275971834815759c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return visible length of a string ignoring ANSI escapes.  <a href="string_8h.html#ac319470f8e7e20f275971834815759c6">More...</a><br /></td></tr>
+<tr class="separator:ac319470f8e7e20f275971834815759c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1e87cf0776db5e2c3f9350b61e56000"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#ae1e87cf0776db5e2c3f9350b61e56000">strstr</a> (const char *haystack, const char *needle)</td></tr>
+<tr class="memdesc:ae1e87cf0776db5e2c3f9350b61e56000"><td class="mdescLeft">&#160;</td><td class="mdescRight">Locate a substring in a string.  <a href="string_8h.html#ae1e87cf0776db5e2c3f9350b61e56000">More...</a><br /></td></tr>
+<tr class="separator:ae1e87cf0776db5e2c3f9350b61e56000"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Custom string handling functions with GC support for BASIC runtime. </p>
@@ -216,7 +225,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define STRING_GC_AREA_SIZE&#160;&#160;&#160;(64 * 1024 * 1024)</td>
+          <td class="memname">#define STRING_GC_AREA_SIZE&#160;&#160;&#160;(128 * 1024)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1057,6 +1066,34 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ac319470f8e7e20f275971834815759c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac319470f8e7e20f275971834815759c6">&#9670;&nbsp;</a></span>strlen_ansi()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t strlen_ansi </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>s</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return visible length of a string ignoring ANSI escapes. </p>
+<p>Skips CSI sequences (ESC '[' ... final byte). Only counts characters that would actually be displayed.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">s</td><td>Null-terminated string. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Visible character count. </dd></dl>
+
+</div>
+</div>
 <a id="a519d57d33362a8ed067cf5fe6937324e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a519d57d33362a8ed067cf5fe6937324e">&#9670;&nbsp;</a></span>strncmp()</h2>
 
@@ -1212,6 +1249,73 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ae1e87cf0776db5e2c3f9350b61e56000"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1e87cf0776db5e2c3f9350b61e56000">&#9670;&nbsp;</a></span>strstr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* strstr </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>haystack</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>needle</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Locate a substring in a string. </p>
+<p>Scans the string <code>haystack</code> for the first occurrence of the substring <code>needle</code>. The terminating null character is not compared.</p>
+<p>If <code>needle</code> is empty, <code>haystack</code> is returned. If <code>needle</code> does not occur in <code>haystack</code>, NULL is returned.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">haystack</td><td>Null-terminated string to search. </td></tr>
+    <tr><td class="paramname">needle</td><td>Null-terminated substring to locate.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the beginning of the located substring, or NULL if no match is found. </dd></dl>
+
+</div>
+</div>
+<a id="a8021fcf7265ca5b8ae631d17f31ba15b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8021fcf7265ca5b8ae631d17f31ba15b">&#9670;&nbsp;</a></span>strtolower()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void strtolower </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>s</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convert a string to lowercase in place. </p>
+<p>Iterates over the null-terminated string and replaces any uppercase ASCII letters (A–Z) with their lowercase form.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">s</td><td>Null-terminated string to modify. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a7c7bfb267464615bfa3b86aa79f42a82"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7c7bfb267464615bfa3b86aa79f42a82">&#9670;&nbsp;</a></span>tolower()</h2>
 
@@ -1272,7 +1376,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="string_8h.html">string.h</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

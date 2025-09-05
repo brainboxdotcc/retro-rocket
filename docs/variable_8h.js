@@ -7,9 +7,9 @@ var variable_8h =
     [ "basic_get_numeric_variable", "variable_8h.html#a46cef0a6e745ef1947f3666ef18e2c99", null ],
     [ "basic_get_string_variable", "variable_8h.html#ae636ca2f3ebb3b2d12929587b998bb21", null ],
     [ "basic_int_variable_exists", "variable_8h.html#a02cb6072b5475bea18fc8d39f54fa1b7", null ],
-    [ "basic_set_double_variable", "variable_8h.html#af5c66412e1df2c2e20bf266bb4bbf72d", null ],
-    [ "basic_set_int_variable", "variable_8h.html#a3d66422a4fcb7d011bd9bdd6ce68c36b", null ],
-    [ "basic_set_string_variable", "variable_8h.html#aa09a0d5b3cb727af7675a2b8ac2ba74a", null ],
+    [ "basic_set_double_variable", "variable_8h.html#a0f6461f557afb3838afe1e98a7d06673", null ],
+    [ "basic_set_int_variable", "variable_8h.html#aeebc1e806dd78c397608eb37b80195d5", null ],
+    [ "basic_set_string_variable", "variable_8h.html#af1e6eaa0b44741d35ea6f11c031a0420", null ],
     [ "basic_string_variable_exists", "variable_8h.html#ae9c342e06df1aa6a33395f385c46138b", null ],
     [ "let_statement", "variable_8h.html#ac127b0839b0590fcef5ab5f6e1667b61", null ]
 ];

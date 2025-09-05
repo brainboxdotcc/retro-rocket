@@ -2,7 +2,6 @@ var structprocess__t =
 [
     [ "check_idle", "structprocess__t.html#ac5c17010c97fc19cead0529f1bc3a380", null ],
     [ "code", "structprocess__t.html#aac89744257f50e77369d583e70974822", null ],
-    [ "cons", "structprocess__t.html#a80a803afc53644e36db504d3dc22b3f4", null ],
     [ "cpu", "structprocess__t.html#a9efd67622874d1d026fb44b259569ac9", null ],
     [ "csd", "structprocess__t.html#a9b3ddad1d78a30249998440a837922b3", null ],
     [ "directory", "structprocess__t.html#a03df500e6a022a5c1f061c8af547476e", null ],

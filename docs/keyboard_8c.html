@@ -97,11 +97,11 @@ $(document).ready(function(){initNavTree('keyboard_8c.html',''); initResizable()
 Functions</h2></td></tr>
 <tr class="memitem:ab24b25eb7f8071189cf8cbf6a90da417"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8c.html#ab24b25eb7f8071189cf8cbf6a90da417">keyboard_handler</a> (uint8_t isr, uint64_t errorcode, uint64_t irq, void *opaque)</td></tr>
 <tr class="separator:ab24b25eb7f8071189cf8cbf6a90da417"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9cc56e57e224ee4b7a53836cd0caf9e2"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8c.html#a9cc56e57e224ee4b7a53836cd0caf9e2">translate_keycode</a> (unsigned char scancode, uint8_t <a class="el" href="keyboard_8c.html#aadad985ecd5e758357960d3a60fcc04f">escaped</a>, uint8_t <a class="el" href="keyboard_8c.html#ab4d2f0d7862d6355ca5765004408aa64">shift_state</a>, [[maybe_unused]] uint8_t <a class="el" href="keyboard_8c.html#aa8b082bb806066cd0e37454bf65706dd">ctrl_state</a>, [[maybe_unused]] uint8_t <a class="el" href="keyboard_8c.html#a11a5a860aaec244417a62961fdc9a6b0">alt_state</a>)</td></tr>
-<tr class="separator:a9cc56e57e224ee4b7a53836cd0caf9e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0cac5c6dca20c250afb035c720d0619"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8c.html#ab0cac5c6dca20c250afb035c720d0619">translate_keycode</a> (unsigned char scancode, uint8_t <a class="el" href="keyboard_8c.html#aadad985ecd5e758357960d3a60fcc04f">escaped</a>, uint8_t <a class="el" href="keyboard_8c.html#ab4d2f0d7862d6355ca5765004408aa64">shift_state</a>, uint8_t <a class="el" href="keyboard_8c.html#aa8b082bb806066cd0e37454bf65706dd">ctrl_state</a>, uint8_t <a class="el" href="keyboard_8c.html#a11a5a860aaec244417a62961fdc9a6b0">alt_state</a>)</td></tr>
+<tr class="separator:ab0cac5c6dca20c250afb035c720d0619"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adaa23568614e9de5ba0771d8515b86b8"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8c.html#adaa23568614e9de5ba0771d8515b86b8">push_to_buffer</a> (char x)</td></tr>
 <tr class="separator:adaa23568614e9de5ba0771d8515b86b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8f9fae4b9e256edce717695ccfaa427"><td class="memItemLeft" align="right" valign="top">static char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8c.html#aa8f9fae4b9e256edce717695ccfaa427">parse_token</a> (const char **<a class="el" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>)</td></tr>
+<tr class="memitem:aa8f9fae4b9e256edce717695ccfaa427"><td class="memItemLeft" align="right" valign="top">static char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8c.html#aa8f9fae4b9e256edce717695ccfaa427">parse_token</a> (const char **p)</td></tr>
 <tr class="memdesc:aa8f9fae4b9e256edce717695ccfaa427"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse one token (hex or literal) from keymap text.  <a href="keyboard_8c.html#aa8f9fae4b9e256edce717695ccfaa427">More...</a><br /></td></tr>
 <tr class="separator:aa8f9fae4b9e256edce717695ccfaa427"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5cfd80e1528c2d400a6833d10d8c364"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8c.html#ab5cfd80e1528c2d400a6833d10d8c364">load_keymap_from_string</a> (const char *text)</td></tr>
@@ -124,12 +124,16 @@ Functions</h2></td></tr>
 <tr class="memitem:af491f52ce63929279d3733c13ba771d2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8c.html#af491f52ce63929279d3733c13ba771d2">caps_lock_on</a> ()</td></tr>
 <tr class="memdesc:af491f52ce63929279d3733c13ba771d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests if CAPS LOCK is currently engaged.  <a href="keyboard_8c.html#af491f52ce63929279d3733c13ba771d2">More...</a><br /></td></tr>
 <tr class="separator:af491f52ce63929279d3733c13ba771d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afda35d0bfe9f38a6810847c9f2742970"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8c.html#afda35d0bfe9f38a6810847c9f2742970">keyboard_handler</a> ([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t errorcode, [[maybe_unused]] uint64_t irq, [[maybe_unused]] void *opaque)</td></tr>
-<tr class="separator:afda35d0bfe9f38a6810847c9f2742970"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86378414e15a4c45269f773f9bc1a34c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8c.html#a86378414e15a4c45269f773f9bc1a34c">key_waiting</a> ()</td></tr>
 <tr class="separator:a86378414e15a4c45269f773f9bc1a34c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e60e08c48b0a9e634e17da9249f515e"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8c.html#a8e60e08c48b0a9e634e17da9249f515e">kgetc</a> ([[maybe_unused]] <a class="el" href="structconsole.html">console</a> *cons)</td></tr>
-<tr class="separator:a8e60e08c48b0a9e634e17da9249f515e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f6948e7b53d94c61b16fafea0cd73ec"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8c.html#a2f6948e7b53d94c61b16fafea0cd73ec">kpeek</a> ()</td></tr>
+<tr class="memdesc:a2f6948e7b53d94c61b16fafea0cd73ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks the next key in the keyboard buffer.  <a href="keyboard_8c.html#a2f6948e7b53d94c61b16fafea0cd73ec">More...</a><br /></td></tr>
+<tr class="separator:a2f6948e7b53d94c61b16fafea0cd73ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adeef92b49557a51527be9cd292d12ad7"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8c.html#adeef92b49557a51527be9cd292d12ad7">kgetc</a> ()</td></tr>
+<tr class="memdesc:adeef92b49557a51527be9cd292d12ad7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the next key from the keyboard buffer.  <a href="keyboard_8c.html#adeef92b49557a51527be9cd292d12ad7">More...</a><br /></td></tr>
+<tr class="separator:adeef92b49557a51527be9cd292d12ad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c2b65b8f7fbaf40e3c116962d44f586"><td class="memItemLeft" align="right" valign="top">_Noreturn void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8c.html#a9c2b65b8f7fbaf40e3c116962d44f586">reboot</a> (void)</td></tr>
+<tr class="separator:a9c2b65b8f7fbaf40e3c116962d44f586"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -149,8 +153,10 @@ Variables</h2></td></tr>
 <tr class="separator:aa8b082bb806066cd0e37454bf65706dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11a5a860aaec244417a62961fdc9a6b0"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8c.html#a11a5a860aaec244417a62961fdc9a6b0">alt_state</a> = false</td></tr>
 <tr class="separator:a11a5a860aaec244417a62961fdc9a6b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6451a6bdd15372f12502fa3839fc04a0"><td class="memItemLeft" align="right" valign="top">static struct <a class="el" href="structkey__state.html">key_state</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8c.html#a6451a6bdd15372f12502fa3839fc04a0">key_states</a> [256] = { 0 }</td></tr>
+<tr class="memitem:a6451a6bdd15372f12502fa3839fc04a0"><td class="memItemLeft" align="right" valign="top">static struct <a class="el" href="structkey__state.html">key_state</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8c.html#a6451a6bdd15372f12502fa3839fc04a0">key_states</a> [256] = {0}</td></tr>
 <tr class="separator:a6451a6bdd15372f12502fa3839fc04a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cd0cb3ff17313f457e445f5dbd20e4d"><td class="memItemLeft" align="right" valign="top">static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8c.html#a4cd0cb3ff17313f457e445f5dbd20e4d">key_was_extended</a> [256] = {0}</td></tr>
+<tr class="separator:a4cd0cb3ff17313f457e445f5dbd20e4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21e905b4d844bc6c61ab988829f2fb4e"><td class="memItemLeft" align="right" valign="top">static char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8c.html#a21e905b4d844bc6c61ab988829f2fb4e">keyboard_scan_map_lower</a> [<a class="el" href="keyboard_8h.html#a90b389e53b75437df6d8405238c807da">MAX_SCANCODE</a>]</td></tr>
 <tr class="separator:a21e905b4d844bc6c61ab988829f2fb4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade290418f249fcfc961275ad3420e709"><td class="memItemLeft" align="right" valign="top">static char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8c.html#ade290418f249fcfc961275ad3420e709">keyboard_scan_map_upper</a> [<a class="el" href="keyboard_8h.html#a90b389e53b75437df6d8405238c807da">MAX_SCANCODE</a>]</td></tr>
@@ -254,48 +260,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="afda35d0bfe9f38a6810847c9f2742970"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afda35d0bfe9f38a6810847c9f2742970">&#9670;&nbsp;</a></span>keyboard_handler() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void keyboard_handler </td>
-          <td>(</td>
-          <td class="paramtype">[[maybe_unused] ] uint8_t&#160;</td>
-          <td class="paramname"><em>isr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">[[maybe_unused] ] uint64_t&#160;</td>
-          <td class="paramname"><em>errorcode</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">[[maybe_unused] ] uint64_t&#160;</td>
-          <td class="paramname"><em>irq</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">[[maybe_unused] ] void *&#160;</td>
-          <td class="paramname"><em>opaque</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="ab24b25eb7f8071189cf8cbf6a90da417"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab24b25eb7f8071189cf8cbf6a90da417">&#9670;&nbsp;</a></span>keyboard_handler() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab24b25eb7f8071189cf8cbf6a90da417">&#9670;&nbsp;</a></span>keyboard_handler()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -351,8 +317,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a8e60e08c48b0a9e634e17da9249f515e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e60e08c48b0a9e634e17da9249f515e">&#9670;&nbsp;</a></span>kgetc()</h2>
+<a id="adeef92b49557a51527be9cd292d12ad7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adeef92b49557a51527be9cd292d12ad7">&#9670;&nbsp;</a></span>kgetc()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -360,12 +326,46 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">unsigned char kgetc </td>
           <td>(</td>
-          <td class="paramtype">[[maybe_unused] ] <a class="el" href="structconsole.html">console</a> *&#160;</td>
-          <td class="paramname"><em>cons</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Reads the next key from the keyboard buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cons</td><td>Current console (unused, reserved for future use). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>ASCII character or extended key constant, or 255 if no input is available. </dd></dl>
+
+</div>
+</div>
+<a id="a2f6948e7b53d94c61b16fafea0cd73ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f6948e7b53d94c61b16fafea0cd73ec">&#9670;&nbsp;</a></span>kpeek()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char kpeek </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks the next key in the keyboard buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cons</td><td>Current console (unused, reserved for future use). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>ASCII character or extended key constant, or 255 if no input is available. </dd></dl>
 
 </div>
 </div>
@@ -452,6 +452,24 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a9c2b65b8f7fbaf40e3c116962d44f586"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c2b65b8f7fbaf40e3c116962d44f586">&#9670;&nbsp;</a></span>reboot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">_Noreturn void reboot </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a91e9663f1e43e4aca8439739c3b10c69"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a91e9663f1e43e4aca8439739c3b10c69">&#9670;&nbsp;</a></span>shift_held()</h2>
 
@@ -472,8 +490,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a9cc56e57e224ee4b7a53836cd0caf9e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9cc56e57e224ee4b7a53836cd0caf9e2">&#9670;&nbsp;</a></span>translate_keycode()</h2>
+<a id="ab0cac5c6dca20c250afb035c720d0619"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0cac5c6dca20c250afb035c720d0619">&#9670;&nbsp;</a></span>translate_keycode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -499,13 +517,13 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">[[maybe_unused] ] uint8_t&#160;</td>
+          <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>ctrl_state</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">[[maybe_unused] ] uint8_t&#160;</td>
+          <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>alt_state</em>&#160;</td>
         </tr>
         <tr>
@@ -661,7 +679,29 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">struct <a class="el" href="structkey__state.html">key_state</a> key_states[256] = { 0 }</td>
+          <td class="memname">struct <a class="el" href="structkey__state.html">key_state</a> key_states[256] = {0}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4cd0cb3ff17313f457e445f5dbd20e4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cd0cb3ff17313f457e445f5dbd20e4d">&#9670;&nbsp;</a></span>key_was_extended</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t key_was_extended[256] = {0}</td>
         </tr>
       </table>
   </td>
@@ -714,13 +754,19 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {0, 27, <span class="charliteral">&#39;1&#39;</span>, <span class="charliteral">&#39;2&#39;</span>, <span class="charliteral">&#39;3&#39;</span>, <span class="charliteral">&#39;4&#39;</span>, <span class="charliteral">&#39;5&#39;</span>, <span class="charliteral">&#39;6&#39;</span>, <span class="charliteral">&#39;7&#39;</span>, <span class="charliteral">&#39;8&#39;</span>, <span class="charliteral">&#39;9&#39;</span>, <span class="charliteral">&#39;0&#39;</span>, <span class="charliteral">&#39;-&#39;</span>, <span class="charliteral">&#39;=&#39;</span>, 8, 9, <span class="charliteral">&#39;q&#39;</span>, <span class="charliteral">&#39;w&#39;</span>, <span class="charliteral">&#39;e&#39;</span>,</div>
-<div class="line">                    <span class="charliteral">&#39;r&#39;</span>, <span class="charliteral">&#39;t&#39;</span>, <span class="charliteral">&#39;y&#39;</span>, <span class="charliteral">&#39;u&#39;</span>, <span class="charliteral">&#39;i&#39;</span>, <span class="charliteral">&#39;o&#39;</span>, <span class="charliteral">&#39;p&#39;</span>, <span class="charliteral">&#39;[&#39;</span>, <span class="charliteral">&#39;]&#39;</span>, 13, 0 , <span class="charliteral">&#39;a&#39;</span>, <span class="charliteral">&#39;s&#39;</span>, <span class="charliteral">&#39;d&#39;</span>, <span class="charliteral">&#39;f&#39;</span>, <span class="charliteral">&#39;g&#39;</span>, <span class="charliteral">&#39;h&#39;</span>,</div>
-<div class="line">                    <span class="charliteral">&#39;j&#39;</span>, <span class="charliteral">&#39;k&#39;</span>, <span class="charliteral">&#39;l&#39;</span>, <span class="charliteral">&#39;;&#39;</span>, <span class="charliteral">&#39;\&#39;&#39;</span>, <span class="charliteral">&#39;#&#39;</span>, 0 , <span class="charliteral">&#39;\\&#39;</span>, <span class="charliteral">&#39;z&#39;</span>, <span class="charliteral">&#39;x&#39;</span>, <span class="charliteral">&#39;c&#39;</span>, <span class="charliteral">&#39;v&#39;</span>, <span class="charliteral">&#39;b&#39;</span>, <span class="charliteral">&#39;n&#39;</span>, <span class="charliteral">&#39;m&#39;</span>, <span class="charliteral">&#39;,&#39;</span>,</div>
-<div class="line">                    <span class="charliteral">&#39;.&#39;</span>, <span class="charliteral">&#39;/&#39;</span>, 0 , 0 , 0 , <span class="charliteral">&#39; &#39;</span>, 0 , 0 ,</div>
-<div class="line">                     0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,</div>
-<div class="line">                     0 , 0 , 0 , 0 , 0 , 0 ,</div>
-<div class="line">                    <span class="charliteral">&#39;-&#39;</span>, <span class="charliteral">&#39;4&#39;</span>, <span class="charliteral">&#39;5&#39;</span>, <span class="charliteral">&#39;6&#39;</span>, <span class="charliteral">&#39;+&#39;</span>, <span class="charliteral">&#39;1&#39;</span>, <span class="charliteral">&#39;2&#39;</span>, <span class="charliteral">&#39;3&#39;</span>, <span class="charliteral">&#39;0&#39;</span>, <span class="charliteral">&#39;.&#39;</span>}</div>
+<b>Initial value:</b><div class="fragment"><div class="line">= {0, 27, <span class="charliteral">&#39;1&#39;</span>, <span class="charliteral">&#39;2&#39;</span>, <span class="charliteral">&#39;3&#39;</span>, <span class="charliteral">&#39;4&#39;</span>, <span class="charliteral">&#39;5&#39;</span>, <span class="charliteral">&#39;6&#39;</span>, <span class="charliteral">&#39;7&#39;</span>, <span class="charliteral">&#39;8&#39;</span>, <span class="charliteral">&#39;9&#39;</span>, <span class="charliteral">&#39;0&#39;</span>, <span class="charliteral">&#39;-&#39;</span>, <span class="charliteral">&#39;=&#39;</span>,</div>
+<div class="line">                             8, 9, <span class="charliteral">&#39;q&#39;</span>, <span class="charliteral">&#39;w&#39;</span>, <span class="charliteral">&#39;e&#39;</span>,</div>
+<div class="line">                             <span class="charliteral">&#39;r&#39;</span>, <span class="charliteral">&#39;t&#39;</span>, <span class="charliteral">&#39;y&#39;</span>, <span class="charliteral">&#39;u&#39;</span>, <span class="charliteral">&#39;i&#39;</span>, <span class="charliteral">&#39;o&#39;</span>, <span class="charliteral">&#39;p&#39;</span>, <span class="charliteral">&#39;[&#39;</span>, <span class="charliteral">&#39;]&#39;</span>, 13, 0 , <span class="charliteral">&#39;a&#39;</span>,</div>
+<div class="line">                             <span class="charliteral">&#39;s&#39;</span>, <span class="charliteral">&#39;d&#39;</span>, <span class="charliteral">&#39;f&#39;</span>, <span class="charliteral">&#39;g&#39;</span>, <span class="charliteral">&#39;h&#39;</span>,</div>
+<div class="line">                             <span class="charliteral">&#39;j&#39;</span>, <span class="charliteral">&#39;k&#39;</span>, <span class="charliteral">&#39;l&#39;</span>, <span class="charliteral">&#39;;&#39;</span>, <span class="charliteral">&#39;\&#39;&#39;</span>, <span class="charliteral">&#39;#&#39;</span>, 0 , <span class="charliteral">&#39;\\&#39;</span>, <span class="charliteral">&#39;z&#39;</span>, <span class="charliteral">&#39;x&#39;</span>,</div>
+<div class="line">                             <span class="charliteral">&#39;c&#39;</span>, <span class="charliteral">&#39;v&#39;</span>, <span class="charliteral">&#39;b&#39;</span>, <span class="charliteral">&#39;n&#39;</span>, <span class="charliteral">&#39;m&#39;</span>, <span class="charliteral">&#39;,&#39;</span>,</div>
+<div class="line">                             <span class="charliteral">&#39;.&#39;</span>, <span class="charliteral">&#39;/&#39;</span>, 0 , 0 , 0 , <span class="charliteral">&#39; &#39;</span>,</div>
+<div class="line">                             0 , 0 ,</div>
+<div class="line">                             0 , 0 , 0 , 0 , 0 ,</div>
+<div class="line">                             0 , 0 , 0 ,</div>
+<div class="line">                             0 , 0 , 0 , 0 ,</div>
+<div class="line">                             0 , 0 ,</div>
+<div class="line">                             <span class="charliteral">&#39;-&#39;</span>, <span class="charliteral">&#39;4&#39;</span>, <span class="charliteral">&#39;5&#39;</span>, <span class="charliteral">&#39;6&#39;</span>, <span class="charliteral">&#39;+&#39;</span>, <span class="charliteral">&#39;1&#39;</span>, <span class="charliteral">&#39;2&#39;</span>, <span class="charliteral">&#39;3&#39;</span>, <span class="charliteral">&#39;0&#39;</span>, <span class="charliteral">&#39;.&#39;</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -743,13 +789,19 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {0, 27, <span class="charliteral">&#39;!&#39;</span>, <span class="charliteral">&#39;@&#39;</span>, <span class="charliteral">&#39;~&#39;</span>, <span class="charliteral">&#39;$&#39;</span>, <span class="charliteral">&#39;%&#39;</span>, <span class="charliteral">&#39;^&#39;</span>, <span class="charliteral">&#39;&amp;&#39;</span>, <span class="charliteral">&#39;*&#39;</span>, <span class="charliteral">&#39;(&#39;</span>, <span class="charliteral">&#39;)&#39;</span>, <span class="charliteral">&#39;_&#39;</span>, <span class="charliteral">&#39;+&#39;</span>, 8, 9, <span class="charliteral">&#39;Q&#39;</span>, <span class="charliteral">&#39;W&#39;</span>, <span class="charliteral">&#39;E&#39;</span>,</div>
-<div class="line">                    <span class="charliteral">&#39;R&#39;</span>, <span class="charliteral">&#39;T&#39;</span>, <span class="charliteral">&#39;Y&#39;</span>, <span class="charliteral">&#39;U&#39;</span>, <span class="charliteral">&#39;I&#39;</span>, <span class="charliteral">&#39;O&#39;</span>, <span class="charliteral">&#39;P&#39;</span>, <span class="charliteral">&#39;{&#39;</span>, <span class="charliteral">&#39;}&#39;</span>, 13, 0 , <span class="charliteral">&#39;A&#39;</span>, <span class="charliteral">&#39;S&#39;</span>, <span class="charliteral">&#39;D&#39;</span>, <span class="charliteral">&#39;F&#39;</span>, <span class="charliteral">&#39;G&#39;</span>, <span class="charliteral">&#39;H&#39;</span>,</div>
-<div class="line">                    <span class="charliteral">&#39;J&#39;</span>, <span class="charliteral">&#39;K&#39;</span>, <span class="charliteral">&#39;L&#39;</span>, <span class="charliteral">&#39;:&#39;</span>, <span class="charliteral">&#39;&quot;&#39;</span>, <span class="charliteral">&#39;~&#39;</span>, 0 , <span class="charliteral">&#39;|&#39;</span>, <span class="charliteral">&#39;Z&#39;</span>, <span class="charliteral">&#39;X&#39;</span>, <span class="charliteral">&#39;C&#39;</span>, <span class="charliteral">&#39;V&#39;</span>, <span class="charliteral">&#39;B&#39;</span>, <span class="charliteral">&#39;N&#39;</span>, <span class="charliteral">&#39;M&#39;</span>, <span class="charliteral">&#39;&lt;&#39;</span>,</div>
-<div class="line">                    <span class="charliteral">&#39;&gt;&#39;</span>, <span class="charliteral">&#39;?&#39;</span>, 0 , 0 , 0 , <span class="charliteral">&#39; &#39;</span>, 0 , 0 ,</div>
-<div class="line">                     0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,</div>
-<div class="line">                     0 , 0 , 0 , 0 , 0 , 0 ,</div>
-<div class="line">                    <span class="charliteral">&#39;-&#39;</span>, <span class="charliteral">&#39;4&#39;</span>, <span class="charliteral">&#39;5&#39;</span>, <span class="charliteral">&#39;6&#39;</span>, <span class="charliteral">&#39;+&#39;</span>, <span class="charliteral">&#39;1&#39;</span>, <span class="charliteral">&#39;2&#39;</span>, <span class="charliteral">&#39;3&#39;</span>, <span class="charliteral">&#39;0&#39;</span>, <span class="charliteral">&#39;.&#39;</span>}</div>
+<b>Initial value:</b><div class="fragment"><div class="line">= {0, 27, <span class="charliteral">&#39;!&#39;</span>, <span class="charliteral">&#39;@&#39;</span>, <span class="charliteral">&#39;~&#39;</span>, <span class="charliteral">&#39;$&#39;</span>, <span class="charliteral">&#39;%&#39;</span>, <span class="charliteral">&#39;^&#39;</span>, <span class="charliteral">&#39;&amp;&#39;</span>, <span class="charliteral">&#39;*&#39;</span>, <span class="charliteral">&#39;(&#39;</span>, <span class="charliteral">&#39;)&#39;</span>, <span class="charliteral">&#39;_&#39;</span>, <span class="charliteral">&#39;+&#39;</span>,</div>
+<div class="line">                             8, 9, <span class="charliteral">&#39;Q&#39;</span>, <span class="charliteral">&#39;W&#39;</span>, <span class="charliteral">&#39;E&#39;</span>,</div>
+<div class="line">                             <span class="charliteral">&#39;R&#39;</span>, <span class="charliteral">&#39;T&#39;</span>, <span class="charliteral">&#39;Y&#39;</span>, <span class="charliteral">&#39;U&#39;</span>, <span class="charliteral">&#39;I&#39;</span>, <span class="charliteral">&#39;O&#39;</span>, <span class="charliteral">&#39;P&#39;</span>, <span class="charliteral">&#39;{&#39;</span>, <span class="charliteral">&#39;}&#39;</span>, 13, 0 , <span class="charliteral">&#39;A&#39;</span>,</div>
+<div class="line">                             <span class="charliteral">&#39;S&#39;</span>, <span class="charliteral">&#39;D&#39;</span>, <span class="charliteral">&#39;F&#39;</span>, <span class="charliteral">&#39;G&#39;</span>, <span class="charliteral">&#39;H&#39;</span>,</div>
+<div class="line">                             <span class="charliteral">&#39;J&#39;</span>, <span class="charliteral">&#39;K&#39;</span>, <span class="charliteral">&#39;L&#39;</span>, <span class="charliteral">&#39;:&#39;</span>, <span class="charliteral">&#39;&quot;&#39;</span>, <span class="charliteral">&#39;~&#39;</span>, 0 , <span class="charliteral">&#39;|&#39;</span>, <span class="charliteral">&#39;Z&#39;</span>, <span class="charliteral">&#39;X&#39;</span>,</div>
+<div class="line">                             <span class="charliteral">&#39;C&#39;</span>, <span class="charliteral">&#39;V&#39;</span>, <span class="charliteral">&#39;B&#39;</span>, <span class="charliteral">&#39;N&#39;</span>, <span class="charliteral">&#39;M&#39;</span>, <span class="charliteral">&#39;&lt;&#39;</span>,</div>
+<div class="line">                             <span class="charliteral">&#39;&gt;&#39;</span>, <span class="charliteral">&#39;?&#39;</span>, 0 , 0 , 0 , <span class="charliteral">&#39; &#39;</span>,</div>
+<div class="line">                             0 , 0 ,</div>
+<div class="line">                             0 , 0 , 0 , 0 , 0 ,</div>
+<div class="line">                             0 , 0 , 0 ,</div>
+<div class="line">                             0 , 0 , 0 , 0 ,</div>
+<div class="line">                             0 , 0 ,</div>
+<div class="line">                             <span class="charliteral">&#39;-&#39;</span>, <span class="charliteral">&#39;4&#39;</span>, <span class="charliteral">&#39;5&#39;</span>, <span class="charliteral">&#39;6&#39;</span>, <span class="charliteral">&#39;+&#39;</span>, <span class="charliteral">&#39;1&#39;</span>, <span class="charliteral">&#39;2&#39;</span>, <span class="charliteral">&#39;3&#39;</span>, <span class="charliteral">&#39;0&#39;</span>, <span class="charliteral">&#39;.&#39;</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -781,7 +833,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="keyboard_8c.html">keyboard.c</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

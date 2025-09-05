@@ -1,9 +1,10 @@
 var debugger_8c =
 [
     [ "backtrace", "debugger_8c.html#a73b6618270491b1d78d378a62a5a52b1", null ],
-    [ "debug_handle_packet", "debugger_8c.html#af514c70ab0d48beaa67649f2b803c2f8", null ],
+    [ "debug_handle_packet", "debugger_8c.html#ad2c6005939f6b1d24ed7540fab5bf0ac", null ],
     [ "dump_hex", "debugger_8c.html#a9b5c5314461f06d02fc094c8ac4c23eb", null ],
     [ "findsymbol", "debugger_8c.html#a7eb9357383cf48f78ca582c400619930", null ],
+    [ "findsymbol_addr", "debugger_8c.html#adf4a44e4932c7f1366d66449e1065c6e", null ],
     [ "gdb_ack", "debugger_8c.html#af4f62a848b1a66564b71dc38eb34821c", null ],
     [ "gdb_command", "debugger_8c.html#a552b7db8935a67efdd6c1768543a053c", null ],
     [ "gdb_data", "debugger_8c.html#a3556c65f47174e7424a155623db04098", null ],

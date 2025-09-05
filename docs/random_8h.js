@@ -3,6 +3,7 @@ var random_8h =
     [ "mt_rand_t", "structmt__rand__t.html", "structmt__rand__t" ],
     [ "RAND_MAX", "random_8h.html#a690f251553b39fd4f31894826141b61a", null ],
     [ "RAND_MAX_ENTROPY", "random_8h.html#a2789baddb920819b38ad82e4536698cf", null ],
+    [ "SAMPLE_FROM_BUFFER", "random_8h.html#a76ac6a453ff6852515e0eb86c3b4d5f7", null ],
     [ "STATE_VECTOR_LENGTH", "random_8h.html#ac9774c4e8103044eeed77c6df7e4fb77", null ],
     [ "STATE_VECTOR_M", "random_8h.html#a3078dacc50d0dad95ad9fe0f448a953e", null ],
     [ "add_random_entropy", "random_8h.html#a17398ef8767d2679233a56f58c0ff682", null ],

@@ -18,8 +18,10 @@ var clock_8c =
     [ "rtc_read_datetime", "clock_8c.html#ad038a951c786199a54840fe8b129d6b3", null ],
     [ "set_rtc_register", "clock_8c.html#a5c8646e79381e870b7acea77deeb5b81", null ],
     [ "time", "clock_8c.html#ae7841e681c8c9d59818568d39553642c", null ],
+    [ "uptime_secs", "clock_8c.html#a2ff6f425d2c2a10b9df9a522e2989844", null ],
     [ "current_datetime", "clock_8c.html#a213ee6f0ec6d88083c8d350fde2202ae", null ],
     [ "month_map", "clock_8c.html#ab436b26ed418007ddb2588ba31c2c3ad", null ],
+    [ "system_boot", "clock_8c.html#a31a3c70b5dd86228e13c89639e568b26", null ],
     [ "tzdata", "clock_8c.html#ad82770835c7745c2871bdbc93d7311e6", null ],
     [ "weekday_map", "clock_8c.html#a6a0981ce9a86bd9d68fefd2aa88b5034", null ]
 ];

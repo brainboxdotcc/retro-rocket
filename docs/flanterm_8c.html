@@ -93,8 +93,8 @@ $(document).ready(function(){initNavTree('flanterm_8c.html',''); initResizable()
 <div class="title">flanterm.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="kernel_8h.html">kernel.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="flanterm_8h.html">flanterm.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="kernel_8h.html">kernel.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="flanterm_8h.html">flanterm.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
@@ -118,7 +118,7 @@ Functions</h2></td></tr>
 <tr class="separator:a3eaeaf06304cc0a1736fdc36da5dde70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f4a0f8e8d5c368041e9073b80e4e9de"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flanterm_8c.html#a1f4a0f8e8d5c368041e9073b80e4e9de">flanterm_putchar</a> (struct <a class="el" href="structflanterm__context.html">flanterm_context</a> *ctx, uint8_t <a class="el" href="serial_8h.html#adc08ed1554f35803d229aeaf11216b3f">c</a>)</td></tr>
 <tr class="separator:a1f4a0f8e8d5c368041e9073b80e4e9de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab49be1436a7e1562f12d6bb8347a90f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flanterm_8c.html#ab49be1436a7e1562f12d6bb8347a90f2">flanterm_write</a> (struct <a class="el" href="structflanterm__context.html">flanterm_context</a> *ctx, const char *<a class="el" href="ahci_8c.html#a2c5f4ef732286b78e31ec8d1cb238215">buf</a>, size_t count)</td></tr>
+<tr class="memitem:ab49be1436a7e1562f12d6bb8347a90f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flanterm_8c.html#ab49be1436a7e1562f12d6bb8347a90f2">flanterm_write</a> (struct <a class="el" href="structflanterm__context.html">flanterm_context</a> *ctx, const char *buf, size_t count)</td></tr>
 <tr class="separator:ab49be1436a7e1562f12d6bb8347a90f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17be21902cd2b0cffb9ef3f17f074123"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flanterm_8c.html#a17be21902cd2b0cffb9ef3f17f074123">sgr</a> (struct <a class="el" href="structflanterm__context.html">flanterm_context</a> *ctx)</td></tr>
 <tr class="separator:a17be21902cd2b0cffb9ef3f17f074123"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -150,7 +150,7 @@ Functions</h2></td></tr>
 <tr class="separator:ab517c5d89f6c3874037b92b03bb47196"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4375abfa238b46c99f77c6e924a88273"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flanterm_8c.html#a4375abfa238b46c99f77c6e924a88273">flanterm_full_refresh</a> (struct <a class="el" href="structflanterm__context.html">flanterm_context</a> *ctx)</td></tr>
 <tr class="separator:a4375abfa238b46c99f77c6e924a88273"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f846f0fe786421d5c28fdd59ee3e629"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flanterm_8c.html#a6f846f0fe786421d5c28fdd59ee3e629">flanterm_deinit</a> (struct <a class="el" href="structflanterm__context.html">flanterm_context</a> *ctx, void(*<a class="el" href="hashmap_8c.html#a9c4c8922b16d819cb501a2d282b101f2">_free</a>)(void *, size_t))</td></tr>
+<tr class="memitem:a6f846f0fe786421d5c28fdd59ee3e629"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flanterm_8c.html#a6f846f0fe786421d5c28fdd59ee3e629">flanterm_deinit</a> (struct <a class="el" href="structflanterm__context.html">flanterm_context</a> *ctx, void(*_free)(void *, size_t))</td></tr>
 <tr class="separator:a6f846f0fe786421d5c28fdd59ee3e629"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b3eef4defbf3b52f043ce5ec68ff0d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flanterm_8c.html#a5b3eef4defbf3b52f043ce5ec68ff0d3">flanterm_get_dimensions</a> (struct <a class="el" href="structflanterm__context.html">flanterm_context</a> *ctx, size_t *cols, size_t *rows)</td></tr>
 <tr class="separator:a5b3eef4defbf3b52f043ce5ec68ff0d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -952,8 +952,8 @@ Variables</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="flanterm_8c.html">flanterm.c</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:44 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_80c877115d5e4512b3ef8c966088b937.html">flanterm</a></li><li class="navelem"><a class="el" href="flanterm_8c.html">flanterm.c</a></li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

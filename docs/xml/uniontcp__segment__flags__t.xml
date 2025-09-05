@@ -170,11 +170,11 @@
         </inbodydescription>
         <location file="include/tcp.h" line="40" column="9" bodyfile="include/tcp.h" bodystart="40" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="uniontcp__segment__flags__t_1aa9fd5e44e07ba10dd83fe049c5095678" prot="public" static="no" mutable="no">
-        <type>struct tcp_segment_flags_t::@11</type>
-        <definition>struct tcp_segment_flags_t::@11 tcp_segment_flags_t::@12</definition>
+      <memberdef kind="variable" id="uniontcp__segment__flags__t_1a836358fbbbf56ae46e4c87368ed07059" prot="public" static="no" mutable="no">
+        <type>struct tcp_segment_flags_t::@13</type>
+        <definition>struct tcp_segment_flags_t::@13 tcp_segment_flags_t::@14</definition>
         <argsstring></argsstring>
-        <name>@12</name>
+        <name>@14</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -189,16 +189,13 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="2">
-        <label>anonymous:@12</label>
+      <node id="3">
+        <label>anonymous:@14</label>
       </node>
       <node id="1">
         <label>tcp_segment_flags_t</label>
         <link refid="uniontcp__segment__flags__t"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>@12</edgelabel>
-        </childnode>
-        <childnode refid="3" relation="usage">
           <edgelabel>ack</edgelabel>
           <edgelabel>bits1</edgelabel>
           <edgelabel>bits2</edgelabel>
@@ -211,8 +208,11 @@
           <edgelabel>rst</edgelabel>
           <edgelabel>...</edgelabel>
         </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>@14</edgelabel>
+        </childnode>
       </node>
-      <node id="3">
+      <node id="2">
         <label>uint8_t</label>
       </node>
     </collaborationgraph>

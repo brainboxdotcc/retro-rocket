@@ -4,31 +4,33 @@
     <compoundname>ahci_hba_prdt_entry_t</compoundname>
     <includes local="no">ahci.h</includes>
       <sectiondef kind="public-attrib">
-      <memberdef kind="variable" id="structahci__hba__prdt__entry__t_1a66e3bcde78ddb8d71480788c18e21d6e" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__prdt__entry__t_1ac822c48f017702644bf30f7501269cc0" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t ahci_hba_prdt_entry_t::dba</definition>
+        <definition>uint32_t ahci_hba_prdt_entry_t::data_address_lower</definition>
         <argsstring></argsstring>
-        <name>dba</name>
+        <name>data_address_lower</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Data base address (lower) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="281" column="10" bodyfile="include/ahci.h" bodystart="281" bodyend="-1"/>
+        <location file="include/ahci.h" line="246" column="10" bodyfile="include/ahci.h" bodystart="246" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__prdt__entry__t_1a7c1fbeeaa46eb5af8658e7b54a50c913" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__prdt__entry__t_1a4e582589847a642468e2f83a9c59420d" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t ahci_hba_prdt_entry_t::dbau</definition>
+        <definition>uint32_t ahci_hba_prdt_entry_t::data_address_upper</definition>
         <argsstring></argsstring>
-        <name>dbau</name>
+        <name>data_address_upper</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Data base address (upper) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="282" column="10" bodyfile="include/ahci.h" bodystart="282" bodyend="-1"/>
+        <location file="include/ahci.h" line="247" column="10" bodyfile="include/ahci.h" bodystart="247" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__hba__prdt__entry__t_1a50d7eae089f4b6db0916b5ff69f04094" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -38,24 +40,26 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Reserved, must be zero </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="283" column="10" bodyfile="include/ahci.h" bodystart="283" bodyend="-1"/>
+        <location file="include/ahci.h" line="248" column="10" bodyfile="include/ahci.h" bodystart="248" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__prdt__entry__t_1ad18fa77ebbc24061b03ca271af4d41d6" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__prdt__entry__t_1ae9d9d242a41eafec88c2058bb314425e" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t ahci_hba_prdt_entry_t::dbc</definition>
+        <definition>uint32_t ahci_hba_prdt_entry_t::byte_count</definition>
         <argsstring></argsstring>
-        <name>dbc</name>
+        <name>byte_count</name>
         <bitfield>22</bitfield>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Byte count minus 1 (max 4 MiB - 1) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="286" column="10" bodyfile="include/ahci.h" bodystart="286" bodyend="-1"/>
+        <location file="include/ahci.h" line="249" column="10" bodyfile="include/ahci.h" bodystart="249" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__hba__prdt__entry__t_1a217e5595f7940d52851ec218eb9cd0d3" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -66,29 +70,35 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Reserved, must be zero </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="287" column="10" bodyfile="include/ahci.h" bodystart="287" bodyend="-1"/>
+        <location file="include/ahci.h" line="250" column="10" bodyfile="include/ahci.h" bodystart="250" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__prdt__entry__t_1a01062a616fc5f949054077da9b8076b4" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__prdt__entry__t_1a20e312c1e74f13b07dd6142a3098e821" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t ahci_hba_prdt_entry_t::i</definition>
+        <definition>uint32_t ahci_hba_prdt_entry_t::interrupt</definition>
         <argsstring></argsstring>
-        <name>i</name>
+        <name>interrupt</name>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Interrupt on completion (IOC) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="288" column="10" bodyfile="include/ahci.h" bodystart="288" bodyend="-1"/>
+        <location file="include/ahci.h" line="251" column="10" bodyfile="include/ahci.h" bodystart="251" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Physical Region Descriptor Table (PRDT) entry. </para>
     </briefdescription>
     <detaileddescription>
+<para><simplesect kind="note"><para>byte_count is encoded as (N - 1); N must be even; N ≤ 4 MiB. </para>
+</simplesect>
+</para>
     </detaileddescription>
     <collaborationgraph>
       <node id="2">
@@ -98,21 +108,21 @@
         <label>ahci_hba_prdt_entry_t</label>
         <link refid="structahci__hba__prdt__entry__t"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>dba</edgelabel>
-          <edgelabel>dbau</edgelabel>
-          <edgelabel>dbc</edgelabel>
-          <edgelabel>i</edgelabel>
+          <edgelabel>byte_count</edgelabel>
+          <edgelabel>data_address_lower</edgelabel>
+          <edgelabel>data_address_upper</edgelabel>
+          <edgelabel>interrupt</edgelabel>
           <edgelabel>rsv0</edgelabel>
           <edgelabel>rsv1</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="include/ahci.h" line="279" column="1" bodyfile="include/ahci.h" bodystart="280" bodyend="289"/>
+    <location file="include/ahci.h" line="245" column="1" bodyfile="include/ahci.h" bodystart="245" bodyend="252"/>
     <listofallmembers>
-      <member refid="structahci__hba__prdt__entry__t_1a66e3bcde78ddb8d71480788c18e21d6e" prot="public" virt="non-virtual"><scope>ahci_hba_prdt_entry_t</scope><name>dba</name></member>
-      <member refid="structahci__hba__prdt__entry__t_1a7c1fbeeaa46eb5af8658e7b54a50c913" prot="public" virt="non-virtual"><scope>ahci_hba_prdt_entry_t</scope><name>dbau</name></member>
-      <member refid="structahci__hba__prdt__entry__t_1ad18fa77ebbc24061b03ca271af4d41d6" prot="public" virt="non-virtual"><scope>ahci_hba_prdt_entry_t</scope><name>dbc</name></member>
-      <member refid="structahci__hba__prdt__entry__t_1a01062a616fc5f949054077da9b8076b4" prot="public" virt="non-virtual"><scope>ahci_hba_prdt_entry_t</scope><name>i</name></member>
+      <member refid="structahci__hba__prdt__entry__t_1ae9d9d242a41eafec88c2058bb314425e" prot="public" virt="non-virtual"><scope>ahci_hba_prdt_entry_t</scope><name>byte_count</name></member>
+      <member refid="structahci__hba__prdt__entry__t_1ac822c48f017702644bf30f7501269cc0" prot="public" virt="non-virtual"><scope>ahci_hba_prdt_entry_t</scope><name>data_address_lower</name></member>
+      <member refid="structahci__hba__prdt__entry__t_1a4e582589847a642468e2f83a9c59420d" prot="public" virt="non-virtual"><scope>ahci_hba_prdt_entry_t</scope><name>data_address_upper</name></member>
+      <member refid="structahci__hba__prdt__entry__t_1a20e312c1e74f13b07dd6142a3098e821" prot="public" virt="non-virtual"><scope>ahci_hba_prdt_entry_t</scope><name>interrupt</name></member>
       <member refid="structahci__hba__prdt__entry__t_1a50d7eae089f4b6db0916b5ff69f04094" prot="public" virt="non-virtual"><scope>ahci_hba_prdt_entry_t</scope><name>rsv0</name></member>
       <member refid="structahci__hba__prdt__entry__t_1a217e5595f7940d52851ec218eb9cd0d3" prot="public" virt="non-virtual"><scope>ahci_hba_prdt_entry_t</scope><name>rsv1</name></member>
     </listofallmembers>

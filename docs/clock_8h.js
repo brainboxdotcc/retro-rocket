@@ -20,6 +20,7 @@ var clock_8h =
     [ "load_timezone", "clock_8h.html#ab65017a83e812056d1dfcea435640989", null ],
     [ "local_time", "clock_8h.html#a190bea845609832cd63c178eea59861b", null ],
     [ "time", "clock_8h.html#ae7841e681c8c9d59818568d39553642c", null ],
+    [ "uptime_secs", "clock_8h.html#a2ff6f425d2c2a10b9df9a522e2989844", null ],
     [ "__attribute__", "clock_8h.html#a6856aba1df8cd14a706231dbe3110ee7", null ],
     [ "charcnt", "clock_8h.html#ad98ddad03bf978726ce3acc7e1a644f7", null ],
     [ "leapcnt", "clock_8h.html#a95104ddc3de1f695caaac59e71cf90fa", null ],

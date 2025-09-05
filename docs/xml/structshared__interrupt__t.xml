@@ -71,8 +71,8 @@
       <node id="6">
         <label>void *</label>
       </node>
-      <node id="5">
-        <label>anonymous:@9</label>
+      <node id="4">
+        <label>anonymous:@11</label>
       </node>
       <node id="1">
         <label>shared_interrupt_t</label>
@@ -90,7 +90,7 @@
           <edgelabel>opaque</edgelabel>
         </childnode>
       </node>
-      <node id="4">
+      <node id="5">
         <label>uint32_t</label>
       </node>
       <node id="2">
@@ -100,6 +100,9 @@
         <label>pci_dev_t</label>
         <link refid="unionpci__dev__t"/>
         <childnode refid="4" relation="usage">
+          <edgelabel>@11</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
           <edgelabel>always_zero</edgelabel>
           <edgelabel>bits</edgelabel>
           <edgelabel>bus_num</edgelabel>
@@ -108,9 +111,6 @@
           <edgelabel>field_num</edgelabel>
           <edgelabel>function_num</edgelabel>
           <edgelabel>reserved</edgelabel>
-        </childnode>
-        <childnode refid="5" relation="usage">
-          <edgelabel>@9</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>

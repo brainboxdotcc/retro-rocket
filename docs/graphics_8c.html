@@ -100,7 +100,7 @@ $(document).ready(function(){initNavTree('graphics_8c.html',''); initResizable()
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpngle__user__data__t.html">pngle_user_data_t</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdpoint__t.html">dpoint_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -117,9 +117,9 @@ Macros</h2></td></tr>
 <tr class="separator:a5c5f3bc19a1486c8e9bb5bc593ae05a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d9e5717bb92709110f1a5d43392d42e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphics_8c.html#a5d9e5717bb92709110f1a5d43392d42e">STBI_MALLOC</a>(sz)&#160;&#160;&#160;<a class="el" href="kmalloc_8c.html#aa6bcd5af56ca7ffbc761b010cbd70e39">kmalloc</a>(sz)</td></tr>
 <tr class="separator:a5d9e5717bb92709110f1a5d43392d42e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04faac13c8df95cac0a8583cc2e4eef9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphics_8c.html#a04faac13c8df95cac0a8583cc2e4eef9">STBI_REALLOC</a>(<a class="el" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>,  newsz)&#160;&#160;&#160;<a class="el" href="kmalloc_8c.html#aece282b3071af855886669942d53537a">krealloc</a>(<a class="el" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>,newsz)</td></tr>
+<tr class="memitem:a04faac13c8df95cac0a8583cc2e4eef9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphics_8c.html#a04faac13c8df95cac0a8583cc2e4eef9">STBI_REALLOC</a>(p,  newsz)&#160;&#160;&#160;<a class="el" href="kmalloc_8c.html#aece282b3071af855886669942d53537a">krealloc</a>(p,newsz)</td></tr>
 <tr class="separator:a04faac13c8df95cac0a8583cc2e4eef9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07af50300e5cc077c6b31a4d2e8af32a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphics_8c.html#a07af50300e5cc077c6b31a4d2e8af32a">STBI_FREE</a>(<a class="el" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>)&#160;&#160;&#160;<a class="el" href="kmalloc_8c.html#a595b89fbbc872879d27d666f5cf8eba6">kfree</a>(<a class="el" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>)</td></tr>
+<tr class="memitem:a07af50300e5cc077c6b31a4d2e8af32a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphics_8c.html#a07af50300e5cc077c6b31a4d2e8af32a">STBI_FREE</a>(p)&#160;&#160;&#160;<a class="el" href="kmalloc_8c.html#a595b89fbbc872879d27d666f5cf8eba6">kfree</a>(p)</td></tr>
 <tr class="separator:a07af50300e5cc077c6b31a4d2e8af32a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -171,6 +171,21 @@ Functions</h2></td></tr>
 <tr class="memitem:a598143e2745c97b0a2e5cffc74dd3a43"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphics_8c.html#a598143e2745c97b0a2e5cffc74dd3a43">basic_rgb</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
 <tr class="memdesc:a598143e2745c97b0a2e5cffc74dd3a43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts RGB values to a single integer representing the color.  <a href="graphics_8c.html#a598143e2745c97b0a2e5cffc74dd3a43">More...</a><br /></td></tr>
 <tr class="separator:a598143e2745c97b0a2e5cffc74dd3a43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62a3916c0b9ba27e17b7ef66e3a5e17a"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphics_8c.html#a62a3916c0b9ba27e17b7ef66e3a5e17a">plot_sprite_quad_axis_aligned_int</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx, int64_t sprite_handle, int64_t x0, int64_t y0, int64_t x1, int64_t y1, int64_t x2, int64_t y2, int64_t x3, int64_t y3)</td></tr>
+<tr class="separator:a62a3916c0b9ba27e17b7ef66e3a5e17a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d5e030a46c6924b8bd27f3eaaa2bf45"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphics_8c.html#a1d5e030a46c6924b8bd27f3eaaa2bf45">solve8</a> (double a[8][9])</td></tr>
+<tr class="separator:a1d5e030a46c6924b8bd27f3eaaa2bf45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3311a8202f60d8f7bc941e7c66994297"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphics_8c.html#a3311a8202f60d8f7bc941e7c66994297">compute_homography</a> (const <a class="el" href="structdpoint__t.html">dpoint_t</a> screen[4], const <a class="el" href="structdpoint__t.html">dpoint_t</a> tex[4], double H_out[9])</td></tr>
+<tr class="separator:a3311a8202f60d8f7bc941e7c66994297"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad66bed1add1c5a97ba3b71f3ca708b16"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphics_8c.html#ad66bed1add1c5a97ba3b71f3ca708b16">draw_strip_projective</a> (<a class="el" href="structdpoint__t.html">dpoint_t</a> L0, <a class="el" href="structdpoint__t.html">dpoint_t</a> L1, <a class="el" href="structdpoint__t.html">dpoint_t</a> S0, <a class="el" href="structdpoint__t.html">dpoint_t</a> S1, double y_top, double y_bottom, int long_is_left, const double H[9], const <a class="el" href="structsprite__t.html">sprite_t</a> *<a class="el" href="serial_8h.html#ab87f55bd0280d90925050a4188c14ab5">s</a>, uint64_t framebuffer)</td></tr>
+<tr class="separator:ad66bed1add1c5a97ba3b71f3ca708b16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae773bfdb8ff9d2a48ec094d33663eb5"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphics_8c.html#aae773bfdb8ff9d2a48ec094d33663eb5">raster_tri_projective</a> (const <a class="el" href="structdpoint__t.html">dpoint_t</a> q[4], int ib, int ic, const double H[9], const <a class="el" href="structsprite__t.html">sprite_t</a> *<a class="el" href="serial_8h.html#ab87f55bd0280d90925050a4188c14ab5">s</a>, uint64_t framebuffer)</td></tr>
+<tr class="separator:aae773bfdb8ff9d2a48ec094d33663eb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa915d8385c97f1f303486902a885dadf"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphics_8c.html#aa915d8385c97f1f303486902a885dadf">plot_sprite_quad</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx, int64_t sprite_handle, int64_t x0, int64_t y0, int64_t x1, int64_t y1, int64_t x2, int64_t y2, int64_t x3, int64_t y3)</td></tr>
+<tr class="separator:aa915d8385c97f1f303486902a885dadf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4d8b57312663598bf6f25e26139ed83"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphics_8c.html#ae4d8b57312663598bf6f25e26139ed83">plotquad_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="memdesc:ae4d8b57312663598bf6f25e26139ed83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements the BASIC <code>PLOTQUAD</code> statement.  <a href="graphics_8c.html#ae4d8b57312663598bf6f25e26139ed83">More...</a><br /></td></tr>
+<tr class="separator:ae4d8b57312663598bf6f25e26139ed83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>BASIC graphics drawing functions. </p>
@@ -199,8 +214,8 @@ Functions</h2></td></tr>
           <td class="memname">#define STBI_FREE</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><a class="el" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a></td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="kmalloc_8c.html#a595b89fbbc872879d27d666f5cf8eba6">kfree</a>(<a class="el" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>)</td>
+          <td class="paramname">p</td><td>)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="kmalloc_8c.html#a595b89fbbc872879d27d666f5cf8eba6">kfree</a>(p)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -291,7 +306,7 @@ Functions</h2></td></tr>
           <td class="memname">#define STBI_REALLOC</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><a class="el" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>, </td>
+          <td class="paramname">p, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -302,7 +317,7 @@ Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="kmalloc_8c.html#aece282b3071af855886669942d53537a">krealloc</a>(<a class="el" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>,newsz)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="kmalloc_8c.html#aece282b3071af855886669942d53537a">krealloc</a>(p,newsz)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -449,6 +464,48 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a3311a8202f60d8f7bc941e7c66994297"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3311a8202f60d8f7bc941e7c66994297">&#9670;&nbsp;</a></span>compute_homography()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool compute_homography </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structdpoint__t.html">dpoint_t</a>&#160;</td>
+          <td class="paramname"><em>screen</em>[4], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structdpoint__t.html">dpoint_t</a>&#160;</td>
+          <td class="paramname"><em>tex</em>[4], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>H_out</em>[9]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a0f288d69d997db0c2c09158b0b7c0cf7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0f288d69d997db0c2c09158b0b7c0cf7">&#9670;&nbsp;</a></span>draw_line_statement()</h2>
 
@@ -472,6 +529,90 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ad66bed1add1c5a97ba3b71f3ca708b16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad66bed1add1c5a97ba3b71f3ca708b16">&#9670;&nbsp;</a></span>draw_strip_projective()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void draw_strip_projective </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structdpoint__t.html">dpoint_t</a>&#160;</td>
+          <td class="paramname"><em>L0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structdpoint__t.html">dpoint_t</a>&#160;</td>
+          <td class="paramname"><em>L1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structdpoint__t.html">dpoint_t</a>&#160;</td>
+          <td class="paramname"><em>S0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structdpoint__t.html">dpoint_t</a>&#160;</td>
+          <td class="paramname"><em>S1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>y_top</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>y_bottom</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>long_is_left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>H</em>[9], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structsprite__t.html">sprite_t</a> *&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>framebuffer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -685,6 +826,174 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aa915d8385c97f1f303486902a885dadf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa915d8385c97f1f303486902a885dadf">&#9670;&nbsp;</a></span>plot_sprite_quad()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void plot_sprite_quad </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>sprite_handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>x0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>y0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>x1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>y1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>x2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>y2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>x3</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>y3</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a62a3916c0b9ba27e17b7ef66e3a5e17a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62a3916c0b9ba27e17b7ef66e3a5e17a">&#9670;&nbsp;</a></span>plot_sprite_quad_axis_aligned_int()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool plot_sprite_quad_axis_aligned_int </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>sprite_handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>x0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>y0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>x1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>y1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>x2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>y2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>x3</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>y3</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aa8bc7cf7ea28fa42974f3b02179e2ba1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa8bc7cf7ea28fa42974f3b02179e2ba1">&#9670;&nbsp;</a></span>plot_statement()</h2>
 
@@ -705,6 +1014,36 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ctx</td><td>The current BASIC context. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae4d8b57312663598bf6f25e26139ed83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4d8b57312663598bf6f25e26139ed83">&#9670;&nbsp;</a></span>plotquad_statement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void plotquad_statement </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Implements the BASIC <code>PLOTQUAD</code> statement. </p>
+<p>Parses and executes the <code>PLOTQUAD</code> keyword from the BASIC interpreter. This statement expects a sprite handle followed by four (x,y) coordinate pairs, defining the quadrilateral to which the sprite should be mapped.</p>
+<p>The coordinates may describe any convex quad, allowing sprites to be drawn with skew and perspective. Internally this delegates to the textured-quad blitter (<code>plot_sprite_quad</code>) to perform the actual rendering.</p>
+<p>Example usage in BASIC: </p><div class="fragment"><div class="line"><a class="code" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea9baf8972a026ab13e4cd839632d5a134">PLOTQUAD</a> SPRITEHANDLE, 100,100, 200,120, 190,220, 90,210</div>
+<div class="ttc" id="atokenizer_8h_html_a4ebc26c81c029670805b51af165f9cfea9baf8972a026ab13e4cd839632d5a134"><div class="ttname"><a href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea9baf8972a026ab13e4cd839632d5a134">PLOTQUAD</a></div><div class="ttdeci">@ PLOTQUAD</div><div class="ttdef"><b>Definition:</b> tokenizer.h:175</div></div>
+</div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>Pointer to the BASIC execution context, containing parser state, sprite table, and current program environment. </td></tr>
   </table>
   </dd>
 </dl>
@@ -737,6 +1076,66 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aae773bfdb8ff9d2a48ec094d33663eb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae773bfdb8ff9d2a48ec094d33663eb5">&#9670;&nbsp;</a></span>raster_tri_projective()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void raster_tri_projective </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structdpoint__t.html">dpoint_t</a>&#160;</td>
+          <td class="paramname"><em>q</em>[4], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ib</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ic</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>H</em>[9], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structsprite__t.html">sprite_t</a> *&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>framebuffer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a351eb0fe6ae02c9eeb861ab014c0ce27"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a351eb0fe6ae02c9eeb861ab014c0ce27">&#9670;&nbsp;</a></span>rectangle_statement()</h2>
 
@@ -760,6 +1159,32 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a1d5e030a46c6924b8bd27f3eaaa2bf45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d5e030a46c6924b8bd27f3eaaa2bf45">&#9670;&nbsp;</a></span>solve8()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool solve8 </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>a</em>[8][9]</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -795,7 +1220,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_38cd9eca440b760dc966f21b1f8d8f41.html">basic</a></li><li class="navelem"><a class="el" href="graphics_8c.html">graphics.c</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:44 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

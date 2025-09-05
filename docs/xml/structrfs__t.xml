@@ -208,10 +208,10 @@
 <para>Holds the filesystem’s geometry, cached metadata, and free space tracking structures. </para>
     </detaileddescription>
     <collaborationgraph>
-      <node id="11">
+      <node id="14">
         <label>size_t</label>
       </node>
-      <node id="10">
+      <node id="13">
         <label>void *</label>
       </node>
       <node id="3">
@@ -251,16 +251,16 @@
         <childnode refid="6" relation="usage">
           <edgelabel>dev</edgelabel>
         </childnode>
-        <childnode refid="11" relation="usage">
+        <childnode refid="14" relation="usage">
           <edgelabel>cache_block_size</edgelabel>
         </childnode>
-        <childnode refid="12" relation="usage">
+        <childnode refid="15" relation="usage">
           <edgelabel>l1_all_free</edgelabel>
           <edgelabel>l1_not_full</edgelabel>
           <edgelabel>l2_all_free</edgelabel>
           <edgelabel>l2_not_full</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="13" relation="usage">
           <edgelabel>cache_block</edgelabel>
         </childnode>
       </node>
@@ -272,38 +272,64 @@
           <edgelabel>size</edgelabel>
         </childnode>
         <childnode refid="7" relation="usage">
+          <edgelabel>cache</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>ui</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
           <edgelabel>name</edgelabel>
         </childnode>
         <childnode refid="6" relation="usage">
           <edgelabel>next</edgelabel>
         </childnode>
-        <childnode refid="8" relation="usage">
+        <childnode refid="11" relation="usage">
           <edgelabel>block_size</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="12" relation="usage">
           <edgelabel>blockread</edgelabel>
           <edgelabel>blockwrite</edgelabel>
         </childnode>
         <childnode refid="10" relation="usage">
+          <edgelabel>blockclear</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
           <edgelabel>opaque2</edgelabel>
+          <edgelabel>opaque3</edgelabel>
         </childnode>
       </node>
       <node id="5">
         <label>uint16_t</label>
       </node>
-      <node id="9">
+      <node id="12">
         <label>int</label>
       </node>
-      <node id="8">
+      <node id="7">
+        <label>struct block_cache *</label>
+      </node>
+      <node id="11">
         <label>uint32_t</label>
       </node>
-      <node id="12">
+      <node id="15">
         <label>uint8_t</label>
+      </node>
+      <node id="8">
+        <label>storage_device_ui_t</label>
+        <link refid="structstorage__device__ui__t"/>
+        <childnode refid="9" relation="usage">
+          <edgelabel>label</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>is_optical</edgelabel>
+        </childnode>
+      </node>
+      <node id="10">
+        <label>bool</label>
       </node>
       <node id="4">
         <label>int64_t</label>
       </node>
-      <node id="7">
+      <node id="9">
         <label>char</label>
       </node>
     </collaborationgraph>

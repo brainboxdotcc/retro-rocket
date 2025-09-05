@@ -91,13 +91,17 @@ $(document).ready(function(){initNavTree('structahci__fis__dma__setup__t.html','
 </div><!--header-->
 <div class="contents">
 
+<p>DMA Setup FIS (bidirectional).  
+ <a href="structahci__fis__dma__setup__t.html#details">More...</a></p>
+
 <p><code>#include &lt;ahci.h&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for ahci_fis_dma_setup_t:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structahci__fis__dma__setup__t__coll__graph.svg" width="347" height="215"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="structahci__fis__dma__setup__t__coll__graph.svg" width="388" height="215"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -108,79 +112,88 @@ Data Fields</h2></td></tr>
 <tr class="separator:abad07e2a16752fea19dd3fe4a9f2211a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9388e1cadae8bbd1e89a7995077e6ff7"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__dma__setup__t.html#a9388e1cadae8bbd1e89a7995077e6ff7">rsv0</a>:1</td></tr>
 <tr class="separator:a9388e1cadae8bbd1e89a7995077e6ff7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3aaf538a96702a7ea6efbe012823479b"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__dma__setup__t.html#a3aaf538a96702a7ea6efbe012823479b">d</a>:1</td></tr>
-<tr class="separator:a3aaf538a96702a7ea6efbe012823479b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27b26e0c6778d675fa07b39457fc9aba"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__dma__setup__t.html#a27b26e0c6778d675fa07b39457fc9aba">i</a>:1</td></tr>
-<tr class="separator:a27b26e0c6778d675fa07b39457fc9aba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6e9ab7f0f389227a3b585db085648ac"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__dma__setup__t.html#af6e9ab7f0f389227a3b585db085648ac">a</a>:1</td></tr>
-<tr class="separator:af6e9ab7f0f389227a3b585db085648ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafd78177a8544f6b54ca98d55bd05ee1"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__dma__setup__t.html#aafd78177a8544f6b54ca98d55bd05ee1">direction</a>:1</td></tr>
+<tr class="separator:aafd78177a8544f6b54ca98d55bd05ee1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4de6b6b1a164110079bd2ffe249aa049"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__dma__setup__t.html#a4de6b6b1a164110079bd2ffe249aa049">interrupt</a>:1</td></tr>
+<tr class="separator:a4de6b6b1a164110079bd2ffe249aa049"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c16c74bc792ef7f4c896682584be8bf"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__dma__setup__t.html#a8c16c74bc792ef7f4c896682584be8bf">activate</a>:1</td></tr>
+<tr class="separator:a8c16c74bc792ef7f4c896682584be8bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a737c385f1fd664415932690d9e8e2d7c"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__dma__setup__t.html#a737c385f1fd664415932690d9e8e2d7c">rsved</a> [2]</td></tr>
 <tr class="separator:a737c385f1fd664415932690d9e8e2d7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a330906bb0ea078b76e0c5eee7faa578e"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__dma__setup__t.html#a330906bb0ea078b76e0c5eee7faa578e">DMAbufferID</a></td></tr>
-<tr class="separator:a330906bb0ea078b76e0c5eee7faa578e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ae82475bf6586fd876f5fb1ae51262e"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__dma__setup__t.html#a4ae82475bf6586fd876f5fb1ae51262e">dma_buffer_id</a></td></tr>
+<tr class="separator:a4ae82475bf6586fd876f5fb1ae51262e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b2d6f2f31aebfeda35a2f20f3eece4e"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__dma__setup__t.html#a5b2d6f2f31aebfeda35a2f20f3eece4e">rsvd</a></td></tr>
 <tr class="separator:a5b2d6f2f31aebfeda35a2f20f3eece4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09229ef7873a3bcf24f96c83ad916a47"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__dma__setup__t.html#a09229ef7873a3bcf24f96c83ad916a47">DMAbufOffset</a></td></tr>
-<tr class="separator:a09229ef7873a3bcf24f96c83ad916a47"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e2e4bbb47fa7c62e481648de1fafbdc"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__dma__setup__t.html#a6e2e4bbb47fa7c62e481648de1fafbdc">TransferCount</a></td></tr>
-<tr class="separator:a6e2e4bbb47fa7c62e481648de1fafbdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6d8da5f0a5eeef6d6e3ca268c801092"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__dma__setup__t.html#ab6d8da5f0a5eeef6d6e3ca268c801092">dma_buffer_offset</a></td></tr>
+<tr class="separator:ab6d8da5f0a5eeef6d6e3ca268c801092"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a223a39fb7d7914b796c6384336ea8a61"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__dma__setup__t.html#a223a39fb7d7914b796c6384336ea8a61">transfer_count</a></td></tr>
+<tr class="separator:a223a39fb7d7914b796c6384336ea8a61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a862ad0f96dd18cb4fc43ac522851ce80"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__dma__setup__t.html#a862ad0f96dd18cb4fc43ac522851ce80">resvd</a></td></tr>
 <tr class="separator:a862ad0f96dd18cb4fc43ac522851ce80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Field Documentation</h2>
-<a id="af6e9ab7f0f389227a3b585db085648ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af6e9ab7f0f389227a3b585db085648ac">&#9670;&nbsp;</a></span>a</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>DMA Setup FIS (bidirectional). </p>
+<dl class="section note"><dt>Note</dt><dd>dma_buffer_offset low 2 bits must be 0 (DWORD aligned). </dd>
+<dd>
+transfer_count bit 0 must be 0 (even byte count). </dd></dl>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a id="a8c16c74bc792ef7f4c896682584be8bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c16c74bc792ef7f4c896682584be8bf">&#9670;&nbsp;</a></span>activate</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t ahci_fis_dma_setup_t::a</td>
+          <td class="memname">uint8_t ahci_fis_dma_setup_t::activate</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Auto-activate (DMA Activate FIS needed) </p>
 
 </div>
 </div>
-<a id="a3aaf538a96702a7ea6efbe012823479b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3aaf538a96702a7ea6efbe012823479b">&#9670;&nbsp;</a></span>d</h2>
+<a id="aafd78177a8544f6b54ca98d55bd05ee1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafd78177a8544f6b54ca98d55bd05ee1">&#9670;&nbsp;</a></span>direction</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t ahci_fis_dma_setup_t::d</td>
+          <td class="memname">uint8_t ahci_fis_dma_setup_t::direction</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Data direction: 1 = device-&gt;host </p>
 
 </div>
 </div>
-<a id="a330906bb0ea078b76e0c5eee7faa578e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a330906bb0ea078b76e0c5eee7faa578e">&#9670;&nbsp;</a></span>DMAbufferID</h2>
+<a id="a4ae82475bf6586fd876f5fb1ae51262e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ae82475bf6586fd876f5fb1ae51262e">&#9670;&nbsp;</a></span>dma_buffer_id</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint64_t ahci_fis_dma_setup_t::DMAbufferID</td>
+          <td class="memname">uint64_t ahci_fis_dma_setup_t::dma_buffer_id</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Host DMA buffer identifier (host-specific) </p>
 
 </div>
 </div>
-<a id="a09229ef7873a3bcf24f96c83ad916a47"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09229ef7873a3bcf24f96c83ad916a47">&#9670;&nbsp;</a></span>DMAbufOffset</h2>
+<a id="ab6d8da5f0a5eeef6d6e3ca268c801092"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6d8da5f0a5eeef6d6e3ca268c801092">&#9670;&nbsp;</a></span>dma_buffer_offset</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t ahci_fis_dma_setup_t::DMAbufOffset</td>
+          <td class="memname">uint32_t ahci_fis_dma_setup_t::dma_buffer_offset</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Byte offset into buffer (bits[1:0]==0) </p>
 
 </div>
 </div>
@@ -195,20 +208,22 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>FIS type (FIS_TYPE_DMA_SETUP) </p>
 
 </div>
 </div>
-<a id="a27b26e0c6778d675fa07b39457fc9aba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a27b26e0c6778d675fa07b39457fc9aba">&#9670;&nbsp;</a></span>i</h2>
+<a id="a4de6b6b1a164110079bd2ffe249aa049"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4de6b6b1a164110079bd2ffe249aa049">&#9670;&nbsp;</a></span>interrupt</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t ahci_fis_dma_setup_t::i</td>
+          <td class="memname">uint8_t ahci_fis_dma_setup_t::interrupt</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Interrupt bit (I) </p>
 
 </div>
 </div>
@@ -223,6 +238,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Port multiplier port </p>
 
 </div>
 </div>
@@ -237,6 +253,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Reserved, must be zero </p>
 
 </div>
 </div>
@@ -251,6 +268,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Reserved, must be zero </p>
 
 </div>
 </div>
@@ -265,6 +283,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Reserved, must be zero </p>
 
 </div>
 </div>
@@ -279,20 +298,22 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Reserved, must be zero </p>
 
 </div>
 </div>
-<a id="a6e2e4bbb47fa7c62e481648de1fafbdc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e2e4bbb47fa7c62e481648de1fafbdc">&#9670;&nbsp;</a></span>TransferCount</h2>
+<a id="a223a39fb7d7914b796c6384336ea8a61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a223a39fb7d7914b796c6384336ea8a61">&#9670;&nbsp;</a></span>transfer_count</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t ahci_fis_dma_setup_t::TransferCount</td>
+          <td class="memname">uint32_t ahci_fis_dma_setup_t::transfer_count</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Bytes to transfer (bit0==0) </p>
 
 </div>
 </div>
@@ -302,7 +323,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structahci__fis__dma__setup__t.html">ahci_fis_dma_setup_t</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

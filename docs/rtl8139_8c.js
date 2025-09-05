@@ -11,7 +11,6 @@ var rtl8139_8c =
     [ "rtl8139_get_mac_addr", "rtl8139_8c.html#a5e397db85c180a0c2710273e41625411", null ],
     [ "rtl8139_handler", "rtl8139_8c.html#ad369c55a532c750460f88554fe39b9a5", null ],
     [ "rtl8139_send_packet", "rtl8139_8c.html#a6d2a8cbf3e4ea167997308e42a50d9b1", null ],
-    [ "rtl8139_timer", "rtl8139_8c.html#a8eebaa980e7921641d17f1abea9bd879", null ],
     [ "rtl_inb", "rtl8139_8c.html#a943205a0ae53c260f52cdbd1376e64e9", null ],
     [ "rtl_inl", "rtl8139_8c.html#afe935a0d0e56c9dcbab6a3e07c80ad71", null ],
     [ "rtl_inw", "rtl8139_8c.html#a120260bfda0bcf11619951a516724709", null ],

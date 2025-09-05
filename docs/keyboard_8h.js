@@ -22,7 +22,9 @@ var keyboard_8h =
     [ "ctrl_held", "keyboard_8h.html#afdb02475d45b894eb5ec2a57b4100eea", null ],
     [ "init_keyboard", "keyboard_8h.html#ac3a72156d4bbba013e4d62801992794d", null ],
     [ "key_waiting", "keyboard_8h.html#a86378414e15a4c45269f773f9bc1a34c", null ],
-    [ "kgetc", "keyboard_8h.html#af186c1d48613bd858b7f774e5bd47935", null ],
+    [ "kgetc", "keyboard_8h.html#adeef92b49557a51527be9cd292d12ad7", null ],
+    [ "kpeek", "keyboard_8h.html#a2f6948e7b53d94c61b16fafea0cd73ec", null ],
     [ "load_keymap_from_string", "keyboard_8h.html#ab5cfd80e1528c2d400a6833d10d8c364", null ],
+    [ "reboot", "keyboard_8h.html#a9c2b65b8f7fbaf40e3c116962d44f586", null ],
     [ "shift_held", "keyboard_8h.html#a91e9663f1e43e4aca8439739c3b10c69", null ]
 ];

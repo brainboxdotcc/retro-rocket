@@ -95,7 +95,7 @@ $(document).ready(function(){initNavTree('kmalloc_8h.html',''); initResizable();
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:aae7ce33f5dd0ec931b2551438b55e716"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="kmalloc_8h.html#aae7ce33f5dd0ec931b2551438b55e716">kfree_null</a>(<a class="el" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>)&#160;&#160;&#160;do { <a class="el" href="kmalloc_8c.html#a595b89fbbc872879d27d666f5cf8eba6">kfree</a>(*(<a class="el" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>)); *(<a class="el" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>) = NULL; } while (0)</td></tr>
+<tr class="memitem:aae7ce33f5dd0ec931b2551438b55e716"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="kmalloc_8h.html#aae7ce33f5dd0ec931b2551438b55e716">kfree_null</a>(p)&#160;&#160;&#160;do { <a class="el" href="kmalloc_8c.html#a595b89fbbc872879d27d666f5cf8eba6">kfree</a>(*(p)); *(p) = NULL; } while (0)</td></tr>
 <tr class="memdesc:aae7ce33f5dd0ec931b2551438b55e716"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free memory and set the pointer to NULL.  <a href="kmalloc_8h.html#aae7ce33f5dd0ec931b2551438b55e716">More...</a><br /></td></tr>
 <tr class="separator:aae7ce33f5dd0ec931b2551438b55e716"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -137,6 +137,10 @@ Functions</h2></td></tr>
 <tr class="memitem:a48ed44cd60d7dd25dc396e20739a3a84"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="kmalloc_8h.html#a48ed44cd60d7dd25dc396e20739a3a84">preboot_fail</a> (const char *msg)</td></tr>
 <tr class="memdesc:a48ed44cd60d7dd25dc396e20739a3a84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Halt the system with a preboot failure message.  <a href="kmalloc_8h.html#a48ed44cd60d7dd25dc396e20739a3a84">More...</a><br /></td></tr>
 <tr class="separator:a48ed44cd60d7dd25dc396e20739a3a84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e5196d24984d49d3f6b182ddb89eea5"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="kmalloc_8h.html#a7e5196d24984d49d3f6b182ddb89eea5">kmalloc_aligned</a> (uint64_t <a class="el" href="fat32_8h.html#ab2c6b258f02add8fdf4cfc7c371dd772">size</a>, uint64_t align)</td></tr>
+<tr class="separator:a7e5196d24984d49d3f6b182ddb89eea5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d4f1b1e4c96bc92c35005527314b889"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="kmalloc_8h.html#a8d4f1b1e4c96bc92c35005527314b889">kfree_aligned</a> (const void *ptr)</td></tr>
+<tr class="separator:a8d4f1b1e4c96bc92c35005527314b889"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
@@ -154,8 +158,8 @@ Functions</h2></td></tr>
           <td class="memname">#define kfree_null</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><a class="el" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a></td><td>)</td>
-          <td>&#160;&#160;&#160;do { <a class="el" href="kmalloc_8c.html#a595b89fbbc872879d27d666f5cf8eba6">kfree</a>(*(<a class="el" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>)); *(<a class="el" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>) = NULL; } while (0)</td>
+          <td class="paramname">p</td><td>)</td>
+          <td>&#160;&#160;&#160;do { <a class="el" href="kmalloc_8c.html#a595b89fbbc872879d27d666f5cf8eba6">kfree</a>(*(p)); *(p) = NULL; } while (0)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -165,7 +169,7 @@ Functions</h2></td></tr>
 <p>Example usage: </p><div class="fragment"><div class="line"><span class="keywordtype">void</span>* ptr = <a class="code" href="kmalloc_8h.html#aa6bcd5af56ca7ffbc761b010cbd70e39">kmalloc</a>(128);</div>
 <div class="line"><a class="code" href="kmalloc_8h.html#aae7ce33f5dd0ec931b2551438b55e716">kfree_null</a>(&amp;ptr); <span class="comment">// ptr is now NULL</span></div>
 <div class="ttc" id="akmalloc_8h_html_aa6bcd5af56ca7ffbc761b010cbd70e39"><div class="ttname"><a href="kmalloc_8h.html#aa6bcd5af56ca7ffbc761b010cbd70e39">kmalloc</a></div><div class="ttdeci">void * kmalloc(uint64_t size)</div><div class="ttdoc">Allocate memory from the kernel heap.</div><div class="ttdef"><b>Definition:</b> kmalloc.c:65</div></div>
-<div class="ttc" id="akmalloc_8h_html_aae7ce33f5dd0ec931b2551438b55e716"><div class="ttname"><a href="kmalloc_8h.html#aae7ce33f5dd0ec931b2551438b55e716">kfree_null</a></div><div class="ttdeci">#define kfree_null(p)</div><div class="ttdoc">Free memory and set the pointer to NULL.</div><div class="ttdef"><b>Definition:</b> kmalloc.h:130</div></div>
+<div class="ttc" id="akmalloc_8h_html_aae7ce33f5dd0ec931b2551438b55e716"><div class="ttname"><a href="kmalloc_8h.html#aae7ce33f5dd0ec931b2551438b55e716">kfree_null</a></div><div class="ttdeci">#define kfree_null(p)</div><div class="ttdoc">Free memory and set the pointer to NULL.</div><div class="ttdef"><b>Definition:</b> kmalloc.h:134</div></div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">p</td><td>A pointer to the pointer to be freed. Must not be NULL. </td></tr>
@@ -324,6 +328,24 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a8d4f1b1e4c96bc92c35005527314b889"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d4f1b1e4c96bc92c35005527314b889">&#9670;&nbsp;</a></span>kfree_aligned()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void kfree_aligned </td>
+          <td>(</td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a60f2a49082216212a87de02d7c79851f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a60f2a49082216212a87de02d7c79851f">&#9670;&nbsp;</a></span>kfree_low()</h2>
 
@@ -375,6 +397,34 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to allocated memory, or NULL if allocation fails. </dd></dl>
+
+</div>
+</div>
+<a id="a7e5196d24984d49d3f6b182ddb89eea5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e5196d24984d49d3f6b182ddb89eea5">&#9670;&nbsp;</a></span>kmalloc_aligned()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* kmalloc_aligned </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>align</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -499,7 +549,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="kmalloc_8h.html">kmalloc.h</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

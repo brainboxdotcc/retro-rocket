@@ -6,27 +6,21 @@
     <includes refid="flanterm_8h" local="no">flanterm.h</includes>
     <includes refid="fb_8h" local="no">flanterm/fb.h</includes>
     <incdepgraph>
-      <node id="52">
+      <node id="57">
         <label>ata.h</label>
         <link refid="ata_8h"/>
       </node>
       <node id="4">
         <label>stdbool.h</label>
       </node>
-      <node id="20">
+      <node id="22">
         <label>basic.h</label>
         <link refid="basic_8h"/>
-        <childnode refid="21" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
         <childnode refid="23" relation="include">
         </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
         <childnode refid="25" relation="include">
-        </childnode>
-        <childnode refid="26" relation="include">
-        </childnode>
-        <childnode refid="27" relation="include">
         </childnode>
         <childnode refid="28" relation="include">
         </childnode>
@@ -54,21 +48,31 @@
         </childnode>
         <childnode refid="40" relation="include">
         </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
       </node>
-      <node id="23">
+      <node id="25">
         <label>basic/context.h</label>
         <link refid="context_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
         </childnode>
       </node>
-      <node id="83">
+      <node id="88">
         <label>stdarg.h</label>
       </node>
-      <node id="55">
+      <node id="60">
         <label>ramdisk.h</label>
         <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
@@ -77,7 +81,7 @@
       <node id="14">
         <label>stdatomic.h</label>
       </node>
-      <node id="26">
+      <node id="29">
         <label>basic/validation.h</label>
         <link refid="validation_8h"/>
         <childnode refid="3" relation="include">
@@ -85,7 +89,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="36">
+      <node id="39">
         <label>basic/graphics.h</label>
         <link refid="graphics_8h"/>
         <childnode refid="3" relation="include">
@@ -93,13 +97,13 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="67">
+      <node id="72">
         <label>acpi.h</label>
         <link refid="acpi_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="24">
         <label>basic/structs.h</label>
         <link refid="structs_8h"/>
         <childnode refid="3" relation="include">
@@ -107,13 +111,16 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="71">
+      <node id="76">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="24">
+      <node id="67">
+        <label>stdnoreturn.h</label>
+      </node>
+      <node id="27">
         <label>buddy_allocator.h</label>
         <link refid="buddy__allocator_8h"/>
         <childnode refid="5" relation="include">
@@ -121,13 +128,19 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="78">
+      <node id="83">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="58">
+      <node id="44">
+        <label>basic/peekpoke.h</label>
+        <link refid="peekpoke_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="63">
         <label>fat32.h</label>
         <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
@@ -143,13 +156,13 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="76">
+      <node id="81">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="56">
+      <node id="61">
         <label>iso9660.h</label>
         <link refid="iso9660_8h"/>
         <childnode refid="2" relation="include">
@@ -165,13 +178,13 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="74">
+      <node id="79">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="49">
+      <node id="53">
         <label>devicename.h</label>
         <link refid="devicename_8h"/>
         <childnode refid="2" relation="include">
@@ -184,13 +197,13 @@
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="79">
+      <node id="84">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="30">
         <label>basic/variable.h</label>
         <link refid="variable_8h"/>
         <childnode refid="3" relation="include">
@@ -198,13 +211,13 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="69">
+      <node id="74">
         <label>rtl8139.h</label>
         <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="48">
+      <node id="52">
         <label>stdlib.h</label>
         <link refid="stdlib_8h"/>
         <childnode refid="5" relation="include">
@@ -220,19 +233,27 @@
         <link refid="video_8c"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="85" relation="include">
+        <childnode refid="91" relation="include">
         </childnode>
-        <childnode refid="86" relation="include">
+        <childnode refid="92" relation="include">
         </childnode>
       </node>
-      <node id="43">
+      <node id="47">
         <label>ioapic.h</label>
         <link refid="ioapic_8h"/>
       </node>
       <node id="5">
         <label>stddef.h</label>
       </node>
-      <node id="34">
+      <node id="90">
+        <label>module.h</label>
+        <link refid="module_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
         <label>basic/array.h</label>
         <link refid="array_8h"/>
         <childnode refid="3" relation="include">
@@ -240,7 +261,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="32">
+      <node id="35">
         <label>basic/flow_control.h</label>
         <link refid="flow__control_8h"/>
         <childnode refid="3" relation="include">
@@ -251,11 +272,13 @@
       <node id="6">
         <label>limits.h</label>
       </node>
-      <node id="61">
+      <node id="66">
         <label>keyboard.h</label>
         <link refid="keyboard_8h"/>
+        <childnode refid="67" relation="include">
+        </childnode>
       </node>
-      <node id="85">
+      <node id="91">
         <label>flanterm.h</label>
         <link refid="flanterm_8h"/>
         <childnode refid="5" relation="include">
@@ -283,19 +306,19 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="70">
+      <node id="75">
         <label>e1000.h</label>
         <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="64">
+      <node id="70">
         <label>lapic_timer.h</label>
         <link refid="lapic__timer_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="34">
         <label>basic/builtin_real_functions.h</label>
         <link refid="builtin__real__functions_8h"/>
         <childnode refid="3" relation="include">
@@ -306,37 +329,37 @@
       <node id="7">
         <label>limine.h</label>
       </node>
-      <node id="62">
+      <node id="68">
         <label>input.h</label>
         <link refid="input_8h"/>
       </node>
-      <node id="80">
+      <node id="85">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="18">
+      <node id="20">
         <label>video.h</label>
         <link refid="video_8h"/>
       </node>
-      <node id="82">
+      <node id="87">
         <label>serial.h</label>
         <link refid="serial_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="83" relation="include">
+        <childnode refid="88" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="75">
+      <node id="80">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="35">
+      <node id="38">
         <label>basic/sockets.h</label>
         <link refid="sockets_8h"/>
         <childnode refid="3" relation="include">
@@ -344,17 +367,25 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="23">
         <label>basic/defines.h</label>
         <link refid="defines_8h"/>
       </node>
-      <node id="72">
+      <node id="17">
+        <label>vector.h</label>
+        <link refid="vector_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="77">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="28">
+      <node id="31">
         <label>basic/builtin_integer_functions.h</label>
         <link refid="builtin__integer__functions_8h"/>
         <childnode refid="3" relation="include">
@@ -362,23 +393,23 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="53">
+      <node id="58">
         <label>filesystem.h</label>
         <link refid="filesystem_8h"/>
       </node>
-      <node id="47">
+      <node id="51">
         <label>maths.h</label>
         <link refid="maths_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="57">
+      <node id="62">
         <label>devfs.h</label>
         <link refid="devfs_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="28">
         <label>basic/expression.h</label>
         <link refid="expression_8h"/>
         <childnode refid="3" relation="include">
@@ -386,7 +417,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="86">
+      <node id="92">
         <label>flanterm/fb.h</label>
         <link refid="fb_8h"/>
         <childnode refid="3" relation="include">
@@ -395,14 +426,14 @@
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="85" relation="include">
+        <childnode refid="91" relation="include">
         </childnode>
       </node>
-      <node id="60">
+      <node id="65">
         <label>errorhandler.h</label>
         <link refid="errorhandler_8h"/>
       </node>
-      <node id="29">
+      <node id="32">
         <label>basic/builtin_string_functions.h</label>
         <link refid="builtin__string__functions_8h"/>
         <childnode refid="3" relation="include">
@@ -410,7 +441,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="73">
+      <node id="78">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
@@ -449,15 +480,11 @@
         </childnode>
         <childnode refid="19" relation="include">
         </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
         <childnode refid="10" relation="include">
-        </childnode>
-        <childnode refid="41" relation="include">
-        </childnode>
-        <childnode refid="42" relation="include">
-        </childnode>
-        <childnode refid="43" relation="include">
-        </childnode>
-        <childnode refid="44" relation="include">
         </childnode>
         <childnode refid="45" relation="include">
         </childnode>
@@ -481,8 +508,6 @@
         </childnode>
         <childnode refid="55" relation="include">
         </childnode>
-        <childnode refid="56" relation="include">
-        </childnode>
         <childnode refid="57" relation="include">
         </childnode>
         <childnode refid="58" relation="include">
@@ -499,19 +524,19 @@
         </childnode>
         <childnode refid="64" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
         <childnode refid="65" relation="include">
         </childnode>
         <childnode refid="66" relation="include">
-        </childnode>
-        <childnode refid="67" relation="include">
         </childnode>
         <childnode refid="68" relation="include">
         </childnode>
         <childnode refid="69" relation="include">
         </childnode>
         <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
         </childnode>
         <childnode refid="71" relation="include">
         </childnode>
@@ -533,22 +558,34 @@
         </childnode>
         <childnode refid="80" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
         <childnode refid="81" relation="include">
         </childnode>
         <childnode refid="82" relation="include">
         </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
         <childnode refid="84" relation="include">
         </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
       </node>
-      <node id="41">
+      <node id="45">
         <label>memcpy.h</label>
         <link refid="memcpy_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="37">
+      <node id="40">
         <label>basic/console.h</label>
         <link refid="console_8h"/>
         <childnode refid="3" relation="include">
@@ -556,25 +593,25 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="54">
+      <node id="59">
         <label>partition.h</label>
         <link refid="partition_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="19">
         <label>random.h</label>
         <link refid="random_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="84">
+      <node id="89">
         <label>debug_ringbuffer.h</label>
         <link refid="debug__ringbuffer_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="66">
+      <node id="71">
         <label>taskswitch.h</label>
         <link refid="taskswitch_8h"/>
         <childnode refid="2" relation="include">
@@ -592,19 +629,19 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="68">
+      <node id="73">
         <label>net.h</label>
         <link refid="net_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="44">
+      <node id="48">
         <label>timer.h</label>
         <link refid="timer_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="39">
+      <node id="42">
         <label>basic/reflection.h</label>
         <link refid="reflection_8h"/>
         <childnode refid="3" relation="include">
@@ -612,11 +649,11 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="59">
+      <node id="64">
         <label>debugger.h</label>
         <link refid="debugger_8h"/>
       </node>
-      <node id="30">
+      <node id="33">
         <label>basic/builtin_file_io_functions.h</label>
         <link refid="builtin__file__io__functions_8h"/>
         <childnode refid="3" relation="include">
@@ -624,25 +661,39 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="50">
+      <node id="54">
         <label>interrupt.h</label>
         <link refid="interrupt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="45">
+      <node id="49">
         <label>kmalloc.h</label>
         <link refid="kmalloc_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="65">
-        <label>basic/tokenizer.h</label>
+      <node id="56">
+        <label>scsi.h</label>
+        <link refid="scsi_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>map.h</label>
+        <link refid="map_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>tokenizer.h</label>
         <link refid="tokenizer_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="33">
+      <node id="36">
         <label>basic/lowlevel.h</label>
         <link refid="lowlevel_8h"/>
         <childnode refid="3" relation="include">
@@ -650,29 +701,31 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="46">
+      <node id="50">
         <label>pci.h</label>
         <link refid="pci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="42">
+      <node id="46">
         <label>apic.h</label>
         <link refid="apic_8h"/>
       </node>
-      <node id="19">
+      <node id="21">
         <label>string.h</label>
         <link refid="string_8h"/>
-        <childnode refid="20" relation="include">
+        <childnode refid="22" relation="include">
         </childnode>
       </node>
-      <node id="51">
+      <node id="55">
         <label>ahci.h</label>
         <link refid="ahci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
       </node>
-      <node id="38">
+      <node id="41">
         <label>basic/process.h</label>
         <link refid="process_8h"/>
         <childnode refid="3" relation="include">
@@ -680,19 +733,19 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="77">
+      <node id="82">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="81">
+      <node id="86">
         <label>retrofs.h</label>
         <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="40">
+      <node id="43">
         <label>basic/datetime.h</label>
         <link refid="datetime_8h"/>
         <childnode refid="3" relation="include">
@@ -700,7 +753,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="63">
+      <node id="69">
         <label>clock.h</label>
         <link refid="clock_8h"/>
         <childnode refid="2" relation="include">
@@ -710,215 +763,6 @@
       </node>
     </incdepgraph>
       <sectiondef kind="var">
-      <memberdef kind="variable" id="video_8c_1a45f0e634b526ce7d7df724718489acba" prot="public" static="yes" mutable="no">
-        <type>int64_t</type>
-        <definition>int64_t screen_x</definition>
-        <argsstring></argsstring>
-        <name>screen_x</name>
-        <initializer>= 0</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/video.c" line="5" column="16" bodyfile="src/video.c" bodystart="5" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="video_8c_1ad17da898872a8d4701fd0968e87eba3f" prot="public" static="yes" mutable="no">
-        <type>int64_t</type>
-        <definition>int64_t screen_y</definition>
-        <argsstring></argsstring>
-        <name>screen_y</name>
-        <initializer>= 0</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/video.c" line="5" column="26" bodyfile="src/video.c" bodystart="5" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="video_8c_1ac419833e94c23bb3dc6ef119c47e6343" prot="public" static="yes" mutable="no">
-        <type>int64_t</type>
-        <definition>int64_t current_x</definition>
-        <argsstring></argsstring>
-        <name>current_x</name>
-        <initializer>= 0</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/video.c" line="5" column="36" bodyfile="src/video.c" bodystart="5" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="video_8c_1a20b062c3b15831611a0e308295ef7c78" prot="public" static="yes" mutable="no">
-        <type>int64_t</type>
-        <definition>int64_t current_y</definition>
-        <argsstring></argsstring>
-        <name>current_y</name>
-        <initializer>= 0</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/video.c" line="5" column="47" bodyfile="src/video.c" bodystart="5" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="video_8c_1ab92ca314246f5cfa9a0846f8eb617ce7" prot="public" static="yes" mutable="no">
-        <type>int64_t</type>
-        <definition>int64_t screen_graphics_x</definition>
-        <argsstring></argsstring>
-        <name>screen_graphics_x</name>
-        <initializer>= 0</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/video.c" line="5" column="58" bodyfile="src/video.c" bodystart="5" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="video_8c_1aaf390b444a1c509e99f44f3490531d53" prot="public" static="yes" mutable="no">
-        <type>int64_t</type>
-        <definition>int64_t screen_graphics_y</definition>
-        <argsstring></argsstring>
-        <name>screen_graphics_y</name>
-        <initializer>= 0</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/video.c" line="5" column="77" bodyfile="src/video.c" bodystart="5" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="video_8c_1a74f18c27b1c5452f409c1b412e419eb5" prot="public" static="yes" mutable="no">
-        <type>int64_t</type>
-        <definition>int64_t screen_graphics_stride</definition>
-        <argsstring></argsstring>
-        <name>screen_graphics_stride</name>
-        <initializer>= 1</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/video.c" line="5" column="96" bodyfile="src/video.c" bodystart="5" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="video_8c_1ae6180d097a7770f1d530c732d3524589" prot="public" static="yes" mutable="no">
-        <type><ref refid="structconsole" kindref="compound">console</ref></type>
-        <definition>console first_console</definition>
-        <argsstring></argsstring>
-        <name>first_console</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/video.c" line="6" column="16" bodyfile="src/video.c" bodystart="6" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="video_8c_1a374c3cd727ba7a5cd980ce6078d2a363" prot="public" static="no" mutable="no">
-        <type>bool</type>
-        <definition>bool wait_state</definition>
-        <argsstring></argsstring>
-        <name>wait_state</name>
-        <initializer>= false</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/video.c" line="7" column="6" bodyfile="src/video.c" bodystart="7" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="video_8c_1aa7bf368802400f86b026d4b2ffe95cc1" prot="public" static="no" mutable="no">
-        <type>bool</type>
-        <definition>bool video_flip_is_auto</definition>
-        <argsstring></argsstring>
-        <name>video_flip_is_auto</name>
-        <initializer>= true</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/video.c" line="8" column="6" bodyfile="src/video.c" bodystart="8" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="video_8c_1a546775547cb62a8bfd7e7dc3e2e90cfe" prot="public" static="no" mutable="no">
-        <type>bool</type>
-        <definition>bool video_dirty</definition>
-        <argsstring></argsstring>
-        <name>video_dirty</name>
-        <initializer>= true</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/video.c" line="9" column="6" bodyfile="src/video.c" bodystart="9" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="video_8c_1a16b0144065496a8f5888160c13a15a28" prot="public" static="no" mutable="no">
-        <type>int64_t</type>
-        <definition>int64_t video_dirty_start</definition>
-        <argsstring></argsstring>
-        <name>video_dirty_start</name>
-        <initializer>= -1</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/video.c" line="10" column="9" bodyfile="src/video.c" bodystart="10" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="video_8c_1a4fe611870aaec24ce47b87be4f4f59f8" prot="public" static="no" mutable="no">
-        <type>int64_t</type>
-        <definition>int64_t video_dirty_end</definition>
-        <argsstring></argsstring>
-        <name>video_dirty_end</name>
-        <initializer>= -1</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/video.c" line="11" column="9" bodyfile="src/video.c" bodystart="11" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="video_8c_1a43d9b652336a0df72765cc74cb497381" prot="public" static="no" mutable="no">
-        <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
-        <definition>console* current_console</definition>
-        <argsstring></argsstring>
-        <name>current_console</name>
-        <initializer>= NULL</initializer>
-        <briefdescription>
-<para>Pointer to the currently active console. </para>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/video.c" line="12" column="9" bodyfile="src/video.c" bodystart="12" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="video_8c_1ab418f2681df92f0d539a9720b832ba7d" prot="public" static="yes" mutable="no">
-        <type>const uint8_t</type>
-        <definition>const uint8_t font_data[]</definition>
-        <argsstring>[]</argsstring>
-        <name>font_data</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/video.c" line="14" column="22" bodyfile="src/video.c" bodystart="14" bodyend="-1"/>
-      </memberdef>
       <memberdef kind="variable" id="video_8c_1af4cd2863ab76bfaf5ff461d7245aa4ca" prot="public" static="no" mutable="no">
         <type>struct limine_framebuffer_request</type>
         <definition>volatile struct limine_framebuffer_request framebuffer_request</definition>
@@ -934,7 +778,35 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="14" column="22" bodyfile="src/video.c" bodystart="273" bodyend="-1"/>
+        <location file="src/video.c" line="1" column="0" bodyfile="src/video.c" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1a28facfd0a6ba449811e64197a71a51f9" prot="public" static="no" mutable="no">
+        <type>struct limine_framebuffer *</type>
+        <definition>struct limine_framebuffer* fb</definition>
+        <argsstring></argsstring>
+        <name>fb</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="10" column="25" bodyfile="src/video.c" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1a17d1ad84e7ea37f201f3c89eb75cc5e6" prot="public" static="yes" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t bytes_per_pixel</definition>
+        <argsstring></argsstring>
+        <name>bytes_per_pixel</name>
+        <initializer>= 32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="11" column="17" bodyfile="src/video.c" bodystart="11" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="video_8c_1a774df04d3d1a13dd5ac6ad6ac20f4ea9" prot="public" static="yes" mutable="no">
         <type>void *</type>
@@ -948,7 +820,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="278" column="13" bodyfile="src/video.c" bodystart="278" bodyend="-1"/>
+        <location file="src/video.c" line="12" column="13" bodyfile="src/video.c" bodystart="12" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="video_8c_1aaab264f4e83f3107706a3082266a134f" prot="public" static="yes" mutable="no">
         <type>void *</type>
@@ -962,7 +834,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="279" column="13" bodyfile="src/video.c" bodystart="279" bodyend="-1"/>
+        <location file="src/video.c" line="13" column="13" bodyfile="src/video.c" bodystart="13" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="video_8c_1ae3850b137c752a1203676a6ea021f5e1" prot="public" static="yes" mutable="no">
         <type>uint64_t</type>
@@ -976,7 +848,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="280" column="17" bodyfile="src/video.c" bodystart="280" bodyend="-1"/>
+        <location file="src/video.c" line="14" column="17" bodyfile="src/video.c" bodystart="14" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="video_8c_1a4c25c9ea265fac6c31846c92f9a2bfc0" prot="public" static="yes" mutable="no">
         <type>uint64_t</type>
@@ -990,7 +862,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="281" column="17" bodyfile="src/video.c" bodystart="281" bodyend="-1"/>
+        <location file="src/video.c" line="15" column="17" bodyfile="src/video.c" bodystart="15" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="video_8c_1a5ca4f76369e3c31fa6d1c55c1f2220fd" prot="public" static="yes" mutable="no">
         <type>uint64_t</type>
@@ -1004,7 +876,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="282" column="17" bodyfile="src/video.c" bodystart="282" bodyend="-1"/>
+        <location file="src/video.c" line="16" column="17" bodyfile="src/video.c" bodystart="16" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="video_8c_1aa22f4d4e923fea1858cc0e731400a0c8" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
@@ -1018,7 +890,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="284" column="23" bodyfile="src/video.c" bodystart="284" bodyend="-1"/>
+        <location file="src/video.c" line="17" column="23" bodyfile="src/video.c" bodystart="17" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="video_8c_1a9aa640196313bea082db80a500d3c60b" prot="public" static="no" mutable="no">
         <type><ref refid="spinlock_8h_1af82eed01f0304d83276dda764b213779" kindref="member">spinlock_t</ref></type>
@@ -1031,7 +903,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="286" column="19" bodyfile="src/init.c" bodystart="5" bodyend="-1" declfile="src/video.c" declline="286" declcolumn="19"/>
+        <location file="src/video.c" line="18" column="19" bodyfile="src/init.c" bodystart="5" bodyend="-1" declfile="src/video.c" declline="18" declcolumn="19"/>
       </memberdef>
       <memberdef kind="variable" id="video_8c_1a7501930571e1c3d6c924d8d21ba788a8" prot="public" static="no" mutable="no">
         <type><ref refid="spinlock_8h_1af82eed01f0304d83276dda764b213779" kindref="member">spinlock_t</ref></type>
@@ -1044,7 +916,188 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="287" column="19" bodyfile="src/init.c" bodystart="6" bodyend="-1" declfile="src/video.c" declline="287" declcolumn="19"/>
+        <location file="src/video.c" line="19" column="19" bodyfile="src/init.c" bodystart="6" bodyend="-1" declfile="src/video.c" declline="19" declcolumn="19"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1a45f0e634b526ce7d7df724718489acba" prot="public" static="yes" mutable="no">
+        <type>int64_t</type>
+        <definition>int64_t screen_x</definition>
+        <argsstring></argsstring>
+        <name>screen_x</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="20" column="16" bodyfile="src/video.c" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1ad17da898872a8d4701fd0968e87eba3f" prot="public" static="yes" mutable="no">
+        <type>int64_t</type>
+        <definition>int64_t screen_y</definition>
+        <argsstring></argsstring>
+        <name>screen_y</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="20" column="26" bodyfile="src/video.c" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1ac419833e94c23bb3dc6ef119c47e6343" prot="public" static="yes" mutable="no">
+        <type>int64_t</type>
+        <definition>int64_t current_x</definition>
+        <argsstring></argsstring>
+        <name>current_x</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="20" column="36" bodyfile="src/video.c" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1a20b062c3b15831611a0e308295ef7c78" prot="public" static="yes" mutable="no">
+        <type>int64_t</type>
+        <definition>int64_t current_y</definition>
+        <argsstring></argsstring>
+        <name>current_y</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="20" column="47" bodyfile="src/video.c" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1ab92ca314246f5cfa9a0846f8eb617ce7" prot="public" static="yes" mutable="no">
+        <type>int64_t</type>
+        <definition>int64_t screen_graphics_x</definition>
+        <argsstring></argsstring>
+        <name>screen_graphics_x</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="20" column="58" bodyfile="src/video.c" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1aaf390b444a1c509e99f44f3490531d53" prot="public" static="yes" mutable="no">
+        <type>int64_t</type>
+        <definition>int64_t screen_graphics_y</definition>
+        <argsstring></argsstring>
+        <name>screen_graphics_y</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="20" column="77" bodyfile="src/video.c" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1a74f18c27b1c5452f409c1b412e419eb5" prot="public" static="yes" mutable="no">
+        <type>int64_t</type>
+        <definition>int64_t screen_graphics_stride</definition>
+        <argsstring></argsstring>
+        <name>screen_graphics_stride</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="20" column="96" bodyfile="src/video.c" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1a374c3cd727ba7a5cd980ce6078d2a363" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool wait_state</definition>
+        <argsstring></argsstring>
+        <name>wait_state</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="21" column="6" bodyfile="src/video.c" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1aa7bf368802400f86b026d4b2ffe95cc1" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool video_flip_is_auto</definition>
+        <argsstring></argsstring>
+        <name>video_flip_is_auto</name>
+        <initializer>= true</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="22" column="6" bodyfile="src/video.c" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1a546775547cb62a8bfd7e7dc3e2e90cfe" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool video_dirty</definition>
+        <argsstring></argsstring>
+        <name>video_dirty</name>
+        <initializer>= true</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="23" column="6" bodyfile="src/video.c" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1a16b0144065496a8f5888160c13a15a28" prot="public" static="no" mutable="no">
+        <type>int64_t</type>
+        <definition>int64_t video_dirty_start</definition>
+        <argsstring></argsstring>
+        <name>video_dirty_start</name>
+        <initializer>= -1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="24" column="9" bodyfile="src/video.c" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1a4fe611870aaec24ce47b87be4f4f59f8" prot="public" static="no" mutable="no">
+        <type>int64_t</type>
+        <definition>int64_t video_dirty_end</definition>
+        <argsstring></argsstring>
+        <name>video_dirty_end</name>
+        <initializer>= -1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="25" column="9" bodyfile="src/video.c" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1a7b58dff2e27ca6ae478c179c0d10ba9a" prot="public" static="yes" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t font_data[]</definition>
+        <argsstring>[]</argsstring>
+        <name>font_data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="27" column="16" bodyfile="src/video.c" bodystart="27" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -1061,7 +1114,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="289" column="6" bodyfile="src/video.c" bodystart="289" bodyend="299"/>
+        <location file="src/video.c" line="286" column="6" bodyfile="src/video.c" bodystart="286" bodyend="300"/>
       </memberdef>
       <memberdef kind="function" id="video_8c_1aa712e88bef297396764bb1a9b810d072" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>uint64_t</type>
@@ -1078,7 +1131,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="301" column="17" bodyfile="src/video.c" bodystart="301" bodyend="304"/>
+        <location file="src/video.c" line="302" column="17" bodyfile="src/video.c" bodystart="302" bodyend="304"/>
       </memberdef>
       <memberdef kind="function" id="video_8c_1a50db84ae45ebaba89b42e155676a8bcb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>uint64_t</type>
@@ -1120,7 +1173,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="306" column="17" bodyfile="src/video.c" bodystart="306" bodyend="315"/>
+        <location file="src/video.c" line="306" column="17" bodyfile="src/video.c" bodystart="306" bodyend="311"/>
       </memberdef>
       <memberdef kind="function" id="video_8c_1ac016b9fcd07b7c15004752ce172708f2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint64_t</type>
@@ -1137,7 +1190,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="317" column="10" bodyfile="src/video.c" bodystart="317" bodyend="320"/>
+        <location file="src/video.c" line="313" column="10" bodyfile="src/video.c" bodystart="313" bodyend="315"/>
       </memberdef>
       <memberdef kind="function" id="video_8c_1a849430deb40da15a4a934f2fee6d87a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint64_t</type>
@@ -1154,7 +1207,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="322" column="10" bodyfile="src/video.c" bodystart="322" bodyend="325"/>
+        <location file="src/video.c" line="317" column="10" bodyfile="src/video.c" bodystart="317" bodyend="319"/>
       </memberdef>
       <memberdef kind="function" id="video_8c_1a14d5e2649778cc0c303071f3c252f43e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1179,17 +1232,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="327" column="6" bodyfile="src/video.c" bodystart="327" bodyend="333"/>
+        <location file="src/video.c" line="321" column="6" bodyfile="src/video.c" bodystart="321" bodyend="327"/>
       </memberdef>
-      <memberdef kind="function" id="video_8c_1a968357d3a0e76c8dcc4a8dabb47e034e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="video_8c_1afdf41a4d47d60016116de8f517dff500" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void screenonly</definition>
-        <argsstring>(console *c, const char *s)</argsstring>
+        <argsstring>(const char *s)</argsstring>
         <name>screenonly</name>
-        <param>
-          <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
-          <declname>c</declname>
-        </param>
         <param>
           <type>const char *</type>
           <declname>s</declname>
@@ -1200,7 +1249,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="335" column="6" bodyfile="src/video.c" bodystart="335" bodyend="338"/>
+        <location file="src/video.c" line="329" column="6" bodyfile="src/video.c" bodystart="329" bodyend="331"/>
       </memberdef>
       <memberdef kind="function" id="video_8c_1a9fc73a5f42358dfc5528cecf943aebb3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1241,7 +1290,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="340" column="6" bodyfile="src/video.c" bodystart="340" bodyend="347"/>
+        <location file="src/video.c" line="333" column="6" bodyfile="src/video.c" bodystart="333" bodyend="339"/>
       </memberdef>
       <memberdef kind="function" id="video_8c_1a77f6a7e382b6192d7829bac2f459168e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1281,7 +1330,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="349" column="6" bodyfile="src/video.c" bodystart="349" bodyend="360"/>
+        <location file="src/video.c" line="341" column="6" bodyfile="src/video.c" bodystart="341" bodyend="351"/>
       </memberdef>
       <memberdef kind="function" id="video_8c_1aa8c0a74e65d6a428468b771eda6f4ddf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1333,7 +1382,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="362" column="6" bodyfile="src/video.c" bodystart="362" bodyend="367"/>
+        <location file="src/video.c" line="353" column="6" bodyfile="src/video.c" bodystart="353" bodyend="357"/>
       </memberdef>
       <memberdef kind="function" id="video_8c_1aa5401ca0e1f952a097a2976b8f652ec8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint32_t</type>
@@ -1375,35 +1424,21 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="369" column="10" bodyfile="src/video.c" bodystart="369" bodyend="372"/>
+        <location file="src/video.c" line="359" column="10" bodyfile="src/video.c" bodystart="359" bodyend="361"/>
       </memberdef>
-      <memberdef kind="function" id="video_8c_1a89b876ad8ed8fcb7e9ce6f6dd7518512" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="video_8c_1aff4bc17c602603d120756f52e18ebb96" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void clearscreen</definition>
-        <argsstring>(console *c)</argsstring>
+        <argsstring>()</argsstring>
         <name>clearscreen</name>
-        <param>
-          <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
-          <declname>c</declname>
-        </param>
         <briefdescription>
 <para>Clear the screen and reset cursor to (0,0). </para>
         </briefdescription>
         <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>c</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Target console. </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="375" column="6" bodyfile="src/video.c" bodystart="375" bodyend="380"/>
+        <location file="src/video.c" line="364" column="6" bodyfile="src/video.c" bodystart="364" bodyend="368"/>
       </memberdef>
       <memberdef kind="function" id="video_8c_1a10de4e9cb74656845ee2808d17f3e9b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1431,17 +1466,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="382" column="6" bodyfile="src/video.c" bodystart="382" bodyend="385"/>
+        <location file="src/video.c" line="370" column="6" bodyfile="src/video.c" bodystart="370" bodyend="372"/>
       </memberdef>
-      <memberdef kind="function" id="video_8c_1a6aa3e180e6074ca3376aae3fe2521967" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="video_8c_1a990a9c6c3a40e7dd48615fe468187a74" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void put</definition>
-        <argsstring>(console *c, const char n)</argsstring>
+        <argsstring>(const char n)</argsstring>
         <name>put</name>
-        <param>
-          <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
-          <declname>c</declname>
-        </param>
         <param>
           <type>const char</type>
           <declname>n</declname>
@@ -1452,14 +1483,6 @@
         <detaileddescription>
 <para>Cursor is advanced after output, and the screen may scroll.</para>
 <para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>c</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Target console. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
 <parameternamelist>
 <parametername>n</parametername>
 </parameternamelist>
@@ -1472,7 +1495,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="390" column="6" bodyfile="src/video.c" bodystart="390" bodyend="394"/>
+        <location file="src/video.c" line="377" column="6" bodyfile="src/video.c" bodystart="377" bodyend="382"/>
       </memberdef>
       <memberdef kind="function" id="video_8c_1a1d4ff70fd24e5e51101991bc73fbe02e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1500,17 +1523,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="396" column="6" bodyfile="src/video.c" bodystart="396" bodyend="406"/>
+        <location file="src/video.c" line="384" column="6" bodyfile="src/video.c" bodystart="384" bodyend="397"/>
       </memberdef>
-      <memberdef kind="function" id="video_8c_1a998a88c58c530407ae8b304a306b74fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="video_8c_1aa11a255ff4946ba621a6ddd4e4704fbd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void putstring</definition>
-        <argsstring>(console *c, const char *message)</argsstring>
+        <argsstring>(const char *message)</argsstring>
         <name>putstring</name>
-        <param>
-          <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
-          <declname>c</declname>
-        </param>
         <param>
           <type>const char *</type>
           <declname>message</declname>
@@ -1541,7 +1560,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="412" column="6" bodyfile="src/video.c" bodystart="412" bodyend="416"/>
+        <location file="src/video.c" line="403" column="6" bodyfile="src/video.c" bodystart="403" bodyend="407"/>
       </memberdef>
       <memberdef kind="function" id="video_8c_1a1e0f8bca5c0b8bd1a501f75368be0e41" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1574,7 +1593,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="418" column="6" bodyfile="src/video.c" bodystart="418" bodyend="430"/>
+        <location file="src/video.c" line="409" column="6" bodyfile="src/video.c" bodystart="409" bodyend="421"/>
       </memberdef>
       <memberdef kind="function" id="video_8c_1ab9c32270380ee4550fa848647b745f39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1589,7 +1608,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="432" column="6" bodyfile="src/video.c" bodystart="432" bodyend="487"/>
+        <location file="src/video.c" line="423" column="6" bodyfile="src/video.c" bodystart="423" bodyend="473"/>
       </memberdef>
       <memberdef kind="function" id="video_8c_1a2df69cac6f9d6324e3c872532ee4088d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int16_t</type>
@@ -1606,7 +1625,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="489" column="9" bodyfile="src/video.c" bodystart="489" bodyend="492"/>
+        <location file="src/video.c" line="475" column="9" bodyfile="src/video.c" bodystart="475" bodyend="478"/>
       </memberdef>
       <memberdef kind="function" id="video_8c_1aead8dda978d0b4180262e4091be3d4d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int16_t</type>
@@ -1623,7 +1642,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="494" column="9" bodyfile="src/video.c" bodystart="494" bodyend="497"/>
+        <location file="src/video.c" line="480" column="9" bodyfile="src/video.c" bodystart="480" bodyend="483"/>
       </memberdef>
       <memberdef kind="function" id="video_8c_1a13d5e4c33f3752b877f4ea571bd85ed1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned char</type>
@@ -1640,17 +1659,59 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="530" column="15" bodyfile="src/video.c" bodystart="530" bodyend="566"/>
+        <location file="src/video.c" line="516" column="15" bodyfile="src/video.c" bodystart="516" bodyend="552"/>
       </memberdef>
-      <memberdef kind="function" id="video_8c_1a3a4f10379412dfac7b7326c608b0ba1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="video_8c_1a29a6d533fe183f4cdf7e162cd319a4ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned char</type>
+        <definition>unsigned char map_vga_to_ansi_bg</definition>
+        <argsstring>(unsigned char colour)</argsstring>
+        <name>map_vga_to_ansi_bg</name>
+        <param>
+          <type>unsigned char</type>
+          <declname>colour</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="554" column="15" bodyfile="src/video.c" bodystart="554" bodyend="590"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8c_1a29130758714b766b445d91c79c5a7b85" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* ansi_colour</definition>
+        <argsstring>(char *out, size_t out_len, unsigned char vga_colour, bool background)</argsstring>
+        <name>ansi_colour</name>
+        <param>
+          <type>char *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>out_len</declname>
+        </param>
+        <param>
+          <type>unsigned char</type>
+          <declname>vga_colour</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>background</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="592" column="12" bodyfile="src/video.c" bodystart="592" bodyend="603"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8c_1a32a8da8e640a8b67a723469f1d231d96" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void setbackground</definition>
-        <argsstring>(console *c, unsigned char background)</argsstring>
+        <argsstring>(unsigned char background)</argsstring>
         <name>setbackground</name>
-        <param>
-          <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
-          <declname>c</declname>
-        </param>
         <param>
           <type>unsigned char</type>
           <declname>background</declname>
@@ -1660,14 +1721,6 @@
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>c</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Target console. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
 <parameternamelist>
 <parametername>background</parametername>
 </parameternamelist>
@@ -1680,17 +1733,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="568" column="6" bodyfile="src/video.c" bodystart="568" bodyend="578"/>
+        <location file="src/video.c" line="606" column="6" bodyfile="src/video.c" bodystart="606" bodyend="615"/>
       </memberdef>
-      <memberdef kind="function" id="video_8c_1a9eb30d97afe44a6d0a2063f701c13ca6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="video_8c_1a927c174cc7eee985f8f9626a65a39e6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void setforeground</definition>
-        <argsstring>(console *c, unsigned char foreground)</argsstring>
+        <argsstring>(unsigned char foreground)</argsstring>
         <name>setforeground</name>
-        <param>
-          <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
-          <declname>c</declname>
-        </param>
         <param>
           <type>unsigned char</type>
           <declname>foreground</declname>
@@ -1700,14 +1749,6 @@
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>c</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Target console. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
 <parameternamelist>
 <parametername>foreground</parametername>
 </parameternamelist>
@@ -1720,7 +1761,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="580" column="6" bodyfile="src/video.c" bodystart="580" bodyend="590"/>
+        <location file="src/video.c" line="617" column="6" bodyfile="src/video.c" bodystart="617" bodyend="626"/>
       </memberdef>
       <memberdef kind="function" id="video_8c_1a7b94ff9b6be3b686d6f060b060722902" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1740,7 +1781,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="592" column="6" bodyfile="src/video.c" bodystart="592" bodyend="594"/>
+        <location file="src/video.c" line="628" column="6" bodyfile="src/video.c" bodystart="628" bodyend="630"/>
       </memberdef>
       <memberdef kind="function" id="video_8c_1ae9b6b12d0a2f6561f268660987f9ad66" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1768,7 +1809,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="596" column="6" bodyfile="src/video.c" bodystart="596" bodyend="599"/>
+        <location file="src/video.c" line="632" column="6" bodyfile="src/video.c" bodystart="632" bodyend="635"/>
       </memberdef>
       <memberdef kind="function" id="video_8c_1a6b5bc99f337a44e893732a08f1d734f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1786,7 +1827,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="601" column="6" bodyfile="src/video.c" bodystart="601" bodyend="615"/>
+        <location file="src/video.c" line="637" column="6" bodyfile="src/video.c" bodystart="637" bodyend="651"/>
       </memberdef>
       <memberdef kind="function" id="video_8c_1ae061019f3a09b999de9296c92cddd74a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1807,7 +1848,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/video.c" line="617" column="6" bodyfile="src/video.c" bodystart="617" bodyend="627"/>
+        <location file="src/video.c" line="653" column="6" bodyfile="src/video.c" bodystart="653" bodyend="663"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

@@ -1,12 +1,13 @@
 var udp_8h =
 [
     [ "udp_packet", "structudp__packet.html", "structudp__packet" ],
-    [ "udp_daemon_handler", "udp_8h.html#aee7d71ca10b9a4f286f45a364ba7c337", null ],
+    [ "udp_daemon_handler", "udp_8h.html#a47e418dc2e23ac0aead1629b134fabed", null ],
     [ "__attribute__", "udp_8h.html#a3cb8ef3c5a6bb475182146b28911bb50", null ],
     [ "udp_calculate_checksum", "udp_8h.html#a3ab3a31e29e801cd07ce502415075043", null ],
     [ "udp_handle_packet", "udp_8h.html#ad8049b7fb54880d34804b100fe422918", null ],
-    [ "udp_register_daemon", "udp_8h.html#a49ae1f5dfe6fc5c2df642049290d1878", null ],
+    [ "udp_register_daemon", "udp_8h.html#a78322c4b77d24fd00b8bccb1cc0fde6a", null ],
     [ "udp_send_packet", "udp_8h.html#afbe2975055f76c672e3f5dfcea6567b8", null ],
+    [ "udp_unregister_daemon", "udp_8h.html#a45b753e73dd4db33c8b62ae5adb3c618", null ],
     [ "checksum", "udp_8h.html#a6796c847bbd16253ce2538754c250bd6", null ],
     [ "data", "udp_8h.html#a5c239a1bb87b52b0f1d6d68c4749cd2a", null ],
     [ "dst_port", "udp_8h.html#ae18defed4756b8c15e34718f51e86e55", null ],

@@ -85,6 +85,7 @@ $(document).ready(function(){initNavTree('udp_8c.html',''); initResizable(); });
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
@@ -94,6 +95,11 @@ $(document).ready(function(){initNavTree('udp_8c.html',''); initResizable(); });
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="kernel_8h.html">kernel.h</a>&gt;</code><br />
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structudp__daemon__registration.html">udp_daemon_registration</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a8d21a3d22e32b070d88cd9173ad5cd95"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="udp_8c.html#a8d21a3d22e32b070d88cd9173ad5cd95">UDP_MAX_PACKET</a>&#160;&#160;&#160;(65536 + sizeof(udp_packet_t))</td></tr>
@@ -110,14 +116,16 @@ Functions</h2></td></tr>
 <tr class="memitem:ad8049b7fb54880d34804b100fe422918"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="udp_8c.html#ad8049b7fb54880d34804b100fe422918">udp_handle_packet</a> ([[maybe_unused]] ip_packet_t *encap_packet, udp_packet_t *packet, size_t <a class="el" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a>)</td></tr>
 <tr class="memdesc:ad8049b7fb54880d34804b100fe422918"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle UDP packet from the IP driver.  <a href="udp_8c.html#ad8049b7fb54880d34804b100fe422918">More...</a><br /></td></tr>
 <tr class="separator:ad8049b7fb54880d34804b100fe422918"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49ae1f5dfe6fc5c2df642049290d1878"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="udp_8c.html#a49ae1f5dfe6fc5c2df642049290d1878">udp_register_daemon</a> (uint16_t <a class="el" href="udp_8h.html#ae18defed4756b8c15e34718f51e86e55">dst_port</a>, <a class="el" href="udp_8h.html#aee7d71ca10b9a4f286f45a364ba7c337">udp_daemon_handler</a> handler)</td></tr>
-<tr class="memdesc:a49ae1f5dfe6fc5c2df642049290d1878"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a daemon function to listen on a udp dest port.  <a href="udp_8c.html#a49ae1f5dfe6fc5c2df642049290d1878">More...</a><br /></td></tr>
-<tr class="separator:a49ae1f5dfe6fc5c2df642049290d1878"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45b753e73dd4db33c8b62ae5adb3c618"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="udp_8c.html#a45b753e73dd4db33c8b62ae5adb3c618">udp_unregister_daemon</a> (uint16_t <a class="el" href="udp_8h.html#ae18defed4756b8c15e34718f51e86e55">dst_port</a>, <a class="el" href="udp_8h.html#a47e418dc2e23ac0aead1629b134fabed">udp_daemon_handler</a> handler)</td></tr>
+<tr class="separator:a45b753e73dd4db33c8b62ae5adb3c618"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78322c4b77d24fd00b8bccb1cc0fde6a"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="udp_8c.html#a78322c4b77d24fd00b8bccb1cc0fde6a">udp_register_daemon</a> (uint16_t <a class="el" href="udp_8h.html#ae18defed4756b8c15e34718f51e86e55">dst_port</a>, <a class="el" href="udp_8h.html#a47e418dc2e23ac0aead1629b134fabed">udp_daemon_handler</a> handler, void *opaque)</td></tr>
+<tr class="memdesc:a78322c4b77d24fd00b8bccb1cc0fde6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a daemon function to listen on a udp dest port.  <a href="udp_8c.html#a78322c4b77d24fd00b8bccb1cc0fde6a">More...</a><br /></td></tr>
+<tr class="separator:a78322c4b77d24fd00b8bccb1cc0fde6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a4f178c0d4917d3ad5c7c720d05b0c9bd"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="udp_8h.html#aee7d71ca10b9a4f286f45a364ba7c337">udp_daemon_handler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="udp_8c.html#a4f178c0d4917d3ad5c7c720d05b0c9bd">daemons</a> [USHRT_MAX] = { 0 }</td></tr>
-<tr class="separator:a4f178c0d4917d3ad5c7c720d05b0c9bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a364bafd89ccdb1d0ea2fe42b28715188"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structudp__daemon__registration.html">udp_daemon_registration</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="udp_8c.html#a364bafd89ccdb1d0ea2fe42b28715188">daemons</a> [USHRT_MAX] = {}</td></tr>
+<tr class="separator:a364bafd89ccdb1d0ea2fe42b28715188"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff4385d6fc588ba295761ec0b0d50406"><td class="memItemLeft" align="right" valign="top"><a class="el" href="spinlock_8h.html#af82eed01f0304d83276dda764b213779">spinlock_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="udp_8c.html#aff4385d6fc588ba295761ec0b0d50406">udp_lock</a> = 0</td></tr>
 <tr class="separator:aff4385d6fc588ba295761ec0b0d50406"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -208,8 +216,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a49ae1f5dfe6fc5c2df642049290d1878"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49ae1f5dfe6fc5c2df642049290d1878">&#9670;&nbsp;</a></span>udp_register_daemon()</h2>
+<a id="a78322c4b77d24fd00b8bccb1cc0fde6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78322c4b77d24fd00b8bccb1cc0fde6a">&#9670;&nbsp;</a></span>udp_register_daemon()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -223,8 +231,14 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="udp_8h.html#aee7d71ca10b9a4f286f45a364ba7c337">udp_daemon_handler</a>&#160;</td>
-          <td class="paramname"><em>handler</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="udp_8h.html#a47e418dc2e23ac0aead1629b134fabed">udp_daemon_handler</a>&#160;</td>
+          <td class="paramname"><em>handler</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>opaque</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -239,6 +253,7 @@ Variables</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">dst_port</td><td>destination port to listen on. If 0 is passed, a random port above or equal to 1024 is allocated for use and will be returned as the return value. </td></tr>
     <tr><td class="paramname">handler</td><td>handler for incoming packets </td></tr>
+    <tr><td class="paramname">opaque</td><td>Opaque pointer passed to the handler </td></tr>
   </table>
   </dd>
 </dl>
@@ -304,9 +319,37 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a45b753e73dd4db33c8b62ae5adb3c618"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45b753e73dd4db33c8b62ae5adb3c618">&#9670;&nbsp;</a></span>udp_unregister_daemon()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool udp_unregister_daemon </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>dst_port</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="udp_8h.html#a47e418dc2e23ac0aead1629b134fabed">udp_daemon_handler</a>&#160;</td>
+          <td class="paramname"><em>handler</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="a4f178c0d4917d3ad5c7c720d05b0c9bd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4f178c0d4917d3ad5c7c720d05b0c9bd">&#9670;&nbsp;</a></span>daemons</h2>
+<a id="a364bafd89ccdb1d0ea2fe42b28715188"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a364bafd89ccdb1d0ea2fe42b28715188">&#9670;&nbsp;</a></span>daemons</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -315,7 +358,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="udp_8h.html#aee7d71ca10b9a4f286f45a364ba7c337">udp_daemon_handler</a> daemons[USHRT_MAX] = { 0 }</td>
+          <td class="memname"><a class="el" href="structudp__daemon__registration.html">udp_daemon_registration</a> daemons[USHRT_MAX] = {}</td>
         </tr>
       </table>
   </td>
@@ -347,7 +390,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c72b25b75abe208498b36a3e44a3726c.html">net</a></li><li class="navelem"><a class="el" href="udp_8c.html">udp.c</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

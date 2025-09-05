@@ -4,83 +4,89 @@
     <compoundname>ahci_hba_port_t</compoundname>
     <includes local="no">ahci.h</includes>
       <sectiondef kind="public-attrib">
-      <memberdef kind="variable" id="structahci__hba__port__t_1a35e474d5235395e130271f1f205df531" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__port__t_1ad162171a5a4b9712a88d91beb8cfdc11" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t ahci_hba_port_t::clb</definition>
+        <definition>uint32_t ahci_hba_port_t::command_list_base_addr_lower</definition>
         <argsstring></argsstring>
-        <name>clb</name>
+        <name>command_list_base_addr_lower</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x00, Command List Base Address (CLB), 1 KiB aligned </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="169" column="10" bodyfile="include/ahci.h" bodystart="169" bodyend="-1"/>
+        <location file="include/ahci.h" line="145" column="10" bodyfile="include/ahci.h" bodystart="145" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__port__t_1af937d2a5de60e64505b37e3441bc963f" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__port__t_1a31d602e1f5d6ce7b98529e0576fa7f84" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t ahci_hba_port_t::clbu</definition>
+        <definition>uint32_t ahci_hba_port_t::command_list_base_addr_upper</definition>
         <argsstring></argsstring>
-        <name>clbu</name>
+        <name>command_list_base_addr_upper</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x04, CLB upper 32 bits </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="170" column="10" bodyfile="include/ahci.h" bodystart="170" bodyend="-1"/>
+        <location file="include/ahci.h" line="146" column="10" bodyfile="include/ahci.h" bodystart="146" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__port__t_1a3a53ef9fffc89b9842e68029e604dd7e" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__port__t_1a77df76c3c69d17f4c1b5dfa1c60fd411" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t ahci_hba_port_t::fb</definition>
+        <definition>uint32_t ahci_hba_port_t::fis_base_addr_lower</definition>
         <argsstring></argsstring>
-        <name>fb</name>
+        <name>fis_base_addr_lower</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x08, FIS Base Address (FB), 256 B aligned </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="171" column="10" bodyfile="include/ahci.h" bodystart="171" bodyend="-1"/>
+        <location file="include/ahci.h" line="147" column="10" bodyfile="include/ahci.h" bodystart="147" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__port__t_1a0736d43240176b996dd79489ad6c5d1d" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__port__t_1a959287b6ec885b03a8e44280f370da21" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t ahci_hba_port_t::fbu</definition>
+        <definition>uint32_t ahci_hba_port_t::fis_base_addr_upper</definition>
         <argsstring></argsstring>
-        <name>fbu</name>
+        <name>fis_base_addr_upper</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x0C, FB upper 32 bits </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="172" column="10" bodyfile="include/ahci.h" bodystart="172" bodyend="-1"/>
+        <location file="include/ahci.h" line="148" column="10" bodyfile="include/ahci.h" bodystart="148" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__port__t_1a93dc14e7664abe6a3dd693201330d255" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__port__t_1af604be61e21d2a2847343aa45a780933" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t ahci_hba_port_t::is</definition>
+        <definition>uint32_t ahci_hba_port_t::interrupt_status</definition>
         <argsstring></argsstring>
-        <name>is</name>
+        <name>interrupt_status</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x10, Interrupt Status (PxIS) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="173" column="10" bodyfile="include/ahci.h" bodystart="173" bodyend="-1"/>
+        <location file="include/ahci.h" line="149" column="10" bodyfile="include/ahci.h" bodystart="149" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__port__t_1a90aab646c394c966aeb01a0adbf6fbce" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__port__t_1ae6af6e3a2fadf1513e4c6d5ddbda3b48" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t ahci_hba_port_t::ie</definition>
+        <definition>uint32_t ahci_hba_port_t::interrupt_enable</definition>
         <argsstring></argsstring>
-        <name>ie</name>
+        <name>interrupt_enable</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x14, Interrupt Enable (PxIE) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="174" column="10" bodyfile="include/ahci.h" bodystart="174" bodyend="-1"/>
+        <location file="include/ahci.h" line="150" column="10" bodyfile="include/ahci.h" bodystart="150" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__hba__port__t_1a4380079af961ddd6e01cf3653ee79c9a" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -90,10 +96,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x18, Command and Status (PxCMD) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="175" column="10" bodyfile="include/ahci.h" bodystart="175" bodyend="-1"/>
+        <location file="include/ahci.h" line="151" column="10" bodyfile="include/ahci.h" bodystart="151" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__hba__port__t_1a828ff1e49d97f57d7848b1d4a336dcda" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -103,127 +110,137 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x1C, Reserved </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="176" column="10" bodyfile="include/ahci.h" bodystart="176" bodyend="-1"/>
+        <location file="include/ahci.h" line="152" column="10" bodyfile="include/ahci.h" bodystart="152" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__port__t_1a5089a88bfe3d93853d811dba3e6b2994" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__port__t_1ad1795a7be1e6c8292d9e3080ad38cd89" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t ahci_hba_port_t::tfd</definition>
+        <definition>uint32_t ahci_hba_port_t::task_file_data</definition>
         <argsstring></argsstring>
-        <name>tfd</name>
+        <name>task_file_data</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x20, Task File Data (PxTFD) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="177" column="10" bodyfile="include/ahci.h" bodystart="177" bodyend="-1"/>
+        <location file="include/ahci.h" line="153" column="10" bodyfile="include/ahci.h" bodystart="153" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__port__t_1a3979b1a5fecfd719a9e5f48550252e84" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__port__t_1a732dbac8774a2fcf12f1aa4a77c3db5b" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t ahci_hba_port_t::sig</definition>
+        <definition>uint32_t ahci_hba_port_t::signature</definition>
         <argsstring></argsstring>
-        <name>sig</name>
+        <name>signature</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x24, Signature (PxSIG) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="178" column="10" bodyfile="include/ahci.h" bodystart="178" bodyend="-1"/>
+        <location file="include/ahci.h" line="154" column="10" bodyfile="include/ahci.h" bodystart="154" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__port__t_1a43b5994da93991f4e1d2ceb20cff8737" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__port__t_1a06660b89869287947eb8e9c2d462a926" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t ahci_hba_port_t::ssts</definition>
+        <definition>uint32_t ahci_hba_port_t::sata_status</definition>
         <argsstring></argsstring>
-        <name>ssts</name>
+        <name>sata_status</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x28, SATA Status (SCR0:SStatus) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="179" column="10" bodyfile="include/ahci.h" bodystart="179" bodyend="-1"/>
+        <location file="include/ahci.h" line="155" column="10" bodyfile="include/ahci.h" bodystart="155" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__port__t_1acfd9b0029328e1dd7fabd21add28e9bb" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__port__t_1a9422014605c99cbda4cd445d8d70bad1" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t ahci_hba_port_t::sctl</definition>
+        <definition>uint32_t ahci_hba_port_t::sata_control</definition>
         <argsstring></argsstring>
-        <name>sctl</name>
+        <name>sata_control</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x2C, SATA Control (SCR2:SControl) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="180" column="10" bodyfile="include/ahci.h" bodystart="180" bodyend="-1"/>
+        <location file="include/ahci.h" line="156" column="10" bodyfile="include/ahci.h" bodystart="156" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__port__t_1ab7a59bb3c5575ac5e31312fc9d80155c" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__port__t_1abd78bf6b2813a5b3218a533ba7f0c0e9" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t ahci_hba_port_t::serr</definition>
+        <definition>uint32_t ahci_hba_port_t::sata_error</definition>
         <argsstring></argsstring>
-        <name>serr</name>
+        <name>sata_error</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x30, SATA Error (SCR1:SError) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="181" column="10" bodyfile="include/ahci.h" bodystart="181" bodyend="-1"/>
+        <location file="include/ahci.h" line="157" column="10" bodyfile="include/ahci.h" bodystart="157" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__port__t_1aa35129ddae0ad973d94f0964402d7c8a" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__port__t_1a37dbb60429536e565817bd9a29387fef" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t ahci_hba_port_t::sact</definition>
+        <definition>uint32_t ahci_hba_port_t::sata_active</definition>
         <argsstring></argsstring>
-        <name>sact</name>
+        <name>sata_active</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x34, SATA Active (SCR3:SActive) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="182" column="10" bodyfile="include/ahci.h" bodystart="182" bodyend="-1"/>
+        <location file="include/ahci.h" line="158" column="10" bodyfile="include/ahci.h" bodystart="158" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__port__t_1a9a5e1d32502e70ec703210c032133ff7" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__port__t_1a843e111ea71cd624b4dcbcc5945521cd" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t ahci_hba_port_t::ci</definition>
+        <definition>uint32_t ahci_hba_port_t::command_issue</definition>
         <argsstring></argsstring>
-        <name>ci</name>
+        <name>command_issue</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x38, Command Issue (PxCI) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="183" column="10" bodyfile="include/ahci.h" bodystart="183" bodyend="-1"/>
+        <location file="include/ahci.h" line="159" column="10" bodyfile="include/ahci.h" bodystart="159" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__port__t_1af46170258508d6fb07f8211bada7b17e" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__port__t_1ae691ac0341169096d4a206ad1d4e33cd" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t ahci_hba_port_t::sntf</definition>
+        <definition>uint32_t ahci_hba_port_t::sata_notification</definition>
         <argsstring></argsstring>
-        <name>sntf</name>
+        <name>sata_notification</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x3C, SATA Notification (SCR4:SNotification) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="184" column="10" bodyfile="include/ahci.h" bodystart="184" bodyend="-1"/>
+        <location file="include/ahci.h" line="160" column="10" bodyfile="include/ahci.h" bodystart="160" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__port__t_1acc0d9e6f1219c5b59f1a48b03fd3b9a5" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__port__t_1a8be528123c532730168c4ab23231f9ad" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t ahci_hba_port_t::fbs</definition>
+        <definition>uint32_t ahci_hba_port_t::fis_switch_control</definition>
         <argsstring></argsstring>
-        <name>fbs</name>
+        <name>fis_switch_control</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x40, FIS-based Switch Control (PxFBS) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="185" column="10" bodyfile="include/ahci.h" bodystart="185" bodyend="-1"/>
+        <location file="include/ahci.h" line="161" column="10" bodyfile="include/ahci.h" bodystart="161" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__hba__port__t_1ac427f69735fa7d9173bdaeacbd45ad5d" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -233,10 +250,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x44–0x6F, Reserved </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="186" column="10" bodyfile="include/ahci.h" bodystart="186" bodyend="-1"/>
+        <location file="include/ahci.h" line="162" column="10" bodyfile="include/ahci.h" bodystart="162" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__hba__port__t_1ab7fc0cce6672b5a599fc07ed6a20a091" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -246,15 +264,20 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>0x70–0x7F, Vendor specific </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="187" column="10" bodyfile="include/ahci.h" bodystart="187" bodyend="-1"/>
+        <location file="include/ahci.h" line="163" column="10" bodyfile="include/ahci.h" bodystart="163" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>AHCI Port register block (Px*). </para>
     </briefdescription>
     <detaileddescription>
+<para><simplesect kind="note"><para>Addresses labelled &quot;base address&quot; require the documented alignment (1 KiB for CLB, 256 B for FB). </para>
+</simplesect>
+</para>
     </detaileddescription>
     <collaborationgraph>
       <node id="2">
@@ -264,40 +287,40 @@
         <label>ahci_hba_port_t</label>
         <link refid="structahci__hba__port__t"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>ci</edgelabel>
-          <edgelabel>clb</edgelabel>
-          <edgelabel>clbu</edgelabel>
           <edgelabel>cmd</edgelabel>
-          <edgelabel>fb</edgelabel>
-          <edgelabel>fbs</edgelabel>
-          <edgelabel>fbu</edgelabel>
-          <edgelabel>ie</edgelabel>
-          <edgelabel>is</edgelabel>
+          <edgelabel>command_issue</edgelabel>
+          <edgelabel>command_list_base_addr_lower</edgelabel>
+          <edgelabel>command_list_base_addr_upper</edgelabel>
+          <edgelabel>fis_base_addr_lower</edgelabel>
+          <edgelabel>fis_base_addr_upper</edgelabel>
+          <edgelabel>fis_switch_control</edgelabel>
+          <edgelabel>interrupt_enable</edgelabel>
+          <edgelabel>interrupt_status</edgelabel>
           <edgelabel>rsv0</edgelabel>
           <edgelabel>...</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="include/ahci.h" line="168" column="1" bodyfile="include/ahci.h" bodystart="168" bodyend="188"/>
+    <location file="include/ahci.h" line="144" column="1" bodyfile="include/ahci.h" bodystart="144" bodyend="164"/>
     <listofallmembers>
-      <member refid="structahci__hba__port__t_1a9a5e1d32502e70ec703210c032133ff7" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>ci</name></member>
-      <member refid="structahci__hba__port__t_1a35e474d5235395e130271f1f205df531" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>clb</name></member>
-      <member refid="structahci__hba__port__t_1af937d2a5de60e64505b37e3441bc963f" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>clbu</name></member>
       <member refid="structahci__hba__port__t_1a4380079af961ddd6e01cf3653ee79c9a" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>cmd</name></member>
-      <member refid="structahci__hba__port__t_1a3a53ef9fffc89b9842e68029e604dd7e" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>fb</name></member>
-      <member refid="structahci__hba__port__t_1acc0d9e6f1219c5b59f1a48b03fd3b9a5" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>fbs</name></member>
-      <member refid="structahci__hba__port__t_1a0736d43240176b996dd79489ad6c5d1d" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>fbu</name></member>
-      <member refid="structahci__hba__port__t_1a90aab646c394c966aeb01a0adbf6fbce" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>ie</name></member>
-      <member refid="structahci__hba__port__t_1a93dc14e7664abe6a3dd693201330d255" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>is</name></member>
+      <member refid="structahci__hba__port__t_1a843e111ea71cd624b4dcbcc5945521cd" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>command_issue</name></member>
+      <member refid="structahci__hba__port__t_1ad162171a5a4b9712a88d91beb8cfdc11" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>command_list_base_addr_lower</name></member>
+      <member refid="structahci__hba__port__t_1a31d602e1f5d6ce7b98529e0576fa7f84" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>command_list_base_addr_upper</name></member>
+      <member refid="structahci__hba__port__t_1a77df76c3c69d17f4c1b5dfa1c60fd411" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>fis_base_addr_lower</name></member>
+      <member refid="structahci__hba__port__t_1a959287b6ec885b03a8e44280f370da21" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>fis_base_addr_upper</name></member>
+      <member refid="structahci__hba__port__t_1a8be528123c532730168c4ab23231f9ad" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>fis_switch_control</name></member>
+      <member refid="structahci__hba__port__t_1ae6af6e3a2fadf1513e4c6d5ddbda3b48" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>interrupt_enable</name></member>
+      <member refid="structahci__hba__port__t_1af604be61e21d2a2847343aa45a780933" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>interrupt_status</name></member>
       <member refid="structahci__hba__port__t_1a828ff1e49d97f57d7848b1d4a336dcda" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>rsv0</name></member>
       <member refid="structahci__hba__port__t_1ac427f69735fa7d9173bdaeacbd45ad5d" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>rsv1</name></member>
-      <member refid="structahci__hba__port__t_1aa35129ddae0ad973d94f0964402d7c8a" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>sact</name></member>
-      <member refid="structahci__hba__port__t_1acfd9b0029328e1dd7fabd21add28e9bb" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>sctl</name></member>
-      <member refid="structahci__hba__port__t_1ab7a59bb3c5575ac5e31312fc9d80155c" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>serr</name></member>
-      <member refid="structahci__hba__port__t_1a3979b1a5fecfd719a9e5f48550252e84" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>sig</name></member>
-      <member refid="structahci__hba__port__t_1af46170258508d6fb07f8211bada7b17e" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>sntf</name></member>
-      <member refid="structahci__hba__port__t_1a43b5994da93991f4e1d2ceb20cff8737" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>ssts</name></member>
-      <member refid="structahci__hba__port__t_1a5089a88bfe3d93853d811dba3e6b2994" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>tfd</name></member>
+      <member refid="structahci__hba__port__t_1a37dbb60429536e565817bd9a29387fef" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>sata_active</name></member>
+      <member refid="structahci__hba__port__t_1a9422014605c99cbda4cd445d8d70bad1" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>sata_control</name></member>
+      <member refid="structahci__hba__port__t_1abd78bf6b2813a5b3218a533ba7f0c0e9" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>sata_error</name></member>
+      <member refid="structahci__hba__port__t_1ae691ac0341169096d4a206ad1d4e33cd" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>sata_notification</name></member>
+      <member refid="structahci__hba__port__t_1a06660b89869287947eb8e9c2d462a926" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>sata_status</name></member>
+      <member refid="structahci__hba__port__t_1a732dbac8774a2fcf12f1aa4a77c3db5b" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>signature</name></member>
+      <member refid="structahci__hba__port__t_1ad1795a7be1e6c8292d9e3080ad38cd89" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>task_file_data</name></member>
       <member refid="structahci__hba__port__t_1ab7fc0cce6672b5a599fc07ed6a20a091" prot="public" virt="non-virtual"><scope>ahci_hba_port_t</scope><name>vendor</name></member>
     </listofallmembers>
   </compounddef>

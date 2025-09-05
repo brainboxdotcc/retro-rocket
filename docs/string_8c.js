@@ -25,10 +25,13 @@ var string_8c =
     [ "strlcat", "string_8c.html#a0e2ceb2e6b2122bc57c9a1ab47b15266", null ],
     [ "strlcpy", "string_8c.html#a21cdde3b342cc302afb0e4f4dd705c9d", null ],
     [ "strlen", "string_8c.html#ab6d82ea1bcf2827a207a17fd090c5921", null ],
+    [ "strlen_ansi", "string_8c.html#ac319470f8e7e20f275971834815759c6", null ],
     [ "strncmp", "string_8c.html#a519d57d33362a8ed067cf5fe6937324e", null ],
     [ "strnicmp", "string_8c.html#abfcaa2fc7116e670ae5e1041998efae4", null ],
     [ "strrchr", "string_8c.html#a0c05a458deff028ef4d4e64059098db4", null ],
     [ "strrev", "string_8c.html#a4c992c1c3ddcc8d245640fd5443d1a10", null ],
+    [ "strstr", "string_8c.html#ae1e87cf0776db5e2c3f9350b61e56000", null ],
+    [ "strtolower", "string_8c.html#a8021fcf7265ca5b8ae631d17f31ba15b", null ],
     [ "tolower", "string_8c.html#a7c7bfb267464615bfa3b86aa79f42a82", null ],
     [ "toupper", "string_8c.html#a5e77664365c4f7bd9f260f8ccb89a438", null ],
     [ "gc_list", "string_8c.html#abaa07d293dd717f85adbe2b1f33a320c", null ]

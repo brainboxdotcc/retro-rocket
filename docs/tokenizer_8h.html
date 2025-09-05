@@ -99,15 +99,25 @@ Macros</h2></td></tr>
 <tr class="memitem:ad004bd52426bd91bc9d41b6efb6ea35d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#ad004bd52426bd91bc9d41b6efb6ea35d">MAX_VARNAME</a>&#160;&#160;&#160;50</td></tr>
 <tr class="memdesc:ad004bd52426bd91bc9d41b6efb6ea35d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum length for variable names.  <a href="tokenizer_8h.html#ad004bd52426bd91bc9d41b6efb6ea35d">More...</a><br /></td></tr>
 <tr class="separator:ad004bd52426bd91bc9d41b6efb6ea35d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed8760364c7992625d06c93d12b2496d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#aed8760364c7992625d06c93d12b2496d">GENERATE_ENUM</a>(ENUM)&#160;&#160;&#160;ENUM,</td></tr>
-<tr class="memdesc:aed8760364c7992625d06c93d12b2496d"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of all tokens recognized by the interpreter.  <a href="tokenizer_8h.html#aed8760364c7992625d06c93d12b2496d">More...</a><br /></td></tr>
-<tr class="separator:aed8760364c7992625d06c93d12b2496d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf58d994c35f18ec84b628d8321f52e5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#adf58d994c35f18ec84b628d8321f52e5">GENERATE_STRING</a>(<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaee847e634a4297b274316de8a8ca9921">STRING</a>)&#160;&#160;&#160;#<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaee847e634a4297b274316de8a8ca9921">STRING</a>,</td></tr>
-<tr class="separator:adf58d994c35f18ec84b628d8321f52e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5550a757a3d33ed38ce7298c1d190ba7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a5550a757a3d33ed38ce7298c1d190ba7">GENERATE_ENUM_LIST</a>(MACRO,  NAME)&#160;&#160;&#160;enum NAME { MACRO(<a class="el" href="tokenizer_8h.html#aed8760364c7992625d06c93d12b2496d">GENERATE_ENUM</a>) };</td></tr>
+<tr class="memitem:a8e74443de8ff67d6b01ddf02cdb50a5d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a8e74443de8ff67d6b01ddf02cdb50a5d">GENERATE_ENUM</a>(NAME, ...)&#160;&#160;&#160;NAME,</td></tr>
+<tr class="memdesc:a8e74443de8ff67d6b01ddf02cdb50a5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of all tokens recognized by the interpreter.  <a href="tokenizer_8h.html#a8e74443de8ff67d6b01ddf02cdb50a5d">More...</a><br /></td></tr>
+<tr class="separator:a8e74443de8ff67d6b01ddf02cdb50a5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7749c88d54111ad03d2171d661bab081"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a7749c88d54111ad03d2171d661bab081">GENERATE_STRING</a>(NAME, ...)&#160;&#160;&#160;#NAME,</td></tr>
+<tr class="separator:a7749c88d54111ad03d2171d661bab081"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5550a757a3d33ed38ce7298c1d190ba7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a5550a757a3d33ed38ce7298c1d190ba7">GENERATE_ENUM_LIST</a>(MACRO,  NAME)&#160;&#160;&#160;enum NAME { MACRO(<a class="el" href="tokenizer_8h.html#a8e74443de8ff67d6b01ddf02cdb50a5d">GENERATE_ENUM</a>) };</td></tr>
 <tr class="separator:a5550a757a3d33ed38ce7298c1d190ba7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ed1b1ec376180d8103a22b86dde3ad8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a9ed1b1ec376180d8103a22b86dde3ad8">GENERATE_ENUM_STRING_NAMES</a>(MACRO,  NAME)&#160;&#160;&#160;const char* NAME [] = { MACRO(<a class="el" href="tokenizer_8h.html#adf58d994c35f18ec84b628d8321f52e5">GENERATE_STRING</a>) };</td></tr>
+<tr class="memitem:a9ed1b1ec376180d8103a22b86dde3ad8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a9ed1b1ec376180d8103a22b86dde3ad8">GENERATE_ENUM_STRING_NAMES</a>(MACRO,  NAME)&#160;&#160;&#160;const char* NAME [] = { MACRO(<a class="el" href="tokenizer_8h.html#a7749c88d54111ad03d2171d661bab081">GENERATE_STRING</a>) };</td></tr>
 <tr class="separator:a9ed1b1ec376180d8103a22b86dde3ad8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d7566d8dfacaffc602af728dd1a122e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a2d7566d8dfacaffc602af728dd1a122e">STMT</a>&#160;&#160;&#160;STMT</td></tr>
+<tr class="separator:a2d7566d8dfacaffc602af728dd1a122e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54392252c73fc9e99e6ef24d4484ede2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a54392252c73fc9e99e6ef24d4484ede2">NONSTMT</a>&#160;&#160;&#160;NONSTMT</td></tr>
+<tr class="separator:a54392252c73fc9e99e6ef24d4484ede2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40b602f5b7779f2b0226d6ba7adda7d8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a40b602f5b7779f2b0226d6ba7adda7d8">EMIT_STMT</a>(<a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a>)&#160;&#160;&#160;    static const int kw_##<a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a> <a class="el" href="struct____attribute____.html">__attribute__</a>((section(&quot;.kw.&quot; #name), used)) = <a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a>;</td></tr>
+<tr class="separator:a40b602f5b7779f2b0226d6ba7adda7d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f092828ac3e5bf02cf5ffbe07fe9c37"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a2f092828ac3e5bf02cf5ffbe07fe9c37">EMIT_NONSTMT</a>(<a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a>)&#160;&#160;&#160;/* nothing */</td></tr>
+<tr class="separator:a2f092828ac3e5bf02cf5ffbe07fe9c37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a311145992c7643e2ea7046025ed4cf40"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a311145992c7643e2ea7046025ed4cf40">EMIT_FROM_FLAG</a>(<a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a>,  flag)&#160;&#160;&#160;EMIT_##flag(<a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a>)</td></tr>
+<tr class="separator:a311145992c7643e2ea7046025ed4cf40"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae61303e288a41f0e25ff8cd0c6296957"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#ae61303e288a41f0e25ff8cd0c6296957">TOKEN</a>(T)</td></tr>
 <tr class="memdesc:ae61303e288a41f0e25ff8cd0c6296957"><td class="mdescLeft">&#160;</td><td class="mdescRight">All tokens recognised by the interpreter. Note that built in function names are NOT tokens, they are parsed like user functions, just with a hard coded handler instead of redirecting into the user program.  <a href="tokenizer_8h.html#ae61303e288a41f0e25ff8cd0c6296957">More...</a><br /></td></tr>
 <tr class="separator:ae61303e288a41f0e25ff8cd0c6296957"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -115,92 +125,87 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:a4ebc26c81c029670805b51af165f9cfe"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfe">token_t</a> { <br />
-&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea2fd6f336d08340583bd620a7f5694c90">ERROR</a>
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea3df7ed4a0bdd684ca164df55e503278a">NO_TOKEN</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea2fd6f336d08340583bd620a7f5694c90">ERROR</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeac1134699adacb9ef38af73c816283ec8">ENDOFINPUT</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea12a90dfe20486bbe3e075afcd19ef2d0">NUMBER</a>
-, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeab41295c7909ca312a97caf0738fb98bb">HEXNUMBER</a>
 , <br />
-&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaee847e634a4297b274316de8a8ca9921">STRING</a>
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeab41295c7909ca312a97caf0738fb98bb">HEXNUMBER</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaee847e634a4297b274316de8a8ca9921">STRING</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea39031ce5df6f91d3778590d6d644b9ea">VARIABLE</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeafb72619a5a922e816967c4aa49301754">LET</a>
-, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeab107229d44d042caa8ab8df4c8acaa1f">PRINT</a>
 , <br />
-&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea252802eda493fb6b4a279c4452acb547">IF</a>
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeab107229d44d042caa8ab8df4c8acaa1f">PRINT</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea252802eda493fb6b4a279c4452acb547">IF</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeabb40477a291c07277e13d096645f4305">THEN</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea90d649d830ea440c8b8a56c7ef23c426">ELSE</a>
-, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea84abcfd92dfa0c7274f800080bbbd035">CHAIN</a>
 , <br />
-&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaa809654855caa62449850d9122fd77a8">FOR</a>
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea84abcfd92dfa0c7274f800080bbbd035">CHAIN</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaa809654855caa62449850d9122fd77a8">FOR</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeac0ba526afb7f54207517b48a892961c2">STEP</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea7a745bf8e4299d36823f18d0c317cee8">TO</a>
-, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeab13b96bf99a409e019f70dc1602532fd">NEXT</a>
 , <br />
-&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea63cd5d9b665699b0b17c898a414c63d5">CURSOR</a>
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeab13b96bf99a409e019f70dc1602532fd">NEXT</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea63cd5d9b665699b0b17c898a414c63d5">CURSOR</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeadf1256e4198172eedfbf12c770d11589">GOTO</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea8612419d5828ef882ea333f8684fcb94">GOSUB</a>
-, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea520e09ffec033636dba711f3441cc600">RETURN</a>
 , <br />
-&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeabd0ebc08c262bab82a1882256d2d66e8">CALL</a>
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea520e09ffec033636dba711f3441cc600">RETURN</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeabd0ebc08c262bab82a1882256d2d66e8">CALL</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeae310c909d76b003d016bef8bdf16936a">INPUT</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeae9f7feee75ca2c376b044b67bc693d9f">COLOUR</a>
-, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea7a5ecb5193db2d5f258ae1abd33714b9">COLOR</a>
 , <br />
-&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaa44b734476c2f3d073ee7aca08660a0e">BACKGROUND</a>
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea7a5ecb5193db2d5f258ae1abd33714b9">COLOR</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaa44b734476c2f3d073ee7aca08660a0e">BACKGROUND</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea60ad4e9e08d2f606cd6a3f233c7c3777">EVAL</a>
-, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeadaafc8212c6fd7e0adeaa5e0f3fdd178">OPENIN</a>
-, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeacb9be765f361bb7efb9073730aac92c6">READ</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea685f73194ad125cbc784c3210cdb3449">CLOSE</a>
 , <br />
-&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea685f73194ad125cbc784c3210cdb3449">CLOSE</a>
-, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaea6ac6f7e89234d17d6cd8d3bc10dd7b">EOF</a>
-, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea4ec32ebb3d661f27da6aff17d460ac94">DEF</a>
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea4ec32ebb3d661f27da6aff17d460ac94">DEF</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea616db68dab196835059ff976d67fac33">PROC</a>
-, <br />
-&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeac61a0be39db3e2f70423b02985bd4b63">RETPROC</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea57cc4c20a228921980eb6e758763788d">ENDPROC</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea2b3998cd87e8262d24320d944567c991">FN</a>
-, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeadc6f24fd6915a3f2786a1b7045406924">END</a>
+, <br />
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeadc6f24fd6915a3f2786a1b7045406924">END</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea6fa560d597fa4329bfbfecaa750f9d51">REM</a>
-, <br />
-&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaf81277bcd86412fe04bb68718ea09392">COMMA</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaf81277bcd86412fe04bb68718ea09392">COMMA</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea55eebe3c7e08b49cd5969442f4f8c4ce">SEMICOLON</a>
-, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea87fe59ef12c3d13dc2a4d14c9b16c1f9">PLUS</a>
+, <br />
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea87fe59ef12c3d13dc2a4d14c9b16c1f9">PLUS</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaf613d73b4e7b570ffd967df4a13c4225">MINUS</a>
-, <br />
-&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea865555c9f2e0458a7078486aa1b3254f">AND</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea865555c9f2e0458a7078486aa1b3254f">AND</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea96727447c0ad447987df1c6415aef074">OR</a>
-, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea0378ebc895849163b249d0b330257dd6">NOT</a>
+, <br />
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea0378ebc895849163b249d0b330257dd6">NOT</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea4730d67b92a52e0e6ef813e8805c1623">EOR</a>
-, <br />
-&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea7a48eb0b5d5a758daa1bfac07896eccb">ASTERISK</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea7a48eb0b5d5a758daa1bfac07896eccb">ASTERISK</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaaabdfe7000ca535236502bb0c87ad944">SLASH</a>
-, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea140fcc89db148e5975f1486e794675ba">MOD</a>
+, <br />
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea140fcc89db148e5975f1486e794675ba">MOD</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeafe809946a48c76d7ccda8e5bd1e389b7">OPENBRACKET</a>
-, <br />
-&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea48b044f523c3b1a98190b9cd3dfeff10">CLOSEBRACKET</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea48b044f523c3b1a98190b9cd3dfeff10">CLOSEBRACKET</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea8ce9b27601f653ddc597894a1018c55d">LESSTHAN</a>
-, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea484f1aeccc501366d064c353cf4b3c05">GREATERTHAN</a>
+, <br />
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea484f1aeccc501366d064c353cf4b3c05">GREATERTHAN</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea949310f9cb536c15919e133f7e7316f3">EQUALS</a>
-, <br />
-&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea59d02b47a666732cc6577f158272b099">NEWLINE</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea59d02b47a666732cc6577f158272b099">NEWLINE</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea95e91c94e7307b0b02d6278061a3aaa8">AMPERSAND</a>
-, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfead66592048e633b05bcb00ea408b39a47">TILDE</a>
+, <br />
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfead66592048e633b05bcb00ea408b39a47">TILDE</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeafde1bb5ef04b28059e61df449501f1c0">GLOBAL</a>
-, <br />
-&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea6a4e1ff15bc0daed40ab38b3ebdc923f">SOCKREAD</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea6a4e1ff15bc0daed40ab38b3ebdc923f">SOCKREAD</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaaf9d42232a00c13fdacd612e4dfcb812">SOCKWRITE</a>
-, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea20391dd2915a0e64343d24c2f2e40b95">CONNECT</a>
+, <br />
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea20391dd2915a0e64343d24c2f2e40b95">CONNECT</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea0f06a4daf1c339047d49e224733000ec">SOCKCLOSE</a>
-, <br />
-&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaa5e0d06ffc1b0ee32eda539e6528a3e6">CLS</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaa5e0d06ffc1b0ee32eda539e6528a3e6">CLS</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaeada68b9f24186e84531a9ea174a6d54">GCOL</a>
-, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeab023460c84f774a219d46ccf4665994c">LINE</a>
+, <br />
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeab023460c84f774a219d46ccf4665994c">LINE</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea2fd33892864d1c342d3bead2f2d9ad56">TRIANGLE</a>
-, <br />
-&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeae552ab0a96c0384a6e918e726b7f6102">RECTANGLE</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeae552ab0a96c0384a6e918e726b7f6102">RECTANGLE</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaa79c827759ea48f0735386c4b1188911">CIRCLE</a>
-, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea15108ccafa3232b9067f889b6156f565">POINT</a>
-, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea4129fbc9099a38a45236ef001ac88f7b">OPENOUT</a>
 , <br />
-&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea5d40d07a11694bcaa920c76927d4518c">OPENUP</a>
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea15108ccafa3232b9067f889b6156f565">POINT</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea9d7d6f31868d66330397c967c4afd2d2">DATA</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea12f3955776faf06252c403542f7ed380">RESTORE</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea61aa7ff70b76bff0fda378cf61d6afbc">WRITE</a>
@@ -214,6 +219,11 @@ Enumerations</h2></td></tr>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea6c8e5f290be4be86fd5e7048654b4a50">DIM</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea1afe969dfc59ae506f1b734e08bf6e96">REDIM</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfead263caec619c4d99e4684ba0fabd9493">PUSH</a>
+, <br />
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea9b4556acf248460a3132d8f4e38f6d1f">POKE</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea305bb941e56a3550104f60bd45429bcb">POKEW</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaab1c80f6f762c61566ce10ac24f8d681">POKED</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea94ff44eff0b6d67c271b21feb55e9436">POKEQ</a>
 , <br />
 &#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea061dcf4785583d8653942f2d252174fa">POP</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfead0ef00e708ed18ba004480dceb79ecfb">LOCAL</a>
@@ -235,7 +245,24 @@ Enumerations</h2></td></tr>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeabe8c81f9db8320b327f4fe513a1a873b">MOUNT</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea7c967eb66252a307af061191f63d418a">SETTIMEZONE</a>
 , <br />
-&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea254ab1e0ec6ec176c77b1e80d26d5a8c">KGET</a>
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea5f47414575c8d3b44253ae6edcbda0b7">ENDIF</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea9baf8972a026ab13e4cd839632d5a134">PLOTQUAD</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea977d478dacaae531f95695750d1e9d03">ON</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaac132f2982b98bcaa3445e535a03ff75">OFF</a>
+, <br />
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea3278fd035226215822c903790a1eee73">WHILE</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaf6fe822bd4613158436644eca87c50b2">ENDWHILE</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfead6137abebe4fdc59e2f0f2c84bdbe3fa">SLEEP</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea49959dd441dcda75d6898cf2c68fb374">CONTINUE</a>
+, <br />
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfead2f155b81e3a20b8d617bb6238c71ca8">UDPBIND</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea3f0cdc261214db7f37f83af30fe54039">UDPUNBIND</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea32010414baa9a8d11e0eec98ed7ed4a8">UDPWRITE</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea80fe7db3a665d1969b2c0db07f5eafad">OUTPORT</a>
+, <br />
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaafafc2fc4116491938b015a33648f4ff">OUTPORTW</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaa50d5bd3bc3649e9ef0feb9d24cc3bc5">OUTPORTD</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea254ab1e0ec6ec176c77b1e80d26d5a8c">KGET</a>
 <br />
  }</td></tr>
 <tr class="separator:a4ebc26c81c029670805b51af165f9cfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -247,24 +274,24 @@ Functions</h2></td></tr>
 <tr class="memitem:a00dbb52d768c7b1dc31776d51a4b0c6b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a00dbb52d768c7b1dc31776d51a4b0c6b">tokenizer_next</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
 <tr class="memdesc:a00dbb52d768c7b1dc31776d51a4b0c6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">advance to next token  <a href="tokenizer_8h.html#a00dbb52d768c7b1dc31776d51a4b0c6b">More...</a><br /></td></tr>
 <tr class="separator:a00dbb52d768c7b1dc31776d51a4b0c6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1bbf905fff7e37e6244ceb8ac31656b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#ad1bbf905fff7e37e6244ceb8ac31656b">tokenizer_token</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
-<tr class="memdesc:ad1bbf905fff7e37e6244ceb8ac31656b"><td class="mdescLeft">&#160;</td><td class="mdescRight">peek to next token  <a href="tokenizer_8h.html#ad1bbf905fff7e37e6244ceb8ac31656b">More...</a><br /></td></tr>
-<tr class="separator:ad1bbf905fff7e37e6244ceb8ac31656b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad40ac0288be0a9ef70c9cd31b66663de"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#ad40ac0288be0a9ef70c9cd31b66663de">tokenizer_num</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx, int token)</td></tr>
-<tr class="memdesc:ad40ac0288be0a9ef70c9cd31b66663de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get integer number as next token (do not advance the pointer)  <a href="tokenizer_8h.html#ad40ac0288be0a9ef70c9cd31b66663de">More...</a><br /></td></tr>
-<tr class="separator:ad40ac0288be0a9ef70c9cd31b66663de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a48b9685f151008f71e4346eb1cf68c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a9a48b9685f151008f71e4346eb1cf68c">tokenizer_fnum</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx, int token, double *f)</td></tr>
-<tr class="memdesc:a9a48b9685f151008f71e4346eb1cf68c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get real number as next token (do not advance the pointer)  <a href="tokenizer_8h.html#a9a48b9685f151008f71e4346eb1cf68c">More...</a><br /></td></tr>
-<tr class="separator:a9a48b9685f151008f71e4346eb1cf68c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a186d81cc42dc7c887e0d1d7a75152d82"><td class="memItemLeft" align="right" valign="top">enum <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfe">token_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a186d81cc42dc7c887e0d1d7a75152d82">tokenizer_token</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="memdesc:a186d81cc42dc7c887e0d1d7a75152d82"><td class="mdescLeft">&#160;</td><td class="mdescRight">peek to next token  <a href="tokenizer_8h.html#a186d81cc42dc7c887e0d1d7a75152d82">More...</a><br /></td></tr>
+<tr class="separator:a186d81cc42dc7c887e0d1d7a75152d82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a293869f6aa12d2f1de51cba96346751a"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a293869f6aa12d2f1de51cba96346751a">tokenizer_num</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx, enum <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfe">token_t</a> token)</td></tr>
+<tr class="memdesc:a293869f6aa12d2f1de51cba96346751a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get integer number as next token (do not advance the pointer)  <a href="tokenizer_8h.html#a293869f6aa12d2f1de51cba96346751a">More...</a><br /></td></tr>
+<tr class="separator:a293869f6aa12d2f1de51cba96346751a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a585ccdebf08113bf459573bf4391328c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a585ccdebf08113bf459573bf4391328c">tokenizer_fnum</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx, enum <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfe">token_t</a> token, double *f)</td></tr>
+<tr class="memdesc:a585ccdebf08113bf459573bf4391328c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get real number as next token (do not advance the pointer)  <a href="tokenizer_8h.html#a585ccdebf08113bf459573bf4391328c">More...</a><br /></td></tr>
+<tr class="separator:a585ccdebf08113bf459573bf4391328c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec506ea7f004aaa4d5cb3a9e4ed1e61e"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#aec506ea7f004aaa4d5cb3a9e4ed1e61e">tokenizer_variable_name</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
 <tr class="memdesc:aec506ea7f004aaa4d5cb3a9e4ed1e61e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a variable name as next token (do not advance the pointer)  <a href="tokenizer_8h.html#aec506ea7f004aaa4d5cb3a9e4ed1e61e">More...</a><br /></td></tr>
 <tr class="separator:aec506ea7f004aaa4d5cb3a9e4ed1e61e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a749f588540db6d7cec847d658a9e6a8d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a749f588540db6d7cec847d658a9e6a8d">tokenizer_string</a> (char *dest, int <a class="el" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a>, struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
 <tr class="memdesc:a749f588540db6d7cec847d658a9e6a8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a string constant as the next token (do not advance the pointer)  <a href="tokenizer_8h.html#a749f588540db6d7cec847d658a9e6a8d">More...</a><br /></td></tr>
 <tr class="separator:a749f588540db6d7cec847d658a9e6a8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7dd37ac7fb189bdb8e99de3ddff44444"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a7dd37ac7fb189bdb8e99de3ddff44444">tokenizer_finished</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
-<tr class="memdesc:a7dd37ac7fb189bdb8e99de3ddff44444"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the program is finished (does not advance the pointer)  <a href="tokenizer_8h.html#a7dd37ac7fb189bdb8e99de3ddff44444">More...</a><br /></td></tr>
-<tr class="separator:a7dd37ac7fb189bdb8e99de3ddff44444"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a933b67c91940ad3469b7e843958b9b60"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a933b67c91940ad3469b7e843958b9b60">tokenizer_finished</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="memdesc:a933b67c91940ad3469b7e843958b9b60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the program is finished (does not advance the pointer)  <a href="tokenizer_8h.html#a933b67c91940ad3469b7e843958b9b60">More...</a><br /></td></tr>
+<tr class="separator:a933b67c91940ad3469b7e843958b9b60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6bb8f288ca3badb019539980d26250fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a6bb8f288ca3badb019539980d26250fc">tokenizer_error_print</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx, const char *<a class="el" href="ahci_8h.html#adc64ccb7538429fe78e3fe0139267370">error</a>)</td></tr>
 <tr class="memdesc:a6bb8f288ca3badb019539980d26250fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">display an error to the terminal and end the program  <a href="tokenizer_8h.html#a6bb8f288ca3badb019539980d26250fc">More...</a><br /></td></tr>
 <tr class="separator:a6bb8f288ca3badb019539980d26250fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -282,8 +309,72 @@ Functions</h2></td></tr>
 <div class="textblock"><p>BBC BASIC interpreter, Retro Rocket OS Project (C) Craig Edwards 2012. loosely based on uBASIC (Copyright (c) 2006, Adam Dunkels, All rights reserved).</p>
 <p>THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS `&lsquo;AS IS&rsquo;' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. </p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="aed8760364c7992625d06c93d12b2496d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed8760364c7992625d06c93d12b2496d">&#9670;&nbsp;</a></span>GENERATE_ENUM</h2>
+<a id="a311145992c7643e2ea7046025ed4cf40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a311145992c7643e2ea7046025ed4cf40">&#9670;&nbsp;</a></span>EMIT_FROM_FLAG</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EMIT_FROM_FLAG</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">flag&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;EMIT_##flag(<a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2f092828ac3e5bf02cf5ffbe07fe9c37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f092828ac3e5bf02cf5ffbe07fe9c37">&#9670;&nbsp;</a></span>EMIT_NONSTMT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EMIT_NONSTMT</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a></td><td>)</td>
+          <td>&#160;&#160;&#160;/* nothing */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a40b602f5b7779f2b0226d6ba7adda7d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40b602f5b7779f2b0226d6ba7adda7d8">&#9670;&nbsp;</a></span>EMIT_STMT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EMIT_STMT</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a></td><td>)</td>
+          <td>&#160;&#160;&#160;    static const int kw_##<a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a> <a class="el" href="struct____attribute____.html">__attribute__</a>((section(&quot;.kw.&quot; #name), used)) = <a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a>;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8e74443de8ff67d6b01ddf02cdb50a5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e74443de8ff67d6b01ddf02cdb50a5d">&#9670;&nbsp;</a></span>GENERATE_ENUM</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -292,8 +383,18 @@ Functions</h2></td></tr>
           <td class="memname">#define GENERATE_ENUM</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">ENUM</td><td>)</td>
-          <td>&#160;&#160;&#160;ENUM,</td>
+          <td class="paramname">NAME, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;NAME,</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -325,7 +426,7 @@ Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;enum NAME { MACRO(<a class="el" href="tokenizer_8h.html#aed8760364c7992625d06c93d12b2496d">GENERATE_ENUM</a>) };</td>
+          <td></td><td>&#160;&#160;&#160;enum NAME { MACRO(<a class="el" href="tokenizer_8h.html#a8e74443de8ff67d6b01ddf02cdb50a5d">GENERATE_ENUM</a>) };</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -353,15 +454,15 @@ Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;const char* NAME [] = { MACRO(<a class="el" href="tokenizer_8h.html#adf58d994c35f18ec84b628d8321f52e5">GENERATE_STRING</a>) };</td>
+          <td></td><td>&#160;&#160;&#160;const char* NAME [] = { MACRO(<a class="el" href="tokenizer_8h.html#a7749c88d54111ad03d2171d661bab081">GENERATE_STRING</a>) };</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="adf58d994c35f18ec84b628d8321f52e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf58d994c35f18ec84b628d8321f52e5">&#9670;&nbsp;</a></span>GENERATE_STRING</h2>
+<a id="a7749c88d54111ad03d2171d661bab081"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7749c88d54111ad03d2171d661bab081">&#9670;&nbsp;</a></span>GENERATE_STRING</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -370,8 +471,18 @@ Functions</h2></td></tr>
           <td class="memname">#define GENERATE_STRING</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaee847e634a4297b274316de8a8ca9921">STRING</a></td><td>)</td>
-          <td>&#160;&#160;&#160;#<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaee847e634a4297b274316de8a8ca9921">STRING</a>,</td>
+          <td class="paramname">NAME, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;#NAME,</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -391,6 +502,34 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Maximum length for variable names. </p>
+
+</div>
+</div>
+<a id="a54392252c73fc9e99e6ef24d4484ede2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54392252c73fc9e99e6ef24d4484ede2">&#9670;&nbsp;</a></span>NONSTMT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NONSTMT&#160;&#160;&#160;NONSTMT</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2d7566d8dfacaffc602af728dd1a122e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d7566d8dfacaffc602af728dd1a122e">&#9670;&nbsp;</a></span>STMT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STMT&#160;&#160;&#160;STMT</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -428,7 +567,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea2fd6f336d08340583bd620a7f5694c90"></a>ERROR&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea3df7ed4a0bdd684ca164df55e503278a"></a>NO_TOKEN&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea2fd6f336d08340583bd620a7f5694c90"></a>ERROR&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfeac1134699adacb9ef38af73c816283ec8"></a>ENDOFINPUT&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea12a90dfe20486bbe3e075afcd19ef2d0"></a>NUMBER&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfeab41295c7909ca312a97caf0738fb98bb"></a>HEXNUMBER&#160;</td><td class="fielddoc"></td></tr>
@@ -454,13 +594,10 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea7a5ecb5193db2d5f258ae1abd33714b9"></a>COLOR&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfeaa44b734476c2f3d073ee7aca08660a0e"></a>BACKGROUND&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea60ad4e9e08d2f606cd6a3f233c7c3777"></a>EVAL&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfeadaafc8212c6fd7e0adeaa5e0f3fdd178"></a>OPENIN&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfeacb9be765f361bb7efb9073730aac92c6"></a>READ&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea685f73194ad125cbc784c3210cdb3449"></a>CLOSE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfeaea6ac6f7e89234d17d6cd8d3bc10dd7b"></a>EOF&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea4ec32ebb3d661f27da6aff17d460ac94"></a>DEF&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea616db68dab196835059ff976d67fac33"></a>PROC&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfeac61a0be39db3e2f70423b02985bd4b63"></a>RETPROC&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea57cc4c20a228921980eb6e758763788d"></a>ENDPROC&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea2b3998cd87e8262d24320d944567c991"></a>FN&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfeadc6f24fd6915a3f2786a1b7045406924"></a>END&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea6fa560d597fa4329bfbfecaa750f9d51"></a>REM&#160;</td><td class="fielddoc"></td></tr>
@@ -495,8 +632,6 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfeae552ab0a96c0384a6e918e726b7f6102"></a>RECTANGLE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfeaa79c827759ea48f0735386c4b1188911"></a>CIRCLE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea15108ccafa3232b9067f889b6156f565"></a>POINT&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea4129fbc9099a38a45236ef001ac88f7b"></a>OPENOUT&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea5d40d07a11694bcaa920c76927d4518c"></a>OPENUP&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea9d7d6f31868d66330397c967c4afd2d2"></a>DATA&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea12f3955776faf06252c403542f7ed380"></a>RESTORE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea61aa7ff70b76bff0fda378cf61d6afbc"></a>WRITE&#160;</td><td class="fielddoc"></td></tr>
@@ -508,6 +643,10 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea6c8e5f290be4be86fd5e7048654b4a50"></a>DIM&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea1afe969dfc59ae506f1b734e08bf6e96"></a>REDIM&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfead263caec619c4d99e4684ba0fabd9493"></a>PUSH&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea9b4556acf248460a3132d8f4e38f6d1f"></a>POKE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea305bb941e56a3550104f60bd45429bcb"></a>POKEW&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfeaab1c80f6f762c61566ce10ac24f8d681"></a>POKED&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea94ff44eff0b6d67c271b21feb55e9436"></a>POKEQ&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea061dcf4785583d8653942f2d252174fa"></a>POP&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfead0ef00e708ed18ba004480dceb79ecfb"></a>LOCAL&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea2b6ce73e76e23d54b62e59fba07b6616"></a>CHDIR&#160;</td><td class="fielddoc"></td></tr>
@@ -524,6 +663,20 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea7fcbfec4fd61b8625ec554ecb3ee966d"></a>KEYMAP&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfeabe8c81f9db8320b327f4fe513a1a873b"></a>MOUNT&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea7c967eb66252a307af061191f63d418a"></a>SETTIMEZONE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea5f47414575c8d3b44253ae6edcbda0b7"></a>ENDIF&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea9baf8972a026ab13e4cd839632d5a134"></a>PLOTQUAD&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea977d478dacaae531f95695750d1e9d03"></a>ON&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfeaac132f2982b98bcaa3445e535a03ff75"></a>OFF&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea3278fd035226215822c903790a1eee73"></a>WHILE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfeaf6fe822bd4613158436644eca87c50b2"></a>ENDWHILE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfead6137abebe4fdc59e2f0f2c84bdbe3fa"></a>SLEEP&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea49959dd441dcda75d6898cf2c68fb374"></a>CONTINUE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfead2f155b81e3a20b8d617bb6238c71ca8"></a>UDPBIND&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea3f0cdc261214db7f37f83af30fe54039"></a>UDPUNBIND&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea32010414baa9a8d11e0eec98ed7ed4a8"></a>UDPWRITE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea80fe7db3a665d1969b2c0db07f5eafad"></a>OUTPORT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfeaafafc2fc4116491938b015a33648f4ff"></a>OUTPORTW&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfeaa50d5bd3bc3649e9ef0feb9d24cc3bc5"></a>OUTPORTD&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea254ab1e0ec6ec176c77b1e80d26d5a8c"></a>KGET&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
@@ -611,7 +764,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>display an error to the terminal and end the program </p>
-<dl class="section note"><dt>Note</dt><dd>If the program is running an EVAL, the error is printed but the program is not ended, instead ERROR$ and ERROR are set.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the program is running an EVAL, the error is printed but the program is not ended, instead ERR$ and ERR are set.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ctx</td><td>context </td></tr>
@@ -655,7 +808,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>display an error to the terminal and end the program </p>
-<dl class="section note"><dt>Note</dt><dd>If the program is running an EVAL, the error is printed but the program is not ended, instead ERROR$ and ERROR are set.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the program is running an EVAL, the error is printed but the program is not ended, instead ERR$ and ERROR are set.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ctx</td><td>context </td></tr>
@@ -666,14 +819,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a7dd37ac7fb189bdb8e99de3ddff44444"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7dd37ac7fb189bdb8e99de3ddff44444">&#9670;&nbsp;</a></span>tokenizer_finished()</h2>
+<a id="a933b67c91940ad3469b7e843958b9b60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a933b67c91940ad3469b7e843958b9b60">&#9670;&nbsp;</a></span>tokenizer_finished()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int tokenizer_finished </td>
+          <td class="memname">bool tokenizer_finished </td>
           <td>(</td>
           <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
           <td class="paramname"><em>ctx</em></td><td>)</td>
@@ -693,8 +846,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a9a48b9685f151008f71e4346eb1cf68c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9a48b9685f151008f71e4346eb1cf68c">&#9670;&nbsp;</a></span>tokenizer_fnum()</h2>
+<a id="a585ccdebf08113bf459573bf4391328c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a585ccdebf08113bf459573bf4391328c">&#9670;&nbsp;</a></span>tokenizer_fnum()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -708,7 +861,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">enum <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfe">token_t</a>&#160;</td>
           <td class="paramname"><em>token</em>, </td>
         </tr>
         <tr>
@@ -791,8 +944,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ad40ac0288be0a9ef70c9cd31b66663de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad40ac0288be0a9ef70c9cd31b66663de">&#9670;&nbsp;</a></span>tokenizer_num()</h2>
+<a id="a293869f6aa12d2f1de51cba96346751a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a293869f6aa12d2f1de51cba96346751a">&#9670;&nbsp;</a></span>tokenizer_num()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -806,7 +959,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">enum <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfe">token_t</a>&#160;</td>
           <td class="paramname"><em>token</em>&#160;</td>
         </tr>
         <tr>
@@ -874,14 +1027,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ad1bbf905fff7e37e6244ceb8ac31656b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad1bbf905fff7e37e6244ceb8ac31656b">&#9670;&nbsp;</a></span>tokenizer_token()</h2>
+<a id="a186d81cc42dc7c887e0d1d7a75152d82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a186d81cc42dc7c887e0d1d7a75152d82">&#9670;&nbsp;</a></span>tokenizer_token()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int tokenizer_token </td>
+          <td class="memname">enum <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfe">token_t</a> tokenizer_token </td>
           <td>(</td>
           <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
           <td class="paramname"><em>ctx</em></td><td>)</td>
@@ -934,7 +1087,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_1e5d3661ed79af157d57e64a38265d09.html">basic</a></li><li class="navelem"><a class="el" href="tokenizer_8h.html">tokenizer.h</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

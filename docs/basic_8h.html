@@ -84,6 +84,8 @@ $(document).ready(function(){initNavTree('basic_8h.html',''); initResizable(); }
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#define-members">Macros</a>  </div>
   <div class="headertitle">
 <div class="title">basic.h File Reference</div>  </div>
 </div><!--header-->
@@ -110,18 +112,72 @@ $(document).ready(function(){initNavTree('basic_8h.html',''); initResizable(); }
 <code>#include &quot;<a class="el" href="process_8h.html">basic/process.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="reflection_8h.html">basic/reflection.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="datetime_8h.html">basic/datetime.h</a>&quot;</code><br />
-</div><a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<code>#include &quot;<a class="el" href="peekpoke_8h.html">basic/peekpoke.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:aa8b5d022159ac0bbeb1b5ed2a49e63a8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_8h.html#aa8b5d022159ac0bbeb1b5ed2a49e63a8">basic_debug</a>&#160;&#160;&#160;if (<a class="el" href="variable_8c.html#a398527b3e9e358c345c5047b16871957">debug</a>) <a class="el" href="printf_8c.html#a571270f690c35549229075bb963eabe7">dprintf</a></td></tr>
+<tr class="separator:aa8b5d022159ac0bbeb1b5ed2a49e63a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac256c281bfc3dce090f15812a23b0736"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_8h.html#ac256c281bfc3dce090f15812a23b0736">SEED0</a>&#160;&#160;&#160;0x12345678abcdefULL</td></tr>
+<tr class="separator:ac256c281bfc3dce090f15812a23b0736"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3098ea7276745e0f83d9e33453ee1c3f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_8h.html#a3098ea7276745e0f83d9e33453ee1c3f">SEED1</a>&#160;&#160;&#160;0xfedcba9876543210ULL</td></tr>
+<tr class="separator:a3098ea7276745e0f83d9e33453ee1c3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Retro Rocket BASIC interpreter. </p>
 <p>Retro Rocket OS Project (C) Craig Edwards 2012. </p><dl class="section note"><dt>Note</dt><dd>loosely based on uBASIC (Copyright (c) 2006, Adam Dunkels, All rights reserved).</dd></dl>
 <p>uBASIC is far more limited than the dialect implemented here. It only allowed variables of one letter in length, and only integer variables, no PROC, FN, or additional functions, no floating point or string ops, no INPUT, just plain mathematical expressions, no ability to isolate execution into a context, and was (and in parts still is) quite badly optimised. It was what it was, a good starting off point.</p>
 <p>THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS `&lsquo;AS IS&rsquo;' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. </p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="aa8b5d022159ac0bbeb1b5ed2a49e63a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8b5d022159ac0bbeb1b5ed2a49e63a8">&#9670;&nbsp;</a></span>basic_debug</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define basic_debug&#160;&#160;&#160;if (<a class="el" href="variable_8c.html#a398527b3e9e358c345c5047b16871957">debug</a>) <a class="el" href="printf_8c.html#a571270f690c35549229075bb963eabe7">dprintf</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac256c281bfc3dce090f15812a23b0736"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac256c281bfc3dce090f15812a23b0736">&#9670;&nbsp;</a></span>SEED0</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SEED0&#160;&#160;&#160;0x12345678abcdefULL</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3098ea7276745e0f83d9e33453ee1c3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3098ea7276745e0f83d9e33453ee1c3f">&#9670;&nbsp;</a></span>SEED1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SEED1&#160;&#160;&#160;0xfedcba9876543210ULL</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="basic_8h.html">basic.h</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:44 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -115,11 +115,11 @@
         </inbodydescription>
         <location file="include/pci.h" line="25" column="18" bodyfile="include/pci.h" bodystart="25" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="unionpci__dev__t_1a8ff0aca9022ecd15da8fc9576bb0f306" prot="public" static="no" mutable="no">
-        <type>struct pci_dev_t::@8</type>
-        <definition>struct pci_dev_t::@8 pci_dev_t::@9</definition>
+      <memberdef kind="variable" id="unionpci__dev__t_1ac94d2aed251d7bf5b79efca4663045a6" prot="public" static="no" mutable="no">
+        <type>struct pci_dev_t::@10</type>
+        <definition>struct pci_dev_t::@10 pci_dev_t::@11</definition>
         <argsstring></argsstring>
-        <name>@9</name>
+        <name>@11</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -134,16 +134,19 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="3">
-        <label>anonymous:@9</label>
-      </node>
       <node id="2">
+        <label>anonymous:@11</label>
+      </node>
+      <node id="3">
         <label>uint32_t</label>
       </node>
       <node id="1">
         <label>pci_dev_t</label>
         <link refid="unionpci__dev__t"/>
         <childnode refid="2" relation="usage">
+          <edgelabel>@11</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
           <edgelabel>always_zero</edgelabel>
           <edgelabel>bits</edgelabel>
           <edgelabel>bus_num</edgelabel>
@@ -152,9 +155,6 @@
           <edgelabel>field_num</edgelabel>
           <edgelabel>function_num</edgelabel>
           <edgelabel>reserved</edgelabel>
-        </childnode>
-        <childnode refid="3" relation="usage">
-          <edgelabel>@9</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>

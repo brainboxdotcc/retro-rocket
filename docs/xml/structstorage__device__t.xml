@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="260" column="6" bodyfile="include/filesystem.h" bodystart="260" bodyend="-1"/>
+        <location file="include/filesystem.h" line="282" column="6" bodyfile="include/filesystem.h" bodystart="282" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structstorage__device__t_1a4b7e3635e869e1e8b2245665ee988547" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -30,7 +30,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="266" column="10" bodyfile="include/filesystem.h" bodystart="266" bodyend="-1"/>
+        <location file="include/filesystem.h" line="288" column="10" bodyfile="include/filesystem.h" bodystart="288" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structstorage__device__t_1a918ae65b2e583bef5384dc4c596977b2" prot="public" static="no" mutable="no">
         <type><ref refid="filesystem_8h_1aedade13300b3b7656d01691660c3d275" kindref="member">block_read</ref></type>
@@ -44,7 +44,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="272" column="12" bodyfile="include/filesystem.h" bodystart="272" bodyend="-1"/>
+        <location file="include/filesystem.h" line="294" column="12" bodyfile="include/filesystem.h" bodystart="294" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structstorage__device__t_1a5ba455dae844ff9aae01e950f8271495" prot="public" static="no" mutable="no">
         <type><ref refid="filesystem_8h_1afbf0a8246b98b1f4ddca666aeb3fae3d" kindref="member">block_write</ref></type>
@@ -58,7 +58,21 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="278" column="13" bodyfile="include/filesystem.h" bodystart="278" bodyend="-1"/>
+        <location file="include/filesystem.h" line="300" column="13" bodyfile="include/filesystem.h" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__device__t_1a83be64332c628fbd7e4bb26a2b99c0a8" prot="public" static="no" mutable="no">
+        <type><ref refid="filesystem_8h_1a2d0c9e25e8d9c2f9445bcc9ec361b658" kindref="member">block_clear</ref></type>
+        <definition>block_clear storage_device_t::blockclear</definition>
+        <argsstring></argsstring>
+        <name>blockclear</name>
+        <briefdescription>
+<para>Mark blocks as freed on the device. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="305" column="13" bodyfile="include/filesystem.h" bodystart="305" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structstorage__device__t_1a62fabd3b49e19f188297d179ffbcd090" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -72,7 +86,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="284" column="10" bodyfile="include/filesystem.h" bodystart="284" bodyend="-1"/>
+        <location file="include/filesystem.h" line="311" column="10" bodyfile="include/filesystem.h" bodystart="311" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structstorage__device__t_1add44ca2ee801c94a53fe71db46e39dbd" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -86,7 +100,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="290" column="10" bodyfile="include/filesystem.h" bodystart="290" bodyend="-1"/>
+        <location file="include/filesystem.h" line="317" column="10" bodyfile="include/filesystem.h" bodystart="317" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structstorage__device__t_1a66eebca62325df9d8c0a0286c92ffa0c" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -100,7 +114,49 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="297" column="6" bodyfile="include/filesystem.h" bodystart="297" bodyend="-1"/>
+        <location file="include/filesystem.h" line="324" column="6" bodyfile="include/filesystem.h" bodystart="324" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__device__t_1aea0ee034b905cc4c4341da47b53c5c81" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* storage_device_t::opaque3</definition>
+        <argsstring></argsstring>
+        <name>opaque3</name>
+        <briefdescription>
+<para>An opaque pointer value which can be given meaning by the storage device driver. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="330" column="6" bodyfile="include/filesystem.h" bodystart="330" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__device__t_1a6c0774ad75aecd4366351434d2c220f3" prot="public" static="no" mutable="no">
+        <type><ref refid="structstorage__device__ui__t" kindref="compound">storage_device_ui_t</ref></type>
+        <definition>storage_device_ui_t storage_device_t::ui</definition>
+        <argsstring></argsstring>
+        <name>ui</name>
+        <briefdescription>
+<para>User interface strings, model name, capacity, type as human-readable text. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="336" column="21" bodyfile="include/filesystem.h" bodystart="336" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__device__t_1a4b52242d9773b1f3872ad33408c6fd6a" prot="public" static="no" mutable="no">
+        <type>struct block_cache *</type>
+        <definition>struct block_cache* storage_device_t::cache</definition>
+        <argsstring></argsstring>
+        <name>cache</name>
+        <briefdescription>
+<para>Block cache for the device. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="341" column="19" bodyfile="include/filesystem.h" bodystart="341" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structstorage__device__t_1ad1b4bda1ebedc6cf141f8f157a663d14" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structstorage__device__t" kindref="compound">storage_device_t</ref> *</type>
@@ -114,7 +170,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="302" column="24" bodyfile="include/filesystem.h" bodystart="302" bodyend="-1"/>
+        <location file="include/filesystem.h" line="346" column="24" bodyfile="include/filesystem.h" bodystart="346" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -125,7 +181,7 @@
 <para>Writeable filesystems should also implement <ref refid="structstorage__device__t_1a5ba455dae844ff9aae01e950f8271495" kindref="member">blockwrite()</ref>. </para>
     </detaileddescription>
     <collaborationgraph>
-      <node id="6">
+      <node id="9">
         <label>void *</label>
       </node>
       <node id="2">
@@ -139,42 +195,72 @@
           <edgelabel>size</edgelabel>
         </childnode>
         <childnode refid="3" relation="usage">
+          <edgelabel>cache</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>ui</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
           <edgelabel>name</edgelabel>
         </childnode>
         <childnode refid="1" relation="usage">
           <edgelabel>next</edgelabel>
         </childnode>
-        <childnode refid="4" relation="usage">
+        <childnode refid="7" relation="usage">
           <edgelabel>block_size</edgelabel>
         </childnode>
-        <childnode refid="5" relation="usage">
+        <childnode refid="8" relation="usage">
           <edgelabel>blockread</edgelabel>
           <edgelabel>blockwrite</edgelabel>
         </childnode>
         <childnode refid="6" relation="usage">
+          <edgelabel>blockclear</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
           <edgelabel>opaque2</edgelabel>
+          <edgelabel>opaque3</edgelabel>
         </childnode>
       </node>
-      <node id="5">
+      <node id="8">
         <label>int</label>
       </node>
-      <node id="4">
+      <node id="3">
+        <label>struct block_cache *</label>
+      </node>
+      <node id="7">
         <label>uint32_t</label>
       </node>
-      <node id="3">
+      <node id="4">
+        <label>storage_device_ui_t</label>
+        <link refid="structstorage__device__ui__t"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>label</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>is_optical</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>bool</label>
+      </node>
+      <node id="5">
         <label>char</label>
       </node>
     </collaborationgraph>
-    <location file="include/filesystem.h" line="254" column="1" bodyfile="include/filesystem.h" bodystart="254" bodyend="303"/>
+    <location file="include/filesystem.h" line="276" column="1" bodyfile="include/filesystem.h" bodystart="276" bodyend="347"/>
     <listofallmembers>
       <member refid="structstorage__device__t_1a62fabd3b49e19f188297d179ffbcd090" prot="public" virt="non-virtual"><scope>storage_device_t</scope><name>block_size</name></member>
+      <member refid="structstorage__device__t_1a83be64332c628fbd7e4bb26a2b99c0a8" prot="public" virt="non-virtual"><scope>storage_device_t</scope><name>blockclear</name></member>
       <member refid="structstorage__device__t_1a918ae65b2e583bef5384dc4c596977b2" prot="public" virt="non-virtual"><scope>storage_device_t</scope><name>blockread</name></member>
       <member refid="structstorage__device__t_1a5ba455dae844ff9aae01e950f8271495" prot="public" virt="non-virtual"><scope>storage_device_t</scope><name>blockwrite</name></member>
+      <member refid="structstorage__device__t_1a4b52242d9773b1f3872ad33408c6fd6a" prot="public" virt="non-virtual"><scope>storage_device_t</scope><name>cache</name></member>
       <member refid="structstorage__device__t_1afed2809e3332d40efe7645b76dcb7501" prot="public" virt="non-virtual"><scope>storage_device_t</scope><name>name</name></member>
       <member refid="structstorage__device__t_1ad1b4bda1ebedc6cf141f8f157a663d14" prot="public" virt="non-virtual"><scope>storage_device_t</scope><name>next</name></member>
       <member refid="structstorage__device__t_1add44ca2ee801c94a53fe71db46e39dbd" prot="public" virt="non-virtual"><scope>storage_device_t</scope><name>opaque1</name></member>
       <member refid="structstorage__device__t_1a66eebca62325df9d8c0a0286c92ffa0c" prot="public" virt="non-virtual"><scope>storage_device_t</scope><name>opaque2</name></member>
+      <member refid="structstorage__device__t_1aea0ee034b905cc4c4341da47b53c5c81" prot="public" virt="non-virtual"><scope>storage_device_t</scope><name>opaque3</name></member>
       <member refid="structstorage__device__t_1a4b7e3635e869e1e8b2245665ee988547" prot="public" virt="non-virtual"><scope>storage_device_t</scope><name>size</name></member>
+      <member refid="structstorage__device__t_1a6c0774ad75aecd4366351434d2c220f3" prot="public" virt="non-virtual"><scope>storage_device_t</scope><name>ui</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

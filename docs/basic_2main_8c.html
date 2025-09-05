@@ -85,8 +85,8 @@ $(document).ready(function(){initNavTree('basic_2main_8c.html',''); initResizabl
 
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">basic/main.c File Reference</div>  </div>
 </div><!--header-->
@@ -97,26 +97,37 @@ $(document).ready(function(){initNavTree('basic_2main_8c.html',''); initResizabl
 <div class="textblock"><code>#include &lt;<a class="el" href="kernel_8h.html">kernel.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="debugger_8h.html">debugger.h</a>&gt;</code><br />
 </div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:a41d8a3751accd3178a7e15e42f003206"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#a41d8a3751accd3178a7e15e42f003206">NEGATE_STATEMENT</a>(<a class="el" href="serial_8h.html#ab87f55bd0280d90925050a4188c14ab5">s</a>,  <a class="el" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a>)</td></tr>
-<tr class="separator:a41d8a3751accd3178a7e15e42f003206"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ad7942bf037f39521235a4f2b62f9fa89"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#ad7942bf037f39521235a4f2b62f9fa89">varmap_malloc</a> (size_t <a class="el" href="fat32_8h.html#ab2c6b258f02add8fdf4cfc7c371dd772">size</a>, void *udata)</td></tr>
+<tr class="separator:ad7942bf037f39521235a4f2b62f9fa89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f12e0df472a1dcb818e267e6e247ba3"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#a5f12e0df472a1dcb818e267e6e247ba3">varmap_realloc</a> (void *ptr, size_t <a class="el" href="fat32_8h.html#ab2c6b258f02add8fdf4cfc7c371dd772">size</a>, void *udata)</td></tr>
+<tr class="separator:a5f12e0df472a1dcb818e267e6e247ba3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4605dc42e71374f484656a815318a61f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#a4605dc42e71374f484656a815318a61f">varmap_free</a> (const void *ptr, void *udata)</td></tr>
+<tr class="separator:a4605dc42e71374f484656a815318a61f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88fe36fa46c8ba22ab29fd675f76a49e"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#a88fe36fa46c8ba22ab29fd675f76a49e">varmap_hash</a> (const void *item, uint64_t seed0, uint64_t seed1)</td></tr>
+<tr class="separator:a88fe36fa46c8ba22ab29fd675f76a49e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc7dd32259c6558095decfb12e3fcfdc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#acc7dd32259c6558095decfb12e3fcfdc">varmap_compare</a> (const void *a, const void *b, void *udata)</td></tr>
+<tr class="separator:acc7dd32259c6558095decfb12e3fcfdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ae2a4ac1f15d66a1f5326d1262011ab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#a2ae2a4ac1f15d66a1f5326d1262011ab">varmap_elfree_int</a> (const void *item, void *udata)</td></tr>
+<tr class="separator:a2ae2a4ac1f15d66a1f5326d1262011ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd1a5f15a9448f9c16d749f8e0c14bf2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#afd1a5f15a9448f9c16d749f8e0c14bf2">varmap_elfree_double</a> (const void *item, void *udata)</td></tr>
+<tr class="separator:afd1a5f15a9448f9c16d749f8e0c14bf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac952d43e929c00ed767d1a8267d5358e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#ac952d43e929c00ed767d1a8267d5358e">varmap_elfree_string</a> (const void *item, void *udata)</td></tr>
+<tr class="separator:ac952d43e929c00ed767d1a8267d5358e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adbea79f9655e5767c84d845207e08964"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#adbea79f9655e5767c84d845207e08964">clean_basic</a> (const char *program, char *output_buffer)</td></tr>
 <tr class="separator:adbea79f9655e5767c84d845207e08964"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe85e6c3f39d917b9cb89daec8bd49da"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#abe85e6c3f39d917b9cb89daec8bd49da">auto_number</a> (const char *program, uint64_t line, uint64_t increment)</td></tr>
 <tr class="separator:abe85e6c3f39d917b9cb89daec8bd49da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab863a74ae2ae042854039be9356b084d"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#ab863a74ae2ae042854039be9356b084d">line_hash</a> (const void *item, uint64_t seed0, uint64_t seed1)</td></tr>
 <tr class="separator:ab863a74ae2ae042854039be9356b084d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa5520b91c0ef46358fd0c4bd74050993"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#aa5520b91c0ef46358fd0c4bd74050993">line_compare</a> (const void *<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, const void *<a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>, void *udata)</td></tr>
+<tr class="memitem:aa5520b91c0ef46358fd0c4bd74050993"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#aa5520b91c0ef46358fd0c4bd74050993">line_compare</a> (const void *a, const void *b, void *udata)</td></tr>
 <tr class="separator:aa5520b91c0ef46358fd0c4bd74050993"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a44ed64f6ff4e39653e508971cbb313e6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#a44ed64f6ff4e39653e508971cbb313e6">basic_hash_lines</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx, char **<a class="el" href="ahci_8h.html#adc64ccb7538429fe78e3fe0139267370">error</a>)</td></tr>
 <tr class="separator:a44ed64f6ff4e39653e508971cbb313e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab15b37afdb180943e1fd31c41caa981"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#aab15b37afdb180943e1fd31c41caa981">basic_init</a> (const char *program, <a class="el" href="structconsole.html">console</a> *cons, uint32_t pid, const char *file, char **<a class="el" href="ahci_8h.html#adc64ccb7538429fe78e3fe0139267370">error</a>)</td></tr>
-<tr class="memdesc:aab15b37afdb180943e1fd31c41caa981"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the BASIC context with the provided program, console, process ID, and file.  <a href="basic_2main_8c.html#aab15b37afdb180943e1fd31c41caa981">More...</a><br /></td></tr>
-<tr class="separator:aab15b37afdb180943e1fd31c41caa981"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2884943f1e5e729091d03a0d9b00e818"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#a2884943f1e5e729091d03a0d9b00e818">basic_init</a> (const char *program, uint32_t pid, const char *file, char **<a class="el" href="ahci_8h.html#adc64ccb7538429fe78e3fe0139267370">error</a>)</td></tr>
+<tr class="memdesc:a2884943f1e5e729091d03a0d9b00e818"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the BASIC context with the provided program, console, process ID, and file.  <a href="basic_2main_8c.html#a2884943f1e5e729091d03a0d9b00e818">More...</a><br /></td></tr>
+<tr class="separator:a2884943f1e5e729091d03a0d9b00e818"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a14e5c07fad2912482b0dc026fadd3c3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#a14e5c07fad2912482b0dc026fadd3c3a">yield_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
 <tr class="separator:a14e5c07fad2912482b0dc026fadd3c3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad4bc068a37938522b9addf519de12756"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#ad4bc068a37938522b9addf519de12756">library_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
@@ -128,9 +139,9 @@ Functions</h2></td></tr>
 <tr class="memitem:af018882ffc2e5fc5f888c4dea3ecf17c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#af018882ffc2e5fc5f888c4dea3ecf17c">basic_destroy</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
 <tr class="memdesc:af018882ffc2e5fc5f888c4dea3ecf17c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the BASIC context and free associated resources.  <a href="basic_2main_8c.html#af018882ffc2e5fc5f888c4dea3ecf17c">More...</a><br /></td></tr>
 <tr class="separator:af018882ffc2e5fc5f888c4dea3ecf17c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9ce2b562c925c1acc36a9d05208a478"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#ad9ce2b562c925c1acc36a9d05208a478">accept</a> (int token, struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
-<tr class="memdesc:ad9ce2b562c925c1acc36a9d05208a478"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the expected token is the current token in the BASIC program.  <a href="basic_2main_8c.html#ad9ce2b562c925c1acc36a9d05208a478">More...</a><br /></td></tr>
-<tr class="separator:ad9ce2b562c925c1acc36a9d05208a478"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab79777e712e0923be5f3db844cbcc67f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#ab79777e712e0923be5f3db844cbcc67f">accept</a> (enum <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfe">token_t</a> token, struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="memdesc:ab79777e712e0923be5f3db844cbcc67f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the expected token is the current token in the BASIC program.  <a href="basic_2main_8c.html#ab79777e712e0923be5f3db844cbcc67f">More...</a><br /></td></tr>
+<tr class="separator:ab79777e712e0923be5f3db844cbcc67f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa2c73bceaa056ea01125ef6fdfce922e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#aa2c73bceaa056ea01125ef6fdfce922e">jump_linenum</a> (int64_t linenum, struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
 <tr class="memdesc:aa2c73bceaa056ea01125ef6fdfce922e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Jump to a specific line number in the BASIC program.  <a href="basic_2main_8c.html#aa2c73bceaa056ea01125ef6fdfce922e">More...</a><br /></td></tr>
 <tr class="separator:aa2c73bceaa056ea01125ef6fdfce922e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -151,72 +162,27 @@ Functions</h2></td></tr>
 <tr class="separator:a5e5f1ea2b9be92d6852d00ef01077ee2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53b019c43274358836f64a396b2b6431"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#a53b019c43274358836f64a396b2b6431">rem_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
 <tr class="separator:a53b019c43274358836f64a396b2b6431"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4af325fda4cf09dde88a6f61d3f11b46"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#a4af325fda4cf09dde88a6f61d3f11b46">statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
-<tr class="memdesc:a4af325fda4cf09dde88a6f61d3f11b46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse and execute a statement in the BASIC program.  <a href="basic_2main_8c.html#a4af325fda4cf09dde88a6f61d3f11b46">More...</a><br /></td></tr>
-<tr class="separator:a4af325fda4cf09dde88a6f61d3f11b46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b822df8abb6e9bec6bd0033f1a60e17"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#a2b822df8abb6e9bec6bd0033f1a60e17">line_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
-<tr class="memdesc:a2b822df8abb6e9bec6bd0033f1a60e17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse and execute a line in the BASIC program.  <a href="basic_2main_8c.html#a2b822df8abb6e9bec6bd0033f1a60e17">More...</a><br /></td></tr>
-<tr class="separator:a2b822df8abb6e9bec6bd0033f1a60e17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7bb6804126a4bedcc4a9c7b43f7ca1f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#ac7bb6804126a4bedcc4a9c7b43f7ca1f">basic_esc</a> ()</td></tr>
+<tr class="separator:ac7bb6804126a4bedcc4a9c7b43f7ca1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56b04c55856eb16c14cb74068a770ca3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#a56b04c55856eb16c14cb74068a770ca3">basic_run</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
 <tr class="memdesc:a56b04c55856eb16c14cb74068a770ca3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run the BASIC program by executing the next statement.  <a href="basic_2main_8c.html#a56b04c55856eb16c14cb74068a770ca3">More...</a><br /></td></tr>
 <tr class="separator:a56b04c55856eb16c14cb74068a770ca3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab8aa7186bd4407c90642c4aef3288b7b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#ab8aa7186bd4407c90642c4aef3288b7b">basic_finished</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
 <tr class="memdesc:ab8aa7186bd4407c90642c4aef3288b7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the BASIC program has finished executing.  <a href="basic_2main_8c.html#ab8aa7186bd4407c90642c4aef3288b7b">More...</a><br /></td></tr>
 <tr class="separator:ab8aa7186bd4407c90642c4aef3288b7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a398527b3e9e358c345c5047b16871957"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_2main_8c.html#a398527b3e9e358c345c5047b16871957">debug</a></td></tr>
+<tr class="separator:a398527b3e9e358c345c5047b16871957"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Main functions for BASIC interpreter, context creation, destruction and cloning. </p>
 <p>Retro Rocket OS Project (C) Craig Edwards 2012. loosely based on uBASIC (Copyright (c) 2006, Adam Dunkels, All rights reserved).</p>
 <p>THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS `&lsquo;AS IS&rsquo;' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. </p>
-</div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a41d8a3751accd3178a7e15e42f003206"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a41d8a3751accd3178a7e15e42f003206">&#9670;&nbsp;</a></span>NEGATE_STATEMENT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define NEGATE_STATEMENT</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><a class="el" href="serial_8h.html#ab87f55bd0280d90925050a4188c14ab5">s</a>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><a class="el" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    { \</div>
-<div class="line">    char <a class="code" href="basic_2main_8c.html#a4af325fda4cf09dde88a6f61d3f11b46">statement</a>[<a class="code" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a> + 3]; \</div>
-<div class="line">    snprintf(<a class="code" href="basic_2main_8c.html#a4af325fda4cf09dde88a6f61d3f11b46">statement</a>, <a class="code" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a> + 3, <span class="stringliteral">&quot;%s -&quot;</span>, <a class="code" href="serial_8h.html#ab87f55bd0280d90925050a4188c14ab5">s</a>); \</div>
-<div class="line">    if (<a class="code" href="string_8h.html#a519d57d33362a8ed067cf5fe6937324e">strncmp</a>(<a class="code" href="basic_2main_8c.html#a4af325fda4cf09dde88a6f61d3f11b46">statement</a>, <a class="code" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>, <a class="code" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a> + 2) == 0) { \</div>
-<div class="line">        memcpy(<a class="code" href="ahci_8h.html#a4cd140aecf7c77a91e1b41afb65cdf4f">d</a>, <a class="code" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>, <a class="code" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a> + 1); \</div>
-<div class="line">        d += <a class="code" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a> + 1; \</div>
-<div class="line">        p += <a class="code" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a> + 2; \</div>
-<div class="line">        memcpy(<a class="code" href="ahci_8h.html#a4cd140aecf7c77a91e1b41afb65cdf4f">d</a>, <span class="stringliteral">&quot;(0-1)*&quot;</span>, 6); \</div>
-<div class="line">        d += 6; \</div>
-<div class="line">    } \</div>
-<div class="line">}</div>
-<div class="ttc" id="aahci_8h_html_a4cd140aecf7c77a91e1b41afb65cdf4f"><div class="ttname"><a href="ahci_8h.html#a4cd140aecf7c77a91e1b41afb65cdf4f">d</a></div><div class="ttdeci">uint8_t d</div><div class="ttdef"><b>Definition:</b> ahci.h:5</div></div>
-<div class="ttc" id="aahci_8h_html_a6519522ad9a6f45e7a8d25d31392a977"><div class="ttname"><a href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a></div><div class="ttdeci">uint8_t p</div><div class="ttdef"><b>Definition:</b> ahci.h:4</div></div>
-<div class="ttc" id="abasic_2main_8c_html_a4af325fda4cf09dde88a6f61d3f11b46"><div class="ttname"><a href="basic_2main_8c.html#a4af325fda4cf09dde88a6f61d3f11b46">statement</a></div><div class="ttdeci">void statement(struct basic_ctx *ctx)</div><div class="ttdoc">Parse and execute a statement in the BASIC program.</div><div class="ttdef"><b>Definition:</b> basic/main.c:669</div></div>
-<div class="ttc" id="aserial_8h_html_ab87f55bd0280d90925050a4188c14ab5"><div class="ttname"><a href="serial_8h.html#ab87f55bd0280d90925050a4188c14ab5">s</a></div><div class="ttdeci">const char * s</div><div class="ttdef"><b>Definition:</b> serial.h:41</div></div>
-<div class="ttc" id="astring_8h_html_a519d57d33362a8ed067cf5fe6937324e"><div class="ttname"><a href="string_8h.html#a519d57d33362a8ed067cf5fe6937324e">strncmp</a></div><div class="ttdeci">int strncmp(const char *s1, const char *s2, uint32_t n)</div><div class="ttdoc">Compare first n characters of two strings (case-sensitive).</div><div class="ttdef"><b>Definition:</b> string.c:97</div></div>
-<div class="ttc" id="atcp_8h_html_a8aed22e2c7b283705ec82e0120515618"><div class="ttname"><a href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a></div><div class="ttdeci">uint16_t len</div><div class="ttdef"><b>Definition:</b> tcp.h:4</div></div>
-</div><!-- fragment -->
-</div>
-</div>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="ad9ce2b562c925c1acc36a9d05208a478"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad9ce2b562c925c1acc36a9d05208a478">&#9670;&nbsp;</a></span>accept()</h2>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="ab79777e712e0923be5f3db844cbcc67f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab79777e712e0923be5f3db844cbcc67f">&#9670;&nbsp;</a></span>accept()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -224,7 +190,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">bool accept </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">enum <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfe">token_t</a>&#160;</td>
           <td class="paramname"><em>token</em>, </td>
         </tr>
         <tr>
@@ -340,6 +306,23 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ac7bb6804126a4bedcc4a9c7b43f7ca1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7bb6804126a4bedcc4a9c7b43f7ca1f">&#9670;&nbsp;</a></span>basic_esc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool basic_esc </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ab8aa7186bd4407c90642c4aef3288b7b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab8aa7186bd4407c90642c4aef3288b7b">&#9670;&nbsp;</a></span>basic_finished()</h2>
 
@@ -423,8 +406,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aab15b37afdb180943e1fd31c41caa981"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab15b37afdb180943e1fd31c41caa981">&#9670;&nbsp;</a></span>basic_init()</h2>
+<a id="a2884943f1e5e729091d03a0d9b00e818"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2884943f1e5e729091d03a0d9b00e818">&#9670;&nbsp;</a></span>basic_init()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -434,12 +417,6 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>program</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structconsole.html">console</a> *&#160;</td>
-          <td class="paramname"><em>cons</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -778,32 +755,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a2b822df8abb6e9bec6bd0033f1a60e17"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2b822df8abb6e9bec6bd0033f1a60e17">&#9670;&nbsp;</a></span>line_statement()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void line_statement </td>
-          <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
-          <td class="paramname"><em>ctx</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Parse and execute a line in the BASIC program. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ctx</td><td>The BASIC context. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="a53b019c43274358836f64a396b2b6431"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a53b019c43274358836f64a396b2b6431">&#9670;&nbsp;</a></span>rem_statement()</h2>
 
@@ -822,29 +773,245 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a4af325fda4cf09dde88a6f61d3f11b46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4af325fda4cf09dde88a6f61d3f11b46">&#9670;&nbsp;</a></span>statement()</h2>
+<a id="acc7dd32259c6558095decfb12e3fcfdc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc7dd32259c6558095decfb12e3fcfdc">&#9670;&nbsp;</a></span>varmap_compare()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void statement </td>
+          <td class="memname">int varmap_compare </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
-          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>udata</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Parse and execute a statement in the BASIC program. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ctx</td><td>The BASIC context. </td></tr>
-  </table>
-  </dd>
-</dl>
+</div>
+</div>
+<a id="afd1a5f15a9448f9c16d749f8e0c14bf2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd1a5f15a9448f9c16d749f8e0c14bf2">&#9670;&nbsp;</a></span>varmap_elfree_double()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void varmap_elfree_double </td>
+          <td>(</td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>item</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>udata</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2ae2a4ac1f15d66a1f5326d1262011ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ae2a4ac1f15d66a1f5326d1262011ab">&#9670;&nbsp;</a></span>varmap_elfree_int()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void varmap_elfree_int </td>
+          <td>(</td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>item</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>udata</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac952d43e929c00ed767d1a8267d5358e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac952d43e929c00ed767d1a8267d5358e">&#9670;&nbsp;</a></span>varmap_elfree_string()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void varmap_elfree_string </td>
+          <td>(</td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>item</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>udata</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4605dc42e71374f484656a815318a61f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4605dc42e71374f484656a815318a61f">&#9670;&nbsp;</a></span>varmap_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void varmap_free </td>
+          <td>(</td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>udata</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a88fe36fa46c8ba22ab29fd675f76a49e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88fe36fa46c8ba22ab29fd675f76a49e">&#9670;&nbsp;</a></span>varmap_hash()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t varmap_hash </td>
+          <td>(</td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>item</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>seed0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>seed1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad7942bf037f39521235a4f2b62f9fa89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7942bf037f39521235a4f2b62f9fa89">&#9670;&nbsp;</a></span>varmap_malloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* varmap_malloc </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>udata</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5f12e0df472a1dcb818e267e6e247ba3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f12e0df472a1dcb818e267e6e247ba3">&#9670;&nbsp;</a></span>varmap_realloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* varmap_realloc </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>udata</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -866,13 +1033,36 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a398527b3e9e358c345c5047b16871957"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a398527b3e9e358c345c5047b16871957">&#9670;&nbsp;</a></span>debug</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool debug</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_38cd9eca440b760dc966f21b1f8d8f41.html">basic</a></li><li class="navelem"><a class="el" href="basic_2main_8c.html">main.c</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

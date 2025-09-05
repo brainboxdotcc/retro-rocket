@@ -85,7 +85,8 @@ $(document).ready(function(){initNavTree('flow__control_8c.html',''); initResiza
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">flow_control.c File Reference</div>  </div>
 </div><!--header-->
@@ -94,6 +95,7 @@ $(document).ready(function(){initNavTree('flow__control_8c.html',''); initResiza
 <p>BASIC foow control functions (loops, conditionals, if/then/else etc)  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;<a class="el" href="kernel_8h.html">kernel.h</a>&gt;</code><br />
+<code>#include &quot;<a class="el" href="unified__expression_8h.html">basic/unified_expression.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -103,6 +105,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a5c2b65ab1d1749489a08e52f572824db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flow__control_8c.html#a5c2b65ab1d1749489a08e52f572824db">else_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
 <tr class="memdesc:a5c2b65ab1d1749489a08e52f572824db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the ELSE statement in BASIC, used for branching after an IF condition.  <a href="flow__control_8c.html#a5c2b65ab1d1749489a08e52f572824db">More...</a><br /></td></tr>
 <tr class="separator:a5c2b65ab1d1749489a08e52f572824db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f998df8ec705260396caec448a1dc2a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flow__control_8c.html#a2f998df8ec705260396caec448a1dc2a">on_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a2f998df8ec705260396caec448a1dc2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a907324f64699e7b2ddc1510500937176"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flow__control_8c.html#a907324f64699e7b2ddc1510500937176">off_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a907324f64699e7b2ddc1510500937176"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19d127d5577882e3e0ad90a784d9f1d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flow__control_8c.html#a19d127d5577882e3e0ad90a784d9f1d9">error_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a19d127d5577882e3e0ad90a784d9f1d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab14de683d192b4d11f91a47deea7fc7f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flow__control_8c.html#ab14de683d192b4d11f91a47deea7fc7f">if_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
 <tr class="memdesc:ab14de683d192b4d11f91a47deea7fc7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the IF statement in BASIC, used for conditional execution.  <a href="flow__control_8c.html#ab14de683d192b4d11f91a47deea7fc7f">More...</a><br /></td></tr>
 <tr class="separator:ab14de683d192b4d11f91a47deea7fc7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -130,6 +138,21 @@ Functions</h2></td></tr>
 <tr class="memitem:a74a931514b48a5c2b109777f27e0b298"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flow__control_8c.html#a74a931514b48a5c2b109777f27e0b298">end_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
 <tr class="memdesc:a74a931514b48a5c2b109777f27e0b298"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the END statement in BASIC, used to terminate a program.  <a href="flow__control_8c.html#a74a931514b48a5c2b109777f27e0b298">More...</a><br /></td></tr>
 <tr class="separator:a74a931514b48a5c2b109777f27e0b298"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88526b173b3a29143c7e3bc6da07fb64"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flow__control_8c.html#a88526b173b3a29143c7e3bc6da07fb64">seek_to_matching_token</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx, enum <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfe">token_t</a> open_tok, enum <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfe">token_t</a> close_tok, const char *<a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a>)</td></tr>
+<tr class="separator:a88526b173b3a29143c7e3bc6da07fb64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec700f9d4e9379775488fa8ebe885896"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flow__control_8c.html#aec700f9d4e9379775488fa8ebe885896">while_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="memdesc:aec700f9d4e9379775488fa8ebe885896"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the WHILE statement in BASIC, used to start a loop.  <a href="flow__control_8c.html#aec700f9d4e9379775488fa8ebe885896">More...</a><br /></td></tr>
+<tr class="separator:aec700f9d4e9379775488fa8ebe885896"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab685ec088ca32e56148aa4b0dd9db090"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flow__control_8c.html#ab685ec088ca32e56148aa4b0dd9db090">endwhile_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="memdesc:ab685ec088ca32e56148aa4b0dd9db090"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the ENDWHILE statement in BASIC, used to end a WHILE loop.  <a href="flow__control_8c.html#ab685ec088ca32e56148aa4b0dd9db090">More...</a><br /></td></tr>
+<tr class="separator:ab685ec088ca32e56148aa4b0dd9db090"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaae3d2bf12d39489fecfca009dc7c1c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flow__control_8c.html#aaae3d2bf12d39489fecfca009dc7c1c0">continue_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="separator:aaae3d2bf12d39489fecfca009dc7c1c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a398527b3e9e358c345c5047b16871957"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="flow__control_8c.html#a398527b3e9e358c345c5047b16871957">debug</a></td></tr>
+<tr class="separator:a398527b3e9e358c345c5047b16871957"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>BASIC foow control functions (loops, conditionals, if/then/else etc) </p>
@@ -159,6 +182,24 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>bool True if the condition is met, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="aaae3d2bf12d39489fecfca009dc7c1c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaae3d2bf12d39489fecfca009dc7c1c0">&#9670;&nbsp;</a></span>continue_statement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void continue_statement </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -240,6 +281,51 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ab685ec088ca32e56148aa4b0dd9db090"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab685ec088ca32e56148aa4b0dd9db090">&#9670;&nbsp;</a></span>endwhile_statement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void endwhile_statement </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Handles the ENDWHILE statement in BASIC, used to end a WHILE loop. </p>
+<p>The ENDWHILE statement loops back to its corresponding WHILE loop</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>The current BASIC program context. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a19d127d5577882e3e0ad90a784d9f1d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19d127d5577882e3e0ad90a784d9f1d9">&#9670;&nbsp;</a></span>error_statement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void error_statement </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -351,6 +437,42 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a907324f64699e7b2ddc1510500937176"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a907324f64699e7b2ddc1510500937176">&#9670;&nbsp;</a></span>off_statement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void off_statement </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2f998df8ec705260396caec448a1dc2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f998df8ec705260396caec448a1dc2a">&#9670;&nbsp;</a></span>on_statement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void on_statement </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a6e49ec283da5e1e2034ce0eba3fe0f6d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6e49ec283da5e1e2034ce0eba3fe0f6d">&#9670;&nbsp;</a></span>repeat_statement()</h2>
 
@@ -405,6 +527,54 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a88526b173b3a29143c7e3bc6da07fb64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88526b173b3a29143c7e3bc6da07fb64">&#9670;&nbsp;</a></span>seek_to_matching_token()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool seek_to_matching_token </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfe">token_t</a>&#160;</td>
+          <td class="paramname"><em>open_tok</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfe">token_t</a>&#160;</td>
+          <td class="paramname"><em>close_tok</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ac1c2636efc012daa7b6353fc1ba11f5b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac1c2636efc012daa7b6353fc1ba11f5b">&#9670;&nbsp;</a></span>until_statement()</h2>
 
@@ -432,13 +602,63 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aec700f9d4e9379775488fa8ebe885896"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec700f9d4e9379775488fa8ebe885896">&#9670;&nbsp;</a></span>while_statement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void while_statement </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Handles the WHILE statement in BASIC, used to start a loop. </p>
+<p>The WHILE statement starts a loop that continues until its condition is false.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>The current BASIC program context. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a398527b3e9e358c345c5047b16871957"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a398527b3e9e358c345c5047b16871957">&#9670;&nbsp;</a></span>debug</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool debug</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_38cd9eca440b760dc966f21b1f8d8f41.html">basic</a></li><li class="navelem"><a class="el" href="flow__control_8c.html">flow_control.c</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:44 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

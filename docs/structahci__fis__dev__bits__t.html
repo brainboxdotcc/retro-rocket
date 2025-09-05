@@ -91,13 +91,17 @@ $(document).ready(function(){initNavTree('structahci__fis__dev__bits__t.html',''
 </div><!--header-->
 <div class="contents">
 
+<p>Set Device Bits (SDB) FIS (device-&gt;host asynchronous notification).  
+ <a href="structahci__fis__dev__bits__t.html#details">More...</a></p>
+
 <p><code>#include &lt;ahci.h&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for ahci_fis_dev_bits_t:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structahci__fis__dev__bits__t__coll__graph.svg" width="156" height="274"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="structahci__fis__dev__bits__t__coll__graph.svg" width="160" height="274"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -108,22 +112,25 @@ Data Fields</h2></td></tr>
 <tr class="separator:aedac9583b37601addf5320d9a48a7a38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22c0c1e6fbe4f8b5520030b672905f52"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__dev__bits__t.html#a22c0c1e6fbe4f8b5520030b672905f52">rsvd</a>:2</td></tr>
 <tr class="separator:a22c0c1e6fbe4f8b5520030b672905f52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a020ccee3be8424ec1341567efc800740"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__dev__bits__t.html#a020ccee3be8424ec1341567efc800740">i</a>:1</td></tr>
-<tr class="separator:a020ccee3be8424ec1341567efc800740"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7576eabaf3b33001a1c5743975c4834"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__dev__bits__t.html#ae7576eabaf3b33001a1c5743975c4834">n</a>:1</td></tr>
-<tr class="separator:ae7576eabaf3b33001a1c5743975c4834"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7c605b298ef67f3b049320440fc9564"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__dev__bits__t.html#ab7c605b298ef67f3b049320440fc9564">statusl</a>:3</td></tr>
-<tr class="separator:ab7c605b298ef67f3b049320440fc9564"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7272015159b11547d3d7e2f3c0cf080"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__dev__bits__t.html#ad7272015159b11547d3d7e2f3c0cf080">interrupt</a>:1</td></tr>
+<tr class="separator:ad7272015159b11547d3d7e2f3c0cf080"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cae690486404eb1f78312180edf79e5"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__dev__bits__t.html#a9cae690486404eb1f78312180edf79e5">notification</a>:1</td></tr>
+<tr class="separator:a9cae690486404eb1f78312180edf79e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca0feca5982719771804ee970a13fe5c"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__dev__bits__t.html#aca0feca5982719771804ee970a13fe5c">status_low</a>:3</td></tr>
+<tr class="separator:aca0feca5982719771804ee970a13fe5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27e9339c5e3fbc9ca80f8e56047bba0f"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__dev__bits__t.html#a27e9339c5e3fbc9ca80f8e56047bba0f">rsvd2</a>:1</td></tr>
 <tr class="separator:a27e9339c5e3fbc9ca80f8e56047bba0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a819605e953d223f335a94a294d06f72b"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__dev__bits__t.html#a819605e953d223f335a94a294d06f72b">statush</a>:3</td></tr>
-<tr class="separator:a819605e953d223f335a94a294d06f72b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaecc442a49438eb6ea77575ebd68e0d4"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__dev__bits__t.html#aaecc442a49438eb6ea77575ebd68e0d4">status_high</a>:3</td></tr>
+<tr class="separator:aaecc442a49438eb6ea77575ebd68e0d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3dcd209a8e96818d7c713cf0dc4d9bb"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__dev__bits__t.html#ae3dcd209a8e96818d7c713cf0dc4d9bb">rsvd3</a>:1</td></tr>
 <tr class="separator:ae3dcd209a8e96818d7c713cf0dc4d9bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d262c8d475c5711df8a673e47bf0022"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__dev__bits__t.html#a6d262c8d475c5711df8a673e47bf0022">error</a></td></tr>
 <tr class="separator:a6d262c8d475c5711df8a673e47bf0022"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Field Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Set Device Bits (SDB) FIS (device-&gt;host asynchronous notification). </p>
+<dl class="section note"><dt>Note</dt><dd>Reconstruct the full ATA Status as (status_low | (status_high &lt;&lt; 3)). </dd></dl>
+</div><h2 class="groupheader">Field Documentation</h2>
 <a id="a6d262c8d475c5711df8a673e47bf0022"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6d262c8d475c5711df8a673e47bf0022">&#9670;&nbsp;</a></span>error</h2>
 
@@ -135,6 +142,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Error register (valid if ERR set) </p>
 
 </div>
 </div>
@@ -149,34 +157,37 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>FIS type (FIS_TYPE_DEV_BITS) </p>
 
 </div>
 </div>
-<a id="a020ccee3be8424ec1341567efc800740"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a020ccee3be8424ec1341567efc800740">&#9670;&nbsp;</a></span>i</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t ahci_fis_dev_bits_t::i</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ae7576eabaf3b33001a1c5743975c4834"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae7576eabaf3b33001a1c5743975c4834">&#9670;&nbsp;</a></span>n</h2>
+<a id="ad7272015159b11547d3d7e2f3c0cf080"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7272015159b11547d3d7e2f3c0cf080">&#9670;&nbsp;</a></span>interrupt</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t ahci_fis_dev_bits_t::n</td>
+          <td class="memname">uint8_t ahci_fis_dev_bits_t::interrupt</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Interrupt bit (I) </p>
+
+</div>
+</div>
+<a id="a9cae690486404eb1f78312180edf79e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cae690486404eb1f78312180edf79e5">&#9670;&nbsp;</a></span>notification</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t ahci_fis_dev_bits_t::notification</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Notification (N) </p>
 
 </div>
 </div>
@@ -191,6 +202,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Port multiplier port </p>
 
 </div>
 </div>
@@ -205,6 +217,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Reserved, must be zero </p>
 
 </div>
 </div>
@@ -219,6 +232,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Reserved, must be zero </p>
 
 </div>
 </div>
@@ -233,34 +247,37 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Reserved, must be zero </p>
 
 </div>
 </div>
-<a id="a819605e953d223f335a94a294d06f72b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a819605e953d223f335a94a294d06f72b">&#9670;&nbsp;</a></span>statush</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t ahci_fis_dev_bits_t::statush</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ab7c605b298ef67f3b049320440fc9564"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7c605b298ef67f3b049320440fc9564">&#9670;&nbsp;</a></span>statusl</h2>
+<a id="aaecc442a49438eb6ea77575ebd68e0d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaecc442a49438eb6ea77575ebd68e0d4">&#9670;&nbsp;</a></span>status_high</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t ahci_fis_dev_bits_t::statusl</td>
+          <td class="memname">uint8_t ahci_fis_dev_bits_t::status_high</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Status bits [7:5] (packed MSBs) </p>
+
+</div>
+</div>
+<a id="aca0feca5982719771804ee970a13fe5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca0feca5982719771804ee970a13fe5c">&#9670;&nbsp;</a></span>status_low</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t ahci_fis_dev_bits_t::status_low</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Status bits [2:0] </p>
 
 </div>
 </div>
@@ -270,7 +287,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structahci__fis__dev__bits__t.html">ahci_fis_dev_bits_t</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

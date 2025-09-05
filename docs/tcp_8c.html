@@ -111,14 +111,14 @@ Functions</h2></td></tr>
 <tr class="separator:a5d69668a0bae4e57c41f3657840a0956"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a473b7dd1cb0588bb1057164a02fc47e1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8c.html#a473b7dd1cb0588bb1057164a02fc47e1">seq_gte</a> (uint32_t x, uint32_t y)</td></tr>
 <tr class="separator:a473b7dd1cb0588bb1057164a02fc47e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab876210b35fe5bed3553bffff11dd349"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8c.html#ab876210b35fe5bed3553bffff11dd349">tcp_conn_compare</a> (const void *<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, const void *<a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>, void *udata)</td></tr>
+<tr class="memitem:ab876210b35fe5bed3553bffff11dd349"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8c.html#ab876210b35fe5bed3553bffff11dd349">tcp_conn_compare</a> (const void *a, const void *b, void *udata)</td></tr>
 <tr class="memdesc:ab876210b35fe5bed3553bffff11dd349"><td class="mdescLeft">&#160;</td><td class="mdescRight">Comparison function for hash table of tcp connections.  <a href="tcp_8c.html#ab876210b35fe5bed3553bffff11dd349">More...</a><br /></td></tr>
 <tr class="separator:ab876210b35fe5bed3553bffff11dd349"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a16c33212152620295382813f3d2f31ad"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8c.html#a16c33212152620295382813f3d2f31ad">tcp_conn_hash</a> (const void *item, uint64_t seed0, uint64_t seed1)</td></tr>
 <tr class="memdesc:a16c33212152620295382813f3d2f31ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hash an ip connection.  <a href="tcp_8c.html#a16c33212152620295382813f3d2f31ad">More...</a><br /></td></tr>
 <tr class="separator:a16c33212152620295382813f3d2f31ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f2109b68477870c220f5d276d9ec898"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8c.html#a3f2109b68477870c220f5d276d9ec898">tcp_free</a> (<a class="el" href="structtcp__conn__t.html">tcp_conn_t</a> *conn)</td></tr>
-<tr class="separator:a3f2109b68477870c220f5d276d9ec898"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc3ee20119efcc93a842946fba1ce561"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8c.html#abc3ee20119efcc93a842946fba1ce561">tcp_free</a> (<a class="el" href="structtcp__conn__t.html">tcp_conn_t</a> *conn, bool with_lock)</td></tr>
+<tr class="separator:abc3ee20119efcc93a842946fba1ce561"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa386730f497701efce8f9dd8f01c235e"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8c.html#aa386730f497701efce8f9dd8f01c235e">tcp_calculate_checksum</a> (ip_packet_t *packet, tcp_segment_t *segment, size_t <a class="el" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a>)</td></tr>
 <tr class="separator:aa386730f497701efce8f9dd8f01c235e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4feb883d196783f849a6372099d4a508"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8c.html#a4feb883d196783f849a6372099d4a508">tcp_byte_order_in</a> (tcp_segment_t *const segment)</td></tr>
@@ -218,7 +218,7 @@ Functions</h2></td></tr>
 <tr class="separator:ac4ed2cdd1c291c5083404950e916c98f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a616706131cb20d379279872ca4af8e71"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8c.html#a616706131cb20d379279872ca4af8e71">tcp_close</a> (<a class="el" href="structtcp__conn__t.html">tcp_conn_t</a> *conn)</td></tr>
 <tr class="separator:a616706131cb20d379279872ca4af8e71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5787e23039c4a2243cbc968a48431d2e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8c.html#a5787e23039c4a2243cbc968a48431d2e">send</a> (int socket, const void *buffer, uint32_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>)</td></tr>
+<tr class="memitem:a5787e23039c4a2243cbc968a48431d2e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8c.html#a5787e23039c4a2243cbc968a48431d2e">send</a> (int socket, const void *<a class="el" href="input_8c.html#aff2566f4c366b48d73479bef43ee4d2e">buffer</a>, uint32_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>)</td></tr>
 <tr class="memdesc:a5787e23039c4a2243cbc968a48431d2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send data to an open socket.  <a href="tcp_8c.html#a5787e23039c4a2243cbc968a48431d2e">More...</a><br /></td></tr>
 <tr class="separator:a5787e23039c4a2243cbc968a48431d2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a95723a63184d3eb69a619853f560da"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8c.html#a4a95723a63184d3eb69a619853f560da">connect</a> (uint32_t target_addr, uint16_t target_port, uint16_t source_port, bool blocking)</td></tr>
@@ -230,7 +230,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a39bac2a3c55fa01613ed4a5579a5ca67"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8c.html#a39bac2a3c55fa01613ed4a5579a5ca67">is_connected</a> (int socket)</td></tr>
 <tr class="memdesc:a39bac2a3c55fa01613ed4a5579a5ca67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the socket is connected.  <a href="tcp_8c.html#a39bac2a3c55fa01613ed4a5579a5ca67">More...</a><br /></td></tr>
 <tr class="separator:a39bac2a3c55fa01613ed4a5579a5ca67"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6df7b901b1a9f3ec7046f958f9e7cf36"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8c.html#a6df7b901b1a9f3ec7046f958f9e7cf36">recv</a> (int socket, void *buffer, uint32_t maxlen, bool blocking, uint32_t timeout)</td></tr>
+<tr class="memitem:a6df7b901b1a9f3ec7046f958f9e7cf36"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8c.html#a6df7b901b1a9f3ec7046f958f9e7cf36">recv</a> (int socket, void *<a class="el" href="input_8c.html#aff2566f4c366b48d73479bef43ee4d2e">buffer</a>, uint32_t maxlen, bool blocking, uint32_t timeout)</td></tr>
 <tr class="memdesc:a6df7b901b1a9f3ec7046f958f9e7cf36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive data from an open socket. The data is buffered, and this function will fill the buffer when there is data in the buffer to read.  <a href="tcp_8c.html#a6df7b901b1a9f3ec7046f958f9e7cf36">More...</a><br /></td></tr>
 <tr class="separator:a6df7b901b1a9f3ec7046f958f9e7cf36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae4013d43c90be7603c80e7224765d830"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8c.html#ae4013d43c90be7603c80e7224765d830">sock_ready_to_read</a> (int socket)</td></tr>
@@ -1037,8 +1037,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a3f2109b68477870c220f5d276d9ec898"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3f2109b68477870c220f5d276d9ec898">&#9670;&nbsp;</a></span>tcp_free()</h2>
+<a id="abc3ee20119efcc93a842946fba1ce561"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc3ee20119efcc93a842946fba1ce561">&#9670;&nbsp;</a></span>tcp_free()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1047,8 +1047,18 @@ Variables</h2></td></tr>
           <td class="memname">void tcp_free </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structtcp__conn__t.html">tcp_conn_t</a> *&#160;</td>
-          <td class="paramname"><em>conn</em></td><td>)</td>
+          <td class="paramname"><em>conn</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>with_lock</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2565,7 +2575,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c72b25b75abe208498b36a3e44a3726c.html">net</a></li><li class="navelem"><a class="el" href="tcp_8c.html">tcp.c</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

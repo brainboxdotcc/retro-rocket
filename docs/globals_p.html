@@ -87,9 +87,6 @@ $(document).ready(function(){initNavTree('globals_p.html',''); initResizable(); 
 <div class="textblock">Here is a list of all functions, variables, defines, enums, and typedefs with links to the files they belong to:</div>
 
 <h3><a id="index_p"></a>- p -</h3><ul>
-<li>p
-: <a class="el" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">ahci.h</a>
-</li>
 <li>p_entry
 : <a class="el" href="partition_8h.html#acbc7f7a079bfdfcb4f87f46d9b062fc6">partition.h</a>
 </li>
@@ -144,6 +141,9 @@ $(document).ready(function(){initNavTree('globals_p.html',''); initResizable(); 
 <li>parent
 : <a class="el" href="retrofs_8h.html#aa7284700d1ae25bab5067dd485ef451e">retrofs.h</a>
 </li>
+<li>parse_bool_term()
+: <a class="el" href="unified__expression_8c.html#ae20f6af640a99a8a466b5848cdf8631f">unified_expression.c</a>
+</li>
 <li>parse_boot()
 : <a class="el" href="iso9660_8c.html#aa160a1ffc5b7625df37b54781e97c134">iso9660.c</a>
 </li>
@@ -153,16 +153,20 @@ $(document).ready(function(){initNavTree('globals_p.html',''); initResizable(); 
 <li>parse_directory()
 : <a class="el" href="iso9660_8c.html#addc4b5cfedd97b04d64d3b8cf349fe47">iso9660.c</a>
 </li>
+<li>parse_elf_rel_headers()
+: <a class="el" href="module_8h.html#a748f56ff56028b04ef9efb3aa5867bac">module.h</a>
+, <a class="el" href="module__loader_8c.html#a748f56ff56028b04ef9efb3aa5867bac">module_loader.c</a>
+</li>
 <li>parse_fat32_directory()
-: <a class="el" href="directory_8c.html#af38e80c365dda1fc57d42ad748235421">directory.c</a>
-, <a class="el" href="fat32_8h.html#af38e80c365dda1fc57d42ad748235421">fat32.h</a>
+: <a class="el" href="fat32_8h.html#af38e80c365dda1fc57d42ad748235421">fat32.h</a>
+, <a class="el" href="directory_8c.html#af38e80c365dda1fc57d42ad748235421">directory.c</a>
 </li>
 <li>parse_pvd()
 : <a class="el" href="iso9660_8c.html#a05ce30664507442d8f3f5accd19aa975">iso9660.c</a>
 </li>
 <li>parse_shitty_lfn_entry()
-: <a class="el" href="fat32_8h.html#a154b6991e5c3e7e4683127ebd47d5883">fat32.h</a>
-, <a class="el" href="lfn_8c.html#a154b6991e5c3e7e4683127ebd47d5883">lfn.c</a>
+: <a class="el" href="lfn_8c.html#a154b6991e5c3e7e4683127ebd47d5883">lfn.c</a>
+, <a class="el" href="fat32_8h.html#a154b6991e5c3e7e4683127ebd47d5883">fat32.h</a>
 </li>
 <li>parse_short_name()
 : <a class="el" href="fat32_8h.html#ab4c188f68625ee95f466fdef2e34a53d">fat32.h</a>
@@ -182,6 +186,12 @@ $(document).ready(function(){initNavTree('globals_p.html',''); initResizable(); 
 </li>
 <li>PARTITION_TABLE_OFFSET
 : <a class="el" href="partition_8h.html#a18bdcefc7008fc3d9e21f70f6ad0cc2f">partition.h</a>
+</li>
+<li>path_compare()
+: <a class="el" href="filesystem_8c.html#a6debdb6a96c3bc9ce15f824d928b41b7">filesystem.c</a>
+</li>
+<li>path_hash()
+: <a class="el" href="filesystem_8c.html#a7b79d32351891f46d83635a1f1dc32f9">filesystem.c</a>
 </li>
 <li>payload
 : <a class="el" href="dns_8h.html#abbc5d8b7ef9470c34d390da1468ce83c">dns.h</a>
@@ -206,8 +216,8 @@ $(document).ready(function(){initNavTree('globals_p.html',''); initResizable(); 
 : <a class="el" href="pci_8h.html#a8beff8dcd21e35c86d181c0acaac92c4">pci.h</a>
 </li>
 <li>pci_bar_type()
-: <a class="el" href="pci_8h.html#a99c835f2d27af0e6335617180be46775">pci.h</a>
-, <a class="el" href="pci_8c.html#a99c835f2d27af0e6335617180be46775">pci.c</a>
+: <a class="el" href="pci_8c.html#a99c835f2d27af0e6335617180be46775">pci.c</a>
+, <a class="el" href="pci_8h.html#a99c835f2d27af0e6335617180be46775">pci.h</a>
 </li>
 <li>PCI_BAR_TYPE_IOPORT
 : <a class="el" href="pci_8h.html#af851c079188594b6a0c4d271545676d1">pci.h</a>
@@ -307,8 +317,8 @@ $(document).ready(function(){initNavTree('globals_p.html',''); initResizable(); 
 : <a class="el" href="rtl8139_8h.html#ada929328d49add8af7fd13b6133c7858a161ed2bbdd565bde019fc514c9a0bbc2">rtl8139.h</a>
 </li>
 <li>pci_get_device()
-: <a class="el" href="pci_8c.html#a23395c1f682d006bba59e854b41b975f">pci.c</a>
-, <a class="el" href="pci_8h.html#a23395c1f682d006bba59e854b41b975f">pci.h</a>
+: <a class="el" href="pci_8h.html#a23395c1f682d006bba59e854b41b975f">pci.h</a>
+, <a class="el" href="pci_8c.html#a23395c1f682d006bba59e854b41b975f">pci.c</a>
 </li>
 <li>pci_get_device_list()
 : <a class="el" href="pci_8h.html#ae7f216cacb07fed85ffc9a988f7559b1">pci.h</a>
@@ -420,8 +430,8 @@ $(document).ready(function(){initNavTree('globals_p.html',''); initResizable(); 
 : <a class="el" href="pci_8h.html#a542c19851ef72dbe90bf3aa8cc275fd3">pci.h</a>
 </li>
 <li>pci_setup_interrupt()
-: <a class="el" href="pci_8h.html#a9388fd28fe0a2e0eb3214518dcb66c97">pci.h</a>
-, <a class="el" href="pci_8c.html#a9388fd28fe0a2e0eb3214518dcb66c97">pci.c</a>
+: <a class="el" href="pci_8c.html#a9388fd28fe0a2e0eb3214518dcb66c97">pci.c</a>
+, <a class="el" href="pci_8h.html#a9388fd28fe0a2e0eb3214518dcb66c97">pci.h</a>
 </li>
 <li>pci_size_map
 : <a class="el" href="pci_8c.html#a8336b879b82556964a89f56680cab7b0">pci.c</a>
@@ -475,8 +485,8 @@ $(document).ready(function(){initNavTree('globals_p.html',''); initResizable(); 
 : <a class="el" href="pci_8h.html#ae01a383ed97f2fef624e91dadb388637">pci.h</a>
 </li>
 <li>pci_write()
-: <a class="el" href="pci_8h.html#a0f62b415645f8773747ea15af6177ead">pci.h</a>
-, <a class="el" href="pci_8c.html#a0f62b415645f8773747ea15af6177ead">pci.c</a>
+: <a class="el" href="pci_8c.html#a0f62b415645f8773747ea15af6177ead">pci.c</a>
+, <a class="el" href="pci_8h.html#a0f62b415645f8773747ea15af6177ead">pci.h</a>
 </li>
 <li>pci_write16()
 : <a class="el" href="pci_8c.html#acc80133013150394ff7621cd7bd36b25">pci.c</a>
@@ -492,9 +502,6 @@ $(document).ready(function(){initNavTree('globals_p.html',''); initResizable(); 
 </li>
 <li>PI
 : <a class="el" href="maths_8c.html#a598a3330b3c21701223ee0ca14316eca">maths.c</a>
-</li>
-<li>pi
-: <a class="el" href="ahci_8h.html#a758f6c558cc8d68e2a25f13e046eae6f">ahci.h</a>
 </li>
 <li>PIC1
 : <a class="el" href="idt_8c.html#a6b115109e4a0d3c5fb6252d091e86bfe">idt.c</a>
@@ -520,18 +527,21 @@ $(document).ready(function(){initNavTree('globals_p.html',''); initResizable(); 
 <li>pic_enable()
 : <a class="el" href="idt_8c.html#acec4df702487e44b82b31748a089ad9c">idt.c</a>
 </li>
-<li>PIC_EOI
-: <a class="el" href="idt_8c.html#a170d8eebdb48c16cfcd60cbd46760cb2">idt.c</a>
-</li>
 <li>pic_eoi()
 : <a class="el" href="idt_8h.html#ac58b11f9cfbfe9217a7e9a256f6a1038">idt.h</a>
 , <a class="el" href="idt_8c.html#ac58b11f9cfbfe9217a7e9a256f6a1038">idt.c</a>
+</li>
+<li>PIC_EOI
+: <a class="el" href="idt_8c.html#a170d8eebdb48c16cfcd60cbd46760cb2">idt.c</a>
 </li>
 <li>pic_remap()
 : <a class="el" href="idt_8c.html#af3dcd40ab20d43c39d9c85774f4d5e7c">idt.c</a>
 </li>
 <li>pid_t
 : <a class="el" href="taskswitch_8h.html#a7a26cb7f5678736cec66712d6df1d4ed">taskswitch.h</a>
+</li>
+<li>pio_setup_fis
+: <a class="el" href="ahci_8h.html#ae6b8596c5c8bf7e6134a06307f63a959">ahci.h</a>
 </li>
 <li>pixel_address()
 : <a class="el" href="video_8h.html#a50db84ae45ebaba89b42e155676a8bcb">video.h</a>
@@ -555,12 +565,28 @@ $(document).ready(function(){initNavTree('globals_p.html',''); initResizable(); 
 <li>plot_sprite()
 : <a class="el" href="graphics_8c.html#aac9bc0dba397b4dea8ee50a61e480aea">graphics.c</a>
 </li>
+<li>plot_sprite_quad()
+: <a class="el" href="graphics_8c.html#aa915d8385c97f1f303486902a885dadf">graphics.c</a>
+</li>
+<li>plot_sprite_quad_axis_aligned_int()
+: <a class="el" href="graphics_8c.html#a62a3916c0b9ba27e17b7ef66e3a5e17a">graphics.c</a>
+</li>
 <li>plot_statement()
-: <a class="el" href="graphics_8c.html#aa8bc7cf7ea28fa42974f3b02179e2ba1">graphics.c</a>
-, <a class="el" href="graphics_8h.html#aa8bc7cf7ea28fa42974f3b02179e2ba1">graphics.h</a>
+: <a class="el" href="graphics_8h.html#aa8bc7cf7ea28fa42974f3b02179e2ba1">graphics.h</a>
+, <a class="el" href="graphics_8c.html#aa8bc7cf7ea28fa42974f3b02179e2ba1">graphics.c</a>
+</li>
+<li>PLOTQUAD
+: <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea9baf8972a026ab13e4cd839632d5a134">tokenizer.h</a>
+</li>
+<li>plotquad_statement()
+: <a class="el" href="graphics_8h.html#ae4d8b57312663598bf6f25e26139ed83">graphics.h</a>
+, <a class="el" href="graphics_8c.html#ae4d8b57312663598bf6f25e26139ed83">graphics.c</a>
 </li>
 <li>PLUS
 : <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea87fe59ef12c3d13dc2a4d14c9b16c1f9">tokenizer.h</a>
+</li>
+<li>PM_HZ
+: <a class="el" href="lapic__timer_8c.html#a25973adb89a2fd4838acdf45e1d5f77e">lapic_timer.c</a>
 </li>
 <li>pm_timer_32bit
 : <a class="el" href="acpi_8c.html#a859b8276dfe15c616c65ce0f40affdb5">acpi.c</a>
@@ -573,8 +599,8 @@ $(document).ready(function(){initNavTree('globals_p.html',''); initResizable(); 
 : <a class="el" href="lapic__timer_8c.html#af7414fc34087dfd4ec4b4e70f7478f42">lapic_timer.c</a>
 </li>
 <li>pm_timer_is_32_bit()
-: <a class="el" href="acpi_8c.html#add7731ecb0ce4dd0dd355c12ce729f18">acpi.c</a>
-, <a class="el" href="acpi_8h.html#add7731ecb0ce4dd0dd355c12ce729f18">acpi.h</a>
+: <a class="el" href="acpi_8h.html#add7731ecb0ce4dd0dd355c12ce729f18">acpi.h</a>
+, <a class="el" href="acpi_8c.html#add7731ecb0ce4dd0dd355c12ce729f18">acpi.c</a>
 </li>
 <li>pm_timer_is_io
 : <a class="el" href="acpi_8c.html#a7ee40fd2a0f88c3d1e91cf43a50ad58d">acpi.c</a>
@@ -586,9 +612,6 @@ $(document).ready(function(){initNavTree('globals_p.html',''); initResizable(); 
 : <a class="el" href="acpi_8h.html#af7e5a9c0a667bd0511af43cbde2c340d">acpi.h</a>
 , <a class="el" href="acpi_8c.html#af7e5a9c0a667bd0511af43cbde2c340d">acpi.c</a>
 </li>
-<li>pmp
-: <a class="el" href="ahci_8h.html#aa6e468acbc4b19ae7e019c417f00d00a">ahci.h</a>
-</li>
 <li>pmport
 : <a class="el" href="ahci_8h.html#a992e274c1d71ede460beb0d8af125622">ahci.h</a>
 </li>
@@ -596,32 +619,66 @@ $(document).ready(function(){initNavTree('globals_p.html',''); initResizable(); 
 : <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea15108ccafa3232b9067f889b6156f565">tokenizer.h</a>
 </li>
 <li>point_statement()
-: <a class="el" href="graphics_8c.html#a13e735601b49512ba7d757f3dcdbc067">graphics.c</a>
-, <a class="el" href="graphics_8h.html#a13e735601b49512ba7d757f3dcdbc067">graphics.h</a>
+: <a class="el" href="graphics_8h.html#a13e735601b49512ba7d757f3dcdbc067">graphics.h</a>
+, <a class="el" href="graphics_8c.html#a13e735601b49512ba7d757f3dcdbc067">graphics.c</a>
 </li>
 <li>pointer_to_other_sdt
 : <a class="el" href="acpi_8h.html#ab0b5c2612ca3de9e099f4f8652f5a6e7">acpi.h</a>
 </li>
+<li>POKE
+: <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea9b4556acf248460a3132d8f4e38f6d1f">tokenizer.h</a>
+</li>
+<li>poke_statement()
+: <a class="el" href="peekpoke_8h.html#afc609e2d4656af52200c34c18c28b273">peekpoke.h</a>
+, <a class="el" href="peekpoke_8c.html#afc609e2d4656af52200c34c18c28b273">peekpoke.c</a>
+</li>
+<li>POKED
+: <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaab1c80f6f762c61566ce10ac24f8d681">tokenizer.h</a>
+</li>
+<li>poked_statement()
+: <a class="el" href="peekpoke_8h.html#a2509c42f10bd7f122fd9fa8901afc6ba">peekpoke.h</a>
+, <a class="el" href="peekpoke_8c.html#a2509c42f10bd7f122fd9fa8901afc6ba">peekpoke.c</a>
+</li>
+<li>POKEQ
+: <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea94ff44eff0b6d67c271b21feb55e9436">tokenizer.h</a>
+</li>
+<li>pokeq_statement()
+: <a class="el" href="peekpoke_8h.html#a223798c8a391abde6b878c66bce57d8b">peekpoke.h</a>
+, <a class="el" href="peekpoke_8c.html#a223798c8a391abde6b878c66bce57d8b">peekpoke.c</a>
+</li>
+<li>POKEW
+: <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea305bb941e56a3550104f60bd45429bcb">tokenizer.h</a>
+</li>
+<li>pokew_statement()
+: <a class="el" href="peekpoke_8h.html#a00997c57f228a322c96918be64330882">peekpoke.h</a>
+, <a class="el" href="peekpoke_8c.html#a00997c57f228a322c96918be64330882">peekpoke.c</a>
+</li>
 <li>polarity_str()
-: <a class="el" href="acpi_8c.html#a8f12bf635ed1f6ad67ac890e47dbeb93">acpi.c</a>
-, <a class="el" href="acpi_8h.html#a8f12bf635ed1f6ad67ac890e47dbeb93">acpi.h</a>
+: <a class="el" href="acpi_8h.html#a8f12bf635ed1f6ad67ac890e47dbeb93">acpi.h</a>
+, <a class="el" href="acpi_8c.html#a8f12bf635ed1f6ad67ac890e47dbeb93">acpi.c</a>
 </li>
 <li>POP
 : <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea061dcf4785583d8653942f2d252174fa">tokenizer.h</a>
 </li>
 <li>pop_statement()
-: <a class="el" href="array_8h.html#ae5c7d95dad0bc7d5fd85db9c9fec3361">array.h</a>
-, <a class="el" href="array_8c.html#ae5c7d95dad0bc7d5fd85db9c9fec3361">array.c</a>
+: <a class="el" href="array_8c.html#ae5c7d95dad0bc7d5fd85db9c9fec3361">array.c</a>
+, <a class="el" href="array_8h.html#ae5c7d95dad0bc7d5fd85db9c9fec3361">array.h</a>
+</li>
+<li>port_multiplier_port
+: <a class="el" href="ahci_8h.html#af23d5a6ba81779ead9d99275fda199c0">ahci.h</a>
 </li>
 <li>port_rebase()
-: <a class="el" href="ahci_8c.html#ad4facaaf67038580be541df08f74fbde">ahci.c</a>
+: <a class="el" href="block_2ahci_2main_8c.html#aaefbf0af7da9210fa6c283fd821a2ec3">block/ahci/main.c</a>
 </li>
 <li>ports
 : <a class="el" href="ahci_8h.html#a5f1a604579819241e224bf29b305671c">ahci.h</a>
 </li>
+<li>ports_implemented
+: <a class="el" href="ahci_8h.html#a4b125c0884506c8bfdb802a8394e826a">ahci.h</a>
+</li>
 <li>pow()
-: <a class="el" href="maths_8c.html#aa56c9494c95edf68386375e97d64159b">maths.c</a>
-, <a class="el" href="maths_8h.html#ae09fae943b521903337acf54ffda37c1">maths.h</a>
+: <a class="el" href="maths_8h.html#ae09fae943b521903337acf54ffda37c1">maths.h</a>
+, <a class="el" href="maths_8c.html#aa56c9494c95edf68386375e97d64159b">maths.c</a>
 </li>
 <li>PR_BUFLEN
 : <a class="el" href="printf_8h.html#a47e3daf525535345268f705184476c08">printf.h</a>
@@ -653,15 +710,25 @@ $(document).ready(function(){initNavTree('globals_p.html',''); initResizable(); 
 <li>prdt_entry
 : <a class="el" href="ahci_8h.html#aab699e89e2d277835a68abc61a481565">ahci.h</a>
 </li>
-<li>prdtl
-: <a class="el" href="ahci_8h.html#aef2da437ff6b7a93f6b302a955338c0f">ahci.h</a>
+<li>prdt_length_entries
+: <a class="el" href="ahci_8h.html#af479470216ead0dcdcb1dc1ef4b992e1">ahci.h</a>
 </li>
 <li>preboot_fail()
-: <a class="el" href="kmalloc_8h.html#a48ed44cd60d7dd25dc396e20739a3a84">kmalloc.h</a>
-, <a class="el" href="kmalloc_8c.html#a48ed44cd60d7dd25dc396e20739a3a84">kmalloc.c</a>
+: <a class="el" href="kmalloc_8c.html#a48ed44cd60d7dd25dc396e20739a3a84">kmalloc.c</a>
+, <a class="el" href="kmalloc_8h.html#a48ed44cd60d7dd25dc396e20739a3a84">kmalloc.h</a>
+</li>
+<li>predecessor()
+: <a class="el" href="map_8c.html#af35a4ebdec5d86b59bf56688c7ba2fe5">map.c</a>
+</li>
+<li>prefetchable
+: <a class="el" href="ahci_8h.html#a541f7cf2157c5192c992718093d78ec5">ahci.h</a>
 </li>
 <li>prefix_hash
 : <a class="el" href="devicename_8c.html#a30be8225f9a75af8d7138812d1eb6ba6">devicename.c</a>
+</li>
+<li>prepare_rfs_partition()
+: <a class="el" href="installer_8h.html#ad098db0bf3de931c10f5337bc23f55c2">installer.h</a>
+, <a class="el" href="gpt__writer_8c.html#ad098db0bf3de931c10f5337bc23f55c2">gpt_writer.c</a>
 </li>
 <li>PRESENT
 : <a class="el" href="gdt_8c.html#a762815cf6b58d4b92bcf9a904f8270d9">gdt.c</a>
@@ -670,8 +737,8 @@ $(document).ready(function(){initNavTree('globals_p.html',''); initResizable(); 
 : <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeab107229d44d042caa8ab8df4c8acaa1f">tokenizer.h</a>
 </li>
 <li>print_heapinfo()
-: <a class="el" href="kmalloc_8c.html#a56ae8e632dd1a93d76e4a9b9f265f3a2">kmalloc.c</a>
-, <a class="el" href="kmalloc_8h.html#ac4160aa7c6aafbda9023bde041fe0476">kmalloc.h</a>
+: <a class="el" href="kmalloc_8h.html#ac4160aa7c6aafbda9023bde041fe0476">kmalloc.h</a>
+, <a class="el" href="kmalloc_8c.html#a56ae8e632dd1a93d76e4a9b9f265f3a2">kmalloc.c</a>
 </li>
 <li>print_statement()
 : <a class="el" href="console_8h.html#abffec674ac0197db69350612d5ced1d3">console.h</a>
@@ -691,14 +758,12 @@ $(document).ready(function(){initNavTree('globals_p.html',''); initResizable(); 
 <li>printf_state_t
 : <a class="el" href="printf_8c.html#a955a8838398640452f0a08b3c7f886bf">printf.c</a>
 </li>
-<li>prng32()
-: <a class="el" href="installer_8c.html#a33bab6ce08436834bd42c7002de041d8">installer.c</a>
-</li>
-<li>prng_state
-: <a class="el" href="installer_8c.html#a0b0ca642e9b69f286dd5f7a607b47250">installer.c</a>
+<li>probe_device_summary()
+: <a class="el" href="os__detection_8c.html#a0b08c23bd50111722b3bd7c04e65b6c2">os_detection.c</a>
+, <a class="el" href="installer_8h.html#a0b08c23bd50111722b3bd7c04e65b6c2">installer.h</a>
 </li>
 <li>probe_port()
-: <a class="el" href="ahci_8c.html#ad10b16704569d6cb8adbfa9d5045bd1d">ahci.c</a>
+: <a class="el" href="block_2ahci_2main_8c.html#ae4501711404dc088455fa70f32878dba">block/ahci/main.c</a>
 </li>
 <li>problem_ptr
 : <a class="el" href="icmp_8h.html#a0978f7814c3396f9cbc83c829daaff37">icmp.h</a>
@@ -739,15 +804,15 @@ $(document).ready(function(){initNavTree('globals_p.html',''); initResizable(); 
 , <a class="el" href="taskswitch_8c.html#a8951b9dab6452cf831a751d0cda64a5d">taskswitch.c</a>
 </li>
 <li>proc_kill_id()
-: <a class="el" href="taskswitch_8c.html#a7b25ff76590322d996a0cb108665cedc">taskswitch.c</a>
-, <a class="el" href="taskswitch_8h.html#a7b25ff76590322d996a0cb108665cedc">taskswitch.h</a>
+: <a class="el" href="taskswitch_8h.html#a7b25ff76590322d996a0cb108665cedc">taskswitch.h</a>
+, <a class="el" href="taskswitch_8c.html#a7b25ff76590322d996a0cb108665cedc">taskswitch.c</a>
 </li>
 <li>proc_list
 : <a class="el" href="taskswitch_8c.html#a61f2432ddea8c570469210d4f0813b46">taskswitch.c</a>
 </li>
 <li>proc_load()
-: <a class="el" href="taskswitch_8h.html#aa489f46acde8e80831f0432a1da6e695">taskswitch.h</a>
-, <a class="el" href="taskswitch_8c.html#aa489f46acde8e80831f0432a1da6e695">taskswitch.c</a>
+: <a class="el" href="taskswitch_8c.html#a1ddb02d538d102946f6b3d888c881bbd">taskswitch.c</a>
+, <a class="el" href="taskswitch_8h.html#a1ddb02d538d102946f6b3d888c881bbd">taskswitch.h</a>
 </li>
 <li>proc_lock
 : <a class="el" href="taskswitch_8c.html#aee3f41827e667c2d0dcd74dae45051c2">taskswitch.c</a>
@@ -757,8 +822,8 @@ $(document).ready(function(){initNavTree('globals_p.html',''); initResizable(); 
 , <a class="el" href="taskswitch_8c.html#af57a1ba1649626d231502d6c23bbac49">taskswitch.c</a>
 </li>
 <li>proc_register_idle()
-: <a class="el" href="taskswitch_8h.html#ad2dd4ffab2aaabd37998ec3b3216af48">taskswitch.h</a>
-, <a class="el" href="taskswitch_8c.html#ad2dd4ffab2aaabd37998ec3b3216af48">taskswitch.c</a>
+: <a class="el" href="taskswitch_8h.html#a8aba103d4e6a8611d80988c084a94cb6">taskswitch.h</a>
+, <a class="el" href="taskswitch_8c.html#a8aba103d4e6a8611d80988c084a94cb6">taskswitch.c</a>
 </li>
 <li>proc_run()
 : <a class="el" href="taskswitch_8h.html#abb94173794194e3382dc5482b7e0aa62">taskswitch.h</a>
@@ -812,13 +877,25 @@ $(document).ready(function(){initNavTree('globals_p.html',''); initResizable(); 
 <li>process_state_t
 : <a class="el" href="taskswitch_8h.html#ab97efa0d1c4aeaf55ff756bf16685854">taskswitch.h</a>
 </li>
+<li>progress
+: <a class="el" href="recursive__file__copy_8c.html#a4fb4072ccd44ea481eecfa5e74818db4">recursive_file_copy.c</a>
+</li>
 <li>protocol
-: <a class="el" href="arp_8h.html#ab551400c74271f35d0c79f81d29cffbb">arp.h</a>
-, <a class="el" href="ip_8h.html#ad124d3d2e02c729afa303c775295278e">ip.h</a>
+: <a class="el" href="ip_8h.html#ad124d3d2e02c729afa303c775295278e">ip.h</a>
 , <a class="el" href="tcp_8h.html#ad124d3d2e02c729afa303c775295278e">tcp.h</a>
+, <a class="el" href="arp_8h.html#ab551400c74271f35d0c79f81d29cffbb">arp.h</a>
 </li>
 <li>protocol_addr_len
 : <a class="el" href="arp_8h.html#a21d549e10ff2415bad7ec221deec07fa">arp.h</a>
+</li>
+<li>PROTOCOL_AH
+: <a class="el" href="ip_8h.html#a23a343a8c6f8daa0adbcf7d7bac9a478a0196713357c1ff2c323b45066feada80">ip.h</a>
+</li>
+<li>PROTOCOL_ESP
+: <a class="el" href="ip_8h.html#a23a343a8c6f8daa0adbcf7d7bac9a478a3113aa25e28ab00cb63d313547b73c53">ip.h</a>
+</li>
+<li>PROTOCOL_GRE
+: <a class="el" href="ip_8h.html#a23a343a8c6f8daa0adbcf7d7bac9a478a473560a81982e6b78766732d1af1225b">ip.h</a>
 </li>
 <li>protocol_handlers
 : <a class="el" href="ethernet_8c.html#a96244217c935a68e73c705b04ecb5419">ethernet.c</a>
@@ -826,17 +903,32 @@ $(document).ready(function(){initNavTree('globals_p.html',''); initResizable(); 
 <li>PROTOCOL_ICMP
 : <a class="el" href="ip_8h.html#a23a343a8c6f8daa0adbcf7d7bac9a478a92d2ba8746d548d7f29fdcdb4572ec37">ip.h</a>
 </li>
+<li>PROTOCOL_IGMP
+: <a class="el" href="ip_8h.html#a23a343a8c6f8daa0adbcf7d7bac9a478a5bc57dd587f404caa4f42c04dacd6e4b">ip.h</a>
+</li>
+<li>PROTOCOL_IPV6
+: <a class="el" href="ip_8h.html#a23a343a8c6f8daa0adbcf7d7bac9a478aaf770bf74e448e4bf2e3bb383a662b29">ip.h</a>
+</li>
+<li>PROTOCOL_OSPF
+: <a class="el" href="ip_8h.html#a23a343a8c6f8daa0adbcf7d7bac9a478a2da62850718f88e62b7a451722be84d1">ip.h</a>
+</li>
+<li>PROTOCOL_PIM
+: <a class="el" href="ip_8h.html#a23a343a8c6f8daa0adbcf7d7bac9a478a859ab0ef4262cea6c0fee96180f8b3d7">ip.h</a>
+</li>
+<li>PROTOCOL_SCTP
+: <a class="el" href="ip_8h.html#a23a343a8c6f8daa0adbcf7d7bac9a478a69a28f4831fa472a67899fe91bed32eb">ip.h</a>
+</li>
 <li>PROTOCOL_TCP
 : <a class="el" href="ip_8h.html#a23a343a8c6f8daa0adbcf7d7bac9a478ae991c7cad918269624b3c28147e18a93">ip.h</a>
 </li>
 <li>PROTOCOL_UDP
 : <a class="el" href="ip_8h.html#a23a343a8c6f8daa0adbcf7d7bac9a478a3c79df624160aa6dbeeb4e2c13ca3dc7">ip.h</a>
 </li>
+<li>PROTOCOL_VRRP
+: <a class="el" href="ip_8h.html#a23a343a8c6f8daa0adbcf7d7bac9a478ab374d2d126aefd9a76833a32a597c65d">ip.h</a>
+</li>
 <li>PS
 : <a class="el" href="gdt_8c.html#ad7f630556c2cd30d8d8976e0f6e7f749">gdt.c</a>
-</li>
-<li>psfis
-: <a class="el" href="ahci_8h.html#aa8e971bf194d04be60c75169ccc8f61a">ahci.h</a>
 </li>
 <li>psh
 : <a class="el" href="tcp_8h.html#aa57f85f2cd7e7dfaf63771983d255949">tcp.h</a>
@@ -845,8 +937,8 @@ $(document).ready(function(){initNavTree('globals_p.html',''); initResizable(); 
 : <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfead263caec619c4d99e4684ba0fabd9493">tokenizer.h</a>
 </li>
 <li>push_statement()
-: <a class="el" href="array_8h.html#abecee5383a8df1f74a1cc79af744020d">array.h</a>
-, <a class="el" href="array_8c.html#abecee5383a8df1f74a1cc79af744020d">array.c</a>
+: <a class="el" href="array_8c.html#abecee5383a8df1f74a1cc79af744020d">array.c</a>
+, <a class="el" href="array_8h.html#abecee5383a8df1f74a1cc79af744020d">array.h</a>
 </li>
 <li>push_to_buffer()
 : <a class="el" href="keyboard_8c.html#adaa23568614e9de5ba0771d8515b86b8">keyboard.c</a>
@@ -855,16 +947,16 @@ $(document).ready(function(){initNavTree('globals_p.html',''); initResizable(); 
 : <a class="el" href="fb_8c.html#a9eb2deb0c056a7f640840eb04ecacab4">fb.c</a>
 </li>
 <li>put()
-: <a class="el" href="video_8h.html#a6aa3e180e6074ca3376aae3fe2521967">video.h</a>
-, <a class="el" href="video_8c.html#a6aa3e180e6074ca3376aae3fe2521967">video.c</a>
+: <a class="el" href="video_8h.html#a990a9c6c3a40e7dd48615fe468187a74">video.h</a>
+, <a class="el" href="video_8c.html#a990a9c6c3a40e7dd48615fe468187a74">video.c</a>
 </li>
 <li>putpixel()
 : <a class="el" href="video_8h.html#aa8c0a74e65d6a428468b771eda6f4ddf">video.h</a>
 , <a class="el" href="video_8c.html#aa8c0a74e65d6a428468b771eda6f4ddf">video.c</a>
 </li>
 <li>putstring()
-: <a class="el" href="video_8h.html#a998a88c58c530407ae8b304a306b74fe">video.h</a>
-, <a class="el" href="video_8c.html#a998a88c58c530407ae8b304a306b74fe">video.c</a>
+: <a class="el" href="video_8h.html#aa11a255ff4946ba621a6ddd4e4704fbd">video.h</a>
+, <a class="el" href="video_8c.html#aa11a255ff4946ba621a6ddd4e4704fbd">video.c</a>
 </li>
 <li>PVD_LBA
 : <a class="el" href="iso9660_8h.html#aca5c75554d8731ab9e4bcceba2341749">iso9660.h</a>
@@ -875,7 +967,7 @@ $(document).ready(function(){initNavTree('globals_p.html',''); initResizable(); 
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:58 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

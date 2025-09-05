@@ -10,6 +10,7 @@ var graphics_8h =
     [ "gcol_statement", "graphics_8h.html#af146bc8a69aadd70d08267c5f50b7abc", null ],
     [ "loadsprite_statement", "graphics_8h.html#ac37e5bc6123d0c82d1a7da1ed257b731", null ],
     [ "plot_statement", "graphics_8h.html#aa8bc7cf7ea28fa42974f3b02179e2ba1", null ],
+    [ "plotquad_statement", "graphics_8h.html#ae4d8b57312663598bf6f25e26139ed83", null ],
     [ "point_statement", "graphics_8h.html#a13e735601b49512ba7d757f3dcdbc067", null ],
     [ "rectangle_statement", "graphics_8h.html#a351eb0fe6ae02c9eeb861ab014c0ce27", null ],
     [ "triangle_statement", "graphics_8h.html#aa752bd8346c7616612f1888605eee182", null ]

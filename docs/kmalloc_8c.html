@@ -143,6 +143,10 @@ Functions</h2></td></tr>
 <tr class="memitem:a9227ee8bcad10a2503376915463f28b5"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="kmalloc_8c.html#a9227ee8bcad10a2503376915463f28b5">get_total_memory</a> ()</td></tr>
 <tr class="memdesc:a9227ee8bcad10a2503376915463f28b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get total available memory managed by the kernel heap.  <a href="kmalloc_8c.html#a9227ee8bcad10a2503376915463f28b5">More...</a><br /></td></tr>
 <tr class="separator:a9227ee8bcad10a2503376915463f28b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e5196d24984d49d3f6b182ddb89eea5"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="kmalloc_8c.html#a7e5196d24984d49d3f6b182ddb89eea5">kmalloc_aligned</a> (uint64_t <a class="el" href="fat32_8h.html#ab2c6b258f02add8fdf4cfc7c371dd772">size</a>, uint64_t align)</td></tr>
+<tr class="separator:a7e5196d24984d49d3f6b182ddb89eea5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d4f1b1e4c96bc92c35005527314b889"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="kmalloc_8c.html#a8d4f1b1e4c96bc92c35005527314b889">kfree_aligned</a> (const void *ptr)</td></tr>
+<tr class="separator:a8d4f1b1e4c96bc92c35005527314b889"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -337,6 +341,24 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a8d4f1b1e4c96bc92c35005527314b889"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d4f1b1e4c96bc92c35005527314b889">&#9670;&nbsp;</a></span>kfree_aligned()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void kfree_aligned </td>
+          <td>(</td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a60f2a49082216212a87de02d7c79851f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a60f2a49082216212a87de02d7c79851f">&#9670;&nbsp;</a></span>kfree_low()</h2>
 
@@ -388,6 +410,34 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to allocated memory, or NULL if allocation fails. </dd></dl>
+
+</div>
+</div>
+<a id="a7e5196d24984d49d3f6b182ddb89eea5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e5196d24984d49d3f6b182ddb89eea5">&#9670;&nbsp;</a></span>kmalloc_aligned()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* kmalloc_aligned </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>align</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -641,7 +691,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="kmalloc_8c.html">kmalloc.c</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -103,8 +103,8 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:aee7d71ca10b9a4f286f45a364ba7c337"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="udp_8h.html#aee7d71ca10b9a4f286f45a364ba7c337">udp_daemon_handler</a>) (uint32_t, uint16_t, uint16_t, void *, uint32_t)</td></tr>
-<tr class="separator:aee7d71ca10b9a4f286f45a364ba7c337"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47e418dc2e23ac0aead1629b134fabed"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="udp_8h.html#a47e418dc2e23ac0aead1629b134fabed">udp_daemon_handler</a>) (uint32_t, uint16_t, uint16_t, void *, uint32_t, void *opaque)</td></tr>
+<tr class="separator:a47e418dc2e23ac0aead1629b134fabed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -120,9 +120,11 @@ Functions</h2></td></tr>
 <tr class="memitem:ad8049b7fb54880d34804b100fe422918"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="udp_8h.html#ad8049b7fb54880d34804b100fe422918">udp_handle_packet</a> ([[maybe_unused]] ip_packet_t *encap_packet, udp_packet_t *packet, size_t <a class="el" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a>)</td></tr>
 <tr class="memdesc:ad8049b7fb54880d34804b100fe422918"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle UDP packet from the IP driver.  <a href="udp_8h.html#ad8049b7fb54880d34804b100fe422918">More...</a><br /></td></tr>
 <tr class="separator:ad8049b7fb54880d34804b100fe422918"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49ae1f5dfe6fc5c2df642049290d1878"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="udp_8h.html#a49ae1f5dfe6fc5c2df642049290d1878">udp_register_daemon</a> (uint16_t <a class="el" href="udp_8h.html#ae18defed4756b8c15e34718f51e86e55">dst_port</a>, <a class="el" href="udp_8h.html#aee7d71ca10b9a4f286f45a364ba7c337">udp_daemon_handler</a> handler)</td></tr>
-<tr class="memdesc:a49ae1f5dfe6fc5c2df642049290d1878"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a daemon function to listen on a udp dest port.  <a href="udp_8h.html#a49ae1f5dfe6fc5c2df642049290d1878">More...</a><br /></td></tr>
-<tr class="separator:a49ae1f5dfe6fc5c2df642049290d1878"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78322c4b77d24fd00b8bccb1cc0fde6a"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="udp_8h.html#a78322c4b77d24fd00b8bccb1cc0fde6a">udp_register_daemon</a> (uint16_t <a class="el" href="udp_8h.html#ae18defed4756b8c15e34718f51e86e55">dst_port</a>, <a class="el" href="udp_8h.html#a47e418dc2e23ac0aead1629b134fabed">udp_daemon_handler</a> handler, void *opaque)</td></tr>
+<tr class="memdesc:a78322c4b77d24fd00b8bccb1cc0fde6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a daemon function to listen on a udp dest port.  <a href="udp_8h.html#a78322c4b77d24fd00b8bccb1cc0fde6a">More...</a><br /></td></tr>
+<tr class="separator:a78322c4b77d24fd00b8bccb1cc0fde6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45b753e73dd4db33c8b62ae5adb3c618"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="udp_8h.html#a45b753e73dd4db33c8b62ae5adb3c618">udp_unregister_daemon</a> (uint16_t <a class="el" href="udp_8h.html#ae18defed4756b8c15e34718f51e86e55">dst_port</a>, <a class="el" href="udp_8h.html#a47e418dc2e23ac0aead1629b134fabed">udp_daemon_handler</a> handler)</td></tr>
+<tr class="separator:a45b753e73dd4db33c8b62ae5adb3c618"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -141,14 +143,14 @@ Variables</h2></td></tr>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2025 </dd></dl>
 </div><h2 class="groupheader">Typedef Documentation</h2>
-<a id="aee7d71ca10b9a4f286f45a364ba7c337"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee7d71ca10b9a4f286f45a364ba7c337">&#9670;&nbsp;</a></span>udp_daemon_handler</h2>
+<a id="a47e418dc2e23ac0aead1629b134fabed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47e418dc2e23ac0aead1629b134fabed">&#9670;&nbsp;</a></span>udp_daemon_handler</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef void(* udp_daemon_handler) (uint32_t, uint16_t, uint16_t, void *, uint32_t)</td>
+          <td class="memname">typedef void(* udp_daemon_handler) (uint32_t, uint16_t, uint16_t, void *, uint32_t, void *opaque)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -181,6 +183,7 @@ Variables</h2></td></tr>
 <p>There is actually more to an ethernet frame than this (see the STD documents!) but we don't have access to it from the software.</p>
 <p>Definition of a DHCP packet.</p>
 <p>Format of an ARP packet (per RFC 826)</p>
+<p>Register FIS: Host to Device (H2D).</p>
 <p>Root System Description Table (RSDT)</p>
 <p>Generic ACPI System Description Table Header.</p>
 <p>This structure serves as the entry point to the ACPI system description tables. Its location is typically found by scanning the BIOS memory range. It may point to either the RSDT (ACPI 1.0) or XSDT (ACPI 2.0+).</p>
@@ -260,8 +263,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a49ae1f5dfe6fc5c2df642049290d1878"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49ae1f5dfe6fc5c2df642049290d1878">&#9670;&nbsp;</a></span>udp_register_daemon()</h2>
+<a id="a78322c4b77d24fd00b8bccb1cc0fde6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78322c4b77d24fd00b8bccb1cc0fde6a">&#9670;&nbsp;</a></span>udp_register_daemon()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -275,8 +278,14 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="udp_8h.html#aee7d71ca10b9a4f286f45a364ba7c337">udp_daemon_handler</a>&#160;</td>
-          <td class="paramname"><em>handler</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="udp_8h.html#a47e418dc2e23ac0aead1629b134fabed">udp_daemon_handler</a>&#160;</td>
+          <td class="paramname"><em>handler</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>opaque</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -291,6 +300,7 @@ Variables</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">dst_port</td><td>destination port to listen on. If 0 is passed, a random port above or equal to 1024 is allocated for use and will be returned as the return value. </td></tr>
     <tr><td class="paramname">handler</td><td>handler for incoming packets </td></tr>
+    <tr><td class="paramname">opaque</td><td>Opaque pointer passed to the handler </td></tr>
   </table>
   </dd>
 </dl>
@@ -353,6 +363,34 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a45b753e73dd4db33c8b62ae5adb3c618"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45b753e73dd4db33c8b62ae5adb3c618">&#9670;&nbsp;</a></span>udp_unregister_daemon()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool udp_unregister_daemon </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>dst_port</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="udp_8h.html#a47e418dc2e23ac0aead1629b134fabed">udp_daemon_handler</a>&#160;</td>
+          <td class="paramname"><em>handler</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -433,7 +471,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="udp_8h.html">udp.h</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -12,10 +12,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>FIS type (FIS_TYPE_PIO_SETUP) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="103" column="10" bodyfile="include/ahci.h" bodystart="103" bodyend="-1"/>
+        <location file="include/ahci.h" line="95" column="9" bodyfile="include/ahci.h" bodystart="95" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__pio__setup__t_1a5927afa96d526cc7a284c1a15a02a9e4" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -26,10 +27,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Port multiplier port </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="105" column="10" bodyfile="include/ahci.h" bodystart="105" bodyend="-1"/>
+        <location file="include/ahci.h" line="96" column="9" bodyfile="include/ahci.h" bodystart="96" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__pio__setup__t_1a858b73887215f889f133096bdc67debb" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -40,38 +42,41 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Reserved, must be zero </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="106" column="10" bodyfile="include/ahci.h" bodystart="106" bodyend="-1"/>
+        <location file="include/ahci.h" line="97" column="9" bodyfile="include/ahci.h" bodystart="97" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__fis__pio__setup__t_1ab496c072a15d5d81f5896ee675b67ca8" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__fis__pio__setup__t_1ac9162952afca11cd143111f975471e9b" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
-        <definition>uint8_t ahci_fis_pio_setup_t::d</definition>
+        <definition>uint8_t ahci_fis_pio_setup_t::direction</definition>
         <argsstring></argsstring>
-        <name>d</name>
+        <name>direction</name>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Data direction: 1 = device-&gt;host </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="107" column="10" bodyfile="include/ahci.h" bodystart="107" bodyend="-1"/>
+        <location file="include/ahci.h" line="98" column="9" bodyfile="include/ahci.h" bodystart="98" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__fis__pio__setup__t_1a95b32e06dd404fd39d68c2b645e4159e" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__fis__pio__setup__t_1a2c6f94e28fb3f1434404516c95aa6fad" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
-        <definition>uint8_t ahci_fis_pio_setup_t::i</definition>
+        <definition>uint8_t ahci_fis_pio_setup_t::interrupt</definition>
         <argsstring></argsstring>
-        <name>i</name>
+        <name>interrupt</name>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Interrupt bit (I) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="108" column="10" bodyfile="include/ahci.h" bodystart="108" bodyend="-1"/>
+        <location file="include/ahci.h" line="99" column="9" bodyfile="include/ahci.h" bodystart="99" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__pio__setup__t_1aa4f7aa75edcb6c797d9937e5cd7551eb" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -82,10 +87,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Reserved, must be zero </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="109" column="10" bodyfile="include/ahci.h" bodystart="109" bodyend="-1"/>
+        <location file="include/ahci.h" line="100" column="9" bodyfile="include/ahci.h" bodystart="100" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__pio__setup__t_1a49aeb4c0d0d0bd8e1e14b517efc55ba7" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -95,10 +101,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Status register </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="111" column="10" bodyfile="include/ahci.h" bodystart="111" bodyend="-1"/>
+        <location file="include/ahci.h" line="101" column="9" bodyfile="include/ahci.h" bodystart="101" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__pio__setup__t_1a2354c38e027b1446a9b11e4df20151f5" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -108,10 +115,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Error register </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="112" column="10" bodyfile="include/ahci.h" bodystart="112" bodyend="-1"/>
+        <location file="include/ahci.h" line="102" column="9" bodyfile="include/ahci.h" bodystart="102" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__pio__setup__t_1afa7f54674d3caed8ebb46a300862ba40" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -121,10 +129,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>LBA low, bits 7:0 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="115" column="10" bodyfile="include/ahci.h" bodystart="115" bodyend="-1"/>
+        <location file="include/ahci.h" line="103" column="9" bodyfile="include/ahci.h" bodystart="103" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__pio__setup__t_1af25f495a6973c31af15f6c5e215ea54e" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -134,10 +143,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>LBA mid, bits 15:8 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="116" column="10" bodyfile="include/ahci.h" bodystart="116" bodyend="-1"/>
+        <location file="include/ahci.h" line="104" column="9" bodyfile="include/ahci.h" bodystart="104" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__pio__setup__t_1ab0b4b2dcfd7d5d6b74a1931a96e526e2" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -147,10 +157,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>LBA high, bits 23:16 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="117" column="10" bodyfile="include/ahci.h" bodystart="117" bodyend="-1"/>
+        <location file="include/ahci.h" line="105" column="9" bodyfile="include/ahci.h" bodystart="105" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__pio__setup__t_1a1a77e83eb30ca91abb06bc2e8341234c" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -160,10 +171,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Device register </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="118" column="10" bodyfile="include/ahci.h" bodystart="118" bodyend="-1"/>
+        <location file="include/ahci.h" line="106" column="9" bodyfile="include/ahci.h" bodystart="106" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__pio__setup__t_1a7187a9a7513ecdc3392f91f35f5f426a" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -173,10 +185,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>LBA, bits 31:24 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="121" column="10" bodyfile="include/ahci.h" bodystart="121" bodyend="-1"/>
+        <location file="include/ahci.h" line="107" column="9" bodyfile="include/ahci.h" bodystart="107" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__pio__setup__t_1a0d615c22bf06ca776a4f71be02af7a03" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -186,10 +199,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>LBA, bits 39:32 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="122" column="10" bodyfile="include/ahci.h" bodystart="122" bodyend="-1"/>
+        <location file="include/ahci.h" line="108" column="9" bodyfile="include/ahci.h" bodystart="108" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__pio__setup__t_1a2c3c714fed4eb0aca4d63ec263da511f" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -199,10 +213,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>LBA, bits 47:40 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="123" column="10" bodyfile="include/ahci.h" bodystart="123" bodyend="-1"/>
+        <location file="include/ahci.h" line="109" column="9" bodyfile="include/ahci.h" bodystart="109" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__pio__setup__t_1a5a637307740993204be6f03eba2dca5e" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -212,36 +227,39 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Reserved, must be zero </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="124" column="10" bodyfile="include/ahci.h" bodystart="124" bodyend="-1"/>
+        <location file="include/ahci.h" line="110" column="9" bodyfile="include/ahci.h" bodystart="110" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__fis__pio__setup__t_1a9b0eade2feec227fee9cef249e3588a4" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__fis__pio__setup__t_1a93c2e7ece6a5565e2071b7ae3f70399e" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
-        <definition>uint8_t ahci_fis_pio_setup_t::countl</definition>
+        <definition>uint8_t ahci_fis_pio_setup_t::count_low</definition>
         <argsstring></argsstring>
-        <name>countl</name>
+        <name>count_low</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Count, bits 7:0 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="127" column="10" bodyfile="include/ahci.h" bodystart="127" bodyend="-1"/>
+        <location file="include/ahci.h" line="111" column="9" bodyfile="include/ahci.h" bodystart="111" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__fis__pio__setup__t_1a51046aed694dbbdf97d5753ad4ec6491" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__fis__pio__setup__t_1a5869ba218e51bf8fbfe183ef4fcedd75" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
-        <definition>uint8_t ahci_fis_pio_setup_t::counth</definition>
+        <definition>uint8_t ahci_fis_pio_setup_t::count_high</definition>
         <argsstring></argsstring>
-        <name>counth</name>
+        <name>count_high</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Count, bits 15:8 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="128" column="10" bodyfile="include/ahci.h" bodystart="128" bodyend="-1"/>
+        <location file="include/ahci.h" line="112" column="9" bodyfile="include/ahci.h" bodystart="112" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__pio__setup__t_1aa4dd4d2fa70c5ea281bb26975052bc08" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -251,10 +269,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Reserved, must be zero </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="129" column="10" bodyfile="include/ahci.h" bodystart="129" bodyend="-1"/>
+        <location file="include/ahci.h" line="113" column="9" bodyfile="include/ahci.h" bodystart="113" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__pio__setup__t_1acfabc467cd1be7f056cd78e9fcf52792" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -264,23 +283,25 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>New Status value </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="130" column="10" bodyfile="include/ahci.h" bodystart="130" bodyend="-1"/>
+        <location file="include/ahci.h" line="114" column="9" bodyfile="include/ahci.h" bodystart="114" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__fis__pio__setup__t_1a3c9de14610155a5d0d0e21085cbfcba9" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__fis__pio__setup__t_1a4c2189a0e2a9a9fba570274999da5e91" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
-        <definition>uint16_t ahci_fis_pio_setup_t::tc</definition>
+        <definition>uint16_t ahci_fis_pio_setup_t::transfer_count</definition>
         <argsstring></argsstring>
-        <name>tc</name>
+        <name>transfer_count</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Transfer count (bytes) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="133" column="10" bodyfile="include/ahci.h" bodystart="133" bodyend="-1"/>
+        <location file="include/ahci.h" line="115" column="10" bodyfile="include/ahci.h" bodystart="115" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__pio__setup__t_1a8c5f2e76603d86ed216defcf562e9969" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -290,13 +311,15 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Reserved, must be zero </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="134" column="10" bodyfile="include/ahci.h" bodystart="134" bodyend="-1"/>
+        <location file="include/ahci.h" line="116" column="9" bodyfile="include/ahci.h" bodystart="116" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>PIO Setup FIS (device to host). </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
@@ -305,17 +328,17 @@
         <label>ahci_fis_pio_setup_t</label>
         <link refid="structahci__fis__pio__setup__t"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>tc</edgelabel>
+          <edgelabel>transfer_count</edgelabel>
         </childnode>
         <childnode refid="3" relation="usage">
-          <edgelabel>counth</edgelabel>
-          <edgelabel>countl</edgelabel>
-          <edgelabel>d</edgelabel>
+          <edgelabel>count_high</edgelabel>
+          <edgelabel>count_low</edgelabel>
           <edgelabel>device</edgelabel>
+          <edgelabel>direction</edgelabel>
           <edgelabel>e_status</edgelabel>
           <edgelabel>error</edgelabel>
           <edgelabel>fis_type</edgelabel>
-          <edgelabel>i</edgelabel>
+          <edgelabel>interrupt</edgelabel>
           <edgelabel>lba0</edgelabel>
           <edgelabel>lba1</edgelabel>
           <edgelabel>...</edgelabel>
@@ -328,16 +351,16 @@
         <label>uint8_t</label>
       </node>
     </collaborationgraph>
-    <location file="include/ahci.h" line="101" column="1" bodyfile="include/ahci.h" bodystart="101" bodyend="135"/>
+    <location file="include/ahci.h" line="94" column="1" bodyfile="include/ahci.h" bodystart="94" bodyend="117"/>
     <listofallmembers>
-      <member refid="structahci__fis__pio__setup__t_1a51046aed694dbbdf97d5753ad4ec6491" prot="public" virt="non-virtual"><scope>ahci_fis_pio_setup_t</scope><name>counth</name></member>
-      <member refid="structahci__fis__pio__setup__t_1a9b0eade2feec227fee9cef249e3588a4" prot="public" virt="non-virtual"><scope>ahci_fis_pio_setup_t</scope><name>countl</name></member>
-      <member refid="structahci__fis__pio__setup__t_1ab496c072a15d5d81f5896ee675b67ca8" prot="public" virt="non-virtual"><scope>ahci_fis_pio_setup_t</scope><name>d</name></member>
+      <member refid="structahci__fis__pio__setup__t_1a5869ba218e51bf8fbfe183ef4fcedd75" prot="public" virt="non-virtual"><scope>ahci_fis_pio_setup_t</scope><name>count_high</name></member>
+      <member refid="structahci__fis__pio__setup__t_1a93c2e7ece6a5565e2071b7ae3f70399e" prot="public" virt="non-virtual"><scope>ahci_fis_pio_setup_t</scope><name>count_low</name></member>
       <member refid="structahci__fis__pio__setup__t_1a1a77e83eb30ca91abb06bc2e8341234c" prot="public" virt="non-virtual"><scope>ahci_fis_pio_setup_t</scope><name>device</name></member>
+      <member refid="structahci__fis__pio__setup__t_1ac9162952afca11cd143111f975471e9b" prot="public" virt="non-virtual"><scope>ahci_fis_pio_setup_t</scope><name>direction</name></member>
       <member refid="structahci__fis__pio__setup__t_1acfabc467cd1be7f056cd78e9fcf52792" prot="public" virt="non-virtual"><scope>ahci_fis_pio_setup_t</scope><name>e_status</name></member>
       <member refid="structahci__fis__pio__setup__t_1a2354c38e027b1446a9b11e4df20151f5" prot="public" virt="non-virtual"><scope>ahci_fis_pio_setup_t</scope><name>error</name></member>
       <member refid="structahci__fis__pio__setup__t_1a7d31ebdc92b0ccc96ff7b8029dfbc43a" prot="public" virt="non-virtual"><scope>ahci_fis_pio_setup_t</scope><name>fis_type</name></member>
-      <member refid="structahci__fis__pio__setup__t_1a95b32e06dd404fd39d68c2b645e4159e" prot="public" virt="non-virtual"><scope>ahci_fis_pio_setup_t</scope><name>i</name></member>
+      <member refid="structahci__fis__pio__setup__t_1a2c6f94e28fb3f1434404516c95aa6fad" prot="public" virt="non-virtual"><scope>ahci_fis_pio_setup_t</scope><name>interrupt</name></member>
       <member refid="structahci__fis__pio__setup__t_1afa7f54674d3caed8ebb46a300862ba40" prot="public" virt="non-virtual"><scope>ahci_fis_pio_setup_t</scope><name>lba0</name></member>
       <member refid="structahci__fis__pio__setup__t_1af25f495a6973c31af15f6c5e215ea54e" prot="public" virt="non-virtual"><scope>ahci_fis_pio_setup_t</scope><name>lba1</name></member>
       <member refid="structahci__fis__pio__setup__t_1ab0b4b2dcfd7d5d6b74a1931a96e526e2" prot="public" virt="non-virtual"><scope>ahci_fis_pio_setup_t</scope><name>lba2</name></member>
@@ -351,7 +374,7 @@
       <member refid="structahci__fis__pio__setup__t_1aa4dd4d2fa70c5ea281bb26975052bc08" prot="public" virt="non-virtual"><scope>ahci_fis_pio_setup_t</scope><name>rsv3</name></member>
       <member refid="structahci__fis__pio__setup__t_1a8c5f2e76603d86ed216defcf562e9969" prot="public" virt="non-virtual"><scope>ahci_fis_pio_setup_t</scope><name>rsv4</name></member>
       <member refid="structahci__fis__pio__setup__t_1a49aeb4c0d0d0bd8e1e14b517efc55ba7" prot="public" virt="non-virtual"><scope>ahci_fis_pio_setup_t</scope><name>status</name></member>
-      <member refid="structahci__fis__pio__setup__t_1a3c9de14610155a5d0d0e21085cbfcba9" prot="public" virt="non-virtual"><scope>ahci_fis_pio_setup_t</scope><name>tc</name></member>
+      <member refid="structahci__fis__pio__setup__t_1a4c2189a0e2a9a9fba570274999da5e91" prot="public" virt="non-virtual"><scope>ahci_fis_pio_setup_t</scope><name>transfer_count</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

@@ -131,6 +131,16 @@ Functions</h2></td></tr>
 <tr class="memitem:a45898c1d7e85f9c2ae000441e7f4c9b6"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="process_8h.html#a45898c1d7e85f9c2ae000441e7f4c9b6">basic_getprocstate</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
 <tr class="memdesc:a45898c1d7e85f9c2ae000441e7f4c9b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the state of a specified process.  <a href="process_8h.html#a45898c1d7e85f9c2ae000441e7f4c9b6">More...</a><br /></td></tr>
 <tr class="separator:a45898c1d7e85f9c2ae000441e7f4c9b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa805a28917e301954771c63ba3713d4a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="process_8h.html#aa805a28917e301954771c63ba3713d4a">chain_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="separator:aa805a28917e301954771c63ba3713d4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53b019c43274358836f64a396b2b6431"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="process_8h.html#a53b019c43274358836f64a396b2b6431">rem_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a53b019c43274358836f64a396b2b6431"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e5f1ea2b9be92d6852d00ef01077ee2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="process_8h.html#a5e5f1ea2b9be92d6852d00ef01077ee2">eval_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a5e5f1ea2b9be92d6852d00ef01077ee2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4da7523f6ab0e5355028deb01f27d748"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="process_8h.html#a4da7523f6ab0e5355028deb01f27d748">goto_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a4da7523f6ab0e5355028deb01f27d748"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14e5c07fad2912482b0dc026fadd3c3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="process_8h.html#a14e5c07fad2912482b0dc026fadd3c3a">yield_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a14e5c07fad2912482b0dc026fadd3c3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a9069dc76ed3a0f76c1ea2b7e6dc6f5a7"></a>
@@ -469,13 +479,104 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aa805a28917e301954771c63ba3713d4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa805a28917e301954771c63ba3713d4a">&#9670;&nbsp;</a></span>chain_statement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void chain_statement </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5e5f1ea2b9be92d6852d00ef01077ee2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e5f1ea2b9be92d6852d00ef01077ee2">&#9670;&nbsp;</a></span>eval_statement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void eval_statement </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>An EVAL jumps to the line number at the end of the program (EVAL_LINE) where the evaluation is to take place. Once compeleted, a RETURN statement is executed at EVAL_END_LINE, which returns back to the line where the EVAL statement is.</p>
+
+</div>
+</div>
+<a id="a4da7523f6ab0e5355028deb01f27d748"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4da7523f6ab0e5355028deb01f27d748">&#9670;&nbsp;</a></span>goto_statement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void goto_statement </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a53b019c43274358836f64a396b2b6431"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53b019c43274358836f64a396b2b6431">&#9670;&nbsp;</a></span>rem_statement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rem_statement </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a14e5c07fad2912482b0dc026fadd3c3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14e5c07fad2912482b0dc026fadd3c3a">&#9670;&nbsp;</a></span>yield_statement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void yield_statement </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_1e5d3661ed79af157d57e64a38265d09.html">basic</a></li><li class="navelem"><a class="el" href="process_8h.html">process.h</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

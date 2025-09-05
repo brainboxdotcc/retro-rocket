@@ -87,8 +87,23 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 <div class="textblock">Here is a list of all struct and union fields with links to the structures/unions they belong to:</div>
 
 <h3><a id="index_s"></a>- s -</h3><ul>
-<li>sact
-: <a class="el" href="structahci__hba__port__t.html#aa35129ddae0ad973d94f0964402d7c8a">ahci_hba_port_t</a>
+<li>s
+: <a class="el" href="structup__value.html#ac706ce061c96a5a33585579e12617d15">up_value</a>
+</li>
+<li>sata_active
+: <a class="el" href="structahci__hba__port__t.html#a37dbb60429536e565817bd9a29387fef">ahci_hba_port_t</a>
+</li>
+<li>sata_control
+: <a class="el" href="structahci__hba__port__t.html#a9422014605c99cbda4cd445d8d70bad1">ahci_hba_port_t</a>
+</li>
+<li>sata_error
+: <a class="el" href="structahci__hba__port__t.html#abd78bf6b2813a5b3218a533ba7f0c0e9">ahci_hba_port_t</a>
+</li>
+<li>sata_notification
+: <a class="el" href="structahci__hba__port__t.html#ae691ac0341169096d4a206ad1d4e33cd">ahci_hba_port_t</a>
+</li>
+<li>sata_status
+: <a class="el" href="structahci__hba__port__t.html#a06660b89869287947eb8e9c2d462a926">ahci_hba_port_t</a>
 </li>
 <li>save_state
 : <a class="el" href="structflanterm__context.html#a89f999e69fdcaa663f3d3fe35d8f9efe">flanterm_context</a>
@@ -141,12 +156,6 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 <li>scroll_top_margin
 : <a class="el" href="structflanterm__context.html#a3c57cca8ae9ee7ff6ef8e4826dfe7824">flanterm_context</a>
 </li>
-<li>sctl
-: <a class="el" href="structahci__hba__port__t.html#acfd9b0029328e1dd7fabd21add28e9bb">ahci_hba_port_t</a>
-</li>
-<li>sdbfis
-: <a class="el" href="structachi__hba__fis__t.html#a37b55b46d62f43b9029bb83b0232dc8c">achi_hba_fis_t</a>
-</li>
 <li>sec
 : <a class="el" href="structfs__directory__entry__t.html#a82f8976a339e9affbdda781265f43c36">fs_directory_entry_t</a>
 </li>
@@ -161,11 +170,15 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 <li>sector_length
 : <a class="el" href="structrfs__directory__entry__inner__t.html#a4c56e8083a71ea1d3899a60bf316848a">rfs_directory_entry_inner_t</a>
 </li>
+<li>sector_size
+: <a class="el" href="structblock__cache__t.html#a82417be2c15076b3b1a8e6ebb482588f">block_cache_t</a>
+</li>
 <li>sector_start
 : <a class="el" href="structrfs__directory__entry__inner__t.html#acdff45c7758c8c7890ee46d1671c4607">rfs_directory_entry_inner_t</a>
 </li>
 <li>sectors
-: <a class="el" href="structrfs__directory__start__t.html#a3ad10ef57a35c30dd2192a5ae4b667c2">rfs_directory_start_t</a>
+: <a class="el" href="structahci__trim__range.html#a18355cea9b08ef6297270025107e1f0d">ahci_trim_range</a>
+, <a class="el" href="structrfs__directory__start__t.html#a3ad10ef57a35c30dd2192a5ae4b667c2">rfs_directory_start_t</a>
 </li>
 <li>sectorsonmedia
 : <a class="el" href="structparameter__block__t.html#a3244f98a629380886cf9b23c6c28aabb">parameter_block_t</a>
@@ -212,6 +225,9 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 <li>send_packet
 : <a class="el" href="structnetdev__t.html#a86c930d87553354d429a2415c72b3315">netdev_t</a>
 </li>
+<li>sense_key
+: <a class="el" href="structscsi__sense__map__entry__t.html#abc9b855cadc3da593fc84fc5b3632260">scsi_sense_map_entry_t</a>
+</li>
 <li>seq
 : <a class="el" href="structicmp__echo__packet.html#aab1580c4571c30efdf385e67ac0b25d5">icmp_echo_packet</a>
 , <a class="el" href="structicmp__information.html#ac0a4cb26d091e8065f5d2372efd34a65">icmp_information</a>
@@ -231,9 +247,6 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 <li>serialnumber
 : <a class="el" href="structparameter__block__t.html#a0fb685d41113ae37e1be82770821a184">parameter_block_t</a>
 </li>
-<li>serr
-: <a class="el" href="structahci__hba__port__t.html#ab7a59bb3c5575ac5e31312fc9d80155c">ahci_hba_port_t</a>
-</li>
 <li>server_ip
 : <a class="el" href="structdhcp__packet__t.html#a9aff22bd741f116acaddcd333f9f9c08">dhcp_packet_t</a>
 </li>
@@ -242,6 +255,9 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 </li>
 <li>set_cursor_pos
 : <a class="el" href="structflanterm__context.html#ac4c70f752e2260d90b4549d2d727f87e">flanterm_context</a>
+</li>
+<li>set_device_bit_fis
+: <a class="el" href="structahci__hba__fis__t.html#a9d9a228a8c184d901f609e2a3660c13f">ahci_hba_fis_t</a>
 </li>
 <li>set_text_bg
 : <a class="el" href="structflanterm__context.html#a04fdb6453dfcd80a5f099da55360d79f">flanterm_context</a>
@@ -273,14 +289,45 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 <li>set_text_fg_rgb
 : <a class="el" href="structflanterm__context.html#aa90a1053b1daabbb4f069702f5d5a5f3">flanterm_context</a>
 </li>
+<li>sh_addr
+: <a class="el" href="structelf__shdr.html#adb30a0f1eda2749b64baf24a30171884">elf_shdr</a>
+</li>
+<li>sh_addralign
+: <a class="el" href="structelf__shdr.html#a39f92f6b54a44017d84d8adbd1abdd51">elf_shdr</a>
+</li>
+<li>sh_entsize
+: <a class="el" href="structelf__shdr.html#ab14d0dbee3e269e8b78b7e9ab5fcb161">elf_shdr</a>
+</li>
+<li>sh_flags
+: <a class="el" href="structelf__shdr.html#ab635cb656ad69a42cb2d12df3f1d770e">elf_shdr</a>
+</li>
+<li>sh_info
+: <a class="el" href="structelf__shdr.html#a5220cc37419d2f6428fa06bf8624ee2e">elf_shdr</a>
+</li>
+<li>sh_link
+: <a class="el" href="structelf__shdr.html#aa20f9b9126cfbe75613b32df1da522b4">elf_shdr</a>
+</li>
+<li>sh_name
+: <a class="el" href="structelf__shdr.html#a0788725e982acbe8aa3956cd5aeffc7d">elf_shdr</a>
+</li>
+<li>sh_offset
+: <a class="el" href="structelf__shdr.html#a94c0b665f3a85d272c799b6f838aa102">elf_shdr</a>
+</li>
+<li>sh_size
+: <a class="el" href="structelf__shdr.html#a073b26c0f9571090942ecefa5f594755">elf_shdr</a>
+</li>
+<li>sh_type
+: <a class="el" href="structelf__shdr.html#aba44949692d6db8ba6fdbd533514bac1">elf_shdr</a>
+</li>
+<li>shndx
+: <a class="el" href="structmodule.html#a61c6e245e853c0aac2ca1c717a33e6d0">module</a>
+</li>
 <li>shrinkat
 : <a class="el" href="structhashmap.html#a25af27b2a8aea1a561f8dd68ca0cc9e2">hashmap</a>
 </li>
-<li>sig
-: <a class="el" href="structahci__hba__port__t.html#a3979b1a5fecfd719a9e5f48550252e84">ahci_hba_port_t</a>
-</li>
 <li>signature
-: <a class="el" href="structgpt__header__t.html#a6068cb2a223959b8ba48756174df4c4a">gpt_header_t</a>
+: <a class="el" href="structahci__hba__port__t.html#a732dbac8774a2fcf12f1aa4a77c3db5b">ahci_hba_port_t</a>
+, <a class="el" href="structgpt__header__t.html#a6068cb2a223959b8ba48756174df4c4a">gpt_header_t</a>
 , <a class="el" href="structparameter__block__t.html#a39952051e701211ecbf462cfb3a669ef">parameter_block_t</a>
 , <a class="el" href="structrsdp__t.html#ae3e48eb5a8a88cc1e06d3bd96ce93dd6">rsdp_t</a>
 , <a class="el" href="structsdt__header__t.html#a61e330810bd36057bf09649bc366fad0">sdt_header_t</a>
@@ -293,6 +340,7 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 , <a class="el" href="structfs__directory__entry__t.html#a83d678e389ae8f74d95567e1f7c67a38">fs_directory_entry_t</a>
 , <a class="el" href="structfs__tree__t.html#a42e0d21fa2ff2c542748ac1fa723e8ed">fs_tree_t</a>
 , <a class="el" href="structip__fragmented__packet__parts__t.html#aa27082d7c653e9bc69df897c8e6bf39a">ip_fragmented_packet_parts_t</a>
+, <a class="el" href="structmodule.html#ad6853c204e04e7255dc9550aac070d45">module</a>
 , <a class="el" href="structprocess__t.html#afb5ad7c637ed36d339e8e9a1027e9aff">process_t</a>
 , <a class="el" href="structstorage__device__t.html#a4b7e3635e869e1e8b2245665ee988547">storage_device_t</a>
 , <a class="el" href="structta__header.html#a7638346afdbd244b65dea7c04ec18044">ta_header</a>
@@ -305,6 +353,9 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 </li>
 <li>skip
 : <a class="el" href="structstbi__io__callbacks.html#a257aac5480a90a6c4b8fbe86c1b01068">stbi_io_callbacks</a>
+</li>
+<li>sleep_until
+: <a class="el" href="structbasic__ctx.html#a577807427e54773fac869d65d1025b2b">basic_ctx</a>
 </li>
 <li>snd_lst
 : <a class="el" href="structtcp__conn__t.html#a847bb06ffc61a522ede5ec55218e4824">tcp_conn_t</a>
@@ -327,8 +378,8 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 <li>snd_wnd
 : <a class="el" href="structtcp__conn__t.html#a5fdd9dc971dfebb7685f6c0c0fd8e146">tcp_conn_t</a>
 </li>
-<li>sntf
-: <a class="el" href="structahci__hba__port__t.html#af46170258508d6fb07f8211bada7b17e">ahci_hba_port_t</a>
+<li>source_port
+: <a class="el" href="structqueued__udp__packet.html#a490d809cc7c54dde7c3f9ac0620eb1a7">queued_udp_packet</a>
 </li>
 <li>spare
 : <a class="el" href="structhashmap.html#a0589732ee5a065d6a5376a7cf04364a3">hashmap</a>
@@ -339,9 +390,6 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 </li>
 <li>speed
 : <a class="el" href="structnetdev__t.html#ad0f57b1c29286d4dc2dc23bf7b3ff228">netdev_t</a>
-</li>
-<li>sprite_handle
-: <a class="el" href="structpngle__user__data__t.html#af9e4101663b9cde0d48983507754f367">pngle_user_data_t</a>
 </li>
 <li>sprites
 : <a class="el" href="structbasic__ctx.html#a7b3df60380a6aad6b61e39594b7b6f6d">basic_ctx</a>
@@ -365,8 +413,23 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 <li>src_protocol_addr
 : <a class="el" href="structarp__packet.html#aeeec2669963dc9e85cf4b76cdf680615">arp_packet</a>
 </li>
-<li>ssts
-: <a class="el" href="structahci__hba__port__t.html#a43b5994da93991f4e1d2ceb20cff8737">ahci_hba_port_t</a>
+<li>st_info
+: <a class="el" href="structelf__sym.html#a606b6e696e7c9348f461c898370df238">elf_sym</a>
+</li>
+<li>st_name
+: <a class="el" href="structelf__sym.html#a1e8c6f9e5e92e3c96bd595d9695e6d47">elf_sym</a>
+</li>
+<li>st_other
+: <a class="el" href="structelf__sym.html#a5a2ba322b3a7810c11a86dac233dfbb3">elf_sym</a>
+</li>
+<li>st_shndx
+: <a class="el" href="structelf__sym.html#a080243574dc9f5b3aa3050e4fd2a820b">elf_sym</a>
+</li>
+<li>st_size
+: <a class="el" href="structelf__sym.html#afabf78018405c889628e64ca4d61c9f1">elf_sym</a>
+</li>
+<li>st_value
+: <a class="el" href="structelf__sym.html#a779708a08ca5f7ff985e4207793497a2">elf_sym</a>
 </li>
 <li>standardidentifier
 : <a class="el" href="struct____attribute____.html#ae32e86f84358e7502cc9d09b9cf790e4">__attribute__</a>
@@ -392,7 +455,8 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 : <a class="el" href="structpartition__t.html#a98196469e7c6ff383eaa9b243b8a98fc">partition_t</a>
 </li>
 <li>state
-: <a class="el" href="structprocess__t.html#a40e84a87e647e4e0f10f32668c8ed3ab">process_t</a>
+: <a class="el" href="structmap__iter.html#a04dd5bde52dc5430eb6957314864dd7b">map_iter</a>
+, <a class="el" href="structprocess__t.html#a40e84a87e647e4e0f10f32668c8ed3ab">process_t</a>
 , <a class="el" href="structrwlock__t.html#a488fda2eee1c4e1a7770e491d28ef15e">rwlock_t</a>
 , <a class="el" href="structtcp__conn__t.html#a421d637ca41e18729e4ec584d8b024fa">tcp_conn_t</a>
 </li>
@@ -402,17 +466,17 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 , <a class="el" href="structe1000__rx__desc.html#aa08718ab5fc6c3bc8342fb0bb9b58b84">e1000_rx_desc</a>
 , <a class="el" href="structe1000__tx__desc.html#a3e5cf6634312d83a0860810ec2dfc17d">e1000_tx_desc</a>
 </li>
-<li>statush
-: <a class="el" href="structahci__fis__dev__bits__t.html#a819605e953d223f335a94a294d06f72b">ahci_fis_dev_bits_t</a>
+<li>status_high
+: <a class="el" href="structahci__fis__dev__bits__t.html#aaecc442a49438eb6ea77575ebd68e0d4">ahci_fis_dev_bits_t</a>
 </li>
-<li>statusl
-: <a class="el" href="structahci__fis__dev__bits__t.html#ab7c605b298ef67f3b049320440fc9564">ahci_fis_dev_bits_t</a>
+<li>status_low
+: <a class="el" href="structahci__fis__dev__bits__t.html#aca0feca5982719771804ee970a13fe5c">ahci_fis_dev_bits_t</a>
 </li>
 <li>step
 : <a class="el" href="structfor__state.html#ab4b4931a9408840da9e2ff33001f851a">for_state</a>
 </li>
 <li>str_variables
-: <a class="el" href="structbasic__ctx.html#a1984d27dcc6d88275a5ee10bbcdb5441">basic_ctx</a>
+: <a class="el" href="structbasic__ctx.html#ab6094612eee1763d1c3512bf1f30f132">basic_ctx</a>
 </li>
 <li>string
 : <a class="el" href="structbasic__ctx.html#add37c368272fb5e346655e7e7200d75c">basic_ctx</a>
@@ -426,6 +490,9 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 <li>string_gc_storage_next
 : <a class="el" href="structbasic__ctx.html#a40047b898748b53fc546db5b73115ab9">basic_ctx</a>
 </li>
+<li>strtab
+: <a class="el" href="structmodule.html#ad1bdd01d3ee15333247c2fdfd4ee2a89">module</a>
+</li>
 <li>structsig
 : <a class="el" href="structfat32__fs__info__t.html#a40e4d03a6544f5c367a7a37f447f0579">fat32_fs_info_t</a>
 </li>
@@ -434,6 +501,12 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 </li>
 <li>swap_palette
 : <a class="el" href="structflanterm__context.html#a0a96cda1c2f429d38d0793ed94f33ec2">flanterm_context</a>
+</li>
+<li>sym_count
+: <a class="el" href="structmodule.html#a07d3c52c143d57240f911cb2a1e581f8">module</a>
+</li>
+<li>symtab
+: <a class="el" href="structmodule.html#a9f9842ae935dfaff5d9f6717add1b7fe">module</a>
 </li>
 <li>syn
 : <a class="el" href="uniontcp__segment__flags__t.html#acb527b9c8cb909e3e3e6d7d1bf296f4e">tcp_segment_flags_t</a>
@@ -451,7 +524,7 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:58 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

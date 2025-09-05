@@ -126,6 +126,8 @@ Functions</h2></td></tr>
 <tr class="separator:ae7841e681c8c9d59818568d39553642c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06107a6d2df55301644f98a80ef0517a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clock_8c.html#a06107a6d2df55301644f98a80ef0517a">is_leap_year</a> (int year, int month)</td></tr>
 <tr class="separator:a06107a6d2df55301644f98a80ef0517a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ff6f425d2c2a10b9df9a522e2989844"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clock_8c.html#a2ff6f425d2c2a10b9df9a522e2989844">uptime_secs</a> ()</td></tr>
+<tr class="separator:a2ff6f425d2c2a10b9df9a522e2989844"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab1913913a5b7c972308168a69e64d67d"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clock_8c.html#ab1913913a5b7c972308168a69e64d67d">datetime_to_str</a> (<a class="el" href="structdatetime__t.html">datetime_t</a> *dt)</td></tr>
 <tr class="separator:ab1913913a5b7c972308168a69e64d67d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acaac299510c8ace6baf3848cf616de85"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clock_8c.html#acaac299510c8ace6baf3848cf616de85">get_datetime_str</a> ()</td></tr>
@@ -140,7 +142,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a190bea845609832cd63c178eea59861b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="clock_8h.html#a7f5991675a84025dc7c24754a9b257c0">time_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clock_8c.html#a190bea845609832cd63c178eea59861b">local_time</a> (<a class="el" href="clock_8h.html#a7f5991675a84025dc7c24754a9b257c0">time_t</a> timestamp)</td></tr>
 <tr class="memdesc:a190bea845609832cd63c178eea59861b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a UTC <code>time_t</code> to local time using the loaded timezone.  <a href="clock_8c.html#a190bea845609832cd63c178eea59861b">More...</a><br /></td></tr>
 <tr class="separator:a190bea845609832cd63c178eea59861b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0692dc4979f1315eca1855ce51c9be51"><td class="memItemLeft" align="right" valign="top">static int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clock_8c.html#a0692dc4979f1315eca1855ce51c9be51">ntohl_signed</a> (const uint8_t *<a class="el" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>)</td></tr>
+<tr class="memitem:a0692dc4979f1315eca1855ce51c9be51"><td class="memItemLeft" align="right" valign="top">static int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clock_8c.html#a0692dc4979f1315eca1855ce51c9be51">ntohl_signed</a> (const uint8_t *p)</td></tr>
 <tr class="separator:a0692dc4979f1315eca1855ce51c9be51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e498bef9d4d2d77679f42ad7bdb0c04"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clock_8c.html#a2e498bef9d4d2d77679f42ad7bdb0c04">get_local_offset_from_buffer</a> (const uint8_t *<a class="el" href="clock_8c.html#ad82770835c7745c2871bdbc93d7311e6">tzdata</a>, <a class="el" href="clock_8h.html#a7f5991675a84025dc7c24754a9b257c0">time_t</a> timestamp)</td></tr>
 <tr class="memdesc:a2e498bef9d4d2d77679f42ad7bdb0c04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the UTC offset/DST state for a given time from a loaded tzfile buffer.  <a href="clock_8c.html#a2e498bef9d4d2d77679f42ad7bdb0c04">More...</a><br /></td></tr>
@@ -152,6 +154,8 @@ Variables</h2></td></tr>
 <tr class="separator:a213ee6f0ec6d88083c8d350fde2202ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad82770835c7745c2871bdbc93d7311e6"><td class="memItemLeft" align="right" valign="top">static unsigned char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clock_8c.html#ad82770835c7745c2871bdbc93d7311e6">tzdata</a> = NULL</td></tr>
 <tr class="separator:ad82770835c7745c2871bdbc93d7311e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31a3c70b5dd86228e13c89639e568b26"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="clock_8h.html#a7f5991675a84025dc7c24754a9b257c0">time_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clock_8c.html#a31a3c70b5dd86228e13c89639e568b26">system_boot</a> = 0</td></tr>
+<tr class="separator:a31a3c70b5dd86228e13c89639e568b26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a0981ce9a86bd9d68fefd2aa88b5034"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clock_8c.html#a6a0981ce9a86bd9d68fefd2aa88b5034">weekday_map</a> [7] = {&quot;Sun&quot;, &quot;Mon&quot;, &quot;Tue&quot;, &quot;Wed&quot;, &quot;Thu&quot;, &quot;Fri&quot;, &quot;Sat&quot;}</td></tr>
 <tr class="separator:a6a0981ce9a86bd9d68fefd2aa88b5034"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab436b26ed418007ddb2588ba31c2c3ad"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clock_8c.html#ab436b26ed418007ddb2588ba31c2c3ad">month_map</a> [12] = {&quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, &quot;Jul&quot;, &quot;Aug&quot;, &quot;Sep&quot;, &quot;Oct&quot;, &quot;Nov&quot;, &quot;Dec&quot;}</td></tr>
@@ -625,6 +629,23 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a2ff6f425d2c2a10b9df9a522e2989844"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ff6f425d2c2a10b9df9a522e2989844">&#9670;&nbsp;</a></span>uptime_secs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t uptime_secs </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Variable Documentation</h2>
 <a id="a213ee6f0ec6d88083c8d350fde2202ae"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a213ee6f0ec6d88083c8d350fde2202ae">&#9670;&nbsp;</a></span>current_datetime</h2>
@@ -658,6 +679,28 @@ Variables</h2></td></tr>
           <td class="memname">const char* month_map[12] = {&quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, &quot;Jul&quot;, &quot;Aug&quot;, &quot;Sep&quot;, &quot;Oct&quot;, &quot;Nov&quot;, &quot;Dec&quot;}</td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a31a3c70b5dd86228e13c89639e568b26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31a3c70b5dd86228e13c89639e568b26">&#9670;&nbsp;</a></span>system_boot</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="clock_8h.html#a7f5991675a84025dc7c24754a9b257c0">time_t</a> system_boot = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -704,7 +747,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="clock_8c.html">clock.c</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:44 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

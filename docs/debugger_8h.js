@@ -25,6 +25,7 @@ var debugger_8h =
     [ "SYM_WEAK_SYMBOL", "debugger_8h.html#a4465c182ec3f22fa4a5ffd4af848b169", null ],
     [ "backtrace", "debugger_8h.html#a73b6618270491b1d78d378a62a5a52b1", null ],
     [ "dump_hex", "debugger_8h.html#a193f7f97cdb75d26f4009b5a3edf72ec", null ],
+    [ "findsymbol_addr", "debugger_8h.html#adf4a44e4932c7f1366d66449e1065c6e", null ],
     [ "gdb_decode", "debugger_8h.html#a7f9e4634158b9a7d25a0bbdfdbea787d", null ],
     [ "gdb_emit", "debugger_8h.html#a02262c30dd504c7b86c22e7fc5de8e1f", null ],
     [ "gdb_trace", "debugger_8h.html#aa823fd560cc51c292eba9f1112b32323", null ],

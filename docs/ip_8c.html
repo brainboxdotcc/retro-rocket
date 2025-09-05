@@ -98,9 +98,9 @@ $(document).ready(function(){initNavTree('ip_8c.html',''); initResizable(); });
 Macros</h2></td></tr>
 <tr class="memitem:ae06a7aa536fce71c898cf196c4354bc0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#ae06a7aa536fce71c898cf196c4354bc0">MAX_REASSEMBLIES</a>&#160;&#160;&#160;64</td></tr>
 <tr class="separator:ae06a7aa536fce71c898cf196c4354bc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78cd68f418f3579e51849b5dcaeb5b21"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a78cd68f418f3579e51849b5dcaeb5b21">FRAG_TIMEOUT_TICKS</a>&#160;&#160;&#160;300</td></tr>
+<tr class="memitem:a78cd68f418f3579e51849b5dcaeb5b21"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a78cd68f418f3579e51849b5dcaeb5b21">FRAG_TIMEOUT_TICKS</a>&#160;&#160;&#160;3000</td></tr>
 <tr class="separator:a78cd68f418f3579e51849b5dcaeb5b21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac230e902906ab35b0b45fa2de870a4cb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#ac230e902906ab35b0b45fa2de870a4cb">FRAG_GC_INTERVAL</a>&#160;&#160;&#160;150</td></tr>
+<tr class="memitem:ac230e902906ab35b0b45fa2de870a4cb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#ac230e902906ab35b0b45fa2de870a4cb">FRAG_GC_INTERVAL</a>&#160;&#160;&#160;1500</td></tr>
 <tr class="separator:ac230e902906ab35b0b45fa2de870a4cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5bdab5d96be1af39dda9ae08da73251d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a5bdab5d96be1af39dda9ae08da73251d">FRAG_MEM_LIMIT</a>&#160;&#160;&#160;(2 * 1024 * 1024)</td></tr>
 <tr class="separator:a5bdab5d96be1af39dda9ae08da73251d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -109,6 +109,11 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:afbd952ba48ca3e386bf11bc448eab4b9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#afbd952ba48ca3e386bf11bc448eab4b9">ip_handle_packet</a> (ip_packet_t *packet,[[maybe_unused]] int n_len)</td></tr>
+<tr class="memdesc:afbd952ba48ca3e386bf11bc448eab4b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle inbound IP packet.  <a href="ip_8c.html#afbd952ba48ca3e386bf11bc448eab4b9">More...</a><br /></td></tr>
+<tr class="separator:afbd952ba48ca3e386bf11bc448eab4b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9de3e56c876f4c2e3ba14431490a0fc"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#aa9de3e56c876f4c2e3ba14431490a0fc">ip_is_loopback</a> (const uint8_t *ip)</td></tr>
+<tr class="separator:aa9de3e56c876f4c2e3ba14431490a0fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea6d2bc78e199d2c6630cd4440708a4b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#aea6d2bc78e199d2c6630cd4440708a4b">get_ip_str</a> (char *ip_str, const uint8_t *ip)</td></tr>
 <tr class="memdesc:aea6d2bc78e199d2c6630cd4440708a4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert network byte order IP to a string form for display.  <a href="ip_8c.html#aea6d2bc78e199d2c6630cd4440708a4b">More...</a><br /></td></tr>
 <tr class="separator:aea6d2bc78e199d2c6630cd4440708a4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -146,7 +151,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a0c6727c035a1b0fb8d80502c051d0ef3"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a0c6727c035a1b0fb8d80502c051d0ef3">ip_calculate_checksum</a> (ip_packet_t *packet)</td></tr>
 <tr class="memdesc:a0c6727c035a1b0fb8d80502c051d0ef3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate checksum for IP packet.  <a href="ip_8c.html#a0c6727c035a1b0fb8d80502c051d0ef3">More...</a><br /></td></tr>
 <tr class="separator:a0c6727c035a1b0fb8d80502c051d0ef3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a189c32f3acd569510b06121550e84616"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a189c32f3acd569510b06121550e84616">dequeue_packet</a> (<a class="el" href="structpacket__queue__item__t.html">packet_queue_item_t</a> *cur, <a class="el" href="structpacket__queue__item__t.html">packet_queue_item_t</a> *last)</td></tr>
+<tr class="memitem:a189c32f3acd569510b06121550e84616"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a189c32f3acd569510b06121550e84616">dequeue_packet</a> (<a class="el" href="structpacket__queue__item__t.html">packet_queue_item_t</a> *cur, <a class="el" href="structpacket__queue__item__t.html">packet_queue_item_t</a> *<a class="el" href="input_8c.html#a72bc8e71efba3a2fc20f68c70a20fc98">last</a>)</td></tr>
 <tr class="separator:a189c32f3acd569510b06121550e84616"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac14f37ff566957e2932615943bd6578a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#ac14f37ff566957e2932615943bd6578a">ip_idle</a> ()</td></tr>
 <tr class="memdesc:ac14f37ff566957e2932615943bd6578a"><td class="mdescLeft">&#160;</td><td class="mdescRight">100Hz background task hooked to local APIC timer  <a href="ip_8c.html#ac14f37ff566957e2932615943bd6578a">More...</a><br /></td></tr>
@@ -162,15 +167,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a672f7b02ca1cb960b5e0adf8a4ce46de"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structip__packet__frag__t.html">ip_packet_frag_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a672f7b02ca1cb960b5e0adf8a4ce46de">frag_list_insert</a> (<a class="el" href="structip__packet__frag__t.html">ip_packet_frag_t</a> *insert, <a class="el" href="structip__packet__frag__t.html">ip_packet_frag_t</a> *list)</td></tr>
 <tr class="memdesc:a672f7b02ca1cb960b5e0adf8a4ce46de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert fragmented packet part into ordered list.  <a href="ip_8c.html#a672f7b02ca1cb960b5e0adf8a4ce46de">More...</a><br /></td></tr>
 <tr class="separator:a672f7b02ca1cb960b5e0adf8a4ce46de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a242a25989e7f23738ef023e7d95999"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a1a242a25989e7f23738ef023e7d95999">ip_frag_compare</a> (const void *<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, const void *<a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>, [[maybe_unused]] void *udata)</td></tr>
+<tr class="memitem:a1a242a25989e7f23738ef023e7d95999"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a1a242a25989e7f23738ef023e7d95999">ip_frag_compare</a> (const void *a, const void *b, [[maybe_unused]] void *udata)</td></tr>
 <tr class="memdesc:a1a242a25989e7f23738ef023e7d95999"><td class="mdescLeft">&#160;</td><td class="mdescRight">Comparison function for hash table of fragmented packet lists.  <a href="ip_8c.html#a1a242a25989e7f23738ef023e7d95999">More...</a><br /></td></tr>
 <tr class="separator:a1a242a25989e7f23738ef023e7d95999"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca404934771fcaf1671f5d2f30f6e1cb"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#aca404934771fcaf1671f5d2f30f6e1cb">ip_frag_hash</a> (const void *item, uint64_t seed0, uint64_t seed1)</td></tr>
 <tr class="memdesc:aca404934771fcaf1671f5d2f30f6e1cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hash two lists of IP fragments for storage in hashmap, keyed by packet id.  <a href="ip_8c.html#aca404934771fcaf1671f5d2f30f6e1cb">More...</a><br /></td></tr>
 <tr class="separator:aca404934771fcaf1671f5d2f30f6e1cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35526355cf134e4370369f17f839cf79"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a35526355cf134e4370369f17f839cf79">ip_handle_packet</a> (ip_packet_t *packet, [[maybe_unused]] int n_len)</td></tr>
-<tr class="memdesc:a35526355cf134e4370369f17f839cf79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle inbound IP packet.  <a href="ip_8c.html#a35526355cf134e4370369f17f839cf79">More...</a><br /></td></tr>
-<tr class="separator:a35526355cf134e4370369f17f839cf79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1438927b122b1b407d305c669151a681"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a1438927b122b1b407d305c669151a681">ip6_handle_packet</a> ([[maybe_unused]] void *packet, [[maybe_unused]] int n_len)</td></tr>
 <tr class="separator:a1438927b122b1b407d305c669151a681"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7cf4dd66490d6812fcbba8acbb2533bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a7cf4dd66490d6812fcbba8acbb2533bd">ip_init</a> ()</td></tr>
@@ -205,6 +207,14 @@ Variables</h2></td></tr>
 <tr class="separator:a12770212379d1208a1f07961b62cb733"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab93b0af589dd086790a127286eedf52a"><td class="memItemLeft" align="right" valign="top">static size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#ab93b0af589dd086790a127286eedf52a">frag_mem_total</a> = 0</td></tr>
 <tr class="separator:ab93b0af589dd086790a127286eedf52a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7b502b0184801f10685c45186108272"><td class="memItemLeft" align="right" valign="top">static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#ae7b502b0184801f10685c45186108272">loopback_addr</a> [4] = {127, 0, 0, 1}</td></tr>
+<tr class="separator:ae7b502b0184801f10685c45186108272"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2294d4356a70edf19bf7ab430612f703"><td class="memItemLeft" align="right" valign="top">static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a2294d4356a70edf19bf7ab430612f703">ip_scratch_a</a> [(65536+sizeof(ip_packet_t))+1]</td></tr>
+<tr class="separator:a2294d4356a70edf19bf7ab430612f703"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b6fc5bd481f295c48ade687c98f3c58"><td class="memItemLeft" align="right" valign="top">static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a8b6fc5bd481f295c48ade687c98f3c58">ip_scratch_b</a> [(65536+sizeof(ip_packet_t))+1]</td></tr>
+<tr class="separator:a8b6fc5bd481f295c48ade687c98f3c58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0329e90969b4c10698ce0109c04cf476"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a0329e90969b4c10698ce0109c04cf476">ip_scratch_sel</a> = 0</td></tr>
+<tr class="separator:a0329e90969b4c10698ce0109c04cf476"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="ac230e902906ab35b0b45fa2de870a4cb"></a>
@@ -214,7 +224,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define FRAG_GC_INTERVAL&#160;&#160;&#160;150</td>
+          <td class="memname">#define FRAG_GC_INTERVAL&#160;&#160;&#160;1500</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -242,7 +252,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define FRAG_TIMEOUT_TICKS&#160;&#160;&#160;300</td>
+          <td class="memname">#define FRAG_TIMEOUT_TICKS&#160;&#160;&#160;3000</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -676,8 +686,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a35526355cf134e4370369f17f839cf79"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a35526355cf134e4370369f17f839cf79">&#9670;&nbsp;</a></span>ip_handle_packet()</h2>
+<a id="afbd952ba48ca3e386bf11bc448eab4b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbd952ba48ca3e386bf11bc448eab4b9">&#9670;&nbsp;</a></span>ip_handle_packet()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -750,6 +760,32 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initialise IP protocol. </p>
+
+</div>
+</div>
+<a id="aa9de3e56c876f4c2e3ba14431490a0fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9de3e56c876f4c2e3ba14431490a0fc">&#9670;&nbsp;</a></span>ip_is_loopback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool ip_is_loopback </td>
+          <td>(</td>
+          <td class="paramtype">const uint8_t *&#160;</td>
+          <td class="paramname"><em>ip</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -1048,6 +1084,72 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a2294d4356a70edf19bf7ab430612f703"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2294d4356a70edf19bf7ab430612f703">&#9670;&nbsp;</a></span>ip_scratch_a</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t ip_scratch_a[(65536+sizeof(ip_packet_t))+1]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8b6fc5bd481f295c48ade687c98f3c58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b6fc5bd481f295c48ade687c98f3c58">&#9670;&nbsp;</a></span>ip_scratch_b</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t ip_scratch_b[(65536+sizeof(ip_packet_t))+1]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0329e90969b4c10698ce0109c04cf476"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0329e90969b4c10698ce0109c04cf476">&#9670;&nbsp;</a></span>ip_scratch_sel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ip_scratch_sel = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="af35b683b49f96e5686f99b329f768b99"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af35b683b49f96e5686f99b329f768b99">&#9670;&nbsp;</a></span>is_ip_allocated</h2>
 
@@ -1072,6 +1174,28 @@ Variables</h2></td></tr>
           <td class="memname">uint16_t last_id</td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae7b502b0184801f10685c45186108272"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7b502b0184801f10685c45186108272">&#9670;&nbsp;</a></span>loopback_addr</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint8_t loopback_addr[4] = {127, 0, 0, 1}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -1166,7 +1290,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c72b25b75abe208498b36a3e44a3726c.html">net</a></li><li class="navelem"><a class="el" href="ip_8c.html">ip.c</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -119,13 +119,13 @@ Functions</h2></td></tr>
 <tr class="memitem:a3574e36c20cd71e8e68e0ca15ea1b426"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ioapic_8c.html#a3574e36c20cd71e8e68e0ca15ea1b426">ioapic_redir_set_precalculated</a> (uint32_t gsi, uint32_t upper, uint32_t lower)</td></tr>
 <tr class="memdesc:a3574e36c20cd71e8e68e0ca15ea1b426"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a redirection entry using pre‑calculated 64‑bit values.  <a href="ioapic_8c.html#a3574e36c20cd71e8e68e0ca15ea1b426">More...</a><br /></td></tr>
 <tr class="separator:a3574e36c20cd71e8e68e0ca15ea1b426"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3af04f015bde166dc22bbbdb591e77a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ioapic_8c.html#a3af04f015bde166dc22bbbdb591e77a9">ioapic_redir_set</a> (uint32_t irq, uint32_t vector, uint32_t del_mode, uint32_t dest_mode, uint32_t intpol, uint32_t trigger_mode, uint32_t mask)</td></tr>
+<tr class="memitem:a3af04f015bde166dc22bbbdb591e77a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ioapic_8c.html#a3af04f015bde166dc22bbbdb591e77a9">ioapic_redir_set</a> (uint32_t irq, uint32_t <a class="el" href="structvector.html">vector</a>, uint32_t del_mode, uint32_t dest_mode, uint32_t intpol, uint32_t trigger_mode, uint32_t mask)</td></tr>
 <tr class="memdesc:a3af04f015bde166dc22bbbdb591e77a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure a redirection entry in the I/O APIC.  <a href="ioapic_8c.html#a3af04f015bde166dc22bbbdb591e77a9">More...</a><br /></td></tr>
 <tr class="separator:a3af04f015bde166dc22bbbdb591e77a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c004d39dec23c06b0a3d56049174045"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ioapic_8c.html#a5c004d39dec23c06b0a3d56049174045">ioapic_redir_unmask</a> (uint32_t gsi)</td></tr>
 <tr class="memdesc:a5c004d39dec23c06b0a3d56049174045"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unmask (enable) a redirection entry for a given GSI.  <a href="ioapic_8c.html#a5c004d39dec23c06b0a3d56049174045">More...</a><br /></td></tr>
 <tr class="separator:a5c004d39dec23c06b0a3d56049174045"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9c076ac827e229f57617389706f1e72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ioapic_8c.html#ac9c076ac827e229f57617389706f1e72">ioapic_redir_get</a> (uint32_t gsi, uint32_t *vector, uint32_t *del_mode, uint32_t *dest_mode, uint32_t *intpol, uint32_t *trigger_mode, uint32_t *mask, uint32_t *destination)</td></tr>
+<tr class="memitem:ac9c076ac827e229f57617389706f1e72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ioapic_8c.html#ac9c076ac827e229f57617389706f1e72">ioapic_redir_get</a> (uint32_t gsi, uint32_t *<a class="el" href="structvector.html">vector</a>, uint32_t *del_mode, uint32_t *dest_mode, uint32_t *intpol, uint32_t *trigger_mode, uint32_t *mask, uint32_t *destination)</td></tr>
 <tr class="memdesc:ac9c076ac827e229f57617389706f1e72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a redirection entry from the I/O APIC.  <a href="ioapic_8c.html#ac9c076ac827e229f57617389706f1e72">More...</a><br /></td></tr>
 <tr class="separator:ac9c076ac827e229f57617389706f1e72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -597,7 +597,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="ioapic_8c.html">ioapic.c</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

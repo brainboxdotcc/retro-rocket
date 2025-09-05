@@ -5,7 +5,7 @@ var dns_8c =
     [ "dns_cache_hash", "dns_8c.html#ae1cab23ab9191bd83f5e74b9efdb4461", null ],
     [ "dns_collect_request", "dns_8c.html#ac52a39e7254f694e587db4722ecc682b", null ],
     [ "dns_delete_request", "dns_8c.html#a6f659549a668088efc96a4acc584a587", null ],
-    [ "dns_handle_packet", "dns_8c.html#a88fc51c93321db43c9f27e3ce5a4e72f", null ],
+    [ "dns_handle_packet", "dns_8c.html#abff79c86ad9552c3f0529882c064c79a", null ],
     [ "dns_lookup_host", "dns_8c.html#a7cedf2ac9e164672c69b6c5253085490", null ],
     [ "dns_lookup_host_async", "dns_8c.html#a376e9c65e585b4864a61f437bab2f49d", null ],
     [ "dns_make_payload", "dns_8c.html#abc1cba8678d9f7892ef121460a45f92c", null ],

@@ -140,16 +140,13 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="4">
-        <label>anonymous:@12</label>
+      <node id="5">
+        <label>anonymous:@14</label>
       </node>
       <node id="3">
         <label>tcp_segment_flags_t</label>
         <link refid="uniontcp__segment__flags__t"/>
         <childnode refid="4" relation="usage">
-          <edgelabel>@12</edgelabel>
-        </childnode>
-        <childnode refid="5" relation="usage">
           <edgelabel>ack</edgelabel>
           <edgelabel>bits1</edgelabel>
           <edgelabel>bits2</edgelabel>
@@ -161,6 +158,9 @@
           <edgelabel>reserved</edgelabel>
           <edgelabel>rst</edgelabel>
           <edgelabel>...</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>@14</edgelabel>
         </childnode>
       </node>
       <node id="2">
@@ -183,7 +183,7 @@
           <edgelabel>ack</edgelabel>
           <edgelabel>seq</edgelabel>
         </childnode>
-        <childnode refid="5" relation="usage">
+        <childnode refid="4" relation="usage">
           <edgelabel>options</edgelabel>
           <edgelabel>payload</edgelabel>
         </childnode>
@@ -191,7 +191,7 @@
       <node id="6">
         <label>uint32_t</label>
       </node>
-      <node id="5">
+      <node id="4">
         <label>uint8_t</label>
       </node>
     </collaborationgraph>

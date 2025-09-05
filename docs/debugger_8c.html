@@ -125,8 +125,8 @@ Functions</h2></td></tr>
 <tr class="separator:a552b7db8935a67efdd6c1768543a053c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3556c65f47174e7424a155623db04098"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debugger_8c.html#a3556c65f47174e7424a155623db04098">gdb_data</a> (uint32_t <a class="el" href="ip_8h.html#a468dda4615d8c0d9e631e02372619dc1">src_ip</a>, uint16_t <a class="el" href="udp_8h.html#ab98974981cf4c143fcee028643f313e6">src_port</a>, uint8_t *<a class="el" href="udp_8h.html#a5c239a1bb87b52b0f1d6d68c4749cd2a">data</a>, uint32_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>)</td></tr>
 <tr class="separator:a3556c65f47174e7424a155623db04098"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af514c70ab0d48beaa67649f2b803c2f8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debugger_8c.html#af514c70ab0d48beaa67649f2b803c2f8">debug_handle_packet</a> (uint32_t <a class="el" href="ip_8h.html#a468dda4615d8c0d9e631e02372619dc1">src_ip</a>, uint16_t <a class="el" href="udp_8h.html#ab98974981cf4c143fcee028643f313e6">src_port</a>, uint16_t <a class="el" href="udp_8h.html#ae18defed4756b8c15e34718f51e86e55">dst_port</a>, void *<a class="el" href="udp_8h.html#a5c239a1bb87b52b0f1d6d68c4749cd2a">data</a>, uint32_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>)</td></tr>
-<tr class="separator:af514c70ab0d48beaa67649f2b803c2f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2c6005939f6b1d24ed7540fab5bf0ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debugger_8c.html#ad2c6005939f6b1d24ed7540fab5bf0ac">debug_handle_packet</a> (uint32_t <a class="el" href="ip_8h.html#a468dda4615d8c0d9e631e02372619dc1">src_ip</a>, uint16_t <a class="el" href="udp_8h.html#ab98974981cf4c143fcee028643f313e6">src_port</a>, uint16_t <a class="el" href="udp_8h.html#ae18defed4756b8c15e34718f51e86e55">dst_port</a>, void *<a class="el" href="udp_8h.html#a5c239a1bb87b52b0f1d6d68c4749cd2a">data</a>, uint32_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>, void *opaque)</td></tr>
+<tr class="separator:ad2c6005939f6b1d24ed7540fab5bf0ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad5120629e00130e505645001e8106e9b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debugger_8c.html#ad5120629e00130e505645001e8106e9b">set_debug_signal</a> (bool <a class="el" href="e1000_8h.html#afea475b453c81c5b3f5a31abb861edfb">status</a>)</td></tr>
 <tr class="separator:ad5120629e00130e505645001e8106e9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a85eed162f35cd2ef9f0101d3b1179362"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debugger_8c.html#a85eed162f35cd2ef9f0101d3b1179362">get_debug_signal</a> ()</td></tr>
@@ -142,6 +142,8 @@ Functions</h2></td></tr>
 <tr class="separator:a568e49ee3a2e0adab55fa38535e40835"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7eb9357383cf48f78ca582c400619930"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debugger_8c.html#a7eb9357383cf48f78ca582c400619930">findsymbol</a> (uint64_t address, uint64_t *offset)</td></tr>
 <tr class="separator:a7eb9357383cf48f78ca582c400619930"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf4a44e4932c7f1366d66449e1065c6e"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debugger_8c.html#adf4a44e4932c7f1366d66449e1065c6e">findsymbol_addr</a> (const char *<a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a>)</td></tr>
+<tr class="separator:adf4a44e4932c7f1366d66449e1065c6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73b6618270491b1d78d378a62a5a52b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debugger_8c.html#a73b6618270491b1d78d378a62a5a52b1">backtrace</a> ()</td></tr>
 <tr class="separator:a73b6618270491b1d78d378a62a5a52b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa823fd560cc51c292eba9f1112b32323"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debugger_8c.html#aa823fd560cc51c292eba9f1112b32323">gdb_trace</a> (const char *str)</td></tr>
@@ -186,8 +188,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="af514c70ab0d48beaa67649f2b803c2f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af514c70ab0d48beaa67649f2b803c2f8">&#9670;&nbsp;</a></span>debug_handle_packet()</h2>
+<a id="ad2c6005939f6b1d24ed7540fab5bf0ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2c6005939f6b1d24ed7540fab5bf0ac">&#9670;&nbsp;</a></span>debug_handle_packet()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -220,7 +222,13 @@ Variables</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>length</em>&#160;</td>
+          <td class="paramname"><em>length</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>opaque</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -291,6 +299,24 @@ Variables</h2></td></tr>
           <td></td>
           <td>)</td>
           <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adf4a44e4932c7f1366d66449e1065c6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf4a44e4932c7f1366d66449e1065c6e">&#9670;&nbsp;</a></span>findsymbol_addr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t findsymbol_addr </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1096,7 +1122,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="debugger_8c.html">debugger.c</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:44 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

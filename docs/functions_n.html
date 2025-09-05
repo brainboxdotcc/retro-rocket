@@ -87,9 +87,6 @@ $(document).ready(function(){initNavTree('functions_n.html',''); initResizable()
 <div class="textblock">Here is a list of all struct and union fields with links to the structures/unions they belong to:</div>
 
 <h3><a id="index_n"></a>- n -</h3><ul>
-<li>n
-: <a class="el" href="structahci__fis__dev__bits__t.html#ae7576eabaf3b33001a1c5743975c4834">ahci_fis_dev_bits_t</a>
-</li>
 <li>name
 : <a class="el" href="structbasic__double__fn.html#a8fbbb3aa8e8a9547e5a1892f6b71c61d">basic_double_fn</a>
 , <a class="el" href="structbasic__int__fn.html#a76c1308b9ab10f9013ee5381ff87ac07">basic_int_fn</a>
@@ -99,6 +96,7 @@ $(document).ready(function(){initNavTree('functions_n.html',''); initResizable()
 , <a class="el" href="structfilesystem__t.html#ad9e95445e543de2e595f4da41e1b9ff4">filesystem_t</a>
 , <a class="el" href="structfs__tree__t.html#a95e22f149aef579b1771d64687a472f8">fs_tree_t</a>
 , <a class="el" href="structgpt__entry__t.html#af5beda8d83837344bf274890f08ec83d">gpt_entry_t</a>
+, <a class="el" href="structmodule.html#ac68255cdaf29d9a7967fd8571efc5c2e">module</a>
 , <a class="el" href="structnet__address__t.html#aa5c985e38804cfce2cf8704b787fadd1">net_address_t</a>
 , <a class="el" href="structnetdev__t.html#ac5414e10d1ac4886a720ab53b5ec4d61">netdev_t</a>
 , <a class="el" href="structnetproto__t.html#ad66e783d3cf2b3a13b4931867ab7b5d1">netproto_t</a>
@@ -132,10 +130,13 @@ $(document).ready(function(){initNavTree('functions_n.html',''); initResizable()
 , <a class="el" href="structgc__str__t.html#a2c9b942feec94bde070b7ec2b6c5bf11">gc_str_t</a>
 , <a class="el" href="structidle__timer__t.html#ab8cbbca083b310c8c38be8da8d1463f6">idle_timer_t</a>
 , <a class="el" href="structip__packet__frag__t.html#ae5891eeb9409248339b57d75babb5357">ip_packet_frag_t</a>
+, <a class="el" href="structlru__node__t.html#a807d68d9b2010ab7f81faa14d9f3ff77">lru_node_t</a>
+, <a class="el" href="structmountpoint__t.html#a5833f3396444460b27df23906b6f3c3c">mountpoint_t</a>
 , <a class="el" href="structnetdev__t.html#a071b95bac8885a8dd57ab35712b99244">netdev_t</a>
 , <a class="el" href="structpacket__queue__item__t.html#aaf2b6f07f091fbafacd0ba21639eda4b">packet_queue_item_t</a>
 , <a class="el" href="structpending__node__t.html#acae1f4c3157f8ccc0fa6eb0cd330dce3">pending_node_t</a>
 , <a class="el" href="structprocess__t.html#a35426bef9435a3bc4399ee832dab5cf2">process_t</a>
+, <a class="el" href="structqueued__udp__packet.html#acdaca6ad48012bb682ef2b4586ba52a9">queued_udp_packet</a>
 , <a class="el" href="structshared__interrupt__t.html#a65c2b0190a13c775cc010245c95db9d9">shared_interrupt_t</a>
 , <a class="el" href="structstack__frame__t.html#ad080d4ad51974443347595b774d2201d">stack_frame_t</a>
 , <a class="el" href="structstorage__device__t.html#ad1b4bda1ebedc6cf141f8f157a663d14">storage_device_t</a>
@@ -149,14 +150,22 @@ $(document).ready(function(){initNavTree('functions_n.html',''); initResizable()
 , <a class="el" href="structub__var__generic__array.html#a7c907ab5774af24b24c04528fa84a44e">ub_var_generic_array</a>
 , <a class="el" href="structub__var__int.html#a8dda4e8cd294e42cf2e7d267f2c10cda">ub_var_int</a>
 , <a class="el" href="structub__var__int__array.html#a9fb370c37cad3ae89ab6814b37a443dd">ub_var_int_array</a>
-, <a class="el" href="structub__var__string.html#a34110f560c0720684e32e58c08fa85bc">ub_var_string</a>
 , <a class="el" href="structub__var__string__array.html#aeb1eb236e3d5b0f692e1735d41e9b1b5">ub_var_string_array</a>
+</li>
+<li>next_tick
+: <a class="el" href="structidle__timer__t.html#a1bb9e6fb59bf70004cadad01c5bd9a1e">idle_timer_t</a>
 </li>
 <li>nextfree
 : <a class="el" href="structfat32__fs__info__t.html#acc3ed3cb4f91841dc00f6d896b55d6d8">fat32_fs_info_t</a>
 </li>
 <li>nextptr
 : <a class="el" href="structbasic__ctx.html#abbd42e56aa70c8d98d14f961ce7c1023">basic_ctx</a>
+</li>
+<li>node
+: <a class="el" href="structvfs__tree__t.html#a83f9b980bd58ee02641e5f1899c5da1e">vfs_tree_t</a>
+</li>
+<li>notification
+: <a class="el" href="structahci__fis__dev__bits__t.html#a9cae690486404eb1f78312180edf79e5">ahci_fis_dev_bits_t</a>
 </li>
 <li>nscount
 : <a class="el" href="structdns__header.html#ab59defbc4f2602673c85b1ff32c988c0">dns_header</a>
@@ -192,7 +201,7 @@ $(document).ready(function(){initNavTree('functions_n.html',''); initResizable()
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:58 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

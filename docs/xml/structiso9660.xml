@@ -172,6 +172,12 @@
           <edgelabel>opaque1</edgelabel>
           <edgelabel>size</edgelabel>
         </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>cache</edgelabel>
+        </childnode>
+        <childnode refid="16" relation="usage">
+          <edgelabel>ui</edgelabel>
+        </childnode>
         <childnode refid="7" relation="usage">
           <edgelabel>name</edgelabel>
         </childnode>
@@ -185,8 +191,12 @@
           <edgelabel>blockread</edgelabel>
           <edgelabel>blockwrite</edgelabel>
         </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>blockclear</edgelabel>
+        </childnode>
         <childnode refid="11" relation="usage">
           <edgelabel>opaque2</edgelabel>
+          <edgelabel>opaque3</edgelabel>
         </childnode>
       </node>
       <node id="12">
@@ -225,11 +235,24 @@
           <edgelabel>opaque</edgelabel>
         </childnode>
       </node>
+      <node id="15">
+        <label>struct block_cache *</label>
+      </node>
       <node id="13">
         <label>uint32_t</label>
       </node>
       <node id="10">
         <label>uint8_t</label>
+      </node>
+      <node id="16">
+        <label>storage_device_ui_t</label>
+        <link refid="structstorage__device__ui__t"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>label</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>is_optical</edgelabel>
+        </childnode>
       </node>
       <node id="6">
         <label>void *(*)(void *)</label>

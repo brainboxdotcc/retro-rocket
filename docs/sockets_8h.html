@@ -119,6 +119,18 @@ Functions</h2></td></tr>
 <tr class="memitem:acc7edf1c75bf52eec246686ba690c0e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sockets_8h.html#acc7edf1c75bf52eec246686ba690c0e9">sockread_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
 <tr class="memdesc:acc7edf1c75bf52eec246686ba690c0e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the SOCKREAD statement in BASIC.  <a href="sockets_8h.html#acc7edf1c75bf52eec246686ba690c0e9">More...</a><br /></td></tr>
 <tr class="separator:acc7edf1c75bf52eec246686ba690c0e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a102fe8bd6efad3a7e78d292bdb1d1edf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sockets_8h.html#a102fe8bd6efad3a7e78d292bdb1d1edf">udpwrite_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a102fe8bd6efad3a7e78d292bdb1d1edf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f1285e7f8bb58def11ad3507f65af62"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sockets_8h.html#a9f1285e7f8bb58def11ad3507f65af62">udpbind_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a9f1285e7f8bb58def11ad3507f65af62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41d71643aa72cda495e2d8537387e010"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sockets_8h.html#a41d71643aa72cda495e2d8537387e010">udpunbind_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a41d71643aa72cda495e2d8537387e010"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae108efebb03837bf9b166e89a8973fda"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sockets_8h.html#ae108efebb03837bf9b166e89a8973fda">basic_udpread</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="separator:ae108efebb03837bf9b166e89a8973fda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6013f837ac42424cb00ce3608c21fcfb"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sockets_8h.html#a6013f837ac42424cb00ce3608c21fcfb">basic_udplastsourceport</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a6013f837ac42424cb00ce3608c21fcfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a426d38050f594e9de370125aa663e2d7"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sockets_8h.html#a426d38050f594e9de370125aa663e2d7">basic_udplastip</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a426d38050f594e9de370125aa663e2d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a045e5dbdfcb4c88a964ebeccaf8d5344"></a>
@@ -230,6 +242,60 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>1 if the socket is connected, 0 if not. </dd></dl>
+
+</div>
+</div>
+<a id="a426d38050f594e9de370125aa663e2d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a426d38050f594e9de370125aa663e2d7">&#9670;&nbsp;</a></span>basic_udplastip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* basic_udplastip </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6013f837ac42424cb00ce3608c21fcfb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6013f837ac42424cb00ce3608c21fcfb">&#9670;&nbsp;</a></span>basic_udplastsourceport()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int64_t basic_udplastsourceport </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae108efebb03837bf9b166e89a8973fda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae108efebb03837bf9b166e89a8973fda">&#9670;&nbsp;</a></span>basic_udpread()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* basic_udpread </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -350,13 +416,67 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a9f1285e7f8bb58def11ad3507f65af62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f1285e7f8bb58def11ad3507f65af62">&#9670;&nbsp;</a></span>udpbind_statement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void udpbind_statement </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a41d71643aa72cda495e2d8537387e010"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41d71643aa72cda495e2d8537387e010">&#9670;&nbsp;</a></span>udpunbind_statement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void udpunbind_statement </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a102fe8bd6efad3a7e78d292bdb1d1edf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a102fe8bd6efad3a7e78d292bdb1d1edf">&#9670;&nbsp;</a></span>udpwrite_statement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void udpwrite_statement </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_1e5d3661ed79af157d57e64a38265d09.html">basic</a></li><li class="navelem"><a class="el" href="sockets_8h.html">sockets.h</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

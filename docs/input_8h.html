@@ -96,21 +96,21 @@ $(document).ready(function(){initNavTree('input_8h.html',''); initResizable(); }
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad1207d022962151b2b0d89c803dd5ae2"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="input_8h.html#ad1207d022962151b2b0d89c803dd5ae2">kinput</a> (size_t maxlen, <a class="el" href="structconsole.html">console</a> *cons)</td></tr>
-<tr class="memdesc:ad1207d022962151b2b0d89c803dd5ae2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Poll for a single character of input from the console.  <a href="input_8h.html#ad1207d022962151b2b0d89c803dd5ae2">More...</a><br /></td></tr>
-<tr class="separator:ad1207d022962151b2b0d89c803dd5ae2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65464dd8cd9c0efddb97e19102b2482e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="input_8h.html#a65464dd8cd9c0efddb97e19102b2482e">kfreeinput</a> (<a class="el" href="structconsole.html">console</a> *cons)</td></tr>
-<tr class="memdesc:a65464dd8cd9c0efddb97e19102b2482e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free the internal input buffer associated with a console.  <a href="input_8h.html#a65464dd8cd9c0efddb97e19102b2482e">More...</a><br /></td></tr>
-<tr class="separator:a65464dd8cd9c0efddb97e19102b2482e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34b6b79a54527d752aa80ac4c25904b9"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="input_8h.html#a34b6b79a54527d752aa80ac4c25904b9">kgetinput</a> (<a class="el" href="structconsole.html">console</a> *cons)</td></tr>
-<tr class="memdesc:a34b6b79a54527d752aa80ac4c25904b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the accumulated input string for a console.  <a href="input_8h.html#a34b6b79a54527d752aa80ac4c25904b9">More...</a><br /></td></tr>
-<tr class="separator:a34b6b79a54527d752aa80ac4c25904b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4778712feab983c5195c309ba33f9c17"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="input_8h.html#a4778712feab983c5195c309ba33f9c17">kinput</a> (size_t maxlen)</td></tr>
+<tr class="memdesc:a4778712feab983c5195c309ba33f9c17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Poll for a single character of input from the console.  <a href="input_8h.html#a4778712feab983c5195c309ba33f9c17">More...</a><br /></td></tr>
+<tr class="separator:a4778712feab983c5195c309ba33f9c17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25777c7821eb7ec70f2eed32211eb420"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="input_8h.html#a25777c7821eb7ec70f2eed32211eb420">kfreeinput</a> ()</td></tr>
+<tr class="memdesc:a25777c7821eb7ec70f2eed32211eb420"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free the internal input buffer associated with a console.  <a href="input_8h.html#a25777c7821eb7ec70f2eed32211eb420">More...</a><br /></td></tr>
+<tr class="separator:a25777c7821eb7ec70f2eed32211eb420"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5b07aa4d01338ab607954a1b11d1fd0"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="input_8h.html#ad5b07aa4d01338ab607954a1b11d1fd0">kgetinput</a> ()</td></tr>
+<tr class="memdesc:ad5b07aa4d01338ab607954a1b11d1fd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the accumulated input string for a console.  <a href="input_8h.html#ad5b07aa4d01338ab607954a1b11d1fd0">More...</a><br /></td></tr>
+<tr class="separator:ad5b07aa4d01338ab607954a1b11d1fd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Console line input API for Retro Rocket. </p>
 <dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>)</dd></dl>
 <p>This interface provides buffered, line-based input for consoles. It handles character input, backspace editing, line completion detection, and safe buffer allocation. The functions in this header are backed by the implementation in <a class="el" href="input_8c.html">input.c</a>.</p>
-<h2><a class="anchor" id="autotoc_md0"></a>
+<h2><a class="anchor" id="autotoc_md4"></a>
 Usage Lifecycle</h2>
 <ol type="1">
 <li>Call <code>kinput(maxlen, cons)</code> repeatedly until it returns <code>1</code> (line complete).</li>
@@ -118,8 +118,8 @@ Usage Lifecycle</h2>
 <li>Process the string as needed.</li>
 <li>Call <code>kfreeinput(cons)</code> when finished to release the internal buffer.</li>
 </ol>
-<p>The buffer is lazily allocated by <code><a class="el" href="input_8h.html#ad1207d022962151b2b0d89c803dd5ae2" title="Poll for a single character of input from the console.">kinput()</a></code> when the first character arrives, so you must not call <code><a class="el" href="input_8h.html#a34b6b79a54527d752aa80ac4c25904b9" title="Retrieve the accumulated input string for a console.">kgetinput()</a></code> until after at least one successful call to <code><a class="el" href="input_8h.html#ad1207d022962151b2b0d89c803dd5ae2" title="Poll for a single character of input from the console.">kinput()</a></code>.</p>
-<h2><a class="anchor" id="autotoc_md1"></a>
+<p>The buffer is lazily allocated by <code><a class="el" href="input_8h.html#a4778712feab983c5195c309ba33f9c17" title="Poll for a single character of input from the console.">kinput()</a></code> when the first character arrives, so you must not call <code><a class="el" href="input_8h.html#ad5b07aa4d01338ab607954a1b11d1fd0" title="Retrieve the accumulated input string for a console.">kgetinput()</a></code> until after at least one successful call to <code><a class="el" href="input_8h.html#a4778712feab983c5195c309ba33f9c17" title="Poll for a single character of input from the console.">kinput()</a></code>.</p>
+<h2><a class="anchor" id="autotoc_md5"></a>
 Behaviour</h2>
 <ul>
 <li>Input is null-terminated automatically.</li>
@@ -130,10 +130,10 @@ Behaviour</h2>
 <li>If the buffer limit is reached, no more characters are added and a beep is emitted as feedback.</li>
 </ul>
 <dl class="section note"><dt>Note</dt><dd>This input API is retained primarily to support the BASIC INPUT statement and similar minimal line-reading requirements. Modern interactive shells and tools use the ANSI console library, which provides line editing, history, and richer input handling.</dd></dl>
-<p><code><a class="el" href="input_8h.html#ad1207d022962151b2b0d89c803dd5ae2" title="Poll for a single character of input from the console.">kinput()</a></code> is intentionally simple and blocking; it does not support advanced editing or multiple input sources. </p>
+<p><code><a class="el" href="input_8h.html#a4778712feab983c5195c309ba33f9c17" title="Poll for a single character of input from the console.">kinput()</a></code> is intentionally simple and blocking; it does not support advanced editing or multiple input sources. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a65464dd8cd9c0efddb97e19102b2482e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a65464dd8cd9c0efddb97e19102b2482e">&#9670;&nbsp;</a></span>kfreeinput()</h2>
+<a id="a25777c7821eb7ec70f2eed32211eb420"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25777c7821eb7ec70f2eed32211eb420">&#9670;&nbsp;</a></span>kfreeinput()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -141,15 +141,14 @@ Behaviour</h2>
         <tr>
           <td class="memname">void kfreeinput </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structconsole.html">console</a> *&#160;</td>
-          <td class="paramname"><em>cons</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Free the internal input buffer associated with a console. </p>
-<p>This function releases the memory used to store a pending line of input for the specified console. It should be called after input has been processed, to prevent memory leaks and prepare the console for the next <code><a class="el" href="input_8h.html#ad1207d022962151b2b0d89c803dd5ae2" title="Poll for a single character of input from the console.">kinput()</a></code> cycle.</p>
+<p>This function releases the memory used to store a pending line of input for the specified console. It should be called after input has been processed, to prevent memory leaks and prepare the console for the next <code><a class="el" href="input_8h.html#a4778712feab983c5195c309ba33f9c17" title="Poll for a single character of input from the console.">kinput()</a></code> cycle.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cons</td><td>Console whose input buffer should be freed. </td></tr>
@@ -159,8 +158,8 @@ Behaviour</h2>
 
 </div>
 </div>
-<a id="a34b6b79a54527d752aa80ac4c25904b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34b6b79a54527d752aa80ac4c25904b9">&#9670;&nbsp;</a></span>kgetinput()</h2>
+<a id="ad5b07aa4d01338ab607954a1b11d1fd0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5b07aa4d01338ab607954a1b11d1fd0">&#9670;&nbsp;</a></span>kgetinput()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -168,8 +167,7 @@ Behaviour</h2>
         <tr>
           <td class="memname">char* kgetinput </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structconsole.html">console</a> *&#160;</td>
-          <td class="paramname"><em>cons</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -183,12 +181,12 @@ Behaviour</h2>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to the null-terminated input string, or NULL if no buffer exists.</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>Do not free the returned pointer directly; use <a class="el" href="input_8h.html#a65464dd8cd9c0efddb97e19102b2482e">kfreeinput()</a>. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>Do not free the returned pointer directly; use <a class="el" href="input_8h.html#a25777c7821eb7ec70f2eed32211eb420">kfreeinput()</a>. </dd></dl>
 
 </div>
 </div>
-<a id="ad1207d022962151b2b0d89c803dd5ae2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad1207d022962151b2b0d89c803dd5ae2">&#9670;&nbsp;</a></span>kinput()</h2>
+<a id="a4778712feab983c5195c309ba33f9c17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4778712feab983c5195c309ba33f9c17">&#9670;&nbsp;</a></span>kinput()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -197,18 +195,8 @@ Behaviour</h2>
           <td class="memname">size_t kinput </td>
           <td>(</td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>maxlen</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>maxlen</em></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structconsole.html">console</a> *&#160;</td>
-          <td class="paramname"><em>cons</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -234,7 +222,7 @@ Behaviour</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="input_8h.html">input.h</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

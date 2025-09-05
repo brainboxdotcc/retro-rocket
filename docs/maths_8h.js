@@ -1,5 +1,7 @@
 var maths_8h =
 [
+    [ "CLAMP", "maths_8h.html#a49fc908b537b2bfd13462453f83267c0", null ],
+    [ "MAX", "maths_8h.html#afa99ec4acc4ecb2dc3c2d05da15d0e3f", null ],
     [ "MIN", "maths_8h.html#a3acffbd305ee72dcd4593c0d8af64a4f", null ],
     [ "acos", "maths_8h.html#ae93afe22ff34c79ee97ea3eaf77557db", null ],
     [ "asin", "maths_8h.html#aa9528d92a3ae44ad6484da0774604454", null ],

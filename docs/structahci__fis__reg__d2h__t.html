@@ -91,13 +91,17 @@ $(document).ready(function(){initNavTree('structahci__fis__reg__d2h__t.html','')
 </div><!--header-->
 <div class="contents">
 
+<p>Register FIS: Device to Host (D2H).  
+ <a href="structahci__fis__reg__d2h__t.html#details">More...</a></p>
+
 <p><code>#include &lt;ahci.h&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for ahci_fis_reg_d2h_t:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structahci__fis__reg__d2h__t__coll__graph.svg" width="154" height="274"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="structahci__fis__reg__d2h__t__coll__graph.svg" width="159" height="274"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -108,8 +112,8 @@ Data Fields</h2></td></tr>
 <tr class="separator:a895c5bd73f92091694d2593b847a393d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad45f9c13eae8fb563d24bd935362f40a"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__reg__d2h__t.html#ad45f9c13eae8fb563d24bd935362f40a">rsv0</a>:2</td></tr>
 <tr class="separator:ad45f9c13eae8fb563d24bd935362f40a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a371cecb9115c922cd1861386b645fb37"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__reg__d2h__t.html#a371cecb9115c922cd1861386b645fb37">i</a>:1</td></tr>
-<tr class="separator:a371cecb9115c922cd1861386b645fb37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08431009782d2698144fdd20117ec616"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__reg__d2h__t.html#a08431009782d2698144fdd20117ec616">interrupt</a>:1</td></tr>
+<tr class="separator:a08431009782d2698144fdd20117ec616"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4578ce7f8c836233630a1690ee3a8775"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__reg__d2h__t.html#a4578ce7f8c836233630a1690ee3a8775">rsv1</a>:1</td></tr>
 <tr class="separator:a4578ce7f8c836233630a1690ee3a8775"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f06cb02e6bd184e2b7a45c94edc3ba8"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__reg__d2h__t.html#a7f06cb02e6bd184e2b7a45c94edc3ba8">status</a></td></tr>
@@ -132,41 +136,45 @@ Data Fields</h2></td></tr>
 <tr class="separator:a0070229a730217b7a180c92a30362bad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a499130296a647cf840eaceba7718c4c5"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__reg__d2h__t.html#a499130296a647cf840eaceba7718c4c5">rsv2</a></td></tr>
 <tr class="separator:a499130296a647cf840eaceba7718c4c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace6b982f3a9252301b11b69acd67ed35"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__reg__d2h__t.html#ace6b982f3a9252301b11b69acd67ed35">countl</a></td></tr>
-<tr class="separator:ace6b982f3a9252301b11b69acd67ed35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee87f29a3613c0b87e456f5308d9fd87"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__reg__d2h__t.html#aee87f29a3613c0b87e456f5308d9fd87">counth</a></td></tr>
-<tr class="separator:aee87f29a3613c0b87e456f5308d9fd87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ecf4bb8ecf95845a53f6e301526d771"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__reg__d2h__t.html#a5ecf4bb8ecf95845a53f6e301526d771">count_low</a></td></tr>
+<tr class="separator:a5ecf4bb8ecf95845a53f6e301526d771"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf728f28629639ffea749e30e21c78b3"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__reg__d2h__t.html#adf728f28629639ffea749e30e21c78b3">count_high</a></td></tr>
+<tr class="separator:adf728f28629639ffea749e30e21c78b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c058a7999e54fcb0fe10a77249a0111"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__reg__d2h__t.html#a4c058a7999e54fcb0fe10a77249a0111">rsv3</a> [2]</td></tr>
 <tr class="separator:a4c058a7999e54fcb0fe10a77249a0111"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba4abd1341e2d4acec67360e55e352cd"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structahci__fis__reg__d2h__t.html#aba4abd1341e2d4acec67360e55e352cd">rsv4</a> [4]</td></tr>
 <tr class="separator:aba4abd1341e2d4acec67360e55e352cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Field Documentation</h2>
-<a id="aee87f29a3613c0b87e456f5308d9fd87"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee87f29a3613c0b87e456f5308d9fd87">&#9670;&nbsp;</a></span>counth</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Register FIS: Device to Host (D2H). </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a id="adf728f28629639ffea749e30e21c78b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf728f28629639ffea749e30e21c78b3">&#9670;&nbsp;</a></span>count_high</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t ahci_fis_reg_d2h_t::counth</td>
+          <td class="memname">uint8_t ahci_fis_reg_d2h_t::count_high</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Count register, bits 15:8 </p>
 
 </div>
 </div>
-<a id="ace6b982f3a9252301b11b69acd67ed35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace6b982f3a9252301b11b69acd67ed35">&#9670;&nbsp;</a></span>countl</h2>
+<a id="a5ecf4bb8ecf95845a53f6e301526d771"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ecf4bb8ecf95845a53f6e301526d771">&#9670;&nbsp;</a></span>count_low</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t ahci_fis_reg_d2h_t::countl</td>
+          <td class="memname">uint8_t ahci_fis_reg_d2h_t::count_low</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Count register, bits 7:0 </p>
 
 </div>
 </div>
@@ -181,6 +189,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Device register </p>
 
 </div>
 </div>
@@ -195,6 +204,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>ATA Error register snapshot </p>
 
 </div>
 </div>
@@ -209,20 +219,22 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>FIS type (FIS_TYPE_REG_D2H) </p>
 
 </div>
 </div>
-<a id="a371cecb9115c922cd1861386b645fb37"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a371cecb9115c922cd1861386b645fb37">&#9670;&nbsp;</a></span>i</h2>
+<a id="a08431009782d2698144fdd20117ec616"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08431009782d2698144fdd20117ec616">&#9670;&nbsp;</a></span>interrupt</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t ahci_fis_reg_d2h_t::i</td>
+          <td class="memname">uint8_t ahci_fis_reg_d2h_t::interrupt</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Interrupt bit (I) </p>
 
 </div>
 </div>
@@ -237,6 +249,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>LBA low register, bits 7:0 </p>
 
 </div>
 </div>
@@ -251,6 +264,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>LBA mid register, bits 15:8 </p>
 
 </div>
 </div>
@@ -265,6 +279,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>LBA high register, bits 23:16 </p>
 
 </div>
 </div>
@@ -279,6 +294,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>LBA register, bits 31:24 </p>
 
 </div>
 </div>
@@ -293,6 +309,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>LBA register, bits 39:32 </p>
 
 </div>
 </div>
@@ -307,6 +324,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>LBA register, bits 47:40 </p>
 
 </div>
 </div>
@@ -321,6 +339,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Port multiplier port </p>
 
 </div>
 </div>
@@ -335,6 +354,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Reserved, must be zero </p>
 
 </div>
 </div>
@@ -349,6 +369,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Reserved, must be zero </p>
 
 </div>
 </div>
@@ -363,6 +384,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Reserved, must be zero </p>
 
 </div>
 </div>
@@ -377,6 +399,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Reserved, must be zero </p>
 
 </div>
 </div>
@@ -391,6 +414,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Reserved, must be zero </p>
 
 </div>
 </div>
@@ -405,6 +429,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>ATA Status register snapshot </p>
 
 </div>
 </div>
@@ -414,7 +439,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structahci__fis__reg__d2h__t.html">ahci_fis_reg_d2h_t</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

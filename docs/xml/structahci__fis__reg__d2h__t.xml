@@ -12,10 +12,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>FIS type (FIS_TYPE_REG_D2H) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="57" column="10" bodyfile="include/ahci.h" bodystart="57" bodyend="-1"/>
+        <location file="include/ahci.h" line="59" column="9" bodyfile="include/ahci.h" bodystart="59" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__reg__d2h__t_1a895c5bd73f92091694d2593b847a393d" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -26,10 +27,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Port multiplier port </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="59" column="10" bodyfile="include/ahci.h" bodystart="59" bodyend="-1"/>
+        <location file="include/ahci.h" line="60" column="9" bodyfile="include/ahci.h" bodystart="60" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__reg__d2h__t_1ad45f9c13eae8fb563d24bd935362f40a" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -40,24 +42,26 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Reserved, must be zero </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="60" column="10" bodyfile="include/ahci.h" bodystart="60" bodyend="-1"/>
+        <location file="include/ahci.h" line="61" column="9" bodyfile="include/ahci.h" bodystart="61" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__fis__reg__d2h__t_1a371cecb9115c922cd1861386b645fb37" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__fis__reg__d2h__t_1a08431009782d2698144fdd20117ec616" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
-        <definition>uint8_t ahci_fis_reg_d2h_t::i</definition>
+        <definition>uint8_t ahci_fis_reg_d2h_t::interrupt</definition>
         <argsstring></argsstring>
-        <name>i</name>
+        <name>interrupt</name>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Interrupt bit (I) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="61" column="10" bodyfile="include/ahci.h" bodystart="61" bodyend="-1"/>
+        <location file="include/ahci.h" line="62" column="9" bodyfile="include/ahci.h" bodystart="62" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__reg__d2h__t_1a4578ce7f8c836233630a1690ee3a8775" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -68,10 +72,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Reserved, must be zero </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="62" column="10" bodyfile="include/ahci.h" bodystart="62" bodyend="-1"/>
+        <location file="include/ahci.h" line="63" column="9" bodyfile="include/ahci.h" bodystart="63" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__reg__d2h__t_1a7f06cb02e6bd184e2b7a45c94edc3ba8" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -81,10 +86,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>ATA Status register snapshot </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="64" column="10" bodyfile="include/ahci.h" bodystart="64" bodyend="-1"/>
+        <location file="include/ahci.h" line="64" column="9" bodyfile="include/ahci.h" bodystart="64" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__reg__d2h__t_1a9e8a35ea749b5d2baa3b6824a2680997" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -94,10 +100,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>ATA Error register snapshot </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="65" column="10" bodyfile="include/ahci.h" bodystart="65" bodyend="-1"/>
+        <location file="include/ahci.h" line="65" column="9" bodyfile="include/ahci.h" bodystart="65" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__reg__d2h__t_1a7339a389569c46625b43aa2f8d884d1c" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -107,10 +114,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>LBA low register, bits 7:0 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="68" column="10" bodyfile="include/ahci.h" bodystart="68" bodyend="-1"/>
+        <location file="include/ahci.h" line="66" column="9" bodyfile="include/ahci.h" bodystart="66" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__reg__d2h__t_1ae7791b600d69b5b70d45d6b06f3ef12f" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -120,10 +128,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>LBA mid register, bits 15:8 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="69" column="10" bodyfile="include/ahci.h" bodystart="69" bodyend="-1"/>
+        <location file="include/ahci.h" line="67" column="9" bodyfile="include/ahci.h" bodystart="67" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__reg__d2h__t_1a829a53a3f81be13d399976b0a0fdb4c4" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -133,10 +142,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>LBA high register, bits 23:16 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="70" column="10" bodyfile="include/ahci.h" bodystart="70" bodyend="-1"/>
+        <location file="include/ahci.h" line="68" column="9" bodyfile="include/ahci.h" bodystart="68" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__reg__d2h__t_1aeff899077dd58ae3a728da211986aed9" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -146,10 +156,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Device register </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="71" column="10" bodyfile="include/ahci.h" bodystart="71" bodyend="-1"/>
+        <location file="include/ahci.h" line="69" column="9" bodyfile="include/ahci.h" bodystart="69" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__reg__d2h__t_1af24a15fb2d84ca44aa5ce9a04a34cd22" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -159,10 +170,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>LBA register, bits 31:24 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="74" column="10" bodyfile="include/ahci.h" bodystart="74" bodyend="-1"/>
+        <location file="include/ahci.h" line="70" column="9" bodyfile="include/ahci.h" bodystart="70" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__reg__d2h__t_1ab1b527c572416f71709648b75c851951" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -172,10 +184,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>LBA register, bits 39:32 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="75" column="10" bodyfile="include/ahci.h" bodystart="75" bodyend="-1"/>
+        <location file="include/ahci.h" line="71" column="9" bodyfile="include/ahci.h" bodystart="71" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__reg__d2h__t_1a0070229a730217b7a180c92a30362bad" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -185,10 +198,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>LBA register, bits 47:40 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="76" column="10" bodyfile="include/ahci.h" bodystart="76" bodyend="-1"/>
+        <location file="include/ahci.h" line="72" column="9" bodyfile="include/ahci.h" bodystart="72" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__reg__d2h__t_1a499130296a647cf840eaceba7718c4c5" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -198,36 +212,39 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Reserved, must be zero </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="77" column="10" bodyfile="include/ahci.h" bodystart="77" bodyend="-1"/>
+        <location file="include/ahci.h" line="73" column="9" bodyfile="include/ahci.h" bodystart="73" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__fis__reg__d2h__t_1ace6b982f3a9252301b11b69acd67ed35" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__fis__reg__d2h__t_1a5ecf4bb8ecf95845a53f6e301526d771" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
-        <definition>uint8_t ahci_fis_reg_d2h_t::countl</definition>
+        <definition>uint8_t ahci_fis_reg_d2h_t::count_low</definition>
         <argsstring></argsstring>
-        <name>countl</name>
+        <name>count_low</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Count register, bits 7:0 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="80" column="10" bodyfile="include/ahci.h" bodystart="80" bodyend="-1"/>
+        <location file="include/ahci.h" line="74" column="9" bodyfile="include/ahci.h" bodystart="74" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__fis__reg__d2h__t_1aee87f29a3613c0b87e456f5308d9fd87" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__fis__reg__d2h__t_1adf728f28629639ffea749e30e21c78b3" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
-        <definition>uint8_t ahci_fis_reg_d2h_t::counth</definition>
+        <definition>uint8_t ahci_fis_reg_d2h_t::count_high</definition>
         <argsstring></argsstring>
-        <name>counth</name>
+        <name>count_high</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Count register, bits 15:8 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="81" column="10" bodyfile="include/ahci.h" bodystart="81" bodyend="-1"/>
+        <location file="include/ahci.h" line="75" column="9" bodyfile="include/ahci.h" bodystart="75" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__reg__d2h__t_1a4c058a7999e54fcb0fe10a77249a0111" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -237,10 +254,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Reserved, must be zero </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="82" column="10" bodyfile="include/ahci.h" bodystart="82" bodyend="-1"/>
+        <location file="include/ahci.h" line="76" column="9" bodyfile="include/ahci.h" bodystart="76" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__fis__reg__d2h__t_1aba4abd1341e2d4acec67360e55e352cd" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -250,13 +268,15 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Reserved, must be zero </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ahci.h" line="85" column="10" bodyfile="include/ahci.h" bodystart="85" bodyend="-1"/>
+        <location file="include/ahci.h" line="77" column="9" bodyfile="include/ahci.h" bodystart="77" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Register FIS: Device to Host (D2H). </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
@@ -265,12 +285,12 @@
         <label>ahci_fis_reg_d2h_t</label>
         <link refid="structahci__fis__reg__d2h__t"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>counth</edgelabel>
-          <edgelabel>countl</edgelabel>
+          <edgelabel>count_high</edgelabel>
+          <edgelabel>count_low</edgelabel>
           <edgelabel>device</edgelabel>
           <edgelabel>error</edgelabel>
           <edgelabel>fis_type</edgelabel>
-          <edgelabel>i</edgelabel>
+          <edgelabel>interrupt</edgelabel>
           <edgelabel>lba0</edgelabel>
           <edgelabel>lba1</edgelabel>
           <edgelabel>lba2</edgelabel>
@@ -282,14 +302,14 @@
         <label>uint8_t</label>
       </node>
     </collaborationgraph>
-    <location file="include/ahci.h" line="54" column="1" bodyfile="include/ahci.h" bodystart="55" bodyend="86"/>
+    <location file="include/ahci.h" line="58" column="1" bodyfile="include/ahci.h" bodystart="58" bodyend="78"/>
     <listofallmembers>
-      <member refid="structahci__fis__reg__d2h__t_1aee87f29a3613c0b87e456f5308d9fd87" prot="public" virt="non-virtual"><scope>ahci_fis_reg_d2h_t</scope><name>counth</name></member>
-      <member refid="structahci__fis__reg__d2h__t_1ace6b982f3a9252301b11b69acd67ed35" prot="public" virt="non-virtual"><scope>ahci_fis_reg_d2h_t</scope><name>countl</name></member>
+      <member refid="structahci__fis__reg__d2h__t_1adf728f28629639ffea749e30e21c78b3" prot="public" virt="non-virtual"><scope>ahci_fis_reg_d2h_t</scope><name>count_high</name></member>
+      <member refid="structahci__fis__reg__d2h__t_1a5ecf4bb8ecf95845a53f6e301526d771" prot="public" virt="non-virtual"><scope>ahci_fis_reg_d2h_t</scope><name>count_low</name></member>
       <member refid="structahci__fis__reg__d2h__t_1aeff899077dd58ae3a728da211986aed9" prot="public" virt="non-virtual"><scope>ahci_fis_reg_d2h_t</scope><name>device</name></member>
       <member refid="structahci__fis__reg__d2h__t_1a9e8a35ea749b5d2baa3b6824a2680997" prot="public" virt="non-virtual"><scope>ahci_fis_reg_d2h_t</scope><name>error</name></member>
       <member refid="structahci__fis__reg__d2h__t_1affff6d57ce8e8bed3de2ceca01712b1c" prot="public" virt="non-virtual"><scope>ahci_fis_reg_d2h_t</scope><name>fis_type</name></member>
-      <member refid="structahci__fis__reg__d2h__t_1a371cecb9115c922cd1861386b645fb37" prot="public" virt="non-virtual"><scope>ahci_fis_reg_d2h_t</scope><name>i</name></member>
+      <member refid="structahci__fis__reg__d2h__t_1a08431009782d2698144fdd20117ec616" prot="public" virt="non-virtual"><scope>ahci_fis_reg_d2h_t</scope><name>interrupt</name></member>
       <member refid="structahci__fis__reg__d2h__t_1a7339a389569c46625b43aa2f8d884d1c" prot="public" virt="non-virtual"><scope>ahci_fis_reg_d2h_t</scope><name>lba0</name></member>
       <member refid="structahci__fis__reg__d2h__t_1ae7791b600d69b5b70d45d6b06f3ef12f" prot="public" virt="non-virtual"><scope>ahci_fis_reg_d2h_t</scope><name>lba1</name></member>
       <member refid="structahci__fis__reg__d2h__t_1a829a53a3f81be13d399976b0a0fdb4c4" prot="public" virt="non-virtual"><scope>ahci_fis_reg_d2h_t</scope><name>lba2</name></member>

@@ -126,9 +126,22 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a71c6a62eb0101db3e9200f27f7f3e2ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">IP protocol types.  <a href="ip_8h.html#a71c6a62eb0101db3e9200f27f7f3e2ed">More...</a><br /></td></tr>
 <tr class="separator:a71c6a62eb0101db3e9200f27f7f3e2ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23a343a8c6f8daa0adbcf7d7bac9a478"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8h.html#a23a343a8c6f8daa0adbcf7d7bac9a478">ip_proto_t</a> { <a class="el" href="ip_8h.html#a23a343a8c6f8daa0adbcf7d7bac9a478a92d2ba8746d548d7f29fdcdb4572ec37">PROTOCOL_ICMP</a> = 1
+<tr class="memitem:a23a343a8c6f8daa0adbcf7d7bac9a478"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8h.html#a23a343a8c6f8daa0adbcf7d7bac9a478">ip_proto_t</a> { <br />
+&#160;&#160;<a class="el" href="ip_8h.html#a23a343a8c6f8daa0adbcf7d7bac9a478a92d2ba8746d548d7f29fdcdb4572ec37">PROTOCOL_ICMP</a> = 1
+, <a class="el" href="ip_8h.html#a23a343a8c6f8daa0adbcf7d7bac9a478a5bc57dd587f404caa4f42c04dacd6e4b">PROTOCOL_IGMP</a> = 2
 , <a class="el" href="ip_8h.html#a23a343a8c6f8daa0adbcf7d7bac9a478ae991c7cad918269624b3c28147e18a93">PROTOCOL_TCP</a> = 6
 , <a class="el" href="ip_8h.html#a23a343a8c6f8daa0adbcf7d7bac9a478a3c79df624160aa6dbeeb4e2c13ca3dc7">PROTOCOL_UDP</a> = 17
+, <br />
+&#160;&#160;<a class="el" href="ip_8h.html#a23a343a8c6f8daa0adbcf7d7bac9a478a473560a81982e6b78766732d1af1225b">PROTOCOL_GRE</a> = 47
+, <a class="el" href="ip_8h.html#a23a343a8c6f8daa0adbcf7d7bac9a478a3113aa25e28ab00cb63d313547b73c53">PROTOCOL_ESP</a> = 50
+, <a class="el" href="ip_8h.html#a23a343a8c6f8daa0adbcf7d7bac9a478a0196713357c1ff2c323b45066feada80">PROTOCOL_AH</a> = 51
+, <a class="el" href="ip_8h.html#a23a343a8c6f8daa0adbcf7d7bac9a478aaf770bf74e448e4bf2e3bb383a662b29">PROTOCOL_IPV6</a> = 41
+, <br />
+&#160;&#160;<a class="el" href="ip_8h.html#a23a343a8c6f8daa0adbcf7d7bac9a478a2da62850718f88e62b7a451722be84d1">PROTOCOL_OSPF</a> = 89
+, <a class="el" href="ip_8h.html#a23a343a8c6f8daa0adbcf7d7bac9a478a859ab0ef4262cea6c0fee96180f8b3d7">PROTOCOL_PIM</a> = 103
+, <a class="el" href="ip_8h.html#a23a343a8c6f8daa0adbcf7d7bac9a478a69a28f4831fa472a67899fe91bed32eb">PROTOCOL_SCTP</a> = 132
+, <a class="el" href="ip_8h.html#a23a343a8c6f8daa0adbcf7d7bac9a478ab374d2d126aefd9a76833a32a597c65d">PROTOCOL_VRRP</a> = 112
+<br />
  }</td></tr>
 <tr class="memdesc:a23a343a8c6f8daa0adbcf7d7bac9a478"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sub-protocols, TCP and UDP.  <a href="ip_8h.html#a23a343a8c6f8daa0adbcf7d7bac9a478">More...</a><br /></td></tr>
 <tr class="separator:a23a343a8c6f8daa0adbcf7d7bac9a478"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -185,26 +198,26 @@ Functions</h2></td></tr>
 Variables</h2></td></tr>
 <tr class="memitem:a46a6da6b1936191571fd30b2a749f38c"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8h.html#a46a6da6b1936191571fd30b2a749f38c">bits</a></td></tr>
 <tr class="separator:a46a6da6b1936191571fd30b2a749f38c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e0cdbf19fded14dbfdc289079471218"><td class="memItemLeft" >struct {</td></tr>
-<tr class="memitem:a8cc3769c2bd1b0b2a651af410423ed26"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="ip_8h.html#a3b1222ec79882abb51fb3c4743e69980">reserved_zero</a>: 1</td></tr>
-<tr class="separator:a8cc3769c2bd1b0b2a651af410423ed26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abcebb3f50897825b5b25a19bb382b5da"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="ip_8h.html#a900391174cfa12e45c33b91dfb51567a">dont_fragment</a>: 1</td></tr>
-<tr class="separator:abcebb3f50897825b5b25a19bb382b5da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f9413fe0ecd053644a3eb827172e41e"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="ip_8h.html#aa2fad107028e67bb93ff81d0a448c34a">more_fragments_follow</a>: 1</td></tr>
-<tr class="separator:a5f9413fe0ecd053644a3eb827172e41e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e9c41f3b1a7f1005ca7ce9c9beb066c"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="ip_8h.html#a0c347fcf27daf16ed4801b3688f71399">fragment_offset_high</a>: 5</td></tr>
-<tr class="separator:a3e9c41f3b1a7f1005ca7ce9c9beb066c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a382027d85f029499e71d0cd1760e3874"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="ip_8h.html#a4dfb0bddcac7c0acfb64614e3fb6d6ec">fragment_offset_low</a>: 8</td></tr>
-<tr class="separator:a382027d85f029499e71d0cd1760e3874"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e0cdbf19fded14dbfdc289079471218"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:a3e0cdbf19fded14dbfdc289079471218"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3991341493667f1c047008512739a934"><td class="memItemLeft" >struct {</td></tr>
-<tr class="memitem:a1024260436107238dcd94681fc14803f"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="ip_8h.html#af6c1c78d408e91d2916add663a491623">dscp</a>:6</td></tr>
-<tr class="separator:a1024260436107238dcd94681fc14803f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa519a6a04bb615ad6d1b7b9b2de0a90b"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="ip_8h.html#afaf0e7ded50820ba5d7d11464707ce4c">ecn</a>:2</td></tr>
-<tr class="separator:aa519a6a04bb615ad6d1b7b9b2de0a90b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3991341493667f1c047008512739a934"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:a3991341493667f1c047008512739a934"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a784665c1869192b830859702e635f2cc"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:a8f04bea70f39e671e3283db13af19907"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="ip_8h.html#a3b1222ec79882abb51fb3c4743e69980">reserved_zero</a>: 1</td></tr>
+<tr class="separator:a8f04bea70f39e671e3283db13af19907"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3554a69c53eda20ff47cc447e68cfe1d"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="ip_8h.html#a900391174cfa12e45c33b91dfb51567a">dont_fragment</a>: 1</td></tr>
+<tr class="separator:a3554a69c53eda20ff47cc447e68cfe1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa95b9c01ce2baf42052bdba3e889f77b"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="ip_8h.html#aa2fad107028e67bb93ff81d0a448c34a">more_fragments_follow</a>: 1</td></tr>
+<tr class="separator:aa95b9c01ce2baf42052bdba3e889f77b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a14861c53be30dd35634df2388ed37f"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="ip_8h.html#a0c347fcf27daf16ed4801b3688f71399">fragment_offset_high</a>: 5</td></tr>
+<tr class="separator:a0a14861c53be30dd35634df2388ed37f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae16706bb9086b6190f17fe47df1da2ce"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="ip_8h.html#a4dfb0bddcac7c0acfb64614e3fb6d6ec">fragment_offset_low</a>: 8</td></tr>
+<tr class="separator:ae16706bb9086b6190f17fe47df1da2ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a784665c1869192b830859702e635f2cc"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:a784665c1869192b830859702e635f2cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a897f932e991c06fc9802a4e7e76108"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:a442924e3dcbcf5a9a2c8062796084a17"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="ip_8h.html#af6c1c78d408e91d2916add663a491623">dscp</a>:6</td></tr>
+<tr class="separator:a442924e3dcbcf5a9a2c8062796084a17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49c6ab23df141a23adc50dcd289f5740"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="ip_8h.html#afaf0e7ded50820ba5d7d11464707ce4c">ecn</a>:2</td></tr>
+<tr class="separator:a49c6ab23df141a23adc50dcd289f5740"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a897f932e991c06fc9802a4e7e76108"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:a6a897f932e991c06fc9802a4e7e76108"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8423311c91b40fe5616a2ab8afa080f0"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8h.html#a8423311c91b40fe5616a2ab8afa080f0">version_ihl_ptr</a> [0]</td></tr>
 <tr class="separator:a8423311c91b40fe5616a2ab8afa080f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab22abc2906422da61885ac6c8e6a1a59"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8h.html#ab22abc2906422da61885ac6c8e6a1a59">version</a></td></tr>
@@ -284,8 +297,17 @@ Variables</h2></td></tr>
 <p>Sub-protocols, TCP and UDP. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a23a343a8c6f8daa0adbcf7d7bac9a478a92d2ba8746d548d7f29fdcdb4572ec37"></a>PROTOCOL_ICMP&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a23a343a8c6f8daa0adbcf7d7bac9a478a5bc57dd587f404caa4f42c04dacd6e4b"></a>PROTOCOL_IGMP&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a23a343a8c6f8daa0adbcf7d7bac9a478ae991c7cad918269624b3c28147e18a93"></a>PROTOCOL_TCP&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a23a343a8c6f8daa0adbcf7d7bac9a478a3c79df624160aa6dbeeb4e2c13ca3dc7"></a>PROTOCOL_UDP&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a23a343a8c6f8daa0adbcf7d7bac9a478a473560a81982e6b78766732d1af1225b"></a>PROTOCOL_GRE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a23a343a8c6f8daa0adbcf7d7bac9a478a3113aa25e28ab00cb63d313547b73c53"></a>PROTOCOL_ESP&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a23a343a8c6f8daa0adbcf7d7bac9a478a0196713357c1ff2c323b45066feada80"></a>PROTOCOL_AH&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a23a343a8c6f8daa0adbcf7d7bac9a478aaf770bf74e448e4bf2e3bb383a662b29"></a>PROTOCOL_IPV6&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a23a343a8c6f8daa0adbcf7d7bac9a478a2da62850718f88e62b7a451722be84d1"></a>PROTOCOL_OSPF&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a23a343a8c6f8daa0adbcf7d7bac9a478a859ab0ef4262cea6c0fee96180f8b3d7"></a>PROTOCOL_PIM&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a23a343a8c6f8daa0adbcf7d7bac9a478a69a28f4831fa472a67899fe91bed32eb"></a>PROTOCOL_SCTP&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a23a343a8c6f8daa0adbcf7d7bac9a478ab374d2d126aefd9a76833a32a597c65d"></a>PROTOCOL_VRRP&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -333,6 +355,7 @@ Variables</h2></td></tr>
 <p>There is actually more to an ethernet frame than this (see the STD documents!) but we don't have access to it from the software.</p>
 <p>Definition of a DHCP packet.</p>
 <p>Format of an ARP packet (per RFC 826)</p>
+<p>Register FIS: Host to Device (H2D).</p>
 <p>Root System Description Table (RSDT)</p>
 <p>Generic ACPI System Description Table Header.</p>
 <p>This structure serves as the entry point to the ACPI system description tables. Its location is typically found by scanning the BIOS memory range. It may point to either the RSDT (ACPI 1.0) or XSDT (ACPI 2.0+).</p>
@@ -714,8 +737,8 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="a3e0cdbf19fded14dbfdc289079471218"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e0cdbf19fded14dbfdc289079471218">&#9670;&nbsp;</a></span></h2>
+<a id="a784665c1869192b830859702e635f2cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a784665c1869192b830859702e635f2cc">&#9670;&nbsp;</a></span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -728,8 +751,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a3991341493667f1c047008512739a934"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3991341493667f1c047008512739a934">&#9670;&nbsp;</a></span></h2>
+<a id="a6a897f932e991c06fc9802a4e7e76108"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a897f932e991c06fc9802a4e7e76108">&#9670;&nbsp;</a></span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1070,7 +1093,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="ip_8h.html">ip.h</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -6,8 +6,8 @@
     <includes local="no">stdint.h</includes>
     <includes local="no">stdbool.h</includes>
     <includedby refid="fb_8h" local="yes">fb.h</includedby>
-    <includedby refid="fb_8c" local="no">fb.c</includedby>
-    <includedby refid="flanterm_8c" local="no">flanterm.c</includedby>
+    <includedby refid="fb_8c" local="yes">fb.c</includedby>
+    <includedby refid="flanterm_8c" local="yes">flanterm.c</includedby>
     <includedby refid="video_8c" local="no">video.c</includedby>
     <incdepgraph>
       <node id="4">
@@ -47,6 +47,10 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
+      <node id="5">
+        <label>flanterm.c</label>
+        <link refid="flanterm_8c"/>
+      </node>
       <node id="3">
         <label>fb.c</label>
         <link refid="fb_8c"/>
@@ -58,10 +62,6 @@
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-      </node>
-      <node id="5">
-        <label>flanterm.c</label>
-        <link refid="flanterm_8c"/>
       </node>
     </invincdepgraph>
       <sectiondef kind="define">
@@ -266,7 +266,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/flanterm.h" line="65" column="6" bodyfile="src/flanterm.c" bodystart="113" bodyend="121" declfile="include/flanterm.h" declline="65" declcolumn="6"/>
+        <location file="include/flanterm.h" line="65" column="6" bodyfile="src/flanterm/flanterm.c" bodystart="113" bodyend="121" declfile="include/flanterm.h" declline="65" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="flanterm_8h_1ab517c5d89f6c3874037b92b03bb47196" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -283,7 +283,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/flanterm.h" line="66" column="6" bodyfile="src/flanterm.c" bodystart="1355" bodyend="1357" declfile="include/flanterm.h" declline="66" declcolumn="6"/>
+        <location file="include/flanterm.h" line="66" column="6" bodyfile="src/flanterm/flanterm.c" bodystart="1355" bodyend="1357" declfile="include/flanterm.h" declline="66" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="flanterm_8h_1a4375abfa238b46c99f77c6e924a88273" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -300,7 +300,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/flanterm.h" line="67" column="6" bodyfile="src/flanterm.c" bodystart="1359" bodyend="1361" declfile="include/flanterm.h" declline="67" declcolumn="6"/>
+        <location file="include/flanterm.h" line="67" column="6" bodyfile="src/flanterm/flanterm.c" bodystart="1359" bodyend="1361" declfile="include/flanterm.h" declline="67" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="flanterm_8h_1a1ba4d5d875017bc5f2b19c412fb3c0ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -346,7 +346,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/flanterm.h" line="70" column="6" bodyfile="src/flanterm.c" bodystart="1367" bodyend="1370" declfile="include/flanterm.h" declline="70" declcolumn="6"/>
+        <location file="include/flanterm.h" line="70" column="6" bodyfile="src/flanterm/flanterm.c" bodystart="1367" bodyend="1370" declfile="include/flanterm.h" declline="70" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="flanterm_8h_1a94be7061271fcda95eb2d8782f768d27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -367,7 +367,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/flanterm.h" line="71" column="6" bodyfile="src/flanterm.c" bodystart="1372" bodyend="1374" declfile="include/flanterm.h" declline="71" declcolumn="6"/>
+        <location file="include/flanterm.h" line="71" column="6" bodyfile="src/flanterm/flanterm.c" bodystart="1372" bodyend="1374" declfile="include/flanterm.h" declline="71" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="flanterm_8h_1a2f3305b8ef5aa3fec9e85531fa44596d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -388,7 +388,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/flanterm.h" line="72" column="6" bodyfile="src/flanterm.c" bodystart="1376" bodyend="1378" declfile="include/flanterm.h" declline="72" declcolumn="6"/>
+        <location file="include/flanterm.h" line="72" column="6" bodyfile="src/flanterm/flanterm.c" bodystart="1376" bodyend="1378" declfile="include/flanterm.h" declline="72" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="flanterm_8h_1ac4eecbce3af6519cc08d990d88b0c6bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint64_t</type>
@@ -405,7 +405,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/flanterm.h" line="73" column="10" bodyfile="src/flanterm.c" bodystart="1380" bodyend="1382" declfile="include/flanterm.h" declline="73" declcolumn="10"/>
+        <location file="include/flanterm.h" line="73" column="10" bodyfile="src/flanterm/flanterm.c" bodystart="1380" bodyend="1382" declfile="include/flanterm.h" declline="73" declcolumn="10"/>
       </memberdef>
       <memberdef kind="function" id="flanterm_8h_1af154968b626f73f84f0cb926f58f0c09" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -426,7 +426,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/flanterm.h" line="74" column="6" bodyfile="src/flanterm.c" bodystart="1384" bodyend="1386" declfile="include/flanterm.h" declline="74" declcolumn="6"/>
+        <location file="include/flanterm.h" line="74" column="6" bodyfile="src/flanterm/flanterm.c" bodystart="1384" bodyend="1386" declfile="include/flanterm.h" declline="74" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="flanterm_8h_1a6189a7c37ff7470e1cf5335bf55d1347" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -439,7 +439,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/flanterm.h" line="76" column="9" bodyfile="src/fb.c" bodystart="553" bodyend="555" declfile="include/flanterm.h" declline="76" declcolumn="9"/>
+        <location file="include/flanterm.h" line="76" column="9" bodyfile="src/flanterm/fb.c" bodystart="553" bodyend="555" declfile="include/flanterm.h" declline="76" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="flanterm_8h_1a9425df2c54c146117bf9abb0150cf304" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -452,7 +452,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/flanterm.h" line="77" column="9" bodyfile="src/fb.c" bodystart="557" bodyend="559" declfile="include/flanterm.h" declline="77" declcolumn="9"/>
+        <location file="include/flanterm.h" line="77" column="9" bodyfile="src/flanterm/fb.c" bodystart="557" bodyend="559" declfile="include/flanterm.h" declline="77" declcolumn="9"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

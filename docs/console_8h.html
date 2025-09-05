@@ -137,9 +137,9 @@ Functions</h2></td></tr>
 <tr class="memitem:abffec674ac0197db69350612d5ced1d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="console_8h.html#abffec674ac0197db69350612d5ced1d3">print_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
 <tr class="memdesc:abffec674ac0197db69350612d5ced1d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output data to the console with the PRINT statement.  <a href="console_8h.html#abffec674ac0197db69350612d5ced1d3">More...</a><br /></td></tr>
 <tr class="separator:abffec674ac0197db69350612d5ced1d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a868b87233705ab22e1b93c632e15b6c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="console_8h.html#a868b87233705ab22e1b93c632e15b6c6">colour_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx, int tok)</td></tr>
-<tr class="memdesc:a868b87233705ab22e1b93c632e15b6c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the text foreground colour.  <a href="console_8h.html#a868b87233705ab22e1b93c632e15b6c6">More...</a><br /></td></tr>
-<tr class="separator:a868b87233705ab22e1b93c632e15b6c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80490b728365db1ef4c73931c4b16b1a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="console_8h.html#a80490b728365db1ef4c73931c4b16b1a">colour_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx, enum <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfe">token_t</a> tok)</td></tr>
+<tr class="memdesc:a80490b728365db1ef4c73931c4b16b1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the text foreground colour.  <a href="console_8h.html#a80490b728365db1ef4c73931c4b16b1a">More...</a><br /></td></tr>
+<tr class="separator:a80490b728365db1ef4c73931c4b16b1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aabca0a0f88ad93cea8fa1a1ffba32fa8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="console_8h.html#aabca0a0f88ad93cea8fa1a1ffba32fa8">background_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
 <tr class="memdesc:aabca0a0f88ad93cea8fa1a1ffba32fa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the text background colour.  <a href="console_8h.html#aabca0a0f88ad93cea8fa1a1ffba32fa8">More...</a><br /></td></tr>
 <tr class="separator:aabca0a0f88ad93cea8fa1a1ffba32fa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -149,6 +149,11 @@ Functions</h2></td></tr>
 <tr class="memitem:a376039e4daac4d18aa94c2aac69924f8"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="console_8h.html#a376039e4daac4d18aa94c2aac69924f8">basic_inkey</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
 <tr class="memdesc:a376039e4daac4d18aa94c2aac69924f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a keypress from the user.  <a href="console_8h.html#a376039e4daac4d18aa94c2aac69924f8">More...</a><br /></td></tr>
 <tr class="separator:a376039e4daac4d18aa94c2aac69924f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af810e97691959b6cb0aadf05326d500c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="console_8h.html#af810e97691959b6cb0aadf05326d500c">sleep_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="memdesc:af810e97691959b6cb0aadf05326d500c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waits for a given number of seconds.  <a href="console_8h.html#af810e97691959b6cb0aadf05326d500c">More...</a><br /></td></tr>
+<tr class="separator:af810e97691959b6cb0aadf05326d500c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7bb6804126a4bedcc4a9c7b43f7ca1f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="console_8h.html#ac7bb6804126a4bedcc4a9c7b43f7ca1f">basic_esc</a> ()</td></tr>
+<tr class="separator:ac7bb6804126a4bedcc4a9c7b43f7ca1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Header for BASIC console IO functions. </p>
@@ -284,6 +289,23 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A non-zero value if the Ctrl key is pressed, 0 otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="ac7bb6804126a4bedcc4a9c7b43f7ca1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7bb6804126a4bedcc4a9c7b43f7ca1f">&#9670;&nbsp;</a></span>basic_esc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool basic_esc </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -521,8 +543,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a868b87233705ab22e1b93c632e15b6c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a868b87233705ab22e1b93c632e15b6c6">&#9670;&nbsp;</a></span>colour_statement()</h2>
+<a id="a80490b728365db1ef4c73931c4b16b1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80490b728365db1ef4c73931c4b16b1a">&#9670;&nbsp;</a></span>colour_statement()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -536,7 +558,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">enum <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfe">token_t</a>&#160;</td>
           <td class="paramname"><em>tok</em>&#160;</td>
         </tr>
         <tr>
@@ -608,7 +630,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <p>Handle cooperative input for the INPUT statement.</p>
-<p>When a BASIC <code>INPUT</code> statement is encountered, the interpreter checks whether a complete line of user input is available via <code><a class="el" href="input_8h.html#ad1207d022962151b2b0d89c803dd5ae2" title="Poll for a single character of input from the console.">kinput()</a></code>. If not, the process voluntarily yields using <code><a class="el" href="taskswitch_8h.html#a837266f5243f7240269b77b0298afbe2" title="Set or clear the idle state of a process.">proc_set_idle()</a></code> and assigns a custom callback (<code>check_input_in_progress</code>) to periodically test for input readiness.</p>
+<p>When a BASIC <code>INPUT</code> statement is encountered, the interpreter checks whether a complete line of user input is available via <code><a class="el" href="input_8h.html#a4778712feab983c5195c309ba33f9c17" title="Poll for a single character of input from the console.">kinput()</a></code>. If not, the process voluntarily yields using <code><a class="el" href="taskswitch_8h.html#a837266f5243f7240269b77b0298afbe2" title="Set or clear the idle state of a process.">proc_set_idle()</a></code> and assigns a custom callback (<code>check_input_in_progress</code>) to periodically test for input readiness.</p>
 <p>While idle, the process enters <code>PROC_IO_BOUND</code> state. Once the callback returns <code>false</code>, the scheduler resumes execution at the original line (via <code><a class="el" href="context_8h.html#aa2c73bceaa056ea01125ef6fdfce922e" title="Jump to a specific line number in the BASIC program.">jump_linenum()</a></code>), and input is finalised and assigned to the variable.</p>
 <p>This mechanism ensures non-blocking interactive IO without requiring preemption, and keeps the interpreter logic readable and non-reentrant. </p>
 
@@ -701,13 +723,39 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="af810e97691959b6cb0aadf05326d500c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af810e97691959b6cb0aadf05326d500c">&#9670;&nbsp;</a></span>sleep_statement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sleep_statement </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Waits for a given number of seconds. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>The interpreter context. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_1e5d3661ed79af157d57e64a38265d09.html">basic</a></li><li class="navelem"><a class="el" href="console_8h.html">console.h</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:44 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

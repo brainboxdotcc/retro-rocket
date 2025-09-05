@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ip.h" line="34" column="14" bodyfile="include/ip.h" bodystart="34" bodyend="-1"/>
+        <location file="include/ip.h" line="43" column="14" bodyfile="include/ip.h" bodystart="43" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="unionip__frag_1a547ee43b7a3f7864cb0ce5f28df682f7" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -29,7 +29,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ip.h" line="36" column="9" bodyfile="include/ip.h" bodystart="36" bodyend="-1"/>
+        <location file="include/ip.h" line="45" column="9" bodyfile="include/ip.h" bodystart="45" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="unionip__frag_1a12b89a05fbe2cb0f374961ff88391785" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -43,7 +43,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ip.h" line="37" column="9" bodyfile="include/ip.h" bodystart="37" bodyend="-1"/>
+        <location file="include/ip.h" line="46" column="9" bodyfile="include/ip.h" bodystart="46" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="unionip__frag_1a1158f72dcffffef978c0d59f5b777f26" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -57,7 +57,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ip.h" line="38" column="9" bodyfile="include/ip.h" bodystart="38" bodyend="-1"/>
+        <location file="include/ip.h" line="47" column="9" bodyfile="include/ip.h" bodystart="47" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="unionip__frag_1a95e3221505ee7f071367ab88075caa13" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -71,7 +71,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ip.h" line="39" column="9" bodyfile="include/ip.h" bodystart="39" bodyend="-1"/>
+        <location file="include/ip.h" line="48" column="9" bodyfile="include/ip.h" bodystart="48" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="unionip__frag_1a126f005453611922f0e7538606855f01" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -85,20 +85,20 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ip.h" line="40" column="9" bodyfile="include/ip.h" bodystart="40" bodyend="-1"/>
+        <location file="include/ip.h" line="49" column="9" bodyfile="include/ip.h" bodystart="49" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="unionip__frag_1a31c59d9aa135e6e4b80f1b9c4677d80c" prot="public" static="no" mutable="no">
-        <type>struct ip_frag::@0</type>
-        <definition>struct ip_frag::@0 ip_frag::@1</definition>
+      <memberdef kind="variable" id="unionip__frag_1ab5938cf51cf00021e1770d5ef67cd400" prot="public" static="no" mutable="no">
+        <type>struct ip_frag::@1</type>
+        <definition>struct ip_frag::@1 ip_frag::@2</definition>
         <argsstring></argsstring>
-        <name>@1</name>
+        <name>@2</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ip.h" line="41" column="5"/>
+        <location file="include/ip.h" line="50" column="5"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -108,7 +108,7 @@
     </detaileddescription>
     <collaborationgraph>
       <node id="4">
-        <label>anonymous:@1</label>
+        <label>anonymous:@2</label>
       </node>
       <node id="2">
         <label>uint16_t</label>
@@ -130,11 +130,11 @@
           <edgelabel>reserved_zero</edgelabel>
         </childnode>
         <childnode refid="4" relation="usage">
-          <edgelabel>@1</edgelabel>
+          <edgelabel>@2</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="include/ip.h" line="33" column="1" bodyfile="include/ip.h" bodystart="33" bodyend="42"/>
+    <location file="include/ip.h" line="42" column="1" bodyfile="include/ip.h" bodystart="42" bodyend="51"/>
     <listofallmembers>
       <member refid="unionip__frag_1a5d7d35814e17cc5a8bdcda52d1fe9744" prot="public" virt="non-virtual"><scope>ip_frag</scope><name>bits</name></member>
       <member refid="unionip__frag_1a12b89a05fbe2cb0f374961ff88391785" prot="public" virt="non-virtual"><scope>ip_frag</scope><name>dont_fragment</name></member>

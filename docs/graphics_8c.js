@@ -1,6 +1,6 @@
 var graphics_8c =
 [
-    [ "pngle_user_data_t", "structpngle__user__data__t.html", "structpngle__user__data__t" ],
+    [ "dpoint_t", "structdpoint__t.html", "structdpoint__t" ],
     [ "STB_IMAGE_IMPLEMENTATION", "graphics_8c.html#a18372412ad2fc3ce1e3240b3cf0efe78", null ],
     [ "STBI_FREE", "graphics_8c.html#a07af50300e5cc077c6b31a4d2e8af32a", null ],
     [ "STBI_MALLOC", "graphics_8c.html#a5d9e5717bb92709110f1a5d43392d42e", null ],
@@ -14,7 +14,9 @@ var graphics_8c =
     [ "autoflip_statement", "graphics_8c.html#a1a6d6cda81ba5d50ae5b9e7b78594d37", null ],
     [ "basic_rgb", "graphics_8c.html#a598143e2745c97b0a2e5cffc74dd3a43", null ],
     [ "circle_statement", "graphics_8c.html#a60ffb590ee4be02d8e8e71421b11cdf8", null ],
+    [ "compute_homography", "graphics_8c.html#a3311a8202f60d8f7bc941e7c66994297", null ],
     [ "draw_line_statement", "graphics_8c.html#a0f288d69d997db0c2c09158b0b7c0cf7", null ],
+    [ "draw_strip_projective", "graphics_8c.html#ad66bed1add1c5a97ba3b71f3ca708b16", null ],
     [ "flip_statement", "graphics_8c.html#a7325151b4f78d0f05b3fae69ef70c401", null ],
     [ "free_sprite", "graphics_8c.html#a889cce18303cba5e282f8613441625a0", null ],
     [ "freesprite_statement", "graphics_8c.html#a436df0bd102a25c990821ae3949f3e64", null ],
@@ -22,8 +24,13 @@ var graphics_8c =
     [ "get_sprite", "graphics_8c.html#a3072b18aa164a96851c4347b3c027132", null ],
     [ "loadsprite_statement", "graphics_8c.html#ac37e5bc6123d0c82d1a7da1ed257b731", null ],
     [ "plot_sprite", "graphics_8c.html#aac9bc0dba397b4dea8ee50a61e480aea", null ],
+    [ "plot_sprite_quad", "graphics_8c.html#aa915d8385c97f1f303486902a885dadf", null ],
+    [ "plot_sprite_quad_axis_aligned_int", "graphics_8c.html#a62a3916c0b9ba27e17b7ef66e3a5e17a", null ],
     [ "plot_statement", "graphics_8c.html#aa8bc7cf7ea28fa42974f3b02179e2ba1", null ],
+    [ "plotquad_statement", "graphics_8c.html#ae4d8b57312663598bf6f25e26139ed83", null ],
     [ "point_statement", "graphics_8c.html#a13e735601b49512ba7d757f3dcdbc067", null ],
+    [ "raster_tri_projective", "graphics_8c.html#aae773bfdb8ff9d2a48ec094d33663eb5", null ],
     [ "rectangle_statement", "graphics_8c.html#a351eb0fe6ae02c9eeb861ab014c0ce27", null ],
+    [ "solve8", "graphics_8c.html#a1d5e030a46c6924b8bd27f3eaaa2bf45", null ],
     [ "triangle_statement", "graphics_8c.html#aa752bd8346c7616612f1888605eee182", null ]
 ];

@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="116" column="19" bodyfile="include/taskswitch.h" bodystart="116" bodyend="-1"/>
+        <location file="include/taskswitch.h" line="115" column="19" bodyfile="include/taskswitch.h" bodystart="115" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structidle__timer__t_1ab8cbbca083b310c8c38be8da8d1463f6" prot="public" static="no" mutable="no">
         <type>struct idle_timer *</type>
@@ -30,7 +30,35 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="117" column="18" bodyfile="include/taskswitch.h" bodystart="117" bodyend="-1"/>
+        <location file="include/taskswitch.h" line="116" column="18" bodyfile="include/taskswitch.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidle__timer__t_1a1bb9e6fb59bf70004cadad01c5bd9a1e" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t idle_timer_t::next_tick</definition>
+        <argsstring></argsstring>
+        <name>next_tick</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Next tick time in <ref refid="timer_8h_1a3686b92a0667e9774993808f4d2ac2b4" kindref="member">get_ticks()</ref> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="117" column="10" bodyfile="include/taskswitch.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidle__timer__t_1a542ca112f229d0329f9b4e47a6e8e02d" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t idle_timer_t::frequency</definition>
+        <argsstring></argsstring>
+        <name>frequency</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Tick frequency in ms </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="118" column="10" bodyfile="include/taskswitch.h" bodystart="118" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -39,27 +67,36 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="3">
+      <node id="4">
         <label>void(*)(void)</label>
       </node>
       <node id="2">
+        <label>uint64_t</label>
+      </node>
+      <node id="3">
         <label>struct idle_timer *</label>
       </node>
       <node id="1">
         <label>idle_timer_t</label>
         <link refid="structidle__timer__t"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>next</edgelabel>
+          <edgelabel>frequency</edgelabel>
+          <edgelabel>next_tick</edgelabel>
         </childnode>
         <childnode refid="3" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
           <edgelabel>func</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="include/taskswitch.h" line="115" column="1" bodyfile="include/taskswitch.h" bodystart="115" bodyend="118"/>
+    <location file="include/taskswitch.h" line="114" column="1" bodyfile="include/taskswitch.h" bodystart="114" bodyend="119"/>
     <listofallmembers>
+      <member refid="structidle__timer__t_1a542ca112f229d0329f9b4e47a6e8e02d" prot="public" virt="non-virtual"><scope>idle_timer_t</scope><name>frequency</name></member>
       <member refid="structidle__timer__t_1a841c3c2181190d1dc30fbb4d2341fd53" prot="public" virt="non-virtual"><scope>idle_timer_t</scope><name>func</name></member>
       <member refid="structidle__timer__t_1ab8cbbca083b310c8c38be8da8d1463f6" prot="public" virt="non-virtual"><scope>idle_timer_t</scope><name>next</name></member>
+      <member refid="structidle__timer__t_1a1bb9e6fb59bf70004cadad01c5bd9a1e" prot="public" virt="non-virtual"><scope>idle_timer_t</scope><name>next_tick</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

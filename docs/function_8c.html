@@ -143,12 +143,14 @@ Functions</h2></td></tr>
 <tr class="memitem:a1066dbd361fdf3e3ee94c502348abb87"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="function_8c.html#a1066dbd361fdf3e3ee94c502348abb87">eq_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
 <tr class="memdesc:a1066dbd361fdf3e3ee94c502348abb87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the = statement in BASIC, used to return a value from a FN.  <a href="function_8c.html#a1066dbd361fdf3e3ee94c502348abb87">More...</a><br /></td></tr>
 <tr class="separator:a1066dbd361fdf3e3ee94c502348abb87"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33e9e1f737477f45cac071d8959bae12"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="function_8c.html#a33e9e1f737477f45cac071d8959bae12">retproc_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
-<tr class="memdesc:a33e9e1f737477f45cac071d8959bae12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the RETPROC statement in BASIC, used for returning from a procedure.  <a href="function_8c.html#a33e9e1f737477f45cac071d8959bae12">More...</a><br /></td></tr>
-<tr class="separator:a33e9e1f737477f45cac071d8959bae12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01598501745286d4bf0f372672e9063a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="function_8c.html#a01598501745286d4bf0f372672e9063a">endproc_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="memdesc:a01598501745286d4bf0f372672e9063a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the ENDPROC statement in BASIC, used for returning from a procedure.  <a href="function_8c.html#a01598501745286d4bf0f372672e9063a">More...</a><br /></td></tr>
+<tr class="separator:a01598501745286d4bf0f372672e9063a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:a398527b3e9e358c345c5047b16871957"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="function_8c.html#a398527b3e9e358c345c5047b16871957">debug</a></td></tr>
+<tr class="separator:a398527b3e9e358c345c5047b16871957"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5198f82952aefc05784e4e66600f5eec"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structbasic__int__fn.html">basic_int_fn</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="function_8c.html#a5198f82952aefc05784e4e66600f5eec">builtin_int</a> []</td></tr>
 <tr class="separator:a5198f82952aefc05784e4e66600f5eec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5262339566585d7334a75318cad5d55d"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structbasic__double__fn.html">basic_double_fn</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="function_8c.html#a5262339566585d7334a75318cad5d55d">builtin_double</a> []</td></tr>
@@ -572,6 +574,33 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a01598501745286d4bf0f372672e9063a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01598501745286d4bf0f372672e9063a">&#9670;&nbsp;</a></span>endproc_statement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void endproc_statement </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Handles the ENDPROC statement in BASIC, used for returning from a procedure. </p>
+<p>The ENDPROC statement is used to return control from a procedure to the calling location.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>The current BASIC program context. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a1066dbd361fdf3e3ee94c502348abb87"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1066dbd361fdf3e3ee94c502348abb87">&#9670;&nbsp;</a></span>eq_statement()</h2>
 
@@ -692,33 +721,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a33e9e1f737477f45cac071d8959bae12"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a33e9e1f737477f45cac071d8959bae12">&#9670;&nbsp;</a></span>retproc_statement()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void retproc_statement </td>
-          <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
-          <td class="paramname"><em>ctx</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Handles the RETPROC statement in BASIC, used for returning from a procedure. </p>
-<p>The RETPROC statement is used to return control from a procedure to the calling location.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ctx</td><td>The current BASIC program context. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <h2 class="groupheader">Variable Documentation</h2>
 <a id="a5262339566585d7334a75318cad5d55d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5262339566585d7334a75318cad5d55d">&#9670;&nbsp;</a></span>builtin_double</h2>
@@ -802,13 +804,35 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a398527b3e9e358c345c5047b16871957"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a398527b3e9e358c345c5047b16871957">&#9670;&nbsp;</a></span>debug</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool debug</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_38cd9eca440b760dc966f21b1f8d8f41.html">basic</a></li><li class="navelem"><a class="el" href="function_8c.html">function.c</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:44 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

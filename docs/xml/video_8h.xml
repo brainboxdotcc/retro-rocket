@@ -4,59 +4,81 @@
     <compoundname>video.h</compoundname>
     <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
     <invincdepgraph>
-      <node id="123">
+      <node id="154">
         <label>memcpy.c</label>
         <link refid="memcpy_8c"/>
       </node>
-      <node id="72">
+      <node id="14">
         <label>console.c</label>
         <link refid="console_8c"/>
       </node>
-      <node id="85">
+      <node id="103">
         <label>reflection.c</label>
         <link refid="reflection_8c"/>
       </node>
-      <node id="108">
+      <node id="141">
         <label>main.c</label>
         <link refid="fs_2fat32_2main_8c"/>
       </node>
-      <node id="104">
+      <node id="137">
         <label>createfile.c</label>
         <link refid="fat32_2createfile_8c"/>
       </node>
-      <node id="50">
+      <node id="72">
         <label>helpers.c</label>
-        <link refid="helpers_8c"/>
+        <link refid="fs_2retrofs_2helpers_8c"/>
       </node>
-      <node id="89">
+      <node id="7">
+        <label>basic.h</label>
+        <link refid="basic_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="107">
         <label>tokenizer.c</label>
         <link refid="tokenizer_8c"/>
       </node>
-      <node id="96">
+      <node id="12">
+        <label>context.h</label>
+        <link refid="context_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="128">
         <label>errorhandler.c</label>
         <link refid="errorhandler_8c"/>
       </node>
-      <node id="42">
+      <node id="64">
         <label>ramdisk.h</label>
         <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="103">
+      <node id="136">
         <label>cluster.c</label>
         <link refid="cluster_8c"/>
       </node>
-      <node id="113">
+      <node id="21">
         <label>filesystem.c</label>
         <link refid="filesystem_8c"/>
       </node>
-      <node id="90">
+      <node id="114">
+        <label>main.c</label>
+        <link refid="block_2ahci_2main_8c"/>
+      </node>
+      <node id="108">
         <label>variable.c</label>
         <link refid="variable_8c"/>
       </node>
-      <node id="55">
+      <node id="77">
         <label>unlinkdirectory.c</label>
         <link refid="unlinkdirectory_8c"/>
+      </node>
+      <node id="44">
+        <label>helpers.c</label>
+        <link refid="installer_2helpers_8c"/>
       </node>
       <node id="3">
         <label>acpi.h</label>
@@ -64,7 +86,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="137">
+      <node id="168">
         <label>random.c</label>
         <link refid="random_8c"/>
       </node>
@@ -74,257 +96,329 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="13">
+      <node id="28">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="131">
+      <node id="163">
         <label>net.c</label>
         <link refid="net_8c"/>
       </node>
-      <node id="17">
+      <node id="6">
+        <label>peekpoke.h</label>
+        <link refid="peekpoke_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
         <label>fat32.h</label>
         <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="49">
         <label>interrupt.c</label>
         <link refid="interrupt_8c"/>
       </node>
-      <node id="65">
+      <node id="87">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="136">
+      <node id="10">
         <label>printf.c</label>
         <link refid="printf_8c"/>
       </node>
-      <node id="78">
+      <node id="96">
         <label>function.c</label>
         <link refid="function_8c"/>
       </node>
-      <node id="29">
+      <node id="51">
         <label>iso9660.h</label>
         <link refid="iso9660_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="30" relation="include">
+        <childnode refid="52" relation="include">
         </childnode>
       </node>
-      <node id="61">
+      <node id="83">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="141">
+      <node id="172">
         <label>taskswitch.c</label>
         <link refid="taskswitch_8c"/>
       </node>
-      <node id="21">
-        <label>hashmap.c</label>
-        <link refid="hashmap_8c"/>
-      </node>
-      <node id="132">
+      <node id="164">
         <label>queue.c</label>
         <link refid="queue_8c"/>
       </node>
-      <node id="11">
+      <node id="26">
         <label>devicename.h</label>
         <link refid="devicename_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="48">
+      <node id="20">
+        <label>block_cache.h</label>
+        <link refid="block__cache_8h"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>main.c</label>
+        <link refid="installer_2main_8c"/>
+      </node>
+      <node id="70">
         <label>fsmap.c</label>
         <link refid="fsmap_8c"/>
       </node>
-      <node id="14">
+      <node id="29">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="118">
+      <node id="149">
         <label>input.c</label>
         <link refid="input_8c"/>
       </node>
-      <node id="47">
+      <node id="69">
         <label>format.c</label>
         <link refid="format_8c"/>
       </node>
-      <node id="139">
+      <node id="170">
         <label>stdlib.c</label>
         <link refid="stdlib_8c"/>
       </node>
-      <node id="112">
+      <node id="41">
+        <label>installer.h</label>
+        <link refid="installer_8h"/>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="145">
         <label>writefile.c</label>
         <link refid="fat32_2writefile_8c"/>
       </node>
-      <node id="83">
+      <node id="100">
         <label>maths.c</label>
         <link refid="basic_2maths_8c"/>
       </node>
-      <node id="129">
+      <node id="161">
         <label>icmp.c</label>
         <link refid="icmp_8c"/>
       </node>
-      <node id="91">
+      <node id="120">
+        <label>ramdisk.c</label>
+        <link refid="ramdisk_8c"/>
+      </node>
+      <node id="121">
         <label>buddy_allocator.c</label>
         <link refid="buddy__allocator_8c"/>
       </node>
-      <node id="57">
+      <node id="79">
         <label>rtl8139.h</label>
         <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="130">
+      <node id="162">
         <label>ip.c</label>
         <link refid="ip_8c"/>
       </node>
-      <node id="120">
+      <node id="9">
+        <label>tui.c</label>
+        <link refid="tui_8c"/>
+      </node>
+      <node id="151">
         <label>keyboard.c</label>
         <link refid="keyboard_8c"/>
       </node>
-      <node id="74">
-        <label>debugger.c</label>
-        <link refid="basic_2debugger_8c"/>
-      </node>
-      <node id="46">
-        <label>createfile.c</label>
-        <link refid="retrofs_2createfile_8c"/>
-      </node>
-      <node id="76">
-        <label>file_io.c</label>
-        <link refid="file__io_8c"/>
-      </node>
-      <node id="53">
-        <label>truncatefile.c</label>
-        <link refid="retrofs_2truncatefile_8c"/>
-      </node>
-      <node id="93">
-        <label>debug_ringbuffer.c</label>
-        <link refid="debug__ringbuffer_8c"/>
-      </node>
-      <node id="102">
-        <label>devfs.c</label>
-        <link refid="devfs_8c"/>
-      </node>
-      <node id="101">
-        <label>debuglog.c</label>
-        <link refid="debuglog_8c"/>
-      </node>
-      <node id="126">
-        <label>descriptor.c</label>
-        <link refid="descriptor_8c"/>
-      </node>
-      <node id="86">
-        <label>sockets.c</label>
-        <link refid="sockets_8c"/>
-      </node>
-      <node id="143">
-        <label>video.c</label>
-        <link refid="video_8c"/>
-      </node>
-      <node id="54">
-        <label>unlink.c</label>
-        <link refid="unlink_8c"/>
-      </node>
-      <node id="66">
-        <label>acpi.c</label>
-        <link refid="acpi_8c"/>
-      </node>
-      <node id="79">
-        <label>graphics.c</label>
-        <link refid="graphics_8c"/>
-      </node>
-      <node id="122">
-        <label>maths.c</label>
-        <link refid="maths_8c"/>
-      </node>
-      <node id="51">
-        <label>main.c</label>
-        <link refid="fs_2retrofs_2main_8c"/>
-      </node>
-      <node id="35">
-        <label>e1000.c</label>
-        <link refid="e1000_8c"/>
+      <node id="155">
+        <label>module_loader.c</label>
+        <link refid="module__loader_8c"/>
       </node>
       <node id="94">
         <label>debugger.c</label>
-        <link refid="debugger_8c"/>
+        <link refid="basic_2debugger_8c"/>
+      </node>
+      <node id="68">
+        <label>createfile.c</label>
+        <link refid="retrofs_2createfile_8c"/>
+      </node>
+      <node id="95">
+        <label>file_io.c</label>
+        <link refid="file__io_8c"/>
       </node>
       <node id="75">
+        <label>truncatefile.c</label>
+        <link refid="retrofs_2truncatefile_8c"/>
+      </node>
+      <node id="125">
+        <label>debug_ringbuffer.c</label>
+        <link refid="debug__ringbuffer_8c"/>
+      </node>
+      <node id="135">
+        <label>devfs.c</label>
+        <link refid="devfs_8c"/>
+      </node>
+      <node id="134">
+        <label>debuglog.c</label>
+        <link refid="debuglog_8c"/>
+      </node>
+      <node id="158">
+        <label>descriptor.c</label>
+        <link refid="descriptor_8c"/>
+      </node>
+      <node id="104">
+        <label>sockets.c</label>
+        <link refid="sockets_8c"/>
+      </node>
+      <node id="174">
+        <label>video.c</label>
+        <link refid="video_8c"/>
+      </node>
+      <node id="59">
+        <label>module.h</label>
+        <link refid="module_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="76">
+        <label>unlink.c</label>
+        <link refid="unlink_8c"/>
+      </node>
+      <node id="88">
+        <label>acpi.c</label>
+        <link refid="acpi_8c"/>
+      </node>
+      <node id="43">
+        <label>gpt_writer.c</label>
+        <link refid="gpt__writer_8c"/>
+      </node>
+      <node id="97">
+        <label>graphics.c</label>
+        <link refid="graphics_8c"/>
+      </node>
+      <node id="117">
+        <label>storage_device.c</label>
+        <link refid="storage__device_8c"/>
+      </node>
+      <node id="153">
+        <label>maths.c</label>
+        <link refid="maths_8c"/>
+      </node>
+      <node id="73">
+        <label>main.c</label>
+        <link refid="fs_2retrofs_2main_8c"/>
+      </node>
+      <node id="57">
+        <label>e1000.c</label>
+        <link refid="e1000_8c"/>
+      </node>
+      <node id="126">
+        <label>debugger.c</label>
+        <link refid="debugger_8c"/>
+      </node>
+      <node id="15">
         <label>double_expression.c</label>
         <link refid="double__expression_8c"/>
       </node>
-      <node id="142">
+      <node id="173">
         <label>timer.c</label>
         <link refid="timer_8c"/>
       </node>
-      <node id="8">
+      <node id="116">
+        <label>sense.c</label>
+        <link refid="sense_8c"/>
+      </node>
+      <node id="23">
         <label>cv.h</label>
         <link refid="cv_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="135">
+      <node id="131">
+        <label>flanterm.c</label>
+        <link refid="flanterm_8c"/>
+      </node>
+      <node id="167">
         <label>pci.c</label>
         <link refid="pci_8c"/>
       </node>
-      <node id="80">
+      <node id="101">
+        <label>peekpoke.c</label>
+        <link refid="peekpoke_8c"/>
+      </node>
+      <node id="17">
         <label>int_expression.c</label>
         <link refid="int__expression_8c"/>
       </node>
-      <node id="41">
+      <node id="111">
+        <label>enquiry.c</label>
+        <link refid="enquiry_8c"/>
+      </node>
+      <node id="63">
         <label>printf.h</label>
         <link refid="printf_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="15">
+      <node id="30">
         <label>e1000.h</label>
         <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="53">
         <label>lapic_timer.h</label>
         <link refid="lapic__timer_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="98">
-        <label>fb.c</label>
-        <link refid="fb_8c"/>
-      </node>
-      <node id="125">
+      <node id="157">
         <label>debug.c</label>
         <link refid="debug_8c"/>
       </node>
-      <node id="71">
+      <node id="92">
         <label>array.c</label>
         <link refid="array_8c"/>
       </node>
-      <node id="23">
+      <node id="119">
+        <label>write.c</label>
+        <link refid="write_8c"/>
+      </node>
+      <node id="38">
         <label>initialisation-functions.h</label>
         <link refid="initialisation-functions_8h"/>
-        <childnode refid="24" relation="include">
+        <childnode refid="39" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
+        <childnode refid="40" relation="include">
         </childnode>
       </node>
-      <node id="124">
+      <node id="156">
         <label>arp.c</label>
         <link refid="arp_8c"/>
       </node>
-      <node id="18">
+      <node id="33">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
@@ -336,159 +430,191 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="107">
+      <node id="140">
         <label>lfn.c</label>
         <link refid="lfn_8c"/>
       </node>
-      <node id="59">
+      <node id="81">
         <label>serial.c</label>
         <link refid="serial_8c"/>
       </node>
-      <node id="58">
+      <node id="80">
         <label>serial.h</label>
         <link refid="serial_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="59" relation="include">
+        <childnode refid="81" relation="include">
         </childnode>
       </node>
-      <node id="100">
+      <node id="132">
         <label>fpu.c</label>
         <link refid="fpu_8c"/>
       </node>
-      <node id="119">
+      <node id="130">
+        <label>fb.c</label>
+        <link refid="fb_8c"/>
+      </node>
+      <node id="105">
+        <label>statement.c</label>
+        <link refid="statement_8c"/>
+      </node>
+      <node id="150">
         <label>ioapic.c</label>
         <link refid="ioapic_8c"/>
       </node>
-      <node id="22">
+      <node id="37">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="63">
+      <node id="85">
         <label>kmalloc.c</label>
         <link refid="kmalloc_8c"/>
       </node>
-      <node id="116">
+      <node id="147">
         <label>gdt.c</label>
         <link refid="gdt_8c"/>
       </node>
-      <node id="36">
+      <node id="19">
+        <label>unified_expression.c</label>
+        <link refid="unified__expression_8c"/>
+      </node>
+      <node id="58">
         <label>mmio.c</label>
         <link refid="mmio_8c"/>
       </node>
-      <node id="127">
+      <node id="159">
         <label>dhcp.c</label>
         <link refid="dhcp_8c"/>
       </node>
-      <node id="34">
+      <node id="56">
         <label>mmio.h</label>
         <link refid="mmio_8h"/>
-        <childnode refid="35" relation="include">
+        <childnode refid="57" relation="include">
         </childnode>
-        <childnode refid="36" relation="include">
+        <childnode refid="58" relation="include">
         </childnode>
       </node>
-      <node id="28">
+      <node id="50">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="81">
+      <node id="124">
+        <label>vector.c</label>
+        <link refid="vector_8c"/>
+      </node>
+      <node id="98">
         <label>lowlevel.c</label>
         <link refid="lowlevel_8c"/>
       </node>
-      <node id="70">
+      <node id="91">
         <label>ata.c</label>
         <link refid="ata_8c"/>
       </node>
-      <node id="49">
+      <node id="133">
+        <label>block_cache.c</label>
+        <link refid="block__cache_8c"/>
+      </node>
+      <node id="71">
         <label>getdirectory.c</label>
         <link refid="getdirectory_8c"/>
       </node>
-      <node id="88">
+      <node id="18">
         <label>string_expression.c</label>
         <link refid="string__expression_8c"/>
       </node>
-      <node id="64">
+      <node id="86">
         <label>tinyalloc.c</label>
         <link refid="tinyalloc_8c"/>
       </node>
-      <node id="73">
+      <node id="110">
+        <label>eject.c</label>
+        <link refid="eject_8c"/>
+      </node>
+      <node id="93">
         <label>datetime.c</label>
         <link refid="datetime_8c"/>
       </node>
-      <node id="138">
+      <node id="169">
         <label>rtl8139.c</label>
         <link refid="rtl8139_8c"/>
       </node>
-      <node id="77">
+      <node id="16">
         <label>flow_control.c</label>
         <link refid="flow__control_8c"/>
       </node>
-      <node id="32">
+      <node id="54">
         <label>maths.h</label>
         <link refid="maths_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="10">
+      <node id="25">
         <label>devfs.h</label>
         <link refid="devfs_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="117">
+      <node id="148">
         <label>idt.c</label>
         <link refid="idt_8c"/>
       </node>
-      <node id="115">
-        <label>ramdisk.c</label>
-        <link refid="ramdisk_8c"/>
+      <node id="46">
+        <label>os_detection.c</label>
+        <link refid="os__detection_8c"/>
       </node>
-      <node id="24">
+      <node id="39">
         <label>init.c</label>
         <link refid="init_8c"/>
       </node>
-      <node id="62">
+      <node id="109">
+        <label>description.c</label>
+        <link refid="description_8c"/>
+      </node>
+      <node id="84">
         <label>tinyalloc.h</label>
         <link refid="tinyalloc_8h"/>
-        <childnode refid="63" relation="include">
+        <childnode refid="85" relation="include">
         </childnode>
-        <childnode refid="64" relation="include">
+        <childnode refid="86" relation="include">
         </childnode>
       </node>
-      <node id="30">
+      <node id="52">
         <label>iso9660.c</label>
         <link refid="iso9660_8c"/>
       </node>
-      <node id="133">
+      <node id="165">
         <label>tcp.c</label>
         <link refid="tcp_8c"/>
       </node>
-      <node id="45">
+      <node id="115">
+        <label>read.c</label>
+        <link refid="read_8c"/>
+      </node>
+      <node id="67">
         <label>createdirectory.c</label>
         <link refid="createdirectory_8c"/>
       </node>
-      <node id="134">
+      <node id="42">
+        <label>crc32.c</label>
+        <link refid="crc32_8c"/>
+      </node>
+      <node id="166">
         <label>udp.c</label>
         <link refid="udp_8c"/>
       </node>
-      <node id="106">
+      <node id="139">
         <label>fat.c</label>
         <link refid="fat_8c"/>
       </node>
-      <node id="16">
+      <node id="31">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-      </node>
-      <node id="99">
-        <label>flanterm.c</label>
-        <link refid="flanterm_8c"/>
       </node>
       <node id="2">
         <label>kernel.h</label>
@@ -501,41 +627,29 @@
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
         <childnode refid="11" relation="include">
-        </childnode>
-        <childnode refid="12" relation="include">
         </childnode>
         <childnode refid="13" relation="include">
         </childnode>
-        <childnode refid="14" relation="include">
-        </childnode>
-        <childnode refid="15" relation="include">
-        </childnode>
-        <childnode refid="16" relation="include">
-        </childnode>
-        <childnode refid="17" relation="include">
-        </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="20" relation="include">
         </childnode>
         <childnode refid="22" relation="include">
         </childnode>
         <childnode refid="23" relation="include">
         </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
         <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
         </childnode>
         <childnode refid="28" relation="include">
         </childnode>
         <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
         </childnode>
         <childnode refid="31" relation="include">
         </childnode>
@@ -549,19 +663,23 @@
         </childnode>
         <childnode refid="38" relation="include">
         </childnode>
-        <childnode refid="40" relation="include">
-        </childnode>
         <childnode refid="41" relation="include">
         </childnode>
-        <childnode refid="42" relation="include">
+        <childnode refid="48" relation="include">
         </childnode>
-        <childnode refid="43" relation="include">
+        <childnode refid="50" relation="include">
         </childnode>
-        <childnode refid="44" relation="include">
+        <childnode refid="51" relation="include">
         </childnode>
-        <childnode refid="57" relation="include">
+        <childnode refid="53" relation="include">
         </childnode>
-        <childnode refid="58" relation="include">
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
         </childnode>
         <childnode refid="60" relation="include">
         </childnode>
@@ -569,9 +687,163 @@
         </childnode>
         <childnode refid="62" relation="include">
         </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
         <childnode refid="65" relation="include">
         </childnode>
         <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
+        <childnode refid="114" relation="include">
+        </childnode>
+        <childnode refid="115" relation="include">
+        </childnode>
+        <childnode refid="116" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+        <childnode refid="118" relation="include">
+        </childnode>
+        <childnode refid="119" relation="include">
+        </childnode>
+        <childnode refid="120" relation="include">
+        </childnode>
+        <childnode refid="121" relation="include">
+        </childnode>
+        <childnode refid="122" relation="include">
+        </childnode>
+        <childnode refid="123" relation="include">
+        </childnode>
+        <childnode refid="124" relation="include">
+        </childnode>
+        <childnode refid="125" relation="include">
+        </childnode>
+        <childnode refid="126" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="127" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="128" relation="include">
+        </childnode>
+        <childnode refid="129" relation="include">
+        </childnode>
+        <childnode refid="130" relation="include">
+        </childnode>
+        <childnode refid="131" relation="include">
+        </childnode>
+        <childnode refid="132" relation="include">
+        </childnode>
+        <childnode refid="133" relation="include">
+        </childnode>
+        <childnode refid="134" relation="include">
+        </childnode>
+        <childnode refid="135" relation="include">
+        </childnode>
+        <childnode refid="136" relation="include">
+        </childnode>
+        <childnode refid="137" relation="include">
+        </childnode>
+        <childnode refid="138" relation="include">
+        </childnode>
+        <childnode refid="139" relation="include">
+        </childnode>
+        <childnode refid="140" relation="include">
+        </childnode>
+        <childnode refid="141" relation="include">
+        </childnode>
+        <childnode refid="142" relation="include">
+        </childnode>
+        <childnode refid="143" relation="include">
+        </childnode>
+        <childnode refid="144" relation="include">
+        </childnode>
+        <childnode refid="145" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="146" relation="include">
         </childnode>
         <childnode refid="67" relation="include">
         </childnode>
@@ -597,307 +869,225 @@
         </childnode>
         <childnode refid="78" relation="include">
         </childnode>
-        <childnode refid="79" relation="include">
+        <childnode refid="147" relation="include">
         </childnode>
-        <childnode refid="80" relation="include">
+        <childnode refid="148" relation="include">
         </childnode>
-        <childnode refid="81" relation="include">
-        </childnode>
-        <childnode refid="82" relation="include">
-        </childnode>
-        <childnode refid="83" relation="include">
-        </childnode>
-        <childnode refid="84" relation="include">
-        </childnode>
-        <childnode refid="85" relation="include">
-        </childnode>
-        <childnode refid="86" relation="include">
-        </childnode>
-        <childnode refid="87" relation="include">
-        </childnode>
-        <childnode refid="88" relation="include">
-        </childnode>
-        <childnode refid="89" relation="include">
-        </childnode>
-        <childnode refid="90" relation="include">
-        </childnode>
-        <childnode refid="91" relation="include">
-        </childnode>
-        <childnode refid="92" relation="include">
-        </childnode>
-        <childnode refid="93" relation="include">
-        </childnode>
-        <childnode refid="94" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
-        <childnode refid="95" relation="include">
-        </childnode>
-        <childnode refid="35" relation="include">
-        </childnode>
-        <childnode refid="96" relation="include">
-        </childnode>
-        <childnode refid="97" relation="include">
-        </childnode>
-        <childnode refid="98" relation="include">
-        </childnode>
-        <childnode refid="99" relation="include">
-        </childnode>
-        <childnode refid="100" relation="include">
-        </childnode>
-        <childnode refid="101" relation="include">
-        </childnode>
-        <childnode refid="102" relation="include">
-        </childnode>
-        <childnode refid="103" relation="include">
-        </childnode>
-        <childnode refid="104" relation="include">
-        </childnode>
-        <childnode refid="105" relation="include">
-        </childnode>
-        <childnode refid="106" relation="include">
-        </childnode>
-        <childnode refid="107" relation="include">
-        </childnode>
-        <childnode refid="108" relation="include">
-        </childnode>
-        <childnode refid="109" relation="include">
-        </childnode>
-        <childnode refid="110" relation="include">
-        </childnode>
-        <childnode refid="111" relation="include">
-        </childnode>
-        <childnode refid="112" relation="include">
-        </childnode>
-        <childnode refid="113" relation="include">
-        </childnode>
-        <childnode refid="39" relation="include">
-        </childnode>
-        <childnode refid="30" relation="include">
-        </childnode>
-        <childnode refid="114" relation="include">
-        </childnode>
-        <childnode refid="115" relation="include">
-        </childnode>
-        <childnode refid="45" relation="include">
-        </childnode>
-        <childnode refid="46" relation="include">
-        </childnode>
-        <childnode refid="47" relation="include">
-        </childnode>
-        <childnode refid="48" relation="include">
+        <childnode refid="149" relation="include">
         </childnode>
         <childnode refid="49" relation="include">
         </childnode>
-        <childnode refid="50" relation="include">
+        <childnode refid="150" relation="include">
         </childnode>
-        <childnode refid="51" relation="include">
+        <childnode refid="40" relation="include">
         </childnode>
-        <childnode refid="52" relation="include">
+        <childnode refid="151" relation="include">
         </childnode>
-        <childnode refid="53" relation="include">
+        <childnode refid="85" relation="include">
         </childnode>
-        <childnode refid="54" relation="include">
+        <childnode refid="152" relation="include">
         </childnode>
-        <childnode refid="55" relation="include">
+        <childnode refid="153" relation="include">
         </childnode>
-        <childnode refid="56" relation="include">
+        <childnode refid="154" relation="include">
         </childnode>
-        <childnode refid="116" relation="include">
+        <childnode refid="155" relation="include">
         </childnode>
-        <childnode refid="117" relation="include">
+        <childnode refid="156" relation="include">
         </childnode>
-        <childnode refid="118" relation="include">
+        <childnode refid="157" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
+        <childnode refid="158" relation="include">
         </childnode>
-        <childnode refid="119" relation="include">
+        <childnode refid="159" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
+        <childnode refid="160" relation="include">
         </childnode>
-        <childnode refid="120" relation="include">
+        <childnode refid="161" relation="include">
         </childnode>
-        <childnode refid="63" relation="include">
+        <childnode refid="162" relation="include">
         </childnode>
-        <childnode refid="121" relation="include">
+        <childnode refid="163" relation="include">
         </childnode>
-        <childnode refid="122" relation="include">
+        <childnode refid="164" relation="include">
         </childnode>
-        <childnode refid="123" relation="include">
+        <childnode refid="165" relation="include">
         </childnode>
-        <childnode refid="124" relation="include">
+        <childnode refid="166" relation="include">
         </childnode>
-        <childnode refid="125" relation="include">
+        <childnode refid="167" relation="include">
         </childnode>
-        <childnode refid="126" relation="include">
+        <childnode refid="10" relation="include">
         </childnode>
-        <childnode refid="127" relation="include">
+        <childnode refid="168" relation="include">
         </childnode>
-        <childnode refid="128" relation="include">
+        <childnode refid="169" relation="include">
         </childnode>
-        <childnode refid="129" relation="include">
+        <childnode refid="81" relation="include">
         </childnode>
-        <childnode refid="130" relation="include">
+        <childnode refid="170" relation="include">
         </childnode>
-        <childnode refid="131" relation="include">
+        <childnode refid="171" relation="include">
         </childnode>
-        <childnode refid="132" relation="include">
+        <childnode refid="172" relation="include">
         </childnode>
-        <childnode refid="133" relation="include">
+        <childnode refid="173" relation="include">
         </childnode>
-        <childnode refid="134" relation="include">
-        </childnode>
-        <childnode refid="135" relation="include">
-        </childnode>
-        <childnode refid="136" relation="include">
-        </childnode>
-        <childnode refid="137" relation="include">
-        </childnode>
-        <childnode refid="138" relation="include">
-        </childnode>
-        <childnode refid="59" relation="include">
-        </childnode>
-        <childnode refid="139" relation="include">
-        </childnode>
-        <childnode refid="140" relation="include">
-        </childnode>
-        <childnode refid="141" relation="include">
-        </childnode>
-        <childnode refid="142" relation="include">
-        </childnode>
-        <childnode refid="143" relation="include">
+        <childnode refid="174" relation="include">
         </childnode>
       </node>
-      <node id="69">
+      <node id="90">
         <label>apic.c</label>
         <link refid="apic_8c"/>
       </node>
-      <node id="33">
+      <node id="55">
         <label>memcpy.h</label>
         <link refid="memcpy_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="38">
+      <node id="61">
         <label>partition.h</label>
         <link refid="partition_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="39" relation="include">
-        </childnode>
       </node>
-      <node id="43">
+      <node id="65">
         <label>random.h</label>
         <link refid="random_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="92">
+      <node id="112">
+        <label>error.c</label>
+        <link refid="error_8c"/>
+      </node>
+      <node id="122">
         <label>clock.c</label>
         <link refid="clock_8c"/>
       </node>
-      <node id="9">
+      <node id="24">
         <label>debug_ringbuffer.h</label>
         <link refid="debug__ringbuffer_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="68">
+      <node id="89">
         <label>ap.c</label>
         <link refid="ap_8c"/>
       </node>
-      <node id="20">
+      <node id="36">
         <label>devicename.c</label>
         <link refid="devicename_8c"/>
       </node>
-      <node id="114">
+      <node id="146">
         <label>partition.c</label>
         <link refid="partition_8c"/>
       </node>
-      <node id="60">
+      <node id="82">
         <label>taskswitch.h</label>
         <link refid="taskswitch_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="111">
+      <node id="144">
         <label>unlinkfile.c</label>
         <link refid="unlinkfile_8c"/>
       </node>
-      <node id="84">
+      <node id="102">
         <label>process.c</label>
         <link refid="process_8c"/>
       </node>
-      <node id="87">
+      <node id="106">
         <label>string.c</label>
         <link refid="basic_2string_8c"/>
       </node>
-      <node id="19">
+      <node id="34">
         <label>hashmap.h</label>
         <link refid="hashmap_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
+        <childnode refid="35" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="36" relation="include">
         </childnode>
       </node>
-      <node id="37">
+      <node id="60">
         <label>net.h</label>
         <link refid="net_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="82">
+      <node id="99">
         <label>main.c</label>
         <link refid="basic_2main_8c"/>
       </node>
-      <node id="105">
+      <node id="138">
         <label>directory.c</label>
         <link refid="directory_8c"/>
       </node>
-      <node id="109">
+      <node id="142">
         <label>readfile.c</label>
         <link refid="fat32_2readfile_8c"/>
       </node>
-      <node id="26">
+      <node id="113">
+        <label>identify.c</label>
+        <link refid="identify_8c"/>
+      </node>
+      <node id="48">
         <label>interrupt.h</label>
         <link refid="interrupt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
+        <childnode refid="49" relation="include">
         </childnode>
       </node>
-      <node id="97">
+      <node id="129">
         <label>ethernet.c</label>
         <link refid="ethernet_8c"/>
       </node>
-      <node id="110">
+      <node id="143">
         <label>truncatefile.c</label>
         <link refid="fat32_2truncatefile_8c"/>
       </node>
-      <node id="128">
+      <node id="160">
         <label>dns.c</label>
         <link refid="dns_8c"/>
       </node>
-      <node id="6">
+      <node id="118">
+        <label>trim.c</label>
+        <link refid="trim_8c"/>
+      </node>
+      <node id="11">
         <label>tokenizer.h</label>
         <link refid="tokenizer_8h"/>
+        <childnode refid="12" relation="include">
+        </childnode>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="40">
         <label>kernel.c</label>
         <link refid="kernel_8c"/>
       </node>
-      <node id="67">
-        <label>ahci.c</label>
-        <link refid="ahci_8c"/>
+      <node id="123">
+        <label>map.c</label>
+        <link refid="map_8c"/>
       </node>
-      <node id="40">
+      <node id="62">
         <label>pci.h</label>
         <link refid="pci_8h"/>
         <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
         </childnode>
       </node>
       <node id="4">
@@ -906,74 +1096,93 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="12">
+      <node id="35">
+        <label>hashmap.c</label>
+        <link refid="hashmap_8c"/>
+      </node>
+      <node id="27">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="140">
+      <node id="171">
         <label>string.c</label>
         <link refid="string_8c"/>
       </node>
-      <node id="121">
+      <node id="152">
         <label>lapic_timer.c</label>
         <link refid="lapic__timer_8c"/>
       </node>
-      <node id="39">
-        <label>installer.c</label>
-        <link refid="installer_8c"/>
+      <node id="13">
+        <label>unified_expression.h</label>
+        <link refid="unified__expression_8h"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
       </node>
-      <node id="95">
+      <node id="47">
+        <label>recursive_file_copy.c</label>
+        <link refid="recursive__file__copy_8c"/>
+      </node>
+      <node id="127">
         <label>drawing.c</label>
         <link refid="drawing_8c"/>
       </node>
-      <node id="44">
+      <node id="66">
         <label>retrofs.h</label>
         <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="45" relation="include">
+        <childnode refid="67" relation="include">
         </childnode>
-        <childnode refid="46" relation="include">
+        <childnode refid="68" relation="include">
         </childnode>
-        <childnode refid="47" relation="include">
+        <childnode refid="69" relation="include">
         </childnode>
-        <childnode refid="48" relation="include">
+        <childnode refid="70" relation="include">
         </childnode>
-        <childnode refid="49" relation="include">
+        <childnode refid="71" relation="include">
         </childnode>
-        <childnode refid="50" relation="include">
+        <childnode refid="72" relation="include">
         </childnode>
-        <childnode refid="51" relation="include">
+        <childnode refid="73" relation="include">
         </childnode>
-        <childnode refid="52" relation="include">
+        <childnode refid="74" relation="include">
         </childnode>
-        <childnode refid="53" relation="include">
+        <childnode refid="75" relation="include">
         </childnode>
-        <childnode refid="54" relation="include">
+        <childnode refid="76" relation="include">
         </childnode>
-        <childnode refid="55" relation="include">
+        <childnode refid="77" relation="include">
         </childnode>
-        <childnode refid="56" relation="include">
+        <childnode refid="78" relation="include">
         </childnode>
       </node>
-      <node id="7">
+      <node id="22">
         <label>clock.h</label>
         <link refid="clock_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="56">
+      <node id="78">
         <label>writefile.c</label>
         <link refid="retrofs_2writefile_8c"/>
       </node>
-      <node id="52">
+      <node id="74">
         <label>readfile.c</label>
         <link refid="retrofs_2readfile_8c"/>
       </node>
     </invincdepgraph>
-    <innerclass refid="structconsole" prot="public">console</innerclass>
       <sectiondef kind="define">
       <memberdef kind="define" id="video_8h_1aa4e78168e129717e6a02803114183e90" prot="public" static="no">
         <name>COLOUR_BLACK</name>
@@ -1151,6 +1360,369 @@
         </inbodydescription>
         <location file="include/video.h" line="30" column="9" bodyfile="include/video.h" bodystart="30" bodyend="-1"/>
       </memberdef>
+      <memberdef kind="define" id="video_8h_1a3b12cfc163ff434f7af63c62c04934c7" prot="public" static="no">
+        <name>VGA_FG_BLACK</name>
+        <initializer>&quot;\x1b[30m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="33" column="9" bodyfile="include/video.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1ac3f6e12ea212c93d5c7aeb7915d11243" prot="public" static="no">
+        <name>VGA_FG_BLUE</name>
+        <initializer>&quot;\x1b[34m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="34" column="9" bodyfile="include/video.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1a26cf976bf04ea220c9caadf95f9aa444" prot="public" static="no">
+        <name>VGA_FG_GREEN</name>
+        <initializer>&quot;\x1b[32m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="35" column="9" bodyfile="include/video.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1a5a54b38fe3267a374d73fd0532b2dbab" prot="public" static="no">
+        <name>VGA_FG_CYAN</name>
+        <initializer>&quot;\x1b[36m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="36" column="9" bodyfile="include/video.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1a410e13162118b11672d8695f126c360a" prot="public" static="no">
+        <name>VGA_FG_RED</name>
+        <initializer>&quot;\x1b[31m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="37" column="9" bodyfile="include/video.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1a48cfc44e038394196fe4c3dbb1b6e823" prot="public" static="no">
+        <name>VGA_FG_MAGENTA</name>
+        <initializer>&quot;\x1b[35m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="38" column="9" bodyfile="include/video.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1ac54d987788a751982abc145029201f96" prot="public" static="no">
+        <name>VGA_FG_BROWN</name>
+        <initializer>&quot;\x1b[33m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="39" column="9" bodyfile="include/video.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1a56b74dcfaf2dbbb5ae38557c75729525" prot="public" static="no">
+        <name>VGA_FG_WHITE</name>
+        <initializer>&quot;\x1b[37m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="40" column="9" bodyfile="include/video.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1af1b54017a532839740acebe37a956057" prot="public" static="no">
+        <name>VGA_FG_GRAY</name>
+        <initializer>&quot;\x1b[90m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="41" column="9" bodyfile="include/video.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1a8980ffb3c0cfb33a9c3d4714a2bca9b9" prot="public" static="no">
+        <name>VGA_FG_LIGHTBLUE</name>
+        <initializer>&quot;\x1b[94m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="42" column="9" bodyfile="include/video.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1a62bb3417ab7eb78a16d46ca0244593aa" prot="public" static="no">
+        <name>VGA_FG_LIGHTGREEN</name>
+        <initializer>&quot;\x1b[92m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="43" column="9" bodyfile="include/video.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1afb35945a8ed96b35791244cc7c1587ce" prot="public" static="no">
+        <name>VGA_FG_LIGHTCYAN</name>
+        <initializer>&quot;\x1b[96m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="44" column="9" bodyfile="include/video.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1a50978fa771f839325d02a932041e8500" prot="public" static="no">
+        <name>VGA_FG_LIGHTRED</name>
+        <initializer>&quot;\x1b[91m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="45" column="9" bodyfile="include/video.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1ab45c30a8ef79bb9b915959d73df23567" prot="public" static="no">
+        <name>VGA_FG_LIGHTMAGENTA</name>
+        <initializer>&quot;\x1b[95m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="46" column="9" bodyfile="include/video.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1ab37a79f6dc5d55cdc04e9ebf1c9906f1" prot="public" static="no">
+        <name>VGA_FG_YELLOW</name>
+        <initializer>&quot;\x1b[93m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="47" column="9" bodyfile="include/video.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1a08b17ef0f112176b40edfad24f992b35" prot="public" static="no">
+        <name>VGA_FG_LIGHTWHITE</name>
+        <initializer>&quot;\x1b[97m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="48" column="9" bodyfile="include/video.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1a44b0577849abab09ae09ccf8c69dadd0" prot="public" static="no">
+        <name>VGA_BG_BLACK</name>
+        <initializer>&quot;\x1b[40m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="51" column="9" bodyfile="include/video.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1a52f7abaa2b9b73dbf3f5c0350216fe6a" prot="public" static="no">
+        <name>VGA_BG_BLUE</name>
+        <initializer>&quot;\x1b[44m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="52" column="9" bodyfile="include/video.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1abf9ab871ebbbdffb54026fcb297da36a" prot="public" static="no">
+        <name>VGA_BG_GREEN</name>
+        <initializer>&quot;\x1b[42m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="53" column="9" bodyfile="include/video.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1abeb6404188d56bd7ddc8da4351370ac9" prot="public" static="no">
+        <name>VGA_BG_CYAN</name>
+        <initializer>&quot;\x1b[46m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="54" column="9" bodyfile="include/video.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1a9fe243ef7007fe9e421186fed6a045cb" prot="public" static="no">
+        <name>VGA_BG_RED</name>
+        <initializer>&quot;\x1b[41m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="55" column="9" bodyfile="include/video.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1ac7fb66dfbaeaaaeb0e9bebde60adefe4" prot="public" static="no">
+        <name>VGA_BG_MAGENTA</name>
+        <initializer>&quot;\x1b[45m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="56" column="9" bodyfile="include/video.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1a45898e31fb45d23a3e03006f3802de23" prot="public" static="no">
+        <name>VGA_BG_BROWN</name>
+        <initializer>&quot;\x1b[43m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="57" column="9" bodyfile="include/video.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1a0f2cb049be21773ef8aa5481e6454c2e" prot="public" static="no">
+        <name>VGA_BG_WHITE</name>
+        <initializer>&quot;\x1b[47m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="58" column="9" bodyfile="include/video.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1a4b53bd1c212e11a04a0689f2438dea30" prot="public" static="no">
+        <name>VGA_BG_GRAY</name>
+        <initializer>&quot;\x1b[100m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="59" column="9" bodyfile="include/video.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1aad7825dc1a732d8302ed50d5cbb9d25b" prot="public" static="no">
+        <name>VGA_BG_LIGHTBLUE</name>
+        <initializer>&quot;\x1b[104m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="60" column="9" bodyfile="include/video.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1acafa6d086aa1e5533618bbeaa7b4bd46" prot="public" static="no">
+        <name>VGA_BG_LIGHTGREEN</name>
+        <initializer>&quot;\x1b[102m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="61" column="9" bodyfile="include/video.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1ad4fc0ae97296de2238dd87dae03a9780" prot="public" static="no">
+        <name>VGA_BG_LIGHTCYAN</name>
+        <initializer>&quot;\x1b[106m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="62" column="9" bodyfile="include/video.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1a311af83f5c6f87c7ec33f548924d5a80" prot="public" static="no">
+        <name>VGA_BG_LIGHTRED</name>
+        <initializer>&quot;\x1b[101m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="63" column="9" bodyfile="include/video.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1ad417dc9a135581bf82704258b38d1183" prot="public" static="no">
+        <name>VGA_BG_LIGHTMAGENTA</name>
+        <initializer>&quot;\x1b[105m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="64" column="9" bodyfile="include/video.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1a0cda2712c32ccee9344cd00f0b19bb7e" prot="public" static="no">
+        <name>VGA_BG_YELLOW</name>
+        <initializer>&quot;\x1b[103m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="65" column="9" bodyfile="include/video.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1a4a7aa6287943bdf9569aaa76e66a2eaf" prot="public" static="no">
+        <name>VGA_BG_LIGHTWHITE</name>
+        <initializer>&quot;\x1b[107m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="66" column="9" bodyfile="include/video.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1a0184b1c85c30de26515a6dd3954b6822" prot="public" static="no">
+        <name>VGA_RESET</name>
+        <initializer>&quot;\x1b[0m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="69" column="9" bodyfile="include/video.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
       <memberdef kind="define" id="video_8h_1a2f54719dcdf8932e3141388b38dee848" prot="public" static="no">
         <name>DEFAULT_COLOUR</name>
         <initializer><ref refid="video_8h_1a97c0133f41b76073396bbd4a26bb377c" kindref="member">COLOUR_WHITE</ref></initializer>
@@ -1161,91 +1733,29 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="33" column="9" bodyfile="include/video.h" bodystart="33" bodyend="-1"/>
-      </memberdef>
-      </sectiondef>
-      <sectiondef kind="var">
-      <memberdef kind="variable" id="video_8h_1a43d9b652336a0df72765cc74cb497381" prot="public" static="no" mutable="no">
-        <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
-        <definition>console* current_console</definition>
-        <argsstring></argsstring>
-        <name>current_console</name>
-        <briefdescription>
-<para>Pointer to the currently active console. </para>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/video.h" line="246" column="16" bodyfile="src/video.c" bodystart="12" bodyend="-1" declfile="include/video.h" declline="246" declcolumn="16"/>
+        <location file="include/video.h" line="73" column="9" bodyfile="include/video.h" bodystart="73" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
-      <memberdef kind="function" id="video_8h_1a89b876ad8ed8fcb7e9ce6f6dd7518512" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="video_8h_1aff4bc17c602603d120756f52e18ebb96" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void clearscreen</definition>
-        <argsstring>(console *c)</argsstring>
+        <argsstring>()</argsstring>
         <name>clearscreen</name>
-        <param>
-          <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
-          <declname>c</declname>
-        </param>
         <briefdescription>
 <para>Clear the screen and reset cursor to (0,0). </para>
         </briefdescription>
         <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>c</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Target console. </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="61" column="6" bodyfile="src/video.c" bodystart="375" bodyend="380" declfile="include/video.h" declline="61" declcolumn="6"/>
+        <location file="include/video.h" line="82" column="6" bodyfile="src/video.c" bodystart="364" bodyend="368" declfile="include/video.h" declline="82" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="video_8h_1ae71c2439af390bbb8d7ea3f59226983d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void setcursor</definition>
-        <argsstring>(console *c)</argsstring>
-        <name>setcursor</name>
-        <param>
-          <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
-          <declname>c</declname>
-        </param>
-        <briefdescription>
-<para>Set the software cursor to the console&apos;s current (x,y). </para>
-        </briefdescription>
-        <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>c</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Target console. </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/video.h" line="67" column="6" declfile="include/video.h" declline="67" declcolumn="6"/>
-      </memberdef>
-      <memberdef kind="function" id="video_8h_1a998a88c58c530407ae8b304a306b74fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="video_8h_1aa11a255ff4946ba621a6ddd4e4704fbd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void putstring</definition>
-        <argsstring>(console *c, const char *message)</argsstring>
+        <argsstring>(const char *message)</argsstring>
         <name>putstring</name>
-        <param>
-          <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
-          <declname>c</declname>
-        </param>
         <param>
           <type>const char *</type>
           <declname>message</declname>
@@ -1276,7 +1786,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="78" column="6" bodyfile="src/video.c" bodystart="412" bodyend="416" declfile="include/video.h" declline="78" declcolumn="6"/>
+        <location file="include/video.h" line="93" column="6" bodyfile="src/video.c" bodystart="403" bodyend="407" declfile="include/video.h" declline="93" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="video_8h_1a1d4ff70fd24e5e51101991bc73fbe02e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1304,17 +1814,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="84" column="6" bodyfile="src/video.c" bodystart="396" bodyend="406" declfile="include/video.h" declline="84" declcolumn="6"/>
+        <location file="include/video.h" line="99" column="6" bodyfile="src/video.c" bodystart="384" bodyend="397" declfile="include/video.h" declline="99" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="video_8h_1a6aa3e180e6074ca3376aae3fe2521967" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="video_8h_1a990a9c6c3a40e7dd48615fe468187a74" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void put</definition>
-        <argsstring>(console *c, const char n)</argsstring>
+        <argsstring>(const char n)</argsstring>
         <name>put</name>
-        <param>
-          <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
-          <declname>c</declname>
-        </param>
         <param>
           <type>const char</type>
           <declname>n</declname>
@@ -1325,14 +1831,6 @@
         <detaileddescription>
 <para>Cursor is advanced after output, and the screen may scroll.</para>
 <para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>c</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Target console. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
 <parameternamelist>
 <parametername>n</parametername>
 </parameternamelist>
@@ -1345,7 +1843,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="94" column="6" bodyfile="src/video.c" bodystart="390" bodyend="394" declfile="include/video.h" declline="94" declcolumn="6"/>
+        <location file="include/video.h" line="108" column="6" bodyfile="src/video.c" bodystart="377" bodyend="382" declfile="include/video.h" declline="108" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="video_8h_1a10de4e9cb74656845ee2808d17f3e9b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1373,7 +1871,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="100" column="6" bodyfile="src/video.c" bodystart="382" bodyend="385" declfile="include/video.h" declline="100" declcolumn="6"/>
+        <location file="include/video.h" line="114" column="6" bodyfile="src/video.c" bodystart="370" bodyend="372" declfile="include/video.h" declline="114" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="video_8h_1ab9c32270380ee4550fa848647b745f39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1388,17 +1886,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="109" column="6" bodyfile="src/video.c" bodystart="432" bodyend="487" declfile="include/video.h" declline="109" declcolumn="6"/>
+        <location file="include/video.h" line="123" column="6" bodyfile="src/video.c" bodystart="423" bodyend="473" declfile="include/video.h" declline="123" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="video_8h_1a3a4f10379412dfac7b7326c608b0ba1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="video_8h_1a32a8da8e640a8b67a723469f1d231d96" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void setbackground</definition>
-        <argsstring>(console *c, unsigned char background)</argsstring>
+        <argsstring>(unsigned char background)</argsstring>
         <name>setbackground</name>
-        <param>
-          <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
-          <declname>c</declname>
-        </param>
         <param>
           <type>unsigned char</type>
           <declname>background</declname>
@@ -1408,14 +1902,6 @@
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>c</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Target console. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
 <parameternamelist>
 <parametername>background</parametername>
 </parameternamelist>
@@ -1428,17 +1914,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="116" column="6" bodyfile="src/video.c" bodystart="568" bodyend="578" declfile="include/video.h" declline="116" declcolumn="6"/>
+        <location file="include/video.h" line="129" column="6" bodyfile="src/video.c" bodystart="606" bodyend="615" declfile="include/video.h" declline="129" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="video_8h_1a9eb30d97afe44a6d0a2063f701c13ca6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="video_8h_1a927c174cc7eee985f8f9626a65a39e6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void setforeground</definition>
-        <argsstring>(console *c, unsigned char foreground)</argsstring>
+        <argsstring>(unsigned char foreground)</argsstring>
         <name>setforeground</name>
-        <param>
-          <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
-          <declname>c</declname>
-        </param>
         <param>
           <type>unsigned char</type>
           <declname>foreground</declname>
@@ -1448,14 +1930,6 @@
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>c</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Target console. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
 <parameternamelist>
 <parametername>foreground</parametername>
 </parameternamelist>
@@ -1468,7 +1942,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="123" column="6" bodyfile="src/video.c" bodystart="580" bodyend="590" declfile="include/video.h" declline="123" declcolumn="6"/>
+        <location file="include/video.h" line="135" column="6" bodyfile="src/video.c" bodystart="617" bodyend="626" declfile="include/video.h" declline="135" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="video_8h_1aead8dda978d0b4180262e4091be3d4d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int16_t</type>
@@ -1485,7 +1959,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="133" column="9" bodyfile="src/video.c" bodystart="494" bodyend="497" declfile="include/video.h" declline="133" declcolumn="9"/>
+        <location file="include/video.h" line="145" column="9" bodyfile="src/video.c" bodystart="480" bodyend="483" declfile="include/video.h" declline="145" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="video_8h_1a2df69cac6f9d6324e3c872532ee4088d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int16_t</type>
@@ -1502,7 +1976,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="139" column="9" bodyfile="src/video.c" bodystart="489" bodyend="492" declfile="include/video.h" declline="139" declcolumn="9"/>
+        <location file="include/video.h" line="151" column="9" bodyfile="src/video.c" bodystart="475" bodyend="478" declfile="include/video.h" declline="151" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="video_8h_1aa8c0a74e65d6a428468b771eda6f4ddf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1554,7 +2028,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="147" column="6" bodyfile="src/video.c" bodystart="362" bodyend="367" declfile="include/video.h" declline="147" declcolumn="6"/>
+        <location file="include/video.h" line="159" column="6" bodyfile="src/video.c" bodystart="353" bodyend="357" declfile="include/video.h" declline="159" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="video_8h_1aa5401ca0e1f952a097a2976b8f652ec8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint32_t</type>
@@ -1596,7 +2070,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="155" column="10" bodyfile="src/video.c" bodystart="369" bodyend="372" declfile="include/video.h" declline="155" declcolumn="10"/>
+        <location file="include/video.h" line="167" column="10" bodyfile="src/video.c" bodystart="359" bodyend="361" declfile="include/video.h" declline="167" declcolumn="10"/>
       </memberdef>
       <memberdef kind="function" id="video_8h_1aa712e88bef297396764bb1a9b810d072" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>uint64_t</type>
@@ -1613,7 +2087,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="161" column="10" bodyfile="src/video.c" bodystart="301" bodyend="304" declfile="include/video.h" declline="161" declcolumn="10"/>
+        <location file="include/video.h" line="173" column="10" bodyfile="src/video.c" bodystart="302" bodyend="304" declfile="include/video.h" declline="173" declcolumn="10"/>
       </memberdef>
       <memberdef kind="function" id="video_8h_1a50db84ae45ebaba89b42e155676a8bcb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>uint64_t</type>
@@ -1655,7 +2129,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="169" column="10" bodyfile="src/video.c" bodystart="306" bodyend="315" declfile="include/video.h" declline="169" declcolumn="10"/>
+        <location file="include/video.h" line="181" column="10" bodyfile="src/video.c" bodystart="306" bodyend="311" declfile="include/video.h" declline="181" declcolumn="10"/>
       </memberdef>
       <memberdef kind="function" id="video_8h_1ac016b9fcd07b7c15004752ce172708f2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint64_t</type>
@@ -1672,7 +2146,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="179" column="10" bodyfile="src/video.c" bodystart="317" bodyend="320" declfile="include/video.h" declline="179" declcolumn="10"/>
+        <location file="include/video.h" line="191" column="10" bodyfile="src/video.c" bodystart="313" bodyend="315" declfile="include/video.h" declline="191" declcolumn="10"/>
       </memberdef>
       <memberdef kind="function" id="video_8h_1a849430deb40da15a4a934f2fee6d87a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint64_t</type>
@@ -1689,7 +2163,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="185" column="10" bodyfile="src/video.c" bodystart="322" bodyend="325" declfile="include/video.h" declline="185" declcolumn="10"/>
+        <location file="include/video.h" line="197" column="10" bodyfile="src/video.c" bodystart="317" bodyend="319" declfile="include/video.h" declline="197" declcolumn="10"/>
       </memberdef>
       <memberdef kind="function" id="video_8h_1a77f6a7e382b6192d7829bac2f459168e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1729,7 +2203,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="192" column="6" bodyfile="src/video.c" bodystart="349" bodyend="360" declfile="include/video.h" declline="192" declcolumn="6"/>
+        <location file="include/video.h" line="204" column="6" bodyfile="src/video.c" bodystart="341" bodyend="351" declfile="include/video.h" declline="204" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="video_8h_1a9fc73a5f42358dfc5528cecf943aebb3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1770,7 +2244,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="203" column="6" bodyfile="src/video.c" bodystart="340" bodyend="347" declfile="include/video.h" declline="203" declcolumn="6"/>
+        <location file="include/video.h" line="215" column="6" bodyfile="src/video.c" bodystart="333" bodyend="339" declfile="include/video.h" declline="215" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="video_8h_1a496b11428ffec32894ee8edd2d52a366" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1785,7 +2259,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="215" column="6" bodyfile="src/video.c" bodystart="289" bodyend="299" declfile="include/video.h" declline="215" declcolumn="6"/>
+        <location file="include/video.h" line="227" column="6" bodyfile="src/video.c" bodystart="286" bodyend="300" declfile="include/video.h" declline="227" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="video_8h_1a6b5bc99f337a44e893732a08f1d734f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1803,7 +2277,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="223" column="6" bodyfile="src/video.c" bodystart="601" bodyend="615" declfile="include/video.h" declline="223" declcolumn="6"/>
+        <location file="include/video.h" line="235" column="6" bodyfile="src/video.c" bodystart="637" bodyend="651" declfile="include/video.h" declline="235" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="video_8h_1a7b94ff9b6be3b686d6f060b060722902" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1823,7 +2297,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="229" column="6" bodyfile="src/video.c" bodystart="592" bodyend="594" declfile="include/video.h" declline="229" declcolumn="6"/>
+        <location file="include/video.h" line="241" column="6" bodyfile="src/video.c" bodystart="628" bodyend="630" declfile="include/video.h" declline="241" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="video_8h_1ae9b6b12d0a2f6561f268660987f9ad66" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1851,7 +2325,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="235" column="6" bodyfile="src/video.c" bodystart="596" bodyend="599" declfile="include/video.h" declline="235" declcolumn="6"/>
+        <location file="include/video.h" line="247" column="6" bodyfile="src/video.c" bodystart="632" bodyend="635" declfile="include/video.h" declline="247" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="video_8h_1ae061019f3a09b999de9296c92cddd74a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1872,7 +2346,36 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="237" column="6" bodyfile="src/video.c" bodystart="617" bodyend="627" declfile="include/video.h" declline="237" declcolumn="6"/>
+        <location file="include/video.h" line="249" column="6" bodyfile="src/video.c" bodystart="653" bodyend="663" declfile="include/video.h" declline="249" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8h_1a29130758714b766b445d91c79c5a7b85" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* ansi_colour</definition>
+        <argsstring>(char *out, size_t out_len, unsigned char vga_colour, bool background)</argsstring>
+        <name>ansi_colour</name>
+        <param>
+          <type>char *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>out_len</declname>
+        </param>
+        <param>
+          <type>unsigned char</type>
+          <declname>vga_colour</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>background</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="251" column="12" bodyfile="src/video.c" bodystart="592" bodyend="603" declfile="include/video.h" declline="251" declcolumn="12"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

@@ -94,9 +94,14 @@ $(document).ready(function(){initNavTree('filesystem_8c.html',''); initResizable
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="kernel_8h.html">kernel.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="filesystem_8h.html">filesystem.h</a>&gt;</code><br />
+<code>#include &quot;<a class="el" href="block__cache_8h.html">block_cache.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structvfs__tree__t.html">vfs_tree_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmountpoint__t.html">mountpoint_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdirstack__t.html">dirstack_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -108,8 +113,26 @@ Functions</h2></td></tr>
 <tr class="separator:a299b9b008541d290a23f6d83afe7dbc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a403ef73bda9c217900e6026f1d4886f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structfs__directory__entry__t.html">fs_directory_entry_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#a403ef73bda9c217900e6026f1d4886f4">find_file_in_dir</a> (<a class="el" href="structfs__tree__t.html">fs_tree_t</a> *directory, const char *<a class="el" href="retrofs_8h.html#ad9769d3d3ba7e8920ae13e0f71e0ca6e">filename</a>)</td></tr>
 <tr class="separator:a403ef73bda9c217900e6026f1d4886f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3ccc4869f4ceefdc2407734d4a2530c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#ae3ccc4869f4ceefdc2407734d4a2530c">fs_write_file</a> (<a class="el" href="structfs__directory__entry__t.html">fs_directory_entry_t</a> *file, uint32_t <a class="el" href="retrofs_8h.html#af821c0f1bf4d36fbe0a3f5776b71139b">start</a>, uint32_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>, unsigned char *buffer)</td></tr>
+<tr class="memitem:ae3ccc4869f4ceefdc2407734d4a2530c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#ae3ccc4869f4ceefdc2407734d4a2530c">fs_write_file</a> (<a class="el" href="structfs__directory__entry__t.html">fs_directory_entry_t</a> *file, uint32_t <a class="el" href="retrofs_8h.html#af821c0f1bf4d36fbe0a3f5776b71139b">start</a>, uint32_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>, unsigned char *<a class="el" href="input_8c.html#aff2566f4c366b48d73479bef43ee4d2e">buffer</a>)</td></tr>
 <tr class="separator:ae3ccc4869f4ceefdc2407734d4a2530c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad72cb9902201a66f4f86ffd810bddfbb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#ad72cb9902201a66f4f86ffd810bddfbb">vfs_add_mountpoint</a> (const char *mountpoint, <a class="el" href="structfilesystem__t.html">filesystem_t</a> *responsible_driver)</td></tr>
+<tr class="separator:ad72cb9902201a66f4f86ffd810bddfbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a048920dc3b45497964e8ffd398376320"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structmountpoint__t.html">mountpoint_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#a048920dc3b45497964e8ffd398376320">vfs_get_mountpoint_for</a> (const char *normalised_path)</td></tr>
+<tr class="separator:a048920dc3b45497964e8ffd398376320"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6debdb6a96c3bc9ce15f824d928b41b7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#a6debdb6a96c3bc9ce15f824d928b41b7">path_compare</a> (const void *a, const void *b, [[maybe_unused]] void *udata)</td></tr>
+<tr class="separator:a6debdb6a96c3bc9ce15f824d928b41b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b79d32351891f46d83635a1f1dc32f9"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#a7b79d32351891f46d83635a1f1dc32f9">path_hash</a> (const void *item, uint64_t seed0, uint64_t seed1)</td></tr>
+<tr class="separator:a7b79d32351891f46d83635a1f1dc32f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0695bfc6d0cf00345339d14a4a18a5a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#ad0695bfc6d0cf00345339d14a4a18a5a">vfs_path_add_child</a> (const char *path, const char *child)</td></tr>
+<tr class="separator:ad0695bfc6d0cf00345339d14a4a18a5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8518a2a0294dfdeb085eb9ddfbd5c473"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structvfs__tree__t.html">vfs_tree_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#a8518a2a0294dfdeb085eb9ddfbd5c473">find_vfs_path</a> (const char *path)</td></tr>
+<tr class="separator:a8518a2a0294dfdeb085eb9ddfbd5c473"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe5bc2569d9ed5ea3f77a4c95587ee62"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#afe5bc2569d9ed5ea3f77a4c95587ee62">make_vfs_path</a> (const char *path, <a class="el" href="structfs__tree__t.html">fs_tree_t</a> *node)</td></tr>
+<tr class="separator:afe5bc2569d9ed5ea3f77a4c95587ee62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fc4cebfd8a3ec6b75c7d4965c4295cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#a2fc4cebfd8a3ec6b75c7d4965c4295cc">init_vfs_tree</a> ()</td></tr>
+<tr class="separator:a2fc4cebfd8a3ec6b75c7d4965c4295cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a631fa6b9f9fadfb960d04b50e07d09e7"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#a631fa6b9f9fadfb960d04b50e07d09e7">fs_get_name_part</a> (const char *path)</td></tr>
+<tr class="separator:a631fa6b9f9fadfb960d04b50e07d09e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59cfed9fdbdd4476b57fdf0a163e0a48"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#a59cfed9fdbdd4476b57fdf0a163e0a48">fs_set_error</a> (uint32_t <a class="el" href="ahci_8h.html#adc64ccb7538429fe78e3fe0139267370">error</a>)</td></tr>
 <tr class="separator:a59cfed9fdbdd4476b57fdf0a163e0a48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad9cbfbf10c992e4f61ffa515f91402d3"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#ad9cbfbf10c992e4f61ffa515f91402d3">fs_get_error</a> (void)</td></tr>
@@ -123,11 +146,24 @@ Functions</h2></td></tr>
 <tr class="memitem:a1c947f6ecb49c4c29193dbfb80f48913"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#a1c947f6ecb49c4c29193dbfb80f48913">register_storage_device</a> (<a class="el" href="structstorage__device__t.html">storage_device_t</a> *newdev)</td></tr>
 <tr class="memdesc:a1c947f6ecb49c4c29193dbfb80f48913"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a new storage device.  <a href="filesystem_8c.html#a1c947f6ecb49c4c29193dbfb80f48913">More...</a><br /></td></tr>
 <tr class="separator:a1c947f6ecb49c4c29193dbfb80f48913"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6741f416c17912b2f82d16f5ee5c1565"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#a6741f416c17912b2f82d16f5ee5c1565">storage_enable_cache</a> (<a class="el" href="structstorage__device__t.html">storage_device_t</a> *<a class="el" href="ahci_8h.html#a2376f17d1e7367401184b2a3978bcd3a">device</a>)</td></tr>
+<tr class="memdesc:a6741f416c17912b2f82d16f5ee5c1565"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable a block-level cache for a storage device.  <a href="filesystem_8c.html#a6741f416c17912b2f82d16f5ee5c1565">More...</a><br /></td></tr>
+<tr class="separator:a6741f416c17912b2f82d16f5ee5c1565"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa79f452dd70bcb6b4b974380e1b0aed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#afa79f452dd70bcb6b4b974380e1b0aed">storage_disable_cache</a> (<a class="el" href="structstorage__device__t.html">storage_device_t</a> *sd)</td></tr>
+<tr class="memdesc:afa79f452dd70bcb6b4b974380e1b0aed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable and destroy the cache attached to a storage device.  <a href="filesystem_8c.html#afa79f452dd70bcb6b4b974380e1b0aed">More...</a><br /></td></tr>
+<tr class="separator:afa79f452dd70bcb6b4b974380e1b0aed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a11d52abe39eec5ff5057fb568abcaa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structstorage__device__t.html">storage_device_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#a1a11d52abe39eec5ff5057fb568abcaa">find_storage_device</a> (const char *<a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a>)</td></tr>
 <tr class="memdesc:a1a11d52abe39eec5ff5057fb568abcaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find a storage device by name.  <a href="filesystem_8c.html#a1a11d52abe39eec5ff5057fb568abcaa">More...</a><br /></td></tr>
 <tr class="separator:a1a11d52abe39eec5ff5057fb568abcaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bda163cc0a19da8167ee8bc1ef791a5"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structstorage__device__t.html">storage_device_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#a8bda163cc0a19da8167ee8bc1ef791a5">get_all_storage_devices</a> ()</td></tr>
+<tr class="memdesc:a8bda163cc0a19da8167ee8bc1ef791a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a list of all registered storage devices.  <a href="filesystem_8c.html#a8bda163cc0a19da8167ee8bc1ef791a5">More...</a><br /></td></tr>
+<tr class="separator:a8bda163cc0a19da8167ee8bc1ef791a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6faf812c7cf4fcc102075f238887c91e"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#a6faf812c7cf4fcc102075f238887c91e">fs_get_free_space</a> (const char *path)</td></tr>
+<tr class="memdesc:a6faf812c7cf4fcc102075f238887c91e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the free space in bytes for a path depending on the filesystem attached.  <a href="filesystem_8c.html#a6faf812c7cf4fcc102075f238887c91e">More...</a><br /></td></tr>
 <tr class="separator:a6faf812c7cf4fcc102075f238887c91e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace4f979fd8dbfeb64abac7f8aa7459aa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#ace4f979fd8dbfeb64abac7f8aa7459aa">storage_device_clear_blocks</a> (void *dev, uint64_t <a class="el" href="retrofs_8h.html#af821c0f1bf4d36fbe0a3f5776b71139b">start</a>, uint32_t bytes)</td></tr>
+<tr class="memdesc:ace4f979fd8dbfeb64abac7f8aa7459aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark blocks on a block storage as freed, as a hint to the storage device. May be sent as TRIM or other similar command.  <a href="filesystem_8c.html#ace4f979fd8dbfeb64abac7f8aa7459aa">More...</a><br /></td></tr>
+<tr class="separator:ace4f979fd8dbfeb64abac7f8aa7459aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8261f6e5dfde2a376851ee5e1d60798a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#a8261f6e5dfde2a376851ee5e1d60798a">read_storage_device</a> (const char *<a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a>, uint64_t start_block, uint32_t bytes, unsigned char *<a class="el" href="udp_8h.html#a5c239a1bb87b52b0f1d6d68c4749cd2a">data</a>)</td></tr>
 <tr class="memdesc:a8261f6e5dfde2a376851ee5e1d60798a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read blocks from storage device by name.  <a href="filesystem_8c.html#a8261f6e5dfde2a376851ee5e1d60798a">More...</a><br /></td></tr>
 <tr class="separator:a8261f6e5dfde2a376851ee5e1d60798a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -160,13 +196,13 @@ Functions</h2></td></tr>
 <tr class="memitem:a38ca3552bb9bdb4c6069381307431fc0"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#a38ca3552bb9bdb4c6069381307431fc0">_tell</a> (int <a class="el" href="descriptor_8c.html#ae83ac4587641acc1554207eda56234e6">fd</a>)</td></tr>
 <tr class="memdesc:a38ca3552bb9bdb4c6069381307431fc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtain current file position.  <a href="filesystem_8c.html#a38ca3552bb9bdb4c6069381307431fc0">More...</a><br /></td></tr>
 <tr class="separator:a38ca3552bb9bdb4c6069381307431fc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0fd47ee5cad0fcaf36712977a860833f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#a0fd47ee5cad0fcaf36712977a860833f">_read</a> (int <a class="el" href="descriptor_8c.html#ae83ac4587641acc1554207eda56234e6">fd</a>, void *buffer, unsigned int count)</td></tr>
+<tr class="memitem:a0fd47ee5cad0fcaf36712977a860833f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#a0fd47ee5cad0fcaf36712977a860833f">_read</a> (int <a class="el" href="descriptor_8c.html#ae83ac4587641acc1554207eda56234e6">fd</a>, void *<a class="el" href="input_8c.html#aff2566f4c366b48d73479bef43ee4d2e">buffer</a>, unsigned int count)</td></tr>
 <tr class="memdesc:a0fd47ee5cad0fcaf36712977a860833f"><td class="mdescLeft">&#160;</td><td class="mdescRight">POSIX _read function, reads bytes from an open file.  <a href="filesystem_8c.html#a0fd47ee5cad0fcaf36712977a860833f">More...</a><br /></td></tr>
 <tr class="separator:a0fd47ee5cad0fcaf36712977a860833f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7aad6d7661082e4aa5ec28badba8ca5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#ab7aad6d7661082e4aa5ec28badba8ca5">ftruncate</a> (int <a class="el" href="descriptor_8c.html#ae83ac4587641acc1554207eda56234e6">fd</a>, uint32_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>)</td></tr>
 <tr class="memdesc:ab7aad6d7661082e4aa5ec28badba8ca5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Truncate a file to the new length.  <a href="filesystem_8c.html#ab7aad6d7661082e4aa5ec28badba8ca5">More...</a><br /></td></tr>
 <tr class="separator:ab7aad6d7661082e4aa5ec28badba8ca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af53712a23d902e214c27f686f016e8c9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#af53712a23d902e214c27f686f016e8c9">_write</a> (int <a class="el" href="descriptor_8c.html#ae83ac4587641acc1554207eda56234e6">fd</a>, void *buffer, unsigned int count)</td></tr>
+<tr class="memitem:af53712a23d902e214c27f686f016e8c9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#af53712a23d902e214c27f686f016e8c9">_write</a> (int <a class="el" href="descriptor_8c.html#ae83ac4587641acc1554207eda56234e6">fd</a>, void *<a class="el" href="input_8c.html#aff2566f4c366b48d73479bef43ee4d2e">buffer</a>, unsigned int count)</td></tr>
 <tr class="memdesc:af53712a23d902e214c27f686f016e8c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">POSIX _write function, writes bytes to an open file.  <a href="filesystem_8c.html#af53712a23d902e214c27f686f016e8c9">More...</a><br /></td></tr>
 <tr class="separator:af53712a23d902e214c27f686f016e8c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af06efedfd44e65f4272f81cfce654e0b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#af06efedfd44e65f4272f81cfce654e0b">_eof</a> (int <a class="el" href="descriptor_8c.html#ae83ac4587641acc1554207eda56234e6">fd</a>)</td></tr>
@@ -178,7 +214,7 @@ Functions</h2></td></tr>
 <tr class="separator:a9c8fcbf2fc3f66aca573f60b664816fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa371639c2a027bca70b78613a138f971"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structfs__directory__entry__t.html">fs_directory_entry_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#aa371639c2a027bca70b78613a138f971">find_dir_in_dir</a> (<a class="el" href="structfs__tree__t.html">fs_tree_t</a> *directory, const char *<a class="el" href="retrofs_8h.html#ad9769d3d3ba7e8920ae13e0f71e0ca6e">filename</a>)</td></tr>
 <tr class="separator:aa371639c2a027bca70b78613a138f971"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6174ea1e5338a32b45778cb26b7ebc4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#ab6174ea1e5338a32b45778cb26b7ebc4">fs_read_file</a> (<a class="el" href="structfs__directory__entry__t.html">fs_directory_entry_t</a> *file, uint32_t <a class="el" href="retrofs_8h.html#af821c0f1bf4d36fbe0a3f5776b71139b">start</a>, uint32_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>, unsigned char *buffer)</td></tr>
+<tr class="memitem:ab6174ea1e5338a32b45778cb26b7ebc4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#ab6174ea1e5338a32b45778cb26b7ebc4">fs_read_file</a> (<a class="el" href="structfs__directory__entry__t.html">fs_directory_entry_t</a> *file, uint32_t <a class="el" href="retrofs_8h.html#af821c0f1bf4d36fbe0a3f5776b71139b">start</a>, uint32_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>, unsigned char *<a class="el" href="input_8c.html#aff2566f4c366b48d73479bef43ee4d2e">buffer</a>)</td></tr>
 <tr class="memdesc:ab6174ea1e5338a32b45778cb26b7ebc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read raw bytes from any arbitrary file.  <a href="filesystem_8c.html#ab6174ea1e5338a32b45778cb26b7ebc4">More...</a><br /></td></tr>
 <tr class="separator:ab6174ea1e5338a32b45778cb26b7ebc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3692a5983409c6e8f74cbe0c5c3435f4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#a3692a5983409c6e8f74cbe0c5c3435f4">fs_truncate_file</a> (<a class="el" href="structfs__directory__entry__t.html">fs_directory_entry_t</a> *file, uint32_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>)</td></tr>
@@ -212,9 +248,9 @@ Functions</h2></td></tr>
 <tr class="memitem:aeea14dbba6f8453923e288ece85cf6df"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structfs__directory__entry__t.html">fs_directory_entry_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#aeea14dbba6f8453923e288ece85cf6df">fs_get_items</a> (const char *pathname)</td></tr>
 <tr class="memdesc:aeea14dbba6f8453923e288ece85cf6df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a list of files in a directory. The directory path must be fully qualified from the root directory and must contain no trailing slash.  <a href="filesystem_8c.html#aeea14dbba6f8453923e288ece85cf6df">More...</a><br /></td></tr>
 <tr class="separator:aeea14dbba6f8453923e288ece85cf6df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba196fffbbe3a92cf3d5d4c7372539ab"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#aba196fffbbe3a92cf3d5d4c7372539ab">fs_is_directory</a> (const char *pathname)</td></tr>
-<tr class="memdesc:aba196fffbbe3a92cf3d5d4c7372539ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the given path is a directory, false if it is a file.  <a href="filesystem_8c.html#aba196fffbbe3a92cf3d5d4c7372539ab">More...</a><br /></td></tr>
-<tr class="separator:aba196fffbbe3a92cf3d5d4c7372539ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09f96a65fe009b6ff05b26f56306438b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#a09f96a65fe009b6ff05b26f56306438b">fs_is_directory</a> (const char *path)</td></tr>
+<tr class="memdesc:a09f96a65fe009b6ff05b26f56306438b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the given path is a directory, false if it is a file.  <a href="filesystem_8c.html#a09f96a65fe009b6ff05b26f56306438b">More...</a><br /></td></tr>
+<tr class="separator:a09f96a65fe009b6ff05b26f56306438b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7277c11237470183b5d22fc977185169"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#a7277c11237470183b5d22fc977185169">filesystem_mount</a> (const char *pathname, const char *<a class="el" href="ahci_8h.html#a2376f17d1e7367401184b2a3978bcd3a">device</a>, const char *filesystem_driver)</td></tr>
 <tr class="memdesc:a7277c11237470183b5d22fc977185169"><td class="mdescLeft">&#160;</td><td class="mdescRight">High level mount function.  <a href="filesystem_8c.html#a7277c11237470183b5d22fc977185169">More...</a><br /></td></tr>
 <tr class="separator:a7277c11237470183b5d22fc977185169"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -224,8 +260,6 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ac19766356dc103c69d5f0a50202dd40d"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#ac19766356dc103c69d5f0a50202dd40d">fs_error_strings</a> []</td></tr>
-<tr class="separator:ac19766356dc103c69d5f0a50202dd40d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c8156751d296dc1f2698a0c703575a5"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structfilesystem__t.html">filesystem_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#a2c8156751d296dc1f2698a0c703575a5">filesystems</a></td></tr>
 <tr class="separator:a2c8156751d296dc1f2698a0c703575a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a482cbb910ba48077f89f45cd56fef240"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structfilesystem__t.html">filesystem_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#a482cbb910ba48077f89f45cd56fef240">dummyfs</a></td></tr>
@@ -242,6 +276,12 @@ Variables</h2></td></tr>
 <tr class="separator:a256146db41f117243b08b3814ddf5545"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a253e6f668e399ecb396480beedb3d926"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#a253e6f668e399ecb396480beedb3d926">fs_last_error</a> [<a class="el" href="idt_8h.html#a87cbc7cff225b4ad63d67d47c21f933f">MAX_CPUS</a>] = { <a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a5bf93d1f36209dae714b008b1079913d">FS_ERR_NO_ERROR</a> }</td></tr>
 <tr class="separator:a253e6f668e399ecb396480beedb3d926"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac19766356dc103c69d5f0a50202dd40d"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#ac19766356dc103c69d5f0a50202dd40d">fs_error_strings</a> []</td></tr>
+<tr class="separator:ac19766356dc103c69d5f0a50202dd40d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea35062b677ee762b6be4e06d4d3bd4e"><td class="memItemLeft" align="right" valign="top">static struct <a class="el" href="structhashmap.html">hashmap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#aea35062b677ee762b6be4e06d4d3bd4e">vfs_hash</a> = NULL</td></tr>
+<tr class="separator:aea35062b677ee762b6be4e06d4d3bd4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a09ff74c38a1558a52194bef312f9ab"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structmountpoint__t.html">mountpoint_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8c.html#a2a09ff74c38a1558a52194bef312f9ab">mountpoints</a> = NULL</td></tr>
+<tr class="separator:a2a09ff74c38a1558a52194bef312f9ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a9b1e0ee137e6d0bd155c9cb62520b55b"></a>
@@ -816,6 +856,24 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a8518a2a0294dfdeb085eb9ddfbd5c473"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8518a2a0294dfdeb085eb9ddfbd5c473">&#9670;&nbsp;</a></span>find_vfs_path()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structvfs__tree__t.html">vfs_tree_t</a>* find_vfs_path </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ac2803da508b40c2b16f69738038cec36"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac2803da508b40c2b16f69738038cec36">&#9670;&nbsp;</a></span>flush_filehandle()</h2>
 
@@ -1015,6 +1073,15 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Returns the free space in bytes for a path depending on the filesystem attached. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>path to return space for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>free space in bytes </dd></dl>
+
 </div>
 </div>
 <a id="aeea14dbba6f8453923e288ece85cf6df"></a>
@@ -1044,8 +1111,26 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="aba196fffbbe3a92cf3d5d4c7372539ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba196fffbbe3a92cf3d5d4c7372539ab">&#9670;&nbsp;</a></span>fs_is_directory()</h2>
+<a id="a631fa6b9f9fadfb960d04b50e07d09e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a631fa6b9f9fadfb960d04b50e07d09e7">&#9670;&nbsp;</a></span>fs_get_name_part()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* fs_get_name_part </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a09f96a65fe009b6ff05b26f56306438b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09f96a65fe009b6ff05b26f56306438b">&#9670;&nbsp;</a></span>fs_is_directory()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1160,7 +1245,7 @@ false is a file </dd></dl>
 </div><div class="memdoc">
 
 <p>Retrieve a human-readable string for the last filesystem error code. </p>
-<p>This function maps an fs_error_t code to its corresponding descriptive string. It does not reset or clear the error code — the last error value is retained until a new filesystem error is set via <a class="el" href="filesystem_8h.html#a59cfed9fdbdd4476b57fdf0a163e0a48">fs_set_error()</a>.</p>
+<p>This function maps an fs_error_t code to its corresponding descriptive string. It does not reset or clear the error code - the last error value is retained until a new filesystem error is set via <a class="el" href="filesystem_8h.html#a59cfed9fdbdd4476b57fdf0a163e0a48">fs_set_error()</a>.</p>
 <dl class="section note"><dt>Note</dt><dd>The validity of the returned error string depends on the result of the most recent filesystem API call. If a filesystem function returns an error state (e.g. <code>false</code> or <code>0</code>), you may call this function to retrieve a description of that error. If the function succeeded, the stored error code may be outdated.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1290,6 +1375,26 @@ false is a file </dd></dl>
 
 </div>
 </div>
+<a id="a8bda163cc0a19da8167ee8bc1ef791a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bda163cc0a19da8167ee8bc1ef791a5">&#9670;&nbsp;</a></span>get_all_storage_devices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structstorage__device__t.html">storage_device_t</a>* get_all_storage_devices </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return a list of all registered storage devices. </p>
+<dl class="section return"><dt>Returns</dt><dd>storage_device_t* Pointer to first entry in linked list of storage devices, NULL if list is empty. </dd></dl>
+
+</div>
+</div>
 <a id="a47cfa7087b707560af1b5a669dfc69b3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a47cfa7087b707560af1b5a669dfc69b3">&#9670;&nbsp;</a></span>init_filesystem()</h2>
 
@@ -1306,6 +1411,51 @@ false is a file </dd></dl>
 </div><div class="memdoc">
 
 <p>Initialise the filesystem This loads the DummyFS filesystem which manages the root directory until any other driver is loaded. DummyFS is a dummy and does nothing. </p>
+
+</div>
+</div>
+<a id="a2fc4cebfd8a3ec6b75c7d4965c4295cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fc4cebfd8a3ec6b75c7d4965c4295cc">&#9670;&nbsp;</a></span>init_vfs_tree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void init_vfs_tree </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afe5bc2569d9ed5ea3f77a4c95587ee62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe5bc2569d9ed5ea3f77a4c95587ee62">&#9670;&nbsp;</a></span>make_vfs_path()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool make_vfs_path </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structfs__tree__t.html">fs_tree_t</a> *&#160;</td>
+          <td class="paramname"><em>node</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -1326,6 +1476,74 @@ false is a file </dd></dl>
           <td></td>
           <td class="paramtype">[[maybe_unused] ] <a class="el" href="filesystem_8h.html#af456ddc19314d0bde5426f9027e96b05">mode_t</a>&#160;</td>
           <td class="paramname"><em>mode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6debdb6a96c3bc9ce15f824d928b41b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6debdb6a96c3bc9ce15f824d928b41b7">&#9670;&nbsp;</a></span>path_compare()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int path_compare </td>
+          <td>(</td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">[[maybe_unused] ] void *&#160;</td>
+          <td class="paramname"><em>udata</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7b79d32351891f46d83635a1f1dc32f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b79d32351891f46d83635a1f1dc32f9">&#9670;&nbsp;</a></span>path_hash()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t path_hash </td>
+          <td>(</td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>item</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>seed0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>seed1</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1488,6 +1706,106 @@ false is a file </dd></dl>
 
 </div>
 </div>
+<a id="ace4f979fd8dbfeb64abac7f8aa7459aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace4f979fd8dbfeb64abac7f8aa7459aa">&#9670;&nbsp;</a></span>storage_device_clear_blocks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int storage_device_clear_blocks </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>dev</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>bytes</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mark blocks on a block storage as freed, as a hint to the storage device. May be sent as TRIM or other similar command. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dev</td><td>Storage device </td></tr>
+    <tr><td class="paramname">start</td><td>Start sector </td></tr>
+    <tr><td class="paramname">bytes</td><td>Number of bytes, must be a multiple of block size </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>nonzero on success, zero on failure or not supported. Lack of support is not considered fatal. </dd></dl>
+
+</div>
+</div>
+<a id="afa79f452dd70bcb6b4b974380e1b0aed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa79f452dd70bcb6b4b974380e1b0aed">&#9670;&nbsp;</a></span>storage_disable_cache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void storage_disable_cache </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structstorage__device__t.html">storage_device_t</a> *&#160;</td>
+          <td class="paramname"><em>sd</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Disable and destroy the cache attached to a storage device. </p>
+<p>If a cache is present on the device it will be destroyed and all resources freed. After this call, <code>sd-&gt;cache</code> will be set to NULL. Calling this on a device without a cache is safe and has no effect.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sd</td><td>Storage device to disable caching for. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6741f416c17912b2f82d16f5ee5c1565"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6741f416c17912b2f82d16f5ee5c1565">&#9670;&nbsp;</a></span>storage_enable_cache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool storage_enable_cache </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structstorage__device__t.html">storage_device_t</a> *&#160;</td>
+          <td class="paramname"><em>device</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enable a block-level cache for a storage device. </p>
+<p>This attaches a new cache instance to the device if one is not already present. The cache is only created when the device has a valid sector size and read path. Devices that do not benefit from caching (e.g. ramdisks) should not call this function.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">device</td><td>Storage device to enable caching for. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if a cache was successfully created and attached, false if caching could not be enabled (invalid arguments, already enabled, or allocation failure). </dd></dl>
+
+</div>
+</div>
 <a id="af3cee068f32a919cdd638e0578c1e5f8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af3cee068f32a919cdd638e0578c1e5f8">&#9670;&nbsp;</a></span>unlink()</h2>
 
@@ -1527,6 +1845,87 @@ false is a file </dd></dl>
           <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>path</em></td><td>)</td>
           <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad72cb9902201a66f4f86ffd810bddfbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad72cb9902201a66f4f86ffd810bddfbb">&#9670;&nbsp;</a></span>vfs_add_mountpoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool vfs_add_mountpoint </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>mountpoint</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structfilesystem__t.html">filesystem_t</a> *&#160;</td>
+          <td class="paramname"><em>responsible_driver</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a048920dc3b45497964e8ffd398376320"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a048920dc3b45497964e8ffd398376320">&#9670;&nbsp;</a></span>vfs_get_mountpoint_for()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structmountpoint__t.html">mountpoint_t</a>* vfs_get_mountpoint_for </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>normalised_path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns the filesystem driver responsible for handling all fs requests to a path and its child objects. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">normalised_path</td><td>pre-normalised path (can include the filename part) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>filesystem_t* driver ptr, or NULL if no attached driver (only occurs for root before the root filesystem is mounted) </dd></dl>
+
+</div>
+</div>
+<a id="ad0695bfc6d0cf00345339d14a4a18a5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0695bfc6d0cf00345339d14a4a18a5a">&#9670;&nbsp;</a></span>vfs_path_add_child()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool vfs_path_add_child </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>child</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1818,6 +2217,28 @@ false is a file </dd></dl>
 
 </div>
 </div>
+<a id="a2a09ff74c38a1558a52194bef312f9ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a09ff74c38a1558a52194bef312f9ab">&#9670;&nbsp;</a></span>mountpoints</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structmountpoint__t.html">mountpoint_t</a>* mountpoints = NULL</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ae83370e13b4f092c7124551fd77564fb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae83370e13b4f092c7124551fd77564fb">&#9670;&nbsp;</a></span>storagedevices</h2>
 
@@ -1840,13 +2261,35 @@ false is a file </dd></dl>
 
 </div>
 </div>
+<a id="aea35062b677ee762b6be4e06d4d3bd4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea35062b677ee762b6be4e06d4d3bd4e">&#9670;&nbsp;</a></span>vfs_hash</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structhashmap.html">hashmap</a>* vfs_hash = NULL</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7d71b6c457a61cbf03a04bfdc57b6110.html">fs</a></li><li class="navelem"><a class="el" href="filesystem_8c.html">filesystem.c</a></li>
-    <li class="footer">Generated on Sun Aug 10 2025 23:30:44 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

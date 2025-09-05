@@ -11,5 +11,10 @@ var process_8h =
     [ "basic_getprocmem", "process_8h.html#a6253ac1dcdd2d05a016f6018667655ed", null ],
     [ "basic_getprocname", "process_8h.html#a9c253e008eb28a6664411b3da229bcff", null ],
     [ "basic_getprocparent", "process_8h.html#a58a96c01d5976a1b3761d291acdfb858", null ],
-    [ "basic_getprocstate", "process_8h.html#a45898c1d7e85f9c2ae000441e7f4c9b6", null ]
+    [ "basic_getprocstate", "process_8h.html#a45898c1d7e85f9c2ae000441e7f4c9b6", null ],
+    [ "chain_statement", "process_8h.html#aa805a28917e301954771c63ba3713d4a", null ],
+    [ "eval_statement", "process_8h.html#a5e5f1ea2b9be92d6852d00ef01077ee2", null ],
+    [ "goto_statement", "process_8h.html#a4da7523f6ab0e5355028deb01f27d748", null ],
+    [ "rem_statement", "process_8h.html#a53b019c43274358836f64a396b2b6431", null ],
+    [ "yield_statement", "process_8h.html#a14e5c07fad2912482b0dc026fadd3c3a", null ]
 ];

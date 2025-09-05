@@ -4,27 +4,21 @@
     <compoundname>variable.c</compoundname>
     <includes refid="kernel_8h" local="no">kernel.h</includes>
     <incdepgraph>
-      <node id="52">
+      <node id="57">
         <label>ata.h</label>
         <link refid="ata_8h"/>
       </node>
       <node id="4">
         <label>stdbool.h</label>
       </node>
-      <node id="20">
+      <node id="22">
         <label>basic.h</label>
         <link refid="basic_8h"/>
-        <childnode refid="21" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
         <childnode refid="23" relation="include">
         </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
         <childnode refid="25" relation="include">
-        </childnode>
-        <childnode refid="26" relation="include">
-        </childnode>
-        <childnode refid="27" relation="include">
         </childnode>
         <childnode refid="28" relation="include">
         </childnode>
@@ -52,21 +46,31 @@
         </childnode>
         <childnode refid="40" relation="include">
         </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
       </node>
-      <node id="23">
+      <node id="25">
         <label>basic/context.h</label>
         <link refid="context_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
         </childnode>
       </node>
-      <node id="83">
+      <node id="88">
         <label>stdarg.h</label>
       </node>
-      <node id="55">
+      <node id="60">
         <label>ramdisk.h</label>
         <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
@@ -81,7 +85,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="26">
+      <node id="29">
         <label>basic/validation.h</label>
         <link refid="validation_8h"/>
         <childnode refid="3" relation="include">
@@ -89,7 +93,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="36">
+      <node id="39">
         <label>basic/graphics.h</label>
         <link refid="graphics_8h"/>
         <childnode refid="3" relation="include">
@@ -97,13 +101,13 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="67">
+      <node id="72">
         <label>acpi.h</label>
         <link refid="acpi_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="24">
         <label>basic/structs.h</label>
         <link refid="structs_8h"/>
         <childnode refid="3" relation="include">
@@ -111,13 +115,16 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="71">
+      <node id="76">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="24">
+      <node id="67">
+        <label>stdnoreturn.h</label>
+      </node>
+      <node id="27">
         <label>buddy_allocator.h</label>
         <link refid="buddy__allocator_8h"/>
         <childnode refid="5" relation="include">
@@ -125,13 +132,19 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="78">
+      <node id="83">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="58">
+      <node id="44">
+        <label>basic/peekpoke.h</label>
+        <link refid="peekpoke_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="63">
         <label>fat32.h</label>
         <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
@@ -147,13 +160,13 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="76">
+      <node id="81">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="56">
+      <node id="61">
         <label>iso9660.h</label>
         <link refid="iso9660_8h"/>
         <childnode refid="2" relation="include">
@@ -169,13 +182,13 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="74">
+      <node id="79">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="49">
+      <node id="53">
         <label>devicename.h</label>
         <link refid="devicename_8h"/>
         <childnode refid="2" relation="include">
@@ -188,13 +201,13 @@
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="79">
+      <node id="84">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="30">
         <label>basic/variable.h</label>
         <link refid="variable_8h"/>
         <childnode refid="3" relation="include">
@@ -202,13 +215,13 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="69">
+      <node id="74">
         <label>rtl8139.h</label>
         <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="48">
+      <node id="52">
         <label>stdlib.h</label>
         <link refid="stdlib_8h"/>
         <childnode refid="5" relation="include">
@@ -219,14 +232,22 @@
       <node id="12">
         <label>x86intrin.h</label>
       </node>
-      <node id="43">
+      <node id="47">
         <label>ioapic.h</label>
         <link refid="ioapic_8h"/>
       </node>
       <node id="5">
         <label>stddef.h</label>
       </node>
-      <node id="34">
+      <node id="90">
+        <label>module.h</label>
+        <link refid="module_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
         <label>basic/array.h</label>
         <link refid="array_8h"/>
         <childnode refid="3" relation="include">
@@ -234,7 +255,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="32">
+      <node id="35">
         <label>basic/flow_control.h</label>
         <link refid="flow__control_8h"/>
         <childnode refid="3" relation="include">
@@ -245,9 +266,11 @@
       <node id="6">
         <label>limits.h</label>
       </node>
-      <node id="61">
+      <node id="66">
         <label>keyboard.h</label>
         <link refid="keyboard_8h"/>
+        <childnode refid="67" relation="include">
+        </childnode>
       </node>
       <node id="13">
         <label>cv.h</label>
@@ -267,19 +290,19 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="70">
+      <node id="75">
         <label>e1000.h</label>
         <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="64">
+      <node id="70">
         <label>lapic_timer.h</label>
         <link refid="lapic__timer_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="34">
         <label>basic/builtin_real_functions.h</label>
         <link refid="builtin__real__functions_8h"/>
         <childnode refid="3" relation="include">
@@ -290,37 +313,37 @@
       <node id="7">
         <label>limine.h</label>
       </node>
-      <node id="62">
+      <node id="68">
         <label>input.h</label>
         <link refid="input_8h"/>
       </node>
-      <node id="80">
+      <node id="85">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="18">
+      <node id="20">
         <label>video.h</label>
         <link refid="video_8h"/>
       </node>
-      <node id="82">
+      <node id="87">
         <label>serial.h</label>
         <link refid="serial_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="83" relation="include">
+        <childnode refid="88" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="75">
+      <node id="80">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="35">
+      <node id="38">
         <label>basic/sockets.h</label>
         <link refid="sockets_8h"/>
         <childnode refid="3" relation="include">
@@ -328,17 +351,25 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="23">
         <label>basic/defines.h</label>
         <link refid="defines_8h"/>
       </node>
-      <node id="72">
+      <node id="17">
+        <label>vector.h</label>
+        <link refid="vector_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="77">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="28">
+      <node id="31">
         <label>basic/builtin_integer_functions.h</label>
         <link refid="builtin__integer__functions_8h"/>
         <childnode refid="3" relation="include">
@@ -346,23 +377,23 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="53">
+      <node id="58">
         <label>filesystem.h</label>
         <link refid="filesystem_8h"/>
       </node>
-      <node id="47">
+      <node id="51">
         <label>maths.h</label>
         <link refid="maths_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="57">
+      <node id="62">
         <label>devfs.h</label>
         <link refid="devfs_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="28">
         <label>basic/expression.h</label>
         <link refid="expression_8h"/>
         <childnode refid="3" relation="include">
@@ -370,11 +401,11 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="60">
+      <node id="65">
         <label>errorhandler.h</label>
         <link refid="errorhandler_8h"/>
       </node>
-      <node id="29">
+      <node id="32">
         <label>basic/builtin_string_functions.h</label>
         <link refid="builtin__string__functions_8h"/>
         <childnode refid="3" relation="include">
@@ -382,7 +413,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="73">
+      <node id="78">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
@@ -421,15 +452,11 @@
         </childnode>
         <childnode refid="19" relation="include">
         </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
         <childnode refid="10" relation="include">
-        </childnode>
-        <childnode refid="41" relation="include">
-        </childnode>
-        <childnode refid="42" relation="include">
-        </childnode>
-        <childnode refid="43" relation="include">
-        </childnode>
-        <childnode refid="44" relation="include">
         </childnode>
         <childnode refid="45" relation="include">
         </childnode>
@@ -453,8 +480,6 @@
         </childnode>
         <childnode refid="55" relation="include">
         </childnode>
-        <childnode refid="56" relation="include">
-        </childnode>
         <childnode refid="57" relation="include">
         </childnode>
         <childnode refid="58" relation="include">
@@ -471,19 +496,19 @@
         </childnode>
         <childnode refid="64" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
         <childnode refid="65" relation="include">
         </childnode>
         <childnode refid="66" relation="include">
-        </childnode>
-        <childnode refid="67" relation="include">
         </childnode>
         <childnode refid="68" relation="include">
         </childnode>
         <childnode refid="69" relation="include">
         </childnode>
         <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
         </childnode>
         <childnode refid="71" relation="include">
         </childnode>
@@ -505,22 +530,34 @@
         </childnode>
         <childnode refid="80" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
         <childnode refid="81" relation="include">
         </childnode>
         <childnode refid="82" relation="include">
         </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
         <childnode refid="84" relation="include">
         </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
       </node>
-      <node id="41">
+      <node id="45">
         <label>memcpy.h</label>
         <link refid="memcpy_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="37">
+      <node id="40">
         <label>basic/console.h</label>
         <link refid="console_8h"/>
         <childnode refid="3" relation="include">
@@ -528,25 +565,25 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="54">
+      <node id="59">
         <label>partition.h</label>
         <link refid="partition_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="19">
         <label>random.h</label>
         <link refid="random_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="84">
+      <node id="89">
         <label>debug_ringbuffer.h</label>
         <link refid="debug__ringbuffer_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="66">
+      <node id="71">
         <label>taskswitch.h</label>
         <link refid="taskswitch_8h"/>
         <childnode refid="2" relation="include">
@@ -564,19 +601,19 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="68">
+      <node id="73">
         <label>net.h</label>
         <link refid="net_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="44">
+      <node id="48">
         <label>timer.h</label>
         <link refid="timer_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="39">
+      <node id="42">
         <label>basic/reflection.h</label>
         <link refid="reflection_8h"/>
         <childnode refid="3" relation="include">
@@ -584,11 +621,11 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="59">
+      <node id="64">
         <label>debugger.h</label>
         <link refid="debugger_8h"/>
       </node>
-      <node id="30">
+      <node id="33">
         <label>basic/builtin_file_io_functions.h</label>
         <link refid="builtin__file__io__functions_8h"/>
         <childnode refid="3" relation="include">
@@ -596,25 +633,39 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="50">
+      <node id="54">
         <label>interrupt.h</label>
         <link refid="interrupt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="45">
+      <node id="49">
         <label>kmalloc.h</label>
         <link refid="kmalloc_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="65">
-        <label>basic/tokenizer.h</label>
+      <node id="56">
+        <label>scsi.h</label>
+        <link refid="scsi_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>map.h</label>
+        <link refid="map_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>tokenizer.h</label>
         <link refid="tokenizer_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="33">
+      <node id="36">
         <label>basic/lowlevel.h</label>
         <link refid="lowlevel_8h"/>
         <childnode refid="3" relation="include">
@@ -622,29 +673,31 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="46">
+      <node id="50">
         <label>pci.h</label>
         <link refid="pci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="42">
+      <node id="46">
         <label>apic.h</label>
         <link refid="apic_8h"/>
       </node>
-      <node id="19">
+      <node id="21">
         <label>string.h</label>
         <link refid="string_8h"/>
-        <childnode refid="20" relation="include">
+        <childnode refid="22" relation="include">
         </childnode>
       </node>
-      <node id="51">
+      <node id="55">
         <label>ahci.h</label>
         <link refid="ahci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
       </node>
-      <node id="38">
+      <node id="41">
         <label>basic/process.h</label>
         <link refid="process_8h"/>
         <childnode refid="3" relation="include">
@@ -652,19 +705,19 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="77">
+      <node id="82">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="81">
+      <node id="86">
         <label>retrofs.h</label>
         <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="40">
+      <node id="43">
         <label>basic/datetime.h</label>
         <link refid="datetime_8h"/>
         <childnode refid="3" relation="include">
@@ -672,7 +725,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="63">
+      <node id="69">
         <label>clock.h</label>
         <link refid="clock_8h"/>
         <childnode refid="2" relation="include">
@@ -682,6 +735,19 @@
       </node>
     </incdepgraph>
       <sectiondef kind="var">
+      <memberdef kind="variable" id="variable_8c_1a398527b3e9e358c345c5047b16871957" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool debug</definition>
+        <argsstring></argsstring>
+        <name>debug</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/basic/variable.c" line="7" column="13" bodyfile="src/basic/debugger.c" bodystart="3" bodyend="-1" declfile="src/basic/variable.c" declline="7" declcolumn="13"/>
+      </memberdef>
       <memberdef kind="variable" id="variable_8c_1a28d1f9bb0438d5209d0a4ca5617289c2" prot="public" static="no" mutable="no">
         <type>const struct g_cpuid_vendor</type>
         <definition>const struct g_cpuid_vendor cpuid_vendors[]</definition>
@@ -693,7 +759,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/variable.c" line="1" column="0" bodyfile="src/basic/variable.c" bodystart="7" bodyend="-1"/>
+        <location file="src/basic/variable.c" line="7" column="13" bodyfile="src/basic/variable.c" bodystart="9" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -735,7 +801,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/variable.c" line="40" column="6" bodyfile="src/basic/variable.c" bodystart="40" bodyend="59"/>
+        <location file="src/basic/variable.c" line="42" column="6" bodyfile="src/basic/variable.c" bodystart="42" bodyend="61"/>
       </memberdef>
       <memberdef kind="function" id="variable_8c_1ac127b0839b0590fcef5ab5f6e1667b61" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -788,7 +854,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/variable.c" line="61" column="6" bodyfile="src/basic/variable.c" bodystart="61" bodyend="124"/>
+        <location file="src/basic/variable.c" line="63" column="6" bodyfile="src/basic/variable.c" bodystart="63" bodyend="129"/>
       </memberdef>
       <memberdef kind="function" id="variable_8c_1afeb6f8b28c70ed62d069e7bc33d07d16" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -809,7 +875,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/variable.c" line="126" column="6" bodyfile="src/basic/variable.c" bodystart="126" bodyend="169"/>
+        <location file="src/basic/variable.c" line="131" column="6" bodyfile="src/basic/variable.c" bodystart="131" bodyend="174"/>
       </memberdef>
       <memberdef kind="function" id="variable_8c_1ad783607ef9114bb476aec066a2d5e5eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -840,7 +906,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/variable.c" line="171" column="6" bodyfile="src/basic/variable.c" bodystart="171" bodyend="174"/>
+        <location file="src/basic/variable.c" line="176" column="6" bodyfile="src/basic/variable.c" bodystart="176" bodyend="179"/>
       </memberdef>
       <memberdef kind="function" id="variable_8c_1af12fcb4c5efc346a3a296505dce0a74f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -871,7 +937,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/variable.c" line="176" column="6" bodyfile="src/basic/variable.c" bodystart="176" bodyend="179"/>
+        <location file="src/basic/variable.c" line="181" column="6" bodyfile="src/basic/variable.c" bodystart="181" bodyend="184"/>
       </memberdef>
       <memberdef kind="function" id="variable_8c_1a9e892389dc272853d51b1bbbb49f4411" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -902,12 +968,49 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/variable.c" line="181" column="6" bodyfile="src/basic/variable.c" bodystart="181" bodyend="184"/>
+        <location file="src/basic/variable.c" line="186" column="6" bodyfile="src/basic/variable.c" bodystart="186" bodyend="189"/>
       </memberdef>
-      <memberdef kind="function" id="variable_8c_1aa09a0d5b3cb727af7675a2b8ac2ba74a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="variable_8c_1ad4ee1c58ab86df9aaa34b2ae2a12a43e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void update_string</definition>
+        <argsstring>(struct basic_ctx *ctx, ub_var_string *str, size_t len, bool propagate_global, const char *varname, const char *value)</argsstring>
+        <name>update_string</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type><ref refid="structub__var__string" kindref="compound">ub_var_string</ref> *</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>propagate_global</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>varname</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/basic/variable.c" line="191" column="13" bodyfile="src/basic/variable.c" bodystart="191" bodyend="196"/>
+      </memberdef>
+      <memberdef kind="function" id="variable_8c_1af1e6eaa0b44741d35ea6f11c031a0420" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void basic_set_string_variable</definition>
-        <argsstring>(const char *var, const char *value, struct basic_ctx *ctx, bool local, bool global)</argsstring>
+        <argsstring>(const char *var, const char *value, struct basic_ctx *ctx, bool local, bool propagate_global)</argsstring>
         <name>basic_set_string_variable</name>
         <param>
           <type>const char *</type>
@@ -927,7 +1030,7 @@
         </param>
         <param>
           <type>bool</type>
-          <declname>global</declname>
+          <declname>propagate_global</declname>
         </param>
         <briefdescription>
 <para>Set the value of a string variable. </para>
@@ -968,10 +1071,10 @@
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>global</parametername>
+<parametername>propagate_global</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Boolean indicating whether the variable is global. </para>
+<para>Boolean indicating whether the variable is propagated globally to child programs. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -979,12 +1082,49 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/variable.c" line="186" column="6" bodyfile="src/basic/variable.c" bodystart="186" bodyend="251"/>
+        <location file="src/basic/variable.c" line="198" column="6" bodyfile="src/basic/variable.c" bodystart="198" bodyend="230"/>
       </memberdef>
-      <memberdef kind="function" id="variable_8c_1a3d66422a4fcb7d011bd9bdd6ce68c36b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="variable_8c_1ac194dc337603f2e7ef89969cdef3b3e4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void update_int</definition>
+        <argsstring>(struct basic_ctx *ctx, ub_var_int *integer, size_t len, bool propagate_global, const char *varname, int64_t value)</argsstring>
+        <name>update_int</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type><ref refid="structub__var__int" kindref="compound">ub_var_int</ref> *</type>
+          <declname>integer</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>propagate_global</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>varname</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/basic/variable.c" line="232" column="13" bodyfile="src/basic/variable.c" bodystart="232" bodyend="237"/>
+      </memberdef>
+      <memberdef kind="function" id="variable_8c_1aeebc1e806dd78c397608eb37b80195d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void basic_set_int_variable</definition>
-        <argsstring>(const char *var, int64_t value, struct basic_ctx *ctx, bool local, bool global)</argsstring>
+        <argsstring>(const char *var, int64_t value, struct basic_ctx *ctx, bool local, bool propagate_global)</argsstring>
         <name>basic_set_int_variable</name>
         <param>
           <type>const char *</type>
@@ -1004,7 +1144,7 @@
         </param>
         <param>
           <type>bool</type>
-          <declname>global</declname>
+          <declname>propagate_global</declname>
         </param>
         <briefdescription>
 <para>Set the value of an integer variable. </para>
@@ -1045,10 +1185,10 @@
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>global</parametername>
+<parametername>propagate_global</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Boolean indicating whether the variable is global. </para>
+<para>Boolean indicating whether the variable is propagated globally to child programs. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -1056,12 +1196,49 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/variable.c" line="253" column="6" bodyfile="src/basic/variable.c" bodystart="253" bodyend="302"/>
+        <location file="src/basic/variable.c" line="239" column="6" bodyfile="src/basic/variable.c" bodystart="239" bodyend="273"/>
       </memberdef>
-      <memberdef kind="function" id="variable_8c_1aae981cc5816799d8e4f991e2b8fdee7e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="variable_8c_1a349ff03353e4301fc12a74d8f1b6c5e7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void update_double</definition>
+        <argsstring>(struct basic_ctx *ctx, ub_var_double *dbl, size_t len, bool propagate_global, const char *varname, double value)</argsstring>
+        <name>update_double</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type><ref refid="structub__var__double" kindref="compound">ub_var_double</ref> *</type>
+          <declname>dbl</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>propagate_global</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>varname</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/basic/variable.c" line="275" column="13" bodyfile="src/basic/variable.c" bodystart="275" bodyend="280"/>
+      </memberdef>
+      <memberdef kind="function" id="variable_8c_1a54407f1cf447b69cf48a42397a3035e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void basic_set_double_variable</definition>
-        <argsstring>(const char *var, double value, struct basic_ctx *ctx, bool local, bool global)</argsstring>
+        <argsstring>(const char *var, double value, struct basic_ctx *ctx, bool local, bool propagate_global)</argsstring>
         <name>basic_set_double_variable</name>
         <param>
           <type>const char *</type>
@@ -1081,7 +1258,7 @@
         </param>
         <param>
           <type>bool</type>
-          <declname>global</declname>
+          <declname>propagate_global</declname>
         </param>
         <briefdescription>
 <para>Set the value of a double (real) variable. </para>
@@ -1122,10 +1299,10 @@
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>global</parametername>
+<parametername>propagate_global</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Boolean indicating whether the variable is global. </para>
+<para>Boolean indicating whether the variable is propagated globally to child programs. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -1133,7 +1310,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/variable.c" line="304" column="6" bodyfile="src/basic/variable.c" bodystart="304" bodyend="354"/>
+        <location file="src/basic/variable.c" line="282" column="6" bodyfile="src/basic/variable.c" bodystart="282" bodyend="313"/>
       </memberdef>
       <memberdef kind="function" id="variable_8c_1a82854afbcae01e2666ce41e5449eaa5b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char</type>
@@ -1163,7 +1340,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/variable.c" line="363" column="6" bodyfile="src/basic/variable.c" bodystart="363" bodyend="365"/>
+        <location file="src/basic/variable.c" line="322" column="6" bodyfile="src/basic/variable.c" bodystart="322" bodyend="324"/>
       </memberdef>
       <memberdef kind="function" id="variable_8c_1aeb13a596e0e6f645e4ec6778282269b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char</type>
@@ -1180,7 +1357,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/variable.c" line="367" column="6" bodyfile="src/basic/variable.c" bodystart="367" bodyend="369"/>
+        <location file="src/basic/variable.c" line="326" column="6" bodyfile="src/basic/variable.c" bodystart="326" bodyend="328"/>
       </memberdef>
       <memberdef kind="function" id="variable_8c_1a65092257bf0f96d3012e0b55755760e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char</type>
@@ -1197,28 +1374,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/variable.c" line="371" column="6" bodyfile="src/basic/variable.c" bodystart="371" bodyend="373"/>
-      </memberdef>
-      <memberdef kind="function" id="variable_8c_1a418eb7273f93b75bb1fc94ce0f916722" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>const char *</type>
-        <definition>const char* basic_test_string_variable</definition>
-        <argsstring>(const char *var, struct basic_ctx *ctx)</argsstring>
-        <name>basic_test_string_variable</name>
-        <param>
-          <type>const char *</type>
-          <declname>var</declname>
-        </param>
-        <param>
-          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
-          <declname>ctx</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/basic/variable.c" line="375" column="12" bodyfile="src/basic/variable.c" bodystart="375" bodyend="391"/>
+        <location file="src/basic/variable.c" line="330" column="6" bodyfile="src/basic/variable.c" bodystart="330" bodyend="332"/>
       </memberdef>
       <memberdef kind="function" id="variable_8c_1ae636ca2f3ebb3b2d12929587b998bb21" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const char *</type>
@@ -1261,7 +1417,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/variable.c" line="393" column="12" bodyfile="src/basic/variable.c" bodystart="393" bodyend="444"/>
+        <location file="src/basic/variable.c" line="334" column="12" bodyfile="src/basic/variable.c" bodystart="334" bodyend="359"/>
       </memberdef>
       <memberdef kind="function" id="variable_8c_1a4f4d220db2cd25e991803885926174ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1304,7 +1460,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/variable.c" line="446" column="6" bodyfile="src/basic/variable.c" bodystart="446" bodyend="464"/>
+        <location file="src/basic/variable.c" line="361" column="6" bodyfile="src/basic/variable.c" bodystart="361" bodyend="374"/>
       </memberdef>
       <memberdef kind="function" id="variable_8c_1ae9c342e06df1aa6a33395f385c46138b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1347,7 +1503,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/variable.c" line="466" column="6" bodyfile="src/basic/variable.c" bodystart="466" bodyend="484"/>
+        <location file="src/basic/variable.c" line="376" column="6" bodyfile="src/basic/variable.c" bodystart="376" bodyend="389"/>
       </memberdef>
       <memberdef kind="function" id="variable_8c_1a02cb6072b5475bea18fc8d39f54fa1b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1390,7 +1546,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/variable.c" line="486" column="6" bodyfile="src/basic/variable.c" bodystart="486" bodyend="504"/>
+        <location file="src/basic/variable.c" line="391" column="6" bodyfile="src/basic/variable.c" bodystart="391" bodyend="404"/>
       </memberdef>
       <memberdef kind="function" id="variable_8c_1a19e70f175eb2692da19e74cb2ca4b739" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -1434,7 +1590,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/variable.c" line="506" column="9" bodyfile="src/basic/variable.c" bodystart="506" bodyend="562"/>
+        <location file="src/basic/variable.c" line="406" column="9" bodyfile="src/basic/variable.c" bodystart="406" bodyend="430"/>
       </memberdef>
       <memberdef kind="function" id="variable_8c_1a65166d979ee0726821cec844a6a05856" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1489,7 +1645,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/variable.c" line="564" column="6" bodyfile="src/basic/variable.c" bodystart="564" bodyend="618"/>
+        <location file="src/basic/variable.c" line="432" column="6" bodyfile="src/basic/variable.c" bodystart="432" bodyend="462"/>
       </memberdef>
       <memberdef kind="function" id="variable_8c_1a46cef0a6e745ef1947f3666ef18e2c99" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structs_8h_1a2279cec37b8a81d5f18e78d7335b1966" kindref="member">ub_return_type</ref></type>
@@ -1544,7 +1700,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/variable.c" line="620" column="16" bodyfile="src/basic/variable.c" bodystart="620" bodyend="627"/>
+        <location file="src/basic/variable.c" line="464" column="16" bodyfile="src/basic/variable.c" bodystart="464" bodyend="471"/>
       </memberdef>
       <memberdef kind="function" id="variable_8c_1a4dc306b4f5e91e66b4871cd792f321bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -1587,7 +1743,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/variable.c" line="629" column="9" bodyfile="src/basic/variable.c" bodystart="629" bodyend="636"/>
+        <location file="src/basic/variable.c" line="473" column="9" bodyfile="src/basic/variable.c" bodystart="473" bodyend="480"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
