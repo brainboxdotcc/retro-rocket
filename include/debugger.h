@@ -65,3 +65,5 @@ bool get_debug_signal();
 void gdb_decode(char* out, const uint8_t* in, size_t len);
 void gdb_emit();
 uint32_t gdb_trace(const char* str);
+
+uint64_t findsymbol_addr(const char *name);

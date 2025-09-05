@@ -1,39 +1,11 @@
 #include <kernel.h>
 
-/* .dynsym/.dynstr in the image */
-extern const elf_sym __dynsym_start[];
-extern const elf_sym __dynsym_stop[];
-extern const char __dynstr_start[];
-
 const void *kernel_dlsym(const char *name) {
-	const elf_sym *s;
-
-	if (name == NULL) {
+	if (!name) {
 		return NULL;
 	}
-
-	for (s = __dynsym_start; s < __dynsym_stop; s++) {
-		unsigned bind;
-
-		if (s->st_name == 0) {
-			continue;
-		}
-
-		bind = ELF64_ST_BIND(s->st_info);
-		if (bind != STB_GLOBAL && bind != STB_WEAK) {
-			continue;
-		}
-
-		if (s->st_shndx == SHN_UNDEF || s->st_shndx >= SHN_LORESERVE) {
-			continue;
-		}
-
-		if (strcmp(__dynstr_start + s->st_name, name) == 0) {
-			return (const void *) (uintptr_t) s->st_value; /* higher-half VMA */
-		}
-	}
-
-	return NULL;
+	uint64_t a = findsymbol_addr(name);
+	return a ? (const void *) (uintptr_t) a : NULL;
 }
 
 bool parse_elf_rel_headers(const uint8_t *file, size_t len, const elf_ehdr **eh, const elf_shdr **sh, size_t *shnum, const char **shstr) {
@@ -236,14 +208,20 @@ bool module_apply_relocations(const uint8_t *file, const elf_shdr *sh, size_t sh
 		}
 
 		uint16_t tgt_index = (uint16_t) sh[i].sh_info;
-		uint8_t *tgt_base = module_section_base(m, tgt_index);
-		const elf_rela *rela = (const elf_rela *) (file + sh[i].sh_offset);
-		size_t count = (size_t) (sh[i].sh_size / sizeof(elf_rela));
 
+		/* NEW: ignore relocations for non-ALLOC target sections (e.g. .debug*) */
+		if (tgt_index >= shnum || !is_alloc_section(&sh[tgt_index])) {
+			continue;
+		}
+
+		uint8_t *tgt_base = module_section_base(m, tgt_index);
 		if (tgt_base == NULL) {
-			dprintf("module_apply_relocations: target section base not found\n");
+			dprintf("module_apply_relocations: target section base not found (idx=%u)\n", tgt_index);
 			return false;
 		}
+
+		const elf_rela *rela = (const elf_rela *) (file + sh[i].sh_offset);
+		size_t count = (size_t) (sh[i].sh_size / sizeof(elf_rela));
 
 		for (size_t j = 0; j < count; j++) {
 			uint32_t type = (uint32_t) ELF64_R_TYPE(rela[j].r_info);
@@ -263,10 +241,10 @@ bool module_apply_relocations(const uint8_t *file, const elf_shdr *sh, size_t sh
 			}
 
 			switch (type) {
-				case R_X86_64_64: {
+				case R_X86_64_64:
 					*(uint64_t *) P = (uint64_t) ((uint64_t) S + (uint64_t) A);
 					break;
-				}
+
 				case R_X86_64_PC32: {
 					int64_t val = (int64_t) S + A - (int64_t) P;
 					if (val < INT_MIN || val > INT_MAX) {
@@ -276,6 +254,18 @@ bool module_apply_relocations(const uint8_t *file, const elf_shdr *sh, size_t sh
 					*(int32_t *) P = (int32_t) val;
 					break;
 				}
+
+				/* Compilers often emit PLT32 for extern calls */
+				case 4 /* R_X86_64_PLT32 */: {
+					int64_t val = (int64_t) S + A - (int64_t) P;
+					if (val < INT_MIN || val > INT_MAX) {
+						dprintf("module_apply_relocations: PLT32 overflow\n");
+						return false;
+					}
+					*(int32_t *) P = (int32_t) val;
+					break;
+				}
+
 				case R_X86_64_32: {
 					uint64_t val = (uint64_t) S + (uint64_t) A;
 					if (val > UINT_MAX) {
@@ -285,6 +275,7 @@ bool module_apply_relocations(const uint8_t *file, const elf_shdr *sh, size_t sh
 					*(uint32_t *) P = (uint32_t) val;
 					break;
 				}
+
 				case R_X86_64_32S: {
 					int64_t val = (int64_t) S + A;
 					if (val < INT_MIN || val > INT_MAX) {
@@ -294,14 +285,13 @@ bool module_apply_relocations(const uint8_t *file, const elf_shdr *sh, size_t sh
 					*(int32_t *) P = (int32_t) val;
 					break;
 				}
-				default: {
+
+				default:
 					dprintf("module_apply_relocations: unsupported reloc type: %u\n", type);
 					return false;
-				}
 			}
 		}
 	}
-
 	return true;
 }
 

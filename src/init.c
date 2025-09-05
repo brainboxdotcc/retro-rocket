@@ -41,5 +41,4 @@ void init()
 	profile_init(kmalloc(sizeof(profile_entry) * PROFILE_MAX_FUNCS), kmalloc(sizeof(profile_edge) * PROFILE_MAX_EDGES));
 	dprintf("Initialising profiler done!\n");
 #endif
-
 }

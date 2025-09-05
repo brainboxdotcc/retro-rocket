@@ -26,17 +26,17 @@ SECTIONS {
 		__CTOR_LIST__ = .;
 		*(.ctors)
 		__CTOR_END__ = .;
-		
+
 		. = ALIGN(8);
 		__DTOR_LIST__ = .;
 		*(.dtors)
 		__DTOR_END__ = .;
-		
+
 		. = ALIGN(8);
 		__INIT_LIST__ = .;
 		KEEP (*(.init_array))
 		__INIT_END__ = .;
-		
+
 		. = ALIGN(8);
 		__FINI_LIST__ = .;
 		KEEP (*(.fini_array))
@@ -48,14 +48,18 @@ SECTIONS {
 		__stop_kw_array = .;
 
 		. = ALIGN(8);
+		__dynstr_start = .;
+		KEEP(*(.dynstr))
 		__dynsym_start = .;
 		KEEP(*(.dynsym))
 		__dynsym_stop  = .;
 
 		. = ALIGN(8);
-		__dynstr_start = .;
-		KEEP(*(.dynstr))
-		__dynstr_stop  = .;
+		__strtab_start = .;
+		KEEP(*(.strtab))
+		__symtab_start = .;
+		KEEP(*(.symtab))
+		__symtab_stop  = .;
 
 		. = ALIGN(0x1000);
 	}
@@ -75,7 +79,7 @@ SECTIONS {
 	}
 
 	_edata = .;
-	
+
 	.bss : AT(ADDR(.bss) - KERNEL_VMA) {
 		_bss = .;
 		*(.bss*)

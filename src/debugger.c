@@ -389,6 +389,39 @@ const char* findsymbol(uint64_t address, uint64_t* offset) {
 	return NULL;
 }
 
+/* reverse lookup: name -> address (64-bit kernel VA)
+ * returns 0 if not found
+ */
+uint64_t findsymbol_addr(const char *name) {
+	if (!symbol_table || !name) {
+		return 0;
+	}
+
+	/* derive the current kernel high-half from any known kernel code pointer */
+	const uint64_t kernel_hi = ((uint64_t)(uintptr_t)&findsymbol_addr) & 0xffffffff00000000ull;
+
+	for (symbol_t *s = symbol_table; s; s = s->next) {
+		if (!s->name) {
+			continue;
+		}
+		if (strcmp(s->name, name) != 0) {
+			continue;
+		}
+
+		uint64_t a = s->address;
+
+		/* if the sym file only carried low 32 bits, graft on the current high half */
+		if ((a & 0xffffffff00000000ull) == 0) {
+			a = kernel_hi | (a & 0xffffffffull);
+		}
+
+		return a;
+	}
+
+	return 0;
+}
+
+
 void backtrace()
 {
 	stack_frame_t *frame;
