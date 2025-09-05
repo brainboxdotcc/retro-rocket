@@ -47,6 +47,16 @@ SECTIONS {
 		KEEP(*(SORT_BY_NAME(.kw.*)))
 		__stop_kw_array = .;
 
+		. = ALIGN(8);
+		__dynsym_start = .;
+		KEEP(*(.dynsym))
+		__dynsym_stop  = .;
+
+		. = ALIGN(8);
+		__dynstr_start = .;
+		KEEP(*(.dynstr))
+		__dynstr_stop  = .;
+
 		. = ALIGN(0x1000);
 	}
 

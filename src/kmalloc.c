@@ -130,3 +130,37 @@ uint64_t get_used_memory() {
 uint64_t get_total_memory() {
 	return heaplen;
 }
+
+void* kmalloc_aligned(uint64_t size, uint64_t align) {
+	uintptr_t raw;
+	uintptr_t aligned;
+	void **save;
+
+	if (align < 8 || (align & (align - 1)) != 0) {
+		preboot_fail("kmalloc_aligned: alignment must be a power of two >= 8");
+	}
+
+	/* allocate enough for requested size + alignment slack + header */
+	raw = (uintptr_t)kmalloc(size + align - 1 + sizeof(void*));
+	if (!raw) {
+		return NULL;
+	}
+
+	/* move past header first, then align */
+	aligned = (raw + sizeof(void*) + (align - 1)) & ~(uintptr_t)(align - 1);
+
+	/* stash raw just before the returned aligned pointer */
+	save = (void**)aligned;
+	save[-1] = (void*)raw;
+
+	return (void*)aligned;
+}
+
+void kfree_aligned(const void* ptr) {
+	if (!ptr) {
+		return;
+	}
+	/* retrieve original raw pointer and free normally */
+	void *raw = ((void**)ptr)[-1];
+	kfree(raw);
+}

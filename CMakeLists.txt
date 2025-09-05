@@ -11,7 +11,7 @@ set(HARD_DISK_IMAGE "../../harddisk0" CACHE STRING "Path to hard disk image when
 
 set(CMAKE_VERBOSE_MAKEFILE OFF)
 set(CMAKE_C_COMPILER gcc)
-set(CMAKE_C_LINK_EXECUTABLE "ld -m elf_x86_64 -nostdlib -no-pie -T ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/linker.ld <OBJECTS> -o <TARGET> <LINK_LIBRARIES>")
+set(CMAKE_C_LINK_EXECUTABLE "ld -m elf_x86_64 -nostdlib -no-pie --export-dynamic -T ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/linker.ld <OBJECTS> -o <TARGET> <LINK_LIBRARIES>")
 set(CMAKE_ASM_FLAGS "-pipe -g -fno-PIC -Wall -Wextra -Wno-unused-parameter -Wno-int-to-pointer-cast -nostdlib -ffreestanding -nostartfiles -nodefaultlibs -mcmodel=large -mno-red-zone")
 
 set(CMAKE_ASM_NASM_OBJECT_FORMAT elf64)
@@ -97,5 +97,47 @@ foreach (timezone ${timezone_list})
     list(APPEND TIMEZONE_TARGETS "timezone_${TZ_NAME}")
 endforeach()
 
+# --- Build loadable modules from modules/<name>/*.c into iso/system/modules/<name>.ko
+file(GLOB MODULE_DIRS RELATIVE ${CMAKE_SOURCE_DIR}/modules ${CMAKE_SOURCE_DIR}/modules/*)
+set(MODULE_TARGETS "")
+set(MODULE_KO_FILES "")  # collect .ko outputs so ISO rule can depend on them
+foreach(mod ${MODULE_DIRS})
+    if (IS_DIRECTORY ${CMAKE_SOURCE_DIR}/modules/${mod})
+        file(GLOB mod_srcs ${CMAKE_SOURCE_DIR}/modules/${mod}/*.c)
+        if (mod_srcs)
+            # Compile module sources as an object target with large code model etc.
+            add_library(mod_${mod} OBJECT ${mod_srcs})
+            target_compile_options(mod_${mod} PRIVATE
+                    -ffreestanding -fno-pic -fno-plt -mcmodel=large -mno-red-zone
+                    -fvisibility=hidden -fno-asynchronous-unwind-tables -fno-exceptions
+            )
+            target_include_directories(mod_${mod} PRIVATE ${UACPI_INCLUDES})
+
+            # Link to a single ET_REL (.ko) using ld -r
+            set(MOD_OUT ${CMAKE_BINARY_DIR}/iso/system/modules/${mod}.ko)
+            add_custom_command(OUTPUT ${MOD_OUT}
+                    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/iso/system/modules
+                    COMMAND ${CMAKE_LINKER} -r -o ${MOD_OUT} $<TARGET_OBJECTS:mod_${mod}>
+                    DEPENDS $<TARGET_OBJECTS:mod_${mod}>
+                    VERBATIM
+            )
+
+            add_custom_target(module_${mod} ALL DEPENDS ${MOD_OUT})
+            add_dependencies(ISO module_${mod})
+            list(APPEND MODULE_TARGETS module_${mod})
+            list(APPEND MODULE_KO_FILES ${MOD_OUT})
+        endif()
+    endif()
+endforeach()
+
+# make a single stamp that depends on all .ko files and inject it into iso() deps via IMAGE_TARGETS
+set(MODULES_STAMP ${CMAKE_BINARY_DIR}/iso/system/modules/modules.stamp)
+add_custom_command(OUTPUT ${MODULES_STAMP}
+        COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/iso/system/modules
+        COMMAND ${CMAKE_COMMAND} -E touch ${MODULES_STAMP}
+        DEPENDS ${MODULE_KO_FILES}
+        VERBATIM
+)
+list(APPEND IMAGE_TARGETS ${MODULES_STAMP})
 
 iso("rr.iso" "kernel.sym")

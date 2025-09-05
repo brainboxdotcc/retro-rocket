@@ -112,6 +112,10 @@ uint64_t get_total_memory(void);
  */
 void preboot_fail(const char* msg);
 
+void* kmalloc_aligned(uint64_t size, uint64_t align);
+
+void kfree_aligned(const void* ptr);
+
 /**
  * @brief Free memory and set the pointer to NULL.
  *
