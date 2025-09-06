@@ -233,6 +233,7 @@ uint8_t tcp_parse_options(tcp_segment_t* const segment, tcp_options_t* options)
 tcp_conn_t* tcp_find(uint32_t source_addr, uint32_t dest_addr, uint16_t source_port, uint16_t dest_port)
 {
 	if (tcb == NULL) {
+		dprintf("TCB is null\n");
 		return NULL;
 	}
 	tcp_conn_t find_conn = { .local_addr = source_addr, .remote_addr = dest_addr, .local_port = source_port, .remote_port = dest_port };
@@ -364,6 +365,7 @@ size_t tcp_header_size(tcp_segment_t* s)
  */
 int tcp_write(tcp_conn_t* conn, const void* data, size_t count)
 {
+	dprintf("tcp_write %lu bytes\n", count);
 	if (conn == NULL) {
 		return TCP_ERROR_INVALID_CONNECTION;
 	} else if (count > TCP_WINDOW_SIZE) {
@@ -982,6 +984,7 @@ bool tcp_state_machine(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_co
  */
 void tcp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, tcp_segment_t* segment, size_t len)
 {
+	dprintf("tcp_handle_packet\n");
 	tcp_options_t options;
 	uint16_t our_checksum = tcp_calculate_checksum(encap_packet, segment, len);
 	tcp_byte_order_in(segment);
@@ -990,6 +993,8 @@ void tcp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, tcp_segment_t
 	tcp_dump_segment(true, conn, encap_packet, segment, &options, len, our_checksum);
 	if (conn && our_checksum == segment->checksum) {
 		tcp_state_machine(encap_packet, segment, conn, &options, len);
+	} else {
+		dprintf("tcp_handle_packet dropped packet due to invalid sum\n");
 	}
 }
 
@@ -1009,11 +1014,14 @@ void tcp_idle()
 	lock_spinlock_irq(&lock, &flags);
 	while (hashmap_iter(tcb, &iter, &item)) {
 		tcp_conn_t *conn = item;
-		if (conn->state == TCP_ESTABLISHED) {
+		if (conn && conn->state == TCP_ESTABLISHED) {
 			if (conn->send_buffer_len > 0 && conn->send_buffer != NULL) {
+				dprintf("socket has %lu to send\n", conn->send_buffer_len);
 				/* There is buffered data to send from high level functions */
 				size_t amount_to_send = conn->send_buffer_len > 1460 ? 1460 : conn->send_buffer_len;
-				tcp_write(conn, conn->send_buffer, amount_to_send);
+				if (tcp_write(conn, conn->send_buffer, amount_to_send) < 0) {
+					dprintf("tcp_write returned error\n");
+				}
 				if (amount_to_send >= conn->send_buffer_len) {
 					// Everything is sent, free buffer entirely
 					kfree_null(&conn->send_buffer);
@@ -1030,7 +1038,7 @@ void tcp_idle()
 					conn->send_buffer_len = new_len;
 				}
 			}
-		} else if (conn->state == TCP_TIME_WAIT && seq_gte(get_isn(), conn->msl_time)) {
+		} else if (conn && conn->state == TCP_TIME_WAIT && seq_gte(get_isn(), conn->msl_time)) {
 			tcp_free(conn, false);
 			break;
 		}
@@ -1096,6 +1104,7 @@ uint16_t tcp_alloc_port(uint32_t source_addr, uint16_t port, tcp_port_type_t typ
 
 		}
 		if (port == 0) {
+			dprintf("tcp_alloc_port, no local ports available\n");
 			return 0;
 		}
 	}
@@ -1125,6 +1134,7 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 	}
 
 	conn.local_port = tcp_alloc_port(conn.local_addr, source_port, TCP_PORT_LOCAL);
+	dprintf("connect: allocated local port: %u local addr %08x\n", conn.local_port, conn.local_addr);
 	conn.snd_una = isn;
 	conn.snd_nxt = isn + 1;
 	conn.snd_lst = conn.rcv_lst = 0;
@@ -1172,6 +1182,7 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 
 	tcp_send_segment(new_conn, new_conn->snd_nxt, TCP_SYN, NULL, 0);
 	unlock_spinlock_irq(&lock, flags);
+	dprintf("tcp_connect() done with fd %u\n", new_conn->fd);
 	return new_conn->fd;
 }
 
@@ -1239,6 +1250,7 @@ int send(int socket, const void* buffer, uint32_t length)
 	memcpy(conn->send_buffer + conn->send_buffer_len, buffer, length);
 	conn->send_buffer_len += length;
 	unlock_spinlock_irq(&lock, flags);
+	dprintf("sockwrite wrote length %u\n", length);
 	return (int)length;
 }
 
@@ -1259,7 +1271,8 @@ int connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port, bo
 			return TCP_CONNECTION_TIMED_OUT;
 		}
 	};
-	return conn->state == TCP_ESTABLISHED ? result : TCP_ERROR_CONNECTION_FAILED;
+	dprintf("connect() result: %u\n", conn && conn->state == TCP_ESTABLISHED ? result : TCP_ERROR_CONNECTION_FAILED);
+	return conn && conn->state == TCP_ESTABLISHED ? result : TCP_ERROR_CONNECTION_FAILED;
 }
 
 int closesocket(int socket)

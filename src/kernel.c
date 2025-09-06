@@ -7,11 +7,6 @@ void kmain()
 {
 	init();
 
-	if (get_active_network_device()) {
-		kprintf("Bringing up network...");
-		network_up();
-	}
-
 	bool live_cd = false, root_fs_mounted = false;
 	if (rr_kfile_req.response) {
 		struct limine_kernel_file_response* kernel_info = rr_kfile_req.response;
@@ -28,7 +23,8 @@ void kmain()
 		preboot_fail("Failed to mount boot drive to VFS!");
 	}
 
-	//load_module("test");
+	// TODO: Don't hard code this, give BASIC facility to load it via /programs/init
+	load_module("e1000");
 
 	init_process();
 }

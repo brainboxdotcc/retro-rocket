@@ -1,4 +1,5 @@
 #include <kernel.h>
+#include "rtl8139.h"
 
 #define TX_BUF_COUNT  4
 #define TX_BUF_SIZE   2048   // More than enough for Ethernet frame
@@ -338,4 +339,17 @@ void init_rtl8139() {
 	register_network_device(net);
 
 	interrupts_on();
+
+	dhcp_discover();
+}
+
+
+bool EXPORTED MOD_INIT_SYM(KMOD_ABI)(void) {
+	dprintf("rtl8139: loaded\n");
+	init_rtl8139();
+	return true;
+}
+
+void EXPORTED MOD_EXIT_SYM(KMOD_ABI)(void) {
+	dprintf("rtl8139: unloaded\n");
 }

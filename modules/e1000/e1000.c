@@ -1,15 +1,16 @@
 #include <kernel.h>
+#include "e1000.h"
 #include <mmio.h>
 
-uint8_t bar_type = 0;		// Type of BAR0
-uint16_t io_base = 0;		// IO Base Address
-uint64_t mem_base = 0;		// MMIO Base Address
-bool eerprom_exists = false;	// A flag indicating if eeprom exists
-uint8_t mac[6] = {0};		// A buffer for storing the mack address
-e1000_rx_desc_t *rx_descs[E1000_NUM_RX_DESC] = {NULL}; // Receive Descriptor Buffers
-e1000_tx_desc_t *tx_descs[E1000_NUM_TX_DESC] = {NULL}; // Transmit Descriptor Buffers
-uint16_t rx_cur = 0;		// Current Receive Descriptor Buffer
-uint16_t tx_cur = 0;		// Current Transmit Descriptor Buffer
+static uint8_t bar_type = 0;		// Type of BAR0
+static uint16_t io_base = 0;		// IO Base Address
+static uint64_t mem_base = 0;		// MMIO Base Address
+static bool eerprom_exists = false;	// A flag indicating if eeprom exists
+static uint8_t mac[6] = {0};		// A buffer for storing the mack address
+static e1000_rx_desc_t *rx_descs[E1000_NUM_RX_DESC]; // Receive Descriptor Buffers
+static e1000_tx_desc_t *tx_descs[E1000_NUM_TX_DESC]; // Transmit Descriptor Buffers
+static uint16_t rx_cur = 0;		// Current Receive Descriptor Buffer
+static uint16_t tx_cur = 0;		// Current Transmit Descriptor Buffer
 
 static void *tx_buffers[E1000_NUM_TX_DESC];
 
@@ -181,6 +182,7 @@ void e1000_handle_receive() {
 	}
 	netdev_t* dev = get_active_network_device();
 	if (!dev || dev->deviceid != ((INTEL_VEND << 16) | e1000_device_id)) {
+		dprintf("invalid dev in handle receive\n");
 		return;
 	}
 
@@ -213,6 +215,7 @@ bool e1000_send_packet(void *p_data, uint16_t p_len) {
 	}
 
 	if (!tx_descs[tx_cur]) {
+		dprintf("e1000: Bad send buffer\n");
 		return false;
 	}
 
@@ -258,7 +261,6 @@ void e1000_up() {
  */
 void e1000_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t error, [[maybe_unused]] uint64_t irq, void* opaque) {
 	uint32_t status = e1000_read_command(REG_ICR);
-
 	if (status & ICR_RXT0) {
 		e1000_handle_receive();
 	}
@@ -420,4 +422,16 @@ void init_e1000() {
 	eerprom_exists = false;
 
 	e1000_start(&pci_device);
+
+	dhcp_discover();
+}
+
+bool EXPORTED MOD_INIT_SYM(KMOD_ABI)(void) {
+	dprintf("e1000: loaded\n");
+	init_e1000();
+	return true;
+}
+
+void EXPORTED MOD_EXIT_SYM(KMOD_ABI)(void) {
+	dprintf("e1000: unloaded\n");
 }

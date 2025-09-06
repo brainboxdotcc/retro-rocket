@@ -95,17 +95,11 @@ uint32_t ntohl(uint32_t netlong) {
 
 void network_up()
 {
-	kprintf(" ARP,");
 	arp_init();
-	kprintf(" IP,");
 	ip_init();
-	kprintf(" TCP,");
 	tcp_init();
-	kprintf(" DHCP,");
 	dhcp_init();
-	kprintf(" DNS");
 	init_dns();
-	kprintf("\n");
 }
 
 void network_down()

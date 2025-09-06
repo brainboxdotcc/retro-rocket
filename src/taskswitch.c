@@ -425,7 +425,7 @@ void proc_loop()
 		if (cpu == 0 && task_idles) {
 			/* Idle foreground tasks only run on BSP */
 			for (idle_timer_t *i = task_idles; i; i = i->next) {
-				if (i->next_tick > get_ticks()) {
+				if (get_ticks() > i->next_tick) {
 					i->func();
 					i->next_tick = i->frequency + get_ticks();
 				}
@@ -459,7 +459,7 @@ int proc_ended(process_t* proc)
 
 void proc_register_idle(proc_idle_timer_t handler, idle_type_t type, uint64_t frequency_ms)
 {
-	dprintf("Register idler: %d\n", type);
+	dprintf("Register idler: %d freq %lu\n", type, frequency_ms);
 	idle_timer_t* newidle = kmalloc(sizeof(idle_timer_t));
 	if (!newidle) {
 		return;

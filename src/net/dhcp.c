@@ -86,6 +86,7 @@ void dhcp_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, v
 
 		/* Commit the lease address */
 		sethostaddr((const unsigned char*)&packet->your_ip);
+		dprintf("DHCP: sethostaddr(%08x)\n", packet->your_ip);
 
 		/* Optional parameters */
 		uint32_t* dns = get_dhcp_options(packet, OPT_DNS);
@@ -106,6 +107,7 @@ void dhcp_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, v
 			setdnsaddr(*dns);
 			get_ip_str(ip, (uint8_t*)dns);
 			dprintf("DHCP: Received DNS address: %s\n", ip);
+			arp_prediscover((uint8_t*)dns);
 			kfree_null(&dns);
 		}
 
@@ -113,6 +115,7 @@ void dhcp_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, v
 			setgatewayaddr(*gateway);
 			get_ip_str(ip, (uint8_t*)gateway);
 			dprintf("DHCP: Received gateway address: %s\n", ip);
+			arp_prediscover((uint8_t*)gateway);
 			kfree_null(&gateway);
 		}
 
@@ -446,7 +449,4 @@ void dhcp_init(void) {
 
 	/* Background task is called every 1 ms in interrupt context */
 	proc_register_idle(&dhcp_background, IDLE_BACKGROUND, 1);
-
-	/* Kick off initial discovery */
-	dhcp_discover();
 }

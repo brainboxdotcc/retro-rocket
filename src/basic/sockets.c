@@ -53,7 +53,9 @@ void sockread_statement(struct basic_ctx* ctx)
 
 	process_t* proc = proc_cur(logical_cpu_id());
 
-	int rv = recv((int)fd, input, MAX_STRINGLEN, false, 10);
+	int rv = recv((int)fd, input, MAX_STRINGLEN, false, 100);
+
+	dprintf("sockread recv=%d\n", rv);
 
 	if (rv == 0) {
 		// Not ready yet, yield and retry later

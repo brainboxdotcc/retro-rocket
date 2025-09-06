@@ -464,10 +464,8 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 				frag_map = hashmap_new(sizeof(ip_fragmented_packet_parts_t), 0, 564364368549036, 67545346834, ip_frag_hash, ip_frag_compare, NULL, NULL);
 			}
 			if (packet->frag.more_fragments_follow) {
-				dprintf("Fragment is one of set (MF)\n");
 				/* Packet is part of a fragmented set */
 				if (frag_offset == 0) {
-					dprintf("First fragment\n");
 					/* First fragment */
 					ip_fragmented_packet_parts_t fragmented = { .id = packet->id, .size = data_len, .ordered_list = NULL, .last_seen_ticks = get_ticks() };
 					ip_packet_frag_t* fragment = kmalloc(sizeof(ip_packet_frag_t));
@@ -484,7 +482,6 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 					frag_list_insert(fragment, fragmented.ordered_list);
 					hashmap_set(frag_map, &fragmented);
 				} else {
-					dprintf("Middle fragment\n");
 					/* Middle fragment */
 					ip_packet_t findpacket = { .id = packet->id };
 					ip_fragmented_packet_parts_t* fragmented = (ip_fragmented_packet_parts_t*)hashmap_get(frag_map, &findpacket);
@@ -507,13 +504,11 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 					memcpy(fragment->packet, packet, ntohs(packet->length));
 					frag_list_insert(fragment, fragmented->ordered_list);
 				}
-				dprintf("Returning, fragmented packet incomplete!\n");
 				return;
 			} else if (packet->frag.more_fragments_follow == 0 && (frag_offset != 0)) {
 				/* Final fragment of fragmented set.
 				 * Once we get this fragment, we can deliver the reassembled packet.
 				 */
-				dprintf("Final fragment\n");
 				ip_packet_t findpacket = { .id = packet->id };
 				ip_fragmented_packet_parts_t* fragmented = (ip_fragmented_packet_parts_t*)hashmap_get(frag_map, &findpacket);
 				if (fragmented == NULL) {
@@ -560,7 +555,6 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 					cur = next;
 				}
 
-				dprintf("Removing list from frag_map\n");
 				hashmap_delete(frag_map, &findpacket);
 				/* Now we have reassembled the data portion, we can fall through and let the packet be handled... */
 			}
