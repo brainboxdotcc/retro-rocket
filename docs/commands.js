@@ -1,6 +1,5 @@
 var commands =
 [
-    [ "ANSI Library", "ansi.html", null ],
     [ "ball Program", "ball.html", null ],
     [ "cd command", "cd.html", null ],
     [ "charmap program", "charmap.html", null ],
@@ -20,7 +19,6 @@ var commands =
     [ "irc program (satellite)", "irc.html", null ],
     [ "list command", "list.html", null ],
     [ "mkdir command", "mkdir.html", null ],
-    [ "Mouse Library", "mouse.html", null ],
     [ "proclist command", "proclist.html", null ],
     [ "rmdir command", "rmdir.html", null ],
     [ "rocketsh command (shell)", "rocketsh.html", null ],

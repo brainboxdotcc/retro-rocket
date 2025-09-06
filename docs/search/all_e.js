@@ -183,7 +183,7 @@ var searchData=
   ['mount_5fvolume_2701',['mount_volume',['../filesystem_8h.html#ad7b51a2acb80e5467b0e6fb6f0896f04',1,'filesystem.h']]],
   ['mountpoint_5ft_2702',['mountpoint_t',['../structmountpoint__t.html',1,'']]],
   ['mountpoints_2703',['mountpoints',['../filesystem_8c.html#a2a09ff74c38a1558a52194bef312f9ab',1,'filesystem.c']]],
-  ['mouse_20library_2704',['Mouse Library',['../mouse.html',1,'commands']]],
+  ['mouse_20library_2704',['Mouse Library',['../mouse.html',1,'libraries']]],
   ['mouse_2emd_2705',['mouse.md',['../mouse_8md.html',1,'']]],
   ['move_5fcharacter_2706',['move_character',['../structflanterm__context.html#aeb5cfd70375a58bdfd2c6c34bfcc1f99',1,'flanterm_context']]],
   ['movsb_2707',['movsb',['../memcpy_8c.html#acc53f9873534734f1216ccfc0e505592',1,'memcpy.c']]],

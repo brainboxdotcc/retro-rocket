@@ -87,7 +87,7 @@ var searchData=
   ['ampersand_109',['AMPERSAND',['../tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea95e91c94e7307b0b02d6278061a3aaa8',1,'tokenizer.h']]],
   ['ancount_110',['ancount',['../structdns__header.html#aca00e490df7ef4c00d2f8dc387c99a5d',1,'dns_header::ancount()'],['../dns_8h.html#a2a5577b198ba758438292038bbab5437',1,'ancount():&#160;dns.h']]],
   ['and_111',['AND',['../tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea865555c9f2e0458a7078486aa1b3254f',1,'tokenizer.h']]],
-  ['ansi_20library_112',['ANSI Library',['../ansi.html',1,'commands']]],
+  ['ansi_20library_112',['ANSI Library',['../ansi.html',1,'libraries']]],
   ['ansi_2emd_113',['ansi.md',['../ansi_8md.html',1,'']]],
   ['ansi_5fbright_5fcolours_114',['ansi_bright_colours',['../structflanterm__fb__context.html#a1036d27376c3e1e78c1a2183f26640a1',1,'flanterm_fb_context']]],
   ['ansi_5fcolour_115',['ansi_colour',['../video_8h.html#a29130758714b766b445d91c79c5a7b85',1,'ansi_colour(char *out, size_t out_len, unsigned char vga_colour, bool background):&#160;video.c'],['../video_8c.html#a29130758714b766b445d91c79c5a7b85',1,'ansi_colour(char *out, size_t out_len, unsigned char vga_colour, bool background):&#160;video.c']]],
