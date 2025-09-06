@@ -2,9 +2,9 @@
 
 *Creating BASIC programs*
 
-Programs in Retro Rocket are simialar in strucuture to a BBC BASIC program. Each line is numbered, and each number must be greater than the line number before it. It is possible to have gaps in the numbering.
+Programs in Retro Rocket are simialar in strucuture to any other BASIC program. Unlike many dialects of BASIC, lines do not have to be numbered, but if they are each number must be greater than the line number before it. It is possible to have gaps in the numbering.
 
-It is possible to not specify the numbers for lines in your program, if you omit line numbers BASIC will auto number your lines for you. Any program who's first character is not a digit (0-9) will be assumed to require auto numbering. Libraries must make use of auto numbering to allow for easy relocation to the end of the program which includes them.
+It is strongly recommended to not specify the numbers for lines in your program. Any program who's first character is not a digit (0-9) will be assumed to not have line numbers.
 
 The program will execute moving from one line to the next, and each line must have at least one statement, and any parameters required for that statement (see the statements section of this page).
 
