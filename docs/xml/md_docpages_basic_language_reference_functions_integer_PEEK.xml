@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="md_docpages_basic_language_reference_functions_integer_PEEK" kind="page">
+    <compoundname>md_docpages_basic_language_reference_functions_integer_PEEK</compoundname>
+    <title>PEEK</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>page PEEK PEEK Function <programlisting filename=".basic"><codeline><highlight class="normal">X<sp/>=<sp/>PEEK(address)</highlight></codeline>
+</programlisting></para>
+<para>Reads a <bold>single byte</bold> from the specified memory <computeroutput>address</computeroutput> and returns it as an integer (0–255).</para>
+<para><blockquote><para>[!IMPORTANT] <computeroutput>PEEK</computeroutput> reads only from <bold>mapped</bold> memory. If <computeroutput>address</computeroutput> (or any byte it touches) is not permitted by the system memory map, an error is raised: <computeroutput>Bad Address at &lt;address&gt;</computeroutput>. </para>
+</blockquote></para>
+<sect2 id="md_docpages_basic_language_reference_functions_integer_PEEK_1autotoc_md85">
+<title>&lt;/blockquote&gt;</title>
+<sect3 id="md_docpages_basic_language_reference_functions_integer_PEEK_1autotoc_md86">
+<title>How to read it</title>
+<para><itemizedlist>
+<listitem><para>Think of <computeroutput>PEEK(addr)</computeroutput> as <bold>“load 8-bit from RAM/MMIO at <computeroutput>addr</computeroutput>”</bold>.</para>
+</listitem><listitem><para>Unaligned addresses are fine on x86-64.</para>
+</listitem><listitem><para>Values are read <bold>little-endian</bold>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="md_docpages_basic_language_reference_functions_integer_PEEK_1autotoc_md88">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Read<sp/>three<sp/>consecutive<sp/>bytes</highlight></codeline>
+<codeline><highlight class="normal">BASE<sp/>=<sp/>&amp;100000</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>PEEK(BASE)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>PEEK(BASE+1)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>PEEK(BASE+2)</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Read<sp/>a<sp/>status<sp/>byte</highlight></codeline>
+<codeline><highlight class="normal">STATUS<sp/>=<sp/>PEEK(&amp;200000)</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>(STATUS<sp/>AND<sp/>1)<sp/>&lt;&gt;<sp/>0<sp/>THEN<sp/>PRINT<sp/>&quot;Ready&quot;</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="md_docpages_basic_language_reference_functions_integer_PEEK_1autotoc_md90">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>The accessed range must be valid according to the boot-time memory map.</para>
+</listitem><listitem><para>Accessing device MMIO may have <bold>side effects</bold>.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PEEKW">PEEKW</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PEEKD">PEEKD</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PEEKQ">PEEKQ</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/POKE">POKE</ulink> </para>
+</sect3>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/integer/PEEK.md"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="FOR" kind="page">
+    <compoundname>FOR</compoundname>
+    <title>FOR Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">FOR<sp/>numeric-variable<sp/>=<sp/>numeric-expression<sp/>TO<sp/>numeric-expression</highlight></codeline>
+<codeline><highlight class="normal">NEXT</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">FOR<sp/>numeric-variable<sp/>=<sp/>numeric-expression<sp/>TO<sp/>numeric-expression<sp/>STEP<sp/>numeric-expression</highlight></codeline>
+<codeline><highlight class="normal">NEXT</highlight></codeline>
+</programlisting></para>
+<para>Creates a counting loop. In the first form, the loop variable increases by 1 each time control reaches <computeroutput>NEXT</computeroutput>. <linebreak/>
+ In the second form, the loop variable changes by the <computeroutput>STEP</computeroutput> amount each time.</para>
+<para>If <computeroutput>STEP</computeroutput> evaluates to a negative value, the variable will decrement towards the lower value.</para>
+<para>Loops may be nested. <computeroutput>NEXT</computeroutput> closes the nearest unmatched <computeroutput>FOR</computeroutput>.</para>
+<para><hruler/>
+</para>
+<sect3 id="FOR_1autotoc_md271">
+<title>Examples</title>
+<para>Count up by 1 <programlisting filename=".basic"><codeline><highlight class="normal">FOR<sp/>I<sp/>=<sp/>1<sp/>TO<sp/>5</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;I<sp/>=<sp/>&quot;;<sp/>I</highlight></codeline>
+<codeline><highlight class="normal">NEXT</highlight></codeline>
+</programlisting></para>
+<para>Count up by a custom step <programlisting filename=".basic"><codeline><highlight class="normal">FOR<sp/>N<sp/>=<sp/>0<sp/>TO<sp/>10<sp/>STEP<sp/>2</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>N</highlight></codeline>
+<codeline><highlight class="normal">NEXT</highlight></codeline>
+</programlisting></para>
+<para>Count down with a negative step <programlisting filename=".basic"><codeline><highlight class="normal">FOR<sp/>X<sp/>=<sp/>5<sp/>TO<sp/>1<sp/>STEP<sp/>-1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>X</highlight></codeline>
+<codeline><highlight class="normal">NEXT</highlight></codeline>
+</programlisting></para>
+<para>Real step size <programlisting filename=".basic"><codeline><highlight class="normal">FOR<sp/>T#<sp/>=<sp/>0<sp/>TO<sp/>1<sp/>STEP<sp/>0.25</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>T#</highlight></codeline>
+<codeline><highlight class="normal">NEXT</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/NEXT"><computeroutput>NEXT</computeroutput></ulink> </para>
+</sect3>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/FOR.md"/>
+  </compounddef>
+</doxygen>

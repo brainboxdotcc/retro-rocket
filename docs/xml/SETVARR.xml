@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="SETVARR" kind="page">
+    <compoundname>SETVARR</compoundname>
+    <title>SETVARR Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">SETVARI<sp/>string-expression,<sp/>integer-expression,<sp/>integer-expression,<sp/>integer-expression</highlight></codeline>
+<codeline><highlight class="normal">SETVARR<sp/>string-expression,<sp/>integer-expression,<sp/>integer-expression,<sp/>numeric-expression</highlight></codeline>
+<codeline><highlight class="normal">SETVARS<sp/>string-expression,<sp/>integer-expression,<sp/>integer-expression,<sp/>string-expression</highlight></codeline>
+</programlisting> Sets a variable by name, where the variable name is in the first parameter. The second and third parameters are true if you want the variable to be local/global, and the final parameter is the variable value.</para>
+<para><computeroutput>SETVARI</computeroutput> will set or create an integer variable <computeroutput>SETVARR</computeroutput> will set or create a real variable <computeroutput>SETVARS</computeroutput> will set or create a string variable </para>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/SETVARR.md"/>
+  </compounddef>
+</doxygen>

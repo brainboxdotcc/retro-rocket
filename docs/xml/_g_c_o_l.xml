@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_g_c_o_l" kind="page">
+    <compoundname>GCOL</compoundname>
+    <title>GCOL Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">GCOL<sp/>integer-expression</highlight></codeline>
+</programlisting></para>
+<para>Sets the <bold>current graphics colour</bold>. The colour value is given by <computeroutput>integer-expression</computeroutput>.</para>
+<para><itemizedlist>
+<listitem><para>Colours are represented as a <bold>32-bit value</bold> where each 8-bit segment corresponds to <bold>alpha</bold>, <bold>red</bold>, <bold>green</bold>, <bold>blue</bold> in that order.</para>
+</listitem><listitem><para>Use the <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/RGB"><computeroutput>RGB</computeroutput></ulink> function to create a colour value from three 0–255 components.</para>
+</listitem></itemizedlist>
+</para>
+<para><blockquote><para>[!TIP] <computeroutput>GCOL</computeroutput> affects <bold>graphics</bold> drawing only. For <bold>text</bold> colours see <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/COLOUR"><computeroutput>COLOUR</computeroutput></ulink> and <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BACKGROUND"><computeroutput>BACKGROUND</computeroutput></ulink>. </para>
+</blockquote></para>
+<sect2 id="_g_c_o_l_1autotoc_md146">
+<title>&lt;/blockquote&gt;</title>
+<sect3 id="_g_c_o_l_1autotoc_md147">
+<title>Examples</title>
+<para>Set a graphics colour then draw an outline circle <programlisting filename=".basic"><codeline><highlight class="normal">GCOL<sp/>RGB(255,0,0)</highlight></codeline>
+<codeline><highlight class="normal">CIRCLE<sp/>200,<sp/>150,<sp/>80,<sp/>FALSE</highlight></codeline>
+</programlisting></para>
+<para>Set a graphics colour then draw a filled rectangle <programlisting filename=".basic"><codeline><highlight class="normal">GCOL<sp/>RGB(0,128,255)</highlight></codeline>
+<codeline><highlight class="normal">RECTANGLE<sp/>50,<sp/>50,<sp/>120,<sp/>90</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_g_c_o_l_1autotoc_md149">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Each colour component is an integer in the range <bold>0–255</bold>.</para>
+</listitem><listitem><para>The <bold>current graphics colour</bold> is used by drawing statements such as <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/LINE"><computeroutput>LINE</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CIRCLE"><computeroutput>CIRCLE</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/RECTANGLE"><computeroutput>RECTANGLE</computeroutput></ulink>, and <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PLOT"><computeroutput>PLOT</computeroutput></ulink>.</para>
+</listitem><listitem><para><computeroutput>GCOL</computeroutput> does not affect the text foreground or background; use <computeroutput>COLOUR</computeroutput> and <computeroutput>BACKGROUND</computeroutput> for text.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/RGB"><computeroutput>RGB</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/COLOUR"><computeroutput>COLOUR</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BACKGROUND"><computeroutput>BACKGROUND</computeroutput></ulink> </para>
+</sect3>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/GCOL.md"/>
+  </compounddef>
+</doxygen>

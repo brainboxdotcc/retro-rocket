@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="DATA" kind="page">
+    <compoundname>DATA</compoundname>
+    <title>DATA Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting><codeline><highlight class="normal">DATA<sp/>value,<sp/>value,<sp/>value</highlight></codeline>
+</programlisting></para>
+<para>The <computeroutput>DATA</computeroutput> statement is <bold>not supported</bold> in Retro Rocket BASIC.</para>
+<para>In BBC BASIC IV, <computeroutput>DATA</computeroutput> embedded constants directly in the source and they were consumed with <computeroutput>READ</computeroutput> (and rewound with <computeroutput>RESTORE</computeroutput>). Retro Rocket BASIC replaces this pattern with <bold>file-based I/O</bold> and simple initialisers.</para>
+<para><simplesect kind="remark"><para><computeroutput>READ$</computeroutput> in Retro Rocket BASIC returns <bold>one character at a time</bold> from an open </para>
+</simplesect>
+<simplesect kind="remark"><para>file handle. It does <bold>not</bold> read a whole line. If you need to parse lines or </para>
+</simplesect>
+<simplesect kind="remark"><para>comma-separated values, build them yourself from characters and then convert </para>
+</simplesect>
+<simplesect kind="remark"><para>with functions like <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/VAL"><computeroutput>VAL</computeroutput></ulink>.</para>
+</simplesect>
+<hruler/>
+</para>
+<para><heading level="5">Example: load newline-separated integers from a file</heading>
+</para>
+<para>Suppose <computeroutput>values.txt</computeroutput> contains: <programlisting><codeline><highlight class="normal">10</highlight></codeline>
+<codeline><highlight class="normal">20</highlight></codeline>
+<codeline><highlight class="normal">30</highlight></codeline>
+</programlisting></para>
+<para>Programme:</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>A,<sp/>100</highlight></codeline>
+<codeline><highlight class="normal">I<sp/>=<sp/>0</highlight></codeline>
+<codeline><highlight class="normal">LINE$<sp/>=<sp/>&quot;&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">FH<sp/>=<sp/>OPENIN(&quot;values.txt&quot;)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">WHILE<sp/>NOT<sp/>EOF(FH)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>C$<sp/>=<sp/>READ$(FH)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>IF<sp/>C$<sp/>=<sp/>CHR(10)<sp/>OR<sp/>C$<sp/>=<sp/>CHR(13)<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IF<sp/>LEN(LINE$)<sp/>&gt;<sp/>0<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I<sp/>=<sp/>I<sp/>+<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>A(I)<sp/>=<sp/>VAL(LINE$)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LINE$<sp/>=<sp/>&quot;&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ENDIF</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ELSE</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LINE$<sp/>=<sp/>LINE$<sp/>+<sp/>C$</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ENDIF</highlight></codeline>
+<codeline><highlight class="normal">ENDWHILE</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">IF<sp/>LEN(LINE$)<sp/>&gt;<sp/>0<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>I<sp/>=<sp/>I<sp/>+<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>A(I)<sp/>=<sp/>VAL(LINE$)</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">CLOSE<sp/>FH</highlight></codeline>
+</programlisting></para>
+<para>This accumulates characters until a line break (<computeroutput>CHR(10)</computeroutput> or <computeroutput>CHR(13)</computeroutput>), then converts the buffered text into a number with <computeroutput>VAL</computeroutput>.</para>
+<para><hruler/>
+</para>
+<para><heading level="5">Example: simple inline table (no files)</heading>
+</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>A,<sp/>3</highlight></codeline>
+<codeline><highlight class="normal">A(1)<sp/>=<sp/>10</highlight></codeline>
+<codeline><highlight class="normal">A(2)<sp/>=<sp/>20</highlight></codeline>
+<codeline><highlight class="normal">A(3)<sp/>=<sp/>30</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+<para><heading level="5">See also</heading>
+</para>
+<para><itemizedlist>
+<listitem><para><ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENIN"><computeroutput>OPENIN</computeroutput></ulink> – open a file for reading <linebreak/>
+</para>
+</listitem><listitem><para><ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENOUT"><computeroutput>OPENOUT</computeroutput></ulink> – open a file for writing (truncate) <linebreak/>
+</para>
+</listitem><listitem><para><ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENUP"><computeroutput>OPENUP</computeroutput></ulink> – open a file for update (read/write) <linebreak/>
+</para>
+</listitem><listitem><para><ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/READ"><computeroutput>READ$</computeroutput></ulink> – read one character from a file handle <linebreak/>
+</para>
+</listitem><listitem><para><ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/EOF"><computeroutput>EOF</computeroutput></ulink> – end-of-file check <linebreak/>
+</para>
+</listitem><listitem><para><ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/VAL"><computeroutput>VAL</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/LEN"><computeroutput>LEN</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CHR"><computeroutput>CHR</computeroutput></ulink> </para>
+</listitem></itemizedlist>
+</para>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/DATA.md"/>
+  </compounddef>
+</doxygen>

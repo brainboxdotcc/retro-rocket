@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_g_l_o_b_a_l" kind="page">
+    <compoundname>GLOBAL</compoundname>
+    <title>GLOBAL Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">GLOBAL<sp/>variable-name<sp/>=<sp/>expression</highlight></codeline>
+</programlisting></para>
+<para>Marks a variable assignment as <bold>global-for-child-processes</bold>. The variable’s <bold>current value is copied</bold> (not referenced) into any <bold>new programs</bold> this program creates (for example via <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CHAIN"><computeroutput>CHAIN</computeroutput></ulink>). This mechanism is also how <computeroutput>rocketsh</computeroutput> passes command-line style parameters into a program.</para>
+<para><blockquote><para>[!IMPORTANT] <computeroutput>GLOBAL</computeroutput> must appear <bold>with an assignment</bold>. <linebreak/>
+ <computeroutput>GLOBAL</computeroutput> <bold>without</bold> an assignment is invalid. </para>
+</blockquote></para>
+<sect2 id="_g_l_o_b_a_l_1autotoc_md150">
+<title>&lt;/blockquote&gt;</title>
+<sect3 id="_g_l_o_b_a_l_1autotoc_md151">
+<title>Behaviour</title>
+<para><itemizedlist>
+<listitem><para>The assignment executes normally in the current program, <bold>and</bold> the variable is flagged so that its <bold>value is copied</bold> into subsequently created child programs.</para>
+</listitem><listitem><para>The copy happens <bold>at child creation time</bold>. Changes made later in either parent or child do <bold>not</bold> affect the other.</para>
+</listitem><listitem><para>To keep a variable marked as global, <bold>every</bold> subsequent assignment to that variable must also be written with <computeroutput>GLOBAL</computeroutput>.<itemizedlist>
+<listitem><para>If you assign to the variable <bold>without</bold> <computeroutput>GLOBAL</computeroutput>, it will <bold>no longer</bold> be treated as global for future child launches.</para>
+</listitem></itemizedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_g_l_o_b_a_l_1autotoc_md153">
+<title>Examples</title>
+<para><bold>Pass a string and number to a child</bold></para>
+<para>Parent program: <programlisting filename=".basic"><codeline><highlight class="normal">GLOBAL<sp/>USERNAME$<sp/>=<sp/>&quot;guest&quot;</highlight></codeline>
+<codeline><highlight class="normal">GLOBAL<sp/>TIMEOUT<sp/><sp/><sp/>=<sp/>30</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">CHAIN<sp/>&quot;childprog&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Back<sp/>in<sp/>parent.&quot;</highlight></codeline>
+</programlisting></para>
+<para>Child program (<computeroutput>childprog</computeroutput>): <programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;User:<sp/>&quot;;<sp/>USERNAME$</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Timeout:<sp/>&quot;;<sp/>TIMEOUT</highlight></codeline>
+</programlisting></para>
+<para><bold>Losing the global mark by plain assignment</bold></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">GLOBAL<sp/>MODE$<sp/>=<sp/>&quot;SAFE&quot;</highlight></codeline>
+<codeline><highlight class="normal">MODE$<sp/>=<sp/>&quot;FAST&quot;</highlight></codeline>
+<codeline><highlight class="normal">CHAIN<sp/>&quot;worker&quot;</highlight></codeline>
+</programlisting></para>
+<para>To keep <computeroutput>MODE$</computeroutput> global for future children: <programlisting filename=".basic"><codeline><highlight class="normal">GLOBAL<sp/>MODE$<sp/>=<sp/>&quot;FAST&quot;</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_g_l_o_b_a_l_1autotoc_md155">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para><computeroutput>GLOBAL</computeroutput> controls <bold>inter-program passing only</bold>. It does <bold>not</bold> create a program-wide scope within a single program.</para>
+</listitem><listitem><para>The variable is copied <bold>by value</bold> into the child at launch.</para>
+</listitem><listitem><para>Use <computeroutput>GLOBAL</computeroutput> only on lines that <bold>assign</bold> to the variable.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CHAIN"><computeroutput>CHAIN</computeroutput></ulink> </para>
+</sect3>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/GLOBAL.md"/>
+  </compounddef>
+</doxygen>

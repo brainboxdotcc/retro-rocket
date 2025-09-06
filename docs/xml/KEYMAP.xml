@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="KEYMAP" kind="page">
+    <compoundname>KEYMAP</compoundname>
+    <title>KEYMAP Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">KEYMAP<sp/>string-expression</highlight></codeline>
+</programlisting></para>
+<para>Loads a <bold>keyboard mapping</bold> by name from the <computeroutput>/system/keymaps</computeroutput> directory.</para>
+<para><itemizedlist>
+<listitem><para>The value of <computeroutput>string-expression</computeroutput> should be the <bold>map name</bold> (for example <computeroutput>&quot;en-GB&quot;</computeroutput>). <linebreak/>
+</para>
+</listitem><listitem><para>The interpreter will try to load <computeroutput>/system/keymaps/&lt;name&gt;.keymap</computeroutput>. <linebreak/>
+ Example: <computeroutput>KEYMAP &quot;en-GB&quot;</computeroutput> → <computeroutput>/system/keymaps/en-GB.keymap</computeroutput>.</para>
+</listitem><listitem><para>Paths are <bold>case-insensitive</bold>. <linebreak/>
+</para>
+</listitem><listitem><para><computeroutput>.</computeroutput> and <computeroutput>..</computeroutput> are <bold>not supported</bold> in paths.</para>
+</listitem></itemizedlist>
+</para>
+<para><blockquote><para>Only the keymaps that actually exist under <computeroutput>/system/keymaps</computeroutput> can be loaded. <linebreak/>
+ Do not assume a particular layout is available. </para>
+</blockquote></para>
+<para><blockquote><para>If a keymap cannot be found or loaded, a runtime error is raised (catchable with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink>). </para>
+</blockquote></para>
+<sect2 id="KEYMAP_1autotoc_md298">
+<title>&lt;/blockquote&gt;</title>
+<para><heading level="5">Example</heading>
+</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Load<sp/>British<sp/>English<sp/>keyboard<sp/>layout<sp/>(if<sp/>installed)</highlight></codeline>
+<codeline><highlight class="normal">KEYMAP<sp/>&quot;en-GB&quot;</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+<para><heading level="5">Notes</heading>
+</para>
+<para><itemizedlist>
+<listitem><para>The setting affects how keyboard input is interpreted by the system. <linebreak/>
+</para>
+</listitem><listitem><para>To see which keymaps are present, inspect the <computeroutput>/system/keymaps</computeroutput> directory with your usual tools. </para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/KEYMAP.md"/>
+  </compounddef>
+</doxygen>

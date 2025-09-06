@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="MINUTE" kind="page">
+    <compoundname>MINUTE</compoundname>
+    <title>MINUTE Function</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">numeric-expression<sp/>=<sp/>MINUTE(boolean-expression)</highlight></codeline>
+</programlisting></para>
+<para>Returns the current minute (0–59). <linebreak/>
+ Pass <computeroutput>TRUE</computeroutput> for local time or <computeroutput>FALSE</computeroutput> for UTC.</para>
+<para>Example:</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>MINUTE(TRUE)<sp/><sp/><sp/>&apos;<sp/>Local<sp/>minute</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>MINUTE(FALSE)<sp/><sp/>&apos;<sp/>UTC<sp/>minute</highlight></codeline>
+</programlisting> </para>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/integer/MINUTE.md"/>
+  </compounddef>
+</doxygen>

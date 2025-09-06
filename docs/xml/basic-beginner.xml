@@ -1,0 +1,200 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="basic-beginner" kind="page">
+    <compoundname>basic-beginner</compoundname>
+    <title>Beginners&apos; Tutorial</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Welcome! This hands‑on guide is for absolute beginners. You’ll learn the basics by writing and running tiny programs inside Retro Rocket. No prior programming experience needed.</para>
+<para><simplesect kind="remark"><para><bold>How this works</bold> • Open the built‑in editor with <computeroutput>edit &lt;name&gt;</computeroutput>• Save with <bold>Ctrl+S</bold>. • Run from the shell by typing its name you saved it as.\ </para>
+</simplesect>
+<simplesect kind="remark"><para>• Press <bold>CTRL+ESC</bold> while a program is running to stop it.</para>
+</simplesect>
+We’ll start simple and build up.</para>
+<para><hruler/>
+</para>
+<sect2 id="basic-beginner_1autotoc_md39">
+<title>1) Your first program: printing text</title>
+<para>Open the editor:</para>
+<para><programlisting><codeline><highlight class="normal">edit</highlight></codeline>
+</programlisting></para>
+<para>Type this and save (Ctrl+S) with the name: <computeroutput>hello</computeroutput></para>
+<para><programlisting><codeline><highlight class="normal">PRINT<sp/>&quot;Hello,<sp/>Retro<sp/>Rocket!&quot;</highlight></codeline>
+</programlisting></para>
+<para>Leave the editor, then run it:</para>
+<para><programlisting><codeline><highlight class="normal">hello</highlight></codeline>
+</programlisting></para>
+<para>You should see the message appear. That’s your first program!</para>
+<para><bold>Notes</bold></para>
+<para><itemizedlist>
+<listitem><para><computeroutput>PRINT</computeroutput> writes text to the screen.</para>
+</listitem><listitem><para>Quotes surround literal text (called a <emphasis>string</emphasis>).</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect2>
+<sect2 id="basic-beginner_1autotoc_md41">
+<title>2) Variables and simple maths</title>
+<para>Open a new file:</para>
+<para><programlisting><codeline><highlight class="normal">edit</highlight></codeline>
+</programlisting></para>
+<para>Type and save (Ctrl+S) as <computeroutput>mathsdemo</computeroutput>:</para>
+<para><programlisting><codeline><highlight class="normal">A<sp/>=<sp/>2</highlight></codeline>
+<codeline><highlight class="normal">B<sp/>=<sp/>3</highlight></codeline>
+<codeline><highlight class="normal">SUM<sp/>=<sp/>A<sp/>+<sp/>B</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;2<sp/>+<sp/>3<sp/>=<sp/>&quot;;<sp/>SUM</highlight></codeline>
+</programlisting></para>
+<para>Run it:</para>
+<para><programlisting><codeline><highlight class="normal">mathsdemo</highlight></codeline>
+</programlisting></para>
+<para><bold>What’s happening</bold></para>
+<para><itemizedlist>
+<listitem><para>You create <emphasis>variables</emphasis> with <computeroutput>=</computeroutput>. Names like <computeroutput>A</computeroutput>, <computeroutput>B</computeroutput>, <computeroutput>SUM</computeroutput> hold numbers.</para>
+</listitem><listitem><para><computeroutput>PRINT ...; ...</computeroutput> prints items on one line (the semicolon avoids an automatic newline between parts).</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>Three value types you’ll meet</bold></para>
+<para><itemizedlist>
+<listitem><para><bold>Integers</bold> (whole numbers) - default: <computeroutput>AGE = 12</computeroutput></para>
+</listitem><listitem><para><bold>Reals</bold> (decimals) - suffix <computeroutput>#</computeroutput>: <computeroutput>PI# = 3.14159</computeroutput></para>
+</listitem><listitem><para><bold>Strings</bold> (text) - suffix <computeroutput>$</computeroutput>: <computeroutput>NAME$ = &quot;Ada&quot;</computeroutput></para>
+</listitem></itemizedlist>
+</para>
+<para>Use the right suffix when you want a real or string. Integers have no suffix.</para>
+<para><hruler/>
+</para>
+</sect2>
+<sect2 id="basic-beginner_1autotoc_md43">
+<title>3) Getting input and using strings</title>
+<para>Open:</para>
+<para><programlisting><codeline><highlight class="normal">edit</highlight></codeline>
+</programlisting></para>
+<para>Type and save (Ctrl+S) as <computeroutput>hello_you</computeroutput>:</para>
+<para><programlisting><codeline><highlight class="normal">PRINT<sp/>&quot;What<sp/>is<sp/>your<sp/>name?&quot;</highlight></codeline>
+<codeline><highlight class="normal">INPUT<sp/>NAME$</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Nice<sp/>to<sp/>meet<sp/>you,<sp/>&quot;;<sp/>NAME$</highlight></codeline>
+</programlisting></para>
+<para>Run:</para>
+<para><programlisting><codeline><highlight class="normal">hello_you</highlight></codeline>
+</programlisting></para>
+<para><bold>What’s happening</bold></para>
+<para><itemizedlist>
+<listitem><para><computeroutput>INPUT</computeroutput> waits for you to type a line and press Enter, then stores it in a variable.</para>
+</listitem><listitem><para>String variables end with <computeroutput>$</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect2>
+<sect2 id="basic-beginner_1autotoc_md45">
+<title>4) Making decisions (IF / ELSE)</title>
+<para>Open:</para>
+<para><programlisting><codeline><highlight class="normal">edit</highlight></codeline>
+</programlisting></para>
+<para>Type and save (Ctrl+S) as <computeroutput>agegate</computeroutput>:</para>
+<para><programlisting><codeline><highlight class="normal">PRINT<sp/>&quot;How<sp/>old<sp/>are<sp/>you?&quot;</highlight></codeline>
+<codeline><highlight class="normal">INPUT<sp/>AGE</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>AGE<sp/>&lt;<sp/>13<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>PRINT<sp/>&quot;Hi<sp/>there!&quot;</highlight></codeline>
+<codeline><highlight class="normal">ELSE</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>PRINT<sp/>&quot;Welcome.&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para>Run it and try different ages.\ <computeroutput>IF ... THEN</computeroutput> chooses a path; <computeroutput>ELSE</computeroutput> is optional; <computeroutput>ENDIF</computeroutput> closes the block.</para>
+<para><hruler/>
+</para>
+</sect2>
+<sect2 id="basic-beginner_1autotoc_md47">
+<title>5) Repeating work (FOR and WHILE)</title>
+<para><bold>A counting loop</bold></para>
+<para><programlisting><codeline><highlight class="normal">FOR<sp/>I<sp/>=<sp/>1<sp/>TO<sp/>5</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>PRINT<sp/>&quot;Number<sp/>&quot;;<sp/>I</highlight></codeline>
+<codeline><highlight class="normal">NEXT</highlight></codeline>
+</programlisting></para>
+<para><bold>A condition‑driven loop</bold></para>
+<para><programlisting><codeline><highlight class="normal">N<sp/>=<sp/>5</highlight></codeline>
+<codeline><highlight class="normal">WHILE<sp/>N<sp/>&gt;<sp/>0</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>PRINT<sp/>N</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>N<sp/>=<sp/>N<sp/>-<sp/>1</highlight></codeline>
+<codeline><highlight class="normal">ENDWHILE</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Lift‑off!&quot;</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect2>
+<sect2 id="basic-beginner_1autotoc_md49">
+<title>6) Breaking code into procedures and functions</title>
+<para>Procedures are reusable blocks that don’t return a value. Functions return a value.</para>
+<para><bold>Procedure example</bold></para>
+<para><programlisting><codeline><highlight class="normal">DEF<sp/>PROCGreet(NAME$)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>PRINT<sp/>&quot;Hello,<sp/>&quot;;<sp/>NAME$</highlight></codeline>
+<codeline><highlight class="normal">ENDPROC</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">PROCGreet(&quot;Ada&quot;)</highlight></codeline>
+<codeline><highlight class="normal">PROCGreet(&quot;Grace&quot;)</highlight></codeline>
+</programlisting></para>
+<para><bold>Function example</bold></para>
+<para><programlisting><codeline><highlight class="normal">DEF<sp/>FNAdd(A,<sp/>B)</highlight></codeline>
+<codeline><highlight class="normal"><sp/>=<sp/>A<sp/>+<sp/>B</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;2<sp/>+<sp/>3<sp/>=<sp/>&quot;;<sp/>FNAdd(2,<sp/>3)</highlight></codeline>
+</programlisting></para>
+<para><bold>Notes</bold></para>
+<para><itemizedlist>
+<listitem><para>Call a procedure with <computeroutput>PROCName(...)</computeroutput>.</para>
+</listitem><listitem><para>Call a function with <computeroutput>FNName(...)</computeroutput>. The line starting with <computeroutput>=</computeroutput> returns the value.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect2>
+<sect2 id="basic-beginner_1autotoc_md51">
+<title>7) A tiny project: Guess the number</title>
+<para><programlisting><codeline><highlight class="normal">edit</highlight></codeline>
+</programlisting></para>
+<para>Type and save (Ctrl+S) as <computeroutput>guess</computeroutput>:</para>
+<para><programlisting><codeline><highlight class="normal">PRINT<sp/>&quot;I<sp/>am<sp/>thinking<sp/>of<sp/>a<sp/>number<sp/>between<sp/>1<sp/>and<sp/>10.&quot;</highlight></codeline>
+<codeline><highlight class="normal">SECRET<sp/>=<sp/>7</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Your<sp/>guess?&quot;</highlight></codeline>
+<codeline><highlight class="normal">INPUT<sp/>GUESS</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>GUESS<sp/>=<sp/>SECRET<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>PRINT<sp/>&quot;Correct!&quot;</highlight></codeline>
+<codeline><highlight class="normal">ELSE</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>PRINT<sp/>&quot;Not<sp/>this<sp/>time.&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para>Run with <computeroutput>guess</computeroutput>. Improve it by looping until correct, counting attempts, or giving hints (<computeroutput>IF GUESS &lt; SECRET THEN ...</computeroutput>).</para>
+<para><hruler/>
+</para>
+</sect2>
+<sect2 id="basic-beginner_1autotoc_md53">
+<title>8) Tips and troubleshooting</title>
+<para><itemizedlist>
+<listitem><para><bold>Stopping a program:</bold> press <bold>ESC</bold>. (Advanced: you can catch this with <computeroutput>ON ERROR PROC ...</computeroutput> and check <computeroutput>ERR$</computeroutput>.)</para>
+</listitem><listitem><para><bold>Saving:</bold> remember <bold>Ctrl+S</bold> in the editor.</para>
+</listitem><listitem><para><bold>Printing tricks:</bold><itemizedlist>
+<listitem><para>Use a comma to tab‑separate: <computeroutput>PRINT A, B, C</computeroutput></para>
+</listitem><listitem><para>Use semicolon to join on one line: <computeroutput>PRINT &quot;X=&quot;; X; &quot; Y=&quot;; Y</computeroutput></para>
+</listitem></itemizedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect2>
+<sect2 id="basic-beginner_1autotoc_md55">
+<title>9) Where to go next</title>
+<para><itemizedlist>
+<listitem><para>Try combining <computeroutput>INPUT</computeroutput>, <computeroutput>IF</computeroutput>, and loops to make simple text games.</para>
+</listitem><listitem><para>Learn about arrays and sprites when you’re comfortable with the basics.</para>
+</listitem><listitem><para>Browse the separate “BASIC.md” internals doc if you’re curious how the interpreter works under the hood.</para>
+</listitem></itemizedlist>
+</para>
+<para>You’ve got this-keep experimenting! </para>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/BASIC_BEGINNER.md"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="kernel-dev" kind="page">
+    <compoundname>kernel-dev</compoundname>
+    <title>Kernel Development</title>
+    <innerpage refid="bootflow">Retro Rocket Boot Flow</innerpage>
+    <innerpage refid="interrupts">Interrupt Handling in Retro Rocket (AMD64)</innerpage>
+    <innerpage refid="memory">Retro Rocket Memory Model</innerpage>
+    <innerpage refid="modules">Writing Kernel Modules for Retro Rocket</innerpage>
+    <innerpage refid="retrofs">RetroFS v1 Technical Specification</innerpage>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><itemizedlist>
+<listitem><para><ref refid="bootflow" kindref="compound">Retro Rocket Boot Flow</ref></para>
+</listitem><listitem><para><ref refid="interrupts" kindref="compound">Interrupt Handling in Retro Rocket (AMD64)</ref></para>
+</listitem><listitem><para><ref refid="memory" kindref="compound">Retro Rocket Memory Model</ref></para>
+</listitem><listitem><para><ref refid="modules" kindref="compound">Writing Kernel Modules for Retro Rocket</ref></para>
+</listitem><listitem><para><ref refid="retrofs" kindref="compound">RetroFS v1 Technical Specification</ref> </para>
+</listitem></itemizedlist>
+</para>
+    </detaileddescription>
+    <location file="docpages/kernel-dev/06_INDEX.md"/>
+  </compounddef>
+</doxygen>

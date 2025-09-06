@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="SECOND" kind="page">
+    <compoundname>SECOND</compoundname>
+    <title>SECOND Function</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">numeric-expression<sp/>=<sp/>SECOND(boolean-expression)</highlight></codeline>
+</programlisting></para>
+<para>Returns the current second (0–59). <linebreak/>
+ Pass <computeroutput>TRUE</computeroutput> for local time or <computeroutput>FALSE</computeroutput> for UTC.</para>
+<para>Example:</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>SECOND(TRUE)<sp/><sp/><sp/>&apos;<sp/>Local<sp/>second</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>SECOND(FALSE)<sp/><sp/>&apos;<sp/>UTC<sp/>second</highlight></codeline>
+</programlisting> </para>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/integer/SECOND.md"/>
+  </compounddef>
+</doxygen>

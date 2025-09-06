@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="md_docpages_basic_language_reference_functions_integer_PEEKD" kind="page">
+    <compoundname>md_docpages_basic_language_reference_functions_integer_PEEKD</compoundname>
+    <title>PEEKD</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>page PEEKD PEEKD Function <programlisting filename=".basic"><codeline><highlight class="normal">X<sp/>=<sp/>PEEKD(address)</highlight></codeline>
+</programlisting></para>
+<para>Reads a <bold>32-bit double-word</bold> from <computeroutput>address</computeroutput> and returns it as an integer (0–4294967295).</para>
+<para><blockquote><para>[!IMPORTANT] The entire 4-byte span must be valid; otherwise <computeroutput>Bad Address at &lt;address&gt;</computeroutput> is raised. </para>
+</blockquote></para>
+<sect2 id="md_docpages_basic_language_reference_functions_integer_PEEKD_1autotoc_md91">
+<title>&lt;/blockquote&gt;</title>
+<sect3 id="md_docpages_basic_language_reference_functions_integer_PEEKD_1autotoc_md92">
+<title>How to read it</title>
+<para><itemizedlist>
+<listitem><para>Loads 4 bytes in <bold>little-endian</bold> order.</para>
+</listitem><listitem><para>Unaligned reads are supported.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="md_docpages_basic_language_reference_functions_integer_PEEKD_1autotoc_md94">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Read<sp/>a<sp/>32-bit<sp/>value</highlight></codeline>
+<codeline><highlight class="normal">D<sp/>=<sp/>PEEKD(&amp;100040)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>D</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="md_docpages_basic_language_reference_functions_integer_PEEKD_1autotoc_md96">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>32-bit is common for MMIO registers.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PEEK">PEEK</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PEEKW">PEEKW</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PEEKQ">PEEKQ</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/POKED">POKED</ulink> </para>
+</sect3>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/integer/PEEKD.md"/>
+  </compounddef>
+</doxygen>

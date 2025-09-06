@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="LIBRARY" kind="page">
+    <compoundname>LIBRARY</compoundname>
+    <title>LIBRARY Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">LIBRARY<sp/>string-expression</highlight></codeline>
+</programlisting></para>
+<para>Loads a <bold>library</bold> (a file of <computeroutput>PROC</computeroutput>/<computeroutput>FN</computeroutput> definitions with <bold>no line numbers</bold>) into the current program. <linebreak/>
+ Immediately after <computeroutput>LIBRARY</computeroutput>, any procedures or functions from that file are available to call.</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>string-expression</computeroutput> is the <bold>path or name</bold> of the library file.</para>
+</listitem><listitem><para>Relative paths are resolved from the current directory; absolute paths start with <computeroutput>/</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para><blockquote><para>A library file <bold>must not contain line numbers</bold>. <linebreak/>
+ If a line-numbered program loads a library, the library is <bold>auto-numbered</bold> on load so its lines come <bold>after</bold> the program’s existing lines (using increments of 10). See <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Automatic-line-numbering">Automatic line numbering</ulink>. </para>
+</blockquote></para>
+<para><blockquote><para>On load, Retro Rocket looks for a procedure with the <bold>same name as the library filename</bold> and <bold>calls it</bold> if found. <linebreak/>
+ This acts as the library’s <bold>constructor</bold> for one-time initialisation. </para>
+</blockquote></para>
+<para><blockquote><para>It is recommended to place <computeroutput>LIBRARY</computeroutput> statements <bold>near the start</bold> of your program. <linebreak/>
+ Loading a library has a non-trivial cost. </para>
+</blockquote></para>
+<para><blockquote><para>Use the standard global <computeroutput>LIB$</computeroutput> path when loading shared libraries: <programlisting filename=".basic"><codeline><highlight class="normal">LIBRARY<sp/>LIB$<sp/>+<sp/>&quot;/ansi&quot;</highlight></codeline>
+</programlisting> <computeroutput>LIB$</computeroutput> is set by <computeroutput>init</computeroutput> and points to an absolute library folder. </para>
+</blockquote></para>
+<para><blockquote><para>Paths are <bold>case-insensitive</bold> and <computeroutput>.</computeroutput> / <computeroutput>..</computeroutput> are <bold>not supported</bold> in paths. </para>
+</blockquote></para>
+<sect2 id="LIBRARY_1autotoc_md304">
+<title>&lt;/blockquote&gt;</title>
+<sect3 id="LIBRARY_1autotoc_md305">
+<title>Examples</title>
+<para><bold>Load a library from <computeroutput>LIB$</computeroutput> and call its code</bold> <programlisting filename=".basic"><codeline><highlight class="normal">LIBRARY<sp/>LIB$<sp/>+<sp/>&quot;/ansi&quot;</highlight></codeline>
+<codeline><highlight class="normal">PROCansi_demo</highlight></codeline>
+</programlisting></para>
+<para><bold>Load a local library and use a function</bold> <programlisting filename=".basic"><codeline><highlight class="normal">LIBRARY<sp/>&quot;mathlib&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>FNadd(2,<sp/>3)</highlight></codeline>
+</programlisting></para>
+<para><bold>Library file (no line numbers)</bold> <programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>File:<sp/>mathlib</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">DEF<sp/>FNadd(A,<sp/>B)</highlight></codeline>
+<codeline><highlight class="normal">=<sp/>A<sp/>+<sp/>B</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">DEF<sp/>PROCmathlib</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>REM<sp/>optional<sp/>constructor<sp/>work<sp/>here</highlight></codeline>
+<codeline><highlight class="normal">ENDPROC</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="LIBRARY_1autotoc_md307">
+<title>Errors and behaviour</title>
+<para><itemizedlist>
+<listitem><para>If the library file <bold>cannot be found or loaded</bold>, a runtime error is raised (catch with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink> if needed).</para>
+</listitem><listitem><para>After loading, all <computeroutput>PROC</computeroutput>/<computeroutput>FN</computeroutput> names from the library become available in the current program.</para>
+</listitem><listitem><para>The constructor call (procedure named after the file) is <bold>optional</bold>. If absent, nothing extra is called.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DEF"><computeroutput>DEF</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PROC"><computeroutput>PROC</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/FN"><computeroutput>FN</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Automatic-line-numbering"><computeroutput>Automatic line numbering</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ansi"><computeroutput>ansi</computeroutput></ulink> </para>
+</sect3>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/LIBRARY.md"/>
+  </compounddef>
+</doxygen>

@@ -35,7 +35,7 @@ DOXYFILE_ENCODING      = UTF-8
 # title of most generated pages and in a few other places.
 # The default value is: My Project.
 
-PROJECT_NAME	   = "Retro Rocket Kernel"
+PROJECT_NAME	   = "Retro Rocket OS"
 
 # The PROJECT_NUMBER tag can be used to enter a project or revision number. This
 # could be handy for archiving the generated documentation or if some version
@@ -54,7 +54,7 @@ PROJECT_BRIEF	  = "BASIC-Powered Operating System"
 # and the maximum width should not exceed 200 pixels. Doxygen will copy the logo
 # to the output directory.
 
-#PROJECT_LOGO	   = 
+#PROJECT_LOGO	   = docpages/images/rr.png
 
 # The OUTPUT_DIRECTORY tag is used to specify the (relative or absolute) path
 # into which the generated documentation will be written. If a relative path is
@@ -142,8 +142,6 @@ INLINE_INHERITED_MEMB  = YES
 # before files name in the file list and in the header files. If set to NO the
 # shortest path that makes the file name unique will be used
 # The default value is: YES.
-
-FULL_PATH_NAMES	= NO
 
 # The STRIP_FROM_PATH tag can be used to strip a user-defined part of the path.
 # Stripping is only done if one of the specified strings matches the left-hand
@@ -495,7 +493,7 @@ INTERNAL_DOCS	  = NO
 # and Mac users are advised to set this option to NO.
 # The default value is: system dependent.
 
-CASE_SENSE_NAMES       = NO
+CASE_SENSE_NAMES       = YES
 
 # If the HIDE_SCOPE_NAMES tag is set to NO then doxygen will show members with
 # their full class and namespace scopes in the documentation. If set to YES the
@@ -771,7 +769,7 @@ INPUT_ENCODING	 = UTF-8
 # *.md, *.mm, *.dox, *.py, *.f90, *.f, *.for, *.tcl, *.vhd, *.vhdl, *.ucf,
 # *.qsf, *.as and *.js.
 
-FILE_PATTERNS	  = *.h *.c
+FILE_PATTERNS	  = 
 
 # The RECURSIVE tag can be used to specify whether or not subdirectories should
 # be searched for input files as well.
@@ -839,7 +837,7 @@ EXAMPLE_RECURSIVE      = NO
 # that contain images that are to be included in the documentation (see the
 # \image command).
 
-IMAGE_PATH	     = 
+IMAGE_PATH	     = docpages/images
 
 # The INPUT_FILTER tag can be used to specify a program that doxygen should
 # invoke to filter for each input file. Doxygen will invoke the filter program
@@ -887,7 +885,7 @@ FILTER_SOURCE_PATTERNS =
 # (index.html). This can be useful if you have a project on for instance GitHub
 # and want to reuse the introduction page also for the doxygen output.
 
-#USE_MDFILE_AS_MAINPAGE = 
+USE_MDFILE_AS_MAINPAGE = docpages/INDEX.md
 
 #---------------------------------------------------------------------------
 # Configuration options related to source browsing
@@ -2272,3 +2270,6 @@ TOC_INCLUDE_HEADINGS = 4
 
 DOT_GRAPH_MAX_NODES = 100
 
+
+STRIP_FROM_PATH        =
+FULL_PATH_NAMES        = YES

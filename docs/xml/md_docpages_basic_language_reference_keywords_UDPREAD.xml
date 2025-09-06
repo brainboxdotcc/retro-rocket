@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="md_docpages_basic_language_reference_keywords_UDPREAD" kind="page">
+    <compoundname>md_docpages_basic_language_reference_keywords_UDPREAD</compoundname>
+    <title>UDPREAD$</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">S$<sp/>=<sp/>UDPREAD$(port)</highlight></codeline>
+</programlisting></para>
+<para>Dequeues the <bold>next UDP packet</bold> for <computeroutput>port</computeroutput> and returns its <bold>payload</bold> as a string.</para>
+<para><itemizedlist>
+<listitem><para>If the queue is empty, returns an <bold>empty string</bold> (<computeroutput>&quot;&quot;</computeroutput>), sets the last-source details to <computeroutput>0.0.0.0</computeroutput> and <computeroutput>0</computeroutput>.</para>
+</listitem><listitem><para>On success, you can query the sender details with <computeroutput>UDPLASTIP$</computeroutput> and <computeroutput>UDPLASTSOURCEPORT</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para><blockquote><para>[!IMPORTANT] If <computeroutput>port</computeroutput> is outside <computeroutput>0</computeroutput> to <computeroutput>65535</computeroutput>, an error is raised: <computeroutput>Invalid UDP port number</computeroutput>. </para>
+</blockquote></para>
+<sect1 id="md_docpages_basic_language_reference_keywords_UDPREAD_1autotoc_md495">
+<title>&lt;/blockquote&gt;</title>
+<sect2 id="md_docpages_basic_language_reference_keywords_UDPREAD_1autotoc_md496">
+<title>How to read it</title>
+<para><itemizedlist>
+<listitem><para>Call after <computeroutput>UDPBIND</computeroutput>.</para>
+</listitem><listitem><para>Each call removes <bold>one</bold> packet from the queue (FIFO).</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect2>
+<sect2 id="md_docpages_basic_language_reference_keywords_UDPREAD_1autotoc_md498">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">UDPBIND<sp/>&quot;0.0.0.0&quot;,<sp/>8080</highlight></codeline>
+<codeline><highlight class="normal">S$<sp/>=<sp/>UDPREAD$(8080)</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>LEN(S$)<sp/>&gt;<sp/>0<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;From<sp/>&quot;;<sp/>UDPLASTIP$;<sp/>&quot;:&quot;;<sp/>UDPLASTSOURCEPORT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Data:<sp/>&quot;;<sp/>S$</highlight></codeline>
+<codeline><highlight class="normal">END<sp/>IF</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">UDPBIND<sp/>&quot;0.0.0.0&quot;,<sp/>9000</highlight></codeline>
+<codeline><highlight class="normal">S$<sp/>=<sp/>UDPREAD$(9000)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>S$</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect2>
+<sect2 id="md_docpages_basic_language_reference_keywords_UDPREAD_1autotoc_md500">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>The returned string is the exact payload that was sent.</para>
+</listitem><listitem><para><computeroutput>UDPLASTIP$</computeroutput> and <computeroutput>UDPLASTSOURCEPORT</computeroutput> always refer to the <bold>most recent</bold> packet returned by <computeroutput>UDPREAD$</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/UDPBIND">UDPBIND</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/UDPLASTIP%24">UDPLASTIP$</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/UDPLASTSOURCEPORT">UDPLASTSOURCEPORT</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/UDPWRITE">UDPWRITE</ulink> </para>
+</sect2>
+</sect1>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/UDPREAD.md"/>
+  </compounddef>
+</doxygen>

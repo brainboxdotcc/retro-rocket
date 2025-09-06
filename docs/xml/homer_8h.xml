@@ -2,16 +2,16 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="homer_8h" kind="file" language="C++">
     <compoundname>homer.h</compoundname>
-    <includedby refid="errorhandler_8c" local="no">errorhandler.c</includedby>
+    <includedby refid="errorhandler_8c" local="no">src/errorhandler.c</includedby>
     <invincdepgraph>
       <node id="1">
-        <label>homer.h</label>
+        <label>include/homer.h</label>
         <link refid="homer_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="2">
-        <label>errorhandler.c</label>
+        <label>src/errorhandler.c</label>
         <link refid="errorhandler_8c"/>
       </node>
     </invincdepgraph>

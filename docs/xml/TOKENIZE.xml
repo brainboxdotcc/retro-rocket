@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="TOKENIZE" kind="page">
+    <compoundname>TOKENIZE</compoundname>
+    <title>TOKENIZE$ Function</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">TOKENIZE$(string-variable,<sp/>string-expression)</highlight></codeline>
+</programlisting> Searches for the first occurance of the string-expression value within the value of the string-variable given, splitting the value at that point and returning the portion of the string before the split, changing the string to become the content that came after the split. For example:</para>
+<para><image type="html" name="https://user-images.githubusercontent.com/1556794/235389891-e8973648-eb27-40b5-b7e2-35c02baaf311.png" alt="image" inline="yes"></image>
+</para>
+<para>The string-expression is not limited to one character, if a multiple character string value is specified, this will be the whole separator. </para>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/string/TOKENIZE.md"/>
+  </compounddef>
+</doxygen>

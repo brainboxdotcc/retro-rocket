@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structelf__shdr" kind="struct" language="C++" prot="public">
+    <compoundname>elf_shdr</compoundname>
+    <includes local="no">module.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structelf__shdr_1a0788725e982acbe8aa3956cd5aeffc7d" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t elf_shdr::sh_name</definition>
+        <argsstring></argsstring>
+        <name>sh_name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Offset into section-name string table </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="104" column="10" bodyfile="include/module.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelf__shdr_1aba44949692d6db8ba6fdbd533514bac1" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t elf_shdr::sh_type</definition>
+        <argsstring></argsstring>
+        <name>sh_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Section type (SHT_*) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="105" column="10" bodyfile="include/module.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelf__shdr_1ab635cb656ad69a42cb2d12df3f1d770e" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t elf_shdr::sh_flags</definition>
+        <argsstring></argsstring>
+        <name>sh_flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Section flags (SHF_*) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="106" column="10" bodyfile="include/module.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelf__shdr_1adb30a0f1eda2749b64baf24a30171884" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t elf_shdr::sh_addr</definition>
+        <argsstring></argsstring>
+        <name>sh_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Virtual address (unused for ET_REL) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="107" column="10" bodyfile="include/module.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelf__shdr_1a94c0b665f3a85d272c799b6f838aa102" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t elf_shdr::sh_offset</definition>
+        <argsstring></argsstring>
+        <name>sh_offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>File offset of section contents </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="108" column="10" bodyfile="include/module.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelf__shdr_1a073b26c0f9571090942ecefa5f594755" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t elf_shdr::sh_size</definition>
+        <argsstring></argsstring>
+        <name>sh_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Section size in bytes </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="109" column="10" bodyfile="include/module.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelf__shdr_1aa20f9b9126cfbe75613b32df1da522b4" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t elf_shdr::sh_link</definition>
+        <argsstring></argsstring>
+        <name>sh_link</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Section link (type-dependent) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="110" column="10" bodyfile="include/module.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelf__shdr_1a5220cc37419d2f6428fa06bf8624ee2e" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t elf_shdr::sh_info</definition>
+        <argsstring></argsstring>
+        <name>sh_info</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Extra info (type-dependent) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="111" column="10" bodyfile="include/module.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelf__shdr_1a39f92f6b54a44017d84d8adbd1abdd51" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t elf_shdr::sh_addralign</definition>
+        <argsstring></argsstring>
+        <name>sh_addralign</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Required alignment of section in memory </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="112" column="10" bodyfile="include/module.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelf__shdr_1ab14d0dbee3e269e8b78b7e9ab5fcb161" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t elf_shdr::sh_entsize</definition>
+        <argsstring></argsstring>
+        <name>sh_entsize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Entry size for fixed-size tables </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="113" column="10" bodyfile="include/module.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>ELF section header (ELF64) </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>elf_shdr</label>
+        <link refid="structelf__shdr"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>sh_addr</edgelabel>
+          <edgelabel>sh_addralign</edgelabel>
+          <edgelabel>sh_entsize</edgelabel>
+          <edgelabel>sh_flags</edgelabel>
+          <edgelabel>sh_offset</edgelabel>
+          <edgelabel>sh_size</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>sh_info</edgelabel>
+          <edgelabel>sh_link</edgelabel>
+          <edgelabel>sh_name</edgelabel>
+          <edgelabel>sh_type</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>uint64_t</label>
+      </node>
+      <node id="3">
+        <label>uint32_t</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/module.h" line="103" column="1" bodyfile="include/module.h" bodystart="103" bodyend="114"/>
+    <listofallmembers>
+      <member refid="structelf__shdr_1adb30a0f1eda2749b64baf24a30171884" prot="public" virt="non-virtual"><scope>elf_shdr</scope><name>sh_addr</name></member>
+      <member refid="structelf__shdr_1a39f92f6b54a44017d84d8adbd1abdd51" prot="public" virt="non-virtual"><scope>elf_shdr</scope><name>sh_addralign</name></member>
+      <member refid="structelf__shdr_1ab14d0dbee3e269e8b78b7e9ab5fcb161" prot="public" virt="non-virtual"><scope>elf_shdr</scope><name>sh_entsize</name></member>
+      <member refid="structelf__shdr_1ab635cb656ad69a42cb2d12df3f1d770e" prot="public" virt="non-virtual"><scope>elf_shdr</scope><name>sh_flags</name></member>
+      <member refid="structelf__shdr_1a5220cc37419d2f6428fa06bf8624ee2e" prot="public" virt="non-virtual"><scope>elf_shdr</scope><name>sh_info</name></member>
+      <member refid="structelf__shdr_1aa20f9b9126cfbe75613b32df1da522b4" prot="public" virt="non-virtual"><scope>elf_shdr</scope><name>sh_link</name></member>
+      <member refid="structelf__shdr_1a0788725e982acbe8aa3956cd5aeffc7d" prot="public" virt="non-virtual"><scope>elf_shdr</scope><name>sh_name</name></member>
+      <member refid="structelf__shdr_1a94c0b665f3a85d272c799b6f838aa102" prot="public" virt="non-virtual"><scope>elf_shdr</scope><name>sh_offset</name></member>
+      <member refid="structelf__shdr_1a073b26c0f9571090942ecefa5f594755" prot="public" virt="non-virtual"><scope>elf_shdr</scope><name>sh_size</name></member>
+      <member refid="structelf__shdr_1aba44949692d6db8ba6fdbd533514bac1" prot="public" virt="non-virtual"><scope>elf_shdr</scope><name>sh_type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

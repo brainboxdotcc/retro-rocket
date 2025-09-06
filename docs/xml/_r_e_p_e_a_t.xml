@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_r_e_p_e_a_t" kind="page">
+    <compoundname>REPEAT</compoundname>
+    <title>REPEAT Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REPEAT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>statements</highlight></codeline>
+<codeline><highlight class="normal">UNTIL<sp/>expression</highlight></codeline>
+</programlisting></para>
+<para>Starts a <bold>post-test loop</bold>. The block between <computeroutput>REPEAT</computeroutput> and <computeroutput>UNTIL</computeroutput> executes <bold>at least once</bold>. <linebreak/>
+ After the block runs, <computeroutput>expression</computeroutput> is evaluated; if it is <bold>true</bold>, the loop <bold>ends</bold>; if <bold>false</bold>, execution repeats from <computeroutput>REPEAT</computeroutput>.</para>
+<para><blockquote><para>[!IMPORTANT] <computeroutput>REPEAT</computeroutput> pairs with the <bold>nearest</bold> following <computeroutput>UNTIL</computeroutput>. <linebreak/>
+ <computeroutput>UNTIL</computeroutput> must appear on its <bold>own line</bold>. <linebreak/>
+ You may <bold>nest</bold> <computeroutput>REPEAT…UNTIL</computeroutput> loops. </para>
+</blockquote></para>
+<sect2 id="_r_e_p_e_a_t_1autotoc_md308">
+<title>&lt;/blockquote&gt;</title>
+<sect3 id="_r_e_p_e_a_t_1autotoc_md309">
+<title>How to read it</title>
+<para><itemizedlist>
+<listitem><para>Think of it as <bold>“do these statements **until</bold> the condition becomes true”** (exit-on-true).</para>
+</listitem><listitem><para>If you prefer an <bold>entry-test</bold> loop (continue-on-true), use <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/WHILE"><computeroutput>WHILE … ENDWHILE</computeroutput></ulink>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_r_e_p_e_a_t_1autotoc_md311">
+<title>Examples</title>
+<para><bold>Count until a limit</bold> <programlisting filename=".basic"><codeline><highlight class="normal">N<sp/>=<sp/>0</highlight></codeline>
+<codeline><highlight class="normal">REPEAT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;N<sp/>=<sp/>&quot;;<sp/>N</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>N<sp/>=<sp/>N<sp/>+<sp/>1</highlight></codeline>
+<codeline><highlight class="normal">UNTIL<sp/>N<sp/>&gt;=<sp/>5</highlight></codeline>
+</programlisting></para>
+<para><bold>Prompt until a non-empty string</bold> <programlisting filename=".basic"><codeline><highlight class="normal">NAME$<sp/>=<sp/>&quot;&quot;</highlight></codeline>
+<codeline><highlight class="normal">REPEAT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Enter<sp/>your<sp/>name:&quot;;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>INPUT<sp/>NAME$</highlight></codeline>
+<codeline><highlight class="normal">UNTIL<sp/>LEN(NAME$)<sp/>&gt;<sp/>0</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Hello,<sp/>&quot;;<sp/>NAME$</highlight></codeline>
+</programlisting></para>
+<para><bold>Nested REPEAT loops</bold> <programlisting filename=".basic"><codeline><highlight class="normal">Y<sp/>=<sp/>0</highlight></codeline>
+<codeline><highlight class="normal">REPEAT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>X<sp/>=<sp/>0</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>REPEAT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;X=&quot;;<sp/>X;<sp/>&quot;,<sp/>Y=&quot;;<sp/>Y</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X<sp/>=<sp/>X<sp/>+<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>UNTIL<sp/>X<sp/>=<sp/>3</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Y<sp/>=<sp/>Y<sp/>+<sp/>1</highlight></codeline>
+<codeline><highlight class="normal">UNTIL<sp/>Y<sp/>=<sp/>2</highlight></codeline>
+</programlisting></para>
+<para><bold>Loop until a key is pressed</bold> <programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;Press<sp/>any<sp/>key<sp/>to<sp/>stop.&quot;</highlight></codeline>
+<codeline><highlight class="normal">REPEAT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>REM<sp/>do<sp/>some<sp/>periodic<sp/>work<sp/>here</highlight></codeline>
+<codeline><highlight class="normal">UNTIL<sp/>INKEY$<sp/>&lt;&gt;<sp/>&quot;&quot;</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_r_e_p_e_a_t_1autotoc_md313">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>The condition on <computeroutput>UNTIL</computeroutput> is a normal boolean <bold>expression</bold>; use comparisons like <computeroutput>=</computeroutput>, <computeroutput>&lt;&gt;</computeroutput>, <computeroutput>&lt;</computeroutput>, <computeroutput>&gt;</computeroutput>, <computeroutput>&lt;=</computeroutput>, <computeroutput>&gt;=</computeroutput>.</para>
+</listitem><listitem><para>Because the test occurs <bold>after</bold> the body, the body runs <bold>once even if the condition is initially true</bold>.</para>
+</listitem><listitem><para>You can mix <computeroutput>REPEAT…UNTIL</computeroutput> with other control structures (e.g. place one inside a <computeroutput>FOR</computeroutput> loop) as needed.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/WHILE"><computeroutput>WHILE</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ENDIF"><computeroutput>ENDIF</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/INPUT"><computeroutput>INPUT</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/LEN"><computeroutput>LEN</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/INKEY"><computeroutput>INKEY$</computeroutput></ulink> </para>
+</sect3>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/REPEAT.md"/>
+  </compounddef>
+</doxygen>

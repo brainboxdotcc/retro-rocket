@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structelf__sym" kind="struct" language="C++" prot="public">
+    <compoundname>elf_sym</compoundname>
+    <includes local="no">module.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structelf__sym_1a1e8c6f9e5e92e3c96bd595d9695e6d47" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t elf_sym::st_name</definition>
+        <argsstring></argsstring>
+        <name>st_name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Offset into the string table </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="120" column="15" bodyfile="include/module.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelf__sym_1a606b6e696e7c9348f461c898370df238" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char elf_sym::st_info</definition>
+        <argsstring></argsstring>
+        <name>st_info</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Binding and type (use ELF64_ST_BIND to extract) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="121" column="15" bodyfile="include/module.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelf__sym_1a5a2ba322b3a7810c11a86dac233dfbb3" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char elf_sym::st_other</definition>
+        <argsstring></argsstring>
+        <name>st_other</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Visibility (not used here) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="122" column="15" bodyfile="include/module.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelf__sym_1a080243574dc9f5b3aa3050e4fd2a820b" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t elf_sym::st_shndx</definition>
+        <argsstring></argsstring>
+        <name>st_shndx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Section index (SHN_* or real section) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="123" column="15" bodyfile="include/module.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelf__sym_1a779708a08ca5f7ff985e4207793497a2" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t elf_sym::st_value</definition>
+        <argsstring></argsstring>
+        <name>st_value</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Value or offset; for ET_REL, offset within section </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="124" column="15" bodyfile="include/module.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelf__sym_1afabf78018405c889628e64ca4d61c9f1" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t elf_sym::st_size</definition>
+        <argsstring></argsstring>
+        <name>st_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Symbol size in bytes </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="125" column="15" bodyfile="include/module.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>ELF symbol table entry (ELF64) </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>uint64_t</label>
+      </node>
+      <node id="3">
+        <label>uint16_t</label>
+      </node>
+      <node id="5">
+        <label>uint32_t</label>
+      </node>
+      <node id="1">
+        <label>elf_sym</label>
+        <link refid="structelf__sym"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>st_size</edgelabel>
+          <edgelabel>st_value</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>st_shndx</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>st_info</edgelabel>
+          <edgelabel>st_other</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>st_name</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/module.h" line="119" column="1" bodyfile="include/module.h" bodystart="119" bodyend="126"/>
+    <listofallmembers>
+      <member refid="structelf__sym_1a606b6e696e7c9348f461c898370df238" prot="public" virt="non-virtual"><scope>elf_sym</scope><name>st_info</name></member>
+      <member refid="structelf__sym_1a1e8c6f9e5e92e3c96bd595d9695e6d47" prot="public" virt="non-virtual"><scope>elf_sym</scope><name>st_name</name></member>
+      <member refid="structelf__sym_1a5a2ba322b3a7810c11a86dac233dfbb3" prot="public" virt="non-virtual"><scope>elf_sym</scope><name>st_other</name></member>
+      <member refid="structelf__sym_1a080243574dc9f5b3aa3050e4fd2a820b" prot="public" virt="non-virtual"><scope>elf_sym</scope><name>st_shndx</name></member>
+      <member refid="structelf__sym_1afabf78018405c889628e64ca4d61c9f1" prot="public" virt="non-virtual"><scope>elf_sym</scope><name>st_size</name></member>
+      <member refid="structelf__sym_1a779708a08ca5f7ff985e4207793497a2" prot="public" virt="non-virtual"><scope>elf_sym</scope><name>st_value</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="BITNAND" kind="page">
+    <compoundname>BITNAND</compoundname>
+    <title>BITNAND Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">X<sp/>=<sp/>BITNAND(a,<sp/>b)</highlight></codeline>
+</programlisting></para>
+<para>Computes the <bold>bitwise NAND</bold> of two integers.</para>
+<para><hruler/>
+</para>
+<sect3 id="BITNAND_1autotoc_md140">
+<title>How to read it</title>
+<para><itemizedlist>
+<listitem><para>Equivalent to <computeroutput>NOT (a AND b)</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="BITNAND_1autotoc_md142">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>BITNAND(&amp;6,<sp/>&amp;3)</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="BITNAND_1autotoc_md144">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Operates on 64-bit integers.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BITAND">BITAND</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BITNOR">BITNOR</ulink> </para>
+</sect3>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/BITNAND.md"/>
+  </compounddef>
+</doxygen>

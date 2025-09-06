@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="YEAR" kind="page">
+    <compoundname>YEAR</compoundname>
+    <title>YEAR Function</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">numeric-expression<sp/>=<sp/>YEAR(boolean-expression)</highlight></codeline>
+</programlisting></para>
+<para>Returns the current full year (e.g. <computeroutput>2025</computeroutput>). <linebreak/>
+ Pass <computeroutput>TRUE</computeroutput> to return local time using the configured time zone (if any), or <computeroutput>FALSE</computeroutput> for UTC.</para>
+<para>Example:</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>YEAR(TRUE)<sp/><sp/><sp/>&apos;<sp/>Local<sp/>year</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>YEAR(FALSE)<sp/><sp/>&apos;<sp/>UTC<sp/>year</highlight></codeline>
+</programlisting> </para>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/integer/YEAR.md"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_s_o_c_k_w_r_i_t_e" kind="page">
+    <compoundname>SOCKWRITE</compoundname>
+    <title>SOCKWRITE Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">SOCKWRITE<sp/>integer-variable,<sp/>printable</highlight></codeline>
+</programlisting></para>
+<para>Writes data to an <bold>open TCP socket</bold>. <linebreak/>
+ The first parameter must be an <bold>integer variable</bold> holding a valid socket handle (as created earlier with <computeroutput>CONNECT</computeroutput>). <linebreak/>
+ The second parameter, <computeroutput>printable</computeroutput>, follows the <bold>same formatting rules as <computeroutput>PRINT</computeroutput></bold>.</para>
+<para><hruler/>
+</para>
+<sect3 id="_s_o_c_k_w_r_i_t_e_1autotoc_md335">
+<title>Formatting semantics (same as &lt;tt&gt;PRINT&lt;/tt&gt;)</title>
+<para><itemizedlist>
+<listitem><para>You may pass <bold>numbers</bold> or <bold>strings</bold>; numbers are converted to text.</para>
+</listitem><listitem><para>Multiple items can be separated by **<computeroutput>;</computeroutput>** or **<computeroutput>,</computeroutput>**:<itemizedlist>
+<listitem><para><computeroutput>;</computeroutput> writes the next item <bold>immediately</bold> with <bold>no extra spacing</bold>, and if it is the <bold>last</bold> thing on the line, <bold>suppresses the newline</bold>.</para>
+</listitem><listitem><para><computeroutput>,</computeroutput> advances to the next <bold>print zone</bold> (tab stop) before writing the next item. This inserts <bold>spaces</bold>, not a literal comma.</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para>With <bold>no trailing <computeroutput>;</computeroutput> or <computeroutput>,</computeroutput></bold>, a newline is appended automatically (same newline as <computeroutput>PRINT</computeroutput>).</para>
+</listitem><listitem><para>If you need protocol-specific line endings (for example <bold>CRLF</bold>), append them explicitly with <computeroutput>CHR$(13) + CHR$(10)</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para><blockquote><para>[!IMPORTANT] A comma in <computeroutput>SOCKWRITE</computeroutput> does <bold>not</bold> send the character <computeroutput>,</computeroutput>. <linebreak/>
+ It inserts spaces to the next print zone. <linebreak/>
+ If you need a real comma on the wire, include it in the string: <programlisting filename=".basic"><codeline><highlight class="normal">SOCKWRITE<sp/>S,<sp/>&quot;A,B,C&quot;</highlight></codeline>
+</programlisting> </para>
+</blockquote></para>
+</sect3>
+<sect2 id="_s_o_c_k_w_r_i_t_e_1autotoc_md336">
+<title>&lt;/blockquote&gt;</title>
+<sect3 id="_s_o_c_k_w_r_i_t_e_1autotoc_md337">
+<title>Examples</title>
+<para><bold>Build a line without the implicit newline, then add CRLF</bold> <programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Assume<sp/>S<sp/>is<sp/>a<sp/>valid<sp/>socket<sp/>handle</highlight></codeline>
+<codeline><highlight class="normal">SOCKWRITE<sp/>S,<sp/>&quot;USER<sp/>&quot;;</highlight></codeline>
+<codeline><highlight class="normal">SOCKWRITE<sp/>S,<sp/>&quot;guest&quot;;</highlight></codeline>
+<codeline><highlight class="normal">SOCKWRITE<sp/>S,<sp/>CHR$(13)<sp/>+<sp/>CHR$(10)</highlight></codeline>
+</programlisting></para>
+<para><bold>Send numbers and strings together</bold> <programlisting filename=".basic"><codeline><highlight class="normal">SOCKWRITE<sp/>S,<sp/>&quot;X=&quot;;<sp/></highlight></codeline>
+<codeline><highlight class="normal">SOCKWRITE<sp/>S,<sp/>42;<sp/></highlight></codeline>
+<codeline><highlight class="normal">SOCKWRITE<sp/>S,<sp/>&quot;<sp/>Y=&quot;;<sp/></highlight></codeline>
+<codeline><highlight class="normal">SOCKWRITE<sp/>S,<sp/>99;<sp/></highlight></codeline>
+<codeline><highlight class="normal">SOCKWRITE<sp/>S,<sp/>CHR$(10)</highlight></codeline>
+</programlisting></para>
+<para><bold>Avoid print zones; send a literal CSV</bold> <programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>not:<sp/>SOCKWRITE<sp/>S,<sp/>&quot;alpha&quot;,<sp/>&quot;beta&quot;,<sp/>&quot;gamma&quot;</highlight></codeline>
+<codeline><highlight class="normal">SOCKWRITE<sp/>S,<sp/>&quot;alpha,beta,gamma&quot;</highlight></codeline>
+</programlisting></para>
+<para><bold>Error handling around a write</bold> <programlisting filename=".basic"><codeline><highlight class="normal">ON<sp/>ERROR<sp/>PROCnet_err</highlight></codeline>
+<codeline><highlight class="normal">SOCKWRITE<sp/>S,<sp/>&quot;PING&quot;<sp/>+<sp/>CHR$(10)</highlight></codeline>
+<codeline><highlight class="normal">ON<sp/>ERROR<sp/>OFF</highlight></codeline>
+<codeline><highlight class="normal">END</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">DEF<sp/>PROCnet_err</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Write<sp/>failed:<sp/>&quot;;<sp/>ERR$</highlight></codeline>
+<codeline><highlight class="normal">ENDPROC</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_s_o_c_k_w_r_i_t_e_1autotoc_md339">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Do <bold>not</bold> pass a literal or expression as the handle; use an integer <bold>variable</bold> that contains the handle.</para>
+</listitem><listitem><para>After you close the socket with <computeroutput>SOCKCLOSE</computeroutput>, the handle is invalid for further <computeroutput>SOCKWRITE</computeroutput> calls.</para>
+</listitem><listitem><para><computeroutput>SOCKWRITE</computeroutput> sends exactly what <computeroutput>PRINT</computeroutput> would have produced for the same arguments; use <computeroutput>CHR$</computeroutput> to embed control characters when needed.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PRINT"><computeroutput>PRINT</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/SOCKREAD"><computeroutput>SOCKREAD</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/SOCKCLOSE"><computeroutput>SOCKCLOSE</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CONNECT"><computeroutput>CONNECT</computeroutput></ulink> </para>
+</sect3>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/SOCKWRITE.md"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_u_n_t_i_l" kind="page">
+    <compoundname>UNTIL</compoundname>
+    <title>UNTIL Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REPEAT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>statements</highlight></codeline>
+<codeline><highlight class="normal">UNTIL<sp/>expression</highlight></codeline>
+</programlisting></para>
+<para>Marks the <bold>end</bold> of a <computeroutput>REPEAT</computeroutput> loop and performs the <bold>post-test</bold> that decides whether to loop again. <linebreak/>
+ The block between <computeroutput>REPEAT</computeroutput> and <computeroutput>UNTIL</computeroutput> always runs <bold>at least once</bold>. After it runs, <computeroutput>expression</computeroutput> is evaluated:</para>
+<para><itemizedlist>
+<listitem><para>If <computeroutput>expression</computeroutput> is <bold>true</bold>, the loop <bold>ends</bold> and execution continues after <computeroutput>UNTIL</computeroutput>.</para>
+</listitem><listitem><para>If <computeroutput>expression</computeroutput> is <bold>false</bold>, control returns to the matching <computeroutput>REPEAT</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para><blockquote><para>[!IMPORTANT] <computeroutput>UNTIL</computeroutput> must match the <bold>nearest preceding</bold> <computeroutput>REPEAT</computeroutput> and should appear on its <bold>own line</bold>. <linebreak/>
+ <computeroutput>REPEAT…UNTIL</computeroutput> blocks may be <bold>nested</bold> freely. </para>
+</blockquote></para>
+<sect2 id="_u_n_t_i_l_1autotoc_md392">
+<title>&lt;/blockquote&gt;</title>
+<sect3 id="_u_n_t_i_l_1autotoc_md393">
+<title>How to think about it</title>
+<para><itemizedlist>
+<listitem><para>Read it as <bold>“do these statements until the condition becomes true”</bold> (exit-on-true).</para>
+</listitem><listitem><para>If you want an <bold>entry-test</bold> loop instead, use <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/WHILE"><computeroutput>WHILE … ENDWHILE</computeroutput></ulink>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_u_n_t_i_l_1autotoc_md395">
+<title>Examples</title>
+<para><bold>Count until a limit</bold> <programlisting filename=".basic"><codeline><highlight class="normal">N<sp/>=<sp/>0</highlight></codeline>
+<codeline><highlight class="normal">REPEAT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;N<sp/>=<sp/>&quot;;<sp/>N</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>N<sp/>=<sp/>N<sp/>+<sp/>1</highlight></codeline>
+<codeline><highlight class="normal">UNTIL<sp/>N<sp/>&gt;=<sp/>5</highlight></codeline>
+</programlisting></para>
+<para><bold>Prompt until a non-empty string</bold> <programlisting filename=".basic"><codeline><highlight class="normal">NAME$<sp/>=<sp/>&quot;&quot;</highlight></codeline>
+<codeline><highlight class="normal">REPEAT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Enter<sp/>your<sp/>name:&quot;;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>INPUT<sp/>NAME$</highlight></codeline>
+<codeline><highlight class="normal">UNTIL<sp/>LEN(NAME$)<sp/>&gt;<sp/>0</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Hello,<sp/>&quot;;<sp/>NAME$</highlight></codeline>
+</programlisting></para>
+<para><bold>Wait until a key is pressed</bold> <programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;Press<sp/>any<sp/>key<sp/>to<sp/>stop.&quot;</highlight></codeline>
+<codeline><highlight class="normal">REPEAT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>REM<sp/>do<sp/>some<sp/>periodic<sp/>work<sp/>here</highlight></codeline>
+<codeline><highlight class="normal">UNTIL<sp/>INKEY$<sp/>&lt;&gt;<sp/>&quot;&quot;</highlight></codeline>
+</programlisting></para>
+<para><bold>Nested loops</bold> <programlisting filename=".basic"><codeline><highlight class="normal">Y<sp/>=<sp/>0</highlight></codeline>
+<codeline><highlight class="normal">REPEAT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>X<sp/>=<sp/>0</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>REPEAT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;X=&quot;;<sp/>X;<sp/>&quot;,<sp/>Y=&quot;;<sp/>Y</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X<sp/>=<sp/>X<sp/>+<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>UNTIL<sp/>X<sp/>=<sp/>3</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Y<sp/>=<sp/>Y<sp/>+<sp/>1</highlight></codeline>
+<codeline><highlight class="normal">UNTIL<sp/>Y<sp/>=<sp/>2</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_u_n_t_i_l_1autotoc_md397">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>The condition after <computeroutput>UNTIL</computeroutput> is an ordinary boolean <bold>expression</bold>; use comparisons like <computeroutput>=</computeroutput>, <computeroutput>&lt;&gt;</computeroutput>, <computeroutput>&lt;</computeroutput>, <computeroutput>&gt;</computeroutput>, <computeroutput>&lt;=</computeroutput>, <computeroutput>&gt;=</computeroutput>.</para>
+</listitem><listitem><para>Because the test is <bold>after</bold> the body, the body runs <bold>once even if the condition is initially true</bold>.</para>
+</listitem><listitem><para><computeroutput>REPEAT…UNTIL</computeroutput> works alongside other control structures (<computeroutput>FOR…NEXT</computeroutput>, <computeroutput>IF…ENDIF</computeroutput>, <computeroutput>WHILE…ENDWHILE</computeroutput>) and may be nested within them.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/REPEAT"><computeroutput>REPEAT</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/WHILE"><computeroutput>WHILE</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/LEN"><computeroutput>LEN</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/INKEY"><computeroutput>INKEY$</computeroutput></ulink> </para>
+</sect3>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/UNTIL.md"/>
+  </compounddef>
+</doxygen>

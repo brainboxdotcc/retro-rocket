@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_e_v_a_l" kind="page">
+    <compoundname>EVAL</compoundname>
+    <title>EVAL Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">EVAL<sp/>string-expression</highlight></codeline>
+</programlisting></para>
+<para>Executes a <bold>single complete line of BASIC</bold> supplied in <computeroutput>string-expression</computeroutput> in the <bold>current program&apos;s context</bold>.</para>
+<para><itemizedlist>
+<listitem><para>The string must form <bold>one valid statement line</bold> (for example <computeroutput>PRINT &quot;Hello&quot;</computeroutput>, <computeroutput>X = 10</computeroutput>, <computeroutput>PROCdemo</computeroutput>).</para>
+</listitem><listitem><para>On <bold>error</bold>, <computeroutput>ERR$</computeroutput> is set to the error message and <computeroutput>ERR</computeroutput> is set to <computeroutput>1</computeroutput>. Execution then continues at the statement after <computeroutput>EVAL</computeroutput>.</para>
+</listitem><listitem><para><bold>Recursive EVAL is not permitted</bold> (code running under <computeroutput>EVAL</computeroutput> may not call <computeroutput>EVAL</computeroutput> again).</para>
+</listitem></itemizedlist>
+</para>
+<para><blockquote><para>[!TIP] If you need a literal double quote inside the evaluated line, insert it using <computeroutput>CHR$(34)</computeroutput>. <linebreak/>
+ For example: <computeroutput>EVAL &quot;PRINT &quot; + CHR$(34) + &quot;Hello&quot; + CHR$(34)</computeroutput>. </para>
+</blockquote></para>
+<sect2 id="_e_v_a_l_1autotoc_md132">
+<title>&lt;/blockquote&gt;</title>
+<sect3 id="_e_v_a_l_1autotoc_md133">
+<title>Examples</title>
+<para><bold>Print from a generated line</bold> <programlisting filename=".basic"><codeline><highlight class="normal">EVAL<sp/>&quot;PRINT<sp/>&quot;<sp/>+<sp/>CHR$(34)<sp/>+<sp/>&quot;Hello<sp/>from<sp/>EVAL!&quot;<sp/>+<sp/>CHR$(34)</highlight></codeline>
+</programlisting></para>
+<para><bold>Set a variable dynamically</bold> <programlisting filename=".basic"><codeline><highlight class="normal">NAME$<sp/>=<sp/>&quot;COUNT&quot;</highlight></codeline>
+<codeline><highlight class="normal">EVAL<sp/>NAME$<sp/>+<sp/>&quot;<sp/>=<sp/>42&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>COUNT</highlight></codeline>
+</programlisting></para>
+<para><bold>Call a procedure</bold> <programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>PROCgreet</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Greetings&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDPROC</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">EVAL<sp/>&quot;PROCgreet&quot;</highlight></codeline>
+</programlisting></para>
+<para><bold>Error handling (ERR/ERR$ set, program continues)</bold> <programlisting filename=".basic"><codeline><highlight class="normal">ERR<sp/>=<sp/>0</highlight></codeline>
+<codeline><highlight class="normal">ERR$<sp/>=<sp/>&quot;&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">EVAL<sp/>&quot;A<sp/>=<sp/>1/0&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">IF<sp/>ERR<sp/>&lt;&gt;<sp/>0<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;EVAL<sp/>failed:<sp/>&quot;;<sp/>ERR$</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_e_v_a_l_1autotoc_md135">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Provide <bold>exactly one</bold> statement; statement separators are not supported.</para>
+</listitem><listitem><para>The evaluated line runs with access to the program&apos;s current variables, procedures, and functions.</para>
+</listitem><listitem><para>Use <computeroutput>EVAL</computeroutput> for small, dynamic actions. For larger logic, write normal procedures/functions and call them directly.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DEF"><computeroutput>DEF</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PROC"><computeroutput>PROC</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/FN"><computeroutput>FN</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Builtin-Variables"><computeroutput>ERR</computeroutput>/<computeroutput>ERR$</computeroutput></ulink> </para>
+</sect3>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/EVAL.md"/>
+  </compounddef>
+</doxygen>

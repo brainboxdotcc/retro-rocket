@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>Retro Rocket OS</title>
+    <innerpage refid="user-guide">User Guide</innerpage>
+    <innerpage refid="basic-ref">BASIC Language Reference</innerpage>
+    <innerpage refid="kernel-dev">Kernel Development</innerpage>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="index_1md_docpages_INDEX"/> Retro Rocket is a modern hobbyist operating system built in the spirit of the 1980s micros; approachable, transparent, and designed for learning.</para>
+<para><image type="html" name="https://user-images.githubusercontent.com/1556794/235880146-7dd20f1f-1a86-4b56-85da-0d3ed96d2575.png" alt="image" inline="yes"></image>
+</para>
+<para>It boots on real x86-64 hardware, has its own BASIC dialect for programming and shell work, and exposes the nuts and bolts of how an OS really runs: memory management, filesystems, multitasking, device drivers and more.</para>
+<para>Unlike diving into C kernels or dense textbooks, Retro Rocket lets you explore these concepts in a hands-on way through BASIC and clear documentation, making low-level development feel fun and accessible without needing to be a systems programmer first.</para>
+<para><itemizedlist>
+<listitem><para><ref refid="user-guide" kindref="compound">User Guide</ref></para>
+</listitem><listitem><para><ref refid="basic-ref" kindref="compound">BASIC Language Reference</ref></para>
+</listitem><listitem><para><ref refid="kernel-dev" kindref="compound">Kernel Development</ref> </para>
+</listitem></itemizedlist>
+</para>
+    </detaileddescription>
+    <location file="docpages/INDEX.md"/>
+  </compounddef>
+</doxygen>

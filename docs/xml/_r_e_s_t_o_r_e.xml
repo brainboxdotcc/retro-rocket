@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_r_e_s_t_o_r_e" kind="page">
+    <compoundname>RESTORE</compoundname>
+    <title>RESTORE Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting><codeline><highlight class="normal">RESTORE</highlight></codeline>
+</programlisting></para>
+<para>The <computeroutput>RESTORE</computeroutput> statement is <bold>not supported in Retro Rocket BASIC</bold>.</para>
+<para>In BBC BASIC IV, <computeroutput>RESTORE</computeroutput> reset the pointer for <computeroutput>READ</computeroutput> so embedded <computeroutput>DATA</computeroutput> could be re-read. <linebreak/>
+ Retro Rocket BASIC replaces this with <bold>file-based I/O</bold>.</para>
+<para><blockquote><para>[!NOTE] Use files to hold your constants and reopen them when you need to read again. <linebreak/>
+ <computeroutput>READ$</computeroutput> returns <bold>one character at a time</bold>, so build lines or tokens yourself if required. </para>
+</blockquote></para>
+<sect2 id="_r_e_s_t_o_r_e_1autotoc_md314">
+<title>&lt;/blockquote&gt;</title>
+<sect3 id="_r_e_s_t_o_r_e_1autotoc_md315">
+<title>Pattern 1: reopen to start reading again</title>
+<para><bold>values.txt</bold> <programlisting><codeline><highlight class="normal">10</highlight></codeline>
+<codeline><highlight class="normal">20</highlight></codeline>
+<codeline><highlight class="normal">30</highlight></codeline>
+</programlisting></para>
+<para><bold>Program</bold> <programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>A,100</highlight></codeline>
+<codeline><highlight class="normal">I<sp/>=<sp/>0</highlight></codeline>
+<codeline><highlight class="normal">LINE$<sp/>=<sp/>&quot;&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">REM<sp/>First<sp/>pass:<sp/>read<sp/>all<sp/>numbers</highlight></codeline>
+<codeline><highlight class="normal">FH<sp/>=<sp/>OPENIN(&quot;values.txt&quot;)</highlight></codeline>
+<codeline><highlight class="normal">WHILE<sp/>NOT<sp/>EOF(FH)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>C$<sp/>=<sp/>READ$(FH)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>IF<sp/>C$<sp/>=<sp/>CHR(10)<sp/>OR<sp/>C$<sp/>=<sp/>CHR(13)<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IF<sp/>LEN(LINE$)<sp/>&gt;<sp/>0<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I<sp/>=<sp/>I<sp/>+<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>A(I)<sp/>=<sp/>VAL(LINE$)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LINE$<sp/>=<sp/>&quot;&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ENDIF</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ELSE</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LINE$<sp/>=<sp/>LINE$<sp/>+<sp/>C$</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ENDIF</highlight></codeline>
+<codeline><highlight class="normal">ENDWHILE</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>LEN(LINE$)<sp/>&gt;<sp/>0<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>I<sp/>=<sp/>I<sp/>+<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>A(I)<sp/>=<sp/>VAL(LINE$)</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+<codeline><highlight class="normal">CLOSE<sp/>FH</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">REM<sp/>Second<sp/>pass:<sp/>simply<sp/>reopen<sp/>and<sp/>read<sp/>again</highlight></codeline>
+<codeline><highlight class="normal">FH<sp/>=<sp/>OPENIN(&quot;values.txt&quot;)</highlight></codeline>
+<codeline><highlight class="normal">REM<sp/>...<sp/>do<sp/>another<sp/>read<sp/>as<sp/>above<sp/>...</highlight></codeline>
+<codeline><highlight class="normal">CLOSE<sp/>FH</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_r_e_s_t_o_r_e_1autotoc_md317">
+<title>Pattern 2: cache once, reuse many times</title>
+<para>Instead of re-reading the file, store values in an array on the first pass and reuse the array.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>A,100</highlight></codeline>
+<codeline><highlight class="normal">COUNT<sp/>=<sp/>0</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">REM<sp/>Load<sp/>once</highlight></codeline>
+<codeline><highlight class="normal">FH<sp/>=<sp/>OPENIN(&quot;values.txt&quot;)</highlight></codeline>
+<codeline><highlight class="normal">LINE$<sp/>=<sp/>&quot;&quot;</highlight></codeline>
+<codeline><highlight class="normal">WHILE<sp/>NOT<sp/>EOF(FH)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>C$<sp/>=<sp/>READ$(FH)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>IF<sp/>C$<sp/>=<sp/>CHR(10)<sp/>OR<sp/>C$<sp/>=<sp/>CHR(13)<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IF<sp/>LEN(LINE$)<sp/>&gt;<sp/>0<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>COUNT<sp/>=<sp/>COUNT<sp/>+<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>A(COUNT)<sp/>=<sp/>VAL(LINE$)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LINE$<sp/>=<sp/>&quot;&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ENDIF</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ELSE</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LINE$<sp/>=<sp/>LINE$<sp/>+<sp/>C$</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ENDIF</highlight></codeline>
+<codeline><highlight class="normal">ENDWHILE</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>LEN(LINE$)<sp/>&gt;<sp/>0<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>COUNT<sp/>=<sp/>COUNT<sp/>+<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>A(COUNT)<sp/>=<sp/>VAL(LINE$)</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+<codeline><highlight class="normal">CLOSE<sp/>FH</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">REM<sp/>Use<sp/>many<sp/>times<sp/>without<sp/>touching<sp/>the<sp/>file</highlight></codeline>
+<codeline><highlight class="normal">SUM<sp/>=<sp/>0</highlight></codeline>
+<codeline><highlight class="normal">I<sp/>=<sp/>1</highlight></codeline>
+<codeline><highlight class="normal">WHILE<sp/>I<sp/>&lt;=<sp/>COUNT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>SUM<sp/>=<sp/>SUM<sp/>+<sp/>A(I)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>I<sp/>=<sp/>I<sp/>+<sp/>1</highlight></codeline>
+<codeline><highlight class="normal">ENDWHILE</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;SUM<sp/>=<sp/>&quot;;<sp/>SUM</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_r_e_s_t_o_r_e_1autotoc_md319">
+<title>Tips</title>
+<para><itemizedlist>
+<listitem><para>Store one value per line for simple parsing, or define your own separators and split by looking for those characters.</para>
+</listitem><listitem><para>When you only need to go back to the <bold>start</bold> of a file, the simplest approach is <bold>close and reopen</bold> it.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENIN"><computeroutput>OPENIN</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENOUT"><computeroutput>OPENOUT</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENUP"><computeroutput>OPENUP</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/READ"><computeroutput>READ$</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/EOF"><computeroutput>EOF</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/VAL"><computeroutput>VAL</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/LEN"><computeroutput>LEN</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CHR"><computeroutput>CHR</computeroutput></ulink> </para>
+</sect3>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/RESTORE.md"/>
+  </compounddef>
+</doxygen>

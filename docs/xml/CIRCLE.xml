@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="CIRCLE" kind="page">
+    <compoundname>CIRCLE</compoundname>
+    <title>CIRCLE Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">CIRCLE<sp/>integer-expression,<sp/>integer-expression,<sp/>integer-expression,<sp/>boolean-expression</highlight></codeline>
+</programlisting></para>
+<para>Draws a circle using the current graphics colour (set with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL"><computeroutput>GCOL</computeroutput></ulink>).</para>
+<para><itemizedlist>
+<listitem><para>First two parameters: the <bold>X,Y coordinates</bold> of the circle’s centre. <linebreak/>
+</para>
+</listitem><listitem><para>Third parameter: the <bold>radius</bold> in pixels. <linebreak/>
+</para>
+</listitem><listitem><para>Fourth parameter: a boolean; if <computeroutput>FALSE</computeroutput> only the outline is drawn, if <computeroutput>TRUE</computeroutput> the circle is filled.</para>
+</listitem></itemizedlist>
+</para>
+<para><image type="html" name="https://github.com/user-attachments/assets/7338255b-bfed-4408-b8be-8cbb943e2198" alt="Circle outline example" inline="yes"></image>
+</para>
+<para><hruler/>
+</para>
+<para><heading level="5">Example: Outline</heading>
+</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">GCOL<sp/>RGB(255,0,0)</highlight></codeline>
+<codeline><highlight class="normal">CIRCLE<sp/>400,<sp/>300,<sp/>100,<sp/>FALSE</highlight></codeline>
+</programlisting></para>
+<para>Draws a red circle outline centred at <computeroutput>(400,300)</computeroutput> with radius <computeroutput>100</computeroutput>.</para>
+<para><hruler/>
+</para>
+<para><heading level="5">Example: Filled</heading>
+</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">GCOL<sp/>RGB(0,255,0)</highlight></codeline>
+<codeline><highlight class="normal">CIRCLE<sp/>200,<sp/>200,<sp/>50,<sp/>TRUE</highlight></codeline>
+</programlisting></para>
+<para>Draws a filled green circle centred at <computeroutput>(200,200)</computeroutput> with radius <computeroutput>50</computeroutput>.</para>
+<para><hruler/>
+</para>
+<para><heading level="5">Notes</heading>
+</para>
+<para><itemizedlist>
+<listitem><para>Coordinates are in <bold>screen pixels</bold>; <computeroutput>(0,0)</computeroutput> is the top-left corner. <linebreak/>
+</para>
+</listitem><listitem><para>Circles are clipped at the screen edges if they extend beyond the display. <linebreak/>
+</para>
+</listitem><listitem><para><ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL"><computeroutput>GCOL</computeroutput></ulink> accepts a 24-bit RGB colour, usually constructed with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/RGB"><computeroutput>RGB</computeroutput></ulink>.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL"><computeroutput>GCOL</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/LINE"><computeroutput>LINE</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/RECTANGLE"><computeroutput>RECTANGLE</computeroutput></ulink> </para>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/CIRCLE.md"/>
+  </compounddef>
+</doxygen>

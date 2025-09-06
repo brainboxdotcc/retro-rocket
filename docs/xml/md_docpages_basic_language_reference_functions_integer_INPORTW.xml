@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="md_docpages_basic_language_reference_functions_integer_INPORTW" kind="page">
+    <compoundname>md_docpages_basic_language_reference_functions_integer_INPORTW</compoundname>
+    <title>INPORTW</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>page INPORTW INPORTW Function <programlisting filename=".basic"><codeline><highlight class="normal">X<sp/>=<sp/>INPORTW(port)</highlight></codeline>
+</programlisting></para>
+<para>Reads a <bold>16-bit word</bold> from <computeroutput>port</computeroutput> and returns it (0–65535).</para>
+<para><blockquote><para>[!IMPORTANT] Only use when the device expects <bold>word</bold> access. </para>
+</blockquote></para>
+<sect2 id="md_docpages_basic_language_reference_functions_integer_INPORTW_1autotoc_md79">
+<title>&lt;/blockquote&gt;</title>
+<sect3 id="md_docpages_basic_language_reference_functions_integer_INPORTW_1autotoc_md80">
+<title>How to read it</title>
+<para><itemizedlist>
+<listitem><para>Reads two consecutive bytes from the port as a word.</para>
+</listitem><listitem><para>Common for storage controllers such as ATA.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="md_docpages_basic_language_reference_functions_integer_INPORTW_1autotoc_md82">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Read<sp/>a<sp/>word<sp/>from<sp/>ATA<sp/>data<sp/>port</highlight></codeline>
+<codeline><highlight class="normal">W<sp/>=<sp/>INPORTW(&amp;1F0)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>W</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="md_docpages_basic_language_reference_functions_integer_INPORTW_1autotoc_md84">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Do not use unless the port is documented as word-accessible.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/INPORT">INPORT</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/INPORTD">INPORTD</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/INPORTQ">INPORTQ</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OUTPORTW">OUTPORTW</ulink> </para>
+</sect3>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/integer/INPORTW.md"/>
+  </compounddef>
+</doxygen>

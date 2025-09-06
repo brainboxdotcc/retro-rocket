@@ -3,8 +3,8 @@
   <compounddef id="mmio_8h" kind="file" language="C++">
     <compoundname>mmio.h</compoundname>
     <includes refid="kernel_8h" local="no">kernel.h</includes>
-    <includedby refid="e1000_8c" local="no">e1000.c</includedby>
-    <includedby refid="mmio_8c" local="no">mmio.c</includedby>
+    <includedby refid="e1000_8c" local="no">src/e1000.c</includedby>
+    <includedby refid="mmio_8c" local="no">src/mmio.c</includedby>
     <incdepgraph>
       <node id="57">
         <label>ata.h</label>
@@ -360,7 +360,7 @@
         </childnode>
       </node>
       <node id="1">
-        <label>mmio.h</label>
+        <label>include/mmio.h</label>
         <link refid="mmio_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
@@ -738,15 +738,15 @@
     </incdepgraph>
     <invincdepgraph>
       <node id="2">
-        <label>e1000.c</label>
+        <label>src/e1000.c</label>
         <link refid="e1000_8c"/>
       </node>
       <node id="3">
-        <label>mmio.c</label>
+        <label>src/mmio.c</label>
         <link refid="mmio_8c"/>
       </node>
       <node id="1">
-        <label>mmio.h</label>
+        <label>include/mmio.h</label>
         <link refid="mmio_8h"/>
         <childnode refid="2" relation="include">
         </childnode>

@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_l_e_t" kind="page">
+    <compoundname>LET</compoundname>
+    <title>LET Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">LET<sp/>variable-name<sp/>=<sp/>expression</highlight></codeline>
+</programlisting> <programlisting filename=".basic"><codeline><highlight class="normal">variable-name<sp/>=<sp/>expression</highlight></codeline>
+</programlisting></para>
+<para>Assigns the value of <computeroutput>expression</computeroutput> to <computeroutput>variable-name</computeroutput>. <linebreak/>
+ <computeroutput>LET</computeroutput> is <bold>optional</bold> — you may write assignments <bold>with or without</bold> the keyword. <linebreak/>
+ A variable is created on first assignment and its <bold>type</bold> follows its name:<itemizedlist>
+<listitem><para>no suffix -&gt; integer</para>
+</listitem><listitem><para>name ending with <computeroutput>#</computeroutput> -&gt; real</para>
+</listitem><listitem><para>name ending with <computeroutput>$</computeroutput> -&gt; string</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<sect3 id="_l_e_t_1autotoc_md174">
+<title>Examples</title>
+<para>Integer assignment (with and without <computeroutput>LET</computeroutput>) <programlisting filename=".basic"><codeline><highlight class="normal">LET<sp/>N<sp/>=<sp/>10</highlight></codeline>
+<codeline><highlight class="normal">M<sp/>=<sp/>20</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>N<sp/>+<sp/>M</highlight></codeline>
+</programlisting></para>
+<para>Real and string assignments <programlisting filename=".basic"><codeline><highlight class="normal">X#<sp/>=<sp/>3.14159</highlight></codeline>
+<codeline><highlight class="normal">NAME$<sp/>=<sp/>&quot;ALICE&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>X#,<sp/>NAME$</highlight></codeline>
+</programlisting></para>
+<para>Array element assignment <programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>A,5</highlight></codeline>
+<codeline><highlight class="normal">A(0)<sp/>=<sp/>42</highlight></codeline>
+<codeline><highlight class="normal">A(1)<sp/>=<sp/>A(0)<sp/>+<sp/>8</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>A(1)</highlight></codeline>
+</programlisting></para>
+<para>Using an expression on the right-hand side <programlisting filename=".basic"><codeline><highlight class="normal">TOTAL<sp/>=<sp/>PRICE<sp/>*<sp/>QUANTITY</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_l_e_t_1autotoc_md176">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para><computeroutput>LET</computeroutput> does not change scope. It is simply an optional keyword for assignment.</para>
+</listitem><listitem><para>The <bold>left-hand side</bold> must be a variable (or array element), not an expression.</para>
+</listitem><listitem><para>Strings are written with double quotes. To include a double quote inside a string you can build it with <computeroutput>CHR$(34)</computeroutput> if needed.</para>
+</listitem><listitem><para>For arrays, ensure you have declared the array size with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DIM"><computeroutput>DIM</computeroutput></ulink> before assigning elements.</para>
+</listitem><listitem><para><computeroutput>GLOBAL</computeroutput> is unrelated to <computeroutput>LET</computeroutput>: use <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/GLOBAL"><computeroutput>GLOBAL</computeroutput></ulink> when you want the value copied into child programs started with <computeroutput>CHAIN</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Variable-Naming"><computeroutput>Variable Naming</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Variable-Types"><computeroutput>Variable Types</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DIM"><computeroutput>DIM</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/GLOBAL"><computeroutput>GLOBAL</computeroutput></ulink> </para>
+</sect3>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/LET.md"/>
+  </compounddef>
+</doxygen>

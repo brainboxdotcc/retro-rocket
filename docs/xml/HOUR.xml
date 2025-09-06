@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="HOUR" kind="page">
+    <compoundname>HOUR</compoundname>
+    <title>HOUR Function</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">numeric-expression<sp/>=<sp/>HOUR(boolean-expression)</highlight></codeline>
+</programlisting></para>
+<para>Returns the current hour (0–23). <linebreak/>
+ Pass <computeroutput>TRUE</computeroutput> for local time (respecting time zone and DST), or <computeroutput>FALSE</computeroutput> for UTC.</para>
+<para>Example:</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>HOUR(TRUE)<sp/><sp/><sp/>&apos;<sp/>Local<sp/>hour</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>HOUR(FALSE)<sp/><sp/>&apos;<sp/>UTC<sp/>hour</highlight></codeline>
+</programlisting> </para>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/integer/HOUR.md"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structstorage__device__ui__t" kind="struct" language="C++" prot="public">
+    <compoundname>storage_device_ui_t</compoundname>
+    <includes local="no">filesystem.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structstorage__device__ui__t_1ae5c17da30debe1f4ce855ea39cd63c86" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char storage_device_ui_t::label[96]</definition>
+        <argsstring>[96]</argsstring>
+        <name>label</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="260" column="6" bodyfile="include/filesystem.h" bodystart="260" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__device__ui__t_1ad8d8d199469d746281edbc8170836049" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool storage_device_ui_t::is_optical</definition>
+        <argsstring></argsstring>
+        <name>is_optical</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="261" column="6" bodyfile="include/filesystem.h" bodystart="261" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>storage_device_ui_t</label>
+        <link refid="structstorage__device__ui__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>label</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>is_optical</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>bool</label>
+      </node>
+      <node id="2">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/filesystem.h" line="259" column="1" bodyfile="include/filesystem.h" bodystart="259" bodyend="262"/>
+    <listofallmembers>
+      <member refid="structstorage__device__ui__t_1ad8d8d199469d746281edbc8170836049" prot="public" virt="non-virtual"><scope>storage_device_ui_t</scope><name>is_optical</name></member>
+      <member refid="structstorage__device__ui__t_1ae5c17da30debe1f4ce855ea39cd63c86" prot="public" virt="non-virtual"><scope>storage_device_ui_t</scope><name>label</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

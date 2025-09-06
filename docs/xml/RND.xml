@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="RND" kind="page">
+    <compoundname>RND</compoundname>
+    <title>RND Function</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">RND(integer-expression,<sp/>integer-expression)</highlight></codeline>
+</programlisting> Returns a pseudo-random number between the two integer expressions (inclusive). The pseudo-random number generator uses a <ulink url="https://en.wikipedia.org/wiki/Mersenne_Twister">Mersenne Twister mt19937</ulink> algorithm to produce random results, with entropy seeded from the operating system kernel via various inputs which are not directly under user control.</para>
+<para><image type="html" name="https://user-images.githubusercontent.com/1556794/235545663-e3b17cdf-c47e-4d65-bfa1-84b3902c47fe.png" alt="image" inline="yes"></image>
+</para>
+<para><bold>NOTE: This differs from BBC BASIC which used a simple 33-bit LFSR (Linear Feedback Shift Register) as opposed to Mersenne Twister.</bold></para>
+<para>This function should not be relied upon for cryptographic randomness as its seed value cannot be guaranteed secure. </para>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/integer/RND.md"/>
+  </compounddef>
+</doxygen>

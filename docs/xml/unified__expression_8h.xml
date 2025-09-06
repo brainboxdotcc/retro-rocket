@@ -1,0 +1,1193 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="unified__expression_8h" kind="file" language="C++">
+    <compoundname>unified_expression.h</compoundname>
+    <includes refid="kernel_8h" local="no">kernel.h</includes>
+    <includedby refid="console_8c" local="yes">src/basic/console.c</includedby>
+    <includedby refid="double__expression_8c" local="yes">src/basic/double_expression.c</includedby>
+    <includedby refid="flow__control_8c" local="yes">src/basic/flow_control.c</includedby>
+    <includedby refid="int__expression_8c" local="yes">src/basic/int_expression.c</includedby>
+    <includedby refid="string__expression_8c" local="yes">src/basic/string_expression.c</includedby>
+    <includedby refid="unified__expression_8c" local="yes">src/basic/unified_expression.c</includedby>
+    <incdepgraph>
+      <node id="57">
+        <label>ata.h</label>
+        <link refid="ata_8h"/>
+      </node>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="22">
+        <label>basic.h</label>
+        <link refid="basic_8h"/>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>basic/context.h</label>
+        <link refid="context_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="88">
+        <label>stdarg.h</label>
+      </node>
+      <node id="60">
+        <label>ramdisk.h</label>
+        <link refid="ramdisk_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="29">
+        <label>basic/validation.h</label>
+        <link refid="validation_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>basic/graphics.h</label>
+        <link refid="graphics_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="72">
+        <label>acpi.h</label>
+        <link refid="acpi_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>basic/structs.h</label>
+        <link refid="structs_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="76">
+        <label>arp.h</label>
+        <link refid="arp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="67">
+        <label>stdnoreturn.h</label>
+      </node>
+      <node id="27">
+        <label>buddy_allocator.h</label>
+        <link refid="buddy__allocator_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="83">
+        <label>dns.h</label>
+        <link refid="dns_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>basic/peekpoke.h</label>
+        <link refid="peekpoke_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="63">
+        <label>fat32.h</label>
+        <link refid="fat32_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>rwlock.h</label>
+        <link refid="rwlock_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="81">
+        <label>udp.h</label>
+        <link refid="udp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>spinlock.h</label>
+        <link refid="spinlock_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="79">
+        <label>tcp.h</label>
+        <link refid="tcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="53">
+        <label>devicename.h</label>
+        <link refid="devicename_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>idt.h</label>
+        <link refid="idt_8h"/>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="84">
+        <label>drawing.h</label>
+        <link refid="drawing_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>basic/variable.h</label>
+        <link refid="variable_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="74">
+        <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>stdlib.h</label>
+        <link refid="stdlib_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>x86intrin.h</label>
+      </node>
+      <node id="47">
+        <label>ioapic.h</label>
+        <link refid="ioapic_8h"/>
+      </node>
+      <node id="5">
+        <label>stddef.h</label>
+      </node>
+      <node id="90">
+        <label>module.h</label>
+        <link refid="module_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>basic/array.h</label>
+        <link refid="array_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>basic/flow_control.h</label>
+        <link refid="flow__control_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>limits.h</label>
+      </node>
+      <node id="66">
+        <label>keyboard.h</label>
+        <link refid="keyboard_8h"/>
+        <childnode refid="67" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>io.h</label>
+        <link refid="io_8h"/>
+      </node>
+      <node id="15">
+        <label>printf.h</label>
+        <link refid="printf_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="75">
+        <label>e1000.h</label>
+        <link refid="e1000_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="70">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>basic/builtin_real_functions.h</label>
+        <link refid="builtin__real__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>limine.h</label>
+      </node>
+      <node id="68">
+        <label>input.h</label>
+        <link refid="input_8h"/>
+      </node>
+      <node id="85">
+        <label>fpu.h</label>
+        <link refid="fpu_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>video.h</label>
+        <link refid="video_8h"/>
+      </node>
+      <node id="87">
+        <label>serial.h</label>
+        <link refid="serial_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="80">
+        <label>icmp.h</label>
+        <link refid="icmp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>basic/sockets.h</label>
+        <link refid="sockets_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>basic/defines.h</label>
+        <link refid="defines_8h"/>
+      </node>
+      <node id="17">
+        <label>vector.h</label>
+        <link refid="vector_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="77">
+        <label>ip.h</label>
+        <link refid="ip_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>basic/builtin_integer_functions.h</label>
+        <link refid="builtin__integer__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>filesystem.h</label>
+        <link refid="filesystem_8h"/>
+      </node>
+      <node id="51">
+        <label>maths.h</label>
+        <link refid="maths_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>devfs.h</label>
+        <link refid="devfs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>basic/expression.h</label>
+        <link refid="expression_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="65">
+        <label>errorhandler.h</label>
+        <link refid="errorhandler_8h"/>
+      </node>
+      <node id="32">
+        <label>basic/builtin_string_functions.h</label>
+        <link refid="builtin__string__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="78">
+        <label>ethernet.h</label>
+        <link refid="ethernet_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <link refid="kernel_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>memcpy.h</label>
+        <link refid="memcpy_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>basic/console.h</label>
+        <link refid="console_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="59">
+        <label>partition.h</label>
+        <link refid="partition_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>random.h</label>
+        <link refid="random_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="89">
+        <label>debug_ringbuffer.h</label>
+        <link refid="debug__ringbuffer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="71">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>hashmap.h</label>
+        <link refid="hashmap_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="73">
+        <label>net.h</label>
+        <link refid="net_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>timer.h</label>
+        <link refid="timer_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>basic/reflection.h</label>
+        <link refid="reflection_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="64">
+        <label>debugger.h</label>
+        <link refid="debugger_8h"/>
+      </node>
+      <node id="33">
+        <label>basic/builtin_file_io_functions.h</label>
+        <link refid="builtin__file__io__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>interrupt.h</label>
+        <link refid="interrupt_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>kmalloc.h</label>
+        <link refid="kmalloc_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>scsi.h</label>
+        <link refid="scsi_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>map.h</label>
+        <link refid="map_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>tokenizer.h</label>
+        <link refid="tokenizer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>basic/lowlevel.h</label>
+        <link refid="lowlevel_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>pci.h</label>
+        <link refid="pci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>apic.h</label>
+        <link refid="apic_8h"/>
+      </node>
+      <node id="21">
+        <label>string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
+        <label>ahci.h</label>
+        <link refid="ahci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>basic/process.h</label>
+        <link refid="process_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="82">
+        <label>dhcp.h</label>
+        <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>include/basic/unified_expression.h</label>
+        <link refid="unified__expression_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="86">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>basic/datetime.h</label>
+        <link refid="datetime_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="69">
+        <label>clock.h</label>
+        <link refid="clock_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>src/basic/console.c</label>
+        <link refid="console_8c"/>
+      </node>
+      <node id="3">
+        <label>src/basic/double_expression.c</label>
+        <link refid="double__expression_8c"/>
+      </node>
+      <node id="5">
+        <label>src/basic/int_expression.c</label>
+        <link refid="int__expression_8c"/>
+      </node>
+      <node id="7">
+        <label>src/basic/unified_expression.c</label>
+        <link refid="unified__expression_8c"/>
+      </node>
+      <node id="6">
+        <label>src/basic/string_expression.c</label>
+        <link refid="string__expression_8c"/>
+      </node>
+      <node id="4">
+        <label>src/basic/flow_control.c</label>
+        <link refid="flow__control_8c"/>
+      </node>
+      <node id="1">
+        <label>include/basic/unified_expression.h</label>
+        <link refid="unified__expression_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structup__value" prot="public">up_value</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="unified__expression_8h_1adf1883881d3d582f11ff24bdbe36d6d9" prot="public" static="no" strong="no">
+        <type></type>
+        <name>up_kind</name>
+        <enumvalue id="unified__expression_8h_1adf1883881d3d582f11ff24bdbe36d6d9a947720fc219e0e28217eed374adf7daf" prot="public">
+          <name>UP_INT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>64-bit signed integer value. </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="unified__expression_8h_1adf1883881d3d582f11ff24bdbe36d6d9abd039fdf464a5291ab62c73ebdb07923" prot="public">
+          <name>UP_REAL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>IEEE-754 double-precision real value. </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="unified__expression_8h_1adf1883881d3d582f11ff24bdbe36d6d9a1383addad917ae52bce5e76c09a0dadb" prot="public">
+          <name>UP_STR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>NUL-terminated string pointer. </para>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Discriminant for a typed value produced by the unified evaluator. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Enumerates the runtime kind carried by an <ref refid="structup__value" kindref="compound">up_value</ref>. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/unified_expression.h" line="55" column="1" bodyfile="include/basic/unified_expression.h" bodystart="55" bodyend="62"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="unified__expression_8h_1af62db0d2d6f60722f23d9a74d0a7e824" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool up_conditional</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>up_conditional</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Evaluate a BASIC conditional (boolean) expression. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="par"><title>Grammar (informal)</title><para><programlisting><codeline><highlight class="normal">conditional<sp/>:=<sp/>bool_term<sp/>{<sp/>(AND<sp/>|<sp/>OR)<sp/>bool_term<sp/>}</highlight></codeline>
+<codeline><highlight class="normal">bool_term<sp/><sp/><sp/>:=<sp/>[NOT]*<sp/>relation</highlight></codeline>
+<codeline><highlight class="normal">relation<sp/><sp/><sp/><sp/>:=<sp/>value_expr<sp/>{<sp/>(&lt;<sp/>|<sp/>&gt;<sp/>|<sp/>=)<sp/>[=<sp/>|<sp/>&gt;&lt;]<sp/>value_expr<sp/>}</highlight></codeline>
+</programlisting></para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><computeroutput>true</computeroutput> for non-zero truth value; <computeroutput>false</computeroutput> otherwise.</para>
+</simplesect>
+<simplesect kind="par"><title>Side effects</title><para>Advances the token stream over the condition. Does not consume <computeroutput>THEN</computeroutput>. Emits kernel-style errors on type violations and division by zero. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/unified_expression.h" line="114" column="6" bodyfile="src/basic/unified_expression.c" bodystart="475" bodyend="499" declfile="include/basic/unified_expression.h" declline="114" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="unified__expression_8h_1aa738086463f77dd9b54081ca8635dcb3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t up_relation_i</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>up_relation_i</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Evaluate a relational expression and return INT 0/1. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><computeroutput>0</computeroutput> (false) or <computeroutput>1</computeroutput> (true). </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/unified_expression.h" line="122" column="9" bodyfile="src/basic/unified_expression.c" bodystart="547" bodyend="550" declfile="include/basic/unified_expression.h" declline="122" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="unified__expression_8h_1ae37b4c28f1adb81fde5098cbac0edfad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t up_int_expr_strict</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>up_int_expr_strict</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Strict integer expression (replacement for <computeroutput>expr(ctx)</computeroutput>). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Parses a numeric expression and returns INT. REAL results are narrowed to <computeroutput>int64_t</computeroutput>. STRING results produce an error and return <computeroutput>0</computeroutput>.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Evaluated integer value, or <computeroutput>0</computeroutput> on type error. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/unified_expression.h" line="137" column="9" bodyfile="src/basic/unified_expression.c" bodystart="504" bodyend="517" declfile="include/basic/unified_expression.h" declline="137" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="unified__expression_8h_1a7a207a9ed4a42f05b4e41ec1d88834e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void up_double_expr_strict</definition>
+        <argsstring>(struct basic_ctx *ctx, double *out)</argsstring>
+        <name>up_double_expr_strict</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>out</declname>
+        </param>
+        <briefdescription>
+<para>Strict real (double) expression (replacement for <computeroutput>double_expr(ctx,&amp;out)</computeroutput>). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Parses a numeric expression and writes a REAL result to <computeroutput>out</computeroutput>. INT results are widened to REAL. STRING results produce an error and write <computeroutput>0.0</computeroutput>.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination for the evaluated real value. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/unified_expression.h" line="148" column="6" bodyfile="src/basic/unified_expression.c" bodystart="519" bodyend="533" declfile="include/basic/unified_expression.h" declline="148" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="unified__expression_8h_1acfea5f45d6e6d17f2ffe3053d02307a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* up_str_expr_strict</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>up_str_expr_strict</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Strict string expression (replacement for <computeroutput>str_expr(ctx)</computeroutput>). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Parses a string expression and returns a GC-managed string pointer. Numeric results produce an error and return the empty string <computeroutput>&quot;&quot;</computeroutput>.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Non-NULL GC-managed string pointer. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/unified_expression.h" line="159" column="12" bodyfile="src/basic/unified_expression.c" bodystart="535" bodyend="544" declfile="include/basic/unified_expression.h" declline="159" declcolumn="12"/>
+      </memberdef>
+      <memberdef kind="function" id="unified__expression_8h_1a388199ab33e0987b42ebd81937006afe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structup__value" kindref="compound">up_value</ref></type>
+        <definition>up_value up_make_int</definition>
+        <argsstring>(int64_t x)</argsstring>
+        <name>up_make_int</name>
+        <param>
+          <type>int64_t</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+<para>Construct a typed value holding an integer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Signed 64-bit integer to store. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="structup__value" kindref="compound">up_value</ref> tagged as UP_INT with <computeroutput>x</computeroutput> in the integer field.</para>
+</simplesect>
+<simplesect kind="note"><para>No allocation is performed. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/unified_expression.h" line="169" column="10" bodyfile="src/basic/unified_expression.c" bodystart="16" bodyend="21" declfile="include/basic/unified_expression.h" declline="169" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="unified__expression_8h_1a1a880f32cad6273e98118483a82a6a8b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structup__value" kindref="compound">up_value</ref></type>
+        <definition>up_value up_make_real</definition>
+        <argsstring>(double x)</argsstring>
+        <name>up_make_real</name>
+        <param>
+          <type>double</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+<para>Construct a typed value holding a real (double). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Double to store. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="structup__value" kindref="compound">up_value</ref> tagged as UP_REAL with <computeroutput>x</computeroutput> in the real field.</para>
+</simplesect>
+<simplesect kind="note"><para>No allocation is performed. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/unified_expression.h" line="179" column="10" bodyfile="src/basic/unified_expression.c" bodystart="23" bodyend="28" declfile="include/basic/unified_expression.h" declline="179" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="unified__expression_8h_1af78c8938a3375437b27f1cf1cae0d025" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structup__value" kindref="compound">up_value</ref></type>
+        <definition>up_value up_make_str</definition>
+        <argsstring>(const char *s)</argsstring>
+        <name>up_make_str</name>
+        <param>
+          <type>const char *</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+<para>Construct a typed value holding a string pointer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>s</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to NUL-terminated string to store (may be NULL). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="structup__value" kindref="compound">up_value</ref> tagged as UP_STR with <computeroutput>s</computeroutput> in the string field.</para>
+</simplesect>
+<simplesect kind="note"><para>The pointer is stored as-is; lifetime/ownership of <computeroutput>s</computeroutput> must be managed by the caller (typically GC-allocated in this interpreter). No copy is made here. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/unified_expression.h" line="191" column="10" bodyfile="src/basic/unified_expression.c" bodystart="30" bodyend="35" declfile="include/basic/unified_expression.h" declline="191" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="unified__expression_8h_1a037db97961e7e2d9224ee733bb0eefd8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void up_eval_value</definition>
+        <argsstring>(struct basic_ctx *ctx, up_value *out)</argsstring>
+        <name>up_eval_value</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type><ref refid="structup__value" kindref="compound">up_value</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <briefdescription>
+<para>Evaluate a single value expression and return its typed result. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Parses one expression using the unified evaluator and writes the result to <computeroutput>out</computeroutput> without coercion (the kind will be UP_INT, UP_REAL, or UP_STR).</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context; <computeroutput>ctx-&gt;ptr</computeroutput> must point at the start of the expression to evaluate. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Receives the typed result of the evaluation.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="post"><para>On return, <computeroutput>ctx-&gt;ptr</computeroutput> is positioned at the first token not consumed by the expression. In particular, list separators (&apos;,&apos;/&apos;;&apos;), THEN, NEWLINE, and ENDOFINPUT are left untouched for the caller to handle.</para>
+</simplesect>
+<simplesect kind="note"><para>Errors encountered during evaluation are reported via the existing error machinery (e.g. <computeroutput>tokenizer_error_print</computeroutput>) and reflected in <computeroutput>ctx-&gt;errored</computeroutput>; this function does not throw or longjmp. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/unified_expression.h" line="211" column="6" bodyfile="src/basic/unified_expression.c" bodystart="552" bodyend="557" declfile="include/basic/unified_expression.h" declline="211" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Typed expression and conditional entry points for the unified parser. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Single typed recursive–descent evaluator supporting INT / REAL / STRING. Provides drop-in entry points for conditionals and strict wrappers for integer, real, and string expressions.</para>
+<sect3 id="unified__expression_8h_1autotoc_md668">
+<title>Tokeniser interaction</title>
+<para><itemizedlist>
+<listitem><para><bold>Parentheses</bold>: content inside <computeroutput>(</computeroutput> .. <computeroutput>)</computeroutput> is parsed as a relation-aware expression, so forms such as <computeroutput>(in&lt;128)</computeroutput> are valid in IF/WHILE.</para>
+</listitem><listitem><para><bold>String literals</bold>: obtained via <computeroutput>tokenizer_string(...)</computeroutput> and then <computeroutput>accept(STRING)</computeroutput>; the tokeniser produces the literal and we consume it.</para>
+</listitem><listitem><para><bold>Variables and built-ins</bold>:<itemizedlist>
+<listitem><para>Names ending with <computeroutput>$</computeroutput> - STRING.</para>
+</listitem><listitem><para>Names ending with <computeroutput>#</computeroutput> - REAL.</para>
+</listitem><listitem><para>Unsuffixed names default to INT <emphasis>unless</emphasis> the core marks them as real built-ins (queried via the interpreter’s registry, e.g. <computeroutput>is_builtin_double_fn(name)</computeroutput>).</para>
+</listitem></itemizedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+<sect3 id="unified__expression_8h_1autotoc_md669">
+<title>Operators and precedence</title>
+<para><itemizedlist>
+<listitem><para><bold>Unary</bold>: leading <computeroutput>+</computeroutput> / <computeroutput>-</computeroutput> bind <bold>tighter</bold> than <computeroutput>* / MOD</computeroutput>. Applies to numeric values only (e.g. <computeroutput>A--3</computeroutput>, <computeroutput>-(2+3)</computeroutput>, <computeroutput>-SIN(ANGLE#)</computeroutput>).</para>
+</listitem><listitem><para><bold>Arithmetic</bold>: <computeroutput>+ - * / MOD</computeroutput><itemizedlist>
+<listitem><para>Numeric arithmetic; <computeroutput>+</computeroutput> concatenates when <bold>both</bold> operands are strings.</para>
+</listitem><listitem><para>Mixing string and numeric with <computeroutput>+</computeroutput>/<computeroutput>-</computeroutput> is an error. <computeroutput>MOD</computeroutput> requires INTs.</para>
+</listitem><listitem><para>INT↔REAL promotes to REAL; division by zero reports a runtime error.</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para><bold>Relational</bold>: <computeroutput>&lt; &gt; = &lt;= &gt;= &lt;&gt;</computeroutput><itemizedlist>
+<listitem><para>Numeric comparisons promote INT↔REAL. String comparisons use <computeroutput>strcmp</computeroutput>.</para>
+</listitem><listitem><para>Result is INT 0/1.</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para><bold>Boolean (conditionals)</bold>: <computeroutput>NOT</computeroutput> &gt; <computeroutput>AND</computeroutput> &gt; <computeroutput>OR</computeroutput>, all left-associative.</para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+<sect3 id="unified__expression_8h_1autotoc_md670">
+<title>Consumption and stop conditions</title>
+<para><itemizedlist>
+<listitem><para><computeroutput><ref refid="unified__expression_8h_1af62db0d2d6f60722f23d9a74d0a7e824" kindref="member">up_conditional()</ref></computeroutput> stops before <computeroutput>THEN</computeroutput> / <computeroutput>NEWLINE</computeroutput> / <computeroutput>EOF</computeroutput> / <lsquo/><rsquo/>)&apos;<computeroutput>. The caller should</computeroutput>accept(THEN, ctx)<computeroutput>if required. -</computeroutput><ref refid="unified__expression_8h_1a037db97961e7e2d9224ee733bb0eefd8" kindref="member">up_eval_value()</ref><computeroutput>parses one value expression and **leaves** list separators (</computeroutput>,<computeroutput>/</computeroutput>;<computeroutput>),</computeroutput>THEN<computeroutput>,</computeroutput>NEWLINE<computeroutput>, and</computeroutput>EOF<computeroutput>untouched for the enclosing statement (e.g.</computeroutput>PRINT<computeroutput>,</computeroutput>INPUT`) to handle.</para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+<sect3 id="unified__expression_8h_1autotoc_md671">
+<title>String lifetime</title>
+<para><itemizedlist>
+<listitem><para>String results returned by expression evaluation are duplicated via the GC (<computeroutput>gc_strdup</computeroutput>) to match historic <computeroutput>str_expr</computeroutput> behaviour. </para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+    </detaileddescription>
+    <location file="include/basic/unified_expression.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structmountpoint__t" kind="struct" language="C++" prot="public">
+    <compoundname>mountpoint_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structmountpoint__t_1a9a23fb93ab4579e8ac70117b89a878da" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* mountpoint_t::path</definition>
+        <argsstring></argsstring>
+        <name>path</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="82" column="12" bodyfile="src/fs/filesystem.c" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structmountpoint__t_1af3460fc0bdbf4c452634a7fbec882030" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t mountpoint_t::len</definition>
+        <argsstring></argsstring>
+        <name>len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="83" column="8" bodyfile="src/fs/filesystem.c" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structmountpoint__t_1ae03670032e663dd13b327f6a52b05569" prot="public" static="no" mutable="no">
+        <type><ref refid="structfilesystem__t" kindref="compound">filesystem_t</ref> *</type>
+        <definition>filesystem_t* mountpoint_t::responsible_driver</definition>
+        <argsstring></argsstring>
+        <name>responsible_driver</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="84" column="14" bodyfile="src/fs/filesystem.c" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structmountpoint__t_1a5833f3396444460b27df23906b6f3c3c" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structmountpoint__t" kindref="compound">mountpoint_t</ref> *</type>
+        <definition>struct mountpoint_t* mountpoint_t::next</definition>
+        <argsstring></argsstring>
+        <name>next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="85" column="20" bodyfile="src/fs/filesystem.c" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="8">
+        <label>size_t</label>
+      </node>
+      <node id="2">
+        <label>filesystem_t</label>
+        <link refid="structfilesystem__t"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>createdir</edgelabel>
+          <edgelabel>createfile</edgelabel>
+          <edgelabel>freespace</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>getdir</edgelabel>
+        </childnode>
+        <childnode refid="2" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>mount</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>readfile</edgelabel>
+          <edgelabel>rm</edgelabel>
+          <edgelabel>rmdir</edgelabel>
+          <edgelabel>truncatefile</edgelabel>
+          <edgelabel>writefile</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>uint64_t</label>
+      </node>
+      <node id="6">
+        <label>int</label>
+      </node>
+      <node id="4">
+        <label>void *(*)(void *)</label>
+      </node>
+      <node id="7">
+        <label>bool</label>
+      </node>
+      <node id="1">
+        <label>mountpoint_t</label>
+        <link refid="structmountpoint__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>responsible_driver</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>path</edgelabel>
+        </childnode>
+        <childnode refid="1" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>len</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/fs/filesystem.c" line="81" column="1" bodyfile="src/fs/filesystem.c" bodystart="81" bodyend="86"/>
+    <listofallmembers>
+      <member refid="structmountpoint__t_1af3460fc0bdbf4c452634a7fbec882030" prot="public" virt="non-virtual"><scope>mountpoint_t</scope><name>len</name></member>
+      <member refid="structmountpoint__t_1a5833f3396444460b27df23906b6f3c3c" prot="public" virt="non-virtual"><scope>mountpoint_t</scope><name>next</name></member>
+      <member refid="structmountpoint__t_1a9a23fb93ab4579e8ac70117b89a878da" prot="public" virt="non-virtual"><scope>mountpoint_t</scope><name>path</name></member>
+      <member refid="structmountpoint__t_1ae03670032e663dd13b327f6a52b05569" prot="public" virt="non-virtual"><scope>mountpoint_t</scope><name>responsible_driver</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

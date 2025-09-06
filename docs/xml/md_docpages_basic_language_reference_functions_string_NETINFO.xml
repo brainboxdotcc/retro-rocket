@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="md_docpages_basic_language_reference_functions_string_NETINFO" kind="page">
+    <compoundname>md_docpages_basic_language_reference_functions_string_NETINFO</compoundname>
+    <title>NETINFO</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>page NETINFO$ NETINFO$ Function <programlisting filename=".basic"><codeline><highlight class="normal">NETINFO$(string-expression)</highlight></codeline>
+</programlisting> Returns network confdiguration settings. The string-expression should be one of:<itemizedlist>
+<listitem><para><computeroutput>ip</computeroutput> - Returns the current IP address</para>
+</listitem><listitem><para><computeroutput>gw</computeroutput> - Returns the gateway address</para>
+</listitem><listitem><para><computeroutput>mask</computeroutput> - Returns the network mask</para>
+</listitem><listitem><para><computeroutput>dns</computeroutput> - Returns the DNS server address</para>
+</listitem></itemizedlist>
+</para>
+<para><image type="html" name="https://user-images.githubusercontent.com/1556794/233865101-f9c39694-5a63-4163-921b-c2b5a23cb4ce.png" alt="image" inline="yes"></image>
+ </para>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/string/NETINFO.md"/>
+  </compounddef>
+</doxygen>

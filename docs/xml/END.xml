@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="END" kind="page">
+    <compoundname>END</compoundname>
+    <title>END Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">END</highlight></codeline>
+</programlisting></para>
+<para>Terminates execution of the <bold>current program</bold>, returning control to the context that started it.</para>
+<para><hruler/>
+</para>
+<para><itemizedlist>
+<listitem><para><bold>What happens after <computeroutput>END</computeroutput>:</bold><itemizedlist>
+<listitem><para>Started via <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CHAIN"><computeroutput>CHAIN</computeroutput></ulink>: the parent program resumes at the statement <bold>after</bold> its <computeroutput>CHAIN</computeroutput>.</para>
+</listitem><listitem><para>Started from <computeroutput>rocketsh</computeroutput>: control returns to the <bold>shell prompt</bold>.</para>
+</listitem><listitem><para>Initial <computeroutput>/programs/init</computeroutput> and no other programs remain: the system <bold>halts</bold> and reports that <bold>no programs remain</bold>.</para>
+</listitem><listitem><para>Nested <computeroutput>CHAIN</computeroutput>s: only the <bold>current child</bold> exits; its <bold>immediate parent</bold> resumes.</para>
+</listitem></itemizedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><heading level="5">Example</heading>
+</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">IF<sp/>FILETYPE$(&quot;config.txt&quot;)<sp/>&lt;&gt;<sp/>&quot;FILE&quot;<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Missing<sp/>configuration.&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>END</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;All<sp/>good<sp/>-<sp/>continue<sp/>running…&quot;</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+<para><heading level="5">Notes</heading>
+</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>END</computeroutput> takes <bold>no arguments</bold>.</para>
+</listitem><listitem><para>Execution stops <bold>immediately</bold>; any statements after <computeroutput>END</computeroutput> are not executed. </para>
+</listitem></itemizedlist>
+</para>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/END.md"/>
+  </compounddef>
+</doxygen>

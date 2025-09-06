@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_p_u_s_h" kind="page">
+    <compoundname>PUSH</compoundname>
+    <title>PUSH Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PUSH<sp/>variable-name,integer-expression</highlight></codeline>
+</programlisting></para>
+<para>Inserts a new element into an <bold>array</bold> at the given <bold>index</bold>, shifting existing elements at that index and above <bold>up by one place</bold> to make room. <linebreak/>
+ The inserted element is initialised to <bold>0</bold> (for integer and real arrays) or **&quot;&quot;** (for string arrays).</para>
+<para><blockquote><para>[!IMPORTANT] Arrays are <bold>zero-indexed</bold> and <bold>range-checked</bold>. <linebreak/>
+ Valid indices are <computeroutput>0</computeroutput> to <computeroutput>size-1</computeroutput>. An out-of-range index raises a runtime error. </para>
+</blockquote><blockquote><para>[!NOTE] <computeroutput>PUSH</computeroutput> does <bold>not</bold> change the array’s size. The element that was previously at index <computeroutput>size-1</computeroutput> is <bold>discarded</bold>. <linebreak/>
+ If you want to grow the array, call <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/REDIM"><computeroutput>REDIM</computeroutput></ulink> <bold>first</bold>. </para>
+</blockquote></para>
+<sect2 id="_p_u_s_h_1autotoc_md288">
+<title>&lt;/blockquote&gt;</title>
+<sect3 id="_p_u_s_h_1autotoc_md289">
+<title>How it works</title>
+<para><itemizedlist>
+<listitem><para>Before: <computeroutput>A(0) .. A(size-2), A(size-1)</computeroutput></para>
+</listitem><listitem><para><computeroutput>PUSH A, i</computeroutput>:<itemizedlist>
+<listitem><para>Elements <computeroutput>i .. size-2</computeroutput> move to <computeroutput>i+1 .. size-1</computeroutput></para>
+</listitem><listitem><para><computeroutput>A(i)</computeroutput> becomes <computeroutput>0</computeroutput> or <computeroutput>&quot;&quot;</computeroutput></para>
+</listitem><listitem><para>The old <computeroutput>A(size-1)</computeroutput> is lost</para>
+</listitem></itemizedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+<para>Time cost is proportional to the number of elements moved.</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_p_u_s_h_1autotoc_md291">
+<title>Common patterns</title>
+<para><bold>Insert a value at a position</bold> <linebreak/>
+ Use <computeroutput>PUSH</computeroutput> to make room, then assign into the cleared slot. <programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>A,5</highlight></codeline>
+<codeline><highlight class="normal">A(0)<sp/>=<sp/>10</highlight></codeline>
+<codeline><highlight class="normal">A(1)<sp/>=<sp/>20</highlight></codeline>
+<codeline><highlight class="normal">A(2)<sp/>=<sp/>30</highlight></codeline>
+<codeline><highlight class="normal">A(3)<sp/>=<sp/>40</highlight></codeline>
+<codeline><highlight class="normal">A(4)<sp/>=<sp/>50</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">PUSH<sp/>A,2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REM<sp/>make<sp/>room<sp/>at<sp/>index<sp/>2</highlight></codeline>
+<codeline><highlight class="normal">A(2)<sp/>=<sp/>999<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REM<sp/>set<sp/>the<sp/>inserted<sp/>element</highlight></codeline>
+</programlisting></para>
+<para><bold>Insert at the front (index 0)</bold> <programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>Q,4</highlight></codeline>
+<codeline><highlight class="normal">Q(0)<sp/>=<sp/>1</highlight></codeline>
+<codeline><highlight class="normal">Q(1)<sp/>=<sp/>2</highlight></codeline>
+<codeline><highlight class="normal">Q(2)<sp/>=<sp/>3</highlight></codeline>
+<codeline><highlight class="normal">Q(3)<sp/>=<sp/>4</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">PUSH<sp/>Q,0</highlight></codeline>
+<codeline><highlight class="normal">Q(0)<sp/>=<sp/>100</highlight></codeline>
+</programlisting></para>
+<para><bold>Insert at the end position (index size-1)</bold> <linebreak/>
+ This clears the last slot without moving others. <programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>B,3</highlight></codeline>
+<codeline><highlight class="normal">B(0)<sp/>=<sp/>7</highlight></codeline>
+<codeline><highlight class="normal">B(1)<sp/>=<sp/>8</highlight></codeline>
+<codeline><highlight class="normal">B(2)<sp/>=<sp/>9</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">PUSH<sp/>B,2</highlight></codeline>
+<codeline><highlight class="normal">B(2)<sp/>=<sp/>99</highlight></codeline>
+</programlisting></para>
+<para><bold>Grow then insert without losing data</bold> <programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>N,3</highlight></codeline>
+<codeline><highlight class="normal">N(0)<sp/>=<sp/>1</highlight></codeline>
+<codeline><highlight class="normal">N(1)<sp/>=<sp/>2</highlight></codeline>
+<codeline><highlight class="normal">N(2)<sp/>=<sp/>3</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">REDIM<sp/>N,4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REM<sp/>make<sp/>space<sp/>for<sp/>one<sp/>more<sp/>element</highlight></codeline>
+<codeline><highlight class="normal">PUSH<sp/>N,1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REM<sp/>shift<sp/>from<sp/>index<sp/>1<sp/>upward</highlight></codeline>
+<codeline><highlight class="normal">N(1)<sp/>=<sp/>20<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REM<sp/>write<sp/>inserted<sp/>value</highlight></codeline>
+</programlisting></para>
+<para><bold>Strings</bold> <programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>NAMES$,4</highlight></codeline>
+<codeline><highlight class="normal">NAMES$(0)<sp/>=<sp/>&quot;ALPHA&quot;</highlight></codeline>
+<codeline><highlight class="normal">NAMES$(1)<sp/>=<sp/>&quot;BETA&quot;</highlight></codeline>
+<codeline><highlight class="normal">NAMES$(2)<sp/>=<sp/>&quot;GAMMA&quot;</highlight></codeline>
+<codeline><highlight class="normal">NAMES$(3)<sp/>=<sp/>&quot;DELTA&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">PUSH<sp/>NAMES$,2</highlight></codeline>
+<codeline><highlight class="normal">NAMES$(2)<sp/>=<sp/>&quot;OMEGA&quot;</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_p_u_s_h_1autotoc_md293">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Works with <bold>integer</bold>, <bold>real</bold>, and <bold>string</bold> arrays; the inserted default is <computeroutput>0</computeroutput> or <computeroutput>&quot;&quot;</computeroutput> accordingly.</para>
+</listitem><listitem><para>Inserting at <computeroutput>size-1</computeroutput> does not shift any values; it simply clears that last position.</para>
+</listitem><listitem><para>If you need to insert multiple elements, consider calling <computeroutput>REDIM</computeroutput> once to grow the array, then perform several <computeroutput>PUSH</computeroutput> operations.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/POP"><computeroutput>POP</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/REDIM"><computeroutput>REDIM</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DIM"><computeroutput>DIM</computeroutput></ulink> </para>
+</sect3>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/PUSH.md"/>
+  </compounddef>
+</doxygen>

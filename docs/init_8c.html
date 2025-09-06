@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Retro Rocket Kernel: init.c File Reference</title>
+<title>Retro Rocket OS: src/init.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,7 +27,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Retro Rocket Kernel
+   <div id="projectname">Retro Rocket OS
    </div>
    <div id="projectbrief">BASIC-Powered Operating System</div>
   </td>
@@ -197,14 +197,14 @@ Variables</h2></td></tr>
 <div class="line">    NULL,</div>
 <div class="line">}</div>
 <div class="ttc" id="aacpi_8h_html_a6a7b623715d2b82f4a870d1e7c2b9d60"><div class="ttname"><a href="acpi_8h.html#a6a7b623715d2b82f4a870d1e7c2b9d60">init_acpi</a></div><div class="ttdeci">void init_acpi()</div><div class="ttdoc">Detect SMP CPU cores and APICs (Local and IOAPIC).</div><div class="ttdef"><b>Definition:</b> acpi.c:162</div></div>
-<div class="ttc" id="aahci_8h_html_aee21823366d10636044f5358d4c6e527"><div class="ttname"><a href="ahci_8h.html#aee21823366d10636044f5358d4c6e527">init_ahci</a></div><div class="ttdeci">void init_ahci()</div><div class="ttdoc">Initialise AHCI controller(s), enumerate ports, and register devices.</div><div class="ttdef"><b>Definition:</b> block/ahci/main.c:287</div></div>
+<div class="ttc" id="aahci_8h_html_aee21823366d10636044f5358d4c6e527"><div class="ttname"><a href="ahci_8h.html#aee21823366d10636044f5358d4c6e527">init_ahci</a></div><div class="ttdeci">void init_ahci()</div><div class="ttdoc">Initialise AHCI controller(s), enumerate ports, and register devices.</div><div class="ttdef"><b>Definition:</b> main.c:287</div></div>
 <div class="ttc" id="aapic_8h_html_a9263bf02ae52585b8ab22b22e9601aaf"><div class="ttname"><a href="apic_8h.html#a9263bf02ae52585b8ab22b22e9601aaf">boot_aps</a></div><div class="ttdeci">void boot_aps()</div><div class="ttdoc">Initialise and bring Application Processors (APs) online via Limine SMP.</div><div class="ttdef"><b>Definition:</b> acpi.c:298</div></div>
 <div class="ttc" id="aata_8h_html_abc751c8edfc3a3daf8243d8837f89bc1"><div class="ttname"><a href="ata_8h.html#abc751c8edfc3a3daf8243d8837f89bc1">init_ide</a></div><div class="ttdeci">void init_ide()</div><div class="ttdef"><b>Definition:</b> ata.c:7</div></div>
 <div class="ttc" id="aclock_8h_html_aff93106d7e8609959f1bd8185a822def"><div class="ttname"><a href="clock_8h.html#aff93106d7e8609959f1bd8185a822def">init_realtime_clock</a></div><div class="ttdeci">void init_realtime_clock()</div><div class="ttdoc">Initialise the Real-Time Clock (RTC) subsystem.</div><div class="ttdef"><b>Definition:</b> clock.c:181</div></div>
 <div class="ttc" id="adevfs_8h_html_a3dd7d590bb74d0b07de041ef4a5db9ac"><div class="ttname"><a href="devfs_8h.html#a3dd7d590bb74d0b07de041ef4a5db9ac">init_devfs</a></div><div class="ttdeci">void init_devfs(void)</div><div class="ttdoc">Initialise the device filesystem.</div><div class="ttdef"><b>Definition:</b> devfs.c:63</div></div>
 <div class="ttc" id="adevicename_8h_html_a82c1ef772588c7cc11fd325be15fdda4"><div class="ttname"><a href="devicename_8h.html#a82c1ef772588c7cc11fd325be15fdda4">init_devicenames</a></div><div class="ttdeci">void init_devicenames()</div><div class="ttdef"><b>Definition:</b> devicename.c:41</div></div>
 <div class="ttc" id="ae1000_8h_html_aa480cf0389af41f842ef8389a1a086c8"><div class="ttname"><a href="e1000_8h.html#aa480cf0389af41f842ef8389a1a086c8">init_e1000</a></div><div class="ttdeci">void init_e1000()</div><div class="ttdef"><b>Definition:</b> e1000.c:396</div></div>
-<div class="ttc" id="afat32_8h_html_a3fac5992ed8111e2a4da081700d74a3e"><div class="ttname"><a href="fat32_8h.html#a3fac5992ed8111e2a4da081700d74a3e">init_fat32</a></div><div class="ttdeci">void init_fat32()</div><div class="ttdoc">Register fat32 as a filesystem type.</div><div class="ttdef"><b>Definition:</b> fs/fat32/main.c:151</div></div>
+<div class="ttc" id="afat32_8h_html_a3fac5992ed8111e2a4da081700d74a3e"><div class="ttname"><a href="fat32_8h.html#a3fac5992ed8111e2a4da081700d74a3e">init_fat32</a></div><div class="ttdeci">void init_fat32()</div><div class="ttdoc">Register fat32 as a filesystem type.</div><div class="ttdef"><b>Definition:</b> main.c:151</div></div>
 <div class="ttc" id="afilesystem_8h_html_a47cfa7087b707560af1b5a669dfc69b3"><div class="ttname"><a href="filesystem_8h.html#a47cfa7087b707560af1b5a669dfc69b3">init_filesystem</a></div><div class="ttdeci">void init_filesystem()</div><div class="ttdoc">Initialise the filesystem This loads the DummyFS filesystem which manages the root directory until an...</div><div class="ttdef"><b>Definition:</b> filesystem.c:1515</div></div>
 <div class="ttc" id="aidt_8h_html_a42ea541423c53a479403b58384e19df7"><div class="ttname"><a href="idt_8h.html#a42ea541423c53a479403b58384e19df7">init_idt</a></div><div class="ttdeci">void init_idt(void)</div><div class="ttdoc">Initialise the IDT and enable interrupts.</div><div class="ttdef"><b>Definition:</b> idt.c:83</div></div>
 <div class="ttc" id="aiso9660_8h_html_ac9e6298d87cc76eb304147b2e2bdefc0"><div class="ttname"><a href="iso9660_8h.html#ac9e6298d87cc76eb304147b2e2bdefc0">init_iso9660</a></div><div class="ttdeci">void init_iso9660()</div><div class="ttdoc">Initialise ISO9660 support and register with the VFS layer.</div><div class="ttdef"><b>Definition:</b> iso9660.c:365</div></div>
@@ -213,7 +213,7 @@ Variables</h2></td></tr>
 <div class="ttc" id="akmalloc_8h_html_ae9571189e4229763c03dbf08f551f33f"><div class="ttname"><a href="kmalloc_8h.html#ae9571189e4229763c03dbf08f551f33f">init_heap</a></div><div class="ttdeci">void init_heap(void)</div><div class="ttdoc">Initialise the kernel heap.</div><div class="ttdef"><b>Definition:</b> kmalloc.c:33</div></div>
 <div class="ttc" id="amodule_8h_html_a8251bb24540fe5fbb7bf067a0b92f0bd"><div class="ttname"><a href="module_8h.html#a8251bb24540fe5fbb7bf067a0b92f0bd">init_modules</a></div><div class="ttdeci">void init_modules(void)</div><div class="ttdoc">Initialise the module registry and loader state.</div><div class="ttdef"><b>Definition:</b> module_loader.c:422</div></div>
 <div class="ttc" id="apci_8h_html_ac1163b8d93711c6fa01dfbffd2b4f0bf"><div class="ttname"><a href="pci_8h.html#ac1163b8d93711c6fa01dfbffd2b4f0bf">init_pci</a></div><div class="ttdeci">void init_pci()</div><div class="ttdoc">Initialise the PCI subsystem and enumerate devices.</div><div class="ttdef"><b>Definition:</b> pci.c:510</div></div>
-<div class="ttc" id="aretrofs_8h_html_af0d5bdf2c5488df54a69eed36861a1e2"><div class="ttname"><a href="retrofs_8h.html#af0d5bdf2c5488df54a69eed36861a1e2">init_rfs</a></div><div class="ttdeci">void init_rfs(void)</div><div class="ttdoc">Initialise the RetroFS subsystem.</div><div class="ttdef"><b>Definition:</b> fs/retrofs/main.c:108</div></div>
+<div class="ttc" id="aretrofs_8h_html_af0d5bdf2c5488df54a69eed36861a1e2"><div class="ttname"><a href="retrofs_8h.html#af0d5bdf2c5488df54a69eed36861a1e2">init_rfs</a></div><div class="ttdeci">void init_rfs(void)</div><div class="ttdoc">Initialise the RetroFS subsystem.</div><div class="ttdef"><b>Definition:</b> main.c:108</div></div>
 <div class="ttc" id="artl8139_8h_html_afb381866b5dc5f09b132f63c9abc142b"><div class="ttname"><a href="rtl8139_8h.html#afb381866b5dc5f09b132f63c9abc142b">init_rtl8139</a></div><div class="ttdeci">void init_rtl8139()</div><div class="ttdoc">Initialise RTL8139.</div><div class="ttdef"><b>Definition:</b> rtl8139.c:250</div></div>
 <div class="ttc" id="avideo_8h_html_ab9c32270380ee4550fa848647b745f39"><div class="ttname"><a href="video_8h.html#ab9c32270380ee4550fa848647b745f39">init_console</a></div><div class="ttdeci">void init_console()</div><div class="ttdoc">Initialise the primary console and framebuffer.</div><div class="ttdef"><b>Definition:</b> video.c:423</div></div>
 </div><!-- fragment -->
@@ -247,7 +247,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="init_8c.html">init.c</a></li>
-    <li class="footer">Generated on Fri Sep 5 2025 23:05:57 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 6 2025 02:11:13 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

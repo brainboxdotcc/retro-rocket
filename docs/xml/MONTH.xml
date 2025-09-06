@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="MONTH" kind="page">
+    <compoundname>MONTH</compoundname>
+    <title>MONTH Function</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">numeric-expression<sp/>=<sp/>MONTH(boolean-expression)</highlight></codeline>
+</programlisting></para>
+<para>Returns the current month of the year (1–12). <linebreak/>
+ Pass <computeroutput>TRUE</computeroutput> to return local time using the configured time zone (if any), or <computeroutput>FALSE</computeroutput> for UTC.</para>
+<para>Example:</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>MONTH(TRUE)<sp/><sp/><sp/>&apos;<sp/>Local<sp/>month</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>MONTH(FALSE)<sp/><sp/>&apos;<sp/>UTC<sp/>month</highlight></codeline>
+</programlisting> </para>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/integer/MONTH.md"/>
+  </compounddef>
+</doxygen>

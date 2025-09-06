@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_o_u_t_p_o_r_t_w" kind="page">
+    <compoundname>OUTPORTW</compoundname>
+    <title>OUTPORTW Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">OUTPORTW<sp/>port,<sp/>value</highlight></codeline>
+</programlisting></para>
+<para>Writes the low <bold>16 bits</bold> of <computeroutput>value</computeroutput> to <computeroutput>port</computeroutput>.</para>
+<para><hruler/>
+</para>
+<sect3 id="_o_u_t_p_o_r_t_w_1autotoc_md223">
+<title>How to read it</title>
+<para><itemizedlist>
+<listitem><para>Writes two bytes as a word to the port.</para>
+</listitem><listitem><para>Used for devices like ATA data registers.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_o_u_t_p_o_r_t_w_1autotoc_md225">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Write<sp/>a<sp/>word<sp/>to<sp/>ATA<sp/>data<sp/>port</highlight></codeline>
+<codeline><highlight class="normal">OUTPORTW<sp/>&amp;1F0,<sp/>&amp;1234</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_o_u_t_p_o_r_t_w_1autotoc_md227">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Only use when the port supports 16-bit writes.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OUTPORT">OUTPORT</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OUTPORTD">OUTPORTD</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OUTPORTQ">OUTPORTQ</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/INPORTW">INPORTW</ulink> </para>
+</sect3>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/OUTPORTW.md"/>
+  </compounddef>
+</doxygen>

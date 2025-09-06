@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_t_r_i_a_n_g_l_e" kind="page">
+    <compoundname>TRIANGLE</compoundname>
+    <title>TRIANGLE Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">TRIANGLE<sp/>integer-expression,<sp/>integer-expression,<sp/>integer-expression,<sp/>integer-expression,<sp/>integer-expression,<sp/>integer-expression</highlight></codeline>
+</programlisting></para>
+<para>Draws a <bold>filled triangle</bold> using the current graphics colour (set with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL"><computeroutput>GCOL</computeroutput></ulink>).</para>
+<para><itemizedlist>
+<listitem><para>Parameters are: <computeroutput>x1, y1, x2, y2, x3, y3</computeroutput> — three vertex positions in screen pixels.</para>
+</listitem><listitem><para>The triangle is always <bold>filled</bold>. There is no outline-only mode.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<sect3 id="_t_r_i_a_n_g_l_e_1autotoc_md351">
+<title>Examples</title>
+<para>Filled triangle <programlisting filename=".basic"><codeline><highlight class="normal">GCOL<sp/>RGB(255,0,0)</highlight></codeline>
+<codeline><highlight class="normal">TRIANGLE<sp/>60,<sp/>30,<sp/>180,<sp/>50,<sp/>90,<sp/>160</highlight></codeline>
+</programlisting></para>
+<para>Two triangles with different colours <programlisting filename=".basic"><codeline><highlight class="normal">GCOL<sp/>RGB(0,150,255)</highlight></codeline>
+<codeline><highlight class="normal">TRIANGLE<sp/>40,<sp/>40,<sp/>120,<sp/>40,<sp/>80,<sp/>120</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">GCOL<sp/>RGB(0,200,80)</highlight></codeline>
+<codeline><highlight class="normal">TRIANGLE<sp/>140,<sp/>60,<sp/>220,<sp/>100,<sp/>180,<sp/>160</highlight></codeline>
+</programlisting></para>
+<para>Outline effect using <computeroutput>LINE</computeroutput> <programlisting filename=".basic"><codeline><highlight class="normal">X1<sp/>=<sp/>60<sp/>:<sp/>Y1<sp/>=<sp/>30</highlight></codeline>
+<codeline><highlight class="normal">X2<sp/>=<sp/>180<sp/>:<sp/>Y2<sp/>=<sp/>50</highlight></codeline>
+<codeline><highlight class="normal">X3<sp/>=<sp/>90<sp/>:<sp/>Y3<sp/>=<sp/>160</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">GCOL<sp/>RGB(255,255,0)</highlight></codeline>
+<codeline><highlight class="normal">TRIANGLE<sp/>X1,<sp/>Y1,<sp/>X2,<sp/>Y2,<sp/>X3,<sp/>Y3</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">GCOL<sp/>RGB(0,0,0)</highlight></codeline>
+<codeline><highlight class="normal">LINE<sp/>X1,<sp/>Y1,<sp/>X2,<sp/>Y2</highlight></codeline>
+<codeline><highlight class="normal">LINE<sp/>X2,<sp/>Y2,<sp/>X3,<sp/>Y3</highlight></codeline>
+<codeline><highlight class="normal">LINE<sp/>X3,<sp/>Y3,<sp/>X1,<sp/>Y1</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_t_r_i_a_n_g_l_e_1autotoc_md353">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Coordinates are in <bold>screen pixels</bold>; <computeroutput>(0,0)</computeroutput> is the <bold>top-left</bold> corner.</para>
+</listitem><listitem><para>Triangles that extend beyond the screen are <bold>clipped</bold> at the display edge.</para>
+</listitem><listitem><para>Change the drawing colour with <computeroutput>GCOL RGB(r,g,b)</computeroutput> before calling <computeroutput>TRIANGLE</computeroutput>.</para>
+</listitem><listitem><para>When <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/AUTOFLIP"><computeroutput>AUTOFLIP</computeroutput></ulink> is <computeroutput>FALSE</computeroutput>, drawn frames appear only after <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/FLIP"><computeroutput>FLIP</computeroutput></ulink>.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL"><computeroutput>GCOL</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/LINE"><computeroutput>LINE</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/RECTANGLE"><computeroutput>RECTANGLE</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CIRCLE"><computeroutput>CIRCLE</computeroutput></ulink> </para>
+</sect3>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/TRIANGLE.md"/>
+  </compounddef>
+</doxygen>

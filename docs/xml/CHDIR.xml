@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="CHDIR" kind="page">
+    <compoundname>CHDIR</compoundname>
+    <title>CHDIR Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">CHDIR<sp/>string-expression</highlight></codeline>
+</programlisting></para>
+<para>Changes the <bold>current working directory</bold> (CSD) of the running process to the path given by <computeroutput>string-expression</computeroutput>.</para>
+<para><itemizedlist>
+<listitem><para>A path starting with <computeroutput>/</computeroutput> is treated as an <bold>absolute</bold> path. <linebreak/>
+</para>
+</listitem><listitem><para>A path not starting with <computeroutput>/</computeroutput> is treated as <bold>relative</bold> to the current CSD. <linebreak/>
+</para>
+</listitem><listitem><para>The initial process (<computeroutput>/programs/init</computeroutput>) starts with its CSD set to <computeroutput>/</computeroutput> (the root of the virtual filesystem). <linebreak/>
+</para>
+</listitem><listitem><para>Any child process launched (via <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CHAIN"><computeroutput>CHAIN</computeroutput></ulink>, for example) inherits the parent’s current directory at the time of launch. <linebreak/>
+</para>
+</listitem></itemizedlist>
+</para>
+<para><simplesect kind="remark"><para>Unlike Unix, Retro Rocket BASIC paths do <bold>not</bold> support <computeroutput>.</computeroutput> or <computeroutput>..</computeroutput>. </para>
+</simplesect>
+<simplesect kind="remark"><para>Directory traversal is only possible by specifying absolute or relative names explicitly.</para>
+</simplesect>
+<hruler/>
+</para>
+<sect4 id="CHDIR_1autotoc_md199">
+<title>Example</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">CHDIR<sp/>&quot;/programs&quot;</highlight></codeline>
+<codeline><highlight class="normal">CHAIN<sp/>&quot;demo&quot;</highlight></codeline>
+</programlisting></para>
+<para>This changes the current directory to <computeroutput>/programs</computeroutput>, then launches <computeroutput>demo</computeroutput> from that directory.</para>
+<para><hruler/>
+</para>
+<para><heading level="5">Notes</heading>
+</para>
+<para><itemizedlist>
+<listitem><para>Paths must exist; if the target directory is invalid, an error occurs (catchable with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink>). <linebreak/>
+</para>
+</listitem><listitem><para>Paths are <bold>case-insensitive</bold>. <linebreak/>
+</para>
+</listitem><listitem><para><computeroutput>rocketsh</computeroutput> provides a built-in command <computeroutput>chdir</computeroutput> (or short form <computeroutput>cd</computeroutput>) which performs the same action directly from the shell. <linebreak/>
+</para>
+</listitem><listitem><para>Changing the current directory affects file lookups for <computeroutput>OPENIN</computeroutput>, <computeroutput>CHAIN</computeroutput>, <computeroutput>LIBRARY</computeroutput>, and similar statements.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CHAIN"><computeroutput>CHAIN</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/LIBRARY"><computeroutput>LIBRARY</computeroutput></ulink> </para>
+</sect4>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/CHDIR.md"/>
+  </compounddef>
+</doxygen>

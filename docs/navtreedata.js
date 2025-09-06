@@ -24,7 +24,10 @@
 */
 var NAVTREE =
 [
-  [ "Retro Rocket Kernel", "index.html", [
+  [ "Retro Rocket OS", "index.html", [
+    [ "User Guide", "user-guide.html", "user-guide" ],
+    [ "BASIC Language Reference", "basic-ref.html", "basic-ref" ],
+    [ "Kernel Development", "kernel-dev.html", "kernel-dev" ],
     [ "Data Structures", "annotated.html", [
       [ "Data Structures", "annotated.html", "annotated_dup" ],
       [ "Data Fields", "functions.html", [
@@ -49,31 +52,34 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"acpi_8c.html",
-"ahci_8h.html#aa193cc6e40f9ee85db9251e11f8e5032",
-"basic_2main_8c.html#a978cd0a306639177cb02c2f12549916c",
-"clock_8c.html#ad82770835c7745c2871bdbc93d7311e6",
-"defines_8h.html#aed46a4c9764a1d0bb5501f0a2a4b4b51",
-"e1000_8h.html#a1c4deff278a7a3069894f213b54f6220",
-"fat32_8h.html#af8e8a835520d0f72e04a1759462a049b",
-"filesystem_8h.html#a9d25bbf2120c5e2876b6c34e297336d3",
-"functions_vars_x.html",
-"hashmap_8h.html#a9b9407668f00cfe5fa9bb02ddd2efb7d",
-"interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637fac5ab150ecac8b24a9825dbc97d223429",
-"kmalloc_8h.html#a7e5196d24984d49d3f6b182ddb89eea5",
-"memcpy_8h.html#ab3b483f8ac77e03edf84bc99394649eb",
-"pci_8h.html#a5fd66cd39d51eb4c24f40749a45c103c",
-"retrofs_2writefile_8c.html#a5aac434718e1e16dfacc5630b6eada02",
-"rtl8139_8h.html#af5c4b440c6a9c15ea97d4455ea996611ab648c90dba9362fb92f76122e41fa859",
-"stdlib_8h.html#ab017280f95ea769b9422688105f02653",
-"structahci__hba__cmd__header__t.html#a360d626d866f61a8858b14a0e2cd2a04",
-"structdns__header.html#a7b840ee6675cd6935d77f2c89a6f263e",
-"structfs__directory__entry__t.html#a627a136b918ac5d612d3ee7f30a69aea",
-"structmt__rand__t.html#a35f02557848ee20328894d3577bef39c",
-"structstbi__io__callbacks.html#a623e46b3a2a019611601409926283a88",
-"tcp_8c.html#a18d0f3d97e3f13b56d8ce3c40d73f5ed",
-"tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea6a4e1ff15bc0daed40ab38b3ebdc923f",
-"vector_8c.html#a4045228827a1cb21f76f05ada346dbb3"
+"ABS.html",
+"PEEKD.html#autotoc_md91",
+"acpi_8c.html#a684ba111833c7badd40e42bbfd203442",
+"ahci_8h.html#adc64ccb7538429fe78e3fe0139267370",
+"basic-beginner.html#autotoc_md53",
+"builtin__real__functions_8h.html#a8d25e29c6b8d86342bf578d6e6386f18",
+"debugger_8c.html#aae0d6230f5cc73dc7557b4894df81f03",
+"dns_8h.html#a271fdff5358a16abbe512db2bf4e198a",
+"fat32_8h.html#a00192373b4a54c245cc5c5a682303c60",
+"filesystem_8c.html#af06efedfd44e65f4272f81cfce654e0b",
+"fs_2fat32_2main_8c.html#a99a79a6dc2be83c2763d2cf09e8996de",
+"gpt__writer_8c.html#a793a111d7f44baa4a95c112fb27bb8b4",
+"input_8c.html#ad5b07aa4d01338ab607954a1b11d1fd0",
+"irc.html",
+"map_8c.html#a7fe6b4c88e90bd1c8e94314d79eb9902",
+"mouse.html#autotoc_md560",
+"printf_8c.html#a955a8838398640452f0a08b3c7f886bfa136fe548fd241bab6557b5af26fde1b3",
+"rmdir.html",
+"scsi_8h.html#a9b2bb5b127a59bb7016b6a8e790df6ce",
+"string_8h.html#a4c5eabfb109348ff270448b4ab2d0431",
+"structahci__hba__port__t.html#ad162171a5a4b9712a88d91beb8cfdc11",
+"structelf__rela.html#a7abbc850c936eff02591e43e805681d9",
+"structgpt__header__t.html#a79ed891ffe92857df146217a391ee7fa",
+"structpartition__t.html",
+"structtcp__ip__pseudo__header__t.html#a265f805586cffa5f99237929f120f3d2",
+"tcp_8h.html#a0a273902c052c7f2beef288432bcf713",
+"tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeac1134699adacb9ef38af73c816283ec8",
+"video_8c.html#a17d1ad84e7ea37f201f3c89eb75cc5e6"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

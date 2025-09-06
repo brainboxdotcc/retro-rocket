@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="OUTPORTQ" kind="page">
+    <compoundname>OUTPORTQ</compoundname>
+    <title>OUTPORTQ Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">OUTPORTQ<sp/>port,<sp/>value</highlight></codeline>
+</programlisting></para>
+<para>Writes a <bold>64-bit quad-word</bold> to <computeroutput>port</computeroutput>.</para>
+<para><blockquote><para>Very few devices support 64-bit port writes; consult hardware documentation before use. </para>
+</blockquote></para>
+<sect2 id="OUTPORTQ_1autotoc_md346">
+<title>&lt;/blockquote&gt;</title>
+<sect3 id="OUTPORTQ_1autotoc_md347">
+<title>How to read it</title>
+<para><itemizedlist>
+<listitem><para>Writes eight bytes as a 64-bit value to the port.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="OUTPORTQ_1autotoc_md349">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Example<sp/>64-bit<sp/>port<sp/>write</highlight></codeline>
+<codeline><highlight class="normal">OUTPORTQ<sp/>&amp;1234,<sp/>&amp;0123456789ABCDEF</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="OUTPORTQ_1autotoc_md351">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Rare in practice; most hardware uses MMIO or smaller port widths.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OUTPORT">OUTPORT</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OUTPORTW">OUTPORTW</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OUTPORTD">OUTPORTD</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/INPORTQ">INPORTQ</ulink> </para>
+</sect3>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/OUTPORTQ.md"/>
+  </compounddef>
+</doxygen>

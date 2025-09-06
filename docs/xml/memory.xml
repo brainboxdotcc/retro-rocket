@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="memory" kind="page">
+    <compoundname>memory</compoundname>
+    <title>Retro Rocket Memory Model</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Retro Rocket handles memory in a way that is both simple for BASIC users and efficient under the hood. This document explains how memory is divided between programs, how it grows, and how it is cleaned up when a program ends.</para>
+<para><table rows="6" cols="2"><row>
+<entry thead="yes"><para>Area   </para>
+</entry><entry thead="yes"><para>Description    </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>Operating System Core</bold>   </para>
+</entry><entry thead="no"><para>Kernel, drivers, and system services. This part is always present and not visible to BASIC programs.    </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>BASIC Programs</bold>   </para>
+</entry><entry thead="no"><para>Each BASIC program has its <bold>own private heap</bold>, managed by a <emphasis>buddy allocator</emphasis>.    </para>
+</entry></row>
+<row>
+<entry thead="no"><para>Program Heap   </para>
+</entry><entry thead="no"><para>- Starts empty<linebreak/>
+- Grows in fixed-size regions (typically 1MB)<linebreak/>
+- Allocations (variables, arrays, strings) come only from this private heap<linebreak/>
+- When the program ends, its heap is destroyed in one call, instantly freeing all program memory and removing any fragmentation    </para>
+</entry></row>
+<row>
+<entry thead="no"><para>Memory Reporting   </para>
+</entry><entry thead="no"><para>- <computeroutput>MEMPROGRAM</computeroutput> → shows the program’s current live usage<linebreak/>
+- <computeroutput>MEMPEAK</computeroutput> → shows the program’s highest memory use during this run<linebreak/>
+- <computeroutput>MEMUSED</computeroutput> → shows the whole system&apos;s memory usage<linebreak/>
+- <computeroutput>MEMFREE</computeroutput> → shows the whole system&apos;s memory free amount    </para>
+</entry></row>
+<row>
+<entry thead="no"><para>Other Subsystems   </para>
+</entry><entry thead="no"><para>Certain subsystems (like ACPI during boot) also get their own heaps, which are discarded when no longer needed. BASIC users usually don’t see these.   </para>
+</entry></row>
+</table>
+</para>
+<para><hruler/>
+</para>
+<sect2 id="memory_1autotoc_md610">
+<title>Why This Matters</title>
+<para><itemizedlist>
+<listitem><para><bold>Isolation</bold>: Each BASIC program has its own memory pool. Programs cannot interfere with each other’s memory.</para>
+</listitem><listitem><para><bold>Speed</bold>: Allocation and free are nearly O(1) operations. Programs can create and destroy variables and arrays extremely quickly.</para>
+</listitem><listitem><para><bold>Simplicity</bold>: No long cleanup routines are needed. When a program ends, its heap vanishes in one step.</para>
+</listitem><listitem><para><bold>Transparency</bold>: You can measure exactly how much memory your program used at its peak, and how much is live right now, using BASIC functions. </para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/kernel-dev/MEMORY.md"/>
+  </compounddef>
+</doxygen>

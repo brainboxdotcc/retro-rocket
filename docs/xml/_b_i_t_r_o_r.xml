@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_b_i_t_r_o_r" kind="page">
+    <compoundname>BITROR</compoundname>
+    <title>BITROR Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">X<sp/>=<sp/>BITROR(a,<sp/>n,<sp/>width)</highlight></codeline>
+</programlisting></para>
+<para>Rotates integer <computeroutput>a</computeroutput> <bold>right</bold> by <computeroutput>n</computeroutput> bits within a given <computeroutput>width</computeroutput>.</para>
+<para><hruler/>
+</para>
+<sect3 id="_b_i_t_r_o_r_1autotoc_md46">
+<title>How to read it</title>
+<para><itemizedlist>
+<listitem><para>Only the lowest <computeroutput>width</computeroutput> bits participate in the rotation.</para>
+</listitem><listitem><para>Width is typically 1–64.</para>
+</listitem><listitem><para>Result is masked back to the chosen width.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_b_i_t_r_o_r_1autotoc_md48">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>BITROR(&amp;9,<sp/>1,<sp/>4)</highlight></codeline>
+</programlisting></para>
+<para>This rotates <computeroutput>1001₂</computeroutput> right by one within 4 bits, giving <computeroutput>1100₂ = 12</computeroutput>.</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_b_i_t_r_o_r_1autotoc_md50">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Operates on 64-bit integers.</para>
+</listitem><listitem><para>Rotation width must be chosen carefully; too small discards low bits.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BITROL">BITROL</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BITSHR">BITSHR</ulink> </para>
+</sect3>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/BITROR.md"/>
+  </compounddef>
+</doxygen>

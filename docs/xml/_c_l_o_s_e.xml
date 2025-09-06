@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_c_l_o_s_e" kind="page">
+    <compoundname>CLOSE</compoundname>
+    <title>CLOSE Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">CLOSE<sp/>integer-variable</highlight></codeline>
+</programlisting></para>
+<para>Closes an open file handle and flushes any pending writes.</para>
+<para><blockquote><para>[!IMPORTANT] The parameter **must be an integer *variable*** that holds a valid file handle previously returned by <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENIN"><computeroutput>OPENIN</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENOUT"><computeroutput>OPENOUT</computeroutput></ulink>, or <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENUP"><computeroutput>OPENUP</computeroutput></ulink>. <linebreak/>
+ A numeric literal or expression is <bold>not</bold> accepted. </para>
+</blockquote></para>
+<sect2 id="_c_l_o_s_e_1autotoc_md80">
+<title>&lt;/blockquote&gt;</title>
+<para><heading level="5">Example</heading>
+</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">FH<sp/>=<sp/>OPENOUT(&quot;log.txt&quot;)</highlight></codeline>
+<codeline><highlight class="normal">WRITE<sp/>FH,<sp/>&quot;hello&quot;</highlight></codeline>
+<codeline><highlight class="normal">CLOSE<sp/>FH</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+<para><heading level="5">Notes</heading>
+</para>
+<para><itemizedlist>
+<listitem><para>After <computeroutput>CLOSE</computeroutput>, the handle becomes invalid and must not be reused unless re-opened.</para>
+</listitem><listitem><para>Closing an already-closed or never-opened handle raises a runtime error (trap with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink> if needed).</para>
+</listitem><listitem><para>All buffered data is written to storage before the handle is released.</para>
+</listitem><listitem><para>Reading from or writing to a handle is only valid while it is open (see <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/EOF"><computeroutput>EOF</computeroutput></ulink> for end-of-file checks).</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENIN"><computeroutput>OPENIN</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENOUT"><computeroutput>OPENOUT</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENUP"><computeroutput>OPENUP</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/WRITE"><computeroutput>WRITE</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/READ"><computeroutput>READ$</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/EOF"><computeroutput>EOF</computeroutput></ulink> </para>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/CLOSE.md"/>
+  </compounddef>
+</doxygen>

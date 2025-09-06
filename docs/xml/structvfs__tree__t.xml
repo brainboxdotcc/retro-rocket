@@ -1,0 +1,223 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structvfs__tree__t" kind="struct" language="C++" prot="public">
+    <compoundname>vfs_tree_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structvfs__tree__t_1adc2f2cbec77f766b88da3c95f244237c" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* vfs_tree_t::path</definition>
+        <argsstring></argsstring>
+        <name>path</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="74" column="12" bodyfile="src/fs/filesystem.c" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvfs__tree__t_1ab286b60c33a109899f1f228ae3603179" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* vfs_tree_t::parent</definition>
+        <argsstring></argsstring>
+        <name>parent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="75" column="12" bodyfile="src/fs/filesystem.c" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvfs__tree__t_1ad5cbd42e17d67342641031a524a69d03" prot="public" static="no" mutable="no">
+        <type>const char **</type>
+        <definition>const char** vfs_tree_t::children</definition>
+        <argsstring></argsstring>
+        <name>children</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="76" column="12" bodyfile="src/fs/filesystem.c" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvfs__tree__t_1a74f7665c731bd026956613c330a2270d" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t vfs_tree_t::child_count</definition>
+        <argsstring></argsstring>
+        <name>child_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="77" column="8" bodyfile="src/fs/filesystem.c" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvfs__tree__t_1a83f9b980bd58ee02641e5f1899c5da1e" prot="public" static="no" mutable="no">
+        <type><ref refid="structfs__tree__t" kindref="compound">fs_tree_t</ref> *</type>
+        <definition>fs_tree_t* vfs_tree_t::node</definition>
+        <argsstring></argsstring>
+        <name>node</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="78" column="11" bodyfile="src/fs/filesystem.c" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="14">
+        <label>size_t</label>
+      </node>
+      <node id="13">
+        <label>void *</label>
+      </node>
+      <node id="9">
+        <label>filesystem_t</label>
+        <link refid="structfilesystem__t"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>createdir</edgelabel>
+          <edgelabel>createfile</edgelabel>
+          <edgelabel>freespace</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>getdir</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>mount</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>readfile</edgelabel>
+          <edgelabel>rm</edgelabel>
+          <edgelabel>rmdir</edgelabel>
+          <edgelabel>truncatefile</edgelabel>
+          <edgelabel>writefile</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>uint64_t</label>
+      </node>
+      <node id="5">
+        <label>uint16_t</label>
+      </node>
+      <node id="11">
+        <label>int</label>
+      </node>
+      <node id="2">
+        <label>fs_tree_t</label>
+        <link refid="structfs__tree__t"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>device</edgelabel>
+          <edgelabel>lbapos</edgelabel>
+          <edgelabel>size</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>files</edgelabel>
+        </childnode>
+        <childnode refid="2" relation="usage">
+          <edgelabel>child_dirs</edgelabel>
+          <edgelabel>next</edgelabel>
+          <edgelabel>parent</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>responsible_driver</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>device_name</edgelabel>
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>dirty</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>opaque</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>uint32_t</label>
+      </node>
+      <node id="8">
+        <label>uint8_t</label>
+      </node>
+      <node id="10">
+        <label>void *(*)(void *)</label>
+      </node>
+      <node id="1">
+        <label>vfs_tree_t</label>
+        <link refid="structvfs__tree__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>node</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>children</edgelabel>
+          <edgelabel>parent</edgelabel>
+          <edgelabel>path</edgelabel>
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>child_count</edgelabel>
+        </childnode>
+      </node>
+      <node id="12">
+        <label>bool</label>
+      </node>
+      <node id="4">
+        <label>fs_directory_entry_t</label>
+        <link refid="structfs__directory__entry__t"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>lbapos</edgelabel>
+          <edgelabel>size</edgelabel>
+        </childnode>
+        <childnode refid="2" relation="usage">
+          <edgelabel>directory</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>year</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>alt_filename</edgelabel>
+          <edgelabel>device_name</edgelabel>
+          <edgelabel>filename</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>device</edgelabel>
+          <edgelabel>flags</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>day</edgelabel>
+          <edgelabel>hour</edgelabel>
+          <edgelabel>min</edgelabel>
+          <edgelabel>month</edgelabel>
+          <edgelabel>sec</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/fs/filesystem.c" line="73" column="1" bodyfile="src/fs/filesystem.c" bodystart="73" bodyend="79"/>
+    <listofallmembers>
+      <member refid="structvfs__tree__t_1a74f7665c731bd026956613c330a2270d" prot="public" virt="non-virtual"><scope>vfs_tree_t</scope><name>child_count</name></member>
+      <member refid="structvfs__tree__t_1ad5cbd42e17d67342641031a524a69d03" prot="public" virt="non-virtual"><scope>vfs_tree_t</scope><name>children</name></member>
+      <member refid="structvfs__tree__t_1a83f9b980bd58ee02641e5f1899c5da1e" prot="public" virt="non-virtual"><scope>vfs_tree_t</scope><name>node</name></member>
+      <member refid="structvfs__tree__t_1ab286b60c33a109899f1f228ae3603179" prot="public" virt="non-virtual"><scope>vfs_tree_t</scope><name>parent</name></member>
+      <member refid="structvfs__tree__t_1adc2f2cbec77f766b88da3c95f244237c" prot="public" virt="non-virtual"><scope>vfs_tree_t</scope><name>path</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

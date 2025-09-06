@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="ON-ERROR" kind="page">
+    <compoundname>ON-ERROR</compoundname>
+    <title>ON ERROR Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">ON<sp/>ERROR<sp/>PROCname</highlight></codeline>
+<codeline><highlight class="normal">ON<sp/>ERROR<sp/>OFF</highlight></codeline>
+</programlisting></para>
+<para>Installs or removes a <bold>runtime error handler</bold>.</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>ON ERROR PROCname</computeroutput> redirects errors to the named procedure. <linebreak/>
+ The handler is called <bold>once</bold> for the next error; if you want it to handle further errors you must <bold>reinstall</bold> it inside the handler.</para>
+</listitem><listitem><para><computeroutput>ON ERROR OFF</computeroutput> removes any installed handler (no-op if none is installed).</para>
+</listitem></itemizedlist>
+</para>
+<para>When an error occurs:<itemizedlist>
+<listitem><para>Built-ins are set: <bold>ERR$</bold> to the message, <bold>ERR</bold> to <computeroutput>1</computeroutput>, <bold>ERRLINE</bold> to the line where it occurred.</para>
+</listitem><listitem><para>Your handler <computeroutput>PROCname</computeroutput> is invoked. <linebreak/>
+</para>
+</listitem><listitem><para>After the handler returns, <bold>execution continues</bold> at the statement <bold>after</bold> the one that failed, unless the handler terminates the program (for example with <computeroutput>END</computeroutput>).</para>
+</listitem></itemizedlist>
+</para>
+<para><blockquote><para>Only the two forms above are supported. There is <bold>no</bold> <computeroutput>ON ERROR GOTO</computeroutput>, <computeroutput>RESUME</computeroutput>, or similar. </para>
+</blockquote></para>
+<para><blockquote><para>The handler is invoked as a <bold>one-off</bold> to prevent recursion. <linebreak/>
+ If you want ongoing handling, call <computeroutput>ON ERROR PROCname</computeroutput> again <bold>inside your handler</bold> before it returns. </para>
+</blockquote></para>
+<para><blockquote><para>Pressing <computeroutput>CTRL+ESC</computeroutput> generates a break-like error that is delivered to your installed handler. <linebreak/>
+ Without a handler, the program terminates. </para>
+</blockquote></para>
+<sect2 id="ON-ERROR_1autotoc_md328">
+<title>&lt;/blockquote&gt;</title>
+<sect3 id="ON-ERROR_1autotoc_md329">
+<title>Example: handle and continue</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">ON<sp/>ERROR<sp/>PROChandle</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;About<sp/>to<sp/>raise<sp/>an<sp/>error&quot;</highlight></codeline>
+<codeline><highlight class="normal">ERROR<sp/>&quot;example<sp/>failure&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Continuing<sp/>after<sp/>the<sp/>error&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">END</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">DEF<sp/>PROChandle</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Handled<sp/>error:<sp/>&quot;;<sp/>ERR$;<sp/>&quot;<sp/>at<sp/>line<sp/>&quot;;<sp/>ERRLINE</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ON<sp/>ERROR<sp/>PROChandle</highlight></codeline>
+<codeline><highlight class="normal">ENDPROC</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="ON-ERROR_1autotoc_md331">
+<title>Example: temporarily disable handling</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">ON<sp/>ERROR<sp/>PROChandle</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Phase<sp/>1<sp/>(handled)&quot;</highlight></codeline>
+<codeline><highlight class="normal">ERROR<sp/>&quot;first<sp/>failure&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">ON<sp/>ERROR<sp/>OFF</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Phase<sp/>2<sp/>(unhandled)&quot;</highlight></codeline>
+<codeline><highlight class="normal">ERROR<sp/>&quot;this<sp/>will<sp/>terminate&quot;</highlight></codeline>
+<codeline><highlight class="normal">END</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">DEF<sp/>PROChandle</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Handler<sp/>saw:<sp/>&quot;;<sp/>ERR$</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ON<sp/>ERROR<sp/>PROChandle</highlight></codeline>
+<codeline><highlight class="normal">ENDPROC</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="ON-ERROR_1autotoc_md333">
+<title>Behaviour</title>
+<para><itemizedlist>
+<listitem><para>If another error occurs <bold>while calling</bold> your handler, the built-ins <bold>ERR$</bold>, <bold>ERR</bold>, and <bold>ERRLINE</bold> are set for that error, and normal error handling rules apply.</para>
+</listitem><listitem><para>Handlers are ordinary procedures: they can call other <computeroutput>PROC</computeroutput>s or <computeroutput>FN</computeroutput>s, examine variables, and decide whether to <computeroutput>END</computeroutput> or to reinstall and continue.</para>
+</listitem><listitem><para>If you are using line-numbered code, you may use your usual control flow after the handler returns, but prefer structured constructs in new code.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ERROR"><computeroutput>ERROR</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DEF"><computeroutput>DEF</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PROC"><computeroutput>PROC</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Builtin-Variables">Builtin Variables</ulink> </para>
+</sect3>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/ONERROR.md"/>
+  </compounddef>
+</doxygen>

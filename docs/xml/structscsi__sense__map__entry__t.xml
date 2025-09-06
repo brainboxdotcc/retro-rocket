@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structscsi__sense__map__entry__t" kind="struct" language="C++" prot="public">
+    <compoundname>scsi_sense_map_entry_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structscsi__sense__map__entry__t_1abc9b855cadc3da593fc84fc5b3632260" prot="public" static="no" mutable="no">
+        <type><ref refid="scsi_8h_1a9355b0372f49295777f09d38c721a1c2" kindref="member">scsi_sense_key_t</ref></type>
+        <definition>scsi_sense_key_t scsi_sense_map_entry_t::sense_key</definition>
+        <argsstring></argsstring>
+        <name>sense_key</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/block/ahci/error.c" line="5" column="18" bodyfile="src/block/ahci/error.c" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structscsi__sense__map__entry__t_1a1ca5beb5c43e1dc888b7b78643e17073" prot="public" static="no" mutable="no">
+        <type><ref refid="scsi_8h_1ab5df6d96bbf6cf687849581e976419f6" kindref="member">scsi_additional_sense_code_t</ref></type>
+        <definition>scsi_additional_sense_code_t scsi_sense_map_entry_t::asc</definition>
+        <argsstring></argsstring>
+        <name>asc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/block/ahci/error.c" line="6" column="30" bodyfile="src/block/ahci/error.c" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structscsi__sense__map__entry__t_1acfe4c9fbdeace3f5ca0666c072092a32" prot="public" static="no" mutable="no">
+        <type><ref refid="scsi_8h_1a8545aad73b77f61eb65a7f61117eec51" kindref="member">scsi_additional_sense_code_qualifier_t</ref></type>
+        <definition>scsi_additional_sense_code_qualifier_t scsi_sense_map_entry_t::ascq</definition>
+        <argsstring></argsstring>
+        <name>ascq</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/block/ahci/error.c" line="7" column="40" bodyfile="src/block/ahci/error.c" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structscsi__sense__map__entry__t_1a464a2cfb975f71c4cffa8d2bc4ceb6ca" prot="public" static="no" mutable="no">
+        <type><ref refid="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319" kindref="member">fs_error_t</ref></type>
+        <definition>fs_error_t scsi_sense_map_entry_t::error</definition>
+        <argsstring></argsstring>
+        <name>error</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/block/ahci/error.c" line="8" column="12" bodyfile="src/block/ahci/error.c" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>scsi_sense_key_t</label>
+      </node>
+      <node id="3">
+        <label>scsi_additional_sense_code_t</label>
+      </node>
+      <node id="5">
+        <label>scsi_additional_sense_code_qualifier_t</label>
+      </node>
+      <node id="1">
+        <label>scsi_sense_map_entry_t</label>
+        <link refid="structscsi__sense__map__entry__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>sense_key</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>asc</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>error</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>ascq</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>fs_error_t</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/block/ahci/error.c" line="4" column="1" bodyfile="src/block/ahci/error.c" bodystart="4" bodyend="9"/>
+    <listofallmembers>
+      <member refid="structscsi__sense__map__entry__t_1a1ca5beb5c43e1dc888b7b78643e17073" prot="public" virt="non-virtual"><scope>scsi_sense_map_entry_t</scope><name>asc</name></member>
+      <member refid="structscsi__sense__map__entry__t_1acfe4c9fbdeace3f5ca0666c072092a32" prot="public" virt="non-virtual"><scope>scsi_sense_map_entry_t</scope><name>ascq</name></member>
+      <member refid="structscsi__sense__map__entry__t_1a464a2cfb975f71c4cffa8d2bc4ceb6ca" prot="public" virt="non-virtual"><scope>scsi_sense_map_entry_t</scope><name>error</name></member>
+      <member refid="structscsi__sense__map__entry__t_1abc9b855cadc3da593fc84fc5b3632260" prot="public" virt="non-virtual"><scope>scsi_sense_map_entry_t</scope><name>sense_key</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

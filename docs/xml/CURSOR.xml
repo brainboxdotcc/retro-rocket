@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="CURSOR" kind="page">
+    <compoundname>CURSOR</compoundname>
+    <title>CURSOR Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">CURSOR<sp/>integer-expression,<sp/>integer-expression</highlight></codeline>
+</programlisting></para>
+<para>Moves the <bold>text cursor</bold> to the given <computeroutput>X,Y</computeroutput> coordinates (column, row). <linebreak/>
+ The origin is the <bold>top-left corner</bold> at <computeroutput>(0,0)</computeroutput>.</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>X</computeroutput> = column (0 is the leftmost column)</para>
+</listitem><listitem><para><computeroutput>Y</computeroutput> = row (0 is the top row)</para>
+</listitem></itemizedlist>
+</para>
+<para>After moving the cursor, subsequent <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PRINT"><computeroutput>PRINT</computeroutput></ulink> output starts at that position.</para>
+<para><hruler/>
+</para>
+<para><heading level="5">Example</heading>
+</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">CLS</highlight></codeline>
+<codeline><highlight class="normal">CURSOR<sp/>10,<sp/>5</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Hello<sp/>from<sp/>(10,5)&quot;</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+<para><blockquote><para>Use <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/TERMWIDTH"><computeroutput>TERMWIDTH</computeroutput></ulink> and <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/TERMHEIGHT"><computeroutput>TERMHEIGHT</computeroutput></ulink> to compute safe positions or to centre text. </para>
+</blockquote></para>
+<sect2 id="CURSOR_1autotoc_md221">
+<title>&lt;/blockquote&gt;</title>
+<para><heading level="5">Notes</heading>
+</para>
+<para><itemizedlist>
+<listitem><para>Affects the <bold>text layer</bold> only; graphics primitives (e.g. <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/LINE"><computeroutput>LINE</computeroutput></ulink>) are unaffected.</para>
+</listitem><listitem><para>The cursor is reset to <computeroutput>(0,0)</computeroutput> by <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CLS"><computeroutput>CLS</computeroutput></ulink>.</para>
+</listitem><listitem><para>Valid screen coordinates depend on the current terminal size (<computeroutput>0..TERMWIDTH-1</computeroutput>, <computeroutput>0..TERMHEIGHT-1</computeroutput>). </para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/CURSOR.md"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="INPUT" kind="page">
+    <compoundname>INPUT</compoundname>
+    <title>INPUT Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">INPUT<sp/>variable</highlight></codeline>
+</programlisting></para>
+<para>Pauses the program and waits for <bold>keyboard input</bold>. The entered text is echoed to the terminal and then stored in <computeroutput>variable</computeroutput>.</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>variable</computeroutput> may be <bold>string</bold>, <bold>integer</bold>, or <bold>real</bold>.</para>
+</listitem><listitem><para>If the input is <bold>not valid</bold> for the requested type (for example, letters when an integer is expected), the variable is set to <bold>0</bold>.</para>
+</listitem><listitem><para><computeroutput>INPUT</computeroutput> is <bold>blocking</bold>: execution does not continue until the user presses Enter.</para>
+</listitem></itemizedlist>
+</para>
+<para>The <computeroutput>INPUT</computeroutput> statement is intentionally simple. For richer line-editing (cursor keys, history, etc.) see the <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ansi">ansi</ulink> library, which also lets you manage your own I/O loop.</para>
+<para><simplesect kind="remark"><para>Press <computeroutput>CTRL+ESC</computeroutput> at any time to cancel waiting for input. </para>
+</simplesect>
+<simplesect kind="remark"><para>Without an error handler, the program terminates. </para>
+</simplesect>
+<simplesect kind="remark"><para>With an <computeroutput>ON ERROR</computeroutput> handler, control passes there instead.</para>
+</simplesect>
+<hruler/>
+</para>
+<sect3 id="INPUT_1autotoc_md295">
+<title>Examples</title>
+<para><bold>Read a number</bold> <programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;Enter<sp/>a<sp/>number:&quot;</highlight></codeline>
+<codeline><highlight class="normal">INPUT<sp/>N</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;You<sp/>typed:<sp/>&quot;;<sp/>N</highlight></codeline>
+</programlisting></para>
+<para><bold>Handle invalid numeric input</bold> <programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;Enter<sp/>an<sp/>integer:&quot;</highlight></codeline>
+<codeline><highlight class="normal">INPUT<sp/>I</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>I<sp/>=<sp/>0<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;That<sp/>was<sp/>not<sp/>a<sp/>valid<sp/>integer<sp/>(or<sp/>it<sp/>was<sp/>zero).&quot;</highlight></codeline>
+<codeline><highlight class="normal">ELSE</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;OK:<sp/>&quot;;<sp/>I</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><bold>Read a string</bold> <programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;Enter<sp/>your<sp/>name:&quot;</highlight></codeline>
+<codeline><highlight class="normal">INPUT<sp/>NAME$</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Hello,<sp/>&quot;;<sp/>NAME$</highlight></codeline>
+</programlisting></para>
+<para><bold>Prompt until non-zero</bold> <programlisting filename=".basic"><codeline><highlight class="normal">REPEAT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Enter<sp/>a<sp/>non-zero<sp/>value:&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>INPUT<sp/>X</highlight></codeline>
+<codeline><highlight class="normal">UNTIL<sp/>X<sp/>&lt;&gt;<sp/>0</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Thanks:<sp/>&quot;;<sp/>X</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="INPUT_1autotoc_md297">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>The entered line is stored <bold>as-is</bold> for string variables (without the trailing newline).</para>
+</listitem><listitem><para>For numeric variables, parsing is strict; invalid input yields <bold>0</bold>.</para>
+</listitem><listitem><para><computeroutput>INPUT</computeroutput> echoes characters to the terminal. For full-screen UI or advanced editing, prefer the <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ansi">ansi</ulink> library. </para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/INPUT.md"/>
+  </compounddef>
+</doxygen>

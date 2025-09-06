@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="UDPWRITE" kind="page">
+    <compoundname>UDPWRITE</compoundname>
+    <title>UDPWRITE Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">UDPWRITE<sp/>dest-ip$,<sp/>source-port,<sp/>dest-port,<sp/>data$</highlight></codeline>
+</programlisting></para>
+<para>Sends a UDP datagram to <computeroutput>dest-ip$ : dest-port</computeroutput> with payload <computeroutput>data$</computeroutput>, using <computeroutput>source-port</computeroutput> as the local port.</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>source-port</computeroutput> and <computeroutput>dest-port</computeroutput> must be in <computeroutput>0</computeroutput> to <computeroutput>65535</computeroutput>.</para>
+</listitem><listitem><para><computeroutput>data$</computeroutput> must be between <bold>1</bold> and <bold>65530</bold> characters.</para>
+</listitem></itemizedlist>
+</para>
+<para><blockquote><para>Invalid port numbers raise: <computeroutput>Invalid UDP port number</computeroutput>. <linebreak/>
+ Invalid payload size raises: <computeroutput>Invalid UDP packet length</computeroutput>. </para>
+</blockquote></para>
+<sect2 id="UDPWRITE_1autotoc_md504">
+<title>&lt;/blockquote&gt;</title>
+<sect3 id="UDPWRITE_1autotoc_md505">
+<title>How to read it</title>
+<para><itemizedlist>
+<listitem><para>Provide a dotted-quad destination IP (e.g. <computeroutput>&quot;127.0.0.1&quot;</computeroutput>).</para>
+</listitem><listitem><para>Use together with <computeroutput>UDPBIND</computeroutput>/<computeroutput>UDPREAD$</computeroutput> for simple local tests.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="UDPWRITE_1autotoc_md507">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">UDPWRITE<sp/>&quot;127.0.0.1&quot;,<sp/>1234,<sp/>8080,<sp/>&quot;hello&quot;</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">UDPBIND<sp/>&quot;0.0.0.0&quot;,<sp/>8080</highlight></codeline>
+<codeline><highlight class="normal">UDPWRITE<sp/>&quot;127.0.0.1&quot;,<sp/>1234,<sp/>8080,<sp/>&quot;ping&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>UDPREAD$(8080)</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="UDPWRITE_1autotoc_md509">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>The payload is transmitted exactly as provided in <computeroutput>data$</computeroutput>.</para>
+</listitem><listitem><para>Ensure the destination host and port are reachable on your network.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/UDPBIND">UDPBIND</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/UDPREAD">UDPREAD$</ulink> </para>
+</sect3>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/UDPWRITE.md"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structqueued__udp__packet" kind="struct" language="C++" prot="public">
+    <compoundname>queued_udp_packet</compoundname>
+    <includes local="no">context.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structqueued__udp__packet_1a490d809cc7c54dde7c3f9ac0620eb1a7" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t queued_udp_packet::source_port</definition>
+        <argsstring></argsstring>
+        <name>source_port</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/context.h" line="12" column="10" bodyfile="include/basic/context.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structqueued__udp__packet_1ae0d1c2bc377592dadb8b06cb39462acb" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* queued_udp_packet::ip</definition>
+        <argsstring></argsstring>
+        <name>ip</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/context.h" line="13" column="12" bodyfile="include/basic/context.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structqueued__udp__packet_1a015cfab1557e740610eb65bfea0ca176" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* queued_udp_packet::data</definition>
+        <argsstring></argsstring>
+        <name>data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/context.h" line="14" column="12" bodyfile="include/basic/context.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structqueued__udp__packet_1ae3967caeb3e7cf349320141515a1dc8f" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t queued_udp_packet::length</definition>
+        <argsstring></argsstring>
+        <name>length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/context.h" line="15" column="10" bodyfile="include/basic/context.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structqueued__udp__packet_1a78b8118b38a9251573bd50895af68b26" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structqueued__udp__packet" kindref="compound">queued_udp_packet</ref> *</type>
+        <definition>struct queued_udp_packet* queued_udp_packet::prev</definition>
+        <argsstring></argsstring>
+        <name>prev</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/context.h" line="16" column="25" bodyfile="include/basic/context.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structqueued__udp__packet_1acdaca6ad48012bb682ef2b4586ba52a9" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structqueued__udp__packet" kindref="compound">queued_udp_packet</ref> *</type>
+        <definition>struct queued_udp_packet* queued_udp_packet::next</definition>
+        <argsstring></argsstring>
+        <name>next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/context.h" line="17" column="25" bodyfile="include/basic/context.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>queued_udp_packet</label>
+        <link refid="structqueued__udp__packet"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>length</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>data</edgelabel>
+          <edgelabel>ip</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>source_port</edgelabel>
+        </childnode>
+        <childnode refid="1" relation="usage">
+          <edgelabel>next</edgelabel>
+          <edgelabel>prev</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>uint64_t</label>
+      </node>
+      <node id="4">
+        <label>uint16_t</label>
+      </node>
+      <node id="3">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/basic/context.h" line="11" column="1" bodyfile="include/basic/context.h" bodystart="11" bodyend="18"/>
+    <listofallmembers>
+      <member refid="structqueued__udp__packet_1a015cfab1557e740610eb65bfea0ca176" prot="public" virt="non-virtual"><scope>queued_udp_packet</scope><name>data</name></member>
+      <member refid="structqueued__udp__packet_1ae0d1c2bc377592dadb8b06cb39462acb" prot="public" virt="non-virtual"><scope>queued_udp_packet</scope><name>ip</name></member>
+      <member refid="structqueued__udp__packet_1ae3967caeb3e7cf349320141515a1dc8f" prot="public" virt="non-virtual"><scope>queued_udp_packet</scope><name>length</name></member>
+      <member refid="structqueued__udp__packet_1acdaca6ad48012bb682ef2b4586ba52a9" prot="public" virt="non-virtual"><scope>queued_udp_packet</scope><name>next</name></member>
+      <member refid="structqueued__udp__packet_1a78b8118b38a9251573bd50895af68b26" prot="public" virt="non-virtual"><scope>queued_udp_packet</scope><name>prev</name></member>
+      <member refid="structqueued__udp__packet_1a490d809cc7c54dde7c3f9ac0620eb1a7" prot="public" virt="non-virtual"><scope>queued_udp_packet</scope><name>source_port</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

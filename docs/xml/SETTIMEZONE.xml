@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="SETTIMEZONE" kind="page">
+    <compoundname>SETTIMEZONE</compoundname>
+    <title>SETTIMEZONE Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">SETTIMEZONE<sp/>string-expression</highlight></codeline>
+</programlisting></para>
+<para>Sets the <bold>system time zone</bold> to the value provided by <computeroutput>string-expression</computeroutput>. <linebreak/>
+ The string must be a valid <bold>IANA time zone</bold> (tzdb) name, for example:</para>
+<para><itemizedlist>
+<listitem><para>&quot;Europe/London&quot;</para>
+</listitem><listitem><para>&quot;America/New_York&quot;</para>
+</listitem><listitem><para>&quot;Asia/Tokyo&quot;</para>
+</listitem></itemizedlist>
+</para>
+<para>After setting the time zone, functions that are <bold>DST-aware</bold> will use it when you pass <computeroutput>TRUE</computeroutput> to them, such as:</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>TIME</computeroutput></para>
+</listitem><listitem><para><computeroutput>DATE</computeroutput></para>
+</listitem><listitem><para><computeroutput>HOUR(TRUE)</computeroutput>, <computeroutput>MINUTE(TRUE)</computeroutput>, <computeroutput>SECOND(TRUE)</computeroutput></para>
+</listitem><listitem><para><computeroutput>DAY(TRUE)</computeroutput>, <computeroutput>MONTH(TRUE)</computeroutput>, <computeroutput>YEAR(TRUE)</computeroutput></para>
+</listitem></itemizedlist>
+</para>
+<para>When called <bold>with <computeroutput>TRUE</computeroutput></bold>, these functions apply the selected time zone and any <bold>daylight saving time</bold> rules in effect for the timestamp they produce.</para>
+<para><blockquote><para>The identifier must be an <bold>IANA tzdb name</bold> (e.g. &quot;Europe/London&quot;). <linebreak/>
+ Do <bold>not</bold> use Windows-style names like &quot;GMT Standard Time&quot; or abbreviations like &quot;BST&quot; or &quot;PST&quot;. </para>
+</blockquote></para>
+<para><blockquote><para>Calling the date and time functions <bold>without</bold> the <computeroutput>TRUE</computeroutput> argument returns values <bold>without</bold> applying the configured time zone and DST adjustment. </para>
+</blockquote></para>
+<para><blockquote><para>If you are unsure of the exact spelling, consult the IANA tz database list and copy the region/city form verbatim, e.g. &quot;America/Los_Angeles&quot;. </para>
+</blockquote></para>
+<sect2 id="SETTIMEZONE_1autotoc_md460">
+<title>&lt;/blockquote&gt;</title>
+<sect3 id="SETTIMEZONE_1autotoc_md461">
+<title>Examples</title>
+<para><bold>Set to the UK and print local date and time</bold> <programlisting filename=".basic"><codeline><highlight class="normal">SETTIMEZONE<sp/>&quot;Europe/London&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Local<sp/>date:<sp/>&quot;;<sp/>DATE$(TRUE)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Local<sp/>time:<sp/>&quot;;<sp/>TIME$(TRUE)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Hour:<sp/>&quot;;<sp/>HOUR(TRUE);<sp/>&quot;<sp/><sp/>Minute:<sp/>&quot;;<sp/>MINUTE(TRUE);<sp/>&quot;<sp/><sp/>Second:<sp/>&quot;;<sp/>SECOND(TRUE)</highlight></codeline>
+</programlisting></para>
+<para><bold>Compare adjusted versus unadjusted outputs</bold> <programlisting filename=".basic"><codeline><highlight class="normal">SETTIMEZONE<sp/>&quot;America/New_York&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Unadjusted<sp/>time:<sp/>&quot;;<sp/>TIME$()</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Adjusted<sp/>time:<sp/><sp/><sp/>&quot;;<sp/>TIME$(TRUE)</highlight></codeline>
+</programlisting></para>
+<para><bold>Switch to Tokyo and read parts</bold> <programlisting filename=".basic"><codeline><highlight class="normal">SETTIMEZONE<sp/>&quot;Asia/Tokyo&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Y/M/D:<sp/>&quot;;<sp/>YEAR(TRUE);<sp/>&quot;/&quot;;<sp/>MONTH(TRUE);<sp/>&quot;/&quot;;<sp/>DAY(TRUE)</highlight></codeline>
+</programlisting></para>
+<para><bold>Handle an invalid time zone</bold> <programlisting filename=".basic"><codeline><highlight class="normal">ON<sp/>ERROR<sp/>PROCbadtz</highlight></codeline>
+<codeline><highlight class="normal">SETTIMEZONE<sp/>&quot;Not/AZone&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;This<sp/>line<sp/>is<sp/>not<sp/>reached<sp/>if<sp/>the<sp/>name<sp/>is<sp/>invalid&quot;</highlight></codeline>
+<codeline><highlight class="normal">END</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">DEF<sp/>PROCbadtz</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Failed<sp/>to<sp/>set<sp/>time<sp/>zone:<sp/>&quot;;<sp/>ERR$</highlight></codeline>
+<codeline><highlight class="normal">ENDPROC</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="SETTIMEZONE_1autotoc_md463">
+<title>Behaviour</title>
+<para><itemizedlist>
+<listitem><para>The setting affects the <bold>DST-aware</bold> forms of the listed functions when you pass <computeroutput>TRUE</computeroutput>.</para>
+</listitem><listitem><para>The argument to <computeroutput>SETTIMEZONE</computeroutput> is a <bold>string expression</bold> and must resolve to a valid tzdb identifier.</para>
+</listitem><listitem><para>An <bold>invalid</bold> identifier raises a runtime error (catch with <computeroutput>ON ERROR PROC...</computeroutput> if needed).</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/TIME"><computeroutput>TIME$</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DATE"><computeroutput>DATE$</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/HOUR"><computeroutput>HOUR</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/MINUTE"><computeroutput>MINUTE</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/SECOND"><computeroutput>SECOND</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DAY"><computeroutput>DAY</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/MONTH"><computeroutput>MONTH</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/YEAR"><computeroutput>YEAR</computeroutput></ulink> </para>
+</sect3>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/SETTIMEZONE.md"/>
+  </compounddef>
+</doxygen>

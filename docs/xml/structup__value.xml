@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structup__value" kind="struct" language="C++" prot="public">
+    <compoundname>up_value</compoundname>
+    <includes local="no">unified_expression.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structup__value_1a6c13d4131f85b7af957a2afa1a905c7a" prot="public" static="no" mutable="no">
+        <type><ref refid="unified__expression_8h_1adf1883881d3d582f11ff24bdbe36d6d9" kindref="member">up_kind</ref></type>
+        <definition>up_value::kind</definition>
+        <argsstring></argsstring>
+        <name>kind</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Tag identifying the active member in <ref refid="structup__value_1a0a272164691508e1e9f8bb194d810ec9" kindref="member">up_value::v</ref>. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/unified_expression.h" line="88" column="9" bodyfile="include/basic/unified_expression.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structup__value_1a977780ac3b67189102c2fec3591b10e6" prot="public" static="no" mutable="no">
+        <type>int64_t</type>
+        <definition>int64_t up_value::i</definition>
+        <argsstring></argsstring>
+        <name>i</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/unified_expression.h" line="90" column="12" bodyfile="include/basic/unified_expression.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structup__value_1aea1550f5a04132e057a62bb64f3e6843" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double up_value::r</definition>
+        <argsstring></argsstring>
+        <name>r</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/unified_expression.h" line="91" column="12" bodyfile="include/basic/unified_expression.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structup__value_1ac706ce061c96a5a33585579e12617d15" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* up_value::s</definition>
+        <argsstring></argsstring>
+        <name>s</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/unified_expression.h" line="92" column="12" bodyfile="include/basic/unified_expression.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structup__value_1a0a272164691508e1e9f8bb194d810ec9" prot="public" static="no" mutable="no">
+        <type>union up_value::@0</type>
+        <definition>up_value::v</definition>
+        <argsstring></argsstring>
+        <name>v</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Anonymous union holding the underlying value. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/unified_expression.h" line="93" column="3"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Discriminated union carrying a typed expression result. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Represents one value returned by the unified expression evaluator. The active member of the union is indicated by <ref refid="structup__value_1a6c13d4131f85b7af957a2afa1a905c7a" kindref="member">up_value::kind</ref>. </para>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="6">
+        <label>up_kind</label>
+      </node>
+      <node id="3">
+        <label>double</label>
+      </node>
+      <node id="2">
+        <label>anonymous:v</label>
+      </node>
+      <node id="1">
+        <label>up_value</label>
+        <link refid="structup__value"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>v</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>r</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>s</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>i</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>kind</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>int64_t</label>
+      </node>
+      <node id="4">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/basic/unified_expression.h" line="87" column="1" bodyfile="include/basic/unified_expression.h" bodystart="87" bodyend="94"/>
+    <listofallmembers>
+      <member refid="structup__value_1a977780ac3b67189102c2fec3591b10e6" prot="public" virt="non-virtual"><scope>up_value</scope><name>i</name></member>
+      <member refid="structup__value_1a6c13d4131f85b7af957a2afa1a905c7a" prot="public" virt="non-virtual"><scope>up_value</scope><name>kind</name></member>
+      <member refid="structup__value_1aea1550f5a04132e057a62bb64f3e6843" prot="public" virt="non-virtual"><scope>up_value</scope><name>r</name></member>
+      <member refid="structup__value_1ac706ce061c96a5a33585579e12617d15" prot="public" virt="non-virtual"><scope>up_value</scope><name>s</name></member>
+      <member refid="structup__value_1a0a272164691508e1e9f8bb194d810ec9" prot="public" virt="non-virtual"><scope>up_value</scope><name>v</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

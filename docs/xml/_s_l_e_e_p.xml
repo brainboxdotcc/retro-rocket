@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_s_l_e_e_p" kind="page">
+    <compoundname>SLEEP</compoundname>
+    <title>SLEEP Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">SLEEP<sp/>expression</highlight></codeline>
+</programlisting></para>
+<para>Suspends execution of the current program for the specified number of seconds. The expression must evaluate to a positive integer. Fractions are ignored; resolution is to the nearest whole second only.</para>
+<para>During a <computeroutput>SLEEP</computeroutput> the process is suspended and does not consume CPU time. Other programs continue to run.</para>
+<para><blockquote><para>[!TIP] You can cancel a long sleep with <computeroutput>CTRL+ESC</computeroutput>. Without an error handler the programme terminates; with one, control passes to <computeroutput>ON ERROR</computeroutput>. </para>
+</blockquote></para>
+<sect2 id="_s_l_e_e_p_1autotoc_md326">
+<title>&lt;/blockquote&gt;</title>
+<sect4 id="_s_l_e_e_p_1autotoc_md327">
+<title>Example</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;START&quot;</highlight></codeline>
+<codeline><highlight class="normal">SLEEP<sp/>2</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;AFTER<sp/>2<sp/>SECONDS&quot;</highlight></codeline>
+</programlisting></para>
+<para>Output:</para>
+<para><programlisting><codeline><highlight class="normal">START</highlight></codeline>
+<codeline><highlight class="normal">AFTER<sp/>2<sp/>SECONDS</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect4>
+<sect4 id="_s_l_e_e_p_1autotoc_md329">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Only whole seconds are supported. <computeroutput>SLEEP 2.5</computeroutput> is treated as <computeroutput>SLEEP 2</computeroutput>.</para>
+</listitem><listitem><para>A <computeroutput>SLEEP 0</computeroutput> has no effect.</para>
+</listitem><listitem><para>Long sleeps (hundreds or thousands of seconds) are possible, but the process will remain suspended until the time has passed. </para>
+</listitem></itemizedlist>
+</para>
+</sect4>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/SLEEP.md"/>
+  </compounddef>
+</doxygen>

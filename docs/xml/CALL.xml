@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="CALL" kind="page">
+    <compoundname>CALL</compoundname>
+    <title>CALL Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">CALL<sp/>numeric-address</highlight></codeline>
+</programlisting></para>
+<para>Invokes a <bold>native machine routine</bold> at the given memory address. <linebreak/>
+ This allows BASIC programs to interface directly with the Retro Rocket kernel or user-supplied machine code.</para>
+<para><simplesect kind="remark"><para>This feature is <bold>currently not implemented</bold>. </para>
+</simplesect>
+<simplesect kind="remark"><para>In future, it will allow advanced users to extend BASIC with their own routines.</para>
+</simplesect>
+<hruler/>
+</para>
+<para><heading level="5">Planned Behaviour</heading>
+</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>numeric-address</computeroutput> must be a valid 64-bit address aligned to an instruction boundary. <linebreak/>
+</para>
+</listitem><listitem><para>The called routine will execute with the same privileges as the BASIC interpreter. <linebreak/>
+</para>
+</listitem><listitem><para>No automatic argument passing or stack frame is provided - users are responsible for adhering to the calling convention.</para>
+</listitem><listitem><para>Returning from the routine will resume BASIC execution at the next statement. <linebreak/>
+</para>
+</listitem><listitem><para>Invalid addresses will raise a runtime error (caught by <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink> if present).</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<sect4 id="CALL_1autotoc_md195">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>This statement is intended for <bold>advanced/low-level use only</bold>. <linebreak/>
+</para>
+</listitem><listitem><para>Incorrect usage may crash Retro Rocket or corrupt memory. <linebreak/>
+</para>
+</listitem><listitem><para>Future documentation will detail calling conventions and safe entry points. <linebreak/>
+</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CHAIN"><computeroutput>CHAIN</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/LIBRARY"><computeroutput>LIBRARY</computeroutput></ulink> </para>
+</sect4>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/CALL.md"/>
+  </compounddef>
+</doxygen>

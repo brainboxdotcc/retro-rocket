@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_r_e_t_u_r_n" kind="page">
+    <compoundname>RETURN</compoundname>
+    <title>RETURN Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">RETURN</highlight></codeline>
+</programlisting></para>
+<para>Returns from a <bold>subroutine</bold> that was entered with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/GOSUB"><computeroutput>GOSUB</computeroutput></ulink>. <linebreak/>
+ Execution resumes at the <bold>statement after</bold> the <computeroutput>GOSUB</computeroutput> call.</para>
+<para><blockquote><para>[!IMPORTANT] <computeroutput>RETURN</computeroutput> is only valid while servicing a <computeroutput>GOSUB</computeroutput>. <linebreak/>
+ Using <computeroutput>RETURN</computeroutput> <bold>outside</bold> a <computeroutput>GOSUB</computeroutput> context is an error. </para>
+</blockquote><blockquote><para>[!WARNING] <computeroutput>GOSUB</computeroutput>/<computeroutput>RETURN</computeroutput> are kept for compatibility and are <bold>deprecated</bold>. <linebreak/>
+ Prefer structured procedures: <computeroutput>DEF PROCname(...) ... ENDPROC</computeroutput>, called with <computeroutput>PROCname(...)</computeroutput>. </para>
+</blockquote></para>
+<sect2 id="_r_e_t_u_r_n_1autotoc_md320">
+<title>&lt;/blockquote&gt;</title>
+<sect3 id="_r_e_t_u_r_n_1autotoc_md321">
+<title>Behaviour</title>
+<para><itemizedlist>
+<listitem><para><computeroutput>RETURN</computeroutput> takes <bold>no arguments</bold>.</para>
+</listitem><listitem><para>Nested subroutines are supported: each <computeroutput>GOSUB</computeroutput> must eventually reach a <computeroutput>RETURN</computeroutput>, which returns to its <bold>own</bold> caller.</para>
+</listitem><listitem><para><computeroutput>RETURN</computeroutput> is <bold>not</bold> used to exit <computeroutput>PROC</computeroutput> or <computeroutput>FN</computeroutput>:<itemizedlist>
+<listitem><para>Procedures end with <computeroutput>ENDPROC</computeroutput>.</para>
+</listitem><listitem><para>Functions return a value on a line that begins with <computeroutput>=</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_r_e_t_u_r_n_1autotoc_md323">
+<title>Examples (line numbers permitted)</title>
+<para><bold>Simple subroutine</bold> <programlisting filename=".basic"><codeline><highlight class="normal">10<sp/>PRINT<sp/>&quot;Start&quot;</highlight></codeline>
+<codeline><highlight class="normal">20<sp/>GOSUB<sp/>1000</highlight></codeline>
+<codeline><highlight class="normal">30<sp/>PRINT<sp/>&quot;Back<sp/>in<sp/>main<sp/>code&quot;</highlight></codeline>
+<codeline><highlight class="normal">40<sp/>END</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">1000<sp/>PRINT<sp/>&quot;Inside<sp/>subroutine&quot;</highlight></codeline>
+<codeline><highlight class="normal">1010<sp/>RETURN</highlight></codeline>
+</programlisting></para>
+<para><bold>Nested GOSUBs</bold> <programlisting filename=".basic"><codeline><highlight class="normal">10<sp/>PRINT<sp/>&quot;Main&quot;</highlight></codeline>
+<codeline><highlight class="normal">20<sp/>GOSUB<sp/>1000</highlight></codeline>
+<codeline><highlight class="normal">30<sp/>PRINT<sp/>&quot;Done&quot;</highlight></codeline>
+<codeline><highlight class="normal">40<sp/>END</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">1000<sp/>PRINT<sp/>&quot;First<sp/>level&quot;</highlight></codeline>
+<codeline><highlight class="normal">1010<sp/>GOSUB<sp/>2000</highlight></codeline>
+<codeline><highlight class="normal">1020<sp/>PRINT<sp/>&quot;Back<sp/>to<sp/>first<sp/>level&quot;</highlight></codeline>
+<codeline><highlight class="normal">1030<sp/>RETURN</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">2000<sp/>PRINT<sp/>&quot;Second<sp/>level&quot;</highlight></codeline>
+<codeline><highlight class="normal">2010<sp/>RETURN</highlight></codeline>
+</programlisting></para>
+<para><bold>Error: RETURN without GOSUB (do not do this)</bold> <programlisting filename=".basic"><codeline><highlight class="normal">10<sp/>RETURN</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_r_e_t_u_r_n_1autotoc_md325">
+<title>See also</title>
+<para><itemizedlist>
+<listitem><para><ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/GOSUB"><computeroutput>GOSUB</computeroutput></ulink> — jump to a line and return</para>
+</listitem><listitem><para><ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DEF"><computeroutput>DEF</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PROC"><computeroutput>PROC</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ENDPROC"><computeroutput>ENDPROC</computeroutput></ulink> — structured alternatives </para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/RETURN.md"/>
+  </compounddef>
+</doxygen>

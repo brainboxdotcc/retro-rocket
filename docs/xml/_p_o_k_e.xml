@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_p_o_k_e" kind="page">
+    <compoundname>POKE</compoundname>
+    <title>POKE Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">POKE<sp/>address,<sp/>value</highlight></codeline>
+</programlisting></para>
+<para>Stores the low <bold>8 bits</bold> of <computeroutput>value</computeroutput> to memory at <computeroutput>address</computeroutput>.</para>
+<para><blockquote><para>[!IMPORTANT] The <computeroutput>address</computeroutput> must be writable. If not, <computeroutput>Bad Address at &lt;address&gt;</computeroutput> is raised. <linebreak/>
+ Writing to MMIO can have immediate hardware effects. </para>
+</blockquote></para>
+<sect2 id="_p_o_k_e_1autotoc_md247">
+<title>&lt;/blockquote&gt;</title>
+<sect3 id="_p_o_k_e_1autotoc_md248">
+<title>How to read it</title>
+<para><itemizedlist>
+<listitem><para>Think <bold>“store 8-bit”</bold>.</para>
+</listitem><listitem><para>Only the lowest byte of <computeroutput>value</computeroutput> is written.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_p_o_k_e_1autotoc_md250">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Store<sp/>a<sp/>marker<sp/>byte</highlight></codeline>
+<codeline><highlight class="normal">POKE<sp/>&amp;100100,<sp/>&amp;AA</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>PEEK(&amp;100100)</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_p_o_k_e_1autotoc_md252">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Always use the access width expected by the device.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/POKEW">POKEW</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/POKED">POKED</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/POKEQ">POKEQ</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PEEK">PEEK</ulink> </para>
+</sect3>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/POKE.md"/>
+  </compounddef>
+</doxygen>

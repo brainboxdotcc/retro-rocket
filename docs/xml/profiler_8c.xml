@@ -8,7 +8,7 @@
     <detaileddescription>
 <para>This module implements lightweight function profiling for Retro Rocket, using GCC&apos;s <computeroutput>-finstrument-functions</computeroutput> hooks to measure cycle counts and call relationships. Results are dumped in Callgrind-compatible format for analysis in tools such as KCachegrind.</para>
 <para>Note that enabling profiling will make the whole OS 25-50x slower! The hooks for it get placed <emphasis>everywhere</emphasis> even in critical hot paths.</para>
-<sect2 id="profiler_8c_1autotoc_md10">
+<sect2 id="profiler_8c_1autotoc_md678">
 <title>Overview</title>
 <para><itemizedlist>
 <listitem><para>Hooks: <computeroutput>__cyg_profile_func_enter()</computeroutput> / <computeroutput>__cyg_profile_func_exit()</computeroutput> are inserted automatically around every C function call.</para>
@@ -19,7 +19,7 @@
 </listitem></itemizedlist>
 </para>
 </sect2>
-<sect2 id="profiler_8c_1autotoc_md11">
+<sect2 id="profiler_8c_1autotoc_md679">
 <title>Usage</title>
 <para><orderedlist>
 <listitem><para>Build the kernel with <computeroutput>PROFILE_KERNEL=ON</computeroutput> to enable instrumentation.</para>
@@ -29,7 +29,7 @@
 </listitem></orderedlist>
 </para>
 </sect2>
-<sect2 id="profiler_8c_1autotoc_md12">
+<sect2 id="profiler_8c_1autotoc_md680">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>This code is excluded from profiling (<computeroutput>no_instrument_function</computeroutput>) to prevent recursion.</para>

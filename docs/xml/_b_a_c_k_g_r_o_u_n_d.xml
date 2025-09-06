@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_b_a_c_k_g_r_o_u_n_d" kind="page">
+    <compoundname>BACKGROUND</compoundname>
+    <title>BACKGROUND Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">BACKGROUND<sp/>integer-expression</highlight></codeline>
+</programlisting></para>
+<para>Sets the current <bold>text background colour</bold> to <computeroutput>integer-expression</computeroutput>. <linebreak/>
+ Colours use the standard <bold>VGA 0–15 palette</bold>, emitted via ANSI escape codes. The setting affects subsequent text output (e.g., <computeroutput>PRINT</computeroutput>) until changed or the screen is cleared.</para>
+<para><image type="html" name="https://user-images.githubusercontent.com/1556794/234695104-af3fd095-a0fe-4a69-85e9-9db698466caa.png" alt="VGA background and foreground colour chart" inline="yes"></image>
+</para>
+<para><blockquote><para>[!TIP] Use <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/COLOUR"><computeroutput>COLOUR</computeroutput></ulink> to set <bold>foreground</bold> and background together. <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL"><computeroutput>GCOL</computeroutput></ulink> affects <bold>graphics drawing</bold>, not text. </para>
+</blockquote></para>
+<sect2 id="_b_a_c_k_g_r_o_u_n_d_1autotoc_md0">
+<title>&lt;/blockquote&gt;</title>
+<para><heading level="5">VGA Colour Indices</heading>
+</para>
+<para><table rows="17" cols="2"><row>
+<entry thead="yes" align='right'><para>Index   </para>
+</entry><entry thead="yes"><para>Name    </para>
+</entry></row>
+<row>
+<entry thead="no" align='right'><para>0   </para>
+</entry><entry thead="no"><para>Black    </para>
+</entry></row>
+<row>
+<entry thead="no" align='right'><para>1   </para>
+</entry><entry thead="no"><para>Blue    </para>
+</entry></row>
+<row>
+<entry thead="no" align='right'><para>2   </para>
+</entry><entry thead="no"><para>Green    </para>
+</entry></row>
+<row>
+<entry thead="no" align='right'><para>3   </para>
+</entry><entry thead="no"><para>Cyan    </para>
+</entry></row>
+<row>
+<entry thead="no" align='right'><para>4   </para>
+</entry><entry thead="no"><para>Red    </para>
+</entry></row>
+<row>
+<entry thead="no" align='right'><para>5   </para>
+</entry><entry thead="no"><para>Magenta    </para>
+</entry></row>
+<row>
+<entry thead="no" align='right'><para>6   </para>
+</entry><entry thead="no"><para>Brown (Dark Yellow)    </para>
+</entry></row>
+<row>
+<entry thead="no" align='right'><para>7   </para>
+</entry><entry thead="no"><para>Light Grey    </para>
+</entry></row>
+<row>
+<entry thead="no" align='right'><para>8   </para>
+</entry><entry thead="no"><para>Dark Grey    </para>
+</entry></row>
+<row>
+<entry thead="no" align='right'><para>9   </para>
+</entry><entry thead="no"><para>Bright Blue    </para>
+</entry></row>
+<row>
+<entry thead="no" align='right'><para>10   </para>
+</entry><entry thead="no"><para>Bright Green    </para>
+</entry></row>
+<row>
+<entry thead="no" align='right'><para>11   </para>
+</entry><entry thead="no"><para>Bright Cyan    </para>
+</entry></row>
+<row>
+<entry thead="no" align='right'><para>12   </para>
+</entry><entry thead="no"><para>Bright Red    </para>
+</entry></row>
+<row>
+<entry thead="no" align='right'><para>13   </para>
+</entry><entry thead="no"><para>Bright Magenta    </para>
+</entry></row>
+<row>
+<entry thead="no" align='right'><para>14   </para>
+</entry><entry thead="no"><para>Bright Yellow    </para>
+</entry></row>
+<row>
+<entry thead="no" align='right'><para>15   </para>
+</entry><entry thead="no"><para>White   </para>
+</entry></row>
+</table>
+</para>
+<para><hruler/>
+</para>
+<para><heading level="5">Example</heading>
+</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">FOR<sp/>C<sp/>=<sp/>0<sp/>TO<sp/>15</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>BACKGROUND<sp/>C</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;BACKGROUND<sp/>COLOUR<sp/>&quot;;<sp/>C</highlight></codeline>
+<codeline><highlight class="normal">NEXT</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+<para><heading level="5">Notes</heading>
+</para>
+<para><itemizedlist>
+<listitem><para>Valid range is <bold>0–15</bold>. Values outside this range are <bold>implementation-defined</bold>.</para>
+</listitem><listitem><para>Background colour persists until changed, even after <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CLS"><computeroutput>CLS</computeroutput></ulink>.</para>
+</listitem><listitem><para>This statement only affects <bold>text-mode</bold> rendering; use graphics statements for pixel fills.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/COLOUR"><computeroutput>COLOUR</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL"><computeroutput>GCOL</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CLS"><computeroutput>CLS</computeroutput></ulink> </para>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/BACKGROUND.md"/>
+  </compounddef>
+</doxygen>

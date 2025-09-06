@@ -1,0 +1,2143 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="installer_8h" kind="file" language="C++">
+    <compoundname>installer.h</compoundname>
+    <includes refid="kernel_8h" local="no">kernel.h</includes>
+    <includedby refid="crc32_8c" local="no">src/installer/crc32.c</includedby>
+    <includedby refid="gpt__writer_8c" local="no">src/installer/gpt_writer.c</includedby>
+    <includedby refid="installer_2helpers_8c" local="no">src/installer/helpers.c</includedby>
+    <includedby refid="installer_2main_8c" local="no">src/installer/main.c</includedby>
+    <includedby refid="os__detection_8c" local="no">src/installer/os_detection.c</includedby>
+    <includedby refid="recursive__file__copy_8c" local="no">src/installer/recursive_file_copy.c</includedby>
+    <includedby refid="tui_8c" local="no">src/installer/tui.c</includedby>
+    <incdepgraph>
+      <node id="57">
+        <label>ata.h</label>
+        <link refid="ata_8h"/>
+      </node>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="22">
+        <label>basic.h</label>
+        <link refid="basic_8h"/>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>basic/context.h</label>
+        <link refid="context_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="88">
+        <label>stdarg.h</label>
+      </node>
+      <node id="60">
+        <label>ramdisk.h</label>
+        <link refid="ramdisk_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="29">
+        <label>basic/validation.h</label>
+        <link refid="validation_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>basic/graphics.h</label>
+        <link refid="graphics_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="72">
+        <label>acpi.h</label>
+        <link refid="acpi_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>basic/structs.h</label>
+        <link refid="structs_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="76">
+        <label>arp.h</label>
+        <link refid="arp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="67">
+        <label>stdnoreturn.h</label>
+      </node>
+      <node id="27">
+        <label>buddy_allocator.h</label>
+        <link refid="buddy__allocator_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="83">
+        <label>dns.h</label>
+        <link refid="dns_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>basic/peekpoke.h</label>
+        <link refid="peekpoke_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="63">
+        <label>fat32.h</label>
+        <link refid="fat32_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>rwlock.h</label>
+        <link refid="rwlock_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="81">
+        <label>udp.h</label>
+        <link refid="udp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>spinlock.h</label>
+        <link refid="spinlock_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="79">
+        <label>tcp.h</label>
+        <link refid="tcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="53">
+        <label>devicename.h</label>
+        <link refid="devicename_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>idt.h</label>
+        <link refid="idt_8h"/>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="84">
+        <label>drawing.h</label>
+        <link refid="drawing_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>basic/variable.h</label>
+        <link refid="variable_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>include/installer.h</label>
+        <link refid="installer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="74">
+        <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>stdlib.h</label>
+        <link refid="stdlib_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>x86intrin.h</label>
+      </node>
+      <node id="47">
+        <label>ioapic.h</label>
+        <link refid="ioapic_8h"/>
+      </node>
+      <node id="5">
+        <label>stddef.h</label>
+      </node>
+      <node id="90">
+        <label>module.h</label>
+        <link refid="module_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>basic/array.h</label>
+        <link refid="array_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>basic/flow_control.h</label>
+        <link refid="flow__control_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>limits.h</label>
+      </node>
+      <node id="66">
+        <label>keyboard.h</label>
+        <link refid="keyboard_8h"/>
+        <childnode refid="67" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>io.h</label>
+        <link refid="io_8h"/>
+      </node>
+      <node id="15">
+        <label>printf.h</label>
+        <link refid="printf_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="75">
+        <label>e1000.h</label>
+        <link refid="e1000_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="70">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>basic/builtin_real_functions.h</label>
+        <link refid="builtin__real__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>limine.h</label>
+      </node>
+      <node id="68">
+        <label>input.h</label>
+        <link refid="input_8h"/>
+      </node>
+      <node id="85">
+        <label>fpu.h</label>
+        <link refid="fpu_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>video.h</label>
+        <link refid="video_8h"/>
+      </node>
+      <node id="87">
+        <label>serial.h</label>
+        <link refid="serial_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="80">
+        <label>icmp.h</label>
+        <link refid="icmp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>basic/sockets.h</label>
+        <link refid="sockets_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>basic/defines.h</label>
+        <link refid="defines_8h"/>
+      </node>
+      <node id="17">
+        <label>vector.h</label>
+        <link refid="vector_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="77">
+        <label>ip.h</label>
+        <link refid="ip_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>basic/builtin_integer_functions.h</label>
+        <link refid="builtin__integer__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>filesystem.h</label>
+        <link refid="filesystem_8h"/>
+      </node>
+      <node id="51">
+        <label>maths.h</label>
+        <link refid="maths_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>devfs.h</label>
+        <link refid="devfs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>basic/expression.h</label>
+        <link refid="expression_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="65">
+        <label>errorhandler.h</label>
+        <link refid="errorhandler_8h"/>
+      </node>
+      <node id="32">
+        <label>basic/builtin_string_functions.h</label>
+        <link refid="builtin__string__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="78">
+        <label>ethernet.h</label>
+        <link refid="ethernet_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <link refid="kernel_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>memcpy.h</label>
+        <link refid="memcpy_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>basic/console.h</label>
+        <link refid="console_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="59">
+        <label>partition.h</label>
+        <link refid="partition_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>random.h</label>
+        <link refid="random_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="89">
+        <label>debug_ringbuffer.h</label>
+        <link refid="debug__ringbuffer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="71">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>hashmap.h</label>
+        <link refid="hashmap_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="73">
+        <label>net.h</label>
+        <link refid="net_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>timer.h</label>
+        <link refid="timer_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>basic/reflection.h</label>
+        <link refid="reflection_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="64">
+        <label>debugger.h</label>
+        <link refid="debugger_8h"/>
+      </node>
+      <node id="33">
+        <label>basic/builtin_file_io_functions.h</label>
+        <link refid="builtin__file__io__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>interrupt.h</label>
+        <link refid="interrupt_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>kmalloc.h</label>
+        <link refid="kmalloc_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>scsi.h</label>
+        <link refid="scsi_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>map.h</label>
+        <link refid="map_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>tokenizer.h</label>
+        <link refid="tokenizer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>basic/lowlevel.h</label>
+        <link refid="lowlevel_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>pci.h</label>
+        <link refid="pci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>apic.h</label>
+        <link refid="apic_8h"/>
+      </node>
+      <node id="21">
+        <label>string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
+        <label>ahci.h</label>
+        <link refid="ahci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>basic/process.h</label>
+        <link refid="process_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="82">
+        <label>dhcp.h</label>
+        <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="86">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>basic/datetime.h</label>
+        <link refid="datetime_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="69">
+        <label>clock.h</label>
+        <link refid="clock_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4">
+        <label>src/installer/helpers.c</label>
+        <link refid="installer_2helpers_8c"/>
+      </node>
+      <node id="5">
+        <label>src/installer/main.c</label>
+        <link refid="installer_2main_8c"/>
+      </node>
+      <node id="1">
+        <label>include/installer.h</label>
+        <link refid="installer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>src/installer/tui.c</label>
+        <link refid="tui_8c"/>
+      </node>
+      <node id="3">
+        <label>src/installer/gpt_writer.c</label>
+        <link refid="gpt__writer_8c"/>
+      </node>
+      <node id="6">
+        <label>src/installer/os_detection.c</label>
+        <link refid="os__detection_8c"/>
+      </node>
+      <node id="2">
+        <label>src/installer/crc32.c</label>
+        <link refid="crc32_8c"/>
+      </node>
+      <node id="7">
+        <label>src/installer/recursive_file_copy.c</label>
+        <link refid="recursive__file__copy_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structgpt__guid__map__t" prot="public">gpt_guid_map_t</innerclass>
+    <innerclass refid="structmbr__id__map__t" prot="public">mbr_id_map_t</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="installer_8h_1a0927344673d10ec0427fc72ef07fb850" prot="public" static="no">
+        <name>GPT_SIGNATURE_TEXT</name>
+        <initializer>&quot;EFI PART&quot;</initializer>
+        <briefdescription>
+<para>ASCII signature at LBA 1 for GPT headers. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="13" column="9" bodyfile="include/installer.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="installer_8h_1ac4afff37175d6ae438ed7a2951c2d7c6" prot="public" static="no">
+        <name>GPT_REVISION_1_0</name>
+        <initializer>0x00010000U</initializer>
+        <briefdescription>
+<para>GPT spec revision 1.0 (UEFI 2.0) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="18" column="9" bodyfile="include/installer.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="installer_8h_1a37a074c68debacee89af175481ed24d7" prot="public" static="no">
+        <name>GPT_HEADER_SIZE_BYTES</name>
+        <initializer>92U</initializer>
+        <briefdescription>
+<para>GPT header size in bytes. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="23" column="9" bodyfile="include/installer.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="installer_8h_1a9ed6fa1b34f032368653848a9cb71596" prot="public" static="no">
+        <name>GPT_PTE_COUNT</name>
+        <initializer>128U</initializer>
+        <briefdescription>
+<para>Number of GPT partition entries. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="28" column="9" bodyfile="include/installer.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="installer_8h_1a308b97002f0845fd47bc743f4406830e" prot="public" static="no">
+        <name>GPT_PTE_SIZE_BYTES</name>
+        <initializer>128U</initializer>
+        <briefdescription>
+<para>Size of each GPT partition entry in bytes. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="33" column="9" bodyfile="include/installer.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="installer_8h_1a45371c332926f4ed6a7d0b479c72c682" prot="public" static="no">
+        <name>ALIGN_1M_IN_LBAS</name>
+        <initializer>2048ULL</initializer>
+        <briefdescription>
+<para>1 MiB alignment boundary (2048 LBAs at 512 B each) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="38" column="9" bodyfile="include/installer.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="installer_8h_1aeb93fd86e9acebacc732bf4c734cb3a4" prot="public" static="no">
+        <name>SECTOR_BYTES_REQUIRED</name>
+        <initializer>512U</initializer>
+        <briefdescription>
+<para>Required sector size (bytes per LBA) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="43" column="9" bodyfile="include/installer.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="installer_8h_1acca3999b1aeed351fbe41997f4c6119f" prot="public" static="no">
+        <name>EFI_FAT_IMAGE</name>
+        <initializer>&quot;/efi.fat&quot;</initializer>
+        <briefdescription>
+<para>Path to prebuilt FAT32 EFI System Partition image. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="48" column="9" bodyfile="include/installer.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="installer_8h_1a2b7e67585f8749656eee6ac96654fa95" prot="public" static="no">
+        <name>GLYPH_FMT</name>
+        <initializer>&quot;%s&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="51" column="9" bodyfile="include/installer.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="installer_8h_1a8ed58c060d5503a9a49964279ffc613f" prot="public" static="no">
+        <name>CP437_DBL_H</name>
+        <initializer>&quot;\xE2\x95\x90&quot;  /* U+2550 ═ */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="54" column="9" bodyfile="include/installer.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="installer_8h_1a587c61c523a98052345531f9a64d6d43" prot="public" static="no">
+        <name>CP437_DBL_V</name>
+        <initializer>&quot;\xE2\x95\x91&quot;  /* U+2551 ║ */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="55" column="9" bodyfile="include/installer.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="installer_8h_1a40b862cda874ccf42452e4d574cc5b5e" prot="public" static="no">
+        <name>CP437_DBL_TL</name>
+        <initializer>&quot;\xE2\x95\x94&quot;  /* U+2554 ╔ */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="56" column="9" bodyfile="include/installer.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="installer_8h_1acab9a9f4232056137d02e2e485ea9aac" prot="public" static="no">
+        <name>CP437_DBL_TR</name>
+        <initializer>&quot;\xE2\x95\x97&quot;  /* U+2557 ╗ */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="57" column="9" bodyfile="include/installer.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="installer_8h_1aa130dab6e048b27691fdafa7b14e490b" prot="public" static="no">
+        <name>CP437_DBL_BL</name>
+        <initializer>&quot;\xE2\x95\x9A&quot;  /* U+255A ╚ */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="58" column="9" bodyfile="include/installer.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="installer_8h_1a832b1b02e7cbb7c5be0152d5b80d791d" prot="public" static="no">
+        <name>CP437_DBL_BR</name>
+        <initializer>&quot;\xE2\x95\x9D&quot;  /* U+255D ╝ */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="59" column="9" bodyfile="include/installer.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="installer_8h_1a219973c9680d2a518b880a504b8b687e" prot="public" static="no">
+        <name>CP437_BLOCK_FULL</name>
+        <initializer>&quot;\xE2\x96\x88&quot;  /* U+2588 █ */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="62" column="9" bodyfile="include/installer.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="installer_8h_1a21e9474003a3578e87ffaa10671af04b" prot="public" static="no">
+        <name>CP437_BLOCK_HALF_LEFT</name>
+        <initializer>&quot;\xE2\x96\x8C&quot;  /* U+258C ▌ */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="63" column="9" bodyfile="include/installer.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="installer_8h_1abb08013fd4fd5565a11118d73df9f2a9" prot="public" static="no">
+        <name>CP437_BLOCK_HALF_RIGHT</name>
+        <initializer>&quot;\xE2\x96\x90&quot;  /* U+2590 ▐ */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="64" column="9" bodyfile="include/installer.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="installer_8h_1a1cd2079fdd42fabf39ba4daa3dd74430" prot="public" static="yes" mutable="no">
+        <type>const <ref refid="structgpt__guid__map__t" kindref="compound">gpt_guid_map_t</ref></type>
+        <definition>const gpt_guid_map_t gpt_guid_map[]</definition>
+        <argsstring>[]</argsstring>
+        <name>gpt_guid_map</name>
+        <initializer>= {
+	{ <ref refid="fat32_8h_1a67410fff1de66462e0eecbc703811c5a" kindref="member">GPT_EFI_SYSTEM</ref>,                               &quot;ESP&quot;,                NULL },
+	{ <ref refid="retrofs_8h_1a12d78567bdb02c7a2a711809ea256837" kindref="member">RFS_GPT_GUID</ref>,                                 &quot;RetroFS&quot;,            &quot;Retro Rocket&quot; },
+	{ &quot;E3C9E316-0B5C-4DB8-817D-F92DF00215AE&quot;,       &quot;MSR&quot;,                NULL },
+	{ &quot;EBD0A0A2-B9E5-4433-87C0-68B6B72699C7&quot;,       &quot;Windows&quot;,            &quot;Windows&quot; },
+	{ &quot;DE94BBA4-06D1-4D40-A16A-BFD50179D6AC&quot;,       &quot;Windows Recovery&quot;,   &quot;Windows&quot; },
+	{ &quot;E75CAF8F-F680-4CEE-AFA3-B001E56EFC2D&quot;,       &quot;Windows Storage&quot;,    &quot;Windows&quot; },
+	{ &quot;0FC63DAF-8483-4772-8E79-3D69D8477DE4&quot;,       &quot;Linux&quot;,              &quot;Linux&quot; },
+	{ &quot;0657FD6D-A4AB-43C4-84E5-0933C84B4F4F&quot;,       &quot;Linux Swap&quot;,         &quot;Linux&quot; },
+	{ &quot;A19D880F-05FC-4D3B-A006-743F0F84911E&quot;,       &quot;Linux RAID&quot;,         &quot;Linux&quot; },
+	{ &quot;E6D6D379-F507-44C2-A23C-238F2A3DF928&quot;,       &quot;Linux LVM&quot;,          &quot;Linux&quot; },
+	{ &quot;933AC7E1-2EB4-4F13-B844-0E14E2AEF915&quot;,       &quot;Linux /home&quot;,        &quot;Linux&quot; },
+	{ &quot;83BD6B9D-7F41-11DC-B009-0019D1879648&quot;,       &quot;FreeBSD Boot&quot;,       &quot;FreeBSD&quot; },
+	{ &quot;516E7CB4-6ECF-11D6-8FF8-00022D09712B&quot;,       &quot;FreeBSD UFS&quot;,        &quot;FreeBSD&quot; },
+	{ &quot;516E7CB8-6ECF-11D6-8FF8-00022D09712B&quot;,       &quot;FreeBSD ZFS&quot;,        &quot;FreeBSD&quot; },
+	{ &quot;824CC7A0-36A8-11E3-890A-952519AD3F61&quot;,       &quot;OpenBSD Data&quot;,       &quot;OpenBSD&quot; },
+	{ &quot;49F48D32-B10E-11DC-B99B-0019D1879648&quot;,       &quot;NetBSD FFS&quot;,         &quot;NetBSD&quot; },
+	{ &quot;48465300-0000-11AA-AA11-00306543ECAC&quot;,       &quot;Apple HFS+&quot;,         &quot;macOS&quot; },
+	{ &quot;7C3457EF-0000-11AA-AA11-00306543ECAC&quot;,       &quot;Apple APFS&quot;,         &quot;macOS&quot; },
+	{ &quot;53746F72-6167-11AA-AA11-00306543ECAC&quot;,       &quot;Apple CoreStorage&quot;,  &quot;macOS&quot; },
+	{ &quot;6A898CC3-1DD2-11B2-99A6-080020736631&quot;,       &quot;Solaris ZFS&quot;,        &quot;Solaris&quot; },
+	{ &quot;FE3A2A5D-4F32-41A7-B725-ACCC3285A309&quot;,       &quot;ChromeOS Kernel&quot;,    &quot;ChromeOS&quot; },
+	{ &quot;3CB8E202-3B7E-47DD-8A3C-7FF2A13CFCEC&quot;,       &quot;ChromeOS Rootfs&quot;,    &quot;ChromeOS&quot; },
+	{ &quot;AA31E02A-400F-11DB-9590-000C2911D1B8&quot;,       &quot;VMware VMFS&quot;,        &quot;VMware&quot; },
+	{ &quot;42465331-3BA3-10F1-802A-4861696B7521&quot;,       &quot;Haiku BeFS&quot;,         &quot;Haiku&quot; },
+	{ &quot;CEF5A9AD-73BC-4601-89F3-CDEEEEE321A1&quot;,       &quot;QNX PowerSafe&quot;,      &quot;QNX 6.x&quot; },
+	{ &quot;1B81E7E6-F50D-419B-A739-2AEEF8DA3335&quot;,       &quot;Android User Data&quot;,  &quot;Android&quot; },
+	{ &quot;DC76DDA9-5AC1-491C-AF42-A82591580C0D&quot;,       &quot;Android Data&quot;,       &quot;Android&quot; },
+}</initializer>
+        <briefdescription>
+<para>Known GPT partition type GUIDs of interest. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="87" column="29" bodyfile="include/installer.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="installer_8h_1a76639d9da3981e7d52d5f51f4c334edd" prot="public" static="yes" mutable="no">
+        <type>const <ref refid="structmbr__id__map__t" kindref="compound">mbr_id_map_t</ref></type>
+        <definition>const mbr_id_map_t mbr_id_map[]</definition>
+        <argsstring>[]</argsstring>
+        <name>mbr_id_map</name>
+        <briefdescription>
+<para>Known MBR system IDs of interest. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="120" column="27" bodyfile="include/installer.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="installer_8h_1a4bf6a7d660d26529637c0fd7934f023a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t crc32_update</definition>
+        <argsstring>(uint32_t crc, const void *data, size_t len)</argsstring>
+        <name>crc32_update</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>crc</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+<para>Update a CRC32 with additional data (used by GPT) </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>crc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Current CRC32 value </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to input buffer </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of input buffer in bytes </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Updated CRC32 value </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="163" column="10" bodyfile="src/installer/crc32.c" bodystart="9" bodyend="37" declfile="include/installer.h" declline="163" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="installer_8h_1ab1e5a5a46152ca2ec9135b4b0d22f926" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool copy_file</definition>
+        <argsstring>(const char *source, const char *destination)</argsstring>
+        <name>copy_file</name>
+        <param>
+          <type>const char *</type>
+          <declname>source</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>destination</declname>
+        </param>
+        <briefdescription>
+<para>Copy a single file. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Loads the entire source into memory and writes it to the destination.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source path </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>destination</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination path </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true on success, false on failure </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="174" column="6" bodyfile="src/installer/recursive_file_copy.c" bodystart="11" bodyend="49" declfile="include/installer.h" declline="174" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="installer_8h_1a6f8ec706774ec09edf05e1e2e820e499" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool copy_directory</definition>
+        <argsstring>(const char *source, const char *destination)</argsstring>
+        <name>copy_directory</name>
+        <param>
+          <type>const char *</type>
+          <declname>source</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>destination</declname>
+        </param>
+        <briefdescription>
+<para>Recursively copy a directory tree. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source directory path </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>destination</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination directory path </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true on success, false on failure </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="183" column="6" bodyfile="src/installer/recursive_file_copy.c" bodystart="51" bodyend="77" declfile="include/installer.h" declline="183" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="installer_8h_1a459ec2548534e60fd17627e0793a05cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t numeric_choice</definition>
+        <argsstring>(uint8_t min, uint8_t max)</argsstring>
+        <name>numeric_choice</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>min</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>max</declname>
+        </param>
+        <briefdescription>
+<para>Wait for a single numeric key press within a range. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>min</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Minimum allowed digit </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum allowed digit </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The digit pressed </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="192" column="9" bodyfile="src/installer/tui.c" bodystart="9" bodyend="17" declfile="include/installer.h" declline="192" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="installer_8h_1a902d99814cc854cb78254cf9d0e5a221" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void centre_text</definition>
+        <argsstring>(const char *format,...) PRINTF_LIKE(1</argsstring>
+        <name>centre_text</name>
+        <param>
+          <type>const char *</type>
+          <declname>format</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+<para>Print centred text in the current console. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>format</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>printf-style format string </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>...</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Variadic arguments </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="200" column="6"/>
+      </memberdef>
+      <memberdef kind="function" id="installer_8h_1ae11a24ee4cc3e5db643374185c5676f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void void</type>
+        <definition>void void warning</definition>
+        <argsstring>(const char *warning_message, const char *subtitle, const char *colours)</argsstring>
+        <name>warning</name>
+        <param>
+          <type>const char *</type>
+          <declname>warning_message</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>subtitle</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>colours</declname>
+        </param>
+        <briefdescription>
+<para>Print a centred white-on-red warning message. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>warning_message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Message to display </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="207" column="6" bodyfile="src/installer/tui.c" bodystart="46" bodyend="88" declfile="include/installer.h" declline="207" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="installer_8h_1a446b4cee05187d935a4b2d839b02ab02" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t align_up_u64</definition>
+        <argsstring>(uint64_t x, uint64_t a)</argsstring>
+        <name>align_up_u64</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>a</declname>
+        </param>
+        <briefdescription>
+<para>Align a 64-bit value up to the nearest multiple. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input value </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>a</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Alignment (power-of-two multiple recommended) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>x aligned up to a </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="216" column="10" bodyfile="src/installer/helpers.c" bodystart="9" bodyend="14" declfile="include/installer.h" declline="216" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="installer_8h_1af121a43c2c6428336d8cceb3c2bb2756" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void make_utf16le_name</definition>
+        <argsstring>(const char *ascii, uint16_t out36[36])</argsstring>
+        <name>make_utf16le_name</name>
+        <param>
+          <type>const char *</type>
+          <declname>ascii</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>out36</declname>
+          <array>[36]</array>
+        </param>
+        <briefdescription>
+<para>Encode an ASCII name as UTF-16LE (max 36 code units) </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ascii</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input ASCII string </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>out36</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output UTF-16LE buffer of 36 elements </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="224" column="6" bodyfile="src/installer/helpers.c" bodystart="16" bodyend="27" declfile="include/installer.h" declline="224" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="installer_8h_1a973d7370f305f435404569877aea7dbc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void random_guid_v4</definition>
+        <argsstring>(uint8_t out16[16])</argsstring>
+        <name>random_guid_v4</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>out16</declname>
+          <array>[16]</array>
+        </param>
+        <briefdescription>
+<para>Generate a random version-4 GUID. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>out16</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output buffer of 16 bytes </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="231" column="6" bodyfile="src/installer/helpers.c" bodystart="29" bodyend="36" declfile="include/installer.h" declline="231" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="installer_8h_1a26eb1a4cce89c03f65daca59d2a375ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool write_lbas</definition>
+        <argsstring>(const char *devname, uint64_t start_lba, const void *buf, uint32_t bytes, uint32_t sector_bytes)</argsstring>
+        <name>write_lbas</name>
+        <param>
+          <type>const char *</type>
+          <declname>devname</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>start_lba</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>bytes</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>sector_bytes</declname>
+        </param>
+        <briefdescription>
+<para>Write raw sectors to a block device. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>devname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device name (e.g. &quot;hd0&quot;) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>start_lba</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Starting LBA </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer to write </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to write </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sector_bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Logical sector size in bytes </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true on success, false on failure </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="243" column="6" bodyfile="src/installer/helpers.c" bodystart="38" bodyend="46" declfile="include/installer.h" declline="243" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="installer_8h_1a793a111d7f44baa4a95c112fb27bb8b4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool install_gpt_esp_rfs_whole_image</definition>
+        <argsstring>(const char *devname, const char *esp_image_vfs_path)</argsstring>
+        <name>install_gpt_esp_rfs_whole_image</name>
+        <param>
+          <type>const char *</type>
+          <declname>devname</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>esp_image_vfs_path</declname>
+        </param>
+        <briefdescription>
+<para>Flatten a device and install GPT + ESP + RetroFS. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Creates a GPT containing an EFI System Partition and a RetroFS partition, writes a prebuilt FAT32 ESP image, and prepares the RetroFS partition.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>devname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Storage device name (e.g. &quot;hd0&quot;) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>esp_image_vfs_path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>VFS path to the prebuilt FAT32 ESP image </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true on success, false on failure</para>
+</simplesect>
+Flatten a device and install GPT + ESP + RetroFS.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>devname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>storage device name (e.g. &quot;hd0&quot;) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>esp_image_vfs_path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>VFS path to prebuilt FAT32 ESP image (~68 MiB) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true on success </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="255" column="6" bodyfile="src/installer/gpt_writer.c" bodystart="9" bodyend="214" declfile="include/installer.h" declline="255" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="installer_8h_1a98bde3de9c7897b64ff306ee26675c6d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void copy_userland</definition>
+        <argsstring>(const char *devname)</argsstring>
+        <name>copy_userland</name>
+        <param>
+          <type>const char *</type>
+          <declname>devname</declname>
+        </param>
+        <briefdescription>
+<para>Copy userland from installation media to the device. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>devname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target device name </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="262" column="6" bodyfile="src/installer/recursive_file_copy.c" bodystart="79" bodyend="102" declfile="include/installer.h" declline="262" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="installer_8h_1ad098db0bf3de931c10f5337bc23f55c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool prepare_rfs_partition</definition>
+        <argsstring>(storage_device_t *dev)</argsstring>
+        <name>prepare_rfs_partition</name>
+        <param>
+          <type><ref refid="structstorage__device__t" kindref="compound">storage_device_t</ref> *</type>
+          <declname>dev</declname>
+        </param>
+        <briefdescription>
+<para>Locate and format the first GPT RetroFS partition. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target storage device </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true on success, false on failure </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="270" column="6" bodyfile="src/installer/gpt_writer.c" bodystart="216" bodyend="250" declfile="include/installer.h" declline="270" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="installer_8h_1a0b08c23bd50111722b3bd7c04e65b6c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool probe_device_summary</definition>
+        <argsstring>(const storage_device_t *dev, char *out, size_t out_len, bool *usable)</argsstring>
+        <name>probe_device_summary</name>
+        <param>
+          <type>const <ref refid="structstorage__device__t" kindref="compound">storage_device_t</ref> *</type>
+          <declname>dev</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>out_len</declname>
+        </param>
+        <param>
+          <type>bool *</type>
+          <declname>usable</declname>
+        </param>
+        <briefdescription>
+<para>Summarise existing content on a device for the installer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Produces a short, user-facing description of detected partitions and a heuristic &quot;likely OS&quot;. Sets *usable to true if inspection completed without I/O or parse errors.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target storage device </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output message buffer </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>out_len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of output buffer in bytes </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>usable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Set to true if the device was readable and parsable </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if a summary was produced, false on low-level failure </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="285" column="6" bodyfile="src/installer/os_detection.c" bodystart="11" bodyend="248" declfile="include/installer.h" declline="285" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="installer_8h_1a00620dd794db99aa96f9b11d3b187539" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void draw_box_cp437_double</definition>
+        <argsstring>(uint64_t x, uint64_t y, uint64_t width, uint64_t height)</argsstring>
+        <name>draw_box_cp437_double</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>height</declname>
+        </param>
+        <briefdescription>
+<para>Draw a double-line CP437 box at a given position. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Draws a rectangular box using DOS CP437 double line drawing characters. The box is clipped to the current text grid. The interior is left untouched. On completion, the cursor is restored to its original position.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Left column (0-based). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Top row (0-based). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Box width in character cells (must be &gt;= 2 after clipping). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>height</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Box height in character cells (must be &gt;= 2 after clipping). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="299" column="6" bodyfile="src/installer/tui.c" bodystart="92" bodyend="149" declfile="include/installer.h" declline="299" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="installer_8h_1ac4ac3f7a4d7c71c94a874014218dbfe5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void draw_box_cp437_double_center</definition>
+        <argsstring>(uint64_t req_w, uint64_t req_h, uint64_t *out_x, uint64_t *out_y, uint64_t *out_w, uint64_t *out_h)</argsstring>
+        <name>draw_box_cp437_double_center</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>req_w</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>req_h</declname>
+        </param>
+        <param>
+          <type>uint64_t *</type>
+          <declname>out_x</declname>
+        </param>
+        <param>
+          <type>uint64_t *</type>
+          <declname>out_y</declname>
+        </param>
+        <param>
+          <type>uint64_t *</type>
+          <declname>out_w</declname>
+        </param>
+        <param>
+          <type>uint64_t *</type>
+          <declname>out_h</declname>
+        </param>
+        <briefdescription>
+<para>Draw a centred double-line CP437 box. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Computes coordinates to centre a box of the requested dimensions in the current text area. The actual box position and clipped size are written back to the provided pointers.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>req_w</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Requested width in character cells. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>req_h</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Requested height in character cells. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>out_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to store the top-left x position. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>out_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to store the top-left y position. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>out_w</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to store the actual width drawn. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>out_h</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to store the actual height drawn. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="315" column="6" bodyfile="src/installer/tui.c" bodystart="151" bodyend="182" declfile="include/installer.h" declline="315" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="installer_8h_1a58ad65a941e79157b1b050be062e88b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void draw_progress_bar_cp437</definition>
+        <argsstring>(uint64_t x, uint64_t y, uint64_t width, uint64_t percent)</argsstring>
+        <name>draw_progress_bar_cp437</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>percent</declname>
+        </param>
+        <briefdescription>
+<para>Draw a bordered CP437 progress bar at (x, y). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Renders a 3-row widget: row 0: top border row 1: fill area (blocks) row 2: bottom border</para>
+<para>Width includes the border; the interior fill width is (width - 2). Percent is clamped to [0, 100]. The bar uses half-cell resolution.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Left column (0-based). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Top row (0-based). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Total width in character cells (must be &gt;= 3 after clipping). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>percent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Completion percent (0..100). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="333" column="6" bodyfile="src/installer/tui.c" bodystart="184" bodyend="244" declfile="include/installer.h" declline="333" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="installer_8h_1a9cec7dcaf86adc2fe8fc218e521806a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void draw_text_box_cp437</definition>
+        <argsstring>(uint64_t x, uint64_t y, uint64_t width, const char *text)</argsstring>
+        <name>draw_text_box_cp437</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>text</declname>
+        </param>
+        <briefdescription>
+<para>Draw a bordered single-line CP437 text box. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Draws a 3-row box (top border, text row, bottom border) at (x, y) with the given total width. The interior row is filled with the provided text. If the text does not fit, it is truncated and an ellipsis &quot;...&quot; is appended when there is room (inner width &gt;= 3). The cursor position is restored on exit.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Left column (0-based). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Top row (0-based). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Total box width in cells (must be &gt;= 3 after clipping). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>text</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>NUL-terminated string to render inside the box (may be NULL). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="348" column="6" bodyfile="src/installer/tui.c" bodystart="246" bodyend="319" declfile="include/installer.h" declline="348" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="installer_8h_1ae925f9c82fdf7634316d5789581402db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void draw_text_box_cp437_center</definition>
+        <argsstring>(uint64_t x, uint64_t y, uint64_t width, const char *text)</argsstring>
+        <name>draw_text_box_cp437_center</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>text</declname>
+        </param>
+        <briefdescription>
+<para>Draw a centred single-line CP437 text box. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Thin wrapper around <ref refid="installer_8h_1a9cec7dcaf86adc2fe8fc218e521806a3" kindref="member">draw_text_box_cp437()</ref>. When the text fits, it is padded with leading spaces so that it appears centred within the box. When it does not fit, the truncation/ellipsis logic of <ref refid="installer_8h_1a9cec7dcaf86adc2fe8fc218e521806a3" kindref="member">draw_text_box_cp437()</ref> applies.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Left column (0-based). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Top row (0-based). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Total box width in cells (must be &gt;= 3 after clipping). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>text</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>NUL-terminated string to render inside the box (may be NULL). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="363" column="6" bodyfile="src/installer/tui.c" bodystart="321" bodyend="354" declfile="include/installer.h" declline="363" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="installer_8h_1a4b930eb378a424d8206b9d2e958be0b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void new_page</definition>
+        <argsstring>(const char *title)</argsstring>
+        <name>new_page</name>
+        <param>
+          <type>const char *</type>
+          <declname>title</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="365" column="6" bodyfile="src/installer/tui.c" bodystart="356" bodyend="360" declfile="include/installer.h" declline="365" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="installer_8h_1a3b593a01304fa915f196c1e3870ee4ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool boolean_choice</definition>
+        <argsstring>()</argsstring>
+        <name>boolean_choice</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="367" column="6" bodyfile="src/installer/tui.c" bodystart="19" bodyend="27" declfile="include/installer.h" declline="367" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="installer_8h_1a24ac25716eabc9ebbc9019d956c6dcd4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void display_progress</definition>
+        <argsstring>(const char *message, int progress)</argsstring>
+        <name>display_progress</name>
+        <param>
+          <type>const char *</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>progress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="369" column="6" bodyfile="src/installer/main.c" bodystart="53" bodyend="60" declfile="include/installer.h" declline="369" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="installer_8h_1aa3af068ba5cb4e9909b3ef971c4a5039" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void vertical_tab</definition>
+        <argsstring>()</argsstring>
+        <name>vertical_tab</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="371" column="6" bodyfile="src/installer/tui.c" bodystart="362" bodyend="364" declfile="include/installer.h" declline="371" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="installer_8h_1a453a7ae0abc8f47208a2afca0dd450d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>_Noreturn void</type>
+        <definition>_Noreturn void error_page</definition>
+        <argsstring>(const char *fmt,...) PRINTF_LIKE(1</argsstring>
+        <name>error_page</name>
+        <param>
+          <type>const char *</type>
+          <declname>fmt</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="373" column="16"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Installer functions and definitions. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>Craig Edwards </para>
+</simplesect>
+<simplesect kind="copyright"><para>Copyright (c) 2012-2025 </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <location file="include/installer.h"/>
+  </compounddef>
+</doxygen>

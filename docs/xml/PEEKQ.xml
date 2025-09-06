@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="PEEKQ" kind="page">
+    <compoundname>PEEKQ</compoundname>
+    <title>PEEKQ Function</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">X<sp/>=<sp/>PEEKQ(address)</highlight></codeline>
+</programlisting></para>
+<para>Reads a <bold>64-bit quad-word</bold> from <computeroutput>address</computeroutput> and returns it as an integer.</para>
+<para><blockquote><para>The full 8-byte span must be valid; otherwise <computeroutput>Bad Address at &lt;address&gt;</computeroutput> is raised. </para>
+</blockquote></para>
+<sect2 id="PEEKQ_1autotoc_md92">
+<title>&lt;/blockquote&gt;</title>
+<sect3 id="PEEKQ_1autotoc_md93">
+<title>How to read it</title>
+<para><itemizedlist>
+<listitem><para>Loads 8 bytes, <bold>little-endian</bold>.</para>
+</listitem><listitem><para>Unaligned 64-bit reads may <bold>tear</bold> if another agent is concurrently writing.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="PEEKQ_1autotoc_md95">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Read<sp/>a<sp/>64-bit<sp/>value</highlight></codeline>
+<codeline><highlight class="normal">Q<sp/>=<sp/>PEEKQ(&amp;100080)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>Q</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="PEEKQ_1autotoc_md97">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Use for 64-bit fields or counters; don’t assume atomicity for unaligned addresses.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PEEK">PEEK</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PEEKD">PEEKD</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/POKEQ">POKEQ</ulink> </para>
+</sect3>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/integer/PEEKQ.md"/>
+  </compounddef>
+</doxygen>

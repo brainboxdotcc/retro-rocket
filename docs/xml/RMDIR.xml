@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="RMDIR" kind="page">
+    <compoundname>RMDIR</compoundname>
+    <title>RMDIR Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">RMDIR<sp/>string-expression</highlight></codeline>
+</programlisting></para>
+<para>Removes the specified <bold>directory</bold> from the filesystem.</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>string-expression</computeroutput> must evaluate to a directory <bold>name or path</bold>.</para>
+</listitem><listitem><para>The directory <bold>must be empty</bold> or an error is raised.</para>
+</listitem></itemizedlist>
+</para>
+<para><simplesect kind="remark"><para>Paths are <bold>case-insensitive</bold>. <blockquote><para><computeroutput>.</computeroutput> and <computeroutput>..</computeroutput> are <bold>not supported</bold> in paths. </para>
+</blockquote></para>
+</simplesect>
+<blockquote><para>Use an <bold>absolute</bold> path when it starts with <computeroutput>/</computeroutput>; otherwise the path is <bold>relative</bold> to the current directory. <linebreak/>
+ Change directory with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CHDIR"><computeroutput>CHDIR</computeroutput></ulink>. </para>
+</blockquote></para>
+<para><blockquote><para>If removal fails, you can catch it with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink>. </para>
+</blockquote></para>
+<sect2 id="RMDIR_1autotoc_md456">
+<title>&lt;/blockquote&gt;</title>
+<sect3 id="RMDIR_1autotoc_md457">
+<title>Examples</title>
+<para>Remove a directory in the current folder <programlisting filename=".basic"><codeline><highlight class="normal">RMDIR<sp/>&quot;old_data&quot;</highlight></codeline>
+</programlisting></para>
+<para>Remove a directory by absolute path <programlisting filename=".basic"><codeline><highlight class="normal">RMDIR<sp/>&quot;/projects/archive&quot;</highlight></codeline>
+</programlisting></para>
+<para>Create then remove (must be empty) <programlisting filename=".basic"><codeline><highlight class="normal">MKDIR<sp/>&quot;tmp&quot;</highlight></codeline>
+<codeline><highlight class="normal">RMDIR<sp/>&quot;tmp&quot;</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="RMDIR_1autotoc_md459">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para><computeroutput>RMDIR</computeroutput> removes <bold>directories</bold> only. To delete a <bold>file</bold>, use <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DELETE"><computeroutput>DELETE</computeroutput></ulink>.</para>
+</listitem><listitem><para>Attempting to remove a non-empty directory raises a runtime error.</para>
+</listitem><listitem><para>Ensure you have permission and that no required files are inside before removing.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/MKDIR"><computeroutput>MKDIR</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DELETE"><computeroutput>DELETE</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CHDIR"><computeroutput>CHDIR</computeroutput></ulink> </para>
+</sect3>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/RMDIR.md"/>
+  </compounddef>
+</doxygen>

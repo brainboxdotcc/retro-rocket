@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="md_docpages_basic_language_reference_functions_string_INKEY" kind="page">
+    <compoundname>md_docpages_basic_language_reference_functions_string_INKEY</compoundname>
+    <title>INKEY</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>page INKEY$ INKEY$ Function <programlisting filename=".basic"><codeline><highlight class="normal">INKEY$</highlight></codeline>
+</programlisting> Returns the key which has been pressed, or if no key has been pressed, an empty string. Note that this function will use the keyboard buffer, so if multiple keys have been pressed between this call and the last call to <computeroutput>INKEY$</computeroutput> (or an <computeroutput>INPUT</computeroutput> statement) it will require multiple calls to the function to receive all of the keypresses.</para>
+<para>The following keys on the keyboard are designated as &apos;extended keys&apos; and will return the following character codes from <computeroutput>INKEY$</computeroutput>:</para>
+<para><table rows="11" cols="2"><row>
+<entry thead="yes"><para>Key</para>
+</entry><entry thead="yes"><para>INKEY$ value </para>
+</entry></row>
+<row>
+<entry thead="no"><para>PAGEUP</para>
+</entry><entry thead="no"><para>245 </para>
+</entry></row>
+<row>
+<entry thead="no"><para>PAGEDOWN</para>
+</entry><entry thead="no"><para>246 </para>
+</entry></row>
+<row>
+<entry thead="no"><para>DEL</para>
+</entry><entry thead="no"><para>47 </para>
+</entry></row>
+<row>
+<entry thead="no"><para>INS</para>
+</entry><entry thead="no"><para>48 </para>
+</entry></row>
+<row>
+<entry thead="no"><para>END</para>
+</entry><entry thead="no"><para>49 </para>
+</entry></row>
+<row>
+<entry thead="no"><para>UP</para>
+</entry><entry thead="no"><para>250 </para>
+</entry></row>
+<row>
+<entry thead="no"><para>DOWN</para>
+</entry><entry thead="no"><para>251 </para>
+</entry></row>
+<row>
+<entry thead="no"><para>LEFT</para>
+</entry><entry thead="no"><para>252 </para>
+</entry></row>
+<row>
+<entry thead="no"><para>RIGHT</para>
+</entry><entry thead="no"><para>253 </para>
+</entry></row>
+<row>
+<entry thead="no"><para>HOME</para>
+</entry><entry thead="no"><para>254 </para>
+</entry></row>
+</table>
+</para>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/string/INKEY.md"/>
+  </compounddef>
+</doxygen>

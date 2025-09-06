@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="REDIM" kind="page">
+    <compoundname>REDIM</compoundname>
+    <title>REDIM Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REDIM<sp/>variable-name,integer-expression</highlight></codeline>
+</programlisting></para>
+<para>Changes the <bold>capacity</bold> of an existing array to the new size given by <computeroutput>integer-expression</computeroutput>.</para>
+<para><itemizedlist>
+<listitem><para>Arrays are <bold>zero-indexed</bold> and <bold>range-checked</bold>: valid indices are <computeroutput>0</computeroutput> to <computeroutput>size - 1</computeroutput>.</para>
+</listitem><listitem><para>The array’s <bold>element type</bold> is determined by <computeroutput>variable-name</computeroutput> and does not change (<computeroutput>A</computeroutput> integer, <computeroutput>A#</computeroutput> real, <computeroutput>A$</computeroutput> string).</para>
+</listitem><listitem><para>Calling <computeroutput>REDIM</computeroutput> with the <bold>current size</bold> performs <bold>no operation</bold>.</para>
+</listitem></itemizedlist>
+</para>
+<para><simplesect kind="remark"><para><computeroutput>REDIM</computeroutput> preserves existing elements from index <computeroutput>0</computeroutput> up to <computeroutput>min(old_size, new_size) - 1</computeroutput>. </para>
+</simplesect>
+<simplesect kind="remark"><para>When <bold>growing</bold>, new slots are initialised to <computeroutput>0</computeroutput> (integer or real arrays) or <computeroutput>&quot;&quot;</computeroutput> (string arrays). <blockquote><para>When <bold>shrinking</bold>, elements at indices <computeroutput>new_size</computeroutput> to <computeroutput>old_size - 1</computeroutput> are <bold>permanently lost</bold>. </para>
+</blockquote></para>
+</simplesect>
+<blockquote><para><computeroutput>REDIM</computeroutput> changes the <bold>size only</bold>. It does not change type, and it does not create a new array name. <linebreak/>
+ Declare the array first with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DIM"><computeroutput>DIM</computeroutput></ulink>. </para>
+</blockquote></para>
+<sect2 id="REDIM_1autotoc_md428">
+<title>&lt;/blockquote&gt;</title>
+<sect3 id="REDIM_1autotoc_md429">
+<title>Examples</title>
+<para><bold>Grow an integer array</bold> <programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>A,3</highlight></codeline>
+<codeline><highlight class="normal">A(0)<sp/>=<sp/>10</highlight></codeline>
+<codeline><highlight class="normal">A(1)<sp/>=<sp/>20</highlight></codeline>
+<codeline><highlight class="normal">A(2)<sp/>=<sp/>30</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">REDIM<sp/>A,5</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>A(0)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>A(1)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>A(2)</highlight></codeline>
+<codeline><highlight class="normal">REM<sp/>prints<sp/>0</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>A(3)</highlight></codeline>
+<codeline><highlight class="normal">REM<sp/>prints<sp/>0<sp/><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>A(4)</highlight></codeline>
+</programlisting></para>
+<para><bold>Shrink and lose tail elements</bold> <programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>B,5</highlight></codeline>
+<codeline><highlight class="normal">B(0)<sp/>=<sp/>1</highlight></codeline>
+<codeline><highlight class="normal">B(1)<sp/>=<sp/>2</highlight></codeline>
+<codeline><highlight class="normal">B(2)<sp/>=<sp/>3</highlight></codeline>
+<codeline><highlight class="normal">B(3)<sp/>=<sp/>4</highlight></codeline>
+<codeline><highlight class="normal">B(4)<sp/>=<sp/>5</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">REDIM<sp/>B,3</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>B(0)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>B(1)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>B(2)</highlight></codeline>
+<codeline><highlight class="normal">REM<sp/>B(3)<sp/>and<sp/>B(4)<sp/>no<sp/>longer<sp/>exist</highlight></codeline>
+</programlisting></para>
+<para><bold>Make room before inserting with PUSH</bold> <programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>Q,3</highlight></codeline>
+<codeline><highlight class="normal">Q(0)<sp/>=<sp/>100</highlight></codeline>
+<codeline><highlight class="normal">Q(1)<sp/>=<sp/>200</highlight></codeline>
+<codeline><highlight class="normal">Q(2)<sp/>=<sp/>300</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">REDIM<sp/>Q,4</highlight></codeline>
+<codeline><highlight class="normal">PUSH<sp/>Q,1</highlight></codeline>
+<codeline><highlight class="normal">Q(1)<sp/>=<sp/>150</highlight></codeline>
+</programlisting></para>
+<para><bold>Strings</bold> <programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>NAMES$,2</highlight></codeline>
+<codeline><highlight class="normal">NAMES$(0)<sp/>=<sp/>&quot;ALPHA&quot;</highlight></codeline>
+<codeline><highlight class="normal">NAMES$(1)<sp/>=<sp/>&quot;BETA&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">REDIM<sp/>NAMES$,3</highlight></codeline>
+<codeline><highlight class="normal">REM<sp/>prints<sp/>empty<sp/>string</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>NAMES$(2)</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="REDIM_1autotoc_md431">
+<title>Behaviour and constraints</title>
+<para><itemizedlist>
+<listitem><para>The <bold>new size</bold> must be large enough for any indices you intend to access (<computeroutput>0..new_size-1</computeroutput>).</para>
+</listitem><listitem><para>After shrinking, accessing an index <computeroutput>&gt;= new_size</computeroutput> raises a runtime error.</para>
+</listitem><listitem><para>Use <computeroutput>REDIM</computeroutput> together with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PUSH"><computeroutput>PUSH</computeroutput></ulink> or <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/POP"><computeroutput>POP</computeroutput></ulink> to manage contents while changing capacity.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DIM"><computeroutput>DIM</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PUSH"><computeroutput>PUSH</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/POP"><computeroutput>POP</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Array"><computeroutput>Array</computeroutput></ulink> </para>
+</sect3>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/REDIM.md"/>
+  </compounddef>
+</doxygen>

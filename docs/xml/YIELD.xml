@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="YIELD" kind="page">
+    <compoundname>YIELD</compoundname>
+    <title>YIELD Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">YIELD</highlight></codeline>
+</programlisting></para>
+<para><blockquote><para><bold>Deprecated / discouraged.</bold> <linebreak/>
+ <computeroutput>YIELD</computeroutput> is not required in Retro Rocket BASIC and may be removed. It does not solve any real problem and simply wastes time. </para>
+</blockquote><computeroutput>YIELD</computeroutput> was intended as a hint to let other work run, but Retro Rocket’s scheduler already <bold>pre-empts BASIC automatically at the end of every line</bold>. <linebreak/>
+ A BASIC program <bold>cannot monopolise the CPU</bold>, so inserting <computeroutput>YIELD</computeroutput> calls has <bold>no scheduling benefit</bold>.</para>
+<para><hruler/>
+</para>
+<sect3 id="YIELD_1autotoc_md529">
+<title>Behaviour</title>
+<para><itemizedlist>
+<listitem><para>Executes as a <bold>no-op</bold> for control flow and timing; it does not pause or advance timers.</para>
+</listitem><listitem><para>Does <bold>not</bold> improve responsiveness; the interpreter yields naturally after each completed line.</para>
+</listitem><listitem><para>Adds a small amount of overhead if sprinkled inside loops.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="YIELD_1autotoc_md531">
+<title>Example (for illustration only)</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;A&quot;</highlight></codeline>
+<codeline><highlight class="normal">YIELD</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;B&quot;</highlight></codeline>
+</programlisting></para>
+<para>The output and timing are effectively the same as omitting <computeroutput>YIELD</computeroutput>.</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="YIELD_1autotoc_md533">
+<title>Alternatives</title>
+<para><itemizedlist>
+<listitem><para>If you want an <bold>actual pause</bold>, use <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/SLEEP"><computeroutput>SLEEP</computeroutput></ulink> (seconds resolution). </para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/YIELD.md"/>
+  </compounddef>
+</doxygen>

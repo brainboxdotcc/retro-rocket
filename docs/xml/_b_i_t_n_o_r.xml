@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_b_i_t_n_o_r" kind="page">
+    <compoundname>BITNOR</compoundname>
+    <title>BITNOR Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">X<sp/>=<sp/>BITNOR(a,<sp/>b)</highlight></codeline>
+</programlisting></para>
+<para>Computes the <bold>bitwise NOR</bold> of two integers.</para>
+<para><hruler/>
+</para>
+<sect3 id="_b_i_t_n_o_r_1autotoc_md22">
+<title>How to read it</title>
+<para><itemizedlist>
+<listitem><para>Equivalent to <computeroutput>NOT (a OR b)</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_b_i_t_n_o_r_1autotoc_md24">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>BITNOR(&amp;6,<sp/>&amp;3)</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_b_i_t_n_o_r_1autotoc_md26">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Operates on 64-bit integers.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BITOR">BITOR</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BITNAND">BITNAND</ulink> </para>
+</sect3>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/BITNOR.md"/>
+  </compounddef>
+</doxygen>

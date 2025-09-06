@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="md_docpages_basic_language_reference_functions_string_DATE" kind="page">
+    <compoundname>md_docpages_basic_language_reference_functions_string_DATE</compoundname>
+    <title>DATE</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>page DATE$ DATE$ Function</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">string-expression<sp/>=<sp/>DATE$(boolean-expression)</highlight></codeline>
+</programlisting></para>
+<para>Returns a string representing the current date in ISO 8601 format (<computeroutput>YYYY-MM-DD</computeroutput>).</para>
+<para><itemizedlist>
+<listitem><para>If <computeroutput>boolean-expression</computeroutput> is <computeroutput>TRUE</computeroutput>, the date is adjusted for the current time zone set using <computeroutput>SETTIMEZONE</computeroutput>, including any applicable daylight saving time (DST).</para>
+</listitem><listitem><para>If <computeroutput>boolean-expression</computeroutput> is <computeroutput>FALSE</computeroutput>, or if no time zone has been set or loaded, the date is returned in UTC as provided by the system clock.</para>
+</listitem></itemizedlist>
+</para>
+<para>Example:</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>DATE$(TRUE)<sp/><sp/><sp/>&apos;<sp/>Local<sp/>date<sp/>with<sp/>DST<sp/>if<sp/>applicable</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>DATE$(FALSE)<sp/><sp/>&apos;<sp/>Raw<sp/>UTC<sp/>date</highlight></codeline>
+</programlisting> </para>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/string/DATE.md"/>
+  </compounddef>
+</doxygen>

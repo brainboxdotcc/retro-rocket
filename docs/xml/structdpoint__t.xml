@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structdpoint__t" kind="struct" language="C++" prot="public">
+    <compoundname>dpoint_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structdpoint__t_1a2d69f7082f99ec70610cc1b92624fa0c" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double dpoint_t::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/basic/graphics.c" line="290" column="8" bodyfile="src/basic/graphics.c" bodystart="290" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdpoint__t_1acd76c7e4b485de0419abbfa479db864c" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double dpoint_t::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/basic/graphics.c" line="291" column="8" bodyfile="src/basic/graphics.c" bodystart="291" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>double</label>
+      </node>
+      <node id="1">
+        <label>dpoint_t</label>
+        <link refid="structdpoint__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>x</edgelabel>
+          <edgelabel>y</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/basic/graphics.c" line="289" column="1" bodyfile="src/basic/graphics.c" bodystart="289" bodyend="292"/>
+    <listofallmembers>
+      <member refid="structdpoint__t_1a2d69f7082f99ec70610cc1b92624fa0c" prot="public" virt="non-virtual"><scope>dpoint_t</scope><name>x</name></member>
+      <member refid="structdpoint__t_1acd76c7e4b485de0419abbfa479db864c" prot="public" virt="non-virtual"><scope>dpoint_t</scope><name>y</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

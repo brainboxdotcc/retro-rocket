@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_p_o_k_e_q" kind="page">
+    <compoundname>POKEQ</compoundname>
+    <title>POKEQ Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">POKEQ<sp/>address,<sp/>value</highlight></codeline>
+</programlisting></para>
+<para>Stores a <bold>64-bit quad-word</bold> at <computeroutput>address</computeroutput> in <bold>little-endian</bold> order.</para>
+<para><blockquote><para>[!IMPORTANT] The 8-byte span must be writable or <computeroutput>Bad Address at &lt;address&gt;</computeroutput> is raised. </para>
+</blockquote></para>
+<sect2 id="_p_o_k_e_q_1autotoc_md259">
+<title>&lt;/blockquote&gt;</title>
+<sect3 id="_p_o_k_e_q_1autotoc_md260">
+<title>How to read it</title>
+<para><itemizedlist>
+<listitem><para>Use for 64-bit pointers, descriptors, or counters.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_p_o_k_e_q_1autotoc_md262">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Store<sp/>a<sp/>64-bit<sp/>value</highlight></codeline>
+<codeline><highlight class="normal">POKEQ<sp/>&amp;100400,<sp/>&amp;0123456789ABCDEF</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>PEEKQ(&amp;100400)</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_p_o_k_e_q_1autotoc_md264">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Unaligned 64-bit writes may tear if observed concurrently.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PEEKQ">PEEKQ</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/POKED">POKED</ulink> </para>
+</sect3>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/POKEQ.md"/>
+  </compounddef>
+</doxygen>

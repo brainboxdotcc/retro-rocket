@@ -1,0 +1,1402 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="block__cache_8c" kind="file" language="C++">
+    <compoundname>block_cache.c</compoundname>
+    <includes refid="kernel_8h" local="no">kernel.h</includes>
+    <includes refid="buddy__allocator_8h" local="no">buddy_allocator.h</includes>
+    <incdepgraph>
+      <node id="57">
+        <label>ata.h</label>
+        <link refid="ata_8h"/>
+      </node>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="22">
+        <label>basic.h</label>
+        <link refid="basic_8h"/>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>basic/context.h</label>
+        <link refid="context_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="88">
+        <label>stdarg.h</label>
+      </node>
+      <node id="60">
+        <label>ramdisk.h</label>
+        <link refid="ramdisk_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="29">
+        <label>basic/validation.h</label>
+        <link refid="validation_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>basic/graphics.h</label>
+        <link refid="graphics_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="72">
+        <label>acpi.h</label>
+        <link refid="acpi_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>basic/structs.h</label>
+        <link refid="structs_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="76">
+        <label>arp.h</label>
+        <link refid="arp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="67">
+        <label>stdnoreturn.h</label>
+      </node>
+      <node id="27">
+        <label>buddy_allocator.h</label>
+        <link refid="buddy__allocator_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="83">
+        <label>dns.h</label>
+        <link refid="dns_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>basic/peekpoke.h</label>
+        <link refid="peekpoke_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="63">
+        <label>fat32.h</label>
+        <link refid="fat32_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>rwlock.h</label>
+        <link refid="rwlock_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="81">
+        <label>udp.h</label>
+        <link refid="udp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>spinlock.h</label>
+        <link refid="spinlock_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="79">
+        <label>tcp.h</label>
+        <link refid="tcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="53">
+        <label>devicename.h</label>
+        <link refid="devicename_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>idt.h</label>
+        <link refid="idt_8h"/>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="84">
+        <label>drawing.h</label>
+        <link refid="drawing_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>basic/variable.h</label>
+        <link refid="variable_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="74">
+        <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>stdlib.h</label>
+        <link refid="stdlib_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>x86intrin.h</label>
+      </node>
+      <node id="47">
+        <label>ioapic.h</label>
+        <link refid="ioapic_8h"/>
+      </node>
+      <node id="5">
+        <label>stddef.h</label>
+      </node>
+      <node id="90">
+        <label>module.h</label>
+        <link refid="module_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>basic/array.h</label>
+        <link refid="array_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>basic/flow_control.h</label>
+        <link refid="flow__control_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>limits.h</label>
+      </node>
+      <node id="66">
+        <label>keyboard.h</label>
+        <link refid="keyboard_8h"/>
+        <childnode refid="67" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>io.h</label>
+        <link refid="io_8h"/>
+      </node>
+      <node id="15">
+        <label>printf.h</label>
+        <link refid="printf_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="75">
+        <label>e1000.h</label>
+        <link refid="e1000_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="70">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>basic/builtin_real_functions.h</label>
+        <link refid="builtin__real__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>limine.h</label>
+      </node>
+      <node id="68">
+        <label>input.h</label>
+        <link refid="input_8h"/>
+      </node>
+      <node id="85">
+        <label>fpu.h</label>
+        <link refid="fpu_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>video.h</label>
+        <link refid="video_8h"/>
+      </node>
+      <node id="87">
+        <label>serial.h</label>
+        <link refid="serial_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="80">
+        <label>icmp.h</label>
+        <link refid="icmp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>basic/sockets.h</label>
+        <link refid="sockets_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>basic/defines.h</label>
+        <link refid="defines_8h"/>
+      </node>
+      <node id="17">
+        <label>vector.h</label>
+        <link refid="vector_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="77">
+        <label>ip.h</label>
+        <link refid="ip_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/fs/block_cache.c</label>
+        <link refid="block__cache_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>basic/builtin_integer_functions.h</label>
+        <link refid="builtin__integer__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>filesystem.h</label>
+        <link refid="filesystem_8h"/>
+      </node>
+      <node id="51">
+        <label>maths.h</label>
+        <link refid="maths_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>devfs.h</label>
+        <link refid="devfs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>basic/expression.h</label>
+        <link refid="expression_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="65">
+        <label>errorhandler.h</label>
+        <link refid="errorhandler_8h"/>
+      </node>
+      <node id="32">
+        <label>basic/builtin_string_functions.h</label>
+        <link refid="builtin__string__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="78">
+        <label>ethernet.h</label>
+        <link refid="ethernet_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <link refid="kernel_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>memcpy.h</label>
+        <link refid="memcpy_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>basic/console.h</label>
+        <link refid="console_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="59">
+        <label>partition.h</label>
+        <link refid="partition_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>random.h</label>
+        <link refid="random_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="89">
+        <label>debug_ringbuffer.h</label>
+        <link refid="debug__ringbuffer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="71">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>hashmap.h</label>
+        <link refid="hashmap_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="73">
+        <label>net.h</label>
+        <link refid="net_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>timer.h</label>
+        <link refid="timer_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>basic/reflection.h</label>
+        <link refid="reflection_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="64">
+        <label>debugger.h</label>
+        <link refid="debugger_8h"/>
+      </node>
+      <node id="33">
+        <label>basic/builtin_file_io_functions.h</label>
+        <link refid="builtin__file__io__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>interrupt.h</label>
+        <link refid="interrupt_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>kmalloc.h</label>
+        <link refid="kmalloc_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>scsi.h</label>
+        <link refid="scsi_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>map.h</label>
+        <link refid="map_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>tokenizer.h</label>
+        <link refid="tokenizer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>basic/lowlevel.h</label>
+        <link refid="lowlevel_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>pci.h</label>
+        <link refid="pci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>apic.h</label>
+        <link refid="apic_8h"/>
+      </node>
+      <node id="21">
+        <label>string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
+        <label>ahci.h</label>
+        <link refid="ahci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>basic/process.h</label>
+        <link refid="process_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="82">
+        <label>dhcp.h</label>
+        <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="86">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>basic/datetime.h</label>
+        <link refid="datetime_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="69">
+        <label>clock.h</label>
+        <link refid="clock_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innerclass refid="structblock__cache__entry__t" prot="public">block_cache_entry_t</innerclass>
+    <innerclass refid="structlru__node__t" prot="public">lru_node_t</innerclass>
+    <innerclass refid="structblock__cache__t" prot="public">block_cache_t</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="block__cache_8c_1aea971ff5ce2f01ec752eef62aa6f9a2b" prot="public" static="no">
+        <name>BLOCK_CACHE_SECTOR_CAP</name>
+        <initializer>8192</initializer>
+        <briefdescription>
+<para>Global per-device cache capacity in sectors. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This limit is applied to every cache instance. Increase with care; it impacts memory consumption linearly (one sector buffer per entry). </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/block_cache.c" line="50" column="9" bodyfile="src/fs/block_cache.c" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="block__cache_8c_1a817b14615a4484f6c112ea80aed1e34e" prot="public" static="no">
+        <name>CACHE_HASH_SEED0</name>
+        <initializer>1469598103934665603ULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/block_cache.c" line="54" column="9" bodyfile="src/fs/block_cache.c" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="block__cache_8c_1a5dd47563d0796c2c7a4dba8ae092bb1e" prot="public" static="no">
+        <name>CACHE_HASH_SEED1</name>
+        <initializer>1099511628211ULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/block_cache.c" line="55" column="9" bodyfile="src/fs/block_cache.c" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="block__cache_8c_1abfa0a4082b12c96cee5796898d6d7b41" prot="public" static="yes" mutable="no">
+        <type><ref refid="structbuddy__allocator__t" kindref="compound">buddy_allocator_t</ref></type>
+        <definition>buddy_allocator_t cache_allocator</definition>
+        <argsstring></argsstring>
+        <name>cache_allocator</name>
+        <initializer>= {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Buddy allocator for content </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/block_cache.c" line="100" column="26" bodyfile="src/fs/block_cache.c" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="block__cache_8c_1ac4b1a3ccd1b810237992eb26829b2e19" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int cache_compare</definition>
+        <argsstring>(const void *a, const void *b, [[maybe_unused]] void *udata)</argsstring>
+        <name>cache_compare</name>
+        <param>
+          <type>const void *</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <attributes>[[maybe_unused]</attributes>
+          <type>] void *</type>
+          <declname>udata</declname>
+        </param>
+        <briefdescription>
+<para>Compare two cache entries by LBA (hashmap comparator). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Expects pointers to <ref refid="structblock__cache__entry__t" kindref="compound">block_cache_entry_t</ref>. Returns negative, zero, or positive according to standard qsort-style ordering.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>a</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>First entry. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Second entry. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>udata</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Unused user data pointer. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>&lt;0 if <computeroutput>a</computeroutput> &lt; <computeroutput>b</computeroutput>, 0 if equal, &gt;0 if <computeroutput>a</computeroutput> &gt; <computeroutput>b</computeroutput>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/block_cache.c" line="113" column="12" bodyfile="src/fs/block_cache.c" bodystart="113" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="block__cache_8c_1abe0efe341a694706cdfaacce6c2ca56c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>static uint64_t cache_hash</definition>
+        <argsstring>(const void *item, uint64_t seed0, uint64_t seed1)</argsstring>
+        <name>cache_hash</name>
+        <param>
+          <type>const void *</type>
+          <declname>item</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>seed0</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>seed1</declname>
+        </param>
+        <briefdescription>
+<para>Hash a cache entry by LBA (hashmap hasher). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Uses SipHash over the 64-bit LBA stored in the entry.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>item</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Entry to hash (points to <ref refid="structblock__cache__entry__t" kindref="compound">block_cache_entry_t</ref>). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>seed0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Primary seed. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>seed1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Secondary seed. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>64-bit hash value. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/block_cache.c" line="135" column="17" bodyfile="src/fs/block_cache.c" bodystart="135" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="function" id="block__cache_8c_1aea4942023a165e6903d9c628c3f806c2" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structlru__node__t" kindref="compound">lru_node_t</ref> *</type>
+        <definition>static lru_node_t* lru_alloc_node</definition>
+        <argsstring>(uint64_t lba)</argsstring>
+        <name>lru_alloc_node</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>lba</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/block_cache.c" line="140" column="26" bodyfile="src/fs/block_cache.c" bodystart="140" bodyend="148"/>
+      </memberdef>
+      <memberdef kind="function" id="block__cache_8c_1a289bc1117f84204d9c3d793e43883619" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void lru_free_node</definition>
+        <argsstring>(lru_node_t *n)</argsstring>
+        <name>lru_free_node</name>
+        <param>
+          <type><ref refid="structlru__node__t" kindref="compound">lru_node_t</ref> *</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/block_cache.c" line="150" column="20" bodyfile="src/fs/block_cache.c" bodystart="150" bodyend="152"/>
+      </memberdef>
+      <memberdef kind="function" id="block__cache_8c_1aed89ec1e1b4f49c804a29fdfba5252fc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void lru_unlink</definition>
+        <argsstring>(block_cache_t *c, lru_node_t *n)</argsstring>
+        <name>lru_unlink</name>
+        <param>
+          <type><ref refid="structblock__cache__t" kindref="compound">block_cache_t</ref> *</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type><ref refid="structlru__node__t" kindref="compound">lru_node_t</ref> *</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/block_cache.c" line="155" column="13" bodyfile="src/fs/block_cache.c" bodystart="155" bodyend="171"/>
+      </memberdef>
+      <memberdef kind="function" id="block__cache_8c_1a3e3617dc7e13e781b8122cf426fc8f18" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int lru_touch</definition>
+        <argsstring>(block_cache_t *c, uint64_t lba)</argsstring>
+        <name>lru_touch</name>
+        <param>
+          <type><ref refid="structblock__cache__t" kindref="compound">block_cache_t</ref> *</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>lba</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/block_cache.c" line="177" column="12" bodyfile="src/fs/block_cache.c" bodystart="177" bodyend="194"/>
+      </memberdef>
+      <memberdef kind="function" id="block__cache_8c_1ad661aba7b7732d552d620b180b611fe3" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structlru__node__t" kindref="compound">lru_node_t</ref> *</type>
+        <definition>static lru_node_t* lru_pop_head</definition>
+        <argsstring>(block_cache_t *c)</argsstring>
+        <name>lru_pop_head</name>
+        <param>
+          <type><ref refid="structblock__cache__t" kindref="compound">block_cache_t</ref> *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/block_cache.c" line="198" column="19" bodyfile="src/fs/block_cache.c" bodystart="198" bodyend="205"/>
+      </memberdef>
+      <memberdef kind="function" id="block__cache_8c_1a84954ff10eddc8abff7aab7087012c88" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void evict_one</definition>
+        <argsstring>(block_cache_t *c)</argsstring>
+        <name>evict_one</name>
+        <param>
+          <type><ref refid="structblock__cache__t" kindref="compound">block_cache_t</ref> *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Evict the globally oldest entry from the cache. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Pops the LRU head, removes the entry from the hashmap if present, and frees its sector buffer. No-op if the LRU is empty.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cache instance. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/block_cache.c" line="215" column="13" bodyfile="src/fs/block_cache.c" bodystart="215" bodyend="240"/>
+      </memberdef>
+      <memberdef kind="function" id="block__cache_8c_1a48d33a0b1b6d92c809064141ee29e848" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* cache_malloc</definition>
+        <argsstring>(size_t size, void *udata)</argsstring>
+        <name>cache_malloc</name>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>udata</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/block_cache.c" line="242" column="6" bodyfile="src/fs/block_cache.c" bodystart="242" bodyend="245"/>
+      </memberdef>
+      <memberdef kind="function" id="block__cache_8c_1a203ee3b15cac3c0acc1b07515c4e079f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* cache_realloc</definition>
+        <argsstring>(void *ptr, size_t size, void *udata)</argsstring>
+        <name>cache_realloc</name>
+        <param>
+          <type>void *</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>udata</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/block_cache.c" line="247" column="6" bodyfile="src/fs/block_cache.c" bodystart="247" bodyend="249"/>
+      </memberdef>
+      <memberdef kind="function" id="block__cache_8c_1abbfb6b42078d74218c121ea0d3e0d0ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cache_free</definition>
+        <argsstring>(const void *ptr, void *udata)</argsstring>
+        <name>cache_free</name>
+        <param>
+          <type>const void *</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>udata</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/block_cache.c" line="251" column="6" bodyfile="src/fs/block_cache.c" bodystart="251" bodyend="253"/>
+      </memberdef>
+      <memberdef kind="function" id="block__cache_8c_1a38e91ba9289f42c4b1de6f95b05855a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structblock__cache__t" kindref="compound">block_cache_t</ref> *</type>
+        <definition>block_cache_t* block_cache_create</definition>
+        <argsstring>(storage_device_t *dev)</argsstring>
+        <name>block_cache_create</name>
+        <param>
+          <type><ref refid="structstorage__device__t" kindref="compound">storage_device_t</ref> *</type>
+          <declname>dev</declname>
+        </param>
+        <briefdescription>
+<para>Create a new cache for a storage device. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device to attach cache to. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to cache instance, or NULL on error. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/block_cache.c" line="255" column="15" bodyfile="src/fs/block_cache.c" bodystart="255" bodyend="284"/>
+      </memberdef>
+      <memberdef kind="function" id="block__cache_8c_1abfe62fb75908c192e86197b4def8cb84" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void block_cache_destroy</definition>
+        <argsstring>(block_cache_t **pcache)</argsstring>
+        <name>block_cache_destroy</name>
+        <param>
+          <type><ref refid="structblock__cache__t" kindref="compound">block_cache_t</ref> **</type>
+          <declname>pcache</declname>
+        </param>
+        <briefdescription>
+<para>Destroy a cache and free all associated resources. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pcache</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to cache pointer; set to NULL on return. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/block_cache.c" line="286" column="6" bodyfile="src/fs/block_cache.c" bodystart="286" bodyend="308"/>
+      </memberdef>
+      <memberdef kind="function" id="block__cache_8c_1a2359288ab07f2d82c900200a0dd9897f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>static uint32_t sectors_for_len</definition>
+        <argsstring>(uint32_t sector_size, uint32_t bytes)</argsstring>
+        <name>sectors_for_len</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>sector_size</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>bytes</declname>
+        </param>
+        <briefdescription>
+<para>Compute a sector count that covers a byte length. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Rounds up <computeroutput>bytes</computeroutput> to a whole number of <computeroutput>sector_size</computeroutput> units. Used to iterate multi-sector operations at sector granularity.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sector_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device sector size in bytes. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Requested byte length. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Number of sectors covering <computeroutput>bytes</computeroutput> (at least 1). </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/block_cache.c" line="320" column="17" bodyfile="src/fs/block_cache.c" bodystart="320" bodyend="329"/>
+      </memberdef>
+      <memberdef kind="function" id="block__cache_8c_1a3b8884125c6b7df9ca2fd819bbd9138b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int block_cache_read</definition>
+        <argsstring>(block_cache_t *c, uint64_t lba, uint32_t bytes, unsigned char *out)</argsstring>
+        <name>block_cache_read</name>
+        <param>
+          <type><ref refid="structblock__cache__t" kindref="compound">block_cache_t</ref> *</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>lba</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>bytes</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>out</declname>
+        </param>
+        <briefdescription>
+<para>Read bytes from a cached device. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Granularity is per sector; the cache works in multiples of the device’s block size. Reads hitting the cache are served immediately; misses are read from the device and then cached.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cache instance. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>lba</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Starting sector number. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to read. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination buffer. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 on success, 0 on failure (<ref refid="filesystem_8h_1a59cfed9fdbdd4476b57fdf0a163e0a48" kindref="member">fs_set_error()</ref> is set). </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/block_cache.c" line="331" column="5" bodyfile="src/fs/block_cache.c" bodystart="331" bodyend="371"/>
+      </memberdef>
+      <memberdef kind="function" id="block__cache_8c_1acaf875ca742effa3fcbdb8d204802361" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int block_cache_write</definition>
+        <argsstring>(block_cache_t *c, uint64_t lba, uint32_t bytes, const unsigned char *src)</argsstring>
+        <name>block_cache_write</name>
+        <param>
+          <type><ref refid="structblock__cache__t" kindref="compound">block_cache_t</ref> *</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>lba</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>bytes</declname>
+        </param>
+        <param>
+          <type>const unsigned char *</type>
+          <declname>src</declname>
+        </param>
+        <briefdescription>
+<para>Write bytes through to a cached device. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Writes are always passed to the device. The cache is updated (write-allocate) so subsequent reads will hit.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cache instance. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>lba</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Starting sector number. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to write. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>src</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source buffer. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 on success, 0 on failure (<ref refid="filesystem_8h_1a59cfed9fdbdd4476b57fdf0a163e0a48" kindref="member">fs_set_error()</ref> is set). </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/block_cache.c" line="373" column="5" bodyfile="src/fs/block_cache.c" bodystart="373" bodyend="454"/>
+      </memberdef>
+      <memberdef kind="function" id="block__cache_8c_1a9155c768b2392e61187abca5dc8e6134" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void block_cache_invalidate</definition>
+        <argsstring>(block_cache_t *c)</argsstring>
+        <name>block_cache_invalidate</name>
+        <param>
+          <type><ref refid="structblock__cache__t" kindref="compound">block_cache_t</ref> *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Invalidate all entries in a cache. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Useful when a device is reset or forcibly changed.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cache instance. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/block_cache.c" line="456" column="6" bodyfile="src/fs/block_cache.c" bodystart="456" bodyend="466"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>O(1) block cache with LRU eviction. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This module implements a sector/block cache designed for use with storage devices. It combines a hashmap (for direct lookup) with an LRU queue (for eviction ordering).</para>
+<sect2 id="block__cache_8c_1autotoc_md674">
+<title>Design</title>
+<para><itemizedlist>
+<listitem><para>Each cached LBA is stored in a hashmap for O(1) lookup.</para>
+</listitem><listitem><para>The eviction policy is Least Recently Used (LRU).</para>
+</listitem><listitem><para>Instead of maintaining a &quot;perfect&quot; LRU list, the queue only stores LBA values. When an LBA is re-inserted, a new entry is appended to the tail of the list; the old entry is left in place. On eviction, the cache checks if the LBA still exists in the hashmap before removing it.</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="block__cache_8c_1autotoc_md675">
+<title>Complexity</title>
+<para><itemizedlist>
+<listitem><para>Cache store (insert): O(1)</para>
+</listitem><listitem><para>Cache fetch (lookup): O(1)</para>
+</listitem><listitem><para>Eviction: O(1) amortised</para>
+</listitem></itemizedlist>
+</para>
+<para>By tolerating duplicates in the LRU queue and validating at eviction time, we avoid costly O(n) operations to move entries within the queue. The result is a strictly constant-time cache for both reads and writes.</para>
+</sect2>
+<sect2 id="block__cache_8c_1autotoc_md676">
+<title>Trade-offs</title>
+<para><itemizedlist>
+<listitem><para>Memory overhead: The LRU queue may contain duplicate LBAs. This increases memory use slightly, but only linearly with cache size.</para>
+</listitem><listitem><para>Eviction precision: Because of duplicates, eviction order is approximate LRU rather than perfect. In practice this has negligible impact on hit rates and avoids the cost of O(n) list traversal or heap reordering.</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="block__cache_8c_1autotoc_md677">
+<title>Summary</title>
+<para>This design achieves the optimal theoretical complexity for a block cache: O(1) lookup, O(1) insert, and O(1) eviction. It is robust against pointer invalidation bugs by never storing raw pointers from the hashmap in the LRU queue, and it guarantees bounded, predictable performance even under heavy load. </para>
+</sect2>
+    </detaileddescription>
+    <location file="src/fs/block_cache.c"/>
+  </compounddef>
+</doxygen>

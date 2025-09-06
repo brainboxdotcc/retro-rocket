@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="variables" kind="page">
+    <compoundname>variables</compoundname>
+    <title>Variable Types</title>
+    <innerpage refid="type-integer">Integer Variables</innerpage>
+    <innerpage refid="type-real">Real Variables</innerpage>
+    <innerpage refid="type-string">String Variables</innerpage>
+    <innerpage refid="type-array">Array Variables</innerpage>
+    <innerpage refid="type-bi">Built-In Variables</innerpage>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Variables in Retro Rocket BASIC must follow the following rules:</para>
+<para><orderedlist>
+<listitem><para>Variables <bold>must start with an alphabetic character or an underscore</bold>, e.g. <computeroutput>A</computeroutput>-<computeroutput>Z</computeroutput>, <computeroutput>a</computeroutput>-<computeroutput>z</computeroutput> or <computeroutput>_</computeroutput>.</para>
+</listitem><listitem><para>Variables <bold>can contain numeric characters</bold>, so long as those numeric characters are not the first character.</para>
+</listitem><listitem><para>After the first character, a variable <bold>may contain any alphanumeric or underscore character in any position</bold></para>
+</listitem><listitem><para>Variable names have a <bold>maximum length of 60 characters</bold>. This does not include any array indexes and is to help aid readability.</para>
+</listitem><listitem><para>Variable names <bold>may be suffixed with a single <computeroutput>$</computeroutput> to denote a string variable, or a single <computeroutput>#</computeroutput> to denote a real variable</bold> (floating point). These symbols are not permitted anywhere else in the variable name.</para>
+</listitem><listitem><para>Variable names are <bold>CaSe SeNsItIvE</bold>.</para>
+</listitem><listitem><para>Variable names <bold>cannot start with a keyword or built in function name</bold></para>
+</listitem></orderedlist>
+</para>
+<para>In summary, the following regular expression could be considered to match all valid Retro Rocket BASIC variables: <programlisting><codeline><highlight class="normal">/[A-Za-z_][A-Za-z_0-9]{1,58}(\$|#|[A-Za-z_0-9])/</highlight></codeline>
+</programlisting></para>
+<para><itemizedlist>
+<listitem><para><ref refid="type-integer" kindref="compound">Integer Variables</ref></para>
+</listitem><listitem><para><ref refid="type-real" kindref="compound">Real Variables</ref></para>
+</listitem><listitem><para><ref refid="type-string" kindref="compound">String Variables</ref></para>
+</listitem><listitem><para><ref refid="type-array" kindref="compound">Array Variables</ref></para>
+</listitem><listitem><para><ref refid="type-bi" kindref="compound">Built-In Variables</ref> </para>
+</listitem></itemizedlist>
+</para>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/variables/05_INDEX.md"/>
+  </compounddef>
+</doxygen>

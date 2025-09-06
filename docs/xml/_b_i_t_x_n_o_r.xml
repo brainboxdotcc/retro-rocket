@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_b_i_t_x_n_o_r" kind="page">
+    <compoundname>BITXNOR</compoundname>
+    <title>BITXNOR Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">X<sp/>=<sp/>BITXNOR(a,<sp/>b)</highlight></codeline>
+</programlisting></para>
+<para>Computes the <bold>bitwise equivalence</bold> (XNOR) of two integers.</para>
+<para><hruler/>
+</para>
+<sect3 id="_b_i_t_x_n_o_r_1autotoc_md64">
+<title>How to read it</title>
+<para><itemizedlist>
+<listitem><para>Equivalent to <computeroutput>NOT (a XOR b)</computeroutput>.</para>
+</listitem><listitem><para>Returns all bits that are the same in both operands.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_b_i_t_x_n_o_r_1autotoc_md66">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>BITXNOR(&amp;6,<sp/>&amp;3)</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_b_i_t_x_n_o_r_1autotoc_md68">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Operates on 64-bit integers.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BITEOR">BITEOR</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BITNOT">BITNOT</ulink> </para>
+</sect3>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/BITXNOR.md"/>
+  </compounddef>
+</doxygen>

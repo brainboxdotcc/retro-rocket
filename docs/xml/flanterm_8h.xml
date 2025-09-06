@@ -5,10 +5,10 @@
     <includes local="no">stddef.h</includes>
     <includes local="no">stdint.h</includes>
     <includes local="no">stdbool.h</includes>
-    <includedby refid="fb_8h" local="yes">fb.h</includedby>
-    <includedby refid="fb_8c" local="yes">fb.c</includedby>
-    <includedby refid="flanterm_8c" local="yes">flanterm.c</includedby>
-    <includedby refid="video_8c" local="no">video.c</includedby>
+    <includedby refid="fb_8h" local="yes">include/flanterm/fb.h</includedby>
+    <includedby refid="fb_8c" local="yes">src/flanterm/fb.c</includedby>
+    <includedby refid="flanterm_8c" local="yes">src/flanterm/flanterm.c</includedby>
+    <includedby refid="video_8c" local="no">src/video.c</includedby>
     <incdepgraph>
       <node id="4">
         <label>stdbool.h</label>
@@ -20,7 +20,7 @@
         <label>stddef.h</label>
       </node>
       <node id="1">
-        <label>flanterm.h</label>
+        <label>include/flanterm.h</label>
         <link refid="flanterm_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
@@ -32,11 +32,11 @@
     </incdepgraph>
     <invincdepgraph>
       <node id="4">
-        <label>video.c</label>
+        <label>src/video.c</label>
         <link refid="video_8c"/>
       </node>
       <node id="1">
-        <label>flanterm.h</label>
+        <label>include/flanterm.h</label>
         <link refid="flanterm_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
@@ -48,15 +48,15 @@
         </childnode>
       </node>
       <node id="5">
-        <label>flanterm.c</label>
+        <label>src/flanterm/flanterm.c</label>
         <link refid="flanterm_8c"/>
       </node>
       <node id="3">
-        <label>fb.c</label>
+        <label>src/flanterm/fb.c</label>
         <link refid="fb_8c"/>
       </node>
       <node id="2">
-        <label>fb.h</label>
+        <label>include/flanterm/fb.h</label>
         <link refid="fb_8h"/>
         <childnode refid="3" relation="include">
         </childnode>

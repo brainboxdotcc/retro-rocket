@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_p_r_o_c" kind="page">
+    <compoundname>PROC</compoundname>
+    <title>PROC Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PROCname(expression,<sp/>...)</highlight></codeline>
+</programlisting></para>
+<para>Calls a <bold>procedure</bold> defined with <computeroutput>DEF PROCname(...) ... ENDPROC</computeroutput>. <linebreak/>
+ A procedure performs actions and then returns to the statement <bold>after</bold> the call. It does <bold>not</bold> return a value.</para>
+<para><blockquote><para>[!IMPORTANT] There is <bold>no space</bold> between <computeroutput>PROC</computeroutput> and the name. <linebreak/>
+ Example: <computeroutput>PROCdrawBox(10, 5)</computeroutput> not <computeroutput>PROC drawBox(10, 5)</computeroutput>. </para>
+</blockquote><itemizedlist>
+<listitem><para>The <bold>number</bold> and <bold>types</bold> of arguments must match the <computeroutput>DEF PROC...</computeroutput> definition.</para>
+</listitem><listitem><para>Procedures cannot be used inside expressions. For a value, define and call an <computeroutput>FN</computeroutput> function.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<sect3 id="_p_r_o_c_1autotoc_md284">
+<title>Examples</title>
+<para><bold>Define and call a procedure</bold> <programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>PROChello(NAME$)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Hello,<sp/>&quot;;<sp/>NAME$</highlight></codeline>
+<codeline><highlight class="normal">ENDPROC</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">PROChello(&quot;WORLD&quot;)</highlight></codeline>
+</programlisting></para>
+<para><bold>Procedure that draws using parameters</bold> <programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>PROCfilledCircle(X,<sp/>Y,<sp/>R,<sp/>COL)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>GCOL<sp/>COL</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>CIRCLE<sp/>X,<sp/>Y,<sp/>R,<sp/>TRUE</highlight></codeline>
+<codeline><highlight class="normal">ENDPROC</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">PROCfilledCircle(160,<sp/>120,<sp/>40,<sp/>RGB(0,255,0))</highlight></codeline>
+</programlisting></para>
+<para><bold>Locals inside a procedure</bold> <programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>PROCsumDemo(N)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>LOCAL<sp/>TOTAL<sp/>=<sp/>0</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>FOR<sp/>I<sp/>=<sp/>1<sp/>TO<sp/>N</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOCAL<sp/>TOTAL<sp/>=<sp/>TOTAL<sp/>+<sp/>I</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>NEXT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Sum<sp/>to<sp/>&quot;;<sp/>N;<sp/>&quot;<sp/>=<sp/>&quot;;<sp/>TOTAL</highlight></codeline>
+<codeline><highlight class="normal">ENDPROC</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">PROCsumDemo(5)</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_p_r_o_c_1autotoc_md286">
+<title>Errors and behaviour</title>
+<para><itemizedlist>
+<listitem><para>Calling an <bold>undefined</bold> procedure, using the <bold>wrong number</bold> of arguments, or <bold>mismatched types</bold> raises a runtime error (trap with <computeroutput>ON ERROR PROC...</computeroutput> if desired).</para>
+</listitem><listitem><para>The end of a procedure is marked by **<computeroutput>ENDPROC</computeroutput>**. Using <computeroutput>ENDPROC</computeroutput> outside a procedure is an error.</para>
+</listitem><listitem><para>Parameters are available by name inside the body. Use <computeroutput>LOCAL name = expr</computeroutput> to create or update locals that shadow any globals of the same name.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DEF"><computeroutput>DEF</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ENDPROC"><computeroutput>ENDPROC</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/FN"><computeroutput>FN</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/LOCAL"><computeroutput>LOCAL</computeroutput></ulink> </para>
+</sect3>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/PROC.md"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_r_e_m" kind="page">
+    <compoundname>REM</compoundname>
+    <title>REM Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>any-text</highlight></codeline>
+</programlisting></para>
+<para>Adds a remark (comment) to your program. The interpreter <bold>ignores the rest of the line</bold> after <computeroutput>REM</computeroutput>.</para>
+<para><blockquote><para>[!NOTE]</para>
+<para>You can use the &apos; symbol in any line as a shorthand to place a comment on the end of that line. e.g.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;owls&quot;<sp/>&apos;<sp/>Show<sp/>my<sp/>favourite<sp/>bird</highlight></codeline>
+</programlisting> You do not need to use any special separator, the &apos; on its own is enough to indicate where the comment begins. Inside a <bold>string literal</bold> (delimited by double quotes), an apostrophe is just a character: it does <bold>not</bold> start a comment. <linebreak/>
+ Example: <programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;It&apos;s<sp/>fine&quot;`<sp/>&apos;<sp/>Prints<sp/>the<sp/>apostrophe</highlight></codeline>
+</programlisting> </para>
+</blockquote></para>
+<sect2 id="_r_e_m_1autotoc_md302">
+<title>&lt;/blockquote&gt;</title>
+<sect3 id="_r_e_m_1autotoc_md303">
+<title>Behaviour</title>
+<para><itemizedlist>
+<listitem><para>Everything from <computeroutput>REM</computeroutput> to the end of the line is treated as a comment.</para>
+</listitem><listitem><para><computeroutput>REM</computeroutput> has <bold>no runtime effect</bold> and produces no output.</para>
+</listitem><listitem><para>You can place <computeroutput>REM</computeroutput> anywhere a statement is allowed (for example between executable lines).</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_r_e_m_1autotoc_md305">
+<title>Examples</title>
+<para><bold>Simple comment</bold> <programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>This<sp/>program<sp/>draws<sp/>a<sp/>box</highlight></codeline>
+<codeline><highlight class="normal">GCOL<sp/>RGB(0,255,0)</highlight></codeline>
+<codeline><highlight class="normal">RECTANGLE<sp/>50,<sp/>50,<sp/>200,<sp/>120</highlight></codeline>
+</programlisting></para>
+<para><bold>Temporarily disable a line</bold> <programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>PRINT<sp/>&quot;Debug:<sp/>entering<sp/>main<sp/>loop&quot;</highlight></codeline>
+</programlisting></para>
+<para><bold>Empty remark (acts like a labelled blank line)</bold> <programlisting filename=".basic"><codeline><highlight class="normal">REM</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Hello&quot;</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_r_e_m_1autotoc_md307">
+<title>Tips</title>
+<para><itemizedlist>
+<listitem><para>Use consistent prefixes in your comments (e.g. <computeroutput>REM TODO:</computeroutput> or <computeroutput>REM NOTE:</computeroutput>) to make them easy to search for.</para>
+</listitem><listitem><para>Keep comments adjacent to the code they describe so they stay in sync as the program evolves. </para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/REM.md"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structblock__cache__entry__t" kind="struct" language="C++" prot="public">
+    <compoundname>block_cache_entry_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structblock__cache__entry__t_1a9145be6914e3159f2e5ba5ed867b9d79" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t block_cache_entry_t::lba</definition>
+        <argsstring></argsstring>
+        <name>lba</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Absolute sector number on the device. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/block_cache.c" line="65" column="10" bodyfile="src/fs/block_cache.c" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structblock__cache__entry__t_1a6a26416d8a51a1e41c37a7eb5d0bf3c0" prot="public" static="no" mutable="no">
+        <type>uint8_t *</type>
+        <definition>uint8_t* block_cache_entry_t::buf</definition>
+        <argsstring></argsstring>
+        <name>buf</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Pointer to sector-sized buffer containing data. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/block_cache.c" line="66" column="9" bodyfile="src/fs/block_cache.c" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structblock__cache__entry__t_1a048c6d3d90f3c4e50b934da191812b14" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t block_cache_entry_t::last_used</definition>
+        <argsstring></argsstring>
+        <name>last_used</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Monotonic tick value; updated on every access. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/block_cache.c" line="67" column="10" bodyfile="src/fs/block_cache.c" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A single cached sector entry. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Represents one device sector held in the cache. Each entry tracks its LBA, sector buffer, and recency information. Entries are stored in the cache&apos;s hashmap. The LRU queue stores LBAs only to avoid stale pointers. </para>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>block_cache_entry_t</label>
+        <link refid="structblock__cache__entry__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>last_used</edgelabel>
+          <edgelabel>lba</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>buf</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>uint64_t</label>
+      </node>
+      <node id="3">
+        <label>uint8_t</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/fs/block_cache.c" line="64" column="1" bodyfile="src/fs/block_cache.c" bodystart="64" bodyend="68"/>
+    <listofallmembers>
+      <member refid="structblock__cache__entry__t_1a6a26416d8a51a1e41c37a7eb5d0bf3c0" prot="public" virt="non-virtual"><scope>block_cache_entry_t</scope><name>buf</name></member>
+      <member refid="structblock__cache__entry__t_1a048c6d3d90f3c4e50b934da191812b14" prot="public" virt="non-virtual"><scope>block_cache_entry_t</scope><name>last_used</name></member>
+      <member refid="structblock__cache__entry__t_1a9145be6914e3159f2e5ba5ed867b9d79" prot="public" virt="non-virtual"><scope>block_cache_entry_t</scope><name>lba</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

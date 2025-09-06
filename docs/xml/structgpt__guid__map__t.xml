@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structgpt__guid__map__t" kind="struct" language="C++" prot="public">
+    <compoundname>gpt_guid_map_t</compoundname>
+    <includes local="no">installer.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structgpt__guid__map__t_1ad62e37de5cb5a6876648ce06759df2e9" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* gpt_guid_map_t::guid_text</definition>
+        <argsstring></argsstring>
+        <name>guid_text</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="70" column="12" bodyfile="include/installer.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structgpt__guid__map__t_1a883ccdcd0c325701b1591f21cd2f3c6f" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* gpt_guid_map_t::tag</definition>
+        <argsstring></argsstring>
+        <name>tag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="71" column="12" bodyfile="include/installer.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structgpt__guid__map__t_1a61a377af5cee0fd178d5ff421e8202ce" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* gpt_guid_map_t::likely_os</definition>
+        <argsstring></argsstring>
+        <name>likely_os</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/installer.h" line="72" column="12" bodyfile="include/installer.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Mapping of a GPT GUID to user-facing labels. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>gpt_guid_map_t</label>
+        <link refid="structgpt__guid__map__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>guid_text</edgelabel>
+          <edgelabel>likely_os</edgelabel>
+          <edgelabel>tag</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/installer.h" line="69" column="1" bodyfile="include/installer.h" bodystart="69" bodyend="73"/>
+    <listofallmembers>
+      <member refid="structgpt__guid__map__t_1ad62e37de5cb5a6876648ce06759df2e9" prot="public" virt="non-virtual"><scope>gpt_guid_map_t</scope><name>guid_text</name></member>
+      <member refid="structgpt__guid__map__t_1a61a377af5cee0fd178d5ff421e8202ce" prot="public" virt="non-virtual"><scope>gpt_guid_map_t</scope><name>likely_os</name></member>
+      <member refid="structgpt__guid__map__t_1a883ccdcd0c325701b1591f21cd2f3c6f" prot="public" virt="non-virtual"><scope>gpt_guid_map_t</scope><name>tag</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="PRINT" kind="page">
+    <compoundname>PRINT</compoundname>
+    <title>PRINT Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>printable</highlight></codeline>
+</programlisting></para>
+<para>Outputs text at the current cursor position on the text screen. <linebreak/>
+ <computeroutput>printable</computeroutput> may be a string or a numeric expression; numbers are converted to text automatically.</para>
+<para><hruler/>
+</para>
+<sect3 id="PRINT_1autotoc_md406">
+<title>Separators and line endings</title>
+<para><computeroutput>PRINT</computeroutput> accepts multiple items separated by <computeroutput>;</computeroutput> or <computeroutput>,</computeroutput>:</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>;</computeroutput> prints the next item immediately with no extra spacing.</para>
+</listitem><listitem><para><computeroutput>,</computeroutput> advances to the next print zone (tab stop) before printing the next item.</para>
+</listitem><listitem><para>If the line ends with <computeroutput>;</computeroutput> or <computeroutput>,</computeroutput>, no newline is emitted.</para>
+</listitem><listitem><para>With no arguments, <computeroutput>PRINT</computeroutput> outputs just a newline.</para>
+</listitem></itemizedlist>
+</para>
+<para><simplesect kind="remark"><para>Keep the cursor on the same line for a prompt: </para>
+</simplesect>
+<simplesect kind="remark"><para>```basic <blockquote><para>PRINT &quot;Enter name: &quot;; ``` </para>
+</blockquote></para>
+</simplesect>
+</para>
+</sect3>
+<sect2 id="PRINT_1autotoc_md407">
+<title>&lt;/blockquote&gt;</title>
+<sect3 id="PRINT_1autotoc_md408">
+<title>Using ANSI escape sequences (advanced)</title>
+<para><computeroutput>PRINT</computeroutput> can emit ANSI/VT100 escape sequences directly. <linebreak/>
+ The escape character is <computeroutput>ESC</computeroutput>, which is <computeroutput>CHR$(27)</computeroutput>. Most sequences begin with <computeroutput>ESC</computeroutput> + <computeroutput>&quot;[&quot;</computeroutput> (Control Sequence Introducer).</para>
+<para><blockquote><para><computeroutput>COLOUR</computeroutput> and <computeroutput>BACKGROUND</computeroutput> change text colours in a portable, high-level way. <linebreak/>
+ ANSI escapes give lower-level control (cursor movement, attributes, manual colours, clearing parts of the screen, etc.). </para>
+</blockquote>Define a convenience prefix: <programlisting filename=".basic"><codeline><highlight class="normal">ESC$<sp/>=<sp/>CHR$(27)<sp/>+<sp/>&quot;[&quot;</highlight></codeline>
+</programlisting></para>
+<para><bold>Text attributes and colours (SGR)</bold> <programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Set<sp/>red<sp/>foreground,<sp/>then<sp/>reset</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>ESC$<sp/>+<sp/>&quot;31m&quot;<sp/>+<sp/>&quot;Red<sp/>text&quot;<sp/>+<sp/>ESC$<sp/>+<sp/>&quot;0m&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">REM<sp/>Bright<sp/>yellow<sp/>on<sp/>blue<sp/>background</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>ESC$<sp/>+<sp/>&quot;1m&quot;<sp/>+<sp/>ESC$<sp/>+<sp/>&quot;33m&quot;<sp/>+<sp/>ESC$<sp/>+<sp/>&quot;44m&quot;<sp/>+<sp/>&quot;Title&quot;<sp/>+<sp/>ESC$<sp/>+<sp/>&quot;0m&quot;</highlight></codeline>
+</programlisting> Common SGR parameters:<itemizedlist>
+<listitem><para><computeroutput>0</computeroutput> reset all attributes</para>
+</listitem><listitem><para><computeroutput>1</computeroutput> bold/bright</para>
+</listitem><listitem><para><computeroutput>30</computeroutput>..<computeroutput>37</computeroutput> foreground colours (black, red, green, yellow, blue, magenta, cyan, white)</para>
+</listitem><listitem><para><computeroutput>40</computeroutput>..<computeroutput>47</computeroutput> background colours</para>
+</listitem><listitem><para><computeroutput>90</computeroutput>..<computeroutput>97</computeroutput> bright foreground</para>
+</listitem><listitem><para><computeroutput>100</computeroutput>..<computeroutput>107</computeroutput> bright background</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>Cursor positioning and movement</bold> <programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Home<sp/>to<sp/>1,1</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>ESC$<sp/>+<sp/>&quot;H&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">REM<sp/>Move<sp/>to<sp/>row<sp/>10,<sp/>column<sp/>20<sp/>(1-based)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>ESC$<sp/>+<sp/>&quot;10;20H&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">REM<sp/>Relative<sp/>moves:<sp/>up/down/forward/back</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>ESC$<sp/>+<sp/>&quot;2A&quot;<sp/><sp/><sp/>REM<sp/>up<sp/>2</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>ESC$<sp/>+<sp/>&quot;5C&quot;<sp/><sp/><sp/>REM<sp/>right<sp/>5</highlight></codeline>
+</programlisting></para>
+<para><bold>Erasing</bold> <programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Clear<sp/>entire<sp/>screen<sp/>and<sp/>home</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>ESC$<sp/>+<sp/>&quot;2J&quot;<sp/>+<sp/>ESC$<sp/>+<sp/>&quot;H&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">REM<sp/>Clear<sp/>to<sp/>end<sp/>of<sp/>line</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>ESC$<sp/>+<sp/>&quot;K&quot;</highlight></codeline>
+</programlisting></para>
+<para><bold>Show/hide cursor</bold> <programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>ESC$<sp/>+<sp/>&quot;?25l&quot;<sp/><sp/><sp/>REM<sp/>hide</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>ESC$<sp/>+<sp/>&quot;?25h&quot;<sp/><sp/><sp/>REM<sp/>show</highlight></codeline>
+</programlisting></para>
+<para><blockquote><para>Always finish coloured or styled output with <computeroutput>ESC[0m</computeroutput> to reset attributes, or later text may inherit your styles. </para>
+</blockquote></para>
+<para><blockquote><para>For higher-level helpers and key handling, consider the <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ansi"><computeroutput>ansi</computeroutput></ulink> system library. </para>
+</blockquote></para>
+</sect3>
+</sect2>
+<sect2 id="PRINT_1autotoc_md409">
+<title>&lt;/blockquote&gt;</title>
+<sect3 id="PRINT_1autotoc_md410">
+<title>Examples</title>
+<para>Basic printing <programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;Hello&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>123</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>1<sp/>+<sp/>2<sp/>*<sp/>3</highlight></codeline>
+</programlisting></para>
+<para>Multiple items and spacing control <programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;A&quot;;<sp/>&quot;B&quot;;<sp/>&quot;C&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Name&quot;,<sp/>&quot;Score&quot;,<sp/>&quot;Time&quot;</highlight></codeline>
+</programlisting></para>
+<para>Positioned output <programlisting filename=".basic"><codeline><highlight class="normal">CURSOR<sp/>10,<sp/>5</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Title&quot;</highlight></codeline>
+</programlisting></para>
+<para>Simple coloured prompt using ANSI <programlisting filename=".basic"><codeline><highlight class="normal">ESC$<sp/>=<sp/>CHR$(27)<sp/>+<sp/>&quot;[&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>ESC$<sp/>+<sp/>&quot;32m&quot;<sp/>+<sp/>&quot;OK&gt;<sp/>&quot;<sp/>+<sp/>ESC$<sp/>+<sp/>&quot;0m&quot;;</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="PRINT_1autotoc_md412">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Output affects the text layer. Use <computeroutput>COLOUR</computeroutput> and <computeroutput>BACKGROUND</computeroutput> for simple text colours, and <computeroutput>GCOL</computeroutput> for graphics drawing.</para>
+</listitem><listitem><para>The cursor advances as text is printed; move it explicitly with <computeroutput>CURSOR x,y</computeroutput> or ANSI positioning if needed.</para>
+</listitem><listitem><para><computeroutput>CLS</computeroutput> clears both text and graphics. ANSI <computeroutput>ESC[2J</computeroutput> clears the text layer.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CURSOR"><computeroutput>CURSOR</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/COLOUR"><computeroutput>COLOUR</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BACKGROUND"><computeroutput>BACKGROUND</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ansi"><computeroutput>ansi</computeroutput></ulink> </para>
+</sect3>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/PRINT.md"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="RAMDISK" kind="page">
+    <compoundname>RAMDISK</compoundname>
+    <title>RAMDISK$ Function</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">RAMDISK$(string-expression)</highlight></codeline>
+</programlisting> Create a ramdisk device with the content of a separate block device who&apos;s name is in the string-expression. Returns the name of the new block device.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">RAMDISK(integer-expression,<sp/>integer-expression)</highlight></codeline>
+</programlisting> Create a ramdisk device of X blocks each block being Y bytes, where X and Y are the two integer-expression values. Note that the block device will be unformatted, and cannot be immediately mounted to a mountpoint. Returns the name of the new block device. </para>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/string/RAMDISK.md"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="IF" kind="page">
+    <compoundname>IF</compoundname>
+    <title>IF Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">IF<sp/>expression<sp/>THEN<sp/>statement<sp/>ELSE<sp/>statement</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">IF<sp/>expression<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>statements</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">IF<sp/>expression<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>statements</highlight></codeline>
+<codeline><highlight class="normal">ELSE</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>statements</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para>Executes statements if an expression evaluates to <bold>true</bold>. You can write <computeroutput>IF</computeroutput> as a <bold>single-line</bold> statement (with one statement after <computeroutput>THEN</computeroutput> and, optionally, one after <computeroutput>ELSE</computeroutput>), or as a <bold>multi-line</bold> block closed by <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ENDIF"><computeroutput>ENDIF</computeroutput></ulink>.</para>
+<para><simplesect kind="remark"><para>Multi-line blocks must be closed with <computeroutput>ENDIF</computeroutput>. </para>
+</simplesect>
+<simplesect kind="remark"><para><computeroutput>END IF</computeroutput> (with a space) is <bold>not</bold> recognised.</para>
+</simplesect>
+<hruler/>
+</para>
+<sect3 id="IF_1autotoc_md289">
+<title>Comparison operators</title>
+<para><table rows="7" cols="2"><row>
+<entry thead="yes" align='center'><para>Operator   </para>
+</entry><entry thead="yes"><para>Meaning    </para>
+</entry></row>
+<row>
+<entry thead="no" align='center'><para><computeroutput>&gt;</computeroutput>   </para>
+</entry><entry thead="no"><para>Greater than    </para>
+</entry></row>
+<row>
+<entry thead="no" align='center'><para><computeroutput>&lt;</computeroutput>   </para>
+</entry><entry thead="no"><para>Less than    </para>
+</entry></row>
+<row>
+<entry thead="no" align='center'><para><computeroutput>&gt;=</computeroutput>   </para>
+</entry><entry thead="no"><para>Greater than or equal to    </para>
+</entry></row>
+<row>
+<entry thead="no" align='center'><para><computeroutput>&lt;=</computeroutput>   </para>
+</entry><entry thead="no"><para>Less than or equal to    </para>
+</entry></row>
+<row>
+<entry thead="no" align='center'><para><computeroutput>=</computeroutput>   </para>
+</entry><entry thead="no"><para>Equal to    </para>
+</entry></row>
+<row>
+<entry thead="no" align='center'><para><computeroutput>&lt;&gt;</computeroutput>   </para>
+</entry><entry thead="no"><para>Not equal to   </para>
+</entry></row>
+</table>
+</para>
+<para>These operators produce a boolean result suitable for <computeroutput>IF</computeroutput>.</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="IF_1autotoc_md291">
+<title>Forms and examples</title>
+<para><bold>Single-line (with ELSE)</bold> <programlisting filename=".basic"><codeline><highlight class="normal">IF<sp/>X<sp/>&gt;<sp/>0<sp/>THEN<sp/>PRINT<sp/>&quot;POSITIVE&quot;<sp/>ELSE<sp/>PRINT<sp/>&quot;NON-POSITIVE&quot;</highlight></codeline>
+</programlisting></para>
+<para><bold>Single-line (no ELSE)</bold> <programlisting filename=".basic"><codeline><highlight class="normal">IF<sp/>READY<sp/>THEN<sp/>PRINT<sp/>&quot;GO&quot;</highlight></codeline>
+</programlisting></para>
+<para><bold>Multi-line (no ELSE)</bold> <programlisting filename=".basic"><codeline><highlight class="normal">IF<sp/>SCORE<sp/>&gt;=<sp/>100<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;LEVEL<sp/>UP&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><bold>Multi-line (with ELSE)</bold> <programlisting filename=".basic"><codeline><highlight class="normal">IF<sp/>NAME$<sp/>=<sp/>&quot;ADMIN&quot;<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;WELCOME&quot;</highlight></codeline>
+<codeline><highlight class="normal">ELSE</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;ACCESS<sp/>DENIED&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><bold>Nested IF</bold> <programlisting filename=".basic"><codeline><highlight class="normal">IF<sp/>A<sp/>&gt;<sp/>0<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>IF<sp/>B<sp/>&gt;<sp/>0<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;BOTH<sp/>POSITIVE&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ELSE</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;A<sp/>POSITIVE<sp/>ONLY&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ENDIF</highlight></codeline>
+<codeline><highlight class="normal">ELSE</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;A<sp/>NOT<sp/>POSITIVE&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="IF_1autotoc_md293">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>In the <bold>single-line</bold> form, the <computeroutput>THEN</computeroutput> and optional <computeroutput>ELSE</computeroutput> parts each allow <bold>one statement</bold>. Use the multi-line form for multiple statements.</para>
+</listitem><listitem><para><computeroutput>IF</computeroutput> blocks may be <bold>nested</bold> freely; <computeroutput>ENDIF</computeroutput> matches the nearest unmatched <computeroutput>IF</computeroutput>.</para>
+</listitem><listitem><para>Use parentheses to make complex conditions explicit: <computeroutput>IF (A &gt; 0) AND (B &lt; 10) THEN ...</computeroutput> (where supported by your operators).</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ELSE"><computeroutput>ELSE</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ENDIF"><computeroutput>ENDIF</computeroutput></ulink> </para>
+</sect3>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/IF.md"/>
+  </compounddef>
+</doxygen>

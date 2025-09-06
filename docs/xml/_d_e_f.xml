@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_d_e_f" kind="page">
+    <compoundname>DEF</compoundname>
+    <title>DEF Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>FNname(param,<sp/>...)</highlight></codeline>
+<codeline><highlight class="normal">DEF<sp/>PROCname(param,<sp/>...)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>...</highlight></codeline>
+<codeline><highlight class="normal">ENDPROC</highlight></codeline>
+</programlisting></para>
+<para>Defines a <bold>function</bold> (<computeroutput>FN</computeroutput>) or <bold>procedure</bold> (<computeroutput>PROC</computeroutput>). The parameter list is optional.</para>
+<para><itemizedlist>
+<listitem><para>A <bold>function</bold> must end with a line that <bold>begins with <computeroutput>=</computeroutput></bold>; the expression after <computeroutput>=</computeroutput> is the return value.</para>
+</listitem><listitem><para>A <bold>procedure</bold> ends with **<computeroutput>ENDPROC</computeroutput>** (it does not return a value).</para>
+</listitem></itemizedlist>
+</para>
+<para><blockquote><para>[!IMPORTANT] There is <bold>no space</bold> between <computeroutput>FN</computeroutput>/<computeroutput>PROC</computeroutput> and the identifier — in both <bold>definitions</bold> and <bold>calls</bold>. <linebreak/>
+ Examples: <computeroutput>DEF FNadd(A,B)</computeroutput>, <computeroutput>PRINT FNadd(1,2)</computeroutput>, <computeroutput>DEF PROCbox(M$)</computeroutput>, <computeroutput>PROCbox(&quot;Hi&quot;)</computeroutput> </para>
+</blockquote><blockquote><para>[!NOTE] <computeroutput>GLOBAL</computeroutput> is <bold>only</bold> used to pass variables into <bold>child programs</bold> spawned with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CHAIN"><computeroutput>CHAIN</computeroutput></ulink>. <linebreak/>
+ It does <bold>not</bold> declare &quot;global variables&quot; for program-wide scope inside a single program. Use parameters and <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/LOCAL"><computeroutput>LOCAL</computeroutput></ulink> to manage scope within your own code. </para>
+</blockquote></para>
+<sect2 id="_d_e_f_1autotoc_md98">
+<title>&lt;/blockquote&gt;</title>
+<sect3 id="_d_e_f_1autotoc_md99">
+<title>Calling functions and procedures</title>
+<para><itemizedlist>
+<listitem><para>Call a <bold>function</bold> within an expression: <programlisting filename=".basic"><codeline><highlight class="normal">RESULT<sp/>=<sp/>FNadd(10,<sp/>32)</highlight></codeline>
+</programlisting></para>
+</listitem><listitem><para>Invoke a <bold>procedure</bold> as a statement: <programlisting filename=".basic"><codeline><highlight class="normal">PROCbox(&quot;HELLO&quot;)</highlight></codeline>
+</programlisting></para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_d_e_f_1autotoc_md101">
+<title>Example: function (returns a value)</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>FNadd(A,<sp/>B)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>SUM<sp/>=<sp/>A<sp/>+<sp/>B</highlight></codeline>
+<codeline><highlight class="normal">=<sp/>SUM</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">PRINT<sp/>FNadd(1,<sp/>2)<sp/><sp/><sp/><sp/>:<sp/>REM<sp/>prints<sp/>3</highlight></codeline>
+</programlisting></para>
+<para>The final line starts with <computeroutput>=</computeroutput> and supplies the return value of the function.</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_d_e_f_1autotoc_md103">
+<title>Example: procedure (no return value)</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>PROCbox(MSG$)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;**************&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;*<sp/>&quot;;<sp/>MSG$;<sp/>&quot;<sp/>*&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;**************&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDPROC</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">PROCbox(&quot;HELLO&quot;)</highlight></codeline>
+</programlisting></para>
+<para><computeroutput>ENDPROC</computeroutput> marks the end of the procedure body.</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_d_e_f_1autotoc_md105">
+<title>Example: locals within a definition</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>FNhypot(X,<sp/>Y)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>LOCAL<sp/>XSQ<sp/>=<sp/>X<sp/>*<sp/>X</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>LOCAL<sp/>YSQ<sp/>=<sp/>Y<sp/>*<sp/>Y</highlight></codeline>
+<codeline><highlight class="normal">=<sp/>SQRT(XSQ<sp/>+<sp/>YSQ)</highlight></codeline>
+</programlisting></para>
+<para><computeroutput>LOCAL</computeroutput> creates temporary variables scoped to the definition.</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_d_e_f_1autotoc_md107">
+<title>Rules and behaviour</title>
+<para><itemizedlist>
+<listitem><para><bold>Parameters</bold> <linebreak/>
+ The list may be empty. Parameters are available by name in the body. <linebreak/>
+ Use <computeroutput>LOCAL</computeroutput> for additional temporaries.</para>
+</listitem><listitem><para><bold>Function result</bold> <linebreak/>
+ Inside a <computeroutput>DEF FN...</computeroutput> block, the <bold>last line</bold> must start with <computeroutput>=</computeroutput> followed by an expression. <linebreak/>
+ Using a leading <computeroutput>=</computeroutput> outside a function is an error.</para>
+</listitem><listitem><para><bold>Procedure termination</bold> <linebreak/>
+ Procedures must end with <computeroutput>ENDPROC</computeroutput>. Using <computeroutput>ENDPROC</computeroutput> outside a procedure is an error.</para>
+</listitem><listitem><para><bold>Errors</bold> <linebreak/>
+ Calling an undefined <computeroutput>FN</computeroutput>/<computeroutput>PROC</computeroutput>, or passing the wrong number of arguments, raises a runtime error <linebreak/>
+ (catchable with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink>).</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/FN"><computeroutput>FN</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PROC"><computeroutput>PROC</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ENDPROC"><computeroutput>ENDPROC</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/LOCAL"><computeroutput>LOCAL</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CHAIN"><computeroutput>CHAIN</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Variable-Naming"><computeroutput>Variable Naming</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Parameter-types"><computeroutput>Parameter types</computeroutput></ulink> </para>
+</sect3>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/DEF.md"/>
+  </compounddef>
+</doxygen>

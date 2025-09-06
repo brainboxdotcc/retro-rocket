@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="MKDIR" kind="page">
+    <compoundname>MKDIR</compoundname>
+    <title>MKDIR Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">MKDIR<sp/>string-expression</highlight></codeline>
+</programlisting></para>
+<para>Creates a new <bold>directory</bold> in the filesystem.</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>string-expression</computeroutput> must evaluate to the directory <bold>name or path</bold>.</para>
+</listitem><listitem><para>Paths starting with <computeroutput>/</computeroutput> are <bold>absolute</bold>; other paths are <bold>relative</bold> to the current directory.</para>
+</listitem></itemizedlist>
+</para>
+<para><simplesect kind="remark"><para>Paths are <bold>case-insensitive</bold>, and <computeroutput>.</computeroutput> / <computeroutput>..</computeroutput> are <bold>not supported</bold> in paths.</para>
+</simplesect>
+<simplesect kind="remark"><para>If the directory already exists, or the path refers to an existing <bold>file</bold>, an error is raised </para>
+</simplesect>
+<simplesect kind="remark"><para>(catchable with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink>).</para>
+</simplesect>
+<hruler/>
+</para>
+<sect3 id="MKDIR_1autotoc_md319">
+<title>Examples</title>
+<para>Create a directory in the current folder <programlisting filename=".basic"><codeline><highlight class="normal">MKDIR<sp/>&quot;projects&quot;</highlight></codeline>
+</programlisting></para>
+<para>Create a directory by absolute path <programlisting filename=".basic"><codeline><highlight class="normal">MKDIR<sp/>&quot;/data/logs&quot;</highlight></codeline>
+</programlisting></para>
+<para>Change into the new directory <programlisting filename=".basic"><codeline><highlight class="normal">MKDIR<sp/>&quot;assets&quot;</highlight></codeline>
+<codeline><highlight class="normal">CHDIR<sp/>&quot;assets&quot;</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="MKDIR_1autotoc_md321">
+<title>See also</title>
+<para><itemizedlist>
+<listitem><para><ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CHDIR"><computeroutput>CHDIR</computeroutput></ulink> - change current directory</para>
+</listitem><listitem><para><ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/RMDIR"><computeroutput>RMDIR</computeroutput></ulink> - remove a directory</para>
+</listitem><listitem><para><ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DELETE"><computeroutput>DELETE</computeroutput></ulink> - delete a file </para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/MKDIR.md"/>
+  </compounddef>
+</doxygen>

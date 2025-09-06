@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="CONTINUE" kind="page">
+    <compoundname>CONTINUE</compoundname>
+    <title>CONTINUE Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">CONTINUE<sp/>WHILE</highlight></codeline>
+<codeline><highlight class="normal">CONTINUE<sp/>FOR</highlight></codeline>
+<codeline><highlight class="normal">CONTINUE<sp/>REPEAT</highlight></codeline>
+</programlisting></para>
+<para>Skips the remainder of the current loop body and continues execution at the start of the next iteration.</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>CONTINUE WHILE</computeroutput> jumps to the corresponding <computeroutput>WHILE</computeroutput> line, re-evaluating the loop condition.</para>
+</listitem><listitem><para><computeroutput>CONTINUE FOR</computeroutput> jumps to the corresponding <computeroutput>NEXT</computeroutput> statement, performing the increment and test before continuing.</para>
+</listitem><listitem><para><computeroutput>CONTINUE REPEAT</computeroutput> jumps to the corresponding <computeroutput>UNTIL</computeroutput> statement, immediately evaluating the condition.</para>
+</listitem></itemizedlist>
+</para>
+<para><computeroutput>CONTINUE</computeroutput> must always be followed by a loop keyword (<computeroutput>WHILE</computeroutput>, <computeroutput>FOR</computeroutput>, or <computeroutput>REPEAT</computeroutput>). It may only appear inside the corresponding loop type, and loops may be nested.</para>
+<para><hruler/>
+</para>
+<sect4 id="CONTINUE_1autotoc_md214">
+<title>Example: CONTINUE WHILE</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">N<sp/>=<sp/>0</highlight></codeline>
+<codeline><highlight class="normal">WHILE<sp/>N<sp/>&lt;<sp/>5</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>N<sp/>=<sp/>N<sp/>+<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>IF<sp/>N<sp/>=<sp/>3<sp/>THEN<sp/>CONTINUE<sp/>WHILE</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;N<sp/>=<sp/>&quot;;<sp/>N</highlight></codeline>
+<codeline><highlight class="normal">ENDWHILE</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;DONE&quot;</highlight></codeline>
+</programlisting></para>
+<para>Output:</para>
+<para><programlisting><codeline><highlight class="normal">N<sp/>=<sp/>1</highlight></codeline>
+<codeline><highlight class="normal">N<sp/>=<sp/>2</highlight></codeline>
+<codeline><highlight class="normal">N<sp/>=<sp/>4</highlight></codeline>
+<codeline><highlight class="normal">N<sp/>=<sp/>5</highlight></codeline>
+<codeline><highlight class="normal">DONE</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect4>
+<sect4 id="CONTINUE_1autotoc_md216">
+<title>Example: CONTINUE FOR</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">FOR<sp/>I<sp/>=<sp/>1<sp/>TO<sp/>5</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>IF<sp/>I<sp/>MOD<sp/>2<sp/>=<sp/>0<sp/>THEN<sp/>CONTINUE<sp/>FOR</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;ODD:&quot;;<sp/>I</highlight></codeline>
+<codeline><highlight class="normal">NEXT</highlight></codeline>
+</programlisting></para>
+<para>Output:</para>
+<para><programlisting><codeline><highlight class="normal">ODD:<sp/>1</highlight></codeline>
+<codeline><highlight class="normal">ODD:<sp/>3</highlight></codeline>
+<codeline><highlight class="normal">ODD:<sp/>5</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect4>
+<sect4 id="CONTINUE_1autotoc_md218">
+<title>Example: CONTINUE REPEAT</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">N<sp/>=<sp/>0</highlight></codeline>
+<codeline><highlight class="normal">REPEAT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>N<sp/>=<sp/>N<sp/>+<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>IF<sp/>N<sp/>=<sp/>2<sp/>THEN<sp/>CONTINUE<sp/>REPEAT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;N<sp/>=<sp/>&quot;;<sp/>N</highlight></codeline>
+<codeline><highlight class="normal">UNTIL<sp/>N<sp/>=<sp/>3</highlight></codeline>
+</programlisting></para>
+<para>Output:</para>
+<para><programlisting><codeline><highlight class="normal">N<sp/>=<sp/>1</highlight></codeline>
+<codeline><highlight class="normal">N<sp/>=<sp/>3</highlight></codeline>
+</programlisting> </para>
+</sect4>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/CONTINUE.md"/>
+  </compounddef>
+</doxygen>

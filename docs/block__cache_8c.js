@@ -1,0 +1,27 @@
+var block__cache_8c =
+[
+    [ "block_cache_entry_t", "structblock__cache__entry__t.html", "structblock__cache__entry__t" ],
+    [ "lru_node_t", "structlru__node__t.html", "structlru__node__t" ],
+    [ "block_cache_t", "structblock__cache__t.html", "structblock__cache__t" ],
+    [ "BLOCK_CACHE_SECTOR_CAP", "block__cache_8c.html#aea971ff5ce2f01ec752eef62aa6f9a2b", null ],
+    [ "CACHE_HASH_SEED0", "block__cache_8c.html#a817b14615a4484f6c112ea80aed1e34e", null ],
+    [ "CACHE_HASH_SEED1", "block__cache_8c.html#a5dd47563d0796c2c7a4dba8ae092bb1e", null ],
+    [ "block_cache_create", "block__cache_8c.html#a38e91ba9289f42c4b1de6f95b05855a9", null ],
+    [ "block_cache_destroy", "block__cache_8c.html#abfe62fb75908c192e86197b4def8cb84", null ],
+    [ "block_cache_invalidate", "block__cache_8c.html#a9155c768b2392e61187abca5dc8e6134", null ],
+    [ "block_cache_read", "block__cache_8c.html#a3b8884125c6b7df9ca2fd819bbd9138b", null ],
+    [ "block_cache_write", "block__cache_8c.html#acaf875ca742effa3fcbdb8d204802361", null ],
+    [ "cache_compare", "block__cache_8c.html#ac4b1a3ccd1b810237992eb26829b2e19", null ],
+    [ "cache_free", "block__cache_8c.html#abbfb6b42078d74218c121ea0d3e0d0ed", null ],
+    [ "cache_hash", "block__cache_8c.html#abe0efe341a694706cdfaacce6c2ca56c", null ],
+    [ "cache_malloc", "block__cache_8c.html#a48d33a0b1b6d92c809064141ee29e848", null ],
+    [ "cache_realloc", "block__cache_8c.html#a203ee3b15cac3c0acc1b07515c4e079f", null ],
+    [ "evict_one", "block__cache_8c.html#a84954ff10eddc8abff7aab7087012c88", null ],
+    [ "lru_alloc_node", "block__cache_8c.html#aea4942023a165e6903d9c628c3f806c2", null ],
+    [ "lru_free_node", "block__cache_8c.html#a289bc1117f84204d9c3d793e43883619", null ],
+    [ "lru_pop_head", "block__cache_8c.html#ad661aba7b7732d552d620b180b611fe3", null ],
+    [ "lru_touch", "block__cache_8c.html#a3e3617dc7e13e781b8122cf426fc8f18", null ],
+    [ "lru_unlink", "block__cache_8c.html#aed89ec1e1b4f49c804a29fdfba5252fc", null ],
+    [ "sectors_for_len", "block__cache_8c.html#a2359288ab07f2d82c900200a0dd9897f", null ],
+    [ "cache_allocator", "block__cache_8c.html#abfa0a4082b12c96cee5796898d6d7b41", null ]
+];

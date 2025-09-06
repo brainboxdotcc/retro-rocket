@@ -1,0 +1,35 @@
+\page string-funcs String Functions
+
+- \subpage BOOL
+- \subpage CHR
+- \subpage CSD
+- \subpage DATE
+- \subpage DNS
+- \subpage FILETYPE
+- \subpage GETNAME
+- \subpage GETPROCNAME
+- \subpage GETPROCSTATE
+- \subpage GETVAR
+- \subpage INKEY
+- \subpage INSOCKET
+- \subpage LEFT
+- \subpage LJUST
+- \subpage LOWER
+- \subpage LTRIM
+- \subpage MID
+- \subpage NETINFO
+- \subpage RADIXS
+- \subpage RAMDISK
+- \subpage READ
+- \subpage REVERSE
+- \subpage RIGHT
+- \subpage RJUST
+- \subpage RTRIM
+- \subpage STR
+- \subpage TIME
+- \subpage TOKENIZE
+- \subpage TRIM
+- \subpage UDPLASTIP
+- \subpage UDPREAD
+- \subpage UPPER
+

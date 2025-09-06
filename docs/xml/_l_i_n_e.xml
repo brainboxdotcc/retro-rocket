@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_l_i_n_e" kind="page">
+    <compoundname>LINE</compoundname>
+    <title>LINE Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">LINE<sp/>integer-expression,<sp/>integer-expression,<sp/>integer-expression,<sp/>integer-expression</highlight></codeline>
+</programlisting></para>
+<para>Draws a straight line from the first <bold>X,Y</bold> pair to the second <bold>X,Y</bold> pair using the current graphics colour (set by <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL"><computeroutput>GCOL</computeroutput></ulink>).</para>
+<para><itemizedlist>
+<listitem><para>Parameters are: <computeroutput>x1, y1, x2, y2</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<sect3 id="_l_i_n_e_1autotoc_md182">
+<title>Examples</title>
+<para>Basic usage <programlisting filename=".basic"><codeline><highlight class="normal">GCOL<sp/>RGB(255,0,0)</highlight></codeline>
+<codeline><highlight class="normal">LINE<sp/>50,<sp/>50,<sp/>200,<sp/>120</highlight></codeline>
+</programlisting></para>
+<para>Crosshair <programlisting filename=".basic"><codeline><highlight class="normal">GCOL<sp/>RGB(0,255,0)</highlight></codeline>
+<codeline><highlight class="normal">LINE<sp/>120,<sp/>0,<sp/><sp/><sp/>120,<sp/>240</highlight></codeline>
+<codeline><highlight class="normal">LINE<sp/>0,<sp/><sp/><sp/>120,<sp/>240,<sp/>120</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+<para><blockquote><para>[!TIP] If <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/AUTOFLIP"><computeroutput>AUTOFLIP</computeroutput></ulink> is <computeroutput>FALSE</computeroutput>, draw your frame (including <computeroutput>LINE</computeroutput>) and then call <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/FLIP"><computeroutput>FLIP</computeroutput></ulink> to present it. </para>
+</blockquote></para>
+</sect3>
+<sect2 id="_l_i_n_e_1autotoc_md184">
+<title>&lt;/blockquote&gt;</title>
+<sect3 id="_l_i_n_e_1autotoc_md185">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Coordinates are in <bold>screen pixels</bold>; <computeroutput>(0,0)</computeroutput> is the <bold>top-left</bold> of the display.</para>
+</listitem><listitem><para>Drawing uses the <bold>current graphics colour</bold>; change it with <computeroutput>GCOL RGB(r,g,b)</computeroutput> before calling <computeroutput>LINE</computeroutput>.</para>
+</listitem><listitem><para>Lines extending beyond the screen are <bold>clipped</bold> at the display edge.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL"><computeroutput>GCOL</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/RECTANGLE"><computeroutput>RECTANGLE</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CIRCLE"><computeroutput>CIRCLE</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PLOT"><computeroutput>PLOT</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/FLIP"><computeroutput>FLIP</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/AUTOFLIP"><computeroutput>AUTOFLIP</computeroutput></ulink> </para>
+</sect3>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/LINE.md"/>
+  </compounddef>
+</doxygen>

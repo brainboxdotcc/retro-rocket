@@ -1,0 +1,3193 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="module_8h" kind="file" language="C++">
+    <compoundname>module.h</compoundname>
+    <includes refid="kernel_8h" local="no">kernel.h</includes>
+    <includes local="no">stdbool.h</includes>
+    <includedby refid="kernel_8h" local="yes">include/kernel.h</includedby>
+    <incdepgraph>
+      <node id="57">
+        <label>ata.h</label>
+        <link refid="ata_8h"/>
+      </node>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="22">
+        <label>basic.h</label>
+        <link refid="basic_8h"/>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>basic/context.h</label>
+        <link refid="context_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="88">
+        <label>stdarg.h</label>
+      </node>
+      <node id="60">
+        <label>ramdisk.h</label>
+        <link refid="ramdisk_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="29">
+        <label>basic/validation.h</label>
+        <link refid="validation_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>basic/graphics.h</label>
+        <link refid="graphics_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="72">
+        <label>acpi.h</label>
+        <link refid="acpi_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>basic/structs.h</label>
+        <link refid="structs_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="76">
+        <label>arp.h</label>
+        <link refid="arp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="67">
+        <label>stdnoreturn.h</label>
+      </node>
+      <node id="27">
+        <label>buddy_allocator.h</label>
+        <link refid="buddy__allocator_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="83">
+        <label>dns.h</label>
+        <link refid="dns_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>basic/peekpoke.h</label>
+        <link refid="peekpoke_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="63">
+        <label>fat32.h</label>
+        <link refid="fat32_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>rwlock.h</label>
+        <link refid="rwlock_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="81">
+        <label>udp.h</label>
+        <link refid="udp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>spinlock.h</label>
+        <link refid="spinlock_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="79">
+        <label>tcp.h</label>
+        <link refid="tcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="53">
+        <label>devicename.h</label>
+        <link refid="devicename_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>idt.h</label>
+        <link refid="idt_8h"/>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="84">
+        <label>drawing.h</label>
+        <link refid="drawing_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>basic/variable.h</label>
+        <link refid="variable_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="74">
+        <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>stdlib.h</label>
+        <link refid="stdlib_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>x86intrin.h</label>
+      </node>
+      <node id="47">
+        <label>ioapic.h</label>
+        <link refid="ioapic_8h"/>
+      </node>
+      <node id="5">
+        <label>stddef.h</label>
+      </node>
+      <node id="1">
+        <label>include/module.h</label>
+        <link refid="module_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>basic/array.h</label>
+        <link refid="array_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>basic/flow_control.h</label>
+        <link refid="flow__control_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>limits.h</label>
+      </node>
+      <node id="66">
+        <label>keyboard.h</label>
+        <link refid="keyboard_8h"/>
+        <childnode refid="67" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>io.h</label>
+        <link refid="io_8h"/>
+      </node>
+      <node id="15">
+        <label>printf.h</label>
+        <link refid="printf_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="75">
+        <label>e1000.h</label>
+        <link refid="e1000_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="70">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>basic/builtin_real_functions.h</label>
+        <link refid="builtin__real__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>limine.h</label>
+      </node>
+      <node id="68">
+        <label>input.h</label>
+        <link refid="input_8h"/>
+      </node>
+      <node id="85">
+        <label>fpu.h</label>
+        <link refid="fpu_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>video.h</label>
+        <link refid="video_8h"/>
+      </node>
+      <node id="87">
+        <label>serial.h</label>
+        <link refid="serial_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="80">
+        <label>icmp.h</label>
+        <link refid="icmp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>basic/sockets.h</label>
+        <link refid="sockets_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>basic/defines.h</label>
+        <link refid="defines_8h"/>
+      </node>
+      <node id="17">
+        <label>vector.h</label>
+        <link refid="vector_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="77">
+        <label>ip.h</label>
+        <link refid="ip_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>basic/builtin_integer_functions.h</label>
+        <link refid="builtin__integer__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>filesystem.h</label>
+        <link refid="filesystem_8h"/>
+      </node>
+      <node id="51">
+        <label>maths.h</label>
+        <link refid="maths_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>devfs.h</label>
+        <link refid="devfs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>basic/expression.h</label>
+        <link refid="expression_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="65">
+        <label>errorhandler.h</label>
+        <link refid="errorhandler_8h"/>
+      </node>
+      <node id="32">
+        <label>basic/builtin_string_functions.h</label>
+        <link refid="builtin__string__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="78">
+        <label>ethernet.h</label>
+        <link refid="ethernet_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <link refid="kernel_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>memcpy.h</label>
+        <link refid="memcpy_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>basic/console.h</label>
+        <link refid="console_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="59">
+        <label>partition.h</label>
+        <link refid="partition_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>random.h</label>
+        <link refid="random_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="89">
+        <label>debug_ringbuffer.h</label>
+        <link refid="debug__ringbuffer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="71">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>hashmap.h</label>
+        <link refid="hashmap_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="73">
+        <label>net.h</label>
+        <link refid="net_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>timer.h</label>
+        <link refid="timer_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>basic/reflection.h</label>
+        <link refid="reflection_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="64">
+        <label>debugger.h</label>
+        <link refid="debugger_8h"/>
+      </node>
+      <node id="33">
+        <label>basic/builtin_file_io_functions.h</label>
+        <link refid="builtin__file__io__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>interrupt.h</label>
+        <link refid="interrupt_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>kmalloc.h</label>
+        <link refid="kmalloc_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>scsi.h</label>
+        <link refid="scsi_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>map.h</label>
+        <link refid="map_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>tokenizer.h</label>
+        <link refid="tokenizer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>basic/lowlevel.h</label>
+        <link refid="lowlevel_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>pci.h</label>
+        <link refid="pci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>apic.h</label>
+        <link refid="apic_8h"/>
+      </node>
+      <node id="21">
+        <label>string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
+        <label>ahci.h</label>
+        <link refid="ahci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>basic/process.h</label>
+        <link refid="process_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="82">
+        <label>dhcp.h</label>
+        <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="86">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>basic/datetime.h</label>
+        <link refid="datetime_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="69">
+        <label>clock.h</label>
+        <link refid="clock_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="153">
+        <label>src/memcpy.c</label>
+        <link refid="memcpy_8c"/>
+      </node>
+      <node id="14">
+        <label>src/basic/console.c</label>
+        <link refid="console_8c"/>
+      </node>
+      <node id="102">
+        <label>src/basic/reflection.c</label>
+        <link refid="reflection_8c"/>
+      </node>
+      <node id="140">
+        <label>src/fs/fat32/main.c</label>
+        <link refid="fs_2fat32_2main_8c"/>
+      </node>
+      <node id="136">
+        <label>src/fs/fat32/createfile.c</label>
+        <link refid="fat32_2createfile_8c"/>
+      </node>
+      <node id="71">
+        <label>src/fs/retrofs/helpers.c</label>
+        <link refid="fs_2retrofs_2helpers_8c"/>
+      </node>
+      <node id="7">
+        <label>include/basic.h</label>
+        <link refid="basic_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="106">
+        <label>src/basic/tokenizer.c</label>
+        <link refid="tokenizer_8c"/>
+      </node>
+      <node id="12">
+        <label>include/basic/context.h</label>
+        <link refid="context_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="127">
+        <label>src/errorhandler.c</label>
+        <link refid="errorhandler_8c"/>
+      </node>
+      <node id="63">
+        <label>include/ramdisk.h</label>
+        <link refid="ramdisk_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="135">
+        <label>src/fs/fat32/cluster.c</label>
+        <link refid="cluster_8c"/>
+      </node>
+      <node id="21">
+        <label>src/fs/filesystem.c</label>
+        <link refid="filesystem_8c"/>
+      </node>
+      <node id="113">
+        <label>src/block/ahci/main.c</label>
+        <link refid="block_2ahci_2main_8c"/>
+      </node>
+      <node id="107">
+        <label>src/basic/variable.c</label>
+        <link refid="variable_8c"/>
+      </node>
+      <node id="76">
+        <label>src/fs/retrofs/unlinkdirectory.c</label>
+        <link refid="unlinkdirectory_8c"/>
+      </node>
+      <node id="44">
+        <label>src/installer/helpers.c</label>
+        <link refid="installer_2helpers_8c"/>
+      </node>
+      <node id="3">
+        <label>include/acpi.h</label>
+        <link refid="acpi_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="167">
+        <label>src/random.c</label>
+        <link refid="random_8c"/>
+      </node>
+      <node id="5">
+        <label>include/arp.h</label>
+        <link refid="arp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>include/dns.h</label>
+        <link refid="dns_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="162">
+        <label>src/net/net.c</label>
+        <link refid="net_8c"/>
+      </node>
+      <node id="6">
+        <label>include/basic/peekpoke.h</label>
+        <link refid="peekpoke_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>include/fat32.h</label>
+        <link refid="fat32_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>src/interrupt.c</label>
+        <link refid="interrupt_8c"/>
+      </node>
+      <node id="86">
+        <label>include/udp.h</label>
+        <link refid="udp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>src/printf.c</label>
+        <link refid="printf_8c"/>
+      </node>
+      <node id="95">
+        <label>src/basic/function.c</label>
+        <link refid="function_8c"/>
+      </node>
+      <node id="51">
+        <label>include/iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+      </node>
+      <node id="82">
+        <label>include/tcp.h</label>
+        <link refid="tcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="171">
+        <label>src/taskswitch.c</label>
+        <link refid="taskswitch_8c"/>
+      </node>
+      <node id="163">
+        <label>src/net/queue.c</label>
+        <link refid="queue_8c"/>
+      </node>
+      <node id="26">
+        <label>include/devicename.h</label>
+        <link refid="devicename_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>include/block_cache.h</label>
+        <link refid="block__cache_8h"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>src/installer/main.c</label>
+        <link refid="installer_2main_8c"/>
+      </node>
+      <node id="69">
+        <label>src/fs/retrofs/fsmap.c</label>
+        <link refid="fsmap_8c"/>
+      </node>
+      <node id="29">
+        <label>include/drawing.h</label>
+        <link refid="drawing_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="148">
+        <label>src/input.c</label>
+        <link refid="input_8c"/>
+      </node>
+      <node id="68">
+        <label>src/fs/retrofs/format.c</label>
+        <link refid="format_8c"/>
+      </node>
+      <node id="169">
+        <label>src/stdlib.c</label>
+        <link refid="stdlib_8c"/>
+      </node>
+      <node id="41">
+        <label>include/installer.h</label>
+        <link refid="installer_8h"/>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="144">
+        <label>src/fs/fat32/writefile.c</label>
+        <link refid="fat32_2writefile_8c"/>
+      </node>
+      <node id="99">
+        <label>src/basic/maths.c</label>
+        <link refid="basic_2maths_8c"/>
+      </node>
+      <node id="160">
+        <label>src/net/icmp.c</label>
+        <link refid="icmp_8c"/>
+      </node>
+      <node id="119">
+        <label>src/block/ramdisk.c</label>
+        <link refid="ramdisk_8c"/>
+      </node>
+      <node id="120">
+        <label>src/buddy_allocator.c</label>
+        <link refid="buddy__allocator_8c"/>
+      </node>
+      <node id="78">
+        <label>include/rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="161">
+        <label>src/net/ip.c</label>
+        <link refid="ip_8c"/>
+      </node>
+      <node id="9">
+        <label>src/installer/tui.c</label>
+        <link refid="tui_8c"/>
+      </node>
+      <node id="150">
+        <label>src/keyboard.c</label>
+        <link refid="keyboard_8c"/>
+      </node>
+      <node id="154">
+        <label>src/module_loader.c</label>
+        <link refid="module__loader_8c"/>
+      </node>
+      <node id="93">
+        <label>src/basic/debugger.c</label>
+        <link refid="basic_2debugger_8c"/>
+      </node>
+      <node id="67">
+        <label>src/fs/retrofs/createfile.c</label>
+        <link refid="retrofs_2createfile_8c"/>
+      </node>
+      <node id="94">
+        <label>src/basic/file_io.c</label>
+        <link refid="file__io_8c"/>
+      </node>
+      <node id="74">
+        <label>src/fs/retrofs/truncatefile.c</label>
+        <link refid="retrofs_2truncatefile_8c"/>
+      </node>
+      <node id="124">
+        <label>src/debug_ringbuffer.c</label>
+        <link refid="debug__ringbuffer_8c"/>
+      </node>
+      <node id="134">
+        <label>src/fs/devfs/devfs.c</label>
+        <link refid="devfs_8c"/>
+      </node>
+      <node id="133">
+        <label>src/fs/devfs/debuglog.c</label>
+        <link refid="debuglog_8c"/>
+      </node>
+      <node id="157">
+        <label>src/net/descriptor.c</label>
+        <link refid="descriptor_8c"/>
+      </node>
+      <node id="103">
+        <label>src/basic/sockets.c</label>
+        <link refid="sockets_8c"/>
+      </node>
+      <node id="173">
+        <label>src/video.c</label>
+        <link refid="video_8c"/>
+      </node>
+      <node id="1">
+        <label>include/module.h</label>
+        <link refid="module_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="75">
+        <label>src/fs/retrofs/unlink.c</label>
+        <link refid="unlink_8c"/>
+      </node>
+      <node id="87">
+        <label>src/acpi.c</label>
+        <link refid="acpi_8c"/>
+      </node>
+      <node id="43">
+        <label>src/installer/gpt_writer.c</label>
+        <link refid="gpt__writer_8c"/>
+      </node>
+      <node id="96">
+        <label>src/basic/graphics.c</label>
+        <link refid="graphics_8c"/>
+      </node>
+      <node id="116">
+        <label>src/block/ahci/storage_device.c</label>
+        <link refid="storage__device_8c"/>
+      </node>
+      <node id="152">
+        <label>src/maths.c</label>
+        <link refid="maths_8c"/>
+      </node>
+      <node id="72">
+        <label>src/fs/retrofs/main.c</label>
+        <link refid="fs_2retrofs_2main_8c"/>
+      </node>
+      <node id="57">
+        <label>src/e1000.c</label>
+        <link refid="e1000_8c"/>
+      </node>
+      <node id="125">
+        <label>src/debugger.c</label>
+        <link refid="debugger_8c"/>
+      </node>
+      <node id="15">
+        <label>src/basic/double_expression.c</label>
+        <link refid="double__expression_8c"/>
+      </node>
+      <node id="172">
+        <label>src/timer.c</label>
+        <link refid="timer_8c"/>
+      </node>
+      <node id="115">
+        <label>src/block/ahci/sense.c</label>
+        <link refid="sense_8c"/>
+      </node>
+      <node id="23">
+        <label>include/cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="130">
+        <label>src/flanterm/flanterm.c</label>
+        <link refid="flanterm_8c"/>
+      </node>
+      <node id="166">
+        <label>src/pci.c</label>
+        <link refid="pci_8c"/>
+      </node>
+      <node id="100">
+        <label>src/basic/peekpoke.c</label>
+        <link refid="peekpoke_8c"/>
+      </node>
+      <node id="17">
+        <label>src/basic/int_expression.c</label>
+        <link refid="int__expression_8c"/>
+      </node>
+      <node id="110">
+        <label>src/block/ahci/enquiry.c</label>
+        <link refid="enquiry_8c"/>
+      </node>
+      <node id="62">
+        <label>include/printf.h</label>
+        <link refid="printf_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>include/e1000.h</label>
+        <link refid="e1000_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="53">
+        <label>include/lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="156">
+        <label>src/net/debug.c</label>
+        <link refid="debug_8c"/>
+      </node>
+      <node id="91">
+        <label>src/basic/array.c</label>
+        <link refid="array_8c"/>
+      </node>
+      <node id="118">
+        <label>src/block/ahci/write.c</label>
+        <link refid="write_8c"/>
+      </node>
+      <node id="38">
+        <label>include/initialisation-functions.h</label>
+        <link refid="initialisation-functions_8h"/>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+      </node>
+      <node id="155">
+        <label>src/net/arp.c</label>
+        <link refid="arp_8c"/>
+      </node>
+      <node id="33">
+        <label>include/fpu.h</label>
+        <link refid="fpu_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="139">
+        <label>src/fs/fat32/lfn.c</label>
+        <link refid="lfn_8c"/>
+      </node>
+      <node id="80">
+        <label>src/serial.c</label>
+        <link refid="serial_8c"/>
+      </node>
+      <node id="79">
+        <label>include/serial.h</label>
+        <link refid="serial_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+      </node>
+      <node id="131">
+        <label>src/fpu.c</label>
+        <link refid="fpu_8c"/>
+      </node>
+      <node id="129">
+        <label>src/flanterm/fb.c</label>
+        <link refid="fb_8c"/>
+      </node>
+      <node id="104">
+        <label>src/basic/statement.c</label>
+        <link refid="statement_8c"/>
+      </node>
+      <node id="149">
+        <label>src/ioapic.c</label>
+        <link refid="ioapic_8c"/>
+      </node>
+      <node id="37">
+        <label>include/icmp.h</label>
+        <link refid="icmp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="84">
+        <label>src/kmalloc.c</label>
+        <link refid="kmalloc_8c"/>
+      </node>
+      <node id="146">
+        <label>src/gdt.c</label>
+        <link refid="gdt_8c"/>
+      </node>
+      <node id="19">
+        <label>src/basic/unified_expression.c</label>
+        <link refid="unified__expression_8c"/>
+      </node>
+      <node id="58">
+        <label>src/mmio.c</label>
+        <link refid="mmio_8c"/>
+      </node>
+      <node id="158">
+        <label>src/net/dhcp.c</label>
+        <link refid="dhcp_8c"/>
+      </node>
+      <node id="56">
+        <label>include/mmio.h</label>
+        <link refid="mmio_8h"/>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>include/ip.h</label>
+        <link refid="ip_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="123">
+        <label>src/containers/vector.c</label>
+        <link refid="vector_8c"/>
+      </node>
+      <node id="97">
+        <label>src/basic/lowlevel.c</label>
+        <link refid="lowlevel_8c"/>
+      </node>
+      <node id="90">
+        <label>src/ata.c</label>
+        <link refid="ata_8c"/>
+      </node>
+      <node id="132">
+        <label>src/fs/block_cache.c</label>
+        <link refid="block__cache_8c"/>
+      </node>
+      <node id="70">
+        <label>src/fs/retrofs/getdirectory.c</label>
+        <link refid="getdirectory_8c"/>
+      </node>
+      <node id="18">
+        <label>src/basic/string_expression.c</label>
+        <link refid="string__expression_8c"/>
+      </node>
+      <node id="85">
+        <label>src/tinyalloc.c</label>
+        <link refid="tinyalloc_8c"/>
+      </node>
+      <node id="109">
+        <label>src/block/ahci/eject.c</label>
+        <link refid="eject_8c"/>
+      </node>
+      <node id="92">
+        <label>src/basic/datetime.c</label>
+        <link refid="datetime_8c"/>
+      </node>
+      <node id="168">
+        <label>src/rtl8139.c</label>
+        <link refid="rtl8139_8c"/>
+      </node>
+      <node id="16">
+        <label>src/basic/flow_control.c</label>
+        <link refid="flow__control_8c"/>
+      </node>
+      <node id="54">
+        <label>include/maths.h</label>
+        <link refid="maths_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>include/devfs.h</label>
+        <link refid="devfs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="147">
+        <label>src/idt.c</label>
+        <link refid="idt_8c"/>
+      </node>
+      <node id="46">
+        <label>src/installer/os_detection.c</label>
+        <link refid="os__detection_8c"/>
+      </node>
+      <node id="39">
+        <label>src/init.c</label>
+        <link refid="init_8c"/>
+      </node>
+      <node id="108">
+        <label>src/block/ahci/description.c</label>
+        <link refid="description_8c"/>
+      </node>
+      <node id="83">
+        <label>include/tinyalloc.h</label>
+        <link refid="tinyalloc_8h"/>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>src/fs/iso9660.c</label>
+        <link refid="iso9660_8c"/>
+      </node>
+      <node id="164">
+        <label>src/net/tcp.c</label>
+        <link refid="tcp_8c"/>
+      </node>
+      <node id="114">
+        <label>src/block/ahci/read.c</label>
+        <link refid="read_8c"/>
+      </node>
+      <node id="66">
+        <label>src/fs/retrofs/createdirectory.c</label>
+        <link refid="createdirectory_8c"/>
+      </node>
+      <node id="42">
+        <label>src/installer/crc32.c</label>
+        <link refid="crc32_8c"/>
+      </node>
+      <node id="165">
+        <label>src/net/udp.c</label>
+        <link refid="udp_8c"/>
+      </node>
+      <node id="138">
+        <label>src/fs/fat32/fat.c</label>
+        <link refid="fat_8c"/>
+      </node>
+      <node id="31">
+        <label>include/ethernet.h</label>
+        <link refid="ethernet_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>include/kernel.h</label>
+        <link refid="kernel_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
+        <childnode refid="114" relation="include">
+        </childnode>
+        <childnode refid="115" relation="include">
+        </childnode>
+        <childnode refid="116" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+        <childnode refid="118" relation="include">
+        </childnode>
+        <childnode refid="119" relation="include">
+        </childnode>
+        <childnode refid="120" relation="include">
+        </childnode>
+        <childnode refid="121" relation="include">
+        </childnode>
+        <childnode refid="122" relation="include">
+        </childnode>
+        <childnode refid="123" relation="include">
+        </childnode>
+        <childnode refid="124" relation="include">
+        </childnode>
+        <childnode refid="125" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="126" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="127" relation="include">
+        </childnode>
+        <childnode refid="128" relation="include">
+        </childnode>
+        <childnode refid="129" relation="include">
+        </childnode>
+        <childnode refid="130" relation="include">
+        </childnode>
+        <childnode refid="131" relation="include">
+        </childnode>
+        <childnode refid="132" relation="include">
+        </childnode>
+        <childnode refid="133" relation="include">
+        </childnode>
+        <childnode refid="134" relation="include">
+        </childnode>
+        <childnode refid="135" relation="include">
+        </childnode>
+        <childnode refid="136" relation="include">
+        </childnode>
+        <childnode refid="137" relation="include">
+        </childnode>
+        <childnode refid="138" relation="include">
+        </childnode>
+        <childnode refid="139" relation="include">
+        </childnode>
+        <childnode refid="140" relation="include">
+        </childnode>
+        <childnode refid="141" relation="include">
+        </childnode>
+        <childnode refid="142" relation="include">
+        </childnode>
+        <childnode refid="143" relation="include">
+        </childnode>
+        <childnode refid="144" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="145" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="146" relation="include">
+        </childnode>
+        <childnode refid="147" relation="include">
+        </childnode>
+        <childnode refid="148" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="149" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="150" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="151" relation="include">
+        </childnode>
+        <childnode refid="152" relation="include">
+        </childnode>
+        <childnode refid="153" relation="include">
+        </childnode>
+        <childnode refid="154" relation="include">
+        </childnode>
+        <childnode refid="155" relation="include">
+        </childnode>
+        <childnode refid="156" relation="include">
+        </childnode>
+        <childnode refid="157" relation="include">
+        </childnode>
+        <childnode refid="158" relation="include">
+        </childnode>
+        <childnode refid="159" relation="include">
+        </childnode>
+        <childnode refid="160" relation="include">
+        </childnode>
+        <childnode refid="161" relation="include">
+        </childnode>
+        <childnode refid="162" relation="include">
+        </childnode>
+        <childnode refid="163" relation="include">
+        </childnode>
+        <childnode refid="164" relation="include">
+        </childnode>
+        <childnode refid="165" relation="include">
+        </childnode>
+        <childnode refid="166" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="167" relation="include">
+        </childnode>
+        <childnode refid="168" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="169" relation="include">
+        </childnode>
+        <childnode refid="170" relation="include">
+        </childnode>
+        <childnode refid="171" relation="include">
+        </childnode>
+        <childnode refid="172" relation="include">
+        </childnode>
+        <childnode refid="173" relation="include">
+        </childnode>
+      </node>
+      <node id="89">
+        <label>src/apic.c</label>
+        <link refid="apic_8c"/>
+      </node>
+      <node id="55">
+        <label>include/memcpy.h</label>
+        <link refid="memcpy_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="60">
+        <label>include/partition.h</label>
+        <link refid="partition_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="64">
+        <label>include/random.h</label>
+        <link refid="random_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="111">
+        <label>src/block/ahci/error.c</label>
+        <link refid="error_8c"/>
+      </node>
+      <node id="121">
+        <label>src/clock.c</label>
+        <link refid="clock_8c"/>
+      </node>
+      <node id="24">
+        <label>include/debug_ringbuffer.h</label>
+        <link refid="debug__ringbuffer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="88">
+        <label>src/ap.c</label>
+        <link refid="ap_8c"/>
+      </node>
+      <node id="36">
+        <label>src/devicename.c</label>
+        <link refid="devicename_8c"/>
+      </node>
+      <node id="145">
+        <label>src/fs/partition.c</label>
+        <link refid="partition_8c"/>
+      </node>
+      <node id="81">
+        <label>include/taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="143">
+        <label>src/fs/fat32/unlinkfile.c</label>
+        <link refid="unlinkfile_8c"/>
+      </node>
+      <node id="101">
+        <label>src/basic/process.c</label>
+        <link refid="process_8c"/>
+      </node>
+      <node id="105">
+        <label>src/basic/string.c</label>
+        <link refid="basic_2string_8c"/>
+      </node>
+      <node id="34">
+        <label>include/hashmap.h</label>
+        <link refid="hashmap_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+      </node>
+      <node id="59">
+        <label>include/net.h</label>
+        <link refid="net_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="98">
+        <label>src/basic/main.c</label>
+        <link refid="basic_2main_8c"/>
+      </node>
+      <node id="137">
+        <label>src/fs/fat32/directory.c</label>
+        <link refid="directory_8c"/>
+      </node>
+      <node id="141">
+        <label>src/fs/fat32/readfile.c</label>
+        <link refid="fat32_2readfile_8c"/>
+      </node>
+      <node id="112">
+        <label>src/block/ahci/identify.c</label>
+        <link refid="identify_8c"/>
+      </node>
+      <node id="48">
+        <label>include/interrupt.h</label>
+        <link refid="interrupt_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+      </node>
+      <node id="128">
+        <label>src/ethernet.c</label>
+        <link refid="ethernet_8c"/>
+      </node>
+      <node id="142">
+        <label>src/fs/fat32/truncatefile.c</label>
+        <link refid="fat32_2truncatefile_8c"/>
+      </node>
+      <node id="159">
+        <label>src/net/dns.c</label>
+        <link refid="dns_8c"/>
+      </node>
+      <node id="117">
+        <label>src/block/ahci/trim.c</label>
+        <link refid="trim_8c"/>
+      </node>
+      <node id="11">
+        <label>include/basic/tokenizer.h</label>
+        <link refid="tokenizer_8h"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>src/kernel.c</label>
+        <link refid="kernel_8c"/>
+      </node>
+      <node id="122">
+        <label>src/containers/map.c</label>
+        <link refid="map_8c"/>
+      </node>
+      <node id="61">
+        <label>include/pci.h</label>
+        <link refid="pci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>include/string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>include/ahci.h</label>
+        <link refid="ahci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>src/containers/hashmap.c</label>
+        <link refid="hashmap_8c"/>
+      </node>
+      <node id="27">
+        <label>include/dhcp.h</label>
+        <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="170">
+        <label>src/string.c</label>
+        <link refid="string_8c"/>
+      </node>
+      <node id="151">
+        <label>src/lapic_timer.c</label>
+        <link refid="lapic__timer_8c"/>
+      </node>
+      <node id="13">
+        <label>include/basic/unified_expression.h</label>
+        <link refid="unified__expression_8h"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>src/installer/recursive_file_copy.c</label>
+        <link refid="recursive__file__copy_8c"/>
+      </node>
+      <node id="126">
+        <label>src/drawing.c</label>
+        <link refid="drawing_8c"/>
+      </node>
+      <node id="65">
+        <label>include/retrofs.h</label>
+        <link refid="retrofs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>include/clock.h</label>
+        <link refid="clock_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="77">
+        <label>src/fs/retrofs/writefile.c</label>
+        <link refid="retrofs_2writefile_8c"/>
+      </node>
+      <node id="73">
+        <label>src/fs/retrofs/readfile.c</label>
+        <link refid="retrofs_2readfile_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structelf__ehdr" prot="public">elf_ehdr</innerclass>
+    <innerclass refid="structelf__shdr" prot="public">elf_shdr</innerclass>
+    <innerclass refid="structelf__sym" prot="public">elf_sym</innerclass>
+    <innerclass refid="structelf__rela" prot="public">elf_rela</innerclass>
+    <innerclass refid="structmodule" prot="public">module</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="module_8h_1a1bc97ba5a980267d11d5e754aac5e12a" prot="public" static="no">
+        <name>KMOD_ABI</name>
+        <initializer>100</initializer>
+        <briefdescription>
+<para>module ABI version the kernel expects </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>If we change the ABI at all, we must bump this by 1. It is used in the names of the init/exit functions of each module, so an incompatible module is outright rejected before it can wreak havoc in the kernel space. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="25" column="9" bodyfile="include/module.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1ae407130db14180c6737390604ba7c1fe" prot="public" static="no">
+        <name>EI_NIDENT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Size of e_ident[] array </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="28" column="9" bodyfile="include/module.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1aba717f40a418b0d99c2efd4cdab4f54f" prot="public" static="no">
+        <name>EI_MAG0</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>e_ident index: magic[0] = 0x7F </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="30" column="9" bodyfile="include/module.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1a2cae3878d982911632b418680718d53b" prot="public" static="no">
+        <name>EI_MAG1</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>e_ident index: magic[1] = &apos;E&apos; </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="31" column="9" bodyfile="include/module.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1a2884a339ef7aefee59d160ed3fbb1739" prot="public" static="no">
+        <name>EI_MAG2</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>e_ident index: magic[2] = &apos;L&apos; </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="32" column="9" bodyfile="include/module.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1ace03d4c5e8952e27b8505581432c3b84" prot="public" static="no">
+        <name>EI_MAG3</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>e_ident index: magic[3] = &apos;F&apos; </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="33" column="9" bodyfile="include/module.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1a5b508cacf6662e4bc0e98ffe1eb61636" prot="public" static="no">
+        <name>EI_CLASS</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>e_ident index: file class (ELFCLASS*) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="34" column="9" bodyfile="include/module.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1a2ae7ae1a6df04e0ed6be07b94590686e" prot="public" static="no">
+        <name>ELFMAG0</name>
+        <initializer>0x7f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Magic byte 0 </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="36" column="9" bodyfile="include/module.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1a6237b3c20ffd799df7b9a91ab3bbdff4" prot="public" static="no">
+        <name>ELFMAG1</name>
+        <initializer>&apos;E&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Magic byte 1 </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="37" column="9" bodyfile="include/module.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1a8ac1b98d78e30ca49e1d3f287939a18f" prot="public" static="no">
+        <name>ELFMAG2</name>
+        <initializer>&apos;L&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Magic byte 2 </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="38" column="9" bodyfile="include/module.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1a2beeae5974769f72da5f63dcbcc325fe" prot="public" static="no">
+        <name>ELFMAG3</name>
+        <initializer>&apos;F&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Magic byte 3 </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="39" column="9" bodyfile="include/module.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1a9ee66b59be5c78ea1f1eea8a36f2c291" prot="public" static="no">
+        <name>ELFCLASS64</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>64-bit objects </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="41" column="9" bodyfile="include/module.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1a2a91046a80fd753ce3dbfb109212761d" prot="public" static="no">
+        <name>ET_REL</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Relocatable object file </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="44" column="9" bodyfile="include/module.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1a23fd3947ed1cfe58469b045efb4bb418" prot="public" static="no">
+        <name>EM_X86_64</name>
+        <initializer>62</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>AMD64 / x86-64 architecture </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="45" column="9" bodyfile="include/module.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1a1566f4c14cff9f4b539b00af54d62dbb" prot="public" static="no">
+        <name>SHT_NULL</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Inactive section header </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="48" column="9" bodyfile="include/module.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1a4bff22edbae51353ba9b3572d424b91a" prot="public" static="no">
+        <name>SHT_PROGBITS</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Program-defined contents </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="49" column="9" bodyfile="include/module.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1a4add7784e43ec3d3b9c09d3ffc476a81" prot="public" static="no">
+        <name>SHT_SYMTAB</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Static symbol table </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="50" column="9" bodyfile="include/module.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1af4b916dc4ca5016fb5c374068002a532" prot="public" static="no">
+        <name>SHT_STRTAB</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>String table </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="51" column="9" bodyfile="include/module.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1abf2fc2781a2869352c2ffa0555f34118" prot="public" static="no">
+        <name>SHT_RELA</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Relocations with addends </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="52" column="9" bodyfile="include/module.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1a820ff00317949be2ea1fd634a17dc13e" prot="public" static="no">
+        <name>SHT_NOBITS</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Occupies no space in file (e.g., .bss) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="53" column="9" bodyfile="include/module.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1a025c79223b0fee4676337d660f76b59b" prot="public" static="no">
+        <name>SHF_WRITE</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Writable at run-time </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="56" column="9" bodyfile="include/module.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1a38476fe4ed88ac83ba86a4e103199a86" prot="public" static="no">
+        <name>SHF_ALLOC</name>
+        <initializer>0x2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Occupies memory after loading </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="57" column="9" bodyfile="include/module.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1ab3780594e35fbbc6e5028bcb921d0a76" prot="public" static="no">
+        <name>SHF_EXECINSTR</name>
+        <initializer>0x4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Contains executable instructions </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="58" column="9" bodyfile="include/module.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1ab2f25695673c5f1c4ec723e595288411" prot="public" static="no">
+        <name>SHN_UNDEF</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Undefined / external reference </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="61" column="9" bodyfile="include/module.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1ac663b490fedc8aeab91bf941772ba306" prot="public" static="no">
+        <name>SHN_LORESERVE</name>
+        <initializer>0xff00u</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Lower bound of reserved range </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="62" column="9" bodyfile="include/module.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1a72c40de459931e6f1d041201dc7398b1" prot="public" static="no">
+        <name>STB_LOCAL</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Local (not visible outside object) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="65" column="9" bodyfile="include/module.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1a8091960a6799bf71a7494551dac1a2e8" prot="public" static="no">
+        <name>STB_GLOBAL</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Global symbol </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="66" column="9" bodyfile="include/module.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1ad4247ded90f9371e3c4d2f7dda260c93" prot="public" static="no">
+        <name>STB_WEAK</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Weak symbol </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="67" column="9" bodyfile="include/module.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1a630907a2afaf3aea5441635416cdb037" prot="public" static="no">
+        <name>ELF64_ST_BIND</name>
+        <param><defname>i</defname></param>
+        <initializer>((unsigned)((i) &gt;&gt; 4))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Extract STB_* binding from st_info </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="68" column="9" bodyfile="include/module.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1ab8a1253bfcc928f9aa9d4177d84f6830" prot="public" static="no">
+        <name>ELF64_R_SYM</name>
+        <param><defname>i</defname></param>
+        <initializer>((uint32_t)((i) &gt;&gt; 32))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Extract symbol index from r_info </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="71" column="9" bodyfile="include/module.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1a51aeadee885873fec9a218c058fe9e09" prot="public" static="no">
+        <name>ELF64_R_TYPE</name>
+        <param><defname>i</defname></param>
+        <initializer>((uint32_t)((i) &amp; 0xffffffffu))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Extract relocation type from r_info </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="72" column="9" bodyfile="include/module.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1a14c39da8e2667c3dffe6d4a8367df892" prot="public" static="no">
+        <name>R_X86_64_64</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>64-bit absolute address </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="75" column="9" bodyfile="include/module.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1abec463c99fa550e249c19a049607efbe" prot="public" static="no">
+        <name>R_X86_64_PC32</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>32-bit signed PC-relative </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="76" column="9" bodyfile="include/module.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1a4f37cfdc622c13b94177392224c840b1" prot="public" static="no">
+        <name>R_X86_64_32</name>
+        <initializer>10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>32-bit zero-extended absolute </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="77" column="9" bodyfile="include/module.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1a5f5f510f3193a8abc7a14235c6393181" prot="public" static="no">
+        <name>R_X86_64_32S</name>
+        <initializer>11</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>32-bit sign-extended absolute </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="78" column="9" bodyfile="include/module.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1af63d15eb9e745985585db45cb98ccf23" prot="public" static="no">
+        <name>EXPORTED</name>
+        <initializer><ref refid="struct____attribute____" kindref="compound">__attribute__</ref>((visibility(&quot;default&quot;)))</initializer>
+        <briefdescription>
+<para>Set this prefix on all module_init/module_exit functions in modules. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="143" column="9" bodyfile="include/module.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1ad8c2c95544787b8394a8d27ce3382df7" prot="public" static="no">
+        <name>MOD_CAT2</name>
+        <param><defname>a</defname></param>
+        <param><defname>b</defname></param>
+        <initializer>a##b</initializer>
+        <briefdescription>
+<para>helpers to form symbol names </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="148" column="9" bodyfile="include/module.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1a27da6ae346fd85616b1c684e163c6d15" prot="public" static="no">
+        <name>MOD_CAT</name>
+        <param><defname>a</defname></param>
+        <param><defname>b</defname></param>
+        <initializer><ref refid="module_8h_1ad8c2c95544787b8394a8d27ce3382df7" kindref="member">MOD_CAT2</ref>(a,b)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="149" column="9" bodyfile="include/module.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1ad00f34c1cb4cadf68e87078c9b86188e" prot="public" static="no">
+        <name>MOD_INIT_SYM</name>
+        <param><defname>ver</defname></param>
+        <initializer><ref refid="module_8h_1a27da6ae346fd85616b1c684e163c6d15" kindref="member">MOD_CAT</ref>(mod_init_v, ver)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="150" column="9" bodyfile="include/module.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1a46c68841432b7d84af91bc11daaa47f2" prot="public" static="no">
+        <name>MOD_EXIT_SYM</name>
+        <param><defname>ver</defname></param>
+        <initializer><ref refid="module_8h_1a27da6ae346fd85616b1c684e163c6d15" kindref="member">MOD_CAT</ref>(mod_exit_v, ver)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="151" column="9" bodyfile="include/module.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1ac8a66a18d26209f0d893dbe246f6cc1f" prot="public" static="no">
+        <name>STR2</name>
+        <param><defname>x</defname></param>
+        <initializer>#x</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="154" column="9" bodyfile="include/module.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1a18d295a837ac71add5578860b55e5502" prot="public" static="no">
+        <name>STR</name>
+        <param><defname>x</defname></param>
+        <initializer><ref refid="module_8h_1ac8a66a18d26209f0d893dbe246f6cc1f" kindref="member">STR2</ref>(x)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="155" column="9" bodyfile="include/module.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1aa6e6d3203522d53dc79cfc0f079bf66a" prot="public" static="no">
+        <name>MOD_INIT_NAME_STR</name>
+        <initializer>&quot;mod_init_v&quot; STR(<ref refid="module_8h_1a1bc97ba5a980267d11d5e754aac5e12a" kindref="member">KMOD_ABI</ref>)</initializer>
+        <briefdescription>
+<para>canonical names as strings </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="160" column="9" bodyfile="include/module.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="module_8h_1afefb69cd1cbf0c097f82e653bc1c263a" prot="public" static="no">
+        <name>MOD_EXIT_NAME_STR</name>
+        <initializer>&quot;mod_exit_v&quot; STR(<ref refid="module_8h_1a1bc97ba5a980267d11d5e754aac5e12a" kindref="member">KMOD_ABI</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="161" column="9" bodyfile="include/module.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="module_8h_1abaf50b223b23380397d93e547db6a990" prot="public" static="no">
+        <type>bool(*</type>
+        <definition>typedef bool(* module_init_fn) (void)</definition>
+        <argsstring>)(void)</argsstring>
+        <name>module_init_fn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Prototype for module initialiser </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="137" column="9" bodyfile="include/module.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="module_8h_1a1645505c6cba6b49a2b40ade90049a61" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* module_exit_fn) (void)</definition>
+        <argsstring>)(void)</argsstring>
+        <name>module_exit_fn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Prototype for module finaliser </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="138" column="9" bodyfile="include/module.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="module_8h_1a5d05b267ec7e869c1c585de127bfe31b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool module_load_from_memory</definition>
+        <argsstring>(const void *file, size_t len, module *out)</argsstring>
+        <name>module_load_from_memory</name>
+        <param>
+          <type>const void *</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type><ref refid="structmodule" kindref="compound">module</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <briefdescription>
+<para>Load and relocate a module from an in-memory ELF64 ET_REL buffer, then call its initialiser. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Validates the ELF header, allocates a single contiguous region for all SHF_ALLOC sections, copies/zeros contents with correct alignment, applies all SHT_RELA relocations, resolves undefined globals against the kernel dynamic symbol table (from kernel.sym), resolves versioned mod_init/mod_exit, then calls mod_init</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to the ELF bytes </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of the ELF buffer in bytes </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>output descriptor populated on success; zeroed on entry </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true on success, false on error</para>
+</simplesect>
+<simplesect kind="note"><para>the input buffer is not retained and may be freed after return </para>
+</simplesect>
+<simplesect kind="warning"><para>fails if any relocation overflows or an undefined symbol cannot be resolved </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="203" column="6" bodyfile="src/module_loader.c" bodystart="331" bodyend="383" declfile="include/module.h" declline="203" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="module_8h_1ad7daba93a2e3fedd9bdb43b872fe60dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool module_internal_unload</definition>
+        <argsstring>(module *m)</argsstring>
+        <name>module_internal_unload</name>
+        <param>
+          <type><ref refid="structmodule" kindref="compound">module</ref> *</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+<para>Unload a module by calling its finaliser and freeing its memory. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Calls mod_exit if present, frees the contiguous allocation, and clears the descriptor</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>m</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>module descriptor previously returned by module_load_from_memory </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true on success, false if <computeroutput>m</computeroutput> is NULL or teardown fails </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="213" column="6" bodyfile="src/module_loader.c" bodystart="385" bodyend="403" declfile="include/module.h" declline="213" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="module_8h_1ac88094e7162162520268fa6ba739d0cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const void *</type>
+        <definition>const void* kernel_dlsym</definition>
+        <argsstring>(const char *name)</argsstring>
+        <name>kernel_dlsym</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+<para>Resolve a kernel global by name via the kernel dynamic symbol table. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Requires the kernel to be linked with <ndash/>export-dynamic and to KEEP .dynsym and .dynstr</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>NUL-terminated symbol name </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>symbol address on success, NULL if not found </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="223" column="12" bodyfile="src/module_loader.c" bodystart="5" bodyend="11" declfile="include/module.h" declline="223" declcolumn="12"/>
+      </memberdef>
+      <memberdef kind="function" id="module_8h_1a459c858923fceddb8c5661e0c0221619" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* module_dlsym_local</definition>
+        <argsstring>(const module *m, const char *name)</argsstring>
+        <name>module_dlsym_local</name>
+        <param>
+          <type>const <ref refid="structmodule" kindref="compound">module</ref> *</type>
+          <declname>m</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+<para>Resolve a symbol by name within a loaded module after relocation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Looks up the symbol in the module’s own SHT_SYMTAB/STRTAB and computes its run-time address</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>m</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>loaded module descriptor </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>NUL-terminated symbol name </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>address within the module image, or NULL if not found or undefined </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="234" column="6" bodyfile="src/module_loader.c" bodystart="300" bodyend="329" declfile="include/module.h" declline="234" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="module_8h_1a748f56ff56028b04ef9efb3aa5867bac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool parse_elf_rel_headers</definition>
+        <argsstring>(const uint8_t *file, size_t len, const elf_ehdr **eh, const elf_shdr **sh, size_t *shnum, const char **shstr)</argsstring>
+        <name>parse_elf_rel_headers</name>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structelf__ehdr" kindref="compound">elf_ehdr</ref> **</type>
+          <declname>eh</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structelf__shdr" kindref="compound">elf_shdr</ref> **</type>
+          <declname>sh</declname>
+        </param>
+        <param>
+          <type>size_t *</type>
+          <declname>shnum</declname>
+        </param>
+        <param>
+          <type>const char **</type>
+          <declname>shstr</declname>
+        </param>
+        <briefdescription>
+<para>Parse and validate the ELF64 ET_REL header and section table. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Performs basic structural checks and returns pointers into the provided buffer</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to the ELF bytes </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of the buffer in bytes </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>eh</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>out: pointer to the ELF header inside <computeroutput>file</computeroutput> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sh</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>out: pointer to the section header table inside <computeroutput>file</computeroutput> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>shnum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>out: number of section headers </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>shstr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>out: pointer to the section-name string table inside <computeroutput>file</computeroutput> </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the buffer looks like a valid ELF64 ET_REL object, else false </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="249" column="6" bodyfile="src/module_loader.c" bodystart="13" bodyend="45" declfile="include/module.h" declline="249" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="module_8h_1a348c318528095cc8bef01b82c2b8f629" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool is_alloc_section</definition>
+        <argsstring>(const elf_shdr *h)</argsstring>
+        <name>is_alloc_section</name>
+        <param>
+          <type>const <ref refid="structelf__shdr" kindref="compound">elf_shdr</ref> *</type>
+          <declname>h</declname>
+        </param>
+        <briefdescription>
+<para>Predicate for sections that must be placed in memory at load time. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>h</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>section header </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if SHF_ALLOC is set, else false </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="257" column="6" bodyfile="src/module_loader.c" bodystart="47" bodyend="52" declfile="include/module.h" declline="257" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="module_8h_1a88b1f613b0a3bf4d48fd84541c8cbf7e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool module_place_sections</definition>
+        <argsstring>(const uint8_t *file, const elf_shdr *sh, size_t shnum, module *m)</argsstring>
+        <name>module_place_sections</name>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structelf__shdr" kindref="compound">elf_shdr</ref> *</type>
+          <declname>sh</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>shnum</declname>
+        </param>
+        <param>
+          <type><ref refid="structmodule" kindref="compound">module</ref> *</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+<para>Allocate one contiguous block and place all SHF_ALLOC sections into it. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Computes total size with per-section alignment, allocates with kmalloc_aligned, copies SHT_PROGBITS contents, zeros SHT_NOBITS, and records the run-time base of each placed section</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to the ELF bytes </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sh</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>section header table </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>shnum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of section headers </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>m</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>module descriptor to populate (base, size, placed[], placed_count) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true on success, false on error </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="271" column="6" bodyfile="src/module_loader.c" bodystart="65" bodyend="133" declfile="include/module.h" declline="271" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="module_8h_1ab32eb89028a8c29886649817d0b4a4a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t *</type>
+        <definition>uint8_t* module_section_base</definition>
+        <argsstring>(const module *m, uint16_t shndx)</argsstring>
+        <name>module_section_base</name>
+        <param>
+          <type>const <ref refid="structmodule" kindref="compound">module</ref> *</type>
+          <declname>m</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>shndx</declname>
+        </param>
+        <briefdescription>
+<para>Return the run-time base address for a placed section. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>m</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>module descriptor </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>shndx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>section index </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>base address where that section was placed, or NULL if unknown </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="280" column="9" bodyfile="src/module_loader.c" bodystart="135" bodyend="146" declfile="include/module.h" declline="280" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="module_8h_1aefbf1531980c0e423e6867779128e640" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool module_load_symbols</definition>
+        <argsstring>(const uint8_t *file, const elf_shdr *sh, size_t shnum, module *m)</argsstring>
+        <name>module_load_symbols</name>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structelf__shdr" kindref="compound">elf_shdr</ref> *</type>
+          <declname>sh</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>shnum</declname>
+        </param>
+        <param>
+          <type><ref refid="structmodule" kindref="compound">module</ref> *</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+<para>Locate the module’s static symbol table and its associated string table. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Populates m-&gt;symtab, m-&gt;sym_count and m-&gt;strtab</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to the ELF bytes </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sh</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>section header table </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>shnum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of section headers </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>m</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>module descriptor to populate </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true on success, false if tables are missing </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="293" column="6" bodyfile="src/module_loader.c" bodystart="148" bodyend="172" declfile="include/module.h" declline="293" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="module_8h_1ac1292b98065118e4db5cd53825447dbe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="structelf__sym" kindref="compound">elf_sym</ref> *</type>
+        <definition>const elf_sym* module_sym_by_index</definition>
+        <argsstring>(const module *m, uint32_t idx)</argsstring>
+        <name>module_sym_by_index</name>
+        <param>
+          <type>const <ref refid="structmodule" kindref="compound">module</ref> *</type>
+          <declname>m</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>idx</declname>
+        </param>
+        <briefdescription>
+<para>Index into the module symbol table. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>m</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>module descriptor </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>idx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>symbol index (0..sym_count-1) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>pointer to the symbol, or NULL if out of range </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="302" column="15" bodyfile="src/module_loader.c" bodystart="174" bodyend="179" declfile="include/module.h" declline="302" declcolumn="15"/>
+      </memberdef>
+      <memberdef kind="function" id="module_8h_1a9f3eb51447ffd8caf8c5fb0c17691e8e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uintptr_t</type>
+        <definition>uintptr_t module_resolve_symbol_addr</definition>
+        <argsstring>(const module *m, const elf_sym *s)</argsstring>
+        <name>module_resolve_symbol_addr</name>
+        <param>
+          <type>const <ref refid="structmodule" kindref="compound">module</ref> *</type>
+          <declname>m</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structelf__sym" kindref="compound">elf_sym</ref> *</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+<para>Compute a symbol’s absolute run-time address post-relocation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>For SHN_UNDEF symbols resolves against the kernel via kernel_dlsym For defined symbols returns placed_section_base + st_value</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>m</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>module descriptor </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>s</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>symbol entry </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>absolute address on success, 0 on failure </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="314" column="11" bodyfile="src/module_loader.c" bodystart="181" bodyend="201" declfile="include/module.h" declline="314" declcolumn="11"/>
+      </memberdef>
+      <memberdef kind="function" id="module_8h_1ab21876dfa87c1afbb9f531ad99144e18" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool module_apply_relocations</definition>
+        <argsstring>(const uint8_t *file, const elf_shdr *sh, size_t shnum, module *m)</argsstring>
+        <name>module_apply_relocations</name>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structelf__shdr" kindref="compound">elf_shdr</ref> *</type>
+          <declname>sh</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>shnum</declname>
+        </param>
+        <param>
+          <type><ref refid="structmodule" kindref="compound">module</ref> *</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+<para>Apply all SHT_RELA relocations for the module. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Supports R_X86_64_64, R_X86_64_PC32, R_X86_64_32 and R_X86_64_32S Undefined globals are resolved via kernel_dlsym; overflows cause failure</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to the ELF bytes </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sh</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>section header table </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>shnum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of section headers </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>m</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>module descriptor </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true on success, false on error</para>
+</simplesect>
+<simplesect kind="warning"><para>R_X86_64_PC32 must only target intra-module references externals should appear as R_X86_64_64 when modules are built with -mcmodel=large -fno-pic -fno-plt </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="331" column="6" bodyfile="src/module_loader.c" bodystart="203" bodyend="298" declfile="include/module.h" declline="331" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="module_8h_1a8251bb24540fe5fbb7bf067a0b92f0bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void init_modules</definition>
+        <argsstring>(void)</argsstring>
+        <name>init_modules</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Initialise the module registry and loader state. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Creates the in-kernel hashmap used to track loaded modules keyed by name Must be called once before any other module operations </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="339" column="6" bodyfile="src/module_loader.c" bodystart="422" bodyend="427" declfile="include/module.h" declline="339" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="module_8h_1a62097018dccfec9d20febd55b0aa97a5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool load_module</definition>
+        <argsstring>(const char *name)</argsstring>
+        <name>load_module</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+<para>Load and start a module by name. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Constructs the path /system/modules/&lt;name&gt;.ko, reads the file, relocates it, resolves externals against the kernel symbol index, and calls mod_init Returns false if the module is already loaded or on any failure</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>NUL-terminated module base name without extension or path </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true on success, false on error </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="351" column="6" bodyfile="src/module_loader.c" bodystart="429" bodyend="469" declfile="include/module.h" declline="351" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="module_8h_1a849f237422418802d3ad3d32af5eb9b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool unload_module</definition>
+        <argsstring>(const char *name)</argsstring>
+        <name>unload_module</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+<para>Stop and unload a loaded module by name. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Locates the module in the registry, calls mod_exit if present, frees all allocations associated with the image, and removes the entry from the registry</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>NUL-terminated module base name </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true on success, false if not found or unload failed </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/module.h" line="362" column="6" bodyfile="src/module_loader.c" bodystart="471" bodyend="482" declfile="include/module.h" declline="362" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Minimal ELF64 definitions and the run-time module loader interface. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Provides:<itemizedlist>
+<listitem><para>A compact, libc-free subset of ELF64 constants and structs used by the loader</para>
+</listitem><listitem><para>The <ref refid="structmodule" kindref="compound">module</ref> descriptor describing a loaded, relocated module image</para>
+</listitem><listitem><para>The public API for loading, relocating, resolving, and unloading modules</para>
+</listitem></itemizedlist>
+</para>
+<para><simplesect kind="note"><para>These definitions intentionally avoid pulling in &lt;elf.h&gt; to keep the kernel freestanding. Layout matches the System V ABI for ELF64 </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <location file="include/module.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="LOCAL" kind="page">
+    <compoundname>LOCAL</compoundname>
+    <title>LOCAL Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">LOCAL<sp/>variable-name<sp/>=<sp/>expression</highlight></codeline>
+</programlisting></para>
+<para>Declares or modifies a <bold>local variable</bold> whose value is accessible <bold>only within</bold> the current <computeroutput>PROC</computeroutput>, <computeroutput>FN</computeroutput> or <computeroutput>GOSUB</computeroutput> call. <linebreak/>
+ When that call returns, variables marked <computeroutput>LOCAL</computeroutput> are discarded.</para>
+<para><simplesect kind="remark"><para><computeroutput>LOCAL</computeroutput> must appear <bold>with an assignment</bold>. </para>
+</simplesect>
+<simplesect kind="remark"><para><computeroutput>LOCAL</computeroutput> without <computeroutput>= expression</computeroutput> is not valid.</para>
+</simplesect>
+<simplesect kind="remark"><para><bold>Parameters</bold> to a <computeroutput>PROC</computeroutput> or <computeroutput>FN</computeroutput> are already <bold>local</bold>. </para>
+</simplesect>
+<simplesect kind="remark"><para>You assign to parameters <bold>normally</bold> (no <computeroutput>LOCAL</computeroutput> needed or wanted).</para>
+</simplesect>
+<hruler/>
+</para>
+<sect3 id="LOCAL_1autotoc_md314">
+<title>Behaviour</title>
+<para><itemizedlist>
+<listitem><para>A <computeroutput>LOCAL</computeroutput> assignment creates/uses a <bold>local</bold> variable for <bold>this call only</bold>. <linebreak/>
+</para>
+</listitem><listitem><para>If a global of the same name exists, <computeroutput>LOCAL</computeroutput> <bold>shadows</bold> it for this call. <linebreak/>
+</para>
+</listitem><listitem><para>Inside the body, an assignment <bold>without</bold> <computeroutput>LOCAL</computeroutput> refers to the <bold>global</bold> variable of that name (if any), not the local created with <computeroutput>LOCAL</computeroutput>. <linebreak/>
+ Therefore, if you intend to keep updating the local value, prefix <bold>each</bold> assignment with <computeroutput>LOCAL</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="LOCAL_1autotoc_md316">
+<title>Examples</title>
+<para>Create and update a local in a procedure <programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>PROCsum_demo</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>LOCAL<sp/>TOTAL<sp/>=<sp/>0</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>FOR<sp/>I<sp/>=<sp/>1<sp/>TO<sp/>3</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOCAL<sp/>TOTAL<sp/>=<sp/>TOTAL<sp/>+<sp/>I</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>NEXT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;TOTAL<sp/>=<sp/>&quot;;<sp/>TOTAL</highlight></codeline>
+<codeline><highlight class="normal">ENDPROC</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">PROCsum_demo</highlight></codeline>
+</programlisting></para>
+<para>Modify a parameter (no LOCAL needed) <programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>PROCincrement(N)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>N<sp/>=<sp/>N<sp/>+<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Inside<sp/>PROC,<sp/>N<sp/>=<sp/>&quot;;<sp/>N</highlight></codeline>
+<codeline><highlight class="normal">ENDPROC</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">X<sp/>=<sp/>10</highlight></codeline>
+<codeline><highlight class="normal">PROCincrement(X)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;After<sp/>call,<sp/>X<sp/>=<sp/>&quot;;<sp/>X</highlight></codeline>
+</programlisting></para>
+<para>Shadowing a global, and what happens without LOCAL <programlisting filename=".basic"><codeline><highlight class="normal">X<sp/>=<sp/>5</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">DEF<sp/>PROCwork</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>LOCAL<sp/>X<sp/>=<sp/>99</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Local<sp/>X<sp/>=<sp/>&quot;;<sp/>X</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>X<sp/>=<sp/>100<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REM<sp/>this<sp/>updates<sp/>the<sp/>GLOBAL<sp/>X,<sp/>not<sp/>the<sp/>local<sp/>one</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Local<sp/>X<sp/>still<sp/>=<sp/>&quot;;<sp/>X</highlight></codeline>
+<codeline><highlight class="normal">ENDPROC</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">PROCwork</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Global<sp/>X<sp/>now<sp/>=<sp/>&quot;;<sp/>X</highlight></codeline>
+</programlisting></para>
+<para>Use inside a GOSUB subroutine (line numbers permitted) <programlisting filename=".basic"><codeline><highlight class="normal">10<sp/>GOSUB<sp/>1000</highlight></codeline>
+<codeline><highlight class="normal">20<sp/>END</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">1000<sp/>LOCAL<sp/>T<sp/>=<sp/>1</highlight></codeline>
+<codeline><highlight class="normal">1010<sp/>LOCAL<sp/>T<sp/>=<sp/>T<sp/>+<sp/>1</highlight></codeline>
+<codeline><highlight class="normal">1020<sp/>PRINT<sp/>&quot;T<sp/>=<sp/>&quot;;<sp/>T</highlight></codeline>
+<codeline><highlight class="normal">1030<sp/>RETURN</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DEF"><computeroutput>DEF</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PROC"><computeroutput>PROC</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ENDPROC"><computeroutput>ENDPROC</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/FN"><computeroutput>FN</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/GOSUB"><computeroutput>GOSUB</computeroutput></ulink> </para>
+</sect3>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/LOCAL.md"/>
+  </compounddef>
+</doxygen>

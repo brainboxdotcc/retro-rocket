@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="WEEKDAY" kind="page">
+    <compoundname>WEEKDAY</compoundname>
+    <title>WEEKDAY Function</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">numeric-expression<sp/>=<sp/>WEEKDAY(boolean-expression)</highlight></codeline>
+</programlisting></para>
+<para>Returns the current day of the week as a number (<computeroutput>0 = Sunday</computeroutput>, <computeroutput>1 = Monday</computeroutput>, ..., <computeroutput>6 = Saturday</computeroutput>). <linebreak/>
+ Pass <computeroutput>TRUE</computeroutput> to adjust using the current time zone, or <computeroutput>FALSE</computeroutput> for UTC.</para>
+<para>Example:</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>WEEKDAY(TRUE)<sp/><sp/><sp/>&apos;<sp/>Local<sp/>weekday</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>WEEKDAY(FALSE)<sp/><sp/>&apos;<sp/>UTC<sp/>weekday</highlight></codeline>
+</programlisting> </para>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/integer/WEEKDAY.md"/>
+  </compounddef>
+</doxygen>

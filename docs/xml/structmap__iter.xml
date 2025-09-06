@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structmap__iter" kind="struct" language="C++" prot="public">
+    <compoundname>map_iter</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structmap__iter_1a7c9a594c516ff5ed2dcd1ac6853685e5" prot="public" static="no" mutable="no">
+        <type>const <ref refid="structmap" kindref="compound">map</ref> *</type>
+        <definition>const map* map_iter::owner</definition>
+        <argsstring></argsstring>
+        <name>owner</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/containers/map.c" line="33" column="11" bodyfile="src/containers/map.c" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structmap__iter_1a748a233e7e452299ed0499107cb3a8ba" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t map_iter::i</definition>
+        <argsstring></argsstring>
+        <name>i</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/containers/map.c" line="34" column="8" bodyfile="src/containers/map.c" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structmap__iter_1a04dd5bde52dc5430eb6957314864dd7b" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int map_iter::state</definition>
+        <argsstring></argsstring>
+        <name>state</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/containers/map.c" line="35" column="5" bodyfile="src/containers/map.c" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="5">
+        <label>size_t</label>
+      </node>
+      <node id="8">
+        <label>void *</label>
+      </node>
+      <node id="6">
+        <label>map_soa</label>
+        <link refid="structmap__soa"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>colour</edgelabel>
+          <edgelabel>keys</edgelabel>
+          <edgelabel>left</edgelabel>
+          <edgelabel>parent</edgelabel>
+          <edgelabel>right</edgelabel>
+          <edgelabel>vals</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>map_iter</label>
+        <link refid="structmap__iter"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>owner</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>i</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>state</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>map</label>
+        <link refid="structmap"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>free_ix</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>a</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>count</edgelabel>
+          <edgelabel>root</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>cmp</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>opaque</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>uintptr_t *</label>
+      </node>
+      <node id="7">
+        <label>int</label>
+      </node>
+      <node id="3">
+        <label>vector</label>
+        <link refid="structvector"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>data</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>capacity</edgelabel>
+          <edgelabel>count</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/containers/map.c" line="32" column="1" bodyfile="src/containers/map.c" bodystart="32" bodyend="36"/>
+    <listofallmembers>
+      <member refid="structmap__iter_1a748a233e7e452299ed0499107cb3a8ba" prot="public" virt="non-virtual"><scope>map_iter</scope><name>i</name></member>
+      <member refid="structmap__iter_1a7c9a594c516ff5ed2dcd1ac6853685e5" prot="public" virt="non-virtual"><scope>map_iter</scope><name>owner</name></member>
+      <member refid="structmap__iter_1a04dd5bde52dc5430eb6957314864dd7b" prot="public" virt="non-virtual"><scope>map_iter</scope><name>state</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

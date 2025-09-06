@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_b_i_t_s_h_r" kind="page">
+    <compoundname>BITSHR</compoundname>
+    <title>BITSHR Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">X<sp/>=<sp/>BITSHR(a,<sp/>n)</highlight></codeline>
+</programlisting></para>
+<para>Shifts integer <computeroutput>a</computeroutput> <bold>left</bold> by <computeroutput>n</computeroutput> bits.</para>
+<para><hruler/>
+</para>
+<sect3 id="_b_i_t_s_h_r_1autotoc_md58">
+<title>How to read it</title>
+<para><itemizedlist>
+<listitem><para>Equivalent to multiplying <computeroutput>a</computeroutput> by 2ⁿ.</para>
+</listitem><listitem><para>Low-order bits are filled with zeros.</para>
+</listitem><listitem><para>Shift counts outside 0–63 are clamped.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_b_i_t_s_h_r_1autotoc_md60">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>BITSHR(3,<sp/>2)</highlight></codeline>
+</programlisting></para>
+<para>This example produces <computeroutput>12</computeroutput>.</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="_b_i_t_s_h_r_1autotoc_md62">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Operates on 64-bit integers.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <linebreak/>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BITSHR">BITSHR</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BITROL">BITROL</ulink> </para>
+</sect3>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/BITSHR.md"/>
+  </compounddef>
+</doxygen>
