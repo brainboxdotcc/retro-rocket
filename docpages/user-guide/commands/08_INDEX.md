@@ -1,6 +1,5 @@
 \page commands Commands
 
-- \subpage ansi
 - \subpage ball
 - \subpage cd
 - \subpage charmap
@@ -20,7 +19,6 @@
 - \subpage irc
 - \subpage list
 - \subpage mkdir
-- \subpage mouse
 - \subpage proclist
 - \subpage rmdir
 - \subpage rocketsh
