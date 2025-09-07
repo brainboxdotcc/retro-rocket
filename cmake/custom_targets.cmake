@@ -64,6 +64,21 @@ function(copy_system_timezone SOURCEFILE)
     add_dependencies(ISO timezone_${TZ_TARGET})
 endfunction()
 
+function(copy_system_config SOURCEFILE)
+    set(FILENAME "${CMAKE_SOURCE_DIR}/os/system/config/${SOURCEFILE}")
+    set(OUTNAME "${CMAKE_BINARY_DIR}/iso/system/config/${SOURCEFILE}")
+
+    add_custom_command(OUTPUT ${OUTNAME}
+            COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_BINARY_DIR}/iso/system/config"
+            COMMAND ${CMAKE_COMMAND} -E copy "${FILENAME}" "${OUTNAME}"
+            DEPENDS ${FILENAME})
+
+    string(REPLACE "/" "_" CF_TARGET ${SOURCEFILE})
+
+    add_custom_target(conf_${CF_TARGET} ALL DEPENDS ${OUTNAME})
+    add_dependencies("kernel.bin" conf_${CF_TARGET})
+    add_dependencies(ISO conf_${CF_TARGET})
+endfunction()
 
 function(copy_image TARGETFILE SOURCEFILE)
     set(FILENAME "${CMAKE_SOURCE_DIR}/os/images/${SOURCEFILE}")
@@ -151,6 +166,6 @@ function(iso TARGETFILE SOURCEFILE)
     set(OUTNAME "${CMAKE_BINARY_DIR}/${TARGETFILE}")
     add_custom_command(OUTPUT ${OUTNAME}
         COMMAND php ../build-boot-image.php && xorriso -as mkisofs --quiet -b limine-cd.bin -joliet -no-emul-boot -boot-load-size 4 -boot-info-table -V "RETROROCKET" --protective-msdos-label "${CMAKE_BINARY_DIR}/iso" -o "${CMAKE_BINARY_DIR}/rr.iso"
-        DEPENDS SYMBOLS "kernel.bin" "RUN_run.sh" "DEBUG_debug.sh" ${basic_program_list} ${basic_library_list} ${basic_driver_list} ${KEYMAP_TARGETS} ${TIMEZONE_TARGETS} ${IMAGE_TARGETS} ${MODULE_TARGETS})
+        DEPENDS SYMBOLS "kernel.bin" "RUN_run.sh" "DEBUG_debug.sh" ${basic_program_list} ${basic_library_list} ${basic_driver_list} ${KEYMAP_TARGETS} ${TIMEZONE_TARGETS} ${CONFIG_TARGETS} ${IMAGE_TARGETS} ${MODULE_TARGETS})
     add_dependencies(ISO SYMBOLS "kernel.bin" "RUN_run.sh" "DEBUG_debug.sh" "config_limine.cfg")
 endfunction()

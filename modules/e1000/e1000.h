@@ -129,7 +129,7 @@
 #define TSTA_DD                         (1 << 0)    // Descriptor Done
 #define TSTA_EC                         (1 << 1)    // Excess Collisions
 #define TSTA_LC                         (1 << 2)    // Late Collision
-#define LSTA_TU                         (1 << 3)    // Transmit Underrun
+#define LSTA_TU                         (1 << 3)    // Transmit Under-run
 
 #define E1000_NUM_RX_DESC 32
 #define E1000_NUM_TX_DESC 8

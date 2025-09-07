@@ -96,6 +96,13 @@ foreach (timezone ${timezone_list})
     string(REPLACE "/" "_" TZ_NAME ${timezone})
     list(APPEND TIMEZONE_TARGETS "timezone_${TZ_NAME}")
 endforeach()
+set(CONFIG_TARGETS "")
+file(GLOB_RECURSE config_list RELATIVE ${CMAKE_SOURCE_DIR}/os/system/config ${CMAKE_SOURCE_DIR}/os/system/config/*)
+foreach (config ${config_list})
+    copy_system_config(${config})
+    string(REPLACE "/" "_" CONF_NAME ${config})
+    list(APPEND CONFIG_TARGETS "conf_${CONF_NAME}")
+endforeach()
 
 # --- Build loadable modules from modules/<name>/*.c into iso/system/modules/<name>.ko
 file(GLOB MODULE_DIRS RELATIVE ${CMAKE_SOURCE_DIR}/modules ${CMAKE_SOURCE_DIR}/modules/*)
