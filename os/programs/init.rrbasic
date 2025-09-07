@@ -1,22 +1,25 @@
 GLOBAL LIB$ = "/programs/libraries" ' Default library path
 
-PRINT "Mounting ";
-COLOR 14
-PRINT "filesystems";
-COLOR 7
-PRINT "..."
+PROCmessage("Loading", "drivers")
+MODLOAD "e1000"
 
-MOUNT "/devices", "", "devfs" ' Mount filesystems
+PROCmessage("Mounting", "filesystems")
+MOUNT "/devices", "", "devfs"
 MOUNT "/boot", "hd0", "fat32"
 
+PROCmessage("Setting", "keymap")
 KEYMAP "qemu"
 
 REPEAT
-	PRINT "Launching ";
-	COLOR 14
-	PRINT "shell";
-	COLOR 7
-	PRINT "..."
+    PROCmessage("Launching", "shell")
 	CHAIN "/programs/rocketsh"
 	PRINT "Shell process ended."
 UNTIL FALSE
+
+DEF PROCmessage(white$, yellow$)
+	PRINT white$; " ";
+	COLOR 14
+	PRINT yellow$;
+	COLOR 7
+	PRINT "..."
+ENDPROC
