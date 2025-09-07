@@ -64,3 +64,7 @@ void poked_statement(struct basic_ctx *ctx);
  * @param ctx BASIC context
  */
 void pokeq_statement(struct basic_ctx *ctx);
+
+void modload_statement(struct basic_ctx* ctx);
+
+void modunload_statement(struct basic_ctx* ctx);

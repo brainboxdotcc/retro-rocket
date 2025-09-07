@@ -23,8 +23,5 @@ void kmain()
 		preboot_fail("Failed to mount boot drive to VFS!");
 	}
 
-	// TODO: Don't hard code this, give BASIC facility to load it via /programs/init
-	load_module("e1000");
-
 	init_process();
 }

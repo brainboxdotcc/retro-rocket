@@ -170,6 +170,8 @@
     T(OUTPORTW, STMT) 		/* 108 */ \
     T(OUTPORTD, STMT) 		/* 109 */ \
     T(KGET, STMT) 		/* 110 */ \
+    T(MODLOAD, STMT) 		/* 111 */ \
+    T(MODUNLOAD, STMT) 		/* 112 */ \
 
 
 GENERATE_ENUM_LIST(TOKEN, token_t)

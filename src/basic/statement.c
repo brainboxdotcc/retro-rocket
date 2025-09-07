@@ -178,6 +178,10 @@ void statement(struct basic_ctx* ctx)
 			return udpbind_statement(ctx);
 		case UDPUNBIND:
 			return udpunbind_statement(ctx);
+		case MODLOAD:
+			return modload_statement(ctx);
+		case MODUNLOAD:
+			return modunload_statement(ctx);
 		case NEWLINE:
 			/* Blank trailing line at end of program, ignore */
 			return;
