@@ -350,6 +350,6 @@ bool EXPORTED MOD_INIT_SYM(KMOD_ABI)(void) {
 	return true;
 }
 
-void EXPORTED MOD_EXIT_SYM(KMOD_ABI)(void) {
-	dprintf("rtl8139: unloaded\n");
+bool EXPORTED MOD_EXIT_SYM(KMOD_ABI)(void) {
+	return false;
 }

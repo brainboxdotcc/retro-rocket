@@ -135,7 +135,7 @@ typedef struct elf_rela {
 } elf_rela;
 
 typedef bool (*module_init_fn)(void);  /**< Prototype for module initialiser */
-typedef void (*module_exit_fn)(void);  /**< Prototype for module finaliser */
+typedef bool (*module_exit_fn)(void);  /**< Prototype for module finaliser */
 
 /**
  * @brief Set this prefix on all module_init/module_exit functions in modules

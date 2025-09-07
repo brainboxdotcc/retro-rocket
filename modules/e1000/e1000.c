@@ -432,6 +432,6 @@ bool EXPORTED MOD_INIT_SYM(KMOD_ABI)(void) {
 	return true;
 }
 
-void EXPORTED MOD_EXIT_SYM(KMOD_ABI)(void) {
-	dprintf("e1000: unloaded\n");
+bool EXPORTED MOD_EXIT_SYM(KMOD_ABI)(void) {
+	return false;
 }

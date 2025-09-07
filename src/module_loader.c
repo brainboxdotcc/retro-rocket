@@ -388,7 +388,9 @@ bool module_internal_unload(module *m) {
 	}
 
 	if (m->exit_fn != NULL) {
-		m->exit_fn();
+		if (!m->exit_fn()) {
+			return false;
+		}
 	}
 
 	kfree_aligned(&m->base);
