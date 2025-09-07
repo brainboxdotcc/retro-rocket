@@ -340,7 +340,7 @@ void init_rtl8139() {
 
 	interrupts_on();
 
-	dhcp_discover();
+	network_setup();
 }
 
 

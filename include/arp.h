@@ -99,3 +99,8 @@ size_t get_arp_table_size();
  * @param protocol_addr IP address to resolve and cache
  */
 void arp_prediscover(uint8_t *protocol_addr);
+
+/* Broadcast (announce) our current IPv4 address via gratuitous ARP.
+ * Safe to call immediately after assigning a static IP. No-op if no IP set.
+ */
+void arp_announce_my_ip(void);

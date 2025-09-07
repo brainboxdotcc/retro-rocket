@@ -4,14 +4,8 @@
  * @brief Networking device and protocol definitions.
  * @copyright Copyright (c) 2012-2025
  */
-
 #pragma once
-
 #include "kernel.h"
-
-/* ------------------------------------------------------------------------- */
-/* Address and protocol structures                                            */
-/* ------------------------------------------------------------------------- */
 
 /**
  * @brief Represents an address bound to a protocol on an interface.
@@ -52,9 +46,15 @@ enum netdev_flags_t {
 	CONNECTED              = 2 /**< Device has carrier and is connected. */
 };
 
-/* ------------------------------------------------------------------------- */
-/* Device abstraction                                                         */
-/* ------------------------------------------------------------------------- */
+typedef struct {
+	char *hostname;   /* strdup’d, may be NULL if not set */
+	uint32_t ip;      /* 0 = dhcp/unset */
+	uint32_t netmask; /* 0 = dhcp/unset */
+	uint32_t gateway; /* 0 = dhcp/unset */
+	uint32_t dns;     /* 0 = dhcp/unset */
+} net_config;
+
+bool parse_network_config(const unsigned char *buf, size_t len, net_config *out);
 
 /** @brief Callback to retrieve MAC address. */
 typedef void (*net_get_mac)(uint8_t*);
@@ -163,3 +163,31 @@ netdev_t* find_network_device(const char* name);
  * @return Pointer to the active device, or NULL if none exist.
  */
 netdev_t* get_active_network_device(void);
+
+/**
+ * @brief Configure the active network interface from /system/config/network.conf
+ *
+ * This function is called by a network driver once it has initialised successfully.
+ * It reads the global configuration file and applies hostname, IP address, netmask,
+ * gateway, and DNS settings. Each field may be specified either as a literal value
+ * or as the string "dhcp" to request assignment from a DHCP server.
+ *
+ * Behaviour:
+ * - If the host already has an address (gethostaddr() returns true), the function
+ *   exits early without reconfiguring.
+ * - If /system/config/network.conf does not exist or cannot be read, DHCP discovery
+ *   is attempted for all parameters.
+ * - For each field set to a literal in the config, the corresponding setter is
+ *   invoked immediately (sethostaddr, setnetmask, setgatewayaddr, setdnsaddr).
+ * - If any field is marked "dhcp" (represented internally as 0), a DHCP request
+ *   is started. DHCP will fill only the unset fields and will not overwrite static
+ *   values already applied.
+ * - If a static IP address is configured, a gratuitous ARP announcement is broadcast
+ *   to advertise the address on the local network.
+ *
+ * The hostname defaults to "retrorocket" if not present in the configuration.
+ *
+ * @note Currently only a single active NIC plus loopback are supported.
+ * @note The caller must ensure a network device is present before invoking this.
+ */
+void network_setup();

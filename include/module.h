@@ -74,6 +74,7 @@
 /* x86_64 relocation types */
 #define R_X86_64_64    1   /**< 64-bit absolute address */
 #define R_X86_64_PC32  2   /**< 32-bit signed PC-relative */
+#define R_X86_64_PLT32 4   /**< 32-bit PLT 32 */
 #define R_X86_64_32    10  /**< 32-bit zero-extended absolute */
 #define R_X86_64_32S   11  /**< 32-bit sign-extended absolute */
 

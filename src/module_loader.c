@@ -258,7 +258,7 @@ bool module_apply_relocations(const uint8_t *file, const elf_shdr *sh, size_t sh
 				}
 
 				/* Compilers often emit PLT32 for extern calls */
-				case 4 /* R_X86_64_PLT32 */: {
+				case R_X86_64_PLT32: {
 					int64_t val = (int64_t) S + A - (int64_t) P;
 					if (val < INT_MIN || val > INT_MAX) {
 						dprintf("module_apply_relocations: PLT32 overflow\n");
@@ -303,13 +303,12 @@ void *module_dlsym_local(const module *m, const char *name) {
 	}
 	for (size_t i = 0; i < m->sym_count; i++) {
 		const elf_sym *s = &m->symtab[i];
-		const char *nm;
 
 		if (s->st_name == 0) {
 			continue;
 		}
 
-		nm = m->strtab + s->st_name;
+		const char *nm = m->strtab + s->st_name;
 		if (strcmp(nm, name) != 0) {
 			continue;
 		}

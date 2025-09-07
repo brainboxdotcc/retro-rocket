@@ -421,9 +421,9 @@ void init_e1000() {
 	pci_bus_master(pci_device);
 	eerprom_exists = false;
 
-	e1000_start(&pci_device);
-
-	dhcp_discover();
+	if (e1000_start(&pci_device)) {
+		network_setup();
+	}
 }
 
 bool EXPORTED MOD_INIT_SYM(KMOD_ABI)(void) {

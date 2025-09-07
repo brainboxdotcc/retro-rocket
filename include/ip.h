@@ -196,6 +196,10 @@ void setnetmask(uint32_t nm);
  */
 uint32_t getnetmask();
 
+void sethostname(const char* hostname);
+
+const char* gethostname();
+
 /**
  * @brief Initialise IP protocol
  */

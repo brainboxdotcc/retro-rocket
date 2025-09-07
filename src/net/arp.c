@@ -157,3 +157,11 @@ void arp_init() {
 	arp_lookup_add(broadcast_mac, broadcast_ip);
 	ethernet_register_iee802_number(ETHERNET_TYPE_ARP, (ethernet_protocol_t)arp_handle_packet);
 }
+
+void arp_announce_my_ip(void) {
+	uint8_t my_ip[4];
+	if (!gethostaddr(my_ip)) {
+		return;
+	}
+	arp_prediscover(my_ip);
+}

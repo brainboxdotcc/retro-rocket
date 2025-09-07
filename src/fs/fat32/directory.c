@@ -27,8 +27,6 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 	lfn_t lfns[256] = { 0 };
 	int16_t highest_lfn_order = -1;
 
-	dprintf("Get fat32 dir from cluster %u\n", cluster);
-
 	while (true) {
 		int bufferoffset = 0;
 		if (!read_cluster(info, cluster, buffer)) {
@@ -43,13 +41,11 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 		while (entries++ < info->clustersize / 32) {
 			/* End of directory */
 			if (entry->name[0] == 0x00) {
-				dprintf("End of dir, null name\n");
 				break;
 			}
 
 			/* Skip deleted entries (0xE5) */
 			if ((unsigned char)entry->name[0] == 0xE5) {
-				dprintf("Skip deleted item\n");
 				goto next_entry;
 			}
 
@@ -144,15 +140,11 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 		/* advance to next cluster in chain until EOF */
 		uint32_t nextcluster = get_fat_entry(info, cluster);
 		if (nextcluster >= CLUSTER_BAD) {
-			dprintf("next eoc\n");
 			break;
 		} else {
-			dprintf("next %u\n", nextcluster);
 			cluster = nextcluster;
 		}
 	}
-	dprintf("End list\n");
-
 	kfree_null(&buffer);
 	return list;
 }
@@ -270,7 +262,6 @@ void* fat32_get_directory(void* t)
 	}
 	fs_tree_t* treeitem = (fs_tree_t*)t;
 	fat32_t* info = (fat32_t*)treeitem->opaque;
-	dprintf("treeitem->lbapos = %lu info->rootdircluster = %u\n", treeitem->lbapos, info->rootdircluster);
 	return parse_fat32_directory(treeitem, info, treeitem->lbapos ? treeitem->lbapos : info->rootdircluster);
 }
 

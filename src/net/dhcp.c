@@ -9,6 +9,7 @@ static volatile int64_t dhcp_expiry_ms = -1;
 static volatile bool dhcp_have_lease = false;
 static volatile bool dhcp_renew_sent = false;
 static volatile bool dhcp_rebind_sent = false;
+extern int is_ip_allocated, is_dns_allocated, is_gateway_allocated, is_mask_allocated;
 
 static void dhcp_background(void);
 static void dhcp_request_renew_unicast(void);
@@ -85,8 +86,10 @@ void dhcp_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, v
 		}
 
 		/* Commit the lease address */
-		sethostaddr((const unsigned char*)&packet->your_ip);
-		dprintf("DHCP: sethostaddr(%08x)\n", packet->your_ip);
+		if (!is_ip_allocated) {
+			sethostaddr((const unsigned char *) &packet->your_ip);
+			dprintf("DHCP: sethostaddr(%08x)\n", packet->your_ip);
+		}
 
 		/* Optional parameters */
 		uint32_t* dns = get_dhcp_options(packet, OPT_DNS);
@@ -97,14 +100,18 @@ void dhcp_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, v
 		char ip[16];
 
 		if (subnet != NULL) {
-			setnetmask(*subnet);
+			if (!is_mask_allocated) {
+				setnetmask(*subnet);
+			}
 			get_ip_str(ip, (uint8_t*)subnet);
 			dprintf("DHCP: Received subnet mask: %s\n", ip);
 			kfree_null(&subnet);
 		}
 
 		if (dns != NULL) {
-			setdnsaddr(*dns);
+			if (!is_dns_allocated) {
+				setdnsaddr(*dns);
+			}
 			get_ip_str(ip, (uint8_t*)dns);
 			dprintf("DHCP: Received DNS address: %s\n", ip);
 			arp_prediscover((uint8_t*)dns);
@@ -112,7 +119,9 @@ void dhcp_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, v
 		}
 
 		if (gateway != NULL) {
-			setgatewayaddr(*gateway);
+			if (!is_gateway_allocated) {
+				setgatewayaddr(*gateway);
+			}
 			get_ip_str(ip, (uint8_t*)gateway);
 			dprintf("DHCP: Received gateway address: %s\n", ip);
 			arp_prediscover((uint8_t*)gateway);
@@ -418,7 +427,7 @@ uint16_t make_dhcp_packet(dhcp_packet_t* packet, uint8_t msg_type, uint8_t* requ
 	}
 
 	/* Host Name */
-	const char* hostname = "retrorocket";
+	const char* hostname = gethostname();
 	uint8_t len = (uint8_t)strlen(hostname);
 	*(options++) = OPT_HOSTNAME;
 	*(options++) = len;

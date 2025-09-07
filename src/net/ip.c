@@ -16,8 +16,9 @@ uint8_t my_ip[4] = {0, 0, 0, 0};
 uint8_t zero_hardware_addr[6] = {0, 0, 0, 0, 0, 0};
 packet_queue_item_t* packet_queue = NULL;
 packet_queue_item_t* packet_queue_end = NULL;
+static const char* my_hostname = NULL;
 char ip_addr[4] = { 0, 0, 0, 0 };
-int is_ip_allocated = 0;
+int is_ip_allocated = 0, is_dns_allocated = 0, is_gateway_allocated = 0, is_mask_allocated = 0;
 uint32_t dns_addr = 0, gateway_addr = 0, netmask = 0;
 struct hashmap *frag_map = NULL;
 static size_t frag_mem_total = 0;
@@ -64,16 +65,39 @@ int gethostaddr(unsigned char *addr) {
 }
 
 void sethostaddr(const unsigned char* addr) {
+	if (addr[0] == 0 && addr[1] == 0 && addr[2] == 0 && addr[3] == 0) {
+		return;
+	}
 	memcpy(ip_addr, addr, 4);
 	is_ip_allocated = 1;
 }
 
 void setdnsaddr(uint32_t dns) {
+	if (dns == 0) {
+		return;
+	}
 	dns_addr = dns;
+	is_dns_allocated = 1;
 }
 
 void setgatewayaddr(uint32_t gateway) {
+	if (gateway == 0) {
+		return;
+	}
 	gateway_addr = gateway;
+	is_gateway_allocated = 1;
+}
+
+void sethostname(const char* hostname) {
+	if (my_hostname) {
+		kfree_null(&my_hostname);
+	}
+	my_hostname = hostname;
+	return;
+}
+
+const char* gethostname() {
+	return my_hostname ? my_hostname : "retrorocket";
 }
 
 uint32_t getdnsaddr() {
@@ -85,7 +109,11 @@ uint32_t getgatewayaddr() {
 }
 
 void setnetmask(uint32_t nm) {
+	if (!nm) {
+		return;
+	}
 	netmask = nm;
+	is_mask_allocated = 1;
 }
 
 uint32_t getnetmask() {
