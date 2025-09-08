@@ -449,6 +449,10 @@ uint16_t make_dhcp_packet(dhcp_packet_t* packet, uint8_t msg_type, uint8_t* requ
 	/* END */
 	*(options++) = OPT_END;
 
+	if (options - packet->options > 128) {
+		preboot_fail("DHCP options too big, buffer overflow!");
+	}
+
 	return (uint16_t)((size_t)options - (size_t)packet);
 }
 

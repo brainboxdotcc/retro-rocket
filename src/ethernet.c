@@ -26,6 +26,11 @@ int ethernet_send_packet(uint8_t* dst_mac_addr, uint8_t* data, uint32_t len, uin
 		unlock_spinlock_irq(&ethernet_lock, flags);
 		return 0;
 	}
+	if (len > 65536) {
+		dprintf("Ethernet frame too large\n");
+		unlock_spinlock_irq(&ethernet_lock, flags);
+		return 0;
+	}
 	void * frame_data = (void*)frame + sizeof(ethernet_frame_t);
 
 	dev->get_mac_addr(src_mac_addr);
@@ -50,8 +55,14 @@ void ethernet_handle_packet(ethernet_frame_t* packet, int len) {
 		return;
 	}
 
+	if (!protocol_handlers) {
+		dprintf("No handlers yet but received a packet\n");
+		return;
+	}
+
 	uint16_t packet_type = ntohs(packet->type);
 	ethernet_protocol_t handler = protocol_handlers[packet_type];
+
 	if (data_len >= 8) {
 		add_random_entropy(*(uint64_t*)data);		
 	}

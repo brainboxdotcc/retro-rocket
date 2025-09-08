@@ -63,8 +63,8 @@ isr\isr:
 .macro IRQ num byte
 irq\num:
     MPUSHA
-    mov $0, %rsi
     mov $\byte, %rdi
+    mov $\num, %rsi
     jmp irq_stub
 .endm
 

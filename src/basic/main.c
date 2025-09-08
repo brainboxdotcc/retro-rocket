@@ -111,6 +111,9 @@ char *clean_basic(const char *program, char *output_buffer) {
 			while (*p && *p != '\r' && *p != '\n') {
 				p++;
 			}
+		} else if (*p == '\t') {
+			*d++ = ' ';
+			p++;
 		}
 		if (!in_quotes && bracket_depth > 0) {
 			if (*p != ' ') {

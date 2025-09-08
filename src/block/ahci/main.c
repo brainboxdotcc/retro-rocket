@@ -4,17 +4,29 @@
 uint8_t* aligned_read_buf = NULL;
 uint8_t* aligned_write_buf = NULL;
 
-void ahci_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t error, [[maybe_unused]] uint64_t irq, void* opaque)
+void ahci_handler(uint8_t isr, uint64_t error, uint64_t irq, void* opaque)
 {
-	ahci_hba_mem_t* abar = (ahci_hba_mem_t*)opaque;
-	uint32_t interrupt_status = abar->interrupt_status;
-	for (int i = 0; i < 32; i++) {
-		if (interrupt_status & (1u << i)) {
-			uint32_t pis = abar->ports[i].interrupt_status;
-			abar->ports[i].interrupt_status = pis; // ack by writing back
-			//dprintf("AHCI IRQ: port %d, PxIS=%08x\n", i, pis);
+	volatile ahci_hba_mem_t* abar = (volatile ahci_hba_mem_t*)opaque;
+
+	uint32_t is = abar->interrupt_status;     // HBA.IS: bitmap of ports with pending IRQ
+	if (!is) return;
+
+	// Walk set bits only (cheap and avoids touching non-existent ports)
+	uint32_t pending = is;
+	while (pending) {
+		int p = __builtin_ctz(pending);
+		pending &= pending - 1;
+
+		volatile ahci_hba_port_t* port = &abar->ports[p];
+		uint32_t pis = port->interrupt_status;   // PxIS
+		if (pis) {
+			port->interrupt_status = pis;        // write-1-to-clear PxIS
+			(void)port->interrupt_status;        // read-back: flush posted write
+			//dprintf("AHCI IRQ: port %d, PxIS=%08x\n", p, pis);
 		}
 	}
+	abar->interrupt_status = is;              // write-1-to-clear HBA.IS summary
+	(void)abar->interrupt_status;             // read-back to ensure deassertion
 }
 
 static inline bool ahci_hba_supports_64b(const ahci_hba_mem_t* abar) {

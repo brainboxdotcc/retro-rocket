@@ -230,28 +230,34 @@ symbol_t* get_sym_table()
 
 void dump_hex(void* addr, uint64_t length)
 {
+	char line[MAX_STRINGLEN], part[MAX_STRINGLEN];
 	unsigned char* address = addr;
 	uint64_t index = 0;
 	for(; index < length; index += 16) {
-		kprintf("%04lx: ", index);
+		*line = 0;
+		snprintf(part, MAX_STRINGLEN, "%04lx: ", index);
+		strlcat(line, part, MAX_STRINGLEN);
 		size_t hex = 0;
 		for (; hex < 16; ++hex) {
 			if (index + hex < length) {
-				kprintf("%02X ", address[index + hex]);
+				snprintf(part, MAX_STRINGLEN, "%02X ", address[index + hex]);
 			} else {
-				kprintf("   ");
+				snprintf(part, MAX_STRINGLEN, "   ");
 			}
+			strlcat(line, part, MAX_STRINGLEN);
 		}
-		kprintf(" | ");
+		snprintf(part, MAX_STRINGLEN, " | ");
+		strlcat(line, part, MAX_STRINGLEN);
 		for (hex = 0; hex < 16; ++hex) {
 			if (index + hex < length) {
-				kprintf("%c", (address[index + hex] < 32 || address[index + hex] > 126) ? '.' : address[index + hex]);
+				snprintf(part, MAX_STRINGLEN, "%c", (address[index + hex] < 32 || address[index + hex] > 126) ? '.' : address[index + hex]);
 			} else {
-				kprintf(" ");
+				snprintf(part, MAX_STRINGLEN, " ");
 			}
+			strlcat(line, part, MAX_STRINGLEN);
 		}
 
-		kprintf("\n");
+		dprintf("%s\n", line);
 	}
 }
 

@@ -103,22 +103,22 @@ void e1000_receive_init() {
 	struct e1000_rx_desc *descs;
 
 	uint8_t *ptr = (uint8_t *) kmalloc_low(sizeof(e1000_rx_desc_t) * E1000_NUM_RX_DESC + 16);
-	uintptr_t aligned = ((uintptr_t) ptr + 15) & ~(uintptr_t)0x0F;
-	descs = (struct e1000_rx_desc *) aligned;
+	uintptr_t aligned = ((uintptr_t)ptr + 15) & ~(uintptr_t)0x0F;
+	descs = (struct e1000_rx_desc *)aligned;
+
+	memset(descs, 0, sizeof(e1000_rx_desc_t) * E1000_NUM_RX_DESC);
 
 	for (int i = 0; i < E1000_NUM_RX_DESC; i++) {
 		rx_descs[i] = (e1000_rx_desc_t *) ((uint8_t *) descs + i * 16);
 		void *raw_buf = kmalloc_low(8192 + 16);
+		memset(raw_buf, 0, 8192 + 16);
 		uintptr_t aligned_buf = ((uintptr_t)raw_buf + 15) & ~((uintptr_t)15);
 		rx_descs[i]->addr = (uint64_t)aligned_buf;
 		rx_descs[i]->status = 0;
 	}
 
-	e1000_write_command(REG_TXDESCLO, (uint32_t) ((uint64_t) ptr & 0xFFFFFFFF));
-	e1000_write_command(REG_TXDESCHI, (uint32_t) ((uint64_t) ptr >> 32));
-
-	e1000_write_command(REG_RXDESCLO, (uint64_t) ptr);
-	e1000_write_command(REG_RXDESCHI, 0);
+	e1000_write_command(REG_RXDESCLO, (uint32_t)(aligned & 0xFFFFFFFF));
+	e1000_write_command(REG_RXDESCHI, (uint32_t)(aligned >> 32));
 
 	e1000_write_command(REG_RXDESCLEN, E1000_NUM_RX_DESC * 16);
 
@@ -137,23 +137,32 @@ void e1000_transmit_init() {
 	uintptr_t aligned = ((uintptr_t) ptr + 15) & ~((uintptr_t) 15);
 	descs = (e1000_tx_desc_t *) aligned;
 
+	memset(descs, 0, sizeof(e1000_tx_desc_t) * E1000_NUM_TX_DESC);
+
 	for (int i = 0; i < E1000_NUM_TX_DESC; i++) {
 		tx_descs[i] = (e1000_tx_desc_t *) ((uint8_t *) descs + i * 16);
-		tx_descs[i]->addr = 0;
-		tx_descs[i]->cmd = 0;
-		tx_descs[i]->status = TSTA_DD;
+		tx_descs[i] = (e1000_tx_desc_t *)((uint8_t *)descs + i * 16);
+		tx_descs[i]->addr   = 0;
+		tx_descs[i]->cmd    = 0;
+		tx_descs[i]->status = TSTA_DD;   // available
+		tx_descs[i]->length = 0;
+		tx_descs[i]->cso    = 0;
+		tx_descs[i]->css    = 0;
+		tx_descs[i]->special= 0;
 	}
 
 	for (int i = 0; i < E1000_NUM_TX_DESC; i++) {
-		uint8_t *raw = (uint8_t *) kmalloc_low(E1000_MAX_PKT_SIZE + E1000_TX_ALIGN);
+		uint8_t *raw = (uint8_t *) kmalloc_low(65536 + E1000_TX_ALIGN);
+		memset(raw, 0, 65536 + E1000_TX_ALIGN);
 		uintptr_t aligned_addr = ((uintptr_t) raw + E1000_TX_ALIGN - 1) & ~(E1000_TX_ALIGN - 1);
 		tx_buffers[i] = (void *) aligned_addr;
 		tx_descs[i]->addr = (uint64_t) (uintptr_t) tx_buffers[i];
-		tx_descs[i]->status = 1; // Mark available
+		tx_descs[i]->status = TSTA_DD; /* ring slot free */
 	}
 
-	e1000_write_command(REG_TXDESCHI, (uint32_t) ((uint64_t) ptr >> 32));
-	e1000_write_command(REG_TXDESCLO, (uint32_t) ((uint64_t) ptr & 0xFFFFFFFF));
+	/* Program TX ring base to the ALIGNED address. */
+	e1000_write_command(REG_TXDESCLO, (uint32_t)(aligned & 0xFFFFFFFF));
+	e1000_write_command(REG_TXDESCHI, (uint32_t)(aligned >> 32));
 
 
 	//now setup total length of descriptors
@@ -171,7 +180,6 @@ void e1000_transmit_init() {
 				       | TCTL_RTLC);
 
 	e1000_write_command(REG_TIPG, 0x0060200A); // Enable inter-packet gaps
-
 }
 
 void e1000_handle_receive() {
@@ -213,8 +221,7 @@ bool e1000_send_packet(void *p_data, uint16_t p_len) {
 		dprintf("e1000: packet too large\n");
 		return false;
 	}
-
-	if (!tx_descs[tx_cur]) {
+	if (!tx_descs[tx_cur] || !tx_buffers[tx_cur]) {
 		dprintf("e1000: Bad send buffer\n");
 		return false;
 	}
@@ -228,13 +235,15 @@ bool e1000_send_packet(void *p_data, uint16_t p_len) {
 	// Copy the data into the pre-allocated <4GiB DMA-safe buffer
 	memcpy(tx_buffers[tx_cur], p_data, p_len);
 
-	// Prepare descriptor
-	tx_descs[tx_cur]->length = p_len;
-	tx_descs[tx_cur]->cmd = CMD_EOP | CMD_IFCS | CMD_RS; // End of packet, insert CRC, report status
-	tx_descs[tx_cur]->status = 0;
+	tx_descs[tx_cur]->length  = p_len;
+	tx_descs[tx_cur]->cso     = 0;
+	tx_descs[tx_cur]->css     = 0;
+	tx_descs[tx_cur]->special = 0;
+	tx_descs[tx_cur]->cmd     = CMD_EOP | CMD_IFCS | CMD_RS;
+	tx_descs[tx_cur]->status  = 0;
 
 	// Advance the tail
-	uint8_t old_cur = tx_cur;
+	uint16_t old_cur = tx_cur;
 	tx_cur = (tx_cur + 1) % E1000_NUM_TX_DESC;
 	e1000_write_command(REG_TXDESCTAIL, tx_cur);
 

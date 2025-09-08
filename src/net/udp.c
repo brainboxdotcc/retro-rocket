@@ -6,7 +6,7 @@ typedef struct {
 } udp_daemon_registration;
 
 static udp_daemon_registration daemons[USHRT_MAX] = {};
-spinlock_t udp_lock = 0;
+static spinlock_t udp_lock = 0;
 #define UDP_MAX_PACKET (65536 + sizeof(udp_packet_t))
 
 uint16_t udp_calculate_checksum(udp_packet_t * packet) {

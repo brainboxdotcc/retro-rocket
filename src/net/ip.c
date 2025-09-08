@@ -9,18 +9,19 @@
 #define FRAG_GC_INTERVAL 1500 // ~15s at 1000Hz
 #define FRAG_MEM_LIMIT (2 * 1024 * 1024)
 #define TCP_MAX_PACKET_SIZE (65536 + sizeof(ip_packet_t))
+#define MAX_LOCAL_HOST_NAME 64
 
-spinlock_t tcp_send_spinlock = 0;
-uint16_t last_id;
-uint8_t my_ip[4] = {0, 0, 0, 0};
-uint8_t zero_hardware_addr[6] = {0, 0, 0, 0, 0, 0};
-packet_queue_item_t* packet_queue = NULL;
-packet_queue_item_t* packet_queue_end = NULL;
-static const char* my_hostname = NULL;
-char ip_addr[4] = { 0, 0, 0, 0 };
+static spinlock_t tcp_send_spinlock = 0;
+static uint16_t last_id;
+static uint8_t my_ip[4] = {0, 0, 0, 0};
+static uint8_t zero_hardware_addr[6] = {0, 0, 0, 0, 0, 0};
+static packet_queue_item_t* packet_queue = NULL;
+static packet_queue_item_t* packet_queue_end = NULL;
+static char my_hostname[MAX_LOCAL_HOST_NAME];
+static char ip_addr[4] = { 0, 0, 0, 0 };
 int is_ip_allocated = 0, is_dns_allocated = 0, is_gateway_allocated = 0, is_mask_allocated = 0;
-uint32_t dns_addr = 0, gateway_addr = 0, netmask = 0;
-struct hashmap *frag_map = NULL;
+static uint32_t dns_addr = 0, gateway_addr = 0, netmask = 0;
+static struct hashmap *frag_map = NULL;
 static size_t frag_mem_total = 0;
 
 /* Loopback helpers */
@@ -89,15 +90,14 @@ void setgatewayaddr(uint32_t gateway) {
 }
 
 void sethostname(const char* hostname) {
-	if (my_hostname) {
-		kfree_null(&my_hostname);
-	}
-	my_hostname = hostname;
+	dprintf("*** SET HOSTNAME: '%s' ***\n", hostname);
+	strlcpy(my_hostname, hostname, MAX_LOCAL_HOST_NAME);
 	return;
 }
 
 const char* gethostname() {
-	return my_hostname ? my_hostname : "retrorocket";
+	const char* p = *my_hostname ? my_hostname : "retrorocket";
+	return p;
 }
 
 uint32_t getdnsaddr() {
@@ -323,6 +323,8 @@ void ip_send_packet(uint8_t* dst_ip, void* data, uint16_t len, uint8_t protocol)
 	uint32_t our_ip = *((uint32_t*)&my_ip);
 	uint32_t target_ip = *((uint32_t*)dst_ip);
 	bool redirected = false;
+
+	//dprintf("IP packet; netmask=%08x gateway=%08x our_ip=%08x target_ip=%08x len=%u protocol=%04x\n", netmask, our_gateway, our_ip, target_ip, len, protocol);
 
 	memcpy(packet->src_ip, my_ip, 4);
 	memcpy(packet->dst_ip, dst_ip, 4);

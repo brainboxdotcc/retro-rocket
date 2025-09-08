@@ -1,5 +1,4 @@
 #include <kernel.h>
-#include <stdint.h>
 
 netdev_t* networkdevices = NULL;
 
@@ -165,9 +164,14 @@ void network_setup() {
 			dprintf("One or more configuration elements are dhcp, requesting\n");
 			dhcp_discover();
 		}
-		if (config.ip != 0) {
-			dprintf("Static IP, announcing\n");
+		if (config.ip) {
 			arp_announce_my_ip();
+		}
+		if (config.dns) {
+			arp_prediscover((uint8_t*)&config.dns);
+		}
+		if (config.gateway) {
+			arp_prediscover((uint8_t*)&config.gateway);
 		}
 		kfree_null(&config.hostname);
 	} else {
