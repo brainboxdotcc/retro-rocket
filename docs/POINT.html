@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -89,12 +90,12 @@ $(document).ready(function(){initNavTree('POINT.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">POINT integer-expression, integer-expression</div>
-</div><!-- fragment --><p>Draws a single pixel at the <b>X,Y</b> coordinates given, using the current graphics colour (set with <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL"><code>GCOL</code></a>).</p>
+</div><!-- fragment --><p>Draws a single pixel at the <b>X,Y</b> coordinates given, using the current graphics colour (set with <a class="el" href="GCOL.html">GCOL</a>).</p>
 <ul>
 <li>Parameters are: <code>x, y</code> (screen pixels).</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md374"></a>
+<h3><a class="anchor" id="autotoc_md388"></a>
 Examples</h3>
 <p>Single white dot </p><div class="fragment"><div class="line">GCOL RGB(255,255,255)</div>
 <div class="line">POINT 100, 80</div>
@@ -105,15 +106,15 @@ Examples</h3>
 <div class="line">    POINT X, Y</div>
 <div class="line">NEXT</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md376"></a>
+<h3><a class="anchor" id="autotoc_md390"></a>
 Notes</h3>
 <ul>
 <li>Coordinates are in <b>screen pixels</b>; <code>(0,0)</code> is the <b>top-left</b> corner.</li>
 <li>Points outside the screen are clipped.</li>
-<li>When <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/AUTOFLIP"><code>AUTOFLIP</code></a> is <code>FALSE</code>, the pixel appears after you call <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/FLIP"><code>FLIP</code></a>.</li>
+<li>When <a class="el" href="AUTOFLIP.html">AUTOFLIP</a> is <code>FALSE</code>, the pixel appears after you call <a class="el" href="FLIP.html">FLIP</a>.</li>
 </ul>
 <p><b>See also:</b> <br  />
- <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL"><code>GCOL</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/LINE"><code>LINE</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/RECTANGLE"><code>RECTANGLE</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/CIRCLE"><code>CIRCLE</code></a> </p>
+ <a class="el" href="GCOL.html">GCOL</a> · <a class="el" href="LINE.html">LINE</a> · <a class="el" href="RECTANGLE.html">RECTANGLE</a> · <a class="el" href="CIRCLE.html">CIRCLE</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -121,7 +122,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

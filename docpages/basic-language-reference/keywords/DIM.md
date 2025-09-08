@@ -39,6 +39,6 @@ VALUES#(1) = 1.5
 ##### Notes
 - The **element type** follows the variable’s type: e.g. `A` → integer array, `A#` → real array, `S$` → string array.
 - All indexing is **0-based** (`0 .. size-1`). Access outside this range raises a runtime error (catchable with [`ON ERROR`](https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR)).
-- To change the size of an existing array, use [`REDIM`](https://github.com/brainboxdotcc/retro-rocket/wiki/REDIM).
+- To change the size of an existing array, use \ref REDIM "REDIM".
 
-**See also:** [`Array`](https://github.com/brainboxdotcc/retro-rocket/wiki/Array), [`Variable Types`](https://github.com/brainboxdotcc/retro-rocket/wiki/Variable-Types), [`REDIM`](https://github.com/brainboxdotcc/retro-rocket/wiki/REDIM)
+**See also:** [`Array`](https://github.com/brainboxdotcc/retro-rocket/wiki/Array), [`Variable Types`](https://github.com/brainboxdotcc/retro-rocket/wiki/Variable-Types), \ref REDIM "REDIM"

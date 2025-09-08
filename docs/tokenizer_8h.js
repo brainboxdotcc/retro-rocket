@@ -122,7 +122,9 @@ var tokenizer_8h =
       [ "OUTPORT", "tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea80fe7db3a665d1969b2c0db07f5eafad", null ],
       [ "OUTPORTW", "tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaafafc2fc4116491938b015a33648f4ff", null ],
       [ "OUTPORTD", "tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaa50d5bd3bc3649e9ef0feb9d24cc3bc5", null ],
-      [ "KGET", "tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea254ab1e0ec6ec176c77b1e80d26d5a8c", null ]
+      [ "KGET", "tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea254ab1e0ec6ec176c77b1e80d26d5a8c", null ],
+      [ "MODLOAD", "tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea5fc4020d120672469b7963a695608756", null ],
+      [ "MODUNLOAD", "tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea00fea4b52b983454f6f625ef943c7ac1", null ]
     ] ],
     [ "get_next_token", "tokenizer_8h.html#a4c2dde024f06a78140c96f2810c93787", null ],
     [ "tokenizer_decimal_number", "tokenizer_8h.html#ab40661a3dcab47340e3f60f66a0ac328", null ],

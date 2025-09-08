@@ -11,11 +11,11 @@
 <para>Closes an open file handle and flushes any pending writes.</para>
 <para><simplesect kind="remark"><para>The parameter **must be an integer *variable*** that holds a valid file handle </para>
 </simplesect>
-<simplesect kind="remark"><para>previously returned by <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENIN"><computeroutput>OPENIN</computeroutput></ulink>, </para>
+<simplesect kind="remark"><para>previously returned by <ref refid="OPENIN" kindref="compound">OPENIN</ref>, </para>
 </simplesect>
-<simplesect kind="remark"><para><ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENOUT"><computeroutput>OPENOUT</computeroutput></ulink>, or </para>
+<simplesect kind="remark"><para><ref refid="OPENOUT" kindref="compound">OPENOUT</ref>, or </para>
 </simplesect>
-<simplesect kind="remark"><para><ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENUP"><computeroutput>OPENUP</computeroutput></ulink>. </para>
+<simplesect kind="remark"><para><ref refid="OPENUP" kindref="compound">OPENUP</ref>. </para>
 </simplesect>
 <simplesect kind="remark"><para>A numeric literal or expression is <bold>not</bold> accepted.</para>
 </simplesect>
@@ -35,10 +35,10 @@
 <listitem><para>After <computeroutput>CLOSE</computeroutput>, the handle becomes invalid and must not be reused unless re-opened.</para>
 </listitem><listitem><para>Closing an already-closed or never-opened handle raises a runtime error (trap with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink> if needed).</para>
 </listitem><listitem><para>All buffered data is written to storage before the handle is released.</para>
-</listitem><listitem><para>Reading from or writing to a handle is only valid while it is open (see <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/EOF"><computeroutput>EOF</computeroutput></ulink> for end-of-file checks).</para>
+</listitem><listitem><para>Reading from or writing to a handle is only valid while it is open (see <ref refid="EOF" kindref="compound">EOF</ref> for end-of-file checks).</para>
 </listitem></itemizedlist>
 </para>
-<para><bold>See also:</bold> <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENIN"><computeroutput>OPENIN</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENOUT"><computeroutput>OPENOUT</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENUP"><computeroutput>OPENUP</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/WRITE"><computeroutput>WRITE</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/READ"><computeroutput>READ$</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/EOF"><computeroutput>EOF</computeroutput></ulink> </para>
+<para><bold>See also:</bold> <ref refid="OPENIN" kindref="compound">OPENIN</ref>, <ref refid="OPENOUT" kindref="compound">OPENOUT</ref>, <ref refid="OPENUP" kindref="compound">OPENUP</ref>, <ref refid="WRITE" kindref="compound">WRITE</ref>, <ref refid="READ" kindref="compound">READ$</ref>, <ref refid="EOF" kindref="compound">EOF</ref> </para>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/CLOSE.md"/>
   </compounddef>

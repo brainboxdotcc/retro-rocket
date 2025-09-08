@@ -11,9 +11,9 @@
 <para>Opens a <bold>TCP connection</bold>.</para>
 <para><itemizedlist>
 <listitem><para><bold>First parameter</bold>: an <bold>integer variable</bold> (created if it does not yet exist). <linebreak/>
- On success it will be set to a <bold>non-negative handle</bold> that you then pass to <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/SOCKREAD"><computeroutput>SOCKREAD</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/SOCKWRITE"><computeroutput>SOCKWRITE</computeroutput></ulink>, and <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/SOCKCLOSE"><computeroutput>SOCKCLOSE</computeroutput></ulink>.</para>
+ On success it will be set to a <bold>non-negative handle</bold> that you then pass to <ref refid="SOCKREAD" kindref="compound">SOCKREAD</ref>, <ref refid="SOCKWRITE" kindref="compound">SOCKWRITE</ref>, and <ref refid="SOCKCLOSE" kindref="compound">SOCKCLOSE</ref>.</para>
 </listitem><listitem><para><bold>Second parameter</bold>: a <bold>string</bold> containing the IP address to connect to. <linebreak/>
- To resolve a hostname into an address string, use <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DNS"><computeroutput>DNS$</computeroutput></ulink>.</para>
+ To resolve a hostname into an address string, use <ref refid="DNS" kindref="compound">DNS$</ref>.</para>
 </listitem><listitem><para><bold>Third parameter</bold>: the <bold>port number</bold> (integer expression).</para>
 </listitem></itemizedlist>
 </para>
@@ -39,7 +39,7 @@
 </listitem><listitem><para><computeroutput>SOCKREAD</computeroutput> is a <bold>blocking</bold> operation; see its page for how to cancel with <computeroutput>CTRL+ESC</computeroutput>.</para>
 </listitem></itemizedlist>
 </para>
-<para><bold>See also:</bold> <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DNS"><computeroutput>DNS$</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/SOCKREAD"><computeroutput>SOCKREAD</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/SOCKWRITE"><computeroutput>SOCKWRITE</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/SOCKCLOSE"><computeroutput>SOCKCLOSE</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/SOCKSTATUS"><computeroutput>SOCKSTATUS</computeroutput></ulink> </para>
+<para><bold>See also:</bold> <ref refid="DNS" kindref="compound">DNS$</ref>, <ref refid="SOCKREAD" kindref="compound">SOCKREAD</ref>, <ref refid="SOCKWRITE" kindref="compound">SOCKWRITE</ref>, <ref refid="SOCKCLOSE" kindref="compound">SOCKCLOSE</ref>, <ref refid="SOCKSTATUS" kindref="compound">SOCKSTATUS</ref> </para>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/CONNECT.md"/>
   </compounddef>

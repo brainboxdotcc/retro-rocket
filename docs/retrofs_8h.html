@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Retro Rocket OS: include/retrofs.h File Reference</title>
+<title>Retro Rocket OS: retrofs.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -96,8 +97,7 @@ $(document).ready(function(){initNavTree('retrofs_8h.html',''); initResizable();
 
 <p>Core structures, constants, and API definitions for RetroFS - an ADFS 'L' format–inspired filesystem for Retro Rocket.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;<a class="el" href="kernel_8h.html">kernel.h</a>&gt;</code><br />
-</div><table class="memberdecls">
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrfs__description__block__t.html">rfs_description_block_t</a></td></tr>
@@ -203,7 +203,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a6dc1377127abd3436b8c3c1da78dadbc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a6dc1377127abd3436b8c3c1da78dadbc">rfs_unlink_file</a> (void *dir, const char *<a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a>)</td></tr>
 <tr class="memdesc:a6dc1377127abd3436b8c3c1da78dadbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a file from a directory.  <a href="retrofs_8h.html#a6dc1377127abd3436b8c3c1da78dadbc">More...</a><br /></td></tr>
 <tr class="separator:a6dc1377127abd3436b8c3c1da78dadbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a469381f22dcd59d3aedddf42376197fe"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a469381f22dcd59d3aedddf42376197fe">rfs_read_file</a> (void *f, uint64_t <a class="el" href="retrofs_8h.html#af821c0f1bf4d36fbe0a3f5776b71139b">start</a>, uint32_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>, unsigned char *<a class="el" href="input_8c.html#aff2566f4c366b48d73479bef43ee4d2e">buffer</a>)</td></tr>
+<tr class="memitem:a469381f22dcd59d3aedddf42376197fe"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a469381f22dcd59d3aedddf42376197fe">rfs_read_file</a> (void *f, uint64_t <a class="el" href="retrofs_8h.html#af821c0f1bf4d36fbe0a3f5776b71139b">start</a>, uint32_t <a class="el" href="e1000_8h.html#adfd968054b9a4ec85fdac3cf8043b257">length</a>, unsigned char *<a class="el" href="input_8c.html#aff2566f4c366b48d73479bef43ee4d2e">buffer</a>)</td></tr>
 <tr class="memdesc:a469381f22dcd59d3aedddf42376197fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read part or all of a file.  <a href="retrofs_8h.html#a469381f22dcd59d3aedddf42376197fe">More...</a><br /></td></tr>
 <tr class="separator:a469381f22dcd59d3aedddf42376197fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1eeda8efed6e103f25d8505e302fddfc"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a1eeda8efed6e103f25d8505e302fddfc">rfs_create_file</a> (void *dir, const char *<a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a>, size_t <a class="el" href="fat32_8h.html#ab2c6b258f02add8fdf4cfc7c371dd772">size</a>)</td></tr>
@@ -215,10 +215,10 @@ Functions</h2></td></tr>
 <tr class="memitem:affa287b51abff9d794e8d6d066553031"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#affa287b51abff9d794e8d6d066553031">rfs_unlink_dir</a> (void *dir, const char *<a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a>)</td></tr>
 <tr class="memdesc:affa287b51abff9d794e8d6d066553031"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove an empty directory from its parent.  <a href="retrofs_8h.html#affa287b51abff9d794e8d6d066553031">More...</a><br /></td></tr>
 <tr class="separator:affa287b51abff9d794e8d6d066553031"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5aac434718e1e16dfacc5630b6eada02"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a5aac434718e1e16dfacc5630b6eada02">rfs_write_file</a> (void *f, uint64_t <a class="el" href="retrofs_8h.html#af821c0f1bf4d36fbe0a3f5776b71139b">start</a>, uint32_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>, unsigned char *<a class="el" href="input_8c.html#aff2566f4c366b48d73479bef43ee4d2e">buffer</a>)</td></tr>
+<tr class="memitem:a5aac434718e1e16dfacc5630b6eada02"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a5aac434718e1e16dfacc5630b6eada02">rfs_write_file</a> (void *f, uint64_t <a class="el" href="retrofs_8h.html#af821c0f1bf4d36fbe0a3f5776b71139b">start</a>, uint32_t <a class="el" href="e1000_8h.html#adfd968054b9a4ec85fdac3cf8043b257">length</a>, unsigned char *<a class="el" href="input_8c.html#aff2566f4c366b48d73479bef43ee4d2e">buffer</a>)</td></tr>
 <tr class="memdesc:a5aac434718e1e16dfacc5630b6eada02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write part or all of a file.  <a href="retrofs_8h.html#a5aac434718e1e16dfacc5630b6eada02">More...</a><br /></td></tr>
 <tr class="separator:a5aac434718e1e16dfacc5630b6eada02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a423e724ebf6c540c67cb3a0f59f8ea48"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a423e724ebf6c540c67cb3a0f59f8ea48">rfs_truncate_file</a> (void *f, size_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>)</td></tr>
+<tr class="memitem:a423e724ebf6c540c67cb3a0f59f8ea48"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a423e724ebf6c540c67cb3a0f59f8ea48">rfs_truncate_file</a> (void *f, size_t <a class="el" href="e1000_8h.html#adfd968054b9a4ec85fdac3cf8043b257">length</a>)</td></tr>
 <tr class="memdesc:a423e724ebf6c540c67cb3a0f59f8ea48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Truncate or extend a file to a given length.  <a href="retrofs_8h.html#a423e724ebf6c540c67cb3a0f59f8ea48">More...</a><br /></td></tr>
 <tr class="separator:a423e724ebf6c540c67cb3a0f59f8ea48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37eae0c5029794c430e2f47bb401393a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structfs__directory__entry__t.html">fs_directory_entry_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a37eae0c5029794c430e2f47bb401393a">rfs_upsert_directory_entry</a> (<a class="el" href="structfs__directory__entry__t.html">fs_directory_entry_t</a> *file, uint64_t sector_extent)</td></tr>
@@ -2069,7 +2069,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="retrofs_8h.html">retrofs.h</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

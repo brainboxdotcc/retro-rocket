@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -90,16 +91,14 @@ $(document).ready(function(){initNavTree('globals_d.html',''); initResizable(); 
 <li>daemons
 : <a class="el" href="udp_8c.html#a364bafd89ccdb1d0ea2fe42b28715188">udp.c</a>
 </li>
-<li>data
-: <a class="el" href="ahci_8h.html#a75a257f81d6b64479c0da8d516360bd0">ahci.h</a>
-</li>
 <li>DATA
 : <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea9d7d6f31868d66330397c967c4afd2d2">tokenizer.h</a>
 </li>
 <li>data
 : <a class="el" href="udp_8h.html#a5c239a1bb87b52b0f1d6d68c4749cd2a">udp.h</a>
-, <a class="el" href="ethernet_8h.html#a5c239a1bb87b52b0f1d6d68c4749cd2a">ethernet.h</a>
 , <a class="el" href="ip_8h.html#a5c239a1bb87b52b0f1d6d68c4749cd2a">ip.h</a>
+, <a class="el" href="ahci_8h.html#a75a257f81d6b64479c0da8d516360bd0">ahci.h</a>
+, <a class="el" href="ethernet_8h.html#a5c239a1bb87b52b0f1d6d68c4749cd2a">ethernet.h</a>
 </li>
 <li>data_address_lower
 : <a class="el" href="ahci_8h.html#aead9db9e852afca1d4a3e420837b0ca2">ahci.h</a>
@@ -129,13 +128,13 @@ $(document).ready(function(){initNavTree('globals_d.html',''); initResizable(); 
 , <a class="el" href="clock_8c.html#a0ed0af74b6ab22d8c7a1b7ba9733e12d">clock.c</a>
 </li>
 <li>debug
-: <a class="el" href="basic_2main_8c.html#a398527b3e9e358c345c5047b16871957">main.c</a>
+: <a class="el" href="basic_2main_8c.html#a398527b3e9e358c345c5047b16871957">basic/main.c</a>
 , <a class="el" href="variable_8c.html#a398527b3e9e358c345c5047b16871957">variable.c</a>
 , <a class="el" href="tokenizer_8c.html#a398527b3e9e358c345c5047b16871957">tokenizer.c</a>
 , <a class="el" href="statement_8c.html#a398527b3e9e358c345c5047b16871957">statement.c</a>
 , <a class="el" href="function_8c.html#a398527b3e9e358c345c5047b16871957">function.c</a>
 , <a class="el" href="flow__control_8c.html#a398527b3e9e358c345c5047b16871957">flow_control.c</a>
-, <a class="el" href="basic_2debugger_8c.html#a398527b3e9e358c345c5047b16871957">debugger.c</a>
+, <a class="el" href="basic_2debugger_8c.html#a398527b3e9e358c345c5047b16871957">basic/debugger.c</a>
 , <a class="el" href="console_8c.html#a398527b3e9e358c345c5047b16871957">console.c</a>
 </li>
 <li>DEBUG_BREAK
@@ -383,8 +382,8 @@ $(document).ready(function(){initNavTree('globals_d.html',''); initResizable(); 
 : <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea6c8e5f290be4be86fd5e7048654b4a50">tokenizer.h</a>
 </li>
 <li>dim_statement()
-: <a class="el" href="array_8c.html#a10db67c91f83eac882df05463f29edf1">array.c</a>
-, <a class="el" href="array_8h.html#a10db67c91f83eac882df05463f29edf1">array.h</a>
+: <a class="el" href="array_8h.html#a10db67c91f83eac882df05463f29edf1">array.h</a>
+, <a class="el" href="array_8c.html#a10db67c91f83eac882df05463f29edf1">array.c</a>
 </li>
 <li>direction
 : <a class="el" href="ahci_8h.html#ac6116d5235e13e059e591879c46d7174">ahci.h</a>
@@ -397,7 +396,7 @@ $(document).ready(function(){initNavTree('globals_d.html',''); initResizable(); 
 </li>
 <li>display_progress()
 : <a class="el" href="installer_8h.html#a24ac25716eabc9ebbc9019d956c6dcd4">installer.h</a>
-, <a class="el" href="installer_2main_8c.html#a24ac25716eabc9ebbc9019d956c6dcd4">main.c</a>
+, <a class="el" href="installer_2main_8c.html#a24ac25716eabc9ebbc9019d956c6dcd4">installer/main.c</a>
 </li>
 <li>div()
 : <a class="el" href="stdlib_8h.html#a4476a5dc418924ee3ad18ce699581dfd">stdlib.h</a>
@@ -537,11 +536,8 @@ $(document).ready(function(){initNavTree('globals_d.html',''); initResizable(); 
 , <a class="el" href="fpu_8h.html#a37eb4f4e2722507e0a98aff05e5fb2c1">fpu.h</a>
 </li>
 <li>dprintf()
-: <a class="el" href="printf_8h.html#a89df6ba151ccecc7859b176502af2f87">printf.h</a>
-, <a class="el" href="printf_8c.html#a571270f690c35549229075bb963eabe7">printf.c</a>
-</li>
-<li>dprintf_buf_offset
-: <a class="el" href="printf_8c.html#afd17c4af27f6b2fc400d62d79af40e69">printf.c</a>
+: <a class="el" href="printf_8c.html#a571270f690c35549229075bb963eabe7">printf.c</a>
+, <a class="el" href="printf_8h.html#a89df6ba151ccecc7859b176502af2f87">printf.h</a>
 </li>
 <li>dprintf_buffer_append_line()
 : <a class="el" href="debug__ringbuffer_8h.html#a43be19d4b94003ebaeac63d188a6ecd1">debug_ringbuffer.h</a>
@@ -555,9 +551,6 @@ $(document).ready(function(){initNavTree('globals_d.html',''); initResizable(); 
 : <a class="el" href="debug__ringbuffer_8h.html#aa43d4e4a426da2b1f24a42f3559cc0fd">debug_ringbuffer.h</a>
 , <a class="el" href="debug__ringbuffer_8c.html#aa43d4e4a426da2b1f24a42f3559cc0fd">debug_ringbuffer.c</a>
 </li>
-<li>dprintf_format_buffer
-: <a class="el" href="printf_8c.html#ac84b968ad4a451eca5ec1c69f0fbf05c">printf.c</a>
-</li>
 <li>dprintf_ring
 : <a class="el" href="debug__ringbuffer_8c.html#a2ec12eed2c1d2b300dac7bbff7268dea">debug_ringbuffer.c</a>
 </li>
@@ -566,8 +559,8 @@ $(document).ready(function(){initNavTree('globals_d.html',''); initResizable(); 
 , <a class="el" href="debug__ringbuffer_8c.html#a6bea103d6592e9f651ba10eee514298b">debug_ringbuffer.c</a>
 </li>
 <li>dput()
-: <a class="el" href="video_8c.html#a10de4e9cb74656845ee2808d17f3e9b7">video.c</a>
-, <a class="el" href="video_8h.html#a10de4e9cb74656845ee2808d17f3e9b7">video.h</a>
+: <a class="el" href="video_8h.html#a10de4e9cb74656845ee2808d17f3e9b7">video.h</a>
+, <a class="el" href="video_8c.html#a10de4e9cb74656845ee2808d17f3e9b7">video.c</a>
 </li>
 <li>dputstring()
 : <a class="el" href="video_8h.html#a1d4ff70fd24e5e51101991bc73fbe02e">video.h</a>
@@ -596,8 +589,8 @@ $(document).ready(function(){initNavTree('globals_d.html',''); initResizable(); 
 , <a class="el" href="drawing_8c.html#a57bb8ad7dccb765be14981ddee2440f8">drawing.c</a>
 </li>
 <li>draw_horizontal_rectangle()
-: <a class="el" href="drawing_8h.html#af3247c45af29225f8b887633435c9b1f">drawing.h</a>
-, <a class="el" href="drawing_8c.html#af3247c45af29225f8b887633435c9b1f">drawing.c</a>
+: <a class="el" href="drawing_8c.html#af3247c45af29225f8b887633435c9b1f">drawing.c</a>
+, <a class="el" href="drawing_8h.html#af3247c45af29225f8b887633435c9b1f">drawing.h</a>
 </li>
 <li>draw_line()
 : <a class="el" href="drawing_8h.html#a2a5b74ca1f1aa5b0ba866e2b33bf0f56">drawing.h</a>
@@ -662,7 +655,7 @@ $(document).ready(function(){initNavTree('globals_d.html',''); initResizable(); 
 : <a class="el" href="printf_8c.html#abf3a700d17878099cbecbb7633dfdd3b">printf.c</a>
 </li>
 <li>dvprintf_help()
-: <a class="el" href="printf_8c.html#aa8d56afc678f12cbb4d75ca6e6cc94b9">printf.c</a>
+: <a class="el" href="printf_8c.html#a4a51251f9ca05427aacc78d4cd6bc01e">printf.c</a>
 </li>
 </ul>
 </div><!-- contents -->
@@ -670,7 +663,7 @@ $(document).ready(function(){initNavTree('globals_d.html',''); initResizable(); 
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:12 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:31 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

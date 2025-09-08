@@ -10,14 +10,14 @@ Removes the specified **directory** from the filesystem.
 
 
 \remark Paths are **case-insensitive**.
-> `.` and `..` are **not supported** in paths.
+@note `.` and `..` are **not supported** in paths.
 
 
-> Use an **absolute** path when it starts with `/`; otherwise the path is **relative** to the current directory.  
-> Change directory with [`CHDIR`](https://github.com/brainboxdotcc/retro-rocket/wiki/CHDIR).
+@note Use an **absolute** path when it starts with `/`; otherwise the path is **relative** to the current directory.
+@note Change directory with \ref CHDIR "CHDIR".
 
 
-> If removal fails, you can catch it with [`ON ERROR`](https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR).
+@note If removal fails, you can catch it with [`ON ERROR`](https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR).
 
 ---
 
@@ -42,11 +42,11 @@ RMDIR "tmp"
 ---
 
 ### Notes
-- `RMDIR` removes **directories** only. To delete a **file**, use [`DELETE`](https://github.com/brainboxdotcc/retro-rocket/wiki/DELETE).
+- `RMDIR` removes **directories** only. To delete a **file**, use \ref DELETE "DELETE".
 - Attempting to remove a non-empty directory raises a runtime error.
 - Ensure you have permission and that no required files are inside before removing.
 
 **See also:**  
-[`MKDIR`](https://github.com/brainboxdotcc/retro-rocket/wiki/MKDIR) ·
-[`DELETE`](https://github.com/brainboxdotcc/retro-rocket/wiki/DELETE) ·
-[`CHDIR`](https://github.com/brainboxdotcc/retro-rocket/wiki/CHDIR)
+\ref MKDIR "MKDIR" ·
+\ref DELETE "DELETE" ·
+\ref CHDIR "CHDIR"

@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -99,7 +100,7 @@ $(document).ready(function(){initNavTree('EVAL.html',''); initResizable(); });
 <dd>
 For example: <code>EVAL "PRINT " + CHR$(34) + "Hello" + CHR$(34)</code>.</dd></dl>
 <hr  />
-<h3><a class="anchor" id="autotoc_md260"></a>
+<h3><a class="anchor" id="autotoc_md274"></a>
 Examples</h3>
 <p><b>Print from a generated line</b> </p><div class="fragment"><div class="line">EVAL &quot;PRINT &quot; + CHR$(34) + &quot;Hello from EVAL!&quot; + CHR$(34)</div>
 </div><!-- fragment --><p><b>Set a variable dynamically</b> </p><div class="fragment"><div class="line">NAME$ = &quot;COUNT&quot;</div>
@@ -119,14 +120,14 @@ Examples</h3>
 <div class="line">    PRINT &quot;EVAL failed: &quot;; ERR$</div>
 <div class="line">ENDIF</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md262"></a>
+<h3><a class="anchor" id="autotoc_md276"></a>
 Notes</h3>
 <ul>
 <li>Provide <b>exactly one</b> statement; statement separators are not supported.</li>
 <li>The evaluated line runs with access to the program's current variables, procedures, and functions.</li>
 <li>Use <code>EVAL</code> for small, dynamic actions. For larger logic, write normal procedures/functions and call them directly.</li>
 </ul>
-<p><b>See also:</b> <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/DEF"><code>DEF</code></a>, <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/PROC"><code>PROC</code></a>, <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/FN"><code>FN</code></a>, <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/Builtin-Variables"><code>ERR</code>/<code>ERR$</code></a> </p>
+<p><b>See also:</b> <a class="el" href="DEF.html">DEF</a>, <a class="el" href="PROC.html">PROC</a>, <a class="el" href="FN.html">FN</a>, <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/Builtin-Variables"><code>ERR</code>/<code>ERR$</code></a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -134,7 +135,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

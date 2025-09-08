@@ -12,7 +12,7 @@ The inserted element is initialised to **0** (for integer and real arrays) or **
 
 
 \remark `PUSH` does **not** change the array’s size. The element that was previously at index `size-1` is **discarded**.
-\remark If you want to grow the array, call [`REDIM`](https://github.com/brainboxdotcc/retro-rocket/wiki/REDIM) **first**.
+\remark If you want to grow the array, call \ref REDIM "REDIM" **first**.
 
 ---
 
@@ -101,6 +101,6 @@ NAMES$(2) = "OMEGA"
 - If you need to insert multiple elements, consider calling `REDIM` once to grow the array, then perform several `PUSH` operations.
 
 **See also:**  
-[`POP`](https://github.com/brainboxdotcc/retro-rocket/wiki/POP) ·
-[`REDIM`](https://github.com/brainboxdotcc/retro-rocket/wiki/REDIM) ·
-[`DIM`](https://github.com/brainboxdotcc/retro-rocket/wiki/DIM)
+\ref POP "POP" ·
+\ref REDIM "REDIM" ·
+\ref DIM "DIM"

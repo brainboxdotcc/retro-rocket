@@ -53,7 +53,7 @@ PRINT FNgreet$("WORLD")
 ---
 
 **See also:**  
-[`DEF`](https://github.com/brainboxdotcc/retro-rocket/wiki/DEF)  
-[`PROC`](https://github.com/brainboxdotcc/retro-rocket/wiki/PROC)  
-[`ENDPROC`](https://github.com/brainboxdotcc/retro-rocket/wiki/ENDPROC)  
+\ref DEF "DEF"
+\ref PROC "PROC"
+\ref ENDPROC "ENDPROC"
 [`Parameter types`](https://github.com/brainboxdotcc/retro-rocket/wiki/Parameter-types)

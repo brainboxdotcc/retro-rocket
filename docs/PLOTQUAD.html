@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -90,11 +91,10 @@ $(document).ready(function(){initNavTree('PLOTQUAD.html',''); initResizable(); }
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">PLOTQUAD integer-variable, x0, y0, x1, y1, x2, y2, x3, y3</div>
 </div><!-- fragment --><p>Maps a previously loaded <b>sprite</b> onto the <b>quadrilateral</b> defined by four X,Y coordinate pairs. <br  />
- The first parameter must be an <b>integer variable</b> containing the sprite handle returned by <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/SPRITELOAD"><code>SPRITELOAD</code></a>. <br  />
- The sprite’s full image is used, positioned by its four destination corners.</p>
+ The first parameter must be an <b>integer variable</b> containing the sprite handle returned by <a class="el" href="SPRITELOAD.html">SPRITELOAD</a>. The sprite’s full image is used, positioned by its four destination corners.</p>
 <p><img src="https://github.com/user-attachments/assets/d6ae6888-46db-42ee-be95-d96c888dc1b5" alt="example" class="inline"/></p>
 <hr  />
-<h3><a class="anchor" id="autotoc_md363"></a>
+<h3><a class="anchor" id="autotoc_md377"></a>
 Key behaviour</h3>
 <ul>
 <li><b>Projective mapping</b>: uses a perspective-correct transform (homography), not a simple affine stretch.</li>
@@ -103,32 +103,29 @@ Key behaviour</h3>
 <li><b>Clipping</b>: points may be off-screen; only visible pixels are drawn.</li>
 <li><b>Sprite handle</b>: the first argument must be an <b>integer variable</b> holding a valid handle from <code>SPRITELOAD</code>.</li>
 </ul>
-<blockquote class="doxtable">
-<p>Transparency semantics match <code>PLOT</code>. There is no alpha blending. </p>
-</blockquote>
-<h2><a class="anchor" id="autotoc_md364"></a>
-&lt;/blockquote&gt;</h2>
-<h3><a class="anchor" id="autotoc_md365"></a>
+<dl class="section note"><dt>Note</dt><dd>Transparency semantics match <code>PLOT</code>. There is no alpha blending.</dd></dl>
+<hr  />
+<h3><a class="anchor" id="autotoc_md379"></a>
 Parameters</h3>
 <ul>
 <li><code>integer-variable</code> - variable containing a sprite handle from <code>SPRITELOAD</code>.</li>
 <li><code>x0, y0, x1, y1, x2, y2, x3, y3</code> - integer expressions for the quad’s four destination corners in screen pixels.</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md367"></a>
+<h3><a class="anchor" id="autotoc_md381"></a>
 Performance notes</h3>
 <ul>
 <li>Cost is roughly proportional to the quad’s <b>screen area</b> and is naturally slower than <code>PLOT</code>.</li>
 <li>There is <b>no Z-buffer</b>. When drawing overlapping quads in one frame, the <b>last drawn</b> appears on top.</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md369"></a>
+<h3><a class="anchor" id="autotoc_md383"></a>
 Sampling</h3>
 <ul>
 <li>Uses <b>nearest-neighbour</b> sampling. Large upscales will look blocky; use higher-resolution sprites if you need crisper results.</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md371"></a>
+<h3><a class="anchor" id="autotoc_md385"></a>
 Examples</h3>
 <div class="fragment"><div class="line">REM Upright billboard</div>
 <div class="line">PLOTQUAD s, 100,60, 220,60, 220,220, 100,220</div>
@@ -140,7 +137,7 @@ Examples</h3>
 <div class="line">PLOTQUAD s, 160,60, 260,140, 160,220, 60,140</div>
 </div><!-- fragment --><hr  />
 <p><b>See also:</b> <br  />
- <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/SPRITELOAD"><code>SPRITELOAD</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/PLOT"><code>PLOT</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/SPRITEFREE"><code>SPRITEFREE</code></a> </p>
+ <a class="el" href="SPRITELOAD.html">SPRITELOAD</a> · <a class="el" href="PLOT.html">PLOT</a> · <a class="el" href="SPRITEFREE.html">SPRITEFREE</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -148,7 +145,7 @@ Examples</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

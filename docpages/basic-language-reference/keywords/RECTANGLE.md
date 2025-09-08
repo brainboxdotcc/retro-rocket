@@ -3,7 +3,7 @@
 RECTANGLE integer-expression, integer-expression, integer-expression, integer-expression
 ```
 
-Draws a **filled**, axis-aligned rectangle using the current graphics colour (set with [`GCOL`](https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL)).
+Draws a **filled**, axis-aligned rectangle using the current graphics colour (set with \ref GCOL "GCOL").
 
 - Parameters are: `x1, y1, x2, y2` - the two opposite corners of the rectangle in screen pixels.
 - The rectangle is filled; there is no outline-only form.
@@ -44,11 +44,11 @@ RECTANGLE 40, 200, 40 + 300, 230
 - Coordinates are in **screen pixels**; `(0,0)` is the **top-left** corner.
 - Rectangles that extend beyond the screen are **clipped** at the edges.
 - Change the drawing colour with `GCOL RGB(r,g,b)` before calling `RECTANGLE`.
-- When [`AUTOFLIP`](https://github.com/brainboxdotcc/retro-rocket/wiki/AUTOFLIP) is `FALSE`, drawn frames appear only after [`FLIP`](https://github.com/brainboxdotcc/retro-rocket/wiki/FLIP).
+- When \ref AUTOFLIP "AUTOFLIP" is `FALSE`, drawn frames appear only after \ref FLIP "FLIP".
 
 **See also:**  
-[`GCOL`](https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL) ·
-[`LINE`](https://github.com/brainboxdotcc/retro-rocket/wiki/LINE) ·
-[`CIRCLE`](https://github.com/brainboxdotcc/retro-rocket/wiki/CIRCLE) ·
-[`POINT`](https://github.com/brainboxdotcc/retro-rocket/wiki/POINT) ·
-[`PLOT`](https://github.com/brainboxdotcc/retro-rocket/wiki/PLOT)
+\ref GCOL "GCOL" ·
+\ref LINE "LINE" ·
+\ref CIRCLE "CIRCLE" ·
+\ref POINT "POINT" ·
+\ref PLOT "PLOT"

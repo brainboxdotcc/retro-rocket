@@ -9,7 +9,7 @@ Binds the **UDP input** of the BASIC runtime to a local `port`. Incoming UDP dat
 - `port` must be in the range `0` to `65535`.
 
 
-> If `port` is outside the valid range, an error is raised: `Invalid UDP port number`.
+@note If `port` is outside the valid range, an error is raised: `Invalid UDP port number`.
 
 ---
 
@@ -36,4 +36,4 @@ UDPBIND "127.0.0.1", 9000
 - To stop receiving on a port, use `UDPUNBIND`.
 
 **See also:**  
-[UDPUNBIND](https://github.com/brainboxdotcc/retro-rocket/wiki/UDPUNBIND) · [UDPREAD$](https://github.com/brainboxdotcc/retro-rocket/wiki/UDPREAD%24) · [UDPLASTIP$](https://github.com/brainboxdotcc/retro-rocket/wiki/UDPLASTIP%24) · [UDPLASTSOURCEPORT](https://github.com/brainboxdotcc/retro-rocket/wiki/UDPLASTSOURCEPORT)
+\ref UDPUNBIND "UDPUNBIND" · [UDPREAD$](https://github.com/brainboxdotcc/retro-rocket/wiki/UDPREAD%24) · [UDPLASTIP$](https://github.com/brainboxdotcc/retro-rocket/wiki/UDPLASTIP%24) · \ref UDPLASTSOURCEPORT "UDPLASTSOURCEPORT"

@@ -68,7 +68,7 @@
         <childnode refid="27" relation="include">
         </childnode>
       </node>
-      <node id="88">
+      <node id="86">
         <label>stdarg.h</label>
       </node>
       <node id="60">
@@ -110,7 +110,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="76">
+      <node id="74">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
@@ -127,7 +127,7 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="83">
+      <node id="81">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
@@ -155,14 +155,14 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="81">
+      <node id="79">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="1">
-        <label>src/printf.c</label>
+        <label>printf.c</label>
         <link refid="printf_8c"/>
         <childnode refid="2" relation="include">
         </childnode>
@@ -185,7 +185,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="79">
+      <node id="77">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
@@ -204,7 +204,7 @@
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="84">
+      <node id="82">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
@@ -216,12 +216,6 @@
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="74">
-        <label>rtl8139.h</label>
-        <link refid="rtl8139_8h"/>
-        <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="52">
@@ -242,7 +236,7 @@
       <node id="5">
         <label>stddef.h</label>
       </node>
-      <node id="90">
+      <node id="88">
         <label>module.h</label>
         <link refid="module_8h"/>
         <childnode refid="2" relation="include">
@@ -293,12 +287,6 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="75">
-        <label>e1000.h</label>
-        <link refid="e1000_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
       <node id="70">
         <label>lapic_timer.h</label>
         <link refid="lapic__timer_8h"/>
@@ -320,7 +308,7 @@
         <label>input.h</label>
         <link refid="input_8h"/>
       </node>
-      <node id="85">
+      <node id="83">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
@@ -330,17 +318,17 @@
         <label>video.h</label>
         <link refid="video_8h"/>
       </node>
-      <node id="87">
+      <node id="85">
         <label>serial.h</label>
         <link refid="serial_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="88" relation="include">
+        <childnode refid="86" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="80">
+      <node id="78">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
@@ -366,7 +354,7 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="77">
+      <node id="75">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
@@ -416,7 +404,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="78">
+      <node id="76">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
@@ -539,19 +527,15 @@
         </childnode>
         <childnode refid="83" relation="include">
         </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
         <childnode refid="84" relation="include">
         </childnode>
         <childnode refid="85" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="86" relation="include">
-        </childnode>
         <childnode refid="87" relation="include">
         </childnode>
-        <childnode refid="89" relation="include">
-        </childnode>
-        <childnode refid="90" relation="include">
+        <childnode refid="88" relation="include">
         </childnode>
       </node>
       <node id="45">
@@ -580,7 +564,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="89">
+      <node id="87">
         <label>debug_ringbuffer.h</label>
         <link refid="debug__ringbuffer_8h"/>
         <childnode refid="2" relation="include">
@@ -708,13 +692,13 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="82">
+      <node id="80">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="86">
+      <node id="84">
         <label>retrofs.h</label>
         <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
@@ -811,34 +795,6 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/printf.c" line="5" column="19" bodyfile="src/init.c" bodystart="6" bodyend="-1" declfile="src/printf.c" declline="5" declcolumn="19"/>
-      </memberdef>
-      <memberdef kind="variable" id="printf_8c_1ac84b968ad4a451eca5ec1c69f0fbf05c" prot="public" static="yes" mutable="no">
-        <type>char</type>
-        <definition>char dprintf_format_buffer[MAX_STRINGLEN]</definition>
-        <argsstring>[MAX_STRINGLEN]</argsstring>
-        <name>dprintf_format_buffer</name>
-        <initializer>= { 0 }</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/printf.c" line="233" column="13" bodyfile="src/printf.c" bodystart="233" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="printf_8c_1afd17c4af27f6b2fc400d62d79af40e69" prot="public" static="yes" mutable="no">
-        <type>char *</type>
-        <definition>char* dprintf_buf_offset</definition>
-        <argsstring></argsstring>
-        <name>dprintf_buf_offset</name>
-        <initializer>= <ref refid="printf_8c_1ac84b968ad4a451eca5ec1c69f0fbf05c" kindref="member">dprintf_format_buffer</ref></initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/printf.c" line="234" column="13" bodyfile="src/printf.c" bodystart="234" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -1056,9 +1012,9 @@
         </inbodydescription>
         <location file="src/printf.c" line="218" column="5" bodyfile="src/printf.c" bodystart="218" bodyend="225"/>
       </memberdef>
-      <memberdef kind="function" id="printf_8c_1a6e0d7a33300b50de64b6b130218516cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="printf_8c_1a2c6a841450ead66b16c4a70262ef6b69" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>int</type>
-        <definition>int vprintf_help</definition>
+        <definition>static int vprintf_help</definition>
         <argsstring>(unsigned c, [[maybe_unused]] void **ptr, [[maybe_unused]] const void *max)</argsstring>
         <name>vprintf_help</name>
         <param>
@@ -1081,28 +1037,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/printf.c" line="227" column="5" bodyfile="src/printf.c" bodystart="227" bodyend="231"/>
+        <location file="src/printf.c" line="227" column="19" bodyfile="src/printf.c" bodystart="227" bodyend="231"/>
       </memberdef>
-      <memberdef kind="function" id="printf_8c_1a26aae297c3c0f344cc0de97f14413a12" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>static void append_debug_buf</definition>
-        <argsstring>(char x)</argsstring>
-        <name>append_debug_buf</name>
-        <param>
-          <type>char</type>
-          <declname>x</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/printf.c" line="236" column="13" bodyfile="src/printf.c" bodystart="236" bodyend="240"/>
-      </memberdef>
-      <memberdef kind="function" id="printf_8c_1aa8d56afc678f12cbb4d75ca6e6cc94b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="printf_8c_1a4a51251f9ca05427aacc78d4cd6bc01e" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>int</type>
-        <definition>int dvprintf_help</definition>
+        <definition>static int dvprintf_help</definition>
         <argsstring>(unsigned c, [[maybe_unused]] void **ptr, [[maybe_unused]] const void *max)</argsstring>
         <name>dvprintf_help</name>
         <param>
@@ -1125,7 +1064,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/printf.c" line="242" column="5" bodyfile="src/printf.c" bodystart="242" bodyend="247"/>
+        <location file="src/printf.c" line="233" column="19" bodyfile="src/printf.c" bodystart="233" bodyend="237"/>
       </memberdef>
       <memberdef kind="function" id="printf_8c_1acc23aaaff6fcb9a669853efe712ba4b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1146,7 +1085,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/printf.c" line="249" column="5" bodyfile="src/printf.c" bodystart="249" bodyend="258"/>
+        <location file="src/printf.c" line="239" column="5" bodyfile="src/printf.c" bodystart="239" bodyend="248"/>
       </memberdef>
       <memberdef kind="function" id="printf_8c_1abf3a700d17878099cbecbb7633dfdd3b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1167,7 +1106,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/printf.c" line="260" column="5" bodyfile="src/printf.c" bodystart="260" bodyend="284"/>
+        <location file="src/printf.c" line="250" column="5" bodyfile="src/printf.c" bodystart="250" bodyend="261"/>
       </memberdef>
       <memberdef kind="function" id="printf_8c_1a55f3d956bb2ba20b5059e9e25484a47f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1187,7 +1126,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/printf.c" line="286" column="5" bodyfile="src/printf.c" bodystart="286" bodyend="293"/>
+        <location file="src/printf.c" line="263" column="5" bodyfile="src/printf.c" bodystart="263" bodyend="270"/>
       </memberdef>
       <memberdef kind="function" id="printf_8c_1a571270f690c35549229075bb963eabe7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1207,7 +1146,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/printf.c" line="295" column="5" bodyfile="src/printf.c" bodystart="295" bodyend="302"/>
+        <location file="src/printf.c" line="272" column="5" bodyfile="src/printf.c" bodystart="272" bodyend="279"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

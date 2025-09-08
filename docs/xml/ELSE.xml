@@ -20,13 +20,13 @@
 </programlisting></para>
 <para><computeroutput>ELSE</computeroutput> provides the <bold>false branch</bold> of an <computeroutput>IF</computeroutput> decision. <linebreak/>
  When the <computeroutput>expression</computeroutput> evaluates to <bold>true</bold>, the <computeroutput>THEN</computeroutput> part runs; otherwise the <computeroutput>ELSE</computeroutput> part runs.</para>
-<para><simplesect kind="remark"><para><computeroutput>ELSE</computeroutput> is used <bold>with</bold> <computeroutput>IF</computeroutput> and, in multi-line forms, must be paired with a matching <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ENDIF"><computeroutput>ENDIF</computeroutput></ulink>. </para>
+<para><simplesect kind="remark"><para><computeroutput>ELSE</computeroutput> is used <bold>with</bold> <computeroutput>IF</computeroutput> and, in multi-line forms, must be paired with a matching <ref refid="ENDIF" kindref="compound">ENDIF</ref>. </para>
 </simplesect>
 <simplesect kind="remark"><para><computeroutput>ELSE</computeroutput> on its own is not a valid statement.</para>
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="ELSE_1autotoc_md241">
+<sect3 id="ELSE_1autotoc_md255">
 <title>Forms</title>
 <para><itemizedlist>
 <listitem><para><bold>Single-line</bold> <linebreak/>
@@ -49,7 +49,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="ELSE_1autotoc_md243">
+<sect3 id="ELSE_1autotoc_md257">
 <title>Examples</title>
 <para><bold>Single-line selection</bold> <programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>IF<sp/>X<sp/>&gt;<sp/>0<sp/>THEN<sp/>&quot;POSITIVE&quot;<sp/>ELSE<sp/>&quot;NON-POSITIVE&quot;</highlight></codeline>
 </programlisting></para>
@@ -72,16 +72,16 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="ELSE_1autotoc_md245">
+<sect3 id="ELSE_1autotoc_md259">
 <title>Rules &amp; behaviour</title>
 <para><itemizedlist>
-<listitem><para><bold>Pairing:</bold> In multi-line form, <computeroutput>ELSE</computeroutput> pairs with the <bold>nearest unmatched</bold> <computeroutput>IF</computeroutput>. Always terminate the block with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ENDIF"><computeroutput>ENDIF</computeroutput></ulink>.</para>
+<listitem><para><bold>Pairing:</bold> In multi-line form, <computeroutput>ELSE</computeroutput> pairs with the <bold>nearest unmatched</bold> <computeroutput>IF</computeroutput>. Always terminate the block with <ref refid="ENDIF" kindref="compound">ENDIF</ref>.</para>
 </listitem><listitem><para><bold>Single statement on one line:</bold> The one-line form allows exactly <bold>one</bold> statement after <computeroutput>THEN</computeroutput> and <bold>one</bold> after <computeroutput>ELSE</computeroutput>. To perform multiple actions, use the multi-line form.</para>
 </listitem><listitem><para><bold>Nesting:</bold> <computeroutput>IF … THEN … ELSE … ENDIF</computeroutput> blocks may be nested freely.</para>
 </listitem><listitem><para><bold>Whitespace:</bold> Keywords may be separated by spaces as shown; keep them on their own lines in multi-line form for clarity.</para>
 </listitem></itemizedlist>
 </para>
-<para><bold>See also:</bold> <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/IF"><computeroutput>IF</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ENDIF"><computeroutput>ENDIF</computeroutput></ulink> </para>
+<para><bold>See also:</bold> <ref refid="IF" kindref="compound">IF</ref>, <ref refid="ENDIF" kindref="compound">ENDIF</ref> </para>
 </sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/ELSE.md"/>

@@ -19,12 +19,12 @@ The second parameter, `printable`, follows the **same formatting rules as `PRINT
 - If you need protocol-specific line endings (for example **CRLF**), append them explicitly with `CHR$(13) + CHR$(10)`.
 
 
-> A comma in `SOCKWRITE` does **not** send the character `,`.  
-> It inserts spaces to the next print zone.  
-> If you need a real comma on the wire, include it in the string:
-> ```basic
-> SOCKWRITE S, "A,B,C"
-> ```
+@note A comma in `SOCKWRITE` does **not** send the character `,`.
+@note It inserts spaces to the next print zone.
+@note If you need a real comma on the wire, include it in the string:
+@note ```basic
+@note SOCKWRITE S, "A,B,C"
+@note ```
 
 ---
 
@@ -73,7 +73,7 @@ ENDPROC
 - `SOCKWRITE` sends exactly what `PRINT` would have produced for the same arguments; use `CHR$` to embed control characters when needed.
 
 **See also:**  
-[`PRINT`](https://github.com/brainboxdotcc/retro-rocket/wiki/PRINT) ·
-[`SOCKREAD`](https://github.com/brainboxdotcc/retro-rocket/wiki/SOCKREAD) ·
-[`SOCKCLOSE`](https://github.com/brainboxdotcc/retro-rocket/wiki/SOCKCLOSE) ·
-[`CONNECT`](https://github.com/brainboxdotcc/retro-rocket/wiki/CONNECT)
+\ref PRINT "PRINT" ·
+\ref SOCKREAD "SOCKREAD" ·
+\ref SOCKCLOSE "SOCKCLOSE" ·
+\ref CONNECT "CONNECT"

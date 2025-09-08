@@ -6,7 +6,7 @@ X = INPORTQ(port)
 Reads a **64-bit quad-word** from `port` and returns it.
 
 
-> Very few devices support 64-bit port access; consult hardware documentation before use.
+@note Very few devices support 64-bit port access; consult hardware documentation before use.
 
 ---
 
@@ -29,4 +29,4 @@ PRINT Q
 - Rare in practice; most hardware uses MMIO or smaller port widths.
 
 **See also:**  
-[INPORT](https://github.com/brainboxdotcc/retro-rocket/wiki/INPORT) · [INPORTW](https://github.com/brainboxdotcc/retro-rocket/wiki/INPORTW) · [INPORTD](https://github.com/brainboxdotcc/retro-rocket/wiki/INPORTD) · [OUTPORTQ](https://github.com/brainboxdotcc/retro-rocket/wiki/OUTPORTQ)
+\ref INPORT "INPORT" · \ref INPORTW "INPORTW" · \ref INPORTD "INPORTD" · \ref OUTPORTQ "OUTPORTQ"

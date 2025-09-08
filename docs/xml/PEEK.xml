@@ -9,11 +9,11 @@
 <para><programlisting filename=".basic"><codeline><highlight class="normal">X<sp/>=<sp/>PEEK(address)</highlight></codeline>
 </programlisting></para>
 <para>Reads a <bold>single byte</bold> from the specified memory <computeroutput>address</computeroutput> and returns it as an integer (0–255).</para>
-<para><blockquote><para><computeroutput>PEEK</computeroutput> reads only from <bold>mapped</bold> memory. If <computeroutput>address</computeroutput> (or any byte it touches) is not permitted by the system memory map, an error is raised: <computeroutput>Bad Address at &lt;address&gt;</computeroutput>. </para>
-</blockquote></para>
-<sect2 id="PEEK_1autotoc_md80">
-<title>&lt;/blockquote&gt;</title>
-<sect3 id="PEEK_1autotoc_md81">
+<para><simplesect kind="note"><para><computeroutput>PEEK</computeroutput> reads only from <bold>mapped</bold> memory. If <computeroutput>address</computeroutput> (or any byte it touches) is not permitted by the system memory map, an error is raised: <computeroutput>Bad Address at &lt;address&gt;</computeroutput>.</para>
+</simplesect>
+<hruler/>
+</para>
+<sect3 id="PEEK_1autotoc_md95">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Think of <computeroutput>PEEK(addr)</computeroutput> as <bold>“load 8-bit from RAM/MMIO at <computeroutput>addr</computeroutput>”</bold>.</para>
@@ -24,7 +24,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="PEEK_1autotoc_md83">
+<sect3 id="PEEK_1autotoc_md97">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Read<sp/>three<sp/>consecutive<sp/>bytes</highlight></codeline>
 <codeline><highlight class="normal">BASE<sp/>=<sp/>&amp;100000</highlight></codeline>
@@ -39,7 +39,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="PEEK_1autotoc_md85">
+<sect3 id="PEEK_1autotoc_md99">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>The accessed range must be valid according to the boot-time memory map.</para>
@@ -47,9 +47,8 @@
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PEEKW">PEEKW</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PEEKD">PEEKD</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PEEKQ">PEEKQ</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/POKE">POKE</ulink> </para>
+ <ref refid="PEEKW" kindref="compound">PEEKW</ref> · <ref refid="PEEKD" kindref="compound">PEEKD</ref> · <ref refid="PEEKQ" kindref="compound">PEEKQ</ref> · <ref refid="POKE" kindref="compound">POKE</ref> </para>
 </sect3>
-</sect2>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/PEEK.md"/>
   </compounddef>

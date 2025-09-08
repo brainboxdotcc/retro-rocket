@@ -4,7 +4,7 @@ WRITE integer-variable, printable
 ```
 
 Writes text to an **open file**.  
-The first parameter must be an **integer variable** containing a **file handle** obtained from [`OPENOUT`](https://github.com/brainboxdotcc/retro-rocket/wiki/OPENOUT) or [`OPENUP`](https://github.com/brainboxdotcc/retro-rocket/wiki/OPENUP).  
+The first parameter must be an **integer variable** containing a **file handle** obtained from \ref OPENOUT "OPENOUT" or \ref OPENUP "OPENUP".
 The second parameter, `printable`, follows the **same formatting semantics as `PRINT`**.
 
 ---
@@ -18,17 +18,17 @@ The second parameter, `printable`, follows the **same formatting semantics as `P
 - To control line endings explicitly (for example CRLF), append them yourself with `CHR$(13) + CHR$(10)`.
 
 
-> A comma in `WRITE` does **not** emit the character `,`.  
-> If you want actual commas (for CSV), include them in the string:
-> ```basic
-> WRITE FH, "A,B,C"
-> ```
+@note A comma in `WRITE` does **not** emit the character `,`.
+@note If you want actual commas (for CSV), include them in the string:
+@note ```basic
+@note WRITE FH, "A,B,C"
+@note ```
 
 
-> To include a double quote inside a string, insert it with `CHR$(34)`:
-> ```basic
-> WRITE FH, CHR$(34) + "quoted" + CHR$(34)
-> ```
+@note To include a double quote inside a string, insert it with `CHR$(34)`:
+@note ```basic
+@note WRITE FH, CHR$(34) + "quoted" + CHR$(34)
+@note ```
 
 ---
 
@@ -87,7 +87,7 @@ ENDPROC
 - `WRITE` does not flush independently; closing the handle ensures data is written.
 
 **See also:**  
-[`PRINT`](https://github.com/brainboxdotcc/retro-rocket/wiki/PRINT) ·
-[`OPENOUT`](https://github.com/brainboxdotcc/retro-rocket/wiki/OPENOUT) ·
-[`OPENUP`](https://github.com/brainboxdotcc/retro-rocket/wiki/OPENUP) ·
-[`CLOSE`](https://github.com/brainboxdotcc/retro-rocket/wiki/CLOSE)
+\ref PRINT "PRINT" ·
+\ref OPENOUT "OPENOUT" ·
+\ref OPENUP "OPENUP" ·
+\ref CLOSE "CLOSE"

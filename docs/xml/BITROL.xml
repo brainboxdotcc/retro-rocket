@@ -11,7 +11,7 @@
 <para>Rotates integer <computeroutput>a</computeroutput> <bold>left</bold> by <computeroutput>n</computeroutput> bits within a given <computeroutput>width</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect3 id="BITROL_1autotoc_md164">
+<sect3 id="BITROL_1autotoc_md178">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Only the lowest <computeroutput>width</computeroutput> bits participate in the rotation.</para>
@@ -22,7 +22,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="BITROL_1autotoc_md166">
+<sect3 id="BITROL_1autotoc_md180">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>BITROL(&amp;9,<sp/>1,<sp/>4)</highlight></codeline>
 </programlisting></para>
@@ -30,7 +30,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="BITROL_1autotoc_md168">
+<sect3 id="BITROL_1autotoc_md182">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Operates on 64-bit integers.</para>
@@ -38,7 +38,7 @@
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BITROR">BITROR</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BITSHL">BITSHL</ulink> </para>
+ <ref refid="BITROR" kindref="compound">BITROR</ref> · <ref refid="BITSHL" kindref="compound">BITSHL</ref> </para>
 </sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/BITROL.md"/>

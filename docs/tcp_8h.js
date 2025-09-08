@@ -86,7 +86,7 @@ var tcp_8h =
     [ "tcp_idle", "tcp_8h.html#a5505c46ddfafecad526d12d4d1666050", null ],
     [ "tcp_init", "tcp_8h.html#a0e048a052cd5ec7a0bfe8734751990f1", null ],
     [ "tcp_listen", "tcp_8h.html#ab30a0d5f82ac8f116897d82578ae25eb", null ],
-    [ "__attribute__", "tcp_8h.html#a0b51a7a10cbdd813247a0febf4b89d6d", null ],
+    [ "__attribute__", "tcp_8h.html#a8454b2571cea12a469f026f20f27e7a2", null ],
     [ "ack", "tcp_8h.html#aa533772dce834aeb2548cfc69927771a", null ],
     [ "bits1", "tcp_8h.html#a930b8af71e65676a79c0305e85f6afb7", null ],
     [ "bits2", "tcp_8h.html#a25a251c7c0f741bd8f0e75df6b508554", null ],

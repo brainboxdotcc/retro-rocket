@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -92,25 +93,25 @@ $(document).ready(function(){initNavTree('GCOL.html',''); initResizable(); });
 </div><!-- fragment --><p>Sets the <b>current graphics colour</b>. The colour value is given by <code>integer-expression</code>.</p>
 <ul>
 <li>Colours are represented as a <b>32-bit value</b> where each 8-bit segment corresponds to <b>alpha</b>, <b>red</b>, <b>green</b>, <b>blue</b> in that order.</li>
-<li>Use the <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/RGB"><code>RGB</code></a> function to create a colour value from three 0–255 components.</li>
+<li>Use the <a class="el" href="RGB.html">RGB</a> function to create a colour value from three 0–255 components.</li>
 </ul>
-<dl class="section remark"><dt>Remarks</dt><dd><code>GCOL</code> affects <b>graphics</b> drawing only. For <b>text</b> colours see <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/COLOUR"><code>COLOUR</code></a> and <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/BACKGROUND"><code>BACKGROUND</code></a>.</dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd><code>GCOL</code> affects <b>graphics</b> drawing only. For <b>text</b> colours see <a class="el" href="COLOUR.html">COLOUR</a> and <a class="el" href="BACKGROUND.html">BACKGROUND</a>.</dd></dl>
 <hr  />
-<h3><a class="anchor" id="autotoc_md274"></a>
+<h3><a class="anchor" id="autotoc_md288"></a>
 Examples</h3>
 <p>Set a graphics colour then draw an outline circle </p><div class="fragment"><div class="line">GCOL RGB(255,0,0)</div>
 <div class="line">CIRCLE 200, 150, 80, FALSE</div>
 </div><!-- fragment --><p>Set a graphics colour then draw a filled rectangle </p><div class="fragment"><div class="line">GCOL RGB(0,128,255)</div>
 <div class="line">RECTANGLE 50, 50, 120, 90</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md276"></a>
+<h3><a class="anchor" id="autotoc_md290"></a>
 Notes</h3>
 <ul>
 <li>Each colour component is an integer in the range <b>0–255</b>.</li>
-<li>The <b>current graphics colour</b> is used by drawing statements such as <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/LINE"><code>LINE</code></a>, <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/CIRCLE"><code>CIRCLE</code></a>, <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/RECTANGLE"><code>RECTANGLE</code></a>, and <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/PLOT"><code>PLOT</code></a>.</li>
+<li>The <b>current graphics colour</b> is used by drawing statements such as <a class="el" href="LINE.html">LINE</a>, <a class="el" href="CIRCLE.html">CIRCLE</a>, <a class="el" href="RECTANGLE.html">RECTANGLE</a>, and <a class="el" href="PLOT.html">PLOT</a>.</li>
 <li><code>GCOL</code> does not affect the text foreground or background; use <code>COLOUR</code> and <code>BACKGROUND</code> for text.</li>
 </ul>
-<p><b>See also:</b> <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/RGB"><code>RGB</code></a>, <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/COLOUR"><code>COLOUR</code></a>, <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/BACKGROUND"><code>BACKGROUND</code></a> </p>
+<p><b>See also:</b> <a class="el" href="RGB.html">RGB</a>, <a class="el" href="COLOUR.html">COLOUR</a>, <a class="el" href="BACKGROUND.html">BACKGROUND</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -118,7 +119,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -93,18 +94,17 @@ $(document).ready(function(){initNavTree('DELETE.html',''); initResizable(); });
 <ul>
 <li><code>string-expression</code> must evaluate to a <b>filename or path</b>.</li>
 <li>Paths are <b>case-insensitive</b>.</li>
-<li>Relative paths are resolved against the current directory (see <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/CHDIR"><code>CHDIR</code></a>).</li>
+<li>Relative paths are resolved against the current directory (see <a class="el" href="CHDIR.html">CHDIR</a>).</li>
 <li><code>.</code> and <code>..</code> are <b>not supported</b> in paths.</li>
 </ul>
-<blockquote class="doxtable">
-<p>This is a <b>destructive</b> operation (no undo). <br  />
- If the file does not exist, or cannot be removed (for example because it is currently <b>open</b>), a runtime error is raised (catchable with <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><code>ON ERROR</code></a>). </p>
-</blockquote>
-<blockquote class="doxtable">
-<p><code>DELETE</code> removes <b>files</b> only. To remove a directory, use <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/RMDIR"><code>RMDIR</code></a>. </p>
-</blockquote>
-<h2><a class="anchor" id="autotoc_md235"></a>
-&lt;/blockquote&gt;</h2>
+<dl class="section note"><dt>Note</dt><dd>This is a <b>destructive</b> operation (no undo). </dd>
+<dd>
+If the file does not exist, or cannot be removed (for example because it is currently <b>open</b>), </dd>
+<dd>
+a runtime error is raised (catchable with <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><code>ON ERROR</code></a>).</dd>
+<dd>
+<code>DELETE</code> removes <b>files</b> only. To remove a directory, use <a class="el" href="RMDIR.html">RMDIR</a>.</dd></dl>
+<hr  />
 <h5>Example: simple delete</h5>
 <div class="fragment"><div class="line">DELETE &quot;old_config.txt&quot;</div>
 </div><!-- fragment --><hr  />
@@ -117,12 +117,12 @@ $(document).ready(function(){initNavTree('DELETE.html',''); initResizable(); });
 </div><!-- fragment --><hr  />
 <h5>Notes</h5>
 <ul>
-<li>Ensure any open handles to the file are <b>closed</b> first with <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/CLOSE"><code>CLOSE</code></a>.</li>
+<li>Ensure any open handles to the file are <b>closed</b> first with <a class="el" href="CLOSE.html">CLOSE</a>.</li>
 <li>Wildcards are not supported; delete files <b>one at a time</b>.</li>
 <li>Deleting a non-existent file raises an error.</li>
 </ul>
 <p><b>See also:</b> <br  />
- <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENIN"><code>OPENIN</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENOUT"><code>OPENOUT</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENUP"><code>OPENUP</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/CLOSE"><code>CLOSE</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/RMDIR"><code>RMDIR</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/CHDIR"><code>CHDIR</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/FILETYPE"><code>FILETYPE$</code></a> </p>
+ <a class="el" href="OPENIN.html">OPENIN</a> · <a class="el" href="OPENOUT.html">OPENOUT</a> · <a class="el" href="OPENUP.html">OPENUP</a> · <a class="el" href="CLOSE.html">CLOSE</a> · <a class="el" href="RMDIR.html">RMDIR</a> · <a class="el" href="CHDIR.html">CHDIR</a> · <a class="el" href="FILETYPE.html">FILETYPE$</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -130,7 +130,7 @@ $(document).ready(function(){initNavTree('DELETE.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Retro Rocket OS: include/basic/graphics.h File Reference</title>
+<title>Retro Rocket OS: graphics.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -90,9 +91,7 @@ $(document).ready(function(){initNavTree('graphics_8h.html',''); initResizable()
 <div class="title">graphics.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
-<code>#include &lt;stdbool.h&gt;</code><br />
-</div><table class="memberdecls">
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a598143e2745c97b0a2e5cffc74dd3a43"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphics_8h.html#a598143e2745c97b0a2e5cffc74dd3a43">basic_rgb</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
@@ -441,7 +440,7 @@ Functions</h2></td></tr>
 <p>Parses and executes the <code>PLOTQUAD</code> keyword from the BASIC interpreter. This statement expects a sprite handle followed by four (x,y) coordinate pairs, defining the quadrilateral to which the sprite should be mapped.</p>
 <p>The coordinates may describe any convex quad, allowing sprites to be drawn with skew and perspective. Internally this delegates to the textured-quad blitter (<code>plot_sprite_quad</code>) to perform the actual rendering.</p>
 <p>Example usage in BASIC: </p><div class="fragment"><div class="line"><a class="code" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea9baf8972a026ab13e4cd839632d5a134">PLOTQUAD</a> SPRITEHANDLE, 100,100, 200,120, 190,220, 90,210</div>
-<div class="ttc" id="atokenizer_8h_html_a4ebc26c81c029670805b51af165f9cfea9baf8972a026ab13e4cd839632d5a134"><div class="ttname"><a href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea9baf8972a026ab13e4cd839632d5a134">PLOTQUAD</a></div><div class="ttdeci">@ PLOTQUAD</div><div class="ttdef"><b>Definition:</b> tokenizer.h:175</div></div>
+<div class="ttc" id="atokenizer_8h_html_a4ebc26c81c029670805b51af165f9cfea9baf8972a026ab13e4cd839632d5a134"><div class="ttname"><a href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea9baf8972a026ab13e4cd839632d5a134">PLOTQUAD</a></div><div class="ttdeci">@ PLOTQUAD</div><div class="ttdef"><b>Definition:</b> tokenizer.h:177</div></div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ctx</td><td>Pointer to the BASIC execution context, containing parser state, sprite table, and current program environment. </td></tr>
@@ -535,7 +534,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_1e5d3661ed79af157d57e64a38265d09.html">basic</a></li><li class="navelem"><a class="el" href="graphics_8h.html">graphics.h</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:29 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

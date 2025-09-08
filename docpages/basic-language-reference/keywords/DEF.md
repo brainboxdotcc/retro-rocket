@@ -17,9 +17,9 @@ Defines a **function** (`FN`) or **procedure** (`PROC`). The parameter list is o
 
 
 \remark `GLOBAL` is **only** used to pass variables into **child programs** spawned with
-\remark [`CHAIN`](https://github.com/brainboxdotcc/retro-rocket/wiki/CHAIN).
+\remark \ref CHAIN "CHAIN".
 \remark It does **not** declare "global variables" for program-wide scope inside a single program.
-\remark Use parameters and [`LOCAL`](https://github.com/brainboxdotcc/retro-rocket/wiki/LOCAL) to manage scope within your own code.
+\remark Use parameters and \ref LOCAL "LOCAL" to manage scope within your own code.
 
 ---
 
@@ -97,10 +97,10 @@ DEF FNhypot(X, Y)
   (catchable with [`ON ERROR`](https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR)).
 
 **See also:**  
-[`FN`](https://github.com/brainboxdotcc/retro-rocket/wiki/FN) ·
-[`PROC`](https://github.com/brainboxdotcc/retro-rocket/wiki/PROC) ·
-[`ENDPROC`](https://github.com/brainboxdotcc/retro-rocket/wiki/ENDPROC) ·
-[`LOCAL`](https://github.com/brainboxdotcc/retro-rocket/wiki/LOCAL) ·
-[`CHAIN`](https://github.com/brainboxdotcc/retro-rocket/wiki/CHAIN) ·
+\ref FN "FN" ·
+\ref PROC "PROC" ·
+\ref ENDPROC "ENDPROC" ·
+\ref LOCAL "LOCAL" ·
+\ref CHAIN "CHAIN" ·
 [`Variable Naming`](https://github.com/brainboxdotcc/retro-rocket/wiki/Variable-Naming) ·
 [`Parameter types`](https://github.com/brainboxdotcc/retro-rocket/wiki/Parameter-types)

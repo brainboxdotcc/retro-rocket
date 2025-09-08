@@ -13,7 +13,7 @@ The block between `REPEAT` and `UNTIL` always runs **at least once**. After it r
 
 
 \remark `UNTIL` must match the **nearest preceding** `REPEAT` and should appear on its **own line**.
-> `REPEAT…UNTIL` blocks may be **nested** freely.
+@note `REPEAT…UNTIL` blocks may be **nested** freely.
 
 ---
 
@@ -73,7 +73,7 @@ UNTIL Y = 2
 - `REPEAT…UNTIL` works alongside other control structures (`FOR…NEXT`, `IF…ENDIF`, `WHILE…ENDWHILE`) and may be nested within them.
 
 **See also:**  
-[`REPEAT`](https://github.com/brainboxdotcc/retro-rocket/wiki/REPEAT) ·
-[`WHILE`](https://github.com/brainboxdotcc/retro-rocket/wiki/WHILE) ·
-[`LEN`](https://github.com/brainboxdotcc/retro-rocket/wiki/LEN) ·
-[`INKEY$`](https://github.com/brainboxdotcc/retro-rocket/wiki/INKEY)
+\ref REPEAT "REPEAT" ·
+\ref WHILE "WHILE" ·
+\ref LEN "LEN" ·
+\ref INKEY "INKEY$"

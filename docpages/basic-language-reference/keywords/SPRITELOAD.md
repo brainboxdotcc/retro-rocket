@@ -4,11 +4,11 @@ SPRITELOAD integer-variable, string-expression
 ```
 
 Loads an image from disk as a **sprite** and stores its **handle** in the given integer variable.  
-Use the handle with [`PLOT`](https://github.com/brainboxdotcc/retro-rocket/wiki/PLOT) or [`PLOTQUAD`](https://github.com/brainboxdotcc/retro-rocket/wiki/PLOTQUAD), and free it with [`SPRITEFREE`](https://github.com/brainboxdotcc/retro-rocket/wiki/SPRITEFREE) when finished.
+Use the handle with \ref PLOT "PLOT" or \ref PLOTQUAD "PLOTQUAD", and free it with \ref SPRITEFREE "SPRITEFREE" when finished.
 
 
-> The **first argument must be an integer variable**, not a literal or expression.  
-> Paths are **case-insensitive** and `.` / `..` are **not supported** in paths.
+@note The **first argument must be an integer variable**, not a literal or expression.
+@note Paths are **case-insensitive** and `.` / `..` are **not supported** in paths.
 
 ---
 
@@ -25,8 +25,8 @@ Use the handle with [`PLOT`](https://github.com/brainboxdotcc/retro-rocket/wiki/
 | `PIC`     | Pictor Paint (PC Paint)    |
 
 
-> Each program may have **up to 1024 sprites** loaded at once.  
-> Handles are **per-program**. All sprites are **auto-freed** when the program ends, but it’s good practice to call `SPRITEFREE` yourself when you no longer need a sprite.
+@note Each program may have **up to 1024 sprites** loaded at once.
+@note Handles are **per-program**. All sprites are **auto-freed** when the program ends, but it’s good practice to call `SPRITEFREE` yourself when you no longer need a sprite.
 
 ---
 
@@ -78,9 +78,9 @@ ENDPROC
 - Free sprite resources explicitly with `SPRITEFREE` to reclaim memory during long-running programs.
 
 **See also:**  
-[`PLOT`](https://github.com/brainboxdotcc/retro-rocket/wiki/PLOT) ·
-[`PLOTQUAD`](https://github.com/brainboxdotcc/retro-rocket/wiki/PLOTQUAD) ·
-[`SPRITEFREE`](https://github.com/brainboxdotcc/retro-rocket/wiki/SPRITEFREE) ·
-[`CHDIR`](https://github.com/brainboxdotcc/retro-rocket/wiki/CHDIR) ·
-[`AUTOFLIP`](https://github.com/brainboxdotcc/retro-rocket/wiki/AUTOFLIP) ·
-[`FLIP`](https://github.com/brainboxdotcc/retro-rocket/wiki/FLIP)
+\ref PLOT "PLOT" ·
+\ref PLOTQUAD "PLOTQUAD" ·
+\ref SPRITEFREE "SPRITEFREE" ·
+\ref CHDIR "CHDIR" ·
+\ref AUTOFLIP "AUTOFLIP" ·
+\ref FLIP "FLIP"

@@ -50,5 +50,5 @@ NEXT
 ---
 
 **See also:**  
-[`FOR`](https://github.com/brainboxdotcc/retro-rocket/wiki/FOR) ·
-[`CONTINUE`](https://github.com/brainboxdotcc/retro-rocket/wiki/CONTINUE)
+\ref FOR "FOR" ·
+\ref CONTINUE "CONTINUE"

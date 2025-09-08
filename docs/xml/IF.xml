@@ -18,14 +18,14 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>statements</highlight></codeline>
 <codeline><highlight class="normal">ENDIF</highlight></codeline>
 </programlisting></para>
-<para>Executes statements if an expression evaluates to <bold>true</bold>. You can write <computeroutput>IF</computeroutput> as a <bold>single-line</bold> statement (with one statement after <computeroutput>THEN</computeroutput> and, optionally, one after <computeroutput>ELSE</computeroutput>), or as a <bold>multi-line</bold> block closed by <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ENDIF"><computeroutput>ENDIF</computeroutput></ulink>.</para>
+<para>Executes statements if an expression evaluates to <bold>true</bold>. You can write <computeroutput>IF</computeroutput> as a <bold>single-line</bold> statement (with one statement after <computeroutput>THEN</computeroutput> and, optionally, one after <computeroutput>ELSE</computeroutput>), or as a <bold>multi-line</bold> block closed by <ref refid="ENDIF" kindref="compound">ENDIF</ref>.</para>
 <para><simplesect kind="remark"><para>Multi-line blocks must be closed with <computeroutput>ENDIF</computeroutput>. </para>
 </simplesect>
 <simplesect kind="remark"><para><computeroutput>END IF</computeroutput> (with a space) is <bold>not</bold> recognised.</para>
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="IF_1autotoc_md289">
+<sect3 id="IF_1autotoc_md303">
 <title>Comparison operators</title>
 <para><table rows="7" cols="2"><row>
 <entry thead="yes" align='center'><para>Operator   </para>
@@ -61,7 +61,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="IF_1autotoc_md291">
+<sect3 id="IF_1autotoc_md305">
 <title>Forms and examples</title>
 <para><bold>Single-line (with ELSE)</bold> <programlisting filename=".basic"><codeline><highlight class="normal">IF<sp/>X<sp/>&gt;<sp/>0<sp/>THEN<sp/>PRINT<sp/>&quot;POSITIVE&quot;<sp/>ELSE<sp/>PRINT<sp/>&quot;NON-POSITIVE&quot;</highlight></codeline>
 </programlisting></para>
@@ -90,7 +90,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="IF_1autotoc_md293">
+<sect3 id="IF_1autotoc_md307">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>In the <bold>single-line</bold> form, the <computeroutput>THEN</computeroutput> and optional <computeroutput>ELSE</computeroutput> parts each allow <bold>one statement</bold>. Use the multi-line form for multiple statements.</para>
@@ -98,7 +98,7 @@
 </listitem><listitem><para>Use parentheses to make complex conditions explicit: <computeroutput>IF (A &gt; 0) AND (B &lt; 10) THEN ...</computeroutput> (where supported by your operators).</para>
 </listitem></itemizedlist>
 </para>
-<para><bold>See also:</bold> <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ELSE"><computeroutput>ELSE</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ENDIF"><computeroutput>ENDIF</computeroutput></ulink> </para>
+<para><bold>See also:</bold> <ref refid="ELSE" kindref="compound">ELSE</ref> · <ref refid="ENDIF" kindref="compound">ENDIF</ref> </para>
 </sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/IF.md"/>

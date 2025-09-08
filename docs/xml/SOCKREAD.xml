@@ -9,8 +9,8 @@
 <para><programlisting filename=".basic"><codeline><highlight class="normal">SOCKREAD<sp/>integer-variable,<sp/>variable</highlight></codeline>
 </programlisting></para>
 <para>Reads a value from an <bold>open TCP socket</bold> into <computeroutput>variable</computeroutput>. <linebreak/>
- The first parameter must be an <bold>integer variable</bold> containing the socket handle returned by <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CONNECT"><computeroutput>CONNECT</computeroutput></ulink>.</para>
-<para>The <bold>semantics match</bold> <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/INPUT"><computeroutput>INPUT</computeroutput></ulink>:</para>
+ The first parameter must be an <bold>integer variable</bold> containing the socket handle returned by <ref refid="CONNECT" kindref="compound">CONNECT</ref>.</para>
+<para>The <bold>semantics match</bold> <ref refid="INPUT" kindref="compound">INPUT</ref>:</para>
 <para><itemizedlist>
 <listitem><para>The call is <bold>blocking</bold>: it waits until there is <bold>enough data</bold> to parse a valid value for the destination type.</para>
 </listitem><listitem><para><computeroutput>variable</computeroutput> may be <bold>string</bold>, <bold>integer</bold>, or <bold>real</bold>.</para>
@@ -18,13 +18,15 @@
 </listitem><listitem><para>Unlike <computeroutput>INPUT</computeroutput>, there is <bold>no echo</bold> (data comes from the socket, not the keyboard).</para>
 </listitem></itemizedlist>
 </para>
-<para><blockquote><para>Press <computeroutput>CTRL+ESC</computeroutput> at any time to <bold>cancel</bold> waiting for socket input. <linebreak/>
- Without an error handler, the program <bold>terminates</bold>. <linebreak/>
- With an <computeroutput>ON ERROR</computeroutput> handler, control passes there instead. </para>
-</blockquote></para>
-<sect2 id="SOCKREAD_1autotoc_md468">
-<title>&lt;/blockquote&gt;</title>
-<sect3 id="SOCKREAD_1autotoc_md469">
+<para><simplesect kind="note"><para>Press <computeroutput>CTRL+ESC</computeroutput> at any time to <bold>cancel</bold> waiting for socket input. </para>
+</simplesect>
+<simplesect kind="note"><para>Without an error handler, the program <bold>terminates</bold>. </para>
+</simplesect>
+<simplesect kind="note"><para>With an <computeroutput>ON ERROR</computeroutput> handler, control passes there instead.</para>
+</simplesect>
+<hruler/>
+</para>
+<sect3 id="SOCKREAD_1autotoc_md483">
 <title>Examples</title>
 <para><bold>Read a text line</bold> <programlisting filename=".basic"><codeline><highlight class="normal">CONNECT<sp/>S,<sp/>&quot;93.184.216.34&quot;,<sp/>80</highlight></codeline>
 <codeline><highlight class="normal">REM<sp/>Ask<sp/>the<sp/>server<sp/>for<sp/>a<sp/>line,<sp/>then<sp/>read<sp/>it</highlight></codeline>
@@ -61,18 +63,17 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="SOCKREAD_1autotoc_md471">
+<sect3 id="SOCKREAD_1autotoc_md485">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Treat the socket as a <bold>byte stream</bold>; if you need to read multiple fields on one line, call <computeroutput>SOCKREAD</computeroutput> multiple times or define a simple protocol (for example, one value per line).</para>
 </listitem><listitem><para>After <computeroutput>SOCKCLOSE</computeroutput>, the handle is invalid for further <computeroutput>SOCKREAD</computeroutput>/<computeroutput>SOCKWRITE</computeroutput>.</para>
-</listitem><listitem><para>Use <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DNS"><computeroutput>DNS$</computeroutput></ulink> to resolve hostnames to IP strings for <computeroutput>CONNECT</computeroutput>.</para>
+</listitem><listitem><para>Use <ref refid="DNS" kindref="compound">DNS$</ref> to resolve hostnames to IP strings for <computeroutput>CONNECT</computeroutput>.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CONNECT"><computeroutput>CONNECT</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/SOCKWRITE"><computeroutput>SOCKWRITE</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/SOCKCLOSE"><computeroutput>SOCKCLOSE</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/INPUT"><computeroutput>INPUT</computeroutput></ulink> </para>
+ <ref refid="CONNECT" kindref="compound">CONNECT</ref> · <ref refid="SOCKWRITE" kindref="compound">SOCKWRITE</ref> · <ref refid="SOCKCLOSE" kindref="compound">SOCKCLOSE</ref> · <ref refid="INPUT" kindref="compound">INPUT</ref> </para>
 </sect3>
-</sect2>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/SOCKREAD.md"/>
   </compounddef>

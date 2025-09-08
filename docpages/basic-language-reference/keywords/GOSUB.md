@@ -54,7 +54,7 @@ Transfers control to the line with the given **constant line number**, saving th
 - Modern Retro Rocket BASIC code should prefer **`DEF PROC` / `PROC`** for clarity and maintainability.
 
 **See also:**  
-[`RETURN`](https://github.com/brainboxdotcc/retro-rocket/wiki/RETURN) ·
-[`DEF`](https://github.com/brainboxdotcc/retro-rocket/wiki/DEF) ·
-[`PROC`](https://github.com/brainboxdotcc/retro-rocket/wiki/PROC) ·
-[`GOTO`](https://github.com/brainboxdotcc/retro-rocket/wiki/GOTO)
+\ref RETURN "RETURN" ·
+\ref DEF "DEF" ·
+\ref PROC "PROC" ·
+\ref GOTO "GOTO"

@@ -7,16 +7,16 @@ Deletes the specified **file** from the filesystem.
 
 - `string-expression` must evaluate to a **filename or path**.
 - Paths are **case-insensitive**.
-- Relative paths are resolved against the current directory (see [`CHDIR`](https://github.com/brainboxdotcc/retro-rocket/wiki/CHDIR)).
+- Relative paths are resolved against the current directory (see \ref CHDIR "CHDIR").
 - `.` and `..` are **not supported** in paths.
 
 
-> This is a **destructive** operation (no undo).  
-> If the file does not exist, or cannot be removed (for example because it is currently **open**),
-> a runtime error is raised (catchable with [`ON ERROR`](https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR)).
+@note This is a **destructive** operation (no undo).
+@note If the file does not exist, or cannot be removed (for example because it is currently **open**),
+@note a runtime error is raised (catchable with [`ON ERROR`](https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR)).
 
 
-> `DELETE` removes **files** only. To remove a directory, use [`RMDIR`](https://github.com/brainboxdotcc/retro-rocket/wiki/RMDIR).
+@note `DELETE` removes **files** only. To remove a directory, use \ref RMDIR "RMDIR".
 
 ---
 
@@ -41,15 +41,15 @@ ENDIF
 ---
 
 ##### Notes
-- Ensure any open handles to the file are **closed** first with [`CLOSE`](https://github.com/brainboxdotcc/retro-rocket/wiki/CLOSE).
+- Ensure any open handles to the file are **closed** first with \ref CLOSE "CLOSE".
 - Wildcards are not supported; delete files **one at a time**.
 - Deleting a non-existent file raises an error.
 
 **See also:**  
-[`OPENIN`](https://github.com/brainboxdotcc/retro-rocket/wiki/OPENIN) ·
-[`OPENOUT`](https://github.com/brainboxdotcc/retro-rocket/wiki/OPENOUT) ·
-[`OPENUP`](https://github.com/brainboxdotcc/retro-rocket/wiki/OPENUP) ·
-[`CLOSE`](https://github.com/brainboxdotcc/retro-rocket/wiki/CLOSE) ·
-[`RMDIR`](https://github.com/brainboxdotcc/retro-rocket/wiki/RMDIR) ·
-[`CHDIR`](https://github.com/brainboxdotcc/retro-rocket/wiki/CHDIR) ·
-[`FILETYPE$`](https://github.com/brainboxdotcc/retro-rocket/wiki/FILETYPE)
+\ref OPENIN "OPENIN" ·
+\ref OPENOUT "OPENOUT" ·
+\ref OPENUP "OPENUP" ·
+\ref CLOSE "CLOSE" ·
+\ref RMDIR "RMDIR" ·
+\ref CHDIR "CHDIR" ·
+\ref FILETYPE "FILETYPE$"

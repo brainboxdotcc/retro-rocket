@@ -61,4 +61,5 @@ ELSE
 ENDIF
 ```
 
-**See also:** [`IF`](https://github.com/brainboxdotcc/retro-rocket/wiki/IF) · [`ELSE`](https://github.com/brainboxdotcc/retro-rocket/wiki/ELSE)
+**See also:**
+\ref IF "IF" · \ref ELSE "ELSE"

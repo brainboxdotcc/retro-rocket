@@ -9,11 +9,11 @@
 <para><programlisting filename=".basic"><codeline><highlight class="normal">X<sp/>=<sp/>PEEKW(address)</highlight></codeline>
 </programlisting></para>
 <para>Reads a <bold>16-bit word</bold> from <computeroutput>address</computeroutput> and returns it as an integer (0–65535).</para>
-<para><blockquote><para>The full 2-byte span must be valid and mapped, or <computeroutput>Bad Address at &lt;address&gt;</computeroutput> is raised. </para>
-</blockquote></para>
-<sect2 id="PEEKW_1autotoc_md98">
-<title>&lt;/blockquote&gt;</title>
-<sect3 id="PEEKW_1autotoc_md99">
+<para><simplesect kind="note"><para>The full 2-byte span must be valid and mapped, or <computeroutput>Bad Address at &lt;address&gt;</computeroutput> is raised.</para>
+</simplesect>
+<hruler/>
+</para>
+<sect3 id="PEEKW_1autotoc_md113">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Loads 2 bytes, <bold>little-endian</bold> (<computeroutput>low</computeroutput> at <computeroutput>address</computeroutput>, <computeroutput>high</computeroutput> at <computeroutput>address+1</computeroutput>).</para>
@@ -23,7 +23,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="PEEKW_1autotoc_md101">
+<sect3 id="PEEKW_1autotoc_md115">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Read<sp/>a<sp/>16-bit<sp/>word</highlight></codeline>
 <codeline><highlight class="normal">W<sp/>=<sp/>PEEKW(&amp;100020)</highlight></codeline>
@@ -32,16 +32,15 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="PEEKW_1autotoc_md103">
+<sect3 id="PEEKW_1autotoc_md117">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Match the width to the device register size for MMIO.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PEEK">PEEK</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PEEKD">PEEKD</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PEEKQ">PEEKQ</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/POKEW">POKEW</ulink> </para>
+ <ref refid="PEEK" kindref="compound">PEEK</ref> · <ref refid="PEEKD" kindref="compound">PEEKD</ref> · <ref refid="PEEKQ" kindref="compound">PEEKQ</ref> · <ref refid="POKEW" kindref="compound">POKEW</ref> </para>
 </sect3>
-</sect2>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/PEEKW.md"/>
   </compounddef>

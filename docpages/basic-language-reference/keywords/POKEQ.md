@@ -29,4 +29,4 @@ PRINT PEEKQ(&100400)
 - Unaligned 64-bit writes may tear if observed concurrently.
 
 **See also:**  
-[PEEKQ](https://github.com/brainboxdotcc/retro-rocket/wiki/PEEKQ) · [POKED](https://github.com/brainboxdotcc/retro-rocket/wiki/POKED)
+\ref PEEKQ "PEEKQ" · \ref POKED "POKED"

@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -89,10 +90,9 @@ $(document).ready(function(){initNavTree('FLIP.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">FLIP</div>
-</div><!-- fragment --><p>When <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/AUTOFLIP"><code>AUTOFLIP</code></a> is set to <code>FALSE</code>, <code>FLIP</code> <b>presents the current backbuffer</b> to the screen (frontbuffer). <br  />
- This gives you explicit control over when a frame becomes visible - useful for animations or multi-step drawing.</p>
+</div><!-- fragment --><p>When <a class="el" href="AUTOFLIP.html">AUTOFLIP</a> is set to <code>FALSE</code>, <code>FLIP</code> <b>presents the current backbuffer</b> to the screen (frontbuffer). This gives you explicit control over when a frame becomes visible - useful for animations or multi-step drawing.</p>
 <ul>
-<li>Drawing statements (e.g. <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/LINE"><code>LINE</code></a>, <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/CIRCLE"><code>CIRCLE</code></a>, <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/RECTANGLE"><code>RECTANGLE</code></a>, <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/PLOT"><code>PLOT</code></a>) update the <b>backbuffer</b>.</li>
+<li>Drawing statements (e.g. <a class="el" href="LINE.html">LINE</a>, <a class="el" href="CIRCLE.html">CIRCLE</a>, <a class="el" href="RECTANGLE.html">RECTANGLE</a>, <a class="el" href="PLOT.html">PLOT</a>) update the <b>backbuffer</b>.</li>
 <li><code>FLIP</code> swaps the backbuffer to the display in one step, so the whole frame appears at once.</li>
 <li>If <code>AUTOFLIP</code> is <code>TRUE</code>, the system presents frames automatically and you typically do not call <code>FLIP</code> yourself.</li>
 </ul>
@@ -115,10 +115,10 @@ $(document).ready(function(){initNavTree('FLIP.html',''); initResizable(); });
 <ul>
 <li>If you do not call <code>FLIP</code> while <code>AUTOFLIP</code> is <code>FALSE</code>, the screen will not update until the next flip.</li>
 <li><code>CLS</code> clears both text and graphics; use it when you want a fresh frame for the next draw.</li>
-<li>Colour for graphics is set with <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL"><code>GCOL</code></a>, typically via <code>RGB(r,g,b)</code>.</li>
+<li>Colour for graphics is set with <a class="el" href="GCOL.html">GCOL</a>, typically via <code>RGB(r,g,b)</code>.</li>
 </ul>
 <p><b>See also:</b> <br  />
- <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/AUTOFLIP"><code>AUTOFLIP</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL"><code>GCOL</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/CIRCLE"><code>CIRCLE</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/LINE"><code>LINE</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/RECTANGLE"><code>RECTANGLE</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/PLOT"><code>PLOT</code></a> </p>
+ <a class="el" href="AUTOFLIP.html">AUTOFLIP</a> · <a class="el" href="GCOL.html">GCOL</a> · <a class="el" href="CIRCLE.html">CIRCLE</a> · <a class="el" href="LINE.html">LINE</a> · <a class="el" href="RECTANGLE.html">RECTANGLE</a> · <a class="el" href="PLOT.html">PLOT</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -126,7 +126,7 @@ $(document).ready(function(){initNavTree('FLIP.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

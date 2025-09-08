@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -89,34 +90,34 @@ $(document).ready(function(){initNavTree('basic-intdev.html',''); initResizable(
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><ul><li class="level2"><a href="#autotoc_md1">Why this interpreter exists</a></li>
-<li class="level2"><a href="#autotoc_md3">Big picture</a></li>
-<li class="level2"><a href="#autotoc_md5">Parsing model: hand-written, no AST</a></li>
-<li class="level2"><a href="#autotoc_md7">Line numbering, auto-number, and execution</a></li>
-<li class="level2"><a href="#autotoc_md9">The expression engine: typed, predictable</a></li>
-<li class="level2"><a href="#autotoc_md11">Names, keywords, and performance hints</a><ul><li class="level3"><a href="#autotoc_md13">Memory &amp; allocator model</a></li>
+<ul><ul><li class="level2"><a href="#autotoc_md14">Why this interpreter exists</a></li>
+<li class="level2"><a href="#autotoc_md16">Big picture</a></li>
+<li class="level2"><a href="#autotoc_md18">Parsing model: hand-written, no AST</a></li>
+<li class="level2"><a href="#autotoc_md20">Line numbering, auto-number, and execution</a></li>
+<li class="level2"><a href="#autotoc_md22">The expression engine: typed, predictable</a></li>
+<li class="level2"><a href="#autotoc_md24">Names, keywords, and performance hints</a><ul><li class="level3"><a href="#autotoc_md26">Memory &amp; allocator model</a></li>
 </ul>
 </li>
-<li class="level2"><a href="#autotoc_md15">Program lifecycle &amp; scheduler handshake</a></li>
-<li class="level2"><a href="#autotoc_md17">Procedures and functions</a></li>
-<li class="level2"><a href="#autotoc_md19">Control flow without a compiler</a></li>
-<li class="level2"><a href="#autotoc_md21">Cooperative runtime: statements yield</a></li>
-<li class="level2"><a href="#autotoc_md23">Error handling you can script</a><ul><li class="level3"><a href="#autotoc_md24">Ctrl+Esc (“Escape”) semantics</a></li>
-<li class="level3"><a href="#autotoc_md26">Arrays &amp; list-like operations</a></li>
+<li class="level2"><a href="#autotoc_md28">Program lifecycle &amp; scheduler handshake</a></li>
+<li class="level2"><a href="#autotoc_md30">Procedures and functions</a></li>
+<li class="level2"><a href="#autotoc_md32">Control flow without a compiler</a></li>
+<li class="level2"><a href="#autotoc_md34">Cooperative runtime: statements yield</a></li>
+<li class="level2"><a href="#autotoc_md36">Error handling you can script</a><ul><li class="level3"><a href="#autotoc_md37">Ctrl+Esc (“Escape”) semantics</a></li>
+<li class="level3"><a href="#autotoc_md39">Arrays &amp; list-like operations</a></li>
 </ul>
 </li>
-<li class="level2"><a href="#autotoc_md28">Reflection and scope in one paragraph</a></li>
-<li class="level2"><a href="#autotoc_md30">Graphics as a case study in philosophy</a></li>
-<li class="level2"><a href="#autotoc_md32">How this differs from other approaches</a></li>
-<li class="level2"><a href="#autotoc_md34">What this design buys you</a></li>
-<li class="level2"><a href="#autotoc_md36">If you want to extend it</a></li>
+<li class="level2"><a href="#autotoc_md41">Reflection and scope in one paragraph</a></li>
+<li class="level2"><a href="#autotoc_md43">Graphics as a case study in philosophy</a></li>
+<li class="level2"><a href="#autotoc_md45">How this differs from other approaches</a></li>
+<li class="level2"><a href="#autotoc_md47">What this design buys you</a></li>
+<li class="level2"><a href="#autotoc_md49">If you want to extend it</a></li>
 </ul>
 </ul>
 </div>
 <div class="textblock"><p><em>A curious developer’s guide to how the interpreter works and why it’s built this way.</em></p>
 <p>This readme is aimed at C developers and language tinkerers. It explains the design of Retro Rocket BASIC: how it parses and executes programs, how types behave, how control flow is implemented, and why the runtime is cooperative rather than preemptive. It’s intentionally narrative and stable over time.</p>
 <hr  />
-<h2><a class="anchor" id="autotoc_md1"></a>
+<h2><a class="anchor" id="autotoc_md14"></a>
 Why this interpreter exists</h2>
 <p>Retro Rocket BASIC is meant to be <b>small, predictable, and easy to reason about</b>. It lives inside a kernel-ish environment and talks directly to the host (console, files, sockets, graphics). The priority is <b>clarity over machinery</b>:</p>
 <ul>
@@ -127,12 +128,12 @@ Why this interpreter exists</h2>
 </ul>
 <p>If you like stepping through code with a debugger and understanding exactly why a line does what it does, you’re the target audience.</p>
 <hr  />
-<h2><a class="anchor" id="autotoc_md3"></a>
+<h2><a class="anchor" id="autotoc_md16"></a>
 Big picture</h2>
 <p>The program is kept as a single text buffer of numbered lines. The tokenizer reads directly from that buffer and yields tokens. Each line is executed by a <b>statement dispatcher</b> that switches on the current token and performs the action immediately. Expressions are evaluated by a <b>hand-written precedence parser</b> that returns a <em>typed</em> value (int, real, or string). Control flow is implemented by moving pointers back and forth in the original text rather than running bytecode.</p>
 <p>That single-pass feel is the core of the design: <b>parse just enough to do the work now</b>, then move the pointer and carry on.</p>
 <hr  />
-<h2><a class="anchor" id="autotoc_md5"></a>
+<h2><a class="anchor" id="autotoc_md18"></a>
 Parsing model: hand-written, no AST</h2>
 <p>The interpreter uses a hand-written tokenizer and a recursive-descent expression parser. There is <b>no parse tree</b> and <b>no intermediate representation</b>. The advantages are practical:</p>
 <ul>
@@ -143,7 +144,7 @@ Parsing model: hand-written, no AST</h2>
 <p>The trade-off is that you won’t get whole-program optimizations or structural rewrites. In this project, that’s a feature: the runtime’s behavior is <b>obvious</b>, not clever.</p>
 <p>If you’ve used uBASIC/TinyBASIC, this will feel familiar, but with strict typing and a more complete expression grammar.</p>
 <hr  />
-<h2><a class="anchor" id="autotoc_md7"></a>
+<h2><a class="anchor" id="autotoc_md20"></a>
 Line numbering, auto-number, and execution</h2>
 <p>Retro Rocket BASIC <b>encourages (and for libraries, requires)</b> source files <b>without</b> explicit line numbers. On load, a pre-pass (<code>auto_number</code>) scans the raw text and <b>synthesizes monotonically increasing line numbers</b> (e.g., 10, 20, 30, …) into the in-memory buffer. From that point on, the interpreter treats the program as numbered.</p>
 <p>Why this way?</p>
@@ -165,7 +166,7 @@ Line numbering, auto-number, and execution</h2>
 <li><b>Block matching</b> (e.g., finding the <code>ELSE</code> for an <code>IF</code>) uses a small scan with a depth counter-simple and robust.</li>
 </ul>
 <hr  />
-<h2><a class="anchor" id="autotoc_md9"></a>
+<h2><a class="anchor" id="autotoc_md22"></a>
 The expression engine: typed, predictable</h2>
 <p>Expressions are parsed with classic precedence: factors → unary ± → <code>* / MOD</code> → <code>+ -</code> (also concatenation) → relations → boolean <code>NOT/AND/OR</code>.</p>
 <p>Key rules:</p>
@@ -178,12 +179,12 @@ The expression engine: typed, predictable</h2>
 </ul>
 <p>The design goal is that you never wonder <em>what</em> will happen; you only choose <em>which</em> type you want by using (or omitting) a suffix.</p>
 <hr  />
-<h2><a class="anchor" id="autotoc_md11"></a>
+<h2><a class="anchor" id="autotoc_md24"></a>
 Names, keywords, and performance hints</h2>
 <p>Keywords are kept in alphabetical order so the tokenizer can bail early when scanning. Variables are conventional BASIC names with optional <code>$</code> or <code>#</code> suffixes. The interpreter stores <em>three</em> symbol lists, one per type, and one stack of “locals” per call depth for each type.</p>
 <p>A small optimization matters here: <b>move-to-front</b> on lookup hits. Hot names (loop counters, accumulators, common strings) migrate to the head of the list, which keeps lookup costs low without pulling in a full hash table.</p>
 <hr  />
-<h3><a class="anchor" id="autotoc_md13"></a>
+<h3><a class="anchor" id="autotoc_md26"></a>
 Memory &amp; allocator model</h3>
 <p>Retro Rocket BASIC keeps memory management <b>deterministic</b> on purpose. There’s no tracing GC, no background compaction, and no “surprise” pauses. Instead, the interpreter uses a small set of arenas backed by a buddy allocator and ties lifetime directly to program structure (globals vs. call frames).</p>
 <p>At the top level, a BASIC program runs inside a single interpreter context that owns a <b>global arena</b>. Anything that should live for the duration of the program. Global variables, the pre-parsed <code>DEF PROC/FN</code> table, the line index, and other long-lived structures reside here. Strings are always <b>copied into interpreter ownership</b> when they enter the runtime: built-ins that return text use an internal <code>gc_strdup</code> equivalent so the caller never receives a pointer to transient storage. Reassigning a string variable transparently frees the old value and stores a new owned copy; the same rule holds for string array elements when you overwrite a slot. You don’t free these yourself. Ownership is the interpreter’s.</p>
@@ -193,7 +194,7 @@ Memory &amp; allocator model</h3>
 <p>Two implementation details are worth calling out for people extending the runtime. First, <b>move-to-front</b> lists are used for variable lookups inside each store: every successful lookup bubbles that node to the head, which keeps hot variables effectively O(1). This is an algorithmic optimization, not a lifetime mechanism; nodes still belong to whichever arena created them. Second, graphics resources (e.g., sprite pixel buffers loaded via <code>stb_image</code>) are deliberately <b>not</b> allocated in the BASIC string arenas. They use the kernel’s allocator under the hood and are freed explicitly when you call <code>SPRITEFREE</code> or when the interpreter is torn down. Treat them like OS resources: allocate, use, free.</p>
 <p>From an extension author’s perspective, the rules are simple and strict: whenever you return text to BASIC, <b>hand back interpreter-owned memory</b> (duplicate it into the current context); never return a pointer into a stack buffer, a static scratch area, or an OS-owned buffer. If you allocate temporary buffers to talk to the kernel (read a file, receive from a socket, decode an image), either free them immediately after you’ve copied results into interpreter storage, or attach them to a resource with a clear destruction path. This model global arena for the program, frame arenas for calls, and explicit duplication at boundaries, keeps performance predictable and makes memory errors easy to localize.</p>
 <hr  />
-<h2><a class="anchor" id="autotoc_md15"></a>
+<h2><a class="anchor" id="autotoc_md28"></a>
 Program lifecycle &amp; scheduler handshake</h2>
 <p>Retro Rocket BASIC is driven <b>one line at a time</b>. The host scheduler repeatedly invokes the interpreter’s “run step”; each call is expected to execute <b>exactly one atomic line</b> parse the line label, execute one statement, and return or to <em>yield</em> early if the statement can’t complete yet. This simple contract gives you <b>language-level pre-emption</b> without threads: the OS interleaves BASIC with other work by round-robin calling the run step on runnable processes.</p>
 <p><b>Startup.</b> When a program is loaded, the source is <b>auto-numbered</b> if it doesn’t already carry line numbers (this is encouraged for programs and <b>required for libraries</b>). A fast index from line number to position in the text buffer is built, and procedure/function headers are recorded with their names, parameters, and defining lines. System variables (PID, screen geometry, <code>PI#</code>, <code>E#</code>, vendor strings, …) are seeded into the initial context.</p>
@@ -212,7 +213,7 @@ Program lifecycle &amp; scheduler handshake</h2>
 <p>This shape keeps the interpreter single-threaded and re-entrancy-free while still cooperating tightly with the OS. Long CPU loops still execute within a single line, but structured control flow naturally spans multiple lines (<code>FOR…NEXT</code>, <code>WHILE…ENDWHILE</code>, <code>REPEAT…UNTIL</code>), so control returns to the scheduler between each step. There’s also an explicit <code>YIELD</code> for voluntary hand-off.</p>
 <p><b>Why it matters.</b> Driving execution as “one atomic line per call, or yield” gives deterministic scheduling, eliminates hidden blocking, and makes embedding trivial: no threads to manage, no timeslices to tune, just call the run step again when the process is runnable.</p>
 <hr  />
-<h2><a class="anchor" id="autotoc_md17"></a>
+<h2><a class="anchor" id="autotoc_md30"></a>
 Procedures and functions</h2>
 <p>User code can define <code>PROC</code>edures and <code>FN</code>s. A quick pre-pass indexes their names, parameter lists, and line numbers. Calls then:</p>
 <ol type="1">
@@ -224,12 +225,12 @@ Procedures and functions</h2>
 </ol>
 <p>Functions return with <code>=</code> inside the body (the function’s suffix decides the return type). Procedures end with <code>ENDPROC</code>. This keeps call mechanics obvious and cheap.</p>
 <hr  />
-<h2><a class="anchor" id="autotoc_md19"></a>
+<h2><a class="anchor" id="autotoc_md32"></a>
 Control flow without a compiler</h2>
 <p>Structured constructs (<code>IF/ELSE/ENDIF</code>, <code>WHILE/ENDWHILE</code>, <code>REPEAT/UNTIL</code>) are implemented by scanning the token stream with a small depth counter to find the matching close token, then jumping to the recorded line number. Unstructured <code>GOTO/GOSUB/RETURN</code> just use the line map.</p>
 <p>This keeps the implementation lightweight while preserving the constructs people expect.</p>
 <hr  />
-<h2><a class="anchor" id="autotoc_md21"></a>
+<h2><a class="anchor" id="autotoc_md34"></a>
 Cooperative runtime: statements yield</h2>
 <p>The runtime is <b>cooperative</b>. Any statement that would block, waiting for a keypress, a socket, or a timer, <b>yields</b>:</p>
 <ul>
@@ -240,7 +241,7 @@ Cooperative runtime: statements yield</h2>
 <p>When the callback says “ready,” the scheduler resumes the interpreter, the statement runs, and execution proceeds.</p>
 <p>This model keeps the interpreter single-threaded and avoids re-entrancy. You never find yourself halfway through an expression when an interrupt fires. The cost is that long, tight loops <em>must</em> be polite (or call a yielding primitive) or they will hog the CPU. In practice, BASIC programs that do I/O already pass through yielding statements.</p>
 <hr  />
-<h2><a class="anchor" id="autotoc_md23"></a>
+<h2><a class="anchor" id="autotoc_md36"></a>
 Error handling you can script</h2>
 <p>All errors go through one place. The interpreter sets:</p>
 <ul>
@@ -255,7 +256,7 @@ Error handling you can script</h2>
 <li>Pushes a fresh local frame and jumps to the named handler.</li>
 </ul>
 <p>The important bit is that the interpreter never prints behind your back; user code decides what to do with error state.</p>
-<h3><a class="anchor" id="autotoc_md24"></a>
+<h3><a class="anchor" id="autotoc_md37"></a>
 Ctrl+Esc (“Escape”) semantics</h3>
 <p>Retro Rocket BASIC treats <b>Ctrl+Esc</b> as a <b>user-initiated error</b>, exactly like pressing <b>ESC</b> on a BBC Micro. It is <b>not</b> a silent wake-up: it <b>bubbles up to the main run loop</b>, which emits the error <b>“Escape”</b> through the normal tokenizer error path.</p>
 <p><b>What the interpreter does</b></p>
@@ -295,7 +296,7 @@ Ctrl+Esc (“Escape”) semantics</h3>
 <li>Remember: <code>ERR$</code> is <b>sticky</b>. Once set non-empty it won’t be overwritten by subsequent errors until explicitly cleared to the empty string.</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md26"></a>
+<h3><a class="anchor" id="autotoc_md39"></a>
 Arrays &amp; list-like operations</h3>
 <p>Arrays in Retro Rocket BASIC are deliberately <b>simple, typed vectors</b>. One dimension, fixed length, and the same <code>$/#/int</code> suffix rules as scalars. You create them with <code>DIM</code>, you can change their length with <code>REDIM</code>, and you index them with an integer expression. That’s it. No hidden growth, no iterators, no surprises.</p>
 <p>An array’s <b>type is part of its name</b>: <code>A()</code> holds integers, <code>R#()</code> holds reals, <code>S$()</code> holds strings. Index expressions are evaluated by the expression engine and treated as integers; out-of-range indices raise a normal runtime error (which you can catch with <code>ON ERROR PROC …</code>). Because arrays are first-class variables, they obey the same <b>scope and lifetime</b> rules: locals live for the duration of the current <code>PROC</code>/<code>FN</code> frame; globals persist for the program’s life.</p>
@@ -309,12 +310,12 @@ Arrays &amp; list-like operations</h3>
 <p>Design-wise, arrays are kept this spartan for three reasons. First, <b>determinism</b>: fixed size and explicit compaction make worst-case costs obvious when you’re inside a tight frame that must finish before yielding back to the scheduler. Second, <b>memory hygiene</b>: one contiguous block per array (plus per-element string buffers) reduces fragmentation and makes lifetime clear. Locals are torn down with their frame, globals only when the program ends. Third, <b>ergonomics without magic</b>: <code>PUSH</code>/<code>POP</code> cover the common “insert/remove while preserving order” use case without inventing a second container type or background reallocation policy.</p>
 <p>If you’re writing a library on top of this model, the guidance is simple: choose array lengths deliberately, <code>REDIM</code> at known boundaries (not per-iteration), prefer <code>POP</code>/<code>PUSH</code> near the end of the array when you can minimize movement, and remember that string slots are real ownership boundaries, not just views.</p>
 <hr  />
-<h2><a class="anchor" id="autotoc_md28"></a>
+<h2><a class="anchor" id="autotoc_md41"></a>
 Reflection and scope in one paragraph</h2>
 <p>The interpreter lets code ask for or set variables by name (<code>GETVAR*</code>, <code>SETVAR*</code>, <code>EXISTSVAR*</code>). This is implemented atop the same per-type symbol lists used for normal access. <code>LOCAL</code> and <code>GLOBAL</code> on assignments pick the destination list; lookups search the local stack from the current frame outward and then globals. On a hit, the node is moved to the front for locality.</p>
 <p>It’s a tiny model, but it covers parameters, locals, globals, and reflective tools consistently.</p>
 <hr  />
-<h2><a class="anchor" id="autotoc_md30"></a>
+<h2><a class="anchor" id="autotoc_md43"></a>
 Graphics as a case study in philosophy</h2>
 <p>The graphics path shows the general approach: a <b>simple fast path</b> for the common case and a <b>precise slow path</b> for the interesting one.</p>
 <ul>
@@ -325,7 +326,7 @@ Graphics as a case study in philosophy</h2>
 </ul>
 <p>This is the theme throughout: keep the core obvious, add precision where it buys visible quality, and skip frameworks that add weight.</p>
 <hr  />
-<h2><a class="anchor" id="autotoc_md32"></a>
+<h2><a class="anchor" id="autotoc_md45"></a>
 How this differs from other approaches</h2>
 <ul>
 <li><b>Compared to AST/bytecode VMs (Lua, MicroPython):</b> This interpreter prioritizes <em>traceability</em> over optimization. There’s no IR, no VM, and no GC in the hot path. You pay with fewer global optimizations, but you gain a debugger-friendly, step-through-the-grammar experience and a much smaller surface area.</li>
@@ -333,7 +334,7 @@ How this differs from other approaches</h2>
 <li><b>Compared to classic TinyBASIC/uBASIC:</b> You get strict types by suffix, locals/parameters, a broader expression grammar, cooperative I/O, and a consistent error model.</li>
 </ul>
 <hr  />
-<h2><a class="anchor" id="autotoc_md34"></a>
+<h2><a class="anchor" id="autotoc_md47"></a>
 What this design buys you</h2>
 <ul>
 <li><b>Mechanical sympathy.</b> Jumps are pointer rewrites; hot names stay hot; the memory model is simple.</li>
@@ -347,7 +348,7 @@ What this design buys you</h2>
 <li>If you write a compute-heavy loop that never touches a yielding primitive, you can hog the CPU. (By design: the runtime won’t preempt you.)</li>
 </ul>
 <hr  />
-<h2><a class="anchor" id="autotoc_md36"></a>
+<h2><a class="anchor" id="autotoc_md49"></a>
 If you want to extend it</h2>
 <p>The safest way to think about extensions is:</p>
 <ol type="1">
@@ -365,7 +366,7 @@ If you want to extend it</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

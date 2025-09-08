@@ -3,7 +3,7 @@
 CIRCLE integer-expression, integer-expression, integer-expression, boolean-expression
 ```
 
-Draws a circle using the current graphics colour (set with [`GCOL`](https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL)).
+Draws a circle using the current graphics colour (set with \ref GCOL "GCOL").
 
 - First two parameters: the **X,Y coordinates** of the circle’s centre.  
 - Third parameter: the **radius** in pixels.  
@@ -38,6 +38,7 @@ Draws a filled green circle centred at `(200,200)` with radius `50`.
 ##### Notes
 - Coordinates are in **screen pixels**; `(0,0)` is the top-left corner.  
 - Circles are clipped at the screen edges if they extend beyond the display.  
-- [`GCOL`](https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL) accepts a 24-bit RGB colour, usually constructed with [`RGB`](https://github.com/brainboxdotcc/retro-rocket/wiki/RGB).
+- \ref GCOL "GCOL" accepts a 24-bit RGB colour, usually constructed with \ref RGB "RGB".
 
-**See also:** [`GCOL`](https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL), [`LINE`](https://github.com/brainboxdotcc/retro-rocket/wiki/LINE), [`RECTANGLE`](https://github.com/brainboxdotcc/retro-rocket/wiki/RECTANGLE)
+**See also:**
+\ref GCOL "GCOL", \ref LINE "LINE", \ref RECTANGLE "RECTANGLE"

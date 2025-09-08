@@ -3,6 +3,7 @@
   <compounddef id="e1000_8c" kind="file" language="C++">
     <compoundname>e1000.c</compoundname>
     <includes refid="kernel_8h" local="no">kernel.h</includes>
+    <includes refid="e1000_8h" local="yes">e1000.h</includes>
     <includes refid="mmio_8h" local="no">mmio.h</includes>
     <incdepgraph>
       <node id="57">
@@ -68,7 +69,7 @@
         <childnode refid="27" relation="include">
         </childnode>
       </node>
-      <node id="88">
+      <node id="86">
         <label>stdarg.h</label>
       </node>
       <node id="60">
@@ -110,7 +111,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="76">
+      <node id="74">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
@@ -127,7 +128,7 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="83">
+      <node id="81">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
@@ -155,7 +156,7 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="81">
+      <node id="79">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
@@ -177,7 +178,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="79">
+      <node id="77">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
@@ -196,7 +197,7 @@
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="84">
+      <node id="82">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
@@ -208,12 +209,6 @@
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="74">
-        <label>rtl8139.h</label>
-        <link refid="rtl8139_8h"/>
-        <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="52">
@@ -234,7 +229,7 @@
       <node id="5">
         <label>stddef.h</label>
       </node>
-      <node id="90">
+      <node id="88">
         <label>module.h</label>
         <link refid="module_8h"/>
         <childnode refid="2" relation="include">
@@ -259,11 +254,19 @@
         </childnode>
       </node>
       <node id="1">
-        <label>src/e1000.c</label>
+        <label>e1000.c</label>
         <link refid="e1000_8c"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="91" relation="include">
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+      </node>
+      <node id="89">
+        <label>e1000.h</label>
+        <link refid="e1000_8h"/>
+        <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="6">
@@ -293,12 +296,6 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="75">
-        <label>e1000.h</label>
-        <link refid="e1000_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
       <node id="70">
         <label>lapic_timer.h</label>
         <link refid="lapic__timer_8h"/>
@@ -320,7 +317,7 @@
         <label>input.h</label>
         <link refid="input_8h"/>
       </node>
-      <node id="85">
+      <node id="83">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
@@ -330,17 +327,17 @@
         <label>video.h</label>
         <link refid="video_8h"/>
       </node>
-      <node id="87">
+      <node id="85">
         <label>serial.h</label>
         <link refid="serial_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="88" relation="include">
+        <childnode refid="86" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="80">
+      <node id="78">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
@@ -366,13 +363,13 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="91">
+      <node id="90">
         <label>mmio.h</label>
         <link refid="mmio_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="77">
+      <node id="75">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
@@ -422,7 +419,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="78">
+      <node id="76">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
@@ -545,19 +542,15 @@
         </childnode>
         <childnode refid="83" relation="include">
         </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
         <childnode refid="84" relation="include">
         </childnode>
         <childnode refid="85" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="86" relation="include">
-        </childnode>
         <childnode refid="87" relation="include">
         </childnode>
-        <childnode refid="89" relation="include">
-        </childnode>
-        <childnode refid="90" relation="include">
+        <childnode refid="88" relation="include">
         </childnode>
       </node>
       <node id="45">
@@ -586,7 +579,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="89">
+      <node id="87">
         <label>debug_ringbuffer.h</label>
         <link refid="debug__ringbuffer_8h"/>
         <childnode refid="2" relation="include">
@@ -714,13 +707,13 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="82">
+      <node id="80">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="86">
+      <node id="84">
         <label>retrofs.h</label>
         <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
@@ -744,7 +737,7 @@
       </node>
     </incdepgraph>
       <sectiondef kind="var">
-      <memberdef kind="variable" id="e1000_8c_1a2f182bcaa1853b7adbae3c7128ec14cf" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="e1000_8c_1a2f182bcaa1853b7adbae3c7128ec14cf" prot="public" static="yes" mutable="no">
         <type>uint8_t</type>
         <definition>uint8_t bar_type</definition>
         <argsstring></argsstring>
@@ -756,9 +749,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/e1000.c" line="4" column="9" bodyfile="src/e1000.c" bodystart="4" bodyend="-1"/>
+        <location file="modules/e1000/e1000.c" line="5" column="16" bodyfile="modules/e1000/e1000.c" bodystart="5" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="e1000_8c_1a8c7ffafb9b37de2904e1c9b8b254d99f" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="e1000_8c_1a8c7ffafb9b37de2904e1c9b8b254d99f" prot="public" static="yes" mutable="no">
         <type>uint16_t</type>
         <definition>uint16_t io_base</definition>
         <argsstring></argsstring>
@@ -770,9 +763,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/e1000.c" line="5" column="10" bodyfile="src/e1000.c" bodystart="5" bodyend="-1"/>
+        <location file="modules/e1000/e1000.c" line="6" column="17" bodyfile="modules/e1000/e1000.c" bodystart="6" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="e1000_8c_1aeae852f44f2b617e15b028ad84cd8355" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="e1000_8c_1aeae852f44f2b617e15b028ad84cd8355" prot="public" static="yes" mutable="no">
         <type>uint64_t</type>
         <definition>uint64_t mem_base</definition>
         <argsstring></argsstring>
@@ -784,9 +777,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/e1000.c" line="6" column="10" bodyfile="src/e1000.c" bodystart="6" bodyend="-1"/>
+        <location file="modules/e1000/e1000.c" line="7" column="17" bodyfile="modules/e1000/e1000.c" bodystart="7" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="e1000_8c_1a2e910f42638e63c170d167966d674919" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="e1000_8c_1a2e910f42638e63c170d167966d674919" prot="public" static="yes" mutable="no">
         <type>bool</type>
         <definition>bool eerprom_exists</definition>
         <argsstring></argsstring>
@@ -798,9 +791,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/e1000.c" line="7" column="6" bodyfile="src/e1000.c" bodystart="7" bodyend="-1"/>
+        <location file="modules/e1000/e1000.c" line="8" column="13" bodyfile="modules/e1000/e1000.c" bodystart="8" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="e1000_8c_1a2f32c75fb4bc7ba39243ef4a9f8eacc1" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="e1000_8c_1a2f32c75fb4bc7ba39243ef4a9f8eacc1" prot="public" static="yes" mutable="no">
         <type>uint8_t</type>
         <definition>uint8_t mac[6]</definition>
         <argsstring>[6]</argsstring>
@@ -812,37 +805,35 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/e1000.c" line="8" column="9" bodyfile="src/e1000.c" bodystart="8" bodyend="-1"/>
+        <location file="modules/e1000/e1000.c" line="9" column="16" bodyfile="modules/e1000/e1000.c" bodystart="9" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="e1000_8c_1a6a51b070bb6f9d5a23aa08dcc4b048bb" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="e1000_8c_1a69b4300407ca122d5e2654c33e3fdac2" prot="public" static="yes" mutable="no">
         <type>e1000_rx_desc_t *</type>
-        <definition>e1000_rx_desc_t* rx_descs[E1000_NUM_RX_DESC]</definition>
-        <argsstring>[E1000_NUM_RX_DESC]</argsstring>
+        <definition>e1000_rx_desc_t* rx_descs[32]</definition>
+        <argsstring>[32]</argsstring>
         <name>rx_descs</name>
-        <initializer>= {NULL}</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/e1000.c" line="9" column="17" bodyfile="src/e1000.c" bodystart="9" bodyend="-1"/>
+        <location file="modules/e1000/e1000.c" line="10" column="24" bodyfile="modules/e1000/e1000.c" bodystart="10" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="e1000_8c_1a9cc1c82bb31a19140828444b880c784d" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="e1000_8c_1aba5cedf3aa7345b31a2e6de94bf40671" prot="public" static="yes" mutable="no">
         <type>e1000_tx_desc_t *</type>
-        <definition>e1000_tx_desc_t* tx_descs[E1000_NUM_TX_DESC]</definition>
-        <argsstring>[E1000_NUM_TX_DESC]</argsstring>
+        <definition>e1000_tx_desc_t* tx_descs[8]</definition>
+        <argsstring>[8]</argsstring>
         <name>tx_descs</name>
-        <initializer>= {NULL}</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/e1000.c" line="10" column="17" bodyfile="src/e1000.c" bodystart="10" bodyend="-1"/>
+        <location file="modules/e1000/e1000.c" line="11" column="24" bodyfile="modules/e1000/e1000.c" bodystart="11" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="e1000_8c_1a7bf0989aed8e8f1f19e8e7824fc2f82a" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="e1000_8c_1a7bf0989aed8e8f1f19e8e7824fc2f82a" prot="public" static="yes" mutable="no">
         <type>uint16_t</type>
         <definition>uint16_t rx_cur</definition>
         <argsstring></argsstring>
@@ -854,9 +845,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/e1000.c" line="11" column="10" bodyfile="src/e1000.c" bodystart="11" bodyend="-1"/>
+        <location file="modules/e1000/e1000.c" line="12" column="17" bodyfile="modules/e1000/e1000.c" bodystart="12" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="e1000_8c_1a61617fb0f522d388c71a85d3af2677e2" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="e1000_8c_1a61617fb0f522d388c71a85d3af2677e2" prot="public" static="yes" mutable="no">
         <type>uint16_t</type>
         <definition>uint16_t tx_cur</definition>
         <argsstring></argsstring>
@@ -868,12 +859,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/e1000.c" line="12" column="10" bodyfile="src/e1000.c" bodystart="12" bodyend="-1"/>
+        <location file="modules/e1000/e1000.c" line="13" column="17" bodyfile="modules/e1000/e1000.c" bodystart="13" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="e1000_8c_1a9bbd30a87207f97b436c013fea89861f" prot="public" static="yes" mutable="no">
+      <memberdef kind="variable" id="e1000_8c_1a07d3c485c8aa6a709f3061b62db86df5" prot="public" static="yes" mutable="no">
         <type>void *</type>
-        <definition>void* tx_buffers[E1000_NUM_TX_DESC]</definition>
-        <argsstring>[E1000_NUM_TX_DESC]</argsstring>
+        <definition>void* tx_buffers[8]</definition>
+        <argsstring>[8]</argsstring>
         <name>tx_buffers</name>
         <briefdescription>
         </briefdescription>
@@ -881,7 +872,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/e1000.c" line="14" column="13" bodyfile="src/e1000.c" bodystart="14" bodyend="-1"/>
+        <location file="modules/e1000/e1000.c" line="15" column="13" bodyfile="modules/e1000/e1000.c" bodystart="15" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="e1000_8c_1af92218b046ebf7e33ecea062a8de49a2" prot="public" static="yes" mutable="no">
         <type>uint16_t</type>
@@ -895,7 +886,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/e1000.c" line="16" column="17" bodyfile="src/e1000.c" bodystart="16" bodyend="-1"/>
+        <location file="modules/e1000/e1000.c" line="17" column="17" bodyfile="modules/e1000/e1000.c" bodystart="17" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -918,7 +909,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/e1000.c" line="18" column="6" bodyfile="src/e1000.c" bodystart="18" bodyend="25"/>
+        <location file="modules/e1000/e1000.c" line="19" column="6" bodyfile="modules/e1000/e1000.c" bodystart="19" bodyend="26"/>
       </memberdef>
       <memberdef kind="function" id="e1000_8c_1a1bba3b5aa6efe39d03c8e51b14cefaef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint32_t</type>
@@ -935,7 +926,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/e1000.c" line="27" column="10" bodyfile="src/e1000.c" bodystart="27" bodyend="34"/>
+        <location file="modules/e1000/e1000.c" line="28" column="10" bodyfile="modules/e1000/e1000.c" bodystart="28" bodyend="35"/>
       </memberdef>
       <memberdef kind="function" id="e1000_8c_1a280c5949f271b28885058624364d1a6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -948,7 +939,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/e1000.c" line="36" column="6" bodyfile="src/e1000.c" bodystart="36" bodyend="50"/>
+        <location file="modules/e1000/e1000.c" line="37" column="6" bodyfile="modules/e1000/e1000.c" bodystart="37" bodyend="51"/>
       </memberdef>
       <memberdef kind="function" id="e1000_8c_1a8683ee3d5a0b5a478920c3e7b7b937e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint32_t</type>
@@ -965,7 +956,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/e1000.c" line="54" column="10" bodyfile="src/e1000.c" bodystart="54" bodyend="70"/>
+        <location file="modules/e1000/e1000.c" line="54" column="10" bodyfile="modules/e1000/e1000.c" bodystart="54" bodyend="70"/>
       </memberdef>
       <memberdef kind="function" id="e1000_8c_1a4ec462c5bd0f2b55301d1a973526ed7a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -978,7 +969,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/e1000.c" line="72" column="6" bodyfile="src/e1000.c" bodystart="72" bodyend="94"/>
+        <location file="modules/e1000/e1000.c" line="72" column="6" bodyfile="modules/e1000/e1000.c" bodystart="72" bodyend="94"/>
       </memberdef>
       <memberdef kind="function" id="e1000_8c_1a8168e25d51d3647beb8daefd6a5b70c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -995,7 +986,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/e1000.c" line="96" column="6" bodyfile="src/e1000.c" bodystart="96" bodyend="98"/>
+        <location file="modules/e1000/e1000.c" line="96" column="6" bodyfile="modules/e1000/e1000.c" bodystart="96" bodyend="98"/>
       </memberdef>
       <memberdef kind="function" id="e1000_8c_1a8eefd0c37b0f3475aba78da8afc183dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1008,7 +999,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/e1000.c" line="100" column="6" bodyfile="src/e1000.c" bodystart="100" bodyend="131"/>
+        <location file="modules/e1000/e1000.c" line="100" column="6" bodyfile="modules/e1000/e1000.c" bodystart="100" bodyend="131"/>
       </memberdef>
       <memberdef kind="function" id="e1000_8c_1a21a64b56f57717fd9aa4fd193408945e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1021,7 +1012,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/e1000.c" line="133" column="6" bodyfile="src/e1000.c" bodystart="133" bodyend="174"/>
+        <location file="modules/e1000/e1000.c" line="133" column="6" bodyfile="modules/e1000/e1000.c" bodystart="133" bodyend="181"/>
       </memberdef>
       <memberdef kind="function" id="e1000_8c_1a38cac3a2e401ec22f6f92d1dd84ae202" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1034,7 +1025,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/e1000.c" line="176" column="6" bodyfile="src/e1000.c" bodystart="176" bodyend="202"/>
+        <location file="modules/e1000/e1000.c" line="183" column="6" bodyfile="modules/e1000/e1000.c" bodystart="183" bodyend="210"/>
       </memberdef>
       <memberdef kind="function" id="e1000_8c_1a88ae96b4ff37f51a2f4b9546e4f4bfd5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1047,7 +1038,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/e1000.c" line="204" column="6" bodyfile="src/e1000.c" bodystart="204" bodyend="207"/>
+        <location file="modules/e1000/e1000.c" line="212" column="6" bodyfile="modules/e1000/e1000.c" bodystart="212" bodyend="215"/>
       </memberdef>
       <memberdef kind="function" id="e1000_8c_1aa5e8de2eaabb4c647118c489bd4b450c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1068,7 +1059,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/e1000.c" line="209" column="6" bodyfile="src/e1000.c" bodystart="209" bodyend="250"/>
+        <location file="modules/e1000/e1000.c" line="217" column="6" bodyfile="modules/e1000/e1000.c" bodystart="217" bodyend="260"/>
       </memberdef>
       <memberdef kind="function" id="e1000_8c_1a878457d0b9025ef5eebaecea519d3951" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1081,7 +1072,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/e1000.c" line="252" column="6" bodyfile="src/e1000.c" bodystart="252" bodyend="253"/>
+        <location file="modules/e1000/e1000.c" line="262" column="6" bodyfile="modules/e1000/e1000.c" bodystart="262" bodyend="263"/>
       </memberdef>
       <memberdef kind="function" id="e1000_8c_1aaedf935c8923745b36e913e08d44cb30" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1116,7 +1107,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/e1000.c" line="259" column="6" bodyfile="src/e1000.c" bodystart="259" bodyend="265"/>
+        <location file="modules/e1000/e1000.c" line="269" column="6" bodyfile="modules/e1000/e1000.c" bodystart="269" bodyend="284"/>
       </memberdef>
       <memberdef kind="function" id="e1000_8c_1a105db2078b5233ebe1e16293a6d6b329" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1129,7 +1120,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/e1000.c" line="267" column="6" bodyfile="src/e1000.c" bodystart="267" bodyend="291"/>
+        <location file="modules/e1000/e1000.c" line="286" column="6" bodyfile="modules/e1000/e1000.c" bodystart="286" bodyend="310"/>
       </memberdef>
       <memberdef kind="function" id="e1000_8c_1ab21dd576bd2e674b3791066a5f45600a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1146,7 +1137,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/e1000.c" line="293" column="6" bodyfile="src/e1000.c" bodystart="293" bodyend="394"/>
+        <location file="modules/e1000/e1000.c" line="312" column="6" bodyfile="modules/e1000/e1000.c" bodystart="312" bodyend="416"/>
       </memberdef>
       <memberdef kind="function" id="e1000_8c_1aa480cf0389af41f842ef8389a1a086c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1159,13 +1150,29 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/e1000.c" line="396" column="6" bodyfile="src/e1000.c" bodystart="396" bodyend="423"/>
+        <location file="modules/e1000/e1000.c" line="418" column="6" bodyfile="modules/e1000/e1000.c" bodystart="418" bodyend="448"/>
+      </memberdef>
+      <memberdef kind="function" id="e1000_8c_1a262a617981fa58caae30ce55fc3d5ce7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool <ref refid="module_8h_1af63d15eb9e745985585db45cb98ccf23" kindref="member">EXPORTED</ref> <ref refid="module_8h_1ad00f34c1cb4cadf68e87078c9b86188e" kindref="member">MOD_INIT_SYM</ref>()</type>
+        <definition>bool EXPORTED MOD_INIT_SYM() KMOD_ABI</definition>
+        <argsstring>(void)</argsstring>
+        <name>KMOD_ABI</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="modules/e1000/e1000.c" line="450" column="15" bodyfile="modules/e1000/e1000.c" bodystart="450" bodyend="454"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="src/e1000.c"/>
+    <location file="modules/e1000/e1000.c"/>
   </compounddef>
 </doxygen>

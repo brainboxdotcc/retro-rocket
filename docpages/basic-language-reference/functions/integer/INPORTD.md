@@ -6,7 +6,7 @@ X = INPORTD(port)
 Reads a **32-bit double-word** from `port` and returns it.
 
 
-> Only use on devices that specify **double-word** port access.
+@note Only use on devices that specify **double-word** port access.
 
 ---
 
@@ -30,4 +30,4 @@ PRINT D
 - Most modern devices prefer MMIO; only use when the hardware requires 32-bit port access.
 
 **See also:**  
-[INPORT](https://github.com/brainboxdotcc/retro-rocket/wiki/INPORT) · [INPORTW](https://github.com/brainboxdotcc/retro-rocket/wiki/INPORTW) · [INPORTQ](https://github.com/brainboxdotcc/retro-rocket/wiki/INPORTQ) · [OUTPORTD](https://github.com/brainboxdotcc/retro-rocket/wiki/OUTPORTD)
+\ref INPORT "INPORT" · \ref INPORTW "INPORTW" · \ref INPORTQ "INPORTQ" · \ref OUTPORTD "OUTPORTD"

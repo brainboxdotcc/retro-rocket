@@ -23,7 +23,8 @@ PRINT "Screen cleared."
 ---
 
 ##### Notes
-- `CLS` removes previously drawn graphics (e.g. from [`LINE`](https://github.com/brainboxdotcc/retro-rocket/wiki/LINE), [`RECTANGLE`](https://github.com/brainboxdotcc/retro-rocket/wiki/RECTANGLE), [`CIRCLE`](https://github.com/brainboxdotcc/retro-rocket/wiki/CIRCLE), etc.) as well as text.
-- Colours set with [`COLOUR`](https://github.com/brainboxdotcc/retro-rocket/wiki/COLOUR) or [`BACKGROUND`](https://github.com/brainboxdotcc/retro-rocket/wiki/BACKGROUND) **remain in effect** after a clear.
+- `CLS` removes previously drawn graphics (e.g. from \ref LINE "LINE", \ref RECTANGLE "RECTANGLE", \ref CIRCLE "CIRCLE", etc.) as well as text.
+- Colours set with \ref COLOUR "COLOUR" or \ref BACKGROUND "BACKGROUND" **remain in effect** after a clear.
 
-**See also:** [`COLOUR`](https://github.com/brainboxdotcc/retro-rocket/wiki/COLOUR), [`BACKGROUND`](https://github.com/brainboxdotcc/retro-rocket/wiki/BACKGROUND)
+**See also:**
+\ref COLOUR "COLOUR", \ref BACKGROUND "BACKGROUND"

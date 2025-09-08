@@ -11,7 +11,7 @@
 <para>Shifts integer <computeroutput>a</computeroutput> <bold>left</bold> by <computeroutput>n</computeroutput> bits.</para>
 <para><hruler/>
 </para>
-<sect3 id="BITSHL_1autotoc_md176">
+<sect3 id="BITSHL_1autotoc_md190">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Equivalent to multiplying <computeroutput>a</computeroutput> by 2ⁿ.</para>
@@ -22,7 +22,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="BITSHL_1autotoc_md178">
+<sect3 id="BITSHL_1autotoc_md192">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>BITSHL(3,<sp/>2)</highlight></codeline>
 </programlisting></para>
@@ -30,14 +30,14 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="BITSHL_1autotoc_md180">
+<sect3 id="BITSHL_1autotoc_md194">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Operates on 64-bit integers.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BITSHR">BITSHR</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BITROL">BITROL</ulink> </para>
+ <ref refid="BITSHR" kindref="compound">BITSHR</ref> · <ref refid="BITROL" kindref="compound">BITROL</ref> </para>
 </sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/BITSHL.md"/>

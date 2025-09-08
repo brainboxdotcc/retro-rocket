@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -101,11 +102,11 @@ $(document).ready(function(){initNavTree('ELSE.html',''); initResizable(); });
 <div class="line">ENDIF</div>
 </div><!-- fragment --><p><code>ELSE</code> provides the <b>false branch</b> of an <code>IF</code> decision. <br  />
  When the <code>expression</code> evaluates to <b>true</b>, the <code>THEN</code> part runs; otherwise the <code>ELSE</code> part runs.</p>
-<dl class="section remark"><dt>Remarks</dt><dd><code>ELSE</code> is used <b>with</b> <code>IF</code> and, in multi-line forms, must be paired with a matching <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ENDIF"><code>ENDIF</code></a>. </dd>
+<dl class="section remark"><dt>Remarks</dt><dd><code>ELSE</code> is used <b>with</b> <code>IF</code> and, in multi-line forms, must be paired with a matching <a class="el" href="ENDIF.html">ENDIF</a>. </dd>
 <dd>
 <code>ELSE</code> on its own is not a valid statement.</dd></dl>
 <hr  />
-<h3><a class="anchor" id="autotoc_md241"></a>
+<h3><a class="anchor" id="autotoc_md255"></a>
 Forms</h3>
 <ul>
 <li><b>Single-line</b> <br  />
@@ -125,7 +126,7 @@ Forms</h3>
 </div><!-- fragment --></li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md243"></a>
+<h3><a class="anchor" id="autotoc_md257"></a>
 Examples</h3>
 <p><b>Single-line selection</b> </p><div class="fragment"><div class="line">PRINT IF X &gt; 0 THEN &quot;POSITIVE&quot; ELSE &quot;NON-POSITIVE&quot;</div>
 </div><!-- fragment --><p><b>Multi-line with ELSE</b> </p><div class="fragment"><div class="line">IF SCORE &gt;= 100 THEN</div>
@@ -143,15 +144,15 @@ Examples</h3>
 <div class="line">    ENDIF</div>
 <div class="line">ENDIF</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md245"></a>
+<h3><a class="anchor" id="autotoc_md259"></a>
 Rules &amp; behaviour</h3>
 <ul>
-<li><b>Pairing:</b> In multi-line form, <code>ELSE</code> pairs with the <b>nearest unmatched</b> <code>IF</code>. Always terminate the block with <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ENDIF"><code>ENDIF</code></a>.</li>
+<li><b>Pairing:</b> In multi-line form, <code>ELSE</code> pairs with the <b>nearest unmatched</b> <code>IF</code>. Always terminate the block with <a class="el" href="ENDIF.html">ENDIF</a>.</li>
 <li><b>Single statement on one line:</b> The one-line form allows exactly <b>one</b> statement after <code>THEN</code> and <b>one</b> after <code>ELSE</code>. To perform multiple actions, use the multi-line form.</li>
 <li><b>Nesting:</b> <code>IF … THEN … ELSE … ENDIF</code> blocks may be nested freely.</li>
 <li><b>Whitespace:</b> Keywords may be separated by spaces as shown; keep them on their own lines in multi-line form for clarity.</li>
 </ul>
-<p><b>See also:</b> <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/IF"><code>IF</code></a>, <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ENDIF"><code>ENDIF</code></a> </p>
+<p><b>See also:</b> <a class="el" href="IF.html">IF</a>, <a class="el" href="ENDIF.html">ENDIF</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -159,7 +160,7 @@ Rules &amp; behaviour</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

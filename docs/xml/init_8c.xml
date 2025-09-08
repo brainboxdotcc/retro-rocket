@@ -67,7 +67,7 @@
         <childnode refid="28" relation="include">
         </childnode>
       </node>
-      <node id="89">
+      <node id="87">
         <label>stdarg.h</label>
       </node>
       <node id="61">
@@ -109,7 +109,7 @@
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="77">
+      <node id="75">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="3" relation="include">
@@ -126,7 +126,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="84">
+      <node id="82">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="3" relation="include">
@@ -154,7 +154,7 @@
         <childnode refid="13" relation="include">
         </childnode>
       </node>
-      <node id="82">
+      <node id="80">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="3" relation="include">
@@ -176,7 +176,7 @@
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="80">
+      <node id="78">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="3" relation="include">
@@ -195,7 +195,7 @@
       <node id="4">
         <label>stdint.h</label>
       </node>
-      <node id="85">
+      <node id="83">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="3" relation="include">
@@ -207,12 +207,6 @@
         <childnode refid="4" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
-        </childnode>
-      </node>
-      <node id="75">
-        <label>rtl8139.h</label>
-        <link refid="rtl8139_8h"/>
-        <childnode refid="3" relation="include">
         </childnode>
       </node>
       <node id="53">
@@ -233,7 +227,7 @@
       <node id="6">
         <label>stddef.h</label>
       </node>
-      <node id="91">
+      <node id="89">
         <label>module.h</label>
         <link refid="module_8h"/>
         <childnode refid="3" relation="include">
@@ -284,12 +278,6 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="76">
-        <label>e1000.h</label>
-        <link refid="e1000_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-      </node>
       <node id="71">
         <label>lapic_timer.h</label>
         <link refid="lapic__timer_8h"/>
@@ -317,7 +305,7 @@
         <label>input.h</label>
         <link refid="input_8h"/>
       </node>
-      <node id="86">
+      <node id="84">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="3" relation="include">
@@ -327,17 +315,17 @@
         <label>video.h</label>
         <link refid="video_8h"/>
       </node>
-      <node id="88">
+      <node id="86">
         <label>serial.h</label>
         <link refid="serial_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="89" relation="include">
+        <childnode refid="87" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="81">
+      <node id="79">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="3" relation="include">
@@ -363,7 +351,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="78">
+      <node id="76">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="3" relation="include">
@@ -402,7 +390,7 @@
         </childnode>
       </node>
       <node id="1">
-        <label>src/init.c</label>
+        <label>init.c</label>
         <link refid="init_8c"/>
         <childnode refid="2" relation="include">
         </childnode>
@@ -419,7 +407,7 @@
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="79">
+      <node id="77">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="3" relation="include">
@@ -542,19 +530,15 @@
         </childnode>
         <childnode refid="84" relation="include">
         </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
         <childnode refid="85" relation="include">
         </childnode>
         <childnode refid="86" relation="include">
         </childnode>
-        <childnode refid="28" relation="include">
-        </childnode>
-        <childnode refid="87" relation="include">
-        </childnode>
         <childnode refid="88" relation="include">
         </childnode>
-        <childnode refid="90" relation="include">
-        </childnode>
-        <childnode refid="91" relation="include">
+        <childnode refid="89" relation="include">
         </childnode>
       </node>
       <node id="46">
@@ -583,7 +567,7 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="90">
+      <node id="88">
         <label>debug_ringbuffer.h</label>
         <link refid="debug__ringbuffer_8h"/>
         <childnode refid="3" relation="include">
@@ -711,13 +695,13 @@
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="83">
+      <node id="81">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="87">
+      <node id="85">
         <label>retrofs.h</label>
         <link refid="retrofs_8h"/>
         <childnode refid="3" relation="include">
@@ -794,7 +778,7 @@
 	<ref refid="acpi_8c_1a6a7b623715d2b82f4a870d1e7c2b9d60" kindref="member">init_acpi</ref>, <ref refid="idt_8c_1a35fe413107af682030ab7a4b6dff19b8" kindref="member">init_idt</ref>, <ref refid="acpi_8c_1a9263bf02ae52585b8ab22b22e9601aaf" kindref="member">boot_aps</ref>, <ref refid="pci_8c_1ac1163b8d93711c6fa01dfbffd2b4f0bf" kindref="member">init_pci</ref>, <ref refid="clock_8c_1aff93106d7e8609959f1bd8185a822def" kindref="member">init_realtime_clock</ref>,
 	<ref refid="devicename_8c_1a82c1ef772588c7cc11fd325be15fdda4" kindref="member">init_devicenames</ref>, <ref refid="keyboard_8c_1ac3a72156d4bbba013e4d62801992794d" kindref="member">init_keyboard</ref>, <ref refid="ata_8c_1abc751c8edfc3a3daf8243d8837f89bc1" kindref="member">init_ide</ref>, <ref refid="block_2ahci_2main_8c_1aee21823366d10636044f5358d4c6e527" kindref="member">init_ahci</ref>,
 	<ref refid="filesystem_8c_1a47cfa7087b707560af1b5a669dfc69b3" kindref="member">init_filesystem</ref>, <ref refid="devfs_8c_1a3dd7d590bb74d0b07de041ef4a5db9ac" kindref="member">init_devfs</ref>, <ref refid="iso9660_8c_1ac9e6298d87cc76eb304147b2e2bdefc0" kindref="member">init_iso9660</ref>, <ref refid="fs_2fat32_2main_8c_1a3fac5992ed8111e2a4da081700d74a3e" kindref="member">init_fat32</ref>,
-	<ref refid="fs_2retrofs_2main_8c_1a77ee899b72553734d6c2814efccddb22" kindref="member">init_rfs</ref>, <ref refid="module__loader_8c_1a8251bb24540fe5fbb7bf067a0b92f0bd" kindref="member">init_modules</ref>, <ref refid="rtl8139_8c_1afb381866b5dc5f09b132f63c9abc142b" kindref="member">init_rtl8139</ref>, <ref refid="e1000_8c_1aa480cf0389af41f842ef8389a1a086c8" kindref="member">init_e1000</ref>,
+	<ref refid="fs_2retrofs_2main_8c_1a77ee899b72553734d6c2814efccddb22" kindref="member">init_rfs</ref>, <ref refid="module__loader_8c_1a8251bb24540fe5fbb7bf067a0b92f0bd" kindref="member">init_modules</ref>, <ref refid="net_8c_1a14896c0faf293bb030b48d13a1edb050" kindref="member">network_up</ref>,
 	NULL,
 }</initializer>
         <briefdescription>
@@ -815,7 +799,7 @@
 	&quot;idt&quot;,			&quot;cpus&quot;,			&quot;pci&quot;,		&quot;clock&quot;,
 	&quot;devicenames&quot;,		&quot;keyboard&quot;,		&quot;ide&quot;,		&quot;ahci&quot;,
 	&quot;filesystem&quot;,		&quot;<ref refid="devfs_8c_1a737bde025614bb678a9a7b845e832b3b" kindref="member">devfs</ref>&quot;,		&quot;<ref refid="structiso9660" kindref="compound">iso9660</ref>&quot;,	&quot;fat32&quot;,
-	&quot;rfs&quot;,			&quot;<ref refid="module__loader_8c_1a7dda0e62ebe085b929c6f0abc5b4cb6e" kindref="member">modules</ref>&quot;,		&quot;rtl8139&quot;,	&quot;e1000&quot;,
+	&quot;rfs&quot;,			&quot;<ref refid="module__loader_8c_1a7dda0e62ebe085b929c6f0abc5b4cb6e" kindref="member">modules</ref>&quot;,		&quot;network&quot;,
 	NULL,
 }</initializer>
         <briefdescription>

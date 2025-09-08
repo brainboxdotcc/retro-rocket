@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -103,13 +104,13 @@ Examples: <code>DEF FNadd(A,B)</code>, <code>PRINT FNadd(1,2)</code>, <code>DEF 
 <dd>
 <code>GLOBAL</code> is <b>only</b> used to pass variables into <b>child programs</b> spawned with </dd>
 <dd>
-<a href="https://github.com/brainboxdotcc/retro-rocket/wiki/CHAIN"><code>CHAIN</code></a>. </dd>
+<a class="el" href="CHAIN.html">CHAIN</a>. </dd>
 <dd>
 It does <b>not</b> declare "global variables" for program-wide scope inside a single program. </dd>
 <dd>
-Use parameters and <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/LOCAL"><code>LOCAL</code></a> to manage scope within your own code.</dd></dl>
+Use parameters and <a class="el" href="LOCAL.html">LOCAL</a> to manage scope within your own code.</dd></dl>
 <hr  />
-<h3><a class="anchor" id="autotoc_md226"></a>
+<h3><a class="anchor" id="autotoc_md240"></a>
 Calling functions and procedures</h3>
 <ul>
 <li>Call a <b>function</b> within an expression: <div class="fragment"><div class="line">RESULT = FNadd(10, 32)</div>
@@ -118,7 +119,7 @@ Calling functions and procedures</h3>
 </div><!-- fragment --></li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md228"></a>
+<h3><a class="anchor" id="autotoc_md242"></a>
 Example: function (returns a value)</h3>
 <div class="fragment"><div class="line">DEF FNadd(A, B)</div>
 <div class="line">    SUM = A + B</div>
@@ -127,7 +128,7 @@ Example: function (returns a value)</h3>
 <div class="line">PRINT FNadd(1, 2)    : REM prints 3</div>
 </div><!-- fragment --><p>The final line starts with <code>=</code> and supplies the return value of the function.</p>
 <hr  />
-<h3><a class="anchor" id="autotoc_md230"></a>
+<h3><a class="anchor" id="autotoc_md244"></a>
 Example: procedure (no return value)</h3>
 <div class="fragment"><div class="line">DEF PROCbox(MSG$)</div>
 <div class="line">    PRINT &quot;**************&quot;</div>
@@ -138,7 +139,7 @@ Example: procedure (no return value)</h3>
 <div class="line">PROCbox(&quot;HELLO&quot;)</div>
 </div><!-- fragment --><p><code>ENDPROC</code> marks the end of the procedure body.</p>
 <hr  />
-<h3><a class="anchor" id="autotoc_md232"></a>
+<h3><a class="anchor" id="autotoc_md246"></a>
 Example: locals within a definition</h3>
 <div class="fragment"><div class="line">DEF FNhypot(X, Y)</div>
 <div class="line">    LOCAL XSQ = X * X</div>
@@ -146,7 +147,7 @@ Example: locals within a definition</h3>
 <div class="line">= SQRT(XSQ + YSQ)</div>
 </div><!-- fragment --><p><code>LOCAL</code> creates temporary variables scoped to the definition.</p>
 <hr  />
-<h3><a class="anchor" id="autotoc_md234"></a>
+<h3><a class="anchor" id="autotoc_md248"></a>
 Rules and behaviour</h3>
 <ul>
 <li><b>Parameters</b> <br  />
@@ -162,7 +163,7 @@ Rules and behaviour</h3>
  (catchable with <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><code>ON ERROR</code></a>).</li>
 </ul>
 <p><b>See also:</b> <br  />
- <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/FN"><code>FN</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/PROC"><code>PROC</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ENDPROC"><code>ENDPROC</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/LOCAL"><code>LOCAL</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/CHAIN"><code>CHAIN</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/Variable-Naming"><code>Variable Naming</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/Parameter-types"><code>Parameter types</code></a> </p>
+ <a class="el" href="FN.html">FN</a> · <a class="el" href="PROC.html">PROC</a> · <a class="el" href="ENDPROC.html">ENDPROC</a> · <a class="el" href="LOCAL.html">LOCAL</a> · <a class="el" href="CHAIN.html">CHAIN</a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/Variable-Naming"><code>Variable Naming</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/Parameter-types"><code>Parameter types</code></a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -170,7 +171,7 @@ Rules and behaviour</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

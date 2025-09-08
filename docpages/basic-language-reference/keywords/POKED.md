@@ -29,4 +29,4 @@ PRINT PEEKD(&100300)
 - Some devices use write-one-to-clear or posted writes; check the datasheet.
 
 **See also:**  
-[PEEKD](https://github.com/brainboxdotcc/retro-rocket/wiki/PEEKD) · [POKEW](https://github.com/brainboxdotcc/retro-rocket/wiki/POKEW) · [POKEQ](https://github.com/brainboxdotcc/retro-rocket/wiki/POKEQ)
+\ref PEEKD "PEEKD" · \ref POKEW "POKEW" · \ref POKEQ "POKEQ"

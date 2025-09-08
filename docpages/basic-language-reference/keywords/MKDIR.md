@@ -38,6 +38,6 @@ CHDIR "assets"
 ---
 
 ### See also
-- [`CHDIR`](https://github.com/brainboxdotcc/retro-rocket/wiki/CHDIR) - change current directory
-- [`RMDIR`](https://github.com/brainboxdotcc/retro-rocket/wiki/RMDIR) - remove a directory
-- [`DELETE`](https://github.com/brainboxdotcc/retro-rocket/wiki/DELETE) - delete a file
+- \ref CHDIR "CHDIR" - change current directory
+- \ref RMDIR "RMDIR" - remove a directory
+- \ref DELETE "DELETE" - delete a file

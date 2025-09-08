@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -91,13 +92,10 @@ $(document).ready(function(){initNavTree('SLEEP.html',''); initResizable(); });
 <div class="textblock"><div class="fragment"><div class="line">SLEEP expression</div>
 </div><!-- fragment --><p>Suspends execution of the current program for the specified number of seconds. The expression must evaluate to a positive integer. Fractions are ignored; resolution is to the nearest whole second only.</p>
 <p>During a <code>SLEEP</code> the process is suspended and does not consume CPU time. Other programs continue to run.</p>
-<dl class="section remark"><dt>Remarks</dt><dd>You can cancel a long sleep with <code>CTRL+ESC</code>. Without an error handler the <blockquote class="doxtable">
-<p>programme terminates; with one, control passes to <code>ON ERROR</code>. </p>
-</blockquote>
-</dd></dl>
-<h2><a class="anchor" id="autotoc_md464"></a>
-&lt;/blockquote&gt;</h2>
-<h4><a class="anchor" id="autotoc_md465"></a>
+<dl class="section remark"><dt>Remarks</dt><dd>You can cancel a long sleep with <code>CTRL+ESC</code>. Without an error handler the </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>programme terminates; with one, control passes to <code>ON ERROR</code>.</dd></dl>
+<hr  />
+<h4><a class="anchor" id="autotoc_md479"></a>
 Example</h4>
 <div class="fragment"><div class="line">PRINT &quot;START&quot;</div>
 <div class="line">SLEEP 2</div>
@@ -106,7 +104,7 @@ Example</h4>
 <div class="fragment"><div class="line">START</div>
 <div class="line">AFTER 2 SECONDS</div>
 </div><!-- fragment --><hr  />
-<h4><a class="anchor" id="autotoc_md467"></a>
+<h4><a class="anchor" id="autotoc_md481"></a>
 Notes</h4>
 <ul>
 <li>Only whole seconds are supported. <code>SLEEP 2.5</code> is treated as <code>SLEEP 2</code>.</li>
@@ -120,7 +118,7 @@ Notes</h4>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

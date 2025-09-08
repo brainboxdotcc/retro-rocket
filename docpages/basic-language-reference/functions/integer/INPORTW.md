@@ -6,7 +6,7 @@ X = INPORTW(port)
 Reads a **16-bit word** from `port` and returns it (0–65535).
 
 
-> Only use when the device expects **word** access.
+@note Only use when the device expects **word** access.
 
 ---
 
@@ -30,4 +30,4 @@ PRINT W
 - Do not use unless the port is documented as word-accessible.
 
 **See also:**  
-[INPORT](https://github.com/brainboxdotcc/retro-rocket/wiki/INPORT) · [INPORTD](https://github.com/brainboxdotcc/retro-rocket/wiki/INPORTD) · [INPORTQ](https://github.com/brainboxdotcc/retro-rocket/wiki/INPORTQ) · [OUTPORTW](https://github.com/brainboxdotcc/retro-rocket/wiki/OUTPORTW)
+\ref INPORT "INPORT" · \ref INPORTD "INPORTD" · \ref INPORTQ "INPORTQ" · \ref OUTPORTW "OUTPORTW"

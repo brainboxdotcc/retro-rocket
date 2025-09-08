@@ -6,7 +6,7 @@ X = PEEK(address)
 Reads a **single byte** from the specified memory `address` and returns it as an integer (0–255).
 
 
-> `PEEK` reads only from **mapped** memory. If `address` (or any byte it touches) is not permitted by the system memory map, an error is raised: `Bad Address at <address>`.
+@note `PEEK` reads only from **mapped** memory. If `address` (or any byte it touches) is not permitted by the system memory map, an error is raised: `Bad Address at <address>`.
 
 ---
 
@@ -40,4 +40,4 @@ IF (STATUS AND 1) <> 0 THEN PRINT "Ready"
 - Accessing device MMIO may have **side effects**.
 
 **See also:**  
-[PEEKW](https://github.com/brainboxdotcc/retro-rocket/wiki/PEEKW) · [PEEKD](https://github.com/brainboxdotcc/retro-rocket/wiki/PEEKD) · [PEEKQ](https://github.com/brainboxdotcc/retro-rocket/wiki/PEEKQ) · [POKE](https://github.com/brainboxdotcc/retro-rocket/wiki/POKE)
+\ref PEEKW "PEEKW" · \ref PEEKD "PEEKD" · \ref PEEKQ "PEEKQ" · \ref POKE "POKE"

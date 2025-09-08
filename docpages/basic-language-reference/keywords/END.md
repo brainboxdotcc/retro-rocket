@@ -8,7 +8,7 @@ Terminates execution of the **current program**, returning control to the contex
 ---
 
 - **What happens after `END`:**
-  - Started via [`CHAIN`](https://github.com/brainboxdotcc/retro-rocket/wiki/CHAIN): the parent program resumes at the statement **after** its `CHAIN`.
+  - Started via \ref CHAIN "CHAIN": the parent program resumes at the statement **after** its `CHAIN`.
   - Started from `rocketsh`: control returns to the **shell prompt**.
   - Initial `/programs/init` and no other programs remain: the system **halts** and reports that **no programs remain**.
   - Nested `CHAIN`s: only the **current child** exits; its **immediate parent** resumes.

@@ -29,12 +29,13 @@
 </simplesect>
 <simplesect kind="remark"><para>Example: </para>
 </simplesect>
-<simplesect kind="remark"><para>``<computeroutput>basic &lt;blockquote&gt;PRINT &quot;It&apos;s fine&quot;</computeroutput> &apos; Prints the apostrophe ``` </para>
+<simplesect kind="remark"><para>``<computeroutput>basic @note PRINT &quot;It&apos;s fine&quot;</computeroutput> &apos; Prints the apostrophe </para>
 </simplesect>
+<simplesect kind="note"><para>```</para>
+</simplesect>
+<hruler/>
 </para>
-<sect2 id="REM_1autotoc_md432">
-<title>&lt;/blockquote&gt;</title>
-<sect3 id="REM_1autotoc_md433">
+<sect3 id="REM_1autotoc_md447">
 <title>Behaviour</title>
 <para><itemizedlist>
 <listitem><para>Everything from <computeroutput>REM</computeroutput> to the end of the line is treated as a comment.</para>
@@ -45,7 +46,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="REM_1autotoc_md435">
+<sect3 id="REM_1autotoc_md449">
 <title>Examples</title>
 <para><bold>Simple comment</bold> <programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>This<sp/>program<sp/>draws<sp/>a<sp/>box</highlight></codeline>
 <codeline><highlight class="normal">GCOL<sp/>RGB(0,255,0)</highlight></codeline>
@@ -59,7 +60,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="REM_1autotoc_md437">
+<sect3 id="REM_1autotoc_md451">
 <title>Tips</title>
 <para><itemizedlist>
 <listitem><para>Use consistent prefixes in your comments (e.g. <computeroutput>REM TODO:</computeroutput> or <computeroutput>REM NOTE:</computeroutput>) to make them easy to search for.</para>
@@ -67,7 +68,6 @@
 </listitem></itemizedlist>
 </para>
 </sect3>
-</sect2>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/REM.md"/>
   </compounddef>

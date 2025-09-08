@@ -29,4 +29,4 @@ PRINT PEEKW(&100200)
 - Match the width to the device’s documented register size.
 
 **See also:**  
-[POKE](https://github.com/brainboxdotcc/retro-rocket/wiki/POKE) · [POKED](https://github.com/brainboxdotcc/retro-rocket/wiki/POKED) · [POKEQ](https://github.com/brainboxdotcc/retro-rocket/wiki/POKEQ) · [PEEKW](https://github.com/brainboxdotcc/retro-rocket/wiki/PEEKW)
+\ref POKE "POKE" · \ref POKED "POKED" · \ref POKEQ "POKEQ" · \ref PEEKW "PEEKW"

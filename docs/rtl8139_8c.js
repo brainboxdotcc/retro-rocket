@@ -5,6 +5,7 @@ var rtl8139_8c =
     [ "TX_BUF_COUNT", "rtl8139_8c.html#a0ecfaca59cd3ccc5f5c026630c93d336", null ],
     [ "TX_BUF_SIZE", "rtl8139_8c.html#a5d3fb1970e1e98050006978a14b3d95e", null ],
     [ "init_rtl8139", "rtl8139_8c.html#afb381866b5dc5f09b132f63c9abc142b", null ],
+    [ "KMOD_ABI", "rtl8139_8c.html#a262a617981fa58caae30ce55fc3d5ce7", null ],
     [ "packet_is_ok", "rtl8139_8c.html#ab774b440d8851cac90e9a3231b44d778", null ],
     [ "read_mac_addr", "rtl8139_8c.html#a6ffee74a1d59b89074475e3f63b90467", null ],
     [ "receive_packet", "rtl8139_8c.html#a2e3eda51e49f15540e2bff7ea40f05db", null ],

@@ -31,4 +31,4 @@ PRINT PEEK(&100100)
 - Always use the access width expected by the device.
 
 **See also:**  
-[POKEW](https://github.com/brainboxdotcc/retro-rocket/wiki/POKEW) · [POKED](https://github.com/brainboxdotcc/retro-rocket/wiki/POKED) · [POKEQ](https://github.com/brainboxdotcc/retro-rocket/wiki/POKEQ) · [PEEK](https://github.com/brainboxdotcc/retro-rocket/wiki/PEEK)
+\ref POKEW "POKEW" · \ref POKED "POKED" · \ref POKEQ "POKEQ" · \ref PEEK "PEEK"

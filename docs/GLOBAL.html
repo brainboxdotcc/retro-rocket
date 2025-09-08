@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -89,14 +90,12 @@ $(document).ready(function(){initNavTree('GLOBAL.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">GLOBAL variable-name = expression</div>
-</div><!-- fragment --><p>Marks a variable assignment as <b>global-for-child-processes</b>. The variable’s <b>current value is copied</b> (not referenced) into any <b>new programs</b> this program creates (for example via <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/CHAIN"><code>CHAIN</code></a>). This mechanism is also how <code>rocketsh</code> passes command-line style parameters into a program.</p>
-<blockquote class="doxtable">
-<p><code>GLOBAL</code> must appear <b>with an assignment</b>. <br  />
- <code>GLOBAL</code> <b>without</b> an assignment is invalid. </p>
-</blockquote>
-<h2><a class="anchor" id="autotoc_md277"></a>
-&lt;/blockquote&gt;</h2>
-<h3><a class="anchor" id="autotoc_md278"></a>
+</div><!-- fragment --><p>Marks a variable assignment as <b>global-for-child-processes</b>. The variable’s <b>current value is copied</b> (not referenced) into any <b>new programs</b> this program creates (for example via <a class="el" href="CHAIN.html">CHAIN</a>). This mechanism is also how <code>rocketsh</code> passes command-line style parameters into a program.</p>
+<dl class="section note"><dt>Note</dt><dd><code>GLOBAL</code> must appear <b>with an assignment</b>. </dd>
+<dd>
+<code>GLOBAL</code> <b>without</b> an assignment is invalid.</dd></dl>
+<hr  />
+<h3><a class="anchor" id="autotoc_md292"></a>
 Behaviour</h3>
 <ul>
 <li>The assignment executes normally in the current program, <b>and</b> the variable is flagged so that its <b>value is copied</b> into subsequently created child programs.</li>
@@ -107,7 +106,7 @@ Behaviour</h3>
 </li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md280"></a>
+<h3><a class="anchor" id="autotoc_md294"></a>
 Examples</h3>
 <p><b>Pass a string and number to a child</b></p>
 <p>Parent program: </p><div class="fragment"><div class="line">GLOBAL USERNAME$ = &quot;guest&quot;</div>
@@ -123,7 +122,7 @@ Examples</h3>
 <div class="line">CHAIN &quot;worker&quot;</div>
 </div><!-- fragment --><p>To keep <code>MODE$</code> global for future children: </p><div class="fragment"><div class="line">GLOBAL MODE$ = &quot;FAST&quot;</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md282"></a>
+<h3><a class="anchor" id="autotoc_md296"></a>
 Notes</h3>
 <ul>
 <li><code>GLOBAL</code> controls <b>inter-program passing only</b>. It does <b>not</b> create a program-wide scope within a single program.</li>
@@ -131,7 +130,7 @@ Notes</h3>
 <li>Use <code>GLOBAL</code> only on lines that <b>assign</b> to the variable.</li>
 </ul>
 <p><b>See also:</b> <br  />
- <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/CHAIN"><code>CHAIN</code></a> </p>
+ <a class="el" href="CHAIN.html">CHAIN</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -139,7 +138,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

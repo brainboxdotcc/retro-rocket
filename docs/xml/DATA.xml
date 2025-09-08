@@ -16,7 +16,7 @@
 </simplesect>
 <simplesect kind="remark"><para>comma-separated values, build them yourself from characters and then convert </para>
 </simplesect>
-<simplesect kind="remark"><para>with functions like <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/VAL"><computeroutput>VAL</computeroutput></ulink>.</para>
+<simplesect kind="remark"><para>with functions like <ref refid="VAL" kindref="compound">VAL</ref>.</para>
 </simplesect>
 <hruler/>
 </para>
@@ -69,17 +69,12 @@
 <para><heading level="5">See also</heading>
 </para>
 <para><itemizedlist>
-<listitem><para><ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENIN"><computeroutput>OPENIN</computeroutput></ulink> – open a file for reading <linebreak/>
-</para>
-</listitem><listitem><para><ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENOUT"><computeroutput>OPENOUT</computeroutput></ulink> – open a file for writing (truncate) <linebreak/>
-</para>
-</listitem><listitem><para><ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENUP"><computeroutput>OPENUP</computeroutput></ulink> – open a file for update (read/write) <linebreak/>
-</para>
-</listitem><listitem><para><ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/READ"><computeroutput>READ$</computeroutput></ulink> – read one character from a file handle <linebreak/>
-</para>
-</listitem><listitem><para><ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/EOF"><computeroutput>EOF</computeroutput></ulink> – end-of-file check <linebreak/>
-</para>
-</listitem><listitem><para><ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/VAL"><computeroutput>VAL</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/LEN"><computeroutput>LEN</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CHR"><computeroutput>CHR</computeroutput></ulink> </para>
+<listitem><para><ref refid="OPENIN" kindref="compound">OPENIN</ref> – open a file for reading</para>
+</listitem><listitem><para><ref refid="OPENOUT" kindref="compound">OPENOUT</ref> – open a file for writing (truncate)</para>
+</listitem><listitem><para><ref refid="OPENUP" kindref="compound">OPENUP</ref> – open a file for update (read/write)</para>
+</listitem><listitem><para><ref refid="READ" kindref="compound">READ$</ref> – read one character from a file handle</para>
+</listitem><listitem><para><ref refid="EOF" kindref="compound">EOF</ref> – end-of-file check</para>
+</listitem><listitem><para><ref refid="VAL" kindref="compound">VAL</ref>, <ref refid="LEN" kindref="compound">LEN</ref>, <ref refid="CHR" kindref="compound">CHR</ref> </para>
 </listitem></itemizedlist>
 </para>
     </detaileddescription>

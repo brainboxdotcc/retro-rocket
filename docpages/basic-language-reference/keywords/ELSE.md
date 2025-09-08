@@ -18,7 +18,7 @@ ENDIF
 When the `expression` evaluates to **true**, the `THEN` part runs; otherwise the `ELSE` part runs.
 
 
-\remark `ELSE` is used **with** `IF` and, in multi-line forms, must be paired with a matching [`ENDIF`](https://github.com/brainboxdotcc/retro-rocket/wiki/ENDIF).
+\remark `ELSE` is used **with** `IF` and, in multi-line forms, must be paired with a matching \ref ENDIF "ENDIF".
 \remark `ELSE` on its own is not a valid statement.
 
 ---
@@ -81,9 +81,10 @@ ENDIF
 
 ### Rules & behaviour
 
-- **Pairing:** In multi-line form, `ELSE` pairs with the **nearest unmatched** `IF`. Always terminate the block with [`ENDIF`](https://github.com/brainboxdotcc/retro-rocket/wiki/ENDIF).
+- **Pairing:** In multi-line form, `ELSE` pairs with the **nearest unmatched** `IF`. Always terminate the block with \ref ENDIF "ENDIF".
 - **Single statement on one line:** The one-line form allows exactly **one** statement after `THEN` and **one** after `ELSE`. To perform multiple actions, use the multi-line form.
 - **Nesting:** `IF … THEN … ELSE … ENDIF` blocks may be nested freely.
 - **Whitespace:** Keywords may be separated by spaces as shown; keep them on their own lines in multi-line form for clarity.
 
-**See also:** [`IF`](https://github.com/brainboxdotcc/retro-rocket/wiki/IF), [`ENDIF`](https://github.com/brainboxdotcc/retro-rocket/wiki/ENDIF)
+**See also:**
+\ref IF "IF", \ref ENDIF "ENDIF"

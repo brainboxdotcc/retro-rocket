@@ -11,7 +11,7 @@ The array’s **size does not change**: the final slot is cleared to **0** (inte
 \remark Valid indices are `0` to `size-1`. An out-of-range index raises a runtime error.
 
 
-\remark `POP` does **not** resize the array. If you also want to shrink its capacity, combine it with [`REDIM`](https://github.com/brainboxdotcc/retro-rocket/wiki/REDIM).
+\remark `POP` does **not** resize the array. If you also want to shrink its capacity, combine it with \ref REDIM "REDIM".
 
 ---
 
@@ -62,6 +62,6 @@ REDIM Q,3
 - Works with **integer**, **real**, and **string** arrays; the clearing value is `0`, `0`, or `""` respectively.
 
 **See also:**  
-[`DIM`](https://github.com/brainboxdotcc/retro-rocket/wiki/DIM) ·
-[`REDIM`](https://github.com/brainboxdotcc/retro-rocket/wiki/REDIM) ·
-[`PUSH`](https://github.com/brainboxdotcc/retro-rocket/wiki/PUSH)
+\ref DIM "DIM" ·
+\ref REDIM "REDIM" ·
+\ref PUSH "PUSH"

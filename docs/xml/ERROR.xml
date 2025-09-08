@@ -11,7 +11,7 @@
 <para>Raises a <bold>runtime error</bold>.</para>
 <para><itemizedlist>
 <listitem><para>Sets the built-in variables <bold>ERR$</bold> (to the message) and <bold>ERR</bold> (to <computeroutput>1</computeroutput>) <bold>when</bold>:<itemizedlist>
-<listitem><para>the error is raised <bold>inside</bold> an <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/EVAL"><computeroutput>EVAL</computeroutput></ulink>, <bold>or</bold></para>
+<listitem><para>the error is raised <bold>inside</bold> an <ref refid="EVAL" kindref="compound">EVAL</ref>, <bold>or</bold></para>
 </listitem><listitem><para>an error handler has been installed with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink>.</para>
 </listitem></itemizedlist>
 </para>
@@ -24,7 +24,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="ERROR_1autotoc_md256">
+<sect3 id="ERROR_1autotoc_md270">
 <title>Examples</title>
 <para><bold>Uncaught error (program terminates)</bold></para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;About<sp/>to<sp/>fail...&quot;</highlight></codeline>
@@ -49,7 +49,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="ERROR_1autotoc_md258">
+<sect3 id="ERROR_1autotoc_md272">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para><computeroutput>ERROR</computeroutput> accepts a <bold>string expression</bold>; use it to describe the failure clearly.</para>
@@ -58,7 +58,7 @@
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/EVAL"><computeroutput>EVAL</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Builtin-Variables">Builtin Variables</ulink> </para>
+ <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink> · <ref refid="EVAL" kindref="compound">EVAL</ref> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Builtin-Variables">Builtin Variables</ulink> </para>
 </sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/ERROR.md"/>

@@ -9,8 +9,8 @@ Colours use the standard **VGA 0–15 palette**, emitted via ANSI escape codes. 
 ![VGA background and foreground colour chart](https://user-images.githubusercontent.com/1556794/234695104-af3fd095-a0fe-4a69-85e9-9db698466caa.png)
 
 
-> Use [`COLOUR`](https://github.com/brainboxdotcc/retro-rocket/wiki/COLOUR) to set **foreground** and background together.  
-> [`GCOL`](https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL) affects **graphics drawing**, not text.
+@note Use \ref COLOUR "COLOUR" to set **foreground** and background together.
+@note \ref GCOL "GCOL" affects **graphics drawing**, not text.
 
 ---
 
@@ -50,7 +50,8 @@ NEXT
 
 ##### Notes
 - Valid range is **0–15**. Values outside this range are **implementation-defined**.
-- Background colour persists until changed, even after [`CLS`](https://github.com/brainboxdotcc/retro-rocket/wiki/CLS).
+- Background colour persists until changed, even after \ref CLS "CLS".
 - This statement only affects **text-mode** rendering; use graphics statements for pixel fills.
 
-**See also:** [`COLOUR`](https://github.com/brainboxdotcc/retro-rocket/wiki/COLOUR), [`GCOL`](https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL), [`CLS`](https://github.com/brainboxdotcc/retro-rocket/wiki/CLS)
+**See also:**
+\ref COLOUR "COLOUR", \ref GCOL "GCOL", \ref CLS "CLS"

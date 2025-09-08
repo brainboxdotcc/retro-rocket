@@ -26,4 +26,5 @@ This allows BASIC programs to interface directly with the Retro Rocket kernel or
 - Incorrect usage may crash Retro Rocket or corrupt memory.  
 - Future documentation will detail calling conventions and safe entry points.  
 
-**See also:** [`CHAIN`](https://github.com/brainboxdotcc/retro-rocket/wiki/CHAIN), [`LIBRARY`](https://github.com/brainboxdotcc/retro-rocket/wiki/LIBRARY)
+**See also:**
+\ref CHAIN "CHAIN", \ref LIBRARY "LIBRARY"

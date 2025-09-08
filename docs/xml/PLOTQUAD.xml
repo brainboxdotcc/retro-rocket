@@ -9,13 +9,12 @@
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PLOTQUAD<sp/>integer-variable,<sp/>x0,<sp/>y0,<sp/>x1,<sp/>y1,<sp/>x2,<sp/>y2,<sp/>x3,<sp/>y3</highlight></codeline>
 </programlisting></para>
 <para>Maps a previously loaded <bold>sprite</bold> onto the <bold>quadrilateral</bold> defined by four X,Y coordinate pairs. <linebreak/>
- The first parameter must be an <bold>integer variable</bold> containing the sprite handle returned by <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/SPRITELOAD"><computeroutput>SPRITELOAD</computeroutput></ulink>. <linebreak/>
- The sprite’s full image is used, positioned by its four destination corners.</para>
+ The first parameter must be an <bold>integer variable</bold> containing the sprite handle returned by <ref refid="SPRITELOAD" kindref="compound">SPRITELOAD</ref>. The sprite’s full image is used, positioned by its four destination corners.</para>
 <para><image type="html" name="https://github.com/user-attachments/assets/d6ae6888-46db-42ee-be95-d96c888dc1b5" alt="example" inline="yes"></image>
 </para>
 <para><hruler/>
 </para>
-<sect3 id="PLOTQUAD_1autotoc_md363">
+<sect3 id="PLOTQUAD_1autotoc_md377">
 <title>Key behaviour</title>
 <para><itemizedlist>
 <listitem><para><bold>Projective mapping</bold>: uses a perspective-correct transform (homography), not a simple affine stretch.</para>
@@ -25,12 +24,12 @@
 </listitem><listitem><para><bold>Sprite handle</bold>: the first argument must be an <bold>integer variable</bold> holding a valid handle from <computeroutput>SPRITELOAD</computeroutput>.</para>
 </listitem></itemizedlist>
 </para>
-<para><blockquote><para>Transparency semantics match <computeroutput>PLOT</computeroutput>. There is no alpha blending. </para>
-</blockquote></para>
+<para><simplesect kind="note"><para>Transparency semantics match <computeroutput>PLOT</computeroutput>. There is no alpha blending.</para>
+</simplesect>
+<hruler/>
+</para>
 </sect3>
-<sect2 id="PLOTQUAD_1autotoc_md364">
-<title>&lt;/blockquote&gt;</title>
-<sect3 id="PLOTQUAD_1autotoc_md365">
+<sect3 id="PLOTQUAD_1autotoc_md379">
 <title>Parameters</title>
 <para><itemizedlist>
 <listitem><para><computeroutput>integer-variable</computeroutput> - variable containing a sprite handle from <computeroutput>SPRITELOAD</computeroutput>.</para>
@@ -40,7 +39,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="PLOTQUAD_1autotoc_md367">
+<sect3 id="PLOTQUAD_1autotoc_md381">
 <title>Performance notes</title>
 <para><itemizedlist>
 <listitem><para>Cost is roughly proportional to the quad’s <bold>screen area</bold> and is naturally slower than <computeroutput>PLOT</computeroutput>.</para>
@@ -50,7 +49,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="PLOTQUAD_1autotoc_md369">
+<sect3 id="PLOTQUAD_1autotoc_md383">
 <title>Sampling</title>
 <para><itemizedlist>
 <listitem><para>Uses <bold>nearest-neighbour</bold> sampling. Large upscales will look blocky; use higher-resolution sprites if you need crisper results.</para>
@@ -59,7 +58,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="PLOTQUAD_1autotoc_md371">
+<sect3 id="PLOTQUAD_1autotoc_md385">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Upright<sp/>billboard</highlight></codeline>
 <codeline><highlight class="normal">PLOTQUAD<sp/>s,<sp/>100,60,<sp/>220,60,<sp/>220,220,<sp/>100,220</highlight></codeline>
@@ -73,9 +72,8 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/SPRITELOAD"><computeroutput>SPRITELOAD</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PLOT"><computeroutput>PLOT</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/SPRITEFREE"><computeroutput>SPRITEFREE</computeroutput></ulink> </para>
+ <ref refid="SPRITELOAD" kindref="compound">SPRITELOAD</ref> · <ref refid="PLOT" kindref="compound">PLOT</ref> · <ref refid="SPRITEFREE" kindref="compound">SPRITEFREE</ref> </para>
 </sect3>
-</sect2>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/PLOTQUAD.md"/>
   </compounddef>

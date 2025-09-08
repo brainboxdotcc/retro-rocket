@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -90,14 +91,12 @@ $(document).ready(function(){initNavTree('SPRITELOAD.html',''); initResizable();
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">SPRITELOAD integer-variable, string-expression</div>
 </div><!-- fragment --><p>Loads an image from disk as a <b>sprite</b> and stores its <b>handle</b> in the given integer variable. <br  />
- Use the handle with <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/PLOT"><code>PLOT</code></a> or <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/PLOTQUAD"><code>PLOTQUAD</code></a>, and free it with <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/SPRITEFREE"><code>SPRITEFREE</code></a> when finished.</p>
-<blockquote class="doxtable">
-<p>The <b>first argument must be an integer variable</b>, not a literal or expression. <br  />
- Paths are <b>case-insensitive</b> and <code>.</code> / <code>..</code> are <b>not supported</b> in paths. </p>
-</blockquote>
-<h2><a class="anchor" id="autotoc_md482"></a>
-&lt;/blockquote&gt;</h2>
-<h3><a class="anchor" id="autotoc_md483"></a>
+ Use the handle with <a class="el" href="PLOT.html">PLOT</a> or <a class="el" href="PLOTQUAD.html">PLOTQUAD</a>, and free it with <a class="el" href="SPRITEFREE.html">SPRITEFREE</a> when finished.</p>
+<dl class="section note"><dt>Note</dt><dd>The <b>first argument must be an integer variable</b>, not a literal or expression. </dd>
+<dd>
+Paths are <b>case-insensitive</b> and <code>.</code> / <code>..</code> are <b>not supported</b> in paths.</dd></dl>
+<hr  />
+<h3><a class="anchor" id="autotoc_md497"></a>
 Supported formats</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -117,13 +116,11 @@ Supported formats</h3>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyRight"><code>PIC</code>   </td><td class="markdownTableBodyNone">Pictor Paint (PC Paint)   </td></tr>
 </table>
-<blockquote class="doxtable">
-<p>Each program may have <b>up to 1024 sprites</b> loaded at once. <br  />
- Handles are <b>per-program</b>. All sprites are <b>auto-freed</b> when the program ends, but it’s good practice to call <code>SPRITEFREE</code> yourself when you no longer need a sprite. </p>
-</blockquote>
-<h2><a class="anchor" id="autotoc_md484"></a>
-&lt;/blockquote&gt;</h2>
-<h3><a class="anchor" id="autotoc_md485"></a>
+<dl class="section note"><dt>Note</dt><dd>Each program may have <b>up to 1024 sprites</b> loaded at once. </dd>
+<dd>
+Handles are <b>per-program</b>. All sprites are <b>auto-freed</b> when the program ends, but it’s good practice to call <code>SPRITEFREE</code> yourself when you no longer need a sprite.</dd></dl>
+<hr  />
+<h3><a class="anchor" id="autotoc_md499"></a>
 Examples</h3>
 <p><b>Load and draw a sprite</b> </p><div class="fragment"><div class="line">SPRITELOAD S, &quot;/images/logo.png&quot;</div>
 <div class="line">PLOT S, 100, 80</div>
@@ -148,7 +145,7 @@ Examples</h3>
 <div class="line">    PRINT &quot;Sprite load failed: &quot;; ERR$</div>
 <div class="line">ENDPROC</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md487"></a>
+<h3><a class="anchor" id="autotoc_md501"></a>
 Behaviour and usage notes</h3>
 <ul>
 <li><code>string-expression</code> is the <b>filename or path</b> to the image. Use <code>CHDIR</code> to set the working directory or supply an absolute path starting with <code>/</code>.</li>
@@ -156,7 +153,7 @@ Behaviour and usage notes</h3>
 <li>Free sprite resources explicitly with <code>SPRITEFREE</code> to reclaim memory during long-running programs.</li>
 </ul>
 <p><b>See also:</b> <br  />
- <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/PLOT"><code>PLOT</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/PLOTQUAD"><code>PLOTQUAD</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/SPRITEFREE"><code>SPRITEFREE</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/CHDIR"><code>CHDIR</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/AUTOFLIP"><code>AUTOFLIP</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/FLIP"><code>FLIP</code></a> </p>
+ <a class="el" href="PLOT.html">PLOT</a> · <a class="el" href="PLOTQUAD.html">PLOTQUAD</a> · <a class="el" href="SPRITEFREE.html">SPRITEFREE</a> · <a class="el" href="CHDIR.html">CHDIR</a> · <a class="el" href="AUTOFLIP.html">AUTOFLIP</a> · <a class="el" href="FLIP.html">FLIP</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -164,7 +161,7 @@ Behaviour and usage notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

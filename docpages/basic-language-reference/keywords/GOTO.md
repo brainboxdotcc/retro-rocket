@@ -8,7 +8,7 @@ Transfers control unconditionally to the line with the given **constant line num
 
 \remark **Deprecated / discouraged.**
 \remark Prefer structured flow control and procedures:
-\remark [`IF`](https://github.com/brainboxdotcc/retro-rocket/wiki/IF),
+\remark \ref IF "IF",
 \remark [`WHILE`/`ENDWHILE`](https://github.com/brainboxdotcc/retro-rocket/wiki/WHILE),
 \remark [`REPEAT`/`UNTIL`](https://github.com/brainboxdotcc/retro-rocket/wiki/REPEAT),
 \remark [`FOR`/`NEXT`](https://github.com/brainboxdotcc/retro-rocket/wiki/FOR),
@@ -45,6 +45,6 @@ Transfers control unconditionally to the line with the given **constant line num
 - Heavy use of `GOTO` quickly reduces readability; use it only for compatibility with legacy code.
 
 **See also:**  
-[`GOSUB`](https://github.com/brainboxdotcc/retro-rocket/wiki/GOSUB) ·
-[`RETURN`](https://github.com/brainboxdotcc/retro-rocket/wiki/RETURN) ·
-[`DEF`](https://github.com/brainboxdotcc/retro-rocket/wiki/DEF)
+\ref GOSUB "GOSUB" ·
+\ref RETURN "RETURN" ·
+\ref DEF "DEF"

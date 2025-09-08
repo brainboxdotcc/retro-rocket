@@ -4,7 +4,7 @@ WHILE expression
     ...
 ENDWHILE
 ```
-Marks the end of a `WHILE..ENDWHILE` loop. See [WHILE](https://github.com/brainboxdotcc/retro-rocket/wiki/WHILE). The `ENDWHILE` keyword must match a previous `WHILE`. `WHILE..ENDWHILE` loops may be nested and also contain other forms of loops.
+Marks the end of a `WHILE..ENDWHILE` loop. See \ref WHILE "WHILE". The `ENDWHILE` keyword must match a previous `WHILE`. `WHILE..ENDWHILE` loops may be nested and also contain other forms of loops.
 
 #### Example:
 

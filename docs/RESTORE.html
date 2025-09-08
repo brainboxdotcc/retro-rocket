@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -92,13 +93,11 @@ $(document).ready(function(){initNavTree('RESTORE.html',''); initResizable(); })
 </div><!-- fragment --><p>The <code>RESTORE</code> statement is <b>not supported in Retro Rocket BASIC</b>.</p>
 <p>In BBC BASIC IV, <code>RESTORE</code> reset the pointer for <code>READ</code> so embedded <code>DATA</code> could be re-read. <br  />
  Retro Rocket BASIC replaces this with <b>file-based I/O</b>.</p>
-<blockquote class="doxtable">
-<p>Use files to hold your constants and reopen them when you need to read again. <br  />
- <code>READ$</code> returns <b>one character at a time</b>, so build lines or tokens yourself if required. </p>
-</blockquote>
-<h2><a class="anchor" id="autotoc_md444"></a>
-&lt;/blockquote&gt;</h2>
-<h3><a class="anchor" id="autotoc_md445"></a>
+<dl class="section note"><dt>Note</dt><dd>Use files to hold your constants and reopen them when you need to read again. </dd>
+<dd>
+<code>READ$</code> returns <b>one character at a time</b>, so build lines or tokens yourself if required.</dd></dl>
+<hr  />
+<h3><a class="anchor" id="autotoc_md459"></a>
 Pattern 1: reopen to start reading again</h3>
 <p><b>values.txt</b> </p><div class="fragment"><div class="line">10</div>
 <div class="line">20</div>
@@ -132,7 +131,7 @@ Pattern 1: reopen to start reading again</h3>
 <div class="line">REM ... do another read as above ...</div>
 <div class="line">CLOSE FH</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md447"></a>
+<h3><a class="anchor" id="autotoc_md461"></a>
 Pattern 2: cache once, reuse many times</h3>
 <p>Instead of re-reading the file, store values in an array on the first pass and reuse the array.</p>
 <div class="fragment"><div class="line">DIM A,100</div>
@@ -168,14 +167,14 @@ Pattern 2: cache once, reuse many times</h3>
 <div class="line">ENDWHILE</div>
 <div class="line">PRINT &quot;SUM = &quot;; SUM</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md449"></a>
+<h3><a class="anchor" id="autotoc_md463"></a>
 Tips</h3>
 <ul>
 <li>Store one value per line for simple parsing, or define your own separators and split by looking for those characters.</li>
 <li>When you only need to go back to the <b>start</b> of a file, the simplest approach is <b>close and reopen</b> it.</li>
 </ul>
 <p><b>See also:</b> <br  />
- <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENIN"><code>OPENIN</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENOUT"><code>OPENOUT</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENUP"><code>OPENUP</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/READ"><code>READ$</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/EOF"><code>EOF</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/VAL"><code>VAL</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/LEN"><code>LEN</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/CHR"><code>CHR</code></a> </p>
+ <a class="el" href="OPENIN.html">OPENIN</a> · <a class="el" href="OPENOUT.html">OPENOUT</a> · <a class="el" href="OPENUP.html">OPENUP</a> · <a class="el" href="READ.html">READ$</a> · <a class="el" href="EOF.html">EOF</a> · <a class="el" href="VAL.html">VAL</a> · <a class="el" href="LEN.html">LEN</a> · <a class="el" href="CHR.html">CHR</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -183,7 +182,7 @@ Tips</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

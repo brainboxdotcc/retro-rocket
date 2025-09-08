@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -99,12 +100,12 @@ $(document).ready(function(){initNavTree('IF.html',''); initResizable(); });
 <div class="line">ELSE</div>
 <div class="line">    statements</div>
 <div class="line">ENDIF</div>
-</div><!-- fragment --><p>Executes statements if an expression evaluates to <b>true</b>. You can write <code>IF</code> as a <b>single-line</b> statement (with one statement after <code>THEN</code> and, optionally, one after <code>ELSE</code>), or as a <b>multi-line</b> block closed by <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ENDIF"><code>ENDIF</code></a>.</p>
+</div><!-- fragment --><p>Executes statements if an expression evaluates to <b>true</b>. You can write <code>IF</code> as a <b>single-line</b> statement (with one statement after <code>THEN</code> and, optionally, one after <code>ELSE</code>), or as a <b>multi-line</b> block closed by <a class="el" href="ENDIF.html">ENDIF</a>.</p>
 <dl class="section remark"><dt>Remarks</dt><dd>Multi-line blocks must be closed with <code>ENDIF</code>. </dd>
 <dd>
 <code>END IF</code> (with a space) is <b>not</b> recognised.</dd></dl>
 <hr  />
-<h3><a class="anchor" id="autotoc_md289"></a>
+<h3><a class="anchor" id="autotoc_md303"></a>
 Comparison operators</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -124,7 +125,7 @@ Comparison operators</h3>
 </table>
 <p>These operators produce a boolean result suitable for <code>IF</code>.</p>
 <hr  />
-<h3><a class="anchor" id="autotoc_md291"></a>
+<h3><a class="anchor" id="autotoc_md305"></a>
 Forms and examples</h3>
 <p><b>Single-line (with ELSE)</b> </p><div class="fragment"><div class="line">IF X &gt; 0 THEN PRINT &quot;POSITIVE&quot; ELSE PRINT &quot;NON-POSITIVE&quot;</div>
 </div><!-- fragment --><p><b>Single-line (no ELSE)</b> </p><div class="fragment"><div class="line">IF READY THEN PRINT &quot;GO&quot;</div>
@@ -146,14 +147,14 @@ Forms and examples</h3>
 <div class="line">    PRINT &quot;A NOT POSITIVE&quot;</div>
 <div class="line">ENDIF</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md293"></a>
+<h3><a class="anchor" id="autotoc_md307"></a>
 Notes</h3>
 <ul>
 <li>In the <b>single-line</b> form, the <code>THEN</code> and optional <code>ELSE</code> parts each allow <b>one statement</b>. Use the multi-line form for multiple statements.</li>
 <li><code>IF</code> blocks may be <b>nested</b> freely; <code>ENDIF</code> matches the nearest unmatched <code>IF</code>.</li>
 <li>Use parentheses to make complex conditions explicit: <code>IF (A &gt; 0) AND (B &lt; 10) THEN ...</code> (where supported by your operators).</li>
 </ul>
-<p><b>See also:</b> <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ELSE"><code>ELSE</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ENDIF"><code>ENDIF</code></a> </p>
+<p><b>See also:</b> <a class="el" href="ELSE.html">ELSE</a> · <a class="el" href="ENDIF.html">ENDIF</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -161,7 +162,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

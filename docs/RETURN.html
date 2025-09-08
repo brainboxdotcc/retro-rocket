@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -89,19 +90,16 @@ $(document).ready(function(){initNavTree('RETURN.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">RETURN</div>
-</div><!-- fragment --><p>Returns from a <b>subroutine</b> that was entered with <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/GOSUB"><code>GOSUB</code></a>. <br  />
- Execution resumes at the <b>statement after</b> the <code>GOSUB</code> call.</p>
-<blockquote class="doxtable">
-<p><code>RETURN</code> is only valid while servicing a <code>GOSUB</code>. <br  />
- Using <code>RETURN</code> <b>outside</b> a <code>GOSUB</code> context is an error. </p>
-</blockquote>
-<blockquote class="doxtable">
-<p><code>GOSUB</code>/<code>RETURN</code> are kept for compatibility and are <b>deprecated</b>. <br  />
- Prefer structured procedures: <code>DEF PROCname(...) ... ENDPROC</code>, called with <code>PROCname(...)</code>. </p>
-</blockquote>
-<h2><a class="anchor" id="autotoc_md450"></a>
-&lt;/blockquote&gt;</h2>
-<h3><a class="anchor" id="autotoc_md451"></a>
+</div><!-- fragment --><p>Returns from a <b>subroutine</b> that was entered with <a class="el" href="GOSUB.html">GOSUB</a>. Execution resumes at the <b>statement after</b> the <code>GOSUB</code> call.</p>
+<dl class="section note"><dt>Note</dt><dd><code>RETURN</code> is only valid while servicing a <code>GOSUB</code>. </dd>
+<dd>
+Using <code>RETURN</code> <b>outside</b> a <code>GOSUB</code> context is an error.</dd>
+<dd>
+<code>GOSUB</code>/<code>RETURN</code> are kept for compatibility and are <b>deprecated</b>. </dd>
+<dd>
+Prefer structured procedures: <code>DEF PROCname(...) ... ENDPROC</code>, called with <code>PROCname(...)</code>.</dd></dl>
+<hr  />
+<h3><a class="anchor" id="autotoc_md465"></a>
 Behaviour</h3>
 <ul>
 <li><code>RETURN</code> takes <b>no arguments</b>.</li>
@@ -113,7 +111,7 @@ Behaviour</h3>
 </li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md453"></a>
+<h3><a class="anchor" id="autotoc_md467"></a>
 Examples (line numbers permitted)</h3>
 <p><b>Simple subroutine</b> </p><div class="fragment"><div class="line">10 PRINT &quot;Start&quot;</div>
 <div class="line">20 GOSUB 1000</div>
@@ -136,11 +134,11 @@ Examples (line numbers permitted)</h3>
 <div class="line">2010 RETURN</div>
 </div><!-- fragment --><p><b>Error: RETURN without GOSUB (do not do this)</b> </p><div class="fragment"><div class="line">10 RETURN</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md455"></a>
+<h3><a class="anchor" id="autotoc_md469"></a>
 See also</h3>
 <ul>
-<li><a href="https://github.com/brainboxdotcc/retro-rocket/wiki/GOSUB"><code>GOSUB</code></a> - jump to a line and return</li>
-<li><a href="https://github.com/brainboxdotcc/retro-rocket/wiki/DEF"><code>DEF</code></a>, <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/PROC"><code>PROC</code></a>, <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ENDPROC"><code>ENDPROC</code></a> - structured alternatives </li>
+<li><a class="el" href="GOSUB.html">GOSUB</a> - jump to a line and return</li>
+<li><a class="el" href="DEF.html">DEF</a>, <a class="el" href="PROC.html">PROC</a>, <a class="el" href="ENDPROC.html">ENDPROC</a> - structured alternatives </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
@@ -149,7 +147,7 @@ See also</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

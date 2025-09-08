@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Retro Rocket OS: src/printf.c File Reference</title>
+<title>Retro Rocket OS: printf.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -95,9 +96,7 @@ $(document).ready(function(){initNavTree('printf_8c.html',''); initResizable(); 
 
 <p>Minimal printf implementation for Retro Rocket.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;<a class="el" href="kernel_8h.html">kernel.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="string_8h.html">string.h</a>&gt;</code><br />
-</div><table class="memberdecls">
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:a955a8838398640452f0a08b3c7f886bf"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="printf_8c.html#a955a8838398640452f0a08b3c7f886bf">printf_state_t</a> { <br />
@@ -127,12 +126,10 @@ Functions</h2></td></tr>
 <tr class="separator:ac0ca54b8d1d72520cd648fb57ce0dda2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27f605c4aa6533029bdc816a4a9d06ff"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="printf_8c.html#a27f605c4aa6533029bdc816a4a9d06ff">snprintf</a> (char *buf, size_t max, const char *<a class="el" href="serial_8h.html#a381d684d94e6e91dee650357e8f02fa8">fmt</a>,...)</td></tr>
 <tr class="separator:a27f605c4aa6533029bdc816a4a9d06ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e0d7a33300b50de64b6b130218516cd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="printf_8c.html#a6e0d7a33300b50de64b6b130218516cd">vprintf_help</a> (unsigned <a class="el" href="serial_8h.html#adc08ed1554f35803d229aeaf11216b3f">c</a>, [[maybe_unused]] void **ptr, [[maybe_unused]] const void *max)</td></tr>
-<tr class="separator:a6e0d7a33300b50de64b6b130218516cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26aae297c3c0f344cc0de97f14413a12"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="printf_8c.html#a26aae297c3c0f344cc0de97f14413a12">append_debug_buf</a> (char x)</td></tr>
-<tr class="separator:a26aae297c3c0f344cc0de97f14413a12"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8d56afc678f12cbb4d75ca6e6cc94b9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="printf_8c.html#aa8d56afc678f12cbb4d75ca6e6cc94b9">dvprintf_help</a> (unsigned <a class="el" href="serial_8h.html#adc08ed1554f35803d229aeaf11216b3f">c</a>, [[maybe_unused]] void **ptr, [[maybe_unused]] const void *max)</td></tr>
-<tr class="separator:aa8d56afc678f12cbb4d75ca6e6cc94b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c6a841450ead66b16c4a70262ef6b69"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="printf_8c.html#a2c6a841450ead66b16c4a70262ef6b69">vprintf_help</a> (unsigned <a class="el" href="serial_8h.html#adc08ed1554f35803d229aeaf11216b3f">c</a>, [[maybe_unused]] void **ptr, [[maybe_unused]] const void *max)</td></tr>
+<tr class="separator:a2c6a841450ead66b16c4a70262ef6b69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a51251f9ca05427aacc78d4cd6bc01e"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="printf_8c.html#a4a51251f9ca05427aacc78d4cd6bc01e">dvprintf_help</a> (unsigned <a class="el" href="serial_8h.html#adc08ed1554f35803d229aeaf11216b3f">c</a>, [[maybe_unused]] void **ptr, [[maybe_unused]] const void *max)</td></tr>
+<tr class="separator:a4a51251f9ca05427aacc78d4cd6bc01e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc23aaaff6fcb9a669853efe712ba4b7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="printf_8c.html#acc23aaaff6fcb9a669853efe712ba4b7">vprintf</a> (const char *<a class="el" href="serial_8h.html#a381d684d94e6e91dee650357e8f02fa8">fmt</a>, <a class="el" href="printf_8h.html#af53f622e3b6c080daeb167c1955d7ec1">va_list</a> args)</td></tr>
 <tr class="separator:acc23aaaff6fcb9a669853efe712ba4b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf3a700d17878099cbecbb7633dfdd3b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="printf_8c.html#abf3a700d17878099cbecbb7633dfdd3b">dvprintf</a> (const char *<a class="el" href="serial_8h.html#a381d684d94e6e91dee650357e8f02fa8">fmt</a>, <a class="el" href="printf_8h.html#af53f622e3b6c080daeb167c1955d7ec1">va_list</a> args)</td></tr>
@@ -148,10 +145,6 @@ Variables</h2></td></tr>
 <tr class="separator:a9aa640196313bea082db80a500d3c60b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7501930571e1c3d6c924d8d21ba788a8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="spinlock_8h.html#af82eed01f0304d83276dda764b213779">spinlock_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="printf_8c.html#a7501930571e1c3d6c924d8d21ba788a8">debug_console_spinlock</a></td></tr>
 <tr class="separator:a7501930571e1c3d6c924d8d21ba788a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac84b968ad4a451eca5ec1c69f0fbf05c"><td class="memItemLeft" align="right" valign="top">static char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="printf_8c.html#ac84b968ad4a451eca5ec1c69f0fbf05c">dprintf_format_buffer</a> [<a class="el" href="defines_8h.html#a90bf9480b781825abfeb3f500d75531c">MAX_STRINGLEN</a>] = { 0 }</td></tr>
-<tr class="separator:ac84b968ad4a451eca5ec1c69f0fbf05c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd17c4af27f6b2fc400d62d79af40e69"><td class="memItemLeft" align="right" valign="top">static char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="printf_8c.html#afd17c4af27f6b2fc400d62d79af40e69">dprintf_buf_offset</a> = <a class="el" href="printf_8c.html#ac84b968ad4a451eca5ec1c69f0fbf05c">dprintf_format_buffer</a></td></tr>
-<tr class="separator:afd17c4af27f6b2fc400d62d79af40e69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Minimal printf implementation for Retro Rocket. </p>
@@ -205,32 +198,6 @@ Intent</h1>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a26aae297c3c0f344cc0de97f14413a12"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a26aae297c3c0f344cc0de97f14413a12">&#9670;&nbsp;</a></span>append_debug_buf()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void append_debug_buf </td>
-          <td>(</td>
-          <td class="paramtype">char&#160;</td>
-          <td class="paramname"><em>x</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="afeb4d71308108181d31f8644756b87ee"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afeb4d71308108181d31f8644756b87ee">&#9670;&nbsp;</a></span>do_printf()</h2>
 
@@ -341,14 +308,17 @@ Intent</h1>
 
 </div>
 </div>
-<a id="aa8d56afc678f12cbb4d75ca6e6cc94b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8d56afc678f12cbb4d75ca6e6cc94b9">&#9670;&nbsp;</a></span>dvprintf_help()</h2>
+<a id="a4a51251f9ca05427aacc78d4cd6bc01e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a51251f9ca05427aacc78d4cd6bc01e">&#9670;&nbsp;</a></span>dvprintf_help()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int dvprintf_help </td>
+          <td class="memname">static int dvprintf_help </td>
           <td>(</td>
           <td class="paramtype">unsigned&#160;</td>
           <td class="paramname"><em>c</em>, </td>
@@ -371,6 +341,11 @@ Intent</h1>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -633,14 +608,17 @@ Intent</h1>
 
 </div>
 </div>
-<a id="a6e0d7a33300b50de64b6b130218516cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e0d7a33300b50de64b6b130218516cd">&#9670;&nbsp;</a></span>vprintf_help()</h2>
+<a id="a2c6a841450ead66b16c4a70262ef6b69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c6a841450ead66b16c4a70262ef6b69">&#9670;&nbsp;</a></span>vprintf_help()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int vprintf_help </td>
+          <td class="memname">static int vprintf_help </td>
           <td>(</td>
           <td class="paramtype">unsigned&#160;</td>
           <td class="paramname"><em>c</em>, </td>
@@ -663,6 +641,11 @@ Intent</h1>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -794,57 +777,13 @@ Intent</h1>
 
 </div>
 </div>
-<a id="afd17c4af27f6b2fc400d62d79af40e69"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd17c4af27f6b2fc400d62d79af40e69">&#9670;&nbsp;</a></span>dprintf_buf_offset</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">char* dprintf_buf_offset = <a class="el" href="printf_8c.html#ac84b968ad4a451eca5ec1c69f0fbf05c">dprintf_format_buffer</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac84b968ad4a451eca5ec1c69f0fbf05c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac84b968ad4a451eca5ec1c69f0fbf05c">&#9670;&nbsp;</a></span>dprintf_format_buffer</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">char dprintf_format_buffer[<a class="el" href="defines_8h.html#a90bf9480b781825abfeb3f500d75531c">MAX_STRINGLEN</a>] = { 0 }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="printf_8c.html">printf.c</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

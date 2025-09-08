@@ -6,7 +6,7 @@ X = INPORT(port)
 Reads a **byte** from an I/O `port` and returns it (0–255).
 
 
-> Only use on hardware that expects **8-bit** port reads at that address.
+@note Only use on hardware that expects **8-bit** port reads at that address.
 
 ---
 
@@ -31,4 +31,4 @@ PRINT DATA
 - Continuous polling may stall the system; check status before reads if possible.
 
 **See also:**  
-[INPORTW](https://github.com/brainboxdotcc/retro-rocket/wiki/INPORTW) · [INPORTD](https://github.com/brainboxdotcc/retro-rocket/wiki/INPORTD) · [INPORTQ](https://github.com/brainboxdotcc/retro-rocket/wiki/INPORTQ) · [OUTPORT](https://github.com/brainboxdotcc/retro-rocket/wiki/OUTPORT)
+\ref INPORTW "INPORTW" · \ref INPORTD "INPORTD" · \ref INPORTQ "INPORTQ" · \ref OUTPORT "OUTPORT"

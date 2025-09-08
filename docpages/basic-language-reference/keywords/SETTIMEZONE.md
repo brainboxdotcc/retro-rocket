@@ -20,14 +20,14 @@ After setting the time zone, functions that are **DST-aware** will use it when y
 When called **with `TRUE`**, these functions apply the selected time zone and any **daylight saving time** rules in effect for the timestamp they produce.
 
 
-> The identifier must be an **IANA tzdb name** (e.g. "Europe/London").  
-> Do **not** use Windows-style names like "GMT Standard Time" or abbreviations like "BST" or "PST".
+@note The identifier must be an **IANA tzdb name** (e.g. "Europe/London").
+@note Do **not** use Windows-style names like "GMT Standard Time" or abbreviations like "BST" or "PST".
 
 
-> Calling the date and time functions **without** the `TRUE` argument returns values **without** applying the configured time zone and DST adjustment.
+@note Calling the date and time functions **without** the `TRUE` argument returns values **without** applying the configured time zone and DST adjustment.
 
 
-> If you are unsure of the exact spelling, consult the IANA tz database list and copy the region/city form verbatim, e.g. "America/Los_Angeles".
+@note If you are unsure of the exact spelling, consult the IANA tz database list and copy the region/city form verbatim, e.g. "America/Los_Angeles".
 
 ---
 
@@ -78,11 +78,11 @@ ENDPROC
 - An **invalid** identifier raises a runtime error (catch with `ON ERROR PROC...` if needed).
 
 **See also:**  
-[`TIME$`](https://github.com/brainboxdotcc/retro-rocket/wiki/TIME) ·
-[`DATE$`](https://github.com/brainboxdotcc/retro-rocket/wiki/DATE) ·
-[`HOUR`](https://github.com/brainboxdotcc/retro-rocket/wiki/HOUR) ·
-[`MINUTE`](https://github.com/brainboxdotcc/retro-rocket/wiki/MINUTE) ·
-[`SECOND`](https://github.com/brainboxdotcc/retro-rocket/wiki/SECOND) ·
-[`DAY`](https://github.com/brainboxdotcc/retro-rocket/wiki/DAY) ·
-[`MONTH`](https://github.com/brainboxdotcc/retro-rocket/wiki/MONTH) ·
-[`YEAR`](https://github.com/brainboxdotcc/retro-rocket/wiki/YEAR)
+\ref TIME "TIME$" ·
+\ref DATE "DATE$" ·
+\ref HOUR "HOUR" ·
+\ref MINUTE "MINUTE" ·
+\ref SECOND "SECOND" ·
+\ref DAY "DAY" ·
+\ref MONTH "MONTH" ·
+\ref YEAR "YEAR"

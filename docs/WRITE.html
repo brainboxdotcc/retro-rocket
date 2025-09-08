@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -90,10 +91,9 @@ $(document).ready(function(){initNavTree('WRITE.html',''); initResizable(); });
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">WRITE integer-variable, printable</div>
 </div><!-- fragment --><p>Writes text to an <b>open file</b>. <br  />
- The first parameter must be an <b>integer variable</b> containing a <b>file handle</b> obtained from <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENOUT"><code>OPENOUT</code></a> or <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENUP"><code>OPENUP</code></a>. <br  />
- The second parameter, <code>printable</code>, follows the <b>same formatting semantics as <code>PRINT</code></b>.</p>
+ The first parameter must be an <b>integer variable</b> containing a <b>file handle</b> obtained from <a class="el" href="OPENOUT.html">OPENOUT</a> or <a class="el" href="OPENUP.html">OPENUP</a>. The second parameter, <code>printable</code>, follows the <b>same formatting semantics as <code>PRINT</code></b>.</p>
 <hr  />
-<h3><a class="anchor" id="autotoc_md523"></a>
+<h3><a class="anchor" id="autotoc_md537"></a>
 Formatting semantics (same as &lt;tt&gt;PRINT&lt;/tt&gt;)</h3>
 <ul>
 <li>You may pass <b>strings</b> and <b>numeric expressions</b>; numbers are converted to text.</li>
@@ -105,16 +105,25 @@ Formatting semantics (same as &lt;tt&gt;PRINT&lt;/tt&gt;)</h3>
 <li>If the line <b>does not</b> end with <code>;</code> or <code>,</code>, a <b>newline</b> is written automatically.</li>
 <li>To control line endings explicitly (for example CRLF), append them yourself with <code>CHR$(13) + CHR$(10)</code>.</li>
 </ul>
-<blockquote class="doxtable">
-<p>A comma in <code>WRITE</code> does <b>not</b> emit the character <code>,</code>. <br  />
- If you want actual commas (for CSV), include them in the string: </p><div class="fragment"><div class="line">WRITE FH, &quot;A,B,C&quot;</div>
-</div><!-- fragment --> </blockquote>
-<blockquote class="doxtable">
-<p>To include a double quote inside a string, insert it with <code>CHR$(34)</code>: </p><div class="fragment"><div class="line">WRITE FH, CHR$(34) + &quot;quoted&quot; + CHR$(34)</div>
-</div><!-- fragment --> </blockquote>
-<h2><a class="anchor" id="autotoc_md524"></a>
-&lt;/blockquote&gt;</h2>
-<h3><a class="anchor" id="autotoc_md525"></a>
+<dl class="section note"><dt>Note</dt><dd>A comma in <code>WRITE</code> does <b>not</b> emit the character <code>,</code>. </dd>
+<dd>
+If you want actual commas (for CSV), include them in the string: </dd>
+<dd>
+```basic </dd>
+<dd>
+WRITE FH, "A,B,C" </dd>
+<dd>
+```</dd>
+<dd>
+To include a double quote inside a string, insert it with <code>CHR$(34)</code>: </dd>
+<dd>
+```basic </dd>
+<dd>
+WRITE FH, CHR$(34) + "quoted" + CHR$(34) </dd>
+<dd>
+```</dd></dl>
+<hr  />
+<h3><a class="anchor" id="autotoc_md539"></a>
 Examples</h3>
 <p><b>Create a file and write two lines</b> </p><div class="fragment"><div class="line">FH = OPENOUT(&quot;log.txt&quot;)</div>
 <div class="line">WRITE FH, &quot;Hello&quot;</div>
@@ -142,7 +151,7 @@ Examples</h3>
 <div class="line">    PRINT &quot;Write failed: &quot;; ERR$</div>
 <div class="line">ENDPROC</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md527"></a>
+<h3><a class="anchor" id="autotoc_md541"></a>
 Notes</h3>
 <ul>
 <li><code>integer-variable</code> must be a <b>variable</b> holding a valid handle; do not pass a literal or expression.</li>
@@ -150,7 +159,7 @@ Notes</h3>
 <li><code>WRITE</code> does not flush independently; closing the handle ensures data is written.</li>
 </ul>
 <p><b>See also:</b> <br  />
- <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/PRINT"><code>PRINT</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENOUT"><code>OPENOUT</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENUP"><code>OPENUP</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/CLOSE"><code>CLOSE</code></a> </p>
+ <a class="el" href="PRINT.html">PRINT</a> · <a class="el" href="OPENOUT.html">OPENOUT</a> · <a class="el" href="OPENUP.html">OPENUP</a> · <a class="el" href="CLOSE.html">CLOSE</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -158,7 +167,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -3,7 +3,7 @@
 POINT integer-expression, integer-expression
 ```
 
-Draws a single pixel at the **X,Y** coordinates given, using the current graphics colour (set with [`GCOL`](https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL)).
+Draws a single pixel at the **X,Y** coordinates given, using the current graphics colour (set with \ref GCOL "GCOL").
 
 - Parameters are: `x, y` (screen pixels).
 
@@ -32,10 +32,10 @@ NEXT
 ### Notes
 - Coordinates are in **screen pixels**; `(0,0)` is the **top-left** corner.
 - Points outside the screen are clipped.
-- When [`AUTOFLIP`](https://github.com/brainboxdotcc/retro-rocket/wiki/AUTOFLIP) is `FALSE`, the pixel appears after you call [`FLIP`](https://github.com/brainboxdotcc/retro-rocket/wiki/FLIP).
+- When \ref AUTOFLIP "AUTOFLIP" is `FALSE`, the pixel appears after you call \ref FLIP "FLIP".
 
 **See also:**  
-[`GCOL`](https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL) ·
-[`LINE`](https://github.com/brainboxdotcc/retro-rocket/wiki/LINE) ·
-[`RECTANGLE`](https://github.com/brainboxdotcc/retro-rocket/wiki/RECTANGLE) ·
-[`CIRCLE`](https://github.com/brainboxdotcc/retro-rocket/wiki/CIRCLE)
+\ref GCOL "GCOL" ·
+\ref LINE "LINE" ·
+\ref RECTANGLE "RECTANGLE" ·
+\ref CIRCLE "CIRCLE"

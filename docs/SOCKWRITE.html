@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -93,7 +94,7 @@ $(document).ready(function(){initNavTree('SOCKWRITE.html',''); initResizable(); 
  The first parameter must be an <b>integer variable</b> holding a valid socket handle (as created earlier with <code>CONNECT</code>). <br  />
  The second parameter, <code>printable</code>, follows the <b>same formatting rules as <code>PRINT</code></b>.</p>
 <hr  />
-<h3><a class="anchor" id="autotoc_md473"></a>
+<h3><a class="anchor" id="autotoc_md487"></a>
 Formatting semantics (same as &lt;tt&gt;PRINT&lt;/tt&gt;)</h3>
 <ul>
 <li>You may pass <b>numbers</b> or <b>strings</b>; numbers are converted to text.</li>
@@ -105,14 +106,19 @@ Formatting semantics (same as &lt;tt&gt;PRINT&lt;/tt&gt;)</h3>
 <li>With <b>no trailing <code>;</code> or <code>,</code></b>, a newline is appended automatically (same newline as <code>PRINT</code>).</li>
 <li>If you need protocol-specific line endings (for example <b>CRLF</b>), append them explicitly with <code>CHR$(13) + CHR$(10)</code>.</li>
 </ul>
-<blockquote class="doxtable">
-<p>A comma in <code>SOCKWRITE</code> does <b>not</b> send the character <code>,</code>. <br  />
- It inserts spaces to the next print zone. <br  />
- If you need a real comma on the wire, include it in the string: </p><div class="fragment"><div class="line">SOCKWRITE S, &quot;A,B,C&quot;</div>
-</div><!-- fragment --> </blockquote>
-<h2><a class="anchor" id="autotoc_md474"></a>
-&lt;/blockquote&gt;</h2>
-<h3><a class="anchor" id="autotoc_md475"></a>
+<dl class="section note"><dt>Note</dt><dd>A comma in <code>SOCKWRITE</code> does <b>not</b> send the character <code>,</code>. </dd>
+<dd>
+It inserts spaces to the next print zone. </dd>
+<dd>
+If you need a real comma on the wire, include it in the string: </dd>
+<dd>
+```basic </dd>
+<dd>
+SOCKWRITE S, "A,B,C" </dd>
+<dd>
+```</dd></dl>
+<hr  />
+<h3><a class="anchor" id="autotoc_md489"></a>
 Examples</h3>
 <p><b>Build a line without the implicit newline, then add CRLF</b> </p><div class="fragment"><div class="line">REM Assume S is a valid socket handle</div>
 <div class="line">SOCKWRITE S, &quot;USER &quot;;</div>
@@ -134,7 +140,7 @@ Examples</h3>
 <div class="line">    PRINT &quot;Write failed: &quot;; ERR$</div>
 <div class="line">ENDPROC</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md477"></a>
+<h3><a class="anchor" id="autotoc_md491"></a>
 Notes</h3>
 <ul>
 <li>Do <b>not</b> pass a literal or expression as the handle; use an integer <b>variable</b> that contains the handle.</li>
@@ -142,7 +148,7 @@ Notes</h3>
 <li><code>SOCKWRITE</code> sends exactly what <code>PRINT</code> would have produced for the same arguments; use <code>CHR$</code> to embed control characters when needed.</li>
 </ul>
 <p><b>See also:</b> <br  />
- <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/PRINT"><code>PRINT</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/SOCKREAD"><code>SOCKREAD</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/SOCKCLOSE"><code>SOCKCLOSE</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/CONNECT"><code>CONNECT</code></a> </p>
+ <a class="el" href="PRINT.html">PRINT</a> · <a class="el" href="SOCKREAD.html">SOCKREAD</a> · <a class="el" href="SOCKCLOSE.html">SOCKCLOSE</a> · <a class="el" href="CONNECT.html">CONNECT</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -150,7 +156,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

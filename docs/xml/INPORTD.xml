@@ -9,11 +9,11 @@
 <para><programlisting filename=".basic"><codeline><highlight class="normal">X<sp/>=<sp/>INPORTD(port)</highlight></codeline>
 </programlisting></para>
 <para>Reads a <bold>32-bit double-word</bold> from <computeroutput>port</computeroutput> and returns it.</para>
-<para><blockquote><para>Only use on devices that specify <bold>double-word</bold> port access. </para>
-</blockquote></para>
-<sect2 id="INPORTD_1autotoc_md62">
-<title>&lt;/blockquote&gt;</title>
-<sect3 id="INPORTD_1autotoc_md63">
+<para><simplesect kind="note"><para>Only use on devices that specify <bold>double-word</bold> port access.</para>
+</simplesect>
+<hruler/>
+</para>
+<sect3 id="INPORTD_1autotoc_md76">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Reads four consecutive bytes from the port as a 32-bit value.</para>
@@ -23,7 +23,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="INPORTD_1autotoc_md65">
+<sect3 id="INPORTD_1autotoc_md78">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Read<sp/>PCI<sp/>config<sp/>data</highlight></codeline>
 <codeline><highlight class="normal">D<sp/>=<sp/>INPORTD(&amp;CFC)</highlight></codeline>
@@ -32,16 +32,15 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="INPORTD_1autotoc_md67">
+<sect3 id="INPORTD_1autotoc_md80">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Most modern devices prefer MMIO; only use when the hardware requires 32-bit port access.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/INPORT">INPORT</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/INPORTW">INPORTW</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/INPORTQ">INPORTQ</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OUTPORTD">OUTPORTD</ulink> </para>
+ <ref refid="INPORT" kindref="compound">INPORT</ref> · <ref refid="INPORTW" kindref="compound">INPORTW</ref> · <ref refid="INPORTQ" kindref="compound">INPORTQ</ref> · <ref refid="OUTPORTD" kindref="compound">OUTPORTD</ref> </para>
 </sect3>
-</sect2>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/INPORTD.md"/>
   </compounddef>

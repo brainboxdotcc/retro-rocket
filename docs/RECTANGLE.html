@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -89,13 +90,13 @@ $(document).ready(function(){initNavTree('RECTANGLE.html',''); initResizable(); 
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">RECTANGLE integer-expression, integer-expression, integer-expression, integer-expression</div>
-</div><!-- fragment --><p>Draws a <b>filled</b>, axis-aligned rectangle using the current graphics colour (set with <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL"><code>GCOL</code></a>).</p>
+</div><!-- fragment --><p>Draws a <b>filled</b>, axis-aligned rectangle using the current graphics colour (set with <a class="el" href="GCOL.html">GCOL</a>).</p>
 <ul>
 <li>Parameters are: <code>x1, y1, x2, y2</code> - the two opposite corners of the rectangle in screen pixels.</li>
 <li>The rectangle is filled; there is no outline-only form.</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md425"></a>
+<h3><a class="anchor" id="autotoc_md439"></a>
 Examples</h3>
 <p>Filled rectangle </p><div class="fragment"><div class="line">GCOL RGB(0,128,255)</div>
 <div class="line">RECTANGLE 50, 50, 180, 120</div>
@@ -112,16 +113,16 @@ Examples</h3>
 <div class="line">GCOL RGB(0,180,0)</div>
 <div class="line">RECTANGLE 40, 200, 40 + 300, 230</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md427"></a>
+<h3><a class="anchor" id="autotoc_md441"></a>
 Notes</h3>
 <ul>
 <li>Coordinates are in <b>screen pixels</b>; <code>(0,0)</code> is the <b>top-left</b> corner.</li>
 <li>Rectangles that extend beyond the screen are <b>clipped</b> at the edges.</li>
 <li>Change the drawing colour with <code>GCOL RGB(r,g,b)</code> before calling <code>RECTANGLE</code>.</li>
-<li>When <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/AUTOFLIP"><code>AUTOFLIP</code></a> is <code>FALSE</code>, drawn frames appear only after <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/FLIP"><code>FLIP</code></a>.</li>
+<li>When <a class="el" href="AUTOFLIP.html">AUTOFLIP</a> is <code>FALSE</code>, drawn frames appear only after <a class="el" href="FLIP.html">FLIP</a>.</li>
 </ul>
 <p><b>See also:</b> <br  />
- <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL"><code>GCOL</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/LINE"><code>LINE</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/CIRCLE"><code>CIRCLE</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/POINT"><code>POINT</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/PLOT"><code>PLOT</code></a> </p>
+ <a class="el" href="GCOL.html">GCOL</a> · <a class="el" href="LINE.html">LINE</a> · <a class="el" href="CIRCLE.html">CIRCLE</a> · <a class="el" href="POINT.html">POINT</a> · <a class="el" href="PLOT.html">PLOT</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -129,7 +130,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

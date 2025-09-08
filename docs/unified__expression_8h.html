@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Retro Rocket OS: include/basic/unified_expression.h File Reference</title>
+<title>Retro Rocket OS: unified_expression.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -95,8 +96,7 @@ $(document).ready(function(){initNavTree('unified__expression_8h.html',''); init
 
 <p>Typed expression and conditional entry points for the unified parser.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;<a class="el" href="kernel_8h.html">kernel.h</a>&gt;</code><br />
-</div><table class="memberdecls">
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structup__value.html">up_value</a></td></tr>
@@ -145,7 +145,7 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Typed expression and conditional entry points for the unified parser. </p>
 <p>Single typed recursive–descent evaluator supporting INT / REAL / STRING. Provides drop-in entry points for conditionals and strict wrappers for integer, real, and string expressions.</p>
-<h3><a class="anchor" id="autotoc_md668"></a>
+<h3><a class="anchor" id="autotoc_md0"></a>
 Tokeniser interaction</h3>
 <ul>
 <li><b>Parentheses</b>: content inside <code>(</code> .. <code>)</code> is parsed as a relation-aware expression, so forms such as <code>(in&lt;128)</code> are valid in IF/WHILE.</li>
@@ -157,7 +157,7 @@ Tokeniser interaction</h3>
 </ul>
 </li>
 </ul>
-<h3><a class="anchor" id="autotoc_md669"></a>
+<h3><a class="anchor" id="autotoc_md1"></a>
 Operators and precedence</h3>
 <ul>
 <li><b>Unary</b>: leading <code>+</code> / <code>-</code> bind <b>tighter</b> than <code>* / MOD</code>. Applies to numeric values only (e.g. <code>A--3</code>, <code>-(2+3)</code>, <code>-SIN(ANGLE#)</code>).</li>
@@ -174,12 +174,12 @@ Operators and precedence</h3>
 </li>
 <li><b>Boolean (conditionals)</b>: <code>NOT</code> &gt; <code>AND</code> &gt; <code>OR</code>, all left-associative.</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md670"></a>
+<h3><a class="anchor" id="autotoc_md2"></a>
 Consumption and stop conditions</h3>
 <ul>
 <li><code><a class="el" href="unified__expression_8h.html#af62db0d2d6f60722f23d9a74d0a7e824" title="Evaluate a BASIC conditional (boolean) expression.">up_conditional()</a></code> stops before <code>THEN</code> / <code>NEWLINE</code> / <code>EOF</code> / &lsquo;&rsquo;)'<code>. The caller should</code>accept(THEN, ctx)<code>if required. -</code><a class="el" href="unified__expression_8h.html#a037db97961e7e2d9224ee733bb0eefd8" title="Evaluate a single value expression and return its typed result.">up_eval_value()</a><code>parses one value expression and **leaves** list separators (</code>,<code>/</code>;<code>),</code>THEN<code>,</code>NEWLINE<code>, and</code>EOF<code>untouched for the enclosing statement (e.g.</code>PRINT<code>,</code>INPUT`) to handle.</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md671"></a>
+<h3><a class="anchor" id="autotoc_md3"></a>
 String lifetime</h3>
 <ul>
 <li>String results returned by expression evaluation are duplicated via the GC (<code>gc_strdup</code>) to match historic <code>str_expr</code> behaviour. </li>
@@ -233,9 +233,9 @@ String lifetime</h3>
 <div class="line"><a class="code" href="expression_8h.html#a82b38ae80b08b12294c9bfc7f74ef707">relation</a>    := value_expr { (&lt; | &gt; | =) [= | &gt;&lt;] value_expr }</div>
 <div class="ttc" id="aexpression_8h_html_a82b38ae80b08b12294c9bfc7f74ef707"><div class="ttname"><a href="expression_8h.html#a82b38ae80b08b12294c9bfc7f74ef707">relation</a></div><div class="ttdeci">int64_t relation(struct basic_ctx *ctx)</div><div class="ttdoc">Evaluates a relational integer expression.</div></div>
 <div class="ttc" id="aflow__control_8h_html_a74a2cb553e82e778dfd7a2c3cd39fa37"><div class="ttname"><a href="flow__control_8h.html#a74a2cb553e82e778dfd7a2c3cd39fa37">conditional</a></div><div class="ttdeci">bool conditional(struct basic_ctx *ctx)</div><div class="ttdoc">Evaluates a conditional expression in BASIC, used in IF statements.</div><div class="ttdef"><b>Definition:</b> flow_control.c:10</div></div>
-<div class="ttc" id="atokenizer_8h_html_a4ebc26c81c029670805b51af165f9cfea0378ebc895849163b249d0b330257dd6"><div class="ttname"><a href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea0378ebc895849163b249d0b330257dd6">NOT</a></div><div class="ttdeci">@ NOT</div><div class="ttdef"><b>Definition:</b> tokenizer.h:175</div></div>
-<div class="ttc" id="atokenizer_8h_html_a4ebc26c81c029670805b51af165f9cfea865555c9f2e0458a7078486aa1b3254f"><div class="ttname"><a href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea865555c9f2e0458a7078486aa1b3254f">AND</a></div><div class="ttdeci">@ AND</div><div class="ttdef"><b>Definition:</b> tokenizer.h:175</div></div>
-<div class="ttc" id="atokenizer_8h_html_a4ebc26c81c029670805b51af165f9cfea96727447c0ad447987df1c6415aef074"><div class="ttname"><a href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea96727447c0ad447987df1c6415aef074">OR</a></div><div class="ttdeci">@ OR</div><div class="ttdef"><b>Definition:</b> tokenizer.h:175</div></div>
+<div class="ttc" id="atokenizer_8h_html_a4ebc26c81c029670805b51af165f9cfea0378ebc895849163b249d0b330257dd6"><div class="ttname"><a href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea0378ebc895849163b249d0b330257dd6">NOT</a></div><div class="ttdeci">@ NOT</div><div class="ttdef"><b>Definition:</b> tokenizer.h:177</div></div>
+<div class="ttc" id="atokenizer_8h_html_a4ebc26c81c029670805b51af165f9cfea865555c9f2e0458a7078486aa1b3254f"><div class="ttname"><a href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea865555c9f2e0458a7078486aa1b3254f">AND</a></div><div class="ttdeci">@ AND</div><div class="ttdef"><b>Definition:</b> tokenizer.h:177</div></div>
+<div class="ttc" id="atokenizer_8h_html_a4ebc26c81c029670805b51af165f9cfea96727447c0ad447987df1c6415aef074"><div class="ttname"><a href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea96727447c0ad447987df1c6415aef074">OR</a></div><div class="ttdeci">@ OR</div><div class="ttdef"><b>Definition:</b> tokenizer.h:177</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -499,7 +499,7 @@ String lifetime</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_1e5d3661ed79af157d57e64a38265d09.html">basic</a></li><li class="navelem"><a class="el" href="unified__expression_8h.html">unified_expression.h</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

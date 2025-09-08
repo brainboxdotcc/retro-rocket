@@ -10,15 +10,17 @@
 </programlisting></para>
 <para>Unloads a <bold>sprite</bold> whose handle is given by <computeroutput>integer-expression</computeroutput>. <linebreak/>
  After <computeroutput>SPRITEFREE</computeroutput>, the handle is no longer valid for drawing.</para>
-<para><blockquote><para>Each program may have <bold>up to 1024 sprites</bold> loaded at any one time. <linebreak/>
- Sprite handles are <bold>per-program</bold>, and all remaining sprites are <bold>automatically freed</bold> when the program ends. </para>
-</blockquote></para>
-<para><blockquote><para>Passing an invalid handle (or one that has already been freed) raises a runtime error <linebreak/>
- that you can catch with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink>. </para>
-</blockquote></para>
-<sect2 id="SPRITEFREE_1autotoc_md478">
-<title>&lt;/blockquote&gt;</title>
-<sect3 id="SPRITEFREE_1autotoc_md479">
+<para><simplesect kind="note"><para>Each program may have <bold>up to 1024 sprites</bold> loaded at any one time. </para>
+</simplesect>
+<simplesect kind="note"><para>Sprite handles are <bold>per-program</bold>, and all remaining sprites are <bold>automatically freed</bold> when the program ends.</para>
+</simplesect>
+<simplesect kind="note"><para>Passing an invalid handle (or one that has already been freed) raises a runtime error </para>
+</simplesect>
+<simplesect kind="note"><para>that you can catch with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink>.</para>
+</simplesect>
+<hruler/>
+</para>
+<sect3 id="SPRITEFREE_1autotoc_md493">
 <title>Examples</title>
 <para><bold>Load, draw, then free</bold> <programlisting filename=".basic"><codeline><highlight class="normal">SPRITELOAD<sp/>S,<sp/>&quot;/images/logo.png&quot;</highlight></codeline>
 <codeline><highlight class="normal">PLOT<sp/>S,<sp/>100,<sp/>80</highlight></codeline>
@@ -58,7 +60,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="SPRITEFREE_1autotoc_md481">
+<sect3 id="SPRITEFREE_1autotoc_md495">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para><computeroutput>integer-expression</computeroutput> can be a variable, array element, or any expression that evaluates to a valid sprite handle.</para>
@@ -67,9 +69,8 @@
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/SPRITELOAD"><computeroutput>SPRITELOAD</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PLOT"><computeroutput>PLOT</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PLOTQUAD"><computeroutput>PLOTQUAD</computeroutput></ulink> </para>
+ <ref refid="SPRITELOAD" kindref="compound">SPRITELOAD</ref> · <ref refid="PLOT" kindref="compound">PLOT</ref> · <ref refid="PLOTQUAD" kindref="compound">PLOTQUAD</ref> </para>
 </sect3>
-</sect2>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/SPRITEFREE.md"/>
   </compounddef>

@@ -16,8 +16,7 @@
 </para>
 </listitem><listitem><para>The initial process (<computeroutput>/programs/init</computeroutput>) starts with its CSD set to <computeroutput>/</computeroutput> (the root of the virtual filesystem). <linebreak/>
 </para>
-</listitem><listitem><para>Any child process launched (via <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CHAIN"><computeroutput>CHAIN</computeroutput></ulink>, for example) inherits the parent’s current directory at the time of launch. <linebreak/>
-</para>
+</listitem><listitem><para>Any child process launched (via <ref refid="CHAIN" kindref="compound">CHAIN</ref>, for example) inherits the parent’s current directory at the time of launch.</para>
 </listitem></itemizedlist>
 </para>
 <para><simplesect kind="remark"><para>Unlike Unix, Retro Rocket BASIC paths do <bold>not</bold> support <computeroutput>.</computeroutput> or <computeroutput>..</computeroutput>. </para>
@@ -26,7 +25,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect4 id="CHDIR_1autotoc_md199">
+<sect4 id="CHDIR_1autotoc_md213">
 <title>Example</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">CHDIR<sp/>&quot;/programs&quot;</highlight></codeline>
 <codeline><highlight class="normal">CHAIN<sp/>&quot;demo&quot;</highlight></codeline>
@@ -46,7 +45,7 @@
 </listitem><listitem><para>Changing the current directory affects file lookups for <computeroutput>OPENIN</computeroutput>, <computeroutput>CHAIN</computeroutput>, <computeroutput>LIBRARY</computeroutput>, and similar statements.</para>
 </listitem></itemizedlist>
 </para>
-<para><bold>See also:</bold> <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CHAIN"><computeroutput>CHAIN</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/LIBRARY"><computeroutput>LIBRARY</computeroutput></ulink> </para>
+<para><bold>See also:</bold> <ref refid="CHAIN" kindref="compound">CHAIN</ref>, <ref refid="LIBRARY" kindref="compound">LIBRARY</ref> </para>
 </sect4>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/CHDIR.md"/>

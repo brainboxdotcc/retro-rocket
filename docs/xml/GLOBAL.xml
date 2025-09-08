@@ -8,13 +8,14 @@
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">GLOBAL<sp/>variable-name<sp/>=<sp/>expression</highlight></codeline>
 </programlisting></para>
-<para>Marks a variable assignment as <bold>global-for-child-processes</bold>. The variable’s <bold>current value is copied</bold> (not referenced) into any <bold>new programs</bold> this program creates (for example via <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CHAIN"><computeroutput>CHAIN</computeroutput></ulink>). This mechanism is also how <computeroutput>rocketsh</computeroutput> passes command-line style parameters into a program.</para>
-<para><blockquote><para><computeroutput>GLOBAL</computeroutput> must appear <bold>with an assignment</bold>. <linebreak/>
- <computeroutput>GLOBAL</computeroutput> <bold>without</bold> an assignment is invalid. </para>
-</blockquote></para>
-<sect2 id="GLOBAL_1autotoc_md277">
-<title>&lt;/blockquote&gt;</title>
-<sect3 id="GLOBAL_1autotoc_md278">
+<para>Marks a variable assignment as <bold>global-for-child-processes</bold>. The variable’s <bold>current value is copied</bold> (not referenced) into any <bold>new programs</bold> this program creates (for example via <ref refid="CHAIN" kindref="compound">CHAIN</ref>). This mechanism is also how <computeroutput>rocketsh</computeroutput> passes command-line style parameters into a program.</para>
+<para><simplesect kind="note"><para><computeroutput>GLOBAL</computeroutput> must appear <bold>with an assignment</bold>. </para>
+</simplesect>
+<simplesect kind="note"><para><computeroutput>GLOBAL</computeroutput> <bold>without</bold> an assignment is invalid.</para>
+</simplesect>
+<hruler/>
+</para>
+<sect3 id="GLOBAL_1autotoc_md292">
 <title>Behaviour</title>
 <para><itemizedlist>
 <listitem><para>The assignment executes normally in the current program, <bold>and</bold> the variable is flagged so that its <bold>value is copied</bold> into subsequently created child programs.</para>
@@ -28,7 +29,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="GLOBAL_1autotoc_md280">
+<sect3 id="GLOBAL_1autotoc_md294">
 <title>Examples</title>
 <para><bold>Pass a string and number to a child</bold></para>
 <para>Parent program: <programlisting filename=".basic"><codeline><highlight class="normal">GLOBAL<sp/>USERNAME$<sp/>=<sp/>&quot;guest&quot;</highlight></codeline>
@@ -50,7 +51,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="GLOBAL_1autotoc_md282">
+<sect3 id="GLOBAL_1autotoc_md296">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para><computeroutput>GLOBAL</computeroutput> controls <bold>inter-program passing only</bold>. It does <bold>not</bold> create a program-wide scope within a single program.</para>
@@ -59,9 +60,8 @@
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CHAIN"><computeroutput>CHAIN</computeroutput></ulink> </para>
+ <ref refid="CHAIN" kindref="compound">CHAIN</ref> </para>
 </sect3>
-</sect2>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/GLOBAL.md"/>
   </compounddef>

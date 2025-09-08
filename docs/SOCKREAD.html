@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -90,22 +91,21 @@ $(document).ready(function(){initNavTree('SOCKREAD.html',''); initResizable(); }
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">SOCKREAD integer-variable, variable</div>
 </div><!-- fragment --><p>Reads a value from an <b>open TCP socket</b> into <code>variable</code>. <br  />
- The first parameter must be an <b>integer variable</b> containing the socket handle returned by <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/CONNECT"><code>CONNECT</code></a>.</p>
-<p>The <b>semantics match</b> <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/INPUT"><code>INPUT</code></a>:</p>
+ The first parameter must be an <b>integer variable</b> containing the socket handle returned by <a class="el" href="CONNECT.html">CONNECT</a>.</p>
+<p>The <b>semantics match</b> <a class="el" href="INPUT.html">INPUT</a>:</p>
 <ul>
 <li>The call is <b>blocking</b>: it waits until there is <b>enough data</b> to parse a valid value for the destination type.</li>
 <li><code>variable</code> may be <b>string</b>, <b>integer</b>, or <b>real</b>.</li>
 <li>If the incoming data does <b>not</b> form a valid number when an integer or real is expected, the destination is set to <b>0</b>.</li>
 <li>Unlike <code>INPUT</code>, there is <b>no echo</b> (data comes from the socket, not the keyboard).</li>
 </ul>
-<blockquote class="doxtable">
-<p>Press <code>CTRL+ESC</code> at any time to <b>cancel</b> waiting for socket input. <br  />
- Without an error handler, the program <b>terminates</b>. <br  />
- With an <code>ON ERROR</code> handler, control passes there instead. </p>
-</blockquote>
-<h2><a class="anchor" id="autotoc_md468"></a>
-&lt;/blockquote&gt;</h2>
-<h3><a class="anchor" id="autotoc_md469"></a>
+<dl class="section note"><dt>Note</dt><dd>Press <code>CTRL+ESC</code> at any time to <b>cancel</b> waiting for socket input. </dd>
+<dd>
+Without an error handler, the program <b>terminates</b>. </dd>
+<dd>
+With an <code>ON ERROR</code> handler, control passes there instead.</dd></dl>
+<hr  />
+<h3><a class="anchor" id="autotoc_md483"></a>
 Examples</h3>
 <p><b>Read a text line</b> </p><div class="fragment"><div class="line">CONNECT S, &quot;93.184.216.34&quot;, 80</div>
 <div class="line">REM Ask the server for a line, then read it</div>
@@ -137,15 +137,15 @@ Examples</h3>
 <div class="line">    ON ERROR PROCnet_err</div>
 <div class="line">ENDPROC</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md471"></a>
+<h3><a class="anchor" id="autotoc_md485"></a>
 Notes</h3>
 <ul>
 <li>Treat the socket as a <b>byte stream</b>; if you need to read multiple fields on one line, call <code>SOCKREAD</code> multiple times or define a simple protocol (for example, one value per line).</li>
 <li>After <code>SOCKCLOSE</code>, the handle is invalid for further <code>SOCKREAD</code>/<code>SOCKWRITE</code>.</li>
-<li>Use <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/DNS"><code>DNS$</code></a> to resolve hostnames to IP strings for <code>CONNECT</code>.</li>
+<li>Use <a class="el" href="DNS.html">DNS$</a> to resolve hostnames to IP strings for <code>CONNECT</code>.</li>
 </ul>
 <p><b>See also:</b> <br  />
- <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/CONNECT"><code>CONNECT</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/SOCKWRITE"><code>SOCKWRITE</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/SOCKCLOSE"><code>SOCKCLOSE</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/INPUT"><code>INPUT</code></a> </p>
+ <a class="el" href="CONNECT.html">CONNECT</a> · <a class="el" href="SOCKWRITE.html">SOCKWRITE</a> · <a class="el" href="SOCKCLOSE.html">SOCKCLOSE</a> · <a class="el" href="INPUT.html">INPUT</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -153,7 +153,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

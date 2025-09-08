@@ -4,9 +4,9 @@ SOCKREAD integer-variable, variable
 ```
 
 Reads a value from an **open TCP socket** into `variable`.  
-The first parameter must be an **integer variable** containing the socket handle returned by [`CONNECT`](https://github.com/brainboxdotcc/retro-rocket/wiki/CONNECT).
+The first parameter must be an **integer variable** containing the socket handle returned by \ref CONNECT "CONNECT".
 
-The **semantics match** [`INPUT`](https://github.com/brainboxdotcc/retro-rocket/wiki/INPUT):
+The **semantics match** \ref INPUT "INPUT":
 
 - The call is **blocking**: it waits until there is **enough data** to parse a valid value for the destination type.
 - `variable` may be **string**, **integer**, or **real**.
@@ -14,9 +14,9 @@ The **semantics match** [`INPUT`](https://github.com/brainboxdotcc/retro-rocket/
 - Unlike `INPUT`, there is **no echo** (data comes from the socket, not the keyboard).
 
 
-> Press `CTRL+ESC` at any time to **cancel** waiting for socket input.  
-> Without an error handler, the program **terminates**.  
-> With an `ON ERROR` handler, control passes there instead.
+@note Press `CTRL+ESC` at any time to **cancel** waiting for socket input.
+@note Without an error handler, the program **terminates**.
+@note With an `ON ERROR` handler, control passes there instead.
 
 ---
 
@@ -68,10 +68,10 @@ ENDPROC
 ### Notes
 - Treat the socket as a **byte stream**; if you need to read multiple fields on one line, call `SOCKREAD` multiple times or define a simple protocol (for example, one value per line).
 - After `SOCKCLOSE`, the handle is invalid for further `SOCKREAD`/`SOCKWRITE`.
-- Use [`DNS$`](https://github.com/brainboxdotcc/retro-rocket/wiki/DNS) to resolve hostnames to IP strings for `CONNECT`.
+- Use \ref DNS "DNS$" to resolve hostnames to IP strings for `CONNECT`.
 
 **See also:**  
-[`CONNECT`](https://github.com/brainboxdotcc/retro-rocket/wiki/CONNECT) ·
-[`SOCKWRITE`](https://github.com/brainboxdotcc/retro-rocket/wiki/SOCKWRITE) ·
-[`SOCKCLOSE`](https://github.com/brainboxdotcc/retro-rocket/wiki/SOCKCLOSE) ·
-[`INPUT`](https://github.com/brainboxdotcc/retro-rocket/wiki/INPUT)
+\ref CONNECT "CONNECT" ·
+\ref SOCKWRITE "SOCKWRITE" ·
+\ref SOCKCLOSE "SOCKCLOSE" ·
+\ref INPUT "INPUT"

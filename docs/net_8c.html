@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Retro Rocket OS: src/net/net.c File Reference</title>
+<title>Retro Rocket OS: net.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -91,9 +92,7 @@ $(document).ready(function(){initNavTree('net_8c.html',''); initResizable(); });
 <div class="title">net.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="kernel_8h.html">kernel.h</a>&gt;</code><br />
-<code>#include &lt;stdint.h&gt;</code><br />
-</div><table class="memberdecls">
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a5bc7fc6178636140067f42577765b1c3"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="net_8c.html#a5bc7fc6178636140067f42577765b1c3">flip_short</a> (uint16_t short_int)</td></tr>
@@ -135,6 +134,11 @@ Functions</h2></td></tr>
 <tr class="memitem:ae6ca4ab6ce2d87b8de5fa2c6dae131e4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structnetdev__t.html">netdev_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="net_8c.html#ae6ca4ab6ce2d87b8de5fa2c6dae131e4">find_network_device</a> (const char *<a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a>)</td></tr>
 <tr class="memdesc:ae6ca4ab6ce2d87b8de5fa2c6dae131e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find a network device by name.  <a href="net_8c.html#ae6ca4ab6ce2d87b8de5fa2c6dae131e4">More...</a><br /></td></tr>
 <tr class="separator:ae6ca4ab6ce2d87b8de5fa2c6dae131e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6861e6ca624231f4768789c46d6aa60"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="net_8c.html#ae6861e6ca624231f4768789c46d6aa60">network_setup</a> ()</td></tr>
+<tr class="memdesc:ae6861e6ca624231f4768789c46d6aa60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the active network interface from /system/config/network.conf.  <a href="net_8c.html#ae6861e6ca624231f4768789c46d6aa60">More...</a><br /></td></tr>
+<tr class="separator:ae6861e6ca624231f4768789c46d6aa60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8d137d3fc9d362a854d7823d642dbea"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="net_8c.html#af8d137d3fc9d362a854d7823d642dbea">parse_network_config</a> (const unsigned char *buf, size_t <a class="el" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a>, <a class="el" href="structnet__config.html">net_config</a> *out)</td></tr>
+<tr class="separator:af8d137d3fc9d362a854d7823d642dbea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -352,6 +356,37 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ae6861e6ca624231f4768789c46d6aa60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6861e6ca624231f4768789c46d6aa60">&#9670;&nbsp;</a></span>network_setup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void network_setup </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configure the active network interface from /system/config/network.conf. </p>
+<p>This function is called by a network driver once it has initialised successfully. It reads the global configuration file and applies hostname, IP address, netmask, gateway, and DNS settings. Each field may be specified either as a literal value or as the string "dhcp" to request assignment from a DHCP server.</p>
+<p>Behaviour:</p><ul>
+<li>If the host already has an address (<a class="el" href="ip_8h.html#a5f3edab64f1804a7ea5781ba55d81db6" title="Get the current IP address. This could be allocated by DHCP or statically.">gethostaddr()</a> returns true), the function exits early without reconfiguring.</li>
+<li>If /system/config/network.conf does not exist or cannot be read, DHCP discovery is attempted for all parameters.</li>
+<li>For each field set to a literal in the config, the corresponding setter is invoked immediately (sethostaddr, setnetmask, setgatewayaddr, setdnsaddr).</li>
+<li>If any field is marked "dhcp" (represented internally as 0), a DHCP request is started. DHCP will fill only the unset fields and will not overwrite static values already applied.</li>
+<li>If a static IP address is configured, a gratuitous ARP announcement is broadcast to advertise the address on the local network.</li>
+</ul>
+<p>The hostname defaults to "retrorocket" if not present in the configuration.</p>
+<dl class="section note"><dt>Note</dt><dd>Currently only a single active NIC plus loopback are supported. </dd>
+<dd>
+The caller must ensure a network device is present before invoking this. </dd></dl>
+
+</div>
+</div>
 <a id="a14896c0faf293bb030b48d13a1edb050"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a14896c0faf293bb030b48d13a1edb050">&#9670;&nbsp;</a></span>network_up()</h2>
 
@@ -451,6 +486,40 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="af8d137d3fc9d362a854d7823d642dbea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8d137d3fc9d362a854d7823d642dbea">&#9670;&nbsp;</a></span>parse_network_config()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool parse_network_config </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned char *&#160;</td>
+          <td class="paramname"><em>buf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>len</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structnet__config.html">net_config</a> *&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a7d63f8f8d038a531b6930b4327b21d5c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7d63f8f8d038a531b6930b4327b21d5c">&#9670;&nbsp;</a></span>register_network_device()</h2>
 
@@ -499,7 +568,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c72b25b75abe208498b36a3e44a3726c.html">net</a></li><li class="navelem"><a class="el" href="net_8c.html">net.c</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -8,7 +8,7 @@
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">RECTANGLE<sp/>integer-expression,<sp/>integer-expression,<sp/>integer-expression,<sp/>integer-expression</highlight></codeline>
 </programlisting></para>
-<para>Draws a <bold>filled</bold>, axis-aligned rectangle using the current graphics colour (set with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL"><computeroutput>GCOL</computeroutput></ulink>).</para>
+<para>Draws a <bold>filled</bold>, axis-aligned rectangle using the current graphics colour (set with <ref refid="GCOL" kindref="compound">GCOL</ref>).</para>
 <para><itemizedlist>
 <listitem><para>Parameters are: <computeroutput>x1, y1, x2, y2</computeroutput> - the two opposite corners of the rectangle in screen pixels.</para>
 </listitem><listitem><para>The rectangle is filled; there is no outline-only form.</para>
@@ -16,7 +16,7 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="RECTANGLE_1autotoc_md425">
+<sect3 id="RECTANGLE_1autotoc_md439">
 <title>Examples</title>
 <para>Filled rectangle <programlisting filename=".basic"><codeline><highlight class="normal">GCOL<sp/>RGB(0,128,255)</highlight></codeline>
 <codeline><highlight class="normal">RECTANGLE<sp/>50,<sp/>50,<sp/>180,<sp/>120</highlight></codeline>
@@ -38,17 +38,17 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="RECTANGLE_1autotoc_md427">
+<sect3 id="RECTANGLE_1autotoc_md441">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Coordinates are in <bold>screen pixels</bold>; <computeroutput>(0,0)</computeroutput> is the <bold>top-left</bold> corner.</para>
 </listitem><listitem><para>Rectangles that extend beyond the screen are <bold>clipped</bold> at the edges.</para>
 </listitem><listitem><para>Change the drawing colour with <computeroutput>GCOL RGB(r,g,b)</computeroutput> before calling <computeroutput>RECTANGLE</computeroutput>.</para>
-</listitem><listitem><para>When <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/AUTOFLIP"><computeroutput>AUTOFLIP</computeroutput></ulink> is <computeroutput>FALSE</computeroutput>, drawn frames appear only after <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/FLIP"><computeroutput>FLIP</computeroutput></ulink>.</para>
+</listitem><listitem><para>When <ref refid="AUTOFLIP" kindref="compound">AUTOFLIP</ref> is <computeroutput>FALSE</computeroutput>, drawn frames appear only after <ref refid="FLIP" kindref="compound">FLIP</ref>.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL"><computeroutput>GCOL</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/LINE"><computeroutput>LINE</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CIRCLE"><computeroutput>CIRCLE</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/POINT"><computeroutput>POINT</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PLOT"><computeroutput>PLOT</computeroutput></ulink> </para>
+ <ref refid="GCOL" kindref="compound">GCOL</ref> · <ref refid="LINE" kindref="compound">LINE</ref> · <ref refid="CIRCLE" kindref="compound">CIRCLE</ref> · <ref refid="POINT" kindref="compound">POINT</ref> · <ref refid="PLOT" kindref="compound">PLOT</ref> </para>
 </sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/RECTANGLE.md"/>

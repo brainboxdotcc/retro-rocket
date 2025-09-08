@@ -12,13 +12,15 @@
 </programlisting></para>
 <para>Starts a <bold>post-test loop</bold>. The block between <computeroutput>REPEAT</computeroutput> and <computeroutput>UNTIL</computeroutput> executes <bold>at least once</bold>. <linebreak/>
  After the block runs, <computeroutput>expression</computeroutput> is evaluated; if it is <bold>true</bold>, the loop <bold>ends</bold>; if <bold>false</bold>, execution repeats from <computeroutput>REPEAT</computeroutput>.</para>
-<para><blockquote><para><computeroutput>REPEAT</computeroutput> pairs with the <bold>nearest</bold> following <computeroutput>UNTIL</computeroutput>. <linebreak/>
- <computeroutput>UNTIL</computeroutput> must appear on its <bold>own line</bold>. <linebreak/>
- You may <bold>nest</bold> <computeroutput>REPEAT…UNTIL</computeroutput> loops. </para>
-</blockquote></para>
-<sect2 id="REPEAT_1autotoc_md438">
-<title>&lt;/blockquote&gt;</title>
-<sect3 id="REPEAT_1autotoc_md439">
+<para><simplesect kind="note"><para><computeroutput>REPEAT</computeroutput> pairs with the <bold>nearest</bold> following <computeroutput>UNTIL</computeroutput>. </para>
+</simplesect>
+<simplesect kind="note"><para><computeroutput>UNTIL</computeroutput> must appear on its <bold>own line</bold>. </para>
+</simplesect>
+<simplesect kind="note"><para>You may <bold>nest</bold> <computeroutput>REPEAT…UNTIL</computeroutput> loops.</para>
+</simplesect>
+<hruler/>
+</para>
+<sect3 id="REPEAT_1autotoc_md453">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Think of it as <bold>“do these statements **until</bold> the condition becomes true”** (exit-on-true).</para>
@@ -28,7 +30,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="REPEAT_1autotoc_md441">
+<sect3 id="REPEAT_1autotoc_md455">
 <title>Examples</title>
 <para><bold>Count until a limit</bold> <programlisting filename=".basic"><codeline><highlight class="normal">N<sp/>=<sp/>0</highlight></codeline>
 <codeline><highlight class="normal">REPEAT</highlight></codeline>
@@ -61,7 +63,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="REPEAT_1autotoc_md443">
+<sect3 id="REPEAT_1autotoc_md457">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>The condition on <computeroutput>UNTIL</computeroutput> is a normal boolean <bold>expression</bold>; use comparisons like <computeroutput>=</computeroutput>, <computeroutput>&lt;&gt;</computeroutput>, <computeroutput>&lt;</computeroutput>, <computeroutput>&gt;</computeroutput>, <computeroutput>&lt;=</computeroutput>, <computeroutput>&gt;=</computeroutput>.</para>
@@ -70,9 +72,8 @@
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/WHILE"><computeroutput>WHILE</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ENDIF"><computeroutput>ENDIF</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/INPUT"><computeroutput>INPUT</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/LEN"><computeroutput>LEN</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/INKEY"><computeroutput>INKEY$</computeroutput></ulink> </para>
+ <ref refid="WHILE" kindref="compound">WHILE</ref> · <ref refid="ENDIF" kindref="compound">ENDIF</ref> · <ref refid="INPUT" kindref="compound">INPUT</ref> · <ref refid="LEN" kindref="compound">LEN</ref> · <ref refid="INKEY" kindref="compound">INKEY$</ref> </para>
 </sect3>
-</sect2>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/REPEAT.md"/>
   </compounddef>

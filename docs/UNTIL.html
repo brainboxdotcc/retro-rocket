@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -97,20 +98,17 @@ $(document).ready(function(){initNavTree('UNTIL.html',''); initResizable(); });
 <li>If <code>expression</code> is <b>true</b>, the loop <b>ends</b> and execution continues after <code>UNTIL</code>.</li>
 <li>If <code>expression</code> is <b>false</b>, control returns to the matching <code>REPEAT</code>.</li>
 </ul>
-<dl class="section remark"><dt>Remarks</dt><dd><code>UNTIL</code> must match the <b>nearest preceding</b> <code>REPEAT</code> and should appear on its <b>own line</b>. <blockquote class="doxtable">
-<p><code>REPEAT…UNTIL</code> blocks may be <b>nested</b> freely. </p>
-</blockquote>
-</dd></dl>
-<h2><a class="anchor" id="autotoc_md510"></a>
-&lt;/blockquote&gt;</h2>
-<h3><a class="anchor" id="autotoc_md511"></a>
+<dl class="section remark"><dt>Remarks</dt><dd><code>UNTIL</code> must match the <b>nearest preceding</b> <code>REPEAT</code> and should appear on its <b>own line</b>. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd><code>REPEAT…UNTIL</code> blocks may be <b>nested</b> freely.</dd></dl>
+<hr  />
+<h3><a class="anchor" id="autotoc_md525"></a>
 How to think about it</h3>
 <ul>
 <li>Read it as <b>“do these statements until the condition becomes true”</b> (exit-on-true).</li>
 <li>If you want an <b>entry-test</b> loop instead, use <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/WHILE"><code>WHILE … ENDWHILE</code></a>.</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md513"></a>
+<h3><a class="anchor" id="autotoc_md527"></a>
 Examples</h3>
 <p><b>Count until a limit</b> </p><div class="fragment"><div class="line">N = 0</div>
 <div class="line">REPEAT</div>
@@ -137,7 +135,7 @@ Examples</h3>
 <div class="line">    Y = Y + 1</div>
 <div class="line">UNTIL Y = 2</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md515"></a>
+<h3><a class="anchor" id="autotoc_md529"></a>
 Notes</h3>
 <ul>
 <li>The condition after <code>UNTIL</code> is an ordinary boolean <b>expression</b>; use comparisons like <code>=</code>, <code>&lt;&gt;</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>.</li>
@@ -145,7 +143,7 @@ Notes</h3>
 <li><code>REPEAT…UNTIL</code> works alongside other control structures (<code>FOR…NEXT</code>, <code>IF…ENDIF</code>, <code>WHILE…ENDWHILE</code>) and may be nested within them.</li>
 </ul>
 <p><b>See also:</b> <br  />
- <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/REPEAT"><code>REPEAT</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/WHILE"><code>WHILE</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/LEN"><code>LEN</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/INKEY"><code>INKEY$</code></a> </p>
+ <a class="el" href="REPEAT.html">REPEAT</a> · <a class="el" href="WHILE.html">WHILE</a> · <a class="el" href="LEN.html">LEN</a> · <a class="el" href="INKEY.html">INKEY$</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -153,7 +151,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

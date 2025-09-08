@@ -67,7 +67,7 @@
         <childnode refid="27" relation="include">
         </childnode>
       </node>
-      <node id="88">
+      <node id="86">
         <label>stdarg.h</label>
       </node>
       <node id="60">
@@ -109,7 +109,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="76">
+      <node id="74">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
@@ -126,7 +126,7 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="83">
+      <node id="81">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
@@ -154,7 +154,7 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="81">
+      <node id="79">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
@@ -176,7 +176,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="79">
+      <node id="77">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
@@ -195,7 +195,7 @@
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="84">
+      <node id="82">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
@@ -207,12 +207,6 @@
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="74">
-        <label>rtl8139.h</label>
-        <link refid="rtl8139_8h"/>
-        <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="52">
@@ -233,7 +227,7 @@
       <node id="5">
         <label>stddef.h</label>
       </node>
-      <node id="90">
+      <node id="88">
         <label>module.h</label>
         <link refid="module_8h"/>
         <childnode refid="2" relation="include">
@@ -284,12 +278,6 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="75">
-        <label>e1000.h</label>
-        <link refid="e1000_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
       <node id="70">
         <label>lapic_timer.h</label>
         <link refid="lapic__timer_8h"/>
@@ -311,7 +299,7 @@
         <label>input.h</label>
         <link refid="input_8h"/>
       </node>
-      <node id="85">
+      <node id="83">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
@@ -321,17 +309,17 @@
         <label>video.h</label>
         <link refid="video_8h"/>
       </node>
-      <node id="87">
+      <node id="85">
         <label>serial.h</label>
         <link refid="serial_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="88" relation="include">
+        <childnode refid="86" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="80">
+      <node id="78">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
@@ -358,12 +346,12 @@
         </childnode>
       </node>
       <node id="1">
-        <label>src/net/dhcp.c</label>
+        <label>dhcp.c</label>
         <link refid="dhcp_8c"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="77">
+      <node id="75">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
@@ -413,7 +401,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="78">
+      <node id="76">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
@@ -536,19 +524,15 @@
         </childnode>
         <childnode refid="83" relation="include">
         </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
         <childnode refid="84" relation="include">
         </childnode>
         <childnode refid="85" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="86" relation="include">
-        </childnode>
         <childnode refid="87" relation="include">
         </childnode>
-        <childnode refid="89" relation="include">
-        </childnode>
-        <childnode refid="90" relation="include">
+        <childnode refid="88" relation="include">
         </childnode>
       </node>
       <node id="45">
@@ -577,7 +561,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="89">
+      <node id="87">
         <label>debug_ringbuffer.h</label>
         <link refid="debug__ringbuffer_8h"/>
         <childnode refid="2" relation="include">
@@ -705,13 +689,13 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="82">
+      <node id="80">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="86">
+      <node id="84">
         <label>retrofs.h</label>
         <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
@@ -861,6 +845,58 @@
         </inbodydescription>
         <location file="src/net/dhcp.c" line="11" column="22" bodyfile="src/net/dhcp.c" bodystart="11" bodyend="-1"/>
       </memberdef>
+      <memberdef kind="variable" id="dhcp_8c_1af35b683b49f96e5686f99b329f768b99" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int is_ip_allocated</definition>
+        <argsstring></argsstring>
+        <name>is_ip_allocated</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/dhcp.c" line="12" column="12" bodyfile="src/net/ip.c" bodystart="22" bodyend="-1" declfile="src/net/dhcp.c" declline="12" declcolumn="12"/>
+      </memberdef>
+      <memberdef kind="variable" id="dhcp_8c_1a315f4a8f60d99f076d92272085333bd6" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int is_dns_allocated</definition>
+        <argsstring></argsstring>
+        <name>is_dns_allocated</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/dhcp.c" line="12" column="28" bodyfile="src/net/dhcp.c" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dhcp_8c_1a809f4cf1e0e24684c7a546765e0c2e7e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int is_gateway_allocated</definition>
+        <argsstring></argsstring>
+        <name>is_gateway_allocated</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/dhcp.c" line="12" column="45" bodyfile="src/net/dhcp.c" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dhcp_8c_1a54bb7af0aadd6e172ed644bdf2948dde" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int is_mask_allocated</definition>
+        <argsstring></argsstring>
+        <name>is_mask_allocated</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/dhcp.c" line="12" column="66" bodyfile="src/net/dhcp.c" bodystart="12" bodyend="-1"/>
+      </memberdef>
       </sectiondef>
       <sectiondef kind="func">
       <memberdef kind="function" id="dhcp_8c_1a3231225be7c3d28ad7406a7f2ace5cb9" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -877,7 +913,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/dhcp.c" line="171" column="13" bodyfile="src/net/dhcp.c" bodystart="171" bodyend="221" declfile="src/net/dhcp.c" declline="13" declcolumn="13"/>
+        <location file="src/net/dhcp.c" line="183" column="13" bodyfile="src/net/dhcp.c" bodystart="183" bodyend="233" declfile="src/net/dhcp.c" declline="14" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="dhcp_8c_1a9610e103fcf919992b00b9245870115f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -893,7 +929,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/dhcp.c" line="297" column="13" bodyfile="src/net/dhcp.c" bodystart="297" bodyend="317" declfile="src/net/dhcp.c" declline="14" declcolumn="13"/>
+        <location file="src/net/dhcp.c" line="309" column="13" bodyfile="src/net/dhcp.c" bodystart="309" bodyend="329" declfile="src/net/dhcp.c" declline="15" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="dhcp_8c_1a0999ae1e07a81d250c4fceb2133f0795" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -909,7 +945,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/dhcp.c" line="319" column="13" bodyfile="src/net/dhcp.c" bodystart="319" bodyend="338" declfile="src/net/dhcp.c" declline="15" declcolumn="13"/>
+        <location file="src/net/dhcp.c" line="331" column="13" bodyfile="src/net/dhcp.c" bodystart="331" bodyend="350" declfile="src/net/dhcp.c" declline="16" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="dhcp_8c_1aadf052d322c0ef0a7edfb9d16e2b0f61" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint16_t</type>
@@ -934,7 +970,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/dhcp.c" line="250" column="17" bodyfile="src/net/dhcp.c" bodystart="250" bodyend="295" declfile="src/net/dhcp.c" declline="16" declcolumn="17"/>
+        <location file="src/net/dhcp.c" line="262" column="17" bodyfile="src/net/dhcp.c" bodystart="262" bodyend="307" declfile="src/net/dhcp.c" declline="17" declcolumn="17"/>
       </memberdef>
       <memberdef kind="function" id="dhcp_8c_1a6afbc52b8591fee8edd58ff50d73bf29" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -971,7 +1007,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/dhcp.c" line="18" column="6" bodyfile="src/net/dhcp.c" bodystart="18" bodyend="169"/>
+        <location file="src/net/dhcp.c" line="19" column="6" bodyfile="src/net/dhcp.c" bodystart="19" bodyend="181"/>
       </memberdef>
       <memberdef kind="function" id="dhcp_8c_1a6028f8888ed57058a2980fc21c62f42d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -985,7 +1021,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/dhcp.c" line="223" column="6" bodyfile="src/net/dhcp.c" bodystart="223" bodyend="238"/>
+        <location file="src/net/dhcp.c" line="235" column="6" bodyfile="src/net/dhcp.c" bodystart="235" bodyend="250"/>
       </memberdef>
       <memberdef kind="function" id="dhcp_8c_1a109d6076d8a1bd76c747e255c695e811" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1037,7 +1073,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/dhcp.c" line="240" column="6" bodyfile="src/net/dhcp.c" bodystart="240" bodyend="248"/>
+        <location file="src/net/dhcp.c" line="252" column="6" bodyfile="src/net/dhcp.c" bodystart="252" bodyend="260"/>
       </memberdef>
       <memberdef kind="function" id="dhcp_8c_1a9668f2ab1536deb20757b3863bc72592" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void *</type>
@@ -1079,7 +1115,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/dhcp.c" line="340" column="6" bodyfile="src/net/dhcp.c" bodystart="340" bodyend="364"/>
+        <location file="src/net/dhcp.c" line="352" column="6" bodyfile="src/net/dhcp.c" bodystart="352" bodyend="376"/>
       </memberdef>
       <memberdef kind="function" id="dhcp_8c_1aecfb3a139afb70e5e481a6b79dd4e6cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint16_t</type>
@@ -1157,7 +1193,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/dhcp.c" line="366" column="10" bodyfile="src/net/dhcp.c" bodystart="366" bodyend="441"/>
+        <location file="src/net/dhcp.c" line="378" column="10" bodyfile="src/net/dhcp.c" bodystart="378" bodyend="457"/>
       </memberdef>
       <memberdef kind="function" id="dhcp_8c_1a7fc8181668d236468a21777c621b1529" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1173,7 +1209,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/dhcp.c" line="443" column="6" bodyfile="src/net/dhcp.c" bodystart="443" bodyend="452"/>
+        <location file="src/net/dhcp.c" line="459" column="6" bodyfile="src/net/dhcp.c" bodystart="459" bodyend="465"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

@@ -16,6 +16,7 @@ var e1000_8c =
     [ "e1000_up", "e1000_8c.html#a878457d0b9025ef5eebaecea519d3951", null ],
     [ "e1000_write_command", "e1000_8c.html#ade31b0c150303728146539eb1b1a6b42", null ],
     [ "init_e1000", "e1000_8c.html#aa480cf0389af41f842ef8389a1a086c8", null ],
+    [ "KMOD_ABI", "e1000_8c.html#a262a617981fa58caae30ce55fc3d5ce7", null ],
     [ "bar_type", "e1000_8c.html#a2f182bcaa1853b7adbae3c7128ec14cf", null ],
     [ "e1000_device_id", "e1000_8c.html#af92218b046ebf7e33ecea062a8de49a2", null ],
     [ "eerprom_exists", "e1000_8c.html#a2e910f42638e63c170d167966d674919", null ],
@@ -23,8 +24,8 @@ var e1000_8c =
     [ "mac", "e1000_8c.html#a2f32c75fb4bc7ba39243ef4a9f8eacc1", null ],
     [ "mem_base", "e1000_8c.html#aeae852f44f2b617e15b028ad84cd8355", null ],
     [ "rx_cur", "e1000_8c.html#a7bf0989aed8e8f1f19e8e7824fc2f82a", null ],
-    [ "rx_descs", "e1000_8c.html#a6a51b070bb6f9d5a23aa08dcc4b048bb", null ],
-    [ "tx_buffers", "e1000_8c.html#a9bbd30a87207f97b436c013fea89861f", null ],
+    [ "rx_descs", "e1000_8c.html#a69b4300407ca122d5e2654c33e3fdac2", null ],
+    [ "tx_buffers", "e1000_8c.html#a07d3c485c8aa6a709f3061b62db86df5", null ],
     [ "tx_cur", "e1000_8c.html#a61617fb0f522d388c71a85d3af2677e2", null ],
-    [ "tx_descs", "e1000_8c.html#a9cc1c82bb31a19140828444b880c784d", null ]
+    [ "tx_descs", "e1000_8c.html#aba5cedf3aa7345b31a2e6de94bf40671", null ]
 ];

@@ -6,7 +6,7 @@ X = PEEKQ(address)
 Reads a **64-bit quad-word** from `address` and returns it as an integer.
 
 
-> The full 8-byte span must be valid; otherwise `Bad Address at <address>` is raised.
+@note The full 8-byte span must be valid; otherwise `Bad Address at <address>` is raised.
 
 ---
 
@@ -30,4 +30,4 @@ PRINT Q
 - Use for 64-bit fields or counters; don’t assume atomicity for unaligned addresses.
 
 **See also:**  
-[PEEK](https://github.com/brainboxdotcc/retro-rocket/wiki/PEEK) · [PEEKD](https://github.com/brainboxdotcc/retro-rocket/wiki/PEEKD) · [POKEQ](https://github.com/brainboxdotcc/retro-rocket/wiki/POKEQ)
+\ref PEEK "PEEK" · \ref PEEKD "PEEKD" · \ref POKEQ "POKEQ"

@@ -3,8 +3,8 @@
   <compounddef id="tinyalloc_8h" kind="file" language="C++">
     <compoundname>tinyalloc.h</compoundname>
     <includes refid="kernel_8h" local="no">kernel.h</includes>
-    <includedby refid="kmalloc_8c" local="no">src/kmalloc.c</includedby>
-    <includedby refid="tinyalloc_8c" local="yes">src/tinyalloc.c</includedby>
+    <includedby refid="kmalloc_8c" local="no">kmalloc.c</includedby>
+    <includedby refid="tinyalloc_8c" local="yes">tinyalloc.c</includedby>
     <incdepgraph>
       <node id="57">
         <label>ata.h</label>
@@ -69,7 +69,7 @@
         <childnode refid="27" relation="include">
         </childnode>
       </node>
-      <node id="88">
+      <node id="86">
         <label>stdarg.h</label>
       </node>
       <node id="60">
@@ -111,7 +111,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="76">
+      <node id="74">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
@@ -128,7 +128,7 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="83">
+      <node id="81">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
@@ -156,7 +156,7 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="81">
+      <node id="79">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
@@ -178,7 +178,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="79">
+      <node id="77">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
@@ -197,7 +197,7 @@
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="84">
+      <node id="82">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
@@ -209,12 +209,6 @@
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="74">
-        <label>rtl8139.h</label>
-        <link refid="rtl8139_8h"/>
-        <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="52">
@@ -235,7 +229,7 @@
       <node id="5">
         <label>stddef.h</label>
       </node>
-      <node id="90">
+      <node id="88">
         <label>module.h</label>
         <link refid="module_8h"/>
         <childnode refid="2" relation="include">
@@ -286,12 +280,6 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="75">
-        <label>e1000.h</label>
-        <link refid="e1000_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
       <node id="70">
         <label>lapic_timer.h</label>
         <link refid="lapic__timer_8h"/>
@@ -313,7 +301,7 @@
         <label>input.h</label>
         <link refid="input_8h"/>
       </node>
-      <node id="85">
+      <node id="83">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
@@ -323,17 +311,17 @@
         <label>video.h</label>
         <link refid="video_8h"/>
       </node>
-      <node id="87">
+      <node id="85">
         <label>serial.h</label>
         <link refid="serial_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="88" relation="include">
+        <childnode refid="86" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="80">
+      <node id="78">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
@@ -359,7 +347,7 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="77">
+      <node id="75">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
@@ -402,7 +390,7 @@
         <link refid="errorhandler_8h"/>
       </node>
       <node id="1">
-        <label>include/tinyalloc.h</label>
+        <label>tinyalloc.h</label>
         <link refid="tinyalloc_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
@@ -415,7 +403,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="78">
+      <node id="76">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
@@ -538,19 +526,15 @@
         </childnode>
         <childnode refid="83" relation="include">
         </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
         <childnode refid="84" relation="include">
         </childnode>
         <childnode refid="85" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="86" relation="include">
-        </childnode>
         <childnode refid="87" relation="include">
         </childnode>
-        <childnode refid="89" relation="include">
-        </childnode>
-        <childnode refid="90" relation="include">
+        <childnode refid="88" relation="include">
         </childnode>
       </node>
       <node id="45">
@@ -579,7 +563,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="89">
+      <node id="87">
         <label>debug_ringbuffer.h</label>
         <link refid="debug__ringbuffer_8h"/>
         <childnode refid="2" relation="include">
@@ -707,13 +691,13 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="82">
+      <node id="80">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="86">
+      <node id="84">
         <label>retrofs.h</label>
         <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
@@ -738,15 +722,15 @@
     </incdepgraph>
     <invincdepgraph>
       <node id="2">
-        <label>src/kmalloc.c</label>
+        <label>kmalloc.c</label>
         <link refid="kmalloc_8c"/>
       </node>
       <node id="3">
-        <label>src/tinyalloc.c</label>
+        <label>tinyalloc.c</label>
         <link refid="tinyalloc_8c"/>
       </node>
       <node id="1">
-        <label>include/tinyalloc.h</label>
+        <label>tinyalloc.h</label>
         <link refid="tinyalloc_8h"/>
         <childnode refid="2" relation="include">
         </childnode>

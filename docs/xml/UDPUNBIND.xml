@@ -14,11 +14,11 @@
 </listitem><listitem><para><computeroutput>port</computeroutput> must be in the range <computeroutput>0</computeroutput> to <computeroutput>65535</computeroutput>.</para>
 </listitem></itemizedlist>
 </para>
-<para><blockquote><para>If <computeroutput>port</computeroutput> is outside the valid range, an error is raised: <computeroutput>Invalid UDP port number</computeroutput>. </para>
-</blockquote></para>
-<sect2 id="UDPUNBIND_1autotoc_md498">
-<title>&lt;/blockquote&gt;</title>
-<sect3 id="UDPUNBIND_1autotoc_md499">
+<para><simplesect kind="note"><para>If <computeroutput>port</computeroutput> is outside the valid range, an error is raised: <computeroutput>Invalid UDP port number</computeroutput>.</para>
+</simplesect>
+<hruler/>
+</para>
+<sect3 id="UDPUNBIND_1autotoc_md513">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Use <computeroutput>UDPUNBIND</computeroutput> to stop delivery when you no longer want to read from the port.</para>
@@ -27,23 +27,22 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="UDPUNBIND_1autotoc_md501">
+<sect3 id="UDPUNBIND_1autotoc_md515">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">UDPUNBIND<sp/>&quot;0.0.0.0&quot;,<sp/>8080</highlight></codeline>
 </programlisting></para>
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="UDPUNBIND_1autotoc_md503">
+<sect3 id="UDPUNBIND_1autotoc_md517">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Unbinding while packets are still queued discards them from further reads.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/UDPBIND">UDPBIND</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/UDPREAD%24">UDPREAD$</ulink> </para>
+ <ref refid="UDPBIND" kindref="compound">UDPBIND</ref> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/UDPREAD%24">UDPREAD$</ulink> </para>
 </sect3>
-</sect2>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/UDPUNBIND.md"/>
   </compounddef>

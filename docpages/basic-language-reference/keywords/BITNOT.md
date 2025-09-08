@@ -25,4 +25,4 @@ PRINT BITNOT(&FF)
 - Output may appear as a large negative number, due to two’s-complement representation.
 
 **See also:**  
-[BITEOR](https://github.com/brainboxdotcc/retro-rocket/wiki/BITEOR) · [BITNOR](https://github.com/brainboxdotcc/retro-rocket/wiki/BITNOR) · [BITXNOR](https://github.com/brainboxdotcc/retro-rocket/wiki/BITXNOR)
+\ref BITEOR "BITEOR" · \ref BITNOR "BITNOR" · \ref BITXNOR "BITXNOR"

@@ -19,20 +19,24 @@
 </simplesect>
 <simplesect kind="remark"><para>- <computeroutput><ref refid="structiso9660" kindref="compound">iso9660</ref></computeroutput> </para>
 </simplesect>
-<simplesect kind="remark"><para>- <computeroutput>fat32</computeroutput> <blockquote><para>- <computeroutput>devfs</computeroutput><itemizedlist>
-<listitem><para><computeroutput>DummyFS</computeroutput></para>
-</listitem><listitem><para><computeroutput>rfs</computeroutput> </para>
-</listitem></itemizedlist>
-</para>
-</blockquote></para>
+<simplesect kind="remark"><para>- <computeroutput>fat32</computeroutput> </para>
 </simplesect>
-<blockquote><para>Paths are <bold>case-insensitive</bold>. <computeroutput>.</computeroutput> and <computeroutput>..</computeroutput> are <bold>not supported</bold> in paths. </para>
-</blockquote></para>
-<para><blockquote><para>After mounting, files and directories at the mount point are accessible to normal file I/O (<computeroutput>OPENIN</computeroutput>, <computeroutput>OPENOUT</computeroutput>, <computeroutput>OPENUP</computeroutput>, <computeroutput>DELETE</computeroutput>, <computeroutput>MKDIR</computeroutput>, <computeroutput>RMDIR</computeroutput>, etc.). Use <computeroutput>CHDIR</computeroutput> to switch into the mounted path. </para>
-</blockquote>If the mount fails (for example, unsupported <computeroutput>fstype</computeroutput> or unavailable device), a runtime error is raised (catchable with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink>).</para>
+<simplesect kind="note"><para>- <computeroutput>devfs</computeroutput> </para>
+</simplesect>
+<simplesect kind="note"><para>- <computeroutput>DummyFS</computeroutput> </para>
+</simplesect>
+<simplesect kind="note"><para>- <computeroutput>rfs</computeroutput></para>
+</simplesect>
+<simplesect kind="note"><para>Paths are <bold>case-insensitive</bold>. <computeroutput>.</computeroutput> and <computeroutput>..</computeroutput> are <bold>not supported</bold> in paths.</para>
+</simplesect>
+<simplesect kind="note"><para>After mounting, files and directories at the mount point are accessible to normal file I/O </para>
+</simplesect>
+<simplesect kind="note"><para>(<computeroutput>OPENIN</computeroutput>, <computeroutput>OPENOUT</computeroutput>, <computeroutput>OPENUP</computeroutput>, <computeroutput>DELETE</computeroutput>, <computeroutput>MKDIR</computeroutput>, <computeroutput>RMDIR</computeroutput>, etc.). Use <computeroutput>CHDIR</computeroutput> to switch into the mounted path.</para>
+</simplesect>
+If the mount fails (for example, unsupported <computeroutput>fstype</computeroutput> or unavailable device), a runtime error is raised (catchable with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink>).</para>
 <para><hruler/>
 </para>
-<sect3 id="MOUNT_1autotoc_md323">
+<sect3 id="MOUNT_1autotoc_md337">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">MOUNT<sp/>&quot;/devices&quot;,<sp/>&quot;&quot;,<sp/>&quot;devfs&quot;</highlight></codeline>
 <codeline><highlight class="normal">MOUNT<sp/>&quot;/harddisk&quot;,<sp/>&quot;hd0&quot;,<sp/>&quot;fat32&quot;</highlight></codeline>
@@ -40,7 +44,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CHDIR"><computeroutput>CHDIR</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/MKDIR"><computeroutput>MKDIR</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DELETE"><computeroutput>DELETE</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/RMDIR"><computeroutput>RMDIR</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENIN"><computeroutput>OPENIN</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENOUT"><computeroutput>OPENOUT</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENUP"><computeroutput>OPENUP</computeroutput></ulink> </para>
+ <ref refid="CHDIR" kindref="compound">CHDIR</ref> · <ref refid="MKDIR" kindref="compound">MKDIR</ref> · <ref refid="DELETE" kindref="compound">DELETE</ref> · <ref refid="RMDIR" kindref="compound">RMDIR</ref> · <ref refid="OPENIN" kindref="compound">OPENIN</ref> · <ref refid="OPENOUT" kindref="compound">OPENOUT</ref> · <ref refid="OPENUP" kindref="compound">OPENUP</ref> </para>
 </sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/MOUNT.md"/>

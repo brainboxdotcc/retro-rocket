@@ -81,8 +81,8 @@ Use inside a GOSUB subroutine (line numbers permitted)
 ---
 
 **See also:**  
-[`DEF`](https://github.com/brainboxdotcc/retro-rocket/wiki/DEF) ·
-[`PROC`](https://github.com/brainboxdotcc/retro-rocket/wiki/PROC) ·
-[`ENDPROC`](https://github.com/brainboxdotcc/retro-rocket/wiki/ENDPROC) ·
-[`FN`](https://github.com/brainboxdotcc/retro-rocket/wiki/FN) ·
-[`GOSUB`](https://github.com/brainboxdotcc/retro-rocket/wiki/GOSUB)
+\ref DEF "DEF" ·
+\ref PROC "PROC" ·
+\ref ENDPROC "ENDPROC" ·
+\ref FN "FN" ·
+\ref GOSUB "GOSUB"

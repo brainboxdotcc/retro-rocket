@@ -19,13 +19,16 @@
 </listitem><listitem><para><computeroutput>.</computeroutput> and <computeroutput>..</computeroutput> are <bold>not supported</bold> in paths.</para>
 </listitem></itemizedlist>
 </para>
-<para><blockquote><para>Only the keymaps that actually exist under <computeroutput>/system/keymaps</computeroutput> can be loaded. <linebreak/>
- Do not assume a particular layout is available. </para>
-</blockquote></para>
-<para><blockquote><para>If a keymap cannot be found or loaded, a runtime error is raised (catchable with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink>). </para>
-</blockquote></para>
-<sect2 id="KEYMAP_1autotoc_md298">
-<title>&lt;/blockquote&gt;</title>
+<para><simplesect kind="note"><para>Only the keymaps that actually exist under <computeroutput>/system/keymaps</computeroutput> can be loaded. </para>
+</simplesect>
+<simplesect kind="note"><para>Do not assume a particular layout is available.</para>
+</simplesect>
+<simplesect kind="note"><para>If a keymap cannot be found or loaded, a runtime error is raised (catchable with </para>
+</simplesect>
+<simplesect kind="note"><para><ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink>).</para>
+</simplesect>
+<hruler/>
+</para>
 <para><heading level="5">Example</heading>
 </para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Load<sp/>British<sp/>English<sp/>keyboard<sp/>layout<sp/>(if<sp/>installed)</highlight></codeline>
@@ -41,7 +44,6 @@
 </listitem><listitem><para>To see which keymaps are present, inspect the <computeroutput>/system/keymaps</computeroutput> directory with your usual tools. </para>
 </listitem></itemizedlist>
 </para>
-</sect2>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/KEYMAP.md"/>
   </compounddef>

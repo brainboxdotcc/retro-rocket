@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -92,7 +93,7 @@ $(document).ready(function(){initNavTree('ERROR.html',''); initResizable(); });
 </div><!-- fragment --><p>Raises a <b>runtime error</b>.</p>
 <ul>
 <li>Sets the built-in variables <b>ERR$</b> (to the message) and <b>ERR</b> (to <code>1</code>) <b>when</b>:<ul>
-<li>the error is raised <b>inside</b> an <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/EVAL"><code>EVAL</code></a>, <b>or</b></li>
+<li>the error is raised <b>inside</b> an <a class="el" href="EVAL.html">EVAL</a>, <b>or</b></li>
 <li>an error handler has been installed with <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><code>ON ERROR</code></a>.</li>
 </ul>
 </li>
@@ -102,7 +103,7 @@ $(document).ready(function(){initNavTree('ERROR.html',''); initResizable(); });
 <dd>
 <a class="el" href="variables.html">Variable Types</a> page.</dd></dl>
 <hr  />
-<h3><a class="anchor" id="autotoc_md256"></a>
+<h3><a class="anchor" id="autotoc_md270"></a>
 Examples</h3>
 <p><b>Uncaught error (program terminates)</b></p>
 <div class="fragment"><div class="line">PRINT &quot;About to fail...&quot;</div>
@@ -123,7 +124,7 @@ Examples</h3>
 <div class="line">ENDPROC</div>
 </div><!-- fragment --><p>In this example, the handler runs, <code>ERR$</code> contains the message, and <code>ERR</code> is <code>1</code>.</p>
 <hr  />
-<h3><a class="anchor" id="autotoc_md258"></a>
+<h3><a class="anchor" id="autotoc_md272"></a>
 Notes</h3>
 <ul>
 <li><code>ERROR</code> accepts a <b>string expression</b>; use it to describe the failure clearly.</li>
@@ -131,7 +132,7 @@ Notes</h3>
 <li>When raised inside <code>EVAL</code>, <code>ERR</code> and <code>ERR$</code> are set; see the <code>EVAL</code> page for how control returns to the caller.</li>
 </ul>
 <p><b>See also:</b> <br  />
- <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><code>ON ERROR</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/EVAL"><code>EVAL</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/Builtin-Variables">Builtin Variables</a> </p>
+ <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><code>ON ERROR</code></a> · <a class="el" href="EVAL.html">EVAL</a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/Builtin-Variables">Builtin Variables</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -139,7 +140,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Retro Rocket OS: src/interrupt.c File Reference</title>
+<title>Retro Rocket OS: interrupt.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -92,9 +93,7 @@ $(document).ready(function(){initNavTree('interrupt_8c.html',''); initResizable(
 <div class="title">interrupt.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="kernel_8h.html">kernel.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="interrupt_8h.html">interrupt.h</a>&gt;</code><br />
-</div><table class="memberdecls">
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a13e5bcde00f3dd39f1a0b1d9ce617e97"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interrupt_8c.html#a13e5bcde00f3dd39f1a0b1d9ce617e97">IRQ_VECTOR_BASE</a>&#160;&#160;&#160;0x20</td></tr>
@@ -123,7 +122,7 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ad36db52f446a5f5f0dea64c853619269"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshared__interrupt__t.html">shared_interrupt_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interrupt_8c.html#ad36db52f446a5f5f0dea64c853619269">shared_interrupt</a> [256] = { 0 }</td></tr>
+<tr class="memitem:ad36db52f446a5f5f0dea64c853619269"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structshared__interrupt__t.html">shared_interrupt_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interrupt_8c.html#ad36db52f446a5f5f0dea64c853619269">shared_interrupt</a> [256]</td></tr>
 <tr class="memdesc:ad36db52f446a5f5f0dea64c853619269"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array of linked lists of interrupt handlers by ISR number. Each ISR may have zero or more handlers attached. a NULL here means an empty list, and no handlers.  <a href="interrupt_8c.html#ad36db52f446a5f5f0dea64c853619269">More...</a><br /></td></tr>
 <tr class="separator:ad36db52f446a5f5f0dea64c853619269"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7936317cf7d34e6c7d98b0cdd5d90ac8"><td class="memItemLeft" align="right" valign="top">const char *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interrupt_8c.html#a7936317cf7d34e6c7d98b0cdd5d90ac8">error_table</a> []</td></tr>
@@ -386,11 +385,19 @@ Variables</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structshared__interrupt__t.html">shared_interrupt_t</a>* shared_interrupt[256] = { 0 }</td>
+          <td class="memname"><a class="el" href="structshared__interrupt__t.html">shared_interrupt_t</a>* shared_interrupt[256]</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Array of linked lists of interrupt handlers by ISR number. Each ISR may have zero or more handlers attached. a NULL here means an empty list, and no handlers. </p>
@@ -403,7 +410,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="interrupt_8c.html">interrupt.c</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:29 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -11,7 +11,7 @@
 <para>Computes the <bold>bitwise NAND</bold> of two integers.</para>
 <para><hruler/>
 </para>
-<sect3 id="BITNAND_1autotoc_md140">
+<sect3 id="BITNAND_1autotoc_md154">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Equivalent to <computeroutput>NOT (a AND b)</computeroutput>.</para>
@@ -20,21 +20,21 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="BITNAND_1autotoc_md142">
+<sect3 id="BITNAND_1autotoc_md156">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>BITNAND(&amp;6,<sp/>&amp;3)</highlight></codeline>
 </programlisting></para>
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="BITNAND_1autotoc_md144">
+<sect3 id="BITNAND_1autotoc_md158">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Operates on 64-bit integers.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BITAND">BITAND</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BITNOR">BITNOR</ulink> </para>
+ <ref refid="BITAND" kindref="compound">BITAND</ref> · <ref refid="BITNOR" kindref="compound">BITNOR</ref> </para>
 </sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/BITNAND.md"/>

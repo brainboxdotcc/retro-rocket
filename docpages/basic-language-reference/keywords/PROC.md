@@ -60,7 +60,7 @@ PROCsumDemo(5)
 ---
 
 **See also:**  
-[`DEF`](https://github.com/brainboxdotcc/retro-rocket/wiki/DEF) ·
-[`ENDPROC`](https://github.com/brainboxdotcc/retro-rocket/wiki/ENDPROC) ·
-[`FN`](https://github.com/brainboxdotcc/retro-rocket/wiki/FN) ·
-[`LOCAL`](https://github.com/brainboxdotcc/retro-rocket/wiki/LOCAL)
+\ref DEF "DEF" ·
+\ref ENDPROC "ENDPROC" ·
+\ref FN "FN" ·
+\ref LOCAL "LOCAL"

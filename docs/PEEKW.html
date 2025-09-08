@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -90,31 +91,28 @@ $(document).ready(function(){initNavTree('PEEKW.html',''); initResizable(); });
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">X = PEEKW(address)</div>
 </div><!-- fragment --><p>Reads a <b>16-bit word</b> from <code>address</code> and returns it as an integer (0–65535).</p>
-<blockquote class="doxtable">
-<p>The full 2-byte span must be valid and mapped, or <code>Bad Address at &lt;address&gt;</code> is raised. </p>
-</blockquote>
-<h2><a class="anchor" id="autotoc_md98"></a>
-&lt;/blockquote&gt;</h2>
-<h3><a class="anchor" id="autotoc_md99"></a>
+<dl class="section note"><dt>Note</dt><dd>The full 2-byte span must be valid and mapped, or <code>Bad Address at &lt;address&gt;</code> is raised.</dd></dl>
+<hr  />
+<h3><a class="anchor" id="autotoc_md113"></a>
 How to read it</h3>
 <ul>
 <li>Loads 2 bytes, <b>little-endian</b> (<code>low</code> at <code>address</code>, <code>high</code> at <code>address+1</code>).</li>
 <li>Unaligned reads are allowed.</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md101"></a>
+<h3><a class="anchor" id="autotoc_md115"></a>
 Examples</h3>
 <div class="fragment"><div class="line">REM Read a 16-bit word</div>
 <div class="line">W = PEEKW(&amp;100020)</div>
 <div class="line">PRINT W</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md103"></a>
+<h3><a class="anchor" id="autotoc_md117"></a>
 Notes</h3>
 <ul>
 <li>Match the width to the device register size for MMIO.</li>
 </ul>
 <p><b>See also:</b> <br  />
- <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/PEEK">PEEK</a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/PEEKD">PEEKD</a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/PEEKQ">PEEKQ</a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/POKEW">POKEW</a> </p>
+ <a class="el" href="PEEK.html">PEEK</a> · <a class="el" href="PEEKD.html">PEEKD</a> · <a class="el" href="PEEKQ.html">PEEKQ</a> · <a class="el" href="POKEW.html">POKEW</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -122,7 +120,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

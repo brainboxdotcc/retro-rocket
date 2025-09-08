@@ -69,7 +69,7 @@
         <childnode refid="27" relation="include">
         </childnode>
       </node>
-      <node id="88">
+      <node id="86">
         <label>stdarg.h</label>
       </node>
       <node id="60">
@@ -82,13 +82,13 @@
         <label>stdatomic.h</label>
       </node>
       <node id="1">
-        <label>src/fs/filesystem.c</label>
+        <label>filesystem.c</label>
         <link refid="filesystem_8c"/>
         <childnode refid="2" relation="include">
         </childnode>
         <childnode refid="58" relation="include">
         </childnode>
-        <childnode refid="91" relation="include">
+        <childnode refid="89" relation="include">
         </childnode>
       </node>
       <node id="29">
@@ -121,7 +121,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="76">
+      <node id="74">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
@@ -138,7 +138,7 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="83">
+      <node id="81">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
@@ -166,7 +166,7 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="81">
+      <node id="79">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
@@ -188,7 +188,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="79">
+      <node id="77">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
@@ -200,7 +200,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="91">
+      <node id="89">
         <label>block_cache.h</label>
         <link refid="block__cache_8h"/>
         <childnode refid="2" relation="include">
@@ -213,7 +213,7 @@
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="84">
+      <node id="82">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
@@ -225,12 +225,6 @@
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="74">
-        <label>rtl8139.h</label>
-        <link refid="rtl8139_8h"/>
-        <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="52">
@@ -251,7 +245,7 @@
       <node id="5">
         <label>stddef.h</label>
       </node>
-      <node id="90">
+      <node id="88">
         <label>module.h</label>
         <link refid="module_8h"/>
         <childnode refid="2" relation="include">
@@ -302,12 +296,6 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="75">
-        <label>e1000.h</label>
-        <link refid="e1000_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
       <node id="70">
         <label>lapic_timer.h</label>
         <link refid="lapic__timer_8h"/>
@@ -329,7 +317,7 @@
         <label>input.h</label>
         <link refid="input_8h"/>
       </node>
-      <node id="85">
+      <node id="83">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
@@ -339,17 +327,17 @@
         <label>video.h</label>
         <link refid="video_8h"/>
       </node>
-      <node id="87">
+      <node id="85">
         <label>serial.h</label>
         <link refid="serial_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="88" relation="include">
+        <childnode refid="86" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="80">
+      <node id="78">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
@@ -375,7 +363,7 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="77">
+      <node id="75">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
@@ -425,7 +413,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="78">
+      <node id="76">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
@@ -548,19 +536,15 @@
         </childnode>
         <childnode refid="83" relation="include">
         </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
         <childnode refid="84" relation="include">
         </childnode>
         <childnode refid="85" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="86" relation="include">
-        </childnode>
         <childnode refid="87" relation="include">
         </childnode>
-        <childnode refid="89" relation="include">
-        </childnode>
-        <childnode refid="90" relation="include">
+        <childnode refid="88" relation="include">
         </childnode>
       </node>
       <node id="45">
@@ -589,7 +573,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="89">
+      <node id="87">
         <label>debug_ringbuffer.h</label>
         <link refid="debug__ringbuffer_8h"/>
         <childnode refid="2" relation="include">
@@ -717,13 +701,13 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="82">
+      <node id="80">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="86">
+      <node id="84">
         <label>retrofs.h</label>
         <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
@@ -917,7 +901,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="1126" column="9" bodyfile="src/fs/filesystem.c" bodystart="1126" bodyend="1138" declfile="src/fs/filesystem.c" declline="13" declcolumn="9"/>
+        <location file="src/fs/filesystem.c" line="1096" column="9" bodyfile="src/fs/filesystem.c" bodystart="1096" bodyend="1108" declfile="src/fs/filesystem.c" declline="13" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1a299b9b008541d290a23f6d83afe7dbc0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structfs__tree__t" kindref="compound">fs_tree_t</ref> *</type>
@@ -938,7 +922,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="1140" column="11" bodyfile="src/fs/filesystem.c" bodystart="1140" bodyend="1185" declfile="src/fs/filesystem.c" declline="14" declcolumn="11"/>
+        <location file="src/fs/filesystem.c" line="1110" column="11" bodyfile="src/fs/filesystem.c" bodystart="1110" bodyend="1155" declfile="src/fs/filesystem.c" declline="14" declcolumn="11"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1a403ef73bda9c217900e6026f1d4886f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
@@ -959,7 +943,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="1187" column="22" bodyfile="src/fs/filesystem.c" bodystart="1187" bodyend="1201" declfile="src/fs/filesystem.c" declline="15" declcolumn="22"/>
+        <location file="src/fs/filesystem.c" line="1157" column="22" bodyfile="src/fs/filesystem.c" bodystart="1157" bodyend="1171" declfile="src/fs/filesystem.c" declline="15" declcolumn="22"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1ae3ccc4869f4ceefdc2407734d4a2530c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -988,7 +972,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="1231" column="5" bodyfile="src/fs/filesystem.c" bodystart="1231" bodyend="1239" declfile="src/fs/filesystem.c" declline="16" declcolumn="5"/>
+        <location file="src/fs/filesystem.c" line="1201" column="5" bodyfile="src/fs/filesystem.c" bodystart="1201" bodyend="1209" declfile="src/fs/filesystem.c" declline="16" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1ad72cb9902201a66f4f86ffd810bddfbb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1670,7 +1654,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="482" column="10" bodyfile="src/fs/filesystem.c" bodystart="482" bodyend="510"/>
+        <location file="src/fs/filesystem.c" line="482" column="10" bodyfile="src/fs/filesystem.c" bodystart="482" bodyend="509"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1af29b0affdc800f4d78ab5e9c60a1726a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
@@ -1712,7 +1696,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="512" column="22" bodyfile="src/fs/filesystem.c" bodystart="512" bodyend="607"/>
+        <location file="src/fs/filesystem.c" line="511" column="22" bodyfile="src/fs/filesystem.c" bodystart="511" bodyend="601"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1ade4787d5728ce138b4f86eae5efe000b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
@@ -1750,7 +1734,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="609" column="22" bodyfile="src/fs/filesystem.c" bodystart="609" bodyend="718"/>
+        <location file="src/fs/filesystem.c" line="603" column="22" bodyfile="src/fs/filesystem.c" bodystart="603" bodyend="705"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1a03545f9ce83d1f2fa1677d90b0f0dd4b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1772,7 +1756,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="720" column="5" bodyfile="src/fs/filesystem.c" bodystart="720" bodyend="723"/>
+        <location file="src/fs/filesystem.c" line="707" column="5" bodyfile="src/fs/filesystem.c" bodystart="707" bodyend="710"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1ab58b880337bae46decb3c6dd1ad1b285" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1815,7 +1799,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="727" column="5" bodyfile="src/fs/filesystem.c" bodystart="727" bodyend="795"/>
+        <location file="src/fs/filesystem.c" line="714" column="5" bodyfile="src/fs/filesystem.c" bodystart="714" bodyend="771"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1ac2803da508b40c2b16f69738038cec36" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1833,7 +1817,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="798" column="6" bodyfile="src/fs/filesystem.c" bodystart="798" bodyend="801"/>
+        <location file="src/fs/filesystem.c" line="774" column="6" bodyfile="src/fs/filesystem.c" bodystart="774" bodyend="777"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1a9b1e0ee137e6d0bd155c9cb62520b55b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1864,7 +1848,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="804" column="5" bodyfile="src/fs/filesystem.c" bodystart="804" bodyend="819"/>
+        <location file="src/fs/filesystem.c" line="780" column="5" bodyfile="src/fs/filesystem.c" bodystart="780" bodyend="794"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1adf120c47e575996fed5a8ebeff6d38c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>long</type>
@@ -1920,7 +1904,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="821" column="6" bodyfile="src/fs/filesystem.c" bodystart="821" bodyend="844"/>
+        <location file="src/fs/filesystem.c" line="796" column="6" bodyfile="src/fs/filesystem.c" bodystart="796" bodyend="819"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1a38ca3552bb9bdb4c6069381307431fc0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -1950,7 +1934,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="846" column="9" bodyfile="src/fs/filesystem.c" bodystart="846" bodyend="852"/>
+        <location file="src/fs/filesystem.c" line="821" column="9" bodyfile="src/fs/filesystem.c" bodystart="821" bodyend="827"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1a0fd47ee5cad0fcaf36712977a860833f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -2004,7 +1988,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="855" column="5" bodyfile="src/fs/filesystem.c" bodystart="855" bodyend="924"/>
+        <location file="src/fs/filesystem.c" line="830" column="5" bodyfile="src/fs/filesystem.c" bodystart="830" bodyend="899"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1ab7aad6d7661082e4aa5ec28badba8ca5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -2048,7 +2032,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="926" column="5" bodyfile="src/fs/filesystem.c" bodystart="926" bodyend="957"/>
+        <location file="src/fs/filesystem.c" line="901" column="5" bodyfile="src/fs/filesystem.c" bodystart="901" bodyend="931"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1af53712a23d902e214c27f686f016e8c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -2102,7 +2086,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="961" column="5" bodyfile="src/fs/filesystem.c" bodystart="961" bodyend="990"/>
+        <location file="src/fs/filesystem.c" line="935" column="5" bodyfile="src/fs/filesystem.c" bodystart="935" bodyend="960"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1af06efedfd44e65f4272f81cfce654e0b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -2133,7 +2117,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="992" column="5" bodyfile="src/fs/filesystem.c" bodystart="992" bodyend="998"/>
+        <location file="src/fs/filesystem.c" line="962" column="5" bodyfile="src/fs/filesystem.c" bodystart="962" bodyend="968"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1a3bb89d5e7c726cafdd19f1901f9d024b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2150,7 +2134,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="1000" column="6" bodyfile="src/fs/filesystem.c" bodystart="1000" bodyend="1064"/>
+        <location file="src/fs/filesystem.c" line="970" column="6" bodyfile="src/fs/filesystem.c" bodystart="970" bodyend="1034"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1a9c8fcbf2fc3f66aca573f60b664816fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structfs__tree__t" kindref="compound">fs_tree_t</ref> *</type>
@@ -2171,7 +2155,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="1072" column="11" bodyfile="src/fs/filesystem.c" bodystart="1072" bodyend="1124"/>
+        <location file="src/fs/filesystem.c" line="1042" column="11" bodyfile="src/fs/filesystem.c" bodystart="1042" bodyend="1094"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1aa371639c2a027bca70b78613a138f971" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
@@ -2192,7 +2176,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="1203" column="22" bodyfile="src/fs/filesystem.c" bodystart="1203" bodyend="1217"/>
+        <location file="src/fs/filesystem.c" line="1173" column="22" bodyfile="src/fs/filesystem.c" bodystart="1173" bodyend="1187"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1ab6174ea1e5338a32b45778cb26b7ebc4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -2258,7 +2242,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="1221" column="5" bodyfile="src/fs/filesystem.c" bodystart="1221" bodyend="1229"/>
+        <location file="src/fs/filesystem.c" line="1191" column="5" bodyfile="src/fs/filesystem.c" bodystart="1191" bodyend="1199"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1a3692a5983409c6e8f74cbe0c5c3435f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -2302,7 +2286,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="1241" column="5" bodyfile="src/fs/filesystem.c" bodystart="1241" bodyend="1249"/>
+        <location file="src/fs/filesystem.c" line="1211" column="5" bodyfile="src/fs/filesystem.c" bodystart="1211" bodyend="1219"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1ab090be1194249e12ae9744c33e356470" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2323,7 +2307,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="1251" column="6" bodyfile="src/fs/filesystem.c" bodystart="1251" bodyend="1277"/>
+        <location file="src/fs/filesystem.c" line="1221" column="6" bodyfile="src/fs/filesystem.c" bodystart="1221" bodyend="1247"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1af6f5acd434205e4b55b81421f4f4427b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2344,7 +2328,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="1279" column="6" bodyfile="src/fs/filesystem.c" bodystart="1279" bodyend="1306"/>
+        <location file="src/fs/filesystem.c" line="1249" column="6" bodyfile="src/fs/filesystem.c" bodystart="1249" bodyend="1276"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1af54d35de43947f1e7e1a86eed9270a6d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2374,7 +2358,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="1308" column="6" bodyfile="src/fs/filesystem.c" bodystart="1308" bodyend="1372"/>
+        <location file="src/fs/filesystem.c" line="1278" column="6" bodyfile="src/fs/filesystem.c" bodystart="1278" bodyend="1342"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1ae475207338a0787caf15949e45badfe8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2404,7 +2388,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="1374" column="6" bodyfile="src/fs/filesystem.c" bodystart="1374" bodyend="1439"/>
+        <location file="src/fs/filesystem.c" line="1344" column="6" bodyfile="src/fs/filesystem.c" bodystart="1344" bodyend="1409"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1af3cee068f32a919cdd638e0578c1e5f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -2434,7 +2418,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="1442" column="5" bodyfile="src/fs/filesystem.c" bodystart="1442" bodyend="1445"/>
+        <location file="src/fs/filesystem.c" line="1412" column="5" bodyfile="src/fs/filesystem.c" bodystart="1412" bodyend="1415"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1a570282ae7ba596263ec812b368d99b34" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -2464,7 +2448,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="1447" column="5" bodyfile="src/fs/filesystem.c" bodystart="1447" bodyend="1450"/>
+        <location file="src/fs/filesystem.c" line="1417" column="5" bodyfile="src/fs/filesystem.c" bodystart="1417" bodyend="1420"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1a93b69bf53951ce16a8e648f238631696" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
@@ -2494,7 +2478,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="1452" column="22" bodyfile="src/fs/filesystem.c" bodystart="1452" bodyend="1493"/>
+        <location file="src/fs/filesystem.c" line="1422" column="22" bodyfile="src/fs/filesystem.c" bodystart="1422" bodyend="1463"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1a603ea722512b12288aaddd6081501dcf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -2550,7 +2534,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="1495" column="5" bodyfile="src/fs/filesystem.c" bodystart="1495" bodyend="1513"/>
+        <location file="src/fs/filesystem.c" line="1465" column="5" bodyfile="src/fs/filesystem.c" bodystart="1465" bodyend="1483"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1a47cfa7087b707560af1b5a669dfc69b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2564,7 +2548,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="1515" column="6" bodyfile="src/fs/filesystem.c" bodystart="1515" bodyend="1550"/>
+        <location file="src/fs/filesystem.c" line="1485" column="6" bodyfile="src/fs/filesystem.c" bodystart="1485" bodyend="1520"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1aeea14dbba6f8453923e288ece85cf6df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
@@ -2594,7 +2578,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="1552" column="22" bodyfile="src/fs/filesystem.c" bodystart="1552" bodyend="1558"/>
+        <location file="src/fs/filesystem.c" line="1522" column="22" bodyfile="src/fs/filesystem.c" bodystart="1522" bodyend="1528"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1a09f96a65fe009b6ff05b26f56306438b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2627,7 +2611,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="1560" column="6" bodyfile="src/fs/filesystem.c" bodystart="1560" bodyend="1603"/>
+        <location file="src/fs/filesystem.c" line="1530" column="6" bodyfile="src/fs/filesystem.c" bodystart="1530" bodyend="1569"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1a7277c11237470183b5d22fc977185169" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -2681,7 +2665,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="1605" column="5" bodyfile="src/fs/filesystem.c" bodystart="1605" bodyend="1620"/>
+        <location file="src/fs/filesystem.c" line="1571" column="5" bodyfile="src/fs/filesystem.c" bodystart="1571" bodyend="1586"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8c_1a389259c7565d2dd06c28fecfacc60210" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const char *</type>
@@ -2714,7 +2698,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/fs/filesystem.c" line="1622" column="12" bodyfile="src/fs/filesystem.c" bodystart="1622" bodyend="1627"/>
+        <location file="src/fs/filesystem.c" line="1588" column="12" bodyfile="src/fs/filesystem.c" bodystart="1588" bodyend="1593"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

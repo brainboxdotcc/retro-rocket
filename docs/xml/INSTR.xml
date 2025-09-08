@@ -6,8 +6,33 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">INSTR(string-expression,<sp/>string-expression)</highlight></codeline>
-</programlisting> Returns <computeroutput>TRUE</computeroutput> if the first expression is contained in the second expression. </para>
+<sect4 id="INSTR_1autotoc_md93">
+<title>INSTR</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">INSTR(haystack$,<sp/>needle$)</highlight></codeline>
+</programlisting></para>
+<para>Searches for the substring <computeroutput>needle$</computeroutput> inside the string <computeroutput>haystack$</computeroutput>. Returns the 1-based index of the first occurrence, or <computeroutput>0</computeroutput> if not found. The search is case-sensitive.</para>
+<para><bold>Notes</bold></para>
+<para><itemizedlist>
+<listitem><para>The first parameter is the string to search in (the <emphasis>haystack</emphasis>).</para>
+</listitem><listitem><para>The second parameter is the substring to search for (the <emphasis>needle</emphasis>).</para>
+</listitem><listitem><para>If multiple matches exist, only the first occurrence is returned.</para>
+</listitem><listitem><para>An empty <computeroutput>needle$</computeroutput> always returns <computeroutput>1</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>Errors</bold></para>
+<para><itemizedlist>
+<listitem><para>None.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>Examples</bold></para>
+<para><programlisting><codeline><highlight class="normal">PRINT<sp/>INSTR(&quot;HELLO<sp/>WORLD&quot;,<sp/>&quot;WORLD&quot;)<sp/><sp/><sp/>&apos;<sp/>Prints:<sp/>7</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>INSTR(&quot;HELLO<sp/>WORLD&quot;,<sp/>&quot;world&quot;)<sp/><sp/><sp/>&apos;<sp/>Prints:<sp/>0<sp/>(case-sensitive)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>INSTR(&quot;ABCDE&quot;,<sp/>&quot;A&quot;)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>Prints:<sp/>1</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>INSTR(&quot;ABCDE&quot;,<sp/>&quot;&quot;)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>Prints:<sp/>1</highlight></codeline>
+</programlisting></para>
+<para><bold>See also</bold></para>
+<para><ref refid="LEFT" kindref="compound">LEFT$</ref> · <ref refid="RIGHT" kindref="compound">RIGHT$</ref> · <ref refid="MID" kindref="compound">MID$</ref> · <ref refid="LEN" kindref="compound">LEN$</ref> </para>
+</sect4>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/INSTR.md"/>
   </compounddef>

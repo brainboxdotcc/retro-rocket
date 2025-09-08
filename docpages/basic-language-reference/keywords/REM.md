@@ -17,8 +17,8 @@ Adds a remark (comment) to your program. The interpreter **ignores the rest of t
 \remark it does **not** start a comment.
 \remark Example:
 \remark ```basic
-> PRINT "It's fine"` ' Prints the apostrophe
-> ```
+@note PRINT "It's fine"` ' Prints the apostrophe
+@note ```
 
 ---
 

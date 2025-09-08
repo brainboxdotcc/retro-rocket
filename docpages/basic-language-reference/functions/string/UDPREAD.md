@@ -9,7 +9,7 @@ Dequeues the **next UDP packet** for `port` and returns its **payload** as a str
 - On success, you can query the sender details with `UDPLASTIP$` and `UDPLASTSOURCEPORT`.
 
 
-> If `port` is outside `0` to `65535`, an error is raised: `Invalid UDP port number`.
+@note If `port` is outside `0` to `65535`, an error is raised: `Invalid UDP port number`.
 
 ---
 
@@ -43,4 +43,4 @@ PRINT S$
 - `UDPLASTIP$` and `UDPLASTSOURCEPORT` always refer to the **most recent** packet returned by `UDPREAD$`.
 
 **See also:**  
-[UDPBIND](https://github.com/brainboxdotcc/retro-rocket/wiki/UDPBIND) · [UDPLASTIP$](https://github.com/brainboxdotcc/retro-rocket/wiki/UDPLASTIP%24) · [UDPLASTSOURCEPORT](https://github.com/brainboxdotcc/retro-rocket/wiki/UDPLASTSOURCEPORT) · [UDPWRITE](https://github.com/brainboxdotcc/retro-rocket/wiki/UDPWRITE)
+\ref UDPBIND "UDPBIND" · [UDPLASTIP$](https://github.com/brainboxdotcc/retro-rocket/wiki/UDPLASTIP%24) · \ref UDPLASTSOURCEPORT "UDPLASTSOURCEPORT" · \ref UDPWRITE "UDPWRITE"

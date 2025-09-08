@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -94,34 +95,32 @@ $(document).ready(function(){initNavTree('UDPWRITE.html',''); initResizable(); }
 <li><code>source-port</code> and <code>dest-port</code> must be in <code>0</code> to <code>65535</code>.</li>
 <li><code>data$</code> must be between <b>1</b> and <b>65530</b> characters.</li>
 </ul>
-<blockquote class="doxtable">
-<p>Invalid port numbers raise: <code>Invalid UDP port number</code>. <br  />
- Invalid payload size raises: <code>Invalid UDP packet length</code>. </p>
-</blockquote>
-<h2><a class="anchor" id="autotoc_md504"></a>
-&lt;/blockquote&gt;</h2>
-<h3><a class="anchor" id="autotoc_md505"></a>
+<dl class="section note"><dt>Note</dt><dd>Invalid port numbers raise: <code>Invalid UDP port number</code>. </dd>
+<dd>
+Invalid payload size raises: <code>Invalid UDP packet length</code>.</dd></dl>
+<hr  />
+<h3><a class="anchor" id="autotoc_md519"></a>
 How to read it</h3>
 <ul>
 <li>Provide a dotted-quad destination IP (e.g. <code>"127.0.0.1"</code>).</li>
 <li>Use together with <code>UDPBIND</code>/<code>UDPREAD$</code> for simple local tests.</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md507"></a>
+<h3><a class="anchor" id="autotoc_md521"></a>
 Examples</h3>
 <div class="fragment"><div class="line">UDPWRITE &quot;127.0.0.1&quot;, 1234, 8080, &quot;hello&quot;</div>
 </div><!-- fragment --><div class="fragment"><div class="line">UDPBIND &quot;0.0.0.0&quot;, 8080</div>
 <div class="line">UDPWRITE &quot;127.0.0.1&quot;, 1234, 8080, &quot;ping&quot;</div>
 <div class="line">PRINT UDPREAD$(8080)</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md509"></a>
+<h3><a class="anchor" id="autotoc_md523"></a>
 Notes</h3>
 <ul>
 <li>The payload is transmitted exactly as provided in <code>data$</code>.</li>
 <li>Ensure the destination host and port are reachable on your network.</li>
 </ul>
 <p><b>See also:</b> <br  />
- <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/UDPBIND">UDPBIND</a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/UDPREAD">UDPREAD$</a> </p>
+ <a class="el" href="UDPBIND.html">UDPBIND</a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/UDPREAD">UDPREAD$</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -129,7 +128,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

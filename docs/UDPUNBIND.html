@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -94,28 +95,25 @@ $(document).ready(function(){initNavTree('UDPUNBIND.html',''); initResizable(); 
 <li><code>string-expression</code> is the local IP address used at bind time (currently <b>ignored</b>).</li>
 <li><code>port</code> must be in the range <code>0</code> to <code>65535</code>.</li>
 </ul>
-<blockquote class="doxtable">
-<p>If <code>port</code> is outside the valid range, an error is raised: <code>Invalid UDP port number</code>. </p>
-</blockquote>
-<h2><a class="anchor" id="autotoc_md498"></a>
-&lt;/blockquote&gt;</h2>
-<h3><a class="anchor" id="autotoc_md499"></a>
+<dl class="section note"><dt>Note</dt><dd>If <code>port</code> is outside the valid range, an error is raised: <code>Invalid UDP port number</code>.</dd></dl>
+<hr  />
+<h3><a class="anchor" id="autotoc_md513"></a>
 How to read it</h3>
 <ul>
 <li>Use <code>UDPUNBIND</code> to stop delivery when you no longer want to read from the port.</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md501"></a>
+<h3><a class="anchor" id="autotoc_md515"></a>
 Examples</h3>
 <div class="fragment"><div class="line">UDPUNBIND &quot;0.0.0.0&quot;, 8080</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md503"></a>
+<h3><a class="anchor" id="autotoc_md517"></a>
 Notes</h3>
 <ul>
 <li>Unbinding while packets are still queued discards them from further reads.</li>
 </ul>
 <p><b>See also:</b> <br  />
- <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/UDPBIND">UDPBIND</a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/UDPREAD%24">UDPREAD$</a> </p>
+ <a class="el" href="UDPBIND.html">UDPBIND</a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/UDPREAD%24">UDPREAD$</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -123,7 +121,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

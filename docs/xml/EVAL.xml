@@ -21,7 +21,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="EVAL_1autotoc_md260">
+<sect3 id="EVAL_1autotoc_md274">
 <title>Examples</title>
 <para><bold>Print from a generated line</bold> <programlisting filename=".basic"><codeline><highlight class="normal">EVAL<sp/>&quot;PRINT<sp/>&quot;<sp/>+<sp/>CHR$(34)<sp/>+<sp/>&quot;Hello<sp/>from<sp/>EVAL!&quot;<sp/>+<sp/>CHR$(34)</highlight></codeline>
 </programlisting></para>
@@ -47,7 +47,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="EVAL_1autotoc_md262">
+<sect3 id="EVAL_1autotoc_md276">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Provide <bold>exactly one</bold> statement; statement separators are not supported.</para>
@@ -55,7 +55,7 @@
 </listitem><listitem><para>Use <computeroutput>EVAL</computeroutput> for small, dynamic actions. For larger logic, write normal procedures/functions and call them directly.</para>
 </listitem></itemizedlist>
 </para>
-<para><bold>See also:</bold> <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DEF"><computeroutput>DEF</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PROC"><computeroutput>PROC</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/FN"><computeroutput>FN</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Builtin-Variables"><computeroutput>ERR</computeroutput>/<computeroutput>ERR$</computeroutput></ulink> </para>
+<para><bold>See also:</bold> <ref refid="DEF" kindref="compound">DEF</ref>, <ref refid="PROC" kindref="compound">PROC</ref>, <ref refid="FN" kindref="compound">FN</ref>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Builtin-Variables"><computeroutput>ERR</computeroutput>/<computeroutput>ERR$</computeroutput></ulink> </para>
 </sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/EVAL.md"/>

@@ -28,4 +28,4 @@ This rotates `1001₂` left by one within 4 bits, giving `0011₂ = 3`.
 - Rotation width must be chosen carefully; too small discards high bits.
 
 **See also:**  
-[BITROR](https://github.com/brainboxdotcc/retro-rocket/wiki/BITROR) · [BITSHL](https://github.com/brainboxdotcc/retro-rocket/wiki/BITSHL)
+\ref BITROR "BITROR" · \ref BITSHL "BITSHL"

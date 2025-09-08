@@ -23,4 +23,4 @@ PRINT BITNAND(&6, &3)
 - Operates on 64-bit integers.
 
 **See also:**  
-[BITAND](https://github.com/brainboxdotcc/retro-rocket/wiki/BITAND) · [BITNOR](https://github.com/brainboxdotcc/retro-rocket/wiki/BITNOR)
+\ref BITAND "BITAND" · \ref BITNOR "BITNOR"

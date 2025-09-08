@@ -4,8 +4,8 @@ YIELD
 ```
 
 
-> **Deprecated / discouraged.**  
-> `YIELD` is not required in Retro Rocket BASIC and may be removed. It does not solve any real problem and simply wastes time.
+@note **Deprecated / discouraged.**
+@note `YIELD` is not required in Retro Rocket BASIC and may be removed. It does not solve any real problem and simply wastes time.
 
 `YIELD` was intended as a hint to let other work run, but Retro Rocket’s scheduler already **pre-empts BASIC automatically at the end of every line**.  
 A BASIC program **cannot monopolise the CPU**, so inserting `YIELD` calls has **no scheduling benefit**.
@@ -34,4 +34,4 @@ The output and timing are effectively the same as omitting `YIELD`.
 
 ### Alternatives
 
-- If you want an **actual pause**, use [`SLEEP`](https://github.com/brainboxdotcc/retro-rocket/wiki/SLEEP) (seconds resolution).
+- If you want an **actual pause**, use \ref SLEEP "SLEEP" (seconds resolution).

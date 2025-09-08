@@ -7,11 +7,11 @@ Opens a **TCP connection**.
 
 - **First parameter**: an **integer variable** (created if it does not yet exist).  
   On success it will be set to a **non-negative handle** that you then pass to
-  [`SOCKREAD`](https://github.com/brainboxdotcc/retro-rocket/wiki/SOCKREAD),
-  [`SOCKWRITE`](https://github.com/brainboxdotcc/retro-rocket/wiki/SOCKWRITE),
-  and [`SOCKCLOSE`](https://github.com/brainboxdotcc/retro-rocket/wiki/SOCKCLOSE).
+  \ref SOCKREAD "SOCKREAD",
+  \ref SOCKWRITE "SOCKWRITE",
+  and \ref SOCKCLOSE "SOCKCLOSE".
 - **Second parameter**: a **string** containing the IP address to connect to.  
-  To resolve a hostname into an address string, use [`DNS$`](https://github.com/brainboxdotcc/retro-rocket/wiki/DNS).
+  To resolve a hostname into an address string, use \ref DNS "DNS$".
 - **Third parameter**: the **port number** (integer expression).
 
 On **failure**, an error is raised.
@@ -36,4 +36,4 @@ SOCKCLOSE H
 - Always close the handle with `SOCKCLOSE` when finished.
 - `SOCKREAD` is a **blocking** operation; see its page for how to cancel with `CTRL+ESC`.
 
-**See also:** [`DNS$`](https://github.com/brainboxdotcc/retro-rocket/wiki/DNS), [`SOCKREAD`](https://github.com/brainboxdotcc/retro-rocket/wiki/SOCKREAD), [`SOCKWRITE`](https://github.com/brainboxdotcc/retro-rocket/wiki/SOCKWRITE), [`SOCKCLOSE`](https://github.com/brainboxdotcc/retro-rocket/wiki/SOCKCLOSE), [`SOCKSTATUS`](https://github.com/brainboxdotcc/retro-rocket/wiki/SOCKSTATUS)
+**See also:** \ref DNS "DNS$", \ref SOCKREAD "SOCKREAD", \ref SOCKWRITE "SOCKWRITE", \ref SOCKCLOSE "SOCKCLOSE", \ref SOCKSTATUS "SOCKSTATUS"

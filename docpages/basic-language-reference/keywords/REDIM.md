@@ -12,11 +12,11 @@ Changes the **capacity** of an existing array to the new size given by `integer-
 
 \remark `REDIM` preserves existing elements from index `0` up to `min(old_size, new_size) - 1`.
 \remark When **growing**, new slots are initialised to `0` (integer or real arrays) or `""` (string arrays).
-> When **shrinking**, elements at indices `new_size` to `old_size - 1` are **permanently lost**.
+@note When **shrinking**, elements at indices `new_size` to `old_size - 1` are **permanently lost**.
 
 
-> `REDIM` changes the **size only**. It does not change type, and it does not create a new array name.  
-> Declare the array first with [`DIM`](https://github.com/brainboxdotcc/retro-rocket/wiki/DIM).
+@note `REDIM` changes the **size only**. It does not change type, and it does not create a new array name.
+@note Declare the array first with \ref DIM "DIM".
 
 ---
 
@@ -83,10 +83,10 @@ PRINT NAMES$(2)
 ### Behaviour and constraints
 - The **new size** must be large enough for any indices you intend to access (`0..new_size-1`).
 - After shrinking, accessing an index `>= new_size` raises a runtime error.
-- Use `REDIM` together with [`PUSH`](https://github.com/brainboxdotcc/retro-rocket/wiki/PUSH) or [`POP`](https://github.com/brainboxdotcc/retro-rocket/wiki/POP) to manage contents while changing capacity.
+- Use `REDIM` together with \ref PUSH "PUSH" or \ref POP "POP" to manage contents while changing capacity.
 
 **See also:**  
-[`DIM`](https://github.com/brainboxdotcc/retro-rocket/wiki/DIM) ·
-[`PUSH`](https://github.com/brainboxdotcc/retro-rocket/wiki/PUSH) ·
-[`POP`](https://github.com/brainboxdotcc/retro-rocket/wiki/POP) ·
+\ref DIM "DIM" ·
+\ref PUSH "PUSH" ·
+\ref POP "POP" ·
 [`Array`](https://github.com/brainboxdotcc/retro-rocket/wiki/Array)

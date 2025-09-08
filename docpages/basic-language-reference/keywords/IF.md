@@ -13,7 +13,7 @@ ELSE
 ENDIF
 ```
 
-Executes statements if an expression evaluates to **true**. You can write `IF` as a **single-line** statement (with one statement after `THEN` and, optionally, one after `ELSE`), or as a **multi-line** block closed by [`ENDIF`](https://github.com/brainboxdotcc/retro-rocket/wiki/ENDIF).
+Executes statements if an expression evaluates to **true**. You can write `IF` as a **single-line** statement (with one statement after `THEN` and, optionally, one after `ELSE`), or as a **multi-line** block closed by \ref ENDIF "ENDIF".
 
 
 \remark Multi-line blocks must be closed with `ENDIF`.
@@ -84,4 +84,5 @@ ENDIF
 - `IF` blocks may be **nested** freely; `ENDIF` matches the nearest unmatched `IF`.
 - Use parentheses to make complex conditions explicit: `IF (A > 0) AND (B < 10) THEN ...` (where supported by your operators).
 
-**See also:** [`ELSE`](https://github.com/brainboxdotcc/retro-rocket/wiki/ELSE) · [`ENDIF`](https://github.com/brainboxdotcc/retro-rocket/wiki/ENDIF)
+**See also:**
+\ref ELSE "ELSE" · \ref ENDIF "ENDIF"

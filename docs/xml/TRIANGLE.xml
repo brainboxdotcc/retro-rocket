@@ -8,7 +8,7 @@
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">TRIANGLE<sp/>integer-expression,<sp/>integer-expression,<sp/>integer-expression,<sp/>integer-expression,<sp/>integer-expression,<sp/>integer-expression</highlight></codeline>
 </programlisting></para>
-<para>Draws a <bold>filled triangle</bold> using the current graphics colour (set with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL"><computeroutput>GCOL</computeroutput></ulink>).</para>
+<para>Draws a <bold>filled triangle</bold> using the current graphics colour (set with <ref refid="GCOL" kindref="compound">GCOL</ref>).</para>
 <para><itemizedlist>
 <listitem><para>Parameters are: <computeroutput>x1, y1, x2, y2, x3, y3</computeroutput> - three vertex positions in screen pixels.</para>
 </listitem><listitem><para>The triangle is always <bold>filled</bold>. There is no outline-only mode.</para>
@@ -16,7 +16,7 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="TRIANGLE_1autotoc_md489">
+<sect3 id="TRIANGLE_1autotoc_md503">
 <title>Examples</title>
 <para>Filled triangle <programlisting filename=".basic"><codeline><highlight class="normal">GCOL<sp/>RGB(255,0,0)</highlight></codeline>
 <codeline><highlight class="normal">TRIANGLE<sp/>60,<sp/>30,<sp/>180,<sp/>50,<sp/>90,<sp/>160</highlight></codeline>
@@ -42,17 +42,17 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="TRIANGLE_1autotoc_md491">
+<sect3 id="TRIANGLE_1autotoc_md505">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Coordinates are in <bold>screen pixels</bold>; <computeroutput>(0,0)</computeroutput> is the <bold>top-left</bold> corner.</para>
 </listitem><listitem><para>Triangles that extend beyond the screen are <bold>clipped</bold> at the display edge.</para>
 </listitem><listitem><para>Change the drawing colour with <computeroutput>GCOL RGB(r,g,b)</computeroutput> before calling <computeroutput>TRIANGLE</computeroutput>.</para>
-</listitem><listitem><para>When <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/AUTOFLIP"><computeroutput>AUTOFLIP</computeroutput></ulink> is <computeroutput>FALSE</computeroutput>, drawn frames appear only after <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/FLIP"><computeroutput>FLIP</computeroutput></ulink>.</para>
+</listitem><listitem><para>When <ref refid="AUTOFLIP" kindref="compound">AUTOFLIP</ref> is <computeroutput>FALSE</computeroutput>, drawn frames appear only after <ref refid="FLIP" kindref="compound">FLIP</ref>.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL"><computeroutput>GCOL</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/LINE"><computeroutput>LINE</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/RECTANGLE"><computeroutput>RECTANGLE</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CIRCLE"><computeroutput>CIRCLE</computeroutput></ulink> </para>
+ <ref refid="GCOL" kindref="compound">GCOL</ref> · <ref refid="LINE" kindref="compound">LINE</ref> · <ref refid="RECTANGLE" kindref="compound">RECTANGLE</ref> · <ref refid="CIRCLE" kindref="compound">CIRCLE</ref> </para>
 </sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/TRIANGLE.md"/>

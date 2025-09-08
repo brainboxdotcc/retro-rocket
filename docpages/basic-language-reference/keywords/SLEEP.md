@@ -11,7 +11,7 @@ During a `SLEEP` the process is suspended and does not consume CPU time. Other p
 
 
 \remark You can cancel a long sleep with `CTRL+ESC`. Without an error handler the
-> programme terminates; with one, control passes to `ON ERROR`.
+@note programme terminates; with one, control passes to `ON ERROR`.
 
 ---
 

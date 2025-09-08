@@ -3,7 +3,7 @@
 TRIANGLE integer-expression, integer-expression, integer-expression, integer-expression, integer-expression, integer-expression
 ```
 
-Draws a **filled triangle** using the current graphics colour (set with [`GCOL`](https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL)).
+Draws a **filled triangle** using the current graphics colour (set with \ref GCOL "GCOL").
 
 - Parameters are: `x1, y1, x2, y2, x3, y3` - three vertex positions in screen pixels.
 - The triangle is always **filled**. There is no outline-only mode.
@@ -48,10 +48,10 @@ LINE X3, Y3, X1, Y1
 - Coordinates are in **screen pixels**; `(0,0)` is the **top-left** corner.
 - Triangles that extend beyond the screen are **clipped** at the display edge.
 - Change the drawing colour with `GCOL RGB(r,g,b)` before calling `TRIANGLE`.
-- When [`AUTOFLIP`](https://github.com/brainboxdotcc/retro-rocket/wiki/AUTOFLIP) is `FALSE`, drawn frames appear only after [`FLIP`](https://github.com/brainboxdotcc/retro-rocket/wiki/FLIP).
+- When \ref AUTOFLIP "AUTOFLIP" is `FALSE`, drawn frames appear only after \ref FLIP "FLIP".
 
 **See also:**  
-[`GCOL`](https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL) ·
-[`LINE`](https://github.com/brainboxdotcc/retro-rocket/wiki/LINE) ·
-[`RECTANGLE`](https://github.com/brainboxdotcc/retro-rocket/wiki/RECTANGLE) ·
-[`CIRCLE`](https://github.com/brainboxdotcc/retro-rocket/wiki/CIRCLE)
+\ref GCOL "GCOL" ·
+\ref LINE "LINE" ·
+\ref RECTANGLE "RECTANGLE" ·
+\ref CIRCLE "CIRCLE"

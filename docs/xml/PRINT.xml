@@ -12,7 +12,7 @@
  <computeroutput>printable</computeroutput> may be a string or a numeric expression; numbers are converted to text automatically.</para>
 <para><hruler/>
 </para>
-<sect3 id="PRINT_1autotoc_md406">
+<sect3 id="PRINT_1autotoc_md420">
 <title>Separators and line endings</title>
 <para><computeroutput>PRINT</computeroutput> accepts multiple items separated by <computeroutput>;</computeroutput> or <computeroutput>,</computeroutput>:</para>
 <para><itemizedlist>
@@ -24,20 +24,24 @@
 </para>
 <para><simplesect kind="remark"><para>Keep the cursor on the same line for a prompt: </para>
 </simplesect>
-<simplesect kind="remark"><para>```basic <blockquote><para>PRINT &quot;Enter name: &quot;; ``` </para>
-</blockquote></para>
+<simplesect kind="remark"><para>```basic </para>
 </simplesect>
+<simplesect kind="note"><para>PRINT &quot;Enter name: &quot;; </para>
+</simplesect>
+<simplesect kind="note"><para>```</para>
+</simplesect>
+<hruler/>
 </para>
 </sect3>
-<sect2 id="PRINT_1autotoc_md407">
-<title>&lt;/blockquote&gt;</title>
-<sect3 id="PRINT_1autotoc_md408">
+<sect3 id="PRINT_1autotoc_md422">
 <title>Using ANSI escape sequences (advanced)</title>
 <para><computeroutput>PRINT</computeroutput> can emit ANSI/VT100 escape sequences directly. <linebreak/>
  The escape character is <computeroutput>ESC</computeroutput>, which is <computeroutput>CHR$(27)</computeroutput>. Most sequences begin with <computeroutput>ESC</computeroutput> + <computeroutput>&quot;[&quot;</computeroutput> (Control Sequence Introducer).</para>
-<para><blockquote><para><computeroutput>COLOUR</computeroutput> and <computeroutput>BACKGROUND</computeroutput> change text colours in a portable, high-level way. <linebreak/>
- ANSI escapes give lower-level control (cursor movement, attributes, manual colours, clearing parts of the screen, etc.). </para>
-</blockquote>Define a convenience prefix: <programlisting filename=".basic"><codeline><highlight class="normal">ESC$<sp/>=<sp/>CHR$(27)<sp/>+<sp/>&quot;[&quot;</highlight></codeline>
+<para><simplesect kind="note"><para><computeroutput>COLOUR</computeroutput> and <computeroutput>BACKGROUND</computeroutput> change text colours in a portable, high-level way. </para>
+</simplesect>
+<simplesect kind="note"><para>ANSI escapes give lower-level control (cursor movement, attributes, manual colours, clearing parts of the screen, etc.).</para>
+</simplesect>
+Define a convenience prefix: <programlisting filename=".basic"><codeline><highlight class="normal">ESC$<sp/>=<sp/>CHR$(27)<sp/>+<sp/>&quot;[&quot;</highlight></codeline>
 </programlisting></para>
 <para><bold>Text attributes and colours (SGR)</bold> <programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Set<sp/>red<sp/>foreground,<sp/>then<sp/>reset</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>ESC$<sp/>+<sp/>&quot;31m&quot;<sp/>+<sp/>&quot;Red<sp/>text&quot;<sp/>+<sp/>ESC$<sp/>+<sp/>&quot;0m&quot;</highlight></codeline>
@@ -72,15 +76,16 @@
 <para><bold>Show/hide cursor</bold> <programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>ESC$<sp/>+<sp/>&quot;?25l&quot;<sp/><sp/><sp/>REM<sp/>hide</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>ESC$<sp/>+<sp/>&quot;?25h&quot;<sp/><sp/><sp/>REM<sp/>show</highlight></codeline>
 </programlisting></para>
-<para><blockquote><para>Always finish coloured or styled output with <computeroutput>ESC[0m</computeroutput> to reset attributes, or later text may inherit your styles. </para>
-</blockquote></para>
-<para><blockquote><para>For higher-level helpers and key handling, consider the <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ansi"><computeroutput>ansi</computeroutput></ulink> system library. </para>
-</blockquote></para>
+<para><simplesect kind="note"><para>Always finish coloured or styled output with <computeroutput>ESC[0m</computeroutput> to reset attributes, or later text may inherit your styles.</para>
+</simplesect>
+<simplesect kind="note"><para>For higher-level helpers and key handling, consider the </para>
+</simplesect>
+<simplesect kind="note"><para><ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ansi"><computeroutput>ansi</computeroutput></ulink> system library.</para>
+</simplesect>
+<hruler/>
+</para>
 </sect3>
-</sect2>
-<sect2 id="PRINT_1autotoc_md409">
-<title>&lt;/blockquote&gt;</title>
-<sect3 id="PRINT_1autotoc_md410">
+<sect3 id="PRINT_1autotoc_md424">
 <title>Examples</title>
 <para>Basic printing <programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;Hello&quot;</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>123</highlight></codeline>
@@ -98,7 +103,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="PRINT_1autotoc_md412">
+<sect3 id="PRINT_1autotoc_md426">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Output affects the text layer. Use <computeroutput>COLOUR</computeroutput> and <computeroutput>BACKGROUND</computeroutput> for simple text colours, and <computeroutput>GCOL</computeroutput> for graphics drawing.</para>
@@ -107,9 +112,8 @@
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CURSOR"><computeroutput>CURSOR</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/COLOUR"><computeroutput>COLOUR</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BACKGROUND"><computeroutput>BACKGROUND</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ansi"><computeroutput>ansi</computeroutput></ulink> </para>
+ <ref refid="CURSOR" kindref="compound">CURSOR</ref> · <ref refid="COLOUR" kindref="compound">COLOUR</ref> · <ref refid="BACKGROUND" kindref="compound">BACKGROUND</ref> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ansi"><computeroutput>ansi</computeroutput></ulink> </para>
 </sect3>
-</sect2>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/PRINT.md"/>
   </compounddef>

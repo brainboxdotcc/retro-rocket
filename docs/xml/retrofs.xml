@@ -32,7 +32,7 @@
 </entry></row>
 </table>
 </para>
-<sect2 id="retrofs_1autotoc_md629">
+<sect2 id="retrofs_1autotoc_md643">
 <title>1. Conventions and terminology</title>
 <para><itemizedlist>
 <listitem><para>The key words <bold>MUST</bold>, <bold>MUST NOT</bold>, <bold>SHOULD</bold>, <bold>SHOULD NOT</bold>, <bold>MAY</bold> are to be interpreted as in RFC 2119.</para>
@@ -45,7 +45,7 @@
 </listitem></itemizedlist>
 </para>
 </sect2>
-<sect2 id="retrofs_1autotoc_md630">
+<sect2 id="retrofs_1autotoc_md644">
 <title>2. High-level layout (informative)</title>
 <para><programlisting><codeline><highlight class="normal">LBA<sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>Description<sp/>Block</highlight></codeline>
 <codeline><highlight class="normal">LBA<sp/>root_directory<sp/>..<sp/>:<sp/>Root<sp/>directory<sp/>block<sp/>(64<sp/>sectors)<sp/>+<sp/>any<sp/>continuations</highlight></codeline>
@@ -54,9 +54,9 @@
 </programlisting></para>
 <para>Exact locations are recorded in the Description Block.</para>
 </sect2>
-<sect2 id="retrofs_1autotoc_md631">
+<sect2 id="retrofs_1autotoc_md645">
 <title>3. On-disk structures (normative)</title>
-<sect3 id="retrofs_1autotoc_md632">
+<sect3 id="retrofs_1autotoc_md646">
 <title>3.1 Description Block (sector 0)</title>
 <para>The Description Block <bold>MUST</bold> occupy exactly one sector at LBA 0 and uses this exact layout:</para>
 <para><table rows="9" cols="5"><row>
@@ -131,7 +131,7 @@
 </listitem><listitem><para>Unused bytes <bold>MUST</bold> be zero and <bold>SHOULD</bold> be preserved on rewrite.</para>
 </listitem></itemizedlist>
 </para>
-<sect4 id="retrofs_1autotoc_md633">
+<sect4 id="retrofs_1autotoc_md647">
 <title>Byte layout sketch</title>
 <para><programlisting><codeline><highlight class="normal">+0000<sp/><sp/>52<sp/>65<sp/>74<sp/>72<sp/>6F<sp/>46<sp/>53<sp/>31<sp/><sp/><sp/>//<sp/>&quot;RetroFS1&quot;<sp/>LE:<sp/>0x3153466f72746552</highlight></codeline>
 <codeline><highlight class="normal">+0008<sp/><sp/>&lt;root_directory:<sp/>u64<sp/>LE&gt;</highlight></codeline>
@@ -144,7 +144,7 @@
 </programlisting></para>
 </sect4>
 </sect3>
-<sect3 id="retrofs_1autotoc_md634">
+<sect3 id="retrofs_1autotoc_md648">
 <title>3.2 Free-space map (bitmap)</title>
 <para>Each free-space map sector uses:</para>
 <para><programlisting><codeline><highlight class="normal">typedef<sp/>struct<sp/>{</highlight></codeline>
@@ -165,10 +165,10 @@
 </listitem></itemizedlist>
 </para>
 </sect3>
-<sect3 id="retrofs_1autotoc_md635">
+<sect3 id="retrofs_1autotoc_md649">
 <title>3.3 Directory blocks and entries</title>
 <para>A directory is stored in one or more directory blocks. Each block is exactly **<computeroutput>RFS_DEFAULT_DIR_SIZE</computeroutput>** sectors (v1: <bold>64</bold>). Each <bold>sector</bold> contains <bold>two half-sector entries</bold>.</para>
-<sect4 id="retrofs_1autotoc_md636">
+<sect4 id="retrofs_1autotoc_md650">
 <title>3.3.1 Directory Start entry (first half-sector of the block)</title>
 <para><programlisting filename=".c"><codeline><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structrfs__directory__start__t" kindref="compound">rfs_directory_start_t</ref><sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structrfs__directory__start__t_1a23433f20334bc0eb67046b9f49d51af0" kindref="member">flags</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>MUST<sp/>include<sp/>RFS_FLAG_DIR_START</highlight><highlight class="normal"></highlight></codeline>
@@ -177,7 +177,7 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/><ref refid="structrfs__directory__start__t_1a3ad10ef57a35c30dd2192a5ae4b667c2" kindref="member">sectors</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>size<sp/>of<sp/>this<sp/>directory<sp/>block<sp/>in<sp/>sectors<sp/>(v1:<sp/>64)</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/><ref refid="structrfs__directory__start__t_1aa62b28276a1926465e6d0bdfc8a282cb" kindref="member">continuation</ref>;<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>LBA<sp/>of<sp/>next<sp/>directory<sp/>block,<sp/>or<sp/>0</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="structrfs__directory__start__t_1aa46fcc9ac6e22ac1acc41fc60921f07d" kindref="member">reserved</ref>[];<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>zero-filled<sp/>to<sp/>256<sp/>bytes</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal">}<sp/><ref refid="tcp_8h_1a0b51a7a10cbdd813247a0febf4b89d6d" kindref="member">__attribute__</ref>((packed));</highlight></codeline>
+<codeline><highlight class="normal">}<sp/><ref refid="tcp_8h_1a8454b2571cea12a469f026f20f27e7a2" kindref="member">__attribute__</ref>((packed));</highlight></codeline>
 </programlisting></para>
 <para><bold>Rules</bold></para>
 <para><itemizedlist>
@@ -187,7 +187,7 @@
 </listitem></itemizedlist>
 </para>
 </sect4>
-<sect4 id="retrofs_1autotoc_md637">
+<sect4 id="retrofs_1autotoc_md651">
 <title>3.3.2 File/Directory entry (other half-sectors)</title>
 <para><programlisting filename=".c"><codeline><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structrfs__directory__entry__inner__t" kindref="compound">rfs_directory_entry_inner_t</ref><sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structrfs__directory__entry__inner__t_1a3d6eb6a55e75926d8fdd7427f0454f43" kindref="member">flags</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>RFS_FLAG_DIRECTORY<sp/>et<sp/>al.</highlight><highlight class="normal"></highlight></codeline>
@@ -199,10 +199,10 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="clock_8h_1a7f5991675a84025dc7c24754a9b257c0" kindref="member">time_t</ref><sp/><sp/><sp/><ref refid="structrfs__directory__entry__inner__t_1a1d947f038814c4df91a4f9e5234ab226" kindref="member">modified</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>UTC</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/><ref refid="structrfs__directory__entry__inner__t_1a36e5d24054a98a1f773678d796646dba" kindref="member">sequence</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>per-entry<sp/>version<sp/>counter</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="structrfs__directory__entry__inner__t_1a2c7e8adf8d2714ab2be2768f8a871c56" kindref="member">reserved</ref>[];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>zero-filled<sp/>to<sp/>256<sp/>bytes<sp/>total</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal">}<sp/><ref refid="tcp_8h_1a0b51a7a10cbdd813247a0febf4b89d6d" kindref="member">__attribute__</ref>((packed));</highlight></codeline>
+<codeline><highlight class="normal">}<sp/><ref refid="tcp_8h_1a8454b2571cea12a469f026f20f27e7a2" kindref="member">__attribute__</ref>((packed));</highlight></codeline>
 </programlisting></para>
 </sect4>
-<sect4 id="retrofs_1autotoc_md638">
+<sect4 id="retrofs_1autotoc_md652">
 <title>3.3.3 File/Directory Flags values</title>
 <para>Files and directories may set the following bits in their <computeroutput>flags</computeroutput> field:</para>
 <para><table rows="4" cols="3"><row>
@@ -237,7 +237,7 @@
 </listitem></itemizedlist>
 </para>
 </sect4>
-<sect4 id="retrofs_1autotoc_md639">
+<sect4 id="retrofs_1autotoc_md653">
 <title>3.3.4 Directory walk</title>
 <para><itemizedlist>
 <listitem><para>Readers <bold>MUST</bold> follow the <computeroutput>continuation</computeroutput> chain until <computeroutput>continuation</computeroutput> is <computeroutput>0</computeroutput>.</para>
@@ -248,9 +248,9 @@
 </sect4>
 </sect3>
 </sect2>
-<sect2 id="retrofs_1autotoc_md640">
+<sect2 id="retrofs_1autotoc_md654">
 <title>4. Allocation &amp; growth semantics (normative)</title>
-<sect3 id="retrofs_1autotoc_md641">
+<sect3 id="retrofs_1autotoc_md655">
 <title>4.1 Extents</title>
 <para><itemizedlist>
 <listitem><para>Every file or directory <emphasis>block</emphasis> occupies exactly one <bold>contiguous</bold> extent. Directories may be composed of multiple connected <emphasis>directory blocks</emphasis>.</para>
@@ -259,7 +259,7 @@
 </listitem></itemizedlist>
 </para>
 </sect3>
-<sect3 id="retrofs_1autotoc_md642">
+<sect3 id="retrofs_1autotoc_md656">
 <title>4.2 Creation</title>
 <para><bold>Files</bold></para>
 <para><itemizedlist>
@@ -283,7 +283,7 @@
 </listitem></itemizedlist>
 </para>
 </sect3>
-<sect3 id="retrofs_1autotoc_md643">
+<sect3 id="retrofs_1autotoc_md657">
 <title>4.3 Writing</title>
 <para><itemizedlist>
 <listitem><para>For unaligned writes, drivers <bold>MUST</bold> perform head/tail read-modify-write and full-sector writes in the middle.</para>
@@ -292,7 +292,7 @@
 </listitem></itemizedlist>
 </para>
 </sect3>
-<sect3 id="retrofs_1autotoc_md644">
+<sect3 id="retrofs_1autotoc_md658">
 <title>4.4 Truncation</title>
 <para><itemizedlist>
 <listitem><para>Truncate <bold>MUST</bold> update <computeroutput>length</computeroutput> only.</para>
@@ -301,7 +301,7 @@
 </listitem></itemizedlist>
 </para>
 </sect3>
-<sect3 id="retrofs_1autotoc_md645">
+<sect3 id="retrofs_1autotoc_md659">
 <title>4.5 Deletion</title>
 <para><bold>Files</bold></para>
 <para><itemizedlist>
@@ -317,7 +317,7 @@
 </para>
 </sect3>
 </sect2>
-<sect2 id="retrofs_1autotoc_md646">
+<sect2 id="retrofs_1autotoc_md660">
 <title>5. Name handling</title>
 <para><itemizedlist>
 <listitem><para>Case-preserving storage; ASCII case-insensitive matching.</para>
@@ -326,9 +326,9 @@
 </listitem></itemizedlist>
 </para>
 </sect2>
-<sect2 id="retrofs_1autotoc_md647">
+<sect2 id="retrofs_1autotoc_md661">
 <title>6. Policy notes (non-normative but recommended)</title>
-<sect3 id="retrofs_1autotoc_md648">
+<sect3 id="retrofs_1autotoc_md662">
 <title>6.1 Initial reservation policy</title>
 <para>Implementations <bold>SHOULD</bold> reserve more than the initial logical size to reduce churn. A practical policy:</para>
 <para><itemizedlist>
@@ -338,12 +338,12 @@
 </listitem></itemizedlist>
 </para>
 </sect3>
-<sect3 id="retrofs_1autotoc_md649">
+<sect3 id="retrofs_1autotoc_md663">
 <title>6.2 Zero-fill</title>
 <para>New extents and extended regions <bold>MUST</bold> be zero-filled prior to being visible to reads. This prevents data disclosure.</para>
 </sect3>
 </sect2>
-<sect2 id="retrofs_1autotoc_md650">
+<sect2 id="retrofs_1autotoc_md664">
 <title>7. Implementation guidance: L1/L2 allocation caches</title>
 <para>Although the in-memory mount context (<computeroutput><ref refid="structrfs__t" kindref="compound">rfs_t</ref></computeroutput>) is implementation-specific and out of scope for this document, a compliant, high-performance implementation <bold>SHOULD</bold> maintain multi-level summaries over the on-disk free-space map:</para>
 <para><itemizedlist>
@@ -359,7 +359,7 @@
 </listitem></itemizedlist>
 </para>
 </sect2>
-<sect2 id="retrofs_1autotoc_md651">
+<sect2 id="retrofs_1autotoc_md665">
 <title>8. Validation &amp; error handling</title>
 <para><itemizedlist>
 <listitem><para>Mount <bold>MUST</bold> verify <computeroutput>identifier</computeroutput>, basic pointer ranges, and that root directory’s start entry has <computeroutput>RFS_FLAG_DIR_START</computeroutput> and <computeroutput>sectors == RFS_DEFAULT_DIR_SIZE</computeroutput>.</para>
@@ -369,9 +369,9 @@
 </listitem></itemizedlist>
 </para>
 </sect2>
-<sect2 id="retrofs_1autotoc_md652">
+<sect2 id="retrofs_1autotoc_md666">
 <title>9. Partition identification (GPT)</title>
-<sect3 id="retrofs_1autotoc_md653">
+<sect3 id="retrofs_1autotoc_md667">
 <title>RetroFS Partition Type GUID</title>
 <para><bold>Name:</bold> RetroFS Partition <linebreak/>
  <bold>Use:</bold> Identifies a GPT partition formatted with the RetroFS filesystem. <linebreak/>
@@ -399,7 +399,7 @@
 </programlisting></para>
 </sect3>
 </sect2>
-<sect2 id="retrofs_1autotoc_md654">
+<sect2 id="retrofs_1autotoc_md668">
 <title>10. Security considerations</title>
 <para><itemizedlist>
 <listitem><para>Zero-fill on allocation/extension prevents disclosure of previous contents.</para>
@@ -408,7 +408,7 @@
 </listitem></itemizedlist>
 </para>
 </sect2>
-<sect2 id="retrofs_1autotoc_md655">
+<sect2 id="retrofs_1autotoc_md669">
 <title>11. Versioning</title>
 <para><itemizedlist>
 <listitem><para>This document defines <bold>RetroFS v1</bold> with <bold>512-byte sectors</bold> and fixed directory block size <bold>64 sectors</bold>.</para>

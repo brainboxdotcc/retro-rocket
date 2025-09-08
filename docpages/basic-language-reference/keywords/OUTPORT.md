@@ -6,7 +6,7 @@ OUTPORT port, value
 Writes the low **8 bits** of `value` to an I/O `port`.
 
 
-> Use the correct width for the target device; wrong widths can cause faults or misconfiguration.
+@note Use the correct width for the target device; wrong widths can cause faults or misconfiguration.
 
 ---
 
@@ -29,4 +29,4 @@ OUTPORT &64, &FE
 - Be cautious: writes may trigger immediate hardware actions.
 
 **See also:**  
-[OUTPORTW](https://github.com/brainboxdotcc/retro-rocket/wiki/OUTPORTW) · [OUTPORTD](https://github.com/brainboxdotcc/retro-rocket/wiki/OUTPORTD) · [OUTPORTQ](https://github.com/brainboxdotcc/retro-rocket/wiki/OUTPORTQ) · [INPORT](https://github.com/brainboxdotcc/retro-rocket/wiki/INPORT)
+\ref OUTPORTW "OUTPORTW" · \ref OUTPORTD "OUTPORTD" · \ref OUTPORTQ "OUTPORTQ" · \ref INPORT "INPORT"

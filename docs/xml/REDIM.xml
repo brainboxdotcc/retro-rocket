@@ -17,15 +17,17 @@
 </para>
 <para><simplesect kind="remark"><para><computeroutput>REDIM</computeroutput> preserves existing elements from index <computeroutput>0</computeroutput> up to <computeroutput>min(old_size, new_size) - 1</computeroutput>. </para>
 </simplesect>
-<simplesect kind="remark"><para>When <bold>growing</bold>, new slots are initialised to <computeroutput>0</computeroutput> (integer or real arrays) or <computeroutput>&quot;&quot;</computeroutput> (string arrays). <blockquote><para>When <bold>shrinking</bold>, elements at indices <computeroutput>new_size</computeroutput> to <computeroutput>old_size - 1</computeroutput> are <bold>permanently lost</bold>. </para>
-</blockquote></para>
+<simplesect kind="remark"><para>When <bold>growing</bold>, new slots are initialised to <computeroutput>0</computeroutput> (integer or real arrays) or <computeroutput>&quot;&quot;</computeroutput> (string arrays). </para>
 </simplesect>
-<blockquote><para><computeroutput>REDIM</computeroutput> changes the <bold>size only</bold>. It does not change type, and it does not create a new array name. <linebreak/>
- Declare the array first with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DIM"><computeroutput>DIM</computeroutput></ulink>. </para>
-</blockquote></para>
-<sect2 id="REDIM_1autotoc_md428">
-<title>&lt;/blockquote&gt;</title>
-<sect3 id="REDIM_1autotoc_md429">
+<simplesect kind="note"><para>When <bold>shrinking</bold>, elements at indices <computeroutput>new_size</computeroutput> to <computeroutput>old_size - 1</computeroutput> are <bold>permanently lost</bold>.</para>
+</simplesect>
+<simplesect kind="note"><para><computeroutput>REDIM</computeroutput> changes the <bold>size only</bold>. It does not change type, and it does not create a new array name. </para>
+</simplesect>
+<simplesect kind="note"><para>Declare the array first with <ref refid="DIM" kindref="compound">DIM</ref>.</para>
+</simplesect>
+<hruler/>
+</para>
+<sect3 id="REDIM_1autotoc_md443">
 <title>Examples</title>
 <para><bold>Grow an integer array</bold> <programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>A,3</highlight></codeline>
 <codeline><highlight class="normal">A(0)<sp/>=<sp/>10</highlight></codeline>
@@ -74,18 +76,17 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="REDIM_1autotoc_md431">
+<sect3 id="REDIM_1autotoc_md445">
 <title>Behaviour and constraints</title>
 <para><itemizedlist>
 <listitem><para>The <bold>new size</bold> must be large enough for any indices you intend to access (<computeroutput>0..new_size-1</computeroutput>).</para>
 </listitem><listitem><para>After shrinking, accessing an index <computeroutput>&gt;= new_size</computeroutput> raises a runtime error.</para>
-</listitem><listitem><para>Use <computeroutput>REDIM</computeroutput> together with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PUSH"><computeroutput>PUSH</computeroutput></ulink> or <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/POP"><computeroutput>POP</computeroutput></ulink> to manage contents while changing capacity.</para>
+</listitem><listitem><para>Use <computeroutput>REDIM</computeroutput> together with <ref refid="PUSH" kindref="compound">PUSH</ref> or <ref refid="POP" kindref="compound">POP</ref> to manage contents while changing capacity.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DIM"><computeroutput>DIM</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PUSH"><computeroutput>PUSH</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/POP"><computeroutput>POP</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Array"><computeroutput>Array</computeroutput></ulink> </para>
+ <ref refid="DIM" kindref="compound">DIM</ref> · <ref refid="PUSH" kindref="compound">PUSH</ref> · <ref refid="POP" kindref="compound">POP</ref> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Array"><computeroutput>Array</computeroutput></ulink> </para>
 </sect3>
-</sect2>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/REDIM.md"/>
   </compounddef>

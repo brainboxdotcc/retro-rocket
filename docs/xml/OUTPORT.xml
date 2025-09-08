@@ -9,11 +9,11 @@
 <para><programlisting filename=".basic"><codeline><highlight class="normal">OUTPORT<sp/>port,<sp/>value</highlight></codeline>
 </programlisting></para>
 <para>Writes the low <bold>8 bits</bold> of <computeroutput>value</computeroutput> to an I/O <computeroutput>port</computeroutput>.</para>
-<para><blockquote><para>Use the correct width for the target device; wrong widths can cause faults or misconfiguration. </para>
-</blockquote></para>
-<sect2 id="OUTPORT_1autotoc_md334">
-<title>&lt;/blockquote&gt;</title>
-<sect3 id="OUTPORT_1autotoc_md335">
+<para><simplesect kind="note"><para>Use the correct width for the target device; wrong widths can cause faults or misconfiguration.</para>
+</simplesect>
+<hruler/>
+</para>
+<sect3 id="OUTPORT_1autotoc_md349">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Sends one byte via port-mapped I/O.</para>
@@ -22,7 +22,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="OUTPORT_1autotoc_md337">
+<sect3 id="OUTPORT_1autotoc_md351">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Reset<sp/>the<sp/>keyboard<sp/>controller</highlight></codeline>
 <codeline><highlight class="normal">OUTPORT<sp/>&amp;64,<sp/>&amp;FE</highlight></codeline>
@@ -30,7 +30,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="OUTPORT_1autotoc_md339">
+<sect3 id="OUTPORT_1autotoc_md353">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Some ports require delays or status checks between writes.</para>
@@ -38,9 +38,8 @@
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OUTPORTW">OUTPORTW</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OUTPORTD">OUTPORTD</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OUTPORTQ">OUTPORTQ</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/INPORT">INPORT</ulink> </para>
+ <ref refid="OUTPORTW" kindref="compound">OUTPORTW</ref> · <ref refid="OUTPORTD" kindref="compound">OUTPORTD</ref> · <ref refid="OUTPORTQ" kindref="compound">OUTPORTQ</ref> · <ref refid="INPORT" kindref="compound">INPORT</ref> </para>
 </sect3>
-</sect2>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/OUTPORT.md"/>
   </compounddef>

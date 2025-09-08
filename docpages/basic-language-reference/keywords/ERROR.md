@@ -6,7 +6,7 @@ ERROR string-expression
 Raises a **runtime error**.
 
 - Sets the built-in variables **ERR$** (to the message) and **ERR** (to `1`) **when**:
-  - the error is raised **inside** an [`EVAL`](https://github.com/brainboxdotcc/retro-rocket/wiki/EVAL), **or**
+  - the error is raised **inside** an \ref EVAL "EVAL", **or**
   - an error handler has been installed with [`ON ERROR`](https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR).
 - If **no** handler is installed and you are not inside `EVAL`, the program **terminates**.
 
@@ -53,5 +53,5 @@ In this example, the handler runs, `ERR$` contains the message, and `ERR` is `1`
 
 **See also:**  
 [`ON ERROR`](https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR) ·
-[`EVAL`](https://github.com/brainboxdotcc/retro-rocket/wiki/EVAL) ·
+\ref EVAL "EVAL" ·
 [Builtin Variables](https://github.com/brainboxdotcc/retro-rocket/wiki/Builtin-Variables)

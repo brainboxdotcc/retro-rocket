@@ -13,7 +13,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="POKED_1autotoc_md384">
+<sect3 id="POKED_1autotoc_md398">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Typical width for device registers and descriptors.</para>
@@ -22,7 +22,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="POKED_1autotoc_md386">
+<sect3 id="POKED_1autotoc_md400">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Store<sp/>a<sp/>32-bit<sp/>value</highlight></codeline>
 <codeline><highlight class="normal">POKED<sp/>&amp;100300,<sp/>&amp;89ABCDEF</highlight></codeline>
@@ -31,14 +31,14 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="POKED_1autotoc_md388">
+<sect3 id="POKED_1autotoc_md402">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Some devices use write-one-to-clear or posted writes; check the datasheet.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PEEKD">PEEKD</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/POKEW">POKEW</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/POKEQ">POKEQ</ulink> </para>
+ <ref refid="PEEKD" kindref="compound">PEEKD</ref> · <ref refid="POKEW" kindref="compound">POKEW</ref> · <ref refid="POKEQ" kindref="compound">POKEQ</ref> </para>
 </sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/POKED.md"/>

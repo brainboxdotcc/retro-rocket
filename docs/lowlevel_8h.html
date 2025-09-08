@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Retro Rocket OS: include/basic/lowlevel.h File Reference</title>
+<title>Retro Rocket OS: lowlevel.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -90,9 +91,7 @@ $(document).ready(function(){initNavTree('lowlevel_8h.html',''); initResizable()
 <div class="title">lowlevel.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
-<code>#include &lt;stdbool.h&gt;</code><br />
-</div><table class="memberdecls">
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a19c0d5d102db5c468f8f07bfed33ce3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lowlevel_8h.html#a19c0d5d102db5c468f8f07bfed33ce3a">write_cpuid</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx, int leaf)</td></tr>
@@ -830,7 +829,7 @@ Functions</h2></td></tr>
 
 <p>Implements the BASIC statement OUTPORT. </p>
 <p>BASIC syntax: </p><div class="fragment"><div class="line"><a class="code" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea80fe7db3a665d1969b2c0db07f5eafad">OUTPORT</a> port, value</div>
-<div class="ttc" id="atokenizer_8h_html_a4ebc26c81c029670805b51af165f9cfea80fe7db3a665d1969b2c0db07f5eafad"><div class="ttname"><a href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea80fe7db3a665d1969b2c0db07f5eafad">OUTPORT</a></div><div class="ttdeci">@ OUTPORT</div><div class="ttdef"><b>Definition:</b> tokenizer.h:175</div></div>
+<div class="ttc" id="atokenizer_8h_html_a4ebc26c81c029670805b51af165f9cfea80fe7db3a665d1969b2c0db07f5eafad"><div class="ttname"><a href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea80fe7db3a665d1969b2c0db07f5eafad">OUTPORT</a></div><div class="ttdeci">@ OUTPORT</div><div class="ttdef"><b>Definition:</b> tokenizer.h:177</div></div>
 </div><!-- fragment --><p>Writes an 8-bit value to the specified I/O port.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -871,7 +870,7 @@ Functions</h2></td></tr>
 
 <p>Implements the BASIC statement OUTPORTD. </p>
 <p>BASIC syntax: </p><div class="fragment"><div class="line"><a class="code" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaa50d5bd3bc3649e9ef0feb9d24cc3bc5">OUTPORTD</a> port, value</div>
-<div class="ttc" id="atokenizer_8h_html_a4ebc26c81c029670805b51af165f9cfeaa50d5bd3bc3649e9ef0feb9d24cc3bc5"><div class="ttname"><a href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaa50d5bd3bc3649e9ef0feb9d24cc3bc5">OUTPORTD</a></div><div class="ttdeci">@ OUTPORTD</div><div class="ttdef"><b>Definition:</b> tokenizer.h:175</div></div>
+<div class="ttc" id="atokenizer_8h_html_a4ebc26c81c029670805b51af165f9cfeaa50d5bd3bc3649e9ef0feb9d24cc3bc5"><div class="ttname"><a href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaa50d5bd3bc3649e9ef0feb9d24cc3bc5">OUTPORTD</a></div><div class="ttdeci">@ OUTPORTD</div><div class="ttdef"><b>Definition:</b> tokenizer.h:177</div></div>
 </div><!-- fragment --><p>Writes a 32-bit value to the specified I/O port.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -912,7 +911,7 @@ Functions</h2></td></tr>
 
 <p>Implements the BASIC statement OUTPORTW. </p>
 <p>BASIC syntax: </p><div class="fragment"><div class="line"><a class="code" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaafafc2fc4116491938b015a33648f4ff">OUTPORTW</a> port, value</div>
-<div class="ttc" id="atokenizer_8h_html_a4ebc26c81c029670805b51af165f9cfeaafafc2fc4116491938b015a33648f4ff"><div class="ttname"><a href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaafafc2fc4116491938b015a33648f4ff">OUTPORTW</a></div><div class="ttdeci">@ OUTPORTW</div><div class="ttdef"><b>Definition:</b> tokenizer.h:175</div></div>
+<div class="ttc" id="atokenizer_8h_html_a4ebc26c81c029670805b51af165f9cfeaafafc2fc4116491938b015a33648f4ff"><div class="ttname"><a href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaafafc2fc4116491938b015a33648f4ff">OUTPORTW</a></div><div class="ttdeci">@ OUTPORTW</div><div class="ttdef"><b>Definition:</b> tokenizer.h:177</div></div>
 </div><!-- fragment --><p>Writes a 16-bit value to the specified I/O port.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1024,7 +1023,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_1e5d3661ed79af157d57e64a38265d09.html">basic</a></li><li class="navelem"><a class="el" href="lowlevel_8h.html">lowlevel.h</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:29 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

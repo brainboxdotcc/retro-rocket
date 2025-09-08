@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -95,28 +96,29 @@ $(document).ready(function(){initNavTree('LIBRARY.html',''); initResizable(); })
 <li><code>string-expression</code> is the <b>path or name</b> of the library file.</li>
 <li>Relative paths are resolved from the current directory; absolute paths start with <code>/</code>.</li>
 </ul>
-<blockquote class="doxtable">
-<p>A library file <b>must not contain line numbers</b>. <br  />
- If a line-numbered program loads a library, the library is <b>auto-numbered</b> on load so its lines come <b>after</b> the program’s existing lines (using increments of 10). See <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/Automatic-line-numbering">Automatic line numbering</a>. </p>
-</blockquote>
-<blockquote class="doxtable">
-<p>On load, Retro Rocket looks for a procedure with the <b>same name as the library filename</b> and <b>calls it</b> if found. <br  />
- This acts as the library’s <b>constructor</b> for one-time initialisation. </p>
-</blockquote>
-<blockquote class="doxtable">
-<p>It is recommended to place <code>LIBRARY</code> statements <b>near the start</b> of your program. <br  />
- Loading a library has a non-trivial cost. </p>
-</blockquote>
-<blockquote class="doxtable">
-<p>Use the standard global <code>LIB$</code> path when loading shared libraries: </p><div class="fragment"><div class="line">LIBRARY LIB$ + &quot;/ansi&quot;</div>
-</div><!-- fragment --><p> <code>LIB$</code> is set by <code>init</code> and points to an absolute library folder. </p>
-</blockquote>
-<blockquote class="doxtable">
-<p>Paths are <b>case-insensitive</b> and <code>.</code> / <code>..</code> are <b>not supported</b> in paths. </p>
-</blockquote>
-<h2><a class="anchor" id="autotoc_md304"></a>
-&lt;/blockquote&gt;</h2>
-<h3><a class="anchor" id="autotoc_md305"></a>
+<dl class="section note"><dt>Note</dt><dd>A library file <b>must not contain line numbers</b>. </dd>
+<dd>
+If a line-numbered program loads a library, the library is <b>auto-numbered</b> on load so its lines come <b>after</b> the program’s existing lines (using increments of 10). See <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/Automatic-line-numbering">Automatic line numbering</a>.</dd>
+<dd>
+On load, Retro Rocket looks for a procedure with the <b>same name as the library filename</b> and <b>calls it</b> if found. </dd>
+<dd>
+This acts as the library’s <b>constructor</b> for one-time initialisation.</dd>
+<dd>
+It is recommended to place <code>LIBRARY</code> statements <b>near the start</b> of your program. </dd>
+<dd>
+Loading a library has a non-trivial cost.</dd>
+<dd>
+Use the standard global <code>LIB$</code> path when loading shared libraries: </dd>
+<dd>
+```basic </dd>
+<dd>
+LIBRARY LIB$ + "/ansi" </dd>
+<dd>
+``<code> @note</code>LIB$<code>is set by</code>init` and points to an absolute library folder.</dd>
+<dd>
+Paths are <b>case-insensitive</b> and <code>.</code> / <code>..</code> are <b>not supported</b> in paths.</dd></dl>
+<hr  />
+<h3><a class="anchor" id="autotoc_md319"></a>
 Examples</h3>
 <p><b>Load a library from <code>LIB$</code> and call its code</b> </p><div class="fragment"><div class="line">LIBRARY LIB$ + &quot;/ansi&quot;</div>
 <div class="line">PROCansi_demo</div>
@@ -131,7 +133,7 @@ Examples</h3>
 <div class="line">    REM optional constructor work here</div>
 <div class="line">ENDPROC</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md307"></a>
+<h3><a class="anchor" id="autotoc_md321"></a>
 Errors and behaviour</h3>
 <ul>
 <li>If the library file <b>cannot be found or loaded</b>, a runtime error is raised (catch with <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><code>ON ERROR</code></a> if needed).</li>
@@ -139,7 +141,7 @@ Errors and behaviour</h3>
 <li>The constructor call (procedure named after the file) is <b>optional</b>. If absent, nothing extra is called.</li>
 </ul>
 <p><b>See also:</b> <br  />
- <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/DEF"><code>DEF</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/PROC"><code>PROC</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/FN"><code>FN</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/Automatic-line-numbering"><code>Automatic line numbering</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ansi"><code>ansi</code></a> </p>
+ <a class="el" href="DEF.html">DEF</a> · <a class="el" href="PROC.html">PROC</a> · <a class="el" href="FN.html">FN</a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/Automatic-line-numbering"><code>Automatic line numbering</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ansi"><code>ansi</code></a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -147,7 +149,7 @@ Errors and behaviour</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

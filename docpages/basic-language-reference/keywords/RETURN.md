@@ -3,16 +3,16 @@
 RETURN
 ```
 
-Returns from a **subroutine** that was entered with [`GOSUB`](https://github.com/brainboxdotcc/retro-rocket/wiki/GOSUB).  
+Returns from a **subroutine** that was entered with \ref GOSUB "GOSUB".
 Execution resumes at the **statement after** the `GOSUB` call.
 
 
-> `RETURN` is only valid while servicing a `GOSUB`.  
-> Using `RETURN` **outside** a `GOSUB` context is an error.
+@note `RETURN` is only valid while servicing a `GOSUB`.
+@note Using `RETURN` **outside** a `GOSUB` context is an error.
 
 
-> `GOSUB`/`RETURN` are kept for compatibility and are **deprecated**.  
-> Prefer structured procedures: `DEF PROCname(...) ... ENDPROC`, called with `PROCname(...)`.
+@note `GOSUB`/`RETURN` are kept for compatibility and are **deprecated**.
+@note Prefer structured procedures: `DEF PROCname(...) ... ENDPROC`, called with `PROCname(...)`.
 
 ---
 
@@ -63,5 +63,5 @@ Execution resumes at the **statement after** the `GOSUB` call.
 ---
 
 ### See also
-- [`GOSUB`](https://github.com/brainboxdotcc/retro-rocket/wiki/GOSUB) - jump to a line and return
-- [`DEF`](https://github.com/brainboxdotcc/retro-rocket/wiki/DEF), [`PROC`](https://github.com/brainboxdotcc/retro-rocket/wiki/PROC), [`ENDPROC`](https://github.com/brainboxdotcc/retro-rocket/wiki/ENDPROC) - structured alternatives
+- \ref GOSUB "GOSUB" - jump to a line and return
+- \ref DEF "DEF", \ref PROC "PROC", \ref ENDPROC "ENDPROC" - structured alternatives

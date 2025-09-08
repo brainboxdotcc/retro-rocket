@@ -12,12 +12,12 @@ Loads a **keyboard mapping** by name from the `/system/keymaps` directory.
 - `.` and `..` are **not supported** in paths.
 
 
-> Only the keymaps that actually exist under `/system/keymaps` can be loaded.  
-> Do not assume a particular layout is available.
+@note Only the keymaps that actually exist under `/system/keymaps` can be loaded.
+@note Do not assume a particular layout is available.
 
 
-> If a keymap cannot be found or loaded, a runtime error is raised (catchable with
-> [`ON ERROR`](https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR)).
+@note If a keymap cannot be found or loaded, a runtime error is raised (catchable with
+@note [`ON ERROR`](https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR)).
 
 ---
 

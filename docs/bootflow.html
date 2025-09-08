@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -89,24 +90,24 @@ $(document).ready(function(){initNavTree('bootflow.html',''); initResizable(); }
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><ul><li class="level2"><a href="#autotoc_md575">Overview</a></li>
-<li class="level2"><a href="#autotoc_md577">1. Boot Assembly: &lt;tt&gt;boot.asm&lt;/tt&gt;</a></li>
-<li class="level2"><a href="#autotoc_md579">2. Kernel Entry Point: &lt;tt&gt;kmain()&lt;/tt&gt;</a></li>
-<li class="level2"><a href="#autotoc_md581">3. Core System Initialisation: &lt;tt&gt;init()&lt;/tt&gt;</a><ul><li class="level3"><a href="#autotoc_md582">Initialisation Order</a></li>
+<ul><ul><li class="level2"><a href="#autotoc_md589">Overview</a></li>
+<li class="level2"><a href="#autotoc_md591">1. Boot Assembly: &lt;tt&gt;boot.asm&lt;/tt&gt;</a></li>
+<li class="level2"><a href="#autotoc_md593">2. Kernel Entry Point: &lt;tt&gt;kmain()&lt;/tt&gt;</a></li>
+<li class="level2"><a href="#autotoc_md595">3. Core System Initialisation: &lt;tt&gt;init()&lt;/tt&gt;</a><ul><li class="level3"><a href="#autotoc_md596">Initialisation Order</a></li>
 </ul>
 </li>
-<li class="level2"><a href="#autotoc_md584">4. Process Management and Shell Launch</a><ul><li class="level3"><a href="#autotoc_md585">&lt;tt&gt;proc_loop()&lt;/tt&gt;</a></li>
+<li class="level2"><a href="#autotoc_md598">4. Process Management and Shell Launch</a><ul><li class="level3"><a href="#autotoc_md599">&lt;tt&gt;proc_loop()&lt;/tt&gt;</a></li>
 </ul>
 </li>
-<li class="level2"><a href="#autotoc_md587">5. Userland Bootstrap: &lt;tt&gt;/programs/init&lt;/tt&gt;</a></li>
-<li class="level2"><a href="#autotoc_md589">🔚 Full Boot Timeline</a></li>
-<li class="level2"><a href="#autotoc_md591">✨ Why This Design Works</a></li>
+<li class="level2"><a href="#autotoc_md601">5. Userland Bootstrap: &lt;tt&gt;/programs/init&lt;/tt&gt;</a></li>
+<li class="level2"><a href="#autotoc_md603">🔚 Full Boot Timeline</a></li>
+<li class="level2"><a href="#autotoc_md605">✨ Why This Design Works</a></li>
 </ul>
 </ul>
 </div>
 <div class="textblock"><p>This document describes the execution path from power-on to a running shell in <b>Retro Rocket</b> - a modern-day BBC Micro–inspired operating system. It walks through each stage of the boot process, from initial assembly handoff to the multitasking interpreter loop that drives userland programs.</p>
 <hr  />
-<h2><a class="anchor" id="autotoc_md575"></a>
+<h2><a class="anchor" id="autotoc_md589"></a>
 Overview</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -125,7 +126,7 @@ Overview</h2>
 <td class="markdownTableBodyNone"><code>/programs/rocketsh</code>   </td><td class="markdownTableBodyNone">Shell process - user interaction begins   </td></tr>
 </table>
 <hr  />
-<h2><a class="anchor" id="autotoc_md577"></a>
+<h2><a class="anchor" id="autotoc_md591"></a>
 1. Boot Assembly: &lt;tt&gt;boot.asm&lt;/tt&gt;</h2>
 <p>The kernel is entered via the symbol <code>boot_bsp</code>, defined in NASM assembly.</p>
 <div class="fragment"><div class="line">bits 64</div>
@@ -150,7 +151,7 @@ Overview</h2>
 <li>No paging, GDT, or IDT setup is done here - all handled later</li>
 </ul>
 <hr  />
-<h2><a class="anchor" id="autotoc_md579"></a>
+<h2><a class="anchor" id="autotoc_md593"></a>
 2. Kernel Entry Point: &lt;tt&gt;kmain()&lt;/tt&gt;</h2>
 <div class="fragment"><div class="line"><span class="keywordtype">void</span> <a class="code" href="kernel_8c.html#a923e6903029c99cf38b1349c65d2e55c">kmain</a>()</div>
 <div class="line">{</div>
@@ -173,10 +174,10 @@ Overview</h2>
 <li>Enters <code><a class="el" href="taskswitch_8h.html#ab25d44702b6e10e723714c368c4a7520" title="Initialise the process subsystem.">init_process()</a></code> which boots into userland</li>
 </ul>
 <hr  />
-<h2><a class="anchor" id="autotoc_md581"></a>
+<h2><a class="anchor" id="autotoc_md595"></a>
 3. Core System Initialisation: &lt;tt&gt;init()&lt;/tt&gt;</h2>
 <p>Each function is executed in sequence with logging.</p>
-<h3><a class="anchor" id="autotoc_md582"></a>
+<h3><a class="anchor" id="autotoc_md596"></a>
 Initialisation Order</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -219,7 +220,7 @@ Initialisation Order</h3>
 <td class="markdownTableBodyNone">18   </td><td class="markdownTableBodyNone"><code>init_e1000</code>   </td><td class="markdownTableBodyNone">Intel e1000 network driver   </td></tr>
 </table>
 <hr  />
-<h2><a class="anchor" id="autotoc_md584"></a>
+<h2><a class="anchor" id="autotoc_md598"></a>
 4. Process Management and Shell Launch</h2>
 <p>After filesystems are ready, <code><a class="el" href="taskswitch_8h.html#ab25d44702b6e10e723714c368c4a7520" title="Initialise the process subsystem.">init_process()</a></code> loads the first userland BASIC program:</p>
 <div class="fragment"><div class="line"><span class="keywordtype">void</span> <a class="code" href="taskswitch_8h.html#ab25d44702b6e10e723714c368c4a7520">init_process</a>()</div>
@@ -235,7 +236,7 @@ Initialisation Order</h3>
 <div class="ttc" id="astructprocess__t_html"><div class="ttname"><a href="structprocess__t.html">process_t</a></div><div class="ttdoc">Represents a process in the system.</div><div class="ttdef"><b>Definition:</b> taskswitch.h:65</div></div>
 <div class="ttc" id="ataskswitch_8h_html_a1ddb02d538d102946f6b3d888c881bbd"><div class="ttname"><a href="taskswitch_8h.html#a1ddb02d538d102946f6b3d888c881bbd">proc_load</a></div><div class="ttdeci">process_t * proc_load(const char *fullpath, pid_t parent_pid, const char *csd)</div><div class="ttdoc">Load and start a new BASIC process.</div><div class="ttdef"><b>Definition:</b> taskswitch.c:63</div></div>
 <div class="ttc" id="ataskswitch_8h_html_a85615075496bba1788714ffe2b8eb472"><div class="ttname"><a href="taskswitch_8h.html#a85615075496bba1788714ffe2b8eb472">proc_loop</a></div><div class="ttdeci">_Noreturn void proc_loop()</div><div class="ttdoc">Run the process scheduling loop.</div><div class="ttdef"><b>Definition:</b> taskswitch.c:410</div></div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md585"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md599"></a>
 &lt;tt&gt;proc_loop()&lt;/tt&gt;</h3>
 <div class="fragment"><div class="line"><span class="keywordtype">void</span> <a class="code" href="taskswitch_8h.html#a85615075496bba1788714ffe2b8eb472">proc_loop</a>()</div>
 <div class="line">{</div>
@@ -254,7 +255,7 @@ Initialisation Order</h3>
 <li>System halts if no processes remain</li>
 </ul>
 <hr  />
-<h2><a class="anchor" id="autotoc_md587"></a>
+<h2><a class="anchor" id="autotoc_md601"></a>
 5. Userland Bootstrap: &lt;tt&gt;/programs/init&lt;/tt&gt;</h2>
 <p>This BASIC program acts like a boot script (like <code>AUTOEXEC.BAT</code> or <code>!Boot</code>):</p>
 <div class="fragment"><div class="line">GLOBAL LIB$ = &quot;/programs/libraries&quot;</div>
@@ -283,7 +284,7 @@ Initialisation Order</h3>
 <li>Loops forever, reloading the shell</li>
 </ul>
 <hr  />
-<h2><a class="anchor" id="autotoc_md589"></a>
+<h2><a class="anchor" id="autotoc_md603"></a>
 🔚 Full Boot Timeline</h2>
 <div class="fragment"><div class="line">boot.asm</div>
 <div class="line">  ↓</div>
@@ -305,7 +306,7 @@ Initialisation Order</h3>
 <div class="line">  ↓</div>
 <div class="line">/programs/rocketsh (shell)</div>
 </div><!-- fragment --><hr  />
-<h2><a class="anchor" id="autotoc_md591"></a>
+<h2><a class="anchor" id="autotoc_md605"></a>
 ✨ Why This Design Works</h2>
 <p>Retro Rocket's boot process is:</p>
 <ul>
@@ -321,7 +322,7 @@ Initialisation Order</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="kernel-dev.html">Kernel Development</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Retro Rocket OS: include/basic/peekpoke.h File Reference</title>
+<title>Retro Rocket OS: peekpoke.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -93,8 +94,7 @@ $(document).ready(function(){initNavTree('peekpoke_8h.html',''); initResizable()
 
 <p>Functions related to BASIC PEEK and POKE functions.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;<a class="el" href="kernel_8h.html">kernel.h</a>&gt;</code><br />
-</div><table class="memberdecls">
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a4c055a6af511815a37d20b12b3cdae96"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="peekpoke_8h.html#a4c055a6af511815a37d20b12b3cdae96">basic_peek</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
@@ -113,6 +113,10 @@ Functions</h2></td></tr>
 <tr class="separator:a2509c42f10bd7f122fd9fa8901afc6ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a223798c8a391abde6b878c66bce57d8b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="peekpoke_8h.html#a223798c8a391abde6b878c66bce57d8b">pokeq_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
 <tr class="separator:a223798c8a391abde6b878c66bce57d8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae485fd9480366b10421defd0cd1968ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="peekpoke_8h.html#ae485fd9480366b10421defd0cd1968ec">modload_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="separator:ae485fd9480366b10421defd0cd1968ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aead0d416ee083a0290c2426851bd207f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="peekpoke_8h.html#aead0d416ee083a0290c2426851bd207f">modunload_statement</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="separator:aead0d416ee083a0290c2426851bd207f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Functions related to BASIC PEEK and POKE functions. </p>
@@ -218,6 +222,42 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Value read as integer, or 0 with error set if invalid </dd></dl>
+
+</div>
+</div>
+<a id="ae485fd9480366b10421defd0cd1968ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae485fd9480366b10421defd0cd1968ec">&#9670;&nbsp;</a></span>modload_statement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modload_statement </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aead0d416ee083a0290c2426851bd207f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aead0d416ee083a0290c2426851bd207f">&#9670;&nbsp;</a></span>modunload_statement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modunload_statement </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -327,7 +367,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_1e5d3661ed79af157d57e64a38265d09.html">basic</a></li><li class="navelem"><a class="el" href="peekpoke_8h.html">peekpoke.h</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -7,12 +7,12 @@ Unloads a **sprite** whose handle is given by `integer-expression`.
 After `SPRITEFREE`, the handle is no longer valid for drawing.
 
 
-> Each program may have **up to 1024 sprites** loaded at any one time.  
-> Sprite handles are **per-program**, and all remaining sprites are **automatically freed** when the program ends.
+@note Each program may have **up to 1024 sprites** loaded at any one time.
+@note Sprite handles are **per-program**, and all remaining sprites are **automatically freed** when the program ends.
 
 
-> Passing an invalid handle (or one that has already been freed) raises a runtime error  
-> that you can catch with [`ON ERROR`](https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR).
+@note Passing an invalid handle (or one that has already been freed) raises a runtime error
+@note that you can catch with [`ON ERROR`](https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR).
 
 ---
 
@@ -73,6 +73,6 @@ ENDPROC
 - Freeing resources explicitly during long-running programs helps control memory use.
 
 **See also:**  
-[`SPRITELOAD`](https://github.com/brainboxdotcc/retro-rocket/wiki/SPRITELOAD) ·
-[`PLOT`](https://github.com/brainboxdotcc/retro-rocket/wiki/PLOT) ·
-[`PLOTQUAD`](https://github.com/brainboxdotcc/retro-rocket/wiki/PLOTQUAD)
+\ref SPRITELOAD "SPRITELOAD" ·
+\ref PLOT "PLOT" ·
+\ref PLOTQUAD "PLOTQUAD"

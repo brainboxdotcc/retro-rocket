@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Retro Rocket OS: src/net/ip.c File Reference</title>
+<title>Retro Rocket OS: ip.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -92,8 +93,7 @@ $(document).ready(function(){initNavTree('ip_8c.html',''); initResizable(); });
 <div class="title">ip.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="kernel_8h.html">kernel.h</a>&gt;</code><br />
-</div><table class="memberdecls">
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:ae06a7aa536fce71c898cf196c4354bc0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#ae06a7aa536fce71c898cf196c4354bc0">MAX_REASSEMBLIES</a>&#160;&#160;&#160;64</td></tr>
@@ -106,6 +106,8 @@ Macros</h2></td></tr>
 <tr class="separator:a5bdab5d96be1af39dda9ae08da73251d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a05479c672d32bd30d66deab11f20f4f8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a05479c672d32bd30d66deab11f20f4f8">TCP_MAX_PACKET_SIZE</a>&#160;&#160;&#160;(65536 + sizeof(ip_packet_t))</td></tr>
 <tr class="separator:a05479c672d32bd30d66deab11f20f4f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6a518f322efc161f25c99a8b24c8f12"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#ac6a518f322efc161f25c99a8b24c8f12">MAX_LOCAL_HOST_NAME</a>&#160;&#160;&#160;64</td></tr>
+<tr class="separator:ac6a518f322efc161f25c99a8b24c8f12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -132,6 +134,10 @@ Functions</h2></td></tr>
 <tr class="memitem:a4e01d123dc960d1c3e7afc199866b394"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a4e01d123dc960d1c3e7afc199866b394">setgatewayaddr</a> (uint32_t <a class="el" href="icmp_8h.html#a47a692ddd3db0240374af41d508619ff">gateway</a>)</td></tr>
 <tr class="memdesc:a4e01d123dc960d1c3e7afc199866b394"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set gateway address This could be allocated by DHCP or statically.  <a href="ip_8c.html#a4e01d123dc960d1c3e7afc199866b394">More...</a><br /></td></tr>
 <tr class="separator:a4e01d123dc960d1c3e7afc199866b394"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade097a2cf5310fa153f6320a7f43ff3d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#ade097a2cf5310fa153f6320a7f43ff3d">sethostname</a> (const char *hostname)</td></tr>
+<tr class="separator:ade097a2cf5310fa153f6320a7f43ff3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0766b579c893b1ae7e334f20aa9444d2"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a0766b579c893b1ae7e334f20aa9444d2">gethostname</a> ()</td></tr>
+<tr class="separator:a0766b579c893b1ae7e334f20aa9444d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04ebf6ef42a22c69b10eb794d233ceec"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a04ebf6ef42a22c69b10eb794d233ceec">getdnsaddr</a> ()</td></tr>
 <tr class="memdesc:a04ebf6ef42a22c69b10eb794d233ceec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get DNS address This could be allocated by DHCP or statically.  <a href="ip_8c.html#a04ebf6ef42a22c69b10eb794d233ceec">More...</a><br /></td></tr>
 <tr class="separator:a04ebf6ef42a22c69b10eb794d233ceec"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -181,29 +187,37 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a2d6dd3031d8e8ae564a17572a1a5af4b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="spinlock_8h.html#af82eed01f0304d83276dda764b213779">spinlock_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a2d6dd3031d8e8ae564a17572a1a5af4b">tcp_send_spinlock</a> = 0</td></tr>
+<tr class="memitem:a2d6dd3031d8e8ae564a17572a1a5af4b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="spinlock_8h.html#af82eed01f0304d83276dda764b213779">spinlock_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a2d6dd3031d8e8ae564a17572a1a5af4b">tcp_send_spinlock</a> = 0</td></tr>
 <tr class="separator:a2d6dd3031d8e8ae564a17572a1a5af4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a20d3f29246ff06fd287c195fb3b5ad"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a4a20d3f29246ff06fd287c195fb3b5ad">last_id</a></td></tr>
+<tr class="memitem:a4a20d3f29246ff06fd287c195fb3b5ad"><td class="memItemLeft" align="right" valign="top">static uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a4a20d3f29246ff06fd287c195fb3b5ad">last_id</a></td></tr>
 <tr class="separator:a4a20d3f29246ff06fd287c195fb3b5ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada0d7881688ca9983c592003f20c66b3"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#ada0d7881688ca9983c592003f20c66b3">my_ip</a> [4] = {0, 0, 0, 0}</td></tr>
+<tr class="memitem:ada0d7881688ca9983c592003f20c66b3"><td class="memItemLeft" align="right" valign="top">static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#ada0d7881688ca9983c592003f20c66b3">my_ip</a> [4] = {0, 0, 0, 0}</td></tr>
 <tr class="separator:ada0d7881688ca9983c592003f20c66b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d4da000395bede0dbfdd8232f8c03a7"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a9d4da000395bede0dbfdd8232f8c03a7">zero_hardware_addr</a> [6] = {0, 0, 0, 0, 0, 0}</td></tr>
+<tr class="memitem:a9d4da000395bede0dbfdd8232f8c03a7"><td class="memItemLeft" align="right" valign="top">static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a9d4da000395bede0dbfdd8232f8c03a7">zero_hardware_addr</a> [6] = {0, 0, 0, 0, 0, 0}</td></tr>
 <tr class="separator:a9d4da000395bede0dbfdd8232f8c03a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58bff71356890c43c2f9ecbbc8e5efcb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpacket__queue__item__t.html">packet_queue_item_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a58bff71356890c43c2f9ecbbc8e5efcb">packet_queue</a> = NULL</td></tr>
+<tr class="memitem:a58bff71356890c43c2f9ecbbc8e5efcb"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structpacket__queue__item__t.html">packet_queue_item_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a58bff71356890c43c2f9ecbbc8e5efcb">packet_queue</a> = NULL</td></tr>
 <tr class="separator:a58bff71356890c43c2f9ecbbc8e5efcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6125bebd59f0e7d42e376b3290904d87"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpacket__queue__item__t.html">packet_queue_item_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a6125bebd59f0e7d42e376b3290904d87">packet_queue_end</a> = NULL</td></tr>
+<tr class="memitem:a6125bebd59f0e7d42e376b3290904d87"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structpacket__queue__item__t.html">packet_queue_item_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a6125bebd59f0e7d42e376b3290904d87">packet_queue_end</a> = NULL</td></tr>
 <tr class="separator:a6125bebd59f0e7d42e376b3290904d87"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9bccf5c44f19ed32be16e03df2bc2fa3"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a9bccf5c44f19ed32be16e03df2bc2fa3">ip_addr</a> [4] = { 0, 0, 0, 0 }</td></tr>
+<tr class="memitem:a9ce636709a5906b466ae7f9132ac8d5b"><td class="memItemLeft" align="right" valign="top">static char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a9ce636709a5906b466ae7f9132ac8d5b">my_hostname</a> [64]</td></tr>
+<tr class="separator:a9ce636709a5906b466ae7f9132ac8d5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bccf5c44f19ed32be16e03df2bc2fa3"><td class="memItemLeft" align="right" valign="top">static char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a9bccf5c44f19ed32be16e03df2bc2fa3">ip_addr</a> [4] = { 0, 0, 0, 0 }</td></tr>
 <tr class="separator:a9bccf5c44f19ed32be16e03df2bc2fa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af35b683b49f96e5686f99b329f768b99"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#af35b683b49f96e5686f99b329f768b99">is_ip_allocated</a> = 0</td></tr>
 <tr class="separator:af35b683b49f96e5686f99b329f768b99"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7fad87cf014030c6364d4f963aac8e8"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#ae7fad87cf014030c6364d4f963aac8e8">dns_addr</a> = 0</td></tr>
+<tr class="memitem:a315f4a8f60d99f076d92272085333bd6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a315f4a8f60d99f076d92272085333bd6">is_dns_allocated</a> = 0</td></tr>
+<tr class="separator:a315f4a8f60d99f076d92272085333bd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a809f4cf1e0e24684c7a546765e0c2e7e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a809f4cf1e0e24684c7a546765e0c2e7e">is_gateway_allocated</a> = 0</td></tr>
+<tr class="separator:a809f4cf1e0e24684c7a546765e0c2e7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54bb7af0aadd6e172ed644bdf2948dde"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a54bb7af0aadd6e172ed644bdf2948dde">is_mask_allocated</a> = 0</td></tr>
+<tr class="separator:a54bb7af0aadd6e172ed644bdf2948dde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7fad87cf014030c6364d4f963aac8e8"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#ae7fad87cf014030c6364d4f963aac8e8">dns_addr</a> = 0</td></tr>
 <tr class="separator:ae7fad87cf014030c6364d4f963aac8e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab913ad1e18df42991659f4271c6a810b"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#ab913ad1e18df42991659f4271c6a810b">gateway_addr</a> = 0</td></tr>
+<tr class="memitem:ab913ad1e18df42991659f4271c6a810b"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#ab913ad1e18df42991659f4271c6a810b">gateway_addr</a> = 0</td></tr>
 <tr class="separator:ab913ad1e18df42991659f4271c6a810b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a283760faaf99e00bbebe2719e252f0"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a0a283760faaf99e00bbebe2719e252f0">netmask</a> = 0</td></tr>
+<tr class="memitem:a0a283760faaf99e00bbebe2719e252f0"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a0a283760faaf99e00bbebe2719e252f0">netmask</a> = 0</td></tr>
 <tr class="separator:a0a283760faaf99e00bbebe2719e252f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12770212379d1208a1f07961b62cb733"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structhashmap.html">hashmap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a12770212379d1208a1f07961b62cb733">frag_map</a> = NULL</td></tr>
+<tr class="memitem:a12770212379d1208a1f07961b62cb733"><td class="memItemLeft" align="right" valign="top">static struct <a class="el" href="structhashmap.html">hashmap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#a12770212379d1208a1f07961b62cb733">frag_map</a> = NULL</td></tr>
 <tr class="separator:a12770212379d1208a1f07961b62cb733"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab93b0af589dd086790a127286eedf52a"><td class="memItemLeft" align="right" valign="top">static size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ip_8c.html#ab93b0af589dd086790a127286eedf52a">frag_mem_total</a> = 0</td></tr>
 <tr class="separator:ab93b0af589dd086790a127286eedf52a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -253,6 +267,20 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">#define FRAG_TIMEOUT_TICKS&#160;&#160;&#160;3000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac6a518f322efc161f25c99a8b24c8f12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6a518f322efc161f25c99a8b24c8f12">&#9670;&nbsp;</a></span>MAX_LOCAL_HOST_NAME</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_LOCAL_HOST_NAME&#160;&#160;&#160;64</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -481,6 +509,23 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>int nonzero if an IP address is available for use </dd></dl>
+
+</div>
+</div>
+<a id="a0766b579c893b1ae7e334f20aa9444d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0766b579c893b1ae7e334f20aa9444d2">&#9670;&nbsp;</a></span>gethostname()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* gethostname </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -952,6 +997,24 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ade097a2cf5310fa153f6320a7f43ff3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade097a2cf5310fa153f6320a7f43ff3d">&#9670;&nbsp;</a></span>sethostname()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sethostname </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>hostname</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a621c408b11c5b2ba33c9ad1a7bac93ea"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a621c408b11c5b2ba33c9ad1a7bac93ea">&#9670;&nbsp;</a></span>setnetmask()</h2>
 
@@ -1011,11 +1074,19 @@ Variables</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">uint32_t dns_addr = 0</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -1025,11 +1096,19 @@ Variables</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">struct <a class="el" href="structhashmap.html">hashmap</a>* frag_map = NULL</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -1061,11 +1140,19 @@ Variables</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">uint32_t gateway_addr = 0</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -1075,11 +1162,19 @@ Variables</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">char ip_addr[4] = { 0, 0, 0, 0 }</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -1150,6 +1245,34 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a315f4a8f60d99f076d92272085333bd6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a315f4a8f60d99f076d92272085333bd6">&#9670;&nbsp;</a></span>is_dns_allocated</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int is_dns_allocated = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a809f4cf1e0e24684c7a546765e0c2e7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a809f4cf1e0e24684c7a546765e0c2e7e">&#9670;&nbsp;</a></span>is_gateway_allocated</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int is_gateway_allocated = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="af35b683b49f96e5686f99b329f768b99"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af35b683b49f96e5686f99b329f768b99">&#9670;&nbsp;</a></span>is_ip_allocated</h2>
 
@@ -1164,16 +1287,38 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a4a20d3f29246ff06fd287c195fb3b5ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a20d3f29246ff06fd287c195fb3b5ad">&#9670;&nbsp;</a></span>last_id</h2>
+<a id="a54bb7af0aadd6e172ed644bdf2948dde"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54bb7af0aadd6e172ed644bdf2948dde">&#9670;&nbsp;</a></span>is_mask_allocated</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
+          <td class="memname">int is_mask_allocated = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4a20d3f29246ff06fd287c195fb3b5ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a20d3f29246ff06fd287c195fb3b5ad">&#9670;&nbsp;</a></span>last_id</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
           <td class="memname">uint16_t last_id</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -1200,16 +1345,46 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a9ce636709a5906b466ae7f9132ac8d5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ce636709a5906b466ae7f9132ac8d5b">&#9670;&nbsp;</a></span>my_hostname</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">char my_hostname[64]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ada0d7881688ca9983c592003f20c66b3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ada0d7881688ca9983c592003f20c66b3">&#9670;&nbsp;</a></span>my_ip</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">uint8_t my_ip[4] = {0, 0, 0, 0}</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -1219,11 +1394,19 @@ Variables</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">uint32_t netmask = 0</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -1233,11 +1416,19 @@ Variables</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="structpacket__queue__item__t.html">packet_queue_item_t</a>* packet_queue = NULL</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -1247,11 +1438,19 @@ Variables</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="structpacket__queue__item__t.html">packet_queue_item_t</a>* packet_queue_end = NULL</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -1261,11 +1460,19 @@ Variables</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="spinlock_8h.html#af82eed01f0304d83276dda764b213779">spinlock_t</a> tcp_send_spinlock = 0</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -1275,11 +1482,19 @@ Variables</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">uint8_t zero_hardware_addr[6] = {0, 0, 0, 0, 0, 0}</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -1290,7 +1505,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c72b25b75abe208498b36a3e44a3726c.html">net</a></li><li class="navelem"><a class="el" href="ip_8c.html">ip.c</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:29 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

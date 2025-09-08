@@ -26,4 +26,4 @@ OUTPORTW &1F0, &1234
 - Only use when the port supports 16-bit writes.
 
 **See also:**  
-[OUTPORT](https://github.com/brainboxdotcc/retro-rocket/wiki/OUTPORT) · [OUTPORTD](https://github.com/brainboxdotcc/retro-rocket/wiki/OUTPORTD) · [OUTPORTQ](https://github.com/brainboxdotcc/retro-rocket/wiki/OUTPORTQ) · [INPORTW](https://github.com/brainboxdotcc/retro-rocket/wiki/INPORTW)
+\ref OUTPORT "OUTPORT" · \ref OUTPORTD "OUTPORTD" · \ref OUTPORTQ "OUTPORTQ" · \ref INPORTW "INPORTW"

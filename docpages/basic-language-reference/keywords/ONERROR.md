@@ -16,15 +16,15 @@ When an error occurs:
 - After the handler returns, **execution continues** at the statement **after** the one that failed, unless the handler terminates the program (for example with `END`).
 
 
-> Only the two forms above are supported. There is **no** `ON ERROR GOTO`, `RESUME`, or similar.
+@note Only the two forms above are supported. There is **no** `ON ERROR GOTO`, `RESUME`, or similar.
 
 
-> The handler is invoked as a **one-off** to prevent recursion.  
-> If you want ongoing handling, call `ON ERROR PROCname` again **inside your handler** before it returns.
+@note The handler is invoked as a **one-off** to prevent recursion.
+@note If you want ongoing handling, call `ON ERROR PROCname` again **inside your handler** before it returns.
 
 
-> Pressing `CTRL+ESC` generates a break-like error that is delivered to your installed handler.  
-> Without a handler, the program terminates.
+@note Pressing `CTRL+ESC` generates a break-like error that is delivered to your installed handler.
+@note Without a handler, the program terminates.
 
 ---
 
@@ -72,7 +72,7 @@ ENDPROC
 - If you are using line-numbered code, you may use your usual control flow after the handler returns, but prefer structured constructs in new code.
 
 **See also:**  
-[`ERROR`](https://github.com/brainboxdotcc/retro-rocket/wiki/ERROR) ·
-[`DEF`](https://github.com/brainboxdotcc/retro-rocket/wiki/DEF) ·
-[`PROC`](https://github.com/brainboxdotcc/retro-rocket/wiki/PROC) ·
+\ref ERROR "ERROR" ·
+\ref DEF "DEF" ·
+\ref PROC "PROC" ·
 [Builtin Variables](https://github.com/brainboxdotcc/retro-rocket/wiki/Builtin-Variables)

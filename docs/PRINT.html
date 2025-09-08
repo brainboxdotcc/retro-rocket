@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -92,7 +93,7 @@ $(document).ready(function(){initNavTree('PRINT.html',''); initResizable(); });
 </div><!-- fragment --><p>Outputs text at the current cursor position on the text screen. <br  />
  <code>printable</code> may be a string or a numeric expression; numbers are converted to text automatically.</p>
 <hr  />
-<h3><a class="anchor" id="autotoc_md406"></a>
+<h3><a class="anchor" id="autotoc_md420"></a>
 Separators and line endings</h3>
 <p><code>PRINT</code> accepts multiple items separated by <code>;</code> or <code>,</code>:</p>
 <ul>
@@ -103,20 +104,18 @@ Separators and line endings</h3>
 </ul>
 <dl class="section remark"><dt>Remarks</dt><dd>Keep the cursor on the same line for a prompt: </dd>
 <dd>
-```basic <blockquote class="doxtable">
-<p>PRINT "Enter name: "; ``` </p>
-</blockquote>
-</dd></dl>
-<h2><a class="anchor" id="autotoc_md407"></a>
-&lt;/blockquote&gt;</h2>
-<h3><a class="anchor" id="autotoc_md408"></a>
+```basic </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>PRINT "Enter name: "; </dd>
+<dd>
+```</dd></dl>
+<hr  />
+<h3><a class="anchor" id="autotoc_md422"></a>
 Using ANSI escape sequences (advanced)</h3>
 <p><code>PRINT</code> can emit ANSI/VT100 escape sequences directly. <br  />
  The escape character is <code>ESC</code>, which is <code>CHR$(27)</code>. Most sequences begin with <code>ESC</code> + <code>"["</code> (Control Sequence Introducer).</p>
-<blockquote class="doxtable">
-<p><code>COLOUR</code> and <code>BACKGROUND</code> change text colours in a portable, high-level way. <br  />
- ANSI escapes give lower-level control (cursor movement, attributes, manual colours, clearing parts of the screen, etc.). </p>
-</blockquote>
+<dl class="section note"><dt>Note</dt><dd><code>COLOUR</code> and <code>BACKGROUND</code> change text colours in a portable, high-level way. </dd>
+<dd>
+ANSI escapes give lower-level control (cursor movement, attributes, manual colours, clearing parts of the screen, etc.).</dd></dl>
 <p>Define a convenience prefix: </p><div class="fragment"><div class="line">ESC$ = CHR$(27) + &quot;[&quot;</div>
 </div><!-- fragment --><p><b>Text attributes and colours (SGR)</b> </p><div class="fragment"><div class="line">REM Set red foreground, then reset</div>
 <div class="line">PRINT ESC$ + &quot;31m&quot; + &quot;Red text&quot; + ESC$ + &quot;0m&quot;</div>
@@ -147,15 +146,13 @@ Using ANSI escape sequences (advanced)</h3>
 <div class="line">PRINT ESC$ + &quot;K&quot;</div>
 </div><!-- fragment --><p><b>Show/hide cursor</b> </p><div class="fragment"><div class="line">PRINT ESC$ + &quot;?25l&quot;   REM hide</div>
 <div class="line">PRINT ESC$ + &quot;?25h&quot;   REM show</div>
-</div><!-- fragment --><blockquote class="doxtable">
-<p>Always finish coloured or styled output with <code>ESC[0m</code> to reset attributes, or later text may inherit your styles. </p>
-</blockquote>
-<blockquote class="doxtable">
-<p>For higher-level helpers and key handling, consider the <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ansi"><code>ansi</code></a> system library. </p>
-</blockquote>
-<h2><a class="anchor" id="autotoc_md409"></a>
-&lt;/blockquote&gt;</h2>
-<h3><a class="anchor" id="autotoc_md410"></a>
+</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>Always finish coloured or styled output with <code>ESC[0m</code> to reset attributes, or later text may inherit your styles.</dd>
+<dd>
+For higher-level helpers and key handling, consider the </dd>
+<dd>
+<a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ansi"><code>ansi</code></a> system library.</dd></dl>
+<hr  />
+<h3><a class="anchor" id="autotoc_md424"></a>
 Examples</h3>
 <p>Basic printing </p><div class="fragment"><div class="line">PRINT &quot;Hello&quot;</div>
 <div class="line">PRINT 123</div>
@@ -167,7 +164,7 @@ Examples</h3>
 </div><!-- fragment --><p>Simple coloured prompt using ANSI </p><div class="fragment"><div class="line">ESC$ = CHR$(27) + &quot;[&quot;</div>
 <div class="line">PRINT ESC$ + &quot;32m&quot; + &quot;OK&gt; &quot; + ESC$ + &quot;0m&quot;;</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md412"></a>
+<h3><a class="anchor" id="autotoc_md426"></a>
 Notes</h3>
 <ul>
 <li>Output affects the text layer. Use <code>COLOUR</code> and <code>BACKGROUND</code> for simple text colours, and <code>GCOL</code> for graphics drawing.</li>
@@ -175,7 +172,7 @@ Notes</h3>
 <li><code>CLS</code> clears both text and graphics. ANSI <code>ESC[2J</code> clears the text layer.</li>
 </ul>
 <p><b>See also:</b> <br  />
- <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/CURSOR"><code>CURSOR</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/COLOUR"><code>COLOUR</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/BACKGROUND"><code>BACKGROUND</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ansi"><code>ansi</code></a> </p>
+ <a class="el" href="CURSOR.html">CURSOR</a> · <a class="el" href="COLOUR.html">COLOUR</a> · <a class="el" href="BACKGROUND.html">BACKGROUND</a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ansi"><code>ansi</code></a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -183,7 +180,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

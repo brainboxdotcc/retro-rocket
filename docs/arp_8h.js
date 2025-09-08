@@ -8,6 +8,7 @@ var arp_8h =
       [ "ARP_REPLY", "arp_8h.html#a54b168c1808c891a5f770f8e8f31277ea8bb24a026264a5b22435864179f874d9", null ]
     ] ],
     [ "__attribute__", "arp_8h.html#a61ae48c115f16fa51d6c4284aacb78d9", null ],
+    [ "arp_announce_my_ip", "arp_8h.html#a12fdfa384a0ebd68313e51092e73f410", null ],
     [ "arp_init", "arp_8h.html#aa528ddf0081d9d95ec593c63fafacb31", null ],
     [ "arp_lookup", "arp_8h.html#a4c42cd0cf3334e17dba31d79df346b68", null ],
     [ "arp_lookup_add", "arp_8h.html#adfb058efa1f5ac734b350159676020a4", null ],

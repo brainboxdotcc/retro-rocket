@@ -8,10 +8,9 @@
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">FLIP</highlight></codeline>
 </programlisting></para>
-<para>When <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/AUTOFLIP"><computeroutput>AUTOFLIP</computeroutput></ulink> is set to <computeroutput>FALSE</computeroutput>, <computeroutput>FLIP</computeroutput> <bold>presents the current backbuffer</bold> to the screen (frontbuffer). <linebreak/>
- This gives you explicit control over when a frame becomes visible - useful for animations or multi-step drawing.</para>
+<para>When <ref refid="AUTOFLIP" kindref="compound">AUTOFLIP</ref> is set to <computeroutput>FALSE</computeroutput>, <computeroutput>FLIP</computeroutput> <bold>presents the current backbuffer</bold> to the screen (frontbuffer). This gives you explicit control over when a frame becomes visible - useful for animations or multi-step drawing.</para>
 <para><itemizedlist>
-<listitem><para>Drawing statements (e.g. <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/LINE"><computeroutput>LINE</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CIRCLE"><computeroutput>CIRCLE</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/RECTANGLE"><computeroutput>RECTANGLE</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PLOT"><computeroutput>PLOT</computeroutput></ulink>) update the <bold>backbuffer</bold>.</para>
+<listitem><para>Drawing statements (e.g. <ref refid="LINE" kindref="compound">LINE</ref>, <ref refid="CIRCLE" kindref="compound">CIRCLE</ref>, <ref refid="RECTANGLE" kindref="compound">RECTANGLE</ref>, <ref refid="PLOT" kindref="compound">PLOT</ref>) update the <bold>backbuffer</bold>.</para>
 </listitem><listitem><para><computeroutput>FLIP</computeroutput> swaps the backbuffer to the display in one step, so the whole frame appears at once.</para>
 </listitem><listitem><para>If <computeroutput>AUTOFLIP</computeroutput> is <computeroutput>TRUE</computeroutput>, the system presents frames automatically and you typically do not call <computeroutput>FLIP</computeroutput> yourself.</para>
 </listitem></itemizedlist>
@@ -40,11 +39,11 @@
 <para><itemizedlist>
 <listitem><para>If you do not call <computeroutput>FLIP</computeroutput> while <computeroutput>AUTOFLIP</computeroutput> is <computeroutput>FALSE</computeroutput>, the screen will not update until the next flip.</para>
 </listitem><listitem><para><computeroutput>CLS</computeroutput> clears both text and graphics; use it when you want a fresh frame for the next draw.</para>
-</listitem><listitem><para>Colour for graphics is set with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL"><computeroutput>GCOL</computeroutput></ulink>, typically via <computeroutput>RGB(r,g,b)</computeroutput>.</para>
+</listitem><listitem><para>Colour for graphics is set with <ref refid="GCOL" kindref="compound">GCOL</ref>, typically via <computeroutput>RGB(r,g,b)</computeroutput>.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/AUTOFLIP"><computeroutput>AUTOFLIP</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL"><computeroutput>GCOL</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CIRCLE"><computeroutput>CIRCLE</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/LINE"><computeroutput>LINE</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/RECTANGLE"><computeroutput>RECTANGLE</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PLOT"><computeroutput>PLOT</computeroutput></ulink> </para>
+ <ref refid="AUTOFLIP" kindref="compound">AUTOFLIP</ref> · <ref refid="GCOL" kindref="compound">GCOL</ref> · <ref refid="CIRCLE" kindref="compound">CIRCLE</ref> · <ref refid="LINE" kindref="compound">LINE</ref> · <ref refid="RECTANGLE" kindref="compound">RECTANGLE</ref> · <ref refid="PLOT" kindref="compound">PLOT</ref> </para>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/FLIP.md"/>
   </compounddef>

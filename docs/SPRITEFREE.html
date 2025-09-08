@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -91,17 +92,15 @@ $(document).ready(function(){initNavTree('SPRITEFREE.html',''); initResizable();
 <div class="textblock"><div class="fragment"><div class="line">SPRITEFREE integer-expression</div>
 </div><!-- fragment --><p>Unloads a <b>sprite</b> whose handle is given by <code>integer-expression</code>. <br  />
  After <code>SPRITEFREE</code>, the handle is no longer valid for drawing.</p>
-<blockquote class="doxtable">
-<p>Each program may have <b>up to 1024 sprites</b> loaded at any one time. <br  />
- Sprite handles are <b>per-program</b>, and all remaining sprites are <b>automatically freed</b> when the program ends. </p>
-</blockquote>
-<blockquote class="doxtable">
-<p>Passing an invalid handle (or one that has already been freed) raises a runtime error <br  />
- that you can catch with <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><code>ON ERROR</code></a>. </p>
-</blockquote>
-<h2><a class="anchor" id="autotoc_md478"></a>
-&lt;/blockquote&gt;</h2>
-<h3><a class="anchor" id="autotoc_md479"></a>
+<dl class="section note"><dt>Note</dt><dd>Each program may have <b>up to 1024 sprites</b> loaded at any one time. </dd>
+<dd>
+Sprite handles are <b>per-program</b>, and all remaining sprites are <b>automatically freed</b> when the program ends.</dd>
+<dd>
+Passing an invalid handle (or one that has already been freed) raises a runtime error </dd>
+<dd>
+that you can catch with <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><code>ON ERROR</code></a>.</dd></dl>
+<hr  />
+<h3><a class="anchor" id="autotoc_md493"></a>
 Examples</h3>
 <p><b>Load, draw, then free</b> </p><div class="fragment"><div class="line">SPRITELOAD S, &quot;/images/logo.png&quot;</div>
 <div class="line">PLOT S, 100, 80</div>
@@ -135,7 +134,7 @@ Examples</h3>
 <div class="line">    ON ERROR PROCerr</div>
 <div class="line">ENDPROC</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md481"></a>
+<h3><a class="anchor" id="autotoc_md495"></a>
 Notes</h3>
 <ul>
 <li><code>integer-expression</code> can be a variable, array element, or any expression that evaluates to a valid sprite handle.</li>
@@ -143,7 +142,7 @@ Notes</h3>
 <li>Freeing resources explicitly during long-running programs helps control memory use.</li>
 </ul>
 <p><b>See also:</b> <br  />
- <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/SPRITELOAD"><code>SPRITELOAD</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/PLOT"><code>PLOT</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/PLOTQUAD"><code>PLOTQUAD</code></a> </p>
+ <a class="el" href="SPRITELOAD.html">SPRITELOAD</a> · <a class="el" href="PLOT.html">PLOT</a> · <a class="el" href="PLOTQUAD.html">PLOTQUAD</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -151,7 +150,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

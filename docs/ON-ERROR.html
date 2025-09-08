@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -102,20 +103,17 @@ $(document).ready(function(){initNavTree('ON-ERROR.html',''); initResizable(); }
 </li>
 <li>After the handler returns, <b>execution continues</b> at the statement <b>after</b> the one that failed, unless the handler terminates the program (for example with <code>END</code>).</li>
 </ul>
-<blockquote class="doxtable">
-<p>Only the two forms above are supported. There is <b>no</b> <code>ON ERROR GOTO</code>, <code>RESUME</code>, or similar. </p>
-</blockquote>
-<blockquote class="doxtable">
-<p>The handler is invoked as a <b>one-off</b> to prevent recursion. <br  />
- If you want ongoing handling, call <code>ON ERROR PROCname</code> again <b>inside your handler</b> before it returns. </p>
-</blockquote>
-<blockquote class="doxtable">
-<p>Pressing <code>CTRL+ESC</code> generates a break-like error that is delivered to your installed handler. <br  />
- Without a handler, the program terminates. </p>
-</blockquote>
-<h2><a class="anchor" id="autotoc_md328"></a>
-&lt;/blockquote&gt;</h2>
-<h3><a class="anchor" id="autotoc_md329"></a>
+<dl class="section note"><dt>Note</dt><dd>Only the two forms above are supported. There is <b>no</b> <code>ON ERROR GOTO</code>, <code>RESUME</code>, or similar.</dd>
+<dd>
+The handler is invoked as a <b>one-off</b> to prevent recursion. </dd>
+<dd>
+If you want ongoing handling, call <code>ON ERROR PROCname</code> again <b>inside your handler</b> before it returns.</dd>
+<dd>
+Pressing <code>CTRL+ESC</code> generates a break-like error that is delivered to your installed handler. </dd>
+<dd>
+Without a handler, the program terminates.</dd></dl>
+<hr  />
+<h3><a class="anchor" id="autotoc_md343"></a>
 Example: handle and continue</h3>
 <div class="fragment"><div class="line">ON ERROR PROChandle</div>
 <div class="line"> </div>
@@ -130,7 +128,7 @@ Example: handle and continue</h3>
 <div class="line">    ON ERROR PROChandle</div>
 <div class="line">ENDPROC</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md331"></a>
+<h3><a class="anchor" id="autotoc_md345"></a>
 Example: temporarily disable handling</h3>
 <div class="fragment"><div class="line">ON ERROR PROChandle</div>
 <div class="line"> </div>
@@ -147,7 +145,7 @@ Example: temporarily disable handling</h3>
 <div class="line">    ON ERROR PROChandle</div>
 <div class="line">ENDPROC</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md333"></a>
+<h3><a class="anchor" id="autotoc_md347"></a>
 Behaviour</h3>
 <ul>
 <li>If another error occurs <b>while calling</b> your handler, the built-ins <b>ERR$</b>, <b>ERR</b>, and <b>ERRLINE</b> are set for that error, and normal error handling rules apply.</li>
@@ -155,7 +153,7 @@ Behaviour</h3>
 <li>If you are using line-numbered code, you may use your usual control flow after the handler returns, but prefer structured constructs in new code.</li>
 </ul>
 <p><b>See also:</b> <br  />
- <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ERROR"><code>ERROR</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/DEF"><code>DEF</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/PROC"><code>PROC</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/Builtin-Variables">Builtin Variables</a> </p>
+ <a class="el" href="ERROR.html">ERROR</a> · <a class="el" href="DEF.html">DEF</a> · <a class="el" href="PROC.html">PROC</a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/Builtin-Variables">Builtin Variables</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -163,7 +161,7 @@ Behaviour</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

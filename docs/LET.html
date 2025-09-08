@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -97,7 +98,7 @@ $(document).ready(function(){initNavTree('LET.html',''); initResizable(); });
 <li>name ending with <code>$</code> -&gt; string</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md301"></a>
+<h3><a class="anchor" id="autotoc_md315"></a>
 Examples</h3>
 <p>Integer assignment (with and without <code>LET</code>) </p><div class="fragment"><div class="line">LET N = 10</div>
 <div class="line">M = 20</div>
@@ -111,17 +112,17 @@ Examples</h3>
 <div class="line">PRINT A(1)</div>
 </div><!-- fragment --><p>Using an expression on the right-hand side </p><div class="fragment"><div class="line">TOTAL = PRICE * QUANTITY</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md303"></a>
+<h3><a class="anchor" id="autotoc_md317"></a>
 Notes</h3>
 <ul>
 <li><code>LET</code> does not change scope. It is simply an optional keyword for assignment.</li>
 <li>The <b>left-hand side</b> must be a variable (or array element), not an expression.</li>
 <li>Strings are written with double quotes. To include a double quote inside a string you can build it with <code>CHR$(34)</code> if needed.</li>
-<li>For arrays, ensure you have declared the array size with <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/DIM"><code>DIM</code></a> before assigning elements.</li>
-<li><code>GLOBAL</code> is unrelated to <code>LET</code>: use <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/GLOBAL"><code>GLOBAL</code></a> when you want the value copied into child programs started with <code>CHAIN</code>.</li>
+<li>For arrays, ensure you have declared the array size with <a class="el" href="DIM.html">DIM</a> before assigning elements.</li>
+<li><code>GLOBAL</code> is unrelated to <code>LET</code>: use <a class="el" href="GLOBAL.html">GLOBAL</a> when you want the value copied into child programs started with <code>CHAIN</code>.</li>
 </ul>
 <p><b>See also:</b> <br  />
- <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/Variable-Naming"><code>Variable Naming</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/Variable-Types"><code>Variable Types</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/DIM"><code>DIM</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/GLOBAL"><code>GLOBAL</code></a> </p>
+ <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/Variable-Naming"><code>Variable Naming</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/Variable-Types"><code>Variable Types</code></a> · <a class="el" href="DIM.html">DIM</a> · <a class="el" href="GLOBAL.html">GLOBAL</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -129,7 +130,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

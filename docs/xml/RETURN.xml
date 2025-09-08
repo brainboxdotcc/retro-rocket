@@ -8,17 +8,18 @@
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">RETURN</highlight></codeline>
 </programlisting></para>
-<para>Returns from a <bold>subroutine</bold> that was entered with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/GOSUB"><computeroutput>GOSUB</computeroutput></ulink>. <linebreak/>
- Execution resumes at the <bold>statement after</bold> the <computeroutput>GOSUB</computeroutput> call.</para>
-<para><blockquote><para><computeroutput>RETURN</computeroutput> is only valid while servicing a <computeroutput>GOSUB</computeroutput>. <linebreak/>
- Using <computeroutput>RETURN</computeroutput> <bold>outside</bold> a <computeroutput>GOSUB</computeroutput> context is an error. </para>
-</blockquote></para>
-<para><blockquote><para><computeroutput>GOSUB</computeroutput>/<computeroutput>RETURN</computeroutput> are kept for compatibility and are <bold>deprecated</bold>. <linebreak/>
- Prefer structured procedures: <computeroutput>DEF PROCname(...) ... ENDPROC</computeroutput>, called with <computeroutput>PROCname(...)</computeroutput>. </para>
-</blockquote></para>
-<sect2 id="RETURN_1autotoc_md450">
-<title>&lt;/blockquote&gt;</title>
-<sect3 id="RETURN_1autotoc_md451">
+<para>Returns from a <bold>subroutine</bold> that was entered with <ref refid="GOSUB" kindref="compound">GOSUB</ref>. Execution resumes at the <bold>statement after</bold> the <computeroutput>GOSUB</computeroutput> call.</para>
+<para><simplesect kind="note"><para><computeroutput>RETURN</computeroutput> is only valid while servicing a <computeroutput>GOSUB</computeroutput>. </para>
+</simplesect>
+<simplesect kind="note"><para>Using <computeroutput>RETURN</computeroutput> <bold>outside</bold> a <computeroutput>GOSUB</computeroutput> context is an error.</para>
+</simplesect>
+<simplesect kind="note"><para><computeroutput>GOSUB</computeroutput>/<computeroutput>RETURN</computeroutput> are kept for compatibility and are <bold>deprecated</bold>. </para>
+</simplesect>
+<simplesect kind="note"><para>Prefer structured procedures: <computeroutput>DEF PROCname(...) ... ENDPROC</computeroutput>, called with <computeroutput>PROCname(...)</computeroutput>.</para>
+</simplesect>
+<hruler/>
+</para>
+<sect3 id="RETURN_1autotoc_md465">
 <title>Behaviour</title>
 <para><itemizedlist>
 <listitem><para><computeroutput>RETURN</computeroutput> takes <bold>no arguments</bold>.</para>
@@ -33,7 +34,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="RETURN_1autotoc_md453">
+<sect3 id="RETURN_1autotoc_md467">
 <title>Examples (line numbers permitted)</title>
 <para><bold>Simple subroutine</bold> <programlisting filename=".basic"><codeline><highlight class="normal">10<sp/>PRINT<sp/>&quot;Start&quot;</highlight></codeline>
 <codeline><highlight class="normal">20<sp/>GOSUB<sp/>1000</highlight></codeline>
@@ -61,15 +62,14 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="RETURN_1autotoc_md455">
+<sect3 id="RETURN_1autotoc_md469">
 <title>See also</title>
 <para><itemizedlist>
-<listitem><para><ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/GOSUB"><computeroutput>GOSUB</computeroutput></ulink> - jump to a line and return</para>
-</listitem><listitem><para><ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DEF"><computeroutput>DEF</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PROC"><computeroutput>PROC</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ENDPROC"><computeroutput>ENDPROC</computeroutput></ulink> - structured alternatives </para>
+<listitem><para><ref refid="GOSUB" kindref="compound">GOSUB</ref> - jump to a line and return</para>
+</listitem><listitem><para><ref refid="DEF" kindref="compound">DEF</ref>, <ref refid="PROC" kindref="compound">PROC</ref>, <ref refid="ENDPROC" kindref="compound">ENDPROC</ref> - structured alternatives </para>
 </listitem></itemizedlist>
 </para>
 </sect3>
-</sect2>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/RETURN.md"/>
   </compounddef>

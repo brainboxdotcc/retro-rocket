@@ -4,7 +4,7 @@
     <compoundname>stb_image.h</compoundname>
     <includes local="no">stdio.h</includes>
     <includes refid="stdlib_8h" local="no">stdlib.h</includes>
-    <includedby refid="graphics_8c" local="no">src/basic/graphics.c</includedby>
+    <includedby refid="graphics_8c" local="no">graphics.c</includedby>
     <incdepgraph>
       <node id="5">
         <label>stdint.h</label>
@@ -24,7 +24,7 @@
         <label>stdio.h</label>
       </node>
       <node id="1">
-        <label>include/stb_image.h</label>
+        <label>stb_image.h</label>
         <link refid="stb__image_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
@@ -34,11 +34,11 @@
     </incdepgraph>
     <invincdepgraph>
       <node id="2">
-        <label>src/basic/graphics.c</label>
+        <label>graphics.c</label>
         <link refid="graphics_8c"/>
       </node>
       <node id="1">
-        <label>include/stb_image.h</label>
+        <label>stb_image.h</label>
         <link refid="stb__image_8h"/>
         <childnode refid="2" relation="include">
         </childnode>

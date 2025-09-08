@@ -20,8 +20,8 @@ Outputs text at the current cursor position on the text screen.
 
 \remark Keep the cursor on the same line for a prompt:
 \remark ```basic
-> PRINT "Enter name: ";
-> ```
+@note PRINT "Enter name: ";
+@note ```
 
 ---
 
@@ -31,8 +31,8 @@ Outputs text at the current cursor position on the text screen.
 The escape character is `ESC`, which is `CHR$(27)`. Most sequences begin with `ESC` + `"["` (Control Sequence Introducer).
 
 
-> `COLOUR` and `BACKGROUND` change text colours in a portable, high-level way.  
-> ANSI escapes give lower-level control (cursor movement, attributes, manual colours, clearing parts of the screen, etc.).
+@note `COLOUR` and `BACKGROUND` change text colours in a portable, high-level way.
+@note ANSI escapes give lower-level control (cursor movement, attributes, manual colours, clearing parts of the screen, etc.).
 
 Define a convenience prefix:
 ```basic
@@ -84,11 +84,11 @@ PRINT ESC$ + "?25h"   REM show
 ```
 
 
-> Always finish coloured or styled output with `ESC[0m` to reset attributes, or later text may inherit your styles.
+@note Always finish coloured or styled output with `ESC[0m` to reset attributes, or later text may inherit your styles.
 
 
-> For higher-level helpers and key handling, consider the
-> [`ansi`](https://github.com/brainboxdotcc/retro-rocket/wiki/ansi) system library.
+@note For higher-level helpers and key handling, consider the
+@note [`ansi`](https://github.com/brainboxdotcc/retro-rocket/wiki/ansi) system library.
 
 ---
 
@@ -127,7 +127,7 @@ PRINT ESC$ + "32m" + "OK> " + ESC$ + "0m";
 - `CLS` clears both text and graphics. ANSI `ESC[2J` clears the text layer.
 
 **See also:**  
-[`CURSOR`](https://github.com/brainboxdotcc/retro-rocket/wiki/CURSOR) ·
-[`COLOUR`](https://github.com/brainboxdotcc/retro-rocket/wiki/COLOUR) ·
-[`BACKGROUND`](https://github.com/brainboxdotcc/retro-rocket/wiki/BACKGROUND) ·
+\ref CURSOR "CURSOR" ·
+\ref COLOUR "COLOUR" ·
+\ref BACKGROUND "BACKGROUND" ·
 [`ansi`](https://github.com/brainboxdotcc/retro-rocket/wiki/ansi)

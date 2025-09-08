@@ -25,4 +25,4 @@ This example produces `7`.
 - Operates on 64-bit integers.
 
 **See also:**  
-[BITAND](https://github.com/brainboxdotcc/retro-rocket/wiki/BITAND) · [BITEOR](https://github.com/brainboxdotcc/retro-rocket/wiki/BITEOR) · [BITNOR](https://github.com/brainboxdotcc/retro-rocket/wiki/BITNOR)
+\ref BITAND "BITAND" · \ref BITEOR "BITEOR" · \ref BITNOR "BITNOR"

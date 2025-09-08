@@ -10,26 +10,26 @@ Immediately after `LIBRARY`, any procedures or functions from that file are avai
 - Relative paths are resolved from the current directory; absolute paths start with `/`.
 
 
-> A library file **must not contain line numbers**.  
-> If a line-numbered program loads a library, the library is **auto-numbered** on load so its lines come **after** the program’s existing lines (using increments of 10). See [Automatic line numbering](https://github.com/brainboxdotcc/retro-rocket/wiki/Automatic-line-numbering).
+@note A library file **must not contain line numbers**.
+@note If a line-numbered program loads a library, the library is **auto-numbered** on load so its lines come **after** the program’s existing lines (using increments of 10). See [Automatic line numbering](https://github.com/brainboxdotcc/retro-rocket/wiki/Automatic-line-numbering).
 
 
-> On load, Retro Rocket looks for a procedure with the **same name as the library filename** and **calls it** if found.  
-> This acts as the library’s **constructor** for one-time initialisation.
+@note On load, Retro Rocket looks for a procedure with the **same name as the library filename** and **calls it** if found.
+@note This acts as the library’s **constructor** for one-time initialisation.
 
 
-> It is recommended to place `LIBRARY` statements **near the start** of your program.  
-> Loading a library has a non-trivial cost.
+@note It is recommended to place `LIBRARY` statements **near the start** of your program.
+@note Loading a library has a non-trivial cost.
 
 
-> Use the standard global `LIB$` path when loading shared libraries:
-> ```basic
-> LIBRARY LIB$ + "/ansi"
-> ```
-> `LIB$` is set by `init` and points to an absolute library folder.
+@note Use the standard global `LIB$` path when loading shared libraries:
+@note ```basic
+@note LIBRARY LIB$ + "/ansi"
+@note ```
+@note `LIB$` is set by `init` and points to an absolute library folder.
 
 
-> Paths are **case-insensitive** and `.` / `..` are **not supported** in paths.
+@note Paths are **case-insensitive** and `.` / `..` are **not supported** in paths.
 
 ---
 
@@ -67,8 +67,8 @@ ENDPROC
 - The constructor call (procedure named after the file) is **optional**. If absent, nothing extra is called.
 
 **See also:**  
-[`DEF`](https://github.com/brainboxdotcc/retro-rocket/wiki/DEF) ·
-[`PROC`](https://github.com/brainboxdotcc/retro-rocket/wiki/PROC) ·
-[`FN`](https://github.com/brainboxdotcc/retro-rocket/wiki/FN) ·
+\ref DEF "DEF" ·
+\ref PROC "PROC" ·
+\ref FN "FN" ·
 [`Automatic line numbering`](https://github.com/brainboxdotcc/retro-rocket/wiki/Automatic-line-numbering) ·
 [`ansi`](https://github.com/brainboxdotcc/retro-rocket/wiki/ansi)

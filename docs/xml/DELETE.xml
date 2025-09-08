@@ -12,17 +12,20 @@
 <para><itemizedlist>
 <listitem><para><computeroutput>string-expression</computeroutput> must evaluate to a <bold>filename or path</bold>.</para>
 </listitem><listitem><para>Paths are <bold>case-insensitive</bold>.</para>
-</listitem><listitem><para>Relative paths are resolved against the current directory (see <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CHDIR"><computeroutput>CHDIR</computeroutput></ulink>).</para>
+</listitem><listitem><para>Relative paths are resolved against the current directory (see <ref refid="CHDIR" kindref="compound">CHDIR</ref>).</para>
 </listitem><listitem><para><computeroutput>.</computeroutput> and <computeroutput>..</computeroutput> are <bold>not supported</bold> in paths.</para>
 </listitem></itemizedlist>
 </para>
-<para><blockquote><para>This is a <bold>destructive</bold> operation (no undo). <linebreak/>
- If the file does not exist, or cannot be removed (for example because it is currently <bold>open</bold>), a runtime error is raised (catchable with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink>). </para>
-</blockquote></para>
-<para><blockquote><para><computeroutput>DELETE</computeroutput> removes <bold>files</bold> only. To remove a directory, use <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/RMDIR"><computeroutput>RMDIR</computeroutput></ulink>. </para>
-</blockquote></para>
-<sect2 id="DELETE_1autotoc_md235">
-<title>&lt;/blockquote&gt;</title>
+<para><simplesect kind="note"><para>This is a <bold>destructive</bold> operation (no undo). </para>
+</simplesect>
+<simplesect kind="note"><para>If the file does not exist, or cannot be removed (for example because it is currently <bold>open</bold>), </para>
+</simplesect>
+<simplesect kind="note"><para>a runtime error is raised (catchable with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink>).</para>
+</simplesect>
+<simplesect kind="note"><para><computeroutput>DELETE</computeroutput> removes <bold>files</bold> only. To remove a directory, use <ref refid="RMDIR" kindref="compound">RMDIR</ref>.</para>
+</simplesect>
+<hruler/>
+</para>
 <para><heading level="5">Example: simple delete</heading>
 </para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">DELETE<sp/>&quot;old_config.txt&quot;</highlight></codeline>
@@ -42,14 +45,13 @@
 <para><heading level="5">Notes</heading>
 </para>
 <para><itemizedlist>
-<listitem><para>Ensure any open handles to the file are <bold>closed</bold> first with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CLOSE"><computeroutput>CLOSE</computeroutput></ulink>.</para>
+<listitem><para>Ensure any open handles to the file are <bold>closed</bold> first with <ref refid="CLOSE" kindref="compound">CLOSE</ref>.</para>
 </listitem><listitem><para>Wildcards are not supported; delete files <bold>one at a time</bold>.</para>
 </listitem><listitem><para>Deleting a non-existent file raises an error.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENIN"><computeroutput>OPENIN</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENOUT"><computeroutput>OPENOUT</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENUP"><computeroutput>OPENUP</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CLOSE"><computeroutput>CLOSE</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/RMDIR"><computeroutput>RMDIR</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CHDIR"><computeroutput>CHDIR</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/FILETYPE"><computeroutput>FILETYPE$</computeroutput></ulink> </para>
-</sect2>
+ <ref refid="OPENIN" kindref="compound">OPENIN</ref> · <ref refid="OPENOUT" kindref="compound">OPENOUT</ref> · <ref refid="OPENUP" kindref="compound">OPENUP</ref> · <ref refid="CLOSE" kindref="compound">CLOSE</ref> · <ref refid="RMDIR" kindref="compound">RMDIR</ref> · <ref refid="CHDIR" kindref="compound">CHDIR</ref> · <ref refid="FILETYPE" kindref="compound">FILETYPE$</ref> </para>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/DELETE.md"/>
   </compounddef>

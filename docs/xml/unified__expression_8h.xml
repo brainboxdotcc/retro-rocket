@@ -3,12 +3,12 @@
   <compounddef id="unified__expression_8h" kind="file" language="C++">
     <compoundname>unified_expression.h</compoundname>
     <includes refid="kernel_8h" local="no">kernel.h</includes>
-    <includedby refid="console_8c" local="yes">src/basic/console.c</includedby>
-    <includedby refid="double__expression_8c" local="yes">src/basic/double_expression.c</includedby>
-    <includedby refid="flow__control_8c" local="yes">src/basic/flow_control.c</includedby>
-    <includedby refid="int__expression_8c" local="yes">src/basic/int_expression.c</includedby>
-    <includedby refid="string__expression_8c" local="yes">src/basic/string_expression.c</includedby>
-    <includedby refid="unified__expression_8c" local="yes">src/basic/unified_expression.c</includedby>
+    <includedby refid="console_8c" local="yes">console.c</includedby>
+    <includedby refid="double__expression_8c" local="yes">double_expression.c</includedby>
+    <includedby refid="flow__control_8c" local="yes">flow_control.c</includedby>
+    <includedby refid="int__expression_8c" local="yes">int_expression.c</includedby>
+    <includedby refid="string__expression_8c" local="yes">string_expression.c</includedby>
+    <includedby refid="unified__expression_8c" local="yes">unified_expression.c</includedby>
     <incdepgraph>
       <node id="57">
         <label>ata.h</label>
@@ -73,7 +73,7 @@
         <childnode refid="27" relation="include">
         </childnode>
       </node>
-      <node id="88">
+      <node id="86">
         <label>stdarg.h</label>
       </node>
       <node id="60">
@@ -115,7 +115,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="76">
+      <node id="74">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
@@ -132,7 +132,7 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="83">
+      <node id="81">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
@@ -160,7 +160,7 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="81">
+      <node id="79">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
@@ -182,7 +182,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="79">
+      <node id="77">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
@@ -201,7 +201,7 @@
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="84">
+      <node id="82">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
@@ -213,12 +213,6 @@
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="74">
-        <label>rtl8139.h</label>
-        <link refid="rtl8139_8h"/>
-        <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="52">
@@ -239,7 +233,7 @@
       <node id="5">
         <label>stddef.h</label>
       </node>
-      <node id="90">
+      <node id="88">
         <label>module.h</label>
         <link refid="module_8h"/>
         <childnode refid="2" relation="include">
@@ -290,12 +284,6 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="75">
-        <label>e1000.h</label>
-        <link refid="e1000_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
       <node id="70">
         <label>lapic_timer.h</label>
         <link refid="lapic__timer_8h"/>
@@ -317,7 +305,7 @@
         <label>input.h</label>
         <link refid="input_8h"/>
       </node>
-      <node id="85">
+      <node id="83">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
@@ -327,17 +315,17 @@
         <label>video.h</label>
         <link refid="video_8h"/>
       </node>
-      <node id="87">
+      <node id="85">
         <label>serial.h</label>
         <link refid="serial_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="88" relation="include">
+        <childnode refid="86" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="80">
+      <node id="78">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
@@ -363,7 +351,7 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="77">
+      <node id="75">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
@@ -413,7 +401,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="78">
+      <node id="76">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
@@ -536,19 +524,15 @@
         </childnode>
         <childnode refid="83" relation="include">
         </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
         <childnode refid="84" relation="include">
         </childnode>
         <childnode refid="85" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="86" relation="include">
-        </childnode>
         <childnode refid="87" relation="include">
         </childnode>
-        <childnode refid="89" relation="include">
-        </childnode>
-        <childnode refid="90" relation="include">
+        <childnode refid="88" relation="include">
         </childnode>
       </node>
       <node id="45">
@@ -577,7 +561,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="89">
+      <node id="87">
         <label>debug_ringbuffer.h</label>
         <link refid="debug__ringbuffer_8h"/>
         <childnode refid="2" relation="include">
@@ -705,19 +689,19 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="82">
+      <node id="80">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="1">
-        <label>include/basic/unified_expression.h</label>
+        <label>unified_expression.h</label>
         <link refid="unified__expression_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="86">
+      <node id="84">
         <label>retrofs.h</label>
         <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
@@ -742,31 +726,31 @@
     </incdepgraph>
     <invincdepgraph>
       <node id="2">
-        <label>src/basic/console.c</label>
+        <label>console.c</label>
         <link refid="console_8c"/>
       </node>
       <node id="3">
-        <label>src/basic/double_expression.c</label>
+        <label>double_expression.c</label>
         <link refid="double__expression_8c"/>
       </node>
       <node id="5">
-        <label>src/basic/int_expression.c</label>
+        <label>int_expression.c</label>
         <link refid="int__expression_8c"/>
       </node>
       <node id="7">
-        <label>src/basic/unified_expression.c</label>
+        <label>unified_expression.c</label>
         <link refid="unified__expression_8c"/>
       </node>
       <node id="6">
-        <label>src/basic/string_expression.c</label>
+        <label>string_expression.c</label>
         <link refid="string__expression_8c"/>
       </node>
       <node id="4">
-        <label>src/basic/flow_control.c</label>
+        <label>flow_control.c</label>
         <link refid="flow__control_8c"/>
       </node>
       <node id="1">
-        <label>include/basic/unified_expression.h</label>
+        <label>unified_expression.h</label>
         <link refid="unified__expression_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
@@ -1140,7 +1124,7 @@
     </briefdescription>
     <detaileddescription>
 <para>Single typed recursive–descent evaluator supporting INT / REAL / STRING. Provides drop-in entry points for conditionals and strict wrappers for integer, real, and string expressions.</para>
-<sect3 id="unified__expression_8h_1autotoc_md668">
+<sect3 id="unified__expression_8h_1autotoc_md0">
 <title>Tokeniser interaction</title>
 <para><itemizedlist>
 <listitem><para><bold>Parentheses</bold>: content inside <computeroutput>(</computeroutput> .. <computeroutput>)</computeroutput> is parsed as a relation-aware expression, so forms such as <computeroutput>(in&lt;128)</computeroutput> are valid in IF/WHILE.</para>
@@ -1154,7 +1138,7 @@
 </listitem></itemizedlist>
 </para>
 </sect3>
-<sect3 id="unified__expression_8h_1autotoc_md669">
+<sect3 id="unified__expression_8h_1autotoc_md1">
 <title>Operators and precedence</title>
 <para><itemizedlist>
 <listitem><para><bold>Unary</bold>: leading <computeroutput>+</computeroutput> / <computeroutput>-</computeroutput> bind <bold>tighter</bold> than <computeroutput>* / MOD</computeroutput>. Applies to numeric values only (e.g. <computeroutput>A--3</computeroutput>, <computeroutput>-(2+3)</computeroutput>, <computeroutput>-SIN(ANGLE#)</computeroutput>).</para>
@@ -1173,14 +1157,14 @@
 </listitem></itemizedlist>
 </para>
 </sect3>
-<sect3 id="unified__expression_8h_1autotoc_md670">
+<sect3 id="unified__expression_8h_1autotoc_md2">
 <title>Consumption and stop conditions</title>
 <para><itemizedlist>
 <listitem><para><computeroutput><ref refid="unified__expression_8h_1af62db0d2d6f60722f23d9a74d0a7e824" kindref="member">up_conditional()</ref></computeroutput> stops before <computeroutput>THEN</computeroutput> / <computeroutput>NEWLINE</computeroutput> / <computeroutput>EOF</computeroutput> / <lsquo/><rsquo/>)&apos;<computeroutput>. The caller should</computeroutput>accept(THEN, ctx)<computeroutput>if required. -</computeroutput><ref refid="unified__expression_8h_1a037db97961e7e2d9224ee733bb0eefd8" kindref="member">up_eval_value()</ref><computeroutput>parses one value expression and **leaves** list separators (</computeroutput>,<computeroutput>/</computeroutput>;<computeroutput>),</computeroutput>THEN<computeroutput>,</computeroutput>NEWLINE<computeroutput>, and</computeroutput>EOF<computeroutput>untouched for the enclosing statement (e.g.</computeroutput>PRINT<computeroutput>,</computeroutput>INPUT`) to handle.</para>
 </listitem></itemizedlist>
 </para>
 </sect3>
-<sect3 id="unified__expression_8h_1autotoc_md671">
+<sect3 id="unified__expression_8h_1autotoc_md3">
 <title>String lifetime</title>
 <para><itemizedlist>
 <listitem><para>String results returned by expression evaluation are duplicated via the GC (<computeroutput>gc_strdup</computeroutput>) to match historic <computeroutput>str_expr</computeroutput> behaviour. </para>

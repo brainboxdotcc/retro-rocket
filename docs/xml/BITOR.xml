@@ -11,7 +11,7 @@
 <para>Computes the <bold>bitwise OR</bold> of two integers.</para>
 <para><hruler/>
 </para>
-<sect3 id="BITOR_1autotoc_md158">
+<sect3 id="BITOR_1autotoc_md172">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Returns all bits set that are set in <computeroutput>a</computeroutput> or <computeroutput>b</computeroutput>.</para>
@@ -20,7 +20,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="BITOR_1autotoc_md160">
+<sect3 id="BITOR_1autotoc_md174">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>BITOR(&amp;5,<sp/>&amp;3)</highlight></codeline>
 </programlisting></para>
@@ -28,14 +28,14 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="BITOR_1autotoc_md162">
+<sect3 id="BITOR_1autotoc_md176">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Operates on 64-bit integers.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BITAND">BITAND</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BITEOR">BITEOR</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BITNOR">BITNOR</ulink> </para>
+ <ref refid="BITAND" kindref="compound">BITAND</ref> · <ref refid="BITEOR" kindref="compound">BITEOR</ref> · <ref refid="BITNOR" kindref="compound">BITNOR</ref> </para>
 </sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/BITOR.md"/>

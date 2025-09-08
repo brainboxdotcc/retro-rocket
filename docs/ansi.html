@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -91,62 +92,62 @@ $(document).ready(function(){initNavTree('ansi.html',''); initResizable(); });
 <div class="textblock"><div class="fragment"><div class="line">LIBRARY LIB$ + &quot;/ansi&quot;</div>
 </div><!-- fragment --><p>The ANSI library contains various terminal related functions, for example enabling or disabling the cursor, clearing lines, and interactive input.</p>
 <p>The following publically doucmented procedures and functions are available via this library.</p>
-<h3><a class="anchor" id="autotoc_md534"></a>
+<h3><a class="anchor" id="autotoc_md548"></a>
 PROChideCursor</h3>
 <p>hide text cursor</p>
-<h3><a class="anchor" id="autotoc_md535"></a>
+<h3><a class="anchor" id="autotoc_md549"></a>
 PROCshowCursor</h3>
 <p>show text cursor</p>
-<h3><a class="anchor" id="autotoc_md536"></a>
+<h3><a class="anchor" id="autotoc_md550"></a>
 PROCclearLineFromCursor</h3>
 <p>Clear the text on the current line from the cursor to the right</p>
-<h3><a class="anchor" id="autotoc_md537"></a>
+<h3><a class="anchor" id="autotoc_md551"></a>
 PROCEDabort</h3>
 <p>Emulate pressing <code>ESC</code> while waiting on interactive input</p>
-<h3><a class="anchor" id="autotoc_md538"></a>
+<h3><a class="anchor" id="autotoc_md552"></a>
 FNEdResult$()</h3>
 <p>Get the line editor result text. In the event of an aborted line (<code>ESC</code> pressed) this returns an empty string and FNEdAborted() returns <code>TRUE</code>.</p>
-<h3><a class="anchor" id="autotoc_md539"></a>
+<h3><a class="anchor" id="autotoc_md553"></a>
 FNEdAborted()</h3>
 <p>Return <code>TRUE</code> if line edit was aborted (<code>ESC</code> pressed)</p>
-<h3><a class="anchor" id="autotoc_md540"></a>
+<h3><a class="anchor" id="autotoc_md554"></a>
 PROCEdLine</h3>
 <p>Accept line input using line-edit and history. On completion of the procedure, you can obtain the completed line line in FNEdResult$(). In the event the user pressed <code>ESC</code>, FNEdAborted() will return <code>TRUE</code></p>
-<h3><a class="anchor" id="autotoc_md541"></a>
+<h3><a class="anchor" id="autotoc_md555"></a>
 PROCEDup</h3>
 <p>Emulate pressing cursor <code>UP</code> in the interactive editor. This will navigate through history, if enabled.</p>
-<h3><a class="anchor" id="autotoc_md542"></a>
+<h3><a class="anchor" id="autotoc_md556"></a>
 PROCEDdown</h3>
 <p>Emulate pressing cursor <code>DOWN</code> in the interactive editor. This will navigate through history, if enabled.</p>
-<h3><a class="anchor" id="autotoc_md543"></a>
+<h3><a class="anchor" id="autotoc_md557"></a>
 PROCEdAddHistory(hist$)</h3>
 <p>Add a line to the interactive edit history, if interactive history was enabled when calling PROCEdInit(). There is no practical limit on the size of the history, as it will be expanded to accomodate any additional lines added in allocations of 50 possible entries.</p>
-<h3><a class="anchor" id="autotoc_md544"></a>
+<h3><a class="anchor" id="autotoc_md558"></a>
 PROCEDleft</h3>
 <p>Emulate pressing cursor <code>LEFT</code> in the interactive editor. The cursor will be moved one character left unless it is at the start of the input.</p>
-<h3><a class="anchor" id="autotoc_md545"></a>
+<h3><a class="anchor" id="autotoc_md559"></a>
 PROCEDright</h3>
 <p>Emulate pressing cursor <code>RIGHT</code> in the interactive editor. The cursor will be moved one character right unless it is at the end of the input.</p>
-<h3><a class="anchor" id="autotoc_md546"></a>
+<h3><a class="anchor" id="autotoc_md560"></a>
 PROCEDend</h3>
 <p>Emulate pressing <code>END</code> in the interactive editor. The cursor will be moved to the end of the input text.</p>
-<h3><a class="anchor" id="autotoc_md547"></a>
+<h3><a class="anchor" id="autotoc_md561"></a>
 PROCEDhome</h3>
 <p>Emulate pressing <code>HOME</code> in the interactive editor. The cursor will be moved to the start of the input text.</p>
 <p>REM handle delete edit key </p>
-<h3><a class="anchor" id="autotoc_md548"></a>
+<h3><a class="anchor" id="autotoc_md562"></a>
 PROCEDdelete</h3>
 <p>Emulate pressing delete in the interactive editor. The character to the right, if any, will be deleted.</p>
-<h3><a class="anchor" id="autotoc_md549"></a>
+<h3><a class="anchor" id="autotoc_md563"></a>
 PROCEDbackSpace</h3>
 <p>Emulate pressing backspace in the interactive editor. The character to the left, if any, will be deleted and the cursor advanced one character left.</p>
-<h3><a class="anchor" id="autotoc_md550"></a>
+<h3><a class="anchor" id="autotoc_md564"></a>
 PROCEDinsertChar(i)</h3>
 <p>Emulate inserting an ASCII character whos code is represented by <code>i</code> into the interactive editor. If there is space in the current line, the character will be inserted at the cursor position.</p>
-<h3><a class="anchor" id="autotoc_md551"></a>
+<h3><a class="anchor" id="autotoc_md565"></a>
 PROCEdRun</h3>
 <p>Check the input for new keys and insert them into the edit history. This should be called at regular intervals and no other facility should call <code>INPUT</code> or <code>INKEY$</code> during this time.</p>
-<h3><a class="anchor" id="autotoc_md552"></a>
+<h3><a class="anchor" id="autotoc_md566"></a>
 PROCEdInit(history)</h3>
 <p>initialise interactive line editor. You should call this once, before you call any other interactive line editor procedures or functions. </p><table class="doxtable">
 <tr>
@@ -156,7 +157,7 @@ PROCEdInit(history)</h3>
 <tr>
 <td>FALSE</td><td>Disable and disallow use of edit history. PROCEdAddEditHistory() and cursor <code>UP</code> and <code>DOWN</code> keys will be ignored. </td></tr>
 </table>
-<h3><a class="anchor" id="autotoc_md553"></a>
+<h3><a class="anchor" id="autotoc_md567"></a>
 PROCEdStart</h3>
 <p>Start interactive line input. This is used when you wish to handle the input loop yourself. Line editing begins at the current cursor position and will continue until the end of the current line. For example:</p>
 <div class="fragment"><div class="line">PROCEdStart</div>
@@ -170,7 +171,7 @@ PROCEdStart</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="libraries.html">Libraries</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

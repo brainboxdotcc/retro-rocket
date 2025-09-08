@@ -9,7 +9,7 @@ Stops receiving UDP datagrams on a previously bound `port`. Any queued packets f
 - `port` must be in the range `0` to `65535`.
 
 
-> If `port` is outside the valid range, an error is raised: `Invalid UDP port number`.
+@note If `port` is outside the valid range, an error is raised: `Invalid UDP port number`.
 
 ---
 
@@ -30,4 +30,4 @@ UDPUNBIND "0.0.0.0", 8080
 - Unbinding while packets are still queued discards them from further reads.
 
 **See also:**  
-[UDPBIND](https://github.com/brainboxdotcc/retro-rocket/wiki/UDPBIND) · [UDPREAD$](https://github.com/brainboxdotcc/retro-rocket/wiki/UDPREAD%24)
+\ref UDPBIND "UDPBIND" · [UDPREAD$](https://github.com/brainboxdotcc/retro-rocket/wiki/UDPREAD%24)

@@ -4,7 +4,7 @@ PLOTQUAD integer-variable, x0, y0, x1, y1, x2, y2, x3, y3
 ```
 
 Maps a previously loaded **sprite** onto the **quadrilateral** defined by four X,Y coordinate pairs.  
-The first parameter must be an **integer variable** containing the sprite handle returned by [`SPRITELOAD`](https://github.com/brainboxdotcc/retro-rocket/wiki/SPRITELOAD).  
+The first parameter must be an **integer variable** containing the sprite handle returned by \ref SPRITELOAD "SPRITELOAD".
 The sprite’s full image is used, positioned by its four destination corners.
 
 ![example](https://github.com/user-attachments/assets/d6ae6888-46db-42ee-be95-d96c888dc1b5)
@@ -20,7 +20,7 @@ The sprite’s full image is used, positioned by its four destination corners.
 - **Sprite handle**: the first argument must be an **integer variable** holding a valid handle from `SPRITELOAD`.
 
 
-> Transparency semantics match `PLOT`. There is no alpha blending.
+@note Transparency semantics match `PLOT`. There is no alpha blending.
 
 ---
 
@@ -60,6 +60,6 @@ PLOTQUAD s, 160,60, 260,140, 160,220, 60,140
 ---
 
 **See also:**  
-[`SPRITELOAD`](https://github.com/brainboxdotcc/retro-rocket/wiki/SPRITELOAD) ·
-[`PLOT`](https://github.com/brainboxdotcc/retro-rocket/wiki/PLOT) ·
-[`SPRITEFREE`](https://github.com/brainboxdotcc/retro-rocket/wiki/SPRITEFREE)
+\ref SPRITELOAD "SPRITELOAD" ·
+\ref PLOT "PLOT" ·
+\ref SPRITEFREE "SPRITEFREE"

@@ -11,12 +11,13 @@
 <para>The <computeroutput>RESTORE</computeroutput> statement is <bold>not supported in Retro Rocket BASIC</bold>.</para>
 <para>In BBC BASIC IV, <computeroutput>RESTORE</computeroutput> reset the pointer for <computeroutput>READ</computeroutput> so embedded <computeroutput>DATA</computeroutput> could be re-read. <linebreak/>
  Retro Rocket BASIC replaces this with <bold>file-based I/O</bold>.</para>
-<para><blockquote><para>Use files to hold your constants and reopen them when you need to read again. <linebreak/>
- <computeroutput>READ$</computeroutput> returns <bold>one character at a time</bold>, so build lines or tokens yourself if required. </para>
-</blockquote></para>
-<sect2 id="RESTORE_1autotoc_md444">
-<title>&lt;/blockquote&gt;</title>
-<sect3 id="RESTORE_1autotoc_md445">
+<para><simplesect kind="note"><para>Use files to hold your constants and reopen them when you need to read again. </para>
+</simplesect>
+<simplesect kind="note"><para><computeroutput>READ$</computeroutput> returns <bold>one character at a time</bold>, so build lines or tokens yourself if required.</para>
+</simplesect>
+<hruler/>
+</para>
+<sect3 id="RESTORE_1autotoc_md459">
 <title>Pattern 1: reopen to start reading again</title>
 <para><bold>values.txt</bold> <programlisting><codeline><highlight class="normal">10</highlight></codeline>
 <codeline><highlight class="normal">20</highlight></codeline>
@@ -54,7 +55,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="RESTORE_1autotoc_md447">
+<sect3 id="RESTORE_1autotoc_md461">
 <title>Pattern 2: cache once, reuse many times</title>
 <para>Instead of re-reading the file, store values in an array on the first pass and reuse the array.</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>A,100</highlight></codeline>
@@ -93,7 +94,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="RESTORE_1autotoc_md449">
+<sect3 id="RESTORE_1autotoc_md463">
 <title>Tips</title>
 <para><itemizedlist>
 <listitem><para>Store one value per line for simple parsing, or define your own separators and split by looking for those characters.</para>
@@ -101,9 +102,8 @@
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENIN"><computeroutput>OPENIN</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENOUT"><computeroutput>OPENOUT</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OPENUP"><computeroutput>OPENUP</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/READ"><computeroutput>READ$</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/EOF"><computeroutput>EOF</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/VAL"><computeroutput>VAL</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/LEN"><computeroutput>LEN</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CHR"><computeroutput>CHR</computeroutput></ulink> </para>
+ <ref refid="OPENIN" kindref="compound">OPENIN</ref> · <ref refid="OPENOUT" kindref="compound">OPENOUT</ref> · <ref refid="OPENUP" kindref="compound">OPENUP</ref> · <ref refid="READ" kindref="compound">READ$</ref> · <ref refid="EOF" kindref="compound">EOF</ref> · <ref refid="VAL" kindref="compound">VAL</ref> · <ref refid="LEN" kindref="compound">LEN</ref> · <ref refid="CHR" kindref="compound">CHR</ref> </para>
 </sect3>
-</sect2>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/RESTORE.md"/>
   </compounddef>

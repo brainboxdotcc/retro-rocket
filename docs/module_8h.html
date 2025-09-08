@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Retro Rocket OS: include/module.h File Reference</title>
+<title>Retro Rocket OS: module.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -96,9 +97,7 @@ $(document).ready(function(){initNavTree('module_8h.html',''); initResizable(); 
 
 <p>Minimal ELF64 definitions and the run-time module loader interface.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;<a class="el" href="kernel_8h.html">kernel.h</a>&gt;</code><br />
-<code>#include &lt;stdbool.h&gt;</code><br />
-</div><table class="memberdecls">
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelf__ehdr.html">elf_ehdr</a></td></tr>
@@ -186,6 +185,8 @@ Macros</h2></td></tr>
 <tr class="separator:a14c39da8e2667c3dffe6d4a8367df892"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abec463c99fa550e249c19a049607efbe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="module_8h.html#abec463c99fa550e249c19a049607efbe">R_X86_64_PC32</a>&#160;&#160;&#160;2</td></tr>
 <tr class="separator:abec463c99fa550e249c19a049607efbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41d2aa44df952cc179708820b07d7b48"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="module_8h.html#a41d2aa44df952cc179708820b07d7b48">R_X86_64_PLT32</a>&#160;&#160;&#160;4</td></tr>
+<tr class="separator:a41d2aa44df952cc179708820b07d7b48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f37cfdc622c13b94177392224c840b1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="module_8h.html#a4f37cfdc622c13b94177392224c840b1">R_X86_64_32</a>&#160;&#160;&#160;10</td></tr>
 <tr class="separator:a4f37cfdc622c13b94177392224c840b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f5f510f3193a8abc7a14235c6393181"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="module_8h.html#a5f5f510f3193a8abc7a14235c6393181">R_X86_64_32S</a>&#160;&#160;&#160;11</td></tr>
@@ -206,18 +207,18 @@ Macros</h2></td></tr>
 <tr class="separator:ac8a66a18d26209f0d893dbe246f6cc1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18d295a837ac71add5578860b55e5502"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="module_8h.html#a18d295a837ac71add5578860b55e5502">STR</a>(x)&#160;&#160;&#160;<a class="el" href="module_8h.html#ac8a66a18d26209f0d893dbe246f6cc1f">STR2</a>(x)</td></tr>
 <tr class="separator:a18d295a837ac71add5578860b55e5502"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa6e6d3203522d53dc79cfc0f079bf66a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="module_8h.html#aa6e6d3203522d53dc79cfc0f079bf66a">MOD_INIT_NAME_STR</a>&#160;&#160;&#160;&quot;mod_init_v&quot; STR(<a class="el" href="module_8h.html#a1bc97ba5a980267d11d5e754aac5e12a">KMOD_ABI</a>)</td></tr>
+<tr class="memitem:aa6e6d3203522d53dc79cfc0f079bf66a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="module_8h.html#aa6e6d3203522d53dc79cfc0f079bf66a">MOD_INIT_NAME_STR</a>&#160;&#160;&#160;&quot;mod_init_v&quot; STR(<a class="el" href="test_8c.html#a262a617981fa58caae30ce55fc3d5ce7">KMOD_ABI</a>)</td></tr>
 <tr class="memdesc:aa6e6d3203522d53dc79cfc0f079bf66a"><td class="mdescLeft">&#160;</td><td class="mdescRight">canonical names as strings  <a href="module_8h.html#aa6e6d3203522d53dc79cfc0f079bf66a">More...</a><br /></td></tr>
 <tr class="separator:aa6e6d3203522d53dc79cfc0f079bf66a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afefb69cd1cbf0c097f82e653bc1c263a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="module_8h.html#afefb69cd1cbf0c097f82e653bc1c263a">MOD_EXIT_NAME_STR</a>&#160;&#160;&#160;&quot;mod_exit_v&quot; STR(<a class="el" href="module_8h.html#a1bc97ba5a980267d11d5e754aac5e12a">KMOD_ABI</a>)</td></tr>
+<tr class="memitem:afefb69cd1cbf0c097f82e653bc1c263a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="module_8h.html#afefb69cd1cbf0c097f82e653bc1c263a">MOD_EXIT_NAME_STR</a>&#160;&#160;&#160;&quot;mod_exit_v&quot; STR(<a class="el" href="test_8c.html#a262a617981fa58caae30ce55fc3d5ce7">KMOD_ABI</a>)</td></tr>
 <tr class="separator:afefb69cd1cbf0c097f82e653bc1c263a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:abaf50b223b23380397d93e547db6a990"><td class="memItemLeft" align="right" valign="top">typedef bool(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="module_8h.html#abaf50b223b23380397d93e547db6a990">module_init_fn</a>) (void)</td></tr>
 <tr class="separator:abaf50b223b23380397d93e547db6a990"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1645505c6cba6b49a2b40ade90049a61"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="module_8h.html#a1645505c6cba6b49a2b40ade90049a61">module_exit_fn</a>) (void)</td></tr>
-<tr class="separator:a1645505c6cba6b49a2b40ade90049a61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6adf3504d5fc0ef1f9392de206dfed09"><td class="memItemLeft" align="right" valign="top">typedef bool(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="module_8h.html#a6adf3504d5fc0ef1f9392de206dfed09">module_exit_fn</a>) (void)</td></tr>
+<tr class="separator:a6adf3504d5fc0ef1f9392de206dfed09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -551,7 +552,11 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define KMOD_ABI&#160;&#160;&#160;100</td>
+          <td class="memname">#define KMOD_ABI</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">void</td><td>)</td>
+          <td>&#160;&#160;&#160;100</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -626,7 +631,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MOD_EXIT_NAME_STR&#160;&#160;&#160;&quot;mod_exit_v&quot; STR(<a class="el" href="module_8h.html#a1bc97ba5a980267d11d5e754aac5e12a">KMOD_ABI</a>)</td>
+          <td class="memname">#define MOD_EXIT_NAME_STR&#160;&#160;&#160;&quot;mod_exit_v&quot; STR(<a class="el" href="test_8c.html#a262a617981fa58caae30ce55fc3d5ce7">KMOD_ABI</a>)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -658,7 +663,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MOD_INIT_NAME_STR&#160;&#160;&#160;&quot;mod_init_v&quot; STR(<a class="el" href="module_8h.html#a1bc97ba5a980267d11d5e754aac5e12a">KMOD_ABI</a>)</td>
+          <td class="memname">#define MOD_INIT_NAME_STR&#160;&#160;&#160;&quot;mod_init_v&quot; STR(<a class="el" href="test_8c.html#a262a617981fa58caae30ce55fc3d5ce7">KMOD_ABI</a>)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -742,6 +747,21 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>32-bit signed PC-relative </p>
+
+</div>
+</div>
+<a id="a41d2aa44df952cc179708820b07d7b48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41d2aa44df952cc179708820b07d7b48">&#9670;&nbsp;</a></span>R_X86_64_PLT32</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define R_X86_64_PLT32&#160;&#160;&#160;4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>32-bit PLT 32 </p>
 
 </div>
 </div>
@@ -992,14 +1012,14 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Typedef Documentation</h2>
-<a id="a1645505c6cba6b49a2b40ade90049a61"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1645505c6cba6b49a2b40ade90049a61">&#9670;&nbsp;</a></span>module_exit_fn</h2>
+<a id="a6adf3504d5fc0ef1f9392de206dfed09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6adf3504d5fc0ef1f9392de206dfed09">&#9670;&nbsp;</a></span>module_exit_fn</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef void(* module_exit_fn) (void)</td>
+          <td class="memname">typedef bool(* module_exit_fn) (void)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1618,7 +1638,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="module_8h.html">module.h</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -13,7 +13,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="POKEW_1autotoc_md396">
+<sect3 id="POKEW_1autotoc_md410">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Writes <computeroutput>value AND &amp;FFFF</computeroutput> to <computeroutput>address</computeroutput> and <computeroutput>address+1</computeroutput>.</para>
@@ -22,7 +22,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="POKEW_1autotoc_md398">
+<sect3 id="POKEW_1autotoc_md412">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Store<sp/>a<sp/>16-bit<sp/>word</highlight></codeline>
 <codeline><highlight class="normal">POKEW<sp/>&amp;100200,<sp/>&amp;1234</highlight></codeline>
@@ -31,14 +31,14 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="POKEW_1autotoc_md400">
+<sect3 id="POKEW_1autotoc_md414">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Match the width to the device’s documented register size.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/POKE">POKE</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/POKED">POKED</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/POKEQ">POKEQ</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PEEKW">PEEKW</ulink> </para>
+ <ref refid="POKE" kindref="compound">POKE</ref> · <ref refid="POKED" kindref="compound">POKED</ref> · <ref refid="POKEQ" kindref="compound">POKEQ</ref> · <ref refid="PEEKW" kindref="compound">PEEKW</ref> </para>
 </sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/POKEW.md"/>

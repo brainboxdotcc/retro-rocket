@@ -12,11 +12,12 @@
  Colours use the standard <bold>VGA 0–15 palette</bold>, emitted via ANSI escape codes. The setting affects subsequent text output (e.g., <computeroutput>PRINT</computeroutput>) until changed or the screen is cleared.</para>
 <para><image type="html" name="https://user-images.githubusercontent.com/1556794/234695104-af3fd095-a0fe-4a69-85e9-9db698466caa.png" alt="VGA background and foreground colour chart" inline="yes"></image>
 </para>
-<para><blockquote><para>Use <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/COLOUR"><computeroutput>COLOUR</computeroutput></ulink> to set <bold>foreground</bold> and background together. <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL"><computeroutput>GCOL</computeroutput></ulink> affects <bold>graphics drawing</bold>, not text. </para>
-</blockquote></para>
-<sect2 id="BACKGROUND_1autotoc_md124">
-<title>&lt;/blockquote&gt;</title>
+<para><simplesect kind="note"><para>Use <ref refid="COLOUR" kindref="compound">COLOUR</ref> to set <bold>foreground</bold> and background together. </para>
+</simplesect>
+<simplesect kind="note"><para><ref refid="GCOL" kindref="compound">GCOL</ref> affects <bold>graphics drawing</bold>, not text.</para>
+</simplesect>
+<hruler/>
+</para>
 <para><heading level="5">VGA Colour Indices</heading>
 </para>
 <para><table rows="17" cols="2"><row>
@@ -104,12 +105,11 @@
 </para>
 <para><itemizedlist>
 <listitem><para>Valid range is <bold>0–15</bold>. Values outside this range are <bold>implementation-defined</bold>.</para>
-</listitem><listitem><para>Background colour persists until changed, even after <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CLS"><computeroutput>CLS</computeroutput></ulink>.</para>
+</listitem><listitem><para>Background colour persists until changed, even after <ref refid="CLS" kindref="compound">CLS</ref>.</para>
 </listitem><listitem><para>This statement only affects <bold>text-mode</bold> rendering; use graphics statements for pixel fills.</para>
 </listitem></itemizedlist>
 </para>
-<para><bold>See also:</bold> <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/COLOUR"><computeroutput>COLOUR</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL"><computeroutput>GCOL</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CLS"><computeroutput>CLS</computeroutput></ulink> </para>
-</sect2>
+<para><bold>See also:</bold> <ref refid="COLOUR" kindref="compound">COLOUR</ref>, <ref refid="GCOL" kindref="compound">GCOL</ref>, <ref refid="CLS" kindref="compound">CLS</ref> </para>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/BACKGROUND.md"/>
   </compounddef>

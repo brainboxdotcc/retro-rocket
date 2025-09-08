@@ -20,7 +20,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="LOCAL_1autotoc_md314">
+<sect3 id="LOCAL_1autotoc_md328">
 <title>Behaviour</title>
 <para><itemizedlist>
 <listitem><para>A <computeroutput>LOCAL</computeroutput> assignment creates/uses a <bold>local</bold> variable for <bold>this call only</bold>. <linebreak/>
@@ -34,7 +34,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="LOCAL_1autotoc_md316">
+<sect3 id="LOCAL_1autotoc_md330">
 <title>Examples</title>
 <para>Create and update a local in a procedure <programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>PROCsum_demo</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>LOCAL<sp/>TOTAL<sp/>=<sp/>0</highlight></codeline>
@@ -78,7 +78,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DEF"><computeroutput>DEF</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PROC"><computeroutput>PROC</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ENDPROC"><computeroutput>ENDPROC</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/FN"><computeroutput>FN</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/GOSUB"><computeroutput>GOSUB</computeroutput></ulink> </para>
+ <ref refid="DEF" kindref="compound">DEF</ref> · <ref refid="PROC" kindref="compound">PROC</ref> · <ref refid="ENDPROC" kindref="compound">ENDPROC</ref> · <ref refid="FN" kindref="compound">FN</ref> · <ref refid="GOSUB" kindref="compound">GOSUB</ref> </para>
 </sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/LOCAL.md"/>

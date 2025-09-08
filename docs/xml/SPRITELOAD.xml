@@ -9,13 +9,14 @@
 <para><programlisting filename=".basic"><codeline><highlight class="normal">SPRITELOAD<sp/>integer-variable,<sp/>string-expression</highlight></codeline>
 </programlisting></para>
 <para>Loads an image from disk as a <bold>sprite</bold> and stores its <bold>handle</bold> in the given integer variable. <linebreak/>
- Use the handle with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PLOT"><computeroutput>PLOT</computeroutput></ulink> or <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PLOTQUAD"><computeroutput>PLOTQUAD</computeroutput></ulink>, and free it with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/SPRITEFREE"><computeroutput>SPRITEFREE</computeroutput></ulink> when finished.</para>
-<para><blockquote><para>The <bold>first argument must be an integer variable</bold>, not a literal or expression. <linebreak/>
- Paths are <bold>case-insensitive</bold> and <computeroutput>.</computeroutput> / <computeroutput>..</computeroutput> are <bold>not supported</bold> in paths. </para>
-</blockquote></para>
-<sect2 id="SPRITELOAD_1autotoc_md482">
-<title>&lt;/blockquote&gt;</title>
-<sect3 id="SPRITELOAD_1autotoc_md483">
+ Use the handle with <ref refid="PLOT" kindref="compound">PLOT</ref> or <ref refid="PLOTQUAD" kindref="compound">PLOTQUAD</ref>, and free it with <ref refid="SPRITEFREE" kindref="compound">SPRITEFREE</ref> when finished.</para>
+<para><simplesect kind="note"><para>The <bold>first argument must be an integer variable</bold>, not a literal or expression. </para>
+</simplesect>
+<simplesect kind="note"><para>Paths are <bold>case-insensitive</bold> and <computeroutput>.</computeroutput> / <computeroutput>..</computeroutput> are <bold>not supported</bold> in paths.</para>
+</simplesect>
+<hruler/>
+</para>
+<sect3 id="SPRITELOAD_1autotoc_md497">
 <title>Supported formats</title>
 <para><table rows="8" cols="2"><row>
 <entry thead="yes" align='right'><para>Extension   </para>
@@ -51,14 +52,14 @@
 </entry></row>
 </table>
 </para>
-<para><blockquote><para>Each program may have <bold>up to 1024 sprites</bold> loaded at once. <linebreak/>
- Handles are <bold>per-program</bold>. All sprites are <bold>auto-freed</bold> when the program ends, but it’s good practice to call <computeroutput>SPRITEFREE</computeroutput> yourself when you no longer need a sprite. </para>
-</blockquote></para>
+<para><simplesect kind="note"><para>Each program may have <bold>up to 1024 sprites</bold> loaded at once. </para>
+</simplesect>
+<simplesect kind="note"><para>Handles are <bold>per-program</bold>. All sprites are <bold>auto-freed</bold> when the program ends, but it’s good practice to call <computeroutput>SPRITEFREE</computeroutput> yourself when you no longer need a sprite.</para>
+</simplesect>
+<hruler/>
+</para>
 </sect3>
-</sect2>
-<sect2 id="SPRITELOAD_1autotoc_md484">
-<title>&lt;/blockquote&gt;</title>
-<sect3 id="SPRITELOAD_1autotoc_md485">
+<sect3 id="SPRITELOAD_1autotoc_md499">
 <title>Examples</title>
 <para><bold>Load and draw a sprite</bold> <programlisting filename=".basic"><codeline><highlight class="normal">SPRITELOAD<sp/>S,<sp/>&quot;/images/logo.png&quot;</highlight></codeline>
 <codeline><highlight class="normal">PLOT<sp/>S,<sp/>100,<sp/>80</highlight></codeline>
@@ -89,7 +90,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="SPRITELOAD_1autotoc_md487">
+<sect3 id="SPRITELOAD_1autotoc_md501">
 <title>Behaviour and usage notes</title>
 <para><itemizedlist>
 <listitem><para><computeroutput>string-expression</computeroutput> is the <bold>filename or path</bold> to the image. Use <computeroutput>CHDIR</computeroutput> to set the working directory or supply an absolute path starting with <computeroutput>/</computeroutput>.</para>
@@ -98,9 +99,8 @@
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PLOT"><computeroutput>PLOT</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PLOTQUAD"><computeroutput>PLOTQUAD</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/SPRITEFREE"><computeroutput>SPRITEFREE</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CHDIR"><computeroutput>CHDIR</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/AUTOFLIP"><computeroutput>AUTOFLIP</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/FLIP"><computeroutput>FLIP</computeroutput></ulink> </para>
+ <ref refid="PLOT" kindref="compound">PLOT</ref> · <ref refid="PLOTQUAD" kindref="compound">PLOTQUAD</ref> · <ref refid="SPRITEFREE" kindref="compound">SPRITEFREE</ref> · <ref refid="CHDIR" kindref="compound">CHDIR</ref> · <ref refid="AUTOFLIP" kindref="compound">AUTOFLIP</ref> · <ref refid="FLIP" kindref="compound">FLIP</ref> </para>
 </sect3>
-</sect2>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/SPRITELOAD.md"/>
   </compounddef>

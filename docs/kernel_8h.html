@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Retro Rocket OS: include/kernel.h File Reference</title>
+<title>Retro Rocket OS: kernel.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -91,70 +92,7 @@ $(document).ready(function(){initNavTree('kernel_8h.html',''); initResizable(); 
 <div class="title">kernel.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
-<code>#include &lt;stdbool.h&gt;</code><br />
-<code>#include &lt;stddef.h&gt;</code><br />
-<code>#include &lt;limits.h&gt;</code><br />
-<code>#include &lt;limine.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="idt_8h.html">idt.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="spinlock_8h.html">spinlock.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="rwlock_8h.html">rwlock.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="cv_8h.html">cv.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="printf_8h.html">printf.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="hashmap_8h.html">hashmap.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="vector_8h.html">vector.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="map_8h.html">map.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="random_8h.html">random.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="video_8h.html">video.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="string_8h.html">string.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="io_8h.html">io.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="memcpy_8h.html">memcpy.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="apic_8h.html">apic.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="ioapic_8h.html">ioapic.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="timer_8h.html">timer.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="kmalloc_8h.html">kmalloc.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="pci_8h.html">pci.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="maths_8h.html">maths.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="stdlib_8h.html">stdlib.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="devicename_8h.html">devicename.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="interrupt_8h.html">interrupt.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="ahci_8h.html">ahci.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="ata_8h.html">ata.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="filesystem_8h.html">filesystem.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="partition_8h.html">partition.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="ramdisk_8h.html">ramdisk.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="iso9660_8h.html">iso9660.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="devfs_8h.html">devfs.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="fat32_8h.html">fat32.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="debugger_8h.html">debugger.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="errorhandler_8h.html">errorhandler.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="keyboard_8h.html">keyboard.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="input_8h.html">input.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="clock_8h.html">clock.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="lapic__timer_8h.html">lapic_timer.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="basic_8h.html">basic.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="tokenizer_8h.html">basic/tokenizer.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="taskswitch_8h.html">taskswitch.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="acpi_8h.html">acpi.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="net_8h.html">net.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="rtl8139_8h.html">rtl8139.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="e1000_8h.html">e1000.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="arp_8h.html">arp.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="ip_8h.html">ip.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="ethernet_8h.html">ethernet.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="tcp_8h.html">tcp.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="icmp_8h.html">icmp.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="udp_8h.html">udp.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="dhcp_8h.html">dhcp.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="dns_8h.html">dns.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="drawing_8h.html">drawing.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="fpu_8h.html">fpu.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="buddy__allocator_8h.html">buddy_allocator.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="retrofs_8h.html">retrofs.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="serial_8h.html">serial.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="debug__ringbuffer_8h.html">debug_ringbuffer.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="module_8h.html">module.h</a>&quot;</code><br />
-</div><table class="memberdecls">
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a5ada4cbc64c5890562caafafffb06d12"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="kernel_8h.html#a5ada4cbc64c5890562caafafffb06d12">kprintf</a>&#160;&#160;&#160;<a class="el" href="printf_8c.html#a55f3d956bb2ba20b5059e9e25484a47f">printf</a></td></tr>
@@ -280,7 +218,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="kernel_8h.html">kernel.h</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:29 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

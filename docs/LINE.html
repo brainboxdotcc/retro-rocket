@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -89,12 +90,12 @@ $(document).ready(function(){initNavTree('LINE.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">LINE integer-expression, integer-expression, integer-expression, integer-expression</div>
-</div><!-- fragment --><p>Draws a straight line from the first <b>X,Y</b> pair to the second <b>X,Y</b> pair using the current graphics colour (set by <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL"><code>GCOL</code></a>).</p>
+</div><!-- fragment --><p>Draws a straight line from the first <b>X,Y</b> pair to the second <b>X,Y</b> pair using the current graphics colour (set by <a class="el" href="GCOL.html">GCOL</a>).</p>
 <ul>
 <li>Parameters are: <code>x1, y1, x2, y2</code>.</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md309"></a>
+<h3><a class="anchor" id="autotoc_md323"></a>
 Examples</h3>
 <p>Basic usage </p><div class="fragment"><div class="line">GCOL RGB(255,0,0)</div>
 <div class="line">LINE 50, 50, 200, 120</div>
@@ -102,9 +103,9 @@ Examples</h3>
 <div class="line">LINE 120, 0,   120, 240</div>
 <div class="line">LINE 0,   120, 240, 120</div>
 </div><!-- fragment --><hr  />
-<dl class="section remark"><dt>Remarks</dt><dd>If <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/AUTOFLIP"><code>AUTOFLIP</code></a> is <code>FALSE</code>, draw your frame (including <code>LINE</code>) and then call <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/FLIP"><code>FLIP</code></a> to present it.</dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd>If <a class="el" href="AUTOFLIP.html">AUTOFLIP</a> is <code>FALSE</code>, draw your frame (including <code>LINE</code>) and then call <a class="el" href="FLIP.html">FLIP</a> to present it.</dd></dl>
 <hr  />
-<h3><a class="anchor" id="autotoc_md312"></a>
+<h3><a class="anchor" id="autotoc_md326"></a>
 Notes</h3>
 <ul>
 <li>Coordinates are in <b>screen pixels</b>; <code>(0,0)</code> is the <b>top-left</b> of the display.</li>
@@ -112,7 +113,7 @@ Notes</h3>
 <li>Lines extending beyond the screen are <b>clipped</b> at the display edge.</li>
 </ul>
 <p><b>See also:</b> <br  />
- <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL"><code>GCOL</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/RECTANGLE"><code>RECTANGLE</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/CIRCLE"><code>CIRCLE</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/PLOT"><code>PLOT</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/FLIP"><code>FLIP</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/AUTOFLIP"><code>AUTOFLIP</code></a> </p>
+ <a class="el" href="GCOL.html">GCOL</a> · <a class="el" href="RECTANGLE.html">RECTANGLE</a> · <a class="el" href="CIRCLE.html">CIRCLE</a> · <a class="el" href="PLOT.html">PLOT</a> · <a class="el" href="FLIP.html">FLIP</a> · <a class="el" href="AUTOFLIP.html">AUTOFLIP</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -120,7 +121,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

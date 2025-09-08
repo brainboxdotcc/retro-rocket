@@ -57,4 +57,5 @@ ENDIF
 - The evaluated line runs with access to the program's current variables, procedures, and functions.
 - Use `EVAL` for small, dynamic actions. For larger logic, write normal procedures/functions and call them directly.
 
-**See also:** [`DEF`](https://github.com/brainboxdotcc/retro-rocket/wiki/DEF), [`PROC`](https://github.com/brainboxdotcc/retro-rocket/wiki/PROC), [`FN`](https://github.com/brainboxdotcc/retro-rocket/wiki/FN), [`ERR`/`ERR$`](https://github.com/brainboxdotcc/retro-rocket/wiki/Builtin-Variables)
+**See also:**
+\ref DEF "DEF", \ref PROC "PROC", \ref FN "FN", [`ERR`/`ERR$`](https://github.com/brainboxdotcc/retro-rocket/wiki/Builtin-Variables)

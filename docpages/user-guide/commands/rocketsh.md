@@ -20,7 +20,7 @@ These interactive line editing facilities are also available to any other BASIC 
 
 The `rocketsh` shell supports two forms of input; firstly any command you type is searched for as a program under the `/programs` directory. If it can be found it is executed. The path under which `rocketsh` searches for programs to run can be changed, as shown below.
 
-If no matching program can be found, the line is passed to [EVAL](https://github.com/brainboxdotcc/retro-rocket/wiki/EVAL) instead and any changes to the program state will be inherited by `rocketsh`, including documented variables below.
+If no matching program can be found, the line is passed to \ref EVAL "EVAL" instead and any changes to the program state will be inherited by `rocketsh`, including documented variables below.
 
 #### Stopping running programs
 

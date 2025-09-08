@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -90,29 +91,26 @@ $(document).ready(function(){initNavTree('OUTPORTQ.html',''); initResizable(); }
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">OUTPORTQ port, value</div>
 </div><!-- fragment --><p>Writes a <b>64-bit quad-word</b> to <code>port</code>.</p>
-<blockquote class="doxtable">
-<p>Very few devices support 64-bit port writes; consult hardware documentation before use. </p>
-</blockquote>
-<h2><a class="anchor" id="autotoc_md346"></a>
-&lt;/blockquote&gt;</h2>
-<h3><a class="anchor" id="autotoc_md347"></a>
+<dl class="section note"><dt>Note</dt><dd>Very few devices support 64-bit port writes; consult hardware documentation before use.</dd></dl>
+<hr  />
+<h3><a class="anchor" id="autotoc_md361"></a>
 How to read it</h3>
 <ul>
 <li>Writes eight bytes as a 64-bit value to the port.</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md349"></a>
+<h3><a class="anchor" id="autotoc_md363"></a>
 Examples</h3>
 <div class="fragment"><div class="line">REM Example 64-bit port write</div>
 <div class="line">OUTPORTQ &amp;1234, &amp;0123456789ABCDEF</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md351"></a>
+<h3><a class="anchor" id="autotoc_md365"></a>
 Notes</h3>
 <ul>
 <li>Rare in practice; most hardware uses MMIO or smaller port widths.</li>
 </ul>
 <p><b>See also:</b> <br  />
- <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/OUTPORT">OUTPORT</a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/OUTPORTW">OUTPORTW</a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/OUTPORTD">OUTPORTD</a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/INPORTQ">INPORTQ</a> </p>
+ <a class="el" href="OUTPORT.html">OUTPORT</a> · <a class="el" href="OUTPORTW.html">OUTPORTW</a> · <a class="el" href="OUTPORTD.html">OUTPORTD</a> · <a class="el" href="INPORTQ.html">INPORTQ</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -120,7 +118,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

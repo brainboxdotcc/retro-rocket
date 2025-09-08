@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Retro Rocket OS: src/net/dhcp.c File Reference</title>
+<title>Retro Rocket OS: dhcp.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -91,8 +92,7 @@ $(document).ready(function(){initNavTree('dhcp_8c.html',''); initResizable(); })
 <div class="title">dhcp.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="kernel_8h.html">kernel.h</a>&gt;</code><br />
-</div><table class="memberdecls">
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a3231225be7c3d28ad7406a7f2ace5cb9"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dhcp_8c.html#a3231225be7c3d28ad7406a7f2ace5cb9">dhcp_background</a> (void)</td></tr>
@@ -103,7 +103,7 @@ Functions</h2></td></tr>
 <tr class="separator:a0999ae1e07a81d250c4fceb2133f0795"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aadf052d322c0ef0a7edfb9d16e2b0f61"><td class="memItemLeft" align="right" valign="top">static uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dhcp_8c.html#aadf052d322c0ef0a7edfb9d16e2b0f61">make_dhcp_request_ciaddr</a> (<a class="el" href="structdhcp__packet__t.html">dhcp_packet_t</a> *packet, uint32_t <a class="el" href="dhcp_8h.html#ad031a042dfee0c8192ef5e606c7a1354">xid</a>, uint32_t ciaddr_netorder)</td></tr>
 <tr class="separator:aadf052d322c0ef0a7edfb9d16e2b0f61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6afbc52b8591fee8edd58ff50d73bf29"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dhcp_8c.html#a6afbc52b8591fee8edd58ff50d73bf29">dhcp_handle_packet</a> (uint32_t <a class="el" href="ip_8h.html#a468dda4615d8c0d9e631e02372619dc1">src_ip</a>, uint16_t <a class="el" href="udp_8h.html#ab98974981cf4c143fcee028643f313e6">src_port</a>, uint16_t <a class="el" href="udp_8h.html#ae18defed4756b8c15e34718f51e86e55">dst_port</a>, void *<a class="el" href="udp_8h.html#a5c239a1bb87b52b0f1d6d68c4749cd2a">data</a>, uint32_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>, void *opaque)</td></tr>
+<tr class="memitem:a6afbc52b8591fee8edd58ff50d73bf29"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dhcp_8c.html#a6afbc52b8591fee8edd58ff50d73bf29">dhcp_handle_packet</a> (uint32_t <a class="el" href="ip_8h.html#a468dda4615d8c0d9e631e02372619dc1">src_ip</a>, uint16_t <a class="el" href="udp_8h.html#ab98974981cf4c143fcee028643f313e6">src_port</a>, uint16_t <a class="el" href="udp_8h.html#ae18defed4756b8c15e34718f51e86e55">dst_port</a>, void *<a class="el" href="udp_8h.html#a5c239a1bb87b52b0f1d6d68c4749cd2a">data</a>, uint32_t <a class="el" href="e1000_8h.html#adfd968054b9a4ec85fdac3cf8043b257">length</a>, void *opaque)</td></tr>
 <tr class="separator:a6afbc52b8591fee8edd58ff50d73bf29"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6028f8888ed57058a2980fc21c62f42d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dhcp_8c.html#a6028f8888ed57058a2980fc21c62f42d">dhcp_discover</a> ()</td></tr>
 <tr class="memdesc:a6028f8888ed57058a2980fc21c62f42d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initiate DHCP discovery Non-blocking, establishes IP address in the background. Network and IP stack card must be initialised first.  <a href="dhcp_8c.html#a6028f8888ed57058a2980fc21c62f42d">More...</a><br /></td></tr>
@@ -140,6 +140,14 @@ Variables</h2></td></tr>
 <tr class="separator:ae7a838818e833e276cd9a8b4e186b4d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a041b4abd0758ebf2afafc6f4cbaf9a8f"><td class="memItemLeft" align="right" valign="top">static volatile bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dhcp_8c.html#a041b4abd0758ebf2afafc6f4cbaf9a8f">dhcp_rebind_sent</a> = false</td></tr>
 <tr class="separator:a041b4abd0758ebf2afafc6f4cbaf9a8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af35b683b49f96e5686f99b329f768b99"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dhcp_8c.html#af35b683b49f96e5686f99b329f768b99">is_ip_allocated</a></td></tr>
+<tr class="separator:af35b683b49f96e5686f99b329f768b99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a315f4a8f60d99f076d92272085333bd6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dhcp_8c.html#a315f4a8f60d99f076d92272085333bd6">is_dns_allocated</a></td></tr>
+<tr class="separator:a315f4a8f60d99f076d92272085333bd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a809f4cf1e0e24684c7a546765e0c2e7e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dhcp_8c.html#a809f4cf1e0e24684c7a546765e0c2e7e">is_gateway_allocated</a></td></tr>
+<tr class="separator:a809f4cf1e0e24684c7a546765e0c2e7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54bb7af0aadd6e172ed644bdf2948dde"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dhcp_8c.html#a54bb7af0aadd6e172ed644bdf2948dde">is_mask_allocated</a></td></tr>
+<tr class="separator:a54bb7af0aadd6e172ed644bdf2948dde"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a3231225be7c3d28ad7406a7f2ace5cb9"></a>
@@ -691,13 +699,77 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a315f4a8f60d99f076d92272085333bd6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a315f4a8f60d99f076d92272085333bd6">&#9670;&nbsp;</a></span>is_dns_allocated</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int is_dns_allocated</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a809f4cf1e0e24684c7a546765e0c2e7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a809f4cf1e0e24684c7a546765e0c2e7e">&#9670;&nbsp;</a></span>is_gateway_allocated</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int is_gateway_allocated</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af35b683b49f96e5686f99b329f768b99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af35b683b49f96e5686f99b329f768b99">&#9670;&nbsp;</a></span>is_ip_allocated</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int is_ip_allocated</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a54bb7af0aadd6e172ed644bdf2948dde"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54bb7af0aadd6e172ed644bdf2948dde">&#9670;&nbsp;</a></span>is_mask_allocated</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int is_mask_allocated</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c72b25b75abe208498b36a3e44a3726c.html">net</a></li><li class="navelem"><a class="el" href="dhcp_8c.html">dhcp.c</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:29 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

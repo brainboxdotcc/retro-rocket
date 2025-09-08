@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Retro Rocket OS: src/basic/graphics.c File Reference</title>
+<title>Retro Rocket OS: graphics.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -95,9 +96,7 @@ $(document).ready(function(){initNavTree('graphics_8c.html',''); initResizable()
 
 <p>BASIC graphics drawing functions.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;<a class="el" href="kernel_8h.html">kernel.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="stb__image_8h.html">stb_image.h</a>&gt;</code><br />
-</div><table class="memberdecls">
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdpoint__t.html">dpoint_t</a></td></tr>
@@ -1040,7 +1039,7 @@ Functions</h2></td></tr>
 <p>Parses and executes the <code>PLOTQUAD</code> keyword from the BASIC interpreter. This statement expects a sprite handle followed by four (x,y) coordinate pairs, defining the quadrilateral to which the sprite should be mapped.</p>
 <p>The coordinates may describe any convex quad, allowing sprites to be drawn with skew and perspective. Internally this delegates to the textured-quad blitter (<code>plot_sprite_quad</code>) to perform the actual rendering.</p>
 <p>Example usage in BASIC: </p><div class="fragment"><div class="line"><a class="code" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea9baf8972a026ab13e4cd839632d5a134">PLOTQUAD</a> SPRITEHANDLE, 100,100, 200,120, 190,220, 90,210</div>
-<div class="ttc" id="atokenizer_8h_html_a4ebc26c81c029670805b51af165f9cfea9baf8972a026ab13e4cd839632d5a134"><div class="ttname"><a href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea9baf8972a026ab13e4cd839632d5a134">PLOTQUAD</a></div><div class="ttdeci">@ PLOTQUAD</div><div class="ttdef"><b>Definition:</b> tokenizer.h:175</div></div>
+<div class="ttc" id="atokenizer_8h_html_a4ebc26c81c029670805b51af165f9cfea9baf8972a026ab13e4cd839632d5a134"><div class="ttname"><a href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea9baf8972a026ab13e4cd839632d5a134">PLOTQUAD</a></div><div class="ttdeci">@ PLOTQUAD</div><div class="ttdef"><b>Definition:</b> tokenizer.h:177</div></div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ctx</td><td>Pointer to the BASIC execution context, containing parser state, sprite table, and current program environment. </td></tr>
@@ -1220,7 +1219,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_38cd9eca440b760dc966f21b1f8d8f41.html">basic</a></li><li class="navelem"><a class="el" href="graphics_8c.html">graphics.c</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:29 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Retro Rocket OS: src/block/ahci/main.c File Reference</title>
+<title>Retro Rocket OS: main.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -88,16 +89,14 @@ $(document).ready(function(){initNavTree('block_2ahci_2main_8c.html',''); initRe
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
-<div class="title">main.c File Reference</div>  </div>
+<div class="title">block/ahci/main.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="kernel_8h.html">kernel.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="scsi_8h.html">scsi.h</a>&gt;</code><br />
-</div><table class="memberdecls">
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a69676cdbf44f79bd830528fba63f7946"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="block_2ahci_2main_8c.html#a69676cdbf44f79bd830528fba63f7946">ahci_handler</a> ([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t <a class="el" href="ahci_8h.html#adc64ccb7538429fe78e3fe0139267370">error</a>, [[maybe_unused]] uint64_t irq, void *opaque)</td></tr>
-<tr class="separator:a69676cdbf44f79bd830528fba63f7946"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0294ea3b87ca64506f1df2f02b16d071"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="block_2ahci_2main_8c.html#a0294ea3b87ca64506f1df2f02b16d071">ahci_handler</a> (uint8_t isr, uint64_t <a class="el" href="ahci_8h.html#adc64ccb7538429fe78e3fe0139267370">error</a>, uint64_t irq, void *opaque)</td></tr>
+<tr class="separator:a0294ea3b87ca64506f1df2f02b16d071"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e9c682071692eca4d8de06a5bb0b369"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="block_2ahci_2main_8c.html#a3e9c682071692eca4d8de06a5bb0b369">ahci_hba_supports_64b</a> (const <a class="el" href="structahci__hba__mem__t.html">ahci_hba_mem_t</a> *abar)</td></tr>
 <tr class="separator:a3e9c682071692eca4d8de06a5bb0b369"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c02c5729186ccc2b9a3c1340b8c3632"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="block_2ahci_2main_8c.html#a8c02c5729186ccc2b9a3c1340b8c3632">allocate_ahci</a> (const <a class="el" href="structahci__hba__mem__t.html">ahci_hba_mem_t</a> *abar, size_t <a class="el" href="fat32_8h.html#ab2c6b258f02add8fdf4cfc7c371dd772">size</a>)</td></tr>
@@ -159,8 +158,8 @@ Variables</h2></td></tr>
 <tr class="separator:a811ff141dc2c62fc52486bd2e0c4d449"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a69676cdbf44f79bd830528fba63f7946"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a69676cdbf44f79bd830528fba63f7946">&#9670;&nbsp;</a></span>ahci_handler()</h2>
+<a id="a0294ea3b87ca64506f1df2f02b16d071"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0294ea3b87ca64506f1df2f02b16d071">&#9670;&nbsp;</a></span>ahci_handler()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -168,19 +167,19 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">void ahci_handler </td>
           <td>(</td>
-          <td class="paramtype">[[maybe_unused] ] uint8_t&#160;</td>
+          <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>isr</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">[[maybe_unused] ] uint64_t&#160;</td>
+          <td class="paramtype">uint64_t&#160;</td>
           <td class="paramname"><em>error</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">[[maybe_unused] ] uint64_t&#160;</td>
+          <td class="paramtype">uint64_t&#160;</td>
           <td class="paramname"><em>irq</em>, </td>
         </tr>
         <tr>
@@ -900,7 +899,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_46a300e4974f45ffe4be063a03f2fd9d.html">block</a></li><li class="navelem"><a class="el" href="dir_3f7ea6e92195c55d099915b6d6a14b1e.html">ahci</a></li><li class="navelem"><a class="el" href="block_2ahci_2main_8c.html">main.c</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

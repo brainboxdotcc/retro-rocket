@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -107,7 +108,7 @@ $(document).ready(function(){initNavTree('globals_func_m.html',''); initResizabl
 </li>
 <li>make_utf16le_name()
 : <a class="el" href="installer_8h.html#af121a43c2c6428336d8cceb3c2bb2756">installer.h</a>
-, <a class="el" href="installer_2helpers_8c.html#af121a43c2c6428336d8cceb3c2bb2756">helpers.c</a>
+, <a class="el" href="installer_2helpers_8c.html#af121a43c2c6428336d8cceb3c2bb2756">installer/helpers.c</a>
 </li>
 <li>make_vfs_path()
 : <a class="el" href="filesystem_8c.html#afe5bc2569d9ed5ea3f77a4c95587ee62">filesystem.c</a>
@@ -305,6 +306,10 @@ $(document).ready(function(){initNavTree('globals_func_m.html',''); initResizabl
 <li>mode_toggle()
 : <a class="el" href="flanterm_8c.html#af061f9d789cd26b5991fc27ab7981da8">flanterm.c</a>
 </li>
+<li>modload_statement()
+: <a class="el" href="peekpoke_8h.html#ae485fd9480366b10421defd0cd1968ec">peekpoke.h</a>
+, <a class="el" href="peekpoke_8c.html#ae485fd9480366b10421defd0cd1968ec">peekpoke.c</a>
+</li>
 <li>module_apply_relocations()
 : <a class="el" href="module_8h.html#ab21876dfa87c1afbb9f531ad99144e18">module.h</a>
 , <a class="el" href="module__loader_8c.html#ab21876dfa87c1afbb9f531ad99144e18">module_loader.c</a>
@@ -331,12 +336,12 @@ $(document).ready(function(){initNavTree('globals_func_m.html',''); initResizabl
 , <a class="el" href="module__loader_8c.html#a5d05b267ec7e869c1c585de127bfe31b">module_loader.c</a>
 </li>
 <li>module_load_symbols()
-: <a class="el" href="module_8h.html#aefbf1531980c0e423e6867779128e640">module.h</a>
-, <a class="el" href="module__loader_8c.html#aefbf1531980c0e423e6867779128e640">module_loader.c</a>
+: <a class="el" href="module__loader_8c.html#aefbf1531980c0e423e6867779128e640">module_loader.c</a>
+, <a class="el" href="module_8h.html#aefbf1531980c0e423e6867779128e640">module.h</a>
 </li>
 <li>module_place_sections()
-: <a class="el" href="module__loader_8c.html#a88b1f613b0a3bf4d48fd84541c8cbf7e">module_loader.c</a>
-, <a class="el" href="module_8h.html#a88b1f613b0a3bf4d48fd84541c8cbf7e">module.h</a>
+: <a class="el" href="module_8h.html#a88b1f613b0a3bf4d48fd84541c8cbf7e">module.h</a>
+, <a class="el" href="module__loader_8c.html#a88b1f613b0a3bf4d48fd84541c8cbf7e">module_loader.c</a>
 </li>
 <li>module_resolve_symbol_addr()
 : <a class="el" href="module_8h.html#a9f3eb51447ffd8caf8c5fb0c17691e8e">module.h</a>
@@ -350,21 +355,13 @@ $(document).ready(function(){initNavTree('globals_func_m.html',''); initResizabl
 : <a class="el" href="module_8h.html#ac1292b98065118e4db5cd53825447dbe">module.h</a>
 , <a class="el" href="module__loader_8c.html#ac1292b98065118e4db5cd53825447dbe">module_loader.c</a>
 </li>
+<li>modunload_statement()
+: <a class="el" href="peekpoke_8h.html#aead0d416ee083a0290c2426851bd207f">peekpoke.h</a>
+, <a class="el" href="peekpoke_8c.html#aead0d416ee083a0290c2426851bd207f">peekpoke.c</a>
+</li>
 <li>mount_statement()
 : <a class="el" href="builtin__file__io__functions_8h.html#a6cca92514a9ec98d46e6f4504eba6c51">builtin_file_io_functions.h</a>
 , <a class="el" href="file__io_8c.html#a6cca92514a9ec98d46e6f4504eba6c51">file_io.c</a>
-</li>
-<li>movsb()
-: <a class="el" href="memcpy_8c.html#acc53f9873534734f1216ccfc0e505592">memcpy.c</a>
-</li>
-<li>movsl()
-: <a class="el" href="memcpy_8c.html#a8f55bf52524abe6fa539e8dd09081ddd">memcpy.c</a>
-</li>
-<li>movsq()
-: <a class="el" href="memcpy_8c.html#a64b3316735c6d2d2a9df6812653ce040">memcpy.c</a>
-</li>
-<li>movsw()
-: <a class="el" href="memcpy_8c.html#ac8033f3a5b43f38a0cb822c672957890">memcpy.c</a>
 </li>
 <li>mt_rand()
 : <a class="el" href="random_8h.html#a59539226d3532537b1e741c2bc124a8e">random.h</a>
@@ -379,7 +376,7 @@ $(document).ready(function(){initNavTree('globals_func_m.html',''); initResizabl
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:12 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:31 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

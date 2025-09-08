@@ -25,16 +25,17 @@
 </listitem></itemizedlist>
 </para>
 <para>When called <bold>with <computeroutput>TRUE</computeroutput></bold>, these functions apply the selected time zone and any <bold>daylight saving time</bold> rules in effect for the timestamp they produce.</para>
-<para><blockquote><para>The identifier must be an <bold>IANA tzdb name</bold> (e.g. &quot;Europe/London&quot;). <linebreak/>
- Do <bold>not</bold> use Windows-style names like &quot;GMT Standard Time&quot; or abbreviations like &quot;BST&quot; or &quot;PST&quot;. </para>
-</blockquote></para>
-<para><blockquote><para>Calling the date and time functions <bold>without</bold> the <computeroutput>TRUE</computeroutput> argument returns values <bold>without</bold> applying the configured time zone and DST adjustment. </para>
-</blockquote></para>
-<para><blockquote><para>If you are unsure of the exact spelling, consult the IANA tz database list and copy the region/city form verbatim, e.g. &quot;America/Los_Angeles&quot;. </para>
-</blockquote></para>
-<sect2 id="SETTIMEZONE_1autotoc_md460">
-<title>&lt;/blockquote&gt;</title>
-<sect3 id="SETTIMEZONE_1autotoc_md461">
+<para><simplesect kind="note"><para>The identifier must be an <bold>IANA tzdb name</bold> (e.g. &quot;Europe/London&quot;). </para>
+</simplesect>
+<simplesect kind="note"><para>Do <bold>not</bold> use Windows-style names like &quot;GMT Standard Time&quot; or abbreviations like &quot;BST&quot; or &quot;PST&quot;.</para>
+</simplesect>
+<simplesect kind="note"><para>Calling the date and time functions <bold>without</bold> the <computeroutput>TRUE</computeroutput> argument returns values <bold>without</bold> applying the configured time zone and DST adjustment.</para>
+</simplesect>
+<simplesect kind="note"><para>If you are unsure of the exact spelling, consult the IANA tz database list and copy the region/city form verbatim, e.g. &quot;America/Los_Angeles&quot;.</para>
+</simplesect>
+<hruler/>
+</para>
+<sect3 id="SETTIMEZONE_1autotoc_md475">
 <title>Examples</title>
 <para><bold>Set to the UK and print local date and time</bold> <programlisting filename=".basic"><codeline><highlight class="normal">SETTIMEZONE<sp/>&quot;Europe/London&quot;</highlight></codeline>
 <codeline></codeline>
@@ -63,7 +64,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="SETTIMEZONE_1autotoc_md463">
+<sect3 id="SETTIMEZONE_1autotoc_md477">
 <title>Behaviour</title>
 <para><itemizedlist>
 <listitem><para>The setting affects the <bold>DST-aware</bold> forms of the listed functions when you pass <computeroutput>TRUE</computeroutput>.</para>
@@ -72,9 +73,8 @@
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/TIME"><computeroutput>TIME$</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DATE"><computeroutput>DATE$</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/HOUR"><computeroutput>HOUR</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/MINUTE"><computeroutput>MINUTE</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/SECOND"><computeroutput>SECOND</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DAY"><computeroutput>DAY</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/MONTH"><computeroutput>MONTH</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/YEAR"><computeroutput>YEAR</computeroutput></ulink> </para>
+ <ref refid="TIME" kindref="compound">TIME$</ref> · <ref refid="DATE" kindref="compound">DATE$</ref> · <ref refid="HOUR" kindref="compound">HOUR</ref> · <ref refid="MINUTE" kindref="compound">MINUTE</ref> · <ref refid="SECOND" kindref="compound">SECOND</ref> · <ref refid="DAY" kindref="compound">DAY</ref> · <ref refid="MONTH" kindref="compound">MONTH</ref> · <ref refid="YEAR" kindref="compound">YEAR</ref> </para>
 </sect3>
-</sect2>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/SETTIMEZONE.md"/>
   </compounddef>

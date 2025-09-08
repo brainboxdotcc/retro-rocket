@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="block_2ahci_2main_8c" kind="file" language="C++">
-    <compoundname>main.c</compoundname>
+    <compoundname>block/ahci/main.c</compoundname>
     <includes refid="kernel_8h" local="no">kernel.h</includes>
     <includes refid="scsi_8h" local="no">scsi.h</includes>
     <incdepgraph>
@@ -68,7 +68,7 @@
         <childnode refid="27" relation="include">
         </childnode>
       </node>
-      <node id="88">
+      <node id="86">
         <label>stdarg.h</label>
       </node>
       <node id="60">
@@ -81,7 +81,7 @@
         <label>stdatomic.h</label>
       </node>
       <node id="1">
-        <label>src/block/ahci/main.c</label>
+        <label>main.c</label>
         <link refid="block_2ahci_2main_8c"/>
         <childnode refid="2" relation="include">
         </childnode>
@@ -118,7 +118,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="76">
+      <node id="74">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
@@ -135,7 +135,7 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="83">
+      <node id="81">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
@@ -163,7 +163,7 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="81">
+      <node id="79">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
@@ -185,7 +185,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="79">
+      <node id="77">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
@@ -204,7 +204,7 @@
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="84">
+      <node id="82">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
@@ -216,12 +216,6 @@
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="74">
-        <label>rtl8139.h</label>
-        <link refid="rtl8139_8h"/>
-        <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="52">
@@ -242,7 +236,7 @@
       <node id="5">
         <label>stddef.h</label>
       </node>
-      <node id="90">
+      <node id="88">
         <label>module.h</label>
         <link refid="module_8h"/>
         <childnode refid="2" relation="include">
@@ -293,12 +287,6 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="75">
-        <label>e1000.h</label>
-        <link refid="e1000_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
       <node id="70">
         <label>lapic_timer.h</label>
         <link refid="lapic__timer_8h"/>
@@ -320,7 +308,7 @@
         <label>input.h</label>
         <link refid="input_8h"/>
       </node>
-      <node id="85">
+      <node id="83">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
@@ -330,17 +318,17 @@
         <label>video.h</label>
         <link refid="video_8h"/>
       </node>
-      <node id="87">
+      <node id="85">
         <label>serial.h</label>
         <link refid="serial_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="88" relation="include">
+        <childnode refid="86" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="80">
+      <node id="78">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
@@ -366,7 +354,7 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="77">
+      <node id="75">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
@@ -416,7 +404,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="78">
+      <node id="76">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
@@ -539,19 +527,15 @@
         </childnode>
         <childnode refid="83" relation="include">
         </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
         <childnode refid="84" relation="include">
         </childnode>
         <childnode refid="85" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="86" relation="include">
-        </childnode>
         <childnode refid="87" relation="include">
         </childnode>
-        <childnode refid="89" relation="include">
-        </childnode>
-        <childnode refid="90" relation="include">
+        <childnode refid="88" relation="include">
         </childnode>
       </node>
       <node id="45">
@@ -580,7 +564,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="89">
+      <node id="87">
         <label>debug_ringbuffer.h</label>
         <link refid="debug__ringbuffer_8h"/>
         <childnode refid="2" relation="include">
@@ -708,13 +692,13 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="82">
+      <node id="80">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="86">
+      <node id="84">
         <label>retrofs.h</label>
         <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
@@ -768,24 +752,21 @@
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
-      <memberdef kind="function" id="block_2ahci_2main_8c_1a69676cdbf44f79bd830528fba63f7946" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="block_2ahci_2main_8c_1a0294ea3b87ca64506f1df2f02b16d071" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void ahci_handler</definition>
-        <argsstring>([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t error, [[maybe_unused]] uint64_t irq, void *opaque)</argsstring>
+        <argsstring>(uint8_t isr, uint64_t error, uint64_t irq, void *opaque)</argsstring>
         <name>ahci_handler</name>
         <param>
-          <attributes>[[maybe_unused]</attributes>
-          <type>] uint8_t</type>
+          <type>uint8_t</type>
           <declname>isr</declname>
         </param>
         <param>
-          <attributes>[[maybe_unused]</attributes>
-          <type>] uint64_t</type>
+          <type>uint64_t</type>
           <declname>error</declname>
         </param>
         <param>
-          <attributes>[[maybe_unused]</attributes>
-          <type>] uint64_t</type>
+          <type>uint64_t</type>
           <declname>irq</declname>
         </param>
         <param>
@@ -798,7 +779,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/block/ahci/main.c" line="7" column="6" bodyfile="src/block/ahci/main.c" bodystart="7" bodyend="18"/>
+        <location file="src/block/ahci/main.c" line="7" column="6" bodyfile="src/block/ahci/main.c" bodystart="7" bodyend="30"/>
       </memberdef>
       <memberdef kind="function" id="block_2ahci_2main_8c_1a3e9c682071692eca4d8de06a5bb0b369" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>bool</type>
@@ -815,7 +796,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/block/ahci/main.c" line="20" column="20" bodyfile="src/block/ahci/main.c" bodystart="20" bodyend="22"/>
+        <location file="src/block/ahci/main.c" line="32" column="20" bodyfile="src/block/ahci/main.c" bodystart="32" bodyend="34"/>
       </memberdef>
       <memberdef kind="function" id="block_2ahci_2main_8c_1a8c02c5729186ccc2b9a3c1340b8c3632" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void *</type>
@@ -836,7 +817,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/block/ahci/main.c" line="24" column="6" bodyfile="src/block/ahci/main.c" bodystart="24" bodyend="26"/>
+        <location file="src/block/ahci/main.c" line="36" column="6" bodyfile="src/block/ahci/main.c" bodystart="36" bodyend="38"/>
       </memberdef>
       <memberdef kind="function" id="block_2ahci_2main_8c_1a1739b1f50c9d12fef76bd70d476a823e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -866,7 +847,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/block/ahci/main.c" line="28" column="5" bodyfile="src/block/ahci/main.c" bodystart="28" bodyend="48"/>
+        <location file="src/block/ahci/main.c" line="40" column="5" bodyfile="src/block/ahci/main.c" bodystart="40" bodyend="60"/>
       </memberdef>
       <memberdef kind="function" id="block_2ahci_2main_8c_1a3f731f3af4b9cf5fde7ffb8ebe3b23bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -883,7 +864,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/block/ahci/main.c" line="50" column="6" bodyfile="src/block/ahci/main.c" bodystart="50" bodyend="55"/>
+        <location file="src/block/ahci/main.c" line="62" column="6" bodyfile="src/block/ahci/main.c" bodystart="62" bodyend="67"/>
       </memberdef>
       <memberdef kind="function" id="block_2ahci_2main_8c_1a87a8b71a9ff474b5626fe32e8672f0c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -900,7 +881,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/block/ahci/main.c" line="57" column="6" bodyfile="src/block/ahci/main.c" bodystart="57" bodyend="68"/>
+        <location file="src/block/ahci/main.c" line="69" column="6" bodyfile="src/block/ahci/main.c" bodystart="69" bodyend="80"/>
       </memberdef>
       <memberdef kind="function" id="block_2ahci_2main_8c_1aaefbf0af7da9210fa6c283fd821a2ec3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -925,7 +906,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/block/ahci/main.c" line="70" column="6" bodyfile="src/block/ahci/main.c" bodystart="70" bodyend="93"/>
+        <location file="src/block/ahci/main.c" line="82" column="6" bodyfile="src/block/ahci/main.c" bodystart="82" bodyend="105"/>
       </memberdef>
       <memberdef kind="function" id="block_2ahci_2main_8c_1a43e3e1c7e4452723f6ff21043edb5519" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -955,7 +936,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/block/ahci/main.c" line="95" column="6" bodyfile="src/block/ahci/main.c" bodystart="95" bodyend="104"/>
+        <location file="src/block/ahci/main.c" line="107" column="6" bodyfile="src/block/ahci/main.c" bodystart="107" bodyend="116"/>
       </memberdef>
       <memberdef kind="function" id="block_2ahci_2main_8c_1a60084cde8e44fb4f4411e8839fbe93e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1031,7 +1012,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/block/ahci/main.c" line="106" column="6" bodyfile="src/block/ahci/main.c" bodystart="106" bodyend="111"/>
+        <location file="src/block/ahci/main.c" line="118" column="6" bodyfile="src/block/ahci/main.c" bodystart="118" bodyend="123"/>
       </memberdef>
       <memberdef kind="function" id="block_2ahci_2main_8c_1aad42e0c0a814e479ed31f7ac2bc57090" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structahci__hba__cmd__header__t" kindref="compound">ahci_hba_cmd_header_t</ref> *</type>
@@ -1109,7 +1090,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/block/ahci/main.c" line="113" column="23" bodyfile="src/block/ahci/main.c" bodystart="113" bodyend="122"/>
+        <location file="src/block/ahci/main.c" line="125" column="23" bodyfile="src/block/ahci/main.c" bodystart="125" bodyend="134"/>
       </memberdef>
       <memberdef kind="function" id="block_2ahci_2main_8c_1aa78c7e40ebc49abff4596b0541c7460f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structahci__hba__cmd__tbl__t" kindref="compound">ahci_hba_cmd_tbl_t</ref> *</type>
@@ -1139,7 +1120,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/block/ahci/main.c" line="124" column="20" bodyfile="src/block/ahci/main.c" bodystart="124" bodyend="129"/>
+        <location file="src/block/ahci/main.c" line="136" column="20" bodyfile="src/block/ahci/main.c" bodystart="136" bodyend="141"/>
       </memberdef>
       <memberdef kind="function" id="block_2ahci_2main_8c_1ac60cff25b988babf024da82ac44f31df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structahci__fis__reg__h2d__t" kindref="compound">ahci_fis_reg_h2d_t</ref> *</type>
@@ -1205,7 +1186,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/block/ahci/main.c" line="131" column="20" bodyfile="src/block/ahci/main.c" bodystart="131" bodyend="141"/>
+        <location file="src/block/ahci/main.c" line="143" column="20" bodyfile="src/block/ahci/main.c" bodystart="143" bodyend="153"/>
       </memberdef>
       <memberdef kind="function" id="block_2ahci_2main_8c_1af2d2b58a79436b97865b25b02278f5af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1257,7 +1238,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/block/ahci/main.c" line="143" column="6" bodyfile="src/block/ahci/main.c" bodystart="143" bodyend="160"/>
+        <location file="src/block/ahci/main.c" line="155" column="6" bodyfile="src/block/ahci/main.c" bodystart="155" bodyend="172"/>
       </memberdef>
       <memberdef kind="function" id="block_2ahci_2main_8c_1a21d8de7e0ba2b89e77a3ac60cba28f80" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1297,7 +1278,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/block/ahci/main.c" line="162" column="6" bodyfile="src/block/ahci/main.c" bodystart="162" bodyend="164"/>
+        <location file="src/block/ahci/main.c" line="174" column="6" bodyfile="src/block/ahci/main.c" bodystart="174" bodyend="176"/>
       </memberdef>
       <memberdef kind="function" id="block_2ahci_2main_8c_1a42f2ea2136586167709f812bbbb427bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1318,7 +1299,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/block/ahci/main.c" line="166" column="6" bodyfile="src/block/ahci/main.c" bodystart="166" bodyend="173"/>
+        <location file="src/block/ahci/main.c" line="178" column="6" bodyfile="src/block/ahci/main.c" bodystart="178" bodyend="185"/>
       </memberdef>
       <memberdef kind="function" id="block_2ahci_2main_8c_1a1f46c86686bb7c97c25523cbd2513165" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1372,7 +1353,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/block/ahci/main.c" line="175" column="6" bodyfile="src/block/ahci/main.c" bodystart="175" bodyend="189"/>
+        <location file="src/block/ahci/main.c" line="187" column="6" bodyfile="src/block/ahci/main.c" bodystart="187" bodyend="201"/>
       </memberdef>
       <memberdef kind="function" id="block_2ahci_2main_8c_1a5fcb5e447d6a4b7f037017caced3bd75" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1426,7 +1407,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/block/ahci/main.c" line="191" column="6" bodyfile="src/block/ahci/main.c" bodystart="191" bodyend="198"/>
+        <location file="src/block/ahci/main.c" line="203" column="6" bodyfile="src/block/ahci/main.c" bodystart="203" bodyend="210"/>
       </memberdef>
       <memberdef kind="function" id="block_2ahci_2main_8c_1ae4501711404dc088455fa70f32878dba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1443,7 +1424,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/block/ahci/main.c" line="200" column="6" bodyfile="src/block/ahci/main.c" bodystart="200" bodyend="264"/>
+        <location file="src/block/ahci/main.c" line="212" column="6" bodyfile="src/block/ahci/main.c" bodystart="212" bodyend="276"/>
       </memberdef>
       <memberdef kind="function" id="block_2ahci_2main_8c_1af88908abdc3b2c442adf7799b3ae92f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1485,7 +1466,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/block/ahci/main.c" line="266" column="5" bodyfile="src/block/ahci/main.c" bodystart="266" bodyend="279"/>
+        <location file="src/block/ahci/main.c" line="278" column="5" bodyfile="src/block/ahci/main.c" bodystart="278" bodyend="291"/>
       </memberdef>
       <memberdef kind="function" id="block_2ahci_2main_8c_1afb72acab86bc2c9e146a6c3e21d136a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1502,7 +1483,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/block/ahci/main.c" line="281" column="6" bodyfile="src/block/ahci/main.c" bodystart="281" bodyend="285"/>
+        <location file="src/block/ahci/main.c" line="293" column="6" bodyfile="src/block/ahci/main.c" bodystart="293" bodyend="297"/>
       </memberdef>
       <memberdef kind="function" id="block_2ahci_2main_8c_1aee21823366d10636044f5358d4c6e527" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1516,7 +1497,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/block/ahci/main.c" line="287" column="6" bodyfile="src/block/ahci/main.c" bodystart="287" bodyend="308"/>
+        <location file="src/block/ahci/main.c" line="299" column="6" bodyfile="src/block/ahci/main.c" bodystart="299" bodyend="320"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

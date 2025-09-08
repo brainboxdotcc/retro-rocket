@@ -12,7 +12,7 @@
  In BBC BASIC this operator was named <computeroutput>EOR</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect3 id="BITEOR_1autotoc_md134">
+<sect3 id="BITEOR_1autotoc_md148">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Returns bits set when exactly one of <computeroutput>a</computeroutput> or <computeroutput>b</computeroutput> has the bit set.</para>
@@ -21,7 +21,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="BITEOR_1autotoc_md136">
+<sect3 id="BITEOR_1autotoc_md150">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>BITEOR(&amp;6,<sp/>&amp;3)</highlight></codeline>
 </programlisting></para>
@@ -29,14 +29,14 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="BITEOR_1autotoc_md138">
+<sect3 id="BITEOR_1autotoc_md152">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Operates on 64-bit integers.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BITOR">BITOR</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BITAND">BITAND</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BITXNOR">BITXNOR</ulink> </para>
+ <ref refid="BITOR" kindref="compound">BITOR</ref> · <ref refid="BITAND" kindref="compound">BITAND</ref> · <ref refid="BITXNOR" kindref="compound">BITXNOR</ref> </para>
 </sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/BITEOR.md"/>

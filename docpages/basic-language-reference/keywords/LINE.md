@@ -3,7 +3,7 @@
 LINE integer-expression, integer-expression, integer-expression, integer-expression
 ```
 
-Draws a straight line from the first **X,Y** pair to the second **X,Y** pair using the current graphics colour (set by [`GCOL`](https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL)).
+Draws a straight line from the first **X,Y** pair to the second **X,Y** pair using the current graphics colour (set by \ref GCOL "GCOL").
 
 - Parameters are: `x1, y1, x2, y2`.
 
@@ -27,7 +27,7 @@ LINE 0,   120, 240, 120
 ---
 
 
-\remark If [`AUTOFLIP`](https://github.com/brainboxdotcc/retro-rocket/wiki/AUTOFLIP) is `FALSE`, draw your frame (including `LINE`) and then call [`FLIP`](https://github.com/brainboxdotcc/retro-rocket/wiki/FLIP) to present it.
+\remark If \ref AUTOFLIP "AUTOFLIP" is `FALSE`, draw your frame (including `LINE`) and then call \ref FLIP "FLIP" to present it.
 
 ---
 
@@ -37,9 +37,9 @@ LINE 0,   120, 240, 120
 - Lines extending beyond the screen are **clipped** at the display edge.
 
 **See also:**  
-[`GCOL`](https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL) ·
-[`RECTANGLE`](https://github.com/brainboxdotcc/retro-rocket/wiki/RECTANGLE) ·
-[`CIRCLE`](https://github.com/brainboxdotcc/retro-rocket/wiki/CIRCLE) ·
-[`PLOT`](https://github.com/brainboxdotcc/retro-rocket/wiki/PLOT) ·
-[`FLIP`](https://github.com/brainboxdotcc/retro-rocket/wiki/FLIP) ·
-[`AUTOFLIP`](https://github.com/brainboxdotcc/retro-rocket/wiki/AUTOFLIP)
+\ref GCOL "GCOL" ·
+\ref RECTANGLE "RECTANGLE" ·
+\ref CIRCLE "CIRCLE" ·
+\ref PLOT "PLOT" ·
+\ref FLIP "FLIP" ·
+\ref AUTOFLIP "AUTOFLIP"

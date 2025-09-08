@@ -15,7 +15,7 @@
 </listitem><listitem><para><computeroutput>Y</computeroutput> = row (0 is the top row)</para>
 </listitem></itemizedlist>
 </para>
-<para>After moving the cursor, subsequent <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PRINT"><computeroutput>PRINT</computeroutput></ulink> output starts at that position.</para>
+<para>After moving the cursor, subsequent <ref refid="PRINT" kindref="compound">PRINT</ref> output starts at that position.</para>
 <para><hruler/>
 </para>
 <para><heading level="5">Example</heading>
@@ -26,19 +26,22 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-<para><blockquote><para>Use <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/TERMWIDTH"><computeroutput>TERMWIDTH</computeroutput></ulink> and <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/TERMHEIGHT"><computeroutput>TERMHEIGHT</computeroutput></ulink> to compute safe positions or to centre text. </para>
-</blockquote></para>
-<sect2 id="CURSOR_1autotoc_md221">
-<title>&lt;/blockquote&gt;</title>
+<para><simplesect kind="note"><para>Use <ref refid="TERMWIDTH" kindref="compound">TERMWIDTH</ref> and </para>
+</simplesect>
+<simplesect kind="note"><para><ref refid="TERMHEIGHT" kindref="compound">TERMHEIGHT</ref> to compute </para>
+</simplesect>
+<simplesect kind="note"><para>safe positions or to centre text.</para>
+</simplesect>
+<hruler/>
+</para>
 <para><heading level="5">Notes</heading>
 </para>
 <para><itemizedlist>
-<listitem><para>Affects the <bold>text layer</bold> only; graphics primitives (e.g. <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/LINE"><computeroutput>LINE</computeroutput></ulink>) are unaffected.</para>
-</listitem><listitem><para>The cursor is reset to <computeroutput>(0,0)</computeroutput> by <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CLS"><computeroutput>CLS</computeroutput></ulink>.</para>
+<listitem><para>Affects the <bold>text layer</bold> only; graphics primitives (e.g. <ref refid="LINE" kindref="compound">LINE</ref>) are unaffected.</para>
+</listitem><listitem><para>The cursor is reset to <computeroutput>(0,0)</computeroutput> by <ref refid="CLS" kindref="compound">CLS</ref>.</para>
 </listitem><listitem><para>Valid screen coordinates depend on the current terminal size (<computeroutput>0..TERMWIDTH-1</computeroutput>, <computeroutput>0..TERMHEIGHT-1</computeroutput>). </para>
 </listitem></itemizedlist>
 </para>
-</sect2>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/CURSOR.md"/>
   </compounddef>

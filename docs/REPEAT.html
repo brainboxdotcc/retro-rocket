@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -93,21 +94,20 @@ $(document).ready(function(){initNavTree('REPEAT.html',''); initResizable(); });
 <div class="line">UNTIL expression</div>
 </div><!-- fragment --><p>Starts a <b>post-test loop</b>. The block between <code>REPEAT</code> and <code>UNTIL</code> executes <b>at least once</b>. <br  />
  After the block runs, <code>expression</code> is evaluated; if it is <b>true</b>, the loop <b>ends</b>; if <b>false</b>, execution repeats from <code>REPEAT</code>.</p>
-<blockquote class="doxtable">
-<p><code>REPEAT</code> pairs with the <b>nearest</b> following <code>UNTIL</code>. <br  />
- <code>UNTIL</code> must appear on its <b>own line</b>. <br  />
- You may <b>nest</b> <code>REPEAT…UNTIL</code> loops. </p>
-</blockquote>
-<h2><a class="anchor" id="autotoc_md438"></a>
-&lt;/blockquote&gt;</h2>
-<h3><a class="anchor" id="autotoc_md439"></a>
+<dl class="section note"><dt>Note</dt><dd><code>REPEAT</code> pairs with the <b>nearest</b> following <code>UNTIL</code>. </dd>
+<dd>
+<code>UNTIL</code> must appear on its <b>own line</b>. </dd>
+<dd>
+You may <b>nest</b> <code>REPEAT…UNTIL</code> loops.</dd></dl>
+<hr  />
+<h3><a class="anchor" id="autotoc_md453"></a>
 How to read it</h3>
 <ul>
 <li>Think of it as <b>“do these statements **until</b> the condition becomes true”** (exit-on-true).</li>
 <li>If you prefer an <b>entry-test</b> loop (continue-on-true), use <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/WHILE"><code>WHILE … ENDWHILE</code></a>.</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md441"></a>
+<h3><a class="anchor" id="autotoc_md455"></a>
 Examples</h3>
 <p><b>Count until a limit</b> </p><div class="fragment"><div class="line">N = 0</div>
 <div class="line">REPEAT</div>
@@ -134,7 +134,7 @@ Examples</h3>
 <div class="line">    REM do some periodic work here</div>
 <div class="line">UNTIL INKEY$ &lt;&gt; &quot;&quot;</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md443"></a>
+<h3><a class="anchor" id="autotoc_md457"></a>
 Notes</h3>
 <ul>
 <li>The condition on <code>UNTIL</code> is a normal boolean <b>expression</b>; use comparisons like <code>=</code>, <code>&lt;&gt;</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>.</li>
@@ -142,7 +142,7 @@ Notes</h3>
 <li>You can mix <code>REPEAT…UNTIL</code> with other control structures (e.g. place one inside a <code>FOR</code> loop) as needed.</li>
 </ul>
 <p><b>See also:</b> <br  />
- <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/WHILE"><code>WHILE</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ENDIF"><code>ENDIF</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/INPUT"><code>INPUT</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/LEN"><code>LEN</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/INKEY"><code>INKEY$</code></a> </p>
+ <a class="el" href="WHILE.html">WHILE</a> · <a class="el" href="ENDIF.html">ENDIF</a> · <a class="el" href="INPUT.html">INPUT</a> · <a class="el" href="LEN.html">LEN</a> · <a class="el" href="INKEY.html">INKEY$</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -150,7 +150,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

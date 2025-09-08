@@ -11,8 +11,7 @@
 <para>Starts a new BASIC program, pausing the current program until the new one finishes. <linebreak/>
  The string expression must evaluate to the <bold>filename</bold> of a program accessible from the filesystem.</para>
 <para><itemizedlist>
-<listitem><para>Any variables marked as <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/GLOBAL"><computeroutput>GLOBAL</computeroutput></ulink> will be shared with the child program. <linebreak/>
-</para>
+<listitem><para>Any variables marked as <ref refid="GLOBAL" kindref="compound">GLOBAL</ref> will be shared with the child program.</para>
 </listitem><listitem><para>When the chained program terminates, control returns to the line immediately following the <computeroutput>CHAIN</computeroutput> statement in the calling program. <linebreak/>
 </para>
 </listitem><listitem><para>Variables not marked as global are not visible to the chained program.</para>
@@ -47,7 +46,7 @@
 </listitem><listitem><para>Unlike BBC BASIC, Retro Rocket’s <computeroutput>CHAIN</computeroutput> does <bold>not</bold> discard the caller - the parent program continues afterwards.</para>
 </listitem></itemizedlist>
 </para>
-<para><bold>See also:</bold> <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/GLOBAL"><computeroutput>GLOBAL</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/LIBRARY"><computeroutput>LIBRARY</computeroutput></ulink> </para>
+<para><bold>See also:</bold> <ref refid="GLOBAL" kindref="compound">GLOBAL</ref>, <ref refid="LIBRARY" kindref="compound">LIBRARY</ref> </para>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/CHAIN.md"/>
   </compounddef>

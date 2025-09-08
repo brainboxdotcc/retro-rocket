@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Retro Rocket OS: src/net/udp.c File Reference</title>
+<title>Retro Rocket OS: udp.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -93,8 +94,7 @@ $(document).ready(function(){initNavTree('udp_8c.html',''); initResizable(); });
 <div class="title">udp.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="kernel_8h.html">kernel.h</a>&gt;</code><br />
-</div><table class="memberdecls">
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structudp__daemon__registration.html">udp_daemon_registration</a></td></tr>
@@ -126,7 +126,7 @@ Functions</h2></td></tr>
 Variables</h2></td></tr>
 <tr class="memitem:a364bafd89ccdb1d0ea2fe42b28715188"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structudp__daemon__registration.html">udp_daemon_registration</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="udp_8c.html#a364bafd89ccdb1d0ea2fe42b28715188">daemons</a> [USHRT_MAX] = {}</td></tr>
 <tr class="separator:a364bafd89ccdb1d0ea2fe42b28715188"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff4385d6fc588ba295761ec0b0d50406"><td class="memItemLeft" align="right" valign="top"><a class="el" href="spinlock_8h.html#af82eed01f0304d83276dda764b213779">spinlock_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="udp_8c.html#aff4385d6fc588ba295761ec0b0d50406">udp_lock</a> = 0</td></tr>
+<tr class="memitem:aff4385d6fc588ba295761ec0b0d50406"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="spinlock_8h.html#af82eed01f0304d83276dda764b213779">spinlock_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="udp_8c.html#aff4385d6fc588ba295761ec0b0d50406">udp_lock</a> = 0</td></tr>
 <tr class="separator:aff4385d6fc588ba295761ec0b0d50406"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
@@ -375,11 +375,19 @@ Variables</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="spinlock_8h.html#af82eed01f0304d83276dda764b213779">spinlock_t</a> udp_lock = 0</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -390,7 +398,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c72b25b75abe208498b36a3e44a3726c.html">net</a></li><li class="navelem"><a class="el" href="udp_8c.html">udp.c</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

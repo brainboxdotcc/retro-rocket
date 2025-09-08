@@ -11,7 +11,7 @@ In BBC BASIC IV, `DATA` embedded constants directly in the source and they were 
 \remark `READ$` in Retro Rocket BASIC returns **one character at a time** from an open
 \remark file handle. It does **not** read a whole line. If you need to parse lines or
 \remark comma-separated values, build them yourself from characters and then convert
-\remark with functions like [`VAL`](https://github.com/brainboxdotcc/retro-rocket/wiki/VAL).
+\remark with functions like \ref VAL "VAL".
 
 ---
 
@@ -71,9 +71,9 @@ A(3) = 30
 ---
 
 ##### See also
-- [`OPENIN`](https://github.com/brainboxdotcc/retro-rocket/wiki/OPENIN) – open a file for reading  
-- [`OPENOUT`](https://github.com/brainboxdotcc/retro-rocket/wiki/OPENOUT) – open a file for writing (truncate)  
-- [`OPENUP`](https://github.com/brainboxdotcc/retro-rocket/wiki/OPENUP) – open a file for update (read/write)  
-- [`READ$`](https://github.com/brainboxdotcc/retro-rocket/wiki/READ) – read one character from a file handle  
-- [`EOF`](https://github.com/brainboxdotcc/retro-rocket/wiki/EOF) – end-of-file check  
-- [`VAL`](https://github.com/brainboxdotcc/retro-rocket/wiki/VAL), [`LEN`](https://github.com/brainboxdotcc/retro-rocket/wiki/LEN), [`CHR`](https://github.com/brainboxdotcc/retro-rocket/wiki/CHR)
+- \ref OPENIN "OPENIN" – open a file for reading
+- \ref OPENOUT "OPENOUT" – open a file for writing (truncate)
+- \ref OPENUP "OPENUP" – open a file for update (read/write)
+- \ref READ "READ$" – read one character from a file handle
+- \ref EOF "EOF" – end-of-file check
+- \ref VAL "VAL", \ref LEN "LEN", \ref CHR "CHR"

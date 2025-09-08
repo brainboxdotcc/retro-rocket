@@ -43,6 +43,6 @@ PROCprint_if_positive(0)
 - Functions (`DEF FNname`) do **not** use `ENDPROC`; a function returns with a final line that **begins with `=`**.
 
 **See also:**  
-[`DEF`](https://github.com/brainboxdotcc/retro-rocket/wiki/DEF) ·
-[`PROC`](https://github.com/brainboxdotcc/retro-rocket/wiki/PROC) ·
-[`FN`](https://github.com/brainboxdotcc/retro-rocket/wiki/FN)
+\ref DEF "DEF" ·
+\ref PROC "PROC" ·
+\ref FN "FN"

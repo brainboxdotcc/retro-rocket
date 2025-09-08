@@ -9,9 +9,9 @@ Starts a **post-test loop**. The block between `REPEAT` and `UNTIL` executes **a
 After the block runs, `expression` is evaluated; if it is **true**, the loop **ends**; if **false**, execution repeats from `REPEAT`.
 
 
-> `REPEAT` pairs with the **nearest** following `UNTIL`.  
-> `UNTIL` must appear on its **own line**.  
-> You may **nest** `REPEAT…UNTIL` loops.
+@note `REPEAT` pairs with the **nearest** following `UNTIL`.
+@note `UNTIL` must appear on its **own line**.
+@note You may **nest** `REPEAT…UNTIL` loops.
 
 ---
 
@@ -72,8 +72,8 @@ UNTIL INKEY$ <> ""
 - You can mix `REPEAT…UNTIL` with other control structures (e.g. place one inside a `FOR` loop) as needed.
 
 **See also:**  
-[`WHILE`](https://github.com/brainboxdotcc/retro-rocket/wiki/WHILE) ·
-[`ENDIF`](https://github.com/brainboxdotcc/retro-rocket/wiki/ENDIF) ·
-[`INPUT`](https://github.com/brainboxdotcc/retro-rocket/wiki/INPUT) ·
-[`LEN`](https://github.com/brainboxdotcc/retro-rocket/wiki/LEN) ·
-[`INKEY$`](https://github.com/brainboxdotcc/retro-rocket/wiki/INKEY)
+\ref WHILE "WHILE" ·
+\ref ENDIF "ENDIF" ·
+\ref INPUT "INPUT" ·
+\ref LEN "LEN" ·
+\ref INKEY "INKEY$"

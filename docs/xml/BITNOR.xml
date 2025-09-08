@@ -11,7 +11,7 @@
 <para>Computes the <bold>bitwise NOR</bold> of two integers.</para>
 <para><hruler/>
 </para>
-<sect3 id="BITNOR_1autotoc_md146">
+<sect3 id="BITNOR_1autotoc_md160">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Equivalent to <computeroutput>NOT (a OR b)</computeroutput>.</para>
@@ -20,21 +20,21 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="BITNOR_1autotoc_md148">
+<sect3 id="BITNOR_1autotoc_md162">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>BITNOR(&amp;6,<sp/>&amp;3)</highlight></codeline>
 </programlisting></para>
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="BITNOR_1autotoc_md150">
+<sect3 id="BITNOR_1autotoc_md164">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Operates on 64-bit integers.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BITOR">BITOR</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BITNAND">BITNAND</ulink> </para>
+ <ref refid="BITOR" kindref="compound">BITOR</ref> · <ref refid="BITNAND" kindref="compound">BITNAND</ref> </para>
 </sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/BITNOR.md"/>

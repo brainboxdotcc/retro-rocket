@@ -12,13 +12,13 @@
 </programlisting></para>
 <para>Executes the block while <computeroutput>expression</computeroutput> evaluates to <bold>true</bold>. <linebreak/>
  The test happens <bold>before</bold> each iteration, so the body may execute <bold>zero times</bold>.</para>
-<para><simplesect kind="remark"><para><computeroutput>WHILE</computeroutput> must be closed with <computeroutput>ENDWHILE</computeroutput>. <blockquote><para>The spaced form <computeroutput>END WHILE</computeroutput> is <bold>not</bold> recognised. </para>
-</blockquote></para>
+<para><simplesect kind="remark"><para><computeroutput>WHILE</computeroutput> must be closed with <computeroutput>ENDWHILE</computeroutput>. </para>
 </simplesect>
+<simplesect kind="note"><para>The spaced form <computeroutput>END WHILE</computeroutput> is <bold>not</bold> recognised.</para>
+</simplesect>
+<hruler/>
 </para>
-<sect2 id="WHILE_1autotoc_md516">
-<title>&lt;/blockquote&gt;</title>
-<sect3 id="WHILE_1autotoc_md517">
+<sect3 id="WHILE_1autotoc_md531">
 <title>Behaviour</title>
 <para><itemizedlist>
 <listitem><para><computeroutput>ENDWHILE</computeroutput> matches the <bold>nearest unmatched</bold> <computeroutput>WHILE</computeroutput>.</para>
@@ -27,13 +27,12 @@
 </listitem><listitem><para>If the condition never becomes <bold>false</bold>, the loop will run <bold>forever</bold> (until an error or external break).</para>
 </listitem></itemizedlist>
 </para>
-<para><blockquote><para>Make sure something inside the loop <bold>changes</bold> the values used by <computeroutput>expression</computeroutput>, or the loop will never terminate. </para>
-</blockquote></para>
+<para><simplesect kind="note"><para>Make sure something inside the loop <bold>changes</bold> the values used by <computeroutput>expression</computeroutput>, or the loop will never terminate.</para>
+</simplesect>
+<hruler/>
+</para>
 </sect3>
-</sect2>
-<sect2 id="WHILE_1autotoc_md518">
-<title>&lt;/blockquote&gt;</title>
-<sect3 id="WHILE_1autotoc_md519">
+<sect3 id="WHILE_1autotoc_md533">
 <title>Examples</title>
 <para><bold>Simple count</bold> <programlisting filename=".basic"><codeline><highlight class="normal">N<sp/>=<sp/>0</highlight></codeline>
 <codeline><highlight class="normal">WHILE<sp/>N<sp/>&lt;<sp/>3</highlight></codeline>
@@ -64,7 +63,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="WHILE_1autotoc_md521">
+<sect3 id="WHILE_1autotoc_md535">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Use <computeroutput>REPEAT ... UNTIL</computeroutput> if you need a <bold>post-test</bold> loop that runs the body at least once.</para>
@@ -72,9 +71,8 @@
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/REPEAT"><computeroutput>REPEAT</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ENDIF"><computeroutput>ENDIF</computeroutput></ulink> </para>
+ <ref refid="REPEAT" kindref="compound">REPEAT</ref> · <ref refid="ENDIF" kindref="compound">ENDIF</ref> </para>
 </sect3>
-</sect2>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/WHILE.md"/>
   </compounddef>

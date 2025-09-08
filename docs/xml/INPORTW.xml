@@ -9,11 +9,11 @@
 <para><programlisting filename=".basic"><codeline><highlight class="normal">X<sp/>=<sp/>INPORTW(port)</highlight></codeline>
 </programlisting></para>
 <para>Reads a <bold>16-bit word</bold> from <computeroutput>port</computeroutput> and returns it (0–65535).</para>
-<para><blockquote><para>Only use when the device expects <bold>word</bold> access. </para>
-</blockquote></para>
-<sect2 id="INPORTW_1autotoc_md74">
-<title>&lt;/blockquote&gt;</title>
-<sect3 id="INPORTW_1autotoc_md75">
+<para><simplesect kind="note"><para>Only use when the device expects <bold>word</bold> access.</para>
+</simplesect>
+<hruler/>
+</para>
+<sect3 id="INPORTW_1autotoc_md88">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Reads two consecutive bytes from the port as a word.</para>
@@ -23,7 +23,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="INPORTW_1autotoc_md77">
+<sect3 id="INPORTW_1autotoc_md90">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Read<sp/>a<sp/>word<sp/>from<sp/>ATA<sp/>data<sp/>port</highlight></codeline>
 <codeline><highlight class="normal">W<sp/>=<sp/>INPORTW(&amp;1F0)</highlight></codeline>
@@ -32,16 +32,15 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="INPORTW_1autotoc_md79">
+<sect3 id="INPORTW_1autotoc_md92">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Do not use unless the port is documented as word-accessible.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/INPORT">INPORT</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/INPORTD">INPORTD</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/INPORTQ">INPORTQ</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/OUTPORTW">OUTPORTW</ulink> </para>
+ <ref refid="INPORT" kindref="compound">INPORT</ref> · <ref refid="INPORTD" kindref="compound">INPORTD</ref> · <ref refid="INPORTQ" kindref="compound">INPORTQ</ref> · <ref refid="OUTPORTW" kindref="compound">OUTPORTW</ref> </para>
 </sect3>
-</sect2>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/INPORTW.md"/>
   </compounddef>

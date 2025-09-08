@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Retro Rocket OS: include/net.h File Reference</title>
+<title>Retro Rocket OS: net.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -96,8 +97,7 @@ $(document).ready(function(){initNavTree('net_8h.html',''); initResizable(); });
 
 <p>Networking device and protocol definitions.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="kernel_8h.html">kernel.h</a>&quot;</code><br />
-</div><table class="memberdecls">
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnet__address__t.html">net_address_t</a></td></tr>
@@ -105,6 +105,8 @@ Data Structures</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnetproto__t.html">netproto_t</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a protocol, or group of related protocols, that can be attached to an interface and have addresses.  <a href="structnetproto__t.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnet__config.html">net_config</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnetdev__t.html">netdev_t</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a physical Ethernet network device.  <a href="structnetdev__t.html#details">More...</a><br /></td></tr>
@@ -129,6 +131,8 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:af8d137d3fc9d362a854d7823d642dbea"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="net_8h.html#af8d137d3fc9d362a854d7823d642dbea">parse_network_config</a> (const unsigned char *buf, size_t <a class="el" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a>, <a class="el" href="structnet__config.html">net_config</a> *out)</td></tr>
+<tr class="separator:af8d137d3fc9d362a854d7823d642dbea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f87ed8affa01dbac5f7ffd1ef04145a"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="net_8h.html#a0f87ed8affa01dbac5f7ffd1ef04145a">htonb</a> (uint8_t byte, int num_bits)</td></tr>
 <tr class="memdesc:a0f87ed8affa01dbac5f7ffd1ef04145a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Host‑to‑network conversion for sub‑byte fields.  <a href="net_8h.html#a0f87ed8affa01dbac5f7ffd1ef04145a">More...</a><br /></td></tr>
 <tr class="separator:a0f87ed8affa01dbac5f7ffd1ef04145a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -162,6 +166,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a3f2cedab48df260a33a109b494a20fd0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structnetdev__t.html">netdev_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="net_8h.html#a3f2cedab48df260a33a109b494a20fd0">get_active_network_device</a> (void)</td></tr>
 <tr class="memdesc:a3f2cedab48df260a33a109b494a20fd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the most recently registered network device.  <a href="net_8h.html#a3f2cedab48df260a33a109b494a20fd0">More...</a><br /></td></tr>
 <tr class="separator:a3f2cedab48df260a33a109b494a20fd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6861e6ca624231f4768789c46d6aa60"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="net_8h.html#ae6861e6ca624231f4768789c46d6aa60">network_setup</a> ()</td></tr>
+<tr class="memdesc:ae6861e6ca624231f4768789c46d6aa60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the active network interface from /system/config/network.conf.  <a href="net_8h.html#ae6861e6ca624231f4768789c46d6aa60">More...</a><br /></td></tr>
+<tr class="separator:ae6861e6ca624231f4768789c46d6aa60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Networking device and protocol definitions. </p>
@@ -370,6 +377,37 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ae6861e6ca624231f4768789c46d6aa60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6861e6ca624231f4768789c46d6aa60">&#9670;&nbsp;</a></span>network_setup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void network_setup </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configure the active network interface from /system/config/network.conf. </p>
+<p>This function is called by a network driver once it has initialised successfully. It reads the global configuration file and applies hostname, IP address, netmask, gateway, and DNS settings. Each field may be specified either as a literal value or as the string "dhcp" to request assignment from a DHCP server.</p>
+<p>Behaviour:</p><ul>
+<li>If the host already has an address (<a class="el" href="ip_8h.html#a5f3edab64f1804a7ea5781ba55d81db6" title="Get the current IP address. This could be allocated by DHCP or statically.">gethostaddr()</a> returns true), the function exits early without reconfiguring.</li>
+<li>If /system/config/network.conf does not exist or cannot be read, DHCP discovery is attempted for all parameters.</li>
+<li>For each field set to a literal in the config, the corresponding setter is invoked immediately (sethostaddr, setnetmask, setgatewayaddr, setdnsaddr).</li>
+<li>If any field is marked "dhcp" (represented internally as 0), a DHCP request is started. DHCP will fill only the unset fields and will not overwrite static values already applied.</li>
+<li>If a static IP address is configured, a gratuitous ARP announcement is broadcast to advertise the address on the local network.</li>
+</ul>
+<p>The hostname defaults to "retrorocket" if not present in the configuration.</p>
+<dl class="section note"><dt>Note</dt><dd>Currently only a single active NIC plus loopback are supported. </dd>
+<dd>
+The caller must ensure a network device is present before invoking this. </dd></dl>
+
+</div>
+</div>
 <a id="a64ba40d2a53391ebaff327e652ad0237"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a64ba40d2a53391ebaff327e652ad0237">&#9670;&nbsp;</a></span>network_up()</h2>
 
@@ -469,6 +507,40 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="af8d137d3fc9d362a854d7823d642dbea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8d137d3fc9d362a854d7823d642dbea">&#9670;&nbsp;</a></span>parse_network_config()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool parse_network_config </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned char *&#160;</td>
+          <td class="paramname"><em>buf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>len</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structnet__config.html">net_config</a> *&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a7d63f8f8d038a531b6930b4327b21d5c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7d63f8f8d038a531b6930b4327b21d5c">&#9670;&nbsp;</a></span>register_network_device()</h2>
 
@@ -502,7 +574,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="net_8h.html">net.h</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

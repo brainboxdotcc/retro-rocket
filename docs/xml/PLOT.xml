@@ -9,15 +9,14 @@
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PLOT<sp/>integer-variable,<sp/>integer-expression,<sp/>integer-expression</highlight></codeline>
 </programlisting></para>
 <para>Draws a previously loaded <bold>sprite</bold> at the given <bold>X,Y</bold> position. <linebreak/>
- The first parameter must be an <bold>integer variable</bold> holding the <bold>sprite handle</bold> returned by <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/SPRITELOAD"><computeroutput>SPRITELOAD</computeroutput></ulink>. <linebreak/>
- The sprite is positioned with its <bold>top-left corner</bold> at <computeroutput>(X, Y)</computeroutput> in screen pixels.</para>
+ The first parameter must be an <bold>integer variable</bold> holding the <bold>sprite handle</bold> returned by <ref refid="SPRITELOAD" kindref="compound">SPRITELOAD</ref>. The sprite is positioned with its <bold>top-left corner</bold> at <computeroutput>(X, Y)</computeroutput> in screen pixels.</para>
 <para><simplesect kind="remark"><para>The first argument must be a <bold>variable</bold> containing a valid sprite handle, not a literal value or expression.</para>
 </simplesect>
 <simplesect kind="remark"><para>Use the built-in <computeroutput>GRAPHICS_WIDTH</computeroutput> and <computeroutput>GRAPHICS_HEIGHT</computeroutput> to place sprites relative to the current screen size.</para>
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="PLOT_1autotoc_md359">
+<sect3 id="PLOT_1autotoc_md373">
 <title>Example</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">SPRITELOAD<sp/>brain,&quot;/images/brainbox.png&quot;</highlight></codeline>
 <codeline><highlight class="normal">SPRITELOAD<sp/>background,&quot;/images/computer.jpg&quot;</highlight></codeline>
@@ -33,17 +32,17 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="PLOT_1autotoc_md361">
+<sect3 id="PLOT_1autotoc_md375">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Coordinates are in <bold>screen pixels</bold>; <computeroutput>(0,0)</computeroutput> is the <bold>top-left</bold> of the display.</para>
 </listitem><listitem><para>Sprites that extend beyond the screen are <bold>clipped</bold> at the edges.</para>
-</listitem><listitem><para>When <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/AUTOFLIP"><computeroutput>AUTOFLIP</computeroutput></ulink> is <computeroutput>FALSE</computeroutput>, drawn frames become visible only after <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/FLIP"><computeroutput>FLIP</computeroutput></ulink>.</para>
-</listitem><listitem><para>Free sprite resources when no longer needed with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/SPRITEFREE"><computeroutput>SPRITEFREE</computeroutput></ulink>.</para>
+</listitem><listitem><para>When <ref refid="AUTOFLIP" kindref="compound">AUTOFLIP</ref> is <computeroutput>FALSE</computeroutput>, drawn frames become visible only after <ref refid="FLIP" kindref="compound">FLIP</ref>.</para>
+</listitem><listitem><para>Free sprite resources when no longer needed with <ref refid="SPRITEFREE" kindref="compound">SPRITEFREE</ref>.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/SPRITELOAD"><computeroutput>SPRITELOAD</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/SPRITEFREE"><computeroutput>SPRITEFREE</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PLOTQUAD"><computeroutput>PLOTQUAD</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/AUTOFLIP"><computeroutput>AUTOFLIP</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/FLIP"><computeroutput>FLIP</computeroutput></ulink> </para>
+ <ref refid="SPRITELOAD" kindref="compound">SPRITELOAD</ref> · <ref refid="SPRITEFREE" kindref="compound">SPRITEFREE</ref> · <ref refid="PLOTQUAD" kindref="compound">PLOTQUAD</ref> · <ref refid="AUTOFLIP" kindref="compound">AUTOFLIP</ref> · <ref refid="FLIP" kindref="compound">FLIP</ref> </para>
 </sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/PLOT.md"/>

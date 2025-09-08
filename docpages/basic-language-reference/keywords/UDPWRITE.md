@@ -9,8 +9,8 @@ Sends a UDP datagram to `dest-ip$ : dest-port` with payload `data$`, using `sour
 - `data$` must be between **1** and **65530** characters.
 
 
-> Invalid port numbers raise: `Invalid UDP port number`.  
-> Invalid payload size raises: `Invalid UDP packet length`.
+@note Invalid port numbers raise: `Invalid UDP port number`.
+@note Invalid payload size raises: `Invalid UDP packet length`.
 
 ---
 
@@ -39,4 +39,4 @@ PRINT UDPREAD$(8080)
 - Ensure the destination host and port are reachable on your network.
 
 **See also:**  
-[UDPBIND](https://github.com/brainboxdotcc/retro-rocket/wiki/UDPBIND) · [UDPREAD$](https://github.com/brainboxdotcc/retro-rocket/wiki/UDPREAD)
+\ref UDPBIND "UDPBIND" · [UDPREAD$](https://github.com/brainboxdotcc/retro-rocket/wiki/UDPREAD)

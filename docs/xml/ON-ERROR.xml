@@ -23,17 +23,19 @@
 </listitem><listitem><para>After the handler returns, <bold>execution continues</bold> at the statement <bold>after</bold> the one that failed, unless the handler terminates the program (for example with <computeroutput>END</computeroutput>).</para>
 </listitem></itemizedlist>
 </para>
-<para><blockquote><para>Only the two forms above are supported. There is <bold>no</bold> <computeroutput>ON ERROR GOTO</computeroutput>, <computeroutput>RESUME</computeroutput>, or similar. </para>
-</blockquote></para>
-<para><blockquote><para>The handler is invoked as a <bold>one-off</bold> to prevent recursion. <linebreak/>
- If you want ongoing handling, call <computeroutput>ON ERROR PROCname</computeroutput> again <bold>inside your handler</bold> before it returns. </para>
-</blockquote></para>
-<para><blockquote><para>Pressing <computeroutput>CTRL+ESC</computeroutput> generates a break-like error that is delivered to your installed handler. <linebreak/>
- Without a handler, the program terminates. </para>
-</blockquote></para>
-<sect2 id="ON-ERROR_1autotoc_md328">
-<title>&lt;/blockquote&gt;</title>
-<sect3 id="ON-ERROR_1autotoc_md329">
+<para><simplesect kind="note"><para>Only the two forms above are supported. There is <bold>no</bold> <computeroutput>ON ERROR GOTO</computeroutput>, <computeroutput>RESUME</computeroutput>, or similar.</para>
+</simplesect>
+<simplesect kind="note"><para>The handler is invoked as a <bold>one-off</bold> to prevent recursion. </para>
+</simplesect>
+<simplesect kind="note"><para>If you want ongoing handling, call <computeroutput>ON ERROR PROCname</computeroutput> again <bold>inside your handler</bold> before it returns.</para>
+</simplesect>
+<simplesect kind="note"><para>Pressing <computeroutput>CTRL+ESC</computeroutput> generates a break-like error that is delivered to your installed handler. </para>
+</simplesect>
+<simplesect kind="note"><para>Without a handler, the program terminates.</para>
+</simplesect>
+<hruler/>
+</para>
+<sect3 id="ON-ERROR_1autotoc_md343">
 <title>Example: handle and continue</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">ON<sp/>ERROR<sp/>PROChandle</highlight></codeline>
 <codeline></codeline>
@@ -51,7 +53,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="ON-ERROR_1autotoc_md331">
+<sect3 id="ON-ERROR_1autotoc_md345">
 <title>Example: temporarily disable handling</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">ON<sp/>ERROR<sp/>PROChandle</highlight></codeline>
 <codeline></codeline>
@@ -71,7 +73,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="ON-ERROR_1autotoc_md333">
+<sect3 id="ON-ERROR_1autotoc_md347">
 <title>Behaviour</title>
 <para><itemizedlist>
 <listitem><para>If another error occurs <bold>while calling</bold> your handler, the built-ins <bold>ERR$</bold>, <bold>ERR</bold>, and <bold>ERRLINE</bold> are set for that error, and normal error handling rules apply.</para>
@@ -80,9 +82,8 @@
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ERROR"><computeroutput>ERROR</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DEF"><computeroutput>DEF</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PROC"><computeroutput>PROC</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Builtin-Variables">Builtin Variables</ulink> </para>
+ <ref refid="ERROR" kindref="compound">ERROR</ref> · <ref refid="DEF" kindref="compound">DEF</ref> · <ref refid="PROC" kindref="compound">PROC</ref> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Builtin-Variables">Builtin Variables</ulink> </para>
 </sect3>
-</sect2>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/ONERROR.md"/>
   </compounddef>

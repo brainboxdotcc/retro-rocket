@@ -6,7 +6,7 @@ OUTPORTQ port, value
 Writes a **64-bit quad-word** to `port`.
 
 
-> Very few devices support 64-bit port writes; consult hardware documentation before use.
+@note Very few devices support 64-bit port writes; consult hardware documentation before use.
 
 ---
 
@@ -28,4 +28,4 @@ OUTPORTQ &1234, &0123456789ABCDEF
 - Rare in practice; most hardware uses MMIO or smaller port widths.
 
 **See also:**  
-[OUTPORT](https://github.com/brainboxdotcc/retro-rocket/wiki/OUTPORT) · [OUTPORTW](https://github.com/brainboxdotcc/retro-rocket/wiki/OUTPORTW) · [OUTPORTD](https://github.com/brainboxdotcc/retro-rocket/wiki/OUTPORTD) · [INPORTQ](https://github.com/brainboxdotcc/retro-rocket/wiki/INPORTQ)
+\ref OUTPORT "OUTPORT" · \ref OUTPORTW "OUTPORTW" · \ref OUTPORTD "OUTPORTD" · \ref INPORTQ "INPORTQ"

@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -93,13 +94,10 @@ $(document).ready(function(){initNavTree('WHILE.html',''); initResizable(); });
 <div class="line">ENDWHILE</div>
 </div><!-- fragment --><p>Executes the block while <code>expression</code> evaluates to <b>true</b>. <br  />
  The test happens <b>before</b> each iteration, so the body may execute <b>zero times</b>.</p>
-<dl class="section remark"><dt>Remarks</dt><dd><code>WHILE</code> must be closed with <code>ENDWHILE</code>. <blockquote class="doxtable">
-<p>The spaced form <code>END WHILE</code> is <b>not</b> recognised. </p>
-</blockquote>
-</dd></dl>
-<h2><a class="anchor" id="autotoc_md516"></a>
-&lt;/blockquote&gt;</h2>
-<h3><a class="anchor" id="autotoc_md517"></a>
+<dl class="section remark"><dt>Remarks</dt><dd><code>WHILE</code> must be closed with <code>ENDWHILE</code>. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The spaced form <code>END WHILE</code> is <b>not</b> recognised.</dd></dl>
+<hr  />
+<h3><a class="anchor" id="autotoc_md531"></a>
 Behaviour</h3>
 <ul>
 <li><code>ENDWHILE</code> matches the <b>nearest unmatched</b> <code>WHILE</code>.</li>
@@ -107,12 +105,9 @@ Behaviour</h3>
 <li>The condition <code>expression</code> is <b>re-evaluated every iteration</b>.</li>
 <li>If the condition never becomes <b>false</b>, the loop will run <b>forever</b> (until an error or external break).</li>
 </ul>
-<blockquote class="doxtable">
-<p>Make sure something inside the loop <b>changes</b> the values used by <code>expression</code>, or the loop will never terminate. </p>
-</blockquote>
-<h2><a class="anchor" id="autotoc_md518"></a>
-&lt;/blockquote&gt;</h2>
-<h3><a class="anchor" id="autotoc_md519"></a>
+<dl class="section note"><dt>Note</dt><dd>Make sure something inside the loop <b>changes</b> the values used by <code>expression</code>, or the loop will never terminate.</dd></dl>
+<hr  />
+<h3><a class="anchor" id="autotoc_md533"></a>
 Examples</h3>
 <p><b>Simple count</b> </p><div class="fragment"><div class="line">N = 0</div>
 <div class="line">WHILE N &lt; 3</div>
@@ -138,14 +133,14 @@ Examples</h3>
 <div class="line">ENDWHILE</div>
 <div class="line">PRINT &quot;LOOPS DONE&quot;</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md521"></a>
+<h3><a class="anchor" id="autotoc_md535"></a>
 Notes</h3>
 <ul>
 <li>Use <code>REPEAT ... UNTIL</code> if you need a <b>post-test</b> loop that runs the body at least once.</li>
 <li>The condition is a normal boolean <b>expression</b>; use comparisons like <code>=</code>, <code>&lt;&gt;</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code> and combine them with your available operators.</li>
 </ul>
 <p><b>See also:</b> <br  />
- <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/REPEAT"><code>REPEAT</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ENDIF"><code>ENDIF</code></a> </p>
+ <a class="el" href="REPEAT.html">REPEAT</a> · <a class="el" href="ENDIF.html">ENDIF</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -153,7 +148,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

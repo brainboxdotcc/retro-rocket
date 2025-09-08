@@ -13,7 +13,7 @@
 </para>
 <para><itemizedlist>
 <listitem><para><bold>What happens after <computeroutput>END</computeroutput>:</bold><itemizedlist>
-<listitem><para>Started via <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CHAIN"><computeroutput>CHAIN</computeroutput></ulink>: the parent program resumes at the statement <bold>after</bold> its <computeroutput>CHAIN</computeroutput>.</para>
+<listitem><para>Started via <ref refid="CHAIN" kindref="compound">CHAIN</ref>: the parent program resumes at the statement <bold>after</bold> its <computeroutput>CHAIN</computeroutput>.</para>
 </listitem><listitem><para>Started from <computeroutput>rocketsh</computeroutput>: control returns to the <bold>shell prompt</bold>.</para>
 </listitem><listitem><para>Initial <computeroutput>/programs/init</computeroutput> and no other programs remain: the system <bold>halts</bold> and reports that <bold>no programs remain</bold>.</para>
 </listitem><listitem><para>Nested <computeroutput>CHAIN</computeroutput>s: only the <bold>current child</bold> exits; its <bold>immediate parent</bold> resumes.</para>

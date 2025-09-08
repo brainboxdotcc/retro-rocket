@@ -18,5 +18,9 @@ var dhcp_8c =
     [ "dhcp_selected_server", "dhcp_8c.html#a5833f811ab96dddfea5acdb23cd6d1ef", null ],
     [ "dhcp_server_id", "dhcp_8c.html#ac81a6637d069a4f7ef7c755f71eb05e5", null ],
     [ "dhcp_t1_ms", "dhcp_8c.html#ae84f1bbeca696157ee723f50cfea6eb9", null ],
-    [ "dhcp_t2_ms", "dhcp_8c.html#ab15de7fbf02c55ff0591542ce69a2e26", null ]
+    [ "dhcp_t2_ms", "dhcp_8c.html#ab15de7fbf02c55ff0591542ce69a2e26", null ],
+    [ "is_dns_allocated", "dhcp_8c.html#a315f4a8f60d99f076d92272085333bd6", null ],
+    [ "is_gateway_allocated", "dhcp_8c.html#a809f4cf1e0e24684c7a546765e0c2e7e", null ],
+    [ "is_ip_allocated", "dhcp_8c.html#af35b683b49f96e5686f99b329f768b99", null ],
+    [ "is_mask_allocated", "dhcp_8c.html#a54bb7af0aadd6e172ed644bdf2948dde", null ]
 ];

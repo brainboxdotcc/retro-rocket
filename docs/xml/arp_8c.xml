@@ -67,7 +67,7 @@
         <childnode refid="27" relation="include">
         </childnode>
       </node>
-      <node id="88">
+      <node id="86">
         <label>stdarg.h</label>
       </node>
       <node id="60">
@@ -109,7 +109,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="76">
+      <node id="74">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
@@ -126,7 +126,7 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="83">
+      <node id="81">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
@@ -154,7 +154,7 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="81">
+      <node id="79">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
@@ -176,7 +176,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="79">
+      <node id="77">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
@@ -195,7 +195,7 @@
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="84">
+      <node id="82">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
@@ -207,12 +207,6 @@
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="74">
-        <label>rtl8139.h</label>
-        <link refid="rtl8139_8h"/>
-        <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="52">
@@ -233,7 +227,7 @@
       <node id="5">
         <label>stddef.h</label>
       </node>
-      <node id="90">
+      <node id="88">
         <label>module.h</label>
         <link refid="module_8h"/>
         <childnode refid="2" relation="include">
@@ -284,12 +278,6 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="75">
-        <label>e1000.h</label>
-        <link refid="e1000_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
       <node id="70">
         <label>lapic_timer.h</label>
         <link refid="lapic__timer_8h"/>
@@ -308,7 +296,7 @@
         <label>limine.h</label>
       </node>
       <node id="1">
-        <label>src/net/arp.c</label>
+        <label>arp.c</label>
         <link refid="arp_8c"/>
         <childnode refid="2" relation="include">
         </childnode>
@@ -317,7 +305,7 @@
         <label>input.h</label>
         <link refid="input_8h"/>
       </node>
-      <node id="85">
+      <node id="83">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
@@ -327,17 +315,17 @@
         <label>video.h</label>
         <link refid="video_8h"/>
       </node>
-      <node id="87">
+      <node id="85">
         <label>serial.h</label>
         <link refid="serial_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="88" relation="include">
+        <childnode refid="86" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="80">
+      <node id="78">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
@@ -363,7 +351,7 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="77">
+      <node id="75">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
@@ -413,7 +401,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="78">
+      <node id="76">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
@@ -536,19 +524,15 @@
         </childnode>
         <childnode refid="83" relation="include">
         </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
         <childnode refid="84" relation="include">
         </childnode>
         <childnode refid="85" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="86" relation="include">
-        </childnode>
         <childnode refid="87" relation="include">
         </childnode>
-        <childnode refid="89" relation="include">
-        </childnode>
-        <childnode refid="90" relation="include">
+        <childnode refid="88" relation="include">
         </childnode>
       </node>
       <node id="45">
@@ -577,7 +561,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="89">
+      <node id="87">
         <label>debug_ringbuffer.h</label>
         <link refid="debug__ringbuffer_8h"/>
         <childnode refid="2" relation="include">
@@ -705,13 +689,13 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="82">
+      <node id="80">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="86">
+      <node id="84">
         <label>retrofs.h</label>
         <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
@@ -735,18 +719,19 @@
       </node>
     </incdepgraph>
       <sectiondef kind="var">
-      <memberdef kind="variable" id="arp_8c_1accf1444036575686e5ace707b5c62f0c" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="arp_8c_1accf1444036575686e5ace707b5c62f0c" prot="public" static="yes" mutable="no">
         <type><ref refid="structarp__table__entry__t" kindref="compound">arp_table_entry_t</ref></type>
         <definition>arp_table_entry_t arp_table[512]</definition>
         <argsstring>[512]</argsstring>
         <name>arp_table</name>
+        <initializer>= {}</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/arp.c" line="3" column="19" bodyfile="src/net/arp.c" bodystart="3" bodyend="-1"/>
+        <location file="src/net/arp.c" line="3" column="26" bodyfile="src/net/arp.c" bodystart="3" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="arp_8c_1a9d4da000395bede0dbfdd8232f8c03a7" prot="public" static="yes" mutable="no">
         <type>uint8_t</type>
@@ -762,7 +747,7 @@
         </inbodydescription>
         <location file="src/net/arp.c" line="4" column="16" bodyfile="src/net/arp.c" bodystart="4" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="arp_8c_1a337decd2c572857564474846e214e76e" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="arp_8c_1a337decd2c572857564474846e214e76e" prot="public" static="yes" mutable="no">
         <type>int</type>
         <definition>int arp_table_size</definition>
         <argsstring></argsstring>
@@ -774,9 +759,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/arp.c" line="5" column="5" bodyfile="src/net/arp.c" bodystart="5" bodyend="-1"/>
+        <location file="src/net/arp.c" line="5" column="12" bodyfile="src/net/arp.c" bodystart="5" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="arp_8c_1acebc1545543bff076237f3ec2d7f9ee2" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="arp_8c_1acebc1545543bff076237f3ec2d7f9ee2" prot="public" static="yes" mutable="no">
         <type>int</type>
         <definition>int arp_table_curr</definition>
         <argsstring></argsstring>
@@ -788,7 +773,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/arp.c" line="6" column="5" bodyfile="src/net/arp.c" bodystart="6" bodyend="-1"/>
+        <location file="src/net/arp.c" line="6" column="12" bodyfile="src/net/arp.c" bodystart="6" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="arp_8c_1a7721299e392bd7852ca98fddc807a8fe" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -894,7 +879,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/arp.c" line="27" column="6" bodyfile="src/net/arp.c" bodystart="27" bodyend="79"/>
+        <location file="src/net/arp.c" line="27" column="6" bodyfile="src/net/arp.c" bodystart="27" bodyend="85"/>
       </memberdef>
       <memberdef kind="function" id="arp_8c_1a83c069ec5b715eb350264e6d71e27386" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -934,7 +919,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/arp.c" line="81" column="6" bodyfile="src/net/arp.c" bodystart="81" bodyend="107"/>
+        <location file="src/net/arp.c" line="87" column="6" bodyfile="src/net/arp.c" bodystart="87" bodyend="115"/>
       </memberdef>
       <memberdef kind="function" id="arp_8c_1a78fd40ebcc17873ff998879a3ca3ee3e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -963,7 +948,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/arp.c" line="109" column="6" bodyfile="src/net/arp.c" bodystart="109" bodyend="111"/>
+        <location file="src/net/arp.c" line="117" column="6" bodyfile="src/net/arp.c" bodystart="117" bodyend="119"/>
       </memberdef>
       <memberdef kind="function" id="arp_8c_1adfb058efa1f5ac734b350159676020a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1003,7 +988,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/arp.c" line="113" column="6" bodyfile="src/net/arp.c" bodystart="113" bodyend="122"/>
+        <location file="src/net/arp.c" line="121" column="6" bodyfile="src/net/arp.c" bodystart="121" bodyend="130"/>
       </memberdef>
       <memberdef kind="function" id="arp_8c_1a4c42cd0cf3334e17dba31d79df346b68" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1045,7 +1030,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/arp.c" line="124" column="5" bodyfile="src/net/arp.c" bodystart="124" bodyend="141"/>
+        <location file="src/net/arp.c" line="132" column="5" bodyfile="src/net/arp.c" bodystart="132" bodyend="149"/>
       </memberdef>
       <memberdef kind="function" id="arp_8c_1aa528ddf0081d9d95ec593c63fafacb31" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1059,7 +1044,23 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/arp.c" line="143" column="6" bodyfile="src/net/arp.c" bodystart="143" bodyend="151"/>
+        <location file="src/net/arp.c" line="151" column="6" bodyfile="src/net/arp.c" bodystart="151" bodyend="159"/>
+      </memberdef>
+      <memberdef kind="function" id="arp_8c_1a12fdfa384a0ebd68313e51092e73f410" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void arp_announce_my_ip</definition>
+        <argsstring>(void)</argsstring>
+        <name>arp_announce_my_ip</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/arp.c" line="161" column="6" bodyfile="src/net/arp.c" bodystart="161" bodyend="167"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

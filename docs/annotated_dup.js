@@ -93,6 +93,7 @@ var annotated_dup =
     [ "mountpoint_t", "structmountpoint__t.html", "structmountpoint__t" ],
     [ "mt_rand_t", "structmt__rand__t.html", "structmt__rand__t" ],
     [ "net_address_t", "structnet__address__t.html", "structnet__address__t" ],
+    [ "net_config", "structnet__config.html", "structnet__config" ],
     [ "netdev_t", "structnetdev__t.html", "structnetdev__t" ],
     [ "netproto_t", "structnetproto__t.html", "structnetproto__t" ],
     [ "packet_queue_item_t", "structpacket__queue__item__t.html", "structpacket__queue__item__t" ],

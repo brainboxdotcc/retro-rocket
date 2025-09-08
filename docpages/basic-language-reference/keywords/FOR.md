@@ -48,4 +48,5 @@ NEXT
 
 ---
 
-**See also:** [`NEXT`](https://github.com/brainboxdotcc/retro-rocket/wiki/NEXT)
+**See also:**
+\ref NEXT "NEXT"

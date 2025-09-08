@@ -11,7 +11,7 @@
 <para>Computes the <bold>bitwise complement</bold> of an integer.</para>
 <para><hruler/>
 </para>
-<sect3 id="BITNOT_1autotoc_md152">
+<sect3 id="BITNOT_1autotoc_md166">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Flips all bits: ones become zeros, zeros become ones.</para>
@@ -21,7 +21,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="BITNOT_1autotoc_md154">
+<sect3 id="BITNOT_1autotoc_md168">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>BITNOT(0)</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>BITNOT(&amp;FF)</highlight></codeline>
@@ -29,14 +29,14 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="BITNOT_1autotoc_md156">
+<sect3 id="BITNOT_1autotoc_md170">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Output may appear as a large negative number, due to two’s-complement representation.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BITEOR">BITEOR</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BITNOR">BITNOR</ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/BITXNOR">BITXNOR</ulink> </para>
+ <ref refid="BITEOR" kindref="compound">BITEOR</ref> · <ref refid="BITNOR" kindref="compound">BITNOR</ref> · <ref refid="BITXNOR" kindref="compound">BITXNOR</ref> </para>
 </sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/BITNOT.md"/>

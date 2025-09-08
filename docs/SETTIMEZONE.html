@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -104,19 +105,15 @@ $(document).ready(function(){initNavTree('SETTIMEZONE.html',''); initResizable()
 <li><code>DAY(TRUE)</code>, <code>MONTH(TRUE)</code>, <code>YEAR(TRUE)</code></li>
 </ul>
 <p>When called <b>with <code>TRUE</code></b>, these functions apply the selected time zone and any <b>daylight saving time</b> rules in effect for the timestamp they produce.</p>
-<blockquote class="doxtable">
-<p>The identifier must be an <b>IANA tzdb name</b> (e.g. "Europe/London"). <br  />
- Do <b>not</b> use Windows-style names like "GMT Standard Time" or abbreviations like "BST" or "PST". </p>
-</blockquote>
-<blockquote class="doxtable">
-<p>Calling the date and time functions <b>without</b> the <code>TRUE</code> argument returns values <b>without</b> applying the configured time zone and DST adjustment. </p>
-</blockquote>
-<blockquote class="doxtable">
-<p>If you are unsure of the exact spelling, consult the IANA tz database list and copy the region/city form verbatim, e.g. "America/Los_Angeles". </p>
-</blockquote>
-<h2><a class="anchor" id="autotoc_md460"></a>
-&lt;/blockquote&gt;</h2>
-<h3><a class="anchor" id="autotoc_md461"></a>
+<dl class="section note"><dt>Note</dt><dd>The identifier must be an <b>IANA tzdb name</b> (e.g. "Europe/London"). </dd>
+<dd>
+Do <b>not</b> use Windows-style names like "GMT Standard Time" or abbreviations like "BST" or "PST".</dd>
+<dd>
+Calling the date and time functions <b>without</b> the <code>TRUE</code> argument returns values <b>without</b> applying the configured time zone and DST adjustment.</dd>
+<dd>
+If you are unsure of the exact spelling, consult the IANA tz database list and copy the region/city form verbatim, e.g. "America/Los_Angeles".</dd></dl>
+<hr  />
+<h3><a class="anchor" id="autotoc_md475"></a>
 Examples</h3>
 <p><b>Set to the UK and print local date and time</b> </p><div class="fragment"><div class="line">SETTIMEZONE &quot;Europe/London&quot;</div>
 <div class="line"> </div>
@@ -139,7 +136,7 @@ Examples</h3>
 <div class="line">    PRINT &quot;Failed to set time zone: &quot;; ERR$</div>
 <div class="line">ENDPROC</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md463"></a>
+<h3><a class="anchor" id="autotoc_md477"></a>
 Behaviour</h3>
 <ul>
 <li>The setting affects the <b>DST-aware</b> forms of the listed functions when you pass <code>TRUE</code>.</li>
@@ -147,7 +144,7 @@ Behaviour</h3>
 <li>An <b>invalid</b> identifier raises a runtime error (catch with <code>ON ERROR PROC...</code> if needed).</li>
 </ul>
 <p><b>See also:</b> <br  />
- <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/TIME"><code>TIME$</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/DATE"><code>DATE$</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/HOUR"><code>HOUR</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/MINUTE"><code>MINUTE</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/SECOND"><code>SECOND</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/DAY"><code>DAY</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/MONTH"><code>MONTH</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/YEAR"><code>YEAR</code></a> </p>
+ <a class="el" href="TIME.html">TIME$</a> · <a class="el" href="DATE.html">DATE$</a> · <a class="el" href="HOUR.html">HOUR</a> · <a class="el" href="MINUTE.html">MINUTE</a> · <a class="el" href="SECOND.html">SECOND</a> · <a class="el" href="DAY.html">DAY</a> · <a class="el" href="MONTH.html">MONTH</a> · <a class="el" href="YEAR.html">YEAR</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -155,7 +152,7 @@ Behaviour</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

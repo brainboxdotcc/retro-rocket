@@ -3,6 +3,7 @@
   <compounddef id="rtl8139_8c" kind="file" language="C++">
     <compoundname>rtl8139.c</compoundname>
     <includes refid="kernel_8h" local="no">kernel.h</includes>
+    <includes refid="rtl8139_8h" local="yes">rtl8139.h</includes>
     <incdepgraph>
       <node id="57">
         <label>ata.h</label>
@@ -67,7 +68,7 @@
         <childnode refid="27" relation="include">
         </childnode>
       </node>
-      <node id="88">
+      <node id="86">
         <label>stdarg.h</label>
       </node>
       <node id="60">
@@ -109,7 +110,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="76">
+      <node id="74">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
@@ -126,7 +127,7 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="83">
+      <node id="81">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
@@ -154,7 +155,7 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="81">
+      <node id="79">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
@@ -176,7 +177,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="79">
+      <node id="77">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
@@ -195,7 +196,7 @@
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="84">
+      <node id="82">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
@@ -207,12 +208,6 @@
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="74">
-        <label>rtl8139.h</label>
-        <link refid="rtl8139_8h"/>
-        <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="52">
@@ -233,7 +228,7 @@
       <node id="5">
         <label>stddef.h</label>
       </node>
-      <node id="90">
+      <node id="88">
         <label>module.h</label>
         <link refid="module_8h"/>
         <childnode refid="2" relation="include">
@@ -266,6 +261,20 @@
         <childnode refid="67" relation="include">
         </childnode>
       </node>
+      <node id="1">
+        <label>rtl8139.c</label>
+        <link refid="rtl8139_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+      </node>
+      <node id="89">
+        <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
       <node id="13">
         <label>cv.h</label>
         <link refid="cv_8h"/>
@@ -281,12 +290,6 @@
       <node id="15">
         <label>printf.h</label>
         <link refid="printf_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="75">
-        <label>e1000.h</label>
-        <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
@@ -311,7 +314,7 @@
         <label>input.h</label>
         <link refid="input_8h"/>
       </node>
-      <node id="85">
+      <node id="83">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
@@ -321,17 +324,17 @@
         <label>video.h</label>
         <link refid="video_8h"/>
       </node>
-      <node id="87">
+      <node id="85">
         <label>serial.h</label>
         <link refid="serial_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="88" relation="include">
+        <childnode refid="86" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="80">
+      <node id="78">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
@@ -357,7 +360,7 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="77">
+      <node id="75">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
@@ -374,12 +377,6 @@
       <node id="58">
         <label>filesystem.h</label>
         <link refid="filesystem_8h"/>
-      </node>
-      <node id="1">
-        <label>src/rtl8139.c</label>
-        <link refid="rtl8139_8c"/>
-        <childnode refid="2" relation="include">
-        </childnode>
       </node>
       <node id="51">
         <label>maths.h</label>
@@ -413,7 +410,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="78">
+      <node id="76">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
@@ -536,19 +533,15 @@
         </childnode>
         <childnode refid="83" relation="include">
         </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
         <childnode refid="84" relation="include">
         </childnode>
         <childnode refid="85" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="86" relation="include">
-        </childnode>
         <childnode refid="87" relation="include">
         </childnode>
-        <childnode refid="89" relation="include">
-        </childnode>
-        <childnode refid="90" relation="include">
+        <childnode refid="88" relation="include">
         </childnode>
       </node>
       <node id="45">
@@ -577,7 +570,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="89">
+      <node id="87">
         <label>debug_ringbuffer.h</label>
         <link refid="debug__ringbuffer_8h"/>
         <childnode refid="2" relation="include">
@@ -705,13 +698,13 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="82">
+      <node id="80">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="86">
+      <node id="84">
         <label>retrofs.h</label>
         <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
@@ -744,7 +737,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/rtl8139.c" line="3" column="9" bodyfile="src/rtl8139.c" bodystart="3" bodyend="-1"/>
+        <location file="modules/rtl8139/rtl8139.c" line="4" column="9" bodyfile="modules/rtl8139/rtl8139.c" bodystart="4" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="rtl8139_8c_1a5d3fb1970e1e98050006978a14b3d95e" prot="public" static="no">
         <name>TX_BUF_SIZE</name>
@@ -755,7 +748,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/rtl8139.c" line="4" column="9" bodyfile="src/rtl8139.c" bodystart="4" bodyend="-1"/>
+        <location file="modules/rtl8139/rtl8139.c" line="5" column="9" bodyfile="modules/rtl8139/rtl8139.c" bodystart="5" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="rtl8139_8c_1a96f54a5c8310efa3cb1f99080702f40f" prot="public" static="no">
         <name>ALIGN_256</name>
@@ -767,7 +760,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/rtl8139.c" line="5" column="9" bodyfile="src/rtl8139.c" bodystart="5" bodyend="-1"/>
+        <location file="modules/rtl8139/rtl8139.c" line="6" column="9" bodyfile="modules/rtl8139/rtl8139.c" bodystart="6" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="rtl8139_8c_1a1e56707d77cddb6c91bdaea114e4af2f" prot="public" static="no">
         <name>ALIGN_16</name>
@@ -779,7 +772,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/rtl8139.c" line="6" column="9" bodyfile="src/rtl8139.c" bodystart="6" bodyend="-1"/>
+        <location file="modules/rtl8139/rtl8139.c" line="7" column="9" bodyfile="modules/rtl8139/rtl8139.c" bodystart="7" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -794,7 +787,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/rtl8139.c" line="8" column="15" bodyfile="src/rtl8139.c" bodystart="8" bodyend="-1"/>
+        <location file="modules/rtl8139/rtl8139.c" line="9" column="15" bodyfile="modules/rtl8139/rtl8139.c" bodystart="9" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="rtl8139_8c_1ad10fdc4933c2050c204e462940cee690" prot="public" static="yes" mutable="no">
         <type>bool</type>
@@ -808,7 +801,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/rtl8139.c" line="10" column="13" bodyfile="src/rtl8139.c" bodystart="10" bodyend="-1"/>
+        <location file="modules/rtl8139/rtl8139.c" line="11" column="13" bodyfile="modules/rtl8139/rtl8139.c" bodystart="11" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -827,7 +820,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/rtl8139.c" line="160" column="6" bodyfile="src/rtl8139.c" bodystart="160" bodyend="162" declfile="src/rtl8139.c" declline="12" declcolumn="6"/>
+        <location file="modules/rtl8139/rtl8139.c" line="161" column="6" bodyfile="modules/rtl8139/rtl8139.c" bodystart="161" bodyend="163" declfile="modules/rtl8139/rtl8139.c" declline="13" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="rtl8139_8c_1a09ada3a37753ba86e1d34a4ff7c274a1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -848,7 +841,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/rtl8139.c" line="16" column="13" bodyfile="src/rtl8139.c" bodystart="16" bodyend="19"/>
+        <location file="modules/rtl8139/rtl8139.c" line="17" column="13" bodyfile="modules/rtl8139/rtl8139.c" bodystart="17" bodyend="20"/>
       </memberdef>
       <memberdef kind="function" id="rtl8139_8c_1a59fddfcb15af210769ed15ff78a874eb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -869,7 +862,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/rtl8139.c" line="21" column="13" bodyfile="src/rtl8139.c" bodystart="21" bodyend="24"/>
+        <location file="modules/rtl8139/rtl8139.c" line="22" column="13" bodyfile="modules/rtl8139/rtl8139.c" bodystart="22" bodyend="25"/>
       </memberdef>
       <memberdef kind="function" id="rtl8139_8c_1a61076ade1b72ce1640a659278cdba784" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -890,7 +883,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/rtl8139.c" line="26" column="13" bodyfile="src/rtl8139.c" bodystart="26" bodyend="29"/>
+        <location file="modules/rtl8139/rtl8139.c" line="27" column="13" bodyfile="modules/rtl8139/rtl8139.c" bodystart="27" bodyend="30"/>
       </memberdef>
       <memberdef kind="function" id="rtl8139_8c_1a943205a0ae53c260f52cdbd1376e64e9" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint8_t</type>
@@ -907,7 +900,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/rtl8139.c" line="31" column="16" bodyfile="src/rtl8139.c" bodystart="31" bodyend="34"/>
+        <location file="modules/rtl8139/rtl8139.c" line="32" column="16" bodyfile="modules/rtl8139/rtl8139.c" bodystart="32" bodyend="35"/>
       </memberdef>
       <memberdef kind="function" id="rtl8139_8c_1a120260bfda0bcf11619951a516724709" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint16_t</type>
@@ -924,7 +917,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/rtl8139.c" line="36" column="17" bodyfile="src/rtl8139.c" bodystart="36" bodyend="39"/>
+        <location file="modules/rtl8139/rtl8139.c" line="37" column="17" bodyfile="modules/rtl8139/rtl8139.c" bodystart="37" bodyend="40"/>
       </memberdef>
       <memberdef kind="function" id="rtl8139_8c_1afe935a0d0e56c9dcbab6a3e07c80ad71" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint32_t</type>
@@ -941,7 +934,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/rtl8139.c" line="41" column="17" bodyfile="src/rtl8139.c" bodystart="41" bodyend="44"/>
+        <location file="modules/rtl8139/rtl8139.c" line="42" column="17" bodyfile="modules/rtl8139/rtl8139.c" bodystart="42" bodyend="45"/>
       </memberdef>
       <memberdef kind="function" id="rtl8139_8c_1ab774b440d8851cac90e9a3231b44d778" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -958,7 +951,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/rtl8139.c" line="46" column="6" bodyfile="src/rtl8139.c" bodystart="46" bodyend="59"/>
+        <location file="modules/rtl8139/rtl8139.c" line="47" column="6" bodyfile="modules/rtl8139/rtl8139.c" bodystart="47" bodyend="60"/>
       </memberdef>
       <memberdef kind="function" id="rtl8139_8c_1a2e3eda51e49f15540e2bff7ea40f05db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -972,7 +965,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/rtl8139.c" line="61" column="6" bodyfile="src/rtl8139.c" bodystart="61" bodyend="112"/>
+        <location file="modules/rtl8139/rtl8139.c" line="62" column="6" bodyfile="modules/rtl8139/rtl8139.c" bodystart="62" bodyend="113"/>
       </memberdef>
       <memberdef kind="function" id="rtl8139_8c_1ad369c55a532c750460f88554fe39b9a5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1004,7 +997,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/rtl8139.c" line="125" column="6" bodyfile="src/rtl8139.c" bodystart="125" bodyend="145"/>
+        <location file="modules/rtl8139/rtl8139.c" line="126" column="6" bodyfile="modules/rtl8139/rtl8139.c" bodystart="126" bodyend="146"/>
       </memberdef>
       <memberdef kind="function" id="rtl8139_8c_1a6ffee74a1d59b89074475e3f63b90467" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1021,7 +1014,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/rtl8139.c" line="147" column="6" bodyfile="src/rtl8139.c" bodystart="147" bodyend="158"/>
+        <location file="modules/rtl8139/rtl8139.c" line="148" column="6" bodyfile="modules/rtl8139/rtl8139.c" bodystart="148" bodyend="159"/>
       </memberdef>
       <memberdef kind="function" id="rtl8139_8c_1a6d2a8cbf3e4ea167997308e42a50d9b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1064,7 +1057,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/rtl8139.c" line="183" column="6" bodyfile="src/rtl8139.c" bodystart="183" bodyend="248"/>
+        <location file="modules/rtl8139/rtl8139.c" line="184" column="6" bodyfile="modules/rtl8139/rtl8139.c" bodystart="184" bodyend="249"/>
       </memberdef>
       <memberdef kind="function" id="rtl8139_8c_1afb381866b5dc5f09b132f63c9abc142b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1081,13 +1074,29 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/rtl8139.c" line="250" column="6" bodyfile="src/rtl8139.c" bodystart="250" bodyend="341"/>
+        <location file="modules/rtl8139/rtl8139.c" line="251" column="6" bodyfile="modules/rtl8139/rtl8139.c" bodystart="251" bodyend="344"/>
+      </memberdef>
+      <memberdef kind="function" id="rtl8139_8c_1a262a617981fa58caae30ce55fc3d5ce7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool <ref refid="module_8h_1af63d15eb9e745985585db45cb98ccf23" kindref="member">EXPORTED</ref> <ref refid="module_8h_1ad00f34c1cb4cadf68e87078c9b86188e" kindref="member">MOD_INIT_SYM</ref>()</type>
+        <definition>bool EXPORTED MOD_INIT_SYM() KMOD_ABI</definition>
+        <argsstring>(void)</argsstring>
+        <name>KMOD_ABI</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="modules/rtl8139/rtl8139.c" line="347" column="15" bodyfile="modules/rtl8139/rtl8139.c" bodystart="347" bodyend="351"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="src/rtl8139.c"/>
+    <location file="modules/rtl8139/rtl8139.c"/>
   </compounddef>
 </doxygen>

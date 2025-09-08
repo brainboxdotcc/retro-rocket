@@ -27,4 +27,4 @@ This example produces `12`.
 - Operates on 64-bit integers.
 
 **See also:**  
-[BITSHR](https://github.com/brainboxdotcc/retro-rocket/wiki/BITSHR) · [BITROL](https://github.com/brainboxdotcc/retro-rocket/wiki/BITROL)
+\ref BITSHR "BITSHR" · \ref BITROL "BITROL"

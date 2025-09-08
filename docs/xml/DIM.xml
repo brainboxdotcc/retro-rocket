@@ -36,10 +36,10 @@
 <para><itemizedlist>
 <listitem><para>The <bold>element type</bold> follows the variable’s type: e.g. <computeroutput>A</computeroutput> → integer array, <computeroutput>A#</computeroutput> → real array, <computeroutput>S$</computeroutput> → string array.</para>
 </listitem><listitem><para>All indexing is <bold>0-based</bold> (<computeroutput>0 .. size-1</computeroutput>). Access outside this range raises a runtime error (catchable with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink>).</para>
-</listitem><listitem><para>To change the size of an existing array, use <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/REDIM"><computeroutput>REDIM</computeroutput></ulink>.</para>
+</listitem><listitem><para>To change the size of an existing array, use <ref refid="REDIM" kindref="compound">REDIM</ref>.</para>
 </listitem></itemizedlist>
 </para>
-<para><bold>See also:</bold> <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Array"><computeroutput>Array</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Variable-Types"><computeroutput>Variable Types</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/REDIM"><computeroutput>REDIM</computeroutput></ulink> </para>
+<para><bold>See also:</bold> <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Array"><computeroutput>Array</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Variable-Types"><computeroutput>Variable Types</computeroutput></ulink>, <ref refid="REDIM" kindref="compound">REDIM</ref> </para>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/DIM.md"/>
   </compounddef>

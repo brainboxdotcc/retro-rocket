@@ -26,4 +26,4 @@ This example produces `5`.
 - Operates on 64-bit integers.
 
 **See also:**  
-[BITOR](https://github.com/brainboxdotcc/retro-rocket/wiki/BITOR) · [BITAND](https://github.com/brainboxdotcc/retro-rocket/wiki/BITAND) · [BITXNOR](https://github.com/brainboxdotcc/retro-rocket/wiki/BITXNOR)
+\ref BITOR "BITOR" · \ref BITAND "BITAND" · \ref BITXNOR "BITXNOR"

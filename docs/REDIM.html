@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -97,17 +98,14 @@ $(document).ready(function(){initNavTree('REDIM.html',''); initResizable(); });
 </ul>
 <dl class="section remark"><dt>Remarks</dt><dd><code>REDIM</code> preserves existing elements from index <code>0</code> up to <code>min(old_size, new_size) - 1</code>. </dd>
 <dd>
-When <b>growing</b>, new slots are initialised to <code>0</code> (integer or real arrays) or <code>""</code> (string arrays). <blockquote class="doxtable">
-<p>When <b>shrinking</b>, elements at indices <code>new_size</code> to <code>old_size - 1</code> are <b>permanently lost</b>. </p>
-</blockquote>
-</dd></dl>
-<blockquote class="doxtable">
-<p><code>REDIM</code> changes the <b>size only</b>. It does not change type, and it does not create a new array name. <br  />
- Declare the array first with <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/DIM"><code>DIM</code></a>. </p>
-</blockquote>
-<h2><a class="anchor" id="autotoc_md428"></a>
-&lt;/blockquote&gt;</h2>
-<h3><a class="anchor" id="autotoc_md429"></a>
+When <b>growing</b>, new slots are initialised to <code>0</code> (integer or real arrays) or <code>""</code> (string arrays). </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>When <b>shrinking</b>, elements at indices <code>new_size</code> to <code>old_size - 1</code> are <b>permanently lost</b>.</dd>
+<dd>
+<code>REDIM</code> changes the <b>size only</b>. It does not change type, and it does not create a new array name. </dd>
+<dd>
+Declare the array first with <a class="el" href="DIM.html">DIM</a>.</dd></dl>
+<hr  />
+<h3><a class="anchor" id="autotoc_md443"></a>
 Examples</h3>
 <p><b>Grow an integer array</b> </p><div class="fragment"><div class="line">DIM A,3</div>
 <div class="line">A(0) = 10</div>
@@ -150,15 +148,15 @@ Examples</h3>
 <div class="line">REM prints empty string</div>
 <div class="line">PRINT NAMES$(2)</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md431"></a>
+<h3><a class="anchor" id="autotoc_md445"></a>
 Behaviour and constraints</h3>
 <ul>
 <li>The <b>new size</b> must be large enough for any indices you intend to access (<code>0..new_size-1</code>).</li>
 <li>After shrinking, accessing an index <code>&gt;= new_size</code> raises a runtime error.</li>
-<li>Use <code>REDIM</code> together with <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/PUSH"><code>PUSH</code></a> or <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/POP"><code>POP</code></a> to manage contents while changing capacity.</li>
+<li>Use <code>REDIM</code> together with <a class="el" href="PUSH.html">PUSH</a> or <a class="el" href="POP.html">POP</a> to manage contents while changing capacity.</li>
 </ul>
 <p><b>See also:</b> <br  />
- <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/DIM"><code>DIM</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/PUSH"><code>PUSH</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/POP"><code>POP</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/Array"><code>Array</code></a> </p>
+ <a class="el" href="DIM.html">DIM</a> · <a class="el" href="PUSH.html">PUSH</a> · <a class="el" href="POP.html">POP</a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/Array"><code>Array</code></a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -166,7 +164,7 @@ Behaviour and constraints</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

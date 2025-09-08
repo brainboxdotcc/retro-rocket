@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -88,8 +89,28 @@ $(document).ready(function(){initNavTree('INSTR.html',''); initResizable(); });
 <div class="title">INSTR Function </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">INSTR(string-expression, string-expression)</div>
-</div><!-- fragment --><p> Returns <code>TRUE</code> if the first expression is contained in the second expression. </p>
+<div class="textblock"><h4><a class="anchor" id="autotoc_md93"></a>
+INSTR</h4>
+<div class="fragment"><div class="line">INSTR(haystack$, needle$)</div>
+</div><!-- fragment --><p>Searches for the substring <code>needle$</code> inside the string <code>haystack$</code>. Returns the 1-based index of the first occurrence, or <code>0</code> if not found. The search is case-sensitive.</p>
+<p><b>Notes</b></p>
+<ul>
+<li>The first parameter is the string to search in (the <em>haystack</em>).</li>
+<li>The second parameter is the substring to search for (the <em>needle</em>).</li>
+<li>If multiple matches exist, only the first occurrence is returned.</li>
+<li>An empty <code>needle$</code> always returns <code>1</code>.</li>
+</ul>
+<p><b>Errors</b></p>
+<ul>
+<li>None.</li>
+</ul>
+<p><b>Examples</b></p>
+<div class="fragment"><div class="line">PRINT INSTR(&quot;HELLO WORLD&quot;, &quot;WORLD&quot;)   &#39; Prints: 7</div>
+<div class="line">PRINT INSTR(&quot;HELLO WORLD&quot;, &quot;world&quot;)   &#39; Prints: 0 (case-sensitive)</div>
+<div class="line">PRINT INSTR(&quot;ABCDE&quot;, &quot;A&quot;)             &#39; Prints: 1</div>
+<div class="line">PRINT INSTR(&quot;ABCDE&quot;, &quot;&quot;)              &#39; Prints: 1</div>
+</div><!-- fragment --><p><b>See also</b></p>
+<p><a class="el" href="LEFT.html">LEFT$</a> · <a class="el" href="RIGHT.html">RIGHT$</a> · <a class="el" href="MID.html">MID$</a> · <a class="el" href="LEN.html">LEN$</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -97,7 +118,7 @@ $(document).ready(function(){initNavTree('INSTR.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

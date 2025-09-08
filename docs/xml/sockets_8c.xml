@@ -67,7 +67,7 @@
         <childnode refid="27" relation="include">
         </childnode>
       </node>
-      <node id="88">
+      <node id="86">
         <label>stdarg.h</label>
       </node>
       <node id="60">
@@ -109,7 +109,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="76">
+      <node id="74">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
@@ -126,7 +126,7 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="83">
+      <node id="81">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
@@ -154,7 +154,7 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="81">
+      <node id="79">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
@@ -176,7 +176,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="79">
+      <node id="77">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
@@ -195,7 +195,7 @@
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="84">
+      <node id="82">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
@@ -207,12 +207,6 @@
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="74">
-        <label>rtl8139.h</label>
-        <link refid="rtl8139_8h"/>
-        <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="52">
@@ -227,7 +221,7 @@
         <label>x86intrin.h</label>
       </node>
       <node id="1">
-        <label>src/basic/sockets.c</label>
+        <label>sockets.c</label>
         <link refid="sockets_8c"/>
         <childnode refid="2" relation="include">
         </childnode>
@@ -239,7 +233,7 @@
       <node id="5">
         <label>stddef.h</label>
       </node>
-      <node id="90">
+      <node id="88">
         <label>module.h</label>
         <link refid="module_8h"/>
         <childnode refid="2" relation="include">
@@ -290,12 +284,6 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="75">
-        <label>e1000.h</label>
-        <link refid="e1000_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
       <node id="70">
         <label>lapic_timer.h</label>
         <link refid="lapic__timer_8h"/>
@@ -317,7 +305,7 @@
         <label>input.h</label>
         <link refid="input_8h"/>
       </node>
-      <node id="85">
+      <node id="83">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
@@ -327,17 +315,17 @@
         <label>video.h</label>
         <link refid="video_8h"/>
       </node>
-      <node id="87">
+      <node id="85">
         <label>serial.h</label>
         <link refid="serial_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="88" relation="include">
+        <childnode refid="86" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="80">
+      <node id="78">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
@@ -363,7 +351,7 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="77">
+      <node id="75">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
@@ -413,7 +401,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="78">
+      <node id="76">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
@@ -536,19 +524,15 @@
         </childnode>
         <childnode refid="83" relation="include">
         </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
         <childnode refid="84" relation="include">
         </childnode>
         <childnode refid="85" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="86" relation="include">
-        </childnode>
         <childnode refid="87" relation="include">
         </childnode>
-        <childnode refid="89" relation="include">
-        </childnode>
-        <childnode refid="90" relation="include">
+        <childnode refid="88" relation="include">
         </childnode>
       </node>
       <node id="45">
@@ -577,7 +561,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="89">
+      <node id="87">
         <label>debug_ringbuffer.h</label>
         <link refid="debug__ringbuffer_8h"/>
         <childnode refid="2" relation="include">
@@ -705,13 +689,13 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="82">
+      <node id="80">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="86">
+      <node id="84">
         <label>retrofs.h</label>
         <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
@@ -850,7 +834,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/sockets.c" line="40" column="6" bodyfile="src/basic/sockets.c" bodystart="40" bodyend="94"/>
+        <location file="src/basic/sockets.c" line="40" column="6" bodyfile="src/basic/sockets.c" bodystart="40" bodyend="96"/>
       </memberdef>
       <memberdef kind="function" id="sockets_8c_1abc958efc5a855338d27771377b9a9693" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -879,7 +863,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/sockets.c" line="96" column="6" bodyfile="src/basic/sockets.c" bodystart="96" bodyend="130"/>
+        <location file="src/basic/sockets.c" line="98" column="6" bodyfile="src/basic/sockets.c" bodystart="98" bodyend="132"/>
       </memberdef>
       <memberdef kind="function" id="sockets_8c_1a2aafe651b1769f80c4ae4e61edaecda2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -908,7 +892,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/sockets.c" line="132" column="6" bodyfile="src/basic/sockets.c" bodystart="132" bodyend="148"/>
+        <location file="src/basic/sockets.c" line="134" column="6" bodyfile="src/basic/sockets.c" bodystart="134" bodyend="150"/>
       </memberdef>
       <memberdef kind="function" id="sockets_8c_1adb77a2b4e41e8af4241cd9e6a49d9eea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -939,7 +923,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/sockets.c" line="150" column="6" bodyfile="src/basic/sockets.c" bodystart="150" bodyend="175"/>
+        <location file="src/basic/sockets.c" line="152" column="6" bodyfile="src/basic/sockets.c" bodystart="152" bodyend="177"/>
       </memberdef>
       <memberdef kind="function" id="sockets_8c_1aac6ae9f61fd4e475b5d2898fec1590f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -970,7 +954,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/sockets.c" line="177" column="9" bodyfile="src/basic/sockets.c" bodystart="177" bodyend="189"/>
+        <location file="src/basic/sockets.c" line="179" column="9" bodyfile="src/basic/sockets.c" bodystart="179" bodyend="191"/>
       </memberdef>
       <memberdef kind="function" id="sockets_8c_1a8226fac5478897a6c5b5762b56c3009d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1001,7 +985,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/sockets.c" line="191" column="6" bodyfile="src/basic/sockets.c" bodystart="191" bodyend="221"/>
+        <location file="src/basic/sockets.c" line="193" column="6" bodyfile="src/basic/sockets.c" bodystart="193" bodyend="223"/>
       </memberdef>
       <memberdef kind="function" id="sockets_8c_1a045e5dbdfcb4c88a964ebeccaf8d5344" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1032,7 +1016,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/sockets.c" line="223" column="6" bodyfile="src/basic/sockets.c" bodystart="223" bodyend="232"/>
+        <location file="src/basic/sockets.c" line="225" column="6" bodyfile="src/basic/sockets.c" bodystart="225" bodyend="234"/>
       </memberdef>
       <memberdef kind="function" id="sockets_8c_1a1a4e67a19d87086f7b689cd84ae74532" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1062,7 +1046,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/sockets.c" line="234" column="6" bodyfile="src/basic/sockets.c" bodystart="234" bodyend="246"/>
+        <location file="src/basic/sockets.c" line="236" column="6" bodyfile="src/basic/sockets.c" bodystart="236" bodyend="248"/>
       </memberdef>
       <memberdef kind="function" id="sockets_8c_1a8f08d4eb135129e5e5d5c4e4f253ef65" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1099,7 +1083,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/sockets.c" line="248" column="13" bodyfile="src/basic/sockets.c" bodystart="248" bodyend="277"/>
+        <location file="src/basic/sockets.c" line="250" column="13" bodyfile="src/basic/sockets.c" bodystart="250" bodyend="279"/>
       </memberdef>
       <memberdef kind="function" id="sockets_8c_1a102fe8bd6efad3a7e78d292bdb1d1edf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1116,7 +1100,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/sockets.c" line="279" column="6" bodyfile="src/basic/sockets.c" bodystart="279" bodyend="297"/>
+        <location file="src/basic/sockets.c" line="281" column="6" bodyfile="src/basic/sockets.c" bodystart="281" bodyend="299"/>
       </memberdef>
       <memberdef kind="function" id="sockets_8c_1a9f1285e7f8bb58def11ad3507f65af62" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1133,7 +1117,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/sockets.c" line="299" column="6" bodyfile="src/basic/sockets.c" bodystart="299" bodyend="310"/>
+        <location file="src/basic/sockets.c" line="301" column="6" bodyfile="src/basic/sockets.c" bodystart="301" bodyend="312"/>
       </memberdef>
       <memberdef kind="function" id="sockets_8c_1a41d71643aa72cda495e2d8537387e010" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1150,7 +1134,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/sockets.c" line="312" column="6" bodyfile="src/basic/sockets.c" bodystart="312" bodyend="323"/>
+        <location file="src/basic/sockets.c" line="314" column="6" bodyfile="src/basic/sockets.c" bodystart="314" bodyend="325"/>
       </memberdef>
       <memberdef kind="function" id="sockets_8c_1a6013f837ac42424cb00ce3608c21fcfb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -1167,7 +1151,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/sockets.c" line="325" column="9" bodyfile="src/basic/sockets.c" bodystart="325" bodyend="327"/>
+        <location file="src/basic/sockets.c" line="327" column="9" bodyfile="src/basic/sockets.c" bodystart="327" bodyend="329"/>
       </memberdef>
       <memberdef kind="function" id="sockets_8c_1a426d38050f594e9de370125aa663e2d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1184,7 +1168,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/sockets.c" line="329" column="6" bodyfile="src/basic/sockets.c" bodystart="329" bodyend="331"/>
+        <location file="src/basic/sockets.c" line="331" column="6" bodyfile="src/basic/sockets.c" bodystart="331" bodyend="333"/>
       </memberdef>
       <memberdef kind="function" id="sockets_8c_1ae108efebb03837bf9b166e89a8973fda" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1201,7 +1185,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/basic/sockets.c" line="333" column="6" bodyfile="src/basic/sockets.c" bodystart="333" bodyend="374"/>
+        <location file="src/basic/sockets.c" line="335" column="6" bodyfile="src/basic/sockets.c" bodystart="335" bodyend="376"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

@@ -23,15 +23,15 @@
 </simplesect>
 <simplesect kind="remark"><para><computeroutput>GLOBAL</computeroutput> is <bold>only</bold> used to pass variables into <bold>child programs</bold> spawned with </para>
 </simplesect>
-<simplesect kind="remark"><para><ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CHAIN"><computeroutput>CHAIN</computeroutput></ulink>. </para>
+<simplesect kind="remark"><para><ref refid="CHAIN" kindref="compound">CHAIN</ref>. </para>
 </simplesect>
 <simplesect kind="remark"><para>It does <bold>not</bold> declare &quot;global variables&quot; for program-wide scope inside a single program. </para>
 </simplesect>
-<simplesect kind="remark"><para>Use parameters and <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/LOCAL"><computeroutput>LOCAL</computeroutput></ulink> to manage scope within your own code.</para>
+<simplesect kind="remark"><para>Use parameters and <ref refid="LOCAL" kindref="compound">LOCAL</ref> to manage scope within your own code.</para>
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="DEF_1autotoc_md226">
+<sect3 id="DEF_1autotoc_md240">
 <title>Calling functions and procedures</title>
 <para><itemizedlist>
 <listitem><para>Call a <bold>function</bold> within an expression: <programlisting filename=".basic"><codeline><highlight class="normal">RESULT<sp/>=<sp/>FNadd(10,<sp/>32)</highlight></codeline>
@@ -43,7 +43,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="DEF_1autotoc_md228">
+<sect3 id="DEF_1autotoc_md242">
 <title>Example: function (returns a value)</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>FNadd(A,<sp/>B)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>SUM<sp/>=<sp/>A<sp/>+<sp/>B</highlight></codeline>
@@ -55,7 +55,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="DEF_1autotoc_md230">
+<sect3 id="DEF_1autotoc_md244">
 <title>Example: procedure (no return value)</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>PROCbox(MSG$)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;**************&quot;</highlight></codeline>
@@ -69,7 +69,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="DEF_1autotoc_md232">
+<sect3 id="DEF_1autotoc_md246">
 <title>Example: locals within a definition</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>FNhypot(X,<sp/>Y)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>LOCAL<sp/>XSQ<sp/>=<sp/>X<sp/>*<sp/>X</highlight></codeline>
@@ -80,7 +80,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="DEF_1autotoc_md234">
+<sect3 id="DEF_1autotoc_md248">
 <title>Rules and behaviour</title>
 <para><itemizedlist>
 <listitem><para><bold>Parameters</bold> <linebreak/>
@@ -97,7 +97,7 @@
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/FN"><computeroutput>FN</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PROC"><computeroutput>PROC</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ENDPROC"><computeroutput>ENDPROC</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/LOCAL"><computeroutput>LOCAL</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CHAIN"><computeroutput>CHAIN</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Variable-Naming"><computeroutput>Variable Naming</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Parameter-types"><computeroutput>Parameter types</computeroutput></ulink> </para>
+ <ref refid="FN" kindref="compound">FN</ref> · <ref refid="PROC" kindref="compound">PROC</ref> · <ref refid="ENDPROC" kindref="compound">ENDPROC</ref> · <ref refid="LOCAL" kindref="compound">LOCAL</ref> · <ref refid="CHAIN" kindref="compound">CHAIN</ref> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Variable-Naming"><computeroutput>Variable Naming</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Parameter-types"><computeroutput>Parameter types</computeroutput></ulink> </para>
 </sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/DEF.md"/>

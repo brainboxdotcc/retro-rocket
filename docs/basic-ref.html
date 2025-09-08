@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -89,8 +90,8 @@ $(document).ready(function(){initNavTree('basic-ref.html',''); initResizable(); 
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><em>Creating BASIC programs</em></p>
-<p>Programs in Retro Rocket are simialar in strucuture to a BBC BASIC program. Each line is numbered, and each number must be greater than the line number before it. It is possible to have gaps in the numbering.</p>
-<p>It is possible to not specify the numbers for lines in your program, if you omit line numbers BASIC will auto number your lines for you. Any program who's first character is not a digit (0-9) will be assumed to require auto numbering. Libraries must make use of auto numbering to allow for easy relocation to the end of the program which includes them.</p>
+<p>Programs in Retro Rocket are simialar in strucuture to any other BASIC program. Unlike many dialects of BASIC, lines do not have to be numbered, but if they are each number must be greater than the line number before it. It is possible to have gaps in the numbering.</p>
+<p>It is strongly recommended to not specify the numbers for lines in your program. Any program who's first character is not a digit (0-9) will be assumed to not have line numbers.</p>
 <p>The program will execute moving from one line to the next, and each line must have at least one statement, and any parameters required for that statement (see the statements section of this page).</p>
 <p>Variables may be declared, of the four types listed in the section on <a class="el" href="variables.html">Variable Types</a>. For each of these variables, they may remain local to the current program or be inherited by other programs ran by the current program.</p>
 <p>For an example of programs in the operating system see the <a href="https://github.com/brainboxdotcc/retro-rocket/tree/master/os/programs">/os/programs</a> directory.</p>
@@ -110,7 +111,7 @@ $(document).ready(function(){initNavTree('basic-ref.html',''); initResizable(); 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

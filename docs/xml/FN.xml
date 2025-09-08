@@ -23,7 +23,7 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="FN_1autotoc_md266">
+<sect3 id="FN_1autotoc_md280">
 <title>Examples</title>
 <para>Integer result <programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>FNadd(A,<sp/>B)</highlight></codeline>
 <codeline><highlight class="normal">=<sp/>A<sp/>+<sp/>B</highlight></codeline>
@@ -45,7 +45,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="FN_1autotoc_md268">
+<sect3 id="FN_1autotoc_md282">
 <title>Errors</title>
 <para><itemizedlist>
 <listitem><para>Calling an undefined function, supplying the wrong number of arguments, or passing mismatched types raises a runtime error (catchable with <computeroutput>ON ERROR PROCname</computeroutput>).</para>
@@ -55,10 +55,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DEF"><computeroutput>DEF</computeroutput></ulink> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PROC"><computeroutput>PROC</computeroutput></ulink> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ENDPROC"><computeroutput>ENDPROC</computeroutput></ulink> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Parameter-types"><computeroutput>Parameter types</computeroutput></ulink> </para>
+ <ref refid="DEF" kindref="compound">DEF</ref> <ref refid="PROC" kindref="compound">PROC</ref> <ref refid="ENDPROC" kindref="compound">ENDPROC</ref> <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Parameter-types"><computeroutput>Parameter types</computeroutput></ulink> </para>
 </sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/FN.md"/>

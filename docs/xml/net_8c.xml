@@ -3,7 +3,6 @@
   <compounddef id="net_8c" kind="file" language="C++">
     <compoundname>net.c</compoundname>
     <includes refid="kernel_8h" local="no">kernel.h</includes>
-    <includes local="no">stdint.h</includes>
     <incdepgraph>
       <node id="57">
         <label>ata.h</label>
@@ -68,7 +67,7 @@
         <childnode refid="27" relation="include">
         </childnode>
       </node>
-      <node id="88">
+      <node id="86">
         <label>stdarg.h</label>
       </node>
       <node id="60">
@@ -110,7 +109,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="76">
+      <node id="74">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
@@ -127,18 +126,16 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="83">
+      <node id="81">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="1">
-        <label>src/net/net.c</label>
+        <label>net.c</label>
         <link refid="net_8c"/>
         <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
         </childnode>
       </node>
       <node id="44">
@@ -163,7 +160,7 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="81">
+      <node id="79">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
@@ -185,7 +182,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="79">
+      <node id="77">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
@@ -204,7 +201,7 @@
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="84">
+      <node id="82">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
@@ -216,12 +213,6 @@
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="74">
-        <label>rtl8139.h</label>
-        <link refid="rtl8139_8h"/>
-        <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="52">
@@ -242,7 +233,7 @@
       <node id="5">
         <label>stddef.h</label>
       </node>
-      <node id="90">
+      <node id="88">
         <label>module.h</label>
         <link refid="module_8h"/>
         <childnode refid="2" relation="include">
@@ -293,12 +284,6 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="75">
-        <label>e1000.h</label>
-        <link refid="e1000_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
       <node id="70">
         <label>lapic_timer.h</label>
         <link refid="lapic__timer_8h"/>
@@ -320,7 +305,7 @@
         <label>input.h</label>
         <link refid="input_8h"/>
       </node>
-      <node id="85">
+      <node id="83">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
@@ -330,17 +315,17 @@
         <label>video.h</label>
         <link refid="video_8h"/>
       </node>
-      <node id="87">
+      <node id="85">
         <label>serial.h</label>
         <link refid="serial_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="88" relation="include">
+        <childnode refid="86" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="80">
+      <node id="78">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
@@ -366,7 +351,7 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="77">
+      <node id="75">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
@@ -416,7 +401,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="78">
+      <node id="76">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
@@ -539,19 +524,15 @@
         </childnode>
         <childnode refid="83" relation="include">
         </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
         <childnode refid="84" relation="include">
         </childnode>
         <childnode refid="85" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="86" relation="include">
-        </childnode>
         <childnode refid="87" relation="include">
         </childnode>
-        <childnode refid="89" relation="include">
-        </childnode>
-        <childnode refid="90" relation="include">
+        <childnode refid="88" relation="include">
         </childnode>
       </node>
       <node id="45">
@@ -580,7 +561,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="89">
+      <node id="87">
         <label>debug_ringbuffer.h</label>
         <link refid="debug__ringbuffer_8h"/>
         <childnode refid="2" relation="include">
@@ -708,13 +689,13 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="82">
+      <node id="80">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="86">
+      <node id="84">
         <label>retrofs.h</label>
         <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
@@ -750,7 +731,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/net.c" line="4" column="10" bodyfile="src/net/net.c" bodystart="4" bodyend="-1"/>
+        <location file="src/net/net.c" line="3" column="10" bodyfile="src/net/net.c" bodystart="3" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -769,7 +750,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/net.c" line="8" column="10" bodyfile="src/net/net.c" bodystart="8" bodyend="12"/>
+        <location file="src/net/net.c" line="7" column="10" bodyfile="src/net/net.c" bodystart="7" bodyend="11"/>
       </memberdef>
       <memberdef kind="function" id="net_8c_1a24d2b2ff43b5485aa469ced7645d5f1a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint32_t</type>
@@ -786,7 +767,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/net.c" line="14" column="10" bodyfile="src/net/net.c" bodystart="14" bodyend="20"/>
+        <location file="src/net/net.c" line="13" column="10" bodyfile="src/net/net.c" bodystart="13" bodyend="19"/>
       </memberdef>
       <memberdef kind="function" id="net_8c_1ae38887bd6480c793e87a08832f7d6a74" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint8_t</type>
@@ -807,7 +788,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/net.c" line="22" column="9" bodyfile="src/net/net.c" bodystart="22" bodyend="25"/>
+        <location file="src/net/net.c" line="21" column="9" bodyfile="src/net/net.c" bodystart="21" bodyend="24"/>
       </memberdef>
       <memberdef kind="function" id="net_8c_1a0f87ed8affa01dbac5f7ffd1ef04145a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint8_t</type>
@@ -849,7 +830,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/net.c" line="27" column="9" bodyfile="src/net/net.c" bodystart="27" bodyend="29"/>
+        <location file="src/net/net.c" line="26" column="9" bodyfile="src/net/net.c" bodystart="26" bodyend="28"/>
       </memberdef>
       <memberdef kind="function" id="net_8c_1adb21c2774d9244f2e823bbebd14dfe7c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint8_t</type>
@@ -891,7 +872,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/net.c" line="31" column="9" bodyfile="src/net/net.c" bodystart="31" bodyend="33"/>
+        <location file="src/net/net.c" line="30" column="9" bodyfile="src/net/net.c" bodystart="30" bodyend="32"/>
       </memberdef>
       <memberdef kind="function" id="net_8c_1aa2f2e3bea3fbf5ee0e6a1cfd8745ce0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint16_t</type>
@@ -909,7 +890,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/net.c" line="35" column="10" bodyfile="src/net/net.c" bodystart="35" bodyend="37"/>
+        <location file="src/net/net.c" line="34" column="10" bodyfile="src/net/net.c" bodystart="34" bodyend="36"/>
       </memberdef>
       <memberdef kind="function" id="net_8c_1a9001f7fce555587f5e5794d1416a0673" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint32_t</type>
@@ -927,7 +908,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/net.c" line="39" column="10" bodyfile="src/net/net.c" bodystart="39" bodyend="41"/>
+        <location file="src/net/net.c" line="38" column="10" bodyfile="src/net/net.c" bodystart="38" bodyend="40"/>
       </memberdef>
       <memberdef kind="function" id="net_8c_1abc281d6d0b8d5d6336263eeb2129deff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint16_t</type>
@@ -945,7 +926,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/net.c" line="43" column="10" bodyfile="src/net/net.c" bodystart="43" bodyend="45"/>
+        <location file="src/net/net.c" line="42" column="10" bodyfile="src/net/net.c" bodystart="42" bodyend="44"/>
       </memberdef>
       <memberdef kind="function" id="net_8c_1a84000e0b0345e8bee94fc96c7457f6ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint32_t</type>
@@ -963,7 +944,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/net.c" line="47" column="10" bodyfile="src/net/net.c" bodystart="47" bodyend="49"/>
+        <location file="src/net/net.c" line="46" column="10" bodyfile="src/net/net.c" bodystart="46" bodyend="48"/>
       </memberdef>
       <memberdef kind="function" id="net_8c_1a14896c0faf293bb030b48d13a1edb050" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -981,7 +962,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/net.c" line="96" column="6" bodyfile="src/net/net.c" bodystart="96" bodyend="109"/>
+        <location file="src/net/net.c" line="95" column="6" bodyfile="src/net/net.c" bodystart="95" bodyend="102"/>
       </memberdef>
       <memberdef kind="function" id="net_8c_1a5223ee9f88fe7e81690f051742972f40" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -995,7 +976,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/net.c" line="111" column="6" bodyfile="src/net/net.c" bodystart="111" bodyend="113"/>
+        <location file="src/net/net.c" line="104" column="6" bodyfile="src/net/net.c" bodystart="104" bodyend="106"/>
       </memberdef>
       <memberdef kind="function" id="net_8c_1a7d63f8f8d038a531b6930b4327b21d5c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1025,7 +1006,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/net.c" line="115" column="6" bodyfile="src/net/net.c" bodystart="115" bodyend="121"/>
+        <location file="src/net/net.c" line="108" column="6" bodyfile="src/net/net.c" bodystart="108" bodyend="114"/>
       </memberdef>
       <memberdef kind="function" id="net_8c_1aa901b5fcda144e54e97eb2e1120602dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structnetdev__t" kindref="compound">netdev_t</ref> *</type>
@@ -1045,7 +1026,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/net.c" line="123" column="10" bodyfile="src/net/net.c" bodystart="123" bodyend="126"/>
+        <location file="src/net/net.c" line="116" column="10" bodyfile="src/net/net.c" bodystart="116" bodyend="119"/>
       </memberdef>
       <memberdef kind="function" id="net_8c_1ae6ca4ab6ce2d87b8de5fa2c6dae131e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structnetdev__t" kindref="compound">netdev_t</ref> *</type>
@@ -1075,7 +1056,61 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/net.c" line="128" column="10" bodyfile="src/net/net.c" bodystart="128" bodyend="136"/>
+        <location file="src/net/net.c" line="121" column="10" bodyfile="src/net/net.c" bodystart="121" bodyend="129"/>
+      </memberdef>
+      <memberdef kind="function" id="net_8c_1ae6861e6ca624231f4768789c46d6aa60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void network_setup</definition>
+        <argsstring>()</argsstring>
+        <name>network_setup</name>
+        <briefdescription>
+<para>Configure the active network interface from /system/config/network.conf. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function is called by a network driver once it has initialised successfully. It reads the global configuration file and applies hostname, IP address, netmask, gateway, and DNS settings. Each field may be specified either as a literal value or as the string &quot;dhcp&quot; to request assignment from a DHCP server.</para>
+<para>Behaviour:<itemizedlist>
+<listitem><para>If the host already has an address (<ref refid="ip_8h_1a5f3edab64f1804a7ea5781ba55d81db6" kindref="member">gethostaddr()</ref> returns true), the function exits early without reconfiguring.</para>
+</listitem><listitem><para>If /system/config/network.conf does not exist or cannot be read, DHCP discovery is attempted for all parameters.</para>
+</listitem><listitem><para>For each field set to a literal in the config, the corresponding setter is invoked immediately (sethostaddr, setnetmask, setgatewayaddr, setdnsaddr).</para>
+</listitem><listitem><para>If any field is marked &quot;dhcp&quot; (represented internally as 0), a DHCP request is started. DHCP will fill only the unset fields and will not overwrite static values already applied.</para>
+</listitem><listitem><para>If a static IP address is configured, a gratuitous ARP announcement is broadcast to advertise the address on the local network.</para>
+</listitem></itemizedlist>
+</para>
+<para>The hostname defaults to &quot;retrorocket&quot; if not present in the configuration.</para>
+<para><simplesect kind="note"><para>Currently only a single active NIC plus loopback are supported. </para>
+</simplesect>
+<simplesect kind="note"><para>The caller must ensure a network device is present before invoking this. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/net.c" line="131" column="6" bodyfile="src/net/net.c" bodystart="131" bodyend="182"/>
+      </memberdef>
+      <memberdef kind="function" id="net_8c_1af8d137d3fc9d362a854d7823d642dbea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool parse_network_config</definition>
+        <argsstring>(const unsigned char *buf, size_t len, net_config *out)</argsstring>
+        <name>parse_network_config</name>
+        <param>
+          <type>const unsigned char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type><ref refid="structnet__config" kindref="compound">net_config</ref> *</type>
+          <declname>out</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/net.c" line="184" column="6" bodyfile="src/net/net.c" bodystart="184" bodyend="253"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

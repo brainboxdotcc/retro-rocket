@@ -10,7 +10,7 @@ The test happens **before** each iteration, so the body may execute **zero times
 
 
 \remark `WHILE` must be closed with `ENDWHILE`.
-> The spaced form `END WHILE` is **not** recognised.
+@note The spaced form `END WHILE` is **not** recognised.
 
 ---
 
@@ -22,7 +22,7 @@ The test happens **before** each iteration, so the body may execute **zero times
 - If the condition never becomes **false**, the loop will run **forever** (until an error or external break).
 
 
-> Make sure something inside the loop **changes** the values used by `expression`, or the loop will never terminate.
+@note Make sure something inside the loop **changes** the values used by `expression`, or the loop will never terminate.
 
 ---
 
@@ -70,5 +70,5 @@ PRINT "LOOPS DONE"
 - The condition is a normal boolean **expression**; use comparisons like `=`, `<>`, `<`, `>`, `<=`, `>=` and combine them with your available operators.
 
 **See also:**  
-[`REPEAT`](https://github.com/brainboxdotcc/retro-rocket/wiki/REPEAT) ·
-[`ENDIF`](https://github.com/brainboxdotcc/retro-rocket/wiki/ENDIF)
+\ref REPEAT "REPEAT" ·
+\ref ENDIF "ENDIF"

@@ -9,8 +9,8 @@ In BBC BASIC IV, `RESTORE` reset the pointer for `READ` so embedded `DATA` could
 Retro Rocket BASIC replaces this with **file-based I/O**.
 
 
-> Use files to hold your constants and reopen them when you need to read again.  
-> `READ$` returns **one character at a time**, so build lines or tokens yourself if required.
+@note Use files to hold your constants and reopen them when you need to read again.
+@note `READ$` returns **one character at a time**, so build lines or tokens yourself if required.
 
 ---
 
@@ -103,11 +103,11 @@ PRINT "SUM = "; SUM
 - When you only need to go back to the **start** of a file, the simplest approach is **close and reopen** it.
 
 **See also:**  
-[`OPENIN`](https://github.com/brainboxdotcc/retro-rocket/wiki/OPENIN) ·
-[`OPENOUT`](https://github.com/brainboxdotcc/retro-rocket/wiki/OPENOUT) ·
-[`OPENUP`](https://github.com/brainboxdotcc/retro-rocket/wiki/OPENUP) ·
-[`READ$`](https://github.com/brainboxdotcc/retro-rocket/wiki/READ) ·
-[`EOF`](https://github.com/brainboxdotcc/retro-rocket/wiki/EOF) ·
-[`VAL`](https://github.com/brainboxdotcc/retro-rocket/wiki/VAL) ·
-[`LEN`](https://github.com/brainboxdotcc/retro-rocket/wiki/LEN) ·
-[`CHR`](https://github.com/brainboxdotcc/retro-rocket/wiki/CHR)
+\ref OPENIN "OPENIN" ·
+\ref OPENOUT "OPENOUT" ·
+\ref OPENUP "OPENUP" ·
+\ref READ "READ$" ·
+\ref EOF "EOF" ·
+\ref VAL "VAL" ·
+\ref LEN "LEN" ·
+\ref CHR "CHR"

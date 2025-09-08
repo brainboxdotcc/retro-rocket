@@ -67,7 +67,7 @@
         <childnode refid="27" relation="include">
         </childnode>
       </node>
-      <node id="88">
+      <node id="86">
         <label>stdarg.h</label>
       </node>
       <node id="60">
@@ -109,7 +109,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="76">
+      <node id="74">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
@@ -126,7 +126,7 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="83">
+      <node id="81">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
@@ -154,7 +154,7 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="81">
+      <node id="79">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
@@ -176,7 +176,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="79">
+      <node id="77">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
@@ -195,7 +195,7 @@
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="84">
+      <node id="82">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
@@ -209,14 +209,8 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="74">
-        <label>rtl8139.h</label>
-        <link refid="rtl8139_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
       <node id="1">
-        <label>src/net/ip.c</label>
+        <label>ip.c</label>
         <link refid="ip_8c"/>
         <childnode refid="2" relation="include">
         </childnode>
@@ -239,7 +233,7 @@
       <node id="5">
         <label>stddef.h</label>
       </node>
-      <node id="90">
+      <node id="88">
         <label>module.h</label>
         <link refid="module_8h"/>
         <childnode refid="2" relation="include">
@@ -290,12 +284,6 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="75">
-        <label>e1000.h</label>
-        <link refid="e1000_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
       <node id="70">
         <label>lapic_timer.h</label>
         <link refid="lapic__timer_8h"/>
@@ -317,7 +305,7 @@
         <label>input.h</label>
         <link refid="input_8h"/>
       </node>
-      <node id="85">
+      <node id="83">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
@@ -327,17 +315,17 @@
         <label>video.h</label>
         <link refid="video_8h"/>
       </node>
-      <node id="87">
+      <node id="85">
         <label>serial.h</label>
         <link refid="serial_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="88" relation="include">
+        <childnode refid="86" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="80">
+      <node id="78">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
@@ -363,7 +351,7 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="77">
+      <node id="75">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
@@ -413,7 +401,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="78">
+      <node id="76">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
@@ -536,19 +524,15 @@
         </childnode>
         <childnode refid="83" relation="include">
         </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
         <childnode refid="84" relation="include">
         </childnode>
         <childnode refid="85" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="86" relation="include">
-        </childnode>
         <childnode refid="87" relation="include">
         </childnode>
-        <childnode refid="89" relation="include">
-        </childnode>
-        <childnode refid="90" relation="include">
+        <childnode refid="88" relation="include">
         </childnode>
       </node>
       <node id="45">
@@ -577,7 +561,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="89">
+      <node id="87">
         <label>debug_ringbuffer.h</label>
         <link refid="debug__ringbuffer_8h"/>
         <childnode refid="2" relation="include">
@@ -705,13 +689,13 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="82">
+      <node id="80">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="86">
+      <node id="84">
         <label>retrofs.h</label>
         <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
@@ -790,9 +774,20 @@
         </inbodydescription>
         <location file="src/net/ip.c" line="11" column="9" bodyfile="src/net/ip.c" bodystart="11" bodyend="-1"/>
       </memberdef>
+      <memberdef kind="define" id="ip_8c_1ac6a518f322efc161f25c99a8b24c8f12" prot="public" static="no">
+        <name>MAX_LOCAL_HOST_NAME</name>
+        <initializer>64</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="12" column="9" bodyfile="src/net/ip.c" bodystart="12" bodyend="-1"/>
+      </memberdef>
       </sectiondef>
       <sectiondef kind="var">
-      <memberdef kind="variable" id="ip_8c_1a2d6dd3031d8e8ae564a17572a1a5af4b" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="ip_8c_1a2d6dd3031d8e8ae564a17572a1a5af4b" prot="public" static="yes" mutable="no">
         <type><ref refid="spinlock_8h_1af82eed01f0304d83276dda764b213779" kindref="member">spinlock_t</ref></type>
         <definition>spinlock_t tcp_send_spinlock</definition>
         <argsstring></argsstring>
@@ -804,9 +799,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="13" column="12" bodyfile="src/net/ip.c" bodystart="13" bodyend="-1"/>
+        <location file="src/net/ip.c" line="14" column="19" bodyfile="src/net/ip.c" bodystart="14" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="ip_8c_1a4a20d3f29246ff06fd287c195fb3b5ad" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="ip_8c_1a4a20d3f29246ff06fd287c195fb3b5ad" prot="public" static="yes" mutable="no">
         <type>uint16_t</type>
         <definition>uint16_t last_id</definition>
         <argsstring></argsstring>
@@ -817,9 +812,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="14" column="10" bodyfile="src/net/ip.c" bodystart="14" bodyend="-1"/>
+        <location file="src/net/ip.c" line="15" column="17" bodyfile="src/net/ip.c" bodystart="15" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="ip_8c_1ada0d7881688ca9983c592003f20c66b3" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="ip_8c_1ada0d7881688ca9983c592003f20c66b3" prot="public" static="yes" mutable="no">
         <type>uint8_t</type>
         <definition>uint8_t my_ip[4]</definition>
         <argsstring>[4]</argsstring>
@@ -831,9 +826,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="15" column="9" bodyfile="src/net/ip.c" bodystart="15" bodyend="-1"/>
+        <location file="src/net/ip.c" line="16" column="16" bodyfile="src/net/ip.c" bodystart="16" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="ip_8c_1a9d4da000395bede0dbfdd8232f8c03a7" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="ip_8c_1a9d4da000395bede0dbfdd8232f8c03a7" prot="public" static="yes" mutable="no">
         <type>uint8_t</type>
         <definition>uint8_t zero_hardware_addr[6]</definition>
         <argsstring>[6]</argsstring>
@@ -845,9 +840,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="16" column="9" bodyfile="src/net/ip.c" bodystart="16" bodyend="-1"/>
+        <location file="src/net/ip.c" line="17" column="16" bodyfile="src/net/ip.c" bodystart="17" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="ip_8c_1a58bff71356890c43c2f9ecbbc8e5efcb" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="ip_8c_1a58bff71356890c43c2f9ecbbc8e5efcb" prot="public" static="yes" mutable="no">
         <type><ref refid="structpacket__queue__item__t" kindref="compound">packet_queue_item_t</ref> *</type>
         <definition>packet_queue_item_t* packet_queue</definition>
         <argsstring></argsstring>
@@ -859,9 +854,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="17" column="21" bodyfile="src/net/ip.c" bodystart="17" bodyend="-1"/>
+        <location file="src/net/ip.c" line="18" column="28" bodyfile="src/net/ip.c" bodystart="18" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="ip_8c_1a6125bebd59f0e7d42e376b3290904d87" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="ip_8c_1a6125bebd59f0e7d42e376b3290904d87" prot="public" static="yes" mutable="no">
         <type><ref refid="structpacket__queue__item__t" kindref="compound">packet_queue_item_t</ref> *</type>
         <definition>packet_queue_item_t* packet_queue_end</definition>
         <argsstring></argsstring>
@@ -873,9 +868,22 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="18" column="21" bodyfile="src/net/ip.c" bodystart="18" bodyend="-1"/>
+        <location file="src/net/ip.c" line="19" column="28" bodyfile="src/net/ip.c" bodystart="19" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="ip_8c_1a9bccf5c44f19ed32be16e03df2bc2fa3" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="ip_8c_1a9ce636709a5906b466ae7f9132ac8d5b" prot="public" static="yes" mutable="no">
+        <type>char</type>
+        <definition>char my_hostname[64]</definition>
+        <argsstring>[64]</argsstring>
+        <name>my_hostname</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="20" column="13" bodyfile="src/net/ip.c" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8c_1a9bccf5c44f19ed32be16e03df2bc2fa3" prot="public" static="yes" mutable="no">
         <type>char</type>
         <definition>char ip_addr[4]</definition>
         <argsstring>[4]</argsstring>
@@ -887,7 +895,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="19" column="6" bodyfile="src/net/ip.c" bodystart="19" bodyend="-1"/>
+        <location file="src/net/ip.c" line="21" column="13" bodyfile="src/net/ip.c" bodystart="21" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="ip_8c_1af35b683b49f96e5686f99b329f768b99" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -901,9 +909,51 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="20" column="5" bodyfile="src/net/ip.c" bodystart="20" bodyend="-1"/>
+        <location file="src/net/ip.c" line="22" column="5" bodyfile="src/net/ip.c" bodystart="22" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="ip_8c_1ae7fad87cf014030c6364d4f963aac8e8" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="ip_8c_1a315f4a8f60d99f076d92272085333bd6" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int is_dns_allocated</definition>
+        <argsstring></argsstring>
+        <name>is_dns_allocated</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="22" column="22" bodyfile="src/net/ip.c" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8c_1a809f4cf1e0e24684c7a546765e0c2e7e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int is_gateway_allocated</definition>
+        <argsstring></argsstring>
+        <name>is_gateway_allocated</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="22" column="40" bodyfile="src/net/ip.c" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8c_1a54bb7af0aadd6e172ed644bdf2948dde" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int is_mask_allocated</definition>
+        <argsstring></argsstring>
+        <name>is_mask_allocated</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="22" column="62" bodyfile="src/net/ip.c" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8c_1ae7fad87cf014030c6364d4f963aac8e8" prot="public" static="yes" mutable="no">
         <type>uint32_t</type>
         <definition>uint32_t dns_addr</definition>
         <argsstring></argsstring>
@@ -915,9 +965,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="21" column="10" bodyfile="src/net/ip.c" bodystart="21" bodyend="-1"/>
+        <location file="src/net/ip.c" line="23" column="17" bodyfile="src/net/ip.c" bodystart="23" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="ip_8c_1ab913ad1e18df42991659f4271c6a810b" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="ip_8c_1ab913ad1e18df42991659f4271c6a810b" prot="public" static="yes" mutable="no">
         <type>uint32_t</type>
         <definition>uint32_t gateway_addr</definition>
         <argsstring></argsstring>
@@ -929,9 +979,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="21" column="20" bodyfile="src/net/ip.c" bodystart="21" bodyend="-1"/>
+        <location file="src/net/ip.c" line="23" column="27" bodyfile="src/net/ip.c" bodystart="23" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="ip_8c_1a0a283760faaf99e00bbebe2719e252f0" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="ip_8c_1a0a283760faaf99e00bbebe2719e252f0" prot="public" static="yes" mutable="no">
         <type>uint32_t</type>
         <definition>uint32_t netmask</definition>
         <argsstring></argsstring>
@@ -943,9 +993,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="21" column="34" bodyfile="src/net/ip.c" bodystart="21" bodyend="-1"/>
+        <location file="src/net/ip.c" line="23" column="41" bodyfile="src/net/ip.c" bodystart="23" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="ip_8c_1a12770212379d1208a1f07961b62cb733" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="ip_8c_1a12770212379d1208a1f07961b62cb733" prot="public" static="yes" mutable="no">
         <type>struct <ref refid="structhashmap" kindref="compound">hashmap</ref> *</type>
         <definition>struct hashmap* frag_map</definition>
         <argsstring></argsstring>
@@ -957,7 +1007,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="22" column="14" bodyfile="src/net/ip.c" bodystart="22" bodyend="-1"/>
+        <location file="src/net/ip.c" line="24" column="21" bodyfile="src/net/ip.c" bodystart="24" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="ip_8c_1ab93b0af589dd086790a127286eedf52a" prot="public" static="yes" mutable="no">
         <type>size_t</type>
@@ -971,7 +1021,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="23" column="15" bodyfile="src/net/ip.c" bodystart="23" bodyend="-1"/>
+        <location file="src/net/ip.c" line="25" column="15" bodyfile="src/net/ip.c" bodystart="25" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="ip_8c_1ae7b502b0184801f10685c45186108272" prot="public" static="yes" mutable="no">
         <type>const uint8_t</type>
@@ -985,7 +1035,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="26" column="22" bodyfile="src/net/ip.c" bodystart="26" bodyend="-1"/>
+        <location file="src/net/ip.c" line="28" column="22" bodyfile="src/net/ip.c" bodystart="28" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="ip_8c_1a2294d4356a70edf19bf7ab430612f703" prot="public" static="yes" mutable="no">
         <type>uint8_t</type>
@@ -998,7 +1048,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="27" column="16" bodyfile="src/net/ip.c" bodystart="27" bodyend="-1"/>
+        <location file="src/net/ip.c" line="29" column="16" bodyfile="src/net/ip.c" bodystart="29" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="ip_8c_1a8b6fc5bd481f295c48ade687c98f3c58" prot="public" static="yes" mutable="no">
         <type>uint8_t</type>
@@ -1011,7 +1061,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="28" column="16" bodyfile="src/net/ip.c" bodystart="28" bodyend="-1"/>
+        <location file="src/net/ip.c" line="30" column="16" bodyfile="src/net/ip.c" bodystart="30" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="ip_8c_1a0329e90969b4c10698ce0109c04cf476" prot="public" static="yes" mutable="no">
         <type>int</type>
@@ -1025,7 +1075,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="29" column="12" bodyfile="src/net/ip.c" bodystart="29" bodyend="-1"/>
+        <location file="src/net/ip.c" line="31" column="12" bodyfile="src/net/ip.c" bodystart="31" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -1070,7 +1120,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="430" column="6" bodyfile="src/net/ip.c" bodystart="430" bodyend="583" declfile="src/net/ip.c" declline="31" declcolumn="6"/>
+        <location file="src/net/ip.c" line="460" column="6" bodyfile="src/net/ip.c" bodystart="460" bodyend="607" declfile="src/net/ip.c" declline="33" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ip_8c_1aa9de3e56c876f4c2e3ba14431490a0fc" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>bool</type>
@@ -1087,7 +1137,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="33" column="20" bodyfile="src/net/ip.c" bodystart="33" bodyend="35"/>
+        <location file="src/net/ip.c" line="35" column="20" bodyfile="src/net/ip.c" bodystart="35" bodyend="37"/>
       </memberdef>
       <memberdef kind="function" id="ip_8c_1aea6d2bc78e199d2c6630cd4440708a4b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1127,7 +1177,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="37" column="6" bodyfile="src/net/ip.c" bodystart="37" bodyend="39"/>
+        <location file="src/net/ip.c" line="39" column="6" bodyfile="src/net/ip.c" bodystart="39" bodyend="41"/>
       </memberdef>
       <memberdef kind="function" id="ip_8c_1a2a0164f6cce7e790fe3402e17e2f4597" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint32_t</type>
@@ -1157,7 +1207,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="41" column="10" bodyfile="src/net/ip.c" bodystart="41" bodyend="59"/>
+        <location file="src/net/ip.c" line="43" column="10" bodyfile="src/net/ip.c" bodystart="43" bodyend="61"/>
       </memberdef>
       <memberdef kind="function" id="ip_8c_1aa551ff98bc688620ed7bd69cb9a98a07" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1188,7 +1238,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="61" column="5" bodyfile="src/net/ip.c" bodystart="61" bodyend="64"/>
+        <location file="src/net/ip.c" line="63" column="5" bodyfile="src/net/ip.c" bodystart="63" bodyend="66"/>
       </memberdef>
       <memberdef kind="function" id="ip_8c_1a7023347bd0c00d0866e2da72ccc999bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1217,7 +1267,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="66" column="6" bodyfile="src/net/ip.c" bodystart="66" bodyend="69"/>
+        <location file="src/net/ip.c" line="68" column="6" bodyfile="src/net/ip.c" bodystart="68" bodyend="74"/>
       </memberdef>
       <memberdef kind="function" id="ip_8c_1a41abea862f6e845e6f6df11b4d1d4aee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1245,7 +1295,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="71" column="6" bodyfile="src/net/ip.c" bodystart="71" bodyend="73"/>
+        <location file="src/net/ip.c" line="76" column="6" bodyfile="src/net/ip.c" bodystart="76" bodyend="82"/>
       </memberdef>
       <memberdef kind="function" id="ip_8c_1a4e01d123dc960d1c3e7afc199866b394" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1273,7 +1323,37 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="75" column="6" bodyfile="src/net/ip.c" bodystart="75" bodyend="77"/>
+        <location file="src/net/ip.c" line="84" column="6" bodyfile="src/net/ip.c" bodystart="84" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8c_1ade097a2cf5310fa153f6320a7f43ff3d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void sethostname</definition>
+        <argsstring>(const char *hostname)</argsstring>
+        <name>sethostname</name>
+        <param>
+          <type>const char *</type>
+          <declname>hostname</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="92" column="6" bodyfile="src/net/ip.c" bodystart="92" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8c_1a0766b579c893b1ae7e334f20aa9444d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* gethostname</definition>
+        <argsstring>()</argsstring>
+        <name>gethostname</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="98" column="12" bodyfile="src/net/ip.c" bodystart="98" bodyend="101"/>
       </memberdef>
       <memberdef kind="function" id="ip_8c_1a04ebf6ef42a22c69b10eb794d233ceec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint32_t</type>
@@ -1290,7 +1370,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="79" column="10" bodyfile="src/net/ip.c" bodystart="79" bodyend="81"/>
+        <location file="src/net/ip.c" line="103" column="10" bodyfile="src/net/ip.c" bodystart="103" bodyend="105"/>
       </memberdef>
       <memberdef kind="function" id="ip_8c_1a8066de476dc28033b24d07a4bd52f718" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint32_t</type>
@@ -1307,7 +1387,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="83" column="10" bodyfile="src/net/ip.c" bodystart="83" bodyend="85"/>
+        <location file="src/net/ip.c" line="107" column="10" bodyfile="src/net/ip.c" bodystart="107" bodyend="109"/>
       </memberdef>
       <memberdef kind="function" id="ip_8c_1a621c408b11c5b2ba33c9ad1a7bac93ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1335,7 +1415,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="87" column="6" bodyfile="src/net/ip.c" bodystart="87" bodyend="89"/>
+        <location file="src/net/ip.c" line="111" column="6" bodyfile="src/net/ip.c" bodystart="111" bodyend="117"/>
       </memberdef>
       <memberdef kind="function" id="ip_8c_1af36348a26ea667e87f3427e57ed23bed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint32_t</type>
@@ -1352,7 +1432,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="91" column="10" bodyfile="src/net/ip.c" bodystart="91" bodyend="93"/>
+        <location file="src/net/ip.c" line="119" column="10" bodyfile="src/net/ip.c" bodystart="119" bodyend="121"/>
       </memberdef>
       <memberdef kind="function" id="ip_8c_1a6a30b340faea65631b3a3c49f070ddcc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1369,7 +1449,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="95" column="13" bodyfile="src/net/ip.c" bodystart="95" bodyend="105"/>
+        <location file="src/net/ip.c" line="123" column="13" bodyfile="src/net/ip.c" bodystart="123" bodyend="133"/>
       </memberdef>
       <memberdef kind="function" id="ip_8c_1a172bebdd9b7c7ddf045053ddeba377c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1385,7 +1465,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="108" column="6" bodyfile="src/net/ip.c" bodystart="108" bodyend="134"/>
+        <location file="src/net/ip.c" line="136" column="6" bodyfile="src/net/ip.c" bodystart="136" bodyend="162"/>
       </memberdef>
       <memberdef kind="function" id="ip_8c_1a0c6727c035a1b0fb8d80502c051d0ef3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint16_t</type>
@@ -1415,7 +1495,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="138" column="10" bodyfile="src/net/ip.c" bodystart="138" bodyend="152"/>
+        <location file="src/net/ip.c" line="166" column="10" bodyfile="src/net/ip.c" bodystart="166" bodyend="180"/>
       </memberdef>
       <memberdef kind="function" id="ip_8c_1a189c32f3acd569510b06121550e84616" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1436,7 +1516,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="154" column="6" bodyfile="src/net/ip.c" bodystart="154" bodyend="172"/>
+        <location file="src/net/ip.c" line="182" column="6" bodyfile="src/net/ip.c" bodystart="182" bodyend="200"/>
       </memberdef>
       <memberdef kind="function" id="ip_8c_1ac14f37ff566957e2932615943bd6578a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1451,7 +1531,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="177" column="6" bodyfile="src/net/ip.c" bodystart="177" bodyend="238"/>
+        <location file="src/net/ip.c" line="205" column="6" bodyfile="src/net/ip.c" bodystart="205" bodyend="266"/>
       </memberdef>
       <memberdef kind="function" id="ip_8c_1a6ba282dea8ed3e36959997e46f834d9a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1465,7 +1545,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="243" column="6" bodyfile="src/net/ip.c" bodystart="243" bodyend="247"/>
+        <location file="src/net/ip.c" line="271" column="6" bodyfile="src/net/ip.c" bodystart="271" bodyend="275"/>
       </memberdef>
       <memberdef kind="function" id="ip_8c_1a7414e3656c8f1693ae9ed7a658eb7ece" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1492,7 +1572,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="249" column="6" bodyfile="src/net/ip.c" bodystart="249" bodyend="271"/>
+        <location file="src/net/ip.c" line="277" column="6" bodyfile="src/net/ip.c" bodystart="277" bodyend="299"/>
       </memberdef>
       <memberdef kind="function" id="ip_8c_1a5c4e2905c23bb53cf128a3912f8ddaea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1556,7 +1636,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="273" column="6" bodyfile="src/net/ip.c" bodystart="273" bodyend="354"/>
+        <location file="src/net/ip.c" line="301" column="6" bodyfile="src/net/ip.c" bodystart="301" bodyend="384"/>
       </memberdef>
       <memberdef kind="function" id="ip_8c_1a672f7b02ca1cb960b5e0adf8a4ce46de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structip__packet__frag__t" kindref="compound">ip_packet_frag_t</ref> *</type>
@@ -1598,7 +1678,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="363" column="18" bodyfile="src/net/ip.c" bodystart="363" bodyend="394"/>
+        <location file="src/net/ip.c" line="393" column="18" bodyfile="src/net/ip.c" bodystart="393" bodyend="424"/>
       </memberdef>
       <memberdef kind="function" id="ip_8c_1a1a242a25989e7f23738ef023e7d95999" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1653,7 +1733,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="404" column="5" bodyfile="src/net/ip.c" bodystart="404" bodyend="408"/>
+        <location file="src/net/ip.c" line="434" column="5" bodyfile="src/net/ip.c" bodystart="434" bodyend="438"/>
       </memberdef>
       <memberdef kind="function" id="ip_8c_1aca404934771fcaf1671f5d2f30f6e1cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint64_t</type>
@@ -1707,7 +1787,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="418" column="10" bodyfile="src/net/ip.c" bodystart="418" bodyend="421"/>
+        <location file="src/net/ip.c" line="448" column="10" bodyfile="src/net/ip.c" bodystart="448" bodyend="451"/>
       </memberdef>
       <memberdef kind="function" id="ip_8c_1a1438927b122b1b407d305c669151a681" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1730,7 +1810,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="585" column="6" bodyfile="src/net/ip.c" bodystart="585" bodyend="587"/>
+        <location file="src/net/ip.c" line="609" column="6" bodyfile="src/net/ip.c" bodystart="609" bodyend="611"/>
       </memberdef>
       <memberdef kind="function" id="ip_8c_1a7cf4dd66490d6812fcbba8acbb2533bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1744,7 +1824,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/ip.c" line="589" column="6" bodyfile="src/net/ip.c" bodystart="589" bodyend="595"/>
+        <location file="src/net/ip.c" line="613" column="6" bodyfile="src/net/ip.c" bodystart="613" bodyend="619"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

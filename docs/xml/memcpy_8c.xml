@@ -9,7 +9,7 @@
         <link refid="ata_8h"/>
       </node>
       <node id="1">
-        <label>src/memcpy.c</label>
+        <label>memcpy.c</label>
         <link refid="memcpy_8c"/>
         <childnode refid="2" relation="include">
         </childnode>
@@ -73,7 +73,7 @@
         <childnode refid="27" relation="include">
         </childnode>
       </node>
-      <node id="88">
+      <node id="86">
         <label>stdarg.h</label>
       </node>
       <node id="60">
@@ -115,7 +115,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="76">
+      <node id="74">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
@@ -132,7 +132,7 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="83">
+      <node id="81">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
@@ -160,7 +160,7 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="81">
+      <node id="79">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
@@ -182,7 +182,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="79">
+      <node id="77">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
@@ -201,7 +201,7 @@
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="84">
+      <node id="82">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
@@ -213,12 +213,6 @@
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="74">
-        <label>rtl8139.h</label>
-        <link refid="rtl8139_8h"/>
-        <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="52">
@@ -239,7 +233,7 @@
       <node id="5">
         <label>stddef.h</label>
       </node>
-      <node id="90">
+      <node id="88">
         <label>module.h</label>
         <link refid="module_8h"/>
         <childnode refid="2" relation="include">
@@ -290,12 +284,6 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="75">
-        <label>e1000.h</label>
-        <link refid="e1000_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
       <node id="70">
         <label>lapic_timer.h</label>
         <link refid="lapic__timer_8h"/>
@@ -317,7 +305,7 @@
         <label>input.h</label>
         <link refid="input_8h"/>
       </node>
-      <node id="85">
+      <node id="83">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
@@ -327,17 +315,17 @@
         <label>video.h</label>
         <link refid="video_8h"/>
       </node>
-      <node id="87">
+      <node id="85">
         <label>serial.h</label>
         <link refid="serial_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="88" relation="include">
+        <childnode refid="86" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="80">
+      <node id="78">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
@@ -363,7 +351,7 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="77">
+      <node id="75">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
@@ -413,7 +401,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="78">
+      <node id="76">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
@@ -536,19 +524,15 @@
         </childnode>
         <childnode refid="83" relation="include">
         </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
         <childnode refid="84" relation="include">
         </childnode>
         <childnode refid="85" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="86" relation="include">
-        </childnode>
         <childnode refid="87" relation="include">
         </childnode>
-        <childnode refid="89" relation="include">
-        </childnode>
-        <childnode refid="90" relation="include">
+        <childnode refid="88" relation="include">
         </childnode>
       </node>
       <node id="45">
@@ -577,7 +561,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="89">
+      <node id="87">
         <label>debug_ringbuffer.h</label>
         <link refid="debug__ringbuffer_8h"/>
         <childnode refid="2" relation="include">
@@ -705,13 +689,13 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="82">
+      <node id="80">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="86">
+      <node id="84">
         <label>retrofs.h</label>
         <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
@@ -788,107 +772,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/memcpy.c" line="3" column="6" bodyfile="src/memcpy.c" bodystart="3" bodyend="8"/>
-      </memberdef>
-      <memberdef kind="function" id="memcpy_8c_1acc53f9873534734f1216ccfc0e505592" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void *</type>
-        <definition>static void* movsb</definition>
-        <argsstring>(void *dst, const void *src, size_t size)</argsstring>
-        <name>movsb</name>
-        <param>
-          <type>void *</type>
-          <declname>dst</declname>
-        </param>
-        <param>
-          <type>const void *</type>
-          <declname>src</declname>
-        </param>
-        <param>
-          <type>size_t</type>
-          <declname>size</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/memcpy.c" line="10" column="20" bodyfile="src/memcpy.c" bodystart="10" bodyend="15"/>
-      </memberdef>
-      <memberdef kind="function" id="memcpy_8c_1a8f55bf52524abe6fa539e8dd09081ddd" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void *</type>
-        <definition>static void* movsl</definition>
-        <argsstring>(void *dst, const void *src, size_t size)</argsstring>
-        <name>movsl</name>
-        <param>
-          <type>void *</type>
-          <declname>dst</declname>
-        </param>
-        <param>
-          <type>const void *</type>
-          <declname>src</declname>
-        </param>
-        <param>
-          <type>size_t</type>
-          <declname>size</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/memcpy.c" line="17" column="20" bodyfile="src/memcpy.c" bodystart="17" bodyend="22"/>
-      </memberdef>
-      <memberdef kind="function" id="memcpy_8c_1ac8033f3a5b43f38a0cb822c672957890" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void *</type>
-        <definition>static void* movsw</definition>
-        <argsstring>(void *dst, const void *src, size_t size)</argsstring>
-        <name>movsw</name>
-        <param>
-          <type>void *</type>
-          <declname>dst</declname>
-        </param>
-        <param>
-          <type>const void *</type>
-          <declname>src</declname>
-        </param>
-        <param>
-          <type>size_t</type>
-          <declname>size</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/memcpy.c" line="24" column="20" bodyfile="src/memcpy.c" bodystart="24" bodyend="29"/>
-      </memberdef>
-      <memberdef kind="function" id="memcpy_8c_1a64b3316735c6d2d2a9df6812653ce040" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void *</type>
-        <definition>static void* movsq</definition>
-        <argsstring>(void *dst, const void *src, size_t size)</argsstring>
-        <name>movsq</name>
-        <param>
-          <type>void *</type>
-          <declname>dst</declname>
-        </param>
-        <param>
-          <type>const void *</type>
-          <declname>src</declname>
-        </param>
-        <param>
-          <type>size_t</type>
-          <declname>size</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/memcpy.c" line="31" column="20" bodyfile="src/memcpy.c" bodystart="31" bodyend="36"/>
+        <location file="src/memcpy.c" line="3" column="6" bodyfile="src/memcpy.c" bodystart="3" bodyend="13"/>
       </memberdef>
       <memberdef kind="function" id="memcpy_8c_1a1edf84073dfe83cba6ece272cb42e11d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void *</type>
@@ -943,7 +827,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/memcpy.c" line="38" column="6" bodyfile="src/memcpy.c" bodystart="38" bodyend="51"/>
+        <location file="src/memcpy.c" line="15" column="6" bodyfile="src/memcpy.c" bodystart="15" bodyend="25"/>
       </memberdef>
       <memberdef kind="function" id="memcpy_8c_1adcb64ec1925ec2daca841785cf77672f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void *</type>
@@ -998,7 +882,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/memcpy.c" line="53" column="6" bodyfile="src/memcpy.c" bodystart="53" bodyend="68"/>
+        <location file="src/memcpy.c" line="27" column="6" bodyfile="src/memcpy.c" bodystart="27" bodyend="42"/>
       </memberdef>
       <memberdef kind="function" id="memcpy_8c_1ab3b483f8ac77e03edf84bc99394649eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1053,7 +937,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/memcpy.c" line="70" column="5" bodyfile="src/memcpy.c" bodystart="70" bodyend="81"/>
+        <location file="src/memcpy.c" line="44" column="5" bodyfile="src/memcpy.c" bodystart="44" bodyend="56"/>
       </memberdef>
       <memberdef kind="function" id="memcpy_8c_1af2db137baeb83709f5b2c19bd9f4511d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>size_t</type>
@@ -1096,7 +980,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/memcpy.c" line="83" column="8" bodyfile="src/memcpy.c" bodystart="83" bodyend="92"/>
+        <location file="src/memcpy.c" line="58" column="8" bodyfile="src/memcpy.c" bodystart="58" bodyend="67"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

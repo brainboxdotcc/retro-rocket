@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Retro Rocket OS: include/input.h File Reference</title>
+<title>Retro Rocket OS: input.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -110,7 +111,7 @@ Functions</h2></td></tr>
 <div class="textblock"><p>Console line input API for Retro Rocket. </p>
 <dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>)</dd></dl>
 <p>This interface provides buffered, line-based input for consoles. It handles character input, backspace editing, line completion detection, and safe buffer allocation. The functions in this header are backed by the implementation in <a class="el" href="input_8c.html">input.c</a>.</p>
-<h2><a class="anchor" id="autotoc_md672"></a>
+<h2><a class="anchor" id="autotoc_md4"></a>
 Usage Lifecycle</h2>
 <ol type="1">
 <li>Call <code>kinput(maxlen, cons)</code> repeatedly until it returns <code>1</code> (line complete).</li>
@@ -119,7 +120,7 @@ Usage Lifecycle</h2>
 <li>Call <code>kfreeinput(cons)</code> when finished to release the internal buffer.</li>
 </ol>
 <p>The buffer is lazily allocated by <code><a class="el" href="input_8h.html#a4778712feab983c5195c309ba33f9c17" title="Poll for a single character of input from the console.">kinput()</a></code> when the first character arrives, so you must not call <code><a class="el" href="input_8h.html#ad5b07aa4d01338ab607954a1b11d1fd0" title="Retrieve the accumulated input string for a console.">kgetinput()</a></code> until after at least one successful call to <code><a class="el" href="input_8h.html#a4778712feab983c5195c309ba33f9c17" title="Poll for a single character of input from the console.">kinput()</a></code>.</p>
-<h2><a class="anchor" id="autotoc_md673"></a>
+<h2><a class="anchor" id="autotoc_md5"></a>
 Behaviour</h2>
 <ul>
 <li>Input is null-terminated automatically.</li>
@@ -222,7 +223,7 @@ Behaviour</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="input_8h.html">input.h</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:29 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

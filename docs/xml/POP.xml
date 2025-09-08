@@ -14,11 +14,11 @@
 </simplesect>
 <simplesect kind="remark"><para>Valid indices are <computeroutput>0</computeroutput> to <computeroutput>size-1</computeroutput>. An out-of-range index raises a runtime error.</para>
 </simplesect>
-<simplesect kind="remark"><para><computeroutput>POP</computeroutput> does <bold>not</bold> resize the array. If you also want to shrink its capacity, combine it with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/REDIM"><computeroutput>REDIM</computeroutput></ulink>.</para>
+<simplesect kind="remark"><para><computeroutput>POP</computeroutput> does <bold>not</bold> resize the array. If you also want to shrink its capacity, combine it with <ref refid="REDIM" kindref="compound">REDIM</ref>.</para>
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="POP_1autotoc_md402">
+<sect3 id="POP_1autotoc_md416">
 <title>Examples</title>
 <para><bold>Remove an integer element</bold> <programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>A,5</highlight></codeline>
 <codeline><highlight class="normal">A(0)<sp/>=<sp/>10</highlight></codeline>
@@ -51,7 +51,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="POP_1autotoc_md404">
+<sect3 id="POP_1autotoc_md418">
 <title>Behaviour</title>
 <para><itemizedlist>
 <listitem><para><bold>Index at last element</bold>: nothing is shifted; the last slot is simply cleared.</para>
@@ -60,7 +60,7 @@
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DIM"><computeroutput>DIM</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/REDIM"><computeroutput>REDIM</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/PUSH"><computeroutput>PUSH</computeroutput></ulink> </para>
+ <ref refid="DIM" kindref="compound">DIM</ref> · <ref refid="REDIM" kindref="compound">REDIM</ref> · <ref refid="PUSH" kindref="compound">PUSH</ref> </para>
 </sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/POP.md"/>

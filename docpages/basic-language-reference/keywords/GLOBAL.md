@@ -3,11 +3,11 @@
 GLOBAL variable-name = expression
 ```
 
-Marks a variable assignment as **global-for-child-processes**. The variable’s **current value is copied** (not referenced) into any **new programs** this program creates (for example via [`CHAIN`](https://github.com/brainboxdotcc/retro-rocket/wiki/CHAIN)). This mechanism is also how `rocketsh` passes command-line style parameters into a program.
+Marks a variable assignment as **global-for-child-processes**. The variable’s **current value is copied** (not referenced) into any **new programs** this program creates (for example via \ref CHAIN "CHAIN"). This mechanism is also how `rocketsh` passes command-line style parameters into a program.
 
 
-> `GLOBAL` must appear **with an assignment**.  
-> `GLOBAL` **without** an assignment is invalid.
+@note `GLOBAL` must appear **with an assignment**.
+@note `GLOBAL` **without** an assignment is invalid.
 
 ---
 
@@ -61,4 +61,4 @@ GLOBAL MODE$ = "FAST"
 - Use `GLOBAL` only on lines that **assign** to the variable.
 
 **See also:**  
-[`CHAIN`](https://github.com/brainboxdotcc/retro-rocket/wiki/CHAIN)
+\ref CHAIN "CHAIN"

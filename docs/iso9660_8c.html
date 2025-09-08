@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Retro Rocket OS: src/fs/iso9660.c File Reference</title>
+<title>Retro Rocket OS: iso9660.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -92,10 +93,7 @@ $(document).ready(function(){initNavTree('iso9660_8c.html',''); initResizable();
 <div class="title">iso9660.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="kernel_8h.html">kernel.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="filesystem_8h.html">filesystem.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="iso9660_8h.html">iso9660.h</a>&gt;</code><br />
-</div><table class="memberdecls">
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:acd97520fa9d19a65a5218fdd6be9a8a4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iso9660_8c.html#acd97520fa9d19a65a5218fdd6be9a8a4">VERIFY_ISO9660</a>(n)</td></tr>
@@ -110,7 +108,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a4fc7f27e860d86239b2a1a06d5c77dd3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structiso9660.html">iso9660</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iso9660_8c.html#a4fc7f27e860d86239b2a1a06d5c77dd3">iso_mount_volume</a> (const char *<a class="el" href="ahci_8h.html#a2376f17d1e7367401184b2a3978bcd3a">device</a>)</td></tr>
 <tr class="memdesc:a4fc7f27e860d86239b2a1a06d5c77dd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mount an ISO 9660 filesystem on a given block device name.  <a href="iso9660_8c.html#a4fc7f27e860d86239b2a1a06d5c77dd3">More...</a><br /></td></tr>
 <tr class="separator:a4fc7f27e860d86239b2a1a06d5c77dd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d75868b40cec962bdb13b743c7d6b08"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iso9660_8c.html#a9d75868b40cec962bdb13b743c7d6b08">iso_read_file</a> (void *file, uint64_t <a class="el" href="retrofs_8h.html#af821c0f1bf4d36fbe0a3f5776b71139b">start</a>, uint32_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>, unsigned char *<a class="el" href="input_8c.html#aff2566f4c366b48d73479bef43ee4d2e">buffer</a>)</td></tr>
+<tr class="memitem:a9d75868b40cec962bdb13b743c7d6b08"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iso9660_8c.html#a9d75868b40cec962bdb13b743c7d6b08">iso_read_file</a> (void *file, uint64_t <a class="el" href="retrofs_8h.html#af821c0f1bf4d36fbe0a3f5776b71139b">start</a>, uint32_t <a class="el" href="e1000_8h.html#adfd968054b9a4ec85fdac3cf8043b257">length</a>, unsigned char *<a class="el" href="input_8c.html#aff2566f4c366b48d73479bef43ee4d2e">buffer</a>)</td></tr>
 <tr class="separator:a9d75868b40cec962bdb13b743c7d6b08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa160a1ffc5b7625df37b54781e97c134"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iso9660_8c.html#aa160a1ffc5b7625df37b54781e97c134">parse_boot</a> ([[maybe_unused]] <a class="el" href="structiso9660.html">iso9660</a> *info, [[maybe_unused]] unsigned char *<a class="el" href="input_8c.html#aff2566f4c366b48d73479bef43ee4d2e">buffer</a>)</td></tr>
 <tr class="separator:aa160a1ffc5b7625df37b54781e97c134"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -519,7 +517,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7d71b6c457a61cbf03a04bfdc57b6110.html">fs</a></li><li class="navelem"><a class="el" href="iso9660_8c.html">iso9660.c</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:29 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

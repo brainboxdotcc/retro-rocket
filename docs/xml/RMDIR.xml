@@ -14,17 +14,19 @@
 </listitem><listitem><para>The directory <bold>must be empty</bold> or an error is raised.</para>
 </listitem></itemizedlist>
 </para>
-<para><simplesect kind="remark"><para>Paths are <bold>case-insensitive</bold>. <blockquote><para><computeroutput>.</computeroutput> and <computeroutput>..</computeroutput> are <bold>not supported</bold> in paths. </para>
-</blockquote></para>
+<para><simplesect kind="remark"><para>Paths are <bold>case-insensitive</bold>. </para>
 </simplesect>
-<blockquote><para>Use an <bold>absolute</bold> path when it starts with <computeroutput>/</computeroutput>; otherwise the path is <bold>relative</bold> to the current directory. <linebreak/>
- Change directory with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CHDIR"><computeroutput>CHDIR</computeroutput></ulink>. </para>
-</blockquote></para>
-<para><blockquote><para>If removal fails, you can catch it with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink>. </para>
-</blockquote></para>
-<sect2 id="RMDIR_1autotoc_md456">
-<title>&lt;/blockquote&gt;</title>
-<sect3 id="RMDIR_1autotoc_md457">
+<simplesect kind="note"><para><computeroutput>.</computeroutput> and <computeroutput>..</computeroutput> are <bold>not supported</bold> in paths.</para>
+</simplesect>
+<simplesect kind="note"><para>Use an <bold>absolute</bold> path when it starts with <computeroutput>/</computeroutput>; otherwise the path is <bold>relative</bold> to the current directory. </para>
+</simplesect>
+<simplesect kind="note"><para>Change directory with <ref refid="CHDIR" kindref="compound">CHDIR</ref>.</para>
+</simplesect>
+<simplesect kind="note"><para>If removal fails, you can catch it with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink>.</para>
+</simplesect>
+<hruler/>
+</para>
+<sect3 id="RMDIR_1autotoc_md471">
 <title>Examples</title>
 <para>Remove a directory in the current folder <programlisting filename=".basic"><codeline><highlight class="normal">RMDIR<sp/>&quot;old_data&quot;</highlight></codeline>
 </programlisting></para>
@@ -36,18 +38,17 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="RMDIR_1autotoc_md459">
+<sect3 id="RMDIR_1autotoc_md473">
 <title>Notes</title>
 <para><itemizedlist>
-<listitem><para><computeroutput>RMDIR</computeroutput> removes <bold>directories</bold> only. To delete a <bold>file</bold>, use <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DELETE"><computeroutput>DELETE</computeroutput></ulink>.</para>
+<listitem><para><computeroutput>RMDIR</computeroutput> removes <bold>directories</bold> only. To delete a <bold>file</bold>, use <ref refid="DELETE" kindref="compound">DELETE</ref>.</para>
 </listitem><listitem><para>Attempting to remove a non-empty directory raises a runtime error.</para>
 </listitem><listitem><para>Ensure you have permission and that no required files are inside before removing.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/MKDIR"><computeroutput>MKDIR</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/DELETE"><computeroutput>DELETE</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/CHDIR"><computeroutput>CHDIR</computeroutput></ulink> </para>
+ <ref refid="MKDIR" kindref="compound">MKDIR</ref> · <ref refid="DELETE" kindref="compound">DELETE</ref> · <ref refid="CHDIR" kindref="compound">CHDIR</ref> </para>
 </sect3>
-</sect2>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/RMDIR.md"/>
   </compounddef>

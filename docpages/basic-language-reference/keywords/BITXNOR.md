@@ -24,4 +24,4 @@ PRINT BITXNOR(&6, &3)
 - Operates on 64-bit integers.
 
 **See also:**  
-[BITEOR](https://github.com/brainboxdotcc/retro-rocket/wiki/BITEOR) · [BITNOT](https://github.com/brainboxdotcc/retro-rocket/wiki/BITNOT)
+\ref BITEOR "BITEOR" · \ref BITNOT "BITNOT"

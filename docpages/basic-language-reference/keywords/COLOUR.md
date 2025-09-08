@@ -9,7 +9,7 @@ The default terminal colour is **7** (white).
 ![VGA background and foreground colour chart](https://user-images.githubusercontent.com/1556794/234695075-9097ef8c-6d94-4736-ab62-bfdbc7696f0c.png)
 
 
-> Both British and American spellings are accepted: `COLOUR` and `COLOR`.
+@note Both British and American spellings are accepted: `COLOUR` and `COLOR`.
 
 ---
 
@@ -48,7 +48,8 @@ PRINT "This text is bright yellow."
 ##### Notes
 - Applies to **text output** (e.g., `PRINT`).  
 - The setting affects subsequent text until changed again.  
-- For **background** colour, use [`BACKGROUND`](https://github.com/brainboxdotcc/retro-rocket/wiki/BACKGROUND).  
-- For **graphics drawing colours**, use [`GCOL`](https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL).
+- For **background** colour, use \ref BACKGROUND "BACKGROUND".
+- For **graphics drawing colours**, use \ref GCOL "GCOL".
 
-**See also:** [`BACKGROUND`](https://github.com/brainboxdotcc/retro-rocket/wiki/BACKGROUND), [`GCOL`](https://github.com/brainboxdotcc/retro-rocket/wiki/GCOL)
+**See also:**
+\ref BACKGROUND "BACKGROUND", \ref GCOL "GCOL"

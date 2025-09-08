@@ -6,7 +6,7 @@ CHAIN string-expression[,boolean-expression]
 Starts a new BASIC program, pausing the current program until the new one finishes.  
 The string expression must evaluate to the **filename** of a program accessible from the filesystem.
 
-- Any variables marked as [`GLOBAL`](https://github.com/brainboxdotcc/retro-rocket/wiki/GLOBAL) will be shared with the child program.  
+- Any variables marked as \ref GLOBAL "GLOBAL" will be shared with the child program.
 - When the chained program terminates, control returns to the line immediately following the `CHAIN` statement in the calling program.  
 - Variables not marked as global are not visible to the chained program.
 - If the optional boolean expression is included and evaluates to true, the program will be launched as a task in the background and the caller will resume immediately.
@@ -37,4 +37,5 @@ After `childprog` ends, execution resumes.
 - If the file specified in `string-expression` cannot be found, an error is raised (and can be caught with [`ON ERROR`](https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR)).  
 - Unlike BBC BASIC, Retro Rocket’s `CHAIN` does **not** discard the caller - the parent program continues afterwards.
 
-**See also:** [`GLOBAL`](https://github.com/brainboxdotcc/retro-rocket/wiki/GLOBAL), [`LIBRARY`](https://github.com/brainboxdotcc/retro-rocket/wiki/LIBRARY)
+**See also:**
+\ref GLOBAL "GLOBAL", \ref LIBRARY "LIBRARY"

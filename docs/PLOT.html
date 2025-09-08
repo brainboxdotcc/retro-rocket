@@ -26,6 +26,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="rr.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Retro Rocket OS
    </div>
@@ -90,13 +91,12 @@ $(document).ready(function(){initNavTree('PLOT.html',''); initResizable(); });
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">PLOT integer-variable, integer-expression, integer-expression</div>
 </div><!-- fragment --><p>Draws a previously loaded <b>sprite</b> at the given <b>X,Y</b> position. <br  />
- The first parameter must be an <b>integer variable</b> holding the <b>sprite handle</b> returned by <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/SPRITELOAD"><code>SPRITELOAD</code></a>. <br  />
- The sprite is positioned with its <b>top-left corner</b> at <code>(X, Y)</code> in screen pixels.</p>
+ The first parameter must be an <b>integer variable</b> holding the <b>sprite handle</b> returned by <a class="el" href="SPRITELOAD.html">SPRITELOAD</a>. The sprite is positioned with its <b>top-left corner</b> at <code>(X, Y)</code> in screen pixels.</p>
 <dl class="section remark"><dt>Remarks</dt><dd>The first argument must be a <b>variable</b> containing a valid sprite handle, not a literal value or expression.</dd>
 <dd>
 Use the built-in <code>GRAPHICS_WIDTH</code> and <code>GRAPHICS_HEIGHT</code> to place sprites relative to the current screen size.</dd></dl>
 <hr  />
-<h3><a class="anchor" id="autotoc_md359"></a>
+<h3><a class="anchor" id="autotoc_md373"></a>
 Example</h3>
 <div class="fragment"><div class="line">SPRITELOAD brain,&quot;/images/brainbox.png&quot;</div>
 <div class="line">SPRITELOAD background,&quot;/images/computer.jpg&quot;</div>
@@ -108,16 +108,16 @@ Example</h3>
 <div class="line">PLOT brain,1920-250,GRAPHICS_HEIGHT-250</div>
 </div><!-- fragment --><p><img src="https://github.com/brainboxdotcc/retro-rocket/assets/1556794/63be727a-9495-4a14-b6b5-c5265fc694c2" alt="image" class="inline"/></p>
 <hr  />
-<h3><a class="anchor" id="autotoc_md361"></a>
+<h3><a class="anchor" id="autotoc_md375"></a>
 Notes</h3>
 <ul>
 <li>Coordinates are in <b>screen pixels</b>; <code>(0,0)</code> is the <b>top-left</b> of the display.</li>
 <li>Sprites that extend beyond the screen are <b>clipped</b> at the edges.</li>
-<li>When <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/AUTOFLIP"><code>AUTOFLIP</code></a> is <code>FALSE</code>, drawn frames become visible only after <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/FLIP"><code>FLIP</code></a>.</li>
-<li>Free sprite resources when no longer needed with <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/SPRITEFREE"><code>SPRITEFREE</code></a>.</li>
+<li>When <a class="el" href="AUTOFLIP.html">AUTOFLIP</a> is <code>FALSE</code>, drawn frames become visible only after <a class="el" href="FLIP.html">FLIP</a>.</li>
+<li>Free sprite resources when no longer needed with <a class="el" href="SPRITEFREE.html">SPRITEFREE</a>.</li>
 </ul>
 <p><b>See also:</b> <br  />
- <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/SPRITELOAD"><code>SPRITELOAD</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/SPRITEFREE"><code>SPRITEFREE</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/PLOTQUAD"><code>PLOTQUAD</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/AUTOFLIP"><code>AUTOFLIP</code></a> · <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/FLIP"><code>FLIP</code></a> </p>
+ <a class="el" href="SPRITELOAD.html">SPRITELOAD</a> · <a class="el" href="SPRITEFREE.html">SPRITEFREE</a> · <a class="el" href="PLOTQUAD.html">PLOTQUAD</a> · <a class="el" href="AUTOFLIP.html">AUTOFLIP</a> · <a class="el" href="FLIP.html">FLIP</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -125,7 +125,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sat Sep 6 2025 02:14:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

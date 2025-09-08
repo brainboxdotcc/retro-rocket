@@ -30,4 +30,4 @@ END IF
 - The value updates only when `UDPREAD$` dequeues a packet.
 
 **See also:**  
-[UDPREAD$](https://github.com/brainboxdotcc/retro-rocket/wiki/UDPREAD) · [UDPLASTSOURCEPORT](https://github.com/brainboxdotcc/retro-rocket/wiki/UDPLASTSOURCEPORT)
+[UDPREAD$](https://github.com/brainboxdotcc/retro-rocket/wiki/UDPREAD) · \ref UDPLASTSOURCEPORT "UDPLASTSOURCEPORT"
