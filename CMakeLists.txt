@@ -110,7 +110,7 @@ set(MODULE_TARGETS "")
 set(MODULE_KO_FILES "")  # collect .ko outputs so ISO rule can depend on them
 foreach(mod ${MODULE_DIRS})
     if (IS_DIRECTORY ${CMAKE_SOURCE_DIR}/modules/${mod})
-        file(GLOB mod_srcs ${CMAKE_SOURCE_DIR}/modules/${mod}/*.c)
+        file(GLOB mod_srcs CONFIGURE_DEPENDS  ${CMAKE_SOURCE_DIR}/modules/${mod}/*.c)
         if (mod_srcs)
             # Compile module sources as an object target with large code model etc.
             add_library(mod_${mod} OBJECT ${mod_srcs})
@@ -122,11 +122,11 @@ foreach(mod ${MODULE_DIRS})
 
             # Link to a single ET_REL (.ko) using ld -r
             set(MOD_OUT ${CMAKE_BINARY_DIR}/iso/system/modules/${mod}.ko)
-            add_custom_command(OUTPUT ${MOD_OUT}
+            add_custom_command(
+                    OUTPUT  ${MOD_OUT}
                     COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/iso/system/modules
                     COMMAND ${CMAKE_LINKER} -r -o ${MOD_OUT} $<TARGET_OBJECTS:mod_${mod}>
-                    COMMAND ${CMAKE_COMMAND} -E touch ${MOD_OUT}
-                    DEPENDS mod_${mod}
+                    DEPENDS $<TARGET_OBJECTS:mod_${mod}>
                     VERBATIM
             )
 

@@ -316,11 +316,13 @@ bool e1000_start(pci_dev_t *pci_device) {
 
 	// Reject unsupported devices
 	if (e1000_device_id != E1000_82540EM && e1000_device_id != E1000_82541PI) {
+		dprintf("e1000: Attempt to start unsupported device ID\n");
 		return false;
 	}
 
 	if (e1000_detect_eeprom()) {
 		if (!e1000_read_mac_address()) {
+			dprintf("e1000: Failed to read device MAC\n");
 			return false;
 		}
 	} else {
@@ -390,6 +392,7 @@ bool e1000_start(pci_dev_t *pci_device) {
 
 	netdev_t *net = kmalloc(sizeof(netdev_t));
 	if (!net) {
+		dprintf("e1000: Out of memory\n");
 		interrupts_on();
 		return false;
 	}
@@ -426,6 +429,7 @@ void init_e1000() {
 		}
 	}
 	if (!found) {
+		dprintf("e1000: No compatible devices found\n");
 		return;
 	}
 	uint32_t ret = pci_read(pci_device, PCI_BAR0);
