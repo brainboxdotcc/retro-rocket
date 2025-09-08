@@ -224,25 +224,15 @@ int snprintf(char *buf, size_t max, const char *fmt, ...)
 	return rv;
 }
 
-int vprintf_help(unsigned c, [[maybe_unused]] void **ptr, [[maybe_unused]] const void* max)
+static inline int vprintf_help(unsigned c, [[maybe_unused]] void **ptr, [[maybe_unused]] const void* max)
 {
 	put(c);
 	return 0;
 }
 
-static char dprintf_format_buffer[MAX_STRINGLEN] = { 0 };
-static char* dprintf_buf_offset = dprintf_format_buffer;
-
-static void append_debug_buf(char x) {
-	if (dprintf_format_buffer >= dprintf_format_buffer && dprintf_buf_offset - dprintf_format_buffer < MAX_STRINGLEN - 1) {
-		*dprintf_buf_offset++ = x;
-	}
-}
-
-int dvprintf_help(unsigned c, [[maybe_unused]] void **ptr, [[maybe_unused]] const void* max)
+static inline int dvprintf_help(unsigned c, [[maybe_unused]] void **ptr, [[maybe_unused]] const void* max)
 {
 	dput(c);
-	//append_debug_buf(c);
 	return 0;
 }
 
@@ -259,26 +249,13 @@ int vprintf(const char *fmt, va_list args)
 
 int dvprintf(const char *fmt, va_list args)
 {
-
-	char counter[25];
+	char message[MAX_STRINGLEN], formatted[MAX_STRINGLEN];
+	int r = vsnprintf(message, MAX_STRINGLEN - 1, fmt, args);
 	uint64_t flags;
+	size_t len = snprintf(formatted, MAX_STRINGLEN, "[%lu]: %s", get_ticks(), message);
 	lock_spinlock_irq(&debug_console_spinlock, &flags);
-	//dprintf_buf_offset = dprintf_format_buffer;
-	//memset(dprintf_format_buffer, 0, sizeof(dprintf_format_buffer));
-	do_itoa(get_ticks(), counter, 10);
-	//append_debug_buf('[');
-	dput('[');
-	dputstring(counter);
-	//for (char* x = counter; *x; ++x) {
-	//	append_debug_buf(*x);
-	//}
-	dputstring("]: ");
-	//append_debug_buf(']');
-	//append_debug_buf(':');
-	//append_debug_buf(' ');
-	int r = do_printf(fmt, MAX_STRINGLEN, args, dvprintf_help, NULL);
-	//append_debug_buf(0);
-	//dprintf_buffer_append_line(dprintf_format_buffer, (uint64_t)dprintf_buf_offset - (uint64_t)&dprintf_format_buffer);
+	dprintf_buffer_append_line(formatted, len);
+	dputstring(formatted);
 	unlock_spinlock_irq(&debug_console_spinlock, flags);
 	return r;
 }

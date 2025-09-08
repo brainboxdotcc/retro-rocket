@@ -481,7 +481,6 @@ int alloc_filehandle(fs_handle_type_t type, fs_directory_entry_t* file, uint32_t
 /* Free a file descriptor */
 uint32_t destroy_filehandle(uint32_t descriptor)
 {
-	dprintf("destroy_filehandle(%d)\n", descriptor);
 	/* Sanity checks */
 	if (descriptor >= FD_MAX || filehandles[descriptor] == NULL) {
 		fs_set_error(FS_ERR_INVALID_FD);
@@ -517,8 +516,6 @@ fs_directory_entry_t* fs_create_file(const char* pathandfile, size_t bytes)
 		return NULL;
 	}
 
-	dprintf("fs_create_file '%s'\n", pathandfile);
-
 	if (!verify_path(pathandfile)) {
 		fs_set_error(FS_ERR_NO_SUCH_DIRECTORY);
 		return false;
@@ -540,8 +537,6 @@ fs_directory_entry_t* fs_create_file(const char* pathandfile, size_t bytes)
 	}
 	kfree_null(&pathinfo);
 
-	dprintf("vfs create: filename: %s pathname: %s\n", filename, pathname);
-
 	if (!filename || !pathname || !*filename) {
 		fs_set_error(FS_ERR_INVALID_FILEPATH);
 		return false;
@@ -562,7 +557,6 @@ fs_directory_entry_t* fs_create_file(const char* pathandfile, size_t bytes)
 	fs_directory_entry_t* fileinfo = find_file_in_dir(directory, filename);
 
 	if (fileinfo) {
-		dprintf("vfs create: file in %s already exists: %s\n", pathname, filename);
 		kfree_null(&pathname);
 		kfree_null(&filename);
 		fs_set_error(FS_ERR_FILE_EXISTS);
@@ -611,7 +605,6 @@ fs_directory_entry_t* fs_create_directory(const char* pathandfile)
 	fs_directory_entry_t* new_entry = NULL;
 
 	if (!verify_path(pathandfile)) {
-		dprintf("fs_create_directory: verify path and file failed: '%s'\n", pathandfile);
 		fs_set_error(FS_ERR_NO_SUCH_DIRECTORY);
 		return false;
 	}
@@ -633,7 +626,6 @@ fs_directory_entry_t* fs_create_directory(const char* pathandfile)
 	kfree_null(&pathinfo);
 
 	if (!filename || !pathname || !*filename) {
-		dprintf("Invalid filepath\n");
 		fs_set_error(FS_ERR_INVALID_FILEPATH);
 		return false;
 	}
@@ -645,7 +637,6 @@ fs_directory_entry_t* fs_create_directory(const char* pathandfile)
 	fs_tree_t* directory = walk_to_node(fs_tree, pathname);
 	if (!directory) {
 		fs_set_error(FS_ERR_NO_SUCH_DIRECTORY);
-		dprintf("fs_create_directory: walk_to_node '%s' failed\n", pathname);
 		kfree_null(&pathname);
 		kfree_null(&filename);
 		return false;
@@ -654,7 +645,6 @@ fs_directory_entry_t* fs_create_directory(const char* pathandfile)
 	fs_directory_entry_t* fileinfo = find_file_in_dir(directory, filename);
 
 	if (fileinfo) {
-		dprintf("vfs create dir: file in %s already exists: %s\n", pathname, filename);
 		kfree_null(&pathname);
 		kfree_null(&filename);
 		fs_set_error(FS_ERR_FILE_EXISTS);
@@ -665,7 +655,6 @@ fs_directory_entry_t* fs_create_directory(const char* pathandfile)
 		uint64_t lbapos = directory->responsible_driver->createdir(directory, filename);
 		/* Remove the deleted file from the fs_tree_t */
 		if (lbapos) {
-			dprintf("Driver createdirectory %lu\n", lbapos);
 			new_entry = kmalloc(sizeof(fs_directory_entry_t));
 			if (!new_entry) {
 				return NULL;
@@ -708,8 +697,6 @@ fs_directory_entry_t* fs_create_directory(const char* pathandfile)
 			new_dir->responsible_driver = directory->responsible_driver;
 			new_dir->size = 0;
 			directory->child_dirs = new_dir;
-		} else {
-			dprintf("driver createdirectory failed\n");
 		}
 	}
 	kfree_null(&pathname);
@@ -742,24 +729,18 @@ int _open(const char* filename, int oflag)
 		type = file_input;
 	}
 
-	dprintf("_open type: %d for file %s\n", type, filename);
-
 	file = fs_get_file_info(filename);
 	if (file == NULL && type == file_input) {
-		dprintf("open for input does not exist: %s\n", filename);
 		fs_set_error(FS_ERR_INVALID_FILEPATH);
 		return -1;
 	} else if (file == NULL && type != file_input) {
 		file = fs_create_file(filename, 0);
 	} else if (file != NULL && type == file_output) {
 		fs_truncate_file(file, 0);
-		dprintf("Open for output ONLY, existing file; truncated to 0\n");
 	}
 	if (file == NULL) {
 		return -1;
 	}
-
-	dprintf("_open file info obtained\n");
 
 	/* Allocate a file handle.
 	 */
@@ -769,11 +750,8 @@ int _open(const char* filename, int oflag)
 		return -1;
 	}
 
-	dprintf("_open alloc filehandle %d\n", fd);
-
 	filehandles[fd]->cached = 0;
 	if (type == file_random || type == file_input) {
-		dprintf("read into buffer pos=%ld sz=%ld buf=%lx\n", filehandles[fd]->seekpos, file->size <= filehandles[fd]->inbufsize ? file->size : filehandles[fd]->inbufsize, (uint64_t)filehandles[fd]->inbuf);
 		/* Read an initial buffer into the structure up to fd->inbufsize in size */
 		if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos, file->size <= filehandles[fd]->inbufsize ? file->size : filehandles[fd]->inbufsize, filehandles[fd]->inbuf)) {
 			/* If we couldn't get the initial buffer, there is something wrong.
@@ -788,8 +766,6 @@ int _open(const char* filename, int oflag)
 		}
 	}
 
-	dprintf("_open done\n");
-
 	/* Return the allocated file descriptor */
 	return fd;
 }
@@ -803,7 +779,6 @@ void flush_filehandle([[maybe_unused]] uint32_t descriptor)
 /* Close an open file descriptor */
 int _close(uint32_t descriptor)
 {
-	dprintf("_close(%d)\n", descriptor);
 	/* Sanity checks */
 	if (descriptor >= FD_MAX || filehandles[descriptor] == NULL) {
 		fs_set_error(FS_ERR_INVALID_FD);
@@ -942,7 +917,6 @@ int ftruncate(int fd, uint32_t length)
 		return -1;
 	}
 
-	dprintf("truncate() fs_truncate_file %d\n", length);
 	if (!fs_truncate_file(filehandles[fd]->file, length)) {
 		return -1;
 	}
@@ -960,7 +934,6 @@ int ftruncate(int fd, uint32_t length)
 /* Write bytes to an open file */
 int _write(int fd, void *buffer, unsigned int count)
 {
-	dprintf("_write()\n");
 	/* Sanity checks */
 	if (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL) {
 		fs_set_error(FS_ERR_INVALID_FD);
@@ -973,19 +946,16 @@ int _write(int fd, void *buffer, unsigned int count)
 		return -1;
 	}
 
-	dprintf("_write() fs_write_file %u\n", count);
 	if (!fs_write_file(filehandles[fd]->file, filehandles[fd]->seekpos, count, buffer)) {
 		return -1;
 	}
 
 	if (filehandles[fd]->seekpos >= filehandles[fd]->file->size) {
 		/* Underlying driver will extend file too */
-		dprintf("_write growing file from %lu to %lu\n", filehandles[fd]->file->size, filehandles[fd]->seekpos + count);
 		filehandles[fd]->file->size = filehandles[fd]->seekpos + count;
 	}
 
 	filehandles[fd]->seekpos += count;
-	dprintf("_write done\n");
 	return count;
 }
 
@@ -1580,18 +1550,14 @@ bool fs_is_directory(const char* path)
 	}
 	kfree_null(&pathinfo);
 
-	dprintf("FS_IS_DIRECTORY checking path='%s', pathpart='%s' filepart='%s'\n", path, pathname, filename);
-
 	fs_tree_t* item = walk_to_node(fs_tree, pathname);
 	if (item == NULL) {
-		dprintf("FS_IS_DIRECTORY: WALK TO NODE '%s' FAILED\n", pathname);
 		kfree_null(&filename);
 		kfree_null(&pathname);
 		return false;
 	}
 	for (fs_directory_entry_t* ent = item->files; ent; ent = ent->next) {
 		if (strcasecmp(ent->filename, filename) == 0) {
-			dprintf("FS_IS_DIRECTORY: path='%s' found file='%s' with flags '%u'\n", pathname, ent->filename, ent->flags);
 			kfree_null(&filename);
 			kfree_null(&pathname);
 			return (ent->flags & FS_DIRECTORY) != 0;
@@ -1604,7 +1570,7 @@ bool fs_is_directory(const char* path)
 
 int filesystem_mount(const char* pathname, const char* device, const char* filesystem_driver)
 {
-	dprintf("filesystem_mount(%s, %s, %s)\n", pathname, device ? device : "(null)", filesystem_driver);
+	dprintf("filesystem_mount(%s, %s, %s)\n", pathname, device && *device ? device : "(null)", filesystem_driver);
 	filesystem_t *driver = find_filesystem(filesystem_driver);
 	int success = (driver && driver->mount(device, pathname));
 	kprintf(
@@ -1620,7 +1586,7 @@ int filesystem_mount(const char* pathname, const char* device, const char* files
 }
 
 const char *fs_strerror(fs_error_t err) {
-	if (err >= 0 && err < (sizeof(fs_error_strings) / sizeof(fs_error_strings[0]))) {
+	if (err < (sizeof(fs_error_strings) / sizeof(fs_error_strings[0]))) {
 		return fs_error_strings[err];
 	}
 	return "Unknown filesystem error";

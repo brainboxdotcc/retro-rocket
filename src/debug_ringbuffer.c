@@ -169,6 +169,7 @@ char *dprintf_buffer_snapshot(void) {
 
 	/* +1 for null terminator */
 	char *out = kmalloc(used + 1);
+	memset(out, 0, used + 1);
 	if (!out) {
 		return NULL;
 	}

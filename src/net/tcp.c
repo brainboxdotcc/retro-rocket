@@ -984,7 +984,6 @@ bool tcp_state_machine(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_co
  */
 void tcp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, tcp_segment_t* segment, size_t len)
 {
-	dprintf("tcp_handle_packet\n");
 	tcp_options_t options;
 	uint16_t our_checksum = tcp_calculate_checksum(encap_packet, segment, len);
 	tcp_byte_order_in(segment);
