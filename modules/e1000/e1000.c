@@ -2,15 +2,15 @@
 #include "e1000.h"
 #include <mmio.h>
 
-static uint8_t bar_type = 0;		// Type of BAR0
-static uint16_t io_base = 0;		// IO Base Address
-static uint64_t mem_base = 0;		// MMIO Base Address
-static bool eerprom_exists = false;	// A flag indicating if eeprom exists
-static uint8_t mac[6] = {0};		// A buffer for storing the mack address
-static e1000_rx_desc_t *rx_descs[E1000_NUM_RX_DESC]; // Receive Descriptor Buffers
-static e1000_tx_desc_t *tx_descs[E1000_NUM_TX_DESC]; // Transmit Descriptor Buffers
-static uint16_t rx_cur = 0;		// Current Receive Descriptor Buffer
-static uint16_t tx_cur = 0;		// Current Transmit Descriptor Buffer
+static uint8_t bar_type = 0;				// Type of BAR0
+static uint16_t io_base = 0;				// IO Base Address
+static uint64_t mem_base = 0;				// MMIO Base Address
+static bool eerprom_exists = false;			// A flag indicating if eeprom exists
+static uint8_t mac[6] = {0};				// A buffer for storing the mack address
+static e1000_rx_desc_t *rx_descs[E1000_NUM_RX_DESC];	// Receive Descriptor Buffers
+static e1000_tx_desc_t *tx_descs[E1000_NUM_TX_DESC];	// Transmit Descriptor Buffers
+static uint16_t rx_cur = 0;				// Current Receive Descriptor Buffer
+static uint16_t tx_cur = 0;				// Current Transmit Descriptor Buffer
 
 static void *tx_buffers[E1000_NUM_TX_DESC];
 
@@ -49,7 +49,6 @@ bool e1000_detect_eeprom() {
 	}
 	return eerprom_exists;
 }
-
 
 
 uint32_t e1000_read_eeprom(uint8_t addr) {
@@ -103,8 +102,8 @@ void e1000_receive_init() {
 	struct e1000_rx_desc *descs;
 
 	uint8_t *ptr = (uint8_t *) kmalloc_low(sizeof(e1000_rx_desc_t) * E1000_NUM_RX_DESC + 16);
-	uintptr_t aligned = ((uintptr_t)ptr + 15) & ~(uintptr_t)0x0F;
-	descs = (struct e1000_rx_desc *)aligned;
+	uintptr_t aligned = ((uintptr_t) ptr + 15) & ~(uintptr_t) 0x0F;
+	descs = (struct e1000_rx_desc *) aligned;
 
 	memset(descs, 0, sizeof(e1000_rx_desc_t) * E1000_NUM_RX_DESC);
 
@@ -112,13 +111,13 @@ void e1000_receive_init() {
 		rx_descs[i] = (e1000_rx_desc_t *) ((uint8_t *) descs + i * 16);
 		void *raw_buf = kmalloc_low(8192 + 16);
 		memset(raw_buf, 0, 8192 + 16);
-		uintptr_t aligned_buf = ((uintptr_t)raw_buf + 15) & ~((uintptr_t)15);
-		rx_descs[i]->addr = (uint64_t)aligned_buf;
+		uintptr_t aligned_buf = ((uintptr_t) raw_buf + 15) & ~((uintptr_t) 15);
+		rx_descs[i]->addr = (uint64_t) aligned_buf;
 		rx_descs[i]->status = 0;
 	}
 
-	e1000_write_command(REG_RXDESCLO, (uint32_t)(aligned & 0xFFFFFFFF));
-	e1000_write_command(REG_RXDESCHI, (uint32_t)(aligned >> 32));
+	e1000_write_command(REG_RXDESCLO, (uint32_t) (aligned & 0xFFFFFFFF));
+	e1000_write_command(REG_RXDESCHI, (uint32_t) (aligned >> 32));
 
 	e1000_write_command(REG_RXDESCLEN, E1000_NUM_RX_DESC * 16);
 
@@ -141,14 +140,13 @@ void e1000_transmit_init() {
 
 	for (int i = 0; i < E1000_NUM_TX_DESC; i++) {
 		tx_descs[i] = (e1000_tx_desc_t *) ((uint8_t *) descs + i * 16);
-		tx_descs[i] = (e1000_tx_desc_t *)((uint8_t *)descs + i * 16);
-		tx_descs[i]->addr   = 0;
-		tx_descs[i]->cmd    = 0;
-		tx_descs[i]->status = TSTA_DD;   // available
+		tx_descs[i]->addr = 0;
+		tx_descs[i]->cmd = 0;
+		tx_descs[i]->status = TSTA_DD;
 		tx_descs[i]->length = 0;
-		tx_descs[i]->cso    = 0;
-		tx_descs[i]->css    = 0;
-		tx_descs[i]->special= 0;
+		tx_descs[i]->cso = 0;
+		tx_descs[i]->css = 0;
+		tx_descs[i]->special = 0;
 	}
 
 	for (int i = 0; i < E1000_NUM_TX_DESC; i++) {
@@ -161,8 +159,8 @@ void e1000_transmit_init() {
 	}
 
 	/* Program TX ring base to the ALIGNED address. */
-	e1000_write_command(REG_TXDESCLO, (uint32_t)(aligned & 0xFFFFFFFF));
-	e1000_write_command(REG_TXDESCHI, (uint32_t)(aligned >> 32));
+	e1000_write_command(REG_TXDESCLO, (uint32_t) (aligned & 0xFFFFFFFF));
+	e1000_write_command(REG_TXDESCHI, (uint32_t) (aligned >> 32));
 
 
 	//now setup total length of descriptors
@@ -188,7 +186,7 @@ void e1000_handle_receive() {
 		dprintf("No rx_desc[rx_cur]\n");
 		return;
 	}
-	netdev_t* dev = get_active_network_device();
+	netdev_t *dev = get_active_network_device();
 	if (!dev || dev->deviceid != ((INTEL_VEND << 16) | e1000_device_id)) {
 		dprintf("invalid dev in handle receive\n");
 		return;
@@ -235,12 +233,12 @@ bool e1000_send_packet(void *p_data, uint16_t p_len) {
 	// Copy the data into the pre-allocated <4GiB DMA-safe buffer
 	memcpy(tx_buffers[tx_cur], p_data, p_len);
 
-	tx_descs[tx_cur]->length  = p_len;
-	tx_descs[tx_cur]->cso     = 0;
-	tx_descs[tx_cur]->css     = 0;
+	tx_descs[tx_cur]->length = p_len;
+	tx_descs[tx_cur]->cso = 0;
+	tx_descs[tx_cur]->css = 0;
 	tx_descs[tx_cur]->special = 0;
-	tx_descs[tx_cur]->cmd     = CMD_EOP | CMD_IFCS | CMD_RS;
-	tx_descs[tx_cur]->status  = 0;
+	tx_descs[tx_cur]->cmd = CMD_EOP | CMD_IFCS | CMD_RS;
+	tx_descs[tx_cur]->status = 0;
 
 	// Advance the tail
 	uint16_t old_cur = tx_cur;
@@ -268,11 +266,21 @@ void e1000_up() {
  * IRQ handler (MSI)
  * @return
  */
-void e1000_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t error, [[maybe_unused]] uint64_t irq, void* opaque) {
-	uint32_t status = e1000_read_command(REG_ICR);
-	if (status & ICR_RXT0) {
-		e1000_handle_receive();
-	}
+void e1000_handler([[maybe_unused]
+
+]
+uint8_t isr,
+[[maybe_unused]]
+uint64_t error,
+[[maybe_unused]]
+uint64_t irq,
+void *opaque
+) {
+uint32_t status = e1000_read_command(REG_ICR);
+if (status & ICR_RXT0) {
+e1000_handle_receive();
+
+}
 }
 
 void e1000_enable_interrupts() {
@@ -316,7 +324,7 @@ bool e1000_start(pci_dev_t *pci_device) {
 			return false;
 		}
 	} else {
-		uint8_t *mem_base_mac = (uint8_t *)(mem_base + 0x5400);
+		uint8_t *mem_base_mac = (uint8_t *) (mem_base + 0x5400);
 		for (int i = 0; i < 6; ++i) {
 			mac[i] = mem_base_mac[i];
 		}
@@ -380,7 +388,7 @@ bool e1000_start(pci_dev_t *pci_device) {
 
 	kprintf("e1000: MAC %02x:%02x:%02x:%02x:%02x:%02x\n", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
 
-	netdev_t* net = kmalloc(sizeof(netdev_t));
+	netdev_t *net = kmalloc(sizeof(netdev_t));
 	if (!net) {
 		interrupts_on();
 		return false;
@@ -409,7 +417,7 @@ void init_e1000() {
 	bool found = false;
 
 	// Try supported devices only
-	const uint16_t supported[] = { E1000_82540EM, E1000_82541PI };
+	const uint16_t supported[] = {E1000_82540EM, E1000_82541PI};
 	for (size_t i = 0; i < sizeof(supported) / sizeof(supported[0]); i++) {
 		pci_device = pci_get_device(INTEL_VEND, supported[i], -1);
 		if (!pci_not_found(pci_device)) {
