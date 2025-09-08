@@ -1,0 +1,33 @@
+IF ARGS$ = "" THEN
+    PRINT "File name not specified"
+    END
+ENDIF
+FILE$ = TOKENIZE$(ARGS$, " ")
+SEARCH$ = LOWER$(ARGS$) ' Everything that remains
+FH = OPENIN(FILE$)
+IF FH < 0 THEN
+    PRINT "Unable to open file: "; FILE$
+    END
+ENDIF
+LS$ = ""
+LN = 1
+F = 0
+REPEAT
+    BYTE = READ(FH)
+    LS$ = LS$ + CHR$(BYTE)
+    IF BYTE = 10 THEN
+        IF INSTR(LOWER$(LS$), SEARCH$) > 0 THEN
+        PRINT LN; ":", LS$;
+            F = F + 1
+        ENDIF
+        LS$=""
+        LN = LN + 1
+    ENDIF
+UNTIL EOF(FH) = 1
+CLOSE FH
+IF F > 0 THEN
+    PRINT ""
+    PRINT F; " matches found."
+ELSE
+    PRINT "No matches found."
+ENDIF
