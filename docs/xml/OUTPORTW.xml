@@ -11,7 +11,7 @@
 <para>Writes the low <bold>16 bits</bold> of <computeroutput>value</computeroutput> to <computeroutput>port</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect3 id="OUTPORTW_1autotoc_md367">
+<sect3 id="OUTPORTW_1autotoc_md354">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Writes two bytes as a word to the port.</para>
@@ -21,7 +21,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="OUTPORTW_1autotoc_md369">
+<sect3 id="OUTPORTW_1autotoc_md356">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Write<sp/>a<sp/>word<sp/>to<sp/>ATA<sp/>data<sp/>port</highlight></codeline>
 <codeline><highlight class="normal">OUTPORTW<sp/>&amp;1F0,<sp/>&amp;1234</highlight></codeline>
@@ -29,7 +29,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="OUTPORTW_1autotoc_md371">
+<sect3 id="OUTPORTW_1autotoc_md358">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Only use when the port supports 16-bit writes.</para>

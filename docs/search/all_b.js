@@ -1,5 +1,30 @@
 var searchData=
 [
-  ['joliet_2345',['joliet',['../structiso9660.html#a63fd07800cf31658024670de2a20a168',1,'iso9660']]],
-  ['jump_5flinenum_2346',['jump_linenum',['../context_8h.html#aa2c73bceaa056ea01125ef6fdfce922e',1,'jump_linenum(int64_t linenum, struct basic_ctx *ctx):&#160;main.c'],['../basic_2main_8c.html#aa2c73bceaa056ea01125ef6fdfce922e',1,'jump_linenum(int64_t linenum, struct basic_ctx *ctx):&#160;main.c']]]
+  ['lcpuid_20function_253',['LCPUID Function',['../LCPUID.html',1,'int-funcs']]],
+  ['lcpuid_2emd_254',['LCPUID.md',['../LCPUID_8md.html',1,'']]],
+  ['left_24_20function_255',['LEFT$ Function',['../LEFT.html',1,'string-funcs']]],
+  ['left_2emd_256',['LEFT.md',['../LEFT_8md.html',1,'']]],
+  ['len_20function_257',['LEN Function',['../LEN.html',1,'int-funcs']]],
+  ['len_2emd_258',['LEN.md',['../LEN_8md.html',1,'']]],
+  ['let_20keyword_259',['LET Keyword',['../LET.html',1,'keywords']]],
+  ['let_2emd_260',['LET.md',['../LET_8md.html',1,'']]],
+  ['lgetlastcpuid_20function_261',['LGETLASTCPUID Function',['../LGETLASTCPUID.html',1,'int-funcs']]],
+  ['lgetlastcpuid_2emd_262',['LGETLASTCPUID.md',['../LGETLASTCPUID_8md.html',1,'']]],
+  ['libraries_263',['Libraries',['../libraries.html',1,'basic-ref']]],
+  ['library_20keyword_264',['LIBRARY Keyword',['../LIBRARY.html',1,'keywords']]],
+  ['library_2emd_265',['LIBRARY.md',['../LIBRARY_8md.html',1,'']]],
+  ['line_20keyword_266',['LINE Keyword',['../LINE.html',1,'keywords']]],
+  ['line_2emd_267',['LINE.md',['../LINE_8md.html',1,'']]],
+  ['list_20command_268',['list command',['../list.html',1,'commands']]],
+  ['list_2emd_269',['list.md',['../list_8md.html',1,'']]],
+  ['ljust_24_20function_270',['LJUST$ Function',['../LJUST.html',1,'string-funcs']]],
+  ['ljust_2emd_271',['LJUST.md',['../LJUST_8md.html',1,'']]],
+  ['local_20keyword_272',['LOCAL Keyword',['../LOCAL.html',1,'keywords']]],
+  ['local_2emd_273',['LOCAL.md',['../LOCAL_8md.html',1,'']]],
+  ['log_20function_274',['LOG Function',['../LOG.html',1,'real-funcs']]],
+  ['log_2emd_275',['LOG.md',['../LOG_8md.html',1,'']]],
+  ['lower_24_20function_276',['LOWER$ Function',['../LOWER.html',1,'string-funcs']]],
+  ['lower_2emd_277',['LOWER.md',['../LOWER_8md.html',1,'']]],
+  ['ltrim_24_20function_278',['LTRIM$ Function',['../LTRIM.html',1,'string-funcs']]],
+  ['ltrim_2emd_279',['LTRIM.md',['../LTRIM_8md.html',1,'']]]
 ];

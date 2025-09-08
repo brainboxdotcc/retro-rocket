@@ -10,7 +10,7 @@
 <para>This readme is aimed at C developers and language tinkerers. It explains the design of Retro Rocket BASIC: how it parses and executes programs, how types behave, how control flow is implemented, and why the runtime is cooperative rather than preemptive. It’s intentionally narrative and stable over time.</para>
 <para><hruler/>
 </para>
-<sect2 id="basic-intdev_1autotoc_md14">
+<sect2 id="basic-intdev_1autotoc_md1">
 <title>Why this interpreter exists</title>
 <para>Retro Rocket BASIC is meant to be <bold>small, predictable, and easy to reason about</bold>. It lives inside a kernel-ish environment and talks directly to the host (console, files, sockets, graphics). The priority is <bold>clarity over machinery</bold>:</para>
 <para><itemizedlist>
@@ -24,14 +24,14 @@
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="basic-intdev_1autotoc_md16">
+<sect2 id="basic-intdev_1autotoc_md3">
 <title>Big picture</title>
 <para>The program is kept as a single text buffer of numbered lines. The tokenizer reads directly from that buffer and yields tokens. Each line is executed by a <bold>statement dispatcher</bold> that switches on the current token and performs the action immediately. Expressions are evaluated by a <bold>hand-written precedence parser</bold> that returns a <emphasis>typed</emphasis> value (int, real, or string). Control flow is implemented by moving pointers back and forth in the original text rather than running bytecode.</para>
 <para>That single-pass feel is the core of the design: <bold>parse just enough to do the work now</bold>, then move the pointer and carry on.</para>
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="basic-intdev_1autotoc_md18">
+<sect2 id="basic-intdev_1autotoc_md5">
 <title>Parsing model: hand-written, no AST</title>
 <para>The interpreter uses a hand-written tokenizer and a recursive-descent expression parser. There is <bold>no parse tree</bold> and <bold>no intermediate representation</bold>. The advantages are practical:</para>
 <para><itemizedlist>
@@ -45,7 +45,7 @@
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="basic-intdev_1autotoc_md20">
+<sect2 id="basic-intdev_1autotoc_md7">
 <title>Line numbering, auto-number, and execution</title>
 <para>Retro Rocket BASIC <bold>encourages (and for libraries, requires)</bold> source files <bold>without</bold> explicit line numbers. On load, a pre-pass (<computeroutput>auto_number</computeroutput>) scans the raw text and <bold>synthesizes monotonically increasing line numbers</bold> (e.g., 10, 20, 30, …) into the in-memory buffer. From that point on, the interpreter treats the program as numbered.</para>
 <para>Why this way?</para>
@@ -73,7 +73,7 @@ If you insist on writing explicit numbers, the tokenizer will accept them, but i
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="basic-intdev_1autotoc_md22">
+<sect2 id="basic-intdev_1autotoc_md9">
 <title>The expression engine: typed, predictable</title>
 <para>Expressions are parsed with classic precedence: factors → unary ± → <computeroutput>* / MOD</computeroutput> → <computeroutput>+ -</computeroutput> (also concatenation) → relations → boolean <computeroutput>NOT/AND/OR</computeroutput>.</para>
 <para>Key rules:</para>
@@ -89,13 +89,13 @@ If you insist on writing explicit numbers, the tokenizer will accept them, but i
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="basic-intdev_1autotoc_md24">
+<sect2 id="basic-intdev_1autotoc_md11">
 <title>Names, keywords, and performance hints</title>
 <para>Keywords are kept in alphabetical order so the tokenizer can bail early when scanning. Variables are conventional BASIC names with optional <computeroutput>$</computeroutput> or <computeroutput>#</computeroutput> suffixes. The interpreter stores <emphasis>three</emphasis> symbol lists, one per type, and one stack of “locals” per call depth for each type.</para>
 <para>A small optimization matters here: <bold>move-to-front</bold> on lookup hits. Hot names (loop counters, accumulators, common strings) migrate to the head of the list, which keeps lookup costs low without pulling in a full hash table.</para>
 <para><hruler/>
 </para>
-<sect3 id="basic-intdev_1autotoc_md26">
+<sect3 id="basic-intdev_1autotoc_md13">
 <title>Memory &amp; allocator model</title>
 <para>Retro Rocket BASIC keeps memory management <bold>deterministic</bold> on purpose. There’s no tracing GC, no background compaction, and no “surprise” pauses. Instead, the interpreter uses a small set of arenas backed by a buddy allocator and ties lifetime directly to program structure (globals vs. call frames).</para>
 <para>At the top level, a BASIC program runs inside a single interpreter context that owns a <bold>global arena</bold>. Anything that should live for the duration of the program. Global variables, the pre-parsed <computeroutput>DEF PROC/FN</computeroutput> table, the line index, and other long-lived structures reside here. Strings are always <bold>copied into interpreter ownership</bold> when they enter the runtime: built-ins that return text use an internal <computeroutput>gc_strdup</computeroutput> equivalent so the caller never receives a pointer to transient storage. Reassigning a string variable transparently frees the old value and stores a new owned copy; the same rule holds for string array elements when you overwrite a slot. You don’t free these yourself. Ownership is the interpreter’s.</para>
@@ -108,7 +108,7 @@ If you insist on writing explicit numbers, the tokenizer will accept them, but i
 </para>
 </sect3>
 </sect2>
-<sect2 id="basic-intdev_1autotoc_md28">
+<sect2 id="basic-intdev_1autotoc_md15">
 <title>Program lifecycle &amp; scheduler handshake</title>
 <para>Retro Rocket BASIC is driven <bold>one line at a time</bold>. The host scheduler repeatedly invokes the interpreter’s “run step”; each call is expected to execute <bold>exactly one atomic line</bold> parse the line label, execute one statement, and return or to <emphasis>yield</emphasis> early if the statement can’t complete yet. This simple contract gives you <bold>language-level pre-emption</bold> without threads: the OS interleaves BASIC with other work by round-robin calling the run step on runnable processes.</para>
 <para><bold>Startup.</bold> When a program is loaded, the source is <bold>auto-numbered</bold> if it doesn’t already carry line numbers (this is encouraged for programs and <bold>required for libraries</bold>). A fast index from line number to position in the text buffer is built, and procedure/function headers are recorded with their names, parameters, and defining lines. System variables (PID, screen geometry, <computeroutput>PI#</computeroutput>, <computeroutput>E#</computeroutput>, vendor strings, …) are seeded into the initial context.</para>
@@ -131,7 +131,7 @@ If you insist on writing explicit numbers, the tokenizer will accept them, but i
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="basic-intdev_1autotoc_md30">
+<sect2 id="basic-intdev_1autotoc_md17">
 <title>Procedures and functions</title>
 <para>User code can define <computeroutput>PROC</computeroutput>edures and <computeroutput>FN</computeroutput>s. A quick pre-pass indexes their names, parameter lists, and line numbers. Calls then:</para>
 <para><orderedlist>
@@ -146,14 +146,14 @@ If you insist on writing explicit numbers, the tokenizer will accept them, but i
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="basic-intdev_1autotoc_md32">
+<sect2 id="basic-intdev_1autotoc_md19">
 <title>Control flow without a compiler</title>
 <para>Structured constructs (<computeroutput>IF/ELSE/ENDIF</computeroutput>, <computeroutput>WHILE/ENDWHILE</computeroutput>, <computeroutput>REPEAT/UNTIL</computeroutput>) are implemented by scanning the token stream with a small depth counter to find the matching close token, then jumping to the recorded line number. Unstructured <computeroutput>GOTO/GOSUB/RETURN</computeroutput> just use the line map.</para>
 <para>This keeps the implementation lightweight while preserving the constructs people expect.</para>
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="basic-intdev_1autotoc_md34">
+<sect2 id="basic-intdev_1autotoc_md21">
 <title>Cooperative runtime: statements yield</title>
 <para>The runtime is <bold>cooperative</bold>. Any statement that would block, waiting for a keypress, a socket, or a timer, <bold>yields</bold>:</para>
 <para><itemizedlist>
@@ -167,7 +167,7 @@ If you insist on writing explicit numbers, the tokenizer will accept them, but i
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="basic-intdev_1autotoc_md36">
+<sect2 id="basic-intdev_1autotoc_md23">
 <title>Error handling you can script</title>
 <para>All errors go through one place. The interpreter sets:</para>
 <para><itemizedlist>
@@ -184,7 +184,7 @@ If you insist on writing explicit numbers, the tokenizer will accept them, but i
 </listitem></itemizedlist>
 </para>
 <para>The important bit is that the interpreter never prints behind your back; user code decides what to do with error state.</para>
-<sect3 id="basic-intdev_1autotoc_md37">
+<sect3 id="basic-intdev_1autotoc_md24">
 <title>Ctrl+Esc (“Escape”) semantics</title>
 <para>Retro Rocket BASIC treats <bold>Ctrl+Esc</bold> as a <bold>user-initiated error</bold>, exactly like pressing <bold>ESC</bold> on a BBC Micro. It is <bold>not</bold> a silent wake-up: it <bold>bubbles up to the main run loop</bold>, which emits the error <bold>“Escape”</bold> through the normal tokenizer error path.</para>
 <para><bold>What the interpreter does</bold></para>
@@ -208,7 +208,7 @@ If you insist on writing explicit numbers, the tokenizer will accept them, but i
 </para>
 <para><bold>How the signal is detected</bold></para>
 <para><itemizedlist>
-<listitem><para>The keystroke sets an internal <bold>escape latch</bold> (<computeroutput><ref refid="console_8h_1ac7bb6804126a4bedcc4a9c7b43f7ca1f" kindref="member">basic_esc()</ref></computeroutput>).</para>
+<listitem><para>The keystroke sets an internal <bold>escape latch</bold> (<computeroutput>basic_esc()</computeroutput>).</para>
 </listitem><listitem><para>Long-latency statements (e.g., <computeroutput>INPUT</computeroutput>, <computeroutput>SLEEP</computeroutput>, <computeroutput>SOCKREAD</computeroutput>) poll this latch via their <bold>idle callbacks</bold>. When asserted, the idle callback stops waiting, control returns to the run loop, and the run loop converts the latch into the <computeroutput>&quot;Escape&quot;</computeroutput> error.</para>
 </listitem><listitem><para>Between ordinary statements, the run loop also checks the latch, so tight loops without blocking will still trap at the <bold>next statement boundary</bold>.</para>
 </listitem></itemizedlist>
@@ -222,7 +222,7 @@ If you insist on writing explicit numbers, the tokenizer will accept them, but i
 </para>
 <para><bold>Contributor guidelines</bold></para>
 <para><itemizedlist>
-<listitem><para>Any new blocking/idle statement must <bold>poll <computeroutput><ref refid="console_8h_1ac7bb6804126a4bedcc4a9c7b43f7ca1f" kindref="member">basic_esc()</ref></computeroutput></bold> in its wait predicate so Ctrl+Esc can be honored promptly.</para>
+<listitem><para>Any new blocking/idle statement must <bold>poll <computeroutput>basic_esc()</computeroutput></bold> in its wait predicate so Ctrl+Esc can be honored promptly.</para>
 </listitem><listitem><para>Do <bold>not</bold> swallow or “handle” the escape inside a built-in; let it bubble to the run loop so <computeroutput>ERR/ERR$/ERRLINE</computeroutput> and <computeroutput>ON ERROR PROC</computeroutput> behave consistently.</para>
 </listitem><listitem><para>Remember: <computeroutput>ERR$</computeroutput> is <bold>sticky</bold>. Once set non-empty it won’t be overwritten by subsequent errors until explicitly cleared to the empty string.</para>
 </listitem></itemizedlist>
@@ -230,7 +230,7 @@ If you insist on writing explicit numbers, the tokenizer will accept them, but i
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="basic-intdev_1autotoc_md39">
+<sect3 id="basic-intdev_1autotoc_md26">
 <title>Arrays &amp; list-like operations</title>
 <para>Arrays in Retro Rocket BASIC are deliberately <bold>simple, typed vectors</bold>. One dimension, fixed length, and the same <computeroutput>$/#/int</computeroutput> suffix rules as scalars. You create them with <computeroutput>DIM</computeroutput>, you can change their length with <computeroutput>REDIM</computeroutput>, and you index them with an integer expression. That’s it. No hidden growth, no iterators, no surprises.</para>
 <para>An array’s <bold>type is part of its name</bold>: <computeroutput>A()</computeroutput> holds integers, <computeroutput>R#()</computeroutput> holds reals, <computeroutput>S$()</computeroutput> holds strings. Index expressions are evaluated by the expression engine and treated as integers; out-of-range indices raise a normal runtime error (which you can catch with <computeroutput>ON ERROR PROC …</computeroutput>). Because arrays are first-class variables, they obey the same <bold>scope and lifetime</bold> rules: locals live for the duration of the current <computeroutput>PROC</computeroutput>/<computeroutput>FN</computeroutput> frame; globals persist for the program’s life.</para>
@@ -248,14 +248,14 @@ If you insist on writing explicit numbers, the tokenizer will accept them, but i
 </para>
 </sect3>
 </sect2>
-<sect2 id="basic-intdev_1autotoc_md41">
+<sect2 id="basic-intdev_1autotoc_md28">
 <title>Reflection and scope in one paragraph</title>
 <para>The interpreter lets code ask for or set variables by name (<computeroutput>GETVAR*</computeroutput>, <computeroutput>SETVAR*</computeroutput>, <computeroutput>EXISTSVAR*</computeroutput>). This is implemented atop the same per-type symbol lists used for normal access. <computeroutput>LOCAL</computeroutput> and <computeroutput>GLOBAL</computeroutput> on assignments pick the destination list; lookups search the local stack from the current frame outward and then globals. On a hit, the node is moved to the front for locality.</para>
 <para>It’s a tiny model, but it covers parameters, locals, globals, and reflective tools consistently.</para>
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="basic-intdev_1autotoc_md43">
+<sect2 id="basic-intdev_1autotoc_md30">
 <title>Graphics as a case study in philosophy</title>
 <para>The graphics path shows the general approach: a <bold>simple fast path</bold> for the common case and a <bold>precise slow path</bold> for the interesting one.</para>
 <para><itemizedlist>
@@ -269,7 +269,7 @@ If you insist on writing explicit numbers, the tokenizer will accept them, but i
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="basic-intdev_1autotoc_md45">
+<sect2 id="basic-intdev_1autotoc_md32">
 <title>How this differs from other approaches</title>
 <para><itemizedlist>
 <listitem><para><bold>Compared to AST/bytecode VMs (Lua, MicroPython):</bold> This interpreter prioritizes <emphasis>traceability</emphasis> over optimization. There’s no IR, no VM, and no GC in the hot path. You pay with fewer global optimizations, but you gain a debugger-friendly, step-through-the-grammar experience and a much smaller surface area.</para>
@@ -280,7 +280,7 @@ If you insist on writing explicit numbers, the tokenizer will accept them, but i
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="basic-intdev_1autotoc_md47">
+<sect2 id="basic-intdev_1autotoc_md34">
 <title>What this design buys you</title>
 <para><itemizedlist>
 <listitem><para><bold>Mechanical sympathy.</bold> Jumps are pointer rewrites; hot names stay hot; the memory model is simple.</para>
@@ -298,7 +298,7 @@ If you insist on writing explicit numbers, the tokenizer will accept them, but i
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="basic-intdev_1autotoc_md49">
+<sect2 id="basic-intdev_1autotoc_md36">
 <title>If you want to extend it</title>
 <para>The safest way to think about extensions is:</para>
 <para><orderedlist>

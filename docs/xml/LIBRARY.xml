@@ -39,7 +39,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="LIBRARY_1autotoc_md319">
+<sect3 id="LIBRARY_1autotoc_md306">
 <title>Examples</title>
 <para><bold>Load a library from <computeroutput>LIB$</computeroutput> and call its code</bold> <programlisting filename=".basic"><codeline><highlight class="normal">LIBRARY<sp/>LIB$<sp/>+<sp/>&quot;/ansi&quot;</highlight></codeline>
 <codeline><highlight class="normal">PROCansi_demo</highlight></codeline>
@@ -59,7 +59,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="LIBRARY_1autotoc_md321">
+<sect3 id="LIBRARY_1autotoc_md308">
 <title>Errors and behaviour</title>
 <para><itemizedlist>
 <listitem><para>If the library file <bold>cannot be found or loaded</bold>, a runtime error is raised (catch with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink> if needed).</para>

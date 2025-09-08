@@ -13,7 +13,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="OUTPORTQ_1autotoc_md361">
+<sect3 id="OUTPORTQ_1autotoc_md348">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Writes eight bytes as a 64-bit value to the port.</para>
@@ -22,7 +22,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="OUTPORTQ_1autotoc_md363">
+<sect3 id="OUTPORTQ_1autotoc_md350">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Example<sp/>64-bit<sp/>port<sp/>write</highlight></codeline>
 <codeline><highlight class="normal">OUTPORTQ<sp/>&amp;1234,<sp/>&amp;0123456789ABCDEF</highlight></codeline>
@@ -30,7 +30,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="OUTPORTQ_1autotoc_md365">
+<sect3 id="OUTPORTQ_1autotoc_md352">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Rare in practice; most hardware uses MMIO or smaller port widths.</para>

@@ -93,7 +93,7 @@ $(document).ready(function(){initNavTree('PEEK.html',''); initResizable(); });
 </div><!-- fragment --><p>Reads a <b>single byte</b> from the specified memory <code>address</code> and returns it as an integer (0–255).</p>
 <dl class="section note"><dt>Note</dt><dd><code>PEEK</code> reads only from <b>mapped</b> memory. If <code>address</code> (or any byte it touches) is not permitted by the system memory map, an error is raised: <code>Bad Address at &lt;address&gt;</code>.</dd></dl>
 <hr  />
-<h3><a class="anchor" id="autotoc_md95"></a>
+<h3><a class="anchor" id="autotoc_md82"></a>
 How to read it</h3>
 <ul>
 <li>Think of <code>PEEK(addr)</code> as <b>“load 8-bit from RAM/MMIO at <code>addr</code>”</b>.</li>
@@ -101,7 +101,7 @@ How to read it</h3>
 <li>Values are read <b>little-endian</b>.</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md97"></a>
+<h3><a class="anchor" id="autotoc_md84"></a>
 Examples</h3>
 <div class="fragment"><div class="line">REM Read three consecutive bytes</div>
 <div class="line">BASE = &amp;100000</div>
@@ -112,7 +112,7 @@ Examples</h3>
 <div class="line">STATUS = PEEK(&amp;200000)</div>
 <div class="line">IF (STATUS AND 1) &lt;&gt; 0 THEN PRINT &quot;Ready&quot;</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md99"></a>
+<h3><a class="anchor" id="autotoc_md86"></a>
 Notes</h3>
 <ul>
 <li>The accessed range must be valid according to the boot-time memory map.</li>
@@ -127,7 +127,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 16:11:29 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

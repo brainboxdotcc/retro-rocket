@@ -1,4 +1,26 @@
 var searchData=
 [
-  ['queue_2ec_5299',['queue.c',['../queue_8c.html',1,'']]]
+  ['rad_2emd_695',['RAD.md',['../RAD_8md.html',1,'']]],
+  ['radix_2emd_696',['RADIX.md',['../RADIX_8md.html',1,'']]],
+  ['radixs_2emd_697',['RADIXS.md',['../RADIXS_8md.html',1,'']]],
+  ['ramdisk_2emd_698',['RAMDISK.md',['../RAMDISK_8md.html',1,'']]],
+  ['real_2emd_699',['Real.md',['../Real_8md.html',1,'']]],
+  ['realval_2emd_700',['REALVAL.md',['../REALVAL_8md.html',1,'']]],
+  ['rectangle_2emd_701',['RECTANGLE.md',['../RECTANGLE_8md.html',1,'']]],
+  ['redim_2emd_702',['REDIM.md',['../REDIM_8md.html',1,'']]],
+  ['rem_2emd_703',['REM.md',['../REM_8md.html',1,'']]],
+  ['repeat_2emd_704',['REPEAT.md',['../REPEAT_8md.html',1,'']]],
+  ['restore_2emd_705',['RESTORE.md',['../RESTORE_8md.html',1,'']]],
+  ['retrofs_2emd_706',['RETROFS.md',['../RETROFS_8md.html',1,'']]],
+  ['return_2emd_707',['RETURN.md',['../RETURN_8md.html',1,'']]],
+  ['reverse_2emd_708',['REVERSE.md',['../REVERSE_8md.html',1,'']]],
+  ['rgb_2emd_709',['RGB.md',['../RGB_8md.html',1,'']]],
+  ['right_2emd_710',['RIGHT.md',['../RIGHT_8md.html',1,'']]],
+  ['rjust_2emd_711',['RJUST.md',['../RJUST_8md.html',1,'']]],
+  ['rmdir_2emd_712',['rmdir.md',['../rmdir_8md.html',1,'']]],
+  ['rmdir_2emd_713',['RMDIR.md',['../RMDIR_8md.html',1,'']]],
+  ['rnd_2emd_714',['RND.md',['../RND_8md.html',1,'']]],
+  ['rocketsh_2emd_715',['rocketsh.md',['../rocketsh_8md.html',1,'']]],
+  ['round_2emd_716',['ROUND.md',['../ROUND_8md.html',1,'']]],
+  ['rtrim_2emd_717',['RTRIM.md',['../RTRIM_8md.html',1,'']]]
 ];

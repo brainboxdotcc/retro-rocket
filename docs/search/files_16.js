@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['weekday_2emd_5426',['WEEKDAY.md',['../WEEKDAY_8md.html',1,'']]],
-  ['while_2emd_5427',['WHILE.md',['../WHILE_8md.html',1,'']]],
-  ['write_2ec_5428',['write.c',['../write_8c.html',1,'']]],
-  ['write_2emd_5429',['WRITE.md',['../WRITE_8md.html',1,'']]]
+  ['yday_2emd_764',['YDAY.md',['../YDAY_8md.html',1,'']]],
+  ['year_2emd_765',['YEAR.md',['../YEAR_8md.html',1,'']]],
+  ['yield_2emd_766',['YIELD.md',['../YIELD_8md.html',1,'']]]
 ];

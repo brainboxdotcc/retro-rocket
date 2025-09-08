@@ -13,7 +13,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="INPORT_1autotoc_md70">
+<sect3 id="INPORT_1autotoc_md57">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Classic x86 <bold>port-mapped I/O</bold> (not MMIO).</para>
@@ -23,7 +23,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="INPORT_1autotoc_md72">
+<sect3 id="INPORT_1autotoc_md59">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Read<sp/>data<sp/>from<sp/>PS/2<sp/>controller</highlight></codeline>
 <codeline><highlight class="normal">DATA<sp/>=<sp/>INPORT(&amp;60)</highlight></codeline>
@@ -32,7 +32,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="INPORT_1autotoc_md74">
+<sect3 id="INPORT_1autotoc_md61">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Always use the correct width for the target port.</para>

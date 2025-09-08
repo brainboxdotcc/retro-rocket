@@ -9,45 +9,45 @@
 <para>Retro Rocket supports dynamically loadable kernel modules (<computeroutput>.ko</computeroutput> files). Modules let you extend the kernel at run-time without rebuilding or rebooting, using a simple ELF64 relocation and symbol resolution system.</para>
 <para><hruler/>
 </para>
-<sect2 id="modules_1autotoc_md626">
+<sect2 id="modules_1autotoc_md613">
 <title>Module ABI</title>
 <para>Each kernel build exports a single <bold>module ABI version</bold>:</para>
 <para><programlisting filename=".c"><codeline><highlight class="preprocessor">#define<sp/>KMOD_ABI<sp/>100</highlight></codeline>
 </programlisting></para>
 <para>Modules must define ABI-versioned entry points:</para>
-<para><programlisting filename=".c"><codeline><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="module_8h_1af63d15eb9e745985585db45cb98ccf23" kindref="member">EXPORTED</ref><sp/>mod_init_v100(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="module_8h_1af63d15eb9e745985585db45cb98ccf23" kindref="member">EXPORTED</ref><sp/>mod_exit_v100(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<para><programlisting filename=".c"><codeline><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>EXPORTED<sp/>mod_init_v100(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>EXPORTED<sp/>mod_exit_v100(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
 </programlisting></para>
 <para>The loader enforces this naming convention. If the expected <computeroutput>mod_init_v&lt;ABI&gt;</computeroutput> symbol cannot be found, the module is rejected.</para>
 <para><emphasis>No forward/backward compatibility is provided.</emphasis> If the ABI number changes, modules must be rebuilt.</para>
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="modules_1autotoc_md628">
+<sect2 id="modules_1autotoc_md615">
 <title>Minimal Module Example</title>
-<para><programlisting filename=".c"><codeline><highlight class="preprocessor">#include<sp/>&lt;<ref refid="kernel_8h" kindref="compound">kernel.h</ref>&gt;</highlight><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>always<sp/>include<sp/>this<sp/>header<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<para><programlisting filename=".c"><codeline><highlight class="preprocessor">#include<sp/>&lt;kernel.h&gt;</highlight><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>always<sp/>include<sp/>this<sp/>header<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="module_8h_1af63d15eb9e745985585db45cb98ccf23" kindref="member">EXPORTED</ref><sp/><ref refid="module_8h_1ad00f34c1cb4cadf68e87078c9b86188e" kindref="member">MOD_INIT_SYM</ref>(<ref refid="module_8h_1a1bc97ba5a980267d11d5e754aac5e12a" kindref="member">KMOD_ABI</ref>)(void)<sp/>{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="printf_8h_1a89df6ba151ccecc7859b176502af2f87" kindref="member">dprintf</ref>(</highlight><highlight class="stringliteral">&quot;example.ko:<sp/>mod_init<sp/>called!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>EXPORTED<sp/>MOD_INIT_SYM(KMOD_ABI)(void)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>dprintf(</highlight><highlight class="stringliteral">&quot;example.ko:<sp/>mod_init<sp/>called!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="module_8h_1af63d15eb9e745985585db45cb98ccf23" kindref="member">EXPORTED</ref><sp/><ref refid="module_8h_1a46c68841432b7d84af91bc11daaa47f2" kindref="member">MOD_EXIT_SYM</ref>(<ref refid="module_8h_1a1bc97ba5a980267d11d5e754aac5e12a" kindref="member">KMOD_ABI</ref>)(void)<sp/>{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="printf_8h_1a89df6ba151ccecc7859b176502af2f87" kindref="member">dprintf</ref>(</highlight><highlight class="stringliteral">&quot;example.ko:<sp/>mod_exit<sp/>called!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>EXPORTED<sp/>MOD_EXIT_SYM(KMOD_ABI)(void)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>dprintf(</highlight><highlight class="stringliteral">&quot;example.ko:<sp/>mod_exit<sp/>called!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
 </programlisting></para>
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="modules_1autotoc_md630">
+<sect2 id="modules_1autotoc_md617">
 <title>Using Kernel Symbols</title>
-<para>All kernel symbols intended for modules are exported via <computeroutput><ref refid="kernel_8h" kindref="compound">kernel.h</ref></computeroutput>. Modules should <bold>only ever</bold> include:</para>
-<para><programlisting filename=".c"><codeline><highlight class="preprocessor">#include<sp/>&lt;<ref refid="kernel_8h" kindref="compound">kernel.h</ref>&gt;</highlight></codeline>
+<para>All kernel symbols intended for modules are exported via <computeroutput>kernel.h</computeroutput>. Modules should <bold>only ever</bold> include:</para>
+<para><programlisting filename=".c"><codeline><highlight class="preprocessor">#include<sp/>&lt;kernel.h&gt;</highlight></codeline>
 </programlisting></para>
 <para>After that, you can call any exported kernel function directly:</para>
-<para><programlisting filename=".c"><codeline><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="module_8h_1af63d15eb9e745985585db45cb98ccf23" kindref="member">EXPORTED</ref><sp/><ref refid="module_8h_1ad00f34c1cb4cadf68e87078c9b86188e" kindref="member">MOD_INIT_SYM</ref>(<ref refid="module_8h_1a1bc97ba5a980267d11d5e754aac5e12a" kindref="member">KMOD_ABI</ref>)(void)<sp/>{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*buf<sp/>=<sp/><ref refid="kmalloc_8h_1aa6bcd5af56ca7ffbc761b010cbd70e39" kindref="member">kmalloc</ref>(128);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="printf_8h_1a89df6ba151ccecc7859b176502af2f87" kindref="member">dprintf</ref>(</highlight><highlight class="stringliteral">&quot;allocated<sp/>128<sp/>bytes<sp/>at<sp/>%p\n&quot;</highlight><highlight class="normal">,<sp/>buf);</highlight></codeline>
+<para><programlisting filename=".c"><codeline><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>EXPORTED<sp/>MOD_INIT_SYM(KMOD_ABI)(void)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*buf<sp/>=<sp/>kmalloc(128);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>dprintf(</highlight><highlight class="stringliteral">&quot;allocated<sp/>128<sp/>bytes<sp/>at<sp/>%p\n&quot;</highlight><highlight class="normal">,<sp/>buf);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
 </programlisting></para>
@@ -55,7 +55,7 @@
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="modules_1autotoc_md632">
+<sect2 id="modules_1autotoc_md619">
 <title>Memory Model</title>
 <para>The Retro Rocket kernel itself is linked into the <bold>higher half</bold> of the address space. Modules, however, are loaded into the <bold>kernel heap</bold>, which resides in the <bold>lower half</bold>.</para>
 <para><itemizedlist>
@@ -71,7 +71,7 @@
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="modules_1autotoc_md634">
+<sect2 id="modules_1autotoc_md621">
 <title>Build System</title>
 <para>Modules are compiled as <bold>relocatable ELF objects</bold>:</para>
 <para><itemizedlist>
@@ -83,7 +83,7 @@
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="modules_1autotoc_md636">
+<sect2 id="modules_1autotoc_md623">
 <title>Loader Pipeline</title>
 <para>The in-kernel loader performs:</para>
 <para><orderedlist>
@@ -101,7 +101,7 @@
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="modules_1autotoc_md638">
+<sect2 id="modules_1autotoc_md625">
 <title>Module Lifecycle</title>
 <para><itemizedlist>
 <listitem><para><bold>Load</bold>: <computeroutput>load_module(&quot;example&quot;);</computeroutput> → Calls <computeroutput>mod_init_v100()</computeroutput></para>
@@ -112,23 +112,23 @@
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="modules_1autotoc_md640">
+<sect2 id="modules_1autotoc_md627">
 <title>Safety Notes</title>
 <para><itemizedlist>
 <listitem><para>A failed symbol resolution or relocation aborts load cleanly.</para>
 </listitem><listitem><para>After unload, the loader nulls entry points and section pointers. Any stale use will dereference <computeroutput>NULL</computeroutput> rather than executing freed code.</para>
-</listitem><listitem><para>Modules must not assume persistence of pointers returned by <computeroutput><ref refid="module_8h_1ab32eb89028a8c29886649817d0b4a4a9" kindref="member">module_section_base()</ref></computeroutput> after unload.</para>
+</listitem><listitem><para>Modules must not assume persistence of pointers returned by <computeroutput>module_section_base()</computeroutput> after unload.</para>
 </listitem></itemizedlist>
 </para>
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="modules_1autotoc_md642">
+<sect2 id="modules_1autotoc_md629">
 <title>Writing Good Modules</title>
 <para><itemizedlist>
-<listitem><para>Always check the current <computeroutput>KMOD_ABI</computeroutput> in <computeroutput><ref refid="module_8h" kindref="compound">module.h</ref></computeroutput> before building.</para>
+<listitem><para>Always check the current <computeroutput>KMOD_ABI</computeroutput> in <computeroutput>module.h</computeroutput> before building.</para>
 </listitem><listitem><para>Keep module entry points minimal; heavy initialisation should be factored out.</para>
-</listitem><listitem><para>Use kernel APIs via <computeroutput><ref refid="kernel_8h" kindref="compound">kernel.h</ref></computeroutput> rather than re-implementing libc.</para>
+</listitem><listitem><para>Use kernel APIs via <computeroutput>kernel.h</computeroutput> rather than re-implementing libc.</para>
 </listitem><listitem><para>Clean up everything you allocate in <computeroutput>mod_exit_v&lt;ABI&gt;()</computeroutput>. </para>
 </listitem></itemizedlist>
 </para>

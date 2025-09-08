@@ -7,7 +7,7 @@ INSTR(haystack$, needle$)
 ```
 
 Searches for the substring `needle$` inside the string `haystack$`.
-Returns the 1-based index of the first occurrence, or `0` if not found. The search is case-sensitive.
+Returns the 1-based index of the first occurrence, or `0` if not found. The search is case sensitive.
 
 **Notes**
 

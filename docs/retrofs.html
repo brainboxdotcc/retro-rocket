@@ -90,39 +90,39 @@ $(document).ready(function(){initNavTree('retrofs.html',''); initResizable(); })
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><ul><li class="level2"><a href="#autotoc_md643">1. Conventions and terminology</a></li>
-<li class="level2"><a href="#autotoc_md644">2. High-level layout (informative)</a></li>
-<li class="level2"><a href="#autotoc_md645">3. On-disk structures (normative)</a><ul><li class="level3"><a href="#autotoc_md646">3.1 Description Block (sector 0)</a><ul><li class="level4"><a href="#autotoc_md647">Byte layout sketch</a></li>
+<ul><ul><li class="level2"><a href="#autotoc_md630">1. Conventions and terminology</a></li>
+<li class="level2"><a href="#autotoc_md631">2. High-level layout (informative)</a></li>
+<li class="level2"><a href="#autotoc_md632">3. On-disk structures (normative)</a><ul><li class="level3"><a href="#autotoc_md633">3.1 Description Block (sector 0)</a><ul><li class="level4"><a href="#autotoc_md634">Byte layout sketch</a></li>
 </ul>
 </li>
-<li class="level3"><a href="#autotoc_md648">3.2 Free-space map (bitmap)</a></li>
-<li class="level3"><a href="#autotoc_md649">3.3 Directory blocks and entries</a><ul><li class="level4"><a href="#autotoc_md650">3.3.1 Directory Start entry (first half-sector of the block)</a></li>
-<li class="level4"><a href="#autotoc_md651">3.3.2 File/Directory entry (other half-sectors)</a></li>
-<li class="level4"><a href="#autotoc_md652">3.3.3 File/Directory Flags values</a></li>
-<li class="level4"><a href="#autotoc_md653">3.3.4 Directory walk</a></li>
+<li class="level3"><a href="#autotoc_md635">3.2 Free-space map (bitmap)</a></li>
+<li class="level3"><a href="#autotoc_md636">3.3 Directory blocks and entries</a><ul><li class="level4"><a href="#autotoc_md637">3.3.1 Directory Start entry (first half-sector of the block)</a></li>
+<li class="level4"><a href="#autotoc_md638">3.3.2 File/Directory entry (other half-sectors)</a></li>
+<li class="level4"><a href="#autotoc_md639">3.3.3 File/Directory Flags values</a></li>
+<li class="level4"><a href="#autotoc_md640">3.3.4 Directory walk</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="level2"><a href="#autotoc_md654">4. Allocation &amp; growth semantics (normative)</a><ul><li class="level3"><a href="#autotoc_md655">4.1 Extents</a></li>
-<li class="level3"><a href="#autotoc_md656">4.2 Creation</a></li>
-<li class="level3"><a href="#autotoc_md657">4.3 Writing</a></li>
-<li class="level3"><a href="#autotoc_md658">4.4 Truncation</a></li>
-<li class="level3"><a href="#autotoc_md659">4.5 Deletion</a></li>
+<li class="level2"><a href="#autotoc_md641">4. Allocation &amp; growth semantics (normative)</a><ul><li class="level3"><a href="#autotoc_md642">4.1 Extents</a></li>
+<li class="level3"><a href="#autotoc_md643">4.2 Creation</a></li>
+<li class="level3"><a href="#autotoc_md644">4.3 Writing</a></li>
+<li class="level3"><a href="#autotoc_md645">4.4 Truncation</a></li>
+<li class="level3"><a href="#autotoc_md646">4.5 Deletion</a></li>
 </ul>
 </li>
-<li class="level2"><a href="#autotoc_md660">5. Name handling</a></li>
-<li class="level2"><a href="#autotoc_md661">6. Policy notes (non-normative but recommended)</a><ul><li class="level3"><a href="#autotoc_md662">6.1 Initial reservation policy</a></li>
-<li class="level3"><a href="#autotoc_md663">6.2 Zero-fill</a></li>
+<li class="level2"><a href="#autotoc_md647">5. Name handling</a></li>
+<li class="level2"><a href="#autotoc_md648">6. Policy notes (non-normative but recommended)</a><ul><li class="level3"><a href="#autotoc_md649">6.1 Initial reservation policy</a></li>
+<li class="level3"><a href="#autotoc_md650">6.2 Zero-fill</a></li>
 </ul>
 </li>
-<li class="level2"><a href="#autotoc_md664">7. Implementation guidance: L1/L2 allocation caches</a></li>
-<li class="level2"><a href="#autotoc_md665">8. Validation &amp; error handling</a></li>
-<li class="level2"><a href="#autotoc_md666">9. Partition identification (GPT)</a><ul><li class="level3"><a href="#autotoc_md667">RetroFS Partition Type GUID</a></li>
+<li class="level2"><a href="#autotoc_md651">7. Implementation guidance: L1/L2 allocation caches</a></li>
+<li class="level2"><a href="#autotoc_md652">8. Validation &amp; error handling</a></li>
+<li class="level2"><a href="#autotoc_md653">9. Partition identification (GPT)</a><ul><li class="level3"><a href="#autotoc_md654">RetroFS Partition Type GUID</a></li>
 </ul>
 </li>
-<li class="level2"><a href="#autotoc_md668">10. Security considerations</a></li>
-<li class="level2"><a href="#autotoc_md669">11. Versioning</a></li>
+<li class="level2"><a href="#autotoc_md655">10. Security considerations</a></li>
+<li class="level2"><a href="#autotoc_md656">11. Versioning</a></li>
 </ul>
 </ul>
 </div>
@@ -140,7 +140,7 @@ $(document).ready(function(){initNavTree('retrofs.html',''); initResizable(); })
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td></tr>
 </table>
-<h2><a class="anchor" id="autotoc_md643"></a>
+<h2><a class="anchor" id="autotoc_md630"></a>
 1. Conventions and terminology</h2>
 <ul>
 <li>The key words <b>MUST</b>, <b>MUST NOT</b>, <b>SHOULD</b>, <b>SHOULD NOT</b>, <b>MAY</b> are to be interpreted as in RFC 2119.</li>
@@ -151,16 +151,16 @@ $(document).ready(function(){initNavTree('retrofs.html',''); initResizable(); })
 <li>A <b>half-sector entry</b> is 256 bytes; two entries per 512-byte sector.</li>
 <li>Filenames are <b>case-preserving</b>, compared <b>case-insensitively</b> using ASCII rules only.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md644"></a>
+<h2><a class="anchor" id="autotoc_md631"></a>
 2. High-level layout (informative)</h2>
 <div class="fragment"><div class="line">LBA 0                 : Description Block</div>
 <div class="line">LBA root_directory .. : Root directory block (64 sectors) + any continuations</div>
 <div class="line">LBA free_space_map .. : Free-space map (bitmap), contiguous</div>
 <div class="line">LBA …                 : File and directory extents</div>
 </div><!-- fragment --><p>Exact locations are recorded in the Description Block.</p>
-<h2><a class="anchor" id="autotoc_md645"></a>
+<h2><a class="anchor" id="autotoc_md632"></a>
 3. On-disk structures (normative)</h2>
-<h3><a class="anchor" id="autotoc_md646"></a>
+<h3><a class="anchor" id="autotoc_md633"></a>
 3.1 Description Block (sector 0)</h3>
 <p>The Description Block <b>MUST</b> occupy exactly one sector at LBA 0 and uses this exact layout:</p>
 <table class="markdownTable">
@@ -189,7 +189,7 @@ $(document).ready(function(){initNavTree('retrofs.html',''); initResizable(); })
 <li>All pointer/length fields <b>MUST</b> reference sectors within the partition/device bounds.</li>
 <li>Unused bytes <b>MUST</b> be zero and <b>SHOULD</b> be preserved on rewrite.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md647"></a>
+<h4><a class="anchor" id="autotoc_md634"></a>
 Byte layout sketch</h4>
 <div class="fragment"><div class="line">+0000  52 65 74 72 6F 46 53 31   // &quot;RetroFS1&quot; LE: 0x3153466f72746552</div>
 <div class="line">+0008  &lt;root_directory: u64 LE&gt;</div>
@@ -199,7 +199,7 @@ Byte layout sketch</h4>
 <div class="line">+0028  &lt;sequence:       u64 LE&gt;</div>
 <div class="line">+0030  &lt;creation_time:  time_t LE&gt;</div>
 <div class="line">+0038  ... zero to 0x200</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md648"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md635"></a>
 3.2 Free-space map (bitmap)</h3>
 <p>Each free-space map sector uses:</p>
 <div class="fragment"><div class="line">typedef struct {</div>
@@ -216,58 +216,39 @@ Byte layout sketch</h4>
 <li>Updates <b>SHOULD</b> be atomic at sector granularity (read–modify–write the containing map sector).</li>
 <li>Implementations <b>SHOULD</b> cache higher-level summaries in RAM (see §7).</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md649"></a>
+<h3><a class="anchor" id="autotoc_md636"></a>
 3.3 Directory blocks and entries</h3>
 <p>A directory is stored in one or more directory blocks. Each block is exactly **<code>RFS_DEFAULT_DIR_SIZE</code>** sectors (v1: <b>64</b>). Each <b>sector</b> contains <b>two half-sector entries</b>.</p>
-<h4><a class="anchor" id="autotoc_md650"></a>
+<h4><a class="anchor" id="autotoc_md637"></a>
 3.3.1 Directory Start entry (first half-sector of the block)</h4>
-<div class="fragment"><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structrfs__directory__start__t.html">rfs_directory_start_t</a> {</div>
-<div class="line">    uint32_t <a class="code" href="structrfs__directory__start__t.html#a23433f20334bc0eb67046b9f49d51af0">flags</a>;          <span class="comment">// MUST include RFS_FLAG_DIR_START</span></div>
-<div class="line">    <span class="keywordtype">char</span>     <a class="code" href="structrfs__directory__start__t.html#a91e1d746c6e2fdfd2617c569b1fdbeec">title</a>[128];     <span class="comment">// NUL-terminated if shorter</span></div>
-<div class="line">    uint64_t <a class="code" href="structrfs__directory__start__t.html#a83f8050afdd972930ce5a02fc5cc6c45">parent</a>;         <span class="comment">// LBA of parent directory&#39;s start entry</span></div>
-<div class="line">    uint64_t <a class="code" href="structrfs__directory__start__t.html#a3ad10ef57a35c30dd2192a5ae4b667c2">sectors</a>;        <span class="comment">// size of this directory block in sectors (v1: 64)</span></div>
-<div class="line">    uint64_t <a class="code" href="structrfs__directory__start__t.html#aa62b28276a1926465e6d0bdfc8a282cb">continuation</a>;   <span class="comment">// LBA of next directory block, or 0</span></div>
-<div class="line">    <span class="keywordtype">char</span>     <a class="code" href="structrfs__directory__start__t.html#aa46fcc9ac6e22ac1acc41fc60921f07d">reserved</a>[];     <span class="comment">// zero-filled to 256 bytes</span></div>
-<div class="line">} <a class="code" href="tcp_8h.html#a8454b2571cea12a469f026f20f27e7a2">__attribute__</a>((packed));</div>
-<div class="ttc" id="astructrfs__directory__start__t_html"><div class="ttname"><a href="structrfs__directory__start__t.html">rfs_directory_start_t</a></div><div class="ttdoc">On-disk directory start entry.</div><div class="ttdef"><b>Definition:</b> retrofs.h:115</div></div>
-<div class="ttc" id="astructrfs__directory__start__t_html_a23433f20334bc0eb67046b9f49d51af0"><div class="ttname"><a href="structrfs__directory__start__t.html#a23433f20334bc0eb67046b9f49d51af0">rfs_directory_start_t::flags</a></div><div class="ttdeci">uint32_t flags</div><div class="ttdef"><b>Definition:</b> retrofs.h:116</div></div>
-<div class="ttc" id="astructrfs__directory__start__t_html_a3ad10ef57a35c30dd2192a5ae4b667c2"><div class="ttname"><a href="structrfs__directory__start__t.html#a3ad10ef57a35c30dd2192a5ae4b667c2">rfs_directory_start_t::sectors</a></div><div class="ttdeci">uint64_t sectors</div><div class="ttdef"><b>Definition:</b> retrofs.h:119</div></div>
-<div class="ttc" id="astructrfs__directory__start__t_html_a83f8050afdd972930ce5a02fc5cc6c45"><div class="ttname"><a href="structrfs__directory__start__t.html#a83f8050afdd972930ce5a02fc5cc6c45">rfs_directory_start_t::parent</a></div><div class="ttdeci">uint64_t parent</div><div class="ttdef"><b>Definition:</b> retrofs.h:118</div></div>
-<div class="ttc" id="astructrfs__directory__start__t_html_a91e1d746c6e2fdfd2617c569b1fdbeec"><div class="ttname"><a href="structrfs__directory__start__t.html#a91e1d746c6e2fdfd2617c569b1fdbeec">rfs_directory_start_t::title</a></div><div class="ttdeci">char title[128]</div><div class="ttdef"><b>Definition:</b> retrofs.h:117</div></div>
-<div class="ttc" id="astructrfs__directory__start__t_html_aa46fcc9ac6e22ac1acc41fc60921f07d"><div class="ttname"><a href="structrfs__directory__start__t.html#aa46fcc9ac6e22ac1acc41fc60921f07d">rfs_directory_start_t::reserved</a></div><div class="ttdeci">char reserved[]</div><div class="ttdef"><b>Definition:</b> retrofs.h:121</div></div>
-<div class="ttc" id="astructrfs__directory__start__t_html_aa62b28276a1926465e6d0bdfc8a282cb"><div class="ttname"><a href="structrfs__directory__start__t.html#aa62b28276a1926465e6d0bdfc8a282cb">rfs_directory_start_t::continuation</a></div><div class="ttdeci">uint64_t continuation</div><div class="ttdef"><b>Definition:</b> retrofs.h:120</div></div>
-<div class="ttc" id="atcp_8h_html_a8454b2571cea12a469f026f20f27e7a2"><div class="ttname"><a href="tcp_8h.html#a8454b2571cea12a469f026f20f27e7a2">__attribute__</a></div><div class="ttdeci">typedef __attribute__</div><div class="ttdoc">Generic ACPI System Description Table Header.</div><div class="ttdef"><b>Definition:</b> scsi.h:68</div></div>
+<div class="fragment"><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct </span>rfs_directory_start_t {</div>
+<div class="line">    uint32_t flags;          <span class="comment">// MUST include RFS_FLAG_DIR_START</span></div>
+<div class="line">    <span class="keywordtype">char</span>     title[128];     <span class="comment">// NUL-terminated if shorter</span></div>
+<div class="line">    uint64_t parent;         <span class="comment">// LBA of parent directory&#39;s start entry</span></div>
+<div class="line">    uint64_t sectors;        <span class="comment">// size of this directory block in sectors (v1: 64)</span></div>
+<div class="line">    uint64_t continuation;   <span class="comment">// LBA of next directory block, or 0</span></div>
+<div class="line">    <span class="keywordtype">char</span>     reserved[];     <span class="comment">// zero-filled to 256 bytes</span></div>
+<div class="line">} __attribute__((packed));</div>
 </div><!-- fragment --><p><b>Rules</b></p>
 <ul>
 <li>The very first entry in the block <b>MUST</b> be a Directory Start entry with <code>RFS_FLAG_DIR_START</code> set.</li>
 <li><code>sectors</code> <b>MUST</b> equal <code>RFS_DEFAULT_DIR_SIZE</code> in v1.</li>
 <li><code>continuation</code> <b>MUST</b> be 0 if no further blocks exist; otherwise it points to the next block’s first sector.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md651"></a>
+<h4><a class="anchor" id="autotoc_md638"></a>
 3.3.2 File/Directory entry (other half-sectors)</h4>
-<div class="fragment"><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structrfs__directory__entry__inner__t.html">rfs_directory_entry_inner_t</a> {</div>
-<div class="line">    uint32_t <a class="code" href="structrfs__directory__entry__inner__t.html#a3d6eb6a55e75926d8fdd7427f0454f43">flags</a>;              <span class="comment">// RFS_FLAG_DIRECTORY et al.</span></div>
-<div class="line">    <span class="keywordtype">char</span>     <a class="code" href="structrfs__directory__entry__inner__t.html#a69a51eb16f7ce05228c9de72537e2682">filename</a>[128];      <span class="comment">// NUL-terminated</span></div>
-<div class="line">    uint64_t <a class="code" href="structrfs__directory__entry__inner__t.html#acdff45c7758c8c7890ee46d1671c4607">sector_start</a>;       <span class="comment">// LBA of payload (file) or start (subdir)</span></div>
-<div class="line">    uint64_t <a class="code" href="structrfs__directory__entry__inner__t.html#a143e4086d9b57e71906b83bc74db243b">length</a>;             <span class="comment">// logical length in bytes (0 for directories)</span></div>
-<div class="line">    uint64_t <a class="code" href="structrfs__directory__entry__inner__t.html#a4c56e8083a71ea1d3899a60bf316848a">sector_length</a>;      <span class="comment">// reserved capacity in sectors</span></div>
-<div class="line">    <a class="code" href="clock_8h.html#a7f5991675a84025dc7c24754a9b257c0">time_t</a>   <a class="code" href="structrfs__directory__entry__inner__t.html#a6404b300f8fd48c1e6ccd83468d71bd7">created</a>;            <span class="comment">// UTC</span></div>
-<div class="line">    <a class="code" href="clock_8h.html#a7f5991675a84025dc7c24754a9b257c0">time_t</a>   <a class="code" href="structrfs__directory__entry__inner__t.html#a1d947f038814c4df91a4f9e5234ab226">modified</a>;           <span class="comment">// UTC</span></div>
-<div class="line">    uint64_t <a class="code" href="structrfs__directory__entry__inner__t.html#a36e5d24054a98a1f773678d796646dba">sequence</a>;           <span class="comment">// per-entry version counter</span></div>
-<div class="line">    <span class="keywordtype">char</span>     <a class="code" href="structrfs__directory__entry__inner__t.html#a2c7e8adf8d2714ab2be2768f8a871c56">reserved</a>[];         <span class="comment">// zero-filled to 256 bytes total</span></div>
-<div class="line">} <a class="code" href="tcp_8h.html#a8454b2571cea12a469f026f20f27e7a2">__attribute__</a>((packed));</div>
-<div class="ttc" id="aclock_8h_html_a7f5991675a84025dc7c24754a9b257c0"><div class="ttname"><a href="clock_8h.html#a7f5991675a84025dc7c24754a9b257c0">time_t</a></div><div class="ttdeci">int64_t time_t</div><div class="ttdoc">POSIX-style time representation.</div><div class="ttdef"><b>Definition:</b> clock.h:27</div></div>
-<div class="ttc" id="astructrfs__directory__entry__inner__t_html"><div class="ttname"><a href="structrfs__directory__entry__inner__t.html">rfs_directory_entry_inner_t</a></div><div class="ttdoc">On-disk file entry structure for non-directory entries.</div><div class="ttdef"><b>Definition:</b> retrofs.h:98</div></div>
-<div class="ttc" id="astructrfs__directory__entry__inner__t_html_a143e4086d9b57e71906b83bc74db243b"><div class="ttname"><a href="structrfs__directory__entry__inner__t.html#a143e4086d9b57e71906b83bc74db243b">rfs_directory_entry_inner_t::length</a></div><div class="ttdeci">uint64_t length</div><div class="ttdef"><b>Definition:</b> retrofs.h:102</div></div>
-<div class="ttc" id="astructrfs__directory__entry__inner__t_html_a1d947f038814c4df91a4f9e5234ab226"><div class="ttname"><a href="structrfs__directory__entry__inner__t.html#a1d947f038814c4df91a4f9e5234ab226">rfs_directory_entry_inner_t::modified</a></div><div class="ttdeci">time_t modified</div><div class="ttdef"><b>Definition:</b> retrofs.h:105</div></div>
-<div class="ttc" id="astructrfs__directory__entry__inner__t_html_a2c7e8adf8d2714ab2be2768f8a871c56"><div class="ttname"><a href="structrfs__directory__entry__inner__t.html#a2c7e8adf8d2714ab2be2768f8a871c56">rfs_directory_entry_inner_t::reserved</a></div><div class="ttdeci">char reserved[]</div><div class="ttdef"><b>Definition:</b> retrofs.h:107</div></div>
-<div class="ttc" id="astructrfs__directory__entry__inner__t_html_a36e5d24054a98a1f773678d796646dba"><div class="ttname"><a href="structrfs__directory__entry__inner__t.html#a36e5d24054a98a1f773678d796646dba">rfs_directory_entry_inner_t::sequence</a></div><div class="ttdeci">uint64_t sequence</div><div class="ttdef"><b>Definition:</b> retrofs.h:106</div></div>
-<div class="ttc" id="astructrfs__directory__entry__inner__t_html_a3d6eb6a55e75926d8fdd7427f0454f43"><div class="ttname"><a href="structrfs__directory__entry__inner__t.html#a3d6eb6a55e75926d8fdd7427f0454f43">rfs_directory_entry_inner_t::flags</a></div><div class="ttdeci">uint32_t flags</div><div class="ttdef"><b>Definition:</b> retrofs.h:99</div></div>
-<div class="ttc" id="astructrfs__directory__entry__inner__t_html_a4c56e8083a71ea1d3899a60bf316848a"><div class="ttname"><a href="structrfs__directory__entry__inner__t.html#a4c56e8083a71ea1d3899a60bf316848a">rfs_directory_entry_inner_t::sector_length</a></div><div class="ttdeci">uint64_t sector_length</div><div class="ttdef"><b>Definition:</b> retrofs.h:103</div></div>
-<div class="ttc" id="astructrfs__directory__entry__inner__t_html_a6404b300f8fd48c1e6ccd83468d71bd7"><div class="ttname"><a href="structrfs__directory__entry__inner__t.html#a6404b300f8fd48c1e6ccd83468d71bd7">rfs_directory_entry_inner_t::created</a></div><div class="ttdeci">time_t created</div><div class="ttdef"><b>Definition:</b> retrofs.h:104</div></div>
-<div class="ttc" id="astructrfs__directory__entry__inner__t_html_a69a51eb16f7ce05228c9de72537e2682"><div class="ttname"><a href="structrfs__directory__entry__inner__t.html#a69a51eb16f7ce05228c9de72537e2682">rfs_directory_entry_inner_t::filename</a></div><div class="ttdeci">char filename[128]</div><div class="ttdef"><b>Definition:</b> retrofs.h:100</div></div>
-<div class="ttc" id="astructrfs__directory__entry__inner__t_html_acdff45c7758c8c7890ee46d1671c4607"><div class="ttname"><a href="structrfs__directory__entry__inner__t.html#acdff45c7758c8c7890ee46d1671c4607">rfs_directory_entry_inner_t::sector_start</a></div><div class="ttdeci">uint64_t sector_start</div><div class="ttdef"><b>Definition:</b> retrofs.h:101</div></div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md652"></a>
+<div class="fragment"><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct </span>rfs_directory_entry_inner_t {</div>
+<div class="line">    uint32_t flags;              <span class="comment">// RFS_FLAG_DIRECTORY et al.</span></div>
+<div class="line">    <span class="keywordtype">char</span>     filename[128];      <span class="comment">// NUL-terminated</span></div>
+<div class="line">    uint64_t sector_start;       <span class="comment">// LBA of payload (file) or start (subdir)</span></div>
+<div class="line">    uint64_t length;             <span class="comment">// logical length in bytes (0 for directories)</span></div>
+<div class="line">    uint64_t sector_length;      <span class="comment">// reserved capacity in sectors</span></div>
+<div class="line">    time_t   created;            <span class="comment">// UTC</span></div>
+<div class="line">    time_t   modified;           <span class="comment">// UTC</span></div>
+<div class="line">    uint64_t sequence;           <span class="comment">// per-entry version counter</span></div>
+<div class="line">    <span class="keywordtype">char</span>     reserved[];         <span class="comment">// zero-filled to 256 bytes total</span></div>
+<div class="line">} __attribute__((packed));</div>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md639"></a>
 3.3.3 File/Directory Flags values</h4>
 <p>Files and directories may set the following bits in their <code>flags</code> field:</p>
 <table class="markdownTable">
@@ -288,23 +269,23 @@ Byte layout sketch</h4>
 <li><code>sector_length</code> is the reserved extent size; <code>length</code> <b>MUST NOT</b> exceed <code>sector_length * 512</code>.</li>
 <li><code>sequence</code> is a human-oriented revision counter: implementations <b>SHOULD</b> increment it on payload-modifying writes and <b>MAY</b> leave it unchanged on metadata-only updates. When to increment the counter is left to the implementor, but it is recommended to do this at the point of close().</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md653"></a>
+<h4><a class="anchor" id="autotoc_md640"></a>
 3.3.4 Directory walk</h4>
 <ul>
 <li>Readers <b>MUST</b> follow the <code>continuation</code> chain until <code>continuation</code> is <code>0</code>.</li>
 <li>Readers <b>MUST</b> bound the walk (implementation-defined limit) to avoid infinite loops on corruption.</li>
 <li>Within each block, readers <b>MUST</b> stop at the first <code>filename[0] == 0</code> (end-of-entries for that block).</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md654"></a>
+<h2><a class="anchor" id="autotoc_md641"></a>
 4. Allocation &amp; growth semantics (normative)</h2>
-<h3><a class="anchor" id="autotoc_md655"></a>
+<h3><a class="anchor" id="autotoc_md642"></a>
 4.1 Extents</h3>
 <ul>
 <li>Every file or directory <em>block</em> occupies exactly one <b>contiguous</b> extent. Directories may be composed of multiple connected <em>directory blocks</em>.</li>
 <li>When a file write would exceed its reserved capacity (<code>sector_length * 512</code>), the file <b>MUST</b> be <b>relocated</b> to a larger contiguous extent (“extend-and-move”), after which the old extent <b>MUST</b> be freed.</li>
 <li>If there is no extent big enough to contain the file, the implementation may raise an "out of space" error.</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md656"></a>
+<h3><a class="anchor" id="autotoc_md643"></a>
 4.2 Creation</h3>
 <p><b>Files</b></p>
 <ul>
@@ -325,21 +306,21 @@ Byte layout sketch</h4>
 <li>Write a valid Directory Start entry (<code>RFS_FLAG_DIR_START</code>, correct <code>parent</code>, <code>sectors</code>, <code>continuation=0</code>).</li>
 <li>Insert a parent entry with <code>RFS_FLAG_DIRECTORY</code> set and <code>length=0</code>.</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md657"></a>
+<h3><a class="anchor" id="autotoc_md644"></a>
 4.3 Writing</h3>
 <ul>
 <li>For unaligned writes, drivers <b>MUST</b> perform head/tail read-modify-write and full-sector writes in the middle.</li>
 <li>If <code>start + length</code> would exceed reserved capacity, driver <b>MUST</b> extend-and-move before writing.</li>
 <li>On successful payload modification, drivers <b>SHOULD</b> bump the per-entry <code>sequence</code>.</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md658"></a>
+<h3><a class="anchor" id="autotoc_md645"></a>
 4.4 Truncation</h3>
 <ul>
 <li>Truncate <b>MUST</b> update <code>length</code> only.</li>
 <li>Truncate <b>MUST NOT</b> free sectors nor reduce <code>sector_length</code>.</li>
 <li>If requested <code>length</code> exceeds reserved capacity, truncate <b>MUST</b> fail.</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md659"></a>
+<h3><a class="anchor" id="autotoc_md646"></a>
 4.5 Deletion</h3>
 <p><b>Files</b></p>
 <ul>
@@ -351,16 +332,16 @@ Byte layout sketch</h4>
 <li>Refuse deletion unless the directory and <b>all</b> continuation blocks contain no valid entries.</li>
 <li>Remove the parent entry first, then free each directory block in the chain (each <code>sectors</code> long).</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md660"></a>
+<h2><a class="anchor" id="autotoc_md647"></a>
 5. Name handling</h2>
 <ul>
 <li>Case-preserving storage; ASCII case-insensitive matching.</li>
 <li>Two names differing only by ASCII case <b>MUST</b> be considered equal and refer to the same entry.</li>
 <li>Names <b>MUST</b> be NUL-terminated within <code>RFS_MAX_NAME</code> bytes (128 incl. terminator).</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md661"></a>
+<h2><a class="anchor" id="autotoc_md648"></a>
 6. Policy notes (non-normative but recommended)</h2>
-<h3><a class="anchor" id="autotoc_md662"></a>
+<h3><a class="anchor" id="autotoc_md649"></a>
 6.1 Initial reservation policy</h3>
 <p>Implementations <b>SHOULD</b> reserve more than the initial logical size to reduce churn. A practical policy:</p>
 <ul>
@@ -368,12 +349,12 @@ Byte layout sketch</h4>
 <li>Image file types (e.g., <code>jpg</code>, <code>jpeg</code>, <code>png</code>, <code>gif</code>, <code>tiff</code>, <code>bmp</code>, <code>webp</code>): <b>4 MiB</b>.</li>
 <li>The reservation <b>MAY</b> be adjusted later by extend-and-move when required.</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md663"></a>
+<h3><a class="anchor" id="autotoc_md650"></a>
 6.2 Zero-fill</h3>
 <p>New extents and extended regions <b>MUST</b> be zero-filled prior to being visible to reads. This prevents data disclosure.</p>
-<h2><a class="anchor" id="autotoc_md664"></a>
+<h2><a class="anchor" id="autotoc_md651"></a>
 7. Implementation guidance: L1/L2 allocation caches</h2>
-<p>Although the in-memory mount context (<code><a class="el" href="structrfs__t.html" title="In-memory RetroFS mount context.">rfs_t</a></code>) is implementation-specific and out of scope for this document, a compliant, high-performance implementation <b>SHOULD</b> maintain multi-level summaries over the on-disk free-space map:</p>
+<p>Although the in-memory mount context (<code>rfs_t</code>) is implementation-specific and out of scope for this document, a compliant, high-performance implementation <b>SHOULD</b> maintain multi-level summaries over the on-disk free-space map:</p>
 <ul>
 <li><b>L1 groups</b> summarise <code>RFS_L1_GROUP_SECTORS</code> consecutive sectors (v1 default: <b>4096 sectors ≈ 2 MiB</b>). Track a per-group free count and bitsets for “any free” and “all free”.</li>
 <li><b>L2 super-groups</b> summarise <code>RFS_L2_GROUPS_PER_SUPER</code> L1 groups (v1 default: <b>1024 L1s</b>, i.e.**2 GiB** span per super-group). Track bitsets for “any free” and “all free”.</li>
@@ -384,7 +365,7 @@ Byte layout sketch</h4>
 <li>Total cache memory will typically be on the order of **200 MB per TiB** of formatted capacity; systems with constrained RAM <b>MAY</b> reduce group sizes at the cost of slower allocation.</li>
 <li>Where applicable, align L1 group size to device erase/stripe sizes to reduce write amplification.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md665"></a>
+<h2><a class="anchor" id="autotoc_md652"></a>
 8. Validation &amp; error handling</h2>
 <ul>
 <li>Mount <b>MUST</b> verify <code>identifier</code>, basic pointer ranges, and that root directory’s start entry has <code>RFS_FLAG_DIR_START</code> and <code>sectors == RFS_DEFAULT_DIR_SIZE</code>.</li>
@@ -392,9 +373,9 @@ Byte layout sketch</h4>
 <li>All I/O routines <b>MUST</b> fail cleanly on bounds violations.</li>
 <li>On partial failure during create/extend, implementations <b>SHOULD</b> prefer leaving the new extent marked used (space leak) over risking a dangling metadata reference.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md666"></a>
+<h2><a class="anchor" id="autotoc_md653"></a>
 9. Partition identification (GPT)</h2>
-<h3><a class="anchor" id="autotoc_md667"></a>
+<h3><a class="anchor" id="autotoc_md654"></a>
 RetroFS Partition Type GUID</h3>
 <p><b>Name:</b> RetroFS Partition <br  />
  <b>Use:</b> Identifies a GPT partition formatted with the RetroFS filesystem. <br  />
@@ -417,14 +398,14 @@ RetroFS Partition Type GUID</h3>
 </div><!-- fragment --><p><b>Kernel header</b></p>
 <div class="fragment"><div class="line"> </div>
 <div class="line"><span class="preprocessor">#define RFS_GPT_GUID &quot;4DEC1156-FEC8-4495-854B-20D888E21AF0&quot;</span></div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md668"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md655"></a>
 10. Security considerations</h2>
 <ul>
 <li>Zero-fill on allocation/extension prevents disclosure of previous contents.</li>
 <li>Reads <b>MUST NOT</b> expose bytes beyond <code>length</code> even if reserved space is larger.</li>
 <li>There is no journaling; callers <b>SHOULD</b> expect non-atomic metadata updates.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md669"></a>
+<h2><a class="anchor" id="autotoc_md656"></a>
 11. Versioning</h2>
 <ul>
 <li>This document defines <b>RetroFS v1</b> with <b>512-byte sectors</b> and fixed directory block size <b>64 sectors</b>.</li>
@@ -437,7 +418,7 @@ RetroFS Partition Type GUID</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="kernel-dev.html">Kernel Development</a></li>
-    <li class="footer">Generated on Mon Sep 8 2025 15:33:30 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 8 2025 16:11:29 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
