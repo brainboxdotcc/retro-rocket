@@ -612,6 +612,7 @@ bool load_module(const char* name) {
 		return false;
 	}
 	m.name = saved_name;
+	m.raw_bits = module_content;
 	hashmap_set(modules, &m);
 	module* stored = hashmap_get(modules, &(module){ .name = name });
 	modreg_register(stored);
