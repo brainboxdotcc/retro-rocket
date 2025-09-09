@@ -98,8 +98,7 @@ void Interrupt(uint64_t isrnumber, uint64_t errorcode) {
 
 	if (isrnumber < 32) {
 		/* This simple error handler is replaced by a more complex debugger once the system is up */
-		kprintf("CPU %d halted with exception %016lx, error code %016lx: %s.\n", logical_cpu_id(), isrnumber,
-			errorcode, error_table[isrnumber]);
+		kprintf("CPU %d halted with exception %016lx, error code %016lx: %s.\n", logical_cpu_id(), isrnumber, errorcode, error_table[isrnumber]);
 		wait_forever();
 	}
 

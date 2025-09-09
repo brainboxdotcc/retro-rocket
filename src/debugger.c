@@ -4,6 +4,8 @@ static symbol_t* symbol_table = NULL;
 uint32_t trace_thread_id = 0;
 static bool debug_signal = false;
 
+#define BT_IRQ_MARKER ((void*)0xFFFFffffFFFFff01ull)
+
 volatile struct limine_module_request module_request = {
 	.id = LIMINE_MODULE_REQUEST,
 	.revision = 0,
@@ -427,26 +429,86 @@ uint64_t findsymbol_addr(const char *name) {
 	return 0;
 }
 
+static inline void get_kstack_bounds(uintptr_t *lo, uintptr_t *hi) {
+	uintptr_t rsp;
+	__asm__ volatile ("movq %%rsp,%0" : "=r"(rsp));
+	uintptr_t base = rsp & KSTACK_MASK;   /* aligned base for *this* CPU’s stack */
+	*lo = base;
+	*hi = base + KSTACK_SIZE;             /* top (one-past) */
+}
 
-void backtrace()
-{
+static size_t count_markers_ahead(const stack_frame_t *frame, uintptr_t lo, uintptr_t hi, size_t probe) {
+	size_t cnt = 0;
+	while (frame && CANONICAL_ADDRESS(frame) && (uintptr_t)frame >= lo && (uintptr_t)frame <= (hi - sizeof(*frame)) && probe++ < 1024) {
+		const stack_frame_t *next = frame->next;
+		if (next && (uintptr_t)next <= (uintptr_t)frame) {
+			break; /* corrupted or cyclic chain */
+		}
+		if (frame->addr == BT_IRQ_MARKER) {
+			cnt++;
+		}
+		frame = next;
+	}
+	return cnt;
+}
+
+void backtrace(void) {
 	stack_frame_t *frame;
 	__asm__ volatile("movq %%rbp,%0" : "=r"(frame));
-	uint64_t page = (uint64_t) frame & 0xFFFFFFFFFFFFF000ull;
-	uint64_t offset = 0;
-	const char* name = NULL;
 
-	/* Stack frame loop inspired by AlexExtreme's stack trace in Exclaim */
+	uintptr_t lo, hi;
+	size_t depth = 0;
+	get_kstack_bounds(&lo, &hi);
+
+	/* We know we’re in an ISR/exception at the top */
+	setforeground(COLOUR_LIGHTYELLOW);
+	kprintf("--------------------------------[ IRQ/TRAP CONTEXT ]--------------------------------\n");
+	dprintf("--------------------------------[ IRQ/TRAP CONTEXT ]--------------------------------\n");
+
+	/* How many sentinels remain in this chain? (there is at least one) */
+	size_t remaining_markers = count_markers_ahead(frame, lo, hi, depth);
+
 	setforeground(COLOUR_LIGHTGREEN);
-	while (frame && ((uint64_t)frame & 0xFFFFFFFFFFFFF000ull) == page) {
-		name = findsymbol((uint64_t)frame->addr, &offset);
-		if (!name || (strcmp(name, "pci_enable_msi") != 0 && strcmp(name, "vprintf") != 0 && strcmp(name, "printf") != 0)) {
-			kprintf("\tat %s()+0%08lx [0x%lx]\n",  name ? name : "[???]", offset, (uint64_t)frame->addr);
+	while (frame && CANONICAL_ADDRESS(frame) && (uintptr_t)frame >= lo && (uintptr_t)frame <= (hi - sizeof(*frame)) && depth++ < 1024) {
+
+		stack_frame_t *next = frame->next;
+
+		if (next && (uintptr_t)next <= (uintptr_t)frame) {
+			break; /* corrupted or cyclic chain */
 		}
-		frame = frame->next;
+
+		if (frame->addr == BT_IRQ_MARKER) {
+			/* Crossing this boundary */
+			if (remaining_markers > 0) {
+				remaining_markers--; /* consume this marker */
+			}
+			setforeground(COLOUR_LIGHTYELLOW);
+			if (remaining_markers > 0) {
+				kprintf("--------------------------------[ IRQ/TRAP CONTEXT ]--------------------------------\n");
+				dprintf("--------------------------------[ IRQ/TRAP CONTEXT ]--------------------------------\n");
+			} else {
+				kprintf("-------------------------------[ PRE-EMPTED CONTEXT ]-------------------------------\n");
+				dprintf("-------------------------------[ PRE-EMPTED CONTEXT ]-------------------------------\n");
+			}
+			setforeground(COLOUR_LIGHTGREEN);
+
+			frame = next;
+			continue;
+		}
+
+		uint64_t offset = 0;
+		const char *name = findsymbol((uint64_t)frame->addr, &offset);
+		if (!name || (strcmp(name, "pci_enable_msi") != 0 && strcmp(name, "vprintf") != 0 && strcmp(name, "printf") != 0)) {
+			kprintf("\tat %s()+0%08lx [0x%lx]\n", name ? name : "[???]", offset, (uint64_t)frame->addr);
+			dprintf("\tat %s()+0%08lx [0x%lx]\n", name ? name : "[???]", offset, (uint64_t)frame->addr);
+		}
+
+		frame = next;
 	}
+
 	setforeground(COLOUR_WHITE);
 }
+
 
 uint32_t gdb_trace(const char* str) {
 	uint32_t hash = 5381;

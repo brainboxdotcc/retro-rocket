@@ -5,22 +5,7 @@
  */
 #pragma once
 
-#define SYM_ABSOLUTE 'A'
-#define SYM_BSS 'B'
-#define SYM_COMMON 'C'
-#define SYM_INITIALISED 'D'
-#define SYM_SMALLOBJECT 'G'
-#define SYM_INDIRECT_REF 'I'
-#define SYM_DEBUGGING 'N'
-#define SYM_READONLY 'R'
-#define SYM_UNINITIALISED 'S'
-#define SYM_TEXT 'T'
-#define SYM_TEXT2 't'
-#define SYM_UNDEFINED 'U'
-#define SYM_WEAK_OBJECT 'V'
-#define SYM_WEAK_SYMBOL 'W'
-#define SYM_STABS '-'
-#define SYM_UNKNOWN '?'
+#define CANONICAL_ADDRESS(x) (((((intptr_t)(x)) << 16) >> 16) == (intptr_t)(x))
 
 typedef struct symbol
 {

@@ -30,7 +30,6 @@ void arp_handle_packet(arp_packet_t* arp_packet, [[maybe_unused]] int len) {
 	memcpy(dst_hardware_addr, arp_packet->src_hardware_addr, 6);
 	memcpy(dst_protocol_addr, arp_packet->src_protocol_addr, 4);
 	if (ntohs(arp_packet->opcode) == ARP_REQUEST) {
-		dprintf("arp request\n");
 		unsigned char addr[4];
 		uint32_t my_ip = 0;
 		if (gethostaddr(addr)) {
@@ -62,8 +61,6 @@ void arp_handle_packet(arp_packet_t* arp_packet, [[maybe_unused]] int len) {
 			arp_packet->protocol = htons(ETHERNET_TYPE_IP);
 
 			ethernet_send_packet(dst_hardware_addr, (uint8_t*)arp_packet, sizeof(arp_packet_t), ETHERNET_TYPE_ARP);
-		} else {
-			dprintf("Invalid addr %08x\n", my_ip);
 		}
 	} else if(ntohs(arp_packet->opcode) == ARP_REPLY) {
 		dprintf("ARP_REPLY from: %08x hw %02x:%02x:%02x:%02x:%02x:%02x\n", *(uint32_t*)&dst_protocol_addr, dst_hardware_addr[0], dst_hardware_addr[1], dst_hardware_addr[2], dst_hardware_addr[3], dst_hardware_addr[4], dst_hardware_addr[5]);
@@ -71,7 +68,6 @@ void arp_handle_packet(arp_packet_t* arp_packet, [[maybe_unused]] int len) {
 
 	uint8_t dummy[6];
 	if (!arp_lookup(dummy, dst_protocol_addr)) {
-		dprintf("not in arp table, storing at %d\n", arp_table_size);
 		memcpy(&arp_table[arp_table_curr].ip_addr, dst_protocol_addr, 4);
 		memcpy(&arp_table[arp_table_curr++].mac_addr, dst_hardware_addr, 6);
 		if(arp_table_size < 512) {

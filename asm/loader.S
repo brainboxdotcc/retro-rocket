@@ -4,6 +4,8 @@
 .global idt_init
 .extern idt64
 
+.set BT_IRQ_MARKER, 0xffffffffffffff01
+
 #define SELECTOR 40
 
 .text
@@ -102,6 +104,20 @@ irq\num:
     pop %r13
     pop %r14
     pop %r15
+.endm
+
+.macro PUSH_SENTINEL
+    /* Build { next = old_rbp, addr = BT_IRQ_MARKER } and link it */
+    sub $16, %rsp
+    mov %rbp, 0(%rsp)           /* next */
+    movq $BT_IRQ_MARKER, 8(%rsp) /* addr */
+    mov %rsp, %rbp              /* link into the RBP chain */
+.endm
+
+.macro POP_SENTINEL
+    /* Drop the fabricated frame and restore the caller’s rbp */
+    mov 0(%rbp), %rbp           /* restore previous RBP (next) */
+    add $16, %rsp               /* drop {next,addr} */
 .endm
 
 isrs:
@@ -372,12 +388,16 @@ isrs:
 // ----------------------
 
 irq_stub:
+    PUSH_SENTINEL
     call IRQ
+    POP_SENTINEL
     MPOPA
     iretq
 
 interrupt_stub:
+    PUSH_SENTINEL
     call Interrupt
+    POP_SENTINEL
     MPOPA
     iretq
 
