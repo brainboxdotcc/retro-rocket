@@ -1,0 +1,5 @@
+PRINT "Total memory peak, this program:  "; MEMPEAK; " ("; MEMPEAK / 1024; " KB)"
+PRINT "Total memory, this program:       "; MEMPROGRAM; " ("; MEMPROGRAM / 1024; " KB)"
+PRINT "Total memory free:                "; MEMFREE; " ("; MEMFREE / 1024 / 1024; " MB)"
+PRINT "Total memory in use:              "; MEMUSED; " ("; MEMUSED / 1024 / 1024; " MB)"
+PRINT "Total memory available to BASIC:  "; MEMORY; " ("; MEMORY / 1024 / 1024; " MB)"

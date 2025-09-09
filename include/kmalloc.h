@@ -21,14 +21,6 @@
 void init_heap(void);
 
 /**
- * @brief Print diagnostic heap information to the terminal.
- *
- * Outputs allocator statistics such as used, free, and total heap space.
- * Primarily for debugging and diagnostics.
- */
-void print_heapinfo(void);
-
-/**
  * @brief Allocate memory from the kernel heap.
  *
  * @param size Number of bytes to allocate.

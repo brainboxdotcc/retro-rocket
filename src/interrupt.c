@@ -44,7 +44,6 @@ bool register_interrupt_handler(uint8_t n, isr_t handler, pci_dev_t device, void
 		dprintf("Unmasking irq %u\n", n - IRQ_START);
 		ioapic_mask_set(n - IRQ_START, false); // Unmask
 	}
-	dprintf("Register ISR %d CPU %d\n", n, logical_cpu_id());
 	return true;
 }
 
