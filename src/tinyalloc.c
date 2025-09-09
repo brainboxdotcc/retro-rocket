@@ -46,15 +46,6 @@ void ta_init(void *heap, size_t size, size_t alignment) {
 	ta_head->next = 0;
 }
 
-static void *align_forward(void *ptr, size_t align) {
-	uintptr_t p = (uintptr_t) ptr;
-	uintptr_t mod = p % align;
-	if (mod) {
-		p += (align - mod);
-	}
-	return (void *) p;
-}
-
 void *ta_alloc(size_t size) {
 	ta_header *current = ta_head;
 	while (current) {

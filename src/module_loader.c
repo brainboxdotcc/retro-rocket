@@ -2,6 +2,151 @@
 
 static struct hashmap* modules;
 
+/* --- module symbol registry for backtraces -------------------------------- */
+
+typedef struct modreg {
+	struct modreg *next;
+	module        *m;          /* stored copy in hashmap */
+	const char    *name;       /* m->name (owned by module) */
+	uintptr_t      text_lo;    /* lowest resolved FUNC symbol addr */
+	uintptr_t      text_hi;    /* one-past-highest resolved FUNC symbol addr */
+} modreg;
+
+static modreg *modreg_head = NULL;
+
+/* Build [text_lo, text_hi] from resolved STT_FUNC symbols */
+static void modreg_build_text_bounds(modreg *r) {
+	uintptr_t lo = UINTPTR_MAX, hi = 0;
+
+	for (size_t i = 0; i < r->m->sym_count; i++) {
+		const elf_sym *s = &r->m->symtab[i];
+
+		if (s->st_name == 0) {
+			continue;
+		}
+		if (s->st_shndx == SHN_UNDEF || s->st_shndx >= SHN_LORESERVE) {
+			continue;
+		}
+		/* Prefer functions; accept NOTYPE as a fallback */
+		unsigned stt = ELF64_ST_TYPE(s->st_info);
+		if (stt != STT_FUNC && stt != STT_NOTYPE) {
+			continue;
+		}
+
+		uint8_t *b = module_section_base(r->m, s->st_shndx);
+		if (!b) {
+			continue;
+		}
+		uintptr_t a = (uintptr_t)(b + s->st_value);
+		if (a < lo) {
+			lo = a;
+		}
+		if (a > hi) {
+			hi = a;
+		}
+	}
+
+	if (lo == UINTPTR_MAX || hi == 0 || hi <= lo) {
+		/* Fallback: if no funcs found, cover the whole mapped module */
+		r->text_lo = (uintptr_t)r->m->base;
+		r->text_hi = r->text_lo + r->m->size;
+	} else {
+		/* hi should be one-past; nudge if equal to a symbol addr later */
+		r->text_lo = lo;
+		r->text_hi = hi + 1;
+	}
+}
+
+/* Insert/remove */
+static void modreg_register(module *m) {
+	modreg *r = kmalloc(sizeof(*r));
+	if (!r) {
+		return;
+	}
+	r->m = m;
+	r->name = m->name;
+	r->next = modreg_head;
+	modreg_build_text_bounds(r);
+	modreg_head = r;
+}
+
+static void modreg_unregister(module *m) {
+	modreg **pp = &modreg_head;
+	while (*pp) {
+		if ((*pp)->m == m) {
+			modreg *dead = *pp;
+			*pp = dead->next;
+			kfree(dead);
+			return;
+		}
+		pp = &(*pp)->next;
+	}
+}
+
+/* Lookup: addr -> module:symbol + offset
+ * Returns true on success. Outputs (optionally) modname/symname/offset.
+ */
+bool module_addr_to_symbol(uintptr_t addr, const char **modname_out, const char **symname_out, uint64_t *offset_out) {
+	for (modreg *r = modreg_head; r; r = r->next) {
+		if (addr < r->text_lo || addr >= r->text_hi) {
+			continue;
+		}
+
+		/* Best ≤ addr */
+		uintptr_t best_addr = 0;
+		const char *best_name = NULL;
+
+		for (size_t i = 0; i < r->m->sym_count; i++) {
+			const elf_sym *s = &r->m->symtab[i];
+
+			if (s->st_name == 0) {
+				continue;
+			}
+			if (s->st_shndx == SHN_UNDEF || s->st_shndx >= SHN_LORESERVE) {
+				continue;
+			}
+
+			uint8_t *b = module_section_base(r->m, s->st_shndx);
+			if (!b) {
+				continue;
+			}
+
+			uintptr_t sa = (uintptr_t)(b + s->st_value);
+			if (sa <= addr && sa >= best_addr) {
+				best_addr = sa;
+				best_name = r->m->strtab + s->st_name;
+			}
+		}
+
+		if (best_name) {
+			if (modname_out) {
+				*modname_out = r->name;
+			}
+			if (symname_out) {
+				*symname_out = best_name;
+			}
+			if (offset_out) {
+				*offset_out = (uint64_t)(addr - best_addr);
+			}
+			return true;
+		}
+
+		/* In-range but no symbol match: still report module with [???] */
+		if (modname_out) {
+			*modname_out = r->name;
+		}
+		if (symname_out) {
+			*symname_out = NULL;
+		}
+		if (offset_out) {
+			*offset_out = 0;
+		}
+		return true;
+	}
+
+	return false;
+}
+
 const void *kernel_dlsym(const char *name) {
 	if (!name) {
 		return NULL;
@@ -424,7 +569,7 @@ void init_modules(void) {
 	if (modules) {
 		return;
 	}
-	modules = hashmap_new(sizeof(module), 0, mt_rand(), mt_rand(), module_hash, module_compare, module_hash_free, NULL);
+	modules = hashmap_new(sizeof(module), 0, 4325874395643634, 4532498232342, module_hash, module_compare, module_hash_free, NULL);
 }
 
 bool load_module(const char* name) {
@@ -436,6 +581,7 @@ bool load_module(const char* name) {
 		dprintf("Out of memory\n");
 		return false;
 	}
+	const char* saved_name = m.name;
 	if (hashmap_get(modules, &m)) {
 		dprintf("Module %s already loaded\n", name);
 		kfree_null(&m.name);
@@ -465,7 +611,10 @@ bool load_module(const char* name) {
 		kfree_null(&m.name);
 		return false;
 	}
+	m.name = saved_name;
 	hashmap_set(modules, &m);
+	module* stored = hashmap_get(modules, &(module){ .name = name });
+	modreg_register(stored);
 	return true;
 }
 
@@ -478,6 +627,7 @@ bool unload_module(const char* name) {
 	if (!module_internal_unload(mod)) {
 		return false;
 	}
+	modreg_unregister(mod);
 	hashmap_delete(modules, mod);
 	return true;
 }

@@ -266,21 +266,11 @@ void e1000_up() {
  * IRQ handler (MSI)
  * @return
  */
-void e1000_handler([[maybe_unused]
-
-]
-uint8_t isr,
-[[maybe_unused]]
-uint64_t error,
-[[maybe_unused]]
-uint64_t irq,
-void *opaque
-) {
-uint32_t status = e1000_read_command(REG_ICR);
-if (status & ICR_RXT0) {
-e1000_handle_receive();
-
-}
+void e1000_handler(uint8_t isr, uint64_t error, uint64_t irq, void *opaque) {
+	uint32_t status = e1000_read_command(REG_ICR);
+	if (status & ICR_RXT0) {
+		e1000_handle_receive();
+	}
 }
 
 void e1000_enable_interrupts() {

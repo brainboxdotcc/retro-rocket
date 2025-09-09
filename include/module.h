@@ -44,6 +44,10 @@
 #define ET_REL         1    /**< Relocatable object file */
 #define EM_X86_64      62   /**< AMD64 / x86-64 architecture */
 
+#define ELF64_ST_TYPE(i)   ((uint8_t)((i) & 0x0F))
+#define STT_NOTYPE   0
+#define STT_FUNC     2
+
 /* Section types (sh_type) */
 #define SHT_NULL       0    /**< Inactive section header */
 #define SHT_PROGBITS   1    /**< Program-defined contents */
@@ -361,3 +365,5 @@ bool load_module(const char *name);
  * @return true on success, false if not found or unload failed
  */
 bool unload_module(const char *name);
+
+bool module_addr_to_symbol(uintptr_t addr, const char **modname_out, const char **symname_out, uint64_t *offset_out);

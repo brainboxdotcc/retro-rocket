@@ -107,17 +107,15 @@ irq\num:
 .endm
 
 .macro PUSH_SENTINEL
-    /* Build { next = old_rbp, addr = BT_IRQ_MARKER } and link it */
     sub $16, %rsp
-    mov %rbp, 0(%rsp)           /* next */
-    movq $BT_IRQ_MARKER, 8(%rsp) /* addr */
-    mov %rsp, %rbp              /* link into the RBP chain */
+    mov %rbp, 0(%rsp)
+    movq $BT_IRQ_MARKER, 8(%rsp)
+    mov %rsp, %rbp
 .endm
 
 .macro POP_SENTINEL
-    /* Drop the fabricated frame and restore the caller’s rbp */
-    mov 0(%rbp), %rbp           /* restore previous RBP (next) */
-    add $16, %rsp               /* drop {next,addr} */
+    mov 0(%rbp), %rbp
+    add $16, %rsp
 .endm
 
 isrs:

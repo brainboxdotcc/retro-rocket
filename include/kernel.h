@@ -15,7 +15,15 @@
 #define KSTACK_SIZE  (32ULL * 1024ULL * 1024ULL)   /* 32 MiB */
 #define KSTACK_MASK  (~(KSTACK_SIZE - 1ULL))
 
-#define kprintf printf
+#define kprintf(fmt, ...) \
+	printf(fmt, ##__VA_ARGS__)
+
+#define aprintf(fmt, ...) \
+    do { \
+        kprintf(fmt, ##__VA_ARGS__); \
+        dprintf(fmt, ##__VA_ARGS__); \
+    } while (0)
+
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
