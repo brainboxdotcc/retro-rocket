@@ -207,6 +207,11 @@ void e1000_handle_receive() {
 		rx_cur = (rx_cur + 1) % E1000_NUM_RX_DESC;
 		e1000_write_command(REG_RXDESCTAIL, old_cur);
 	}
+
+	if (get_ticks() > 5000) {
+		int *a = 0;
+		*a = 0;
+	}
 }
 
 void e1000_check_link() {

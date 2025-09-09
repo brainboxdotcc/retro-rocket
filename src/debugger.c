@@ -459,14 +459,22 @@ void backtrace(void) {
 	size_t depth = 0;
 	get_kstack_bounds(&lo, &hi);
 
-	/* We know we’re in an ISR/exception at the top */
-	setforeground(COLOUR_LIGHTYELLOW);
-	aprintf("--------------------------------[ IRQ/TRAP CONTEXT ]--------------------------------\n");
+	/* If we’re in an ISR/exception at the top */
 	size_t remaining_markers = count_markers_ahead(frame, lo, hi, depth);
+	uint32_t skip = 0;
 	setforeground(COLOUR_LIGHTGREEN);
+
 	while (frame && CANONICAL_ADDRESS(frame) && (uintptr_t)frame >= lo && (uintptr_t)frame <= (hi - sizeof(*frame)) && depth++ < 1024) {
 
 		stack_frame_t *next = frame->next;
+
+		/* always drop error_handler -> Interrupt -> interrupt_stub.
+		 * Tracing through the error handler itself is not useful
+		 */
+		if (skip++ < 3) {
+			frame = next;
+			continue;
+		}
 
 		if (next && (uintptr_t)next <= (uintptr_t)frame) {
 			break;
@@ -487,7 +495,6 @@ void backtrace(void) {
 		uint64_t offset = 0;
 		const char *mname = NULL, *sname = NULL;
 		if (module_addr_to_symbol(frame->addr, &mname, &sname, &offset)) {
-			/* print "mname:sname+off" (or mname:[???]) */
 			aprintf("\t%s:%s()+0%08lx [0x%lx]\n", mname, sname, offset, (uint64_t) frame->addr);
 		} else {
 			const char *name = findsymbol((uint64_t) frame->addr, &offset);

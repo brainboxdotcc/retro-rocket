@@ -83,7 +83,7 @@ void local_apic_clear_interrupt()
 
 /* Both the Interrupt() and ISR() functions are dispatched from the assembly code trampoline via a pre-set IDT */
 
-void Interrupt(uint64_t isrnumber, uint64_t errorcode) {
+void Interrupt(uint64_t isrnumber, uint64_t errorcode, uint64_t rip) {
 	__attribute__((aligned(16))) uint8_t fx[512];
 	__builtin_ia32_fxsave64(&fx);
 
@@ -92,7 +92,7 @@ void Interrupt(uint64_t isrnumber, uint64_t errorcode) {
 		 * they are purely routed to interested handlers
 		 */
 		if (si->interrupt_handler) {
-			si->interrupt_handler((uint8_t) isrnumber, errorcode, 0, si->opaque);
+			si->interrupt_handler((uint8_t) isrnumber, errorcode, rip, si->opaque);
 		}
 	}
 

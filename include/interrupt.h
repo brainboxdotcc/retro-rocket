@@ -97,7 +97,7 @@ bool register_interrupt_handler(uint8_t n, isr_t handler, pci_dev_t device, void
  * @param isrnumber The interrupt service routine number (0–31).
  * @param errorcode The associated CPU-generated error code (or zero if unused).
  */
-void Interrupt(uint64_t isrnumber, uint64_t errorcode);
+void Interrupt(uint64_t isrnumber, uint64_t errorcode, uint64_t rip);
 
 /**
  * @brief Global entry point for hardware IRQs (ISR ≥ 32, remapped).

@@ -46,6 +46,8 @@ idt_loop:
     retq
 
 .macro ISR_NOERR isr
+    .global isr\isr
+    .type   isr\isr, @function
 isr\isr:
     MPUSHA
     mov $0, %rsi
@@ -54,6 +56,8 @@ isr\isr:
 .endm
 
 .macro ISR_ERR isr
+    .global isr\isr
+    .type   isr\isr, @function
 isr\isr:
     pop %rax
     MPUSHA
@@ -63,6 +67,8 @@ isr\isr:
 .endm
 
 .macro IRQ num byte
+    .global irq\num
+    .type   irq\num, @function
 irq\num:
     MPUSHA
     mov $\byte, %rdi
@@ -385,19 +391,29 @@ isrs:
 // Common stubs
 // ----------------------
 
+.global irq_stub
+.type   irq_stub, @function
 irq_stub:
+    xor %rdx, %rdx                 /* 3rd arg (rip)=0 for IRQ path */
     PUSH_SENTINEL
     call IRQ
     POP_SENTINEL
     MPOPA
     iretq
+.size   irq_stub, .-irq_stub
 
+.global interrupt_stub
+.type   interrupt_stub, @function
 interrupt_stub:
+    /* MPUSHA pushed 15 regs = 120 bytes; ISR_ERR popped error code already.
+       The HW-saved RIP is at +120(%rsp) here (kernel->kernel case). */
+    mov 120(%rsp), %rdx            /* 3rd arg (rip) for Interrupt() */
     PUSH_SENTINEL
     call Interrupt
     POP_SENTINEL
     MPOPA
     iretq
+.size   interrupt_stub, .-interrupt_stub
 
 exception_handlers:
     .quad isr0, isr1, isr2, isr3, isr4, isr5, isr6, isr7
