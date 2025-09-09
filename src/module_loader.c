@@ -482,8 +482,6 @@ bool module_load_from_memory(const void *file, size_t len, module *out) {
 		return false;
 	}
 
-	memset(out, 0, sizeof(*out));
-
 	if (!parse_elf_rel_headers((const uint8_t *) file, len, &eh, &sh, &shnum, &shstr)) {
 		dprintf("module_load_from_memory: header parse failed\n");
 		return false;
@@ -581,7 +579,6 @@ bool load_module(const char* name) {
 		dprintf("Out of memory\n");
 		return false;
 	}
-	const char* saved_name = m.name;
 	if (hashmap_get(modules, &m)) {
 		dprintf("Module %s already loaded\n", name);
 		kfree_null(&m.name);
@@ -611,8 +608,6 @@ bool load_module(const char* name) {
 		kfree_null(&m.name);
 		return false;
 	}
-	m.name = saved_name;
-	m.raw_bits = module_content;
 	hashmap_set(modules, &m);
 	module* stored = hashmap_get(modules, &(module){ .name = name });
 	modreg_register(stored);
