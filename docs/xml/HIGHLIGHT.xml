@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="HIGHLIGHT" kind="page">
+    <compoundname>HIGHLIGHT</compoundname>
+    <title>HIGHLIGHT$ Function</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">HIGHLIGHT$(string-expression)</highlight></codeline>
+</programlisting></para>
+<para>Given a string containing BASIC source, returns a copy with ANSI SGR escape sequences applied for syntax highlighting. Intended for program listings, editors, and tools that render to an ANSI-capable terminal, producing a consistent look-and-feel.</para>
+<para><bold>Notes</bold></para>
+<para><itemizedlist>
+<listitem><para><bold>Strings</bold> — text between double quotes (<computeroutput>&quot;...&quot;</computeroutput>) is highlighted in <bold>light yellow</bold> from the opening quote to the closing quote. If a closing quote is missing, highlighting continues to the end of the input and is then reset.</para>
+</listitem><listitem><para><bold>Comments</bold><itemizedlist>
+<listitem><para>A single quote (&apos;) begins a comment that is highlighted in <bold>dark green</bold> until the end of the input.</para>
+</listitem><listitem><para>The keyword <computeroutput>REM</computeroutput> (when not inside a string) causes the <bold>entire line</bold> to be treated as a comment and highlighted in <bold>dark green</bold>.</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para><bold>Keywords / tokens</bold> — recognised BASIC keywords are highlighted in <bold>light blue</bold> when they are not part of a longer identifier. Boundary detection prevents colouring inside names like <computeroutput>FORTH</computeroutput>. Exceptions: <computeroutput>PROC</computeroutput>, <computeroutput>FN</computeroutput>, and <computeroutput>=</computeroutput> may be adjacent to letters/digits/underscores and will still be highlighted.</para>
+</listitem><listitem><para><bold>Built-in functions</bold><itemizedlist>
+<listitem><para>Integer-returning built-ins are <bold>light green</bold>.</para>
+</listitem><listitem><para>String-returning built-ins are <bold>light magenta</bold>.</para>
+</listitem><listitem><para>Real/float-returning built-ins are <bold>light cyan</bold>.</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para><bold>Numeric literals</bold> — digits (and a leading unary <computeroutput>+</computeroutput>/<computeroutput>-</computeroutput>) are highlighted in <bold>orange</bold>.</para>
+</listitem><listitem><para><bold>Operators &amp; punctuation</bold> — <computeroutput>() + - * / = &lt; &gt; , ;</computeroutput> are highlighted in <bold>dark red</bold>.</para>
+</listitem><listitem><para><bold>Default text</bold> — rendered in <bold>white</bold>. Colours are reset back to white after each coloured span, and a final reset is appended at the end of the result to prevent “colour leakage” in the caller’s terminal.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>Errors</bold></para>
+<para><itemizedlist>
+<listitem><para>None</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>Examples</bold></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">&apos;<sp/>Strings<sp/>and<sp/>a<sp/>trailing<sp/>comment</highlight></codeline>
+<codeline><highlight class="normal">A$<sp/>=<sp/>&quot;PRINT<sp/>&quot;<sp/>+<sp/>CHR$(34)<sp/>+<sp/>&quot;hello<sp/>world&quot;<sp/>+<sp/>CHR$(34)<sp/>+<sp/>&quot;<sp/>&apos;<sp/>This<sp/>is<sp/>an<sp/>example&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>HIGHLIGHT$(A$)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&apos;<sp/>Keywords,<sp/>numbers,<sp/>and<sp/>operators</highlight></codeline>
+<codeline><highlight class="normal">B$<sp/>=<sp/>&quot;FOR<sp/>I<sp/>=<sp/>1<sp/>TO<sp/>10<sp/>+<sp/>8&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>HIGHLIGHT$(B$)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&apos;<sp/>REM<sp/>comment<sp/>colours<sp/>the<sp/>whole<sp/>line<sp/>as<sp/>a<sp/>comment</highlight></codeline>
+<codeline><highlight class="normal">D$<sp/>=<sp/>&quot;REM<sp/>this<sp/>whole<sp/>line<sp/>is<sp/>a<sp/>comment&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>HIGHLIGHT$(D$)</highlight></codeline>
+</programlisting></para>
+<para><bold>See also</bold></para>
+<para><itemizedlist>
+<listitem><para><ref refid="PRINT" kindref="compound">PRINT Keyword</ref> - display output on the screen</para>
+</listitem><listitem><para><ref refid="edit" kindref="compound">edit program</ref> - Text editor </para>
+</listitem></itemizedlist>
+</para>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/string/HIGHLIGHT.md"/>
+  </compounddef>
+</doxygen>
