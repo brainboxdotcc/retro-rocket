@@ -89,6 +89,113 @@ char* basic_lower(struct basic_ctx* ctx)
 	return modified;
 }
 
+extern struct basic_int_fn builtin_int[];
+extern struct basic_str_fn builtin_str[];
+extern struct basic_double_fn builtin_double[];
+
+/*
+   	if (background) {
+		code = map_vga_to_ansi_bg(vga_colour);
+	} else {
+		code = map_vga_to_ansi(vga_colour);
+	}
+	snprintf(out, out_len, "\x1b[%um", code);
+ */
+
+char* basic_highlight(struct basic_ctx* ctx) {
+	GENERATE_ENUM_STRING_NAMES(TOKEN, token_names)
+	const size_t token_count = sizeof(token_names) / sizeof(*token_names);
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	const char* in = strval;
+	char out[MAX_STRINGLEN] = {};
+	PARAMS_END("HIGHLIGHT$","");
+	bool in_quotes = false, in_comment = false;
+	const char* end = in + strlen(in);
+	for (const char* pos = in; *pos; ++pos) {
+		size_t current_len = strlen(out);
+		bool found = false, reset_colour = false;
+		if (in_comment) {
+			*(out + current_len) = *pos;
+			continue;
+		} else if (!in_quotes && *pos == '"') {
+			current_len += snprintf(out + current_len, MAX_STRINGLEN - current_len, "\x1b[%um", map_vga_to_ansi(COLOUR_LIGHTYELLOW));
+			in_quotes = true;
+		} else if (in_quotes && *pos == '"') {
+			in_quotes = false;
+			reset_colour = true;
+		} else if (!in_quotes && *pos == '\'') {
+			in_comment = true;
+			current_len += snprintf(out + current_len, MAX_STRINGLEN - current_len, "\x1b[%um", map_vga_to_ansi(COLOUR_DARKGREEN));
+		}
+		if (!in_quotes && !in_comment) {
+			for (size_t v = 0; builtin_int[v].name; ++v) {
+				size_t fn_len = strlen(builtin_int[v].name);
+				if (pos + fn_len <= end && !memcmp(pos, builtin_int[v].name, fn_len)) {
+					/* Is a builtin integer function */
+					snprintf(out + current_len, MAX_STRINGLEN - current_len, "\x1b[%um%s\x1b[%um", map_vga_to_ansi(COLOUR_LIGHTGREEN), builtin_int[v].name, map_vga_to_ansi(COLOUR_WHITE));
+					found = true;
+					pos += fn_len - 1;
+				}
+			}
+			for (size_t v = 0; builtin_str[v].name; ++v) {
+				size_t fn_len = strlen(builtin_str[v].name);
+				if (pos + fn_len <= end && !memcmp(pos, builtin_str[v].name, fn_len)) {
+					/* Is a builtin string function */
+					snprintf(out + current_len, MAX_STRINGLEN - current_len, "\x1b[%um%s\x1b[%um", map_vga_to_ansi(COLOUR_LIGHTMAGENTA), builtin_str[v].name, map_vga_to_ansi(COLOUR_WHITE));
+					found = true;
+					pos += fn_len - 1;
+				}
+			}
+			for (size_t v = 0; builtin_double[v].name; ++v) {
+				size_t fn_len = strlen(builtin_double[v].name);
+				if (pos + fn_len <= end && !memcmp(pos, builtin_double[v].name, fn_len)) {
+					/* Is a builtin real function */
+					snprintf(out + current_len, MAX_STRINGLEN - current_len, "\x1b[%um%s\x1b[%um", map_vga_to_ansi(COLOUR_LIGHTCYAN), builtin_double[v].name, map_vga_to_ansi(COLOUR_WHITE));
+					found = true;
+					pos += fn_len - 1;
+				}
+			}
+			for (size_t v = 0; v < token_count; ++v) {
+				size_t kw_len = strlen(token_names[v]);
+				if (pos + kw_len <= end && !memcmp(pos, token_names[v], kw_len)) {
+					const char *after = pos + kw_len;
+					bool next_is_varlike = ((*after >= '0' && *after <= '9') || (toupper(*after) >= 'A' && toupper(*after) <= 'Z') || *after == '_');
+					if (!next_is_varlike || v == PROC || v == FN || v == EQUALS) {
+						/* Is a token */
+						if (v == REM) {
+							in_comment = true;
+							snprintf(out, MAX_STRINGLEN, "\x1b[%um%s\x1b[%um", map_vga_to_ansi(COLOUR_DARKGREEN), in, map_vga_to_ansi(COLOUR_WHITE));
+							return (char*)gc_strdup(ctx, out);
+						} else {
+							snprintf(out + current_len, MAX_STRINGLEN - current_len, "\x1b[%um%s\x1b[%um", map_vga_to_ansi(COLOUR_LIGHTBLUE), token_names[v], map_vga_to_ansi(COLOUR_WHITE));
+							found = true;
+						}
+						pos += kw_len - 1;
+					}
+				}
+			}
+		}
+		if (!found) {
+			if (!in_quotes && !in_comment && ((*pos >= '0' && *pos <= '9') || ((*pos == '-' || *pos == '+') && (*(pos+1) >= '0' && *(pos+1) <= '9')))) {
+				/* Numeric colour */
+				snprintf(out + current_len, MAX_STRINGLEN - current_len, "\x1b[%um%c\x1b[%um", map_vga_to_ansi(COLOUR_ORANGE), *pos, map_vga_to_ansi(COLOUR_WHITE));
+			} else if (!in_quotes && !in_comment && (*pos == '(' || *pos == ')' || *pos == '+' || *pos == '-' || *pos == '/' || *pos == '=' ||  *pos == '*' || *pos == '<' || *pos == '>' || *pos == ',' || *pos == ';')) {
+				/* Symbolic maths colour */
+				snprintf(out + current_len, MAX_STRINGLEN - current_len, "\x1b[%um%c\x1b[%um", map_vga_to_ansi(COLOUR_DARKRED), *pos, map_vga_to_ansi(COLOUR_WHITE));
+			} else {
+				*(out + current_len) = *pos;
+			}
+		}
+		if (reset_colour) {
+			snprintf(out + current_len, MAX_STRINGLEN - current_len, "\"\x1b[%um", map_vga_to_ansi(COLOUR_WHITE));
+		}
+	}
+	char buf[MAX_STRINGLEN];
+	snprintf(buf, MAX_STRINGLEN, "%s\x1b[%um", out, map_vga_to_ansi(COLOUR_WHITE));
+	return (char*)gc_strdup(ctx, buf);
+}
+
 char* basic_tokenize(struct basic_ctx* ctx)
 {
 	char* varname, *split;

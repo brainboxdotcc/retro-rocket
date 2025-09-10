@@ -250,3 +250,6 @@ void set_video_dirty_area(int64_t start, int64_t end);
 
 const char* ansi_colour(char *out, size_t out_len, unsigned char vga_colour, bool background);
 
+unsigned char map_vga_to_ansi(unsigned char colour);
+
+unsigned char map_vga_to_ansi_bg(unsigned char colour);

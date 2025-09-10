@@ -630,8 +630,10 @@ bool video_flip_auto(void) {
 }
 
 void set_video_auto_flip(bool flip) {
+	if (video_flip_is_auto != flip) {
+		dprintf("VIDEO AUTO FLIP: %d\n", flip);
+	}
 	video_flip_is_auto = flip;
-	dprintf("VIDEO AUTO FLIP: %d\n", flip);
 }
 
 void rr_flip(void) {

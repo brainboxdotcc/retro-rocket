@@ -243,3 +243,5 @@ char* basic_str(struct basic_ctx* ctx);
 char* basic_bool(struct basic_ctx* ctx);
 
 char* basic_replace(struct basic_ctx* ctx);
+
+char* basic_highlight(struct basic_ctx* ctx);

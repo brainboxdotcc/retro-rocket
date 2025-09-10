@@ -123,6 +123,7 @@ struct basic_str_fn builtin_str[] =
 	{ basic_getprocname,         "GETPROCNAME$"  },
 	{ basic_getprocstate,        "GETPROCSTATE$" },
 	{ basic_getvar_string,       "GETVARS$"      },
+	{ basic_highlight,           "HIGHLIGHT$"    },
 	{ basic_inkey,               "INKEY$"        },
 	{ basic_insocket,            "INSOCKET$"     },
 	{ basic_intoasc,             "INTOASC$"      },

@@ -85,7 +85,7 @@ DEF PROCtext
 	CURSOR 1, 2
 	FOR l = top TO top + TERMHEIGHT - 3
 		PROCclearLineFromCursor
-		IF l < max THEN PRINT LEFT$(content$(l), TERMWIDTH)
+		IF l < max THEN PRINT HIGHLIGHT$(LEFT$(content$(l), TERMWIDTH))
 	NEXT
 	AUTOFLIP FALSE
 	FLIP
