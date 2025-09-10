@@ -6,9 +6,152 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para>A WYSIWYG editor, similar to GNU <computeroutput>nano</computeroutput> or MS-DOS <computeroutput>edit</computeroutput>. The editor can edit and save text files onto the file system.</para>
-<para><image type="html" name="https://user-images.githubusercontent.com/1556794/235879934-cbcb14a2-a030-4953-97ac-846a8cdf5a09.png" alt="image" inline="yes"></image>
- </para>
+<sect1 id="edit_1autotoc_md660">
+<title>Text Editor</title>
+<para>The text editor provides a simple, full-screen way to create and modify text files. It behaves similarly to GNU <computeroutput>nano</computeroutput> or MS-DOS <computeroutput>edit</computeroutput>, with clear on-screen prompts and keyboard shortcuts.</para>
+<para><image type="html" name="edit.png"></image>
+</para>
+<sect2 id="edit_1autotoc_md661">
+<title>Starting the editor</title>
+<para><itemizedlist>
+<listitem><para>To edit an existing file:</para>
+</listitem></itemizedlist>
+</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">edit<sp/>filename.txt</highlight></codeline>
+</programlisting></para>
+<para><itemizedlist>
+<listitem><para>To begin a new file:</para>
+</listitem></itemizedlist>
+</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">edit</highlight></codeline>
+</programlisting></para>
+</sect2>
+<sect2 id="edit_1autotoc_md662">
+<title>Moving around</title>
+<para><itemizedlist>
+<listitem><para>Use the <bold>arrow keys</bold> to move the cursor up, down, left, and right.</para>
+</listitem><listitem><para><bold>Home</bold> jumps to the start of the current line.</para>
+</listitem><listitem><para><bold>End</bold> jumps to the end of the current line.</para>
+</listitem><listitem><para><bold>Page Up</bold> and <bold>Page Down</bold> move through the file a screen at a time.</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="edit_1autotoc_md663">
+<title>Editing text</title>
+<para><itemizedlist>
+<listitem><para>Simply type to insert characters at the cursor.</para>
+</listitem><listitem><para><bold>Enter</bold> splits the line at the cursor and moves the text to a new line.</para>
+</listitem><listitem><para><bold>Backspace</bold> deletes the character to the left of the cursor.</para>
+</listitem><listitem><para><bold>Delete</bold> removes the character under the cursor.</para>
+</listitem><listitem><para>Lines will join together automatically if you backspace at the start of a line or delete at the end.</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="edit_1autotoc_md664">
+<title>Saving your work</title>
+<para><itemizedlist>
+<listitem><para>Press <bold>Ctrl+S</bold> to save.<itemizedlist>
+<listitem><para>If the file already has a name, you’ll be asked whether to keep it.</para>
+</listitem><listitem><para>If it’s a new file, you’ll be prompted to enter a name.</para>
+</listitem></itemizedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="edit_1autotoc_md665">
+<title>Searching and replacing</title>
+<para><itemizedlist>
+<listitem><para><bold>Ctrl+W</bold> starts a search. Type the text to look for, and the editor will highlight the first match.</para>
+</listitem><listitem><para><bold>Ctrl+R</bold> begins search and replace.<itemizedlist>
+<listitem><para>Type the text to search for.</para>
+</listitem><listitem><para>Type the replacement text.</para>
+</listitem><listitem><para>For each match you can choose:<itemizedlist>
+<listitem><para><bold>Y</bold> – replace this one</para>
+</listitem><listitem><para><bold>N</bold> – skip</para>
+</listitem><listitem><para><bold>A</bold> – replace all</para>
+</listitem><listitem><para><bold>Q</bold> – quit replacing</para>
+</listitem></itemizedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="edit_1autotoc_md666">
+<title>Syntax highlighting</title>
+<para><itemizedlist>
+<listitem><para>Press <bold>Ctrl+T</bold> to toggle syntax highlighting on or off.</para>
+</listitem><listitem><para>When enabled, BASIC keywords are coloured for easier reading.</para>
+</listitem><listitem><para>This affects only the display, not the saved file.</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="edit_1autotoc_md667">
+<title>Exiting the editor</title>
+<para><itemizedlist>
+<listitem><para>Press <bold>ESC</bold> to quit.</para>
+</listitem><listitem><para>If you have unsaved changes, the editor will ask you to confirm before closing.</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="edit_1autotoc_md668">
+<title>Quick reference</title>
+<para><table rows="13" cols="2"><row>
+<entry thead="yes"><para>Key   </para>
+</entry><entry thead="yes"><para>Action    </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>ESC</bold>   </para>
+</entry><entry thead="no"><para>Exit editor    </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>Ctrl+S</bold>   </para>
+</entry><entry thead="no"><para>Save file    </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>Ctrl+W</bold>   </para>
+</entry><entry thead="no"><para>Search    </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>Ctrl+R</bold>   </para>
+</entry><entry thead="no"><para>Search and replace    </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>Ctrl+T</bold>   </para>
+</entry><entry thead="no"><para>Toggle syntax highlighting    </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>Arrows</bold>   </para>
+</entry><entry thead="no"><para>Move cursor    </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>Home</bold>   </para>
+</entry><entry thead="no"><para>Move to start of line    </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>End</bold>   </para>
+</entry><entry thead="no"><para>Move to end of line    </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>PgUp</bold>   </para>
+</entry><entry thead="no"><para>Page up    </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>PgDn</bold>   </para>
+</entry><entry thead="no"><para>Page down    </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>Enter</bold>   </para>
+</entry><entry thead="no"><para>Split line    </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>Backspace/Delete</bold>   </para>
+</entry><entry thead="no"><para>Remove characters   </para>
+</entry></row>
+</table>
+</para>
+</sect2>
+</sect1>
     </detaileddescription>
     <location file="docpages/user-guide/commands/edit.md"/>
   </compounddef>

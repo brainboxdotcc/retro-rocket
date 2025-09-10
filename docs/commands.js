@@ -9,7 +9,22 @@ var commands =
     [ "cube program", "cube.html", null ],
     [ "delete program", "delete.html", null ],
     [ "dir command", "dir-full-pathname.html", null ],
-    [ "edit program", "edit.html", null ],
+    [ "edit program", "edit.html", [
+      [ "Text Editor", "edit.html#autotoc_md660", [
+        [ "CPUID leaf values", "cpubrand.html#autotoc_md657", [
+          [ "delete [full pathname]", "delete.html#autotoc_md658", null ],
+          [ "dir [directory]", "dir-full-pathname.html#autotoc_md659", null ]
+        ] ],
+        [ "Starting the editor", "edit.html#autotoc_md661", null ],
+        [ "Moving around", "edit.html#autotoc_md662", null ],
+        [ "Editing text", "edit.html#autotoc_md663", null ],
+        [ "Saving your work", "edit.html#autotoc_md664", null ],
+        [ "Searching and replacing", "edit.html#autotoc_md665", null ],
+        [ "Syntax highlighting", "edit.html#autotoc_md666", null ],
+        [ "Exiting the editor", "edit.html#autotoc_md667", null ],
+        [ "Quick reference", "edit.html#autotoc_md668", null ]
+      ] ]
+    ] ],
     [ "eval command", "eval.html", null ],
     [ "fstest program", "fstest.html", null ],
     [ "grapicstest program", "graphicstest.html", null ],

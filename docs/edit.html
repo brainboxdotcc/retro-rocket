@@ -89,8 +89,108 @@ $(document).ready(function(){initNavTree('edit.html',''); initResizable(); });
 <div class="title">edit program </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>A WYSIWYG editor, similar to GNU <code>nano</code> or MS-DOS <code>edit</code>. The editor can edit and save text files onto the file system.</p>
-<p><img src="https://user-images.githubusercontent.com/1556794/235879934-cbcb14a2-a030-4953-97ac-846a8cdf5a09.png" alt="image" class="inline"/> </p>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md660"></a>
+Text Editor</h1>
+<p>The text editor provides a simple, full-screen way to create and modify text files. It behaves similarly to GNU <code>nano</code> or MS-DOS <code>edit</code>, with clear on-screen prompts and keyboard shortcuts.</p>
+<div class="image">
+<img src="edit.png" alt=""/>
+</div>
+<h2><a class="anchor" id="autotoc_md661"></a>
+Starting the editor</h2>
+<ul>
+<li>To edit an existing file:</li>
+</ul>
+<div class="fragment"><div class="line">edit filename.txt</div>
+</div><!-- fragment --><ul>
+<li>To begin a new file:</li>
+</ul>
+<div class="fragment"><div class="line">edit</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md662"></a>
+Moving around</h2>
+<ul>
+<li>Use the <b>arrow keys</b> to move the cursor up, down, left, and right.</li>
+<li><b>Home</b> jumps to the start of the current line.</li>
+<li><b>End</b> jumps to the end of the current line.</li>
+<li><b>Page Up</b> and <b>Page Down</b> move through the file a screen at a time.</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md663"></a>
+Editing text</h2>
+<ul>
+<li>Simply type to insert characters at the cursor.</li>
+<li><b>Enter</b> splits the line at the cursor and moves the text to a new line.</li>
+<li><b>Backspace</b> deletes the character to the left of the cursor.</li>
+<li><b>Delete</b> removes the character under the cursor.</li>
+<li>Lines will join together automatically if you backspace at the start of a line or delete at the end.</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md664"></a>
+Saving your work</h2>
+<ul>
+<li>Press <b>Ctrl+S</b> to save.<ul>
+<li>If the file already has a name, you’ll be asked whether to keep it.</li>
+<li>If it’s a new file, you’ll be prompted to enter a name.</li>
+</ul>
+</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md665"></a>
+Searching and replacing</h2>
+<ul>
+<li><b>Ctrl+W</b> starts a search. Type the text to look for, and the editor will highlight the first match.</li>
+<li><b>Ctrl+R</b> begins search and replace.<ul>
+<li>Type the text to search for.</li>
+<li>Type the replacement text.</li>
+<li>For each match you can choose:<ul>
+<li><b>Y</b> – replace this one</li>
+<li><b>N</b> – skip</li>
+<li><b>A</b> – replace all</li>
+<li><b>Q</b> – quit replacing</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md666"></a>
+Syntax highlighting</h2>
+<ul>
+<li>Press <b>Ctrl+T</b> to toggle syntax highlighting on or off.</li>
+<li>When enabled, BASIC keywords are coloured for easier reading.</li>
+<li>This affects only the display, not the saved file.</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md667"></a>
+Exiting the editor</h2>
+<ul>
+<li>Press <b>ESC</b> to quit.</li>
+<li>If you have unsaved changes, the editor will ask you to confirm before closing.</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md668"></a>
+Quick reference</h2>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Key   </th><th class="markdownTableHeadNone">Action    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ESC</b>   </td><td class="markdownTableBodyNone">Exit editor    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>Ctrl+S</b>   </td><td class="markdownTableBodyNone">Save file    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>Ctrl+W</b>   </td><td class="markdownTableBodyNone">Search    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>Ctrl+R</b>   </td><td class="markdownTableBodyNone">Search and replace    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>Ctrl+T</b>   </td><td class="markdownTableBodyNone">Toggle syntax highlighting    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>Arrows</b>   </td><td class="markdownTableBodyNone">Move cursor    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>Home</b>   </td><td class="markdownTableBodyNone">Move to start of line    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>End</b>   </td><td class="markdownTableBodyNone">Move to end of line    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PgUp</b>   </td><td class="markdownTableBodyNone">Page up    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PgDn</b>   </td><td class="markdownTableBodyNone">Page down    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>Enter</b>   </td><td class="markdownTableBodyNone">Split line    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>Backspace/Delete</b>   </td><td class="markdownTableBodyNone">Remove characters   </td></tr>
+</table>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -98,7 +198,7 @@ $(document).ready(function(){initNavTree('edit.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="user-guide.html">User Guide</a></li><li class="navelem"><a class="el" href="commands.html">Commands</a></li>
-    <li class="footer">Generated on Wed Sep 10 2025 14:52:45 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Sep 10 2025 15:46:52 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

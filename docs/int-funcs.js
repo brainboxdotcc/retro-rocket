@@ -20,6 +20,17 @@ var int_funcs =
     [ "HOUR Function", "HOUR.html", null ],
     [ "INPORTD Function", "INPORTD.html", [
       [ "Parameter Types", "keywords.html#autotoc_md124", [
+        [ "eval [basic code]", "eval.html#autotoc_md669", null ],
+        [ "list [full pathname]", "list.html#autotoc_md670", null ],
+        [ "mkdir [full pathname]", "mkdir.html#autotoc_md671", null ],
+        [ "rmdir [full pathname]", "rmdir.html#autotoc_md672", [
+          [ "Command line entry", "rocketsh.html#autotoc_md673", null ],
+          [ "Rocket Shell Commands", "rocketsh.html#autotoc_md674", null ],
+          [ "Stopping running programs", "rocketsh.html#autotoc_md675", null ],
+          [ "Shell Variables", "rocketsh.html#autotoc_md676", null ],
+          [ "EDhistPtr", "rocketsh.html#autotoc_md677", null ]
+        ] ],
+        [ "TRUE and FALSE", "type-bi.html#autotoc_md574", null ],
         [ "How to read it", "BITAND.html#autotoc_md129", null ],
         [ "Examples", "BITAND.html#autotoc_md131", null ],
         [ "Notes", "BITAND.html#autotoc_md133", null ],
