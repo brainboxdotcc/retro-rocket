@@ -10,6 +10,7 @@
 - \subpage GETPROCNAME
 - \subpage GETPROCSTATE
 - \subpage GETVAR
+- \subpage HIGHLIGHT
 - \subpage INKEY
 - \subpage INSOCKET
 - \subpage LEFT

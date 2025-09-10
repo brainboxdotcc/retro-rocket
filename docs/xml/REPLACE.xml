@@ -2,12 +2,10 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="REPLACE" kind="page">
     <compoundname>REPLACE</compoundname>
-    <title>REPLACE\$ Function</title>
+    <title>REPLACE$ Function</title>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<sect4 id="REPLACE_1autotoc_md111">
-<title>REPLACE$</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REPLACE$(haystack-string-expression,<sp/>needle-string-expression,<sp/>replacement-string-expression)</highlight></codeline>
 </programlisting></para>
 <para>Replaces every <bold>non-overlapping</bold> occurrence of <computeroutput>needle$</computeroutput> in <computeroutput>haystack$</computeroutput> with <computeroutput>replacement$</computeroutput>. Matching is <bold>case-sensitive</bold>. The scan proceeds left-to-right and never re-matches text it has just written, so it is safe even when <computeroutput>replacement$</computeroutput> contains <computeroutput>needle$</computeroutput>.</para>
@@ -48,7 +46,6 @@
 </listitem><listitem><para><ref refid="LEFT" kindref="compound">LEFT$</ref>, <ref refid="RIGHT" kindref="compound">RIGHT$</ref> - fixed-width substrings </para>
 </listitem></itemizedlist>
 </para>
-</sect4>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/REPLACE.md"/>
   </compounddef>

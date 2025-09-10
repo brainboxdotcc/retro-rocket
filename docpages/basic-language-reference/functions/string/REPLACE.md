@@ -1,6 +1,4 @@
-\page REPLACE REPLACE\$ Function
-
-#### REPLACE\$
+\page REPLACE REPLACE$ Function
 
 ```basic
 REPLACE$(haystack-string-expression, needle-string-expression, replacement-string-expression)

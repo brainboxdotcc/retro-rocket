@@ -21,7 +21,7 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="PROC_1autotoc_md416">
+<sect3 id="PROC_1autotoc_md415">
 <title>Examples</title>
 <para><bold>Define and call a procedure</bold> <programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>PROChello(NAME$)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Hello,<sp/>&quot;;<sp/>NAME$</highlight></codeline>
@@ -49,7 +49,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="PROC_1autotoc_md418">
+<sect3 id="PROC_1autotoc_md417">
 <title>Errors and behaviour</title>
 <para><itemizedlist>
 <listitem><para>Calling an <bold>undefined</bold> procedure, using the <bold>wrong number</bold> of arguments, or <bold>mismatched types</bold> raises a runtime error (trap with <computeroutput>ON ERROR PROC...</computeroutput> if desired).</para>

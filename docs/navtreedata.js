@@ -34,7 +34,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "ABS.html",
-"PROC.html"
+"PRINT.html#autotoc_md413"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
