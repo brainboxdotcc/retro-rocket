@@ -10,5 +10,5 @@ Reverses string and returns the result
 | ``0123456789``   | ``9876543210``   |
 | ``hello world!`` | ``!dlrow olleh`` |
 | ``Retro Rocket`` | ``tekcoR orteR`` |
-| ``BASIC``        | ``CISAB``        ||
+| ``BASIC``        | ``CISAB``        |
 

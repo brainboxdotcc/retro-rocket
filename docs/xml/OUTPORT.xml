@@ -13,7 +13,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="OUTPORT_1autotoc_md336">
+<sect3 id="OUTPORT_1autotoc_md337">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Sends one byte via port-mapped I/O.</para>
@@ -22,7 +22,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="OUTPORT_1autotoc_md338">
+<sect3 id="OUTPORT_1autotoc_md339">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Reset<sp/>the<sp/>keyboard<sp/>controller</highlight></codeline>
 <codeline><highlight class="normal">OUTPORT<sp/>&amp;64,<sp/>&amp;FE</highlight></codeline>
@@ -30,7 +30,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="OUTPORT_1autotoc_md340">
+<sect3 id="OUTPORT_1autotoc_md341">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Some ports require delays or status checks between writes.</para>

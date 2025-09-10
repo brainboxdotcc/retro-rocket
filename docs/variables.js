@@ -14,14 +14,14 @@ var variables =
       [ "7) A tiny project: Guess the number", "basic-beginner.html#autotoc_md51", null ],
       [ "8) Tips and troubleshooting", "basic-beginner.html#autotoc_md53", null ],
       [ "9) Where to go next", "basic-beginner.html#autotoc_md55", [
-        [ "CPUID leaf values", "cpubrand.html#autotoc_md657", [
-          [ "delete [full pathname]", "delete.html#autotoc_md658", null ],
-          [ "dir [directory]", "dir-full-pathname.html#autotoc_md659", null ],
-          [ "eval [basic code]", "eval.html#autotoc_md660", null ],
-          [ "list [full pathname]", "list.html#autotoc_md661", null ],
-          [ "mkdir [full pathname]", "mkdir.html#autotoc_md662", null ],
-          [ "rmdir [full pathname]", "rmdir.html#autotoc_md663", null ],
-          [ "TRUE and FALSE", "type-bi.html#autotoc_md574", null ]
+        [ "CPUID leaf values", "cpubrand.html#autotoc_md658", [
+          [ "delete [full pathname]", "delete.html#autotoc_md659", null ],
+          [ "dir [directory]", "dir-full-pathname.html#autotoc_md660", null ],
+          [ "eval [basic code]", "eval.html#autotoc_md661", null ],
+          [ "list [full pathname]", "list.html#autotoc_md662", null ],
+          [ "mkdir [full pathname]", "mkdir.html#autotoc_md663", null ],
+          [ "rmdir [full pathname]", "rmdir.html#autotoc_md664", null ],
+          [ "TRUE and FALSE", "type-bi.html#autotoc_md575", null ]
         ] ]
       ] ]
     ] ]

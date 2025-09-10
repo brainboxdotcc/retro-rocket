@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="REPLACE" kind="page">
+    <compoundname>REPLACE</compoundname>
+    <title>REPLACE\$ Function</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<sect4 id="REPLACE_1autotoc_md111">
+<title>REPLACE$</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REPLACE$(haystack-string-expression,<sp/>needle-string-expression,<sp/>replacement-string-expression)</highlight></codeline>
+</programlisting></para>
+<para>Replaces every <bold>non-overlapping</bold> occurrence of <computeroutput>needle$</computeroutput> in <computeroutput>haystack$</computeroutput> with <computeroutput>replacement$</computeroutput>. Matching is <bold>case-sensitive</bold>. The scan proceeds left-to-right and never re-matches text it has just written, so it is safe even when <computeroutput>replacement$</computeroutput> contains <computeroutput>needle$</computeroutput>.</para>
+<para><bold>Notes</bold></para>
+<para><itemizedlist>
+<listitem><para>If <computeroutput>needle$</computeroutput> is <computeroutput>&quot;&quot;</computeroutput> (empty), the call is a <bold>no-op</bold> and returns a copy of <computeroutput>haystack$</computeroutput>. This avoids degenerate infinite insertions.</para>
+</listitem><listitem><para>If <computeroutput>replacement$</computeroutput> is <computeroutput>&quot;&quot;</computeroutput>, all occurrences of <computeroutput>needle$</computeroutput> are <bold>removed</bold>.</para>
+</listitem><listitem><para>Behaviour is <bold>non-overlapping</bold>: after a match, the search continues immediately after the replaced span.</para>
+</listitem><listitem><para>If <computeroutput>haystack$</computeroutput> is <computeroutput>&quot;&quot;</computeroutput>, the function returns <computeroutput>&quot;&quot;</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>Errors</bold></para>
+<para><itemizedlist>
+<listitem><para><bold>Type mismatch</bold> if any argument is not a string expression.</para>
+</listitem><listitem><para><bold>Wrong number of arguments</bold> if fewer or more than three arguments are supplied.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>Examples</bold></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">&apos;<sp/>Basic<sp/>replacement<sp/>(case-sensitive)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>REPLACE$(&quot;Hello<sp/>hello&quot;,<sp/>&quot;he&quot;,<sp/>&quot;X&quot;)<sp/><sp/><sp/><sp/><sp/>&apos;<sp/>-&gt;<sp/>Hello<sp/>Xllo</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&apos;<sp/>Remove<sp/>all<sp/>occurrences</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>REPLACE$(&quot;abracadabra&quot;,<sp/>&quot;a&quot;,<sp/>&quot;&quot;)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>-&gt;<sp/>brcdbr</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&apos;<sp/>Replacement<sp/>contains<sp/>the<sp/>needle<sp/>(safe,<sp/>non-overlapping)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>REPLACE$(&quot;xx&quot;,<sp/>&quot;x&quot;,<sp/>&quot;xx&quot;)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>-&gt;<sp/>xxxx</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&apos;<sp/>Longer<sp/>expansion</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>REPLACE$(&quot;banana&quot;,<sp/>&quot;na&quot;,<sp/>&quot;nana&quot;)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>-&gt;<sp/>bananana</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&apos;<sp/>Empty<sp/>needle:<sp/>no<sp/>change</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>REPLACE$(&quot;abc&quot;,<sp/>&quot;&quot;,<sp/>&quot;Z&quot;)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>-&gt;<sp/>abc</highlight></codeline>
+</programlisting></para>
+<para><bold>See also</bold></para>
+<para><itemizedlist>
+<listitem><para><ref refid="INSTR" kindref="compound">INSTR Function</ref> - find substring position</para>
+</listitem><listitem><para><ref refid="MID" kindref="compound">MID$</ref> - substring by range</para>
+</listitem><listitem><para><ref refid="LEFT" kindref="compound">LEFT$</ref>, <ref refid="RIGHT" kindref="compound">RIGHT$</ref> - fixed-width substrings </para>
+</listitem></itemizedlist>
+</para>
+</sect4>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/string/REPLACE.md"/>
+  </compounddef>
+</doxygen>

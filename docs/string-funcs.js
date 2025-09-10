@@ -20,6 +20,7 @@ var string_funcs =
     [ "NETINFO$ Function", "NETINFO.html", null ],
     [ "RAMDISK$ Function", "RAMDISK.html", null ],
     [ "READ Function", "READ.html", null ],
+    [ "REPLACE\\$ Function", "REPLACE.html", null ],
     [ "REVERSE$ Function", "REVERSE.html", null ],
     [ "RIGHT$ Function", "RIGHT.html", null ],
     [ "RJUST$ Function", "RJUST.html", null ],

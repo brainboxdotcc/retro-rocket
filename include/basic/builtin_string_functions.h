@@ -241,3 +241,5 @@ char* basic_str(struct basic_ctx* ctx);
  * @return The string representation of the boolean value
  */
 char* basic_bool(struct basic_ctx* ctx);
+
+char* basic_replace(struct basic_ctx* ctx);

@@ -12,6 +12,7 @@ lastrepl$ = ""
 hit_line = 0
 hit_pos = 0
 
+AUTOFLIP FALSE
 
 REM load file, draw UI, start editor input loop
 PROCload(ARGS$)
@@ -33,13 +34,16 @@ DEF PROCdraw
 	CURSOR 1, TERMHEIGHT
 	PROCclearLineFromCursor
 	CURSOR 2, TERMHEIGHT
-	PRINT "ESC EXIT"; CHR$(9); "^S SAVE"; CHR$(9); CHR$(9); "^W WHEREIS"; CHR$(9); "^R REPLACE";
+	GCOL &AA
+    RECTANGLE 0, GRAPHICS_HEIGHT - 20, GRAPHICS_WIDTH - 1, GRAPHICS_HEIGHT - 1
+	PRINT "ESC EXIT             ^S SAVE                 ^W WHEREIS                      ^R REPLACE                  ";
 	CURSOR TERMWIDTH - 15, TERMHEIGHT
 	PRINT currentx; ","; top + currenty; " ";
 	CURSOR 1, 0
 	PROCclearLineFromCursor
+	RECTANGLE 0, 0, GRAPHICS_WIDTH - 1, 20
 	CURSOR TERMWIDTH / 2 - 2, 0
-	PRINT "EDIT"
+	PRINT "EDIT";
 	COLOUR 7
 	BACKGROUND 0
 	CURSOR 1, 2
@@ -54,6 +58,8 @@ DEF PROCprompt(prompt$)
 	PROCclearLineFromCursor
 	CURSOR 2, TERMHEIGHT
 	PRINT prompt$; ": ";
+	AUTOFLIP FALSE
+	FLIP
 ENDPROC
 
 REM clear prompt
@@ -81,6 +87,8 @@ DEF PROCtext
 		PROCclearLineFromCursor
 		IF l < max THEN PRINT LEFT$(content$(l), TERMWIDTH)
 	NEXT
+	AUTOFLIP FALSE
+	FLIP
 	PROCshowCursor
 ENDPROC
 
@@ -91,17 +99,15 @@ DEF PROCload(file$)
 	IF FH < 0 THEN PROCfail
 	lines = 0
 	REPEAT
-		rawLine$ = READ$(FH)
-		processed$ = ""
-		FOR N = 0 TO LEN(rawLine$)
-			char$ = MID$(rawLine$, N, N+1)
-			IF char$ = CHR$(9) THEN processed$ = processed$ + "    "
-			IF char$ > CHR$(9) THEN processed$ = processed$ + char$
-		NEXT
-		content$(lines) = processed$
+		content$(lines) = REPLACE$(READ$(FH), CHR$(9), "    ")
 		lines = lines + 1
-		IF lines = max THEN PROCgrow
+		IF lines = max THEN
+		    PROCgrow
+		    PRINT ".";
+		    FLIP
+		ENDIF
 	UNTIL EOF(FH) = 1
+	PRINT ""
 	CLOSE FH
 ENDPROC
 
@@ -121,6 +127,8 @@ REM handle editor input loop
 DEF PROCedit
 	REPEAT
 		CURSOR currentx + 1, currenty + 2
+    	AUTOFLIP FALSE
+		FLIP
 		KGET key$
 		PROCprocessKey(ASC(key$))
 	UNTIL FALSE
@@ -178,7 +186,9 @@ ENDPROC
 REM handle save over existing file
 DEF PROCsaveAs
 	PROCprompt("Save as [" + ARGS$ + "]")
+	AUTOFLIP TRUE
 	INPUT file$
+	AUTOFLIP FALSE
 	IF file$ = "" THEN file$ = ARGS$
 	PROCdoSave(file$)
 ENDPROC
@@ -186,7 +196,9 @@ ENDPROC
 REM handle save to new file
 DEF PROCsaveNew
 	PROCprompt("Save as")
+	AUTOFLIP TRUE
 	INPUT file$
+	AUTOFLIP FALSE
 	PROCdoSave(file$)
 ENDPROC
 
@@ -206,13 +218,14 @@ ENDPROC
 REM display save error
 DEF PROCsaveError
 	PROCprompt("Unable to save file! Press any key to continue")
-	REPEAT
-	UNTIL INKEY$ > ""
+	KGET dummy$
 ENDPROC
 
 DEF PROCsearch
 	PROCprompt("Search text")
+	AUTOFLIP TRUE
 	INPUT find$
+	AUTOFLIP FALSE
 	IF find$ <> "" THEN lastfind$ = find$
 	IF lastfind$ = "" THEN
 		PROCendPrompt
@@ -236,9 +249,9 @@ DEF PROCdoFind(needle$)
 	    ENDPROC
 	ENDIF
 
+    PROCtext
 	PROCprompt("Not found. Press any key")
-	REPEAT
-	UNTIL INKEY$ <> ""
+	KGET dummy$
 	PROCendPrompt
 ENDPROC
 
@@ -437,7 +450,9 @@ REM ----------------------------
 REM search and replace (interactive)
 DEF PROCreplace
 	PROCprompt("Search text")
+	AUTOFLIP TRUE
 	INPUT find$
+	AUTOFLIP FALSE
 	IF find$ <> "" THEN lastfind$ = find$
 	IF lastfind$ = "" THEN
 		PROCendPrompt
@@ -445,7 +460,9 @@ DEF PROCreplace
 	ENDIF
 	PROCendPrompt
 	PROCprompt("Replace with")
+	AUTOFLIP TRUE
 	INPUT repl$
+	AUTOFLIP FALSE
 	IF repl$ <> "" THEN lastrepl$ = repl$
 	PROCendPrompt
 	PROCreplaceLoop(lastfind$, lastrepl$)
@@ -458,6 +475,7 @@ DEF PROCreplaceLoop(find$, repl$)
 	exit_replace = FALSE
 	next_line = top + currenty
 	next_col = currentx + 1
+	uk$ = ""
 	PROCdraw
 	REPEAT
 		IF FNnextHit(next_line, next_col, find$) = FALSE THEN

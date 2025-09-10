@@ -195,6 +195,52 @@ char* basic_mid(struct basic_ctx* ctx)
 	return cut + start;
 }
 
+char* basic_replace(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	const char* haystack = strval;
+	PARAMS_GET_ITEM(BIP_STRING);
+	const char* needle = strval;
+	PARAMS_GET_ITEM(BIP_STRING);
+	const char* with = strval;
+	PARAMS_END("REPLACE$","");
+
+	if (!haystack || *haystack == '\0') {
+		return "";
+	}
+
+	size_t needle_len = needle ? strlen(needle) : 0;
+	size_t with_len = with ? strlen(with) : 0;
+
+	if (needle_len == 0) {
+		return (char*)gc_strdup(ctx, haystack);
+	}
+
+	char out[MAX_STRINGLEN];
+	size_t w = 0;
+	const char* p = haystack;
+
+	while (*p && w < (MAX_STRINGLEN - 1)) {
+		if (strncmp(p, needle, needle_len) == 0) {
+			if (with_len != 0) {
+				size_t space = (MAX_STRINGLEN - 1) - w;
+				size_t ncopy = with_len <= space ? with_len : space;
+				if (ncopy != 0) {
+					memcpy(out + w, with, ncopy);
+					w += ncopy;
+				}
+			}
+			p += needle_len;
+		} else {
+			out[w++] = *p++;
+		}
+	}
+
+	out[w] = '\0';
+	return (char*)gc_strdup(ctx, out);
+}
+
 int64_t basic_len(struct basic_ctx* ctx)
 {
 	PARAMS_START;

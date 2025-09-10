@@ -131,6 +131,7 @@ struct basic_str_fn builtin_str[] =
 	{ basic_lower,               "LOWER$"        },
 	{ basic_ltrim,               "LTRIM$"        },
 	{ basic_mid,                 "MID$"          },
+	{ basic_replace,             "REPLACE$"      },
 	{ basic_netinfo,             "NETINFO$"      },
 	{ basic_itoa,                "RADIX$"        },
 	{ basic_ramdisk_from_device, "RAMDISK$"      },

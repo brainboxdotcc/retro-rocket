@@ -21,6 +21,7 @@
 - \subpage RADIXS
 - \subpage RAMDISK
 - \subpage READ
+- \subpage REPLACE
 - \subpage REVERSE
 - \subpage RIGHT
 - \subpage RJUST
