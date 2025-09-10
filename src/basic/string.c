@@ -4,6 +4,10 @@
  */
 #include <kernel.h>
 
+extern struct basic_int_fn builtin_int[];
+extern struct basic_str_fn builtin_str[];
+extern struct basic_double_fn builtin_double[];
+
 char* basic_chr(struct basic_ctx* ctx)
 {
 	PARAMS_START;
@@ -89,19 +93,6 @@ char* basic_lower(struct basic_ctx* ctx)
 	return modified;
 }
 
-extern struct basic_int_fn builtin_int[];
-extern struct basic_str_fn builtin_str[];
-extern struct basic_double_fn builtin_double[];
-
-/*
-   	if (background) {
-		code = map_vga_to_ansi_bg(vga_colour);
-	} else {
-		code = map_vga_to_ansi(vga_colour);
-	}
-	snprintf(out, out_len, "\x1b[%um", code);
- */
-
 char* basic_highlight(struct basic_ctx* ctx) {
 	GENERATE_ENUM_STRING_NAMES(TOKEN, token_names)
 	const size_t token_count = sizeof(token_names) / sizeof(*token_names);
@@ -115,7 +106,7 @@ char* basic_highlight(struct basic_ctx* ctx) {
 	for (const char* pos = in; *pos; ++pos) {
 		size_t current_len = strlen(out);
 		bool found = false, reset_colour = false;
-		if (in_comment) {
+		if (in_comment && current_len < MAX_STRINGLEN - 1) {
 			*(out + current_len) = *pos;
 			continue;
 		} else if (!in_quotes && *pos == '"') {
@@ -183,7 +174,7 @@ char* basic_highlight(struct basic_ctx* ctx) {
 			} else if (!in_quotes && !in_comment && (*pos == '(' || *pos == ')' || *pos == '+' || *pos == '-' || *pos == '/' || *pos == '=' ||  *pos == '*' || *pos == '<' || *pos == '>' || *pos == ',' || *pos == ';')) {
 				/* Symbolic maths colour */
 				snprintf(out + current_len, MAX_STRINGLEN - current_len, "\x1b[%um%c\x1b[%um", map_vga_to_ansi(COLOUR_DARKRED), *pos, map_vga_to_ansi(COLOUR_WHITE));
-			} else {
+			} else if (current_len < MAX_STRINGLEN - 1) {
 				*(out + current_len) = *pos;
 			}
 		}
