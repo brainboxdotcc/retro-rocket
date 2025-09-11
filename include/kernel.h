@@ -95,9 +95,47 @@ struct reqset {
 	size_t count;
 };
 
+/**
+ * @brief Called on network up
+ */
 void network_up();
+
+/**
+ * @brief Called on network down
+ */
 void network_down();
+
+/**
+ * @brief Verify that Limine's GDT and CR3 are sane, and provide
+ * the expected identity map. Also record the value of gdtr.base
+ * and CR3 so we can exclude it from BLR reclaim.
+ */
 void validate_limine_page_tables_and_gdt(void);
+
+/**
+ * @brief Collects and returns all bootloader response pointers we must preserve.
+ *
+ * @details
+ * Builds a `reqset` structure containing the runtime addresses of all Limine
+ * request/response pairs and other critical early-boot pointers (e.g. GDT base,
+ * CR3). These addresses are used during heap initialisation to ensure that
+ * **Bootloader Reclaimable** memory ranges containing live data structures are
+ * not erroneously freed back into the general allocator.
+ *
+ * By centralising this list, the heap code can simply check each BLR span for
+ * membership and decide whether to keep or reclaim it.
+ *
+ * @return
+ *  A `reqset` with:
+ *   - `count` = number of tracked pointers.
+ *   - `ptrs[]` = array of the addresses to preserve.
+ *
+ * @note
+ *  - The values in this set are not compile-time constants; they are filled
+ *    at runtime once the bootloader has populated its responses.
+ *  - Call this only after the Limine hand-off has occurred, typically during
+ *    or just before `init_heap()`.
+ */
 struct reqset request_addresses(void);
 
 #ifdef PROFILE_KERNEL

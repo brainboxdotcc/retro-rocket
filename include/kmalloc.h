@@ -13,10 +13,60 @@
 #include <stddef.h>
 
 /**
- * @brief Initialise the kernel heap.
+ * @brief Initialises the kernel’s dynamic memory and DMA-friendly “low heap”.
  *
- * Sets up internal data structures required for dynamic memory allocation.
- * Should be called early during kernel initialisation.
+ * @details
+ * `init_heap()` brings up two complementary allocation domains and reconciles the
+ * bootloader’s memory hand-off into something the kernel can safely and efficiently
+ * allocate from:
+ *
+ * 1) **Low heap (fixed, DMA-friendly window).**
+ *    - Automatically locates a *contiguous 12 MB* region of **USABLE** RAM below 4 GiB
+ *      and assigns it to `LOW_HEAP_START` / `LOW_HEAP_MAX` (both `uint32_t`).
+ *    - This window is reserved exclusively for the bump allocator used by
+ *      `kmalloc_low()` and returns **32-bit physical addresses** suitable for legacy
+ *      devices and DMA engines that cannot address high memory.
+ *    - The low-heap window is deliberately **excluded** from the general allocator to
+ *      avoid fragmentation and to guarantee that drivers always have the expected
+ *      12 MB of low physical memory available.
+ *
+ * 2) **General heap (primary + additional regions).**
+ *    - Chooses the *largest* **USABLE** memmap entry as the primary arena and
+ *      initialises the general allocator (`ta_init`) over it, **carving out** the
+ *      low-heap window if they overlap.
+ *    - Iterates over all remaining **USABLE** entries and adds them with
+ *      `ta_add_region`, again **clipping out** the low-heap window so it is never
+ *      accidentally pooled into the general heap.
+ *
+ * 3) **Selective reclamation of bootloader allocations.**
+ *    - Walks all **Bootloader Reclaimable** (BLR) entries and returns them to the
+ *      general heap *except* when either of the following is true:
+ *        • the region is “small” (currently < 1 MB), which typically holds loader
+ *          scaffolding such as page tables, descriptor tables, or tiny request
+ *          structs; or
+ *        • the region contains any *live* pointer supplied by the bootloader
+ *          (e.g., Limine response structures, GDT base, CR3), in which case the
+ *          whole BLR span is kept.
+ *    - This yields the large BLR “scratch” arenas while conservatively preserving
+ *      small or still-referenced chunks. The result is that almost all of the
+ *      bootloader’s memory footprint becomes usable to the kernel immediately.
+ *
+ * **What is *not* added to the general heap**
+ *  - **Kernel+Modules** regions (the kernel image and loaded modules).
+ *  - The **Framebuffer** region.
+ *  - Any **ACPI NVS**, **ACPI Reclaimable**, **Bad Memory** or **Reserved** ranges.
+ *
+ * **Why this design?**
+ *  - The low heap provides a guaranteed, contiguous, sub-4 GB pool for drivers and
+ *    DMA without requiring the kernel to juggle bounce buffers or IOMMU mappings.
+ *  - Carving the low heap out once, and everywhere, prevents subtle re-introduction
+ *    into the general allocator.
+ *  - Conservative BLR reclamation gives you back the big win (hundreds of MB on
+ *    typical firmware) with minimal complexity, while avoiding the risk of freeing
+ *    loader memory that is still referenced during early boot.
+ *
+ * Should be called **once**, early in kernel initialisation, before any dynamic
+ * memory use by subsystems or drivers.
  */
 void init_heap(void);
 
