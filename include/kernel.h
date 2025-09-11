@@ -90,9 +90,15 @@
 	kprintf("Assertion failure at %s:%d: %s\n", __FILE__, __LINE__, message); \
 	__asm__ volatile("int3"); }
 
+struct reqset {
+	const uintptr_t *ptrs;
+	size_t count;
+};
+
 void network_up();
 void network_down();
 void validate_limine_page_tables_and_gdt(void);
+struct reqset request_addresses(void);
 
 #ifdef PROFILE_KERNEL
 	typedef struct profile_entry {

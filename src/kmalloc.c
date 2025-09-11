@@ -8,12 +8,12 @@
  * 12mb kmalloc_low space for drivers that require space
  * guaranteed below 4gb
  */
-#define LOW_HEAP_START 0x0800000 // Starts at 8mb
-#define LOW_HEAP_MAX   0x1400000 // Ends at 20mb
+static uint32_t LOW_HEAP_START;
+static uint32_t LOW_HEAP_MAX;
 
 static uint64_t heaplen   = 0;
 static uint64_t allocated = 0;
-static uint32_t low_mem_cur = LOW_HEAP_START;
+static uint32_t low_mem_cur = 0;
 static spinlock_t allocator_lock = 0;
 
 volatile struct limine_memmap_request memory_map_request = {
@@ -76,65 +76,100 @@ void init_heap(void) {
 	uint64_t best_len  = 0;
 	uint64_t best_addr = 0;
 	int64_t  best_idx  = -1;
-	bool lowheap_contained = false;
+
+	/* Find a 12 MB USABLE window below 4 GB for LOW_HEAP */
+	const uint64_t LOW_HEAP_SIZE    = 1024 * 1024 * 12;
+	const uint64_t FOUR_GB_BOUNDARY = (1ull << 32);
+	bool lowheap_found = false;
 
 	init_spinlock(&allocator_lock);
 	dump_limine_memmap();
 
-	/* Find the largest usable entry, and validate LOW_HEAP_START/LOW_HEAP_MAX */
+	/* Pick LOW_HEAP window (any LOW_HEAP_SIZE USABLE below 4 GB) */
 	for (uint64_t i = 0; i < memory_map_request.response->entry_count; ++i) {
 		struct limine_memmap_entry *e = memory_map_request.response->entries[i];
+		if (e->type != LIMINE_MEMMAP_USABLE) {
+			continue;
+		}
 		uint64_t base = e->base;
 		uint64_t end  = e->base + e->length;
-		uint64_t ovl_lo = (LOW_HEAP_START > base) ? LOW_HEAP_START : base;
-		uint64_t ovl_hi = (LOW_HEAP_MAX   < end ) ? LOW_HEAP_MAX   : end;
-		if (ovl_lo < ovl_hi) {
-			if (e->type == LIMINE_MEMMAP_USABLE) {
-				if (LOW_HEAP_START >= base && LOW_HEAP_MAX <= end) {
-					lowheap_contained = true;
-				}
-			} else {
-				dprintf("heap: ERROR low-heap overlaps non-usable [0x%016lx..0x%016lx] type=%s\n", base, end, limine_memmap_type_str(e->type));
-				preboot_fail("LOW_HEAP overlaps a non-usable memmap entry");
+		if (base >= FOUR_GB_BOUNDARY) {
+			continue;
+		}
+		if (end > FOUR_GB_BOUNDARY) {
+			end = FOUR_GB_BOUNDARY;
+		}
+		if (end > base && (end - base) >= LOW_HEAP_SIZE) {
+			uint64_t start = (base + 0xFFF) & ~0xFFFull; /* 4 KB align */
+			if ((end - start) >= LOW_HEAP_SIZE) {
+				LOW_HEAP_START = start;
+				LOW_HEAP_MAX   = start + LOW_HEAP_SIZE;
+				lowheap_found  = true;
+				dprintf("heap: LOW_HEAP selected at [0x%08x..0x%08x] (%lu MB)\n", LOW_HEAP_START, LOW_HEAP_MAX, LOW_HEAP_SIZE / 1024 / 1024);
+				break;
 			}
 		}
-		if (e->type == LIMINE_MEMMAP_USABLE && e->length > best_len) {
+	}
+
+	if (!lowheap_found) {
+		char error[256];
+		snprintf(error, 255, "Unable to find %lu MB USABLE below 4 GB for LOW_HEAP", LOW_HEAP_SIZE / 1024 / 1024);
+		preboot_fail(error);
+	}
+
+	/* Find the largest USABLE entry for primary ta_init() */
+	for (uint64_t i = 0; i < memory_map_request.response->entry_count; ++i) {
+		struct limine_memmap_entry *e = memory_map_request.response->entries[i];
+		if (e->type != LIMINE_MEMMAP_USABLE) {
+			continue;
+		}
+		if (e->length > best_len) {
 			best_len  = e->length;
 			best_addr = e->base;
 			best_idx  = (int64_t)i;
 		}
 	}
 
-	if (!lowheap_contained) {
-		dprintf("heap: ERROR low-heap [0x%016lx..0x%016lx] not fully inside any USABLE entry\n", (unsigned long)LOW_HEAP_START, (unsigned long)LOW_HEAP_MAX);
-		preboot_fail("LOW_HEAP region outside usable RAM");
-	}
-
 	if (best_idx < 0 || !best_addr || best_len < 0x800000) {
 		preboot_fail("No usable RAM found for heap");
 	}
 
-	/* Preserve existing behaviour for the primary heap:
-	   carve the low heap bump area out with LOW_HEAP_MAX. */
-	uint64_t heapstart = best_addr + LOW_HEAP_MAX;
-	heaplen   = (best_len > LOW_HEAP_MAX) ? (best_len - LOW_HEAP_MAX) : 0;
+	low_mem_cur = LOW_HEAP_START;
 
-	if (heaplen <= sizeof(ta_header)) {
-		preboot_fail("Primary heap too small after LOW_HEAP_MAX carve-out");
+	/* Build the primary heap region, excluding LOW_HEAP if it overlaps. */
+	uint64_t bbase = best_addr;
+	uint64_t bend  = best_addr + best_len;
+
+	uint64_t left_lo  = bbase;
+	uint64_t left_hi  = (LOW_HEAP_START > bbase) ? (LOW_HEAP_START < bend ? LOW_HEAP_START : bend) : bbase;
+	uint64_t right_lo = (LOW_HEAP_MAX > bbase) ? (LOW_HEAP_MAX < bend ? LOW_HEAP_MAX : bend) : bbase;
+	uint64_t right_hi = bend;
+
+	uint64_t left_len  = (left_hi  > left_lo)  ? (left_hi  - left_lo)  : 0;
+	uint64_t right_len = (right_hi > right_lo) ? (right_hi - right_lo) : 0;
+
+	uint64_t heapstart, heaplen_local;
+	if (left_len >= right_len) {
+		heapstart = left_lo;
+		heaplen_local = left_len;
+	} else {
+		heapstart = right_lo;
+		heaplen_local = right_len;
 	}
 
-	ta_init((void *)heapstart, heaplen, 8);
+	if (heaplen_local <= sizeof(ta_header)) {
+		preboot_fail("Primary heap too small after LOW_HEAP exclusion");
+	}
 
-	/* Log the primary region and start accumulating total usable bytes
-	   (exclude allocator headers so this reflects payload capacity) */
-	uint64_t total_usable = heaplen > sizeof(ta_header) ? (heaplen - sizeof(ta_header)) : 0;
-	dprintf("heap: add primary region 0x%016lx..0x%016lx (%lu bytes)\n", heapstart, (heapstart + heaplen), heaplen);
+	ta_init((void *)heapstart, heaplen_local, 8);
 
-	/* Pass 2: roll in every other usable region via ta_add_region(),
-	   clipping out the low-heap window [LOW_HEAP_START, LOW_HEAP_END] */
+	uint64_t total_usable = heaplen_local > sizeof(ta_header) ? (heaplen_local - sizeof(ta_header)) : 0;
+	dprintf("heap: add primary region 0x%016lx..0x%016lx (%lu bytes)\n", heapstart, (heapstart + heaplen_local), heaplen_local);
+
+	/* Add other USABLE regions, clipping out LOW_HEAP */
 	for (uint64_t i = 0; i < memory_map_request.response->entry_count; ++i) {
 		if ((int64_t)i == best_idx) {
-			continue; /* skip the one we already used for ta_init() */
+			continue;
 		}
 
 		struct limine_memmap_entry *entry = memory_map_request.response->entries[i];
@@ -145,7 +180,6 @@ void init_heap(void) {
 		uint64_t base = entry->base;
 		uint64_t end  = entry->base + entry->length;
 
-		/* Left segment: [base, min(end, LOW_HEAP_START)) */
 		if (base < LOW_HEAP_START) {
 			uint64_t seg_end = end < LOW_HEAP_START ? end : LOW_HEAP_START;
 			if (seg_end > base) {
@@ -159,14 +193,10 @@ void init_heap(void) {
 			}
 		}
 
-		/* Right segment: [max(base, LOW_HEAP_END), end) */
 		if (end > LOW_HEAP_MAX) {
 			uint64_t seg_base = base > LOW_HEAP_MAX ? base : LOW_HEAP_MAX;
 			if (end > seg_base) {
 				uint64_t seg_len = end - seg_base;
-				/* If this happens to match the primary region exactly,
-				   ta_add_region() will just link it; but we’ve already
-				   skipped best_idx so overlap shouldn't occur here. */
 				if (seg_len > sizeof(ta_header)) {
 					if (ta_add_region((void *)seg_base, (size_t)seg_len)) {
 						dprintf("heap: add region 0x%016lx..0x%016lx (%lu bytes)\n", seg_base, end, seg_len);
@@ -177,11 +207,62 @@ void init_heap(void) {
 		}
 	}
 
+	/* Selectively reclaim Bootloader Reclaimable */
+	struct reqset rs = request_addresses();
+	const size_t BLR_MIN_RECLAIM = (1u << 20); /* 1 MB */
+	size_t remaining_blr = 0;
+
+	for (uint64_t i = 0; i < memory_map_request.response->entry_count; ++i) {
+		struct limine_memmap_entry *e = memory_map_request.response->entries[i];
+		if (e->type != LIMINE_MEMMAP_BOOTLOADER_RECLAIMABLE) {
+			continue;
+		}
+
+		uint64_t rbase = e->base;
+		uint64_t rend  = e->base + e->length;
+
+		if (e->length < BLR_MIN_RECLAIM) {
+			dprintf("heap: keep BLR 0x%016lx..0x%016lx (small: %lu bytes)\n", rbase, rend, e->length);
+			remaining_blr += e->length;
+			continue;
+		}
+
+		uintptr_t hit = 0;
+		for (size_t j = 0; j < rs.count; ++j) {
+			uintptr_t p = rs.ptrs[j];
+			if (p && p >= rbase && p < rend) {
+				hit = p;
+				break;
+			}
+		}
+
+		if (hit) {
+			dprintf("heap: keep BLR 0x%016lx..0x%016lx (contains 0x%016lx)\n", rbase, rend, hit);
+			remaining_blr += e->length;
+			continue;
+		}
+
+		if (e->length > sizeof(ta_header)) {
+			if (ta_add_region((void *)rbase, (size_t)e->length)) {
+				dprintf("heap: reclaim BLR 0x%016lx..0x%016lx (%lu bytes)\n", rbase, rend, e->length);
+				total_usable += (e->length - sizeof(ta_header));
+			} else {
+				dprintf("heap: WARNING failed to add BLR 0x%016lx..0x%016lx\n", rbase, rend);
+				remaining_blr += e->length;
+			}
+		} else {
+			dprintf("heap: skip tiny BLR 0x%016lx..0x%016lx (%lu bytes)\n", rbase, rend, e->length);
+			remaining_blr += e->length;
+		}
+	}
+
+	/* Now we're done. We've clawed back every last byte we can */
 	heaplen = total_usable;
-	dprintf("heap: total usable RAM for allocator: %lu bytes (%lu MB)\n", total_usable, total_usable / 1024 / 1024);
+	dprintf("heap: total usable RAM for allocator: %lu bytes (%lu MB); remaining bootloader reserved: %lu MB\n", total_usable, total_usable / 1024 / 1024, remaining_blr / 1024 / 1024);
 
 	dprintf_buffer_init(0);
 }
+
 
 void* kmalloc(uint64_t size) {
 	uint64_t flags;
