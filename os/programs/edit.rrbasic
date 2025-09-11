@@ -43,7 +43,7 @@ DEF PROCdraw
 	ELSE
 	    PRINT "ENABLE SYNTAX";
 	ENDIF
-	CURSOR TERMWIDTH - 15, TERMHEIGHT
+	CURSOR TERMWIDTH - 9, TERMHEIGHT
 	PRINT currentx; ","; top + currenty; " ";
 	CURSOR 1, 0
 	PROCclearLineFromCursor
@@ -151,6 +151,7 @@ DEF PROCprocessKey(in)
 	IF ctrl = TRUE THEN ENDPROC
 	IF in = 27 THEN PROCquit
 	IF in = 13 THEN PROCenter
+	IF in = 9 THEN PROCtab
 	IF in = 250 THEN PROCup
 	IF in = 251 THEN PROCdown
 	IF in = 252 THEN PROCleft
@@ -175,6 +176,12 @@ DEF PROCinsertChar(i)
 	currentx = currentx + 1
 	dirty = TRUE
 	PROCtext
+ENDPROC
+
+DEF PROCtab
+    REPEAT
+        PROCinsertChar(32)
+    UNTIL currentx % 4 = 0
 ENDPROC
 
 REM handle CTRL+key
