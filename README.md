@@ -1,6 +1,6 @@
 # 🚀 Retro Rocket BASIC-Powered Operating System
 
-![image](https://retrorocket.dev/leader2.png)
+![image](https://retrorocket.dev/leader3.png)
 
 Imagine an alterate present time, where the [BBC Micro](https://en.wikipedia.org/wiki/BBC_Micro) had continued to thrive and develop to the present day. In this alternate present this operating system exists alongside Windows and Linux but stands apart.
 
