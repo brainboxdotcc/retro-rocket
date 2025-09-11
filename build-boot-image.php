@@ -91,7 +91,7 @@ if (!is_file($symbolPath)) {
     fail("kernel symbols not found at '{$symbolPath}'");
 }
 
-$limineCfgSrc = $scriptDir . '/limine-hdd.cfg';
+$limineCfgSrc = $scriptDir . '/limine-hdd.conf';
 if (!is_file($limineCfgSrc)) {
     fail("limine-hdd.cfg not found next to this script ('{$limineCfgSrc}'). This is fatal.");
 }
@@ -116,7 +116,7 @@ runCommand("mmd -i " . escapeshellarg($outImage) . " ::/EFI/BOOT");
 
 echo ">> Copying files to boot image\n";
 runCommand("mcopy -i " . escapeshellarg($outImage) . " -sp " . escapeshellarg($limineBoot) . " ::/EFI/BOOT/BOOTX64.EFI");
-runCommand("mcopy -i " . escapeshellarg($outImage) . " -sp " . escapeshellarg($limineCfgSrc) . " ::/limine.cfg");
+runCommand("mcopy -i " . escapeshellarg($outImage) . " -sp " . escapeshellarg($limineCfgSrc) . " ::/limine.conf");
 runCommand("mcopy -i " . escapeshellarg($outImage) . " -sp " . escapeshellarg($kernelPath) . " ::/kernel.bin");
 runCommand("mcopy -i " . escapeshellarg($outImage) . " -sp " . escapeshellarg($symbolPath) . " ::/kernel.sym");
 

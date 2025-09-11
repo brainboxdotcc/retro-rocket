@@ -49,10 +49,10 @@ add_link_options("-m elf_x86_64 -nostdlib -no-pie -T buildtools/linker.ld")
 
 add_custom_target(ISO ALL DEPENDS ${CMAKE_BINARY_DIR}/rr.iso)
 
-copy_config(limine.cfg limine.cfg)
-copy_config(limine.sys limine/limine.sys)
-copy_config(limine-cd.bin limine/limine-cd.bin)
-copy_config(limine-efi.bin limine/limine-cd-efi.bin)
+copy_config(limine.conf limine.conf)
+copy_config(limine-bios.sys limine/limine-bios.sys)
+copy_config(limine-bios-cd.bin limine/limine-bios-cd.bin)
+copy_config(limine-uefi-cd.bin limine/limine-uefi-cd.bin)
 
 file(GLOB image_list ${CMAKE_SOURCE_DIR}/os/images/*)
 set(IMAGE_TARGETS "")
