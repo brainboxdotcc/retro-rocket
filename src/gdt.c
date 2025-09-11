@@ -38,7 +38,7 @@ extern volatile struct limine_kernel_file_request rr_kfile_req;
 
 struct reqset request_addresses(void) {
 	static struct {
-		uintptr_t arr[12];
+		uintptr_t arr[11];
 	} buf; /* backing storage, static so it survives return */
 
 	buf.arr[0]  = (uintptr_t)limine_gdtr;
