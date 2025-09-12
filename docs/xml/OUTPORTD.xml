@@ -11,7 +11,7 @@
 <para>Writes the low <bold>32 bits</bold> of <computeroutput>value</computeroutput> to <computeroutput>port</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect3 id="OUTPORTD_1autotoc_md342">
+<sect3 id="OUTPORTD_1autotoc_md354">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Writes four bytes as a 32-bit value to the port.</para>
@@ -21,7 +21,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="OUTPORTD_1autotoc_md344">
+<sect3 id="OUTPORTD_1autotoc_md356">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Write<sp/>PCI<sp/>config<sp/>address</highlight></codeline>
 <codeline><highlight class="normal">OUTPORTD<sp/>&amp;CF8,<sp/>&amp;80000000</highlight></codeline>
@@ -29,7 +29,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="OUTPORTD_1autotoc_md346">
+<sect3 id="OUTPORTD_1autotoc_md358">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Only use where the hardware expects a 32-bit port write.</para>

@@ -406,3 +406,40 @@ char* basic_udpread(struct basic_ctx* ctx) {
 	unlock_spinlock_irq(&udp_read_lock, flags);
 	return ctx->last_packet.data ? (char*)ctx->last_packet.data : "";
 }
+
+/**
+ * @brief Idle callback to check if a socket has fully drained its send path.
+ *
+ * Used by the scheduler to resume SOCKFLUSH when the condition becomes true.
+ * Returns true if still waiting (i.e., NOT drained yet).
+ */
+static bool check_sockflush_ready(process_t* proc, void* ptr) {
+	(void)proc;
+	int64_t fd = (int64_t)(uintptr_t)ptr;
+	if (basic_esc()) {
+		return false;
+	}
+	return !sock_sent(fd);
+}
+
+void sockflush_statement(struct basic_ctx* ctx)
+{
+	accept_or_return(SOCKFLUSH, ctx);
+	int64_t fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
+	accept_or_return(VARIABLE, ctx);
+
+	process_t* proc = proc_cur(logical_cpu_id());
+
+	if (!sock_sent((int)fd)) {
+		/* Not drained yet: park this process and retry the same line later */
+		proc_set_idle(proc, check_sockflush_ready, (void*)(uintptr_t)fd);
+		jump_linenum(ctx->current_linenum, ctx);
+		proc->state = PROC_IO_BOUND;
+		return;
+	}
+
+	/* Drained now: clear idle state and advance */
+	proc_set_idle(proc, NULL, NULL);
+	accept_or_return(NEWLINE, ctx);
+	proc->state = PROC_RUNNING;
+}

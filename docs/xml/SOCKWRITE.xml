@@ -13,7 +13,7 @@
  The second parameter, <computeroutput>printable</computeroutput>, follows the <bold>same formatting rules as <computeroutput>PRINT</computeroutput></bold>.</para>
 <para><hruler/>
 </para>
-<sect3 id="SOCKWRITE_1autotoc_md474">
+<sect3 id="SOCKWRITE_1autotoc_md492">
 <title>Formatting semantics (same as &lt;tt&gt;PRINT&lt;/tt&gt;)</title>
 <para><itemizedlist>
 <listitem><para>You may pass <bold>numbers</bold> or <bold>strings</bold>; numbers are converted to text.</para>
@@ -41,7 +41,7 @@
 <hruler/>
 </para>
 </sect3>
-<sect3 id="SOCKWRITE_1autotoc_md476">
+<sect3 id="SOCKWRITE_1autotoc_md494">
 <title>Examples</title>
 <para><bold>Build a line without the implicit newline, then add CRLF</bold> <programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Assume<sp/>S<sp/>is<sp/>a<sp/>valid<sp/>socket<sp/>handle</highlight></codeline>
 <codeline><highlight class="normal">SOCKWRITE<sp/>S,<sp/>&quot;USER<sp/>&quot;;</highlight></codeline>
@@ -69,7 +69,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="SOCKWRITE_1autotoc_md478">
+<sect3 id="SOCKWRITE_1autotoc_md496">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Do <bold>not</bold> pass a literal or expression as the handle; use an integer <bold>variable</bold> that contains the handle.</para>

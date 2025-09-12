@@ -50,6 +50,8 @@
 - \subpage SGN
 - \subpage SHL
 - \subpage SHR
+- \subpage SOCKACCEPT
+- \subpage SOCKLISTEN
 - \subpage SOCKSTATUS
 - \subpage TERMHEIGHT
 - \subpage TERMWIDTH

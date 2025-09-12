@@ -20,7 +20,7 @@
 <para><computeroutput>CONTINUE</computeroutput> must always be followed by a loop keyword (<computeroutput>WHILE</computeroutput>, <computeroutput>FOR</computeroutput>, or <computeroutput>REPEAT</computeroutput>). It may only appear inside the corresponding loop type, and loops may be nested.</para>
 <para><hruler/>
 </para>
-<sect4 id="CONTINUE_1autotoc_md215">
+<sect4 id="CONTINUE_1autotoc_md227">
 <title>Example: CONTINUE WHILE</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">N<sp/>=<sp/>0</highlight></codeline>
 <codeline><highlight class="normal">WHILE<sp/>N<sp/>&lt;<sp/>5</highlight></codeline>
@@ -40,7 +40,7 @@
 <para><hruler/>
 </para>
 </sect4>
-<sect4 id="CONTINUE_1autotoc_md217">
+<sect4 id="CONTINUE_1autotoc_md229">
 <title>Example: CONTINUE FOR</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">FOR<sp/>I<sp/>=<sp/>1<sp/>TO<sp/>5</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>IF<sp/>I<sp/>MOD<sp/>2<sp/>=<sp/>0<sp/>THEN<sp/>CONTINUE<sp/>FOR</highlight></codeline>
@@ -55,7 +55,7 @@
 <para><hruler/>
 </para>
 </sect4>
-<sect4 id="CONTINUE_1autotoc_md219">
+<sect4 id="CONTINUE_1autotoc_md231">
 <title>Example: CONTINUE REPEAT</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">N<sp/>=<sp/>0</highlight></codeline>
 <codeline><highlight class="normal">REPEAT</highlight></codeline>

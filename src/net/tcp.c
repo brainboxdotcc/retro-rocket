@@ -1587,3 +1587,20 @@ int tcp_accept(int socket) {
 	dprintf("accept: New inbound: %d\n", conn->fd);
 	return conn->fd;
 }
+
+static inline bool tcp_tx_drained_nolock(const tcp_conn_t *c) {
+	if (!c) {
+		return true;
+	} else if (c->state != TCP_ESTABLISHED) {
+		return true;
+	}
+	return (c->send_buffer_len == 0 && c->send_buffer == NULL);
+}
+
+bool sock_sent(int fd) {
+	uint64_t flags;
+	lock_spinlock_irq(&lock, &flags);
+	bool drained = tcp_tx_drained_nolock(tcp_find_by_fd(fd));
+	unlock_spinlock_irq(&lock, flags);
+	return drained;
+}

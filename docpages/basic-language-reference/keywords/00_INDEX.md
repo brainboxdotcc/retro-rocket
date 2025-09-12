@@ -115,6 +115,7 @@ Example: `mystr$`
 - \subpage SETVARS
 - \subpage SLEEP
 - \subpage SOCKCLOSE
+- \subpage SOCKFLUSH
 - \subpage SOCKREAD
 - \subpage SOCKWRITE
 - \subpage SPRITEFREE

@@ -172,7 +172,7 @@
     T(KGET, STMT) 		/* 110 */ \
     T(MODLOAD, STMT) 		/* 111 */ \
     T(MODUNLOAD, STMT) 		/* 112 */ \
-
+    T(SOCKFLUSH, STMT) 		/* 113 */ \
 
 GENERATE_ENUM_LIST(TOKEN, token_t)
 

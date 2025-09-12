@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="SOCKFLUSH" kind="page">
+    <compoundname>SOCKFLUSH</compoundname>
+    <title>SOCKFLUSH Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">SOCKFLUSH<sp/>integer-variable</highlight></codeline>
+</programlisting></para>
+<para>Blocks until any <bold>pending outbound data</bold> for the given TCP socket has been <bold>flushed from the BASIC send buffer</bold> to the TCP stack. Use after <ref refid="SOCKWRITE" kindref="compound">SOCKWRITE</ref> when you need to ensure queued bytes have been handed off before proceeding (e.g. before closing the socket).</para>
+<para><simplesect kind="note"><para>This waits for the <bold>local send buffer to empty</bold>; it does <bold>not</bold> wait for peer acknowledgements.</para>
+</simplesect>
+<hruler/>
+</para>
+<sect3 id="SOCKFLUSH_1autotoc_md482">
+<title>How to use it</title>
+<para><itemizedlist>
+<listitem><para><computeroutput>integer-variable</computeroutput> must contain a socket handle returned by <ref refid="CONNECT" kindref="compound">CONNECT</ref> or <ref refid="SOCKACCEPT" kindref="compound">SOCKACCEPT</ref>.</para>
+</listitem><listitem><para>The statement <bold>yields</bold> like <ref refid="SOCKREAD" kindref="compound">SOCKREAD</ref>: your program pauses and resumes automatically when the condition is met.</para>
+</listitem><listitem><para>Typical use is <computeroutput>SOCKWRITE</computeroutput> → <computeroutput>SOCKFLUSH</computeroutput> → <computeroutput>SOCKCLOSE</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para><simplesect kind="note"><para>Press <computeroutput>CTRL+ESC</computeroutput> at any time to <bold>cancel</bold> waiting. </para>
+</simplesect>
+<simplesect kind="note"><para>Without an error handler, the program <bold>terminates</bold> on errors; with <computeroutput>ON ERROR</computeroutput>, control passes to your handler.</para>
+</simplesect>
+<hruler/>
+</para>
+</sect3>
+<sect3 id="SOCKFLUSH_1autotoc_md484">
+<title>Examples</title>
+<para><bold>Send a line, flush, then close</bold></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">server<sp/>=<sp/>SOCKLISTEN(NETINFO$(&quot;ip&quot;),<sp/>2000,<sp/>5)</highlight></codeline>
+<codeline><highlight class="normal">client<sp/>=<sp/>SOCKACCEPT(server)</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>client<sp/>&gt;=<sp/>0<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>SOCKWRITE<sp/>client,<sp/>&quot;HELLORLD!&quot;<sp/>+<sp/>CHR$(13)<sp/>+<sp/>CHR$(10)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>SOCKFLUSH<sp/>client</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>SOCKCLOSE<sp/>client</highlight></codeline>
+<codeline><highlight class="normal">END<sp/>IF</highlight></codeline>
+<codeline><highlight class="normal">SOCKCLOSE<sp/>server</highlight></codeline>
+</programlisting></para>
+<para><bold>Ensure data is flushed before reusing variables</bold></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">CONNECT<sp/>s,<sp/>&quot;93.184.216.34&quot;,<sp/>80</highlight></codeline>
+<codeline><highlight class="normal">SOCKWRITE<sp/>s,<sp/>&quot;HEAD<sp/>/<sp/>HTTP/1.0&quot;<sp/>+<sp/>CHR$(13)<sp/>+<sp/>CHR$(10)<sp/>+<sp/>CHR$(13)<sp/>+<sp/>CHR$(10)</highlight></codeline>
+<codeline><highlight class="normal">SOCKFLUSH<sp/>s</highlight></codeline>
+<codeline><highlight class="normal">SOCKCLOSE<sp/>s</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="SOCKFLUSH_1autotoc_md486">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>If the socket has no pending data, <computeroutput>SOCKFLUSH</computeroutput> returns immediately.</para>
+</listitem><listitem><para>If the connection is no longer valid (e.g. already closed), <computeroutput>SOCKFLUSH</computeroutput> returns without waiting.</para>
+</listitem><listitem><para>Use <ref refid="SOCKSTATUS" kindref="compound">SOCKSTATUS</ref> to query whether a socket is connected.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <ref refid="SOCKWRITE" kindref="compound">SOCKWRITE</ref> · <ref refid="SOCKREAD" kindref="compound">SOCKREAD</ref> · <ref refid="SOCKCLOSE" kindref="compound">SOCKCLOSE</ref> · <ref refid="CONNECT" kindref="compound">CONNECT</ref> · <ref refid="SOCKACCEPT" kindref="compound">SOCKACCEPT</ref> · <ref refid="SOCKLISTEN" kindref="compound">SOCKLISTEN</ref> </para>
+</sect3>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/SOCKFLUSH.md"/>
+  </compounddef>
+</doxygen>

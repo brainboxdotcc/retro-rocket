@@ -18,7 +18,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="UDPUNBIND_1autotoc_md500">
+<sect3 id="UDPUNBIND_1autotoc_md518">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Use <computeroutput>UDPUNBIND</computeroutput> to stop delivery when you no longer want to read from the port.</para>
@@ -27,14 +27,14 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="UDPUNBIND_1autotoc_md502">
+<sect3 id="UDPUNBIND_1autotoc_md520">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">UDPUNBIND<sp/>&quot;0.0.0.0&quot;,<sp/>8080</highlight></codeline>
 </programlisting></para>
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="UDPUNBIND_1autotoc_md504">
+<sect3 id="UDPUNBIND_1autotoc_md522">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Unbinding while packets are still queued discards them from further reads.</para>

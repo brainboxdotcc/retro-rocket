@@ -31,7 +31,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="DEF_1autotoc_md227">
+<sect3 id="DEF_1autotoc_md239">
 <title>Calling functions and procedures</title>
 <para><itemizedlist>
 <listitem><para>Call a <bold>function</bold> within an expression: <programlisting filename=".basic"><codeline><highlight class="normal">RESULT<sp/>=<sp/>FNadd(10,<sp/>32)</highlight></codeline>
@@ -43,7 +43,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="DEF_1autotoc_md229">
+<sect3 id="DEF_1autotoc_md241">
 <title>Example: function (returns a value)</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>FNadd(A,<sp/>B)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>SUM<sp/>=<sp/>A<sp/>+<sp/>B</highlight></codeline>
@@ -55,7 +55,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="DEF_1autotoc_md231">
+<sect3 id="DEF_1autotoc_md243">
 <title>Example: procedure (no return value)</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>PROCbox(MSG$)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;**************&quot;</highlight></codeline>
@@ -69,7 +69,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="DEF_1autotoc_md233">
+<sect3 id="DEF_1autotoc_md245">
 <title>Example: locals within a definition</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>FNhypot(X,<sp/>Y)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>LOCAL<sp/>XSQ<sp/>=<sp/>X<sp/>*<sp/>X</highlight></codeline>
@@ -80,7 +80,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="DEF_1autotoc_md235">
+<sect3 id="DEF_1autotoc_md247">
 <title>Rules and behaviour</title>
 <para><itemizedlist>
 <listitem><para><bold>Parameters</bold> <linebreak/>

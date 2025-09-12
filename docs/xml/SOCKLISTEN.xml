@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="SOCKLISTEN" kind="page">
+    <compoundname>SOCKLISTEN</compoundname>
+    <title>SOCKLISTEN Function</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">FD<sp/>=<sp/>SOCKLISTEN(ip$,<sp/>port,<sp/>backlog)</highlight></codeline>
+</programlisting></para>
+<para>Creates a <bold>listening TCP socket</bold> bound to <computeroutput>ip$:port</computeroutput> and starts queueing incoming connections (up to <computeroutput>backlog</computeroutput>). Returns a non-negative file descriptor on success, or <computeroutput>-1</computeroutput> on failure.</para>
+<para><simplesect kind="note"><para><computeroutput>SOCKACCEPT</computeroutput> is <bold>non-blocking</bold> and returns <computeroutput>-1</computeroutput> when no connection is ready.</para>
+</simplesect>
+<hruler/>
+</para>
+<sect3 id="SOCKLISTEN_1autotoc_md112">
+<title>How to use it</title>
+<para><itemizedlist>
+<listitem><para><computeroutput>ip$</computeroutput> is a dotted-quad string (e.g. <computeroutput>&quot;10.0.2.15&quot;</computeroutput>). Use <computeroutput>NETINFO$(&quot;ip&quot;)</computeroutput> for the local address.</para>
+</listitem><listitem><para><computeroutput>port</computeroutput> is the local TCP port to listen on.</para>
+</listitem><listitem><para><computeroutput>backlog</computeroutput> is the maximum number of pending (not yet accepted) connections to queue.</para>
+</listitem><listitem><para>Accept connections with <computeroutput>SOCKACCEPT(FD)</computeroutput>; write with <computeroutput>SOCKWRITE</computeroutput>, read with <computeroutput>SOCKREAD</computeroutput>/<computeroutput>INSOCKET$</computeroutput>, and close with <computeroutput>SOCKCLOSE</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="SOCKLISTEN_1autotoc_md114">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Listen<sp/>and<sp/>handle<sp/>one<sp/>connection</highlight></codeline>
+<codeline><highlight class="normal">srv<sp/>=<sp/>SOCKLISTEN(NETINFO$(&quot;ip&quot;),<sp/>2000,<sp/>5)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Socket<sp/>server<sp/>listening<sp/>on<sp/>port<sp/>2000&quot;</highlight></codeline>
+<codeline><highlight class="normal">REPEAT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>cli<sp/>=<sp/>SOCKACCEPT(srv)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>IF<sp/>cli<sp/>&gt;=<sp/>0<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SOCKWRITE<sp/>cli,<sp/>&quot;HELLORLD!&quot;<sp/>+<sp/>CHR$(10)<sp/>+<sp/>CHR$(13)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SOCKFLUSH<sp/>cli</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SOCKCLOSE<sp/>cli</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ENDIF</highlight></codeline>
+<codeline><highlight class="normal">UNTIL<sp/>INKEY$<sp/>&lt;&gt;<sp/>&quot;&quot;</highlight></codeline>
+<codeline><highlight class="normal">SOCKCLOSE<sp/>srv</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="SOCKLISTEN_1autotoc_md116">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>If <computeroutput>SOCKLISTEN</computeroutput> fails, an error message is raised and <computeroutput>-1</computeroutput> is returned.</para>
+</listitem><listitem><para>Binding to <computeroutput>&quot;0.0.0.0&quot;</computeroutput> (if supported) listens on all local interfaces.</para>
+</listitem><listitem><para><computeroutput>SOCKACCEPT</computeroutput> returns a new FD for each established connection; call repeatedly to drain the queue.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <ref refid="SOCKACCEPT" kindref="compound">SOCKACCEPT</ref> · <ref refid="SOCKWRITE" kindref="compound">SOCKWRITE</ref> · <ref refid="SOCKREAD" kindref="compound">SOCKREAD</ref> · <ref refid="INSOCKET" kindref="compound">INSOCKET$ Function</ref>$ &quot;INSOCKET\$&quot; · <ref refid="SOCKCLOSE" kindref="compound">SOCKCLOSE</ref> · <ref refid="NETINFO" kindref="compound">NETINFO$ Function</ref>$ &quot;NETINFO\$&quot; </para>
+</sect3>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/integer/SOCKLISTEN.md"/>
+  </compounddef>
+</doxygen>

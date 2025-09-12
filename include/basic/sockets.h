@@ -175,3 +175,15 @@ int64_t basic_socklisten(struct basic_ctx* ctx);
  * @return File descriptor of the accepted connection, or −1 if no connection is ready or on error.
  */
 int64_t basic_sockaccept(struct basic_ctx* ctx);
+
+/**
+ * @brief Block the current BASIC process until the socket’s send path is drained.
+ *
+ * Implements a SOCKFLUSH statement that yields like SOCKREAD: it parks the process
+ * until all queued data has been sent and acknowledged, then resumes execution.
+ *
+ * Syntax:  SOCKFLUSH <fd>
+ *
+ * @param ctx BASIC context.
+ */
+void sockflush_statement(struct basic_ctx* ctx);

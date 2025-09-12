@@ -81,6 +81,7 @@ var keywords =
     [ "SETVARS Keyword", "SETVARS.html", null ],
     [ "SLEEP Keyword", "SLEEP.html", null ],
     [ "SOCKCLOSE Keyword", "SOCKCLOSE.html", null ],
+    [ "SOCKFLUSH Keyword", "SOCKFLUSH.html", null ],
     [ "SOCKREAD Keyword", "SOCKREAD.html", null ],
     [ "SOCKWRITE Keyword", "SOCKWRITE.html", null ],
     [ "SPRITEFREE Keyword", "SPRITEFREE.html", null ],

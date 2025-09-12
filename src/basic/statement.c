@@ -79,6 +79,8 @@ void statement(struct basic_ctx* ctx)
 			return sockread_statement(ctx);
 		case SOCKWRITE:
 			return sockwrite_statement(ctx);
+		case SOCKFLUSH:
+			return sockflush_statement(ctx);
 		case DELETE:
 			return delete_statement(ctx);
 		case RMDIR:

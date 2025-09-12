@@ -10,19 +10,19 @@ var commands =
     [ "delete program", "delete.html", null ],
     [ "dir command", "dir-full-pathname.html", null ],
     [ "edit program", "edit.html", [
-      [ "Text Editor", "edit.html#autotoc_md660", [
-        [ "CPUID leaf values", "cpubrand.html#autotoc_md657", [
-          [ "delete [full pathname]", "delete.html#autotoc_md658", null ],
-          [ "dir [directory]", "dir-full-pathname.html#autotoc_md659", null ]
+      [ "Text Editor", "edit.html#autotoc_md678", [
+        [ "CPUID leaf values", "cpubrand.html#autotoc_md675", [
+          [ "delete [full pathname]", "delete.html#autotoc_md676", null ],
+          [ "dir [directory]", "dir-full-pathname.html#autotoc_md677", null ]
         ] ],
-        [ "Starting the editor", "edit.html#autotoc_md661", null ],
-        [ "Moving around", "edit.html#autotoc_md662", null ],
-        [ "Editing text", "edit.html#autotoc_md663", null ],
-        [ "Saving your work", "edit.html#autotoc_md664", null ],
-        [ "Searching and replacing", "edit.html#autotoc_md665", null ],
-        [ "Syntax highlighting", "edit.html#autotoc_md666", null ],
-        [ "Exiting the editor", "edit.html#autotoc_md667", null ],
-        [ "Quick reference", "edit.html#autotoc_md668", null ]
+        [ "Starting the editor", "edit.html#autotoc_md679", null ],
+        [ "Moving around", "edit.html#autotoc_md680", null ],
+        [ "Editing text", "edit.html#autotoc_md681", null ],
+        [ "Saving your work", "edit.html#autotoc_md682", null ],
+        [ "Searching and replacing", "edit.html#autotoc_md683", null ],
+        [ "Syntax highlighting", "edit.html#autotoc_md684", null ],
+        [ "Exiting the editor", "edit.html#autotoc_md685", null ],
+        [ "Quick reference", "edit.html#autotoc_md686", null ]
       ] ]
     ] ],
     [ "eval command", "eval.html", null ],

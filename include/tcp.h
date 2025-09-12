@@ -463,3 +463,14 @@ int tcp_accept(int socket);
  * @return Non-negative file descriptor on success; negative @ref tcp_error_code_t on failure
  */
 int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port);
+
+/**
+ * @brief Return true if the socket’s transmit path is fully drained.
+ *
+ * Drained means: no application bytes buffered and no unacknowledged bytes in flight
+ * (send buffer empty AND SND.UNA == SND.NXT). Non-blocking and lock-safe.
+ *
+ * @param fd Socket descriptor
+ * @return true when fully drained, false otherwise
+ */
+bool sock_sent(int fd);
