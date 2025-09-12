@@ -1,11 +1,11 @@
-SPRITELOAD brain,"/images/owl.png"
+SPRITELOAD owl,"/images/owl.png"
 AUTOFLIP FALSE
-REM Go down 17 lines, then back up, to make room on screen for the images
-FOR Y = 0 TO 16
+REM Go down 20 lines, then back up, to make room on screen for the images
+FOR Y = 0 TO 19
     PRINT ""
 NEXT
-CURSOR 0, CURRENTY - 16
-SPRTOP=CURRENTY*16
+CURSOR 0, CURRENTY - 19
+SPRTOP=CURRENTY*8
 COLOUR 14
 PRINT "                                  Retro Rocket"
 COLOUR 7
@@ -33,12 +33,12 @@ M_MEGS = MEMUSED / 1024 / 1024
 MT_MEGS = MEMORY / 1024 / 1024
 PRINT M_MEGS; "MiB / "; MT_MEGS ; "MiB"
 PRINT "                                  ";
-GRADLEFT=CURRENTX*9
-GRADTOP=CURRENTY*16+16
-FOR N = 0 TO 9
+GRADLEFT=CURRENTX*8
+GRADTOP=CURRENTY*8+8
+FOR N = 0 TO 16
     PRINT ""
 NEXT
-PLOT brain,32,SPRTOP
+PLOT owl,32,SPRTOP
 X = GRADLEFT
 W = 128
 H = 32
