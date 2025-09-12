@@ -1,0 +1,15 @@
+server = SOCKLISTEN(NETINFO$("ip"), 2000, 5)
+PRINT "Socket server listening on port 2000"
+REPEAT
+    client = SOCKACCEPT(server)
+    IF client >= 0 THEN PROChandleConnection(client)
+UNTIL INKEY$ <> ""
+SOCKCLOSE server
+END
+
+DEF PROChandleConnection(client)
+    PRINT "Handling connection, HELLORLD!"
+    SOCKWRITE client, "HELLORLD!" + CHR$(10) + CHR$(13)
+    SLEEP 1 ' Give the write time to finish
+    SOCKCLOSE client
+ENDPROC

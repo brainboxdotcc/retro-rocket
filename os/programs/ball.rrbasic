@@ -16,9 +16,9 @@ REPEAT
     GCOL RGB(0,255,0)
     CIRCLE X#, Y#, 50, TRUE
     IF X# > (GRAPHICS_WIDTH - 50) THEN DX# = -5
-    IF X# < 50 THEN DX# = 5
+    IF X# < 55 THEN DX# = 5
     IF Y# > (GRAPHICS_HEIGHT - 50) THEN DY# = -5
-    IF Y# < 50 THEN DY# = 5
+    IF Y# < 55 THEN DY# = 5
     FLIP
 UNTIL INKEY$ <> ""
 CLS

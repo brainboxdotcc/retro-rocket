@@ -149,8 +149,44 @@ void sockclose_statement(struct basic_ctx* ctx)
 	}
 }
 
-char* basic_insocket(struct basic_ctx* ctx)
-{
+int64_t basic_socklisten(struct basic_ctx* ctx) {
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	const char* ip = strval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t port = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t backlog = intval;
+	PARAMS_END("SOCKLISTEN",-1);
+	if (port < 1 || port > UINT16_MAX - 1) {
+		tokenizer_error_print(ctx, "Invalid port for LISTEN");
+		return -1;
+	}
+	int rv = tcp_listen(str_to_ip(ip), port, backlog);
+	if (rv < 0) {
+		tokenizer_error_print(ctx, socket_error(rv));
+		return -1;
+	}
+	return rv;
+}
+
+int64_t basic_sockaccept(struct basic_ctx* ctx) {
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t server = intval;
+	PARAMS_END("SOCKACCEPT",-1);
+	int rv = tcp_accept(server);
+	if (rv == TCP_ERROR_WOULD_BLOCK) {
+		/* This is an expected, handled error */
+		return -1;
+	} else if (rv < 0) {
+		tokenizer_error_print(ctx, socket_error(rv));
+		return -1;
+	}
+	return rv;
+}
+
+char* basic_insocket(struct basic_ctx* ctx) {
 	uint8_t input[2] = { 0, 0 };
 	
 	PARAMS_START;
@@ -222,8 +258,7 @@ char* basic_netinfo(struct basic_ctx* ctx)
 	return gc_strdup(ctx, "0.0.0.0");
 }
 
-char* basic_dns(struct basic_ctx* ctx)
-{
+char* basic_dns(struct basic_ctx* ctx) {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_END("DNS$","");
@@ -233,12 +268,9 @@ char* basic_dns(struct basic_ctx* ctx)
 	return gc_strdup(ctx, ip);
 }
 
-void sockwrite_statement(struct basic_ctx* ctx)
-{
-	int fd = -1;
-
+void sockwrite_statement(struct basic_ctx* ctx) {
 	accept_or_return(SOCKWRITE, ctx);
-	fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
+	int fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
 	const char* out = printable_syntax(ctx);

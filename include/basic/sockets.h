@@ -92,14 +92,86 @@ void connect_statement(struct basic_ctx* ctx);
  */
 void sockread_statement(struct basic_ctx* ctx);
 
+/**
+ * @brief Process the UDPWRITE statement in BASIC.
+ *
+ * Sends a single UDP datagram to the specified destination address and port, optionally binding a source port.
+ * Arguments are parsed from the BASIC statement and validated; on error a diagnostic is raised to the tokenizer.
+ *
+ * @param ctx BASIC context.
+ */
 void udpwrite_statement(struct basic_ctx* ctx);
 
+/**
+ * @brief Process the UDPBIND statement in BASIC.
+ *
+ * Binds a UDP “daemon” handler for the given local port so that inbound datagrams are queued for subsequent reads.
+ * The handler stores packets in a per-port FIFO owned by the BASIC runtime.
+ *
+ * @param ctx BASIC context.
+ */
 void udpbind_statement(struct basic_ctx* ctx);
 
+/**
+ * @brief Process the UDPUNBIND statement in BASIC.
+ *
+ * Unregisters a previously bound UDP handler for the given local port and stops queueing packets for that port.
+ *
+ * @param ctx BASIC context.
+ */
 void udpunbind_statement(struct basic_ctx* ctx);
 
+/**
+ * @brief Read the next queued UDP packet payload for a port.
+ *
+ * Implements UDPREAD$ in BASIC. Pops the oldest queued datagram for the specified local port and returns its
+ * payload as a newly allocated string. Side effects: updates the BASIC context’s “last packet” metadata
+ * (source IP/port, length).
+ *
+ * @param ctx BASIC context.
+ * @return Pointer to a NUL-terminated payload string (owned by the BASIC GC), or an empty string if no packet
+ * is available.
+ */
 char* basic_udpread(struct basic_ctx* ctx);
 
+/**
+ * @brief Return the source port of the last UDP packet read.
+ *
+ * Exposes the metadata captured by the most recent successful UDPREAD$ call.
+ *
+ * @param ctx BASIC context.
+ * @return Source UDP port number of the last packet, or 0 if no packet has been read.
+ */
 int64_t basic_udplastsourceport(struct basic_ctx* ctx);
 
+/**
+ * @brief Return the source IP address of the last UDP packet read.
+ *
+ * Exposes the metadata captured by the most recent successful UDPREAD$ call.
+ *
+ * @param ctx BASIC context.
+ * @return Source IPv4 address as a dotted-quad string, or an empty string if no packet has been read.
+ */
 char* basic_udplastip(struct basic_ctx* ctx);
+
+/**
+ * @brief Create a listening TCP socket from BASIC.
+ *
+ * Implements SOCKLISTEN. Binds a TCP listener to the specified address and port with the requested backlog and
+ * returns a file descriptor for subsequent SOCKACCEPT calls.
+ *
+ * @param ctx BASIC context.
+ * @return Non-negative file descriptor on success; −1 with an error raised into the tokenizer on failure.
+ */
+int64_t basic_socklisten(struct basic_ctx* ctx);
+
+/**
+ * @brief Accept an incoming TCP connection from BASIC (non-blocking).
+ *
+ * Implements SOCKACCEPT. If an established connection is queued, returns a new file descriptor; if no
+ * connection is currently ready, returns −1 without blocking. Errors are reported to the tokenizer.
+ *
+ * @param ctx BASIC context.
+ * @return File descriptor of the accepted connection, or −1 if no connection is ready or on error.
+ */
+int64_t basic_sockaccept(struct basic_ctx* ctx);
