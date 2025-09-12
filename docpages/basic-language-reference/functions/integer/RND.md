@@ -1,11 +1,53 @@
 \page RND RND Function
+
 ```basic
-RND(integer-expression, integer-expression)
+RND(min, max)
 ```
-Returns a pseudo-random number between the two integer expressions (inclusive). The pseudo-random number generator uses a [Mersenne Twister mt19937](https://en.wikipedia.org/wiki/Mersenne_Twister) algorithm to produce random results, with entropy seeded from the operating system kernel via various inputs which are not directly under user control.
 
-![image](https://user-images.githubusercontent.com/1556794/235545663-e3b17cdf-c47e-4d65-bfa1-84b3902c47fe.png)
+Returns a **pseudo-random integer** between `min` and `max` (inclusive).
+Both parameters must be integers, and the first must be less than or equal to the second.
 
-**NOTE: This differs from BBC BASIC which used a simple 33-bit LFSR (Linear Feedback Shift Register) as opposed to Mersenne Twister.**
+The generator uses the **Mersenne Twister (mt19937)** algorithm, seeded from entropy provided by the operating system kernel.
 
-This function should not be relied upon for cryptographic randomness as its seed value cannot be guaranteed secure.
+\image html rnd.png
+
+---
+
+### Examples
+
+```basic
+REM Toss a coin (1 or 2)
+PRINT RND(1, 2)
+```
+
+```basic
+REM Roll a six-sided die
+PRINT RND(1, 6)
+```
+
+```basic
+REM Pick a random number between 50 and 5000
+PRINT RND(50, 5000)
+```
+
+```basic
+REM Generate 5 random values between 100 and 200
+FOR i = 1 TO 5
+    PRINT RND(100, 200)
+NEXT
+```
+
+---
+
+### Notes
+
+* The result is an **integer** within the inclusive range `[min, max]`.
+* If `min > max`, behaviour is undefined.
+* Suitable for general randomness in games, simulations, and sampling.
+* **Not cryptographically secure** — although the kernel provides an unpredictable seed, the Mersenne Twister itself is deterministic and predictable if state is known.
+* **Retro Rocket BASIC difference:** BBC BASIC used a 33-bit LFSR (linear feedback shift register). Retro Rocket uses a modern PRNG (Mersenne Twister).
+
+---
+
+**See also:**
+\ref INT "INT" · \ref ABS "ABS"
