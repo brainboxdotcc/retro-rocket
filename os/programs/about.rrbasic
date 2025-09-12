@@ -32,10 +32,14 @@ COLOUR 7
 M_MEGS = MEMUSED / 1024 / 1024
 MT_MEGS = MEMORY / 1024 / 1024
 PRINT M_MEGS; "MiB / "; MT_MEGS ; "MiB"
+COLOUR 14
+PRINT "                                  Resolution: ";
+COLOUR 7
+PRINT GRAPHICS_WIDTH; "x"; GRAPHICS_HEIGHT
 PRINT "                                  ";
 GRADLEFT=CURRENTX*8
 GRADTOP=CURRENTY*8+8
-FOR N = 0 TO 16
+FOR N = 0 TO 15
     PRINT ""
 NEXT
 PLOT owl,32,SPRTOP
