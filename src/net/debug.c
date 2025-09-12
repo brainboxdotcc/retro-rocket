@@ -8,7 +8,7 @@ void tcp_dump_segment(bool in, tcp_conn_t* conn, const ip_packet_t* encap_packet
 	get_ip_str(source_ip, encap_packet->src_ip);
 	get_ip_str(dest_ip, encap_packet->dst_ip);
 	dprintf(
-		"TCP %s: %s %s:%d->%s:%d len=%ld seq=%d ack=%d off=%d flags[%c%c%c%c%c%c%c%c] win=%d, sum=%04x/%04x, urg=%d",
+		"TCP %s: %s %s:%u->%s:%u len=%lu seq=%u ack=%u off=%u flags[%c%c%c%c%c%c%c%c] win=%u, sum=%04x/%04x, urg=%u",
 		in ? "IN" : "OUT",
 		conn ? states[conn->state] : "<invalid>",
 		source_ip,
@@ -33,7 +33,7 @@ void tcp_dump_segment(bool in, tcp_conn_t* conn, const ip_packet_t* encap_packet
 		segment->urgent
 	);
 	if (options && options->mss) {
-		dprintf(" [opt.mss=%d]", options->mss);
+		dprintf(" [opt.mss=%u]", options->mss);
 	}
 	dprintf("\n");
 #endif

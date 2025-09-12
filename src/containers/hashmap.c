@@ -591,14 +591,10 @@ uint64_t hashmap_sip(const void *data, size_t len, uint64_t seed0, uint64_t seed
 	return SIP64((uint8_t *) data, len, seed0, seed1);
 }
 
-uint64_t hashmap_murmur(const void *data, size_t len, uint64_t seed0,[[maybe_unused]
-
-]
-uint64_t seed1
-) {
-char out[16];
-MM86128(data, len, seed0,
-&out);
-return *(uint64_t*)
-out;
+uint64_t hashmap_murmur(const void *data, size_t len, uint64_t seed0, uint64_t seed1) {
+	char out[16];
+	MM86128(data, len, seed0,
+	&out);
+	return *(uint64_t*)
+	out;
 }

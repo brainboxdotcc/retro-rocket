@@ -1,7 +1,7 @@
 #include <kernel.h>
 
 volatile uint64_t ticks = 0;
-volatile uint32_t timer_freq = 0;
+volatile uint32_t timer_freq = 1000;
 volatile uint64_t beep_end = 0;
 
 extern idle_timer_t* timer_idles;
@@ -21,7 +21,7 @@ void beep(uint32_t pitch)
 		outb(0x61, tmp | 3);
 
 	// A beep is stopped by the timer interrupt half a second
-	// after it has been started, asyncronously and automatically.
+	// after it has been started, asynchronously and automatically.
 	beep_end = ticks + timer_freq / 8;
 }
  
@@ -38,12 +38,13 @@ void sleep_one_tick()
 	while (oldticks != ticks);
 }
 
-void sleep(uint64_t secs)
+void sleep(uint64_t milliseconds)
 {
 	uint64_t start = ticks;
-	uint64_t end = start + (secs * timer_freq);
-	while (ticks < end)
+	uint64_t end = start + milliseconds;
+	while (ticks < end) {
 		__asm__ volatile("hlt");
+	}
 }
 
 uint64_t get_ticks()

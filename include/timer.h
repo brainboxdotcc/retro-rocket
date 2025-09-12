@@ -64,14 +64,14 @@ void beep(uint32_t pitch);
 void stopbeep(void);
 
 /**
- * @brief Sleep for the specified number of seconds.
+ * @brief Sleep for the specified number of milliseconds.
  *
  * Uses the global tick counter to wait until the required number
- * of seconds has elapsed. CPU executes HLT while waiting.
+ * of milliseconds has elapsed. CPU executes HLT while waiting.
  *
- * @param secs Number of seconds to sleep.
+ * @param milliseconds Number of milliseconds to sleep.
  */
-void sleep(uint64_t secs);
+void sleep(uint64_t milliseconds);
 
 /**
  * @brief Get the current global tick count.

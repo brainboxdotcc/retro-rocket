@@ -25,9 +25,9 @@ static const char* error_messages[] = {
 };
 
 bool tcp_state_receive_fin(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len);
+bool tcp_handle_data_in(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len);
 
-const char* socket_error(int error_code)
-{
+const char* socket_error(int error_code) {
 	if (error_code <= TCP_LAST_ERROR || error_code >= 0) {
 		return "No error";
 	}
@@ -35,8 +35,7 @@ const char* socket_error(int error_code)
 	return error_messages[error_code];
 }
 
-uint32_t get_isn()
-{
+uint32_t get_isn() {
 	if (!isn_init) {
 		isn_rand_base = (uint32_t)(mt_rand() & 0xffffffffULL);
 		isn_tick_base = get_ticks();
@@ -51,23 +50,19 @@ uint32_t get_isn()
 
 
 
-bool seq_lt(uint32_t x, uint32_t y)
-{
+bool seq_lt(uint32_t x, uint32_t y) {
 	return ((int32_t)(x - y) < 0);
 }
 
-bool seq_lte(uint32_t x, uint32_t y)
-{
+bool seq_lte(uint32_t x, uint32_t y) {
 	return ((int32_t)(x - y) <= 0);
 }
 
-bool seq_gt(uint32_t x, uint32_t y)
-{
+bool seq_gt(uint32_t x, uint32_t y) {
 	return ((int32_t)(x - y) > 0);
 }
 
-bool seq_gte(uint32_t x, uint32_t y)
-{
+bool seq_gte(uint32_t x, uint32_t y) {
 	return ((int32_t)(x - y) >= 0);
 }
 
@@ -80,10 +75,24 @@ bool seq_gte(uint32_t x, uint32_t y)
  * @return int 0 for equal, 1 for not equal
  */
 int tcp_conn_compare(const void *a, const void *b, void *udata) {
-	const tcp_conn_t* fa = a;
-	const tcp_conn_t* fb = b;
-	return fa->local_addr == fb->local_addr && fa->remote_addr && fb->remote_addr
-		&& fa->local_port == fb->local_port && fa->remote_port == fb->remote_port ? 0 : 1;
+	const tcp_conn_t *fa = a, *fb = b;
+
+	/* Wildcard ONLY when both are listeners; respects bind addr + port. */
+	if (fa->state == TCP_LISTEN && fb->state == TCP_LISTEN) {
+		if (fa->local_port != fb->local_port) {
+			return 1;
+		}
+		if (fa->local_addr != 0 && fb->local_addr != 0 && fa->local_addr != fb->local_addr) {
+			return 1;
+		}
+		return 0;
+	}
+
+	/* Otherwise strict 4-tuple equality. */
+	return (fa->local_addr == fb->local_addr &&
+		fa->local_port == fb->local_port &&
+		fa->remote_addr == fb->remote_addr &&
+		fa->remote_port == fb->remote_port) ? 0 : 1;
 }
 
 /**
@@ -94,10 +103,20 @@ int tcp_conn_compare(const void *a, const void *b, void *udata) {
  * @param seed1 second seed from hashmap
  * @return uint64_t hash bucket value
  */
-uint64_t tcp_conn_hash(const void *item, uint64_t seed0, uint64_t seed1)
-{
-	const tcp_conn_t* fa = item;
-	return ((uint64_t)fa->local_addr << 32) + ((uint64_t)fa->remote_addr);
+uint64_t tcp_conn_hash(const void *item, uint64_t seed0, uint64_t seed1) {
+	const tcp_conn_t *c = item;
+
+	if (c->state == TCP_LISTEN) { /* no remote wildcarding here */
+		uint64_t w0 = ((uint64_t)c->local_addr << 32);
+		uint64_t w1 = ((uint64_t)c->local_port << 48);
+		uint64_t buf[2] = { w0, w1 };
+		return hashmap_sip(buf, sizeof buf, seed0, seed1);
+	}
+
+	uint64_t w0 = ((uint64_t)c->local_addr << 32) | (uint64_t)c->remote_addr;
+	uint64_t w1 = ((uint64_t)c->local_port << 48) | ((uint64_t)c->remote_port << 32);
+	uint64_t buf[2] = { w0, w1 };
+	return hashmap_sip(buf, sizeof buf, seed0, seed1);
 }
 
 void tcp_free(tcp_conn_t* conn, bool with_lock)
@@ -230,15 +249,32 @@ uint8_t tcp_parse_options(tcp_segment_t* const segment, tcp_options_t* options)
  * @param dest_port destination port
  * @return tcp_conn_t* TCB
  */
-tcp_conn_t* tcp_find(uint32_t source_addr, uint32_t dest_addr, uint16_t source_port, uint16_t dest_port)
-{
-	if (tcb == NULL) {
+tcp_conn_t* tcp_find(uint32_t source_addr, uint32_t dest_addr, uint16_t source_port, uint16_t dest_port) {
+	if (!tcb) {
 		dprintf("TCB is null\n");
 		return NULL;
 	}
-	tcp_conn_t find_conn = { .local_addr = source_addr, .remote_addr = dest_addr, .local_port = source_port, .remote_port = dest_port };
-	return (tcp_conn_t*)hashmap_get(tcb, &find_conn);
+
+	/* 1) Exact 4-tuple: prefer established/half-open children */
+	tcp_conn_t key = {
+		.local_addr  = source_addr,
+		.remote_addr = dest_addr,
+		.local_port  = source_port,
+		.remote_port = dest_port,
+		.state       = TCP_SYN_RECEIVED    /* any non-LISTEN value works */
+	};
+	tcp_conn_t *c = hashmap_get(tcb, &key);
+	if (c) {
+		return c;
+	}
+
+	/* 2) Fallback to listener on this bind address/port */
+	key.remote_addr = 0;
+	key.remote_port = 0;
+	key.state = TCP_LISTEN;
+	return hashmap_get(tcb, &key);
 }
+
 
 /**
  * @brief Set the state for a TCB
@@ -545,11 +581,88 @@ void tcp_process_queue(tcp_conn_t* conn, tcp_segment_t* segment, size_t len)
 	}
 }
 
-bool tcp_state_listen(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
-{
-	// TODO - implement this
+bool tcp_state_listen(ip_packet_t *encap_packet, tcp_segment_t *segment, tcp_conn_t *listener, const tcp_options_t *options, size_t len) {
+	/* Only accept a bare SYN in LISTEN. Drop others. */
+	if (!segment->flags.syn || segment->flags.ack || segment->flags.fin || segment->flags.rst) {
+		dprintf("Invalid listen state\n");
+		return true;
+	}
+
+	/* Build a child PCB from the incoming SYN. */
+	tcp_conn_t child;
+	memset(&child, 0, sizeof(child));
+
+	child.local_addr  = *((uint32_t *)&encap_packet->dst_ip);
+	child.local_port  = segment->dst_port;
+	child.remote_addr = *((uint32_t *)&encap_packet->src_ip);
+	child.remote_port = segment->src_port;
+
+	dprintf("Allocated child remote addr %08x\n", child.remote_addr);
+
+	/* Initial sequencing: passive open. */
+	child.iss     = get_isn();
+	child.snd_una = child.iss;
+	child.snd_nxt = child.iss;          /* tcp_send_segment will advance by 1 for SYN */
+	child.snd_lst = 0;
+
+	child.irs     = segment->seq;
+	child.rcv_nxt = segment->seq + 1;
+	child.rcv_lst = 0;
+
+	child.snd_wnd = TCP_WINDOW_SIZE;
+	child.rcv_wnd = TCP_WINDOW_SIZE;
+
+	/* House defaults (mirror your other inits). */
+	child.fd                    = -1;
+	child.segment_list          = NULL;
+	child.recv_eof_pos          = -1;
+	child.send_eof_pos          = -1;
+	child.recv_buffer           = NULL;
+	child.send_buffer           = NULL;
+	child.recv_buffer_len       = 0;
+	child.send_buffer_len       = 0;
+	child.recv_buffer_spinlock  = 0;
+	child.send_buffer_spinlock  = 0;
+	child.pending               = NULL;
+	child.backlog               = 0;
+
+	tcp_set_state(&child, TCP_SYN_RECEIVED);
+
+	uint64_t flags;
+	lock_spinlock_irq(&lock, &flags);
+
+	/* Insert child keyed by full 4-tuple, then retrieve the stored copy. */
+	hashmap_set(tcb, &child);
+
+	/* Fetch the stored child EXACTLY (avoid LISTEN wildcard on the temp key). */
+	tcp_conn_t find_key = {
+		.local_addr  = child.local_addr,
+		.remote_addr = child.remote_addr,
+		.local_port  = child.local_port,
+		.remote_port = child.remote_port,
+		.state       = TCP_SYN_RECEIVED   /* anything non-LISTEN works */
+	};
+	tcp_conn_t *new_conn = hashmap_get(tcb, &find_key);
+	if (!new_conn) {
+		unlock_spinlock_irq(&lock, flags);
+		dprintf("Cant find newly created child connection\n");
+		return true;
+	}
+
+	/* Queue and send from the CHILD */
+	if (listener->pending) {
+		queue_push(listener->pending, new_conn);
+	}
+	dprintf("LISTEN send pcb=%p state=%d %08x:%u -> %08x:%u\n", new_conn, new_conn->state, new_conn->local_addr, new_conn->local_port, new_conn->remote_addr, new_conn->remote_port);
+	tcp_send_segment(new_conn, new_conn->snd_nxt, TCP_SYN | TCP_ACK, NULL, 0);
+
+
+	unlock_spinlock_irq(&lock, flags);
+	dprintf("New client accepted\n");
 	return true;
 }
+
+
 
 /**
  * @brief Send an ACK for the segments we have received so far
@@ -590,11 +703,8 @@ bool tcp_send_fin_ack(tcp_conn_t*conn)
  * @param len length of segment
  * @return true if we are to continue processing
  */
-bool tcp_state_syn_sent(ip_packet_t* encap_packet, tcp_segment_t* segment,
-			tcp_conn_t* conn, const tcp_options_t* options, size_t len)
-{
-	dprintf("SYN_SENT: iss=%u snd_nxt=%u seg.ack=%u\n",
-		conn->iss, conn->snd_nxt, segment->ack);
+bool tcp_state_syn_sent(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len) {
+	dprintf("SYN_SENT: iss=%u snd_nxt=%u seg.ack=%u\n", conn->iss, conn->snd_nxt, segment->ack);
 
 	if (segment->flags.ack) {
 		// RFC 793: acceptable if ISS < SEG.ACK <= SND.NXT
@@ -609,10 +719,7 @@ bool tcp_state_syn_sent(ip_packet_t* encap_packet, tcp_segment_t* segment,
 				);
 				tcp_send_segment(conn, segment->ack, TCP_RST, NULL, 0);
 			}
-			dprintf(
-				"unacceptable ACK, dropping connection: iss=%u snd_nxt=%u seg.ack=%u\n",
-				conn->iss, conn->snd_nxt, segment->ack
-			);
+			dprintf("unacceptable ACK, dropping connection: iss=%u snd_nxt=%u seg.ack=%u\n", conn->iss, conn->snd_nxt, segment->ack);
 			return true; // unacceptable ACK, drop/abort
 		}
 	}
@@ -665,13 +772,41 @@ bool tcp_state_syn_sent(ip_packet_t* encap_packet, tcp_segment_t* segment,
  * @param len length of segment
  * @return true if we are to continue processing
  */
-bool tcp_state_syn_received(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
-{
- 	if (segment->flags.fin) {
-		tcp_state_receive_fin(encap_packet, segment, conn, options, len);
+bool tcp_state_syn_received(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len) {
+	if (segment->flags.fin) {
+		return tcp_state_receive_fin(encap_packet, segment, conn, options, len);
+	}
+
+	if (segment->flags.rst) {
+		dprintf("*** TCP *** RST in SYN-RECEIVED\n");
+		tcp_free(conn, true);
+		return false;
+	}
+
+	if (segment->flags.ack) {
+		/* Acceptable if our SYN was acked: ISS < SEG.ACK <= SND.NXT */
+		if (seq_gt(segment->ack, conn->iss) && seq_lte(segment->ack, conn->snd_nxt + 1)) {
+			conn->snd_una = segment->ack;
+			conn->snd_wnd = segment->window_size;
+			conn->snd_wl1 = segment->seq;
+			conn->snd_wl2 = segment->ack;
+
+			tcp_set_state(conn, TCP_ESTABLISHED);
+
+			/* If any payload, process; otherwise send an ACK (idempotent). */
+			if (len - tcp_header_size(segment) > 0) {
+				tcp_handle_data_in(encap_packet, segment, conn, options, len);
+			} else {
+				tcp_send_ack(conn);
+			}
+		} else {
+			/* Unacceptable ACK: polite RST per RFC. */
+			tcp_send_segment(conn, segment->ack, TCP_RST, NULL, 0);
+		}
 	}
 	return true;
 }
+
 
 /**
  * @brief Called when we receive RST
@@ -722,8 +857,7 @@ bool tcp_state_receive_rst(ip_packet_t* encap_packet, tcp_segment_t* segment, tc
  * @param len length of segment
  * @return true if we are to continue processing
  */
-bool tcp_handle_data_in(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
-{
+bool tcp_handle_data_in(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len) {
 	size_t payload_len = len - tcp_header_size(segment);
 
 	if (!(seq_lte(conn->rcv_nxt, segment->seq) && seq_lte(segment->seq + payload_len, conn->rcv_nxt + conn->rcv_wnd))) {
@@ -951,6 +1085,7 @@ bool tcp_state_machine(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_co
 {
 	switch (conn->state) {
 		case TCP_LISTEN:
+			dprintf("state machine; listen\n");
 			return tcp_state_listen(encap_packet, segment, conn, options, len);
 		case TCP_SYN_SENT:
 			return tcp_state_syn_sent(encap_packet, segment, conn, options, len);
@@ -990,7 +1125,11 @@ void tcp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, tcp_segment_t
 	tcp_parse_options(segment, &options);
 	tcp_conn_t* conn = tcp_find(*((uint32_t*)(&encap_packet->dst_ip)), *((uint32_t*)(&encap_packet->src_ip)), segment->dst_port, segment->src_port);
 	tcp_dump_segment(true, conn, encap_packet, segment, &options, len, our_checksum);
-	if (conn && our_checksum == segment->checksum) {
+	if (!conn) {
+		dprintf("Segment for unknown connection dropped\n");
+		return;
+	}
+	if (our_checksum == segment->checksum) {
 		tcp_state_machine(encap_packet, segment, conn, &options, len);
 	} else {
 		dprintf("tcp_handle_packet dropped packet due to invalid sum\n");
@@ -1352,6 +1491,7 @@ bool sock_ready_to_read(int socket) {
 int tcp_listen(uint32_t addr, uint16_t port, int backlog)
 {
 	if (tcp_port_in_use(addr, port, TCP_PORT_LOCAL)) {
+		dprintf("listen: Port in use\n");
 		return TCP_ERROR_PORT_IN_USE;
 	}
 
@@ -1371,6 +1511,7 @@ int tcp_listen(uint32_t addr, uint16_t port, int backlog)
 	conn.backlog = backlog;
 	conn.pending = queue_new();
 	if (!conn.pending) {
+		dprintf("listen: Out of memory\n");
 		return TCP_ERROR_OUT_OF_MEMORY;
 	}
 
@@ -1378,11 +1519,11 @@ int tcp_listen(uint32_t addr, uint16_t port, int backlog)
 	lock_spinlock_irq(&lock, &flags);
 	hashmap_set(tcb, &conn);
 
-	tcp_conn_t* new_conn = tcp_find(conn.local_addr, conn.remote_addr,
-					conn.local_port, conn.remote_port);
+	tcp_conn_t* new_conn = tcp_find(conn.local_addr, conn.remote_addr, conn.local_port, conn.remote_port);
 	if (!new_conn) {
 		queue_free(conn.pending);
 		unlock_spinlock_irq(&lock, flags);
+		dprintf("listen: Out of memory (2)\n");
 		return TCP_ERROR_OUT_OF_MEMORY;
 	}
 
@@ -1391,20 +1532,23 @@ int tcp_listen(uint32_t addr, uint16_t port, int backlog)
 		queue_free(new_conn->pending);
 		tcp_free(new_conn, false);
 		unlock_spinlock_irq(&lock, flags);
+		dprintf("listen: Out of descriptors\n");
 		return TCP_ERROR_OUT_OF_DESCRIPTORS;
 	}
 
 	unlock_spinlock_irq(&lock, flags);
+	dprintf("listen: listening on %d\n", port);
 	return new_conn->fd;
 }
 
-int tcp_accept(int socket)
-{
-	tcp_conn_t* listener = tcp_find_by_fd(socket);
+int tcp_accept(int socket) {
+	tcp_conn_t *listener = tcp_find_by_fd(socket);
 	if (!listener) {
+		dprintf("accept: Invalid socket %d\n", socket);
 		return TCP_ERROR_INVALID_SOCKET;
 	}
 	if (listener->state != TCP_LISTEN) {
+		dprintf("accept: Not listening: %d\n", socket);
 		return TCP_ERROR_NOT_LISTENING;
 	}
 
@@ -1416,36 +1560,30 @@ int tcp_accept(int socket)
 		return TCP_ERROR_WOULD_BLOCK;
 	}
 
-	tcp_conn_t* conn = queue_pop(listener->pending);
+	/* Look at the oldest pending child without removing it. */
+	tcp_conn_t *head = queue_peek(listener->pending);
+	if (!head || head->state != TCP_ESTABLISHED) {
+		/* Handshake not completed yet; keep strict FIFO by not popping. */
+		unlock_spinlock_irq(&lock, flags);
+		return TCP_ERROR_WOULD_BLOCK;
+	}
+
+	/* Now it’s established; remove it from the queue and hand it out. */
+	tcp_conn_t *conn = queue_pop(listener->pending);
 	if (!conn) {
 		unlock_spinlock_irq(&lock, flags);
+		dprintf("accept: Connection failed: %d\n", socket);
 		return TCP_ERROR_CONNECTION_FAILED;
 	}
 
-	/* Defensive initialisation (mirror tcp_connect defaults) */
-	conn->fd = -1;
-	conn->segment_list = NULL;
-	conn->recv_eof_pos = -1;
-	conn->send_eof_pos = -1;
-	conn->recv_buffer = NULL;
-	conn->send_buffer = NULL;
-	conn->recv_buffer_len = 0;
-	conn->send_buffer_len = 0;
-	conn->recv_buffer_spinlock = 0;
-	conn->send_buffer_spinlock = 0;
-	conn->pending = NULL;
-	conn->backlog = 0;
-
-	conn->snd_wnd = TCP_WINDOW_SIZE;
-	conn->rcv_wnd = TCP_WINDOW_SIZE;
-
 	conn->fd = tcp_allocate_fd(conn);
 	if (conn->fd == -1) {
-		tcp_free(conn, false);
 		unlock_spinlock_irq(&lock, flags);
+		dprintf("accept: Out of descriptors: %d\n", socket);
 		return TCP_ERROR_OUT_OF_DESCRIPTORS;
 	}
-	tcp_set_state(conn, TCP_SYN_RECEIVED);
+
 	unlock_spinlock_irq(&lock, flags);
+	dprintf("accept: New inbound: %d\n", conn->fd);
 	return conn->fd;
 }

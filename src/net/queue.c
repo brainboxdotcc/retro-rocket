@@ -48,3 +48,10 @@ inline void queue_free(queue_t *q) {
 	}
 	kfree_null(&q);
 }
+
+inline tcp_conn_t* queue_peek(queue_t *q) {
+	if (!q || !q->head) {
+		return NULL;
+	}
+	return q->head->conn;
+}
