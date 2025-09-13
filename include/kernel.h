@@ -12,7 +12,7 @@
 	#error "Bit-field layout assumed: x86_64 little-endian."
 #endif
 
-#define KSTACK_SIZE  (32ULL * 1024ULL * 1024ULL)   /* 32 MiB */
+#define KSTACK_SIZE  (1 * 1024 * 1024)   /* 1 MB */
 #define KSTACK_MASK  (~(KSTACK_SIZE - 1ULL))
 
 #define kprintf(fmt, ...) \

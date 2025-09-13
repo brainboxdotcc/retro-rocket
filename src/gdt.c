@@ -38,7 +38,7 @@ extern volatile struct limine_kernel_file_request rr_kfile_req;
 
 struct reqset request_addresses(void) {
 	static struct {
-		uintptr_t arr[11];
+		uintptr_t arr[12];
 	} buf; /* backing storage, static so it survives return */
 
 	buf.arr[0]  = (uintptr_t)limine_gdtr;
@@ -52,6 +52,10 @@ struct reqset request_addresses(void) {
 	buf.arr[8]  = (uintptr_t)address_request.response - hhdm_request.response->offset;
 	buf.arr[9]  = (uintptr_t)hhdm_request.response - hhdm_request.response->offset;
 	buf.arr[10] = (uintptr_t)stack_size_request.response - hhdm_request.response->offset;
+
+	uintptr_t rsp_va;
+	__asm__ volatile ("mov %%rsp, %0" : "=r"(rsp_va));
+	buf.arr[11] = rsp_va - 16 - (uintptr_t)hhdm_request.response->offset;
 
 	return (struct reqset){
 		buf.arr,
