@@ -50,6 +50,13 @@
 
 #define EMIT_FROM_FLAG(name, flag, dispatcher) EMIT_##flag(name, dispatcher)
 
+/* Per-token compile-time string length */
+#define GENERATE_STRING_LENGTH(NAME, ...) (sizeof(#NAME) - 1u),
+
+/* Builds: const unsigned char token_name_lengths[] = { ... }; */
+#define GENERATE_ENUM_STRING_LENGTHS(MACRO, ARRAY_NAME) \
+    const unsigned char ARRAY_NAME[] = { MACRO(GENERATE_STRING_LENGTH) };
+
 /* Handler function type */
 typedef void (*keyword_handler_t)(struct basic_ctx*);
 

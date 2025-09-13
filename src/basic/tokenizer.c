@@ -137,8 +137,9 @@ int get_next_token(struct basic_ctx* ctx)
 		return STRING;
 	} else {
 		GENERATE_ENUM_STRING_NAMES(TOKEN, token_names)
+		GENERATE_ENUM_STRING_LENGTHS(TOKEN, token_name_lengths)
 		for(int kt = 0; keywords[kt] != -1; ++kt) {
-			size_t len = strlen(token_names[keywords[kt]]);
+			size_t len = token_name_lengths[keywords[kt]];
 			int comparison = strncmp(ctx->ptr, token_names[keywords[kt]], len);
 			if (comparison == 0) {
 				const char* backup = ctx->nextptr;
@@ -287,6 +288,7 @@ void tokenizer_error_print(struct basic_ctx* ctx, const char* error)
 		if (ctx->ended == 0) {
 			debug = false;
 			if (ctx->error_handler) {
+				dprintf("Handled error\n");
 				struct ub_proc_fn_def* def = basic_find_fn(ctx->error_handler, ctx);
 				if (def && ctx->call_stack_ptr < MAX_CALL_STACK_DEPTH) {
 					buddy_free(ctx->allocator, ctx->error_handler);
@@ -319,6 +321,7 @@ void tokenizer_error_print(struct basic_ctx* ctx, const char* error)
 					ctx->ended = true;
 				}
 			}
+			dprintf("Unhandled error\n");
 			if (ctx->claimed_flip) {
 				set_video_auto_flip(true);
 			}
@@ -336,7 +339,7 @@ void tokenizer_error_print(struct basic_ctx* ctx, const char* error)
 					offset = 1;
 				}
 				kprintf("%s\n", l);
-				for (size_t x = 0; x < offset - 1; ++x) {
+				for (size_t x = 0; x < offset ? offset - 1 : 0; ++x) {
 					put(' ');
 				}
 				kprintf("^\n");
@@ -344,6 +347,7 @@ void tokenizer_error_print(struct basic_ctx* ctx, const char* error)
 			setforeground(COLOUR_WHITE);
 		}
 	} else {
+		dprintf("Error in eval\n");
 		if (!ctx->errored) {
 			ctx->errored = true;
 			setforeground(COLOUR_LIGHTRED);

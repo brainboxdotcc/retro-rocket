@@ -2,15 +2,18 @@
 
 gc_str_t* gc_list = NULL;
 
-unsigned int strlen(const char* str)
-{
-	if (!str || !*str) {
-		return 0;
-	}
-	unsigned int len = 0;
-	for(; *str; ++str)
-		++len;
-	return len;
+unsigned int strlen(const char* str) {
+	size_t rcx;
+	/* Search for AL=0 from RDI, RCX = ~0; after SCASB, bytes scanned = (~rcx) - 1. */
+	__asm__ volatile (
+		"xor %%eax, %%eax\n\t"
+		"mov $-1, %%rcx\n\t"
+		"repne scasb"
+		: "=c"(rcx), "+D"(str)
+		: /* AL already zeroed */
+		: "rax", "memory"
+	);
+	return (unsigned int)((~rcx) - 1);
 }
 
 void strtolower(char *s) {
@@ -20,16 +23,6 @@ void strtolower(char *s) {
 	for (; *s; ++s) {
 		*s = tolower(*s);
 	}
-}
-
-unsigned char isdigit(const char x)
-{
-	return (x >= '0' && x <= '9');
-}
-
-unsigned char isxdigit(const char x)
-{
-	return (x >= '0' && x <= '9') || (x >= 'A' && x <= 'F');
 }
 
 int strcmp(const char* s1, const char* s2)
@@ -67,24 +60,14 @@ char* strchr(const char *s, int c)
 	return NULL;
 }
 
-int abs(int a)
-{
+int abs(int a) {
 	uint32_t mask = ~((a >> 31) & 1) + 1;
 	return (a ^ mask) - mask;
 }
 
-int64_t labs(int64_t a)
-{
+int64_t labs(int64_t a) {
 	uint64_t mask = ~((a >> 63) & 1) + 1;
 	return (a ^ mask) - mask;
-}
-
-char toupper(char low) {
-	return low >= 'a' && low <= 'z' ? low - 32 : low;
-}
-
-char tolower(char low) {
-	return low >= 'A' && low <= 'Z' ? low + 32 : low;
 }
 
 int strnicmp(const char* s1, const char* s2, uint32_t n)
@@ -103,21 +86,40 @@ int strnicmp(const char* s1, const char* s2, uint32_t n)
 	return (0);
 }
 
-int strncmp(const char* s1, const char* s2, uint32_t n)
+#include <stdint.h>
+
+__attribute__((hot)) int strncmp(const char *s1, const char *s2, uint32_t n)
 {
 	if (!s1 || !s2) {
-		return (int)s1 - (int)s2;
+		return (int)s1 - (int)s2; /* preserve your NULL behaviour */
 	}
-	if (n == 0)
-		return (0);
-	do {
-		if (*s1 != *s2++)
-			return (*(const unsigned char *)s1 - *(const unsigned char *)(s2 - 1));
-		if (*s1++ == 0)
-			break;
-	} while (--n != 0);
-	return (0);
+
+	if (s1 == s2 || n == 0) {
+		return 0;
+	}
+
+	const unsigned char *p1 = (const unsigned char *)s1;
+	const unsigned char *p2 = (const unsigned char *)s2;
+
+	while (n--) {
+		unsigned char a = *p1++;
+		unsigned char b = *p2++;
+
+		/* Common case: bytes equal and not NUL → continue. */
+		if (__builtin_expect(a == b, 1)) {
+			if (__builtin_expect(a != 0u, 1)) {
+				continue;
+			}
+			return 0; /* both NUL at same position */
+		}
+
+		/* First difference decides the result. */
+		return (int)a - (int)b;
+	}
+
+	return 0;
 }
+
 
 uint64_t hextoint(const char* n1)
 {
@@ -217,27 +219,6 @@ uint32_t strlcpy(char *dst, const char *src, uint32_t siz)
 	return s - src - 1; /* count does not include NUL */
 }
 
-int isalnum(const char x)
-{
-	return ((x >= 'A' && x <= 'Z') || (x >= 'a' && x <= 'z') || (x >= '0' && x <= '9'));
-}
-
-int isupper(const char x)
-{
-	return (x >= 'A' && x <= 'Z');
-}
-
-
-bool isalpha(const char x)
-{
-	return (x >= 'A' && x <= 'Z');
-}
-
-bool isspace(const char x)
-{
-	return x == ' ' || x == '\t';
-}
-
 char* strdup(const char* string)
 {
 	if (!string) {
@@ -282,216 +263,170 @@ int gc(basic_ctx* ctx)
 	return 1;
 }
 
-bool atof(const char* s, double* a)
-{
+static double pow10i(int e) {
+	double result = 1.0;
+	double base = (e < 0) ? 0.1 : 10.0;
+
+	/* take absolute value of e safely without UB on INT_MIN */
+	unsigned int k = (unsigned int)((e < 0) ? -(long long)e : (long long)e);
+
+	while (k > 0u) {
+		if ((k & 1u) != 0u) {
+			result *= base;
+		}
+		base *= base;
+		k >>= 1;
+	}
+	return result;
+}
+
+/* - No leading whitespace skipped.
+ * - No leading '+' or '-' on the mantissa.
+ * - Accepts ".123".
+ * - Accepts 'e'/'E' with optional '+'/'-' and optional digits (e.g. "1e" == 1.0).
+ * - Ignores any trailing junk after the parsed number.
+ * - Returns false only for NULL inputs; otherwise true and *a set (default 0.0).
+ */
+bool atof(const char *s, double *a) {
 	if (!s || !a) {
 		return false;
 	}
 
-	*a = 0.0f;
-	int e = 0;
+	*a = 0.0;
+	int exp10 = 0;
 	int c;
-	while ((c = *s++) != '\0' && isdigit(c)) {
-		(*a) = (*a) * 10.0 + (c - '0');
+
+	/* integer part */
+	while ((c = *s++) != '\0' && c >= '0' && c <= '9') {
+		*a = (*a) * 10.0 + (double)(c - '0');
 	}
+
+	/* fractional part */
 	if (c == '.') {
-		while ((c = *s++) != '\0' && isdigit(c)) {
-			(*a) = (*a) * 10.0 + (c - '0');
-			--e;
+		while ((c = *s++) != '\0' && c >= '0' && c <= '9') {
+			*a = (*a) * 10.0 + (double)(c - '0');
+			exp10 -= 1;
 		}
 	}
+
+	/* exponent part (optional; digits also optional, as per original) */
 	if (c == 'e' || c == 'E') {
 		int sign = 1;
-		int i = 0;
+		int iexp = 0;
+
 		c = *s++;
 		if (c == '+') {
 			c = *s++;
 		} else if (c == '-') {
-			c = *s++;
 			sign = -1;
-		}
-		while (isdigit(c)) {
-			i = i * 10 + (c - '0');
 			c = *s++;
 		}
-		e += i * sign;
+
+		while (c >= '0' && c <= '9') {
+			iexp = iexp * 10 + (c - '0');
+			c = *s++;
+		}
+
+		exp10 += iexp * sign;
 	}
-	while (e > 0) {
-		(*a) *= 10.0;
-		--e;
+
+	if (exp10 != 0) {
+		*a *= pow10i(exp10);
 	}
-	while (e < 0) {
-		(*a) *= 0.1;
-		++e;
-	}
+
 	return true;
 }
 
-int atoi(const char *s)
-{
+int atoi(const char *s) {
+	if (!s) {
+		return 0;
+	}
+	return (int)atoll(s, 10);
+}
+
+__attribute__((hot)) int64_t atoll(const char *s, int radix) {
 	if (!s) {
 		return 0;
 	}
 
-	static const char digits[] = "0123456789";  /* legal digits in order */
-	int val = 0;	 /* value we're accumulating */
-	char neg = 0;	      /* set to true if we see a minus sign */
+	/* Lookup tables: -1 = invalid, otherwise 0..15 */
+	static const signed char map10[256] = {
+		[0 ... 47] = -1,
+		['0'] = 0, ['1'] = 1, ['2'] = 2, ['3'] = 3, ['4'] = 4,
+		['5'] = 5, ['6'] = 6, ['7'] = 7, ['8'] = 8, ['9'] = 9,
+		[58 ... 255] = -1
+	};
 
-	/* skip whitespace */
-	while (*s == ' ' || *s == '\t') {
-		s++;
+	static const signed char map16[256] = {
+		[0 ... 47] = -1,
+		['0'] = 0,  ['1'] = 1,  ['2'] = 2,  ['3'] = 3,  ['4'] = 4,
+		['5'] = 5,  ['6'] = 6,  ['7'] = 7,  ['8'] = 8,  ['9'] = 9,
+		[':' ... '@'] = -1,
+		['A'] = 10, ['B'] = 11, ['C'] = 12, ['D'] = 13, ['E'] = 14, ['F'] = 15,
+		['G' ... '`'] = -1,
+		['a'] = 10, ['b'] = 11, ['c'] = 12, ['d'] = 13, ['e'] = 14, ['f'] = 15,
+		['g' ... 255] = -1
+	};
+
+	const unsigned char *p = (const unsigned char *)s;
+	int64_t val = 0;
+	char neg = 0;
+
+	/* skip spaces/tabs only, as before */
+	while (*p == ' ' || *p == '\t') {
+		p++;
 	}
 
-	/* check for sign */
-	if (*s=='-') {
-		neg=1;
-		s++;
-	}
-	else if (*s=='+') {
-		s++;
+	if (radix == 10) {
+		if (*p == '-') {
+			neg = 1;
+			p++;
+		} else if (*p == '+') {
+			p++;
+		}
+	} else if (radix == 16) {
+		if (*p == '&') {
+			p++;
+		}
 	}
 
-	/* process each digit */
-	while (*s) {
-		const char *where;
-		int digit;
-		
-		/* look for the digit in the list of digits */
-		where = strchr(digits, *s);
-		if (where == NULL) {
-			/* not found; not a digit, so stop */
+	if (__builtin_expect(radix == 16, 0)) {
+		/* Fast hex loop: val = (val << 4) + digit */
+		for (;;) {
+			signed char d = map16[*p];
+			if (__builtin_expect(d < 0, 0)) {
+				break;
+			}
+			val = (val << 4) + d;
+			p++;
+		}
+		return val;
+	}
+
+	/* Default (and radix!=16): treat as base 10, matching original */
+	for (;;) {
+		signed char d = map10[*p];
+		if (__builtin_expect(d < 0, 0)) {
 			break;
 		}
-
-		/* get the index into the digit list, which is the value */
-		digit = (where - digits);
-
-		/* could (should?) check for overflow here */
-
-		/* shift the number over and add in the new digit */
-		val = val*10 + digit;
-
-		/* look at the next character */
-		s++;
+		/* compilers will usually transform *10 into shifts+adds */
+		val = val * 10 + d;
+		p++;
 	}
-       
-	/* handle negative numbers */
+
 	if (neg) {
 		return -val;
 	}
-       
-	/* done */
 	return val;
 }
 
-int64_t atoll(const char *s, int radix)
-{
+uint64_t atoull(const char *s) {
 	if (!s) {
 		return 0;
 	}
-
-	static const char ddigits[] = "0123456789";  /* legal digits in order */
-	static const char xdigits[] = "0123456789ABCDEF";  /* legal digits in order */
-	const char* digits = radix == 16 ? xdigits : ddigits;
-	int64_t val = 0;	 /* value we're accumulating */
-	char neg = 0;	      /* set to true if we see a minus sign */
-
-	/* skip whitespace */
-	while (*s == ' ' || *s == '\t') {
-		s++;
-	}
-
-	/* check for sign */
-	if (*s=='-' && radix == 10) {
-		neg=1;
-		s++;
-	} else if (*s=='+' && radix == 10) {
-		s++;
-	} else if (*s == '&' && radix == 16) {
-		s++;
-	}
-
-	/* process each digit */
-	while (*s) {
-		const char *where;
-		int64_t digit;
-		
-		/* look for the digit in the list of digits */
-		where = strchr(digits, toupper(*s));
-		if (where == NULL) {
-			/* not found; not a digit, so stop */
-			break;
-		}
-
-		/* get the index into the digit list, which is the value */
-		digit = (where - digits);
-
-		/* could (should?) check for overflow here */
-
-		/* shift the number over and add in the new digit */
-		val = val * radix + digit;
-
-		/* look at the next character */
-		++s;
-	}
-       
-	/* handle negative numbers (decimal only) */
-	if (neg && radix == 10) {
-		return -val;
-	}
-
-	//kprintf("atoll(...,%d) = %d\n", radix, val);
-       
-	/* done */
-	return val;
+	/* Call signed version in base 10 and cast up */
+	return (uint64_t)atoll(s, 10);
 }
-
-uint64_t atoull(const char *s)
-{
-	if (!s) {
-		return 0;
-	}
-
-	static const char digits[] = "0123456789";  /* legal digits in order */
-	uint64_t val=0;	 /* value we're accumulating */
-
-	/* skip whitespace */
-	while (*s == ' ' || *s == '\t') {
-		++s;
-	}
-
-	if (*s == '+') {
-		++s;
-	}
-
-	/* process each digit */
-	while (*s) {
-		const char *where;
-		uint64_t digit;
-		
-		/* look for the digit in the list of digits */
-		where = strchr(digits, *s);
-		if (where == NULL) {
-			/* not found; not a digit, so stop */
-			break;
-		}
-
-		/* get the index into the digit list, which is the value */
-		digit = where - digits;
-
-		/* could (should?) check for overflow here */
-
-		/* shift the number over and add in the new digit */
-		val = val * 10 + digit;
-
-		/* look at the next character */
-		++s;
-	}
-       
-	/* done */
-	return val;
-}
-
 
 size_t strrev(char* s)
 {

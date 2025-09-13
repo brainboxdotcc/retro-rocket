@@ -200,7 +200,7 @@ bool basic_hash_lines(struct basic_ctx *ctx, char **error) {
 	int64_t last_line = LONG_MAX;
 	const char *program = ctx->ptr;
 	while (*program) {
-		int64_t line = atoi(program);
+		int64_t line = atoll(program, 10);
 		if (last_line != LONG_MAX && (line <= last_line)) {
 			*error = "Misordered lines in BASIC program";
 			basic_destroy(ctx);
@@ -724,10 +724,10 @@ void basic_run(struct basic_ctx *ctx) {
 	}
 	/* TODO Make sure this only runs for foreground processes! */
 	if (basic_esc() && !ctx->errored) {
-		(void) kgetc();
+		kgetc();
 		tokenizer_error_print(ctx, "Escape");
+		return;
 	}
-	basic_debug("BASIC RUN\n");
  	line_statement(ctx);
 	if (ctx->errored) {
 		ctx->errored = false;

@@ -95,6 +95,7 @@ char* basic_lower(struct basic_ctx* ctx)
 
 char* basic_highlight(struct basic_ctx* ctx) {
 	GENERATE_ENUM_STRING_NAMES(TOKEN, token_names)
+	GENERATE_ENUM_STRING_LENGTHS(TOKEN, token_name_lengths)
 	const size_t token_count = sizeof(token_names) / sizeof(*token_names);
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -148,8 +149,8 @@ char* basic_highlight(struct basic_ctx* ctx) {
 				}
 			}
 			for (size_t v = 0; v < token_count; ++v) {
-				size_t kw_len = strlen(token_names[v]);
-				if (pos + kw_len <= end && !memcmp(pos, token_names[v], kw_len)) {
+				size_t kw_len = token_name_lengths[v];
+				if (pos + kw_len <= end && !strncmp(pos, token_names[v], kw_len)) {
 					const char *after = pos + kw_len;
 					bool next_is_varlike = ((*after >= '0' && *after <= '9') || (toupper(*after) >= 'A' && toupper(*after) <= 'Z') || *after == '_');
 					if (!next_is_varlike || v == PROC || v == FN || v == EQUALS) {
@@ -163,6 +164,7 @@ char* basic_highlight(struct basic_ctx* ctx) {
 							found = true;
 						}
 						pos += kw_len - 1;
+						break;
 					}
 				}
 			}

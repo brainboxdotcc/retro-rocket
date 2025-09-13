@@ -54,7 +54,7 @@ int stricmp(const char* s1, const char* s2);
  * @param n Number of characters to compare
  * @return int Comparison result as with strcmp()
  */
-int strncmp(const char* s1, const char* s2, uint32_t n);
+__attribute__((hot)) int strncmp(const char* s1, const char* s2, uint32_t n);
 
 /**
  * @brief Compare first n characters of two strings (case-insensitive).
@@ -72,7 +72,9 @@ int strnicmp(const char* s1, const char* s2, uint32_t n);
  * @param low Character to convert
  * @return char Uppercase equivalent if alphabetic, otherwise unchanged
  */
-char toupper(char low);
+static inline char __attribute__((always_inline)) toupper(char low) {
+	return low >= 'a' && low <= 'z' ? low - 32 : low;
+}
 
 /**
  * @brief Check if a character is uppercase.
@@ -80,7 +82,10 @@ char toupper(char low);
  * @param x Character to check
  * @return int Non-zero if uppercase, 0 otherwise
  */
-int isupper(const char x);
+static inline int __attribute__((always_inline)) isupper(const char x)
+{
+	return (unsigned)(x - 'A') <= ('Z' - 'A');
+}
 
 /**
  * @brief Convert a character to lowercase.
@@ -88,23 +93,10 @@ int isupper(const char x);
  * @param low Character to convert
  * @return char Lowercase equivalent if alphabetic, otherwise unchanged
  */
-char tolower(char low);
+static inline char __attribute__((always_inline)) tolower(char low) {
+	return low >= 'A' && low <= 'Z' ? low + 32 : low;
+}
 
-/**
- * @brief Check if a character is alphanumeric.
- *
- * @param x Character to check
- * @return int Non-zero if alphanumeric, 0 otherwise
- */
-int isalnum(const char x);
-
-/**
- * @brief Check if a character is whitespace.
- *
- * @param x Character to check
- * @return bool true if whitespace, false otherwise
- */
-bool isspace(const char x);
 
 /**
  * @brief Check if a character is alphabetic.
@@ -112,7 +104,43 @@ bool isspace(const char x);
  * @param x Character to check
  * @return bool true if alphabetic, false otherwise
  */
-bool isalpha(const char x);
+static inline bool __attribute__((always_inline)) isalpha(const char x)
+{
+	unsigned char c = (unsigned char)(x | 0x20);
+	return (unsigned)(c - 'a') <= ('z' - 'a');
+}
+
+static inline unsigned char __attribute__((always_inline)) isdigit(const char x)
+{
+	return (unsigned)(x - '0') <= 9;
+}
+
+static inline unsigned char __attribute__((always_inline)) isxdigit(const char x)
+{
+	return (x >= '0' && x <= '9') || (x >= 'A' && x <= 'F');
+}
+
+/**
+ * @brief Check if a character is alphanumeric.
+ *
+ * @param x Character to check
+ * @return int Non-zero if alphanumeric, 0 otherwise
+ */
+static inline int __attribute__((always_inline)) isalnum(const char x)
+{
+	return isdigit(x) || isalpha(x);
+}
+
+/**
+ * @brief Check if a character is whitespace.
+ *
+ * @param x Character to check
+ * @return bool true if whitespace, false otherwise
+ */
+static inline bool __attribute__((always_inline)) isspace(const char x)
+{
+	return x == ' ' || x == '\t';
+}
 
 /**
  * @brief Locate first occurrence of a character in a string.
@@ -228,7 +256,7 @@ int atoi(const char *s);
  * @param radix Base (e.g. 10 for decimal, 16 for hex)
  * @return int64_t Converted value
  */
-int64_t atoll(const char *s, int radix);
+__attribute__((hot)) int64_t atoll(const char *s, int radix);
 
 /**
  * @brief Convert string to 64-bit unsigned integer.

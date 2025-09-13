@@ -60,6 +60,8 @@ idle_timer_t* task_idles = NULL, *timer_idles = NULL;
 
 extern simple_cv_t boot_condition;
 
+uint64_t basic_lines = 0;
+
 process_t* proc_load(const char* fullpath, pid_t parent_pid, const char* csd)
 {
 	fs_directory_entry_t* fsi = fs_get_file_info(fullpath);
@@ -175,6 +177,7 @@ void proc_run(process_t* proc)
 		return;
 	}
 	basic_run(proc->code);
+	basic_lines++;
 }
 
 process_t* proc_find(pid_t pid)

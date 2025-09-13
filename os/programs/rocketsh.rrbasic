@@ -1,7 +1,7 @@
 REM *** Retro Rocket BASIC Shell ***
 LIBRARY LIB$ + "/ansi"
 
-REM ON ERROR PROCerrorHandler
+ON ERROR PROCerrorHandler
 
 PROCEdInit(TRUE)
 

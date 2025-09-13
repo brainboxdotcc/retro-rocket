@@ -87,6 +87,7 @@ ENDPROC
 REM display text to editor window
 DEF PROCtext
 	PROChideCursor
+	CLS
 	PROCdraw
 	CURSOR 1, 2
 	FOR l = top TO top + TERMHEIGHT - 3
