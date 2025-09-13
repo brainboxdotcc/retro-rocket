@@ -373,7 +373,8 @@ bool e1000_start(pci_dev_t *pci_device) {
 	e1000_write_command(REG_CTRL, 0x20 | ECTRL_SLU);
 
 	if (e1000_device_id == E1000_82541PI) {
-		sleep(10); // Delay required after CTRL write on 82541PI
+		// Delay required after CTRL write on 82541PI
+		for (int j = 0; j < 10000; ++j) io_wait();
 	}
 
 	e1000_check_link();

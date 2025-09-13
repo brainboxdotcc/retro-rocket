@@ -43,7 +43,7 @@ void sleep(uint64_t milliseconds)
 	uint64_t start = ticks;
 	uint64_t end = start + milliseconds;
 	while (ticks < end) {
-		__asm__ volatile("hlt");
+		__asm__ volatile("pause");
 	}
 }
 
