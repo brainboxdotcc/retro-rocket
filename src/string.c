@@ -36,8 +36,7 @@ int strcmp(const char* s1, const char* s2)
 	return (*(const unsigned char *)s1 - *(const unsigned char *)(s2 - 1));
 }
 
-int stricmp(const char* s1, const char* s2)
-{
+int stricmp(const char* s1, const char* s2) {
 	if (!s1 || !s2) {
 		return (int)s1 - (int)s2;
 	}
@@ -47,8 +46,7 @@ int stricmp(const char* s1, const char* s2)
 	return (*(const unsigned char *)s1 - *(const unsigned char *)(s2 - 1));
 }
 
-char* strchr(const char *s, int c)
-{
+char* strchr(const char *s, int c) {
 	if (!s) {
 		return NULL;
 	}
@@ -88,35 +86,26 @@ int strnicmp(const char* s1, const char* s2, uint32_t n)
 
 #include <stdint.h>
 
-__attribute__((hot)) int strncmp(const char *s1, const char *s2, uint32_t n)
-{
+__attribute__((hot)) int strncmp(const char *s1, const char *s2, uint32_t n) {
 	if (!s1 || !s2) {
-		return (int)s1 - (int)s2; /* preserve your NULL behaviour */
+		return (int)s1 - (int)s2;
 	}
-
 	if (s1 == s2 || n == 0) {
 		return 0;
 	}
-
 	const unsigned char *p1 = (const unsigned char *)s1;
 	const unsigned char *p2 = (const unsigned char *)s2;
-
 	while (n--) {
 		unsigned char a = *p1++;
 		unsigned char b = *p2++;
-
-		/* Common case: bytes equal and not NUL → continue. */
 		if (__builtin_expect(a == b, 1)) {
 			if (__builtin_expect(a != 0u, 1)) {
 				continue;
 			}
-			return 0; /* both NUL at same position */
+			return 0;
 		}
-
-		/* First difference decides the result. */
 		return (int)a - (int)b;
 	}
-
 	return 0;
 }
 

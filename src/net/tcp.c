@@ -612,7 +612,6 @@ bool tcp_state_listen(ip_packet_t *encap_packet, tcp_segment_t *segment, tcp_con
 	child.snd_wnd = TCP_WINDOW_SIZE;
 	child.rcv_wnd = TCP_WINDOW_SIZE;
 
-	/* House defaults (mirror your other inits). */
 	child.fd                    = -1;
 	child.segment_list          = NULL;
 	child.recv_eof_pos          = -1;

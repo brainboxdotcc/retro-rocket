@@ -23,7 +23,7 @@ bool atapi_request_sense6(ahci_hba_port_t* port, ahci_hba_mem_t* abar, uint8_t* 
 
 	memset(cmdtbl->atapi_command, 0, sizeof(cmdtbl->atapi_command));
 	scsi_cdb_request_sense6* cdb = (scsi_cdb_request_sense6*)cmdtbl->atapi_command;
-	cdb->opcode    = SCSI_OP_REQUEST_SENSE_6; /* assumed declared in your scsi.h */
+	cdb->opcode    = SCSI_OP_REQUEST_SENSE_6;
 	cdb->alloc_len = out_len;
 
 	if (!issue_and_wait(port, slot, "request sense")) {

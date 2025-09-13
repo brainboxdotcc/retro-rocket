@@ -82,14 +82,11 @@ void local_statement(struct basic_ctx* ctx) {
 void newline_statement(struct basic_ctx* ctx) {
 }
 
-void assignment_statement(struct basic_ctx* ctx, bool global, bool local)
-{
+void assignment_statement(struct basic_ctx* ctx, bool global, bool local) {
 	const char* var;
 	const char* _expr;
 	double f_expr = 0;
 	size_t var_length;
-
-	basic_debug("LET statement\n");
 
 	var = tokenizer_variable_name(ctx, &var_length);
 
@@ -151,12 +148,11 @@ void assignment_statement(struct basic_ctx* ctx, bool global, bool local)
 	accept_or_return(NEWLINE, ctx);
 }
 
-bool valid_suffix_var(const char* name, char suffix)
-{
+bool valid_suffix_var(const char* name, char suffix) {
 	const char* i;
-	unsigned int varLength = strlen(name);
+	unsigned int var_length = strlen(name);
 	if (suffix != '\0') {
-		if (varLength < 2 || name[varLength - 1] != suffix) {
+		if (var_length < 2 || name[var_length - 1] != suffix) {
 			return false;
 		}
 		size_t offset = 0;
@@ -177,7 +173,7 @@ bool valid_suffix_var(const char* name, char suffix)
 		}
 		return true;
 	}
-	if (varLength < 1) {
+	if (var_length < 1) {
 		return false;
 	}
 	size_t offset = 0;

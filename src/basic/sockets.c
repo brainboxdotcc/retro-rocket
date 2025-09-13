@@ -77,7 +77,7 @@ void sockread_statement(struct basic_ctx* ctx)
 
 	input[rv] = 0; // Null-terminate string
 
-	switch (var[strlen(var) - 1]) {
+	switch (var[var_length - 1]) {
 		case '$':
 			basic_set_string_variable(var, input, ctx, false, false);
 			break;
@@ -327,11 +327,12 @@ void udpwrite_statement(struct basic_ctx* ctx) {
 	if (source_port > 65535 || source_port < 0 || dest_port > 65535 || dest_port < 0) {
 		tokenizer_error_print(ctx, "Invalid UDP port number");
 	}
-	if (strlen(data) == 0 || strlen(data) > 65530) {
+	size_t len = strlen(data);
+	if (len == 0 || len > 65530) {
 		tokenizer_error_print(ctx, "Invalid UDP packet length");
 	}
 	uint32_t dest = htonl(str_to_ip(dest_ip));
-	udp_send_packet((uint8_t*)&dest, source_port, dest_port, (void*)data, strlen(data) + 1); // including the NULL terminator
+	udp_send_packet((uint8_t*)&dest, source_port, dest_port, (void*)data, len + 1); // including the NULL terminator
 }
 
 void udpbind_statement(struct basic_ctx* ctx) {
