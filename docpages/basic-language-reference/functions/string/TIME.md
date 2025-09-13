@@ -1,4 +1,4 @@
-\page TIME TIME\$ Function
+\page TIME TIME$ Function
 
 ```basic
 string-expression = TIME$(boolean-expression)

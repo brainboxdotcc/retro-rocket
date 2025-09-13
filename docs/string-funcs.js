@@ -28,7 +28,7 @@ var string_funcs =
     [ "RJUST$ Function", "RJUST.html", null ],
     [ "RTRIM$ Function", "RTRIM.html", null ],
     [ "STR$ Function", "STR.html", null ],
-    [ "TIME\\$ Function", "TIME.html", null ],
+    [ "TIME$ Function", "TIME.html", null ],
     [ "TOKENIZE$ Function", "TOKENIZE.html", null ],
     [ "TRIM$ Function", "TRIM.html", null ],
     [ "UDPLASTIP$ Function", "UDPLASTIP.html", null ],
