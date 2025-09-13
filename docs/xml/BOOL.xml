@@ -7,7 +7,35 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">string-value<sp/>=<sp/>BOOL$(numeric-value)</highlight></codeline>
-</programlisting> Returns the string form of a boolean value, e.g. any non-zero numeric value becomes <computeroutput>TRUE</computeroutput> and any zero numeric value becomes <computeroutput>FALSE</computeroutput>. </para>
+</programlisting></para>
+<para>Returns the string form of a boolean value.</para>
+<para><itemizedlist>
+<listitem><para>Any non-zero numeric value becomes <computeroutput>TRUE</computeroutput>.</para>
+</listitem><listitem><para>Any zero numeric value becomes <computeroutput>FALSE</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>Notes</bold></para>
+<para><itemizedlist>
+<listitem><para>Works with both integer and real values.</para>
+</listitem><listitem><para>Negative values are also treated as <computeroutput>TRUE</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>Errors</bold></para>
+<para><itemizedlist>
+<listitem><para>None.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>Examples</bold></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>BOOL$(0)<sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>REM<sp/>&quot;FALSE&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>BOOL$(42)<sp/><sp/><sp/><sp/><sp/>:<sp/>REM<sp/>&quot;TRUE&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>BOOL$(-7)<sp/><sp/><sp/><sp/><sp/>:<sp/>REM<sp/>&quot;TRUE&quot;</highlight></codeline>
+</programlisting> </para>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/BOOL.md"/>
   </compounddef>

@@ -90,8 +90,30 @@ $(document).ready(function(){initNavTree('LOG.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">LOG(real-expression)</div>
-</div><!-- fragment --><p> Returns the natural logarithm (base <code>e</code>) of the given expression.</p>
-<p>The input must be greater than <code>0</code>. </p>
+</div><!-- fragment --><p>Returns the <b>natural logarithm</b> (base <em>e</em>, approximately <code>2.71828</code>) of the given expression.</p>
+<p>The input must be strictly greater than <code>0</code>.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md411"></a>
+Examples</h3>
+<div class="fragment"><div class="line">PRINT LOG(1)</div>
+</div><!-- fragment --><p>Produces <code>0</code>.</p>
+<div class="fragment"><div class="line">PRINT LOG(EXP(3))</div>
+</div><!-- fragment --><p>Produces approximately <code>3</code>.</p>
+<div class="fragment"><div class="line">REM Convert exponential growth back to linear scale</div>
+<div class="line">value# = 1000</div>
+<div class="line">PRINT &quot;ln(&quot;; value#; &quot;) = &quot;; LOG(value#)</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md413"></a>
+Notes</h3>
+<ul>
+<li>Domain: input must be <code>&gt; 0</code>.</li>
+<li>Range: result may be any real number.</li>
+<li>Inverse of <a class="el" href="EXP.html">EXP</a>: <code>LOG(EXP(x)) = x</code>.</li>
+<li>To compute logarithms in other bases:</li>
+</ul>
+<div class="fragment"><div class="line">LOG10(x#) = LOG(x#) / LOG(10)</div>
+</div><!-- fragment --><hr  />
+<p><b>See also:</b> <a class="el" href="EXP.html">EXP</a> · <a class="el" href="POW.html">POW</a> · <a class="el" href="SQR.html">SQR</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -99,7 +121,7 @@ $(document).ready(function(){initNavTree('LOG.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="real-funcs.html">Real Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

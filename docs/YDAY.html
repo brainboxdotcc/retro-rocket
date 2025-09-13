@@ -89,20 +89,43 @@ $(document).ready(function(){initNavTree('YDAY.html',''); initResizable(); });
 <div class="title">YDAY Function </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">numeric-expression = YDAY(boolean-expression)</div>
-</div><!-- fragment --><p>Returns the day of the year (1–366). <br  />
- Pass <code>TRUE</code> to use the configured time zone and DST rules, or <code>FALSE</code> for UTC.</p>
-<p>Example:</p>
-<div class="fragment"><div class="line">PRINT YDAY(TRUE)   &#39; Local day of year</div>
-<div class="line">PRINT YDAY(FALSE)  &#39; UTC day of year</div>
-</div><!-- fragment --> </div></div><!-- contents -->
+<div class="textblock"><div class="fragment"><div class="line">YDAY(boolean-expression)</div>
+</div><!-- fragment --><p>Returns the <b>day of the year</b> as an integer in the range <b>1–366</b>.</p>
+<ul>
+<li>Pass <code>TRUE</code> → local time (using configured time zone and DST rules).</li>
+<li>Pass <code>FALSE</code> → UTC (Coordinated Universal Time).</li>
+</ul>
+<hr  />
+<h3><a class="anchor" id="autotoc_md356"></a>
+Examples</h3>
+<div class="fragment"><div class="line">PRINT &quot;Local day of year = &quot;; YDAY(TRUE)</div>
+<div class="line">PRINT &quot;UTC day of year   = &quot;; YDAY(FALSE)</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Show progress through the year</div>
+<div class="line">d = YDAY(TRUE)</div>
+<div class="line">PRINT &quot;Day &quot;; d; &quot; of the year&quot;</div>
+<div class="line">PRINT &quot;That is &quot;; (d * 100) / 365; &quot;% complete&quot;</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Check for leap year extra day</div>
+<div class="line">IF YDAY(FALSE) = 366 THEN</div>
+<div class="line">    PRINT &quot;Leap year!&quot;</div>
+<div class="line">ENDIF</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md358"></a>
+Notes</h3>
+<ul>
+<li>Valid range is <b>1–365</b> for common years, <b>1–366</b> for leap years.</li>
+<li>Local time depends on system configuration. Without time zone setup, local and UTC values are the same.</li>
+<li>Useful for progress counters, calendars, and date calculations.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="DAY.html">DAY</a> · <a class="el" href="MONTH.html">MONTH</a> · <a class="el" href="YEAR.html">YEAR</a> · <a class="el" href="WEEKDAY.html">WEEKDAY</a> </p>
+</div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

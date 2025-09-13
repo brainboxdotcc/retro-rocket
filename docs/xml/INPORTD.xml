@@ -13,7 +13,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="INPORTD_1autotoc_md63">
+<sect3 id="INPORTD_1autotoc_md155">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Reads four consecutive bytes from the port as a 32-bit value.</para>
@@ -23,7 +23,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="INPORTD_1autotoc_md65">
+<sect3 id="INPORTD_1autotoc_md157">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Read<sp/>PCI<sp/>config<sp/>data</highlight></codeline>
 <codeline><highlight class="normal">D<sp/>=<sp/>INPORTD(&amp;CFC)</highlight></codeline>
@@ -32,7 +32,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="INPORTD_1autotoc_md67">
+<sect3 id="INPORTD_1autotoc_md159">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Most modern devices prefer MMIO; only use when the hardware requires 32-bit port access.</para>

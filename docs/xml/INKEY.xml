@@ -6,55 +6,96 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">INKEY$</highlight></codeline>
-</programlisting> Returns the key which has been pressed, or if no key has been pressed, an empty string. Note that this function will use the keyboard buffer, so if multiple keys have been pressed between this call and the last call to <computeroutput>INKEY$</computeroutput> (or an <computeroutput>INPUT</computeroutput> statement) it will require multiple calls to the function to receive all of the keypresses.</para>
-<para>The following keys on the keyboard are designated as &apos;extended keys&apos; and will return the following character codes from <computeroutput>INKEY$</computeroutput>:</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">A$=<sp/>INKEY$</highlight></codeline>
+</programlisting></para>
+<para>Returns the <bold>key that has been pressed</bold> as a string. If no key has been pressed since the last call, it returns an <bold>empty string</bold>.</para>
+<para><computeroutput>INKEY$</computeroutput> consumes input from the <bold>keyboard buffer</bold>. If multiple keys have been pressed between this call and the last call to <computeroutput>INKEY$</computeroutput> (or an <computeroutput>INPUT</computeroutput> statement), it will take multiple calls to retrieve them all.</para>
+<para><hruler/>
+</para>
+<sect3 id="INKEY_1autotoc_md495">
+<title>Extended keys</title>
+<para>Some non-printing keys return special character codes rather than ASCII. These values can be retrieved by wrapping <computeroutput>INKEY$</computeroutput> with <computeroutput>ASC()</computeroutput>.</para>
 <para><table rows="11" cols="2"><row>
-<entry thead="yes"><para>Key</para>
-</entry><entry thead="yes"><para>INKEY$ value </para>
+<entry thead="yes"><para>Key   </para>
+</entry><entry thead="yes"><para><computeroutput>ASC(INKEY$)</computeroutput> value    </para>
 </entry></row>
 <row>
-<entry thead="no"><para>PAGEUP</para>
-</entry><entry thead="no"><para>245 </para>
+<entry thead="no"><para>PAGEUP   </para>
+</entry><entry thead="no"><para>245    </para>
 </entry></row>
 <row>
-<entry thead="no"><para>PAGEDOWN</para>
-</entry><entry thead="no"><para>246 </para>
+<entry thead="no"><para>PAGEDOWN   </para>
+</entry><entry thead="no"><para>246    </para>
 </entry></row>
 <row>
-<entry thead="no"><para>DEL</para>
-</entry><entry thead="no"><para>47 </para>
+<entry thead="no"><para>DEL   </para>
+</entry><entry thead="no"><para>247    </para>
 </entry></row>
 <row>
-<entry thead="no"><para>INS</para>
-</entry><entry thead="no"><para>48 </para>
+<entry thead="no"><para>INS   </para>
+</entry><entry thead="no"><para>248    </para>
 </entry></row>
 <row>
-<entry thead="no"><para>END</para>
-</entry><entry thead="no"><para>49 </para>
+<entry thead="no"><para>END   </para>
+</entry><entry thead="no"><para>249    </para>
 </entry></row>
 <row>
-<entry thead="no"><para>UP</para>
-</entry><entry thead="no"><para>250 </para>
+<entry thead="no"><para>UP   </para>
+</entry><entry thead="no"><para>250    </para>
 </entry></row>
 <row>
-<entry thead="no"><para>DOWN</para>
-</entry><entry thead="no"><para>251 </para>
+<entry thead="no"><para>DOWN   </para>
+</entry><entry thead="no"><para>251    </para>
 </entry></row>
 <row>
-<entry thead="no"><para>LEFT</para>
-</entry><entry thead="no"><para>252 </para>
+<entry thead="no"><para>LEFT   </para>
+</entry><entry thead="no"><para>252    </para>
 </entry></row>
 <row>
-<entry thead="no"><para>RIGHT</para>
-</entry><entry thead="no"><para>253 </para>
+<entry thead="no"><para>RIGHT   </para>
+</entry><entry thead="no"><para>253    </para>
 </entry></row>
 <row>
-<entry thead="no"><para>HOME</para>
-</entry><entry thead="no"><para>254 </para>
+<entry thead="no"><para>HOME   </para>
+</entry><entry thead="no"><para>254   </para>
 </entry></row>
 </table>
 </para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="INKEY_1autotoc_md497">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Wait<sp/>for<sp/>a<sp/>keypress</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Press<sp/>a<sp/>key...&quot;</highlight></codeline>
+<codeline><highlight class="normal">REPEAT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>k$<sp/>=<sp/>INKEY$</highlight></codeline>
+<codeline><highlight class="normal">UNTIL<sp/>k$<sp/>&gt;<sp/>&quot;&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;You<sp/>pressed:<sp/>&quot;;<sp/>k$</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Handle<sp/>arrow<sp/>keys</highlight></codeline>
+<codeline><highlight class="normal">k$<sp/>=<sp/>INKEY$</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>k$<sp/>&gt;<sp/>&quot;&quot;<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>code<sp/>=<sp/>ASC(k$)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>IF<sp/>code<sp/>=<sp/>250<sp/>THEN<sp/>PRINT<sp/>&quot;Up<sp/>arrow<sp/>pressed&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>IF<sp/>code<sp/>=<sp/>251<sp/>THEN<sp/>PRINT<sp/>&quot;Down<sp/>arrow<sp/>pressed&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="INKEY_1autotoc_md499">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Printable characters return their usual ASCII values (e.g. <computeroutput>&quot;A&quot;</computeroutput> → 65).</para>
+</listitem><listitem><para>Extended keys must be checked via <computeroutput>ASC()</computeroutput>.</para>
+</listitem><listitem><para>If no key is pressed, result is <computeroutput>&quot;&quot;</computeroutput> (empty string).</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="ASC" kindref="compound">ASC</ref> · <ref refid="INPUT" kindref="compound">INPUT</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/INKEY.md"/>
   </compounddef>

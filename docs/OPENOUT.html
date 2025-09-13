@@ -90,7 +90,35 @@ $(document).ready(function(){initNavTree('OPENOUT.html',''); initResizable(); })
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">OPENOUT(string-expression)</div>
-</div><!-- fragment --><p> Opens a file for output (writing), returning an integer file handle used for <code>WRITE</code> and <code>CLOSE</code>. </p>
+</div><!-- fragment --><p>Opens a file for <b>output</b> (writing). Returns an <b>integer file handle</b> that must be used with <a class="el" href="WRITE.html">WRITE</a> and <a class="el" href="CLOSE.html">CLOSE</a>.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md239"></a>
+Examples</h3>
+<div class="fragment"><div class="line">REM Open a file for writing</div>
+<div class="line">fh = OPENOUT(&quot;/data/output.txt&quot;)</div>
+<div class="line">IF fh &lt; 0 THEN</div>
+<div class="line">    PRINT &quot;Failed to open file&quot;</div>
+<div class="line">    END</div>
+<div class="line">ENDIF</div>
+<div class="line"> </div>
+<div class="line">WRITE fh, &quot;Hello from Retro Rocket!&quot;</div>
+<div class="line">CLOSE fh</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Overwrite an existing file</div>
+<div class="line">fh = OPENOUT(&quot;/data/log.txt&quot;)</div>
+<div class="line">WRITE fh, &quot;New log entry&quot;</div>
+<div class="line">CLOSE fh</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md241"></a>
+Notes</h3>
+<ul>
+<li>If the file already exists, it is <b>truncated</b> to zero length.</li>
+<li>If the file does not exist, it is <b>created</b>.</li>
+<li>Returns a <b>non-negative handle</b> on success, or a <b>negative value</b> on failure.</li>
+<li>File handle must be closed with <a class="el" href="CLOSE.html">CLOSE</a>.</li>
+<li>For read/write access, see <a class="el" href="OPENUP.html">OPENUP</a>.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="WRITE.html">WRITE</a> · <a class="el" href="CLOSE.html">CLOSE</a> · <a class="el" href="OPENIN.html">OPENIN</a> · <a class="el" href="OPENUP.html">OPENUP</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -98,7 +126,7 @@ $(document).ready(function(){initNavTree('OPENOUT.html',''); initResizable(); })
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

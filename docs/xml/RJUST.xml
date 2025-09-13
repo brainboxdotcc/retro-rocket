@@ -7,7 +7,38 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">RJUST$(string-expression,<sp/>integer-expression,<sp/>string-expression)</highlight></codeline>
-</programlisting> Right-justify a string, prepending the third parameter repeatedly to the start of the first parameter until its length is at least equal to the integer-expression </para>
+</programlisting></para>
+<para>Returns a <bold>right-justified string</bold> by padding the input string (first parameter) with the pad string (third parameter) on the <bold>left</bold>, until the result length is <bold>at least</bold> the specified width (second parameter).</para>
+<para><hruler/>
+</para>
+<sect3 id="RJUST_1autotoc_md569">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>RJUST$(&quot;Retro&quot;,<sp/>10,<sp/>&quot;<sp/>&quot;)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>&quot;     Retro&quot;</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>RJUST$(&quot;42&quot;,<sp/>5,<sp/>&quot;0&quot;)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>&quot;00042&quot;</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Use<sp/>multi-character<sp/>padding</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>RJUST$(&quot;X&quot;,<sp/>6,<sp/>&quot;-=&quot;)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>&quot;-=-=-X&quot;</computeroutput>.</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="RJUST_1autotoc_md571">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>If the original string is already at least the specified length, it is returned unchanged.</para>
+</listitem><listitem><para>The pad string is repeated as many times as necessary, and truncated if required to fit exactly.</para>
+</listitem><listitem><para>Pad string must not be empty; an empty pad string raises an error.</para>
+</listitem><listitem><para>Useful for formatting tables, zero-padding numbers, and aligning output.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="LJUST" kindref="compound">LJUST$</ref> · <ref refid="LEN" kindref="compound">LEN</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/RJUST.md"/>
   </compounddef>

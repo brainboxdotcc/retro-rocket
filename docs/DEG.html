@@ -90,8 +90,28 @@ $(document).ready(function(){initNavTree('DEG.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">DEG(real-expression)</div>
-</div><!-- fragment --><p> Converts an angle from radians to degrees.</p>
-<p>For example, <code>DEG(PI#)</code> returns <code>180</code>. </p>
+</div><!-- fragment --><p>Converts an angle from <b>radians</b> to <b>degrees</b>. The result is a real number.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md391"></a>
+Examples</h3>
+<div class="fragment"><div class="line">PRINT DEG(PI#)</div>
+</div><!-- fragment --><p>Produces <code>180</code>.</p>
+<div class="fragment"><div class="line">PRINT DEG(PI# / 2)</div>
+</div><!-- fragment --><p>Produces <code>90</code>.</p>
+<div class="fragment"><div class="line">REM Round-trip conversion</div>
+<div class="line">angle# = 45</div>
+<div class="line">PRINT &quot;Radians = &quot;; RAD(angle#)</div>
+<div class="line">PRINT &quot;Degrees = &quot;; DEG(RAD(angle#))</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md393"></a>
+Notes</h3>
+<ul>
+<li>Conversion formula: <code>degrees = radians * 180 / PI</code>.</li>
+<li>Returned as a real value; may not be an integer if the input is not an exact multiple of π/180.</li>
+<li>Useful for displaying angles calculated in radians to users in degrees.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="RAD.html">RAD</a> · <a class="el" href="SIN.html">SIN</a> · <a class="el" href="COS.html">COS</a> · <a class="el" href="TAN.html">TAN</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -99,7 +119,7 @@ $(document).ready(function(){initNavTree('DEG.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="real-funcs.html">Real Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

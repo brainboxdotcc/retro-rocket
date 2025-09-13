@@ -2,14 +2,62 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="EXISTSVARI" kind="page">
     <compoundname>EXISTSVARI</compoundname>
-    <title>EXISTSVARI Function</title>
+    <title>EXISTSVARI / EXISTSVARR / EXISTSVARS Functions</title>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">EXISTSVARI(string-expression)</highlight></codeline>
 <codeline><highlight class="normal">EXISTSVARR(string-expression)</highlight></codeline>
 <codeline><highlight class="normal">EXISTSVARS(string-expression)</highlight></codeline>
-</programlisting> Returns true if the specified variable exists whos name is in the parameter. <computeroutput>SETVARI</computeroutput> will check for an integer variable <computeroutput>SETVARR</computeroutput> will check for a real variable <computeroutput>SETVARS</computeroutput> will check for a string variable </para>
+</programlisting></para>
+<para>Checks whether a variable with the given <bold>name</bold> currently exists in the BASIC program. Returns <computeroutput>TRUE</computeroutput> if found, or <computeroutput>FALSE</computeroutput> otherwise.</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>EXISTSVARI</computeroutput> → checks for an <bold>integer variable</bold>.</para>
+</listitem><listitem><para><computeroutput>EXISTSVARR</computeroutput> → checks for a <bold>real (floating-point) variable</bold>.</para>
+</listitem><listitem><para><computeroutput>EXISTSVARS</computeroutput> → checks for a <bold>string variable</bold>.</para>
+</listitem></itemizedlist>
+</para>
+<para>The parameter is a <bold>string</bold> containing the variable’s name (without value, suffix only implied by function).</para>
+<para><hruler/>
+</para>
+<sect3 id="EXISTSVARI_1autotoc_md94">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Create<sp/>a<sp/>variable</highlight></codeline>
+<codeline><highlight class="normal">A<sp/>=<sp/>42</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">IF<sp/>EXISTSVARI(&quot;A&quot;)<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Variable<sp/>A<sp/>exists&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Example<sp/>with<sp/>strings</highlight></codeline>
+<codeline><highlight class="normal">B$<sp/>=<sp/>&quot;Hello&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">IF<sp/>EXISTSVARS(&quot;B$&quot;)<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Variable<sp/>B$<sp/>exists&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Useful<sp/>for<sp/>checking<sp/>before<sp/>SETVAR</highlight></codeline>
+<codeline><highlight class="normal">varName$<sp/>=<sp/>&quot;SCORE&quot;</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>EXISTSVARI(varName$)<sp/>=<sp/>FALSE<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Variable<sp/>not<sp/>yet<sp/>created&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="EXISTSVARI_1autotoc_md96">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Variable name must match exactly, including suffix (<computeroutput>$</computeroutput> for strings, <computeroutput>#</computeroutput> for reals).</para>
+</listitem><listitem><para>These functions are typically used with <ref refid="SETVARI" kindref="compound">SETVARI</ref>, <ref refid="SETVARR" kindref="compound">SETVARR</ref>, and <ref refid="SETVARS" kindref="compound">SETVARS</ref> to safely determine if a variable can be set or referenced dynamically.</para>
+</listitem><listitem><para>Existence check does not return the value; it only reports if the variable has been <bold>declared or used</bold>.</para>
+</listitem><listitem><para>Using <computeroutput>EXISTSVAR*</computeroutput> avoids runtime errors when handling dynamically named variables.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="SETVARI" kindref="compound">SETVARI</ref> · <ref refid="SETVARR" kindref="compound">SETVARR</ref> · <ref refid="SETVARS" kindref="compound">SETVARS</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/EXISTSVARI.md"/>
   </compounddef>

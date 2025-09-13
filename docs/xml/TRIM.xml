@@ -7,7 +7,35 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">TRIM$(string-expression)</highlight></codeline>
-</programlisting> Removes spaces from the start and end of a string. </para>
+</programlisting></para>
+<para>Removes all leading and trailing spaces from the string expression and returns the result.</para>
+<para><hruler/>
+</para>
+<sect3 id="TRIM_1autotoc_md594">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>TRIM$(&quot;<sp/><sp/><sp/>Hello<sp/><sp/><sp/>&quot;)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>&quot;Hello&quot;</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Normalise<sp/>user<sp/>input</highlight></codeline>
+<codeline><highlight class="normal">input$<sp/>=<sp/>&quot;<sp/><sp/><sp/>command<sp/><sp/><sp/>&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;[&quot;;<sp/>TRIM$(input$);<sp/>&quot;]&quot;</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>[command]</computeroutput>.</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="TRIM_1autotoc_md596">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Only space characters (<computeroutput>CHR$(32)</computeroutput>) are removed; tabs and other whitespace are not affected.</para>
+</listitem><listitem><para>If the string has no leading or trailing spaces, it is returned unchanged.</para>
+</listitem><listitem><para>For trimming only one side: use <ref refid="LTRIM" kindref="compound">LTRIM$</ref> or <ref refid="RTRIM" kindref="compound">RTRIM$</ref>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="LTRIM" kindref="compound">LTRIM$</ref> · <ref refid="RTRIM" kindref="compound">RTRIM$</ref> · <ref refid="LEN" kindref="compound">LEN</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/TRIM.md"/>
   </compounddef>

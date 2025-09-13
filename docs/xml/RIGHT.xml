@@ -7,7 +7,41 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">RIGHT$(string-expression,<sp/>integer-expression)</highlight></codeline>
-</programlisting> Returns the rightmost integer-expression characters of string-expression. </para>
+</programlisting></para>
+<para>Returns the <bold>rightmost characters</bold> from a string. The second parameter specifies how many characters to return.</para>
+<para><hruler/>
+</para>
+<sect3 id="RIGHT_1autotoc_md564">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>RIGHT$(&quot;RetroRocket&quot;,<sp/>6)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>&quot;Rocket&quot;</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Extract<sp/>file<sp/>extension</highlight></codeline>
+<codeline><highlight class="normal">filename$<sp/>=<sp/>&quot;document.txt&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>RIGHT$(filename$,<sp/>3)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>&quot;txt&quot;</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Clip<sp/>to<sp/>last<sp/>10<sp/>characters</highlight></codeline>
+<codeline><highlight class="normal">id$<sp/>=<sp/>&quot;USER-2025-SESSION-ABC123&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>RIGHT$(id$,<sp/>10)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>&quot;SESSION-ABC123&quot;</computeroutput> (truncated to fit length).</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="RIGHT_1autotoc_md566">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>If the requested length is greater than the string length, the entire string is returned.</para>
+</listitem><listitem><para>If the length is <computeroutput>0</computeroutput>, an empty string is returned.</para>
+</listitem><listitem><para>Negative lengths cause an error.</para>
+</listitem><listitem><para>Result is always a new string, leaving the original unchanged.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="LEFT" kindref="compound">LEFT$</ref> · <ref refid="MID" kindref="compound">MID$</ref> · <ref refid="LEN" kindref="compound">LEN</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/RIGHT.md"/>
   </compounddef>

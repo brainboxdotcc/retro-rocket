@@ -90,7 +90,26 @@ $(document).ready(function(){initNavTree('GETPROCNAME.html',''); initResizable()
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">GETPROCNAME$(integer-expression)</div>
-</div><!-- fragment --><p> Returns the process name for a running process, the integer expression is an index between 0 and <code>GETPROCCOUNT - 1</code> </p>
+</div><!-- fragment --><p>Returns the <b>name of a running process</b>. The parameter is an index between <code>0</code> and <code>GETPROCCOUNT - 1</code>.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md478"></a>
+Examples</h3>
+<div class="fragment"><div class="line">REM Print all running process names</div>
+<div class="line">FOR i = 0 TO GETPROCCOUNT - 1</div>
+<div class="line">    PRINT GETPROCNAME$(i)</div>
+<div class="line">NEXT</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Get the first process name</div>
+<div class="line">PRINT &quot;Process 0: &quot;; GETPROCNAME$(0)</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md480"></a>
+Notes</h3>
+<ul>
+<li>The index must be within the valid range.</li>
+<li>Process names are the identifiers assigned when the process was created.</li>
+<li>Combine with other process functions such as <a class="el" href="GETPROCID.html">GETPROCID</a> or <a class="el" href="GETPROCMEM.html">GETPROCMEM</a> for full details.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="GETPROCCOUNT.html">GETPROCCOUNT</a> · <a class="el" href="GETPROCID.html">GETPROCID</a> · <a class="el" href="GETPROCMEM.html">GETPROCMEM</a> · <a class="el" href="GETPROCPARENT.html">GETPROCPARENT</a> · <a class="el" href="GETPROCCPUID.html">GETPROCCPUID</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -98,7 +117,7 @@ $(document).ready(function(){initNavTree('GETPROCNAME.html',''); initResizable()
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="string-funcs.html">String Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

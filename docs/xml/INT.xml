@@ -6,8 +6,45 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting><codeline><highlight class="normal">INT(real-expression)</highlight></codeline>
-</programlisting> Truncates the given real number to an integer by discarding the fractional part. </para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">INT(real-expression)</highlight></codeline>
+</programlisting></para>
+<para>Truncates a <bold>real number</bold> to an <bold>integer</bold> by discarding the fractional part (i.e. truncates <bold>towards zero</bold>).</para>
+<para><hruler/>
+</para>
+<sect3 id="INT_1autotoc_md174">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>INT(3.99)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>3</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>INT(-7.25)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>-7</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Convert<sp/>user<sp/>input<sp/>to<sp/>an<sp/>integer<sp/>by<sp/>truncation</highlight></codeline>
+<codeline><highlight class="normal">INPUT<sp/>&quot;Enter<sp/>a<sp/>real<sp/>number<sp/>&gt;<sp/>&quot;<sp/>;<sp/>val#</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Truncated<sp/>=<sp/>&quot;;<sp/>INT(val#)</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Use<sp/>INT<sp/>to<sp/>derive<sp/>an<sp/>index<sp/>from<sp/>a<sp/>real<sp/>value</highlight></codeline>
+<codeline><highlight class="normal">val#<sp/>=<sp/>12.9</highlight></codeline>
+<codeline><highlight class="normal">idx<sp/>=<sp/>INT(val#<sp/>/<sp/>4.0)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Index<sp/>=<sp/>&quot;;<sp/>idx</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="INT_1autotoc_md176">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Returns a Retro Rocket BASIC integer (64-bit signed).</para>
+</listitem><listitem><para><bold>Differs from BBC BASIC:</bold> in BBC BASIC <computeroutput>INT</computeroutput> is a floor (e.g. <computeroutput>INT(-7.25) = -8</computeroutput>). In Retro Rocket BASIC, <computeroutput>INT(-7.25) = -7</computeroutput> (truncate towards zero).</para>
+</listitem><listitem><para>To get the fractional part:</para>
+</listitem></itemizedlist>
+</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">frac#<sp/>=<sp/>val#<sp/>-<sp/>INT(val#)</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="ABS" kindref="compound">ABS</ref> · <ref refid="SGN" kindref="compound">SGN</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/INT.md"/>
   </compounddef>

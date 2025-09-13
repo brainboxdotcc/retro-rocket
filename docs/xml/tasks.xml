@@ -10,7 +10,7 @@
 <para>Tasks can be used for long-running background services, or even as <bold>device drivers</bold> (for example, the <computeroutput>ps2mouse</computeroutput> task which implements the mouse driver entirely in BASIC).</para>
 <para><hruler/>
 </para>
-<sect2 id="tasks_1autotoc_md583">
+<sect2 id="tasks_1autotoc_md1063">
 <title>Starting and stopping tasks</title>
 <para>To run a program as a task: <programlisting><codeline><highlight class="normal">ROCKETSH&gt;<sp/>task<sp/>drivers/ps2mouse</highlight></codeline>
 </programlisting> This loads the program from <computeroutput>/programs/drivers/ps2mouse</computeroutput> and runs it in the background.</para>
@@ -18,7 +18,7 @@
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="tasks_1autotoc_md585">
+<sect2 id="tasks_1autotoc_md1065">
 <title>What tasks are good for</title>
 <para><itemizedlist>
 <listitem><para>Handling <bold>device drivers</bold> and <bold>daemon-type activity</bold> (mouse, timers, network servers).</para>
@@ -30,7 +30,7 @@
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="tasks_1autotoc_md587">
+<sect2 id="tasks_1autotoc_md1067">
 <title>What not to do in a task</title>
 <para>Because tasks run without a console of their own:</para>
 <para><itemizedlist>
@@ -44,7 +44,7 @@
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="tasks_1autotoc_md589">
+<sect2 id="tasks_1autotoc_md1069">
 <title>Structure of a typical task</title>
 <para>A task is usually structured as:</para>
 <para><orderedlist>
@@ -68,7 +68,7 @@
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="tasks_1autotoc_md591">
+<sect2 id="tasks_1autotoc_md1071">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Tasks share the same BASIC runtime as other programs, so they must be <bold>well-behaved</bold> and not interfere with the console.</para>

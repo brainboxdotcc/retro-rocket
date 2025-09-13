@@ -7,7 +7,52 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">GETVARI(string-expression)</highlight></codeline>
-</programlisting> Gets an integer variables value by name. If the variable does not exist an error is thrown, use <computeroutput>EXISTSVARI()</computeroutput> to check for the existence of the variable without an error. </para>
+</programlisting></para>
+<para>Returns the <bold>value of an integer variable</bold> whose name is given in <computeroutput>string-expression</computeroutput>.</para>
+<para>If the variable does not exist, an <bold>error</bold> is raised. Use <ref refid="EXISTSVARI" kindref="compound">EXISTSVARI</ref> to check for the variable’s existence first if you want to avoid an error.</para>
+<para><hruler/>
+</para>
+<sect3 id="GETVARI_1autotoc_md134">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Direct<sp/>retrieval<sp/>of<sp/>variable<sp/>by<sp/>name</highlight></codeline>
+<codeline><highlight class="normal">SCORE<sp/>=<sp/>9001</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Value<sp/>of<sp/>SCORE<sp/>=<sp/>&quot;;<sp/>GETVARI(&quot;SCORE&quot;)</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Safe<sp/>check<sp/>before<sp/>using</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>EXISTSVARI(&quot;LEVEL&quot;)<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;LEVEL<sp/>=<sp/>&quot;;<sp/>GETVARI(&quot;LEVEL&quot;)</highlight></codeline>
+<codeline><highlight class="normal">ELSE</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;LEVEL<sp/>not<sp/>defined&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Use<sp/>with<sp/>dynamic<sp/>variable<sp/>names</highlight></codeline>
+<codeline><highlight class="normal">FOR<sp/>i<sp/>=<sp/>1<sp/>TO<sp/>3</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>name$<sp/>=<sp/>&quot;VAL&quot;<sp/>+<sp/>STR$(i)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>name$;<sp/>&quot;<sp/>=<sp/>&quot;;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>IF<sp/>EXISTSVARI(name$)<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PRINT<sp/>GETVARI(name$)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ELSE</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;(undefined)&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ENDIF</highlight></codeline>
+<codeline><highlight class="normal">NEXT</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="GETVARI_1autotoc_md136">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>The string must exactly match the variable’s name <bold>without suffixes</bold> (integer variables have no <computeroutput>$</computeroutput> or <computeroutput>#</computeroutput>).</para>
+</listitem><listitem><para>Raises an error if the variable has not been declared or assigned.</para>
+</listitem><listitem><para>Returns the current integer value as a 64-bit signed integer.</para>
+</listitem><listitem><para>To access reals or strings by name, use <ref refid="GETVARR" kindref="compound">GETVARR</ref> or GETVARS.</para>
+</listitem><listitem><para>Complements the <ref refid="SETVARI" kindref="compound">SETVARI</ref> function for dynamic assignment.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="EXISTSVARI" kindref="compound">EXISTSVARI</ref> · <ref refid="SETVARI" kindref="compound">SETVARI</ref> · <ref refid="GETVARR" kindref="compound">GETVARR</ref> · GETVARS </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/GETVARI.md"/>
   </compounddef>

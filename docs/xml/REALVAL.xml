@@ -7,7 +7,39 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">real-value<sp/>=<sp/>REALVAL(string-value)</highlight></codeline>
-</programlisting> Returns the real number form of a string containing a number. </para>
+</programlisting></para>
+<para>Converts a string containing a number into a <bold>real (floating-point)</bold> value.</para>
+<para><hruler/>
+</para>
+<sect3 id="REALVAL_1autotoc_md426">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>REALVAL(&quot;3.14159&quot;)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>3.14159</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>REALVAL(&quot;-42.75&quot;)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>-42.75</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Using<sp/>REALVAL<sp/>for<sp/>user<sp/>input</highlight></codeline>
+<codeline><highlight class="normal">INPUT<sp/>str$</highlight></codeline>
+<codeline><highlight class="normal">num#<sp/>=<sp/>REALVAL(str$)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;You<sp/>entered<sp/>&quot;;<sp/>num#</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="REALVAL_1autotoc_md428">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Accepts decimal and optionally signed values.</para>
+</listitem><listitem><para>If the string cannot be parsed as a valid real number, an error is raised.</para>
+</listitem><listitem><para>Returns a 64-bit double-precision floating-point value.</para>
+</listitem><listitem><para>For integer conversion, use <ref refid="VAL" kindref="compound">VAL</ref>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="VAL" kindref="compound">VAL</ref> · <ref refid="HEXVAL" kindref="compound">HEXVAL</ref> · <ref refid="OCTVAL" kindref="compound">OCTVAL</ref> · <ref refid="RADIX" kindref="compound">RADIX</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/real/REALVAL.md"/>
   </compounddef>

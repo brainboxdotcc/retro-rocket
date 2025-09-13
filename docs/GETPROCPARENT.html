@@ -90,7 +90,36 @@ $(document).ready(function(){initNavTree('GETPROCPARENT.html',''); initResizable
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">GETPROCPARENT(integer-expression)</div>
-</div><!-- fragment --><p> Returns the parent process ID for a running process, the integer expression is an index between 0 and <code>GETPROCCOUNT - 1</code> </p>
+</div><!-- fragment --><p>Returns the <b>parent process ID (PPID)</b> of a running process. The parameter is an <b>index</b> in the range <code>0</code> to <code>GETPROCCOUNT - 1</code>, identifying one of the active processes.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md124"></a>
+Examples</h3>
+<div class="fragment"><div class="line">REM Print parent PID of every running process</div>
+<div class="line">FOR i = 0 TO GETPROCCOUNT - 1</div>
+<div class="line">    PRINT &quot;Process &quot;; i; &quot; has parent PID &quot;; GETPROCPARENT(i)</div>
+<div class="line">NEXT</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Get parent of the first process</div>
+<div class="line">ppid = GETPROCPARENT(0)</div>
+<div class="line">PRINT &quot;Parent of process[0] = &quot;; ppid</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Find all children of a given PID</div>
+<div class="line">target = 100</div>
+<div class="line">PRINT &quot;Children of PID &quot;; target; &quot;:&quot;</div>
+<div class="line">FOR i = 0 TO GETPROCCOUNT - 1</div>
+<div class="line">    IF GETPROCPARENT(i) = target THEN</div>
+<div class="line">        PRINT &quot;  PID &quot;; GETPROCID(i); &quot; (index &quot;; i; &quot;)&quot;</div>
+<div class="line">    ENDIF</div>
+<div class="line">NEXT</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md126"></a>
+Notes</h3>
+<ul>
+<li>The parent process ID identifies which process created or launched the target process.</li>
+<li>Some processes (such as the system’s initial process) may have no parent; in such cases, the PPID is <code>0</code>.</li>
+<li>Passing an index outside <code>0 … GETPROCCOUNT - 1</code> raises an <b>error</b>.</li>
+<li>Combine with <a class="el" href="GETPROCID.html">GETPROCID</a> and <a class="el" href="GETPROCNAME.html">GETPROCNAME$</a> to build a process tree.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="GETPROCCOUNT.html">GETPROCCOUNT</a> · <a class="el" href="GETPROCID.html">GETPROCID</a> · <a class="el" href="GETPROCNAME.html">GETPROCNAME$</a> · <a class="el" href="GETPROCMEM.html">GETPROCMEM</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -98,7 +127,7 @@ $(document).ready(function(){initNavTree('GETPROCPARENT.html',''); initResizable
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

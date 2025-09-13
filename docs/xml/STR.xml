@@ -7,7 +7,38 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">string-value<sp/>=<sp/>STR$(numeric-value)</highlight></codeline>
-</programlisting> Returns the string form of a number. </para>
+</programlisting></para>
+<para>Converts a <bold>numeric value</bold> (integer or real) into its <bold>string representation</bold>.</para>
+<para><hruler/>
+</para>
+<sect3 id="STR_1autotoc_md579">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>STR$(123)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>&quot;123&quot;</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>STR$(-45.67)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>&quot;-45.67&quot;</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Concatenate<sp/>number<sp/>into<sp/>a<sp/>message</highlight></codeline>
+<codeline><highlight class="normal">score<sp/>=<sp/>9001</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Score<sp/>=<sp/>&quot;<sp/>+<sp/>STR$(score)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>&quot;Score = 9001&quot;</computeroutput>.</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="STR_1autotoc_md581">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Accepts both integers and real numbers.</para>
+</listitem><listitem><para>Result is a string in plain decimal notation (no prefixes).</para>
+</listitem><listitem><para>Formatting (e.g. fixed decimal places) is not provided; use string operations if specific formatting is required.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="VAL" kindref="compound">VAL</ref> · <ref refid="REALVAL" kindref="compound">REALVAL</ref> · <ref refid="HEXVAL" kindref="compound">HEXVAL</ref> · <ref refid="OCTVAL" kindref="compound">OCTVAL</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/STR.md"/>
   </compounddef>

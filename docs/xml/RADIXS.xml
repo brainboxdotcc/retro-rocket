@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="RADIXS" kind="page">
+    <compoundname>RADIXS</compoundname>
+    <title>RADIX$ Function</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">RADIX$(integer-expression,<sp/>integer-expression)</highlight></codeline>
+</programlisting></para>
+<para>Converts an <bold>integer value</bold> (first parameter) into a <bold>string representation</bold> using the radix (base) specified by the second parameter. The radix must be between <computeroutput>2</computeroutput> and <computeroutput>36</computeroutput>.</para>
+<para><hruler/>
+</para>
+<sect3 id="RADIXS_1autotoc_md537">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>RADIX$(255,<sp/>16)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>&quot;FF&quot;</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>RADIX$(10,<sp/>2)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>&quot;1010&quot;</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>RADIX$(12345,<sp/>36)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>&quot;9IX&quot;</computeroutput>.</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="RADIXS_1autotoc_md539">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Valid radix range is <computeroutput>2</computeroutput> (binary) through <computeroutput>36</computeroutput> (digits + A–Z).</para>
+</listitem><listitem><para>Returned value is always uppercase.</para>
+</listitem><listitem><para>Negative numbers are prefixed with <computeroutput>-</computeroutput>.</para>
+</listitem><listitem><para>Useful for formatting numbers in arbitrary bases beyond standard decimal, hexadecimal, or octal.</para>
+</listitem><listitem><para>To parse a string in an arbitrary base back into an integer, use <ref refid="RADIX" kindref="compound">RADIX</ref>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="RADIX" kindref="compound">RADIX</ref> · <ref refid="HEXVAL" kindref="compound">HEXVAL</ref> · <ref refid="OCTVAL" kindref="compound">OCTVAL</ref> · <ref refid="VAL" kindref="compound">VAL</ref> </para>
+</sect3>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/string/RADIXS.md"/>
+  </compounddef>
+</doxygen>

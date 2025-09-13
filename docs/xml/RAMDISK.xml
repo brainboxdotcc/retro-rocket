@@ -6,10 +6,69 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
+<sect2 id="RAMDISK_1autotoc_md541">
+<title>Creating a ramdisk from another block device</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">RAMDISK$(string-expression)</highlight></codeline>
-</programlisting> Create a ramdisk device with the content of a separate block device who&apos;s name is in the string-expression. Returns the name of the new block device.</para>
+</programlisting></para>
+<para>Creates a <bold>RAM-backed block device</bold> from the content of an existing block device. The parameter is the name of the source device (e.g. <computeroutput>&quot;hd0&quot;</computeroutput>). Returns the <bold>name of the new RAM disk device</bold> as a string.</para>
+<para><hruler/>
+</para>
+<sect3 id="RAMDISK_1autotoc_md543">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Duplicate<sp/>an<sp/>existing<sp/>block<sp/>device<sp/>into<sp/>RAM</highlight></codeline>
+<codeline><highlight class="normal">ram$<sp/>=<sp/>RAMDISK$(&quot;hd0&quot;)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Created<sp/>RAM<sp/>disk:<sp/>&quot;;<sp/>ram$</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="RAMDISK_1autotoc_md545">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>The new device is a complete in-memory copy of the original device.</para>
+</listitem><listitem><para>Useful for testing, running faster I/O, or working on a safe copy.</para>
+</listitem><listitem><para>RAM disks are volatile: contents are lost when the system is rebooted or the device is discarded.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+</sect2>
+<sect2 id="RAMDISK_1autotoc_md547">
+<title>Creating blank ramdisks</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">RAMDISK(integer-expression,<sp/>integer-expression)</highlight></codeline>
-</programlisting> Create a ramdisk device of X blocks each block being Y bytes, where X and Y are the two integer-expression values. Note that the block device will be unformatted, and cannot be immediately mounted to a mountpoint. Returns the name of the new block device. </para>
+</programlisting></para>
+<para>Creates a <bold>new RAM-backed block device</bold> with the given dimensions.</para>
+<para><itemizedlist>
+<listitem><para>First parameter = number of blocks.</para>
+</listitem><listitem><para>Second parameter = block size in bytes.</para>
+</listitem></itemizedlist>
+</para>
+<para>The device is initially <bold>unformatted</bold> and cannot be mounted until a filesystem is created on it. Returns the <bold>name of the new RAM disk device</bold> as a string.</para>
+<para><hruler/>
+</para>
+<sect3 id="RAMDISK_1autotoc_md549">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Create<sp/>a<sp/>10<sp/>MB<sp/>RAM<sp/>disk<sp/>with<sp/>512-byte<sp/>blocks</highlight></codeline>
+<codeline><highlight class="normal">ram$<sp/>=<sp/>RAMDISK(20480,<sp/>512)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Created<sp/>RAM<sp/>disk:<sp/>&quot;;<sp/>ram$</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="RAMDISK_1autotoc_md551">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Size = <computeroutput>blocks × blocksize</computeroutput>.</para>
+</listitem><listitem><para>Device names are automatically assigned by the system (e.g. <computeroutput>&quot;ram0&quot;</computeroutput>, <computeroutput>&quot;ram1&quot;</computeroutput>).</para>
+</listitem><listitem><para>Contents are volatile and cleared when the system shuts down or discards the device.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="MOUNT" kindref="compound">MOUNT</ref> </para>
+</sect3>
+</sect2>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/RAMDISK.md"/>
   </compounddef>

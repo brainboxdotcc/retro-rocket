@@ -89,8 +89,13 @@ $(document).ready(function(){initNavTree('CPUID.html',''); initResizable(); });
 <div class="title">CPUID Function </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">CPUID(integer-expression, integer-expression, integer-expression)</div>
-</div><!-- fragment --><p> Returns the register value from CPUID. The three parameters are, in order: leaf, subleaf and register value from the table below:</p>
+<div class="textblock"><div class="fragment"><div class="line">CPUID(leaf, subleaf, register-index)</div>
+</div><!-- fragment --><p>Returns a <b>32-bit register value</b> from the CPU’s <code>CPUID</code> instruction.</p>
+<ul>
+<li><code>leaf</code> (EAX input) selects the <b>query</b> (e.g., feature flags, topology).</li>
+<li><code>subleaf</code> (ECX input) refines the query for some leaves (set to <code>0</code> if unused).</li>
+<li><code>register-index</code> chooses which returned register to read:</li>
+</ul>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Value   </th><th class="markdownTableHeadNone">Register    </th></tr>
@@ -103,8 +108,57 @@ $(document).ready(function(){initNavTree('CPUID.html',''); initResizable(); });
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">3   </td><td class="markdownTableBodyNone">EDX   </td></tr>
 </table>
-<p>Register values outside of this range will throw an error.</p>
-<p>For full details of all possible return values from this function see the <a href="../cpuid">cpuid</a> command. </p>
+<p>If <code>register-index</code> is outside <code>0–3</code>, an <b>error</b> is raised.</p>
+<p>For a survey of leaves/subleaves and their meanings, see the <b>cpuid</b> command’s reference.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md69"></a>
+Examples</h3>
+<div class="fragment"><div class="line">REM Print the highest supported standard leaf</div>
+<div class="line">max_leaf = CPUID(&amp;00000000, 0, 0)  REM EAX</div>
+<div class="line">PRINT &quot;Max standard leaf = &quot;; max_leaf</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Detect SSE2 (leaf 1, EDX bit 26)</div>
+<div class="line">features_edx = CPUID(&amp;00000001, 0, 3)</div>
+<div class="line">IF BITAND(features_edx, &amp;04000000) &lt;&gt; 0 THEN</div>
+<div class="line">    PRINT &quot;SSE2 supported&quot;</div>
+<div class="line">ELSE</div>
+<div class="line">    PRINT &quot;SSE2 NOT supported&quot;</div>
+<div class="line">ENDIF</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Detect AVX (leaf 1, ECX bit 28) and OSXSAVE (leaf 1, ECX bit 27)</div>
+<div class="line">features_ecx = CPUID(&amp;00000001, 0, 2)</div>
+<div class="line">has_osxsave = BITAND(features_ecx, &amp;08000000)    &lt;&gt; 0  REM bit 27</div>
+<div class="line">has_avx     = BITAND(features_ecx, &amp;10000000)    &lt;&gt; 0  REM bit 28</div>
+<div class="line">IF has_osxsave = TRUE THEN</div>
+<div class="line">    IF has_avx = TRUE THEN</div>
+<div class="line">        PRINT &quot;AVX supported (CPU advertises AVX and OSXSAVE)&quot;</div>
+<div class="line">    ELSE</div>
+<div class="line">        PRINT &quot;No AVX (CPU missing AVX bit)&quot;</div>
+<div class="line">    ENDIF</div>
+<div class="line">ELSE</div>
+<div class="line">    PRINT &quot;No AVX usable (OSXSAVE not set)&quot;</div>
+<div class="line">ENDIF</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Detect BMI2 (leaf 7 subleaf 0, EBX bit 8)</div>
+<div class="line">ebx_7_0 = CPUID(&amp;00000007, 0, 1)</div>
+<div class="line">IF BITAND(ebx_7_0, &amp;00000100) &lt;&gt; 0 THEN</div>
+<div class="line">    PRINT &quot;BMI2 supported&quot;</div>
+<div class="line">ELSE</div>
+<div class="line">    PRINT &quot;BMI2 NOT supported&quot;</div>
+<div class="line">ENDIF</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Print the highest supported extended leaf</div>
+<div class="line">max_ext = CPUID(&amp;80000000, 0, 0)  REM EAX</div>
+<div class="line">PRINT &quot;Max extended leaf = &quot;; max_ext</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md71"></a>
+Notes</h3>
+<ul>
+<li><b>Return width:</b> The function returns a Retro Rocket <b>integer</b> (64-bit signed), but only the <b>low 32 bits</b> are meaningful; the result is the raw register value.</li>
+<li><b>Signed vs unsigned:</b> Some feature bits set the high bit; if you print the value as a signed decimal it may appear negative. Use <b>hex masks</b> (e.g., <code>&amp;10000000</code>) with <code>BITAND</code> in tests, as shown in the examples.</li>
+<li><b>Subleaf usage:</b> Many leaves <b>ignore</b> <code>subleaf</code>; pass <code>0</code> unless the leaf explicitly defines subleaf semantics (e.g., leaves <code>&amp;00000004</code>, <code>&amp;0000000B</code>, <code>&amp;00000007</code>, <code>&amp;8000001D</code>, etc.).</li>
+<li><b>Determinism:</b> <code>CPUID</code> serialises certain execution on many CPUs and is safe to call at any time from BASIC programs. It has <b>no side effects</b> in Retro Rocket.</li>
+<li><b>Platform baseline:</b> Retro Rocket targets x86-64 where <code>CPUID</code> is available. No compatibility shim is provided for pre-<code>CPUID</code> 80386/early 80486 systems.</li>
+<li><b>Reading multi-word strings:</b> Some CPUID leaves (e.g., brand string at <code>&amp;80000002..&amp;80000004</code>) return <b>packed ASCII</b> in four registers per leaf. <code>CPUID</code> gives you the raw 32-bit words; if you wish to render them as text, extract bytes with bit masks and compose characters with <code>CHR$</code>. (Feature bit probing, as above, is usually what you want inside BASIC.)</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="BITAND.html">BITAND</a> · <a class="el" href="BITOR.html">BITOR</a> · <a class="el" href="BITNAND.html">BITNAND</a> · cpuid (command) </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -112,7 +166,7 @@ $(document).ready(function(){initNavTree('CPUID.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

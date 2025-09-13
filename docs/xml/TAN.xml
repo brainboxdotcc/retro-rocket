@@ -7,7 +7,42 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">TAN(real-expression)</highlight></codeline>
-</programlisting> Returns the tangent of the provided expression </para>
+</programlisting></para>
+<para>Returns the <bold>tangent</bold> of the given angle, where the angle is expressed in <bold>radians</bold>.</para>
+<para><hruler/>
+</para>
+<sect3 id="TAN_1autotoc_md446">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>TAN(0)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>0</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>TAN(PI#<sp/>/<sp/>4)</highlight></codeline>
+</programlisting></para>
+<para>Produces approximately <computeroutput>1</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Compute<sp/>slope<sp/>of<sp/>a<sp/>line<sp/>from<sp/>angle</highlight></codeline>
+<codeline><highlight class="normal">angle#<sp/>=<sp/>RAD(30)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Slope<sp/>=<sp/>&quot;;<sp/>TAN(angle#)</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="TAN_1autotoc_md448">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Argument must be in <bold>radians</bold>. Convert from degrees with:</para>
+</listitem></itemizedlist>
+</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">radians#<sp/>=<sp/>degrees<sp/>*<sp/>PI#<sp/>/<sp/>180</highlight></codeline>
+</programlisting><itemizedlist>
+<listitem><para>The tangent function has asymptotes where cosine is zero, i.e. at odd multiples of <computeroutput>PI#/2</computeroutput>. Calling <computeroutput>TAN</computeroutput> at these points will produce very large values or errors due to division by zero.</para>
+</listitem><listitem><para>Return value is a real number, unbounded in range.</para>
+</listitem><listitem><para>Inverse function: <ref refid="ATAN" kindref="compound">ATAN</ref>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="SIN" kindref="compound">SIN</ref> · <ref refid="COS" kindref="compound">COS</ref> · <ref refid="ATAN" kindref="compound">ATAN</ref> · <ref refid="ATAN2" kindref="compound">ATAN2</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/real/TAN.md"/>
   </compounddef>

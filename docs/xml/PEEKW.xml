@@ -13,7 +13,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="PEEKW_1autotoc_md100">
+<sect3 id="PEEKW_1autotoc_md267">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Loads 2 bytes, <bold>little-endian</bold> (<computeroutput>low</computeroutput> at <computeroutput>address</computeroutput>, <computeroutput>high</computeroutput> at <computeroutput>address+1</computeroutput>).</para>
@@ -23,7 +23,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="PEEKW_1autotoc_md102">
+<sect3 id="PEEKW_1autotoc_md269">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Read<sp/>a<sp/>16-bit<sp/>word</highlight></codeline>
 <codeline><highlight class="normal">W<sp/>=<sp/>PEEKW(&amp;100020)</highlight></codeline>
@@ -32,7 +32,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="PEEKW_1autotoc_md104">
+<sect3 id="PEEKW_1autotoc_md271">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Match the width to the device register size for MMIO.</para>

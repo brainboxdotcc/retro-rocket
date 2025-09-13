@@ -7,9 +7,33 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">MEMUSED</highlight></codeline>
-</programlisting> Returns the total memory used by all BASIC programs and the operating system in bytes</para>
-<para><image type="html" name="https://user-images.githubusercontent.com/1556794/233864721-82be9012-b6f4-4026-bfeb-c0afa7d97263.png" alt="image" inline="yes"></image>
- </para>
+</programlisting></para>
+<para>Returns the total <bold>memory in use</bold> (bytes) by <bold>all BASIC programs and the OS</bold>.</para>
+<para><image type="html" name="memory.png"></image>
+</para>
+<sect3 id="MEMUSED_1autotoc_md216">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>MEMUSED</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Used<sp/><sp/>=<sp/>&quot;;<sp/>MEMUSED<sp/>/<sp/>(1024<sp/>*<sp/>1024);<sp/>&quot;<sp/>MB&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Free<sp/><sp/>=<sp/>&quot;;<sp/>(MEMORY<sp/>-<sp/>MEMUSED)<sp/>/<sp/>(1024<sp/>*<sp/>1024);<sp/>&quot;<sp/>MB&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Used<sp/>%<sp/>=<sp/>&quot;;<sp/>(MEMUSED<sp/>*<sp/>100)<sp/>/<sp/>MEMORY</highlight></codeline>
+</programlisting></para>
+<para>Example on a 4 GB machine with200 MB used:</para>
+<para><programlisting><codeline><highlight class="normal">Used<sp/><sp/>=<sp/>200<sp/>MB</highlight></codeline>
+<codeline><highlight class="normal">Free<sp/><sp/>=<sp/>3896<sp/>MB</highlight></codeline>
+<codeline><highlight class="normal">Used<sp/>%<sp/>=<sp/>4</highlight></codeline>
+</programlisting></para>
+</sect3>
+<sect3 id="MEMUSED_1autotoc_md217">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Bytes, 64-bit integer.</para>
+</listitem><listitem><para>Includes kernel, caches (block cache, framebuffers, network buffers), plus all BASIC programs.</para>
+</listitem><listitem><para>Identity: <computeroutput>MEMFREE + MEMUSED = MEMORY</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <ref refid="MEMORY" kindref="compound">MEMORY</ref> · <ref refid="MEMFREE" kindref="compound">MEMFREE</ref> · <ref refid="MEMPEAK" kindref="compound">MEMPEAK</ref> · <ref refid="MEMPROGRAM" kindref="compound">MEMPROGRAM</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/MEMUSED.md"/>
   </compounddef>

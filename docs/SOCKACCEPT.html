@@ -91,9 +91,9 @@ $(document).ready(function(){initNavTree('SOCKACCEPT.html',''); initResizable();
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">client = SOCKACCEPT(server)</div>
 </div><!-- fragment --><p>Removes and returns the next <b>established</b> connection from the listening socket’s pending queue. Returns a non-negative file descriptor on success, or <code>-1</code> if no connection is ready (or on error).</p>
-<dl class="section note"><dt>Note</dt><dd><code>SOCKACCEPT</code> is <b>non-blocking</b>: it returns immediately. If the queue head hasn’t completed the handshake yet, it will return <code>-1</code>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd><code>SOCKACCEPT</code> is <b>non-blocking</b>: it returns immediately. If there are no connections to accept, it will return <code>-1</code>.</dd></dl>
 <hr  />
-<h3><a class="anchor" id="autotoc_md106"></a>
+<h3><a class="anchor" id="autotoc_md313"></a>
 How to use it</h3>
 <ul>
 <li><code>server</code> is the file descriptor returned by <code>SOCKLISTEN(ip$, port, backlog)</code>.</li>
@@ -102,7 +102,7 @@ How to use it</h3>
 <li>The pending queue is FIFO; only the head is checked each call.</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md108"></a>
+<h3><a class="anchor" id="autotoc_md315"></a>
 Examples</h3>
 <div class="fragment"><div class="line">REM Minimal accept loop</div>
 <div class="line">server = SOCKLISTEN(NETINFO$(&quot;ip&quot;), 2000, 5)</div>
@@ -119,11 +119,10 @@ Examples</h3>
 <div class="line"> </div>
 <div class="line">SOCKCLOSE server</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md110"></a>
+<h3><a class="anchor" id="autotoc_md317"></a>
 Notes</h3>
 <ul>
 <li>Returns <code>-1</code> when no established connection is available; try again later.</li>
-<li>On errors, an explanatory message is raised and <code>-1</code> is returned.</li>
 <li>Each successful call returns a <b>new</b> client descriptor; the server remains listening.</li>
 </ul>
 <p><b>See also:</b> <a class="el" href="SOCKLISTEN.html">SOCKLISTEN</a> · <a class="el" href="SOCKWRITE.html">SOCKWRITE</a> · <a class="el" href="SOCKREAD.html">SOCKREAD</a> · <a class="el" href="INSOCKET.html">INSOCKET$ Function</a>$ "INSOCKET\$" · <a class="el" href="SOCKSTATUS.html">SOCKSTATUS</a> · <a class="el" href="SOCKCLOSE.html">SOCKCLOSE</a> · <a class="el" href="NETINFO.html">NETINFO$ Function</a>$ "NETINFO\$" </p>
@@ -134,7 +133,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

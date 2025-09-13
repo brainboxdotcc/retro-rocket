@@ -90,7 +90,38 @@ $(document).ready(function(){initNavTree('POW.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">POW(real-expression, real-expression)</div>
-</div><!-- fragment --><p> Raises the first expression to the power of the second expression and returns the result </p>
+</div><!-- fragment --><p>Raises the <b>first expression</b> to the power of the <b>second expression</b> and returns the result as a real number.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md416"></a>
+Examples</h3>
+<div class="fragment"><div class="line">PRINT POW(2, 3)</div>
+</div><!-- fragment --><p>Produces <code>8</code>.</p>
+<div class="fragment"><div class="line">PRINT POW(9, 0.5)</div>
+</div><!-- fragment --><p>Produces <code>3</code> (square root of 9).</p>
+<div class="fragment"><div class="line">PRINT POW(16, -1)</div>
+</div><!-- fragment --><p>Produces <code>0.0625</code> (reciprocal of 16).</p>
+<div class="fragment"><div class="line">REM Compute compound interest</div>
+<div class="line">principal# = 1000</div>
+<div class="line">rate# = 0.05</div>
+<div class="line">years = 10</div>
+<div class="line">amount# = principal# * POW(1 + rate#, years)</div>
+<div class="line">PRINT &quot;Future value = &quot;; amount#</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md418"></a>
+Notes</h3>
+<ul>
+<li>The base (first parameter) may be any real number.</li>
+<li>The exponent (second parameter) may also be any real, including fractions and negatives.</li>
+<li>Special cases:<ul>
+<li><code>POW(x, 0)</code> returns <code>1</code> (for any x ≠ 0).</li>
+<li><code>POW(0, y)</code> returns <code>0</code> (for y &gt; 0).</li>
+<li>Invalid combinations (e.g. <code>POW(0, 0)</code> or negative base with fractional exponent) may cause errors.</li>
+</ul>
+</li>
+<li>Related: <a class="el" href="SQR.html">SQR</a> computes the square root directly.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="EXP.html">EXP</a> · <a class="el" href="LOG.html">LOG</a> · <a class="el" href="SQR.html">SQR</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -98,7 +129,7 @@ $(document).ready(function(){initNavTree('POW.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="real-funcs.html">Real Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

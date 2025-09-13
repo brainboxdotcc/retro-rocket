@@ -27,14 +27,15 @@ var NAVTREE =
   [ "Retro Rocket OS", "index.html", [
     [ "User Guide", "user-guide.html", "user-guide" ],
     [ "BASIC Language Reference", "basic-ref.html", "basic-ref" ],
-    [ "Kernel Development", "kernel-dev.html", "kernel-dev" ]
+    [ "Kernel Development", "kernel-dev.html", "kernel-dev" ],
+    [ "LCPUID", "md_docpages_basic_language_reference_functions_integer_LCPUID.html", null ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
 "ABS.html",
-"PRINT.html#autotoc_md425"
+"PRINT.html#autotoc_md903"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

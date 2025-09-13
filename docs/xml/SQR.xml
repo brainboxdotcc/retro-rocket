@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="SQR" kind="page">
+    <compoundname>SQR</compoundname>
+    <title>SQR Function</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">SQR(real-expression)</highlight></codeline>
+</programlisting></para>
+<para>Returns the <bold>square root</bold> of the given expression.</para>
+<para><hruler/>
+</para>
+<sect3 id="SQR_1autotoc_md441">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>SQR(9)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>3</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>SQR(2)</highlight></codeline>
+</programlisting></para>
+<para>Produces approximately <computeroutput>1.414213</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Validate<sp/>identity:<sp/>SQR(x^2)<sp/>=<sp/>ABS(x)</highlight></codeline>
+<codeline><highlight class="normal">x#<sp/>=<sp/>-7</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;SQR(&quot;;<sp/>x#;<sp/>&quot;^2)<sp/>=<sp/>&quot;;<sp/>SQR(x#<sp/>*<sp/>x#)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;ABS(&quot;;<sp/>x#;<sp/>&quot;)<sp/>=<sp/>&quot;;<sp/>ABS(x#)</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="SQR_1autotoc_md443">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Argument must be a non-negative real number.</para>
+</listitem><listitem><para>Passing a negative value results in an error.</para>
+</listitem><listitem><para>Return value is a real number.</para>
+</listitem><listitem><para>For arbitrary powers (including fractional), use <ref refid="POW" kindref="compound">POW</ref>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="POW" kindref="compound">POW</ref> · <ref refid="EXP" kindref="compound">EXP</ref> · <ref refid="ABS" kindref="compound">ABS</ref> </para>
+</sect3>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/real/SQR.md"/>
+  </compounddef>
+</doxygen>

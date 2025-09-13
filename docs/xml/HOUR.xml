@@ -6,14 +6,54 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">numeric-expression<sp/>=<sp/>HOUR(boolean-expression)</highlight></codeline>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">HOUR(boolean-expression)</highlight></codeline>
 </programlisting></para>
-<para>Returns the current hour (0–23). <linebreak/>
- Pass <computeroutput>TRUE</computeroutput> for local time (respecting time zone and DST), or <computeroutput>FALSE</computeroutput> for UTC.</para>
-<para>Example:</para>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>HOUR(TRUE)<sp/><sp/><sp/>&apos;<sp/>Local<sp/>hour</highlight></codeline>
-<codeline><highlight class="normal">PRINT<sp/>HOUR(FALSE)<sp/><sp/>&apos;<sp/>UTC<sp/>hour</highlight></codeline>
-</programlisting> </para>
+<para>Returns the current <bold>hour of the day</bold> in the range <bold>0–23</bold>.</para>
+<para><itemizedlist>
+<listitem><para>Pass <computeroutput>TRUE</computeroutput> → local time (using configured time zone and daylight saving rules, if any).</para>
+</listitem><listitem><para>Pass <computeroutput>FALSE</computeroutput> → UTC (Coordinated Universal Time).</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<sect3 id="HOUR_1autotoc_md144">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;Local<sp/>hour<sp/>=<sp/>&quot;;<sp/>HOUR(TRUE)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;UTC<sp/>hour<sp/><sp/><sp/>=<sp/>&quot;;<sp/>HOUR(FALSE)</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Simple<sp/>clock<sp/>demo</highlight></codeline>
+<codeline><highlight class="normal">REPEAT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>CLS</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;The<sp/>time<sp/>is<sp/>&quot;;<sp/>HOUR(TRUE);<sp/>&quot;:&quot;;<sp/>MINUTE(TRUE)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>WAIT<sp/>50</highlight></codeline>
+<codeline><highlight class="normal">UNTIL<sp/>FALSE</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Decide<sp/>greeting<sp/>based<sp/>on<sp/>time</highlight></codeline>
+<codeline><highlight class="normal">h<sp/>=<sp/>HOUR(TRUE)</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>h<sp/>&lt;<sp/>12<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Good<sp/>morning!&quot;</highlight></codeline>
+<codeline><highlight class="normal">ELSEIF<sp/>h<sp/>&lt;<sp/>18<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Good<sp/>afternoon!&quot;</highlight></codeline>
+<codeline><highlight class="normal">ELSE</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Good<sp/>evening!&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="HOUR_1autotoc_md146">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>The range is <bold>0–23</bold>; there is no AM/PM indicator.</para>
+</listitem><listitem><para>Local time depends on the system time zone configuration. If none is set, local and UTC values are identical.</para>
+</listitem><listitem><para>Works with <ref refid="MINUTE" kindref="compound">MINUTE</ref> and <ref refid="SECOND" kindref="compound">SECOND</ref> for more precise timing.</para>
+</listitem><listitem><para>For date information, use <ref refid="DAY" kindref="compound">DAY</ref>, <ref refid="MONTH" kindref="compound">MONTH</ref>, and <ref refid="YEAR" kindref="compound">YEAR</ref>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="MINUTE" kindref="compound">MINUTE</ref> · <ref refid="SECOND" kindref="compound">SECOND</ref> · <ref refid="DAY" kindref="compound">DAY</ref> · <ref refid="MONTH" kindref="compound">MONTH</ref> · <ref refid="YEAR" kindref="compound">YEAR</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/HOUR.md"/>
   </compounddef>

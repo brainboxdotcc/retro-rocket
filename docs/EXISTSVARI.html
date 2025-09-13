@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Retro Rocket OS: EXISTSVARI Function</title>
+<title>Retro Rocket OS: EXISTSVARI / EXISTSVARR / EXISTSVARS Functions</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -86,13 +86,50 @@ $(document).ready(function(){initNavTree('EXISTSVARI.html',''); initResizable();
 
 <div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">EXISTSVARI Function </div>  </div>
+<div class="title">EXISTSVARI / EXISTSVARR / EXISTSVARS Functions </div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">EXISTSVARI(string-expression)</div>
 <div class="line">EXISTSVARR(string-expression)</div>
 <div class="line">EXISTSVARS(string-expression)</div>
-</div><!-- fragment --><p> Returns true if the specified variable exists whos name is in the parameter. <code>SETVARI</code> will check for an integer variable <code>SETVARR</code> will check for a real variable <code>SETVARS</code> will check for a string variable </p>
+</div><!-- fragment --><p>Checks whether a variable with the given <b>name</b> currently exists in the BASIC program. Returns <code>TRUE</code> if found, or <code>FALSE</code> otherwise.</p>
+<ul>
+<li><code>EXISTSVARI</code> → checks for an <b>integer variable</b>.</li>
+<li><code>EXISTSVARR</code> → checks for a <b>real (floating-point) variable</b>.</li>
+<li><code>EXISTSVARS</code> → checks for a <b>string variable</b>.</li>
+</ul>
+<p>The parameter is a <b>string</b> containing the variable’s name (without value, suffix only implied by function).</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md94"></a>
+Examples</h3>
+<div class="fragment"><div class="line">REM Create a variable</div>
+<div class="line">A = 42</div>
+<div class="line"> </div>
+<div class="line">IF EXISTSVARI(&quot;A&quot;) THEN</div>
+<div class="line">    PRINT &quot;Variable A exists&quot;</div>
+<div class="line">ENDIF</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Example with strings</div>
+<div class="line">B$ = &quot;Hello&quot;</div>
+<div class="line"> </div>
+<div class="line">IF EXISTSVARS(&quot;B$&quot;) THEN</div>
+<div class="line">    PRINT &quot;Variable B$ exists&quot;</div>
+<div class="line">ENDIF</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Useful for checking before SETVAR</div>
+<div class="line">varName$ = &quot;SCORE&quot;</div>
+<div class="line">IF EXISTSVARI(varName$) = FALSE THEN</div>
+<div class="line">    PRINT &quot;Variable not yet created&quot;</div>
+<div class="line">ENDIF</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md96"></a>
+Notes</h3>
+<ul>
+<li>Variable name must match exactly, including suffix (<code>$</code> for strings, <code>#</code> for reals).</li>
+<li>These functions are typically used with <a class="el" href="SETVARI.html">SETVARI</a>, <a class="el" href="SETVARR.html">SETVARR</a>, and <a class="el" href="SETVARS.html">SETVARS</a> to safely determine if a variable can be set or referenced dynamically.</li>
+<li>Existence check does not return the value; it only reports if the variable has been <b>declared or used</b>.</li>
+<li>Using <code>EXISTSVAR*</code> avoids runtime errors when handling dynamically named variables.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="SETVARI.html">SETVARI</a> · <a class="el" href="SETVARR.html">SETVARR</a> · <a class="el" href="SETVARS.html">SETVARS</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -100,7 +137,7 @@ $(document).ready(function(){initNavTree('EXISTSVARI.html',''); initResizable();
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

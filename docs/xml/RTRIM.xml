@@ -7,7 +7,38 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">RTRIM$(string-expression)</highlight></codeline>
-</programlisting> Removes spaces from the right (end) of a string. </para>
+</programlisting></para>
+<para>Removes all trailing spaces from the end of the string expression and returns the result.</para>
+<para><hruler/>
+</para>
+<sect3 id="RTRIM_1autotoc_md574">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>RTRIM$(&quot;Hello<sp/><sp/><sp/>&quot;)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>&quot;Hello&quot;</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>RTRIM$(&quot;Retro<sp/>Rocket<sp/><sp/><sp/>&quot;)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>&quot;Retro Rocket&quot;</computeroutput> (only trailing spaces removed).</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Trim<sp/>before<sp/>concatenating</highlight></codeline>
+<codeline><highlight class="normal">a$<sp/>=<sp/>&quot;Name<sp/><sp/><sp/>&quot;</highlight></codeline>
+<codeline><highlight class="normal">b$<sp/>=<sp/>&quot;Surname&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>RTRIM$(a$)<sp/>+<sp/>&quot;<sp/>&quot;<sp/>+<sp/>b$</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="RTRIM_1autotoc_md576">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Only space characters (<computeroutput>CHR$(32)</computeroutput>) are removed; tabs and other whitespace are not affected.</para>
+</listitem><listitem><para>If the string has no trailing spaces, it is returned unchanged.</para>
+</listitem><listitem><para>Use <ref refid="LTRIM" kindref="compound">LTRIM$</ref> to remove leading spaces, or <ref refid="TRIM" kindref="compound">TRIM$</ref> to remove both ends.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="LTRIM" kindref="compound">LTRIM$</ref> · <ref refid="TRIM" kindref="compound">TRIM$</ref> · <ref refid="LEN" kindref="compound">LEN</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/RTRIM.md"/>
   </compounddef>

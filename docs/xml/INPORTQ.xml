@@ -13,7 +13,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="INPORTQ_1autotoc_md69">
+<sect3 id="INPORTQ_1autotoc_md161">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Reads eight consecutive bytes from the port as a 64-bit value.</para>
@@ -22,7 +22,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="INPORTQ_1autotoc_md71">
+<sect3 id="INPORTQ_1autotoc_md163">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Example<sp/>64-bit<sp/>port<sp/>read</highlight></codeline>
 <codeline><highlight class="normal">Q<sp/>=<sp/>INPORTQ(&amp;1234)</highlight></codeline>
@@ -31,7 +31,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="INPORTQ_1autotoc_md73">
+<sect3 id="INPORTQ_1autotoc_md165">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Rare in practice; most hardware uses MMIO or smaller port widths.</para>

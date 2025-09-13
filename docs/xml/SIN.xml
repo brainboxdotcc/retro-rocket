@@ -7,7 +7,46 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">SIN(real-expression)</highlight></codeline>
-</programlisting> Returns the sine of the provided expression </para>
+</programlisting></para>
+<para>Returns the <bold>sine</bold> of the given angle, where the angle is expressed in <bold>radians</bold>.</para>
+<para><hruler/>
+</para>
+<sect3 id="SIN_1autotoc_md436">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>SIN(0)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>0</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>SIN(PI#<sp/>/<sp/>2)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>1</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>SIN(PI#)</highlight></codeline>
+</programlisting></para>
+<para>Produces approximately <computeroutput>0</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Compute<sp/>vertical<sp/>component<sp/>of<sp/>a<sp/>vector</highlight></codeline>
+<codeline><highlight class="normal">length#<sp/>=<sp/>10</highlight></codeline>
+<codeline><highlight class="normal">angle#<sp/>=<sp/>RAD(30)</highlight></codeline>
+<codeline><highlight class="normal">dy#<sp/>=<sp/>length#<sp/>*<sp/>SIN(angle#)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Vertical<sp/>component<sp/>=<sp/>&quot;;<sp/>dy#</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="SIN_1autotoc_md438">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Argument must be in <bold>radians</bold>. Convert from degrees with:</para>
+</listitem></itemizedlist>
+</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">radians#<sp/>=<sp/>degrees<sp/>*<sp/>PI#<sp/>/<sp/>180</highlight></codeline>
+</programlisting><itemizedlist>
+<listitem><para>Result is a real number between <computeroutput>-1</computeroutput> and <computeroutput>1</computeroutput>.</para>
+</listitem><listitem><para>Inverse function: <ref refid="ASN" kindref="compound">ASN</ref>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="COS" kindref="compound">COS</ref> · <ref refid="TAN" kindref="compound">TAN</ref> · <ref refid="ASN" kindref="compound">ASN</ref> · <ref refid="ATAN" kindref="compound">ATAN</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/real/SIN.md"/>
   </compounddef>

@@ -90,7 +90,31 @@ $(document).ready(function(){initNavTree('GETNAME.html',''); initResizable(); })
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">GETNAME$(string-expression, integer-expression)</div>
-</div><!-- fragment --><p> Returns the file name for an entry in a directory, the integer expression is an index between 0 and <code>GETNAMECOUNT - 1</code> </p>
+</div><!-- fragment --><p>Returns the <b>file name</b> for an entry in a directory. The first parameter is a <b>directory path</b>, and the second parameter is an <b>index</b> between <code>0</code> and <code>GETNAMECOUNT(path$) - 1</code>.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md473"></a>
+Examples</h3>
+<div class="fragment"><div class="line">REM List all files in the current directory</div>
+<div class="line">dir$ = CSD$</div>
+<div class="line">count = GETNAMECOUNT(dir$)</div>
+<div class="line">FOR i = 0 TO count - 1</div>
+<div class="line">    PRINT GETNAME$(dir$, i)</div>
+<div class="line">NEXT</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Access files in a specific directory</div>
+<div class="line">FOR i = 0 TO GETNAMECOUNT(&quot;/system&quot;) - 1</div>
+<div class="line">    PRINT GETNAME$(&quot;/system&quot;, i)</div>
+<div class="line">NEXT</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md475"></a>
+Notes</h3>
+<ul>
+<li>If the index is outside the valid range, an error is raised.</li>
+<li>The path may be absolute (starting with <code>/</code>) or relative to the current working directory (<a class="el" href="CSD.html">CSD$</a>).</li>
+<li>The order of entries is determined by the filesystem and may not be sorted alphabetically.</li>
+<li>Only the name is returned — to distinguish files from directories, use <a class="el" href="FILETYPE.html">FILETYPE$</a>.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="GETNAMECOUNT.html">GETNAMECOUNT</a> · <a class="el" href="FILETYPE.html">FILETYPE$</a> · <a class="el" href="GETSIZE.html">GETSIZE</a> · <a class="el" href="CSD.html">CSD$</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -98,7 +122,7 @@ $(document).ready(function(){initNavTree('GETNAME.html',''); initResizable(); })
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="string-funcs.html">String Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

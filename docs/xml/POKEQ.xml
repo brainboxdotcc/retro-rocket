@@ -13,7 +13,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="POKEQ_1autotoc_md403">
+<sect3 id="POKEQ_1autotoc_md883">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Use for 64-bit pointers, descriptors, or counters.</para>
@@ -22,7 +22,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="POKEQ_1autotoc_md405">
+<sect3 id="POKEQ_1autotoc_md885">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Store<sp/>a<sp/>64-bit<sp/>value</highlight></codeline>
 <codeline><highlight class="normal">POKEQ<sp/>&amp;100400,<sp/>&amp;0123456789ABCDEF</highlight></codeline>
@@ -31,7 +31,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="POKEQ_1autotoc_md407">
+<sect3 id="POKEQ_1autotoc_md887">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Unaligned 64-bit writes may tear if observed concurrently.</para>

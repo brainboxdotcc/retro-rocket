@@ -7,7 +7,46 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">CURRENTY</highlight></codeline>
-</programlisting> Returns the current Y text cursor position on the terminal in character cells </para>
+</programlisting></para>
+<para>Returns the current <bold>Y text cursor position</bold> (row) on the terminal, measured in <bold>character cells</bold>. The topmost row is <bold>0</bold>, increasing downwards.</para>
+<para><hruler/>
+</para>
+<sect3 id="CURRENTY_1autotoc_md79">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">CLS</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Hello&quot;</highlight></codeline>
+<codeline><highlight class="normal">y<sp/>=<sp/>CURRENTY</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;<sp/>(cursor<sp/>now<sp/>at<sp/>row<sp/>&quot;;<sp/>y;<sp/>&quot;)&quot;</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Demonstrate<sp/>cursor<sp/>movement</highlight></codeline>
+<codeline><highlight class="normal">CLS</highlight></codeline>
+<codeline><highlight class="normal">CURSOR<sp/>10,<sp/>5</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Placed<sp/>at<sp/>(10,5)&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Now<sp/>Y<sp/>=<sp/>&quot;;<sp/>CURRENTY</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Use<sp/>CURRENTY<sp/>with<sp/>looping<sp/>to<sp/>draw<sp/>diagonals</highlight></codeline>
+<codeline><highlight class="normal">CLS</highlight></codeline>
+<codeline><highlight class="normal">FOR<sp/>i<sp/>=<sp/>0<sp/>TO<sp/>9</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>CURSOR<sp/>i,<sp/>CURRENTY<sp/>+<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;*&quot;;</highlight></codeline>
+<codeline><highlight class="normal">NEXT</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="CURRENTY_1autotoc_md81">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Cursor position is <bold>zero-based</bold>: the top row is <computeroutput>0</computeroutput>.</para>
+</listitem><listitem><para><computeroutput>CURRENTY</computeroutput> reflects the current logical row, not raw terminal escape codes.</para>
+</listitem><listitem><para>When the cursor advances beyond the last row, the terminal scrolls and <computeroutput>CURRENTY</computeroutput> remains clamped to the bottom row.</para>
+</listitem><listitem><para>Use together with <ref refid="CURRENTX" kindref="compound">CURRENTX</ref> to get the full cursor coordinates.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="CURRENTX" kindref="compound">CURRENTX</ref> · <ref refid="CURSOR" kindref="compound">CURSOR</ref> · <ref refid="TERMHEIGHT" kindref="compound">TERMHEIGHT</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/CURRENTY.md"/>
   </compounddef>

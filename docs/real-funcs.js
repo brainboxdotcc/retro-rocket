@@ -16,5 +16,6 @@ var real_funcs =
     [ "REALVAL Function", "REALVAL.html", null ],
     [ "ROUND Function", "ROUND.html", null ],
     [ "SIN Function", "SIN.html", null ],
+    [ "SQR Function", "SQR.html", null ],
     [ "TAN Function", "TAN.html", null ]
 ];

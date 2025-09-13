@@ -89,8 +89,30 @@ $(document).ready(function(){initNavTree('LCPUID.html',''); initResizable(); });
 <div class="title">LCPUID Function </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">LCPUID(integer-expression, integer-expression)</div>
-</div><!-- fragment --><p> Returns 0, and populate the legacy last CPUID information for later retrieval. The two parameters are the leaf and subleaf. </p>
+<div class="textblock"><div class="fragment"><div class="line">result = LCPUID(integer-expression, integer-expression)</div>
+</div><!-- fragment --><p>Executes a <b>legacy CPUID query</b>.</p>
+<ul>
+<li>The first parameter is the <b>leaf</b>.</li>
+<li>The second parameter is the <b>subleaf</b>.</li>
+</ul>
+<p>The function always returns <code>0</code>, but updates the legacy “last CPUID” information for later retrieval.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md180"></a>
+Examples</h3>
+<div class="fragment"><div class="line">REM Run CPUID leaf 1, subleaf 0</div>
+<div class="line">dummy = LCPUID(&amp;1, 0)</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md182"></a>
+Notes</h3>
+<ul>
+<li>This is a <b>legacy function</b> (the <code>L</code> stands for “legacy”).</li>
+<li>Always returns <code>0</code>; its purpose is to update internal state.</li>
+<li>For new code, use <a class="el" href="CPUID.html">CPUID</a> instead.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="CPUID.html">CPUID</a></p>
+<hr  />
+<p>Do you want me to apply the same correction to the earlier <b>CPUID</b> page (so its syntax line shows assignment properly too)? </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -98,7 +120,7 @@ $(document).ready(function(){initNavTree('LCPUID.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -7,10 +7,55 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">TOKENIZE$(string-variable,<sp/>string-expression)</highlight></codeline>
-</programlisting> Searches for the first occurance of the string-expression value within the value of the string-variable given, splitting the value at that point and returning the portion of the string before the split, changing the string to become the content that came after the split. For example:</para>
-<para><image type="html" name="https://user-images.githubusercontent.com/1556794/235389891-e8973648-eb27-40b5-b7e2-35c02baaf311.png" alt="image" inline="yes"></image>
+</programlisting></para>
+<para>Splits a string variable into tokens, using the given separator string.</para>
+<para><itemizedlist>
+<listitem><para>Returns the portion of the string <bold>before</bold> the separator.</para>
+</listitem><listitem><para>Modifies the original string variable so that it now contains only the <bold>remainder</bold> (after the separator).</para>
+</listitem><listitem><para>If the separator does not occur, the entire string is returned and the variable becomes empty.</para>
+</listitem><listitem><para>The separator can be more than one character.</para>
+</listitem></itemizedlist>
 </para>
-<para>The string-expression is not limited to one character, if a multiple character string value is specified, this will be the whole separator. </para>
+<para><hruler/>
+</para>
+<sect3 id="TOKENIZE_1autotoc_md589">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">V$<sp/>=<sp/>&quot;ONE<sp/>TWO&quot;</highlight></codeline>
+<codeline><highlight class="normal">A$<sp/>=<sp/>TOKENIZE$(V$,<sp/>&quot;<sp/>&quot;)</highlight></codeline>
+<codeline><highlight class="normal">B$<sp/>=<sp/>TOKENIZE$(V$,<sp/>&quot;<sp/>&quot;)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>A$,<sp/>B$</highlight></codeline>
+</programlisting></para>
+<para>Produces:</para>
+<para><programlisting><codeline><highlight class="normal">ONE<sp/>TWO</highlight></codeline>
+</programlisting></para>
+<para>and afterwards <computeroutput>V$</computeroutput> is empty.</para>
+<para><image type="html" name="tokenize.png"></image>
+</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Split<sp/>a<sp/>CSV<sp/>line</highlight></codeline>
+<codeline><highlight class="normal">line$<sp/>=<sp/>&quot;red,green,blue&quot;</highlight></codeline>
+<codeline><highlight class="normal">c1$<sp/>=<sp/>TOKENIZE$(line$,<sp/>&quot;,&quot;)</highlight></codeline>
+<codeline><highlight class="normal">c2$<sp/>=<sp/>TOKENIZE$(line$,<sp/>&quot;,&quot;)</highlight></codeline>
+<codeline><highlight class="normal">c3$<sp/>=<sp/>TOKENIZE$(line$,<sp/>&quot;,&quot;)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>c1$,<sp/>c2$,<sp/>c3$</highlight></codeline>
+</programlisting></para>
+<para>Produces:</para>
+<para><programlisting><codeline><highlight class="normal">red<sp/>green<sp/>blue</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="TOKENIZE_1autotoc_md591">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>The first parameter must be a <bold>string variable</bold> (not a literal), because its value is modified in-place.</para>
+</listitem><listitem><para>The second parameter is the <bold>separator string</bold>.</para>
+</listitem><listitem><para>Useful for parsing space-separated or delimiter-separated text.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="LEFT" kindref="compound">LEFT$</ref> · <ref refid="RIGHT" kindref="compound">RIGHT$</ref> · <ref refid="MID" kindref="compound">MID$</ref> · <ref refid="REVERSE" kindref="compound">REVERSE$</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/TOKENIZE.md"/>
   </compounddef>

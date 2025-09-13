@@ -89,20 +89,41 @@ $(document).ready(function(){initNavTree('SECOND.html',''); initResizable(); });
 <div class="title">SECOND Function </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">numeric-expression = SECOND(boolean-expression)</div>
-</div><!-- fragment --><p>Returns the current second (0–59). <br  />
- Pass <code>TRUE</code> for local time or <code>FALSE</code> for UTC.</p>
-<p>Example:</p>
-<div class="fragment"><div class="line">PRINT SECOND(TRUE)   &#39; Local second</div>
-<div class="line">PRINT SECOND(FALSE)  &#39; UTC second</div>
-</div><!-- fragment --> </div></div><!-- contents -->
+<div class="textblock"><div class="fragment"><div class="line">SECOND(boolean-expression)</div>
+</div><!-- fragment --><p>Returns the current <b>second</b> of the current minute, in the range <b>0–59</b>.</p>
+<ul>
+<li>Pass <code>TRUE</code> → local time (system time zone, if configured).</li>
+<li>Pass <code>FALSE</code> → UTC (Coordinated Universal Time).</li>
+</ul>
+<hr  />
+<h3><a class="anchor" id="autotoc_md293"></a>
+Examples</h3>
+<div class="fragment"><div class="line">PRINT &quot;Local second = &quot;; SECOND(TRUE)</div>
+<div class="line">PRINT &quot;UTC second   = &quot;; SECOND(FALSE)</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Display full time as HH:MM:SS</div>
+<div class="line">PRINT HOUR(TRUE); &quot;:&quot;; MINUTE(TRUE); &quot;:&quot;; SECOND(TRUE)</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Wait until the top of the minute</div>
+<div class="line">REPEAT</div>
+<div class="line">UNTIL SECOND(TRUE) = 0</div>
+<div class="line">PRINT &quot;Minute just rolled over!&quot;</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md295"></a>
+Notes</h3>
+<ul>
+<li>Values range from <code>0</code> to <code>59</code>.</li>
+<li>Local time depends on the configured time zone. If none is set, local and UTC values are the same.</li>
+<li>Useful with <a class="el" href="HOUR.html">HOUR</a> and <a class="el" href="MINUTE.html">MINUTE</a> for complete time display.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="HOUR.html">HOUR</a> · <a class="el" href="MINUTE.html">MINUTE</a> · <a class="el" href="DAY.html">DAY</a> · <a class="el" href="MONTH.html">MONTH</a> · <a class="el" href="YEAR.html">YEAR</a> </p>
+</div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -90,7 +90,32 @@ $(document).ready(function(){initNavTree('MEMPROGRAM.html',''); initResizable();
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">MEMPROGRAM</div>
-</div><!-- fragment --><p> Returns the total used memory for the current BASIC program in its private heap. </p>
+</div><!-- fragment --><p>Returns the current amount of memory (in bytes) used by the <b>private heap</b> of the current BASIC program. This reflects the memory actively allocated right now, not the peak or global system usage.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md212"></a>
+Examples</h3>
+<div class="fragment"><div class="line">REM Show memory used by this program</div>
+<div class="line">PRINT &quot;Program is using &quot;; MEMPROGRAM; &quot; bytes&quot;</div>
+</div><!-- fragment --><p>For a large BASIC program this might print:</p>
+<div class="fragment"><div class="line">Program is using 401920 bytes</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Compare with peak usage</div>
+<div class="line">PRINT &quot;Currently used = &quot;; MEMPROGRAM; &quot; bytes&quot;</div>
+<div class="line">PRINT &quot;Peak used      = &quot;; MEMPEAK; &quot; bytes&quot;</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Report usage in kilobytes</div>
+<div class="line">PRINT &quot;Program heap = &quot;; MEMPROGRAM / 1024; &quot; KB&quot;</div>
+</div><!-- fragment --><p>Might print:</p>
+<div class="fragment"><div class="line">Program heap = 392 KB</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md214"></a>
+Notes</h3>
+<ul>
+<li>Value is specific to the <b>current BASIC program’s private heap</b>.</li>
+<li>Typically in the range of a few hundred kilobytes for larger programs.</li>
+<li>Use <a class="el" href="MEMPEAK.html">MEMPEAK</a> to see the maximum ever reached since program start.</li>
+<li>Returned as a 64-bit integer.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="MEMPEAK.html">MEMPEAK</a> · <a class="el" href="MEMUSED.html">MEMUSED</a> · <a class="el" href="MEMFREE.html">MEMFREE</a> · <a class="el" href="MEMORY.html">MEMORY</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -98,7 +123,7 @@ $(document).ready(function(){initNavTree('MEMPROGRAM.html',''); initResizable();
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

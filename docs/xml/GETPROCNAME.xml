@@ -7,7 +7,35 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">GETPROCNAME$(integer-expression)</highlight></codeline>
-</programlisting> Returns the process name for a running process, the integer expression is an index between 0 and <computeroutput>GETPROCCOUNT - 1</computeroutput> </para>
+</programlisting></para>
+<para>Returns the <bold>name of a running process</bold>. The parameter is an index between <computeroutput>0</computeroutput> and <computeroutput>GETPROCCOUNT - 1</computeroutput>.</para>
+<para><hruler/>
+</para>
+<sect3 id="GETPROCNAME_1autotoc_md478">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>all<sp/>running<sp/>process<sp/>names</highlight></codeline>
+<codeline><highlight class="normal">FOR<sp/>i<sp/>=<sp/>0<sp/>TO<sp/>GETPROCCOUNT<sp/>-<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>GETPROCNAME$(i)</highlight></codeline>
+<codeline><highlight class="normal">NEXT</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Get<sp/>the<sp/>first<sp/>process<sp/>name</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Process<sp/>0:<sp/>&quot;;<sp/>GETPROCNAME$(0)</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="GETPROCNAME_1autotoc_md480">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>The index must be within the valid range.</para>
+</listitem><listitem><para>Process names are the identifiers assigned when the process was created.</para>
+</listitem><listitem><para>Combine with other process functions such as <ref refid="GETPROCID" kindref="compound">GETPROCID</ref> or <ref refid="GETPROCMEM" kindref="compound">GETPROCMEM</ref> for full details.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="GETPROCCOUNT" kindref="compound">GETPROCCOUNT</ref> · <ref refid="GETPROCID" kindref="compound">GETPROCID</ref> · <ref refid="GETPROCMEM" kindref="compound">GETPROCMEM</ref> · <ref refid="GETPROCPARENT" kindref="compound">GETPROCPARENT</ref> · <ref refid="GETPROCCPUID" kindref="compound">GETPROCCPUID</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/GETPROCNAME.md"/>
   </compounddef>

@@ -7,7 +7,38 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">LJUST$(string-expression,<sp/>integer-expression,<sp/>string-expression)</highlight></codeline>
-</programlisting> Left-justify a string, appending the third parameter repeatedly to the end of the first parameter until its length is at least equal to the integer-expression </para>
+</programlisting></para>
+<para>Returns a <bold>left-justified string</bold> by padding the input string (first parameter) with the pad string (third parameter) until the result length is <bold>at least</bold> the specified width (second parameter).</para>
+<para><hruler/>
+</para>
+<sect3 id="LJUST_1autotoc_md512">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>LJUST$(&quot;Retro&quot;,<sp/>10,<sp/>&quot;<sp/>&quot;)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>&quot;Retro     &quot;</computeroutput> (padded with spaces).</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>LJUST$(&quot;42&quot;,<sp/>5,<sp/>&quot;0&quot;)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>&quot;42000&quot;</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Use<sp/>multi-character<sp/>padding</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>LJUST$(&quot;X&quot;,<sp/>6,<sp/>&quot;-=&quot;)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>&quot;X-=-=-&quot;</computeroutput>.</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="LJUST_1autotoc_md514">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>If the original string is already at least the specified length, it is returned unchanged.</para>
+</listitem><listitem><para>The pad string is repeated as many times as necessary, and may be truncated to fit exactly.</para>
+</listitem><listitem><para>Pad string must not be empty; an empty pad string raises an error.</para>
+</listitem><listitem><para>Useful for creating fixed-width tables or aligning output.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="RJUST" kindref="compound">RJUST$</ref> · <ref refid="LEN" kindref="compound">LEN</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/LJUST.md"/>
   </compounddef>

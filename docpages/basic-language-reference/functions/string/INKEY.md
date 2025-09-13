@@ -1,22 +1,66 @@
 \page INKEY INKEY$ Function
+
 ```basic
-INKEY$
+A$= INKEY$
 ```
-Returns the key which has been pressed, or if no key has been pressed, an empty string. Note that this function will use the keyboard buffer, so if multiple keys have been pressed between this call and the last call to `INKEY$` (or an `INPUT` statement) it will require multiple calls to the function to receive all of the keypresses.
 
-The following keys on the keyboard are designated as 'extended keys' and will return the following character codes from `INKEY$`:
+Returns the **key that has been pressed** as a string.
+If no key has been pressed since the last call, it returns an **empty string**.
 
-<table>
-<tr><th>Key</th><th>INKEY$ value</th></tr>
-<tr><td>PAGEUP</td><td>245</td></tr>
-<tr><td>PAGEDOWN</td><td>246</td></tr>
-<tr><td>DEL</td><td>47</td></tr>
-<tr><td>INS</td><td>48</td></tr>
-<tr><td>END</td><td>49</td></tr>
-<tr><td>UP</td><td>250</td></tr>
-<tr><td>DOWN</td><td>251</td></tr>
-<tr><td>LEFT</td><td>252</td></tr>
-<tr><td>RIGHT</td><td>253</td></tr>
-<tr><td>HOME</td><td>254</td></tr>
-</table>
+`INKEY$` consumes input from the **keyboard buffer**. If multiple keys have been pressed between this call and the last call to `INKEY$` (or an `INPUT` statement), it will take multiple calls to retrieve them all.
 
+---
+
+### Extended keys
+
+Some non-printing keys return special character codes rather than ASCII.
+These values can be retrieved by wrapping `INKEY$` with `ASC()`.
+
+| Key      | `ASC(INKEY$)` value |
+| -------- | ------------------- |
+| PAGEUP   | 245                 |
+| PAGEDOWN | 246                 |
+| DEL      | 247                 |
+| INS      | 248                 |
+| END      | 249                 |
+| UP       | 250                 |
+| DOWN     | 251                 |
+| LEFT     | 252                 |
+| RIGHT    | 253                 |
+| HOME     | 254                 |
+
+---
+
+### Examples
+
+```basic
+REM Wait for a keypress
+PRINT "Press a key..."
+REPEAT
+    k$ = INKEY$
+UNTIL k$ > ""
+PRINT "You pressed: "; k$
+```
+
+```basic
+REM Handle arrow keys
+k$ = INKEY$
+IF k$ > "" THEN
+    code = ASC(k$)
+    IF code = 250 THEN PRINT "Up arrow pressed"
+    IF code = 251 THEN PRINT "Down arrow pressed"
+ENDIF
+```
+
+---
+
+### Notes
+
+* Printable characters return their usual ASCII values (e.g. `"A"` → 65).
+* Extended keys must be checked via `ASC()`.
+* If no key is pressed, result is `""` (empty string).
+
+---
+
+**See also:**
+\ref ASC "ASC" · \ref INPUT "INPUT"

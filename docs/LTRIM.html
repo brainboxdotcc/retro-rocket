@@ -90,7 +90,27 @@ $(document).ready(function(){initNavTree('LTRIM.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">LTRIM$(string-expression)</div>
-</div><!-- fragment --><p> Removes spaces from the left (start) of a string. </p>
+</div><!-- fragment --><p>Removes all leading spaces from the start of the string expression and returns the result.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md522"></a>
+Examples</h3>
+<div class="fragment"><div class="line">PRINT LTRIM$(&quot;   Hello&quot;)</div>
+</div><!-- fragment --><p>Produces <code>"Hello"</code>.</p>
+<div class="fragment"><div class="line">PRINT LTRIM$(&quot;   Retro Rocket   &quot;)</div>
+</div><!-- fragment --><p>Produces <code>"Retro Rocket   "</code> (only leading spaces removed).</p>
+<div class="fragment"><div class="line">REM Trim input before processing</div>
+<div class="line">input$ = &quot;   command&quot;</div>
+<div class="line">PRINT &quot;Command = [&quot;; LTRIM$(input$); &quot;]&quot;</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md524"></a>
+Notes</h3>
+<ul>
+<li>Only space characters (<code>CHR$(32)</code>) are removed; tabs and other whitespace are not affected.</li>
+<li>If the string has no leading spaces, it is returned unchanged.</li>
+<li>Use <a class="el" href="RTRIM.html">RTRIM$</a> to remove trailing spaces, or <a class="el" href="TRIM.html">TRIM$</a> to remove both ends.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="RTRIM.html">RTRIM$</a> · <a class="el" href="TRIM.html">TRIM$</a> · <a class="el" href="LEN.html">LEN</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -98,7 +118,7 @@ $(document).ready(function(){initNavTree('LTRIM.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="string-funcs.html">String Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

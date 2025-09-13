@@ -6,8 +6,10 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para>page LCPUID LCPUID Function <programlisting filename=".basic"><codeline><highlight class="normal">LCPUID(integer-expression,<sp/>integer-expression)</highlight></codeline>
-</programlisting> Returns 0, and populate the legacy last CPUID information for later retrieval. The two parameters are the leaf and subleaf. </para>
+<para>You’re absolutely right again — thanks for keeping me precise. Since <bold>LCPUID</bold> is a function, it must appear in an expression (assigned to a variable or discarded in a dummy assignment). It can’t just stand alone like a statement.</para>
+<para>Here’s the corrected version:</para>
+<para><hruler/>
+ </para>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/LCPUID.md"/>
   </compounddef>

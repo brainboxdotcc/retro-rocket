@@ -7,7 +7,45 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">GETPROCCOUNT</highlight></codeline>
-</programlisting> Returns the number of running processes. </para>
+</programlisting></para>
+<para>Returns the <bold>number of processes</bold> currently running in the system. This includes both user programs and background tasks managed by Retro Rocket OS.</para>
+<para><hruler/>
+</para>
+<sect3 id="GETPROCCOUNT_1autotoc_md104">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>number<sp/>of<sp/>active<sp/>processes</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Running<sp/>processes:<sp/>&quot;;<sp/>GETPROCCOUNT</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Use<sp/>process<sp/>count<sp/>in<sp/>a<sp/>conditional</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>GETPROCCOUNT<sp/>&gt;<sp/>10<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;System<sp/>busy&quot;</highlight></codeline>
+<codeline><highlight class="normal">ELSE</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;System<sp/>idle&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Example:<sp/>wait<sp/>until<sp/>background<sp/>process<sp/>finishes</highlight></codeline>
+<codeline><highlight class="normal">start_count<sp/>=<sp/>GETPROCCOUNT</highlight></codeline>
+<codeline><highlight class="normal">REPEAT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PROCdoSomething</highlight></codeline>
+<codeline><highlight class="normal">UNTIL<sp/>GETPROCCOUNT<sp/>=<sp/>start_count</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Background<sp/>job<sp/>ended&quot;</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="GETPROCCOUNT_1autotoc_md106">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>The returned value is an <bold>integer</bold> ≥ 1 (the current program itself counts as a process).</para>
+</listitem><listitem><para>Values change dynamically as processes are created or end.</para>
+</listitem><listitem><para>Designed for diagnostic or monitoring use; it does not reveal details of which processes are running — only the <bold>total count</bold>.</para>
+</listitem><listitem><para>Use together with <ref refid="GETPROCNAME" kindref="compound">GETPROCNAME$ Function</ref>$ &quot;GETPROCNAME\$&quot; or <ref refid="GETPROCID" kindref="compound">GETPROCID</ref> to identify individual processes.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="GETPROCNAME" kindref="compound">GETPROCNAME$ Function</ref>$ &quot;GETPROCNAME\$&quot; · <ref refid="GETPROCID" kindref="compound">GETPROCID</ref> · KILL </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/GETPROCCOUNT.md"/>
   </compounddef>

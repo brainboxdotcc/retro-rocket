@@ -18,7 +18,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="UDPREAD_1autotoc_md131">
+<sect3 id="UDPREAD_1autotoc_md606">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Call after <computeroutput>UDPBIND</computeroutput>.</para>
@@ -28,7 +28,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="UDPREAD_1autotoc_md133">
+<sect3 id="UDPREAD_1autotoc_md608">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">UDPBIND<sp/>&quot;0.0.0.0&quot;,<sp/>8080</highlight></codeline>
 <codeline><highlight class="normal">S$<sp/>=<sp/>UDPREAD$(8080)</highlight></codeline>
@@ -44,7 +44,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="UDPREAD_1autotoc_md135">
+<sect3 id="UDPREAD_1autotoc_md610">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>The returned string is the exact payload that was sent.</para>
@@ -52,7 +52,7 @@
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ref refid="UDPBIND" kindref="compound">UDPBIND</ref> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/UDPLASTIP%24">UDPLASTIP$</ulink> · <ref refid="UDPLASTSOURCEPORT" kindref="compound">UDPLASTSOURCEPORT</ref> · <ref refid="UDPWRITE" kindref="compound">UDPWRITE</ref> </para>
+ <ref refid="UDPBIND" kindref="compound">UDPBIND</ref> · <ref refid="UDPLASTIP" kindref="compound">UDPLASTIP$</ref> · <ref refid="UDPLASTSOURCEPORT" kindref="compound">UDPLASTSOURCEPORT</ref> · <ref refid="UDPWRITE" kindref="compound">UDPWRITE</ref> </para>
 </sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/UDPREAD.md"/>

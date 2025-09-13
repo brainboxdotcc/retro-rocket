@@ -7,7 +7,39 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">MID$(string-expression,<sp/>integer-expression,<sp/>integer-expression)</highlight></codeline>
-</programlisting> Returns a substring of string-expression, starting at the first integer parameter offset and extending for a length of the second parameter. </para>
+</programlisting></para>
+<para>Returns a <bold>substring</bold> of the given string, starting at the position given by the first integer parameter and extending for the length given by the second.</para>
+<para><hruler/>
+</para>
+<sect3 id="MID_1autotoc_md527">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>MID$(&quot;RetroRocket&quot;,<sp/>0,<sp/>5)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>&quot;Retro&quot;</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>MID$(&quot;RetroRocket&quot;,<sp/>5,<sp/>6)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>&quot;Rocket&quot;</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Extract<sp/>file<sp/>extension</highlight></codeline>
+<codeline><highlight class="normal">filename$<sp/>=<sp/>&quot;document.txt&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>MID$(filename$,<sp/>LEN(filename$)<sp/>-<sp/>3,<sp/>3)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>&quot;txt&quot;</computeroutput>.</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="MID_1autotoc_md529">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Positions are <bold>zero-based</bold>: the first character of the string is at index <computeroutput>0</computeroutput>.</para>
+</listitem><listitem><para>If the length extends beyond the end of the string, the substring is truncated.</para>
+</listitem><listitem><para>If the starting index is beyond the string length, the result is an empty string.</para>
+</listitem><listitem><para>Negative positions or lengths cause an error.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="LEFT" kindref="compound">LEFT$</ref> · <ref refid="RIGHT" kindref="compound">RIGHT$</ref> · <ref refid="LEN" kindref="compound">LEN</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/MID.md"/>
   </compounddef>

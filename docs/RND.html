@@ -89,11 +89,37 @@ $(document).ready(function(){initNavTree('RND.html',''); initResizable(); });
 <div class="title">RND Function </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">RND(integer-expression, integer-expression)</div>
-</div><!-- fragment --><p> Returns a pseudo-random number between the two integer expressions (inclusive). The pseudo-random number generator uses a <a href="https://en.wikipedia.org/wiki/Mersenne_Twister">Mersenne Twister mt19937</a> algorithm to produce random results, with entropy seeded from the operating system kernel via various inputs which are not directly under user control.</p>
-<p><img src="https://user-images.githubusercontent.com/1556794/235545663-e3b17cdf-c47e-4d65-bfa1-84b3902c47fe.png" alt="image" class="inline"/></p>
-<p><b>NOTE: This differs from BBC BASIC which used a simple 33-bit LFSR (Linear Feedback Shift Register) as opposed to Mersenne Twister.</b></p>
-<p>This function should not be relied upon for cryptographic randomness as its seed value cannot be guaranteed secure. </p>
+<div class="textblock"><div class="fragment"><div class="line">RND(min, max)</div>
+</div><!-- fragment --><p>Returns a <b>pseudo-random integer</b> between <code>min</code> and <code>max</code> (inclusive). Both parameters must be integers, and the first must be less than or equal to the second.</p>
+<p>The generator uses the <b>Mersenne Twister (mt19937)</b> algorithm, seeded from entropy provided by the operating system kernel.</p>
+<div class="image">
+<img src="rnd.png" alt=""/>
+</div>
+<hr  />
+<h3><a class="anchor" id="autotoc_md288"></a>
+Examples</h3>
+<div class="fragment"><div class="line">REM Toss a coin (1 or 2)</div>
+<div class="line">PRINT RND(1, 2)</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Roll a six-sided die</div>
+<div class="line">PRINT RND(1, 6)</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Pick a random number between 50 and 5000</div>
+<div class="line">PRINT RND(50, 5000)</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Generate 5 random values between 100 and 200</div>
+<div class="line">FOR i = 1 TO 5</div>
+<div class="line">    PRINT RND(100, 200)</div>
+<div class="line">NEXT</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md290"></a>
+Notes</h3>
+<ul>
+<li>The result is an <b>integer</b> within the inclusive range <code>[min, max]</code>.</li>
+<li>If <code>min &gt; max</code>, behaviour is undefined.</li>
+<li>Suitable for general randomness in games, simulations, and sampling.</li>
+<li><b>Not cryptographically secure</b> — although the kernel provides an unpredictable seed, the Mersenne Twister itself is deterministic and predictable if state is known.</li>
+<li><b>Retro Rocket BASIC difference:</b> BBC BASIC used a 33-bit LFSR (linear feedback shift register). Retro Rocket uses a modern PRNG (Mersenne Twister).</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="INT.html">INT</a> · <a class="el" href="ABS.html">ABS</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -101,7 +127,7 @@ $(document).ready(function(){initNavTree('RND.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

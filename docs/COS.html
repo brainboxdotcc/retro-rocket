@@ -90,7 +90,34 @@ $(document).ready(function(){initNavTree('COS.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">COS(real-expression)</div>
-</div><!-- fragment --><p> Returns the cosine of the provided expression </p>
+</div><!-- fragment --><p>Returns the <b>cosine</b> of the given angle, where the angle is expressed in <b>radians</b>.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md386"></a>
+Examples</h3>
+<div class="fragment"><div class="line">PRINT COS(0)</div>
+</div><!-- fragment --><p>Produces <code>1</code>.</p>
+<div class="fragment"><div class="line">PRINT COS(PI# / 2)</div>
+</div><!-- fragment --><p>Produces approximately <code>0</code>.</p>
+<div class="fragment"><div class="line">PRINT COS(PI#)</div>
+</div><!-- fragment --><p>Produces <code>-1</code>.</p>
+<div class="fragment"><div class="line">REM Plot cosine values for multiples of 45 degrees</div>
+<div class="line">FOR d = 0 TO 360 STEP 45</div>
+<div class="line">    r# = d * PI# / 180</div>
+<div class="line">    PRINT &quot;COS(&quot;; d; &quot;°) = &quot;; COS(r#)</div>
+<div class="line">NEXT</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md388"></a>
+Notes</h3>
+<ul>
+<li>Argument is in <b>radians</b>. Convert degrees to radians with:</li>
+</ul>
+<div class="fragment"><div class="line">radians# = degrees * PI# / 180</div>
+</div><!-- fragment --><ul>
+<li>Return value is a real number between <code>-1</code> and <code>1</code>.</li>
+<li>Related inverse function: <a class="el" href="ACS.html">ACS</a>.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="SIN.html">SIN</a> · <a class="el" href="TAN.html">TAN</a> · <a class="el" href="ACS.html">ACS</a> · <a class="el" href="ATAN.html">ATAN</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -98,7 +125,7 @@ $(document).ready(function(){initNavTree('COS.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="real-funcs.html">Real Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

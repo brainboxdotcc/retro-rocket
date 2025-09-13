@@ -89,8 +89,29 @@ $(document).ready(function(){initNavTree('SHL.html',''); initResizable(); });
 <div class="title">SHL Function </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">SHL(integer-expression, integer-expression)</div>
-</div><!-- fragment --><p> Performs <a href="https://en.wikipedia.org/wiki/Logical_shift">bitwise shift left</a> and returns the result </p>
+<div class="textblock"><div class="fragment"><div class="line">SHL(value, count)</div>
+</div><!-- fragment --><p>Performs a <b>bitwise shift left</b> operation on an integer. The first parameter is the value to shift, the second is the number of bit positions.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md303"></a>
+Examples</h3>
+<div class="fragment"><div class="line">PRINT SHL(1, 1)</div>
+</div><!-- fragment --><p>Produces <code>2</code> (<code>0001</code> → <code>0010</code>).</p>
+<div class="fragment"><div class="line">PRINT SHL(3, 2)</div>
+</div><!-- fragment --><p>Produces <code>12</code> (<code>0011</code> → <code>1100</code>).</p>
+<div class="fragment"><div class="line">REM Multiply by powers of two using SHL</div>
+<div class="line">n = 7</div>
+<div class="line">PRINT SHL(n, 3)   &#39; Same as 7 * 8 = 56</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md305"></a>
+Notes</h3>
+<ul>
+<li>Operates on 64-bit integers.</li>
+<li>Shifting left by <code>n</code> positions is equivalent to multiplying by <code>2^n</code>.</li>
+<li>Bits shifted out on the left are discarded; new bits on the right are filled with zero.</li>
+<li>If the shift count is negative or larger than the bit width, behaviour is undefined.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="SHR.html">SHR</a> · <a class="el" href="BITAND.html">BITAND</a> · <a class="el" href="BITOR.html">BITOR</a> · <a class="el" href="BITNAND.html">BITNAND</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -98,7 +119,7 @@ $(document).ready(function(){initNavTree('SHL.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

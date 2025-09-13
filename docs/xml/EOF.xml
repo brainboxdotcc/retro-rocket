@@ -7,7 +7,62 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">EOF(integer-variable)</highlight></codeline>
-</programlisting> Returns true if the end of the file has been reached, false if otherwise. </para>
+</programlisting></para>
+<para>Returns <computeroutput>TRUE</computeroutput> (1) if the <bold>end of file</bold> has been reached on the file handle, otherwise <computeroutput>FALSE</computeroutput> (0). The parameter must be an <bold>integer variable</bold> containing a valid handle from <ref refid="OPENIN" kindref="compound">OPENIN</ref> or <ref refid="OPENOUT" kindref="compound">OPENOUT</ref> (for append/verify cases).</para>
+<para><hruler/>
+</para>
+<sect3 id="EOF_1autotoc_md89">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Read<sp/>a<sp/>text<sp/>file<sp/>line<sp/>by<sp/>line</highlight></codeline>
+<codeline><highlight class="normal">FH<sp/>=<sp/>OPENIN(&quot;mytext.txt&quot;)</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>FH<sp/>&lt;<sp/>0<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Could<sp/>not<sp/>open<sp/>file&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>END</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">REPEAT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>line$<sp/>=<sp/>READ$(FH)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>IF<sp/>EOF(FH)<sp/>=<sp/>0<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PRINT<sp/>line$</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ENDIF</highlight></codeline>
+<codeline><highlight class="normal">UNTIL<sp/>EOF(FH)<sp/>=<sp/>1</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">CLOSE<sp/>FH</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Copy<sp/>a<sp/>file<sp/>(simple<sp/>text<sp/>mode)</highlight></codeline>
+<codeline><highlight class="normal">IN<sp/><sp/>=<sp/>OPENIN(&quot;input.txt&quot;)</highlight></codeline>
+<codeline><highlight class="normal">OUT<sp/>=<sp/>OPENOUT(&quot;output.txt&quot;)</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>(IN<sp/>&lt;<sp/>0)<sp/>OR<sp/>(OUT<sp/>&lt;<sp/>0)<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Open<sp/>failed&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>END</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">REPEAT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>L$<sp/>=<sp/>READ$(IN)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>IF<sp/>EOF(IN)<sp/>=<sp/>0<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WRITE<sp/>OUT,<sp/>L$</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ENDIF</highlight></codeline>
+<codeline><highlight class="normal">UNTIL<sp/>EOF(IN)<sp/>=<sp/>1</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">CLOSE<sp/>IN</highlight></codeline>
+<codeline><highlight class="normal">CLOSE<sp/>OUT</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="EOF_1autotoc_md91">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para><computeroutput>EOF</computeroutput> reports whether the <bold>next read would be past the end</bold>. After a final <computeroutput>READ$</computeroutput>, it becomes <computeroutput>TRUE</computeroutput>.</para>
+</listitem><listitem><para>Typical pattern: read with <computeroutput>READ$</computeroutput>, process if <computeroutput>EOF(FH)=0</computeroutput>, loop <bold>until</bold> <computeroutput>EOF(FH)=1</computeroutput>.</para>
+</listitem><listitem><para>On failure to open, file handles are <bold>negative</bold>; check before use.</para>
+</listitem><listitem><para>Works with file handles from <computeroutput>OPENIN</computeroutput> (reading). For writing with <computeroutput>OPENOUT</computeroutput>, <computeroutput>EOF</computeroutput> is generally not meaningful.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="OPENIN" kindref="compound">OPENIN</ref> · <ref refid="OPENOUT" kindref="compound">OPENOUT</ref> · <ref refid="READ" kindref="compound">READ$</ref> · <ref refid="WRITE" kindref="compound">WRITE</ref> · <ref refid="CLOSE" kindref="compound">CLOSE</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/EOF.md"/>
   </compounddef>

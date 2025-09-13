@@ -43,7 +43,7 @@
 - \subpage PEEKQ
 - \subpage PEEKW
 - \subpage RADIX
-- \subpage READ
+- \subpage IREAD
 - \subpage RGB
 - \subpage RND
 - \subpage SECOND

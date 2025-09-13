@@ -7,7 +7,44 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">MEMPEAK</highlight></codeline>
-</programlisting> Returns the peak used memory for the current BASIC program in its private heap, e.g. the largest memory allocation it has requested since starting. </para>
+</programlisting></para>
+<para>Returns the <bold>peak memory usage</bold> (in bytes) of the current BASIC program’s <bold>private heap</bold>. This is the largest amount of memory the program has allocated since it started running.</para>
+<para><hruler/>
+</para>
+<sect3 id="MEMPEAK_1autotoc_md207">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Display<sp/>peak<sp/>usage<sp/>directly</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Peak<sp/>memory<sp/>usage<sp/>=<sp/>&quot;;<sp/>MEMPEAK;<sp/>&quot;<sp/>bytes&quot;</highlight></codeline>
+</programlisting></para>
+<para>For a typical program this might print:</para>
+<para><programlisting><codeline><highlight class="normal">Peak<sp/>memory<sp/>usage<sp/>=<sp/>409600<sp/>bytes</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Report<sp/>in<sp/>kilobytes</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Peak<sp/>memory<sp/>=<sp/>&quot;;<sp/>MEMPEAK<sp/>/<sp/>1024;<sp/>&quot;<sp/>KB&quot;</highlight></codeline>
+</programlisting></para>
+<para>Might print:</para>
+<para><programlisting><codeline><highlight class="normal">Peak<sp/>memory<sp/>=<sp/>400<sp/>KB</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Compare<sp/>with<sp/>current<sp/>usage</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Currently<sp/>used<sp/>=<sp/>&quot;;<sp/>MEMUSED;<sp/>&quot;<sp/>bytes&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Peak<sp/>usage<sp/><sp/><sp/><sp/><sp/>=<sp/>&quot;;<sp/>MEMPEAK;<sp/>&quot;<sp/>bytes&quot;</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="MEMPEAK_1autotoc_md209">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>The value is specific to the <bold>current BASIC program</bold>, not global OS memory usage.</para>
+</listitem><listitem><para>It is a <bold>high-water mark</bold>: once reached, the peak value will not decrease, even if memory is freed.</para>
+</listitem><listitem><para>Typical Retro Rocket BASIC programs today peak around a few hundred kilobytes, not megabytes.</para>
+</listitem><listitem><para>Returned as a 64-bit integer.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="MEMUSED" kindref="compound">MEMUSED</ref> · <ref refid="MEMFREE" kindref="compound">MEMFREE</ref> · <ref refid="MEMORY" kindref="compound">MEMORY</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/MEMPEAK.md"/>
   </compounddef>

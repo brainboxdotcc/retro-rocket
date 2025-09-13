@@ -2,15 +2,48 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="READ" kind="page">
     <compoundname>READ</compoundname>
-    <title>READ Function</title>
+    <title>READ$ Function</title>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">READ(integer-variable)</highlight></codeline>
-</programlisting> Returns a single byte value read from a file.</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">READ$(integer-expression)</highlight></codeline>
-</programlisting> Read a full line from a file until the next carriage return or end of file, using the file handle specified by the integer-expression. </para>
+</programlisting></para>
+<para>Reads a <bold>full line</bold> of text from a file, using the file handle specified by the integer expression. Reading continues until a <bold>carriage return (newline)</bold> or the <bold>end of file</bold> is reached.</para>
+<para><hruler/>
+</para>
+<sect3 id="READ_1autotoc_md554">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Open<sp/>a<sp/>file<sp/>and<sp/>print<sp/>each<sp/>line</highlight></codeline>
+<codeline><highlight class="normal">fh<sp/>=<sp/>OPENIN(&quot;example.txt&quot;)</highlight></codeline>
+<codeline><highlight class="normal">REPEAT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>line$<sp/>=<sp/>READ$(fh)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>line$</highlight></codeline>
+<codeline><highlight class="normal">UNTIL<sp/>EOF(fh)</highlight></codeline>
+<codeline><highlight class="normal">CLOSE<sp/>fh</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Load<sp/>first<sp/>line<sp/>only</highlight></codeline>
+<codeline><highlight class="normal">fh<sp/>=<sp/>OPENIN(&quot;config.ini&quot;)</highlight></codeline>
+<codeline><highlight class="normal">first$<sp/>=<sp/>READ$(fh)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;First<sp/>line:<sp/>&quot;;<sp/>first$</highlight></codeline>
+<codeline><highlight class="normal">CLOSE<sp/>fh</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="READ_1autotoc_md556">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>The handle must be valid and obtained from <ref refid="OPENIN" kindref="compound">OPENIN</ref> or <ref refid="OPENUP" kindref="compound">OPENUP</ref>.</para>
+</listitem><listitem><para>Lines are terminated by carriage return (newline) markers in the file.</para>
+</listitem><listitem><para>If the end of file is reached, the string may be empty; use <ref refid="EOF" kindref="compound">EOF</ref> to detect this condition.</para>
+</listitem><listitem><para>Binary files may return unexpected results since <computeroutput>READ$</computeroutput> is line-oriented.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="OPENIN" kindref="compound">OPENIN</ref> · <ref refid="OPENUP" kindref="compound">OPENUP</ref> · <ref refid="EOF" kindref="compound">EOF</ref> · <ref refid="READ" kindref="compound">READ</ref> · <ref refid="WRITE" kindref="compound">WRITE</ref> </para>
+</sect3>
     </detaileddescription>
-    <location file="docpages/basic-language-reference/functions/integer/READ.md"/>
+    <location file="docpages/basic-language-reference/functions/string/READ.md"/>
   </compounddef>
 </doxygen>

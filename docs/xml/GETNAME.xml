@@ -7,7 +7,40 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">GETNAME$(string-expression,<sp/>integer-expression)</highlight></codeline>
-</programlisting> Returns the file name for an entry in a directory, the integer expression is an index between 0 and <computeroutput>GETNAMECOUNT - 1</computeroutput> </para>
+</programlisting></para>
+<para>Returns the <bold>file name</bold> for an entry in a directory. The first parameter is a <bold>directory path</bold>, and the second parameter is an <bold>index</bold> between <computeroutput>0</computeroutput> and <computeroutput>GETNAMECOUNT(path$) - 1</computeroutput>.</para>
+<para><hruler/>
+</para>
+<sect3 id="GETNAME_1autotoc_md473">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>List<sp/>all<sp/>files<sp/>in<sp/>the<sp/>current<sp/>directory</highlight></codeline>
+<codeline><highlight class="normal">dir$<sp/>=<sp/>CSD$</highlight></codeline>
+<codeline><highlight class="normal">count<sp/>=<sp/>GETNAMECOUNT(dir$)</highlight></codeline>
+<codeline><highlight class="normal">FOR<sp/>i<sp/>=<sp/>0<sp/>TO<sp/>count<sp/>-<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>GETNAME$(dir$,<sp/>i)</highlight></codeline>
+<codeline><highlight class="normal">NEXT</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Access<sp/>files<sp/>in<sp/>a<sp/>specific<sp/>directory</highlight></codeline>
+<codeline><highlight class="normal">FOR<sp/>i<sp/>=<sp/>0<sp/>TO<sp/>GETNAMECOUNT(&quot;/system&quot;)<sp/>-<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>GETNAME$(&quot;/system&quot;,<sp/>i)</highlight></codeline>
+<codeline><highlight class="normal">NEXT</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="GETNAME_1autotoc_md475">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>If the index is outside the valid range, an error is raised.</para>
+</listitem><listitem><para>The path may be absolute (starting with <computeroutput>/</computeroutput>) or relative to the current working directory (<ref refid="CSD" kindref="compound">CSD$</ref>).</para>
+</listitem><listitem><para>The order of entries is determined by the filesystem and may not be sorted alphabetically.</para>
+</listitem><listitem><para>Only the name is returned — to distinguish files from directories, use <ref refid="FILETYPE" kindref="compound">FILETYPE$</ref>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="GETNAMECOUNT" kindref="compound">GETNAMECOUNT</ref> · <ref refid="FILETYPE" kindref="compound">FILETYPE$</ref> · <ref refid="GETSIZE" kindref="compound">GETSIZE</ref> · <ref refid="CSD" kindref="compound">CSD$</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/GETNAME.md"/>
   </compounddef>

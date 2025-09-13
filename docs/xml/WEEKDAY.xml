@@ -6,14 +6,62 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">numeric-expression<sp/>=<sp/>WEEKDAY(boolean-expression)</highlight></codeline>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">WEEKDAY(boolean-expression)</highlight></codeline>
 </programlisting></para>
-<para>Returns the current day of the week as a number (<computeroutput>0 = Sunday</computeroutput>, <computeroutput>1 = Monday</computeroutput>, ..., <computeroutput>6 = Saturday</computeroutput>). <linebreak/>
- Pass <computeroutput>TRUE</computeroutput> to adjust using the current time zone, or <computeroutput>FALSE</computeroutput> for UTC.</para>
-<para>Example:</para>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>WEEKDAY(TRUE)<sp/><sp/><sp/>&apos;<sp/>Local<sp/>weekday</highlight></codeline>
-<codeline><highlight class="normal">PRINT<sp/>WEEKDAY(FALSE)<sp/><sp/>&apos;<sp/>UTC<sp/>weekday</highlight></codeline>
-</programlisting> </para>
+<para>Returns the current <bold>day of the week</bold> as a number:</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>0 = Sunday</computeroutput></para>
+</listitem><listitem><para><computeroutput>1 = Monday</computeroutput></para>
+</listitem><listitem><para><computeroutput>2 = Tuesday</computeroutput></para>
+</listitem><listitem><para><computeroutput>3 = Wednesday</computeroutput></para>
+</listitem><listitem><para><computeroutput>4 = Thursday</computeroutput></para>
+</listitem><listitem><para><computeroutput>5 = Friday</computeroutput></para>
+</listitem><listitem><para><computeroutput>6 = Saturday</computeroutput></para>
+</listitem></itemizedlist>
+</para>
+<para>Pass <computeroutput>TRUE</computeroutput> to return the local day (adjusted by system time zone), or <computeroutput>FALSE</computeroutput> for UTC.</para>
+<para><hruler/>
+</para>
+<sect3 id="WEEKDAY_1autotoc_md351">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;Local<sp/>weekday<sp/>=<sp/>&quot;;<sp/>WEEKDAY(TRUE)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;UTC<sp/>weekday<sp/><sp/><sp/>=<sp/>&quot;;<sp/>WEEKDAY(FALSE)</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>message<sp/>if<sp/>it&apos;s<sp/>the<sp/>weekend</highlight></codeline>
+<codeline><highlight class="normal">d<sp/>=<sp/>WEEKDAY(TRUE)</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>d<sp/>=<sp/>0<sp/>OR<sp/>d<sp/>=<sp/>6<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;It&apos;s<sp/>the<sp/>weekend!&quot;</highlight></codeline>
+<codeline><highlight class="normal">ELSE</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;It&apos;s<sp/>a<sp/>weekday.&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Map<sp/>weekday<sp/>number<sp/>to<sp/>name</highlight></codeline>
+<codeline><highlight class="normal">DIM<sp/>dayNames$,<sp/>7</highlight></codeline>
+<codeline><highlight class="normal">dayNames$(0)<sp/>=<sp/>&quot;Sunday&quot;</highlight></codeline>
+<codeline><highlight class="normal">dayNames$(1)<sp/>=<sp/>&quot;Monday&quot;</highlight></codeline>
+<codeline><highlight class="normal">dayNames$(2)<sp/>=<sp/>&quot;Tuesday&quot;</highlight></codeline>
+<codeline><highlight class="normal">dayNames$(3)<sp/>=<sp/>&quot;Wednesday&quot;</highlight></codeline>
+<codeline><highlight class="normal">dayNames$(4)<sp/>=<sp/>&quot;Thursday&quot;</highlight></codeline>
+<codeline><highlight class="normal">dayNames$(5)<sp/>=<sp/>&quot;Friday&quot;</highlight></codeline>
+<codeline><highlight class="normal">dayNames$(6)<sp/>=<sp/>&quot;Saturday&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Today<sp/>is<sp/>&quot;;<sp/>dayNames$(WEEKDAY(TRUE))</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="WEEKDAY_1autotoc_md353">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Returns an integer in the range <computeroutput>0–6</computeroutput>.</para>
+</listitem><listitem><para>Local time depends on configured time zone. Without configuration, local and UTC values are identical.</para>
+</listitem><listitem><para>Use together with <ref refid="DAY" kindref="compound">DAY</ref>, <ref refid="MONTH" kindref="compound">MONTH</ref>, and <ref refid="YEAR" kindref="compound">YEAR</ref> for full date handling.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="DAY" kindref="compound">DAY</ref> · <ref refid="MONTH" kindref="compound">MONTH</ref> · <ref refid="YEAR" kindref="compound">YEAR</ref> · <ref refid="HOUR" kindref="compound">HOUR</ref> · <ref refid="MINUTE" kindref="compound">MINUTE</ref> · <ref refid="SECOND" kindref="compound">SECOND</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/WEEKDAY.md"/>
   </compounddef>

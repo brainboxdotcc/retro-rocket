@@ -90,8 +90,28 @@ $(document).ready(function(){initNavTree('MEMUSED.html',''); initResizable(); })
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">MEMUSED</div>
-</div><!-- fragment --><p> Returns the total memory used by all BASIC programs and the operating system in bytes</p>
-<p><img src="https://user-images.githubusercontent.com/1556794/233864721-82be9012-b6f4-4026-bfeb-c0afa7d97263.png" alt="image" class="inline"/> </p>
+</div><!-- fragment --><p>Returns the total <b>memory in use</b> (bytes) by <b>all BASIC programs and the OS</b>.</p>
+<div class="image">
+<img src="memory.png" alt=""/>
+</div>
+<h3><a class="anchor" id="autotoc_md216"></a>
+Examples</h3>
+<div class="fragment"><div class="line">PRINT MEMUSED</div>
+<div class="line">PRINT &quot;Used  = &quot;; MEMUSED / (1024 * 1024); &quot; MB&quot;</div>
+<div class="line">PRINT &quot;Free  = &quot;; (MEMORY - MEMUSED) / (1024 * 1024); &quot; MB&quot;</div>
+<div class="line">PRINT &quot;Used % = &quot;; (MEMUSED * 100) / MEMORY</div>
+</div><!-- fragment --><p>Example on a 4 GB machine with200 MB used:</p>
+<div class="fragment"><div class="line">Used  = 200 MB</div>
+<div class="line">Free  = 3896 MB</div>
+<div class="line">Used % = 4</div>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md217"></a>
+Notes</h3>
+<ul>
+<li>Bytes, 64-bit integer.</li>
+<li>Includes kernel, caches (block cache, framebuffers, network buffers), plus all BASIC programs.</li>
+<li>Identity: <code>MEMFREE + MEMUSED = MEMORY</code>.</li>
+</ul>
+<p><b>See also:</b> <a class="el" href="MEMORY.html">MEMORY</a> · <a class="el" href="MEMFREE.html">MEMFREE</a> · <a class="el" href="MEMPEAK.html">MEMPEAK</a> · <a class="el" href="MEMPROGRAM.html">MEMPROGRAM</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -99,7 +119,7 @@ $(document).ready(function(){initNavTree('MEMUSED.html',''); initResizable(); })
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

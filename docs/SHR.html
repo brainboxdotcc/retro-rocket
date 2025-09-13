@@ -89,8 +89,30 @@ $(document).ready(function(){initNavTree('SHR.html',''); initResizable(); });
 <div class="title">SHR Function </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">SHR(integer-expression, integer-expression)</div>
-</div><!-- fragment --><p> Performs <a href="https://en.wikipedia.org/wiki/Logical_shift">bitwise shift right</a> and returns the result </p>
+<div class="textblock"><div class="fragment"><div class="line">SHR(value, count)</div>
+</div><!-- fragment --><p>Performs a <b>bitwise shift right</b> operation on an integer. The first parameter is the value to shift, the second is the number of bit positions.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md308"></a>
+Examples</h3>
+<div class="fragment"><div class="line">PRINT SHR(4, 1)</div>
+</div><!-- fragment --><p>Produces <code>2</code> (<code>0100</code> → <code>0010</code>).</p>
+<div class="fragment"><div class="line">PRINT SHR(9, 2)</div>
+</div><!-- fragment --><p>Produces <code>2</code> (<code>1001</code> → <code>0010</code>, fractional part discarded).</p>
+<div class="fragment"><div class="line">REM Divide by powers of two using SHR</div>
+<div class="line">n = 40</div>
+<div class="line">PRINT SHR(n, 3)   &#39; Same as 40 / 8 = 5</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md310"></a>
+Notes</h3>
+<ul>
+<li>Operates on 64-bit integers.</li>
+<li>Shifting right by <code>n</code> positions is equivalent to integer division by <code>2^n</code>.</li>
+<li>Bits shifted out on the right are discarded; new bits on the left are filled with zero.</li>
+<li>This is a <b>logical shift</b> (fills with zero), not an arithmetic shift. Negative values are not sign-extended.</li>
+<li>If the shift count is negative or larger than the bit width, behaviour is undefined.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="SHL.html">SHL</a> · <a class="el" href="BITAND.html">BITAND</a> · <a class="el" href="BITOR.html">BITOR</a> · <a class="el" href="BITNAND.html">BITNAND</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -98,7 +120,7 @@ $(document).ready(function(){initNavTree('SHR.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

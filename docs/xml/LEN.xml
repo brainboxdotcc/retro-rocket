@@ -7,7 +7,46 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">LEN(string-expression)</highlight></codeline>
-</programlisting> Returns the length in ASCII characters of a string expression </para>
+</programlisting></para>
+<para>Returns the <bold>length</bold> of a string in <bold>ASCII characters</bold>. The count includes all characters in the string, starting at <computeroutput>1</computeroutput> for the first character.</para>
+<para><hruler/>
+</para>
+<sect3 id="LEN_1autotoc_md186">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>LEN(&quot;Retro<sp/>Rocket&quot;)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>12</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Length<sp/>of<sp/>an<sp/>empty<sp/>string</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>LEN(&quot;&quot;)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>0</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Use<sp/>LEN<sp/>to<sp/>iterate<sp/>over<sp/>characters</highlight></codeline>
+<codeline><highlight class="normal">name$<sp/>=<sp/>&quot;HELLO&quot;</highlight></codeline>
+<codeline><highlight class="normal">FOR<sp/>i<sp/>=<sp/>1<sp/>TO<sp/>LEN(name$)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>MID$(name$,<sp/>i<sp/>-<sp/>1,<sp/>1)</highlight></codeline>
+<codeline><highlight class="normal">NEXT</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Truncate<sp/>a<sp/>string<sp/>if<sp/>too<sp/>long</highlight></codeline>
+<codeline><highlight class="normal">line$<sp/>=<sp/>&quot;This<sp/>is<sp/>a<sp/>long<sp/>string&quot;</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>LEN(line$)<sp/>&gt;<sp/>10<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Truncated:<sp/>&quot;;<sp/>LEFT$(line$,<sp/>10)</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="LEN_1autotoc_md188">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Returns an integer value ≥ 0.</para>
+</listitem><listitem><para>Length is measured in characters, not bytes — since Retro Rocket BASIC strings are ASCII, the two are identical.</para>
+</listitem><listitem><para>Useful together with <ref refid="LEFT" kindref="compound">LEFT$</ref>, <ref refid="RIGHT" kindref="compound">RIGHT$</ref>, and <ref refid="MID" kindref="compound">MID$</ref> for string slicing.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="LEFT" kindref="compound">LEFT$</ref> · <ref refid="RIGHT" kindref="compound">RIGHT$</ref> · <ref refid="MID" kindref="compound">MID$</ref> · <ref refid="ASC" kindref="compound">ASC</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/LEN.md"/>
   </compounddef>

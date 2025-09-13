@@ -93,7 +93,7 @@ $(document).ready(function(){initNavTree('PRINT.html',''); initResizable(); });
 </div><!-- fragment --><p>Outputs text at the current cursor position on the text screen. <br  />
  <code>printable</code> may be a string or a numeric expression; numbers are converted to text automatically.</p>
 <hr  />
-<h3><a class="anchor" id="autotoc_md419"></a>
+<h3><a class="anchor" id="autotoc_md899"></a>
 Separators and line endings</h3>
 <p><code>PRINT</code> accepts multiple items separated by <code>;</code> or <code>,</code>:</p>
 <ul>
@@ -109,7 +109,7 @@ Separators and line endings</h3>
 <dd>
 ```</dd></dl>
 <hr  />
-<h3><a class="anchor" id="autotoc_md421"></a>
+<h3><a class="anchor" id="autotoc_md901"></a>
 Using ANSI escape sequences (advanced)</h3>
 <p><code>PRINT</code> can emit ANSI/VT100 escape sequences directly. <br  />
  The escape character is <code>ESC</code>, which is <code>CHR$(27)</code>. Most sequences begin with <code>ESC</code> + <code>"["</code> (Control Sequence Introducer).</p>
@@ -152,7 +152,7 @@ For higher-level helpers and key handling, consider the </dd>
 <dd>
 <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ansi"><code>ansi</code></a> system library.</dd></dl>
 <hr  />
-<h3><a class="anchor" id="autotoc_md423"></a>
+<h3><a class="anchor" id="autotoc_md903"></a>
 Examples</h3>
 <p>Basic printing </p><div class="fragment"><div class="line">PRINT &quot;Hello&quot;</div>
 <div class="line">PRINT 123</div>
@@ -164,7 +164,7 @@ Examples</h3>
 </div><!-- fragment --><p>Simple coloured prompt using ANSI </p><div class="fragment"><div class="line">ESC$ = CHR$(27) + &quot;[&quot;</div>
 <div class="line">PRINT ESC$ + &quot;32m&quot; + &quot;OK&gt; &quot; + ESC$ + &quot;0m&quot;;</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md425"></a>
+<h3><a class="anchor" id="autotoc_md905"></a>
 Notes</h3>
 <ul>
 <li>Output affects the text layer. Use <code>COLOUR</code> and <code>BACKGROUND</code> for simple text colours, and <code>GCOL</code> for graphics drawing.</li>
@@ -180,7 +180,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

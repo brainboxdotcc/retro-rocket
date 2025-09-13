@@ -7,7 +7,38 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">TERMWIDTH</highlight></codeline>
-</programlisting> Returns the width of the current terminal in characters </para>
+</programlisting></para>
+<para>Returns the <bold>width</bold> of the current terminal, measured in <bold>character columns</bold>.</para>
+<para><hruler/>
+</para>
+<sect3 id="TERMWIDTH_1autotoc_md335">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;Terminal<sp/>width<sp/>=<sp/>&quot;;<sp/>TERMWIDTH</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Draw<sp/>a<sp/>border<sp/>along<sp/>the<sp/>top<sp/>of<sp/>the<sp/>screen</highlight></codeline>
+<codeline><highlight class="normal">CURSOR<sp/>1,<sp/>1</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>STRING$(TERMWIDTH,<sp/>&quot;-&quot;)</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Centre<sp/>text<sp/>horizontally</highlight></codeline>
+<codeline><highlight class="normal">midX<sp/>=<sp/>TERMWIDTH<sp/>/<sp/>2<sp/>-<sp/>(LEN(&quot;Hello,<sp/>world!&quot;)<sp/>/<sp/>2)</highlight></codeline>
+<codeline><highlight class="normal">CURSOR<sp/>midX,<sp/>TERMHEIGHT<sp/>/<sp/>2</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Hello,<sp/>world!&quot;</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="TERMWIDTH_1autotoc_md337">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Value is returned as an integer ≥ 1.</para>
+</listitem><listitem><para>Useful for horizontal positioning with <ref refid="CURSOR" kindref="compound">CURSOR</ref>.</para>
+</listitem><listitem><para>Works together with <ref refid="TERMHEIGHT" kindref="compound">TERMHEIGHT</ref> to adapt output to the current terminal size.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="TERMHEIGHT" kindref="compound">TERMHEIGHT</ref> · <ref refid="CURSOR" kindref="compound">CURSOR</ref> · <ref refid="CURRENTX" kindref="compound">CURRENTX</ref> · <ref refid="CURRENTY" kindref="compound">CURRENTY</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/TERMWIDTH.md"/>
   </compounddef>

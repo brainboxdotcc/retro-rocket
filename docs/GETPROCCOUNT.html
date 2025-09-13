@@ -90,7 +90,35 @@ $(document).ready(function(){initNavTree('GETPROCCOUNT.html',''); initResizable(
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">GETPROCCOUNT</div>
-</div><!-- fragment --><p> Returns the number of running processes. </p>
+</div><!-- fragment --><p>Returns the <b>number of processes</b> currently running in the system. This includes both user programs and background tasks managed by Retro Rocket OS.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md104"></a>
+Examples</h3>
+<div class="fragment"><div class="line">REM Print number of active processes</div>
+<div class="line">PRINT &quot;Running processes: &quot;; GETPROCCOUNT</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Use process count in a conditional</div>
+<div class="line">IF GETPROCCOUNT &gt; 10 THEN</div>
+<div class="line">    PRINT &quot;System busy&quot;</div>
+<div class="line">ELSE</div>
+<div class="line">    PRINT &quot;System idle&quot;</div>
+<div class="line">ENDIF</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Example: wait until background process finishes</div>
+<div class="line">start_count = GETPROCCOUNT</div>
+<div class="line">REPEAT</div>
+<div class="line">    PROCdoSomething</div>
+<div class="line">UNTIL GETPROCCOUNT = start_count</div>
+<div class="line">PRINT &quot;Background job ended&quot;</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md106"></a>
+Notes</h3>
+<ul>
+<li>The returned value is an <b>integer</b> ≥ 1 (the current program itself counts as a process).</li>
+<li>Values change dynamically as processes are created or end.</li>
+<li>Designed for diagnostic or monitoring use; it does not reveal details of which processes are running — only the <b>total count</b>.</li>
+<li>Use together with <a class="el" href="GETPROCNAME.html">GETPROCNAME$ Function</a>$ "GETPROCNAME\$" or <a class="el" href="GETPROCID.html">GETPROCID</a> to identify individual processes.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="GETPROCNAME.html">GETPROCNAME$ Function</a>$ "GETPROCNAME\$" · <a class="el" href="GETPROCID.html">GETPROCID</a> · KILL </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -98,7 +126,7 @@ $(document).ready(function(){initNavTree('GETPROCCOUNT.html',''); initResizable(
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

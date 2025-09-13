@@ -90,7 +90,32 @@ $(document).ready(function(){initNavTree('MEMPEAK.html',''); initResizable(); })
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">MEMPEAK</div>
-</div><!-- fragment --><p> Returns the peak used memory for the current BASIC program in its private heap, e.g. the largest memory allocation it has requested since starting. </p>
+</div><!-- fragment --><p>Returns the <b>peak memory usage</b> (in bytes) of the current BASIC program’s <b>private heap</b>. This is the largest amount of memory the program has allocated since it started running.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md207"></a>
+Examples</h3>
+<div class="fragment"><div class="line">REM Display peak usage directly</div>
+<div class="line">PRINT &quot;Peak memory usage = &quot;; MEMPEAK; &quot; bytes&quot;</div>
+</div><!-- fragment --><p>For a typical program this might print:</p>
+<div class="fragment"><div class="line">Peak memory usage = 409600 bytes</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Report in kilobytes</div>
+<div class="line">PRINT &quot;Peak memory = &quot;; MEMPEAK / 1024; &quot; KB&quot;</div>
+</div><!-- fragment --><p>Might print:</p>
+<div class="fragment"><div class="line">Peak memory = 400 KB</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Compare with current usage</div>
+<div class="line">PRINT &quot;Currently used = &quot;; MEMUSED; &quot; bytes&quot;</div>
+<div class="line">PRINT &quot;Peak usage     = &quot;; MEMPEAK; &quot; bytes&quot;</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md209"></a>
+Notes</h3>
+<ul>
+<li>The value is specific to the <b>current BASIC program</b>, not global OS memory usage.</li>
+<li>It is a <b>high-water mark</b>: once reached, the peak value will not decrease, even if memory is freed.</li>
+<li>Typical Retro Rocket BASIC programs today peak around a few hundred kilobytes, not megabytes.</li>
+<li>Returned as a 64-bit integer.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="MEMUSED.html">MEMUSED</a> · <a class="el" href="MEMFREE.html">MEMFREE</a> · <a class="el" href="MEMORY.html">MEMORY</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -98,7 +123,7 @@ $(document).ready(function(){initNavTree('MEMPEAK.html',''); initResizable(); })
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

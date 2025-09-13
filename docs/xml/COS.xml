@@ -7,7 +7,46 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">COS(real-expression)</highlight></codeline>
-</programlisting> Returns the cosine of the provided expression </para>
+</programlisting></para>
+<para>Returns the <bold>cosine</bold> of the given angle, where the angle is expressed in <bold>radians</bold>.</para>
+<para><hruler/>
+</para>
+<sect3 id="COS_1autotoc_md386">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>COS(0)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>1</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>COS(PI#<sp/>/<sp/>2)</highlight></codeline>
+</programlisting></para>
+<para>Produces approximately <computeroutput>0</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>COS(PI#)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>-1</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Plot<sp/>cosine<sp/>values<sp/>for<sp/>multiples<sp/>of<sp/>45<sp/>degrees</highlight></codeline>
+<codeline><highlight class="normal">FOR<sp/>d<sp/>=<sp/>0<sp/>TO<sp/>360<sp/>STEP<sp/>45</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>r#<sp/>=<sp/>d<sp/>*<sp/>PI#<sp/>/<sp/>180</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;COS(&quot;;<sp/>d;<sp/>&quot;°)<sp/>=<sp/>&quot;;<sp/>COS(r#)</highlight></codeline>
+<codeline><highlight class="normal">NEXT</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="COS_1autotoc_md388">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Argument is in <bold>radians</bold>. Convert degrees to radians with:</para>
+</listitem></itemizedlist>
+</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">radians#<sp/>=<sp/>degrees<sp/>*<sp/>PI#<sp/>/<sp/>180</highlight></codeline>
+</programlisting><itemizedlist>
+<listitem><para>Return value is a real number between <computeroutput>-1</computeroutput> and <computeroutput>1</computeroutput>.</para>
+</listitem><listitem><para>Related inverse function: <ref refid="ACS" kindref="compound">ACS</ref>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="SIN" kindref="compound">SIN</ref> · <ref refid="TAN" kindref="compound">TAN</ref> · <ref refid="ACS" kindref="compound">ACS</ref> · <ref refid="ATAN" kindref="compound">ATAN</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/real/COS.md"/>
   </compounddef>

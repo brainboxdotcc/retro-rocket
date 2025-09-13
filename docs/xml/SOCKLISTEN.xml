@@ -9,11 +9,9 @@
 <para><programlisting filename=".basic"><codeline><highlight class="normal">FD<sp/>=<sp/>SOCKLISTEN(ip$,<sp/>port,<sp/>backlog)</highlight></codeline>
 </programlisting></para>
 <para>Creates a <bold>listening TCP socket</bold> bound to <computeroutput>ip$:port</computeroutput> and starts queueing incoming connections (up to <computeroutput>backlog</computeroutput>). Returns a non-negative file descriptor on success, or <computeroutput>-1</computeroutput> on failure.</para>
-<para><simplesect kind="note"><para><computeroutput>SOCKACCEPT</computeroutput> is <bold>non-blocking</bold> and returns <computeroutput>-1</computeroutput> when no connection is ready.</para>
-</simplesect>
-<hruler/>
+<para><hruler/>
 </para>
-<sect3 id="SOCKLISTEN_1autotoc_md112">
+<sect3 id="SOCKLISTEN_1autotoc_md319">
 <title>How to use it</title>
 <para><itemizedlist>
 <listitem><para><computeroutput>ip$</computeroutput> is a dotted-quad string (e.g. <computeroutput>&quot;10.0.2.15&quot;</computeroutput>). Use <computeroutput>NETINFO$(&quot;ip&quot;)</computeroutput> for the local address.</para>
@@ -25,7 +23,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="SOCKLISTEN_1autotoc_md114">
+<sect3 id="SOCKLISTEN_1autotoc_md321">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Listen<sp/>and<sp/>handle<sp/>one<sp/>connection</highlight></codeline>
 <codeline><highlight class="normal">srv<sp/>=<sp/>SOCKLISTEN(NETINFO$(&quot;ip&quot;),<sp/>2000,<sp/>5)</highlight></codeline>
@@ -43,11 +41,10 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="SOCKLISTEN_1autotoc_md116">
+<sect3 id="SOCKLISTEN_1autotoc_md323">
 <title>Notes</title>
 <para><itemizedlist>
-<listitem><para>If <computeroutput>SOCKLISTEN</computeroutput> fails, an error message is raised and <computeroutput>-1</computeroutput> is returned.</para>
-</listitem><listitem><para>Binding to <computeroutput>&quot;0.0.0.0&quot;</computeroutput> (if supported) listens on all local interfaces.</para>
+<listitem><para>Binding to <computeroutput>&quot;0.0.0.0&quot;</computeroutput> (if supported) listens on all local interfaces.</para>
 </listitem><listitem><para><computeroutput>SOCKACCEPT</computeroutput> returns a new FD for each established connection; call repeatedly to drain the queue.</para>
 </listitem></itemizedlist>
 </para>

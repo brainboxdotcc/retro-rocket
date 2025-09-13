@@ -90,7 +90,42 @@ $(document).ready(function(){initNavTree('GETSIZE.html',''); initResizable(); })
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">GETSIZE(string-expression, integer-expression)</div>
-</div><!-- fragment --><p> Returns the size of a file in a directory. The string expression is a directory path, and the integer expression is an index between 0 and <code>GETNAMECOUNT() - 1</code> for the same directory. </p>
+</div><!-- fragment --><p>Returns the <b>size of a file</b> (in bytes) within a directory.</p>
+<ul>
+<li><code>string-expression</code> → path to the directory (fully qualified or relative to the current working directory).</li>
+<li><code>integer-expression</code> → file index in the range <code>0 … GETNAMECOUNT(dir$) - 1</code>, identifying the file in that directory.</li>
+</ul>
+<hr  />
+<h3><a class="anchor" id="autotoc_md129"></a>
+Examples</h3>
+<div class="fragment"><div class="line">REM Print size of all files in /programs</div>
+<div class="line">dir$ = &quot;/programs&quot;</div>
+<div class="line">count = GETNAMECOUNT(dir$)</div>
+<div class="line">FOR i = 0 TO count - 1</div>
+<div class="line">    PRINT GETNAME$(dir$, i); &quot; = &quot;; GETSIZE(dir$, i); &quot; bytes&quot;</div>
+<div class="line">NEXT</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Get size of the first file in /saves</div>
+<div class="line">size = GETSIZE(&quot;/saves&quot;, 0)</div>
+<div class="line">PRINT &quot;First save file size = &quot;; size; &quot; bytes&quot;</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Calculate total size of a directory</div>
+<div class="line">dir$ = &quot;/data&quot;</div>
+<div class="line">total = 0</div>
+<div class="line">FOR i = 0 TO GETNAMECOUNT(dir$) - 1</div>
+<div class="line">    total = total + GETSIZE(dir$, i)</div>
+<div class="line">NEXT</div>
+<div class="line">PRINT &quot;Total size of /data = &quot;; total; &quot; bytes&quot;</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md131"></a>
+Notes</h3>
+<ul>
+<li>Size is returned as a Retro Rocket BASIC integer (64-bit signed).</li>
+<li>Only valid for <b>files</b>. Subdirectories (if present) report size <code>0</code>.</li>
+<li>Index must be in range; otherwise an <b>error</b> occurs.</li>
+<li>Use together with <a class="el" href="GETNAME.html">GETNAME$ Function</a>$ "GETNAME\$" to list files and obtain their sizes.</li>
+<li>To count files before accessing by index, call <a class="el" href="GETNAMECOUNT.html">GETNAMECOUNT</a>.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="GETNAMECOUNT.html">GETNAMECOUNT</a> · <a class="el" href="GETNAME.html">GETNAME$ Function</a>$ "GETNAME\$" · <a class="el" href="OPENIN.html">OPENIN</a> · <a class="el" href="READ.html">READ$ Function</a>$ "READ\$" · <a class="el" href="CLOSE.html">CLOSE</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -98,7 +133,7 @@ $(document).ready(function(){initNavTree('GETSIZE.html',''); initResizable(); })
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -6,8 +6,49 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">integer-value<sp/>=<sp/>OCTVAL(string-value)</highlight></codeline>
-</programlisting> Returns the integer form of a string containing an octal number. </para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">OCTVAL(string-expression)</highlight></codeline>
+</programlisting></para>
+<para>Returns the <bold>integer value</bold> of a string containing an <bold>octal number</bold>. The string must consist only of valid octal digits (<computeroutput>0–7</computeroutput>).</para>
+<para><hruler/>
+</para>
+<sect3 id="OCTVAL_1autotoc_md229">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>OCTVAL(&quot;10&quot;)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>8</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>OCTVAL(&quot;755&quot;)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>493</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Convert<sp/>user<sp/>input</highlight></codeline>
+<codeline><highlight class="normal">INPUT<sp/>&quot;Enter<sp/>an<sp/>octal<sp/>number<sp/>&gt;<sp/>&quot;<sp/>;<sp/>o$</highlight></codeline>
+<codeline><highlight class="normal">val<sp/>=<sp/>OCTVAL(o$)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;You<sp/>entered<sp/>decimal<sp/>&quot;;<sp/>val</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Round-trip<sp/>using<sp/>OCT$</highlight></codeline>
+<codeline><highlight class="normal">n<sp/>=<sp/>64</highlight></codeline>
+<codeline><highlight class="normal">o$<sp/>=<sp/>OCT$(n)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>o$;<sp/>&quot;<sp/>=<sp/>&quot;;<sp/>OCTVAL(o$)</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="OCTVAL_1autotoc_md231">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Parsing is strict: only digits <computeroutput>0–7</computeroutput> are allowed.</para>
+</listitem><listitem><para>Returns a <bold>64-bit integer</bold>.</para>
+</listitem><listitem><para>If the string is empty, or contains any character outside <computeroutput>0–7</computeroutput>, the return value is <computeroutput>0</computeroutput>.</para>
+</listitem><listitem><para><bold>Important distinction:</bold><itemizedlist>
+<listitem><para>In BASIC source code, you can write octal literals with a <computeroutput>&amp;O</computeroutput> prefix (e.g. <computeroutput>&amp;O755</computeroutput>).</para>
+</listitem><listitem><para>In strings passed to <computeroutput>OCTVAL</computeroutput>, only the raw digits are valid — no prefix.</para>
+</listitem></itemizedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> OCT$ · <ref refid="STR" kindref="compound">STR$</ref> · <ref refid="HEXVAL" kindref="compound">HEXVAL</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/OCTVAL.md"/>
   </compounddef>

@@ -1,4 +1,5 @@
 \page UDPREAD UDPREAD$ Function
+
 ```basic
 S$ = UDPREAD$(port)
 ```
@@ -21,6 +22,7 @@ Dequeues the **next UDP packet** for `port` and returns its **payload** as a str
 ---
 
 ### Examples
+
 ```basic
 UDPBIND "0.0.0.0", 8080
 S$ = UDPREAD$(8080)
@@ -43,4 +45,4 @@ PRINT S$
 - `UDPLASTIP$` and `UDPLASTSOURCEPORT` always refer to the **most recent** packet returned by `UDPREAD$`.
 
 **See also:**  
-\ref UDPBIND "UDPBIND" · [UDPLASTIP$](https://github.com/brainboxdotcc/retro-rocket/wiki/UDPLASTIP%24) · \ref UDPLASTSOURCEPORT "UDPLASTSOURCEPORT" · \ref UDPWRITE "UDPWRITE"
+\ref UDPBIND "UDPBIND" · \ref UDPLASTIP "UDPLASTIP$" · \ref UDPLASTSOURCEPORT "UDPLASTSOURCEPORT" · \ref UDPWRITE "UDPWRITE"

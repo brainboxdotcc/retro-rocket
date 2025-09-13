@@ -6,8 +6,46 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">RGB(integer-expression,<sp/>integer-expression,<sp/>integer-expression)</highlight></codeline>
-</programlisting> Returns an RGB value from three integer values between 0 and 255. </para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">RGB(red,<sp/>green,<sp/>blue)</highlight></codeline>
+</programlisting></para>
+<para>Combines three integers into a single <bold>RGB colour value</bold>. Each parameter must be an integer in the range <bold>0–255</bold>:</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>red</computeroutput> → intensity of the red channel</para>
+</listitem><listitem><para><computeroutput>green</computeroutput> → intensity of the green channel</para>
+</listitem><listitem><para><computeroutput>blue</computeroutput> → intensity of the blue channel</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<sect3 id="RGB_1autotoc_md283">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Create<sp/>pure<sp/>red</highlight></codeline>
+<codeline><highlight class="normal">col<sp/>=<sp/>RGB(255,<sp/>0,<sp/>0)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Red<sp/>=<sp/>&quot;;<sp/>col</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Create<sp/>a<sp/>shade<sp/>of<sp/>purple</highlight></codeline>
+<codeline><highlight class="normal">col<sp/>=<sp/>RGB(128,<sp/>0,<sp/>128)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Purple<sp/>=<sp/>&quot;;<sp/>col</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Use<sp/>in<sp/>drawing</highlight></codeline>
+<codeline><highlight class="normal">GCOL<sp/>RGB(0,<sp/>255,<sp/>0)</highlight></codeline>
+<codeline><highlight class="normal">RECTANGLE<sp/>10,<sp/>10,<sp/>100,<sp/>50</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="RGB_1autotoc_md285">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>The return value is a 24-bit RGB colour packed into an integer.</para>
+</listitem><listitem><para>Valid range for each channel is 0–255; values outside this range are clipped.</para>
+</listitem><listitem><para>Typically used with graphics commands such as <ref refid="GCOL" kindref="compound">GCOL</ref> and <ref refid="RECTANGLE" kindref="compound">RECTANGLE</ref>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="GCOL" kindref="compound">GCOL</ref> · <ref refid="RECTANGLE" kindref="compound">RECTANGLE</ref> · <ref refid="POINT" kindref="compound">POINT</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/RGB.md"/>
   </compounddef>

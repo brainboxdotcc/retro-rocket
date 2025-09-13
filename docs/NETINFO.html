@@ -90,13 +90,38 @@ $(document).ready(function(){initNavTree('NETINFO.html',''); initResizable(); })
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">NETINFO$(string-expression)</div>
-</div><!-- fragment --><p> Returns network confdiguration settings. The string-expression should be one of:</p><ul>
-<li><code>ip</code> - Returns the current IP address</li>
-<li><code>gw</code> - Returns the gateway address</li>
-<li><code>mask</code> - Returns the network mask</li>
-<li><code>dns</code> - Returns the DNS server address</li>
+</div><!-- fragment --><p>Returns <b>network configuration settings</b> as a string. The parameter specifies which setting to query:</p>
+<ul>
+<li><code>"ip"</code> → current IP address</li>
+<li><code>"gw"</code> → gateway address</li>
+<li><code>"mask"</code> → network mask</li>
+<li><code>"dns"</code> → DNS server address</li>
 </ul>
-<p><img src="https://user-images.githubusercontent.com/1556794/233865101-f9c39694-5a63-4163-921b-c2b5a23cb4ce.png" alt="image" class="inline"/> </p>
+<div class="image">
+<img src="ip.png" alt=""/>
+</div>
+<hr  />
+<h3><a class="anchor" id="autotoc_md532"></a>
+Examples</h3>
+<div class="fragment"><div class="line">PRINT &quot;IP Address: &quot;; NETINFO$(&quot;ip&quot;)</div>
+<div class="line">PRINT &quot;Gateway:    &quot;; NETINFO$(&quot;gw&quot;)</div>
+<div class="line">PRINT &quot;Mask:       &quot;; NETINFO$(&quot;mask&quot;)</div>
+<div class="line">PRINT &quot;DNS:        &quot;; NETINFO$(&quot;dns&quot;)</div>
+</div><!-- fragment --><p>Might produce:</p>
+<div class="fragment"><div class="line">IP Address: 192.168.1.42</div>
+<div class="line">Gateway:    192.168.1.1</div>
+<div class="line">Mask:       255.255.255.0</div>
+<div class="line">DNS:        8.8.8.8</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md534"></a>
+Notes</h3>
+<ul>
+<li>Returned values depend on the active network configuration of the operating system.</li>
+<li>If no network is configured, an error is raised.</li>
+<li>All results are IPv4 addresses in dotted decimal notation.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="DNS.html">DNS$</a> · <a class="el" href="CONNECT.html">CONNECT</a> · <a class="el" href="SOCKSTATUS.html">SOCKSTATUS</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -104,7 +129,7 @@ $(document).ready(function(){initNavTree('NETINFO.html',''); initResizable(); })
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="string-funcs.html">String Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

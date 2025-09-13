@@ -90,8 +90,29 @@ $(document).ready(function(){initNavTree('FMOD.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">FMOD(real-x, real-y)</div>
-</div><!-- fragment --><p> Returns the floating-point remainder of x / y.</p>
-<p>For example, <code>FMOD(5.3, 2)</code> returns <code>1.3</code>. </p>
+</div><!-- fragment --><p>Returns the <b>floating-point remainder</b> of <code>x ÷ y</code>. This is the value left over after dividing <code>x</code> by <code>y</code>, keeping the <b>sign of the dividend</b> (<code>x</code>).</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md401"></a>
+Examples</h3>
+<div class="fragment"><div class="line">PRINT FMOD(5.3, 2)</div>
+</div><!-- fragment --><p>Produces <code>1.3</code>.</p>
+<div class="fragment"><div class="line">PRINT FMOD(-5.3, 2)</div>
+</div><!-- fragment --><p>Produces <code>-1.3</code>.</p>
+<div class="fragment"><div class="line">REM Use FMOD to wrap angles into 0–360 degrees</div>
+<div class="line">angle# = 725</div>
+<div class="line">PRINT FMOD(angle#, 360)</div>
+</div><!-- fragment --><p>Produces <code>5</code>.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md403"></a>
+Notes</h3>
+<ul>
+<li><code>y</code> must not be <code>0</code> — this causes an error.</li>
+<li>The result has the same sign as the dividend (<code>x</code>).</li>
+<li>Differs from integer modulus (<code>%</code>) because it works with reals and preserves fractional parts.</li>
+<li>Useful for periodic functions, angle wrapping, and floating-point arithmetic.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="ROUND.html">ROUND</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -99,7 +120,7 @@ $(document).ready(function(){initNavTree('FMOD.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="real-funcs.html">Real Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

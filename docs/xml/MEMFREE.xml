@@ -6,8 +6,46 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting><codeline><highlight class="normal">MEMFREE</highlight></codeline>
-</programlisting> Returns the total free memory for all BASIC programs and the operating system in bytes </para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">MEMFREE</highlight></codeline>
+</programlisting></para>
+<para>Returns the total amount of <bold>free memory</bold> available to BASIC programs and the operating system, in <bold>bytes</bold>.</para>
+<para><hruler/>
+</para>
+<sect3 id="MEMFREE_1autotoc_md196">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>free<sp/>memory</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>MEMFREE</highlight></codeline>
+</programlisting></para>
+<para>On a 4 GB machine with3.5 GB available, this might print:</para>
+<para><programlisting><codeline><highlight class="normal">3758096384</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Convert<sp/>to<sp/>megabytes<sp/>for<sp/>easier<sp/>reading</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>MEMFREE<sp/>/<sp/>(1024<sp/>*<sp/>1024);<sp/>&quot;<sp/>MB<sp/>free&quot;</highlight></codeline>
+</programlisting></para>
+<para>On the same 4 GB machine, this might print:</para>
+<para><programlisting><codeline><highlight class="normal">3584<sp/>MB<sp/>free</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Simple<sp/>check<sp/>for<sp/>low<sp/>memory</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>MEMFREE<sp/>&lt;<sp/>(512<sp/>*<sp/>1024<sp/>*<sp/>1024)<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Warning:<sp/>less<sp/>than<sp/>512<sp/>MB<sp/>free&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="MEMFREE_1autotoc_md198">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>The value is in <bold>bytes</bold>, returned as a 64-bit integer.</para>
+</listitem><listitem><para>Represents free space across the whole system (OS + BASIC).</para>
+</listitem><listitem><para>Actual available memory on a “4 GB” system is typically less than 4096 MB due to hardware reservations.</para>
+</listitem><listitem><para>The value changes dynamically as programs allocate or free memory.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="MEMUSED" kindref="compound">MEMUSED</ref> · <ref refid="MEMORY" kindref="compound">MEMORY</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/MEMFREE.md"/>
   </compounddef>

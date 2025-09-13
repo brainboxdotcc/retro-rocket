@@ -90,9 +90,44 @@ $(document).ready(function(){initNavTree('TOKENIZE.html',''); initResizable(); }
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">TOKENIZE$(string-variable, string-expression)</div>
-</div><!-- fragment --><p> Searches for the first occurance of the string-expression value within the value of the string-variable given, splitting the value at that point and returning the portion of the string before the split, changing the string to become the content that came after the split. For example:</p>
-<p><img src="https://user-images.githubusercontent.com/1556794/235389891-e8973648-eb27-40b5-b7e2-35c02baaf311.png" alt="image" class="inline"/></p>
-<p>The string-expression is not limited to one character, if a multiple character string value is specified, this will be the whole separator. </p>
+</div><!-- fragment --><p>Splits a string variable into tokens, using the given separator string.</p>
+<ul>
+<li>Returns the portion of the string <b>before</b> the separator.</li>
+<li>Modifies the original string variable so that it now contains only the <b>remainder</b> (after the separator).</li>
+<li>If the separator does not occur, the entire string is returned and the variable becomes empty.</li>
+<li>The separator can be more than one character.</li>
+</ul>
+<hr  />
+<h3><a class="anchor" id="autotoc_md589"></a>
+Examples</h3>
+<div class="fragment"><div class="line">V$ = &quot;ONE TWO&quot;</div>
+<div class="line">A$ = TOKENIZE$(V$, &quot; &quot;)</div>
+<div class="line">B$ = TOKENIZE$(V$, &quot; &quot;)</div>
+<div class="line">PRINT A$, B$</div>
+</div><!-- fragment --><p>Produces:</p>
+<div class="fragment"><div class="line">ONE TWO</div>
+</div><!-- fragment --><p>and afterwards <code>V$</code> is empty.</p>
+<div class="image">
+<img src="tokenize.png" alt=""/>
+</div>
+<div class="fragment"><div class="line">REM Split a CSV line</div>
+<div class="line">line$ = &quot;red,green,blue&quot;</div>
+<div class="line">c1$ = TOKENIZE$(line$, &quot;,&quot;)</div>
+<div class="line">c2$ = TOKENIZE$(line$, &quot;,&quot;)</div>
+<div class="line">c3$ = TOKENIZE$(line$, &quot;,&quot;)</div>
+<div class="line">PRINT c1$, c2$, c3$</div>
+</div><!-- fragment --><p>Produces:</p>
+<div class="fragment"><div class="line">red green blue</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md591"></a>
+Notes</h3>
+<ul>
+<li>The first parameter must be a <b>string variable</b> (not a literal), because its value is modified in-place.</li>
+<li>The second parameter is the <b>separator string</b>.</li>
+<li>Useful for parsing space-separated or delimiter-separated text.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="LEFT.html">LEFT$</a> · <a class="el" href="RIGHT.html">RIGHT$</a> · <a class="el" href="MID.html">MID$</a> · <a class="el" href="REVERSE.html">REVERSE$</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -100,7 +135,7 @@ $(document).ready(function(){initNavTree('TOKENIZE.html',''); initResizable(); }
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="string-funcs.html">String Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

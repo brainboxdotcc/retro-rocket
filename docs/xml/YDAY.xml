@@ -6,14 +6,46 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">numeric-expression<sp/>=<sp/>YDAY(boolean-expression)</highlight></codeline>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">YDAY(boolean-expression)</highlight></codeline>
 </programlisting></para>
-<para>Returns the day of the year (1–366). <linebreak/>
- Pass <computeroutput>TRUE</computeroutput> to use the configured time zone and DST rules, or <computeroutput>FALSE</computeroutput> for UTC.</para>
-<para>Example:</para>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>YDAY(TRUE)<sp/><sp/><sp/>&apos;<sp/>Local<sp/>day<sp/>of<sp/>year</highlight></codeline>
-<codeline><highlight class="normal">PRINT<sp/>YDAY(FALSE)<sp/><sp/>&apos;<sp/>UTC<sp/>day<sp/>of<sp/>year</highlight></codeline>
-</programlisting> </para>
+<para>Returns the <bold>day of the year</bold> as an integer in the range <bold>1–366</bold>.</para>
+<para><itemizedlist>
+<listitem><para>Pass <computeroutput>TRUE</computeroutput> → local time (using configured time zone and DST rules).</para>
+</listitem><listitem><para>Pass <computeroutput>FALSE</computeroutput> → UTC (Coordinated Universal Time).</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<sect3 id="YDAY_1autotoc_md356">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;Local<sp/>day<sp/>of<sp/>year<sp/>=<sp/>&quot;;<sp/>YDAY(TRUE)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;UTC<sp/>day<sp/>of<sp/>year<sp/><sp/><sp/>=<sp/>&quot;;<sp/>YDAY(FALSE)</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Show<sp/>progress<sp/>through<sp/>the<sp/>year</highlight></codeline>
+<codeline><highlight class="normal">d<sp/>=<sp/>YDAY(TRUE)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Day<sp/>&quot;;<sp/>d;<sp/>&quot;<sp/>of<sp/>the<sp/>year&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;That<sp/>is<sp/>&quot;;<sp/>(d<sp/>*<sp/>100)<sp/>/<sp/>365;<sp/>&quot;%<sp/>complete&quot;</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Check<sp/>for<sp/>leap<sp/>year<sp/>extra<sp/>day</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>YDAY(FALSE)<sp/>=<sp/>366<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Leap<sp/>year!&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="YDAY_1autotoc_md358">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Valid range is <bold>1–365</bold> for common years, <bold>1–366</bold> for leap years.</para>
+</listitem><listitem><para>Local time depends on system configuration. Without time zone setup, local and UTC values are the same.</para>
+</listitem><listitem><para>Useful for progress counters, calendars, and date calculations.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="DAY" kindref="compound">DAY</ref> · <ref refid="MONTH" kindref="compound">MONTH</ref> · <ref refid="YEAR" kindref="compound">YEAR</ref> · <ref refid="WEEKDAY" kindref="compound">WEEKDAY</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/YDAY.md"/>
   </compounddef>

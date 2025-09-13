@@ -6,9 +6,42 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting><codeline><highlight class="normal">LOG(real-expression)</highlight></codeline>
-</programlisting> Returns the natural logarithm (base <computeroutput>e</computeroutput>) of the given expression.</para>
-<para>The input must be greater than <computeroutput>0</computeroutput>. </para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">LOG(real-expression)</highlight></codeline>
+</programlisting></para>
+<para>Returns the <bold>natural logarithm</bold> (base <emphasis>e</emphasis>, approximately <computeroutput>2.71828</computeroutput>) of the given expression.</para>
+<para>The input must be strictly greater than <computeroutput>0</computeroutput>.</para>
+<para><hruler/>
+</para>
+<sect3 id="LOG_1autotoc_md411">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>LOG(1)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>0</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>LOG(EXP(3))</highlight></codeline>
+</programlisting></para>
+<para>Produces approximately <computeroutput>3</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Convert<sp/>exponential<sp/>growth<sp/>back<sp/>to<sp/>linear<sp/>scale</highlight></codeline>
+<codeline><highlight class="normal">value#<sp/>=<sp/>1000</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;ln(&quot;;<sp/>value#;<sp/>&quot;)<sp/>=<sp/>&quot;;<sp/>LOG(value#)</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="LOG_1autotoc_md413">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Domain: input must be <computeroutput>&gt; 0</computeroutput>.</para>
+</listitem><listitem><para>Range: result may be any real number.</para>
+</listitem><listitem><para>Inverse of <ref refid="EXP" kindref="compound">EXP</ref>: <computeroutput>LOG(EXP(x)) = x</computeroutput>.</para>
+</listitem><listitem><para>To compute logarithms in other bases:</para>
+</listitem></itemizedlist>
+</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">LOG10(x#)<sp/>=<sp/>LOG(x#)<sp/>/<sp/>LOG(10)</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="EXP" kindref="compound">EXP</ref> · <ref refid="POW" kindref="compound">POW</ref> · <ref refid="SQR" kindref="compound">SQR</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/real/LOG.md"/>
   </compounddef>

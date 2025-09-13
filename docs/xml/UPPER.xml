@@ -7,7 +7,40 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">UPPER$(string-expression)</highlight></codeline>
-</programlisting> Convert a string expression to upper case, using ASCII case folding rules. </para>
+</programlisting></para>
+<para>Converts a string expression to <bold>upper case</bold>, using standard ASCII case folding rules.</para>
+<para><hruler/>
+</para>
+<sect3 id="UPPER_1autotoc_md612">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>UPPER$(&quot;hello&quot;)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>&quot;HELLO&quot;</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>UPPER$(&quot;Retro<sp/>Rocket<sp/>123!&quot;)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>&quot;RETRO ROCKET 123!&quot;</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Normalise<sp/>case<sp/>for<sp/>comparison</highlight></codeline>
+<codeline><highlight class="normal">a$<sp/>=<sp/>&quot;yes&quot;</highlight></codeline>
+<codeline><highlight class="normal">b$<sp/>=<sp/>&quot;YES&quot;</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>UPPER$(a$)<sp/>=<sp/>UPPER$(b$)<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;They<sp/>match!&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="UPPER_1autotoc_md614">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Only affects ASCII letters <computeroutput>a–z</computeroutput> (97–122), converting them to <computeroutput>A–Z</computeroutput> (65–90).</para>
+</listitem><listitem><para>Non-alphabetic characters are unchanged.</para>
+</listitem><listitem><para>Useful for case-insensitive comparisons, normalisation, and text processing.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="LOWER" kindref="compound">LOWER$</ref> · <ref refid="LEN" kindref="compound">LEN</ref> · <ref refid="MID" kindref="compound">MID$</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/UPPER.md"/>
   </compounddef>

@@ -16,4 +16,5 @@
 - \subpage REALVAL
 - \subpage ROUND
 - \subpage SIN
+- \subpage SQR
 - \subpage TAN

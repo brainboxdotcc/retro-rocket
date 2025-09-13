@@ -6,8 +6,39 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">SHL(integer-expression,<sp/>integer-expression)</highlight></codeline>
-</programlisting> Performs <ulink url="https://en.wikipedia.org/wiki/Logical_shift">bitwise shift left</ulink> and returns the result </para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">SHL(value,<sp/>count)</highlight></codeline>
+</programlisting></para>
+<para>Performs a <bold>bitwise shift left</bold> operation on an integer. The first parameter is the value to shift, the second is the number of bit positions.</para>
+<para><hruler/>
+</para>
+<sect3 id="SHL_1autotoc_md303">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>SHL(1,<sp/>1)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>2</computeroutput> (<computeroutput>0001</computeroutput> → <computeroutput>0010</computeroutput>).</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>SHL(3,<sp/>2)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>12</computeroutput> (<computeroutput>0011</computeroutput> → <computeroutput>1100</computeroutput>).</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Multiply<sp/>by<sp/>powers<sp/>of<sp/>two<sp/>using<sp/>SHL</highlight></codeline>
+<codeline><highlight class="normal">n<sp/>=<sp/>7</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>SHL(n,<sp/>3)<sp/><sp/><sp/>&apos;<sp/>Same<sp/>as<sp/>7<sp/>*<sp/>8<sp/>=<sp/>56</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="SHL_1autotoc_md305">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Operates on 64-bit integers.</para>
+</listitem><listitem><para>Shifting left by <computeroutput>n</computeroutput> positions is equivalent to multiplying by <computeroutput>2^n</computeroutput>.</para>
+</listitem><listitem><para>Bits shifted out on the left are discarded; new bits on the right are filled with zero.</para>
+</listitem><listitem><para>If the shift count is negative or larger than the bit width, behaviour is undefined.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="SHR" kindref="compound">SHR</ref> · <ref refid="BITAND" kindref="compound">BITAND</ref> · <ref refid="BITOR" kindref="compound">BITOR</ref> · <ref refid="BITNAND" kindref="compound">BITNAND</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/SHL.md"/>
   </compounddef>

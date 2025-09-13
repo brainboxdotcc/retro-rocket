@@ -6,8 +6,52 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting filename=".BASIC"><codeline><highlight class="normal">OPENIN(string-expression)</highlight></codeline>
-</programlisting> Opens a file for input (reading), returning an integer file handle used for <computeroutput>READ</computeroutput> and <computeroutput>CLOSE</computeroutput>. </para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">OPENIN(string-expression)</highlight></codeline>
+</programlisting></para>
+<para>Opens a file for <bold>input</bold> (reading only). Returns an <bold>integer file handle</bold> that must be used with <ref refid="READ" kindref="compound">READ$</ref> and <ref refid="CLOSE" kindref="compound">CLOSE</ref>.</para>
+<para><hruler/>
+</para>
+<sect3 id="OPENIN_1autotoc_md234">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Open<sp/>a<sp/>file<sp/>for<sp/>reading</highlight></codeline>
+<codeline><highlight class="normal">fh<sp/>=<sp/>OPENIN(&quot;/data/example.txt&quot;)</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>fh<sp/>&lt;<sp/>0<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Failed<sp/>to<sp/>open<sp/>file&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>END</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">REPEAT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>line$<sp/>=<sp/>READ$(fh)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>IF<sp/>EOF(fh)<sp/>=<sp/>0<sp/>THEN<sp/>PRINT<sp/>line$</highlight></codeline>
+<codeline><highlight class="normal">UNTIL<sp/>EOF(fh)<sp/>=<sp/>1</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">CLOSE<sp/>fh</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Handle<sp/>missing<sp/>file<sp/>gracefully</highlight></codeline>
+<codeline><highlight class="normal">fh<sp/>=<sp/>OPENIN(&quot;/notfound.txt&quot;)</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>fh<sp/>&lt;<sp/>0<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;File<sp/>not<sp/>found&quot;</highlight></codeline>
+<codeline><highlight class="normal">ELSE</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;File<sp/>opened<sp/>successfully&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>CLOSE<sp/>fh</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="OPENIN_1autotoc_md236">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Returns a <bold>non-negative handle</bold> on success, or a <bold>negative value</bold> on failure.</para>
+</listitem><listitem><para>File handle must be closed with <ref refid="CLOSE" kindref="compound">CLOSE</ref> when no longer needed.</para>
+</listitem><listitem><para>Works with <ref refid="EOF" kindref="compound">EOF</ref> to detect end-of-file during reads.</para>
+</listitem><listitem><para>Use <ref refid="OPENOUT" kindref="compound">OPENOUT</ref> to create or overwrite files, and <ref refid="OPENUP" kindref="compound">OPENUP</ref> to append to existing files.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="READ" kindref="compound">READ$</ref> · <ref refid="CLOSE" kindref="compound">CLOSE</ref> · <ref refid="OPENOUT" kindref="compound">OPENOUT</ref> · <ref refid="OPENUP" kindref="compound">OPENUP</ref> · <ref refid="EOF" kindref="compound">EOF</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/OPENIN.md"/>
   </compounddef>

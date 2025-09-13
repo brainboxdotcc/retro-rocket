@@ -90,7 +90,41 @@ $(document).ready(function(){initNavTree('GETPROCCPUID.html',''); initResizable(
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">GETPROCCPUID(integer-expression)</div>
-</div><!-- fragment --><p> Returns the process CPU ID for a running process, the integer expression is an index between 0 and <code>GETPROCCOUNT - 1</code> </p>
+</div><!-- fragment --><p>Returns the <b>CPU ID</b> on which the specified process is currently running. The parameter is an <b>index</b> in the range <code>0</code> to <code>GETPROCCOUNT - 1</code>, identifying one of the active processes.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md109"></a>
+Examples</h3>
+<div class="fragment"><div class="line">REM Print CPU ID for every running process</div>
+<div class="line">FOR i = 0 TO GETPROCCOUNT - 1</div>
+<div class="line">    PRINT &quot;Process &quot;; i; &quot; is on CPU &quot;; GETPROCCPUID(i)</div>
+<div class="line">NEXT</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Monitor a specific process</div>
+<div class="line">idx = 2</div>
+<div class="line">PRINT &quot;Process &quot;; idx; &quot; CPU ID: &quot;; GETPROCCPUID(idx)</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Check if any process is bound to CPU 0</div>
+<div class="line">found = FALSE</div>
+<div class="line">FOR i = 0 TO GETPROCCOUNT - 1</div>
+<div class="line">    IF GETPROCCPUID(i) = 0 THEN</div>
+<div class="line">        found = TRUE</div>
+<div class="line">    ENDIF</div>
+<div class="line">NEXT</div>
+<div class="line">IF found = TRUE THEN PRINT &quot;At least one process on CPU 0&quot;</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md111"></a>
+Notes</h3>
+<ul>
+<li>CPU IDs are <b>zero-based</b>:<ul>
+<li><code>0</code> → first CPU core</li>
+<li><code>1</code> → second CPU core, etc.</li>
+</ul>
+</li>
+<li>The mapping can change as the scheduler moves processes between CPUs.</li>
+<li>Passing an index outside the valid range (<code>0 … GETPROCCOUNT - 1</code>) raises an <b>error</b>.</li>
+<li>Useful for observing process distribution in multi-core systems.</li>
+<li>To get process names or IDs instead of CPU IDs, use <a class="el" href="GETPROCNAME.html">GETPROCNAME$ Function</a>$ "GETPROCNAME\$" or <a class="el" href="GETPROCID.html">GETPROCID</a>.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="GETPROCCOUNT.html">GETPROCCOUNT</a> · <a class="el" href="GETPROCNAME.html">GETPROCNAME$ Function</a>$ "GETPROCNAME\$" · <a class="el" href="GETPROCID.html">GETPROCID</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -98,7 +132,7 @@ $(document).ready(function(){initNavTree('GETPROCCPUID.html',''); initResizable(
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

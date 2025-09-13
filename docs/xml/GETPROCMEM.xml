@@ -7,7 +7,47 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">GETPROCMEM(integer-expression)</highlight></codeline>
-</programlisting> Returns the process memory usage in bytes for a running process, the integer expression is an index between 0 and <computeroutput>GETPROCCOUNT - 1</computeroutput> </para>
+</programlisting></para>
+<para>Returns the <bold>memory usage in bytes</bold> of a running process. The parameter is an <bold>index</bold> in the range <computeroutput>0</computeroutput> to <computeroutput>GETPROCCOUNT - 1</computeroutput>, identifying one of the active processes.</para>
+<para><hruler/>
+</para>
+<sect3 id="GETPROCMEM_1autotoc_md119">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>memory<sp/>usage<sp/>of<sp/>all<sp/>running<sp/>processes</highlight></codeline>
+<codeline><highlight class="normal">FOR<sp/>i<sp/>=<sp/>0<sp/>TO<sp/>GETPROCCOUNT<sp/>-<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Process<sp/>&quot;;<sp/>i;<sp/>&quot;<sp/>uses<sp/>&quot;;<sp/>GETPROCMEM(i);<sp/>&quot;<sp/>bytes&quot;</highlight></codeline>
+<codeline><highlight class="normal">NEXT</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Check<sp/>if<sp/>a<sp/>process<sp/>exceeds<sp/>a<sp/>memory<sp/>limit</highlight></codeline>
+<codeline><highlight class="normal">idx<sp/>=<sp/>2</highlight></codeline>
+<codeline><highlight class="normal">mem<sp/>=<sp/>GETPROCMEM(idx)</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>mem<sp/>&gt;<sp/>1048576<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Process<sp/>&quot;;<sp/>idx;<sp/>&quot;<sp/>exceeds<sp/>1<sp/>MB&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Sum<sp/>total<sp/>memory<sp/>of<sp/>all<sp/>processes</highlight></codeline>
+<codeline><highlight class="normal">total<sp/>=<sp/>0</highlight></codeline>
+<codeline><highlight class="normal">FOR<sp/>i<sp/>=<sp/>0<sp/>TO<sp/>GETPROCCOUNT<sp/>-<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>total<sp/>=<sp/>total<sp/>+<sp/>GETPROCMEM(i)</highlight></codeline>
+<codeline><highlight class="normal">NEXT</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Total<sp/>memory<sp/>used<sp/>by<sp/>all<sp/>processes<sp/>=<sp/>&quot;;<sp/>total;<sp/>&quot;<sp/>bytes&quot;</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="GETPROCMEM_1autotoc_md121">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Returned value is in <bold>bytes</bold>, as a Retro Rocket BASIC integer.</para>
+</listitem><listitem><para>Memory usage reflects the process’s working set at the time of the call; it may change dynamically as the process allocates or frees memory.</para>
+</listitem><listitem><para>Passing an index outside <computeroutput>0 … GETPROCCOUNT - 1</computeroutput> raises an <bold>error</bold>.</para>
+</listitem><listitem><para>Use alongside <ref refid="GETPROCID" kindref="compound">GETPROCID</ref> or <ref refid="GETPROCNAME" kindref="compound">GETPROCNAME$</ref> to relate memory use to specific processes.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="GETPROCCOUNT" kindref="compound">GETPROCCOUNT</ref> · <ref refid="GETPROCID" kindref="compound">GETPROCID</ref> · <ref refid="GETPROCNAME" kindref="compound">GETPROCNAME$</ref> · <ref refid="GETPROCCPUID" kindref="compound">GETPROCCPUID</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/GETPROCMEM.md"/>
   </compounddef>

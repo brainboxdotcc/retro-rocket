@@ -7,7 +7,50 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">ABS(numeric-expression)</highlight></codeline>
-</programlisting> Return the absolute value of a numeric expression, e.g. negative values are made positive. </para>
+</programlisting></para>
+<para>Returns the <bold>absolute value</bold> of a numeric expression. Negative values are converted to positive; positive values remain unchanged.</para>
+<para><hruler/>
+</para>
+<sect3 id="ABS_1autotoc_md57">
+<title>How to read it</title>
+<para><itemizedlist>
+<listitem><para>For integers: <computeroutput>ABS(-5)</computeroutput> becomes <computeroutput>5</computeroutput>.</para>
+</listitem><listitem><para>For reals: <computeroutput>ABS(-3.14)</computeroutput> becomes <computeroutput>3.14</computeroutput>.</para>
+</listitem><listitem><para>Zero always remains <computeroutput>0</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="ABS_1autotoc_md59">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>ABS(-42)</highlight></codeline>
+</programlisting></para>
+<para>This example produces <computeroutput>42</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">A#<sp/>=<sp/>-12.5</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>ABS(A#)</highlight></codeline>
+</programlisting></para>
+<para>This example produces <computeroutput>12.5</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Using<sp/>ABS<sp/>in<sp/>a<sp/>loop<sp/>to<sp/>ensure<sp/>non-negative<sp/>distances</highlight></codeline>
+<codeline><highlight class="normal">FOR<sp/>x<sp/>=<sp/>-5<sp/>TO<sp/>5</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Distance:<sp/>&quot;;<sp/>ABS(x)</highlight></codeline>
+<codeline><highlight class="normal">NEXT</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="ABS_1autotoc_md61">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Works with both <bold>integers</bold> and <bold>reals</bold>.</para>
+</listitem><listitem><para>Has no effect on <computeroutput>0</computeroutput>.</para>
+</listitem><listitem><para>Useful in algorithms where only magnitudes matter (e.g. distances, error values).</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="SGN" kindref="compound">SGN</ref> · <ref refid="INT" kindref="compound">INT</ref> · <ref refid="SQR" kindref="compound">SQR</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/ABS.md"/>
   </compounddef>

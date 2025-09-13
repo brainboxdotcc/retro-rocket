@@ -7,9 +7,44 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">MEMORY</highlight></codeline>
-</programlisting> Returns the total memory, used and free, for all BASIC programs and the operating system in bytes</para>
-<para><image type="html" name="https://user-images.githubusercontent.com/1556794/233864760-cc8f157a-af38-474d-bdb6-d0b97b818860.png" alt="image" inline="yes"></image>
- </para>
+</programlisting></para>
+<para>Returns the total <bold>system memory</bold> in bytes, including both <bold>used</bold> and <bold>free</bold> portions, for BASIC programs and the operating system.</para>
+<para><hruler/>
+</para>
+<sect3 id="MEMORY_1autotoc_md201">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>total<sp/>system<sp/>memory</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>MEMORY</highlight></codeline>
+</programlisting></para>
+<para>On a 4 GB machine this will typically print:</para>
+<para><programlisting><codeline><highlight class="normal">4294967296</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Derive<sp/>free<sp/>percentage</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Free<sp/>%<sp/>=<sp/>&quot;;<sp/>(MEMFREE<sp/>*<sp/>100)<sp/>/<sp/>MEMORY</highlight></codeline>
+</programlisting></para>
+<para>If <computeroutput>MEMFREE</computeroutput> reports <computeroutput>3758096384</computeroutput> on a 4 GB machine, this prints:</para>
+<para><programlisting><codeline><highlight class="normal">Free<sp/>%<sp/>=<sp/>87</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="MEMORY_1autotoc_md203">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>The value is in <bold>bytes</bold>, returned as a 64-bit integer.</para>
+</listitem><listitem><para>Reflects the <bold>installed physical RAM</bold> available to Retro Rocket OS.</para>
+</listitem><listitem><para>Together with <ref refid="MEMFREE" kindref="compound">MEMFREE</ref> and <ref refid="MEMUSED" kindref="compound">MEMUSED</ref>, allows monitoring of system usage.</para>
+</listitem><listitem><para>On machines marketed as “4 GB”, the total may be slightly less due to reserved space for hardware.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><image type="html" name="memory.png"></image>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="MEMFREE" kindref="compound">MEMFREE</ref> · <ref refid="MEMUSED" kindref="compound">MEMUSED</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/MEMORY.md"/>
   </compounddef>

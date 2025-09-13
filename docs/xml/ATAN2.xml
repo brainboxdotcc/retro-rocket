@@ -6,9 +6,47 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting><codeline><highlight class="normal">ATAN2(real-y,<sp/>real-x)</highlight></codeline>
-</programlisting> Returns the arc tangent of y / x, using the signs of both arguments to determine the correct quadrant.</para>
-<para>The result will be between <computeroutput>-PI#</computeroutput> and <computeroutput>PI#</computeroutput>. </para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">ATAN2(real-y,<sp/>real-x)</highlight></codeline>
+</programlisting></para>
+<para>Returns the <bold>arc tangent of y ÷ x</bold>, using the signs of both arguments to determine the correct <bold>quadrant</bold> of the angle. The result is given in <bold>radians</bold>, in the range <computeroutput>-PI#</computeroutput> to <computeroutput>PI#</computeroutput>.</para>
+<para><hruler/>
+</para>
+<sect3 id="ATAN2_1autotoc_md376">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>ATAN2(1,<sp/>1)</highlight></codeline>
+</programlisting></para>
+<para>Produces approximately <computeroutput>0.785398</computeroutput> (π/4).</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>ATAN2(1,<sp/>-1)</highlight></codeline>
+</programlisting></para>
+<para>Produces approximately <computeroutput>2.356194</computeroutput> (3π/4).</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>ATAN2(-1,<sp/>-1)</highlight></codeline>
+</programlisting></para>
+<para>Produces approximately <computeroutput>-2.356194</computeroutput> (-3π/4).</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>ATAN2(-1,<sp/>1)</highlight></codeline>
+</programlisting></para>
+<para>Produces approximately <computeroutput>-0.785398</computeroutput> (-π/4).</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Compute<sp/>angle<sp/>of<sp/>a<sp/>vector</highlight></codeline>
+<codeline><highlight class="normal">dx#<sp/>=<sp/>3</highlight></codeline>
+<codeline><highlight class="normal">dy#<sp/>=<sp/>4</highlight></codeline>
+<codeline><highlight class="normal">angle#<sp/>=<sp/>ATAN2(dy#,<sp/>dx#)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Angle<sp/>=<sp/>&quot;;<sp/>angle#;<sp/>&quot;<sp/>radians&quot;</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="ATAN2_1autotoc_md378">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Unlike <ref refid="ATAN" kindref="compound">ATAN</ref>, which only returns results in <computeroutput>-π/2 … π/2</computeroutput>, <computeroutput>ATAN2</computeroutput> resolves the full circle by considering both <computeroutput>x</computeroutput> and <computeroutput>y</computeroutput> signs.</para>
+</listitem><listitem><para>Input range: both arguments may be any real numbers.</para>
+</listitem><listitem><para>Return range: <computeroutput>-π ≤ result ≤ π</computeroutput> radians.</para>
+</listitem><listitem><para>To convert to degrees, multiply by <computeroutput>180 / PI</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="ATAN" kindref="compound">ATAN</ref> · <ref refid="SIN" kindref="compound">SIN</ref> · <ref refid="COS" kindref="compound">COS</ref> · <ref refid="TAN" kindref="compound">TAN</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/real/ATAN2.md"/>
   </compounddef>

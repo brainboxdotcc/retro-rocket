@@ -6,43 +6,45 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">IP$<sp/>=<sp/>UDPLASTIP$</highlight></codeline>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">UDPLASTIP$</highlight></codeline>
 </programlisting></para>
-<para>Returns the <bold>source IP address</bold> (as a dotted-quad string) of the <bold>most recent</bold> packet returned by <computeroutput>UDPREAD$</computeroutput>.</para>
+<para>Returns the <bold>source IP address</bold> (as a dotted-quad string) of the <bold>most recent packet</bold> returned by <ref refid="UDPREAD" kindref="compound">UDPREAD$</ref>.</para>
 <para><itemizedlist>
 <listitem><para>If no packet has been read yet, returns <computeroutput>&quot;0.0.0.0&quot;</computeroutput>.</para>
 </listitem></itemizedlist>
 </para>
 <para><hruler/>
 </para>
-<sect3 id="UDPLASTIP_1autotoc_md125">
+<sect3 id="UDPLASTIP_1autotoc_md599">
 <title>How to read it</title>
 <para><itemizedlist>
-<listitem><para>Call <bold>after</bold> <computeroutput>UDPREAD$</computeroutput> to know who sent the payload you just received.</para>
+<listitem><para>Call <bold>after</bold> <computeroutput>UDPREAD$</computeroutput> to determine the sender of the payload you just received.</para>
 </listitem></itemizedlist>
 </para>
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="UDPLASTIP_1autotoc_md127">
+<sect3 id="UDPLASTIP_1autotoc_md601">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">UDPBIND<sp/>&quot;0.0.0.0&quot;,<sp/>8080</highlight></codeline>
 <codeline><highlight class="normal">S$<sp/>=<sp/>UDPREAD$(8080)</highlight></codeline>
 <codeline><highlight class="normal">IF<sp/>LEN(S$)<sp/>&gt;<sp/>0<sp/>THEN</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>UDPLASTIP$</highlight></codeline>
-<codeline><highlight class="normal">END<sp/>IF</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Packet<sp/>received<sp/>from<sp/>&quot;;<sp/>UDPLASTIP$</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
 </programlisting></para>
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="UDPLASTIP_1autotoc_md129">
+<sect3 id="UDPLASTIP_1autotoc_md603">
 <title>Notes</title>
 <para><itemizedlist>
-<listitem><para>The value updates only when <computeroutput>UDPREAD$</computeroutput> dequeues a packet.</para>
+<listitem><para>The value updates only when <ref refid="UDPREAD" kindref="compound">UDPREAD$</ref> dequeues a packet.</para>
+</listitem><listitem><para>Always returns the sender’s IPv4 address in dotted decimal form (<computeroutput>a.b.c.d</computeroutput>).</para>
 </listitem></itemizedlist>
 </para>
-<para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/UDPREAD">UDPREAD$</ulink> · <ref refid="UDPLASTSOURCEPORT" kindref="compound">UDPLASTSOURCEPORT</ref> </para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="UDPREAD" kindref="compound">UDPREAD$</ref> · <ref refid="UDPLASTSOURCEPORT" kindref="compound">UDPLASTSOURCEPORT</ref> </para>
 </sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/UDPLASTIP.md"/>

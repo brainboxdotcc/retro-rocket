@@ -7,7 +7,49 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">INSOCKET$(integer-expression)</highlight></codeline>
-</programlisting> Returns the a character from the socket whos file descriptor is equal to the integer-expression. If there is no data to read, then the function returns an empty string, and if the socket has closed, the function throws an error describing the socket error which occurred. </para>
+</programlisting></para>
+<para>Reads and returns a <bold>single character</bold> from the socket identified by the given socket descriptor.</para>
+<para><itemizedlist>
+<listitem><para>If there is no data available to read, an <bold>empty string</bold> is returned.</para>
+</listitem><listitem><para>If the socket has closed or encountered an error, an error is raised describing the socket failure.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<sect3 id="INSOCKET_1autotoc_md502">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Read<sp/>characters<sp/>from<sp/>a<sp/>connected<sp/>socket</highlight></codeline>
+<codeline><highlight class="normal">REPEAT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>c$<sp/>=<sp/>INSOCKET$(fd)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>IF<sp/>c$<sp/>&gt;<sp/>&quot;&quot;<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Received:<sp/>&quot;;<sp/>c$</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ENDIF</highlight></codeline>
+<codeline><highlight class="normal">UNTIL<sp/>SOCKSTATUS(fd)<sp/>=<sp/>FALSE</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Assemble<sp/>incoming<sp/>data<sp/>into<sp/>a<sp/>string</highlight></codeline>
+<codeline><highlight class="normal">line$<sp/>=<sp/>&quot;&quot;</highlight></codeline>
+<codeline><highlight class="normal">REPEAT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>c$<sp/>=<sp/>INSOCKET$(fd)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>IF<sp/>c$<sp/>&gt;<sp/>&quot;&quot;<sp/>THEN<sp/>line$<sp/>=<sp/>line$<sp/>+<sp/>c$</highlight></codeline>
+<codeline><highlight class="normal">UNTIL<sp/>c$<sp/>=<sp/>&quot;&quot;<sp/>OR<sp/>SOCKSTATUS(fd)<sp/>=<sp/>FALSE</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Line:<sp/>&quot;;<sp/>line$</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="INSOCKET_1autotoc_md504">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Operates at the <bold>character level</bold>; repeated calls are required to read longer strings.</para>
+</listitem><listitem><para>Non-blocking: if no data is present, returns immediately with <computeroutput>&quot;&quot;</computeroutput>.</para>
+</listitem><listitem><para>If the socket is closed, further calls will raise an error.</para>
+</listitem><listitem><para>To check connection state, use <ref refid="SOCKSTATUS" kindref="compound">SOCKSTATUS</ref>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="SOCKREAD" kindref="compound">SOCKREAD</ref> · <ref refid="SOCKWRITE" kindref="compound">SOCKWRITE</ref> · <ref refid="SOCKSTATUS" kindref="compound">SOCKSTATUS</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/INSOCKET.md"/>
   </compounddef>

@@ -6,9 +6,41 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting filename=".BASIC"><codeline><highlight class="normal">CSD$</highlight></codeline>
-</programlisting> Returns the currently selected directory for the process. This will always be an absolute path from the virtual file system root.</para>
-<para>Newly spawned processes inherit the current directory of their parent process. </para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">CSD$</highlight></codeline>
+</programlisting></para>
+<para>Returns the <bold>current working directory</bold> for the process as a string. The result is always an <bold>absolute path</bold> from the virtual file system root (<computeroutput>/</computeroutput>).</para>
+<para>Newly spawned processes inherit the current directory of their parent process.</para>
+<para><hruler/>
+</para>
+<sect3 id="CSD_1autotoc_md458">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>CSD$</highlight></codeline>
+</programlisting></para>
+<para>Might produce:</para>
+<para><programlisting><codeline><highlight class="normal">/home/user/projects</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Save<sp/>current<sp/>directory,<sp/>change,<sp/>then<sp/>restore</highlight></codeline>
+<codeline><highlight class="normal">oldDir$<sp/>=<sp/>CSD$</highlight></codeline>
+<codeline><highlight class="normal">CHDIR<sp/>&quot;/tmp&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Now<sp/>in<sp/>&quot;;<sp/>CSD$</highlight></codeline>
+<codeline><highlight class="normal">CHDIR<sp/>oldDir$</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Back<sp/>in<sp/>&quot;;<sp/>CSD$</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="CSD_1autotoc_md460">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>The returned path always begins with <computeroutput>/</computeroutput>.</para>
+</listitem><listitem><para>A process’ working directory may be changed with <ref refid="CHDIR" kindref="compound">CHDIR</ref>.</para>
+</listitem><listitem><para>Child processes inherit the parent’s working directory at the moment they are spawned.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="CHDIR" kindref="compound">CHDIR</ref> · <ref refid="GETNAMECOUNT" kindref="compound">GETNAMECOUNT</ref> · <ref refid="GETSIZE" kindref="compound">GETSIZE</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/CSD.md"/>
   </compounddef>

@@ -90,8 +90,29 @@ $(document).ready(function(){initNavTree('CEIL.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">CEIL(real-expression)</div>
-</div><!-- fragment --><p> Rounds the provided value up to the nearest integer.</p>
-<p>For example, CEIL(3.2) returns 4. </p>
+</div><!-- fragment --><p>Rounds the provided real value <b>upwards</b> to the nearest integer. The result is the smallest integer greater than or equal to the input.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md381"></a>
+Examples</h3>
+<div class="fragment"><div class="line">PRINT CEIL(3.2)</div>
+</div><!-- fragment --><p>Produces <code>4</code>.</p>
+<div class="fragment"><div class="line">PRINT CEIL(-3.2)</div>
+</div><!-- fragment --><p>Produces <code>-3</code>.</p>
+<div class="fragment"><div class="line">REM Use CEIL to calculate number of pages needed</div>
+<div class="line">items = 23</div>
+<div class="line">perPage = 10</div>
+<div class="line">pages = CEIL(items / perPage)</div>
+<div class="line">PRINT &quot;Pages required = &quot;; pages</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md383"></a>
+Notes</h3>
+<ul>
+<li>Always rounds <b>towards positive infinity</b>.</li>
+<li>Return type is a 64-bit integer.</li>
+<li>Differs from <a class="el" href="INT.html">INT</a>, which truncates towards zero, and <a class="el" href="ROUND.html">ROUND</a>, which rounds to the nearest integer.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> FLOOR · <a class="el" href="INT.html">INT</a> · <a class="el" href="ROUND.html">ROUND</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -99,7 +120,7 @@ $(document).ready(function(){initNavTree('CEIL.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="real-funcs.html">Real Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

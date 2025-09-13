@@ -7,7 +7,48 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">GETPROCID(integer-expression)</highlight></codeline>
-</programlisting> Returns the process ID for a running process, the integer expression is an index between 0 and <computeroutput>GETPROCCOUNT - 1</computeroutput> </para>
+</programlisting></para>
+<para>Returns the <bold>process ID (PID)</bold> of a running process. The parameter is an <bold>index</bold> in the range <computeroutput>0</computeroutput> to <computeroutput>GETPROCCOUNT - 1</computeroutput>, identifying one of the active processes.</para>
+<para><hruler/>
+</para>
+<sect3 id="GETPROCID_1autotoc_md114">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>PID<sp/>of<sp/>every<sp/>running<sp/>process</highlight></codeline>
+<codeline><highlight class="normal">FOR<sp/>i<sp/>=<sp/>0<sp/>TO<sp/>GETPROCCOUNT<sp/>-<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Process<sp/>&quot;;<sp/>i;<sp/>&quot;<sp/>has<sp/>PID<sp/>&quot;;<sp/>GETPROCID(i)</highlight></codeline>
+<codeline><highlight class="normal">NEXT</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Get<sp/>PID<sp/>of<sp/>the<sp/>first<sp/>process</highlight></codeline>
+<codeline><highlight class="normal">pid<sp/>=<sp/>GETPROCID(0)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;PID[0]<sp/>=<sp/>&quot;;<sp/>pid</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Find<sp/>a<sp/>process<sp/>by<sp/>PID</highlight></codeline>
+<codeline><highlight class="normal">target<sp/>=<sp/>123</highlight></codeline>
+<codeline><highlight class="normal">found<sp/>=<sp/>FALSE</highlight></codeline>
+<codeline><highlight class="normal">FOR<sp/>i<sp/>=<sp/>0<sp/>TO<sp/>GETPROCCOUNT<sp/>-<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>IF<sp/>GETPROCID(i)<sp/>=<sp/>target<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Process<sp/>found<sp/>at<sp/>index<sp/>&quot;;<sp/>i</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>found<sp/>=<sp/>TRUE</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ENDIF</highlight></codeline>
+<codeline><highlight class="normal">NEXT</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>found<sp/>=<sp/>FALSE<sp/>THEN<sp/>PRINT<sp/>&quot;Process<sp/>not<sp/>running&quot;</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="GETPROCID_1autotoc_md116">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Process IDs are <bold>unique identifiers</bold> assigned by the OS.</para>
+</listitem><listitem><para>A PID remains valid until its process exits.</para>
+</listitem><listitem><para>Passing an index outside <computeroutput>0 … GETPROCCOUNT - 1</computeroutput> raises an <bold>error</bold>.</para>
+</listitem><listitem><para>Use together with <ref refid="GETPROCNAME" kindref="compound">GETPROCNAME$</ref> or <ref refid="GETPROCCPUID" kindref="compound">GETPROCCPUID</ref> for further process details.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="GETPROCCOUNT" kindref="compound">GETPROCCOUNT</ref> · <ref refid="GETPROCNAME" kindref="compound">GETPROCNAME$</ref> · <ref refid="GETPROCCPUID" kindref="compound">GETPROCCPUID</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/GETPROCID.md"/>
   </compounddef>

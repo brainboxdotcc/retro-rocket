@@ -6,8 +6,52 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting filename=".BASIC"><codeline><highlight class="normal">OPENUP(string-expression)</highlight></codeline>
-</programlisting> Opens a file for input and output (reading and writing), returning an integer file handle used for <computeroutput>READ</computeroutput>, <computeroutput>WRITE</computeroutput> and <computeroutput>CLOSE</computeroutput>. </para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">OPENUP(string-expression)</highlight></codeline>
+</programlisting></para>
+<para>Opens a file for <bold>input and output</bold> (reading and writing). Returns an <bold>integer file handle</bold> that must be used with <ref refid="READ" kindref="compound">READ$ Function</ref>$ &quot;READ\$&quot;, <ref refid="WRITE" kindref="compound">WRITE</ref>, and <ref refid="CLOSE" kindref="compound">CLOSE</ref>.</para>
+<para><hruler/>
+</para>
+<sect3 id="OPENUP_1autotoc_md244">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Open<sp/>an<sp/>existing<sp/>file<sp/>for<sp/>update</highlight></codeline>
+<codeline><highlight class="normal">fh<sp/>=<sp/>OPENUP(&quot;/data/config.txt&quot;)</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>fh<sp/>&lt;<sp/>0<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Could<sp/>not<sp/>open<sp/>file&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>END</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">REM<sp/>Read<sp/>the<sp/>first<sp/>line</highlight></codeline>
+<codeline><highlight class="normal">line$<sp/>=<sp/>READ$(fh)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;First<sp/>line:<sp/>&quot;;<sp/>line$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">REM<sp/>Write<sp/>new<sp/>content</highlight></codeline>
+<codeline><highlight class="normal">WRITE<sp/>fh,<sp/>&quot;Updated<sp/>value&quot;</highlight></codeline>
+<codeline><highlight class="normal">CLOSE<sp/>fh</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Create<sp/>a<sp/>file<sp/>if<sp/>it<sp/>doesn&apos;t<sp/>exist</highlight></codeline>
+<codeline><highlight class="normal">fh<sp/>=<sp/>OPENUP(&quot;/data/newfile.txt&quot;)</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>fh<sp/>&gt;=<sp/>0<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>WRITE<sp/>fh,<sp/>&quot;Initial<sp/>content&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>CLOSE<sp/>fh</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="OPENUP_1autotoc_md246">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Provides <bold>both read and write access</bold> to the file.</para>
+</listitem><listitem><para>Returns a <bold>non-negative handle</bold> on success, or a <bold>negative value</bold> on failure.</para>
+</listitem><listitem><para>Unlike <ref refid="OPENOUT" kindref="compound">OPENOUT</ref>, this does not always truncate the file; content may be preserved.</para>
+</listitem><listitem><para>File handle must be closed with <ref refid="CLOSE" kindref="compound">CLOSE</ref>.</para>
+</listitem><listitem><para>Use with <ref refid="EOF" kindref="compound">EOF</ref> to detect the end of file during reads.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="READ" kindref="compound">READ$</ref> · <ref refid="WRITE" kindref="compound">WRITE</ref> · <ref refid="CLOSE" kindref="compound">CLOSE</ref> · <ref refid="OPENIN" kindref="compound">OPENIN</ref> · <ref refid="OPENOUT" kindref="compound">OPENOUT</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/OPENUP.md"/>
   </compounddef>

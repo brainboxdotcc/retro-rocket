@@ -90,7 +90,35 @@ $(document).ready(function(){initNavTree('GETVAR.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">GETVAR$(string-expression)</div>
-</div><!-- fragment --><p> Gets a string variables value by name. If the variable does not exist an error is thrown, use <code>EXISTSVARS()</code> to check for the existence of the variable without an error. </p>
+</div><!-- fragment --><p>Retrieves the value of a <b>string variable</b> by its <b>name</b>. If the variable does not exist, an error is thrown. Use EXISTSVARS to check for existence without triggering an error.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md490"></a>
+Examples</h3>
+<div class="fragment"><div class="line">REM Define a string variable</div>
+<div class="line">username$ = &quot;Alice&quot;</div>
+<div class="line"> </div>
+<div class="line">REM Retrieve it by name</div>
+<div class="line">PRINT GETVAR$(&quot;username$&quot;)</div>
+</div><!-- fragment --><p>Produces <code>Alice</code>.</p>
+<div class="fragment"><div class="line">REM Attempting to get a missing variable</div>
+<div class="line">PRINT GETVAR$(&quot;doesnotexist$&quot;)</div>
+</div><!-- fragment --><p>Raises an error.</p>
+<div class="fragment"><div class="line">REM Safe access with EXISTSVARS</div>
+<div class="line">IF EXISTSVARS(&quot;config$&quot;) THEN</div>
+<div class="line">    PRINT &quot;Config = &quot;; GETVAR$(&quot;config$&quot;)</div>
+<div class="line">ELSE</div>
+<div class="line">    PRINT &quot;Config variable not set&quot;</div>
+<div class="line">ENDIF</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md492"></a>
+Notes</h3>
+<ul>
+<li>The string must exactly match the variable name, including the <code>$</code> suffix for string variables.</li>
+<li>If the name refers to a variable of a different type (integer or real), an error is raised.</li>
+<li>Returns a null-terminated string.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="GETVARI.html">GETVARI</a> · <a class="el" href="GETVARR.html">GETVARR</a> · EXISTSVARS </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -98,7 +126,7 @@ $(document).ready(function(){initNavTree('GETVAR.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="string-funcs.html">String Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

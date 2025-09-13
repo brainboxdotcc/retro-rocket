@@ -7,7 +7,38 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">TERMHEIGHT</highlight></codeline>
-</programlisting> Returns the height of the current terminal in characters </para>
+</programlisting></para>
+<para>Returns the <bold>height</bold> of the current terminal, measured in <bold>character rows</bold>.</para>
+<para><hruler/>
+</para>
+<sect3 id="TERMHEIGHT_1autotoc_md330">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;Terminal<sp/>height<sp/>=<sp/>&quot;;<sp/>TERMHEIGHT</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Draw<sp/>a<sp/>border<sp/>along<sp/>the<sp/>bottom<sp/>of<sp/>the<sp/>screen</highlight></codeline>
+<codeline><highlight class="normal">CURSOR<sp/>1,<sp/>TERMHEIGHT</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>STRING$(TERMWIDTH,<sp/>&quot;-&quot;)</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Centre<sp/>text<sp/>vertically</highlight></codeline>
+<codeline><highlight class="normal">midY<sp/>=<sp/>TERMHEIGHT<sp/>/<sp/>2</highlight></codeline>
+<codeline><highlight class="normal">CURSOR<sp/>1,<sp/>midY</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Hello,<sp/>world!&quot;</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="TERMHEIGHT_1autotoc_md332">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Value is returned as an integer ≥ 1.</para>
+</listitem><listitem><para>Useful for positioning with <ref refid="CURSOR" kindref="compound">CURSOR</ref>.</para>
+</listitem><listitem><para>Works together with <ref refid="TERMWIDTH" kindref="compound">TERMWIDTH</ref> to adapt output to the current terminal size.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="TERMWIDTH" kindref="compound">TERMWIDTH</ref> · <ref refid="CURSOR" kindref="compound">CURSOR</ref> · <ref refid="CURRENTX" kindref="compound">CURRENTX</ref> · <ref refid="CURRENTY" kindref="compound">CURRENTY</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/TERMHEIGHT.md"/>
   </compounddef>

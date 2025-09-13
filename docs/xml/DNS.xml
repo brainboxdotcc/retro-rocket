@@ -7,7 +7,38 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">DNS$(string-expression)</highlight></codeline>
-</programlisting> Resolves a hostname, returning the resolved version as an IP string. </para>
+</programlisting></para>
+<para>Resolves a <bold>hostname</bold> into an <bold>IP address string</bold>. If the hostname cannot be resolved, an error is raised.</para>
+<para><hruler/>
+</para>
+<sect3 id="DNS_1autotoc_md463">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>DNS$(&quot;retrorocket.dev&quot;)</highlight></codeline>
+</programlisting></para>
+<para>Might produce:</para>
+<para><programlisting><codeline><highlight class="normal">141.95.6.222</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Use<sp/>DNS$<sp/>before<sp/>connecting<sp/>a<sp/>socket</highlight></codeline>
+<codeline><highlight class="normal">host$<sp/>=<sp/>&quot;irc.libera.chat&quot;</highlight></codeline>
+<codeline><highlight class="normal">ip$<sp/>=<sp/>DNS$(host$)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Connecting<sp/>to<sp/>&quot;;<sp/>host$;<sp/>&quot;<sp/>(&quot;;<sp/>ip$;<sp/>&quot;)&quot;</highlight></codeline>
+<codeline><highlight class="normal">CONNECT<sp/>fd,<sp/>ip$,<sp/>6667</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="DNS_1autotoc_md465">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Always returns an IPv4 address in dotted decimal format (<computeroutput>a.b.c.d</computeroutput>).</para>
+</listitem><listitem><para>Name resolution is performed via the operating system’s network stack.</para>
+</listitem><listitem><para>Failures (e.g. host not found, no network) return the value &quot;0.0.0.0&quot;</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="CONNECT" kindref="compound">CONNECT</ref> · <ref refid="SOCKSTATUS" kindref="compound">SOCKSTATUS</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/DNS.md"/>
   </compounddef>

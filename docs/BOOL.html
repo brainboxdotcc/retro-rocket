@@ -90,15 +90,35 @@ $(document).ready(function(){initNavTree('BOOL.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">string-value = BOOL$(numeric-value)</div>
-</div><!-- fragment --><p> Returns the string form of a boolean value, e.g. any non-zero numeric value becomes <code>TRUE</code> and any zero numeric value becomes <code>FALSE</code>. </p>
-</div></div><!-- contents -->
+</div><!-- fragment --><p>Returns the string form of a boolean value.</p>
+<ul>
+<li>Any non-zero numeric value becomes <code>TRUE</code>.</li>
+<li>Any zero numeric value becomes <code>FALSE</code>.</li>
+</ul>
+<hr  />
+<p><b>Notes</b></p>
+<ul>
+<li>Works with both integer and real values.</li>
+<li>Negative values are also treated as <code>TRUE</code>.</li>
+</ul>
+<hr  />
+<p><b>Errors</b></p>
+<ul>
+<li>None.</li>
+</ul>
+<hr  />
+<p><b>Examples</b></p>
+<div class="fragment"><div class="line">PRINT BOOL$(0)      : REM &quot;FALSE&quot;</div>
+<div class="line">PRINT BOOL$(42)     : REM &quot;TRUE&quot;</div>
+<div class="line">PRINT BOOL$(-7)     : REM &quot;TRUE&quot;</div>
+</div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="string-funcs.html">String Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

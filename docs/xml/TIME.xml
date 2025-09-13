@@ -2,22 +2,48 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="TIME" kind="page">
     <compoundname>TIME</compoundname>
-    <title>TIME$ Function</title>
+    <title>TIME\$ Function</title>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">string-expression<sp/>=<sp/>TIME$(boolean-expression)</highlight></codeline>
 </programlisting></para>
-<para>Returns a string in 24-hour format representing the current time.</para>
+<para>Returns the current time as a string in <bold>24-hour format</bold> (<computeroutput>HH:MM:SS</computeroutput>).</para>
 <para><itemizedlist>
-<listitem><para>If <computeroutput>boolean-expression</computeroutput> is <computeroutput>TRUE</computeroutput>, the time is adjusted for the current time zone set using <computeroutput>SETTIMEZONE</computeroutput>, including any applicable daylight saving time (DST).</para>
-</listitem><listitem><para>If <computeroutput>boolean-expression</computeroutput> is <computeroutput>FALSE</computeroutput>, or if no time zone has been set or loaded, the time is returned in UTC as provided by the system clock.</para>
+<listitem><para>If <computeroutput>boolean-expression</computeroutput> is <computeroutput>TRUE</computeroutput>, the time is adjusted for the current time zone configured with <ref refid="SETTIMEZONE" kindref="compound">SETTIMEZONE Keyword</ref>, including daylight saving time (DST) if applicable.</para>
+</listitem><listitem><para>If <computeroutput>boolean-expression</computeroutput> is <computeroutput>FALSE</computeroutput>, or if no time zone has been set or loaded, the time is returned in <bold>UTC</bold> from the system clock.</para>
 </listitem></itemizedlist>
 </para>
-<para>Example:</para>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>TIME$(TRUE)<sp/><sp/><sp/>&apos;<sp/>Local<sp/>time<sp/>with<sp/>DST<sp/>if<sp/>applicable</highlight></codeline>
-<codeline><highlight class="normal">PRINT<sp/>TIME$(FALSE)<sp/><sp/>&apos;<sp/>Raw<sp/>UTC<sp/>time</highlight></codeline>
-</programlisting> </para>
+<para><hruler/>
+</para>
+<sect3 id="TIME_1autotoc_md584">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>TIME$(TRUE)</highlight></codeline>
+</programlisting></para>
+<para>Might produce:</para>
+<para><programlisting><codeline><highlight class="normal">14:37:05</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>TIME$(FALSE)</highlight></codeline>
+</programlisting></para>
+<para>Might produce:</para>
+<para><programlisting><codeline><highlight class="normal">13:37:05</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="TIME_1autotoc_md586">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Returned format is always fixed-width <computeroutput>HH:MM:SS</computeroutput>, with leading zeros where necessary.</para>
+</listitem><listitem><para>Local time depends on whether a valid time zone has been configured via <ref refid="SETTIMEZONE" kindref="compound">SETTIMEZONE Keyword</ref></para>
+</listitem><listitem><para>DST adjustments are handled automatically when local time is requested.</para>
+</listitem><listitem><para>For numeric access to components of the current time, see <ref refid="HOUR" kindref="compound">HOUR</ref>, <ref refid="MINUTE" kindref="compound">MINUTE</ref>, <ref refid="SECOND" kindref="compound">SECOND</ref>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="HOUR" kindref="compound">HOUR</ref> · <ref refid="MINUTE" kindref="compound">MINUTE</ref> · <ref refid="SECOND" kindref="compound">SECOND</ref> · <ref refid="DAY" kindref="compound">DAY</ref> · <ref refid="YEAR" kindref="compound">YEAR</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/TIME.md"/>
   </compounddef>

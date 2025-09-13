@@ -7,7 +7,49 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">POW(real-expression,<sp/>real-expression)</highlight></codeline>
-</programlisting> Raises the first expression to the power of the second expression and returns the result </para>
+</programlisting></para>
+<para>Raises the <bold>first expression</bold> to the power of the <bold>second expression</bold> and returns the result as a real number.</para>
+<para><hruler/>
+</para>
+<sect3 id="POW_1autotoc_md416">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>POW(2,<sp/>3)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>8</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>POW(9,<sp/>0.5)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>3</computeroutput> (square root of 9).</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>POW(16,<sp/>-1)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>0.0625</computeroutput> (reciprocal of 16).</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Compute<sp/>compound<sp/>interest</highlight></codeline>
+<codeline><highlight class="normal">principal#<sp/>=<sp/>1000</highlight></codeline>
+<codeline><highlight class="normal">rate#<sp/>=<sp/>0.05</highlight></codeline>
+<codeline><highlight class="normal">years<sp/>=<sp/>10</highlight></codeline>
+<codeline><highlight class="normal">amount#<sp/>=<sp/>principal#<sp/>*<sp/>POW(1<sp/>+<sp/>rate#,<sp/>years)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Future<sp/>value<sp/>=<sp/>&quot;;<sp/>amount#</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="POW_1autotoc_md418">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>The base (first parameter) may be any real number.</para>
+</listitem><listitem><para>The exponent (second parameter) may also be any real, including fractions and negatives.</para>
+</listitem><listitem><para>Special cases:<itemizedlist>
+<listitem><para><computeroutput>POW(x, 0)</computeroutput> returns <computeroutput>1</computeroutput> (for any x ≠ 0).</para>
+</listitem><listitem><para><computeroutput>POW(0, y)</computeroutput> returns <computeroutput>0</computeroutput> (for y &gt; 0).</para>
+</listitem><listitem><para>Invalid combinations (e.g. <computeroutput>POW(0, 0)</computeroutput> or negative base with fractional exponent) may cause errors.</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para>Related: <ref refid="SQR" kindref="compound">SQR</ref> computes the square root directly.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="EXP" kindref="compound">EXP</ref> · <ref refid="LOG" kindref="compound">LOG</ref> · <ref refid="SQR" kindref="compound">SQR</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/real/POW.md"/>
   </compounddef>

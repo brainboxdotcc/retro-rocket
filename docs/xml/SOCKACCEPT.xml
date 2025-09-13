@@ -9,11 +9,11 @@
 <para><programlisting filename=".basic"><codeline><highlight class="normal">client<sp/>=<sp/>SOCKACCEPT(server)</highlight></codeline>
 </programlisting></para>
 <para>Removes and returns the next <bold>established</bold> connection from the listening socket’s pending queue. Returns a non-negative file descriptor on success, or <computeroutput>-1</computeroutput> if no connection is ready (or on error).</para>
-<para><simplesect kind="note"><para><computeroutput>SOCKACCEPT</computeroutput> is <bold>non-blocking</bold>: it returns immediately. If the queue head hasn’t completed the handshake yet, it will return <computeroutput>-1</computeroutput>.</para>
+<para><simplesect kind="note"><para><computeroutput>SOCKACCEPT</computeroutput> is <bold>non-blocking</bold>: it returns immediately. If there are no connections to accept, it will return <computeroutput>-1</computeroutput>.</para>
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="SOCKACCEPT_1autotoc_md106">
+<sect3 id="SOCKACCEPT_1autotoc_md313">
 <title>How to use it</title>
 <para><itemizedlist>
 <listitem><para><computeroutput>server</computeroutput> is the file descriptor returned by <computeroutput>SOCKLISTEN(ip$, port, backlog)</computeroutput>.</para>
@@ -25,7 +25,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="SOCKACCEPT_1autotoc_md108">
+<sect3 id="SOCKACCEPT_1autotoc_md315">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Minimal<sp/>accept<sp/>loop</highlight></codeline>
 <codeline><highlight class="normal">server<sp/>=<sp/>SOCKLISTEN(NETINFO$(&quot;ip&quot;),<sp/>2000,<sp/>5)</highlight></codeline>
@@ -45,11 +45,10 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="SOCKACCEPT_1autotoc_md110">
+<sect3 id="SOCKACCEPT_1autotoc_md317">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Returns <computeroutput>-1</computeroutput> when no established connection is available; try again later.</para>
-</listitem><listitem><para>On errors, an explanatory message is raised and <computeroutput>-1</computeroutput> is returned.</para>
 </listitem><listitem><para>Each successful call returns a <bold>new</bold> client descriptor; the server remains listening.</para>
 </listitem></itemizedlist>
 </para>

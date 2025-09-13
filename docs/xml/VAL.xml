@@ -6,8 +6,44 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">integer-value<sp/>=<sp/>VAL(string-value)</highlight></codeline>
-</programlisting> Returns the integer form of a string containing a number. </para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">VAL(string-expression)</highlight></codeline>
+</programlisting></para>
+<para>Converts a <bold>string</bold> containing a number into an <bold>integer value</bold>. The string may contain digits <computeroutput>0–9</computeroutput> and an optional leading <computeroutput>+</computeroutput> or <computeroutput>-</computeroutput>.</para>
+<para><hruler/>
+</para>
+<sect3 id="VAL_1autotoc_md346">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>VAL(&quot;1234&quot;)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>1234</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>VAL(&quot;-42&quot;)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>-42</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Convert<sp/>user<sp/>input</highlight></codeline>
+<codeline><highlight class="normal">INPUT<sp/>&quot;Enter<sp/>a<sp/>number<sp/>&gt;<sp/>&quot;<sp/>;<sp/>n$</highlight></codeline>
+<codeline><highlight class="normal">x<sp/>=<sp/>VAL(n$)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;You<sp/>entered<sp/>&quot;;<sp/>x</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Strings<sp/>that<sp/>are<sp/>not<sp/>numbers</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>VAL(&quot;hello&quot;)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>0</computeroutput>.</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="VAL_1autotoc_md348">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Returns a 64-bit signed integer.</para>
+</listitem><listitem><para>If the string is empty or contains invalid characters, the return value is <computeroutput>0</computeroutput>.</para>
+</listitem><listitem><para>Only integer values are supported — fractional values are truncated or treated as invalid.</para>
+</listitem><listitem><para>For parsing hexadecimal or octal strings, see <ref refid="HEXVAL" kindref="compound">HEXVAL</ref> and <ref refid="OCTVAL" kindref="compound">OCTVAL</ref>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="STR" kindref="compound">STR$</ref> · <ref refid="HEXVAL" kindref="compound">HEXVAL</ref> · <ref refid="OCTVAL" kindref="compound">OCTVAL</ref> · <ref refid="RADIX" kindref="compound">RADIX</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/VAL.md"/>
   </compounddef>

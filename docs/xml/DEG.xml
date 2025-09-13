@@ -6,9 +6,39 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting><codeline><highlight class="normal">DEG(real-expression)</highlight></codeline>
-</programlisting> Converts an angle from radians to degrees.</para>
-<para>For example, <computeroutput>DEG(PI#)</computeroutput> returns <computeroutput>180</computeroutput>. </para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">DEG(real-expression)</highlight></codeline>
+</programlisting></para>
+<para>Converts an angle from <bold>radians</bold> to <bold>degrees</bold>. The result is a real number.</para>
+<para><hruler/>
+</para>
+<sect3 id="DEG_1autotoc_md391">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>DEG(PI#)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>180</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>DEG(PI#<sp/>/<sp/>2)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>90</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Round-trip<sp/>conversion</highlight></codeline>
+<codeline><highlight class="normal">angle#<sp/>=<sp/>45</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Radians<sp/>=<sp/>&quot;;<sp/>RAD(angle#)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Degrees<sp/>=<sp/>&quot;;<sp/>DEG(RAD(angle#))</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="DEG_1autotoc_md393">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Conversion formula: <computeroutput>degrees = radians * 180 / PI</computeroutput>.</para>
+</listitem><listitem><para>Returned as a real value; may not be an integer if the input is not an exact multiple of π/180.</para>
+</listitem><listitem><para>Useful for displaying angles calculated in radians to users in degrees.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="RAD" kindref="compound">RAD</ref> · <ref refid="SIN" kindref="compound">SIN</ref> · <ref refid="COS" kindref="compound">COS</ref> · <ref refid="TAN" kindref="compound">TAN</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/real/DEG.md"/>
   </compounddef>

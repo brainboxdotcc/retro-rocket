@@ -122,9 +122,6 @@ Example: `mystr$`
 - \subpage SPRITELOAD
 - \subpage TRIANGLE
 - \subpage UDPBIND
-- \subpage UDPLASTIP
-- \subpage UDPLASTSOURCEPORT
-- \subpage UDPREAD
 - \subpage UDPUNBIND
 - \subpage UDPWRITE
 - \subpage UNTIL

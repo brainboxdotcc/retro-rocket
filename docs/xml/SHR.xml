@@ -6,8 +6,40 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">SHR(integer-expression,<sp/>integer-expression)</highlight></codeline>
-</programlisting> Performs <ulink url="https://en.wikipedia.org/wiki/Logical_shift">bitwise shift right</ulink> and returns the result </para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">SHR(value,<sp/>count)</highlight></codeline>
+</programlisting></para>
+<para>Performs a <bold>bitwise shift right</bold> operation on an integer. The first parameter is the value to shift, the second is the number of bit positions.</para>
+<para><hruler/>
+</para>
+<sect3 id="SHR_1autotoc_md308">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>SHR(4,<sp/>1)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>2</computeroutput> (<computeroutput>0100</computeroutput> → <computeroutput>0010</computeroutput>).</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>SHR(9,<sp/>2)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>2</computeroutput> (<computeroutput>1001</computeroutput> → <computeroutput>0010</computeroutput>, fractional part discarded).</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Divide<sp/>by<sp/>powers<sp/>of<sp/>two<sp/>using<sp/>SHR</highlight></codeline>
+<codeline><highlight class="normal">n<sp/>=<sp/>40</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>SHR(n,<sp/>3)<sp/><sp/><sp/>&apos;<sp/>Same<sp/>as<sp/>40<sp/>/<sp/>8<sp/>=<sp/>5</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="SHR_1autotoc_md310">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Operates on 64-bit integers.</para>
+</listitem><listitem><para>Shifting right by <computeroutput>n</computeroutput> positions is equivalent to integer division by <computeroutput>2^n</computeroutput>.</para>
+</listitem><listitem><para>Bits shifted out on the right are discarded; new bits on the left are filled with zero.</para>
+</listitem><listitem><para>This is a <bold>logical shift</bold> (fills with zero), not an arithmetic shift. Negative values are not sign-extended.</para>
+</listitem><listitem><para>If the shift count is negative or larger than the bit width, behaviour is undefined.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="SHL" kindref="compound">SHL</ref> · <ref refid="BITAND" kindref="compound">BITAND</ref> · <ref refid="BITOR" kindref="compound">BITOR</ref> · <ref refid="BITNAND" kindref="compound">BITNAND</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/SHR.md"/>
   </compounddef>

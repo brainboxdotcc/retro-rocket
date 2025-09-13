@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Retro Rocket OS: TIME$ Function</title>
+<title>Retro Rocket OS: TIME\$ Function</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -90,22 +90,39 @@ $(document).ready(function(){initNavTree('TIME.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">string-expression = TIME$(boolean-expression)</div>
-</div><!-- fragment --><p>Returns a string in 24-hour format representing the current time.</p>
+</div><!-- fragment --><p>Returns the current time as a string in <b>24-hour format</b> (<code>HH:MM:SS</code>).</p>
 <ul>
-<li>If <code>boolean-expression</code> is <code>TRUE</code>, the time is adjusted for the current time zone set using <code>SETTIMEZONE</code>, including any applicable daylight saving time (DST).</li>
-<li>If <code>boolean-expression</code> is <code>FALSE</code>, or if no time zone has been set or loaded, the time is returned in UTC as provided by the system clock.</li>
+<li>If <code>boolean-expression</code> is <code>TRUE</code>, the time is adjusted for the current time zone configured with <a class="el" href="SETTIMEZONE.html">SETTIMEZONE Keyword</a>, including daylight saving time (DST) if applicable.</li>
+<li>If <code>boolean-expression</code> is <code>FALSE</code>, or if no time zone has been set or loaded, the time is returned in <b>UTC</b> from the system clock.</li>
 </ul>
-<p>Example:</p>
-<div class="fragment"><div class="line">PRINT TIME$(TRUE)   &#39; Local time with DST if applicable</div>
-<div class="line">PRINT TIME$(FALSE)  &#39; Raw UTC time</div>
-</div><!-- fragment --> </div></div><!-- contents -->
+<hr  />
+<h3><a class="anchor" id="autotoc_md584"></a>
+Examples</h3>
+<div class="fragment"><div class="line">PRINT TIME$(TRUE)</div>
+</div><!-- fragment --><p>Might produce:</p>
+<div class="fragment"><div class="line">14:37:05</div>
+</div><!-- fragment --><div class="fragment"><div class="line">PRINT TIME$(FALSE)</div>
+</div><!-- fragment --><p>Might produce:</p>
+<div class="fragment"><div class="line">13:37:05</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md586"></a>
+Notes</h3>
+<ul>
+<li>Returned format is always fixed-width <code>HH:MM:SS</code>, with leading zeros where necessary.</li>
+<li>Local time depends on whether a valid time zone has been configured via <a class="el" href="SETTIMEZONE.html">SETTIMEZONE Keyword</a></li>
+<li>DST adjustments are handled automatically when local time is requested.</li>
+<li>For numeric access to components of the current time, see <a class="el" href="HOUR.html">HOUR</a>, <a class="el" href="MINUTE.html">MINUTE</a>, <a class="el" href="SECOND.html">SECOND</a>.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="HOUR.html">HOUR</a> · <a class="el" href="MINUTE.html">MINUTE</a> · <a class="el" href="SECOND.html">SECOND</a> · <a class="el" href="DAY.html">DAY</a> · <a class="el" href="YEAR.html">YEAR</a> </p>
+</div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="string-funcs.html">String Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

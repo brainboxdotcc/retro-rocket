@@ -90,7 +90,32 @@ $(document).ready(function(){initNavTree('INT.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">INT(real-expression)</div>
-</div><!-- fragment --><p> Truncates the given real number to an integer by discarding the fractional part. </p>
+</div><!-- fragment --><p>Truncates a <b>real number</b> to an <b>integer</b> by discarding the fractional part (i.e. truncates <b>towards zero</b>).</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md174"></a>
+Examples</h3>
+<div class="fragment"><div class="line">PRINT INT(3.99)</div>
+</div><!-- fragment --><p>Produces <code>3</code>.</p>
+<div class="fragment"><div class="line">PRINT INT(-7.25)</div>
+</div><!-- fragment --><p>Produces <code>-7</code>.</p>
+<div class="fragment"><div class="line">REM Convert user input to an integer by truncation</div>
+<div class="line">INPUT &quot;Enter a real number &gt; &quot; ; val#</div>
+<div class="line">PRINT &quot;Truncated = &quot;; INT(val#)</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Use INT to derive an index from a real value</div>
+<div class="line">val# = 12.9</div>
+<div class="line">idx = INT(val# / 4.0)</div>
+<div class="line">PRINT &quot;Index = &quot;; idx</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md176"></a>
+Notes</h3>
+<ul>
+<li>Returns a Retro Rocket BASIC integer (64-bit signed).</li>
+<li><b>Differs from BBC BASIC:</b> in BBC BASIC <code>INT</code> is a floor (e.g. <code>INT(-7.25) = -8</code>). In Retro Rocket BASIC, <code>INT(-7.25) = -7</code> (truncate towards zero).</li>
+<li>To get the fractional part:</li>
+</ul>
+<div class="fragment"><div class="line">frac# = val# - INT(val#)</div>
+</div><!-- fragment --><hr  />
+<p><b>See also:</b> <a class="el" href="ABS.html">ABS</a> · <a class="el" href="SGN.html">SGN</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -98,7 +123,7 @@ $(document).ready(function(){initNavTree('INT.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -6,12 +6,47 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">RND(integer-expression,<sp/>integer-expression)</highlight></codeline>
-</programlisting> Returns a pseudo-random number between the two integer expressions (inclusive). The pseudo-random number generator uses a <ulink url="https://en.wikipedia.org/wiki/Mersenne_Twister">Mersenne Twister mt19937</ulink> algorithm to produce random results, with entropy seeded from the operating system kernel via various inputs which are not directly under user control.</para>
-<para><image type="html" name="https://user-images.githubusercontent.com/1556794/235545663-e3b17cdf-c47e-4d65-bfa1-84b3902c47fe.png" alt="image" inline="yes"></image>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">RND(min,<sp/>max)</highlight></codeline>
+</programlisting></para>
+<para>Returns a <bold>pseudo-random integer</bold> between <computeroutput>min</computeroutput> and <computeroutput>max</computeroutput> (inclusive). Both parameters must be integers, and the first must be less than or equal to the second.</para>
+<para>The generator uses the <bold>Mersenne Twister (mt19937)</bold> algorithm, seeded from entropy provided by the operating system kernel.</para>
+<para><image type="html" name="rnd.png"></image>
 </para>
-<para><bold>NOTE: This differs from BBC BASIC which used a simple 33-bit LFSR (Linear Feedback Shift Register) as opposed to Mersenne Twister.</bold></para>
-<para>This function should not be relied upon for cryptographic randomness as its seed value cannot be guaranteed secure. </para>
+<para><hruler/>
+</para>
+<sect3 id="RND_1autotoc_md288">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Toss<sp/>a<sp/>coin<sp/>(1<sp/>or<sp/>2)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>RND(1,<sp/>2)</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Roll<sp/>a<sp/>six-sided<sp/>die</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>RND(1,<sp/>6)</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Pick<sp/>a<sp/>random<sp/>number<sp/>between<sp/>50<sp/>and<sp/>5000</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>RND(50,<sp/>5000)</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Generate<sp/>5<sp/>random<sp/>values<sp/>between<sp/>100<sp/>and<sp/>200</highlight></codeline>
+<codeline><highlight class="normal">FOR<sp/>i<sp/>=<sp/>1<sp/>TO<sp/>5</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>RND(100,<sp/>200)</highlight></codeline>
+<codeline><highlight class="normal">NEXT</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="RND_1autotoc_md290">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>The result is an <bold>integer</bold> within the inclusive range <computeroutput>[min, max]</computeroutput>.</para>
+</listitem><listitem><para>If <computeroutput>min &gt; max</computeroutput>, behaviour is undefined.</para>
+</listitem><listitem><para>Suitable for general randomness in games, simulations, and sampling.</para>
+</listitem><listitem><para><bold>Not cryptographically secure</bold> — although the kernel provides an unpredictable seed, the Mersenne Twister itself is deterministic and predictable if state is known.</para>
+</listitem><listitem><para><bold>Retro Rocket BASIC difference:</bold> BBC BASIC used a 33-bit LFSR (linear feedback shift register). Retro Rocket uses a modern PRNG (Mersenne Twister).</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="INT" kindref="compound">INT</ref> · <ref refid="ABS" kindref="compound">ABS</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/RND.md"/>
   </compounddef>

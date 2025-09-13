@@ -7,7 +7,45 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">GETVARR(string-expression)</highlight></codeline>
-</programlisting> Gets a real variables value by name. If the variable does not exist an error is thrown, use <computeroutput>EXISTSVARR()</computeroutput> to check for the existence of the variable without an error. </para>
+</programlisting></para>
+<para>Retrieves the value of a <bold>real (floating-point) variable</bold> by its <bold>name</bold>. If the variable does not exist, an error is thrown. Use EXISTSVARR to check for existence without triggering an error.</para>
+<para><hruler/>
+</para>
+<sect3 id="GETVARR_1autotoc_md406">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Define<sp/>a<sp/>real<sp/>variable</highlight></codeline>
+<codeline><highlight class="normal">temperature#<sp/>=<sp/>21.5</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">REM<sp/>Retrieve<sp/>it<sp/>by<sp/>name</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>GETVARR(&quot;temperature#&quot;)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>21.5</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Attempting<sp/>to<sp/>get<sp/>a<sp/>missing<sp/>variable</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>GETVARR(&quot;doesnotexist#&quot;)</highlight></codeline>
+</programlisting></para>
+<para>Raises an error.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Safe<sp/>access<sp/>using<sp/>EXISTSVARR</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>EXISTSVARR(&quot;speed#&quot;)<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Speed<sp/>=<sp/>&quot;;<sp/>GETVARR(&quot;speed#&quot;)</highlight></codeline>
+<codeline><highlight class="normal">ELSE</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Speed<sp/>not<sp/>defined&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="GETVARR_1autotoc_md408">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>The string must exactly match the variable name, including the <computeroutput>#</computeroutput> suffix for real variables.</para>
+</listitem><listitem><para>If the name refers to a variable of a different type (integer or string), an error is raised.</para>
+</listitem><listitem><para>Returns a 64-bit double-precision floating-point value.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="GETVARI" kindref="compound">GETVARI</ref> · GETVARS$ · <ref refid="EXISTSVARI" kindref="compound">EXISTSVARR</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/real/GETVARR.md"/>
   </compounddef>

@@ -6,14 +6,46 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">numeric-expression<sp/>=<sp/>DAY(boolean-expression)</highlight></codeline>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">DAY(boolean-expression)</highlight></codeline>
 </programlisting></para>
-<para>Returns the current day of the month (1–31). <linebreak/>
- Pass <computeroutput>TRUE</computeroutput> to return local time using the configured time zone (if any), or <computeroutput>FALSE</computeroutput> for UTC.</para>
-<para>Example:</para>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>DAY(TRUE)<sp/><sp/><sp/>&apos;<sp/>Local<sp/>day</highlight></codeline>
-<codeline><highlight class="normal">PRINT<sp/>DAY(FALSE)<sp/><sp/>&apos;<sp/>UTC<sp/>day</highlight></codeline>
-</programlisting> </para>
+<para>Returns the current <bold>day of the month</bold> (1–31).</para>
+<para><itemizedlist>
+<listitem><para>Pass <computeroutput>TRUE</computeroutput> → local time (system time zone, if configured).</para>
+</listitem><listitem><para>Pass <computeroutput>FALSE</computeroutput> → UTC (Coordinated Universal Time).</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<sect3 id="DAY_1autotoc_md84">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>both<sp/>local<sp/>and<sp/>UTC<sp/>day</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Local<sp/>day:<sp/>&quot;;<sp/>DAY(TRUE)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;UTC<sp/>day:<sp/><sp/><sp/>&quot;;<sp/>DAY(FALSE)</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Simple<sp/>log<sp/>timestamp</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Today<sp/>is<sp/>&quot;;<sp/>DAY(TRUE);<sp/>&quot;/&quot;;<sp/>MONTH(TRUE);<sp/>&quot;/&quot;;<sp/>YEAR(TRUE)</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Check<sp/>for<sp/>month<sp/>end</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>DAY(FALSE)<sp/>=<sp/>31<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Last<sp/>day<sp/>of<sp/>a<sp/>long<sp/>month<sp/>(UTC)&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="DAY_1autotoc_md86">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Returns values in the range <bold>1–31</bold>, depending on the current month.</para>
+</listitem><listitem><para>Local time behaviour depends on the OS time zone configuration. If no zone is configured, local and UTC values will be identical.</para>
+</listitem><listitem><para>Works in tandem with <ref refid="MONTH" kindref="compound">MONTH</ref> and <ref refid="YEAR" kindref="compound">YEAR</ref> for complete date values.</para>
+</listitem><listitem><para>Unlike some BASIC dialects, <computeroutput>DAY</computeroutput> does <bold>not</bold> return day-of-week; use <ref refid="WEEKDAY" kindref="compound">WEEKDAY</ref> instead.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="MONTH" kindref="compound">MONTH</ref> · <ref refid="YEAR" kindref="compound">YEAR</ref> · <ref refid="WEEKDAY" kindref="compound">WEEKDAY</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/DAY.md"/>
   </compounddef>

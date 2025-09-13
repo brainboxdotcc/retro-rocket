@@ -90,8 +90,35 @@ $(document).ready(function(){initNavTree('ACS.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">ACS(real-expression)</div>
-</div><!-- fragment --><p> Returns the arc cosine (inverse cosine) of the provided expression, in radians.</p>
-<p>The input must be between -1 and 1. </p>
+</div><!-- fragment --><p>Returns the <b>arc cosine</b> (inverse cosine) of the given expression, in <b>radians</b>. The input must be between <code>-1</code> and <code>1</code>.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md361"></a>
+Examples</h3>
+<div class="fragment"><div class="line">PRINT ACS(1)</div>
+</div><!-- fragment --><p>Produces <code>0</code>.</p>
+<div class="fragment"><div class="line">PRINT ACS(0)</div>
+</div><!-- fragment --><p>Produces approximately <code>1.570796</code> (π/2).</p>
+<div class="fragment"><div class="line">PRINT ACS(-1)</div>
+</div><!-- fragment --><p>Produces approximately <code>3.141593</code> (π).</p>
+<div class="fragment"><div class="line">REM Validate a cosine identity</div>
+<div class="line">angle# = 0.75</div>
+<div class="line">PRINT ACS(COS(angle#))</div>
+</div><!-- fragment --><p>Produces the original angle (within floating point accuracy).</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md363"></a>
+Notes</h3>
+<ul>
+<li>Argument range: <code>-1 ≤ x ≤ 1</code>. Values outside this range cause an error.</li>
+<li>Return range: <code>0 ≤ result ≤ π</code> radians.</li>
+<li>To convert the result to degrees, multiply by <code>180 / PI</code>.</li>
+<li>Inverse functions:<ul>
+<li><a class="el" href="ASN.html">ASN</a> (arc sine)</li>
+<li>ATN (arc tangent)</li>
+</ul>
+</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="COS.html">COS</a> · <a class="el" href="ASN.html">ASN</a> · ATN · <a class="el" href="TAN.html">TAN</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -99,7 +126,7 @@ $(document).ready(function(){initNavTree('ACS.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="real-funcs.html">Real Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

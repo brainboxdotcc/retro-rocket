@@ -7,7 +7,41 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">ASC(string-expression)</highlight></codeline>
-</programlisting> Returns the ASCII value of the first character of the string expression. </para>
+</programlisting></para>
+<para>Returns the <bold>ASCII code</bold> of the first character in <computeroutput>string-expression</computeroutput>.</para>
+<para><hruler/>
+</para>
+<sect3 id="ASC_1autotoc_md64">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>ASC(&quot;A&quot;)</highlight></codeline>
+</programlisting></para>
+<para>This example produces <computeroutput>65</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">C$<sp/>=<sp/>&quot;Retro<sp/>Rocket&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>ASC(C$)</highlight></codeline>
+</programlisting></para>
+<para>This example produces <computeroutput>82</computeroutput>, the ASCII code for <computeroutput>&quot;R&quot;</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Using<sp/>ASC<sp/>to<sp/>check<sp/>a<sp/>keypress</highlight></codeline>
+<codeline><highlight class="normal">key$<sp/>=<sp/>INKEY$</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>key$<sp/>&gt;<sp/>&quot;&quot;<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>code<sp/>=<sp/>ASC(key$)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;You<sp/>pressed:<sp/>&quot;;<sp/>code</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="ASC_1autotoc_md66">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Only the <bold>first character</bold> of the string is considered.</para>
+</listitem><listitem><para>If the string is <bold>empty</bold>, <computeroutput>ASC</computeroutput> returns <computeroutput>0</computeroutput>.</para>
+</listitem><listitem><para>Values returned range from <bold>0–255</bold>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="CHR" kindref="compound">CHR$</ref> · <ref refid="INKEY" kindref="compound">INKEY$</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/ASC.md"/>
   </compounddef>

@@ -89,10 +89,50 @@ $(document).ready(function(){initNavTree('RAMDISK.html',''); initResizable(); })
 <div class="title">RAMDISK$ Function </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">RAMDISK$(string-expression)</div>
-</div><!-- fragment --><p> Create a ramdisk device with the content of a separate block device who's name is in the string-expression. Returns the name of the new block device.</p>
+<div class="textblock"><h2><a class="anchor" id="autotoc_md541"></a>
+Creating a ramdisk from another block device</h2>
+<div class="fragment"><div class="line">RAMDISK$(string-expression)</div>
+</div><!-- fragment --><p>Creates a <b>RAM-backed block device</b> from the content of an existing block device. The parameter is the name of the source device (e.g. <code>"hd0"</code>). Returns the <b>name of the new RAM disk device</b> as a string.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md543"></a>
+Examples</h3>
+<div class="fragment"><div class="line">REM Duplicate an existing block device into RAM</div>
+<div class="line">ram$ = RAMDISK$(&quot;hd0&quot;)</div>
+<div class="line">PRINT &quot;Created RAM disk: &quot;; ram$</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md545"></a>
+Notes</h3>
+<ul>
+<li>The new device is a complete in-memory copy of the original device.</li>
+<li>Useful for testing, running faster I/O, or working on a safe copy.</li>
+<li>RAM disks are volatile: contents are lost when the system is rebooted or the device is discarded.</li>
+</ul>
+<hr  />
+<h2><a class="anchor" id="autotoc_md547"></a>
+Creating blank ramdisks</h2>
 <div class="fragment"><div class="line">RAMDISK(integer-expression, integer-expression)</div>
-</div><!-- fragment --><p> Create a ramdisk device of X blocks each block being Y bytes, where X and Y are the two integer-expression values. Note that the block device will be unformatted, and cannot be immediately mounted to a mountpoint. Returns the name of the new block device. </p>
+</div><!-- fragment --><p>Creates a <b>new RAM-backed block device</b> with the given dimensions.</p>
+<ul>
+<li>First parameter = number of blocks.</li>
+<li>Second parameter = block size in bytes.</li>
+</ul>
+<p>The device is initially <b>unformatted</b> and cannot be mounted until a filesystem is created on it. Returns the <b>name of the new RAM disk device</b> as a string.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md549"></a>
+Examples</h3>
+<div class="fragment"><div class="line">REM Create a 10 MB RAM disk with 512-byte blocks</div>
+<div class="line">ram$ = RAMDISK(20480, 512)</div>
+<div class="line">PRINT &quot;Created RAM disk: &quot;; ram$</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md551"></a>
+Notes</h3>
+<ul>
+<li>Size = <code>blocks × blocksize</code>.</li>
+<li>Device names are automatically assigned by the system (e.g. <code>"ram0"</code>, <code>"ram1"</code>).</li>
+<li>Contents are volatile and cleared when the system shuts down or discards the device.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="MOUNT.html">MOUNT</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -100,7 +140,7 @@ $(document).ready(function(){initNavTree('RAMDISK.html',''); initResizable(); })
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="string-funcs.html">String Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

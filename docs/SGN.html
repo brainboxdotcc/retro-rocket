@@ -90,7 +90,36 @@ $(document).ready(function(){initNavTree('SGN.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">SGN(integer-expression)</div>
-</div><!-- fragment --><p> Returns -1 if the expression is negative, 0 if it is zero, and 1 if it is positive. </p>
+</div><!-- fragment --><p>Returns the <b>sign</b> of an integer expression:</p>
+<ul>
+<li><code>-1</code> if the expression is negative</li>
+<li><code>0</code> if the expression is zero</li>
+<li><code>1</code> if the expression is positive</li>
+</ul>
+<hr  />
+<h3><a class="anchor" id="autotoc_md298"></a>
+Examples</h3>
+<div class="fragment"><div class="line">PRINT SGN(-42)</div>
+</div><!-- fragment --><p>Produces <code>-1</code>.</p>
+<div class="fragment"><div class="line">PRINT SGN(0)</div>
+</div><!-- fragment --><p>Produces <code>0</code>.</p>
+<div class="fragment"><div class="line">PRINT SGN(1234)</div>
+</div><!-- fragment --><p>Produces <code>1</code>.</p>
+<div class="fragment"><div class="line">REM Use SGN in a comparison</div>
+<div class="line">balance = -150</div>
+<div class="line">IF SGN(balance) = -1 THEN</div>
+<div class="line">    PRINT &quot;Account overdrawn!&quot;</div>
+<div class="line">ENDIF</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md300"></a>
+Notes</h3>
+<ul>
+<li>Input must be an integer expression.</li>
+<li>Return value is always <code>-1</code>, <code>0</code>, or <code>1</code>.</li>
+<li>Can be used in compact conditionals or arithmetic to simplify sign handling.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="ABS.html">ABS</a> · <a class="el" href="INT.html">INT</a> · <a class="el" href="ROUND.html">ROUND</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -98,7 +127,7 @@ $(document).ready(function(){initNavTree('SGN.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

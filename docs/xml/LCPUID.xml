@@ -6,8 +6,40 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">LCPUID(integer-expression,<sp/>integer-expression)</highlight></codeline>
-</programlisting> Returns 0, and populate the legacy last CPUID information for later retrieval. The two parameters are the leaf and subleaf. </para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">result<sp/>=<sp/>LCPUID(integer-expression,<sp/>integer-expression)</highlight></codeline>
+</programlisting></para>
+<para>Executes a <bold>legacy CPUID query</bold>.</para>
+<para><itemizedlist>
+<listitem><para>The first parameter is the <bold>leaf</bold>.</para>
+</listitem><listitem><para>The second parameter is the <bold>subleaf</bold>.</para>
+</listitem></itemizedlist>
+</para>
+<para>The function always returns <computeroutput>0</computeroutput>, but updates the legacy “last CPUID” information for later retrieval.</para>
+<para><hruler/>
+</para>
+<sect3 id="LCPUID_1autotoc_md180">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Run<sp/>CPUID<sp/>leaf<sp/>1,<sp/>subleaf<sp/>0</highlight></codeline>
+<codeline><highlight class="normal">dummy<sp/>=<sp/>LCPUID(&amp;1,<sp/>0)</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="LCPUID_1autotoc_md182">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>This is a <bold>legacy function</bold> (the <computeroutput>L</computeroutput> stands for “legacy”).</para>
+</listitem><listitem><para>Always returns <computeroutput>0</computeroutput>; its purpose is to update internal state.</para>
+</listitem><listitem><para>For new code, use <ref refid="CPUID" kindref="compound">CPUID</ref> instead.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="CPUID" kindref="compound">CPUID</ref></para>
+<para><hruler/>
+</para>
+<para>Do you want me to apply the same correction to the earlier <bold>CPUID</bold> page (so its syntax line shows assignment properly too)? </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/LCPUID.md"/>
   </compounddef>

@@ -90,7 +90,33 @@ $(document).ready(function(){initNavTree('MEMFREE.html',''); initResizable(); })
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">MEMFREE</div>
-</div><!-- fragment --><p> Returns the total free memory for all BASIC programs and the operating system in bytes </p>
+</div><!-- fragment --><p>Returns the total amount of <b>free memory</b> available to BASIC programs and the operating system, in <b>bytes</b>.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md196"></a>
+Examples</h3>
+<div class="fragment"><div class="line">REM Print free memory</div>
+<div class="line">PRINT MEMFREE</div>
+</div><!-- fragment --><p>On a 4 GB machine with3.5 GB available, this might print:</p>
+<div class="fragment"><div class="line">3758096384</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Convert to megabytes for easier reading</div>
+<div class="line">PRINT MEMFREE / (1024 * 1024); &quot; MB free&quot;</div>
+</div><!-- fragment --><p>On the same 4 GB machine, this might print:</p>
+<div class="fragment"><div class="line">3584 MB free</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Simple check for low memory</div>
+<div class="line">IF MEMFREE &lt; (512 * 1024 * 1024) THEN</div>
+<div class="line">    PRINT &quot;Warning: less than 512 MB free&quot;</div>
+<div class="line">ENDIF</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md198"></a>
+Notes</h3>
+<ul>
+<li>The value is in <b>bytes</b>, returned as a 64-bit integer.</li>
+<li>Represents free space across the whole system (OS + BASIC).</li>
+<li>Actual available memory on a “4 GB” system is typically less than 4096 MB due to hardware reservations.</li>
+<li>The value changes dynamically as programs allocate or free memory.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="MEMUSED.html">MEMUSED</a> · <a class="el" href="MEMORY.html">MEMORY</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -98,7 +124,7 @@ $(document).ready(function(){initNavTree('MEMFREE.html',''); initResizable(); })
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

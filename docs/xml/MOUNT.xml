@@ -36,7 +36,7 @@
 If the mount fails (for example, unsupported <computeroutput>fstype</computeroutput> or unavailable device), a runtime error is raised (catchable with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink>).</para>
 <para><hruler/>
 </para>
-<sect3 id="MOUNT_1autotoc_md336">
+<sect3 id="MOUNT_1autotoc_md816">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">MOUNT<sp/>&quot;/devices&quot;,<sp/>&quot;&quot;,<sp/>&quot;devfs&quot;</highlight></codeline>
 <codeline><highlight class="normal">MOUNT<sp/>&quot;/harddisk&quot;,<sp/>&quot;hd0&quot;,<sp/>&quot;fat32&quot;</highlight></codeline>

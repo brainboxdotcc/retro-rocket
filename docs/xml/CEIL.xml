@@ -6,9 +6,40 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting><codeline><highlight class="normal">CEIL(real-expression)</highlight></codeline>
-</programlisting> Rounds the provided value up to the nearest integer.</para>
-<para>For example, CEIL(3.2) returns 4. </para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">CEIL(real-expression)</highlight></codeline>
+</programlisting></para>
+<para>Rounds the provided real value <bold>upwards</bold> to the nearest integer. The result is the smallest integer greater than or equal to the input.</para>
+<para><hruler/>
+</para>
+<sect3 id="CEIL_1autotoc_md381">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>CEIL(3.2)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>4</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>CEIL(-3.2)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>-3</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Use<sp/>CEIL<sp/>to<sp/>calculate<sp/>number<sp/>of<sp/>pages<sp/>needed</highlight></codeline>
+<codeline><highlight class="normal">items<sp/>=<sp/>23</highlight></codeline>
+<codeline><highlight class="normal">perPage<sp/>=<sp/>10</highlight></codeline>
+<codeline><highlight class="normal">pages<sp/>=<sp/>CEIL(items<sp/>/<sp/>perPage)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Pages<sp/>required<sp/>=<sp/>&quot;;<sp/>pages</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="CEIL_1autotoc_md383">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Always rounds <bold>towards positive infinity</bold>.</para>
+</listitem><listitem><para>Return type is a 64-bit integer.</para>
+</listitem><listitem><para>Differs from <ref refid="INT" kindref="compound">INT</ref>, which truncates towards zero, and <ref refid="ROUND" kindref="compound">ROUND</ref>, which rounds to the nearest integer.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> FLOOR · <ref refid="INT" kindref="compound">INT</ref> · <ref refid="ROUND" kindref="compound">ROUND</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/real/CEIL.md"/>
   </compounddef>

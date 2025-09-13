@@ -89,20 +89,42 @@ $(document).ready(function(){initNavTree('MONTH.html',''); initResizable(); });
 <div class="title">MONTH Function </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">numeric-expression = MONTH(boolean-expression)</div>
-</div><!-- fragment --><p>Returns the current month of the year (1–12). <br  />
- Pass <code>TRUE</code> to return local time using the configured time zone (if any), or <code>FALSE</code> for UTC.</p>
-<p>Example:</p>
-<div class="fragment"><div class="line">PRINT MONTH(TRUE)   &#39; Local month</div>
-<div class="line">PRINT MONTH(FALSE)  &#39; UTC month</div>
-</div><!-- fragment --> </div></div><!-- contents -->
+<div class="textblock"><div class="fragment"><div class="line">MONTH(boolean-expression)</div>
+</div><!-- fragment --><p>Returns the current <b>month of the year</b> in the range <b>1–12</b>.</p>
+<ul>
+<li>Pass <code>TRUE</code> → local time (system time zone, if configured).</li>
+<li>Pass <code>FALSE</code> → UTC (Coordinated Universal Time).</li>
+</ul>
+<hr  />
+<h3><a class="anchor" id="autotoc_md224"></a>
+Examples</h3>
+<div class="fragment"><div class="line">PRINT &quot;Local month = &quot;; MONTH(TRUE)</div>
+<div class="line">PRINT &quot;UTC month   = &quot;; MONTH(FALSE)</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Print full date as DD/MM/YYYY</div>
+<div class="line">PRINT DAY(TRUE); &quot;/&quot;; MONTH(TRUE); &quot;/&quot;; YEAR(TRUE)</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Check if it’s December</div>
+<div class="line">IF MONTH(TRUE) = 12 THEN</div>
+<div class="line">    PRINT &quot;Happy Holidays!&quot;</div>
+<div class="line">ENDIF</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md226"></a>
+Notes</h3>
+<ul>
+<li>Returns values in the range <b>1 = January</b> to <b>12 = December</b>.</li>
+<li>Local time depends on system configuration. If no time zone is set, local and UTC values will be identical.</li>
+<li>Use together with <a class="el" href="DAY.html">DAY</a> and <a class="el" href="YEAR.html">YEAR</a> for complete date information.</li>
+<li>For day of week (Monday–Sunday), use <a class="el" href="WEEKDAY.html">WEEKDAY</a>.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="DAY.html">DAY</a> · <a class="el" href="YEAR.html">YEAR</a> · <a class="el" href="WEEKDAY.html">WEEKDAY</a> · <a class="el" href="HOUR.html">HOUR</a> </p>
+</div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

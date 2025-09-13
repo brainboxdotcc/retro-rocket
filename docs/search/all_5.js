@@ -18,9 +18,9 @@ var searchData=
   ['error_2emd_150',['ERROR.md',['../ERROR_8md.html',1,'']]],
   ['eval_20command_151',['eval command',['../eval.html',1,'commands']]],
   ['eval_20keyword_152',['EVAL Keyword',['../EVAL.html',1,'keywords']]],
-  ['eval_2emd_153',['EVAL.md',['../EVAL_8md.html',1,'']]],
-  ['eval_2emd_154',['eval.md',['../eval_8md.html',1,'']]],
-  ['existsvari_20function_155',['EXISTSVARI Function',['../EXISTSVARI.html',1,'int-funcs']]],
+  ['eval_2emd_153',['eval.md',['../eval_8md.html',1,'']]],
+  ['eval_2emd_154',['EVAL.md',['../EVAL_8md.html',1,'']]],
+  ['existsvari_20_2f_20existsvarr_20_2f_20existsvars_20functions_155',['EXISTSVARI / EXISTSVARR / EXISTSVARS Functions',['../EXISTSVARI.html',1,'int-funcs']]],
   ['existsvari_2emd_156',['EXISTSVARI.md',['../EXISTSVARI_8md.html',1,'']]],
   ['exp_20function_157',['EXP Function',['../EXP.html',1,'real-funcs']]],
   ['exp_2emd_158',['EXP.md',['../EXP_8md.html',1,'']]]

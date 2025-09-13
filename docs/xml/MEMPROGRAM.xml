@@ -7,7 +7,44 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">MEMPROGRAM</highlight></codeline>
-</programlisting> Returns the total used memory for the current BASIC program in its private heap. </para>
+</programlisting></para>
+<para>Returns the current amount of memory (in bytes) used by the <bold>private heap</bold> of the current BASIC program. This reflects the memory actively allocated right now, not the peak or global system usage.</para>
+<para><hruler/>
+</para>
+<sect3 id="MEMPROGRAM_1autotoc_md212">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Show<sp/>memory<sp/>used<sp/>by<sp/>this<sp/>program</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Program<sp/>is<sp/>using<sp/>&quot;;<sp/>MEMPROGRAM;<sp/>&quot;<sp/>bytes&quot;</highlight></codeline>
+</programlisting></para>
+<para>For a large BASIC program this might print:</para>
+<para><programlisting><codeline><highlight class="normal">Program<sp/>is<sp/>using<sp/>401920<sp/>bytes</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Compare<sp/>with<sp/>peak<sp/>usage</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Currently<sp/>used<sp/>=<sp/>&quot;;<sp/>MEMPROGRAM;<sp/>&quot;<sp/>bytes&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Peak<sp/>used<sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>&quot;;<sp/>MEMPEAK;<sp/>&quot;<sp/>bytes&quot;</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Report<sp/>usage<sp/>in<sp/>kilobytes</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Program<sp/>heap<sp/>=<sp/>&quot;;<sp/>MEMPROGRAM<sp/>/<sp/>1024;<sp/>&quot;<sp/>KB&quot;</highlight></codeline>
+</programlisting></para>
+<para>Might print:</para>
+<para><programlisting><codeline><highlight class="normal">Program<sp/>heap<sp/>=<sp/>392<sp/>KB</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="MEMPROGRAM_1autotoc_md214">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Value is specific to the <bold>current BASIC program’s private heap</bold>.</para>
+</listitem><listitem><para>Typically in the range of a few hundred kilobytes for larger programs.</para>
+</listitem><listitem><para>Use <ref refid="MEMPEAK" kindref="compound">MEMPEAK</ref> to see the maximum ever reached since program start.</para>
+</listitem><listitem><para>Returned as a 64-bit integer.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="MEMPEAK" kindref="compound">MEMPEAK</ref> · <ref refid="MEMUSED" kindref="compound">MEMUSED</ref> · <ref refid="MEMFREE" kindref="compound">MEMFREE</ref> · <ref refid="MEMORY" kindref="compound">MEMORY</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/MEMPROGRAM.md"/>
   </compounddef>

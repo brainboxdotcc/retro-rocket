@@ -90,7 +90,31 @@ $(document).ready(function(){initNavTree('LEFT.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">LEFT$(string-expression, integer-expression)</div>
-</div><!-- fragment --><p> Returns the leftmost integer-expression characters of string-expression. </p>
+</div><!-- fragment --><p>Returns the <b>leftmost characters</b> from a string. The second parameter specifies how many characters to return.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md507"></a>
+Examples</h3>
+<div class="fragment"><div class="line">PRINT LEFT$(&quot;RetroRocket&quot;, 5)</div>
+</div><!-- fragment --><p>Produces <code>Retro</code>.</p>
+<div class="fragment"><div class="line">REM Extract drive letter from a path</div>
+<div class="line">path$ = &quot;C:/users/alice&quot;</div>
+<div class="line">PRINT LEFT$(path$, 2)</div>
+</div><!-- fragment --><p>Produces <code>C:</code>.</p>
+<div class="fragment"><div class="line">REM Safely clip a string</div>
+<div class="line">msg$ = &quot;Hello, world!&quot;</div>
+<div class="line">PRINT LEFT$(msg$, 80)</div>
+</div><!-- fragment --><p>Prints the message, clipped to 80 characters if longer.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md509"></a>
+Notes</h3>
+<ul>
+<li>If the length requested is greater than the string length, the entire string is returned.</li>
+<li>If the length is <code>0</code>, an empty string is returned.</li>
+<li>Negative lengths cause an error.</li>
+<li>Result is always a new string, the original is unchanged.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="MID.html">MID$</a> · <a class="el" href="RIGHT.html">RIGHT$</a> · <a class="el" href="LEN.html">LEN</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -98,7 +122,7 @@ $(document).ready(function(){initNavTree('LEFT.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="string-funcs.html">String Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

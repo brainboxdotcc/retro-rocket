@@ -6,14 +6,44 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">numeric-expression<sp/>=<sp/>SECOND(boolean-expression)</highlight></codeline>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">SECOND(boolean-expression)</highlight></codeline>
 </programlisting></para>
-<para>Returns the current second (0–59). <linebreak/>
- Pass <computeroutput>TRUE</computeroutput> for local time or <computeroutput>FALSE</computeroutput> for UTC.</para>
-<para>Example:</para>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>SECOND(TRUE)<sp/><sp/><sp/>&apos;<sp/>Local<sp/>second</highlight></codeline>
-<codeline><highlight class="normal">PRINT<sp/>SECOND(FALSE)<sp/><sp/>&apos;<sp/>UTC<sp/>second</highlight></codeline>
-</programlisting> </para>
+<para>Returns the current <bold>second</bold> of the current minute, in the range <bold>0–59</bold>.</para>
+<para><itemizedlist>
+<listitem><para>Pass <computeroutput>TRUE</computeroutput> → local time (system time zone, if configured).</para>
+</listitem><listitem><para>Pass <computeroutput>FALSE</computeroutput> → UTC (Coordinated Universal Time).</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<sect3 id="SECOND_1autotoc_md293">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;Local<sp/>second<sp/>=<sp/>&quot;;<sp/>SECOND(TRUE)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;UTC<sp/>second<sp/><sp/><sp/>=<sp/>&quot;;<sp/>SECOND(FALSE)</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Display<sp/>full<sp/>time<sp/>as<sp/>HH:MM:SS</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>HOUR(TRUE);<sp/>&quot;:&quot;;<sp/>MINUTE(TRUE);<sp/>&quot;:&quot;;<sp/>SECOND(TRUE)</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Wait<sp/>until<sp/>the<sp/>top<sp/>of<sp/>the<sp/>minute</highlight></codeline>
+<codeline><highlight class="normal">REPEAT</highlight></codeline>
+<codeline><highlight class="normal">UNTIL<sp/>SECOND(TRUE)<sp/>=<sp/>0</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Minute<sp/>just<sp/>rolled<sp/>over!&quot;</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="SECOND_1autotoc_md295">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Values range from <computeroutput>0</computeroutput> to <computeroutput>59</computeroutput>.</para>
+</listitem><listitem><para>Local time depends on the configured time zone. If none is set, local and UTC values are the same.</para>
+</listitem><listitem><para>Useful with <ref refid="HOUR" kindref="compound">HOUR</ref> and <ref refid="MINUTE" kindref="compound">MINUTE</ref> for complete time display.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="HOUR" kindref="compound">HOUR</ref> · <ref refid="MINUTE" kindref="compound">MINUTE</ref> · <ref refid="DAY" kindref="compound">DAY</ref> · <ref refid="MONTH" kindref="compound">MONTH</ref> · <ref refid="YEAR" kindref="compound">YEAR</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/SECOND.md"/>
   </compounddef>

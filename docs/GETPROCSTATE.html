@@ -90,22 +90,45 @@ $(document).ready(function(){initNavTree('GETPROCSTATE.html',''); initResizable(
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">GETPROCSTATE$(integer-expression)</div>
-</div><!-- fragment --><p> Returns the process state for a running process, the integer expression is an index between 0 and <code>GETPROCCOUNT - 1</code></p>
-<p>The process status is one of:</p>
+</div><!-- fragment --><p>Returns the <b>state of a running process</b> as a string. The parameter is an index between <code>0</code> and <code>GETPROCCOUNT - 1</code>.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md483"></a>
+Process states</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">State   </th><th class="markdownTableHeadNone">Description    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">running   </td><td class="markdownTableBodyNone">process is actively executing    </td></tr>
+<td class="markdownTableBodyNone"><code>running</code>   </td><td class="markdownTableBodyNone">Process is actively executing.    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">suspended   </td><td class="markdownTableBodyNone">process is waiting on another process to end before continuing    </td></tr>
+<td class="markdownTableBodyNone"><code>suspended</code>   </td><td class="markdownTableBodyNone">Process is waiting on another process to end before continuing.    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">waiting   </td><td class="markdownTableBodyNone">process is waiting on I/O, e.g. disk, console, network    </td></tr>
+<td class="markdownTableBodyNone"><code>waiting</code>   </td><td class="markdownTableBodyNone">Process is blocked, waiting on I/O (e.g. disk, console, network).    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">ended   </td><td class="markdownTableBodyNone">process no longer exists    </td></tr>
+<td class="markdownTableBodyNone"><code>ended</code>   </td><td class="markdownTableBodyNone">Process no longer exists.    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">unknown   </td><td class="markdownTableBodyNone">an error state, the status of this process is unknown   </td></tr>
+<td class="markdownTableBodyNone"><code>unknown</code>   </td><td class="markdownTableBodyNone">Error state — the status of this process cannot be determined.   </td></tr>
 </table>
+<hr  />
+<h3><a class="anchor" id="autotoc_md485"></a>
+Examples</h3>
+<div class="fragment"><div class="line">REM Print all processes with their state</div>
+<div class="line">FOR i = 0 TO GETPROCCOUNT - 1</div>
+<div class="line">    PRINT GETPROCNAME$(i); &quot; : &quot;; GETPROCSTATE$(i)</div>
+<div class="line">NEXT</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Check if the first process has ended</div>
+<div class="line">IF GETPROCSTATE$(0) = &quot;ended&quot; THEN</div>
+<div class="line">    PRINT &quot;Process 0 is finished.&quot;</div>
+<div class="line">ENDIF</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md487"></a>
+Notes</h3>
+<ul>
+<li>The index must be within the valid range.</li>
+<li>A process that reports <code>"ended"</code> is still counted in <code>GETPROCCOUNT</code> until it is fully reaped.</li>
+<li><code>"unknown"</code> is rare and usually indicates an internal error in process tracking.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="GETPROCCOUNT.html">GETPROCCOUNT</a> · <a class="el" href="GETPROCNAME.html">GETPROCNAME$</a> · <a class="el" href="GETPROCID.html">GETPROCID</a> · <a class="el" href="GETPROCMEM.html">GETPROCMEM</a> · <a class="el" href="GETPROCPARENT.html">GETPROCPARENT</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -113,7 +136,7 @@ $(document).ready(function(){initNavTree('GETPROCSTATE.html',''); initResizable(
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="string-funcs.html">String Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

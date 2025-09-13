@@ -90,7 +90,32 @@ $(document).ready(function(){initNavTree('SOCKSTATUS.html',''); initResizable();
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">SOCKSTATUS(numeric-expression)</div>
-</div><!-- fragment --><p> Returns <code>TRUE</code> if the socket which is represented by the numeric-expression is connected or <code>FALSE</code> if it is not. Note that a socket which is still connecting may return <code>FALSE</code>. </p>
+</div><!-- fragment --><p>Checks the connection state of a <b>socket</b>. Returns <code>TRUE</code> if the socket represented by the numeric expression (a handle returned by <a class="el" href="CONNECT.html">CONNECT</a>) is <b>connected</b>, or <code>FALSE</code> if it is not.</p>
+<p>Note that a socket which is still in the process of connecting may return <code>FALSE</code>.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md325"></a>
+Examples</h3>
+<div class="fragment"><div class="line">REM Attempt to connect and wait until established</div>
+<div class="line">CONNECT fd, &quot;example.com&quot;, 80</div>
+<div class="line">REPEAT</div>
+<div class="line">    PRINT &quot;Waiting for connection...&quot;</div>
+<div class="line">    WAIT 50</div>
+<div class="line">UNTIL SOCKSTATUS(fd) = TRUE</div>
+<div class="line">PRINT &quot;Connected!&quot;</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Detect if a socket has dropped</div>
+<div class="line">IF SOCKSTATUS(fd) = FALSE THEN</div>
+<div class="line">    PRINT &quot;Connection lost&quot;</div>
+<div class="line">ENDIF</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md327"></a>
+Notes</h3>
+<ul>
+<li>Returns a boolean value: <code>TRUE</code> (connected) or <code>FALSE</code> (not connected).</li>
+<li>A return of <code>FALSE</code> may indicate either “not yet connected” or “disconnected”.</li>
+<li>Use with <a class="el" href="SOCKREAD.html">SOCKREAD</a>, <a class="el" href="SOCKWRITE.html">SOCKWRITE</a>, and <a class="el" href="SOCKCLOSE.html">SOCKCLOSE</a> for socket I/O.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="CONNECT.html">CONNECT</a> · <a class="el" href="SOCKREAD.html">SOCKREAD</a> · <a class="el" href="SOCKWRITE.html">SOCKWRITE</a> · <a class="el" href="SOCKCLOSE.html">SOCKCLOSE</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -98,7 +123,7 @@ $(document).ready(function(){initNavTree('SOCKSTATUS.html',''); initResizable();
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

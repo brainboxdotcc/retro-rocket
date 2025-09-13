@@ -6,14 +6,45 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">numeric-expression<sp/>=<sp/>MONTH(boolean-expression)</highlight></codeline>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">MONTH(boolean-expression)</highlight></codeline>
 </programlisting></para>
-<para>Returns the current month of the year (1–12). <linebreak/>
- Pass <computeroutput>TRUE</computeroutput> to return local time using the configured time zone (if any), or <computeroutput>FALSE</computeroutput> for UTC.</para>
-<para>Example:</para>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>MONTH(TRUE)<sp/><sp/><sp/>&apos;<sp/>Local<sp/>month</highlight></codeline>
-<codeline><highlight class="normal">PRINT<sp/>MONTH(FALSE)<sp/><sp/>&apos;<sp/>UTC<sp/>month</highlight></codeline>
-</programlisting> </para>
+<para>Returns the current <bold>month of the year</bold> in the range <bold>1–12</bold>.</para>
+<para><itemizedlist>
+<listitem><para>Pass <computeroutput>TRUE</computeroutput> → local time (system time zone, if configured).</para>
+</listitem><listitem><para>Pass <computeroutput>FALSE</computeroutput> → UTC (Coordinated Universal Time).</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<sect3 id="MONTH_1autotoc_md224">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;Local<sp/>month<sp/>=<sp/>&quot;;<sp/>MONTH(TRUE)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;UTC<sp/>month<sp/><sp/><sp/>=<sp/>&quot;;<sp/>MONTH(FALSE)</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>full<sp/>date<sp/>as<sp/>DD/MM/YYYY</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>DAY(TRUE);<sp/>&quot;/&quot;;<sp/>MONTH(TRUE);<sp/>&quot;/&quot;;<sp/>YEAR(TRUE)</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Check<sp/>if<sp/>it’s<sp/>December</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>MONTH(TRUE)<sp/>=<sp/>12<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Happy<sp/>Holidays!&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="MONTH_1autotoc_md226">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Returns values in the range <bold>1 = January</bold> to <bold>12 = December</bold>.</para>
+</listitem><listitem><para>Local time depends on system configuration. If no time zone is set, local and UTC values will be identical.</para>
+</listitem><listitem><para>Use together with <ref refid="DAY" kindref="compound">DAY</ref> and <ref refid="YEAR" kindref="compound">YEAR</ref> for complete date information.</para>
+</listitem><listitem><para>For day of week (Monday–Sunday), use <ref refid="WEEKDAY" kindref="compound">WEEKDAY</ref>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="DAY" kindref="compound">DAY</ref> · <ref refid="YEAR" kindref="compound">YEAR</ref> · <ref refid="WEEKDAY" kindref="compound">WEEKDAY</ref> · <ref refid="HOUR" kindref="compound">HOUR</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/MONTH.md"/>
   </compounddef>

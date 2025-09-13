@@ -90,7 +90,28 @@ $(document).ready(function(){initNavTree('STR.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">string-value = STR$(numeric-value)</div>
-</div><!-- fragment --><p> Returns the string form of a number. </p>
+</div><!-- fragment --><p>Converts a <b>numeric value</b> (integer or real) into its <b>string representation</b>.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md579"></a>
+Examples</h3>
+<div class="fragment"><div class="line">PRINT STR$(123)</div>
+</div><!-- fragment --><p>Produces <code>"123"</code>.</p>
+<div class="fragment"><div class="line">PRINT STR$(-45.67)</div>
+</div><!-- fragment --><p>Produces <code>"-45.67"</code>.</p>
+<div class="fragment"><div class="line">REM Concatenate number into a message</div>
+<div class="line">score = 9001</div>
+<div class="line">PRINT &quot;Score = &quot; + STR$(score)</div>
+</div><!-- fragment --><p>Produces <code>"Score = 9001"</code>.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md581"></a>
+Notes</h3>
+<ul>
+<li>Accepts both integers and real numbers.</li>
+<li>Result is a string in plain decimal notation (no prefixes).</li>
+<li>Formatting (e.g. fixed decimal places) is not provided; use string operations if specific formatting is required.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="VAL.html">VAL</a> · <a class="el" href="REALVAL.html">REALVAL</a> · <a class="el" href="HEXVAL.html">HEXVAL</a> · <a class="el" href="OCTVAL.html">OCTVAL</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -98,7 +119,7 @@ $(document).ready(function(){initNavTree('STR.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="string-funcs.html">String Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

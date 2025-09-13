@@ -90,7 +90,28 @@ $(document).ready(function(){initNavTree('TERMHEIGHT.html',''); initResizable();
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">TERMHEIGHT</div>
-</div><!-- fragment --><p> Returns the height of the current terminal in characters </p>
+</div><!-- fragment --><p>Returns the <b>height</b> of the current terminal, measured in <b>character rows</b>.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md330"></a>
+Examples</h3>
+<div class="fragment"><div class="line">PRINT &quot;Terminal height = &quot;; TERMHEIGHT</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Draw a border along the bottom of the screen</div>
+<div class="line">CURSOR 1, TERMHEIGHT</div>
+<div class="line">PRINT STRING$(TERMWIDTH, &quot;-&quot;)</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Centre text vertically</div>
+<div class="line">midY = TERMHEIGHT / 2</div>
+<div class="line">CURSOR 1, midY</div>
+<div class="line">PRINT &quot;Hello, world!&quot;</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md332"></a>
+Notes</h3>
+<ul>
+<li>Value is returned as an integer ≥ 1.</li>
+<li>Useful for positioning with <a class="el" href="CURSOR.html">CURSOR</a>.</li>
+<li>Works together with <a class="el" href="TERMWIDTH.html">TERMWIDTH</a> to adapt output to the current terminal size.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="TERMWIDTH.html">TERMWIDTH</a> · <a class="el" href="CURSOR.html">CURSOR</a> · <a class="el" href="CURRENTX.html">CURRENTX</a> · <a class="el" href="CURRENTY.html">CURRENTY</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -98,7 +119,7 @@ $(document).ready(function(){initNavTree('TERMHEIGHT.html',''); initResizable();
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

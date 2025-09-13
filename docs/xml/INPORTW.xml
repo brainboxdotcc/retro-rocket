@@ -13,7 +13,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="INPORTW_1autotoc_md75">
+<sect3 id="INPORTW_1autotoc_md167">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Reads two consecutive bytes from the port as a word.</para>
@@ -23,7 +23,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="INPORTW_1autotoc_md77">
+<sect3 id="INPORTW_1autotoc_md169">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Read<sp/>a<sp/>word<sp/>from<sp/>ATA<sp/>data<sp/>port</highlight></codeline>
 <codeline><highlight class="normal">W<sp/>=<sp/>INPORTW(&amp;1F0)</highlight></codeline>
@@ -32,7 +32,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="INPORTW_1autotoc_md79">
+<sect3 id="INPORTW_1autotoc_md171">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Do not use unless the port is documented as word-accessible.</para>

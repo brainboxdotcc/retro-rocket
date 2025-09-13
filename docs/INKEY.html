@@ -89,33 +89,63 @@ $(document).ready(function(){initNavTree('INKEY.html',''); initResizable(); });
 <div class="title">INKEY$ Function </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">INKEY$</div>
-</div><!-- fragment --><p> Returns the key which has been pressed, or if no key has been pressed, an empty string. Note that this function will use the keyboard buffer, so if multiple keys have been pressed between this call and the last call to <code>INKEY$</code> (or an <code>INPUT</code> statement) it will require multiple calls to the function to receive all of the keypresses.</p>
-<p>The following keys on the keyboard are designated as 'extended keys' and will return the following character codes from <code>INKEY$</code>:</p>
-<table class="doxtable">
-<tr>
-<th>Key</th><th>INKEY$ value </th></tr>
-<tr>
-<td>PAGEUP</td><td>245 </td></tr>
-<tr>
-<td>PAGEDOWN</td><td>246 </td></tr>
-<tr>
-<td>DEL</td><td>47 </td></tr>
-<tr>
-<td>INS</td><td>48 </td></tr>
-<tr>
-<td>END</td><td>49 </td></tr>
-<tr>
-<td>UP</td><td>250 </td></tr>
-<tr>
-<td>DOWN</td><td>251 </td></tr>
-<tr>
-<td>LEFT</td><td>252 </td></tr>
-<tr>
-<td>RIGHT</td><td>253 </td></tr>
-<tr>
-<td>HOME</td><td>254 </td></tr>
+<div class="textblock"><div class="fragment"><div class="line">A$= INKEY$</div>
+</div><!-- fragment --><p>Returns the <b>key that has been pressed</b> as a string. If no key has been pressed since the last call, it returns an <b>empty string</b>.</p>
+<p><code>INKEY$</code> consumes input from the <b>keyboard buffer</b>. If multiple keys have been pressed between this call and the last call to <code>INKEY$</code> (or an <code>INPUT</code> statement), it will take multiple calls to retrieve them all.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md495"></a>
+Extended keys</h3>
+<p>Some non-printing keys return special character codes rather than ASCII. These values can be retrieved by wrapping <code>INKEY$</code> with <code>ASC()</code>.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Key   </th><th class="markdownTableHeadNone"><code>ASC(INKEY$)</code> value    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">PAGEUP   </td><td class="markdownTableBodyNone">245    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">PAGEDOWN   </td><td class="markdownTableBodyNone">246    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">DEL   </td><td class="markdownTableBodyNone">247    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">INS   </td><td class="markdownTableBodyNone">248    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">END   </td><td class="markdownTableBodyNone">249    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">UP   </td><td class="markdownTableBodyNone">250    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">DOWN   </td><td class="markdownTableBodyNone">251    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">LEFT   </td><td class="markdownTableBodyNone">252    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RIGHT   </td><td class="markdownTableBodyNone">253    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">HOME   </td><td class="markdownTableBodyNone">254   </td></tr>
 </table>
+<hr  />
+<h3><a class="anchor" id="autotoc_md497"></a>
+Examples</h3>
+<div class="fragment"><div class="line">REM Wait for a keypress</div>
+<div class="line">PRINT &quot;Press a key...&quot;</div>
+<div class="line">REPEAT</div>
+<div class="line">    k$ = INKEY$</div>
+<div class="line">UNTIL k$ &gt; &quot;&quot;</div>
+<div class="line">PRINT &quot;You pressed: &quot;; k$</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Handle arrow keys</div>
+<div class="line">k$ = INKEY$</div>
+<div class="line">IF k$ &gt; &quot;&quot; THEN</div>
+<div class="line">    code = ASC(k$)</div>
+<div class="line">    IF code = 250 THEN PRINT &quot;Up arrow pressed&quot;</div>
+<div class="line">    IF code = 251 THEN PRINT &quot;Down arrow pressed&quot;</div>
+<div class="line">ENDIF</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md499"></a>
+Notes</h3>
+<ul>
+<li>Printable characters return their usual ASCII values (e.g. <code>"A"</code> → 65).</li>
+<li>Extended keys must be checked via <code>ASC()</code>.</li>
+<li>If no key is pressed, result is <code>""</code> (empty string).</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="ASC.html">ASC</a> · <a class="el" href="INPUT.html">INPUT</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -123,7 +153,7 @@ $(document).ready(function(){initNavTree('INKEY.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="string-funcs.html">String Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -90,8 +90,33 @@ $(document).ready(function(){initNavTree('MEMORY.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">MEMORY</div>
-</div><!-- fragment --><p> Returns the total memory, used and free, for all BASIC programs and the operating system in bytes</p>
-<p><img src="https://user-images.githubusercontent.com/1556794/233864760-cc8f157a-af38-474d-bdb6-d0b97b818860.png" alt="image" class="inline"/> </p>
+</div><!-- fragment --><p>Returns the total <b>system memory</b> in bytes, including both <b>used</b> and <b>free</b> portions, for BASIC programs and the operating system.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md201"></a>
+Examples</h3>
+<div class="fragment"><div class="line">REM Print total system memory</div>
+<div class="line">PRINT MEMORY</div>
+</div><!-- fragment --><p>On a 4 GB machine this will typically print:</p>
+<div class="fragment"><div class="line">4294967296</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Derive free percentage</div>
+<div class="line">PRINT &quot;Free % = &quot;; (MEMFREE * 100) / MEMORY</div>
+</div><!-- fragment --><p>If <code>MEMFREE</code> reports <code>3758096384</code> on a 4 GB machine, this prints:</p>
+<div class="fragment"><div class="line">Free % = 87</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md203"></a>
+Notes</h3>
+<ul>
+<li>The value is in <b>bytes</b>, returned as a 64-bit integer.</li>
+<li>Reflects the <b>installed physical RAM</b> available to Retro Rocket OS.</li>
+<li>Together with <a class="el" href="MEMFREE.html">MEMFREE</a> and <a class="el" href="MEMUSED.html">MEMUSED</a>, allows monitoring of system usage.</li>
+<li>On machines marketed as “4 GB”, the total may be slightly less due to reserved space for hardware.</li>
+</ul>
+<hr  />
+<div class="image">
+<img src="memory.png" alt=""/>
+</div>
+<hr  />
+<p><b>See also:</b> <a class="el" href="MEMFREE.html">MEMFREE</a> · <a class="el" href="MEMUSED.html">MEMUSED</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -99,7 +124,7 @@ $(document).ready(function(){initNavTree('MEMORY.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

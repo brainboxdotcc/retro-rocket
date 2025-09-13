@@ -89,8 +89,35 @@ $(document).ready(function(){initNavTree('RGB.html',''); initResizable(); });
 <div class="title">RGB Function </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">RGB(integer-expression, integer-expression, integer-expression)</div>
-</div><!-- fragment --><p> Returns an RGB value from three integer values between 0 and 255. </p>
+<div class="textblock"><div class="fragment"><div class="line">RGB(red, green, blue)</div>
+</div><!-- fragment --><p>Combines three integers into a single <b>RGB colour value</b>. Each parameter must be an integer in the range <b>0–255</b>:</p>
+<ul>
+<li><code>red</code> → intensity of the red channel</li>
+<li><code>green</code> → intensity of the green channel</li>
+<li><code>blue</code> → intensity of the blue channel</li>
+</ul>
+<hr  />
+<h3><a class="anchor" id="autotoc_md283"></a>
+Examples</h3>
+<div class="fragment"><div class="line">REM Create pure red</div>
+<div class="line">col = RGB(255, 0, 0)</div>
+<div class="line">PRINT &quot;Red = &quot;; col</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Create a shade of purple</div>
+<div class="line">col = RGB(128, 0, 128)</div>
+<div class="line">PRINT &quot;Purple = &quot;; col</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Use in drawing</div>
+<div class="line">GCOL RGB(0, 255, 0)</div>
+<div class="line">RECTANGLE 10, 10, 100, 50</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md285"></a>
+Notes</h3>
+<ul>
+<li>The return value is a 24-bit RGB colour packed into an integer.</li>
+<li>Valid range for each channel is 0–255; values outside this range are clipped.</li>
+<li>Typically used with graphics commands such as <a class="el" href="GCOL.html">GCOL</a> and <a class="el" href="RECTANGLE.html">RECTANGLE</a>.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="GCOL.html">GCOL</a> · <a class="el" href="RECTANGLE.html">RECTANGLE</a> · <a class="el" href="POINT.html">POINT</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -98,7 +125,7 @@ $(document).ready(function(){initNavTree('RGB.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

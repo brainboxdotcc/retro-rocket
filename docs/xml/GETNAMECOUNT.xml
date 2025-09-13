@@ -7,7 +7,48 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">GETNAMECOUNT(string-expression)</highlight></codeline>
-</programlisting> Returns the number of files in the directory represented by the string expression. </para>
+</programlisting></para>
+<para>Returns the <bold>number of files</bold> in the directory specified by <computeroutput>string-expression</computeroutput>.</para>
+<para><itemizedlist>
+<listitem><para>If the path begins with <computeroutput>/</computeroutput>, it is treated as a <bold>fully qualified path</bold>.</para>
+</listitem><listitem><para>If it does not, it is treated as <bold>relative to the current working directory</bold>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<sect3 id="GETNAMECOUNT_1autotoc_md99">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Count<sp/>files<sp/>in<sp/>the<sp/>current<sp/>directory</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Current<sp/>dir<sp/>has<sp/>&quot;;<sp/>GETNAMECOUNT(&quot;&quot;)<sp/>;<sp/>&quot;<sp/>files&quot;</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Relative<sp/>path<sp/>example</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Logs:<sp/>&quot;;<sp/>GETNAMECOUNT(&quot;logs&quot;)</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Fully<sp/>qualified<sp/>path<sp/>example</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Programs:<sp/>&quot;;<sp/>GETNAMECOUNT(&quot;/programs&quot;)</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Guard<sp/>against<sp/>empty<sp/>directories</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>GETNAMECOUNT(&quot;/saves&quot;)<sp/>=<sp/>0<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;No<sp/>saved<sp/>games<sp/>found&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="GETNAMECOUNT_1autotoc_md101">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Counts only <bold>files</bold>, not subdirectories.</para>
+</listitem><listitem><para>Returns <computeroutput>0</computeroutput> if the directory exists but has no files.</para>
+</listitem><listitem><para>Returns <computeroutput>0</computeroutput> if the directory cannot be opened or does not exist.</para>
+</listitem><listitem><para>The empty string (<computeroutput>&quot;&quot;</computeroutput>) refers to the <bold>current directory</bold>.</para>
+</listitem><listitem><para>Works well with <ref refid="GETNAME" kindref="compound">GETNAME$ Function</ref>$ &quot;GETNAME\$&quot; to iterate over each filename.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="GETNAME" kindref="compound">GETNAME$ Function</ref>$ &quot;GETNAME\$&quot; · <ref refid="OPENIN" kindref="compound">OPENIN</ref> · <ref refid="OPENOUT" kindref="compound">OPENOUT</ref> · <ref refid="CLOSE" kindref="compound">CLOSE</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/GETNAMECOUNT.md"/>
   </compounddef>

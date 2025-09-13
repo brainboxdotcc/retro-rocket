@@ -6,8 +6,49 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting><codeline><highlight class="normal">SGN(integer-expression)</highlight></codeline>
-</programlisting> Returns -1 if the expression is negative, 0 if it is zero, and 1 if it is positive. </para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">SGN(integer-expression)</highlight></codeline>
+</programlisting></para>
+<para>Returns the <bold>sign</bold> of an integer expression:</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>-1</computeroutput> if the expression is negative</para>
+</listitem><listitem><para><computeroutput>0</computeroutput> if the expression is zero</para>
+</listitem><listitem><para><computeroutput>1</computeroutput> if the expression is positive</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<sect3 id="SGN_1autotoc_md298">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>SGN(-42)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>-1</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>SGN(0)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>0</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>SGN(1234)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>1</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Use<sp/>SGN<sp/>in<sp/>a<sp/>comparison</highlight></codeline>
+<codeline><highlight class="normal">balance<sp/>=<sp/>-150</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>SGN(balance)<sp/>=<sp/>-1<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Account<sp/>overdrawn!&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="SGN_1autotoc_md300">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Input must be an integer expression.</para>
+</listitem><listitem><para>Return value is always <computeroutput>-1</computeroutput>, <computeroutput>0</computeroutput>, or <computeroutput>1</computeroutput>.</para>
+</listitem><listitem><para>Can be used in compact conditionals or arithmetic to simplify sign handling.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="ABS" kindref="compound">ABS</ref> · <ref refid="INT" kindref="compound">INT</ref> · <ref refid="ROUND" kindref="compound">ROUND</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/SGN.md"/>
   </compounddef>

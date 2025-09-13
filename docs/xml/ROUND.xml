@@ -6,8 +6,47 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting><codeline><highlight class="normal">ROUND(real-expression)</highlight></codeline>
-</programlisting> Rounds the provided value to the nearest integer. Values of <computeroutput>0.5</computeroutput> and above are rounded away from zero. </para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">ROUND(real-expression)</highlight></codeline>
+</programlisting></para>
+<para>Rounds the provided real value to the <bold>nearest integer</bold>. Values with a fractional part of <computeroutput>0.5</computeroutput> or greater are rounded <bold>away from zero</bold>.</para>
+<para><hruler/>
+</para>
+<sect3 id="ROUND_1autotoc_md431">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>ROUND(3.2)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>3</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>ROUND(3.5)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>4</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>ROUND(-2.5)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>-3</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Compare<sp/>ROUND<sp/>with<sp/>INT<sp/>(truncate)<sp/>and<sp/>CEIL<sp/>(round<sp/>up)</highlight></codeline>
+<codeline><highlight class="normal">x#<sp/>=<sp/>-1.7</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;ROUND(&quot;;<sp/>x#;<sp/>&quot;)<sp/>=<sp/>&quot;;<sp/>ROUND(x#)<sp/><sp/><sp/>&apos;<sp/>-2</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;INT(&quot;;<sp/>x#;<sp/>&quot;)<sp/><sp/><sp/>=<sp/>&quot;;<sp/>INT(x#)<sp/><sp/><sp/><sp/><sp/>&apos;<sp/>-1<sp/>(towards<sp/>zero)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;CEIL(&quot;;<sp/>x#;<sp/>&quot;)<sp/><sp/>=<sp/>&quot;;<sp/>CEIL(x#)<sp/><sp/><sp/><sp/>&apos;<sp/>-1<sp/>(towards<sp/>+infinity)</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="ROUND_1autotoc_md433">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Returns a 64-bit integer.</para>
+</listitem><listitem><para>Halfway cases (<computeroutput>.5</computeroutput>) always round <bold>away from zero</bold>:<itemizedlist>
+<listitem><para><computeroutput>ROUND(2.5)</computeroutput> → <computeroutput>3</computeroutput></para>
+</listitem><listitem><para><computeroutput>ROUND(-2.5)</computeroutput> → <computeroutput>-3</computeroutput></para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para>Differs from <ref refid="INT" kindref="compound">INT</ref>, which truncates towards zero, and from <ref refid="CEIL" kindref="compound">CEIL</ref>, which always rounds up.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="INT" kindref="compound">INT</ref> · <ref refid="CEIL" kindref="compound">CEIL</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/real/ROUND.md"/>
   </compounddef>

@@ -7,7 +7,34 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">CHR$(integer-expression)</highlight></codeline>
-</programlisting> Returns the ASCII character represented by the integer expression </para>
+</programlisting></para>
+<para>Returns the ASCII character corresponding to the given integer value.</para>
+<para><hruler/>
+</para>
+<para><bold>Notes</bold></para>
+<para><itemizedlist>
+<listitem><para>Valid values are in the range <computeroutput>0</computeroutput>–<computeroutput>255</computeroutput>.</para>
+</listitem><listitem><para>Values outside this range are truncated to the low byte.</para>
+</listitem><listitem><para>The return value is always a single character string.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>Errors</bold></para>
+<para><itemizedlist>
+<listitem><para>None.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>Examples</bold></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>CHR$(65)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>REM<sp/>&quot;A&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>CHR$(10)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>REM<sp/>Newline</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;HELLO&quot;<sp/>+<sp/>CHR$(33)<sp/><sp/><sp/>:<sp/>REM<sp/>&quot;HELLO!&quot;</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+<para><bold>See also</bold> <ref refid="ASC" kindref="compound">ASC</ref> </para>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/CHR.md"/>
   </compounddef>

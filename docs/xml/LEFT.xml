@@ -7,7 +7,41 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">LEFT$(string-expression,<sp/>integer-expression)</highlight></codeline>
-</programlisting> Returns the leftmost integer-expression characters of string-expression. </para>
+</programlisting></para>
+<para>Returns the <bold>leftmost characters</bold> from a string. The second parameter specifies how many characters to return.</para>
+<para><hruler/>
+</para>
+<sect3 id="LEFT_1autotoc_md507">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>LEFT$(&quot;RetroRocket&quot;,<sp/>5)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>Retro</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Extract<sp/>drive<sp/>letter<sp/>from<sp/>a<sp/>path</highlight></codeline>
+<codeline><highlight class="normal">path$<sp/>=<sp/>&quot;C:/users/alice&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>LEFT$(path$,<sp/>2)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>C:</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Safely<sp/>clip<sp/>a<sp/>string</highlight></codeline>
+<codeline><highlight class="normal">msg$<sp/>=<sp/>&quot;Hello,<sp/>world!&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>LEFT$(msg$,<sp/>80)</highlight></codeline>
+</programlisting></para>
+<para>Prints the message, clipped to 80 characters if longer.</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="LEFT_1autotoc_md509">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>If the length requested is greater than the string length, the entire string is returned.</para>
+</listitem><listitem><para>If the length is <computeroutput>0</computeroutput>, an empty string is returned.</para>
+</listitem><listitem><para>Negative lengths cause an error.</para>
+</listitem><listitem><para>Result is always a new string, the original is unchanged.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="MID" kindref="compound">MID$</ref> · <ref refid="RIGHT" kindref="compound">RIGHT$</ref> · <ref refid="LEN" kindref="compound">LEN</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/LEFT.md"/>
   </compounddef>

@@ -6,8 +6,15 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">CPUID(integer-expression,<sp/>integer-expression,<sp/>integer-expression)</highlight></codeline>
-</programlisting> Returns the register value from CPUID. The three parameters are, in order: leaf, subleaf and register value from the table below:</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">CPUID(leaf,<sp/>subleaf,<sp/>register-index)</highlight></codeline>
+</programlisting></para>
+<para>Returns a <bold>32-bit register value</bold> from the CPU’s <computeroutput>CPUID</computeroutput> instruction.</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>leaf</computeroutput> (EAX input) selects the <bold>query</bold> (e.g., feature flags, topology).</para>
+</listitem><listitem><para><computeroutput>subleaf</computeroutput> (ECX input) refines the query for some leaves (set to <computeroutput>0</computeroutput> if unused).</para>
+</listitem><listitem><para><computeroutput>register-index</computeroutput> chooses which returned register to read:</para>
+</listitem></itemizedlist>
+</para>
 <para><table rows="5" cols="2"><row>
 <entry thead="yes"><para>Value   </para>
 </entry><entry thead="yes"><para>Register    </para>
@@ -30,8 +37,68 @@
 </entry></row>
 </table>
 </para>
-<para>Register values outside of this range will throw an error.</para>
-<para>For full details of all possible return values from this function see the <ulink url="../cpuid">cpuid</ulink> command. </para>
+<para>If <computeroutput>register-index</computeroutput> is outside <computeroutput>0–3</computeroutput>, an <bold>error</bold> is raised.</para>
+<para>For a survey of leaves/subleaves and their meanings, see the <bold>cpuid</bold> command’s reference.</para>
+<para><hruler/>
+</para>
+<sect3 id="CPUID_1autotoc_md69">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>the<sp/>highest<sp/>supported<sp/>standard<sp/>leaf</highlight></codeline>
+<codeline><highlight class="normal">max_leaf<sp/>=<sp/>CPUID(&amp;00000000,<sp/>0,<sp/>0)<sp/><sp/>REM<sp/>EAX</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Max<sp/>standard<sp/>leaf<sp/>=<sp/>&quot;;<sp/>max_leaf</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Detect<sp/>SSE2<sp/>(leaf<sp/>1,<sp/>EDX<sp/>bit<sp/>26)</highlight></codeline>
+<codeline><highlight class="normal">features_edx<sp/>=<sp/>CPUID(&amp;00000001,<sp/>0,<sp/>3)</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>BITAND(features_edx,<sp/>&amp;04000000)<sp/>&lt;&gt;<sp/>0<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;SSE2<sp/>supported&quot;</highlight></codeline>
+<codeline><highlight class="normal">ELSE</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;SSE2<sp/>NOT<sp/>supported&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Detect<sp/>AVX<sp/>(leaf<sp/>1,<sp/>ECX<sp/>bit<sp/>28)<sp/>and<sp/>OSXSAVE<sp/>(leaf<sp/>1,<sp/>ECX<sp/>bit<sp/>27)</highlight></codeline>
+<codeline><highlight class="normal">features_ecx<sp/>=<sp/>CPUID(&amp;00000001,<sp/>0,<sp/>2)</highlight></codeline>
+<codeline><highlight class="normal">has_osxsave<sp/>=<sp/>BITAND(features_ecx,<sp/>&amp;08000000)<sp/><sp/><sp/><sp/>&lt;&gt;<sp/>0<sp/><sp/>REM<sp/>bit<sp/>27</highlight></codeline>
+<codeline><highlight class="normal">has_avx<sp/><sp/><sp/><sp/><sp/>=<sp/>BITAND(features_ecx,<sp/>&amp;10000000)<sp/><sp/><sp/><sp/>&lt;&gt;<sp/>0<sp/><sp/>REM<sp/>bit<sp/>28</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>has_osxsave<sp/>=<sp/>TRUE<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>IF<sp/>has_avx<sp/>=<sp/>TRUE<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;AVX<sp/>supported<sp/>(CPU<sp/>advertises<sp/>AVX<sp/>and<sp/>OSXSAVE)&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ELSE</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;No<sp/>AVX<sp/>(CPU<sp/>missing<sp/>AVX<sp/>bit)&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ENDIF</highlight></codeline>
+<codeline><highlight class="normal">ELSE</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;No<sp/>AVX<sp/>usable<sp/>(OSXSAVE<sp/>not<sp/>set)&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Detect<sp/>BMI2<sp/>(leaf<sp/>7<sp/>subleaf<sp/>0,<sp/>EBX<sp/>bit<sp/>8)</highlight></codeline>
+<codeline><highlight class="normal">ebx_7_0<sp/>=<sp/>CPUID(&amp;00000007,<sp/>0,<sp/>1)</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>BITAND(ebx_7_0,<sp/>&amp;00000100)<sp/>&lt;&gt;<sp/>0<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;BMI2<sp/>supported&quot;</highlight></codeline>
+<codeline><highlight class="normal">ELSE</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;BMI2<sp/>NOT<sp/>supported&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>the<sp/>highest<sp/>supported<sp/>extended<sp/>leaf</highlight></codeline>
+<codeline><highlight class="normal">max_ext<sp/>=<sp/>CPUID(&amp;80000000,<sp/>0,<sp/>0)<sp/><sp/>REM<sp/>EAX</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Max<sp/>extended<sp/>leaf<sp/>=<sp/>&quot;;<sp/>max_ext</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="CPUID_1autotoc_md71">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para><bold>Return width:</bold> The function returns a Retro Rocket <bold>integer</bold> (64-bit signed), but only the <bold>low 32 bits</bold> are meaningful; the result is the raw register value.</para>
+</listitem><listitem><para><bold>Signed vs unsigned:</bold> Some feature bits set the high bit; if you print the value as a signed decimal it may appear negative. Use <bold>hex masks</bold> (e.g., <computeroutput>&amp;10000000</computeroutput>) with <computeroutput>BITAND</computeroutput> in tests, as shown in the examples.</para>
+</listitem><listitem><para><bold>Subleaf usage:</bold> Many leaves <bold>ignore</bold> <computeroutput>subleaf</computeroutput>; pass <computeroutput>0</computeroutput> unless the leaf explicitly defines subleaf semantics (e.g., leaves <computeroutput>&amp;00000004</computeroutput>, <computeroutput>&amp;0000000B</computeroutput>, <computeroutput>&amp;00000007</computeroutput>, <computeroutput>&amp;8000001D</computeroutput>, etc.).</para>
+</listitem><listitem><para><bold>Determinism:</bold> <computeroutput>CPUID</computeroutput> serialises certain execution on many CPUs and is safe to call at any time from BASIC programs. It has <bold>no side effects</bold> in Retro Rocket.</para>
+</listitem><listitem><para><bold>Platform baseline:</bold> Retro Rocket targets x86-64 where <computeroutput>CPUID</computeroutput> is available. No compatibility shim is provided for pre-<computeroutput>CPUID</computeroutput> 80386/early 80486 systems.</para>
+</listitem><listitem><para><bold>Reading multi-word strings:</bold> Some CPUID leaves (e.g., brand string at <computeroutput>&amp;80000002..&amp;80000004</computeroutput>) return <bold>packed ASCII</bold> in four registers per leaf. <computeroutput>CPUID</computeroutput> gives you the raw 32-bit words; if you wish to render them as text, extract bytes with bit masks and compose characters with <computeroutput>CHR$</computeroutput>. (Feature bit probing, as above, is usually what you want inside BASIC.)</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="BITAND" kindref="compound">BITAND</ref> · <ref refid="BITOR" kindref="compound">BITOR</ref> · <ref refid="BITNAND" kindref="compound">BITNAND</ref> · cpuid (command) </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/CPUID.md"/>
   </compounddef>

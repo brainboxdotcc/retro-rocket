@@ -7,7 +7,53 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">GETSIZE(string-expression,<sp/>integer-expression)</highlight></codeline>
-</programlisting> Returns the size of a file in a directory. The string expression is a directory path, and the integer expression is an index between 0 and <computeroutput>GETNAMECOUNT() - 1</computeroutput> for the same directory. </para>
+</programlisting></para>
+<para>Returns the <bold>size of a file</bold> (in bytes) within a directory.</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>string-expression</computeroutput> → path to the directory (fully qualified or relative to the current working directory).</para>
+</listitem><listitem><para><computeroutput>integer-expression</computeroutput> → file index in the range <computeroutput>0 … GETNAMECOUNT(dir$) - 1</computeroutput>, identifying the file in that directory.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<sect3 id="GETSIZE_1autotoc_md129">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>size<sp/>of<sp/>all<sp/>files<sp/>in<sp/>/programs</highlight></codeline>
+<codeline><highlight class="normal">dir$<sp/>=<sp/>&quot;/programs&quot;</highlight></codeline>
+<codeline><highlight class="normal">count<sp/>=<sp/>GETNAMECOUNT(dir$)</highlight></codeline>
+<codeline><highlight class="normal">FOR<sp/>i<sp/>=<sp/>0<sp/>TO<sp/>count<sp/>-<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>GETNAME$(dir$,<sp/>i);<sp/>&quot;<sp/>=<sp/>&quot;;<sp/>GETSIZE(dir$,<sp/>i);<sp/>&quot;<sp/>bytes&quot;</highlight></codeline>
+<codeline><highlight class="normal">NEXT</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Get<sp/>size<sp/>of<sp/>the<sp/>first<sp/>file<sp/>in<sp/>/saves</highlight></codeline>
+<codeline><highlight class="normal">size<sp/>=<sp/>GETSIZE(&quot;/saves&quot;,<sp/>0)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;First<sp/>save<sp/>file<sp/>size<sp/>=<sp/>&quot;;<sp/>size;<sp/>&quot;<sp/>bytes&quot;</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Calculate<sp/>total<sp/>size<sp/>of<sp/>a<sp/>directory</highlight></codeline>
+<codeline><highlight class="normal">dir$<sp/>=<sp/>&quot;/data&quot;</highlight></codeline>
+<codeline><highlight class="normal">total<sp/>=<sp/>0</highlight></codeline>
+<codeline><highlight class="normal">FOR<sp/>i<sp/>=<sp/>0<sp/>TO<sp/>GETNAMECOUNT(dir$)<sp/>-<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>total<sp/>=<sp/>total<sp/>+<sp/>GETSIZE(dir$,<sp/>i)</highlight></codeline>
+<codeline><highlight class="normal">NEXT</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Total<sp/>size<sp/>of<sp/>/data<sp/>=<sp/>&quot;;<sp/>total;<sp/>&quot;<sp/>bytes&quot;</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="GETSIZE_1autotoc_md131">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Size is returned as a Retro Rocket BASIC integer (64-bit signed).</para>
+</listitem><listitem><para>Only valid for <bold>files</bold>. Subdirectories (if present) report size <computeroutput>0</computeroutput>.</para>
+</listitem><listitem><para>Index must be in range; otherwise an <bold>error</bold> occurs.</para>
+</listitem><listitem><para>Use together with <ref refid="GETNAME" kindref="compound">GETNAME$ Function</ref>$ &quot;GETNAME\$&quot; to list files and obtain their sizes.</para>
+</listitem><listitem><para>To count files before accessing by index, call <ref refid="GETNAMECOUNT" kindref="compound">GETNAMECOUNT</ref>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="GETNAMECOUNT" kindref="compound">GETNAMECOUNT</ref> · <ref refid="GETNAME" kindref="compound">GETNAME$ Function</ref>$ &quot;GETNAME\$&quot; · <ref refid="OPENIN" kindref="compound">OPENIN</ref> · <ref refid="READ" kindref="compound">READ$ Function</ref>$ &quot;READ\$&quot; · <ref refid="CLOSE" kindref="compound">CLOSE</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/GETSIZE.md"/>
   </compounddef>

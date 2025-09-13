@@ -6,8 +6,48 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting filename=".BASIC"><codeline><highlight class="normal">FILETYPE$(string-expression)</highlight></codeline>
-</programlisting> Given a file who&apos;s name is in the string-expression, return the text <computeroutput>file</computeroutput> if the object referred to by the string expression is a file, or <computeroutput>directory</computeroutput> if it is a directory. </para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">FILETYPE$(string-expression)</highlight></codeline>
+</programlisting></para>
+<para>Returns the <bold>type</bold> of the object referred to by the given path. The result is the string <computeroutput>&quot;file&quot;</computeroutput> if it is a file, or <computeroutput>&quot;directory&quot;</computeroutput> if it is a directory.</para>
+<para><hruler/>
+</para>
+<sect3 id="FILETYPE_1autotoc_md468">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>FILETYPE$(&quot;config.txt&quot;)</highlight></codeline>
+</programlisting></para>
+<para>Might produce:</para>
+<para><programlisting><codeline><highlight class="normal">file</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>FILETYPE$(&quot;/home/user&quot;)</highlight></codeline>
+</programlisting></para>
+<para>Might produce:</para>
+<para><programlisting><codeline><highlight class="normal">directory</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Check<sp/>type<sp/>before<sp/>processing</highlight></codeline>
+<codeline><highlight class="normal">path$<sp/>=<sp/>&quot;data&quot;</highlight></codeline>
+<codeline><highlight class="normal">ft$<sp/>=<sp/>FILETYPE$(path$)</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>ft$<sp/>=<sp/>&quot;file&quot;<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>path$;<sp/>&quot;<sp/>is<sp/>a<sp/>file&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>ft$<sp/>=<sp/>&quot;directory&quot;<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>path$;<sp/>&quot;<sp/>is<sp/>a<sp/>directory&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="FILETYPE_1autotoc_md470">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>The path may be absolute (starting with <computeroutput>/</computeroutput>) or relative to the current working directory (<ref refid="CSD" kindref="compound">CSD$</ref>).</para>
+</listitem><listitem><para>If the object does not exist, an error is raised.</para>
+</listitem><listitem><para>Only two return values are defined: <computeroutput>&quot;file&quot;</computeroutput> and <computeroutput>&quot;directory&quot;</computeroutput>. Other object types are not distinguished.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="CSD" kindref="compound">CSD$</ref> · <ref refid="GETNAMECOUNT" kindref="compound">GETNAMECOUNT</ref> · <ref refid="GETSIZE" kindref="compound">GETSIZE</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/FILETYPE.md"/>
   </compounddef>

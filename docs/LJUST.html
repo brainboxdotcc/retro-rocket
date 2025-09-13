@@ -90,7 +90,28 @@ $(document).ready(function(){initNavTree('LJUST.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">LJUST$(string-expression, integer-expression, string-expression)</div>
-</div><!-- fragment --><p> Left-justify a string, appending the third parameter repeatedly to the end of the first parameter until its length is at least equal to the integer-expression </p>
+</div><!-- fragment --><p>Returns a <b>left-justified string</b> by padding the input string (first parameter) with the pad string (third parameter) until the result length is <b>at least</b> the specified width (second parameter).</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md512"></a>
+Examples</h3>
+<div class="fragment"><div class="line">PRINT LJUST$(&quot;Retro&quot;, 10, &quot; &quot;)</div>
+</div><!-- fragment --><p>Produces <code>"Retro     "</code> (padded with spaces).</p>
+<div class="fragment"><div class="line">PRINT LJUST$(&quot;42&quot;, 5, &quot;0&quot;)</div>
+</div><!-- fragment --><p>Produces <code>"42000"</code>.</p>
+<div class="fragment"><div class="line">REM Use multi-character padding</div>
+<div class="line">PRINT LJUST$(&quot;X&quot;, 6, &quot;-=&quot;)</div>
+</div><!-- fragment --><p>Produces <code>"X-=-=-"</code>.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md514"></a>
+Notes</h3>
+<ul>
+<li>If the original string is already at least the specified length, it is returned unchanged.</li>
+<li>The pad string is repeated as many times as necessary, and may be truncated to fit exactly.</li>
+<li>Pad string must not be empty; an empty pad string raises an error.</li>
+<li>Useful for creating fixed-width tables or aligning output.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="RJUST.html">RJUST$</a> · <a class="el" href="LEN.html">LEN</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -98,7 +119,7 @@ $(document).ready(function(){initNavTree('LJUST.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="string-funcs.html">String Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -6,9 +6,44 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting><codeline><highlight class="normal">ATAN(real-expression)</highlight></codeline>
-</programlisting> Returns the arc tangent of the provided expression (in radians).</para>
-<para>The result will be between <computeroutput>-PI#/2</computeroutput> and <computeroutput>PI#/2</computeroutput>. </para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">ATAN(real-expression)</highlight></codeline>
+</programlisting></para>
+<para>Returns the <bold>arc tangent</bold> (inverse tangent) of the given expression, in <bold>radians</bold>.</para>
+<para>The result will always lie between <computeroutput>-PI#/2</computeroutput> and <computeroutput>PI#/2</computeroutput>.</para>
+<para><hruler/>
+</para>
+<sect3 id="ATAN_1autotoc_md371">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>ATAN(0)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>0</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>ATAN(1)</highlight></codeline>
+</programlisting></para>
+<para>Produces approximately <computeroutput>0.785398</computeroutput> (π/4).</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>ATAN(-1)</highlight></codeline>
+</programlisting></para>
+<para>Produces approximately <computeroutput>-0.785398</computeroutput> (-π/4).</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Validate<sp/>a<sp/>tangent<sp/>identity</highlight></codeline>
+<codeline><highlight class="normal">angle#<sp/>=<sp/>0.3</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>ATAN(TAN(angle#))</highlight></codeline>
+</programlisting></para>
+<para>Produces the original angle (within floating point accuracy).</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="ATAN_1autotoc_md373">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Input range: any real number is valid.</para>
+</listitem><listitem><para>Return range: <computeroutput>-π/2 ≤ result ≤ π/2</computeroutput> radians.</para>
+</listitem><listitem><para>To convert the result to degrees, multiply by <computeroutput>180 / PI</computeroutput>.</para>
+</listitem><listitem><para>For quadrant-aware arc tangent with two arguments (x,y), use <ref refid="ATAN2" kindref="compound">ATAN2</ref>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="TAN" kindref="compound">TAN</ref> · <ref refid="ATAN2" kindref="compound">ATAN2</ref> · <ref refid="ACS" kindref="compound">ACS</ref> · <ref refid="ASN" kindref="compound">ASN</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/real/ATAN.md"/>
   </compounddef>

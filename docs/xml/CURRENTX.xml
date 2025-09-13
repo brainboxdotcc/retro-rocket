@@ -7,7 +7,49 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">CURRENTX</highlight></codeline>
-</programlisting> Returns the current X text cursor position on the terminal in character cells </para>
+</programlisting></para>
+<para>Returns the current <bold>X text cursor position</bold> (column) on the terminal, measured in <bold>character cells</bold>. The leftmost column is <bold>0</bold>, increasing to the right.</para>
+<para><hruler/>
+</para>
+<sect3 id="CURRENTX_1autotoc_md74">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">CLS</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Hello&quot;;</highlight></codeline>
+<codeline><highlight class="normal">x<sp/>=<sp/>CURRENTX</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;<sp/>(cursor<sp/>now<sp/>at<sp/>column<sp/>&quot;;<sp/>x;<sp/>&quot;)&quot;</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Draw<sp/>a<sp/>horizontal<sp/>line<sp/>of<sp/>dashes<sp/>across<sp/>the<sp/>current<sp/>row</highlight></codeline>
+<codeline><highlight class="normal">CLS</highlight></codeline>
+<codeline><highlight class="normal">FOR<sp/>i<sp/>=<sp/>1<sp/>TO<sp/>TERMWIDTH</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;-&quot;;</highlight></codeline>
+<codeline><highlight class="normal">NEXT</highlight></codeline>
+<codeline><highlight class="normal">PRINT</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Line<sp/>ended<sp/>at<sp/>column<sp/>&quot;;<sp/>CURRENTX</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Example:<sp/>align<sp/>text<sp/>to<sp/>screen<sp/>centre<sp/>using<sp/>CURRENTX</highlight></codeline>
+<codeline><highlight class="normal">CLS</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Retro<sp/>Rocket&quot;;</highlight></codeline>
+<codeline><highlight class="normal">middle<sp/>=<sp/>TERMWIDTH<sp/>/<sp/>2</highlight></codeline>
+<codeline><highlight class="normal">shift<sp/>=<sp/>middle<sp/>-<sp/>CURRENTX<sp/>/<sp/>2</highlight></codeline>
+<codeline><highlight class="normal">CURSOR<sp/>shift,<sp/>5</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Centered<sp/>beneath&quot;</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="CURRENTX_1autotoc_md76">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Cursor position is <bold>zero-based</bold>: the first column is <computeroutput>0</computeroutput>.</para>
+</listitem><listitem><para><computeroutput>CURRENTX</computeroutput> only reflects the <bold>logical cursor position</bold>, not the underlying ANSI escape codes used by <computeroutput>PRINT</computeroutput>.</para>
+</listitem><listitem><para>When the cursor advances past the last column, it wraps onto the next row. At this point <computeroutput>CURRENTX</computeroutput> is reset to <computeroutput>0</computeroutput>.</para>
+</listitem><listitem><para>Use together with <ref refid="CURRENTY" kindref="compound">CURRENTY</ref> to track both horizontal and vertical positions.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="CURRENTY" kindref="compound">CURRENTY</ref> · <ref refid="CURSOR" kindref="compound">CURSOR</ref> · <ref refid="TERMWIDTH" kindref="compound">TERMWIDTH</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/CURRENTX.md"/>
   </compounddef>

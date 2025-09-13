@@ -7,7 +7,43 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">integer-value<sp/>=<sp/>HEXVAL(string-value)</highlight></codeline>
-</programlisting> Returns the integer form of a string containing a hexadecimal number. </para>
+</programlisting></para>
+<para>Returns the <bold>integer value</bold> of a string containing a <bold>hexadecimal number</bold>. The string must consist only of valid hex digits (<computeroutput>0–9</computeroutput>, <computeroutput>A–F</computeroutput>, <computeroutput>a–f</computeroutput>).</para>
+<para><hruler/>
+</para>
+<sect3 id="HEXVAL_1autotoc_md139">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>HEXVAL(&quot;FF&quot;)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>255</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>HEXVAL(&quot;deadbeef&quot;)</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>3735928559</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Convert<sp/>user<sp/>input</highlight></codeline>
+<codeline><highlight class="normal">INPUT<sp/>&quot;Enter<sp/>a<sp/>hex<sp/>number<sp/>&gt;<sp/>&quot;<sp/>;<sp/>h$</highlight></codeline>
+<codeline><highlight class="normal">val<sp/>=<sp/>HEXVAL(h$)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;You<sp/>entered<sp/>decimal<sp/>&quot;;<sp/>val</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Round-trip<sp/>using<sp/>HEX$</highlight></codeline>
+<codeline><highlight class="normal">n<sp/>=<sp/>&amp;2A<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REM<sp/>hex<sp/>literal<sp/>in<sp/>source</highlight></codeline>
+<codeline><highlight class="normal">h$<sp/>=<sp/>HEX$(n)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>h$;<sp/>&quot;<sp/>=<sp/>&quot;;<sp/>HEXVAL(h$)</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="HEXVAL_1autotoc_md141">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Parsing is <bold>case-insensitive</bold>: <computeroutput>&quot;FF&quot;</computeroutput>, <computeroutput>&quot;Ff&quot;</computeroutput>, and <computeroutput>&quot;ff&quot;</computeroutput> all return <computeroutput>255</computeroutput>.</para>
+</listitem><listitem><para>Returns a <bold>64-bit integer</bold>.</para>
+</listitem><listitem><para>If the string is empty, or contains any non-hex character, the return value is <computeroutput>0</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> HEX$ · <ref refid="STR" kindref="compound">STR$</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/HEXVAL.md"/>
   </compounddef>

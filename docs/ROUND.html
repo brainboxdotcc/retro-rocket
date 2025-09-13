@@ -90,7 +90,35 @@ $(document).ready(function(){initNavTree('ROUND.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">ROUND(real-expression)</div>
-</div><!-- fragment --><p> Rounds the provided value to the nearest integer. Values of <code>0.5</code> and above are rounded away from zero. </p>
+</div><!-- fragment --><p>Rounds the provided real value to the <b>nearest integer</b>. Values with a fractional part of <code>0.5</code> or greater are rounded <b>away from zero</b>.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md431"></a>
+Examples</h3>
+<div class="fragment"><div class="line">PRINT ROUND(3.2)</div>
+</div><!-- fragment --><p>Produces <code>3</code>.</p>
+<div class="fragment"><div class="line">PRINT ROUND(3.5)</div>
+</div><!-- fragment --><p>Produces <code>4</code>.</p>
+<div class="fragment"><div class="line">PRINT ROUND(-2.5)</div>
+</div><!-- fragment --><p>Produces <code>-3</code>.</p>
+<div class="fragment"><div class="line">REM Compare ROUND with INT (truncate) and CEIL (round up)</div>
+<div class="line">x# = -1.7</div>
+<div class="line">PRINT &quot;ROUND(&quot;; x#; &quot;) = &quot;; ROUND(x#)   &#39; -2</div>
+<div class="line">PRINT &quot;INT(&quot;; x#; &quot;)   = &quot;; INT(x#)     &#39; -1 (towards zero)</div>
+<div class="line">PRINT &quot;CEIL(&quot;; x#; &quot;)  = &quot;; CEIL(x#)    &#39; -1 (towards +infinity)</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md433"></a>
+Notes</h3>
+<ul>
+<li>Returns a 64-bit integer.</li>
+<li>Halfway cases (<code>.5</code>) always round <b>away from zero</b>:<ul>
+<li><code>ROUND(2.5)</code> → <code>3</code></li>
+<li><code>ROUND(-2.5)</code> → <code>-3</code></li>
+</ul>
+</li>
+<li>Differs from <a class="el" href="INT.html">INT</a>, which truncates towards zero, and from <a class="el" href="CEIL.html">CEIL</a>, which always rounds up.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="INT.html">INT</a> · <a class="el" href="CEIL.html">CEIL</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -98,7 +126,7 @@ $(document).ready(function(){initNavTree('ROUND.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="real-funcs.html">Real Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

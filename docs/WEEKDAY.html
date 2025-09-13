@@ -89,20 +89,59 @@ $(document).ready(function(){initNavTree('WEEKDAY.html',''); initResizable(); })
 <div class="title">WEEKDAY Function </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">numeric-expression = WEEKDAY(boolean-expression)</div>
-</div><!-- fragment --><p>Returns the current day of the week as a number (<code>0 = Sunday</code>, <code>1 = Monday</code>, ..., <code>6 = Saturday</code>). <br  />
- Pass <code>TRUE</code> to adjust using the current time zone, or <code>FALSE</code> for UTC.</p>
-<p>Example:</p>
-<div class="fragment"><div class="line">PRINT WEEKDAY(TRUE)   &#39; Local weekday</div>
-<div class="line">PRINT WEEKDAY(FALSE)  &#39; UTC weekday</div>
-</div><!-- fragment --> </div></div><!-- contents -->
+<div class="textblock"><div class="fragment"><div class="line">WEEKDAY(boolean-expression)</div>
+</div><!-- fragment --><p>Returns the current <b>day of the week</b> as a number:</p>
+<ul>
+<li><code>0 = Sunday</code></li>
+<li><code>1 = Monday</code></li>
+<li><code>2 = Tuesday</code></li>
+<li><code>3 = Wednesday</code></li>
+<li><code>4 = Thursday</code></li>
+<li><code>5 = Friday</code></li>
+<li><code>6 = Saturday</code></li>
+</ul>
+<p>Pass <code>TRUE</code> to return the local day (adjusted by system time zone), or <code>FALSE</code> for UTC.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md351"></a>
+Examples</h3>
+<div class="fragment"><div class="line">PRINT &quot;Local weekday = &quot;; WEEKDAY(TRUE)</div>
+<div class="line">PRINT &quot;UTC weekday   = &quot;; WEEKDAY(FALSE)</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Print message if it&#39;s the weekend</div>
+<div class="line">d = WEEKDAY(TRUE)</div>
+<div class="line">IF d = 0 OR d = 6 THEN</div>
+<div class="line">    PRINT &quot;It&#39;s the weekend!&quot;</div>
+<div class="line">ELSE</div>
+<div class="line">    PRINT &quot;It&#39;s a weekday.&quot;</div>
+<div class="line">ENDIF</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Map weekday number to name</div>
+<div class="line">DIM dayNames$, 7</div>
+<div class="line">dayNames$(0) = &quot;Sunday&quot;</div>
+<div class="line">dayNames$(1) = &quot;Monday&quot;</div>
+<div class="line">dayNames$(2) = &quot;Tuesday&quot;</div>
+<div class="line">dayNames$(3) = &quot;Wednesday&quot;</div>
+<div class="line">dayNames$(4) = &quot;Thursday&quot;</div>
+<div class="line">dayNames$(5) = &quot;Friday&quot;</div>
+<div class="line">dayNames$(6) = &quot;Saturday&quot;</div>
+<div class="line"> </div>
+<div class="line">PRINT &quot;Today is &quot;; dayNames$(WEEKDAY(TRUE))</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md353"></a>
+Notes</h3>
+<ul>
+<li>Returns an integer in the range <code>0–6</code>.</li>
+<li>Local time depends on configured time zone. Without configuration, local and UTC values are identical.</li>
+<li>Use together with <a class="el" href="DAY.html">DAY</a>, <a class="el" href="MONTH.html">MONTH</a>, and <a class="el" href="YEAR.html">YEAR</a> for full date handling.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="DAY.html">DAY</a> · <a class="el" href="MONTH.html">MONTH</a> · <a class="el" href="YEAR.html">YEAR</a> · <a class="el" href="HOUR.html">HOUR</a> · <a class="el" href="MINUTE.html">MINUTE</a> · <a class="el" href="SECOND.html">SECOND</a> </p>
+</div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

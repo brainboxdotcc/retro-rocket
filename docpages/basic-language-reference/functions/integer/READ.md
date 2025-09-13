@@ -1,4 +1,4 @@
-\page READ READ Function
+\page IREAD READ Function
 
 ```basic
 READ(integer-variable)

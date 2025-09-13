@@ -90,7 +90,29 @@ $(document).ready(function(){initNavTree('REALVAL.html',''); initResizable(); })
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">real-value = REALVAL(string-value)</div>
-</div><!-- fragment --><p> Returns the real number form of a string containing a number. </p>
+</div><!-- fragment --><p>Converts a string containing a number into a <b>real (floating-point)</b> value.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md426"></a>
+Examples</h3>
+<div class="fragment"><div class="line">PRINT REALVAL(&quot;3.14159&quot;)</div>
+</div><!-- fragment --><p>Produces <code>3.14159</code>.</p>
+<div class="fragment"><div class="line">PRINT REALVAL(&quot;-42.75&quot;)</div>
+</div><!-- fragment --><p>Produces <code>-42.75</code>.</p>
+<div class="fragment"><div class="line">REM Using REALVAL for user input</div>
+<div class="line">INPUT str$</div>
+<div class="line">num# = REALVAL(str$)</div>
+<div class="line">PRINT &quot;You entered &quot;; num#</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md428"></a>
+Notes</h3>
+<ul>
+<li>Accepts decimal and optionally signed values.</li>
+<li>If the string cannot be parsed as a valid real number, an error is raised.</li>
+<li>Returns a 64-bit double-precision floating-point value.</li>
+<li>For integer conversion, use <a class="el" href="VAL.html">VAL</a>.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="VAL.html">VAL</a> · <a class="el" href="HEXVAL.html">HEXVAL</a> · <a class="el" href="OCTVAL.html">OCTVAL</a> · <a class="el" href="RADIX.html">RADIX</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -98,7 +120,7 @@ $(document).ready(function(){initNavTree('REALVAL.html',''); initResizable(); })
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="real-funcs.html">Real Functions</a></li>
-    <li class="footer">Generated on Fri Sep 12 2025 15:09:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 13 2025 00:55:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
