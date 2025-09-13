@@ -100,7 +100,8 @@
 	[[maybe_unused]] char* oldptr = 0; \
 	[[maybe_unused]] char const* oldnextptr = NULL; \
 	[[maybe_unused]] int gotone = 0; \
-	[[maybe_unused]] int bracket_depth = 0; \
+	[[maybe_unused]] int bracket_depth = 0;  \
+	[[maybe_unused]] size_t strlength; \
 	[[maybe_unused]] char const* item_begin = ctx->ptr;
 
 /**
@@ -140,8 +141,8 @@
 				strval = (char*)str_expr(ctx); \
 			} else if (itemtype == BIP_DOUBLE) { \
 				double_expr(ctx, &doubleval); \
-			} else if (itemtype == BIP_VARIABLE) { \
-				strval = (char*)tokenizer_variable_name(ctx); \
+			} else if (itemtype == BIP_VARIABLE) {   \
+				strval = (char*)tokenizer_variable_name(ctx, &strlength); \
 			} else { \
 				intval = expr(ctx); \
 			} \

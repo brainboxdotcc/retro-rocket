@@ -248,9 +248,10 @@ void tokenizer_fnum(struct basic_ctx* ctx, enum token_t token, double* f);
  * (do not advance the pointer)
  *
  * @param ctx context
+ * @param count Upon return contains the string length of the variable name
  * @return const char* variable name
  */
-const char* tokenizer_variable_name(struct basic_ctx* ctx);
+const char* tokenizer_variable_name(struct basic_ctx* ctx, size_t* count);
 
 /**
  * @brief Get a string constant as the next token

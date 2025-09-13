@@ -240,7 +240,8 @@ void next_statement(struct basic_ctx* ctx)
 void for_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(FOR, ctx);
-	const char* for_variable = buddy_strdup(ctx->allocator, tokenizer_variable_name(ctx));
+	size_t var_length;
+	const char* for_variable = buddy_strdup(ctx->allocator, tokenizer_variable_name(ctx, &var_length));
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(EQUALS, ctx);
 	if (strchr(for_variable, '#')) {

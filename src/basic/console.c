@@ -97,7 +97,8 @@ bool check_input_in_progress(process_t* proc, void* opaque)
 void input_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(INPUT, ctx);
-	const char* var = tokenizer_variable_name(ctx);
+	size_t var_length;
+	const char* var = tokenizer_variable_name(ctx, &var_length);
 	accept_or_return(VARIABLE, ctx);
 
 	process_t* proc = proc_cur(logical_cpu_id());
@@ -112,7 +113,7 @@ void input_statement(struct basic_ctx* ctx)
 
 	proc_set_idle(proc, NULL, NULL);
 
-	switch (var[strlen(var) - 1]) {
+	switch (var[var_length - 1]) {
 		case '$':
 			basic_set_string_variable(var, kgetinput(), ctx, false, false);
 		break;
@@ -329,7 +330,8 @@ bool check_key_waiting(process_t* proc, void* opaque)
 void kget_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(KGET, ctx);
-	const char* var = tokenizer_variable_name(ctx);
+	size_t var_length;
+	const char* var = tokenizer_variable_name(ctx, &var_length);
 	accept_or_return(VARIABLE, ctx);
 
 	process_t* proc = proc_cur(logical_cpu_id());
@@ -345,7 +347,7 @@ void kget_statement(struct basic_ctx* ctx)
 
 	unsigned char c = kgetc();
 
-	switch (var[strlen(var) - 1]) {
+	switch (var[var_length - 1]) {
 		case '$': {
 			char str[2] = { c, '\0' };
 			basic_set_string_variable(var, str, ctx, false, false);

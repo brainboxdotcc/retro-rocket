@@ -444,12 +444,13 @@ void basic_set_int_array_variable(const char* var, int64_t index, int64_t value,
 void dim_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(DIM, ctx);
-	const char* array_name = tokenizer_variable_name(ctx);
+	size_t var_length;
+	const char* array_name = tokenizer_variable_name(ctx, &var_length);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
 	int64_t array_size = expr(ctx);
 	accept_or_return(NEWLINE, ctx);
-	char last = array_name[strlen(array_name) - 1];
+	char last = array_name[var_length - 1];
 	switch (last) {
 		case '#':
 			basic_dim_double_array(array_name, array_size, ctx);
@@ -465,12 +466,13 @@ void dim_statement(struct basic_ctx* ctx)
 void redim_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(REDIM, ctx);
-	const char* array_name = tokenizer_variable_name(ctx);
+	size_t var_length;
+	const char* array_name = tokenizer_variable_name(ctx, &var_length);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
 	int64_t array_size = expr(ctx);
 	accept_or_return(NEWLINE, ctx);
-	char last = array_name[strlen(array_name) - 1];
+	char last = array_name[var_length - 1];
 	switch (last) {
 		case '#':
 			basic_redim_double_array(array_name, array_size, ctx);
@@ -667,12 +669,13 @@ bool basic_push_double_array(const char* var, int64_t push_pos, struct basic_ctx
 void push_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(PUSH, ctx);
-	const char* array_name = tokenizer_variable_name(ctx);
+	size_t var_length;
+	const char* array_name = tokenizer_variable_name(ctx, &var_length);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
 	int64_t push_pos = expr(ctx);
 	accept_or_return(NEWLINE, ctx);
-	char last = array_name[strlen(array_name) - 1];
+	char last = array_name[var_length - 1];
 	switch (last) {
 		case '#':
 			basic_push_double_array(array_name, push_pos, ctx);
@@ -688,12 +691,13 @@ void push_statement(struct basic_ctx* ctx)
 void pop_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(POP, ctx);
-	const char* array_name = tokenizer_variable_name(ctx);
+	size_t var_length;
+	const char* array_name = tokenizer_variable_name(ctx, &var_length);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
 	int64_t pop_pos = expr(ctx);
 	accept_or_return(NEWLINE, ctx);
-	char last = array_name[strlen(array_name) - 1];
+	char last = array_name[var_length - 1];
 	switch (last) {
 		case '#':
 			basic_pop_double_array(array_name, pop_pos, ctx);

@@ -363,26 +363,27 @@ bool tokenizer_finished(struct basic_ctx* ctx)
 	return *ctx->ptr == 0 || ctx->current_token == ENDOFINPUT;
 }
 
-const char* tokenizer_variable_name(struct basic_ctx* ctx)
+const char* tokenizer_variable_name(struct basic_ctx* ctx, size_t* count)
 {
 	char varname[MAX_VARNAME];
-	int count = 0;
+	*count = 0;
 	while (
 		(
 			(*ctx->ptr >= 'a' && *ctx->ptr <= 'z') ||
 			(*ctx->ptr >= 'A' && *ctx->ptr <= 'Z') ||
-			(count > 0 && *ctx->ptr == '$') ||
-			(count > 0 && *ctx->ptr == '#') ||
+			(*count > 0 && *ctx->ptr == '$') ||
+			(*count > 0 && *ctx->ptr == '#') ||
 			(*ctx->ptr == '_') ||
-			(count > 0 && isdigit(*ctx->ptr))
-		) && count < MAX_VARNAME
+			(*count > 0 && isdigit(*ctx->ptr))
+		) && *count < MAX_VARNAME
 	) {
-		varname[count++] = *(ctx->ptr++);
+		varname[(*count)++] = *(ctx->ptr++);
 	}
-	varname[count] = 0;
-	for (int n = 0; n < count - 1; ++n) {
+	varname[*count] = 0;
+	for (size_t n = 0; n < *count - 1; ++n) {
 		if (varname[n] == '$' || varname[n] == '#') {
 			tokenizer_error_printf(ctx, "Invalid variable name '%s'", varname);
+			*count = 0;
 			return "";
 		}
 	}

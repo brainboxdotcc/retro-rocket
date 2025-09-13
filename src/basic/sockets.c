@@ -44,11 +44,12 @@ void sockread_statement(struct basic_ctx* ctx)
 
 	accept_or_return(SOCKREAD, ctx);
 
-	int64_t fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
+	size_t var_length;
+	int64_t fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx, &var_length), ctx);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
 
-	var = tokenizer_variable_name(ctx);
+	var = tokenizer_variable_name(ctx, &var_length);
 	accept_or_return(VARIABLE, ctx);
 
 	process_t* proc = proc_cur(logical_cpu_id());
@@ -99,10 +100,11 @@ void connect_statement(struct basic_ctx* ctx)
 {
 	char input[MAX_STRINGLEN];
 	const char* fd_var = NULL, *ip = NULL;
-	int64_t port = 0;
+	int64_t port;
+	size_t var_length;
 
 	accept_or_return(CONNECT, ctx);
-	fd_var = tokenizer_variable_name(ctx);
+	fd_var = tokenizer_variable_name(ctx, &var_length);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
 	ip = str_expr(ctx);
@@ -113,7 +115,7 @@ void connect_statement(struct basic_ctx* ctx)
 
 	if (rv >= 0) {
 		*(input + rv) = 0;
-		switch (fd_var[strlen(fd_var) - 1]) {
+		switch (fd_var[var_length - 1]) {
 			case '$':
 				tokenizer_error_print(ctx, "Can't store socket descriptor in STRING");
 			break;
@@ -134,9 +136,10 @@ void connect_statement(struct basic_ctx* ctx)
 void sockclose_statement(struct basic_ctx* ctx)
 {
 	const char* fd_var = NULL;
+	size_t var_length;
 
 	accept_or_return(SOCKCLOSE, ctx);
-	fd_var = tokenizer_variable_name(ctx);
+	fd_var = tokenizer_variable_name(ctx, &var_length);
 	accept_or_return(VARIABLE, ctx);
 
 	int rv = closesocket(basic_get_numeric_int_variable(fd_var, ctx));
@@ -270,7 +273,8 @@ char* basic_dns(struct basic_ctx* ctx) {
 
 void sockwrite_statement(struct basic_ctx* ctx) {
 	accept_or_return(SOCKWRITE, ctx);
-	int fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
+	size_t var_length;
+	int fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx, &var_length), ctx);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
 	const char* out = printable_syntax(ctx);
@@ -424,8 +428,9 @@ static bool check_sockflush_ready(process_t* proc, void* ptr) {
 
 void sockflush_statement(struct basic_ctx* ctx)
 {
+	size_t var_length;
 	accept_or_return(SOCKFLUSH, ctx);
-	int64_t fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
+	int64_t fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx, &var_length), ctx);
 	accept_or_return(VARIABLE, ctx);
 
 	process_t* proc = proc_cur(logical_cpu_id());

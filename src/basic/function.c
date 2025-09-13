@@ -178,10 +178,6 @@ uint8_t extract_comma_list(struct ub_proc_fn_def* def, struct basic_ctx* ctx) {
 		// next item
 		// set local vars here
 		// Set ctx to item_begin, call expr(), set ctx back again. Change expr to stop on comma.
-		//
-		// XXX We know wether to call expr or str_expr here based upon the type for the fn param
-		// which we will read when this is implemented. We should probably check the fn exists
-		// before we even GET here!
 		char oldval = *ctx->ptr;
 		char oldct = ctx->current_token;
 		char* oldptr = (char*)ctx->ptr;

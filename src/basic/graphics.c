@@ -96,7 +96,8 @@ void flip_statement(struct basic_ctx* ctx)
 void loadsprite_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(SPRITELOAD, ctx);
-	const char* variable = tokenizer_variable_name(ctx);
+	size_t var_length;
+	const char* variable = tokenizer_variable_name(ctx, &var_length);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
 	const char* filename = str_expr(ctx);
@@ -171,7 +172,8 @@ void loadsprite_statement(struct basic_ctx* ctx)
 void freesprite_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(SPRITEFREE, ctx);
-	const char* variable = tokenizer_variable_name(ctx);
+	size_t var_length;
+	const char* variable = tokenizer_variable_name(ctx, &var_length);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(NEWLINE, ctx);
 	free_sprite(ctx, basic_get_int_variable(variable, ctx));
@@ -180,7 +182,8 @@ void freesprite_statement(struct basic_ctx* ctx)
 void plot_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(PLOT, ctx);
-	const char* variable = tokenizer_variable_name(ctx);
+	size_t var_length;
+	const char* variable = tokenizer_variable_name(ctx, &var_length);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
 	int64_t x1 = expr(ctx);
@@ -688,7 +691,8 @@ static void plot_sprite_quad(struct basic_ctx* ctx, int64_t sprite_handle, int64
 
 void plotquad_statement(struct basic_ctx* ctx) {
 	accept_or_return(PLOTQUAD, ctx);
-	const char* variable = tokenizer_variable_name(ctx);
+	size_t var_length;
+	const char* variable = tokenizer_variable_name(ctx, &var_length);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
 	int64_t x0 = expr(ctx);

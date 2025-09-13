@@ -106,8 +106,8 @@ static up_value up_factor(struct basic_ctx *ctx) {
 			return up_make_str(gc_strdup(ctx, ctx->string));
 		}
 		case VARIABLE: {
-			const char *name = tokenizer_variable_name(ctx);
-			size_t L = name ? strlen(name) : 0;
+			size_t L;
+			const char *name = tokenizer_variable_name(ctx, &L);
 
 			if (L && name[L - 1] == '$') {
 				/* String var / string builtin (e.g. MID$) */

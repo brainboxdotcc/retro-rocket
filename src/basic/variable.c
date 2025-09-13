@@ -87,10 +87,11 @@ void assignment_statement(struct basic_ctx* ctx, bool global, bool local)
 	const char* var;
 	const char* _expr;
 	double f_expr = 0;
+	size_t var_length;
 
 	basic_debug("LET statement\n");
 
-	var = tokenizer_variable_name(ctx);
+	var = tokenizer_variable_name(ctx, &var_length);
 
 	if (varname_is_int_array_access(ctx, var)) {
 		int64_t index = arr_expr_set_index(ctx, var);
@@ -131,7 +132,7 @@ void assignment_statement(struct basic_ctx* ctx, bool global, bool local)
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(EQUALS, ctx);
 
-	switch (var[strlen(var) - 1]) {
+	switch (var[var_length - 1]) {
 		case '$':
 			_expr = str_expr(ctx);
 			basic_debug("Setting string variable '%s'\n", var);

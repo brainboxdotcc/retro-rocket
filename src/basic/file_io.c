@@ -279,7 +279,8 @@ void write_statement(struct basic_ctx* ctx)
 	int fd = -1;
 
 	accept_or_return(WRITE, ctx);
-	fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
+	size_t var_length;
+	fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx, &var_length), ctx);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
 	char* out = printable_syntax(ctx);
