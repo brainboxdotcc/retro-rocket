@@ -101,7 +101,7 @@ ub_return_type basic_get_numeric_variable(const char* var, struct basic_ctx* ctx
 int64_t basic_get_numeric_int_variable(const char* var, struct basic_ctx* ctx);
 
 /**
- * @brief Handle the LET statement.
+ * @brief Handle variable assignment
  *
  * This function processes the LET statement, setting the value of a variable.
  *
@@ -109,7 +109,7 @@ int64_t basic_get_numeric_int_variable(const char* var, struct basic_ctx* ctx);
  * @param global Boolean indicating whether the variable is global.
  * @param local Boolean indicating whether the variable is local.
  */
-void let_statement(struct basic_ctx* ctx, bool global, bool local);
+void assignment_statement(struct basic_ctx* ctx, bool global, bool local);
 
 /**
  * @brief Check if an integer variable exists.
@@ -143,3 +143,13 @@ bool basic_string_variable_exists(const char* var, struct basic_ctx* ctx);
  * @return True if the double variable exists, false otherwise.
  */
 bool basic_double_variable_exists(const char* var, struct basic_ctx* ctx);
+
+void let_statement(struct basic_ctx* ctx);
+
+void variable_statement(struct basic_ctx* ctx);
+
+void global_statement(struct basic_ctx* ctx);
+
+void local_statement(struct basic_ctx* ctx);
+
+void newline_statement(struct basic_ctx* ctx);

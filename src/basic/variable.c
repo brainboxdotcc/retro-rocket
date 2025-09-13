@@ -60,7 +60,29 @@ void set_system_variables(struct basic_ctx* ctx, uint32_t pid)
 	basic_set_double_variable("E#", 2.7182818284590451, ctx, false, false);
 }
 
-void let_statement(struct basic_ctx* ctx, bool global, bool local)
+void  let_statement(struct basic_ctx* ctx) {
+	accept_or_return(LET, ctx);
+	assignment_statement(ctx, false, false);
+}
+
+void variable_statement(struct basic_ctx* ctx) {
+	assignment_statement(ctx, false, false);
+}
+
+void global_statement(struct basic_ctx* ctx) {
+	accept_or_return(GLOBAL, ctx);
+	assignment_statement(ctx, true, false);
+}
+
+void local_statement(struct basic_ctx* ctx) {
+	accept_or_return(LOCAL, ctx);
+	assignment_statement(ctx, false, true);
+}
+
+void newline_statement(struct basic_ctx* ctx) {
+}
+
+void assignment_statement(struct basic_ctx* ctx, bool global, bool local)
 {
 	const char* var;
 	const char* _expr;

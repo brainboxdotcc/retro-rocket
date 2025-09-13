@@ -172,9 +172,13 @@ void print_statement(struct basic_ctx* ctx)
 	}
 }
 
-void colour_statement(struct basic_ctx* ctx, enum token_t tok)
+void colour_statement(struct basic_ctx* ctx)
 {
-	accept_or_return(tok, ctx);
+	if (tokenizer_token(ctx) != COLOR && tokenizer_token(ctx) != COLOUR) {
+		tokenizer_error_print(ctx, "COLOUR expected");
+		return;
+	}
+	tokenizer_next(ctx);
 	setforeground(expr(ctx));
 	accept_or_return(NEWLINE, ctx);
 }
