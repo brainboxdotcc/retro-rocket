@@ -179,21 +179,18 @@ typedef void (*keyword_handler_t)(struct basic_ctx*);
 
 GENERATE_ENUM_LIST(TOKEN, token_t)
 
-/* Pair of token id and its dispatcher (can be NULL) */
-struct keyword_dispatch_t {
-	enum token_t token;
-	keyword_handler_t handler;
-};
+/* Uniform handler type */
+typedef void (*keyword_handler_t)(struct basic_ctx *);
 
-/* Expand one TOKEN() entry into a { token, handler } initializer */
-#define GENERATE_DISPATCH_ENTRY(NAME, FLAG, DISPATCHER) { NAME, (keyword_handler_t)(DISPATCHER) },
+/* Build a flat handler table indexed by token id */
+#define GENERATE_HANDLER_ENTRY(NAME, FLAG, DISPATCHER) (keyword_handler_t)(DISPATCHER),
 
-/* Emit a const array named ARRAY_NAME with one element per TOKEN() entry */
-#define GENERATE_DISPATCH_TABLE(ARRAY_NAME) \
-    const struct keyword_dispatch_t ARRAY_NAME[] = { \
-        TOKEN(GENERATE_DISPATCH_ENTRY) \
+#define GENERATE_HANDLER_TABLE(ARRAY_NAME) \
+    static const keyword_handler_t ARRAY_NAME[] = { \
+        TOKEN(GENERATE_HANDLER_ENTRY) \
     };
 
+/* Size helper */
 #define DISPATCH_TABLE_COUNT(ARRAY_NAME) (sizeof(ARRAY_NAME) / sizeof((ARRAY_NAME)[0]))
 
 /**

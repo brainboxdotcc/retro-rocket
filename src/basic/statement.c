@@ -8,19 +8,17 @@ void statement(struct basic_ctx* ctx)
 
 	basic_debug("line %ld statement(%d)\n", ctx->current_linenum, token);
 
-	GENERATE_DISPATCH_TABLE(keyword_dispatch);
-	for (size_t t = 0; t < DISPATCH_TABLE_COUNT(keyword_dispatch); ++t) {
-		if (token == keyword_dispatch[t].token) {
-			if (keyword_dispatch[t].handler != NULL) {
-				keyword_dispatch[t].handler(ctx);
-				return;
-			}
+	GENERATE_HANDLER_TABLE(dispatch_by_token)
+	if (token < DISPATCH_TABLE_COUNT(dispatch_by_token)) {
+		if (dispatch_by_token[token] != NULL) {
+			dispatch_by_token[token](ctx);
+			return;
 		}
 	}
 
-	/* If we got here, token wasn’t found in the table at all */
 	dprintf("Unknown keyword: %d\n", token);
-	return tokenizer_error_print(ctx, "Unknown keyword");
+	tokenizer_error_print(ctx, "Unknown keyword");
+
 }
 
 void line_statement(struct basic_ctx* ctx)
