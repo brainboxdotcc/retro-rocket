@@ -2,7 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="BITSHL" kind="page">
     <compoundname>BITSHL</compoundname>
-    <title>BITSHL Keyword</title>
+    <title>BITSHL Function</title>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
@@ -11,7 +11,7 @@
 <para>Shifts integer <computeroutput>a</computeroutput> <bold>left</bold> by <computeroutput>n</computeroutput> bits.</para>
 <para><hruler/>
 </para>
-<sect3 id="BITSHL_1autotoc_md669">
+<sect3 id="BITSHL_1autotoc_md119">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Equivalent to multiplying <computeroutput>a</computeroutput> by 2ⁿ.</para>
@@ -22,7 +22,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="BITSHL_1autotoc_md671">
+<sect3 id="BITSHL_1autotoc_md121">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>BITSHL(3,<sp/>2)</highlight></codeline>
 </programlisting></para>
@@ -30,7 +30,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="BITSHL_1autotoc_md673">
+<sect3 id="BITSHL_1autotoc_md123">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Operates on 64-bit integers.</para>
@@ -40,6 +40,6 @@
  <ref refid="BITSHR" kindref="compound">BITSHR</ref> · <ref refid="BITROL" kindref="compound">BITROL</ref> </para>
 </sect3>
     </detaileddescription>
-    <location file="docpages/basic-language-reference/keywords/BITSHL.md"/>
+    <location file="docpages/basic-language-reference/functions/integer/BITSHL.md"/>
   </compounddef>
 </doxygen>

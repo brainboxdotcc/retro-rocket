@@ -11,7 +11,7 @@
 <para>Rotates integer <computeroutput>a</computeroutput> <bold>right</bold> by <computeroutput>n</computeroutput> bits within a given <computeroutput>width</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect3 id="BITROR_1autotoc_md663">
+<sect3 id="BITROR_1autotoc_md113">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Only the lowest <computeroutput>width</computeroutput> bits participate in the rotation.</para>
@@ -22,7 +22,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="BITROR_1autotoc_md665">
+<sect3 id="BITROR_1autotoc_md115">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>BITROR(&amp;9,<sp/>1,<sp/>4)</highlight></codeline>
 </programlisting></para>
@@ -30,7 +30,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="BITROR_1autotoc_md667">
+<sect3 id="BITROR_1autotoc_md117">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Operates on 64-bit integers.</para>
@@ -41,6 +41,6 @@
  <ref refid="BITROL" kindref="compound">BITROL</ref> · <ref refid="BITSHR" kindref="compound">BITSHR</ref> </para>
 </sect3>
     </detaileddescription>
-    <location file="docpages/basic-language-reference/keywords/BITROR.md"/>
+    <location file="docpages/basic-language-reference/functions/integer/BITROR.md"/>
   </compounddef>
 </doxygen>

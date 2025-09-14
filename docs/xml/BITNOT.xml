@@ -2,7 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="BITNOT" kind="page">
     <compoundname>BITNOT</compoundname>
-    <title>BITNOT Keyword</title>
+    <title>BITNOT Function</title>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
@@ -11,7 +11,7 @@
 <para>Computes the <bold>bitwise complement</bold> of an integer.</para>
 <para><hruler/>
 </para>
-<sect3 id="BITNOT_1autotoc_md645">
+<sect3 id="BITNOT_1autotoc_md95">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Flips all bits: ones become zeros, zeros become ones.</para>
@@ -21,7 +21,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="BITNOT_1autotoc_md647">
+<sect3 id="BITNOT_1autotoc_md97">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>BITNOT(0)</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>BITNOT(&amp;FF)</highlight></codeline>
@@ -29,7 +29,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="BITNOT_1autotoc_md649">
+<sect3 id="BITNOT_1autotoc_md99">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Output may appear as a large negative number, due to two’s-complement representation.</para>
@@ -39,6 +39,6 @@
  <ref refid="BITEOR" kindref="compound">BITEOR</ref> · <ref refid="BITNOR" kindref="compound">BITNOR</ref> · <ref refid="BITXNOR" kindref="compound">BITXNOR</ref> </para>
 </sect3>
     </detaileddescription>
-    <location file="docpages/basic-language-reference/keywords/BITNOT.md"/>
+    <location file="docpages/basic-language-reference/functions/integer/BITNOT.md"/>
   </compounddef>
 </doxygen>

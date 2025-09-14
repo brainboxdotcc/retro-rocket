@@ -11,7 +11,7 @@
 <para>Returns the <bold>state of a running process</bold> as a string. The parameter is an index between <computeroutput>0</computeroutput> and <computeroutput>GETPROCCOUNT - 1</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect3 id="GETPROCSTATE_1autotoc_md483">
+<sect3 id="GETPROCSTATE_1autotoc_md551">
 <title>Process states</title>
 <para><table rows="6" cols="2"><row>
 <entry thead="yes"><para>State   </para>
@@ -42,7 +42,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="GETPROCSTATE_1autotoc_md485">
+<sect3 id="GETPROCSTATE_1autotoc_md553">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>all<sp/>processes<sp/>with<sp/>their<sp/>state</highlight></codeline>
 <codeline><highlight class="normal">FOR<sp/>i<sp/>=<sp/>0<sp/>TO<sp/>GETPROCCOUNT<sp/>-<sp/>1</highlight></codeline>
@@ -57,7 +57,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="GETPROCSTATE_1autotoc_md487">
+<sect3 id="GETPROCSTATE_1autotoc_md555">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>The index must be within the valid range.</para>

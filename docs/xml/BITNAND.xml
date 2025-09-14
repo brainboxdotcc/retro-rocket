@@ -2,7 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="BITNAND" kind="page">
     <compoundname>BITNAND</compoundname>
-    <title>BITNAND Keyword</title>
+    <title>BITNAND Function</title>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
@@ -11,7 +11,7 @@
 <para>Computes the <bold>bitwise NAND</bold> of two integers.</para>
 <para><hruler/>
 </para>
-<sect3 id="BITNAND_1autotoc_md633">
+<sect3 id="BITNAND_1autotoc_md83">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Equivalent to <computeroutput>NOT (a AND b)</computeroutput>.</para>
@@ -20,14 +20,14 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="BITNAND_1autotoc_md635">
+<sect3 id="BITNAND_1autotoc_md85">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>BITNAND(&amp;6,<sp/>&amp;3)</highlight></codeline>
 </programlisting></para>
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="BITNAND_1autotoc_md637">
+<sect3 id="BITNAND_1autotoc_md87">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Operates on 64-bit integers.</para>
@@ -37,6 +37,6 @@
  <ref refid="BITAND" kindref="compound">BITAND</ref> · <ref refid="BITNOR" kindref="compound">BITNOR</ref> </para>
 </sect3>
     </detaileddescription>
-    <location file="docpages/basic-language-reference/keywords/BITNAND.md"/>
+    <location file="docpages/basic-language-reference/functions/integer/BITNAND.md"/>
   </compounddef>
 </doxygen>

@@ -1,4 +1,4 @@
-\page BITSHL BITSHL Keyword
+\page BITSHL BITSHL Function
 ```basic
 X = BITSHL(a, n)
 ```

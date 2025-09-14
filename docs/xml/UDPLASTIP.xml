@@ -15,7 +15,7 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="UDPLASTIP_1autotoc_md599">
+<sect3 id="UDPLASTIP_1autotoc_md667">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Call <bold>after</bold> <computeroutput>UDPREAD$</computeroutput> to determine the sender of the payload you just received.</para>
@@ -24,7 +24,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="UDPLASTIP_1autotoc_md601">
+<sect3 id="UDPLASTIP_1autotoc_md669">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">UDPBIND<sp/>&quot;0.0.0.0&quot;,<sp/>8080</highlight></codeline>
 <codeline><highlight class="normal">S$<sp/>=<sp/>UDPREAD$(8080)</highlight></codeline>
@@ -35,7 +35,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="UDPLASTIP_1autotoc_md603">
+<sect3 id="UDPLASTIP_1autotoc_md671">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>The value updates only when <ref refid="UDPREAD" kindref="compound">UDPREAD$</ref> dequeues a packet.</para>

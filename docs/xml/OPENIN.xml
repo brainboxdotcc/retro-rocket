@@ -11,7 +11,7 @@
 <para>Opens a file for <bold>input</bold> (reading only). Returns an <bold>integer file handle</bold> that must be used with <ref refid="READ" kindref="compound">READ$</ref> and <ref refid="CLOSE" kindref="compound">CLOSE</ref>.</para>
 <para><hruler/>
 </para>
-<sect3 id="OPENIN_1autotoc_md234">
+<sect3 id="OPENIN_1autotoc_md302">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Open<sp/>a<sp/>file<sp/>for<sp/>reading</highlight></codeline>
 <codeline><highlight class="normal">fh<sp/>=<sp/>OPENIN(&quot;/data/example.txt&quot;)</highlight></codeline>
@@ -39,7 +39,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="OPENIN_1autotoc_md236">
+<sect3 id="OPENIN_1autotoc_md304">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Returns a <bold>non-negative handle</bold> on success, or a <bold>negative value</bold> on failure.</para>

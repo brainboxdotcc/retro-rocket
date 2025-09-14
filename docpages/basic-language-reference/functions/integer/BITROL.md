@@ -1,4 +1,4 @@
-\page BITROL BITROL Keyword
+\page BITROL BITROL Function
 ```basic
 X = BITROL(a, n, width)
 ```

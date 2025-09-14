@@ -2,7 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="BITROL" kind="page">
     <compoundname>BITROL</compoundname>
-    <title>BITROL Keyword</title>
+    <title>BITROL Function</title>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
@@ -11,7 +11,7 @@
 <para>Rotates integer <computeroutput>a</computeroutput> <bold>left</bold> by <computeroutput>n</computeroutput> bits within a given <computeroutput>width</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect3 id="BITROL_1autotoc_md657">
+<sect3 id="BITROL_1autotoc_md107">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Only the lowest <computeroutput>width</computeroutput> bits participate in the rotation.</para>
@@ -22,7 +22,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="BITROL_1autotoc_md659">
+<sect3 id="BITROL_1autotoc_md109">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>BITROL(&amp;9,<sp/>1,<sp/>4)</highlight></codeline>
 </programlisting></para>
@@ -30,7 +30,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="BITROL_1autotoc_md661">
+<sect3 id="BITROL_1autotoc_md111">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Operates on 64-bit integers.</para>
@@ -41,6 +41,6 @@
  <ref refid="BITROR" kindref="compound">BITROR</ref> · <ref refid="BITSHL" kindref="compound">BITSHL</ref> </para>
 </sect3>
     </detaileddescription>
-    <location file="docpages/basic-language-reference/keywords/BITROL.md"/>
+    <location file="docpages/basic-language-reference/functions/integer/BITROL.md"/>
   </compounddef>
 </doxygen>

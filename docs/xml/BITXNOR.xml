@@ -2,7 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="BITXNOR" kind="page">
     <compoundname>BITXNOR</compoundname>
-    <title>BITXNOR Keyword</title>
+    <title>BITXNOR Function</title>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
@@ -11,7 +11,7 @@
 <para>Computes the <bold>bitwise equivalence</bold> (XNOR) of two integers.</para>
 <para><hruler/>
 </para>
-<sect3 id="BITXNOR_1autotoc_md681">
+<sect3 id="BITXNOR_1autotoc_md131">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Equivalent to <computeroutput>NOT (a XOR b)</computeroutput>.</para>
@@ -21,14 +21,14 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="BITXNOR_1autotoc_md683">
+<sect3 id="BITXNOR_1autotoc_md133">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>BITXNOR(&amp;6,<sp/>&amp;3)</highlight></codeline>
 </programlisting></para>
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="BITXNOR_1autotoc_md685">
+<sect3 id="BITXNOR_1autotoc_md135">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Operates on 64-bit integers.</para>
@@ -38,6 +38,6 @@
  <ref refid="BITEOR" kindref="compound">BITEOR</ref> · <ref refid="BITNOT" kindref="compound">BITNOT</ref> </para>
 </sect3>
     </detaileddescription>
-    <location file="docpages/basic-language-reference/keywords/BITXNOR.md"/>
+    <location file="docpages/basic-language-reference/functions/integer/BITXNOR.md"/>
   </compounddef>
 </doxygen>

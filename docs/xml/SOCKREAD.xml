@@ -26,7 +26,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="SOCKREAD_1autotoc_md968">
+<sect3 id="SOCKREAD_1autotoc_md975">
 <title>Examples</title>
 <para><bold>Read a text line</bold> <programlisting filename=".basic"><codeline><highlight class="normal">CONNECT<sp/>S,<sp/>&quot;93.184.216.34&quot;,<sp/>80</highlight></codeline>
 <codeline><highlight class="normal">REM<sp/>Ask<sp/>the<sp/>server<sp/>for<sp/>a<sp/>line,<sp/>then<sp/>read<sp/>it</highlight></codeline>
@@ -63,7 +63,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="SOCKREAD_1autotoc_md970">
+<sect3 id="SOCKREAD_1autotoc_md977">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Treat the socket as a <bold>byte stream</bold>; if you need to read multiple fields on one line, call <computeroutput>SOCKREAD</computeroutput> multiple times or define a simple protocol (for example, one value per line).</para>

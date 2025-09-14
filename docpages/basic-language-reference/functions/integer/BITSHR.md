@@ -1,4 +1,4 @@
-\page BITSHR BITSHR Keyword
+\page BITSHR BITSHR Function
 ```basic
 X = BITSHR(a, n)
 ```

@@ -89,7 +89,28 @@ $(document).ready(function(){initNavTree('type-integer.html',''); initResizable(
 <div class="title">Integer Variables </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Integer variables are represented by any variable without a suffix, e.g. <code>A</code> or <code>MYVAR</code>. Integer variables are 64 bit signed values. </p>
+<div class="textblock"><p>Integer variables are represented by any variable <b>without a suffix</b>, e.g. <code>A</code> or <code>MYVAR</code>. All integers in Retro Rocket BASIC are <b>64-bit signed values</b>.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md1096"></a>
+Examples</h3>
+<div class="fragment"><div class="line">A = 42</div>
+<div class="line">B = -1000000</div>
+<div class="line">PRINT A + B</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Loop using an integer counter</div>
+<div class="line">FOR i = 0 TO 9</div>
+<div class="line">    PRINT &quot;i = &quot;; i</div>
+<div class="line">NEXT</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md1098"></a>
+Notes</h3>
+<ul>
+<li>Range: <code>-9,223,372,036,854,775,808</code> to <code>9,223,372,036,854,775,807</code>.</li>
+<li>Arithmetic wraps around on overflow.</li>
+<li>When dividing integers, fractional results are discarded unless the value is stored in a real (<code>#</code>) variable.</li>
+<li>To explicitly ensure integer division, use DIV.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="type-real.html">Real Variables</a> · <a class="el" href="type-string.html">String Variables</a> · <a class="el" href="type-array.html">Array Variables</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -97,7 +118,7 @@ $(document).ready(function(){initNavTree('type-integer.html',''); initResizable(
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="variables.html">Variable Types</a></li>
-    <li class="footer">Generated on Sat Sep 13 2025 00:57:12 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Sep 14 2025 10:41:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

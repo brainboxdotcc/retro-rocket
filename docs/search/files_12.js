@@ -8,7 +8,7 @@ var searchData=
   ['textcolours_2emd_765',['textcolours.md',['../textcolours_8md.html',1,'']]],
   ['time_2emd_766',['TIME.md',['../TIME_8md.html',1,'']]],
   ['tokenize_2emd_767',['TOKENIZE.md',['../TOKENIZE_8md.html',1,'']]],
-  ['triangle_2emd_768',['TRIANGLE.md',['../TRIANGLE_8md.html',1,'']]],
-  ['triangle_2emd_769',['triangle.md',['../triangle_8md.html',1,'']]],
+  ['triangle_2emd_768',['triangle.md',['../triangle_8md.html',1,'']]],
+  ['triangle_2emd_769',['TRIANGLE.md',['../TRIANGLE_8md.html',1,'']]],
   ['trim_2emd_770',['TRIM.md',['../TRIM_8md.html',1,'']]]
 ];

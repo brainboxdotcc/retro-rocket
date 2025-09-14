@@ -6,7 +6,38 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para>Real variables are represented by a variable with the suffix <computeroutput>#</computeroutput>, e.g. <computeroutput>B#</computeroutput> or <computeroutput>MYVAR#</computeroutput>. Real variables are 64 bit double precision IEEE floating point values. </para>
+<para>Real variables are represented by any variable with the suffix <computeroutput>#</computeroutput>, e.g. <computeroutput>B#</computeroutput> or <computeroutput>MYVAR#</computeroutput>. They are stored as <bold>64-bit double-precision IEEE 754 floating point values</bold>.</para>
+<para><hruler/>
+</para>
+<sect3 id="type-real_1autotoc_md1101">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">PI#<sp/>=<sp/>3.14159</highlight></codeline>
+<codeline><highlight class="normal">radius#<sp/>=<sp/>5.5</highlight></codeline>
+<codeline><highlight class="normal">area#<sp/>=<sp/>PI#<sp/>*<sp/>radius#<sp/>*<sp/>radius#</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Area<sp/>=<sp/>&quot;;<sp/>area#</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Mixing<sp/>integers<sp/>and<sp/>reals</highlight></codeline>
+<codeline><highlight class="normal">A<sp/>=<sp/>10</highlight></codeline>
+<codeline><highlight class="normal">B#<sp/>=<sp/>3</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>A<sp/>/<sp/>B#</highlight></codeline>
+</programlisting></para>
+<para>Produces <computeroutput>3.33333...</computeroutput> since the operation is promoted to real.</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="type-real_1autotoc_md1103">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Range and precision follow IEEE 754 double format.</para>
+</listitem><listitem><para>Supports fractional values, scientific notation, and very large or very small numbers.</para>
+</listitem><listitem><para>Operations involving both integer and real variables are promoted to real.</para>
+</listitem><listitem><para>Rounding can be applied with <ref refid="ROUND" kindref="compound">ROUND</ref>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="type-integer" kindref="compound">Integer Variables</ref> · <ref refid="type-string" kindref="compound">String Variables</ref> · <ref refid="type-array" kindref="compound">Array Variables</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/variables/Real.md"/>
   </compounddef>

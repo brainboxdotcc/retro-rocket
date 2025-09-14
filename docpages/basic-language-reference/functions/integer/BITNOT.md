@@ -1,4 +1,4 @@
-\page BITNOT BITNOT Keyword
+\page BITNOT BITNOT Function
 ```basic
 X = BITNOT(a)
 ```

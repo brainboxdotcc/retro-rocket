@@ -6,7 +6,39 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para>String variables are represented by a variable with the suffix <computeroutput>$</computeroutput>, e.g. <computeroutput>C$</computeroutput> or <computeroutput>MYVAR$</computeroutput>. String variables are null-terminated C style sequences of 8 bit ASCII characters. </para>
+<para>String variables are represented by any variable with the suffix <computeroutput>$</computeroutput>, e.g. <computeroutput>C$</computeroutput> or <computeroutput>MYVAR$</computeroutput>. They are stored as <bold>null-terminated C-style sequences</bold> of <bold>8-bit ASCII characters</bold>.</para>
+<para><hruler/>
+</para>
+<sect3 id="type-string_1autotoc_md1106">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">name$<sp/>=<sp/>&quot;Retro<sp/>Rocket&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Hello,<sp/>&quot;;<sp/>name$</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Concatenate<sp/>strings</highlight></codeline>
+<codeline><highlight class="normal">first$<sp/>=<sp/>&quot;Hello&quot;</highlight></codeline>
+<codeline><highlight class="normal">second$<sp/>=<sp/>&quot;World&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>first$<sp/>+<sp/>&quot;<sp/>&quot;<sp/>+<sp/>second$</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Accessing<sp/>characters</highlight></codeline>
+<codeline><highlight class="normal">ch$<sp/>=<sp/>LEFT$(name$,<sp/>1)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;First<sp/>character<sp/>=<sp/>&quot;;<sp/>ch$</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="type-string_1autotoc_md1108">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Strings are mutable and can be reassigned at any time.</para>
+</listitem><listitem><para>Maximum length depends on available memory.</para>
+</listitem><listitem><para>Operations such as concatenation (<computeroutput>+</computeroutput>), substring (<ref refid="LEFT" kindref="compound">LEFT$</ref> / <ref refid="RIGHT" kindref="compound">RIGHT$</ref> / <ref refid="MID" kindref="compound">MID$</ref>), and trimming (<ref refid="TRIM" kindref="compound">TRIM$</ref>) are supported.</para>
+</listitem><listitem><para>Null termination is internal — it is not visible during normal BASIC operations.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="type-integer" kindref="compound">Integer Variables</ref> · <ref refid="type-real" kindref="compound">Real Variables</ref> · <ref refid="type-array" kindref="compound">Array Variables</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/variables/String.md"/>
   </compounddef>

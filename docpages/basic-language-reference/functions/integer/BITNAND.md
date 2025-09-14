@@ -1,4 +1,4 @@
-\page BITNAND BITNAND Keyword
+\page BITNAND BITNAND Function
 ```basic
 X = BITNAND(a, b)
 ```

@@ -1,4 +1,4 @@
-\page BITOR BITOR Keyword
+\page BITOR BITOR Function
 ```basic
 X = BITOR(a, b)
 ```

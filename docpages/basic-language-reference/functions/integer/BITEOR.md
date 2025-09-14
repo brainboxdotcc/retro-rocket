@@ -1,4 +1,4 @@
-\page BITEOR BITEOR Keyword
+\page BITEOR BITEOR Function
 ```basic
 X = BITEOR(a, b)
 ```

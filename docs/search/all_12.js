@@ -17,8 +17,8 @@ var searchData=
   ['tokenize_2emd_480',['TOKENIZE.md',['../TOKENIZE_8md.html',1,'']]],
   ['triangle_20keyword_481',['TRIANGLE Keyword',['../TRIANGLE.html',1,'keywords']]],
   ['triangle_20program_482',['triangle program',['../triangle.html',1,'commands']]],
-  ['triangle_2emd_483',['triangle.md',['../triangle_8md.html',1,'']]],
-  ['triangle_2emd_484',['TRIANGLE.md',['../TRIANGLE_8md.html',1,'']]],
+  ['triangle_2emd_483',['TRIANGLE.md',['../TRIANGLE_8md.html',1,'']]],
+  ['triangle_2emd_484',['triangle.md',['../triangle_8md.html',1,'']]],
   ['trim_24_20function_485',['TRIM$ Function',['../TRIM.html',1,'string-funcs']]],
   ['trim_2emd_486',['TRIM.md',['../TRIM_8md.html',1,'']]]
 ];

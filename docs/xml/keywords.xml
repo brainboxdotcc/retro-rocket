@@ -5,17 +5,17 @@
     <title>Keywords</title>
     <innerpage refid="AUTOFLIP">AUTOFLIP Keyword</innerpage>
     <innerpage refid="BACKGROUND">BACKGROUND Keyword</innerpage>
-    <innerpage refid="BITAND">BITAND Keyword</innerpage>
-    <innerpage refid="BITEOR">BITEOR Keyword</innerpage>
-    <innerpage refid="BITNAND">BITNAND Keyword</innerpage>
-    <innerpage refid="BITNOR">BITNOR Keyword</innerpage>
-    <innerpage refid="BITNOT">BITNOT Keyword</innerpage>
-    <innerpage refid="BITOR">BITOR Keyword</innerpage>
-    <innerpage refid="BITROL">BITROL Keyword</innerpage>
+    <innerpage refid="BITAND">BITAND Function</innerpage>
+    <innerpage refid="BITEOR">BITEOR Function</innerpage>
+    <innerpage refid="BITNAND">BITNAND Function</innerpage>
+    <innerpage refid="BITNOR">BITNOR Function</innerpage>
+    <innerpage refid="BITNOT">BITNOT Function</innerpage>
+    <innerpage refid="BITOR">BITOR Function</innerpage>
+    <innerpage refid="BITROL">BITROL Function</innerpage>
     <innerpage refid="BITROR">BITROR Keyword</innerpage>
-    <innerpage refid="BITSHL">BITSHL Keyword</innerpage>
-    <innerpage refid="BITSHR">BITSHR Keyword</innerpage>
-    <innerpage refid="BITXNOR">BITXNOR Keyword</innerpage>
+    <innerpage refid="BITSHL">BITSHL Function</innerpage>
+    <innerpage refid="BITSHR">BITSHR Function</innerpage>
+    <innerpage refid="BITXNOR">BITXNOR Function</innerpage>
     <innerpage refid="CALL">CALL Keyword</innerpage>
     <innerpage refid="CHAIN">CHAIN Keyword</innerpage>
     <innerpage refid="CHDIR">CHDIR Keyword</innerpage>
@@ -100,7 +100,7 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<sect3 id="keywords_1autotoc_md616">
+<sect3 id="keywords_1autotoc_md687">
 <title>Parameter Types</title>
 <para>The following parameter types are used throughout this documentation:</para>
 <para><itemizedlist>
@@ -113,23 +113,33 @@
 </listitem><listitem><para>**<computeroutput>real-variable</computeroutput>** – A variable that holds a real (floating-point) value. Example: <computeroutput>radius#</computeroutput></para>
 </listitem><listitem><para>**<computeroutput>string-variable</computeroutput>** – A variable that holds a string value. Example: <computeroutput>mystr$</computeroutput></para>
 </listitem><listitem><para>**<computeroutput>variable-name</computeroutput>** – Any valid variable name from the types above.</para>
-</listitem><listitem><para>**<computeroutput>printable</computeroutput>** – A list of one or more values (of any type) to be output by <computeroutput>PRINT</computeroutput>. Items may be separated by <computeroutput>,</computeroutput> or <computeroutput>;</computeroutput>.</para>
-</listitem><listitem><para>A <computeroutput>,</computeroutput> inserts tab spacing between values.</para>
+</listitem><listitem><para>**<computeroutput>printable</computeroutput>** – A list of one or more values (of any type) to be output by <computeroutput>PRINT</computeroutput>. Items may be separated by <computeroutput>,</computeroutput> or <computeroutput>;</computeroutput>.<itemizedlist>
+<listitem><para>A <computeroutput>,</computeroutput> inserts tab spacing between values.</para>
 </listitem><listitem><para>A <computeroutput>;</computeroutput> prints values directly with no spacing.</para>
 </listitem><listitem><para>If the list does <bold>not</bold> end with <computeroutput>;</computeroutput>, a newline is automatically added.</para>
-</listitem><listitem><para><ref refid="AUTOFLIP" kindref="compound">AUTOFLIP Keyword</ref></para>
+</listitem></itemizedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="keywords_1autotoc_md689">
+<title>Keyword Index</title>
+<para><itemizedlist>
+<listitem><para><ref refid="AUTOFLIP" kindref="compound">AUTOFLIP Keyword</ref></para>
 </listitem><listitem><para><ref refid="BACKGROUND" kindref="compound">BACKGROUND Keyword</ref></para>
-</listitem><listitem><para><ref refid="BITAND" kindref="compound">BITAND Keyword</ref></para>
-</listitem><listitem><para><ref refid="BITEOR" kindref="compound">BITEOR Keyword</ref></para>
-</listitem><listitem><para><ref refid="BITNAND" kindref="compound">BITNAND Keyword</ref></para>
-</listitem><listitem><para><ref refid="BITNOR" kindref="compound">BITNOR Keyword</ref></para>
-</listitem><listitem><para><ref refid="BITNOT" kindref="compound">BITNOT Keyword</ref></para>
-</listitem><listitem><para><ref refid="BITOR" kindref="compound">BITOR Keyword</ref></para>
-</listitem><listitem><para><ref refid="BITROL" kindref="compound">BITROL Keyword</ref></para>
+</listitem><listitem><para><ref refid="BITAND" kindref="compound">BITAND Function</ref></para>
+</listitem><listitem><para><ref refid="BITEOR" kindref="compound">BITEOR Function</ref></para>
+</listitem><listitem><para><ref refid="BITNAND" kindref="compound">BITNAND Function</ref></para>
+</listitem><listitem><para><ref refid="BITNOR" kindref="compound">BITNOR Function</ref></para>
+</listitem><listitem><para><ref refid="BITNOT" kindref="compound">BITNOT Function</ref></para>
+</listitem><listitem><para><ref refid="BITOR" kindref="compound">BITOR Function</ref></para>
+</listitem><listitem><para><ref refid="BITROL" kindref="compound">BITROL Function</ref></para>
 </listitem><listitem><para><ref refid="BITROR" kindref="compound">BITROR Keyword</ref></para>
-</listitem><listitem><para><ref refid="BITSHL" kindref="compound">BITSHL Keyword</ref></para>
-</listitem><listitem><para><ref refid="BITSHR" kindref="compound">BITSHR Keyword</ref></para>
-</listitem><listitem><para><ref refid="BITXNOR" kindref="compound">BITXNOR Keyword</ref></para>
+</listitem><listitem><para><ref refid="BITSHL" kindref="compound">BITSHL Function</ref></para>
+</listitem><listitem><para><ref refid="BITSHR" kindref="compound">BITSHR Function</ref></para>
+</listitem><listitem><para><ref refid="BITXNOR" kindref="compound">BITXNOR Function</ref></para>
 </listitem><listitem><para><ref refid="CALL" kindref="compound">CALL Keyword</ref></para>
 </listitem><listitem><para><ref refid="CHAIN" kindref="compound">CHAIN Keyword</ref></para>
 </listitem><listitem><para><ref refid="CHDIR" kindref="compound">CHDIR Keyword</ref></para>

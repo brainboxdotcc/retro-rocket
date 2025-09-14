@@ -1,8 +1,14 @@
 \page libraries Libraries
 
-System libraries are collections of procedures and functions that can be included into any BASIC program by means of the \ref LIBRARY statement.
+System libraries are collections of procedures and functions that can be included in any BASIC program by means of the \ref LIBRARY statement.
 
-Each contains various functions grouped into common sets. To view the details of each, click its link in the navigation on the wiki
+Each library groups related functionality into a common set, allowing programs to extend their capabilities without redefining standard routines.
 
-- \subpage ansi
-- \subpage mouse
+To view details of each library, see its dedicated page in the navigation.
+
+---
+
+### Available Libraries
+
+* \subpage ansi
+* \subpage mouse

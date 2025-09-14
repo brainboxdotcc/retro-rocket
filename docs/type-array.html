@@ -89,8 +89,46 @@ $(document).ready(function(){initNavTree('type-array.html',''); initResizable();
 <div class="title">Array Variables </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Arrays of variables are represented by a variable (with a valid suffix or no suffix, as above) and suffixed further by an array <em>subscript</em>, e.g. an index into the array, zero based, and surrounded by brackets. For example to access array element 50 from an array of strings you would access it in the form <code>myarray$(50)</code>. Arrays must be allocated by the <code>DIM</code> statement, and can be dynamically extended using <code>REDIM</code>.</p>
-<p>As a special case, it is possible to initialise all elements in an array to the same value by not specifying the subscript. For example <code>arrayname=0</code> will initialised all array elements to zero and <code>array$="foo"</code> will set all elements in a string array to "foo". </p>
+<div class="textblock"><p>Arrays in Retro Rocket BASIC are collections of variables of the same type, indexed by a <b>zero-based subscript</b> in brackets.</p>
+<ul>
+<li>String arrays end with <code>$</code> (e.g. <code>names$(0)</code>),</li>
+<li>Real arrays end with <code>#</code> (e.g. <code>values#(10)</code>),</li>
+<li>Integer arrays have no suffix (e.g. <code>scores(5)</code>).</li>
+</ul>
+<hr  />
+<h3><a class="anchor" id="autotoc_md1086"></a>
+Declaring arrays</h3>
+<p>Arrays must be created with the <a class="el" href="DIM.html">DIM</a> statement:</p>
+<div class="fragment"><div class="line">DIM names$, 100</div>
+<div class="line">DIM values#, 50</div>
+<div class="line">DIM scores, 200</div>
+</div><!-- fragment --><p>This allocates arrays with the specified number of elements.</p>
+<p>Arrays can be resized dynamically with <a class="el" href="REDIM.html">REDIM</a>:</p>
+<div class="fragment"><div class="line">REDIM names$, 200</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md1088"></a>
+Accessing elements</h3>
+<p>Use a zero-based index to read or write individual elements:</p>
+<div class="fragment"><div class="line">names$(0) = &quot;Alice&quot;</div>
+<div class="line">scores(5) = 42</div>
+<div class="line">values#(10) = 3.14</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md1090"></a>
+Assigning to all elements</h3>
+<p>Assigning to the array name without a subscript initialises <b>all elements</b>:</p>
+<div class="fragment"><div class="line">scores = 0</div>
+<div class="line">names$ = &quot;foo&quot;</div>
+</div><!-- fragment --><p>This sets every element of <code>scores</code> to <code>0</code> and every element of <code>names$</code> to <code>"foo"</code>.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md1092"></a>
+Notes</h3>
+<ul>
+<li>Arrays are always contiguous in memory.</li>
+<li>Indexes must be within bounds (0 to length–1) or an error occurs.</li>
+<li>Resizing with <code>REDIM</code> preserves existing values where possible.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="DIM.html">DIM</a> · <a class="el" href="REDIM.html">REDIM</a> · <a class="el" href="PUSH.html">PUSH</a> · <a class="el" href="POP.html">POP</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -98,7 +136,7 @@ $(document).ready(function(){initNavTree('type-array.html',''); initResizable();
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="variables.html">Variable Types</a></li>
-    <li class="footer">Generated on Sat Sep 13 2025 00:57:12 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Sep 14 2025 10:41:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -89,18 +89,29 @@ $(document).ready(function(){initNavTree('variables.html',''); initResizable(); 
 <div class="title">Variable Types </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Variables in Retro Rocket BASIC must follow the following rules:</p>
+<div class="textblock"><p>Variables in Retro Rocket BASIC must follow these rules:</p>
 <ol type="1">
-<li>Variables <b>must start with an alphabetic character or an underscore</b>, e.g. <code>A</code>-<code>Z</code>, <code>a</code>-<code>z</code> or <code>_</code>.</li>
-<li>Variables <b>can contain numeric characters</b>, so long as those numeric characters are not the first character.</li>
-<li>After the first character, a variable <b>may contain any alphanumeric or underscore character in any position</b></li>
-<li>Variable names have a <b>maximum length of 60 characters</b>. This does not include any array indexes and is to help aid readability.</li>
-<li>Variable names <b>may be suffixed with a single <code>$</code> to denote a string variable, or a single <code>#</code> to denote a real variable</b> (floating point). These symbols are not permitted anywhere else in the variable name.</li>
+<li>Variables <b>must start with an alphabetic character or an underscore</b>, e.g. <code>A</code>–<code>Z</code>, <code>a</code>–<code>z</code> or <code>_</code>.</li>
+<li>Variables <b>may contain numeric characters</b>, but not as the first character.</li>
+<li>After the first character, a variable <b>may contain any alphanumeric or underscore character</b> in any position.</li>
+<li>Variable names have a <b>maximum length of 60 characters</b> (excluding array subscripts). This is to encourage readability.</li>
+<li>Variable names <b>may be suffixed</b> with:<ul>
+<li><code>$</code> → string variable</li>
+<li><code>#</code> → real (floating-point) variable These suffixes are not permitted elsewhere in the name.</li>
+</ul>
+</li>
 <li>Variable names are <b>CaSe SeNsItIvE</b>.</li>
-<li>Variable names <b>cannot start with a keyword or built in function name</b></li>
+<li>Variable names <b>cannot start with a keyword or built-in function name</b>.</li>
 </ol>
-<p>In summary, the following regular expression could be considered to match all valid Retro Rocket BASIC variables: </p><div class="fragment"><div class="line">/[A-Za-z_][A-Za-z_0-9]{1,58}(\$|#|[A-Za-z_0-9])/</div>
-</div><!-- fragment --><ul>
+<hr  />
+<h3><a class="anchor" id="autotoc_md1082"></a>
+Regular expression</h3>
+<p>The following pattern matches valid Retro Rocket BASIC variable names:</p>
+<div class="fragment"><div class="line">/[A-Za-z_][A-Za-z_0-9]{1,58}(\$|#|[A-Za-z_0-9])/</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md1084"></a>
+Types of Variables</h3>
+<ul>
 <li><a class="el" href="type-integer.html">Integer Variables</a></li>
 <li><a class="el" href="type-real.html">Real Variables</a></li>
 <li><a class="el" href="type-string.html">String Variables</a></li>
@@ -114,7 +125,7 @@ $(document).ready(function(){initNavTree('variables.html',''); initResizable(); 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li>
-    <li class="footer">Generated on Sat Sep 13 2025 00:57:12 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Sep 14 2025 10:41:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

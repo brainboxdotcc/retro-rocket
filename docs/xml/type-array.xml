@@ -6,8 +6,61 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para>Arrays of variables are represented by a variable (with a valid suffix or no suffix, as above) and suffixed further by an array <emphasis>subscript</emphasis>, e.g. an index into the array, zero based, and surrounded by brackets. For example to access array element 50 from an array of strings you would access it in the form <computeroutput>myarray$(50)</computeroutput>. Arrays must be allocated by the <computeroutput>DIM</computeroutput> statement, and can be dynamically extended using <computeroutput>REDIM</computeroutput>.</para>
-<para>As a special case, it is possible to initialise all elements in an array to the same value by not specifying the subscript. For example <computeroutput>arrayname=0</computeroutput> will initialised all array elements to zero and <computeroutput>array$=&quot;foo&quot;</computeroutput> will set all elements in a string array to &quot;foo&quot;. </para>
+<para>Arrays in Retro Rocket BASIC are collections of variables of the same type, indexed by a <bold>zero-based subscript</bold> in brackets.</para>
+<para><itemizedlist>
+<listitem><para>String arrays end with <computeroutput>$</computeroutput> (e.g. <computeroutput>names$(0)</computeroutput>),</para>
+</listitem><listitem><para>Real arrays end with <computeroutput>#</computeroutput> (e.g. <computeroutput>values#(10)</computeroutput>),</para>
+</listitem><listitem><para>Integer arrays have no suffix (e.g. <computeroutput>scores(5)</computeroutput>).</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<sect3 id="type-array_1autotoc_md1086">
+<title>Declaring arrays</title>
+<para>Arrays must be created with the <ref refid="DIM" kindref="compound">DIM</ref> statement:</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>names$,<sp/>100</highlight></codeline>
+<codeline><highlight class="normal">DIM<sp/>values#,<sp/>50</highlight></codeline>
+<codeline><highlight class="normal">DIM<sp/>scores,<sp/>200</highlight></codeline>
+</programlisting></para>
+<para>This allocates arrays with the specified number of elements.</para>
+<para>Arrays can be resized dynamically with <ref refid="REDIM" kindref="compound">REDIM</ref>:</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REDIM<sp/>names$,<sp/>200</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="type-array_1autotoc_md1088">
+<title>Accessing elements</title>
+<para>Use a zero-based index to read or write individual elements:</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">names$(0)<sp/>=<sp/>&quot;Alice&quot;</highlight></codeline>
+<codeline><highlight class="normal">scores(5)<sp/>=<sp/>42</highlight></codeline>
+<codeline><highlight class="normal">values#(10)<sp/>=<sp/>3.14</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="type-array_1autotoc_md1090">
+<title>Assigning to all elements</title>
+<para>Assigning to the array name without a subscript initialises <bold>all elements</bold>:</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">scores<sp/>=<sp/>0</highlight></codeline>
+<codeline><highlight class="normal">names$<sp/>=<sp/>&quot;foo&quot;</highlight></codeline>
+</programlisting></para>
+<para>This sets every element of <computeroutput>scores</computeroutput> to <computeroutput>0</computeroutput> and every element of <computeroutput>names$</computeroutput> to <computeroutput>&quot;foo&quot;</computeroutput>.</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="type-array_1autotoc_md1092">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Arrays are always contiguous in memory.</para>
+</listitem><listitem><para>Indexes must be within bounds (0 to length–1) or an error occurs.</para>
+</listitem><listitem><para>Resizing with <computeroutput>REDIM</computeroutput> preserves existing values where possible.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="DIM" kindref="compound">DIM</ref> · <ref refid="REDIM" kindref="compound">REDIM</ref> · <ref refid="PUSH" kindref="compound">PUSH</ref> · <ref refid="POP" kindref="compound">POP</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/variables/Array.md"/>
   </compounddef>

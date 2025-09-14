@@ -35,7 +35,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="ON-ERROR_1autotoc_md822">
+<sect3 id="ON-ERROR_1autotoc_md829">
 <title>Example: handle and continue</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">ON<sp/>ERROR<sp/>PROChandle</highlight></codeline>
 <codeline></codeline>
@@ -53,7 +53,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="ON-ERROR_1autotoc_md824">
+<sect3 id="ON-ERROR_1autotoc_md831">
 <title>Example: temporarily disable handling</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">ON<sp/>ERROR<sp/>PROChandle</highlight></codeline>
 <codeline></codeline>
@@ -73,7 +73,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="ON-ERROR_1autotoc_md826">
+<sect3 id="ON-ERROR_1autotoc_md833">
 <title>Behaviour</title>
 <para><itemizedlist>
 <listitem><para>If another error occurs <bold>while calling</bold> your handler, the built-ins <bold>ERR$</bold>, <bold>ERR</bold>, and <bold>ERRLINE</bold> are set for that error, and normal error handling rules apply.</para>

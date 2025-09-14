@@ -1,4 +1,4 @@
-\page BITNOR BITNOR Keyword
+\page BITNOR BITNOR Function
 ```basic
 X = BITNOR(a, b)
 ```

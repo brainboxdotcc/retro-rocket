@@ -11,7 +11,7 @@
 <para>Returns the total <bold>memory in use</bold> (bytes) by <bold>all BASIC programs and the OS</bold>.</para>
 <para><image type="html" name="memory.png"></image>
 </para>
-<sect3 id="MEMUSED_1autotoc_md216">
+<sect3 id="MEMUSED_1autotoc_md284">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>MEMUSED</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Used<sp/><sp/>=<sp/>&quot;;<sp/>MEMUSED<sp/>/<sp/>(1024<sp/>*<sp/>1024);<sp/>&quot;<sp/>MB&quot;</highlight></codeline>
@@ -24,7 +24,7 @@
 <codeline><highlight class="normal">Used<sp/>%<sp/>=<sp/>4</highlight></codeline>
 </programlisting></para>
 </sect3>
-<sect3 id="MEMUSED_1autotoc_md217">
+<sect3 id="MEMUSED_1autotoc_md285">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Bytes, 64-bit integer.</para>

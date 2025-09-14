@@ -11,7 +11,7 @@
 <para>Reads a <bold>full line</bold> of text from a file, using the file handle specified by the integer expression. Reading continues until a <bold>carriage return (newline)</bold> or the <bold>end of file</bold> is reached.</para>
 <para><hruler/>
 </para>
-<sect3 id="READ_1autotoc_md554">
+<sect3 id="READ_1autotoc_md622">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Open<sp/>a<sp/>file<sp/>and<sp/>print<sp/>each<sp/>line</highlight></codeline>
 <codeline><highlight class="normal">fh<sp/>=<sp/>OPENIN(&quot;example.txt&quot;)</highlight></codeline>
@@ -30,7 +30,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="READ_1autotoc_md556">
+<sect3 id="READ_1autotoc_md624">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>The handle must be valid and obtained from <ref refid="OPENIN" kindref="compound">OPENIN</ref> or <ref refid="OPENUP" kindref="compound">OPENUP</ref>.</para>

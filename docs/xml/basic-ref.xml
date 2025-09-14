@@ -13,22 +13,42 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><emphasis>Creating BASIC programs</emphasis></para>
-<para>Programs in Retro Rocket are simialar in strucuture to any other BASIC program. Unlike many dialects of BASIC, lines do not have to be numbered, but if they are each number must be greater than the line number before it. It is possible to have gaps in the numbering.</para>
-<para>It is strongly recommended to not specify the numbers for lines in your program. Any program who&apos;s first character is not a digit (0-9) will be assumed to not have line numbers.</para>
-<para>The program will execute moving from one line to the next, and each line must have at least one statement, and any parameters required for that statement (see the statements section of this page).</para>
-<para>Variables may be declared, of the four types listed in the section on <ref refid="variables" kindref="compound">Variable Types</ref>. For each of these variables, they may remain local to the current program or be inherited by other programs ran by the current program.</para>
-<para>For an example of programs in the operating system see the <ulink url="https://github.com/brainboxdotcc/retro-rocket/tree/master/os/programs">/os/programs</ulink> directory.</para>
+<sect2 id="basic-ref_1autotoc_md684">
+<title>Creating BASIC programs</title>
+<para>Programs in Retro Rocket BASIC are similar in structure to other BASIC dialects, with some important differences:</para>
 <para><itemizedlist>
-<listitem><para><ref refid="basic-beginner" kindref="compound">Beginners&apos; Tutorial</ref> Beginners&apos; Guide</para>
-</listitem><listitem><para><ref refid="variables" kindref="compound">Variable Types</ref> Variable Types</para>
-</listitem><listitem><para><ref refid="keywords" kindref="compound">Keywords</ref> BASIC Keywords</para>
-</listitem><listitem><para><ref refid="builtin-functions" kindref="compound">Built-In Functions</ref> Built-In Functions</para>
-</listitem><listitem><para><ref refid="libraries" kindref="compound">Libraries</ref> Libraries</para>
-</listitem><listitem><para><ref refid="tasks" kindref="compound">Writing BASIC Tasks</ref> BASIC Tasks</para>
-</listitem><listitem><para><ref refid="basic-intdev" kindref="compound">BASIC Inerpreter Development Guide</ref> Interpreter Development Guide </para>
+<listitem><para><bold>Line numbers are optional.</bold><itemizedlist>
+<listitem><para>If used, each must be greater than the one before it.</para>
+</listitem><listitem><para>Gaps in numbering are allowed.</para>
+</listitem><listitem><para>If the first character of the file is not a digit (<computeroutput>0–9</computeroutput>), the program is assumed to have <bold>no line numbers</bold>.</para>
 </listitem></itemizedlist>
 </para>
+</listitem><listitem><para><bold>Sequential execution.</bold> Programs execute line by line, top to bottom, unless redirected with control statements (e.g. <computeroutput>GOTO</computeroutput>, <computeroutput>IF</computeroutput>, <computeroutput>PROC</computeroutput>, <computeroutput>FUNCTION</computeroutput>).</para>
+</listitem><listitem><para><bold>Statements.</bold> Each line must contain at least one valid statement, with any required parameters.</para>
+</listitem><listitem><para><bold>Variables.</bold> Four types of variables are available (see <ref refid="variables" kindref="compound">Variable Types</ref>). Variables may be:<itemizedlist>
+<listitem><para><bold>Local</bold> to the current program, or</para>
+</listitem><listitem><para><bold>Inherited</bold> by other programs run with <computeroutput>CHAIN</computeroutput> or similar mechanisms.</para>
+</listitem></itemizedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+<para>For real-world examples of programs in the operating system, see the <ulink url="https://github.com/brainboxdotcc/retro-rocket/tree/master/os/programs">os/programs</ulink> directory in the source tree.</para>
+<para><hruler/>
+</para>
+</sect2>
+<sect2 id="basic-ref_1autotoc_md686">
+<title>Further Reference</title>
+<para><itemizedlist>
+<listitem><para><ref refid="basic-beginner" kindref="compound">Beginners&apos; Tutorial</ref> <bold>Beginners’ Guide</bold></para>
+</listitem><listitem><para><ref refid="variables" kindref="compound">Variable Types</ref> <bold>Variable Types</bold></para>
+</listitem><listitem><para><ref refid="keywords" kindref="compound">Keywords</ref> <bold>BASIC Keywords</bold></para>
+</listitem><listitem><para><ref refid="builtin-functions" kindref="compound">Built-In Functions</ref> <bold>Built-In Functions</bold></para>
+</listitem><listitem><para><ref refid="libraries" kindref="compound">Libraries</ref> <bold>Libraries</bold></para>
+</listitem><listitem><para><ref refid="tasks" kindref="compound">Writing BASIC Tasks</ref> <bold>BASIC Tasks</bold></para>
+</listitem><listitem><para><ref refid="basic-intdev" kindref="compound">BASIC Inerpreter Development Guide</ref> <bold>Interpreter Development Guide</bold> </para>
+</listitem></itemizedlist>
+</para>
+</sect2>
     </detaileddescription>
     <location file="docpages/basic-language-reference/INDEX.md"/>
   </compounddef>

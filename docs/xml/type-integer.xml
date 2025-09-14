@@ -6,7 +6,36 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para>Integer variables are represented by any variable without a suffix, e.g. <computeroutput>A</computeroutput> or <computeroutput>MYVAR</computeroutput>. Integer variables are 64 bit signed values. </para>
+<para>Integer variables are represented by any variable <bold>without a suffix</bold>, e.g. <computeroutput>A</computeroutput> or <computeroutput>MYVAR</computeroutput>. All integers in Retro Rocket BASIC are <bold>64-bit signed values</bold>.</para>
+<para><hruler/>
+</para>
+<sect3 id="type-integer_1autotoc_md1096">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">A<sp/>=<sp/>42</highlight></codeline>
+<codeline><highlight class="normal">B<sp/>=<sp/>-1000000</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>A<sp/>+<sp/>B</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Loop<sp/>using<sp/>an<sp/>integer<sp/>counter</highlight></codeline>
+<codeline><highlight class="normal">FOR<sp/>i<sp/>=<sp/>0<sp/>TO<sp/>9</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;i<sp/>=<sp/>&quot;;<sp/>i</highlight></codeline>
+<codeline><highlight class="normal">NEXT</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="type-integer_1autotoc_md1098">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Range: <computeroutput>-9,223,372,036,854,775,808</computeroutput> to <computeroutput>9,223,372,036,854,775,807</computeroutput>.</para>
+</listitem><listitem><para>Arithmetic wraps around on overflow.</para>
+</listitem><listitem><para>When dividing integers, fractional results are discarded unless the value is stored in a real (<computeroutput>#</computeroutput>) variable.</para>
+</listitem><listitem><para>To explicitly ensure integer division, use DIV.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="type-real" kindref="compound">Real Variables</ref> · <ref refid="type-string" kindref="compound">String Variables</ref> · <ref refid="type-array" kindref="compound">Array Variables</ref> </para>
+</sect3>
     </detaileddescription>
     <location file="docpages/basic-language-reference/variables/Integer.md"/>
   </compounddef>

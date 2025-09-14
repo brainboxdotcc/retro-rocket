@@ -13,7 +13,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="PEEK_1autotoc_md249">
+<sect3 id="PEEK_1autotoc_md317">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Think of <computeroutput>PEEK(addr)</computeroutput> as <bold>“load 8-bit from RAM/MMIO at <computeroutput>addr</computeroutput>”</bold>.</para>
@@ -24,7 +24,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="PEEK_1autotoc_md251">
+<sect3 id="PEEK_1autotoc_md319">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Read<sp/>three<sp/>consecutive<sp/>bytes</highlight></codeline>
 <codeline><highlight class="normal">BASE<sp/>=<sp/>&amp;100000</highlight></codeline>
@@ -39,7 +39,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="PEEK_1autotoc_md253">
+<sect3 id="PEEK_1autotoc_md321">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>The accessed range must be valid according to the boot-time memory map.</para>

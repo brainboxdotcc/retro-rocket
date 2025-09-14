@@ -89,7 +89,30 @@ $(document).ready(function(){initNavTree('type-string.html',''); initResizable()
 <div class="title">String Variables </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>String variables are represented by a variable with the suffix <code>$</code>, e.g. <code>C$</code> or <code>MYVAR$</code>. String variables are null-terminated C style sequences of 8 bit ASCII characters. </p>
+<div class="textblock"><p>String variables are represented by any variable with the suffix <code>$</code>, e.g. <code>C$</code> or <code>MYVAR$</code>. They are stored as <b>null-terminated C-style sequences</b> of <b>8-bit ASCII characters</b>.</p>
+<hr  />
+<h3><a class="anchor" id="autotoc_md1106"></a>
+Examples</h3>
+<div class="fragment"><div class="line">name$ = &quot;Retro Rocket&quot;</div>
+<div class="line">PRINT &quot;Hello, &quot;; name$</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Concatenate strings</div>
+<div class="line">first$ = &quot;Hello&quot;</div>
+<div class="line">second$ = &quot;World&quot;</div>
+<div class="line">PRINT first$ + &quot; &quot; + second$</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Accessing characters</div>
+<div class="line">ch$ = LEFT$(name$, 1)</div>
+<div class="line">PRINT &quot;First character = &quot;; ch$</div>
+</div><!-- fragment --><hr  />
+<h3><a class="anchor" id="autotoc_md1108"></a>
+Notes</h3>
+<ul>
+<li>Strings are mutable and can be reassigned at any time.</li>
+<li>Maximum length depends on available memory.</li>
+<li>Operations such as concatenation (<code>+</code>), substring (<a class="el" href="LEFT.html">LEFT$</a> / <a class="el" href="RIGHT.html">RIGHT$</a> / <a class="el" href="MID.html">MID$</a>), and trimming (<a class="el" href="TRIM.html">TRIM$</a>) are supported.</li>
+<li>Null termination is internal — it is not visible during normal BASIC operations.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="type-integer.html">Integer Variables</a> · <a class="el" href="type-real.html">Real Variables</a> · <a class="el" href="type-array.html">Array Variables</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -97,7 +120,7 @@ $(document).ready(function(){initNavTree('type-string.html',''); initResizable()
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="variables.html">Variable Types</a></li>
-    <li class="footer">Generated on Sat Sep 13 2025 00:57:12 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Sep 14 2025 10:41:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
