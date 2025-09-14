@@ -67,6 +67,19 @@ int64_t basic_legacy_getlastcpuid(struct basic_ctx* ctx)
 	return get_cpuid_reg(ctx, intval);
 }
 
+int64_t basic_memalloc(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("MEMALLOC", 0);
+	void* p = buddy_malloc(ctx->allocator, intval);
+	if (!p) {
+		tokenizer_error_print(ctx, "Out of memory");
+		return 0;
+	}
+	return (int64_t)p;
+}
+
 char* basic_cpugetbrand(struct basic_ctx* ctx)
 {
 
@@ -202,6 +215,13 @@ void outportw_statement(struct basic_ctx* ctx) {
 	int64_t value = expr(ctx) & 0xFFFF;
 	accept_or_return(NEWLINE, ctx);
 	outw(port & 0xFFFF, value);
+}
+
+void memrelease_statement(struct basic_ctx* ctx) {
+	accept_or_return(MEMRELEASE, ctx);
+	int64_t ptr = expr(ctx);
+	accept_or_return(NEWLINE, ctx);
+	buddy_free(ctx->allocator, ptr);
 }
 
 void outportd_statement(struct basic_ctx* ctx) {

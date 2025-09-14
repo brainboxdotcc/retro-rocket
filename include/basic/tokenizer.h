@@ -183,6 +183,11 @@ typedef void (*keyword_handler_t)(struct basic_ctx*);
     T(MODLOAD, STMT, modload_statement) 		/* 111 */ \
     T(MODUNLOAD, STMT, modunload_statement) 		/* 112 */ \
     T(SOCKFLUSH, STMT, sockflush_statement) 		/* 113 */ \
+    T(MEMRELEASE, STMT, memrelease_statement) 		/* 114 */ \
+    T(SOCKBINWRITE, STMT, sockbinwrite_statement) 	/* 115 */ \
+    T(SOCKBINREAD, STMT, sockbinread_statement)		/* 116 */ \
+    T(BINREAD, STMT, readbinary_statement) 		/* 117 */ \
+    T(BINWRITE, STMT, writebinary_statement) 		/* 118 */ \
 
 GENERATE_ENUM_LIST(TOKEN, token_t)
 

@@ -1,0 +1,48 @@
+IF EXISTSVARI("client_socket") THEN
+    PROCprocessRequest
+    END
+ENDIF
+
+server = SOCKLISTEN(NETINFO$("ip"), 80, 5)
+PRINT "Web server running. Press any key to terminate."
+REPEAT
+    client = SOCKACCEPT(server)
+    IF client >= 0 THEN PROCspawnChild(client)
+UNTIL INKEY$ <> ""
+SOCKCLOSE server
+END
+
+DEF PROCspawnChild(client)
+    GLOBAL client_socket = client
+    CHAIN PROGRAM$, TRUE ' Spawn an async background instance
+ENDPROC
+
+DEF PROCprocessRequest
+    SOCKREAD client_socket, REQUEST$
+    VERB$ = TOKENIZE$(REQUEST$, " ") ' Get the request details
+    FILEPATH$ = TOKENIZE$(REQUEST$, " ")
+    IF FILEPATH$ = "/" THEN FILEPATH$ = "/index.html"
+    PRINT FILEPATH$
+    VERSION$ = REQUEST$
+    FILEPATH$ = "/system/webserver" + FILEPATH$
+	FH = OPENIN(FILEPATH$)
+	IF FH > -1 THEN
+        SOCKWRITE client_socket, "HTTP/1.0 200 OK"; CHR$(13); CHR$(10);
+        size = FILESIZE(FILEPATH$)
+        buffer = MEMALLOC(size)
+        SOCKWRITE client_socket, "Content-Length: "; size; CHR$(13); CHR$(10);
+        SOCKWRITE client_socket, "Connection: close"; CHR$(13); CHR$(10); CHR$(13); CHR$(10);
+        BINREAD FH, buffer, size
+        SOCKBINWRITE client_socket, buffer, size
+        SOCKFLUSH client_socket
+        MEMRELEASE buffer
+        SOCKCLOSE client_socket
+        CLOSE FH
+	ELSE
+        SOCKWRITE client_socket, "HTTP/1.0 404 Not Found"; CHR$(13); CHR$(10);
+        SOCKWRITE client_socket, "Content-Length: 0"; CHR$(13); CHR$(10);
+        SOCKWRITE client_socket, "Connection: close"; CHR$(13); CHR$(10); CHR$(13); CHR$(10);
+        SOCKFLUSH client_socket
+        SOCKCLOSE client_socket
+    ENDIF
+ENDPROC

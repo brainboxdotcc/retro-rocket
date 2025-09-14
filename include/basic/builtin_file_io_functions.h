@@ -227,6 +227,8 @@ int64_t basic_getnamecount(struct basic_ctx* ctx);
  */
 int64_t basic_getsize(struct basic_ctx* ctx);
 
+int64_t basic_filesize(struct basic_ctx* ctx);
+
 /**
  * @brief Returns the name of a file or directory at a specified index.
  *
@@ -257,4 +259,6 @@ char* basic_ramdisk_from_device(struct basic_ctx* ctx);
  */
 char* basic_ramdisk_from_size(struct basic_ctx* ctx);
 
+void readbinary_statement(struct basic_ctx* ctx);
 
+void writebinary_statement(struct basic_ctx* ctx);

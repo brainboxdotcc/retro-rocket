@@ -123,23 +123,6 @@ int64_t basic_cpuid(struct basic_ctx* ctx);
 void outport_statement(struct basic_ctx* ctx);
 
 /**
- * @brief Implements the BASIC statement OUTPORTW.
- *
- * BASIC syntax:
- * @code
- *   OUTPORTW port, value
- * @endcode
- *
- * Writes a 16-bit value to the specified I/O port.
- *
- * @param ctx Interpreter context.
- *
- * @note The value is truncated to 16 bits before being written.
- * @warning Raises a runtime error if the number or type of arguments is invalid.
- */
-void outportw_statement(struct basic_ctx* ctx);
-
-/**
  * @brief Implements the BASIC statement OUTPORTD.
  *
  * BASIC syntax:
@@ -410,3 +393,7 @@ int64_t basic_bitrol(struct basic_ctx* ctx);
  * @note Width is usually 1–64; the result is masked to @p width bits.
  */
 int64_t basic_bitror(struct basic_ctx* ctx);
+
+void memrelease_statement(struct basic_ctx* ctx);
+
+int64_t basic_memalloc(struct basic_ctx* ctx);

@@ -96,6 +96,42 @@ void sockread_statement(struct basic_ctx* ctx)
 	proc->state = PROC_RUNNING;
 }
 
+void sockbinread_statement(struct basic_ctx* ctx)
+{
+	accept_or_return(SOCKBINREAD, ctx);
+	size_t var_length;
+	int64_t fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx, &var_length), ctx);
+	accept_or_return(VARIABLE, ctx);
+	accept_or_return(COMMA, ctx);
+	int64_t address = expr(ctx);
+	accept_or_return(COMMA, ctx);
+	int64_t length = expr(ctx);
+
+	process_t* proc = proc_cur(logical_cpu_id());
+
+	int rv = recv((int)fd, address, length, false, 100);
+
+	if (rv == 0) {
+		// Not ready yet, yield and retry later
+		proc_set_idle(proc, check_sockread_ready, (void*)(uintptr_t)fd);
+		jump_linenum(ctx->current_linenum, ctx);
+		proc->state = PROC_IO_BOUND;
+		return;
+	}
+
+	// Clear idle state if we're resuming from IO
+	proc_set_idle(proc, NULL, NULL);
+
+	if (rv < 0) {
+		tokenizer_error_print(ctx, socket_error(rv));
+		proc->state = PROC_RUNNING;
+		return;
+	}
+
+	accept_or_return(NEWLINE, ctx);
+	proc->state = PROC_RUNNING;
+}
+
 void connect_statement(struct basic_ctx* ctx)
 {
 	char input[MAX_STRINGLEN];
@@ -283,6 +319,19 @@ void sockwrite_statement(struct basic_ctx* ctx) {
 	}
 }
 
+void sockbinwrite_statement(struct basic_ctx* ctx) {
+	accept_or_return(SOCKBINWRITE, ctx);
+	size_t var_length;
+	int fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx, &var_length), ctx);
+	accept_or_return(VARIABLE, ctx);
+	accept_or_return(COMMA, ctx);
+	int buffer_pointer = expr(ctx);
+	accept_or_return(COMMA, ctx);
+	int length = expr(ctx);
+	if (buffer_pointer && length) {
+		send(fd, buffer_pointer, length);
+	}
+}
 static void basic_udp_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, void* data, uint32_t length, void* opaque) {
 	basic_ctx* ctx = (basic_ctx*)opaque;
 	if (!opaque) {

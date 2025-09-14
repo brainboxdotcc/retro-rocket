@@ -86,6 +86,8 @@ struct basic_int_fn builtin_int[] =
 	{ basic_peekd,               "PEEKD"             },
 	{ basic_peekw,               "PEEKW"             },
 	{ basic_peek,                "PEEK"              },
+	{ basic_memalloc,            "MEMALLOC"          },
+	{ basic_filesize,            "FILESIZE"          },
 	{ NULL,                      NULL                },
 };
 

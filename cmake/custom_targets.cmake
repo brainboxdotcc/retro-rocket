@@ -64,6 +64,22 @@ function(copy_system_timezone SOURCEFILE)
     add_dependencies(ISO timezone_${TZ_TARGET})
 endfunction()
 
+function(copy_system_web SOURCEFILE)
+    set(FILENAME "${CMAKE_SOURCE_DIR}/os/system/webserver/${SOURCEFILE}")
+    set(OUTNAME "${CMAKE_BINARY_DIR}/iso/system/webserver/${SOURCEFILE}")
+
+    add_custom_command(OUTPUT ${OUTNAME}
+            COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_BINARY_DIR}/iso/system/webserver"
+            COMMAND ${CMAKE_COMMAND} -E copy "${FILENAME}" "${OUTNAME}"
+            DEPENDS ${FILENAME})
+
+    string(REPLACE "/" "_" WEB_TARGET ${SOURCEFILE})
+
+    add_custom_target(web_${WEB_TARGET} ALL DEPENDS ${OUTNAME})
+    add_dependencies("kernel.bin" web_${WEB_TARGET})
+    add_dependencies(ISO web_${WEB_TARGET})
+endfunction()
+
 function(copy_system_config SOURCEFILE)
     set(FILENAME "${CMAKE_SOURCE_DIR}/os/system/config/${SOURCEFILE}")
     set(OUTNAME "${CMAKE_BINARY_DIR}/iso/system/config/${SOURCEFILE}")
@@ -134,7 +150,7 @@ function(run TARGETFILE)
 	-boot d \
 	-vnc 0.0.0.0:2 \
 	-debugcon file:debug.log \
-	-netdev user,id=netuser,hostfwd=tcp:127.0.0.1:2000-10.0.2.15:2000 \
+	-netdev user,id=netuser,hostfwd=tcp::2000-:2000,hostfwd=tcp::2080-:80 \
 	-object filter-dump,id=dump,netdev=netuser,file=dump.dat \
 	${NET_DEVICE} ${PROFILE}" >${OUTNAME} && chmod ugo+x ${OUTNAME}
         DEPENDS ${FILENAME})
@@ -166,6 +182,6 @@ function(iso TARGETFILE SOURCEFILE)
     set(OUTNAME "${CMAKE_BINARY_DIR}/${TARGETFILE}")
     add_custom_command(OUTPUT ${OUTNAME}
         COMMAND php ../build-boot-image.php && xorriso -as mkisofs --quiet -b limine-bios-cd.bin -joliet -no-emul-boot -boot-load-size 4 -boot-info-table -V "RETROROCKET" --protective-msdos-label "${CMAKE_BINARY_DIR}/iso" -o "${CMAKE_BINARY_DIR}/rr.iso"
-        DEPENDS SYMBOLS "kernel.bin" "RUN_run.sh" "DEBUG_debug.sh" ${basic_program_list} ${basic_library_list} ${basic_driver_list} ${KEYMAP_TARGETS} ${TIMEZONE_TARGETS} ${CONFIG_TARGETS} ${IMAGE_TARGETS} ${MODULE_TARGETS})
+        DEPENDS SYMBOLS "kernel.bin" "RUN_run.sh" "DEBUG_debug.sh" ${basic_program_list} ${basic_library_list} ${basic_driver_list} ${KEYMAP_TARGETS} ${TIMEZONE_TARGETS} ${WEB_TARGETS} ${CONFIG_TARGETS} ${IMAGE_TARGETS} ${MODULE_TARGETS})
     add_dependencies(ISO SYMBOLS "kernel.bin" "RUN_run.sh" "DEBUG_debug.sh" "config_limine.conf")
 endfunction()

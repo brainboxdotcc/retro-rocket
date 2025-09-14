@@ -17,6 +17,12 @@ struct basic_ctx;
  */
 void sockwrite_statement(struct basic_ctx* ctx);
 
+void sockbinwrite_statement(struct basic_ctx* ctx);
+
+void sockbinread_statement(struct basic_ctx* ctx);
+
+
+
 /**
  * @brief Perform a DNS lookup and return the corresponding IP address.
  *

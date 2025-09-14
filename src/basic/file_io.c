@@ -199,6 +199,19 @@ char* basic_filetype(struct basic_ctx* ctx)
 	return fs_is_directory(dir) ? "directory" : "file";
 }
 
+int64_t basic_filesize(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	PARAMS_END("FILESIZE", 0);
+	fs_directory_entry_t* file = fs_get_file_info(strval);
+	if (file) {
+		return file->size;
+	}
+	tokenizer_error_printf(ctx, "Error retrieving size: %s", fs_strerror(fs_get_error()));
+	return 0;
+}
+
 int64_t basic_getsize(struct basic_ctx* ctx)
 {
 	PARAMS_START;
@@ -260,6 +273,34 @@ void rmdir_statement(struct basic_ctx* ctx)
 	if (!fs_delete_directory(name)) {
 		tokenizer_error_printf(ctx, "Unable to delete directory '%s': %s", name, fs_strerror(fs_get_error()));
 	}
+}
+
+void readbinary_statement(struct basic_ctx* ctx)
+{
+	accept_or_return(BINREAD, ctx);
+	int64_t fd = expr(ctx);
+	accept_or_return(COMMA, ctx);
+	int64_t buffer = expr(ctx);
+	accept_or_return(COMMA, ctx);
+	int64_t size = expr(ctx);
+	if (_read(fd, buffer, size) == -1) {
+		tokenizer_error_printf(ctx, "Error reading from file: %s", fs_strerror(fs_get_error()));
+	}
+	accept_or_return(NEWLINE, ctx);
+}
+
+void writebinary_statement(struct basic_ctx* ctx)
+{
+	accept_or_return(BINWRITE, ctx);
+	int64_t fd = expr(ctx);
+	accept_or_return(COMMA, ctx);
+	int64_t buffer = expr(ctx);
+	accept_or_return(COMMA, ctx);
+	int64_t size = expr(ctx);
+	if (_write(fd, buffer, size) == -1) {
+		tokenizer_error_printf(ctx, "Error writing to file: %s", fs_strerror(fs_get_error()));
+	}
+	accept_or_return(NEWLINE, ctx);
 }
 
 
