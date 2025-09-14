@@ -103,6 +103,7 @@ Notes</h3>
 <ul>
 <li>Passing an invalid or already-freed handle raises an error.</li>
 <li>After releasing, set your variable to <code>0</code> if you want to avoid accidental reuse.</li>
+<li>Your program ending releases all memory it requested using <a class="el" href="MEMALLOC.html">MEMALLOC Function</a> - be aware of this if you pass reference of this memory to a child program!</li>
 </ul>
 <hr  />
 <p><b>See also:</b> <a class="el" href="MEMALLOC.html">MEMALLOC</a> </p>
@@ -113,7 +114,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sun Sep 14 2025 15:06:05 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Sep 14 2025 15:48:58 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

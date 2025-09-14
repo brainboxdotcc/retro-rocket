@@ -26,7 +26,9 @@
 <para><itemizedlist>
 <listitem><para>Contents are unspecified on allocation.</para>
 </listitem><listitem><para>Always pair with <ref refid="MEMRELEASE" kindref="compound">MEMRELEASE</ref> to avoid leaks.</para>
+</listitem><listitem><para>The allocated memory is only valid while the program that requested it is running. The returned value ma be passed to other programs, however be aware of this restriction.</para>
 </listitem><listitem><para>Returned handle is suitable for binary I/O (<ref refid="BINREAD" kindref="compound">BINREAD</ref>, <ref refid="BINWRITE" kindref="compound">BINWRITE</ref>, <ref refid="SOCKBINWRITE" kindref="compound">SOCKBINWRITE</ref>, <ref refid="SOCKBINREAD" kindref="compound">SOCKBINREAD</ref>).</para>
+</listitem><listitem><para>Once the program ends, all memory requested by MEMALLOC is automatically freed.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <ref refid="MEMRELEASE" kindref="compound">MEMRELEASE</ref> · <ref refid="BINREAD" kindref="compound">BINREAD</ref> · <ref refid="BINWRITE" kindref="compound">BINWRITE</ref> </para>
