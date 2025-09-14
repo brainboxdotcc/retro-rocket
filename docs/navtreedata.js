@@ -36,7 +36,7 @@ var NAVTREEINDEX =
 [
 "ABS.html",
 "POKE.html#autotoc_md900",
-"type-real.html#autotoc_md1133"
+"type-real.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

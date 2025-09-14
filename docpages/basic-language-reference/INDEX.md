@@ -32,6 +32,7 @@ For real-world examples of programs in the operating system, see the [os/program
 * \subpage variables
 * \subpage keywords
 * \subpage builtin-functions
+* \subpage networking
 * \subpage libraries
 * \subpage tasks
 * \subpage basic-intdev

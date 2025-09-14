@@ -90,25 +90,25 @@ $(document).ready(function(){initNavTree('interrupts.html',''); initResizable();
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><ul><li class="level2"><a href="#autotoc_md1161">Overview</a></li>
-<li class="level2"><a href="#autotoc_md1163">IDT Initialisation (&lt;tt&gt;idt.c&lt;/tt&gt;)</a><ul><li class="level3"><a href="#autotoc_md1164">All Interrupts Are Initially Masked</a></li>
+<ul><ul><li class="level2"><a href="#autotoc_md1191">Overview</a></li>
+<li class="level2"><a href="#autotoc_md1193">IDT Initialisation (&lt;tt&gt;idt.c&lt;/tt&gt;)</a><ul><li class="level3"><a href="#autotoc_md1194">All Interrupts Are Initially Masked</a></li>
 </ul>
 </li>
-<li class="level2"><a href="#autotoc_md1166">APIC Handling (&lt;tt&gt;apic.c&lt;/tt&gt;)</a><ul><li class="level3"><a href="#autotoc_md1167">Key APIC Features</a></li>
+<li class="level2"><a href="#autotoc_md1196">APIC Handling (&lt;tt&gt;apic.c&lt;/tt&gt;)</a><ul><li class="level3"><a href="#autotoc_md1197">Key APIC Features</a></li>
 </ul>
 </li>
-<li class="level2"><a href="#autotoc_md1169">ACPI &amp; MADT Processing (&lt;tt&gt;acpi.c&lt;/tt&gt;)</a><ul><li class="level3"><a href="#autotoc_md1170">IRQ to GSI Routing</a></li>
+<li class="level2"><a href="#autotoc_md1199">ACPI &amp; MADT Processing (&lt;tt&gt;acpi.c&lt;/tt&gt;)</a><ul><li class="level3"><a href="#autotoc_md1200">IRQ to GSI Routing</a></li>
 </ul>
 </li>
-<li class="level2"><a href="#autotoc_md1172">Registering a Handler</a></li>
-<li class="level2"><a href="#autotoc_md1174">Legacy PIC Support (Deprecated)</a></li>
-<li class="level2"><a href="#autotoc_md1176">Terminology</a></li>
+<li class="level2"><a href="#autotoc_md1202">Registering a Handler</a></li>
+<li class="level2"><a href="#autotoc_md1204">Legacy PIC Support (Deprecated)</a></li>
+<li class="level2"><a href="#autotoc_md1206">Terminology</a></li>
 </ul>
 </ul>
 </div>
 <div class="textblock"><p>Retro Rocket uses a modern, APIC-based interrupt system suitable for 64-bit long mode. It fully supports Symmetric Multiprocessing (SMP) and I/O APICs via ACPI detection, with legacy PIC support deprecated and disabled after boot.</p>
 <hr  />
-<h2><a class="anchor" id="autotoc_md1161"></a>
+<h2><a class="anchor" id="autotoc_md1191"></a>
 Overview</h2>
 <p>Interrupts in Retro Rocket are composed of three tightly integrated layers:</p>
 <table class="markdownTable">
@@ -122,7 +122,7 @@ Overview</h2>
 <td class="markdownTableBodyNone">ACPI / MADT   </td><td class="markdownTableBodyNone"><code>acpi.c</code>   </td><td class="markdownTableBodyNone">Enumerates Local APICs, IOAPICs, IRQ/GSI mappings   </td></tr>
 </table>
 <hr  />
-<h2><a class="anchor" id="autotoc_md1163"></a>
+<h2><a class="anchor" id="autotoc_md1193"></a>
 IDT Initialisation (&lt;tt&gt;idt.c&lt;/tt&gt;)</h2>
 <p>Retro Rocket sets up a full 256-entry Interrupt Descriptor Table, aligned on a 16-byte boundary. The <code>init_idt()</code> function:</p>
 <ol type="1">
@@ -133,20 +133,20 @@ IDT Initialisation (&lt;tt&gt;idt.c&lt;/tt&gt;)</h2>
 </ol>
 <p>The legacy PIC is briefly remapped to avoid IRQ overlaps with CPU exceptions, and then <b>disabled entirely</b> if APIC is enabled.</p>
 <div class="fragment"><div class="line">__asm__ <span class="keyword">volatile</span>(<span class="stringliteral">&quot;lidtq (%0)&quot;</span> :: <span class="stringliteral">&quot;r&quot;</span>(&amp;idt64));</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md1164"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md1194"></a>
 All Interrupts Are Initially Masked</h3>
 <p>Each IRQ is masked until a handler is explicitly registered using:</p>
 <div class="fragment"><div class="line">register_interrupt_handler(irqnum, handler, dev, ctx);</div>
 </div><!-- fragment --><p>This design guarantees no spurious IRQs during boot and enforces strict control of enabled sources.</p>
 <hr  />
-<h2><a class="anchor" id="autotoc_md1166"></a>
+<h2><a class="anchor" id="autotoc_md1196"></a>
 APIC Handling (&lt;tt&gt;apic.c&lt;/tt&gt;)</h2>
 <p>Retro Rocket assumes all hardware conforms to the AMD64 specification. This includes mandatory support for:</p>
 <ul>
 <li><b>Local APIC (LAPIC)</b>: Per-core interrupt controller for inter-processor signalling and timers.</li>
 <li><b>I/O APIC (IOAPIC)</b>: Routes external device interrupts to LAPIC via GSIs (Global System Interrupts).</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md1167"></a>
+<h3><a class="anchor" id="autotoc_md1197"></a>
 Key APIC Features</h3>
 <ul>
 <li><b>LAPIC Base Detection</b>: Via the ACPI MADT.</li>
@@ -155,7 +155,7 @@ Key APIC Features</h3>
 <li><b>Spurious IRQ Handling</b>: IRQ 7 is handled explicitly and does not send EOI.</li>
 </ul>
 <hr  />
-<h2><a class="anchor" id="autotoc_md1169"></a>
+<h2><a class="anchor" id="autotoc_md1199"></a>
 ACPI &amp; MADT Processing (&lt;tt&gt;acpi.c&lt;/tt&gt;)</h2>
 <p>The ACPI module is responsible for:</p>
 <ul>
@@ -168,7 +168,7 @@ ACPI &amp; MADT Processing (&lt;tt&gt;acpi.c&lt;/tt&gt;)</h2>
 </ul>
 </li>
 </ul>
-<h3><a class="anchor" id="autotoc_md1170"></a>
+<h3><a class="anchor" id="autotoc_md1200"></a>
 IRQ to GSI Routing</h3>
 <p>The system maintains a <code>pci_irq_routes[]</code> map of IRQ→GSI mappings with polarity and trigger mode.</p>
 <p>Interrupt sources are discovered from:</p>
@@ -182,7 +182,7 @@ IRQ to GSI Routing</h3>
 <div class="line">uint8_t get_irq_polarity(uint8_t irq);</div>
 <div class="line">uint8_t get_irq_trigger_mode(uint8_t irq);</div>
 </div><!-- fragment --><hr  />
-<h2><a class="anchor" id="autotoc_md1172"></a>
+<h2><a class="anchor" id="autotoc_md1202"></a>
 Registering a Handler</h2>
 <p>Drivers register handlers with:</p>
 <div class="fragment"><div class="line">register_interrupt_handler(uint8_t irq, handler_t fn, device_t dev, <span class="keywordtype">void</span> *ctx);</div>
@@ -194,7 +194,7 @@ Registering a Handler</h2>
 </ul>
 <p>If not registered, the line remains masked and ignored.</p>
 <hr  />
-<h2><a class="anchor" id="autotoc_md1174"></a>
+<h2><a class="anchor" id="autotoc_md1204"></a>
 Legacy PIC Support (Deprecated)</h2>
 <ul>
 <li>Retro Rocket targets only <b>AMD64 hardware</b>. There is no support for 32-bit x86.</li>
@@ -203,7 +203,7 @@ Legacy PIC Support (Deprecated)</h2>
 </ul>
 <p><b>TL;DR:</b> APIC is mandatory.</p>
 <hr  />
-<h2><a class="anchor" id="autotoc_md1176"></a>
+<h2><a class="anchor" id="autotoc_md1206"></a>
 Terminology</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -228,7 +228,7 @@ Terminology</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="kernel-dev.html">Kernel Development</a></li>
-    <li class="footer">Generated on Sun Sep 14 2025 15:48:58 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Sep 14 2025 22:09:34 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

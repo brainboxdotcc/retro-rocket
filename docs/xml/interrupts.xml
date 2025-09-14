@@ -9,7 +9,7 @@
 <para>Retro Rocket uses a modern, APIC-based interrupt system suitable for 64-bit long mode. It fully supports Symmetric Multiprocessing (SMP) and I/O APICs via ACPI detection, with legacy PIC support deprecated and disabled after boot.</para>
 <para><hruler/>
 </para>
-<sect2 id="interrupts_1autotoc_md1161">
+<sect2 id="interrupts_1autotoc_md1191">
 <title>Overview</title>
 <para>Interrupts in Retro Rocket are composed of three tightly integrated layers:</para>
 <para><table rows="4" cols="3"><row>
@@ -37,7 +37,7 @@
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="interrupts_1autotoc_md1163">
+<sect2 id="interrupts_1autotoc_md1193">
 <title>IDT Initialisation (&lt;tt&gt;idt.c&lt;/tt&gt;)</title>
 <para>Retro Rocket sets up a full 256-entry Interrupt Descriptor Table, aligned on a 16-byte boundary. The <computeroutput>init_idt()</computeroutput> function:</para>
 <para><orderedlist>
@@ -50,7 +50,7 @@
 <para>The legacy PIC is briefly remapped to avoid IRQ overlaps with CPU exceptions, and then <bold>disabled entirely</bold> if APIC is enabled.</para>
 <para><programlisting filename=".c"><codeline><highlight class="normal">__asm__<sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;lidtq<sp/>(%0)&quot;</highlight><highlight class="normal"><sp/>::<sp/></highlight><highlight class="stringliteral">&quot;r&quot;</highlight><highlight class="normal">(&amp;idt64));</highlight></codeline>
 </programlisting></para>
-<sect3 id="interrupts_1autotoc_md1164">
+<sect3 id="interrupts_1autotoc_md1194">
 <title>All Interrupts Are Initially Masked</title>
 <para>Each IRQ is masked until a handler is explicitly registered using:</para>
 <para><programlisting filename=".c"><codeline><highlight class="normal">register_interrupt_handler(irqnum,<sp/>handler,<sp/>dev,<sp/>ctx);</highlight></codeline>
@@ -60,7 +60,7 @@
 </para>
 </sect3>
 </sect2>
-<sect2 id="interrupts_1autotoc_md1166">
+<sect2 id="interrupts_1autotoc_md1196">
 <title>APIC Handling (&lt;tt&gt;apic.c&lt;/tt&gt;)</title>
 <para>Retro Rocket assumes all hardware conforms to the AMD64 specification. This includes mandatory support for:</para>
 <para><itemizedlist>
@@ -68,7 +68,7 @@
 </listitem><listitem><para><bold>I/O APIC (IOAPIC)</bold>: Routes external device interrupts to LAPIC via GSIs (Global System Interrupts).</para>
 </listitem></itemizedlist>
 </para>
-<sect3 id="interrupts_1autotoc_md1167">
+<sect3 id="interrupts_1autotoc_md1197">
 <title>Key APIC Features</title>
 <para><itemizedlist>
 <listitem><para><bold>LAPIC Base Detection</bold>: Via the ACPI MADT.</para>
@@ -81,7 +81,7 @@
 </para>
 </sect3>
 </sect2>
-<sect2 id="interrupts_1autotoc_md1169">
+<sect2 id="interrupts_1autotoc_md1199">
 <title>ACPI &amp; MADT Processing (&lt;tt&gt;acpi.c&lt;/tt&gt;)</title>
 <para>The ACPI module is responsible for:</para>
 <para><itemizedlist>
@@ -95,7 +95,7 @@
 </para>
 </listitem></itemizedlist>
 </para>
-<sect3 id="interrupts_1autotoc_md1170">
+<sect3 id="interrupts_1autotoc_md1200">
 <title>IRQ to GSI Routing</title>
 <para>The system maintains a <computeroutput>pci_irq_routes[]</computeroutput> map of IRQ→GSI mappings with polarity and trigger mode.</para>
 <para>Interrupt sources are discovered from:</para>
@@ -114,7 +114,7 @@
 </para>
 </sect3>
 </sect2>
-<sect2 id="interrupts_1autotoc_md1172">
+<sect2 id="interrupts_1autotoc_md1202">
 <title>Registering a Handler</title>
 <para>Drivers register handlers with:</para>
 <para><programlisting filename=".c"><codeline><highlight class="normal">register_interrupt_handler(uint8_t<sp/>irq,<sp/>handler_t<sp/>fn,<sp/>device_t<sp/>dev,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*ctx);</highlight></codeline>
@@ -130,7 +130,7 @@
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="interrupts_1autotoc_md1174">
+<sect2 id="interrupts_1autotoc_md1204">
 <title>Legacy PIC Support (Deprecated)</title>
 <para><itemizedlist>
 <listitem><para>Retro Rocket targets only <bold>AMD64 hardware</bold>. There is no support for 32-bit x86.</para>
@@ -142,7 +142,7 @@
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="interrupts_1autotoc_md1176">
+<sect2 id="interrupts_1autotoc_md1206">
 <title>Terminology</title>
 <para><table rows="7" cols="2"><row>
 <entry thead="yes"><para>Term   </para>
