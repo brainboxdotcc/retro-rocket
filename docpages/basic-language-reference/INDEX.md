@@ -28,10 +28,10 @@ For real-world examples of programs in the operating system, see the [os/program
 
 **Further Reference**
 
-* \subpage basic-beginner **Beginners’ Guide**
-* \subpage variables **Variable Types**
-* \subpage keywords **BASIC Keywords**
-* \subpage builtin-functions **Built-In Functions**
-* \subpage libraries **Libraries**
-* \subpage tasks **BASIC Tasks**
-* \subpage basic-intdev **Interpreter Development Guide**
+* \subpage basic-beginner
+* \subpage variables
+* \subpage keywords
+* \subpage builtin-functions
+* \subpage libraries
+* \subpage tasks
+* \subpage basic-intdev
