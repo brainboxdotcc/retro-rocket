@@ -283,11 +283,11 @@ void readbinary_statement(struct basic_ctx* ctx)
 	int64_t buffer = expr(ctx);
 	accept_or_return(COMMA, ctx);
 	int64_t size = expr(ctx);
-	if (!address_valid_write(buffer, size)) {
+	if (size && !address_valid_write(buffer, size)) {
 		tokenizer_error_printf(ctx, "Invalid address: %016lx", (uint64_t)buffer);
 		return;
 	}
-	if (_read(fd, buffer, size) == -1) {
+	if (size && _read(fd, buffer, size) == -1) {
 		tokenizer_error_printf(ctx, "Error reading from file: %s", fs_strerror(fs_get_error()));
 	}
 	accept_or_return(NEWLINE, ctx);
@@ -301,11 +301,11 @@ void writebinary_statement(struct basic_ctx* ctx)
 	int64_t buffer = expr(ctx);
 	accept_or_return(COMMA, ctx);
 	int64_t size = expr(ctx);
-	if (!address_valid_read(buffer, size)) {
+	if (size && !address_valid_read(buffer, size)) {
 		tokenizer_error_printf(ctx, "Invalid address: %016lx", (uint64_t)buffer);
 		return;
 	}
-	if (_write(fd, buffer, size) == -1) {
+	if (size && _write(fd, buffer, size) == -1) {
 		tokenizer_error_printf(ctx, "Error writing to file: %s", fs_strerror(fs_get_error()));
 	}
 	accept_or_return(NEWLINE, ctx);
