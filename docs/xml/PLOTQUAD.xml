@@ -14,7 +14,7 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="PLOTQUAD_1autotoc_md863">
+<sect3 id="PLOTQUAD_1autotoc_md861">
 <title>Key behaviour</title>
 <para><itemizedlist>
 <listitem><para><bold>Projective mapping</bold>: uses a perspective-correct transform (homography), not a simple affine stretch.</para>
@@ -29,7 +29,7 @@
 <hruler/>
 </para>
 </sect3>
-<sect3 id="PLOTQUAD_1autotoc_md865">
+<sect3 id="PLOTQUAD_1autotoc_md863">
 <title>Parameters</title>
 <para><itemizedlist>
 <listitem><para><computeroutput>integer-variable</computeroutput> - variable containing a sprite handle from <computeroutput>SPRITELOAD</computeroutput>.</para>
@@ -39,7 +39,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="PLOTQUAD_1autotoc_md867">
+<sect3 id="PLOTQUAD_1autotoc_md865">
 <title>Performance notes</title>
 <para><itemizedlist>
 <listitem><para>Cost is roughly proportional to the quad’s <bold>screen area</bold> and is naturally slower than <computeroutput>PLOT</computeroutput>.</para>
@@ -49,7 +49,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="PLOTQUAD_1autotoc_md869">
+<sect3 id="PLOTQUAD_1autotoc_md867">
 <title>Sampling</title>
 <para><itemizedlist>
 <listitem><para>Uses <bold>nearest-neighbour</bold> sampling. Large upscales will look blocky; use higher-resolution sprites if you need crisper results.</para>
@@ -58,7 +58,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="PLOTQUAD_1autotoc_md871">
+<sect3 id="PLOTQUAD_1autotoc_md869">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Upright<sp/>billboard</highlight></codeline>
 <codeline><highlight class="normal">PLOTQUAD<sp/>s,<sp/>100,60,<sp/>220,60,<sp/>220,220,<sp/>100,220</highlight></codeline>

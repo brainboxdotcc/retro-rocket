@@ -94,7 +94,7 @@ $(document).ready(function(){initNavTree('PLOTQUAD.html',''); initResizable(); }
  The first parameter must be an <b>integer variable</b> containing the sprite handle returned by <a class="el" href="SPRITELOAD.html">SPRITELOAD</a>. The sprite’s full image is used, positioned by its four destination corners.</p>
 <p><img src="https://github.com/user-attachments/assets/d6ae6888-46db-42ee-be95-d96c888dc1b5" alt="example" class="inline"/></p>
 <hr  />
-<h3><a class="anchor" id="autotoc_md863"></a>
+<h3><a class="anchor" id="autotoc_md861"></a>
 Key behaviour</h3>
 <ul>
 <li><b>Projective mapping</b>: uses a perspective-correct transform (homography), not a simple affine stretch.</li>
@@ -105,27 +105,27 @@ Key behaviour</h3>
 </ul>
 <dl class="section note"><dt>Note</dt><dd>Transparency semantics match <code>PLOT</code>. There is no alpha blending.</dd></dl>
 <hr  />
-<h3><a class="anchor" id="autotoc_md865"></a>
+<h3><a class="anchor" id="autotoc_md863"></a>
 Parameters</h3>
 <ul>
 <li><code>integer-variable</code> - variable containing a sprite handle from <code>SPRITELOAD</code>.</li>
 <li><code>x0, y0, x1, y1, x2, y2, x3, y3</code> - integer expressions for the quad’s four destination corners in screen pixels.</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md867"></a>
+<h3><a class="anchor" id="autotoc_md865"></a>
 Performance notes</h3>
 <ul>
 <li>Cost is roughly proportional to the quad’s <b>screen area</b> and is naturally slower than <code>PLOT</code>.</li>
 <li>There is <b>no Z-buffer</b>. When drawing overlapping quads in one frame, the <b>last drawn</b> appears on top.</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md869"></a>
+<h3><a class="anchor" id="autotoc_md867"></a>
 Sampling</h3>
 <ul>
 <li>Uses <b>nearest-neighbour</b> sampling. Large upscales will look blocky; use higher-resolution sprites if you need crisper results.</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md871"></a>
+<h3><a class="anchor" id="autotoc_md869"></a>
 Examples</h3>
 <div class="fragment"><div class="line">REM Upright billboard</div>
 <div class="line">PLOTQUAD s, 100,60, 220,60, 220,220, 100,220</div>
@@ -145,7 +145,7 @@ Examples</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sun Sep 14 2025 10:41:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Sep 14 2025 11:03:56 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

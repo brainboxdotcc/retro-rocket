@@ -16,7 +16,7 @@
  A BASIC program <bold>cannot monopolise the CPU</bold>, so inserting <computeroutput>YIELD</computeroutput> calls has <bold>no scheduling benefit</bold>.</para>
 <para><hruler/>
 </para>
-<sect3 id="YIELD_1autotoc_md1035">
+<sect3 id="YIELD_1autotoc_md1033">
 <title>Behaviour</title>
 <para><itemizedlist>
 <listitem><para>Executes as a <bold>no-op</bold> for control flow and timing; it does not pause or advance timers.</para>
@@ -27,7 +27,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="YIELD_1autotoc_md1037">
+<sect3 id="YIELD_1autotoc_md1035">
 <title>Example (for illustration only)</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;A&quot;</highlight></codeline>
 <codeline><highlight class="normal">YIELD</highlight></codeline>
@@ -37,7 +37,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="YIELD_1autotoc_md1039">
+<sect3 id="YIELD_1autotoc_md1037">
 <title>Alternatives</title>
 <para><itemizedlist>
 <listitem><para>If you want an <bold>actual pause</bold>, use <ref refid="SLEEP" kindref="compound">SLEEP</ref> (seconds resolution). </para>

@@ -93,19 +93,19 @@ $(document).ready(function(){initNavTree('POKEQ.html',''); initResizable(); });
 </div><!-- fragment --><p>Stores a <b>64-bit quad-word</b> at <code>address</code> in <b>little-endian</b> order.</p>
 <dl class="section remark"><dt>Remarks</dt><dd>The 8-byte span must be writable or <code>Bad Address at &lt;address&gt;</code> is raised.</dd></dl>
 <hr  />
-<h3><a class="anchor" id="autotoc_md890"></a>
+<h3><a class="anchor" id="autotoc_md888"></a>
 How to read it</h3>
 <ul>
 <li>Use for 64-bit pointers, descriptors, or counters.</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md892"></a>
+<h3><a class="anchor" id="autotoc_md890"></a>
 Examples</h3>
 <div class="fragment"><div class="line">REM Store a 64-bit value</div>
 <div class="line">POKEQ &amp;100400, &amp;0123456789ABCDEF</div>
 <div class="line">PRINT PEEKQ(&amp;100400)</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md894"></a>
+<h3><a class="anchor" id="autotoc_md892"></a>
 Notes</h3>
 <ul>
 <li>Unaligned 64-bit writes may tear if observed concurrently.</li>
@@ -119,7 +119,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sun Sep 14 2025 10:41:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Sep 14 2025 11:03:56 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

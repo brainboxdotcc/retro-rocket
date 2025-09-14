@@ -20,7 +20,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="PUSH_1autotoc_md919">
+<sect3 id="PUSH_1autotoc_md917">
 <title>How it works</title>
 <para><itemizedlist>
 <listitem><para>Before: <computeroutput>A(0) .. A(size-2), A(size-1)</computeroutput></para>
@@ -36,7 +36,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="PUSH_1autotoc_md921">
+<sect3 id="PUSH_1autotoc_md919">
 <title>Common patterns</title>
 <para><bold>Insert a value at a position</bold> <linebreak/>
  Use <computeroutput>PUSH</computeroutput> to make room, then assign into the cleared slot. <programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>A,5</highlight></codeline>
@@ -88,7 +88,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="PUSH_1autotoc_md923">
+<sect3 id="PUSH_1autotoc_md921">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Works with <bold>integer</bold>, <bold>real</bold>, and <bold>string</bold> arrays; the inserted default is <computeroutput>0</computeroutput> or <computeroutput>&quot;&quot;</computeroutput> accordingly.</para>

@@ -1,6 +1,6 @@
 \page basic-ref BASIC Language Reference
 
-## Creating BASIC programs
+**Creating BASIC programs**
 
 Programs in Retro Rocket BASIC are similar in structure to other BASIC dialects, with some important differences:
 
@@ -26,7 +26,7 @@ For real-world examples of programs in the operating system, see the [os/program
 
 ---
 
-## Further Reference
+**Further Reference**
 
 * \subpage basic-beginner **Beginners’ Guide**
 * \subpage variables **Variable Types**

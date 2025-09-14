@@ -93,7 +93,7 @@ $(document).ready(function(){initNavTree('SOCKFLUSH.html',''); initResizable(); 
 </div><!-- fragment --><p>Blocks until any <b>pending outbound data</b> for the given TCP socket has been <b>flushed from the BASIC send buffer</b> to the TCP stack. Use after <a class="el" href="SOCKWRITE.html">SOCKWRITE</a> when you need to ensure queued bytes have been handed off before proceeding (e.g. before closing the socket).</p>
 <dl class="section note"><dt>Note</dt><dd>This waits for the <b>local send buffer to empty</b>; it does <b>not</b> wait for peer acknowledgements.</dd></dl>
 <hr  />
-<h3><a class="anchor" id="autotoc_md969"></a>
+<h3><a class="anchor" id="autotoc_md967"></a>
 How to use it</h3>
 <ul>
 <li><code>integer-variable</code> must contain a socket handle returned by <a class="el" href="CONNECT.html">CONNECT</a> or <a class="el" href="SOCKACCEPT.html">SOCKACCEPT</a>.</li>
@@ -104,7 +104,7 @@ How to use it</h3>
 <dd>
 Without an error handler, the program <b>terminates</b> on errors; with <code>ON ERROR</code>, control passes to your handler.</dd></dl>
 <hr  />
-<h3><a class="anchor" id="autotoc_md971"></a>
+<h3><a class="anchor" id="autotoc_md969"></a>
 Examples</h3>
 <p><b>Send a line, flush, then close</b></p>
 <div class="fragment"><div class="line">server = SOCKLISTEN(NETINFO$(&quot;ip&quot;), 2000, 5)</div>
@@ -121,7 +121,7 @@ Examples</h3>
 <div class="line">SOCKFLUSH s</div>
 <div class="line">SOCKCLOSE s</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md973"></a>
+<h3><a class="anchor" id="autotoc_md971"></a>
 Notes</h3>
 <ul>
 <li>If the socket has no pending data, <code>SOCKFLUSH</code> returns immediately.</li>
@@ -136,7 +136,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Sun Sep 14 2025 10:41:16 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Sep 14 2025 11:03:56 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
