@@ -90,7 +90,9 @@ $(document).ready(function(){initNavTree('rocketsh.html',''); initResizable(); }
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>The interactive shell used to execute commands and run programs. Launched by <code>init</code>.</p>
-<p><img src="https://user-images.githubusercontent.com/1556794/232544878-7dc6d1a7-358c-400e-9aaa-3346aaa7bbb5.png" alt="image" class="inline"/></p>
+<div class="image">
+<img src="rocketsh.png" alt=""/>
+</div>
 <h4><a class="anchor" id="autotoc_md1270"></a>
 Command line entry</h4>
 <p>The <code>rocketsh</code> shell supports command line editing. You may use the cursor <code>LEFT</code> and <code>RIGHT</code> keys plus <code>HOME</code> and <code>END</code> to navigate in the current line and edit it, inserting into the line if neccessary.</p>
@@ -112,7 +114,9 @@ Shell Variables</h4>
 <p>Change <code>PROMPT$</code> to change the shell prompt from the default of <code>ROCKETSH</code> to the specified value. ANSI escape sequences are supported. You can use <code>CHR$(27)</code> to insert the escape chracter:</p>
 <div class="fragment"><div class="line">PROMPT$ = CHR$(27) + &quot;[31mRED PROMPT&quot; + CHR$(27) + &quot;[37m&quot;</div>
 </div><!-- fragment --><p>and this will set the shell prompt to dark red:</p>
-<p><img src="https://user-images.githubusercontent.com/1556794/235948821-9a866d75-a5dd-4ba2-b94e-f57f1ba308dd.png" alt="image" class="inline"/></p>
+<div class="image">
+<img src="redprompt.png" alt=""/>
+</div>
 <h5>PATH$</h5>
 <p>The directory to search in for programs ran at the command prompt. It defaults to <code>/programs</code>.</p>
 <div class="fragment"><div class="line">PATH$ = &quot;/harddisk/progs&quot;</div>
@@ -132,7 +136,7 @@ EDhistPtr</h4>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="user-guide.html">User Guide</a></li><li class="navelem"><a class="el" href="commands.html">Commands</a></li>
-    <li class="footer">Generated on Sun Sep 14 2025 22:09:34 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Sep 14 2025 23:07:58 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

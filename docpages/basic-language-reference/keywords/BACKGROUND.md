@@ -6,7 +6,7 @@ BACKGROUND integer-expression
 Sets the current **text background colour** to `integer-expression`.  
 Colours use the standard **VGA 0–15 palette**, emitted via ANSI escape codes. The setting affects subsequent text output (e.g., `PRINT`) until changed or the screen is cleared.
 
-![VGA background and foreground colour chart](https://user-images.githubusercontent.com/1556794/234695104-af3fd095-a0fe-4a69-85e9-9db698466caa.png)
+\image html colours.png
 
 
 @note Use \ref COLOUR "COLOUR" to set **foreground** and background together.

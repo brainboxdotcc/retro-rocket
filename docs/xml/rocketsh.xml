@@ -7,7 +7,7 @@
     </briefdescription>
     <detaileddescription>
 <para>The interactive shell used to execute commands and run programs. Launched by <computeroutput>init</computeroutput>.</para>
-<para><image type="html" name="https://user-images.githubusercontent.com/1556794/232544878-7dc6d1a7-358c-400e-9aaa-3346aaa7bbb5.png" alt="image" inline="yes"></image>
+<para><image type="html" name="rocketsh.png"></image>
 </para>
 <sect4 id="rocketsh_1autotoc_md1270">
 <title>Command line entry</title>
@@ -35,7 +35,7 @@
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PROMPT$<sp/>=<sp/>CHR$(27)<sp/>+<sp/>&quot;[31mRED<sp/>PROMPT&quot;<sp/>+<sp/>CHR$(27)<sp/>+<sp/>&quot;[37m&quot;</highlight></codeline>
 </programlisting></para>
 <para>and this will set the shell prompt to dark red:</para>
-<para><image type="html" name="https://user-images.githubusercontent.com/1556794/235948821-9a866d75-a5dd-4ba2-b94e-f57f1ba308dd.png" alt="image" inline="yes"></image>
+<para><image type="html" name="redprompt.png"></image>
 </para>
 <para><heading level="5">PATH$</heading>
 </para>

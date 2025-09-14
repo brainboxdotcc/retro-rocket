@@ -6,7 +6,7 @@ COLOUR integer-expression
 Sets the **text foreground colour** to a VGA palette entry (0–15).  
 The default terminal colour is **7** (white).
 
-![VGA background and foreground colour chart](https://user-images.githubusercontent.com/1556794/234695075-9097ef8c-6d94-4736-ab62-bfdbc7696f0c.png)
+\image html colours.png
 
 
 @note Both British and American spellings are accepted: `COLOUR` and `COLOR`.

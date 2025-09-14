@@ -2,7 +2,7 @@
 
 The interactive shell used to execute commands and run programs. Launched by `init`.
 
-![image](https://user-images.githubusercontent.com/1556794/232544878-7dc6d1a7-358c-400e-9aaa-3346aaa7bbb5.png)
+\image html rocketsh.png
 
 #### Command line entry
 
@@ -40,7 +40,7 @@ PROMPT$ = CHR$(27) + "[31mRED PROMPT" + CHR$(27) + "[37m"
 
 and this will set the shell prompt to dark red:
 
-![image](https://user-images.githubusercontent.com/1556794/235948821-9a866d75-a5dd-4ba2-b94e-f57f1ba308dd.png)
+\image html redprompt.png
 
 ##### PATH$
 

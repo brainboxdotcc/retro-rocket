@@ -10,7 +10,7 @@
 </programlisting></para>
 <para>Sets the current <bold>text background colour</bold> to <computeroutput>integer-expression</computeroutput>. <linebreak/>
  Colours use the standard <bold>VGA 0–15 palette</bold>, emitted via ANSI escape codes. The setting affects subsequent text output (e.g., <computeroutput>PRINT</computeroutput>) until changed or the screen is cleared.</para>
-<para><image type="html" name="https://user-images.githubusercontent.com/1556794/234695104-af3fd095-a0fe-4a69-85e9-9db698466caa.png" alt="VGA background and foreground colour chart" inline="yes"></image>
+<para><image type="html" name="colours.png"></image>
 </para>
 <para><simplesect kind="note"><para>Use <ref refid="COLOUR" kindref="compound">COLOUR</ref> to set <bold>foreground</bold> and background together. </para>
 </simplesect>
