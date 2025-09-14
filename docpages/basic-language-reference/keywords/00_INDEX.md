@@ -41,6 +41,8 @@ The following parameter types are used throughout this documentation:
 
 * \subpage AUTOFLIP
 * \subpage BACKGROUND
+* \subpage BINREAD
+* \subpage BINWRITE
 * \subpage BITAND
 * \subpage BITEOR
 * \subpage BITNAND
@@ -88,6 +90,7 @@ The following parameter types are used throughout this documentation:
 * \subpage LIBRARY
 * \subpage LINE
 * \subpage LOCAL
+* \subpage MEMRELEASE
 * \subpage MKDIR
 * \subpage MOUNT
 * \subpage NEXT
@@ -119,6 +122,8 @@ The following parameter types are used throughout this documentation:
 * \subpage SETVARR
 * \subpage SETVARS
 * \subpage SLEEP
+* \subpage SOCKBINREAD
+* \subpage SOCKBINWRITE
 * \subpage SOCKCLOSE
 * \subpage SOCKFLUSH
 * \subpage SOCKREAD

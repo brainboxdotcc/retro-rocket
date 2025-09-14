@@ -331,7 +331,7 @@ void sockbinwrite_statement(struct basic_ctx* ctx) {
 	accept_or_return(COMMA, ctx);
 	uint64_t buffer_pointer = expr(ctx);
 	accept_or_return(COMMA, ctx);
-	int length = expr(ctx);
+	int64_t length = expr(ctx);
 	if (length && !address_valid_read(buffer_pointer, length)) {
 		tokenizer_error_printf(ctx, "Invalid address: %016lx", buffer_pointer);
 		return;
