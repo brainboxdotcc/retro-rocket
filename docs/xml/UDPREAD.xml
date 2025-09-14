@@ -18,7 +18,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="UDPREAD_1autotoc_md674">
+<sect3 id="UDPREAD_1autotoc_md683">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Call after <computeroutput>UDPBIND</computeroutput>.</para>
@@ -28,7 +28,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="UDPREAD_1autotoc_md676">
+<sect3 id="UDPREAD_1autotoc_md685">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">UDPBIND<sp/>&quot;0.0.0.0&quot;,<sp/>8080</highlight></codeline>
 <codeline><highlight class="normal">S$<sp/>=<sp/>UDPREAD$(8080)</highlight></codeline>
@@ -44,7 +44,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="UDPREAD_1autotoc_md678">
+<sect3 id="UDPREAD_1autotoc_md687">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>The returned string is the exact payload that was sent.</para>

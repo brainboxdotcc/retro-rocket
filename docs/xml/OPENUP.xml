@@ -11,7 +11,7 @@
 <para>Opens a file for <bold>input and output</bold> (reading and writing). Returns an <bold>integer file handle</bold> that must be used with <ref refid="READ" kindref="compound">READ$ Function</ref>$ &quot;READ\$&quot;, <ref refid="WRITE" kindref="compound">WRITE</ref>, and <ref refid="CLOSE" kindref="compound">CLOSE</ref>.</para>
 <para><hruler/>
 </para>
-<sect3 id="OPENUP_1autotoc_md312">
+<sect3 id="OPENUP_1autotoc_md321">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Open<sp/>an<sp/>existing<sp/>file<sp/>for<sp/>update</highlight></codeline>
 <codeline><highlight class="normal">fh<sp/>=<sp/>OPENUP(&quot;/data/config.txt&quot;)</highlight></codeline>
@@ -38,7 +38,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="OPENUP_1autotoc_md314">
+<sect3 id="OPENUP_1autotoc_md323">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Provides <bold>both read and write access</bold> to the file.</para>

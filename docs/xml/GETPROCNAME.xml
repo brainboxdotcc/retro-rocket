@@ -11,7 +11,7 @@
 <para>Returns the <bold>name of a running process</bold>. The parameter is an index between <computeroutput>0</computeroutput> and <computeroutput>GETPROCCOUNT - 1</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect3 id="GETPROCNAME_1autotoc_md546">
+<sect3 id="GETPROCNAME_1autotoc_md555">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>all<sp/>running<sp/>process<sp/>names</highlight></codeline>
 <codeline><highlight class="normal">FOR<sp/>i<sp/>=<sp/>0<sp/>TO<sp/>GETPROCCOUNT<sp/>-<sp/>1</highlight></codeline>
@@ -24,7 +24,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="GETPROCNAME_1autotoc_md548">
+<sect3 id="GETPROCNAME_1autotoc_md557">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>The index must be within the valid range.</para>

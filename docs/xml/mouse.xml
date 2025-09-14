@@ -13,36 +13,36 @@
 <para><programlisting><codeline><highlight class="normal">ROCKETSH&gt;<sp/>task<sp/>drivers/ps2mouse</highlight></codeline>
 </programlisting></para>
 <para>The following publicly documented procedures and functions are available via this library.</para>
-<sect3 id="mouse_1autotoc_md1060">
+<sect3 id="mouse_1autotoc_md1094">
 <title>PROCmouse_done</title>
 <para>uninitialise the library and release resources. Call this when your program is finished with the mouse.</para>
 </sect3>
-<sect3 id="mouse_1autotoc_md1061">
+<sect3 id="mouse_1autotoc_md1095">
 <title>PROCfetch_mouse</title>
 <para>request the current mouse state from the ps2mouse task and update the library’s cached values. Call this regularly in your main loop.</para>
 </sect3>
-<sect3 id="mouse_1autotoc_md1062">
+<sect3 id="mouse_1autotoc_md1096">
 <title>FNmouse_x()</title>
 <para>get the latest absolute X coordinate (integer, pixels). Already clamped to the current screen width.</para>
 </sect3>
-<sect3 id="mouse_1autotoc_md1063">
+<sect3 id="mouse_1autotoc_md1097">
 <title>FNmouse_y()</title>
 <para>get the latest absolute Y coordinate (integer, pixels). Already clamped to the current screen height.</para>
 </sect3>
-<sect3 id="mouse_1autotoc_md1064">
+<sect3 id="mouse_1autotoc_md1098">
 <title>FNmouse_lmb()</title>
 <para>return TRUE if the left mouse button is pressed, else FALSE.</para>
 </sect3>
-<sect3 id="mouse_1autotoc_md1065">
+<sect3 id="mouse_1autotoc_md1099">
 <title>FNmouse_rmb()</title>
 <para>return TRUE if the right mouse button is pressed, else FALSE.</para>
 </sect3>
-<sect3 id="mouse_1autotoc_md1066">
+<sect3 id="mouse_1autotoc_md1100">
 <title>FNmouse_mmb()</title>
 <para>return TRUE if the middle mouse button is pressed, else FALSE.</para>
 <para><hruler/>
 </para>
-<sect4 id="mouse_1autotoc_md1068">
+<sect4 id="mouse_1autotoc_md1102">
 <title>Minimal example</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">CLS</highlight></codeline>
 <codeline><highlight class="normal">LIBRARY<sp/>LIB$<sp/>+<sp/>&quot;/mouse&quot;</highlight></codeline>

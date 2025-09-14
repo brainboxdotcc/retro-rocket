@@ -11,7 +11,7 @@
 <para>Returns the <bold>peak memory usage</bold> (in bytes) of the current BASIC program’s <bold>private heap</bold>. This is the largest amount of memory the program has allocated since it started running.</para>
 <para><hruler/>
 </para>
-<sect3 id="MEMPEAK_1autotoc_md275">
+<sect3 id="MEMPEAK_1autotoc_md284">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Display<sp/>peak<sp/>usage<sp/>directly</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Peak<sp/>memory<sp/>usage<sp/>=<sp/>&quot;;<sp/>MEMPEAK;<sp/>&quot;<sp/>bytes&quot;</highlight></codeline>
@@ -32,7 +32,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="MEMPEAK_1autotoc_md277">
+<sect3 id="MEMPEAK_1autotoc_md286">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>The value is specific to the <bold>current BASIC program</bold>, not global OS memory usage.</para>

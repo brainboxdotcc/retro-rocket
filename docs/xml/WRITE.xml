@@ -12,7 +12,7 @@
  The first parameter must be an <bold>integer variable</bold> containing a <bold>file handle</bold> obtained from <ref refid="OPENOUT" kindref="compound">OPENOUT</ref> or <ref refid="OPENUP" kindref="compound">OPENUP</ref>. The second parameter, <computeroutput>printable</computeroutput>, follows the <bold>same formatting semantics as <computeroutput>PRINT</computeroutput></bold>.</para>
 <para><hruler/>
 </para>
-<sect3 id="WRITE_1autotoc_md1027">
+<sect3 id="WRITE_1autotoc_md1061">
 <title>Formatting semantics (same as &lt;tt&gt;PRINT&lt;/tt&gt;)</title>
 <para><itemizedlist>
 <listitem><para>You may pass <bold>strings</bold> and <bold>numeric expressions</bold>; numbers are converted to text.</para>
@@ -46,7 +46,7 @@
 <hruler/>
 </para>
 </sect3>
-<sect3 id="WRITE_1autotoc_md1029">
+<sect3 id="WRITE_1autotoc_md1063">
 <title>Examples</title>
 <para><bold>Create a file and write two lines</bold> <programlisting filename=".basic"><codeline><highlight class="normal">FH<sp/>=<sp/>OPENOUT(&quot;log.txt&quot;)</highlight></codeline>
 <codeline><highlight class="normal">WRITE<sp/>FH,<sp/>&quot;Hello&quot;</highlight></codeline>
@@ -81,7 +81,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="WRITE_1autotoc_md1031">
+<sect3 id="WRITE_1autotoc_md1065">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para><computeroutput>integer-variable</computeroutput> must be a <bold>variable</bold> holding a valid handle; do not pass a literal or expression.</para>

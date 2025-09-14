@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="BINREAD" kind="page">
+    <compoundname>BINREAD</compoundname>
+    <title>BINREAD Statement</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">BINREAD(integer-handle,<sp/>integer-buffer,<sp/>integer-length)</highlight></codeline>
+</programlisting></para>
+<para>Reads <bold>binary data</bold> from an <bold>open file</bold> into memory.</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>integer-handle</computeroutput> — file handle from <ref refid="OPENIN" kindref="compound">OPENIN</ref> or <ref refid="OPENUP" kindref="compound">OPENUP</ref>.</para>
+</listitem><listitem><para><computeroutput>integer-buffer</computeroutput> — destination memory handle/pointer (from <ref refid="MEMALLOC" kindref="compound">MEMALLOC</ref>).</para>
+</listitem><listitem><para><computeroutput>integer-length</computeroutput> — number of bytes to read.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<sect3 id="BINREAD_1autotoc_md701">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">fh<sp/><sp/>=<sp/>OPENIN(&quot;asset.bin&quot;)</highlight></codeline>
+<codeline><highlight class="normal">size<sp/>=<sp/>FILESIZE(&quot;asset.bin&quot;)</highlight></codeline>
+<codeline><highlight class="normal">buf<sp/><sp/>=<sp/>MEMALLOC(size)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">BINREAD<sp/>fh,<sp/>buf,<sp/>size</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">REM<sp/>...<sp/>use<sp/>buffer<sp/>...</highlight></codeline>
+<codeline><highlight class="normal">MEMRELEASE<sp/>buf</highlight></codeline>
+<codeline><highlight class="normal">CLOSE<sp/>fh</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="BINREAD_1autotoc_md703">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Use <ref refid="FILESIZE" kindref="compound">FILESIZE</ref> to size your buffer appropriately.</para>
+</listitem><listitem><para>Binary-safe (no line translation).</para>
+</listitem><listitem><para>Reading past end of file yields fewer bytes or an error, depending on context; check with <ref refid="EOF" kindref="compound">EOF</ref> as needed.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="OPENIN" kindref="compound">OPENIN</ref> · <ref refid="OPENUP" kindref="compound">OPENUP</ref> · <ref refid="FILESIZE" kindref="compound">FILESIZE</ref> · <ref refid="EOF" kindref="compound">EOF</ref> · <ref refid="MEMALLOC" kindref="compound">MEMALLOC</ref> </para>
+</sect3>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/BINREAD.md"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="SOCKBINREAD" kind="page">
+    <compoundname>SOCKBINREAD</compoundname>
+    <title>SOCKBINREAD Statement</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">SOCKBINREAD(integer-socket,<sp/>integer-buffer,<sp/>integer-length)</highlight></codeline>
+</programlisting></para>
+<para>Reads <bold>binary data</bold> from a <bold>connected socket</bold> into memory.</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>integer-socket</computeroutput> — socket file descriptor.</para>
+</listitem><listitem><para><computeroutput>integer-buffer</computeroutput> — destination memory handle/pointer (from <ref refid="MEMALLOC" kindref="compound">MEMALLOC</ref>).</para>
+</listitem><listitem><para><computeroutput>integer-length</computeroutput> — maximum number of bytes to read.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<sect3 id="SOCKBINREAD_1autotoc_md991">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">buf<sp/>=<sp/>MEMALLOC(4096)</highlight></codeline>
+<codeline><highlight class="normal">SOCKBINREAD<sp/>client,<sp/>buf,<sp/>4096</highlight></codeline>
+<codeline><highlight class="normal">REM<sp/>...<sp/>process<sp/>buffer<sp/>...</highlight></codeline>
+<codeline><highlight class="normal">MEMRELEASE<sp/>buf</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="SOCKBINREAD_1autotoc_md993">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Reads up to the specified number of bytes into the buffer.</para>
+</listitem><listitem><para>Use <ref refid="SOCKSTATUS" kindref="compound">SOCKSTATUS</ref> to detect disconnects.</para>
+</listitem><listitem><para>Pair with <ref refid="MEMALLOC" kindref="compound">MEMALLOC</ref> / <ref refid="MEMRELEASE" kindref="compound">MEMRELEASE</ref> for buffer management.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="SOCKREAD" kindref="compound">SOCKREAD</ref> · <ref refid="SOCKWRITE" kindref="compound">SOCKWRITE</ref> · <ref refid="MEMALLOC" kindref="compound">MEMALLOC</ref> · <ref refid="MEMRELEASE" kindref="compound">MEMRELEASE</ref> </para>
+</sect3>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/SOCKBINREAD.md"/>
+  </compounddef>
+</doxygen>

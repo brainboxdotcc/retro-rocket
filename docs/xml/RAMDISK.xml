@@ -6,14 +6,14 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<sect2 id="RAMDISK_1autotoc_md609">
+<sect2 id="RAMDISK_1autotoc_md618">
 <title>Creating a ramdisk from another block device</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">RAMDISK$(string-expression)</highlight></codeline>
 </programlisting></para>
 <para>Creates a <bold>RAM-backed block device</bold> from the content of an existing block device. The parameter is the name of the source device (e.g. <computeroutput>&quot;hd0&quot;</computeroutput>). Returns the <bold>name of the new RAM disk device</bold> as a string.</para>
 <para><hruler/>
 </para>
-<sect3 id="RAMDISK_1autotoc_md611">
+<sect3 id="RAMDISK_1autotoc_md620">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Duplicate<sp/>an<sp/>existing<sp/>block<sp/>device<sp/>into<sp/>RAM</highlight></codeline>
 <codeline><highlight class="normal">ram$<sp/>=<sp/>RAMDISK$(&quot;hd0&quot;)</highlight></codeline>
@@ -22,7 +22,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="RAMDISK_1autotoc_md613">
+<sect3 id="RAMDISK_1autotoc_md622">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>The new device is a complete in-memory copy of the original device.</para>
@@ -34,7 +34,7 @@
 </para>
 </sect3>
 </sect2>
-<sect2 id="RAMDISK_1autotoc_md615">
+<sect2 id="RAMDISK_1autotoc_md624">
 <title>Creating blank ramdisks</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">RAMDISK(integer-expression,<sp/>integer-expression)</highlight></codeline>
 </programlisting></para>
@@ -47,7 +47,7 @@
 <para>The device is initially <bold>unformatted</bold> and cannot be mounted until a filesystem is created on it. Returns the <bold>name of the new RAM disk device</bold> as a string.</para>
 <para><hruler/>
 </para>
-<sect3 id="RAMDISK_1autotoc_md617">
+<sect3 id="RAMDISK_1autotoc_md626">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Create<sp/>a<sp/>10<sp/>MB<sp/>RAM<sp/>disk<sp/>with<sp/>512-byte<sp/>blocks</highlight></codeline>
 <codeline><highlight class="normal">ram$<sp/>=<sp/>RAMDISK(20480,<sp/>512)</highlight></codeline>
@@ -56,7 +56,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="RAMDISK_1autotoc_md619">
+<sect3 id="RAMDISK_1autotoc_md628">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Size = <computeroutput>blocks × blocksize</computeroutput>.</para>

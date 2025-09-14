@@ -17,7 +17,7 @@
 <para>The function always returns <computeroutput>0</computeroutput>, but updates the legacy “last CPUID” information for later retrieval.</para>
 <para><hruler/>
 </para>
-<sect3 id="LCPUID_1autotoc_md248">
+<sect3 id="LCPUID_1autotoc_md253">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Run<sp/>CPUID<sp/>leaf<sp/>1,<sp/>subleaf<sp/>0</highlight></codeline>
 <codeline><highlight class="normal">dummy<sp/>=<sp/>LCPUID(&amp;1,<sp/>0)</highlight></codeline>
@@ -25,7 +25,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="LCPUID_1autotoc_md250">
+<sect3 id="LCPUID_1autotoc_md255">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>This is a <bold>legacy function</bold> (the <computeroutput>L</computeroutput> stands for “legacy”).</para>

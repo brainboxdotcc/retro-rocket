@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="SOCKBINWRITE" kind="page">
+    <compoundname>SOCKBINWRITE</compoundname>
+    <title>SOCKBINWRITE Statement</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">SOCKBINWRITE(integer-socket,<sp/>integer-buffer,<sp/>integer-length)</highlight></codeline>
+</programlisting></para>
+<para>Writes <bold>binary data</bold> from memory to a <bold>connected socket</bold>.</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>integer-socket</computeroutput> — socket file descriptor (e.g. from <ref refid="CONNECT" kindref="compound">CONNECT</ref> or <ref refid="SOCKACCEPT" kindref="compound">SOCKACCEPT</ref>).</para>
+</listitem><listitem><para><computeroutput>integer-buffer</computeroutput> — memory handle/pointer returned by <ref refid="MEMALLOC" kindref="compound">MEMALLOC</ref>.</para>
+</listitem><listitem><para><computeroutput>integer-length</computeroutput> — number of bytes to write.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<sect3 id="SOCKBINWRITE_1autotoc_md996">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">size<sp/>=<sp/>FILESIZE(file$)</highlight></codeline>
+<codeline><highlight class="normal">buf<sp/><sp/>=<sp/>MEMALLOC(size)</highlight></codeline>
+<codeline><highlight class="normal">BINREAD<sp/>fh,<sp/>buf,<sp/>size</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">SOCKWRITE<sp/>client,<sp/>&quot;Content-Length:<sp/>&quot;;<sp/>size;<sp/>CHR$(13);<sp/>CHR$(10);<sp/>CHR$(13);<sp/>CHR$(10);</highlight></codeline>
+<codeline><highlight class="normal">SOCKBINWRITE<sp/>client,<sp/>buf,<sp/>size</highlight></codeline>
+<codeline><highlight class="normal">SOCKFLUSH<sp/>client</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">MEMRELEASE<sp/>buf</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="SOCKBINWRITE_1autotoc_md998">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Intended for sending file contents or other raw buffers.</para>
+</listitem><listitem><para>Socket must be connected; use <ref refid="SOCKSTATUS" kindref="compound">SOCKSTATUS</ref> to check.</para>
+</listitem><listitem><para>May write less than requested if the peer closes; handle errors accordingly.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="SOCKREAD" kindref="compound">SOCKREAD</ref> · <ref refid="SOCKWRITE" kindref="compound">SOCKWRITE</ref> · <ref refid="SOCKSTATUS" kindref="compound">SOCKSTATUS</ref> · <ref refid="BINREAD" kindref="compound">BINREAD</ref> · <ref refid="MEMALLOC" kindref="compound">MEMALLOC</ref> </para>
+</sect3>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/SOCKBINWRITE.md"/>
+  </compounddef>
+</doxygen>

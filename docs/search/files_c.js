@@ -1,15 +1,17 @@
 var searchData=
 [
-  ['memfree_2emd_671',['MEMFREE.md',['../MEMFREE_8md.html',1,'']]],
-  ['mempeak_2emd_672',['MEMPEAK.md',['../MEMPEAK_8md.html',1,'']]],
-  ['memprogram_2emd_673',['MEMPROGRAM.md',['../MEMPROGRAM_8md.html',1,'']]],
-  ['memused_2emd_674',['MEMUSED.md',['../MEMUSED_8md.html',1,'']]],
-  ['mid_2emd_675',['MID.md',['../MID_8md.html',1,'']]],
-  ['minute_2emd_676',['MINUTE.md',['../MINUTE_8md.html',1,'']]],
-  ['mkdir_2emd_677',['MKDIR.md',['../MKDIR_8md.html',1,'']]],
-  ['mkdir_2emd_678',['mkdir.md',['../mkdir_8md.html',1,'']]],
-  ['modules_2emd_679',['MODULES.md',['../MODULES_8md.html',1,'']]],
-  ['month_2emd_680',['MONTH.md',['../MONTH_8md.html',1,'']]],
-  ['mount_2emd_681',['MOUNT.md',['../MOUNT_8md.html',1,'']]],
-  ['mouse_2emd_682',['mouse.md',['../mouse_8md.html',1,'']]]
+  ['memalloc_2emd_688',['MEMALLOC.md',['../MEMALLOC_8md.html',1,'']]],
+  ['memfree_2emd_689',['MEMFREE.md',['../MEMFREE_8md.html',1,'']]],
+  ['mempeak_2emd_690',['MEMPEAK.md',['../MEMPEAK_8md.html',1,'']]],
+  ['memprogram_2emd_691',['MEMPROGRAM.md',['../MEMPROGRAM_8md.html',1,'']]],
+  ['memrelease_2emd_692',['MEMRELEASE.md',['../MEMRELEASE_8md.html',1,'']]],
+  ['memused_2emd_693',['MEMUSED.md',['../MEMUSED_8md.html',1,'']]],
+  ['mid_2emd_694',['MID.md',['../MID_8md.html',1,'']]],
+  ['minute_2emd_695',['MINUTE.md',['../MINUTE_8md.html',1,'']]],
+  ['mkdir_2emd_696',['mkdir.md',['../mkdir_8md.html',1,'']]],
+  ['mkdir_2emd_697',['MKDIR.md',['../MKDIR_8md.html',1,'']]],
+  ['modules_2emd_698',['MODULES.md',['../MODULES_8md.html',1,'']]],
+  ['month_2emd_699',['MONTH.md',['../MONTH_8md.html',1,'']]],
+  ['mount_2emd_700',['MOUNT.md',['../MOUNT_8md.html',1,'']]],
+  ['mouse_2emd_701',['mouse.md',['../mouse_8md.html',1,'']]]
 ];

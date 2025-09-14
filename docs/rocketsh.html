@@ -91,21 +91,21 @@ $(document).ready(function(){initNavTree('rocketsh.html',''); initResizable(); }
 <div class="contents">
 <div class="textblock"><p>The interactive shell used to execute commands and run programs. Launched by <code>init</code>.</p>
 <p><img src="https://user-images.githubusercontent.com/1556794/232544878-7dc6d1a7-358c-400e-9aaa-3346aaa7bbb5.png" alt="image" class="inline"/></p>
-<h4><a class="anchor" id="autotoc_md1206"></a>
+<h4><a class="anchor" id="autotoc_md1240"></a>
 Command line entry</h4>
 <p>The <code>rocketsh</code> shell supports command line editing. You may use the cursor <code>LEFT</code> and <code>RIGHT</code> keys plus <code>HOME</code> and <code>END</code> to navigate in the current line and edit it, inserting into the line if neccessary.</p>
 <p>Alternately, you can use the cursor <code>UP</code> and <code>DOWN</code> keys to move through the history of recently entered commands. If you edit one of these commands or send it, it will be inserted into the history again as the latest command.</p>
 <p>The history buffer will grow as needed to accomodate as many history items as you enter.</p>
 <p>Pressing <code>ESC</code> will abort the current line entry, clearing its contents and advancing down to the line below.</p>
 <p>These interactive line editing facilities are also available to any other BASIC programs via the <code>ansi</code> library.</p>
-<h4><a class="anchor" id="autotoc_md1207"></a>
+<h4><a class="anchor" id="autotoc_md1241"></a>
 Rocket Shell Commands</h4>
 <p>The <code>rocketsh</code> shell supports two forms of input; firstly any command you type is searched for as a program under the <code>/programs</code> directory. If it can be found it is executed. The path under which <code>rocketsh</code> searches for programs to run can be changed, as shown below.</p>
 <p>If no matching program can be found, the line is passed to <a class="el" href="EVAL.html">EVAL</a> instead and any changes to the program state will be inherited by <code>rocketsh</code>, including documented variables below.</p>
-<h4><a class="anchor" id="autotoc_md1208"></a>
+<h4><a class="anchor" id="autotoc_md1242"></a>
 Stopping running programs</h4>
 <p>Any running program may be stopped by pressing CTRL+ESC at any time. This will raise an error in the program and if it does not trap the error, it will be ended. Errors of this nature in <code>rocketsh</code> are gracefully handled, and will end entry of the current command line.</p>
-<h4><a class="anchor" id="autotoc_md1209"></a>
+<h4><a class="anchor" id="autotoc_md1243"></a>
 Shell Variables</h4>
 <p>The <code>rocketsh</code> shell has several documented variables, which can be set via the command prompt. These are:</p>
 <h5>PROMPT$</h5>
@@ -122,7 +122,7 @@ Shell Variables</h4>
 <div class="fragment"><div class="line">GLOBAL LIB$ = &quot;/harddisk/progs/lib&quot;</div>
 </div><!-- fragment --><h5>EDhist</h5>
 <p>Returns a value from the edit history. Each time a line is typed into <code>rocketsh</code> it is stored into the edit history, with the most recent line stored at array index 0.</p>
-<h4><a class="anchor" id="autotoc_md1210"></a>
+<h4><a class="anchor" id="autotoc_md1244"></a>
 EDhistPtr</h4>
 <p>Returns the last array index in the edit history array which contains valid data. </p>
 </div></div><!-- contents -->
@@ -132,7 +132,7 @@ EDhistPtr</h4>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="user-guide.html">User Guide</a></li><li class="navelem"><a class="el" href="commands.html">Commands</a></li>
-    <li class="footer">Generated on Sun Sep 14 2025 11:13:51 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Sep 14 2025 15:06:05 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

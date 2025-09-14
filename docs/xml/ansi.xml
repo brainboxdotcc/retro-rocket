@@ -10,80 +10,80 @@
 </programlisting></para>
 <para>The ANSI library contains various terminal related functions, for example enabling or disabling the cursor, clearing lines, and interactive input.</para>
 <para>The following publically doucmented procedures and functions are available via this library.</para>
-<sect3 id="ansi_1autotoc_md1040">
+<sect3 id="ansi_1autotoc_md1074">
 <title>PROChideCursor</title>
 <para>hide text cursor</para>
 </sect3>
-<sect3 id="ansi_1autotoc_md1041">
+<sect3 id="ansi_1autotoc_md1075">
 <title>PROCshowCursor</title>
 <para>show text cursor</para>
 </sect3>
-<sect3 id="ansi_1autotoc_md1042">
+<sect3 id="ansi_1autotoc_md1076">
 <title>PROCclearLineFromCursor</title>
 <para>Clear the text on the current line from the cursor to the right</para>
 </sect3>
-<sect3 id="ansi_1autotoc_md1043">
+<sect3 id="ansi_1autotoc_md1077">
 <title>PROCEDabort</title>
 <para>Emulate pressing <computeroutput>ESC</computeroutput> while waiting on interactive input</para>
 </sect3>
-<sect3 id="ansi_1autotoc_md1044">
+<sect3 id="ansi_1autotoc_md1078">
 <title>FNEdResult$()</title>
 <para>Get the line editor result text. In the event of an aborted line (<computeroutput>ESC</computeroutput> pressed) this returns an empty string and FNEdAborted() returns <computeroutput>TRUE</computeroutput>.</para>
 </sect3>
-<sect3 id="ansi_1autotoc_md1045">
+<sect3 id="ansi_1autotoc_md1079">
 <title>FNEdAborted()</title>
 <para>Return <computeroutput>TRUE</computeroutput> if line edit was aborted (<computeroutput>ESC</computeroutput> pressed)</para>
 </sect3>
-<sect3 id="ansi_1autotoc_md1046">
+<sect3 id="ansi_1autotoc_md1080">
 <title>PROCEdLine</title>
 <para>Accept line input using line-edit and history. On completion of the procedure, you can obtain the completed line line in FNEdResult$(). In the event the user pressed <computeroutput>ESC</computeroutput>, FNEdAborted() will return <computeroutput>TRUE</computeroutput></para>
 </sect3>
-<sect3 id="ansi_1autotoc_md1047">
+<sect3 id="ansi_1autotoc_md1081">
 <title>PROCEDup</title>
 <para>Emulate pressing cursor <computeroutput>UP</computeroutput> in the interactive editor. This will navigate through history, if enabled.</para>
 </sect3>
-<sect3 id="ansi_1autotoc_md1048">
+<sect3 id="ansi_1autotoc_md1082">
 <title>PROCEDdown</title>
 <para>Emulate pressing cursor <computeroutput>DOWN</computeroutput> in the interactive editor. This will navigate through history, if enabled.</para>
 </sect3>
-<sect3 id="ansi_1autotoc_md1049">
+<sect3 id="ansi_1autotoc_md1083">
 <title>PROCEdAddHistory(hist$)</title>
 <para>Add a line to the interactive edit history, if interactive history was enabled when calling PROCEdInit(). There is no practical limit on the size of the history, as it will be expanded to accomodate any additional lines added in allocations of 50 possible entries.</para>
 </sect3>
-<sect3 id="ansi_1autotoc_md1050">
+<sect3 id="ansi_1autotoc_md1084">
 <title>PROCEDleft</title>
 <para>Emulate pressing cursor <computeroutput>LEFT</computeroutput> in the interactive editor. The cursor will be moved one character left unless it is at the start of the input.</para>
 </sect3>
-<sect3 id="ansi_1autotoc_md1051">
+<sect3 id="ansi_1autotoc_md1085">
 <title>PROCEDright</title>
 <para>Emulate pressing cursor <computeroutput>RIGHT</computeroutput> in the interactive editor. The cursor will be moved one character right unless it is at the end of the input.</para>
 </sect3>
-<sect3 id="ansi_1autotoc_md1052">
+<sect3 id="ansi_1autotoc_md1086">
 <title>PROCEDend</title>
 <para>Emulate pressing <computeroutput>END</computeroutput> in the interactive editor. The cursor will be moved to the end of the input text.</para>
 </sect3>
-<sect3 id="ansi_1autotoc_md1053">
+<sect3 id="ansi_1autotoc_md1087">
 <title>PROCEDhome</title>
 <para>Emulate pressing <computeroutput>HOME</computeroutput> in the interactive editor. The cursor will be moved to the start of the input text.</para>
 <para>REM handle delete edit key </para>
 </sect3>
-<sect3 id="ansi_1autotoc_md1054">
+<sect3 id="ansi_1autotoc_md1088">
 <title>PROCEDdelete</title>
 <para>Emulate pressing delete in the interactive editor. The character to the right, if any, will be deleted.</para>
 </sect3>
-<sect3 id="ansi_1autotoc_md1055">
+<sect3 id="ansi_1autotoc_md1089">
 <title>PROCEDbackSpace</title>
 <para>Emulate pressing backspace in the interactive editor. The character to the left, if any, will be deleted and the cursor advanced one character left.</para>
 </sect3>
-<sect3 id="ansi_1autotoc_md1056">
+<sect3 id="ansi_1autotoc_md1090">
 <title>PROCEDinsertChar(i)</title>
 <para>Emulate inserting an ASCII character whos code is represented by <computeroutput>i</computeroutput> into the interactive editor. If there is space in the current line, the character will be inserted at the cursor position.</para>
 </sect3>
-<sect3 id="ansi_1autotoc_md1057">
+<sect3 id="ansi_1autotoc_md1091">
 <title>PROCEdRun</title>
 <para>Check the input for new keys and insert them into the edit history. This should be called at regular intervals and no other facility should call <computeroutput>INPUT</computeroutput> or <computeroutput>INKEY$</computeroutput> during this time.</para>
 </sect3>
-<sect3 id="ansi_1autotoc_md1058">
+<sect3 id="ansi_1autotoc_md1092">
 <title>PROCEdInit(history)</title>
 <para>initialise interactive line editor. You should call this once, before you call any other interactive line editor procedures or functions. <table rows="3" cols="2"><row>
 <entry thead="yes"><para>history parameter value</para>
@@ -100,7 +100,7 @@
 </table>
 </para>
 </sect3>
-<sect3 id="ansi_1autotoc_md1059">
+<sect3 id="ansi_1autotoc_md1093">
 <title>PROCEdStart</title>
 <para>Start interactive line input. This is used when you wish to handle the input loop yourself. Line editing begins at the current cursor position and will continue until the end of the current line. For example:</para>
 <para><programlisting filename=".BASIC"><codeline><highlight class="normal">PROCEdStart</highlight></codeline>

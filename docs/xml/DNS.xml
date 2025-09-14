@@ -11,7 +11,7 @@
 <para>Resolves a <bold>hostname</bold> into an <bold>IP address string</bold>. If the hostname cannot be resolved, an error is raised.</para>
 <para><hruler/>
 </para>
-<sect3 id="DNS_1autotoc_md531">
+<sect3 id="DNS_1autotoc_md540">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>DNS$(&quot;retrorocket.dev&quot;)</highlight></codeline>
 </programlisting></para>
@@ -27,7 +27,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="DNS_1autotoc_md533">
+<sect3 id="DNS_1autotoc_md542">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Always returns an IPv4 address in dotted decimal format (<computeroutput>a.b.c.d</computeroutput>).</para>

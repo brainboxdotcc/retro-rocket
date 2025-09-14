@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('SOCKLISTEN.html',''); initResizable();
 <div class="textblock"><div class="fragment"><div class="line">FD = SOCKLISTEN(ip$, port, backlog)</div>
 </div><!-- fragment --><p>Creates a <b>listening TCP socket</b> bound to <code>ip$:port</code> and starts queueing incoming connections (up to <code>backlog</code>). Returns a non-negative file descriptor on success, or <code>-1</code> on failure.</p>
 <hr  />
-<h3><a class="anchor" id="autotoc_md387"></a>
+<h3><a class="anchor" id="autotoc_md396"></a>
 How to use it</h3>
 <ul>
 <li><code>ip$</code> is a dotted-quad string (e.g. <code>"10.0.2.15"</code>). Use <code>NETINFO$("ip")</code> for the local address.</li>
@@ -101,7 +101,7 @@ How to use it</h3>
 <li>Accept connections with <code>SOCKACCEPT(FD)</code>; write with <code>SOCKWRITE</code>, read with <code>SOCKREAD</code>/<code>INSOCKET$</code>, and close with <code>SOCKCLOSE</code>.</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md389"></a>
+<h3><a class="anchor" id="autotoc_md398"></a>
 Examples</h3>
 <div class="fragment"><div class="line">REM Listen and handle one connection</div>
 <div class="line">srv = SOCKLISTEN(NETINFO$(&quot;ip&quot;), 2000, 5)</div>
@@ -116,7 +116,7 @@ Examples</h3>
 <div class="line">UNTIL INKEY$ &lt;&gt; &quot;&quot;</div>
 <div class="line">SOCKCLOSE srv</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md391"></a>
+<h3><a class="anchor" id="autotoc_md400"></a>
 Notes</h3>
 <ul>
 <li>Binding to <code>"0.0.0.0"</code> (if supported) listens on all local interfaces.</li>
@@ -130,7 +130,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Sun Sep 14 2025 11:13:51 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Sep 14 2025 15:06:04 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

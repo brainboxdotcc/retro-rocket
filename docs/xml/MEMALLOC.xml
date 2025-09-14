@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="MEMALLOC" kind="page">
+    <compoundname>MEMALLOC</compoundname>
+    <title>MEMALLOC Function</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">MEMALLOC(integer-expression)</highlight></codeline>
+</programlisting></para>
+<para>Allocates a block of <bold>heap memory</bold> of the given size (in bytes) and returns a <bold>pointer/integer handle</bold> to it.</para>
+<para><hruler/>
+</para>
+<sect3 id="MEMALLOC_1autotoc_md269">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">size<sp/>=<sp/>FILESIZE(&quot;/system/webserver/logo.png&quot;)</highlight></codeline>
+<codeline><highlight class="normal">buf<sp/><sp/>=<sp/>MEMALLOC(size)</highlight></codeline>
+<codeline><highlight class="normal">REM<sp/>...<sp/>use<sp/>buf<sp/>with<sp/>BINREAD<sp/>/<sp/>SOCKBINWRITE<sp/>...</highlight></codeline>
+<codeline><highlight class="normal">MEMRELEASE<sp/>buf</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="MEMALLOC_1autotoc_md271">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Contents are unspecified on allocation.</para>
+</listitem><listitem><para>Always pair with <ref refid="MEMRELEASE" kindref="compound">MEMRELEASE</ref> to avoid leaks.</para>
+</listitem><listitem><para>Returned handle is suitable for binary I/O (<ref refid="BINREAD" kindref="compound">BINREAD</ref>, <ref refid="BINWRITE" kindref="compound">BINWRITE</ref>, <ref refid="SOCKBINWRITE" kindref="compound">SOCKBINWRITE</ref>, <ref refid="SOCKBINREAD" kindref="compound">SOCKBINREAD</ref>).</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <ref refid="MEMRELEASE" kindref="compound">MEMRELEASE</ref> · <ref refid="BINREAD" kindref="compound">BINREAD</ref> · <ref refid="BINWRITE" kindref="compound">BINWRITE</ref> </para>
+</sect3>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/integer/MEMALLOC.md"/>
+  </compounddef>
+</doxygen>
