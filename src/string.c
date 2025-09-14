@@ -109,39 +109,9 @@ __attribute__((hot)) int strncmp(const char *s1, const char *s2, uint32_t n) {
 	return 0;
 }
 
-
 uint64_t hextoint(const char* n1)
 {
-	if (!n1) {
-		return 0;
-	}
-
-	uint32_t length = strlen(n1);
-	uint64_t result = 0;
-	int i = 0, fact = 1;
-
-	if (length) {
-		if (length > 16) {
-			length = 16;
-		}
-
-		for(i = length - 1; i >= 0; i--) {
-			char digit = tolower(*(n1 + i));
-			if ((digit >= '0' && digit <= '9') || (digit >= 'a' && digit <= 'f')) {
-				if (digit >= 97) {
-					result += (digit - 87) * fact;
-				} else {
-					result += (digit - 48) * fact;
-				}
-				fact <<= 4;
-			} else {
-				return 0;
-			}
-		}
-		return result;
-	}
-
-	return 0;
+	return atoll(n1, 16);
 }
 
 uint32_t strlcat(char *dst, const char *src, uint32_t siz)
