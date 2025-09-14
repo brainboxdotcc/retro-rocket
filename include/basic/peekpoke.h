@@ -68,3 +68,7 @@ void pokeq_statement(struct basic_ctx *ctx);
 void modload_statement(struct basic_ctx* ctx);
 
 void modunload_statement(struct basic_ctx* ctx);
+
+bool address_valid_read(uint64_t addr, size_t width);
+
+bool address_valid_write(uint64_t addr, size_t width);

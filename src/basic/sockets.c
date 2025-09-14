@@ -106,6 +106,10 @@ void sockbinread_statement(struct basic_ctx* ctx)
 	int64_t address = expr(ctx);
 	accept_or_return(COMMA, ctx);
 	int64_t length = expr(ctx);
+	if (!address_valid_write(address, length)) {
+		tokenizer_error_printf(ctx, "Invalid address: %016lx", (uint64_t)address);
+		return;
+	}
 
 	process_t* proc = proc_cur(logical_cpu_id());
 
@@ -325,9 +329,14 @@ void sockbinwrite_statement(struct basic_ctx* ctx) {
 	int fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx, &var_length), ctx);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
-	int buffer_pointer = expr(ctx);
+	uint64_t buffer_pointer = expr(ctx);
 	accept_or_return(COMMA, ctx);
 	int length = expr(ctx);
+	if (!address_valid_read(buffer_pointer, length)) {
+		tokenizer_error_printf(ctx, "Invalid address: %016lx", buffer_pointer);
+		return;
+	}
+
 	if (buffer_pointer && length) {
 		send(fd, buffer_pointer, length);
 	}

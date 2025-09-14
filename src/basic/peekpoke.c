@@ -69,11 +69,11 @@ static inline bool address_valid_span(uint64_t addr, uint64_t width, bool for_wr
 	return true;
 }
 
-static inline bool address_valid_read(uint64_t addr, int8_t width) {
+bool address_valid_read(uint64_t addr, size_t width) {
 	return address_valid_span(addr, width, false);
 }
 
-static inline bool address_valid_write(uint64_t addr, int8_t width) {
+bool address_valid_write(uint64_t addr, size_t width) {
 	return address_valid_span(addr, width, true);
 }
 
