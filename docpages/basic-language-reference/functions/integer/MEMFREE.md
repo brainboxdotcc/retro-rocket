@@ -51,4 +51,4 @@ ENDIF
 ---
 
 **See also:**
-\ref MEMUSED "MEMUSED" · \ref MEMORY "MEMORY"
+\ref MEMUSED "MEMUSED" · \ref MEMORY "MEMORY" · \ref MEMORY "MEMRELEASE" · \ref MEMORY "MEMALLOC"

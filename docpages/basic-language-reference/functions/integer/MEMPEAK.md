@@ -51,4 +51,4 @@ PRINT "Peak usage     = "; MEMPEAK; " bytes"
 ---
 
 **See also:**
-\ref MEMUSED "MEMUSED" · \ref MEMFREE "MEMFREE" · \ref MEMORY "MEMORY"
+\ref MEMUSED "MEMUSED" · \ref MEMFREE "MEMFREE" · \ref MEMORY "MEMORY" · \ref MEMORY "MEMRELEASE" · \ref MEMORY "MEMALLOC"

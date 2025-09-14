@@ -48,4 +48,4 @@ Free % = 87
 ---
 
 **See also:**
-\ref MEMFREE "MEMFREE" · \ref MEMUSED "MEMUSED"
+\ref MEMFREE "MEMFREE" · \ref MEMUSED "MEMUSED" · \ref MEMORY "MEMRELEASE" · \ref MEMORY "MEMALLOC"

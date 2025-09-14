@@ -51,4 +51,4 @@ Program heap = 392 KB
 ---
 
 **See also:**
-\ref MEMPEAK "MEMPEAK" · \ref MEMUSED "MEMUSED" · \ref MEMFREE "MEMFREE" · \ref MEMORY "MEMORY"
+\ref MEMPEAK "MEMPEAK" · \ref MEMUSED "MEMUSED" · \ref MEMFREE "MEMFREE" · \ref MEMORY "MEMORY" · \ref MEMORY "MEMRELEASE" · \ref MEMORY "MEMALLOC"

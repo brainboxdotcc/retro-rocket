@@ -23,7 +23,9 @@ MEMRELEASE buf
 
 * Contents are unspecified on allocation.
 * Always pair with \ref MEMRELEASE "MEMRELEASE" to avoid leaks.
+* The allocated memory is only valid while the program that requested it is running. The returned value ma be passed to other programs, however be aware of this restriction.
 * Returned handle is suitable for binary I/O (\ref BINREAD "BINREAD", \ref BINWRITE "BINWRITE", \ref SOCKBINWRITE "SOCKBINWRITE", \ref SOCKBINREAD "SOCKBINREAD").
+* Once the program ends, all memory requested by MEMALLOC is automatically freed.
 
 **See also:**
 \ref MEMRELEASE "MEMRELEASE" · \ref BINREAD "BINREAD" · \ref BINWRITE "BINWRITE"
