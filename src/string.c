@@ -109,13 +109,7 @@ __attribute__((hot)) int strncmp(const char *s1, const char *s2, uint32_t n) {
 	return 0;
 }
 
-uint64_t hextoint(const char* n1)
-{
-	return atoll(n1, 16);
-}
-
-uint32_t strlcat(char *dst, const char *src, uint32_t siz)
-{
+uint32_t strlcat(char *dst, const char *src, uint32_t siz) {
 	if (!src || !dst) {
 		return 0;
 	}

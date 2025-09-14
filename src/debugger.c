@@ -146,7 +146,7 @@ void init_debug()
 				break;
 			}
 			memcpy(thisentry->name, symbol, length);
-			thisentry->address = hextoint(symbol_address);
+			thisentry->address = (uint64_t)atoll(symbol_address, 16);
 			thisentry->type = *type;
 			symbol_t* next = kmalloc(sizeof(symbol_t));
 			if (!next) {

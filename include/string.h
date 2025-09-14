@@ -218,14 +218,6 @@ const char* gc_strdup(basic_ctx* ctx, const char* string);
 int gc(basic_ctx* ctx);
 
 /**
- * @brief Convert a hex string to integer.
- *
- * @param n1 Hex string (e.g. "1A3F")
- * @return uint64_t Converted value
- */
-uint64_t hextoint(const char* n1);
-
-/**
  * @brief Check if a character is a decimal digit.
  *
  * @param x Character to check
