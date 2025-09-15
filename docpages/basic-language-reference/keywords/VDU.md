@@ -133,8 +133,8 @@ Retro Rocket BASIC implements a practical subset of BBC MOS `VDU`. Unsupported c
 * **Mode change:** `VDU 22` - not supported (Retro Rocket has fixed text geometry; use graphics APIs for rendering).
 * **Set graphics window:** `VDU 24` not supported (Retro Rocket does not implement VDU windows).
 * **Set graphics origin:** `VDU 29` - not supported (Retro Rocket graphics are immediate-mode with explicit coordinates).
-* **`VDU 23` sub-codes:** only `23,1,enable` (cursor show/hide) is implemented; others (cursor width, scroll viewport, cursor motion defaults) are ignored.
-* **`VDU 16` (CLG)** clears the **whole** screen in Retro Rocket (on BBC it cleared only the graphics viewport).
+* **VDU 23 sub-codes:** only `23,1,enable` (cursor show/hide) is implemented; others (cursor width, scroll viewport, cursor motion defaults) are ignored.
+* **VDU 16 (CLG)** clears the **whole** screen in Retro Rocket (on BBC it cleared only the graphics viewport).
 * **Colour depth:** Retro Rocket accepts **32-bit** RGB for `VDU 18`; BBC used limited palette indices.
 
 ---
