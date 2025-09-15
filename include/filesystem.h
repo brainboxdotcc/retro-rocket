@@ -13,7 +13,7 @@
 /**
  * @brief Default size of IO buffer in open file
  */
-#define IOBUFSZ 8192
+#define IOBUFSZ 65536
 
 /* Used by _open() */
 #define _O_APPEND	0x00000001
