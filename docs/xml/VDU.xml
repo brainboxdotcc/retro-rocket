@@ -153,8 +153,8 @@
 </listitem><listitem><para><bold>Mode change:</bold> <computeroutput>VDU 22</computeroutput> - not supported (Retro Rocket has fixed text geometry; use graphics APIs for rendering).</para>
 </listitem><listitem><para><bold>Set graphics window:</bold> <computeroutput>VDU 24</computeroutput> not supported (Retro Rocket does not implement VDU windows).</para>
 </listitem><listitem><para><bold>Set graphics origin:</bold> <computeroutput>VDU 29</computeroutput> - not supported (Retro Rocket graphics are immediate-mode with explicit coordinates).</para>
-</listitem><listitem><para>**<computeroutput>VDU 23</computeroutput> sub-codes:** only <computeroutput>23,1,enable</computeroutput> (cursor show/hide) is implemented; others (cursor width, scroll viewport, cursor motion defaults) are ignored.</para>
-</listitem><listitem><para>**<computeroutput>VDU 16</computeroutput> (CLG)** clears the <bold>whole</bold> screen in Retro Rocket (on BBC it cleared only the graphics viewport).</para>
+</listitem><listitem><para><bold>VDU 23 sub-codes:</bold> only <computeroutput>23,1,enable</computeroutput> (cursor show/hide) is implemented; others (cursor width, scroll viewport, cursor motion defaults) are ignored.</para>
+</listitem><listitem><para><bold>VDU 16 (CLG)</bold> clears the <bold>whole</bold> screen in Retro Rocket (on BBC it cleared only the graphics viewport).</para>
 </listitem><listitem><para><bold>Colour depth:</bold> Retro Rocket accepts <bold>32-bit</bold> RGB for <computeroutput>VDU 18</computeroutput>; BBC used limited palette indices.</para>
 </listitem></itemizedlist>
 </para>
