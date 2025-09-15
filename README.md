@@ -14,6 +14,7 @@ Its userland is completely written in a dialect of BASIC based heavily on BBC BA
 * 🧰A bunch of useful command line tools, including:
   * 📜A fully featured WYSIWYG editor
   * 💬A simple IRC client
+  * 🌐A web server!
 * ✏️Graphics drawing commands
 * 💽Virtual File System with support for:
   * RetroFS (*read/write*)
