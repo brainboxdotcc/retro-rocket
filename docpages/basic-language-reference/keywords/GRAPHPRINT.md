@@ -63,4 +63,4 @@ GRAPHPRINT 120, 100, "AAAAAAAAAAA"
 * \ref PRINT "PRINT" - text output in the scrolling text grid.
 * \ref GCOL "GCOL" - set graphics colour (0xRetro RocketGGBB).
 * \ref LINE "LINE" - draw lines (used by `VDU 25` in Retro Rocket).
-* \ref VDU "VDU" - redefine character bitmaps used by both `PRINT` and `GRAPHPRINT`.
+* \ref VDU "VDU" 23 - redefine character bitmaps used by both `PRINT` and `GRAPHPRINT`.
