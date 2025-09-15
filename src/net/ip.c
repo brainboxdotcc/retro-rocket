@@ -574,7 +574,7 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 				for (; cur; ) {
 					void* next = cur->next;
 					size_t this_packet_size = ntohs(cur->packet->length) - (cur->packet->ihl * 4);
-					if (cur->offset + this_packet_size < data_len) {
+					if (cur->offset + this_packet_size <= data_len) {
 						void * copy_from = (void*)cur->packet + cur->packet->ihl * 4;
 						memcpy(data_ptr + cur->offset, copy_from, this_packet_size);
 					} else {

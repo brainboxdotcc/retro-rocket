@@ -75,7 +75,7 @@ typedef struct ip_packet {
 	uint16_t header_checksum; // checksum
 	uint8_t src_ip[4]; // source IP
 	uint8_t dst_ip[4]; // destination IP
-	uint8_t options[0]; // optional, included if if ihl > 5, overlaps data!
+	uint8_t options[0]; // optional, included if ihl > 5, overlaps data!
 	uint8_t data[]; // Packet data
 } __attribute__((packed)) ip_packet_t;
 
