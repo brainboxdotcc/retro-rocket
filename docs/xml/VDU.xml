@@ -144,7 +144,8 @@
 <sect3 id="VDU_1autotoc_md1087">
 <title>Differences vs BBC Micro</title>
 <para><itemizedlist>
-<listitem><para><bold>Printer channel control:</bold> <computeroutput>VDU 0..3</computeroutput> - not supported (ignored).</para>
+<listitem><para><bold>Only one VDU command per line</bold> - You may not stack multiple VDU commands in one long sequence, this is to aid readability and prevent spamming of the console subsystem to aid multitasking fairness.</para>
+</listitem><listitem><para><bold>Printer channel control:</bold> <computeroutput>VDU 0..3</computeroutput> - not supported (ignored).</para>
 </listitem><listitem><para><bold>Text and graphics print routing:</bold> <computeroutput>VDU 4</computeroutput> (text), <computeroutput>VDU 5</computeroutput> (graphics) - <bold>not applicable</bold> in Retro Rocket. Retro Rocket uses <bold>immediate-mode graphics</bold>; use <computeroutput>GRAPHPRINT x, y, ...</computeroutput> for pixel text instead of <computeroutput>VDU 5</computeroutput>.</para>
 </listitem><listitem><para><bold>Auto-paging:</bold> <computeroutput>VDU 14</computeroutput>, <computeroutput>VDU 15</computeroutput> - not supported.</para>
 </listitem><listitem><para><bold>Palette programming:</bold> <computeroutput>VDU 19</computeroutput> - not supported (Retro Rocket is true-colour; use <computeroutput>VDU 18</computeroutput> / <computeroutput>GCOL</computeroutput>).</para>
