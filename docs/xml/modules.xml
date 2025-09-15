@@ -9,7 +9,7 @@
 <para>Retro Rocket supports dynamically loadable kernel modules (<computeroutput>.ko</computeroutput> files). Modules let you extend the kernel at run-time without rebuilding or rebooting, using a simple ELF64 relocation and symbol resolution system.</para>
 <para><hruler/>
 </para>
-<sect2 id="modules_1autotoc_md1245">
+<sect2 id="modules_1autotoc_md1248">
 <title>Module ABI</title>
 <para>Each kernel build exports a single <bold>module ABI version</bold>:</para>
 <para><programlisting filename=".c"><codeline><highlight class="preprocessor">#define<sp/>KMOD_ABI<sp/>100</highlight></codeline>
@@ -23,7 +23,7 @@
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="modules_1autotoc_md1247">
+<sect2 id="modules_1autotoc_md1250">
 <title>Minimal Module Example</title>
 <para><programlisting filename=".c"><codeline><highlight class="preprocessor">#include<sp/>&lt;kernel.h&gt;</highlight><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>always<sp/>include<sp/>this<sp/>header<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
@@ -39,7 +39,7 @@
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="modules_1autotoc_md1249">
+<sect2 id="modules_1autotoc_md1252">
 <title>Using Kernel Symbols</title>
 <para>All kernel symbols intended for modules are exported via <computeroutput>kernel.h</computeroutput>. Modules should <bold>only ever</bold> include:</para>
 <para><programlisting filename=".c"><codeline><highlight class="preprocessor">#include<sp/>&lt;kernel.h&gt;</highlight></codeline>
@@ -55,7 +55,7 @@
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="modules_1autotoc_md1251">
+<sect2 id="modules_1autotoc_md1254">
 <title>Memory Model</title>
 <para>The Retro Rocket kernel itself is linked into the <bold>higher half</bold> of the address space. Modules, however, are loaded into the <bold>kernel heap</bold>, which resides in the <bold>lower half</bold>.</para>
 <para><itemizedlist>
@@ -71,7 +71,7 @@
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="modules_1autotoc_md1253">
+<sect2 id="modules_1autotoc_md1256">
 <title>Build System</title>
 <para>Modules are compiled as <bold>relocatable ELF objects</bold>:</para>
 <para><itemizedlist>
@@ -83,7 +83,7 @@
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="modules_1autotoc_md1255">
+<sect2 id="modules_1autotoc_md1258">
 <title>Loader Pipeline</title>
 <para>The in-kernel loader performs:</para>
 <para><orderedlist>
@@ -101,7 +101,7 @@
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="modules_1autotoc_md1257">
+<sect2 id="modules_1autotoc_md1260">
 <title>Module Lifecycle</title>
 <para><itemizedlist>
 <listitem><para><bold>Load</bold>: <computeroutput>load_module(&quot;example&quot;);</computeroutput> → Calls <computeroutput>mod_init_v100()</computeroutput></para>
@@ -112,7 +112,7 @@
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="modules_1autotoc_md1259">
+<sect2 id="modules_1autotoc_md1262">
 <title>Safety Notes</title>
 <para><itemizedlist>
 <listitem><para>A failed symbol resolution or relocation aborts load cleanly.</para>
@@ -123,7 +123,7 @@
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="modules_1autotoc_md1261">
+<sect2 id="modules_1autotoc_md1264">
 <title>Writing Good Modules</title>
 <para><itemizedlist>
 <listitem><para>Always check the current <computeroutput>KMOD_ABI</computeroutput> in <computeroutput>module.h</computeroutput> before building.</para>

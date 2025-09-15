@@ -51,12 +51,15 @@ Retro Rocket BASIC implements a practical subset of BBC MOS `VDU`. Unsupported c
 #### VDU 16
   Clear screen (CLG in BBC terms, but acts as CLS in Retro Rocket).
 
+#### VDU 17, colour
+  Set **text** colour to a VGA colour code between 0 and 15.
+
 #### VDU 18, colour
   Set **graphics** colour to a **32-bit** RGB value (e.g. `&FF00FF`).
   (BBC used palette indices; Retro Rocket uses true-colour.)
 
 #### VDU 20
-  Reset graphics colour to default (**white**, `&FFFFFF`).
+  Reset graphics colour to default (**white**, `&FFFFFF`), and text colour to default (**white**, 0xA0A0A0)
 
 #### VDU 23, code
 
@@ -99,8 +102,14 @@ Retro Rocket BASIC implements a practical subset of BBC MOS `VDU`. Unsupported c
 #### VDU 25, …
   **Plot line** In Retro Rocket this delegates to the `LINE` statement; supply parameters exactly as for `LINE x1, y1, x2, y2`.
 
+#### VDU 26
+  Reset text and graphics windows to defaults (full screen) as defined by `VDU 28`
+
 #### VDU 27, n
   Output the single character with code `n`.
+
+#### VDU 28, …
+  Define a **text window**. Only the top and bottom of the window are valid in Retro Rocket, the x coordinates are ignored.
 
 #### VDU 30
   Home cursor to (0,0).
@@ -115,14 +124,14 @@ Retro Rocket BASIC implements a practical subset of BBC MOS `VDU`. Unsupported c
 
 ### Differences vs BBC Micro
 
+* **Only one VDU command per line** - You may not stack multiple VDU commands in one long sequence, this is to aid readability and prevent spamming of the console subsystem to aid multitasking fairness.
 * **Printer channel control:** `VDU 0..3` - not supported (ignored).
 * **Text and graphics print routing:** `VDU 4` (text), `VDU 5` (graphics) - **not applicable** in Retro Rocket. Retro Rocket uses **immediate-mode graphics**; use `GRAPHPRINT x, y, ...` for pixel text instead of `VDU 5`.
 * **Auto-paging:** `VDU 14`, `VDU 15` - not supported.
 * **Palette programming:** `VDU 19` - not supported (Retro Rocket is true-colour; use `VDU 18` / `GCOL`).
 * **VDU off until 6:** `VDU 21` - not supported.
 * **Mode change:** `VDU 22` - not supported (Retro Rocket has fixed text geometry; use graphics APIs for rendering).
-* **Set graphics/text windows:** `VDU 24`, `VDU 28` - not supported (Retro Rocket does not implement VDU windows).
-* **Reset windows:** `VDU 26` - not supported.
+* **Set graphics window:** `VDU 24` not supported (Retro Rocket does not implement VDU windows).
 * **Set graphics origin:** `VDU 29` - not supported (Retro Rocket graphics are immediate-mode with explicit coordinates).
 * **`VDU 23` sub-codes:** only `23,1,enable` (cursor show/hide) is implemented; others (cursor width, scroll viewport, cursor motion defaults) are ignored.
 * **`VDU 16` (CLG)** clears the **whole** screen in Retro Rocket (on BBC it cleared only the graphics viewport).

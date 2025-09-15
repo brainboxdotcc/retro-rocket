@@ -36,7 +36,7 @@ var NAVTREEINDEX =
 [
 "ABS.html",
 "PLOT.html#autotoc_md891",
-"md_docpages_basic_language_reference_functions_integer_LCPUID.html"
+"libraries.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

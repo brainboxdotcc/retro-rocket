@@ -100,19 +100,22 @@ $(document).ready(function(){initNavTree('VDU.html',''); initResizable(); });
 <li class="level4"><a href="#autotoc_md1072">VDU 12</a></li>
 <li class="level4"><a href="#autotoc_md1073">VDU 13</a></li>
 <li class="level4"><a href="#autotoc_md1074">VDU 16</a></li>
-<li class="level4"><a href="#autotoc_md1075">VDU 18, colour</a></li>
-<li class="level4"><a href="#autotoc_md1076">VDU 20</a></li>
-<li class="level4"><a href="#autotoc_md1077">VDU 23, code</a></li>
-<li class="level4"><a href="#autotoc_md1078">VDU 25, …</a></li>
-<li class="level4"><a href="#autotoc_md1079">VDU 27, n</a></li>
-<li class="level4"><a href="#autotoc_md1080">VDU 30</a></li>
-<li class="level4"><a href="#autotoc_md1081">VDU 31, x, y</a></li>
-<li class="level4"><a href="#autotoc_md1082">VDU 127</a></li>
+<li class="level4"><a href="#autotoc_md1075">VDU 17, colour</a></li>
+<li class="level4"><a href="#autotoc_md1076">VDU 18, colour</a></li>
+<li class="level4"><a href="#autotoc_md1077">VDU 20</a></li>
+<li class="level4"><a href="#autotoc_md1078">VDU 23, code</a></li>
+<li class="level4"><a href="#autotoc_md1079">VDU 25, …</a></li>
+<li class="level4"><a href="#autotoc_md1080">VDU 26</a></li>
+<li class="level4"><a href="#autotoc_md1081">VDU 27, n</a></li>
+<li class="level4"><a href="#autotoc_md1082">VDU 28, …</a></li>
+<li class="level4"><a href="#autotoc_md1083">VDU 30</a></li>
+<li class="level4"><a href="#autotoc_md1084">VDU 31, x, y</a></li>
+<li class="level4"><a href="#autotoc_md1085">VDU 127</a></li>
 </ul>
 </li>
-<li class="level3"><a href="#autotoc_md1084">Differences vs BBC Micro</a></li>
-<li class="level3"><a href="#autotoc_md1086">Examples</a></li>
-<li class="level3"><a href="#autotoc_md1088">See also</a></li>
+<li class="level3"><a href="#autotoc_md1087">Differences vs BBC Micro</a></li>
+<li class="level3"><a href="#autotoc_md1089">Examples</a></li>
+<li class="level3"><a href="#autotoc_md1091">See also</a></li>
 </ul>
 </ul>
 </ul>
@@ -162,12 +165,15 @@ VDU 13</h4>
 VDU 16</h4>
 <p>Clear screen (CLG in BBC terms, but acts as CLS in Retro Rocket).</p>
 <h4><a class="anchor" id="autotoc_md1075"></a>
+VDU 17, colour</h4>
+<p>Set <b>text</b> colour to a VGA colour code between 0 and 15.</p>
+<h4><a class="anchor" id="autotoc_md1076"></a>
 VDU 18, colour</h4>
 <p>Set <b>graphics</b> colour to a <b>32-bit</b> RGB value (e.g. <code>&amp;FF00FF</code>). (BBC used palette indices; Retro Rocket uses true-colour.)</p>
-<h4><a class="anchor" id="autotoc_md1076"></a>
-VDU 20</h4>
-<p>Reset graphics colour to default (<b>white</b>, <code>&amp;FFFFFF</code>).</p>
 <h4><a class="anchor" id="autotoc_md1077"></a>
+VDU 20</h4>
+<p>Reset graphics colour to default (<b>white</b>, <code>&amp;FFFFFF</code>), and text colour to default (<b>white</b>, 0xA0A0A0)</p>
+<h4><a class="anchor" id="autotoc_md1078"></a>
 VDU 23, code</h4>
 <div class="fragment"><div class="line">VDU 23, code, b0, b1, b2, b3, b4, b5, b6, b7</div>
 </div><!-- fragment --><p> Redefine glyph for character <code>code</code> (32–255). Each <code>bN</code> is an 8-bit row of the 8×8 bitmap; the <b>most significant bit</b> (bit 7) is the <b>leftmost pixel</b>, and the <b>least significant bit</b> (bit 0) is the <b>rightmost pixel</b>. A <code>1</code> draws the foreground colour, a <code>0</code> leaves the background.</p>
@@ -197,23 +203,29 @@ VDU 23, code</h4>
 </ul>
 </li>
 </ul>
-<h4><a class="anchor" id="autotoc_md1078"></a>
+<h4><a class="anchor" id="autotoc_md1079"></a>
 VDU 25, …</h4>
 <p><b>Plot line</b> In Retro Rocket this delegates to the <code>LINE</code> statement; supply parameters exactly as for <code>LINE x1, y1, x2, y2</code>.</p>
-<h4><a class="anchor" id="autotoc_md1079"></a>
+<h4><a class="anchor" id="autotoc_md1080"></a>
+VDU 26</h4>
+<p>Reset text and graphics windows to defaults (full screen) as defined by <code>VDU 28</code></p>
+<h4><a class="anchor" id="autotoc_md1081"></a>
 VDU 27, n</h4>
 <p>Output the single character with code <code>n</code>.</p>
-<h4><a class="anchor" id="autotoc_md1080"></a>
+<h4><a class="anchor" id="autotoc_md1082"></a>
+VDU 28, …</h4>
+<p>Define a <b>text window</b>. Only the top and bottom of the window are valid in Retro Rocket, the x coordinates are ignored.</p>
+<h4><a class="anchor" id="autotoc_md1083"></a>
 VDU 30</h4>
 <p>Home cursor to (0,0).</p>
-<h4><a class="anchor" id="autotoc_md1081"></a>
+<h4><a class="anchor" id="autotoc_md1084"></a>
 VDU 31, x, y</h4>
 <p>Move cursor to text position <code>(x, y)</code>.</p>
-<h4><a class="anchor" id="autotoc_md1082"></a>
+<h4><a class="anchor" id="autotoc_md1085"></a>
 VDU 127</h4>
 <p>Destructive backspace (mapped to BS).</p>
 <hr  />
-<h3><a class="anchor" id="autotoc_md1084"></a>
+<h3><a class="anchor" id="autotoc_md1087"></a>
 Differences vs BBC Micro</h3>
 <ul>
 <li><b>Printer channel control:</b> <code>VDU 0..3</code> - not supported (ignored).</li>
@@ -222,15 +234,14 @@ Differences vs BBC Micro</h3>
 <li><b>Palette programming:</b> <code>VDU 19</code> - not supported (Retro Rocket is true-colour; use <code>VDU 18</code> / <code>GCOL</code>).</li>
 <li><b>VDU off until 6:</b> <code>VDU 21</code> - not supported.</li>
 <li><b>Mode change:</b> <code>VDU 22</code> - not supported (Retro Rocket has fixed text geometry; use graphics APIs for rendering).</li>
-<li><b>Set graphics/text windows:</b> <code>VDU 24</code>, <code>VDU 28</code> - not supported (Retro Rocket does not implement VDU windows).</li>
-<li><b>Reset windows:</b> <code>VDU 26</code> - not supported.</li>
+<li><b>Set graphics window:</b> <code>VDU 24</code> not supported (Retro Rocket does not implement VDU windows).</li>
 <li><b>Set graphics origin:</b> <code>VDU 29</code> - not supported (Retro Rocket graphics are immediate-mode with explicit coordinates).</li>
 <li>**<code>VDU 23</code> sub-codes:** only <code>23,1,enable</code> (cursor show/hide) is implemented; others (cursor width, scroll viewport, cursor motion defaults) are ignored.</li>
 <li>**<code>VDU 16</code> (CLG)** clears the <b>whole</b> screen in Retro Rocket (on BBC it cleared only the graphics viewport).</li>
 <li><b>Colour depth:</b> Retro Rocket accepts <b>32-bit</b> RGB for <code>VDU 18</code>; BBC used limited palette indices.</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md1086"></a>
+<h3><a class="anchor" id="autotoc_md1089"></a>
 Examples</h3>
 <p><b>Redefine te bitmap for “Z” and print it</b></p>
 <div class="fragment"><div class="line">VDU 23,ASC(&#39;Z&#39;),&amp;3C,&amp;7E,&amp;FF,&amp;E7,&amp;FF,&amp;66,&amp;66,&amp;00</div>
@@ -245,7 +256,7 @@ Examples</h3>
 <div class="fragment"><div class="line">VDU 12</div>
 <div class="line">VDU 30</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md1088"></a>
+<h3><a class="anchor" id="autotoc_md1091"></a>
 See also</h3>
 <ul>
 <li><a class="el" href="GRAPHPRINT.html">GRAPHPRINT</a> - draw text at pixel coordinates (immediate-mode overlay).</li>
@@ -260,7 +271,7 @@ See also</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Mon Sep 15 2025 14:42:14 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 15 2025 15:12:36 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

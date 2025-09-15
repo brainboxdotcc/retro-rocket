@@ -90,29 +90,29 @@ $(document).ready(function(){initNavTree('networking.html',''); initResizable();
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><ul><ul><li class="level3"><a href="#autotoc_md1138">Introduction to Sockets</a></li>
-<li class="level3"><a href="#autotoc_md1140">Understanding Sockets (Phone Calls vs Parcels)</a><ul><li class="level4"><a href="#autotoc_md1142">TCP - Like a Phone Call (reliable conversation)</a></li>
-<li class="level4"><a href="#autotoc_md1144">UDP - Like Sending a Parcel (quick, independent messages)</a></li>
+<ul><ul><ul><li class="level3"><a href="#autotoc_md1141">Introduction to Sockets</a></li>
+<li class="level3"><a href="#autotoc_md1143">Understanding Sockets (Phone Calls vs Parcels)</a><ul><li class="level4"><a href="#autotoc_md1145">TCP - Like a Phone Call (reliable conversation)</a></li>
+<li class="level4"><a href="#autotoc_md1147">UDP - Like Sending a Parcel (quick, independent messages)</a></li>
 </ul>
 </li>
-<li class="level3"><a href="#autotoc_md1146">Side-by-side: Phone Call vs Parcel</a></li>
-<li class="level3"><a href="#autotoc_md1148">UDP “Doorstep Queue” (how incoming messages are stored)</a></li>
-<li class="level3"><a href="#autotoc_md1150">Worked UDP Example - Mouse Telemetry</a></li>
-<li class="level3"><a href="#autotoc_md1152">Practical Tips (UDP)</a></li>
-<li class="level3"><a href="#autotoc_md1155">Names and Addresses</a></li>
-<li class="level3"><a href="#autotoc_md1157">The DNS$ Function</a></li>
-<li class="level3"><a href="#autotoc_md1159">Quick Examples</a><ul><li class="level4"><a href="#autotoc_md1160">TCP Client</a></li>
-<li class="level4"><a href="#autotoc_md1162">TCP Server</a></li>
-<li class="level4"><a href="#autotoc_md1164">UDP Example</a></li>
-<li class="level4"><a href="#autotoc_md1165">Connecting by Name</a></li>
+<li class="level3"><a href="#autotoc_md1149">Side-by-side: Phone Call vs Parcel</a></li>
+<li class="level3"><a href="#autotoc_md1151">UDP “Doorstep Queue” (how incoming messages are stored)</a></li>
+<li class="level3"><a href="#autotoc_md1153">Worked UDP Example - Mouse Telemetry</a></li>
+<li class="level3"><a href="#autotoc_md1155">Practical Tips (UDP)</a></li>
+<li class="level3"><a href="#autotoc_md1158">Names and Addresses</a></li>
+<li class="level3"><a href="#autotoc_md1160">The DNS$ Function</a></li>
+<li class="level3"><a href="#autotoc_md1162">Quick Examples</a><ul><li class="level4"><a href="#autotoc_md1163">TCP Client</a></li>
+<li class="level4"><a href="#autotoc_md1165">TCP Server</a></li>
+<li class="level4"><a href="#autotoc_md1167">UDP Example</a></li>
+<li class="level4"><a href="#autotoc_md1168">Connecting by Name</a></li>
 </ul>
 </li>
-<li class="level3"><a href="#autotoc_md1167">Socket Keywords</a></li>
+<li class="level3"><a href="#autotoc_md1170">Socket Keywords</a></li>
 </ul>
 </ul>
 </ul>
 </div>
-<div class="textblock"><h3><a class="anchor" id="autotoc_md1138"></a>
+<div class="textblock"><h3><a class="anchor" id="autotoc_md1141"></a>
 Introduction to Sockets</h3>
 <p>Retro Rocket BASIC is not limited to files, graphics, and local input/output. It also has direct <b>network and Internet access</b>, built into the language itself. This is provided through <b>sockets</b>.</p>
 <p>A socket is a numbered channel that lets your program send and receive data across the network. With sockets you can:</p>
@@ -129,7 +129,7 @@ Introduction to Sockets</h3>
 </ul>
 <p>Once you understand these, you can write networked applications such as web servers, chat clients, multiplayer games, and telemetry systems - all in BASIC, with the same clarity and brevity as printing text to the screen.</p>
 <hr  />
-<h3><a class="anchor" id="autotoc_md1140"></a>
+<h3><a class="anchor" id="autotoc_md1143"></a>
 Understanding Sockets (Phone Calls vs Parcels)</h3>
 <p>Networking in Retro Rocket BASIC uses <b>sockets</b>: simple handles (just numbers) that let programs talk over the network. There are two flavours with very different “feel”:</p>
 <ul>
@@ -138,7 +138,7 @@ Understanding Sockets (Phone Calls vs Parcels)</h3>
 </ul>
 <p>You don’t need to learn object systems, callbacks, or frameworks. The flow is linear: <b>connect/listen → read/write → flush (if needed) → close</b>.</p>
 <hr  />
-<h4><a class="anchor" id="autotoc_md1142"></a>
+<h4><a class="anchor" id="autotoc_md1145"></a>
 TCP - Like a Phone Call (reliable conversation)</h4>
 <p>TCP aims to feel like you’ve got a dedicated line once connected.</p>
 <ul>
@@ -158,7 +158,7 @@ TCP - Like a Phone Call (reliable conversation)</h4>
 </ul>
 <p><b>Use TCP for</b> web pages, chat, control channels, file transfer-anything where every byte matters.</p>
 <hr  />
-<h4><a class="anchor" id="autotoc_md1144"></a>
+<h4><a class="anchor" id="autotoc_md1147"></a>
 UDP - Like Sending a Parcel (quick, independent messages)</h4>
 <p>UDP is fire-and-forget. Each message is its own parcel.</p>
 <ul>
@@ -175,7 +175,7 @@ UDP - Like Sending a Parcel (quick, independent messages)</h4>
 </ul>
 <p><b>Use UDP for</b> quick updates, game ticks, “is-alive” beacons, mouse/keyboard telemetry-cases where losing the odd packet doesn’t hurt.</p>
 <hr  />
-<h3><a class="anchor" id="autotoc_md1146"></a>
+<h3><a class="anchor" id="autotoc_md1149"></a>
 Side-by-side: Phone Call vs Parcel</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -194,7 +194,7 @@ Side-by-side: Phone Call vs Parcel</h3>
 <td class="markdownTableBodyNone">Ending   </td><td class="markdownTableBodyNone"><code>SOCKCLOSE</code> hangs up the line.   </td><td class="markdownTableBodyNone"><code>SOCKCLOSE</code>/<code>UDPUNBIND</code> stops using that doorstep.   </td></tr>
 </table>
 <hr  />
-<h3><a class="anchor" id="autotoc_md1148"></a>
+<h3><a class="anchor" id="autotoc_md1151"></a>
 UDP “Doorstep Queue” (how incoming messages are stored)</h3>
 <p>When your program <code>UDPBIND</code>s a port, Retro Rocket keeps an <b>in-memory queue</b> of incoming UDP packets for that port-think <b>parcels on your doorstep</b>:</p>
 <ul>
@@ -208,7 +208,7 @@ UDP “Doorstep Queue” (how incoming messages are stored)</h3>
 </ul>
 <p>This model is simple, predictable, and maps perfectly to the “parcel on the doorstep” intuition.</p>
 <hr  />
-<h3><a class="anchor" id="autotoc_md1150"></a>
+<h3><a class="anchor" id="autotoc_md1153"></a>
 Worked UDP Example - Mouse Telemetry</h3>
 <p>Below is your exact module, which binds a per-process port and polls a local mouse server. It showcases <code>UDPBIND</code>, <code>UDPWRITE</code>, <code>UDPREAD$</code>, and consuming one packet at a time:</p>
 <div class="fragment"><div class="line">DEF PROCmouse</div>
@@ -264,7 +264,7 @@ Worked UDP Example - Mouse Telemetry</h3>
 </ul>
 <p>Because each UDP packet is independent, you can lose one with negligible impact-the next packet will replace it a tick later, keeping the mouse fluid.</p>
 <hr  />
-<h3><a class="anchor" id="autotoc_md1152"></a>
+<h3><a class="anchor" id="autotoc_md1155"></a>
 Practical Tips (UDP)</h3>
 <ul>
 <li><b>Bind both sides</b>: have a predictable return address and a consistent inbox.</li>
@@ -275,7 +275,7 @@ Practical Tips (UDP)</h3>
 <hr  />
 <p>Right - good catch. For new users, we need to introduce the idea from first principles, <b>without starting with “DNS”</b>. Here’s a plain-English version that leads into the concept and only then names it:</p>
 <hr  />
-<h3><a class="anchor" id="autotoc_md1155"></a>
+<h3><a class="anchor" id="autotoc_md1158"></a>
 Names and Addresses</h3>
 <p>Every computer on the Internet has a unique <b>address number</b>, called an <b>IP address</b>. It looks like this:</p>
 <div class="fragment"><div class="line">93.184.216.34</div>
@@ -288,7 +288,7 @@ Names and Addresses</h3>
 <li>The result is stored in a local cache, so asking for the same name again is instant.</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md1157"></a>
+<h3><a class="anchor" id="autotoc_md1160"></a>
 The DNS$ Function</h3>
 <p>Retro Rocket BASIC makes this simple with a single function:</p>
 <div class="fragment"><div class="line">ip$ = DNS$(&quot;example.org&quot;)</div>
@@ -298,9 +298,9 @@ The DNS$ Function</h3>
 <li>Uses caching automatically; you don’t need to worry about retries or speed.</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md1159"></a>
+<h3><a class="anchor" id="autotoc_md1162"></a>
 Quick Examples</h3>
-<h4><a class="anchor" id="autotoc_md1160"></a>
+<h4><a class="anchor" id="autotoc_md1163"></a>
 TCP Client</h4>
 <div class="fragment"><div class="line">&#39; Connect to a web server</div>
 <div class="line">sock = CONNECT(&quot;93.184.216.34&quot;, 80)</div>
@@ -313,7 +313,7 @@ TCP Client</h4>
 <div class="line"> </div>
 <div class="line">SOCKCLOSE sock</div>
 </div><!-- fragment --><hr  />
-<h4><a class="anchor" id="autotoc_md1162"></a>
+<h4><a class="anchor" id="autotoc_md1165"></a>
 TCP Server</h4>
 <div class="fragment"><div class="line">&#39; Listen on port 8080</div>
 <div class="line">server = SOCKLISTEN(&quot;0.0.0.0&quot;, 8080, 5)</div>
@@ -330,7 +330,7 @@ TCP Server</h4>
 <div class="line"> </div>
 <div class="line">SOCKCLOSE server</div>
 </div><!-- fragment --><hr  />
-<h4><a class="anchor" id="autotoc_md1164"></a>
+<h4><a class="anchor" id="autotoc_md1167"></a>
 UDP Example</h4>
 <div class="fragment"><div class="line">&#39; Bind to port 5001</div>
 <div class="line">udp = UDPBIND(&quot;0.0.0.0&quot;, 5001)</div>
@@ -346,7 +346,7 @@ UDP Example</h4>
 <div class="line">ENDIF</div>
 <div class="line"> </div>
 <div class="line">SOCKCLOSE udp</div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md1165"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md1168"></a>
 Connecting by Name</h4>
 <div class="fragment"><div class="line">ip$ = DNS$(&quot;example.org&quot;)</div>
 <div class="line">IF ip$ &lt;&gt; &quot;&quot; THEN</div>
@@ -360,7 +360,7 @@ Connecting by Name</h4>
 <div class="line">    PRINT &quot;Could not look up that name&quot;</div>
 <div class="line">ENDIF</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md1167"></a>
+<h3><a class="anchor" id="autotoc_md1170"></a>
 Socket Keywords</h3>
 <ul>
 <li><a class="el" href="CONNECT.html">CONNECT Keyword</a></li>
@@ -386,7 +386,7 @@ Socket Keywords</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li>
-    <li class="footer">Generated on Mon Sep 15 2025 14:42:14 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 15 2025 15:12:36 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -65,14 +65,18 @@
 <para>Clear screen (CLG in BBC terms, but acts as CLS in Retro Rocket).</para>
 </sect4>
 <sect4 id="VDU_1autotoc_md1075">
+<title>VDU 17, colour</title>
+<para>Set <bold>text</bold> colour to a VGA colour code between 0 and 15.</para>
+</sect4>
+<sect4 id="VDU_1autotoc_md1076">
 <title>VDU 18, colour</title>
 <para>Set <bold>graphics</bold> colour to a <bold>32-bit</bold> RGB value (e.g. <computeroutput>&amp;FF00FF</computeroutput>). (BBC used palette indices; Retro Rocket uses true-colour.)</para>
 </sect4>
-<sect4 id="VDU_1autotoc_md1076">
-<title>VDU 20</title>
-<para>Reset graphics colour to default (<bold>white</bold>, <computeroutput>&amp;FFFFFF</computeroutput>).</para>
-</sect4>
 <sect4 id="VDU_1autotoc_md1077">
+<title>VDU 20</title>
+<para>Reset graphics colour to default (<bold>white</bold>, <computeroutput>&amp;FFFFFF</computeroutput>), and text colour to default (<bold>white</bold>, 0xA0A0A0)</para>
+</sect4>
+<sect4 id="VDU_1autotoc_md1078">
 <title>VDU 23, code</title>
 <para><programlisting><codeline><highlight class="normal">VDU<sp/>23,<sp/>code,<sp/>b0,<sp/>b1,<sp/>b2,<sp/>b3,<sp/>b4,<sp/>b5,<sp/>b6,<sp/>b7</highlight></codeline>
 </programlisting> Redefine glyph for character <computeroutput>code</computeroutput> (32–255). Each <computeroutput>bN</computeroutput> is an 8-bit row of the 8×8 bitmap; the <bold>most significant bit</bold> (bit 7) is the <bold>leftmost pixel</bold>, and the <bold>least significant bit</bold> (bit 0) is the <bold>rightmost pixel</bold>. A <computeroutput>1</computeroutput> draws the foreground colour, a <computeroutput>0</computeroutput> leaves the background.</para>
@@ -106,30 +110,38 @@
 </listitem></itemizedlist>
 </para>
 </sect4>
-<sect4 id="VDU_1autotoc_md1078">
+<sect4 id="VDU_1autotoc_md1079">
 <title>VDU 25, …</title>
 <para><bold>Plot line</bold> In Retro Rocket this delegates to the <computeroutput>LINE</computeroutput> statement; supply parameters exactly as for <computeroutput>LINE x1, y1, x2, y2</computeroutput>.</para>
 </sect4>
-<sect4 id="VDU_1autotoc_md1079">
+<sect4 id="VDU_1autotoc_md1080">
+<title>VDU 26</title>
+<para>Reset text and graphics windows to defaults (full screen) as defined by <computeroutput>VDU 28</computeroutput></para>
+</sect4>
+<sect4 id="VDU_1autotoc_md1081">
 <title>VDU 27, n</title>
 <para>Output the single character with code <computeroutput>n</computeroutput>.</para>
 </sect4>
-<sect4 id="VDU_1autotoc_md1080">
+<sect4 id="VDU_1autotoc_md1082">
+<title>VDU 28, …</title>
+<para>Define a <bold>text window</bold>. Only the top and bottom of the window are valid in Retro Rocket, the x coordinates are ignored.</para>
+</sect4>
+<sect4 id="VDU_1autotoc_md1083">
 <title>VDU 30</title>
 <para>Home cursor to (0,0).</para>
 </sect4>
-<sect4 id="VDU_1autotoc_md1081">
+<sect4 id="VDU_1autotoc_md1084">
 <title>VDU 31, x, y</title>
 <para>Move cursor to text position <computeroutput>(x, y)</computeroutput>.</para>
 </sect4>
-<sect4 id="VDU_1autotoc_md1082">
+<sect4 id="VDU_1autotoc_md1085">
 <title>VDU 127</title>
 <para>Destructive backspace (mapped to BS).</para>
 <para><hruler/>
 </para>
 </sect4>
 </sect3>
-<sect3 id="VDU_1autotoc_md1084">
+<sect3 id="VDU_1autotoc_md1087">
 <title>Differences vs BBC Micro</title>
 <para><itemizedlist>
 <listitem><para><bold>Printer channel control:</bold> <computeroutput>VDU 0..3</computeroutput> - not supported (ignored).</para>
@@ -138,8 +150,7 @@
 </listitem><listitem><para><bold>Palette programming:</bold> <computeroutput>VDU 19</computeroutput> - not supported (Retro Rocket is true-colour; use <computeroutput>VDU 18</computeroutput> / <computeroutput>GCOL</computeroutput>).</para>
 </listitem><listitem><para><bold>VDU off until 6:</bold> <computeroutput>VDU 21</computeroutput> - not supported.</para>
 </listitem><listitem><para><bold>Mode change:</bold> <computeroutput>VDU 22</computeroutput> - not supported (Retro Rocket has fixed text geometry; use graphics APIs for rendering).</para>
-</listitem><listitem><para><bold>Set graphics/text windows:</bold> <computeroutput>VDU 24</computeroutput>, <computeroutput>VDU 28</computeroutput> - not supported (Retro Rocket does not implement VDU windows).</para>
-</listitem><listitem><para><bold>Reset windows:</bold> <computeroutput>VDU 26</computeroutput> - not supported.</para>
+</listitem><listitem><para><bold>Set graphics window:</bold> <computeroutput>VDU 24</computeroutput> not supported (Retro Rocket does not implement VDU windows).</para>
 </listitem><listitem><para><bold>Set graphics origin:</bold> <computeroutput>VDU 29</computeroutput> - not supported (Retro Rocket graphics are immediate-mode with explicit coordinates).</para>
 </listitem><listitem><para>**<computeroutput>VDU 23</computeroutput> sub-codes:** only <computeroutput>23,1,enable</computeroutput> (cursor show/hide) is implemented; others (cursor width, scroll viewport, cursor motion defaults) are ignored.</para>
 </listitem><listitem><para>**<computeroutput>VDU 16</computeroutput> (CLG)** clears the <bold>whole</bold> screen in Retro Rocket (on BBC it cleared only the graphics viewport).</para>
@@ -149,7 +160,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="VDU_1autotoc_md1086">
+<sect3 id="VDU_1autotoc_md1089">
 <title>Examples</title>
 <para><bold>Redefine te bitmap for “Z” and print it</bold></para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">VDU<sp/>23,ASC(&apos;Z&apos;),&amp;3C,&amp;7E,&amp;FF,&amp;E7,&amp;FF,&amp;66,&amp;66,&amp;00</highlight></codeline>
@@ -170,7 +181,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="VDU_1autotoc_md1088">
+<sect3 id="VDU_1autotoc_md1091">
 <title>See also</title>
 <para><itemizedlist>
 <listitem><para><ref refid="GRAPHPRINT" kindref="compound">GRAPHPRINT</ref> - draw text at pixel coordinates (immediate-mode overlay).</para>

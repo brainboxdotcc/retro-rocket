@@ -245,6 +245,11 @@ void vdu_statement(struct basic_ctx* ctx) {
 		case 16: // CLG
 			clearscreen();
 			break;
+		case 17: {
+			accept_or_return(COMMA, ctx);
+			setforeground(expr(ctx));
+			break;
+		}
 		case 13:
 			/* Move to start of line */
 			current_x = 0;
@@ -268,6 +273,7 @@ void vdu_statement(struct basic_ctx* ctx) {
 		case 20:
 			/* Reset to default graphics colour */
 			ctx->graphics_colour = 0xffffff;
+			setforeground(COLOUR_WHITE);
 			break;
 		case 21:
 			/* Disable VDU until VDU 6 - unsupported */
@@ -321,14 +327,37 @@ void vdu_statement(struct basic_ctx* ctx) {
 			draw_line_statement(ctx);
 			break;
 		case 26:
-			/* Reset graphics and text viewports - unsupported */
+			/* Reset graphics and text viewports */
+			putstring("\x1b[r");
+			gotoxy(0,0);
 			break;
 		case 27:
 			/* Write single character */
 			put(expr(ctx));
 			break;
 		case 28:
-			/* Define text viewport - unsupported */
+			/* Define text viewport - only support top and bottom */
+			accept_or_return(COMMA, ctx);
+			int64_t x1 = expr(ctx);      /* parsed but ignored */
+			accept_or_return(COMMA, ctx);
+			int64_t y1 = expr(ctx);
+			accept_or_return(COMMA, ctx);
+			(void)expr(ctx);      /* parsed but ignored */
+			accept_or_return(COMMA, ctx);
+			int64_t y2 = expr(ctx);
+			if (y1 < 0) {
+				y1 = 0;
+			}
+			if (y2 >= (int64_t)get_text_height()) {
+				y2 = get_text_height()-1;
+			}
+			if (y2 < y1) {
+				int64_t t = y1;
+				y1 = y2;
+				y2 = t;
+			}
+			kprintf("\x1b[%lu;%lur", y1 + 1, y2 + 1);
+			gotoxy(x1, y1);
 			break;
 		case 29:
 			/* Set graphics origin - unsupported */
@@ -346,7 +375,12 @@ void vdu_statement(struct basic_ctx* ctx) {
 			put(8);
 			break;
 	}
-	while (tokenizer_token(ctx) == COMMA) {
+	while (tokenizer_token(ctx) == COMMA || tokenizer_token(ctx) == SEMICOLON) {
+		if (tokenizer_token(ctx) == SEMICOLON) {
+			tokenizer_next(ctx);
+			accept_or_return(NEWLINE, ctx);
+			return;
+		}
 		tokenizer_next(ctx);
 		(void)expr(ctx); // Discard trailing numbers
 	}
