@@ -253,3 +253,7 @@ const char* ansi_colour(char *out, size_t out_len, unsigned char vga_colour, boo
 unsigned char map_vga_to_ansi(unsigned char colour);
 
 unsigned char map_vga_to_ansi_bg(unsigned char colour);
+
+void redefine_character(unsigned char c, uint8_t bitmap[8]);
+
+void graphics_putstring(const char *s, int64_t x, int64_t y, int32_t colour);

@@ -11,7 +11,7 @@
 <para>Releases (frees) a block of memory previously obtained via <ref refid="MEMALLOC" kindref="compound">MEMALLOC</ref>.</para>
 <para><hruler/>
 </para>
-<sect3 id="MEMRELEASE_1autotoc_md836">
+<sect3 id="MEMRELEASE_1autotoc_md844">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">buf<sp/>=<sp/>MEMALLOC(65536)</highlight></codeline>
 <codeline><highlight class="normal">REM<sp/>...<sp/>use<sp/>buf<sp/>...</highlight></codeline>
@@ -20,7 +20,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="MEMRELEASE_1autotoc_md838">
+<sect3 id="MEMRELEASE_1autotoc_md846">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Passing an invalid or already-freed handle raises an error.</para>

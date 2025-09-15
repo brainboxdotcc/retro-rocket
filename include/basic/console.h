@@ -251,3 +251,7 @@ int64_t basic_capslock(struct basic_ctx* ctx);
 void sleep_statement(struct basic_ctx* ctx);
 
 bool basic_esc();
+
+void graphprint_statement(struct basic_ctx* ctx);
+
+void vdu_statement(struct basic_ctx* ctx);

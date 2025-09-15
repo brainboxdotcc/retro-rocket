@@ -90,39 +90,39 @@ $(document).ready(function(){initNavTree('retrofs.html',''); initResizable(); })
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><ul><li class="level2"><a href="#autotoc_md1227">1. Conventions and terminology</a></li>
-<li class="level2"><a href="#autotoc_md1228">2. High-level layout (informative)</a></li>
-<li class="level2"><a href="#autotoc_md1229">3. On-disk structures (normative)</a><ul><li class="level3"><a href="#autotoc_md1230">3.1 Description Block (sector 0)</a><ul><li class="level4"><a href="#autotoc_md1231">Byte layout sketch</a></li>
+<ul><ul><li class="level2"><a href="#autotoc_md1262">1. Conventions and terminology</a></li>
+<li class="level2"><a href="#autotoc_md1263">2. High-level layout (informative)</a></li>
+<li class="level2"><a href="#autotoc_md1264">3. On-disk structures (normative)</a><ul><li class="level3"><a href="#autotoc_md1265">3.1 Description Block (sector 0)</a><ul><li class="level4"><a href="#autotoc_md1266">Byte layout sketch</a></li>
 </ul>
 </li>
-<li class="level3"><a href="#autotoc_md1232">3.2 Free-space map (bitmap)</a></li>
-<li class="level3"><a href="#autotoc_md1233">3.3 Directory blocks and entries</a><ul><li class="level4"><a href="#autotoc_md1234">3.3.1 Directory Start entry (first half-sector of the block)</a></li>
-<li class="level4"><a href="#autotoc_md1235">3.3.2 File/Directory entry (other half-sectors)</a></li>
-<li class="level4"><a href="#autotoc_md1236">3.3.3 File/Directory Flags values</a></li>
-<li class="level4"><a href="#autotoc_md1237">3.3.4 Directory walk</a></li>
+<li class="level3"><a href="#autotoc_md1267">3.2 Free-space map (bitmap)</a></li>
+<li class="level3"><a href="#autotoc_md1268">3.3 Directory blocks and entries</a><ul><li class="level4"><a href="#autotoc_md1269">3.3.1 Directory Start entry (first half-sector of the block)</a></li>
+<li class="level4"><a href="#autotoc_md1270">3.3.2 File/Directory entry (other half-sectors)</a></li>
+<li class="level4"><a href="#autotoc_md1271">3.3.3 File/Directory Flags values</a></li>
+<li class="level4"><a href="#autotoc_md1272">3.3.4 Directory walk</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="level2"><a href="#autotoc_md1238">4. Allocation &amp; growth semantics (normative)</a><ul><li class="level3"><a href="#autotoc_md1239">4.1 Extents</a></li>
-<li class="level3"><a href="#autotoc_md1240">4.2 Creation</a></li>
-<li class="level3"><a href="#autotoc_md1241">4.3 Writing</a></li>
-<li class="level3"><a href="#autotoc_md1242">4.4 Truncation</a></li>
-<li class="level3"><a href="#autotoc_md1243">4.5 Deletion</a></li>
+<li class="level2"><a href="#autotoc_md1273">4. Allocation &amp; growth semantics (normative)</a><ul><li class="level3"><a href="#autotoc_md1274">4.1 Extents</a></li>
+<li class="level3"><a href="#autotoc_md1275">4.2 Creation</a></li>
+<li class="level3"><a href="#autotoc_md1276">4.3 Writing</a></li>
+<li class="level3"><a href="#autotoc_md1277">4.4 Truncation</a></li>
+<li class="level3"><a href="#autotoc_md1278">4.5 Deletion</a></li>
 </ul>
 </li>
-<li class="level2"><a href="#autotoc_md1244">5. Name handling</a></li>
-<li class="level2"><a href="#autotoc_md1245">6. Policy notes (non-normative but recommended)</a><ul><li class="level3"><a href="#autotoc_md1246">6.1 Initial reservation policy</a></li>
-<li class="level3"><a href="#autotoc_md1247">6.2 Zero-fill</a></li>
+<li class="level2"><a href="#autotoc_md1279">5. Name handling</a></li>
+<li class="level2"><a href="#autotoc_md1280">6. Policy notes (non-normative but recommended)</a><ul><li class="level3"><a href="#autotoc_md1281">6.1 Initial reservation policy</a></li>
+<li class="level3"><a href="#autotoc_md1282">6.2 Zero-fill</a></li>
 </ul>
 </li>
-<li class="level2"><a href="#autotoc_md1248">7. Implementation guidance: L1/L2 allocation caches</a></li>
-<li class="level2"><a href="#autotoc_md1249">8. Validation &amp; error handling</a></li>
-<li class="level2"><a href="#autotoc_md1250">9. Partition identification (GPT)</a><ul><li class="level3"><a href="#autotoc_md1251">RetroFS Partition Type GUID</a></li>
+<li class="level2"><a href="#autotoc_md1283">7. Implementation guidance: L1/L2 allocation caches</a></li>
+<li class="level2"><a href="#autotoc_md1284">8. Validation &amp; error handling</a></li>
+<li class="level2"><a href="#autotoc_md1285">9. Partition identification (GPT)</a><ul><li class="level3"><a href="#autotoc_md1286">RetroFS Partition Type GUID</a></li>
 </ul>
 </li>
-<li class="level2"><a href="#autotoc_md1252">10. Security considerations</a></li>
-<li class="level2"><a href="#autotoc_md1253">11. Versioning</a></li>
+<li class="level2"><a href="#autotoc_md1287">10. Security considerations</a></li>
+<li class="level2"><a href="#autotoc_md1288">11. Versioning</a></li>
 </ul>
 </ul>
 </div>
@@ -140,7 +140,7 @@ $(document).ready(function(){initNavTree('retrofs.html',''); initResizable(); })
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td></tr>
 </table>
-<h2><a class="anchor" id="autotoc_md1227"></a>
+<h2><a class="anchor" id="autotoc_md1262"></a>
 1. Conventions and terminology</h2>
 <ul>
 <li>The key words <b>MUST</b>, <b>MUST NOT</b>, <b>SHOULD</b>, <b>SHOULD NOT</b>, <b>MAY</b> are to be interpreted as in RFC 2119.</li>
@@ -151,16 +151,16 @@ $(document).ready(function(){initNavTree('retrofs.html',''); initResizable(); })
 <li>A <b>half-sector entry</b> is 256 bytes; two entries per 512-byte sector.</li>
 <li>Filenames are <b>case-preserving</b>, compared <b>case-insensitively</b> using ASCII rules only.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md1228"></a>
+<h2><a class="anchor" id="autotoc_md1263"></a>
 2. High-level layout (informative)</h2>
 <div class="fragment"><div class="line">LBA 0                 : Description Block</div>
 <div class="line">LBA root_directory .. : Root directory block (64 sectors) + any continuations</div>
 <div class="line">LBA free_space_map .. : Free-space map (bitmap), contiguous</div>
 <div class="line">LBA …                 : File and directory extents</div>
 </div><!-- fragment --><p>Exact locations are recorded in the Description Block.</p>
-<h2><a class="anchor" id="autotoc_md1229"></a>
+<h2><a class="anchor" id="autotoc_md1264"></a>
 3. On-disk structures (normative)</h2>
-<h3><a class="anchor" id="autotoc_md1230"></a>
+<h3><a class="anchor" id="autotoc_md1265"></a>
 3.1 Description Block (sector 0)</h3>
 <p>The Description Block <b>MUST</b> occupy exactly one sector at LBA 0 and uses this exact layout:</p>
 <table class="markdownTable">
@@ -189,7 +189,7 @@ $(document).ready(function(){initNavTree('retrofs.html',''); initResizable(); })
 <li>All pointer/length fields <b>MUST</b> reference sectors within the partition/device bounds.</li>
 <li>Unused bytes <b>MUST</b> be zero and <b>SHOULD</b> be preserved on rewrite.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md1231"></a>
+<h4><a class="anchor" id="autotoc_md1266"></a>
 Byte layout sketch</h4>
 <div class="fragment"><div class="line">+0000  52 65 74 72 6F 46 53 31   // &quot;RetroFS1&quot; LE: 0x3153466f72746552</div>
 <div class="line">+0008  &lt;root_directory: u64 LE&gt;</div>
@@ -199,7 +199,7 @@ Byte layout sketch</h4>
 <div class="line">+0028  &lt;sequence:       u64 LE&gt;</div>
 <div class="line">+0030  &lt;creation_time:  time_t LE&gt;</div>
 <div class="line">+0038  ... zero to 0x200</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md1232"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md1267"></a>
 3.2 Free-space map (bitmap)</h3>
 <p>Each free-space map sector uses:</p>
 <div class="fragment"><div class="line">typedef struct {</div>
@@ -216,10 +216,10 @@ Byte layout sketch</h4>
 <li>Updates <b>SHOULD</b> be atomic at sector granularity (read–modify–write the containing map sector).</li>
 <li>Implementations <b>SHOULD</b> cache higher-level summaries in RAM (see §7).</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md1233"></a>
+<h3><a class="anchor" id="autotoc_md1268"></a>
 3.3 Directory blocks and entries</h3>
 <p>A directory is stored in one or more directory blocks. Each block is exactly **<code>RFS_DEFAULT_DIR_SIZE</code>** sectors (v1: <b>64</b>). Each <b>sector</b> contains <b>two half-sector entries</b>.</p>
-<h4><a class="anchor" id="autotoc_md1234"></a>
+<h4><a class="anchor" id="autotoc_md1269"></a>
 3.3.1 Directory Start entry (first half-sector of the block)</h4>
 <div class="fragment"><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct </span>rfs_directory_start_t {</div>
 <div class="line">    uint32_t flags;          <span class="comment">// MUST include RFS_FLAG_DIR_START</span></div>
@@ -235,7 +235,7 @@ Byte layout sketch</h4>
 <li><code>sectors</code> <b>MUST</b> equal <code>RFS_DEFAULT_DIR_SIZE</code> in v1.</li>
 <li><code>continuation</code> <b>MUST</b> be 0 if no further blocks exist; otherwise it points to the next block’s first sector.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md1235"></a>
+<h4><a class="anchor" id="autotoc_md1270"></a>
 3.3.2 File/Directory entry (other half-sectors)</h4>
 <div class="fragment"><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct </span>rfs_directory_entry_inner_t {</div>
 <div class="line">    uint32_t flags;              <span class="comment">// RFS_FLAG_DIRECTORY et al.</span></div>
@@ -248,7 +248,7 @@ Byte layout sketch</h4>
 <div class="line">    uint64_t sequence;           <span class="comment">// per-entry version counter</span></div>
 <div class="line">    <span class="keywordtype">char</span>     reserved[];         <span class="comment">// zero-filled to 256 bytes total</span></div>
 <div class="line">} __attribute__((packed));</div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md1236"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md1271"></a>
 3.3.3 File/Directory Flags values</h4>
 <p>Files and directories may set the following bits in their <code>flags</code> field:</p>
 <table class="markdownTable">
@@ -269,23 +269,23 @@ Byte layout sketch</h4>
 <li><code>sector_length</code> is the reserved extent size; <code>length</code> <b>MUST NOT</b> exceed <code>sector_length * 512</code>.</li>
 <li><code>sequence</code> is a human-oriented revision counter: implementations <b>SHOULD</b> increment it on payload-modifying writes and <b>MAY</b> leave it unchanged on metadata-only updates. When to increment the counter is left to the implementor, but it is recommended to do this at the point of close().</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md1237"></a>
+<h4><a class="anchor" id="autotoc_md1272"></a>
 3.3.4 Directory walk</h4>
 <ul>
 <li>Readers <b>MUST</b> follow the <code>continuation</code> chain until <code>continuation</code> is <code>0</code>.</li>
 <li>Readers <b>MUST</b> bound the walk (implementation-defined limit) to avoid infinite loops on corruption.</li>
 <li>Within each block, readers <b>MUST</b> stop at the first <code>filename[0] == 0</code> (end-of-entries for that block).</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md1238"></a>
+<h2><a class="anchor" id="autotoc_md1273"></a>
 4. Allocation &amp; growth semantics (normative)</h2>
-<h3><a class="anchor" id="autotoc_md1239"></a>
+<h3><a class="anchor" id="autotoc_md1274"></a>
 4.1 Extents</h3>
 <ul>
 <li>Every file or directory <em>block</em> occupies exactly one <b>contiguous</b> extent. Directories may be composed of multiple connected <em>directory blocks</em>.</li>
 <li>When a file write would exceed its reserved capacity (<code>sector_length * 512</code>), the file <b>MUST</b> be <b>relocated</b> to a larger contiguous extent (“extend-and-move”), after which the old extent <b>MUST</b> be freed.</li>
 <li>If there is no extent big enough to contain the file, the implementation may raise an "out of space" error.</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md1240"></a>
+<h3><a class="anchor" id="autotoc_md1275"></a>
 4.2 Creation</h3>
 <p><b>Files</b></p>
 <ul>
@@ -306,21 +306,21 @@ Byte layout sketch</h4>
 <li>Write a valid Directory Start entry (<code>RFS_FLAG_DIR_START</code>, correct <code>parent</code>, <code>sectors</code>, <code>continuation=0</code>).</li>
 <li>Insert a parent entry with <code>RFS_FLAG_DIRECTORY</code> set and <code>length=0</code>.</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md1241"></a>
+<h3><a class="anchor" id="autotoc_md1276"></a>
 4.3 Writing</h3>
 <ul>
 <li>For unaligned writes, drivers <b>MUST</b> perform head/tail read-modify-write and full-sector writes in the middle.</li>
 <li>If <code>start + length</code> would exceed reserved capacity, driver <b>MUST</b> extend-and-move before writing.</li>
 <li>On successful payload modification, drivers <b>SHOULD</b> bump the per-entry <code>sequence</code>.</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md1242"></a>
+<h3><a class="anchor" id="autotoc_md1277"></a>
 4.4 Truncation</h3>
 <ul>
 <li>Truncate <b>MUST</b> update <code>length</code> only.</li>
 <li>Truncate <b>MUST NOT</b> free sectors nor reduce <code>sector_length</code>.</li>
 <li>If requested <code>length</code> exceeds reserved capacity, truncate <b>MUST</b> fail.</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md1243"></a>
+<h3><a class="anchor" id="autotoc_md1278"></a>
 4.5 Deletion</h3>
 <p><b>Files</b></p>
 <ul>
@@ -332,16 +332,16 @@ Byte layout sketch</h4>
 <li>Refuse deletion unless the directory and <b>all</b> continuation blocks contain no valid entries.</li>
 <li>Remove the parent entry first, then free each directory block in the chain (each <code>sectors</code> long).</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md1244"></a>
+<h2><a class="anchor" id="autotoc_md1279"></a>
 5. Name handling</h2>
 <ul>
 <li>Case-preserving storage; ASCII case-insensitive matching.</li>
 <li>Two names differing only by ASCII case <b>MUST</b> be considered equal and refer to the same entry.</li>
 <li>Names <b>MUST</b> be NUL-terminated within <code>RFS_MAX_NAME</code> bytes (128 incl. terminator).</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md1245"></a>
+<h2><a class="anchor" id="autotoc_md1280"></a>
 6. Policy notes (non-normative but recommended)</h2>
-<h3><a class="anchor" id="autotoc_md1246"></a>
+<h3><a class="anchor" id="autotoc_md1281"></a>
 6.1 Initial reservation policy</h3>
 <p>Implementations <b>SHOULD</b> reserve more than the initial logical size to reduce churn. A practical policy:</p>
 <ul>
@@ -349,10 +349,10 @@ Byte layout sketch</h4>
 <li>Image file types (e.g., <code>jpg</code>, <code>jpeg</code>, <code>png</code>, <code>gif</code>, <code>tiff</code>, <code>bmp</code>, <code>webp</code>): <b>4 MiB</b>.</li>
 <li>The reservation <b>MAY</b> be adjusted later by extend-and-move when required.</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md1247"></a>
+<h3><a class="anchor" id="autotoc_md1282"></a>
 6.2 Zero-fill</h3>
 <p>New extents and extended regions <b>MUST</b> be zero-filled prior to being visible to reads. This prevents data disclosure.</p>
-<h2><a class="anchor" id="autotoc_md1248"></a>
+<h2><a class="anchor" id="autotoc_md1283"></a>
 7. Implementation guidance: L1/L2 allocation caches</h2>
 <p>Although the in-memory mount context (<code>rfs_t</code>) is implementation-specific and out of scope for this document, a compliant, high-performance implementation <b>SHOULD</b> maintain multi-level summaries over the on-disk free-space map:</p>
 <ul>
@@ -365,7 +365,7 @@ Byte layout sketch</h4>
 <li>Total cache memory will typically be on the order of **200 MB per TiB** of formatted capacity; systems with constrained RAM <b>MAY</b> reduce group sizes at the cost of slower allocation.</li>
 <li>Where applicable, align L1 group size to device erase/stripe sizes to reduce write amplification.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md1249"></a>
+<h2><a class="anchor" id="autotoc_md1284"></a>
 8. Validation &amp; error handling</h2>
 <ul>
 <li>Mount <b>MUST</b> verify <code>identifier</code>, basic pointer ranges, and that root directory’s start entry has <code>RFS_FLAG_DIR_START</code> and <code>sectors == RFS_DEFAULT_DIR_SIZE</code>.</li>
@@ -373,9 +373,9 @@ Byte layout sketch</h4>
 <li>All I/O routines <b>MUST</b> fail cleanly on bounds violations.</li>
 <li>On partial failure during create/extend, implementations <b>SHOULD</b> prefer leaving the new extent marked used (space leak) over risking a dangling metadata reference.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md1250"></a>
+<h2><a class="anchor" id="autotoc_md1285"></a>
 9. Partition identification (GPT)</h2>
-<h3><a class="anchor" id="autotoc_md1251"></a>
+<h3><a class="anchor" id="autotoc_md1286"></a>
 RetroFS Partition Type GUID</h3>
 <p><b>Name:</b> RetroFS Partition <br  />
  <b>Use:</b> Identifies a GPT partition formatted with the RetroFS filesystem. <br  />
@@ -398,14 +398,14 @@ RetroFS Partition Type GUID</h3>
 </div><!-- fragment --><p><b>Kernel header</b></p>
 <div class="fragment"><div class="line"> </div>
 <div class="line"><span class="preprocessor">#define RFS_GPT_GUID &quot;4DEC1156-FEC8-4495-854B-20D888E21AF0&quot;</span></div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md1252"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md1287"></a>
 10. Security considerations</h2>
 <ul>
 <li>Zero-fill on allocation/extension prevents disclosure of previous contents.</li>
 <li>Reads <b>MUST NOT</b> expose bytes beyond <code>length</code> even if reserved space is larger.</li>
 <li>There is no journaling; callers <b>SHOULD</b> expect non-atomic metadata updates.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md1253"></a>
+<h2><a class="anchor" id="autotoc_md1288"></a>
 11. Versioning</h2>
 <ul>
 <li>This document defines <b>RetroFS v1</b> with <b>512-byte sectors</b> and fixed directory block size <b>64 sectors</b>.</li>
@@ -418,7 +418,7 @@ RetroFS Partition Type GUID</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="kernel-dev.html">Kernel Development</a></li>
-    <li class="footer">Generated on Sun Sep 14 2025 23:07:58 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Sep 15 2025 14:39:55 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

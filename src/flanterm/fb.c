@@ -832,3 +832,177 @@ struct flanterm_context *flanterm_fb_init(
 
 	return NULL;
 }
+
+
+/* Local helper to rebuild one glyph into font_bool, from ctx->font_bits. */
+static void rebuild_one(struct flanterm_fb_context *ctx_local, size_t g)
+{
+	size_t fh_local = ctx_local->font_height;
+	size_t fw_local = ctx_local->font_width;
+
+	/* Source: one byte per row, VGA-style. */
+	uint8_t *src = &ctx_local->font_bits[g * fh_local];
+
+	for (size_t y = 0; y < fh_local; y++) {
+		/* Destination row start in bool atlas. */
+		bool *dst_row = &ctx_local->font_bool[g * fh_local * fw_local + y * fw_local];
+
+		/* Columns 0..7 come from the bitplane (MSB-first). */
+		uint8_t row_bits = src[y];
+		for (size_t x = 0; x < 8 && x < fw_local; x++) {
+			dst_row[x] = (row_bits & (uint8_t)(0x80u >> x)) ? true : false;
+		}
+
+		/* Columns >= 8 follow VGA line-graphics rule: 0xC0–0xDF copies bit 0 into col 8;
+		 * all other glyphs clear extra columns. Remaining spacing columns are cleared.
+		 */
+		for (size_t x = 8; x < fw_local; x++) {
+			if (g >= 0xC0 && g <= 0xDF) {
+				dst_row[x] = (row_bits & 0x01u) ? true : false;
+			} else {
+				dst_row[x] = false;
+			}
+		}
+	}
+}
+
+void flanterm_fb_update_font(struct flanterm_context *_ctx, int glyph, const uint8_t *bitmap)
+{
+	struct flanterm_fb_context *ctx = (void *)_ctx;
+
+	size_t glyph_count = FLANTERM_FB_FONT_GLYPHS;
+	size_t fh = ctx->font_height;          /* source rows (bytes per row) */
+
+	/* Sanity: nothing to do if we have no buffers. */
+	if (ctx == NULL || ctx->font_bits == NULL || ctx->font_bool == NULL) {
+		return;
+	}
+
+	/* Path A: rebuild whole atlas. */
+	if (glyph < 0) {
+		for (size_t g = 0; g < glyph_count; g++) {
+			rebuild_one(ctx, g);
+			ft_mark_redefined(g);
+		}
+		return;
+	}
+
+	/* Path B: single-glyph update, if index valid. */
+	if ((size_t)glyph >= glyph_count) {
+		return;
+	}
+
+	/* If caller supplied a new bitmap, copy it into font_bits first. */
+	if (bitmap != NULL) {
+		uint8_t *dst = &ctx->font_bits[(size_t)glyph * fh];
+		for (size_t y = 0; y < fh; y++) {
+			dst[y] = bitmap[y];
+		}
+	}
+
+	/* Rebuild only this glyph into font_bool. */
+	rebuild_one(ctx, glyph);
+	ft_mark_redefined(glyph);
+}
+
+/* Draw a single glyph at an arbitrary pixel position, bypassing grid/queue.
+ * Fully clipped for negative x/y and partial visibility.
+ */
+void flanterm_fb_draw_glyph_px(struct flanterm_context *_ctx, uint8_t glyph, int32_t px, int32_t py, uint32_t fg_rgb, uint32_t bg_rgb, bool transparent_bg) {
+	struct flanterm_fb_context *ctx = (void *)_ctx;
+
+	uint32_t fg = convert_colour(_ctx, fg_rgb);
+	uint32_t bg = convert_colour(_ctx, bg_rgb);
+
+	int32_t fw = (int32_t)ctx->font_width;
+	int32_t fh = (int32_t)ctx->font_height;
+	int32_t sx = (int32_t)ctx->font_scale_x;
+	int32_t sy = (int32_t)ctx->font_scale_y;
+
+	int32_t gw = fw * sx;  /* glyph width in pixels */
+	int32_t gh = fh * sy;  /* glyph height in pixels */
+
+	if (py < ft_min_y) {
+		ft_min_y = py;
+	}
+	if (py + gh > ft_max_y) {
+		ft_max_y = py + gh;
+	}
+
+	int32_t max_x = (int32_t)ctx->width;
+	int32_t max_y = (int32_t)ctx->height;
+
+	/* Trivial reject if entirely off-screen. Use 64-bit to avoid mul overflow paranoia. */
+	if ((int64_t)px >= (int64_t)max_x || (int64_t)py >= (int64_t)max_y) {
+		return;
+	}
+	if ((int64_t)px + (int64_t)gw <= 0 || (int64_t)py + (int64_t)gh <= 0) {
+		return;
+	}
+
+	bool *glyph_bits = &ctx->font_bool[(size_t)glyph * (size_t)fh * (size_t)fw];
+
+	for (int32_t gy = 0; gy < gh; gy++) {
+		int32_t y = py + gy;
+		if (y < 0) {
+			continue;
+		}
+		if (y >= max_y) {
+			break;
+		}
+
+		int32_t fy = gy / sy;
+		volatile uint32_t *fb_line = ctx->framebuffer + (size_t)y * (ctx->pitch / sizeof(uint32_t));
+
+		for (int32_t fx = 0; fx < fw; fx++) {
+			bool bit = glyph_bits[fy * fw + fx];
+
+			/* Horizontal scaling with full left/right clipping */
+			int32_t x0 = px + fx * sx;
+			for (int32_t rep = 0; rep < sx; rep++) {
+				int32_t x = x0 + rep;
+				if (x < 0) {
+					continue;
+				}
+				if (x >= max_x) {
+					break;
+				}
+				if (bit) {
+					fb_line[x] = fg;
+				} else if (!transparent_bg) {
+					fb_line[x] = bg;
+				}
+			}
+		}
+	}
+}
+
+void flanterm_fb_draw_text_px(struct flanterm_context *_ctx, const char *s, int32_t px, int32_t py, uint32_t fg_rgb, uint32_t bg_rgb, bool transparent_bg) {
+	struct flanterm_fb_context *ctx = (void *)_ctx;
+
+	int32_t pen_x = px;
+	int32_t pen_y = py;
+
+	int32_t adv_x = (int32_t)ctx->font_width * (int32_t)ctx->font_scale_x;
+	int32_t adv_y = (int32_t)ctx->font_height * (int32_t)ctx->font_scale_y;
+
+	for (const unsigned char *p = (const unsigned char *)s; *p != '\0'; p++) {
+		unsigned char ch = *p;
+
+		if (ch == '\n') {
+			pen_x = px;
+			pen_y += adv_y;
+			continue;
+		}
+
+		flanterm_fb_draw_glyph_px(_ctx, ch, pen_x, pen_y, fg_rgb, bg_rgb, transparent_bg);
+
+		/* Advance; safe even if we just drew off-screen thanks to per-glyph clipping */
+		pen_x += adv_x;
+
+		/* Optional early-stop if we have moved past the right edge by a full glyph */
+		if ((int64_t)pen_x >= (int64_t)ctx->width && pen_y >= (int32_t)ctx->height) {
+			break;
+		}
+	}
+}

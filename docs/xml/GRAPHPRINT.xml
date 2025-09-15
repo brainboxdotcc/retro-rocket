@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="GRAPHPRINT" kind="page">
+    <compoundname>GRAPHPRINT</compoundname>
+    <title>GRAPHPRINT Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">GRAPHPRINT<sp/>x,<sp/>y,<sp/>printable</highlight></codeline>
+</programlisting></para>
+<para>Draws text directly onto the graphics framebuffer at <bold>pixel coordinates</bold>. Unlike <computeroutput>PRINT</computeroutput>, <computeroutput>GRAPHPRINT</computeroutput> does not use or update the text cursor. Each call is independent.</para>
+<para><hruler/>
+</para>
+<sect3 id="GRAPHPRINT_1autotoc_md806">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para><computeroutput>(x, y)</computeroutput> are <bold>pixel coordinates</bold> measured from the top-left corner of the screen.</para>
+</listitem><listitem><para><computeroutput>printable</computeroutput> is the same syntax accepted by <computeroutput>PRINT</computeroutput>: a list of values separated by commas or semicolons.<itemizedlist>
+<listitem><para><bold>Strings</bold> are rendered literally.</para>
+</listitem><listitem><para><bold>Numeric values</bold> are converted to their string form.</para>
+</listitem><listitem><para><computeroutput>;</computeroutput> continues text without spacing.</para>
+</listitem><listitem><para><computeroutput>,</computeroutput> advances to the next tab stop (multiple of text column width).</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para>Text is rendered using the current <bold>graphics colour</bold> (<computeroutput>GCOL</computeroutput>) for the foreground.</para>
+</listitem><listitem><para>The background is always <bold>transparent</bold>; existing pixels are left unchanged.</para>
+</listitem><listitem><para>The function clips safely against screen edges; partially visible text is drawn correctly.</para>
+</listitem><listitem><para>All 8-bit codes <computeroutput>0x00–0xFF</computeroutput> map directly to glyphs, including those redefined with <computeroutput>VDU 23</computeroutput>. No UTF-8 decoding is applied.</para>
+</listitem><listitem><para>Each call draws at the specified location only. There is no graphics cursor or scrolling.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="GRAPHPRINT_1autotoc_md808">
+<title>Errors</title>
+<para><itemizedlist>
+<listitem><para>An error occurs if <computeroutput>x</computeroutput> or <computeroutput>y</computeroutput> are not numeric.</para>
+</listitem><listitem><para>An error occurs if <computeroutput>printable</computeroutput> is omitted.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="GRAPHPRINT_1autotoc_md810">
+<title>Examples</title>
+<para><bold>Draw a label in magenta</bold></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">GCOL<sp/>&amp;FF00FF</highlight></codeline>
+<codeline><highlight class="normal">GRAPHPRINT<sp/>100,<sp/>40,<sp/>&quot;SCORE:&quot;,<sp/>SCORE</highlight></codeline>
+</programlisting></para>
+<para><bold>Overlay transparent HUD text</bold></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">GCOL<sp/>&amp;FFFFFF</highlight></codeline>
+<codeline><highlight class="normal">GRAPHPRINT<sp/>8,<sp/>8,<sp/>&quot;READY!&quot;;</highlight></codeline>
+</programlisting></para>
+<para><bold>Use a redefined glyph</bold></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">VDU<sp/>23,65,&amp;3C,&amp;7E,&amp;FF,&amp;E7,&amp;FF,&amp;66,&amp;66,&amp;00</highlight></codeline>
+<codeline><highlight class="normal">GRAPHPRINT<sp/>120,<sp/>100,<sp/>&quot;AAAAAAAAAAA&quot;</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="GRAPHPRINT_1autotoc_md812">
+<title>See also</title>
+<para><itemizedlist>
+<listitem><para><ref refid="PRINT" kindref="compound">PRINT</ref> - text output in the scrolling text grid.</para>
+</listitem><listitem><para><ref refid="GCOL" kindref="compound">GCOL</ref> - set graphics colour (0xRetro RocketGGBB).</para>
+</listitem><listitem><para><ref refid="LINE" kindref="compound">LINE</ref> - draw lines (used by <computeroutput>VDU 25</computeroutput> in Retro Rocket).</para>
+</listitem><listitem><para><ref refid="VDU" kindref="compound">VDU</ref> - redefine character bitmaps used by both <computeroutput>PRINT</computeroutput> and <computeroutput>GRAPHPRINT</computeroutput>. </para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/GRAPHPRINT.md"/>
+  </compounddef>
+</doxygen>

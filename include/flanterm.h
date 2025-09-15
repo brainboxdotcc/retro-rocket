@@ -76,6 +76,8 @@ void flanterm_set_oob_output(struct flanterm_context *ctx, uint64_t oob_output);
 int64_t flanterm_ex_get_bounding_min_y();
 int64_t flanterm_ex_get_bounding_max_y();
 
+void ft_mark_redefined(uint8_t c);
+
 #ifdef __cplusplus
 }
 #endif

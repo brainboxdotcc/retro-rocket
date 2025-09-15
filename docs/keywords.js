@@ -43,6 +43,7 @@ var keywords =
     [ "GLOBAL Keyword", "GLOBAL.html", null ],
     [ "GOSUB Keyword", "GOSUB.html", null ],
     [ "GOTO Keyword", "GOTO.html", null ],
+    [ "GRAPHPRINT Keyword", "GRAPHPRINT.html", null ],
     [ "IF Keyword", "IF.html", null ],
     [ "INPUT Keyword", "INPUT.html", null ],
     [ "KEYMAP Keyword", "KEYMAP.html", null ],
@@ -96,6 +97,7 @@ var keywords =
     [ "UDPUNBIND Keyword", "UDPUNBIND.html", null ],
     [ "UDPWRITE Keyword", "UDPWRITE.html", null ],
     [ "UNTIL Keyword", "UNTIL.html", null ],
+    [ "VDU Keyword", "VDU.html", null ],
     [ "WHILE Keyword", "WHILE.html", null ],
     [ "WRITE Keyword", "WRITE.html", null ],
     [ "YIELD Keyword", "YIELD.html", null ]

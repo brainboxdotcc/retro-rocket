@@ -210,7 +210,6 @@ void dputstring(const char* message)
  */
 void putstring(const char* message)
 {
-	//dputstring(message);
 	ft_write(ft_ctx, message, strlen(message));
 }
 
@@ -480,4 +479,16 @@ void set_video_dirty_area(int64_t start, int64_t end)
 		video_dirty_end = end;
 	}
 
+}
+
+void redefine_character(unsigned char c, uint8_t bitmap[8]) {
+	flanterm_fb_update_font(ft_ctx, c, bitmap);
+}
+
+void graphics_putstring(const char *s, int64_t x, int64_t y, int32_t colour) {
+	if (!s) {
+		return;
+	}
+	flanterm_fb_draw_text_px(ft_ctx, s, x, y, colour, 0, true);
+	set_video_dirty_area(flanterm_ex_get_bounding_min_y(), flanterm_ex_get_bounding_max_y());
 }

@@ -9,7 +9,7 @@
 <para>The interactive shell used to execute commands and run programs. Launched by <computeroutput>init</computeroutput>.</para>
 <para><image type="html" name="rocketsh.png"></image>
 </para>
-<sect4 id="rocketsh_1autotoc_md1270">
+<sect4 id="rocketsh_1autotoc_md1305">
 <title>Command line entry</title>
 <para>The <computeroutput>rocketsh</computeroutput> shell supports command line editing. You may use the cursor <computeroutput>LEFT</computeroutput> and <computeroutput>RIGHT</computeroutput> keys plus <computeroutput>HOME</computeroutput> and <computeroutput>END</computeroutput> to navigate in the current line and edit it, inserting into the line if neccessary.</para>
 <para>Alternately, you can use the cursor <computeroutput>UP</computeroutput> and <computeroutput>DOWN</computeroutput> keys to move through the history of recently entered commands. If you edit one of these commands or send it, it will be inserted into the history again as the latest command.</para>
@@ -17,16 +17,16 @@
 <para>Pressing <computeroutput>ESC</computeroutput> will abort the current line entry, clearing its contents and advancing down to the line below.</para>
 <para>These interactive line editing facilities are also available to any other BASIC programs via the <computeroutput>ansi</computeroutput> library.</para>
 </sect4>
-<sect4 id="rocketsh_1autotoc_md1271">
+<sect4 id="rocketsh_1autotoc_md1306">
 <title>Rocket Shell Commands</title>
 <para>The <computeroutput>rocketsh</computeroutput> shell supports two forms of input; firstly any command you type is searched for as a program under the <computeroutput>/programs</computeroutput> directory. If it can be found it is executed. The path under which <computeroutput>rocketsh</computeroutput> searches for programs to run can be changed, as shown below.</para>
 <para>If no matching program can be found, the line is passed to <ref refid="EVAL" kindref="compound">EVAL</ref> instead and any changes to the program state will be inherited by <computeroutput>rocketsh</computeroutput>, including documented variables below.</para>
 </sect4>
-<sect4 id="rocketsh_1autotoc_md1272">
+<sect4 id="rocketsh_1autotoc_md1307">
 <title>Stopping running programs</title>
 <para>Any running program may be stopped by pressing CTRL+ESC at any time. This will raise an error in the program and if it does not trap the error, it will be ended. Errors of this nature in <computeroutput>rocketsh</computeroutput> are gracefully handled, and will end entry of the current command line.</para>
 </sect4>
-<sect4 id="rocketsh_1autotoc_md1273">
+<sect4 id="rocketsh_1autotoc_md1308">
 <title>Shell Variables</title>
 <para>The <computeroutput>rocketsh</computeroutput> shell has several documented variables, which can be set via the command prompt. These are:</para>
 <para><heading level="5">PROMPT$</heading>
@@ -52,7 +52,7 @@
 </para>
 <para>Returns a value from the edit history. Each time a line is typed into <computeroutput>rocketsh</computeroutput> it is stored into the edit history, with the most recent line stored at array index 0.</para>
 </sect4>
-<sect4 id="rocketsh_1autotoc_md1274">
+<sect4 id="rocketsh_1autotoc_md1309">
 <title>EDhistPtr</title>
 <para>Returns the last array index in the edit history array which contains valid data. </para>
 </sect4>

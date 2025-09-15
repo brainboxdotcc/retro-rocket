@@ -149,21 +149,10 @@ void gotoxy_statement(struct basic_ctx* ctx)
 	accept_or_return(NEWLINE, ctx);
 }
 
-void print_statement(struct basic_ctx* ctx)
-{
+void print_statement(struct basic_ctx* ctx) {
 	accept_or_return(PRINT, ctx);
 	const char* out = printable_syntax(ctx);
 	if (out) {
-		if (strncmp(out, "***DEBUG ON***",14) == 0) {
-			debug = true;
-			dprintf("BASIC DEBUG TRACE ENABLED\n");
-			return;
-		}
-		if (strncmp(out, "***DEBUG OFF***",15) == 0) {
-			debug = false;
-			dprintf("BASIC DEBUG TRACE DISABLED\n");
-			return;
-		}
 		uint64_t flags;
 		lock_spinlock_irq(&console_spinlock, &flags);
 		lock_spinlock(&debug_console_spinlock);
@@ -171,6 +160,197 @@ void print_statement(struct basic_ctx* ctx)
 		unlock_spinlock(&debug_console_spinlock);
 		unlock_spinlock_irq(&console_spinlock, flags);
 	}
+}
+
+void graphprint_statement(struct basic_ctx* ctx) {
+	accept_or_return(GRAPHPRINT, ctx);
+	int64_t x = expr(ctx);
+	accept_or_return(COMMA, ctx);
+	int64_t y = expr(ctx);
+	accept_or_return(COMMA, ctx);
+	const char* out = printable_syntax(ctx);
+	if (out) {
+		graphics_putstring(out, x, y, ctx->graphics_colour);
+	}
+}
+
+void vdu_statement(struct basic_ctx* ctx) {
+	uint64_t current_x, current_y;
+	get_text_position(&current_x, &current_y);
+	accept_or_return(VDU, ctx);
+	int64_t primary = expr(ctx);
+	switch (primary) {
+		case 0:
+			/* Intentional non-op */
+		case 1:
+			/* Next character to printer only - unsupported */
+		case 2:
+			/* Printer enable - unsupported */
+		case 3:
+			/* Printer disable - unsupported */
+		case 4:
+			/* Text to text cursor position - unsupported */
+		case 5:
+			/* Text to graphics cursor position - unsupported */
+		case 6:
+			/* Enable text output to screen */
+			break;
+		case 7:
+			beep(1000);
+			break;
+		case 8: {
+			/* Move back one character */
+			if (current_x == 0) {
+				current_x = get_text_width() - 1;
+				if (current_y > 0) {
+					current_y--;
+				}
+			} else {
+				current_x--;
+			}
+			gotoxy(current_x, current_y);
+			break;
+		}
+		case 9: {
+			/* Move back one character */
+			if (current_x == get_text_width() - 1) {
+				put(' '); // Forces scrolling
+				current_x = 0;
+				current_y++;
+			} else {
+				current_x++;
+			}
+			gotoxy(current_x, current_y);
+			break;
+		}
+		case 10: {
+			/* Move down one line */
+			if (current_y == get_text_height() - 1) {
+				put('\n');
+			} else {
+				current_y++;
+				gotoxy(current_x, current_y);
+			}
+			break;
+		}
+		case 11: {
+			/* Move up one line */
+			if (current_y != 0) {
+				current_y--;
+				gotoxy(current_x, current_y);
+			}
+			break;
+		}
+		case 12: // CLS
+		case 16: // CLG
+			clearscreen();
+			break;
+		case 13:
+			/* Move to start of line */
+			current_x = 0;
+			gotoxy(current_x, current_y);
+			break;
+		case 14:
+			/* Auto paging mode on - unsupported */
+			break;
+		case 15:
+			/* Auto paging mode off - unsupported */
+			break;
+		case 18: {
+			/* Set graphics colour */
+			accept_or_return(COMMA, ctx);
+			ctx->graphics_colour = expr(ctx);
+			break;
+		}
+		case 19:
+			/* Set colour pallete - unsupported */
+			break;
+		case 20:
+			/* Reset to default graphics colour */
+			ctx->graphics_colour = 0xffffff;
+			break;
+		case 21:
+			/* Disable VDU until VDU 6 - unsupported */
+			break;
+		case 22:
+			/* Switch video modes - unsupported */
+			break;
+		case 23:
+			/* Redefine character code */
+			accept_or_return(COMMA, ctx);
+			uint8_t character = (uint8_t) expr(ctx) & 0xFF;
+			if (character >= 32) {
+				uint8_t definition[8];
+				for (int horizontal = 0; horizontal < 8; ++horizontal) {
+					accept_or_return(COMMA, ctx);
+					definition[horizontal] = expr(ctx) & 0xFF;
+				}
+				redefine_character(character, definition);
+			} else {
+				switch (character) {
+					case 0: {
+						/* Set text cursor width - unsupported */
+						break;
+					}
+					case 1: {
+						/* Disable or enable text cursor - unsupported */
+						accept_or_return(COMMA, ctx);
+						uint8_t enable = (uint8_t) expr(ctx) & 0xFF;
+						putstring(enable ? "\033[?25h" : "\033[?25l");
+						break;
+					}
+					case 7: {
+						/* Scroll text viewport - unsupported */
+						break;
+					}
+					case 16: {
+						/* Cursor movement defaults - unsupported */
+						break;
+					}
+					default:
+						break;
+				}
+			}
+			break;
+		case 24:
+			/* Set graphics viewport - unsupported */
+			break;
+		case 25:
+			/* Draw line */
+			ctx->current_token = LINE;
+			draw_line_statement(ctx);
+			break;
+		case 26:
+			/* Reset graphics and text viewports - unsupported */
+			break;
+		case 27:
+			/* Write single character */
+			put(expr(ctx));
+			break;
+		case 28:
+			/* Define text viewport - unsupported */
+			break;
+		case 29:
+			/* Set graphics origin - unsupported */
+			break;
+		case 30:
+			/* Home cursor */
+			gotoxy(0, 0);
+			break;
+		case 31:
+			/* Move to position */
+			gotoxy(expr(ctx), expr(ctx));
+			break;
+		case 127:
+			/* Backspace-delete */
+			put(8);
+			break;
+	}
+	while (tokenizer_token(ctx) == COMMA) {
+		tokenizer_next(ctx);
+		(void)expr(ctx); // Discard trailing numbers
+	}
+	accept_or_return(NEWLINE, ctx);
 }
 
 void colour_statement(struct basic_ctx* ctx)

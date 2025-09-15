@@ -82,6 +82,7 @@ The following parameter types are used throughout this documentation:
 * \subpage GLOBAL
 * \subpage GOSUB
 * \subpage GOTO
+* \subpage GRAPHPRINT
 * \subpage IF
 * \subpage INPUT
 * \subpage KEYMAP
@@ -135,6 +136,7 @@ The following parameter types are used throughout this documentation:
 * \subpage UDPUNBIND
 * \subpage UDPWRITE
 * \subpage UNTIL
+* \subpage VDU
 * \subpage WHILE
 * \subpage WRITE
 * \subpage YIELD

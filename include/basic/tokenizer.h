@@ -188,6 +188,8 @@ typedef void (*keyword_handler_t)(struct basic_ctx*);
     T(SOCKBINREAD, STMT, sockbinread_statement)		/* 116 */ \
     T(BINREAD, STMT, readbinary_statement) 		/* 117 */ \
     T(BINWRITE, STMT, writebinary_statement) 		/* 118 */ \
+    T(GRAPHPRINT, STMT, graphprint_statement) 		/* 118 */ \
+    T(VDU, STMT, vdu_statement) 			/* 118 */ \
 
 GENERATE_ENUM_LIST(TOKEN, token_t)
 

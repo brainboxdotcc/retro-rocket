@@ -23,35 +23,8 @@ void kmain()
 		preboot_fail("Failed to mount boot drive to VFS!");
 	}
 
-
-	/*load_module("e1000");
-	unsigned char ip[4];
-	dprintf("Waiting for net to be ready\n");
-	while (!gethostaddr(ip)) {
-		__asm__ volatile("pause");
-	};
-	dprintf("listening 2000\n");
-	int server = tcp_listen(0, 2000, 5);
-	int client = -1;
-	if (server < 0) {
-		dprintf("Listen failure\n");
-	} else {
-		dprintf("waiting for client connection\n");
-		while ((client = tcp_accept(server)) < 0) {
-			__asm__ volatile("pause");
-		};
-		dprintf("Sending reply\n");
-		send(client, "HELLORLD", 8);
-		uint64_t ticks = get_ticks();
-		while (get_ticks() - ticks < 3000) {
-			tcp_idle();
-			__asm__ volatile("pause");
-		}
-		dprintf("Closing client\n");
-		closesocket(client);
-		dprintf("Closing server\n");
-		closesocket(server);
-	}*/
+	redefine_character(0xAA, (uint8_t[8]){0x3C, 0x7E, 0xFF, 0xE7, 0xFF, 0x66, 0x66, 0x00});
+	graphics_putstring("\xAA\xAA\xAA TEST \xAA\xAA\xAA", 640, 768 / 2, 0xff8080);
 
 	init_process();
 }

@@ -209,7 +209,7 @@ void tokenizer_init(const char *program, struct basic_ctx* ctx)
 	ctx->current_token = get_next_token(ctx);
 }
 
-enum token_t  tokenizer_token(struct basic_ctx* ctx)
+enum token_t tokenizer_token(struct basic_ctx* ctx)
 {
 	return ctx->current_token;
 }

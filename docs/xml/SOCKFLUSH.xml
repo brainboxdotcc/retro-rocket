@@ -13,7 +13,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="SOCKFLUSH_1autotoc_md1001">
+<sect3 id="SOCKFLUSH_1autotoc_md1009">
 <title>How to use it</title>
 <para><itemizedlist>
 <listitem><para><computeroutput>integer-variable</computeroutput> must contain a socket handle returned by <ref refid="CONNECT" kindref="compound">CONNECT</ref> or <ref refid="SOCKACCEPT" kindref="compound">SOCKACCEPT</ref>.</para>
@@ -28,7 +28,7 @@
 <hruler/>
 </para>
 </sect3>
-<sect3 id="SOCKFLUSH_1autotoc_md1003">
+<sect3 id="SOCKFLUSH_1autotoc_md1011">
 <title>Examples</title>
 <para><bold>Send a line, flush, then close</bold></para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">server<sp/>=<sp/>SOCKLISTEN(NETINFO$(&quot;ip&quot;),<sp/>2000,<sp/>5)</highlight></codeline>
@@ -49,7 +49,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="SOCKFLUSH_1autotoc_md1005">
+<sect3 id="SOCKFLUSH_1autotoc_md1013">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>If the socket has no pending data, <computeroutput>SOCKFLUSH</computeroutput> returns immediately.</para>
