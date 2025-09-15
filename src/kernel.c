@@ -23,8 +23,5 @@ void kmain()
 		preboot_fail("Failed to mount boot drive to VFS!");
 	}
 
-	redefine_character(0xAA, (uint8_t[8]){0x3C, 0x7E, 0xFF, 0xE7, 0xFF, 0x66, 0x66, 0x00});
-	graphics_putstring("\xAA\xAA\xAA TEST \xAA\xAA\xAA", 640, 768 / 2, 0xff8080);
-
 	init_process();
 }
