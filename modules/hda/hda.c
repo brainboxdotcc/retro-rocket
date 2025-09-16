@@ -261,6 +261,38 @@ static int power_and_unmute(void) {
 	return 0;
 }
 
+/* Allocates the 2-entry BDL and two half-buffers for SD0.
+   Keeps g.half_bytes if already set; otherwise defaults to 16 KiB (multiple of 128). */
+static int alloc_stream0_buffers(void) {
+	if (g.half_bytes == 0) g.half_bytes = 16384u;   /* 16 KiB per half */
+
+	/* --- BDL: two entries, 128-byte aligned --- */
+	uint8_t *bdl_raw = (uint8_t *)kmalloc_low(sizeof(struct hda_bdl_entry) * 2u + 128u);
+	if (!bdl_raw) return -1;
+	uintptr_t bdl_al = ((uintptr_t)bdl_raw + 127u) & ~(uintptr_t)127u;
+	g.bdl      = (struct hda_bdl_entry *)bdl_al;
+	g.bdl_phys = (uint64_t)bdl_al;
+
+	/* --- Two audio halves, 128-byte aligned --- */
+	uint8_t *a_raw = (uint8_t *)kmalloc_low(g.half_bytes + 128u);
+	uint8_t *b_raw = (uint8_t *)kmalloc_low(g.half_bytes + 128u);
+	if (!a_raw || !b_raw) return -1;
+
+	uintptr_t a_al = ((uintptr_t)a_raw + 127u) & ~(uintptr_t)127u;
+	uintptr_t b_al = ((uintptr_t)b_raw + 127u) & ~(uintptr_t)127u;
+
+	g.buf_a      = (uint8_t *)a_al;
+	g.buf_b      = (uint8_t *)b_al;
+	g.buf_a_phys = (uint64_t)a_al;
+	g.buf_b_phys = (uint64_t)b_al;
+
+	memset(g.buf_a, 0, g.half_bytes);
+	memset(g.buf_b, 0, g.half_bytes);
+
+	return 0;
+}
+
+
 static uint16_t fmt_48k_s16le_stereo(void) {
 	/* SDnFMT: [14:11] rate (48 kHz => 0), [7:4] bits code (16-bit => 1), [3:0] channels-1 (2ch => 1) */
 	const uint16_t SR_48K = 0u << 11;
@@ -269,37 +301,40 @@ static uint16_t fmt_48k_s16le_stereo(void) {
 	return (uint16_t)(SR_48K | BITS16 | CH2); /* 0x0011 */
 }
 
+/* Minimal engine bring-up: NO codec verbs here.
+   Goal: make SD0 DMA actually run so LPIB advances.
+   Assumes g.bdl, g.bdl_phys, g.buf_a/_phys, g.buf_b/_phys are already set. */
 static int stream0_setup(void) {
+	if (!g.bdl || !g.buf_a || !g.buf_b) {
+		dprintf("hda: stream0_setup: buffers not ready\n");
+		return -1;
+	}
+
+	/* Choose tag 1; keep existing half size (or default) */
 	g.stream_id  = 1;
-	g.half_bytes = 16384u; /* 4096 frames * 4 bytes/frame ≈ 85 ms */
+	if (g.half_bytes == 0) g.half_bytes = 16384u;   /* 16 KiB per half (multiple of 128) */
 
-	/* Allocate and 128B-align BDL and halves (<4 GiB phys) */
-	uint8_t *bdl_raw = (uint8_t *)kmalloc_low(sizeof(struct hda_bdl_entry) * 2u + 128u);
-	if (!bdl_raw) return -1;
-	uintptr_t bdl_al = ((uintptr_t)bdl_raw + 127u) & ~(uintptr_t)127u;
-	g.bdl      = (struct hda_bdl_entry *)bdl_al;
-	g.bdl_phys = (uint64_t)bdl_al;
+	/* ---------------- SRST handshake (spec requires 1→0 transition) ---------------- */
+	{
+		uint8_t ctl = mmio_read8(g.mmio + HDA_SD0CTL);
+		mmio_write8(g.mmio + HDA_SD0CTL, ctl | SDCTL_SRST);
+		/* wait until SRST is observed as 1 */
+		for (int i = 0; i < 1000; i++) {
+			if (mmio_read8(g.mmio + HDA_SD0CTL) & SDCTL_SRST) break;
+			delay_us(10);
+		}
+		mmio_write8(g.mmio + HDA_SD0CTL, ctl & (uint8_t)~SDCTL_SRST);
+		/* wait until SRST drops to 0 */
+		for (int i = 0; i < 1000; i++) {
+			if ((mmio_read8(g.mmio + HDA_SD0CTL) & SDCTL_SRST) == 0) break;
+			delay_us(10);
+		}
+	}
 
-	uint8_t *a_raw = (uint8_t *)kmalloc_low(g.half_bytes + 128u);
-	uint8_t *b_raw = (uint8_t *)kmalloc_low(g.half_bytes + 128u);
-	if (!a_raw || !b_raw) return -1;
-	uintptr_t a_al = ((uintptr_t)a_raw + 127u) & ~(uintptr_t)127u;
-	uintptr_t b_al = ((uintptr_t)b_raw + 127u) & ~(uintptr_t)127u;
-	g.buf_a = (uint8_t *)a_al; g.buf_a_phys = (uint64_t)a_al;
-	g.buf_b = (uint8_t *)b_al; g.buf_b_phys = (uint64_t)b_al;
-	memset(g.buf_a, 0, g.half_bytes);
-	memset(g.buf_b, 0, g.half_bytes);
-
-	/* Reset SD0 */
-	uint32_t ctl0 = RD(HDA_SD0CTL);
-	WR(HDA_SD0CTL, ctl0 | SDCTL_SRST);
-	delay_us(10);
-	WR(HDA_SD0CTL, ctl0 & ~SDCTL_SRST);
-
-	/* Program BDL (BDPL/BDPU at 0x98/0x9C) and buffer sizes */
+	/* ---------------- 2-entry BDL (ping-pong) ---------------- */
 	g.bdl[0].addr_lo = (uint32_t)(g.buf_a_phys & 0xffffffffu);
 	g.bdl[0].addr_hi = (uint32_t)(g.buf_a_phys >> 32);
-	g.bdl[0].length  = g.half_bytes;
+	g.bdl[0].length  = g.half_bytes;   /* MUST be multiple of 128 */
 	g.bdl[0].flags   = 0;
 
 	g.bdl[1].addr_lo = (uint32_t)(g.buf_b_phys & 0xffffffffu);
@@ -307,29 +342,39 @@ static int stream0_setup(void) {
 	g.bdl[1].length  = g.half_bytes;
 	g.bdl[1].flags   = 0;
 
+	/* ---------------- Program SD0 in strict order ----------------
+	   BDPL/BDPU → CBL (total bytes) → LVI (last descriptor index) → FMT */
 	WR(HDA_SD0BDPL, (uint32_t)(g.bdl_phys & 0xffffffffu));
 	WR(HDA_SD0BDPU, (uint32_t)(g.bdl_phys >> 32));
+
 	WR(HDA_SD0CBL,  g.half_bytes * 2u);
-	WR16(HDA_SD0LVI, 1u); /* two entries: 0..1 */
+	WR16(HDA_SD0LVI, 1u);  /* 2 entries: indices 0 and 1 → last index = 1 */
 
-	/* Set PCM format at 0x92 */
-	uint16_t fmt = fmt_48k_s16le_stereo();
-	WR16(HDA_SD0FMT, fmt);
+	/* 48 kHz / 16-bit / 2-ch → SDnFMT = 0x0011 */
+	WR16(HDA_SD0FMT, fmt_48k_s16le_stereo());
 
-	/* Tell the converter (stream/tag + format) */
-	uint32_t r;
-	if (send_verb(g.codec, g.dac, VERB_SET_CONV_STREAM_CHAN, (uint16_t)(g.stream_id << 4), &r) != 0) return -1;
-	if (send_verb(g.codec, g.dac, VERB_SET_CONV_FMT, fmt, &r) != 0) return -1;
+	/* ---------------- Set Stream ID nibble (bits 23:20) safely ----------------
+	   Do NOT blast the whole dword; update just the [23:20] nibble at offset 0x80+2. */
+	{
+		uint8_t tag = (uint8_t)((g.stream_id & 0x0Fu) << 4);      /* nibble in high half of this byte */
+		uint8_t b2  = mmio_read8(g.mmio + HDA_SD0CTL + 2);        /* byte at offset +2 contains bits 23:16 */
+		b2 = (uint8_t)((b2 & 0x0Fu) | tag);
+		mmio_write8(g.mmio + HDA_SD0CTL + 2, b2);
+	}
 
-	/* Write Stream ID into SD0CTL bits [23:20] to match converter tag */
-	uint32_t ctl = RD(HDA_SD0CTL);
-	ctl &= ~(0xFu << 20);
-	ctl |= ((uint32_t)(g.stream_id & 0x0Fu)) << 20;
-	WR(HDA_SD0CTL, ctl);
+	/* ---------------- Clear sticky status and START ---------------- */
+	mmio_write8(g.mmio + HDA_SD0STS, 0xFF);          /* W1C all per-stream status bits */
+	{
+		uint8_t ctl = mmio_read8(g.mmio + HDA_SD0CTL);
+		mmio_write8(g.mmio + HDA_SD0CTL, (uint8_t)(ctl | SDCTL_RUN));  /* set RUN bit only */
+	}
 
-	/* Ack stale status and RUN */
-	WR8(HDA_SD0STS, RD(HDA_SD0STS));  /* write back to clear W1C bits */
-	WR(HDA_SD0CTL, ctl | SDCTL_RUN);
+	/* Tiny visibility: read back key fields */
+	dprintf("hda: stream0 armed (CBL=%u LVI=%u FMT=0x%04x CTL[2]=0x%02x RUN=%d)\n",
+		RD(HDA_SD0CBL), RD16(HDA_SD0LVI), RD16(HDA_SD0FMT),
+		mmio_read8(g.mmio + HDA_SD0CTL + 2),
+		!!(mmio_read8(g.mmio + HDA_SD0CTL) & SDCTL_RUN));
+
 	return 0;
 }
 
@@ -341,50 +386,59 @@ bool hda_start(pci_dev_t dev) {
 		dprintf("hda: BAR0 not MMIO\n");
 		return false;
 	}
+
 	g.mmio = pci_mem_base(bar0);
 	kprintf("hda: mmio base %lx\n", (uint64_t)g.mmio);
 	pci_bus_master(dev);
 
-	/* Global reset with ≥1 ms guard after CRST=1 */
+	/* Controller reset (+ your version already enforces a small post-CRST delay) */
 	if (hda_global_reset() != 0) {
 		dprintf("hda: global reset failed\n");
 		return false;
 	}
 
-	/* === YOUR QUESTION: the immediate probe goes RIGHT HERE === */
+	/* (Optional but handy) quick immediate GET_PARAMETER probe for sanity */
 	{
 		uint32_t resp = 0;
-		if (!hda_send_verb_immediate(0 /* CAd0 */, 0 /* NID0 */,
-					     0xF00 /* GET_PARAMETER */,
-					     0x00  /* VENDOR_ID param */,
-					     &resp)) {
+		if (!hda_send_verb_immediate(0, 0, 0xF00, 0x00, &resp)) {
 			dprintf("hda: immediate GET_PARAMETER(VENDOR_ID) failed\n");
 			return false;
 		}
 		dprintf("hda: codec0 root vendor/device = 0x%08x\n", resp);
 	}
-	/* === end of immediate probe === */
 
+	/* CORB/RIRB engine (your current version) */
 	if (corb_rirb_init() != 0) {
 		dprintf("hda: corb/rirb init failed\n");
 		return false;
 	}
 
+	/* Minimal path selection (or your fallback) */
 	if (pick_output_path() != 0) {
 		g.codec = 0; g.afg = 1; g.pin = 0x14u; g.dac = 0x02u;
 		dprintf("hda: using fallback pin 0x14 → dac 0x02\n");
 	}
 
+	/* Power, EAPD, unmute (your existing function) */
 	if (power_and_unmute() != 0) {
 		dprintf("hda: power/unmute failed\n");
 		return false;
 	}
+
+	/* >>> NEW: make sure the buffers/BDL actually exist before stream bring-up <<< */
+	if (alloc_stream0_buffers() != 0) {
+		dprintf("hda: buffer allocation failed\n");
+		return false;
+	}
+
+	/* Start SD0 DMA */
 	if (stream0_setup() != 0) {
 		dprintf("hda: stream setup failed\n");
 		return false;
 	}
 
-	kprintf("hda: ready (codec %u, afg %u, pin 0x%u, dac 0x%u)\n", (uint32_t)g.codec, (uint32_t)g.afg, (uint32_t)g.pin, (uint32_t)g.dac);
+	kprintf("hda: ready (codec %u, afg %u, pin 0x%u, dac 0x%u)\n",
+		(uint32_t)g.codec, (uint32_t)g.afg, (uint32_t)g.pin, (uint32_t)g.dac);
 	return true;
 }
 
