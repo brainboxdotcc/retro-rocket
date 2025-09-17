@@ -85,6 +85,7 @@
 #include "serial.h"
 #include "debug_ringbuffer.h"
 #include "module.h"
+#include "audio.h"
 
 #define assert(expr, message) if (!(expr)) { \
 	kprintf("Assertion failure at %s:%d: %s\n", __FILE__, __LINE__, message); \

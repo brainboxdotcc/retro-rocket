@@ -1,66 +1,50 @@
+/**
+ * @file modules/ac97/ac97.c
+ * @author Craig Edwards (craigedwards@brainbox.cc)
+ * @copyright Copyright (c) 2012-2025
+ */
 #include <kernel.h>
 #include "ac97.h"
 
-static ac97_dev_t g;
-/* software FIFO: interleaved S16LE stereo, counted in FRAMES (not samples) */
-static int16_t *s_q_pcm      = NULL;   /* backing buffer (L,R interleaved) */
-static size_t   s_q_cap_fr   = 0;      /* capacity in frames */
-static size_t   s_q_len_fr   = 0;      /* total frames in buffer (valid) */
-static size_t   s_q_head_fr  = 0;      /* consume pointer in frames */
-
-bool ac97_stream_prepare(uint32_t frag_bytes /*=0→4096*/, uint32_t sample_rate /*e.g. 48000*/);
-void ac97_idle(void);
+static ac97_dev_t ac97;
+static int16_t *s_q_pcm = NULL;   /* backing buffer (L,R interleaved) */
+static size_t s_q_cap_fr = 0;      /* capacity in frames */
+static size_t s_q_len_fr = 0;      /* total frames in buffer (valid) */
+static size_t s_q_head_fr = 0;      /* consume pointer in frames */
+static bool s_paused = false;
 
 static inline void delay_us(unsigned us) {
-	/* Approximate microsecond delay using io_wait().
-	   Each io_wait is typically ~1–4 µs on PC hardware. */
 	for (unsigned i = 0; i < us; i++) {
 		io_wait();
 	}
 }
 
-
 static bool ac97_reset_and_unmute(void) {
-	/* Exit cold reset (run): set bit1 in GLOB_CNT. */
-	outl(g.nabm + AC97_NABM_GLOB_CNT, 0x00000002);
-
-	/* Soft reset codec registers (write-anything) */
-	outw(g.nam + AC97_NAM_RESET, 0x0000);
-
-	/* Unmute + max out */
-	outw(g.nam + AC97_NAM_MASTER_VOL, 0x0000);
-	outw(g.nam + AC97_NAM_PCM_OUT_VOL, 0x0000);
-
-	/* If variable-rate capable, enable and set 48k (harmless if absent) */
-	uint16_t caps = inw(g.nam + AC97_NAM_EXT_CAPS);
+	outl(ac97.nabm + AC97_NABM_GLOB_CNT, 0x00000002);
+	outw(ac97.nam + AC97_NAM_RESET, 0x0000);
+	outw(ac97.nam + AC97_NAM_MASTER_VOL, 0x0000);
+	outw(ac97.nam + AC97_NAM_PCM_OUT_VOL, 0x0000);
+	uint16_t caps = inw(ac97.nam + AC97_NAM_EXT_CAPS);
 	if (caps & 0x0001) {
-		uint16_t ec = inw(g.nam + AC97_NAM_EXT_CTRL);
-		outw(g.nam + AC97_NAM_EXT_CTRL, ec | 0x0001);
-		outw(g.nam + AC97_NAM_PCM_FRONT_RATE, 44100);
-		dprintf("ac97: PCM front DAC rate now %u Hz\n", inw(g.nam + AC97_NAM_PCM_FRONT_RATE));
+		uint16_t ec = inw(ac97.nam + AC97_NAM_EXT_CTRL);
+		outw(ac97.nam + AC97_NAM_EXT_CTRL, ec | 0x0001);
+		outw(ac97.nam + AC97_NAM_PCM_FRONT_RATE, 44100);
+		dprintf("ac97: PCM front DAC rate now %u Hz\n", inw(ac97.nam + AC97_NAM_PCM_FRONT_RATE));
 	}
 	return true;
 }
 
 static void ac97_start_po(void) {
-	/* Reset PCM-OUT box */
-	outb(g.nabm + AC97_NABM_PO_CR, AC97_CR_RST);
-	for (int i = 0; i < 1000 && (inb(g.nabm + AC97_NABM_PO_CR) & AC97_CR_RST); i++) {
+	outb(ac97.nabm + AC97_NABM_PO_CR, AC97_CR_RST);
+	for (int i = 0; i < 1000 && (inb(ac97.nabm + AC97_NABM_PO_CR) & AC97_CR_RST); i++) {
 		delay_us(10);
 	}
-
-	/* Clear stale status */
-	outw(g.nabm + AC97_NABM_PO_SR, AC97_SR_W1C_MASK);
-
-	/* Program BDL and mark only entry 0 valid */
-	outl(g.nabm + AC97_NABM_PO_BDBAR, g.bdl_phys);
-	outb(g.nabm + AC97_NABM_PO_LVI, 0);
-
-	/* Run */
-	outb(g.nabm + AC97_NABM_PO_CR, AC97_CR_RPBM);
+	outw(ac97.nabm + AC97_NABM_PO_SR, AC97_SR_W1C_MASK);
+	outl(ac97.nabm + AC97_NABM_PO_BDBAR, ac97.bdl_phys);
+	outb(ac97.nabm + AC97_NABM_PO_LVI, 0);
+	outb(ac97.nabm + AC97_NABM_PO_CR, AC97_CR_RPBM);
 }
 
-/* ===================== Probe & start ===================== */
 static bool ac97_start(pci_dev_t dev) {
 	uint32_t bar0 = pci_read(dev, PCI_BAR0);
 	uint32_t bar1 = pci_read(dev, PCI_BAR1);
@@ -70,19 +54,20 @@ static bool ac97_start(pci_dev_t dev) {
 		return false;
 	}
 
-	g.nam = (uint16_t) pci_io_base(bar0);
-	g.nabm = (uint16_t) pci_io_base(bar1);
+	ac97.nam = pci_io_base(bar0);
+	ac97.nabm = pci_io_base(bar1);
 
-	pci_bus_master(dev);
-
+	if (!pci_bus_master(dev)) {
+		dprintf("ac97: failed to set bus master\n");
+		return false;
+	}
 	ac97_reset_and_unmute();
-
 	ac97_start_po();
 
-	uint8_t civ = inb(g.nabm + AC97_NABM_PO_CIV);
-	uint8_t lvi = inb(g.nabm + AC97_NABM_PO_LVI);
-	uint16_t picb = inw(g.nabm + AC97_NABM_PO_PICB);
-	dprintf("ac97: NAM=0x%04x NABM=0x%04x | CIV=%u LVI=%u PICB=%u(samples)\n", g.nam, g.nabm, civ, lvi, picb);
+	uint8_t civ = inb(ac97.nabm + AC97_NABM_PO_CIV);
+	uint8_t lvi = inb(ac97.nabm + AC97_NABM_PO_LVI);
+	uint16_t picb = inw(ac97.nabm + AC97_NABM_PO_PICB);
+	dprintf("ac97: NAM=0x%04x NABM=0x%04x | CIV=%u LVI=%u PICB=%u(samples)\n", ac97.nam, ac97.nabm, civ, lvi, picb);
 
 	return true;
 }
@@ -95,31 +80,43 @@ static bool init_ac97(void) {
 	}
 	if (ac97_start(dev)) {
 		kprintf("ac97: started\n");
-		ac97_stream_prepare(4096, 44100); // 44.1khz stereo LE 16 bit
+		ac97_stream_prepare(4096, 44100); /* 44.1khz stereo LE 16 bit */
 	} else {
 		dprintf("ac97: start failed\n");
 		return false;
 	}
 	proc_register_idle(ac97_idle, IDLE_FOREGROUND, 1);
+
+	audio_device_t* device = kmalloc(sizeof(audio_device_t));
+	make_unique_device_name("audio", device->name, MAX_AUDIO_DEVICE_NAME);
+	device->opaque = &ac97;
+	device->next = NULL;
+	device->play = push_all_s16le;
+	device->frequency = ac97_get_hz;
+	device->pause = ac97_pause;
+	device->resume = ac97_resume;
+	device->stop = ac97_stop_clear;
+	device->queue_length = ac97_buffered_ms;
+	register_audio_device(device);
+
 	return true;
 }
 
-/* ---- helpers ---- */
 static inline uint8_t ac97_po_civ(void) {
-	return inb(g.nabm + AC97_NABM_PO_CIV);
+	return inb(ac97.nabm + AC97_NABM_PO_CIV);
 }
 
 static inline void ac97_po_set_lvi(uint8_t v) {
-	outb(g.nabm + AC97_NABM_PO_LVI, v);
+	outb(ac97.nabm + AC97_NABM_PO_LVI, v);
 }
 
 static inline void ac97_po_run(void) {
-	outb(g.nabm + AC97_NABM_PO_CR, AC97_CR_RPBM);
+	outb(ac97.nabm + AC97_NABM_PO_CR, AC97_CR_RPBM);
 }
 
 static inline void ac97_po_reset_box(void) {
-	outb(g.nabm + AC97_NABM_PO_CR, AC97_CR_RST);
-	for (int i = 0; i < 1000 && (inb(g.nabm + AC97_NABM_PO_CR) & AC97_CR_RST); i++) {
+	outb(ac97.nabm + AC97_NABM_PO_CR, AC97_CR_RST);
+	for (int i = 0; i < 1000 && (inb(ac97.nabm + AC97_NABM_PO_CR) & AC97_CR_RST); i++) {
 		delay_us(10);
 	}
 }
@@ -129,18 +126,17 @@ static inline void ac97_po_reset_box(void) {
    tail = our last valid index (−1 means ring empty). */
 static inline uint8_t ring_free32(uint8_t civ, int tail) {
 	if (tail < 0) {
-		return 32;                     /* nothing queued yet */
+		return 32; /* nothing queued yet */
 	}
-	int free = (int) civ - tail - 1;              /* keep one slot gap */
+	int free = (int) civ - tail - 1; /* keep one slot gap */
 	while (free < 0) free += 32;
 	return (uint8_t) free;
 }
 
-/* ======================== one-time streaming setup ======================== */
 /* Build a 32-entry BDL and a contiguous audio buffer, then point the PO box at it.
    frag_bytes defaults to 4096 if 0 is passed; must be multiple of 128 and 4. */
 bool ac97_stream_prepare(uint32_t frag_bytes, uint32_t sample_rate) {
-	if (!g.nam || !g.nabm) {
+	if (!ac97.nam || !ac97.nabm) {
 		dprintf("ac97: prepare: device not started\n");
 		return false;
 	}
@@ -153,11 +149,11 @@ bool ac97_stream_prepare(uint32_t frag_bytes, uint32_t sample_rate) {
 	if (frag_bytes & 3u) frag_bytes += (4u - (frag_bytes & 3u));
 
 	/* Program 48k (or requested) if var-rate capable */
-	uint16_t caps = inw(g.nam + AC97_NAM_EXT_CAPS);
+	uint16_t caps = inw(ac97.nam + AC97_NAM_EXT_CAPS);
 	if (caps & 0x0001) {
-		uint16_t ec = inw(g.nam + AC97_NAM_EXT_CTRL);
-		outw(g.nam + AC97_NAM_EXT_CTRL, ec | 0x0001);
-		outw(g.nam + AC97_NAM_PCM_FRONT_RATE, (uint16_t) sample_rate);
+		uint16_t ec = inw(ac97.nam + AC97_NAM_EXT_CTRL);
+		outw(ac97.nam + AC97_NAM_EXT_CTRL, ec | 0x0001);
+		outw(ac97.nam + AC97_NAM_PCM_FRONT_RATE, (uint16_t) sample_rate);
 	}
 
 	/* Allocate BDL (32 entries) and a single contiguous audio area: 32 * frag_bytes */
@@ -174,70 +170,70 @@ bool ac97_stream_prepare(uint32_t frag_bytes, uint32_t sample_rate) {
 	uintptr_t buf_al = ((uintptr_t) buf_raw + 127u) & ~(uintptr_t) 127u;
 	uintptr_t bdl_al = ((uintptr_t) bdl_raw + 127u) & ~(uintptr_t) 127u;
 
-	g.buf = (uint8_t *) buf_al;
-	g.buf_phys = (uint32_t) buf_al;
-	g.buf_bytes = total_bytes;
+	ac97.buf = (uint8_t *) buf_al;
+	ac97.buf_phys = (uint32_t) buf_al;
+	ac97.buf_bytes = total_bytes;
 
-	g.bdl = (struct ac97_bdl_entry *) bdl_al;
-	g.bdl_phys = (uint32_t) bdl_al;
+	ac97.bdl = (struct ac97_bdl_entry *) bdl_al;
+	ac97.bdl_phys = (uint32_t) bdl_al;
 
-	g.bdl_n = 32;
-	g.frag_bytes = frag_bytes;
-	g.frag_frames = frag_bytes / 4u;          /* 4 bytes per frame (L,R S16) */
-	g.tail = -1;                       /* nothing queued yet */
-	g.started = false;
+	ac97.bdl_n = 32;
+	ac97.frag_bytes = frag_bytes;
+	ac97.frag_frames = frag_bytes / 4u;          /* 4 bytes per frame (L,R S16) */
+	ac97.tail = -1;                       /* nothing queued yet */
+	ac97.started = false;
+	ac97.rate_hz = 44100;
 
-	memset(g.buf, 0, total_bytes);
+	memset(ac97.buf, 0, total_bytes);
 
 	/* Populate BDL entries: contiguous fragments */
-	const uint16_t samples_per_desc = (uint16_t) (g.frag_frames * 2u); /* samples = frames*channels */
-	for (uint32_t i = 0; i < g.bdl_n; i++) {
-		g.bdl[i].addr = g.buf_phys + i * g.frag_bytes;
-		g.bdl[i].count = samples_per_desc;
-		g.bdl[i].flags = 0;                  /* no IOC, continuous */
+	const uint16_t samples_per_desc = (uint16_t) (ac97.frag_frames * 2u); /* samples = frames*channels */
+	for (uint32_t i = 0; i < ac97.bdl_n; i++) {
+		ac97.bdl[i].addr = ac97.buf_phys + i * ac97.frag_bytes;
+		ac97.bdl[i].count = samples_per_desc;
+		ac97.bdl[i].flags = 0;                  /* no IOC, continuous */
 	}
 
 	/* Point PO engine at our BDL */
 	ac97_po_reset_box();
-	outw(g.nabm + AC97_NABM_PO_SR, AC97_SR_W1C_MASK); /* clear stale */
-	outl(g.nabm + AC97_NABM_PO_BDBAR, g.bdl_phys);
+	outw(ac97.nabm + AC97_NABM_PO_SR, AC97_SR_W1C_MASK); /* clear stale */
+	outl(ac97.nabm + AC97_NABM_PO_BDBAR, ac97.bdl_phys);
 
 	/* Don’t start yet; we’ll set RPBM on first queue */
 	return true;
 }
 
-/* ======================== non-blocking enqueue ======================== */
-/* Queues S16LE stereo frames into the ring. Returns number of frames accepted.
+/* Queues S16LE stereo frames into the rinac97. Returns number of frames accepted.
    Zero-fills any tail of a fragment if the caller provides fewer than frag_frames. */
 size_t ac97_play_s16le(const int16_t *frames, size_t frame_count) {
-	if (!g.bdl || !g.buf || g.bdl_n != 32 || g.frag_frames == 0) return 0;
+	if (!ac97.bdl || !ac97.buf || ac97.bdl_n != 32 || ac97.frag_frames == 0) return 0;
 
 	uint8_t civ = ac97_po_civ();
-	uint8_t free = ring_free32(civ, g.tail);
+	uint8_t free = ring_free32(civ, ac97.tail);
 
 	size_t frames_done = 0;
 	while (free && frame_count) {
-		uint8_t next = (uint8_t) ((g.tail + 1) & 31);   /* modulo 32 */
-		uint8_t *dst = g.buf + (uint32_t) next * g.frag_bytes;
+		uint8_t next = (uint8_t) ((ac97.tail + 1) & 31);   /* modulo 32 */
+		uint8_t *dst = ac97.buf + (uint32_t) next * ac97.frag_bytes;
 
-		size_t chunk_frames = g.frag_frames;
+		size_t chunk_frames = ac97.frag_frames;
 		if (chunk_frames > frame_count) chunk_frames = frame_count;
 
 		/* copy caller frames, then zero-pad the rest of the fragment */
 		size_t bytes_copy = chunk_frames * 4u;
 		memcpy(dst, frames + frames_done * 2u, bytes_copy);
-		if (bytes_copy < g.frag_bytes) {
-			memset(dst + bytes_copy, 0, g.frag_bytes - bytes_copy);
+		if (bytes_copy < ac97.frag_bytes) {
+			memset(dst + bytes_copy, 0, ac97.frag_bytes - bytes_copy);
 		}
 
 		/* publish: move LVI to this index */
-		g.tail = next;
-		ac97_po_set_lvi((uint8_t) g.tail);
+		ac97.tail = next;
+		ac97_po_set_lvi((uint8_t) ac97.tail);
 
 		/* start engine if needed */
-		if (!g.started) {
+		if (!ac97.started) {
 			ac97_po_run();
-			g.started = true;
+			ac97.started = true;
 		}
 
 		frames_done += chunk_frames;
@@ -300,7 +296,9 @@ size_t push_all_s16le(const int16_t *frames, size_t total_frames) {
 
 /* idle hook: drain SW FIFO into AC’97 ring without blocking */
 void ac97_idle(void) {
-	if (!g.bdl || g.frag_frames == 0) return;
+	if (!ac97.bdl || ac97.frag_frames == 0 || s_paused) {
+		return;
+	}
 
 	/* number of frames pending in SW FIFO */
 	size_t pending = s_q_len_fr - s_q_head_fr;
@@ -308,7 +306,7 @@ void ac97_idle(void) {
 
 	/* push as long as hardware accepts data this instant */
 	while (pending) {
-		size_t chunk = (pending > g.frag_frames) ? g.frag_frames : pending;
+		size_t chunk = (pending > ac97.frag_frames) ? ac97.frag_frames : pending;
 		size_t pushed = ac97_play_s16le(s_q_pcm + (s_q_head_fr * 2u), chunk);
 		if (pushed == 0) break;                 /* ring full right now; come back next idle tick */
 
@@ -323,19 +321,84 @@ void ac97_idle(void) {
 	}
 
 	/* recover from a halted engine if needed (cheap check) */
-	uint16_t sr = inw(g.nabm + AC97_NABM_PO_SR);
+	uint16_t sr = inw(ac97.nabm + AC97_NABM_PO_SR);
 	if (sr & (AC97_SR_DCH | AC97_SR_CELV)) {
-		outw(g.nabm + AC97_NABM_PO_SR, AC97_SR_W1C_MASK);
-		outb(g.nabm + AC97_NABM_PO_CR, AC97_CR_RPBM);
+		outw(ac97.nabm + AC97_NABM_PO_SR, AC97_SR_W1C_MASK);
+		outb(ac97.nabm + AC97_NABM_PO_CR, AC97_CR_RPBM);
 	}
+}
+
+/* Immediate hard stop: halt DMA, reset PO engine, clear SW queue. */
+void ac97_stop_clear(void) {
+	/* stop engine */
+	outb(ac97.nabm + AC97_NABM_PO_CR, 0);
+
+	/* reset the bus-master “PCM Out” box */
+	outb(ac97.nabm + AC97_NABM_PO_CR, AC97_CR_RST);
+	while (inb(ac97.nabm + AC97_NABM_PO_CR) & AC97_CR_RST) { /* tiny spin */ }
+
+	/* clear stale status and re-point BDL (not strictly needed after RST, but tidy) */
+	outw(ac97.nabm + AC97_NABM_PO_SR, AC97_SR_W1C_MASK);
+	outl(ac97.nabm + AC97_NABM_PO_BDBAR, ac97.bdl_phys);
+
+	/* software queue: drop everything */
+	s_q_head_fr = 0;
+	s_q_len_fr  = 0;
+
+	/* paused state and started flag */
+	s_paused   = false;
+	ac97.started  = false;
+}
+
+/* Soft pause: stop DMA, keep ring + SW queue intact. */
+void ac97_pause(void) {
+	/* stop engine, keep descriptors/data as-is */
+	outb(ac97.nabm + AC97_NABM_PO_CR, 0);
+	s_paused = true;
+}
+
+/* Resume after pause: run DMA again and try to push immediately. */
+void ac97_resume(void) {
+	/* clear any latched status and ensure RUN */
+	outw(ac97.nabm + AC97_NABM_PO_SR, AC97_SR_W1C_MASK);
+	outb(ac97.nabm + AC97_NABM_PO_CR, AC97_CR_RPBM);
+	s_paused  = false;
+	ac97.started = true;
+	/* opportunistic push; returns quickly if ring is full */
+	ac97_idle();
+}
+
+/* Return total buffered audio (SW queue + HW DMA) in milliseconds. */
+uint32_t ac97_buffered_ms(void) {
+	if (!ac97.frag_frames || !ac97.rate_hz) {
+		return 0;
+	}
+
+	/* software FIFO frames */
+	size_t sw_frames = s_q_len_fr - s_q_head_fr;
+
+	/* hardware: how many frames left in DMA? */
+	uint16_t civ   = inb(ac97.nabm + AC97_NABM_PO_CIV);   /* current index value */
+	uint16_t lvi   = inb(ac97.nabm + AC97_NABM_PO_LVI);   /* last valid index */
+	uint16_t picb  = inw(ac97.nabm + AC97_NABM_PO_PICB);  /* frames remaining in current buffer */
+
+	/* work out how many fragments are still pending */
+	int pending_frags = (lvi - civ) & (ac97.bdl_n - 1); /* ring buffer modulo */
+	size_t hw_frames  = (pending_frags * ac97.frag_frames) + picb;
+
+	size_t total_frames = sw_frames + hw_frames;
+
+	/* convert frames → milliseconds */
+	uint32_t ms = (uint32_t)((total_frames * 1000ULL) / ac97.rate_hz);
+	return ms;
 }
 
 uint32_t ac97_get_hz() {
 	uint32_t rate = 48000;
-	uint16_t caps = inw(g.nam + AC97_NAM_EXT_CAPS);
+	uint16_t caps = inw(ac97.nam + AC97_NAM_EXT_CAPS);
 	if (caps & 0x0001) {
-		if (inw(g.nam + AC97_NAM_EXT_CTRL) & 0x0001) {
-			rate = inw(g.nam + AC97_NAM_PCM_FRONT_RATE);
+		if (inw(ac97.nam + AC97_NAM_EXT_CTRL) & 0x0001) {
+			rate = inw(ac97.nam + AC97_NAM_PCM_FRONT_RATE);
 			if (rate == 0) {
 				rate = 48000;
 			}
@@ -345,7 +408,7 @@ uint32_t ac97_get_hz() {
 }
 
 void ac97_test_melody(void) {
-	if (!g.bdl || !g.buf || g.bdl_n != 32 || g.frag_frames == 0 || g.frag_bytes == 0) {
+	if (!ac97.bdl || !ac97.buf || ac97.bdl_n != 32 || ac97.frag_frames == 0 || ac97.frag_bytes == 0) {
 		dprintf("ac97: test_melody: stream not prepared\n");
 		return;
 	}
@@ -357,7 +420,6 @@ void ac97_test_melody(void) {
 	kfree(data);
 }
 
-/* ===================== Module entry points ===================== */
 bool EXPORTED MOD_INIT_SYM(KMOD_ABI)(void) {
 	dprintf("ac97: module loaded\n");
 	if (init_ac97()) {
@@ -367,7 +429,5 @@ bool EXPORTED MOD_INIT_SYM(KMOD_ABI)(void) {
 }
 
 bool EXPORTED MOD_EXIT_SYM(KMOD_ABI)(void) {
-	/* For a one-shot demo we don’t tear down; engine stops on its own */
-	dprintf("ac97: module unloaded\n");
 	return false;
 }
