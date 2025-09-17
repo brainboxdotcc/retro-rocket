@@ -339,11 +339,12 @@ void* kmalloc_aligned(uint64_t size, uint64_t align) {
 	void **save;
 
 	if (align < 8 || (align & (align - 1)) != 0) {
-		preboot_fail("kmalloc_aligned: alignment must be a power of two >= 8");
+		dprintf("kmalloc_aligned: alignment must be a power of two >= 8. Requested alignment: %lu\n", align);
+		align = 8;
 	}
 
 	/* allocate enough for requested size + alignment slack + header */
-	raw = (uintptr_t)kmalloc(size + align - 1 + sizeof(void*));
+	raw = kmalloc(size + align - 1 + sizeof(void*));
 	if (!raw) {
 		return NULL;
 	}
