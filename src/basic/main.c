@@ -254,6 +254,8 @@ struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file
 	ctx->debug_breakpoints = NULL;
 	ctx->debug_breakpoint_count = 0;
 	memset(&ctx->last_packet, 0, sizeof(queued_udp_packet));
+	memset(&ctx->audio_streams, 0, sizeof(ctx->audio_streams));
+	ctx->sounds = NULL;
 	ctx->if_nest_level = 0;
 	ctx->errored = false;
 	ctx->error_handler = NULL;
@@ -496,7 +498,9 @@ struct basic_ctx *basic_clone(struct basic_ctx *old) {
 	memcpy(ctx->for_stack, old->for_stack, sizeof(ctx->for_stack));
 	memcpy(ctx->repeat_stack, old->repeat_stack, sizeof(ctx->repeat_stack));
 	memcpy(ctx->while_stack, old->while_stack, sizeof(ctx->while_stack));
+	memcpy(ctx->audio_streams, old->audio_streams, sizeof(ctx->audio_streams));
 
+	ctx->sounds = old->sounds;
 	ctx->oldlen = old->oldlen;
 	ctx->fn_return = NULL;
 	ctx->program_ptr = old->program_ptr;
@@ -518,6 +522,8 @@ struct basic_ctx *basic_clone(struct basic_ctx *old) {
 void basic_destroy(struct basic_ctx *ctx) {
 	assert(ctx != NULL, "basic_destroy: Null BASIC context");
 	ctx->string_gc_storage_next = NULL;
+	stream_list_free_all(ctx);
+	sound_list_free_all(ctx);
 	/* I'm not your pal, buddy... 😂 */
 	buddy_destroy(ctx->allocator);
 	kfree_null(&ctx->allocator);

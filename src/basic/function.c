@@ -88,6 +88,7 @@ struct basic_int_fn builtin_int[] =
 	{ basic_peek,                "PEEK"              },
 	{ basic_memalloc,            "MEMALLOC"          },
 	{ basic_filesize,            "FILESIZE"          },
+	{ basic_decibels,            "DECIBELS"          },
 	{ NULL,                      NULL                },
 };
 
@@ -257,6 +258,9 @@ const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx)
 		ctx->int_variables    = atomic->int_variables;
 		ctx->str_variables    = atomic->str_variables;
 		ctx->double_variables = atomic->double_variables;
+		ctx->sounds           = atomic->sounds;
+
+		memcpy(ctx->audio_streams, atomic->audio_streams, sizeof(ctx->audio_streams));
 
 		/* Only free the base struct! */
 		buddy_free(ctx->allocator, atomic);
@@ -354,6 +358,9 @@ int64_t basic_eval_int_fn(const char* fn_name, struct basic_ctx* ctx)
 		ctx->int_variables    = atomic->int_variables;
 		ctx->str_variables    = atomic->str_variables;
 		ctx->double_variables = atomic->double_variables;
+		ctx->sounds           = atomic->sounds;
+
+		memcpy(ctx->audio_streams, atomic->audio_streams, sizeof(ctx->audio_streams));
 
 		/* Only free the base struct! */
 		buddy_free(ctx->allocator, atomic);
@@ -403,6 +410,9 @@ void basic_eval_double_fn(const char* fn_name, struct basic_ctx* ctx, double* re
 		ctx->int_variables    = atomic->int_variables;
 		ctx->str_variables    = atomic->str_variables;
 		ctx->double_variables = atomic->double_variables;
+		ctx->sounds           = atomic->sounds;
+
+		memcpy(ctx->audio_streams, atomic->audio_streams, sizeof(ctx->audio_streams));
 
 		/* Only free the base struct! */
 		buddy_free(ctx->allocator, atomic);

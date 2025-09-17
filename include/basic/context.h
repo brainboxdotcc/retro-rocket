@@ -7,6 +7,7 @@
 #include <stdbool.h>
 #include "tokenizer.h"
 #include "buddy_allocator.h"
+#include "audio.h"
 
 typedef struct {
 	uint16_t source_port;
@@ -16,6 +17,12 @@ typedef struct {
 	struct queued_udp_packet* prev;
 	struct queued_udp_packet* next;
 } queued_udp_packet;
+
+typedef struct basic_sound_t {
+	int16_t *pcm;			/* interleaved S16LE */
+	size_t frames;			/* stereo frames */
+	struct basic_sound_t* next;	/* Next */
+} basic_sound_t;
 
 /**
  * @brief BASIC program context.
@@ -331,6 +338,11 @@ typedef struct basic_ctx {
 	buddy_allocator_t* allocator;
 
 	queued_udp_packet last_packet;
+
+	mixer_stream_t* audio_streams[64];
+
+	basic_sound_t* sounds;
+
 } basic_ctx;
 
 /**

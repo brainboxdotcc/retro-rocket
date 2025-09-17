@@ -189,6 +189,14 @@ audio_device_t *mixer_device(void);
  */
 void mixer_idle(void);
 
+void mixer_stop_stream(mixer_stream_t* ch);
+
+void mixer_pause_stream(mixer_stream_t* ch);
+
+void mixer_resume_stream(mixer_stream_t* ch);
+
+bool mixer_stream_is_paused(mixer_stream_t* ch);
+
 /**
  * @brief Convert a memory-resident WAV into 44.1 kHz stereo S16_LE
  *
@@ -253,3 +261,4 @@ size_t wav_size_to_samples(size_t length);
  * @return         Size in bytes of the decoded buffer
  */
 size_t wav_samples_to_size(size_t samples);
+

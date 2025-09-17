@@ -26,6 +26,7 @@ struct mixer_stream {
 	uint32_t queued_frames;   /* total frames queued across chunks */
 	uint16_t gain_q8_8;       /* 256 == 1.0 */
 	bool muted;
+	bool paused;
 	bool in_use;
 	uint32_t chunk_frames;    /* preferred chunk allocation size (frames) */
 };
@@ -43,6 +44,7 @@ typedef struct {
 
 	/* Idle registration state */
 	bool idle_registered;
+
 } mixer_state_t;
 
 static mixer_state_t mix;
@@ -168,6 +170,7 @@ mixer_stream_t *mixer_create_stream(void) {
 			ch->queued_frames = 0;
 			ch->gain_q8_8 = 256u;   /* 1.0 */
 			ch->muted = false;
+			ch->paused = false;
 			ch->in_use = true;
 			ch->chunk_frames = 2048u; /* ~42.7 ms @ 48 kHz */
 			return ch;
@@ -177,11 +180,30 @@ mixer_stream_t *mixer_create_stream(void) {
 	return NULL;
 }
 
-void mixer_free_stream(mixer_stream_t *ch) {
+void mixer_pause_stream(mixer_stream_t *ch) {
 	if (!ch) {
 		return;
 	}
 
+	ch->paused = true;
+}
+
+void mixer_resume_stream(mixer_stream_t *ch) {
+	if (!ch) {
+		return;
+	}
+
+	ch->paused = false;
+}
+
+bool mixer_stream_is_paused(mixer_stream_t* ch) {
+	if (!ch) {
+		return false;
+	}
+	return ch->paused;
+}
+
+void mixer_stop_stream(mixer_stream_t* ch) {
 	/* Drop any queued audio */
 	chunk_t *p = ch->head;
 	while (p) {
@@ -193,6 +215,14 @@ void mixer_free_stream(mixer_stream_t *ch) {
 	ch->head = NULL;
 	ch->tail = NULL;
 	ch->queued_frames = 0;
+}
+
+void mixer_free_stream(mixer_stream_t *ch) {
+	if (!ch) {
+		return;
+	}
+
+	mixer_stop_stream(ch);
 	ch->in_use = false;
 }
 
@@ -293,7 +323,7 @@ void mixer_idle(void)
 		/* mix stream into this block */
 		for (uint32_t c = 0; c < mix.streams_cap; c++) {
 			struct mixer_stream *ch = &mix.streams[c];
-			if (!ch->in_use || ch->muted || !ch->head) {
+			if (!ch->in_use || ch->muted || !ch->head || ch->paused) {
 				continue;
 			}
 

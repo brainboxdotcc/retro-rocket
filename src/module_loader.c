@@ -494,13 +494,13 @@ bool module_load_from_memory(const void *file, size_t len, module *out) {
 
 	if (!module_load_symbols((const uint8_t *) file, sh, shnum, out)) {
 		dprintf("module_load_from_memory: symbols load failed\n");
-		kfree_aligned(&out->base);
+		kfree_aligned(out->base);
 		return false;
 	}
 
 	if (!module_apply_relocations((const uint8_t *) file, sh, shnum, out)) {
 		dprintf("module_load_from_memory: relocation failed\n");
-		kfree_aligned(&out->base);
+		kfree_aligned(out->base);
 		return false;
 	}
 
@@ -509,7 +509,7 @@ bool module_load_from_memory(const void *file, size_t len, module *out) {
 
 	if (out->init_fn == NULL) {
 		dprintf("module_load_from_memory: ABI %u required, missing %s()\n", KMOD_ABI, MOD_INIT_NAME_STR);
-		kfree_aligned(&out->base);
+		kfree_aligned(out->base);
 		return false;
 	}
 
@@ -517,7 +517,7 @@ bool module_load_from_memory(const void *file, size_t len, module *out) {
 		if (out->exit_fn != NULL) {
 			out->exit_fn();
 		}
-		kfree_aligned(&out->base);
+		kfree_aligned(out->base);
 		return false;
 	}
 

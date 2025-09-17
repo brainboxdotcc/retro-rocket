@@ -188,8 +188,19 @@ typedef void (*keyword_handler_t)(struct basic_ctx*);
     T(SOCKBINREAD, STMT, sockbinread_statement)		/* 116 */ \
     T(BINREAD, STMT, readbinary_statement) 		/* 117 */ \
     T(BINWRITE, STMT, writebinary_statement) 		/* 118 */ \
-    T(GRAPHPRINT, STMT, graphprint_statement) 		/* 118 */ \
-    T(VDU, STMT, vdu_statement) 			/* 118 */ \
+    T(GRAPHPRINT, STMT, graphprint_statement) 		/* 119 */ \
+    T(VDU, STMT, vdu_statement) 			/* 120 */ \
+    T(STREAM, STMT, stream_statement) 			/* 121 */ \
+    T(CREATE, STMT, NULL) 				/* 122 */ \
+    T(DESTROY, STMT, NULL) 				/* 123 */ \
+    T(SOUND, STMT, sound_statement) 			/* 124 */ \
+    T(VOLUME, STMT, NULL) 				/* 125 */ \
+    T(PLAY, STMT, NULL) 				/* 126 */ \
+    T(STOP, STMT, NULL) 				/* 127 */ \
+    T(PAUSE, STMT, NULL) 				/* 128 */ \
+    T(LOAD, STMT, NULL) 				/* 129 */ \
+    T(UNLOAD, STMT, NULL) 				/* 130 */ \
+
 
 GENERATE_ENUM_LIST(TOKEN, token_t)
 
