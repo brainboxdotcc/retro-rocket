@@ -33,7 +33,7 @@ struct mixer_stream {
 typedef struct {
 	audio_device_t *dev;
 	struct mixer_stream *streams;
-	uint32_t channels_cap;
+	uint32_t streams_cap;
 	uint32_t ring_frames_default;
 	uint32_t target_latency_ms;
 	uint32_t idle_period_ms;
@@ -69,8 +69,8 @@ static inline size_t chunk_bytes(uint32_t frames)
 	return sizeof(chunk_t) + sizeof(int16_t) * 2u * frames;
 }
 
-/* Append a new chunk of 'frames' copied from src_frames to channel FIFO */
-static bool channel_append_chunk(struct mixer_stream *ch, const int16_t *src_frames, uint32_t frames) {
+/* Append a new chunk of 'frames' copied from src_frames to stream FIFO */
+static bool stream_append_chunk(struct mixer_stream *ch, const int16_t *src_frames, uint32_t frames) {
 	size_t bytes = chunk_bytes(frames);
 	chunk_t *ck = (chunk_t *)kmalloc(bytes);
 	if (!ck) {
@@ -96,7 +96,7 @@ static bool channel_append_chunk(struct mixer_stream *ch, const int16_t *src_fra
 	return true;
 }
 
-bool mixer_init(audio_device_t* dev, uint32_t target_latency_ms, uint32_t idle_period_ms, uint32_t max_channels) {
+bool mixer_init(audio_device_t* dev, uint32_t target_latency_ms, uint32_t idle_period_ms, uint32_t max_streams) {
 	memset(&mix, 0, sizeof(mix));
 
 	mix.dev = dev ? dev : find_first_audio_device();
@@ -105,23 +105,23 @@ bool mixer_init(audio_device_t* dev, uint32_t target_latency_ms, uint32_t idle_p
 		return false;
 	}
 
-	if (max_channels == 0) {
-		max_channels = 8;
+	if (max_streams == 0) {
+		max_streams = 8;
 	}
-	if (max_channels > MIXER_MAX_STREAMS) {
-		max_channels = MIXER_MAX_STREAMS;
+	if (max_streams > MIXER_MAX_STREAMS) {
+		max_streams = MIXER_MAX_STREAMS;
 	}
 
-	mix.channels_cap      = max_channels;
+	mix.streams_cap      = max_streams;
 	mix.target_latency_ms = target_latency_ms ? target_latency_ms : 60u;  /* safe cushion */
 	mix.idle_period_ms    = (idle_period_ms >= 1u) ? idle_period_ms : 1u; /* drive mixer hard */
 
 	/* Channel table */
-	size_t table_bytes = sizeof(struct mixer_stream) * mix.channels_cap;
+	size_t table_bytes = sizeof(struct mixer_stream) * mix.streams_cap;
 	mix.streams = (struct mixer_stream *)kmalloc(table_bytes);
 	if (!mix.streams) {
 		memset(&mix, 0, sizeof(mix));
-		dprintf("mixer: Failed to allocate channels\n");
+		dprintf("mixer: Failed to allocate streams\n");
 		return false;
 	}
 	memset(mix.streams, 0, table_bytes);
@@ -160,7 +160,7 @@ mixer_stream_t *mixer_create_stream(void) {
 		return NULL;
 	}
 
-	for (uint32_t i = 0; i < mix.channels_cap; i++) {
+	for (uint32_t i = 0; i < mix.streams_cap; i++) {
 		struct mixer_stream *ch = &mix.streams[i];
 		if (!ch->in_use) {
 			ch->head = NULL;
@@ -207,7 +207,7 @@ size_t mixer_push(mixer_stream_t *ch, const int16_t *frames, size_t total_frames
 
 	while (remaining > 0) {
 		uint32_t batch = remaining > preferred ? preferred : remaining;
-		if (!channel_append_chunk(ch, frames + 2u * accepted, batch)) {
+		if (!stream_append_chunk(ch, frames + 2u * accepted, batch)) {
 			break; /* OOM */
 		}
 		accepted += batch;
@@ -291,7 +291,7 @@ void mixer_idle(void)
 		memset(mix_accum, 0, sizeof(int32_t) * 2u * batch);
 
 		/* mix stream into this block */
-		for (uint32_t c = 0; c < mix.channels_cap; c++) {
+		for (uint32_t c = 0; c < mix.streams_cap; c++) {
 			struct mixer_stream *ch = &mix.streams[c];
 			if (!ch->in_use || ch->muted || !ch->head) {
 				continue;

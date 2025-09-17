@@ -54,7 +54,7 @@ typedef uint32_t (*audio_length_t)(void);
 /** @brief Maximum length (including NUL) for an audio device’s display name. */
 #define MAX_AUDIO_DEVICE_NAME 32
 
-/** @brief Opaque channel handle. */
+/** @brief Opaque stream handle. */
 typedef struct mixer_stream mixer_stream_t;
 
 /**
@@ -122,7 +122,7 @@ audio_device_t *find_first_audio_device(void);
 /**
  * @brief Initialise the mixer and register the idle tick
  *
- * Consumes queued frames from all active channels, applies gain/mute,
+ * Consumes queued frames from all active streams, applies gain/mute,
  * mixes them with 32-bit accumulation using SSE2, clips to 16-bit,
  * and pushes the result to the first audio device until the desired
  * latency is met. This is the sole hot path of the software mixer.
@@ -130,43 +130,43 @@ audio_device_t *find_first_audio_device(void);
  * @param dev               Audio device to attach the mixer to
  * @param target_latency_ms Desired steady-state output latency in ms
  * @param idle_period_ms    Foreground idle period in ms (mix cadence)
- * @param max_channels      Maximum number of concurrently open channels
+ * @param max_streams      Maximum number of concurrently open streams
  * @return true on success, false if no audio device or allocation failed
  */
-bool mixer_init(audio_device_t* dev, uint32_t target_latency_ms, uint32_t idle_period_ms, uint32_t max_channels);
+bool mixer_init(audio_device_t* dev, uint32_t target_latency_ms, uint32_t idle_period_ms, uint32_t max_streams);
 
 /**
- * @brief Open a channel slot for a producer
+ * @brief Open a stream slot for a producer
  *
- * Single producer per channel, the mixer is the sole consumer
- * @return Channel handle or NULL if none available
+ * Single producer per stream, the mixer is the sole consumer
+ * @return Stream handle or NULL if none available
  */
 mixer_stream_t *mixer_create_stream(void);
 
 /**
- * @brief Close a channel (drains remaining data then frees the slot)
+ * @brief Close a stream (drains remaining data then frees the slot)
  */
 void mixer_free_stream(mixer_stream_t *ch);
 
 /**
- * @brief Submit interleaved S16LE stereo frames to a channel (non-blocking)
+ * @brief Submit interleaved S16LE stereo frames to a stream (non-blocking)
  *
  * Identical signature and semantics to audio_push_t; returns frames accepted
  */
 size_t mixer_push(mixer_stream_t *ch, const int16_t *frames, size_t total_frames);
 
 /**
- * @brief Set per-channel gain (Q8.8; 256 == 1.0).
+ * @brief Set per-stream gain (Q8.8; 256 == 1.0).
  */
 void mixer_set_gain(mixer_stream_t *ch, uint16_t q8_8_gain);
 
 /**
- * @brief Mute/unmute a channel; muted channels do not contribute to the mix.
+ * @brief Mute/unmute a stream; muted streams do not contribute to the mix.
  */
 void mixer_set_mute(mixer_stream_t *ch, bool mute);
 
 /**
- * @brief Query frames currently queued in a channel ring.
+ * @brief Query frames currently queued in a stream
  */
 uint32_t mixer_stream_queue_length(mixer_stream_t *ch);
 
@@ -180,7 +180,7 @@ audio_device_t *mixer_device(void);
  *
  * Called periodically by the process idle scheduler to top up the
  * output device with freshly mixed audio. Consumes queued frames
- * from all active mixer channels, applies gain/mute, and pushes
+ * from all active mixer streams, applies gain/mute, and pushes
  * the mixed stream to the first audio device until the desired
  * latency is reached.
  *
