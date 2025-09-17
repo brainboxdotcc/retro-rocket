@@ -19,6 +19,7 @@ static inline void delay_us(unsigned us) {
 	}
 }
 
+
 static bool ac97_reset_and_unmute(void) {
 	/* Exit cold reset (run): set bit1 in GLOB_CNT. */
 	outl(g.nabm + AC97_NABM_GLOB_CNT, 0x00000002);
@@ -35,7 +36,8 @@ static bool ac97_reset_and_unmute(void) {
 	if (caps & 0x0001) {
 		uint16_t ec = inw(g.nam + AC97_NAM_EXT_CTRL);
 		outw(g.nam + AC97_NAM_EXT_CTRL, ec | 0x0001);
-		outw(g.nam + AC97_NAM_PCM_FRONT_RATE, 48000);
+		outw(g.nam + AC97_NAM_PCM_FRONT_RATE, 44100);
+		dprintf("ac97: PCM front DAC rate now %u Hz\n", inw(g.nam + AC97_NAM_PCM_FRONT_RATE));
 	}
 	return true;
 }
@@ -93,7 +95,7 @@ static bool init_ac97(void) {
 	}
 	if (ac97_start(dev)) {
 		kprintf("ac97: started\n");
-		ac97_stream_prepare(4096 /*frag bytes*/, 48000 /*Hz*/);
+		ac97_stream_prepare(4096, 44100); // 44.1khz stereo LE 16 bit
 	} else {
 		dprintf("ac97: start failed\n");
 		return false;
@@ -318,8 +320,6 @@ void ac97_idle(void) {
 	if (s_q_head_fr == s_q_len_fr) {
 		s_q_head_fr = 0;
 		s_q_len_fr  = 0;
-		/* (buffer kept for reuse; free here if you want to release memory when idle) */
-		/* if (s_q_cap_fr > SOME_LIMIT) { kfree(s_q_pcm); s_q_pcm=NULL; s_q_cap_fr=0; } */
 	}
 
 	/* recover from a halted engine if needed (cheap check) */
@@ -330,6 +330,19 @@ void ac97_idle(void) {
 	}
 }
 
+uint32_t ac97_get_hz() {
+	uint32_t rate = 48000;
+	uint16_t caps = inw(g.nam + AC97_NAM_EXT_CAPS);
+	if (caps & 0x0001) {
+		if (inw(g.nam + AC97_NAM_EXT_CTRL) & 0x0001) {
+			rate = inw(g.nam + AC97_NAM_PCM_FRONT_RATE);
+			if (rate == 0) {
+				rate = 48000;
+			}
+		}
+	}
+	return rate;
+}
 
 void ac97_test_melody(void) {
 	if (!g.bdl || !g.buf || g.bdl_n != 32 || g.frag_frames == 0 || g.frag_bytes == 0) {
@@ -337,71 +350,11 @@ void ac97_test_melody(void) {
 		return;
 	}
 
-	/* One ephemeral staging fragment (stereo S16LE). No special alignment needed. */
-	int16_t *frag = kmalloc(g.frag_bytes);
-	if (!frag) {
-		dprintf("ac97: test_melody: OOM\n");
-		return;
-	}
-
-	/* Use actual programmed rate if var-rate is enabled; otherwise assume 48k. */
-	uint32_t rate = 48000;
-	uint16_t caps = inw(g.nam + AC97_NAM_EXT_CAPS);
-	if (caps & 0x0001) {
-		if (inw(g.nam + AC97_NAM_EXT_CTRL) & 0x0001) {
-			rate = inw(g.nam + AC97_NAM_PCM_FRONT_RATE);
-			if (rate == 0) rate = 48000;
-		}
-	}
-
-	/* Little square-wave line: A4 B4 C5 E5 D5 C5 B4 A4 A5 (each ~60 ms) */
-	static const uint16_t notes_hz[] = {440, 494, 523, 659, 587, 523, 494, 440, 880};
-	static const uint16_t dur_ms[] = {600, 600, 600, 600, 600, 600, 600, 600, 600};
-	const size_t nnotes = sizeof(notes_hz) / sizeof(notes_hz[0]);
-
-	const uint32_t F = g.frag_frames;   /* frames per fragment (stereo S16) */
-	size_t total_frames_enqueued = 0;
-
-	for (size_t n = 0; n < nnotes; n++) {
-		const uint32_t freq = notes_hz[n];
-		uint32_t frames_left = (rate / 1000u) * dur_ms[n];
-		if (freq == 0) continue;
-
-		/* Integer square-wave state */
-		uint32_t period = rate / freq;
-		if (period == 0) period = 1;
-		uint32_t halfperiod = period >> 1;
-		uint32_t phase = 0;
-
-		while (frames_left > 0) {
-			const uint32_t out_frames = (frames_left > F) ? F : frames_left;
-
-			/* Generate exactly out_frames into the staging fragment */
-			for (uint32_t i = 0; i < out_frames; i++) {
-				const int16_t s = (phase < halfperiod) ? 6000 : (int16_t) -6000;
-				frag[(i << 1)] = s;  /* L */
-				frag[(i << 1) + 1] = s;  /* R */
-				if (++phase >= period) phase = 0;
-			}
-
-			/* Non-blocking enqueue (zero-pads the tail of the fragment inside ac97_play_s16le) */
-			const size_t pushed = push_all_s16le(frag, out_frames);
-			if (pushed == 0 || pushed < out_frames) {
-				dprintf("ac97: test_melody: ring full after %zu frames\n", total_frames_enqueued);
-				kfree(frag);
-				return;
-			}
-
-			total_frames_enqueued += pushed;
-			frames_left -= out_frames;
-		}
-	}
-
-	dprintf("ac97: test_melody: enqueued %zu frames (~%u ms)\n",
-		total_frames_enqueued,
-		(unsigned) ((total_frames_enqueued * 1000u) / rate));
-
-	kfree(frag); /* safe: hardware reads from the DMA ring, not this staging buffer */
+	fs_directory_entry_t* entry = fs_get_file_info("/system/webserver/test.raw");
+	int16_t* data = kmalloc(entry->size);
+	fs_read_file(entry, 0, entry->size, (unsigned char*)data);
+	push_all_s16le(data, entry->size / sizeof(int16_t) / 2);
+	kfree(data);
 }
 
 /* ===================== Module entry points ===================== */
