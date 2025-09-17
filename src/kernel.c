@@ -25,15 +25,14 @@ void kmain()
 
 	/*load_module("ac97");
 
-	fs_directory_entry_t* entry = fs_get_file_info("/system/webserver/test.raw");
-	int16_t* data = kmalloc(entry->size);
-	fs_read_file(entry, 0, entry->size, (unsigned char*)data);
-
-	mixer_stream_t *music = mixer_create_stream();
-	mixer_set_gain(music, 64);
-	mixer_push(music, data, entry->size / sizeof(int16_t) / 2);
-
-	kfree(data);*/
+	void* wav_buffer;
+	size_t wav_size;
+	if (audio_wav_load("/system/webserver/media/retro-revival.wav", &wav_buffer, &wav_size)) {
+		mixer_stream_t *music = mixer_create_stream();
+		mixer_set_gain(music, 240);
+		mixer_push(music, wav_buffer, wav_size_to_samples(wav_size));
+		kfree(wav_buffer);
+	}*/
 
 	init_process();
 }

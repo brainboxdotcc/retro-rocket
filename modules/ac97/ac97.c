@@ -72,7 +72,7 @@ static bool ac97_start(pci_dev_t dev) {
 	return true;
 }
 
-static audio_device_t* init_ac97(void) {
+static audio_device_t *init_ac97(void) {
 	pci_dev_t dev = pci_get_device(0, 0, 0x0401);
 	if (!dev.bits) {
 		dprintf("ac97: no devices (class 0x0401)\n");
@@ -87,7 +87,7 @@ static audio_device_t* init_ac97(void) {
 	}
 	proc_register_idle(ac97_idle, IDLE_FOREGROUND, 1);
 
-	audio_device_t* device = kmalloc(sizeof(audio_device_t));
+	audio_device_t *device = kmalloc(sizeof(audio_device_t));
 	make_unique_device_name("audio", device->name, MAX_AUDIO_DEVICE_NAME);
 	device->opaque = &ac97;
 	device->next = NULL;
@@ -147,7 +147,7 @@ bool ac97_stream_prepare(uint32_t frag_bytes, uint32_t sample_rate) {
 	/* multiple of 4 (stereo 16-bit) */
 	if (frag_bytes & 3u) frag_bytes += (4u - (frag_bytes & 3u));
 
-	/* Program 48k (or requested) if var-rate capable */
+	/* Program 44.1khz (or requested) if var-rate capable */
 	uint16_t caps = inw(ac97.nam + AC97_NAM_EXT_CAPS);
 	if (caps & 0x0001) {
 		uint16_t ec = inw(ac97.nam + AC97_NAM_EXT_CTRL);
@@ -202,7 +202,7 @@ bool ac97_stream_prepare(uint32_t frag_bytes, uint32_t sample_rate) {
 	return true;
 }
 
-/* Queues S16LE stereo frames into the rinac97. Returns number of frames accepted.
+/* Queues S16LE stereo frames into the AC97. Returns number of frames accepted.
    Zero-fills any tail of a fragment if the caller provides fewer than frag_frames. */
 size_t ac97_play_s16le(const int16_t *frames, size_t frame_count) {
 	if (!ac97.bdl || !ac97.buf || ac97.bdl_n != 32 || ac97.frag_frames == 0) return 0;
@@ -269,9 +269,9 @@ static bool q_ensure_cap(size_t extra_fr) {
 	if (s_q_pcm) {
 		kfree(s_q_pcm);
 	}
-	s_q_pcm     = new_buf;
-	s_q_cap_fr  = new_cap;
-	s_q_len_fr  = live;
+	s_q_pcm = new_buf;
+	s_q_cap_fr = new_cap;
+	s_q_len_fr = live;
 	s_q_head_fr = 0;
 	return true;
 }
@@ -310,13 +310,13 @@ void ac97_idle(void) {
 		if (pushed == 0) break;                 /* ring full right now; come back next idle tick */
 
 		s_q_head_fr += pushed;
-		pending     -= pushed;
+		pending -= pushed;
 	}
 
 	/* compact when fully drained to keep indices small */
 	if (s_q_head_fr == s_q_len_fr) {
 		s_q_head_fr = 0;
-		s_q_len_fr  = 0;
+		s_q_len_fr = 0;
 	}
 
 	/* recover from a halted engine if needed (cheap check) */
@@ -342,11 +342,11 @@ void ac97_stop_clear(void) {
 
 	/* software queue: drop everything */
 	s_q_head_fr = 0;
-	s_q_len_fr  = 0;
+	s_q_len_fr = 0;
 
 	/* paused state and started flag */
-	s_paused   = false;
-	ac97.started  = false;
+	s_paused = false;
+	ac97.started = false;
 }
 
 /* Soft pause: stop DMA, keep ring + SW queue intact. */
@@ -361,7 +361,7 @@ void ac97_resume(void) {
 	/* clear any latched status and ensure RUN */
 	outw(ac97.nabm + AC97_NABM_PO_SR, AC97_SR_W1C_MASK);
 	outb(ac97.nabm + AC97_NABM_PO_CR, AC97_CR_RPBM);
-	s_paused  = false;
+	s_paused = false;
 	ac97.started = true;
 	/* opportunistic push; returns quickly if ring is full */
 	ac97_idle();
@@ -377,18 +377,18 @@ uint32_t ac97_buffered_ms(void) {
 	size_t sw_frames = s_q_len_fr - s_q_head_fr;
 
 	/* hardware: how many frames left in DMA? */
-	uint16_t civ   = inb(ac97.nabm + AC97_NABM_PO_CIV);   /* current index value */
-	uint16_t lvi   = inb(ac97.nabm + AC97_NABM_PO_LVI);   /* last valid index */
-	uint16_t picb  = inw(ac97.nabm + AC97_NABM_PO_PICB);  /* frames remaining in current buffer */
+	uint16_t civ = inb(ac97.nabm + AC97_NABM_PO_CIV);   /* current index value */
+	uint16_t lvi = inb(ac97.nabm + AC97_NABM_PO_LVI);   /* last valid index */
+	uint16_t picb = inw(ac97.nabm + AC97_NABM_PO_PICB);  /* frames remaining in current buffer */
 
 	/* work out how many fragments are still pending */
 	int pending_frags = (lvi - civ) & (ac97.bdl_n - 1); /* ring buffer modulo */
-	size_t hw_frames  = (pending_frags * ac97.frag_frames) + picb;
+	size_t hw_frames = (pending_frags * ac97.frag_frames) + picb;
 
 	size_t total_frames = sw_frames + hw_frames;
 
 	/* convert frames → milliseconds */
-	uint32_t ms = (uint32_t)((total_frames * 1000ULL) / ac97.rate_hz);
+	uint32_t ms = (uint32_t) ((total_frames * 1000ULL) / ac97.rate_hz);
 	return ms;
 }
 
@@ -408,7 +408,7 @@ uint32_t ac97_get_hz() {
 
 bool EXPORTED MOD_INIT_SYM(KMOD_ABI)(void) {
 	dprintf("ac97: module loaded\n");
-	audio_device_t* dev;
+	audio_device_t *dev;
 	if (!(dev = init_ac97())) {
 		return false;
 	}

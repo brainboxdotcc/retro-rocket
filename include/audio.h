@@ -188,3 +188,68 @@ audio_device_t *mixer_device(void);
  * registered with @ref proc_register_idle by @ref mixer_init.
  */
 void mixer_idle(void);
+
+/**
+ * @brief Convert a memory-resident WAV into 44.1 kHz stereo S16_LE
+ *
+ * Parses an in-memory RIFF/WAVE file and converts its audio stream to
+ * 44.1 kHz, stereo, signed 16-bit little-endian samples. The output is
+ * always interleaved left/right at the fixed rate and format, regardless
+ * of the input encoding.
+ *
+ * Supports:
+ *  - PCM integer (format tag 0x0001): 8/16/24/32-bit
+ *  - IEEE float (format tag 0x0003): 32/64-bit
+ *
+ * @param wav        Pointer to the start of the WAV file in memory
+ * @param wav_bytes  Size in bytes of the input buffer
+ * @param out_ptr    On success, receives pointer to a kmalloc'd buffer of
+ *                   converted audio data. Caller must free with kfree().
+ * @param out_bytes  On success, receives the size in bytes of *out_ptr
+ * @return           true on successful conversion, false on error
+ */
+bool wav_from_memory(const void* wav, size_t wav_bytes, void** out_ptr, size_t* out_bytes);
+
+/**
+ * @brief Load and convert a WAV file into 44.1 kHz stereo S16_LE
+ *
+ * Opens a file from the filesystem, reads it into memory, and converts
+ * its audio stream into 44.1 kHz, stereo, signed 16-bit little-endian
+ * samples. The output is always interleaved left/right at the fixed rate
+ * and format, regardless of the input encoding.
+ *
+ * Supports:
+ *  - PCM integer (format tag 0x0001): 8/16/24/32-bit
+ *  - IEEE float (format tag 0x0003): 32/64-bit
+ *
+ * @param filename   Path to the WAV file
+ * @param out_ptr    On success, receives pointer to a kmalloc'd buffer of
+ *                   converted audio data. Caller must free with kfree().
+ * @param out_bytes  On success, receives the size in bytes of *out_ptr
+ * @return           true on successful conversion, false on error
+ */
+bool audio_wav_load(const char* filename, void** out_ptr, size_t* out_bytes);
+
+/**
+ * @brief Convert byte length of decoded WAV to number of samples
+ *
+ * Given the size in bytes of a converted 44.1 kHz stereo S16_LE buffer,
+ * returns the number of stereo frames it contains. Each frame consists
+ * of two interleaved 16-bit samples (left and right).
+ *
+ * @param length  Size in bytes of the decoded buffer
+ * @return        Number of stereo frames
+ */
+size_t wav_size_to_samples(size_t length);
+
+/**
+ * @brief Convert number of samples to byte length of decoded WAV
+ *
+ * Given the number of stereo frames in a 44.1 kHz stereo S16_LE buffer,
+ * returns the required size in bytes. Each frame consists of two
+ * interleaved 16-bit samples (left and right).
+ *
+ * @param samples  Number of stereo frames
+ * @return         Size in bytes of the decoded buffer
+ */
+size_t wav_samples_to_size(size_t samples);
