@@ -72,18 +72,18 @@ static bool ac97_start(pci_dev_t dev) {
 	return true;
 }
 
-static bool init_ac97(void) {
+static audio_device_t* init_ac97(void) {
 	pci_dev_t dev = pci_get_device(0, 0, 0x0401);
 	if (!dev.bits) {
 		dprintf("ac97: no devices (class 0x0401)\n");
-		return false;
+		return NULL;
 	}
 	if (ac97_start(dev)) {
 		kprintf("ac97: started\n");
 		ac97_stream_prepare(4096, 44100); /* 44.1khz stereo LE 16 bit */
 	} else {
 		dprintf("ac97: start failed\n");
-		return false;
+		return NULL;
 	}
 	proc_register_idle(ac97_idle, IDLE_FOREGROUND, 1);
 
@@ -97,9 +97,8 @@ static bool init_ac97(void) {
 	device->resume = ac97_resume;
 	device->stop = ac97_stop_clear;
 	device->queue_length = ac97_buffered_ms;
-	register_audio_device(device);
 
-	return true;
+	return register_audio_device(device) ? device : NULL;
 }
 
 static inline uint8_t ac97_po_civ(void) {
@@ -407,23 +406,15 @@ uint32_t ac97_get_hz() {
 	return rate;
 }
 
-void ac97_test_melody(void) {
-	if (!ac97.bdl || !ac97.buf || ac97.bdl_n != 32 || ac97.frag_frames == 0 || ac97.frag_bytes == 0) {
-		dprintf("ac97: test_melody: stream not prepared\n");
-		return;
-	}
-
-	fs_directory_entry_t* entry = fs_get_file_info("/system/webserver/test.raw");
-	int16_t* data = kmalloc(entry->size);
-	fs_read_file(entry, 0, entry->size, (unsigned char*)data);
-	push_all_s16le(data, entry->size / sizeof(int16_t) / 2);
-	kfree(data);
-}
-
 bool EXPORTED MOD_INIT_SYM(KMOD_ABI)(void) {
 	dprintf("ac97: module loaded\n");
-	if (init_ac97()) {
-		ac97_test_melody();
+	audio_device_t* dev;
+	if (!(dev = init_ac97())) {
+		return false;
+	}
+	if (!mixer_init(dev, 50, 25, 64)) {
+		dprintf("ac97: mixer init failed\n");
+		return false;
 	}
 	return true;
 }

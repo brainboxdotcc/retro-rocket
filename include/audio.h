@@ -54,6 +54,9 @@ typedef uint32_t (*audio_length_t)(void);
 /** @brief Maximum length (including NUL) for an audio device’s display name. */
 #define MAX_AUDIO_DEVICE_NAME 32
 
+/** @brief Opaque channel handle. */
+typedef struct mixer_stream mixer_stream_t;
+
 /**
  * @brief Registered audio device descriptor.
  *
@@ -95,23 +98,93 @@ typedef struct audio_device_t {
  * @brief Register a new audio device.
  *
  * Inserts @p newdev into the global device list. The caller retains ownership
- * of the storage; the struct must remain valid for the lifetime of the device.
+ * of the storage; the struct must remain valid for the lifetime of the device
  *
- * @param newdev Pointer to the device descriptor to register (must not be NULL).
+ * @param newdev Pointer to the device descriptor to register (must not be NULL)
  * @return true on success, false on failure.
  */
 bool register_audio_device(audio_device_t *newdev);
 
 /**
- * @brief Find a registered audio device by name.
+ * @brief Find a registered audio device by name
  *
- * @param name NUL-terminated device name to search for.
- * @return Pointer to the matching device, or NULL if not found.
+ * @param name NUL-terminated device name to search for
+ * @return Pointer to the matching device, or NULL if not found
  */
 audio_device_t *find_audio_device(const char *name);
 
 /**
- * @brief Get the first registered audio device, if any.
- * @return Pointer to the first device in the list, or NULL if none.
+ * @brief Get the first registered audio device, if any
+ * @return Pointer to the first device in the list, or NULL if none
  */
 audio_device_t *find_first_audio_device(void);
+
+/**
+ * @brief Initialise the mixer and register the idle tick
+ *
+ * Consumes queued frames from all active channels, applies gain/mute,
+ * mixes them with 32-bit accumulation using SSE2, clips to 16-bit,
+ * and pushes the result to the first audio device until the desired
+ * latency is met. This is the sole hot path of the software mixer.
+ *
+ * @param dev               Audio device to attach the mixer to
+ * @param target_latency_ms Desired steady-state output latency in ms
+ * @param idle_period_ms    Foreground idle period in ms (mix cadence)
+ * @param max_channels      Maximum number of concurrently open channels
+ * @return true on success, false if no audio device or allocation failed
+ */
+bool mixer_init(audio_device_t* dev, uint32_t target_latency_ms, uint32_t idle_period_ms, uint32_t max_channels);
+
+/**
+ * @brief Open a channel slot for a producer
+ *
+ * Single producer per channel, the mixer is the sole consumer
+ * @return Channel handle or NULL if none available
+ */
+mixer_stream_t *mixer_create_stream(void);
+
+/**
+ * @brief Close a channel (drains remaining data then frees the slot)
+ */
+void mixer_free_stream(mixer_stream_t *ch);
+
+/**
+ * @brief Submit interleaved S16LE stereo frames to a channel (non-blocking)
+ *
+ * Identical signature and semantics to audio_push_t; returns frames accepted
+ */
+size_t mixer_push(mixer_stream_t *ch, const int16_t *frames, size_t total_frames);
+
+/**
+ * @brief Set per-channel gain (Q8.8; 256 == 1.0).
+ */
+void mixer_set_gain(mixer_stream_t *ch, uint16_t q8_8_gain);
+
+/**
+ * @brief Mute/unmute a channel; muted channels do not contribute to the mix.
+ */
+void mixer_set_mute(mixer_stream_t *ch, bool mute);
+
+/**
+ * @brief Query frames currently queued in a channel ring.
+ */
+uint32_t mixer_stream_queue_length(mixer_stream_t *ch);
+
+/**
+ * @brief Return the audio device used by the mixer (first device) or NULL.
+ */
+audio_device_t *mixer_device(void);
+
+/**
+ * @brief Foreground idle callback to drive the mixer.
+ *
+ * Called periodically by the process idle scheduler to top up the
+ * output device with freshly mixed audio. Consumes queued frames
+ * from all active mixer channels, applies gain/mute, and pushes
+ * the mixed stream to the first audio device until the desired
+ * latency is reached.
+ *
+ * This function is not intended to be called directly; it is
+ * registered with @ref proc_register_idle by @ref mixer_init.
+ */
+void mixer_idle(void);

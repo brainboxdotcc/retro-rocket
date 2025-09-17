@@ -23,5 +23,17 @@ void kmain()
 		preboot_fail("Failed to mount boot drive to VFS!");
 	}
 
+	/*load_module("ac97");
+
+	fs_directory_entry_t* entry = fs_get_file_info("/system/webserver/test.raw");
+	int16_t* data = kmalloc(entry->size);
+	fs_read_file(entry, 0, entry->size, (unsigned char*)data);
+
+	mixer_stream_t *music = mixer_create_stream();
+	mixer_set_gain(music, 64);
+	mixer_push(music, data, entry->size / sizeof(int16_t) / 2);
+
+	kfree(data);*/
+
 	init_process();
 }

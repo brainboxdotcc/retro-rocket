@@ -146,19 +146,6 @@ uint32_t ac97_buffered_ms(void);
 uint32_t ac97_get_hz(void);
 
 /**
- * @brief  Test helper: load a RAW S16LE stereo file and enqueue it.
- *
- * Loads "/system/webserver/test.raw" (header-less, S16LE, stereo) into
- * memory and enqueues the entire file into the software FIFO using
- * push_all_s16le(). Playback proceeds asynchronously via ac97_idle().
- *
- * @note   The stream must already be prepared; the file’s sample rate must
- *         match the active DAC rate or it will play at the wrong speed.
- * @warning Reads the whole file into memory in one go (no streaming).
- */
-void ac97_test_melody(void);
-
-/**
  * @brief  Prepare AC’97 PCM Out stream buffers and descriptors.
  *
  * Allocates and initialises the Buffer Descriptor List (BDL) and backing
