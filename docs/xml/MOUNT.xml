@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="MOUNT" kind="page">
     <compoundname>MOUNT</compoundname>
     <title>MOUNT Keyword</title>
@@ -36,16 +36,15 @@
 If the mount fails (for example, unsupported <computeroutput>fstype</computeroutput> or unavailable device), a runtime error is raised (catchable with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink>).</para>
 <para><hruler/>
 </para>
-<sect3 id="MOUNT_1autotoc_md873">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">MOUNT<sp/>&quot;/devices&quot;,<sp/>&quot;&quot;,<sp/>&quot;devfs&quot;</highlight></codeline>
+<sect1 id="MOUNT_1examples-141_1s1"><sect2 id="MOUNT_1examples-141_1s2"><sect3 id="MOUNT_1examples-141">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">MOUNT<sp/>&quot;/devices&quot;,<sp/>&quot;&quot;,<sp/>&quot;devfs&quot;</highlight></codeline>
 <codeline><highlight class="normal">MOUNT<sp/>&quot;/harddisk&quot;,<sp/>&quot;hd0&quot;,<sp/>&quot;fat32&quot;</highlight></codeline>
 </programlisting></para>
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <linebreak/>
  <ref refid="CHDIR" kindref="compound">CHDIR</ref> · <ref refid="MKDIR" kindref="compound">MKDIR</ref> · <ref refid="DELETE" kindref="compound">DELETE</ref> · <ref refid="RMDIR" kindref="compound">RMDIR</ref> · <ref refid="OPENIN" kindref="compound">OPENIN</ref> · <ref refid="OPENOUT" kindref="compound">OPENOUT</ref> · <ref refid="OPENUP" kindref="compound">OPENUP</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/MOUNT.md"/>
   </compounddef>

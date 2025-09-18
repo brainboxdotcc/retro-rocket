@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="OCTVAL" kind="page">
     <compoundname>OCTVAL</compoundname>
     <title>OCTVAL Function</title>
@@ -11,9 +11,8 @@
 <para>Returns the <bold>integer value</bold> of a string containing an <bold>octal number</bold>. The string must consist only of valid octal digits (<computeroutput>0–7</computeroutput>).</para>
 <para><hruler/>
 </para>
-<sect3 id="OCTVAL_1autotoc_md326">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>OCTVAL(&quot;10&quot;)</highlight></codeline>
+<sect1 id="OCTVAL_1examples-48_1s1"><sect2 id="OCTVAL_1examples-48_1s2"><sect3 id="OCTVAL_1examples-48">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>OCTVAL(&quot;10&quot;)</highlight></codeline>
 </programlisting></para>
 <para>Produces <computeroutput>8</computeroutput>.</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>OCTVAL(&quot;755&quot;)</highlight></codeline>
@@ -31,10 +30,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="OCTVAL_1autotoc_md328">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="OCTVAL_1notes-47_1s1"><sect2 id="OCTVAL_1notes-47_1s2"><sect3 id="OCTVAL_1notes-47">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Parsing is strict: only digits <computeroutput>0–7</computeroutput> are allowed.</para>
 </listitem><listitem><para>Returns a <bold>64-bit integer</bold>.</para>
 </listitem><listitem><para>If the string is empty, or contains any character outside <computeroutput>0–7</computeroutput>, the return value is <computeroutput>0</computeroutput>.</para>
@@ -48,7 +46,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> OCT$ · <ref refid="STR" kindref="compound">STR$</ref> · <ref refid="HEXVAL" kindref="compound">HEXVAL</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/OCTVAL.md"/>
   </compounddef>

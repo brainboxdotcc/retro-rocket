@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="RAD" kind="page">
     <compoundname>RAD</compoundname>
     <title>RAD Function</title>
@@ -11,9 +11,8 @@
 <para>Converts an angle from <bold>degrees</bold> to <bold>radians</bold>. The result is a real number.</para>
 <para><hruler/>
 </para>
-<sect3 id="RAD_1autotoc_md518">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>RAD(180)</highlight></codeline>
+<sect1 id="RAD_1examples-85_1s1"><sect2 id="RAD_1examples-85_1s2"><sect3 id="RAD_1examples-85">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>RAD(180)</highlight></codeline>
 </programlisting></para>
 <para>Produces approximately <computeroutput>3.14159</computeroutput> (<computeroutput>PI#</computeroutput>).</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>RAD(90)</highlight></codeline>
@@ -26,10 +25,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="RAD_1autotoc_md520">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="RAD_1notes-84_1s1"><sect2 id="RAD_1notes-84_1s2"><sect3 id="RAD_1notes-84">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Conversion formula: <computeroutput>radians = degrees * PI / 180</computeroutput>.</para>
 </listitem><listitem><para>Returned as a real value.</para>
 </listitem><listitem><para>Useful for trigonometric functions (<ref refid="SIN" kindref="compound">SIN</ref>, <ref refid="COS" kindref="compound">COS</ref>, <ref refid="TAN" kindref="compound">TAN</ref>), which all expect input in radians.</para>
@@ -38,7 +36,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="DEG" kindref="compound">DEG</ref> · <ref refid="SIN" kindref="compound">SIN</ref> · <ref refid="COS" kindref="compound">COS</ref> · <ref refid="TAN" kindref="compound">TAN</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/real/RAD.md"/>
   </compounddef>

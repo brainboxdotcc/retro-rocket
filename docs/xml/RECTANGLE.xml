@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="RECTANGLE" kind="page">
     <compoundname>RECTANGLE</compoundname>
     <title>RECTANGLE Keyword</title>
@@ -16,9 +16,8 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="RECTANGLE_1autotoc_md975">
-<title>Examples</title>
-<para>Filled rectangle <programlisting filename=".basic"><codeline><highlight class="normal">GCOL<sp/>RGB(0,128,255)</highlight></codeline>
+<sect1 id="RECTANGLE_1examples-156_1s1"><sect2 id="RECTANGLE_1examples-156_1s2"><sect3 id="RECTANGLE_1examples-156">
+<title>Examples</title><para>Filled rectangle <programlisting filename=".basic"><codeline><highlight class="normal">GCOL<sp/>RGB(0,128,255)</highlight></codeline>
 <codeline><highlight class="normal">RECTANGLE<sp/>50,<sp/>50,<sp/>180,<sp/>120</highlight></codeline>
 </programlisting></para>
 <para>Two rectangles with different colours <programlisting filename=".basic"><codeline><highlight class="normal">GCOL<sp/>RGB(255,0,0)</highlight></codeline>
@@ -37,10 +36,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="RECTANGLE_1autotoc_md977">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="RECTANGLE_1notes-161_1s1"><sect2 id="RECTANGLE_1notes-161_1s2"><sect3 id="RECTANGLE_1notes-161">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Coordinates are in <bold>screen pixels</bold>; <computeroutput>(0,0)</computeroutput> is the <bold>top-left</bold> corner.</para>
 </listitem><listitem><para>Rectangles that extend beyond the screen are <bold>clipped</bold> at the edges.</para>
 </listitem><listitem><para>Change the drawing colour with <computeroutput>GCOL RGB(r,g,b)</computeroutput> before calling <computeroutput>RECTANGLE</computeroutput>.</para>
@@ -49,7 +47,7 @@
 </para>
 <para><bold>See also:</bold> <linebreak/>
  <ref refid="GCOL" kindref="compound">GCOL</ref> · <ref refid="LINE" kindref="compound">LINE</ref> · <ref refid="CIRCLE" kindref="compound">CIRCLE</ref> · <ref refid="POINT" kindref="compound">POINT</ref> · <ref refid="PLOT" kindref="compound">PLOT</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/RECTANGLE.md"/>
   </compounddef>

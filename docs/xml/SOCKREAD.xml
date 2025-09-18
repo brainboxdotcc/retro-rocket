@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="SOCKREAD" kind="page">
     <compoundname>SOCKREAD</compoundname>
     <title>SOCKREAD Keyword</title>
@@ -26,9 +26,8 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="SOCKREAD_1autotoc_md1035">
-<title>Examples</title>
-<para><bold>Read a text line</bold> <programlisting filename=".basic"><codeline><highlight class="normal">CONNECT<sp/>S,<sp/>&quot;93.184.216.34&quot;,<sp/>80</highlight></codeline>
+<sect1 id="SOCKREAD_1examples-165_1s1"><sect2 id="SOCKREAD_1examples-165_1s2"><sect3 id="SOCKREAD_1examples-165">
+<title>Examples</title><para><bold>Read a text line</bold> <programlisting filename=".basic"><codeline><highlight class="normal">CONNECT<sp/>S,<sp/>&quot;93.184.216.34&quot;,<sp/>80</highlight></codeline>
 <codeline><highlight class="normal">REM<sp/>Ask<sp/>the<sp/>server<sp/>for<sp/>a<sp/>line,<sp/>then<sp/>read<sp/>it</highlight></codeline>
 <codeline><highlight class="normal">SOCKWRITE<sp/>S,<sp/>&quot;HEAD<sp/>/<sp/>HTTP/1.0&quot;<sp/>+<sp/>CHR$(13)<sp/>+<sp/>CHR$(10)<sp/>+<sp/>CHR$(13)<sp/>+<sp/>CHR$(10)</highlight></codeline>
 <codeline><highlight class="normal">SOCKREAD<sp/>S,<sp/>LINE$</highlight></codeline>
@@ -62,10 +61,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="SOCKREAD_1autotoc_md1037">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="SOCKREAD_1notes-168_1s1"><sect2 id="SOCKREAD_1notes-168_1s2"><sect3 id="SOCKREAD_1notes-168">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Treat the socket as a <bold>byte stream</bold>; if you need to read multiple fields on one line, call <computeroutput>SOCKREAD</computeroutput> multiple times or define a simple protocol (for example, one value per line).</para>
 </listitem><listitem><para>After <computeroutput>SOCKCLOSE</computeroutput>, the handle is invalid for further <computeroutput>SOCKREAD</computeroutput>/<computeroutput>SOCKWRITE</computeroutput>.</para>
 </listitem><listitem><para>Use <ref refid="DNS" kindref="compound">DNS$</ref> to resolve hostnames to IP strings for <computeroutput>CONNECT</computeroutput>.</para>
@@ -73,7 +71,7 @@
 </para>
 <para><bold>See also:</bold> <linebreak/>
  <ref refid="CONNECT" kindref="compound">CONNECT</ref> · <ref refid="SOCKWRITE" kindref="compound">SOCKWRITE</ref> · <ref refid="SOCKCLOSE" kindref="compound">SOCKCLOSE</ref> · <ref refid="INPUT" kindref="compound">INPUT</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/SOCKREAD.md"/>
   </compounddef>

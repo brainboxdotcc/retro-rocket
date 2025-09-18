@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="BINWRITE" kind="page">
     <compoundname>BINWRITE</compoundname>
     <title>BINWRITE Statement</title>
@@ -17,9 +17,8 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="BINWRITE_1autotoc_md726">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">fh<sp/><sp/>=<sp/>OPENOUT(&quot;copy.bin&quot;)</highlight></codeline>
+<sect1 id="BINWRITE_1examples-122_1s1"><sect2 id="BINWRITE_1examples-122_1s2"><sect3 id="BINWRITE_1examples-122">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">fh<sp/><sp/>=<sp/>OPENOUT(&quot;copy.bin&quot;)</highlight></codeline>
 <codeline><highlight class="normal">buf<sp/>=<sp/>MEMALLOC(1024)</highlight></codeline>
 <codeline><highlight class="normal">REM<sp/>...<sp/>fill<sp/>buf<sp/>with<sp/>data<sp/>...</highlight></codeline>
 <codeline><highlight class="normal">BINWRITE<sp/>fh,<sp/>buf,<sp/>1024</highlight></codeline>
@@ -28,10 +27,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="BINWRITE_1autotoc_md728">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="BINWRITE_1notes-122_1s1"><sect2 id="BINWRITE_1notes-122_1s2"><sect3 id="BINWRITE_1notes-122">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Binary-safe; writes bytes exactly as stored in memory.</para>
 </listitem><listitem><para>Ensure the file was opened with appropriate mode (<ref refid="OPENOUT" kindref="compound">OPENOUT</ref> to create/overwrite, <ref refid="OPENUP" kindref="compound">OPENUP</ref> to update).</para>
 </listitem></itemizedlist>
@@ -39,7 +37,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="OPENOUT" kindref="compound">OPENOUT</ref> · <ref refid="OPENUP" kindref="compound">OPENUP</ref> · <ref refid="MEMALLOC" kindref="compound">MEMALLOC</ref> · <ref refid="MEMRELEASE" kindref="compound">MEMRELEASE</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/BINWRITE.md"/>
   </compounddef>

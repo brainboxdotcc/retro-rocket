@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="RETURN" kind="page">
     <compoundname>RETURN</compoundname>
     <title>RETURN Keyword</title>
@@ -19,9 +19,8 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="RETURN_1autotoc_md1001">
-<title>Behaviour</title>
-<para><itemizedlist>
+<sect1 id="RETURN_1behaviour-6_1s1"><sect2 id="RETURN_1behaviour-6_1s2"><sect3 id="RETURN_1behaviour-6">
+<title>Behaviour</title><para><itemizedlist>
 <listitem><para><computeroutput>RETURN</computeroutput> takes <bold>no arguments</bold>.</para>
 </listitem><listitem><para>Nested subroutines are supported: each <computeroutput>GOSUB</computeroutput> must eventually reach a <computeroutput>RETURN</computeroutput>, which returns to its <bold>own</bold> caller.</para>
 </listitem><listitem><para><computeroutput>RETURN</computeroutput> is <bold>not</bold> used to exit <computeroutput>PROC</computeroutput> or <computeroutput>FN</computeroutput>:<itemizedlist>
@@ -33,10 +32,9 @@
 </para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="RETURN_1autotoc_md1003">
-<title>Examples (line numbers permitted)</title>
-<para><bold>Simple subroutine</bold> <programlisting filename=".basic"><codeline><highlight class="normal">10<sp/>PRINT<sp/>&quot;Start&quot;</highlight></codeline>
+</sect3></sect2></sect1>
+<sect1 id="RETURN_1examples-line-numbers-permitted_1s1"><sect2 id="RETURN_1examples-line-numbers-permitted_1s2"><sect3 id="RETURN_1examples-line-numbers-permitted">
+<title>Examples (line numbers permitted)</title><para><bold>Simple subroutine</bold> <programlisting filename=".basic"><codeline><highlight class="normal">10<sp/>PRINT<sp/>&quot;Start&quot;</highlight></codeline>
 <codeline><highlight class="normal">20<sp/>GOSUB<sp/>1000</highlight></codeline>
 <codeline><highlight class="normal">30<sp/>PRINT<sp/>&quot;Back<sp/>in<sp/>main<sp/>code&quot;</highlight></codeline>
 <codeline><highlight class="normal">40<sp/>END</highlight></codeline>
@@ -61,15 +59,14 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="RETURN_1autotoc_md1005">
-<title>See also</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="RETURN_1see-also-3_1s1"><sect2 id="RETURN_1see-also-3_1s2"><sect3 id="RETURN_1see-also-3">
+<title>See also</title><para><itemizedlist>
 <listitem><para><ref refid="GOSUB" kindref="compound">GOSUB</ref> - jump to a line and return</para>
 </listitem><listitem><para><ref refid="DEF" kindref="compound">DEF</ref>, <ref refid="PROC" kindref="compound">PROC</ref>, <ref refid="ENDPROC" kindref="compound">ENDPROC</ref> - structured alternatives </para>
 </listitem></itemizedlist>
 </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/RETURN.md"/>
   </compounddef>

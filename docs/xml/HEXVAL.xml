@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="HEXVAL" kind="page">
     <compoundname>HEXVAL</compoundname>
     <title>HEXVAL Function</title>
@@ -11,9 +11,8 @@
 <para>Returns the <bold>integer value</bold> of a string containing a <bold>hexadecimal number</bold>. The string must consist only of valid hex digits (<computeroutput>0–9</computeroutput>, <computeroutput>A–F</computeroutput>, <computeroutput>a–f</computeroutput>).</para>
 <para><hruler/>
 </para>
-<sect3 id="HEXVAL_1autotoc_md232">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>HEXVAL(&quot;FF&quot;)</highlight></codeline>
+<sect1 id="HEXVAL_1examples-30_1s1"><sect2 id="HEXVAL_1examples-30_1s2"><sect3 id="HEXVAL_1examples-30">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>HEXVAL(&quot;FF&quot;)</highlight></codeline>
 </programlisting></para>
 <para>Produces <computeroutput>255</computeroutput>.</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>HEXVAL(&quot;deadbeef&quot;)</highlight></codeline>
@@ -31,10 +30,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="HEXVAL_1autotoc_md234">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="HEXVAL_1notes-29_1s1"><sect2 id="HEXVAL_1notes-29_1s2"><sect3 id="HEXVAL_1notes-29">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Parsing is <bold>case-insensitive</bold>: <computeroutput>&quot;FF&quot;</computeroutput>, <computeroutput>&quot;Ff&quot;</computeroutput>, and <computeroutput>&quot;ff&quot;</computeroutput> all return <computeroutput>255</computeroutput>.</para>
 </listitem><listitem><para>Returns a <bold>64-bit integer</bold>.</para>
 </listitem><listitem><para>If the string is empty, or contains any non-hex character, the return value is <computeroutput>0</computeroutput>.</para>
@@ -43,7 +41,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> HEX$ · <ref refid="STR" kindref="compound">STR$</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/HEXVAL.md"/>
   </compounddef>

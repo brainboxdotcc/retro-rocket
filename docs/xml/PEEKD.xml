@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="PEEKD" kind="page">
     <compoundname>PEEKD</compoundname>
     <title>PEEKD Function</title>
@@ -13,34 +13,31 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="PEEKD_1autotoc_md352">
-<title>How to read it</title>
-<para><itemizedlist>
+<sect1 id="PEEKD_1how-to-read-it-17_1s1"><sect2 id="PEEKD_1how-to-read-it-17_1s2"><sect3 id="PEEKD_1how-to-read-it-17">
+<title>How to read it</title><para><itemizedlist>
 <listitem><para>Loads 4 bytes in <bold>little-endian</bold> order.</para>
 </listitem><listitem><para>Unaligned reads are supported.</para>
 </listitem></itemizedlist>
 </para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="PEEKD_1autotoc_md354">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Read<sp/>a<sp/>32-bit<sp/>value</highlight></codeline>
+</sect3></sect2></sect1>
+<sect1 id="PEEKD_1examples-53_1s1"><sect2 id="PEEKD_1examples-53_1s2"><sect3 id="PEEKD_1examples-53">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Read<sp/>a<sp/>32-bit<sp/>value</highlight></codeline>
 <codeline><highlight class="normal">D<sp/>=<sp/>PEEKD(&amp;100040)</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>D</highlight></codeline>
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="PEEKD_1autotoc_md356">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="PEEKD_1notes-52_1s1"><sect2 id="PEEKD_1notes-52_1s2"><sect3 id="PEEKD_1notes-52">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>32-bit is common for MMIO registers.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
  <ref refid="PEEK" kindref="compound">PEEK</ref> · <ref refid="PEEKW" kindref="compound">PEEKW</ref> · <ref refid="PEEKQ" kindref="compound">PEEKQ</ref> · <ref refid="POKED" kindref="compound">POKED</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/PEEKD.md"/>
   </compounddef>

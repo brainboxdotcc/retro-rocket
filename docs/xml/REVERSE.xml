@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="REVERSE" kind="page">
     <compoundname>REVERSE</compoundname>
     <title>REVERSE$ Function</title>
@@ -11,31 +11,30 @@
 <para>Reverses the characters in the given string expression and returns the result.</para>
 <para><hruler/>
 </para>
-<sect3 id="REVERSE_1autotoc_md656">
-<title>Examples</title>
-<para><table rows="6" cols="2"><row>
-<entry thead="yes"><para>Input   </para>
-</entry><entry thead="yes"><para>Output    </para>
+<sect1 id="REVERSE_1examples-110_1s1"><sect2 id="REVERSE_1examples-110_1s2"><sect3 id="REVERSE_1examples-110">
+<title>Examples</title><para><table rows="6" cols="2"><row>
+<entry thead="yes"><para>Input  </para>
+</entry><entry thead="yes"><para>Output  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><computeroutput>&quot;abcdef&quot;</computeroutput>   </para>
-</entry><entry thead="no"><para><computeroutput>&quot;fedcba&quot;</computeroutput>    </para>
+<entry thead="no"><para><computeroutput>&quot;abcdef&quot;</computeroutput>  </para>
+</entry><entry thead="no"><para><computeroutput>&quot;fedcba&quot;</computeroutput>  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><computeroutput>&quot;0123456789&quot;</computeroutput>   </para>
-</entry><entry thead="no"><para><computeroutput>&quot;9876543210&quot;</computeroutput>    </para>
+<entry thead="no"><para><computeroutput>&quot;0123456789&quot;</computeroutput>  </para>
+</entry><entry thead="no"><para><computeroutput>&quot;9876543210&quot;</computeroutput>  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><computeroutput>&quot;hello world!&quot;</computeroutput>   </para>
-</entry><entry thead="no"><para><computeroutput>&quot;!dlrow olleh&quot;</computeroutput>    </para>
+<entry thead="no"><para><computeroutput>&quot;hello world!&quot;</computeroutput>  </para>
+</entry><entry thead="no"><para><computeroutput>&quot;!dlrow olleh&quot;</computeroutput>  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><computeroutput>&quot;Retro Rocket&quot;</computeroutput>   </para>
-</entry><entry thead="no"><para><computeroutput>&quot;tekcoR orteR&quot;</computeroutput>    </para>
+<entry thead="no"><para><computeroutput>&quot;Retro Rocket&quot;</computeroutput>  </para>
+</entry><entry thead="no"><para><computeroutput>&quot;tekcoR orteR&quot;</computeroutput>  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><computeroutput>&quot;BASIC&quot;</computeroutput>   </para>
-</entry><entry thead="no"><para><computeroutput>&quot;CISAB&quot;</computeroutput>   </para>
+<entry thead="no"><para><computeroutput>&quot;BASIC&quot;</computeroutput>  </para>
+</entry><entry thead="no"><para><computeroutput>&quot;CISAB&quot;</computeroutput>  </para>
 </entry></row>
 </table>
 </para>
@@ -50,10 +49,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="REVERSE_1autotoc_md658">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="REVERSE_1notes-109_1s1"><sect2 id="REVERSE_1notes-109_1s2"><sect3 id="REVERSE_1notes-109">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Operates on the string as a sequence of ASCII characters.</para>
 </listitem><listitem><para>Whitespace, punctuation, and case are preserved exactly.</para>
 </listitem><listitem><para>Always returns a new string; the original string is unchanged.</para>
@@ -62,7 +60,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="LEFT" kindref="compound">LEFT$</ref> · <ref refid="RIGHT" kindref="compound">RIGHT$</ref> · <ref refid="MID" kindref="compound">MID$</ref> · <ref refid="LEN" kindref="compound">LEN</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/REVERSE.md"/>
   </compounddef>

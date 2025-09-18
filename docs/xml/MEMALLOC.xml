@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="MEMALLOC" kind="page">
     <compoundname>MEMALLOC</compoundname>
     <title>MEMALLOC Function</title>
@@ -11,19 +11,17 @@
 <para>Allocates a block of <bold>heap memory</bold> of the given size (in bytes) and returns a <bold>pointer/integer handle</bold> to it.</para>
 <para><hruler/>
 </para>
-<sect3 id="MEMALLOC_1autotoc_md289">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">size<sp/>=<sp/>FILESIZE(&quot;/system/webserver/logo.png&quot;)</highlight></codeline>
+<sect1 id="MEMALLOC_1examples-40_1s1"><sect2 id="MEMALLOC_1examples-40_1s2"><sect3 id="MEMALLOC_1examples-40">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">size<sp/>=<sp/>FILESIZE(&quot;/system/webserver/logo.png&quot;)</highlight></codeline>
 <codeline><highlight class="normal">buf<sp/><sp/>=<sp/>MEMALLOC(size)</highlight></codeline>
 <codeline><highlight class="normal">REM<sp/>...<sp/>use<sp/>buf<sp/>with<sp/>BINREAD<sp/>/<sp/>SOCKBINWRITE<sp/>...</highlight></codeline>
 <codeline><highlight class="normal">MEMRELEASE<sp/>buf</highlight></codeline>
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="MEMALLOC_1autotoc_md291">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="MEMALLOC_1notes-39_1s1"><sect2 id="MEMALLOC_1notes-39_1s2"><sect3 id="MEMALLOC_1notes-39">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Contents are unspecified on allocation.</para>
 </listitem><listitem><para>Always pair with <ref refid="MEMRELEASE" kindref="compound">MEMRELEASE</ref> to avoid leaks.</para>
 </listitem><listitem><para>The allocated memory is only valid while the program that requested it is running. The returned value ma be passed to other programs, however be aware of this restriction.</para>
@@ -32,7 +30,7 @@
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <ref refid="MEMRELEASE" kindref="compound">MEMRELEASE</ref> · <ref refid="BINREAD" kindref="compound">BINREAD</ref> · <ref refid="BINWRITE" kindref="compound">BINWRITE</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/MEMALLOC.md"/>
   </compounddef>

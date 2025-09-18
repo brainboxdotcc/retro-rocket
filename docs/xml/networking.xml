@@ -1,14 +1,13 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="networking" kind="page">
     <compoundname>networking</compoundname>
     <title>BASIC Networking</title>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<sect3 id="networking_1autotoc_md1185">
-<title>Introduction to Sockets</title>
-<para>Retro Rocket BASIC is not limited to files, graphics, and local input/output. It also has direct <bold>network and Internet access</bold>, built into the language itself. This is provided through <bold>sockets</bold>.</para>
+<sect1 id="networking_1introduction-to-sockets_1s1"><sect2 id="networking_1introduction-to-sockets_1s2"><sect3 id="networking_1introduction-to-sockets">
+<title>Introduction to Sockets</title><para>Retro Rocket BASIC is not limited to files, graphics, and local input/output. It also has direct <bold>network and Internet access</bold>, built into the language itself. This is provided through <bold>sockets</bold>.</para>
 <para>A socket is a numbered channel that lets your program send and receive data across the network. With sockets you can:</para>
 <para><itemizedlist>
 <listitem><para><bold>Build clients</bold> that connect to remote services such as web servers, APIs, or other Retro Rocket programs.</para>
@@ -26,10 +25,9 @@
 <para>Once you understand these, you can write networked applications such as web servers, chat clients, multiplayer games, and telemetry systems - all in BASIC, with the same clarity and brevity as printing text to the screen.</para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="networking_1autotoc_md1187">
-<title>Understanding Sockets (Phone Calls vs Parcels)</title>
-<para>Networking in Retro Rocket BASIC uses <bold>sockets</bold>: simple handles (just numbers) that let programs talk over the network. There are two flavours with very different “feel”:</para>
+</sect3></sect2></sect1>
+<sect1 id="networking_1understanding-sockets-phone-calls-vs-parcels_1s1"><sect2 id="networking_1understanding-sockets-phone-calls-vs-parcels_1s2"><sect3 id="networking_1understanding-sockets-phone-calls-vs-parcels">
+<title>Understanding Sockets (Phone Calls vs Parcels)</title><para>Networking in Retro Rocket BASIC uses <bold>sockets</bold>: simple handles (just numbers) that let programs talk over the network. There are two flavours with very different “feel”:</para>
 <para><itemizedlist>
 <listitem><para><bold>TCP</bold> - like a <bold>phone call</bold>: a live conversation with guaranteed order and delivery.</para>
 </listitem><listitem><para><bold>UDP</bold> - like posting a <bold>parcel</bold>: each item is sent on its own; most arrive, some may not.</para>
@@ -38,9 +36,8 @@
 <para>You don’t need to learn object systems, callbacks, or frameworks. The flow is linear: <bold>connect/listen → read/write → flush (if needed) → close</bold>.</para>
 <para><hruler/>
 </para>
-<sect4 id="networking_1autotoc_md1189">
-<title>TCP - Like a Phone Call (reliable conversation)</title>
-<para>TCP aims to feel like you’ve got a dedicated line once connected.</para>
+<sect4 id="networking_1tcp---like-a-phone-call-reliable-conversation">
+<title>TCP - Like a Phone Call (reliable conversation)</title><para>TCP aims to feel like you’ve got a dedicated line once connected.</para>
 <para><itemizedlist>
 <listitem><para><ref refid="CONNECT" kindref="compound">CONNECT</ref> - dial the other side. Their phone “rings”.</para>
 </listitem><listitem><para><ref refid="SOCKLISTEN" kindref="compound">SOCKLISTEN</ref> - keep your phone on, ready to receive calls on a number (port).</para>
@@ -62,9 +59,8 @@
 <para><hruler/>
 </para>
 </sect4>
-<sect4 id="networking_1autotoc_md1191">
-<title>UDP - Like Sending a Parcel (quick, independent messages)</title>
-<para>UDP is fire-and-forget. Each message is its own parcel.</para>
+<sect4 id="networking_1udp---like-sending-a-parcel-quick-independent-messages">
+<title>UDP - Like Sending a Parcel (quick, independent messages)</title><para>UDP is fire-and-forget. Each message is its own parcel.</para>
 <para><itemizedlist>
 <listitem><para><ref refid="UDPBIND" kindref="compound">UDPBIND</ref> - write your return address on the box and open your doorstep (port). Both sides should <bold>bind</bold> so they have a clear return address and a place to receive.</para>
 </listitem><listitem><para><ref refid="UDPWRITE" kindref="compound">UDPWRITE</ref> - pack a parcel and drop it at the post office. It <bold>leaves immediately</bold>. There’s no built-in receipt or guarantee.</para>
@@ -83,52 +79,50 @@
 <para><hruler/>
 </para>
 </sect4>
-</sect3>
-<sect3 id="networking_1autotoc_md1193">
-<title>Side-by-side: Phone Call vs Parcel</title>
-<para><table rows="7" cols="3"><row>
-<entry thead="yes"><para>Aspect   </para>
-</entry><entry thead="yes"><para><bold>TCP (Phone Call)</bold>   </para>
-</entry><entry thead="yes"><para><bold>UDP (Parcel Post)</bold>    </para>
+</sect3></sect2></sect1>
+<sect1 id="networking_1side-by-side-phone-call-vs-parcel_1s1"><sect2 id="networking_1side-by-side-phone-call-vs-parcel_1s2"><sect3 id="networking_1side-by-side-phone-call-vs-parcel">
+<title>Side-by-side: Phone Call vs Parcel</title><para><table rows="7" cols="3"><row>
+<entry thead="yes"><para>Aspect  </para>
+</entry><entry thead="yes"><para><bold>TCP (Phone Call)</bold>  </para>
+</entry><entry thead="yes"><para><bold>UDP (Parcel Post)</bold>  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>How you start   </para>
-</entry><entry thead="no"><para><computeroutput>CONNECT</computeroutput> to call; server <computeroutput>SOCKLISTEN</computeroutput> + <computeroutput>SOCKACCEPT</computeroutput> to answer.   </para>
-</entry><entry thead="no"><para>Both sides <computeroutput>UDPBIND</computeroutput> a port (their doorstep). No call setup.    </para>
+<entry thead="no"><para>How you start  </para>
+</entry><entry thead="no"><para><computeroutput>CONNECT</computeroutput> to call; server <computeroutput>SOCKLISTEN</computeroutput> + <computeroutput>SOCKACCEPT</computeroutput> to answer.  </para>
+</entry><entry thead="no"><para>Both sides <computeroutput>UDPBIND</computeroutput> a port (their doorstep). No call setup.  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>Identity   </para>
-</entry><entry thead="no"><para>Each accepted TCP socket is a known line between two ends.   </para>
-</entry><entry thead="no"><para>Each parcel carries its own label; use <computeroutput>UDPLASTIP$</computeroutput> / <computeroutput>UDPLASTSOURCEPORT</computeroutput> after <computeroutput>UDPREAD$</computeroutput>.    </para>
+<entry thead="no"><para>Identity  </para>
+</entry><entry thead="no"><para>Each accepted TCP socket is a known line between two ends.  </para>
+</entry><entry thead="no"><para>Each parcel carries its own label; use <computeroutput>UDPLASTIP$</computeroutput> / <computeroutput>UDPLASTSOURCEPORT</computeroutput> after <computeroutput>UDPREAD$</computeroutput>.  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>Sending   </para>
-</entry><entry thead="no"><para><computeroutput>SOCKWRITE</computeroutput> queues words; <computeroutput>SOCKFLUSH</computeroutput> waits for “uh-huh”.   </para>
-</entry><entry thead="no"><para><computeroutput>UDPSEND</computeroutput>/<computeroutput>UDPWRITE</computeroutput> posts a parcel immediately. No flush.    </para>
+<entry thead="no"><para>Sending  </para>
+</entry><entry thead="no"><para><computeroutput>SOCKWRITE</computeroutput> queues words; <computeroutput>SOCKFLUSH</computeroutput> waits for “uh-huh”.  </para>
+</entry><entry thead="no"><para><computeroutput>UDPSEND</computeroutput>/<computeroutput>UDPWRITE</computeroutput> posts a parcel immediately. No flush.  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>Receiving   </para>
-</entry><entry thead="no"><para><computeroutput>SOCKREAD</computeroutput> waits for complete data; order guaranteed.   </para>
-</entry><entry thead="no"><para><computeroutput>UDPREAD$</computeroutput> pops <bold>one</bold> parcel from the doorstep queue; order not guaranteed.    </para>
+<entry thead="no"><para>Receiving  </para>
+</entry><entry thead="no"><para><computeroutput>SOCKREAD</computeroutput> waits for complete data; order guaranteed.  </para>
+</entry><entry thead="no"><para><computeroutput>UDPREAD$</computeroutput> pops <bold>one</bold> parcel from the doorstep queue; order not guaranteed.  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>Delivery   </para>
-</entry><entry thead="no"><para>Guaranteed and ordered.   </para>
-</entry><entry thead="no"><para>Best-effort; may be delayed, re-ordered, or lost.    </para>
+<entry thead="no"><para>Delivery  </para>
+</entry><entry thead="no"><para>Guaranteed and ordered.  </para>
+</entry><entry thead="no"><para>Best-effort; may be delayed, re-ordered, or lost.  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>Ending   </para>
-</entry><entry thead="no"><para><computeroutput>SOCKCLOSE</computeroutput> hangs up the line.   </para>
-</entry><entry thead="no"><para><computeroutput>SOCKCLOSE</computeroutput>/<computeroutput>UDPUNBIND</computeroutput> stops using that doorstep.   </para>
+<entry thead="no"><para>Ending  </para>
+</entry><entry thead="no"><para><computeroutput>SOCKCLOSE</computeroutput> hangs up the line.  </para>
+</entry><entry thead="no"><para><computeroutput>SOCKCLOSE</computeroutput>/<computeroutput>UDPUNBIND</computeroutput> stops using that doorstep.  </para>
 </entry></row>
 </table>
 </para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="networking_1autotoc_md1195">
-<title>UDP “Doorstep Queue” (how incoming messages are stored)</title>
-<para>When your program <computeroutput>UDPBIND</computeroutput>s a port, Retro Rocket keeps an <bold>in-memory queue</bold> of incoming UDP packets for that port-think <bold>parcels on your doorstep</bold>:</para>
+</sect3></sect2></sect1>
+<sect1 id="networking_1udp-doorstep-queue-how-incoming-messages-are-stored_1s1"><sect2 id="networking_1udp-doorstep-queue-how-incoming-messages-are-stored_1s2"><sect3 id="networking_1udp-doorstep-queue-how-incoming-messages-are-stored">
+<title>UDP “Doorstep Queue” (how incoming messages are stored)</title><para>When your program <computeroutput>UDPBIND</computeroutput>s a port, Retro Rocket keeps an <bold>in-memory queue</bold> of incoming UDP packets for that port-think <bold>parcels on your doorstep</bold>:</para>
 <para><itemizedlist>
 <listitem><para>Every new packet is placed at the <bold>back</bold> of the queue for that port.</para>
 </listitem><listitem><para>Each call to <ref refid="UDPREAD" kindref="compound">UDPREAD$ pops **one** packet from the **front** of the queue and returns its contents as a string.</ref></para>
@@ -142,10 +136,9 @@
 <para>This model is simple, predictable, and maps perfectly to the “parcel on the doorstep” intuition.</para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="networking_1autotoc_md1197">
-<title>Worked UDP Example - Mouse Telemetry</title>
-<para>Below is your exact module, which binds a per-process port and polls a local mouse server. It showcases <computeroutput>UDPBIND</computeroutput>, <computeroutput>UDPWRITE</computeroutput>, <computeroutput>UDPREAD$</computeroutput>, and consuming one packet at a time:</para>
+</sect3></sect2></sect1>
+<sect1 id="networking_1worked-udp-example---mouse-telemetry_1s1"><sect2 id="networking_1worked-udp-example---mouse-telemetry_1s2"><sect3 id="networking_1worked-udp-example---mouse-telemetry">
+<title>Worked UDP Example - Mouse Telemetry</title><para>Below is your exact module, which binds a per-process port and polls a local mouse server. It showcases <computeroutput>UDPBIND</computeroutput>, <computeroutput>UDPWRITE</computeroutput>, <computeroutput>UDPREAD$</computeroutput>, and consuming one packet at a time:</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>PROCmouse</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>__MOUSE_X<sp/>=<sp/>GRAPHICS_WIDTH<sp/>/<sp/>2</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>__MOUSE_Y<sp/>=<sp/>GRAPHICS_HEIGHT<sp/>/<sp/>2</highlight></codeline>
@@ -202,10 +195,9 @@
 <para>Because each UDP packet is independent, you can lose one with negligible impact-the next packet will replace it a tick later, keeping the mouse fluid.</para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="networking_1autotoc_md1199">
-<title>Practical Tips (UDP)</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="networking_1practical-tips-udp_1s1"><sect2 id="networking_1practical-tips-udp_1s2"><sect3 id="networking_1practical-tips-udp">
+<title>Practical Tips (UDP)</title><para><itemizedlist>
 <listitem><para><bold>Bind both sides</bold>: have a predictable return address and a consistent inbox.</para>
 </listitem><listitem><para><bold>Keep messages small</bold>: fit comfortably within your UDP payload limit to avoid IP fragmentation.</para>
 </listitem><listitem><para><bold>Design for loss</bold>: treat every packet as optional; never rely on “the last one must have arrived”.</para>
@@ -217,10 +209,9 @@
 <para>Right - good catch. For new users, we need to introduce the idea from first principles, <bold>without starting with “DNS”</bold>. Here’s a plain-English version that leads into the concept and only then names it:</para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="networking_1autotoc_md1202">
-<title>Names and Addresses</title>
-<para>Every computer on the Internet has a unique <bold>address number</bold>, called an <bold>IP address</bold>. It looks like this:</para>
+</sect3></sect2></sect1>
+<sect1 id="networking_1names-and-addresses_1s1"><sect2 id="networking_1names-and-addresses_1s2"><sect3 id="networking_1names-and-addresses">
+<title>Names and Addresses</title><para>Every computer on the Internet has a unique <bold>address number</bold>, called an <bold>IP address</bold>. It looks like this:</para>
 <para><programlisting><codeline><highlight class="normal">93.184.216.34</highlight></codeline>
 </programlisting></para>
 <para>These numbers are what sockets really use. But numbers are hard to remember. People prefer names, like:</para>
@@ -235,10 +226,9 @@
 </para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="networking_1autotoc_md1204">
-<title>The DNS$ Function</title>
-<para>Retro Rocket BASIC makes this simple with a single function:</para>
+</sect3></sect2></sect1>
+<sect1 id="networking_1the-dns-function_1s1"><sect2 id="networking_1the-dns-function_1s2"><sect3 id="networking_1the-dns-function">
+<title>The DNS$ Function</title><para>Retro Rocket BASIC makes this simple with a single function:</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">ip$<sp/>=<sp/>DNS$(&quot;example.org&quot;)</highlight></codeline>
 </programlisting></para>
 <para><itemizedlist>
@@ -249,12 +239,10 @@
 </para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="networking_1autotoc_md1206">
-<title>Quick Examples</title>
-<sect4 id="networking_1autotoc_md1207">
-<title>TCP Client</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">&apos;<sp/>Connect<sp/>to<sp/>a<sp/>web<sp/>server</highlight></codeline>
+</sect3></sect2></sect1>
+<sect1 id="networking_1quick-examples_1s1"><sect2 id="networking_1quick-examples_1s2"><sect3 id="networking_1quick-examples">
+<title>Quick Examples</title><sect4 id="networking_1tcp-client">
+<title>TCP Client</title><para><programlisting filename=".basic"><codeline><highlight class="normal">&apos;<sp/>Connect<sp/>to<sp/>a<sp/>web<sp/>server</highlight></codeline>
 <codeline><highlight class="normal">sock<sp/>=<sp/>CONNECT(&quot;93.184.216.34&quot;,<sp/>80)</highlight></codeline>
 <codeline><highlight class="normal">SOCKWRITE<sp/>sock,<sp/>&quot;GET<sp/>/<sp/>HTTP/1.0&quot;<sp/>+<sp/>CHR$(13)<sp/>+<sp/>CHR$(10)<sp/>+<sp/>CHR$(13)<sp/>+<sp/>CHR$(10)</highlight></codeline>
 <codeline><highlight class="normal">SOCKFLUSH<sp/>sock</highlight></codeline>
@@ -268,9 +256,8 @@
 <para><hruler/>
 </para>
 </sect4>
-<sect4 id="networking_1autotoc_md1209">
-<title>TCP Server</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">&apos;<sp/>Listen<sp/>on<sp/>port<sp/>8080</highlight></codeline>
+<sect4 id="networking_1tcp-server">
+<title>TCP Server</title><para><programlisting filename=".basic"><codeline><highlight class="normal">&apos;<sp/>Listen<sp/>on<sp/>port<sp/>8080</highlight></codeline>
 <codeline><highlight class="normal">server<sp/>=<sp/>SOCKLISTEN(&quot;0.0.0.0&quot;,<sp/>8080,<sp/>5)</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Server<sp/>running<sp/>on<sp/>port<sp/>8080&quot;</highlight></codeline>
 <codeline></codeline>
@@ -288,9 +275,8 @@
 <para><hruler/>
 </para>
 </sect4>
-<sect4 id="networking_1autotoc_md1211">
-<title>UDP Example</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">&apos;<sp/>Bind<sp/>to<sp/>port<sp/>5001</highlight></codeline>
+<sect4 id="networking_1udp-example">
+<title>UDP Example</title><para><programlisting filename=".basic"><codeline><highlight class="normal">&apos;<sp/>Bind<sp/>to<sp/>port<sp/>5001</highlight></codeline>
 <codeline><highlight class="normal">udp<sp/>=<sp/>UDPBIND(&quot;0.0.0.0&quot;,<sp/>5001)</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">&apos;<sp/>Send<sp/>a<sp/>packet<sp/>to<sp/>localhost:5001</highlight></codeline>
@@ -306,9 +292,8 @@
 <codeline><highlight class="normal">SOCKCLOSE<sp/>udp</highlight></codeline>
 </programlisting></para>
 </sect4>
-<sect4 id="networking_1autotoc_md1212">
-<title>Connecting by Name</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">ip$<sp/>=<sp/>DNS$(&quot;example.org&quot;)</highlight></codeline>
+<sect4 id="networking_1connecting-by-name">
+<title>Connecting by Name</title><para><programlisting filename=".basic"><codeline><highlight class="normal">ip$<sp/>=<sp/>DNS$(&quot;example.org&quot;)</highlight></codeline>
 <codeline><highlight class="normal">IF<sp/>ip$<sp/>&lt;&gt;<sp/>&quot;&quot;<sp/>THEN</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>sock<sp/>=<sp/>CONNECT(ip$,<sp/>80)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>SOCKWRITE<sp/>sock,<sp/>&quot;GET<sp/>/<sp/>HTTP/1.0&quot;<sp/>+<sp/>CHR$(13)<sp/>+<sp/>CHR$(10)<sp/>+<sp/>CHR$(13)<sp/>+<sp/>CHR$(10)</highlight></codeline>
@@ -323,10 +308,9 @@
 <para><hruler/>
 </para>
 </sect4>
-</sect3>
-<sect3 id="networking_1autotoc_md1214">
-<title>Socket Keywords</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="networking_1socket-keywords_1s1"><sect2 id="networking_1socket-keywords_1s2"><sect3 id="networking_1socket-keywords">
+<title>Socket Keywords</title><para><itemizedlist>
 <listitem><para><ref refid="CONNECT" kindref="compound">CONNECT Keyword</ref></para>
 </listitem><listitem><para><ref refid="DNS" kindref="compound">DNS$</ref></para>
 </listitem><listitem><para><ref refid="SOCKLISTEN" kindref="compound">SOCKLISTEN Function</ref></para>
@@ -344,7 +328,7 @@
 </listitem><listitem><para><ref refid="UDPUNBIND" kindref="compound">UDPUNBIND Keyword</ref> </para>
 </listitem></itemizedlist>
 </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/NETWORKING.md"/>
   </compounddef>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="ERROR" kind="page">
     <compoundname>ERROR</compoundname>
     <title>ERROR Keyword</title>
@@ -24,9 +24,8 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="ERROR_1autotoc_md793">
-<title>Examples</title>
-<para><bold>Uncaught error (program terminates)</bold></para>
+<sect1 id="ERROR_1examples-126_1s1"><sect2 id="ERROR_1examples-126_1s2"><sect3 id="ERROR_1examples-126">
+<title>Examples</title><para><bold>Uncaught error (program terminates)</bold></para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;About<sp/>to<sp/>fail...&quot;</highlight></codeline>
 <codeline><highlight class="normal">ERROR<sp/>&quot;there<sp/>are<sp/>owls<sp/>loose&quot;</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;This<sp/>line<sp/>is<sp/>never<sp/>reached&quot;</highlight></codeline>
@@ -48,10 +47,9 @@
 <para>In this example, the handler runs, <computeroutput>ERR$</computeroutput> contains the message, and <computeroutput>ERR</computeroutput> is <computeroutput>1</computeroutput>.</para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="ERROR_1autotoc_md795">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="ERROR_1notes-135_1s1"><sect2 id="ERROR_1notes-135_1s2"><sect3 id="ERROR_1notes-135">
+<title>Notes</title><para><itemizedlist>
 <listitem><para><computeroutput>ERROR</computeroutput> accepts a <bold>string expression</bold>; use it to describe the failure clearly.</para>
 </listitem><listitem><para><computeroutput>ON ERROR</computeroutput> supports only <computeroutput>ON ERROR PROCname</computeroutput> and <computeroutput>ON ERROR OFF</computeroutput>.</para>
 </listitem><listitem><para>When raised inside <computeroutput>EVAL</computeroutput>, <computeroutput>ERR</computeroutput> and <computeroutput>ERR$</computeroutput> are set; see the <computeroutput>EVAL</computeroutput> page for how control returns to the caller.</para>
@@ -59,7 +57,7 @@
 </para>
 <para><bold>See also:</bold> <linebreak/>
  <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink> · <ref refid="EVAL" kindref="compound">EVAL</ref> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Builtin-Variables">Builtin Variables</ulink> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/ERROR.md"/>
   </compounddef>

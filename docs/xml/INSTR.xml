@@ -1,14 +1,13 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="INSTR" kind="page">
     <compoundname>INSTR</compoundname>
     <title>INSTR Function</title>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<sect4 id="INSTR_1autotoc_md265">
-<title>INSTR</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">INSTR(haystack$,<sp/>needle$)</highlight></codeline>
+<sect1 id="INSTR_1instr_1s1"><sect2 id="INSTR_1instr_1s2"><sect3 id="INSTR_1instr_1s3"><sect4 id="INSTR_1instr">
+<title>INSTR</title><para><programlisting filename=".basic"><codeline><highlight class="normal">INSTR(haystack$,<sp/>needle$)</highlight></codeline>
 </programlisting></para>
 <para>Searches for the substring <computeroutput>needle$</computeroutput> inside the string <computeroutput>haystack$</computeroutput>. Returns the 1-based index of the first occurrence, or <computeroutput>0</computeroutput> if not found. The search is case sensitive.</para>
 <para><bold>Notes</bold></para>
@@ -32,7 +31,7 @@
 </programlisting></para>
 <para><bold>See also</bold></para>
 <para><ref refid="LEFT" kindref="compound">LEFT$</ref> · <ref refid="RIGHT" kindref="compound">RIGHT$</ref> · <ref refid="MID" kindref="compound">MID$</ref> · <ref refid="LEN" kindref="compound">LEN$</ref> </para>
-</sect4>
+</sect4></sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/INSTR.md"/>
   </compounddef>

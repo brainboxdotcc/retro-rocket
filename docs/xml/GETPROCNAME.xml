@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="GETPROCNAME" kind="page">
     <compoundname>GETPROCNAME</compoundname>
     <title>GETPROCNAME$ Function</title>
@@ -11,9 +11,8 @@
 <para>Returns the <bold>name of a running process</bold>. The parameter is an index between <computeroutput>0</computeroutput> and <computeroutput>GETPROCCOUNT - 1</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect3 id="GETPROCNAME_1autotoc_md575">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>all<sp/>running<sp/>process<sp/>names</highlight></codeline>
+<sect1 id="GETPROCNAME_1examples-95_1s1"><sect2 id="GETPROCNAME_1examples-95_1s2"><sect3 id="GETPROCNAME_1examples-95">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>all<sp/>running<sp/>process<sp/>names</highlight></codeline>
 <codeline><highlight class="normal">FOR<sp/>i<sp/>=<sp/>0<sp/>TO<sp/>GETPROCCOUNT<sp/>-<sp/>1</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>GETPROCNAME$(i)</highlight></codeline>
 <codeline><highlight class="normal">NEXT</highlight></codeline>
@@ -23,10 +22,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="GETPROCNAME_1autotoc_md577">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="GETPROCNAME_1notes-94_1s1"><sect2 id="GETPROCNAME_1notes-94_1s2"><sect3 id="GETPROCNAME_1notes-94">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>The index must be within the valid range.</para>
 </listitem><listitem><para>Process names are the identifiers assigned when the process was created.</para>
 </listitem><listitem><para>Combine with other process functions such as <ref refid="GETPROCID" kindref="compound">GETPROCID</ref> or <ref refid="GETPROCMEM" kindref="compound">GETPROCMEM</ref> for full details.</para>
@@ -35,7 +33,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="GETPROCCOUNT" kindref="compound">GETPROCCOUNT</ref> · <ref refid="GETPROCID" kindref="compound">GETPROCID</ref> · <ref refid="GETPROCMEM" kindref="compound">GETPROCMEM</ref> · <ref refid="GETPROCPARENT" kindref="compound">GETPROCPARENT</ref> · <ref refid="GETPROCCPUID" kindref="compound">GETPROCCPUID</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/GETPROCNAME.md"/>
   </compounddef>

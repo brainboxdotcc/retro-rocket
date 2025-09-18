@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="TRIM" kind="page">
     <compoundname>TRIM</compoundname>
     <title>TRIM$ Function</title>
@@ -11,9 +11,8 @@
 <para>Removes all leading and trailing spaces from the string expression and returns the result.</para>
 <para><hruler/>
 </para>
-<sect3 id="TRIM_1autotoc_md691">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>TRIM$(&quot;<sp/><sp/><sp/>Hello<sp/><sp/><sp/>&quot;)</highlight></codeline>
+<sect1 id="TRIM_1examples-117_1s1"><sect2 id="TRIM_1examples-117_1s2"><sect3 id="TRIM_1examples-117">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>TRIM$(&quot;<sp/><sp/><sp/>Hello<sp/><sp/><sp/>&quot;)</highlight></codeline>
 </programlisting></para>
 <para>Produces <computeroutput>&quot;Hello&quot;</computeroutput>.</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Normalise<sp/>user<sp/>input</highlight></codeline>
@@ -23,10 +22,9 @@
 <para>Produces <computeroutput>[command]</computeroutput>.</para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="TRIM_1autotoc_md693">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="TRIM_1notes-116_1s1"><sect2 id="TRIM_1notes-116_1s2"><sect3 id="TRIM_1notes-116">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Only space characters (<computeroutput>CHR$(32)</computeroutput>) are removed; tabs and other whitespace are not affected.</para>
 </listitem><listitem><para>If the string has no leading or trailing spaces, it is returned unchanged.</para>
 </listitem><listitem><para>For trimming only one side: use <ref refid="LTRIM" kindref="compound">LTRIM$</ref> or <ref refid="RTRIM" kindref="compound">RTRIM$</ref>.</para>
@@ -35,7 +33,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="LTRIM" kindref="compound">LTRIM$</ref> · <ref refid="RTRIM" kindref="compound">RTRIM$</ref> · <ref refid="LEN" kindref="compound">LEN</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/TRIM.md"/>
   </compounddef>

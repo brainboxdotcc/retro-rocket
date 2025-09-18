@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="RIGHT" kind="page">
     <compoundname>RIGHT</compoundname>
     <title>RIGHT$ Function</title>
@@ -11,9 +11,8 @@
 <para>Returns the <bold>rightmost characters</bold> from a string. The second parameter specifies how many characters to return.</para>
 <para><hruler/>
 </para>
-<sect3 id="RIGHT_1autotoc_md661">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>RIGHT$(&quot;RetroRocket&quot;,<sp/>6)</highlight></codeline>
+<sect1 id="RIGHT_1examples-111_1s1"><sect2 id="RIGHT_1examples-111_1s2"><sect3 id="RIGHT_1examples-111">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>RIGHT$(&quot;RetroRocket&quot;,<sp/>6)</highlight></codeline>
 </programlisting></para>
 <para>Produces <computeroutput>&quot;Rocket&quot;</computeroutput>.</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Extract<sp/>file<sp/>extension</highlight></codeline>
@@ -28,10 +27,9 @@
 <para>Produces <computeroutput>&quot;SESSION-ABC123&quot;</computeroutput> (truncated to fit length).</para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="RIGHT_1autotoc_md663">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="RIGHT_1notes-110_1s1"><sect2 id="RIGHT_1notes-110_1s2"><sect3 id="RIGHT_1notes-110">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>If the requested length is greater than the string length, the entire string is returned.</para>
 </listitem><listitem><para>If the length is <computeroutput>0</computeroutput>, an empty string is returned.</para>
 </listitem><listitem><para>Negative lengths cause an error.</para>
@@ -41,7 +39,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="LEFT" kindref="compound">LEFT$</ref> · <ref refid="MID" kindref="compound">MID$</ref> · <ref refid="LEN" kindref="compound">LEN</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/RIGHT.md"/>
   </compounddef>

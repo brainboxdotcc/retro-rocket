@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="SPRITEFREE" kind="page">
     <compoundname>SPRITEFREE</compoundname>
     <title>SPRITEFREE Keyword</title>
@@ -20,9 +20,8 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="SPRITEFREE_1autotoc_md1060">
-<title>Examples</title>
-<para><bold>Load, draw, then free</bold> <programlisting filename=".basic"><codeline><highlight class="normal">SPRITELOAD<sp/>S,<sp/>&quot;/images/logo.png&quot;</highlight></codeline>
+<sect1 id="SPRITEFREE_1examples-167_1s1"><sect2 id="SPRITEFREE_1examples-167_1s2"><sect3 id="SPRITEFREE_1examples-167">
+<title>Examples</title><para><bold>Load, draw, then free</bold> <programlisting filename=".basic"><codeline><highlight class="normal">SPRITELOAD<sp/>S,<sp/>&quot;/images/logo.png&quot;</highlight></codeline>
 <codeline><highlight class="normal">PLOT<sp/>S,<sp/>100,<sp/>80</highlight></codeline>
 <codeline><highlight class="normal">SPRITEFREE<sp/>S</highlight></codeline>
 </programlisting></para>
@@ -59,10 +58,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="SPRITEFREE_1autotoc_md1062">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="SPRITEFREE_1notes-170_1s1"><sect2 id="SPRITEFREE_1notes-170_1s2"><sect3 id="SPRITEFREE_1notes-170">
+<title>Notes</title><para><itemizedlist>
 <listitem><para><computeroutput>integer-expression</computeroutput> can be a variable, array element, or any expression that evaluates to a valid sprite handle.</para>
 </listitem><listitem><para>Once freed, do not use the handle with <computeroutput>PLOT</computeroutput> or <computeroutput>PLOTQUAD</computeroutput> unless you load a new sprite and store its new handle.</para>
 </listitem><listitem><para>Freeing resources explicitly during long-running programs helps control memory use.</para>
@@ -70,7 +68,7 @@
 </para>
 <para><bold>See also:</bold> <linebreak/>
  <ref refid="SPRITELOAD" kindref="compound">SPRITELOAD</ref> · <ref refid="PLOT" kindref="compound">PLOT</ref> · <ref refid="PLOTQUAD" kindref="compound">PLOTQUAD</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/SPRITEFREE.md"/>
   </compounddef>

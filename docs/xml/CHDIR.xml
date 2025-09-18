@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="CHDIR" kind="page">
     <compoundname>CHDIR</compoundname>
     <title>CHDIR Keyword</title>
@@ -25,17 +25,15 @@
 </simplesect>
 <hruler/>
 </para>
-<sect4 id="CHDIR_1autotoc_md736">
-<title>Example</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">CHDIR<sp/>&quot;/programs&quot;</highlight></codeline>
+<sect1 id="CHDIR_1example-2_1s1"><sect2 id="CHDIR_1example-2_1s2"><sect3 id="CHDIR_1example-2_1s3"><sect4 id="CHDIR_1example-2">
+<title>Example</title><para><programlisting filename=".basic"><codeline><highlight class="normal">CHDIR<sp/>&quot;/programs&quot;</highlight></codeline>
 <codeline><highlight class="normal">CHAIN<sp/>&quot;demo&quot;</highlight></codeline>
 </programlisting></para>
 <para>This changes the current directory to <computeroutput>/programs</computeroutput>, then launches <computeroutput>demo</computeroutput> from that directory.</para>
 <para><hruler/>
 </para>
-<para><heading level="5">Notes</heading>
-</para>
-<para><itemizedlist>
+<sect5 id="CHDIR_1notes-125">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Paths must exist; if the target directory is invalid, an error occurs (catchable with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink>). <linebreak/>
 </para>
 </listitem><listitem><para>Paths are <bold>case-insensitive</bold>. <linebreak/>
@@ -46,7 +44,8 @@
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <ref refid="CHAIN" kindref="compound">CHAIN</ref>, <ref refid="LIBRARY" kindref="compound">LIBRARY</ref> </para>
-</sect4>
+</sect5>
+</sect4></sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/CHDIR.md"/>
   </compounddef>

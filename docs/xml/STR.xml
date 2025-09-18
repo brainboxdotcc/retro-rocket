@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="STR" kind="page">
     <compoundname>STR</compoundname>
     <title>STR$ Function</title>
@@ -11,9 +11,8 @@
 <para>Converts a <bold>numeric value</bold> (integer or real) into its <bold>string representation</bold>.</para>
 <para><hruler/>
 </para>
-<sect3 id="STR_1autotoc_md676">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>STR$(123)</highlight></codeline>
+<sect1 id="STR_1examples-114_1s1"><sect2 id="STR_1examples-114_1s2"><sect3 id="STR_1examples-114">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>STR$(123)</highlight></codeline>
 </programlisting></para>
 <para>Produces <computeroutput>&quot;123&quot;</computeroutput>.</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>STR$(-45.67)</highlight></codeline>
@@ -26,10 +25,9 @@
 <para>Produces <computeroutput>&quot;Score = 9001&quot;</computeroutput>.</para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="STR_1autotoc_md678">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="STR_1notes-113_1s1"><sect2 id="STR_1notes-113_1s2"><sect3 id="STR_1notes-113">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Accepts both integers and real numbers.</para>
 </listitem><listitem><para>Result is a string in plain decimal notation (no prefixes).</para>
 </listitem><listitem><para>Formatting (e.g. fixed decimal places) is not provided; use string operations if specific formatting is required.</para>
@@ -38,7 +36,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="VAL" kindref="compound">VAL</ref> · <ref refid="REALVAL" kindref="compound">REALVAL</ref> · <ref refid="HEXVAL" kindref="compound">HEXVAL</ref> · <ref refid="OCTVAL" kindref="compound">OCTVAL</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/STR.md"/>
   </compounddef>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="type-array" kind="page">
     <compoundname>type-array</compoundname>
     <title>Array Variables</title>
@@ -15,9 +15,8 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="type-array_1autotoc_md1230">
-<title>Declaring arrays</title>
-<para>Arrays must be created with the <ref refid="DIM" kindref="compound">DIM</ref> statement:</para>
+<sect1 id="type-array_1declaring-arrays_1s1"><sect2 id="type-array_1declaring-arrays_1s2"><sect3 id="type-array_1declaring-arrays">
+<title>Declaring arrays</title><para>Arrays must be created with the <ref refid="DIM" kindref="compound">DIM</ref> statement:</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>names$,<sp/>100</highlight></codeline>
 <codeline><highlight class="normal">DIM<sp/>values#,<sp/>50</highlight></codeline>
 <codeline><highlight class="normal">DIM<sp/>scores,<sp/>200</highlight></codeline>
@@ -28,30 +27,27 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="type-array_1autotoc_md1232">
-<title>Accessing elements</title>
-<para>Use a zero-based index to read or write individual elements:</para>
+</sect3></sect2></sect1>
+<sect1 id="type-array_1accessing-elements_1s1"><sect2 id="type-array_1accessing-elements_1s2"><sect3 id="type-array_1accessing-elements">
+<title>Accessing elements</title><para>Use a zero-based index to read or write individual elements:</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">names$(0)<sp/>=<sp/>&quot;Alice&quot;</highlight></codeline>
 <codeline><highlight class="normal">scores(5)<sp/>=<sp/>42</highlight></codeline>
 <codeline><highlight class="normal">values#(10)<sp/>=<sp/>3.14</highlight></codeline>
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="type-array_1autotoc_md1234">
-<title>Assigning to all elements</title>
-<para>Assigning to the array name without a subscript initialises <bold>all elements</bold>:</para>
+</sect3></sect2></sect1>
+<sect1 id="type-array_1assigning-to-all-elements_1s1"><sect2 id="type-array_1assigning-to-all-elements_1s2"><sect3 id="type-array_1assigning-to-all-elements">
+<title>Assigning to all elements</title><para>Assigning to the array name without a subscript initialises <bold>all elements</bold>:</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">scores<sp/>=<sp/>0</highlight></codeline>
 <codeline><highlight class="normal">names$<sp/>=<sp/>&quot;foo&quot;</highlight></codeline>
 </programlisting></para>
 <para>This sets every element of <computeroutput>scores</computeroutput> to <computeroutput>0</computeroutput> and every element of <computeroutput>names$</computeroutput> to <computeroutput>&quot;foo&quot;</computeroutput>.</para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="type-array_1autotoc_md1236">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="type-array_1notes-180_1s1"><sect2 id="type-array_1notes-180_1s2"><sect3 id="type-array_1notes-180">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Arrays are always contiguous in memory.</para>
 </listitem><listitem><para>Indexes must be within bounds (0 to length–1) or an error occurs.</para>
 </listitem><listitem><para>Resizing with <computeroutput>REDIM</computeroutput> preserves existing values where possible.</para>
@@ -60,7 +56,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="DIM" kindref="compound">DIM</ref> · <ref refid="REDIM" kindref="compound">REDIM</ref> · <ref refid="PUSH" kindref="compound">PUSH</ref> · <ref refid="POP" kindref="compound">POP</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/variables/Array.md"/>
   </compounddef>

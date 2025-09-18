@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="interrupts" kind="page">
     <compoundname>interrupts</compoundname>
     <title>Interrupt Handling in Retro Rocket (AMD64)</title>
@@ -9,37 +9,35 @@
 <para>Retro Rocket uses a modern, APIC-based interrupt system suitable for 64-bit long mode. It fully supports Symmetric Multiprocessing (SMP) and I/O APICs via ACPI detection, with legacy PIC support deprecated and disabled after boot.</para>
 <para><hruler/>
 </para>
-<sect2 id="interrupts_1autotoc_md1273">
-<title>Overview</title>
-<para>Interrupts in Retro Rocket are composed of three tightly integrated layers:</para>
+<sect1 id="interrupts_1overview-1_1s1"><sect2 id="interrupts_1overview-1">
+<title>Overview</title><para>Interrupts in Retro Rocket are composed of three tightly integrated layers:</para>
 <para><table rows="4" cols="3"><row>
-<entry thead="yes"><para>Layer   </para>
-</entry><entry thead="yes"><para>Component   </para>
-</entry><entry thead="yes"><para>Role    </para>
+<entry thead="yes"><para>Layer  </para>
+</entry><entry thead="yes"><para>Component  </para>
+</entry><entry thead="yes"><para>Role  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>IDT   </para>
-</entry><entry thead="no"><para><computeroutput>idt.c</computeroutput>   </para>
-</entry><entry thead="no"><para>Sets up the Interrupt Descriptor Table (IDT) and traps    </para>
+<entry thead="no"><para>IDT  </para>
+</entry><entry thead="no"><para><computeroutput>idt.c</computeroutput>  </para>
+</entry><entry thead="no"><para>Sets up the Interrupt Descriptor Table (IDT) and traps  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>APIC   </para>
-</entry><entry thead="no"><para><computeroutput>apic.c</computeroutput>   </para>
-</entry><entry thead="no"><para>Local APIC timer, EOI, spurious interrupt handling    </para>
+<entry thead="no"><para>APIC  </para>
+</entry><entry thead="no"><para><computeroutput>apic.c</computeroutput>  </para>
+</entry><entry thead="no"><para>Local APIC timer, EOI, spurious interrupt handling  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>ACPI / MADT   </para>
-</entry><entry thead="no"><para><computeroutput>acpi.c</computeroutput>   </para>
-</entry><entry thead="no"><para>Enumerates Local APICs, IOAPICs, IRQ/GSI mappings   </para>
+<entry thead="no"><para>ACPI / MADT  </para>
+</entry><entry thead="no"><para><computeroutput>acpi.c</computeroutput>  </para>
+</entry><entry thead="no"><para>Enumerates Local APICs, IOAPICs, IRQ/GSI mappings  </para>
 </entry></row>
 </table>
 </para>
 <para><hruler/>
 </para>
-</sect2>
-<sect2 id="interrupts_1autotoc_md1275">
-<title>IDT Initialisation (&lt;tt&gt;idt.c&lt;/tt&gt;)</title>
-<para>Retro Rocket sets up a full 256-entry Interrupt Descriptor Table, aligned on a 16-byte boundary. The <computeroutput>init_idt()</computeroutput> function:</para>
+</sect2></sect1>
+<sect1 id="interrupts_1idt-initialisation-idtc_1s1"><sect2 id="interrupts_1idt-initialisation-idtc">
+<title>IDT Initialisation (<computeroutput>idt.c</computeroutput>)</title><para>Retro Rocket sets up a full 256-entry Interrupt Descriptor Table, aligned on a 16-byte boundary. The <computeroutput>init_idt()</computeroutput> function:</para>
 <para><orderedlist>
 <listitem><para>Clears all entries to a known zero state.</para>
 </listitem><listitem><para>Registers <computeroutput>IRQ0</computeroutput> (timer) as a demonstration.</para>
@@ -50,27 +48,24 @@
 <para>The legacy PIC is briefly remapped to avoid IRQ overlaps with CPU exceptions, and then <bold>disabled entirely</bold> if APIC is enabled.</para>
 <para><programlisting filename=".c"><codeline><highlight class="normal">__asm__<sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;lidtq<sp/>(%0)&quot;</highlight><highlight class="normal"><sp/>::<sp/></highlight><highlight class="stringliteral">&quot;r&quot;</highlight><highlight class="normal">(&amp;idt64));</highlight></codeline>
 </programlisting></para>
-<sect3 id="interrupts_1autotoc_md1276">
-<title>All Interrupts Are Initially Masked</title>
-<para>Each IRQ is masked until a handler is explicitly registered using:</para>
+<sect3 id="interrupts_1all-interrupts-are-initially-masked">
+<title>All Interrupts Are Initially Masked</title><para>Each IRQ is masked until a handler is explicitly registered using:</para>
 <para><programlisting filename=".c"><codeline><highlight class="normal">register_interrupt_handler(irqnum,<sp/>handler,<sp/>dev,<sp/>ctx);</highlight></codeline>
 </programlisting></para>
 <para>This design guarantees no spurious IRQs during boot and enforces strict control of enabled sources.</para>
 <para><hruler/>
 </para>
 </sect3>
-</sect2>
-<sect2 id="interrupts_1autotoc_md1278">
-<title>APIC Handling (&lt;tt&gt;apic.c&lt;/tt&gt;)</title>
-<para>Retro Rocket assumes all hardware conforms to the AMD64 specification. This includes mandatory support for:</para>
+</sect2></sect1>
+<sect1 id="interrupts_1apic-handling-apicc_1s1"><sect2 id="interrupts_1apic-handling-apicc">
+<title>APIC Handling (<computeroutput>apic.c</computeroutput>)</title><para>Retro Rocket assumes all hardware conforms to the AMD64 specification. This includes mandatory support for:</para>
 <para><itemizedlist>
 <listitem><para><bold>Local APIC (LAPIC)</bold>: Per-core interrupt controller for inter-processor signalling and timers.</para>
 </listitem><listitem><para><bold>I/O APIC (IOAPIC)</bold>: Routes external device interrupts to LAPIC via GSIs (Global System Interrupts).</para>
 </listitem></itemizedlist>
 </para>
-<sect3 id="interrupts_1autotoc_md1279">
-<title>Key APIC Features</title>
-<para><itemizedlist>
+<sect3 id="interrupts_1key-apic-features">
+<title>Key APIC Features</title><para><itemizedlist>
 <listitem><para><bold>LAPIC Base Detection</bold>: Via the ACPI MADT.</para>
 </listitem><listitem><para><bold>Timer Configuration</bold>: One-shot mode, calibrated via TSC.</para>
 </listitem><listitem><para><bold>End-of-Interrupt (EOI)</bold>: Sent with <computeroutput>apic_write(APIC_EOI, 0)</computeroutput> after each interrupt.</para>
@@ -80,10 +75,9 @@
 <para><hruler/>
 </para>
 </sect3>
-</sect2>
-<sect2 id="interrupts_1autotoc_md1281">
-<title>ACPI &amp; MADT Processing (&lt;tt&gt;acpi.c&lt;/tt&gt;)</title>
-<para>The ACPI module is responsible for:</para>
+</sect2></sect1>
+<sect1 id="interrupts_1acpi--madt-processing-acpic_1s1"><sect2 id="interrupts_1acpi--madt-processing-acpic">
+<title>ACPI &amp; MADT Processing (<computeroutput>acpi.c</computeroutput>)</title><para>The ACPI module is responsible for:</para>
 <para><itemizedlist>
 <listitem><para>Initialising <computeroutput>uACPI</computeroutput> and parsing the RSDP, RSDT, and MADT tables.</para>
 </listitem><listitem><para>Discovering:<itemizedlist>
@@ -95,9 +89,8 @@
 </para>
 </listitem></itemizedlist>
 </para>
-<sect3 id="interrupts_1autotoc_md1282">
-<title>IRQ to GSI Routing</title>
-<para>The system maintains a <computeroutput>pci_irq_routes[]</computeroutput> map of IRQ→GSI mappings with polarity and trigger mode.</para>
+<sect3 id="interrupts_1irq-to-gsi-routing">
+<title>IRQ to GSI Routing</title><para>The system maintains a <computeroutput>pci_irq_routes[]</computeroutput> map of IRQ→GSI mappings with polarity and trigger mode.</para>
 <para>Interrupt sources are discovered from:</para>
 <para><orderedlist>
 <listitem><para><bold>MADT entries</bold> (APIC table)</para>
@@ -113,10 +106,9 @@
 <para><hruler/>
 </para>
 </sect3>
-</sect2>
-<sect2 id="interrupts_1autotoc_md1284">
-<title>Registering a Handler</title>
-<para>Drivers register handlers with:</para>
+</sect2></sect1>
+<sect1 id="interrupts_1registering-a-handler_1s1"><sect2 id="interrupts_1registering-a-handler">
+<title>Registering a Handler</title><para>Drivers register handlers with:</para>
 <para><programlisting filename=".c"><codeline><highlight class="normal">register_interrupt_handler(uint8_t<sp/>irq,<sp/>handler_t<sp/>fn,<sp/>device_t<sp/>dev,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*ctx);</highlight></codeline>
 </programlisting></para>
 <para>This:</para>
@@ -129,10 +121,9 @@
 <para>If not registered, the line remains masked and ignored.</para>
 <para><hruler/>
 </para>
-</sect2>
-<sect2 id="interrupts_1autotoc_md1286">
-<title>Legacy PIC Support (Deprecated)</title>
-<para><itemizedlist>
+</sect2></sect1>
+<sect1 id="interrupts_1legacy-pic-support-deprecated_1s1"><sect2 id="interrupts_1legacy-pic-support-deprecated">
+<title>Legacy PIC Support (Deprecated)</title><para><itemizedlist>
 <listitem><para>Retro Rocket targets only <bold>AMD64 hardware</bold>. There is no support for 32-bit x86.</para>
 </listitem><listitem><para>The legacy PIC is only touched briefly during boot for compatibility and <bold>immediately disabled</bold> once APIC initialisation completes.</para>
 </listitem><listitem><para>All AMD64 systems (including virtualised environments) must support LAPIC and IOAPIC per specification.</para>
@@ -141,40 +132,39 @@
 <para><bold>TL;DR:</bold> APIC is mandatory.</para>
 <para><hruler/>
 </para>
-</sect2>
-<sect2 id="interrupts_1autotoc_md1288">
-<title>Terminology</title>
-<para><table rows="7" cols="2"><row>
-<entry thead="yes"><para>Term   </para>
-</entry><entry thead="yes"><para>Meaning    </para>
+</sect2></sect1>
+<sect1 id="interrupts_1terminology_1s1"><sect2 id="interrupts_1terminology">
+<title>Terminology</title><para><table rows="7" cols="2"><row>
+<entry thead="yes"><para>Term  </para>
+</entry><entry thead="yes"><para>Meaning  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>IRQ   </para>
-</entry><entry thead="no"><para>Legacy interrupt request (ISA, PIC)    </para>
+<entry thead="no"><para>IRQ  </para>
+</entry><entry thead="no"><para>Legacy interrupt request (ISA, PIC)  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>GSI   </para>
-</entry><entry thead="no"><para>Global System Interrupt (IOAPIC input)    </para>
+<entry thead="no"><para>GSI  </para>
+</entry><entry thead="no"><para>Global System Interrupt (IOAPIC input)  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>LAPIC   </para>
-</entry><entry thead="no"><para>Local Advanced Programmable Interrupt Ctrl.    </para>
+<entry thead="no"><para>LAPIC  </para>
+</entry><entry thead="no"><para>Local Advanced Programmable Interrupt Ctrl.  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>IOAPIC   </para>
-</entry><entry thead="no"><para>I/O Advanced Programmable Interrupt Ctrl.    </para>
+<entry thead="no"><para>IOAPIC  </para>
+</entry><entry thead="no"><para>I/O Advanced Programmable Interrupt Ctrl.  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>MADT   </para>
-</entry><entry thead="no"><para>Multiple APIC Description Table (ACPI)    </para>
+<entry thead="no"><para>MADT  </para>
+</entry><entry thead="no"><para>Multiple APIC Description Table (ACPI)  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>PIC   </para>
-</entry><entry thead="no"><para>Legacy 8259 Programmable Interrupt Controller   </para>
+<entry thead="no"><para>PIC  </para>
+</entry><entry thead="no"><para>Legacy 8259 Programmable Interrupt Controller  </para>
 </entry></row>
 </table>
 </para>
-</sect2>
+</sect2></sect1>
     </detaileddescription>
     <location file="docpages/kernel-dev/INTERRUPTS.md"/>
   </compounddef>

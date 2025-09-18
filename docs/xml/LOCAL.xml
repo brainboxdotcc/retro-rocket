@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="LOCAL" kind="page">
     <compoundname>LOCAL</compoundname>
     <title>LOCAL Keyword</title>
@@ -20,9 +20,8 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="LOCAL_1autotoc_md859">
-<title>Behaviour</title>
-<para><itemizedlist>
+<sect1 id="LOCAL_1behaviour-2_1s1"><sect2 id="LOCAL_1behaviour-2_1s2"><sect3 id="LOCAL_1behaviour-2">
+<title>Behaviour</title><para><itemizedlist>
 <listitem><para>A <computeroutput>LOCAL</computeroutput> assignment creates/uses a <bold>local</bold> variable for <bold>this call only</bold>. <linebreak/>
 </para>
 </listitem><listitem><para>If a global of the same name exists, <computeroutput>LOCAL</computeroutput> <bold>shadows</bold> it for this call. <linebreak/>
@@ -33,10 +32,9 @@
 </para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="LOCAL_1autotoc_md861">
-<title>Examples</title>
-<para>Create and update a local in a procedure <programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>PROCsum_demo</highlight></codeline>
+</sect3></sect2></sect1>
+<sect1 id="LOCAL_1examples-138_1s1"><sect2 id="LOCAL_1examples-138_1s2"><sect3 id="LOCAL_1examples-138">
+<title>Examples</title><para>Create and update a local in a procedure <programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>PROCsum_demo</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>LOCAL<sp/>TOTAL<sp/>=<sp/>0</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>FOR<sp/>I<sp/>=<sp/>1<sp/>TO<sp/>3</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOCAL<sp/>TOTAL<sp/>=<sp/>TOTAL<sp/>+<sp/>I</highlight></codeline>
@@ -79,7 +77,7 @@
 </para>
 <para><bold>See also:</bold> <linebreak/>
  <ref refid="DEF" kindref="compound">DEF</ref> · <ref refid="PROC" kindref="compound">PROC</ref> · <ref refid="ENDPROC" kindref="compound">ENDPROC</ref> · <ref refid="FN" kindref="compound">FN</ref> · <ref refid="GOSUB" kindref="compound">GOSUB</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/LOCAL.md"/>
   </compounddef>

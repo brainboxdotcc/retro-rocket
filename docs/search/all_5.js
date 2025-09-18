@@ -1,27 +1,7 @@
 var searchData=
 [
-  ['edit_20program_144',['edit program',['../edit.html',1,'commands']]],
-  ['edit_2emd_145',['edit.md',['../edit_8md.html',1,'']]],
-  ['else_20keyword_146',['ELSE Keyword',['../ELSE.html',1,'keywords']]],
-  ['else_2emd_147',['ELSE.md',['../ELSE_8md.html',1,'']]],
-  ['end_20keyword_148',['END Keyword',['../END.html',1,'keywords']]],
-  ['end_2emd_149',['END.md',['../END_8md.html',1,'']]],
-  ['endif_20keyword_150',['ENDIF Keyword',['../ENDIF.html',1,'keywords']]],
-  ['endif_2emd_151',['ENDIF.md',['../ENDIF_8md.html',1,'']]],
-  ['endproc_20keyword_152',['ENDPROC Keyword',['../ENDPROC.html',1,'keywords']]],
-  ['endproc_2emd_153',['ENDPROC.md',['../ENDPROC_8md.html',1,'']]],
-  ['endwhile_20keyword_154',['ENDWHILE Keyword',['../ENDWHILE.html',1,'keywords']]],
-  ['endwhile_2emd_155',['ENDWHILE.md',['../ENDWHILE_8md.html',1,'']]],
-  ['eof_20function_156',['EOF Function',['../EOF.html',1,'int-funcs']]],
-  ['eof_2emd_157',['EOF.md',['../EOF_8md.html',1,'']]],
-  ['error_20keyword_158',['ERROR Keyword',['../ERROR.html',1,'keywords']]],
-  ['error_2emd_159',['ERROR.md',['../ERROR_8md.html',1,'']]],
-  ['eval_20command_160',['eval command',['../eval.html',1,'commands']]],
-  ['eval_20keyword_161',['EVAL Keyword',['../EVAL.html',1,'keywords']]],
-  ['eval_2emd_162',['eval.md',['../eval_8md.html',1,'']]],
-  ['eval_2emd_163',['EVAL.md',['../EVAL_8md.html',1,'']]],
-  ['existsvari_20_2f_20existsvarr_20_2f_20existsvars_20functions_164',['EXISTSVARI / EXISTSVARR / EXISTSVARS Functions',['../EXISTSVARI.html',1,'int-funcs']]],
-  ['existsvari_2emd_165',['EXISTSVARI.md',['../EXISTSVARI_8md.html',1,'']]],
-  ['exp_20function_166',['EXP Function',['../EXP.html',1,'real-funcs']]],
-  ['exp_2emd_167',['EXP.md',['../EXP_8md.html',1,'']]]
+  ['5_20deletion_0',['4.5 Deletion',['../retrofs.html#autotoc_md45-deletion',1,'']]],
+  ['5_20name_20handling_1',['5. Name handling',['../retrofs.html#autotoc_md5-name-handling',1,'']]],
+  ['5_20repeating_20work_20for_20and_20while_2',['5) Repeating work (FOR and WHILE)',['../basic-beginner.html#autotoc_md5-repeating-work-for-and-while',1,'']]],
+  ['5_20userland_20bootstrap_3a_20programs_20init_3',['5. Userland Bootstrap: &lt;span class=&quot;tt&quot;&gt;/programs/init&lt;/span&gt;',['../bootflow.html#autotoc_md5-userland-bootstrap-programsinit',1,'']]]
 ];

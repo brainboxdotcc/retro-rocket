@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="ENDWHILE" kind="page">
     <compoundname>ENDWHILE</compoundname>
     <title>ENDWHILE Keyword</title>
@@ -10,9 +10,8 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>...</highlight></codeline>
 <codeline><highlight class="normal">ENDWHILE</highlight></codeline>
 </programlisting> Marks the end of a <computeroutput>WHILE..ENDWHILE</computeroutput> loop. See <ref refid="WHILE" kindref="compound">WHILE</ref>. The <computeroutput>ENDWHILE</computeroutput> keyword must match a previous <computeroutput>WHILE</computeroutput>. <computeroutput>WHILE..ENDWHILE</computeroutput> loops may be nested and also contain other forms of loops.</para>
-<sect4 id="ENDWHILE_1autotoc_md791">
-<title>Example:</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;START&quot;</highlight></codeline>
+<sect1 id="ENDWHILE_1example-8_1s1"><sect2 id="ENDWHILE_1example-8_1s2"><sect3 id="ENDWHILE_1example-8_1s3"><sect4 id="ENDWHILE_1example-8">
+<title>Example:</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;START&quot;</highlight></codeline>
 <codeline><highlight class="normal">N<sp/>=<sp/>0</highlight></codeline>
 <codeline><highlight class="normal">WHILE<sp/>N<sp/>&lt;<sp/>10</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;IN<sp/>OUTER<sp/>WHILE,<sp/>N<sp/>=<sp/>&quot;;<sp/>N</highlight></codeline>
@@ -25,7 +24,7 @@
 <codeline><highlight class="normal">ENDWHILE</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;LOOPS<sp/>DONE&quot;</highlight></codeline>
 </programlisting> </para>
-</sect4>
+</sect4></sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/ENDWHILE.md"/>
   </compounddef>

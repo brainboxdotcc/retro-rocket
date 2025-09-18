@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="MINUTE" kind="page">
     <compoundname>MINUTE</compoundname>
     <title>MINUTE Function</title>
@@ -16,9 +16,8 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="MINUTE_1autotoc_md316">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;Local<sp/>minute<sp/>=<sp/>&quot;;<sp/>MINUTE(TRUE)</highlight></codeline>
+<sect1 id="MINUTE_1examples-46_1s1"><sect2 id="MINUTE_1examples-46_1s2"><sect3 id="MINUTE_1examples-46">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;Local<sp/>minute<sp/>=<sp/>&quot;;<sp/>MINUTE(TRUE)</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;UTC<sp/>minute<sp/><sp/><sp/>=<sp/>&quot;;<sp/>MINUTE(FALSE)</highlight></codeline>
 </programlisting></para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Show<sp/>current<sp/>time<sp/>in<sp/>HH:MM</highlight></codeline>
@@ -31,10 +30,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="MINUTE_1autotoc_md318">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="MINUTE_1notes-45_1s1"><sect2 id="MINUTE_1notes-45_1s2"><sect3 id="MINUTE_1notes-45">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Values range from <computeroutput>0</computeroutput> to <computeroutput>59</computeroutput>.</para>
 </listitem><listitem><para>Local time depends on the configured time zone. Without configuration, local and UTC values will be identical.</para>
 </listitem><listitem><para>Works with <ref refid="HOUR" kindref="compound">HOUR</ref> and <ref refid="SECOND" kindref="compound">SECOND</ref> for finer time resolution.</para>
@@ -43,7 +41,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="HOUR" kindref="compound">HOUR</ref> · <ref refid="SECOND" kindref="compound">SECOND</ref> · <ref refid="DAY" kindref="compound">DAY</ref> · <ref refid="MONTH" kindref="compound">MONTH</ref> · <ref refid="YEAR" kindref="compound">YEAR</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/MINUTE.md"/>
   </compounddef>

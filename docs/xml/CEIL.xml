@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="CEIL" kind="page">
     <compoundname>CEIL</compoundname>
     <title>CEIL Function</title>
@@ -11,9 +11,8 @@
 <para>Rounds the provided real value <bold>upwards</bold> to the nearest integer. The result is the smallest integer greater than or equal to the input.</para>
 <para><hruler/>
 </para>
-<sect3 id="CEIL_1autotoc_md478">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>CEIL(3.2)</highlight></codeline>
+<sect1 id="CEIL_1examples-77_1s1"><sect2 id="CEIL_1examples-77_1s2"><sect3 id="CEIL_1examples-77">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>CEIL(3.2)</highlight></codeline>
 </programlisting></para>
 <para>Produces <computeroutput>4</computeroutput>.</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>CEIL(-3.2)</highlight></codeline>
@@ -27,10 +26,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="CEIL_1autotoc_md480">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="CEIL_1notes-76_1s1"><sect2 id="CEIL_1notes-76_1s2"><sect3 id="CEIL_1notes-76">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Always rounds <bold>towards positive infinity</bold>.</para>
 </listitem><listitem><para>Return type is a 64-bit integer.</para>
 </listitem><listitem><para>Differs from <ref refid="INT" kindref="compound">INT</ref>, which truncates towards zero, and <ref refid="ROUND" kindref="compound">ROUND</ref>, which rounds to the nearest integer.</para>
@@ -39,7 +37,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> FLOOR · <ref refid="INT" kindref="compound">INT</ref> · <ref refid="ROUND" kindref="compound">ROUND</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/real/CEIL.md"/>
   </compounddef>

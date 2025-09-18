@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="modules" kind="page">
     <compoundname>modules</compoundname>
     <title>Writing Kernel Modules for Retro Rocket</title>
@@ -9,9 +9,8 @@
 <para>Retro Rocket supports dynamically loadable kernel modules (<computeroutput>.ko</computeroutput> files). Modules let you extend the kernel at run-time without rebuilding or rebooting, using a simple ELF64 relocation and symbol resolution system.</para>
 <para><hruler/>
 </para>
-<sect2 id="modules_1autotoc_md1292">
-<title>Module ABI</title>
-<para>Each kernel build exports a single <bold>module ABI version</bold>:</para>
+<sect1 id="modules_1module-abi_1s1"><sect2 id="modules_1module-abi">
+<title>Module ABI</title><para>Each kernel build exports a single <bold>module ABI version</bold>:</para>
 <para><programlisting filename=".c"><codeline><highlight class="preprocessor">#define<sp/>KMOD_ABI<sp/>100</highlight></codeline>
 </programlisting></para>
 <para>Modules must define ABI-versioned entry points:</para>
@@ -22,10 +21,9 @@
 <para><emphasis>No forward/backward compatibility is provided.</emphasis> If the ABI number changes, modules must be rebuilt.</para>
 <para><hruler/>
 </para>
-</sect2>
-<sect2 id="modules_1autotoc_md1294">
-<title>Minimal Module Example</title>
-<para><programlisting filename=".c"><codeline><highlight class="preprocessor">#include<sp/>&lt;kernel.h&gt;</highlight><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>always<sp/>include<sp/>this<sp/>header<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+</sect2></sect1>
+<sect1 id="modules_1minimal-module-example_1s1"><sect2 id="modules_1minimal-module-example">
+<title>Minimal Module Example</title><para><programlisting filename=".c"><codeline><highlight class="preprocessor">#include<sp/>&lt;kernel.h&gt;</highlight><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>always<sp/>include<sp/>this<sp/>header<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>EXPORTED<sp/>MOD_INIT_SYM(KMOD_ABI)(void)<sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>dprintf(</highlight><highlight class="stringliteral">&quot;example.ko:<sp/>mod_init<sp/>called!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
@@ -38,10 +36,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect2>
-<sect2 id="modules_1autotoc_md1296">
-<title>Using Kernel Symbols</title>
-<para>All kernel symbols intended for modules are exported via <computeroutput>kernel.h</computeroutput>. Modules should <bold>only ever</bold> include:</para>
+</sect2></sect1>
+<sect1 id="modules_1using-kernel-symbols_1s1"><sect2 id="modules_1using-kernel-symbols">
+<title>Using Kernel Symbols</title><para>All kernel symbols intended for modules are exported via <computeroutput>kernel.h</computeroutput>. Modules should <bold>only ever</bold> include:</para>
 <para><programlisting filename=".c"><codeline><highlight class="preprocessor">#include<sp/>&lt;kernel.h&gt;</highlight></codeline>
 </programlisting></para>
 <para>After that, you can call any exported kernel function directly:</para>
@@ -54,10 +51,9 @@
 <para>There is <bold>no need</bold> for <computeroutput>extern</computeroutput> declarations or additional headers. The loader resolves undefined globals against the kernel’s symbol index (<computeroutput>kernel.sym</computeroutput>) at load time.</para>
 <para><hruler/>
 </para>
-</sect2>
-<sect2 id="modules_1autotoc_md1298">
-<title>Memory Model</title>
-<para>The Retro Rocket kernel itself is linked into the <bold>higher half</bold> of the address space. Modules, however, are loaded into the <bold>kernel heap</bold>, which resides in the <bold>lower half</bold>.</para>
+</sect2></sect1>
+<sect1 id="modules_1memory-model_1s1"><sect2 id="modules_1memory-model">
+<title>Memory Model</title><para>The Retro Rocket kernel itself is linked into the <bold>higher half</bold> of the address space. Modules, however, are loaded into the <bold>kernel heap</bold>, which resides in the <bold>lower half</bold>.</para>
 <para><itemizedlist>
 <listitem><para>Key implications:<itemizedlist>
 <listitem><para>Modules are relocated into an arbitrary heap allocation block.</para>
@@ -70,10 +66,9 @@
 </para>
 <para><hruler/>
 </para>
-</sect2>
-<sect2 id="modules_1autotoc_md1300">
-<title>Build System</title>
-<para>Modules are compiled as <bold>relocatable ELF objects</bold>:</para>
+</sect2></sect1>
+<sect1 id="modules_1build-system_1s1"><sect2 id="modules_1build-system">
+<title>Build System</title><para>Modules are compiled as <bold>relocatable ELF objects</bold>:</para>
 <para><itemizedlist>
 <listitem><para><computeroutput>ld -r</computeroutput> (ET_REL output)</para>
 </listitem><listitem><para>Flags: <computeroutput>-ffreestanding -fno-pic -mcmodel=large -mno-red-zone</computeroutput></para>
@@ -82,10 +77,9 @@
 <para>CMake support exists in the Retro Rocket tree: any sources under <computeroutput>modules/&lt;name&gt;/*.c</computeroutput> are built into <computeroutput>iso/system/modules/&lt;name&gt;.ko</computeroutput>.</para>
 <para><hruler/>
 </para>
-</sect2>
-<sect2 id="modules_1autotoc_md1302">
-<title>Loader Pipeline</title>
-<para>The in-kernel loader performs:</para>
+</sect2></sect1>
+<sect1 id="modules_1loader-pipeline_1s1"><sect2 id="modules_1loader-pipeline">
+<title>Loader Pipeline</title><para>The in-kernel loader performs:</para>
 <para><orderedlist>
 <listitem><para>Parse ELF header and section table (<computeroutput>ET_REL</computeroutput>, <computeroutput>EM_X86_64</computeroutput> only).</para>
 </listitem><listitem><para>Allocate one contiguous block for all <computeroutput>SHF_ALLOC</computeroutput> sections with proper alignment.</para>
@@ -100,10 +94,9 @@
 <para>On unload, the loader calls <computeroutput>mod_exit_v&lt;ABI&gt;</computeroutput>, frees the section block, and removes the module from the registry.</para>
 <para><hruler/>
 </para>
-</sect2>
-<sect2 id="modules_1autotoc_md1304">
-<title>Module Lifecycle</title>
-<para><itemizedlist>
+</sect2></sect1>
+<sect1 id="modules_1module-lifecycle_1s1"><sect2 id="modules_1module-lifecycle">
+<title>Module Lifecycle</title><para><itemizedlist>
 <listitem><para><bold>Load</bold>: <computeroutput>load_module(&quot;example&quot;);</computeroutput> → Calls <computeroutput>mod_init_v100()</computeroutput></para>
 </listitem><listitem><para><bold>Unload</bold>: <computeroutput>unload_module(&quot;example&quot;);</computeroutput> → Calls <computeroutput>mod_exit_v100()</computeroutput> and frees resources</para>
 </listitem></itemizedlist>
@@ -111,10 +104,9 @@
 <para>All modules are tracked in a kernel hashmap keyed by <computeroutput>name</computeroutput>.</para>
 <para><hruler/>
 </para>
-</sect2>
-<sect2 id="modules_1autotoc_md1306">
-<title>Safety Notes</title>
-<para><itemizedlist>
+</sect2></sect1>
+<sect1 id="modules_1safety-notes_1s1"><sect2 id="modules_1safety-notes">
+<title>Safety Notes</title><para><itemizedlist>
 <listitem><para>A failed symbol resolution or relocation aborts load cleanly.</para>
 </listitem><listitem><para>After unload, the loader nulls entry points and section pointers. Any stale use will dereference <computeroutput>NULL</computeroutput> rather than executing freed code.</para>
 </listitem><listitem><para>Modules must not assume persistence of pointers returned by <computeroutput>module_section_base()</computeroutput> after unload.</para>
@@ -122,17 +114,16 @@
 </para>
 <para><hruler/>
 </para>
-</sect2>
-<sect2 id="modules_1autotoc_md1308">
-<title>Writing Good Modules</title>
-<para><itemizedlist>
+</sect2></sect1>
+<sect1 id="modules_1writing-good-modules_1s1"><sect2 id="modules_1writing-good-modules">
+<title>Writing Good Modules</title><para><itemizedlist>
 <listitem><para>Always check the current <computeroutput>KMOD_ABI</computeroutput> in <computeroutput>module.h</computeroutput> before building.</para>
 </listitem><listitem><para>Keep module entry points minimal; heavy initialisation should be factored out.</para>
 </listitem><listitem><para>Use kernel APIs via <computeroutput>kernel.h</computeroutput> rather than re-implementing libc.</para>
 </listitem><listitem><para>Clean up everything you allocate in <computeroutput>mod_exit_v&lt;ABI&gt;()</computeroutput>. </para>
 </listitem></itemizedlist>
 </para>
-</sect2>
+</sect2></sect1>
     </detaileddescription>
     <location file="docpages/kernel-dev/MODULES.md"/>
   </compounddef>

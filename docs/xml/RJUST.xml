@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="RJUST" kind="page">
     <compoundname>RJUST</compoundname>
     <title>RJUST$ Function</title>
@@ -11,9 +11,8 @@
 <para>Returns a <bold>right-justified string</bold> by padding the input string (first parameter) with the pad string (third parameter) on the <bold>left</bold>, until the result length is <bold>at least</bold> the specified width (second parameter).</para>
 <para><hruler/>
 </para>
-<sect3 id="RJUST_1autotoc_md666">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>RJUST$(&quot;Retro&quot;,<sp/>10,<sp/>&quot;<sp/>&quot;)</highlight></codeline>
+<sect1 id="RJUST_1examples-112_1s1"><sect2 id="RJUST_1examples-112_1s2"><sect3 id="RJUST_1examples-112">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>RJUST$(&quot;Retro&quot;,<sp/>10,<sp/>&quot;<sp/>&quot;)</highlight></codeline>
 </programlisting></para>
 <para>Produces <computeroutput>&quot;     Retro&quot;</computeroutput>.</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>RJUST$(&quot;42&quot;,<sp/>5,<sp/>&quot;0&quot;)</highlight></codeline>
@@ -25,10 +24,9 @@
 <para>Produces <computeroutput>&quot;-=-=-X&quot;</computeroutput>.</para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="RJUST_1autotoc_md668">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="RJUST_1notes-111_1s1"><sect2 id="RJUST_1notes-111_1s2"><sect3 id="RJUST_1notes-111">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>If the original string is already at least the specified length, it is returned unchanged.</para>
 </listitem><listitem><para>The pad string is repeated as many times as necessary, and truncated if required to fit exactly.</para>
 </listitem><listitem><para>Pad string must not be empty; an empty pad string raises an error.</para>
@@ -38,7 +36,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="LJUST" kindref="compound">LJUST$</ref> · <ref refid="LEN" kindref="compound">LEN</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/RJUST.md"/>
   </compounddef>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="REDIM" kind="page">
     <compoundname>REDIM</compoundname>
     <title>REDIM Keyword</title>
@@ -27,9 +27,8 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="REDIM_1autotoc_md979">
-<title>Examples</title>
-<para><bold>Grow an integer array</bold> <programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>A,3</highlight></codeline>
+<sect1 id="REDIM_1examples-157_1s1"><sect2 id="REDIM_1examples-157_1s2"><sect3 id="REDIM_1examples-157">
+<title>Examples</title><para><bold>Grow an integer array</bold> <programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>A,3</highlight></codeline>
 <codeline><highlight class="normal">A(0)<sp/>=<sp/>10</highlight></codeline>
 <codeline><highlight class="normal">A(1)<sp/>=<sp/>20</highlight></codeline>
 <codeline><highlight class="normal">A(2)<sp/>=<sp/>30</highlight></codeline>
@@ -75,10 +74,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="REDIM_1autotoc_md981">
-<title>Behaviour and constraints</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="REDIM_1behaviour-and-constraints_1s1"><sect2 id="REDIM_1behaviour-and-constraints_1s2"><sect3 id="REDIM_1behaviour-and-constraints">
+<title>Behaviour and constraints</title><para><itemizedlist>
 <listitem><para>The <bold>new size</bold> must be large enough for any indices you intend to access (<computeroutput>0..new_size-1</computeroutput>).</para>
 </listitem><listitem><para>After shrinking, accessing an index <computeroutput>&gt;= new_size</computeroutput> raises a runtime error.</para>
 </listitem><listitem><para>Use <computeroutput>REDIM</computeroutput> together with <ref refid="PUSH" kindref="compound">PUSH</ref> or <ref refid="POP" kindref="compound">POP</ref> to manage contents while changing capacity.</para>
@@ -86,7 +84,7 @@
 </para>
 <para><bold>See also:</bold> <linebreak/>
  <ref refid="DIM" kindref="compound">DIM</ref> · <ref refid="PUSH" kindref="compound">PUSH</ref> · <ref refid="POP" kindref="compound">POP</ref> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Array"><computeroutput>Array</computeroutput></ulink> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/REDIM.md"/>
   </compounddef>

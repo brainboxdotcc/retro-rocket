@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="WEEKDAY" kind="page">
     <compoundname>WEEKDAY</compoundname>
     <title>WEEKDAY Function</title>
@@ -22,9 +22,8 @@
 <para>Pass <computeroutput>TRUE</computeroutput> to return the local day (adjusted by system time zone), or <computeroutput>FALSE</computeroutput> for UTC.</para>
 <para><hruler/>
 </para>
-<sect3 id="WEEKDAY_1autotoc_md448">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;Local<sp/>weekday<sp/>=<sp/>&quot;;<sp/>WEEKDAY(TRUE)</highlight></codeline>
+<sect1 id="WEEKDAY_1examples-71_1s1"><sect2 id="WEEKDAY_1examples-71_1s2"><sect3 id="WEEKDAY_1examples-71">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;Local<sp/>weekday<sp/>=<sp/>&quot;;<sp/>WEEKDAY(TRUE)</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;UTC<sp/>weekday<sp/><sp/><sp/>=<sp/>&quot;;<sp/>WEEKDAY(FALSE)</highlight></codeline>
 </programlisting></para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>message<sp/>if<sp/>it&apos;s<sp/>the<sp/>weekend</highlight></codeline>
@@ -49,10 +48,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="WEEKDAY_1autotoc_md450">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="WEEKDAY_1notes-70_1s1"><sect2 id="WEEKDAY_1notes-70_1s2"><sect3 id="WEEKDAY_1notes-70">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Returns an integer in the range <computeroutput>0–6</computeroutput>.</para>
 </listitem><listitem><para>Local time depends on configured time zone. Without configuration, local and UTC values are identical.</para>
 </listitem><listitem><para>Use together with <ref refid="DAY" kindref="compound">DAY</ref>, <ref refid="MONTH" kindref="compound">MONTH</ref>, and <ref refid="YEAR" kindref="compound">YEAR</ref> for full date handling.</para>
@@ -61,7 +59,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="DAY" kindref="compound">DAY</ref> · <ref refid="MONTH" kindref="compound">MONTH</ref> · <ref refid="YEAR" kindref="compound">YEAR</ref> · <ref refid="HOUR" kindref="compound">HOUR</ref> · <ref refid="MINUTE" kindref="compound">MINUTE</ref> · <ref refid="SECOND" kindref="compound">SECOND</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/WEEKDAY.md"/>
   </compounddef>

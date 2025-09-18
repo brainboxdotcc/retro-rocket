@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="GLOBAL" kind="page">
     <compoundname>GLOBAL</compoundname>
     <title>GLOBAL Keyword</title>
@@ -15,9 +15,8 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="GLOBAL_1autotoc_md815">
-<title>Behaviour</title>
-<para><itemizedlist>
+<sect1 id="GLOBAL_1behaviour-1_1s1"><sect2 id="GLOBAL_1behaviour-1_1s2"><sect3 id="GLOBAL_1behaviour-1">
+<title>Behaviour</title><para><itemizedlist>
 <listitem><para>The assignment executes normally in the current program, <bold>and</bold> the variable is flagged so that its <bold>value is copied</bold> into subsequently created child programs.</para>
 </listitem><listitem><para>The copy happens <bold>at child creation time</bold>. Changes made later in either parent or child do <bold>not</bold> affect the other.</para>
 </listitem><listitem><para>To keep a variable marked as global, <bold>every</bold> subsequent assignment to that variable must also be written with <computeroutput>GLOBAL</computeroutput>.<itemizedlist>
@@ -28,10 +27,9 @@
 </para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="GLOBAL_1autotoc_md817">
-<title>Examples</title>
-<para><bold>Pass a string and number to a child</bold></para>
+</sect3></sect2></sect1>
+<sect1 id="GLOBAL_1examples-131_1s1"><sect2 id="GLOBAL_1examples-131_1s2"><sect3 id="GLOBAL_1examples-131">
+<title>Examples</title><para><bold>Pass a string and number to a child</bold></para>
 <para>Parent program: <programlisting filename=".basic"><codeline><highlight class="normal">GLOBAL<sp/>USERNAME$<sp/>=<sp/>&quot;guest&quot;</highlight></codeline>
 <codeline><highlight class="normal">GLOBAL<sp/>TIMEOUT<sp/><sp/><sp/>=<sp/>30</highlight></codeline>
 <codeline></codeline>
@@ -50,10 +48,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="GLOBAL_1autotoc_md819">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="GLOBAL_1notes-139_1s1"><sect2 id="GLOBAL_1notes-139_1s2"><sect3 id="GLOBAL_1notes-139">
+<title>Notes</title><para><itemizedlist>
 <listitem><para><computeroutput>GLOBAL</computeroutput> controls <bold>inter-program passing only</bold>. It does <bold>not</bold> create a program-wide scope within a single program.</para>
 </listitem><listitem><para>The variable is copied <bold>by value</bold> into the child at launch.</para>
 </listitem><listitem><para>Use <computeroutput>GLOBAL</computeroutput> only on lines that <bold>assign</bold> to the variable.</para>
@@ -61,7 +58,7 @@
 </para>
 <para><bold>See also:</bold> <linebreak/>
  <ref refid="CHAIN" kindref="compound">CHAIN</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/GLOBAL.md"/>
   </compounddef>

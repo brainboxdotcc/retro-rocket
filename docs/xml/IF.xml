@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="IF" kind="page">
     <compoundname>IF</compoundname>
     <title>IF Keyword</title>
@@ -25,45 +25,43 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="IF_1autotoc_md834">
-<title>Comparison operators</title>
-<para><table rows="7" cols="2"><row>
-<entry thead="yes" align='center'><para>Operator   </para>
-</entry><entry thead="yes"><para>Meaning    </para>
+<sect1 id="IF_1comparison-operators_1s1"><sect2 id="IF_1comparison-operators_1s2"><sect3 id="IF_1comparison-operators">
+<title>Comparison operators</title><para><table rows="7" cols="2"><row>
+<entry thead="yes" align='center'><para>Operator  </para>
+</entry><entry thead="yes"><para>Meaning  </para>
 </entry></row>
 <row>
-<entry thead="no" align='center'><para><computeroutput>&gt;</computeroutput>   </para>
-</entry><entry thead="no"><para>Greater than    </para>
+<entry thead="no" align='center'><para><computeroutput>&gt;</computeroutput>  </para>
+</entry><entry thead="no"><para>Greater than  </para>
 </entry></row>
 <row>
-<entry thead="no" align='center'><para><computeroutput>&lt;</computeroutput>   </para>
-</entry><entry thead="no"><para>Less than    </para>
+<entry thead="no" align='center'><para><computeroutput>&lt;</computeroutput>  </para>
+</entry><entry thead="no"><para>Less than  </para>
 </entry></row>
 <row>
-<entry thead="no" align='center'><para><computeroutput>&gt;=</computeroutput>   </para>
-</entry><entry thead="no"><para>Greater than or equal to    </para>
+<entry thead="no" align='center'><para><computeroutput>&gt;=</computeroutput>  </para>
+</entry><entry thead="no"><para>Greater than or equal to  </para>
 </entry></row>
 <row>
-<entry thead="no" align='center'><para><computeroutput>&lt;=</computeroutput>   </para>
-</entry><entry thead="no"><para>Less than or equal to    </para>
+<entry thead="no" align='center'><para><computeroutput>&lt;=</computeroutput>  </para>
+</entry><entry thead="no"><para>Less than or equal to  </para>
 </entry></row>
 <row>
-<entry thead="no" align='center'><para><computeroutput>=</computeroutput>   </para>
-</entry><entry thead="no"><para>Equal to    </para>
+<entry thead="no" align='center'><para><computeroutput>=</computeroutput>  </para>
+</entry><entry thead="no"><para>Equal to  </para>
 </entry></row>
 <row>
-<entry thead="no" align='center'><para><computeroutput>&lt;&gt;</computeroutput>   </para>
-</entry><entry thead="no"><para>Not equal to   </para>
+<entry thead="no" align='center'><para><computeroutput>&lt;&gt;</computeroutput>  </para>
+</entry><entry thead="no"><para>Not equal to  </para>
 </entry></row>
 </table>
 </para>
 <para>These operators produce a boolean result suitable for <computeroutput>IF</computeroutput>.</para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="IF_1autotoc_md836">
-<title>Forms and examples</title>
-<para><bold>Single-line (with ELSE)</bold> <programlisting filename=".basic"><codeline><highlight class="normal">IF<sp/>X<sp/>&gt;<sp/>0<sp/>THEN<sp/>PRINT<sp/>&quot;POSITIVE&quot;<sp/>ELSE<sp/>PRINT<sp/>&quot;NON-POSITIVE&quot;</highlight></codeline>
+</sect3></sect2></sect1>
+<sect1 id="IF_1forms-and-examples_1s1"><sect2 id="IF_1forms-and-examples_1s2"><sect3 id="IF_1forms-and-examples">
+<title>Forms and examples</title><para><bold>Single-line (with ELSE)</bold> <programlisting filename=".basic"><codeline><highlight class="normal">IF<sp/>X<sp/>&gt;<sp/>0<sp/>THEN<sp/>PRINT<sp/>&quot;POSITIVE&quot;<sp/>ELSE<sp/>PRINT<sp/>&quot;NON-POSITIVE&quot;</highlight></codeline>
 </programlisting></para>
 <para><bold>Single-line (no ELSE)</bold> <programlisting filename=".basic"><codeline><highlight class="normal">IF<sp/>READY<sp/>THEN<sp/>PRINT<sp/>&quot;GO&quot;</highlight></codeline>
 </programlisting></para>
@@ -89,17 +87,16 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="IF_1autotoc_md838">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="IF_1notes-143_1s1"><sect2 id="IF_1notes-143_1s2"><sect3 id="IF_1notes-143">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>In the <bold>single-line</bold> form, the <computeroutput>THEN</computeroutput> and optional <computeroutput>ELSE</computeroutput> parts each allow <bold>one statement</bold>. Use the multi-line form for multiple statements.</para>
 </listitem><listitem><para><computeroutput>IF</computeroutput> blocks may be <bold>nested</bold> freely; <computeroutput>ENDIF</computeroutput> matches the nearest unmatched <computeroutput>IF</computeroutput>.</para>
 </listitem><listitem><para>Use parentheses to make complex conditions explicit: <computeroutput>IF (A &gt; 0) AND (B &lt; 10) THEN ...</computeroutput> (where supported by your operators).</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <ref refid="ELSE" kindref="compound">ELSE</ref> · <ref refid="ENDIF" kindref="compound">ENDIF</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/IF.md"/>
   </compounddef>

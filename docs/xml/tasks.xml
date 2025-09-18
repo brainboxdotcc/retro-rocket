@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="tasks" kind="page">
     <compoundname>tasks</compoundname>
     <title>Writing BASIC Tasks</title>
@@ -10,17 +10,15 @@
 <para>Tasks can be used for long-running background services, or even as <bold>device drivers</bold> (for example, the <computeroutput>ps2mouse</computeroutput> task which implements the mouse driver entirely in BASIC).</para>
 <para><hruler/>
 </para>
-<sect2 id="tasks_1autotoc_md1216">
-<title>Starting and stopping tasks</title>
-<para>To run a program as a task: <programlisting><codeline><highlight class="normal">ROCKETSH&gt;<sp/>task<sp/>drivers/ps2mouse</highlight></codeline>
+<sect1 id="tasks_1starting-and-stopping-tasks_1s1"><sect2 id="tasks_1starting-and-stopping-tasks">
+<title>Starting and stopping tasks</title><para>To run a program as a task: <programlisting><codeline><highlight class="normal">ROCKETSH&gt;<sp/>task<sp/>drivers/ps2mouse</highlight></codeline>
 </programlisting> This loads the program from <computeroutput>/programs/drivers/ps2mouse</computeroutput> and runs it in the background.</para>
 <para>Tasks keep running until the system halts or they are killed with the shell’s process control commands.</para>
 <para><hruler/>
 </para>
-</sect2>
-<sect2 id="tasks_1autotoc_md1218">
-<title>What tasks are good for</title>
-<para><itemizedlist>
+</sect2></sect1>
+<sect1 id="tasks_1what-tasks-are-good-for_1s1"><sect2 id="tasks_1what-tasks-are-good-for">
+<title>What tasks are good for</title><para><itemizedlist>
 <listitem><para>Handling <bold>device drivers</bold> and <bold>daemon-type activity</bold> (mouse, timers, network servers).</para>
 </listitem><listitem><para>Providing <bold>background services</bold> (logging, monitoring, caches).</para>
 </listitem><listitem><para>Responding to <bold>requests from other programs</bold> (e.g. via UDP, shared state, or libraries).</para>
@@ -29,10 +27,9 @@
 </para>
 <para><hruler/>
 </para>
-</sect2>
-<sect2 id="tasks_1autotoc_md1220">
-<title>What not to do in a task</title>
-<para>Because tasks run without a console of their own:</para>
+</sect2></sect1>
+<sect1 id="tasks_1what-not-to-do-in-a-task_1s1"><sect2 id="tasks_1what-not-to-do-in-a-task">
+<title>What not to do in a task</title><para>Because tasks run without a console of their own:</para>
 <para><itemizedlist>
 <listitem><para><bold>Do not print to the console</bold> (<computeroutput>PRINT</computeroutput>, <computeroutput>CLS</computeroutput>, <computeroutput>CURSOR</computeroutput>, etc.). This will disrupt whatever foreground program is running.</para>
 </listitem><listitem><para><bold>Do not assume interactive input.</bold> Tasks should never call <computeroutput>INKEY$</computeroutput>, <computeroutput>INPUT</computeroutput>, or similar.</para>
@@ -43,10 +40,9 @@
 </para>
 <para><hruler/>
 </para>
-</sect2>
-<sect2 id="tasks_1autotoc_md1222">
-<title>Structure of a typical task</title>
-<para>A task is usually structured as:</para>
+</sect2></sect1>
+<sect1 id="tasks_1structure-of-a-typical-task_1s1"><sect2 id="tasks_1structure-of-a-typical-task">
+<title>Structure of a typical task</title><para>A task is usually structured as:</para>
 <para><orderedlist>
 <listitem><para><bold>Initialisation</bold> - set up UDP ports, device state, or memory structures.</para>
 </listitem><listitem><para><bold>Main loop</bold> - perform the background activity (poll hardware, read input, handle requests).</para>
@@ -67,16 +63,15 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect2>
-<sect2 id="tasks_1autotoc_md1224">
-<title>Notes</title>
-<para><itemizedlist>
+</sect2></sect1>
+<sect1 id="tasks_1notes-179_1s1"><sect2 id="tasks_1notes-179">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Tasks share the same BASIC runtime as other programs, so they must be <bold>well-behaved</bold> and not interfere with the console.</para>
 </listitem><listitem><para>Use <bold>libraries</bold> to expose a clean API to foreground programs (for example, the <computeroutput>mouse</computeroutput> library calls into the <computeroutput>ps2mouse</computeroutput> task).</para>
 </listitem><listitem><para>Remember that tasks continue running after the shell returns - always consider resource cleanup (<computeroutput>PROCdone</computeroutput>) where applicable. </para>
 </listitem></itemizedlist>
 </para>
-</sect2>
+</sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/TASKS.md"/>
   </compounddef>

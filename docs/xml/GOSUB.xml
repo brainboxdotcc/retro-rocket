@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="GOSUB" kind="page">
     <compoundname>GOSUB</compoundname>
     <title>GOSUB Keyword</title>
@@ -25,9 +25,8 @@
 </para>
 <para><hruler/>
 </para>
-<para><heading level="5">Example: simple subroutine (line numbers permitted)</heading>
-</para>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">10<sp/>PRINT<sp/>&quot;Start&quot;</highlight></codeline>
+<sect1 id="GOSUB_1example-simple-subroutine-line-numbers-permitted_1s1"><sect2 id="GOSUB_1example-simple-subroutine-line-numbers-permitted_1s2"><sect3 id="GOSUB_1example-simple-subroutine-line-numbers-permitted_1s3"><sect4 id="GOSUB_1example-simple-subroutine-line-numbers-permitted_1s4"><sect5 id="GOSUB_1example-simple-subroutine-line-numbers-permitted">
+<title>Example: simple subroutine (line numbers permitted)</title><para><programlisting filename=".basic"><codeline><highlight class="normal">10<sp/>PRINT<sp/>&quot;Start&quot;</highlight></codeline>
 <codeline><highlight class="normal">20<sp/>GOSUB<sp/>1000</highlight></codeline>
 <codeline><highlight class="normal">30<sp/>PRINT<sp/>&quot;Back<sp/>from<sp/>subroutine&quot;</highlight></codeline>
 <codeline><highlight class="normal">40<sp/>END</highlight></codeline>
@@ -37,9 +36,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-<para><heading level="5">Example: using variables with a subroutine</heading>
-</para>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">10<sp/>N<sp/>=<sp/>3</highlight></codeline>
+</sect5></sect4></sect3></sect2></sect1>
+<sect1 id="GOSUB_1example-using-variables-with-a-subroutine_1s1"><sect2 id="GOSUB_1example-using-variables-with-a-subroutine_1s2"><sect3 id="GOSUB_1example-using-variables-with-a-subroutine_1s3"><sect4 id="GOSUB_1example-using-variables-with-a-subroutine_1s4"><sect5 id="GOSUB_1example-using-variables-with-a-subroutine">
+<title>Example: using variables with a subroutine</title><para><programlisting filename=".basic"><codeline><highlight class="normal">10<sp/>N<sp/>=<sp/>3</highlight></codeline>
 <codeline><highlight class="normal">20<sp/>GOSUB<sp/>2000</highlight></codeline>
 <codeline><highlight class="normal">30<sp/>PRINT<sp/>&quot;Done&quot;</highlight></codeline>
 <codeline><highlight class="normal">40<sp/>END</highlight></codeline>
@@ -52,16 +51,17 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-<para><heading level="5">Notes</heading>
-</para>
-<para><itemizedlist>
+</sect5></sect4></sect3></sect2></sect1>
+<sect1 id="GOSUB_1notes-140_1s1"><sect2 id="GOSUB_1notes-140_1s2"><sect3 id="GOSUB_1notes-140_1s3"><sect4 id="GOSUB_1notes-140_1s4"><sect5 id="GOSUB_1notes-140">
+<title>Notes</title><para><itemizedlist>
 <listitem><para><computeroutput>GOSUB</computeroutput> does not support arguments. Share data via variables; prefer <computeroutput>PROC</computeroutput> parameters in new code.</para>
 </listitem><listitem><para>Jumping to a line that does not contain the intended subroutine body will execute whatever is there until a <computeroutput>RETURN</computeroutput> is hit.</para>
-</listitem><listitem><para>Modern Retro Rocket BASIC code should prefer **<computeroutput>DEF PROC</computeroutput> / <computeroutput>PROC</computeroutput>** for clarity and maintainability.</para>
+</listitem><listitem><para>Modern Retro Rocket BASIC code should prefer <bold><computeroutput>DEF PROC</computeroutput> / <computeroutput>PROC</computeroutput></bold> for clarity and maintainability.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
  <ref refid="RETURN" kindref="compound">RETURN</ref> · <ref refid="DEF" kindref="compound">DEF</ref> · <ref refid="PROC" kindref="compound">PROC</ref> · <ref refid="GOTO" kindref="compound">GOTO</ref> </para>
+</sect5></sect4></sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/GOSUB.md"/>
   </compounddef>

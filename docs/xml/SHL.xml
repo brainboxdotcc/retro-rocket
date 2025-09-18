@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="SHL" kind="page">
     <compoundname>SHL</compoundname>
     <title>SHL Function</title>
@@ -11,9 +11,8 @@
 <para>Performs a <bold>bitwise shift left</bold> operation on an integer. The first parameter is the value to shift, the second is the number of bit positions.</para>
 <para><hruler/>
 </para>
-<sect3 id="SHL_1autotoc_md400">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>SHL(1,<sp/>1)</highlight></codeline>
+<sect1 id="SHL_1examples-62_1s1"><sect2 id="SHL_1examples-62_1s2"><sect3 id="SHL_1examples-62">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>SHL(1,<sp/>1)</highlight></codeline>
 </programlisting></para>
 <para>Produces <computeroutput>2</computeroutput> (<computeroutput>0001</computeroutput> → <computeroutput>0010</computeroutput>).</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>SHL(3,<sp/>2)</highlight></codeline>
@@ -25,10 +24,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="SHL_1autotoc_md402">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="SHL_1notes-61_1s1"><sect2 id="SHL_1notes-61_1s2"><sect3 id="SHL_1notes-61">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Operates on 64-bit integers.</para>
 </listitem><listitem><para>Shifting left by <computeroutput>n</computeroutput> positions is equivalent to multiplying by <computeroutput>2^n</computeroutput>.</para>
 </listitem><listitem><para>Bits shifted out on the left are discarded; new bits on the right are filled with zero.</para>
@@ -38,7 +36,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="SHR" kindref="compound">SHR</ref> · <ref refid="BITAND" kindref="compound">BITAND</ref> · <ref refid="BITOR" kindref="compound">BITOR</ref> · <ref refid="BITNAND" kindref="compound">BITNAND</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/SHL.md"/>
   </compounddef>

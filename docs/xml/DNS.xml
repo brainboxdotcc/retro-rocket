@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="DNS" kind="page">
     <compoundname>DNS</compoundname>
     <title>DNS$ Function</title>
@@ -11,9 +11,8 @@
 <para>Resolves a <bold>hostname</bold> into an <bold>IP address string</bold>. If the hostname cannot be resolved, an error is raised.</para>
 <para><hruler/>
 </para>
-<sect3 id="DNS_1autotoc_md560">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>DNS$(&quot;retrorocket.dev&quot;)</highlight></codeline>
+<sect1 id="DNS_1examples-92_1s1"><sect2 id="DNS_1examples-92_1s2"><sect3 id="DNS_1examples-92">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>DNS$(&quot;retrorocket.dev&quot;)</highlight></codeline>
 </programlisting></para>
 <para>Might produce:</para>
 <para><programlisting><codeline><highlight class="normal">141.95.6.222</highlight></codeline>
@@ -26,10 +25,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="DNS_1autotoc_md562">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="DNS_1notes-91_1s1"><sect2 id="DNS_1notes-91_1s2"><sect3 id="DNS_1notes-91">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Always returns an IPv4 address in dotted decimal format (<computeroutput>a.b.c.d</computeroutput>).</para>
 </listitem><listitem><para>Name resolution is performed via the operating system’s network stack.</para>
 </listitem><listitem><para>Failures (e.g. host not found, no network) return the value &quot;0.0.0.0&quot;</para>
@@ -38,7 +36,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="CONNECT" kindref="compound">CONNECT</ref> · <ref refid="SOCKSTATUS" kindref="compound">SOCKSTATUS</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/DNS.md"/>
   </compounddef>

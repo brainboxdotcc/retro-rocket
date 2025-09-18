@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="DATA" kind="page">
     <compoundname>DATA</compoundname>
     <title>DATA Keyword</title>
@@ -20,9 +20,8 @@
 </simplesect>
 <hruler/>
 </para>
-<para><heading level="5">Example: load newline-separated integers from a file</heading>
-</para>
-<para>Suppose <computeroutput>values.txt</computeroutput> contains: <programlisting><codeline><highlight class="normal">10</highlight></codeline>
+<sect1 id="DATA_1example-load-newline-separated-integers-from-a-file_1s1"><sect2 id="DATA_1example-load-newline-separated-integers-from-a-file_1s2"><sect3 id="DATA_1example-load-newline-separated-integers-from-a-file_1s3"><sect4 id="DATA_1example-load-newline-separated-integers-from-a-file_1s4"><sect5 id="DATA_1example-load-newline-separated-integers-from-a-file">
+<title>Example: load newline-separated integers from a file</title><para>Suppose <computeroutput>values.txt</computeroutput> contains: <programlisting><codeline><highlight class="normal">10</highlight></codeline>
 <codeline><highlight class="normal">20</highlight></codeline>
 <codeline><highlight class="normal">30</highlight></codeline>
 </programlisting></para>
@@ -57,18 +56,18 @@
 <para>This accumulates characters until a line break (<computeroutput>CHR(10)</computeroutput> or <computeroutput>CHR(13)</computeroutput>), then converts the buffered text into a number with <computeroutput>VAL</computeroutput>.</para>
 <para><hruler/>
 </para>
-<para><heading level="5">Example: simple inline table (no files)</heading>
-</para>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>A,<sp/>3</highlight></codeline>
+</sect5></sect4></sect3></sect2></sect1>
+<sect1 id="DATA_1example-simple-inline-table-no-files_1s1"><sect2 id="DATA_1example-simple-inline-table-no-files_1s2"><sect3 id="DATA_1example-simple-inline-table-no-files_1s3"><sect4 id="DATA_1example-simple-inline-table-no-files_1s4"><sect5 id="DATA_1example-simple-inline-table-no-files">
+<title>Example: simple inline table (no files)</title><para><programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>A,<sp/>3</highlight></codeline>
 <codeline><highlight class="normal">A(1)<sp/>=<sp/>10</highlight></codeline>
 <codeline><highlight class="normal">A(2)<sp/>=<sp/>20</highlight></codeline>
 <codeline><highlight class="normal">A(3)<sp/>=<sp/>30</highlight></codeline>
 </programlisting></para>
 <para><hruler/>
 </para>
-<para><heading level="5">See also</heading>
-</para>
-<para><itemizedlist>
+</sect5></sect4></sect3></sect2></sect1>
+<sect1 id="DATA_1see-also_1s1"><sect2 id="DATA_1see-also_1s2"><sect3 id="DATA_1see-also_1s3"><sect4 id="DATA_1see-also_1s4"><sect5 id="DATA_1see-also">
+<title>See also</title><para><itemizedlist>
 <listitem><para><ref refid="OPENIN" kindref="compound">OPENIN</ref> – open a file for reading</para>
 </listitem><listitem><para><ref refid="OPENOUT" kindref="compound">OPENOUT</ref> – open a file for writing (truncate)</para>
 </listitem><listitem><para><ref refid="OPENUP" kindref="compound">OPENUP</ref> – open a file for update (read/write)</para>
@@ -77,6 +76,7 @@
 </listitem><listitem><para><ref refid="VAL" kindref="compound">VAL</ref>, <ref refid="LEN" kindref="compound">LEN</ref>, <ref refid="CHR" kindref="compound">CHR</ref> </para>
 </listitem></itemizedlist>
 </para>
+</sect5></sect4></sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/DATA.md"/>
   </compounddef>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="GETNAME" kind="page">
     <compoundname>GETNAME</compoundname>
     <title>GETNAME$ Function</title>
@@ -11,9 +11,8 @@
 <para>Returns the <bold>file name</bold> for an entry in a directory. The first parameter is a <bold>directory path</bold>, and the second parameter is an <bold>index</bold> between <computeroutput>0</computeroutput> and <computeroutput>GETNAMECOUNT(path$) - 1</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect3 id="GETNAME_1autotoc_md570">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>List<sp/>all<sp/>files<sp/>in<sp/>the<sp/>current<sp/>directory</highlight></codeline>
+<sect1 id="GETNAME_1examples-94_1s1"><sect2 id="GETNAME_1examples-94_1s2"><sect3 id="GETNAME_1examples-94">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>List<sp/>all<sp/>files<sp/>in<sp/>the<sp/>current<sp/>directory</highlight></codeline>
 <codeline><highlight class="normal">dir$<sp/>=<sp/>CSD$</highlight></codeline>
 <codeline><highlight class="normal">count<sp/>=<sp/>GETNAMECOUNT(dir$)</highlight></codeline>
 <codeline><highlight class="normal">FOR<sp/>i<sp/>=<sp/>0<sp/>TO<sp/>count<sp/>-<sp/>1</highlight></codeline>
@@ -27,10 +26,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="GETNAME_1autotoc_md572">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="GETNAME_1notes-93_1s1"><sect2 id="GETNAME_1notes-93_1s2"><sect3 id="GETNAME_1notes-93">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>If the index is outside the valid range, an error is raised.</para>
 </listitem><listitem><para>The path may be absolute (starting with <computeroutput>/</computeroutput>) or relative to the current working directory (<ref refid="CSD" kindref="compound">CSD$</ref>).</para>
 </listitem><listitem><para>The order of entries is determined by the filesystem and may not be sorted alphabetically.</para>
@@ -40,7 +38,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="GETNAMECOUNT" kindref="compound">GETNAMECOUNT</ref> · <ref refid="FILETYPE" kindref="compound">FILETYPE$</ref> · <ref refid="GETSIZE" kindref="compound">GETSIZE</ref> · <ref refid="CSD" kindref="compound">CSD$</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/GETNAME.md"/>
   </compounddef>

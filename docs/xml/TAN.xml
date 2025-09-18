@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="TAN" kind="page">
     <compoundname>TAN</compoundname>
     <title>TAN Function</title>
@@ -11,9 +11,8 @@
 <para>Returns the <bold>tangent</bold> of the given angle, where the angle is expressed in <bold>radians</bold>.</para>
 <para><hruler/>
 </para>
-<sect3 id="TAN_1autotoc_md543">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>TAN(0)</highlight></codeline>
+<sect1 id="TAN_1examples-90_1s1"><sect2 id="TAN_1examples-90_1s2"><sect3 id="TAN_1examples-90">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>TAN(0)</highlight></codeline>
 </programlisting></para>
 <para>Produces <computeroutput>0</computeroutput>.</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>TAN(PI#<sp/>/<sp/>4)</highlight></codeline>
@@ -25,16 +24,13 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="TAN_1autotoc_md545">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="TAN_1notes-89_1s1"><sect2 id="TAN_1notes-89_1s2"><sect3 id="TAN_1notes-89">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Argument must be in <bold>radians</bold>. Convert from degrees with:</para>
-</listitem></itemizedlist>
-</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">radians#<sp/>=<sp/>degrees<sp/>*<sp/>PI#<sp/>/<sp/>180</highlight></codeline>
-</programlisting><itemizedlist>
-<listitem><para>The tangent function has asymptotes where cosine is zero, i.e. at odd multiples of <computeroutput>PI#/2</computeroutput>. Calling <computeroutput>TAN</computeroutput> at these points will produce very large values or errors due to division by zero.</para>
+</programlisting></para>
+</listitem><listitem><para>The tangent function has asymptotes where cosine is zero, i.e. at odd multiples of <computeroutput>PI#/2</computeroutput>. Calling <computeroutput>TAN</computeroutput> at these points will produce very large values or errors due to division by zero.</para>
 </listitem><listitem><para>Return value is a real number, unbounded in range.</para>
 </listitem><listitem><para>Inverse function: <ref refid="ATAN" kindref="compound">ATAN</ref>.</para>
 </listitem></itemizedlist>
@@ -42,7 +38,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="SIN" kindref="compound">SIN</ref> · <ref refid="COS" kindref="compound">COS</ref> · <ref refid="ATAN" kindref="compound">ATAN</ref> · <ref refid="ATAN2" kindref="compound">ATAN2</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/real/TAN.md"/>
   </compounddef>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="CIRCLE" kind="page">
     <compoundname>CIRCLE</compoundname>
     <title>CIRCLE Keyword</title>
@@ -21,25 +21,24 @@
 </para>
 <para><hruler/>
 </para>
-<para><heading level="5">Example: Outline</heading>
-</para>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">GCOL<sp/>RGB(255,0,0)</highlight></codeline>
+<sect1 id="CIRCLE_1example-outline_1s1"><sect2 id="CIRCLE_1example-outline_1s2"><sect3 id="CIRCLE_1example-outline_1s3"><sect4 id="CIRCLE_1example-outline_1s4"><sect5 id="CIRCLE_1example-outline">
+<title>Example: Outline</title><para><programlisting filename=".basic"><codeline><highlight class="normal">GCOL<sp/>RGB(255,0,0)</highlight></codeline>
 <codeline><highlight class="normal">CIRCLE<sp/>400,<sp/>300,<sp/>100,<sp/>FALSE</highlight></codeline>
 </programlisting></para>
 <para>Draws a red circle outline centred at <computeroutput>(400,300)</computeroutput> with radius <computeroutput>100</computeroutput>.</para>
 <para><hruler/>
 </para>
-<para><heading level="5">Example: Filled</heading>
-</para>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">GCOL<sp/>RGB(0,255,0)</highlight></codeline>
+</sect5></sect4></sect3></sect2></sect1>
+<sect1 id="CIRCLE_1example-filled_1s1"><sect2 id="CIRCLE_1example-filled_1s2"><sect3 id="CIRCLE_1example-filled_1s3"><sect4 id="CIRCLE_1example-filled_1s4"><sect5 id="CIRCLE_1example-filled">
+<title>Example: Filled</title><para><programlisting filename=".basic"><codeline><highlight class="normal">GCOL<sp/>RGB(0,255,0)</highlight></codeline>
 <codeline><highlight class="normal">CIRCLE<sp/>200,<sp/>200,<sp/>50,<sp/>TRUE</highlight></codeline>
 </programlisting></para>
 <para>Draws a filled green circle centred at <computeroutput>(200,200)</computeroutput> with radius <computeroutput>50</computeroutput>.</para>
 <para><hruler/>
 </para>
-<para><heading level="5">Notes</heading>
-</para>
-<para><itemizedlist>
+</sect5></sect4></sect3></sect2></sect1>
+<sect1 id="CIRCLE_1notes-126_1s1"><sect2 id="CIRCLE_1notes-126_1s2"><sect3 id="CIRCLE_1notes-126_1s3"><sect4 id="CIRCLE_1notes-126_1s4"><sect5 id="CIRCLE_1notes-126">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Coordinates are in <bold>screen pixels</bold>; <computeroutput>(0,0)</computeroutput> is the top-left corner. <linebreak/>
 </para>
 </listitem><listitem><para>Circles are clipped at the screen edges if they extend beyond the display. <linebreak/>
@@ -48,6 +47,7 @@
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <ref refid="GCOL" kindref="compound">GCOL</ref>, <ref refid="LINE" kindref="compound">LINE</ref>, <ref refid="RECTANGLE" kindref="compound">RECTANGLE</ref> </para>
+</sect5></sect4></sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/CIRCLE.md"/>
   </compounddef>

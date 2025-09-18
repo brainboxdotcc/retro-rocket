@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="basic-beginner" kind="page">
     <compoundname>basic-beginner</compoundname>
     <title>Beginners&apos; Tutorial</title>
@@ -14,9 +14,8 @@
 We’ll start simple and build up.</para>
 <para><hruler/>
 </para>
-<sect2 id="basic-beginner_1autotoc_md39">
-<title>1) Your first program: printing text</title>
-<para>Open the editor:</para>
+<sect1 id="basic-beginner_1autotoc_md1-your-first-program-printing-text_1s1"><sect2 id="basic-beginner_1autotoc_md1-your-first-program-printing-text">
+<title>1) Your first program: printing text</title><para>Open the editor:</para>
 <para><programlisting><codeline><highlight class="normal">edit</highlight></codeline>
 </programlisting></para>
 <para>Type this and save (Ctrl+S) with the name: <computeroutput>hello</computeroutput></para>
@@ -34,10 +33,9 @@ We’ll start simple and build up.</para>
 </para>
 <para><hruler/>
 </para>
-</sect2>
-<sect2 id="basic-beginner_1autotoc_md41">
-<title>2) Variables and simple maths</title>
-<para>Open a new file:</para>
+</sect2></sect1>
+<sect1 id="basic-beginner_1autotoc_md2-variables-and-simple-maths_1s1"><sect2 id="basic-beginner_1autotoc_md2-variables-and-simple-maths">
+<title>2) Variables and simple maths</title><para>Open a new file:</para>
 <para><programlisting><codeline><highlight class="normal">edit</highlight></codeline>
 </programlisting></para>
 <para>Type and save (Ctrl+S) as <computeroutput>mathsdemo</computeroutput>:</para>
@@ -65,10 +63,9 @@ We’ll start simple and build up.</para>
 <para>Use the right suffix when you want a real or string. Integers have no suffix.</para>
 <para><hruler/>
 </para>
-</sect2>
-<sect2 id="basic-beginner_1autotoc_md43">
-<title>3) Getting input and using strings</title>
-<para>Open:</para>
+</sect2></sect1>
+<sect1 id="basic-beginner_1autotoc_md3-getting-input-and-using-strings_1s1"><sect2 id="basic-beginner_1autotoc_md3-getting-input-and-using-strings">
+<title>3) Getting input and using strings</title><para>Open:</para>
 <para><programlisting><codeline><highlight class="normal">edit</highlight></codeline>
 </programlisting></para>
 <para>Type and save (Ctrl+S) as <computeroutput>hello_you</computeroutput>:</para>
@@ -87,10 +84,9 @@ We’ll start simple and build up.</para>
 </para>
 <para><hruler/>
 </para>
-</sect2>
-<sect2 id="basic-beginner_1autotoc_md45">
-<title>4) Making decisions (IF / ELSE)</title>
-<para>Open:</para>
+</sect2></sect1>
+<sect1 id="basic-beginner_1autotoc_md4-making-decisions-if--else_1s1"><sect2 id="basic-beginner_1autotoc_md4-making-decisions-if--else">
+<title>4) Making decisions (IF / ELSE)</title><para>Open:</para>
 <para><programlisting><codeline><highlight class="normal">edit</highlight></codeline>
 </programlisting></para>
 <para>Type and save (Ctrl+S) as <computeroutput>agegate</computeroutput>:</para>
@@ -105,10 +101,9 @@ We’ll start simple and build up.</para>
 <para>Run it and try different ages.\ <computeroutput>IF ... THEN</computeroutput> chooses a path; <computeroutput>ELSE</computeroutput> is optional; <computeroutput>ENDIF</computeroutput> closes the block.</para>
 <para><hruler/>
 </para>
-</sect2>
-<sect2 id="basic-beginner_1autotoc_md47">
-<title>5) Repeating work (FOR and WHILE)</title>
-<para><bold>A counting loop</bold></para>
+</sect2></sect1>
+<sect1 id="basic-beginner_1autotoc_md5-repeating-work-for-and-while_1s1"><sect2 id="basic-beginner_1autotoc_md5-repeating-work-for-and-while">
+<title>5) Repeating work (FOR and WHILE)</title><para><bold>A counting loop</bold></para>
 <para><programlisting><codeline><highlight class="normal">FOR<sp/>I<sp/>=<sp/>1<sp/>TO<sp/>5</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>PRINT<sp/>&quot;Number<sp/>&quot;;<sp/>I</highlight></codeline>
 <codeline><highlight class="normal">NEXT</highlight></codeline>
@@ -123,10 +118,9 @@ We’ll start simple and build up.</para>
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect2>
-<sect2 id="basic-beginner_1autotoc_md49">
-<title>6) Breaking code into procedures and functions</title>
-<para>Procedures are reusable blocks that don’t return a value. Functions return a value.</para>
+</sect2></sect1>
+<sect1 id="basic-beginner_1autotoc_md6-breaking-code-into-procedures-and-functions_1s1"><sect2 id="basic-beginner_1autotoc_md6-breaking-code-into-procedures-and-functions">
+<title>6) Breaking code into procedures and functions</title><para>Procedures are reusable blocks that don’t return a value. Functions return a value.</para>
 <para><bold>Procedure example</bold></para>
 <para><programlisting><codeline><highlight class="normal">DEF<sp/>PROCGreet(NAME$)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>PRINT<sp/>&quot;Hello,<sp/>&quot;;<sp/>NAME$</highlight></codeline>
@@ -149,10 +143,9 @@ We’ll start simple and build up.</para>
 </para>
 <para><hruler/>
 </para>
-</sect2>
-<sect2 id="basic-beginner_1autotoc_md51">
-<title>7) A tiny project: Guess the number</title>
-<para><programlisting><codeline><highlight class="normal">edit</highlight></codeline>
+</sect2></sect1>
+<sect1 id="basic-beginner_1autotoc_md7-a-tiny-project-guess-the-number_1s1"><sect2 id="basic-beginner_1autotoc_md7-a-tiny-project-guess-the-number">
+<title>7) A tiny project: Guess the number</title><para><programlisting><codeline><highlight class="normal">edit</highlight></codeline>
 </programlisting></para>
 <para>Type and save (Ctrl+S) as <computeroutput>guess</computeroutput>:</para>
 <para><programlisting><codeline><highlight class="normal">PRINT<sp/>&quot;I<sp/>am<sp/>thinking<sp/>of<sp/>a<sp/>number<sp/>between<sp/>1<sp/>and<sp/>10.&quot;</highlight></codeline>
@@ -168,10 +161,9 @@ We’ll start simple and build up.</para>
 <para>Run with <computeroutput>guess</computeroutput>. Improve it by looping until correct, counting attempts, or giving hints (<computeroutput>IF GUESS &lt; SECRET THEN ...</computeroutput>).</para>
 <para><hruler/>
 </para>
-</sect2>
-<sect2 id="basic-beginner_1autotoc_md53">
-<title>8) Tips and troubleshooting</title>
-<para><itemizedlist>
+</sect2></sect1>
+<sect1 id="basic-beginner_1autotoc_md8-tips-and-troubleshooting_1s1"><sect2 id="basic-beginner_1autotoc_md8-tips-and-troubleshooting">
+<title>8) Tips and troubleshooting</title><para><itemizedlist>
 <listitem><para><bold>Stopping a program:</bold> press <bold>ESC</bold>. (Advanced: you can catch this with <computeroutput>ON ERROR PROC ...</computeroutput> and check <computeroutput>ERR$</computeroutput>.)</para>
 </listitem><listitem><para><bold>Saving:</bold> remember <bold>Ctrl+S</bold> in the editor.</para>
 </listitem><listitem><para><bold>Printing tricks:</bold><itemizedlist>
@@ -183,17 +175,16 @@ We’ll start simple and build up.</para>
 </para>
 <para><hruler/>
 </para>
-</sect2>
-<sect2 id="basic-beginner_1autotoc_md55">
-<title>9) Where to go next</title>
-<para><itemizedlist>
+</sect2></sect1>
+<sect1 id="basic-beginner_1autotoc_md9-where-to-go-next_1s1"><sect2 id="basic-beginner_1autotoc_md9-where-to-go-next">
+<title>9) Where to go next</title><para><itemizedlist>
 <listitem><para>Try combining <computeroutput>INPUT</computeroutput>, <computeroutput>IF</computeroutput>, and loops to make simple text games.</para>
 </listitem><listitem><para>Learn about arrays and sprites when you’re comfortable with the basics.</para>
 </listitem><listitem><para>Browse the separate “BASIC.md” internals doc if you’re curious how the interpreter works under the hood.</para>
 </listitem></itemizedlist>
 </para>
 <para>You’ve got this-keep experimenting! </para>
-</sect2>
+</sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/BASIC_BEGINNER.md"/>
   </compounddef>

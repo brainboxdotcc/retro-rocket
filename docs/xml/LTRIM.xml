@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="LTRIM" kind="page">
     <compoundname>LTRIM</compoundname>
     <title>LTRIM$ Function</title>
@@ -11,9 +11,8 @@
 <para>Removes all leading spaces from the start of the string expression and returns the result.</para>
 <para><hruler/>
 </para>
-<sect3 id="LTRIM_1autotoc_md619">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>LTRIM$(&quot;<sp/><sp/><sp/>Hello&quot;)</highlight></codeline>
+<sect1 id="LTRIM_1examples-103_1s1"><sect2 id="LTRIM_1examples-103_1s2"><sect3 id="LTRIM_1examples-103">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>LTRIM$(&quot;<sp/><sp/><sp/>Hello&quot;)</highlight></codeline>
 </programlisting></para>
 <para>Produces <computeroutput>&quot;Hello&quot;</computeroutput>.</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>LTRIM$(&quot;<sp/><sp/><sp/>Retro<sp/>Rocket<sp/><sp/><sp/>&quot;)</highlight></codeline>
@@ -25,10 +24,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="LTRIM_1autotoc_md621">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="LTRIM_1notes-102_1s1"><sect2 id="LTRIM_1notes-102_1s2"><sect3 id="LTRIM_1notes-102">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Only space characters (<computeroutput>CHR$(32)</computeroutput>) are removed; tabs and other whitespace are not affected.</para>
 </listitem><listitem><para>If the string has no leading spaces, it is returned unchanged.</para>
 </listitem><listitem><para>Use <ref refid="RTRIM" kindref="compound">RTRIM$</ref> to remove trailing spaces, or <ref refid="TRIM" kindref="compound">TRIM$</ref> to remove both ends.</para>
@@ -37,7 +35,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="RTRIM" kindref="compound">RTRIM$</ref> · <ref refid="TRIM" kindref="compound">TRIM$</ref> · <ref refid="LEN" kindref="compound">LEN</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/LTRIM.md"/>
   </compounddef>

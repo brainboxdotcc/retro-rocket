@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="DAY" kind="page">
     <compoundname>DAY</compoundname>
     <title>DAY Function</title>
@@ -16,9 +16,8 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="DAY_1autotoc_md163">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>both<sp/>local<sp/>and<sp/>UTC<sp/>day</highlight></codeline>
+<sect1 id="DAY_1examples-17_1s1"><sect2 id="DAY_1examples-17_1s2"><sect3 id="DAY_1examples-17">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>both<sp/>local<sp/>and<sp/>UTC<sp/>day</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Local<sp/>day:<sp/>&quot;;<sp/>DAY(TRUE)</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;UTC<sp/>day:<sp/><sp/><sp/>&quot;;<sp/>DAY(FALSE)</highlight></codeline>
 </programlisting></para>
@@ -32,10 +31,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="DAY_1autotoc_md165">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="DAY_1notes-16_1s1"><sect2 id="DAY_1notes-16_1s2"><sect3 id="DAY_1notes-16">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Returns values in the range <bold>1–31</bold>, depending on the current month.</para>
 </listitem><listitem><para>Local time behaviour depends on the OS time zone configuration. If no zone is configured, local and UTC values will be identical.</para>
 </listitem><listitem><para>Works in tandem with <ref refid="MONTH" kindref="compound">MONTH</ref> and <ref refid="YEAR" kindref="compound">YEAR</ref> for complete date values.</para>
@@ -45,7 +43,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="MONTH" kindref="compound">MONTH</ref> · <ref refid="YEAR" kindref="compound">YEAR</ref> · <ref refid="WEEKDAY" kindref="compound">WEEKDAY</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/DAY.md"/>
   </compounddef>

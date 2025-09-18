@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="EVAL" kind="page">
     <compoundname>EVAL</compoundname>
     <title>EVAL Keyword</title>
@@ -21,9 +21,8 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="EVAL_1autotoc_md797">
-<title>Examples</title>
-<para><bold>Print from a generated line</bold> <programlisting filename=".basic"><codeline><highlight class="normal">EVAL<sp/>&quot;PRINT<sp/>&quot;<sp/>+<sp/>CHR$(34)<sp/>+<sp/>&quot;Hello<sp/>from<sp/>EVAL!&quot;<sp/>+<sp/>CHR$(34)</highlight></codeline>
+<sect1 id="EVAL_1examples-127_1s1"><sect2 id="EVAL_1examples-127_1s2"><sect3 id="EVAL_1examples-127">
+<title>Examples</title><para><bold>Print from a generated line</bold> <programlisting filename=".basic"><codeline><highlight class="normal">EVAL<sp/>&quot;PRINT<sp/>&quot;<sp/>+<sp/>CHR$(34)<sp/>+<sp/>&quot;Hello<sp/>from<sp/>EVAL!&quot;<sp/>+<sp/>CHR$(34)</highlight></codeline>
 </programlisting></para>
 <para><bold>Set a variable dynamically</bold> <programlisting filename=".basic"><codeline><highlight class="normal">NAME$<sp/>=<sp/>&quot;COUNT&quot;</highlight></codeline>
 <codeline><highlight class="normal">EVAL<sp/>NAME$<sp/>+<sp/>&quot;<sp/>=<sp/>42&quot;</highlight></codeline>
@@ -46,17 +45,16 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="EVAL_1autotoc_md799">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="EVAL_1notes-136_1s1"><sect2 id="EVAL_1notes-136_1s2"><sect3 id="EVAL_1notes-136">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Provide <bold>exactly one</bold> statement; statement separators are not supported.</para>
 </listitem><listitem><para>The evaluated line runs with access to the program&apos;s current variables, procedures, and functions.</para>
 </listitem><listitem><para>Use <computeroutput>EVAL</computeroutput> for small, dynamic actions. For larger logic, write normal procedures/functions and call them directly.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <ref refid="DEF" kindref="compound">DEF</ref>, <ref refid="PROC" kindref="compound">PROC</ref>, <ref refid="FN" kindref="compound">FN</ref>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Builtin-Variables"><computeroutput>ERR</computeroutput>/<computeroutput>ERR$</computeroutput></ulink> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/EVAL.md"/>
   </compounddef>

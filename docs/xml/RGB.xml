@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="RGB" kind="page">
     <compoundname>RGB</compoundname>
     <title>RGB Function</title>
@@ -17,9 +17,8 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="RGB_1autotoc_md380">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Create<sp/>pure<sp/>red</highlight></codeline>
+<sect1 id="RGB_1examples-58_1s1"><sect2 id="RGB_1examples-58_1s2"><sect3 id="RGB_1examples-58">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Create<sp/>pure<sp/>red</highlight></codeline>
 <codeline><highlight class="normal">col<sp/>=<sp/>RGB(255,<sp/>0,<sp/>0)</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Red<sp/>=<sp/>&quot;;<sp/>col</highlight></codeline>
 </programlisting></para>
@@ -33,10 +32,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="RGB_1autotoc_md382">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="RGB_1notes-57_1s1"><sect2 id="RGB_1notes-57_1s2"><sect3 id="RGB_1notes-57">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>The return value is a 24-bit RGB colour packed into an integer.</para>
 </listitem><listitem><para>Valid range for each channel is 0–255; values outside this range are clipped.</para>
 </listitem><listitem><para>Typically used with graphics commands such as <ref refid="GCOL" kindref="compound">GCOL</ref> and <ref refid="RECTANGLE" kindref="compound">RECTANGLE</ref>.</para>
@@ -45,7 +43,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="GCOL" kindref="compound">GCOL</ref> · <ref refid="RECTANGLE" kindref="compound">RECTANGLE</ref> · <ref refid="POINT" kindref="compound">POINT</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/RGB.md"/>
   </compounddef>

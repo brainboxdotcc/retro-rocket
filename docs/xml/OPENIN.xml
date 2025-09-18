@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="OPENIN" kind="page">
     <compoundname>OPENIN</compoundname>
     <title>OPENIN Function</title>
@@ -11,9 +11,8 @@
 <para>Opens a file for <bold>input</bold> (reading only). Returns an <bold>integer file handle</bold> that must be used with <ref refid="READ" kindref="compound">READ$</ref> and <ref refid="CLOSE" kindref="compound">CLOSE</ref>.</para>
 <para><hruler/>
 </para>
-<sect3 id="OPENIN_1autotoc_md331">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Open<sp/>a<sp/>file<sp/>for<sp/>reading</highlight></codeline>
+<sect1 id="OPENIN_1examples-49_1s1"><sect2 id="OPENIN_1examples-49_1s2"><sect3 id="OPENIN_1examples-49">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Open<sp/>a<sp/>file<sp/>for<sp/>reading</highlight></codeline>
 <codeline><highlight class="normal">fh<sp/>=<sp/>OPENIN(&quot;/data/example.txt&quot;)</highlight></codeline>
 <codeline><highlight class="normal">IF<sp/>fh<sp/>&lt;<sp/>0<sp/>THEN</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Failed<sp/>to<sp/>open<sp/>file&quot;</highlight></codeline>
@@ -38,10 +37,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="OPENIN_1autotoc_md333">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="OPENIN_1notes-48_1s1"><sect2 id="OPENIN_1notes-48_1s2"><sect3 id="OPENIN_1notes-48">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Returns a <bold>non-negative handle</bold> on success, or a <bold>negative value</bold> on failure.</para>
 </listitem><listitem><para>File handle must be closed with <ref refid="CLOSE" kindref="compound">CLOSE</ref> when no longer needed.</para>
 </listitem><listitem><para>Works with <ref refid="EOF" kindref="compound">EOF</ref> to detect end-of-file during reads.</para>
@@ -51,7 +49,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="READ" kindref="compound">READ$</ref> · <ref refid="CLOSE" kindref="compound">CLOSE</ref> · <ref refid="OPENOUT" kindref="compound">OPENOUT</ref> · <ref refid="OPENUP" kindref="compound">OPENUP</ref> · <ref refid="EOF" kindref="compound">EOF</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/OPENIN.md"/>
   </compounddef>

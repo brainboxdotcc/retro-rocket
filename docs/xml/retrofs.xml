@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="retrofs" kind="page">
     <compoundname>retrofs</compoundname>
     <title>RetroFS v1 Technical Specification</title>
@@ -11,20 +11,20 @@
 </entry><entry thead="yes"><para></para>
 </entry></row>
 <row>
-<entry thead="no"><para><bold>Status:</bold>   </para>
-</entry><entry thead="no"><para>Draft    </para>
+<entry thead="no"><para><bold>Status:</bold>  </para>
+</entry><entry thead="no"><para>Draft  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><bold>Version:</bold>   </para>
-</entry><entry thead="no"><para>1.0    </para>
+<entry thead="no"><para><bold>Version:</bold>  </para>
+</entry><entry thead="no"><para>1.0  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><bold>Audience:</bold>   </para>
-</entry><entry thead="no"><para>System implementors / filesystem driver authors    </para>
+<entry thead="no"><para><bold>Audience:</bold>  </para>
+</entry><entry thead="no"><para>System implementors / filesystem driver authors  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><bold>Scope:</bold>   </para>
-</entry><entry thead="no"><para>On-disk format and required behaviours for RetroFS v1    </para>
+<entry thead="no"><para><bold>Scope:</bold>  </para>
+</entry><entry thead="no"><para>On-disk format and required behaviours for RetroFS v1  </para>
 </entry></row>
 <row>
 <entry thead="no"><para></para>
@@ -32,95 +32,91 @@
 </entry></row>
 </table>
 </para>
-<sect2 id="retrofs_1autotoc_md1309">
-<title>1. Conventions and terminology</title>
-<para><itemizedlist>
+<sect1 id="retrofs_1autotoc_md1-conventions-and-terminology_1s1"><sect2 id="retrofs_1autotoc_md1-conventions-and-terminology">
+<title>1. Conventions and terminology</title><para><itemizedlist>
 <listitem><para>The key words <bold>MUST</bold>, <bold>MUST NOT</bold>, <bold>SHOULD</bold>, <bold>SHOULD NOT</bold>, <bold>MAY</bold> are to be interpreted as in RFC 2119.</para>
 </listitem><listitem><para>All multi-byte integers on disk <bold>MUST</bold> be <bold>little-endian</bold>.</para>
 </listitem><listitem><para>A <bold>sector</bold> is exactly <bold>512 bytes</bold> (v1 only; other sizes are not supported).</para>
 </listitem><listitem><para>An <bold>extent</bold> is a contiguous run of sectors.</para>
-</listitem><listitem><para>A <bold>directory block</bold> is a contiguous run of **<computeroutput>RFS_DEFAULT_DIR_SIZE</computeroutput>** sectors (v1: 64).</para>
+</listitem><listitem><para>A <bold>directory block</bold> is a contiguous run of <bold><computeroutput>RFS_DEFAULT_DIR_SIZE</computeroutput></bold> sectors (v1: 64).</para>
 </listitem><listitem><para>A <bold>half-sector entry</bold> is 256 bytes; two entries per 512-byte sector.</para>
 </listitem><listitem><para>Filenames are <bold>case-preserving</bold>, compared <bold>case-insensitively</bold> using ASCII rules only.</para>
 </listitem></itemizedlist>
 </para>
-</sect2>
-<sect2 id="retrofs_1autotoc_md1310">
-<title>2. High-level layout (informative)</title>
-<para><programlisting><codeline><highlight class="normal">LBA<sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>Description<sp/>Block</highlight></codeline>
+</sect2></sect1>
+<sect1 id="retrofs_1autotoc_md2-high-level-layout-informative_1s1"><sect2 id="retrofs_1autotoc_md2-high-level-layout-informative">
+<title>2. High-level layout (informative)</title><para><programlisting><codeline><highlight class="normal">LBA<sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>Description<sp/>Block</highlight></codeline>
 <codeline><highlight class="normal">LBA<sp/>root_directory<sp/>..<sp/>:<sp/>Root<sp/>directory<sp/>block<sp/>(64<sp/>sectors)<sp/>+<sp/>any<sp/>continuations</highlight></codeline>
 <codeline><highlight class="normal">LBA<sp/>free_space_map<sp/>..<sp/>:<sp/>Free-space<sp/>map<sp/>(bitmap),<sp/>contiguous</highlight></codeline>
 <codeline><highlight class="normal">LBA<sp/>…<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>File<sp/>and<sp/>directory<sp/>extents</highlight></codeline>
 </programlisting></para>
 <para>Exact locations are recorded in the Description Block.</para>
-</sect2>
-<sect2 id="retrofs_1autotoc_md1311">
-<title>3. On-disk structures (normative)</title>
-<sect3 id="retrofs_1autotoc_md1312">
-<title>3.1 Description Block (sector 0)</title>
-<para>The Description Block <bold>MUST</bold> occupy exactly one sector at LBA 0 and uses this exact layout:</para>
+</sect2></sect1>
+<sect1 id="retrofs_1autotoc_md3-on-disk-structures-normative_1s1"><sect2 id="retrofs_1autotoc_md3-on-disk-structures-normative">
+<title>3. On-disk structures (normative)</title><sect3 id="retrofs_1autotoc_md31-description-block-sector-0">
+<title>3.1 Description Block (sector 0)</title><para>The Description Block <bold>MUST</bold> occupy exactly one sector at LBA 0 and uses this exact layout:</para>
 <para><table rows="9" cols="5"><row>
-<entry thead="yes" align='right'><para>Offset   </para>
-</entry><entry thead="yes" align='right'><para>Size   </para>
-</entry><entry thead="yes"><para>Field   </para>
-</entry><entry thead="yes"><para>Type   </para>
-</entry><entry thead="yes"><para>Description    </para>
+<entry thead="yes" align='right'><para>Offset  </para>
+</entry><entry thead="yes" align='right'><para>Size  </para>
+</entry><entry thead="yes"><para>Field  </para>
+</entry><entry thead="yes"><para>Type  </para>
+</entry><entry thead="yes"><para>Description  </para>
 </entry></row>
 <row>
-<entry thead="no" align='right'><para>0x00   </para>
-</entry><entry thead="no" align='right'><para>8   </para>
-</entry><entry thead="no"><para><computeroutput>identifier</computeroutput>   </para>
-</entry><entry thead="no"><para><computeroutput>u64</computeroutput>   </para>
-</entry><entry thead="no"><para>Magic **<computeroutput>0x3153466f72746552</computeroutput>** (“RetroFS1”).    </para>
+<entry thead="no" align='right'><para>0x00  </para>
+</entry><entry thead="no" align='right'><para>8  </para>
+</entry><entry thead="no"><para><computeroutput>identifier</computeroutput>  </para>
+</entry><entry thead="no"><para><computeroutput>u64</computeroutput>  </para>
+</entry><entry thead="no"><para>Magic <bold><computeroutput>0x3153466f72746552</computeroutput></bold> (“RetroFS1”).  </para>
 </entry></row>
 <row>
-<entry thead="no" align='right'><para>0x08   </para>
-</entry><entry thead="no" align='right'><para>8   </para>
-</entry><entry thead="no"><para><computeroutput>root_directory</computeroutput>   </para>
-</entry><entry thead="no"><para><computeroutput>u64</computeroutput>   </para>
-</entry><entry thead="no"><para>LBA of the <bold>directory start entry</bold> for the root directory.    </para>
+<entry thead="no" align='right'><para>0x08  </para>
+</entry><entry thead="no" align='right'><para>8  </para>
+</entry><entry thead="no"><para><computeroutput>root_directory</computeroutput>  </para>
+</entry><entry thead="no"><para><computeroutput>u64</computeroutput>  </para>
+</entry><entry thead="no"><para>LBA of the <bold>directory start entry</bold> for the root directory.  </para>
 </entry></row>
 <row>
-<entry thead="no" align='right'><para>0x10   </para>
-</entry><entry thead="no" align='right'><para>8   </para>
-</entry><entry thead="no"><para><computeroutput>free_space_map_start</computeroutput>   </para>
-</entry><entry thead="no"><para><computeroutput>u64</computeroutput>   </para>
-</entry><entry thead="no"><para>LBA of the first sector of the free-space map.    </para>
+<entry thead="no" align='right'><para>0x10  </para>
+</entry><entry thead="no" align='right'><para>8  </para>
+</entry><entry thead="no"><para><computeroutput>free_space_map_start</computeroutput>  </para>
+</entry><entry thead="no"><para><computeroutput>u64</computeroutput>  </para>
+</entry><entry thead="no"><para>LBA of the first sector of the free-space map.  </para>
 </entry></row>
 <row>
-<entry thead="no" align='right'><para>0x18   </para>
-</entry><entry thead="no" align='right'><para>8   </para>
-</entry><entry thead="no"><para><computeroutput>free_space_map_length</computeroutput>   </para>
-</entry><entry thead="no"><para><computeroutput>u64</computeroutput>   </para>
-</entry><entry thead="no"><para>Length of the free-space map, in sectors.    </para>
+<entry thead="no" align='right'><para>0x18  </para>
+</entry><entry thead="no" align='right'><para>8  </para>
+</entry><entry thead="no"><para><computeroutput>free_space_map_length</computeroutput>  </para>
+</entry><entry thead="no"><para><computeroutput>u64</computeroutput>  </para>
+</entry><entry thead="no"><para>Length of the free-space map, in sectors.  </para>
 </entry></row>
 <row>
-<entry thead="no" align='right'><para>0x20   </para>
-</entry><entry thead="no" align='right'><para>8   </para>
-</entry><entry thead="no"><para><computeroutput>free_space_map_checksum</computeroutput>   </para>
-</entry><entry thead="no"><para><computeroutput>u64</computeroutput>   </para>
-</entry><entry thead="no"><para>Checksum of the free-space map (algorithm implementation-defined).    </para>
+<entry thead="no" align='right'><para>0x20  </para>
+</entry><entry thead="no" align='right'><para>8  </para>
+</entry><entry thead="no"><para><computeroutput>free_space_map_checksum</computeroutput>  </para>
+</entry><entry thead="no"><para><computeroutput>u64</computeroutput>  </para>
+</entry><entry thead="no"><para>Checksum of the free-space map (algorithm implementation-defined).  </para>
 </entry></row>
 <row>
-<entry thead="no" align='right'><para>0x28   </para>
-</entry><entry thead="no" align='right'><para>8   </para>
-</entry><entry thead="no"><para><computeroutput>sequence</computeroutput>   </para>
-</entry><entry thead="no"><para><computeroutput>u64</computeroutput>   </para>
-</entry><entry thead="no"><para>Filesystem-wide sequence; MAY increment on metadata changes.    </para>
+<entry thead="no" align='right'><para>0x28  </para>
+</entry><entry thead="no" align='right'><para>8  </para>
+</entry><entry thead="no"><para><computeroutput>sequence</computeroutput>  </para>
+</entry><entry thead="no"><para><computeroutput>u64</computeroutput>  </para>
+</entry><entry thead="no"><para>Filesystem-wide sequence; MAY increment on metadata changes.  </para>
 </entry></row>
 <row>
-<entry thead="no" align='right'><para>0x30   </para>
-</entry><entry thead="no" align='right'><para>8   </para>
-</entry><entry thead="no"><para><computeroutput>creation_time</computeroutput>   </para>
-</entry><entry thead="no"><para><computeroutput>time_t</computeroutput>   </para>
-</entry><entry thead="no"><para>POSIX time (UTC) when the FS was created.    </para>
+<entry thead="no" align='right'><para>0x30  </para>
+</entry><entry thead="no" align='right'><para>8  </para>
+</entry><entry thead="no"><para><computeroutput>creation_time</computeroutput>  </para>
+</entry><entry thead="no"><para><computeroutput>time_t</computeroutput>  </para>
+</entry><entry thead="no"><para>POSIX time (UTC) when the FS was created.  </para>
 </entry></row>
 <row>
-<entry thead="no" align='right'><para>0x38   </para>
-</entry><entry thead="no" align='right'><para>…   </para>
-</entry><entry thead="no"><para>padding/reserved   </para>
-</entry><entry thead="no"><para>bytes   </para>
-</entry><entry thead="no"><para>Zero-filled to 512 bytes.   </para>
+<entry thead="no" align='right'><para>0x38  </para>
+</entry><entry thead="no" align='right'><para>…  </para>
+</entry><entry thead="no"><para>padding/reserved  </para>
+</entry><entry thead="no"><para>bytes  </para>
+</entry><entry thead="no"><para>Zero-filled to 512 bytes.  </para>
 </entry></row>
 </table>
 </para>
@@ -131,9 +127,8 @@
 </listitem><listitem><para>Unused bytes <bold>MUST</bold> be zero and <bold>SHOULD</bold> be preserved on rewrite.</para>
 </listitem></itemizedlist>
 </para>
-<sect4 id="retrofs_1autotoc_md1313">
-<title>Byte layout sketch</title>
-<para><programlisting><codeline><highlight class="normal">+0000<sp/><sp/>52<sp/>65<sp/>74<sp/>72<sp/>6F<sp/>46<sp/>53<sp/>31<sp/><sp/><sp/>//<sp/>&quot;RetroFS1&quot;<sp/>LE:<sp/>0x3153466f72746552</highlight></codeline>
+<sect4 id="retrofs_1byte-layout-sketch">
+<title>Byte layout sketch</title><para><programlisting><codeline><highlight class="normal">+0000<sp/><sp/>52<sp/>65<sp/>74<sp/>72<sp/>6F<sp/>46<sp/>53<sp/>31<sp/><sp/><sp/>//<sp/>&quot;RetroFS1&quot;<sp/>LE:<sp/>0x3153466f72746552</highlight></codeline>
 <codeline><highlight class="normal">+0008<sp/><sp/>&lt;root_directory:<sp/>u64<sp/>LE&gt;</highlight></codeline>
 <codeline><highlight class="normal">+0010<sp/><sp/>&lt;fsmap_start:<sp/><sp/><sp/><sp/>u64<sp/>LE&gt;</highlight></codeline>
 <codeline><highlight class="normal">+0018<sp/><sp/>&lt;fsmap_length:<sp/><sp/><sp/>u64<sp/>LE&gt;</highlight></codeline>
@@ -144,9 +139,8 @@
 </programlisting></para>
 </sect4>
 </sect3>
-<sect3 id="retrofs_1autotoc_md1314">
-<title>3.2 Free-space map (bitmap)</title>
-<para>Each free-space map sector uses:</para>
+<sect3 id="retrofs_1autotoc_md32-free-space-map-bitmap">
+<title>3.2 Free-space map (bitmap)</title><para>Each free-space map sector uses:</para>
 <para><programlisting><codeline><highlight class="normal">typedef<sp/>struct<sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>bits[<sp/>RFS_FS_MAP_BITS_PER_SECTOR<sp/>];<sp/>//<sp/>(512<sp/>/<sp/>8)<sp/>=<sp/>64<sp/>elements</highlight></codeline>
 <codeline><highlight class="normal">}<sp/>rfs_free_space_map_part_t;</highlight></codeline>
@@ -165,12 +159,10 @@
 </listitem></itemizedlist>
 </para>
 </sect3>
-<sect3 id="retrofs_1autotoc_md1315">
-<title>3.3 Directory blocks and entries</title>
-<para>A directory is stored in one or more directory blocks. Each block is exactly **<computeroutput>RFS_DEFAULT_DIR_SIZE</computeroutput>** sectors (v1: <bold>64</bold>). Each <bold>sector</bold> contains <bold>two half-sector entries</bold>.</para>
-<sect4 id="retrofs_1autotoc_md1316">
-<title>3.3.1 Directory Start entry (first half-sector of the block)</title>
-<para><programlisting filename=".c"><codeline><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">rfs_directory_start_t<sp/>{</highlight></codeline>
+<sect3 id="retrofs_1autotoc_md33-directory-blocks-and-entries">
+<title>3.3 Directory blocks and entries</title><para>A directory is stored in one or more directory blocks. Each block is exactly <bold><computeroutput>RFS_DEFAULT_DIR_SIZE</computeroutput></bold> sectors (v1: <bold>64</bold>). Each <bold>sector</bold> contains <bold>two half-sector entries</bold>.</para>
+<sect4 id="retrofs_1autotoc_md331-directory-start-entry-first-half-sector-of-the-block">
+<title>3.3.1 Directory Start entry (first half-sector of the block)</title><para><programlisting filename=".c"><codeline><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">rfs_directory_start_t<sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>flags;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>MUST<sp/>include<sp/>RFS_FLAG_DIR_START</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>title[128];<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>NUL-terminated<sp/>if<sp/>shorter</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>parent;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>LBA<sp/>of<sp/>parent<sp/>directory&apos;s<sp/>start<sp/>entry</highlight><highlight class="normal"></highlight></codeline>
@@ -187,9 +179,8 @@
 </listitem></itemizedlist>
 </para>
 </sect4>
-<sect4 id="retrofs_1autotoc_md1317">
-<title>3.3.2 File/Directory entry (other half-sectors)</title>
-<para><programlisting filename=".c"><codeline><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">rfs_directory_entry_inner_t<sp/>{</highlight></codeline>
+<sect4 id="retrofs_1autotoc_md332-filedirectory-entry-other-half-sectors">
+<title>3.3.2 File/Directory entry (other half-sectors)</title><para><programlisting filename=".c"><codeline><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">rfs_directory_entry_inner_t<sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>flags;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>RFS_FLAG_DIRECTORY<sp/>et<sp/>al.</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>filename[128];<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>NUL-terminated</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>sector_start;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>LBA<sp/>of<sp/>payload<sp/>(file)<sp/>or<sp/>start<sp/>(subdir)</highlight><highlight class="normal"></highlight></codeline>
@@ -202,28 +193,27 @@
 <codeline><highlight class="normal">}<sp/>__attribute__((packed));</highlight></codeline>
 </programlisting></para>
 </sect4>
-<sect4 id="retrofs_1autotoc_md1318">
-<title>3.3.3 File/Directory Flags values</title>
-<para>Files and directories may set the following bits in their <computeroutput>flags</computeroutput> field:</para>
+<sect4 id="retrofs_1autotoc_md333-filedirectory-flags-values">
+<title>3.3.3 File/Directory Flags values</title><para>Files and directories may set the following bits in their <computeroutput>flags</computeroutput> field:</para>
 <para><table rows="4" cols="3"><row>
-<entry thead="yes"><para>Flag Name   </para>
-</entry><entry thead="yes"><para>Bit Position   </para>
-</entry><entry thead="yes"><para>Description    </para>
+<entry thead="yes"><para>Flag Name  </para>
+</entry><entry thead="yes"><para>Bit Position  </para>
+</entry><entry thead="yes"><para>Description  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>RFS_FLAG_DIRECTORY   </para>
-</entry><entry thead="no"><para>0 (0x01)   </para>
-</entry><entry thead="no"><para>This flag <bold>MUST</bold> be set if the entry points at a subdirectory.    </para>
+<entry thead="no"><para>RFS_FLAG_DIRECTORY  </para>
+</entry><entry thead="no"><para>0 (0x01)  </para>
+</entry><entry thead="no"><para>This flag <bold>MUST</bold> be set if the entry points at a subdirectory.  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>RFS_FLAG_LOCKED   </para>
-</entry><entry thead="no"><para>1 (0x02)   </para>
-</entry><entry thead="no"><para>This flag <bold>MAY</bold> be set to indicate the file is locked against accidental change. Its behaviour is implementation specific    </para>
+<entry thead="no"><para>RFS_FLAG_LOCKED  </para>
+</entry><entry thead="no"><para>1 (0x02)  </para>
+</entry><entry thead="no"><para>This flag <bold>MAY</bold> be set to indicate the file is locked against accidental change. Its behaviour is implementation specific  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>RFS_FLAG_DIR_START   </para>
-</entry><entry thead="no"><para>2 (0x04)   </para>
-</entry><entry thead="no"><para>This flag <bold>MUST</bold> be set in the directory start entry at the start of each directory block. Directory start blocks without this flag set should be considered invalid and not parsed.   </para>
+<entry thead="no"><para>RFS_FLAG_DIR_START  </para>
+</entry><entry thead="no"><para>2 (0x04)  </para>
+</entry><entry thead="no"><para>This flag <bold>MUST</bold> be set in the directory start entry at the start of each directory block. Directory start blocks without this flag set should be considered invalid and not parsed.  </para>
 </entry></row>
 </table>
 </para>
@@ -237,9 +227,8 @@
 </listitem></itemizedlist>
 </para>
 </sect4>
-<sect4 id="retrofs_1autotoc_md1319">
-<title>3.3.4 Directory walk</title>
-<para><itemizedlist>
+<sect4 id="retrofs_1autotoc_md334-directory-walk">
+<title>3.3.4 Directory walk</title><para><itemizedlist>
 <listitem><para>Readers <bold>MUST</bold> follow the <computeroutput>continuation</computeroutput> chain until <computeroutput>continuation</computeroutput> is <computeroutput>0</computeroutput>.</para>
 </listitem><listitem><para>Readers <bold>MUST</bold> bound the walk (implementation-defined limit) to avoid infinite loops on corruption.</para>
 </listitem><listitem><para>Within each block, readers <bold>MUST</bold> stop at the first <computeroutput>filename[0] == 0</computeroutput> (end-of-entries for that block).</para>
@@ -247,21 +236,18 @@
 </para>
 </sect4>
 </sect3>
-</sect2>
-<sect2 id="retrofs_1autotoc_md1320">
-<title>4. Allocation &amp; growth semantics (normative)</title>
-<sect3 id="retrofs_1autotoc_md1321">
-<title>4.1 Extents</title>
-<para><itemizedlist>
+</sect2></sect1>
+<sect1 id="retrofs_1autotoc_md4-allocation--growth-semantics-normative_1s1"><sect2 id="retrofs_1autotoc_md4-allocation--growth-semantics-normative">
+<title>4. Allocation &amp; growth semantics (normative)</title><sect3 id="retrofs_1autotoc_md41-extents">
+<title>4.1 Extents</title><para><itemizedlist>
 <listitem><para>Every file or directory <emphasis>block</emphasis> occupies exactly one <bold>contiguous</bold> extent. Directories may be composed of multiple connected <emphasis>directory blocks</emphasis>.</para>
 </listitem><listitem><para>When a file write would exceed its reserved capacity (<computeroutput>sector_length * 512</computeroutput>), the file <bold>MUST</bold> be <bold>relocated</bold> to a larger contiguous extent (“extend-and-move”), after which the old extent <bold>MUST</bold> be freed.</para>
 </listitem><listitem><para>If there is no extent big enough to contain the file, the implementation may raise an &quot;out of space&quot; error.</para>
 </listitem></itemizedlist>
 </para>
 </sect3>
-<sect3 id="retrofs_1autotoc_md1322">
-<title>4.2 Creation</title>
-<para><bold>Files</bold></para>
+<sect3 id="retrofs_1autotoc_md42-creation">
+<title>4.2 Creation</title><para><bold>Files</bold></para>
 <para><itemizedlist>
 <listitem><para>Allocate an extent of at least the chosen reservation (policy; see §6.1).</para>
 </listitem><listitem><para><bold>MUST</bold> zero-fill the entire reserved extent before exposing it.</para>
@@ -283,27 +269,24 @@
 </listitem></itemizedlist>
 </para>
 </sect3>
-<sect3 id="retrofs_1autotoc_md1323">
-<title>4.3 Writing</title>
-<para><itemizedlist>
+<sect3 id="retrofs_1autotoc_md43-writing">
+<title>4.3 Writing</title><para><itemizedlist>
 <listitem><para>For unaligned writes, drivers <bold>MUST</bold> perform head/tail read-modify-write and full-sector writes in the middle.</para>
 </listitem><listitem><para>If <computeroutput>start + length</computeroutput> would exceed reserved capacity, driver <bold>MUST</bold> extend-and-move before writing.</para>
 </listitem><listitem><para>On successful payload modification, drivers <bold>SHOULD</bold> bump the per-entry <computeroutput>sequence</computeroutput>.</para>
 </listitem></itemizedlist>
 </para>
 </sect3>
-<sect3 id="retrofs_1autotoc_md1324">
-<title>4.4 Truncation</title>
-<para><itemizedlist>
+<sect3 id="retrofs_1autotoc_md44-truncation">
+<title>4.4 Truncation</title><para><itemizedlist>
 <listitem><para>Truncate <bold>MUST</bold> update <computeroutput>length</computeroutput> only.</para>
 </listitem><listitem><para>Truncate <bold>MUST NOT</bold> free sectors nor reduce <computeroutput>sector_length</computeroutput>.</para>
 </listitem><listitem><para>If requested <computeroutput>length</computeroutput> exceeds reserved capacity, truncate <bold>MUST</bold> fail.</para>
 </listitem></itemizedlist>
 </para>
 </sect3>
-<sect3 id="retrofs_1autotoc_md1325">
-<title>4.5 Deletion</title>
-<para><bold>Files</bold></para>
+<sect3 id="retrofs_1autotoc_md45-deletion">
+<title>4.5 Deletion</title><para><bold>Files</bold></para>
 <para><itemizedlist>
 <listitem><para>Remove the directory entry (compacting the block to avoid holes).</para>
 </listitem><listitem><para>Free the entire <computeroutput>sector_length</computeroutput> span in the free-space map.</para>
@@ -316,21 +299,18 @@
 </listitem></itemizedlist>
 </para>
 </sect3>
-</sect2>
-<sect2 id="retrofs_1autotoc_md1326">
-<title>5. Name handling</title>
-<para><itemizedlist>
+</sect2></sect1>
+<sect1 id="retrofs_1autotoc_md5-name-handling_1s1"><sect2 id="retrofs_1autotoc_md5-name-handling">
+<title>5. Name handling</title><para><itemizedlist>
 <listitem><para>Case-preserving storage; ASCII case-insensitive matching.</para>
 </listitem><listitem><para>Two names differing only by ASCII case <bold>MUST</bold> be considered equal and refer to the same entry.</para>
 </listitem><listitem><para>Names <bold>MUST</bold> be NUL-terminated within <computeroutput>RFS_MAX_NAME</computeroutput> bytes (128 incl. terminator).</para>
 </listitem></itemizedlist>
 </para>
-</sect2>
-<sect2 id="retrofs_1autotoc_md1327">
-<title>6. Policy notes (non-normative but recommended)</title>
-<sect3 id="retrofs_1autotoc_md1328">
-<title>6.1 Initial reservation policy</title>
-<para>Implementations <bold>SHOULD</bold> reserve more than the initial logical size to reduce churn. A practical policy:</para>
+</sect2></sect1>
+<sect1 id="retrofs_1autotoc_md6-policy-notes-non-normative-but-recommended_1s1"><sect2 id="retrofs_1autotoc_md6-policy-notes-non-normative-but-recommended">
+<title>6. Policy notes (non-normative but recommended)</title><sect3 id="retrofs_1autotoc_md61-initial-reservation-policy">
+<title>6.1 Initial reservation policy</title><para>Implementations <bold>SHOULD</bold> reserve more than the initial logical size to reduce churn. A practical policy:</para>
 <para><itemizedlist>
 <listitem><para>Default reservation: <bold>128 KiB</bold>.</para>
 </listitem><listitem><para>Image file types (e.g., <computeroutput>jpg</computeroutput>, <computeroutput>jpeg</computeroutput>, <computeroutput>png</computeroutput>, <computeroutput>gif</computeroutput>, <computeroutput>tiff</computeroutput>, <computeroutput>bmp</computeroutput>, <computeroutput>webp</computeroutput>): <bold>4 MiB</bold>.</para>
@@ -338,42 +318,37 @@
 </listitem></itemizedlist>
 </para>
 </sect3>
-<sect3 id="retrofs_1autotoc_md1329">
-<title>6.2 Zero-fill</title>
-<para>New extents and extended regions <bold>MUST</bold> be zero-filled prior to being visible to reads. This prevents data disclosure.</para>
+<sect3 id="retrofs_1autotoc_md62-zero-fill">
+<title>6.2 Zero-fill</title><para>New extents and extended regions <bold>MUST</bold> be zero-filled prior to being visible to reads. This prevents data disclosure.</para>
 </sect3>
-</sect2>
-<sect2 id="retrofs_1autotoc_md1330">
-<title>7. Implementation guidance: L1/L2 allocation caches</title>
-<para>Although the in-memory mount context (<computeroutput>rfs_t</computeroutput>) is implementation-specific and out of scope for this document, a compliant, high-performance implementation <bold>SHOULD</bold> maintain multi-level summaries over the on-disk free-space map:</para>
+</sect2></sect1>
+<sect1 id="retrofs_1autotoc_md7-implementation-guidance-l1l2-allocation-caches_1s1"><sect2 id="retrofs_1autotoc_md7-implementation-guidance-l1l2-allocation-caches">
+<title>7. Implementation guidance: L1/L2 allocation caches</title><para>Although the in-memory mount context (<computeroutput>rfs_t</computeroutput>) is implementation-specific and out of scope for this document, a compliant, high-performance implementation <bold>SHOULD</bold> maintain multi-level summaries over the on-disk free-space map:</para>
 <para><itemizedlist>
 <listitem><para><bold>L1 groups</bold> summarise <computeroutput>RFS_L1_GROUP_SECTORS</computeroutput> consecutive sectors (v1 default: <bold>4096 sectors ≈ 2 MiB</bold>). Track a per-group free count and bitsets for “any free” and “all free”.</para>
-</listitem><listitem><para><bold>L2 super-groups</bold> summarise <computeroutput>RFS_L2_GROUPS_PER_SUPER</computeroutput> L1 groups (v1 default: <bold>1024 L1s</bold>, i.e.**2 GiB** span per super-group). Track bitsets for “any free” and “all free”.</para>
+</listitem><listitem><para><bold>L2 super-groups</bold> summarise <computeroutput>RFS_L2_GROUPS_PER_SUPER</computeroutput> L1 groups (v1 default: <bold>1024 L1s</bold>, i.e. <bold>2 GiB</bold> span per super-group). Track bitsets for “any free” and “all free”.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>Recommendations</bold></para>
 <para><itemizedlist>
 <listitem><para>These defaults balance RAM overhead and search speed; implementations <bold>MAY</bold> tune them to workload.</para>
-</listitem><listitem><para>Total cache memory will typically be on the order of **200 MB per TiB** of formatted capacity; systems with constrained RAM <bold>MAY</bold> reduce group sizes at the cost of slower allocation.</para>
+</listitem><listitem><para>Total cache memory will typically be on the order of <bold>200 MB per TiB</bold> of formatted capacity; systems with constrained RAM <bold>MAY</bold> reduce group sizes at the cost of slower allocation.</para>
 </listitem><listitem><para>Where applicable, align L1 group size to device erase/stripe sizes to reduce write amplification.</para>
 </listitem></itemizedlist>
 </para>
-</sect2>
-<sect2 id="retrofs_1autotoc_md1331">
-<title>8. Validation &amp; error handling</title>
-<para><itemizedlist>
+</sect2></sect1>
+<sect1 id="retrofs_1autotoc_md8-validation--error-handling_1s1"><sect2 id="retrofs_1autotoc_md8-validation--error-handling">
+<title>8. Validation &amp; error handling</title><para><itemizedlist>
 <listitem><para>Mount <bold>MUST</bold> verify <computeroutput>identifier</computeroutput>, basic pointer ranges, and that root directory’s start entry has <computeroutput>RFS_FLAG_DIR_START</computeroutput> and <computeroutput>sectors == RFS_DEFAULT_DIR_SIZE</computeroutput>.</para>
 </listitem><listitem><para>Directory walks <bold>MUST</bold> enforce an iteration cap to avoid loops on corruption.</para>
 </listitem><listitem><para>All I/O routines <bold>MUST</bold> fail cleanly on bounds violations.</para>
 </listitem><listitem><para>On partial failure during create/extend, implementations <bold>SHOULD</bold> prefer leaving the new extent marked used (space leak) over risking a dangling metadata reference.</para>
 </listitem></itemizedlist>
 </para>
-</sect2>
-<sect2 id="retrofs_1autotoc_md1332">
-<title>9. Partition identification (GPT)</title>
-<sect3 id="retrofs_1autotoc_md1333">
-<title>RetroFS Partition Type GUID</title>
-<para><bold>Name:</bold> RetroFS Partition <linebreak/>
+</sect2></sect1>
+<sect1 id="retrofs_1autotoc_md9-partition-identification-gpt_1s1"><sect2 id="retrofs_1autotoc_md9-partition-identification-gpt">
+<title>9. Partition identification (GPT)</title><sect3 id="retrofs_1retrofs-partition-type-guid">
+<title>RetroFS Partition Type GUID</title><para><bold>Name:</bold> RetroFS Partition <linebreak/>
  <bold>Use:</bold> Identifies a GPT partition formatted with the RetroFS filesystem. <linebreak/>
  <bold>GUID (UUID):</bold> <computeroutput>4DEC1156-FEC8-4495-854B-20D888E21AF0</computeroutput> <linebreak/>
  <bold>Format:</bold> UUID v4 (random; permanently reserved for RetroFS). <linebreak/>
@@ -398,24 +373,22 @@
 <codeline><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RFS_GPT_GUID<sp/>&quot;4DEC1156-FEC8-4495-854B-20D888E21AF0&quot;</highlight></codeline>
 </programlisting></para>
 </sect3>
-</sect2>
-<sect2 id="retrofs_1autotoc_md1334">
-<title>10. Security considerations</title>
-<para><itemizedlist>
+</sect2></sect1>
+<sect1 id="retrofs_1autotoc_md10-security-considerations_1s1"><sect2 id="retrofs_1autotoc_md10-security-considerations">
+<title>10. Security considerations</title><para><itemizedlist>
 <listitem><para>Zero-fill on allocation/extension prevents disclosure of previous contents.</para>
 </listitem><listitem><para>Reads <bold>MUST NOT</bold> expose bytes beyond <computeroutput>length</computeroutput> even if reserved space is larger.</para>
 </listitem><listitem><para>There is no journaling; callers <bold>SHOULD</bold> expect non-atomic metadata updates.</para>
 </listitem></itemizedlist>
 </para>
-</sect2>
-<sect2 id="retrofs_1autotoc_md1335">
-<title>11. Versioning</title>
-<para><itemizedlist>
+</sect2></sect1>
+<sect1 id="retrofs_1autotoc_md11-versioning_1s1"><sect2 id="retrofs_1autotoc_md11-versioning">
+<title>11. Versioning</title><para><itemizedlist>
 <listitem><para>This document defines <bold>RetroFS v1</bold> with <bold>512-byte sectors</bold> and fixed directory block size <bold>64 sectors</bold>.</para>
 </listitem><listitem><para>Implementations <bold>MUST</bold> reject incompatible identifiers or field values that violate these invariants. </para>
 </listitem></itemizedlist>
 </para>
-</sect2>
+</sect2></sect1>
     </detaileddescription>
     <location file="docpages/kernel-dev/RETROFS.md"/>
   </compounddef>

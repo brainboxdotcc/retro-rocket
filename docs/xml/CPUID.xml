@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="CPUID" kind="page">
     <compoundname>CPUID</compoundname>
     <title>CPUID Function</title>
@@ -16,24 +16,24 @@
 </listitem></itemizedlist>
 </para>
 <para><table rows="5" cols="2"><row>
-<entry thead="yes"><para>Value   </para>
-</entry><entry thead="yes"><para>Register    </para>
+<entry thead="yes"><para>Value  </para>
+</entry><entry thead="yes"><para>Register  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>0   </para>
-</entry><entry thead="no"><para>EAX    </para>
+<entry thead="no"><para>0  </para>
+</entry><entry thead="no"><para>EAX  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>1   </para>
-</entry><entry thead="no"><para>EBX    </para>
+<entry thead="no"><para>1  </para>
+</entry><entry thead="no"><para>EBX  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>2   </para>
-</entry><entry thead="no"><para>ECX    </para>
+<entry thead="no"><para>2  </para>
+</entry><entry thead="no"><para>ECX  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>3   </para>
-</entry><entry thead="no"><para>EDX   </para>
+<entry thead="no"><para>3  </para>
+</entry><entry thead="no"><para>EDX  </para>
 </entry></row>
 </table>
 </para>
@@ -41,9 +41,8 @@
 <para>For a survey of leaves/subleaves and their meanings, see the <bold>cpuid</bold> command’s reference.</para>
 <para><hruler/>
 </para>
-<sect3 id="CPUID_1autotoc_md148">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>the<sp/>highest<sp/>supported<sp/>standard<sp/>leaf</highlight></codeline>
+<sect1 id="CPUID_1examples-14_1s1"><sect2 id="CPUID_1examples-14_1s2"><sect3 id="CPUID_1examples-14">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>the<sp/>highest<sp/>supported<sp/>standard<sp/>leaf</highlight></codeline>
 <codeline><highlight class="normal">max_leaf<sp/>=<sp/>CPUID(&amp;00000000,<sp/>0,<sp/>0)<sp/><sp/>REM<sp/>EAX</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Max<sp/>standard<sp/>leaf<sp/>=<sp/>&quot;;<sp/>max_leaf</highlight></codeline>
 </programlisting></para>
@@ -83,10 +82,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="CPUID_1autotoc_md150">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="CPUID_1notes-13_1s1"><sect2 id="CPUID_1notes-13_1s2"><sect3 id="CPUID_1notes-13">
+<title>Notes</title><para><itemizedlist>
 <listitem><para><bold>Return width:</bold> The function returns a Retro Rocket <bold>integer</bold> (64-bit signed), but only the <bold>low 32 bits</bold> are meaningful; the result is the raw register value.</para>
 </listitem><listitem><para><bold>Signed vs unsigned:</bold> Some feature bits set the high bit; if you print the value as a signed decimal it may appear negative. Use <bold>hex masks</bold> (e.g., <computeroutput>&amp;10000000</computeroutput>) with <computeroutput>BITAND</computeroutput> in tests, as shown in the examples.</para>
 </listitem><listitem><para><bold>Subleaf usage:</bold> Many leaves <bold>ignore</bold> <computeroutput>subleaf</computeroutput>; pass <computeroutput>0</computeroutput> unless the leaf explicitly defines subleaf semantics (e.g., leaves <computeroutput>&amp;00000004</computeroutput>, <computeroutput>&amp;0000000B</computeroutput>, <computeroutput>&amp;00000007</computeroutput>, <computeroutput>&amp;8000001D</computeroutput>, etc.).</para>
@@ -98,7 +96,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="BITAND" kindref="compound">BITAND</ref> · <ref refid="BITOR" kindref="compound">BITOR</ref> · <ref refid="BITNAND" kindref="compound">BITNAND</ref> · cpuid (command) </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/CPUID.md"/>
   </compounddef>

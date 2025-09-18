@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="GETPROCID" kind="page">
     <compoundname>GETPROCID</compoundname>
     <title>GETPROCID Function</title>
@@ -11,9 +11,8 @@
 <para>Returns the <bold>process ID (PID)</bold> of a running process. The parameter is an <bold>index</bold> in the range <computeroutput>0</computeroutput> to <computeroutput>GETPROCCOUNT - 1</computeroutput>, identifying one of the active processes.</para>
 <para><hruler/>
 </para>
-<sect3 id="GETPROCID_1autotoc_md207">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>PID<sp/>of<sp/>every<sp/>running<sp/>process</highlight></codeline>
+<sect1 id="GETPROCID_1examples-25_1s1"><sect2 id="GETPROCID_1examples-25_1s2"><sect3 id="GETPROCID_1examples-25">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>PID<sp/>of<sp/>every<sp/>running<sp/>process</highlight></codeline>
 <codeline><highlight class="normal">FOR<sp/>i<sp/>=<sp/>0<sp/>TO<sp/>GETPROCCOUNT<sp/>-<sp/>1</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Process<sp/>&quot;;<sp/>i;<sp/>&quot;<sp/>has<sp/>PID<sp/>&quot;;<sp/>GETPROCID(i)</highlight></codeline>
 <codeline><highlight class="normal">NEXT</highlight></codeline>
@@ -35,10 +34,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="GETPROCID_1autotoc_md209">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="GETPROCID_1notes-24_1s1"><sect2 id="GETPROCID_1notes-24_1s2"><sect3 id="GETPROCID_1notes-24">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Process IDs are <bold>unique identifiers</bold> assigned by the OS.</para>
 </listitem><listitem><para>A PID remains valid until its process exits.</para>
 </listitem><listitem><para>Passing an index outside <computeroutput>0 … GETPROCCOUNT - 1</computeroutput> raises an <bold>error</bold>.</para>
@@ -48,7 +46,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="GETPROCCOUNT" kindref="compound">GETPROCCOUNT</ref> · <ref refid="GETPROCNAME" kindref="compound">GETPROCNAME$</ref> · <ref refid="GETPROCCPUID" kindref="compound">GETPROCCPUID</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/GETPROCID.md"/>
   </compounddef>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="NETINFO" kind="page">
     <compoundname>NETINFO</compoundname>
     <title>NETINFO$ Function</title>
@@ -20,9 +20,8 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="NETINFO_1autotoc_md629">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;IP<sp/>Address:<sp/>&quot;;<sp/>NETINFO$(&quot;ip&quot;)</highlight></codeline>
+<sect1 id="NETINFO_1examples-105_1s1"><sect2 id="NETINFO_1examples-105_1s2"><sect3 id="NETINFO_1examples-105">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;IP<sp/>Address:<sp/>&quot;;<sp/>NETINFO$(&quot;ip&quot;)</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Gateway:<sp/><sp/><sp/><sp/>&quot;;<sp/>NETINFO$(&quot;gw&quot;)</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Mask:<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;;<sp/>NETINFO$(&quot;mask&quot;)</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;DNS:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;;<sp/>NETINFO$(&quot;dns&quot;)</highlight></codeline>
@@ -35,10 +34,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="NETINFO_1autotoc_md631">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="NETINFO_1notes-104_1s1"><sect2 id="NETINFO_1notes-104_1s2"><sect3 id="NETINFO_1notes-104">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Returned values depend on the active network configuration of the operating system.</para>
 </listitem><listitem><para>If no network is configured, an error is raised.</para>
 </listitem><listitem><para>All results are IPv4 addresses in dotted decimal notation.</para>
@@ -47,7 +45,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="DNS" kindref="compound">DNS$</ref> · <ref refid="CONNECT" kindref="compound">CONNECT</ref> · <ref refid="SOCKSTATUS" kindref="compound">SOCKSTATUS</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/NETINFO.md"/>
   </compounddef>

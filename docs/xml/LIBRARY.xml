@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="LIBRARY" kind="page">
     <compoundname>LIBRARY</compoundname>
     <title>LIBRARY Keyword</title>
@@ -29,19 +29,16 @@
 </simplesect>
 <simplesect kind="note"><para>Use the standard global <computeroutput>LIB$</computeroutput> path when loading shared libraries: </para>
 </simplesect>
-<simplesect kind="note"><para>```basic </para>
+<simplesect kind="note"><para><computeroutput>basic @note LIBRARY LIB$ + &quot;/ansi&quot; @note </computeroutput> </para>
 </simplesect>
-<simplesect kind="note"><para>LIBRARY LIB$ + &quot;/ansi&quot; </para>
-</simplesect>
-<simplesect kind="note"><para>``<computeroutput> @note</computeroutput>LIB$<computeroutput>is set by</computeroutput>init` and points to an absolute library folder.</para>
+<simplesect kind="note"><para><computeroutput>LIB$</computeroutput> is set by <computeroutput>init</computeroutput> and points to an absolute library folder.</para>
 </simplesect>
 <simplesect kind="note"><para>Paths are <bold>case-insensitive</bold> and <computeroutput>.</computeroutput> / <computeroutput>..</computeroutput> are <bold>not supported</bold> in paths.</para>
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="LIBRARY_1autotoc_md850">
-<title>Examples</title>
-<para><bold>Load a library from <computeroutput>LIB$</computeroutput> and call its code</bold> <programlisting filename=".basic"><codeline><highlight class="normal">LIBRARY<sp/>LIB$<sp/>+<sp/>&quot;/ansi&quot;</highlight></codeline>
+<sect1 id="LIBRARY_1examples-136_1s1"><sect2 id="LIBRARY_1examples-136_1s2"><sect3 id="LIBRARY_1examples-136">
+<title>Examples</title><para><bold>Load a library from <computeroutput>LIB$</computeroutput> and call its code</bold> <programlisting filename=".basic"><codeline><highlight class="normal">LIBRARY<sp/>LIB$<sp/>+<sp/>&quot;/ansi&quot;</highlight></codeline>
 <codeline><highlight class="normal">PROCansi_demo</highlight></codeline>
 </programlisting></para>
 <para><bold>Load a local library and use a function</bold> <programlisting filename=".basic"><codeline><highlight class="normal">LIBRARY<sp/>&quot;mathlib&quot;</highlight></codeline>
@@ -58,10 +55,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="LIBRARY_1autotoc_md852">
-<title>Errors and behaviour</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="LIBRARY_1errors-and-behaviour_1s1"><sect2 id="LIBRARY_1errors-and-behaviour_1s2"><sect3 id="LIBRARY_1errors-and-behaviour">
+<title>Errors and behaviour</title><para><itemizedlist>
 <listitem><para>If the library file <bold>cannot be found or loaded</bold>, a runtime error is raised (catch with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink> if needed).</para>
 </listitem><listitem><para>After loading, all <computeroutput>PROC</computeroutput>/<computeroutput>FN</computeroutput> names from the library become available in the current program.</para>
 </listitem><listitem><para>The constructor call (procedure named after the file) is <bold>optional</bold>. If absent, nothing extra is called.</para>
@@ -69,7 +65,7 @@
 </para>
 <para><bold>See also:</bold> <linebreak/>
  <ref refid="DEF" kindref="compound">DEF</ref> · <ref refid="PROC" kindref="compound">PROC</ref> · <ref refid="FN" kindref="compound">FN</ref> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Automatic-line-numbering"><computeroutput>Automatic line numbering</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ansi"><computeroutput>ansi</computeroutput></ulink> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/LIBRARY.md"/>
   </compounddef>

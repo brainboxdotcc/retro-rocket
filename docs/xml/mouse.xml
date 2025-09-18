@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="mouse" kind="page">
     <compoundname>mouse</compoundname>
     <title>Mouse Library</title>
@@ -13,38 +13,30 @@
 <para><programlisting><codeline><highlight class="normal">ROCKETSH&gt;<sp/>task<sp/>drivers/ps2mouse</highlight></codeline>
 </programlisting></para>
 <para>The following publicly documented procedures and functions are available via this library.</para>
-<sect3 id="mouse_1autotoc_md1176">
-<title>PROCmouse_done</title>
-<para>uninitialise the library and release resources. Call this when your program is finished with the mouse.</para>
-</sect3>
-<sect3 id="mouse_1autotoc_md1177">
-<title>PROCfetch_mouse</title>
-<para>request the current mouse state from the ps2mouse task and update the library’s cached values. Call this regularly in your main loop.</para>
-</sect3>
-<sect3 id="mouse_1autotoc_md1178">
-<title>FNmouse_x()</title>
-<para>get the latest absolute X coordinate (integer, pixels). Already clamped to the current screen width.</para>
-</sect3>
-<sect3 id="mouse_1autotoc_md1179">
-<title>FNmouse_y()</title>
-<para>get the latest absolute Y coordinate (integer, pixels). Already clamped to the current screen height.</para>
-</sect3>
-<sect3 id="mouse_1autotoc_md1180">
-<title>FNmouse_lmb()</title>
-<para>return TRUE if the left mouse button is pressed, else FALSE.</para>
-</sect3>
-<sect3 id="mouse_1autotoc_md1181">
-<title>FNmouse_rmb()</title>
-<para>return TRUE if the right mouse button is pressed, else FALSE.</para>
-</sect3>
-<sect3 id="mouse_1autotoc_md1182">
-<title>FNmouse_mmb()</title>
-<para>return TRUE if the middle mouse button is pressed, else FALSE.</para>
+<sect1 id="mouse_1procmouse_done_1s1"><sect2 id="mouse_1procmouse_done_1s2"><sect3 id="mouse_1procmouse_done">
+<title>PROCmouse_done</title><para>uninitialise the library and release resources. Call this when your program is finished with the mouse.</para>
+</sect3></sect2></sect1>
+<sect1 id="mouse_1procfetch_mouse_1s1"><sect2 id="mouse_1procfetch_mouse_1s2"><sect3 id="mouse_1procfetch_mouse">
+<title>PROCfetch_mouse</title><para>request the current mouse state from the ps2mouse task and update the library’s cached values. Call this regularly in your main loop.</para>
+</sect3></sect2></sect1>
+<sect1 id="mouse_1fnmouse_x_1s1"><sect2 id="mouse_1fnmouse_x_1s2"><sect3 id="mouse_1fnmouse_x">
+<title>FNmouse_x()</title><para>get the latest absolute X coordinate (integer, pixels). Already clamped to the current screen width.</para>
+</sect3></sect2></sect1>
+<sect1 id="mouse_1fnmouse_y_1s1"><sect2 id="mouse_1fnmouse_y_1s2"><sect3 id="mouse_1fnmouse_y">
+<title>FNmouse_y()</title><para>get the latest absolute Y coordinate (integer, pixels). Already clamped to the current screen height.</para>
+</sect3></sect2></sect1>
+<sect1 id="mouse_1fnmouse_lmb_1s1"><sect2 id="mouse_1fnmouse_lmb_1s2"><sect3 id="mouse_1fnmouse_lmb">
+<title>FNmouse_lmb()</title><para>return TRUE if the left mouse button is pressed, else FALSE.</para>
+</sect3></sect2></sect1>
+<sect1 id="mouse_1fnmouse_rmb_1s1"><sect2 id="mouse_1fnmouse_rmb_1s2"><sect3 id="mouse_1fnmouse_rmb">
+<title>FNmouse_rmb()</title><para>return TRUE if the right mouse button is pressed, else FALSE.</para>
+</sect3></sect2></sect1>
+<sect1 id="mouse_1fnmouse_mmb_1s1"><sect2 id="mouse_1fnmouse_mmb_1s2"><sect3 id="mouse_1fnmouse_mmb">
+<title>FNmouse_mmb()</title><para>return TRUE if the middle mouse button is pressed, else FALSE.</para>
 <para><hruler/>
 </para>
-<sect4 id="mouse_1autotoc_md1184">
-<title>Minimal example</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">CLS</highlight></codeline>
+<sect4 id="mouse_1minimal-example">
+<title>Minimal example</title><para><programlisting filename=".basic"><codeline><highlight class="normal">CLS</highlight></codeline>
 <codeline><highlight class="normal">LIBRARY<sp/>LIB$<sp/>+<sp/>&quot;/mouse&quot;</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">SPRITELOAD<sp/>cursor,&quot;/images/cursor.png&quot;</highlight></codeline>
@@ -68,7 +60,7 @@
 <codeline><highlight class="normal">END</highlight></codeline>
 </programlisting> </para>
 </sect4>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/libraries/mouse.md"/>
   </compounddef>

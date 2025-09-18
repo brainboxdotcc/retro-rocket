@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="OPENOUT" kind="page">
     <compoundname>OPENOUT</compoundname>
     <title>OPENOUT Function</title>
@@ -11,9 +11,8 @@
 <para>Opens a file for <bold>output</bold> (writing). Returns an <bold>integer file handle</bold> that must be used with <ref refid="WRITE" kindref="compound">WRITE</ref> and <ref refid="CLOSE" kindref="compound">CLOSE</ref>.</para>
 <para><hruler/>
 </para>
-<sect3 id="OPENOUT_1autotoc_md336">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Open<sp/>a<sp/>file<sp/>for<sp/>writing</highlight></codeline>
+<sect1 id="OPENOUT_1examples-50_1s1"><sect2 id="OPENOUT_1examples-50_1s2"><sect3 id="OPENOUT_1examples-50">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Open<sp/>a<sp/>file<sp/>for<sp/>writing</highlight></codeline>
 <codeline><highlight class="normal">fh<sp/>=<sp/>OPENOUT(&quot;/data/output.txt&quot;)</highlight></codeline>
 <codeline><highlight class="normal">IF<sp/>fh<sp/>&lt;<sp/>0<sp/>THEN</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Failed<sp/>to<sp/>open<sp/>file&quot;</highlight></codeline>
@@ -30,10 +29,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="OPENOUT_1autotoc_md338">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="OPENOUT_1notes-49_1s1"><sect2 id="OPENOUT_1notes-49_1s2"><sect3 id="OPENOUT_1notes-49">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>If the file already exists, it is <bold>truncated</bold> to zero length.</para>
 </listitem><listitem><para>If the file does not exist, it is <bold>created</bold>.</para>
 </listitem><listitem><para>Returns a <bold>non-negative handle</bold> on success, or a <bold>negative value</bold> on failure.</para>
@@ -44,7 +42,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="WRITE" kindref="compound">WRITE</ref> · <ref refid="CLOSE" kindref="compound">CLOSE</ref> · <ref refid="OPENIN" kindref="compound">OPENIN</ref> · <ref refid="OPENUP" kindref="compound">OPENUP</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/OPENOUT.md"/>
   </compounddef>

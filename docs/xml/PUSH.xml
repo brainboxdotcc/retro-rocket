@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="PUSH" kind="page">
     <compoundname>PUSH</compoundname>
     <title>PUSH Keyword</title>
@@ -9,7 +9,7 @@
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PUSH<sp/>variable-name,integer-expression</highlight></codeline>
 </programlisting></para>
 <para>Inserts a new element into an <bold>array</bold> at the given <bold>index</bold>, shifting existing elements at that index and above <bold>up by one place</bold> to make room. <linebreak/>
- The inserted element is initialised to <bold>0</bold> (for integer and real arrays) or **&quot;&quot;** (for string arrays).</para>
+ The inserted element is initialised to <bold>0</bold> (for integer and real arrays) or <bold>&quot;&quot;</bold> (for string arrays).</para>
 <para><simplesect kind="remark"><para>Arrays are <bold>zero-indexed</bold> and <bold>range-checked</bold>. </para>
 </simplesect>
 <simplesect kind="remark"><para>Valid indices are <computeroutput>0</computeroutput> to <computeroutput>size-1</computeroutput>. An out-of-range index raises a runtime error.</para>
@@ -20,9 +20,8 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="PUSH_1autotoc_md969">
-<title>How it works</title>
-<para><itemizedlist>
+<sect1 id="PUSH_1how-it-works_1s1"><sect2 id="PUSH_1how-it-works_1s2"><sect3 id="PUSH_1how-it-works">
+<title>How it works</title><para><itemizedlist>
 <listitem><para>Before: <computeroutput>A(0) .. A(size-2), A(size-1)</computeroutput></para>
 </listitem><listitem><para><computeroutput>PUSH A, i</computeroutput>:<itemizedlist>
 <listitem><para>Elements <computeroutput>i .. size-2</computeroutput> move to <computeroutput>i+1 .. size-1</computeroutput></para>
@@ -35,10 +34,9 @@
 <para>Time cost is proportional to the number of elements moved.</para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="PUSH_1autotoc_md971">
-<title>Common patterns</title>
-<para><bold>Insert a value at a position</bold> <linebreak/>
+</sect3></sect2></sect1>
+<sect1 id="PUSH_1common-patterns_1s1"><sect2 id="PUSH_1common-patterns_1s2"><sect3 id="PUSH_1common-patterns">
+<title>Common patterns</title><para><bold>Insert a value at a position</bold> <linebreak/>
  Use <computeroutput>PUSH</computeroutput> to make room, then assign into the cleared slot. <programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>A,5</highlight></codeline>
 <codeline><highlight class="normal">A(0)<sp/>=<sp/>10</highlight></codeline>
 <codeline><highlight class="normal">A(1)<sp/>=<sp/>20</highlight></codeline>
@@ -87,10 +85,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="PUSH_1autotoc_md973">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="PUSH_1notes-160_1s1"><sect2 id="PUSH_1notes-160_1s2"><sect3 id="PUSH_1notes-160">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Works with <bold>integer</bold>, <bold>real</bold>, and <bold>string</bold> arrays; the inserted default is <computeroutput>0</computeroutput> or <computeroutput>&quot;&quot;</computeroutput> accordingly.</para>
 </listitem><listitem><para>Inserting at <computeroutput>size-1</computeroutput> does not shift any values; it simply clears that last position.</para>
 </listitem><listitem><para>If you need to insert multiple elements, consider calling <computeroutput>REDIM</computeroutput> once to grow the array, then perform several <computeroutput>PUSH</computeroutput> operations.</para>
@@ -98,7 +95,7 @@
 </para>
 <para><bold>See also:</bold> <linebreak/>
  <ref refid="POP" kindref="compound">POP</ref> · <ref refid="REDIM" kindref="compound">REDIM</ref> · <ref refid="DIM" kindref="compound">DIM</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/PUSH.md"/>
   </compounddef>

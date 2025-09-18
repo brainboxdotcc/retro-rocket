@@ -1,22 +1,8 @@
 var searchData=
 [
-  ['gcol_20keyword_916',['GCOL Keyword',['../GCOL.html',1,'keywords']]],
-  ['getname_24_20function_917',['GETNAME$ Function',['../GETNAME.html',1,'string-funcs']]],
-  ['getnamecount_20function_918',['GETNAMECOUNT Function',['../GETNAMECOUNT.html',1,'int-funcs']]],
-  ['getproccount_20function_919',['GETPROCCOUNT Function',['../GETPROCCOUNT.html',1,'int-funcs']]],
-  ['getproccpuid_20function_920',['GETPROCCPUID Function',['../GETPROCCPUID.html',1,'int-funcs']]],
-  ['getprocid_20function_921',['GETPROCID Function',['../GETPROCID.html',1,'int-funcs']]],
-  ['getprocmem_20function_922',['GETPROCMEM Function',['../GETPROCMEM.html',1,'int-funcs']]],
-  ['getprocname_24_20function_923',['GETPROCNAME$ Function',['../GETPROCNAME.html',1,'string-funcs']]],
-  ['getprocparent_20function_924',['GETPROCPARENT Function',['../GETPROCPARENT.html',1,'int-funcs']]],
-  ['getprocstate_24_20function_925',['GETPROCSTATE$ Function',['../GETPROCSTATE.html',1,'string-funcs']]],
-  ['getsize_20function_926',['GETSIZE Function',['../GETSIZE.html',1,'int-funcs']]],
-  ['getvar_24_20function_927',['GETVAR$ Function',['../GETVAR.html',1,'string-funcs']]],
-  ['getvari_20function_928',['GETVARI Function',['../GETVARI.html',1,'int-funcs']]],
-  ['getvarr_20function_929',['GETVARR Function',['../GETVARR.html',1,'real-funcs']]],
-  ['global_20keyword_930',['GLOBAL Keyword',['../GLOBAL.html',1,'keywords']]],
-  ['gosub_20keyword_931',['GOSUB Keyword',['../GOSUB.html',1,'keywords']]],
-  ['goto_20keyword_932',['GOTO Keyword',['../GOTO.html',1,'keywords']]],
-  ['graphprint_20keyword_933',['GRAPHPRINT Keyword',['../GRAPHPRINT.html',1,'keywords']]],
-  ['grapicstest_20program_934',['grapicstest program',['../graphicstest.html',1,'commands']]]
+  ['6_0',['VDU 6',['../VDU.html#vdu-6',1,'']]],
+  ['6_201_20initial_20reservation_20policy_1',['6.1 Initial reservation policy',['../retrofs.html#autotoc_md61-initial-reservation-policy',1,'']]],
+  ['6_202_20zero_20fill_2',['6.2 Zero-fill',['../retrofs.html#autotoc_md62-zero-fill',1,'']]],
+  ['6_20breaking_20code_20into_20procedures_20and_20functions_3',['6) Breaking code into procedures and functions',['../basic-beginner.html#autotoc_md6-breaking-code-into-procedures-and-functions',1,'']]],
+  ['6_20policy_20notes_20non_20normative_20but_20recommended_4',['6. Policy notes (non-normative but recommended)',['../retrofs.html#autotoc_md6-policy-notes-non-normative-but-recommended',1,'']]]
 ];

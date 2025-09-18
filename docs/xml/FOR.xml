@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="FOR" kind="page">
     <compoundname>FOR</compoundname>
     <title>FOR Keyword</title>
@@ -18,9 +18,8 @@
 <para>Loops may be nested. <computeroutput>NEXT</computeroutput> closes the nearest unmatched <computeroutput>FOR</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect3 id="FOR_1autotoc_md808">
-<title>Examples</title>
-<para>Count up by 1 <programlisting filename=".basic"><codeline><highlight class="normal">FOR<sp/>I<sp/>=<sp/>1<sp/>TO<sp/>5</highlight></codeline>
+<sect1 id="FOR_1examples-129_1s1"><sect2 id="FOR_1examples-129_1s2"><sect3 id="FOR_1examples-129">
+<title>Examples</title><para>Count up by 1 <programlisting filename=".basic"><codeline><highlight class="normal">FOR<sp/>I<sp/>=<sp/>1<sp/>TO<sp/>5</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;I<sp/>=<sp/>&quot;;<sp/>I</highlight></codeline>
 <codeline><highlight class="normal">NEXT</highlight></codeline>
 </programlisting></para>
@@ -39,7 +38,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="NEXT" kindref="compound">NEXT</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/FOR.md"/>
   </compounddef>

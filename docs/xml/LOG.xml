@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="LOG" kind="page">
     <compoundname>LOG</compoundname>
     <title>LOG Function</title>
@@ -12,9 +12,8 @@
 <para>The input must be strictly greater than <computeroutput>0</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect3 id="LOG_1autotoc_md508">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>LOG(1)</highlight></codeline>
+<sect1 id="LOG_1examples-83_1s1"><sect2 id="LOG_1examples-83_1s2"><sect3 id="LOG_1examples-83">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>LOG(1)</highlight></codeline>
 </programlisting></para>
 <para>Produces <computeroutput>0</computeroutput>.</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>LOG(EXP(3))</highlight></codeline>
@@ -26,22 +25,21 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="LOG_1autotoc_md510">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="LOG_1notes-82_1s1"><sect2 id="LOG_1notes-82_1s2"><sect3 id="LOG_1notes-82">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Domain: input must be <computeroutput>&gt; 0</computeroutput>.</para>
 </listitem><listitem><para>Range: result may be any real number.</para>
 </listitem><listitem><para>Inverse of <ref refid="EXP" kindref="compound">EXP</ref>: <computeroutput>LOG(EXP(x)) = x</computeroutput>.</para>
 </listitem><listitem><para>To compute logarithms in other bases:</para>
-</listitem></itemizedlist>
-</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">LOG10(x#)<sp/>=<sp/>LOG(x#)<sp/>/<sp/>LOG(10)</highlight></codeline>
 </programlisting></para>
+</listitem></itemizedlist>
+</para>
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="EXP" kindref="compound">EXP</ref> · <ref refid="POW" kindref="compound">POW</ref> · <ref refid="SQR" kindref="compound">SQR</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/real/LOG.md"/>
   </compounddef>

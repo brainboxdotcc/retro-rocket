@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="PROC" kind="page">
     <compoundname>PROC</compoundname>
     <title>PROC Keyword</title>
@@ -21,9 +21,8 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="PROC_1autotoc_md964">
-<title>Examples</title>
-<para><bold>Define and call a procedure</bold> <programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>PROChello(NAME$)</highlight></codeline>
+<sect1 id="PROC_1examples-155_1s1"><sect2 id="PROC_1examples-155_1s2"><sect3 id="PROC_1examples-155">
+<title>Examples</title><para><bold>Define and call a procedure</bold> <programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>PROChello(NAME$)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Hello,<sp/>&quot;;<sp/>NAME$</highlight></codeline>
 <codeline><highlight class="normal">ENDPROC</highlight></codeline>
 <codeline></codeline>
@@ -48,12 +47,11 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="PROC_1autotoc_md966">
-<title>Errors and behaviour</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="PROC_1errors-and-behaviour-1_1s1"><sect2 id="PROC_1errors-and-behaviour-1_1s2"><sect3 id="PROC_1errors-and-behaviour-1">
+<title>Errors and behaviour</title><para><itemizedlist>
 <listitem><para>Calling an <bold>undefined</bold> procedure, using the <bold>wrong number</bold> of arguments, or <bold>mismatched types</bold> raises a runtime error (trap with <computeroutput>ON ERROR PROC...</computeroutput> if desired).</para>
-</listitem><listitem><para>The end of a procedure is marked by **<computeroutput>ENDPROC</computeroutput>**. Using <computeroutput>ENDPROC</computeroutput> outside a procedure is an error.</para>
+</listitem><listitem><para>The end of a procedure is marked by <bold><computeroutput>ENDPROC</computeroutput></bold>. Using <computeroutput>ENDPROC</computeroutput> outside a procedure is an error.</para>
 </listitem><listitem><para>Parameters are available by name inside the body. Use <computeroutput>LOCAL name = expr</computeroutput> to create or update locals that shadow any globals of the same name.</para>
 </listitem></itemizedlist>
 </para>
@@ -61,7 +59,7 @@
 </para>
 <para><bold>See also:</bold> <linebreak/>
  <ref refid="DEF" kindref="compound">DEF</ref> · <ref refid="ENDPROC" kindref="compound">ENDPROC</ref> · <ref refid="FN" kindref="compound">FN</ref> · <ref refid="LOCAL" kindref="compound">LOCAL</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/PROC.md"/>
   </compounddef>

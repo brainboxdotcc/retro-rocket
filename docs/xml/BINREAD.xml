@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="BINREAD" kind="page">
     <compoundname>BINREAD</compoundname>
     <title>BINREAD Statement</title>
@@ -17,9 +17,8 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="BINREAD_1autotoc_md721">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">fh<sp/><sp/>=<sp/>OPENIN(&quot;asset.bin&quot;)</highlight></codeline>
+<sect1 id="BINREAD_1examples-121_1s1"><sect2 id="BINREAD_1examples-121_1s2"><sect3 id="BINREAD_1examples-121">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">fh<sp/><sp/>=<sp/>OPENIN(&quot;asset.bin&quot;)</highlight></codeline>
 <codeline><highlight class="normal">size<sp/>=<sp/>FILESIZE(&quot;asset.bin&quot;)</highlight></codeline>
 <codeline><highlight class="normal">buf<sp/><sp/>=<sp/>MEMALLOC(size)</highlight></codeline>
 <codeline></codeline>
@@ -31,10 +30,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="BINREAD_1autotoc_md723">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="BINREAD_1notes-121_1s1"><sect2 id="BINREAD_1notes-121_1s2"><sect3 id="BINREAD_1notes-121">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Use <ref refid="FILESIZE" kindref="compound">FILESIZE</ref> to size your buffer appropriately.</para>
 </listitem><listitem><para>Binary-safe (no line translation).</para>
 </listitem><listitem><para>Reading past end of file yields fewer bytes or an error, depending on context; check with <ref refid="EOF" kindref="compound">EOF</ref> as needed.</para>
@@ -43,7 +41,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="OPENIN" kindref="compound">OPENIN</ref> · <ref refid="OPENUP" kindref="compound">OPENUP</ref> · <ref refid="FILESIZE" kindref="compound">FILESIZE</ref> · <ref refid="EOF" kindref="compound">EOF</ref> · <ref refid="MEMALLOC" kindref="compound">MEMALLOC</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/BINREAD.md"/>
   </compounddef>

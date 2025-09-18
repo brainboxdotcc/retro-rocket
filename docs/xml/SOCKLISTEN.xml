@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="SOCKLISTEN" kind="page">
     <compoundname>SOCKLISTEN</compoundname>
     <title>SOCKLISTEN Function</title>
@@ -11,9 +11,8 @@
 <para>Creates a <bold>listening TCP socket</bold> bound to <computeroutput>ip$:port</computeroutput> and starts queueing incoming connections (up to <computeroutput>backlog</computeroutput>). Returns a non-negative file descriptor on success, or <computeroutput>-1</computeroutput> on failure.</para>
 <para><hruler/>
 </para>
-<sect3 id="SOCKLISTEN_1autotoc_md416">
-<title>How to use it</title>
-<para><itemizedlist>
+<sect1 id="SOCKLISTEN_1how-to-use-it-1_1s1"><sect2 id="SOCKLISTEN_1how-to-use-it-1_1s2"><sect3 id="SOCKLISTEN_1how-to-use-it-1">
+<title>How to use it</title><para><itemizedlist>
 <listitem><para><computeroutput>ip$</computeroutput> is a dotted-quad string (e.g. <computeroutput>&quot;10.0.2.15&quot;</computeroutput>). Use <computeroutput>NETINFO$(&quot;ip&quot;)</computeroutput> for the local address.</para>
 </listitem><listitem><para><computeroutput>port</computeroutput> is the local TCP port to listen on.</para>
 </listitem><listitem><para><computeroutput>backlog</computeroutput> is the maximum number of pending (not yet accepted) connections to queue.</para>
@@ -22,10 +21,9 @@
 </para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="SOCKLISTEN_1autotoc_md418">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Listen<sp/>and<sp/>handle<sp/>one<sp/>connection</highlight></codeline>
+</sect3></sect2></sect1>
+<sect1 id="SOCKLISTEN_1examples-65_1s1"><sect2 id="SOCKLISTEN_1examples-65_1s2"><sect3 id="SOCKLISTEN_1examples-65">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Listen<sp/>and<sp/>handle<sp/>one<sp/>connection</highlight></codeline>
 <codeline><highlight class="normal">srv<sp/>=<sp/>SOCKLISTEN(NETINFO$(&quot;ip&quot;),<sp/>2000,<sp/>5)</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Socket<sp/>server<sp/>listening<sp/>on<sp/>port<sp/>2000&quot;</highlight></codeline>
 <codeline><highlight class="normal">REPEAT</highlight></codeline>
@@ -40,16 +38,15 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="SOCKLISTEN_1autotoc_md420">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="SOCKLISTEN_1notes-64_1s1"><sect2 id="SOCKLISTEN_1notes-64_1s2"><sect3 id="SOCKLISTEN_1notes-64">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Binding to <computeroutput>&quot;0.0.0.0&quot;</computeroutput> (if supported) listens on all local interfaces.</para>
 </listitem><listitem><para><computeroutput>SOCKACCEPT</computeroutput> returns a new FD for each established connection; call repeatedly to drain the queue.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <ref refid="SOCKACCEPT" kindref="compound">SOCKACCEPT</ref> · <ref refid="SOCKWRITE" kindref="compound">SOCKWRITE</ref> · <ref refid="SOCKREAD" kindref="compound">SOCKREAD</ref> · <ref refid="INSOCKET" kindref="compound">INSOCKET$ Function</ref>$ &quot;INSOCKET\$&quot; · <ref refid="SOCKCLOSE" kindref="compound">SOCKCLOSE</ref> · <ref refid="NETINFO" kindref="compound">NETINFO$ Function</ref>$ &quot;NETINFO\$&quot; </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/SOCKLISTEN.md"/>
   </compounddef>

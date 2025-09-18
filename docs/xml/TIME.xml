@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="TIME" kind="page">
     <compoundname>TIME</compoundname>
     <title>TIME$ Function</title>
@@ -16,9 +16,8 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="TIME_1autotoc_md681">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>TIME$(TRUE)</highlight></codeline>
+<sect1 id="TIME_1examples-115_1s1"><sect2 id="TIME_1examples-115_1s2"><sect3 id="TIME_1examples-115">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>TIME$(TRUE)</highlight></codeline>
 </programlisting></para>
 <para>Might produce:</para>
 <para><programlisting><codeline><highlight class="normal">14:37:05</highlight></codeline>
@@ -30,10 +29,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="TIME_1autotoc_md683">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="TIME_1notes-114_1s1"><sect2 id="TIME_1notes-114_1s2"><sect3 id="TIME_1notes-114">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Returned format is always fixed-width <computeroutput>HH:MM:SS</computeroutput>, with leading zeros where necessary.</para>
 </listitem><listitem><para>Local time depends on whether a valid time zone has been configured via <ref refid="SETTIMEZONE" kindref="compound">SETTIMEZONE Keyword</ref></para>
 </listitem><listitem><para>DST adjustments are handled automatically when local time is requested.</para>
@@ -43,7 +41,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="HOUR" kindref="compound">HOUR</ref> · <ref refid="MINUTE" kindref="compound">MINUTE</ref> · <ref refid="SECOND" kindref="compound">SECOND</ref> · <ref refid="DAY" kindref="compound">DAY</ref> · <ref refid="YEAR" kindref="compound">YEAR</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/TIME.md"/>
   </compounddef>

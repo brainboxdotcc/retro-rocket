@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="GETPROCSTATE" kind="page">
     <compoundname>GETPROCSTATE</compoundname>
     <title>GETPROCSTATE$ Function</title>
@@ -11,40 +11,38 @@
 <para>Returns the <bold>state of a running process</bold> as a string. The parameter is an index between <computeroutput>0</computeroutput> and <computeroutput>GETPROCCOUNT - 1</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect3 id="GETPROCSTATE_1autotoc_md580">
-<title>Process states</title>
-<para><table rows="6" cols="2"><row>
-<entry thead="yes"><para>State   </para>
-</entry><entry thead="yes"><para>Description    </para>
+<sect1 id="GETPROCSTATE_1process-states_1s1"><sect2 id="GETPROCSTATE_1process-states_1s2"><sect3 id="GETPROCSTATE_1process-states">
+<title>Process states</title><para><table rows="6" cols="2"><row>
+<entry thead="yes"><para>State  </para>
+</entry><entry thead="yes"><para>Description  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><computeroutput>running</computeroutput>   </para>
-</entry><entry thead="no"><para>Process is actively executing.    </para>
+<entry thead="no"><para><computeroutput>running</computeroutput>  </para>
+</entry><entry thead="no"><para>Process is actively executing.  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><computeroutput>suspended</computeroutput>   </para>
-</entry><entry thead="no"><para>Process is waiting on another process to end before continuing.    </para>
+<entry thead="no"><para><computeroutput>suspended</computeroutput>  </para>
+</entry><entry thead="no"><para>Process is waiting on another process to end before continuing.  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><computeroutput>waiting</computeroutput>   </para>
-</entry><entry thead="no"><para>Process is blocked, waiting on I/O (e.g. disk, console, network).    </para>
+<entry thead="no"><para><computeroutput>waiting</computeroutput>  </para>
+</entry><entry thead="no"><para>Process is blocked, waiting on I/O (e.g. disk, console, network).  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><computeroutput>ended</computeroutput>   </para>
-</entry><entry thead="no"><para>Process no longer exists.    </para>
+<entry thead="no"><para><computeroutput>ended</computeroutput>  </para>
+</entry><entry thead="no"><para>Process no longer exists.  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><computeroutput>unknown</computeroutput>   </para>
-</entry><entry thead="no"><para>Error state — the status of this process cannot be determined.   </para>
+<entry thead="no"><para><computeroutput>unknown</computeroutput>  </para>
+</entry><entry thead="no"><para>Error state — the status of this process cannot be determined.  </para>
 </entry></row>
 </table>
 </para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="GETPROCSTATE_1autotoc_md582">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>all<sp/>processes<sp/>with<sp/>their<sp/>state</highlight></codeline>
+</sect3></sect2></sect1>
+<sect1 id="GETPROCSTATE_1examples-96_1s1"><sect2 id="GETPROCSTATE_1examples-96_1s2"><sect3 id="GETPROCSTATE_1examples-96">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>all<sp/>processes<sp/>with<sp/>their<sp/>state</highlight></codeline>
 <codeline><highlight class="normal">FOR<sp/>i<sp/>=<sp/>0<sp/>TO<sp/>GETPROCCOUNT<sp/>-<sp/>1</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>GETPROCNAME$(i);<sp/>&quot;<sp/>:<sp/>&quot;;<sp/>GETPROCSTATE$(i)</highlight></codeline>
 <codeline><highlight class="normal">NEXT</highlight></codeline>
@@ -56,10 +54,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="GETPROCSTATE_1autotoc_md584">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="GETPROCSTATE_1notes-95_1s1"><sect2 id="GETPROCSTATE_1notes-95_1s2"><sect3 id="GETPROCSTATE_1notes-95">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>The index must be within the valid range.</para>
 </listitem><listitem><para>A process that reports <computeroutput>&quot;ended&quot;</computeroutput> is still counted in <computeroutput>GETPROCCOUNT</computeroutput> until it is fully reaped.</para>
 </listitem><listitem><para><computeroutput>&quot;unknown&quot;</computeroutput> is rare and usually indicates an internal error in process tracking.</para>
@@ -68,7 +65,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="GETPROCCOUNT" kindref="compound">GETPROCCOUNT</ref> · <ref refid="GETPROCNAME" kindref="compound">GETPROCNAME$</ref> · <ref refid="GETPROCID" kindref="compound">GETPROCID</ref> · <ref refid="GETPROCMEM" kindref="compound">GETPROCMEM</ref> · <ref refid="GETPROCPARENT" kindref="compound">GETPROCPARENT</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/GETPROCSTATE.md"/>
   </compounddef>

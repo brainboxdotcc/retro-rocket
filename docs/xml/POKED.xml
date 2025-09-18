@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="POKED" kind="page">
     <compoundname>POKED</compoundname>
     <title>POKED Keyword</title>
@@ -13,33 +13,30 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="POKED_1autotoc_md934">
-<title>How to read it</title>
-<para><itemizedlist>
+<sect1 id="POKED_1how-to-read-it-28_1s1"><sect2 id="POKED_1how-to-read-it-28_1s2"><sect3 id="POKED_1how-to-read-it-28">
+<title>How to read it</title><para><itemizedlist>
 <listitem><para>Typical width for device registers and descriptors.</para>
 </listitem></itemizedlist>
 </para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="POKED_1autotoc_md936">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Store<sp/>a<sp/>32-bit<sp/>value</highlight></codeline>
+</sect3></sect2></sect1>
+<sect1 id="POKED_1examples-150_1s1"><sect2 id="POKED_1examples-150_1s2"><sect3 id="POKED_1examples-150">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Store<sp/>a<sp/>32-bit<sp/>value</highlight></codeline>
 <codeline><highlight class="normal">POKED<sp/>&amp;100300,<sp/>&amp;89ABCDEF</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>PEEKD(&amp;100300)</highlight></codeline>
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="POKED_1autotoc_md938">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="POKED_1notes-156_1s1"><sect2 id="POKED_1notes-156_1s2"><sect3 id="POKED_1notes-156">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Some devices use write-one-to-clear or posted writes; check the datasheet.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
  <ref refid="PEEKD" kindref="compound">PEEKD</ref> · <ref refid="POKEW" kindref="compound">POKEW</ref> · <ref refid="POKEQ" kindref="compound">POKEQ</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/POKED.md"/>
   </compounddef>

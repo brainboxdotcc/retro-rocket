@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="FILETYPE" kind="page">
     <compoundname>FILETYPE</compoundname>
     <title>FILETYPE$ Function</title>
@@ -11,9 +11,8 @@
 <para>Returns the <bold>type</bold> of the object referred to by the given path. The result is the string <computeroutput>&quot;file&quot;</computeroutput> if it is a file, or <computeroutput>&quot;directory&quot;</computeroutput> if it is a directory.</para>
 <para><hruler/>
 </para>
-<sect3 id="FILETYPE_1autotoc_md565">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>FILETYPE$(&quot;config.txt&quot;)</highlight></codeline>
+<sect1 id="FILETYPE_1examples-93_1s1"><sect2 id="FILETYPE_1examples-93_1s2"><sect3 id="FILETYPE_1examples-93">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>FILETYPE$(&quot;config.txt&quot;)</highlight></codeline>
 </programlisting></para>
 <para>Might produce:</para>
 <para><programlisting><codeline><highlight class="normal">file</highlight></codeline>
@@ -35,10 +34,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="FILETYPE_1autotoc_md567">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="FILETYPE_1notes-92_1s1"><sect2 id="FILETYPE_1notes-92_1s2"><sect3 id="FILETYPE_1notes-92">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>The path may be absolute (starting with <computeroutput>/</computeroutput>) or relative to the current working directory (<ref refid="CSD" kindref="compound">CSD$</ref>).</para>
 </listitem><listitem><para>If the object does not exist, an error is raised.</para>
 </listitem><listitem><para>Only two return values are defined: <computeroutput>&quot;file&quot;</computeroutput> and <computeroutput>&quot;directory&quot;</computeroutput>. Other object types are not distinguished.</para>
@@ -47,7 +45,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="CSD" kindref="compound">CSD$</ref> · <ref refid="GETNAMECOUNT" kindref="compound">GETNAMECOUNT</ref> · <ref refid="GETSIZE" kindref="compound">GETSIZE</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/FILETYPE.md"/>
   </compounddef>

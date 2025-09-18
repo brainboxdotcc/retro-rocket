@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="MEMPEAK" kind="page">
     <compoundname>MEMPEAK</compoundname>
     <title>MEMPEAK Function</title>
@@ -11,9 +11,8 @@
 <para>Returns the <bold>peak memory usage</bold> (in bytes) of the current BASIC program’s <bold>private heap</bold>. This is the largest amount of memory the program has allocated since it started running.</para>
 <para><hruler/>
 </para>
-<sect3 id="MEMPEAK_1autotoc_md304">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Display<sp/>peak<sp/>usage<sp/>directly</highlight></codeline>
+<sect1 id="MEMPEAK_1examples-43_1s1"><sect2 id="MEMPEAK_1examples-43_1s2"><sect3 id="MEMPEAK_1examples-43">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Display<sp/>peak<sp/>usage<sp/>directly</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Peak<sp/>memory<sp/>usage<sp/>=<sp/>&quot;;<sp/>MEMPEAK;<sp/>&quot;<sp/>bytes&quot;</highlight></codeline>
 </programlisting></para>
 <para>For a typical program this might print:</para>
@@ -31,10 +30,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="MEMPEAK_1autotoc_md306">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="MEMPEAK_1notes-42_1s1"><sect2 id="MEMPEAK_1notes-42_1s2"><sect3 id="MEMPEAK_1notes-42">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>The value is specific to the <bold>current BASIC program</bold>, not global OS memory usage.</para>
 </listitem><listitem><para>It is a <bold>high-water mark</bold>: once reached, the peak value will not decrease, even if memory is freed.</para>
 </listitem><listitem><para>Typical Retro Rocket BASIC programs today peak around a few hundred kilobytes, not megabytes.</para>
@@ -44,7 +42,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="MEMUSED" kindref="compound">MEMUSED</ref> · <ref refid="MEMFREE" kindref="compound">MEMFREE</ref> · <ref refid="MEMORY" kindref="compound">MEMORY</ref> · <ref refid="MEMORY" kindref="compound">MEMRELEASE</ref> · <ref refid="MEMORY" kindref="compound">MEMALLOC</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/MEMPEAK.md"/>
   </compounddef>

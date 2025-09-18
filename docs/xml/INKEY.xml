@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="INKEY" kind="page">
     <compoundname>INKEY</compoundname>
     <title>INKEY$ Function</title>
@@ -12,61 +12,59 @@
 <para><computeroutput>INKEY$</computeroutput> consumes input from the <bold>keyboard buffer</bold>. If multiple keys have been pressed between this call and the last call to <computeroutput>INKEY$</computeroutput> (or an <computeroutput>INPUT</computeroutput> statement), it will take multiple calls to retrieve them all.</para>
 <para><hruler/>
 </para>
-<sect3 id="INKEY_1autotoc_md592">
-<title>Extended keys</title>
-<para>Some non-printing keys return special character codes rather than ASCII. These values can be retrieved by wrapping <computeroutput>INKEY$</computeroutput> with <computeroutput>ASC()</computeroutput>.</para>
+<sect1 id="INKEY_1extended-keys_1s1"><sect2 id="INKEY_1extended-keys_1s2"><sect3 id="INKEY_1extended-keys">
+<title>Extended keys</title><para>Some non-printing keys return special character codes rather than ASCII. These values can be retrieved by wrapping <computeroutput>INKEY$</computeroutput> with <computeroutput>ASC()</computeroutput>.</para>
 <para><table rows="11" cols="2"><row>
-<entry thead="yes"><para>Key   </para>
-</entry><entry thead="yes"><para><computeroutput>ASC(INKEY$)</computeroutput> value    </para>
+<entry thead="yes"><para>Key  </para>
+</entry><entry thead="yes"><para><computeroutput>ASC(INKEY$)</computeroutput> value  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>PAGEUP   </para>
-</entry><entry thead="no"><para>245    </para>
+<entry thead="no"><para>PAGEUP  </para>
+</entry><entry thead="no"><para>245  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>PAGEDOWN   </para>
-</entry><entry thead="no"><para>246    </para>
+<entry thead="no"><para>PAGEDOWN  </para>
+</entry><entry thead="no"><para>246  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>DEL   </para>
-</entry><entry thead="no"><para>247    </para>
+<entry thead="no"><para>DEL  </para>
+</entry><entry thead="no"><para>247  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>INS   </para>
-</entry><entry thead="no"><para>248    </para>
+<entry thead="no"><para>INS  </para>
+</entry><entry thead="no"><para>248  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>END   </para>
-</entry><entry thead="no"><para>249    </para>
+<entry thead="no"><para>END  </para>
+</entry><entry thead="no"><para>249  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>UP   </para>
-</entry><entry thead="no"><para>250    </para>
+<entry thead="no"><para>UP  </para>
+</entry><entry thead="no"><para>250  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>DOWN   </para>
-</entry><entry thead="no"><para>251    </para>
+<entry thead="no"><para>DOWN  </para>
+</entry><entry thead="no"><para>251  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>LEFT   </para>
-</entry><entry thead="no"><para>252    </para>
+<entry thead="no"><para>LEFT  </para>
+</entry><entry thead="no"><para>252  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>RIGHT   </para>
-</entry><entry thead="no"><para>253    </para>
+<entry thead="no"><para>RIGHT  </para>
+</entry><entry thead="no"><para>253  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>HOME   </para>
-</entry><entry thead="no"><para>254   </para>
+<entry thead="no"><para>HOME  </para>
+</entry><entry thead="no"><para>254  </para>
 </entry></row>
 </table>
 </para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="INKEY_1autotoc_md594">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Wait<sp/>for<sp/>a<sp/>keypress</highlight></codeline>
+</sect3></sect2></sect1>
+<sect1 id="INKEY_1examples-98_1s1"><sect2 id="INKEY_1examples-98_1s2"><sect3 id="INKEY_1examples-98">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Wait<sp/>for<sp/>a<sp/>keypress</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Press<sp/>a<sp/>key...&quot;</highlight></codeline>
 <codeline><highlight class="normal">REPEAT</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>k$<sp/>=<sp/>INKEY$</highlight></codeline>
@@ -83,10 +81,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="INKEY_1autotoc_md596">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="INKEY_1notes-97_1s1"><sect2 id="INKEY_1notes-97_1s2"><sect3 id="INKEY_1notes-97">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Printable characters return their usual ASCII values (e.g. <computeroutput>&quot;A&quot;</computeroutput> → 65).</para>
 </listitem><listitem><para>Extended keys must be checked via <computeroutput>ASC()</computeroutput>.</para>
 </listitem><listitem><para>If no key is pressed, result is <computeroutput>&quot;&quot;</computeroutput> (empty string).</para>
@@ -95,7 +92,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="ASC" kindref="compound">ASC</ref> · <ref refid="INPUT" kindref="compound">INPUT</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/INKEY.md"/>
   </compounddef>

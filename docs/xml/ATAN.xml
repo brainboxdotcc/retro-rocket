@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="ATAN" kind="page">
     <compoundname>ATAN</compoundname>
     <title>ATAN Function</title>
@@ -12,9 +12,8 @@
 <para>The result will always lie between <computeroutput>-PI#/2</computeroutput> and <computeroutput>PI#/2</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect3 id="ATAN_1autotoc_md468">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>ATAN(0)</highlight></codeline>
+<sect1 id="ATAN_1examples-75_1s1"><sect2 id="ATAN_1examples-75_1s2"><sect3 id="ATAN_1examples-75">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>ATAN(0)</highlight></codeline>
 </programlisting></para>
 <para>Produces <computeroutput>0</computeroutput>.</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>ATAN(1)</highlight></codeline>
@@ -30,10 +29,9 @@
 <para>Produces the original angle (within floating point accuracy).</para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="ATAN_1autotoc_md470">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="ATAN_1notes-74_1s1"><sect2 id="ATAN_1notes-74_1s2"><sect3 id="ATAN_1notes-74">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Input range: any real number is valid.</para>
 </listitem><listitem><para>Return range: <computeroutput>-π/2 ≤ result ≤ π/2</computeroutput> radians.</para>
 </listitem><listitem><para>To convert the result to degrees, multiply by <computeroutput>180 / PI</computeroutput>.</para>
@@ -43,7 +41,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="TAN" kindref="compound">TAN</ref> · <ref refid="ATAN2" kindref="compound">ATAN2</ref> · <ref refid="ACS" kindref="compound">ACS</ref> · <ref refid="ASN" kindref="compound">ASN</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/real/ATAN.md"/>
   </compounddef>

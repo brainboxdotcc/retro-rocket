@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="RMDIR" kind="page">
     <compoundname>RMDIR</compoundname>
     <title>RMDIR Keyword</title>
@@ -26,9 +26,8 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="RMDIR_1autotoc_md1007">
-<title>Examples</title>
-<para>Remove a directory in the current folder <programlisting filename=".basic"><codeline><highlight class="normal">RMDIR<sp/>&quot;old_data&quot;</highlight></codeline>
+<sect1 id="RMDIR_1examples-160_1s1"><sect2 id="RMDIR_1examples-160_1s2"><sect3 id="RMDIR_1examples-160">
+<title>Examples</title><para>Remove a directory in the current folder <programlisting filename=".basic"><codeline><highlight class="normal">RMDIR<sp/>&quot;old_data&quot;</highlight></codeline>
 </programlisting></para>
 <para>Remove a directory by absolute path <programlisting filename=".basic"><codeline><highlight class="normal">RMDIR<sp/>&quot;/projects/archive&quot;</highlight></codeline>
 </programlisting></para>
@@ -37,10 +36,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="RMDIR_1autotoc_md1009">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="RMDIR_1notes-163_1s1"><sect2 id="RMDIR_1notes-163_1s2"><sect3 id="RMDIR_1notes-163">
+<title>Notes</title><para><itemizedlist>
 <listitem><para><computeroutput>RMDIR</computeroutput> removes <bold>directories</bold> only. To delete a <bold>file</bold>, use <ref refid="DELETE" kindref="compound">DELETE</ref>.</para>
 </listitem><listitem><para>Attempting to remove a non-empty directory raises a runtime error.</para>
 </listitem><listitem><para>Ensure you have permission and that no required files are inside before removing.</para>
@@ -48,7 +46,7 @@
 </para>
 <para><bold>See also:</bold> <linebreak/>
  <ref refid="MKDIR" kindref="compound">MKDIR</ref> · <ref refid="DELETE" kindref="compound">DELETE</ref> · <ref refid="CHDIR" kindref="compound">CHDIR</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/RMDIR.md"/>
   </compounddef>

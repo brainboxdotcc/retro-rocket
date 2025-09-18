@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="variables" kind="page">
     <compoundname>variables</compoundname>
     <title>Variable Types</title>
@@ -28,17 +28,15 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="variables_1autotoc_md1226">
-<title>Regular expression</title>
-<para>The following pattern matches valid Retro Rocket BASIC variable names:</para>
+<sect1 id="variables_1regular-expression_1s1"><sect2 id="variables_1regular-expression_1s2"><sect3 id="variables_1regular-expression">
+<title>Regular expression</title><para>The following pattern matches valid Retro Rocket BASIC variable names:</para>
 <para><programlisting><codeline><highlight class="normal">/[A-Za-z_][A-Za-z_0-9]{1,58}(\$|#|[A-Za-z_0-9])/</highlight></codeline>
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="variables_1autotoc_md1228">
-<title>Types of Variables</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="variables_1types-of-variables_1s1"><sect2 id="variables_1types-of-variables_1s2"><sect3 id="variables_1types-of-variables">
+<title>Types of Variables</title><para><itemizedlist>
 <listitem><para><ref refid="type-integer" kindref="compound">Integer Variables</ref></para>
 </listitem><listitem><para><ref refid="type-real" kindref="compound">Real Variables</ref></para>
 </listitem><listitem><para><ref refid="type-string" kindref="compound">String Variables</ref></para>
@@ -46,7 +44,7 @@
 </listitem><listitem><para><ref refid="type-bi" kindref="compound">Built-In Variables</ref> </para>
 </listitem></itemizedlist>
 </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/variables/05_INDEX.md"/>
   </compounddef>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="DELETE" kind="page">
     <compoundname>DELETE</compoundname>
     <title>DELETE Keyword</title>
@@ -26,15 +26,14 @@
 </simplesect>
 <hruler/>
 </para>
-<para><heading level="5">Example: simple delete</heading>
-</para>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">DELETE<sp/>&quot;old_config.txt&quot;</highlight></codeline>
+<sect1 id="DELETE_1example-simple-delete_1s1"><sect2 id="DELETE_1example-simple-delete_1s2"><sect3 id="DELETE_1example-simple-delete_1s3"><sect4 id="DELETE_1example-simple-delete_1s4"><sect5 id="DELETE_1example-simple-delete">
+<title>Example: simple delete</title><para><programlisting filename=".basic"><codeline><highlight class="normal">DELETE<sp/>&quot;old_config.txt&quot;</highlight></codeline>
 </programlisting></para>
 <para><hruler/>
 </para>
-<para><heading level="5">Example: defensive delete (only if it’s a file)</heading>
-</para>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">IF<sp/>FILETYPE$(&quot;backup.dat&quot;)<sp/>=<sp/>&quot;FILE&quot;<sp/>THEN</highlight></codeline>
+</sect5></sect4></sect3></sect2></sect1>
+<sect1 id="DELETE_1example-defensive-delete-only-if-its-a-file_1s1"><sect2 id="DELETE_1example-defensive-delete-only-if-its-a-file_1s2"><sect3 id="DELETE_1example-defensive-delete-only-if-its-a-file_1s3"><sect4 id="DELETE_1example-defensive-delete-only-if-its-a-file_1s4"><sect5 id="DELETE_1example-defensive-delete-only-if-its-a-file">
+<title>Example: defensive delete (only if it’s a file)</title><para><programlisting filename=".basic"><codeline><highlight class="normal">IF<sp/>FILETYPE$(&quot;backup.dat&quot;)<sp/>=<sp/>&quot;FILE&quot;<sp/>THEN</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>DELETE<sp/>&quot;backup.dat&quot;</highlight></codeline>
 <codeline><highlight class="normal">ELSE</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Not<sp/>a<sp/>file,<sp/>skipping.&quot;</highlight></codeline>
@@ -42,9 +41,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-<para><heading level="5">Notes</heading>
-</para>
-<para><itemizedlist>
+</sect5></sect4></sect3></sect2></sect1>
+<sect1 id="DELETE_1notes-132_1s1"><sect2 id="DELETE_1notes-132_1s2"><sect3 id="DELETE_1notes-132_1s3"><sect4 id="DELETE_1notes-132_1s4"><sect5 id="DELETE_1notes-132">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Ensure any open handles to the file are <bold>closed</bold> first with <ref refid="CLOSE" kindref="compound">CLOSE</ref>.</para>
 </listitem><listitem><para>Wildcards are not supported; delete files <bold>one at a time</bold>.</para>
 </listitem><listitem><para>Deleting a non-existent file raises an error.</para>
@@ -52,6 +51,7 @@
 </para>
 <para><bold>See also:</bold> <linebreak/>
  <ref refid="OPENIN" kindref="compound">OPENIN</ref> · <ref refid="OPENOUT" kindref="compound">OPENOUT</ref> · <ref refid="OPENUP" kindref="compound">OPENUP</ref> · <ref refid="CLOSE" kindref="compound">CLOSE</ref> · <ref refid="RMDIR" kindref="compound">RMDIR</ref> · <ref refid="CHDIR" kindref="compound">CHDIR</ref> · <ref refid="FILETYPE" kindref="compound">FILETYPE$</ref> </para>
+</sect5></sect4></sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/DELETE.md"/>
   </compounddef>

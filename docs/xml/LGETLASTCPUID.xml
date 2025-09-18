@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="LGETLASTCPUID" kind="page">
     <compoundname>LGETLASTCPUID</compoundname>
     <title>LGETLASTCPUID Function</title>
@@ -11,32 +11,31 @@
 <para>Returns the result of the most recent <bold>legacy CPUID</bold> query, previously initiated by <ref refid="LCPUID" kindref="compound">LCPUID</ref>.</para>
 <para>The single parameter is an <bold>index</bold> selecting which register value to return, as documented on the <ref refid="CPUID" kindref="compound">CPUID</ref> function page:</para>
 <para><table rows="5" cols="2"><row>
-<entry thead="yes"><para>Value   </para>
-</entry><entry thead="yes"><para>Register    </para>
+<entry thead="yes"><para>Value  </para>
+</entry><entry thead="yes"><para>Register  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>0   </para>
-</entry><entry thead="no"><para>EAX    </para>
+<entry thead="no"><para>0  </para>
+</entry><entry thead="no"><para>EAX  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>1   </para>
-</entry><entry thead="no"><para>EBX    </para>
+<entry thead="no"><para>1  </para>
+</entry><entry thead="no"><para>EBX  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>2   </para>
-</entry><entry thead="no"><para>ECX    </para>
+<entry thead="no"><para>2  </para>
+</entry><entry thead="no"><para>ECX  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>3   </para>
-</entry><entry thead="no"><para>EDX   </para>
+<entry thead="no"><para>3  </para>
+</entry><entry thead="no"><para>EDX  </para>
 </entry></row>
 </table>
 </para>
 <para><hruler/>
 </para>
-<sect3 id="LGETLASTCPUID_1autotoc_md284">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Run<sp/>CPUID<sp/>leaf<sp/>1,<sp/>subleaf<sp/>0</highlight></codeline>
+<sect1 id="LGETLASTCPUID_1examples-39_1s1"><sect2 id="LGETLASTCPUID_1examples-39_1s2"><sect3 id="LGETLASTCPUID_1examples-39">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Run<sp/>CPUID<sp/>leaf<sp/>1,<sp/>subleaf<sp/>0</highlight></codeline>
 <codeline><highlight class="normal">dummy<sp/>=<sp/>LCPUID(&amp;1,<sp/>0)</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">REM<sp/>Retrieve<sp/>the<sp/>EAX<sp/>result</highlight></codeline>
@@ -51,10 +50,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="LGETLASTCPUID_1autotoc_md286">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="LGETLASTCPUID_1notes-38_1s1"><sect2 id="LGETLASTCPUID_1notes-38_1s2"><sect3 id="LGETLASTCPUID_1notes-38">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Returns a 32-bit register value as an integer.</para>
 </listitem><listitem><para>Only valid after a preceding call to <ref refid="LCPUID" kindref="compound">LCPUID</ref>; otherwise the results are undefined.</para>
 </listitem><listitem><para>Passing an index outside <computeroutput>0–3</computeroutput> raises an error.</para>
@@ -64,7 +62,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="LCPUID" kindref="compound">LCPUID</ref> · <ref refid="CPUID" kindref="compound">CPUID</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/LGETLASTCPUID.md"/>
   </compounddef>

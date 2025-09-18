@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="INPORT" kind="page">
     <compoundname>INPORT</compoundname>
     <title>INPORT Function</title>
@@ -13,35 +13,32 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="INPORT_1autotoc_md242">
-<title>How to read it</title>
-<para><itemizedlist>
+<sect1 id="INPORT_1how-to-read-it-12_1s1"><sect2 id="INPORT_1how-to-read-it-12_1s2"><sect3 id="INPORT_1how-to-read-it-12">
+<title>How to read it</title><para><itemizedlist>
 <listitem><para>Classic x86 <bold>port-mapped I/O</bold> (not MMIO).</para>
 </listitem><listitem><para>Often used for legacy controllers such as the PS/2 keyboard.</para>
 </listitem></itemizedlist>
 </para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="INPORT_1autotoc_md244">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Read<sp/>data<sp/>from<sp/>PS/2<sp/>controller</highlight></codeline>
+</sect3></sect2></sect1>
+<sect1 id="INPORT_1examples-32_1s1"><sect2 id="INPORT_1examples-32_1s2"><sect3 id="INPORT_1examples-32">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Read<sp/>data<sp/>from<sp/>PS/2<sp/>controller</highlight></codeline>
 <codeline><highlight class="normal">DATA<sp/>=<sp/>INPORT(&amp;60)</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>DATA</highlight></codeline>
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="INPORT_1autotoc_md246">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="INPORT_1notes-31_1s1"><sect2 id="INPORT_1notes-31_1s2"><sect3 id="INPORT_1notes-31">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Always use the correct width for the target port.</para>
 </listitem><listitem><para>Continuous polling may stall the system; check status before reads if possible.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
  <ref refid="INPORTW" kindref="compound">INPORTW</ref> · <ref refid="INPORTD" kindref="compound">INPORTD</ref> · <ref refid="INPORTQ" kindref="compound">INPORTQ</ref> · <ref refid="OUTPORT" kindref="compound">OUTPORT</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/INPORT.md"/>
   </compounddef>

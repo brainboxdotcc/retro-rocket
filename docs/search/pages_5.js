@@ -1,10 +1,7 @@
 var searchData=
 [
-  ['filesize_20function_909',['FILESIZE Function',['../FILESIZE.html',1,'int-funcs']]],
-  ['filetype_24_20function_910',['FILETYPE$ Function',['../FILETYPE.html',1,'string-funcs']]],
-  ['flip_20keyword_911',['FLIP Keyword',['../FLIP.html',1,'keywords']]],
-  ['fmod_20function_912',['FMOD Function',['../FMOD.html',1,'real-funcs']]],
-  ['fn_20keyword_913',['FN Keyword',['../FN.html',1,'keywords']]],
-  ['for_20keyword_914',['FOR Keyword',['../FOR.html',1,'keywords']]],
-  ['fstest_20program_915',['fstest program',['../fstest.html',1,'commands']]]
+  ['5_20deletion_0',['4.5 Deletion',['../retrofs.html#autotoc_md45-deletion',1,'']]],
+  ['5_20name_20handling_1',['5. Name handling',['../retrofs.html#autotoc_md5-name-handling',1,'']]],
+  ['5_20repeating_20work_20for_20and_20while_2',['5) Repeating work (FOR and WHILE)',['../basic-beginner.html#autotoc_md5-repeating-work-for-and-while',1,'']]],
+  ['5_20userland_20bootstrap_3a_20programs_20init_3',['5. Userland Bootstrap: &lt;span class=&quot;tt&quot;&gt;/programs/init&lt;/span&gt;',['../bootflow.html#autotoc_md5-userland-bootstrap-programsinit',1,'']]]
 ];

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="WRITE" kind="page">
     <compoundname>WRITE</compoundname>
     <title>WRITE Keyword</title>
@@ -12,11 +12,10 @@
  The first parameter must be an <bold>integer variable</bold> containing a <bold>file handle</bold> obtained from <ref refid="OPENOUT" kindref="compound">OPENOUT</ref> or <ref refid="OPENUP" kindref="compound">OPENUP</ref>. The second parameter, <computeroutput>printable</computeroutput>, follows the <bold>same formatting semantics as <computeroutput>PRINT</computeroutput></bold>.</para>
 <para><hruler/>
 </para>
-<sect3 id="WRITE_1autotoc_md1143">
-<title>Formatting semantics (same as &lt;tt&gt;PRINT&lt;/tt&gt;)</title>
-<para><itemizedlist>
+<sect1 id="WRITE_1formatting-semantics-same-as-print-1_1s1"><sect2 id="WRITE_1formatting-semantics-same-as-print-1_1s2"><sect3 id="WRITE_1formatting-semantics-same-as-print-1">
+<title>Formatting semantics (same as <computeroutput>PRINT</computeroutput>)</title><para><itemizedlist>
 <listitem><para>You may pass <bold>strings</bold> and <bold>numeric expressions</bold>; numbers are converted to text.</para>
-</listitem><listitem><para>Multiple items can be separated by **<computeroutput>;</computeroutput>** or **<computeroutput>,</computeroutput>**:<itemizedlist>
+</listitem><listitem><para>Multiple items can be separated by <bold><computeroutput>;</computeroutput></bold> or <bold><computeroutput>,</computeroutput></bold>:<itemizedlist>
 <listitem><para><computeroutput>;</computeroutput> writes the next item <bold>immediately</bold> with <bold>no extra spacing</bold>.</para>
 </listitem><listitem><para><computeroutput>,</computeroutput> advances to the next <bold>print zone</bold> (tab stop) before writing the next item. This inserts <bold>spaces</bold>, not a literal comma.</para>
 </listitem></itemizedlist>
@@ -29,26 +28,17 @@
 </simplesect>
 <simplesect kind="note"><para>If you want actual commas (for CSV), include them in the string: </para>
 </simplesect>
-<simplesect kind="note"><para>```basic </para>
-</simplesect>
-<simplesect kind="note"><para>WRITE FH, &quot;A,B,C&quot; </para>
-</simplesect>
-<simplesect kind="note"><para>```</para>
+<simplesect kind="note"><para><computeroutput>basic @note WRITE FH, &quot;A,B,C&quot; @note </computeroutput></para>
 </simplesect>
 <simplesect kind="note"><para>To include a double quote inside a string, insert it with <computeroutput>CHR$(34)</computeroutput>: </para>
 </simplesect>
-<simplesect kind="note"><para>```basic </para>
-</simplesect>
-<simplesect kind="note"><para>WRITE FH, CHR$(34) + &quot;quoted&quot; + CHR$(34) </para>
-</simplesect>
-<simplesect kind="note"><para>```</para>
+<simplesect kind="note"><para><computeroutput>basic @note WRITE FH, CHR$(34) + &quot;quoted&quot; + CHR$(34) @note </computeroutput></para>
 </simplesect>
 <hruler/>
 </para>
-</sect3>
-<sect3 id="WRITE_1autotoc_md1145">
-<title>Examples</title>
-<para><bold>Create a file and write two lines</bold> <programlisting filename=".basic"><codeline><highlight class="normal">FH<sp/>=<sp/>OPENOUT(&quot;log.txt&quot;)</highlight></codeline>
+</sect3></sect2></sect1>
+<sect1 id="WRITE_1examples-176_1s1"><sect2 id="WRITE_1examples-176_1s2"><sect3 id="WRITE_1examples-176">
+<title>Examples</title><para><bold>Create a file and write two lines</bold> <programlisting filename=".basic"><codeline><highlight class="normal">FH<sp/>=<sp/>OPENOUT(&quot;log.txt&quot;)</highlight></codeline>
 <codeline><highlight class="normal">WRITE<sp/>FH,<sp/>&quot;Hello&quot;</highlight></codeline>
 <codeline><highlight class="normal">WRITE<sp/>FH,<sp/>&quot;World&quot;</highlight></codeline>
 <codeline><highlight class="normal">CLOSE<sp/>FH</highlight></codeline>
@@ -80,10 +70,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="WRITE_1autotoc_md1147">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="WRITE_1notes-178_1s1"><sect2 id="WRITE_1notes-178_1s2"><sect3 id="WRITE_1notes-178">
+<title>Notes</title><para><itemizedlist>
 <listitem><para><computeroutput>integer-variable</computeroutput> must be a <bold>variable</bold> holding a valid handle; do not pass a literal or expression.</para>
 </listitem><listitem><para>After <computeroutput>CLOSE</computeroutput>, the handle is invalid for further <computeroutput>WRITE</computeroutput> calls.</para>
 </listitem><listitem><para><computeroutput>WRITE</computeroutput> does not flush independently; closing the handle ensures data is written.</para>
@@ -91,7 +80,7 @@
 </para>
 <para><bold>See also:</bold> <linebreak/>
  <ref refid="PRINT" kindref="compound">PRINT</ref> · <ref refid="OPENOUT" kindref="compound">OPENOUT</ref> · <ref refid="OPENUP" kindref="compound">OPENUP</ref> · <ref refid="CLOSE" kindref="compound">CLOSE</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/WRITE.md"/>
   </compounddef>

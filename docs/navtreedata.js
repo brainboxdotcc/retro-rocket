@@ -28,17 +28,16 @@ var NAVTREE =
     [ "User Guide", "user-guide.html", "user-guide" ],
     [ "BASIC Language Reference", "basic-ref.html", "basic-ref" ],
     [ "Kernel Development", "kernel-dev.html", "kernel-dev" ],
-    [ "LCPUID", "md_docpages_basic_language_reference_functions_integer_LCPUID.html", null ]
+    [ "LCPUID", "md_docpages_2basic-language-reference_2functions_2integer_2LCPUID.html", null ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
 "ABS.html",
-"GETVARI.html",
-"READ.html",
-"basic-beginner.html#autotoc_md45"
+"edit.html#quick-reference"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronisation';
-var SYNCOFFMSG = 'click to enable panel synchronisation';
+var SYNCONMSG = 'click to disable panel synchronization';
+var SYNCOFFMSG = 'click to enable panel synchronization';
+var LISTOFALLMEMBERS = 'List of all members';

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="SOCKSTATUS" kind="page">
     <compoundname>SOCKSTATUS</compoundname>
     <title>SOCKSTATUS Function</title>
@@ -12,9 +12,8 @@
 <para>Note that a socket which is still in the process of connecting may return <computeroutput>FALSE</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect3 id="SOCKSTATUS_1autotoc_md422">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Attempt<sp/>to<sp/>connect<sp/>and<sp/>wait<sp/>until<sp/>established</highlight></codeline>
+<sect1 id="SOCKSTATUS_1examples-66_1s1"><sect2 id="SOCKSTATUS_1examples-66_1s2"><sect3 id="SOCKSTATUS_1examples-66">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Attempt<sp/>to<sp/>connect<sp/>and<sp/>wait<sp/>until<sp/>established</highlight></codeline>
 <codeline><highlight class="normal">CONNECT<sp/>fd,<sp/>&quot;example.com&quot;,<sp/>80</highlight></codeline>
 <codeline><highlight class="normal">REPEAT</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Waiting<sp/>for<sp/>connection...&quot;</highlight></codeline>
@@ -29,10 +28,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="SOCKSTATUS_1autotoc_md424">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="SOCKSTATUS_1notes-65_1s1"><sect2 id="SOCKSTATUS_1notes-65_1s2"><sect3 id="SOCKSTATUS_1notes-65">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Returns a boolean value: <computeroutput>TRUE</computeroutput> (connected) or <computeroutput>FALSE</computeroutput> (not connected).</para>
 </listitem><listitem><para>A return of <computeroutput>FALSE</computeroutput> may indicate either “not yet connected” or “disconnected”.</para>
 </listitem><listitem><para>Use with <ref refid="SOCKREAD" kindref="compound">SOCKREAD</ref>, <ref refid="SOCKWRITE" kindref="compound">SOCKWRITE</ref>, and <ref refid="SOCKCLOSE" kindref="compound">SOCKCLOSE</ref> for socket I/O.</para>
@@ -41,7 +39,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="CONNECT" kindref="compound">CONNECT</ref> · <ref refid="SOCKREAD" kindref="compound">SOCKREAD</ref> · <ref refid="SOCKWRITE" kindref="compound">SOCKWRITE</ref> · <ref refid="SOCKCLOSE" kindref="compound">SOCKCLOSE</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/SOCKSTATUS.md"/>
   </compounddef>

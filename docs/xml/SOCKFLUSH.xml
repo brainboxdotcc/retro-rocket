@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="SOCKFLUSH" kind="page">
     <compoundname>SOCKFLUSH</compoundname>
     <title>SOCKFLUSH Keyword</title>
@@ -13,9 +13,8 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="SOCKFLUSH_1autotoc_md1029">
-<title>How to use it</title>
-<para><itemizedlist>
+<sect1 id="SOCKFLUSH_1how-to-use-it-2_1s1"><sect2 id="SOCKFLUSH_1how-to-use-it-2_1s2"><sect3 id="SOCKFLUSH_1how-to-use-it-2">
+<title>How to use it</title><para><itemizedlist>
 <listitem><para><computeroutput>integer-variable</computeroutput> must contain a socket handle returned by <ref refid="CONNECT" kindref="compound">CONNECT</ref> or <ref refid="SOCKACCEPT" kindref="compound">SOCKACCEPT</ref>.</para>
 </listitem><listitem><para>The statement <bold>yields</bold> like <ref refid="SOCKREAD" kindref="compound">SOCKREAD</ref>: your program pauses and resumes automatically when the condition is met.</para>
 </listitem><listitem><para>Typical use is <computeroutput>SOCKWRITE</computeroutput> → <computeroutput>SOCKFLUSH</computeroutput> → <computeroutput>SOCKCLOSE</computeroutput>.</para>
@@ -27,10 +26,9 @@
 </simplesect>
 <hruler/>
 </para>
-</sect3>
-<sect3 id="SOCKFLUSH_1autotoc_md1031">
-<title>Examples</title>
-<para><bold>Send a line, flush, then close</bold></para>
+</sect3></sect2></sect1>
+<sect1 id="SOCKFLUSH_1examples-164_1s1"><sect2 id="SOCKFLUSH_1examples-164_1s2"><sect3 id="SOCKFLUSH_1examples-164">
+<title>Examples</title><para><bold>Send a line, flush, then close</bold></para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">server<sp/>=<sp/>SOCKLISTEN(NETINFO$(&quot;ip&quot;),<sp/>2000,<sp/>5)</highlight></codeline>
 <codeline><highlight class="normal">client<sp/>=<sp/>SOCKACCEPT(server)</highlight></codeline>
 <codeline><highlight class="normal">IF<sp/>client<sp/>&gt;=<sp/>0<sp/>THEN</highlight></codeline>
@@ -48,17 +46,16 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="SOCKFLUSH_1autotoc_md1033">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="SOCKFLUSH_1notes-167_1s1"><sect2 id="SOCKFLUSH_1notes-167_1s2"><sect3 id="SOCKFLUSH_1notes-167">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>If the socket has no pending data, <computeroutput>SOCKFLUSH</computeroutput> returns immediately.</para>
 </listitem><listitem><para>If the connection is no longer valid (e.g. already closed), <computeroutput>SOCKFLUSH</computeroutput> returns without waiting.</para>
 </listitem><listitem><para>Use <ref refid="SOCKSTATUS" kindref="compound">SOCKSTATUS</ref> to query whether a socket is connected.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <ref refid="SOCKWRITE" kindref="compound">SOCKWRITE</ref> · <ref refid="SOCKREAD" kindref="compound">SOCKREAD</ref> · <ref refid="SOCKCLOSE" kindref="compound">SOCKCLOSE</ref> · <ref refid="CONNECT" kindref="compound">CONNECT</ref> · <ref refid="SOCKACCEPT" kindref="compound">SOCKACCEPT</ref> · <ref refid="SOCKLISTEN" kindref="compound">SOCKLISTEN</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/SOCKFLUSH.md"/>
   </compounddef>

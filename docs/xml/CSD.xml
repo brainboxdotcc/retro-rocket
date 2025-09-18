@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="CSD" kind="page">
     <compoundname>CSD</compoundname>
     <title>CSD$ Function</title>
@@ -12,9 +12,8 @@
 <para>Newly spawned processes inherit the current directory of their parent process.</para>
 <para><hruler/>
 </para>
-<sect3 id="CSD_1autotoc_md555">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>CSD$</highlight></codeline>
+<sect1 id="CSD_1examples-91_1s1"><sect2 id="CSD_1examples-91_1s2"><sect3 id="CSD_1examples-91">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>CSD$</highlight></codeline>
 </programlisting></para>
 <para>Might produce:</para>
 <para><programlisting><codeline><highlight class="normal">/home/user/projects</highlight></codeline>
@@ -28,10 +27,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="CSD_1autotoc_md557">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="CSD_1notes-90_1s1"><sect2 id="CSD_1notes-90_1s2"><sect3 id="CSD_1notes-90">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>The returned path always begins with <computeroutput>/</computeroutput>.</para>
 </listitem><listitem><para>A process’ working directory may be changed with <ref refid="CHDIR" kindref="compound">CHDIR</ref>.</para>
 </listitem><listitem><para>Child processes inherit the parent’s working directory at the moment they are spawned.</para>
@@ -40,7 +38,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="CHDIR" kindref="compound">CHDIR</ref> · <ref refid="GETNAMECOUNT" kindref="compound">GETNAMECOUNT</ref> · <ref refid="GETSIZE" kindref="compound">GETSIZE</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/CSD.md"/>
   </compounddef>

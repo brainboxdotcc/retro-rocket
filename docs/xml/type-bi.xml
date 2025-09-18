@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="type-bi" kind="page">
     <compoundname>type-bi</compoundname>
     <title>Built-In Variables</title>
@@ -24,14 +24,13 @@
 </listitem><listitem><para><bold>E#</bold> – A real constant for e (<computeroutput>2.7182818284590451</computeroutput>). Useful for trigonometric or geometric calculations.</para>
 </listitem></itemizedlist>
 </para>
-<sect3 id="type-bi_1autotoc_md1238">
-<title>TRUE and FALSE</title>
-<para>In Retro Rocket BASIC, <computeroutput>TRUE</computeroutput> is defined as <computeroutput>1</computeroutput> and <computeroutput>FALSE</computeroutput> as <computeroutput>0</computeroutput>. This differs from BBC BASIC, where <computeroutput>TRUE</computeroutput> was <computeroutput>-1</computeroutput>.</para>
+<sect1 id="type-bi_1true-and-false_1s1"><sect2 id="type-bi_1true-and-false_1s2"><sect3 id="type-bi_1true-and-false">
+<title>TRUE and FALSE</title><para>In Retro Rocket BASIC, <computeroutput>TRUE</computeroutput> is defined as <computeroutput>1</computeroutput> and <computeroutput>FALSE</computeroutput> as <computeroutput>0</computeroutput>. This differs from BBC BASIC, where <computeroutput>TRUE</computeroutput> was <computeroutput>-1</computeroutput>.</para>
 <para><bold>Why BBC BASIC used -1</bold> BBC BASIC, like many early BASIC dialects, used 16-bit signed integers with all bits set (<computeroutput>11111111 11111111</computeroutput>) representing <computeroutput>-1</computeroutput>. <linebreak/>
  This meant any logical <computeroutput>NOT</computeroutput> operation (bitwise inversion) would turn <computeroutput>-1</computeroutput> into <computeroutput>0</computeroutput> (FALSE), and vice versa, which was convenient when logical values were treated as bit patterns.</para>
 <para><bold>Why Retro Rocket uses 1</bold> Retro Rocket BASIC treats boolean values more like modern languages (C, Python, etc.), where <computeroutput>TRUE</computeroutput> is <computeroutput>1</computeroutput> and <computeroutput>FALSE</computeroutput> is <computeroutput>0</computeroutput>. <linebreak/>
  This is more intuitive, avoids confusion when mixing booleans with arithmetic, and reflects the way most modern hardware tests nonzero values. </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/variables/Builtin-Variables.md"/>
   </compounddef>

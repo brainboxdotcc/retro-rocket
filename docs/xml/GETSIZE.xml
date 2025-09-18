@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="GETSIZE" kind="page">
     <compoundname>GETSIZE</compoundname>
     <title>GETSIZE Function</title>
@@ -16,9 +16,8 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="GETSIZE_1autotoc_md222">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>size<sp/>of<sp/>all<sp/>files<sp/>in<sp/>/programs</highlight></codeline>
+<sect1 id="GETSIZE_1examples-28_1s1"><sect2 id="GETSIZE_1examples-28_1s2"><sect3 id="GETSIZE_1examples-28">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>size<sp/>of<sp/>all<sp/>files<sp/>in<sp/>/programs</highlight></codeline>
 <codeline><highlight class="normal">dir$<sp/>=<sp/>&quot;/programs&quot;</highlight></codeline>
 <codeline><highlight class="normal">count<sp/>=<sp/>GETNAMECOUNT(dir$)</highlight></codeline>
 <codeline><highlight class="normal">FOR<sp/>i<sp/>=<sp/>0<sp/>TO<sp/>count<sp/>-<sp/>1</highlight></codeline>
@@ -39,10 +38,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="GETSIZE_1autotoc_md224">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="GETSIZE_1notes-27_1s1"><sect2 id="GETSIZE_1notes-27_1s2"><sect3 id="GETSIZE_1notes-27">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Size is returned as a Retro Rocket BASIC integer (64-bit signed).</para>
 </listitem><listitem><para>Only valid for <bold>files</bold>. Subdirectories (if present) report size <computeroutput>0</computeroutput>.</para>
 </listitem><listitem><para>Index must be in range; otherwise an <bold>error</bold> occurs.</para>
@@ -53,7 +51,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="GETNAMECOUNT" kindref="compound">GETNAMECOUNT</ref> · <ref refid="GETNAME" kindref="compound">GETNAME$ Function</ref>$ &quot;GETNAME\$&quot; · <ref refid="OPENIN" kindref="compound">OPENIN</ref> · <ref refid="READ" kindref="compound">READ$ Function</ref>$ &quot;READ\$&quot; · <ref refid="CLOSE" kindref="compound">CLOSE</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/GETSIZE.md"/>
   </compounddef>

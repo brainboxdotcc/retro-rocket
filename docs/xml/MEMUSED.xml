@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="MEMUSED" kind="page">
     <compoundname>MEMUSED</compoundname>
     <title>MEMUSED Function</title>
@@ -11,29 +11,27 @@
 <para>Returns the total <bold>memory in use</bold> (bytes) by <bold>all BASIC programs and the OS</bold>.</para>
 <para><image type="html" name="memory.png"></image>
 </para>
-<sect3 id="MEMUSED_1autotoc_md313">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>MEMUSED</highlight></codeline>
+<sect1 id="MEMUSED_1examples-45_1s1"><sect2 id="MEMUSED_1examples-45_1s2"><sect3 id="MEMUSED_1examples-45">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>MEMUSED</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Used<sp/><sp/>=<sp/>&quot;;<sp/>MEMUSED<sp/>/<sp/>(1024<sp/>*<sp/>1024);<sp/>&quot;<sp/>MB&quot;</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Free<sp/><sp/>=<sp/>&quot;;<sp/>(MEMORY<sp/>-<sp/>MEMUSED)<sp/>/<sp/>(1024<sp/>*<sp/>1024);<sp/>&quot;<sp/>MB&quot;</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Used<sp/>%<sp/>=<sp/>&quot;;<sp/>(MEMUSED<sp/>*<sp/>100)<sp/>/<sp/>MEMORY</highlight></codeline>
 </programlisting></para>
-<para>Example on a 4 GB machine with200 MB used:</para>
+<para>Example on a 4 GB machine with 200 MB used:</para>
 <para><programlisting><codeline><highlight class="normal">Used<sp/><sp/>=<sp/>200<sp/>MB</highlight></codeline>
 <codeline><highlight class="normal">Free<sp/><sp/>=<sp/>3896<sp/>MB</highlight></codeline>
 <codeline><highlight class="normal">Used<sp/>%<sp/>=<sp/>4</highlight></codeline>
 </programlisting></para>
-</sect3>
-<sect3 id="MEMUSED_1autotoc_md314">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="MEMUSED_1notes-44_1s1"><sect2 id="MEMUSED_1notes-44_1s2"><sect3 id="MEMUSED_1notes-44">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Bytes, 64-bit integer.</para>
 </listitem><listitem><para>Includes kernel, caches (block cache, framebuffers, network buffers), plus all BASIC programs.</para>
 </listitem><listitem><para>Identity: <computeroutput>MEMFREE + MEMUSED = MEMORY</computeroutput>.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <ref refid="MEMORY" kindref="compound">MEMORY</ref> · <ref refid="MEMFREE" kindref="compound">MEMFREE</ref> · <ref refid="MEMPEAK" kindref="compound">MEMPEAK</ref> · <ref refid="MEMPROGRAM" kindref="compound">MEMPROGRAM</ref> · <ref refid="MEMORY" kindref="compound">MEMRELEASE</ref> · <ref refid="MEMORY" kindref="compound">MEMALLOC</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/MEMUSED.md"/>
   </compounddef>

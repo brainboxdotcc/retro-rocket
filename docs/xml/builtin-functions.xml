@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="builtin-functions" kind="page">
     <compoundname>builtin-functions</compoundname>
     <title>Built-In Functions</title>
@@ -12,15 +12,14 @@
 <para>Retro Rocket BASIC provides a set of built-in functions, grouped by the type of value they operate on or return.</para>
 <para><hruler/>
 </para>
-<sect3 id="builtin-functions_1autotoc_md68">
-<title>Function Categories</title>
-<para><itemizedlist>
+<sect1 id="builtin-functions_1function-categories_1s1"><sect2 id="builtin-functions_1function-categories_1s2"><sect3 id="builtin-functions_1function-categories">
+<title>Function Categories</title><para><itemizedlist>
 <listitem><para><ref refid="int-funcs" kindref="compound">Integer Functions</ref> – Functions that operate on or return integers</para>
 </listitem><listitem><para><ref refid="real-funcs" kindref="compound">Real Functions</ref> – Functions that operate on or return real (floating-point) values</para>
 </listitem><listitem><para><ref refid="string-funcs" kindref="compound">String Functions</ref> – Functions that operate on or return strings </para>
 </listitem></itemizedlist>
 </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/01_INDEX.md"/>
   </compounddef>

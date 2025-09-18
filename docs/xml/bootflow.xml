@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="bootflow" kind="page">
     <compoundname>bootflow</compoundname>
     <title>Retro Rocket Boot Flow</title>
@@ -9,44 +9,42 @@
 <para>This document describes the execution path from power-on to a running shell in <bold>Retro Rocket</bold> - a modern-day BBC Micro–inspired operating system. It walks through each stage of the boot process, from initial assembly handoff to the multitasking interpreter loop that drives userland programs.</para>
 <para><hruler/>
 </para>
-<sect2 id="bootflow_1autotoc_md1255">
-<title>Overview</title>
-<para><table rows="7" cols="2"><row>
-<entry thead="yes"><para>Stage   </para>
-</entry><entry thead="yes"><para>Description    </para>
+<sect1 id="bootflow_1overview_1s1"><sect2 id="bootflow_1overview">
+<title>Overview</title><para><table rows="7" cols="2"><row>
+<entry thead="yes"><para>Stage  </para>
+</entry><entry thead="yes"><para>Description  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><computeroutput>boot.asm</computeroutput>   </para>
-</entry><entry thead="no"><para>Enables FPU/SSE, calls <computeroutput>kmain()</computeroutput>    </para>
+<entry thead="no"><para><computeroutput>boot.asm</computeroutput>  </para>
+</entry><entry thead="no"><para>Enables FPU/SSE, calls <computeroutput>kmain()</computeroutput>  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><computeroutput>kmain()</computeroutput>   </para>
-</entry><entry thead="no"><para>Calls <computeroutput>init()</computeroutput> to bring up system subsystems    </para>
+<entry thead="no"><para><computeroutput>kmain()</computeroutput>  </para>
+</entry><entry thead="no"><para>Calls <computeroutput>init()</computeroutput> to bring up system subsystems  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><computeroutput>init()</computeroutput>   </para>
-</entry><entry thead="no"><para>Sets up memory, devices, filesystems, etc    </para>
+<entry thead="no"><para><computeroutput>init()</computeroutput>  </para>
+</entry><entry thead="no"><para>Sets up memory, devices, filesystems, etc  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><computeroutput>init_process()</computeroutput>   </para>
-</entry><entry thead="no"><para>Creates process from <computeroutput>/programs/init</computeroutput>    </para>
+<entry thead="no"><para><computeroutput>init_process()</computeroutput>  </para>
+</entry><entry thead="no"><para>Creates process from <computeroutput>/programs/init</computeroutput>  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><computeroutput>/programs/init</computeroutput> (BASIC)   </para>
-</entry><entry thead="no"><para>Mounts filesystems, sets globals, chains shell    </para>
+<entry thead="no"><para><computeroutput>/programs/init</computeroutput> (BASIC)  </para>
+</entry><entry thead="no"><para>Mounts filesystems, sets globals, chains shell  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><computeroutput>/programs/rocketsh</computeroutput>   </para>
-</entry><entry thead="no"><para>Shell process - user interaction begins   </para>
+<entry thead="no"><para><computeroutput>/programs/rocketsh</computeroutput>  </para>
+</entry><entry thead="no"><para>Shell process - user interaction begins  </para>
 </entry></row>
 </table>
 </para>
 <para><hruler/>
 </para>
-</sect2>
-<sect2 id="bootflow_1autotoc_md1257">
-<title>1. Boot Assembly: &lt;tt&gt;boot.asm&lt;/tt&gt;</title>
-<para>The kernel is entered via the symbol <computeroutput>boot_bsp</computeroutput>, defined in NASM assembly.</para>
+</sect2></sect1>
+<sect1 id="bootflow_1autotoc_md1-boot-assembly-bootasm_1s1"><sect2 id="bootflow_1autotoc_md1-boot-assembly-bootasm">
+<title>1. Boot Assembly: <computeroutput>boot.asm</computeroutput></title><para>The kernel is entered via the symbol <computeroutput>boot_bsp</computeroutput>, defined in NASM assembly.</para>
 <para><programlisting><codeline><highlight class="normal">bits<sp/>64</highlight></codeline>
 <codeline><highlight class="normal">section<sp/>.text</highlight></codeline>
 <codeline></codeline>
@@ -72,10 +70,9 @@
 </para>
 <para><hruler/>
 </para>
-</sect2>
-<sect2 id="bootflow_1autotoc_md1259">
-<title>2. Kernel Entry Point: &lt;tt&gt;kmain()&lt;/tt&gt;</title>
-<para><programlisting filename=".c"><codeline><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>kmain()</highlight></codeline>
+</sect2></sect1>
+<sect1 id="bootflow_1autotoc_md2-kernel-entry-point-kmain_1s1"><sect2 id="bootflow_1autotoc_md2-kernel-entry-point-kmain">
+<title>2. Kernel Entry Point: <computeroutput>kmain()</computeroutput></title><para><programlisting filename=".c"><codeline><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>kmain()</highlight></codeline>
 <codeline><highlight class="normal">{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>init();</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
@@ -96,116 +93,113 @@
 </para>
 <para><hruler/>
 </para>
-</sect2>
-<sect2 id="bootflow_1autotoc_md1261">
-<title>3. Core System Initialisation: &lt;tt&gt;init()&lt;/tt&gt;</title>
-<para>Each function is executed in sequence with logging.</para>
-<sect3 id="bootflow_1autotoc_md1262">
-<title>Initialisation Order</title>
-<para><table rows="19" cols="3"><row>
-<entry thead="yes"><para>Order   </para>
-</entry><entry thead="yes"><para>Function   </para>
-</entry><entry thead="yes"><para>Purpose    </para>
+</sect2></sect1>
+<sect1 id="bootflow_1autotoc_md3-core-system-initialisation-init_1s1"><sect2 id="bootflow_1autotoc_md3-core-system-initialisation-init">
+<title>3. Core System Initialisation: <computeroutput>init()</computeroutput></title><para>Each function is executed in sequence with logging.</para>
+<sect3 id="bootflow_1initialisation-order">
+<title>Initialisation Order</title><para><table rows="19" cols="3"><row>
+<entry thead="yes"><para>Order  </para>
+</entry><entry thead="yes"><para>Function  </para>
+</entry><entry thead="yes"><para>Purpose  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>1   </para>
-</entry><entry thead="no"><para><computeroutput>init_heap</computeroutput>   </para>
-</entry><entry thead="no"><para>Memory allocation    </para>
+<entry thead="no"><para>1  </para>
+</entry><entry thead="no"><para><computeroutput>init_heap</computeroutput>  </para>
+</entry><entry thead="no"><para>Memory allocation  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>2   </para>
-</entry><entry thead="no"><para><computeroutput>validate_limine_page_tables_and_gdt</computeroutput>   </para>
-</entry><entry thead="no"><para>Limine checks    </para>
+<entry thead="no"><para>2  </para>
+</entry><entry thead="no"><para><computeroutput>validate_limine_page_tables_and_gdt</computeroutput>  </para>
+</entry><entry thead="no"><para>Limine checks  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>3   </para>
-</entry><entry thead="no"><para><computeroutput>init_console</computeroutput>   </para>
-</entry><entry thead="no"><para>Terminal setup (Flanterm)    </para>
+<entry thead="no"><para>3  </para>
+</entry><entry thead="no"><para><computeroutput>init_console</computeroutput>  </para>
+</entry><entry thead="no"><para>Terminal setup (Flanterm)  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>4   </para>
-</entry><entry thead="no"><para><computeroutput>init_cores</computeroutput>   </para>
-</entry><entry thead="no"><para>Single-core bring-up, ACPI    </para>
+<entry thead="no"><para>4  </para>
+</entry><entry thead="no"><para><computeroutput>init_cores</computeroutput>  </para>
+</entry><entry thead="no"><para>Single-core bring-up, ACPI  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>5   </para>
-</entry><entry thead="no"><para><computeroutput>init_idt</computeroutput>   </para>
-</entry><entry thead="no"><para>Interrupt Descriptor Table    </para>
+<entry thead="no"><para>5  </para>
+</entry><entry thead="no"><para><computeroutput>init_idt</computeroutput>  </para>
+</entry><entry thead="no"><para>Interrupt Descriptor Table  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>6   </para>
-</entry><entry thead="no"><para><computeroutput>init_pci</computeroutput>   </para>
-</entry><entry thead="no"><para>PCI bus scan    </para>
+<entry thead="no"><para>6  </para>
+</entry><entry thead="no"><para><computeroutput>init_pci</computeroutput>  </para>
+</entry><entry thead="no"><para>PCI bus scan  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>7   </para>
-</entry><entry thead="no"><para><computeroutput>init_realtime_clock</computeroutput>   </para>
-</entry><entry thead="no"><para>Realtime wall clock    </para>
+<entry thead="no"><para>7  </para>
+</entry><entry thead="no"><para><computeroutput>init_realtime_clock</computeroutput>  </para>
+</entry><entry thead="no"><para>Realtime wall clock  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>8   </para>
-</entry><entry thead="no"><para><computeroutput>init_devicenames</computeroutput>   </para>
-</entry><entry thead="no"><para>Friendly device names    </para>
+<entry thead="no"><para>8  </para>
+</entry><entry thead="no"><para><computeroutput>init_devicenames</computeroutput>  </para>
+</entry><entry thead="no"><para>Friendly device names  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>9   </para>
-</entry><entry thead="no"><para><computeroutput>init_keyboard</computeroutput>   </para>
-</entry><entry thead="no"><para>Keyboard setup    </para>
+<entry thead="no"><para>9  </para>
+</entry><entry thead="no"><para><computeroutput>init_keyboard</computeroutput>  </para>
+</entry><entry thead="no"><para>Keyboard setup  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>10   </para>
-</entry><entry thead="no"><para><computeroutput>init_ide</computeroutput>   </para>
-</entry><entry thead="no"><para>IDE disk support    </para>
+<entry thead="no"><para>10  </para>
+</entry><entry thead="no"><para><computeroutput>init_ide</computeroutput>  </para>
+</entry><entry thead="no"><para>IDE disk support  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>11   </para>
-</entry><entry thead="no"><para><computeroutput>init_ahci</computeroutput>   </para>
-</entry><entry thead="no"><para>AHCI disk support    </para>
+<entry thead="no"><para>11  </para>
+</entry><entry thead="no"><para><computeroutput>init_ahci</computeroutput>  </para>
+</entry><entry thead="no"><para>AHCI disk support  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>12   </para>
-</entry><entry thead="no"><para><computeroutput>init_filesystem</computeroutput>   </para>
-</entry><entry thead="no"><para>VFS infrastructure    </para>
+<entry thead="no"><para>12  </para>
+</entry><entry thead="no"><para><computeroutput>init_filesystem</computeroutput>  </para>
+</entry><entry thead="no"><para>VFS infrastructure  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>13   </para>
-</entry><entry thead="no"><para><computeroutput>init_iso9660</computeroutput>   </para>
-</entry><entry thead="no"><para>ISO9660 read-only FS    </para>
+<entry thead="no"><para>13  </para>
+</entry><entry thead="no"><para><computeroutput>init_iso9660</computeroutput>  </para>
+</entry><entry thead="no"><para>ISO9660 read-only FS  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>14   </para>
-</entry><entry thead="no"><para><computeroutput>init_devfs</computeroutput>   </para>
-</entry><entry thead="no"><para>/devices virtual filesystem    </para>
+<entry thead="no"><para>14  </para>
+</entry><entry thead="no"><para><computeroutput>init_devfs</computeroutput>  </para>
+</entry><entry thead="no"><para>/devices virtual filesystem  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>15   </para>
-</entry><entry thead="no"><para><computeroutput>init_fat32</computeroutput>   </para>
-</entry><entry thead="no"><para>FAT32 support    </para>
+<entry thead="no"><para>15  </para>
+</entry><entry thead="no"><para><computeroutput>init_fat32</computeroutput>  </para>
+</entry><entry thead="no"><para>FAT32 support  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>16   </para>
-</entry><entry thead="no"><para><computeroutput>init_modules</computeroutput>   </para>
-</entry><entry thead="no"><para>Initialise module loader    </para>
+<entry thead="no"><para>16  </para>
+</entry><entry thead="no"><para><computeroutput>init_modules</computeroutput>  </para>
+</entry><entry thead="no"><para>Initialise module loader  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>17   </para>
-</entry><entry thead="no"><para><computeroutput>init_rtl8139</computeroutput>   </para>
-</entry><entry thead="no"><para>Realtek RTL8139 network driver    </para>
+<entry thead="no"><para>17  </para>
+</entry><entry thead="no"><para><computeroutput>init_rtl8139</computeroutput>  </para>
+</entry><entry thead="no"><para>Realtek RTL8139 network driver  </para>
 </entry></row>
 <row>
-<entry thead="no"><para>18   </para>
-</entry><entry thead="no"><para><computeroutput>init_e1000</computeroutput>   </para>
-</entry><entry thead="no"><para>Intel e1000 network driver   </para>
+<entry thead="no"><para>18  </para>
+</entry><entry thead="no"><para><computeroutput>init_e1000</computeroutput>  </para>
+</entry><entry thead="no"><para>Intel e1000 network driver  </para>
 </entry></row>
 </table>
 </para>
 <para><hruler/>
 </para>
 </sect3>
-</sect2>
-<sect2 id="bootflow_1autotoc_md1264">
-<title>4. Process Management and Shell Launch</title>
-<para>After filesystems are ready, <computeroutput>init_process()</computeroutput> loads the first userland BASIC program:</para>
+</sect2></sect1>
+<sect1 id="bootflow_1autotoc_md4-process-management-and-shell-launch_1s1"><sect2 id="bootflow_1autotoc_md4-process-management-and-shell-launch">
+<title>4. Process Management and Shell Launch</title><para>After filesystems are ready, <computeroutput>init_process()</computeroutput> loads the first userland BASIC program:</para>
 <para><programlisting filename=".c"><codeline><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>init_process()</highlight></codeline>
 <codeline><highlight class="normal">{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>...<sp/>other<sp/>initialisation</highlight><highlight class="normal"></highlight></codeline>
@@ -216,9 +210,8 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>proc_loop();</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
 </programlisting></para>
-<sect3 id="bootflow_1autotoc_md1265">
-<title>&lt;tt&gt;proc_loop()&lt;/tt&gt;</title>
-<para><programlisting filename=".c"><codeline><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>proc_loop()</highlight></codeline>
+<sect3 id="bootflow_1proc_loop">
+<title><computeroutput>proc_loop()</computeroutput></title><para><programlisting filename=".c"><codeline><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>proc_loop()</highlight></codeline>
 <codeline><highlight class="normal">{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">true</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>proc_timer();</highlight></codeline>
@@ -237,10 +230,9 @@
 <para><hruler/>
 </para>
 </sect3>
-</sect2>
-<sect2 id="bootflow_1autotoc_md1267">
-<title>5. Userland Bootstrap: &lt;tt&gt;/programs/init&lt;/tt&gt;</title>
-<para>This BASIC program acts like a boot script (like <computeroutput>AUTOEXEC.BAT</computeroutput> or <computeroutput>!Boot</computeroutput>):</para>
+</sect2></sect1>
+<sect1 id="bootflow_1autotoc_md5-userland-bootstrap-programsinit_1s1"><sect2 id="bootflow_1autotoc_md5-userland-bootstrap-programsinit">
+<title>5. Userland Bootstrap: <computeroutput>/programs/init</computeroutput></title><para>This BASIC program acts like a boot script (like <computeroutput>AUTOEXEC.BAT</computeroutput> or <computeroutput>!Boot</computeroutput>):</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">GLOBAL<sp/>LIB$<sp/>=<sp/>&quot;/programs/libraries&quot;</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Mounting<sp/>&quot;;</highlight></codeline>
@@ -270,10 +262,9 @@
 </para>
 <para><hruler/>
 </para>
-</sect2>
-<sect2 id="bootflow_1autotoc_md1269">
-<title>🔚 Full Boot Timeline</title>
-<para><programlisting><codeline><highlight class="normal">boot.asm</highlight></codeline>
+</sect2></sect1>
+<sect1 id="bootflow_1autotoc_md-full-boot-timeline_1s1"><sect2 id="bootflow_1autotoc_md-full-boot-timeline">
+<title>🔚 Full Boot Timeline</title><para><programlisting><codeline><highlight class="normal">boot.asm</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>↓</highlight></codeline>
 <codeline><highlight class="normal">enable_fpu<sp/>/<sp/>enable_sse</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>↓</highlight></codeline>
@@ -295,10 +286,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect2>
-<sect2 id="bootflow_1autotoc_md1271">
-<title>✨ Why This Design Works</title>
-<para>Retro Rocket&apos;s boot process is:</para>
+</sect2></sect1>
+<sect1 id="bootflow_1autotoc_md-why-this-design-works_1s1"><sect2 id="bootflow_1autotoc_md-why-this-design-works">
+<title>✨ Why This Design Works</title><para>Retro Rocket&apos;s boot process is:</para>
 <para><itemizedlist>
 <listitem><para><bold>Transparent</bold>: Fully traceable from boot to shell</para>
 </listitem><listitem><para><bold>Modular</bold>: Replace shell or init without kernel changes</para>
@@ -306,7 +296,7 @@
 </listitem><listitem><para><bold>Retro-powered</bold>: BASIC everywhere - even <computeroutput>init</computeroutput> </para>
 </listitem></itemizedlist>
 </para>
-</sect2>
+</sect2></sect1>
     </detaileddescription>
     <location file="docpages/kernel-dev/BOOTFLOW.md"/>
   </compounddef>

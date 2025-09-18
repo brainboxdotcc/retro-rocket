@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="FILESIZE" kind="page">
     <compoundname>FILESIZE</compoundname>
     <title>FILESIZE Function</title>
@@ -11,9 +11,8 @@
 <para>Returns the <bold>size of a file</bold> in <bold>bytes</bold>. The parameter is a path to a file (absolute or relative to <ref refid="CSD" kindref="compound">CSD$</ref>).</para>
 <para><hruler/>
 </para>
-<sect3 id="FILESIZE_1autotoc_md187">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>FILESIZE(&quot;/system/webserver/index.html&quot;)</highlight></codeline>
+<sect1 id="FILESIZE_1examples-21_1s1"><sect2 id="FILESIZE_1examples-21_1s2"><sect3 id="FILESIZE_1examples-21">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>FILESIZE(&quot;/system/webserver/index.html&quot;)</highlight></codeline>
 </programlisting></para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Guard<sp/>against<sp/>missing<sp/>files</highlight></codeline>
 <codeline><highlight class="normal">path$<sp/>=<sp/>&quot;data.bin&quot;</highlight></codeline>
@@ -25,10 +24,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="FILESIZE_1autotoc_md189">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="FILESIZE_1notes-20_1s1"><sect2 id="FILESIZE_1notes-20_1s2"><sect3 id="FILESIZE_1notes-20">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Raises an error if the path does not exist or refers to a directory.</para>
 </listitem><listitem><para>Result is a 64-bit integer (bytes).</para>
 </listitem></itemizedlist>
@@ -36,7 +34,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="FILETYPE" kindref="compound">FILETYPE$</ref> · <ref refid="OPENIN" kindref="compound">OPENIN</ref> · <ref refid="READ" kindref="compound">READ$</ref> · <ref refid="BINREAD" kindref="compound">BINREAD</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/FILESIZE.md"/>
   </compounddef>

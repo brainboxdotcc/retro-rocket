@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="MEMRELEASE" kind="page">
     <compoundname>MEMRELEASE</compoundname>
     <title>MEMRELEASE Function</title>
@@ -11,18 +11,16 @@
 <para>Releases (frees) a block of memory previously obtained via <ref refid="MEMALLOC" kindref="compound">MEMALLOC</ref>.</para>
 <para><hruler/>
 </para>
-<sect3 id="MEMRELEASE_1autotoc_md864">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">buf<sp/>=<sp/>MEMALLOC(65536)</highlight></codeline>
+<sect1 id="MEMRELEASE_1examples-139_1s1"><sect2 id="MEMRELEASE_1examples-139_1s2"><sect3 id="MEMRELEASE_1examples-139">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">buf<sp/>=<sp/>MEMALLOC(65536)</highlight></codeline>
 <codeline><highlight class="normal">REM<sp/>...<sp/>use<sp/>buf<sp/>...</highlight></codeline>
 <codeline><highlight class="normal">MEMRELEASE<sp/>buf</highlight></codeline>
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="MEMRELEASE_1autotoc_md866">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="MEMRELEASE_1notes-148_1s1"><sect2 id="MEMRELEASE_1notes-148_1s2"><sect3 id="MEMRELEASE_1notes-148">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Passing an invalid or already-freed handle raises an error.</para>
 </listitem><listitem><para>After releasing, set your variable to <computeroutput>0</computeroutput> if you want to avoid accidental reuse.</para>
 </listitem><listitem><para>Your program ending releases all memory it requested using <ref refid="MEMALLOC" kindref="compound">MEMALLOC Function</ref> - be aware of this if you pass reference of this memory to a child program!</para>
@@ -31,7 +29,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="MEMALLOC" kindref="compound">MEMALLOC</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/MEMRELEASE.md"/>
   </compounddef>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="GETVAR" kind="page">
     <compoundname>GETVAR</compoundname>
     <title>GETVAR$ Function</title>
@@ -11,9 +11,8 @@
 <para>Retrieves the value of a <bold>string variable</bold> by its <bold>name</bold>. If the variable does not exist, an error is thrown. Use EXISTSVARS to check for existence without triggering an error.</para>
 <para><hruler/>
 </para>
-<sect3 id="GETVAR_1autotoc_md587">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Define<sp/>a<sp/>string<sp/>variable</highlight></codeline>
+<sect1 id="GETVAR_1examples-97_1s1"><sect2 id="GETVAR_1examples-97_1s2"><sect3 id="GETVAR_1examples-97">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Define<sp/>a<sp/>string<sp/>variable</highlight></codeline>
 <codeline><highlight class="normal">username$<sp/>=<sp/>&quot;Alice&quot;</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">REM<sp/>Retrieve<sp/>it<sp/>by<sp/>name</highlight></codeline>
@@ -33,10 +32,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="GETVAR_1autotoc_md589">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="GETVAR_1notes-96_1s1"><sect2 id="GETVAR_1notes-96_1s2"><sect3 id="GETVAR_1notes-96">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>The string must exactly match the variable name, including the <computeroutput>$</computeroutput> suffix for string variables.</para>
 </listitem><listitem><para>If the name refers to a variable of a different type (integer or real), an error is raised.</para>
 </listitem><listitem><para>Returns a null-terminated string.</para>
@@ -45,7 +43,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="GETVARI" kindref="compound">GETVARI</ref> · <ref refid="GETVARR" kindref="compound">GETVARR</ref> · EXISTSVARS </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/GETVARSTRING.md"/>
   </compounddef>

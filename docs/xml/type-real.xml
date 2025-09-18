@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="type-real" kind="page">
     <compoundname>type-real</compoundname>
     <title>Real Variables</title>
@@ -9,9 +9,8 @@
 <para>Real variables are represented by any variable with the suffix <computeroutput>#</computeroutput>, e.g. <computeroutput>B#</computeroutput> or <computeroutput>MYVAR#</computeroutput>. They are stored as <bold>64-bit double-precision IEEE 754 floating point values</bold>.</para>
 <para><hruler/>
 </para>
-<sect3 id="type-real_1autotoc_md1245">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PI#<sp/>=<sp/>3.14159</highlight></codeline>
+<sect1 id="type-real_1examples-178_1s1"><sect2 id="type-real_1examples-178_1s2"><sect3 id="type-real_1examples-178">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PI#<sp/>=<sp/>3.14159</highlight></codeline>
 <codeline><highlight class="normal">radius#<sp/>=<sp/>5.5</highlight></codeline>
 <codeline><highlight class="normal">area#<sp/>=<sp/>PI#<sp/>*<sp/>radius#<sp/>*<sp/>radius#</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Area<sp/>=<sp/>&quot;;<sp/>area#</highlight></codeline>
@@ -24,10 +23,9 @@
 <para>Produces <computeroutput>3.33333...</computeroutput> since the operation is promoted to real.</para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="type-real_1autotoc_md1247">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="type-real_1notes-182_1s1"><sect2 id="type-real_1notes-182_1s2"><sect3 id="type-real_1notes-182">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Range and precision follow IEEE 754 double format.</para>
 </listitem><listitem><para>Supports fractional values, scientific notation, and very large or very small numbers.</para>
 </listitem><listitem><para>Operations involving both integer and real variables are promoted to real.</para>
@@ -37,7 +35,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="type-integer" kindref="compound">Integer Variables</ref> · <ref refid="type-string" kindref="compound">String Variables</ref> · <ref refid="type-array" kindref="compound">Array Variables</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/variables/Real.md"/>
   </compounddef>

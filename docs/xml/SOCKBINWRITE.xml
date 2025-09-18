@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="SOCKBINWRITE" kind="page">
     <compoundname>SOCKBINWRITE</compoundname>
     <title>SOCKBINWRITE Statement</title>
@@ -17,9 +17,8 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="SOCKBINWRITE_1autotoc_md1024">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">size<sp/>=<sp/>FILESIZE(file$)</highlight></codeline>
+<sect1 id="SOCKBINWRITE_1examples-163_1s1"><sect2 id="SOCKBINWRITE_1examples-163_1s2"><sect3 id="SOCKBINWRITE_1examples-163">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">size<sp/>=<sp/>FILESIZE(file$)</highlight></codeline>
 <codeline><highlight class="normal">buf<sp/><sp/>=<sp/>MEMALLOC(size)</highlight></codeline>
 <codeline><highlight class="normal">BINREAD<sp/>fh,<sp/>buf,<sp/>size</highlight></codeline>
 <codeline></codeline>
@@ -31,10 +30,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="SOCKBINWRITE_1autotoc_md1026">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="SOCKBINWRITE_1notes-166_1s1"><sect2 id="SOCKBINWRITE_1notes-166_1s2"><sect3 id="SOCKBINWRITE_1notes-166">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Intended for sending file contents or other raw buffers.</para>
 </listitem><listitem><para>Socket must be connected; use <ref refid="SOCKSTATUS" kindref="compound">SOCKSTATUS</ref> to check.</para>
 </listitem><listitem><para>May write less than requested if the peer closes; handle errors accordingly.</para>
@@ -43,7 +41,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="SOCKREAD" kindref="compound">SOCKREAD</ref> · <ref refid="SOCKWRITE" kindref="compound">SOCKWRITE</ref> · <ref refid="SOCKSTATUS" kindref="compound">SOCKSTATUS</ref> · <ref refid="BINREAD" kindref="compound">BINREAD</ref> · <ref refid="MEMALLOC" kindref="compound">MEMALLOC</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/SOCKBINWRITE.md"/>
   </compounddef>

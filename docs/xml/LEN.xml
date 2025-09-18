@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="LEN" kind="page">
     <compoundname>LEN</compoundname>
     <title>LEN Function</title>
@@ -11,9 +11,8 @@
 <para>Returns the <bold>length</bold> of a string in <bold>ASCII characters</bold>. The count includes all characters in the string, starting at <computeroutput>1</computeroutput> for the first character.</para>
 <para><hruler/>
 </para>
-<sect3 id="LEN_1autotoc_md279">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>LEN(&quot;Retro<sp/>Rocket&quot;)</highlight></codeline>
+<sect1 id="LEN_1examples-38_1s1"><sect2 id="LEN_1examples-38_1s2"><sect3 id="LEN_1examples-38">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>LEN(&quot;Retro<sp/>Rocket&quot;)</highlight></codeline>
 </programlisting></para>
 <para>Produces <computeroutput>12</computeroutput>.</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Length<sp/>of<sp/>an<sp/>empty<sp/>string</highlight></codeline>
@@ -34,10 +33,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="LEN_1autotoc_md281">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="LEN_1notes-37_1s1"><sect2 id="LEN_1notes-37_1s2"><sect3 id="LEN_1notes-37">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Returns an integer value ≥ 0.</para>
 </listitem><listitem><para>Length is measured in characters, not bytes — since Retro Rocket BASIC strings are ASCII, the two are identical.</para>
 </listitem><listitem><para>Useful together with <ref refid="LEFT" kindref="compound">LEFT$</ref>, <ref refid="RIGHT" kindref="compound">RIGHT$</ref>, and <ref refid="MID" kindref="compound">MID$</ref> for string slicing.</para>
@@ -46,7 +44,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="LEFT" kindref="compound">LEFT$</ref> · <ref refid="RIGHT" kindref="compound">RIGHT$</ref> · <ref refid="MID" kindref="compound">MID$</ref> · <ref refid="ASC" kindref="compound">ASC</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/LEN.md"/>
   </compounddef>

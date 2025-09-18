@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="REM" kind="page">
     <compoundname>REM</compoundname>
     <title>REM Keyword</title>
@@ -15,13 +15,9 @@
 </simplesect>
 <simplesect kind="remark"><para></para>
 </simplesect>
-<simplesect kind="remark"><para>``<lsquo/>basic </para>
+<simplesect kind="remark"><para><computeroutput>basic \remark PRINT &quot;owls&quot; &apos; Show my favourite bird \remark </computeroutput> </para>
 </simplesect>
-<simplesect kind="remark"><para>PRINT &quot;owls&quot; <rsquo/> Show my favourite bird </para>
-</simplesect>
-<simplesect kind="remark"><para>``<lsquo/> </para>
-</simplesect>
-<simplesect kind="remark"><para>You do not need to use any special separator, the <rsquo/> on its own is enough to indicate where the comment begins. </para>
+<simplesect kind="remark"><para>You do not need to use any special separator, the &apos; on its own is enough to indicate where the comment begins. </para>
 </simplesect>
 <simplesect kind="remark"><para>Inside a <bold>string literal</bold> (delimited by double quotes), an apostrophe is just a character: </para>
 </simplesect>
@@ -29,15 +25,12 @@
 </simplesect>
 <simplesect kind="remark"><para>Example: </para>
 </simplesect>
-<simplesect kind="remark"><para>``<computeroutput>basic @note PRINT &quot;It&apos;s fine&quot;</computeroutput> &apos; Prints the apostrophe </para>
-</simplesect>
-<simplesect kind="note"><para>```</para>
+<simplesect kind="remark"><para><computeroutput>basic @note PRINT &quot;It&apos;s fine&quot;` &apos; Prints the apostrophe @note </computeroutput></para>
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="REM_1autotoc_md983">
-<title>Behaviour</title>
-<para><itemizedlist>
+<sect1 id="REM_1behaviour-5_1s1"><sect2 id="REM_1behaviour-5_1s2"><sect3 id="REM_1behaviour-5">
+<title>Behaviour</title><para><itemizedlist>
 <listitem><para>Everything from <computeroutput>REM</computeroutput> to the end of the line is treated as a comment.</para>
 </listitem><listitem><para><computeroutput>REM</computeroutput> has <bold>no runtime effect</bold> and produces no output.</para>
 </listitem><listitem><para>You can place <computeroutput>REM</computeroutput> anywhere a statement is allowed (for example between executable lines).</para>
@@ -45,10 +38,9 @@
 </para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="REM_1autotoc_md985">
-<title>Examples</title>
-<para><bold>Simple comment</bold> <programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>This<sp/>program<sp/>draws<sp/>a<sp/>box</highlight></codeline>
+</sect3></sect2></sect1>
+<sect1 id="REM_1examples-158_1s1"><sect2 id="REM_1examples-158_1s2"><sect3 id="REM_1examples-158">
+<title>Examples</title><para><bold>Simple comment</bold> <programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>This<sp/>program<sp/>draws<sp/>a<sp/>box</highlight></codeline>
 <codeline><highlight class="normal">GCOL<sp/>RGB(0,255,0)</highlight></codeline>
 <codeline><highlight class="normal">RECTANGLE<sp/>50,<sp/>50,<sp/>200,<sp/>120</highlight></codeline>
 </programlisting></para>
@@ -59,15 +51,14 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="REM_1autotoc_md987">
-<title>Tips</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="REM_1tips_1s1"><sect2 id="REM_1tips_1s2"><sect3 id="REM_1tips">
+<title>Tips</title><para><itemizedlist>
 <listitem><para>Use consistent prefixes in your comments (e.g. <computeroutput>REM TODO:</computeroutput> or <computeroutput>REM NOTE:</computeroutput>) to make them easy to search for.</para>
 </listitem><listitem><para>Keep comments adjacent to the code they describe so they stay in sync as the program evolves. </para>
 </listitem></itemizedlist>
 </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/REM.md"/>
   </compounddef>

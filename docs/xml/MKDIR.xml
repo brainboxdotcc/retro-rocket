@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="MKDIR" kind="page">
     <compoundname>MKDIR</compoundname>
     <title>MKDIR Keyword</title>
@@ -22,9 +22,8 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="MKDIR_1autotoc_md869">
-<title>Examples</title>
-<para>Create a directory in the current folder <programlisting filename=".basic"><codeline><highlight class="normal">MKDIR<sp/>&quot;projects&quot;</highlight></codeline>
+<sect1 id="MKDIR_1examples-140_1s1"><sect2 id="MKDIR_1examples-140_1s2"><sect3 id="MKDIR_1examples-140">
+<title>Examples</title><para>Create a directory in the current folder <programlisting filename=".basic"><codeline><highlight class="normal">MKDIR<sp/>&quot;projects&quot;</highlight></codeline>
 </programlisting></para>
 <para>Create a directory by absolute path <programlisting filename=".basic"><codeline><highlight class="normal">MKDIR<sp/>&quot;/data/logs&quot;</highlight></codeline>
 </programlisting></para>
@@ -33,16 +32,15 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="MKDIR_1autotoc_md871">
-<title>See also</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="MKDIR_1see-also-2_1s1"><sect2 id="MKDIR_1see-also-2_1s2"><sect3 id="MKDIR_1see-also-2">
+<title>See also</title><para><itemizedlist>
 <listitem><para><ref refid="CHDIR" kindref="compound">CHDIR</ref> - change current directory</para>
 </listitem><listitem><para><ref refid="RMDIR" kindref="compound">RMDIR</ref> - remove a directory</para>
 </listitem><listitem><para><ref refid="DELETE" kindref="compound">DELETE</ref> - delete a file </para>
 </listitem></itemizedlist>
 </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/MKDIR.md"/>
   </compounddef>

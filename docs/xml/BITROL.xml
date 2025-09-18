@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="BITROL" kind="page">
     <compoundname>BITROL</compoundname>
     <title>BITROL Function</title>
@@ -11,9 +11,8 @@
 <para>Rotates integer <computeroutput>a</computeroutput> <bold>left</bold> by <computeroutput>n</computeroutput> bits within a given <computeroutput>width</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect3 id="BITROL_1autotoc_md118">
-<title>How to read it</title>
-<para><itemizedlist>
+<sect1 id="BITROL_1how-to-read-it-7_1s1"><sect2 id="BITROL_1how-to-read-it-7_1s2"><sect3 id="BITROL_1how-to-read-it-7">
+<title>How to read it</title><para><itemizedlist>
 <listitem><para>Only the lowest <computeroutput>width</computeroutput> bits participate in the rotation.</para>
 </listitem><listitem><para>Width is typically 1–64.</para>
 </listitem><listitem><para>Result is masked back to the chosen width.</para>
@@ -21,25 +20,23 @@
 </para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="BITROL_1autotoc_md120">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>BITROL(&amp;9,<sp/>1,<sp/>4)</highlight></codeline>
+</sect3></sect2></sect1>
+<sect1 id="BITROL_1examples-9_1s1"><sect2 id="BITROL_1examples-9_1s2"><sect3 id="BITROL_1examples-9">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>BITROL(&amp;9,<sp/>1,<sp/>4)</highlight></codeline>
 </programlisting></para>
 <para>This rotates <computeroutput>1001₂</computeroutput> left by one within 4 bits, giving <computeroutput>0011₂ = 3</computeroutput>.</para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="BITROL_1autotoc_md122">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="BITROL_1notes-8_1s1"><sect2 id="BITROL_1notes-8_1s2"><sect3 id="BITROL_1notes-8">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Operates on 64-bit integers.</para>
 </listitem><listitem><para>Rotation width must be chosen carefully; too small discards high bits.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
  <ref refid="BITROR" kindref="compound">BITROR</ref> · <ref refid="BITSHL" kindref="compound">BITSHL</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/BITROL.md"/>
   </compounddef>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="ELSE" kind="page">
     <compoundname>ELSE</compoundname>
     <title>ELSE Keyword</title>
@@ -26,9 +26,8 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="ELSE_1autotoc_md778">
-<title>Forms</title>
-<para><itemizedlist>
+<sect1 id="ELSE_1forms_1s1"><sect2 id="ELSE_1forms_1s2"><sect3 id="ELSE_1forms">
+<title>Forms</title><para><itemizedlist>
 <listitem><para><bold>Single-line</bold> <linebreak/>
  <computeroutput>IF expression THEN statement ELSE statement</computeroutput> <linebreak/>
  Both the <computeroutput>THEN</computeroutput> and <computeroutput>ELSE</computeroutput> parts must be <bold>single statements</bold> on the same line.</para>
@@ -48,10 +47,9 @@
 </para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="ELSE_1autotoc_md780">
-<title>Examples</title>
-<para><bold>Single-line selection</bold> <programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>IF<sp/>X<sp/>&gt;<sp/>0<sp/>THEN<sp/>&quot;POSITIVE&quot;<sp/>ELSE<sp/>&quot;NON-POSITIVE&quot;</highlight></codeline>
+</sect3></sect2></sect1>
+<sect1 id="ELSE_1examples-124_1s1"><sect2 id="ELSE_1examples-124_1s2"><sect3 id="ELSE_1examples-124">
+<title>Examples</title><para><bold>Single-line selection</bold> <programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>IF<sp/>X<sp/>&gt;<sp/>0<sp/>THEN<sp/>&quot;POSITIVE&quot;<sp/>ELSE<sp/>&quot;NON-POSITIVE&quot;</highlight></codeline>
 </programlisting></para>
 <para><bold>Multi-line with ELSE</bold> <programlisting filename=".basic"><codeline><highlight class="normal">IF<sp/>SCORE<sp/>&gt;=<sp/>100<sp/>THEN</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;WELL<sp/>DONE!&quot;</highlight></codeline>
@@ -71,10 +69,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="ELSE_1autotoc_md782">
-<title>Rules &amp; behaviour</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="ELSE_1rules--behaviour_1s1"><sect2 id="ELSE_1rules--behaviour_1s2"><sect3 id="ELSE_1rules--behaviour">
+<title>Rules &amp; behaviour</title><para><itemizedlist>
 <listitem><para><bold>Pairing:</bold> In multi-line form, <computeroutput>ELSE</computeroutput> pairs with the <bold>nearest unmatched</bold> <computeroutput>IF</computeroutput>. Always terminate the block with <ref refid="ENDIF" kindref="compound">ENDIF</ref>.</para>
 </listitem><listitem><para><bold>Single statement on one line:</bold> The one-line form allows exactly <bold>one</bold> statement after <computeroutput>THEN</computeroutput> and <bold>one</bold> after <computeroutput>ELSE</computeroutput>. To perform multiple actions, use the multi-line form.</para>
 </listitem><listitem><para><bold>Nesting:</bold> <computeroutput>IF … THEN … ELSE … ENDIF</computeroutput> blocks may be nested freely.</para>
@@ -82,7 +79,7 @@
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <ref refid="IF" kindref="compound">IF</ref>, <ref refid="ENDIF" kindref="compound">ENDIF</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/ELSE.md"/>
   </compounddef>

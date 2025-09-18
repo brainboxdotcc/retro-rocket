@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="BITNOT" kind="page">
     <compoundname>BITNOT</compoundname>
     <title>BITNOT Function</title>
@@ -11,33 +11,30 @@
 <para>Computes the <bold>bitwise complement</bold> of an integer.</para>
 <para><hruler/>
 </para>
-<sect3 id="BITNOT_1autotoc_md106">
-<title>How to read it</title>
-<para><itemizedlist>
+<sect1 id="BITNOT_1how-to-read-it-5_1s1"><sect2 id="BITNOT_1how-to-read-it-5_1s2"><sect3 id="BITNOT_1how-to-read-it-5">
+<title>How to read it</title><para><itemizedlist>
 <listitem><para>Flips all bits: ones become zeros, zeros become ones.</para>
 </listitem><listitem><para>Uses two’s-complement semantics on 64-bit integers.</para>
 </listitem></itemizedlist>
 </para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="BITNOT_1autotoc_md108">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>BITNOT(0)</highlight></codeline>
+</sect3></sect2></sect1>
+<sect1 id="BITNOT_1examples-7_1s1"><sect2 id="BITNOT_1examples-7_1s2"><sect3 id="BITNOT_1examples-7">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>BITNOT(0)</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>BITNOT(&amp;FF)</highlight></codeline>
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="BITNOT_1autotoc_md110">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="BITNOT_1notes-6_1s1"><sect2 id="BITNOT_1notes-6_1s2"><sect3 id="BITNOT_1notes-6">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Output may appear as a large negative number, due to two’s-complement representation.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
  <ref refid="BITEOR" kindref="compound">BITEOR</ref> · <ref refid="BITNOR" kindref="compound">BITNOR</ref> · <ref refid="BITXNOR" kindref="compound">BITXNOR</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/BITNOT.md"/>
   </compounddef>

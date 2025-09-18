@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="ACS" kind="page">
     <compoundname>ACS</compoundname>
     <title>ACS Function</title>
@@ -11,9 +11,8 @@
 <para>Returns the <bold>arc cosine</bold> (inverse cosine) of the given expression, in <bold>radians</bold>. The input must be between <computeroutput>-1</computeroutput> and <computeroutput>1</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect3 id="ACS_1autotoc_md458">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>ACS(1)</highlight></codeline>
+<sect1 id="ACS_1examples-73_1s1"><sect2 id="ACS_1examples-73_1s2"><sect3 id="ACS_1examples-73">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>ACS(1)</highlight></codeline>
 </programlisting></para>
 <para>Produces <computeroutput>0</computeroutput>.</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>ACS(0)</highlight></codeline>
@@ -29,10 +28,9 @@
 <para>Produces the original angle (within floating point accuracy).</para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="ACS_1autotoc_md460">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="ACS_1notes-72_1s1"><sect2 id="ACS_1notes-72_1s2"><sect3 id="ACS_1notes-72">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Argument range: <computeroutput>-1 ≤ x ≤ 1</computeroutput>. Values outside this range cause an error.</para>
 </listitem><listitem><para>Return range: <computeroutput>0 ≤ result ≤ π</computeroutput> radians.</para>
 </listitem><listitem><para>To convert the result to degrees, multiply by <computeroutput>180 / PI</computeroutput>.</para>
@@ -46,7 +44,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="COS" kindref="compound">COS</ref> · <ref refid="ASN" kindref="compound">ASN</ref> · ATN · <ref refid="TAN" kindref="compound">TAN</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/real/ACS.md"/>
   </compounddef>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="UPPER" kind="page">
     <compoundname>UPPER</compoundname>
     <title>UPPER$ Function</title>
@@ -11,9 +11,8 @@
 <para>Converts a string expression to <bold>upper case</bold>, using standard ASCII case folding rules.</para>
 <para><hruler/>
 </para>
-<sect3 id="UPPER_1autotoc_md709">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>UPPER$(&quot;hello&quot;)</highlight></codeline>
+<sect1 id="UPPER_1examples-120_1s1"><sect2 id="UPPER_1examples-120_1s2"><sect3 id="UPPER_1examples-120">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>UPPER$(&quot;hello&quot;)</highlight></codeline>
 </programlisting></para>
 <para>Produces <computeroutput>&quot;HELLO&quot;</computeroutput>.</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>UPPER$(&quot;Retro<sp/>Rocket<sp/>123!&quot;)</highlight></codeline>
@@ -28,10 +27,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="UPPER_1autotoc_md711">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="UPPER_1notes-119_1s1"><sect2 id="UPPER_1notes-119_1s2"><sect3 id="UPPER_1notes-119">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Only affects ASCII letters <computeroutput>a–z</computeroutput> (97–122), converting them to <computeroutput>A–Z</computeroutput> (65–90).</para>
 </listitem><listitem><para>Non-alphabetic characters are unchanged.</para>
 </listitem><listitem><para>Useful for case-insensitive comparisons, normalisation, and text processing.</para>
@@ -40,7 +38,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="LOWER" kindref="compound">LOWER$</ref> · <ref refid="LEN" kindref="compound">LEN</ref> · <ref refid="MID" kindref="compound">MID$</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/UPPER.md"/>
   </compounddef>

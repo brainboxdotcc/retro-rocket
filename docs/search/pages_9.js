@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['kernel_20development_955',['Kernel Development',['../kernel-dev.html',1,'index']]],
-  ['keymap_20keyword_956',['KEYMAP Keyword',['../KEYMAP.html',1,'keywords']]],
-  ['keywords_957',['Keywords',['../keywords.html',1,'basic-ref']]],
-  ['kget_20keyword_958',['KGET Keyword',['../KGET.html',1,'keywords']]]
+  ['9_0',['VDU 9',['../VDU.html#vdu-9',1,'']]],
+  ['9_20partition_20identification_20gpt_1',['9. Partition identification (GPT)',['../retrofs.html#autotoc_md9-partition-identification-gpt',1,'']]],
+  ['9_20where_20to_20go_20next_2',['9) Where to go next',['../basic-beginner.html#autotoc_md9-where-to-go-next',1,'']]]
 ];

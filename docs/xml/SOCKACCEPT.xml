@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="SOCKACCEPT" kind="page">
     <compoundname>SOCKACCEPT</compoundname>
     <title>SOCKACCEPT Function</title>
@@ -13,9 +13,8 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="SOCKACCEPT_1autotoc_md410">
-<title>How to use it</title>
-<para><itemizedlist>
+<sect1 id="SOCKACCEPT_1how-to-use-it_1s1"><sect2 id="SOCKACCEPT_1how-to-use-it_1s2"><sect3 id="SOCKACCEPT_1how-to-use-it">
+<title>How to use it</title><para><itemizedlist>
 <listitem><para><computeroutput>server</computeroutput> is the file descriptor returned by <computeroutput>SOCKLISTEN(ip$, port, backlog)</computeroutput>.</para>
 </listitem><listitem><para>Call repeatedly in your main loop to accept clients as they become ready.</para>
 </listitem><listitem><para>Use the returned <computeroutput>client</computeroutput> descriptor with <computeroutput>SOCKWRITE</computeroutput>, <computeroutput>SOCKREAD</computeroutput>, <computeroutput>INSOCKET$</computeroutput>, and <computeroutput>SOCKCLOSE</computeroutput>.</para>
@@ -24,10 +23,9 @@
 </para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="SOCKACCEPT_1autotoc_md412">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Minimal<sp/>accept<sp/>loop</highlight></codeline>
+</sect3></sect2></sect1>
+<sect1 id="SOCKACCEPT_1examples-64_1s1"><sect2 id="SOCKACCEPT_1examples-64_1s2"><sect3 id="SOCKACCEPT_1examples-64">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Minimal<sp/>accept<sp/>loop</highlight></codeline>
 <codeline><highlight class="normal">server<sp/>=<sp/>SOCKLISTEN(NETINFO$(&quot;ip&quot;),<sp/>2000,<sp/>5)</highlight></codeline>
 <codeline><highlight class="normal">IF<sp/>server<sp/>&lt;<sp/>0<sp/>THEN<sp/>PRINT<sp/>&quot;Listen<sp/>failed&quot;:<sp/>END</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Listening<sp/>on<sp/>port<sp/>2000&quot;</highlight></codeline>
@@ -44,16 +42,15 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="SOCKACCEPT_1autotoc_md414">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="SOCKACCEPT_1notes-63_1s1"><sect2 id="SOCKACCEPT_1notes-63_1s2"><sect3 id="SOCKACCEPT_1notes-63">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Returns <computeroutput>-1</computeroutput> when no established connection is available; try again later.</para>
 </listitem><listitem><para>Each successful call returns a <bold>new</bold> client descriptor; the server remains listening.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <ref refid="SOCKLISTEN" kindref="compound">SOCKLISTEN</ref> · <ref refid="SOCKWRITE" kindref="compound">SOCKWRITE</ref> · <ref refid="SOCKREAD" kindref="compound">SOCKREAD</ref> · <ref refid="INSOCKET" kindref="compound">INSOCKET$ Function</ref>$ &quot;INSOCKET\$&quot; · <ref refid="SOCKSTATUS" kindref="compound">SOCKSTATUS</ref> · <ref refid="SOCKCLOSE" kindref="compound">SOCKCLOSE</ref> · <ref refid="NETINFO" kindref="compound">NETINFO$ Function</ref>$ &quot;NETINFO\$&quot; </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/SOCKACCEPT.md"/>
   </compounddef>

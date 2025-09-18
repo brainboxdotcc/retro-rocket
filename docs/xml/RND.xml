@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="RND" kind="page">
     <compoundname>RND</compoundname>
     <title>RND Function</title>
@@ -14,9 +14,8 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="RND_1autotoc_md385">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Toss<sp/>a<sp/>coin<sp/>(1<sp/>or<sp/>2)</highlight></codeline>
+<sect1 id="RND_1examples-59_1s1"><sect2 id="RND_1examples-59_1s2"><sect3 id="RND_1examples-59">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Toss<sp/>a<sp/>coin<sp/>(1<sp/>or<sp/>2)</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>RND(1,<sp/>2)</highlight></codeline>
 </programlisting></para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Roll<sp/>a<sp/>six-sided<sp/>die</highlight></codeline>
@@ -32,10 +31,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="RND_1autotoc_md387">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="RND_1notes-58_1s1"><sect2 id="RND_1notes-58_1s2"><sect3 id="RND_1notes-58">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>The result is an <bold>integer</bold> within the inclusive range <computeroutput>[min, max]</computeroutput>.</para>
 </listitem><listitem><para>If <computeroutput>min &gt; max</computeroutput>, behaviour is undefined.</para>
 </listitem><listitem><para>Suitable for general randomness in games, simulations, and sampling.</para>
@@ -46,7 +44,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="INT" kindref="compound">INT</ref> · <ref refid="ABS" kindref="compound">ABS</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/RND.md"/>
   </compounddef>

@@ -1,22 +1,19 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="audio-basics" kind="page">
     <compoundname>audio-basics</compoundname>
     <title>Audio Introduction</title>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<sect2 id="audio-basics_1autotoc_md56">
-<title>Audio System Structure</title>
-<para>Retro Rocket’s audio system has four main parts:</para>
-<sect3 id="audio-basics_1autotoc_md57">
-<title>Drivers</title>
-<para>The driver is the low-level hardware backend (e.g. <computeroutput>MODLOAD &quot;ac97&quot;</computeroutput>). <linebreak/>
+<sect1 id="audio-basics_1audio-system-structure_1s1"><sect2 id="audio-basics_1audio-system-structure">
+<title>Audio System Structure</title><para>Retro Rocket’s audio system has four main parts:</para>
+<sect3 id="audio-basics_1drivers">
+<title>Drivers</title><para>The driver is the low-level hardware backend (e.g. <computeroutput>MODLOAD &quot;ac97&quot;</computeroutput>). <linebreak/>
  It is specific to your sound card in your PC. Without a driver, <bold>no audio commands will work</bold>.</para>
 </sect3>
-<sect3 id="audio-basics_1autotoc_md58">
-<title>Codecs</title>
-<para>A codec is a small specialised program that knows how to <bold>decode audio files</bold> into the raw data format used by Retro Rocket. Codecs are provided as kernel modules, just like drivers, and must be loaded before you can use them.</para>
+<sect3 id="audio-basics_1codecs">
+<title>Codecs</title><para>A codec is a small specialised program that knows how to <bold>decode audio files</bold> into the raw data format used by Retro Rocket. Codecs are provided as kernel modules, just like drivers, and must be loaded before you can use them.</para>
 <para><itemizedlist>
 <listitem><para>WAV support is built in and always available.</para>
 </listitem><listitem><para>MP3 support is available via the <computeroutput>mp3.ko</computeroutput> module (<computeroutput>MODLOAD &quot;mp3&quot;</computeroutput>).</para>
@@ -25,9 +22,8 @@
 </para>
 <para>If you try to load any file type except WAV without first loading the corresponding codec module, you will receive an error as the file type will be unrecognised.</para>
 </sect3>
-<sect3 id="audio-basics_1autotoc_md59">
-<title>Streams</title>
-<para>A stream is a <bold>playback channel</bold> created with <computeroutput>STREAM CREATE</computeroutput>.</para>
+<sect3 id="audio-basics_1streams">
+<title>Streams</title><para>A stream is a <bold>playback channel</bold> created with <computeroutput>STREAM CREATE</computeroutput>.</para>
 <para><itemizedlist>
 <listitem><para>Each stream has its own queue of sounds, volume, and state.</para>
 </listitem><listitem><para>Multiple streams can run at once (for mixing music, effects, voices, etc.).</para>
@@ -35,9 +31,8 @@
 </listitem></itemizedlist>
 </para>
 </sect3>
-<sect3 id="audio-basics_1autotoc_md60">
-<title>Sounds</title>
-<para>A sound is <bold>decoded audio data</bold> loaded into memory with <computeroutput>SOUND LOAD</computeroutput>.</para>
+<sect3 id="audio-basics_1sounds">
+<title>Sounds</title><para>A sound is <bold>decoded audio data</bold> loaded into memory with <computeroutput>SOUND LOAD</computeroutput>.</para>
 <para><itemizedlist>
 <listitem><para>Sounds can be loaded from any supported codec (e.g. WAV, MP3, FLAC).</para>
 </listitem><listitem><para>Sounds are stored in RAM as 44.1 kHz stereo, 16-bit PCM.</para>
@@ -46,18 +41,15 @@
 </listitem></itemizedlist>
 </para>
 </sect3>
-</sect2>
-<sect2 id="audio-basics_1autotoc_md61">
-<title>Flow of audio</title>
-<para><programlisting><codeline><highlight class="normal">File<sp/>on<sp/>disk<sp/>(WAV/MP3/other)<sp/>→<sp/>Codec<sp/>module<sp/>decodes<sp/>→<sp/>SOUND<sp/>LOAD<sp/>→<sp/>Sound<sp/>handle</highlight></codeline>
+</sect2></sect1>
+<sect1 id="audio-basics_1flow-of-audio_1s1"><sect2 id="audio-basics_1flow-of-audio">
+<title>Flow of audio</title><para><programlisting><codeline><highlight class="normal">File<sp/>on<sp/>disk<sp/>(WAV/MP3/other)<sp/>→<sp/>Codec<sp/>module<sp/>decodes<sp/>→<sp/>SOUND<sp/>LOAD<sp/>→<sp/>Sound<sp/>handle</highlight></codeline>
 <codeline><highlight class="normal">Sound<sp/>handle<sp/>+<sp/>Stream<sp/>→<sp/>SOUND<sp/>PLAY<sp/>→<sp/>Playback</highlight></codeline>
 </programlisting></para>
-</sect2>
-<sect2 id="audio-basics_1autotoc_md62">
-<title>Examples</title>
-<sect3 id="audio-basics_1autotoc_md63">
-<title>Play a WAV file</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">MODLOAD<sp/>&quot;ac97&quot;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>load<sp/>audio<sp/>driver</highlight></codeline>
+</sect2></sect1>
+<sect1 id="audio-basics_1examples_1s1"><sect2 id="audio-basics_1examples">
+<title>Examples</title><sect3 id="audio-basics_1play-a-wav-file">
+<title>Play a WAV file</title><para><programlisting filename=".basic"><codeline><highlight class="normal">MODLOAD<sp/>&quot;ac97&quot;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>load<sp/>audio<sp/>driver</highlight></codeline>
 <codeline><highlight class="normal">STREAM<sp/>CREATE<sp/>music</highlight></codeline>
 <codeline><highlight class="normal">SOUND<sp/>LOAD<sp/>song,<sp/>&quot;track.wav&quot;</highlight></codeline>
 <codeline><highlight class="normal">SOUND<sp/>PLAY<sp/>music,<sp/>song</highlight></codeline>
@@ -65,9 +57,8 @@
 <para><image type="html" name="sound.png"></image>
 </para>
 </sect3>
-<sect3 id="audio-basics_1autotoc_md64">
-<title>Play an MP3 file</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">MODLOAD<sp/>&quot;ac97&quot;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>load<sp/>audio<sp/>driver</highlight></codeline>
+<sect3 id="audio-basics_1play-an-mp3-file">
+<title>Play an MP3 file</title><para><programlisting filename=".basic"><codeline><highlight class="normal">MODLOAD<sp/>&quot;ac97&quot;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>load<sp/>audio<sp/>driver</highlight></codeline>
 <codeline><highlight class="normal">MODLOAD<sp/>&quot;mp3&quot;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>load<sp/>MP3<sp/>codec<sp/>module</highlight></codeline>
 <codeline><highlight class="normal">STREAM<sp/>CREATE<sp/>music</highlight></codeline>
 <codeline><highlight class="normal">SOUND<sp/>LOAD<sp/>song,<sp/>&quot;track.mp3&quot;</highlight></codeline>
@@ -76,25 +67,23 @@
 <para><image type="html" name="mp3.png"></image>
 </para>
 </sect3>
-<sect3 id="audio-basics_1autotoc_md65">
-<title>Play a FLAC file</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">MODLOAD<sp/>&quot;ac97&quot;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>load<sp/>audio<sp/>driver</highlight></codeline>
+<sect3 id="audio-basics_1play-a-flac-file">
+<title>Play a FLAC file</title><para><programlisting filename=".basic"><codeline><highlight class="normal">MODLOAD<sp/>&quot;ac97&quot;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>load<sp/>audio<sp/>driver</highlight></codeline>
 <codeline><highlight class="normal">MODLOAD<sp/>&quot;flac&quot;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>load<sp/>FLAC<sp/>codec<sp/>module</highlight></codeline>
 <codeline><highlight class="normal">STREAM<sp/>CREATE<sp/>music</highlight></codeline>
 <codeline><highlight class="normal">SOUND<sp/>LOAD<sp/>song,<sp/>&quot;track.flac&quot;</highlight></codeline>
 <codeline><highlight class="normal">SOUND<sp/>PLAY<sp/>music,<sp/>song</highlight></codeline>
 </programlisting></para>
 </sect3>
-</sect2>
-<sect2 id="audio-basics_1autotoc_md66">
-<title>Audio Keywords/Functions</title>
-<para><itemizedlist>
+</sect2></sect1>
+<sect1 id="audio-basics_1audio-keywordsfunctions_1s1"><sect2 id="audio-basics_1audio-keywordsfunctions">
+<title>Audio Keywords/Functions</title><para><itemizedlist>
 <listitem><para><ref refid="STREAM" kindref="compound">STREAM</ref></para>
 </listitem><listitem><para><ref refid="STREAM" kindref="compound">SOUND</ref></para>
 </listitem><listitem><para><ref refid="DECIBELS" kindref="compound">DECIBELS</ref> </para>
 </listitem></itemizedlist>
 </para>
-</sect2>
+</sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/BASIC_SOUND.md"/>
   </compounddef>

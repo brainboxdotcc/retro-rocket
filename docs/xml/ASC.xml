@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="ASC" kind="page">
     <compoundname>ASC</compoundname>
     <title>ASC Function</title>
@@ -11,9 +11,8 @@
 <para>Returns the <bold>ASCII code</bold> of the first character in <computeroutput>string-expression</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect3 id="ASC_1autotoc_md77">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>ASC(&quot;A&quot;)</highlight></codeline>
+<sect1 id="ASC_1examples-2_1s1"><sect2 id="ASC_1examples-2_1s2"><sect3 id="ASC_1examples-2">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>ASC(&quot;A&quot;)</highlight></codeline>
 </programlisting></para>
 <para>This example produces <computeroutput>65</computeroutput>.</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">C$<sp/>=<sp/>&quot;Retro<sp/>Rocket&quot;</highlight></codeline>
@@ -29,10 +28,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="ASC_1autotoc_md79">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="ASC_1notes-1_1s1"><sect2 id="ASC_1notes-1_1s2"><sect3 id="ASC_1notes-1">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Only the <bold>first character</bold> of the string is considered.</para>
 </listitem><listitem><para>If the string is <bold>empty</bold>, <computeroutput>ASC</computeroutput> returns <computeroutput>0</computeroutput>.</para>
 </listitem><listitem><para>Values returned range from <bold>0–255</bold>.</para>
@@ -41,7 +39,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="CHR" kindref="compound">CHR$</ref> · <ref refid="INKEY" kindref="compound">INKEY$</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/ASC.md"/>
   </compounddef>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="BITEOR" kind="page">
     <compoundname>BITEOR</compoundname>
     <title>BITEOR Function</title>
@@ -12,32 +12,29 @@
  In BBC BASIC this operator was named <computeroutput>EOR</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect3 id="BITEOR_1autotoc_md88">
-<title>How to read it</title>
-<para><itemizedlist>
+<sect1 id="BITEOR_1how-to-read-it-2_1s1"><sect2 id="BITEOR_1how-to-read-it-2_1s2"><sect3 id="BITEOR_1how-to-read-it-2">
+<title>How to read it</title><para><itemizedlist>
 <listitem><para>Returns bits set when exactly one of <computeroutput>a</computeroutput> or <computeroutput>b</computeroutput> has the bit set.</para>
 </listitem></itemizedlist>
 </para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="BITEOR_1autotoc_md90">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>BITEOR(&amp;6,<sp/>&amp;3)</highlight></codeline>
+</sect3></sect2></sect1>
+<sect1 id="BITEOR_1examples-4_1s1"><sect2 id="BITEOR_1examples-4_1s2"><sect3 id="BITEOR_1examples-4">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>BITEOR(&amp;6,<sp/>&amp;3)</highlight></codeline>
 </programlisting></para>
 <para>This example produces <computeroutput>5</computeroutput>.</para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="BITEOR_1autotoc_md92">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="BITEOR_1notes-3_1s1"><sect2 id="BITEOR_1notes-3_1s2"><sect3 id="BITEOR_1notes-3">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Operates on 64-bit integers.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
  <ref refid="BITOR" kindref="compound">BITOR</ref> · <ref refid="BITAND" kindref="compound">BITAND</ref> · <ref refid="BITXNOR" kindref="compound">BITXNOR</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/BITEOR.md"/>
   </compounddef>

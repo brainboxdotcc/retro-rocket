@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="MEMORY" kind="page">
     <compoundname>MEMORY</compoundname>
     <title>MEMORY Function</title>
@@ -11,9 +11,8 @@
 <para>Returns the total <bold>system memory</bold> in bytes, including both <bold>used</bold> and <bold>free</bold> portions, for BASIC programs and the operating system.</para>
 <para><hruler/>
 </para>
-<sect3 id="MEMORY_1autotoc_md298">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>total<sp/>system<sp/>memory</highlight></codeline>
+<sect1 id="MEMORY_1examples-42_1s1"><sect2 id="MEMORY_1examples-42_1s2"><sect3 id="MEMORY_1examples-42">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>total<sp/>system<sp/>memory</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>MEMORY</highlight></codeline>
 </programlisting></para>
 <para>On a 4 GB machine this will typically print:</para>
@@ -27,10 +26,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="MEMORY_1autotoc_md300">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="MEMORY_1notes-41_1s1"><sect2 id="MEMORY_1notes-41_1s2"><sect3 id="MEMORY_1notes-41">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>The value is in <bold>bytes</bold>, returned as a 64-bit integer.</para>
 </listitem><listitem><para>Reflects the <bold>installed physical RAM</bold> available to Retro Rocket OS.</para>
 </listitem><listitem><para>Together with <ref refid="MEMFREE" kindref="compound">MEMFREE</ref> and <ref refid="MEMUSED" kindref="compound">MEMUSED</ref>, allows monitoring of system usage.</para>
@@ -44,7 +42,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="MEMFREE" kindref="compound">MEMFREE</ref> · <ref refid="MEMUSED" kindref="compound">MEMUSED</ref> · <ref refid="MEMORY" kindref="compound">MEMRELEASE</ref> · <ref refid="MEMORY" kindref="compound">MEMALLOC</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/MEMORY.md"/>
   </compounddef>

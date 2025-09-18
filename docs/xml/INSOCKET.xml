@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="INSOCKET" kind="page">
     <compoundname>INSOCKET</compoundname>
     <title>INSOCKET$ Function</title>
@@ -16,9 +16,8 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="INSOCKET_1autotoc_md599">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Read<sp/>characters<sp/>from<sp/>a<sp/>connected<sp/>socket</highlight></codeline>
+<sect1 id="INSOCKET_1examples-99_1s1"><sect2 id="INSOCKET_1examples-99_1s2"><sect3 id="INSOCKET_1examples-99">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Read<sp/>characters<sp/>from<sp/>a<sp/>connected<sp/>socket</highlight></codeline>
 <codeline><highlight class="normal">REPEAT</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>c$<sp/>=<sp/>INSOCKET$(fd)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>IF<sp/>c$<sp/>&gt;<sp/>&quot;&quot;<sp/>THEN</highlight></codeline>
@@ -36,10 +35,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="INSOCKET_1autotoc_md601">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="INSOCKET_1notes-98_1s1"><sect2 id="INSOCKET_1notes-98_1s2"><sect3 id="INSOCKET_1notes-98">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Operates at the <bold>character level</bold>; repeated calls are required to read longer strings.</para>
 </listitem><listitem><para>Non-blocking: if no data is present, returns immediately with <computeroutput>&quot;&quot;</computeroutput>.</para>
 </listitem><listitem><para>If the socket is closed, further calls will raise an error.</para>
@@ -49,7 +47,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="SOCKREAD" kindref="compound">SOCKREAD</ref> · <ref refid="SOCKWRITE" kindref="compound">SOCKWRITE</ref> · <ref refid="SOCKSTATUS" kindref="compound">SOCKSTATUS</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/INSOCKET.md"/>
   </compounddef>

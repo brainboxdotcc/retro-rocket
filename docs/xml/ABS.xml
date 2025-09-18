@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="ABS" kind="page">
     <compoundname>ABS</compoundname>
     <title>ABS Function</title>
@@ -11,9 +11,8 @@
 <para>Returns the <bold>absolute value</bold> of a numeric expression. Negative values are converted to positive; positive values remain unchanged.</para>
 <para><hruler/>
 </para>
-<sect3 id="ABS_1autotoc_md70">
-<title>How to read it</title>
-<para><itemizedlist>
+<sect1 id="ABS_1how-to-read-it_1s1"><sect2 id="ABS_1how-to-read-it_1s2"><sect3 id="ABS_1how-to-read-it">
+<title>How to read it</title><para><itemizedlist>
 <listitem><para>For integers: <computeroutput>ABS(-5)</computeroutput> becomes <computeroutput>5</computeroutput>.</para>
 </listitem><listitem><para>For reals: <computeroutput>ABS(-3.14)</computeroutput> becomes <computeroutput>3.14</computeroutput>.</para>
 </listitem><listitem><para>Zero always remains <computeroutput>0</computeroutput>.</para>
@@ -21,10 +20,9 @@
 </para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="ABS_1autotoc_md72">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>ABS(-42)</highlight></codeline>
+</sect3></sect2></sect1>
+<sect1 id="ABS_1examples-1_1s1"><sect2 id="ABS_1examples-1_1s2"><sect3 id="ABS_1examples-1">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>ABS(-42)</highlight></codeline>
 </programlisting></para>
 <para>This example produces <computeroutput>42</computeroutput>.</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">A#<sp/>=<sp/>-12.5</highlight></codeline>
@@ -38,10 +36,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="ABS_1autotoc_md74">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="ABS_1notes_1s1"><sect2 id="ABS_1notes_1s2"><sect3 id="ABS_1notes">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Works with both <bold>integers</bold> and <bold>reals</bold>.</para>
 </listitem><listitem><para>Has no effect on <computeroutput>0</computeroutput>.</para>
 </listitem><listitem><para>Useful in algorithms where only magnitudes matter (e.g. distances, error values).</para>
@@ -50,7 +47,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="SGN" kindref="compound">SGN</ref> · <ref refid="INT" kindref="compound">INT</ref> · <ref refid="SQR" kindref="compound">SQR</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/ABS.md"/>
   </compounddef>

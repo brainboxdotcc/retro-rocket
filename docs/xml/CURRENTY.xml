@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="CURRENTY" kind="page">
     <compoundname>CURRENTY</compoundname>
     <title>CURRENTY Function</title>
@@ -11,9 +11,8 @@
 <para>Returns the current <bold>Y text cursor position</bold> (row) on the terminal, measured in <bold>character cells</bold>. The topmost row is <bold>0</bold>, increasing downwards.</para>
 <para><hruler/>
 </para>
-<sect3 id="CURRENTY_1autotoc_md158">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">CLS</highlight></codeline>
+<sect1 id="CURRENTY_1examples-16_1s1"><sect2 id="CURRENTY_1examples-16_1s2"><sect3 id="CURRENTY_1examples-16">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">CLS</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Hello&quot;</highlight></codeline>
 <codeline><highlight class="normal">y<sp/>=<sp/>CURRENTY</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;<sp/>(cursor<sp/>now<sp/>at<sp/>row<sp/>&quot;;<sp/>y;<sp/>&quot;)&quot;</highlight></codeline>
@@ -33,10 +32,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="CURRENTY_1autotoc_md160">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="CURRENTY_1notes-15_1s1"><sect2 id="CURRENTY_1notes-15_1s2"><sect3 id="CURRENTY_1notes-15">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Cursor position is <bold>zero-based</bold>: the top row is <computeroutput>0</computeroutput>.</para>
 </listitem><listitem><para><computeroutput>CURRENTY</computeroutput> reflects the current logical row, not raw terminal escape codes.</para>
 </listitem><listitem><para>When the cursor advances beyond the last row, the terminal scrolls and <computeroutput>CURRENTY</computeroutput> remains clamped to the bottom row.</para>
@@ -46,7 +44,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="CURRENTX" kindref="compound">CURRENTX</ref> · <ref refid="CURSOR" kindref="compound">CURSOR</ref> · <ref refid="TERMHEIGHT" kindref="compound">TERMHEIGHT</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/CURRENTY.md"/>
   </compounddef>

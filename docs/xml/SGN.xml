@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="SGN" kind="page">
     <compoundname>SGN</compoundname>
     <title>SGN Function</title>
@@ -17,9 +17,8 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="SGN_1autotoc_md395">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>SGN(-42)</highlight></codeline>
+<sect1 id="SGN_1examples-61_1s1"><sect2 id="SGN_1examples-61_1s2"><sect3 id="SGN_1examples-61">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>SGN(-42)</highlight></codeline>
 </programlisting></para>
 <para>Produces <computeroutput>-1</computeroutput>.</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>SGN(0)</highlight></codeline>
@@ -36,10 +35,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="SGN_1autotoc_md397">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="SGN_1notes-60_1s1"><sect2 id="SGN_1notes-60_1s2"><sect3 id="SGN_1notes-60">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Input must be an integer expression.</para>
 </listitem><listitem><para>Return value is always <computeroutput>-1</computeroutput>, <computeroutput>0</computeroutput>, or <computeroutput>1</computeroutput>.</para>
 </listitem><listitem><para>Can be used in compact conditionals or arithmetic to simplify sign handling.</para>
@@ -48,7 +46,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="ABS" kindref="compound">ABS</ref> · <ref refid="INT" kindref="compound">INT</ref> · <ref refid="ROUND" kindref="compound">ROUND</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/SGN.md"/>
   </compounddef>

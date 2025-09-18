@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="YDAY" kind="page">
     <compoundname>YDAY</compoundname>
     <title>YDAY Function</title>
@@ -16,9 +16,8 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="YDAY_1autotoc_md453">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;Local<sp/>day<sp/>of<sp/>year<sp/>=<sp/>&quot;;<sp/>YDAY(TRUE)</highlight></codeline>
+<sect1 id="YDAY_1examples-72_1s1"><sect2 id="YDAY_1examples-72_1s2"><sect3 id="YDAY_1examples-72">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;Local<sp/>day<sp/>of<sp/>year<sp/>=<sp/>&quot;;<sp/>YDAY(TRUE)</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;UTC<sp/>day<sp/>of<sp/>year<sp/><sp/><sp/>=<sp/>&quot;;<sp/>YDAY(FALSE)</highlight></codeline>
 </programlisting></para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Show<sp/>progress<sp/>through<sp/>the<sp/>year</highlight></codeline>
@@ -33,10 +32,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="YDAY_1autotoc_md455">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="YDAY_1notes-71_1s1"><sect2 id="YDAY_1notes-71_1s2"><sect3 id="YDAY_1notes-71">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Valid range is <bold>1–365</bold> for common years, <bold>1–366</bold> for leap years.</para>
 </listitem><listitem><para>Local time depends on system configuration. Without time zone setup, local and UTC values are the same.</para>
 </listitem><listitem><para>Useful for progress counters, calendars, and date calculations.</para>
@@ -45,7 +43,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="DAY" kindref="compound">DAY</ref> · <ref refid="MONTH" kindref="compound">MONTH</ref> · <ref refid="YEAR" kindref="compound">YEAR</ref> · <ref refid="WEEKDAY" kindref="compound">WEEKDAY</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/YDAY.md"/>
   </compounddef>

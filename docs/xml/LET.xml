@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="LET" kind="page">
     <compoundname>LET</compoundname>
     <title>LET Keyword</title>
@@ -18,9 +18,8 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="LET_1autotoc_md846">
-<title>Examples</title>
-<para>Integer assignment (with and without <computeroutput>LET</computeroutput>) <programlisting filename=".basic"><codeline><highlight class="normal">LET<sp/>N<sp/>=<sp/>10</highlight></codeline>
+<sect1 id="LET_1examples-135_1s1"><sect2 id="LET_1examples-135_1s2"><sect3 id="LET_1examples-135">
+<title>Examples</title><para>Integer assignment (with and without <computeroutput>LET</computeroutput>) <programlisting filename=".basic"><codeline><highlight class="normal">LET<sp/>N<sp/>=<sp/>10</highlight></codeline>
 <codeline><highlight class="normal">M<sp/>=<sp/>20</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>N<sp/>+<sp/>M</highlight></codeline>
 </programlisting></para>
@@ -37,10 +36,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="LET_1autotoc_md848">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="LET_1notes-146_1s1"><sect2 id="LET_1notes-146_1s2"><sect3 id="LET_1notes-146">
+<title>Notes</title><para><itemizedlist>
 <listitem><para><computeroutput>LET</computeroutput> does not change scope. It is simply an optional keyword for assignment.</para>
 </listitem><listitem><para>The <bold>left-hand side</bold> must be a variable (or array element), not an expression.</para>
 </listitem><listitem><para>Strings are written with double quotes. To include a double quote inside a string you can build it with <computeroutput>CHR$(34)</computeroutput> if needed.</para>
@@ -50,7 +48,7 @@
 </para>
 <para><bold>See also:</bold> <linebreak/>
  <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Variable-Naming"><computeroutput>Variable Naming</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Variable-Types"><computeroutput>Variable Types</computeroutput></ulink> · <ref refid="DIM" kindref="compound">DIM</ref> · <ref refid="GLOBAL" kindref="compound">GLOBAL</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/LET.md"/>
   </compounddef>

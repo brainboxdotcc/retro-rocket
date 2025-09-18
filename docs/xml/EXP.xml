@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="EXP" kind="page">
     <compoundname>EXP</compoundname>
     <title>EXP Function</title>
@@ -11,9 +11,8 @@
 <para>Returns <bold>e</bold> (Euler’s number, approximately <computeroutput>2.71828</computeroutput>) raised to the power of the given expression. In other words, <computeroutput>EXP(x)</computeroutput> = <computeroutput>e^x</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect3 id="EXP_1autotoc_md493">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>EXP(1)</highlight></codeline>
+<sect1 id="EXP_1examples-80_1s1"><sect2 id="EXP_1examples-80_1s2"><sect3 id="EXP_1examples-80">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>EXP(1)</highlight></codeline>
 </programlisting></para>
 <para>Produces approximately <computeroutput>2.71828</computeroutput>.</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>EXP(0)</highlight></codeline>
@@ -28,10 +27,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="EXP_1autotoc_md495">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="EXP_1notes-79_1s1"><sect2 id="EXP_1notes-79_1s2"><sect3 id="EXP_1notes-79">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Argument may be any real number (positive, negative, or zero).</para>
 </listitem><listitem><para>Return value is always positive.</para>
 </listitem><listitem><para>For natural logarithm (inverse of EXP), use <ref refid="LOG" kindref="compound">LOG</ref>.</para>
@@ -40,7 +38,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="LOG" kindref="compound">LOG</ref> · <ref refid="SQR" kindref="compound">SQR</ref> · <ref refid="POW" kindref="compound">POW</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/real/EXP.md"/>
   </compounddef>

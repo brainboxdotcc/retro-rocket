@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="type-string" kind="page">
     <compoundname>type-string</compoundname>
     <title>String Variables</title>
@@ -9,9 +9,8 @@
 <para>String variables are represented by any variable with the suffix <computeroutput>$</computeroutput>, e.g. <computeroutput>C$</computeroutput> or <computeroutput>MYVAR$</computeroutput>. They are stored as <bold>null-terminated C-style sequences</bold> of <bold>8-bit ASCII characters</bold>.</para>
 <para><hruler/>
 </para>
-<sect3 id="type-string_1autotoc_md1250">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">name$<sp/>=<sp/>&quot;Retro<sp/>Rocket&quot;</highlight></codeline>
+<sect1 id="type-string_1examples-179_1s1"><sect2 id="type-string_1examples-179_1s2"><sect3 id="type-string_1examples-179">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">name$<sp/>=<sp/>&quot;Retro<sp/>Rocket&quot;</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Hello,<sp/>&quot;;<sp/>name$</highlight></codeline>
 </programlisting></para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Concatenate<sp/>strings</highlight></codeline>
@@ -25,10 +24,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="type-string_1autotoc_md1252">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="type-string_1notes-183_1s1"><sect2 id="type-string_1notes-183_1s2"><sect3 id="type-string_1notes-183">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Strings are mutable and can be reassigned at any time.</para>
 </listitem><listitem><para>Maximum length depends on available memory.</para>
 </listitem><listitem><para>Operations such as concatenation (<computeroutput>+</computeroutput>), substring (<ref refid="LEFT" kindref="compound">LEFT$</ref> / <ref refid="RIGHT" kindref="compound">RIGHT$</ref> / <ref refid="MID" kindref="compound">MID$</ref>), and trimming (<ref refid="TRIM" kindref="compound">TRIM$</ref>) are supported.</para>
@@ -38,7 +36,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="type-integer" kindref="compound">Integer Variables</ref> · <ref refid="type-real" kindref="compound">Real Variables</ref> · <ref refid="type-array" kindref="compound">Array Variables</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/variables/String.md"/>
   </compounddef>

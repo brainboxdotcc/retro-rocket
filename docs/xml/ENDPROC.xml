@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="ENDPROC" kind="page">
     <compoundname>ENDPROC</compoundname>
     <title>ENDPROC Keyword</title>
@@ -12,9 +12,8 @@
  Execution resumes at the statement <bold>after</bold> the <computeroutput>PROCname(...)</computeroutput> call.</para>
 <para><hruler/>
 </para>
-<para><heading level="5">Example: simple procedure</heading>
-</para>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>PROCgreet</highlight></codeline>
+<sect1 id="ENDPROC_1example-simple-procedure_1s1"><sect2 id="ENDPROC_1example-simple-procedure_1s2"><sect3 id="ENDPROC_1example-simple-procedure_1s3"><sect4 id="ENDPROC_1example-simple-procedure_1s4"><sect5 id="ENDPROC_1example-simple-procedure">
+<title>Example: simple procedure</title><para><programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>PROCgreet</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Hello<sp/>from<sp/>a<sp/>procedure!&quot;</highlight></codeline>
 <codeline><highlight class="normal">ENDPROC</highlight></codeline>
 <codeline></codeline>
@@ -22,9 +21,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-<para><heading level="5">Example: conditional early return</heading>
-</para>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>PROCprint_if_positive(N)</highlight></codeline>
+</sect5></sect4></sect3></sect2></sect1>
+<sect1 id="ENDPROC_1example-conditional-early-return_1s1"><sect2 id="ENDPROC_1example-conditional-early-return_1s2"><sect3 id="ENDPROC_1example-conditional-early-return_1s3"><sect4 id="ENDPROC_1example-conditional-early-return_1s4"><sect5 id="ENDPROC_1example-conditional-early-return">
+<title>Example: conditional early return</title><para><programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>PROCprint_if_positive(N)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>IF<sp/>N<sp/>&lt;=<sp/>0<sp/>THEN</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ENDPROC</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ENDIF</highlight></codeline>
@@ -37,9 +36,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-<para><heading level="5">Rules &amp; behaviour</heading>
-</para>
-<para><itemizedlist>
+</sect5></sect4></sect3></sect2></sect1>
+<sect1 id="ENDPROC_1rules--behaviour-1_1s1"><sect2 id="ENDPROC_1rules--behaviour-1_1s2"><sect3 id="ENDPROC_1rules--behaviour-1_1s3"><sect4 id="ENDPROC_1rules--behaviour-1_1s4"><sect5 id="ENDPROC_1rules--behaviour-1">
+<title>Rules &amp; behaviour</title><para><itemizedlist>
 <listitem><para><computeroutput>ENDPROC</computeroutput> <bold>must</bold> appear inside a procedure body started with <computeroutput>DEF PROCname</computeroutput>.</para>
 </listitem><listitem><para>Using <computeroutput>ENDPROC</computeroutput> outside a procedure is an error.</para>
 </listitem><listitem><para>Functions (<computeroutput>DEF FNname</computeroutput>) do <bold>not</bold> use <computeroutput>ENDPROC</computeroutput>; a function returns with a final line that <bold>begins with <computeroutput>=</computeroutput></bold>.</para>
@@ -47,6 +46,7 @@
 </para>
 <para><bold>See also:</bold> <linebreak/>
  <ref refid="DEF" kindref="compound">DEF</ref> · <ref refid="PROC" kindref="compound">PROC</ref> · <ref refid="FN" kindref="compound">FN</ref> </para>
+</sect5></sect4></sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/ENDPROC.md"/>
   </compounddef>

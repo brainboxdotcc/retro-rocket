@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="PLOTQUAD" kind="page">
     <compoundname>PLOTQUAD</compoundname>
     <title>PLOTQUAD Keyword</title>
@@ -14,9 +14,8 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="PLOTQUAD_1autotoc_md913">
-<title>Key behaviour</title>
-<para><itemizedlist>
+<sect1 id="PLOTQUAD_1key-behaviour_1s1"><sect2 id="PLOTQUAD_1key-behaviour_1s2"><sect3 id="PLOTQUAD_1key-behaviour">
+<title>Key behaviour</title><para><itemizedlist>
 <listitem><para><bold>Projective mapping</bold>: uses a perspective-correct transform (homography), not a simple affine stretch.</para>
 </listitem><listitem><para><bold>Convex quads</bold> only: self-intersecting or zero-area quads have undefined results.</para>
 </listitem><listitem><para><bold>Point order</bold>: clockwise or anticlockwise is accepted as long as the quad is convex.</para>
@@ -28,39 +27,35 @@
 </simplesect>
 <hruler/>
 </para>
-</sect3>
-<sect3 id="PLOTQUAD_1autotoc_md915">
-<title>Parameters</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="PLOTQUAD_1parameters_1s1"><sect2 id="PLOTQUAD_1parameters_1s2"><sect3 id="PLOTQUAD_1parameters">
+<title>Parameters</title><para><itemizedlist>
 <listitem><para><computeroutput>integer-variable</computeroutput> - variable containing a sprite handle from <computeroutput>SPRITELOAD</computeroutput>.</para>
 </listitem><listitem><para><computeroutput>x0, y0, x1, y1, x2, y2, x3, y3</computeroutput> - integer expressions for the quad’s four destination corners in screen pixels.</para>
 </listitem></itemizedlist>
 </para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="PLOTQUAD_1autotoc_md917">
-<title>Performance notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="PLOTQUAD_1performance-notes_1s1"><sect2 id="PLOTQUAD_1performance-notes_1s2"><sect3 id="PLOTQUAD_1performance-notes">
+<title>Performance notes</title><para><itemizedlist>
 <listitem><para>Cost is roughly proportional to the quad’s <bold>screen area</bold> and is naturally slower than <computeroutput>PLOT</computeroutput>.</para>
 </listitem><listitem><para>There is <bold>no Z-buffer</bold>. When drawing overlapping quads in one frame, the <bold>last drawn</bold> appears on top.</para>
 </listitem></itemizedlist>
 </para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="PLOTQUAD_1autotoc_md919">
-<title>Sampling</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="PLOTQUAD_1sampling_1s1"><sect2 id="PLOTQUAD_1sampling_1s2"><sect3 id="PLOTQUAD_1sampling">
+<title>Sampling</title><para><itemizedlist>
 <listitem><para>Uses <bold>nearest-neighbour</bold> sampling. Large upscales will look blocky; use higher-resolution sprites if you need crisper results.</para>
 </listitem></itemizedlist>
 </para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="PLOTQUAD_1autotoc_md921">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Upright<sp/>billboard</highlight></codeline>
+</sect3></sect2></sect1>
+<sect1 id="PLOTQUAD_1examples-147_1s1"><sect2 id="PLOTQUAD_1examples-147_1s2"><sect3 id="PLOTQUAD_1examples-147">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Upright<sp/>billboard</highlight></codeline>
 <codeline><highlight class="normal">PLOTQUAD<sp/>s,<sp/>100,60,<sp/>220,60,<sp/>220,220,<sp/>100,220</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">REM<sp/>Foreshortened<sp/>floor<sp/>tile</highlight></codeline>
@@ -73,7 +68,7 @@
 </para>
 <para><bold>See also:</bold> <linebreak/>
  <ref refid="SPRITELOAD" kindref="compound">SPRITELOAD</ref> · <ref refid="PLOT" kindref="compound">PLOT</ref> · <ref refid="SPRITEFREE" kindref="compound">SPRITEFREE</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/PLOTQUAD.md"/>
   </compounddef>

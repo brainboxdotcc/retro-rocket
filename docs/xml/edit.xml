@@ -1,19 +1,17 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="edit" kind="page">
     <compoundname>edit</compoundname>
     <title>edit program</title>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<sect1 id="edit_1autotoc_md1339">
-<title>Text Editor</title>
-<para>The text editor provides a simple, full-screen way to create and modify text files. It behaves similarly to GNU <computeroutput>nano</computeroutput> or MS-DOS <computeroutput>edit</computeroutput>, with clear on-screen prompts and keyboard shortcuts.</para>
+<sect1 id="edit_1text-editor">
+<title>Text Editor</title><para>The text editor provides a simple, full-screen way to create and modify text files. It behaves similarly to GNU <computeroutput>nano</computeroutput> or MS-DOS <computeroutput>edit</computeroutput>, with clear on-screen prompts and keyboard shortcuts.</para>
 <para><image type="html" name="edit.png"></image>
 </para>
-<sect2 id="edit_1autotoc_md1340">
-<title>Starting the editor</title>
-<para><itemizedlist>
+<sect2 id="edit_1starting-the-editor">
+<title>Starting the editor</title><para><itemizedlist>
 <listitem><para>To edit an existing file:</para>
 </listitem></itemizedlist>
 </para>
@@ -26,9 +24,8 @@
 <para><programlisting filename=".basic"><codeline><highlight class="normal">edit</highlight></codeline>
 </programlisting></para>
 </sect2>
-<sect2 id="edit_1autotoc_md1341">
-<title>Moving around</title>
-<para><itemizedlist>
+<sect2 id="edit_1moving-around">
+<title>Moving around</title><para><itemizedlist>
 <listitem><para>Use the <bold>arrow keys</bold> to move the cursor up, down, left, and right.</para>
 </listitem><listitem><para><bold>Home</bold> jumps to the start of the current line.</para>
 </listitem><listitem><para><bold>End</bold> jumps to the end of the current line.</para>
@@ -36,9 +33,8 @@
 </listitem></itemizedlist>
 </para>
 </sect2>
-<sect2 id="edit_1autotoc_md1342">
-<title>Editing text</title>
-<para><itemizedlist>
+<sect2 id="edit_1editing-text">
+<title>Editing text</title><para><itemizedlist>
 <listitem><para>Simply type to insert characters at the cursor.</para>
 </listitem><listitem><para><bold>Enter</bold> splits the line at the cursor and moves the text to a new line.</para>
 </listitem><listitem><para><bold>Backspace</bold> deletes the character to the left of the cursor.</para>
@@ -47,9 +43,8 @@
 </listitem></itemizedlist>
 </para>
 </sect2>
-<sect2 id="edit_1autotoc_md1343">
-<title>Saving your work</title>
-<para><itemizedlist>
+<sect2 id="edit_1saving-your-work">
+<title>Saving your work</title><para><itemizedlist>
 <listitem><para>Press <bold>Ctrl+S</bold> to save.<itemizedlist>
 <listitem><para>If the file already has a name, you’ll be asked whether to keep it.</para>
 </listitem><listitem><para>If it’s a new file, you’ll be prompted to enter a name.</para>
@@ -58,9 +53,8 @@
 </listitem></itemizedlist>
 </para>
 </sect2>
-<sect2 id="edit_1autotoc_md1344">
-<title>Searching and replacing</title>
-<para><itemizedlist>
+<sect2 id="edit_1searching-and-replacing">
+<title>Searching and replacing</title><para><itemizedlist>
 <listitem><para><bold>Ctrl+W</bold> starts a search. Type the text to look for, and the editor will highlight the first match.</para>
 </listitem><listitem><para><bold>Ctrl+R</bold> begins search and replace.<itemizedlist>
 <listitem><para>Type the text to search for.</para>
@@ -77,76 +71,73 @@
 </listitem></itemizedlist>
 </para>
 </sect2>
-<sect2 id="edit_1autotoc_md1345">
-<title>Syntax highlighting</title>
-<para><itemizedlist>
+<sect2 id="edit_1syntax-highlighting">
+<title>Syntax highlighting</title><para><itemizedlist>
 <listitem><para>Press <bold>Ctrl+T</bold> to toggle syntax highlighting on or off.</para>
 </listitem><listitem><para>When enabled, BASIC keywords are coloured for easier reading.</para>
 </listitem><listitem><para>This affects only the display, not the saved file.</para>
 </listitem></itemizedlist>
 </para>
 </sect2>
-<sect2 id="edit_1autotoc_md1346">
-<title>Exiting the editor</title>
-<para><itemizedlist>
+<sect2 id="edit_1exiting-the-editor">
+<title>Exiting the editor</title><para><itemizedlist>
 <listitem><para>Press <bold>ESC</bold> to quit.</para>
 </listitem><listitem><para>If you have unsaved changes, the editor will ask you to confirm before closing.</para>
 </listitem></itemizedlist>
 </para>
 </sect2>
-<sect2 id="edit_1autotoc_md1347">
-<title>Quick reference</title>
-<para><table rows="13" cols="2"><row>
-<entry thead="yes"><para>Key   </para>
-</entry><entry thead="yes"><para>Action    </para>
+<sect2 id="edit_1quick-reference">
+<title>Quick reference</title><para><table rows="13" cols="2"><row>
+<entry thead="yes"><para>Key  </para>
+</entry><entry thead="yes"><para>Action  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><bold>ESC</bold>   </para>
-</entry><entry thead="no"><para>Exit editor    </para>
+<entry thead="no"><para><bold>ESC</bold>  </para>
+</entry><entry thead="no"><para>Exit editor  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><bold>Ctrl+S</bold>   </para>
-</entry><entry thead="no"><para>Save file    </para>
+<entry thead="no"><para><bold>Ctrl+S</bold>  </para>
+</entry><entry thead="no"><para>Save file  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><bold>Ctrl+W</bold>   </para>
-</entry><entry thead="no"><para>Search    </para>
+<entry thead="no"><para><bold>Ctrl+W</bold>  </para>
+</entry><entry thead="no"><para>Search  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><bold>Ctrl+R</bold>   </para>
-</entry><entry thead="no"><para>Search and replace    </para>
+<entry thead="no"><para><bold>Ctrl+R</bold>  </para>
+</entry><entry thead="no"><para>Search and replace  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><bold>Ctrl+T</bold>   </para>
-</entry><entry thead="no"><para>Toggle syntax highlighting    </para>
+<entry thead="no"><para><bold>Ctrl+T</bold>  </para>
+</entry><entry thead="no"><para>Toggle syntax highlighting  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><bold>Arrows</bold>   </para>
-</entry><entry thead="no"><para>Move cursor    </para>
+<entry thead="no"><para><bold>Arrows</bold>  </para>
+</entry><entry thead="no"><para>Move cursor  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><bold>Home</bold>   </para>
-</entry><entry thead="no"><para>Move to start of line    </para>
+<entry thead="no"><para><bold>Home</bold>  </para>
+</entry><entry thead="no"><para>Move to start of line  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><bold>End</bold>   </para>
-</entry><entry thead="no"><para>Move to end of line    </para>
+<entry thead="no"><para><bold>End</bold>  </para>
+</entry><entry thead="no"><para>Move to end of line  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><bold>PgUp</bold>   </para>
-</entry><entry thead="no"><para>Page up    </para>
+<entry thead="no"><para><bold>PgUp</bold>  </para>
+</entry><entry thead="no"><para>Page up  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><bold>PgDn</bold>   </para>
-</entry><entry thead="no"><para>Page down    </para>
+<entry thead="no"><para><bold>PgDn</bold>  </para>
+</entry><entry thead="no"><para>Page down  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><bold>Enter</bold>   </para>
-</entry><entry thead="no"><para>Split line    </para>
+<entry thead="no"><para><bold>Enter</bold>  </para>
+</entry><entry thead="no"><para>Split line  </para>
 </entry></row>
 <row>
-<entry thead="no"><para><bold>Backspace/Delete</bold>   </para>
-</entry><entry thead="no"><para>Remove characters   </para>
+<entry thead="no"><para><bold>Backspace/Delete</bold>  </para>
+</entry><entry thead="no"><para>Remove characters  </para>
 </entry></row>
 </table>
 </para>

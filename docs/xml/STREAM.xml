@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="STREAM" kind="page">
     <compoundname>STREAM</compoundname>
     <title>STREAM Keyword</title>
@@ -12,9 +12,8 @@
 <para>Creates or destroys an <bold>audio stream</bold>. A stream is a playback channel that can accept sounds loaded with <computeroutput>SOUND LOAD</computeroutput>. Each stream has its own independent queue, volume, and state (playing, paused, or stopped).</para>
 <para><hruler/>
 </para>
-<sect3 id="STREAM_1autotoc_md1070">
-<title>STREAM CREATE</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">STREAM<sp/>CREATE<sp/>variable</highlight></codeline>
+<sect1 id="STREAM_1stream-create_1s1"><sect2 id="STREAM_1stream-create_1s2"><sect3 id="STREAM_1stream-create">
+<title>STREAM CREATE</title><para><programlisting filename=".basic"><codeline><highlight class="normal">STREAM<sp/>CREATE<sp/>variable</highlight></codeline>
 </programlisting></para>
 <para>Allocates a new audio stream and assigns its numeric handle to <computeroutput>variable</computeroutput>.</para>
 <para><bold>Notes</bold></para>
@@ -36,10 +35,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="STREAM_1autotoc_md1072">
-<title>STREAM DESTROY</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">STREAM<sp/>DESTROY<sp/>stream</highlight></codeline>
+</sect3></sect2></sect1>
+<sect1 id="STREAM_1stream-destroy_1s1"><sect2 id="STREAM_1stream-destroy_1s2"><sect3 id="STREAM_1stream-destroy">
+<title>STREAM DESTROY</title><para><programlisting filename=".basic"><codeline><highlight class="normal">STREAM<sp/>DESTROY<sp/>stream</highlight></codeline>
 </programlisting></para>
 <para>Frees a previously created stream, releasing its resources.</para>
 <para><bold>Notes</bold></para>
@@ -58,10 +56,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="STREAM_1autotoc_md1074">
-<title>Relationship to SOUND</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="STREAM_1relationship-to-sound_1s1"><sect2 id="STREAM_1relationship-to-sound_1s2"><sect3 id="STREAM_1relationship-to-sound">
+<title>Relationship to SOUND</title><para><itemizedlist>
 <listitem><para>A <bold>stream</bold> is like a playback channel. It does not store sound data itself.</para>
 </listitem><listitem><para>A <bold>sound handle</bold> (from <computeroutput>SOUND LOAD</computeroutput>) represents decoded audio data in memory.</para>
 </listitem><listitem><para>To play a sound, you must queue it on a stream with <computeroutput>SOUND PLAY</computeroutput>.</para>
@@ -69,10 +66,9 @@
 </para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="STREAM_1autotoc_md1076">
-<title>Typical usage</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">STREAM<sp/>CREATE<sp/>s</highlight></codeline>
+</sect3></sect2></sect1>
+<sect1 id="STREAM_1typical-usage_1s1"><sect2 id="STREAM_1typical-usage_1s2"><sect3 id="STREAM_1typical-usage">
+<title>Typical usage</title><para><programlisting filename=".basic"><codeline><highlight class="normal">STREAM<sp/>CREATE<sp/>s</highlight></codeline>
 <codeline><highlight class="normal">SOUND<sp/>LOAD<sp/>song,<sp/>&quot;/system/webserver/media/retro-revival.wav&quot;</highlight></codeline>
 <codeline><highlight class="normal">SOUND<sp/>VOLUME<sp/>s,<sp/>DECIBELS(-6)</highlight></codeline>
 <codeline><highlight class="normal">SOUND<sp/>PLAY<sp/>s,<sp/>song</highlight></codeline>
@@ -84,7 +80,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also</bold> <ref refid="SOUND" kindref="compound">SOUND</ref> · <ref refid="DECIBELS" kindref="compound">DECIBELS</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/STREAM.md"/>
   </compounddef>

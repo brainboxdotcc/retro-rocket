@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="POP" kind="page">
     <compoundname>POP</compoundname>
     <title>POP Keyword</title>
@@ -9,7 +9,7 @@
 <para><programlisting filename=".basic"><codeline><highlight class="normal">POP<sp/>variable-name,integer-expression</highlight></codeline>
 </programlisting></para>
 <para>Removes the element at the given <bold>index</bold> from an <bold>array</bold>, shifting higher-index elements <bold>down by one place</bold> to fill the gap. <linebreak/>
- The array’s <bold>size does not change</bold>: the final slot is cleared to <bold>0</bold> (integer/real arrays) or **&quot;&quot;** (string arrays).</para>
+ The array’s <bold>size does not change</bold>: the final slot is cleared to <bold>0</bold> (integer/real arrays) or <bold>&quot;&quot;</bold> (string arrays).</para>
 <para><simplesect kind="remark"><para>Arrays are <bold>zero-indexed</bold> and <bold>range-checked</bold>. </para>
 </simplesect>
 <simplesect kind="remark"><para>Valid indices are <computeroutput>0</computeroutput> to <computeroutput>size-1</computeroutput>. An out-of-range index raises a runtime error.</para>
@@ -18,9 +18,8 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="POP_1autotoc_md952">
-<title>Examples</title>
-<para><bold>Remove an integer element</bold> <programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>A,5</highlight></codeline>
+<sect1 id="POP_1examples-153_1s1"><sect2 id="POP_1examples-153_1s2"><sect3 id="POP_1examples-153">
+<title>Examples</title><para><bold>Remove an integer element</bold> <programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>A,5</highlight></codeline>
 <codeline><highlight class="normal">A(0)<sp/>=<sp/>10</highlight></codeline>
 <codeline><highlight class="normal">A(1)<sp/>=<sp/>20</highlight></codeline>
 <codeline><highlight class="normal">A(2)<sp/>=<sp/>30</highlight></codeline>
@@ -50,10 +49,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="POP_1autotoc_md954">
-<title>Behaviour</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="POP_1behaviour-4_1s1"><sect2 id="POP_1behaviour-4_1s2"><sect3 id="POP_1behaviour-4">
+<title>Behaviour</title><para><itemizedlist>
 <listitem><para><bold>Index at last element</bold>: nothing is shifted; the last slot is simply cleared.</para>
 </listitem><listitem><para><bold>Time cost</bold>: proportional to the number of elements moved (those after the removed index).</para>
 </listitem><listitem><para>Works with <bold>integer</bold>, <bold>real</bold>, and <bold>string</bold> arrays; the clearing value is <computeroutput>0</computeroutput>, <computeroutput>0</computeroutput>, or <computeroutput>&quot;&quot;</computeroutput> respectively.</para>
@@ -61,7 +59,7 @@
 </para>
 <para><bold>See also:</bold> <linebreak/>
  <ref refid="DIM" kindref="compound">DIM</ref> · <ref refid="REDIM" kindref="compound">REDIM</ref> · <ref refid="PUSH" kindref="compound">PUSH</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/POP.md"/>
   </compounddef>

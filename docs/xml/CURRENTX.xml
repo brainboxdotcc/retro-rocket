@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="CURRENTX" kind="page">
     <compoundname>CURRENTX</compoundname>
     <title>CURRENTX Function</title>
@@ -11,9 +11,8 @@
 <para>Returns the current <bold>X text cursor position</bold> (column) on the terminal, measured in <bold>character cells</bold>. The leftmost column is <bold>0</bold>, increasing to the right.</para>
 <para><hruler/>
 </para>
-<sect3 id="CURRENTX_1autotoc_md153">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">CLS</highlight></codeline>
+<sect1 id="CURRENTX_1examples-15_1s1"><sect2 id="CURRENTX_1examples-15_1s2"><sect3 id="CURRENTX_1examples-15">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">CLS</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Hello&quot;;</highlight></codeline>
 <codeline><highlight class="normal">x<sp/>=<sp/>CURRENTX</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;<sp/>(cursor<sp/>now<sp/>at<sp/>column<sp/>&quot;;<sp/>x;<sp/>&quot;)&quot;</highlight></codeline>
@@ -36,10 +35,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="CURRENTX_1autotoc_md155">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="CURRENTX_1notes-14_1s1"><sect2 id="CURRENTX_1notes-14_1s2"><sect3 id="CURRENTX_1notes-14">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Cursor position is <bold>zero-based</bold>: the first column is <computeroutput>0</computeroutput>.</para>
 </listitem><listitem><para><computeroutput>CURRENTX</computeroutput> only reflects the <bold>logical cursor position</bold>, not the underlying ANSI escape codes used by <computeroutput>PRINT</computeroutput>.</para>
 </listitem><listitem><para>When the cursor advances past the last column, it wraps onto the next row. At this point <computeroutput>CURRENTX</computeroutput> is reset to <computeroutput>0</computeroutput>.</para>
@@ -49,7 +47,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="CURRENTY" kindref="compound">CURRENTY</ref> · <ref refid="CURSOR" kindref="compound">CURSOR</ref> · <ref refid="TERMWIDTH" kindref="compound">TERMWIDTH</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/CURRENTX.md"/>
   </compounddef>

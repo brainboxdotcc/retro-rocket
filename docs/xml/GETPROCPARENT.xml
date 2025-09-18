@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="GETPROCPARENT" kind="page">
     <compoundname>GETPROCPARENT</compoundname>
     <title>GETPROCPARENT Function</title>
@@ -11,9 +11,8 @@
 <para>Returns the <bold>parent process ID (PPID)</bold> of a running process. The parameter is an <bold>index</bold> in the range <computeroutput>0</computeroutput> to <computeroutput>GETPROCCOUNT - 1</computeroutput>, identifying one of the active processes.</para>
 <para><hruler/>
 </para>
-<sect3 id="GETPROCPARENT_1autotoc_md217">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>parent<sp/>PID<sp/>of<sp/>every<sp/>running<sp/>process</highlight></codeline>
+<sect1 id="GETPROCPARENT_1examples-27_1s1"><sect2 id="GETPROCPARENT_1examples-27_1s2"><sect3 id="GETPROCPARENT_1examples-27">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>parent<sp/>PID<sp/>of<sp/>every<sp/>running<sp/>process</highlight></codeline>
 <codeline><highlight class="normal">FOR<sp/>i<sp/>=<sp/>0<sp/>TO<sp/>GETPROCCOUNT<sp/>-<sp/>1</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Process<sp/>&quot;;<sp/>i;<sp/>&quot;<sp/>has<sp/>parent<sp/>PID<sp/>&quot;;<sp/>GETPROCPARENT(i)</highlight></codeline>
 <codeline><highlight class="normal">NEXT</highlight></codeline>
@@ -33,10 +32,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="GETPROCPARENT_1autotoc_md219">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="GETPROCPARENT_1notes-26_1s1"><sect2 id="GETPROCPARENT_1notes-26_1s2"><sect3 id="GETPROCPARENT_1notes-26">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>The parent process ID identifies which process created or launched the target process.</para>
 </listitem><listitem><para>Some processes (such as the system’s initial process) may have no parent; in such cases, the PPID is <computeroutput>0</computeroutput>.</para>
 </listitem><listitem><para>Passing an index outside <computeroutput>0 … GETPROCCOUNT - 1</computeroutput> raises an <bold>error</bold>.</para>
@@ -46,7 +44,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="GETPROCCOUNT" kindref="compound">GETPROCCOUNT</ref> · <ref refid="GETPROCID" kindref="compound">GETPROCID</ref> · <ref refid="GETPROCNAME" kindref="compound">GETPROCNAME$</ref> · <ref refid="GETPROCMEM" kindref="compound">GETPROCMEM</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/GETPROCPARENT.md"/>
   </compounddef>

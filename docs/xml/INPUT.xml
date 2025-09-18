@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="INPUT" kind="page">
     <compoundname>INPUT</compoundname>
     <title>INPUT Keyword</title>
@@ -24,9 +24,8 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="INPUT_1autotoc_md840">
-<title>Examples</title>
-<para><bold>Read a number</bold> <programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;Enter<sp/>a<sp/>number:&quot;</highlight></codeline>
+<sect1 id="INPUT_1examples-134_1s1"><sect2 id="INPUT_1examples-134_1s2"><sect3 id="INPUT_1examples-134">
+<title>Examples</title><para><bold>Read a number</bold> <programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;Enter<sp/>a<sp/>number:&quot;</highlight></codeline>
 <codeline><highlight class="normal">INPUT<sp/>N</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;You<sp/>typed:<sp/>&quot;;<sp/>N</highlight></codeline>
 </programlisting></para>
@@ -50,16 +49,15 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="INPUT_1autotoc_md842">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="INPUT_1notes-144_1s1"><sect2 id="INPUT_1notes-144_1s2"><sect3 id="INPUT_1notes-144">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>The entered line is stored <bold>as-is</bold> for string variables (without the trailing newline).</para>
 </listitem><listitem><para>For numeric variables, parsing is strict; invalid input yields <bold>0</bold>.</para>
 </listitem><listitem><para><computeroutput>INPUT</computeroutput> echoes characters to the terminal. For full-screen UI or advanced editing, prefer the <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ansi">ansi</ulink> library. </para>
 </listitem></itemizedlist>
 </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/INPUT.md"/>
   </compounddef>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="UDPLASTIP" kind="page">
     <compoundname>UDPLASTIP</compoundname>
     <title>UDPLASTIP$ Function</title>
@@ -15,18 +15,16 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="UDPLASTIP_1autotoc_md696">
-<title>How to read it</title>
-<para><itemizedlist>
+<sect1 id="UDPLASTIP_1how-to-read-it-21_1s1"><sect2 id="UDPLASTIP_1how-to-read-it-21_1s2"><sect3 id="UDPLASTIP_1how-to-read-it-21">
+<title>How to read it</title><para><itemizedlist>
 <listitem><para>Call <bold>after</bold> <computeroutput>UDPREAD$</computeroutput> to determine the sender of the payload you just received.</para>
 </listitem></itemizedlist>
 </para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="UDPLASTIP_1autotoc_md698">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">UDPBIND<sp/>&quot;0.0.0.0&quot;,<sp/>8080</highlight></codeline>
+</sect3></sect2></sect1>
+<sect1 id="UDPLASTIP_1examples-118_1s1"><sect2 id="UDPLASTIP_1examples-118_1s2"><sect3 id="UDPLASTIP_1examples-118">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">UDPBIND<sp/>&quot;0.0.0.0&quot;,<sp/>8080</highlight></codeline>
 <codeline><highlight class="normal">S$<sp/>=<sp/>UDPREAD$(8080)</highlight></codeline>
 <codeline><highlight class="normal">IF<sp/>LEN(S$)<sp/>&gt;<sp/>0<sp/>THEN</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Packet<sp/>received<sp/>from<sp/>&quot;;<sp/>UDPLASTIP$</highlight></codeline>
@@ -34,10 +32,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="UDPLASTIP_1autotoc_md700">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="UDPLASTIP_1notes-117_1s1"><sect2 id="UDPLASTIP_1notes-117_1s2"><sect3 id="UDPLASTIP_1notes-117">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>The value updates only when <ref refid="UDPREAD" kindref="compound">UDPREAD$</ref> dequeues a packet.</para>
 </listitem><listitem><para>Always returns the sender’s IPv4 address in dotted decimal form (<computeroutput>a.b.c.d</computeroutput>).</para>
 </listitem></itemizedlist>
@@ -45,7 +42,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="UDPREAD" kindref="compound">UDPREAD$</ref> · <ref refid="UDPLASTSOURCEPORT" kindref="compound">UDPLASTSOURCEPORT</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/UDPLASTIP.md"/>
   </compounddef>

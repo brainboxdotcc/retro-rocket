@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="POINT" kind="page">
     <compoundname>POINT</compoundname>
     <title>POINT Keyword</title>
@@ -15,9 +15,8 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="POINT_1autotoc_md924">
-<title>Examples</title>
-<para>Single white dot <programlisting filename=".basic"><codeline><highlight class="normal">GCOL<sp/>RGB(255,255,255)</highlight></codeline>
+<sect1 id="POINT_1examples-148_1s1"><sect2 id="POINT_1examples-148_1s2"><sect3 id="POINT_1examples-148">
+<title>Examples</title><para>Single white dot <programlisting filename=".basic"><codeline><highlight class="normal">GCOL<sp/>RGB(255,255,255)</highlight></codeline>
 <codeline><highlight class="normal">POINT<sp/>100,<sp/>80</highlight></codeline>
 </programlisting></para>
 <para>Star field <programlisting filename=".basic"><codeline><highlight class="normal">GCOL<sp/>RGB(200,200,255)</highlight></codeline>
@@ -29,10 +28,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="POINT_1autotoc_md926">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="POINT_1notes-154_1s1"><sect2 id="POINT_1notes-154_1s2"><sect3 id="POINT_1notes-154">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Coordinates are in <bold>screen pixels</bold>; <computeroutput>(0,0)</computeroutput> is the <bold>top-left</bold> corner.</para>
 </listitem><listitem><para>Points outside the screen are clipped.</para>
 </listitem><listitem><para>When <ref refid="AUTOFLIP" kindref="compound">AUTOFLIP</ref> is <computeroutput>FALSE</computeroutput>, the pixel appears after you call <ref refid="FLIP" kindref="compound">FLIP</ref>.</para>
@@ -40,7 +38,7 @@
 </para>
 <para><bold>See also:</bold> <linebreak/>
  <ref refid="GCOL" kindref="compound">GCOL</ref> · <ref refid="LINE" kindref="compound">LINE</ref> · <ref refid="RECTANGLE" kindref="compound">RECTANGLE</ref> · <ref refid="CIRCLE" kindref="compound">CIRCLE</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/POINT.md"/>
   </compounddef>

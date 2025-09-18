@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="EXISTSVARI" kind="page">
     <compoundname>EXISTSVARI</compoundname>
     <title>EXISTSVARI / EXISTSVARR / EXISTSVARS Functions</title>
@@ -20,9 +20,8 @@
 <para>The parameter is a <bold>string</bold> containing the variable’s name (without value, suffix only implied by function).</para>
 <para><hruler/>
 </para>
-<sect3 id="EXISTSVARI_1autotoc_md182">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Create<sp/>a<sp/>variable</highlight></codeline>
+<sect1 id="EXISTSVARI_1examples-20_1s1"><sect2 id="EXISTSVARI_1examples-20_1s2"><sect3 id="EXISTSVARI_1examples-20">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Create<sp/>a<sp/>variable</highlight></codeline>
 <codeline><highlight class="normal">A<sp/>=<sp/>42</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">IF<sp/>EXISTSVARI(&quot;A&quot;)<sp/>THEN</highlight></codeline>
@@ -44,10 +43,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="EXISTSVARI_1autotoc_md184">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="EXISTSVARI_1notes-19_1s1"><sect2 id="EXISTSVARI_1notes-19_1s2"><sect3 id="EXISTSVARI_1notes-19">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Variable name must match exactly, including suffix (<computeroutput>$</computeroutput> for strings, <computeroutput>#</computeroutput> for reals).</para>
 </listitem><listitem><para>These functions are typically used with <ref refid="SETVARI" kindref="compound">SETVARI</ref>, <ref refid="SETVARR" kindref="compound">SETVARR</ref>, and <ref refid="SETVARS" kindref="compound">SETVARS</ref> to safely determine if a variable can be set or referenced dynamically.</para>
 </listitem><listitem><para>Existence check does not return the value; it only reports if the variable has been <bold>declared or used</bold>.</para>
@@ -57,7 +55,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="SETVARI" kindref="compound">SETVARI</ref> · <ref refid="SETVARR" kindref="compound">SETVARR</ref> · <ref refid="SETVARS" kindref="compound">SETVARS</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/EXISTSVARI.md"/>
   </compounddef>

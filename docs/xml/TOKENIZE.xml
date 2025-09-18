@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="TOKENIZE" kind="page">
     <compoundname>TOKENIZE</compoundname>
     <title>TOKENIZE$ Function</title>
@@ -18,9 +18,8 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="TOKENIZE_1autotoc_md686">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">V$<sp/>=<sp/>&quot;ONE<sp/>TWO&quot;</highlight></codeline>
+<sect1 id="TOKENIZE_1examples-116_1s1"><sect2 id="TOKENIZE_1examples-116_1s2"><sect3 id="TOKENIZE_1examples-116">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">V$<sp/>=<sp/>&quot;ONE<sp/>TWO&quot;</highlight></codeline>
 <codeline><highlight class="normal">A$<sp/>=<sp/>TOKENIZE$(V$,<sp/>&quot;<sp/>&quot;)</highlight></codeline>
 <codeline><highlight class="normal">B$<sp/>=<sp/>TOKENIZE$(V$,<sp/>&quot;<sp/>&quot;)</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>A$,<sp/>B$</highlight></codeline>
@@ -43,10 +42,9 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="TOKENIZE_1autotoc_md688">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="TOKENIZE_1notes-115_1s1"><sect2 id="TOKENIZE_1notes-115_1s2"><sect3 id="TOKENIZE_1notes-115">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>The first parameter must be a <bold>string variable</bold> (not a literal), because its value is modified in-place.</para>
 </listitem><listitem><para>The second parameter is the <bold>separator string</bold>.</para>
 </listitem><listitem><para>Useful for parsing space-separated or delimiter-separated text.</para>
@@ -55,7 +53,7 @@
 <para><hruler/>
 </para>
 <para><bold>See also:</bold> <ref refid="LEFT" kindref="compound">LEFT$</ref> · <ref refid="RIGHT" kindref="compound">RIGHT$</ref> · <ref refid="MID" kindref="compound">MID$</ref> · <ref refid="REVERSE" kindref="compound">REVERSE$</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/string/TOKENIZE.md"/>
   </compounddef>

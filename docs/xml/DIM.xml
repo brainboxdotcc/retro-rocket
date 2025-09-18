@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="DIM" kind="page">
     <compoundname>DIM</compoundname>
     <title>DIM Keyword</title>
@@ -11,9 +11,8 @@
  Arrays are <bold>zero-indexed</bold> and <bold>range-checked</bold>: the lowest valid index is <computeroutput>0</computeroutput> and the highest is <computeroutput>integer-expression - 1</computeroutput>.</para>
 <para><hruler/>
 </para>
-<para><heading level="5">Examples</heading>
-</para>
-<para><bold>Integer array</bold> <programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>N,5</highlight></codeline>
+<sect1 id="DIM_1examples-123_1s1"><sect2 id="DIM_1examples-123_1s2"><sect3 id="DIM_1examples-123_1s3"><sect4 id="DIM_1examples-123_1s4"><sect5 id="DIM_1examples-123">
+<title>Examples</title><para><bold>Integer array</bold> <programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>N,5</highlight></codeline>
 <codeline><highlight class="normal">FOR<sp/>I<sp/>=<sp/>0<sp/>TO<sp/>4</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>N(I)<sp/>=<sp/>I<sp/>*<sp/>I</highlight></codeline>
 <codeline><highlight class="normal">NEXT</highlight></codeline>
@@ -31,15 +30,16 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-<para><heading level="5">Notes</heading>
-</para>
-<para><itemizedlist>
+</sect5></sect4></sect3></sect2></sect1>
+<sect1 id="DIM_1notes-133_1s1"><sect2 id="DIM_1notes-133_1s2"><sect3 id="DIM_1notes-133_1s3"><sect4 id="DIM_1notes-133_1s4"><sect5 id="DIM_1notes-133">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>The <bold>element type</bold> follows the variable’s type: e.g. <computeroutput>A</computeroutput> → integer array, <computeroutput>A#</computeroutput> → real array, <computeroutput>S$</computeroutput> → string array.</para>
 </listitem><listitem><para>All indexing is <bold>0-based</bold> (<computeroutput>0 .. size-1</computeroutput>). Access outside this range raises a runtime error (catchable with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink>).</para>
 </listitem><listitem><para>To change the size of an existing array, use <ref refid="REDIM" kindref="compound">REDIM</ref>.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Array"><computeroutput>Array</computeroutput></ulink>, <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Variable-Types"><computeroutput>Variable Types</computeroutput></ulink>, <ref refid="REDIM" kindref="compound">REDIM</ref> </para>
+</sect5></sect4></sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/DIM.md"/>
   </compounddef>

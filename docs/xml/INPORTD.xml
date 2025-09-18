@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="INPORTD" kind="page">
     <compoundname>INPORTD</compoundname>
     <title>INPORTD Function</title>
@@ -13,34 +13,31 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="INPORTD_1autotoc_md248">
-<title>How to read it</title>
-<para><itemizedlist>
+<sect1 id="INPORTD_1how-to-read-it-13_1s1"><sect2 id="INPORTD_1how-to-read-it-13_1s2"><sect3 id="INPORTD_1how-to-read-it-13">
+<title>How to read it</title><para><itemizedlist>
 <listitem><para>Reads four consecutive bytes from the port as a 32-bit value.</para>
 </listitem><listitem><para>Common for PCI configuration space.</para>
 </listitem></itemizedlist>
 </para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="INPORTD_1autotoc_md250">
-<title>Examples</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Read<sp/>PCI<sp/>config<sp/>data</highlight></codeline>
+</sect3></sect2></sect1>
+<sect1 id="INPORTD_1examples-33_1s1"><sect2 id="INPORTD_1examples-33_1s2"><sect3 id="INPORTD_1examples-33">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Read<sp/>PCI<sp/>config<sp/>data</highlight></codeline>
 <codeline><highlight class="normal">D<sp/>=<sp/>INPORTD(&amp;CFC)</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>D</highlight></codeline>
 </programlisting></para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="INPORTD_1autotoc_md252">
-<title>Notes</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="INPORTD_1notes-32_1s1"><sect2 id="INPORTD_1notes-32_1s2"><sect3 id="INPORTD_1notes-32">
+<title>Notes</title><para><itemizedlist>
 <listitem><para>Most modern devices prefer MMIO; only use when the hardware requires 32-bit port access.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
  <ref refid="INPORT" kindref="compound">INPORT</ref> · <ref refid="INPORTW" kindref="compound">INPORTW</ref> · <ref refid="INPORTQ" kindref="compound">INPORTQ</ref> · <ref refid="OUTPORTD" kindref="compound">OUTPORTD</ref> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/functions/integer/INPORTD.md"/>
   </compounddef>

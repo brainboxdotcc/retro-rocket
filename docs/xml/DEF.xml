@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="DEF" kind="page">
     <compoundname>DEF</compoundname>
     <title>DEF Keyword</title>
@@ -14,7 +14,7 @@
 <para>Defines a <bold>function</bold> (<computeroutput>FN</computeroutput>) or <bold>procedure</bold> (<computeroutput>PROC</computeroutput>). The parameter list is optional.</para>
 <para><itemizedlist>
 <listitem><para>A <bold>function</bold> must end with a line that <bold>begins with <computeroutput>=</computeroutput></bold>; the expression after <computeroutput>=</computeroutput> is the return value.</para>
-</listitem><listitem><para>A <bold>procedure</bold> ends with **<computeroutput>ENDPROC</computeroutput>** (it does not return a value).</para>
+</listitem><listitem><para>A <bold>procedure</bold> ends with <bold><computeroutput>ENDPROC</computeroutput></bold> (it does not return a value).</para>
 </listitem></itemizedlist>
 </para>
 <para><simplesect kind="remark"><para>There is <bold>no space</bold> between <computeroutput>FN</computeroutput>/<computeroutput>PROC</computeroutput> and the identifier - in both <bold>definitions</bold> and <bold>calls</bold>. </para>
@@ -31,9 +31,8 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="DEF_1autotoc_md763">
-<title>Calling functions and procedures</title>
-<para><itemizedlist>
+<sect1 id="DEF_1calling-functions-and-procedures_1s1"><sect2 id="DEF_1calling-functions-and-procedures_1s2"><sect3 id="DEF_1calling-functions-and-procedures">
+<title>Calling functions and procedures</title><para><itemizedlist>
 <listitem><para>Call a <bold>function</bold> within an expression: <programlisting filename=".basic"><codeline><highlight class="normal">RESULT<sp/>=<sp/>FNadd(10,<sp/>32)</highlight></codeline>
 </programlisting></para>
 </listitem><listitem><para>Invoke a <bold>procedure</bold> as a statement: <programlisting filename=".basic"><codeline><highlight class="normal">PROCbox(&quot;HELLO&quot;)</highlight></codeline>
@@ -42,10 +41,9 @@
 </para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="DEF_1autotoc_md765">
-<title>Example: function (returns a value)</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>FNadd(A,<sp/>B)</highlight></codeline>
+</sect3></sect2></sect1>
+<sect1 id="DEF_1example-function-returns-a-value_1s1"><sect2 id="DEF_1example-function-returns-a-value_1s2"><sect3 id="DEF_1example-function-returns-a-value">
+<title>Example: function (returns a value)</title><para><programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>FNadd(A,<sp/>B)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>SUM<sp/>=<sp/>A<sp/>+<sp/>B</highlight></codeline>
 <codeline><highlight class="normal">=<sp/>SUM</highlight></codeline>
 <codeline></codeline>
@@ -54,10 +52,9 @@
 <para>The final line starts with <computeroutput>=</computeroutput> and supplies the return value of the function.</para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="DEF_1autotoc_md767">
-<title>Example: procedure (no return value)</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>PROCbox(MSG$)</highlight></codeline>
+</sect3></sect2></sect1>
+<sect1 id="DEF_1example-procedure-no-return-value_1s1"><sect2 id="DEF_1example-procedure-no-return-value_1s2"><sect3 id="DEF_1example-procedure-no-return-value">
+<title>Example: procedure (no return value)</title><para><programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>PROCbox(MSG$)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;**************&quot;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;*<sp/>&quot;;<sp/>MSG$;<sp/>&quot;<sp/>*&quot;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;**************&quot;</highlight></codeline>
@@ -68,10 +65,9 @@
 <para><computeroutput>ENDPROC</computeroutput> marks the end of the procedure body.</para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="DEF_1autotoc_md769">
-<title>Example: locals within a definition</title>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>FNhypot(X,<sp/>Y)</highlight></codeline>
+</sect3></sect2></sect1>
+<sect1 id="DEF_1example-locals-within-a-definition_1s1"><sect2 id="DEF_1example-locals-within-a-definition_1s2"><sect3 id="DEF_1example-locals-within-a-definition">
+<title>Example: locals within a definition</title><para><programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>FNhypot(X,<sp/>Y)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>LOCAL<sp/>XSQ<sp/>=<sp/>X<sp/>*<sp/>X</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>LOCAL<sp/>YSQ<sp/>=<sp/>Y<sp/>*<sp/>Y</highlight></codeline>
 <codeline><highlight class="normal">=<sp/>SQRT(XSQ<sp/>+<sp/>YSQ)</highlight></codeline>
@@ -79,10 +75,9 @@
 <para><computeroutput>LOCAL</computeroutput> creates temporary variables scoped to the definition.</para>
 <para><hruler/>
 </para>
-</sect3>
-<sect3 id="DEF_1autotoc_md771">
-<title>Rules and behaviour</title>
-<para><itemizedlist>
+</sect3></sect2></sect1>
+<sect1 id="DEF_1rules-and-behaviour_1s1"><sect2 id="DEF_1rules-and-behaviour_1s2"><sect3 id="DEF_1rules-and-behaviour">
+<title>Rules and behaviour</title><para><itemizedlist>
 <listitem><para><bold>Parameters</bold> <linebreak/>
  The list may be empty. Parameters are available by name in the body. <linebreak/>
  Use <computeroutput>LOCAL</computeroutput> for additional temporaries.</para>
@@ -98,7 +93,7 @@
 </para>
 <para><bold>See also:</bold> <linebreak/>
  <ref refid="FN" kindref="compound">FN</ref> · <ref refid="PROC" kindref="compound">PROC</ref> · <ref refid="ENDPROC" kindref="compound">ENDPROC</ref> · <ref refid="LOCAL" kindref="compound">LOCAL</ref> · <ref refid="CHAIN" kindref="compound">CHAIN</ref> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Variable-Naming"><computeroutput>Variable Naming</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Parameter-types"><computeroutput>Parameter types</computeroutput></ulink> </para>
-</sect3>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/DEF.md"/>
   </compounddef>
