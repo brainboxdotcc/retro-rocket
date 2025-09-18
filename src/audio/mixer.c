@@ -57,12 +57,7 @@ static inline uint32_t min_u32(uint32_t a, uint32_t b) {
 }
 
 static inline int16_t clamp_s16(int32_t x) {
-	if (x > 32767) {
-		return 32767;
-	}
-	if (x < -32768) {
-		return -32768;
-	}
+	x = CLAMP(x, -326768, 32767);
 	return (int16_t)x;
 }
 
@@ -404,11 +399,7 @@ void mixer_idle(void)
 		}
 		for (; i < n32; i++) {
 			int32_t x = mix_accum[i];
-			if (x > 32767) {
-				x = 32767;
-			} else if (x < -32768) {
-				x = -32768;
-			}
+			x = CLAMP(x, -32768, 32767);
 			mix.mix_scratch[i] = (int16_t)x;
 		}
 

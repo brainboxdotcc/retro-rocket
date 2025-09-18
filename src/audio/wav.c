@@ -318,18 +318,8 @@ bool wav_from_memory(const void *wav, size_t wav_bytes, void **out_ptr, size_t *
 		int32_t lo = l0 + (int32_t) ((((int64_t) dl) * (int64_t) frac) >> 32);
 		int32_t ro = r0 + (int32_t) ((((int64_t) dr) * (int64_t) frac) >> 32);
 
-		if (lo > 32767) {
-			lo = 32767;
-		}
-		if (lo < -32768) {
-			lo = -32768;
-		}
-		if (ro > 32767) {
-			ro = 32767;
-		}
-		if (ro < -32768) {
-			ro = -32768;
-		}
+		lo = CLAMP(lo, -32768, 32767);
+		ro = CLAMP(ro, -32768, 32767);
 
 		dst[i * 2u + 0u] = (int16_t) lo;
 		dst[i * 2u + 1u] = (int16_t) ro;
