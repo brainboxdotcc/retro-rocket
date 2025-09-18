@@ -13,7 +13,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="POKEW_1autotoc_md942">
+<sect3 id="POKEW_1autotoc_md945">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Writes <computeroutput>value AND &amp;FFFF</computeroutput> to <computeroutput>address</computeroutput> and <computeroutput>address+1</computeroutput>.</para>
@@ -22,7 +22,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="POKEW_1autotoc_md944">
+<sect3 id="POKEW_1autotoc_md947">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Store<sp/>a<sp/>16-bit<sp/>word</highlight></codeline>
 <codeline><highlight class="normal">POKEW<sp/>&amp;100200,<sp/>&amp;1234</highlight></codeline>
@@ -31,7 +31,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="POKEW_1autotoc_md946">
+<sect3 id="POKEW_1autotoc_md949">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Match the width to the device’s documented register size.</para>

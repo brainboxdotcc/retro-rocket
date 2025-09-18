@@ -37,7 +37,7 @@ var NAVTREEINDEX =
 "ABS.html",
 "GETVARI.html",
 "READ.html",
-"basic-beginner.html#autotoc_md53"
+"basic-beginner.html#autotoc_md47"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

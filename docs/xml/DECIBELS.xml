@@ -16,7 +16,7 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="DECIBELS_1autotoc_md164">
+<sect3 id="DECIBELS_1autotoc_md167">
 <title>What are decibels?</title>
 <para>Decibels are a way of describing <bold>relative loudness</bold>. They don’t measure sound directly, but how much <bold>quieter or louder</bold> something is compared to a reference point:</para>
 <para><itemizedlist>
@@ -30,7 +30,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="DECIBELS_1autotoc_md166">
+<sect3 id="DECIBELS_1autotoc_md169">
 <title>Behaviour in Retro Rocket</title>
 <para><itemizedlist>
 <listitem><para><computeroutput>DECIBELS(0)</computeroutput> → 255 (full volume).</para>
@@ -44,7 +44,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="DECIBELS_1autotoc_md168">
+<sect3 id="DECIBELS_1autotoc_md171">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Use <computeroutput>DECIBELS()</computeroutput> when you want to set volume in familiar dB terms instead of raw 0–255 values.</para>
@@ -55,7 +55,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="DECIBELS_1autotoc_md170">
+<sect3 id="DECIBELS_1autotoc_md173">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">gain<sp/>=<sp/>DECIBELS(-6)</highlight></codeline>
 <codeline><highlight class="normal">SOUND<sp/>VOLUME<sp/>music,<sp/>gain</highlight></codeline>

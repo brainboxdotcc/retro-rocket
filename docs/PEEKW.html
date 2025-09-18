@@ -93,20 +93,20 @@ $(document).ready(function(){initNavTree('PEEKW.html',''); initResizable(); });
 </div><!-- fragment --><p>Reads a <b>16-bit word</b> from <code>address</code> and returns it as an integer (0–65535).</p>
 <dl class="section note"><dt>Note</dt><dd>The full 2-byte span must be valid and mapped, or <code>Bad Address at &lt;address&gt;</code> is raised.</dd></dl>
 <hr  />
-<h3><a class="anchor" id="autotoc_md360"></a>
+<h3><a class="anchor" id="autotoc_md363"></a>
 How to read it</h3>
 <ul>
 <li>Loads 2 bytes, <b>little-endian</b> (<code>low</code> at <code>address</code>, <code>high</code> at <code>address+1</code>).</li>
 <li>Unaligned reads are allowed.</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md362"></a>
+<h3><a class="anchor" id="autotoc_md365"></a>
 Examples</h3>
 <div class="fragment"><div class="line">REM Read a 16-bit word</div>
 <div class="line">W = PEEKW(&amp;100020)</div>
 <div class="line">PRINT W</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md364"></a>
+<h3><a class="anchor" id="autotoc_md367"></a>
 Notes</h3>
 <ul>
 <li>Match the width to the device register size for MMIO.</li>
@@ -120,7 +120,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Thu Sep 18 2025 00:15:35 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Sep 18 2025 21:16:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

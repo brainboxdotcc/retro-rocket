@@ -13,7 +13,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="SOCKACCEPT_1autotoc_md406">
+<sect3 id="SOCKACCEPT_1autotoc_md409">
 <title>How to use it</title>
 <para><itemizedlist>
 <listitem><para><computeroutput>server</computeroutput> is the file descriptor returned by <computeroutput>SOCKLISTEN(ip$, port, backlog)</computeroutput>.</para>
@@ -25,7 +25,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="SOCKACCEPT_1autotoc_md408">
+<sect3 id="SOCKACCEPT_1autotoc_md411">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Minimal<sp/>accept<sp/>loop</highlight></codeline>
 <codeline><highlight class="normal">server<sp/>=<sp/>SOCKLISTEN(NETINFO$(&quot;ip&quot;),<sp/>2000,<sp/>5)</highlight></codeline>
@@ -45,7 +45,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="SOCKACCEPT_1autotoc_md410">
+<sect3 id="SOCKACCEPT_1autotoc_md413">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Returns <computeroutput>-1</computeroutput> when no established connection is available; try again later.</para>

@@ -90,10 +90,10 @@ $(document).ready(function(){initNavTree('STREAM.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><ul><ul><li class="level3"><a href="#autotoc_md1066">STREAM CREATE</a></li>
-<li class="level3"><a href="#autotoc_md1068">STREAM DESTROY</a></li>
-<li class="level3"><a href="#autotoc_md1070">Relationship to SOUND</a></li>
-<li class="level3"><a href="#autotoc_md1072">Typical usage</a></li>
+<ul><ul><ul><li class="level3"><a href="#autotoc_md1069">STREAM CREATE</a></li>
+<li class="level3"><a href="#autotoc_md1071">STREAM DESTROY</a></li>
+<li class="level3"><a href="#autotoc_md1073">Relationship to SOUND</a></li>
+<li class="level3"><a href="#autotoc_md1075">Typical usage</a></li>
 </ul>
 </ul>
 </ul>
@@ -102,7 +102,7 @@ $(document).ready(function(){initNavTree('STREAM.html',''); initResizable(); });
 <div class="line">STREAM DESTROY stream</div>
 </div><!-- fragment --><p>Creates or destroys an <b>audio stream</b>. A stream is a playback channel that can accept sounds loaded with <code>SOUND LOAD</code>. Each stream has its own independent queue, volume, and state (playing, paused, or stopped).</p>
 <hr  />
-<h3><a class="anchor" id="autotoc_md1066"></a>
+<h3><a class="anchor" id="autotoc_md1069"></a>
 STREAM CREATE</h3>
 <div class="fragment"><div class="line">STREAM CREATE variable</div>
 </div><!-- fragment --><p>Allocates a new audio stream and assigns its numeric handle to <code>variable</code>.</p>
@@ -121,7 +121,7 @@ STREAM CREATE</h3>
 <div class="fragment"><div class="line">STREAM CREATE music</div>
 <div class="line">PRINT music</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md1068"></a>
+<h3><a class="anchor" id="autotoc_md1071"></a>
 STREAM DESTROY</h3>
 <div class="fragment"><div class="line">STREAM DESTROY stream</div>
 </div><!-- fragment --><p>Frees a previously created stream, releasing its resources.</p>
@@ -137,7 +137,7 @@ STREAM DESTROY</h3>
 <p><b>Examples</b></p>
 <div class="fragment"><div class="line">STREAM DESTROY music</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md1070"></a>
+<h3><a class="anchor" id="autotoc_md1073"></a>
 Relationship to SOUND</h3>
 <ul>
 <li>A <b>stream</b> is like a playback channel. It does not store sound data itself.</li>
@@ -145,7 +145,7 @@ Relationship to SOUND</h3>
 <li>To play a sound, you must queue it on a stream with <code>SOUND PLAY</code>.</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md1072"></a>
+<h3><a class="anchor" id="autotoc_md1075"></a>
 Typical usage</h3>
 <div class="fragment"><div class="line">STREAM CREATE s</div>
 <div class="line">SOUND LOAD song, &quot;/system/webserver/media/retro-revival.wav&quot;</div>
@@ -163,7 +163,7 @@ Typical usage</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Thu Sep 18 2025 00:15:35 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Sep 18 2025 21:16:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

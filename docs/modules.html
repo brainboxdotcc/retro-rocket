@@ -90,21 +90,21 @@ $(document).ready(function(){initNavTree('modules.html',''); initResizable(); })
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><ul><li class="level2"><a href="#autotoc_md1288">Module ABI</a></li>
-<li class="level2"><a href="#autotoc_md1290">Minimal Module Example</a></li>
-<li class="level2"><a href="#autotoc_md1292">Using Kernel Symbols</a></li>
-<li class="level2"><a href="#autotoc_md1294">Memory Model</a></li>
-<li class="level2"><a href="#autotoc_md1296">Build System</a></li>
-<li class="level2"><a href="#autotoc_md1298">Loader Pipeline</a></li>
-<li class="level2"><a href="#autotoc_md1300">Module Lifecycle</a></li>
-<li class="level2"><a href="#autotoc_md1302">Safety Notes</a></li>
-<li class="level2"><a href="#autotoc_md1304">Writing Good Modules</a></li>
+<ul><ul><li class="level2"><a href="#autotoc_md1291">Module ABI</a></li>
+<li class="level2"><a href="#autotoc_md1293">Minimal Module Example</a></li>
+<li class="level2"><a href="#autotoc_md1295">Using Kernel Symbols</a></li>
+<li class="level2"><a href="#autotoc_md1297">Memory Model</a></li>
+<li class="level2"><a href="#autotoc_md1299">Build System</a></li>
+<li class="level2"><a href="#autotoc_md1301">Loader Pipeline</a></li>
+<li class="level2"><a href="#autotoc_md1303">Module Lifecycle</a></li>
+<li class="level2"><a href="#autotoc_md1305">Safety Notes</a></li>
+<li class="level2"><a href="#autotoc_md1307">Writing Good Modules</a></li>
 </ul>
 </ul>
 </div>
 <div class="textblock"><p>Retro Rocket supports dynamically loadable kernel modules (<code>.ko</code> files). Modules let you extend the kernel at run-time without rebuilding or rebooting, using a simple ELF64 relocation and symbol resolution system.</p>
 <hr  />
-<h2><a class="anchor" id="autotoc_md1288"></a>
+<h2><a class="anchor" id="autotoc_md1291"></a>
 Module ABI</h2>
 <p>Each kernel build exports a single <b>module ABI version</b>:</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#define KMOD_ABI 100</span></div>
@@ -114,7 +114,7 @@ Module ABI</h2>
 </div><!-- fragment --><p>The loader enforces this naming convention. If the expected <code>mod_init_v&lt;ABI&gt;</code> symbol cannot be found, the module is rejected.</p>
 <p><em>No forward/backward compatibility is provided.</em> If the ABI number changes, modules must be rebuilt.</p>
 <hr  />
-<h2><a class="anchor" id="autotoc_md1290"></a>
+<h2><a class="anchor" id="autotoc_md1293"></a>
 Minimal Module Example</h2>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;kernel.h&gt;</span>   <span class="comment">/* always include this header */</span></div>
 <div class="line"> </div>
@@ -127,7 +127,7 @@ Minimal Module Example</h2>
 <div class="line">    dprintf(<span class="stringliteral">&quot;example.ko: mod_exit called!\n&quot;</span>);</div>
 <div class="line">}</div>
 </div><!-- fragment --><hr  />
-<h2><a class="anchor" id="autotoc_md1292"></a>
+<h2><a class="anchor" id="autotoc_md1295"></a>
 Using Kernel Symbols</h2>
 <p>All kernel symbols intended for modules are exported via <code>kernel.h</code>. Modules should <b>only ever</b> include:</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;kernel.h&gt;</span></div>
@@ -139,7 +139,7 @@ Using Kernel Symbols</h2>
 <div class="line">}</div>
 </div><!-- fragment --><p>There is <b>no need</b> for <code>extern</code> declarations or additional headers. The loader resolves undefined globals against the kernel’s symbol index (<code>kernel.sym</code>) at load time.</p>
 <hr  />
-<h2><a class="anchor" id="autotoc_md1294"></a>
+<h2><a class="anchor" id="autotoc_md1297"></a>
 Memory Model</h2>
 <p>The Retro Rocket kernel itself is linked into the <b>higher half</b> of the address space. Modules, however, are loaded into the <b>kernel heap</b>, which resides in the <b>lower half</b>.</p>
 <ul>
@@ -152,7 +152,7 @@ Memory Model</h2>
 </li>
 </ul>
 <hr  />
-<h2><a class="anchor" id="autotoc_md1296"></a>
+<h2><a class="anchor" id="autotoc_md1299"></a>
 Build System</h2>
 <p>Modules are compiled as <b>relocatable ELF objects</b>:</p>
 <ul>
@@ -161,7 +161,7 @@ Build System</h2>
 </ul>
 <p>CMake support exists in the Retro Rocket tree: any sources under <code>modules/&lt;name&gt;/*.c</code> are built into <code>iso/system/modules/&lt;name&gt;.ko</code>.</p>
 <hr  />
-<h2><a class="anchor" id="autotoc_md1298"></a>
+<h2><a class="anchor" id="autotoc_md1301"></a>
 Loader Pipeline</h2>
 <p>The in-kernel loader performs:</p>
 <ol type="1">
@@ -176,7 +176,7 @@ Loader Pipeline</h2>
 </ol>
 <p>On unload, the loader calls <code>mod_exit_v&lt;ABI&gt;</code>, frees the section block, and removes the module from the registry.</p>
 <hr  />
-<h2><a class="anchor" id="autotoc_md1300"></a>
+<h2><a class="anchor" id="autotoc_md1303"></a>
 Module Lifecycle</h2>
 <ul>
 <li><b>Load</b>: <code>load_module("example");</code> → Calls <code>mod_init_v100()</code></li>
@@ -184,7 +184,7 @@ Module Lifecycle</h2>
 </ul>
 <p>All modules are tracked in a kernel hashmap keyed by <code>name</code>.</p>
 <hr  />
-<h2><a class="anchor" id="autotoc_md1302"></a>
+<h2><a class="anchor" id="autotoc_md1305"></a>
 Safety Notes</h2>
 <ul>
 <li>A failed symbol resolution or relocation aborts load cleanly.</li>
@@ -192,7 +192,7 @@ Safety Notes</h2>
 <li>Modules must not assume persistence of pointers returned by <code>module_section_base()</code> after unload.</li>
 </ul>
 <hr  />
-<h2><a class="anchor" id="autotoc_md1304"></a>
+<h2><a class="anchor" id="autotoc_md1307"></a>
 Writing Good Modules</h2>
 <ul>
 <li>Always check the current <code>KMOD_ABI</code> in <code>module.h</code> before building.</li>
@@ -207,7 +207,7 @@ Writing Good Modules</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="kernel-dev.html">Kernel Development</a></li>
-    <li class="footer">Generated on Thu Sep 18 2025 00:15:36 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Sep 18 2025 21:16:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

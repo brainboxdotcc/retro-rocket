@@ -17,7 +17,7 @@
 <para>Provides control over <bold>sound playback</bold>. Sounds are loaded from WAV files and played on <bold>streams</bold>. A stream acts like a playback channel; multiple streams can be active at once, each with their own volume and queue of sounds.</para>
 <para><hruler/>
 </para>
-<sect3 id="SOUND_1autotoc_md1041">
+<sect3 id="SOUND_1autotoc_md1044">
 <title>SOUND VOLUME</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">SOUND<sp/>VOLUME<sp/>stream,<sp/>gain</highlight></codeline>
 </programlisting></para>
@@ -46,7 +46,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="SOUND_1autotoc_md1043">
+<sect3 id="SOUND_1autotoc_md1046">
 <title>SOUND PLAY</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">SOUND<sp/>PLAY<sp/>stream,<sp/>sound</highlight></codeline>
 <codeline><highlight class="normal">SOUND<sp/>PLAY<sp/>stream</highlight></codeline>
@@ -78,7 +78,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="SOUND_1autotoc_md1045">
+<sect3 id="SOUND_1autotoc_md1048">
 <title>SOUND STOP</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">SOUND<sp/>STOP<sp/>stream</highlight></codeline>
 </programlisting></para>
@@ -94,7 +94,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="SOUND_1autotoc_md1047">
+<sect3 id="SOUND_1autotoc_md1050">
 <title>SOUND PAUSE</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">SOUND<sp/>PAUSE<sp/>stream</highlight></codeline>
 </programlisting></para>
@@ -111,7 +111,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="SOUND_1autotoc_md1049">
+<sect3 id="SOUND_1autotoc_md1052">
 <title>SOUND LOAD</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">SOUND<sp/>LOAD<sp/>variable,<sp/>&quot;filename&quot;</highlight></codeline>
 </programlisting></para>
@@ -140,7 +140,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="SOUND_1autotoc_md1051">
+<sect3 id="SOUND_1autotoc_md1054">
 <title>SOUND UNLOAD</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">SOUND<sp/>UNLOAD<sp/>sound</highlight></codeline>
 </programlisting></para>
@@ -156,7 +156,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="SOUND_1autotoc_md1053">
+<sect3 id="SOUND_1autotoc_md1056">
 <title>Usage example</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">STREAM<sp/>CREATE<sp/>music</highlight></codeline>
 <codeline><highlight class="normal">SOUND<sp/>LOAD<sp/>song,<sp/>&quot;/system/webserver/media/retro-revival.wav&quot;</highlight></codeline>

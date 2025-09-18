@@ -9,7 +9,7 @@
 <para>This document describes the execution path from power-on to a running shell in <bold>Retro Rocket</bold> - a modern-day BBC Micro–inspired operating system. It walks through each stage of the boot process, from initial assembly handoff to the multitasking interpreter loop that drives userland programs.</para>
 <para><hruler/>
 </para>
-<sect2 id="bootflow_1autotoc_md1251">
+<sect2 id="bootflow_1autotoc_md1254">
 <title>Overview</title>
 <para><table rows="7" cols="2"><row>
 <entry thead="yes"><para>Stage   </para>
@@ -44,7 +44,7 @@
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="bootflow_1autotoc_md1253">
+<sect2 id="bootflow_1autotoc_md1256">
 <title>1. Boot Assembly: &lt;tt&gt;boot.asm&lt;/tt&gt;</title>
 <para>The kernel is entered via the symbol <computeroutput>boot_bsp</computeroutput>, defined in NASM assembly.</para>
 <para><programlisting><codeline><highlight class="normal">bits<sp/>64</highlight></codeline>
@@ -73,7 +73,7 @@
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="bootflow_1autotoc_md1255">
+<sect2 id="bootflow_1autotoc_md1258">
 <title>2. Kernel Entry Point: &lt;tt&gt;kmain()&lt;/tt&gt;</title>
 <para><programlisting filename=".c"><codeline><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>kmain()</highlight></codeline>
 <codeline><highlight class="normal">{</highlight></codeline>
@@ -97,10 +97,10 @@
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="bootflow_1autotoc_md1257">
+<sect2 id="bootflow_1autotoc_md1260">
 <title>3. Core System Initialisation: &lt;tt&gt;init()&lt;/tt&gt;</title>
 <para>Each function is executed in sequence with logging.</para>
-<sect3 id="bootflow_1autotoc_md1258">
+<sect3 id="bootflow_1autotoc_md1261">
 <title>Initialisation Order</title>
 <para><table rows="19" cols="3"><row>
 <entry thead="yes"><para>Order   </para>
@@ -203,7 +203,7 @@
 </para>
 </sect3>
 </sect2>
-<sect2 id="bootflow_1autotoc_md1260">
+<sect2 id="bootflow_1autotoc_md1263">
 <title>4. Process Management and Shell Launch</title>
 <para>After filesystems are ready, <computeroutput>init_process()</computeroutput> loads the first userland BASIC program:</para>
 <para><programlisting filename=".c"><codeline><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>init_process()</highlight></codeline>
@@ -216,7 +216,7 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>proc_loop();</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
 </programlisting></para>
-<sect3 id="bootflow_1autotoc_md1261">
+<sect3 id="bootflow_1autotoc_md1264">
 <title>&lt;tt&gt;proc_loop()&lt;/tt&gt;</title>
 <para><programlisting filename=".c"><codeline><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>proc_loop()</highlight></codeline>
 <codeline><highlight class="normal">{</highlight></codeline>
@@ -238,7 +238,7 @@
 </para>
 </sect3>
 </sect2>
-<sect2 id="bootflow_1autotoc_md1263">
+<sect2 id="bootflow_1autotoc_md1266">
 <title>5. Userland Bootstrap: &lt;tt&gt;/programs/init&lt;/tt&gt;</title>
 <para>This BASIC program acts like a boot script (like <computeroutput>AUTOEXEC.BAT</computeroutput> or <computeroutput>!Boot</computeroutput>):</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">GLOBAL<sp/>LIB$<sp/>=<sp/>&quot;/programs/libraries&quot;</highlight></codeline>
@@ -271,7 +271,7 @@
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="bootflow_1autotoc_md1265">
+<sect2 id="bootflow_1autotoc_md1268">
 <title>🔚 Full Boot Timeline</title>
 <para><programlisting><codeline><highlight class="normal">boot.asm</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>↓</highlight></codeline>
@@ -296,7 +296,7 @@
 <para><hruler/>
 </para>
 </sect2>
-<sect2 id="bootflow_1autotoc_md1267">
+<sect2 id="bootflow_1autotoc_md1270">
 <title>✨ Why This Design Works</title>
 <para>Retro Rocket&apos;s boot process is:</para>
 <para><itemizedlist>

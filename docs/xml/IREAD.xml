@@ -11,7 +11,7 @@
 <para>Reads a single <bold>byte value</bold> from an <bold>open file</bold>. The parameter is the <bold>integer file handle</bold> returned by <ref refid="OPENIN" kindref="compound">OPENIN</ref>, <ref refid="OPENOUT" kindref="compound">OPENOUT</ref>, or <ref refid="OPENUP" kindref="compound">OPENUP</ref>. The function returns the next byte as an integer in the range <computeroutput>0–255</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect3 id="IREAD_1autotoc_md371">
+<sect3 id="IREAD_1autotoc_md374">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Read<sp/>a<sp/>file<sp/>byte<sp/>by<sp/>byte</highlight></codeline>
 <codeline><highlight class="normal">fh<sp/>=<sp/>OPENIN(&quot;/data/example.bin&quot;)</highlight></codeline>
@@ -38,7 +38,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="IREAD_1autotoc_md373">
+<sect3 id="IREAD_1autotoc_md376">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Returns an integer <computeroutput>0–255</computeroutput>.</para>

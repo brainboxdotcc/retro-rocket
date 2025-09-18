@@ -18,6 +18,8 @@
 #undef free
 #undef realloc
 
+static audio_file_loader_t *g_mp3_loader = NULL;
+
 typedef struct {
 	uint32_t in_rate;
 	uint32_t out_rate;
@@ -200,9 +202,9 @@ static bool mp3_from_memory(const char *filename, const void *mp3, size_t mp3_by
 }
 
 bool EXPORTED MOD_INIT_SYM(KMOD_ABI)(void) {
-	dprintf("mp3.ko: loaded\n");
+	dprintf("mp3: loaded\n");
 
-	audio_file_loader_t *mp3_loader = kmalloc(sizeof(audio_file_loader_t));
+	audio_file_loader_t* mp3_loader = kmalloc(sizeof(audio_file_loader_t));
 	if (!mp3_loader) {
 		dprintf("mp3.ko: failed to allocate loader\n");
 		return false;
@@ -213,14 +215,24 @@ bool EXPORTED MOD_INIT_SYM(KMOD_ABI)(void) {
 	mp3_loader->opaque = NULL;
 
 	if (!register_audio_loader(mp3_loader)) {
-		dprintf("mp3.ko: register_audio_loader failed\n");
+		dprintf("mp3: register_audio_loader failed\n");
 		kfree(mp3_loader);
 		return false;
 	}
 
+	g_mp3_loader = mp3_loader;
 	return true;
 }
 
 bool EXPORTED MOD_EXIT_SYM(KMOD_ABI)(void) {
-	return false;
+	/* Safely remove our loader from the chain and free it */
+	if (g_mp3_loader) {
+		if (!deregister_audio_loader(g_mp3_loader)) {
+			kprintf("mp3: deregister_audio_loader failed\n");
+			return false;
+		}
+		kfree(g_mp3_loader);
+		g_mp3_loader = NULL;
+	}
+	return true;
 }

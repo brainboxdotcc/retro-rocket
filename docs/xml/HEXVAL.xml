@@ -11,7 +11,7 @@
 <para>Returns the <bold>integer value</bold> of a string containing a <bold>hexadecimal number</bold>. The string must consist only of valid hex digits (<computeroutput>0–9</computeroutput>, <computeroutput>A–F</computeroutput>, <computeroutput>a–f</computeroutput>).</para>
 <para><hruler/>
 </para>
-<sect3 id="HEXVAL_1autotoc_md228">
+<sect3 id="HEXVAL_1autotoc_md231">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>HEXVAL(&quot;FF&quot;)</highlight></codeline>
 </programlisting></para>
@@ -32,7 +32,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="HEXVAL_1autotoc_md230">
+<sect3 id="HEXVAL_1autotoc_md233">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Parsing is <bold>case-insensitive</bold>: <computeroutput>&quot;FF&quot;</computeroutput>, <computeroutput>&quot;Ff&quot;</computeroutput>, and <computeroutput>&quot;ff&quot;</computeroutput> all return <computeroutput>255</computeroutput>.</para>

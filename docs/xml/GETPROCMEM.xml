@@ -11,7 +11,7 @@
 <para>Returns the <bold>memory usage in bytes</bold> of a running process. The parameter is an <bold>index</bold> in the range <computeroutput>0</computeroutput> to <computeroutput>GETPROCCOUNT - 1</computeroutput>, identifying one of the active processes.</para>
 <para><hruler/>
 </para>
-<sect3 id="GETPROCMEM_1autotoc_md208">
+<sect3 id="GETPROCMEM_1autotoc_md211">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>memory<sp/>usage<sp/>of<sp/>all<sp/>running<sp/>processes</highlight></codeline>
 <codeline><highlight class="normal">FOR<sp/>i<sp/>=<sp/>0<sp/>TO<sp/>GETPROCCOUNT<sp/>-<sp/>1</highlight></codeline>
@@ -35,7 +35,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="GETPROCMEM_1autotoc_md210">
+<sect3 id="GETPROCMEM_1autotoc_md213">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Returned value is in <bold>bytes</bold>, as a Retro Rocket BASIC integer.</para>

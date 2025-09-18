@@ -91,23 +91,36 @@ $(document).ready(function(){initNavTree('audio-basics.html',''); initResizable(
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
 <ul><ul><li class="level2"><a href="#autotoc_md56">Audio System Structure</a><ul><li class="level3"><a href="#autotoc_md57">Drivers</a></li>
-<li class="level3"><a href="#autotoc_md58">Streams</a></li>
-<li class="level3"><a href="#autotoc_md59">Sounds</a></li>
+<li class="level3"><a href="#autotoc_md58">Codecs</a></li>
+<li class="level3"><a href="#autotoc_md59">Streams</a></li>
+<li class="level3"><a href="#autotoc_md60">Sounds</a></li>
 </ul>
 </li>
-<li class="level2"><a href="#autotoc_md60">Flow of audio</a></li>
-<li class="level2"><a href="#autotoc_md61">Example</a></li>
-<li class="level2"><a href="#autotoc_md62">Audio Keywords/Functions</a></li>
+<li class="level2"><a href="#autotoc_md61">Flow of audio</a></li>
+<li class="level2"><a href="#autotoc_md62">Examples</a><ul><li class="level3"><a href="#autotoc_md63">Play a WAV file</a></li>
+<li class="level3"><a href="#autotoc_md64">Play an MP3 file</a></li>
+</ul>
+</li>
+<li class="level2"><a href="#autotoc_md65">Audio Keywords/Functions</a></li>
 </ul>
 </ul>
 </div>
 <div class="textblock"><h2><a class="anchor" id="autotoc_md56"></a>
 Audio System Structure</h2>
-<p>Retro Rocket’s audio system has three main parts:</p>
+<p>Retro Rocket’s audio system has four main parts:</p>
 <h3><a class="anchor" id="autotoc_md57"></a>
 Drivers</h3>
-<p>The driver is the low-level hardware backend (e.g. <code>MODLOAD "ac97"</code>). It is specific to your sound card in your PC. Without a driver, <b>no audio commands will work</b>.</p>
+<p>The driver is the low-level hardware backend (e.g. <code>MODLOAD "ac97"</code>). <br  />
+ It is specific to your sound card in your PC. Without a driver, <b>no audio commands will work</b>.</p>
 <h3><a class="anchor" id="autotoc_md58"></a>
+Codecs</h3>
+<p>A codec is a small specialised program that knows how to <b>decode audio files</b> into the raw data format used by Retro Rocket. Codecs are provided as kernel modules, just like drivers, and must be loaded before you can use them.</p>
+<ul>
+<li>WAV support is built in and always available.</li>
+<li>MP3 support is available via the <code>mp3.ko</code> module (<code>MODLOAD "mp3"</code>).</li>
+</ul>
+<p>If you try to load an MP3 file without first loading the MP3 codec module, you will receive an error as the file type will be unrecognised.</p>
+<h3><a class="anchor" id="autotoc_md59"></a>
 Streams</h3>
 <p>A stream is a <b>playback channel</b> created with <code>STREAM CREATE</code>.</p>
 <ul>
@@ -115,29 +128,41 @@ Streams</h3>
 <li>Multiple streams can run at once (for mixing music, effects, voices, etc.).</li>
 <li>A stream handle is always a positive integer ID.</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md59"></a>
+<h3><a class="anchor" id="autotoc_md60"></a>
 Sounds</h3>
 <p>A sound is <b>decoded audio data</b> loaded into memory with <code>SOUND LOAD</code>.</p>
 <ul>
-<li>Sounds can be loaded from any .WAV file which contains PCM or FLOAT format audio.</li>
+<li>Sounds can be loaded from any supported codec (e.g. WAV, MP3).</li>
 <li>Sounds are stored in RAM as 44.1 kHz stereo, 16-bit PCM.</li>
 <li>Sound handles are always non-zero integer IDs.</li>
 <li>Sounds must be freed with <code>SOUND UNLOAD</code> when no longer needed.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md60"></a>
+<h2><a class="anchor" id="autotoc_md61"></a>
 Flow of audio</h2>
-<div class="fragment"><div class="line">File on disk (WAV) → SOUND LOAD → Sound handle</div>
+<div class="fragment"><div class="line">File on disk (WAV/MP3/other) → Codec module decodes → SOUND LOAD → Sound handle</div>
 <div class="line">Sound handle + Stream → SOUND PLAY → Playback</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md61"></a>
-Example</h2>
-<div class="fragment"><div class="line">MODLOAD &quot;ac97&quot;             &#39; load audio driver</div>
-<div class="line">STREAM CREATE music        &#39; create playback channel</div>
-<div class="line">SOUND LOAD song, &quot;track.wav&quot;  &#39; load audio into RAM</div>
-<div class="line">SOUND PLAY music, song     &#39; play on stream</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md62"></a>
+Examples</h2>
+<h3><a class="anchor" id="autotoc_md63"></a>
+Play a WAV file</h3>
+<div class="fragment"><div class="line">MODLOAD &quot;ac97&quot;                     &#39; load audio driver</div>
+<div class="line">STREAM CREATE music</div>
+<div class="line">SOUND LOAD song, &quot;track.wav&quot;</div>
+<div class="line">SOUND PLAY music, song</div>
 </div><!-- fragment --><div class="image">
 <img src="sound.png" alt=""/>
 </div>
-<h2><a class="anchor" id="autotoc_md62"></a>
+<h3><a class="anchor" id="autotoc_md64"></a>
+Play an MP3 file</h3>
+<div class="fragment"><div class="line">MODLOAD &quot;ac97&quot;                     &#39; load audio driver</div>
+<div class="line">MODLOAD &quot;mp3&quot;                      &#39; load MP3 codec module</div>
+<div class="line">STREAM CREATE music</div>
+<div class="line">SOUND LOAD song, &quot;track.mp3&quot;</div>
+<div class="line">SOUND PLAY music, song</div>
+</div><!-- fragment --><div class="image">
+<img src="mp3.png" alt=""/>
+</div>
+<h2><a class="anchor" id="autotoc_md65"></a>
 Audio Keywords/Functions</h2>
 <ul>
 <li><a class="el" href="STREAM.html">STREAM</a></li>
@@ -151,7 +176,7 @@ Audio Keywords/Functions</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li>
-    <li class="footer">Generated on Thu Sep 18 2025 00:15:35 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Sep 18 2025 21:16:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -11,7 +11,7 @@
 <para>Returns the current amount of memory (in bytes) used by the <bold>private heap</bold> of the current BASIC program. This reflects the memory actively allocated right now, not the peak or global system usage.</para>
 <para><hruler/>
 </para>
-<sect3 id="MEMPROGRAM_1autotoc_md305">
+<sect3 id="MEMPROGRAM_1autotoc_md308">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Show<sp/>memory<sp/>used<sp/>by<sp/>this<sp/>program</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Program<sp/>is<sp/>using<sp/>&quot;;<sp/>MEMPROGRAM;<sp/>&quot;<sp/>bytes&quot;</highlight></codeline>
@@ -32,7 +32,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="MEMPROGRAM_1autotoc_md307">
+<sect3 id="MEMPROGRAM_1autotoc_md310">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Value is specific to the <bold>current BASIC program’s private heap</bold>.</para>

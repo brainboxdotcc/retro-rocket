@@ -11,7 +11,7 @@
 <para>Returns <computeroutput>TRUE</computeroutput> (1) if the <bold>end of file</bold> has been reached on the file handle, otherwise <computeroutput>FALSE</computeroutput> (0). The parameter must be an <bold>integer variable</bold> containing a valid handle from <ref refid="OPENIN" kindref="compound">OPENIN</ref> or <ref refid="OPENOUT" kindref="compound">OPENOUT</ref> (for append/verify cases).</para>
 <para><hruler/>
 </para>
-<sect3 id="EOF_1autotoc_md173">
+<sect3 id="EOF_1autotoc_md176">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Read<sp/>a<sp/>text<sp/>file<sp/>line<sp/>by<sp/>line</highlight></codeline>
 <codeline><highlight class="normal">FH<sp/>=<sp/>OPENIN(&quot;mytext.txt&quot;)</highlight></codeline>
@@ -50,7 +50,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="EOF_1autotoc_md175">
+<sect3 id="EOF_1autotoc_md178">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para><computeroutput>EOF</computeroutput> reports whether the <bold>next read would be past the end</bold>. After a final <computeroutput>READ$</computeroutput>, it becomes <computeroutput>TRUE</computeroutput>.</para>

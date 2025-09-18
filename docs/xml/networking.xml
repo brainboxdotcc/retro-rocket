@@ -6,7 +6,7 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<sect3 id="networking_1autotoc_md1181">
+<sect3 id="networking_1autotoc_md1184">
 <title>Introduction to Sockets</title>
 <para>Retro Rocket BASIC is not limited to files, graphics, and local input/output. It also has direct <bold>network and Internet access</bold>, built into the language itself. This is provided through <bold>sockets</bold>.</para>
 <para>A socket is a numbered channel that lets your program send and receive data across the network. With sockets you can:</para>
@@ -27,7 +27,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="networking_1autotoc_md1183">
+<sect3 id="networking_1autotoc_md1186">
 <title>Understanding Sockets (Phone Calls vs Parcels)</title>
 <para>Networking in Retro Rocket BASIC uses <bold>sockets</bold>: simple handles (just numbers) that let programs talk over the network. There are two flavours with very different “feel”:</para>
 <para><itemizedlist>
@@ -38,7 +38,7 @@
 <para>You don’t need to learn object systems, callbacks, or frameworks. The flow is linear: <bold>connect/listen → read/write → flush (if needed) → close</bold>.</para>
 <para><hruler/>
 </para>
-<sect4 id="networking_1autotoc_md1185">
+<sect4 id="networking_1autotoc_md1188">
 <title>TCP - Like a Phone Call (reliable conversation)</title>
 <para>TCP aims to feel like you’ve got a dedicated line once connected.</para>
 <para><itemizedlist>
@@ -62,7 +62,7 @@
 <para><hruler/>
 </para>
 </sect4>
-<sect4 id="networking_1autotoc_md1187">
+<sect4 id="networking_1autotoc_md1190">
 <title>UDP - Like Sending a Parcel (quick, independent messages)</title>
 <para>UDP is fire-and-forget. Each message is its own parcel.</para>
 <para><itemizedlist>
@@ -84,7 +84,7 @@
 </para>
 </sect4>
 </sect3>
-<sect3 id="networking_1autotoc_md1189">
+<sect3 id="networking_1autotoc_md1192">
 <title>Side-by-side: Phone Call vs Parcel</title>
 <para><table rows="7" cols="3"><row>
 <entry thead="yes"><para>Aspect   </para>
@@ -126,7 +126,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="networking_1autotoc_md1191">
+<sect3 id="networking_1autotoc_md1194">
 <title>UDP “Doorstep Queue” (how incoming messages are stored)</title>
 <para>When your program <computeroutput>UDPBIND</computeroutput>s a port, Retro Rocket keeps an <bold>in-memory queue</bold> of incoming UDP packets for that port-think <bold>parcels on your doorstep</bold>:</para>
 <para><itemizedlist>
@@ -143,7 +143,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="networking_1autotoc_md1193">
+<sect3 id="networking_1autotoc_md1196">
 <title>Worked UDP Example - Mouse Telemetry</title>
 <para>Below is your exact module, which binds a per-process port and polls a local mouse server. It showcases <computeroutput>UDPBIND</computeroutput>, <computeroutput>UDPWRITE</computeroutput>, <computeroutput>UDPREAD$</computeroutput>, and consuming one packet at a time:</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>PROCmouse</highlight></codeline>
@@ -203,7 +203,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="networking_1autotoc_md1195">
+<sect3 id="networking_1autotoc_md1198">
 <title>Practical Tips (UDP)</title>
 <para><itemizedlist>
 <listitem><para><bold>Bind both sides</bold>: have a predictable return address and a consistent inbox.</para>
@@ -218,7 +218,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="networking_1autotoc_md1198">
+<sect3 id="networking_1autotoc_md1201">
 <title>Names and Addresses</title>
 <para>Every computer on the Internet has a unique <bold>address number</bold>, called an <bold>IP address</bold>. It looks like this:</para>
 <para><programlisting><codeline><highlight class="normal">93.184.216.34</highlight></codeline>
@@ -236,7 +236,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="networking_1autotoc_md1200">
+<sect3 id="networking_1autotoc_md1203">
 <title>The DNS$ Function</title>
 <para>Retro Rocket BASIC makes this simple with a single function:</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">ip$<sp/>=<sp/>DNS$(&quot;example.org&quot;)</highlight></codeline>
@@ -250,9 +250,9 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="networking_1autotoc_md1202">
+<sect3 id="networking_1autotoc_md1205">
 <title>Quick Examples</title>
-<sect4 id="networking_1autotoc_md1203">
+<sect4 id="networking_1autotoc_md1206">
 <title>TCP Client</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">&apos;<sp/>Connect<sp/>to<sp/>a<sp/>web<sp/>server</highlight></codeline>
 <codeline><highlight class="normal">sock<sp/>=<sp/>CONNECT(&quot;93.184.216.34&quot;,<sp/>80)</highlight></codeline>
@@ -268,7 +268,7 @@
 <para><hruler/>
 </para>
 </sect4>
-<sect4 id="networking_1autotoc_md1205">
+<sect4 id="networking_1autotoc_md1208">
 <title>TCP Server</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">&apos;<sp/>Listen<sp/>on<sp/>port<sp/>8080</highlight></codeline>
 <codeline><highlight class="normal">server<sp/>=<sp/>SOCKLISTEN(&quot;0.0.0.0&quot;,<sp/>8080,<sp/>5)</highlight></codeline>
@@ -288,7 +288,7 @@
 <para><hruler/>
 </para>
 </sect4>
-<sect4 id="networking_1autotoc_md1207">
+<sect4 id="networking_1autotoc_md1210">
 <title>UDP Example</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">&apos;<sp/>Bind<sp/>to<sp/>port<sp/>5001</highlight></codeline>
 <codeline><highlight class="normal">udp<sp/>=<sp/>UDPBIND(&quot;0.0.0.0&quot;,<sp/>5001)</highlight></codeline>
@@ -306,7 +306,7 @@
 <codeline><highlight class="normal">SOCKCLOSE<sp/>udp</highlight></codeline>
 </programlisting></para>
 </sect4>
-<sect4 id="networking_1autotoc_md1208">
+<sect4 id="networking_1autotoc_md1211">
 <title>Connecting by Name</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">ip$<sp/>=<sp/>DNS$(&quot;example.org&quot;)</highlight></codeline>
 <codeline><highlight class="normal">IF<sp/>ip$<sp/>&lt;&gt;<sp/>&quot;&quot;<sp/>THEN</highlight></codeline>
@@ -324,7 +324,7 @@
 </para>
 </sect4>
 </sect3>
-<sect3 id="networking_1autotoc_md1210">
+<sect3 id="networking_1autotoc_md1213">
 <title>Socket Keywords</title>
 <para><itemizedlist>
 <listitem><para><ref refid="CONNECT" kindref="compound">CONNECT Keyword</ref></para>
