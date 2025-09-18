@@ -16,6 +16,7 @@ var searchData=
   ['atan_2emd_23',['ATAN.md',['../ATAN_8md.html',1,'']]],
   ['atan2_20function_24',['ATAN2 Function',['../ATAN2.html',1,'real-funcs']]],
   ['atan2_2emd_25',['ATAN2.md',['../ATAN2_8md.html',1,'']]],
-  ['autoflip_20keyword_26',['AUTOFLIP Keyword',['../AUTOFLIP.html',1,'keywords']]],
-  ['autoflip_2emd_27',['AUTOFLIP.md',['../AUTOFLIP_8md.html',1,'']]]
+  ['audio_20introduction_26',['Audio Introduction',['../audio-basics.html',1,'basic-ref']]],
+  ['autoflip_20keyword_27',['AUTOFLIP Keyword',['../AUTOFLIP.html',1,'keywords']]],
+  ['autoflip_2emd_28',['AUTOFLIP.md',['../AUTOFLIP_8md.html',1,'']]]
 ];

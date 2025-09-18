@@ -11,7 +11,7 @@
 <para>Returns the <bold>type</bold> of the object referred to by the given path. The result is the string <computeroutput>&quot;file&quot;</computeroutput> if it is a file, or <computeroutput>&quot;directory&quot;</computeroutput> if it is a directory.</para>
 <para><hruler/>
 </para>
-<sect3 id="FILETYPE_1autotoc_md545">
+<sect3 id="FILETYPE_1autotoc_md561">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>FILETYPE$(&quot;config.txt&quot;)</highlight></codeline>
 </programlisting></para>
@@ -36,7 +36,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="FILETYPE_1autotoc_md547">
+<sect3 id="FILETYPE_1autotoc_md563">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>The path may be absolute (starting with <computeroutput>/</computeroutput>) or relative to the current working directory (<ref refid="CSD" kindref="compound">CSD$</ref>).</para>

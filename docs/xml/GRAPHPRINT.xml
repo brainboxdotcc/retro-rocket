@@ -11,7 +11,7 @@
 <para>Draws text directly onto the graphics framebuffer at <bold>pixel coordinates</bold>. Unlike <computeroutput>PRINT</computeroutput>, <computeroutput>GRAPHPRINT</computeroutput> does not use or update the text cursor. Each call is independent.</para>
 <para><hruler/>
 </para>
-<sect3 id="GRAPHPRINT_1autotoc_md806">
+<sect3 id="GRAPHPRINT_1autotoc_md822">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para><computeroutput>(x, y)</computeroutput> are <bold>pixel coordinates</bold> measured from the top-left corner of the screen.</para>
@@ -32,7 +32,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="GRAPHPRINT_1autotoc_md808">
+<sect3 id="GRAPHPRINT_1autotoc_md824">
 <title>Errors</title>
 <para><itemizedlist>
 <listitem><para>An error occurs if <computeroutput>x</computeroutput> or <computeroutput>y</computeroutput> are not numeric.</para>
@@ -42,7 +42,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="GRAPHPRINT_1autotoc_md810">
+<sect3 id="GRAPHPRINT_1autotoc_md826">
 <title>Examples</title>
 <para><bold>Draw a label in magenta</bold></para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">GCOL<sp/>&amp;FF00FF</highlight></codeline>
@@ -59,7 +59,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="GRAPHPRINT_1autotoc_md812">
+<sect3 id="GRAPHPRINT_1autotoc_md828">
 <title>See also</title>
 <para><itemizedlist>
 <listitem><para><ref refid="PRINT" kindref="compound">PRINT</ref> - text output in the scrolling text grid.</para>

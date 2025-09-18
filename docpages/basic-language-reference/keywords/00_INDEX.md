@@ -129,8 +129,10 @@ The following parameter types are used throughout this documentation:
 * \subpage SOCKFLUSH
 * \subpage SOCKREAD
 * \subpage SOCKWRITE
+* \subpage SOUND
 * \subpage SPRITEFREE
 * \subpage SPRITELOAD
+* \subpage STREAM
 * \subpage TRIANGLE
 * \subpage UDPBIND
 * \subpage UDPUNBIND

@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="audio-basics" kind="page">
+    <compoundname>audio-basics</compoundname>
+    <title>Audio Introduction</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<sect2 id="audio-basics_1autotoc_md56">
+<title>Audio System Structure</title>
+<para>Retro Rocket’s audio system has three main parts:</para>
+<sect3 id="audio-basics_1autotoc_md57">
+<title>Drivers</title>
+<para>The driver is the low-level hardware backend (e.g. <computeroutput>MODLOAD &quot;ac97&quot;</computeroutput>). It is specific to your sound card in your PC. Without a driver, <bold>no audio commands will work</bold>.</para>
+</sect3>
+<sect3 id="audio-basics_1autotoc_md58">
+<title>Streams</title>
+<para>A stream is a <bold>playback channel</bold> created with <computeroutput>STREAM CREATE</computeroutput>.</para>
+<para><itemizedlist>
+<listitem><para>Each stream has its own queue of sounds, volume, and state.</para>
+</listitem><listitem><para>Multiple streams can run at once (for mixing music, effects, voices, etc.).</para>
+</listitem><listitem><para>A stream handle is always a positive integer ID.</para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+<sect3 id="audio-basics_1autotoc_md59">
+<title>Sounds</title>
+<para>A sound is <bold>decoded audio data</bold> loaded into memory with <computeroutput>SOUND LOAD</computeroutput>.</para>
+<para><itemizedlist>
+<listitem><para>Sounds can be loaded from any .WAV file which contains PCM or FLOAT format audio.</para>
+</listitem><listitem><para>Sounds are stored in RAM as 44.1 kHz stereo, 16-bit PCM.</para>
+</listitem><listitem><para>Sound handles are always non-zero integer IDs.</para>
+</listitem><listitem><para>Sounds must be freed with <computeroutput>SOUND UNLOAD</computeroutput> when no longer needed.</para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+</sect2>
+<sect2 id="audio-basics_1autotoc_md60">
+<title>Flow of audio</title>
+<para><programlisting><codeline><highlight class="normal">File<sp/>on<sp/>disk<sp/>(WAV)<sp/>→<sp/>SOUND<sp/>LOAD<sp/>→<sp/>Sound<sp/>handle</highlight></codeline>
+<codeline><highlight class="normal">Sound<sp/>handle<sp/>+<sp/>Stream<sp/>→<sp/>SOUND<sp/>PLAY<sp/>→<sp/>Playback</highlight></codeline>
+</programlisting></para>
+</sect2>
+<sect2 id="audio-basics_1autotoc_md61">
+<title>Example</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">MODLOAD<sp/>&quot;ac97&quot;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>load<sp/>audio<sp/>driver</highlight></codeline>
+<codeline><highlight class="normal">STREAM<sp/>CREATE<sp/>music<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>create<sp/>playback<sp/>channel</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>LOAD<sp/>song,<sp/>&quot;track.wav&quot;<sp/><sp/>&apos;<sp/>load<sp/>audio<sp/>into<sp/>RAM</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>PLAY<sp/>music,<sp/>song<sp/><sp/><sp/><sp/><sp/>&apos;<sp/>play<sp/>on<sp/>stream</highlight></codeline>
+</programlisting></para>
+<para><image type="html" name="sound.png"></image>
+</para>
+</sect2>
+<sect2 id="audio-basics_1autotoc_md62">
+<title>Audio Keywords/Functions</title>
+<para><itemizedlist>
+<listitem><para><ref refid="STREAM" kindref="compound">STREAM</ref></para>
+</listitem><listitem><para><ref refid="STREAM" kindref="compound">SOUND</ref></para>
+</listitem><listitem><para><ref refid="DECIBELS" kindref="compound">DECIBELS</ref> </para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/BASIC_SOUND.md"/>
+  </compounddef>
+</doxygen>

@@ -11,7 +11,7 @@
 <para>Opens a file for <bold>output</bold> (writing). Returns an <bold>integer file handle</bold> that must be used with <ref refid="WRITE" kindref="compound">WRITE</ref> and <ref refid="CLOSE" kindref="compound">CLOSE</ref>.</para>
 <para><hruler/>
 </para>
-<sect3 id="OPENOUT_1autotoc_md316">
+<sect3 id="OPENOUT_1autotoc_md332">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Open<sp/>a<sp/>file<sp/>for<sp/>writing</highlight></codeline>
 <codeline><highlight class="normal">fh<sp/>=<sp/>OPENOUT(&quot;/data/output.txt&quot;)</highlight></codeline>
@@ -31,7 +31,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="OPENOUT_1autotoc_md318">
+<sect3 id="OPENOUT_1autotoc_md334">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>If the file already exists, it is <bold>truncated</bold> to zero length.</para>

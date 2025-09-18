@@ -19,6 +19,7 @@ The following functions operate on or return **integer values** in Retro Rocket 
 * \subpage CURRENTX
 * \subpage CURRENTY
 * \subpage DAY
+* \subpage DECIBELS
 * \subpage EOF
 * \subpage EXISTSVARI
 * \subpage FILESIZE

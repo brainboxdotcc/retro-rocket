@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="STREAM" kind="page">
+    <compoundname>STREAM</compoundname>
+    <title>STREAM Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">STREAM<sp/>CREATE<sp/>variable</highlight></codeline>
+<codeline><highlight class="normal">STREAM<sp/>DESTROY<sp/>stream</highlight></codeline>
+</programlisting></para>
+<para>Creates or destroys an <bold>audio stream</bold>. A stream is a playback channel that can accept sounds loaded with <computeroutput>SOUND LOAD</computeroutput>. Each stream has its own independent queue, volume, and state (playing, paused, or stopped).</para>
+<para><hruler/>
+</para>
+<sect3 id="STREAM_1autotoc_md1066">
+<title>STREAM CREATE</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">STREAM<sp/>CREATE<sp/>variable</highlight></codeline>
+</programlisting></para>
+<para>Allocates a new audio stream and assigns its numeric handle to <computeroutput>variable</computeroutput>.</para>
+<para><bold>Notes</bold></para>
+<para><itemizedlist>
+<listitem><para>A stream handle is required before any sound can be played.</para>
+</listitem><listitem><para>Each stream is independent: multiple streams can be active at once, each with different sounds or volume levels.</para>
+</listitem><listitem><para>There is a fixed maximum number of streams (implementation dependent). Once all are in use, no new streams can be created until one is destroyed.</para>
+</listitem><listitem><para>If no audio driver is loaded, the command fails.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>Errors</bold></para>
+<para><itemizedlist>
+<listitem><para><computeroutput>Out of STREAMs</computeroutput> if the maximum number of streams is reached.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>Examples</bold></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">STREAM<sp/>CREATE<sp/>music</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>music</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="STREAM_1autotoc_md1068">
+<title>STREAM DESTROY</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">STREAM<sp/>DESTROY<sp/>stream</highlight></codeline>
+</programlisting></para>
+<para>Frees a previously created stream, releasing its resources.</para>
+<para><bold>Notes</bold></para>
+<para><itemizedlist>
+<listitem><para>Destroying a stream automatically stops any playback and clears its queue.</para>
+</listitem><listitem><para>Once destroyed, the stream handle is invalid and cannot be reused.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>Errors</bold></para>
+<para><itemizedlist>
+<listitem><para><computeroutput>Invalid STREAM handle</computeroutput> if the given handle is not valid.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>Examples</bold></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">STREAM<sp/>DESTROY<sp/>music</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="STREAM_1autotoc_md1070">
+<title>Relationship to SOUND</title>
+<para><itemizedlist>
+<listitem><para>A <bold>stream</bold> is like a playback channel. It does not store sound data itself.</para>
+</listitem><listitem><para>A <bold>sound handle</bold> (from <computeroutput>SOUND LOAD</computeroutput>) represents decoded audio data in memory.</para>
+</listitem><listitem><para>To play a sound, you must queue it on a stream with <computeroutput>SOUND PLAY</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="STREAM_1autotoc_md1072">
+<title>Typical usage</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">STREAM<sp/>CREATE<sp/>s</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>LOAD<sp/>song,<sp/>&quot;/system/webserver/media/retro-revival.wav&quot;</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>VOLUME<sp/>s,<sp/>DECIBELS(-6)</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>PLAY<sp/>s,<sp/>song</highlight></codeline>
+</programlisting></para>
+<para>Later, when finished:</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">SOUND<sp/>UNLOAD<sp/>song</highlight></codeline>
+<codeline><highlight class="normal">STREAM<sp/>DESTROY<sp/>s</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+<para><bold>See also</bold> <ref refid="SOUND" kindref="compound">SOUND</ref> · <ref refid="DECIBELS" kindref="compound">DECIBELS</ref> </para>
+</sect3>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/STREAM.md"/>
+  </compounddef>
+</doxygen>

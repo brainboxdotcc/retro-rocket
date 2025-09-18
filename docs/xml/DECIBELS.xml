@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="DECIBELS" kind="page">
+    <compoundname>DECIBELS</compoundname>
+    <title>DECIBELS Function</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">DECIBELS(integer-expression)</highlight></codeline>
+</programlisting></para>
+<para>Converts a <bold>decibel (dB) value</bold> into a volume level suitable for <computeroutput>SOUND VOLUME</computeroutput>. The return value is always in the range <bold>0–255</bold>, where:</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>0</computeroutput> means completely silent.</para>
+</listitem><listitem><para><computeroutput>255</computeroutput> means full volume (unity gain).</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<sect3 id="DECIBELS_1autotoc_md164">
+<title>What are decibels?</title>
+<para>Decibels are a way of describing <bold>relative loudness</bold>. They don’t measure sound directly, but how much <bold>quieter or louder</bold> something is compared to a reference point:</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>0 dB</computeroutput> means “no change” - the sound plays at its original level.</para>
+</listitem><listitem><para>Negative values (e.g. <computeroutput>-6 dB</computeroutput>, <computeroutput>-12 dB</computeroutput>) make the sound quieter.</para>
+</listitem><listitem><para>The further the number is below zero, the quieter the result.</para>
+</listitem><listitem><para>Positive values are not useful here. Anything above <computeroutput>0 dB</computeroutput> is clamped to maximum.</para>
+</listitem></itemizedlist>
+</para>
+<para>For example, <computeroutput>-6 dB</computeroutput> is a common setting to “turn something down a bit” (50% loudness in Retro Rocket) without muting it.</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="DECIBELS_1autotoc_md166">
+<title>Behaviour in Retro Rocket</title>
+<para><itemizedlist>
+<listitem><para><computeroutput>DECIBELS(0)</computeroutput> → 255 (full volume).</para>
+</listitem><listitem><para><computeroutput>DECIBELS(-6)</computeroutput> → about half volume (128).</para>
+</listitem><listitem><para><computeroutput>DECIBELS(-12)</computeroutput> → quieter still (around 64).</para>
+</listitem><listitem><para><computeroutput>DECIBELS(-60)</computeroutput> → 0 (silent).</para>
+</listitem></itemizedlist>
+</para>
+<para>Values above 0 are treated as 0 dB. Values below –60 are treated as silence.</para>
+<para>This gives a simple but natural way to think about volume, since each <bold>–6 dB step roughly halves the loudness</bold>.</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="DECIBELS_1autotoc_md168">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>Use <computeroutput>DECIBELS()</computeroutput> when you want to set volume in familiar dB terms instead of raw 0–255 values.</para>
+</listitem><listitem><para>The mapping is not linear: small changes near 0 dB make a noticeable difference, while changes at very low levels fade smoothly towards silence.</para>
+</listitem><listitem><para>Internally this uses a fast lookup table, so performance is constant time.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="DECIBELS_1autotoc_md170">
+<title>Examples</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">gain<sp/>=<sp/>DECIBELS(-6)</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>VOLUME<sp/>music,<sp/>gain</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">gain<sp/>=<sp/>DECIBELS(-20)</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>VOLUME<sp/>effects,<sp/>gain</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+<para><bold>See also</bold> <ref refid="SOUND" kindref="compound">SOUND</ref> VOLUME · <ref refid="STREAM" kindref="compound">STREAM</ref> </para>
+</sect3>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/integer/DECIBELS.md"/>
+  </compounddef>
+</doxygen>

@@ -247,23 +247,32 @@ void sound_statement(struct basic_ctx* ctx) {
 	accept_or_return(NEWLINE, ctx);
 }
 
+/* Log table mapping dB [-60..0] to [0..255], index 0 == -60 dB, index 60 == 0 dB. */
+static const uint8_t db_to_255[61] = {
+	0, 0, 0, 0, 0, 0, 1, 1, 1, 1,
+	1, 1, 1, 1, 1, 1, 2, 2, 2, 2,
+	3, 3, 3, 4, 4, 5, 5, 6, 6, 7,
+	8, 9, 10, 11, 13, 14, 16, 18, 20, 23,
+	26, 29, 32, 36, 40, 45, 51, 57, 64, 72,
+	81, 90, 102, 114, 128, 143, 161, 181, 203, 227,
+	255
+};
+
 int64_t basic_decibels(struct basic_ctx* ctx) {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	PARAMS_END("DECIBELS", 0);
 
-	double dB = (double)intval;
-	if (dB > 0.0) {
-		dB = 0.0;
+	int64_t dB = intval;
+
+	if (dB >= 0) {
+		return 255;
+	}
+	if (dB <= -60) {
+		return 0;
 	}
 
-	double g = pow(10.0, dB / 20.0); /* linear gain 0..1 */
-	int v = (int)(g * 255.0 + 0.5);
-	if (v < 0) {
-		v = 0;
-	}
-	if (v > 255) {
-		v = 255;
-	}
-	return v;
+	/* Map -60..0 dB to 0..255 via lookup */
+	return (int64_t)db_to_255[(int)(dB + 60)];
 }
+

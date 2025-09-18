@@ -11,7 +11,7 @@
 <para>Returns the <bold>arc tangent of y ÷ x</bold>, using the signs of both arguments to determine the correct <bold>quadrant</bold> of the angle. The result is given in <bold>radians</bold>, in the range <computeroutput>-PI#</computeroutput> to <computeroutput>PI#</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect3 id="ATAN2_1autotoc_md453">
+<sect3 id="ATAN2_1autotoc_md469">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>ATAN2(1,<sp/>1)</highlight></codeline>
 </programlisting></para>
@@ -34,7 +34,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="ATAN2_1autotoc_md455">
+<sect3 id="ATAN2_1autotoc_md471">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Unlike <ref refid="ATAN" kindref="compound">ATAN</ref>, which only returns results in <computeroutput>-π/2 … π/2</computeroutput>, <computeroutput>ATAN2</computeroutput> resolves the full circle by considering both <computeroutput>x</computeroutput> and <computeroutput>y</computeroutput> signs.</para>

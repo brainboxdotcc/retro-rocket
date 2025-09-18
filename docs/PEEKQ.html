@@ -93,20 +93,20 @@ $(document).ready(function(){initNavTree('PEEKQ.html',''); initResizable(); });
 </div><!-- fragment --><p>Reads a <b>64-bit quad-word</b> from <code>address</code> and returns it as an integer.</p>
 <dl class="section note"><dt>Note</dt><dd>The full 8-byte span must be valid; otherwise <code>Bad Address at &lt;address&gt;</code> is raised.</dd></dl>
 <hr  />
-<h3><a class="anchor" id="autotoc_md338"></a>
+<h3><a class="anchor" id="autotoc_md354"></a>
 How to read it</h3>
 <ul>
 <li>Loads 8 bytes, <b>little-endian</b>.</li>
 <li>Unaligned 64-bit reads may <b>tear</b> if another agent is concurrently writing.</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md340"></a>
+<h3><a class="anchor" id="autotoc_md356"></a>
 Examples</h3>
 <div class="fragment"><div class="line">REM Read a 64-bit value</div>
 <div class="line">Q = PEEKQ(&amp;100080)</div>
 <div class="line">PRINT Q</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md342"></a>
+<h3><a class="anchor" id="autotoc_md358"></a>
 Notes</h3>
 <ul>
 <li>Use for 64-bit fields or counters; don’t assume atomicity for unaligned addresses.</li>
@@ -120,7 +120,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Mon Sep 15 2025 15:34:18 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Sep 18 2025 00:15:35 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

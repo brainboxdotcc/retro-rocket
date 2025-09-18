@@ -11,7 +11,7 @@
 <para>Rotates integer <computeroutput>a</computeroutput> <bold>left</bold> by <computeroutput>n</computeroutput> bits within a given <computeroutput>width</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect3 id="BITROL_1autotoc_md107">
+<sect3 id="BITROL_1autotoc_md114">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Only the lowest <computeroutput>width</computeroutput> bits participate in the rotation.</para>
@@ -22,7 +22,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="BITROL_1autotoc_md109">
+<sect3 id="BITROL_1autotoc_md116">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>BITROL(&amp;9,<sp/>1,<sp/>4)</highlight></codeline>
 </programlisting></para>
@@ -30,7 +30,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="BITROL_1autotoc_md111">
+<sect3 id="BITROL_1autotoc_md118">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Operates on 64-bit integers.</para>

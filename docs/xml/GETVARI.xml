@@ -12,7 +12,7 @@
 <para>If the variable does not exist, an <bold>error</bold> is raised. Use <ref refid="EXISTSVARI" kindref="compound">EXISTSVARI</ref> to check for the variable’s existence first if you want to avoid an error.</para>
 <para><hruler/>
 </para>
-<sect3 id="GETVARI_1autotoc_md207">
+<sect3 id="GETVARI_1autotoc_md223">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Direct<sp/>retrieval<sp/>of<sp/>variable<sp/>by<sp/>name</highlight></codeline>
 <codeline><highlight class="normal">SCORE<sp/>=<sp/>9001</highlight></codeline>
@@ -39,7 +39,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="GETVARI_1autotoc_md209">
+<sect3 id="GETVARI_1autotoc_md225">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>The string must exactly match the variable’s name <bold>without suffixes</bold> (integer variables have no <computeroutput>$</computeroutput> or <computeroutput>#</computeroutput>).</para>

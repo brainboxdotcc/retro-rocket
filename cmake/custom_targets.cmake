@@ -121,19 +121,67 @@ endfunction()
 function(run TARGETFILE)
     set(FILENAME "${CMAKE_BINARY_DIR}/iso/kernel.bin")
     set(OUTNAME "${CMAKE_BINARY_DIR}/${TARGETFILE}")
+
     # Choose network device based on -DUSE_E1000
     if(USE_E1000)
         set(NET_DEVICE "-device e1000,netdev=netuser")
     else()
         set(NET_DEVICE "-device rtl8139,netdev=netuser")
     endif()
+
     if (PROFILE_KERNEL)
         set(PROFILE "-serial file:callgrind.out")
     else()
         set(PROFILE "")
     endif()
+
+    # ---- Audio detection (Linux only) ----
+    set(AUDIO_OPTS "")
+    if(UNIX AND NOT APPLE)
+        # Try the modern help first. Some older QEMU builds return non-zero and print an error.
+        execute_process(
+                COMMAND qemu-system-x86_64 -audiodev help
+                OUTPUT_VARIABLE QEMU_AD_OUT
+                ERROR_VARIABLE QEMU_AD_ERR
+                RESULT_VARIABLE QEMU_AD_RC
+                OUTPUT_STRIP_TRAILING_WHITESPACE
+                ERROR_STRIP_TRAILING_WHITESPACE
+        )
+        # Combine both streams for robust matching
+        set(QEMU_AD_TEXT "${QEMU_AD_OUT}\n${QEMU_AD_ERR}")
+
+        if(QEMU_AD_RC EQUAL 0 OR QEMU_AD_TEXT MATCHES "Available audio drivers")
+            # Prefer PipeWire if QEMU lists it and host has it; else fall back to PulseAudio
+            set(_BACKEND "")
+            if(QEMU_AD_TEXT MATCHES "(^|[ \n\r\t])pipewire([ \n\r\t]|$)")
+                # Check host has PipeWire
+                execute_process(COMMAND pipewire --version RESULT_VARIABLE PW_RC OUTPUT_QUIET ERROR_QUIET)
+                if(PW_RC EQUAL 0)
+                    set(_BACKEND "pipewire")
+                endif()
+            endif()
+            if(_BACKEND STREQUAL "")
+                if(QEMU_AD_TEXT MATCHES "(^|[ \n\r\t])pa([ \n\r\t]|$)")
+                    # Check host has PulseAudio (or PipeWire's Pulse server)
+                    execute_process(COMMAND pactl --version RESULT_VARIABLE PA_RC OUTPUT_QUIET ERROR_QUIET)
+                    if(PA_RC EQUAL 0)
+                        set(_BACKEND "pa")
+                    endif()
+                endif()
+            endif()
+
+            if(_BACKEND STREQUAL "pipewire")
+                set(AUDIO_OPTS "-audiodev pipewire,id=snd0 -device AC97,audiodev=snd0")
+            elseif(_BACKEND STREQUAL "pa")
+                # If you strictly only want PipeWire, comment this line out to skip Pulse fallback.
+                set(AUDIO_OPTS "-audiodev pa,id=snd0 -device AC97,audiodev=snd0")
+            endif()
+        endif()
+    endif()
+    # ---- end audio detection ----
+
     add_custom_command(OUTPUT ${OUTNAME}
-        COMMAND echo "qemu-system-x86_64 \
+            COMMAND echo "qemu-system-x86_64 \
 	-machine q35,accel=kvm \
 	-s \
 	-monitor stdio \
@@ -152,8 +200,8 @@ function(run TARGETFILE)
 	-debugcon file:debug.log \
 	-netdev user,id=netuser,hostfwd=tcp::2000-:2000,hostfwd=tcp::2080-:80 \
 	-object filter-dump,id=dump,netdev=netuser,file=dump.dat \
-	${NET_DEVICE} ${PROFILE}" >${OUTNAME} && chmod ugo+x ${OUTNAME}
-        DEPENDS ${FILENAME})
+	${NET_DEVICE} ${PROFILE} ${AUDIO_OPTS}" >${OUTNAME} && chmod ugo+x ${OUTNAME}
+            DEPENDS ${FILENAME})
     add_custom_target(RUN_${TARGETFILE} ALL DEPENDS ${OUTNAME})
     add_dependencies(RUN_${TARGETFILE} "kernel.bin")
 endfunction()

@@ -12,7 +12,7 @@
  <computeroutput>printable</computeroutput> may be a string or a numeric expression; numbers are converted to text automatically.</para>
 <para><hruler/>
 </para>
-<sect3 id="PRINT_1autotoc_md936">
+<sect3 id="PRINT_1autotoc_md952">
 <title>Separators and line endings</title>
 <para><computeroutput>PRINT</computeroutput> accepts multiple items separated by <computeroutput>;</computeroutput> or <computeroutput>,</computeroutput>:</para>
 <para><itemizedlist>
@@ -33,7 +33,7 @@
 <hruler/>
 </para>
 </sect3>
-<sect3 id="PRINT_1autotoc_md938">
+<sect3 id="PRINT_1autotoc_md954">
 <title>Using ANSI escape sequences (advanced)</title>
 <para><computeroutput>PRINT</computeroutput> can emit ANSI/VT100 escape sequences directly. <linebreak/>
  The escape character is <computeroutput>ESC</computeroutput>, which is <computeroutput>CHR$(27)</computeroutput>. Most sequences begin with <computeroutput>ESC</computeroutput> + <computeroutput>&quot;[&quot;</computeroutput> (Control Sequence Introducer).</para>
@@ -85,7 +85,7 @@ Define a convenience prefix: <programlisting filename=".basic"><codeline><highli
 <hruler/>
 </para>
 </sect3>
-<sect3 id="PRINT_1autotoc_md940">
+<sect3 id="PRINT_1autotoc_md956">
 <title>Examples</title>
 <para>Basic printing <programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;Hello&quot;</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>123</highlight></codeline>
@@ -103,7 +103,7 @@ Define a convenience prefix: <programlisting filename=".basic"><codeline><highli
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="PRINT_1autotoc_md942">
+<sect3 id="PRINT_1autotoc_md958">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Output affects the text layer. Use <computeroutput>COLOUR</computeroutput> and <computeroutput>BACKGROUND</computeroutput> for simple text colours, and <computeroutput>GCOL</computeroutput> for graphics drawing.</para>

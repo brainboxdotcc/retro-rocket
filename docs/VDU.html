@@ -90,32 +90,32 @@ $(document).ready(function(){initNavTree('VDU.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><ul><ul><li class="level3"><a href="#autotoc_md1063">Notes</a></li>
-<li class="level3"><a href="#autotoc_md1065">Implemented commands</a><ul><li class="level4"><a href="#autotoc_md1066">VDU 6</a></li>
-<li class="level4"><a href="#autotoc_md1067">VDU 7</a></li>
-<li class="level4"><a href="#autotoc_md1068">VDU 8</a></li>
-<li class="level4"><a href="#autotoc_md1069">VDU 9</a></li>
-<li class="level4"><a href="#autotoc_md1070">VDU 10</a></li>
-<li class="level4"><a href="#autotoc_md1071">VDU 11</a></li>
-<li class="level4"><a href="#autotoc_md1072">VDU 12</a></li>
-<li class="level4"><a href="#autotoc_md1073">VDU 13</a></li>
-<li class="level4"><a href="#autotoc_md1074">VDU 16</a></li>
-<li class="level4"><a href="#autotoc_md1075">VDU 17, colour</a></li>
-<li class="level4"><a href="#autotoc_md1076">VDU 18, colour</a></li>
-<li class="level4"><a href="#autotoc_md1077">VDU 20</a></li>
-<li class="level4"><a href="#autotoc_md1078">VDU 23, code</a></li>
-<li class="level4"><a href="#autotoc_md1079">VDU 25, …</a></li>
-<li class="level4"><a href="#autotoc_md1080">VDU 26</a></li>
-<li class="level4"><a href="#autotoc_md1081">VDU 27, n</a></li>
-<li class="level4"><a href="#autotoc_md1082">VDU 28, …</a></li>
-<li class="level4"><a href="#autotoc_md1083">VDU 30</a></li>
-<li class="level4"><a href="#autotoc_md1084">VDU 31, x, y</a></li>
-<li class="level4"><a href="#autotoc_md1085">VDU 127</a></li>
+<ul><ul><ul><li class="level3"><a href="#autotoc_md1103">Notes</a></li>
+<li class="level3"><a href="#autotoc_md1105">Implemented commands</a><ul><li class="level4"><a href="#autotoc_md1106">VDU 6</a></li>
+<li class="level4"><a href="#autotoc_md1107">VDU 7</a></li>
+<li class="level4"><a href="#autotoc_md1108">VDU 8</a></li>
+<li class="level4"><a href="#autotoc_md1109">VDU 9</a></li>
+<li class="level4"><a href="#autotoc_md1110">VDU 10</a></li>
+<li class="level4"><a href="#autotoc_md1111">VDU 11</a></li>
+<li class="level4"><a href="#autotoc_md1112">VDU 12</a></li>
+<li class="level4"><a href="#autotoc_md1113">VDU 13</a></li>
+<li class="level4"><a href="#autotoc_md1114">VDU 16</a></li>
+<li class="level4"><a href="#autotoc_md1115">VDU 17, colour</a></li>
+<li class="level4"><a href="#autotoc_md1116">VDU 18, colour</a></li>
+<li class="level4"><a href="#autotoc_md1117">VDU 20</a></li>
+<li class="level4"><a href="#autotoc_md1118">VDU 23, code</a></li>
+<li class="level4"><a href="#autotoc_md1119">VDU 25, …</a></li>
+<li class="level4"><a href="#autotoc_md1120">VDU 26</a></li>
+<li class="level4"><a href="#autotoc_md1121">VDU 27, n</a></li>
+<li class="level4"><a href="#autotoc_md1122">VDU 28, …</a></li>
+<li class="level4"><a href="#autotoc_md1123">VDU 30</a></li>
+<li class="level4"><a href="#autotoc_md1124">VDU 31, x, y</a></li>
+<li class="level4"><a href="#autotoc_md1125">VDU 127</a></li>
 </ul>
 </li>
-<li class="level3"><a href="#autotoc_md1087">Differences vs BBC Micro</a></li>
-<li class="level3"><a href="#autotoc_md1089">Examples</a></li>
-<li class="level3"><a href="#autotoc_md1091">See also</a></li>
+<li class="level3"><a href="#autotoc_md1127">Differences vs BBC Micro</a></li>
+<li class="level3"><a href="#autotoc_md1129">Examples</a></li>
+<li class="level3"><a href="#autotoc_md1131">See also</a></li>
 </ul>
 </ul>
 </ul>
@@ -124,7 +124,7 @@ $(document).ready(function(){initNavTree('VDU.html',''); initResizable(); });
 </div><!-- fragment --><p>Issues a <b>screen control</b> command. <code>n</code> selects the command. Arguments (if any) follow as comma-separated integers. Unused trailing numbers are accepted and ignored.</p>
 <p>Retro Rocket BASIC implements a practical subset of BBC MOS <code>VDU</code>. Unsupported commands are no-ops (their arguments are discarded).</p>
 <hr  />
-<h3><a class="anchor" id="autotoc_md1063"></a>
+<h3><a class="anchor" id="autotoc_md1103"></a>
 Notes</h3>
 <ul>
 <li>Coordinates for cursor movement use <b>text cells</b>: <code>x</code> is the column (0..cols-1), <code>y</code> is the row (0..rows-1).</li>
@@ -135,45 +135,45 @@ Notes</h3>
 <li>Extra numbers after a command are <b>ignored</b> (kept for compatibility with BBC syntax).</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md1065"></a>
+<h3><a class="anchor" id="autotoc_md1105"></a>
 Implemented commands</h3>
-<h4><a class="anchor" id="autotoc_md1066"></a>
+<h4><a class="anchor" id="autotoc_md1106"></a>
 VDU 6</h4>
 <p>Enable text output to the screen (no state change in Retro Rocket at present; treated as a no-op).</p>
-<h4><a class="anchor" id="autotoc_md1067"></a>
+<h4><a class="anchor" id="autotoc_md1107"></a>
 VDU 7</h4>
 <p>Beep (fixed1 kHz chirp).</p>
-<h4><a class="anchor" id="autotoc_md1068"></a>
+<h4><a class="anchor" id="autotoc_md1108"></a>
 VDU 8</h4>
 <p>Cursor left one character, wrapping to the previous line if <code>x = 0</code>.</p>
-<h4><a class="anchor" id="autotoc_md1069"></a>
+<h4><a class="anchor" id="autotoc_md1109"></a>
 VDU 9</h4>
 <p>Cursor right one character, wrapping to the next line at end of row (scrolls if needed).</p>
-<h4><a class="anchor" id="autotoc_md1070"></a>
+<h4><a class="anchor" id="autotoc_md1110"></a>
 VDU 10</h4>
 <p>Cursor down one line (scrolls at bottom).</p>
-<h4><a class="anchor" id="autotoc_md1071"></a>
+<h4><a class="anchor" id="autotoc_md1111"></a>
 VDU 11</h4>
 <p>Cursor up one line (stops at top).</p>
-<h4><a class="anchor" id="autotoc_md1072"></a>
+<h4><a class="anchor" id="autotoc_md1112"></a>
 VDU 12</h4>
 <p>Clear screen (CLS).</p>
-<h4><a class="anchor" id="autotoc_md1073"></a>
+<h4><a class="anchor" id="autotoc_md1113"></a>
 VDU 13</h4>
 <p>Carriage return (move to column 0 of current line).</p>
-<h4><a class="anchor" id="autotoc_md1074"></a>
+<h4><a class="anchor" id="autotoc_md1114"></a>
 VDU 16</h4>
 <p>Clear screen (CLG in BBC terms, but acts as CLS in Retro Rocket).</p>
-<h4><a class="anchor" id="autotoc_md1075"></a>
+<h4><a class="anchor" id="autotoc_md1115"></a>
 VDU 17, colour</h4>
 <p>Set <b>text</b> colour to a VGA colour code between 0 and 15.</p>
-<h4><a class="anchor" id="autotoc_md1076"></a>
+<h4><a class="anchor" id="autotoc_md1116"></a>
 VDU 18, colour</h4>
 <p>Set <b>graphics</b> colour to a <b>32-bit</b> RGB value (e.g. <code>&amp;FF00FF</code>). (BBC used palette indices; Retro Rocket uses true-colour.)</p>
-<h4><a class="anchor" id="autotoc_md1077"></a>
+<h4><a class="anchor" id="autotoc_md1117"></a>
 VDU 20</h4>
 <p>Reset graphics colour to default (<b>white</b>, <code>&amp;FFFFFF</code>), and text colour to default (<b>white</b>, 0xA0A0A0)</p>
-<h4><a class="anchor" id="autotoc_md1078"></a>
+<h4><a class="anchor" id="autotoc_md1118"></a>
 VDU 23, code</h4>
 <div class="fragment"><div class="line">VDU 23, code, b0, b1, b2, b3, b4, b5, b6, b7</div>
 </div><!-- fragment --><p> Redefine glyph for character <code>code</code> (32–255). Each <code>bN</code> is an 8-bit row of the 8×8 bitmap; the <b>most significant bit</b> (bit 7) is the <b>leftmost pixel</b>, and the <b>least significant bit</b> (bit 0) is the <b>rightmost pixel</b>. A <code>1</code> draws the foreground colour, a <code>0</code> leaves the background.</p>
@@ -203,29 +203,29 @@ VDU 23, code</h4>
 </ul>
 </li>
 </ul>
-<h4><a class="anchor" id="autotoc_md1079"></a>
+<h4><a class="anchor" id="autotoc_md1119"></a>
 VDU 25, …</h4>
 <p><b>Plot line</b> In Retro Rocket this delegates to the <code>LINE</code> statement; supply parameters exactly as for <code>LINE x1, y1, x2, y2</code>.</p>
-<h4><a class="anchor" id="autotoc_md1080"></a>
+<h4><a class="anchor" id="autotoc_md1120"></a>
 VDU 26</h4>
 <p>Reset text and graphics windows to defaults (full screen) as defined by <code>VDU 28</code></p>
-<h4><a class="anchor" id="autotoc_md1081"></a>
+<h4><a class="anchor" id="autotoc_md1121"></a>
 VDU 27, n</h4>
 <p>Output the single character with code <code>n</code>.</p>
-<h4><a class="anchor" id="autotoc_md1082"></a>
+<h4><a class="anchor" id="autotoc_md1122"></a>
 VDU 28, …</h4>
 <p>Define a <b>text window</b>. Only the top and bottom of the window are valid in Retro Rocket, the x coordinates are ignored.</p>
-<h4><a class="anchor" id="autotoc_md1083"></a>
+<h4><a class="anchor" id="autotoc_md1123"></a>
 VDU 30</h4>
 <p>Home cursor to (0,0).</p>
-<h4><a class="anchor" id="autotoc_md1084"></a>
+<h4><a class="anchor" id="autotoc_md1124"></a>
 VDU 31, x, y</h4>
 <p>Move cursor to text position <code>(x, y)</code>.</p>
-<h4><a class="anchor" id="autotoc_md1085"></a>
+<h4><a class="anchor" id="autotoc_md1125"></a>
 VDU 127</h4>
 <p>Destructive backspace (mapped to BS).</p>
 <hr  />
-<h3><a class="anchor" id="autotoc_md1087"></a>
+<h3><a class="anchor" id="autotoc_md1127"></a>
 Differences vs BBC Micro</h3>
 <ul>
 <li><b>Only one VDU command per line</b> - You may not stack multiple VDU commands in one long sequence, this is to aid readability and prevent spamming of the console subsystem to aid multitasking fairness.</li>
@@ -242,7 +242,7 @@ Differences vs BBC Micro</h3>
 <li><b>Colour depth:</b> Retro Rocket accepts <b>32-bit</b> RGB for <code>VDU 18</code>; BBC used limited palette indices.</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md1089"></a>
+<h3><a class="anchor" id="autotoc_md1129"></a>
 Examples</h3>
 <p><b>Redefine te bitmap for “Z” and print it</b></p>
 <div class="fragment"><div class="line">VDU 23,ASC(&#39;Z&#39;),&amp;3C,&amp;7E,&amp;FF,&amp;E7,&amp;FF,&amp;66,&amp;66,&amp;00</div>
@@ -257,7 +257,7 @@ Examples</h3>
 <div class="fragment"><div class="line">VDU 12</div>
 <div class="line">VDU 30</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md1091"></a>
+<h3><a class="anchor" id="autotoc_md1131"></a>
 See also</h3>
 <ul>
 <li><a class="el" href="GRAPHPRINT.html">GRAPHPRINT</a> - draw text at pixel coordinates (immediate-mode overlay).</li>
@@ -272,7 +272,7 @@ See also</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Mon Sep 15 2025 15:34:18 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Sep 18 2025 00:15:35 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

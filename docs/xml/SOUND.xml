@@ -1,0 +1,181 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="SOUND" kind="page">
+    <compoundname>SOUND</compoundname>
+    <title>SOUND Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">SOUND<sp/>VOLUME<sp/>stream,<sp/>gain</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>PLAY<sp/>stream,<sp/>sound</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>PLAY<sp/>stream</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>STOP<sp/>stream</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>PAUSE<sp/>stream</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>LOAD<sp/>variable,<sp/>&quot;filename&quot;</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>UNLOAD<sp/>sound</highlight></codeline>
+</programlisting></para>
+<para>Provides control over <bold>sound playback</bold>. Sounds are loaded from WAV files and played on <bold>streams</bold>. A stream acts like a playback channel; multiple streams can be active at once, each with their own volume and queue of sounds.</para>
+<para><hruler/>
+</para>
+<sect3 id="SOUND_1autotoc_md1041">
+<title>SOUND VOLUME</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">SOUND<sp/>VOLUME<sp/>stream,<sp/>gain</highlight></codeline>
+</programlisting></para>
+<para>Sets the <bold>volume</bold> for a stream. The <computeroutput>gain</computeroutput> value ranges from 0–255:</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>0</computeroutput> is silence.</para>
+</listitem><listitem><para><computeroutput>255</computeroutput> is full volume (internally treated as 256 for exact unity).</para>
+</listitem><listitem><para>Intermediate values reduce the volume proportionally.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>Notes</bold></para>
+<para><itemizedlist>
+<listitem><para>For convenience, the function <computeroutput>DECIBELS()</computeroutput> can be used to convert from dB into the correct gain value.</para>
+</listitem><listitem><para>Volume changes affect all future playback on the stream immediately.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>Errors</bold></para>
+<para><itemizedlist>
+<listitem><para><computeroutput>Invalid STREAM handle</computeroutput> if the stream does not exist.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>Examples</bold></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">SOUND<sp/>VOLUME<sp/>music,<sp/>64</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>VOLUME<sp/>music,<sp/>DECIBELS(-12)</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="SOUND_1autotoc_md1043">
+<title>SOUND PLAY</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">SOUND<sp/>PLAY<sp/>stream,<sp/>sound</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>PLAY<sp/>stream</highlight></codeline>
+</programlisting></para>
+<para>Plays or resumes audio on a stream.</para>
+<para><itemizedlist>
+<listitem><para>With a <computeroutput>sound</computeroutput> handle, queues the sound into the stream for playback.</para>
+</listitem><listitem><para>Without a <computeroutput>sound</computeroutput>, resumes a previously paused stream.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>Notes</bold></para>
+<para><itemizedlist>
+<listitem><para>Streams are asynchronous. Program execution continues while playback occurs.</para>
+</listitem><listitem><para>More than one sound can be queued on the same stream; they will play in order.</para>
+</listitem><listitem><para>If you call <computeroutput>SOUND PLAY</computeroutput> with no sound argument while nothing is paused, nothing happens.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>Errors</bold></para>
+<para><itemizedlist>
+<listitem><para><computeroutput>Invalid STREAM handle</computeroutput> if the stream does not exist.</para>
+</listitem><listitem><para><computeroutput>SOUND PLAY: Invalid sound handle</computeroutput> if the sound is invalid or has been unloaded.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>Examples</bold></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">SOUND<sp/>PLAY<sp/>music,<sp/>song</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>PAUSE<sp/>music</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>PLAY<sp/>music<sp/><sp/><sp/>&apos;<sp/>resumes<sp/>paused<sp/>playback</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="SOUND_1autotoc_md1045">
+<title>SOUND STOP</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">SOUND<sp/>STOP<sp/>stream</highlight></codeline>
+</programlisting></para>
+<para>Stops playback on the given stream immediately and clears any queued sounds.</para>
+<para><bold>Errors</bold></para>
+<para><itemizedlist>
+<listitem><para><computeroutput>Invalid STREAM handle</computeroutput> if the stream does not exist.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>Examples</bold></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">SOUND<sp/>STOP<sp/>music</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="SOUND_1autotoc_md1047">
+<title>SOUND PAUSE</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">SOUND<sp/>PAUSE<sp/>stream</highlight></codeline>
+</programlisting></para>
+<para>Pauses playback on the given stream. Playback can be resumed later with <computeroutput>SOUND PLAY stream</computeroutput> (without a sound argument).</para>
+<para><bold>Errors</bold></para>
+<para><itemizedlist>
+<listitem><para><computeroutput>Invalid STREAM handle</computeroutput> if the stream does not exist.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>Examples</bold></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">SOUND<sp/>PAUSE<sp/>music</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>PLAY<sp/>music<sp/><sp/><sp/>&apos;<sp/>resume</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="SOUND_1autotoc_md1049">
+<title>SOUND LOAD</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">SOUND<sp/>LOAD<sp/>variable,<sp/>&quot;filename&quot;</highlight></codeline>
+</programlisting></para>
+<para>Loads a WAV file into memory and assigns a <bold>sound handle</bold> to <computeroutput>variable</computeroutput>.</para>
+<para><bold>Notes</bold></para>
+<para><itemizedlist>
+<listitem><para>Only PCM and IEEE float WAV files are supported.</para>
+</listitem><listitem><para>Sound data is stored in RAM until freed. Large audio files may consume significant memory.</para>
+</listitem><listitem><para>Sound handles are distinct from streams:<itemizedlist>
+<listitem><para>A <bold>sound handle</bold> is the decoded audio data.</para>
+</listitem><listitem><para>A <bold>stream</bold> is where playback occurs.</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para>Always free loaded sounds when no longer needed using <computeroutput>SOUND UNLOAD</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>Errors</bold></para>
+<para><itemizedlist>
+<listitem><para><lsquo/>Unable to load WAV file &apos;filename<rsquo/><computeroutput>if the file could not be opened. *</computeroutput>Out of memory loading WAV file &apos;filename&apos;` if allocation fails.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>Examples</bold></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">SOUND<sp/>LOAD<sp/>song,<sp/>&quot;/system/webserver/media/retro-revival.wav&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>song</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="SOUND_1autotoc_md1051">
+<title>SOUND UNLOAD</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">SOUND<sp/>UNLOAD<sp/>sound</highlight></codeline>
+</programlisting></para>
+<para>Unloads a sound and frees its memory. After unloading, the handle becomes invalid and cannot be used with <computeroutput>SOUND PLAY</computeroutput>.</para>
+<para><bold>Errors</bold></para>
+<para><itemizedlist>
+<listitem><para><computeroutput>SOUND UNLOAD: Invalid sound handle</computeroutput> if the handle is not valid.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>Examples</bold></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">SOUND<sp/>UNLOAD<sp/>song</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="SOUND_1autotoc_md1053">
+<title>Usage example</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">STREAM<sp/>CREATE<sp/>music</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>LOAD<sp/>song,<sp/>&quot;/system/webserver/media/retro-revival.wav&quot;</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>VOLUME<sp/>music,<sp/>DECIBELS(-6)</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>PLAY<sp/>music,<sp/>song</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&apos;<sp/>...<sp/>do<sp/>other<sp/>work<sp/>here<sp/>...</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">SOUND<sp/>PAUSE<sp/>music</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>PLAY<sp/>music<sp/><sp/><sp/>&apos;<sp/>resume<sp/>playback</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>STOP<sp/>music</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>UNLOAD<sp/>song</highlight></codeline>
+<codeline><highlight class="normal">STREAM<sp/>DESTROY<sp/>music</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+<para><bold>See also</bold> <ref refid="STREAM" kindref="compound">STREAM</ref> · <ref refid="DECIBELS" kindref="compound">DECIBELS</ref> </para>
+</sect3>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/SOUND.md"/>
+  </compounddef>
+</doxygen>

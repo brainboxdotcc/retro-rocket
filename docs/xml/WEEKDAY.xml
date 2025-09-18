@@ -22,7 +22,7 @@
 <para>Pass <computeroutput>TRUE</computeroutput> to return the local day (adjusted by system time zone), or <computeroutput>FALSE</computeroutput> for UTC.</para>
 <para><hruler/>
 </para>
-<sect3 id="WEEKDAY_1autotoc_md428">
+<sect3 id="WEEKDAY_1autotoc_md444">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;Local<sp/>weekday<sp/>=<sp/>&quot;;<sp/>WEEKDAY(TRUE)</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;UTC<sp/>weekday<sp/><sp/><sp/>=<sp/>&quot;;<sp/>WEEKDAY(FALSE)</highlight></codeline>
@@ -50,7 +50,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="WEEKDAY_1autotoc_md430">
+<sect3 id="WEEKDAY_1autotoc_md446">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Returns an integer in the range <computeroutput>0–6</computeroutput>.</para>
