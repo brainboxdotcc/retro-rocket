@@ -27,8 +27,7 @@ var NAVTREE =
   [ "Retro Rocket OS", "index.html", [
     [ "User Guide", "user-guide.html", "user-guide" ],
     [ "BASIC Language Reference", "basic-ref.html", "basic-ref" ],
-    [ "Kernel Development", "kernel-dev.html", "kernel-dev" ],
-    [ "LCPUID", "md_docpages_2basic-language-reference_2functions_2integer_2LCPUID.html", null ]
+    [ "Kernel Development", "kernel-dev.html", "kernel-dev" ]
   ] ]
 ];
 

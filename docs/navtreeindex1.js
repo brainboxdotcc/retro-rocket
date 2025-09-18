@@ -20,7 +20,6 @@ var NAVTREEINDEX1 =
 "keywords.html":[1,2],
 "libraries.html":[1,6],
 "list.html":[0,0,17],
-"md_docpages_2basic-language-reference_2functions_2integer_2LCPUID.html":[3],
 "memory.html":[2,2],
 "mkdir.html":[0,0,18],
 "modules.html":[2,3],
