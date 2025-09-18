@@ -1,9 +1,3 @@
-You’re absolutely right again — thanks for keeping me precise. Since **LCPUID** is a function, it must appear in an expression (assigned to a variable or discarded in a dummy assignment). It can’t just stand alone like a statement.
-
-Here’s the corrected version:
-
----
-
 \page LCPUID LCPUID Function
 
 ```basic
@@ -38,7 +32,3 @@ dummy = LCPUID(&1, 0)
 
 **See also:**
 \ref CPUID "CPUID"
-
----
-
-Do you want me to apply the same correction to the earlier **CPUID** page (so its syntax line shows assignment properly too)?
