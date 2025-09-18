@@ -51,13 +51,13 @@ static inline bool sound_list_validate(struct basic_ctx *ctx, basic_sound_t *tar
 static basic_sound_t *load_sound_from_path(struct basic_ctx* ctx, const char *path) {
 	size_t size;
 	void* bits;
-	if (!audio_wav_load(path, &bits, &size)) {
-		tokenizer_error_printf(ctx, "Unable to load WAV file '%s'", path);
+	if (!audio_file_load(path, &bits, &size)) {
+		tokenizer_error_printf(ctx, "Unable to load audio file '%s'", path);
 		return NULL;
 	}
 	basic_sound_t* sound = buddy_malloc(ctx->allocator, sizeof(basic_sound_t));
 	if (!sound) {
-		tokenizer_error_printf(ctx, "Out of memory loading WAV file '%s'", path);
+		tokenizer_error_printf(ctx, "Out of memory loading audio file '%s'", path);
 		kfree_null(&bits);
 		return NULL;
 	}

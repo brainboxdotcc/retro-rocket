@@ -51,6 +51,8 @@ typedef void (*audio_resume_t)(void);
  */
 typedef uint32_t (*audio_length_t)(void);
 
+typedef bool (*try_load_audio_t)(const char*,const void*, size_t, void**, size_t*);
+
 /** @brief Maximum length (including NUL) for an audio device’s display name. */
 #define MAX_AUDIO_DEVICE_NAME 32
 
@@ -93,6 +95,14 @@ typedef struct audio_device_t {
 	/** Next device in the global list. */
 	struct audio_device_t *next;
 } audio_device_t;
+
+typedef struct audio_file_loader_t {
+	void* opaque;
+
+	try_load_audio_t try_load_audio;
+
+	struct audio_file_loader_t* next;
+} audio_file_loader_t;
 
 /**
  * @brief Register a new audio device.
@@ -209,6 +219,7 @@ bool mixer_stream_is_paused(mixer_stream_t* ch);
  *  - PCM integer (format tag 0x0001): 8/16/24/32-bit
  *  - IEEE float (format tag 0x0003): 32/64-bit
  *
+ * @param filename   The filename of the WAV that was loaded into memory
  * @param wav        Pointer to the start of the WAV file in memory
  * @param wav_bytes  Size in bytes of the input buffer
  * @param out_ptr    On success, receives pointer to a kmalloc'd buffer of
@@ -216,27 +227,7 @@ bool mixer_stream_is_paused(mixer_stream_t* ch);
  * @param out_bytes  On success, receives the size in bytes of *out_ptr
  * @return           true on successful conversion, false on error
  */
-bool wav_from_memory(const void* wav, size_t wav_bytes, void** out_ptr, size_t* out_bytes);
-
-/**
- * @brief Load and convert a WAV file into 44.1 kHz stereo S16_LE
- *
- * Opens a file from the filesystem, reads it into memory, and converts
- * its audio stream into 44.1 kHz, stereo, signed 16-bit little-endian
- * samples. The output is always interleaved left/right at the fixed rate
- * and format, regardless of the input encoding.
- *
- * Supports:
- *  - PCM integer (format tag 0x0001): 8/16/24/32-bit
- *  - IEEE float (format tag 0x0003): 32/64-bit
- *
- * @param filename   Path to the WAV file
- * @param out_ptr    On success, receives pointer to a kmalloc'd buffer of
- *                   converted audio data. Caller must free with kfree().
- * @param out_bytes  On success, receives the size in bytes of *out_ptr
- * @return           true on successful conversion, false on error
- */
-bool audio_wav_load(const char* filename, void** out_ptr, size_t* out_bytes);
+bool wav_from_memory(const char* filename, const void* wav, size_t wav_bytes, void** out_ptr, size_t* out_bytes);
 
 /**
  * @brief Convert byte length of decoded WAV to number of samples
@@ -262,3 +253,34 @@ size_t wav_size_to_samples(size_t length);
  */
 size_t wav_samples_to_size(size_t samples);
 
+bool has_suffix_icase(const char *str, const char *suffix);
+
+/**
+ * Register the WAV format in the list of file loaders
+ */
+void audio_init();
+
+/**
+ * @brief Load and convert an audio file into 44.1 kHz stereo S16_LE
+ *
+ * Opens a file from the filesystem, reads it into memory, and converts
+ * its audio stream into 44.1 kHz, stereo, signed 16-bit little-endian
+ * samples. The output is always interleaved left/right at the fixed rate
+ * and format, regardless of the input encoding.
+ *
+ * By default, supports WAV files:
+ *  - PCM integer (format tag 0x0001): 8/16/24/32-bit
+ *  - IEEE float (format tag 0x0003): 32/64-bit
+ * Plus, any extra formats implemented by loaded kernel modules.
+ *
+ * @param filename   Path to the WAV file
+ * @param out_ptr    On success, receives pointer to a kmalloc'd buffer of
+ *                   converted audio data. Caller must free with kfree().
+ * @param out_bytes  On success, receives the size in bytes of *out_ptr
+ * @return           true on successful conversion, false on error
+ */
+bool audio_file_load(const char *filename, void **out_ptr, size_t *out_bytes);
+
+bool register_audio_loader(audio_file_loader_t* loader);
+
+bool deregister_audio_loader(audio_file_loader_t* loader);

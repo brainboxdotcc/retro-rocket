@@ -10,7 +10,7 @@ init_func_t init_funcs[] = {
 	init_acpi, init_idt, boot_aps, init_pci, init_realtime_clock,
 	init_devicenames, init_keyboard, init_ide, init_ahci,
 	init_filesystem, init_devfs, init_iso9660, init_fat32,
-	init_rfs, init_modules, network_up,
+	init_rfs, init_modules, network_up, audio_init,
 	NULL,
 };
 
@@ -19,7 +19,7 @@ char* init_funcs_names[] = {
 	"idt",			"cpus",			"pci",		"clock",
 	"devicenames",		"keyboard",		"ide",		"ahci",
 	"filesystem",		"devfs",		"iso9660",	"fat32",
-	"rfs",			"modules",		"network",
+	"rfs",			"modules",		"network",	"audio",
 	NULL,
 };
 

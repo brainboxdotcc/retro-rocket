@@ -223,16 +223,24 @@ bool audio_wav_load(const char *filename, void **out_ptr, size_t *out_bytes) {
 		kfree(data);
 		return false;
 	}
-	bool result = wav_from_memory(data, entry->size, out_ptr, out_bytes);
+	bool result = wav_from_memory(filename, data, entry->size, out_ptr, out_bytes);
 	kfree(data);
 	return result;
 }
 
-bool wav_from_memory(const void *wav, size_t wav_bytes, void **out_ptr, size_t *out_bytes) {
+bool wav_from_memory(const char* filename, const void *wav, size_t wav_bytes, void **out_ptr, size_t *out_bytes) {
 	const uint8_t *p = (const uint8_t *) wav;
 	wav_fmt_t fmt;
 	const uint8_t *src_data = NULL;
 	uint32_t src_data_bytes = 0;
+
+	if (!filename) {
+		return false;
+	}
+
+	if (!has_suffix_icase(filename, ".wav")) {
+		return false;
+	}
 
 	if (out_ptr == NULL || out_bytes == NULL) {
 		return false;
