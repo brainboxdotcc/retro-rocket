@@ -23,16 +23,5 @@ void kmain()
 		preboot_fail("Failed to mount boot drive to VFS!");
 	}
 
-	/*load_module("ac97");
-
-	void* wav_buffer;
-	size_t wav_size;
-	if (audio_wav_load("/system/webserver/media/retro-revival.wav", &wav_buffer, &wav_size)) {
-		mixer_stream_t *music = mixer_create_stream();
-		mixer_set_gain(music, 240);
-		mixer_push(music, wav_buffer, wav_size_to_samples(wav_size));
-		kfree(wav_buffer);
-	}*/
-
 	init_process();
 }
