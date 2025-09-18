@@ -10,8 +10,8 @@ var variables =
       [ "7) A tiny project: Guess the number", "basic-beginner.html#autotoc_md51", null ],
       [ "8) Tips and troubleshooting", "basic-beginner.html#autotoc_md53", null ],
       [ "9) Where to go next", "basic-beginner.html#autotoc_md55", [
-        [ "Regular expression", "variables.html#autotoc_md1225", null ],
-        [ "Types of Variables", "variables.html#autotoc_md1227", null ]
+        [ "Regular expression", "variables.html#autotoc_md1226", null ],
+        [ "Types of Variables", "variables.html#autotoc_md1228", null ]
       ] ]
     ] ],
     [ "Real Variables", "type-real.html", null ],

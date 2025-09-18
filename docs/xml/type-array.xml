@@ -15,7 +15,7 @@
 </para>
 <para><hruler/>
 </para>
-<sect3 id="type-array_1autotoc_md1229">
+<sect3 id="type-array_1autotoc_md1230">
 <title>Declaring arrays</title>
 <para>Arrays must be created with the <ref refid="DIM" kindref="compound">DIM</ref> statement:</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>names$,<sp/>100</highlight></codeline>
@@ -29,7 +29,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="type-array_1autotoc_md1231">
+<sect3 id="type-array_1autotoc_md1232">
 <title>Accessing elements</title>
 <para>Use a zero-based index to read or write individual elements:</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">names$(0)<sp/>=<sp/>&quot;Alice&quot;</highlight></codeline>
@@ -39,7 +39,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="type-array_1autotoc_md1233">
+<sect3 id="type-array_1autotoc_md1234">
 <title>Assigning to all elements</title>
 <para>Assigning to the array name without a subscript initialises <bold>all elements</bold>:</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">scores<sp/>=<sp/>0</highlight></codeline>
@@ -49,7 +49,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="type-array_1autotoc_md1235">
+<sect3 id="type-array_1autotoc_md1236">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Arrays are always contiguous in memory.</para>

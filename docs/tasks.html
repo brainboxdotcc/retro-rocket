@@ -92,13 +92,13 @@ $(document).ready(function(){initNavTree('tasks.html',''); initResizable(); });
 <div class="textblock"><p>A <b>task</b> in Retro Rocket is a background process. Unlike a normal <em>program</em> that runs in the foreground and owns the console, a <em>task</em> runs independently of the shell and continues until explicitly terminated.</p>
 <p>Tasks can be used for long-running background services, or even as <b>device drivers</b> (for example, the <code>ps2mouse</code> task which implements the mouse driver entirely in BASIC).</p>
 <hr  />
-<h2><a class="anchor" id="autotoc_md1215"></a>
+<h2><a class="anchor" id="autotoc_md1216"></a>
 Starting and stopping tasks</h2>
 <p>To run a program as a task: </p><div class="fragment"><div class="line">ROCKETSH&gt; task drivers/ps2mouse</div>
 </div><!-- fragment --><p> This loads the program from <code>/programs/drivers/ps2mouse</code> and runs it in the background.</p>
 <p>Tasks keep running until the system halts or they are killed with the shell’s process control commands.</p>
 <hr  />
-<h2><a class="anchor" id="autotoc_md1217"></a>
+<h2><a class="anchor" id="autotoc_md1218"></a>
 What tasks are good for</h2>
 <ul>
 <li>Handling <b>device drivers</b> and <b>daemon-type activity</b> (mouse, timers, network servers).</li>
@@ -107,7 +107,7 @@ What tasks are good for</h2>
 <li>Anything that needs to run "behind the scenes" while the user works in the shell or another program runs in the foreground.</li>
 </ul>
 <hr  />
-<h2><a class="anchor" id="autotoc_md1219"></a>
+<h2><a class="anchor" id="autotoc_md1220"></a>
 What not to do in a task</h2>
 <p>Because tasks run without a console of their own:</p>
 <ul>
@@ -118,7 +118,7 @@ What not to do in a task</h2>
 <li><b>Be polite.</b> Use background loops that do real work but do not starve the system by calling busy FNs (e.g. poll at a reasonable interval rather than spinning as fast as possible).</li>
 </ul>
 <hr  />
-<h2><a class="anchor" id="autotoc_md1221"></a>
+<h2><a class="anchor" id="autotoc_md1222"></a>
 Structure of a typical task</h2>
 <p>A task is usually structured as:</p>
 <ol type="1">
@@ -138,7 +138,7 @@ Structure of a typical task</h2>
 <div class="line">UNTIL FALSE</div>
 <div class="line">ENDPROC</div>
 </div><!-- fragment --><hr  />
-<h2><a class="anchor" id="autotoc_md1223"></a>
+<h2><a class="anchor" id="autotoc_md1224"></a>
 Notes</h2>
 <ul>
 <li>Tasks share the same BASIC runtime as other programs, so they must be <b>well-behaved</b> and not interfere with the console.</li>
@@ -152,7 +152,7 @@ Notes</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li>
-    <li class="footer">Generated on Thu Sep 18 2025 21:16:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Sep 18 2025 22:41:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

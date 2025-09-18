@@ -18,8 +18,9 @@ Codecs are provided as kernel modules, just like drivers, and must be loaded bef
 
 * WAV support is built in and always available.
 * MP3 support is available via the `mp3.ko` module (`MODLOAD "mp3"`).
+* FLAC support is available via the `flac.ko` module (`MODLOAD "flac"`).
 
-If you try to load an MP3 file without first loading the MP3 codec module, you will receive an error as the file type will be unrecognised.
+If you try to load any file type except WAV without first loading the corresponding codec module, you will receive an error as the file type will be unrecognised.
 
 ### Streams
 
@@ -33,7 +34,7 @@ A stream is a **playback channel** created with `STREAM CREATE`.
 
 A sound is **decoded audio data** loaded into memory with `SOUND LOAD`.
 
-* Sounds can be loaded from any supported codec (e.g. WAV, MP3).
+* Sounds can be loaded from any supported codec (e.g. WAV, MP3, FLAC).
 * Sounds are stored in RAM as 44.1 kHz stereo, 16-bit PCM.
 * Sound handles are always non-zero integer IDs.
 * Sounds must be freed with `SOUND UNLOAD` when no longer needed.
@@ -69,6 +70,16 @@ SOUND PLAY music, song
 ```
 
 \image html mp3.png
+
+### Play a FLAC file
+
+```basic
+MODLOAD "ac97"                     ' load audio driver
+MODLOAD "flac"                     ' load FLAC codec module
+STREAM CREATE music
+SOUND LOAD song, "track.flac"
+SOUND PLAY music, song
+```
 
 ## Audio Keywords/Functions
 

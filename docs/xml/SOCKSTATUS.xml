@@ -12,7 +12,7 @@
 <para>Note that a socket which is still in the process of connecting may return <computeroutput>FALSE</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect3 id="SOCKSTATUS_1autotoc_md421">
+<sect3 id="SOCKSTATUS_1autotoc_md422">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Attempt<sp/>to<sp/>connect<sp/>and<sp/>wait<sp/>until<sp/>established</highlight></codeline>
 <codeline><highlight class="normal">CONNECT<sp/>fd,<sp/>&quot;example.com&quot;,<sp/>80</highlight></codeline>
@@ -30,7 +30,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="SOCKSTATUS_1autotoc_md423">
+<sect3 id="SOCKSTATUS_1autotoc_md424">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Returns a boolean value: <computeroutput>TRUE</computeroutput> (connected) or <computeroutput>FALSE</computeroutput> (not connected).</para>

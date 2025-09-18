@@ -17,7 +17,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="RESTORE_1autotoc_md994">
+<sect3 id="RESTORE_1autotoc_md995">
 <title>Pattern 1: reopen to start reading again</title>
 <para><bold>values.txt</bold> <programlisting><codeline><highlight class="normal">10</highlight></codeline>
 <codeline><highlight class="normal">20</highlight></codeline>
@@ -55,7 +55,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="RESTORE_1autotoc_md996">
+<sect3 id="RESTORE_1autotoc_md997">
 <title>Pattern 2: cache once, reuse many times</title>
 <para>Instead of re-reading the file, store values in an array on the first pass and reuse the array.</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>A,100</highlight></codeline>
@@ -94,7 +94,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="RESTORE_1autotoc_md998">
+<sect3 id="RESTORE_1autotoc_md999">
 <title>Tips</title>
 <para><itemizedlist>
 <listitem><para>Store one value per line for simple parsing, or define your own separators and split by looking for those characters.</para>

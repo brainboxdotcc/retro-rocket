@@ -11,7 +11,7 @@
 <para>Creates a <bold>listening TCP socket</bold> bound to <computeroutput>ip$:port</computeroutput> and starts queueing incoming connections (up to <computeroutput>backlog</computeroutput>). Returns a non-negative file descriptor on success, or <computeroutput>-1</computeroutput> on failure.</para>
 <para><hruler/>
 </para>
-<sect3 id="SOCKLISTEN_1autotoc_md415">
+<sect3 id="SOCKLISTEN_1autotoc_md416">
 <title>How to use it</title>
 <para><itemizedlist>
 <listitem><para><computeroutput>ip$</computeroutput> is a dotted-quad string (e.g. <computeroutput>&quot;10.0.2.15&quot;</computeroutput>). Use <computeroutput>NETINFO$(&quot;ip&quot;)</computeroutput> for the local address.</para>
@@ -23,7 +23,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="SOCKLISTEN_1autotoc_md417">
+<sect3 id="SOCKLISTEN_1autotoc_md418">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Listen<sp/>and<sp/>handle<sp/>one<sp/>connection</highlight></codeline>
 <codeline><highlight class="normal">srv<sp/>=<sp/>SOCKLISTEN(NETINFO$(&quot;ip&quot;),<sp/>2000,<sp/>5)</highlight></codeline>
@@ -41,7 +41,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="SOCKLISTEN_1autotoc_md419">
+<sect3 id="SOCKLISTEN_1autotoc_md420">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Binding to <computeroutput>&quot;0.0.0.0&quot;</computeroutput> (if supported) listens on all local interfaces.</para>

@@ -15,7 +15,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="GLOBAL_1autotoc_md814">
+<sect3 id="GLOBAL_1autotoc_md815">
 <title>Behaviour</title>
 <para><itemizedlist>
 <listitem><para>The assignment executes normally in the current program, <bold>and</bold> the variable is flagged so that its <bold>value is copied</bold> into subsequently created child programs.</para>
@@ -29,7 +29,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="GLOBAL_1autotoc_md816">
+<sect3 id="GLOBAL_1autotoc_md817">
 <title>Examples</title>
 <para><bold>Pass a string and number to a child</bold></para>
 <para>Parent program: <programlisting filename=".basic"><codeline><highlight class="normal">GLOBAL<sp/>USERNAME$<sp/>=<sp/>&quot;guest&quot;</highlight></codeline>
@@ -51,7 +51,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="GLOBAL_1autotoc_md818">
+<sect3 id="GLOBAL_1autotoc_md819">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para><computeroutput>GLOBAL</computeroutput> controls <bold>inter-program passing only</bold>. It does <bold>not</bold> create a program-wide scope within a single program.</para>

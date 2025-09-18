@@ -90,13 +90,13 @@ $(document).ready(function(){initNavTree('SOUND.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><ul><ul><li class="level3"><a href="#autotoc_md1044">SOUND VOLUME</a></li>
-<li class="level3"><a href="#autotoc_md1046">SOUND PLAY</a></li>
-<li class="level3"><a href="#autotoc_md1048">SOUND STOP</a></li>
-<li class="level3"><a href="#autotoc_md1050">SOUND PAUSE</a></li>
-<li class="level3"><a href="#autotoc_md1052">SOUND LOAD</a></li>
-<li class="level3"><a href="#autotoc_md1054">SOUND UNLOAD</a></li>
-<li class="level3"><a href="#autotoc_md1056">Usage example</a></li>
+<ul><ul><ul><li class="level3"><a href="#autotoc_md1045">SOUND VOLUME</a></li>
+<li class="level3"><a href="#autotoc_md1047">SOUND PLAY</a></li>
+<li class="level3"><a href="#autotoc_md1049">SOUND STOP</a></li>
+<li class="level3"><a href="#autotoc_md1051">SOUND PAUSE</a></li>
+<li class="level3"><a href="#autotoc_md1053">SOUND LOAD</a></li>
+<li class="level3"><a href="#autotoc_md1055">SOUND UNLOAD</a></li>
+<li class="level3"><a href="#autotoc_md1057">Usage example</a></li>
 </ul>
 </ul>
 </ul>
@@ -110,7 +110,7 @@ $(document).ready(function(){initNavTree('SOUND.html',''); initResizable(); });
 <div class="line">SOUND UNLOAD sound</div>
 </div><!-- fragment --><p>Provides control over <b>sound playback</b>. Sounds are loaded from WAV files and played on <b>streams</b>. A stream acts like a playback channel; multiple streams can be active at once, each with their own volume and queue of sounds.</p>
 <hr  />
-<h3><a class="anchor" id="autotoc_md1044"></a>
+<h3><a class="anchor" id="autotoc_md1045"></a>
 SOUND VOLUME</h3>
 <div class="fragment"><div class="line">SOUND VOLUME stream, gain</div>
 </div><!-- fragment --><p>Sets the <b>volume</b> for a stream. The <code>gain</code> value ranges from 0–255:</p>
@@ -132,7 +132,7 @@ SOUND VOLUME</h3>
 <div class="fragment"><div class="line">SOUND VOLUME music, 64</div>
 <div class="line">SOUND VOLUME music, DECIBELS(-12)</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md1046"></a>
+<h3><a class="anchor" id="autotoc_md1047"></a>
 SOUND PLAY</h3>
 <div class="fragment"><div class="line">SOUND PLAY stream, sound</div>
 <div class="line">SOUND PLAY stream</div>
@@ -157,7 +157,7 @@ SOUND PLAY</h3>
 <div class="line">SOUND PAUSE music</div>
 <div class="line">SOUND PLAY music   &#39; resumes paused playback</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md1048"></a>
+<h3><a class="anchor" id="autotoc_md1049"></a>
 SOUND STOP</h3>
 <div class="fragment"><div class="line">SOUND STOP stream</div>
 </div><!-- fragment --><p>Stops playback on the given stream immediately and clears any queued sounds.</p>
@@ -168,7 +168,7 @@ SOUND STOP</h3>
 <p><b>Examples</b></p>
 <div class="fragment"><div class="line">SOUND STOP music</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md1050"></a>
+<h3><a class="anchor" id="autotoc_md1051"></a>
 SOUND PAUSE</h3>
 <div class="fragment"><div class="line">SOUND PAUSE stream</div>
 </div><!-- fragment --><p>Pauses playback on the given stream. Playback can be resumed later with <code>SOUND PLAY stream</code> (without a sound argument).</p>
@@ -180,7 +180,7 @@ SOUND PAUSE</h3>
 <div class="fragment"><div class="line">SOUND PAUSE music</div>
 <div class="line">SOUND PLAY music   &#39; resume</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md1052"></a>
+<h3><a class="anchor" id="autotoc_md1053"></a>
 SOUND LOAD</h3>
 <div class="fragment"><div class="line">SOUND LOAD variable, &quot;filename&quot;</div>
 </div><!-- fragment --><p>Loads a WAV file into memory and assigns a <b>sound handle</b> to <code>variable</code>.</p>
@@ -203,7 +203,7 @@ SOUND LOAD</h3>
 <div class="fragment"><div class="line">SOUND LOAD song, &quot;/system/webserver/media/retro-revival.wav&quot;</div>
 <div class="line">PRINT song</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md1054"></a>
+<h3><a class="anchor" id="autotoc_md1055"></a>
 SOUND UNLOAD</h3>
 <div class="fragment"><div class="line">SOUND UNLOAD sound</div>
 </div><!-- fragment --><p>Unloads a sound and frees its memory. After unloading, the handle becomes invalid and cannot be used with <code>SOUND PLAY</code>.</p>
@@ -214,7 +214,7 @@ SOUND UNLOAD</h3>
 <p><b>Examples</b></p>
 <div class="fragment"><div class="line">SOUND UNLOAD song</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md1056"></a>
+<h3><a class="anchor" id="autotoc_md1057"></a>
 Usage example</h3>
 <div class="fragment"><div class="line">STREAM CREATE music</div>
 <div class="line">SOUND LOAD song, &quot;/system/webserver/media/retro-revival.wav&quot;</div>
@@ -237,7 +237,7 @@ Usage example</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="keywords.html">Keywords</a></li>
-    <li class="footer">Generated on Thu Sep 18 2025 21:16:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Sep 18 2025 22:41:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -11,7 +11,7 @@
 <para>Allocates a block of <bold>heap memory</bold> of the given size (in bytes) and returns a <bold>pointer/integer handle</bold> to it.</para>
 <para><hruler/>
 </para>
-<sect3 id="MEMALLOC_1autotoc_md288">
+<sect3 id="MEMALLOC_1autotoc_md289">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">size<sp/>=<sp/>FILESIZE(&quot;/system/webserver/logo.png&quot;)</highlight></codeline>
 <codeline><highlight class="normal">buf<sp/><sp/>=<sp/>MEMALLOC(size)</highlight></codeline>
@@ -21,7 +21,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="MEMALLOC_1autotoc_md290">
+<sect3 id="MEMALLOC_1autotoc_md291">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Contents are unspecified on allocation.</para>

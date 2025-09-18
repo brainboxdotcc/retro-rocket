@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('DECIBELS.html',''); initResizable(); }
 <li><code>255</code> means full volume (unity gain).</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md167"></a>
+<h3><a class="anchor" id="autotoc_md168"></a>
 What are decibels?</h3>
 <p>Decibels are a way of describing <b>relative loudness</b>. They don’t measure sound directly, but how much <b>quieter or louder</b> something is compared to a reference point:</p>
 <ul>
@@ -107,7 +107,7 @@ What are decibels?</h3>
 </ul>
 <p>For example, <code>-6 dB</code> is a common setting to “turn something down a bit” (50% loudness in Retro Rocket) without muting it.</p>
 <hr  />
-<h3><a class="anchor" id="autotoc_md169"></a>
+<h3><a class="anchor" id="autotoc_md170"></a>
 Behaviour in Retro Rocket</h3>
 <ul>
 <li><code>DECIBELS(0)</code> → 255 (full volume).</li>
@@ -118,7 +118,7 @@ Behaviour in Retro Rocket</h3>
 <p>Values above 0 are treated as 0 dB. Values below –60 are treated as silence.</p>
 <p>This gives a simple but natural way to think about volume, since each <b>–6 dB step roughly halves the loudness</b>.</p>
 <hr  />
-<h3><a class="anchor" id="autotoc_md171"></a>
+<h3><a class="anchor" id="autotoc_md172"></a>
 Notes</h3>
 <ul>
 <li>Use <code>DECIBELS()</code> when you want to set volume in familiar dB terms instead of raw 0–255 values.</li>
@@ -126,7 +126,7 @@ Notes</h3>
 <li>Internally this uses a fast lookup table, so performance is constant time.</li>
 </ul>
 <hr  />
-<h3><a class="anchor" id="autotoc_md173"></a>
+<h3><a class="anchor" id="autotoc_md174"></a>
 Examples</h3>
 <div class="fragment"><div class="line">gain = DECIBELS(-6)</div>
 <div class="line">SOUND VOLUME music, gain</div>
@@ -142,7 +142,7 @@ Examples</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="int-funcs.html">Integer Functions</a></li>
-    <li class="footer">Generated on Thu Sep 18 2025 21:16:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Sep 18 2025 22:41:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

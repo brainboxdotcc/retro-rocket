@@ -12,7 +12,7 @@
 <para><computeroutput>INKEY$</computeroutput> consumes input from the <bold>keyboard buffer</bold>. If multiple keys have been pressed between this call and the last call to <computeroutput>INKEY$</computeroutput> (or an <computeroutput>INPUT</computeroutput> statement), it will take multiple calls to retrieve them all.</para>
 <para><hruler/>
 </para>
-<sect3 id="INKEY_1autotoc_md591">
+<sect3 id="INKEY_1autotoc_md592">
 <title>Extended keys</title>
 <para>Some non-printing keys return special character codes rather than ASCII. These values can be retrieved by wrapping <computeroutput>INKEY$</computeroutput> with <computeroutput>ASC()</computeroutput>.</para>
 <para><table rows="11" cols="2"><row>
@@ -64,7 +64,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="INKEY_1autotoc_md593">
+<sect3 id="INKEY_1autotoc_md594">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Wait<sp/>for<sp/>a<sp/>keypress</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Press<sp/>a<sp/>key...&quot;</highlight></codeline>
@@ -84,7 +84,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="INKEY_1autotoc_md595">
+<sect3 id="INKEY_1autotoc_md596">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Printable characters return their usual ASCII values (e.g. <computeroutput>&quot;A&quot;</computeroutput> → 65).</para>

@@ -11,7 +11,7 @@
 <para>Returns the <bold>number of processes</bold> currently running in the system. This includes both user programs and background tasks managed by Retro Rocket OS.</para>
 <para><hruler/>
 </para>
-<sect3 id="GETPROCCOUNT_1autotoc_md196">
+<sect3 id="GETPROCCOUNT_1autotoc_md197">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>number<sp/>of<sp/>active<sp/>processes</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Running<sp/>processes:<sp/>&quot;;<sp/>GETPROCCOUNT</highlight></codeline>
@@ -33,7 +33,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="GETPROCCOUNT_1autotoc_md198">
+<sect3 id="GETPROCCOUNT_1autotoc_md199">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>The returned value is an <bold>integer</bold> ≥ 1 (the current program itself counts as a process).</para>

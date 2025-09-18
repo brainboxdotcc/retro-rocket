@@ -20,9 +20,10 @@
 <para><itemizedlist>
 <listitem><para>WAV support is built in and always available.</para>
 </listitem><listitem><para>MP3 support is available via the <computeroutput>mp3.ko</computeroutput> module (<computeroutput>MODLOAD &quot;mp3&quot;</computeroutput>).</para>
+</listitem><listitem><para>FLAC support is available via the <computeroutput>flac.ko</computeroutput> module (<computeroutput>MODLOAD &quot;flac&quot;</computeroutput>).</para>
 </listitem></itemizedlist>
 </para>
-<para>If you try to load an MP3 file without first loading the MP3 codec module, you will receive an error as the file type will be unrecognised.</para>
+<para>If you try to load any file type except WAV without first loading the corresponding codec module, you will receive an error as the file type will be unrecognised.</para>
 </sect3>
 <sect3 id="audio-basics_1autotoc_md59">
 <title>Streams</title>
@@ -38,7 +39,7 @@
 <title>Sounds</title>
 <para>A sound is <bold>decoded audio data</bold> loaded into memory with <computeroutput>SOUND LOAD</computeroutput>.</para>
 <para><itemizedlist>
-<listitem><para>Sounds can be loaded from any supported codec (e.g. WAV, MP3).</para>
+<listitem><para>Sounds can be loaded from any supported codec (e.g. WAV, MP3, FLAC).</para>
 </listitem><listitem><para>Sounds are stored in RAM as 44.1 kHz stereo, 16-bit PCM.</para>
 </listitem><listitem><para>Sound handles are always non-zero integer IDs.</para>
 </listitem><listitem><para>Sounds must be freed with <computeroutput>SOUND UNLOAD</computeroutput> when no longer needed.</para>
@@ -75,8 +76,17 @@
 <para><image type="html" name="mp3.png"></image>
 </para>
 </sect3>
+<sect3 id="audio-basics_1autotoc_md65">
+<title>Play a FLAC file</title>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">MODLOAD<sp/>&quot;ac97&quot;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>load<sp/>audio<sp/>driver</highlight></codeline>
+<codeline><highlight class="normal">MODLOAD<sp/>&quot;flac&quot;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>load<sp/>FLAC<sp/>codec<sp/>module</highlight></codeline>
+<codeline><highlight class="normal">STREAM<sp/>CREATE<sp/>music</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>LOAD<sp/>song,<sp/>&quot;track.flac&quot;</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>PLAY<sp/>music,<sp/>song</highlight></codeline>
+</programlisting></para>
+</sect3>
 </sect2>
-<sect2 id="audio-basics_1autotoc_md65">
+<sect2 id="audio-basics_1autotoc_md66">
 <title>Audio Keywords/Functions</title>
 <para><itemizedlist>
 <listitem><para><ref refid="STREAM" kindref="compound">STREAM</ref></para>

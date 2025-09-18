@@ -13,7 +13,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect3 id="PEEKQ_1autotoc_md357">
+<sect3 id="PEEKQ_1autotoc_md358">
 <title>How to read it</title>
 <para><itemizedlist>
 <listitem><para>Loads 8 bytes, <bold>little-endian</bold>.</para>
@@ -23,7 +23,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="PEEKQ_1autotoc_md359">
+<sect3 id="PEEKQ_1autotoc_md360">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Read<sp/>a<sp/>64-bit<sp/>value</highlight></codeline>
 <codeline><highlight class="normal">Q<sp/>=<sp/>PEEKQ(&amp;100080)</highlight></codeline>
@@ -32,7 +32,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="PEEKQ_1autotoc_md361">
+<sect3 id="PEEKQ_1autotoc_md362">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>Use for 64-bit fields or counters; don’t assume atomicity for unaligned addresses.</para>

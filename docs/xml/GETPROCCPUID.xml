@@ -11,7 +11,7 @@
 <para>Returns the <bold>CPU ID</bold> on which the specified process is currently running. The parameter is an <bold>index</bold> in the range <computeroutput>0</computeroutput> to <computeroutput>GETPROCCOUNT - 1</computeroutput>, identifying one of the active processes.</para>
 <para><hruler/>
 </para>
-<sect3 id="GETPROCCPUID_1autotoc_md201">
+<sect3 id="GETPROCCPUID_1autotoc_md202">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>CPU<sp/>ID<sp/>for<sp/>every<sp/>running<sp/>process</highlight></codeline>
 <codeline><highlight class="normal">FOR<sp/>i<sp/>=<sp/>0<sp/>TO<sp/>GETPROCCOUNT<sp/>-<sp/>1</highlight></codeline>
@@ -34,7 +34,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="GETPROCCPUID_1autotoc_md203">
+<sect3 id="GETPROCCPUID_1autotoc_md204">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>CPU IDs are <bold>zero-based</bold>:<itemizedlist>

@@ -89,18 +89,18 @@ $(document).ready(function(){initNavTree('RAMDISK.html',''); initResizable(); })
 <div class="title">RAMDISK$ Function </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h2><a class="anchor" id="autotoc_md637"></a>
+<div class="textblock"><h2><a class="anchor" id="autotoc_md638"></a>
 Creating a ramdisk from another block device</h2>
 <div class="fragment"><div class="line">RAMDISK$(string-expression)</div>
 </div><!-- fragment --><p>Creates a <b>RAM-backed block device</b> from the content of an existing block device. The parameter is the name of the source device (e.g. <code>"hd0"</code>). Returns the <b>name of the new RAM disk device</b> as a string.</p>
 <hr  />
-<h3><a class="anchor" id="autotoc_md639"></a>
+<h3><a class="anchor" id="autotoc_md640"></a>
 Examples</h3>
 <div class="fragment"><div class="line">REM Duplicate an existing block device into RAM</div>
 <div class="line">ram$ = RAMDISK$(&quot;hd0&quot;)</div>
 <div class="line">PRINT &quot;Created RAM disk: &quot;; ram$</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md641"></a>
+<h3><a class="anchor" id="autotoc_md642"></a>
 Notes</h3>
 <ul>
 <li>The new device is a complete in-memory copy of the original device.</li>
@@ -108,7 +108,7 @@ Notes</h3>
 <li>RAM disks are volatile: contents are lost when the system is rebooted or the device is discarded.</li>
 </ul>
 <hr  />
-<h2><a class="anchor" id="autotoc_md643"></a>
+<h2><a class="anchor" id="autotoc_md644"></a>
 Creating blank ramdisks</h2>
 <div class="fragment"><div class="line">RAMDISK(integer-expression, integer-expression)</div>
 </div><!-- fragment --><p>Creates a <b>new RAM-backed block device</b> with the given dimensions.</p>
@@ -118,13 +118,13 @@ Creating blank ramdisks</h2>
 </ul>
 <p>The device is initially <b>unformatted</b> and cannot be mounted until a filesystem is created on it. Returns the <b>name of the new RAM disk device</b> as a string.</p>
 <hr  />
-<h3><a class="anchor" id="autotoc_md645"></a>
+<h3><a class="anchor" id="autotoc_md646"></a>
 Examples</h3>
 <div class="fragment"><div class="line">REM Create a 10 MB RAM disk with 512-byte blocks</div>
 <div class="line">ram$ = RAMDISK(20480, 512)</div>
 <div class="line">PRINT &quot;Created RAM disk: &quot;; ram$</div>
 </div><!-- fragment --><hr  />
-<h3><a class="anchor" id="autotoc_md647"></a>
+<h3><a class="anchor" id="autotoc_md648"></a>
 Notes</h3>
 <ul>
 <li>Size = <code>blocks × blocksize</code>.</li>
@@ -140,7 +140,7 @@ Notes</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">index</a></li><li class="navelem"><a class="el" href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a class="el" href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a class="el" href="string-funcs.html">String Functions</a></li>
-    <li class="footer">Generated on Thu Sep 18 2025 21:16:11 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Sep 18 2025 22:41:10 for Retro Rocket OS by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

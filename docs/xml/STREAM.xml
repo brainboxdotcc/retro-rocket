@@ -12,7 +12,7 @@
 <para>Creates or destroys an <bold>audio stream</bold>. A stream is a playback channel that can accept sounds loaded with <computeroutput>SOUND LOAD</computeroutput>. Each stream has its own independent queue, volume, and state (playing, paused, or stopped).</para>
 <para><hruler/>
 </para>
-<sect3 id="STREAM_1autotoc_md1069">
+<sect3 id="STREAM_1autotoc_md1070">
 <title>STREAM CREATE</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">STREAM<sp/>CREATE<sp/>variable</highlight></codeline>
 </programlisting></para>
@@ -37,7 +37,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="STREAM_1autotoc_md1071">
+<sect3 id="STREAM_1autotoc_md1072">
 <title>STREAM DESTROY</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">STREAM<sp/>DESTROY<sp/>stream</highlight></codeline>
 </programlisting></para>
@@ -59,7 +59,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="STREAM_1autotoc_md1073">
+<sect3 id="STREAM_1autotoc_md1074">
 <title>Relationship to SOUND</title>
 <para><itemizedlist>
 <listitem><para>A <bold>stream</bold> is like a playback channel. It does not store sound data itself.</para>
@@ -70,7 +70,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="STREAM_1autotoc_md1075">
+<sect3 id="STREAM_1autotoc_md1076">
 <title>Typical usage</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">STREAM<sp/>CREATE<sp/>s</highlight></codeline>
 <codeline><highlight class="normal">SOUND<sp/>LOAD<sp/>song,<sp/>&quot;/system/webserver/media/retro-revival.wav&quot;</highlight></codeline>

@@ -41,7 +41,7 @@
 <para>For a survey of leaves/subleaves and their meanings, see the <bold>cpuid</bold> command’s reference.</para>
 <para><hruler/>
 </para>
-<sect3 id="CPUID_1autotoc_md147">
+<sect3 id="CPUID_1autotoc_md148">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>the<sp/>highest<sp/>supported<sp/>standard<sp/>leaf</highlight></codeline>
 <codeline><highlight class="normal">max_leaf<sp/>=<sp/>CPUID(&amp;00000000,<sp/>0,<sp/>0)<sp/><sp/>REM<sp/>EAX</highlight></codeline>
@@ -84,7 +84,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="CPUID_1autotoc_md149">
+<sect3 id="CPUID_1autotoc_md150">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para><bold>Return width:</bold> The function returns a Retro Rocket <bold>integer</bold> (64-bit signed), but only the <bold>low 32 bits</bold> are meaningful; the result is the raw register value.</para>

@@ -11,7 +11,7 @@
 <para>Returns the <bold>file name</bold> for an entry in a directory. The first parameter is a <bold>directory path</bold>, and the second parameter is an <bold>index</bold> between <computeroutput>0</computeroutput> and <computeroutput>GETNAMECOUNT(path$) - 1</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect3 id="GETNAME_1autotoc_md569">
+<sect3 id="GETNAME_1autotoc_md570">
 <title>Examples</title>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>List<sp/>all<sp/>files<sp/>in<sp/>the<sp/>current<sp/>directory</highlight></codeline>
 <codeline><highlight class="normal">dir$<sp/>=<sp/>CSD$</highlight></codeline>
@@ -28,7 +28,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="GETNAME_1autotoc_md571">
+<sect3 id="GETNAME_1autotoc_md572">
 <title>Notes</title>
 <para><itemizedlist>
 <listitem><para>If the index is outside the valid range, an error is raised.</para>
