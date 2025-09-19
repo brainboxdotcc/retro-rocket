@@ -34,6 +34,7 @@ var keywords =
     [ "END Keyword", "END.html", null ],
     [ "ENDPROC Keyword", "ENDPROC.html", null ],
     [ "ENDWHILE Keyword", "ENDWHILE.html", null ],
+    [ "ENVELOPE Keyword", "ENVELOPE.html", null ],
     [ "ERROR Keyword", "ERROR.html", null ],
     [ "EVAL Keyword", "EVAL.html", null ],
     [ "FLIP Keyword", "FLIP.html", null ],

@@ -1,6 +1,6 @@
 \page SOUND SOUND Keyword
 
-[TOC]
+\[TOC]
 
 ```basic
 SOUND VOLUME stream, gain
@@ -10,9 +10,12 @@ SOUND STOP stream
 SOUND PAUSE stream
 SOUND LOAD variable, "filename"
 SOUND UNLOAD sound
+SOUND TONE stream, frequency, duration[, envelope]
 ```
 
-Provides control over **sound playback**. Sounds are loaded from WAV files and played on **streams**.
+Provides control over **sound playback**.
+Sounds may come from loaded audio files (e.g. WAV, MP3, FLAC, Ogg/Vorbis) or be generated on the fly as **tones** using simple synthesiser-style envelopes.
+
 A stream acts like a playback channel; multiple streams can be active at once, each with their own volume and queue of sounds.
 
 ---
@@ -129,11 +132,11 @@ SOUND PLAY music   ' resume
 SOUND LOAD variable, "filename"
 ```
 
-Loads a WAV file into memory and assigns a **sound handle** to `variable`.
+Loads an audio file into memory and assigns a **sound handle** to `variable`.
 
 **Notes**
 
-* Only PCM and IEEE float WAV files are supported.
+* WAV, MP3, FLAC, and Ogg/Vorbis are supported, depending on which codecs are loaded.
 * Sound data is stored in RAM until freed. Large audio files may consume significant memory.
 * Sound handles are distinct from streams:
 
@@ -143,13 +146,13 @@ Loads a WAV file into memory and assigns a **sound handle** to `variable`.
 
 **Errors**
 
-* `Unable to load WAV file 'filename'` if the file could not be opened.
-* `Out of memory loading WAV file 'filename'` if allocation fails.
+* `Unable to load file 'filename'` if the file could not be opened or decoded.
+* `Out of memory loading 'filename'` if allocation fails.
 
 **Examples**
 
 ```basic
-SOUND LOAD song, "/system/webserver/media/retro-revival.wav"
+SOUND LOAD song, "/system/webserver/media/retro-revival.mp3"
 PRINT song
 ```
 
@@ -176,6 +179,47 @@ SOUND UNLOAD song
 
 ---
 
+### SOUND TONE
+
+```basic
+SOUND TONE stream, frequency, duration[, envelope]
+```
+
+Generates and plays a tone on the fly.
+This does not use a sound handle; the waveform is synthesised directly into the stream.
+
+Parameters:
+
+* **stream** — Stream to play into.
+* **frequency** — Pitch in Hz (e.g. `440` for concert A).
+* **duration** — Length of the note in centiseconds (1/100th of a second).
+* **envelope** (optional) — Envelope slot (0–63) previously defined with \ref ENVELOPE "ENVELOPE CREATE". If omitted, the tone plays raw with no shaping.
+
+**Notes**
+
+* Tones are ephemeral and consume no long-term memory.
+* Envelopes let you design the “shape” of the note: attack, decay, sustain, release, vibrato, PWM, etc.
+* Multiple tones can overlap across different streams for chords, effects, or music.
+
+**Errors**
+
+* `Invalid STREAM handle` if the stream does not exist.
+* `ENVELOPE number out of range` if the envelope index is invalid.
+* `Out of memory for SOUND TONE` if synthesis buffer allocation fails.
+
+**Examples**
+
+```basic
+' Simple beep
+SOUND TONE music, 440, 50
+
+' With a shaped envelope
+ENVELOPE CREATE 0,0,255,128,5,50,200,200,0,0,0,0,0
+SOUND TONE music, 220, 100, 0
+```
+
+---
+
 ### Usage example
 
 ```basic
@@ -184,7 +228,8 @@ SOUND LOAD song, "/system/webserver/media/retro-revival.wav"
 SOUND VOLUME music, DECIBELS(-6)
 SOUND PLAY music, song
 
-' ... do other work here ...
+' Play a synthesised tone while song plays
+SOUND TONE music, 880, 50
 
 SOUND PAUSE music
 SOUND PLAY music   ' resume playback
@@ -196,4 +241,4 @@ STREAM DESTROY music
 ---
 
 **See also**
-\ref STREAM "STREAM" · \ref DECIBELS "DECIBELS"
+\ref STREAM "STREAM" · \ref DECIBELS "DECIBELS" · \ref ENVELOPE "ENVELOPE"

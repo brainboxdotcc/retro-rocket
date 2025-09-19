@@ -21,7 +21,7 @@ var searchData=
   ['description_20block_20sector_200_18',['3.1 Description Block (sector 0)',['../retrofs.html#autotoc_md31-description-block-sector-0',1,'']]],
   ['design_20buys_20you_19',['What this design buys you',['../basic-intdev.html#what-this-design-buys-you',1,'']]],
   ['design_20works_20',['✨ Why This Design Works',['../bootflow.html#autotoc_md-why-this-design-works',1,'']]],
-  ['destroy_21',['STREAM DESTROY',['../STREAM.html#stream-destroy',1,'']]],
+  ['destroy_21',['DESTROY',['../ENVELOPE.html#destroy',1,'DESTROY'],['../STREAM.html#stream-destroy',1,'STREAM DESTROY']]],
   ['development_22',['Kernel Development',['../kernel-dev.html',1,'index']]],
   ['development_20guide_23',['BASIC Inerpreter Development Guide',['../basic-intdev.html',1,'basic-ref']]],
   ['device_24',['Creating a ramdisk from another block device',['../RAMDISK.html#creating-a-ramdisk-from-another-block-device',1,'']]],

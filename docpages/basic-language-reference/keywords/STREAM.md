@@ -92,4 +92,4 @@ STREAM DESTROY s
 ---
 
 **See also**
-\ref SOUND "SOUND" · \ref DECIBELS "DECIBELS"
+\ref SOUND "SOUND" · \ref DECIBELS "DECIBELS" · \ref ENVELOPE "ENVELOPE"

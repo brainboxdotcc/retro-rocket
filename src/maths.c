@@ -274,3 +274,6 @@ double rad(double degrees)
 	return degrees * (PI / 180.0);
 }
 
+double ldexp(double x, int exp) {
+	return __builtin_ldexp(x, exp);
+}

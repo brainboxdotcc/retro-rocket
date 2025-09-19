@@ -7,7 +7,7 @@
     </briefdescription>
     <detaileddescription>
 <sect1 id="audio-basics_1audio-system-structure_1s1"><sect2 id="audio-basics_1audio-system-structure">
-<title>Audio System Structure</title><para>Retro Rocket’s audio system has four main parts:</para>
+<title>Audio System Structure</title><para>Retro Rocket’s audio system has five main parts:</para>
 <sect3 id="audio-basics_1drivers">
 <title>Drivers</title><para>The driver is the low-level hardware backend (e.g. <computeroutput>MODLOAD &quot;ac97&quot;</computeroutput>). <linebreak/>
  It is specific to your sound card in your PC. Without a driver, <bold>no audio commands will work</bold>.</para>
@@ -18,6 +18,7 @@
 <listitem><para>WAV support is built in and always available.</para>
 </listitem><listitem><para>MP3 support is available via the <computeroutput>mp3.ko</computeroutput> module (<computeroutput>MODLOAD &quot;mp3&quot;</computeroutput>).</para>
 </listitem><listitem><para>FLAC support is available via the <computeroutput>flac.ko</computeroutput> module (<computeroutput>MODLOAD &quot;flac&quot;</computeroutput>).</para>
+</listitem><listitem><para>OGG Vorbis support is available via the <computeroutput>ogg.ko</computeroutput> module (<computeroutput>MODLOAD &quot;ogg&quot;</computeroutput>)</para>
 </listitem></itemizedlist>
 </para>
 <para>If you try to load any file type except WAV without first loading the corresponding codec module, you will receive an error as the file type will be unrecognised.</para>
@@ -34,10 +35,22 @@
 <sect3 id="audio-basics_1sounds">
 <title>Sounds</title><para>A sound is <bold>decoded audio data</bold> loaded into memory with <computeroutput>SOUND LOAD</computeroutput>.</para>
 <para><itemizedlist>
-<listitem><para>Sounds can be loaded from any supported codec (e.g. WAV, MP3, FLAC).</para>
+<listitem><para>Sounds can be loaded from any supported codec (e.g. WAV, MP3, FLAC, OGG).</para>
 </listitem><listitem><para>Sounds are stored in RAM as 44.1 kHz stereo, 16-bit PCM.</para>
 </listitem><listitem><para>Sound handles are always non-zero integer IDs.</para>
 </listitem><listitem><para>Sounds must be freed with <computeroutput>SOUND UNLOAD</computeroutput> when no longer needed.</para>
+</listitem><listitem><para>You may generate basic square wave sounds without loading a sound file via <computeroutput>SOUND TONE</computeroutput></para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+<sect3 id="audio-basics_1envelopes">
+<title>Envelopes</title><para>An envelope is a <bold>shape applied to the loudness or tone of a sound over time</bold>. If you ever played games on a C64 or BBC Micro, you’ll remember how the same “beep” could sometimes be a pluck, a swelling chord, or a fading echo. That was done with <bold>envelopes</bold>: they control how a note evolves after it starts.</para>
+<para>Retro Rocket uses the classic <bold>ADSR model</bold> (Attack, Decay, Sustain, Release) found on many vintage synthesisers:</para>
+<para><itemizedlist>
+<listitem><para><bold>Attack</bold> — how quickly the sound rises from silence to full strength when a note begins.</para>
+</listitem><listitem><para><bold>Decay</bold> — once the peak is reached, how fast the sound falls back down to a steady level.</para>
+</listitem><listitem><para><bold>Sustain</bold> — the level held as long as the note continues.</para>
+</listitem><listitem><para><bold>Release</bold> — how long the note takes to fade back to silence after it ends.</para>
 </listitem></itemizedlist>
 </para>
 </sect3>
@@ -75,12 +88,35 @@
 <codeline><highlight class="normal">SOUND<sp/>PLAY<sp/>music,<sp/>song</highlight></codeline>
 </programlisting></para>
 </sect3>
+<sect3 id="audio-basics_1playing-tonesenvelopes">
+<title>Playing tones/envelopes</title><para><programlisting filename=".basic"><codeline><highlight class="normal">MODLOAD<sp/>&quot;ac97&quot;</highlight></codeline>
+<codeline><highlight class="normal">STREAM<sp/>CREATE<sp/>s</highlight></codeline>
+<codeline><highlight class="normal">&apos;<sp/>Simple<sp/>square<sp/>wave,<sp/>no<sp/>envelope<sp/>applied</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>TONE<sp/>s,<sp/>750,<sp/>100</highlight></codeline>
+<codeline><highlight class="normal">&apos;<sp/>Simple<sp/>square<sp/>wave<sp/>with<sp/>organ-like<sp/>sustain</highlight></codeline>
+<codeline><highlight class="normal">ENVELOPE<sp/>CREATE<sp/>0,<sp/>0,<sp/>255,<sp/>128,<sp/>5,<sp/>50,<sp/>200,<sp/>200,<sp/>0,<sp/>0,<sp/>0,<sp/>0,<sp/>0</highlight></codeline>
+<codeline><highlight class="normal">&apos;<sp/>Soft<sp/>sine<sp/>wave<sp/>pad,<sp/>slow<sp/>attack<sp/>and<sp/>release</highlight></codeline>
+<codeline><highlight class="normal">ENVELOPE<sp/>CREATE<sp/>1,<sp/>1,<sp/>200,<sp/>0,<sp/>500,<sp/>300,<sp/>180,<sp/>800,<sp/>0,<sp/>0,<sp/>0,<sp/>0,<sp/>0</highlight></codeline>
+<codeline><highlight class="normal">&apos;<sp/>Plucked<sp/>sawtooth,<sp/>short<sp/>attack/decay,<sp/>no<sp/>sustain</highlight></codeline>
+<codeline><highlight class="normal">ENVELOPE<sp/>CREATE<sp/>2,<sp/>2,<sp/>255,<sp/>0,<sp/>5,<sp/>100,<sp/>0,<sp/>200,<sp/>0,<sp/>0,<sp/>0,<sp/>0,<sp/>0</highlight></codeline>
+<codeline><highlight class="normal">&apos;<sp/>Vibrato<sp/>lead<sp/>(square<sp/>wave<sp/>with<sp/>pitch<sp/>wobble)</highlight></codeline>
+<codeline><highlight class="normal">ENVELOPE<sp/>CREATE<sp/>3,<sp/>0,<sp/>220,<sp/>128,<sp/>10,<sp/>100,<sp/>180,<sp/>300,<sp/>30,<sp/>6,<sp/>0,<sp/>0,<sp/>0</highlight></codeline>
+<codeline><highlight class="normal">&apos;<sp/>PWM<sp/>effect<sp/>(pulse-width<sp/>modulation<sp/>sweep)</highlight></codeline>
+<codeline><highlight class="normal">ENVELOPE<sp/>CREATE<sp/>4,<sp/>0,<sp/>240,<sp/>64,<sp/>20,<sp/>100,<sp/>200,<sp/>400,<sp/>0,<sp/>0,<sp/>0,<sp/>5,<sp/>120</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>TONE<sp/>s,<sp/>750,<sp/>100,<sp/>0</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>TONE<sp/>s,<sp/>750,<sp/>100,<sp/>1</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>TONE<sp/>s,<sp/>750,<sp/>100,<sp/>2</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>TONE<sp/>s,<sp/>750,<sp/>100,<sp/>3</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>TONE<sp/>s,<sp/>750,<sp/>100,<sp/>4</highlight></codeline>
+</programlisting></para>
+</sect3>
 </sect2></sect1>
 <sect1 id="audio-basics_1audio-keywordsfunctions_1s1"><sect2 id="audio-basics_1audio-keywordsfunctions">
 <title>Audio Keywords/Functions</title><para><itemizedlist>
 <listitem><para><ref refid="STREAM" kindref="compound">STREAM</ref></para>
 </listitem><listitem><para><ref refid="STREAM" kindref="compound">SOUND</ref></para>
-</listitem><listitem><para><ref refid="DECIBELS" kindref="compound">DECIBELS</ref> </para>
+</listitem><listitem><para><ref refid="DECIBELS" kindref="compound">DECIBELS</ref></para>
+</listitem><listitem><para><ref refid="ENVELOPE" kindref="compound">ENVELOPE</ref> </para>
 </listitem></itemizedlist>
 </para>
 </sect2></sect1>

@@ -172,6 +172,8 @@ double deg(double radians);
  */
 double rad(double degrees);
 
+double ldexp(double x, int exp);
+
 #define MIN(a,b) (((a) < (b)) ? (a) : (b))
 #define MAX(a,b) (((a) > (b)) ? (a) : (b))
 #define CLAMP(v, lo, hi) (((v) < (lo)) ? (lo) : (((v) > (hi)) ? (hi) : (v)))

@@ -30,7 +30,7 @@ var searchData=
   ['allocation_20caches_27',['7. Implementation guidance: L1/L2 allocation caches',['../retrofs.html#autotoc_md7-implementation-guidance-l1l2-allocation-caches',1,'']]],
   ['allocation_20growth_20semantics_20normative_28',['4. Allocation &amp;amp; growth semantics (normative)',['../retrofs.html#autotoc_md4-allocation--growth-semantics-normative',1,'']]],
   ['allocator_20model_29',['Memory &amp;amp; allocator model',['../basic-intdev.html#memory--allocator-model',1,'']]],
-  ['also_30',['also',['../DATA.html#see-also',1,'See also'],['../GRAPHPRINT.html#see-also-1',1,'See also'],['../MKDIR.html#see-also-2',1,'See also'],['../RETURN.html#see-also-3',1,'See also'],['../VDU.html#see-also-4',1,'See also']]],
+  ['also_30',['also',['../DATA.html#see-also',1,'See also'],['../ENVELOPE.html#see-also-1',1,'See also'],['../GRAPHPRINT.html#see-also-2',1,'See also'],['../MKDIR.html#see-also-3',1,'See also'],['../RETURN.html#see-also-4',1,'See also'],['../VDU.html#see-also-5',1,'See also']]],
   ['alternatives_31',['Alternatives',['../YIELD.html#alternatives',1,'']]],
   ['amd64_32',['Interrupt Handling in Retro Rocket (AMD64)',['../interrupts.html',1,'kernel-dev']]],
   ['an_20mp3_20file_33',['Play an MP3 file',['../audio-basics.html#play-an-mp3-file',1,'']]],

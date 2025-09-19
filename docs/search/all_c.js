@@ -78,7 +78,7 @@ var searchData=
   ['cpuid_2emd_75',['cpuid.md',['../cpuid_8md.html',1,'']]],
   ['cpuvendor_20command_76',['cpuvendor command',['../cpuvendor.html',1,'commands']]],
   ['cpuvendor_2emd_77',['cpuvendor.md',['../cpuvendor_8md.html',1,'']]],
-  ['create_78',['STREAM CREATE',['../STREAM.html#stream-create',1,'']]],
+  ['create_78',['CREATE',['../ENVELOPE.html#create',1,'CREATE'],['../STREAM.html#stream-create',1,'STREAM CREATE']]],
   ['creating_20a_20ramdisk_20from_20another_20block_20device_79',['Creating a ramdisk from another block device',['../RAMDISK.html#creating-a-ramdisk-from-another-block-device',1,'']]],
   ['creating_20blank_20ramdisks_80',['Creating blank ramdisks',['../RAMDISK.html#creating-blank-ramdisks',1,'']]],
   ['creation_81',['4.2 Creation',['../retrofs.html#autotoc_md42-creation',1,'']]],

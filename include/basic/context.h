@@ -343,6 +343,8 @@ typedef struct basic_ctx {
 
 	basic_sound_t* sounds;
 
+	sound_envelope_ex_t envelopes[64];
+
 } basic_ctx;
 
 /**

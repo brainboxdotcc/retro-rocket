@@ -95,14 +95,17 @@ $(function(){initNavTree('SOUND.html','',''); });
   <div class="headertitle"><div class="title">SOUND Keyword </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">SOUND VOLUME stream, gain</div>
+<div class="textblock"><p>[TOC]</p>
+<div class="fragment"><div class="line">SOUND VOLUME stream, gain</div>
 <div class="line">SOUND PLAY stream, sound</div>
 <div class="line">SOUND PLAY stream</div>
 <div class="line">SOUND STOP stream</div>
 <div class="line">SOUND PAUSE stream</div>
 <div class="line">SOUND LOAD variable, &quot;filename&quot;</div>
 <div class="line">SOUND UNLOAD sound</div>
-</div><!-- fragment --><p>Provides control over <b>sound playback</b>. Sounds are loaded from WAV files and played on <b>streams</b>. A stream acts like a playback channel; multiple streams can be active at once, each with their own volume and queue of sounds.</p>
+<div class="line">SOUND TONE stream, frequency, duration[, envelope]</div>
+</div><!-- fragment --><p>Provides control over <b>sound playback</b>. Sounds may come from loaded audio files (e.g. WAV, MP3, FLAC, Ogg/Vorbis) or be generated on the fly as <b>tones</b> using simple synthesiser-style envelopes.</p>
+<p>A stream acts like a playback channel; multiple streams can be active at once, each with their own volume and queue of sounds.</p>
 <hr  />
 <h3 class="doxsection"><a class="anchor" id="sound-volume"></a>
 SOUND VOLUME</h3>
@@ -177,10 +180,10 @@ SOUND PAUSE</h3>
 <h3 class="doxsection"><a class="anchor" id="sound-load"></a>
 SOUND LOAD</h3>
 <div class="fragment"><div class="line">SOUND LOAD variable, &quot;filename&quot;</div>
-</div><!-- fragment --><p>Loads a WAV file into memory and assigns a <b>sound handle</b> to <span class="tt">variable</span>.</p>
+</div><!-- fragment --><p>Loads an audio file into memory and assigns a <b>sound handle</b> to <span class="tt">variable</span>.</p>
 <p><b>Notes</b></p>
 <ul>
-<li>Only PCM and IEEE float WAV files are supported.</li>
+<li>WAV, MP3, FLAC, and Ogg/Vorbis are supported, depending on which codecs are loaded.</li>
 <li>Sound data is stored in RAM until freed. Large audio files may consume significant memory.</li>
 <li>Sound handles are distinct from streams:<ul>
 <li>A <b>sound handle</b> is the decoded audio data.</li>
@@ -191,11 +194,11 @@ SOUND LOAD</h3>
 </ul>
 <p><b>Errors</b></p>
 <ul>
-<li>&lsquo;Unable to load WAV file 'filename&rsquo;<span class="tt"> if the file could not be opened.</span></li>
-<li><span class="tt"></span>Out of memory loading WAV file 'filename'` if allocation fails.</li>
+<li>&lsquo;Unable to load file 'filename&rsquo;<span class="tt"> if the file could not be opened or decoded.</span></li>
+<li><span class="tt"></span>Out of memory loading 'filename'` if allocation fails.</li>
 </ul>
 <p><b>Examples</b></p>
-<div class="fragment"><div class="line">SOUND LOAD song, &quot;/system/webserver/media/retro-revival.wav&quot;</div>
+<div class="fragment"><div class="line">SOUND LOAD song, &quot;/system/webserver/media/retro-revival.mp3&quot;</div>
 <div class="line">PRINT song</div>
 </div><!-- fragment --><hr  />
 <h3 class="doxsection"><a class="anchor" id="sound-unload"></a>
@@ -209,6 +212,37 @@ SOUND UNLOAD</h3>
 <p><b>Examples</b></p>
 <div class="fragment"><div class="line">SOUND UNLOAD song</div>
 </div><!-- fragment --><hr  />
+<h3 class="doxsection"><a class="anchor" id="sound-tone"></a>
+SOUND TONE</h3>
+<div class="fragment"><div class="line">SOUND TONE stream, frequency, duration[, envelope]</div>
+</div><!-- fragment --><p>Generates and plays a tone on the fly. This does not use a sound handle; the waveform is synthesised directly into the stream.</p>
+<p>Parameters:</p>
+<ul>
+<li><b>stream</b> — Stream to play into.</li>
+<li><b>frequency</b> — Pitch in Hz (e.g. <span class="tt">440</span> for concert A).</li>
+<li><b>duration</b> — Length of the note in centiseconds (1/100th of a second).</li>
+<li><b>envelope</b> (optional) — Envelope slot (0–63) previously defined with <a class="el" href="ENVELOPE.html">ENVELOPE CREATE</a>. If omitted, the tone plays raw with no shaping.</li>
+</ul>
+<p><b>Notes</b></p>
+<ul>
+<li>Tones are ephemeral and consume no long-term memory.</li>
+<li>Envelopes let you design the “shape” of the note: attack, decay, sustain, release, vibrato, PWM, etc.</li>
+<li>Multiple tones can overlap across different streams for chords, effects, or music.</li>
+</ul>
+<p><b>Errors</b></p>
+<ul>
+<li><span class="tt">Invalid STREAM handle</span> if the stream does not exist.</li>
+<li><span class="tt">ENVELOPE number out of range</span> if the envelope index is invalid.</li>
+<li><span class="tt">Out of memory for SOUND TONE</span> if synthesis buffer allocation fails.</li>
+</ul>
+<p><b>Examples</b></p>
+<div class="fragment"><div class="line">&#39; Simple beep</div>
+<div class="line">SOUND TONE music, 440, 50</div>
+<div class="line"> </div>
+<div class="line">&#39; With a shaped envelope</div>
+<div class="line">ENVELOPE CREATE 0,0,255,128,5,50,200,200,0,0,0,0,0</div>
+<div class="line">SOUND TONE music, 220, 100, 0</div>
+</div><!-- fragment --><hr  />
 <h3 class="doxsection"><a class="anchor" id="usage-example"></a>
 Usage example</h3>
 <div class="fragment"><div class="line">STREAM CREATE music</div>
@@ -216,7 +250,8 @@ Usage example</h3>
 <div class="line">SOUND VOLUME music, DECIBELS(-6)</div>
 <div class="line">SOUND PLAY music, song</div>
 <div class="line"> </div>
-<div class="line">&#39; ... do other work here ...</div>
+<div class="line">&#39; Play a synthesised tone while song plays</div>
+<div class="line">SOUND TONE music, 880, 50</div>
 <div class="line"> </div>
 <div class="line">SOUND PAUSE music</div>
 <div class="line">SOUND PLAY music   &#39; resume playback</div>
@@ -224,7 +259,7 @@ Usage example</h3>
 <div class="line">SOUND UNLOAD song</div>
 <div class="line">STREAM DESTROY music</div>
 </div><!-- fragment --><hr  />
-<p><b>See also</b> <a class="el" href="STREAM.html">STREAM</a> · <a class="el" href="DECIBELS.html">DECIBELS</a> </p>
+<p><b>See also</b> <a class="el" href="STREAM.html">STREAM</a> · <a class="el" href="DECIBELS.html">DECIBELS</a> · <a class="el" href="ENVELOPE.html">ENVELOPE</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

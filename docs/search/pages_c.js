@@ -59,7 +59,7 @@ var searchData=
   ['cpuid_20function_56',['CPUID Function',['../CPUID.html',1,'int-funcs']]],
   ['cpuid_20leaf_20values_57',['CPUID leaf values',['../cpubrand.html#cpuid-leaf-values',1,'']]],
   ['cpuvendor_20command_58',['cpuvendor command',['../cpuvendor.html',1,'commands']]],
-  ['create_59',['STREAM CREATE',['../STREAM.html#stream-create',1,'']]],
+  ['create_59',['CREATE',['../ENVELOPE.html#create',1,'CREATE'],['../STREAM.html#stream-create',1,'STREAM CREATE']]],
   ['creating_20a_20ramdisk_20from_20another_20block_20device_60',['Creating a ramdisk from another block device',['../RAMDISK.html#creating-a-ramdisk-from-another-block-device',1,'']]],
   ['creating_20blank_20ramdisks_61',['Creating blank ramdisks',['../RAMDISK.html#creating-blank-ramdisks',1,'']]],
   ['creation_62',['4.2 Creation',['../retrofs.html#autotoc_md42-creation',1,'']]],

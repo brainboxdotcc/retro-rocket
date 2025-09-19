@@ -36,8 +36,9 @@ var searchData=
   ['version_2emd_33',['version.md',['../version_8md.html',1,'']]],
   ['versioning_34',['11. Versioning',['../retrofs.html#autotoc_md11-versioning',1,'']]],
   ['vga_20colour_20indices_35',['VGA Colour Indices',['../BACKGROUND.html#vga-colour-indices',1,'VGA Colour Indices'],['../COLOUR.html#vga-colour-indices-1',1,'VGA Colour Indices']]],
-  ['volume_36',['SOUND VOLUME',['../SOUND.html#sound-volume',1,'']]],
-  ['vs_20bbc_20micro_37',['Differences vs BBC Micro',['../VDU.html#differences-vs-bbc-micro',1,'']]],
-  ['vs_20parcel_38',['Side-by-side: Phone Call vs Parcel',['../networking.html#side-by-side-phone-call-vs-parcel',1,'']]],
-  ['vs_20parcels_39',['Understanding Sockets (Phone Calls vs Parcels)',['../networking.html#understanding-sockets-phone-calls-vs-parcels',1,'']]]
+  ['visual_20example_36',['Visual example',['../ENVELOPE.html#visual-example',1,'']]],
+  ['volume_37',['SOUND VOLUME',['../SOUND.html#sound-volume',1,'']]],
+  ['vs_20bbc_20micro_38',['Differences vs BBC Micro',['../VDU.html#differences-vs-bbc-micro',1,'']]],
+  ['vs_20parcel_39',['Side-by-side: Phone Call vs Parcel',['../networking.html#side-by-side-phone-call-vs-parcel',1,'']]],
+  ['vs_20parcels_40',['Understanding Sockets (Phone Calls vs Parcels)',['../networking.html#understanding-sockets-phone-calls-vs-parcels',1,'']]]
 ];

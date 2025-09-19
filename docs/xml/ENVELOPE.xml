@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="ENVELOPE" kind="page">
+    <compoundname>ENVELOPE</compoundname>
+    <title>ENVELOPE Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">ENVELOPE<sp/>CREATE<sp/>n,wave,volume,pulse_width,attack,decay,sustain,release,vibrato_depth,vibrato_rate,glide,pwm_rate,pwm_depth</highlight></codeline>
+<codeline><highlight class="normal">ENVELOPE<sp/>DESTROY<sp/>n</highlight></codeline>
+</programlisting></para>
+<para>Defines or removes a stored <bold>sound envelope</bold>.</para>
+<para>An <emphasis>envelope</emphasis> describes how a generated tone evolves over time — its loudness, pitch, and timbre changes. This allows Retro Rocket to act like a very simple synthesiser, much like the BBC Micro’s classic sound system, but with added flexibility.</para>
+<para><hruler/>
+</para>
+<sect1 id="ENVELOPE_1create_1s1"><sect2 id="ENVELOPE_1create_1s2"><sect3 id="ENVELOPE_1create">
+<title>CREATE</title><para>Creates or replaces an envelope in slot <computeroutput>n</computeroutput> (0–63). The envelope can then be used by <computeroutput>SOUND TONE</computeroutput> to shape generated notes.</para>
+<sect4 id="ENVELOPE_1parameters">
+<title>Parameters:</title><para><itemizedlist>
+<listitem><para><bold>n</bold> — Envelope index (0–63). A slot number that lets you store multiple different sound shapes and pick between them.</para>
+</listitem><listitem><para><bold>wave</bold> — Base waveform type: the raw “tone colour.”<itemizedlist>
+<listitem><para><computeroutput>0</computeroutput> = square — harsh and “beepy,” like an old 8-bit computer.</para>
+</listitem><listitem><para><computeroutput>1</computeroutput> = sine — smooth and pure, like a flute.</para>
+</listitem><listitem><para><computeroutput>2</computeroutput> = sawtooth — bright and buzzy, common in synth leads.</para>
+</listitem><listitem><para><computeroutput>3</computeroutput> = triangle — softer, hollow-sounding.</para>
+</listitem><listitem><para><computeroutput>4</computeroutput> = noise — random hiss, used for percussion and effects.</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para><bold>volume</bold> — Base loudness (0–255). Higher numbers = louder.</para>
+</listitem><listitem><para><bold>pulse_width</bold> — For square waves only: controls how long the “on” part of the wave lasts in each cycle.<itemizedlist>
+<listitem><para>128 = 50% duty cycle = classic square.</para>
+</listitem><listitem><para>Lower values = thinner, “nasal” sound.</para>
+</listitem><listitem><para>Ignored for other waveforms.</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para><bold>attack</bold> — How fast the sound rises from silence to full volume when a note starts.<itemizedlist>
+<listitem><para>Short attack = instant click or pluck.</para>
+</listitem><listitem><para>Long attack = gradual swell.</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para><bold>decay</bold> — After the peak, how quickly the sound drops down to the sustain level.<itemizedlist>
+<listitem><para>Short decay = sharp, percussive.</para>
+</listitem><listitem><para>Long decay = smoother, fading into sustain.</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para><bold>sustain</bold> — The level (0–255) held while the key/note is pressed.<itemizedlist>
+<listitem><para>High sustain = sound keeps strong.</para>
+</listitem><listitem><para>Low sustain = sound fades to a faint background.</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para><bold>release</bold> — How long the note takes to fade back to silence after it ends.<itemizedlist>
+<listitem><para>Short release = abrupt cut-off.</para>
+</listitem><listitem><para>Long release = lingering echo.</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para><bold>vibrato_depth</bold> — How far the pitch wobbles up and down.<itemizedlist>
+<listitem><para>Measured in cents (100 = one semitone).</para>
+</listitem><listitem><para>Small depth = gentle shimmer; large = dramatic warble.</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para><bold>vibrato_rate</bold> — How fast the vibrato wobble happens (Hz = cycles per second).</para>
+</listitem><listitem><para><bold>glide</bold> — Portamento: how long it takes to slide from one note’s pitch to the next.<itemizedlist>
+<listitem><para>Short glide = nearly instant jump.</para>
+</listitem><listitem><para>Long glide = smooth slide between notes.</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para><bold>pwm_rate</bold> — Speed of pulse-width modulation (Hz). Only affects square waves. Creates a “chorus-like” movement.</para>
+</listitem><listitem><para><bold>pwm_depth</bold> — How much the pulse width is swept back and forth (0–255).<itemizedlist>
+<listitem><para>Small depth = subtle shimmer.</para>
+</listitem><listitem><para>Large depth = dramatic, hollow sweep.</para>
+</listitem></itemizedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+<para>Together, these controls let you create sounds ranging from short plucks to smooth pads, or classic “SID-style” chiptune effects.</para>
+</sect4>
+<sect4 id="ENVELOPE_1visual-example">
+<title>Visual example</title><para>The blue line shows the amplitude (the technical term for volume, the height of the waveform) of the sound over time, with time being the X axis the Y being the volume (amplitude)</para>
+<para><dot>
+graph {
+  layout=neato; splines=line; overlap=false; outputorder=edgesfirst; bgcolor=&quot;white&quot;;
+  node [shape=point, width=0.08, height=0.08, color=&quot;#222222&quot;];
+  edge [color=&quot;#1f77b4&quot;, penwidth=2];
+
+  // Axes (decorative)
+  axis0 [shape=plaintext, label=&quot;Amplitude (0..255)&quot;, pos=&quot;0,3.2!&quot;];
+  time0 [shape=plaintext, label=&quot;Time →&quot;, pos=&quot;8.6,-0.25!&quot;];
+  y0 [shape=point, pos=&quot;0,0!&quot;, color=&quot;#888888&quot;];
+  y1 [shape=point, pos=&quot;0,3!&quot;, color=&quot;#888888&quot;];
+  y2 [shape=point, pos=&quot;0,1.8!&quot;, color=&quot;#888888&quot;];
+
+  // Tick labels
+  l0 [shape=plaintext, label=&quot;0&quot;, pos=&quot;-0.25,0!&quot;];
+  l255 [shape=plaintext, label=&quot;255&quot;, pos=&quot;-0.45,3!&quot;];
+  lsus [shape=plaintext, label=&quot;Sustain&quot;, pos=&quot;-0.9,1.8!&quot;];
+
+  // Envelope key points (positions are illustrative)
+  t0      [pos=&quot;0,0!&quot;];
+  A_end   [pos=&quot;1.0,3!&quot;];     // Attack time (x moved left)
+  D_end   [pos=&quot;3.0,1.8!&quot;];   // Decay to sustain level
+  S_end   [pos=&quot;6.0,1.8!&quot;];   // Sustain duration
+  R_end   [pos=&quot;8.0,0!&quot;];     // Release back to silence
+
+  // Polyline
+  t0 -- A_end -- D_end -- S_end -- R_end;
+
+  // Phase braces/labels (plaintext nodes)
+  la [shape=plaintext, label=&quot;Attack (ms): rise 0 → 255&quot;, pos=&quot;0.75,3.15!&quot;];
+  ld [shape=plaintext, label=&quot;Decay (ms): 255 → Sustain&quot;, pos=&quot;2.25,2.95!&quot;];
+  ls [shape=plaintext, label=&quot;Sustain (level 0..255)&quot;, pos=&quot;4.5,2.05!&quot;];
+  lr [shape=plaintext, label=&quot;Release (ms): Sustain → 0&quot;, pos=&quot;7.0,0.35!&quot;];
+
+  // Vertical guides (light grey)
+  vgA [shape=point, pos=&quot;1.0,0!&quot;, color=&quot;#cccccc&quot;]; // x moved to match A_end
+  vgD [shape=point, pos=&quot;3.0,0!&quot;, color=&quot;#cccccc&quot;];
+  vgS [shape=point, pos=&quot;6.0,0!&quot;, color=&quot;#cccccc&quot;];
+
+  // Guide lines
+  vgA -- A_end [color=&quot;#cccccc&quot;, penwidth=1];
+  vgD -- D_end [color=&quot;#cccccc&quot;, penwidth=1];
+  vgS -- S_end [color=&quot;#cccccc&quot;, penwidth=1];
+
+  // Horizontal sustain guide
+  y2 -- D_end [color=&quot;#cccccc&quot;, penwidth=1];
+  y2 -- S_end [color=&quot;#cccccc&quot;, penwidth=1];
+
+  // Callouts tying to parameters
+  ca [shape=plaintext, label=&quot;attack_ms&quot;, pos=&quot;1.0,-0.25!&quot;]; // x moved
+  cd [shape=plaintext, label=&quot;decay_ms&quot;,  pos=&quot;3.0,-0.25!&quot;];
+  cs [shape=plaintext, label=&quot;(note holds here)&quot;, pos=&quot;4.5,1.5!&quot;];
+  cr [shape=plaintext, label=&quot;release_ms&quot;, pos=&quot;8.0,-0.25!&quot;];
+}
+</dot>
+</para>
+<para><hruler/>
+</para>
+</sect4>
+</sect3></sect2></sect1>
+<sect1 id="ENVELOPE_1destroy_1s1"><sect2 id="ENVELOPE_1destroy_1s2"><sect3 id="ENVELOPE_1destroy">
+<title>DESTROY</title><para>Removes an envelope from slot <computeroutput>n</computeroutput> (0–63), freeing it for reuse.</para>
+<para><hruler/>
+</para>
+</sect3></sect2></sect1>
+<sect1 id="ENVELOPE_1example-9_1s1"><sect2 id="ENVELOPE_1example-9_1s2"><sect3 id="ENVELOPE_1example-9">
+<title>Example</title><para><programlisting filename=".basic"><codeline><highlight class="normal">&apos;<sp/>Envelope<sp/>0:<sp/>simple<sp/>organ<sp/>tone</highlight></codeline>
+<codeline><highlight class="normal">ENVELOPE<sp/>CREATE<sp/>0,0,255,128,5,50,200,200,0,0,0,0,0</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&apos;<sp/>Envelope<sp/>1:<sp/>slow<sp/>sine<sp/>pad</highlight></codeline>
+<codeline><highlight class="normal">ENVELOPE<sp/>CREATE<sp/>1,1,200,0,500,300,180,800,0,0,0,0,0</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&apos;<sp/>Play<sp/>notes<sp/>with<sp/>the<sp/>defined<sp/>envelopes</highlight></codeline>
+<codeline><highlight class="normal">STREAM<sp/>CREATE<sp/>s</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>TONE<sp/>s,440,100,0<sp/><sp/><sp/>&apos;<sp/>A4<sp/>with<sp/>organ</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>TONE<sp/>s,220,200,1<sp/><sp/><sp/>&apos;<sp/>A3<sp/>with<sp/>sine<sp/>pad</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3></sect2></sect1>
+<sect1 id="ENVELOPE_1notes-135_1s1"><sect2 id="ENVELOPE_1notes-135_1s2"><sect3 id="ENVELOPE_1notes-135">
+<title>Notes</title><para><itemizedlist>
+<listitem><para>Envelopes are stored in slots, numbered 0–63. Each BASIC program has its own 63 slots.</para>
+</listitem><listitem><para>Each <ref refid="SOUND" kindref="compound">SOUND</ref> TONE` may optionally use an envelope, or omit te envelope number to play a raw, simple square wave.</para>
+</listitem><listitem><para>Unlike sampled sounds (<ref refid="SOUND" kindref="compound">SOUND</ref> LOAD, SOUND PLAY), tones are generated on the fly and do not consume memory.</para>
+</listitem><listitem><para>You can create expressive, evolving sounds by experimenting with different waveforms and envelope timings.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3></sect2></sect1>
+<sect1 id="ENVELOPE_1see-also-1_1s1"><sect2 id="ENVELOPE_1see-also-1_1s2"><sect3 id="ENVELOPE_1see-also-1">
+<title>See also</title><para><ref refid="SOUND" kindref="compound">SOUND</ref> · <ref refid="STREAM" kindref="compound">STREAM</ref> </para>
+</sect3></sect2></sect1>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/ENVELOPE.md"/>
+  </compounddef>
+</doxygen>

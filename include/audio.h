@@ -12,6 +12,33 @@
 #pragma once
 #include <kernel.h>
 
+typedef enum {
+	TONE_SQUARE,
+	TONE_TRIANGLE,
+	TONE_SINE,
+	TONE_SAW,
+	TONE_NOISE
+} tone_wave_t;
+
+typedef struct {
+	bool      in_use;
+	tone_wave_t wave;        /* square/tri/sine/saw/noise */
+	uint8_t   volume;        /* overall level (0–255) */
+	uint8_t   pulse_width;   /* square duty, 128 = 50% */
+
+	uint32_t  attack_ms;
+	uint32_t  decay_ms;
+	uint8_t   sustain;       /* sustain level (0–255) */
+	uint32_t  release_ms;
+
+	int32_t   vibrato_cents;
+	uint32_t  vibrato_hz;
+	uint32_t  glide_ms;
+
+	uint32_t  pwm_hz;
+	uint8_t   pwm_depth;
+} sound_envelope_ex_t;
+
 /**
  * @brief Callback: enqueue interleaved S16LE stereo frames (non-blocking).
  *
@@ -199,13 +226,40 @@ audio_device_t *mixer_device(void);
  */
 void mixer_idle(void);
 
-void mixer_stop_stream(mixer_stream_t* ch);
+/**
+ * @brief Immediately stop playback on a stream
+ *
+ * Clears all queued audio data and silences the stream.
+ *
+ * @param ch Stream handle to stop
+ */
+void mixer_stop_stream(mixer_stream_t *ch);
 
-void mixer_pause_stream(mixer_stream_t* ch);
+/**
+ * @brief Pause playback on a stream
+ *
+ * Retains queued data but halts consumption until resumed.
+ *
+ * @param ch Stream handle to pause
+ */
+void mixer_pause_stream(mixer_stream_t *ch);
 
-void mixer_resume_stream(mixer_stream_t* ch);
+/**
+ * @brief Resume playback on a paused stream
+ *
+ * Playback continues from the queued position.
+ *
+ * @param ch Stream handle to resume
+ */
+void mixer_resume_stream(mixer_stream_t *ch);
 
-bool mixer_stream_is_paused(mixer_stream_t* ch);
+/**
+ * @brief Query whether a stream is paused
+ *
+ * @param ch Stream handle to query
+ * @return true if paused, false if active
+ */
+bool mixer_stream_is_paused(mixer_stream_t *ch);
 
 /**
  * @brief Convert a memory-resident WAV into 44.1 kHz stereo S16_LE
@@ -281,6 +335,66 @@ void audio_init();
  */
 bool audio_file_load(const char *filename, void **out_ptr, size_t *out_bytes);
 
-bool register_audio_loader(audio_file_loader_t* loader);
+/**
+ * @brief Register a new audio file loader
+ *
+ * Inserts the loader into the global loader chain so it can be used to
+ * recognise and decode matching file formats (e.g. WAV, MP3, FLAC).
+ * The caller retains ownership of the storage.
+ *
+ * @param loader Pointer to loader descriptor to register (must not be NULL)
+ * @return true on success, false on failure
+ */
+bool register_audio_loader(audio_file_loader_t *loader);
 
-bool deregister_audio_loader(audio_file_loader_t* loader);
+/**
+ * @brief Remove an audio file loader from the global chain
+ *
+ * Searches for the loader and unlinks it from the chain if present.
+ * Safe to call on an already-removed loader.
+ *
+ * @param loader Pointer to loader previously passed to register_audio_loader
+ * @return true if removed, false if not found
+ */
+bool deregister_audio_loader(audio_file_loader_t *loader);
+
+/**
+ * @brief Play a generated tone on a stream
+ *
+ * Pushes an ephemeral waveform (synthesised in software) directly into the
+ * given stream, with optional envelope shaping.
+ *
+ * @param ctx        BASIC execution context (provides envelope table)
+ * @param stream     Mixer stream handle to play into
+ * @param freq_hz    Frequency in Hz of the tone
+ * @param dur_cs     Duration in centiseconds (1/100 s)
+ * @param env_idx_opt Envelope index 0–63, or -1 for raw tone with no envelope
+ * @return true on success, false on error
+ */
+bool sound_cmd_tone(struct basic_ctx *ctx, mixer_stream_t *stream, uint32_t freq_hz, uint32_t dur_cs, int env_idx_opt);
+
+/**
+ * @brief Define a software envelope
+ *
+ * Stores a waveform and envelope shape into ctx->envelopes[idx], overwriting
+ * any previous definition at that slot. Supports attack, decay, sustain,
+ * release, vibrato, glide, and PWM modulation.
+ *
+ * @param ctx            BASIC execution context containing envelope table
+ * @param idx            Envelope slot index 0–63
+ * @param wave           Base waveform type (square, sine, saw, etc.)
+ * @param volume         Base volume (0–255, Q8.0)
+ * @param pulse_width    Duty cycle for square wave (128 = 50%)
+ * @param attack_ms      Attack time in milliseconds
+ * @param decay_ms       Decay time in milliseconds
+ * @param sustain        Sustain level (0–255)
+ * @param release_ms     Release time in milliseconds
+ * @param vibrato_cents  Vibrato depth in cents (+/– pitch)
+ * @param vibrato_hz     Vibrato frequency in Hz
+ * @param glide_ms       Portamento/glide time in milliseconds
+ * @param pwm_hz         Pulse-width modulation rate in Hz
+ * @param pwm_depth      Pulse-width modulation depth (0–255)
+ * @return true if defined successfully, false on invalid parameters
+ */
+bool envelope_define(struct basic_ctx *ctx, int idx, tone_wave_t wave, uint8_t volume, uint8_t pulse_width, uint32_t attack_ms, uint32_t decay_ms, uint8_t sustain,
+	uint32_t release_ms, int32_t vibrato_cents, uint32_t vibrato_hz, uint32_t glide_ms, uint32_t pwm_hz, uint8_t pwm_depth);

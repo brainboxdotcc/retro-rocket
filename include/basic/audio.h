@@ -17,3 +17,5 @@ int64_t basic_decibels(struct basic_ctx* ctx);
 void sound_list_free_all(struct basic_ctx *ctx);
 
 void stream_list_free_all(struct basic_ctx *ctx);
+
+void envelope_statement(struct basic_ctx* ctx);

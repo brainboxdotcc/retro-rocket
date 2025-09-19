@@ -97,7 +97,7 @@ $(function(){initNavTree('audio-basics.html','',''); });
 <div class="contents">
 <div class="textblock"><h2 class="doxsection"><a class="anchor" id="audio-system-structure"></a>
 Audio System Structure</h2>
-<p>Retro Rocket’s audio system has four main parts:</p>
+<p>Retro Rocket’s audio system has five main parts:</p>
 <h3 class="doxsection"><a class="anchor" id="drivers"></a>
 Drivers</h3>
 <p>The driver is the low-level hardware backend (e.g. <span class="tt">MODLOAD "ac97"</span>). <br  />
@@ -109,6 +109,7 @@ Codecs</h3>
 <li>WAV support is built in and always available.</li>
 <li>MP3 support is available via the <span class="tt">mp3.ko</span> module (<span class="tt">MODLOAD "mp3"</span>).</li>
 <li>FLAC support is available via the <span class="tt">flac.ko</span> module (<span class="tt">MODLOAD "flac"</span>).</li>
+<li>OGG Vorbis support is available via the <span class="tt">ogg.ko</span> module (<span class="tt">MODLOAD "ogg"</span>)</li>
 </ul>
 <p>If you try to load any file type except WAV without first loading the corresponding codec module, you will receive an error as the file type will be unrecognised.</p>
 <h3 class="doxsection"><a class="anchor" id="streams"></a>
@@ -123,10 +124,21 @@ Streams</h3>
 Sounds</h3>
 <p>A sound is <b>decoded audio data</b> loaded into memory with <span class="tt">SOUND LOAD</span>.</p>
 <ul>
-<li>Sounds can be loaded from any supported codec (e.g. WAV, MP3, FLAC).</li>
+<li>Sounds can be loaded from any supported codec (e.g. WAV, MP3, FLAC, OGG).</li>
 <li>Sounds are stored in RAM as 44.1 kHz stereo, 16-bit PCM.</li>
 <li>Sound handles are always non-zero integer IDs.</li>
 <li>Sounds must be freed with <span class="tt">SOUND UNLOAD</span> when no longer needed.</li>
+<li>You may generate basic square wave sounds without loading a sound file via <span class="tt">SOUND TONE</span></li>
+</ul>
+<h3 class="doxsection"><a class="anchor" id="envelopes"></a>
+Envelopes</h3>
+<p>An envelope is a <b>shape applied to the loudness or tone of a sound over time</b>. If you ever played games on a C64 or BBC Micro, you’ll remember how the same “beep” could sometimes be a pluck, a swelling chord, or a fading echo. That was done with <b>envelopes</b>: they control how a note evolves after it starts.</p>
+<p>Retro Rocket uses the classic <b>ADSR model</b> (Attack, Decay, Sustain, Release) found on many vintage synthesisers:</p>
+<ul>
+<li><b>Attack</b> — how quickly the sound rises from silence to full strength when a note begins.</li>
+<li><b>Decay</b> — once the peak is reached, how fast the sound falls back down to a steady level.</li>
+<li><b>Sustain</b> — the level held as long as the note continues.</li>
+<li><b>Release</b> — how long the note takes to fade back to silence after it ends.</li>
 </ul>
 <h2 class="doxsection"><a class="anchor" id="flow-of-audio"></a>
 Flow of audio</h2>
@@ -160,12 +172,34 @@ Play a FLAC file</h3>
 <div class="line">STREAM CREATE music</div>
 <div class="line">SOUND LOAD song, &quot;track.flac&quot;</div>
 <div class="line">SOUND PLAY music, song</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="playing-tonesenvelopes"></a>
+Playing tones/envelopes</h3>
+<div class="fragment"><div class="line">MODLOAD &quot;ac97&quot;</div>
+<div class="line">STREAM CREATE s</div>
+<div class="line">&#39; Simple square wave, no envelope applied</div>
+<div class="line">SOUND TONE s, 750, 100</div>
+<div class="line">&#39; Simple square wave with organ-like sustain</div>
+<div class="line">ENVELOPE CREATE 0, 0, 255, 128, 5, 50, 200, 200, 0, 0, 0, 0, 0</div>
+<div class="line">&#39; Soft sine wave pad, slow attack and release</div>
+<div class="line">ENVELOPE CREATE 1, 1, 200, 0, 500, 300, 180, 800, 0, 0, 0, 0, 0</div>
+<div class="line">&#39; Plucked sawtooth, short attack/decay, no sustain</div>
+<div class="line">ENVELOPE CREATE 2, 2, 255, 0, 5, 100, 0, 200, 0, 0, 0, 0, 0</div>
+<div class="line">&#39; Vibrato lead (square wave with pitch wobble)</div>
+<div class="line">ENVELOPE CREATE 3, 0, 220, 128, 10, 100, 180, 300, 30, 6, 0, 0, 0</div>
+<div class="line">&#39; PWM effect (pulse-width modulation sweep)</div>
+<div class="line">ENVELOPE CREATE 4, 0, 240, 64, 20, 100, 200, 400, 0, 0, 0, 5, 120</div>
+<div class="line">SOUND TONE s, 750, 100, 0</div>
+<div class="line">SOUND TONE s, 750, 100, 1</div>
+<div class="line">SOUND TONE s, 750, 100, 2</div>
+<div class="line">SOUND TONE s, 750, 100, 3</div>
+<div class="line">SOUND TONE s, 750, 100, 4</div>
 </div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="audio-keywordsfunctions"></a>
 Audio Keywords/Functions</h2>
 <ul>
 <li><a class="el" href="STREAM.html">STREAM</a></li>
 <li><a class="el" href="STREAM.html">SOUND</a></li>
-<li><a class="el" href="DECIBELS.html">DECIBELS</a> </li>
+<li><a class="el" href="DECIBELS.html">DECIBELS</a></li>
+<li><a class="el" href="ENVELOPE.html">ENVELOPE</a> </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

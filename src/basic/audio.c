@@ -139,6 +139,51 @@ void stream_statement(struct basic_ctx* ctx) {
 	accept_or_return(NEWLINE, ctx);
 }
 
+void envelope_statement(struct basic_ctx* ctx) {
+	if (!find_first_audio_device()) {
+		tokenizer_error_print(ctx, "ENVELOPE: No sound driver is loaded");
+		return;
+	}
+	accept_or_return(ENVELOPE, ctx);
+	switch (tokenizer_token(ctx)) {
+		case CREATE: {
+			/* Create new envelope */
+			accept_or_return(CREATE, ctx);
+			int idx = expr(ctx); accept_or_return(COMMA, ctx);
+			tone_wave_t wave = (tone_wave_t)expr(ctx); accept_or_return(COMMA, ctx);
+			uint8_t volume = expr(ctx); accept_or_return(COMMA, ctx);
+			uint8_t pulse_width = expr(ctx); accept_or_return(COMMA, ctx);
+			uint32_t attack_ms = expr(ctx); accept_or_return(COMMA, ctx);
+			uint32_t decay_ms = expr(ctx); accept_or_return(COMMA, ctx);
+			uint8_t sustain = expr(ctx); accept_or_return(COMMA, ctx);
+			uint32_t release_ms = expr(ctx); accept_or_return(COMMA, ctx);
+			int32_t vibrato_cents = expr(ctx); accept_or_return(COMMA, ctx);
+			uint32_t vibrato_hz = expr(ctx); accept_or_return(COMMA, ctx);
+			uint32_t glide_ms = expr(ctx); accept_or_return(COMMA, ctx);
+			uint32_t pwm_hz = expr(ctx); accept_or_return(COMMA, ctx);
+			uint8_t pwm_depth = expr(ctx);
+			if (!envelope_define(ctx, idx, wave, volume, pulse_width, attack_ms, decay_ms, sustain, release_ms, vibrato_cents, vibrato_hz, glide_ms, pwm_hz, pwm_depth)) {
+				tokenizer_error_print(ctx, "ENVELOPE number out of range");
+			}
+			break;
+		}
+		case DESTROY: {
+			/* Delete envelope */
+			accept_or_return(DESTROY, ctx);
+			int64_t envelope_id = expr(ctx);
+			if (envelope_id < 0 || envelope_id > 63) {
+				tokenizer_error_print(ctx, "Invalid ENVELOPE number");
+			}
+			ctx->envelopes[envelope_id].in_use = false;
+			break;
+		}
+		default:
+			tokenizer_error_print(ctx, "Expected CREATE or DESTROY after ENVELOPE");
+			return;
+	}
+	accept_or_return(NEWLINE, ctx);
+}
+
 void sound_statement(struct basic_ctx* ctx) {
 	if (!find_first_audio_device()) {
 		tokenizer_error_print(ctx, "SOUND: No sound driver is loaded");
@@ -146,6 +191,28 @@ void sound_statement(struct basic_ctx* ctx) {
 	}
 	accept_or_return(SOUND, ctx);
 	switch (tokenizer_token(ctx)) {
+		case TONE: {
+			/* Set volume for stream */
+			accept_or_return(TONE, ctx);
+			mixer_stream_t* stream = get_stream(ctx, expr(ctx));
+			accept_or_return(COMMA, ctx);
+			int64_t freq_hz = expr(ctx);
+			accept_or_return(COMMA, ctx);
+			int64_t duration_centiseconds = expr(ctx);
+			int64_t env_idx_opt = -1;
+			if (tokenizer_token(ctx) == COMMA) {
+				accept_or_return(COMMA, ctx);
+				env_idx_opt = expr(ctx);
+			}
+			if (!stream) {
+				tokenizer_error_print(ctx, "Invalid STREAM handle");
+				return;
+			}
+			if (!sound_cmd_tone(ctx, stream, freq_hz, duration_centiseconds, env_idx_opt)) {
+				tokenizer_error_print(ctx, "Out of memory for SOUND TONE");
+			}
+			break;
+		}
 		case VOLUME: {
 			/* Set volume for stream */
 			accept_or_return(VOLUME, ctx);
@@ -154,12 +221,8 @@ void sound_statement(struct basic_ctx* ctx) {
 				tokenizer_error_print(ctx, "Invalid STREAM handle");
 				return;
 			}
-			int64_t gain = expr(ctx);
-			if (gain < 0) {
-				gain = 0;
-			} else if (gain > 255) {
-				gain = 255;
-			}
+			accept_or_return(COMMA, ctx);
+			int64_t gain = CLAMP(expr(ctx), 0, 255);
 			if (gain == 255) {
 				gain = 256; /* True 100% volume */
 			}

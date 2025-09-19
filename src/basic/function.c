@@ -261,6 +261,7 @@ const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx)
 		ctx->sounds           = atomic->sounds;
 
 		memcpy(ctx->audio_streams, atomic->audio_streams, sizeof(ctx->audio_streams));
+		memcpy(ctx->envelopes, atomic->envelopes, sizeof(ctx->envelopes));
 
 		/* Only free the base struct! */
 		buddy_free(ctx->allocator, atomic);
@@ -361,6 +362,7 @@ int64_t basic_eval_int_fn(const char* fn_name, struct basic_ctx* ctx)
 		ctx->sounds           = atomic->sounds;
 
 		memcpy(ctx->audio_streams, atomic->audio_streams, sizeof(ctx->audio_streams));
+		memcpy(ctx->envelopes, atomic->envelopes, sizeof(ctx->envelopes));
 
 		/* Only free the base struct! */
 		buddy_free(ctx->allocator, atomic);
@@ -413,6 +415,7 @@ void basic_eval_double_fn(const char* fn_name, struct basic_ctx* ctx, double* re
 		ctx->sounds           = atomic->sounds;
 
 		memcpy(ctx->audio_streams, atomic->audio_streams, sizeof(ctx->audio_streams));
+		memcpy(ctx->envelopes, atomic->envelopes, sizeof(ctx->envelopes));
 
 		/* Only free the base struct! */
 		buddy_free(ctx->allocator, atomic);

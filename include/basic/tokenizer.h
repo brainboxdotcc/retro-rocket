@@ -200,7 +200,8 @@ typedef void (*keyword_handler_t)(struct basic_ctx*);
     T(PAUSE, STMT, NULL) 				/* 128 */ \
     T(LOAD, STMT, NULL) 				/* 129 */ \
     T(UNLOAD, STMT, NULL) 				/* 130 */ \
-
+    T(ENVELOPE, STMT, envelope_statement)		/* 131 */ \
+    T(TONE, STMT, NULL) 				/* 132 */ \
 
 GENERATE_ENUM_LIST(TOKEN, token_t)
 

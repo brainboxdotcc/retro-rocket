@@ -12,7 +12,7 @@
 <para>Retro Rocket BASIC implements a practical subset of BBC MOS <computeroutput>VDU</computeroutput>. Unsupported commands are no-ops (their arguments are discarded).</para>
 <para><hruler/>
 </para>
-<sect1 id="VDU_1notes-176_1s1"><sect2 id="VDU_1notes-176_1s2"><sect3 id="VDU_1notes-176">
+<sect1 id="VDU_1notes-177_1s1"><sect2 id="VDU_1notes-177_1s2"><sect3 id="VDU_1notes-177">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Coordinates for cursor movement use <bold>text cells</bold>: <computeroutput>x</computeroutput> is the column (0..cols-1), <computeroutput>y</computeroutput> is the row (0..rows-1).</para>
 </listitem><listitem><para><computeroutput>VDU 12</computeroutput> (<bold>CLS</bold>) and <computeroutput>VDU 16</computeroutput> (<bold>CLG</bold>) both clear the <bold>entire</bold> screen.</para>
@@ -158,7 +158,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="VDU_1see-also-4_1s1"><sect2 id="VDU_1see-also-4_1s2"><sect3 id="VDU_1see-also-4">
+<sect1 id="VDU_1see-also-5_1s1"><sect2 id="VDU_1see-also-5_1s2"><sect3 id="VDU_1see-also-5">
 <title>See also</title><para><itemizedlist>
 <listitem><para><ref refid="GRAPHPRINT" kindref="compound">GRAPHPRINT</ref> - draw text at pixel coordinates (immediate-mode overlay).</para>
 </listitem><listitem><para><ref refid="GCOL" kindref="compound">GCOL</ref> - set graphics colour (0xRetro RocketGGBB).</para>

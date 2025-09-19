@@ -6,6 +6,7 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
+<para>[TOC]</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">SOUND<sp/>VOLUME<sp/>stream,<sp/>gain</highlight></codeline>
 <codeline><highlight class="normal">SOUND<sp/>PLAY<sp/>stream,<sp/>sound</highlight></codeline>
 <codeline><highlight class="normal">SOUND<sp/>PLAY<sp/>stream</highlight></codeline>
@@ -13,8 +14,10 @@
 <codeline><highlight class="normal">SOUND<sp/>PAUSE<sp/>stream</highlight></codeline>
 <codeline><highlight class="normal">SOUND<sp/>LOAD<sp/>variable,<sp/>&quot;filename&quot;</highlight></codeline>
 <codeline><highlight class="normal">SOUND<sp/>UNLOAD<sp/>sound</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>TONE<sp/>stream,<sp/>frequency,<sp/>duration[,<sp/>envelope]</highlight></codeline>
 </programlisting></para>
-<para>Provides control over <bold>sound playback</bold>. Sounds are loaded from WAV files and played on <bold>streams</bold>. A stream acts like a playback channel; multiple streams can be active at once, each with their own volume and queue of sounds.</para>
+<para>Provides control over <bold>sound playback</bold>. Sounds may come from loaded audio files (e.g. WAV, MP3, FLAC, Ogg/Vorbis) or be generated on the fly as <bold>tones</bold> using simple synthesiser-style envelopes.</para>
+<para>A stream acts like a playback channel; multiple streams can be active at once, each with their own volume and queue of sounds.</para>
 <para><hruler/>
 </para>
 <sect1 id="SOUND_1sound-volume_1s1"><sect2 id="SOUND_1sound-volume_1s2"><sect3 id="SOUND_1sound-volume">
@@ -110,10 +113,10 @@
 <sect1 id="SOUND_1sound-load_1s1"><sect2 id="SOUND_1sound-load_1s2"><sect3 id="SOUND_1sound-load">
 <title>SOUND LOAD</title><para><programlisting filename=".basic"><codeline><highlight class="normal">SOUND<sp/>LOAD<sp/>variable,<sp/>&quot;filename&quot;</highlight></codeline>
 </programlisting></para>
-<para>Loads a WAV file into memory and assigns a <bold>sound handle</bold> to <computeroutput>variable</computeroutput>.</para>
+<para>Loads an audio file into memory and assigns a <bold>sound handle</bold> to <computeroutput>variable</computeroutput>.</para>
 <para><bold>Notes</bold></para>
 <para><itemizedlist>
-<listitem><para>Only PCM and IEEE float WAV files are supported.</para>
+<listitem><para>WAV, MP3, FLAC, and Ogg/Vorbis are supported, depending on which codecs are loaded.</para>
 </listitem><listitem><para>Sound data is stored in RAM until freed. Large audio files may consume significant memory.</para>
 </listitem><listitem><para>Sound handles are distinct from streams:<itemizedlist>
 <listitem><para>A <bold>sound handle</bold> is the decoded audio data.</para>
@@ -125,12 +128,12 @@
 </para>
 <para><bold>Errors</bold></para>
 <para><itemizedlist>
-<listitem><para><lsquo/>Unable to load WAV file &apos;filename<rsquo/><computeroutput> if the file could not be opened.</computeroutput></para>
-</listitem><listitem><para><computeroutput></computeroutput>Out of memory loading WAV file &apos;filename&apos;` if allocation fails.</para>
+<listitem><para><lsquo/>Unable to load file &apos;filename<rsquo/><computeroutput> if the file could not be opened or decoded.</computeroutput></para>
+</listitem><listitem><para><computeroutput></computeroutput>Out of memory loading &apos;filename&apos;` if allocation fails.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>Examples</bold></para>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">SOUND<sp/>LOAD<sp/>song,<sp/>&quot;/system/webserver/media/retro-revival.wav&quot;</highlight></codeline>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">SOUND<sp/>LOAD<sp/>song,<sp/>&quot;/system/webserver/media/retro-revival.mp3&quot;</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>song</highlight></codeline>
 </programlisting></para>
 <para><hruler/>
@@ -151,13 +154,51 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
+<sect1 id="SOUND_1sound-tone_1s1"><sect2 id="SOUND_1sound-tone_1s2"><sect3 id="SOUND_1sound-tone">
+<title>SOUND TONE</title><para><programlisting filename=".basic"><codeline><highlight class="normal">SOUND<sp/>TONE<sp/>stream,<sp/>frequency,<sp/>duration[,<sp/>envelope]</highlight></codeline>
+</programlisting></para>
+<para>Generates and plays a tone on the fly. This does not use a sound handle; the waveform is synthesised directly into the stream.</para>
+<para>Parameters:</para>
+<para><itemizedlist>
+<listitem><para><bold>stream</bold> — Stream to play into.</para>
+</listitem><listitem><para><bold>frequency</bold> — Pitch in Hz (e.g. <computeroutput>440</computeroutput> for concert A).</para>
+</listitem><listitem><para><bold>duration</bold> — Length of the note in centiseconds (1/100th of a second).</para>
+</listitem><listitem><para><bold>envelope</bold> (optional) — Envelope slot (0–63) previously defined with <ref refid="ENVELOPE" kindref="compound">ENVELOPE CREATE</ref>. If omitted, the tone plays raw with no shaping.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>Notes</bold></para>
+<para><itemizedlist>
+<listitem><para>Tones are ephemeral and consume no long-term memory.</para>
+</listitem><listitem><para>Envelopes let you design the “shape” of the note: attack, decay, sustain, release, vibrato, PWM, etc.</para>
+</listitem><listitem><para>Multiple tones can overlap across different streams for chords, effects, or music.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>Errors</bold></para>
+<para><itemizedlist>
+<listitem><para><computeroutput>Invalid STREAM handle</computeroutput> if the stream does not exist.</para>
+</listitem><listitem><para><computeroutput>ENVELOPE number out of range</computeroutput> if the envelope index is invalid.</para>
+</listitem><listitem><para><computeroutput>Out of memory for SOUND TONE</computeroutput> if synthesis buffer allocation fails.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>Examples</bold></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">&apos;<sp/>Simple<sp/>beep</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>TONE<sp/>music,<sp/>440,<sp/>50</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&apos;<sp/>With<sp/>a<sp/>shaped<sp/>envelope</highlight></codeline>
+<codeline><highlight class="normal">ENVELOPE<sp/>CREATE<sp/>0,0,255,128,5,50,200,200,0,0,0,0,0</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>TONE<sp/>music,<sp/>220,<sp/>100,<sp/>0</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3></sect2></sect1>
 <sect1 id="SOUND_1usage-example_1s1"><sect2 id="SOUND_1usage-example_1s2"><sect3 id="SOUND_1usage-example">
 <title>Usage example</title><para><programlisting filename=".basic"><codeline><highlight class="normal">STREAM<sp/>CREATE<sp/>music</highlight></codeline>
 <codeline><highlight class="normal">SOUND<sp/>LOAD<sp/>song,<sp/>&quot;/system/webserver/media/retro-revival.wav&quot;</highlight></codeline>
 <codeline><highlight class="normal">SOUND<sp/>VOLUME<sp/>music,<sp/>DECIBELS(-6)</highlight></codeline>
 <codeline><highlight class="normal">SOUND<sp/>PLAY<sp/>music,<sp/>song</highlight></codeline>
 <codeline></codeline>
-<codeline><highlight class="normal">&apos;<sp/>...<sp/>do<sp/>other<sp/>work<sp/>here<sp/>...</highlight></codeline>
+<codeline><highlight class="normal">&apos;<sp/>Play<sp/>a<sp/>synthesised<sp/>tone<sp/>while<sp/>song<sp/>plays</highlight></codeline>
+<codeline><highlight class="normal">SOUND<sp/>TONE<sp/>music,<sp/>880,<sp/>50</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">SOUND<sp/>PAUSE<sp/>music</highlight></codeline>
 <codeline><highlight class="normal">SOUND<sp/>PLAY<sp/>music<sp/><sp/><sp/>&apos;<sp/>resume<sp/>playback</highlight></codeline>
@@ -167,7 +208,7 @@
 </programlisting></para>
 <para><hruler/>
 </para>
-<para><bold>See also</bold> <ref refid="STREAM" kindref="compound">STREAM</ref> · <ref refid="DECIBELS" kindref="compound">DECIBELS</ref> </para>
+<para><bold>See also</bold> <ref refid="STREAM" kindref="compound">STREAM</ref> · <ref refid="DECIBELS" kindref="compound">DECIBELS</ref> · <ref refid="ENVELOPE" kindref="compound">ENVELOPE</ref> </para>
 </sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/SOUND.md"/>
