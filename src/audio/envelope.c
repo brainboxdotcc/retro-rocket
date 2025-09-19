@@ -81,13 +81,16 @@ static bool generate_tone_44100_stereo(struct basic_ctx *ctx, uint32_t freq_hz, 
 		}
 
 		phase_q32 += step_q32;
-		double t = (double) (phase_q32 >> 32) / (double) (1ull << 32);
+		double t = (double)(phase_q32 & 0xFFFFFFFFull) / (double)(1ull << 32);
+
 
 		int32_t s = 0;
 		switch (wave) {
-			case TONE_SQUARE:
-				s = ((phase_q32 >> 24) & 0xFF) < pulse_width ? volume * 128 : -volume * 128;
+			case TONE_SQUARE: {
+				int on = (((phase_q32 >> 24) & 0xFF) < pulse_width) ? 1 : 0;
+				s = on ? 32767 : -32767;
 				break;
+			}
 			case TONE_TRIANGLE:
 				s = (int32_t) ((2.0 * fabs(2.0 * t - 1.0) - 1.0) * 32767);
 				break;

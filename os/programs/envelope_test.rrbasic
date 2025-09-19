@@ -5,16 +5,16 @@ MODLOAD "ac97"
 STREAM CREATE s
 
 ' Simple square wave, organ-like sustain
-ENVELOPE CREATE 0, 0, 255, 128, 5, 50, 200, 200, 0, 0, 0, 0, 0
+ENVELOPE CREATE 0, 1, 255, 128, 5, 50, 200, 200, 0, 0, 0, 0, 0
 
 ' Soft sine wave pad, slow attack and release
-ENVELOPE CREATE 1, 1, 200, 0, 500, 300, 180, 800, 0, 0, 0, 0, 0
+ENVELOPE CREATE 1, 2, 200, 0, 500, 300, 180, 800, 0, 0, 0, 0, 0
 
 ' Plucked sawtooth, short attack/decay, no sustain
-ENVELOPE CREATE 2, 2, 255, 0, 5, 100, 0, 200, 0, 0, 0, 0, 0
+ENVELOPE CREATE 2, 3, 255, 0, 5, 100, 0, 200, 0, 0, 0, 0, 0
 
 ' Vibrato lead (square wave with pitch wobble)
-ENVELOPE CREATE 3, 0, 220, 128, 10, 100, 180, 300, 30, 6, 0, 0, 0
+ENVELOPE CREATE 3, 4, 220, 128, 10, 100, 180, 300, 30, 6, 0, 0, 0
 
 ' PWM effect (pulse-width modulation sweep)
 ENVELOPE CREATE 4, 0, 240, 64, 20, 100, 200, 400, 0, 0, 0, 5, 120
