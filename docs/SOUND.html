@@ -97,7 +97,7 @@ $(function(){initNavTree('SOUND.html','',''); });
 <div class="contents">
 <div class="textblock"><p>[TOC]</p>
 <div class="fragment"><div class="line">SOUND VOLUME stream, gain</div>
-<div class="line">SOUND PLAY stream, sound</div>
+<div class="line">SOUND PLAY stream, sound[, pitch]</div>
 <div class="line">SOUND PLAY stream</div>
 <div class="line">SOUND STOP stream</div>
 <div class="line">SOUND PAUSE stream</div>
@@ -132,17 +132,20 @@ SOUND VOLUME</h3>
 <h3 class="doxsection"><a class="anchor" id="sound-play"></a>
 SOUND PLAY</h3>
 <div class="fragment"><div class="line">SOUND PLAY stream, sound</div>
+<div class="line">SOUND PLAY stream, sound, pitch</div>
 <div class="line">SOUND PLAY stream</div>
 </div><!-- fragment --><p>Plays or resumes audio on a stream.</p>
 <ul>
 <li>With a <span class="tt">sound</span> handle, queues the sound into the stream for playback.</li>
 <li>Without a <span class="tt">sound</span>, resumes a previously paused stream.</li>
+<li>Passing the third parameter applies a pitch adjustment to the sound, in Hz.</li>
 </ul>
 <p><b>Notes</b></p>
 <ul>
 <li>Streams are asynchronous. Program execution continues while playback occurs.</li>
 <li>More than one sound can be queued on the same stream; they will play in order.</li>
 <li>If you call <span class="tt">SOUND PLAY</span> with no sound argument while nothing is paused, nothing happens.</li>
+<li>Adjusting the pitch of a sound with the third parameter also slows it down (for negative values) or speeds it up (for positive values).</li>
 </ul>
 <p><b>Errors</b></p>
 <ul>
