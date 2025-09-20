@@ -1,4 +1,6 @@
 #include <kernel.h>
+#include <emmintrin.h>
+
 
 static inline void sound_list_add(struct basic_ctx *ctx, basic_sound_t *s) {
 	s->next = ctx->sounds;
@@ -184,6 +186,100 @@ void envelope_statement(struct basic_ctx* ctx) {
 	accept_or_return(NEWLINE, ctx);
 }
 
+/* Blocked linear resampler with Hz pitch offset (Q15 weights, SSE2).
+   - Input:  interleaved S16LE stereo at 44.1 kHz (immutable)
+   - Output: interleaved S16LE stereo at 44.1 kHz
+   - maths:  L = (L0*inv + L1*frac) >> 15, same for R (Q15 weights)
+*/
+static size_t sound_push_with_pitch(struct basic_ctx *ctx, mixer_stream_t *stream, const int16_t *pcm_in, size_t frames_in, int64_t pitch_offset_hz) {
+	if (!pitch_offset_hz) {
+		return mixer_push(stream, pcm_in, frames_in);
+	}
+
+	size_t rv = 0;
+	const double base_rate = 44100.0;
+	const double new_rate  = base_rate + (double)pitch_offset_hz;
+	if (new_rate <= 100.0) {
+		tokenizer_error_print(ctx, "SOUND PLAY: Invalid pitch offset");
+		return 0;
+	}
+
+	/* Advance per output frame in Q16.16 source-frame units. */
+	const double   ratio_f = new_rate / base_rate;      /* >1 = faster (higher pitch) */
+	const uint32_t STEP_Q16 = (uint32_t)(ratio_f * 65536.0);
+
+	if (frames_in < 2) {
+		return 0; /* need at least 2 source frames for lerp */
+	}
+
+	const size_t last_valid = frames_in - 2; /* we read idx and idx+1 */
+	uint64_t pos_q16 = 0;
+
+	enum { BLOCK_FRAMES = 32768 }; /* ~128 KiB scratch (stereo S16) */
+	int16_t *scratch = buddy_malloc(ctx->allocator, (size_t)BLOCK_FRAMES * 2u * sizeof(int16_t));
+	if (!scratch) {
+		tokenizer_error_print(ctx, "Out of memory for pitch shift");
+		return 0;
+	}
+
+	while (1) {
+		size_t produced = 0;
+
+		while (produced < (size_t)BLOCK_FRAMES) {
+			const uint32_t frac_q16 = (uint32_t)(pos_q16 & 0xFFFFu);
+			const size_t   idx      = (size_t)(pos_q16 >> 16);
+			if (idx > last_valid) {
+				break;
+			}
+
+			/* Convert Q16.16 -> Q15 for SSE2 signed 16-bit weights. */
+			const uint16_t frac_q15 = (uint16_t)(frac_q16 >> 1);          /* 0..32767 */
+			const uint16_t inv_q15  = (uint16_t)(32767u - frac_q15);      /* 0..32767 */
+
+			/* Neighbour samples */
+			const int16_t L0 = pcm_in[(idx    )*2 + 0];
+			const int16_t R0 = pcm_in[(idx    )*2 + 1];
+			const int16_t L1 = pcm_in[(idx + 1)*2 + 0];
+			const int16_t R1 = pcm_in[(idx + 1)*2 + 1];
+
+			/* vals = [ R1, R0, L1, L0, 0,0,0,0 ] (int16)
+			   wts  = [  f,  i,  f,  i, 0,0,0,0 ] (int16, Q15)
+			   madd: [ R1*f + R0*i, L1*f + L0*i, 0, 0 ] (int32) */
+			const __m128i vals = _mm_set_epi16(0,0,0,0, R1, R0, L1, L0);
+			const __m128i wts  = _mm_set_epi16(0,0,0,0, (short)frac_q15, (short)inv_q15,
+							   (short)frac_q15, (short)inv_q15);
+			__m128i acc = _mm_madd_epi16(vals, wts);    /* two 32-bit sums in low lanes */
+			acc = _mm_srai_epi32(acc, 15);              /* >>15 to undo Q15 */
+
+			/* Extract the two 32-bit results via a store (portable SSE2) */
+			int32_t tmp[4];
+			_mm_storeu_si128((__m128i*)tmp, acc);
+			const int32_t R = tmp[0];
+			const int32_t L = tmp[1];
+
+			/* Store clamped */
+			scratch[produced*2 + 0] = (int16_t)((L > 32767) ? 32767 : (L < -32768 ? -32768 : L));
+			scratch[produced*2 + 1] = (int16_t)((R > 32767) ? 32767 : (R < -32768 ? -32768 : R));
+
+			produced++;
+			pos_q16 += STEP_Q16;
+		}
+
+		if (!produced) {
+			break;
+		}
+
+		rv = mixer_push(stream, scratch, produced);
+
+		if ((size_t)(pos_q16 >> 16) > last_valid) {
+			break; /* source consumed */
+		}
+	}
+
+	buddy_free(ctx->allocator, scratch);
+	return rv;
+}
+
 void sound_statement(struct basic_ctx* ctx) {
 	if (!find_first_audio_device()) {
 		tokenizer_error_print(ctx, "SOUND: No sound driver is loaded");
@@ -249,7 +345,18 @@ void sound_statement(struct basic_ctx* ctx) {
 					tokenizer_error_print(ctx, "SOUND PLAY: Invalid sound handle");
 					return;
 				}
-				mixer_push(stream, s->pcm, s->frames);
+				int64_t pitch_offset_hz = 0;
+				if (tokenizer_token(ctx) == COMMA) {
+					/* Optional pitch offset */
+					accept_or_return(COMMA, ctx);
+					pitch_offset_hz = expr(ctx);
+				}
+
+				if (pitch_offset_hz == 0) {
+					mixer_push(stream, s->pcm, s->frames);
+				} else {
+					sound_push_with_pitch(ctx, stream, s->pcm, s->frames, pitch_offset_hz);
+				}
 			}
 			break;
 		}

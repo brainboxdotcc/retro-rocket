@@ -4,7 +4,7 @@
 
 ```basic
 SOUND VOLUME stream, gain
-SOUND PLAY stream, sound
+SOUND PLAY stream, sound[, pitch]
 SOUND PLAY stream
 SOUND STOP stream
 SOUND PAUSE stream
@@ -55,6 +55,7 @@ SOUND VOLUME music, DECIBELS(-12)
 
 ```basic
 SOUND PLAY stream, sound
+SOUND PLAY stream, sound, pitch
 SOUND PLAY stream
 ```
 
@@ -62,12 +63,14 @@ Plays or resumes audio on a stream.
 
 * With a `sound` handle, queues the sound into the stream for playback.
 * Without a `sound`, resumes a previously paused stream.
+* Passing the third parameter applies a pitch adjustment to the sound, in Hz.
 
 **Notes**
 
 * Streams are asynchronous. Program execution continues while playback occurs.
 * More than one sound can be queued on the same stream; they will play in order.
 * If you call `SOUND PLAY` with no sound argument while nothing is paused, nothing happens.
+* Adjusting the pitch of a sound with the third parameter also slows it down (for negative values) or speeds it up (for positive values).
 
 **Errors**
 
