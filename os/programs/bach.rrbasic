@@ -1,6 +1,7 @@
 ON ERROR PROCcontinue
-
 MODLOAD "ac97"
+ON ERROR OFF
+
 ' Streams
 STREAM CREATE lead
 STREAM CREATE pedal
@@ -23,7 +24,7 @@ SOUND TONE lead, 698, 20, 2
 SOUND TONE lead, 659, 20, 2
 SOUND TONE lead, 587, 20, 2
 SOUND TONE lead, 554, 90, 2
-SOUND TONE lead, 587, 60, 2
+SOUND TONE lead, 587, 90, 2
 
 SLEEP 6000
 END
