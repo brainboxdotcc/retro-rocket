@@ -1,33 +1,42 @@
+REM The introduction to Bach's Tocatta and Fuges
+REM Demonstration of ENVELOPE and SOUND TONE
+
 ON ERROR PROCcontinue
 MODLOAD "ac97"
 ON ERROR OFF
 
-' Streams
-STREAM CREATE lead
-STREAM CREATE pedal
-STREAM CREATE colour
+REM Streams
+STREAM CREATE lead1
+STREAM CREATE lead2
+STREAM CREATE lead3
 
-' Envelopes (plain organ — no vibrato)
-' id, wave, vol, pulse, attack, decay, sustain, release, vib_depth, vib_rate, glide, pwm_rate, pwm_depth
-ENVELOPE CREATE 0, 1, 255, 128, 12, 70, 210, 420, 0, 0, 0, 0, 0
+REM ADSR envelopes
 ENVELOPE CREATE 2, 1, 255, 128, 25,120, 220, 800, 0, 0, 0, 0, 0
 ENVELOPE CREATE 3, 0, 220, 128, 10, 60, 180, 320, 0, 0, 0, 3,12
 ENVELOPE CREATE 63, 0, 0, 128, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
-SOUND TONE lead, 880, 20, 2
-SOUND TONE lead, 784, 20, 2
-SOUND TONE lead, 880, 100, 2
-SOUND TONE lead, 100, 40, 63
-SOUND TONE lead, 100, 40, 63
-SOUND TONE lead, 784, 20, 2
-SOUND TONE lead, 698, 20, 2
-SOUND TONE lead, 659, 20, 2
-SOUND TONE lead, 587, 20, 2
-SOUND TONE lead, 554, 90, 2
-SOUND TONE lead, 587, 90, 2
+REM tune
+PROCchord(880, 20, 3)
+PROCchord(784, 20, 3)
+PROCchord(880, 100, 3)
+PROCchord(100, 40, 63)
+PROCchord(100, 40, 63)
+PROCchord(784, 20, 2)
+PROCchord(698, 20, 2)
+PROCchord(659, 20, 2)
+PROCchord(587, 20, 2)
+PROCchord(554, 90, 2)
+PROCchord(587, 90, 2)
 
+REM wait for tune to leave buffer
 SLEEP 6000
 END
 
 DEF PROCcontinue
+ENDPROC
+
+DEF PROCchord(rootHz, durCs, env)
+    SOUND TONE lead1, rootHz, durCs, env
+    SOUND TONE lead2, rootHz * 1.2599, durCs, env   ' major 3rd
+    SOUND TONE lead3, rootHz * 1.4983, durCs, env   ' perfect 5th
 ENDPROC
