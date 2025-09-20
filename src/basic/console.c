@@ -596,6 +596,11 @@ void sleep_statement(struct basic_ctx* ctx)
 
 	process_t* proc = proc_cur(logical_cpu_id());
 
+	if (sleep_length < 0 || sleep_length > 604800000) {
+		tokenizer_error_print(ctx, "Invalid SLEEP duration");
+		return;
+	}
+
 	if (ctx->sleep_until == 0) {
 		ctx->sleep_until = get_ticks() + sleep_length;
 		proc_set_idle(proc, check_sleep_in_progress, NULL);
