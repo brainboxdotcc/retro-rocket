@@ -4,8 +4,8 @@
 SLEEP expression
 ```
 
-Suspends execution of the current program for the specified number of seconds.
-The expression must evaluate to a positive integer. Fractions are ignored; resolution is to the nearest whole second only.
+Suspends execution of the current program for the specified number of milliseconds.
+The expression must evaluate to a positive integer. Fractions are ignored; resolution is to the nearest whole millisecond only.
 
 During a `SLEEP` the process is suspended and does not consume CPU time. Other programs continue to run.
 
@@ -19,7 +19,7 @@ During a `SLEEP` the process is suspended and does not consume CPU time. Other p
 
 ```basic
 PRINT "START"
-SLEEP 2
+SLEEP 2000
 PRINT "AFTER 2 SECONDS"
 ```
 
@@ -34,6 +34,6 @@ AFTER 2 SECONDS
 
 #### Notes
 
-* Only whole seconds are supported. `SLEEP 2.5` is treated as `SLEEP 2`.
+* Only whole milliseconds are supported. `SLEEP 2.5` is treated as `SLEEP 2`.
 * A `SLEEP 0` has no effect.
 * Long sleeps (hundreds or thousands of seconds) are possible, but the process will remain suspended until the time has passed.

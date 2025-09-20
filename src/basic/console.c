@@ -586,7 +586,7 @@ bool check_sleep_in_progress(process_t* proc, [[maybe_unused]] void* opaque)
 	if (basic_esc()) {
 		return false;
 	}
-	return time(NULL) < proc->code->sleep_until;
+	return get_ticks() < proc->code->sleep_until;
 }
 
 void sleep_statement(struct basic_ctx* ctx)
@@ -597,7 +597,7 @@ void sleep_statement(struct basic_ctx* ctx)
 	process_t* proc = proc_cur(logical_cpu_id());
 
 	if (ctx->sleep_until == 0) {
-		ctx->sleep_until = time(NULL) + sleep_length;
+		ctx->sleep_until = get_ticks() + sleep_length;
 		proc_set_idle(proc, check_sleep_in_progress, NULL);
 		jump_linenum(ctx->current_linenum, ctx);
 		proc->state = PROC_SUSPENDED;

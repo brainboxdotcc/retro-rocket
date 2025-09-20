@@ -92,7 +92,7 @@ typedef struct basic_ctx {
 	/**
 	 * @brief When the current SLEEP instruction will end or 0 if not sleeping
 	 */
-	int64_t sleep_until;
+	uint64_t sleep_until;
 
 	/**
 	 * @brief Pointer to the program's entire text (untokenized).

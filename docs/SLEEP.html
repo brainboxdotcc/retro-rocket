@@ -96,7 +96,7 @@ $(function(){initNavTree('SLEEP.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">SLEEP expression</div>
-</div><!-- fragment --><p>Suspends execution of the current program for the specified number of seconds. The expression must evaluate to a positive integer. Fractions are ignored; resolution is to the nearest whole second only.</p>
+</div><!-- fragment --><p>Suspends execution of the current program for the specified number of milliseconds. The expression must evaluate to a positive integer. Fractions are ignored; resolution is to the nearest whole millisecond only.</p>
 <p>During a <span class="tt">SLEEP</span> the process is suspended and does not consume CPU time. Other programs continue to run.</p>
 <dl class="section remark"><dt>Remarks</dt><dd>You can cancel a long sleep with <span class="tt">CTRL+ESC</span>. Without an error handler the </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>programme terminates; with one, control passes to <span class="tt">ON ERROR</span>.</dd></dl>
@@ -104,7 +104,7 @@ $(function(){initNavTree('SLEEP.html','',''); });
 <h4 class="doxsection"><a class="anchor" id="example-12"></a>
 Example</h4>
 <div class="fragment"><div class="line">PRINT &quot;START&quot;</div>
-<div class="line">SLEEP 2</div>
+<div class="line">SLEEP 2000</div>
 <div class="line">PRINT &quot;AFTER 2 SECONDS&quot;</div>
 </div><!-- fragment --><p>Output:</p>
 <div class="fragment"><div class="line">START</div>
@@ -113,7 +113,7 @@ Example</h4>
 <h4 class="doxsection"><a class="anchor" id="notes-165"></a>
 Notes</h4>
 <ul>
-<li>Only whole seconds are supported. <span class="tt">SLEEP 2.5</span> is treated as <span class="tt">SLEEP 2</span>.</li>
+<li>Only whole milliseconds are supported. <span class="tt">SLEEP 2.5</span> is treated as <span class="tt">SLEEP 2</span>.</li>
 <li>A <span class="tt">SLEEP 0</span> has no effect.</li>
 <li>Long sleeps (hundreds or thousands of seconds) are possible, but the process will remain suspended until the time has passed. </li>
 </ul>

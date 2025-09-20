@@ -1,0 +1,32 @@
+ON ERROR PROCcontinue
+
+MODLOAD "ac97"
+' Streams
+STREAM CREATE lead
+STREAM CREATE pedal
+STREAM CREATE colour
+
+' Envelopes (plain organ — no vibrato)
+' id, wave, vol, pulse, attack, decay, sustain, release, vib_depth, vib_rate, glide, pwm_rate, pwm_depth
+ENVELOPE CREATE 0, 1, 255, 128, 12, 70, 210, 420, 0, 0, 0, 0, 0
+ENVELOPE CREATE 2, 1, 255, 128, 25,120, 220, 800, 0, 0, 0, 0, 0
+ENVELOPE CREATE 3, 0, 220, 128, 10, 60, 180, 320, 0, 0, 0, 3,12
+ENVELOPE CREATE 63, 0, 0, 128, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+SOUND TONE lead, 880, 20, 2
+SOUND TONE lead, 784, 20, 2
+SOUND TONE lead, 880, 100, 2
+SOUND TONE lead, 100, 40, 63
+SOUND TONE lead, 100, 40, 63
+SOUND TONE lead, 784, 20, 2
+SOUND TONE lead, 698, 20, 2
+SOUND TONE lead, 659, 20, 2
+SOUND TONE lead, 587, 20, 2
+SOUND TONE lead, 554, 90, 2
+SOUND TONE lead, 587, 60, 2
+
+SLEEP 6000
+END
+
+DEF PROCcontinue
+ENDPROC
