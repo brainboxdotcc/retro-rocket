@@ -14,7 +14,7 @@ SOUND TONE stream, frequency, duration[, envelope]
 ```
 
 Provides control over **sound playback**.
-Sounds may come from loaded audio files (e.g. WAV, MP3, FLAC, Ogg/Vorbis) or be generated on the fly as **tones** using simple synthesiser-style envelopes.
+Sounds may come from loaded audio files (e.g. WAV, MP3, FLAC, Ogg/Vorbis, MOD) or be generated on the fly as **tones** using simple synthesiser-style envelopes.
 
 A stream acts like a playback channel; multiple streams can be active at once, each with their own volume and queue of sounds.
 
@@ -139,7 +139,7 @@ Loads an audio file into memory and assigns a **sound handle** to `variable`.
 
 **Notes**
 
-* WAV, MP3, FLAC, and Ogg/Vorbis are supported, depending on which codecs are loaded.
+* WAV, MP3, FLAC, MOD and Ogg/Vorbis are supported, depending on which codecs are loaded.
 * Sound data is stored in RAM until freed. Large audio files may consume significant memory.
 * Sound handles are distinct from streams:
 

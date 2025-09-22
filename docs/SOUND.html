@@ -104,7 +104,7 @@ $(function(){initNavTree('SOUND.html','',''); });
 <div class="line">SOUND LOAD variable, &quot;filename&quot;</div>
 <div class="line">SOUND UNLOAD sound</div>
 <div class="line">SOUND TONE stream, frequency, duration[, envelope]</div>
-</div><!-- fragment --><p>Provides control over <b>sound playback</b>. Sounds may come from loaded audio files (e.g. WAV, MP3, FLAC, Ogg/Vorbis) or be generated on the fly as <b>tones</b> using simple synthesiser-style envelopes.</p>
+</div><!-- fragment --><p>Provides control over <b>sound playback</b>. Sounds may come from loaded audio files (e.g. WAV, MP3, FLAC, Ogg/Vorbis, MOD) or be generated on the fly as <b>tones</b> using simple synthesiser-style envelopes.</p>
 <p>A stream acts like a playback channel; multiple streams can be active at once, each with their own volume and queue of sounds.</p>
 <hr  />
 <h3 class="doxsection"><a class="anchor" id="sound-volume"></a>
@@ -186,7 +186,7 @@ SOUND LOAD</h3>
 </div><!-- fragment --><p>Loads an audio file into memory and assigns a <b>sound handle</b> to <span class="tt">variable</span>.</p>
 <p><b>Notes</b></p>
 <ul>
-<li>WAV, MP3, FLAC, and Ogg/Vorbis are supported, depending on which codecs are loaded.</li>
+<li>WAV, MP3, FLAC, MOD and Ogg/Vorbis are supported, depending on which codecs are loaded.</li>
 <li>Sound data is stored in RAM until freed. Large audio files may consume significant memory.</li>
 <li>Sound handles are distinct from streams:<ul>
 <li>A <b>sound handle</b> is the decoded audio data.</li>

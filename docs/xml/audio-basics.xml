@@ -19,6 +19,7 @@
 </listitem><listitem><para>MP3 support is available via the <computeroutput>mp3.ko</computeroutput> module (<computeroutput>MODLOAD &quot;mp3&quot;</computeroutput>).</para>
 </listitem><listitem><para>FLAC support is available via the <computeroutput>flac.ko</computeroutput> module (<computeroutput>MODLOAD &quot;flac&quot;</computeroutput>).</para>
 </listitem><listitem><para>OGG Vorbis support is available via the <computeroutput>ogg.ko</computeroutput> module (<computeroutput>MODLOAD &quot;ogg&quot;</computeroutput>)</para>
+</listitem><listitem><para>MOD support is available via the <computeroutput>mod.ko</computeroutput> module (<computeroutput>MODLOAD &quot;mod&quot;</computeroutput>)</para>
 </listitem></itemizedlist>
 </para>
 <para>If you try to load any file type except WAV without first loading the corresponding codec module, you will receive an error as the file type will be unrecognised.</para>

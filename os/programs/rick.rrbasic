@@ -1,0 +1,35 @@
+ON ERROR PROCcontinue
+MODLOAD "ac97"
+ON ERROR OFF
+ON ERROR PROCcontinue
+MODLOAD "mod"
+ON ERROR OFF
+
+STREAM CREATE music
+PRINT "Loading... ";
+SPRITELOAD rick1, "/images/rick1.png"
+SPRITELOAD rick2, "/images/rick2.png"
+SPRITELOAD rick3, "/images/rick3.png"
+SPRITELOAD rick4, "/images/rick4.png"
+SPRITELOAD rick5, "/images/rick5.png"
+SOUND LOAD audio, "/system/webserver/media/rick.mod"
+CLS
+SOUND PLAY music, audio
+AUTOFLIP FALSE
+
+REPEAT
+    whichRick = RND(1, 5)
+    IF whichRick = 1 THEN PLOTQUAD rick1, 0, 0, GRAPHICS_WIDTH - 1, 0, GRAPHICS_WIDTH - 1, GRAPHICS_HEIGHT - 1, 0, GRAPHICS_HEIGHT - 1
+    IF whichRick = 2 THEN PLOTQUAD rick2, 0, 0, GRAPHICS_WIDTH - 1, 0, GRAPHICS_WIDTH - 1, GRAPHICS_HEIGHT - 1, 0, GRAPHICS_HEIGHT - 1
+    IF whichRick = 3 THEN PLOTQUAD rick3, 0, 0, GRAPHICS_WIDTH - 1, 0, GRAPHICS_WIDTH - 1, GRAPHICS_HEIGHT - 1, 0, GRAPHICS_HEIGHT - 1
+    IF whichRick = 4 THEN PLOTQUAD rick4, 0, 0, GRAPHICS_WIDTH - 1, 0, GRAPHICS_WIDTH - 1, GRAPHICS_HEIGHT - 1, 0, GRAPHICS_HEIGHT - 1
+    IF whichRick = 5 THEN PLOTQUAD rick5, 0, 0, GRAPHICS_WIDTH - 1, 0, GRAPHICS_WIDTH - 1, GRAPHICS_HEIGHT - 1, 0, GRAPHICS_HEIGHT - 1
+    FLIP
+    SLEEP 750
+UNTIL INKEY$ <> ""
+
+AUTOFLIP TRUE
+END
+
+DEF PROCcontinue
+ENDPROC

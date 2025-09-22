@@ -16,7 +16,7 @@
 <codeline><highlight class="normal">SOUND<sp/>UNLOAD<sp/>sound</highlight></codeline>
 <codeline><highlight class="normal">SOUND<sp/>TONE<sp/>stream,<sp/>frequency,<sp/>duration[,<sp/>envelope]</highlight></codeline>
 </programlisting></para>
-<para>Provides control over <bold>sound playback</bold>. Sounds may come from loaded audio files (e.g. WAV, MP3, FLAC, Ogg/Vorbis) or be generated on the fly as <bold>tones</bold> using simple synthesiser-style envelopes.</para>
+<para>Provides control over <bold>sound playback</bold>. Sounds may come from loaded audio files (e.g. WAV, MP3, FLAC, Ogg/Vorbis, MOD) or be generated on the fly as <bold>tones</bold> using simple synthesiser-style envelopes.</para>
 <para>A stream acts like a playback channel; multiple streams can be active at once, each with their own volume and queue of sounds.</para>
 <para><hruler/>
 </para>
@@ -119,7 +119,7 @@
 <para>Loads an audio file into memory and assigns a <bold>sound handle</bold> to <computeroutput>variable</computeroutput>.</para>
 <para><bold>Notes</bold></para>
 <para><itemizedlist>
-<listitem><para>WAV, MP3, FLAC, and Ogg/Vorbis are supported, depending on which codecs are loaded.</para>
+<listitem><para>WAV, MP3, FLAC, MOD and Ogg/Vorbis are supported, depending on which codecs are loaded.</para>
 </listitem><listitem><para>Sound data is stored in RAM until freed. Large audio files may consume significant memory.</para>
 </listitem><listitem><para>Sound handles are distinct from streams:<itemizedlist>
 <listitem><para>A <bold>sound handle</bold> is the decoded audio data.</para>

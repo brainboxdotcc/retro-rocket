@@ -390,6 +390,7 @@ static bool plot_sprite_quad_axis_aligned_int(struct basic_ctx* ctx, int64_t spr
 		v_row += dy_v;
 	}
 
+	set_video_dirty_area(floor(miny), ceil(maxy));
 	return true;
 }
 

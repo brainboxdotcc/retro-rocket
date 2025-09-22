@@ -20,6 +20,7 @@ Codecs are provided as kernel modules, just like drivers, and must be loaded bef
 * MP3 support is available via the `mp3.ko` module (`MODLOAD "mp3"`).
 * FLAC support is available via the `flac.ko` module (`MODLOAD "flac"`).
 * OGG Vorbis support is available via the `ogg.ko` module (`MODLOAD "ogg"`)
+* MOD support is available via the `mod.ko` module (`MODLOAD "mod"`)
 
 If you try to load any file type except WAV without first loading the corresponding codec module, you will receive an error as the file type will be unrecognised.
 
