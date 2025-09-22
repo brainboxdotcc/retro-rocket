@@ -1,0 +1,18 @@
+ON ERROR PROCcontinue
+MODLOAD "ac97"
+MODLOAD "mod"
+ON ERROR OFF
+
+STREAM CREATE music
+PRINT "Loading demon.mod"
+SOUND LOAD audio, "/system/webserver/media/demon.mod"
+PRINT "Playing..."
+SOUND PLAY music, audio
+
+PRINT "Press any key to end..."
+KGET A$
+
+END
+
+DEF PROCcontinue
+ENDPROC
