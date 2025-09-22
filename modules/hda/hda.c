@@ -19,53 +19,70 @@ static int16_t *s_q_pcm = NULL;
 static size_t s_q_cap_fr = 0, s_q_len_fr = 0, s_q_head_fr = 0;
 static bool s_paused = false;
 
-static inline uint8_t mmio_r8(uint32_t off) {
+/**
+ * @brief Cached list of discoverable output pins (per codec)
+ */
+static struct {
+	uint8_t pin;	/**< Pin NID */
+	uint8_t dac;	/**< DAC NID reachable from this pin */
+	char label[64];	/**< e.g. "Front Headphone (3.5mm Jack)" */
+} s_hda_outputs[16];
+
+static size_t s_hda_outputs_n = 0;
+
+static inline uint8_t hda_mmio_r8(uint32_t off) {
 	return *((volatile uint8_t *) (uintptr_t) (hda.mmio + off));
 }
 
-static inline uint16_t mmio_r16(uint32_t off) {
+static inline uint16_t hda_mmio_r16(uint32_t off) {
 	return *((volatile uint16_t *) (uintptr_t) (hda.mmio + off));
 }
 
-static inline uint32_t mmio_r32(uint32_t off) {
+static inline uint32_t hda_mmio_r32(uint32_t off) {
 	return *((volatile uint32_t *) (uintptr_t) (hda.mmio + off));
 }
 
-static inline void mmio_w8(uint32_t off, uint8_t v) {
+static inline void hda_mmio_w8(uint32_t off, uint8_t v) {
 	*((volatile uint8_t *) (uintptr_t) (hda.mmio + off)) = v;
 }
 
-static inline void mmio_w16(uint32_t off, uint16_t v) {
+static inline void hda_mmio_w16(uint32_t off, uint16_t v) {
 	*((volatile uint16_t *) (uintptr_t) (hda.mmio + off)) = v;
 }
 
-static inline void mmio_w32(uint32_t off, uint32_t v) {
+static inline void hda_mmio_w32(uint32_t off, uint32_t v) {
 	*((volatile uint32_t *) (uintptr_t) (hda.mmio + off)) = v;
 }
 
 static inline void hda_mmio_fence(void) {
-	mmio_r32(HDA_REG_GCTL);
+	hda_mmio_r32(HDA_REG_GCTL);
 }
 
+/**
+ * @brief Pause for a few microseconds
+ */
 static inline void tiny_delay(void) {
 	for (int i = 0; i < 64; i++) {
 		io_wait();
 	}
 }
 
-/* CORB/RIRB setup (unchanged API); leaves rings enabled but driver is free to use immediate verbs too. */
+/**
+ * @brief Set up CORB/RIRB (ring buffers)
+ * leaves rings enabled but driver is free to use immediate verbs too.
+ */
 static bool hda_corb_rirb_init(void) {
-	mmio_w8(HDA_REG_CORBCTL, 0);
-	mmio_w8(HDA_REG_RIRBCTL, 0);
+	hda_mmio_w8(HDA_REG_CORBCTL, 0);
+	hda_mmio_w8(HDA_REG_RIRBCTL, 0);
 
-	uint8_t corbsz = mmio_r8(HDA_REG_CORBSIZE);
-	uint8_t rirbsz = mmio_r8(HDA_REG_RIRBSIZE);
+	uint8_t corbsz = hda_mmio_r8(HDA_REG_CORBSIZE);
+	uint8_t rirbsz = hda_mmio_r8(HDA_REG_RIRBSIZE);
 	if (!(corbsz & (1 << 6)) || !(rirbsz & (1 << 6))) {
 		dprintf("hda: controller lacks 256-entry CORB/RIRB support\n");
 		return false;
 	}
-	mmio_w8(HDA_REG_CORBSIZE, (mmio_r8(HDA_REG_CORBSIZE) & ~0x03) | 0x02);
-	mmio_w8(HDA_REG_RIRBSIZE, (mmio_r8(HDA_REG_RIRBSIZE) & ~0x03) | 0x02);
+	hda_mmio_w8(HDA_REG_CORBSIZE, (hda_mmio_r8(HDA_REG_CORBSIZE) & ~0x03) | 0x02);
+	hda_mmio_w8(HDA_REG_RIRBSIZE, (hda_mmio_r8(HDA_REG_RIRBSIZE) & ~0x03) | 0x02);
 
 	size_t corb_bytes = 256 * sizeof(uint64_t);
 	size_t rirb_bytes = 256 * sizeof(uint64_t);
@@ -89,78 +106,80 @@ static bool hda_corb_rirb_init(void) {
 	memset(hda.rirb, 0, rirb_bytes);
 
 	/* program bases */
-	mmio_w32(HDA_REG_CORBLBASE, hda.corb_phys);
-	mmio_w32(HDA_REG_CORBUBASE, 0);
-	mmio_w16(HDA_REG_CORBRP, HDA_CORBRP_RST);
+	hda_mmio_w32(HDA_REG_CORBLBASE, hda.corb_phys);
+	hda_mmio_w32(HDA_REG_CORBUBASE, 0);
+	hda_mmio_w16(HDA_REG_CORBRP, HDA_CORBRP_RST);
 	for (int i = 0; i < 1000; i++) {
-		if (mmio_r16(HDA_REG_CORBRP) & HDA_CORBRP_RST) {
+		if (hda_mmio_r16(HDA_REG_CORBRP) & HDA_CORBRP_RST) {
 			break;
 		}
 		tiny_delay();
 	}
-	mmio_w16(HDA_REG_CORBRP, 0);
+	hda_mmio_w16(HDA_REG_CORBRP, 0);
 
-	mmio_w32(HDA_REG_RIRBLBASE, hda.rirb_phys);
-	mmio_w32(HDA_REG_RIRBUBASE, 0);
-	mmio_w16(HDA_REG_RIRBWP, HDA_RIRBWP_RST); /* write 1 to reset pointer */
+	hda_mmio_w32(HDA_REG_RIRBLBASE, hda.rirb_phys);
+	hda_mmio_w32(HDA_REG_RIRBUBASE, 0);
+	hda_mmio_w16(HDA_REG_RIRBWP, HDA_RIRBWP_RST); /* write 1 to reset pointer */
 
 	/* one response per entry */
-	mmio_w16(HDA_REG_RINTCNT, 1);
+	hda_mmio_w16(HDA_REG_RINTCNT, 1);
 
 	/* enable DMA (interrupts optional; we poll) */
-	mmio_w8(HDA_REG_CORBCTL, HDA_CORBCTL_DMAE);
-	mmio_w8(HDA_REG_RIRBCTL, HDA_RIRBCTL_DMAE);
+	hda_mmio_w8(HDA_REG_CORBCTL, HDA_CORBCTL_DMAE);
+	hda_mmio_w8(HDA_REG_RIRBCTL, HDA_RIRBCTL_DMAE);
 
 	return true;
 }
 
-/* Issue a verb; prefer CORB/RIRB but fall back to Immediate Command if no response arrives.
- * Uses WALLCLK as a timebase so it’s robust without interrupts/timers. */
+/**
+ * @brief Issue a verb; prefer CORB/RIRB but fall back to Immediate Command if no response arrives.
+ * Uses WALLCLK as a timebase, so it’s robust without interrupts/timers.
+ */
 static bool hda_cmd(uint8_t cad, uint8_t nid, uint16_t verb, uint16_t payload, uint32_t *resp_out) {
-	/* ---------- Fast path: CORB/RIRB ---------- */
+	/* Fast path: CORB/RIRB */
 	if (hda.corb && hda.rirb) {
-		uint32_t wp          = mmio_r16(HDA_REG_CORBWP) & 0xFFu;
-		uint32_t next        = (wp + 1u) & 0xFFu;
-		uint32_t old_rirb_wp = mmio_r16(HDA_REG_RIRBWP) & 0xFFu;
+		uint32_t wp = hda_mmio_r16(HDA_REG_CORBWP) & 0xFF;
+		uint32_t next = (wp + 1) & 0xFF;
+		uint32_t old_rirb_wp = hda_mmio_r16(HDA_REG_RIRBWP) & 0xFF;
 
 		uint32_t v = HDA_MAKE_VERB(cad, nid, verb, payload);
-		hda.corb[next] = (uint64_t)v;
-		mmio_w16(HDA_REG_CORBWP, (uint16_t)next);
+		hda.corb[next] = (uint64_t) v;
+		hda_mmio_w16(HDA_REG_CORBWP, (uint16_t) next);
 		hda_mmio_fence(); /* ensure CORBWP is visible to the device thread */
 
-		/* Wait up to ~5 ms using WALLCLK (≈24.576 MHz) */
-		uint32_t start    = mmio_r32(HDA_REG_WALCLK);
-		uint32_t deadline = start + (5u * 24576u);
+		/* Wait up to ~5 ms using WALLCLK (=24.576 MHz) */
+		uint32_t start = hda_mmio_r32(HDA_REG_WALCLK);
+		uint32_t deadline = start + (5 * WALCLK_HZ);
 
 		for (;;) {
-			uint32_t nw = mmio_r16(HDA_REG_RIRBWP) & 0xFFu;
+			uint32_t nw = hda_mmio_r16(HDA_REG_RIRBWP) & 0xFF;
 			if (nw != old_rirb_wp) {
 				uint64_t r = hda.rirb[nw];
 				if (resp_out) {
-					*resp_out = (uint32_t)(r & 0xFFFFFFFFu);
+					*resp_out = (uint32_t) (r & 0xFFFFFFFF);
 				}
 				return true;
 			}
-			uint32_t now = mmio_r32(HDA_REG_WALCLK);
-			if ((int32_t)(now - deadline) >= 0) {
+			uint32_t now = hda_mmio_r32(HDA_REG_WALCLK);
+			if ((int32_t) (now - deadline) >= 0) {
 				break; /* timeout → fall back to immediate */
 			}
 			__asm__ __volatile__("pause");
 		}
 	}
 
-	/* ---------- Fallback: Immediate Command (ICOI/ICII/ICIS) ---------- */
-	const uint32_t REG_ICOI = 0x60, REG_ICII = 0x64, REG_ICIS = 0x68; /* spec §3.3.12 */
-	const uint8_t  ICIS_ICB = 1u << 0; /* busy */
-	const uint8_t  ICIS_IRV = 1u << 1; /* response valid */
+	/* Fallback: Immediate Command (ICOI/ICII/ICIS) */
+	const uint32_t REG_ICOI = 0x60, REG_ICII = 0x64, REG_ICIS = 0x68; /* spec section 3.3.12 */
+	const uint8_t ICIS_ICB = 1 << 0; /* busy */
+	const uint8_t ICIS_IRV = 1 << 1; /* response valid */
 
 	/* wait for not-busy (≤5 ms) */
 	{
-		uint32_t start    = mmio_r32(HDA_REG_WALCLK);
-		uint32_t deadline = start + (5u * 24576u);
-		while (mmio_r8(REG_ICIS) & ICIS_ICB) {
-			uint32_t now = mmio_r32(HDA_REG_WALCLK);
-			if ((int32_t)(now - deadline) >= 0) {
+		uint32_t start = hda_mmio_r32(HDA_REG_WALCLK);
+		uint32_t deadline = start + (5 * WALCLK_HZ);
+		while (hda_mmio_r8(REG_ICIS) & ICIS_ICB) {
+			uint32_t now = hda_mmio_r32(HDA_REG_WALCLK);
+			if ((int32_t) (now - deadline) >= 0) {
 				break;
 			}
 			__asm__ __volatile__("pause");
@@ -169,30 +188,30 @@ static bool hda_cmd(uint8_t cad, uint8_t nid, uint16_t verb, uint16_t payload, u
 
 	/* write verb */
 	uint32_t v = HDA_MAKE_VERB(cad, nid, verb, payload);
-	mmio_w32(REG_ICOI, v);
+	hda_mmio_w32(REG_ICOI, v);
 
 	/* kick: set ICB=1, then fence */
-	mmio_w8(REG_ICIS, ICIS_ICB);
+	hda_mmio_w8(REG_ICIS, ICIS_ICB);
 	hda_mmio_fence();
 
 	/* wait for response valid (≤5 ms) */
 	{
-		uint32_t start    = mmio_r32(HDA_REG_WALCLK);
-		uint32_t deadline = start + (5u * 24576u);
+		uint32_t start = hda_mmio_r32(HDA_REG_WALCLK);
+		uint32_t deadline = start + (5 * WALCLK_HZ);
 		for (;;) {
-			uint8_t s = mmio_r8(REG_ICIS);
+			uint8_t s = hda_mmio_r8(REG_ICIS);
 			if (s & ICIS_IRV) {
-				uint32_t resp = mmio_r32(REG_ICII);
+				uint32_t resp = hda_mmio_r32(REG_ICII);
 				/* clear IRV by writing 1, then fence */
-				mmio_w8(REG_ICIS, ICIS_IRV);
+				hda_mmio_w8(REG_ICIS, ICIS_IRV);
 				hda_mmio_fence();
 				if (resp_out) {
 					*resp_out = resp;
 				}
 				return true;
 			}
-			uint32_t now = mmio_r32(HDA_REG_WALCLK);
-			if ((int32_t)(now - deadline) >= 0) {
+			uint32_t now = hda_mmio_r32(HDA_REG_WALCLK);
+			if ((int32_t) (now - deadline) >= 0) {
 				break;
 			}
 			__asm__ __volatile__("pause");
@@ -203,14 +222,177 @@ static bool hda_cmd(uint8_t cad, uint8_t nid, uint16_t verb, uint16_t payload, u
 	return false;
 }
 
-/* GET_PARAMETER helper returning 32-bit value */
+/**
+ * @brief GET_PARAMETER helper returning 32-bit value
+ */
 static inline bool hda_get_param(uint8_t cad, uint8_t nid, uint8_t param, uint32_t *out) {
 	return hda_cmd(cad, nid, V_GET_PARAM, param, out);
 }
 
+/**
+ * @brief Decode a Pin's Default Configuration (V_GET_DEF_CFG) into a human-readable label.
+ *
+ * Examples:
+ *  - "Rear Line Out (3.5mm Jack)"
+ *  - "Front Headphone (3.5mm Jack)"
+ *  - "Internal Speaker"
+ *  - "Rear SPDIF (Optical)"
+ *
+ * @param defcfg  32-bit default configuration value from V_GET_DEF_CFG.
+ * @param buf     Output buffer for the assembled label string.
+ * @param n       Size of @p buf in bytes.
+ * @return number of characters written (excluding the terminating NUL).
+ */
+static size_t hda_pin_label(uint32_t defcfg, char *buf, size_t n) {
+	/* Field extractors (per Intel HDA spec) */
+	const uint8_t dev = (uint8_t) ((defcfg >> 20) & 0x0F);   /* default device (23:20) */
+	const uint8_t conn = (uint8_t) ((defcfg >> 16) & 0x0F);   /* connection type (19:16) */
+	const uint8_t loc6 = (uint8_t) ((defcfg >> 24) & 0x3F);   /* location (29:24); bit4 = internal flag */
+	const uint8_t cty = (uint8_t) ((defcfg >> 30) & 0x03);   /* connectivity (31:30): 0=Jack,2=Fixed */
+
+	/* Device name */
+	const char *dev_name = "Output";
+	switch (dev) {
+		case 0x01:
+			dev_name = "Speaker";
+			break; /* DEFDEV_SPEAKER */
+		case 0x02:
+			dev_name = "Line Out";
+			break; /* DEFDEV_LINEOUT */
+		case 0x0F:
+			dev_name = "Headphone";
+			break; /* DEFDEV_HP_OUT  */
+			/* common digital variants */
+		case 0x03: /* fallthrough */
+		case 0x05:
+			dev_name = "SPDIF";
+			break;
+		case 0x04:
+			dev_name = "Digital";
+			break;
+		default:
+			/* dev == 0 (unspecified): choose a sensible default */
+			if (((defcfg >> 30) & 0x3) == 2 /* Fixed */ || ((defcfg >> 24) & 0x10)) {
+				dev_name = "Speaker";  /* internal/fixed output → speaker */
+			} else {
+				dev_name = "Line Out"; /* external jack with unknown dev → line out */
+			}
+			break;
+	}
+
+	/* Location name */
+	/* loc6: [5]=internal(1)/external(0), [3:0]=place (0:NA,1:Rear,2:Front,3:Left,4:Right,5:Top,6:Bottom,7:Special) */
+	const int is_internal = (loc6 & 0x10) ? 1 : 0;
+	const uint8_t place = (uint8_t) (loc6 & 0x0F);
+	const char *place_name = NULL;
+
+	if (is_internal) {
+		/* Internal devices are usually "Internal <Device>" or "Internal <place> <Device>" */
+		switch (place) {
+			case 0x00:
+				place_name = "Internal";
+				break;
+			case 0x01:
+				place_name = "Internal Rear";
+				break;
+			case 0x02:
+				place_name = "Internal Front";
+				break;
+			default:
+				place_name = "Internal";
+				break;
+		}
+	} else {
+		switch (place) {
+			case 0x01:
+				place_name = "Rear";
+				break;
+			case 0x02:
+				place_name = "Front";
+				break;
+			case 0x03:
+				place_name = "Left";
+				break;
+			case 0x04:
+				place_name = "Right";
+				break;
+			case 0x05:
+				place_name = "Top";
+				break;
+			case 0x06:
+				place_name = "Bottom";
+				break;
+			default:
+				place_name = NULL;
+				break;
+		}
+	}
+
+	/* Connector description */
+	/* Connection type (19:16) — keep to the common, recognisable ones. */
+	const char *conn_desc = NULL;
+	switch (conn) {
+		case 0x01:
+			conn_desc = "3.5mm Jack"; /* Standard headphone */
+			break;
+		case 0x02:
+			conn_desc = "6.35mm Jack"; /* Fat headphone/amplifier */
+			break;
+		case 0x04:
+			conn_desc = "RCA";
+			break;
+		case 0x05:
+			conn_desc = "Optical"; /* TOSLINK */
+			break;
+		case 0x06:
+			conn_desc = "Digital"; /* generic electrical digital */
+			break;
+		case 0x07:
+			conn_desc = "Analogue";
+			break;
+		case 0x11:
+			conn_desc = "ATAPI"; /* some codecs report this */
+			break;
+		default:
+			conn_desc = NULL;
+			break;
+	}
+
+	/* Connectivity (31:30): 0=Jack, 1=No conn, 2=Fixed, 3=Both */
+	const int is_jack = (cty == 0);
+	const int is_fixed = (cty == 2);
+
+	/* If it’s a jack, and we have a type, prefer "(type)"; else, "(Jack)" for clarity */
+	const char *suffix = NULL;
+	char jack_fallback[16];
+	if (is_jack) {
+		if (conn_desc) {
+			suffix = conn_desc;
+		} else {
+			/* generic "Jack" if we know it is a jack but not the subtype */
+			jack_fallback[0] = 0;
+			snprintf(jack_fallback, sizeof(jack_fallback), "Jack");
+			suffix = jack_fallback;
+		}
+	} else if (is_fixed && conn_desc) {
+		suffix = conn_desc; /* e.g. "Optical" on a fixed SPDIF port */
+	}
+
+	/* Aim for concise labels; only include components we actually know. */
+	if (place_name && suffix) {
+		return snprintf(buf, n, "%s %s (%s)", place_name, dev_name, suffix);
+	} else if (place_name) {
+		return snprintf(buf, n, "%s %s", place_name, dev_name);
+	} else if (suffix) {
+		return snprintf(buf, n, "%s (%s)", dev_name, suffix);
+	}
+	return snprintf(buf, n, "%s", dev_name);
+}
+
+
 /* Unmute and set safe 0 dB gain on the selected DAC and Pin (both channels).
  * HDA Set Amp Gain/Mute (verb 0x003) payload:
- *  [15]=Mute, [12:8]=Gain step, [7]=Update, [6:4]=Index(0), [3]=Dir (0=Output,1=Input), [2:0]=Channel (7=Both)
+ * [15]=Mute, [12:8]=Gain step, [7]=Update, [6:4]=Index(0), [3]=Dir (0=Output,1=Input), [2:0]=Channel (7=Both)
  * We request: output dir, both channels, update=1, mute=0, gain=0 (0 dB on most codecs). */
 static void hda_unmute_codec_path(void) {
 	const uint16_t AMP_PAYLOAD_UNMUTE_0DB =
@@ -367,51 +549,43 @@ static bool hda_find_dac_downstream(uint8_t cad, uint8_t start_nid, uint8_t *out
 	return false;
 }
 
-/* Choose an output DAC and an output Pin.
+/* Choose an output DAC and an output Pin, and build a cache of all candidate outputs.
  * Supports Pin -> (Selector/Mixer)* -> DAC, not just direct Pin -> DAC.
  * Prefers default devices: SPEAKER, LINEOUT, then HP; otherwise falls back.
+ * Also fills s_hda_outputs[] with (pin,dac,label) for later selection-by-name.
  */
 static bool hda_pick_output_path(uint8_t cad, nid_range_t wr, uint8_t *out_dac, uint8_t *out_pin) {
-	uint8_t fallback_pin = 0;
-	uint8_t fallback_dac = 0;
+	s_hda_outputs_n = 0; /* rebuild cache */
+
+	uint8_t best_pin = 0, best_dac = 0;
+	uint8_t fallback_pin = 0, fallback_dac = 0;
 
 	for (uint8_t n = 0; n < wr.count; n++) {
-		uint8_t pin = wr.start_nid + n;
+		uint8_t pin = (uint8_t) (wr.start_nid + n);
 
 		uint8_t wtype;
 		uint32_t wcaps;
-		if (!hda_widget_type(cad, pin, &wtype, &wcaps)) {
-			continue;
-		}
-		if (wtype != WTYPE_PIN_COMPLEX) {
-			continue;
-		}
+		if (!hda_widget_type(cad, pin, &wtype, &wcaps)) continue;
+		if (wtype != WTYPE_PIN_COMPLEX) continue;
 
 		uint32_t pincaps;
-		if (!hda_get_param(cad, pin, P_PIN_CAPS, &pincaps)) {
-			continue;
-		}
-		if ((pincaps & PINCAP_OUT) == 0) {
-			continue; /* not output-capable */
-		}
+		if (!hda_get_param(cad, pin, P_PIN_CAPS, &pincaps)) continue;
+		if ((pincaps & PINCAP_OUT) == 0) continue; /* not output-capable */
 
 		uint32_t defcfg = 0;
 		(void) hda_cmd(cad, pin, V_GET_DEF_CFG, 0, &defcfg);
 		uint8_t dev = (uint8_t) ((defcfg >> 20) & 0x0F);
 
+		/* Find a reachable DAC (direct or via selector/mixer) */
 		uint8_t peers[64];
 		uint32_t n_peers = hda_get_conn_list(cad, pin, peers, (uint32_t) sizeof(peers));
 
-		for (uint32_t i = 0; i < n_peers; i++) {
+		uint8_t found_dac = 0;
+		for (uint32_t i = 0; i < n_peers && !found_dac; i++) {
 			uint8_t peer = peers[i];
-
 			uint8_t ptype;
 			uint32_t pcaps;
-			if (!hda_widget_type(cad, peer, &ptype, &pcaps)) {
-				continue;
-			}
-
-			uint8_t found_dac = 0;
+			if (!hda_widget_type(cad, peer, &ptype, &pcaps)) continue;
 
 			if (ptype == WTYPE_AUDIO_OUT) {
 				found_dac = peer;
@@ -421,14 +595,28 @@ static bool hda_pick_output_path(uint8_t cad, nid_range_t wr, uint8_t *out_dac, 
 					found_dac = via;
 				}
 			}
+		}
 
-			if (found_dac) {
+		/* If we found a usable path, add it to the outputs cache with its label */
+		if (found_dac) {
+			if (s_hda_outputs_n < (sizeof(s_hda_outputs) / sizeof(s_hda_outputs[0]))) {
+				char name[64];
+				hda_pin_label(defcfg, name, sizeof(name));
+				s_hda_outputs[s_hda_outputs_n].pin = pin;
+				s_hda_outputs[s_hda_outputs_n].dac = found_dac;
+				/* ensure NUL-terminated copy */
+				size_t j = 0;
+				for (; j + 1 < sizeof(s_hda_outputs[0].label) && name[j]; ++j) s_hda_outputs[s_hda_outputs_n].label[j] = name[j];
+				s_hda_outputs[s_hda_outputs_n].label[j] = '\0';
+				s_hda_outputs_n++;
+			}
+
+			/* Selection policy: prefer Speaker > LineOut > Headphone; otherwise remember as fallback */
+			if (!best_pin) {
 				if (dev == DEFDEV_SPEAKER || dev == DEFDEV_LINEOUT || dev == DEFDEV_HP_OUT) {
-					*out_pin = pin;
-					*out_dac = found_dac;
-					return true;
-				}
-				if (fallback_pin == 0) {
+					best_pin = pin;
+					best_dac = found_dac;
+				} else if (!fallback_pin) {
 					fallback_pin = pin;
 					fallback_dac = found_dac;
 				}
@@ -436,13 +624,101 @@ static bool hda_pick_output_path(uint8_t cad, nid_range_t wr, uint8_t *out_dac, 
 		}
 	}
 
+	/* Choose best, else fallback, else fail */
+	if (best_pin && best_dac) {
+		*out_pin = best_pin;
+		*out_dac = best_dac;
+		return true;
+	}
 	if (fallback_pin && fallback_dac) {
 		*out_pin = fallback_pin;
 		*out_dac = fallback_dac;
 		return true;
 	}
-
 	return false;
+}
+
+/* Rebind the active output path to the cached entry whose label matches 'name' (case-insensitive).
+ * Returns true on success (path switched or already active), false if no such name is cached.
+ * Safe to call at any time after initial bring-up; the outputs cache is built during pick.
+ */
+static bool hda_select_output_by_name(const char *name) {
+	if (!name || s_hda_outputs_n == 0) {
+		return false;
+	}
+
+	/* Find the requested entry */
+	size_t idx = (size_t) -1;
+	for (size_t i = 0; i < s_hda_outputs_n; i++) {
+		if (strcasecmp(s_hda_outputs[i].label, name) == 0) {
+			idx = i;
+			break;
+		}
+	}
+	if (idx == (size_t) -1) {
+		return false; /* name not found */
+	}
+
+	uint8_t new_pin = s_hda_outputs[idx].pin;
+	uint8_t new_dac = s_hda_outputs[idx].dac;
+
+	/* If already selected, nothing to do */
+	if (hda.pin_nid == new_pin && hda.dac_nid == new_dac) {
+		return true;
+	}
+
+	/* Politely disable previous pin's output amp (best-effort) */
+	if (hda.pin_nid) {
+		const uint16_t AMP_MUTE_BOTH =
+			(1 << 15) | /* mute=1 */
+			(1 << 7) | /* update */
+			(0 << 4) | /* index=0 */
+			(0 << 3) | /* dir=output */
+			7;          /* channels=both */
+		hda_cmd(hda.cad, hda.pin_nid, V_SET_AMP_GAIN_MUTE, AMP_MUTE_BOTH, NULL);
+		/* clear OUT_EN */
+		hda_cmd(hda.cad, hda.pin_nid, V_SET_PIN_WCTRL, 0x00, NULL);
+	}
+
+	/* Power up and bind new path */
+	hda_cmd(hda.cad, new_pin, V_SET_POWER_STATE, 0x00, NULL); /* D0 */
+	hda_cmd(hda.cad, new_dac, V_SET_POWER_STATE, 0x00, NULL); /* D0 */
+
+	/* Bind converter to our output stream tag; channel 0 (left). */
+	hda_cmd(hda.cad, new_dac, V_SET_CONV_STREAMCH, (uint16_t) ((hda.out_stream_tag << 4) | 0x0), NULL);
+	/* Stereo channels (value = n-1) */
+	hda_cmd(hda.cad, new_dac, V_SET_CHANNEL_COUNT, 1, NULL);
+
+	/* Enable the new pin: OUT_EN plus EAPD if available */
+	hda_cmd(hda.cad, new_pin, V_SET_PIN_WCTRL, 0x40, NULL); /* OUT_EN */
+	hda_cmd(hda.cad, new_pin, V_SET_EAPD_BTL, 0x02, NULL);  /* EAPD */
+
+	/* Update current selection and unmute */
+	hda.pin_nid = new_pin;
+	hda.dac_nid = new_dac;
+	hda_unmute_codec_path();
+
+	dprintf("hda: output switched to Pin 0x%02x: %s (DAC 0x%02x)\n", new_pin, s_hda_outputs[idx].label, new_dac);
+	return true;
+}
+
+static const char **hda_list_output_names(void) {
+	static const char *names[sizeof(s_hda_outputs) / sizeof(s_hda_outputs[0]) + 1];
+	for (size_t i = 0; i < s_hda_outputs_n; i++) {
+		names[i] = s_hda_outputs[i].label;
+	}
+	names[s_hda_outputs_n] = NULL;
+	return names;
+}
+
+static const char *hda_get_current_output(void) {
+	uint32_t defcfg = 0;
+	if (hda_cmd(hda.cad, hda.pin_nid, V_GET_DEF_CFG, 0, &defcfg)) {
+		static char output_label[64];
+		hda_pin_label(defcfg, output_label, sizeof(output_label));
+		return output_label;
+	}
+	return "";
 }
 
 static void hda_dump_topology(uint8_t cad, uint8_t afg, nid_range_t wr) {
@@ -460,7 +736,7 @@ static void hda_dump_topology(uint8_t cad, uint8_t afg, nid_range_t wr) {
 			uint32_t cfg = 0;
 			hda_cmd(cad, nid, V_GET_DEF_CFG, 0, &cfg);
 			uint8_t dev = (uint8_t) ((cfg >> 20) & 0x0F);
-			dprintf("NID 0x%02x: PIN caps=0x%08lx defdev=%u", nid, (unsigned long) pc, dev);
+			dprintf("NID 0x%02x: PIN caps=0x%08x defdev=%u", nid, pc, dev);
 
 			uint8_t peers[64];
 			uint32_t n_peers = hda_get_conn_list(cad, nid, peers, (uint32_t) sizeof(peers));
@@ -493,29 +769,29 @@ static bool hda_controller_reset_and_start(pci_dev_t dev) {
 	}
 
 /* Hard reset sequence with WALLCLK-bounded settles (no OS timer needed) */
-	mmio_w32(HDA_REG_GCTL, 0);                 /* CRST = 0 */
+	hda_mmio_w32(HDA_REG_GCTL, 0);             /* CRST = 0 */
 	hda_mmio_fence();                          /* flush posted write */
 
-/* hold reset low for ~0.5 ms */
+	/* hold reset low for ~0.5 ms */
 	{
-		uint32_t start    = mmio_r32(HDA_REG_WALCLK);
-		uint32_t deadline = start + (uint32_t)(24576u / 2u); /* ≈ 0.5 ms @24.576 MHz */
-		while ((int32_t)(mmio_r32(HDA_REG_WALCLK) - deadline) < 0) {
+		uint32_t start = hda_mmio_r32(HDA_REG_WALCLK);
+		uint32_t deadline = start + (uint32_t) (WALCLK_HZ / 2);
+		while ((int32_t) (hda_mmio_r32(HDA_REG_WALCLK) - deadline) < 0) {
 			__asm__ __volatile__("pause");
 		}
 	}
 
 	/* deassert reset */
-	mmio_w32(HDA_REG_GCTL, 1);                 /* CRST = 1 */
+	hda_mmio_w32(HDA_REG_GCTL, 1); /* CRST = 1 */
 	hda_mmio_fence();
 
-	/* wait for CRST to latch (≤5 ms) */
+	/* wait for CRST to latch (5 ms) */
 	{
-		uint32_t start    = mmio_r32(HDA_REG_WALCLK);
-		uint32_t deadline = start + (5u * 24576u);          /* ≈ 5 ms */
-		while ((mmio_r32(HDA_REG_GCTL) & 1u) == 0u) {
-			if ((int32_t)(mmio_r32(HDA_REG_WALCLK) - deadline) >= 0) {
-				break; /* don't hang forever if a odd platform is slow */
+		uint32_t start = hda_mmio_r32(HDA_REG_WALCLK);
+		uint32_t deadline = start + (5 * WALCLK_HZ);
+		while ((hda_mmio_r32(HDA_REG_GCTL) & 1) == 0) {
+			if ((int32_t) (hda_mmio_r32(HDA_REG_WALCLK) - deadline) >= 0) {
+				break; /* don't hang forever if an odd platform is slow */
 			}
 			__asm__ __volatile__("pause");
 		}
@@ -523,17 +799,17 @@ static bool hda_controller_reset_and_start(pci_dev_t dev) {
 
 	/* extra settle for codec enumeration (≤5 ms) */
 	{
-		uint32_t start    = mmio_r32(HDA_REG_WALCLK);
-		uint32_t deadline = start + (5u * 24576u);
-		while ((int32_t)(mmio_r32(HDA_REG_WALCLK) - deadline) < 0) {
+		uint32_t start = hda_mmio_r32(HDA_REG_WALCLK);
+		uint32_t deadline = start + (5 * WALCLK_HZ);
+		while ((int32_t) (hda_mmio_r32(HDA_REG_WALCLK) - deadline) < 0) {
 			__asm__ __volatile__("pause");
 		}
 	}
 
 	/* Clear wake/state/interrupts; don’t rely on STATESTS for presence */
-	mmio_w16(HDA_REG_STATESTS, mmio_r16(HDA_REG_STATESTS));
-	mmio_w32(HDA_REG_INTSTS,  mmio_r32(HDA_REG_INTSTS));
-	mmio_w32(HDA_REG_INTCTL,  0);
+	hda_mmio_w16(HDA_REG_STATESTS, hda_mmio_r16(HDA_REG_STATESTS));
+	hda_mmio_w32(HDA_REG_INTSTS, hda_mmio_r32(HDA_REG_INTSTS));
+	hda_mmio_w32(HDA_REG_INTCTL, 0);
 
 	if (!hda_corb_rirb_init()) {
 		return false;
@@ -591,7 +867,7 @@ static bool hda_controller_reset_and_start(pci_dev_t dev) {
 
 /* Compute base address of our output SD register block */
 static inline uint32_t hda_out_sd_base(void) {
-	uint16_t gcap = mmio_r16(HDA_REG_GCAP);
+	uint16_t gcap = hda_mmio_r16(HDA_REG_GCAP);
 	uint8_t n_in = (gcap >> 8) & 0x0F;
 	return HDA_SD_BASE + (uint32_t) (n_in + hda.out_sd_index) * HDA_SD_STRIDE;
 }
@@ -599,22 +875,22 @@ static inline uint32_t hda_out_sd_base(void) {
 /* Reset a stream descriptor cleanly */
 static void hda_sd_reset(uint32_t sdbase) {
 	/* stop */
-	uint8_t ctl0 = mmio_r8(sdbase + SD_CTL0);
+	uint8_t ctl0 = hda_mmio_r8(sdbase + SD_CTL0);
 	ctl0 &= ~SD_CTL_RUN;
-	mmio_w8(sdbase + SD_CTL0, ctl0);
+	hda_mmio_w8(sdbase + SD_CTL0, ctl0);
 	/* reset */
 	ctl0 |= SD_CTL_SRST;
-	mmio_w8(sdbase + SD_CTL0, ctl0);
-	for (int i = 0; i < 1000 && !(mmio_r8(sdbase + SD_CTL0) & SD_CTL_SRST); i++) {
+	hda_mmio_w8(sdbase + SD_CTL0, ctl0);
+	for (int i = 0; i < 1000 && !(hda_mmio_r8(sdbase + SD_CTL0) & SD_CTL_SRST); i++) {
 		tiny_delay();
 	}
 	ctl0 &= ~SD_CTL_SRST;
-	mmio_w8(sdbase + SD_CTL0, ctl0);
-	for (int i = 0; i < 1000 && (mmio_r8(sdbase + SD_CTL0) & SD_CTL_SRST); i++) {
+	hda_mmio_w8(sdbase + SD_CTL0, ctl0);
+	for (int i = 0; i < 1000 && (hda_mmio_r8(sdbase + SD_CTL0) & SD_CTL_SRST); i++) {
 		tiny_delay();
 	}
 	/* clear status */
-	mmio_w8(sdbase + SD_STS, mmio_r8(sdbase + SD_STS));
+	hda_mmio_w8(sdbase + SD_STS, hda_mmio_r8(sdbase + SD_STS));
 }
 
 /* Stream / BDL preparation */
@@ -678,23 +954,23 @@ static bool hda_stream_prepare(uint32_t frag_bytes, uint32_t rate_hz) {
 	hda_sd_reset(sdbase);
 
 	/* SDnBDP */
-	mmio_w32(sdbase + SD_BDPL, hda.bdl_phys);
-	mmio_w32(sdbase + SD_BDPU, 0);
+	hda_mmio_w32(sdbase + SD_BDPL, hda.bdl_phys);
+	hda_mmio_w32(sdbase + SD_BDPU, 0);
 
 	/* CBL = total bytes in cyclic buffer; LVI = last index (0..255), must be >= 1 */
-	mmio_w32(sdbase + SD_CBL, total_bytes);
-	mmio_w16(sdbase + SD_LVI, (uint16_t) (hda.bdl_n - 1));
+	hda_mmio_w32(sdbase + SD_CBL, total_bytes);
+	hda_mmio_w16(sdbase + SD_LVI, (uint16_t) (hda.bdl_n - 1));
 
 	/* Program 44.1 kHz, 16-bit, 2-ch in both codec and SDnFMT */
 	uint16_t fmt = (uint16_t) (SD_FMT_BASE_44K1 | SD_FMT_MULT_X1 | SD_FMT_DIV_1 | SD_FMT_BITS_16 | SD_FMT_CHANS(2));
 	/* Converter format (verb uses same field encoding) */
 	hda_cmd(hda.cad, hda.dac_nid, 0x002, fmt, NULL);
 	/* Stream format register */
-	mmio_w16(sdbase + SD_FMT, fmt);
+	hda_mmio_w16(sdbase + SD_FMT, fmt);
 
 	/* SD_CTL: set stream tag (byte2[7:4]); leave RUN=0 for now */
 	uint8_t ctl2 = (uint8_t) ((hda.out_stream_tag & 0x0F) << 4);
-	mmio_w8(sdbase + SD_CTL2, ctl2);
+	hda_mmio_w8(sdbase + SD_CTL2, ctl2);
 
 	return true;
 }
@@ -702,9 +978,9 @@ static bool hda_stream_prepare(uint32_t frag_bytes, uint32_t rate_hz) {
 /* Start the output engine */
 static void hda_run_stream(void) {
 	uint32_t sdbase = hda_out_sd_base();
-	uint8_t ctl0 = mmio_r8(sdbase + SD_CTL0);
+	uint8_t ctl0 = hda_mmio_r8(sdbase + SD_CTL0);
 	ctl0 |= SD_CTL_RUN;
-	mmio_w8(sdbase + SD_CTL0, ctl0);
+	hda_mmio_w8(sdbase + SD_CTL0, ctl0);
 }
 
 /* CIV equivalent: read current buffer index from LPIB / bytes progressed → fragment index.
@@ -712,7 +988,7 @@ static void hda_run_stream(void) {
  */
 static inline uint8_t hda_current_index(void) {
 	uint32_t sdbase = hda_out_sd_base();
-	uint32_t lpib = mmio_r32(sdbase + SD_LPIB); /* bytes since cycle start */
+	uint32_t lpib = hda_mmio_r32(sdbase + SD_LPIB); /* bytes since cycle start */
 	return (uint8_t) ((lpib / hda.frag_bytes) & 31);
 }
 
@@ -830,7 +1106,7 @@ static void hda_idle(void) {
 
 	/* If the stream halted due to underrun, restart cheaply */
 	uint32_t sdbase = hda_out_sd_base();
-	uint8_t ctl0 = mmio_r8(sdbase + SD_CTL0);
+	uint8_t ctl0 = hda_mmio_r8(sdbase + SD_CTL0);
 	if (!(ctl0 & SD_CTL_RUN) && !s_paused) {
 		hda_run_stream();
 		hda.started = true;
@@ -840,14 +1116,14 @@ static void hda_idle(void) {
 /* Pause / resume / stop */
 static void hda_pause(void) {
 	uint32_t sdbase = hda_out_sd_base();
-	uint8_t ctl0 = mmio_r8(sdbase + SD_CTL0);
+	uint8_t ctl0 = hda_mmio_r8(sdbase + SD_CTL0);
 	ctl0 &= ~SD_CTL_RUN;
-	mmio_w8(sdbase + SD_CTL0, ctl0);
+	hda_mmio_w8(sdbase + SD_CTL0, ctl0);
 	s_paused = true;
 }
 
 static void hda_resume(void) {
-	(void)hda_out_sd_base();
+	(void) hda_out_sd_base();
 	/* no special status to clear on SD; just RUN */
 	hda_run_stream();
 	s_paused = false;
@@ -857,9 +1133,9 @@ static void hda_resume(void) {
 
 static void hda_stop_clear(void) {
 	uint32_t sdbase = hda_out_sd_base();
-	uint8_t ctl0 = mmio_r8(sdbase + SD_CTL0);
+	uint8_t ctl0 = hda_mmio_r8(sdbase + SD_CTL0);
 	ctl0 &= ~SD_CTL_RUN;
-	mmio_w8(sdbase + SD_CTL0, ctl0);
+	hda_mmio_w8(sdbase + SD_CTL0, ctl0);
 
 	hda_sd_reset(sdbase);
 
@@ -892,7 +1168,7 @@ static uint32_t hda_buffered_ms(void) {
 	 * Derive current fragment index from LPIB, and remaining frames in the current fragment.
 	 */
 	uint32_t sdbase = hda_out_sd_base();
-	uint32_t lpib = mmio_r32(sdbase + SD_LPIB);
+	uint32_t lpib = hda_mmio_r32(sdbase + SD_LPIB);
 	uint32_t in_frag_bytes = lpib % hda.frag_bytes;
 	uint32_t rem_bytes_in_frag = hda.frag_bytes - in_frag_bytes;
 	size_t rem_frames_in_frag = rem_bytes_in_frag / 4;
@@ -962,6 +1238,9 @@ static audio_device_t *init_hda(void) {
 	device->resume = hda_resume;
 	device->stop = hda_stop_clear;
 	device->queue_length = hda_buffered_ms;
+	device->get_outputs = hda_list_output_names;
+	device->select_output = hda_select_output_by_name;
+	device->get_current_output = hda_get_current_output;
 
 	return register_audio_device(device) ? device : NULL;
 }

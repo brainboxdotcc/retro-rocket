@@ -78,6 +78,28 @@ typedef void (*audio_resume_t)(void);
  */
 typedef uint32_t (*audio_length_t)(void);
 
+/**
+ * @brief Callback: Get a list of audio outputs by name supported by the driver
+ * @return Drivers as null terminated strings
+ */
+typedef const char** (*audio_outputs_list_t)(void);
+
+/**
+ * @brief Callback: Select audio output by name
+ * @param output_name Output name to choose
+ * @return True if selected
+ */
+typedef bool (*audio_select_output_t)(const char* output_name);
+
+/**
+ * @brief Callback: Get current output by name
+ * @return Current output name
+ */
+typedef const char* (*audio_get_current_output_t)(void);
+
+/**
+ * @brief Callback: Try to load audio from a file buffer
+ */
 typedef bool (*try_load_audio_t)(const char*,const void*, size_t, void**, size_t*);
 
 /** @brief Maximum length (including NUL) for an audio device’s display name. */
@@ -118,6 +140,15 @@ typedef struct audio_device_t {
 
 	/** Buffered time (software queue + DMA in flight) in milliseconds. */
 	audio_length_t queue_length;
+
+	/** Get array of output names */
+	audio_outputs_list_t get_outputs;
+
+	/** Select output by name */
+	audio_select_output_t select_output;
+
+	/** Get current output as string */
+	audio_get_current_output_t get_current_output;
 
 	/** Next device in the global list. */
 	struct audio_device_t *next;

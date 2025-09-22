@@ -72,6 +72,24 @@ static bool ac97_start(pci_dev_t dev) {
 	return true;
 }
 
+static const char** ac97_list_output_names(void) {
+	return (const char*[2]){
+		"Line Out",
+		NULL
+	};
+}
+
+static bool ac97_select_output_by_name(const char *name) {
+	if (!name) {
+		return false;
+	}
+	return (strcasecmp(name, "Line Out") == 0);
+}
+
+static const char* ac97_get_current_output(void) {
+	return "Line Out";
+}
+
 static audio_device_t *init_ac97(void) {
 	pci_dev_t dev = pci_get_device(0, 0, 0x0401);
 	if (!dev.bits) {
@@ -97,6 +115,9 @@ static audio_device_t *init_ac97(void) {
 	device->resume = ac97_resume;
 	device->stop = ac97_stop_clear;
 	device->queue_length = ac97_buffered_ms;
+	device->get_outputs = ac97_list_output_names;
+	device->select_output = ac97_select_output_by_name;
+	device->get_current_output = ac97_get_current_output;
 
 	return register_audio_device(device) ? device : NULL;
 }

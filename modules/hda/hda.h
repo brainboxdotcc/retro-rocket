@@ -72,7 +72,7 @@
 #define SD_CTL_SRST (1 << 0) /**< Stream reset. */
 
 /**
- * Buffer Descriptor List entry (HDA).
+ * @brief Buffer Descriptor List entry (HDA)
  * Each entry is 16 bytes, aligned to 16.
  */
 typedef struct {
@@ -131,8 +131,12 @@ typedef struct {
 #define SD_FMT_BITS_16      (1 << 4)  /**< 16-bit samples. */
 #define SD_FMT_CHANS(n)     ((uint16_t)(((n) - 1u) & 0x0F)) /**< Channels = n. */
 
+
+/* Hz frequency of HDA wallclock timer */
+#define WALCLK_HZ           24576
+
 /**
- * Driver state for HDA controller and single output stream.
+ * @brief Driver state for HDA controller and single output stream.
  */
 typedef struct {
 	uint32_t mmio;              /**< BAR0 MMIO base (mapped). */

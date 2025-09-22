@@ -102,6 +102,13 @@ bool mixer_init(audio_device_t* dev, uint32_t target_latency_ms, uint32_t idle_p
 		return false;
 	}
 
+	dprintf("Device outputs:\n");
+	const char** names = dev->get_outputs();
+	const char* name = dev->get_current_output();
+	for (size_t i = 0; names[i]; i++) {
+		dprintf("%lu: %s %s\n", i, names[i], strcasecmp(names[i], name) == 0 ? "[active]" : "");
+	}
+
 	if (max_streams == 0) {
 		max_streams = 8;
 	}
