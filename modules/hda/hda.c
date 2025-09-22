@@ -4,19 +4,15 @@
  * @copyright Copyright (c) 2012-2025
  *
  * Intel High Definition Audio (Azalia) output driver
- * Contract matches AC'97 module: async SW FIFO push, idle drain into HW ring.
  *
  * References:
  *  - Intel High Definition Audio Specification Rev. 1.0a
  *    (section 3.3.* stream regs, section 3.4 ICOI/ICII/ICIS,
- *    CORB/RIRB, SDnFMT encoding, BDL alignment) and widget verbs. (intel.com PDF)
+ *    CORB/RIRB, SDnFMT encoding, BDL alignment) and widget verbs
  *  - OSDev HDA overview for register map & verb list
  */
 #include <kernel.h>
 #include "hda.h"
-
-static int hda_dbg = 1; /* set to 0 to silence */
-#define HDA_D(fmt, ...) do { if (hda_dbg) dprintf("hda: " fmt "\n", ##__VA_ARGS__); } while (0)
 
 static hda_dev_t hda;
 static int16_t *s_q_pcm = NULL;
@@ -50,8 +46,6 @@ static inline void mmio_w32(uint32_t off, uint32_t v) {
 static inline void hda_mmio_fence(void) {
 	mmio_r32(HDA_REG_GCTL);
 }
-
-
 
 static inline void tiny_delay(void) {
 	for (int i = 0; i < 64; i++) {
@@ -452,7 +446,7 @@ static bool hda_pick_output_path(uint8_t cad, nid_range_t wr, uint8_t *out_dac, 
 }
 
 static void hda_dump_topology(uint8_t cad, uint8_t afg, nid_range_t wr) {
-	HDA_D("HDA topology: cad=%u afg=0x%02x nodes [%u..%u]", cad, afg, wr.start_nid, (uint8_t) (wr.start_nid + wr.count - 1));
+	dprintf("HDA topology: cad=%u afg=0x%02x nodes [%u..%u]", cad, afg, wr.start_nid, (uint8_t) (wr.start_nid + wr.count - 1));
 	for (uint8_t n = 0; n < wr.count; n++) {
 		uint8_t nid = wr.start_nid + n;
 		uint8_t t;
@@ -466,7 +460,7 @@ static void hda_dump_topology(uint8_t cad, uint8_t afg, nid_range_t wr) {
 			uint32_t cfg = 0;
 			hda_cmd(cad, nid, V_GET_DEF_CFG, 0, &cfg);
 			uint8_t dev = (uint8_t) ((cfg >> 20) & 0x0F);
-			HDA_D("NID 0x%02x: PIN caps=0x%08lx defdev=%u", nid, (unsigned long) pc, dev);
+			dprintf("NID 0x%02x: PIN caps=0x%08lx defdev=%u", nid, (unsigned long) pc, dev);
 
 			uint8_t peers[64];
 			uint32_t n_peers = hda_get_conn_list(cad, nid, peers, (uint32_t) sizeof(peers));
@@ -475,11 +469,11 @@ static void hda_dump_topology(uint8_t cad, uint8_t afg, nid_range_t wr) {
 				uint8_t pt;
 				uint32_t pc2;
 				if (hda_widget_type(cad, p, &pt, &pc2)) {
-					HDA_D("    -> 0x%02x type=%u", p, pt);
+					dprintf("    -> 0x%02x type=%u", p, pt);
 				}
 			}
 		} else {
-			HDA_D("NID 0x%02x: type=%u caps=0x%08lx", nid, t, (unsigned long) c);
+			dprintf("NID 0x%02x: type=%u caps=0x%08lx", nid, t, (unsigned long) c);
 		}
 	}
 }
@@ -611,10 +605,14 @@ static void hda_sd_reset(uint32_t sdbase) {
 	/* reset */
 	ctl0 |= SD_CTL_SRST;
 	mmio_w8(sdbase + SD_CTL0, ctl0);
-	for (int i = 0; i < 1000 && !(mmio_r8(sdbase + SD_CTL0) & SD_CTL_SRST); i++) { tiny_delay(); }
+	for (int i = 0; i < 1000 && !(mmio_r8(sdbase + SD_CTL0) & SD_CTL_SRST); i++) {
+		tiny_delay();
+	}
 	ctl0 &= ~SD_CTL_SRST;
 	mmio_w8(sdbase + SD_CTL0, ctl0);
-	for (int i = 0; i < 1000 && (mmio_r8(sdbase + SD_CTL0) & SD_CTL_SRST); i++) { tiny_delay(); }
+	for (int i = 0; i < 1000 && (mmio_r8(sdbase + SD_CTL0) & SD_CTL_SRST); i++) {
+		tiny_delay();
+	}
 	/* clear status */
 	mmio_w8(sdbase + SD_STS, mmio_r8(sdbase + SD_STS));
 }
