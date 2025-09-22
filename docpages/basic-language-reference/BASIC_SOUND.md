@@ -11,16 +11,25 @@ Retro Rocket’s audio system has five main parts:
 The driver is the low-level hardware backend (e.g. `MODLOAD "ac97"`).  
 It is specific to your sound card in your PC. Without a driver, **no audio commands will work**.
 
+Currently supported sound cards:
+
+| Device | Description                                        | Command          |
+|--------|----------------------------------------------------|------------------|
+| AC'97  | Audio Codec ’97; legacy PCI audio standard         | `MODLOAD "ac97"` |
+| HDA    | High Definition Audio; Azalia (successor to AC’97) | `MODLOAD "hda"`  |
+
 ### Codecs
 
 A codec is a small specialised program that knows how to **decode audio files** into the raw data format used by Retro Rocket.
 Codecs are provided as kernel modules, just like drivers, and must be loaded before you can use them.
 
-* WAV support is built in and always available.
-* MP3 support is available via the `mp3.ko` module (`MODLOAD "mp3"`).
-* FLAC support is available via the `flac.ko` module (`MODLOAD "flac"`).
-* OGG Vorbis support is available via the `ogg.ko` module (`MODLOAD "ogg"`)
-* MOD support is available via the `mod.ko` module (`MODLOAD "mod"`)
+| Format | Description                                         | Command                |
+|--------|-----------------------------------------------------|------------------------|
+| WAV    | Uncompressed PCM; built-in and always available     | *(no module required)* |
+| MP3    | MPEG-1 Layer III compressed audio                   | `MODLOAD "mp3"`        |
+| FLAC   | Free Lossless Audio Codec                           | `MODLOAD "flac"`       |
+| OGG    | Ogg Vorbis compressed audio                         | `MODLOAD "ogg"`        |
+| MOD    | Amiga-style tracker modules (ProTracker, etc.)      | `MODLOAD "mod"`        |
 
 If you try to load any file type except WAV without first loading the corresponding codec module, you will receive an error as the file type will be unrecognised.
 

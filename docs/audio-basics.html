@@ -102,16 +102,32 @@ Audio System Structure</h2>
 Drivers</h3>
 <p>The driver is the low-level hardware backend (e.g. <span class="tt">MODLOAD "ac97"</span>). <br  />
  It is specific to your sound card in your PC. Without a driver, <b>no audio commands will work</b>.</p>
+<p>Currently supported sound cards:</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Device  </th><th class="markdownTableHeadNone">Description  </th><th class="markdownTableHeadNone">Command  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">AC'97  </td><td class="markdownTableBodyNone">Audio Codec ’97; legacy PCI audio standard  </td><td class="markdownTableBodyNone"><span class="tt">MODLOAD "ac97"</span>  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">HDA  </td><td class="markdownTableBodyNone">High Definition Audio; Azalia (successor to AC’97)  </td><td class="markdownTableBodyNone"><span class="tt">MODLOAD "hda"</span>  </td></tr>
+</table>
 <h3 class="doxsection"><a class="anchor" id="codecs"></a>
 Codecs</h3>
 <p>A codec is a small specialised program that knows how to <b>decode audio files</b> into the raw data format used by Retro Rocket. Codecs are provided as kernel modules, just like drivers, and must be loaded before you can use them.</p>
-<ul>
-<li>WAV support is built in and always available.</li>
-<li>MP3 support is available via the <span class="tt">mp3.ko</span> module (<span class="tt">MODLOAD "mp3"</span>).</li>
-<li>FLAC support is available via the <span class="tt">flac.ko</span> module (<span class="tt">MODLOAD "flac"</span>).</li>
-<li>OGG Vorbis support is available via the <span class="tt">ogg.ko</span> module (<span class="tt">MODLOAD "ogg"</span>)</li>
-<li>MOD support is available via the <span class="tt">mod.ko</span> module (<span class="tt">MODLOAD "mod"</span>)</li>
-</ul>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Format  </th><th class="markdownTableHeadNone">Description  </th><th class="markdownTableHeadNone">Command  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">WAV  </td><td class="markdownTableBodyNone">Uncompressed PCM; built-in and always available  </td><td class="markdownTableBodyNone"><em>(no module required)</em>  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">MP3  </td><td class="markdownTableBodyNone">MPEG-1 Layer III compressed audio  </td><td class="markdownTableBodyNone"><span class="tt">MODLOAD "mp3"</span>  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">FLAC  </td><td class="markdownTableBodyNone">Free Lossless Audio Codec  </td><td class="markdownTableBodyNone"><span class="tt">MODLOAD "flac"</span>  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">OGG  </td><td class="markdownTableBodyNone">Ogg Vorbis compressed audio  </td><td class="markdownTableBodyNone"><span class="tt">MODLOAD "ogg"</span>  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">MOD  </td><td class="markdownTableBodyNone">Amiga-style tracker modules (ProTracker, etc.)  </td><td class="markdownTableBodyNone"><span class="tt">MODLOAD "mod"</span>  </td></tr>
+</table>
 <p>If you try to load any file type except WAV without first loading the corresponding codec module, you will receive an error as the file type will be unrecognised.</p>
 <h3 class="doxsection"><a class="anchor" id="streams"></a>
 Streams</h3>
