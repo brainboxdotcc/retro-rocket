@@ -79,7 +79,7 @@ static bool stream_append_chunk(struct mixer_stream *ch, const int16_t *src_fram
 	ck->rpos = 0;
 
 	int16_t *dst = (int16_t *)(ck + 1);
-	memcpy(dst, src_frames, sizeof(int16_t) * 2u * frames);
+	memcpy(dst, src_frames, sizeof(int16_t) * 2 * frames);
 
 	if (!ch->tail) {
 		ch->head = ck;
@@ -239,7 +239,7 @@ size_t mixer_push(mixer_stream_t *ch, const int16_t *frames, size_t total_frames
 		remaining -= batch;
 
 		/* Optional growth on sustained bursts */
-		if (preferred < 8192u && accepted >= (preferred * 4u)) {
+		if (preferred < 8192 && accepted >= (preferred * 4)) {
 			preferred <<= 1;
 			ch->chunk_frames = preferred;
 		}
@@ -282,18 +282,18 @@ void mixer_idle(void)
 		return;
 	}
 
-	const uint32_t rate    = mix.dev->frequency    ? mix.dev->frequency()    : 41000u;
-	const uint32_t want_ms = mix.target_latency_ms ? mix.target_latency_ms   : 200u;
-	const uint32_t have_ms = mix.dev->queue_length ? mix.dev->queue_length() : 0u;
-	const uint32_t safety = 100u; /* ms cushion */
+	const uint32_t rate    = mix.dev->frequency    ? mix.dev->frequency()    : 41000;
+	const uint32_t want_ms = mix.target_latency_ms ? mix.target_latency_ms   : 200;
+	const uint32_t have_ms = mix.dev->queue_length ? mix.dev->queue_length() : 0;
+	const uint32_t safety = 100; /* ms cushion */
 	const uint32_t target = want_ms + safety;
 
 	if (have_ms >= target) {
 		return;
 	}
 
-	uint32_t need_ms = (target + 1u) - have_ms;
-	uint32_t need_frames = (uint32_t)(((uint64_t)need_ms * (uint64_t)rate) / 1000ull);
+	uint32_t need_ms = (target + 1) - have_ms;
+	uint32_t need_frames = (uint32_t)(((uint64_t)need_ms * (uint64_t)rate) / 1000);
 	if (need_frames == 0) {
 		return;
 	}
