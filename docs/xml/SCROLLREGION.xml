@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="SCROLLREGION" kind="page">
+    <compoundname>SCROLLREGION</compoundname>
+    <title>SCROLLREGION Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">SCROLLREGION<sp/>integer-expression,<sp/>integer-expression</highlight></codeline>
+</programlisting></para>
+<para>Marks a horizontal band of the screen, measured in <bold>text rows</bold>, as scrollable with terminal text regardless of if it contains graphics, or text. Both <computeroutput>top</computeroutput> and <computeroutput>bottom</computeroutput> values are inclusive.</para>
+<para>Any graphics drawn in this region will be shifted up together with the text when the screen scrolls. The region remains active until it has completely scrolled off the display, even if the program that created it has finished.</para>
+<para><hruler/>
+</para>
+<sect1 id="SCROLLREGION_1example-keep-a-logo-and-system-info-scrolling-with-text_1s1"><sect2 id="SCROLLREGION_1example-keep-a-logo-and-system-info-scrolling-with-text_1s2"><sect3 id="SCROLLREGION_1example-keep-a-logo-and-system-info-scrolling-with-text_1s3"><sect4 id="SCROLLREGION_1example-keep-a-logo-and-system-info-scrolling-with-text_1s4"><sect5 id="SCROLLREGION_1example-keep-a-logo-and-system-info-scrolling-with-text">
+<title>Example: Keep a logo and system info scrolling with text</title><para><programlisting filename=".basic"><codeline><highlight class="normal">SPRITELOAD<sp/>owl,&quot;/images/owl.png&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;<sp/>&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;<sp/>&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;<sp/>&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">CURSOR<sp/>0,<sp/>CURRENTY<sp/>-<sp/>3</highlight></codeline>
+<codeline><highlight class="normal">STARTY<sp/>=<sp/>CURRENTY</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">PLOT<sp/>owl,<sp/>32,<sp/>STARTY*8</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Retro<sp/>Rocket<sp/>1.0&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;CPU:<sp/>&quot;;<sp/>CPUGETBRAND$(1)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Memory:<sp/>&quot;;<sp/>MEMUSED/1024/1024;<sp/>&quot;<sp/>MiB&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">ENDY<sp/>=<sp/>CURRENTY</highlight></codeline>
+<codeline><highlight class="normal">SCROLLREGION<sp/>STARTY,<sp/>ENDY</highlight></codeline>
+</programlisting></para>
+<para>This loads and plots an image, prints a few lines of system information, and then marks the whole block as a scroll region so it moves in sync with the text output.</para>
+<para><hruler/>
+</para>
+</sect5></sect4></sect3></sect2></sect1>
+<sect1 id="SCROLLREGION_1notes-165_1s1"><sect2 id="SCROLLREGION_1notes-165_1s2"><sect3 id="SCROLLREGION_1notes-165_1s3"><sect4 id="SCROLLREGION_1notes-165_1s4"><sect5 id="SCROLLREGION_1notes-165">
+<title>Notes</title><para><itemizedlist>
+<listitem><para>Coordinates are in <bold>text rows</bold>, not pixels. <computeroutput>(0,0)</computeroutput> is the top-left cell.</para>
+</listitem><listitem><para>Regions always cover the <bold>full screen width</bold>.</para>
+</listitem><listitem><para>Multiple regions may be active at the same time.</para>
+</listitem><listitem><para>Regions are automatically removed once they are entirely outside the visible screen.</para>
+</listitem><listitem><para>Because of the way the terminal is optimised, <bold>printing blank lines inside a scroll region will appear as vertical bars across images</bold>. When mixing text and graphics in a scroll region, only draw the text you actually want visible.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <ref refid="SPRITELOAD" kindref="compound">SPRITELOAD</ref>, <ref refid="PLOT" kindref="compound">PLOT</ref>, <ref refid="PRINT" kindref="compound">PRINT</ref> </para>
+</sect5></sect4></sect3></sect2></sect1>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/SCROLLREGION.md"/>
+  </compounddef>
+</doxygen>

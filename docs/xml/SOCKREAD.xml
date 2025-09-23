@@ -62,7 +62,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="SOCKREAD_1notes-169_1s1"><sect2 id="SOCKREAD_1notes-169_1s2"><sect3 id="SOCKREAD_1notes-169">
+<sect1 id="SOCKREAD_1notes-170_1s1"><sect2 id="SOCKREAD_1notes-170_1s2"><sect3 id="SOCKREAD_1notes-170">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Treat the socket as a <bold>byte stream</bold>; if you need to read multiple fields on one line, call <computeroutput>SOCKREAD</computeroutput> multiple times or define a simple protocol (for example, one value per line).</para>
 </listitem><listitem><para>After <computeroutput>SOCKCLOSE</computeroutput>, the handle is invalid for further <computeroutput>SOCKREAD</computeroutput>/<computeroutput>SOCKWRITE</computeroutput>.</para>

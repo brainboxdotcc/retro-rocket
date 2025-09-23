@@ -22,7 +22,7 @@ var searchData=
   ['termwidth_2emd_19',['TERMWIDTH.md',['../TERMWIDTH_8md.html',1,'']]],
   ['test_20program_20',['test program',['../test.html',1,'commands']]],
   ['test_2emd_21',['test.md',['../test_8md.html',1,'']]],
-  ['text_22',['text',['../basic-beginner.html#autotoc_md1-your-first-program-printing-text',1,'1) Your first program: printing text'],['../edit.html#editing-text',1,'Editing text']]],
+  ['text_22',['text',['../basic-beginner.html#autotoc_md1-your-first-program-printing-text',1,'1) Your first program: printing text'],['../edit.html#editing-text',1,'Editing text'],['../SCROLLREGION.html#example-keep-a-logo-and-system-info-scrolling-with-text',1,'Example: Keep a logo and system info scrolling with text']]],
   ['text_20editor_23',['Text Editor',['../edit.html#text-editor',1,'']]],
   ['textcolours_20program_24',['textcolours program',['../textcolours.html',1,'commands']]],
   ['textcolours_2emd_25',['textcolours.md',['../textcolours_8md.html',1,'']]],

@@ -17,7 +17,7 @@ var searchData=
   ['terminology_14',['1. Conventions and terminology',['../retrofs.html#autotoc_md1-conventions-and-terminology',1,'']]],
   ['termwidth_20function_15',['TERMWIDTH Function',['../TERMWIDTH.html',1,'int-funcs']]],
   ['test_20program_16',['test program',['../test.html',1,'commands']]],
-  ['text_17',['text',['../basic-beginner.html#autotoc_md1-your-first-program-printing-text',1,'1) Your first program: printing text'],['../edit.html#editing-text',1,'Editing text']]],
+  ['text_17',['text',['../basic-beginner.html#autotoc_md1-your-first-program-printing-text',1,'1) Your first program: printing text'],['../edit.html#editing-text',1,'Editing text'],['../SCROLLREGION.html#example-keep-a-logo-and-system-info-scrolling-with-text',1,'Example: Keep a logo and system info scrolling with text']]],
   ['text_20editor_18',['Text Editor',['../edit.html#text-editor',1,'']]],
   ['textcolours_20program_19',['textcolours program',['../textcolours.html',1,'commands']]],
   ['the_20block_20',['3.3.1 Directory Start entry (first half-sector of the block)',['../retrofs.html#autotoc_md331-directory-start-entry-first-half-sector-of-the-block',1,'']]],

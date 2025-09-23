@@ -119,6 +119,7 @@ The following parameter types are used throughout this documentation:
 * \subpage RESTORE
 * \subpage RETURN
 * \subpage RMDIR
+* \subpage SCROLLREGION
 * \subpage SETTIMEZONE
 * \subpage SETVARI
 * \subpage SETVARR

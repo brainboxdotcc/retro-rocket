@@ -80,6 +80,7 @@ var keywords =
     [ "RESTORE Keyword", "RESTORE.html", null ],
     [ "RETURN Keyword", "RETURN.html", null ],
     [ "RMDIR Keyword", "RMDIR.html", null ],
+    [ "SCROLLREGION Keyword", "SCROLLREGION.html", null ],
     [ "SETTIMEZONE Keyword", "SETTIMEZONE.html", null ],
     [ "SETVARI Keyword", "SETVARI.html", null ],
     [ "SETVARR Keyword", "SETVARR.html", null ],

@@ -38,6 +38,7 @@ var searchData=
   ['local_20keyword_35',['LOCAL Keyword',['../LOCAL.html',1,'keywords']]],
   ['locals_20within_20a_20definition_36',['Example: locals within a definition',['../DEF.html#example-locals-within-a-definition',1,'']]],
   ['log_20function_37',['LOG Function',['../LOG.html',1,'real-funcs']]],
-  ['lower_24_20function_38',['LOWER$ Function',['../LOWER.html',1,'string-funcs']]],
-  ['ltrim_24_20function_39',['LTRIM$ Function',['../LTRIM.html',1,'string-funcs']]]
+  ['logo_20and_20system_20info_20scrolling_20with_20text_38',['Example: Keep a logo and system info scrolling with text',['../SCROLLREGION.html#example-keep-a-logo-and-system-info-scrolling-with-text',1,'']]],
+  ['lower_24_20function_39',['LOWER$ Function',['../LOWER.html',1,'string-funcs']]],
+  ['ltrim_24_20function_40',['LTRIM$ Function',['../LTRIM.html',1,'string-funcs']]]
 ];

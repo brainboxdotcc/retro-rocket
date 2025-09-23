@@ -220,6 +220,7 @@ uint32_t getpixel(int64_t x, int64_t y) {
 
 /* Clear the screen - note this does not send the ansi to the debug console */
 void clearscreen() {
+	scrollable_count = 0;
 	memset(rr_fb_back, 0, rr_fb_bytes);
 	screenonly("\033[2J\033[0;0H");
 	set_video_dirty_area(0, screen_graphics_y);

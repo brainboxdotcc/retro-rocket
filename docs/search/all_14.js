@@ -49,8 +49,9 @@ var searchData=
   ['locals_20within_20a_20definition_46',['Example: locals within a definition',['../DEF.html#example-locals-within-a-definition',1,'']]],
   ['log_20function_47',['LOG Function',['../LOG.html',1,'real-funcs']]],
   ['log_2emd_48',['LOG.md',['../LOG_8md.html',1,'']]],
-  ['lower_24_20function_49',['LOWER$ Function',['../LOWER.html',1,'string-funcs']]],
-  ['lower_2emd_50',['LOWER.md',['../LOWER_8md.html',1,'']]],
-  ['ltrim_24_20function_51',['LTRIM$ Function',['../LTRIM.html',1,'string-funcs']]],
-  ['ltrim_2emd_52',['LTRIM.md',['../LTRIM_8md.html',1,'']]]
+  ['logo_20and_20system_20info_20scrolling_20with_20text_49',['Example: Keep a logo and system info scrolling with text',['../SCROLLREGION.html#example-keep-a-logo-and-system-info-scrolling-with-text',1,'']]],
+  ['lower_24_20function_50',['LOWER$ Function',['../LOWER.html',1,'string-funcs']]],
+  ['lower_2emd_51',['LOWER.md',['../LOWER_8md.html',1,'']]],
+  ['ltrim_24_20function_52',['LTRIM$ Function',['../LTRIM.html',1,'string-funcs']]],
+  ['ltrim_2emd_53',['LTRIM.md',['../LTRIM_8md.html',1,'']]]
 ];
