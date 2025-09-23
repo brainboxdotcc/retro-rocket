@@ -263,8 +263,7 @@ static void flanterm_fb_revscroll(struct flanterm_context *_ctx) {
 static void flanterm_fb_scroll(struct flanterm_context *_ctx) {
 	struct flanterm_fb_context *ctx = (void *) _ctx;
 
-	for (size_t i = (_ctx->scroll_top_margin + 1) * _ctx->cols;
-	     i < _ctx->scroll_bottom_margin * _ctx->cols; i++) {
+	for (size_t i = (_ctx->scroll_top_margin + 1) * _ctx->cols; i < _ctx->scroll_bottom_margin * _ctx->cols; i++) {
 		struct flanterm_fb_char *c;
 		struct flanterm_fb_queue_item *q = ctx->map[i];
 		if (q != NULL) {
@@ -282,6 +281,10 @@ static void flanterm_fb_scroll(struct flanterm_context *_ctx) {
 	empty.bg = ctx->text_bg;
 	for (size_t i = 0; i < _ctx->cols; i++) {
 		push_to_queue(_ctx, &empty, i, _ctx->scroll_bottom_margin - 1);
+	}
+
+	if (_ctx->callback != NULL) {
+		_ctx->callback(_ctx, FLANTERM_CB_SCROLL, 0, 0, 0);
 	}
 }
 

@@ -7,6 +7,17 @@ volatile struct limine_framebuffer_request framebuffer_request = {
 	.revision = 0,
 };
 
+
+#define MAX_SCROLLABLES 256
+
+typedef struct scrollable_graphics_t {
+	int64_t start;
+	int64_t end;
+} scrollable_graphics_t;
+
+static scrollable_graphics_t scrollables[MAX_SCROLLABLES];
+static int scrollable_count = 0;
+
 struct limine_framebuffer *fb = NULL;
 static uint64_t bytes_per_pixel = 32;
 static void *rr_fb_front = NULL;
@@ -90,6 +101,45 @@ static uint8_t font_data[]  = { // 8x8
 	0x00, 0x1c, 0x14, 0x1c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1c, 0x1c, 0x1c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1f, 0x18, 0x18, 0x58, 0x38, 0x18, 0x00,
 	0x00, 0x2e, 0x33, 0x33, 0x33, 0x00, 0x00, 0x00, 0x38, 0x08, 0x38, 0x20, 0x38, 0x00, 0x00, 0x00, 0x00, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
+
+
+/* Insert a band [start, end), keeping the list sorted by start */
+int add_scrollable(int64_t start, int64_t end) {
+	if (scrollable_count >= MAX_SCROLLABLES) {
+		return -1; /* list full */
+	}
+
+	int pos = 0;
+	while (pos < scrollable_count && scrollables[pos].start < start) {
+		pos++;
+	}
+
+	/* shift up to make room */
+	for (int i = scrollable_count; i > pos; i--) {
+		scrollables[i] = scrollables[i - 1];
+	}
+
+	scrollables[pos].start = start;
+	scrollables[pos].end = end;
+	scrollable_count++;
+
+	return 0;
+}
+
+/* Remove a band matching [start, end) */
+int remove_scrollable(int64_t start, int64_t end) {
+	for (int i = 0; i < scrollable_count; i++) {
+		if (scrollables[i].start == start && scrollables[i].end == end) {
+			/* shift down */
+			for (int j = i; j < scrollable_count - 1; j++) {
+				scrollables[j] = scrollables[j + 1];
+			}
+			scrollable_count--;
+			return 0;
+		}
+	}
+	return -1; /* not found */
+}
 
 void rr_console_init_from_limine(void) {
 	fb = framebuffer_request.response->framebuffers[0];
@@ -218,11 +268,78 @@ void terminal_callback(struct flanterm_context *ctx, uint64_t type, uint64_t x, 
 	switch (type) {
 		case FLANTERM_CB_BELL:
 			beep(1000);
-		break;
+			break;
 		case FLANTERM_CB_POS_REPORT:
 			current_x = x - 1;
 			current_y = y - 1;
-		break;
+			break;
+		case FLANTERM_CB_SCROLL: {
+			int stride   = rr_fb_pitch;
+			int delta_px = 8;
+			bool moved = false;
+
+			for (int i = 0; i < scrollable_count;) {
+				if (scrollable_count == 0) {
+					break;
+				}
+
+				scrollable_graphics_t *s = &scrollables[i];
+				int height = (int)(s->end - s->start);
+
+				if (height <= 0) {
+					/* drop invalid band */
+					for (int j = i; j < scrollable_count - 1; j++) {
+						scrollables[j] = scrollables[j + 1];
+					}
+					scrollable_count--;
+					continue;
+				}
+
+				int new_start = s->start - delta_px;
+				int new_end   = s->end   - delta_px;
+
+				int dst_row = new_start;
+				int src_row = s->start;
+				int rows    = height;
+
+				/* trim off rows above the top */
+				if (dst_row < 0) {
+					int cut = -dst_row;
+					dst_row = 0;
+					src_row += cut;
+					rows    -= cut;
+				}
+
+				/* trim if bottom goes past screen (end is exclusive) */
+				if (dst_row + rows > screen_graphics_y) {
+					rows = screen_graphics_y - dst_row;
+				}
+
+				if (rows > 0) {
+					uint8_t *dst = (uint8_t *)rr_fb_back + (long)dst_row * stride;
+					uint8_t *src = (uint8_t *)rr_fb_back + (long)src_row * stride;
+					memmove(dst, src, (size_t)rows * stride);
+					moved = true;
+				}
+
+				s->start = new_start;
+				s->end   = new_end;
+
+				if (s->end <= 0 || s->start >= screen_graphics_y) {
+					for (int j = i; j < scrollable_count - 1; j++) {
+						scrollables[j] = scrollables[j + 1];
+					}
+					scrollable_count--;
+					continue;
+				}
+
+				i++;
+			}
+			if (moved) {
+				set_video_dirty_area(0, screen_graphics_y);
+			}
+			break;
+		}
 	}
 	wait_state = false;
 }

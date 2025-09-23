@@ -139,13 +139,21 @@ void cls_statement(struct basic_ctx* ctx)
 	accept_or_return(NEWLINE, ctx);
 }
 
-void gotoxy_statement(struct basic_ctx* ctx)
-{
+void gotoxy_statement(struct basic_ctx* ctx) {
 	accept_or_return(CURSOR, ctx);
 	int64_t x = expr(ctx);
 	accept_or_return(COMMA, ctx);
 	int64_t y = expr(ctx);
 	gotoxy(x, y);
+	accept_or_return(NEWLINE, ctx);
+}
+
+void scrollregion_statement(struct basic_ctx* ctx) {
+	accept_or_return(SCROLLREGION, ctx);
+	int64_t top = expr(ctx) * 8;
+	accept_or_return(COMMA, ctx);
+	int64_t bottom = expr(ctx) * 8 + 8;
+	add_scrollable(top, bottom);
 	accept_or_return(NEWLINE, ctx);
 }
 

@@ -1,51 +1,75 @@
+REM Retro Rocket "about" program.
+REM
+REM Similar to "neofetch".
+REM Be careful about where you write characters in the space where you
+REM plot the rocky PNG and colour palette spectrum. If you write a blank
+REM line anywhere, it will manifest as a vertical bar across the image
+REM when you scroll due to the way flanterm is optimised
+REM
 SPRITELOAD owl,"/images/owl.png"
 AUTOFLIP FALSE
-REM Go down 20 lines, then back up, to make room on screen for the images
-FOR Y = 0 TO 19
-    PRINT ""
+REM Go down 25 lines, then back up, to make room on screen for the images
+FOR Y = 0 TO 24
+    PRINT " "
 NEXT
-CURSOR 0, CURRENTY - 19
+CURSOR 0, CURRENTY - 24
+STARTY=CURRENTY
 SPRTOP=CURRENTY*8
 COLOUR 14
-PRINT "                                  Retro Rocket"
+Y=CURRENTY
+CURSOR 34,Y
+PRINT "Retro Rocket";
 COLOUR 7
-PRINT "                                  ────────────"
+Y = Y + 1
+CURSOR 34,Y
+PRINT "────────────";
 COLOUR 14
-PRINT "                                  OS: ";
+Y = Y + 1
+CURSOR 34,Y
+PRINT "OS: ";
 COLOUR 7
-PRINT "Retro Rocket 1.0"
+PRINT "Retro Rocket 1.0";
 COLOUR 14
-PRINT "                                  Kernel: ";
+Y = Y + 1
+CURSOR 34,Y
+PRINT "Kernel: ";
 COLOUR 7
-PRINT "1.0"
+PRINT "1.0";
 COLOUR 14
-PRINT "                                  Uptime: ";
+Y = Y + 1
+CURSOR 34,Y
+PRINT "Uptime: ";
 COLOUR 7
-PRINT UPTIME$
+PRINT UPTIME$;
 COLOUR 14
-PRINT "                                  Shell: ";
+Y = Y + 1
+CURSOR 34,Y
+PRINT "Shell: ";
 COLOUR 7
-PRINT "rocketsh-2.0"
+PRINT "rocketsh-2.0";
 COLOUR 14
-PRINT "                                  Memory: ";
+Y = Y + 1
+CURSOR 34,Y
+PRINT "Memory: ";
 COLOUR 7
 M_MEGS = MEMUSED / 1024 / 1024
 MT_MEGS = MEMORY / 1024 / 1024
-PRINT M_MEGS; "MiB / "; MT_MEGS ; "MiB"
+PRINT M_MEGS; "MiB / "; MT_MEGS ; "MiB";
 COLOUR 14
-PRINT "                                  Resolution: ";
+Y = Y + 1
+CURSOR 34,Y
+PRINT "Resolution: ";
 COLOUR 7
-PRINT GRAPHICS_WIDTH; "x"; GRAPHICS_HEIGHT
+PRINT GRAPHICS_WIDTH; "x"; GRAPHICS_HEIGHT;
 COLOUR 14
-PRINT "                                  CPU: ";
+Y = Y + 1
+CURSOR 34,Y
+PRINT "CPU: ";
 COLOUR 7
-PRINT CPUGETBRAND$(1)
-PRINT "                                  ";
-GRADLEFT=CURRENTX*8
-GRADTOP=CURRENTY*8+8
-FOR N = 0 TO 14
-    PRINT ""
-NEXT
+PRINT CPUGETBRAND$(1);
+GRADLEFT=34*8
+GRADTOP=CURRENTY*8+16
+CURSOR 0, CURRENTY + 17
 PLOT owl,32,SPRTOP
 X = GRADLEFT
 W = 128
@@ -89,3 +113,6 @@ FOR I = 0 TO W - 1
   X = X + 1
 NEXT
 AUTOFLIP TRUE
+PRINT "                                                   "
+ENDY=CURRENTY
+SCROLLREGION STARTY, ENDY - 1

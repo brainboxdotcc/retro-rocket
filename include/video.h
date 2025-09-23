@@ -257,3 +257,5 @@ unsigned char map_vga_to_ansi_bg(unsigned char colour);
 void redefine_character(unsigned char c, uint8_t bitmap[8]);
 
 void graphics_putstring(const char *s, int64_t x, int64_t y, int32_t colour);
+
+int add_scrollable(int64_t start, int64_t end);

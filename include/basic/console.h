@@ -131,6 +131,14 @@ int64_t basic_capslock(struct basic_ctx* ctx);
  */
 void input_statement(struct basic_ctx* ctx);
 
+
+/**
+ * @brief Handle SCROLLREGION statement.
+ *
+ * @param ctx The BASIC context.
+ */
+void scrollregion_statement(struct basic_ctx* ctx);
+
 /**
  * @brief Process GET statement to read a single keypress.
  *
