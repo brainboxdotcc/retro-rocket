@@ -51,33 +51,59 @@ static int clamp_int(int v, int lo, int hi) {
 	return v;
 }
 
-/* FT2 linear frequency, exact keying:
-   - 64 "key units" per semitone (12 semis per octave)
-   - key64 = (note-1)*64 + rel_note*64 + fine/2   (fine is -128..127 -> -64..+63)
-   - C-4 (note 49) maps to key64 = 3072 and must produce 8363 Hz
-   - frequency = 8363 * 2^((key64 - 3072) / 768)
-   - step_q16 = frequency / samplerate in Q16.16
-*/
+/* Recompute samples-per-tick from BPM. XM/FT2: tick_len = 2.5 / BPM seconds. */
+static inline void xm_set_bpm(xm_state_t *st, int bpm) {
+	if (bpm < 32) {
+		bpm = 32;
+	}
+	st->tempo = bpm;
+	/* exact integer form: samples_per_tick = samplerate * 5 / (2 * BPM) */
+	st->audio_speed = (uint32_t)((st->samplerate * 5) / (uint32_t)(2 * st->tempo));
+	if (st->audio_speed == 0) {
+		st->audio_speed = 1;
+	}
+}
+
+
 /* FT2 linear frequency, spec-exact.
    - RealNote = (note_1_96 - 1) + relative_note    (0..118)
    - Period   = 7680 - RealNote*64 - fine_tune_128/2
    - Freq(Hz) = 8363 * 2^((4608 - Period) / 768)
    - step(Q16)= (Freq * 65536) / samplerate
 */
-static int compute_step_linear_q16(int samplerate, int note_1_96, int relative_note, int fine_tune_128)
+/* FT2 linear frequency mode: compute step (Q16) exactly like FT2/libxm */
+static int compute_step_linear_q16(int samplerate,
+				   int note_1_96,
+				   int rel_note,
+				   int fine_tune_128)
 {
-	int rn = (note_1_96 - 1) + relative_note;         /* RealNote */
-	if (rn < 0)  rn = 0;
-	if (rn > 118) rn = 118;
+	/* Clamp note into 1..96 */
+	if (note_1_96 < 1) {
+		note_1_96 = 1;
+	}
+	if (note_1_96 > 96) {
+		note_1_96 = 96;
+	}
 
-	int period = 7680 - rn * 64 - (fine_tune_128 / 2);
+	/* Convert note + relative note into an FT2 linear "period" value.
+	   C-0 corresponds to period 7680, each semitone = 64 units smaller. */
+	int semis = (note_1_96 - 1) + rel_note;
+	int period = 7680 - (semis * 64) - (fine_tune_128 / 2);
 
-	double expo = (4608.0 - (double)period) / 768.0;
-	double freq = 8363.0 * pow(2.0, expo);
+	if (period < 1) {
+		period = 1;
+	}
 
-	int step = (int)((freq * 65536.0) / (double)samplerate);
-	if (step < 1) step = 1;
-	return step;
+	/* Frequency = 8363 * 2^((4608 - period)/768)
+	   This is FT2’s exact linear frequency formula. */
+	double freq = (8363.0 * pow(2, (4608.0 - (double)period) / 768.0));
+
+	/* Convert Hz to Q16 step */
+	int step_q16 = (int)((freq * 65536.0) / (double)samplerate);
+	if (step_q16 < 0) {
+		step_q16 = 0;
+	}
+	return step_q16;
 }
 
 /* Amiga-ish path: compute step (Q16) using PAL clock approximation */
@@ -960,8 +986,17 @@ static void engine_tick(xm_state_t *st) {
 							c->retrig_countdown = y;
 							break;
 						}
-						case 0xE: { /* pattern delay: extend current row by y+1 times */
-							st->speed *= (y + 1);
+						case 0xE: {
+							int x = (ev >> 4) & 0x0F, y = ev & 0x0F;
+							switch (x) {
+								case 0x6: /* pattern loop */ /* keep your existing implementation */
+									st->speed *= (y + 1);
+									break;
+								case 0xE: /* pattern delay */
+									/* Minimal safe stub: do nothing. Do NOT touch st->speed. */
+									break;
+								default: break;
+							}
 							break;
 						}
 						default:
@@ -1248,12 +1283,120 @@ static void engine_tick(xm_state_t *st) {
 
 /* ===== Mixer ===== */
 
+static uint64_t debug_samples = 0;
+
+/* Mix exactly one tick (= st->audio_speed stereo frames) with no timing side effects.
+   - NO engine_tick() inside
+   - NO audio_tick counters
+   - Pure sample stepping + mixing for this tick only
+*/
+static void mix_one_tick(xm_state_t *st, int16_t *out)
+{
+	uint32_t frames = st->audio_speed;
+	if (frames == 0) frames = 1; /* safety */
+
+	for (uint32_t s = 0; s < frames; s++) {
+		int64_t acc_l = 0;
+		int64_t acc_r = 0;
+
+		for (int ci = 0; ci < st->channels; ci++) {
+			xm_channel_t *c = &st->ch[ci];
+			if (!c->smp || !c->smp->pcm || c->sample_inc <= 0) {
+				continue;
+			}
+
+			/* One-shot finished and no loop? */
+			if (c->smp->loop_type == 0 && c->sample_pos >= (int)c->smp->length) {
+				continue;
+			}
+
+			/* Ensure position is inside a valid readable range before sampling */
+			if (c->smp->loop_type == 1 && c->smp->loop_len > 1) {
+				while (c->sample_pos >= (int)(c->smp->loop_start + c->smp->loop_len)) {
+					c->sample_pos -= (int)c->smp->loop_len;
+				}
+			} else if (c->smp->loop_type == 2 && c->smp->loop_len > 1) {
+				int loop_start = (int)c->smp->loop_start;
+				int loop_end   = loop_start + (int)c->smp->loop_len - 1;
+				if (c->sample_pos > loop_end) { c->sample_pos = loop_end; c->loop_dir = -1; }
+				if (c->sample_pos < loop_start){ c->sample_pos = loop_start; c->loop_dir =  1; }
+			} else {
+				if (c->sample_pos >= (int)c->smp->length) c->sample_pos = (int)c->smp->length - 1;
+				if (c->sample_pos < 0)                    c->sample_pos = 0;
+			}
+
+			/* Linear interpolation */
+			int pos  = c->sample_pos;
+			int next = pos + ((c->smp->loop_type == 2 && c->loop_dir < 0) ? -1 : 1);
+
+			if (c->smp->loop_type == 1 && c->smp->loop_len > 1) {
+				int loop_start = (int)c->smp->loop_start;
+				int loop_end   = loop_start + (int)c->smp->loop_len;
+				if (next >= loop_end) next = loop_start;
+			} else if (c->smp->loop_type == 2 && c->smp->loop_len > 1) {
+				int loop_start = (int)c->smp->loop_start;
+				int loop_end   = loop_start + (int)c->smp->loop_len - 1;
+				if (c->loop_dir > 0 && next > loop_end)      { next = loop_end;   c->loop_dir = -1; }
+				else if (c->loop_dir < 0 && next < loop_start){ next = loop_start; c->loop_dir =  1; }
+			} else {
+				if (next >= (int)c->smp->length) next = (int)c->smp->length - 1;
+				if (next < 0)                    next = 0;
+			}
+
+			int16_t s1 = c->smp->pcm[pos];
+			int16_t s2 = c->smp->pcm[next];
+			uint32_t frac = (uint32_t)(c->sample_frac & 0xFFFF);
+			int32_t s_lin = (int32_t)(((int64_t)s1 * (int64_t)(65536 - frac) + (int64_t)s2 * (int64_t)frac) >> 16);
+
+			/* Tremolo as cheap volume modulation (safe) */
+			if (c->trem_depth > 0) {
+				static const int8_t trem_sine[64] = {
+					0,12,25,37,49,60,71,81,90,98,105,111,116,120,123,125,
+					126,125,123,120,116,111,105,98,90,81,71,60,49,37,25,12,
+					0,-12,-25,-37,-49,-60,-71,-81,-90,-98,-105,-111,-116,-120,-123,-125,
+					-126,-125,-123,-120,-116,-111,-105,-98,-90,-81,-71,-60,-49,-37,-25,-12
+				};
+				int w = trem_sine[c->trem_phase & 63];
+				int dv = (w * c->trem_depth) >> 5;
+				int v = c->vol + dv;
+				if (v < 0) v = 0;
+				if (v > 64) v = 64;
+				c->vol = v;
+			}
+
+			int vol = (c->vol * st->global_vol) / 64; if (vol < 0) vol = 0; if (vol > 64) vol = 64;
+			int pan = c->pan; /* 0..255 */
+			int32_t l = (s_lin * (255 - pan) * vol) >> 14;
+			int32_t r = (s_lin * pan * vol) >> 14;
+			acc_l += l;
+			acc_r += r;
+
+			/* Advance fractional/sample position once per output sample */
+			c->sample_frac += c->sample_inc;
+			while (c->sample_frac >= 65536) {
+				c->sample_frac -= 65536;
+				c->sample_pos += (c->smp->loop_type == 2) ? c->loop_dir : 1;
+			}
+		}
+
+		/* Output with headroom and clamp */
+		int32_t out_l = (int32_t)(acc_l >> 8);
+		int32_t out_r = (int32_t)(acc_r >> 8);
+		out_l = CLAMP(out_l, -32768, 32767);
+		out_r = CLAMP(out_r, -32768, 32767);
+		*out++ = (int16_t)out_l;
+		*out++ = (int16_t)out_r;
+	}
+}
+
+
 static void mix_block(xm_state_t *st, int16_t *out, size_t frames) {
 	for (size_t s = 0; s < frames; s++) {
-		if (--st->audio_tick <= 0) {
+		if (st->audio_tick == 0) {
 			engine_tick(st);
-			st->audio_tick = st->audio_speed;
+			st->audio_tick = st->audio_speed; /* refill AFTER advancing tick */
 		}
+		st->audio_tick--;
 
 		int64_t acc_l = 0;
 		int64_t acc_r = 0;
@@ -1346,6 +1489,14 @@ static void mix_block(xm_state_t *st, int16_t *out, size_t frames) {
 		out[s * 2] = (int16_t) out_l;
 		out[s * 2 + 1] = (int16_t) out_r;
 	}
+
+	debug_samples += frames;
+	if (debug_samples >= st->samplerate * 5) { /* every 5 sec */
+		dprintf("xm: bpm=%d speed=%d audio_speed=%u samp/tick, samples=%lu\n",
+			st->tempo, st->speed, st->audio_speed, debug_samples);
+		debug_samples = 0;
+	}
+
 }
 
 /* ===== Cleanup ===== */
@@ -1379,78 +1530,90 @@ static void free_xm(xm_state_t *st) {
 
 /* ===== Public loader entry ===== */
 
-static bool xm_from_memory(const char *filename, const void *bytes, size_t len, void **out_ptr, size_t *out_bytes) {
+/* Pre-render an XM file into a single contiguous 44.1 kHz S16_LE stereo buffer,
+   matching the MOD module’s contract. Uses the existing mix_block() you already
+   have (the one that currently produces audible output). */
+static bool xm_from_memory(const char *filename,
+			   const void *bytes,
+			   size_t len,
+			   void **out_ptr,
+			   size_t *out_bytes)
+{
 	if (!filename || !bytes || len == 0 || !out_ptr || !out_bytes) {
 		return false;
 	}
 	*out_ptr = NULL;
 	*out_bytes = 0;
 
-	if (!has_suffix_icase(filename, ".xm")) {
-		return false;
-	}
-
 	xm_state_t st;
-	if (!parse_xm_and_build(filename, (const uint8_t *) bytes, len, &st)) {
-		dprintf("Couldn't parse as xm\n");
-		free_xm(&st);
+	if (!parse_xm_and_build(filename, (const uint8_t *)bytes, len, &st)) {
+		dprintf("xm: couldn't parse\n");
 		return false;
 	}
 
-	/* Render in large blocks until ended or safety cap reached (30 minutes) */
-	size_t cap_frames = 1024 * 1024 * 16;
+	/* Ensure timing is initialised the same way you do after parsing elsewhere. */
+	if (st.initial_speed <= 0) st.initial_speed = 6;
+	if (st.initial_tempo < 32) st.initial_tempo = 125;
+
+	st.speed = st.initial_speed;   /* ticks per row */
+	st.tempo = st.initial_tempo;   /* BPM */
+	/* samples per tick = 2.5 / BPM seconds, fixed 44.1 kHz output */
+	st.audio_speed = (uint32_t)((st.samplerate * 5) / (2U * (uint32_t)st.tempo));
+	if (st.audio_speed == 0) st.audio_speed = 1;
+	st.audio_tick = st.audio_speed;
+	st.tick = 0;
+
+	/* Render in growing blocks (identical strategy to your MOD path). */
+	size_t cap_frames  = 1024 * 1024 * 16; /* start capacity */
 	size_t used_frames = 0;
-	int16_t *pcm = (int16_t *) kmalloc(cap_frames * 2 * sizeof(int16_t));
+	int16_t *pcm = (int16_t *)kmalloc(cap_frames * 2 * sizeof(int16_t));
 	if (!pcm) {
-		free_xm(&st);
-		dprintf("xm: OOM initial buffer\n");
+		dprintf("xm: initial alloc failed\n");
 		return false;
 	}
 
-	const uint64_t max_total_frames = (uint64_t) XM_TARGET_RATE * 60 * 30;
+	/* Safety cap: 30 minutes max at 44.1 kHz (same policy as MOD). */
+	const uint64_t max_total_frames = (uint64_t)XM_TARGET_RATE * 60ULL * 30ULL;
 
-	while (!st.ended && (uint64_t) used_frames < max_total_frames) {
-		size_t want = 1024 * 1024 * 16;
+	while (!st.ended && (uint64_t)used_frames < max_total_frames) {
+		/* How many frames to render this pass */
+		size_t want = 1024 * 1024; /* 1M frames per pass, amortises overhead */
+
+		/* Grow output buffer if needed */
 		if (used_frames + want > cap_frames) {
 			size_t new_cap = cap_frames * 2;
-			if (new_cap < used_frames + want) {
-				new_cap = used_frames + want;
-			}
-			int16_t *grown = (int16_t *) krealloc(pcm, new_cap * 2 * sizeof(int16_t));
+			if (new_cap < used_frames + want) new_cap = used_frames + want;
+			int16_t *grown = (int16_t *)krealloc(pcm, new_cap * 2 * sizeof(int16_t));
 			if (!grown) {
 				kfree(pcm);
-				free_xm(&st);
-				dprintf("xm: OOM grow buffer\n");
+				dprintf("xm: out of memory while growing buffer\n");
 				return false;
 			}
 			pcm = grown;
 			cap_frames = new_cap;
 		}
 
+		/* Use your existing audible mixer */
 		mix_block(&st, pcm + used_frames * 2, want);
 		used_frames += want;
 	}
 
+	/* If nothing was produced, bail */
 	if (used_frames == 0) {
 		kfree(pcm);
-		free_xm(&st);
-		dprintf("xm: empty output\n");
+		dprintf("xm: empty render\n");
 		return false;
 	}
 
-	int16_t *shrink = (int16_t *) krealloc(pcm, used_frames * 2 * sizeof(int16_t));
-	if (shrink) {
-		pcm = shrink;
-	}
+	/* Shrink-to-fit */
+	int16_t *shrink = (int16_t *)krealloc(pcm, used_frames * 2 * sizeof(int16_t));
+	if (shrink) pcm = shrink;
 
-	free_xm(&st);
-
-	*out_ptr = pcm;
+	*out_ptr   = pcm;
 	*out_bytes = used_frames * 2 * sizeof(int16_t);
 	return true;
 }
 
-/* ===== Module glue (kernel module definers — DO NOT rename) ===== */
 
 static audio_file_loader_t *g_xm_loader = NULL;
 
