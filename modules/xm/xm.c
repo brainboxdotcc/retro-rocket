@@ -1,7 +1,7 @@
 #include <kernel.h>
 #include "xm.h"
 
-/* ===== Helpers ===== */
+static audio_file_loader_t *g_xm_loader = NULL;
 
 static inline uint16_t rd16(const uint8_t *p) {
 	return (uint16_t) (p[0] | (p[1] << 8));
@@ -188,7 +188,6 @@ static int env_value_linear(const xm_envelope_t *env, int tick, int is_vol) {
 	return is_vol ? clamp_int(y_end, 0, 64) : clamp_int(y_end, 0, 255);
 }
 
-/* ===== Pattern decoding ===== */
 static int decode_patterns(const uint8_t *base, size_t len, int pat_count, int channels, xm_pattern_t *out_patterns, const uint8_t **cursor) {
 	const uint8_t *p = *cursor;
 
@@ -451,8 +450,6 @@ static int decode_instruments(const uint8_t *base, size_t len, int instr_count,
 	return 1;
 }
 
-/* ===== Header parse ===== */
-
 static int parse_xm_and_build(const char *name, const uint8_t *bytes, size_t len, xm_state_t *st) {
 	memset(st, 0, sizeof(*st));
 	st->samplerate = XM_TARGET_RATE;
@@ -604,8 +601,6 @@ static void update_frequency_from_note(xm_state_t *st, xm_channel_t *c, int note
 		c->sample_inc = compute_step_amiga_q16((uint32_t) (((uint64_t) 3546895 << 16) / (uint64_t) st->samplerate), note_1_96, c->smp->relative_note, c->smp->fine_tune);
 	}
 }
-
-/* ===== Tick engine ===== */
 
 static void apply_note_on(xm_state_t *st, xm_channel_t *c, int note_1_96, int inst_1_128) {
 	if (inst_1_128 > 0 && inst_1_128 <= st->instruments_count) {
@@ -1242,8 +1237,6 @@ static void engine_tick(xm_state_t *st) {
 	}
 }
 
-/* ===== Mixer ===== */
-
 static void mix_block(xm_state_t *st, int16_t *out, size_t frames) {
 	for (size_t s = 0; s < frames; s++) {
 		if (--st->audio_tick <= 0) {
@@ -1344,8 +1337,6 @@ static void mix_block(xm_state_t *st, int16_t *out, size_t frames) {
 	}
 }
 
-/* ===== Cleanup ===== */
-
 static void free_xm(xm_state_t *st) {
 	if (st->patterns) {
 		for (int i = 0; i < st->patterns_count; i++) {
@@ -1373,8 +1364,6 @@ static void free_xm(xm_state_t *st) {
 	}
 }
 
-/* ===== Public loader entry ===== */
-
 static bool xm_from_memory(const char *filename, const void *bytes, size_t len, void **out_ptr, size_t *out_bytes) {
 	if (!filename || !bytes || len == 0 || !out_ptr || !out_bytes) {
 		return false;
@@ -1396,7 +1385,7 @@ static bool xm_from_memory(const char *filename, const void *bytes, size_t len, 
 	/* Render in large blocks until ended or safety cap reached (30 minutes) */
 	size_t cap_frames = 1024 * 1024 * 16;
 	size_t used_frames = 0;
-	int16_t *pcm = (int16_t *) kmalloc(cap_frames * 2 * sizeof(int16_t));
+	int16_t *pcm = kmalloc(cap_frames * 2 * sizeof(int16_t));
 	if (!pcm) {
 		free_xm(&st);
 		dprintf("xm: OOM initial buffer\n");
@@ -1412,7 +1401,7 @@ static bool xm_from_memory(const char *filename, const void *bytes, size_t len, 
 			if (new_cap < used_frames + want) {
 				new_cap = used_frames + want;
 			}
-			int16_t *grown = (int16_t *) krealloc(pcm, new_cap * 2 * sizeof(int16_t));
+			int16_t *grown = krealloc(pcm, new_cap * 2 * sizeof(int16_t));
 			if (!grown) {
 				kfree(pcm);
 				free_xm(&st);
@@ -1434,7 +1423,7 @@ static bool xm_from_memory(const char *filename, const void *bytes, size_t len, 
 		return false;
 	}
 
-	int16_t *shrink = (int16_t *) krealloc(pcm, used_frames * 2 * sizeof(int16_t));
+	int16_t *shrink = krealloc(pcm, used_frames * 2 * sizeof(int16_t));
 	if (shrink) {
 		pcm = shrink;
 	}
@@ -1445,10 +1434,6 @@ static bool xm_from_memory(const char *filename, const void *bytes, size_t len, 
 	*out_bytes = used_frames * 2 * sizeof(int16_t);
 	return true;
 }
-
-/* ===== Module glue (kernel module definers — DO NOT rename) ===== */
-
-static audio_file_loader_t *g_xm_loader = NULL;
 
 bool EXPORTED MOD_INIT_SYM(KMOD_ABI)(void) {
 	dprintf("xm: loaded\n");
