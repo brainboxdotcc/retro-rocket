@@ -89,7 +89,14 @@ fs_directory_entry_t *parse_directory(fs_tree_t *node, iso9660 *info, uint32_t s
 		ISO9660_directory *fentry = (ISO9660_directory *) walkbuffer;
 
 		if (fentry->length == 0) {
-			break;
+			/* End-of-sector padding: advance to next 2KB boundary and continue */
+			uintptr_t off  = (uintptr_t)(walkbuffer - dirbuffer);
+			uintptr_t next = (off + 2047u) & ~(uintptr_t)2047u;
+			if (next >= (uintptr_t)lengthbytes) {
+				break; /* no more data in buffer */
+			}
+			walkbuffer = dirbuffer + next;
+			continue;
 		}
 
 		// Sanity: Does this entry stay within the buffer?
