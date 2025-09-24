@@ -414,13 +414,13 @@ uint32_t ac97_buffered_ms(void) {
 }
 
 uint32_t ac97_get_hz() {
-	uint32_t rate = 48000;
+	uint32_t rate = 44100;
 	uint16_t caps = inw(ac97.nam + AC97_NAM_EXT_CAPS);
 	if (caps & 0x0001) {
 		if (inw(ac97.nam + AC97_NAM_EXT_CTRL) & 0x0001) {
 			rate = inw(ac97.nam + AC97_NAM_PCM_FRONT_RATE);
 			if (rate == 0) {
-				rate = 48000;
+				rate = 44100;
 			}
 		}
 	}

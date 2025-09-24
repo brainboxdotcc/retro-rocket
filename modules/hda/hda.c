@@ -962,7 +962,7 @@ static bool hda_stream_prepare(uint32_t frag_bytes, uint32_t rate_hz) {
 	hda_mmio_w16(sdbase + SD_LVI, (uint16_t) (hda.bdl_n - 1));
 
 	/* Program 44.1 kHz, 16-bit, 2-ch in both codec and SDnFMT */
-	uint16_t fmt = (uint16_t) (SD_FMT_BASE_44K1 | SD_FMT_MULT_X1 | SD_FMT_DIV_1 | SD_FMT_BITS_16 | SD_FMT_CHANS(2));
+	uint16_t fmt = (uint16_t) (SD_FMT_BASE_48K | SD_FMT_MULT_X1 | SD_FMT_DIV_1 | SD_FMT_BITS_16 | SD_FMT_CHANS(2));
 	/* Converter format (verb uses same field encoding) */
 	hda_cmd(hda.cad, hda.dac_nid, 0x002, fmt, NULL);
 	/* Stream format register */
@@ -1061,7 +1061,7 @@ static bool q_ensure_cap(size_t extra_fr) {
 	return true;
 }
 
-static size_t push_all_s16le(const int16_t *frames, size_t total_frames) {
+/*static size_t push_all_s16le(const int16_t *frames, size_t total_frames) {
 	static int first = 1;
 	if (first) {
 		first = 0;
@@ -1078,7 +1078,88 @@ static size_t push_all_s16le(const int16_t *frames, size_t total_frames) {
 	memcpy(s_q_pcm + (live * 2), frames, total_frames * 2 * sizeof(int16_t));
 	s_q_len_fr = live + total_frames;
 	return total_frames;
+}*/
+
+/* Upsample entire 44.1kHz stereo s16 buffer to 48kHz ON SUBMIT and push to 48kHz FIFO.
+   - frames: interleaved L,R samples
+   - total_frames: number of *stereo frames* at 44.1 kHz
+   - Returns: input frames consumed (same contract as before)
+*/
+static size_t push_all_s16le(const int16_t *frames, size_t total_frames) {
+	static int first = 1;
+	if (first) {
+		first = 0;
+		dprintf("hda: first push: %lu frames\n", (unsigned long)total_frames);
+	}
+	if (!frames || total_frames == 0) {
+		return 0;
+	}
+
+	/* Compute how many 48 kHz frames we need: floor(N * 160 / 147) */
+	const uint64_t n_in  = (uint64_t)total_frames;
+	const uint64_t n_out = (n_in * 160ull) / 147ull;   /* exact integer mapping */
+	if (n_out == 0) {
+		return 0;
+	}
+
+	/* Ensure FIFO has room for the 48 kHz output */
+	if (!q_ensure_cap((size_t)n_out)) {
+		dprintf("hda: queue OOM (wanted %lu frames @48k)\n", (unsigned long)n_out);
+		return 0;
+	}
+
+	/* Temp buffer for the upsampled stereo s16 data (48 kHz) */
+	int16_t *out = kmalloc(n_out * 2 * sizeof(int16_t));
+	if (!out) {
+		dprintf("hda: OOM upsample buffer (%lu frames)\n", (unsigned long)n_out);
+		return 0;
+	}
+
+	/* Output-driven linear SRC:
+	   For each output frame m, input position p = m * 147 / 160 (in frames).
+	   frac = remainder/160 gives the interpolation fraction between base and base+1. */
+	for (uint64_t m = 0; m < n_out; ++m) {
+		uint64_t p    = (m * 147ull);
+		uint32_t base = (uint32_t)(p / 160ull);
+		uint32_t rem  = (uint32_t)(p % 160ull);        /* 0..159 */
+
+		/* Clamp the "next" index at the end; sample-hold last frame */
+		uint32_t next = (base + 1u < (uint32_t)total_frames) ? (base + 1u) : base;
+
+		/* Load neighbours (stereo interleaved) */
+		int16_t l0 = frames[base * 2 + 0];
+		int16_t r0 = frames[base * 2 + 1];
+		int16_t l1 = frames[next * 2 + 0];
+		int16_t r1 = frames[next * 2 + 1];
+
+		/* Integer linear interpolation with symmetric rounding: y = l0 + (l1-l0)*rem/160 */
+		const int32_t dl = (int32_t)l1 - (int32_t)l0;
+		const int32_t dr = (int32_t)r1 - (int32_t)r0;
+
+		int32_t lo = (int32_t)l0 + (int32_t)((dl * (int32_t)rem + 80) / 160); /* +80 ≈ +0.5 LSB */
+		int32_t ro = (int32_t)r0 + (int32_t)((dr * (int32_t)rem + 80) / 160);
+
+		/* Clamp to s16 just in case */
+		if (lo >  32767) lo =  32767; else if (lo < -32768) lo = -32768;
+		if (ro >  32767) ro =  32767; else if (ro < -32768) ro = -32768;
+
+		out[m * 2 + 0] = (int16_t)lo;
+		out[m * 2 + 1] = (int16_t)ro;
+	}
+
+	/* Push into 48 kHz FIFO */
+	size_t live = s_q_len_fr - s_q_head_fr;
+	memcpy(s_q_pcm + (live * 2), out, (size_t)n_out * 2 * sizeof(int16_t));
+	s_q_len_fr = live + (size_t)n_out;
+
+	/* Free temp */
+	kfree(out);
+
+	/* Maintain your original return contract: input frames consumed */
+	return total_frames;
 }
+
+
 
 /* Drain FIFO into HDA BDL (idle hook) */
 static void hda_idle(void) {
@@ -1216,7 +1297,7 @@ static audio_device_t *init_hda(void) {
 		dprintf("hda: controller bring-up failed\n");
 		return NULL;
 	}
-	if (!hda_stream_prepare(4096, 44100)) {
+	if (!hda_stream_prepare(4096, 48000)) {
 		dprintf("hda: stream prepare failed\n");
 		return NULL;
 	}
