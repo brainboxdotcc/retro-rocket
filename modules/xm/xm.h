@@ -1,146 +1,493 @@
-#include <stdint.h>
+/* Author: Romain "Artefact2" Dalmaso <artefact2@gmail.com> */
+/* Contributor: Dan Spencer <dan@atomicpotato.net> */
+
+/* This program is free software. It comes without any warranty, to the
+ * extent permitted by applicable law. You can redistribute it and/or
+ * modify it under the terms of the Do What The Fuck You Want To Public
+ * License, Version 2, as published by Sam Hocevar. See
+ * http://sam.zoy.org/wtfpl/COPYING for more details. */
+
 #pragma once
+#ifndef __has_xm_h
+#define __has_xm_h
 
-#define XM_MAGIC_TEXT                 "Extended Module: "
-#define XM_MAGIC_LEN                  17
+/* Retro Rocket hard-wired build options */
 
-#define XM_MAX_CHANNELS               32
-#define XM_MAX_ORDERS                256
-#define XM_MAX_PATTERNS              256
-#define XM_MAX_INSTRUMENTS           128
-#define XM_MAX_ENV_POINTS             12
-#define XM_TARGET_RATE             44100
+/* Retro Rocket hard-wired config for libxm */
 
-/* Pattern decode results per cell */
-typedef struct {
-	uint8_t note;          /* 0=no note, 1..96 = C-0..B-7, 97=Note Off */
-	uint8_t instrument;    /* 0=no change, 1..128 */
-	uint8_t volcol;        /* raw volume column byte (0..255, 0=none) */
-	uint8_t effect;        /* raw effect type byte */
-	uint8_t param;         /* raw effect param byte */
-} xm_cell_t;
+#define XM_DISABLED_FEATURES        0ULL
+#define XM_DISABLED_EFFECTS         0ULL
+#define XM_DISABLED_VOLUME_EFFECTS  0ULL
+#define XM_STRINGS                  1ULL
+#define XM_TIMING_FUNCTIONS         1ULL
+#define XM_MUTING_FUNCTIONS         1ULL
+#define XM_LINEAR_INTERPOLATION     1ULL
+#define XM_PANNING_TYPE             8ULL
+#define XM_MICROSTEP_BITS           8ULL
+#define XM_SAMPLE_TYPE              float
+#define XM_SAMPLE_RATE              44100
+#define XM_LOOPING_TYPE             2ULL
 
-/* Decoded pattern: rows x channels */
-typedef struct {
-	uint16_t rows;         /* 1..256 (FT2 commonly 64) */
-	xm_cell_t *cells;      /* rows * channels */
-} xm_pattern_t;
+#include <stdint.h>
+#include <stdbool.h>
 
-/* One sample attached to an instrument */
-typedef struct {
-	int16_t *pcm;          /* decoded PCM (S16) */
-	uint32_t length;       /* samples (not bytes) */
-	uint32_t loop_start;   /* samples */
-	uint32_t loop_len;     /* samples */
-	int loop_type;         /* 0=none,1=forward,2=pingpong */
-	int relative_note;     /* -96..+96 typical */
-	int fine_tune;         /* -128..+127 (1/128 semitone units) */
-	int default_volume;    /* 0..64 */
-	int default_pan;       /* 0..255 */
-} xm_sample_t;
+struct xm_context_s;
+typedef struct xm_context_s xm_context_t;
 
-/* Envelope definition (discrete points) */
-typedef struct {
-	int enabled;
-	int sustain;           /* point index */
-	int loop_start;        /* point index */
-	int loop_end;          /* point index */
-	int num_points;        /* 0..12 */
-	int points[XM_MAX_ENV_POINTS][2]; /* x=tick, y=value(0..64 for vol, 0..255 for pan) */
-} xm_envelope_t;
+struct xm_prescan_data_s;
+typedef struct xm_prescan_data_s xm_prescan_data_t;
+extern const uint8_t XM_PRESCAN_DATA_SIZE;
 
-/* Instrument (keymap + envelopes) */
-typedef struct {
-	int num_samples;
-	xm_sample_t *samples;
-	int keymap[96];        /* 1..96 => sample index (0..num_samples-1), -1 for none */
-	xm_envelope_t vol_env;
-	xm_envelope_t pan_env;
-	int fadeout;           /* 0..32767 (applied post key-off per tick) */
-} xm_instrument_t;
+/** xm_sample_type_t could be int8_t, int16_t or float: you can use _Generic()
+ * to cover all possibilities at compile-time:
+ *
+ * xm_sample_point_t foo = _Generic(
+ *     (xm_sample_point_t){},
+ *     int8_t: ... ,
+ *     int16_t: ... ,
+ *     float: ...
+ * );
+ *
+ * Do not use sizeof(), unsigned types or int32 might be eventually added. */
+typedef float xm_sample_point_t;
 
-/* Per-channel runtime */
-typedef struct {
-	int active;
 
-	/* Current instrument/sample selection */
-	int inst_idx;          /* -1 if none */
-	int smp_idx;           /* -1 if none */
-	xm_sample_t *smp;      /* shortcut */
 
-	/* Playback cursor and step */
-	int sample_pos;        /* integer sample index */
-	int sample_frac;       /* Q16 fractional position */
-	int sample_inc;        /* Q16 step per output sample */
-	int loop_dir;          /* +1 forward, -1 backward (for pingpong) */
+/** Pre-load key information from the module file.
+ *
+ * @param moddata[.moddata_length] contents of the module
+ * @param moddata_length length of moddata (in bytes)
+ *
+ * @param out write results to this struct (does not need to be initialised
+ * first)
+ *
+ * @returns true on success, false on failure
+ */
+bool xm_prescan_module(const char* restrict moddata, uint32_t moddata_length,
+		       xm_prescan_data_t* restrict out)
+__attribute__((warn_unused_result))
+__attribute__((nonnull(3)));
 
-	/* Musical state */
-	int key_on;            /* 1 while note held, cleared by Note Off */
-	int curr_note;         /* last note value (1..96) */
-	int target_note;       /* for tone portamento */
-	int period;            /* Amiga-style period (for compat path) */
-	int porta_speed;       /* last non-zero 3xx speed */
-	int vol;               /* 0..64 base volume before envelopes */
-	int pan;               /* 0..255 */
-	int global_vol_applied;/* cached last global vol applied */
+/** Returns the required number of bytes of a xm_context_t to load the given
+ * module data.
+ *
+ * @param p prescan data generated by xm_prescan_module()
+ *
+ * @returns number of bytes
+ */
+uint32_t xm_size_for_context(const xm_prescan_data_t* p)
+__attribute__((warn_unused_result))
+__attribute__((nonnull));
 
-	/* Effect oscillators */
-	int vib_phase;         /* 0..63 */
-	int vib_speed;         /* 0..63 (volcol 0xA?) */
-	int vib_depth;         /* 0..15 (volcol 0xB?) */
-	int trem_phase;        /* 0..63 */
-	int trem_speed;        /* 0..63 */
-	int trem_depth;        /* 0..15 */
+/** Create a XM context.
+ *
+ * Typical usage is:
+ *
+ * xm_prescan_data* p = alloca(XM_PRESCAN_DATA_SIZE);
+ * if(xm_prescan_module(moddata, moddata_length, p)) {
+ *     xm_context_t* ctx = xm_create_context(
+ *         malloc(xm_size_for_context(p)),
+ *         p, moddata, moddata_length
+ *     );
+ *     // use context...
+ *     free(ctx);
+ * }
+ *
+ * @param pool[.xm_size_for_context()] a pool of allocated memory, at least
+ * xm_size_for_context(...) bytes long (it is your responsibility to allocate
+ * this) and suitably aligned to max_align_t (pointers returned by malloc() will
+ * always satisfy this)
+ *
+ * @param moddata[.moddata_length] the contents of the module
+ * @param moddata_length the length of the contents of the module, in bytes
+ *
+ * @returns pool as xm_context_t* (it is your responsibility to free this)
+ */
+xm_context_t* xm_create_context(char* restrict pool,
+				const xm_prescan_data_t* restrict p,
+				const char* restrict moddata,
+				uint32_t moddata_length)
+__attribute__((assume_aligned(8)))
+__attribute__((warn_unused_result))
+__attribute__((returns_nonnull))
+__attribute__((nonnull));
 
-	/* Envelope runtime */
-	int vol_env_tick;      /* elapsed ticks on vol env timeline */
-	int pan_env_tick;      /* elapsed ticks on pan env timeline */
-	int released;          /* set on Note Off to enable fadeout */
-	int fade;              /* running fadeout value */
 
-	/* Memorised params */
-	int sample_offset_mem; /* for 9xx with param=0 */
-	int volslide_mem;      /* for Axy when x/y = 0 in combo effects */
-	int retrig_countdown;  /* E9x retrigger counter */
-} xm_channel_t;
 
-/* Whole song runtime */
-typedef struct {
-	/* Song */
-	int channels;
-	int orders;
-	const uint8_t *order_table; /* size >= orders */
-	int patterns_count;
-	int instruments_count;
-	int flags_linear_freq;      /* 1 if linear frequency mode */
-	int initial_speed;          /* ticks/row */
-	int initial_tempo;          /* BPM */
+/** Returns the number of bytes used by the context. Functionally equivalent to
+ * xm_size_for_context(), but for already loaded contexts. */
+uint32_t xm_context_size(const xm_context_t*)
+__attribute__((warn_unused_result))
+__attribute__((nonnull));
 
-	/* Runtime position */
-	int order;
-	int row;
-	int tick;
-	int speed;                  /* ticks per row (runtime) */
-	int tempo;                  /* BPM (runtime) */
-	int ended;
-	int pat_loop_row;
-	int pat_loop_count;
+/** Save a context to the libxm format. This format is highly non-portable and
+ * is meant for static linking only. If the context has been used to generate
+ * audio samples, its current playback position (and effect memories, etc) will
+ * also be saved; use xm_reset_context() before saving to prevent this.
+ *
+ *  @param ctx the context to save
+ *
+ *  @param out[.xm_context_size()] a pool of allocated memory, at least
+ *  xm_context_size(ctx) bytes long
+ */
+void xm_context_to_libxm(xm_context_t* restrict ctx, char* restrict out)
+__attribute__((nonnull));
 
-	/* Timing to audio */
-	uint32_t samplerate;
-	uint32_t audio_speed;       /* samples per tick */
-	uint32_t audio_tick;        /* samples remaining in current tick */
+/** Load a module from libxm format. This format is highly non-portable and is
+ * meant for static linking only.
+ *
+ * This function will produce smaller code size compared to
+ * xm_create_context(), but requires converting the .xm file to a
+ * non-portable format beforehand.
+ *
+ * This function doesn't do any kind of error checking.
+ *
+ * @param data pointer to **writeable** data generated by xm_context_to_libxm();
+ * the pointer must be aligned to max_align_t (this is always true for pointers
+ * returned by malloc())
+ */
+xm_context_t* xm_create_context_from_libxm(char* data)
+__attribute__((assume_aligned(8)))
+__attribute__((returns_nonnull))
+__attribute__((warn_unused_result))
+__attribute__((nonnull));
 
-	/* Globals */
-	int global_vol;             /* 0..64 */
 
-	/* Assets */
-	xm_pattern_t *patterns;     /* patterns_count */
-	xm_instrument_t *instruments; /* instruments_count */
 
-	/* Channels */
-	xm_channel_t ch[XM_MAX_CHANNELS];
+/** Set the output sample rate (in Hz). You would typically call this
+ * immediately after xm_create_context(), with a value that matches the system's
+ * audio output, or a standard value like 44100 or 48000 if outputting to a
+ * file. Has no effect if libxm was compiled with a hardcoded value
+ * (XM_SAMPLE_RATE).
+ */
+void xm_set_sample_rate(xm_context_t*, uint16_t)
+__attribute__((nonnull));
 
-	/* Decode scratch */
-	int rng;
-} xm_state_t;
+/** Returns the sample rate currently used. */
+uint16_t xm_get_sample_rate(const xm_context_t*)
+__attribute__((nonnull))
+__attribute__((warn_unused_result));
+
+
+
+/** Play the module and put the audio samples in an output buffer. Frames
+ * are written interleaved, eg LRLRLRLRLRLR...
+ *
+ * @param output[.2*numsamples] buffer of 2*numsamples elements
+ * @param numsamples number of samples to generate
+ */
+void xm_generate_samples(xm_context_t*, float* output, uint16_t numsamples)
+__attribute__((nonnull(1)));
+
+/** Same as xm_generate_samples(), but do not interleave audio frames.
+ *
+ * If output_left == output_right, the buffer will contain L+R, can be helpful
+ * when downmixing to mono.
+ *
+ * @param output_left[.numsamples] buffer of numsamples elements
+ * @param output_right[.numsamples] buffer of numsamples elements
+ */
+void xm_generate_samples_noninterleaved(xm_context_t*,
+					float* output_left, float* output_right,
+					uint16_t numsamples)
+__attribute__((nonnull(1)));
+
+/** Same as xm_generate_samples(), but does not mix down the channels. For
+ * instance, for a 4-channel module, one audio frame is 8 floats (LRLRLRLR).
+ *
+ * @param output[.2*numsamples*num_channels] buffer of
+ * 2*xm_get_number_of_channels(ctx)*numsamples elements
+ *
+ * @param numsamples number of samples to generate
+ */
+void xm_generate_samples_unmixed(xm_context_t*, float* output,
+				 uint16_t numsamples)
+__attribute__((nonnull(1)));
+
+
+
+/** Set the maximum number of times a module can loop. After the specified
+ * number of loops, calls to xm_generate_samples will only generate silence. You
+ * can get the current number of loops with xm_get_loop_count().
+ *
+ * Has no effect if the loop count is hardcoded with XM_LOOPING_TYPE.
+ *
+ * @param loopcnt maximum number of loops. Use 0 to loop
+ * indefinitely. */
+void xm_set_max_loop_count(xm_context_t*, uint8_t loopcnt)
+__attribute__((nonnull));
+
+/** Get the loop count of the currently playing module. This value is
+ * 0 when the module is still playing, 1 when the module has looped
+ * once, etc. */
+uint8_t xm_get_loop_count(const xm_context_t*)
+__attribute__((warn_unused_result))
+__attribute__((nonnull));
+
+
+
+/** Seek to a specific position in a module.
+ *
+ * WARNING, WITH BIG LETTERS: seeking modules is broken by design,
+ * don't expect miracles.
+ */
+void xm_seek(xm_context_t*, uint8_t pot, uint8_t row, uint8_t tick)
+__attribute__((nonnull));
+
+
+
+/** Mute or unmute a channel.
+ *
+ * @note Channel numbers go from 1 to xm_get_number_of_channels(...).
+ *
+ * @return whether the channel was muted.
+ */
+bool xm_mute_channel(xm_context_t*, uint8_t, bool)
+__attribute__((nonnull));
+
+/** Mute or unmute an instrument.
+ *
+ * @note Instrument numbers go from 1 to
+ * xm_get_number_of_instruments(...).
+ *
+ * @return whether the instrument was muted.
+ */
+bool xm_mute_instrument(xm_context_t*, uint8_t, bool)
+__attribute__((nonnull));
+
+
+
+/** Get the module name as a NUL-terminated string. */
+const char* xm_get_module_name(const xm_context_t*)
+__attribute__((warn_unused_result))
+__attribute__((nonnull));
+
+/** Get the tracker name as a NUL-terminated string. */
+const char* xm_get_tracker_name(const xm_context_t*)
+__attribute__((warn_unused_result))
+__attribute__((returns_nonnull))
+__attribute__((nonnull));
+
+/** Get an instrument name as a NUL-terminated string.
+ *
+ * @note Instrument numbers go from 1 to xm_get_number_of_instruments(...).
+ *
+ * @returns pointer to a string, or NULL on invalid inputs */
+const char* xm_get_instrument_name(const xm_context_t*, uint8_t)
+__attribute__((warn_unused_result))
+__attribute__((returns_nonnull))
+__attribute__((nonnull));
+
+/** Get a sample name as a NUL-terminated string.
+ *
+ * @note Instrument numbers go from 1 to xm_get_number_of_instruments(...).
+ *
+ * @note Sample numbers go from 0 to xm_get_number_of_samples(...)-1.
+ *
+ * @returns pointer to a string, or NULL on invalid inputs */
+const char* xm_get_sample_name(const xm_context_t*, uint8_t i, uint8_t s)
+__attribute__((warn_unused_result))
+__attribute__((returns_nonnull))
+__attribute__((nonnull));
+
+
+
+/** Get the number of channels. */
+uint8_t xm_get_number_of_channels(const xm_context_t*)
+__attribute__((warn_unused_result))
+__attribute__((nonnull));
+
+/** Get the module length (in patterns). */
+uint16_t xm_get_module_length(const xm_context_t*)
+__attribute__((warn_unused_result))
+__attribute__((nonnull));
+
+/** Get the number of patterns. */
+uint16_t xm_get_number_of_patterns(const xm_context_t*)
+__attribute__((warn_unused_result))
+__attribute__((nonnull));
+
+/** Get the number of rows of a pattern.
+ *
+ * @note Pattern numbers go from 0 to
+ * xm_get_number_of_patterns(...)-1.
+ */
+uint16_t xm_get_number_of_rows(const xm_context_t*, uint16_t)
+__attribute__((warn_unused_result))
+__attribute__((nonnull));
+
+/** Get the number of instruments. */
+uint8_t xm_get_number_of_instruments(const xm_context_t*)
+__attribute__((warn_unused_result))
+__attribute__((nonnull));
+
+/** Get the number of samples of an instrument.
+ *
+ * @note Instrument numbers go from 1 to
+ * xm_get_number_of_instruments(...).
+ */
+uint8_t xm_get_number_of_samples(const xm_context_t*, uint8_t)
+__attribute__((warn_unused_result))
+__attribute__((nonnull));
+
+/** Get the internal buffer for a given sample waveform.
+ *
+ * This buffer can be read from or written to, at any time, but the
+ * length cannot change.
+ *
+ * @note Instrument numbers go from 1 to
+ * xm_get_number_of_instruments(...).
+ *
+ * @note Sample numbers go from 0 to
+ * xm_get_nubmer_of_samples(...,instr)-1.
+ *
+ * @returns pointer to sample data, or NULL on error
+ */
+xm_sample_point_t* xm_get_sample_waveform(xm_context_t*, uint8_t instr,
+					  uint8_t sample, uint32_t* out_length)
+__attribute__((warn_unused_result))
+__attribute__((returns_nonnull))
+__attribute__((nonnull));
+
+
+
+/** Get the current module speed.
+ *
+ * @param bpm will receive the current BPM if not NULL
+ * @param tempo will receive the current tempo (ticks per line) if not NULL
+ */
+void xm_get_playing_speed(const xm_context_t*, uint8_t* bpm, uint8_t* tempo)
+__attribute__((nonnull(1)));
+
+/** Get the current position in the module being played.
+ *
+ * @param pattern_index if not NULL, will receive the current pattern
+ * index in the POT (pattern order table)
+ *
+ * @param pattern if not NULL, will receive the current pattern number
+ *
+ * @param row if not NULL, will receive the current row
+ *
+ * @param samples if not NULL, will receive the total number of
+ * generated samples (divide by sample rate to get seconds of
+ * generated audio)
+ */
+void xm_get_position(const xm_context_t*, uint8_t* pattern_index,
+		     uint8_t* pattern, uint8_t* row, uint32_t* samples)
+__attribute__((nonnull(1)));
+
+/** Get the latest time (in number of generated samples) when a
+ * particular instrument was triggered in any channel.
+ *
+ * @note Instrument numbers go from 1 to
+ * xm_get_number_of_instruments(...).
+ */
+uint32_t xm_get_latest_trigger_of_instrument(const xm_context_t*, uint8_t)
+__attribute__((warn_unused_result))
+__attribute__((nonnull));
+
+/** Get the latest time (in number of generated samples) when a
+ * particular sample was triggered in any channel.
+ *
+ * @note Instrument numbers go from 1 to
+ * xm_get_number_of_instruments(...).
+ *
+ * @note Sample numbers go from 0 to
+ * xm_get_nubmer_of_samples(...,instr)-1.
+ */
+uint32_t xm_get_latest_trigger_of_sample(const xm_context_t*, uint8_t instr,
+					 uint8_t sample)
+__attribute__((warn_unused_result))
+__attribute__((nonnull));
+
+/** Get the latest time (in number of generated samples) when any
+ * instrument was triggered in a given channel.
+ *
+ * @note Channel numbers go from 1 to xm_get_number_of_channels(...).
+ */
+uint32_t xm_get_latest_trigger_of_channel(const xm_context_t*, uint8_t)
+__attribute__((warn_unused_result))
+__attribute__((nonnull));
+
+/** Checks whether a channel is active (ie: is playing something).
+ *
+ * @note Channel numbers go from 1 to xm_get_number_of_channels(...).
+ */
+bool xm_is_channel_active(const xm_context_t*, uint8_t)
+__attribute__((warn_unused_result))
+__attribute__((nonnull));
+
+/** Get the instrument number currently playing in a channel.
+ *
+ * @returns instrument number, or 0 if channel is not active.
+ *
+ * @note Channel numbers go from 1 to xm_get_number_of_channels(...).
+ *
+ * @note Instrument numbers go from 1 to
+ * xm_get_number_of_instruments(...).
+ */
+uint8_t xm_get_instrument_of_channel(const xm_context_t*, uint8_t)
+__attribute__((warn_unused_result))
+__attribute__((nonnull));
+
+/** Get the frequency of the sample currently playing in a channel.
+ *
+ * @returns a frequency in Hz. If the channel is not active, return
+ * value is undefined.
+ *
+ * @note Channel numbers go from 1 to xm_get_number_of_channels(...).
+ */
+float xm_get_frequency_of_channel(const xm_context_t*, uint8_t)
+__attribute__((warn_unused_result))
+__attribute__((nonnull));
+
+/** Get the volume of the sample currently playing in a channel. This
+ * takes into account envelopes, etc.
+ *
+ * @returns a volume between 0 or 1. If the channel is not active,
+ * return value is undefined.
+ *
+ * @note Channel numbers go from 1 to xm_get_number_of_channels(...).
+ */
+float xm_get_volume_of_channel(const xm_context_t*, uint8_t)
+__attribute__((warn_unused_result))
+__attribute__((nonnull));
+
+/** Get the panning of the sample currently playing in a channel. This
+ * takes into account envelopes, etc.
+ *
+ * @returns a panning between 0 (L) and 1 (R). If the channel is not
+ * active, return value is undefined.
+ *
+ * @note Channel numbers go from 1 to xm_get_number_of_channels(...).
+ */
+float xm_get_panning_of_channel(const xm_context_t*, uint8_t)
+__attribute__((warn_unused_result))
+__attribute__((nonnull));
+
+
+
+/** Reset a context. This essentially seeks back to the first row of the first
+ * pattern in the POT, and resets all internal state to their default values.
+ *
+ * In essence, this is like reloading the context from stratch, but is much
+ * faster. */
+void xm_reset_context(xm_context_t*);
+
+
+
+/** Analyse a module and check for unused features. Write a NUL-terminated list
+ * of build flag suggestions in a string.
+ *
+ * You should call xm_reset_context() before and after xm_analyze().
+ *
+ * @param out Should point to a writeable area, at least XM_ANALYZE_OUTPUT_SIZE
+ * bytes long. */
+void xm_analyze(xm_context_t* restrict, char* restrict out)
+__attribute__((nonnull));
+
+extern const uint16_t XM_ANALYZE_OUTPUT_SIZE;
+
+int xm_pos_wrapped(xm_context_t *ctx, uint8_t *prev_pi, uint8_t *prev_pat, uint8_t *prev_row, uint32_t *prev_samp);
+
+#endif

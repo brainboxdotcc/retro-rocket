@@ -131,6 +131,7 @@ foreach(mod ${MODULE_DIRS})
             set(MOD_OUT ${CMAKE_BINARY_DIR}/iso/system/modules/${mod}.ko)
             add_custom_command(
                     OUTPUT  ${MOD_OUT}
+                    COMMAND_EXPAND_LISTS
                     COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/iso/system/modules
                     COMMAND ${CMAKE_LINKER} -r -o ${MOD_OUT} $<TARGET_OBJECTS:mod_${mod}>
                     DEPENDS $<TARGET_OBJECTS:mod_${mod}>

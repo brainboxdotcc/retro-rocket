@@ -174,6 +174,12 @@ double rad(double degrees);
 
 double ldexp(double x, int exp);
 
+float log2f(float x);
+
+static inline uint8_t stdc_count_ones(uint32_t x) {
+	return (uint8_t)__builtin_popcount(x);
+}
+
 #define MIN(a,b) (((a) < (b)) ? (a) : (b))
 #define MAX(a,b) (((a) > (b)) ? (a) : (b))
 #define CLAMP(v, lo, hi) (((v) < (lo)) ? (lo) : (((v) > (hi)) ? (hi) : (v)))

@@ -277,3 +277,7 @@ double rad(double degrees)
 double ldexp(double x, int exp) {
 	return __builtin_ldexp(x, exp);
 }
+
+float log2f(float x) {
+	return log(x) * 1.4426950408889634f;
+}
