@@ -1080,9 +1080,9 @@ static bool q_ensure_cap(size_t extra_fr) {
 	return total_frames;
 }*/
 
-/* Upsample entire 44.1kHz stereo s16 buffer to 48kHz ON SUBMIT and push to 48kHz FIFO.
-   - frames: interleaved L,R samples
-   - total_frames: number of *stereo frames* at 44.1 kHz
+/* Upsample entire 44.1kHz stereo s16 buffer to 48kHz ON SUBMIT and append to 48kHz FIFO.
+   - frames: interleaved L,R samples @44.1kHz
+   - total_frames: number of *stereo frames* at 44.1kHz
    - Returns: input frames consumed (same contract as before)
 */
 static size_t push_all_s16le(const int16_t *frames, size_t total_frames) {
@@ -1095,51 +1095,63 @@ static size_t push_all_s16le(const int16_t *frames, size_t total_frames) {
 		return 0;
 	}
 
-	/* Compute how many 48 kHz frames we need: floor(N * 160 / 147) */
+	/* Map 44.1k → 48k: exact count of output frames */
 	const uint64_t n_in  = (uint64_t)total_frames;
 	const uint64_t n_out = (n_in * 160ull) / 147ull;   /* exact integer mapping */
 	if (n_out == 0) {
 		return 0;
 	}
 
-	/* Ensure FIFO has room for the 48 kHz output */
-	if (!q_ensure_cap((size_t)n_out)) {
-		dprintf("hda: queue OOM (wanted %lu frames @48k)\n", (unsigned long)n_out);
+	/* --- pad to whole DMA fragments --- */
+	const size_t frag = hda.frag_frames ? (size_t)hda.frag_frames : 1024;
+	const size_t rem  = (size_t)(n_out % frag);
+	const size_t pad  = rem ? (frag - rem) : 0;
+	size_t n_out_padded = (size_t)n_out + pad;
+
+	/* Ensure FIFO has capacity for existing unread + new output (in frames) */
+	size_t pending = s_q_len_fr - s_q_head_fr;                 /* unread frames already queued */
+	size_t need    = pending + (size_t)n_out_padded;           /* total frames after append */
+	if (!q_ensure_cap(need)) {
+		dprintf("hda: queue OOM (wanted %lu frames @48k)\n", (unsigned long)need);
 		return 0;
 	}
 
-	/* Temp buffer for the upsampled stereo s16 data (48 kHz) */
-	int16_t *out = kmalloc(n_out * 2 * sizeof(int16_t));
+	/* If some data has already been consumed, compact unread to the start so tail is contiguous */
+	if (s_q_head_fr) {
+		memmove(s_q_pcm, s_q_pcm + (s_q_head_fr * 2), pending * 2 * sizeof(int16_t));
+		s_q_head_fr = 0;
+		s_q_len_fr  = pending;
+	}
+
+	/* Temporary buffer for upsampled stereo s16 @48k */
+	int16_t *out = kmalloc((size_t)n_out_padded  * 2 * sizeof(int16_t));
 	if (!out) {
-		dprintf("hda: OOM upsample buffer (%lu frames)\n", (unsigned long)n_out);
+		dprintf("hda: OOM upsample buffer (%lu frames)\n", (unsigned long)n_out_padded );
 		return 0;
 	}
 
 	/* Output-driven linear SRC:
 	   For each output frame m, input position p = m * 147 / 160 (in frames).
-	   frac = remainder/160 gives the interpolation fraction between base and base+1. */
+	   frac = (p % 160) / 160 gives interpolation fraction between base and base+1. */
 	for (uint64_t m = 0; m < n_out; ++m) {
 		uint64_t p    = (m * 147ull);
 		uint32_t base = (uint32_t)(p / 160ull);
 		uint32_t rem  = (uint32_t)(p % 160ull);        /* 0..159 */
 
-		/* Clamp the "next" index at the end; sample-hold last frame */
 		uint32_t next = (base + 1u < (uint32_t)total_frames) ? (base + 1u) : base;
 
-		/* Load neighbours (stereo interleaved) */
 		int16_t l0 = frames[base * 2 + 0];
 		int16_t r0 = frames[base * 2 + 1];
 		int16_t l1 = frames[next * 2 + 0];
 		int16_t r1 = frames[next * 2 + 1];
 
-		/* Integer linear interpolation with symmetric rounding: y = l0 + (l1-l0)*rem/160 */
 		const int32_t dl = (int32_t)l1 - (int32_t)l0;
 		const int32_t dr = (int32_t)r1 - (int32_t)r0;
 
-		int32_t lo = (int32_t)l0 + (int32_t)((dl * (int32_t)rem + 80) / 160); /* +80 ≈ +0.5 LSB */
+		/* y = l0 + (l1-l0)*rem/160 with symmetric rounding */
+		int32_t lo = (int32_t)l0 + (int32_t)((dl * (int32_t)rem + 80) / 160);
 		int32_t ro = (int32_t)r0 + (int32_t)((dr * (int32_t)rem + 80) / 160);
 
-		/* Clamp to s16 just in case */
 		if (lo >  32767) lo =  32767; else if (lo < -32768) lo = -32768;
 		if (ro >  32767) ro =  32767; else if (ro < -32768) ro = -32768;
 
@@ -1147,19 +1159,27 @@ static size_t push_all_s16le(const int16_t *frames, size_t total_frames) {
 		out[m * 2 + 1] = (int16_t)ro;
 	}
 
-	/* Push into 48 kHz FIFO */
-	size_t live = s_q_len_fr - s_q_head_fr;
-	memcpy(s_q_pcm + (live * 2), out, (size_t)n_out * 2 * sizeof(int16_t));
-	s_q_len_fr = live + (size_t)n_out;
+	/* --- repeat last output sample to fill to a whole fragment --- */
+	if (pad) {
+		int16_t last_l = out[(n_out - 1) * 2 + 0];
+		int16_t last_r = out[(n_out - 1) * 2 + 1];
+		for (size_t i = 0; i < pad; ++i) {
+			size_t idx = (size_t)n_out + i;
+			out[idx * 2 + 0] = last_l;
+			out[idx * 2 + 1] = last_r;
+		}
+	}
 
-	/* Free temp */
+	/* Append at true tail (current length), not at (len - head) */
+	size_t tail = s_q_len_fr;                                  /* tail index in frames */
+	memcpy(s_q_pcm + (tail * 2), out, (size_t)n_out * 2 * sizeof(int16_t));
+	s_q_len_fr = tail + (size_t)n_out;                         /* head unchanged */
+
 	kfree(out);
 
-	/* Maintain your original return contract: input frames consumed */
+	/* Maintain original return contract: input frames consumed */
 	return total_frames;
 }
-
-
 
 /* Drain FIFO into HDA BDL (idle hook) */
 static void hda_idle(void) {
@@ -1171,7 +1191,7 @@ static void hda_idle(void) {
 	if (pending == 0) {
 		return;
 	}
-	while (pending) {
+	while (pending && pending >= hda.frag_frames) {
 		size_t chunk = (pending > hda.frag_frames) ? hda.frag_frames : pending;
 		size_t pushed = hda_play_s16le(s_q_pcm + (s_q_head_fr * 2), chunk);
 		if (pushed == 0) {
