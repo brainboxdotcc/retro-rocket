@@ -1,16 +1,14 @@
-#include <stddef.h>
 #include <kernel.h>
 #include <mbedtls/entropy.h>
 #include <mbedtls/platform.h>
 #include <mbedtls/ctr_drbg.h>
-#include "mbedtls/ssl.h"
-
-/* globals */
-static mbedtls_entropy_context entropy;
-static mbedtls_ctr_drbg_context drbg;
+#include <mbedtls/ssl.h>
+#include <tls.h>
 
 #define ENTROPY_POOL_SIZE 256
 
+static mbedtls_entropy_context entropy;
+static mbedtls_ctr_drbg_context drbg;
 static volatile unsigned char entropy_pool[ENTROPY_POOL_SIZE];
 static volatile size_t entropy_head = 0;
 
@@ -32,7 +30,6 @@ void entropy_irq_event(void) {
 }
 
 int entropy_poll(void *data, unsigned char *output, size_t len, size_t *olen) {
-	(void)data;
 	size_t count = 0;
 
 	while (count < len) {
@@ -46,7 +43,7 @@ int entropy_poll(void *data, unsigned char *output, size_t len, size_t *olen) {
 	}
 
 	*olen = count;
-	return 0; /* success */
+	return 0;
 }
 
 void nonconst_kfree(void* p) {
@@ -76,12 +73,6 @@ void tls_global_free(void) {
 	mbedtls_ctr_drbg_free(&drbg);
 	mbedtls_entropy_free(&entropy);
 }
-
-struct tls_io {
-	int  (*send_fn)(void *ctx, const uint8_t *buf, size_t len);  // >0 bytes or ERR_WOULD_BLOCK
-	int  (*recv_fn)(void *ctx, uint8_t *buf, size_t len);        // >0 bytes or ERR_WOULD_BLOCK
-	void *ctx;
-};
 
 static int send_shim(void *p, const unsigned char *buf, size_t len) {
 	const struct tls_io *io = (const struct tls_io*)p;
