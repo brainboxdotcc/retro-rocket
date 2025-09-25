@@ -159,3 +159,5 @@ struct reqset request_addresses(void);
 	void profile_dump(void);
 	void profile_init(uint8_t* pre_allocated_funcs, uint8_t* pre_allocated_edges);
 #endif
+
+void entropy_irq_event(void);

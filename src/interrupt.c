@@ -102,6 +102,7 @@ void Interrupt(uint64_t isrnumber, uint64_t errorcode, uint64_t rip) {
 		wait_forever();
 	}
 
+	entropy_irq_event();
 	local_apic_clear_interrupt();
 	__builtin_ia32_fxrstor64(&fx);
 }
@@ -120,6 +121,7 @@ void IRQ(uint64_t isrnumber, uint64_t irqnum)
 		}
 	}
 
+	entropy_irq_event();
 	local_apic_clear_interrupt();
 	__builtin_ia32_fxrstor64(&fx);
 }

@@ -8,6 +8,7 @@
 #define STBI_NO_SIMD
 #define STBI_NO_HDR
 #define STBI_NO_THREAD_LOCALS
+#define STBI_ASSERT(x) {}
 #define STBI_MALLOC(sz)           kmalloc(sz)
 #define STBI_REALLOC(p,newsz)     krealloc(p,newsz)
 #define STBI_FREE(p)              kfree(p)
