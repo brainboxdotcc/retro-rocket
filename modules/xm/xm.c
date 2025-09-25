@@ -51,32 +51,41 @@ static int clamp_int(int v, int lo, int hi) {
 	return v;
 }
 
-/* FT2 linear frequency, exact keying:
-   - 64 "key units" per semitone (12 semis per octave)
-   - key64 = (note-1)*64 + rel_note*64 + fine/2   (fine is -128..127 -> -64..+63)
-   - C-4 (note 49) maps to key64 = 3072 and must produce 8363 Hz
-   - frequency = 8363 * 2^((key64 - 3072) / 768)
-   - step_q16 = frequency / samplerate in Q16.16
-*/
-/* FT2 linear frequency, spec-exact.
-   - RealNote = (note_1_96 - 1) + relative_note    (0..118)
-   - Period   = 7680 - RealNote*64 - fine_tune_128/2
-   - Freq(Hz) = 8363 * 2^((4608 - Period) / 768)
-   - step(Q16)= (Freq * 65536) / samplerate
+/* FT2 linear frequency (Q16.16 step):
+   key64 = (note-1 + relative_note)*64 + floor_div2(fine_tune_128)
+   freq  = 8363 * 2^((key64 - 3072) / 768)
+   step  = round((freq * 65536) / samplerate)
 */
 static int compute_step_linear_q16(int samplerate, int note_1_96, int relative_note, int fine_tune_128)
 {
-	int rn = (note_1_96 - 1) + relative_note;         /* RealNote */
-	if (rn < 0)  rn = 0;
-	if (rn > 118) rn = 118;
+	/* Effective note clamped to FT2’s range */
+	int base_note = (note_1_96 - 1) + relative_note;
+	if (base_note < 0) {
+		base_note = 0;
+	}
+	if (base_note > 118) {
+		base_note = 118;
+	}
 
-	int period = 7680 - rn * 64 - (fine_tune_128 / 2);
+	/* FT2 uses arithmetic right shift for (fine/2); emulate floor division for negatives */
+	int fine_half = (fine_tune_128 >= 0)
+			? (fine_tune_128 / 2)
+			: -((( -fine_tune_128 ) + 1) / 2); /* floor(f/2) for negative f */
 
-	double expo = (4608.0 - (double)period) / 768.0;
-	double freq = 8363.0 * pow(2.0, expo);
+	int key64 = base_note * 64 + fine_half;             /* 64 key units per semitone */
+	int delta = key64 - 3072;                           /* 3072 == C-4 */
 
-	int step = (int)((freq * 65536.0) / (double)samplerate);
-	if (step < 1) step = 1;
+	/* 2^(delta/768) via exp(exponent * ln2) */
+	const double LN2 = 0.69314718055994530942;          /* natural log of 2 */
+	double expo = (double)delta / 768.0;
+	double freq = 8363.0 * exp(expo * LN2);
+
+	/* Q16.16 step, rounded to nearest */
+	double step_d = (freq * 65536.0) / (double)samplerate;
+	int step = (int)(step_d + 0.5);
+	if (step < 1) {
+		step = 1;
+	}
 	return step;
 }
 
@@ -227,6 +236,12 @@ static int decode_patterns(const uint8_t *base, size_t len, int pat_count, int c
 
 		const uint8_t *d = p;
 		const uint8_t *dend = p + packed_len;
+
+		/* Allow empty patterns (packed_len == 0) - valid in XM */
+		if (packed_len == 0) {
+			p += packed_len;  /* no-op, keeps symmetry */
+			continue;
+		}
 
 		for (uint16_t r = 0; r < rows; r++) {
 			for (int ch = 0; ch < channels; ch++) {
