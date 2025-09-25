@@ -210,8 +210,6 @@ static inline int isinf(double x)
 }
 #endif
 
-/* === fabs (used by your log) ============================================ */
-
 #ifndef fabs
 static inline double fabs(double x)
 {
