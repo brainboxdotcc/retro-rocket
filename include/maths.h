@@ -174,7 +174,7 @@ static inline uint8_t stdc_count_ones(uint32_t x) {
 
 #define MIN(a,b) (((a) < (b)) ? (a) : (b))
 #define MAX(a,b) (((a) > (b)) ? (a) : (b))
-#define CLAMP(v, lo, hi) (((v) < (lo)) ? (lo) : (((v) > (hi)) ? (hi) : (v)))
+#define CLAMP(v, lo, hi)  (((v) <= (lo)) ? (lo) : (((v) >= (hi)) ? (hi) : (v)))
 
 /* === Constants: INFINITY, NAN =========================================== */
 

@@ -11,6 +11,14 @@ static inline uint32_t rd32(const uint8_t *p) {
 	return (uint32_t) (p[0] | (p[1] << 8) | (p[2] << 16) | (p[3] << 24));
 }
 
+/**
+ * @brief Delta-decodes an XM sample payload into signed 16-bit PCM.
+ *
+ * @param src Pointer to raw delta-compressed data.
+ * @param len_bytes Length of raw data in bytes.
+ * @param sixteen_bit Non-zero if sample is stored as 16-bit, zero for 8-bit.
+ * @return Pointer to newly allocated PCM buffer, or NULL on allocation failure.
+ */
 static int16_t *xm_delta_decode(const uint8_t *src, uint32_t len_bytes, int sixteen_bit) {
 	if (sixteen_bit) {
 		uint32_t count = len_bytes / 2;
@@ -41,23 +49,16 @@ static int16_t *xm_delta_decode(const uint8_t *src, uint32_t len_bytes, int sixt
 	}
 }
 
-static int clamp_int(int v, int lo, int hi) {
-	if (v < lo) {
-		return lo;
-	}
-	if (v > hi) {
-		return hi;
-	}
-	return v;
-}
-
-/* FT2 linear frequency (Q16.16 step):
-   key64 = (note-1 + relative_note)*64 + floor_div2(fine_tune_128)
-   freq  = 8363 * 2^((key64 - 3072) / 768)
-   step  = round((freq * 65536) / samplerate)
-*/
-static int compute_step_linear_q16(int samplerate, int note_1_96, int relative_note, int fine_tune_128)
-{
+/**
+ * @brief Compute Q16.16 sample step for a note in linear frequency mode.
+ *
+ * @param samplerate Output samplerate in Hz.
+ * @param note_1_96 Note number (1..96).
+ * @param relative_note Relative note offset applied to the sample.
+ * @param fine_tune_128 Fine tune in 1/128 semitone units.
+ * @return Q16.16 step value for advancing sample playback.
+ */
+static int compute_step_linear_q16(int samplerate, int note_1_96, int relative_note, int fine_tune_128) {
 	/* Effective note clamped to FT2’s range */
 	int base_note = (note_1_96 - 1) + relative_note;
 	if (base_note < 0) {
@@ -70,26 +71,34 @@ static int compute_step_linear_q16(int samplerate, int note_1_96, int relative_n
 	/* FT2 uses arithmetic right shift for (fine/2); emulate floor division for negatives */
 	int fine_half = (fine_tune_128 >= 0)
 			? (fine_tune_128 / 2)
-			: -((( -fine_tune_128 ) + 1) / 2); /* floor(f/2) for negative f */
+			: -(((-fine_tune_128) + 1) / 2); /* floor(f/2) for negative f */
 
 	int key64 = base_note * 64 + fine_half;             /* 64 key units per semitone */
 	int delta = key64 - 3072;                           /* 3072 == C-4 */
 
 	/* 2^(delta/768) via exp(exponent * ln2) */
 	const double LN2 = 0.69314718055994530942;          /* natural log of 2 */
-	double expo = (double)delta / 768.0;
+	double expo = (double) delta / 768.0;
 	double freq = 8363.0 * exp(expo * LN2);
 
 	/* Q16.16 step, rounded to nearest */
-	double step_d = (freq * 65536.0) / (double)samplerate;
-	int step = (int)(step_d + 0.5);
+	double step_d = (freq * 65536.0) / (double) samplerate;
+	int step = (int) (step_d + 0.5);
 	if (step < 1) {
 		step = 1;
 	}
 	return step;
 }
 
-/* Amiga-ish path: compute step (Q16) using PAL clock approximation */
+/**
+ * @brief Compute Q16.16 sample step using Amiga period (PAL clock) model.
+ *
+ * @param sample_rate_q16 Q16 factor of PAL clock divided by output samplerate (≈ 3546895<<16 / samplerate).
+ * @param note_1_96 Note number (1..96).
+ * @param rel_note Relative note offset applied to the sample.
+ * @param fine_tune_128 Fine tune in 1/128 semitone units.
+ * @return Q16.16 step value for advancing sample playback.
+ */
 static int compute_step_amiga_q16(uint32_t sample_rate_q16, int note_1_96, int rel_note, int fine_tune_128) {
 	int n = note_1_96;
 	if (n < 1) {
@@ -115,15 +124,16 @@ static int compute_step_amiga_q16(uint32_t sample_rate_q16, int note_1_96, int r
 	return (int) (sample_rate_q16 / p);
 }
 
-/* Recompute sample_inc (Q16.16) from effective pitch.
-   - base_note_1_96: 1..96
-   - semi_offset128: extra pitch in 1/128 semitone units (can be negative), e.g.
-       * arpeggio: +n*128
-       * vibrato:  +/- depth_scaled in 1/128 semitone
-*/
-static inline void set_step_from_note(xm_state_t *st, xm_channel_t *c,
-				      int base_note_1_96, int semi_offset128)
-{
+/**
+ * @brief Recompute channel sample step from note and fractional semitone offset.
+ *
+ * @param st XM runtime state (selects linear vs Amiga frequency mode).
+ * @param c Channel state to update; writes the resulting Q16.16 step to sample_inc.
+ * @param base_note_1_96 Base note number (1..96).
+ * @param semi_offset128 Extra pitch in 1/128 semitone units (can be negative).
+ * @return Nothing.
+ */
+static inline void set_step_from_note(xm_state_t *st, xm_channel_t *c, int base_note_1_96, int semi_offset128) {
 	if (!c->smp || !c->smp->pcm) {
 		c->sample_inc = 0;
 		return;
@@ -134,23 +144,36 @@ static inline void set_step_from_note(xm_state_t *st, xm_channel_t *c,
 	int fine128 = c->smp->fine_tune + semi_offset128;
 
 	/* Normalize: keep fine within [-64*128, +64*128] around note so exponent stays sane */
-	while (fine128 >= 64 * 128) { note += 64; fine128 -= 64 * 128; }
-	while (fine128 <= -64 * 128){ note -= 64; fine128 += 64 * 128; }
+	while (fine128 >= 64 * 128) {
+		note += 64;
+		fine128 -= 64 * 128;
+	}
+	while (fine128 <= -64 * 128) {
+		note -= 64;
+		fine128 += 64 * 128;
+	}
 
 	if (st->flags_linear_freq) {
 		/* FT2 linear: convert the extra 1/128 semitone offset to linear fine_tune (1/2 key64 unit):
 		   1 semitone = 64 key64 units; FineTune term in Period is (fine/2), where 'fine' is in 1/1 semitone = 128 units.
 		   So we can pass the combined fine directly as 'fine_tune_128'. */
-		c->sample_inc = compute_step_linear_q16((int)st->samplerate, note, c->smp->relative_note, fine128);
+		c->sample_inc = compute_step_linear_q16((int) st->samplerate, note, c->smp->relative_note, fine128);
 	} else {
 		/* Amiga/period path (your existing function), unchanged */
-		uint32_t sr_q16 = (uint32_t)(((uint64_t)3546895 << 16) / (uint64_t)st->samplerate);
+		uint32_t sr_q16 = (uint32_t) (((uint64_t) 3546895 << 16) / (uint64_t) st->samplerate);
 		c->sample_inc = compute_step_amiga_q16(sr_q16, note, c->smp->relative_note, c->smp->fine_tune + (semi_offset128 / 128));
 	}
 }
 
 
-/* Envelope evaluator (linear between points) */
+/**
+ * @brief Evaluate an envelope value at a given tick using linear interpolation.
+ *
+ * @param env Pointer to the envelope definition.
+ * @param tick Tick position on the envelope timeline.
+ * @param is_vol Non-zero for volume envelope, zero for pan envelope.
+ * @return Interpolated envelope value (0..64 for volume, 0..255 for pan).
+ */
 static int env_value_linear(const xm_envelope_t *env, int tick, int is_vol) {
 	if (!env->enabled || env->num_points == 0) {
 		return is_vol ? 64 : 128; /* unity volume, centre pan */
@@ -184,50 +207,62 @@ static int env_value_linear(const xm_envelope_t *env, int tick, int is_vol) {
 			int y1 = env->points[i + 1][1];
 			int dx = x1 - x0;
 			if (dx <= 0) {
-				return is_vol ? clamp_int(y0, 0, 64) : clamp_int(y0, 0, 255);
+				return is_vol ? CLAMP(y0, 0, 64) : CLAMP(y0, 0, 255);
 			}
 			int dy = y1 - y0;
 			int num = (tick - x0) * dy;
 			int y = y0 + num / dx;
-			return is_vol ? clamp_int(y, 0, 64) : clamp_int(y, 0, 255);
+			return is_vol ? CLAMP(y, 0, 64) : CLAMP(y, 0, 255);
 		}
 	}
 	/* After last point */
 	int y_end = env->points[env->num_points - 1][1];
-	return is_vol ? clamp_int(y_end, 0, 64) : clamp_int(y_end, 0, 255);
+	return is_vol ? CLAMP(y_end, 0, 64) : CLAMP(y_end, 0, 255);
 }
 
+/**
+ * @brief Decode all patterns from an XM file into cell arrays.
+ *
+ * @param base Pointer to start of XM file data.
+ * @param len Length of XM file data in bytes.
+ * @param pat_count Number of patterns to decode.
+ * @param channels Number of channels per pattern.
+ * @param out_patterns Destination array of pattern structures.
+ * @param cursor Pointer to file cursor; advanced past decoded data.
+ * @return 1 on success, 0 on failure.
+ */
 static int decode_patterns(const uint8_t *base, size_t len, int pat_count, int channels, xm_pattern_t *out_patterns, const uint8_t **cursor) {
 	const uint8_t *p = *cursor;
 
 	for (int pi = 0; pi < pat_count; pi++) {
-		if ((size_t)(p - base) + 9 > len) {
+		if ((size_t) (p - base) + 9 > len) {
 			dprintf("xm: pattern[%d] header OOB\n", pi);
 			return 0;
 		}
 
-		uint32_t header_len = rd32(p); p += 4;
-		if ((size_t)(p - base) + header_len - 4 > len) {
+		uint32_t header_len = rd32(p);
+		p += 4;
+		if ((size_t) (p - base) + header_len - 4 > len) {
 			dprintf("xm: pattern[%d] header truncated\n", pi);
 			return 0;
 		}
 
-		uint16_t rows        = rd16(p + 1);
-		uint16_t packed_len  = rd16(p + 3);
+		uint16_t rows = rd16(p + 1);
+		uint16_t packed_len = rd16(p + 3);
 		p += header_len - 4;
 
 		if (rows == 0) {
 			rows = 64;
 		}
-		if ((size_t)(p - base) + packed_len > len) {
+		if ((size_t) (p - base) + packed_len > len) {
 			dprintf("xm: pattern[%d] data OOB\n", pi);
 			return 0;
 		}
 
 		xm_pattern_t *pat = &out_patterns[pi];
 		pat->rows = rows;
-		size_t cell_count = (size_t)rows * (size_t)channels;
-		pat->cells = (xm_cell_t *)kmalloc(cell_count * sizeof(xm_cell_t));
+		size_t cell_count = (size_t) rows * (size_t) channels;
+		pat->cells = (xm_cell_t *) kmalloc(cell_count * sizeof(xm_cell_t));
 		if (!pat->cells) {
 			dprintf("xm: pattern[%d] alloc fail\n", pi);
 			return 0;
@@ -257,9 +292,9 @@ static int decode_patterns(const uint8_t *base, size_t len, int pat_count, int c
 					uint8_t flags = a;
 					if (flags & 0x01 && d < dend) note = *d++;
 					if (flags & 0x02 && d < dend) inst = *d++;
-					if (flags & 0x04 && d < dend) vol  = *d++;
-					if (flags & 0x08 && d < dend) eff  = *d++;
-					if (flags & 0x10 && d < dend) par  = *d++;
+					if (flags & 0x04 && d < dend) vol = *d++;
+					if (flags & 0x08 && d < dend) eff = *d++;
+					if (flags & 0x10 && d < dend) par = *d++;
 				} else {
 					note = a;
 					if (d + 4 > dend) {
@@ -267,17 +302,17 @@ static int decode_patterns(const uint8_t *base, size_t len, int pat_count, int c
 						return 0;
 					}
 					inst = *d++;
-					vol  = *d++;
-					eff  = *d++;
-					par  = *d++;
+					vol = *d++;
+					eff = *d++;
+					par = *d++;
 				}
 
 				xm_cell_t *cell = &pat->cells[r * channels + ch];
-				cell->note       = note;
+				cell->note = note;
 				cell->instrument = inst;
-				cell->volcol     = vol;
-				cell->effect     = eff;
-				cell->param      = par;
+				cell->volcol = vol;
+				cell->effect = eff;
+				cell->param = par;
 			}
 		}
 
@@ -288,16 +323,24 @@ static int decode_patterns(const uint8_t *base, size_t len, int pat_count, int c
 	return 1;
 }
 
-
-static int decode_instruments(const uint8_t *base, size_t len, int instr_count,
-			      xm_instrument_t *out_instr, const uint8_t **cursor) {
+/**
+ * @brief Decode all instruments and their samples from an XM file.
+ *
+ * @param base Pointer to start of XM file data.
+ * @param len Length of XM file data in bytes.
+ * @param instr_count Number of instruments to decode.
+ * @param out_instr Destination array of instrument structures.
+ * @param cursor Pointer to file cursor; advanced past decoded data.
+ * @return 1 on success, 0 on failure.
+ */
+static int decode_instruments(const uint8_t *base, size_t len, int instr_count, xm_instrument_t *out_instr, const uint8_t **cursor) {
 	const uint8_t *p = *cursor;
 
 	for (int ii = 0; ii < instr_count; ii++) {
 		/* Need 4 bytes for instrument size */
-		if ((size_t)(p - base) + 4 > len) {
+		if ((size_t) (p - base) + 4 > len) {
 			dprintf("xm: instrument[%d] header size OOB cur_off=%lu need=4 file_len=%lu\n",
-				ii, (size_t)(p - base), len);
+				ii, (size_t) (p - base), len);
 			return 0;
 		}
 
@@ -306,10 +349,10 @@ static int decode_instruments(const uint8_t *base, size_t len, int instr_count,
 		uint32_t hdr_size = rd32(inst0);
 
 		/* Entire header (hdr_size bytes from inst0) must fit */
-		size_t hdr_end = (size_t)(inst0 - base) + hdr_size;
+		size_t hdr_end = (size_t) (inst0 - base) + hdr_size;
 		if (hdr_end > len || hdr_size < 4) {
 			dprintf("xm: instrument[%d] header truncated hdr_size=%u cur_off=%lu need_end=%lu file_len=%lu\n",
-				ii, hdr_size, (size_t)(p - base), hdr_end, len);
+				ii, hdr_size, (size_t) (p - base), hdr_end, len);
 			return 0;
 		}
 
@@ -355,25 +398,25 @@ static int decode_instruments(const uint8_t *base, size_t len, int instr_count,
 			/* volume envelope points at +129 => +125 from hdr */
 			for (int i = 0; i < XM_MAX_ENV_POINTS; i++) {
 				ve->points[i][0] = rd16(hdr + 125 + i * 4);
-				ve->points[i][1] = clamp_int(rd16(hdr + 125 + i * 4 + 2), 0, 64);
+				ve->points[i][1] = CLAMP(rd16(hdr + 125 + i * 4 + 2), 0, 64);
 			}
 			/* pan envelope points at +177 => +173 from hdr */
 			for (int i = 0; i < XM_MAX_ENV_POINTS; i++) {
 				pe->points[i][0] = rd16(hdr + 173 + i * 4);
-				pe->points[i][1] = clamp_int(rd16(hdr + 173 + i * 4 + 2), 0, 255);
+				pe->points[i][1] = CLAMP(rd16(hdr + 173 + i * 4 + 2), 0, 255);
 			}
 
 			ve->num_points = hdr[221];
 			pe->num_points = hdr[222];
-			ve->sustain    = hdr[223];
+			ve->sustain = hdr[223];
 			ve->loop_start = hdr[224];
-			ve->loop_end   = hdr[225];
-			pe->sustain    = hdr[226];
+			ve->loop_end = hdr[225];
+			pe->sustain = hdr[226];
 			pe->loop_start = hdr[227];
-			pe->loop_end   = hdr[228];
-			ve->enabled    = (hdr[229] & 0x01) ? 1 : 0;
-			pe->enabled    = (hdr[230] & 0x01) ? 1 : 0;
-			ins->fadeout   = rd16(hdr + 235);
+			pe->loop_end = hdr[228];
+			ve->enabled = (hdr[229] & 0x01) ? 1 : 0;
+			pe->enabled = (hdr[230] & 0x01) ? 1 : 0;
+			ins->fadeout = rd16(hdr + 235);
 		}
 
 		/* Jump to end of instrument header: this is where sample headers start */
@@ -384,8 +427,8 @@ static int decode_instruments(const uint8_t *base, size_t len, int instr_count,
 		}
 
 		/* Sample headers block: num_samples * sample_hdr_size bytes */
-		size_t shead_off = (size_t)(p - base);
-		size_t shead_end = shead_off + (size_t)sample_hdr_size * (size_t)num_samples;
+		size_t shead_off = (size_t) (p - base);
+		size_t shead_end = shead_off + (size_t) sample_hdr_size * (size_t) num_samples;
 		if (shead_end > len) {
 			dprintf("xm: instrument[%d] sample headers OOB cur_off=%lu hdr_size=%u num_samples=%d need_end=%lu file_len=%lu\n",
 				ii, shead_off, sample_hdr_size, num_samples, shead_end, len);
@@ -393,53 +436,53 @@ static int decode_instruments(const uint8_t *base, size_t len, int instr_count,
 		}
 
 		const uint8_t *sheaders = p;
-		p += (size_t)sample_hdr_size * (size_t)num_samples; /* advance to first sample data */
+		p += (size_t) sample_hdr_size * (size_t) num_samples; /* advance to first sample data */
 
 		/* Allocate sample array */
-		xm_sample_t *sarr = (xm_sample_t *) kmalloc(sizeof(xm_sample_t) * (size_t)num_samples);
+		xm_sample_t *sarr = (xm_sample_t *) kmalloc(sizeof(xm_sample_t) * (size_t) num_samples);
 		if (!sarr) {
 			dprintf("xm: instrument[%d] sample array OOM num_samples=%d\n", ii, num_samples);
 			return 0;
 		}
-		memset(sarr, 0, sizeof(xm_sample_t) * (size_t)num_samples);
+		memset(sarr, 0, sizeof(xm_sample_t) * (size_t) num_samples);
 		ins->samples = sarr;
 
 		/* Pass 1: read sample metadata */
 		for (int si = 0; si < num_samples; si++) {
-			const uint8_t *sh = sheaders + (size_t)si * sample_hdr_size;
+			const uint8_t *sh = sheaders + (size_t) si * sample_hdr_size;
 
-			uint32_t slen       = rd32(sh + 0);
+			uint32_t slen = rd32(sh + 0);
 			uint32_t loop_start = rd32(sh + 4);
-			uint32_t loop_len   = rd32(sh + 8);
-			uint8_t  vol        = sh[12];
-			int8_t   fine       = (int8_t)sh[13];
-			uint8_t  type       = sh[14];
-			uint8_t  pan        = sh[15];
-			int8_t   rel        = (int8_t)sh[16];
+			uint32_t loop_len = rd32(sh + 8);
+			uint8_t vol = sh[12];
+			int8_t fine = (int8_t) sh[13];
+			uint8_t type = sh[14];
+			uint8_t pan = sh[15];
+			int8_t rel = (int8_t) sh[16];
 
 			int sixteen_bit = (type & 0x10) ? 1 : 0;
 			int loop_type = 0;
 			if (type & 0x03) loop_type = (type & 0x02) ? 2 : 1;
 
 			xm_sample_t *smp = &sarr[si];
-			smp->length        = sixteen_bit ? (slen / 2) : slen;
-			smp->loop_start    = sixteen_bit ? (loop_start / 2) : loop_start;
-			smp->loop_len      = sixteen_bit ? (loop_len / 2) : loop_len;
-			smp->loop_type     = loop_type;
+			smp->length = sixteen_bit ? (slen / 2) : slen;
+			smp->loop_start = sixteen_bit ? (loop_start / 2) : loop_start;
+			smp->loop_len = sixteen_bit ? (loop_len / 2) : loop_len;
+			smp->loop_type = loop_type;
 			smp->relative_note = rel;
-			smp->fine_tune     = fine;
-			smp->default_volume= clamp_int(vol, 0, 64);
-			smp->default_pan   = pan;
+			smp->fine_tune = fine;
+			smp->default_volume = CLAMP(vol, 0, 64);
+			smp->default_pan = pan;
 		}
 
 		/* Pass 2: read & delta-decode sample payloads (immediately after all headers) */
 		for (int si = 0; si < num_samples; si++) {
-			const uint8_t *sh = sheaders + (size_t)si * sample_hdr_size;
+			const uint8_t *sh = sheaders + (size_t) si * sample_hdr_size;
 			uint32_t slen = rd32(sh + 0);
-			uint8_t type  = sh[14];
+			uint8_t type = sh[14];
 			int sixteen_bit = (type & 0x10) ? 1 : 0;
 
-			size_t cur_off = (size_t)(p - base);
+			size_t cur_off = (size_t) (p - base);
 			size_t need_end = cur_off + slen;
 			if (need_end > len) {
 				dprintf("xm: instrument[%d] sample[%d] payload OOB slen=%u cur_off=%lu need_end=%lu file_len=%lu\n",
@@ -465,6 +508,15 @@ static int decode_instruments(const uint8_t *base, size_t len, int instr_count,
 	return 1;
 }
 
+/**
+ * @brief Parse an XM file header, patterns, and instruments into runtime state.
+ *
+ * @param name Module name for logging.
+ * @param bytes Pointer to XM file data.
+ * @param len Length of XM file data in bytes.
+ * @param st Destination XM runtime state to populate.
+ * @return 1 on success, 0 on failure.
+ */
 static int parse_xm_and_build(const char *name, const uint8_t *bytes, size_t len, xm_state_t *st) {
 	memset(st, 0, sizeof(*st));
 	st->samplerate = XM_TARGET_RATE;
@@ -486,23 +538,26 @@ static int parse_xm_and_build(const char *name, const uint8_t *bytes, size_t len
 	if ((size_t) (p - bytes) + 2 + 4 > len) {
 		return 0;
 	}
-	uint16_t ver = rd16(p); p += 2;
+	uint16_t ver = rd16(p);
+	p += 2;
 	(void) ver;
-	uint32_t hdr_size = rd32(p); p += 4;
+	uint32_t hdr_size = rd32(p);
+	p += 4;
 
 	if ((size_t) (p - bytes) + hdr_size - 4 > len) {
 		return 0;
 	}
 
 	/* Song header fields */
-	uint16_t song_len   = rd16(p + 0);
-	uint16_t restart    = rd16(p + 2); (void) restart;
-	uint16_t channels   = rd16(p + 4);
-	uint16_t pat_count  = rd16(p + 6);
-	uint16_t ins_count  = rd16(p + 8);
-	uint16_t flags      = rd16(p + 10);
-	uint16_t tempo      = rd16(p + 12);
-	uint16_t bpm        = rd16(p + 14);
+	uint16_t song_len = rd16(p + 0);
+	uint16_t restart = rd16(p + 2);
+	(void) restart;
+	uint16_t channels = rd16(p + 4);
+	uint16_t pat_count = rd16(p + 6);
+	uint16_t ins_count = rd16(p + 8);
+	uint16_t flags = rd16(p + 10);
+	uint16_t tempo = rd16(p + 12);
+	uint16_t bpm = rd16(p + 14);
 
 	if (channels == 0 || channels > XM_MAX_CHANNELS) {
 		dprintf("xm: invalid channel count %u\n", channels);
@@ -536,9 +591,9 @@ static int parse_xm_and_build(const char *name, const uint8_t *bytes, size_t len
 	st->row = 0;
 	st->tick = 0;
 
-	st->restart_order = (restart < song_len) ? (int)restart : 0;
-	st->restart_row   = 0;
-	st->loop_armed    = 0;
+	st->restart_order = (restart < song_len) ? (int) restart : 0;
+	st->restart_row = 0;
+	st->loop_armed = 0;
 
 	/* Order table (256 bytes max, but only song_len used) */
 	const uint8_t *order_table = p + 16;
@@ -609,6 +664,12 @@ static int parse_xm_and_build(const char *name, const uint8_t *bytes, size_t len
 	return 1;
 }
 
+/**
+ * @brief Check current playback position for end-of-song conditions.
+ *
+ * @param st XM runtime state to inspect and update.
+ * @return Nothing. Sets st->ended if end-of-song is detected.
+ */
 static inline void xm_check_position_for_end(xm_state_t *st) {
 	/* 0xFF sentinel = end-of-song */
 	if (st->order < st->orders && st->order_table[st->order] == 0xFF) {
@@ -625,6 +686,14 @@ static inline void xm_check_position_for_end(xm_state_t *st) {
 	}
 }
 
+/**
+ * @brief Update a channel's playback step from a given note value.
+ *
+ * @param st XM runtime state (selects frequency mode).
+ * @param c Channel state to update.
+ * @param note_1_96 Note number (1..96).
+ * @return Nothing. Writes new step into c->sample_inc.
+ */
 static void update_frequency_from_note(xm_state_t *st, xm_channel_t *c, int note_1_96) {
 	if (!c->smp) {
 		c->sample_inc = 0;
@@ -637,6 +706,15 @@ static void update_frequency_from_note(xm_state_t *st, xm_channel_t *c, int note
 	}
 }
 
+/**
+ * @brief Start playback of a note on a channel.
+ *
+ * @param st XM runtime state.
+ * @param c Channel state to update.
+ * @param note_1_96 Note number (1..96).
+ * @param inst_1_128 Instrument index (1..128), or 0 for no change.
+ * @return Nothing. Updates channel with new sample, volume, pan, and envelopes.
+ */
 static void apply_note_on(xm_state_t *st, xm_channel_t *c, int note_1_96, int inst_1_128) {
 	if (inst_1_128 > 0 && inst_1_128 <= st->instruments_count) {
 		c->inst_idx = inst_1_128 - 1;
@@ -665,8 +743,8 @@ static void apply_note_on(xm_state_t *st, xm_channel_t *c, int note_1_96, int in
 			c->smp = &ins->samples[si];
 
 			/* Always set volume/pan to sample defaults on note-on */
-			c->vol = clamp_int(c->smp->default_volume, 0, 64);
-			c->pan = clamp_int(c->smp->default_pan, 0, 255);
+			c->vol = CLAMP(c->smp->default_volume, 0, 64);
+			c->pan = CLAMP(c->smp->default_pan, 0, 255);
 		}
 	}
 
@@ -681,13 +759,13 @@ static void apply_note_on(xm_state_t *st, xm_channel_t *c, int note_1_96, int in
 	if (c->smp && c->smp->pcm) {
 		int step_q16;
 		if (st->flags_linear_freq) {
-			step_q16 = compute_step_linear_q16((int)st->samplerate,
+			step_q16 = compute_step_linear_q16((int) st->samplerate,
 							   note_1_96,
 							   c->smp->relative_note,
 							   c->smp->fine_tune);
 		} else {
-			step_q16 = compute_step_amiga_q16((uint32_t)(((uint64_t)3546895 << 16) /
-								     (uint64_t)st->samplerate),
+			step_q16 = compute_step_amiga_q16((uint32_t) (((uint64_t) 3546895 << 16) /
+								      (uint64_t) st->samplerate),
 							  note_1_96,
 							  c->smp->relative_note,
 							  c->smp->fine_tune);
@@ -702,6 +780,15 @@ static void apply_note_on(xm_state_t *st, xm_channel_t *c, int note_1_96, int in
 	c->pan_env_tick = 0;
 }
 
+/**
+ * @brief Apply volume column effects to a channel for the current tick.
+ *
+ * @param st XM runtime state.
+ * @param c Channel state to update.
+ * @param volcol Raw volume column byte (0..255).
+ * @param tick_zero Non-zero if this is tick 0 of the row, zero otherwise.
+ * @return Nothing. Updates channel volume, pan, or vibrato parameters.
+ */
 static void apply_volume_column(xm_state_t *st, xm_channel_t *c, uint8_t volcol, int tick_zero) {
 	if (volcol == 0) {
 		return;
@@ -764,7 +851,7 @@ static void apply_volume_column(xm_state_t *st, xm_channel_t *c, uint8_t volcol,
 			break;
 		}
 		case 0xC0: { /* set pan (0..15 => 0..240) */
-			c->pan = clamp_int(lo * 16, 0, 255);
+			c->pan = CLAMP(lo * 16, 0, 255);
 			break;
 		}
 		case 0xD0: { /* pan slide left */
@@ -797,6 +884,12 @@ static void apply_volume_column(xm_state_t *st, xm_channel_t *c, uint8_t volcol,
 	}
 }
 
+/**
+ * @brief Advance playback to the next row, updating order and end state.
+ *
+ * @param st XM runtime state to update.
+ * @return Nothing. Updates row/order and may set st->ended.
+ */
 static void pattern_control_after_row_advance(xm_state_t *st) {
 	st->row++;
 	if (st->row >= st->patterns[st->order_table[st->order]].rows) {
@@ -813,7 +906,12 @@ static void pattern_control_after_row_advance(xm_state_t *st) {
 	xm_check_position_for_end(st);
 }
 
-/* Tick 0: read row cells and apply immediate ops; non-zero ticks: continuous effects */
+/**
+ * @brief Advance XM playback by one tick, applying effects and row changes.
+ *
+ * @param st XM runtime state to update.
+ * @return Nothing. Updates channels, effects, and playback position.
+ */
 static void engine_tick(xm_state_t *st) {
 	if (st->tick == 0) {
 		/* reset per-row loop triggers */
@@ -834,7 +932,7 @@ static void engine_tick(xm_state_t *st) {
 			int note = cell->note;
 			int inst = cell->instrument;
 			int eff = cell->effect;
-			int ev  = cell->param;
+			int ev = cell->param;
 			uint8_t volcol = cell->volcol;
 
 			/* Instrument change without note sets defaults */
@@ -936,7 +1034,7 @@ static void engine_tick(xm_state_t *st) {
 					break;
 				}
 				case 0xC: { /* set volume */
-					c->vol = clamp_int(ev, 0, 64);
+					c->vol = CLAMP(ev, 0, 64);
 					break;
 				}
 				case 0xD: { /* pattern break (BCD) */
@@ -1023,9 +1121,9 @@ static void engine_tick(xm_state_t *st) {
 				int ve = env_value_linear(&st->instruments[c->inst_idx].vol_env, c->vol_env_tick, 1);
 				int pe = env_value_linear(&st->instruments[c->inst_idx].pan_env, c->pan_env_tick, 0);
 				int v = (c->vol * ve) / 64;
-				c->vol = clamp_int(v, 0, 64);
+				c->vol = CLAMP(v, 0, 64);
 				/* pan envelope mixed 50/50 to taste */
-				c->pan = clamp_int((c->pan + pe) / 2, 0, 255);
+				c->pan = CLAMP((c->pan + pe) / 2, 0, 255);
 			}
 		}
 
@@ -1047,7 +1145,7 @@ static void engine_tick(xm_state_t *st) {
 			xm_pattern_t *pat = &st->patterns[st->order_table[st->order]];
 			xm_cell_t *cell = &pat->cells[st->row * st->channels + ch];
 			int eff = cell->effect;
-			int ev  = cell->param;
+			int ev = cell->param;
 			uint8_t volcol = cell->volcol;
 
 			/* Volume column continuous part */
@@ -1127,10 +1225,10 @@ static void engine_tick(xm_state_t *st) {
 					c->vib_phase = (c->vib_phase + c->vib_speed) & 63;
 					/* sine table 0..63 -> -128..127 approximate */
 					static const int8_t vib_sine[64] = {
-						0,12,25,37,49,60,71,81,90,98,105,111,116,120,123,125,
-						126,125,123,120,116,111,105,98,90,81,71,60,49,37,25,12,
-						0,-12,-25,-37,-49,-60,-71,-81,-90,-98,-105,-111,-116,-120,-123,-125,
-						-126,-125,-123,-120,-116,-111,-105,-98,-90,-81,-71,-60,-49,-37,-25,-12
+						0, 12, 25, 37, 49, 60, 71, 81, 90, 98, 105, 111, 116, 120, 123, 125,
+						126, 125, 123, 120, 116, 111, 105, 98, 90, 81, 71, 60, 49, 37, 25, 12,
+						0, -12, -25, -37, -49, -60, -71, -81, -90, -98, -105, -111, -116, -120, -123, -125,
+						-126, -125, -123, -120, -116, -111, -105, -98, -90, -81, -71, -60, -49, -37, -25, -12
 					};
 					int wave = vib_sine[c->vib_phase];
 					int delta = (wave * c->vib_depth) >> 5; /* scale */
@@ -1278,6 +1376,14 @@ static void engine_tick(xm_state_t *st) {
 	}
 }
 
+/**
+ * @brief Mix a block of audio frames from the XM state into an output buffer.
+ *
+ * @param st XM runtime state to render from.
+ * @param out Destination interleaved stereo buffer (L,R) of length frames*2.
+ * @param frames Number of stereo frames to render.
+ * @return Nothing. Writes mixed PCM samples into out.
+ */
 static void mix_block(xm_state_t *st, int16_t *out, size_t frames) {
 	for (size_t s = 0; s < frames; s++) {
 		if (--st->audio_tick <= 0) {
@@ -1335,10 +1441,10 @@ static void mix_block(xm_state_t *st, int16_t *out, size_t frames) {
 			int vol = c->vol;
 			if (c->trem_depth > 0) {
 				static const int8_t trem_sine[64] = {
-					0,12,25,37,49,60,71,81,90,98,105,111,116,120,123,125,
-					126,125,123,120,116,111,105,98,90,81,71,60,49,37,25,12,
-					0,-12,-25,-37,-49,-60,-71,-81,-90,-98,-105,-111,-116,-120,-123,-125,
-					-126,-125,-123,-120,-116,-111,-105,-98,-90,-81,-71,-60,-49,-37,-25,-12
+					0, 12, 25, 37, 49, 60, 71, 81, 90, 98, 105, 111, 116, 120, 123, 125,
+					126, 125, 123, 120, 116, 111, 105, 98, 90, 81, 71, 60, 49, 37, 25, 12,
+					0, -12, -25, -37, -49, -60, -71, -81, -90, -98, -105, -111, -116, -120, -123, -125,
+					-126, -125, -123, -120, -116, -111, -105, -98, -90, -81, -71, -60, -49, -37, -25, -12
 				};
 				int w = trem_sine[c->trem_phase & 63];
 				int dv = (w * c->trem_depth) >> 5;
@@ -1378,6 +1484,12 @@ static void mix_block(xm_state_t *st, int16_t *out, size_t frames) {
 	}
 }
 
+/**
+ * @brief Release all memory owned by an XM runtime state.
+ *
+ * @param st XM runtime state to free.
+ * @return Nothing. Frees patterns, instruments, and samples.
+ */
 static void free_xm(xm_state_t *st) {
 	if (st->patterns) {
 		for (int i = 0; i < st->patterns_count; i++) {
@@ -1405,6 +1517,16 @@ static void free_xm(xm_state_t *st) {
 	}
 }
 
+/**
+ * @brief Attempt to load and render an XM file from memory into PCM.
+ *
+ * @param filename Name of the file (used for logging).
+ * @param bytes Pointer to XM file data.
+ * @param len Length of XM file data in bytes.
+ * @param out_ptr Destination for allocated PCM buffer pointer.
+ * @param out_bytes Destination for PCM buffer size in bytes.
+ * @return true on success, false on failure.
+ */
 static bool xm_from_memory(const char *filename, const void *bytes, size_t len, void **out_ptr, size_t *out_bytes) {
 	if (!filename || !bytes || len == 0 || !out_ptr || !out_bytes) {
 		return false;
@@ -1476,6 +1598,11 @@ static bool xm_from_memory(const char *filename, const void *bytes, size_t len, 
 	return true;
 }
 
+/**
+ * @brief Initialise the XM codec module and register it as an audio loader.
+ *
+ * @return true on success, false on failure.
+ */
 bool EXPORTED MOD_INIT_SYM(KMOD_ABI)(void) {
 	dprintf("xm: loaded - this module is experimental. There may be audio artifacts.\n");
 
@@ -1499,6 +1626,11 @@ bool EXPORTED MOD_INIT_SYM(KMOD_ABI)(void) {
 	return true;
 }
 
+/**
+ * @brief Shut down the XM codec module and deregister its audio loader.
+ *
+ * @return true on success, false on failure.
+ */
 bool EXPORTED MOD_EXIT_SYM(KMOD_ABI)(void) {
 	if (g_xm_loader) {
 		if (!deregister_audio_loader(g_xm_loader)) {
