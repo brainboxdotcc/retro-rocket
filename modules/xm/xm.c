@@ -93,7 +93,7 @@ static int compute_step_linear_q16(int samplerate, int note_1_96, int relative_n
 /**
  * @brief Compute Q16.16 sample step using Amiga period (PAL clock) model.
  *
- * @param sample_rate_q16 Q16 factor of PAL clock divided by output samplerate (≈ 3546895<<16 / samplerate).
+ * @param sample_rate_q16 Q16 factor of PAL clock divided by output samplerate (3546895<<16 / samplerate).
  * @param note_1_96 Note number (1..96).
  * @param rel_note Relative note offset applied to the sample.
  * @param fine_tune_128 Fine tune in 1/128 semitone units.
@@ -154,12 +154,8 @@ static inline void set_step_from_note(xm_state_t *st, xm_channel_t *c, int base_
 	}
 
 	if (st->flags_linear_freq) {
-		/* FT2 linear: convert the extra 1/128 semitone offset to linear fine_tune (1/2 key64 unit):
-		   1 semitone = 64 key64 units; FineTune term in Period is (fine/2), where 'fine' is in 1/1 semitone = 128 units.
-		   So we can pass the combined fine directly as 'fine_tune_128'. */
 		c->sample_inc = compute_step_linear_q16((int) st->samplerate, note, c->smp->relative_note, fine128);
 	} else {
-		/* Amiga/period path (your existing function), unchanged */
 		uint32_t sr_q16 = (uint32_t) (((uint64_t) 3546895 << 16) / (uint64_t) st->samplerate);
 		c->sample_inc = compute_step_amiga_q16(sr_q16, note, c->smp->relative_note, c->smp->fine_tune + (semi_offset128 / 128));
 	}
@@ -179,7 +175,6 @@ static int env_value_linear(const xm_envelope_t *env, int tick, int is_vol) {
 		return is_vol ? 64 : 128; /* unity volume, centre pan */
 	}
 
-	/* Handle loop */
 	int end_x = env->points[env->num_points - 1][0];
 	if (env->loop_end > env->loop_start && env->loop_end < env->num_points) {
 		int ls_x = env->points[env->loop_start][0];
@@ -272,7 +267,7 @@ static int decode_patterns(const uint8_t *base, size_t len, int pat_count, int c
 		const uint8_t *d = p;
 		const uint8_t *dend = p + packed_len;
 
-		/* Allow empty patterns (packed_len == 0) - valid in XM */
+		/* Allow empty patterns (packed_len == 0) */
 		if (packed_len == 0) {
 			p += packed_len;  /* no-op, keeps symmetry */
 			continue;
@@ -648,7 +643,6 @@ static int parse_xm_and_build(const char *name, const uint8_t *bytes, size_t len
 		c->global_vol_applied = -1;
 	}
 
-	/* Log title for parity with MOD loader */
 	char title[21];
 	memset(title, 0, sizeof(title));
 	memcpy(title, bytes + XM_MAGIC_LEN, 20);
@@ -759,16 +753,9 @@ static void apply_note_on(xm_state_t *st, xm_channel_t *c, int note_1_96, int in
 	if (c->smp && c->smp->pcm) {
 		int step_q16;
 		if (st->flags_linear_freq) {
-			step_q16 = compute_step_linear_q16((int) st->samplerate,
-							   note_1_96,
-							   c->smp->relative_note,
-							   c->smp->fine_tune);
+			step_q16 = compute_step_linear_q16((int) st->samplerate, note_1_96, c->smp->relative_note, c->smp->fine_tune);
 		} else {
-			step_q16 = compute_step_amiga_q16((uint32_t) (((uint64_t) 3546895 << 16) /
-								      (uint64_t) st->samplerate),
-							  note_1_96,
-							  c->smp->relative_note,
-							  c->smp->fine_tune);
+			step_q16 = compute_step_amiga_q16((uint32_t) (((uint64_t) 3546895 << 16) / (uint64_t) st->samplerate), note_1_96, c->smp->relative_note, c->smp->fine_tune);
 		}
 		c->sample_inc = step_q16;
 	} else {
