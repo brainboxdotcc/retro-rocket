@@ -536,6 +536,10 @@ static int parse_xm_and_build(const char *name, const uint8_t *bytes, size_t len
 	st->row = 0;
 	st->tick = 0;
 
+	st->restart_order = (restart < song_len) ? (int)restart : 0;
+	st->restart_row   = 0;
+	st->loop_armed    = 0;
+
 	/* Order table (256 bytes max, but only song_len used) */
 	const uint8_t *order_table = p + 16;
 	if ((size_t) (order_table - bytes) + 256 > len) {
@@ -603,6 +607,22 @@ static int parse_xm_and_build(const char *name, const uint8_t *bytes, size_t len
 	dprintf("Music module '%s': title: '%s' channels: %d orders: %d\n", name, title, st->channels, st->orders);
 
 	return 1;
+}
+
+static inline void xm_check_position_for_end(xm_state_t *st) {
+	/* 0xFF sentinel = end-of-song */
+	if (st->order < st->orders && st->order_table[st->order] == 0xFF) {
+		st->ended = 1;
+		return;
+	}
+	/* Arm once we leave restart; end when we return to (restart,0) */
+	if (st->order == st->restart_order && st->row == st->restart_row) {
+		if (st->loop_armed) {
+			st->ended = 1;
+		}
+	} else {
+		st->loop_armed = 1;
+	}
 }
 
 static void update_frequency_from_note(xm_state_t *st, xm_channel_t *c, int note_1_96) {
@@ -781,16 +801,16 @@ static void pattern_control_after_row_advance(xm_state_t *st) {
 	st->row++;
 	if (st->row >= st->patterns[st->order_table[st->order]].rows) {
 		st->row = 0;
-		int prev_order = st->order;
 		st->order++;
+
+		/* Reached end of order list */
 		if (st->order >= st->orders) {
 			st->ended = 1;
-			st->order = 0;
-		}
-		if (st->order <= prev_order) {
-			st->ended = 1;
+			return;
 		}
 	}
+	/* Evaluate sentinel/loop detection at the new position */
+	xm_check_position_for_end(st);
 }
 
 /* Tick 0: read row cells and apply immediate ops; non-zero ticks: continuous effects */
@@ -799,6 +819,11 @@ static void engine_tick(xm_state_t *st) {
 		/* reset per-row loop triggers */
 		int skip_order_req = -1;
 		int skip_dest_row = 0;
+
+		if (st->order >= st->orders || st->order_table[st->order] == 0xFF) {
+			st->ended = 1;
+			return;
+		}
 
 		xm_pattern_t *pat = &st->patterns[st->order_table[st->order]];
 
@@ -1011,6 +1036,7 @@ static void engine_tick(xm_state_t *st) {
 			}
 			st->order = skip_order_req;
 			st->row = skip_dest_row;
+			xm_check_position_for_end(st);
 		} else {
 			/* advance row at end of tick block (handled below in tick wrap) */
 		}
@@ -1451,10 +1477,7 @@ static bool xm_from_memory(const char *filename, const void *bytes, size_t len, 
 }
 
 bool EXPORTED MOD_INIT_SYM(KMOD_ABI)(void) {
-	dprintf("xm: loaded\n");
-	setforeground(COLOUR_LIGHTRED);
-	kprintf("WARNING: The xm codec module is experimental. Here be dragons!\n");
-	setforeground(COLOUR_WHITE);
+	dprintf("xm: loaded - this module is experimental. There may be audio artifacts.\n");
 
 	audio_file_loader_t *loader = (audio_file_loader_t *) kmalloc(sizeof(audio_file_loader_t));
 	if (!loader) {

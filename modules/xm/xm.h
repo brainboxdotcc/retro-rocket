@@ -131,6 +131,10 @@ typedef struct {
 	uint32_t audio_speed;       /* samples per tick */
 	uint32_t audio_tick;        /* samples remaining in current tick */
 
+	int restart_order;      /* from header 'restart' (clamped) */
+	int restart_row;        /* usually 0 */
+	int loop_armed;         /* set once we've left (restart_order, restart_row) */
+
 	/* Globals */
 	int global_vol;             /* 0..64 */
 
