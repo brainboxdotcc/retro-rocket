@@ -1,0 +1,19 @@
+ON ERROR PROCcontinue
+MODLOAD "hda"
+ON ERROR OFF
+ON ERROR PROCcontinue
+MODLOAD "xm"
+ON ERROR OFF
+
+STREAM CREATE lead1
+PRINT "Loading..."
+SOUND LOAD mod, "/system/webserver/media/gate.xm"
+SOUND PLAY lead1, mod
+
+PRINT "Playing, press any key to end..."
+KGET A$
+
+END
+
+DEF PROCcontinue
+ENDPROC
