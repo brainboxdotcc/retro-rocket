@@ -373,7 +373,7 @@ int ssl_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 		if (get_ticks() - start > 3000) {
 			return TCP_CONNECTION_TIMED_OUT;
 		}
-		__asm__ volatile("hlt");
+		__asm__ volatile("pause");
 	}
 }
 
@@ -430,7 +430,7 @@ int ssl_accept(int listen_fd, const uint8_t *cert_pem, size_t cert_len, const ui
 			tls_close_fd(fd);
 			return TCP_CONNECTION_TIMED_OUT;
 		}
-		__asm__ volatile("hlt");
+		__asm__ volatile("pause");
 	}
 }
 

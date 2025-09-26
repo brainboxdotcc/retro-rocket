@@ -7,6 +7,8 @@
 static queued_udp_packet* udp_packets[65536] = {0};
 static queued_udp_packet* udp_list_tail[65536] = {0};
 static spinlock_t udp_read_lock = 0;
+static uint8_t* ca = NULL;
+static size_t ca_len = 0;
 
 /**
  * @brief Idle callback to check if socket is ready to read.
@@ -248,12 +250,33 @@ void sslconnect_statement(struct basic_ctx* ctx) {
 	ip = str_expr(ctx);
 	accept_or_return(COMMA, ctx);
 	port = expr(ctx);
-	accept_or_return(COMMA, ctx);
-	sni = expr(ctx);
+	if (tokenizer_token(ctx) == COMMA) {
+		accept_or_return(COMMA, ctx);
+		sni = expr(ctx);
+		if (!*sni) {
+			sni = NULL;
+		}
+	}
 
-	const char* ca = "";
+	if (!ca) {
+		fs_directory_entry_t* info = fs_get_file_info("/system/ssl/cacert.pem");
+		if (!info || (info->flags & FS_DIRECTORY) != 0) {
+			tokenizer_error_print(ctx, "Unable to load CA cert bundle from /system/ssl/cacert.pem");
+			return;
+		}
+		ca = kmalloc(info->size);
+		if (!ca) {
+			tokenizer_error_print(ctx, "Out of memory for CA cert bundle");
+			return;
+		}
+		if (!fs_read_file(info, 0, info->size, ca)) {
+			tokenizer_error_print(ctx, "Unable to load CA cert bundle from /system/ssl/cacert.pem");
+			return;
+		}
+		ca_len = info->size;
+	}
 
-	int rv = ssl_connect(str_to_ip(ip), port, 0, true, sni, NULL, (const uint8_t*)ca, strlen(ca));
+	int rv = ssl_connect(str_to_ip(ip), port, 0, true, sni, NULL, ca, ca_len);
 
 	if (rv >= 0) {
 		*(input + rv) = 0;
@@ -339,6 +362,7 @@ int64_t basic_sslsockaccept(struct basic_ctx* ctx) {
 	PARAMS_GET_ITEM(BIP_INT);
 	const char* key = strval;
 	PARAMS_END("SSLSOCKACCEPT",-1);
+	// TODO: Load the certs from the file paths
 	int rv = ssl_accept(server, (const uint8_t*)cert, strlen(cert), (const uint8_t*)key, strlen(key), NULL, true);
 	if (rv < 0) {
 		tokenizer_error_print(ctx, socket_error(rv));
@@ -349,7 +373,7 @@ int64_t basic_sslsockaccept(struct basic_ctx* ctx) {
 
 char* basic_insocket(struct basic_ctx* ctx) {
 	uint8_t input[2] = { 0, 0 };
-	
+
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t fd = intval;
@@ -360,7 +384,27 @@ char* basic_insocket(struct basic_ctx* ctx) {
 		return "";
 	}
 
-	int rv = recv(fd, input, 1, false, 0);
+	int rv;
+	if (tls_get(fd)) {
+		int want;
+		int out_n;
+		bool ok;
+
+		want = 0;
+		out_n = 0;
+		ok = tls_read_fd(fd, input, 1, &want, &out_n);
+		if (ok) {
+			rv = out_n;
+		} else {
+			if (want == 1) {
+				rv = 0;
+			} else {
+				rv = TCP_ERROR_CONNECTION_FAILED;
+			}
+		}
+	} else {
+		rv = recv(fd, input, 1, false, 0);
+	}
 
 	if (rv > 0) {
 		input[1] = 0;
@@ -368,7 +412,7 @@ char* basic_insocket(struct basic_ctx* ctx) {
 	} else if (rv < 0) {
 		tokenizer_error_print(ctx, socket_error(rv));
 	} else {
-		__asm__ volatile("hlt");
+		__asm__ volatile("pause");
 	}
 	return "";
 }
