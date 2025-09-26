@@ -243,7 +243,7 @@ void sslconnect_statement(struct basic_ctx* ctx) {
 	int64_t port;
 	size_t var_length;
 
-	accept_or_return(CONNECT, ctx);
+	accept_or_return(SSLCONNECT, ctx);
 	fd_var = tokenizer_variable_name(ctx, &var_length);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
