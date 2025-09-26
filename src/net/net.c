@@ -99,6 +99,9 @@ void network_up()
 	tcp_init();
 	dhcp_init();
 	init_dns();
+	if (tls_global_init() == -1) {
+		dprintf("TLS initialisation error: TLS will be unavailable!\n");
+	}
 }
 
 void network_down()

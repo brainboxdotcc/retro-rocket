@@ -12,6 +12,92 @@ static mbedtls_ctr_drbg_context drbg;
 static volatile unsigned char entropy_pool[ENTROPY_POOL_SIZE];
 static volatile size_t entropy_head = 0;
 
+struct tls_peer {
+	mbedtls_ssl_context  ssl;
+	mbedtls_ssl_config   conf;
+	struct tls_io        io;
+	int                  fd;
+};
+
+size_t tls_peer_size() {
+	return sizeof(struct tls_peer);
+}
+
+/* Set at init; sized to your kernel’s FD cap */
+static struct tls_peer **tls_by_fd   = NULL;
+static size_t            tls_fd_cap  = 0;
+
+/* Call once during tls_global_init(), after you know the FD limit */
+bool tls_fd_table_init(size_t fd_cap) {
+	tls_by_fd  = kcalloc(fd_cap, sizeof(*tls_by_fd));
+	if (!tls_by_fd) {
+		return false;
+	}
+	tls_fd_cap = fd_cap;
+	return true;
+}
+
+bool tls_fd_in_range(int fd) {
+	return (fd >= 0) && ((size_t)fd < tls_fd_cap);
+}
+
+struct tls_peer *tls_get(int fd) {
+	return (tls_fd_in_range(fd)) ? tls_by_fd[fd] : NULL;
+}
+
+bool tls_attach(int fd, struct tls_peer *p) {
+	if (!tls_fd_in_range(fd) || tls_by_fd[fd] != NULL) {
+		return false;
+	}
+	tls_by_fd[fd] = p;
+	return true;
+}
+
+void tls_detach(int fd) {
+	if (tls_fd_in_range(fd)) {
+		tls_by_fd[fd] = NULL;
+	}
+}
+
+bool tls_read_fd(int fd, void *buf, size_t len, int *want, int *out_n) {
+	struct tls_peer *p = tls_get(fd);
+	if (!p) {
+		return false;
+	}
+	int n = tls_read_nb(&p->ssl, buf, len, want);
+	if (n >= 0) {
+		*out_n = n;
+		return true;
+	}
+	return false;
+}
+
+bool tls_write_fd(int fd, const void *buf, size_t len, int *want, int *out_n) {
+	struct tls_peer *p = tls_get(fd);
+	if (!p) {
+		return false;
+	}
+	int n = tls_write_nb(&p->ssl, buf, len, want);
+	if (n >= 0) {
+		*out_n = n;
+		return true;
+	}
+	return false;
+}
+
+bool tls_close_fd(int fd) {
+	struct tls_peer *p = tls_get(fd);
+	if (!p) {
+		return false;
+	}
+	mbedtls_ssl_close_notify(&p->ssl);
+	mbedtls_ssl_free(&p->ssl);
+	mbedtls_ssl_config_free(&p->conf);
+	kfree(p);
+	tls_detach(fd);
+	return true;
+}
+
 void mbedtls_platform_zeroize(void *buf, size_t len) {
 	volatile unsigned char *p = (volatile unsigned char *)buf;
 	while (len > 0) {
@@ -191,3 +277,125 @@ int tls_write_nb(mbedtls_ssl_context *ssl, const void *buf, size_t len, int *wan
 	return -1;
 }
 
+static int tcp_send_nb(void *ctx, const uint8_t *buf, size_t len) {
+	int fd = *(int *)ctx;
+	int n  = send(fd, buf, (uint32_t)len);
+	if (n < 0) return -1;   /* hard fail */
+	return (int)len;        /* always enqueue all */
+}
+
+static int tcp_recv_nb(void *ctx, uint8_t *buf, size_t len) {
+	int fd = *(int *)ctx;
+	int n  = recv(fd, buf, (uint32_t)len, false, 0);
+	if (n > 0) return n;
+	if (n == 0) return 0;   /* would-read */
+	return -1;              /* hard fail */
+}
+
+int ssl_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port, bool blocking, const char *sni, const char *alpn_csv, const uint8_t *ca_pem, size_t ca_len) {
+	int fd = connect(target_addr, target_port, source_port, blocking);
+	if (fd < 0) {
+		return fd;
+	}
+
+	if (!tls_fd_in_range(fd)) {
+		return TCP_ERROR_OUT_OF_DESCRIPTORS;
+	}
+
+	struct tls_peer *p = kcalloc(1, tls_peer_size());
+	if (!p) {
+		return TCP_ERROR_OUT_OF_DESCRIPTORS;
+	}
+
+	p->fd        = fd;
+	p->io.send_fn = tcp_send_nb;
+	p->io.recv_fn = tcp_recv_nb;
+	p->io.ctx     = &p->fd;
+
+	if (!tls_attach(fd, p)) {
+		kfree(p);
+		return TCP_ERROR_OUT_OF_DESCRIPTORS;
+	}
+
+	if (!tls_client_init(&p->ssl, &p->conf, &p->io, sni, alpn_csv, ca_pem, ca_len)) {
+		tls_detach(fd);
+		kfree(p);
+		return TCP_ERROR_CONNECTION_FAILED;
+	}
+
+	if (!blocking) {
+		return fd;
+	}
+
+	time_t start = get_ticks();
+	for (;;) {
+		int step = tls_handshake_step_nb(&p->ssl);
+		if (step == 1) {
+			return fd;
+		}
+		if (step < 0)  {
+			return TCP_ERROR_CONNECTION_FAILED;
+		}
+		if (get_ticks() - start > 3000) {
+			return TCP_CONNECTION_TIMED_OUT;
+		}
+		__asm__ volatile("hlt");
+	}
+}
+
+int ssl_accept(int listen_fd, const uint8_t *cert_pem, size_t cert_len, const uint8_t *key_pem,  size_t key_len, const char *alpn_csv, bool blocking) {
+	int fd = tcp_accept(listen_fd);
+	if (fd < 0) {
+		/* TCP_ERROR_WOULD_BLOCK etc. propagate unchanged */
+		return fd;
+	}
+
+	if (!tls_fd_in_range(fd)) {
+		return TCP_ERROR_OUT_OF_DESCRIPTORS;
+	}
+
+	struct tls_peer *p = kcalloc(1, sizeof(*p));
+	if (p == NULL) {
+		return TCP_ERROR_OUT_OF_DESCRIPTORS;
+	}
+
+	p->fd          = fd;
+	p->io.send_fn  = tcp_send_nb;   /* always-enqueue TX */
+	p->io.recv_fn  = tcp_recv_nb;   /* 0 = WANT_READ */
+	p->io.ctx      = &p->fd;
+
+	if (!tls_attach(fd, p)) {
+		kfree(p);
+		return TCP_ERROR_OUT_OF_DESCRIPTORS;
+	}
+
+	if (!tls_server_init(&p->ssl, &p->conf, &p->io,
+			     cert_pem, cert_len,
+			     key_pem,  key_len,
+			     alpn_csv)) {
+		tls_detach(fd);
+		kfree(p);
+		return TCP_ERROR_CONNECTION_FAILED;
+	}
+
+	if (!blocking) {
+		return fd; /* handshake progresses on RX events */
+	}
+
+	time_t start = get_ticks();
+	for (;;) {
+		int step = tls_handshake_step_nb(&p->ssl);
+		if (step == 1) {
+			return fd; /* TLS established */
+		}
+		if (step < 0) {
+			tls_close_fd(fd); /* tidy up TLS state */
+			return TCP_ERROR_CONNECTION_FAILED;
+		}
+		if ((get_ticks() - start) > 3000) {
+			tls_close_fd(fd);
+			return TCP_CONNECTION_TIMED_OUT;
+		}
+		__asm__ volatile("hlt");
+	}
+}

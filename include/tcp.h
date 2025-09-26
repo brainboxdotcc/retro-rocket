@@ -214,6 +214,8 @@ typedef struct tcp_conn_t
 	int backlog;                   /**< Backlog limit for LISTEN sockets (advisory) */
 
 	queue_t* pending;              /**< Pending inbound connections for LISTEN sockets */
+
+
 } tcp_conn_t;
 
 /**

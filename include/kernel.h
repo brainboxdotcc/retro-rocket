@@ -86,6 +86,7 @@
 #include "debug_ringbuffer.h"
 #include "module.h"
 #include "audio.h"
+#include "tls.h"
 
 #define assert(expr, message) if (!(expr)) { \
 	kprintf("Assertion failure at %s:%d: %s\n", __FILE__, __LINE__, message); \

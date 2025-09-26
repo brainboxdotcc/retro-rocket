@@ -1186,9 +1186,9 @@ void tcp_idle()
 /**
  * @brief Initialise TCP
  */
-void tcp_init()
-{
+void tcp_init() {
 	tcb = hashmap_new(sizeof(tcp_conn_t), 0, 6, 28, tcp_conn_hash, tcp_conn_compare, NULL, NULL);
+	tls_fd_table_init(FD_MAX);
 	proc_register_idle(tcp_idle, IDLE_FOREGROUND, 1);
 }
 
@@ -1410,6 +1410,11 @@ int connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port, bo
 	};
 	dprintf("connect() result: %u\n", conn && conn->state == TCP_ESTABLISHED ? result : TCP_ERROR_CONNECTION_FAILED);
 	return conn && conn->state == TCP_ESTABLISHED ? result : TCP_ERROR_CONNECTION_FAILED;
+}
+
+/* optional: call this when a TCP fd is closed forcibly */
+void tls_on_socket_closed(int fd) {
+	tls_close_fd(fd);
 }
 
 int closesocket(int socket)
