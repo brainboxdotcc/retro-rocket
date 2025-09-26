@@ -23,11 +23,9 @@ size_t tls_peer_size() {
 	return sizeof(struct tls_peer);
 }
 
-/* Set at init; sized to your kernel’s FD cap */
 static struct tls_peer **tls_by_fd   = NULL;
 static size_t            tls_fd_cap  = 0;
 
-/* Call once during tls_global_init(), after you know the FD limit */
 bool tls_fd_table_init(size_t fd_cap) {
 	tls_by_fd  = kcalloc(fd_cap, sizeof(*tls_by_fd));
 	if (!tls_by_fd) {
@@ -73,15 +71,51 @@ bool tls_read_fd(int fd, void *buf, size_t len, int *want, int *out_n) {
 }
 
 bool tls_write_fd(int fd, const void *buf, size_t len, int *want, int *out_n) {
-	struct tls_peer *p = tls_get(fd);
-	if (!p) {
+	struct tls_peer *p;
+	int n;
+
+	p = tls_get(fd);
+	if (p == NULL) {
 		return false;
 	}
-	int n = tls_write_nb(&p->ssl, buf, len, want);
+
+	int rc = mbedtls_ssl_handshake(&p->ssl);
+	if (rc != 0) {
+		*out_n = 0;
+
+		if (rc == MBEDTLS_ERR_SSL_WANT_WRITE) {
+			*want = 2;
+			return false;
+		}
+
+		if (rc == MBEDTLS_ERR_SSL_WANT_READ) {
+			*want = 1;
+			return false;
+		}
+
+		*want = -1;
+		return false;
+	}
+
+	n = mbedtls_ssl_write(&p->ssl, (const unsigned char *) buf, len);
 	if (n >= 0) {
 		*out_n = n;
 		return true;
 	}
+
+	if (n == MBEDTLS_ERR_SSL_WANT_WRITE) {
+		*want = 2;
+		*out_n = 0;
+		return false;
+	}
+	if (n == MBEDTLS_ERR_SSL_WANT_READ) {
+		*want = 1;
+		*out_n = 0;
+		return false;
+	}
+
+	*want = -1;
+	*out_n = 0;
 	return false;
 }
 
@@ -398,4 +432,27 @@ int ssl_accept(int listen_fd, const uint8_t *cert_pem, size_t cert_len, const ui
 		}
 		__asm__ volatile("hlt");
 	}
+}
+
+bool tls_ready_fd(int fd)
+{
+	struct tls_peer *p;
+	int rc;
+
+	p = tls_get(fd);
+	if (p == NULL) {
+		return false;
+	}
+
+	/* Progress the handshake; 0 means finished */
+	rc = mbedtls_ssl_handshake(&p->ssl);
+	if (rc != 0) {
+		return false;
+	}
+
+	if (mbedtls_ssl_get_bytes_avail(&p->ssl) > 0) {
+		return true;
+	}
+
+	return false;
 }

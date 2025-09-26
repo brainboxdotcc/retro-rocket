@@ -50,6 +50,7 @@ struct basic_int_fn builtin_int[] =
 	{ basic_shiftkey,            "SHIFTKEY"          },
 	{ basic_shr,                 "SHR"               },
 	{ basic_sockaccept,          "SOCKACCEPT"        },
+	{ basic_sslsockaccept,       "SSLSOCKACCEPT"     },
 	{ basic_socklisten,          "SOCKLISTEN"        },
 	{ basic_sockstatus,          "SOCKSTATUS"        },
 	{ basic_get_text_max_y,      "TERMHEIGHT"        },

@@ -222,3 +222,5 @@ int ssl_accept(int listen_fd, const uint8_t *cert_pem, size_t cert_len, const ui
  * @return opaque pointer, or NULL if not TLS
  */
 struct tls_peer *tls_get(int fd);
+
+bool tls_ready_fd(int fd);

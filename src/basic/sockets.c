@@ -14,17 +14,32 @@ static spinlock_t udp_read_lock = 0;
  * Used by the scheduler to determine if the SOCKREAD statement
  * can resume execution. Returns true if still waiting.
  *
- * @param proc Process being checked
- * @param ptr Pointer containing the socket FD (cast from uintptr_t)
- * @return true if still waiting, false if ready
+ * For TLS-backed sockets, this consults the TLS layer to see if
+ * decrypted bytes are pending.
+ *
+ * @param proc Process being checked.
+ * @param ptr  Pointer containing the socket FD (cast from uintptr_t).
+ * @return true if still waiting, false if ready.
  */
-bool check_sockread_ready(process_t* proc, void* ptr) {
-	int64_t fd = (int64_t)(uintptr_t)ptr;
+bool check_sockread_ready(process_t* proc, void* ptr)
+{
+	int64_t fd;
+
+	(void) proc; /* unused */
+
+	fd = (int64_t)(uintptr_t) ptr;
+
 	if (basic_esc()) {
 		return false;
 	}
-	return !sock_ready_to_read((int)fd);
+
+	if (tls_get(fd)) {
+		return !tls_ready_fd(fd);
+	}
+
+	return !sock_ready_to_read(fd);
 }
+
 
 /**
  * @brief Process SOCKREAD statement.
@@ -35,26 +50,53 @@ bool check_sockread_ready(process_t* proc, void* ptr) {
  * data is available, the scheduler resumes the statement, which
  * reads and stores the value in a BASIC variable.
  *
- * @param ctx BASIC context
+ * For TLS-backed sockets, bytes are pulled through the TLS layer.
+ *
+ * @param ctx BASIC context.
  */
 void sockread_statement(struct basic_ctx* ctx)
 {
 	char input[MAX_STRINGLEN];
-	const char* var = NULL;
+	const char* var;
+	size_t var_length;
+	int64_t fd;
+	process_t* proc;
+	int rv;
+
+	var = NULL;
 
 	accept_or_return(SOCKREAD, ctx);
 
-	size_t var_length;
-	int64_t fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx, &var_length), ctx);
+	fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx, &var_length), ctx);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
 
 	var = tokenizer_variable_name(ctx, &var_length);
 	accept_or_return(VARIABLE, ctx);
 
-	process_t* proc = proc_cur(logical_cpu_id());
+	proc = proc_cur(logical_cpu_id());
 
-	int rv = recv((int)fd, input, MAX_STRINGLEN, false, 100);
+	if (tls_get(fd)) {
+		int want;
+		int out_n;
+		bool ok;
+
+		want = 0;
+		out_n = 0;
+
+		ok = tls_read_fd(fd, input, MAX_STRINGLEN, &want, &out_n);
+		if (ok) {
+			rv = out_n;
+		} else {
+			if (want == 1) {
+				rv = 0; /* WANT_READ → would block */
+			} else {
+				rv = TCP_ERROR_CONNECTION_FAILED; /* fatal TLS */
+			}
+		}
+	} else {
+		rv = recv(fd, input, MAX_STRINGLEN, false, 100);
+	}
 
 	dprintf("sockread recv=%d\n", rv);
 
@@ -66,7 +108,6 @@ void sockread_statement(struct basic_ctx* ctx)
 		return;
 	}
 
-	// Clear idle state if we're resuming from IO
 	proc_set_idle(proc, NULL, NULL);
 
 	if (rv < 0) {
@@ -75,6 +116,9 @@ void sockread_statement(struct basic_ctx* ctx)
 		return;
 	}
 
+	if ((size_t) rv >= sizeof(input)) {
+		rv = (int) (sizeof(input) - 1);
+	}
 	input[rv] = 0; // Null-terminate string
 
 	switch (var[var_length - 1]) {
@@ -98,7 +142,7 @@ void sockread_statement(struct basic_ctx* ctx)
 
 void sockbinread_statement(struct basic_ctx* ctx)
 {
-	accept_or_return(SOCKBINREAD, ctx);
+	int rv;
 	size_t var_length;
 	int64_t fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx, &var_length), ctx);
 	accept_or_return(VARIABLE, ctx);
@@ -113,7 +157,27 @@ void sockbinread_statement(struct basic_ctx* ctx)
 
 	process_t* proc = proc_cur(logical_cpu_id());
 
-	int rv = recv((int)fd, address, length, false, 100);
+	if (tls_get(fd)) {
+		int want;
+		int out_n;
+		bool ok;
+
+		want = 0;
+		out_n = 0;
+
+		ok = tls_read_fd(fd, address, length, &want, &out_n);
+		if (ok) {
+			rv = out_n;
+		} else {
+			if (want == 1) {
+				rv = 0; /* WANT_READ → would block */
+			} else {
+				rv = TCP_ERROR_CONNECTION_FAILED; /* fatal TLS */
+			}
+		}
+	} else {
+		rv = recv((int) fd, (void*) address, (uint32_t) length, false, 100);
+	}
 
 	if (rv == 0) {
 		// Not ready yet, yield and retry later
@@ -123,7 +187,6 @@ void sockbinread_statement(struct basic_ctx* ctx)
 		return;
 	}
 
-	// Clear idle state if we're resuming from IO
 	proc_set_idle(proc, NULL, NULL);
 
 	if (rv < 0) {
@@ -136,8 +199,7 @@ void sockbinread_statement(struct basic_ctx* ctx)
 	proc->state = PROC_RUNNING;
 }
 
-void connect_statement(struct basic_ctx* ctx)
-{
+void connect_statement(struct basic_ctx* ctx) {
 	char input[MAX_STRINGLEN];
 	const char* fd_var = NULL, *ip = NULL;
 	int64_t port;
@@ -173,8 +235,47 @@ void connect_statement(struct basic_ctx* ctx)
 	}
 }
 
-void sockclose_statement(struct basic_ctx* ctx)
-{
+void sslconnect_statement(struct basic_ctx* ctx) {
+	char input[MAX_STRINGLEN];
+	const char* fd_var = NULL, *ip = NULL, *sni = NULL;
+	int64_t port;
+	size_t var_length;
+
+	accept_or_return(CONNECT, ctx);
+	fd_var = tokenizer_variable_name(ctx, &var_length);
+	accept_or_return(VARIABLE, ctx);
+	accept_or_return(COMMA, ctx);
+	ip = str_expr(ctx);
+	accept_or_return(COMMA, ctx);
+	port = expr(ctx);
+	accept_or_return(COMMA, ctx);
+	sni = expr(ctx);
+
+	const char* ca = "";
+
+	int rv = ssl_connect(str_to_ip(ip), port, 0, true, sni, NULL, (const uint8_t*)ca, strlen(ca));
+
+	if (rv >= 0) {
+		*(input + rv) = 0;
+		switch (fd_var[var_length - 1]) {
+			case '$':
+				tokenizer_error_print(ctx, "Can't store socket descriptor in STRING");
+				break;
+			case '#':
+				tokenizer_error_print(ctx, "Cannot store socket descriptor in REAL");
+				break;
+			default:
+				basic_set_int_variable(fd_var, rv, ctx, false, false);
+				break;
+		}
+
+		accept_or_return(NEWLINE, ctx);
+	} else {
+		tokenizer_error_print(ctx, socket_error(rv));
+	}
+}
+
+void sockclose_statement(struct basic_ctx* ctx) {
 	const char* fd_var = NULL;
 	size_t var_length;
 
@@ -233,15 +334,17 @@ int64_t basic_sslsockaccept(struct basic_ctx* ctx) {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t server = intval;
+	PARAMS_GET_ITEM(BIP_STRING);
+	const char* cert = strval;
+	PARAMS_GET_ITEM(BIP_INT);
+	const char* key = strval;
 	PARAMS_END("SSLSOCKACCEPT",-1);
-	/*int rv = ssl_accept(server, cert_pem, cert_len, key_pem,  key_len, NULL, true);
-	if (rv == TCP_ERROR_WOULD_BLOCK) {
-		return -1;
-	} else if (rv < 0) {
+	int rv = ssl_accept(server, (const uint8_t*)cert, strlen(cert), (const uint8_t*)key, strlen(key), NULL, true);
+	if (rv < 0) {
 		tokenizer_error_print(ctx, socket_error(rv));
 		return -1;
-	}*/
-	return -1;
+	}
+	return rv;
 }
 
 char* basic_insocket(struct basic_ctx* ctx) {
@@ -334,7 +437,16 @@ void sockwrite_statement(struct basic_ctx* ctx) {
 	accept_or_return(COMMA, ctx);
 	const char* out = printable_syntax(ctx);
 	if (out) {
-		send(fd, out, strlen(out));
+		if (tls_get(fd)) {
+			int want;
+			int out_n;
+
+			want = 0;
+			out_n = 0;
+			tls_write_fd(fd, out, strlen(out), &want, &out_n);
+		} else {
+			send(fd, out, strlen(out));
+		}
 	}
 }
 
@@ -353,9 +465,19 @@ void sockbinwrite_statement(struct basic_ctx* ctx) {
 	}
 
 	if (buffer_pointer && length) {
-		send(fd, buffer_pointer, length);
+		if (tls_get(fd)) {
+			int want;
+			int out_n;
+
+			want = 0;
+			out_n = 0;
+			tls_write_fd(fd, (const void*) buffer_pointer, (size_t) length, &want, &out_n);
+		} else {
+			send(fd, buffer_pointer, length);
+		}
 	}
 }
+
 static void basic_udp_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, void* data, uint32_t length, void* opaque) {
 	basic_ctx* ctx = (basic_ctx*)opaque;
 	if (!opaque) {

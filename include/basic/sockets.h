@@ -193,3 +193,7 @@ int64_t basic_sockaccept(struct basic_ctx* ctx);
  * @param ctx BASIC context.
  */
 void sockflush_statement(struct basic_ctx* ctx);
+
+int64_t basic_sslsockaccept(struct basic_ctx* ctx);
+
+void sslconnect_statement(struct basic_ctx* ctx);
