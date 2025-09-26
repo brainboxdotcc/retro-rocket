@@ -229,6 +229,21 @@ int64_t basic_sockaccept(struct basic_ctx* ctx) {
 	return rv;
 }
 
+int64_t basic_sslsockaccept(struct basic_ctx* ctx) {
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t server = intval;
+	PARAMS_END("SSLSOCKACCEPT",-1);
+	/*int rv = ssl_accept(server, cert_pem, cert_len, key_pem,  key_len, NULL, true);
+	if (rv == TCP_ERROR_WOULD_BLOCK) {
+		return -1;
+	} else if (rv < 0) {
+		tokenizer_error_print(ctx, socket_error(rv));
+		return -1;
+	}*/
+	return -1;
+}
+
 char* basic_insocket(struct basic_ctx* ctx) {
 	uint8_t input[2] = { 0, 0 };
 	

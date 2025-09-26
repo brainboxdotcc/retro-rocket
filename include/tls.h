@@ -215,3 +215,10 @@ int ssl_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
  * @return fd of accepted TLS socket, or negative TCP_ERROR_* code.
  */
 int ssl_accept(int listen_fd, const uint8_t *cert_pem, size_t cert_len, const uint8_t *key_pem,  size_t key_len, const char *alpn_csv, bool blocking);
+
+/**
+ * @brief Get the TLS structure associated with the fd, or null if not TLS
+ * @param fd Socket descriptor
+ * @return opaque pointer, or NULL if not TLS
+ */
+struct tls_peer *tls_get(int fd);
