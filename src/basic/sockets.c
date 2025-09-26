@@ -202,7 +202,6 @@ void sockbinread_statement(struct basic_ctx* ctx)
 }
 
 void connect_statement(struct basic_ctx* ctx) {
-	char input[MAX_STRINGLEN];
 	const char* fd_var = NULL, *ip = NULL;
 	int64_t port;
 	size_t var_length;
@@ -218,7 +217,6 @@ void connect_statement(struct basic_ctx* ctx) {
 	int rv = connect(str_to_ip(ip), port, 0, true);
 
 	if (rv >= 0) {
-		*(input + rv) = 0;
 		switch (fd_var[var_length - 1]) {
 			case '$':
 				tokenizer_error_print(ctx, "Can't store socket descriptor in STRING");
@@ -238,7 +236,6 @@ void connect_statement(struct basic_ctx* ctx) {
 }
 
 void sslconnect_statement(struct basic_ctx* ctx) {
-	char input[MAX_STRINGLEN];
 	const char* fd_var = NULL, *ip = NULL, *sni = NULL;
 	int64_t port;
 	size_t var_length;
@@ -270,6 +267,7 @@ void sslconnect_statement(struct basic_ctx* ctx) {
 			return;
 		}
 		if (!fs_read_file(info, 0, info->size, ca)) {
+			kfree_null(&ca);
 			tokenizer_error_print(ctx, "Unable to load CA cert bundle from /system/ssl/cacert.pem");
 			return;
 		}
@@ -279,7 +277,6 @@ void sslconnect_statement(struct basic_ctx* ctx) {
 	int rv = ssl_connect(str_to_ip(ip), port, 0, true, sni, NULL, ca, ca_len);
 
 	if (rv >= 0) {
-		*(input + rv) = 0;
 		switch (fd_var[var_length - 1]) {
 			case '$':
 				tokenizer_error_print(ctx, "Can't store socket descriptor in STRING");
