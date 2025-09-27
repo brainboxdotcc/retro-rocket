@@ -66,6 +66,7 @@ The following functions operate on or return **integer values** in Retro Rocket 
 * \subpage SGN
 * \subpage SHL
 * \subpage SHR
+* \subpage SSLSOCKACCEPT
 * \subpage SOCKACCEPT
 * \subpage SOCKLISTEN
 * \subpage SOCKSTATUS

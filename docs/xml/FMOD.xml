@@ -11,7 +11,7 @@
 <para>Returns the <bold>floating-point remainder</bold> of <computeroutput>x ÷ y</computeroutput>. This is the value left over after dividing <computeroutput>x</computeroutput> by <computeroutput>y</computeroutput>, keeping the <bold>sign of the dividend</bold> (<computeroutput>x</computeroutput>).</para>
 <para><hruler/>
 </para>
-<sect1 id="FMOD_1examples-81_1s1"><sect2 id="FMOD_1examples-81_1s2"><sect3 id="FMOD_1examples-81">
+<sect1 id="FMOD_1examples-82_1s1"><sect2 id="FMOD_1examples-82_1s2"><sect3 id="FMOD_1examples-82">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>FMOD(5.3,<sp/>2)</highlight></codeline>
 </programlisting></para>
 <para>Produces <computeroutput>1.3</computeroutput>.</para>
@@ -26,7 +26,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="FMOD_1notes-80_1s1"><sect2 id="FMOD_1notes-80_1s2"><sect3 id="FMOD_1notes-80">
+<sect1 id="FMOD_1notes-81_1s1"><sect2 id="FMOD_1notes-81_1s2"><sect3 id="FMOD_1notes-81">
 <title>Notes</title><para><itemizedlist>
 <listitem><para><computeroutput>y</computeroutput> must not be <computeroutput>0</computeroutput> — this causes an error.</para>
 </listitem><listitem><para>The result has the same sign as the dividend (<computeroutput>x</computeroutput>).</para>

@@ -11,7 +11,7 @@
 <para>Returns a <bold>right-justified string</bold> by padding the input string (first parameter) with the pad string (third parameter) on the <bold>left</bold>, until the result length is <bold>at least</bold> the specified width (second parameter).</para>
 <para><hruler/>
 </para>
-<sect1 id="RJUST_1examples-112_1s1"><sect2 id="RJUST_1examples-112_1s2"><sect3 id="RJUST_1examples-112">
+<sect1 id="RJUST_1examples-113_1s1"><sect2 id="RJUST_1examples-113_1s2"><sect3 id="RJUST_1examples-113">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>RJUST$(&quot;Retro&quot;,<sp/>10,<sp/>&quot;<sp/>&quot;)</highlight></codeline>
 </programlisting></para>
 <para>Produces <computeroutput>&quot;     Retro&quot;</computeroutput>.</para>
@@ -25,7 +25,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="RJUST_1notes-111_1s1"><sect2 id="RJUST_1notes-111_1s2"><sect3 id="RJUST_1notes-111">
+<sect1 id="RJUST_1notes-112_1s1"><sect2 id="RJUST_1notes-112_1s2"><sect3 id="RJUST_1notes-112">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>If the original string is already at least the specified length, it is returned unchanged.</para>
 </listitem><listitem><para>The pad string is repeated as many times as necessary, and truncated if required to fit exactly.</para>

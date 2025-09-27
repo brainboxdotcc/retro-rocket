@@ -20,7 +20,7 @@
 </para>
 <para><hruler/>
 </para>
-<sect1 id="NETINFO_1examples-105_1s1"><sect2 id="NETINFO_1examples-105_1s2"><sect3 id="NETINFO_1examples-105">
+<sect1 id="NETINFO_1examples-106_1s1"><sect2 id="NETINFO_1examples-106_1s2"><sect3 id="NETINFO_1examples-106">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;IP<sp/>Address:<sp/>&quot;;<sp/>NETINFO$(&quot;ip&quot;)</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Gateway:<sp/><sp/><sp/><sp/>&quot;;<sp/>NETINFO$(&quot;gw&quot;)</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Mask:<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;;<sp/>NETINFO$(&quot;mask&quot;)</highlight></codeline>
@@ -35,7 +35,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="NETINFO_1notes-104_1s1"><sect2 id="NETINFO_1notes-104_1s2"><sect3 id="NETINFO_1notes-104">
+<sect1 id="NETINFO_1notes-105_1s1"><sect2 id="NETINFO_1notes-105_1s2"><sect3 id="NETINFO_1notes-105">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Returned values depend on the active network configuration of the operating system.</para>
 </listitem><listitem><para>If no network is configured, an error is raised.</para>

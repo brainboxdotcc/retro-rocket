@@ -11,7 +11,7 @@
 <para>Retrieves the value of a <bold>string variable</bold> by its <bold>name</bold>. If the variable does not exist, an error is thrown. Use EXISTSVARS to check for existence without triggering an error.</para>
 <para><hruler/>
 </para>
-<sect1 id="GETVAR_1examples-97_1s1"><sect2 id="GETVAR_1examples-97_1s2"><sect3 id="GETVAR_1examples-97">
+<sect1 id="GETVAR_1examples-98_1s1"><sect2 id="GETVAR_1examples-98_1s2"><sect3 id="GETVAR_1examples-98">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Define<sp/>a<sp/>string<sp/>variable</highlight></codeline>
 <codeline><highlight class="normal">username$<sp/>=<sp/>&quot;Alice&quot;</highlight></codeline>
 <codeline></codeline>
@@ -33,7 +33,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="GETVAR_1notes-96_1s1"><sect2 id="GETVAR_1notes-96_1s2"><sect3 id="GETVAR_1notes-96">
+<sect1 id="GETVAR_1notes-97_1s1"><sect2 id="GETVAR_1notes-97_1s2"><sect3 id="GETVAR_1notes-97">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>The string must exactly match the variable name, including the <computeroutput>$</computeroutput> suffix for string variables.</para>
 </listitem><listitem><para>If the name refers to a variable of a different type (integer or real), an error is raised.</para>

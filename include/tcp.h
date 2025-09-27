@@ -226,6 +226,9 @@ typedef enum tcp_port_type_t {
 	TCP_PORT_REMOTE,               /**< Remote (peer) port */
 } tcp_port_type_t;
 
+
+#define TCP_ERROR_SSL_FIRST -1000
+
 /**
  * @brief Error codes which can be returned by socket functions
  */
@@ -243,7 +246,12 @@ typedef enum tcp_error_code_t {
 	TCP_ERROR_NOT_LISTENING = -11,
 	TCP_ERROR_WOULD_BLOCK = -12,
 	TCP_CONNECTION_TIMED_OUT = -13,
-	TCP_LAST_ERROR = -14,
+	TCP_SSL_CANT_SET_CLIENT_CONFIG = -14,
+	TCP_SSL_CANT_LOAD_CA_CERT = -15,
+	TCP_SSL_INVALID_ALPN = -16,
+	TCP_SSL_CLIENT_SETUP_FAILED = -17,
+	TCP_SSL_INVALID_SNI = -18,
+	TCP_LAST_ERROR = -19,
 } tcp_error_code_t;
 
 /**

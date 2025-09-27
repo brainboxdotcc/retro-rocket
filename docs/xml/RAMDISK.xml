@@ -12,7 +12,7 @@
 <para>Creates a <bold>RAM-backed block device</bold> from the content of an existing block device. The parameter is the name of the source device (e.g. <computeroutput>&quot;hd0&quot;</computeroutput>). Returns the <bold>name of the new RAM disk device</bold> as a string.</para>
 <para><hruler/>
 </para>
-<sect3 id="RAMDISK_1examples-107">
+<sect3 id="RAMDISK_1examples-108">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Duplicate<sp/>an<sp/>existing<sp/>block<sp/>device<sp/>into<sp/>RAM</highlight></codeline>
 <codeline><highlight class="normal">ram$<sp/>=<sp/>RAMDISK$(&quot;hd0&quot;)</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Created<sp/>RAM<sp/>disk:<sp/>&quot;;<sp/>ram$</highlight></codeline>
@@ -20,7 +20,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="RAMDISK_1notes-106">
+<sect3 id="RAMDISK_1notes-107">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>The new device is a complete in-memory copy of the original device.</para>
 </listitem><listitem><para>Useful for testing, running faster I/O, or working on a safe copy.</para>
@@ -43,7 +43,7 @@
 <para>The device is initially <bold>unformatted</bold> and cannot be mounted until a filesystem is created on it. Returns the <bold>name of the new RAM disk device</bold> as a string.</para>
 <para><hruler/>
 </para>
-<sect3 id="RAMDISK_1examples-108">
+<sect3 id="RAMDISK_1examples-109">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Create<sp/>a<sp/>10<sp/>MB<sp/>RAM<sp/>disk<sp/>with<sp/>512-byte<sp/>blocks</highlight></codeline>
 <codeline><highlight class="normal">ram$<sp/>=<sp/>RAMDISK(20480,<sp/>512)</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Created<sp/>RAM<sp/>disk:<sp/>&quot;;<sp/>ram$</highlight></codeline>
@@ -51,7 +51,7 @@
 <para><hruler/>
 </para>
 </sect3>
-<sect3 id="RAMDISK_1notes-107">
+<sect3 id="RAMDISK_1notes-108">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Size = <computeroutput>blocks × blocksize</computeroutput>.</para>
 </listitem><listitem><para>Device names are automatically assigned by the system (e.g. <computeroutput>&quot;ram0&quot;</computeroutput>, <computeroutput>&quot;ram1&quot;</computeroutput>).</para>

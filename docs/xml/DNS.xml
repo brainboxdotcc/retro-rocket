@@ -11,7 +11,7 @@
 <para>Resolves a <bold>hostname</bold> into an <bold>IP address string</bold>. If the hostname cannot be resolved, an error is raised.</para>
 <para><hruler/>
 </para>
-<sect1 id="DNS_1examples-92_1s1"><sect2 id="DNS_1examples-92_1s2"><sect3 id="DNS_1examples-92">
+<sect1 id="DNS_1examples-93_1s1"><sect2 id="DNS_1examples-93_1s2"><sect3 id="DNS_1examples-93">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>DNS$(&quot;retrorocket.dev&quot;)</highlight></codeline>
 </programlisting></para>
 <para>Might produce:</para>
@@ -26,7 +26,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="DNS_1notes-91_1s1"><sect2 id="DNS_1notes-91_1s2"><sect3 id="DNS_1notes-91">
+<sect1 id="DNS_1notes-92_1s1"><sect2 id="DNS_1notes-92_1s2"><sect3 id="DNS_1notes-92">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Always returns an IPv4 address in dotted decimal format (<computeroutput>a.b.c.d</computeroutput>).</para>
 </listitem><listitem><para>Name resolution is performed via the operating system’s network stack.</para>

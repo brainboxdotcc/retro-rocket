@@ -23,7 +23,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="UDPLASTSOURCEPORT_1examples-69_1s1"><sect2 id="UDPLASTSOURCEPORT_1examples-69_1s2"><sect3 id="UDPLASTSOURCEPORT_1examples-69">
+<sect1 id="UDPLASTSOURCEPORT_1examples-70_1s1"><sect2 id="UDPLASTSOURCEPORT_1examples-70_1s2"><sect3 id="UDPLASTSOURCEPORT_1examples-70">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">UDPBIND<sp/>&quot;0.0.0.0&quot;,<sp/>8080</highlight></codeline>
 <codeline><highlight class="normal">S$<sp/>=<sp/>UDPREAD$(8080)</highlight></codeline>
 <codeline><highlight class="normal">IF<sp/>LEN(S$)<sp/>&gt;<sp/>0<sp/>THEN</highlight></codeline>
@@ -33,7 +33,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="UDPLASTSOURCEPORT_1notes-68_1s1"><sect2 id="UDPLASTSOURCEPORT_1notes-68_1s2"><sect3 id="UDPLASTSOURCEPORT_1notes-68">
+<sect1 id="UDPLASTSOURCEPORT_1notes-69_1s1"><sect2 id="UDPLASTSOURCEPORT_1notes-69_1s2"><sect3 id="UDPLASTSOURCEPORT_1notes-69">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>The value updates only when <computeroutput>UDPREAD$</computeroutput> dequeues a packet.</para>
 </listitem></itemizedlist>

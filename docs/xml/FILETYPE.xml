@@ -11,7 +11,7 @@
 <para>Returns the <bold>type</bold> of the object referred to by the given path. The result is the string <computeroutput>&quot;file&quot;</computeroutput> if it is a file, or <computeroutput>&quot;directory&quot;</computeroutput> if it is a directory.</para>
 <para><hruler/>
 </para>
-<sect1 id="FILETYPE_1examples-93_1s1"><sect2 id="FILETYPE_1examples-93_1s2"><sect3 id="FILETYPE_1examples-93">
+<sect1 id="FILETYPE_1examples-94_1s1"><sect2 id="FILETYPE_1examples-94_1s2"><sect3 id="FILETYPE_1examples-94">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>FILETYPE$(&quot;config.txt&quot;)</highlight></codeline>
 </programlisting></para>
 <para>Might produce:</para>
@@ -35,7 +35,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="FILETYPE_1notes-92_1s1"><sect2 id="FILETYPE_1notes-92_1s2"><sect3 id="FILETYPE_1notes-92">
+<sect1 id="FILETYPE_1notes-93_1s1"><sect2 id="FILETYPE_1notes-93_1s2"><sect3 id="FILETYPE_1notes-93">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>The path may be absolute (starting with <computeroutput>/</computeroutput>) or relative to the current working directory (<ref refid="CSD" kindref="compound">CSD$</ref>).</para>
 </listitem><listitem><para>If the object does not exist, an error is raised.</para>

@@ -27,7 +27,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="UDPREAD_1examples-119_1s1"><sect2 id="UDPREAD_1examples-119_1s2"><sect3 id="UDPREAD_1examples-119">
+<sect1 id="UDPREAD_1examples-120_1s1"><sect2 id="UDPREAD_1examples-120_1s2"><sect3 id="UDPREAD_1examples-120">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">UDPBIND<sp/>&quot;0.0.0.0&quot;,<sp/>8080</highlight></codeline>
 <codeline><highlight class="normal">S$<sp/>=<sp/>UDPREAD$(8080)</highlight></codeline>
 <codeline><highlight class="normal">IF<sp/>LEN(S$)<sp/>&gt;<sp/>0<sp/>THEN</highlight></codeline>
@@ -42,7 +42,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="UDPREAD_1notes-118_1s1"><sect2 id="UDPREAD_1notes-118_1s2"><sect3 id="UDPREAD_1notes-118">
+<sect1 id="UDPREAD_1notes-119_1s1"><sect2 id="UDPREAD_1notes-119_1s2"><sect3 id="UDPREAD_1notes-119">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>The returned string is the exact payload that was sent.</para>
 </listitem><listitem><para><computeroutput>UDPLASTIP$</computeroutput> and <computeroutput>UDPLASTSOURCEPORT</computeroutput> always refer to the <bold>most recent</bold> packet returned by <computeroutput>UDPREAD$</computeroutput>.</para>

@@ -17,7 +17,7 @@
 </para>
 <para><hruler/>
 </para>
-<sect1 id="SOCKBINREAD_1examples-162_1s1"><sect2 id="SOCKBINREAD_1examples-162_1s2"><sect3 id="SOCKBINREAD_1examples-162">
+<sect1 id="SOCKBINREAD_1examples-163_1s1"><sect2 id="SOCKBINREAD_1examples-163_1s2"><sect3 id="SOCKBINREAD_1examples-163">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">buf<sp/>=<sp/>MEMALLOC(4096)</highlight></codeline>
 <codeline><highlight class="normal">SOCKBINREAD<sp/>client,<sp/>buf,<sp/>4096</highlight></codeline>
 <codeline><highlight class="normal">REM<sp/>...<sp/>process<sp/>buffer<sp/>...</highlight></codeline>
@@ -26,7 +26,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="SOCKBINREAD_1notes-167_1s1"><sect2 id="SOCKBINREAD_1notes-167_1s2"><sect3 id="SOCKBINREAD_1notes-167">
+<sect1 id="SOCKBINREAD_1notes-168_1s1"><sect2 id="SOCKBINREAD_1notes-168_1s2"><sect3 id="SOCKBINREAD_1notes-168">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Reads up to the specified number of bytes into the buffer.</para>
 </listitem><listitem><para>Use <ref refid="SOCKSTATUS" kindref="compound">SOCKSTATUS</ref> to detect disconnects.</para>

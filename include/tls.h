@@ -151,7 +151,7 @@ void tls_detach(int fd);
  * @param out_n  Output: number of bytes read on success.
  * @return true if data was read, false if WANT_* or fatal.
  */
-bool tls_read_fd(int fd, void *buf, size_t len, int *want, int *out_n);
+bool tls_read_fd(int fd, void *buf, size_t len, int *want, int *out_n, int *err);
 
 /**
  * @brief Perform a non-blocking TLS write on a socket.
@@ -224,3 +224,5 @@ int ssl_accept(int listen_fd, const uint8_t *cert_pem, size_t cert_len, const ui
 struct tls_peer *tls_get(int fd);
 
 bool tls_ready_fd(int fd);
+
+const char* tls_error_get(int err, char* buffer, size_t size);

@@ -22,7 +22,7 @@
 <para>Pass <computeroutput>TRUE</computeroutput> to return the local day (adjusted by system time zone), or <computeroutput>FALSE</computeroutput> for UTC.</para>
 <para><hruler/>
 </para>
-<sect1 id="WEEKDAY_1examples-71_1s1"><sect2 id="WEEKDAY_1examples-71_1s2"><sect3 id="WEEKDAY_1examples-71">
+<sect1 id="WEEKDAY_1examples-72_1s1"><sect2 id="WEEKDAY_1examples-72_1s2"><sect3 id="WEEKDAY_1examples-72">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;Local<sp/>weekday<sp/>=<sp/>&quot;;<sp/>WEEKDAY(TRUE)</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;UTC<sp/>weekday<sp/><sp/><sp/>=<sp/>&quot;;<sp/>WEEKDAY(FALSE)</highlight></codeline>
 </programlisting></para>
@@ -49,7 +49,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="WEEKDAY_1notes-70_1s1"><sect2 id="WEEKDAY_1notes-70_1s2"><sect3 id="WEEKDAY_1notes-70">
+<sect1 id="WEEKDAY_1notes-71_1s1"><sect2 id="WEEKDAY_1notes-71_1s2"><sect3 id="WEEKDAY_1notes-71">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Returns an integer in the range <computeroutput>0–6</computeroutput>.</para>
 </listitem><listitem><para>Local time depends on configured time zone. Without configuration, local and UTC values are identical.</para>

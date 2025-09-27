@@ -23,7 +23,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="UDPLASTIP_1examples-118_1s1"><sect2 id="UDPLASTIP_1examples-118_1s2"><sect3 id="UDPLASTIP_1examples-118">
+<sect1 id="UDPLASTIP_1examples-119_1s1"><sect2 id="UDPLASTIP_1examples-119_1s2"><sect3 id="UDPLASTIP_1examples-119">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">UDPBIND<sp/>&quot;0.0.0.0&quot;,<sp/>8080</highlight></codeline>
 <codeline><highlight class="normal">S$<sp/>=<sp/>UDPREAD$(8080)</highlight></codeline>
 <codeline><highlight class="normal">IF<sp/>LEN(S$)<sp/>&gt;<sp/>0<sp/>THEN</highlight></codeline>
@@ -33,7 +33,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="UDPLASTIP_1notes-117_1s1"><sect2 id="UDPLASTIP_1notes-117_1s2"><sect3 id="UDPLASTIP_1notes-117">
+<sect1 id="UDPLASTIP_1notes-118_1s1"><sect2 id="UDPLASTIP_1notes-118_1s2"><sect3 id="UDPLASTIP_1notes-118">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>The value updates only when <ref refid="UDPREAD" kindref="compound">UDPREAD$</ref> dequeues a packet.</para>
 </listitem><listitem><para>Always returns the sender’s IPv4 address in dotted decimal form (<computeroutput>a.b.c.d</computeroutput>).</para>

@@ -22,14 +22,27 @@ static const char* error_messages[] = {
 	"Socket not listening",
 	"Accept would block",
 	"Connection timed out",
+	"Can't set SSL client configuration",
+	"Can't parse SSL certificate authority",
+	"Invalid TLS ALPN",
+	"TLS client setup failed",
+	"Invalid TLS server name identifier (SNI)",
 };
 
 bool tcp_state_receive_fin(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len);
 bool tcp_handle_data_in(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len);
 
 const char* socket_error(int error_code) {
-	if (error_code <= TCP_LAST_ERROR || error_code >= 0) {
+	if (error_code <= TCP_ERROR_SSL_FIRST) {
+		static char error_buffers[MAX_CPUS][256];
+		tls_error_get(error_code - TCP_ERROR_SSL_FIRST, error_buffers[logical_cpu_id()], 255);
+		return error_buffers[logical_cpu_id()];
+	}
+	if (error_code == 0) {
 		return "No error";
+	}
+	if (error_code <= TCP_LAST_ERROR || error_code > 0) {
+		return "Unknown error";
 	}
 	error_code = abs(error_code) - 1;
 	return error_messages[error_code];

@@ -125,6 +125,7 @@ The following parameter types are used throughout this documentation:
 * \subpage SETVARR
 * \subpage SETVARS
 * \subpage SLEEP
+* \subpage SSLCONNECT
 * \subpage SOCKBINREAD
 * \subpage SOCKBINWRITE
 * \subpage SOCKCLOSE

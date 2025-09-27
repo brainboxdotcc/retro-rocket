@@ -41,7 +41,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="GETPROCSTATE_1examples-96_1s1"><sect2 id="GETPROCSTATE_1examples-96_1s2"><sect3 id="GETPROCSTATE_1examples-96">
+<sect1 id="GETPROCSTATE_1examples-97_1s1"><sect2 id="GETPROCSTATE_1examples-97_1s2"><sect3 id="GETPROCSTATE_1examples-97">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>all<sp/>processes<sp/>with<sp/>their<sp/>state</highlight></codeline>
 <codeline><highlight class="normal">FOR<sp/>i<sp/>=<sp/>0<sp/>TO<sp/>GETPROCCOUNT<sp/>-<sp/>1</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>GETPROCNAME$(i);<sp/>&quot;<sp/>:<sp/>&quot;;<sp/>GETPROCSTATE$(i)</highlight></codeline>
@@ -55,7 +55,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="GETPROCSTATE_1notes-95_1s1"><sect2 id="GETPROCSTATE_1notes-95_1s2"><sect3 id="GETPROCSTATE_1notes-95">
+<sect1 id="GETPROCSTATE_1notes-96_1s1"><sect2 id="GETPROCSTATE_1notes-96_1s2"><sect3 id="GETPROCSTATE_1notes-96">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>The index must be within the valid range.</para>
 </listitem><listitem><para>A process that reports <computeroutput>&quot;ended&quot;</computeroutput> is still counted in <computeroutput>GETPROCCOUNT</computeroutput> until it is fully reaped.</para>

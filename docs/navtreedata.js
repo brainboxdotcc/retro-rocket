@@ -34,7 +34,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "ABS.html",
-"edit.html#exiting-the-editor"
+"edit.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

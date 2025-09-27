@@ -11,7 +11,7 @@
 <para>Removes all leading and trailing spaces from the string expression and returns the result.</para>
 <para><hruler/>
 </para>
-<sect1 id="TRIM_1examples-117_1s1"><sect2 id="TRIM_1examples-117_1s2"><sect3 id="TRIM_1examples-117">
+<sect1 id="TRIM_1examples-118_1s1"><sect2 id="TRIM_1examples-118_1s2"><sect3 id="TRIM_1examples-118">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>TRIM$(&quot;<sp/><sp/><sp/>Hello<sp/><sp/><sp/>&quot;)</highlight></codeline>
 </programlisting></para>
 <para>Produces <computeroutput>&quot;Hello&quot;</computeroutput>.</para>
@@ -23,7 +23,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="TRIM_1notes-116_1s1"><sect2 id="TRIM_1notes-116_1s2"><sect3 id="TRIM_1notes-116">
+<sect1 id="TRIM_1notes-117_1s1"><sect2 id="TRIM_1notes-117_1s2"><sect3 id="TRIM_1notes-117">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Only space characters (<computeroutput>CHR$(32)</computeroutput>) are removed; tabs and other whitespace are not affected.</para>
 </listitem><listitem><para>If the string has no leading or trailing spaces, it is returned unchanged.</para>

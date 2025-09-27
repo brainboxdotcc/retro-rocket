@@ -86,6 +86,7 @@ var keywords =
     [ "SETVARR Keyword", "SETVARR.html", null ],
     [ "SETVARS Keyword", "SETVARS.html", null ],
     [ "SLEEP Keyword", "SLEEP.html", null ],
+    [ "SSLCONNECT Keyword", "SSLCONNECT.html", null ],
     [ "SOCKBINREAD Statement", "SOCKBINREAD.html", null ],
     [ "SOCKBINWRITE Statement", "SOCKBINWRITE.html", null ],
     [ "SOCKCLOSE Keyword", "SOCKCLOSE.html", null ],

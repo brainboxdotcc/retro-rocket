@@ -17,7 +17,7 @@
 </para>
 <para><hruler/>
 </para>
-<sect1 id="BINWRITE_1examples-122_1s1"><sect2 id="BINWRITE_1examples-122_1s2"><sect3 id="BINWRITE_1examples-122">
+<sect1 id="BINWRITE_1examples-123_1s1"><sect2 id="BINWRITE_1examples-123_1s2"><sect3 id="BINWRITE_1examples-123">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">fh<sp/><sp/>=<sp/>OPENOUT(&quot;copy.bin&quot;)</highlight></codeline>
 <codeline><highlight class="normal">buf<sp/>=<sp/>MEMALLOC(1024)</highlight></codeline>
 <codeline><highlight class="normal">REM<sp/>...<sp/>fill<sp/>buf<sp/>with<sp/>data<sp/>...</highlight></codeline>
@@ -28,7 +28,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="BINWRITE_1notes-122_1s1"><sect2 id="BINWRITE_1notes-122_1s2"><sect3 id="BINWRITE_1notes-122">
+<sect1 id="BINWRITE_1notes-123_1s1"><sect2 id="BINWRITE_1notes-123_1s2"><sect3 id="BINWRITE_1notes-123">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Binary-safe; writes bytes exactly as stored in memory.</para>
 </listitem><listitem><para>Ensure the file was opened with appropriate mode (<ref refid="OPENOUT" kindref="compound">OPENOUT</ref> to create/overwrite, <ref refid="OPENUP" kindref="compound">OPENUP</ref> to update).</para>

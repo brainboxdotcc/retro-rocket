@@ -28,7 +28,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="GLOBAL_1examples-131_1s1"><sect2 id="GLOBAL_1examples-131_1s2"><sect3 id="GLOBAL_1examples-131">
+<sect1 id="GLOBAL_1examples-132_1s1"><sect2 id="GLOBAL_1examples-132_1s2"><sect3 id="GLOBAL_1examples-132">
 <title>Examples</title><para><bold>Pass a string and number to a child</bold></para>
 <para>Parent program: <programlisting filename=".basic"><codeline><highlight class="normal">GLOBAL<sp/>USERNAME$<sp/>=<sp/>&quot;guest&quot;</highlight></codeline>
 <codeline><highlight class="normal">GLOBAL<sp/>TIMEOUT<sp/><sp/><sp/>=<sp/>30</highlight></codeline>
@@ -49,7 +49,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="GLOBAL_1notes-140_1s1"><sect2 id="GLOBAL_1notes-140_1s2"><sect3 id="GLOBAL_1notes-140">
+<sect1 id="GLOBAL_1notes-141_1s1"><sect2 id="GLOBAL_1notes-141_1s2"><sect3 id="GLOBAL_1notes-141">
 <title>Notes</title><para><itemizedlist>
 <listitem><para><computeroutput>GLOBAL</computeroutput> controls <bold>inter-program passing only</bold>. It does <bold>not</bold> create a program-wide scope within a single program.</para>
 </listitem><listitem><para>The variable is copied <bold>by value</bold> into the child at launch.</para>

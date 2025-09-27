@@ -44,9 +44,11 @@ var searchData=
   ['build_20system_41',['Build System',['../modules.html#build-system',1,'']]],
   ['built_20in_20functions_42',['Built-In Functions',['../builtin-functions.html',1,'basic-ref']]],
   ['built_20in_20variables_43',['Built-In Variables',['../type-bi.html',1,'variables']]],
-  ['but_20recommended_44',['6. Policy notes (non-normative but recommended)',['../retrofs.html#autotoc_md6-policy-notes-non-normative-but-recommended',1,'']]],
-  ['buys_20you_45',['What this design buys you',['../basic-intdev.html#what-this-design-buys-you',1,'']]],
-  ['by_20name_46',['Connecting by Name',['../networking.html#connecting-by-name',1,'']]],
-  ['by_20side_3a_20phone_20call_20vs_20parcel_47',['Side-by-side: Phone Call vs Parcel',['../networking.html#side-by-side-phone-call-vs-parcel',1,'']]],
-  ['byte_20layout_20sketch_48',['Byte layout sketch',['../retrofs.html#byte-layout-sketch',1,'']]]
+  ['bundle_44',['SSL Certificate Bundle',['../SSLCONNECT.html#ssl-certificate-bundle',1,'']]],
+  ['bundle_45',['Managing the bundle',['../SSLCONNECT.html#managing-the-bundle',1,'']]],
+  ['but_20recommended_46',['6. Policy notes (non-normative but recommended)',['../retrofs.html#autotoc_md6-policy-notes-non-normative-but-recommended',1,'']]],
+  ['buys_20you_47',['What this design buys you',['../basic-intdev.html#what-this-design-buys-you',1,'']]],
+  ['by_20name_48',['Connecting by Name',['../networking.html#connecting-by-name',1,'']]],
+  ['by_20side_3a_20phone_20call_20vs_20parcel_49',['Side-by-side: Phone Call vs Parcel',['../networking.html#side-by-side-phone-call-vs-parcel',1,'']]],
+  ['byte_20layout_20sketch_50',['Byte layout sketch',['../retrofs.html#byte-layout-sketch',1,'']]]
 ];

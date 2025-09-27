@@ -26,8 +26,10 @@ var searchData=
   ['spritefree_2emd_23',['SPRITEFREE.md',['../SPRITEFREE_8md.html',1,'']]],
   ['spriteload_2emd_24',['SPRITELOAD.md',['../SPRITELOAD_8md.html',1,'']]],
   ['sqr_2emd_25',['SQR.md',['../SQR_8md.html',1,'']]],
-  ['str_2emd_26',['STR.md',['../STR_8md.html',1,'']]],
-  ['stream_2emd_27',['STREAM.md',['../STREAM_8md.html',1,'']]],
-  ['string_2emd_28',['String.md',['../String_8md.html',1,'']]],
-  ['string_2fread_2emd_29',['READ.md',['../string_2READ_8md.html',1,'']]]
+  ['sslconnect_2emd_26',['SSLCONNECT.md',['../SSLCONNECT_8md.html',1,'']]],
+  ['sslsockaccept_2emd_27',['SSLSOCKACCEPT.md',['../SSLSOCKACCEPT_8md.html',1,'']]],
+  ['str_2emd_28',['STR.md',['../STR_8md.html',1,'']]],
+  ['stream_2emd_29',['STREAM.md',['../STREAM_8md.html',1,'']]],
+  ['string_2emd_30',['String.md',['../String_8md.html',1,'']]],
+  ['string_2fread_2emd_31',['READ.md',['../string_2READ_8md.html',1,'']]]
 ];

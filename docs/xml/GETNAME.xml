@@ -11,7 +11,7 @@
 <para>Returns the <bold>file name</bold> for an entry in a directory. The first parameter is a <bold>directory path</bold>, and the second parameter is an <bold>index</bold> between <computeroutput>0</computeroutput> and <computeroutput>GETNAMECOUNT(path$) - 1</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect1 id="GETNAME_1examples-94_1s1"><sect2 id="GETNAME_1examples-94_1s2"><sect3 id="GETNAME_1examples-94">
+<sect1 id="GETNAME_1examples-95_1s1"><sect2 id="GETNAME_1examples-95_1s2"><sect3 id="GETNAME_1examples-95">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>List<sp/>all<sp/>files<sp/>in<sp/>the<sp/>current<sp/>directory</highlight></codeline>
 <codeline><highlight class="normal">dir$<sp/>=<sp/>CSD$</highlight></codeline>
 <codeline><highlight class="normal">count<sp/>=<sp/>GETNAMECOUNT(dir$)</highlight></codeline>
@@ -27,7 +27,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="GETNAME_1notes-93_1s1"><sect2 id="GETNAME_1notes-93_1s2"><sect3 id="GETNAME_1notes-93">
+<sect1 id="GETNAME_1notes-94_1s1"><sect2 id="GETNAME_1notes-94_1s2"><sect3 id="GETNAME_1notes-94">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>If the index is outside the valid range, an error is raised.</para>
 </listitem><listitem><para>The path may be absolute (starting with <computeroutput>/</computeroutput>) or relative to the current working directory (<ref refid="CSD" kindref="compound">CSD$</ref>).</para>

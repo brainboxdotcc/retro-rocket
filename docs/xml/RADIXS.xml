@@ -11,7 +11,7 @@
 <para>Converts an <bold>integer value</bold> (first parameter) into a <bold>string representation</bold> using the radix (base) specified by the second parameter. The radix must be between <computeroutput>2</computeroutput> and <computeroutput>36</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect1 id="RADIXS_1examples-106_1s1"><sect2 id="RADIXS_1examples-106_1s2"><sect3 id="RADIXS_1examples-106">
+<sect1 id="RADIXS_1examples-107_1s1"><sect2 id="RADIXS_1examples-107_1s2"><sect3 id="RADIXS_1examples-107">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>RADIX$(255,<sp/>16)</highlight></codeline>
 </programlisting></para>
 <para>Produces <computeroutput>&quot;FF&quot;</computeroutput>.</para>
@@ -24,7 +24,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="RADIXS_1notes-105_1s1"><sect2 id="RADIXS_1notes-105_1s2"><sect3 id="RADIXS_1notes-105">
+<sect1 id="RADIXS_1notes-106_1s1"><sect2 id="RADIXS_1notes-106_1s2"><sect3 id="RADIXS_1notes-106">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Valid radix range is <computeroutput>2</computeroutput> (binary) through <computeroutput>36</computeroutput> (digits + A–Z).</para>
 </listitem><listitem><para>Returned value is always uppercase.</para>

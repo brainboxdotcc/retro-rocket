@@ -12,7 +12,7 @@
 <para>Newly spawned processes inherit the current directory of their parent process.</para>
 <para><hruler/>
 </para>
-<sect1 id="CSD_1examples-91_1s1"><sect2 id="CSD_1examples-91_1s2"><sect3 id="CSD_1examples-91">
+<sect1 id="CSD_1examples-92_1s1"><sect2 id="CSD_1examples-92_1s2"><sect3 id="CSD_1examples-92">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>CSD$</highlight></codeline>
 </programlisting></para>
 <para>Might produce:</para>
@@ -28,7 +28,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="CSD_1notes-90_1s1"><sect2 id="CSD_1notes-90_1s2"><sect3 id="CSD_1notes-90">
+<sect1 id="CSD_1notes-91_1s1"><sect2 id="CSD_1notes-91_1s2"><sect3 id="CSD_1notes-91">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>The returned path always begins with <computeroutput>/</computeroutput>.</para>
 </listitem><listitem><para>A process’ working directory may be changed with <ref refid="CHDIR" kindref="compound">CHDIR</ref>.</para>

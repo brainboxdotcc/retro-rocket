@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"edit.html":[0,0,9],
+"edit.html#editing-text":[0,0,9,0,2],
 "edit.html#exiting-the-editor":[0,0,9,0,6],
 "edit.html#moving-around":[0,0,9,0,1],
 "edit.html#quick-reference":[0,0,9,0,7],

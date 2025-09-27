@@ -11,7 +11,7 @@
 <para>Returns the <bold>arc tangent of y ÷ x</bold>, using the signs of both arguments to determine the correct <bold>quadrant</bold> of the angle. The result is given in <bold>radians</bold>, in the range <computeroutput>-PI#</computeroutput> to <computeroutput>PI#</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect1 id="ATAN2_1examples-76_1s1"><sect2 id="ATAN2_1examples-76_1s2"><sect3 id="ATAN2_1examples-76">
+<sect1 id="ATAN2_1examples-77_1s1"><sect2 id="ATAN2_1examples-77_1s2"><sect3 id="ATAN2_1examples-77">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>ATAN2(1,<sp/>1)</highlight></codeline>
 </programlisting></para>
 <para>Produces approximately <computeroutput>0.785398</computeroutput> (π/4).</para>
@@ -33,7 +33,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="ATAN2_1notes-75_1s1"><sect2 id="ATAN2_1notes-75_1s2"><sect3 id="ATAN2_1notes-75">
+<sect1 id="ATAN2_1notes-76_1s1"><sect2 id="ATAN2_1notes-76_1s2"><sect3 id="ATAN2_1notes-76">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Unlike <ref refid="ATAN" kindref="compound">ATAN</ref>, which only returns results in <computeroutput>-π/2 … π/2</computeroutput>, <computeroutput>ATAN2</computeroutput> resolves the full circle by considering both <computeroutput>x</computeroutput> and <computeroutput>y</computeroutput> signs.</para>
 </listitem><listitem><para>Input range: both arguments may be any real numbers.</para>

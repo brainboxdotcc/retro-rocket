@@ -21,7 +21,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="POKEQ_1examples-151_1s1"><sect2 id="POKEQ_1examples-151_1s2"><sect3 id="POKEQ_1examples-151">
+<sect1 id="POKEQ_1examples-152_1s1"><sect2 id="POKEQ_1examples-152_1s2"><sect3 id="POKEQ_1examples-152">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Store<sp/>a<sp/>64-bit<sp/>value</highlight></codeline>
 <codeline><highlight class="normal">POKEQ<sp/>&amp;100400,<sp/>&amp;0123456789ABCDEF</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>PEEKQ(&amp;100400)</highlight></codeline>
@@ -29,7 +29,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="POKEQ_1notes-158_1s1"><sect2 id="POKEQ_1notes-158_1s2"><sect3 id="POKEQ_1notes-158">
+<sect1 id="POKEQ_1notes-159_1s1"><sect2 id="POKEQ_1notes-159_1s2"><sect3 id="POKEQ_1notes-159">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Unaligned 64-bit writes may tear if observed concurrently.</para>
 </listitem></itemizedlist>

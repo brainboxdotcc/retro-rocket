@@ -4,10 +4,10 @@
  */
 #include <kernel.h>
 
-static queued_udp_packet* udp_packets[65536] = {0};
-static queued_udp_packet* udp_list_tail[65536] = {0};
+static queued_udp_packet *udp_packets[65536] = {0};
+static queued_udp_packet *udp_list_tail[65536] = {0};
 static spinlock_t udp_read_lock = 0;
-static uint8_t* ca = NULL;
+static uint8_t *ca = NULL;
 static size_t ca_len = 0;
 
 /**
@@ -23,13 +23,12 @@ static size_t ca_len = 0;
  * @param ptr  Pointer containing the socket FD (cast from uintptr_t).
  * @return true if still waiting, false if ready.
  */
-bool check_sockread_ready(process_t* proc, void* ptr)
-{
+bool check_sockread_ready(process_t *proc, void *ptr) {
 	int64_t fd;
 
 	(void) proc; /* unused */
 
-	fd = (int64_t)(uintptr_t) ptr;
+	fd = (int64_t) (uintptr_t) ptr;
 
 	if (basic_esc()) {
 		return false;
@@ -56,13 +55,12 @@ bool check_sockread_ready(process_t* proc, void* ptr)
  *
  * @param ctx BASIC context.
  */
-void sockread_statement(struct basic_ctx* ctx)
-{
+void sockread_statement(struct basic_ctx *ctx) {
 	char input[MAX_STRINGLEN];
-	const char* var;
+	const char *var;
 	size_t var_length;
 	int64_t fd;
-	process_t* proc;
+	process_t *proc;
 	int rv;
 
 	var = NULL;
@@ -81,35 +79,30 @@ void sockread_statement(struct basic_ctx* ctx)
 	if (tls_get(fd)) {
 		int want;
 		int out_n;
+		int err;
 		bool ok;
 
 		want = 0;
 		out_n = 0;
+		err = 0;
 
-		ok = tls_read_fd(fd, input, MAX_STRINGLEN, &want, &out_n);
-		dprintf("TLS read FD returned: return=%d want=%d out_n=%d\n", ok, want, out_n);
+		ok = tls_read_fd(fd, input, MAX_STRINGLEN, &want, &out_n, &err);
 		if (ok) {
-			dprintf("ok return, read %d\n", out_n);
 			rv = out_n;
 		} else {
 			if (want == 1) {
-				dprintf("ok return, read 0, want read\n");
 				rv = 0; /* WANT_READ -> would block */
 			} else {
-				dprintf("ok = 0, want != 1\n");
-				rv = TCP_ERROR_CONNECTION_FAILED; /* fatal TLS */
+				rv = TCP_ERROR_SSL_FIRST - err; /* fatal TLS */
 			}
 		}
 	} else {
 		rv = recv(fd, input, MAX_STRINGLEN, false, 100);
 	}
 
-	dprintf("sockread recv=%d\n", rv);
-
 	if (rv == 0) {
-		dprintf("Waiting until ready\n");
 		// Not ready yet, yield and retry later
-		proc_set_idle(proc, check_sockread_ready, (void*)(uintptr_t)fd);
+		proc_set_idle(proc, check_sockread_ready, (void *) (uintptr_t) fd);
 		jump_linenum(ctx->current_linenum, ctx);
 		proc->state = PROC_IO_BOUND;
 		return;
@@ -147,8 +140,7 @@ void sockread_statement(struct basic_ctx* ctx)
 	proc->state = PROC_RUNNING;
 }
 
-void sockbinread_statement(struct basic_ctx* ctx)
-{
+void sockbinread_statement(struct basic_ctx *ctx) {
 	int rv;
 	size_t var_length;
 	int64_t fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx, &var_length), ctx);
@@ -158,37 +150,39 @@ void sockbinread_statement(struct basic_ctx* ctx)
 	accept_or_return(COMMA, ctx);
 	int64_t length = expr(ctx);
 	if (length && !address_valid_write(address, length)) {
-		tokenizer_error_printf(ctx, "Invalid address: %016lx", (uint64_t)address);
+		tokenizer_error_printf(ctx, "Invalid address: %016lx", (uint64_t) address);
 		return;
 	}
 
-	process_t* proc = proc_cur(logical_cpu_id());
+	process_t *proc = proc_cur(logical_cpu_id());
 
 	if (tls_get(fd)) {
 		int want;
 		int out_n;
 		bool ok;
+		int err;
 
 		want = 0;
 		out_n = 0;
+		err = 0;
 
-		ok = tls_read_fd(fd, address, length, &want, &out_n);
+		ok = tls_read_fd(fd, address, length, &want, &out_n, &err);
 		if (ok) {
 			rv = out_n;
 		} else {
 			if (want == 1) {
 				rv = 0; /* WANT_READ → would block */
 			} else {
-				rv = TCP_ERROR_CONNECTION_FAILED; /* fatal TLS */
+				rv = TCP_ERROR_SSL_FIRST - err; /* fatal TLS */
 			}
 		}
 	} else {
-		rv = recv((int) fd, (void*) address, (uint32_t) length, false, 100);
+		rv = recv((int) fd, (void *) address, (uint32_t) length, false, 100);
 	}
 
 	if (rv == 0) {
 		// Not ready yet, yield and retry later
-		proc_set_idle(proc, check_sockread_ready, (void*)(uintptr_t)fd);
+		proc_set_idle(proc, check_sockread_ready, (void *) (uintptr_t) fd);
 		jump_linenum(ctx->current_linenum, ctx);
 		proc->state = PROC_IO_BOUND;
 		return;
@@ -206,8 +200,8 @@ void sockbinread_statement(struct basic_ctx* ctx)
 	proc->state = PROC_RUNNING;
 }
 
-void connect_statement(struct basic_ctx* ctx) {
-	const char* fd_var = NULL, *ip = NULL;
+void connect_statement(struct basic_ctx *ctx) {
+	const char *fd_var = NULL, *ip = NULL;
 	int64_t port;
 	size_t var_length;
 
@@ -225,13 +219,13 @@ void connect_statement(struct basic_ctx* ctx) {
 		switch (fd_var[var_length - 1]) {
 			case '$':
 				tokenizer_error_print(ctx, "Can't store socket descriptor in STRING");
-			break;
+				break;
 			case '#':
 				tokenizer_error_print(ctx, "Cannot store socket descriptor in REAL");
-			break;
+				break;
 			default:
 				basic_set_int_variable(fd_var, rv, ctx, false, false);
-			break;
+				break;
 		}
 
 		accept_or_return(NEWLINE, ctx);
@@ -240,8 +234,8 @@ void connect_statement(struct basic_ctx* ctx) {
 	}
 }
 
-void sslconnect_statement(struct basic_ctx* ctx) {
-	const char* fd_var = NULL, *ip = NULL, *sni = NULL;
+void sslconnect_statement(struct basic_ctx *ctx) {
+	const char *fd_var = NULL, *ip = NULL, *sni = NULL;
 	int64_t port;
 	size_t var_length;
 
@@ -263,7 +257,7 @@ void sslconnect_statement(struct basic_ctx* ctx) {
 	}
 
 	if (!ca) {
-		fs_directory_entry_t* info = fs_get_file_info("/system/ssl/cacert.pem");
+		fs_directory_entry_t *info = fs_get_file_info("/system/ssl/cacert.pem");
 		if (!info || (info->flags & FS_DIRECTORY) != 0) {
 			tokenizer_error_print(ctx, "Unable to load CA cert bundle from /system/ssl/cacert.pem");
 			return;
@@ -304,8 +298,8 @@ void sslconnect_statement(struct basic_ctx* ctx) {
 	}
 }
 
-void sockclose_statement(struct basic_ctx* ctx) {
-	const char* fd_var = NULL;
+void sockclose_statement(struct basic_ctx *ctx) {
+	const char *fd_var = NULL;
 	size_t var_length;
 
 	accept_or_return(SOCKCLOSE, ctx);
@@ -326,15 +320,15 @@ void sockclose_statement(struct basic_ctx* ctx) {
 	}
 }
 
-int64_t basic_socklisten(struct basic_ctx* ctx) {
+int64_t basic_socklisten(struct basic_ctx *ctx) {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
-	const char* ip = strval;
+	const char *ip = strval;
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t port = intval;
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t backlog = intval;
-	PARAMS_END("SOCKLISTEN",-1);
+	PARAMS_END("SOCKLISTEN", -1);
 	if (port < 1 || port > UINT16_MAX - 1) {
 		tokenizer_error_print(ctx, "Invalid port for LISTEN");
 		return -1;
@@ -347,11 +341,11 @@ int64_t basic_socklisten(struct basic_ctx* ctx) {
 	return rv;
 }
 
-int64_t basic_sockaccept(struct basic_ctx* ctx) {
+int64_t basic_sockaccept(struct basic_ctx *ctx) {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t server = intval;
-	PARAMS_END("SOCKACCEPT",-1);
+	PARAMS_END("SOCKACCEPT", -1);
 	int rv = tcp_accept(server);
 	if (rv == TCP_ERROR_WOULD_BLOCK) {
 		/* This is an expected, handled error */
@@ -363,31 +357,73 @@ int64_t basic_sockaccept(struct basic_ctx* ctx) {
 	return rv;
 }
 
-int64_t basic_sslsockaccept(struct basic_ctx* ctx) {
+int64_t basic_sslsockaccept(struct basic_ctx *ctx) {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t server = intval;
 	PARAMS_GET_ITEM(BIP_STRING);
-	const char* cert = strval;
-	PARAMS_GET_ITEM(BIP_INT);
-	const char* key = strval;
-	PARAMS_END("SSLSOCKACCEPT",-1);
-	// TODO: Load the certs from the file paths
-	int rv = ssl_accept(server, (const uint8_t*)cert, strlen(cert), (const uint8_t*)key, strlen(key), NULL, true);
-	if (rv < 0) {
+	const char *cert = strval;
+	PARAMS_GET_ITEM(BIP_STRING);
+	const char *key = strval;
+	PARAMS_END("SSLSOCKACCEPT", -1);
+	fs_directory_entry_t *info = fs_get_file_info(key);
+	if (!info || (info->flags & FS_DIRECTORY) != 0) {
+		tokenizer_error_printf(ctx, "Unable to open key: %s", key);
+		return -1;
+	}
+	uint8_t *key_data = kmalloc(info->size + 1);
+	if (!key_data) {
+		tokenizer_error_printf(ctx, "Unable to load key: %s", key);
+		return -1;
+	}
+	if (!fs_read_file(info, 0, info->size, key_data)) {
+		kfree_null(&key_data);
+		tokenizer_error_printf(ctx, "Unable to load key %s: %s", key, fs_strerror(fs_get_error()));
+		return -1;
+	}
+	key_data[info->size] = 0;
+	size_t key_size = info->size + 1;
+	info = fs_get_file_info(cert);
+	if (!info || (info->flags & FS_DIRECTORY) != 0) {
+		tokenizer_error_printf(ctx, "Unable to open cert: %s", cert);
+		kfree_null(&key_data);
+		return -1;
+	}
+	uint8_t *cert_data = kmalloc(info->size + 1);
+	if (!cert_data) {
+		tokenizer_error_printf(ctx, "Unable to load cert: %s", cert);
+		kfree_null(&key_data);
+		return -1;
+	}
+	if (!fs_read_file(info, 0, info->size, cert_data)) {
+		kfree_null(&key_data);
+		kfree_null(&cert_data);
+		tokenizer_error_printf(ctx, "Unable to load cert %s: %s", cert, fs_strerror(fs_get_error()));
+		return -1;
+	}
+	cert_data[info->size] = 0;
+	size_t cert_size = info->size + 1;
+
+	int rv = ssl_accept(server, cert_data, cert_size, key_data, key_size, NULL, true);
+	kfree_null(&cert_data);
+	kfree_null(&key_data);
+	if (rv == TCP_ERROR_WOULD_BLOCK) {
+		/* This is an expected, handled error */
+		return -1;
+	} else if (rv < 0) {
 		tokenizer_error_print(ctx, socket_error(rv));
 		return -1;
 	}
 	return rv;
 }
 
-char* basic_insocket(struct basic_ctx* ctx) {
-	uint8_t input[2] = { 0, 0 };
+char *basic_insocket(struct basic_ctx *ctx) {
+	uint8_t input[2] = {0, 0};
 
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t fd = intval;
-	PARAMS_END("INSOCKET$","");
+	PARAMS_END("INSOCKET$", "");
 
 	if (fd < 0) {
 		tokenizer_error_print(ctx, "Invalid socket descriptor");
@@ -398,18 +434,21 @@ char* basic_insocket(struct basic_ctx* ctx) {
 	if (tls_get(fd)) {
 		int want;
 		int out_n;
+		int err;
 		bool ok;
 
 		want = 0;
 		out_n = 0;
-		ok = tls_read_fd(fd, input, 1, &want, &out_n);
+		err = 0;
+
+		ok = tls_read_fd(fd, input, 1, &want, &out_n, &err);
 		if (ok) {
 			rv = out_n;
 		} else {
 			if (want == 1) {
 				rv = 0;
 			} else {
-				rv = TCP_ERROR_CONNECTION_FAILED;
+				rv = TCP_ERROR_SSL_FIRST - err;
 			}
 		}
 	} else {
@@ -418,7 +457,7 @@ char* basic_insocket(struct basic_ctx* ctx) {
 
 	if (rv > 0) {
 		input[1] = 0;
-		return gc_strdup(ctx, (const char*)input);
+		return gc_strdup(ctx, (const char *) input);
 	} else if (rv < 0) {
 		tokenizer_error_print(ctx, socket_error(rv));
 	} else {
@@ -427,8 +466,7 @@ char* basic_insocket(struct basic_ctx* ctx) {
 	return "";
 }
 
-int64_t basic_sockstatus(struct basic_ctx* ctx)
-{
+int64_t basic_sockstatus(struct basic_ctx *ctx) {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t fd = intval;
@@ -441,55 +479,54 @@ int64_t basic_sockstatus(struct basic_ctx* ctx)
 	return is_connected(fd);
 }
 
-char* basic_netinfo(struct basic_ctx* ctx)
-{
+char *basic_netinfo(struct basic_ctx *ctx) {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
-	PARAMS_END("NETINFO$","");
-	char ip[16] = { 0 };
+	PARAMS_END("NETINFO$", "");
+	char ip[16] = {0};
 	if (!stricmp(strval, "ip")) {
 		unsigned char raw[4];
 		if (gethostaddr(raw)) {
-			get_ip_str(ip, (uint8_t*)&raw);
+			get_ip_str(ip, (uint8_t *) &raw);
 			return gc_strdup(ctx, ip);
 		}
 		return gc_strdup(ctx, "0.0.0.0");
 	}
 	if (!stricmp(strval, "gw")) {
 		uint32_t raw = getgatewayaddr();
-		get_ip_str(ip, (uint8_t*)&raw);
+		get_ip_str(ip, (uint8_t *) &raw);
 		return gc_strdup(ctx, ip);
 	}
 	if (!stricmp(strval, "mask")) {
 		uint32_t raw = getnetmask();
-		get_ip_str(ip, (uint8_t*)&raw);
+		get_ip_str(ip, (uint8_t *) &raw);
 		return gc_strdup(ctx, ip);
 	}
 	if (!stricmp(strval, "dns")) {
 		uint32_t raw = getdnsaddr();
-		get_ip_str(ip, (uint8_t*)&raw);
+		get_ip_str(ip, (uint8_t *) &raw);
 		return gc_strdup(ctx, ip);
 	}
 	return gc_strdup(ctx, "0.0.0.0");
 }
 
-char* basic_dns(struct basic_ctx* ctx) {
+char *basic_dns(struct basic_ctx *ctx) {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
-	PARAMS_END("DNS$","");
-	char ip[16] = { 0 };
+	PARAMS_END("DNS$", "");
+	char ip[16] = {0};
 	uint32_t addr = dns_lookup_host(getdnsaddr(), strval, 2000);
-	get_ip_str(ip, (uint8_t*)&addr);
+	get_ip_str(ip, (uint8_t *) &addr);
 	return gc_strdup(ctx, ip);
 }
 
-void sockwrite_statement(struct basic_ctx* ctx) {
+void sockwrite_statement(struct basic_ctx *ctx) {
 	accept_or_return(SOCKWRITE, ctx);
 	size_t var_length;
 	int fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx, &var_length), ctx);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
-	const char* out = printable_syntax(ctx);
+	const char *out = printable_syntax(ctx);
 	if (out) {
 		if (tls_get(fd)) {
 			int want;
@@ -505,7 +542,7 @@ void sockwrite_statement(struct basic_ctx* ctx) {
 	}
 }
 
-void sockbinwrite_statement(struct basic_ctx* ctx) {
+void sockbinwrite_statement(struct basic_ctx *ctx) {
 	accept_or_return(SOCKBINWRITE, ctx);
 	size_t var_length;
 	int fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx, &var_length), ctx);
@@ -526,26 +563,26 @@ void sockbinwrite_statement(struct basic_ctx* ctx) {
 
 			want = 0;
 			out_n = 0;
-			tls_write_fd(fd, (const void*) buffer_pointer, (size_t) length, &want, &out_n);
+			tls_write_fd(fd, (const void *) buffer_pointer, (size_t) length, &want, &out_n);
 		} else {
 			send(fd, buffer_pointer, length);
 		}
 	}
 }
 
-static void basic_udp_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, void* data, uint32_t length, void* opaque) {
-	basic_ctx* ctx = (basic_ctx*)opaque;
+static void basic_udp_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, void *data, uint32_t length, void *opaque) {
+	basic_ctx *ctx = (basic_ctx *) opaque;
 	if (!opaque) {
 		return;
 	}
 	// TODO: Protect this against concurrent access
-	queued_udp_packet* packet = buddy_malloc(ctx->allocator, sizeof(queued_udp_packet));
+	queued_udp_packet *packet = buddy_malloc(ctx->allocator, sizeof(queued_udp_packet));
 	if (!packet) {
 		return;
 	}
 	char ip[MAX_STRINGLEN];
 	src_ip = ntohl(src_ip);
-	get_ip_str(ip, (uint8_t*)&src_ip);
+	get_ip_str(ip, (uint8_t *) &src_ip);
 	packet->length = length;
 	packet->data = buddy_strdup(ctx->allocator, data);
 	packet->ip = buddy_strdup(ctx->allocator, ip);
@@ -553,26 +590,26 @@ static void basic_udp_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t
 	packet->next = NULL;
 	uint64_t flags;
 	lock_spinlock_irq(&udp_read_lock, &flags);
-	packet->prev = (struct queued_udp_packet*)udp_list_tail[dst_port];
+	packet->prev = (struct queued_udp_packet *) udp_list_tail[dst_port];
 	if (udp_list_tail[dst_port] == NULL) {
 		udp_list_tail[dst_port] = packet;
 		udp_packets[dst_port] = packet;
 	} else {
-		udp_list_tail[dst_port]->next = (struct queued_udp_packet*)packet;
+		udp_list_tail[dst_port]->next = (struct queued_udp_packet *) packet;
 		udp_list_tail[dst_port] = packet;
 	}
 	unlock_spinlock_irq(&udp_read_lock, flags);
 }
 
-void udpwrite_statement(struct basic_ctx* ctx) {
+void udpwrite_statement(struct basic_ctx *ctx) {
 	accept_or_return(UDPWRITE, ctx);
-	const char* dest_ip = str_expr(ctx);
+	const char *dest_ip = str_expr(ctx);
 	accept_or_return(COMMA, ctx);
 	int64_t source_port = expr(ctx);
 	accept_or_return(COMMA, ctx);
 	int64_t dest_port = expr(ctx);
 	accept_or_return(COMMA, ctx);
-	const char* data = str_expr(ctx);
+	const char *data = str_expr(ctx);
 	accept_or_return(NEWLINE, ctx);
 	if (source_port > 65535 || source_port < 0 || dest_port > 65535 || dest_port < 0) {
 		tokenizer_error_print(ctx, "Invalid UDP port number");
@@ -582,13 +619,13 @@ void udpwrite_statement(struct basic_ctx* ctx) {
 		tokenizer_error_print(ctx, "Invalid UDP packet length");
 	}
 	uint32_t dest = htonl(str_to_ip(dest_ip));
-	udp_send_packet((uint8_t*)&dest, source_port, dest_port, (void*)data, len + 1); // including the NULL terminator
+	udp_send_packet((uint8_t *) &dest, source_port, dest_port, (void *) data, len + 1); // including the NULL terminator
 }
 
-void udpbind_statement(struct basic_ctx* ctx) {
+void udpbind_statement(struct basic_ctx *ctx) {
 	accept_or_return(UDPBIND, ctx);
-	const char* bind_ip = str_expr(ctx);
-	(void)bind_ip;
+	const char *bind_ip = str_expr(ctx);
+	(void) bind_ip;
 	accept_or_return(COMMA, ctx);
 	int64_t port = expr(ctx);
 	if (port > 65535 || port < 0) {
@@ -598,10 +635,10 @@ void udpbind_statement(struct basic_ctx* ctx) {
 	udp_register_daemon(port, &basic_udp_handle_packet, ctx);
 }
 
-void udpunbind_statement(struct basic_ctx* ctx) {
+void udpunbind_statement(struct basic_ctx *ctx) {
 	accept_or_return(UDPUNBIND, ctx);
-	const char* bind_ip = str_expr(ctx);
-	(void)bind_ip;
+	const char *bind_ip = str_expr(ctx);
+	(void) bind_ip;
 	accept_or_return(COMMA, ctx);
 	int64_t port = expr(ctx);
 	if (port > 65535 || port < 0) {
@@ -611,18 +648,18 @@ void udpunbind_statement(struct basic_ctx* ctx) {
 	udp_unregister_daemon(port, &basic_udp_handle_packet);
 }
 
-int64_t basic_udplastsourceport(struct basic_ctx* ctx) {
+int64_t basic_udplastsourceport(struct basic_ctx *ctx) {
 	return ctx->last_packet.source_port;
 }
 
-char* basic_udplastip(struct basic_ctx* ctx) {
-	return ctx->last_packet.ip ? (char*)ctx->last_packet.ip : "";
+char *basic_udplastip(struct basic_ctx *ctx) {
+	return ctx->last_packet.ip ? (char *) ctx->last_packet.ip : "";
 }
 
-char* basic_udpread(struct basic_ctx* ctx) {
+char *basic_udpread(struct basic_ctx *ctx) {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("UDPREAD$","");
+	PARAMS_END("UDPREAD$", "");
 	int64_t port = intval;
 	if (port > 65535 || port < 0) {
 		tokenizer_error_print(ctx, "Invalid UDP port number");
@@ -636,17 +673,17 @@ char* basic_udpread(struct basic_ctx* ctx) {
 	memset(&ctx->last_packet, 0, sizeof(ctx->last_packet));
 	uint64_t flags;
 	lock_spinlock_irq(&udp_read_lock, &flags);
-	queued_udp_packet* queue = udp_packets[port];
+	queued_udp_packet *queue = udp_packets[port];
 	if (queue) {
 		ctx->last_packet = *queue;
 		if (queue == udp_list_tail[port]) {
 			/* This packet is the tail packet */
-			udp_list_tail[port] = (queued_udp_packet *)udp_list_tail[port]->prev;
+			udp_list_tail[port] = (queued_udp_packet *) udp_list_tail[port]->prev;
 			if (udp_list_tail[port]) {
 				udp_list_tail[port]->next = NULL;
 			}
 		}
-		udp_packets[port] = (queued_udp_packet *)queue->next;
+		udp_packets[port] = (queued_udp_packet *) queue->next;
 		if (udp_packets[port]) {
 			udp_packets[port]->prev = NULL;
 		}
@@ -659,7 +696,7 @@ char* basic_udpread(struct basic_ctx* ctx) {
 	}
 
 	unlock_spinlock_irq(&udp_read_lock, flags);
-	return ctx->last_packet.data ? (char*)ctx->last_packet.data : "";
+	return ctx->last_packet.data ? (char *) ctx->last_packet.data : "";
 }
 
 /**
@@ -668,27 +705,26 @@ char* basic_udpread(struct basic_ctx* ctx) {
  * Used by the scheduler to resume SOCKFLUSH when the condition becomes true.
  * Returns true if still waiting (i.e., NOT drained yet).
  */
-static bool check_sockflush_ready(process_t* proc, void* ptr) {
-	(void)proc;
-	int64_t fd = (int64_t)(uintptr_t)ptr;
+static bool check_sockflush_ready(process_t *proc, void *ptr) {
+	(void) proc;
+	int64_t fd = (int64_t) (uintptr_t) ptr;
 	if (basic_esc()) {
 		return false;
 	}
 	return !sock_sent(fd);
 }
 
-void sockflush_statement(struct basic_ctx* ctx)
-{
+void sockflush_statement(struct basic_ctx *ctx) {
 	size_t var_length;
 	accept_or_return(SOCKFLUSH, ctx);
 	int64_t fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx, &var_length), ctx);
 	accept_or_return(VARIABLE, ctx);
 
-	process_t* proc = proc_cur(logical_cpu_id());
+	process_t *proc = proc_cur(logical_cpu_id());
 
-	if (!sock_sent((int)fd)) {
+	if (!sock_sent((int) fd)) {
 		/* Not drained yet: park this process and retry the same line later */
-		proc_set_idle(proc, check_sockflush_ready, (void*)(uintptr_t)fd);
+		proc_set_idle(proc, check_sockflush_ready, (void *) (uintptr_t) fd);
 		jump_linenum(ctx->current_linenum, ctx);
 		proc->state = PROC_IO_BOUND;
 		return;

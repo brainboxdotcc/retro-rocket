@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="SSLCONNECT" kind="page">
+    <compoundname>SSLCONNECT</compoundname>
+    <title>SSLCONNECT Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">SSLCONNECT<sp/>integer-variable,<sp/>string-expression,<sp/>integer-expression<sp/>[,<sp/>sni$]</highlight></codeline>
+</programlisting></para>
+<para>Opens a <bold>TLS-encrypted TCP connection</bold> to a remote host.</para>
+<para><itemizedlist>
+<listitem><para><bold>First parameter</bold>: an <bold>integer variable</bold> (created if it does not yet exist). On success it will be set to a <bold>non-negative handle</bold> that you then pass to <ref refid="SOCKREAD" kindref="compound">SOCKREAD</ref>, <ref refid="SOCKWRITE" kindref="compound">SOCKWRITE</ref>, and <ref refid="SOCKCLOSE" kindref="compound">SOCKCLOSE</ref>.</para>
+</listitem><listitem><para><bold>Second parameter</bold>: a <bold>string</bold> containing the IP address. To resolve a hostname into an address string, use <ref refid="DNS" kindref="compound">DNS$</ref>.</para>
+</listitem><listitem><para><bold>Third parameter</bold>: the <bold>port number</bold> (integer expression).</para>
+</listitem><listitem><para><bold>Optional fourth parameter</bold>: <computeroutput>sni$</computeroutput> — the Server Name Indication string, used when connecting to servers hosting multiple domains on the same IP.</para>
+</listitem></itemizedlist>
+</para>
+<para>On <bold>failure</bold>, an error is raised.</para>
+<para><hruler/>
+</para>
+<sect1 id="SSLCONNECT_1example-secure-web-request_1s1"><sect2 id="SSLCONNECT_1example-secure-web-request_1s2"><sect3 id="SSLCONNECT_1example-secure-web-request_1s3"><sect4 id="SSLCONNECT_1example-secure-web-request_1s4"><sect5 id="SSLCONNECT_1example-secure-web-request">
+<title>Example: secure web request</title><para><programlisting filename=".basic"><codeline><highlight class="normal">HOST$<sp/>=<sp/>&quot;example.com&quot;</highlight></codeline>
+<codeline><highlight class="normal">IP$<sp/>=<sp/>DNS$(HOST$)</highlight></codeline>
+<codeline><highlight class="normal">SSLCONNECT<sp/>H,<sp/>IP$,<sp/>443,<sp/>HOST$</highlight></codeline>
+<codeline><highlight class="normal">SOCKWRITE<sp/>H,<sp/>&quot;HEAD<sp/>/<sp/>HTTP/1.0&quot;<sp/>+<sp/>CHR(13)<sp/>+<sp/>CHR(10)<sp/>+<sp/>CHR(13)<sp/>+<sp/>CHR(10)</highlight></codeline>
+<codeline><highlight class="normal">SOCKREAD<sp/>H,<sp/>REPLY$</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>REPLY$</highlight></codeline>
+<codeline><highlight class="normal">SOCKCLOSE<sp/>H</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect5></sect4></sect3></sect2></sect1>
+<sect1 id="SSLCONNECT_1notes-174_1s1"><sect2 id="SSLCONNECT_1notes-174_1s2"><sect3 id="SSLCONNECT_1notes-174_1s3"><sect4 id="SSLCONNECT_1notes-174_1s4"><sect5 id="SSLCONNECT_1notes-174">
+<title>Notes</title><para><itemizedlist>
+<listitem><para>The first argument <bold>must be an integer variable</bold>, not a literal or expression.</para>
+</listitem><listitem><para>Validates the remote server’s certificate against the system CA bundle in <computeroutput>/system/ssl/cacert.pem</computeroutput>.</para>
+</listitem><listitem><para>Supports modern TLS (SSLv3 and older are not supported).</para>
+</listitem><listitem><para>Always close the handle with <computeroutput>SOCKCLOSE</computeroutput> when finished.</para>
+</listitem><listitem><para><computeroutput>SOCKREAD</computeroutput> is a <bold>blocking</bold> operation; see its page for cancellation with <computeroutput>CTRL+ESC</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect5></sect4></sect3></sect2></sect1>
+<sect1 id="SSLCONNECT_1ssl-certificate-bundle_1s1"><sect2 id="SSLCONNECT_1ssl-certificate-bundle">
+<title>SSL Certificate Bundle</title><para>Retro Rocket uses a CA certificate bundle to validate remote servers when making secure connections with <ref refid="SSLCONNECT" kindref="compound">SSLCONNECT</ref>. The expected location is:</para>
+<para><programlisting><codeline><highlight class="normal">/system/ssl/cacert.pem</highlight></codeline>
+</programlisting></para>
+<para>This file should contain one or more trusted <bold>root certificate authorities</bold> in PEM format.</para>
+<para><hruler/>
+</para>
+<sect3 id="SSLCONNECT_1how-it-is-used">
+<title>How it is used</title><para><itemizedlist>
+<listitem><para>On the first call to <ref refid="SSLCONNECT" kindref="compound">SSLCONNECT</ref>, the bundle is loaded into memory.</para>
+</listitem><listitem><para>Every subsequent secure connection reuses the cached bundle.</para>
+</listitem><listitem><para>If the bundle is missing or invalid, connections will fail with a certificate error.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3>
+<sect3 id="SSLCONNECT_1managing-the-bundle">
+<title>Managing the bundle</title><para><itemizedlist>
+<listitem><para>Retro Rocket does not generate this file automatically.</para>
+</listitem><listitem><para>You may copy a pre-built <computeroutput>cacert.pem</computeroutput> (such as the one provided by the cURL project) into <computeroutput>/system/ssl/</computeroutput>.</para>
+</listitem><listitem><para>Alternatively, you may regenerate your own bundle from Mozilla’s trusted store, using the <computeroutput>mk-ca-bundle</computeroutput> script.</para>
+</listitem><listitem><para>The bundle must be kept up to date to maintain security.</para>
+</listitem><listitem><para>If a certificate authority is compromised or revoked, you should refresh <computeroutput>cacert.pem</computeroutput>.</para>
+</listitem><listitem><para>The file must be world-readable so all processes can validate servers.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="DNS" kindref="compound">DNS$</ref> · <ref refid="SOCKREAD" kindref="compound">SOCKREAD</ref> · <ref refid="SOCKWRITE" kindref="compound">SOCKWRITE</ref> · <ref refid="SOCKCLOSE" kindref="compound">SOCKCLOSE</ref> · <ref refid="SOCKSTATUS" kindref="compound">SOCKSTATUS</ref> · <ref refid="SSLSOCKACCEPT" kindref="compound">SSLSOCKACCEPT</ref> </para>
+</sect3>
+</sect2></sect1>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/SSLCONNECT.md"/>
+  </compounddef>
+</doxygen>

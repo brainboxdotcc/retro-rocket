@@ -28,11 +28,12 @@ var searchData=
   ['usage_25',['Typical usage',['../STREAM.html#typical-usage',1,'']]],
   ['usage_20example_26',['Usage example',['../SOUND.html#usage-example',1,'']]],
   ['usage_20notes_27',['Behaviour and usage notes',['../SPRITELOAD.html#behaviour-and-usage-notes',1,'']]],
-  ['use_20it_28',['use it',['../SOCKACCEPT.html#how-to-use-it',1,'How to use it'],['../SOCKLISTEN.html#how-to-use-it-1',1,'How to use it'],['../SOCKFLUSH.html#how-to-use-it-2',1,'How to use it']]],
-  ['user_20guide_29',['User Guide',['../user-guide.html',1,'index']]],
-  ['userland_20bootstrap_3a_20programs_20init_30',['5. Userland Bootstrap: &lt;span class=&quot;tt&quot;&gt;/programs/init&lt;/span&gt;',['../bootflow.html#autotoc_md5-userland-bootstrap-programsinit',1,'']]],
-  ['using_20ansi_20escape_20sequences_20advanced_31',['Using ANSI escape sequences (advanced)',['../PRINT.html#using-ansi-escape-sequences-advanced',1,'']]],
-  ['using_20kernel_20symbols_32',['Using Kernel Symbols',['../modules.html#using-kernel-symbols',1,'']]],
-  ['using_20strings_33',['3) Getting input and using strings',['../basic-beginner.html#autotoc_md3-getting-input-and-using-strings',1,'']]],
-  ['using_20variables_20with_20a_20subroutine_34',['Example: using variables with a subroutine',['../GOSUB.html#example-using-variables-with-a-subroutine',1,'']]]
+  ['use_20it_28',['use it',['../SOCKACCEPT.html#how-to-use-it',1,'How to use it'],['../SOCKLISTEN.html#how-to-use-it-1',1,'How to use it'],['../SSLSOCKACCEPT.html#how-to-use-it-2',1,'How to use it'],['../SOCKFLUSH.html#how-to-use-it-3',1,'How to use it']]],
+  ['used_29',['How it is used',['../SSLCONNECT.html#how-it-is-used',1,'']]],
+  ['user_20guide_30',['User Guide',['../user-guide.html',1,'index']]],
+  ['userland_20bootstrap_3a_20programs_20init_31',['5. Userland Bootstrap: &lt;span class=&quot;tt&quot;&gt;/programs/init&lt;/span&gt;',['../bootflow.html#autotoc_md5-userland-bootstrap-programsinit',1,'']]],
+  ['using_20ansi_20escape_20sequences_20advanced_32',['Using ANSI escape sequences (advanced)',['../PRINT.html#using-ansi-escape-sequences-advanced',1,'']]],
+  ['using_20kernel_20symbols_33',['Using Kernel Symbols',['../modules.html#using-kernel-symbols',1,'']]],
+  ['using_20strings_34',['3) Getting input and using strings',['../basic-beginner.html#autotoc_md3-getting-input-and-using-strings',1,'']]],
+  ['using_20variables_20with_20a_20subroutine_35',['Example: using variables with a subroutine',['../GOSUB.html#example-using-variables-with-a-subroutine',1,'']]]
 ];

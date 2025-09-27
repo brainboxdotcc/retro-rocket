@@ -18,7 +18,7 @@
 </para>
 <para><hruler/>
 </para>
-<sect1 id="TOKENIZE_1examples-116_1s1"><sect2 id="TOKENIZE_1examples-116_1s2"><sect3 id="TOKENIZE_1examples-116">
+<sect1 id="TOKENIZE_1examples-117_1s1"><sect2 id="TOKENIZE_1examples-117_1s2"><sect3 id="TOKENIZE_1examples-117">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">V$<sp/>=<sp/>&quot;ONE<sp/>TWO&quot;</highlight></codeline>
 <codeline><highlight class="normal">A$<sp/>=<sp/>TOKENIZE$(V$,<sp/>&quot;<sp/>&quot;)</highlight></codeline>
 <codeline><highlight class="normal">B$<sp/>=<sp/>TOKENIZE$(V$,<sp/>&quot;<sp/>&quot;)</highlight></codeline>
@@ -43,7 +43,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="TOKENIZE_1notes-115_1s1"><sect2 id="TOKENIZE_1notes-115_1s2"><sect3 id="TOKENIZE_1notes-115">
+<sect1 id="TOKENIZE_1notes-116_1s1"><sect2 id="TOKENIZE_1notes-116_1s2"><sect3 id="TOKENIZE_1notes-116">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>The first parameter must be a <bold>string variable</bold> (not a literal), because its value is modified in-place.</para>
 </listitem><listitem><para>The second parameter is the <bold>separator string</bold>.</para>
