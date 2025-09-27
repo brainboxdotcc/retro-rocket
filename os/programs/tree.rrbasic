@@ -1,0 +1,46 @@
+start$ = ARGS$
+IF start$ = "" THEN start$ = CSD$
+
+dirs = 0
+files = 0
+
+PRINT start$
+PROCwalk(start$, "")
+
+PRINT
+PRINT dirs; " directories, "; files; " files."
+END
+
+DEF PROCwalk(dir$, prefix$)
+	LOCAL n = GETNAMECOUNT(dir$)
+	LOCAL i = 0
+	FOR i = 0 TO n - 1
+		LOCAL name$ = GETNAME$(dir$, i)
+
+		IF dir$ = "" THEN LOCAL base$ = ""
+		IF dir$ <> "" THEN LOCAL base$ = dir$ + "/"
+		LOCAL full$ = base$ + name$
+
+		LOCAL is_last = FALSE
+		IF i = n - 1 THEN is_last = TRUE
+
+		IF is_last = TRUE THEN LOCAL branch$ = prefix$ + "\-- "
+		IF is_last = FALSE THEN LOCAL branch$ = prefix$ + "+-- "
+
+		LOCAL ftype$ = FILETYPE$(full$)
+
+		PRINT branch$; name$
+
+		IF ftype$ = "directory" THEN dirs = dirs + 1
+		IF ftype$ = "file" THEN files = files + 1
+
+		IF ftype$ = "directory" THEN PROCdescend(full$, prefix$, is_last)
+	NEXT
+ENDPROC
+
+DEF PROCdescend(full$, prefix$, is_last)
+	LOCAL next_prefix$ = prefix$
+	IF is_last = TRUE THEN next_prefix$ = next_prefix$ + "    "
+	IF is_last = FALSE THEN next_prefix$ = next_prefix$ + "|   "
+	PROCwalk(full$, next_prefix$)
+ENDPROC

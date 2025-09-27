@@ -385,8 +385,6 @@ int tls_handshake_step_nb(mbedtls_ssl_context *ssl) {
 /* reads/writes return negative error */
 int tls_read_nb(mbedtls_ssl_context *ssl, void *buf, size_t len, int *want) {
 	int n = mbedtls_ssl_read(ssl, buf, len);
-	dprintf("mbedtls_ssl_read\n");
-	if (n > 0) dump_hex(buf, n);
 	if (n >= 0) return n;
 	*want = (n == MBEDTLS_ERR_SSL_WANT_READ) ? 1 : (n == MBEDTLS_ERR_SSL_WANT_WRITE) ? 2 : -1;
 	char e[128];
@@ -394,13 +392,6 @@ int tls_read_nb(mbedtls_ssl_context *ssl, void *buf, size_t len, int *want) {
 	dprintf("read error: %s (%d)\n", e, n);
 	return n;
 }
-
-/*int tls_write_nb(mbedtls_ssl_context *ssl, const void *buf, size_t len, int *want) {
-	int n = mbedtls_ssl_write(ssl, buf, len);
-	if (n >= 0) return n;
-	*want = (n == MBEDTLS_ERR_SSL_WANT_WRITE) ? 2 : (n == MBEDTLS_ERR_SSL_WANT_READ) ? 1 : -1;
-	return -1;
-}*/
 
 static int tcp_send_nb(void *ctx, const unsigned char *buf, size_t len) {
 	int fd = (int) (uintptr_t) ctx;

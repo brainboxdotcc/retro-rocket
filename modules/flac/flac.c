@@ -4,6 +4,8 @@
 #define DRFLAC_REALLOC(p, sz) krealloc(p,sz)
 #define DRFLAC_FREE(p) kfree(p)
 #define DRFLAC_ASSERT(x) {}
+#define DR_FLAC_NO_WCHAR
+#define DR_FLAC_NO_STDIO
 #define DR_FLAC_IMPLEMENTATION
 #include "dr_flac.h"
 
