@@ -3,6 +3,9 @@
 gc_str_t* gc_list = NULL;
 
 unsigned int strlen(const char* str) {
+	if (!str) {
+		return 0;
+	}
 	size_t rcx;
 	/* Search for AL=0 from RDI, RCX = ~0; after SCASB, bytes scanned = (~rcx) - 1. */
 	__asm__ volatile (

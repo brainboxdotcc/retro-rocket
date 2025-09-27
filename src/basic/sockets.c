@@ -35,9 +35,9 @@ bool check_sockread_ready(process_t* proc, void* ptr)
 		return false;
 	}
 
-	if (tls_get(fd)) {
+	/*if (tls_get(fd)) {
 		return !tls_ready_fd(fd);
-	}
+	}*/
 
 	return !sock_ready_to_read(fd);
 }
@@ -87,12 +87,16 @@ void sockread_statement(struct basic_ctx* ctx)
 		out_n = 0;
 
 		ok = tls_read_fd(fd, input, MAX_STRINGLEN, &want, &out_n);
+		dprintf("TLS read FD returned: return=%d want=%d out_n=%d\n", ok, want, out_n);
 		if (ok) {
+			dprintf("ok return, read %d\n", out_n);
 			rv = out_n;
 		} else {
 			if (want == 1) {
-				rv = 0; /* WANT_READ → would block */
+				dprintf("ok return, read 0, want read\n");
+				rv = 0; /* WANT_READ -> would block */
 			} else {
+				dprintf("ok = 0, want != 1\n");
 				rv = TCP_ERROR_CONNECTION_FAILED; /* fatal TLS */
 			}
 		}
@@ -103,6 +107,7 @@ void sockread_statement(struct basic_ctx* ctx)
 	dprintf("sockread recv=%d\n", rv);
 
 	if (rv == 0) {
+		dprintf("Waiting until ready\n");
 		// Not ready yet, yield and retry later
 		proc_set_idle(proc, check_sockread_ready, (void*)(uintptr_t)fd);
 		jump_linenum(ctx->current_linenum, ctx);
@@ -240,6 +245,8 @@ void sslconnect_statement(struct basic_ctx* ctx) {
 	int64_t port;
 	size_t var_length;
 
+	dprintf("SSL connect\n");
+
 	accept_or_return(SSLCONNECT, ctx);
 	fd_var = tokenizer_variable_name(ctx, &var_length);
 	accept_or_return(VARIABLE, ctx);
@@ -249,7 +256,7 @@ void sslconnect_statement(struct basic_ctx* ctx) {
 	port = expr(ctx);
 	if (tokenizer_token(ctx) == COMMA) {
 		accept_or_return(COMMA, ctx);
-		sni = expr(ctx);
+		sni = str_expr(ctx);
 		if (!*sni) {
 			sni = NULL;
 		}
@@ -261,7 +268,7 @@ void sslconnect_statement(struct basic_ctx* ctx) {
 			tokenizer_error_print(ctx, "Unable to load CA cert bundle from /system/ssl/cacert.pem");
 			return;
 		}
-		ca = kmalloc(info->size);
+		ca = kmalloc(info->size + 1);
 		if (!ca) {
 			tokenizer_error_print(ctx, "Out of memory for CA cert bundle");
 			return;
@@ -272,6 +279,8 @@ void sslconnect_statement(struct basic_ctx* ctx) {
 			return;
 		}
 		ca_len = info->size;
+		ca[ca_len++] = 0;
+		dprintf("CA certs loaded\n");
 	}
 
 	int rv = ssl_connect(str_to_ip(ip), port, 0, true, sni, NULL, ca, ca_len);
@@ -303,8 +312,12 @@ void sockclose_statement(struct basic_ctx* ctx) {
 	fd_var = tokenizer_variable_name(ctx, &var_length);
 	accept_or_return(VARIABLE, ctx);
 
-	int rv = closesocket(basic_get_numeric_int_variable(fd_var, ctx));
+	int64_t fd = basic_get_numeric_int_variable(fd_var, ctx);
+	int rv = closesocket(fd);
 	if (rv == 0) {
+		if (tls_get(fd)) {
+			tls_close_fd(fd);
+		}
 		// Clear variable to -1
 		basic_set_int_variable(fd_var, -1, ctx, false, false);
 		accept_or_return(NEWLINE, ctx);
@@ -484,6 +497,7 @@ void sockwrite_statement(struct basic_ctx* ctx) {
 
 			want = 0;
 			out_n = 0;
+			dprintf("sockwrite ssl\n");
 			tls_write_fd(fd, out, strlen(out), &want, &out_n);
 		} else {
 			send(fd, out, strlen(out));

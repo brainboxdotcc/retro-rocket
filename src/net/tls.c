@@ -4,6 +4,8 @@
 #include <mbedtls/ctr_drbg.h>
 #include <mbedtls/ssl.h>
 #include <tls.h>
+#include <mbedtls/error.h>
+#include <mbedtls/debug.h>
 
 #define ENTROPY_POOL_SIZE 256
 
@@ -79,7 +81,7 @@ bool tls_write_fd(int fd, const void *buf, size_t len, int *want, int *out_n) {
 		return false;
 	}
 
-	int rc = mbedtls_ssl_handshake(&p->ssl);
+	/*int rc = mbedtls_ssl_handshake(&p->ssl);
 	if (rc != 0) {
 		*out_n = 0;
 
@@ -95,8 +97,10 @@ bool tls_write_fd(int fd, const void *buf, size_t len, int *want, int *out_n) {
 
 		*want = -1;
 		return false;
-	}
+	}*/
 
+	dprintf("mbedtls_ssl_write\n");
+	dump_hex(buf, len);
 	n = mbedtls_ssl_write(&p->ssl, (const unsigned char *) buf, len);
 	if (n >= 0) {
 		*out_n = n;
@@ -113,6 +117,9 @@ bool tls_write_fd(int fd, const void *buf, size_t len, int *want, int *out_n) {
 		*out_n = 0;
 		return false;
 	}
+	char e[128];
+	mbedtls_strerror(n, e, sizeof(e));
+	dprintf("write error: %s (%d)\n", e, n);
 
 	*want = -1;
 	*out_n = 0;
@@ -176,10 +183,33 @@ mbedtls_time_t mbedtls_platform_time(mbedtls_time_t *tloc) {
 	return now;
 }
 
+static int cert_verify_cb(void *ctx, mbedtls_x509_crt *crt, int depth, uint32_t *flags) {
+	if (*flags != 0) {
+		char buf[1024];
+		mbedtls_x509_crt_info(buf, sizeof(buf) - 1, "    ", crt);
+		dprintf("cert verify: depth=%d flags=0x%08x\n%s\n", depth, (unsigned)*flags, buf);
+
+		if (*flags & MBEDTLS_X509_BADCERT_EXPIRED)
+			dprintf("  -> cert expired\n");
+		if (*flags & MBEDTLS_X509_BADCERT_FUTURE)
+			dprintf("  -> cert not yet valid\n");
+		if (*flags & MBEDTLS_X509_BADCERT_CN_MISMATCH)
+			dprintf("  -> hostname mismatch\n");
+		if (*flags & MBEDTLS_X509_BADCERT_NOT_TRUSTED)
+			dprintf("  -> not signed by a trusted CA\n");
+		if (*flags & MBEDTLS_X509_BADCERT_OTHER)
+			dprintf("  -> other X509 problem\n");
+	}
+
+	return 0;
+}
+
+
 int tls_global_init(void) {
 	mbedtls_platform_set_calloc_free(kcalloc, nonconst_kfree);
 
 	mbedtls_entropy_init(&entropy);
+	mbedtls_platform_set_time(mbedtls_platform_time);
 	mbedtls_ctr_drbg_init(&drbg);
 	mbedtls_entropy_add_source(&entropy, entropy_poll, NULL, 32, MBEDTLS_ENTROPY_SOURCE_STRONG);
 
@@ -198,6 +228,7 @@ static int send_shim(void *p, const unsigned char *buf, size_t len) {
 	const struct tls_io *io = (const struct tls_io*)p;
 	int n = io->send_fn(io->ctx, buf, len);
 	if (n > 0) return n;
+	if (n < 0) return MBEDTLS_ERR_SSL_CONN_EOF;
 	return MBEDTLS_ERR_SSL_WANT_WRITE;
 }
 
@@ -205,11 +236,19 @@ static int recv_shim(void *p, unsigned char *buf, size_t len) {
 	const struct tls_io *io = (const struct tls_io*)p;
 	int n = io->recv_fn(io->ctx, buf, len);
 	if (n > 0) return n;
+	//dprintf("recv_shim n=%d\n", n);
+	if (n < 0 && n != MBEDTLS_ERR_SSL_WANT_READ) {
+		return MBEDTLS_ERR_SSL_CONN_EOF;
+	}
 	return MBEDTLS_ERR_SSL_WANT_READ;
 }
 
+static void tls_debug(void *ctx, int level, const char *file, int line, const char *str) {
+	dprintf("mbedtls:%d: %s", level, str);
+}
+
 int tls_client_init(mbedtls_ssl_context *ssl, mbedtls_ssl_config *conf,
-		    const struct tls_io *io,
+		    struct tls_io *io,
 		    const char *sni,           /* nullable */
 		    const char *alpn_csv,      /* e.g. "h2,http/1.1" or NULL */
 		    const uint8_t *ca_pem, size_t ca_len)
@@ -219,19 +258,31 @@ int tls_client_init(mbedtls_ssl_context *ssl, mbedtls_ssl_config *conf,
 
 	mbedtls_ssl_init(ssl);
 	mbedtls_ssl_config_init(conf);
+	mbedtls_ssl_conf_dbg(conf, tls_debug, NULL);
+	//mbedtls_debug_set_threshold(4);
+	mbedtls_ssl_conf_authmode(conf, MBEDTLS_SSL_VERIFY_REQUIRED);
+	mbedtls_ssl_conf_verify(conf, cert_verify_cb, NULL);
+	mbedtls_ssl_conf_cert_profile(conf, &mbedtls_x509_crt_profile_default);
+	mbedtls_ssl_conf_cert_req_ca_list(conf, 0);
 
-	mbedtls_ssl_config_defaults(conf, MBEDTLS_SSL_IS_CLIENT,
-				    MBEDTLS_SSL_TRANSPORT_STREAM,
-				    MBEDTLS_SSL_PRESET_DEFAULT);
+	if (mbedtls_ssl_config_defaults(conf, MBEDTLS_SSL_IS_CLIENT, MBEDTLS_SSL_TRANSPORT_STREAM, MBEDTLS_SSL_PRESET_DEFAULT) != 0) {
+		dprintf("mbledtls_ssl_config_defaults failed\n");
+		return -1;
+	}
 
 	mbedtls_ssl_conf_rng(conf, mbedtls_ctr_drbg_random, &drbg);
 
 	if (!ca_loaded && ca_pem) {
 		mbedtls_x509_crt_init(&ca);
-		if (mbedtls_x509_crt_parse(&ca, ca_pem, ca_len) != 0) return -1;
+		if (mbedtls_x509_crt_parse(&ca, ca_pem, ca_len) != 0) {
+			dprintf("mbedtls_x509_crt_parse failed\n");
+			return -1;
+		}
 		ca_loaded = 1;
 	}
-	if (ca_loaded) mbedtls_ssl_conf_ca_chain(conf, &ca, NULL);
+	if (ca_loaded) {
+		mbedtls_ssl_conf_ca_chain(conf, &ca, NULL);
+	}
 
 	if (alpn_csv) {
 		/* build a NULL-terminated array once from csv */
@@ -239,9 +290,17 @@ int tls_client_init(mbedtls_ssl_context *ssl, mbedtls_ssl_config *conf,
 		mbedtls_ssl_conf_alpn_protocols(conf, alpn_list);
 	}
 
-	if (mbedtls_ssl_setup(ssl, conf) != 0) return -1;
-	if (sni) mbedtls_ssl_set_hostname(ssl, sni);
-
+	if (mbedtls_ssl_setup(ssl, conf) != 0) {
+		dprintf("mbedtls_ssl_setup failed\n");
+		return -1;
+	}
+	if (sni) {
+		dprintf("set sni %p (%s)\n", sni, sni ? sni : "null");
+		if (mbedtls_ssl_set_hostname(ssl, sni) != 0) {
+			dprintf("set sni failed\n");
+			return -1;
+		}
+	}
 	mbedtls_ssl_set_bio(ssl, io, send_shim, recv_shim, NULL);
 	return 0;
 }
@@ -259,17 +318,21 @@ int tls_server_init(mbedtls_ssl_context *ssl, mbedtls_ssl_config *conf,
 	mbedtls_ssl_init(ssl);
 	mbedtls_ssl_config_init(conf);
 
-	mbedtls_ssl_config_defaults(conf, MBEDTLS_SSL_IS_SERVER,
-				    MBEDTLS_SSL_TRANSPORT_STREAM,
-				    MBEDTLS_SSL_PRESET_DEFAULT);
-
+	mbedtls_ssl_config_defaults(conf, MBEDTLS_SSL_IS_SERVER, MBEDTLS_SSL_TRANSPORT_STREAM, MBEDTLS_SSL_PRESET_DEFAULT);
 	mbedtls_ssl_conf_rng(conf, mbedtls_ctr_drbg_random, &drbg);
+	mbedtls_ssl_conf_dbg(conf, tls_debug, NULL);
+	mbedtls_ssl_conf_authmode(conf, MBEDTLS_SSL_VERIFY_REQUIRED);
+	mbedtls_ssl_conf_verify(conf, cert_verify_cb, NULL);
 
 	if (!cred_loaded) {
 		mbedtls_x509_crt_init(&cert);
 		mbedtls_pk_init(&key);
-		if (mbedtls_x509_crt_parse(&cert, cert_pem, cert_len) != 0) return -1;
-		if (mbedtls_pk_parse_key(&key, key_pem, key_len, NULL, 0) != 0) return -1;
+		if (mbedtls_x509_crt_parse(&cert, cert_pem, cert_len) != 0) {
+			return -1;
+		}
+		if (mbedtls_pk_parse_key(&key, key_pem, key_len, NULL, 0) != 0) {
+			return -1;
+		}
 		cred_loaded = 1;
 	}
 	mbedtls_ssl_conf_own_cert(conf, &cert, &key);
@@ -284,24 +347,56 @@ int tls_server_init(mbedtls_ssl_context *ssl, mbedtls_ssl_config *conf,
 	return 0;
 }
 
+static const char *hs_state_name(int s) {
+	switch (s) {
+		case MBEDTLS_SSL_HELLO_REQUEST:              return "HELLO_REQUEST";
+		case MBEDTLS_SSL_CLIENT_HELLO:               return "CLIENT_HELLO";
+		case MBEDTLS_SSL_SERVER_HELLO:               return "SERVER_HELLO";
+		case MBEDTLS_SSL_SERVER_CERTIFICATE:         return "SERVER_CERT";
+		case MBEDTLS_SSL_SERVER_KEY_EXCHANGE:        return "SERVER_KEY_EXCHANGE";
+		case MBEDTLS_SSL_CERTIFICATE_REQUEST:        return "CERT_REQUEST";
+		case MBEDTLS_SSL_SERVER_HELLO_DONE:          return "SERVER_HELLO_DONE";
+		case MBEDTLS_SSL_CLIENT_CERTIFICATE:         return "CLIENT_CERT";
+		case MBEDTLS_SSL_CLIENT_KEY_EXCHANGE:        return "CLIENT_KEY_EXCHANGE";
+		case MBEDTLS_SSL_CERTIFICATE_VERIFY:         return "CERT_VERIFY";
+		case MBEDTLS_SSL_CLIENT_CHANGE_CIPHER_SPEC:  return "CLIENT_CCS";
+		case MBEDTLS_SSL_CLIENT_FINISHED:            return "CLIENT_FINISHED";
+		case MBEDTLS_SSL_SERVER_CHANGE_CIPHER_SPEC:  return "SERVER_CCS";
+		case MBEDTLS_SSL_SERVER_FINISHED:            return "SERVER_FINISHED";
+		case MBEDTLS_SSL_FLUSH_BUFFERS:              return "FLUSH_BUFFERS";
+		case MBEDTLS_SSL_HANDSHAKE_WRAPUP:           return "WRAPUP";
+		case MBEDTLS_SSL_HANDSHAKE_OVER:             return "OVER";
+		default:                                     return "UNKNOWN";
+	}
+}
+
 /* non-blocking handshake driver */
 int tls_handshake_step_nb(mbedtls_ssl_context *ssl) {
+	//dprintf("state=%s (%d) out_left=%lu\n", hs_state_name(ssl->state), ssl->state, (size_t)ssl->out_left);
 	int rc = mbedtls_ssl_handshake_step(ssl);
 	if (rc == 0) {
 		/* handshake is finished when state reaches HANDSHAKE_OVER */
 		return (ssl->state == MBEDTLS_SSL_HANDSHAKE_OVER) ? 1 : 0;
 	}
-	if (rc == MBEDTLS_ERR_SSL_WANT_READ || rc == MBEDTLS_ERR_SSL_WANT_WRITE) {
+	if (rc == MBEDTLS_ERR_SSL_WANT_READ || rc == MBEDTLS_ERR_SSL_WANT_WRITE || rc == MBEDTLS_ERR_SSL_ASYNC_IN_PROGRESS || rc == MBEDTLS_ERR_SSL_CRYPTO_IN_PROGRESS) {
 		return 0; /* still in progress */
 	}
+	char e[128];
+	mbedtls_strerror(rc, e, sizeof(e));
+	dprintf("handshake error: %s (%d)\n", e, rc);
 	return -1; /* fatal */
 }
 
 /* reads/writes return -1 with WANT_READ/WANT_WRITE via rc for your scheduler */
 int tls_read_nb(mbedtls_ssl_context *ssl, void *buf, size_t len, int *want) {
 	int n = mbedtls_ssl_read(ssl, buf, len);
+	dprintf("mbedtls_ssl_read\n");
+	if (n > 0) dump_hex(buf, n);
 	if (n >= 0) return n;
 	*want = (n == MBEDTLS_ERR_SSL_WANT_READ) ? 1 : (n == MBEDTLS_ERR_SSL_WANT_WRITE) ? 2 : -1;
+	char e[128];
+	mbedtls_strerror(n, e, sizeof(e));
+	dprintf("read error: %s (%d)\n", e, n);
 	return -1;
 }
 int tls_write_nb(mbedtls_ssl_context *ssl, const void *buf, size_t len, int *want) {
@@ -311,19 +406,33 @@ int tls_write_nb(mbedtls_ssl_context *ssl, const void *buf, size_t len, int *wan
 	return -1;
 }
 
-static int tcp_send_nb(void *ctx, const uint8_t *buf, size_t len) {
-	int fd = *(int *)ctx;
+static int tcp_send_nb(void *ctx, const unsigned char *buf, size_t len) {
+	int fd = (int)(uintptr_t)ctx;
 	int n  = send(fd, buf, (uint32_t)len);
-	if (n < 0) return -1;   /* hard fail */
-	return (int)len;        /* always enqueue all */
+
+	tcp_idle(); // kick buffer drain
+	//dprintf("BIO send ask=%lu -> rc=%d\n", len, n);
+
+	if (n < 0) {
+		return -1;  /* hard fail */
+	}
+	return n;
 }
 
-static int tcp_recv_nb(void *ctx, uint8_t *buf, size_t len) {
-	int fd = *(int *)ctx;
-	int n  = recv(fd, buf, (uint32_t)len, false, 0);
-	if (n > 0) return n;
-	if (n == 0) return 0;   /* would-read */
-	return -1;              /* hard fail */
+static int tcp_recv_nb(void *ctx, unsigned char *buf, size_t len) {
+	int fd = (int)(uintptr_t)ctx;
+	int n  = recv(fd, buf, (uint32_t)len, false, 0); // non-blocking
+
+	tcp_idle(); // kick buffer drain
+	//dprintf("BIO recv ask=%lu -> rc=%d\n", len, n);
+
+	if (n > 0) {
+		return n;
+	}
+	if (n == 0) {
+		return MBEDTLS_ERR_SSL_WANT_READ;  /* no data yet */
+	}
+	return -1;  /* hard fail */
 }
 
 int ssl_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port, bool blocking, const char *sni, const char *alpn_csv, const uint8_t *ca_pem, size_t ca_len) {
@@ -333,31 +442,36 @@ int ssl_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 	}
 
 	if (!tls_fd_in_range(fd)) {
+		dprintf("Out of descriptors\n");
 		return TCP_ERROR_OUT_OF_DESCRIPTORS;
 	}
 
 	struct tls_peer *p = kcalloc(1, tls_peer_size());
 	if (!p) {
+		dprintf("Out of memory\n");
 		return TCP_ERROR_OUT_OF_DESCRIPTORS;
 	}
 
 	p->fd        = fd;
 	p->io.send_fn = tcp_send_nb;
 	p->io.recv_fn = tcp_recv_nb;
-	p->io.ctx     = &p->fd;
+	p->io.ctx     = (uintptr_t)p->fd;
 
 	if (!tls_attach(fd, p)) {
+		dprintf("TLS attach failed\n");
 		kfree(p);
 		return TCP_ERROR_OUT_OF_DESCRIPTORS;
 	}
 
-	if (!tls_client_init(&p->ssl, &p->conf, &p->io, sni, alpn_csv, ca_pem, ca_len)) {
+	if (tls_client_init(&p->ssl, &p->conf, &p->io, sni, alpn_csv, ca_pem, ca_len) != 0) {
 		tls_detach(fd);
 		kfree(p);
+		dprintf("tls_client_init failed\n");
 		return TCP_ERROR_CONNECTION_FAILED;
 	}
 
 	if (!blocking) {
+		dprintf("Non blocking tls connect!\n");
 		return fd;
 	}
 
@@ -365,12 +479,16 @@ int ssl_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 	for (;;) {
 		int step = tls_handshake_step_nb(&p->ssl);
 		if (step == 1) {
+			dprintf("state=%s (%d) out_left=%lu\n", hs_state_name(p->ssl.state), p->ssl.state, (size_t)p->ssl.out_left);
 			return fd;
 		}
 		if (step < 0)  {
+			dprintf("tls handshake failed with code %d\n", step);
+			dprintf("state=%s (%d) out_left=%lu\n", hs_state_name(p->ssl.state), p->ssl.state, (size_t)p->ssl.out_left);
 			return TCP_ERROR_CONNECTION_FAILED;
 		}
-		if (get_ticks() - start > 3000) {
+		if (get_ticks() - start > 60000) {
+			dprintf("TIMEOUT! state=%s (%d) out_left=%lu\n", hs_state_name(p->ssl.state), p->ssl.state, (size_t)p->ssl.out_left);
 			return TCP_CONNECTION_TIMED_OUT;
 		}
 		__asm__ volatile("pause");
@@ -396,17 +514,14 @@ int ssl_accept(int listen_fd, const uint8_t *cert_pem, size_t cert_len, const ui
 	p->fd          = fd;
 	p->io.send_fn  = tcp_send_nb;   /* always-enqueue TX */
 	p->io.recv_fn  = tcp_recv_nb;   /* 0 = WANT_READ */
-	p->io.ctx      = &p->fd;
+	p->io.ctx      = p->fd;
 
 	if (!tls_attach(fd, p)) {
 		kfree(p);
 		return TCP_ERROR_OUT_OF_DESCRIPTORS;
 	}
 
-	if (!tls_server_init(&p->ssl, &p->conf, &p->io,
-			     cert_pem, cert_len,
-			     key_pem,  key_len,
-			     alpn_csv)) {
+	if (tls_server_init(&p->ssl, &p->conf, &p->io, cert_pem, cert_len, key_pem,  key_len, alpn_csv) == -1) {
 		tls_detach(fd);
 		kfree(p);
 		return TCP_ERROR_CONNECTION_FAILED;
@@ -426,7 +541,7 @@ int ssl_accept(int listen_fd, const uint8_t *cert_pem, size_t cert_len, const ui
 			tls_close_fd(fd); /* tidy up TLS state */
 			return TCP_ERROR_CONNECTION_FAILED;
 		}
-		if ((get_ticks() - start) > 3000) {
+		if ((get_ticks() - start) > 6000) {
 			tls_close_fd(fd);
 			return TCP_CONNECTION_TIMED_OUT;
 		}
@@ -437,20 +552,14 @@ int ssl_accept(int listen_fd, const uint8_t *cert_pem, size_t cert_len, const ui
 bool tls_ready_fd(int fd)
 {
 	struct tls_peer *p;
-	int rc;
 
 	p = tls_get(fd);
 	if (p == NULL) {
 		return false;
 	}
 
-	/* Progress the handshake; 0 means finished */
-	rc = mbedtls_ssl_handshake(&p->ssl);
-	if (rc != 0) {
-		return false;
-	}
-
 	if (mbedtls_ssl_get_bytes_avail(&p->ssl) > 0) {
+		dprintf("tls_ready_fd is ready");
 		return true;
 	}
 

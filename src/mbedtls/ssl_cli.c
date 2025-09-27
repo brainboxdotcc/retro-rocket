@@ -1166,8 +1166,8 @@ static int ssl_write_client_hello(mbedtls_ssl_context *ssl)
             continue;
         }
 
-        MBEDTLS_SSL_DEBUG_MSG(3, ("client hello, add ciphersuite: %#04x (%s)",
-                                  (unsigned int) ciphersuites[i], ciphersuite_info->name));
+        MBEDTLS_SSL_DEBUG_MSG(3, ("client hello, add ciphersuite: %04x (%s)",
+                                  (unsigned int) ciphersuites[i], ciphersuite_info ? ciphersuite_info->name : "(null)"));
 
 #if defined(MBEDTLS_ECDH_C) || defined(MBEDTLS_ECDSA_C) || \
         defined(MBEDTLS_KEY_EXCHANGE_ECJPAKE_ENABLED)

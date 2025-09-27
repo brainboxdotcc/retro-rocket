@@ -1388,7 +1388,7 @@ int send(int socket, const void* buffer, uint32_t length)
 	memcpy(conn->send_buffer + conn->send_buffer_len, buffer, length);
 	conn->send_buffer_len += length;
 	unlock_spinlock_irq(&lock, flags);
-	dprintf("sockwrite wrote length %u\n", length);
+	dprintf("buffer wrote length %u\n", length);
 	return (int)length;
 }
 
@@ -1404,8 +1404,9 @@ int connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port, bo
 	tcp_conn_t* conn = tcp_find_by_fd(result);
 	time_t start = get_ticks();
 	while (conn && conn->state < TCP_ESTABLISHED) {
-		__asm__ volatile("hlt");
-		if (get_ticks() - start > 3000) {
+		__asm__ volatile("pause");
+		if (get_ticks() - start > 6000) {
+			dprintf("tcp connect timed out. State=%d\n", conn->state);
 			return TCP_CONNECTION_TIMED_OUT;
 		}
 	};
@@ -1445,10 +1446,11 @@ int recv(int socket, void* buffer, uint32_t maxlen, bool blocking, uint32_t time
 	if (conn == NULL) {
 		dprintf("recv(): invalid socket\n");
 		return TCP_ERROR_INVALID_SOCKET;
-	} else if (conn->state != TCP_ESTABLISHED) {
-		dprintf("recv(): not connected\n");
+	}/* else if (conn->state != TCP_ESTABLISHED) {
+		dprintf("recv(): not connected, state: %d\n", conn->state);
 		return TCP_ERROR_NOT_CONNECTED;
-	}
+	}*/
+	/* XXX FIXME the above doesnt work if the remote closes before the local recv() happens. */
 
 	if (blocking) {
 		time_t now = get_ticks();
@@ -1486,8 +1488,12 @@ int recv(int socket, void* buffer, uint32_t maxlen, bool blocking, uint32_t time
 
 bool sock_ready_to_read(int socket) {
 	tcp_conn_t* conn = tcp_find_by_fd(socket);
-	if (!conn || conn->state != TCP_ESTABLISHED) {
+	if (!conn) {
+		dprintf("sock_ready_to_read on non-established sock\n");
 		return false;
+	}
+	if (conn->recv_buffer && conn->recv_buffer_len > 0) {
+		dprintf("sock_ready_to_read is ready\n");
 	}
 	return conn->recv_buffer && conn->recv_buffer_len > 0;
 }

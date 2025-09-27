@@ -69,7 +69,7 @@ void tls_global_free(void);
  * @param ca_len Length of CA PEM buffer.
  * @return 0 on success, -1 on error.
  */
-int tls_client_init(mbedtls_ssl_context *ssl, mbedtls_ssl_config *conf, const struct tls_io *io, const char *sni, const char *alpn_csv, const uint8_t *ca_pem, size_t ca_len);
+int tls_client_init(mbedtls_ssl_context *ssl, mbedtls_ssl_config *conf, struct tls_io *io, const char *sni, const char *alpn_csv, const uint8_t *ca_pem, size_t ca_len);
 
 /**
  * @brief Initialise a TLS server connection.
