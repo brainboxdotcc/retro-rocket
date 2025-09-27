@@ -1,5 +1,6 @@
 start$ = ARGS$
 IF start$ = "" THEN start$ = CSD$
+IF start$ = "" THEN start$ = "/"
 
 dirs = 0
 files = 0
@@ -7,40 +8,49 @@ files = 0
 PRINT start$
 PROCwalk(start$, "")
 
-PRINT
+PRINT ""
 PRINT dirs; " directories, "; files; " files."
 END
 
 DEF PROCwalk(dir$, prefix$)
 	LOCAL n = GETNAMECOUNT(dir$)
-	LOCAL i = 0
+	IF n = 0 THEN ENDPROC
+
+	LOCAL ndirs = 0
 	FOR i = 0 TO n - 1
 		LOCAL name$ = GETNAME$(dir$, i)
+		LOCAL full$ = dir$ + "/" + name$
+		IF LEFT$(full$, 2) = "//" THEN LOCAL full$ = RIGHT$(full$, LEN(full$) - 1)
+		IF RIGHT$(full$, 1) = "/" THEN LOCAL full$ = LEFT$(full$, LEN(full$) - 1)
+		LOCAL ftype$ = FILETYPE$(full$)
+		IF ftype$ = "directory" THEN LOCAL ndirs = ndirs + 1
+		IF ftype$ = "file" THEN files = files + 1
+	NEXT
 
-		IF dir$ = "" THEN LOCAL base$ = ""
-		IF dir$ <> "" THEN LOCAL base$ = dir$ + "/"
-		LOCAL full$ = base$ + name$
-
-		LOCAL is_last = FALSE
-		IF i = n - 1 THEN is_last = TRUE
-
-		IF is_last = TRUE THEN LOCAL branch$ = prefix$ + "\-- "
-		IF is_last = FALSE THEN LOCAL branch$ = prefix$ + "+-- "
-
+	LOCAL dcount = 0
+	FOR i = 0 TO n - 1
+		LOCAL z = i ' FOR loop vars cant be local yet
+		LOCAL name$ = GETNAME$(dir$, i)
+		LOCAL full$ = dir$ + "/" + name$
+		IF LEFT$(full$, 2) = "//" THEN LOCAL full$ = RIGHT$(full$, LEN(full$) - 1)
+		IF RIGHT$(full$, 1) = "/" THEN LOCAL full$ = LEFT$(full$, LEN(full$) - 1)
 		LOCAL ftype$ = FILETYPE$(full$)
 
-		PRINT branch$; name$
-
-		IF ftype$ = "directory" THEN dirs = dirs + 1
-		IF ftype$ = "file" THEN files = files + 1
-
-		IF ftype$ = "directory" THEN PROCdescend(full$, prefix$, is_last)
+		IF ftype$ = "directory" THEN
+		    LOCAL dcount = dcount + 1
+		    dirs = dirs + 1
+            IF dcount = ndirs THEN LOCAL is_last = TRUE
+            IF dcount <> ndirs THEN LOCAL is_last = FALSE
+            IF is_last = TRUE THEN LOCAL branch$ = prefix$ + "└── "
+            IF is_last = FALSE THEN LOCAL branch$ = prefix$ + "├── "
+            PRINT branch$; name$
+            PROCdescend(full$, prefix$, is_last)
+        ENDIF
+		i = z
 	NEXT
 ENDPROC
 
 DEF PROCdescend(full$, prefix$, is_last)
-	LOCAL next_prefix$ = prefix$
-	IF is_last = TRUE THEN next_prefix$ = next_prefix$ + "    "
-	IF is_last = FALSE THEN next_prefix$ = next_prefix$ + "|   "
-	PROCwalk(full$, next_prefix$)
+	IF is_last = TRUE THEN PROCwalk(full$, prefix$ + "    ")
+	IF is_last = FALSE THEN PROCwalk(full$, prefix$ + "│   ")
 ENDPROC
