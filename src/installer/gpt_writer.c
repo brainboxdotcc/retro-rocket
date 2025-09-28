@@ -192,7 +192,7 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 	uint64_t read_offset = 0ULL;
 
 	display_progress("Installing recovery/boot image (step 1 of 3)", 0);
- 
+
 	z_stream zs;
 	memset(&zs, 0, sizeof(zs));
 	zs.zalloc = zlib_alloc;
@@ -211,7 +211,7 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 			if (read_offset + to_read > img_ent->size) {
 				to_read = (uint32_t)(img_ent->size - read_offset);
 			}
-			if (to_read == 0U) {
+			if (to_read == 0) {
 				/* No more compressed input but stream not ended: corrupt gzip */
 				inflateEnd(&zs);
 				error_page("unexpected EOF in gzip stream");
