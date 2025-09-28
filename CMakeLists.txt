@@ -9,6 +9,8 @@ option(PROFILE_KERNEL "Profile the kernel, and output callgrind compatible file 
 
 set(HARD_DISK_IMAGE "../../harddisk0" CACHE STRING "Path to hard disk image when running QEMU")
 
+add_compile_definitions(Z_SOLO Z_PREFIX=z_)
+
 set(CMAKE_VERBOSE_MAKEFILE OFF)
 set(CMAKE_C_COMPILER gcc)
 set(CMAKE_C_LINK_EXECUTABLE "ld -m elf_x86_64 -nostdlib -no-pie --export-dynamic -T ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/linker.ld <OBJECTS> -o <TARGET> <LINK_LIBRARIES>")
