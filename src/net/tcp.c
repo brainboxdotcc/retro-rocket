@@ -1392,10 +1392,6 @@ int send(int socket, const void* buffer, uint32_t length)
 		dprintf("send(): invalid socket %d\n", socket);
 		unlock_spinlock_irq(&lock, flags);
 		return TCP_ERROR_INVALID_SOCKET;
-	} else if (conn->state != TCP_ESTABLISHED) {
-		dprintf("send(): not connected %d\n", socket);
-		unlock_spinlock_irq(&lock, flags);
-		return TCP_ERROR_NOT_CONNECTED;
 	}
 	conn->send_buffer = krealloc(conn->send_buffer, length + conn->send_buffer_len);
 	memcpy(conn->send_buffer + conn->send_buffer_len, buffer, length);
