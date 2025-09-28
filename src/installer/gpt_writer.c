@@ -40,11 +40,11 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 
 	/* The file on disk is gzip-compressed. Read ISIZE (last 4 bytes, little-endian)
 	   to discover the uncompressed size (mod 2^32). Our images are < 4 GiB. */
-	if (img_ent->size < 18ULL) { /* minimal gzip with empty deflate is > this; also guards reads below */
+	if (img_ent->size < 18) { /* minimal gzip with empty deflate is > this; also guards reads below */
 		error_page("ESP gzip image too small or corrupt");
 	}
 	uint8_t isize_le[4];
-	if (!fs_read_file(img_ent, (uint32_t)(img_ent->size - 4ULL), 4U, isize_le)) {
+	if (!fs_read_file(img_ent, (uint32_t)(img_ent->size - 4ULL), 4, isize_le)) {
 		error_page("failed to read gzip ISIZE: %s", fs_strerror(fs_get_error()));
 	}
 	uint64_t esp_bytes =
@@ -53,40 +53,40 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 		((uint64_t)isize_le[2] << 16) |
 		((uint64_t)isize_le[3] << 24);
 
-	if (esp_bytes == 0ULL) {
+	if (esp_bytes == 0) {
 		error_page("ESP image uncompressed size is zero (corrupt gzip?)");
 	}
-	if (esp_bytes > 0xFFFFFFFFULL) {
+	if (esp_bytes > 0xFFFFFFFF) {
 		error_page("ESP image too large for single-file logic");
 	}
 
-	const uint64_t esp_sectors = (esp_bytes + (uint64_t)sector_bytes - 1ULL) / (uint64_t)sector_bytes;
+	const uint64_t esp_sectors = (esp_bytes + (uint64_t)sector_bytes - 1) / (uint64_t)sector_bytes;
 
 	/* --- GPT layout --- */
 	const uint32_t ptes_bytes_total = GPT_PTE_COUNT * GPT_PTE_SIZE_BYTES;
-	const uint64_t ptes_sectors     = (ptes_bytes_total + sector_bytes - 1U) / sector_bytes;
+	const uint64_t ptes_sectors     = (ptes_bytes_total + sector_bytes - 1) / sector_bytes;
 
-	const uint64_t primary_header_lba = 1ULL;
-	const uint64_t primary_ptes_lba   = 2ULL;
-	const uint64_t backup_ptes_lba    = last_lba - ptes_sectors + 1ULL;
+	const uint64_t primary_header_lba = 1;
+	const uint64_t primary_ptes_lba   = 2;
+	const uint64_t backup_ptes_lba    = last_lba - ptes_sectors + 1;
 	const uint64_t backup_header_lba  = last_lba;
 
 	uint64_t first_usable = primary_ptes_lba + ptes_sectors;
-	if (first_usable < 34ULL) {
-		first_usable = 34ULL;
+	if (first_usable < 34) {
+		first_usable = 34;
 	}
 	first_usable = align_up_u64(first_usable, ALIGN_1M_IN_LBAS);
 
-	const uint64_t last_usable = backup_ptes_lba - 1ULL;
+	const uint64_t last_usable = backup_ptes_lba - 1;
 
 	const uint64_t esp_first_lba = first_usable;
-	const uint64_t esp_last_lba  = esp_first_lba + esp_sectors - 1ULL;
+	const uint64_t esp_last_lba  = esp_first_lba + esp_sectors - 1;
 
 	if (esp_last_lba >= last_usable) {
 		error_page("disk too small for ESP (%lu sectors ESP, esp_last_lba=%lu last_usable=%lu)", esp_sectors, esp_last_lba, last_usable);
 	}
 
-	uint64_t rfs_first_lba = align_up_u64(esp_last_lba + 1ULL, ALIGN_1M_IN_LBAS);
+	uint64_t rfs_first_lba = align_up_u64(esp_last_lba + 1, ALIGN_1M_IN_LBAS);
 	if (rfs_first_lba > last_usable) {
 		error_page("no room for RFS after ESP");
 	}
@@ -106,7 +106,7 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 	mbr[510] = 0x55;
 	mbr[511] = 0xAA;
 
-	if (!write_lbas(devname, 0ULL, mbr, sizeof(mbr), sector_bytes)) {
+	if (!write_lbas(devname, 0, mbr, sizeof(mbr), sector_bytes)) {
 		error_page("write protective MBR failed");
 	}
 
@@ -187,9 +187,9 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 	uint32_t esp_buf_len = 0;
 
 	uint64_t out_lba   = esp_first_lba;
-	uint64_t out_bytes = 0ULL;
-	uint64_t steps     = 0ULL;
-	uint64_t read_offset = 0ULL;
+	uint64_t out_bytes = 0;
+	uint64_t steps     = 0;
+	uint64_t read_offset = 0;
 
 	display_progress("Installing recovery/boot image (step 1 of 3)", 0);
 
@@ -246,9 +246,9 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 			out_bytes  += chunk_bytes;
 			esp_buf_len = 0;
 
-			if (steps++ % 25ULL == 0ULL) {
+			if (steps++ % 25 == 0) {
 				/* Progress by uncompressed bytes; capped at 100% */
-				uint64_t pct = (out_bytes >= esp_bytes) ? 100ULL : ((out_bytes * 100ULL) / esp_bytes);
+				uint64_t pct = (out_bytes >= esp_bytes) ? 100 : ((out_bytes * 100) / esp_bytes);
 				display_progress("Installing recovery/boot image (step 1 of 3)", pct);
 			}
 		}
@@ -262,10 +262,10 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 	}
 
 	/* Flush any remaining decompressed bytes (pad to sector boundary) */
-	if (esp_buf_len > 0U) {
+	if (esp_buf_len > 0) {
 		/* Pad zeros up to next sector boundary for the final write */
 		uint32_t pad = (uint32_t)(esp_buf_len % sector_bytes);
-		if (pad != 0U) {
+		if (pad != 0) {
 			uint32_t to_add = sector_bytes - pad;
 			memset(esp_buffer + esp_buf_len, 0, to_add);
 			esp_buf_len += to_add;
