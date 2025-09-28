@@ -160,7 +160,7 @@ static const mbr_id_map_t mbr_id_map[] = {
  * @param len Length of input buffer in bytes
  * @return Updated CRC32 value
  */
-uint32_t crc32_update(uint32_t crc, const void *data, size_t len);
+uint32_t installer_crc32_update(uint32_t crc, const void *data, size_t len);
 
 /**
  * @brief Copy a single file

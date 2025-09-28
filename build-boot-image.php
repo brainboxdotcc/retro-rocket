@@ -66,6 +66,7 @@ $scriptDir  = __DIR__;
 need('mformat');
 need('mcopy');
 need('mmd');
+need('gzip');
 
 $haveTruncate = hasBinary('truncate');
 if (!$haveTruncate) {
@@ -119,6 +120,27 @@ runCommand("mcopy -i " . escapeshellarg($outImage) . " -sp " . escapeshellarg($l
 runCommand("mcopy -i " . escapeshellarg($outImage) . " -sp " . escapeshellarg($limineCfgSrc) . " ::/limine.conf");
 runCommand("mcopy -i " . escapeshellarg($outImage) . " -sp " . escapeshellarg($kernelPath) . " ::/kernel.bin");
 runCommand("mcopy -i " . escapeshellarg($outImage) . " -sp " . escapeshellarg($symbolPath) . " ::/kernel.sym");
+
+/* ----------------------- gzip in-place ---------------------------- */
+
+echo ">> Compressing image\n";
+$tmpCompressed = $outImage . '.gz.tmp';
+/* -n: no timestamp/original-name -> reproducible
+ * -9: max compression
+ * -f: overwrite tmp if it exists
+ * -c: write to stdout so we can keep the same filename
+ */
+runCommand(
+    "sh -c " .
+    escapeshellarg(
+        "gzip -n -9 -f -c " .
+        escapeshellarg($outImage) .
+        " > " .
+        escapeshellarg($tmpCompressed) .
+        " && mv -f " .
+        escapeshellarg($tmpCompressed) . " " . escapeshellarg($outImage)
+    )
+);
 
 echo ">> Done.\n";
 echo "Image ready: {$outImage}\n";
