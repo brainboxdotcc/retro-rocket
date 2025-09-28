@@ -2,7 +2,7 @@
 #include <kmalloc.h>
 #include <limine.h>
 #include <debugger.h>
-#include <tinyalloc.h>
+#include <allocator.h>
 
 /*
  * 12mb kmalloc_low space for drivers that require space
@@ -157,13 +157,13 @@ void init_heap(void) {
 		heaplen_local = right_len;
 	}
 
-	if (heaplen_local <= sizeof(ta_header)) {
+	if (heaplen_local <= sizeof(allocator_header)) {
 		preboot_fail("Primary heap too small after LOW_HEAP exclusion");
 	}
 
-	ta_init((void *)heapstart, heaplen_local, 8);
+	allocator_init((void *) heapstart, heaplen_local, 8);
 
-	uint64_t total_usable = heaplen_local > sizeof(ta_header) ? (heaplen_local - sizeof(ta_header)) : 0;
+	uint64_t total_usable = heaplen_local > sizeof(allocator_header) ? (heaplen_local - sizeof(allocator_header)) : 0;
 	dprintf("heap: add primary region 0x%016lx..0x%016lx (%lu bytes)\n", heapstart, (heapstart + heaplen_local), heaplen_local);
 
 	/* Add other USABLE regions, clipping out LOW_HEAP */
@@ -184,10 +184,10 @@ void init_heap(void) {
 			uint64_t seg_end = end < LOW_HEAP_START ? end : LOW_HEAP_START;
 			if (seg_end > base) {
 				uint64_t seg_len = seg_end - base;
-				if (seg_len > sizeof(ta_header)) {
-					if (ta_add_region((void *)base, (size_t)seg_len)) {
+				if (seg_len > sizeof(allocator_header)) {
+					if (allocator_add_region((void *) base, (size_t) seg_len)) {
 						dprintf("heap: add region 0x%016lx..0x%016lx (%lu bytes)\n", base, seg_end, seg_len);
-						total_usable += (seg_len - sizeof(ta_header));
+						total_usable += (seg_len - sizeof(allocator_header));
 					}
 				}
 			}
@@ -197,10 +197,10 @@ void init_heap(void) {
 			uint64_t seg_base = base > LOW_HEAP_MAX ? base : LOW_HEAP_MAX;
 			if (end > seg_base) {
 				uint64_t seg_len = end - seg_base;
-				if (seg_len > sizeof(ta_header)) {
-					if (ta_add_region((void *)seg_base, (size_t)seg_len)) {
+				if (seg_len > sizeof(allocator_header)) {
+					if (allocator_add_region((void *) seg_base, (size_t) seg_len)) {
 						dprintf("heap: add region 0x%016lx..0x%016lx (%lu bytes)\n", seg_base, end, seg_len);
-						total_usable += (seg_len - sizeof(ta_header));
+						total_usable += (seg_len - sizeof(allocator_header));
 					}
 				}
 			}
@@ -242,10 +242,10 @@ void init_heap(void) {
 			continue;
 		}
 
-		if (e->length > sizeof(ta_header)) {
-			if (ta_add_region((void *)rbase, (size_t)e->length)) {
+		if (e->length > sizeof(allocator_header)) {
+			if (allocator_add_region((void *) rbase, (size_t) e->length)) {
 				dprintf("heap: reclaim BLR 0x%016lx..0x%016lx (%lu bytes)\n", rbase, rend, e->length);
-				total_usable += (e->length - sizeof(ta_header));
+				total_usable += (e->length - sizeof(allocator_header));
 			} else {
 				dprintf("heap: WARNING failed to add BLR 0x%016lx..0x%016lx\n", rbase, rend);
 				remaining_blr += e->length;
@@ -267,8 +267,8 @@ void init_heap(void) {
 void* kmalloc(uint64_t size) {
 	uint64_t flags;
 	lock_spinlock_irq(&allocator_lock, &flags);
-	void* p = ta_alloc(size);
-	allocated += ta_usable_size((void*)p);
+	void* p = allocator_alloc(size);
+	allocated += allocator_usable_size((void *) p);
 	unlock_spinlock_irq(&allocator_lock, flags);
 	return p;
 }
@@ -283,8 +283,8 @@ void kfree(const void* ptr) {
 	if (a >= LOW_HEAP_START && a < LOW_HEAP_MAX) {
 		preboot_fail("kfree: tried to free low heap memory - use kfree_low instead!");
 	}
-	allocated -= ta_usable_size((void*)ptr);
-	ta_free((void*)ptr);
+	allocated -= allocator_usable_size((void *) ptr);
+	allocator_free((void *) ptr);
 	unlock_spinlock_irq(&allocator_lock, flags);
 }
 

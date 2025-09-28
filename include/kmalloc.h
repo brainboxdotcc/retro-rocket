@@ -32,10 +32,10 @@
  *
  * 2) **General heap (primary + additional regions).**
  *    - Chooses the *largest* **USABLE** memmap entry as the primary arena and
- *      initialises the general allocator (`ta_init`) over it, **carving out** the
+ *      initialises the general allocator (`allocator_init`) over it, **carving out** the
  *      low-heap window if they overlap.
  *    - Iterates over all remaining **USABLE** entries and adds them with
- *      `ta_add_region`, again **clipping out** the low-heap window so it is never
+ *      `allocator_add_region`, again **clipping out** the low-heap window so it is never
  *      accidentally pooled into the general heap.
  *
  * 3) **Selective reclamation of bootloader allocations.**
