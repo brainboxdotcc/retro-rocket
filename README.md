@@ -17,7 +17,7 @@ Its userland is completely written in a dialect of BASIC based heavily on BBC BA
   * 🌐A web server!
 * ✏️Graphics drawing commands
   * Image loading of PNG, GIF, BMP, TGA
-* Sound support for AC'97 and HD Audio cards with:
+* 🔊Sound support for AC'97 and HD Audio cards with:
   * 64 channel polyphonic mixer
   * wav support
   * mp3 support
