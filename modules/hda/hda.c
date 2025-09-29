@@ -19,13 +19,15 @@ static int16_t *s_q_pcm = NULL;
 static size_t s_q_cap_fr = 0, s_q_len_fr = 0, s_q_head_fr = 0;
 static bool s_paused = false;
 
+static inline uint32_t hda_out_sd_base(void);
+
 /**
  * @brief Cached list of discoverable output pins (per codec)
  */
 static struct {
-	uint8_t pin;	/**< Pin NID */
-	uint8_t dac;	/**< DAC NID reachable from this pin */
-	char label[64];	/**< e.g. "Front Headphone (3.5mm Jack)" */
+	uint8_t pin;        /**< Pin NID */
+	uint8_t dac;        /**< DAC NID reachable from this pin */
+	char label[64];        /**< e.g. "Front Headphone (3.5mm Jack)" */
 } s_hda_outputs[16];
 
 static size_t s_hda_outputs_n = 0;
@@ -150,6 +152,7 @@ static bool hda_cmd(uint8_t cad, uint8_t nid, uint16_t verb, uint16_t payload, u
 		/* Wait up to ~5 ms using WALLCLK (=24.576 MHz) */
 		uint32_t start = hda_mmio_r32(HDA_REG_WALCLK);
 		uint32_t deadline = start + (5 * WALCLK_HZ);
+		uint32_t spins = 0;
 
 		for (;;) {
 			uint32_t nw = hda_mmio_r16(HDA_REG_RIRBWP) & 0xFF;
@@ -161,7 +164,7 @@ static bool hda_cmd(uint8_t cad, uint8_t nid, uint16_t verb, uint16_t payload, u
 				return true;
 			}
 			uint32_t now = hda_mmio_r32(HDA_REG_WALCLK);
-			if ((int32_t) (now - deadline) >= 0) {
+			if ((int32_t) (now - deadline) >= 0 || ++spins > 1000000) {
 				break; /* timeout → fall back to immediate */
 			}
 			__asm__ __volatile__("pause");
@@ -177,9 +180,10 @@ static bool hda_cmd(uint8_t cad, uint8_t nid, uint16_t verb, uint16_t payload, u
 	{
 		uint32_t start = hda_mmio_r32(HDA_REG_WALCLK);
 		uint32_t deadline = start + (5 * WALCLK_HZ);
+		uint32_t spins = 0;
 		while (hda_mmio_r8(REG_ICIS) & ICIS_ICB) {
 			uint32_t now = hda_mmio_r32(HDA_REG_WALCLK);
-			if ((int32_t) (now - deadline) >= 0) {
+			if ((int32_t) (now - deadline) >= 0 || ++spins > 1000000) {
 				break;
 			}
 			__asm__ __volatile__("pause");
@@ -198,6 +202,7 @@ static bool hda_cmd(uint8_t cad, uint8_t nid, uint16_t verb, uint16_t payload, u
 	{
 		uint32_t start = hda_mmio_r32(HDA_REG_WALCLK);
 		uint32_t deadline = start + (5 * WALCLK_HZ);
+		uint32_t spins = 0;
 		for (;;) {
 			uint8_t s = hda_mmio_r8(REG_ICIS);
 			if (s & ICIS_IRV) {
@@ -211,7 +216,7 @@ static bool hda_cmd(uint8_t cad, uint8_t nid, uint16_t verb, uint16_t payload, u
 				return true;
 			}
 			uint32_t now = hda_mmio_r32(HDA_REG_WALCLK);
-			if ((int32_t) (now - deadline) >= 0) {
+			if ((int32_t) (now - deadline) >= 0 || ++spins > 1000000) {
 				break;
 			}
 			__asm__ __volatile__("pause");
@@ -413,25 +418,49 @@ static bool hda_find_afg(uint8_t cad, uint8_t *afg_nid, nid_range_t *widgets) {
 	if (!hda_get_param(cad, 0x00, P_NODE_COUNT, &func_range)) {
 		return false;
 	}
-	uint8_t fn_start = (uint8_t) ((func_range >> 16) & 0xFF);
-	uint8_t fn_count = (uint8_t) (func_range & 0xFF);
+
+	/* Root node (NID 0) function-group list */
+	dprintf("ROOT P_NODE_COUNT=0x%08x\n", func_range);
+	uint8_t fn_start = (uint8_t) ((func_range >> 16) & 0xFF); /* start FG NID */
+	uint8_t fn_count = (uint8_t) (func_range & 0xFF);         /* FG count */
+	dprintf("FG range: start=0x%02x count=0x%02x\n", fn_start, fn_count);
+
 	for (uint8_t i = 0; i < fn_count; i++) {
-		uint8_t fn = fn_start + i;
+		uint8_t fn = (uint8_t) (fn_start + i);
 		uint32_t ftype;
 		if (!hda_get_param(cad, fn, P_FUNC_GRP_TYPE, &ftype)) {
+			dprintf("fn 0x%02x: no FUNC_GRP_TYPE\n", fn);
 			continue;
 		}
-		if ((ftype & 0xFF) == 0x01) { /* AFG */
+
+		if ((ftype & 0xFF) == 0x01) { /* Audio Function Group */
 			uint32_t w = 0;
+
+			hda_cmd(cad, fn, V_SET_POWER_STATE, 0x00, NULL);
+			hda_mmio_fence();
+
 			if (!hda_get_param(cad, fn, P_NODE_COUNT, &w)) {
+				dprintf("AFG 0x%02x: no NODE_COUNT\n", fn);
 				continue;
 			}
-			widgets->start_nid = (uint8_t) ((w >> 16) & 0xFF);
-			widgets->count = (uint8_t) (w & 0xFF);
+
+			/* AFG’s child widget range (spec: start NID in bits 23:16, count in 7:0) */
+			uint8_t w_start = (uint8_t) ((w >> 16) & 0xFF);
+			uint8_t w_count = (uint8_t) (w & 0xFF);
+			dprintf("AFG 0x%02x: NODE_COUNT=0x%08x -> widgets [%u..%u]\n", fn, w, w_start, (w_count ? (uint8_t) (w_start + w_count - 1) : w_start));
+
+			if (w_count == 0) {
+				dprintf("AFG 0x%02x: widget count is zero, skipping\n", fn);
+				continue;
+			}
+
+			widgets->start_nid = w_start;
+			widgets->count = w_count;
 			*afg_nid = fn;
 			return true;
 		}
 	}
+
 	return false;
 }
 
@@ -549,92 +578,125 @@ static bool hda_find_dac_downstream(uint8_t cad, uint8_t start_nid, uint8_t *out
 	return false;
 }
 
-/* Choose an output DAC and an output Pin, and build a cache of all candidate outputs.
- * Supports Pin -> (Selector/Mixer)* -> DAC, not just direct Pin -> DAC.
- * Prefers default devices: SPEAKER, LINEOUT, then HP; otherwise falls back.
- * Also fills s_hda_outputs[] with (pin,dac,label) for later selection-by-name.
- */
 static bool hda_pick_output_path(uint8_t cad, nid_range_t wr, uint8_t *out_dac, uint8_t *out_pin) {
 	s_hda_outputs_n = 0; /* rebuild cache */
 
 	uint8_t best_pin = 0, best_dac = 0;
 	uint8_t fallback_pin = 0, fallback_dac = 0;
 
+	dprintf("hda: evaluate outputs in [%u..%u] (count=%u)\n",
+		wr.start_nid, (uint8_t)(wr.start_nid + wr.count - 1), wr.count);
+
 	for (uint8_t n = 0; n < wr.count; n++) {
 		uint8_t pin = (uint8_t) (wr.start_nid + n);
 
 		uint8_t wtype;
 		uint32_t wcaps;
-		if (!hda_widget_type(cad, pin, &wtype, &wcaps)) continue;
-		if (wtype != WTYPE_PIN_COMPLEX) continue;
+		if (!hda_widget_type(cad, pin, &wtype, &wcaps)) {
+			dprintf("hda: skip NID 0x%02x: no widget_type\n", pin);
+			continue;
+		}
+		if (wtype != WTYPE_PIN_COMPLEX) {
+			continue;
+		}
 
 		uint32_t pincaps;
-		if (!hda_get_param(cad, pin, P_PIN_CAPS, &pincaps)) continue;
-		if ((pincaps & PINCAP_OUT) == 0) continue; /* not output-capable */
+		if (!hda_get_param(cad, pin, P_PIN_CAPS, &pincaps)) {
+			dprintf("hda: skip pin 0x%02x: no PIN_CAPS\n", pin);
+			continue;
+		}
+
+		/* Be tolerant: some codecs use bit4, others effectively use bit1 for 'output'. */
+		const uint32_t OUT_B4 = (1u << 4);
+		const uint32_t OUT_B1 = (1u << 1);
+		bool out_b4 = (pincaps & OUT_B4) != 0;
+		bool out_b1 = (pincaps & OUT_B1) != 0;
 
 		uint32_t defcfg = 0;
 		(void) hda_cmd(cad, pin, V_GET_DEF_CFG, 0, &defcfg);
 		uint8_t dev = (uint8_t) ((defcfg >> 20) & 0x0F);
 
-		/* Find a reachable DAC (direct or via selector/mixer) */
+		bool plausible_dev = (dev == DEFDEV_LINEOUT || dev == DEFDEV_SPEAKER || dev == DEFDEV_HP_OUT || dev == DEFDEV_OTHER);
+
 		uint8_t peers[64];
 		uint32_t n_peers = hda_get_conn_list(cad, pin, peers, (uint32_t) sizeof(peers));
 
+		dprintf("hda: pin 0x%02x: defdev=%u caps=0x%08x out(b4)=%u out(b1)=%u peers=%u\n",
+			pin, dev, pincaps, (unsigned)out_b4, (unsigned)out_b1, (unsigned)n_peers);
+
+		if (!out_b4 && !out_b1 && !plausible_dev) {
+			dprintf("hda: skip pin 0x%02x: no OUT bit and defdev not analogue\n", pin);
+			continue;
+		}
+
 		uint8_t found_dac = 0;
+		uint8_t start = wr.start_nid;
+		uint8_t end   = (uint8_t)(wr.start_nid + wr.count - 1);
 		for (uint32_t i = 0; i < n_peers && !found_dac; i++) {
 			uint8_t peer = peers[i];
+			if (peer < start || peer > end) continue;
+
 			uint8_t ptype;
 			uint32_t pcaps;
 			if (!hda_widget_type(cad, peer, &ptype, &pcaps)) continue;
 
 			if (ptype == WTYPE_AUDIO_OUT) {
 				found_dac = peer;
+				dprintf("hda: pin 0x%02x -> direct DAC 0x%02x\n", pin, found_dac);
 			} else if (ptype == WTYPE_MIXER || ptype == WTYPE_SELECTOR) {
 				uint8_t via = 0;
 				if (hda_find_dac_downstream(cad, peer, &via)) {
 					found_dac = via;
+					dprintf("hda: pin 0x%02x -> via 0x%02x -> DAC 0x%02x\n", pin, peer, found_dac);
 				}
 			}
 		}
 
-		/* If we found a usable path, add it to the outputs cache with its label */
+		if (!found_dac) {
+			dprintf("hda: pin 0x%02x: no reachable DAC in AFG range\n", pin);
+		}
+
 		if (found_dac) {
 			if (s_hda_outputs_n < (sizeof(s_hda_outputs) / sizeof(s_hda_outputs[0]))) {
 				char name[64];
 				hda_pin_label(defcfg, name, sizeof(name));
 				s_hda_outputs[s_hda_outputs_n].pin = pin;
 				s_hda_outputs[s_hda_outputs_n].dac = found_dac;
-				/* ensure NUL-terminated copy */
 				size_t j = 0;
 				for (; j + 1 < sizeof(s_hda_outputs[0].label) && name[j]; ++j) s_hda_outputs[s_hda_outputs_n].label[j] = name[j];
 				s_hda_outputs[s_hda_outputs_n].label[j] = '\0';
+				dprintf("hda: cand #%u: pin 0x%02x -> dac 0x%02x label=\"%s\"\n",
+					(unsigned)s_hda_outputs_n, pin, found_dac, s_hda_outputs[s_hda_outputs_n].label);
 				s_hda_outputs_n++;
 			}
 
-			/* Selection policy: prefer Speaker > LineOut > Headphone; otherwise remember as fallback */
 			if (!best_pin) {
-				if (dev == DEFDEV_SPEAKER || dev == DEFDEV_LINEOUT || dev == DEFDEV_HP_OUT) {
+				if (dev == DEFDEV_SPEAKER || dev == DEFDEV_LINEOUT || dev == DEFDEV_HP_OUT || dev == DEFDEV_OTHER) {
 					best_pin = pin;
 					best_dac = found_dac;
+					dprintf("hda: BEST set pin 0x%02x -> dac 0x%02x (defdev=%u)\n", best_pin, best_dac, dev);
 				} else if (!fallback_pin) {
 					fallback_pin = pin;
 					fallback_dac = found_dac;
+					dprintf("hda: FALLBACK set pin 0x%02x -> dac 0x%02x (defdev=%u)\n", fallback_pin, fallback_dac, dev);
 				}
 			}
 		}
 	}
 
-	/* Choose best, else fallback, else fail */
 	if (best_pin && best_dac) {
 		*out_pin = best_pin;
 		*out_dac = best_dac;
+		dprintf("hda: SELECT pin 0x%02x -> dac 0x%02x (best)\n", *out_pin, *out_dac);
 		return true;
 	}
 	if (fallback_pin && fallback_dac) {
 		*out_pin = fallback_pin;
 		*out_dac = fallback_dac;
+		dprintf("hda: SELECT pin 0x%02x -> dac 0x%02x (fallback)\n", *out_pin, *out_dac);
 		return true;
 	}
+	dprintf("hda: no candidate pins (best/fallback empty)\n");
 	return false;
 }
 
@@ -689,9 +751,36 @@ static bool hda_select_output_by_name(const char *name) {
 	/* Stereo channels (value = n-1) */
 	hda_cmd(hda.cad, new_dac, V_SET_CHANNEL_COUNT, 1, NULL);
 
+	/* --- diag: confirm binding from controller + (if supported) from codec --- */
+	{
+		uint32_t sdbase = hda_out_sd_base();
+		uint8_t tag_ctl2 = (hda_mmio_r8(sdbase + SD_CTL2) >> 4) & 0x0F;
+		uint16_t fmt     = hda_mmio_r16(sdbase + SD_FMT);
+		dprintf("hda: SD tag=%u fmt=0x%04x (expect tag=%u)\n", tag_ctl2, fmt, hda.out_stream_tag);
+
+		/* Some codecs support read-back of converter stream/channel; if not, this will just fail quietly. */
+		uint32_t sc = 0, cc = 0;
+		if (hda_cmd(hda.cad, hda.dac_nid, V_GET_CONV_STREAMCH, 0, &sc)) {
+			dprintf("hda: DAC 0x%02x GET_CONV_STREAMCH=0x%08x\n", hda.dac_nid, sc);
+		}
+		if (hda_cmd(hda.cad, hda.dac_nid, V_GET_CHANNEL_COUNT, 0, &cc)) {
+			dprintf("hda: DAC 0x%02x GET_CHANNEL_COUNT=0x%08x\n", hda.dac_nid, cc);
+		}
+	}
+	/* --- end diag --- */
+
+
 	/* Enable the new pin: OUT_EN plus EAPD if available */
 	hda_cmd(hda.cad, new_pin, V_SET_PIN_WCTRL, 0x40, NULL); /* OUT_EN */
 	hda_cmd(hda.cad, new_pin, V_SET_EAPD_BTL, 0x02, NULL);  /* EAPD */
+
+	uint32_t amp_state = 0;
+	if (hda_cmd(hda.cad, hda.pin_nid, 0xB00, (1u<<15) | (3u<<13) | (0<<8), &amp_state)) {
+		unsigned gain  = amp_state & 0x7F;      /* bits 0..6 */
+		unsigned mute  = (amp_state >> 7) & 1;  /* bit 7 */
+		dprintf("hda: pin 0x%02x amp L+R index0: mute=%u gain=0x%02x\n",
+			hda.pin_nid, mute, gain);
+	}
 
 	/* Update current selection and unmute */
 	hda.pin_nid = new_pin;
@@ -722,9 +811,10 @@ static const char *hda_get_current_output(void) {
 }
 
 static void hda_dump_topology(uint8_t cad, uint8_t afg, nid_range_t wr) {
-	dprintf("HDA topology: cad=%u afg=0x%02x nodes [%u..%u]", cad, afg, wr.start_nid, (uint8_t) (wr.start_nid + wr.count - 1));
-	for (uint8_t n = 0; n < wr.count; n++) {
-		uint8_t nid = wr.start_nid + n;
+	dprintf("HDA topology: cad=%u afg=0x%02x nodes [%u..%u]\n", cad, afg, wr.start_nid, (uint8_t) (wr.start_nid + wr.count - 1));
+	uint8_t start = wr.start_nid;
+	uint8_t end   = (uint8_t)(wr.start_nid + wr.count - 1);
+	for (uint8_t nid = start; nid <= end; nid++) {
 		uint8_t t;
 		uint32_t c;
 		if (!hda_widget_type(cad, nid, &t, &c)) {
@@ -735,24 +825,17 @@ static void hda_dump_topology(uint8_t cad, uint8_t afg, nid_range_t wr) {
 			hda_get_param(cad, nid, P_PIN_CAPS, &pc);
 			uint32_t cfg = 0;
 			hda_cmd(cad, nid, V_GET_DEF_CFG, 0, &cfg);
-			uint8_t dev = (uint8_t) ((cfg >> 20) & 0x0F);
-			dprintf("NID 0x%02x: PIN caps=0x%08x defdev=%u", nid, pc, dev);
+			uint8_t dev = (uint8_t)((cfg >> 20) & 0x0F);
 
 			uint8_t peers[64];
-			uint32_t n_peers = hda_get_conn_list(cad, nid, peers, (uint32_t) sizeof(peers));
-			for (uint32_t i = 0; i < n_peers; i++) {
-				uint8_t p = peers[i];
-				uint8_t pt;
-				uint32_t pc2;
-				if (hda_widget_type(cad, p, &pt, &pc2)) {
-					dprintf("    -> 0x%02x type=%u", p, pt);
-				}
-			}
-		} else {
-			dprintf("NID 0x%02x: type=%u caps=0x%08lx", nid, t, (unsigned long) c);
+			uint32_t n_peers = hda_get_conn_list(cad, nid, peers, (uint32_t)sizeof(peers));
+
+			/* one-line summary per pin */
+			dprintf("NID 0x%02x: PIN caps=0x%08x defdev=%u peers=%u\n", nid, pc, dev, (unsigned)n_peers);
 		}
 	}
 }
+
 
 /* Controller reset + robust codec discovery */
 static bool hda_controller_reset_and_start(pci_dev_t dev) {
@@ -768,7 +851,7 @@ static bool hda_controller_reset_and_start(pci_dev_t dev) {
 		return false;
 	}
 
-/* Hard reset sequence with WALLCLK-bounded settles (no OS timer needed) */
+	/* Hard reset sequence with WALLCLK-bounded settles (no OS timer needed) */
 	hda_mmio_w32(HDA_REG_GCTL, 0);             /* CRST = 0 */
 	hda_mmio_fence();                          /* flush posted write */
 
@@ -776,7 +859,8 @@ static bool hda_controller_reset_and_start(pci_dev_t dev) {
 	{
 		uint32_t start = hda_mmio_r32(HDA_REG_WALCLK);
 		uint32_t deadline = start + (uint32_t) (WALCLK_HZ / 2);
-		while ((int32_t) (hda_mmio_r32(HDA_REG_WALCLK) - deadline) < 0) {
+		uint32_t spins = 0;
+		while ((int32_t) (hda_mmio_r32(HDA_REG_WALCLK) - deadline) < 0 && ++spins < 1000000) {
 			__asm__ __volatile__("pause");
 		}
 	}
@@ -789,8 +873,9 @@ static bool hda_controller_reset_and_start(pci_dev_t dev) {
 	{
 		uint32_t start = hda_mmio_r32(HDA_REG_WALCLK);
 		uint32_t deadline = start + (5 * WALCLK_HZ);
+		uint32_t spins = 0;
 		while ((hda_mmio_r32(HDA_REG_GCTL) & 1) == 0) {
-			if ((int32_t) (hda_mmio_r32(HDA_REG_WALCLK) - deadline) >= 0) {
+			if ((int32_t) (hda_mmio_r32(HDA_REG_WALCLK) - deadline) >= 0 || ++spins > 1000000) {
 				break; /* don't hang forever if an odd platform is slow */
 			}
 			__asm__ __volatile__("pause");
@@ -801,7 +886,8 @@ static bool hda_controller_reset_and_start(pci_dev_t dev) {
 	{
 		uint32_t start = hda_mmio_r32(HDA_REG_WALCLK);
 		uint32_t deadline = start + (5 * WALCLK_HZ);
-		while ((int32_t) (hda_mmio_r32(HDA_REG_WALCLK) - deadline) < 0) {
+		uint32_t spins = 0;
+		while ((int32_t) (hda_mmio_r32(HDA_REG_WALCLK) - deadline) < 0 && ++spins < 1000000) {
 			__asm__ __volatile__("pause");
 		}
 	}
@@ -815,15 +901,27 @@ static bool hda_controller_reset_and_start(pci_dev_t dev) {
 		return false;
 	}
 
-	/* Probe codecs 0..14 by sending a harmless GET_PARAMETER to NID 0 */
+	/* Probe codecs 0..14 and accept the first with a usable AFG widget range */
 	bool found = false;
+	nid_range_t wr;
 	for (uint8_t cad = 0; cad < 15; cad++) {
 		uint32_t dummy = 0;
-		if (hda_get_param(cad, 0x00, P_NODE_COUNT, &dummy)) {
-			hda.cad = cad;
-			found = true;
-			break;
+		if (!hda_get_param(cad, 0x00, P_NODE_COUNT, &dummy)) {
+			continue;
 		}
+		uint8_t afg = 0;
+		nid_range_t wtmp;
+		if (!hda_find_afg(cad, &afg, &wtmp)) {
+			continue;
+		}
+		if (wtmp.count <= 1) {
+			continue;
+		}
+		hda.cad = cad;
+		hda.afg_nid = afg;
+		wr = wtmp;
+		found = true;
+		break;
 	}
 	if (!found) {
 		dprintf("hda: no codecs responded to verbs\n");
@@ -831,26 +929,25 @@ static bool hda_controller_reset_and_start(pci_dev_t dev) {
 	}
 
 	/* Walk to AFG and select an output path (DAC + output Pin) */
-	nid_range_t wr;
-	if (!hda_find_afg(hda.cad, &hda.afg_nid, &wr)) {
-		dprintf("hda: no AFG found (cad=%u)\n", hda.cad);
-		return false;
-	}
 	if (!hda_pick_output_path(hda.cad, wr, &hda.dac_nid, &hda.pin_nid)) {
 		dprintf("hda: no suitable output path (cad=%u afg=0x%02x)\n", hda.cad, hda.afg_nid);
 		hda_dump_topology(hda.cad, hda.afg_nid, wr);
 		return false;
 	}
+	hda_dump_topology(hda.cad, hda.afg_nid, wr);
 
 	/* Power up AFG, DAC, Pin to D0 */
 	hda_cmd(hda.cad, hda.afg_nid, V_SET_POWER_STATE, 0x00, NULL);
 	hda_cmd(hda.cad, hda.dac_nid, V_SET_POWER_STATE, 0x00, NULL);
 	hda_cmd(hda.cad, hda.pin_nid, V_SET_POWER_STATE, 0x00, NULL);
 
+	hda_cmd(hda.cad, hda.pin_nid, 0x300, (1u<<15) | (3u<<13) | (0<<8) | 0x30, NULL);
+
 	/* Enable pin output and EAPD/BTL if present */
 	hda_cmd(hda.cad, hda.pin_nid, V_SET_PIN_WCTRL, 0x40, NULL); /* OUT_EN */
-	hda_cmd(hda.cad, hda.pin_nid, V_SET_EAPD_BTL, 0x02, NULL);  /* EAPD */
-
+	if (!hda_cmd(hda.cad, hda.pin_nid, V_SET_EAPD_BTL, 0x02, NULL)) {  /* EAPD */
+		hda_cmd(hda.cad, hda.pin_nid, V_SET_EAPD_BTL, 0x03, NULL);
+	}
 	/* NEW: unmute DAC & Pin output amplifiers */
 	hda_unmute_codec_path();
 
@@ -981,6 +1078,12 @@ static void hda_run_stream(void) {
 	uint8_t ctl0 = hda_mmio_r8(sdbase + SD_CTL0);
 	ctl0 |= SD_CTL_RUN;
 	hda_mmio_w8(sdbase + SD_CTL0, ctl0);
+
+	uint8_t ctl_now = hda_mmio_r8(sdbase + SD_CTL0);
+	uint8_t sts_now = hda_mmio_r8(sdbase + SD_STS);
+	uint32_t lpib = hda_mmio_r32(sdbase + SD_LPIB);
+
+	dprintf("hda: RUN set, SD_CTL=0x%02x SD_STS=0x%02x LPIB=%u (pin=0x%02x dac=0x%02x)\n", ctl_now, sts_now, lpib, hda.pin_nid, hda.dac_nid);
 }
 
 /* CIV equivalent: read current buffer index from LPIB / bytes progressed → fragment index.
@@ -1089,30 +1192,30 @@ static size_t push_all_s16le(const int16_t *frames, size_t total_frames) {
 	static int first = 1;
 	if (first) {
 		first = 0;
-		dprintf("hda: first push: %lu frames\n", (unsigned long)total_frames);
+		dprintf("hda: first push: %lu frames\n", (unsigned long) total_frames);
 	}
 	if (!frames || total_frames == 0) {
 		return 0;
 	}
 
 	/* Map 44.1k → 48k: exact count of output frames */
-	const uint64_t n_in  = (uint64_t)total_frames;
+	const uint64_t n_in = (uint64_t) total_frames;
 	const uint64_t n_out = (n_in * 160ull) / 147ull;   /* exact integer mapping */
 	if (n_out == 0) {
 		return 0;
 	}
 
 	/* --- pad to whole DMA fragments --- */
-	const size_t frag = hda.frag_frames ? (size_t)hda.frag_frames : 1024;
-	const size_t rem  = (size_t)(n_out % frag);
-	const size_t pad  = rem ? (frag - rem) : 0;
-	size_t n_out_padded = (size_t)n_out + pad;
+	const size_t frag = hda.frag_frames ? (size_t) hda.frag_frames : 1024;
+	const size_t rem = (size_t) (n_out % frag);
+	const size_t pad = rem ? (frag - rem) : 0;
+	size_t n_out_padded = (size_t) n_out + pad;
 
 	/* Ensure FIFO has capacity for existing unread + new output (in frames) */
 	size_t pending = s_q_len_fr - s_q_head_fr;                 /* unread frames already queued */
-	size_t need    = pending + (size_t)n_out_padded;           /* total frames after append */
+	size_t need = pending + (size_t) n_out_padded;           /* total frames after append */
 	if (!q_ensure_cap(need)) {
-		dprintf("hda: queue OOM (wanted %lu frames @48k)\n", (unsigned long)need);
+		dprintf("hda: queue OOM (wanted %lu frames @48k)\n", (unsigned long) need);
 		return 0;
 	}
 
@@ -1120,13 +1223,13 @@ static size_t push_all_s16le(const int16_t *frames, size_t total_frames) {
 	if (s_q_head_fr) {
 		memmove(s_q_pcm, s_q_pcm + (s_q_head_fr * 2), pending * 2 * sizeof(int16_t));
 		s_q_head_fr = 0;
-		s_q_len_fr  = pending;
+		s_q_len_fr = pending;
 	}
 
 	/* Temporary buffer for upsampled stereo s16 @48k */
-	int16_t *out = kmalloc((size_t)n_out_padded  * 2 * sizeof(int16_t));
+	int16_t *out = kmalloc((size_t) n_out_padded * 2 * sizeof(int16_t));
 	if (!out) {
-		dprintf("hda: OOM upsample buffer (%lu frames)\n", (unsigned long)n_out_padded );
+		dprintf("hda: OOM upsample buffer (%lu frames)\n", (unsigned long) n_out_padded);
 		return 0;
 	}
 
@@ -1134,29 +1237,29 @@ static size_t push_all_s16le(const int16_t *frames, size_t total_frames) {
 	   For each output frame m, input position p = m * 147 / 160 (in frames).
 	   frac = (p % 160) / 160 gives interpolation fraction between base and base+1. */
 	for (uint64_t m = 0; m < n_out; ++m) {
-		uint64_t p    = (m * 147ull);
-		uint32_t base = (uint32_t)(p / 160ull);
-		uint32_t rem  = (uint32_t)(p % 160ull);        /* 0..159 */
+		uint64_t p = (m * 147ull);
+		uint32_t base = (uint32_t) (p / 160ull);
+		uint32_t rem = (uint32_t) (p % 160ull);        /* 0..159 */
 
-		uint32_t next = (base + 1u < (uint32_t)total_frames) ? (base + 1u) : base;
+		uint32_t next = (base + 1u < (uint32_t) total_frames) ? (base + 1u) : base;
 
 		int16_t l0 = frames[base * 2 + 0];
 		int16_t r0 = frames[base * 2 + 1];
 		int16_t l1 = frames[next * 2 + 0];
 		int16_t r1 = frames[next * 2 + 1];
 
-		const int32_t dl = (int32_t)l1 - (int32_t)l0;
-		const int32_t dr = (int32_t)r1 - (int32_t)r0;
+		const int32_t dl = (int32_t) l1 - (int32_t) l0;
+		const int32_t dr = (int32_t) r1 - (int32_t) r0;
 
 		/* y = l0 + (l1-l0)*rem/160 with symmetric rounding */
-		int32_t lo = (int32_t)l0 + (int32_t)((dl * (int32_t)rem + 80) / 160);
-		int32_t ro = (int32_t)r0 + (int32_t)((dr * (int32_t)rem + 80) / 160);
+		int32_t lo = (int32_t) l0 + (int32_t) ((dl * (int32_t) rem + 80) / 160);
+		int32_t ro = (int32_t) r0 + (int32_t) ((dr * (int32_t) rem + 80) / 160);
 
-		if (lo >  32767) lo =  32767; else if (lo < -32768) lo = -32768;
-		if (ro >  32767) ro =  32767; else if (ro < -32768) ro = -32768;
+		if (lo > 32767) lo = 32767; else if (lo < -32768) lo = -32768;
+		if (ro > 32767) ro = 32767; else if (ro < -32768) ro = -32768;
 
-		out[m * 2 + 0] = (int16_t)lo;
-		out[m * 2 + 1] = (int16_t)ro;
+		out[m * 2 + 0] = (int16_t) lo;
+		out[m * 2 + 1] = (int16_t) ro;
 	}
 
 	/* --- repeat last output sample to fill to a whole fragment --- */
@@ -1164,7 +1267,7 @@ static size_t push_all_s16le(const int16_t *frames, size_t total_frames) {
 		int16_t last_l = out[(n_out - 1) * 2 + 0];
 		int16_t last_r = out[(n_out - 1) * 2 + 1];
 		for (size_t i = 0; i < pad; ++i) {
-			size_t idx = (size_t)n_out + i;
+			size_t idx = (size_t) n_out + i;
 			out[idx * 2 + 0] = last_l;
 			out[idx * 2 + 1] = last_r;
 		}
@@ -1172,8 +1275,8 @@ static size_t push_all_s16le(const int16_t *frames, size_t total_frames) {
 
 	/* Append at true tail (current length), not at (len - head) */
 	size_t tail = s_q_len_fr;                                  /* tail index in frames */
-	memcpy(s_q_pcm + (tail * 2), out, (size_t)n_out * 2 * sizeof(int16_t));
-	s_q_len_fr = tail + (size_t)n_out;                         /* head unchanged */
+	memcpy(s_q_pcm + (tail * 2), out, (size_t) n_out * 2 * sizeof(int16_t));
+	s_q_len_fr = tail + (size_t) n_out;                         /* head unchanged */
 
 	kfree(out);
 
@@ -1306,16 +1409,38 @@ static uint32_t hda_get_hz(void) {
 	return 44100;
 }
 
+static bool hda_is_hdmi(pci_dev_t dev) {
+	pci_dev_t f0 = dev;
+	f0.function_num = 0;
+
+	uint32_t classrev = pci_read(f0, PCI_REVISION_ID);     /* CLASS/REV register */
+	uint8_t base = (uint8_t) (classrev >> 24);
+	return base == 0x03; /* Display controller present */
+}
+
 /* Module init / registration */
 static audio_device_t *init_hda(void) {
-	pci_dev_t dev = pci_get_device(0, 0, HDA_PCI_CLASSC);
-	if (!dev.bits) {
-		dprintf("hda: no devices (class 0x0403)\n");
-		return NULL;
-	}
-	if (!hda_controller_reset_and_start(dev)) {
-		dprintf("hda: controller bring-up failed\n");
-		return NULL;
+	pci_dev_t dev = {0};
+	for (size_t n = 0;; n++) {
+		dev = pci_get_device_nth(0, 0, HDA_PCI_CLASSC, n);
+		if (!dev.bits) {
+			dprintf("hda: no devices (class 0x0403)\n");
+			return NULL;
+		}
+
+		if (hda_is_hdmi(dev)) {
+			continue; /* skip HDMI/DP audio functions */
+		}
+
+		uint32_t device_id = pci_read(dev, PCI_VENDOR_ID) << 16 | pci_read(dev, PCI_DEVICE_ID);
+
+		dprintf("Selected HDA device [%02x:%02x:%02x] %08x\n", dev.bus_num, dev.device_num, dev.function_num, device_id);
+		if (hda_controller_reset_and_start(dev)) {
+			break; /* got a usable HDA function */
+		} else {
+			return NULL;
+		}
+		/* else try next candidate */
 	}
 	if (!hda_stream_prepare(4096, 48000)) {
 		dprintf("hda: stream prepare failed\n");

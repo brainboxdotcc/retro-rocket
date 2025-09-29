@@ -182,14 +182,15 @@ pci_dev_t device_list[256];
 size_t device_total = 0;
 
 bool pci_bus_master(pci_dev_t device) {
-	uint32_t pci_command_reg = pci_read(device, PCI_COMMAND);
-	if(!(pci_command_reg & PCI_COMMAND_BUS_MASTER)) {
-		pci_command_reg |= PCI_COMMAND_BUS_MASTER;
-		pci_write(device, PCI_COMMAND, pci_command_reg);
-		return true;
+	uint32_t cmd = pci_read(device, PCI_COMMAND);
+	if ((cmd & PCI_COMMAND_BUS_MASTER) == 0) {
+		cmd |= PCI_COMMAND_BUS_MASTER;
+		pci_write(device, PCI_COMMAND, cmd);
+		cmd = pci_read(device, PCI_COMMAND);  /* verify it latched */
 	}
-	return false;
+	return (cmd & PCI_COMMAND_BUS_MASTER) != 0;
 }
+
 
 bool pci_not_found(pci_dev_t device) {
 	return device.bits == dev_zero.bits;
@@ -227,7 +228,7 @@ uint32_t pci_read(pci_dev_t dev, uint32_t field) {
 		}
 		return inl(PCI_CONFIG_DATA);
 	} else {
-		dprintf("Invalid PCI size %u at %x\n", size, field);
+		dprintf("Invalid PCI read size %u at %x\n", size, field);
 		return 0xFFFFFFFF;
 	}
 }
@@ -501,6 +502,76 @@ pci_dev_t pci_get_device(uint16_t vendor_id, uint16_t device_id, int device_type
 			return device_list[i];
 		}
 	}
+	return dev_zero;
+}
+
+pci_dev_t pci_get_best(uint16_t vendor_id, uint16_t device_id, int device_type, pci_score_fn score, void *ctx)
+{
+	memset(visited_buses, 0, sizeof(visited_buses));
+	device_total = 0;
+
+	for (int bus = 0; bus < 256; bus++) {
+		pci_scan_bus(vendor_id, device_id, bus, -1);
+	}
+
+	pci_dev_t best = dev_zero;
+	int best_score = -2147483647; /* very small */
+
+	for (size_t i = 0; i < device_total; i++) {
+		uint32_t vendid = pci_read(device_list[i], PCI_VENDOR_ID);
+		uint32_t devid  = pci_read(device_list[i], PCI_DEVICE_ID);
+		uint32_t type   = get_device_type(device_list[i]);
+
+		if ((vendor_id != 0 && vendor_id != vendid)) {
+			continue;
+		}
+		if ((device_id != 0 && device_id != devid)) {
+			continue;
+		}
+		if ((device_type != -1 && (int)type != device_type)) {
+			continue;
+		}
+
+		int s = score ? score(device_list[i], ctx) : 0;
+		if (s >= 0 && s > best_score) {
+			best = device_list[i];
+			best_score = s;
+		}
+	}
+
+	return best;
+}
+
+/* Same as pci_get_device(), but returns the Nth matching function (0-based). */
+pci_dev_t pci_get_device_nth(uint16_t vendor_id, uint16_t device_id, int device_type, size_t nth) {
+	memset(visited_buses, 0, sizeof(visited_buses));
+	device_total = 0;
+
+	for (int bus = 0; bus < 256; bus++) {
+		pci_scan_bus(vendor_id, device_id, bus, -1);
+	}
+
+	for (size_t i = 0; i < device_total; i++) {
+		uint32_t vendid = pci_read(device_list[i], PCI_VENDOR_ID);
+		uint32_t devid  = pci_read(device_list[i], PCI_DEVICE_ID);
+		uint32_t type   = get_device_type(device_list[i]);
+
+		if ((vendor_id != 0 && vendor_id != vendid)) {
+			continue;
+		}
+		if ((device_id != 0 && device_id != devid)) {
+			continue;
+		}
+		if ((device_type != -1 && (int)type != device_type)) {
+			continue;
+		}
+
+		if (nth == 0) {
+			return device_list[i];
+		}
+		nth--;
+	}
+
 	return dev_zero;
 }
 

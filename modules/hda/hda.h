@@ -117,9 +117,10 @@ typedef struct {
 #define PINCAP_OUT          (1 << 4) /**< Pin supports output. */
 
 /* Default configuration decode values (bits 23:20 default device) */
-#define DEFDEV_SPEAKER      0x01 /**< Default device: speaker. */
-#define DEFDEV_LINEOUT      0x02 /**< Default device: line-out. */
-#define DEFDEV_HP_OUT       0x0F /**< Default device: headphone. */
+#define DEFDEV_LINEOUT  0x00
+#define DEFDEV_SPEAKER  0x01
+#define DEFDEV_HP_OUT   0x02
+#define DEFDEV_OTHER    0x0F
 
 /* SDnFMT field helpers */
 #define SD_FMT_BASE_48K     (0 << 14) /**< Base rate 48 kHz. */

@@ -107,6 +107,11 @@ extern pci_dev_t dev_zero;
 #define FUNCTION_PER_DEVICE      32
 
 /**
+ * Generic scoring callback: return a signed score; <0 means "reject". Higher wins.
+ */
+typedef int (*pci_score_fn)(pci_dev_t dev, void *ctx);
+
+/**
  * @brief Read a value from a PCI configuration space field.
  * @param dev PCI device descriptor.
  * @param field Offset of the configuration field.
@@ -188,8 +193,22 @@ pci_dev_t pci_scan_bus(uint16_t vendor_id, uint16_t device_id,
  * @param device_type Device class/type to match (-1 = any).
  * @return Matching PCI device or dev_zero if none.
  */
-pci_dev_t pci_get_device(uint16_t vendor_id, uint16_t device_id,
-			 int device_type);
+pci_dev_t pci_get_device(uint16_t vendor_id, uint16_t device_id, int device_type);
+
+/**
+ * @brief Find the best PCI function matching an optional filter (vendor/device/class),
+ * selected by a driver-supplied scoring callback. All params are optional.
+ *
+ * @param vendor_id Vendor ID to match (0 = any).
+ * @param device_id Device ID to match (0 = any).
+ * @param device_type Device class/type to match (-1 = any).
+ * @param score Scoring function to rank devices
+ * @param ctx User defined context to pass to scoring function
+ * @return dev_zero if nothing acceptable was found
+ */
+pci_dev_t pci_get_best(uint16_t vendor_id, uint16_t device_id, int device_type, pci_score_fn score, void *ctx);
+
+pci_dev_t pci_get_device_nth(uint16_t vendor_id, uint16_t device_id, int device_type, size_t nth);
 
 /**
  * @brief Initialise the PCI subsystem and enumerate devices.
