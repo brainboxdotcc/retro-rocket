@@ -16,16 +16,27 @@ Its userland is completely written in a dialect of BASIC based heavily on BBC BA
   * 💬A simple IRC client
   * 🌐A web server!
 * ✏️Graphics drawing commands
+  * Image loading of PNG, GIF, BMP, TGA
+* Sound support for AC'97 and HD Audio cards with:
+  * 64 channel polyphonic mixer
+  * wav support
+  * mp3 support
+  * flac support
+  * ogg vorbis support
+  * tracker mod and xm support
+  * ADSR envelopes and waveform synthesis
 * 💽Virtual File System with support for:
   * RetroFS (*read/write*)
   * FAT32 (*read/write*)
   * ISO9660 (*read only*)
 * ✅Multitasking of BASIC programs
 * 📶Network stack with TCP, IP, UDP, and ICMP
+  * TLS is supported
+* 📦Full installer to install the OS to SATA drives
 
 ## 💻 System Requirements
 
-* An `x86_64` system with CD or DVD drive to boot an ISO image (more options coming soon)
+* An `x86_64` system with CD or DVD drive to boot an ISO image, or installation from hard disk
 * Or run under emulation via [QEMU](https://www.qemu.org/)
 * Optionally: RTL8139 or e1000 network card - tested on real hardware!
 * SATA AHCI compatible optical drive and hard drive/SSD (as supported by QEMU) - IDE is no longer supported!
