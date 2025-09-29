@@ -21,17 +21,134 @@ void __assert_fail(const char * assertion, const char * file, unsigned int line,
 	while(true);
 }
 
+/* Cheap GIF container scan: counts frames without decoding LZW. */
+static int gif_count_frames_and_size(const unsigned char *p, size_t len, int *lw, int *lh)
+{
+	if (!p || len < 13) {
+		return 0;
+	}
+
+	/* Header "GIF87a"/"GIF89a" */
+	if (!(p[0]=='G' && p[1]=='I' && p[2]=='F' && p[3]=='8' && (p[4]=='7' || p[4]=='9') && p[5]=='a')) {
+		return 0;
+	}
+
+	size_t i = 6;
+	if (lw) {
+		*lw = (int)(p[i] | (p[i + 1] << 8));
+	}
+	if (lh) {
+		*lh = (int)(p[i + 2] | (p[i + 3] << 8));
+	}
+	unsigned char pf = p[i + 4];
+	i += 7;
+
+	/* Global colour table */
+	if (pf & 0x80) {
+		size_t gct = 3u << ((pf & 0x07) + 1u);
+		if (i + gct > len) {
+			return 0;
+		}
+		i += gct;
+	}
+
+	int frames = 0;
+
+	while (i < len) {
+		unsigned char b = p[i++];
+
+		if (b == 0x2C) {
+			/* Image descriptor */
+			if (i + 9 > len) {
+				return 0;
+			}
+			unsigned char pf2 = p[i + 8];
+			i += 9;
+
+			if (pf2 & 0x80) {
+				size_t lct = 3u << ((pf2 & 0x07) + 1u);
+				if (i + lct > len) {
+					return 0;
+				}
+				i += lct;
+			}
+
+			/* LZW data: min code size + sub-blocks */
+			if (i >= len) {
+				return 0;
+			}
+			i++; /* min code size */
+			for (;;) {
+				if (i >= len) {
+					return 0;
+				}
+				unsigned char sz = p[i++];
+				if (sz == 0) {
+					break;
+				}
+				if (i + sz > len) {
+					return 0;
+				}
+				i += sz;
+			}
+			frames += 1;
+			continue;
+		}
+
+		if (b == 0x21) {
+			/* Extension: label + sub-blocks */
+			if (i >= len) {
+				return 0;
+			}
+			i++; /* label */
+			for (;;) {
+				if (i >= len) {
+					return 0;
+				}
+				unsigned char sz = p[i++];
+				if (sz == 0) {
+					break;
+				}
+				if (i + sz > len) {
+					return 0;
+				}
+				i += sz;
+			}
+			continue;
+		}
+
+		if (b == 0x3B) {
+			/* Trailer */
+			break;
+		}
+
+		/* Unknown block */
+		return 0;
+	}
+
+	return frames;
+}
+
 int64_t alloc_sprite(struct basic_ctx* ctx)
 {
 	for (uint64_t i = 0; i < MAX_SPRITES; ++i) {
 		if (ctx->sprites[i] == NULL) {
 			ctx->sprites[i] = buddy_malloc(ctx->allocator, sizeof(sprite_t));
-			if (!ctx->sprites[i]) {
+			sprite_t* s = ctx->sprites[i];
+			if (!s) {
 				return -1;
 			}
-			ctx->sprites[i]->width = 0;
-			ctx->sprites[i]->height = 0;
-			ctx->sprites[i]->pixels = NULL;
+			s->pixels = NULL;
+			s->frame_count = 1;
+			s->current_frame = 0;
+			s->loop = 1;
+			s->gif_data = NULL;
+			s->gif_size = 0;
+			s->gif_state = NULL;
+			s->gif_ctx = NULL;
+			s->width = 0;
+			s->height = 0;
+			s->pixels = NULL;
 			return i;
 		}
 	}
@@ -41,10 +158,158 @@ int64_t alloc_sprite(struct basic_ctx* ctx)
 void free_sprite(struct basic_ctx* ctx, int64_t sprite_handle)
 {
 	if (sprite_handle >= 0 && sprite_handle < MAX_SPRITES && ctx->sprites[sprite_handle] != NULL) {
-		if (ctx->sprites[sprite_handle]->pixels) {
-			buddy_free(ctx->allocator, ctx->sprites[sprite_handle]->pixels);
+		sprite_t *s = ctx->sprites[sprite_handle];
+
+		if (s->pixels) {
+			buddy_free(ctx->allocator, s->pixels);
 		}
-		buddy_free(ctx->allocator, ctx->sprites[sprite_handle]);
+		if (s->gif_state) {
+			/* state structs are malloc’d by stb; free with stbi’s free */
+			STBI_FREE(s->gif_state);
+		}
+		if (s->gif_ctx) {
+			STBI_FREE(s->gif_ctx);
+		}
+		if (s->gif_data) {
+			buddy_free(ctx->allocator, s->gif_data);
+		}
+
+		buddy_free(ctx->allocator, s);
+		ctx->sprites[sprite_handle] = NULL;
+	}
+}
+
+static int sprite_gif_stream_reset(sprite_t *s)
+{
+	if (!s || !s->gif_data || s->gif_size <= 0) {
+		return 0;
+	}
+
+	if (s->gif_state) {
+		STBI_FREE(s->gif_state);
+		s->gif_state = NULL;
+	}
+	if (s->gif_ctx) {
+		STBI_FREE(s->gif_ctx);
+		s->gif_ctx = NULL;
+	}
+
+	stbi__context *c = (stbi__context*) STBI_MALLOC(sizeof(stbi__context));
+	stbi__gif     *g = (stbi__gif*)     STBI_MALLOC(sizeof(stbi__gif));
+	if (!c || !g) {
+		if (c) {
+			STBI_FREE(c);
+		}
+		if (g) {
+			STBI_FREE(g);
+		}
+		return 0;
+	}
+	memset(c, 0, sizeof(*c));
+	memset(g, 0, sizeof(*g));
+
+	stbi__start_mem(c, s->gif_data, (int)s->gif_size);
+
+	/* DO NOT set g->out here; let stb allocate it on the first decode. */
+	if (!s->pixels) {
+		return 0;
+	}
+
+	s->gif_ctx   = c;
+	s->gif_state = g;
+	s->current_frame = 0;
+	return 1;
+}
+
+static int sprite_gif_step_next(sprite_t *s)
+{
+	if (!s || !s->gif_ctx || !s->gif_state) {
+		return 0;
+	}
+
+	int comp = 0;
+	unsigned char *res = stbi__gif_load_next((stbi__context*)s->gif_ctx,
+						 (stbi__gif*)s->gif_state,
+						 &comp, STBI_rgb_alpha, 0 /* two_back */);
+	if (!res) {
+		/* Optional: dprintf("stb gif fail: %s\n", stbi_failure_reason()); */
+		return 0; /* end or error */
+	}
+
+	/* If stb allocated its own buffer for the first frame, copy once and adopt our canvas. */
+	stbi__gif* gs = s->gif_state;
+	if (gs->out != (unsigned char*)s->pixels) {
+		int gw = gs->w;
+		int gh = gs->h;
+		if (gw > 0 && gh > 0) {
+			size_t bytes = (size_t)gw * (size_t)gh * 4u;
+			memcpy(s->pixels, gs->out, bytes);
+			STBI_FREE(gs->out);
+			gs->out = (unsigned char*)s->pixels;
+			/* Keep our metadata in sync in case container scan was off */
+			s->width  = gw;
+			s->height = gh;
+		}
+	}
+
+	return 1;
+}
+
+void sprite_next_frame(struct basic_ctx* ctx, int64_t sprite_handle)
+{
+	if (sprite_handle < 0 || sprite_handle >= MAX_SPRITES) {
+		return;
+	}
+	sprite_t *s = ctx->sprites[sprite_handle];
+	if (!s) {
+		return;
+	}
+
+	/* Non-animated or no streaming state: NOP */
+	if (!s->gif_data || !s->gif_state || !s->gif_ctx || s->frame_count <= 1) {
+		return;
+	}
+
+	if (sprite_gif_step_next(s)) {
+		if (s->current_frame + 1 < s->frame_count) {
+			s->current_frame += 1;
+		} else {
+			s->current_frame = s->loop ? 0 : s->current_frame;
+		}
+		return;
+	}
+
+	/* End reached (or error). If loop enabled, rewind and decode frame 0. */
+	if (s->loop) {
+		if (sprite_gif_stream_reset(s)) {
+			if (sprite_gif_step_next(s)) {
+				s->current_frame = 0;
+				return;
+			}
+		}
+	}
+	/* Else: clamp on last frame silently. */
+}
+
+void sprite_first_frame(struct basic_ctx* ctx, int64_t sprite_handle)
+{
+	if (sprite_handle < 0 || sprite_handle >= MAX_SPRITES) {
+		return;
+	}
+	sprite_t *s = ctx->sprites[sprite_handle];
+	if (!s) {
+		return;
+	}
+
+	if (!s->gif_data || !s->gif_state || !s->gif_ctx || s->frame_count <= 1) {
+		return;
+	}
+
+	if (sprite_gif_stream_reset(s)) {
+		if (sprite_gif_step_next(s)) {
+			s->current_frame = 0;
+			return;
+		}
 	}
 }
 
@@ -94,6 +359,27 @@ void flip_statement(struct basic_ctx* ctx)
 	rr_flip();
 }
 
+void animate_statement(struct basic_ctx* ctx) {
+	accept_or_return(ANIMATE, ctx);
+	bool advance_next = false;
+	if (tokenizer_token(ctx) == NEXT) {
+		advance_next = true;
+		accept_or_return(NEXT, ctx);
+	} else {
+		accept_or_return(RESET, ctx);
+	}
+	size_t var_length;
+	const char* variable = tokenizer_variable_name(ctx, &var_length);
+	accept_or_return(VARIABLE, ctx);
+	accept_or_return(NEWLINE, ctx);
+	if (advance_next) {
+		sprite_next_frame(ctx, basic_get_int_variable(variable, ctx));
+	} else {
+		sprite_first_frame(ctx, basic_get_int_variable(variable, ctx));
+	}
+}
+
+
 void loadsprite_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(SPRITELOAD, ctx);
@@ -126,6 +412,82 @@ void loadsprite_statement(struct basic_ctx* ctx)
 		return;
 	}
 	fs_read_file(f, 0, f->size, buf);
+
+	dprintf("Analysing image file");
+
+	int gw = 0, gh = 0;
+	/* Parse container only: no massive allocations. */
+	int gframes = gif_count_frames_and_size(buf, (size_t)f->size, &gw, &gh);
+
+	/* Guard sizes before any allocs or int casts */
+	if (f->size > INT_MAX) {
+		tokenizer_error_printf(ctx, "Sprite file too large");
+		buddy_free(ctx->allocator, buf);
+		free_sprite(ctx, sprite_handle);
+		return;
+	}
+
+	if (gframes > 1) {
+		/* Animated GIF — streaming path */
+
+		if (gw <= 0 || gh <= 0) {
+			tokenizer_error_printf(ctx, "Invalid GIF dimensions");
+			buddy_free(ctx->allocator, buf);
+			free_sprite(ctx, sprite_handle);
+			return;
+		}
+
+		/* Overflow check: w*h*4 must fit size_t */
+		uint64_t pixels64 = (uint64_t)gw * (uint64_t)gh;
+		uint64_t bytes64  = pixels64 * 4u;
+		if (pixels64 == 0 || bytes64 > (uint64_t)~(size_t)0) {
+			tokenizer_error_printf(ctx, "Sprite too large: %dx%d", gw, gh);
+			buddy_free(ctx->allocator, buf);
+			free_sprite(ctx, sprite_handle);
+			return;
+		}
+
+		size_t bytes = (size_t)bytes64;
+		uint32_t *canvas = buddy_malloc(ctx->allocator, bytes);
+		if (!canvas) {
+			tokenizer_error_printf(ctx, "Not enough memory for sprite canvas '%s'", file);
+			buddy_free(ctx->allocator, buf);
+			free_sprite(ctx, sprite_handle);
+			return;
+		}
+		dprintf("Allocated single frame canvas\n");
+
+		sprite_t *s = get_sprite(ctx, sprite_handle);
+		s->width  = gw;
+		s->height = gh;
+		s->pixels = canvas;
+		s->frame_count = gframes;
+		s->current_frame = 0;
+		s->loop = 1;
+
+		/* Keep compressed bytes so we can rewind cheaply */
+		s->gif_data = buf;           /* ownership transferred */
+		s->gif_size = (int)f->size;
+
+		if (!sprite_gif_stream_reset(s)) {
+			tokenizer_error_printf(ctx, "Failed to initialise GIF stream '%s'", file);
+			buddy_free(ctx->allocator, canvas);
+			buddy_free(ctx->allocator, buf);
+			free_sprite(ctx, sprite_handle);
+			return;
+		}
+		dprintf("Stream reset\n");
+
+		/* Decode first frame into canvas */
+		if (!sprite_gif_step_next(s)) {
+			tokenizer_error_printf(ctx, "Failed to decode first GIF frame '%s'", file);
+			free_sprite(ctx, sprite_handle);
+			return;
+		}
+
+		dprintf("GIF(stream): %d x %d, frames=%d\n", gw, gh, gframes);
+		return;
+	}
 
 	/* Query dimensions and components without full decode */
 	int w = 0, h = 0, n = 0;
@@ -168,7 +530,6 @@ void loadsprite_statement(struct basic_ctx* ctx)
 
 	buddy_free(ctx->allocator, buf);
 }
-
 
 void freesprite_statement(struct basic_ctx* ctx)
 {

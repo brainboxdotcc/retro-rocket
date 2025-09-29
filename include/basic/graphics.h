@@ -61,6 +61,16 @@ void rectangle_statement(struct basic_ctx* ctx);
  */
 void loadsprite_statement(struct basic_ctx* ctx);
 
+
+/**
+ * @brief Advance to the next frame in an animated gif sprite,
+ * or reset to the first frame
+ * (ANIMATE NEXT s, ANIMATE RESET s)
+ *
+ * @param ctx The current BASIC context.
+ */
+void animate_statement(struct basic_ctx* ctx);
+
 /**
  * @brief Free a loaded sprite from memory.
  *

@@ -210,10 +210,25 @@ typedef struct g_cpuid_vendor {
  * in graphics rendering. It contains the width, height, and pixel data
  * for the sprite image.
  */
-typedef struct sprite_t {
-	uint32_t width; ///< Width of the sprite in pixels
-	uint32_t height; ///< Height of the sprite in pixels
-	uint32_t* pixels; ///< Pointer to the pixel data of the sprite
+typedef struct sprite {
+	int64_t   width;	///< Width of the sprite in pixels
+	int64_t   height;	///< Height of the sprite in pixels
+	uint32_t *pixels;	///< Pointer to the pixel data of the sprite (current frame only on animated gif)
+
+	/* Animation flags/controls */
+	int32_t   frame_count;     /* >=1 if known; 1 for static */
+	int32_t   current_frame;   /* 0..frame_count-1 */
+	int32_t   loop;            /* 0 = clamp, non-zero = wrap */
+
+	/* Streaming GIF (optional; NULL => not a GIF animation) */
+	unsigned char *gif_data;   /* compressed bytes (buddy-allocated) */
+	int64_t   gif_size;
+
+	/* Opaque handle to stb gif state (lives only if animated) */
+	void     *gif_state;       /* actually stbi__gif* */
+	void     *gif_ctx;         /* actually stbi__context* */
+
+
 } sprite_t;
 
 /**
