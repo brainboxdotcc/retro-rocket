@@ -10,3 +10,4 @@ Unlike diving into C kernels or dense textbooks, Retro Rocket lets you explore t
 * \subpage user-guide
 * \subpage basic-ref
 * \subpage kernel-dev
+* \subpage third-party-notices
