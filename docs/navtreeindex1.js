@@ -41,6 +41,7 @@ var NAVTREEINDEX1 =
 "tasks.html":[1,7],
 "test.html":[0,0,24],
 "textcolours.html":[0,0,25],
+"third-party-notices.html":[3],
 "triangle.html":[0,0,26],
 "type-array.html":[1,1,3],
 "type-bi.html":[1,1,4],
