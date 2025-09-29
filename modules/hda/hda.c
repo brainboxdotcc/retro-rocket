@@ -751,25 +751,6 @@ static bool hda_select_output_by_name(const char *name) {
 	/* Stereo channels (value = n-1) */
 	hda_cmd(hda.cad, new_dac, V_SET_CHANNEL_COUNT, 1, NULL);
 
-	/* --- diag: confirm binding from controller + (if supported) from codec --- */
-	{
-		uint32_t sdbase = hda_out_sd_base();
-		uint8_t tag_ctl2 = (hda_mmio_r8(sdbase + SD_CTL2) >> 4) & 0x0F;
-		uint16_t fmt     = hda_mmio_r16(sdbase + SD_FMT);
-		dprintf("hda: SD tag=%u fmt=0x%04x (expect tag=%u)\n", tag_ctl2, fmt, hda.out_stream_tag);
-
-		/* Some codecs support read-back of converter stream/channel; if not, this will just fail quietly. */
-		uint32_t sc = 0, cc = 0;
-		if (hda_cmd(hda.cad, hda.dac_nid, V_GET_CONV_STREAMCH, 0, &sc)) {
-			dprintf("hda: DAC 0x%02x GET_CONV_STREAMCH=0x%08x\n", hda.dac_nid, sc);
-		}
-		if (hda_cmd(hda.cad, hda.dac_nid, V_GET_CHANNEL_COUNT, 0, &cc)) {
-			dprintf("hda: DAC 0x%02x GET_CHANNEL_COUNT=0x%08x\n", hda.dac_nid, cc);
-		}
-	}
-	/* --- end diag --- */
-
-
 	/* Enable the new pin: OUT_EN plus EAPD if available */
 	hda_cmd(hda.cad, new_pin, V_SET_PIN_WCTRL, 0x40, NULL); /* OUT_EN */
 	hda_cmd(hda.cad, new_pin, V_SET_EAPD_BTL, 0x02, NULL);  /* EAPD */
