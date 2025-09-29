@@ -25,14 +25,14 @@
 </simplesect>
 <hruler/>
 </para>
-<sect1 id="CHDIR_1example-2_1s1"><sect2 id="CHDIR_1example-2_1s2"><sect3 id="CHDIR_1example-2_1s3"><sect4 id="CHDIR_1example-2">
+<sect1 id="CHDIR_1example-3_1s1"><sect2 id="CHDIR_1example-3_1s2"><sect3 id="CHDIR_1example-3_1s3"><sect4 id="CHDIR_1example-3">
 <title>Example</title><para><programlisting filename=".basic"><codeline><highlight class="normal">CHDIR<sp/>&quot;/programs&quot;</highlight></codeline>
 <codeline><highlight class="normal">CHAIN<sp/>&quot;demo&quot;</highlight></codeline>
 </programlisting></para>
 <para>This changes the current directory to <computeroutput>/programs</computeroutput>, then launches <computeroutput>demo</computeroutput> from that directory.</para>
 <para><hruler/>
 </para>
-<sect5 id="CHDIR_1notes-126">
+<sect5 id="CHDIR_1notes-127">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Paths must exist; if the target directory is invalid, an error occurs (catchable with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink>). <linebreak/>
 </para>

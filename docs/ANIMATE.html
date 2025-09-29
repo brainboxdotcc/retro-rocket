@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.14.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Retro Rocket OS: INPUT Keyword</title>
+<title>Retro Rocket OS: ANIMATE Keyword</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('INPUT.html','',''); });
+$(function(){initNavTree('ANIMATE.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -92,51 +92,54 @@ $(function(){initNavTree('INPUT.html','',''); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">INPUT Keyword </div></div>
+  <div class="headertitle"><div class="title">ANIMATE Keyword </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">INPUT variable</div>
-</div><!-- fragment --><p>Pauses the program and waits for <b>keyboard input</b>. The entered text is echoed to the terminal and then stored in <span class="tt">variable</span>.</p>
+<div class="textblock"><div class="fragment"><div class="line">ANIMATE NEXT integer-variable</div>
+<div class="line">ANIMATE RESET integer-variable</div>
+<div class="line">ANIMATE ON integer-variable</div>
+<div class="line">ANIMATE OFF integer-variable</div>
+</div><!-- fragment --><p>Advances or controls playback of an <b>animated sprite</b> (such as a GIF loaded with <a class="el" href="SPRITELOAD.html">SPRITELOAD</a>). The first parameter must be an <b>integer variable</b> holding the <b>sprite handle</b> returned by <a class="el" href="SPRITELOAD.html">SPRITELOAD</a>.</p>
 <ul>
-<li><span class="tt">variable</span> may be <b>string</b>, <b>integer</b>, or <b>real</b>.</li>
-<li>If the input is <b>not valid</b> for the requested type (for example, letters when an integer is expected), the variable is set to <b>0</b>.</li>
-<li><span class="tt">INPUT</span> is <b>blocking</b>: execution does not continue until the user presses Enter.</li>
+<li><span class="tt">ANIMATE NEXT</span> Moves the sprite forward to its next frame. If the sprite has reached the final frame, behaviour depends on its loop setting (see below).</li>
+<li><span class="tt">ANIMATE RESET</span> Rewinds the sprite back to its first frame.</li>
+<li><span class="tt">ANIMATE ON</span> Enables looping. After the final frame, playback continues from the first frame.</li>
+<li><span class="tt">ANIMATE OFF</span> Disables looping. After the final frame, playback stops on that frame.</li>
 </ul>
-<p>The <span class="tt">INPUT</span> statement is intentionally simple. For richer line-editing (cursor keys, history, etc.) see the <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ansi">ansi</a> library, which also lets you manage your own I/O loop.</p>
-<dl class="section remark"><dt>Remarks</dt><dd>Press <span class="tt">CTRL+ESC</span> at any time to cancel waiting for input. </dd>
-<dd>
-Without an error handler, the program terminates. </dd>
-<dd>
-With an <span class="tt">ON ERROR</span> handler, control passes there instead.</dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd>The first argument must be a <b>variable</b> containing a valid sprite handle, not a literal value or expression.</dd></dl>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-135"></a>
-Examples</h3>
-<p><b>Read a number</b> </p><div class="fragment"><div class="line">PRINT &quot;Enter a number:&quot;</div>
-<div class="line">INPUT N</div>
-<div class="line">PRINT &quot;You typed: &quot;; N</div>
-</div><!-- fragment --><p><b>Handle invalid numeric input</b> </p><div class="fragment"><div class="line">PRINT &quot;Enter an integer:&quot;</div>
-<div class="line">INPUT I</div>
-<div class="line">IF I = 0 THEN</div>
-<div class="line">    PRINT &quot;That was not a valid integer (or it was zero).&quot;</div>
-<div class="line">ELSE</div>
-<div class="line">    PRINT &quot;OK: &quot;; I</div>
-<div class="line">ENDIF</div>
-</div><!-- fragment --><p><b>Read a string</b> </p><div class="fragment"><div class="line">PRINT &quot;Enter your name:&quot;</div>
-<div class="line">INPUT NAME$</div>
-<div class="line">PRINT &quot;Hello, &quot;; NAME$</div>
-</div><!-- fragment --><p><b>Prompt until non-zero</b> </p><div class="fragment"><div class="line">REPEAT</div>
-<div class="line">    PRINT &quot;Enter a non-zero value:&quot;</div>
-<div class="line">    INPUT X</div>
-<div class="line">UNTIL X &lt;&gt; 0</div>
-<div class="line">PRINT &quot;Thanks: &quot;; X</div>
+<h3 class="doxsection"><a class="anchor" id="example"></a>
+Example</h3>
+<div class="fragment"><div class="line">PRINT &quot;Loading... &quot;;</div>
+<div class="line">SPRITELOAD bad_apple, &quot;/images/bad-apple.gif&quot;</div>
+<div class="line">CLS</div>
+<div class="line">AUTOFLIP FALSE</div>
+<div class="line"> </div>
+<div class="line">GCOL &amp;888888</div>
+<div class="line">RECTANGLE 0, 0, GRAPHICS_WIDTH - 1, GRAPHICS_HEIGHT - 1</div>
+<div class="line"> </div>
+<div class="line">ANIMATE ON bad_apple</div>
+<div class="line"> </div>
+<div class="line">REPEAT</div>
+<div class="line">    PLOT bad_apple, GRAPHICS_CENTRE_X - 160, GRAPHICS_CENTRE_Y - 100</div>
+<div class="line">    FLIP</div>
+<div class="line">    SLEEP 66</div>
+<div class="line">    ANIMATE NEXT bad_apple</div>
+<div class="line">UNTIL INKEY$ &lt;&gt; &quot;&quot;</div>
+<div class="line"> </div>
+<div class="line">AUTOFLIP TRUE</div>
+<div class="line">CLS</div>
+<div class="line">END</div>
 </div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-147"></a>
+<h3 class="doxsection"><a class="anchor" id="notes-121"></a>
 Notes</h3>
 <ul>
-<li>The entered line is stored <b>as-is</b> for string variables (without the trailing newline).</li>
-<li>For numeric variables, parsing is strict; invalid input yields <b>0</b>.</li>
-<li><span class="tt">INPUT</span> echoes characters to the terminal. For full-screen UI or advanced editing, prefer the <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ansi">ansi</a> library. </li>
+<li>If the sprite is not animated (single-frame image), <span class="tt">ANIMATE</span> statements are silent no-ops.</li>
+<li>Looping (<span class="tt">ANIMATE ON</span>) is enabled by default when a sprite is loaded.</li>
+<li>Frame delays stored in GIF metadata are currently ignored; use <span class="tt">SLEEP</span> or your own timing logic for consistent playback speed.</li>
+<li>To free sprite resources when no longer needed, use <a class="el" href="SPRITEFREE.html">SPRITEFREE</a>.</li>
 </ul>
+<p><b>See also:</b> <a class="el" href="SPRITELOAD.html">SPRITELOAD</a> · <a class="el" href="SPRITEFREE.html">SPRITEFREE</a> · <a class="el" href="PLOT.html">PLOT</a> · <a class="el" href="AUTOFLIP.html">AUTOFLIP</a> · <a class="el" href="FLIP.html">FLIP</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

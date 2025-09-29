@@ -39,6 +39,7 @@ The following parameter types are used throughout this documentation:
 
 ### Keyword Index
 
+* \subpage ANIMATE
 * \subpage AUTOFLIP
 * \subpage BACKGROUND
 * \subpage BINREAD

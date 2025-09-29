@@ -109,7 +109,7 @@ $(function(){initNavTree('CHAIN.html','',''); });
 <dd>
 Use absolute paths (e.g. <span class="tt">/programs/login</span>) if you don’t want this to depend on <span class="tt">CHDIR</span>.</dd></dl>
 <hr  />
-<h5 class="doxsection"><a class="anchor" id="example-1"></a>
+<h5 class="doxsection"><a class="anchor" id="example-2"></a>
 Example</h5>
 <div class="fragment"><div class="line">PRINT &quot;Before chain&quot;</div>
 <div class="line">GLOBAL X = 42</div>
@@ -118,7 +118,7 @@ Example</h5>
 </div><!-- fragment --><p>If <span class="tt">childprog</span> uses the global variable <span class="tt">X</span>, it will see the value <span class="tt">42</span>. <br  />
  After <span class="tt">childprog</span> ends, execution resumes.</p>
 <hr  />
-<h5 class="doxsection"><a class="anchor" id="notes-125"></a>
+<h5 class="doxsection"><a class="anchor" id="notes-126"></a>
 Notes</h5>
 <ul>
 <li>Chained programs run in a <b>new interpreter instance</b> within a new process. The parent remains suspended until the child exits, unless the child is launched as a background task.</li>

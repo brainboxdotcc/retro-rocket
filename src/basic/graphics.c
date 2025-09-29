@@ -255,6 +255,18 @@ static int sprite_gif_step_next(sprite_t *s)
 	return 1;
 }
 
+void sprite_set_repeat(struct basic_ctx* ctx, int64_t sprite_handle, bool loop) {
+	if (sprite_handle < 0 || sprite_handle >= MAX_SPRITES) {
+		return;
+	}
+	sprite_t *s = ctx->sprites[sprite_handle];
+	if (!s) {
+		return;
+	}
+
+	s->loop = loop;
+}
+
 void sprite_next_frame(struct basic_ctx* ctx, int64_t sprite_handle)
 {
 	if (sprite_handle < 0 || sprite_handle >= MAX_SPRITES) {
@@ -361,10 +373,17 @@ void flip_statement(struct basic_ctx* ctx)
 
 void animate_statement(struct basic_ctx* ctx) {
 	accept_or_return(ANIMATE, ctx);
-	bool advance_next = false;
+	bool advance_next = false, loop_configure = false, loop_enable = false;
 	if (tokenizer_token(ctx) == NEXT) {
 		advance_next = true;
 		accept_or_return(NEXT, ctx);
+	} else if (tokenizer_token(ctx) == OFF) {
+		loop_configure = true;
+		accept_or_return(OFF, ctx);
+	} else if (tokenizer_token(ctx) == ON) {
+		loop_configure = true;
+		loop_enable = true;
+		accept_or_return(ON, ctx);
 	} else {
 		accept_or_return(RESET, ctx);
 	}
@@ -374,6 +393,8 @@ void animate_statement(struct basic_ctx* ctx) {
 	accept_or_return(NEWLINE, ctx);
 	if (advance_next) {
 		sprite_next_frame(ctx, basic_get_int_variable(variable, ctx));
+	} else if (loop_configure) {
+		sprite_set_repeat(ctx, basic_get_int_variable(variable, ctx), loop_enable);
 	} else {
 		sprite_first_frame(ctx, basic_get_int_variable(variable, ctx));
 	}

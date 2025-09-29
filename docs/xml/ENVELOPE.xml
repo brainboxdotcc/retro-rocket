@@ -141,7 +141,7 @@ graph {
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="ENVELOPE_1example-9_1s1"><sect2 id="ENVELOPE_1example-9_1s2"><sect3 id="ENVELOPE_1example-9">
+<sect1 id="ENVELOPE_1example-10_1s1"><sect2 id="ENVELOPE_1example-10_1s2"><sect3 id="ENVELOPE_1example-10">
 <title>Example</title><para><programlisting filename=".basic"><codeline><highlight class="normal">&apos;<sp/>Envelope<sp/>0:<sp/>simple<sp/>organ<sp/>tone</highlight></codeline>
 <codeline><highlight class="normal">ENVELOPE<sp/>CREATE<sp/>0,0,255,128,5,50,200,200,0,0,0,0,0</highlight></codeline>
 <codeline></codeline>
@@ -156,7 +156,7 @@ graph {
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="ENVELOPE_1notes-136_1s1"><sect2 id="ENVELOPE_1notes-136_1s2"><sect3 id="ENVELOPE_1notes-136">
+<sect1 id="ENVELOPE_1notes-137_1s1"><sect2 id="ENVELOPE_1notes-137_1s2"><sect3 id="ENVELOPE_1notes-137">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Envelopes are stored in slots, numbered 0–63. Each BASIC program has its own 63 slots.</para>
 </listitem><listitem><para>Each <ref refid="SOUND" kindref="compound">SOUND</ref> TONE` may optionally use an envelope, or omit te envelope number to play a raw, simple square wave.</para>

@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"dir-full-pathname.html":[0,0,8],
 "edit.html":[0,0,9],
 "edit.html#editing-text":[0,0,9,0,2],
 "edit.html#exiting-the-editor":[0,0,9,0,6],

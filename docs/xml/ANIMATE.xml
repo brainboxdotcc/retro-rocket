@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="ANIMATE" kind="page">
+    <compoundname>ANIMATE</compoundname>
+    <title>ANIMATE Keyword</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">ANIMATE<sp/>NEXT<sp/>integer-variable</highlight></codeline>
+<codeline><highlight class="normal">ANIMATE<sp/>RESET<sp/>integer-variable</highlight></codeline>
+<codeline><highlight class="normal">ANIMATE<sp/>ON<sp/>integer-variable</highlight></codeline>
+<codeline><highlight class="normal">ANIMATE<sp/>OFF<sp/>integer-variable</highlight></codeline>
+</programlisting></para>
+<para>Advances or controls playback of an <bold>animated sprite</bold> (such as a GIF loaded with <ref refid="SPRITELOAD" kindref="compound">SPRITELOAD</ref>). The first parameter must be an <bold>integer variable</bold> holding the <bold>sprite handle</bold> returned by <ref refid="SPRITELOAD" kindref="compound">SPRITELOAD</ref>.</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>ANIMATE NEXT</computeroutput> Moves the sprite forward to its next frame. If the sprite has reached the final frame, behaviour depends on its loop setting (see below).</para>
+</listitem><listitem><para><computeroutput>ANIMATE RESET</computeroutput> Rewinds the sprite back to its first frame.</para>
+</listitem><listitem><para><computeroutput>ANIMATE ON</computeroutput> Enables looping. After the final frame, playback continues from the first frame.</para>
+</listitem><listitem><para><computeroutput>ANIMATE OFF</computeroutput> Disables looping. After the final frame, playback stops on that frame.</para>
+</listitem></itemizedlist>
+</para>
+<para><simplesect kind="remark"><para>The first argument must be a <bold>variable</bold> containing a valid sprite handle, not a literal value or expression.</para>
+</simplesect>
+<hruler/>
+</para>
+<sect1 id="ANIMATE_1example_1s1"><sect2 id="ANIMATE_1example_1s2"><sect3 id="ANIMATE_1example">
+<title>Example</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;Loading...<sp/>&quot;;</highlight></codeline>
+<codeline><highlight class="normal">SPRITELOAD<sp/>bad_apple,<sp/>&quot;/images/bad-apple.gif&quot;</highlight></codeline>
+<codeline><highlight class="normal">CLS</highlight></codeline>
+<codeline><highlight class="normal">AUTOFLIP<sp/>FALSE</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">GCOL<sp/>&amp;888888</highlight></codeline>
+<codeline><highlight class="normal">RECTANGLE<sp/>0,<sp/>0,<sp/>GRAPHICS_WIDTH<sp/>-<sp/>1,<sp/>GRAPHICS_HEIGHT<sp/>-<sp/>1</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">ANIMATE<sp/>ON<sp/>bad_apple</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">REPEAT</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PLOT<sp/>bad_apple,<sp/>GRAPHICS_CENTRE_X<sp/>-<sp/>160,<sp/>GRAPHICS_CENTRE_Y<sp/>-<sp/>100</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>FLIP</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>SLEEP<sp/>66</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ANIMATE<sp/>NEXT<sp/>bad_apple</highlight></codeline>
+<codeline><highlight class="normal">UNTIL<sp/>INKEY$<sp/>&lt;&gt;<sp/>&quot;&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">AUTOFLIP<sp/>TRUE</highlight></codeline>
+<codeline><highlight class="normal">CLS</highlight></codeline>
+<codeline><highlight class="normal">END</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3></sect2></sect1>
+<sect1 id="ANIMATE_1notes-121_1s1"><sect2 id="ANIMATE_1notes-121_1s2"><sect3 id="ANIMATE_1notes-121">
+<title>Notes</title><para><itemizedlist>
+<listitem><para>If the sprite is not animated (single-frame image), <computeroutput>ANIMATE</computeroutput> statements are silent no-ops.</para>
+</listitem><listitem><para>Looping (<computeroutput>ANIMATE ON</computeroutput>) is enabled by default when a sprite is loaded.</para>
+</listitem><listitem><para>Frame delays stored in GIF metadata are currently ignored; use <computeroutput>SLEEP</computeroutput> or your own timing logic for consistent playback speed.</para>
+</listitem><listitem><para>To free sprite resources when no longer needed, use <ref refid="SPRITEFREE" kindref="compound">SPRITEFREE</ref>.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>See also:</bold> <ref refid="SPRITELOAD" kindref="compound">SPRITELOAD</ref> · <ref refid="SPRITEFREE" kindref="compound">SPRITEFREE</ref> · <ref refid="PLOT" kindref="compound">PLOT</ref> · <ref refid="AUTOFLIP" kindref="compound">AUTOFLIP</ref> · <ref refid="FLIP" kindref="compound">FLIP</ref> </para>
+</sect3></sect2></sect1>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/keywords/ANIMATE.md"/>
+  </compounddef>
+</doxygen>

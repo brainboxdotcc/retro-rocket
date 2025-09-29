@@ -18,7 +18,7 @@
 <para>After moving the cursor, subsequent <ref refid="PRINT" kindref="compound">PRINT</ref> output starts at that position.</para>
 <para><hruler/>
 </para>
-<sect1 id="CURSOR_1example-6_1s1"><sect2 id="CURSOR_1example-6_1s2"><sect3 id="CURSOR_1example-6_1s3"><sect4 id="CURSOR_1example-6_1s4"><sect5 id="CURSOR_1example-6">
+<sect1 id="CURSOR_1example-7_1s1"><sect2 id="CURSOR_1example-7_1s2"><sect3 id="CURSOR_1example-7_1s3"><sect4 id="CURSOR_1example-7_1s4"><sect5 id="CURSOR_1example-7">
 <title>Example</title><para><programlisting filename=".basic"><codeline><highlight class="normal">CLS</highlight></codeline>
 <codeline><highlight class="normal">CURSOR<sp/>10,<sp/>5</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Hello<sp/>from<sp/>(10,5)&quot;</highlight></codeline>
@@ -34,7 +34,7 @@
 <hruler/>
 </para>
 </sect5></sect4></sect3></sect2></sect1>
-<sect1 id="CURSOR_1notes-132_1s1"><sect2 id="CURSOR_1notes-132_1s2"><sect3 id="CURSOR_1notes-132_1s3"><sect4 id="CURSOR_1notes-132_1s4"><sect5 id="CURSOR_1notes-132">
+<sect1 id="CURSOR_1notes-133_1s1"><sect2 id="CURSOR_1notes-133_1s2"><sect3 id="CURSOR_1notes-133_1s3"><sect4 id="CURSOR_1notes-133_1s4"><sect5 id="CURSOR_1notes-133">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Affects the <bold>text layer</bold> only; graphics primitives (e.g. <ref refid="LINE" kindref="compound">LINE</ref>) are unaffected.</para>
 </listitem><listitem><para>The cursor is reset to <computeroutput>(0,0)</computeroutput> by <ref refid="CLS" kindref="compound">CLS</ref>.</para>

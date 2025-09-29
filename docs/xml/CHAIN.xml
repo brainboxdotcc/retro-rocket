@@ -24,7 +24,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect1 id="CHAIN_1example-1_1s1"><sect2 id="CHAIN_1example-1_1s2"><sect3 id="CHAIN_1example-1_1s3"><sect4 id="CHAIN_1example-1_1s4"><sect5 id="CHAIN_1example-1">
+<sect1 id="CHAIN_1example-2_1s1"><sect2 id="CHAIN_1example-2_1s2"><sect3 id="CHAIN_1example-2_1s3"><sect4 id="CHAIN_1example-2_1s4"><sect5 id="CHAIN_1example-2">
 <title>Example</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;Before<sp/>chain&quot;</highlight></codeline>
 <codeline><highlight class="normal">GLOBAL<sp/>X<sp/>=<sp/>42</highlight></codeline>
 <codeline><highlight class="normal">CHAIN<sp/>&quot;childprog&quot;</highlight></codeline>
@@ -35,7 +35,7 @@
 <para><hruler/>
 </para>
 </sect5></sect4></sect3></sect2></sect1>
-<sect1 id="CHAIN_1notes-125_1s1"><sect2 id="CHAIN_1notes-125_1s2"><sect3 id="CHAIN_1notes-125_1s3"><sect4 id="CHAIN_1notes-125_1s4"><sect5 id="CHAIN_1notes-125">
+<sect1 id="CHAIN_1notes-126_1s1"><sect2 id="CHAIN_1notes-126_1s2"><sect3 id="CHAIN_1notes-126_1s3"><sect4 id="CHAIN_1notes-126_1s4"><sect5 id="CHAIN_1notes-126">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Chained programs run in a <bold>new interpreter instance</bold> within a new process. The parent remains suspended until the child exits, unless the child is launched as a background task.</para>
 </listitem><listitem><para>A chained program may itself issue <computeroutput>CHAIN</computeroutput> statements, nesting as required. <linebreak/>

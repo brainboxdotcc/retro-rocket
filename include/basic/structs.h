@@ -1,4 +1,5 @@
 #pragma once
+
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
@@ -14,7 +15,7 @@ struct basic_ctx;
  */
 typedef struct for_state {
 	int64_t line_after_for; ///< Line number to jump to after the FOR loop
-	const char* for_variable; ///< The loop variable
+	const char *for_variable; ///< The loop variable
 	int64_t to; ///< The "TO" value for the loop
 	int64_t step; ///< The "STEP" value for the loop
 } for_state;
@@ -27,11 +28,11 @@ typedef struct for_state {
  * chaining for handling multiple variables.
  */
 typedef struct ub_var_int {
-	const char* varname; ///< Name of the integer variable
+	const char *varname; ///< Name of the integer variable
 	size_t name_length; ///< Length of the variable name
 	int64_t value; ///< The value of the integer variable
 	bool global; ///< True if the variable is global, false if local
-	struct ub_var_int* next; ///< Pointer to the next integer variable (for chaining)
+	struct ub_var_int *next; ///< Pointer to the next integer variable (for chaining)
 } ub_var_int;
 
 /**
@@ -42,11 +43,11 @@ typedef struct ub_var_int {
  * chaining for handling multiple variables.
  */
 typedef struct ub_var_double {
-	const char* varname; ///< Name of the double variable
+	const char *varname; ///< Name of the double variable
 	size_t name_length; ///< Length of the variable name
 	double value; ///< The value of the double variable
 	bool global; ///< True if the variable is global, false if local
-	struct ub_var_double* next; ///< Pointer to the next double variable (for chaining)
+	struct ub_var_double *next; ///< Pointer to the next double variable (for chaining)
 } ub_var_double;
 
 /**
@@ -57,9 +58,9 @@ typedef struct ub_var_double {
  * chaining for handling multiple variables.
  */
 typedef struct ub_var_string {
-	const char* varname; ///< Name of the string variable
+	const char *varname; ///< Name of the string variable
 	size_t name_length; ///< Length of the variable name
-	char* value; ///< The value of the string variable
+	char *value; ///< The value of the string variable
 	bool global; ///< True if the variable is global, false if local
 } ub_var_string;
 
@@ -93,8 +94,8 @@ typedef enum ub_return_type {
  * containing the name of the parameter and a pointer to the next parameter.
  */
 typedef struct ub_param {
-	const char* name; ///< Name of the parameter
-	struct ub_param* next; ///< Pointer to the next parameter
+	const char *name; ///< Name of the parameter
+	struct ub_param *next; ///< Pointer to the next parameter
 } ub_param;
 
 /**
@@ -104,11 +105,11 @@ typedef struct ub_param {
  * its name, type (FN/PROC), starting line number, and a linked list of parameters.
  */
 typedef struct ub_proc_fn_def {
-	const char* name; ///< Name of the function or procedure
+	const char *name; ///< Name of the function or procedure
 	ub_fn_type type; ///< Type of function or procedure (FN/PROC)
 	int64_t line; ///< Starting line number of the function or procedure
-	struct ub_param* params; ///< Linked list of function parameters
-	struct ub_proc_fn_def* next; ///< Pointer to the next function or procedure definition
+	struct ub_param *params; ///< Linked list of function parameters
+	struct ub_proc_fn_def *next; ///< Pointer to the next function or procedure definition
 } ub_proc_fn_def;
 
 /**
@@ -120,9 +121,9 @@ typedef struct ub_proc_fn_def {
  */
 typedef struct ub_var_int_array {
 	uint64_t itemcount; ///< Number of items in the array
-	const char* varname; ///< Name of the integer array variable
-	int64_t* values; ///< Array of integer values
-	struct ub_var_int_array* next; ///< Pointer to the next integer array (for chaining)
+	const char *varname; ///< Name of the integer array variable
+	int64_t *values; ///< Array of integer values
+	struct ub_var_int_array *next; ///< Pointer to the next integer array (for chaining)
 } ub_var_int_array;
 
 /**
@@ -134,9 +135,9 @@ typedef struct ub_var_int_array {
  */
 typedef struct ub_var_string_array {
 	uint64_t itemcount; ///< Number of items in the array
-	const char* varname; ///< Name of the string array variable
-	const char** values; ///< Array of string values
-	struct ub_var_string_array* next; ///< Pointer to the next string array (for chaining)
+	const char *varname; ///< Name of the string array variable
+	const char **values; ///< Array of string values
+	struct ub_var_string_array *next; ///< Pointer to the next string array (for chaining)
 } ub_var_string_array;
 
 /**
@@ -148,9 +149,9 @@ typedef struct ub_var_string_array {
  */
 typedef struct ub_var_double_array {
 	uint64_t itemcount; ///< Number of items in the array
-	const char* varname; ///< Name of the double array variable
-	double* values; ///< Array of double values
-	struct ub_var_double_array* next; ///< Pointer to the next double array (for chaining)
+	const char *varname; ///< Name of the double array variable
+	double *values; ///< Array of double values
+	struct ub_var_double_array *next; ///< Pointer to the next double array (for chaining)
 } ub_var_double_array;
 
 /**
@@ -163,9 +164,9 @@ typedef struct ub_var_double_array {
  */
 typedef struct ub_var_generic_array {
 	uint64_t itemcount; ///< Number of items in the array
-	const char* varname; ///< Name of the generic array variable
-	void* values_inaccesible; ///< A generic pointer to the array values
-	struct ub_var_generic_array* next; ///< Pointer to the next generic array (for chaining)
+	const char *varname; ///< Name of the generic array variable
+	void *values_inaccesible; ///< A generic pointer to the array values
+	struct ub_var_generic_array *next; ///< Pointer to the next generic array (for chaining)
 } ub_var_generic_array;
 
 /**
@@ -177,7 +178,7 @@ typedef struct ub_var_generic_array {
  */
 typedef struct ub_line_ref {
 	uint32_t line_number; ///< Line number in the program
-	const char* ptr; ///< Pointer to the start of the line in the program text
+	const char *ptr; ///< Pointer to the start of the line in the program text
 } ub_line_ref;
 
 /**
@@ -199,8 +200,8 @@ typedef struct cpuid_result {
  * This structure holds the vendor information for the CPUID instruction.
  */
 typedef struct g_cpuid_vendor {
-	char const* varname; ///< Name of the variable holding the vendor information
-	char const* vendor; ///< Vendor string obtained from the CPUID instruction
+	char const *varname; ///< Name of the variable holding the vendor information
+	char const *vendor; ///< Vendor string obtained from the CPUID instruction
 } g_cpuid_vendor_t;
 
 /**
@@ -209,26 +210,21 @@ typedef struct g_cpuid_vendor {
  * This structure represents a sprite, which is an image or object used
  * in graphics rendering. It contains the width, height, and pixel data
  * for the sprite image.
+ *
+ * For animated gifs it contains only the current frame, advanced or
+ * reset by the ANIMATE keyword.
  */
 typedef struct sprite {
-	int64_t   width;	///< Width of the sprite in pixels
-	int64_t   height;	///< Height of the sprite in pixels
-	uint32_t *pixels;	///< Pointer to the pixel data of the sprite (current frame only on animated gif)
-
-	/* Animation flags/controls */
-	int32_t   frame_count;     /* >=1 if known; 1 for static */
-	int32_t   current_frame;   /* 0..frame_count-1 */
-	int32_t   loop;            /* 0 = clamp, non-zero = wrap */
-
-	/* Streaming GIF (optional; NULL => not a GIF animation) */
-	unsigned char *gif_data;   /* compressed bytes (buddy-allocated) */
-	int64_t   gif_size;
-
-	/* Opaque handle to stb gif state (lives only if animated) */
-	void     *gif_state;       /* actually stbi__gif* */
-	void     *gif_ctx;         /* actually stbi__context* */
-
-
+	int64_t width;			/** Width of the sprite in pixels */
+	int64_t height;			/** Height of the sprite in pixels */
+	uint32_t *pixels;		/** Pointer to the pixel data of the sprite (current frame only on animated gif) */
+	int32_t frame_count;		/* >=1 if known; 1 for static */
+	int32_t current_frame;		/* 0..frame_count-1 */
+	bool loop;			/* false = clamp, true = wrap */
+	unsigned char *gif_data;	/* compressed bytes (buddy-allocated) */
+	int64_t gif_size;		/* Gif size */
+	void *gif_state;		/* actually stbi__gif* */
+	void *gif_ctx;			/* actually stbi__context* */
 } sprite_t;
 
 /**
@@ -236,21 +232,21 @@ typedef struct sprite {
  *
  * This is a function pointer type for builtin functions that return an integer.
  */
-typedef int64_t (*builtin_int_fn)(struct basic_ctx* ctx);
+typedef int64_t (*builtin_int_fn)(struct basic_ctx *ctx);
 
 /**
  * @brief String function signature
  *
  * This is a function pointer type for builtin functions that return a string.
  */
-typedef char* (*builtin_str_fn)(struct basic_ctx* ctx);
+typedef char *(*builtin_str_fn)(struct basic_ctx *ctx);
 
 /**
  * @brief Real (double) function signature
  *
  * This is a function pointer type for builtin functions that return a double.
  */
-typedef void (*builtin_double_fn)(struct basic_ctx* ctx, double* res);
+typedef void (*builtin_double_fn)(struct basic_ctx *ctx, double *res);
 
 /**
  * @brief Builtin integer function
@@ -258,10 +254,9 @@ typedef void (*builtin_double_fn)(struct basic_ctx* ctx, double* res);
  * This structure represents a builtin integer function, with a handler
  * function pointer and the function's name.
  */
-typedef struct basic_int_fn
-{
+typedef struct basic_int_fn {
 	builtin_int_fn handler; ///< Function pointer for the handler
-	const char* name; ///< Name of the builtin integer function
+	const char *name; ///< Name of the builtin integer function
 } basic_int_fn;
 
 /**
@@ -270,10 +265,9 @@ typedef struct basic_int_fn
  * This structure represents a builtin real (double) function, with a handler
  * function pointer and the function's name.
  */
-typedef struct basic_double_fn
-{
+typedef struct basic_double_fn {
 	builtin_double_fn handler; ///< Function pointer for the handler
-	const char* name; ///< Name of the builtin double function
+	const char *name; ///< Name of the builtin double function
 } basic_double_fn;
 
 /**
@@ -282,10 +276,9 @@ typedef struct basic_double_fn
  * This structure represents a builtin string function, with a handler
  * function pointer and the function's name.
  */
-typedef struct basic_str_fn
-{
+typedef struct basic_str_fn {
 	builtin_str_fn handler; ///< Function pointer for the handler
-	const char* name; ///< Name of the builtin string function
+	const char *name; ///< Name of the builtin string function
 } basic_str_fn;
 
 /**

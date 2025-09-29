@@ -1,5 +1,6 @@
 var keywords =
 [
+    [ "ANIMATE Keyword", "ANIMATE.html", null ],
     [ "AUTOFLIP Keyword", "AUTOFLIP.html", null ],
     [ "BACKGROUND Keyword", "BACKGROUND.html", null ],
     [ "BINREAD Statement", "BINREAD.html", null ],

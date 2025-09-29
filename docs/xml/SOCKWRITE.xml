@@ -63,7 +63,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="SOCKWRITE_1notes-172_1s1"><sect2 id="SOCKWRITE_1notes-172_1s2"><sect3 id="SOCKWRITE_1notes-172">
+<sect1 id="SOCKWRITE_1notes-173_1s1"><sect2 id="SOCKWRITE_1notes-173_1s2"><sect3 id="SOCKWRITE_1notes-173">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Do <bold>not</bold> pass a literal or expression as the handle; use an integer <bold>variable</bold> that contains the handle.</para>
 </listitem><listitem><para>After you close the socket with <computeroutput>SOCKCLOSE</computeroutput>, the handle is invalid for further <computeroutput>SOCKWRITE</computeroutput> calls.</para>
