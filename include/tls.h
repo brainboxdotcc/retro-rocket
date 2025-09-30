@@ -191,14 +191,13 @@ bool tls_fd_in_range(int fd);
  * @param target_addr IPv4 address of remote host (network order).
  * @param target_port TCP port to connect to.
  * @param source_port Local source port, or 0 for ephemeral.
- * @param blocking    If true, blocks until handshake completes or timeout.
  * @param sni         Optional SNI hostname (nullable).
  * @param alpn_csv    Optional ALPN CSV list (nullable).
  * @param ca_pem      Trusted CA certificates (PEM).
  * @param ca_len      Length of ca_pem buffer.
  * @return fd of connected TLS socket, or negative TCP_ERROR_* code.
  */
-int ssl_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port, bool blocking, const char *sni, const char *alpn_csv, const uint8_t *ca_pem, size_t ca_len);
+int ssl_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port, const char *sni, const char *alpn_csv, const uint8_t *ca_pem, size_t ca_len);
 
 /**
  * @brief Accept an inbound TCP connection and upgrade to TLS.

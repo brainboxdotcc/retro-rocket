@@ -11,7 +11,7 @@
 #define TCP_PACKET_SIZE_OFF	5
 
 /* Set this to output or record a trace of the TCP I/O. This is very noisy! */
-#define TCP_TRACE
+#undef TCP_TRACE
 
 /**
  * @brief IPv4 TCP pseudo-header used during checksum calculation.

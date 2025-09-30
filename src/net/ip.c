@@ -200,7 +200,7 @@ void dequeue_packet(packet_queue_item_t* cur, packet_queue_item_t* last) {
 }
 
 /**
- * @brief 100Hz background task hooked to local APIC timer
+ * @brief 1000Hz background task hooked to local APIC timer
  */
 void ip_idle()
 {

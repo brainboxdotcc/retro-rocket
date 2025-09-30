@@ -277,7 +277,7 @@ void sslconnect_statement(struct basic_ctx *ctx) {
 		dprintf("CA certs loaded\n");
 	}
 
-	int rv = ssl_connect(str_to_ip(ip), port, 0, true, sni, NULL, ca, ca_len);
+	int rv = ssl_connect(str_to_ip(ip), port, 0, sni, NULL, ca, ca_len);
 
 	if (rv >= 0) {
 		switch (fd_var[var_length - 1]) {
