@@ -15,11 +15,11 @@ init_func_t init_funcs[] = {
 };
 
 char* init_funcs_names[] = {
-	"gdt",			"heap",			"console",	"acpi",
-	"idt",			"cpus",			"pci",		"clock",
-	"devicenames",		"keyboard",		"ide",		"ahci",
-	"filesystem",		"devfs",		"iso9660",	"fat32",
-	"rfs",			"modules",		"network",	"audio",
+	"gdt",		"heap",		"console",	"acpi",
+	"idt",		"cpus",		"pci",		"clock",
+	"devicenames",	"keyboard",	"ide",		"ahci",
+	"filesystem",	"devfs",	"iso9660",	"fat32",
+	"rfs",		"modules",	"network",	"audio",
 	NULL,
 };
 

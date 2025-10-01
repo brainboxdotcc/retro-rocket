@@ -1,0 +1,204 @@
+REM ======================
+REM Rotating Textured Cube
+REM ======================
+
+CX# = GRAPHICS_WIDTH / 2
+CY# = GRAPHICS_HEIGHT / 2
+SCALE# = 250
+DIST# = 3
+
+ON ERROR PROCcontinue
+MODLOAD "hda"
+ON ERROR OFF
+PRINT "Harvesting apples..."
+SPRITELOAD bad_apple, "/images/bad-apple.gif"
+PRINT "Bringing the noise..."
+ON ERROR PROCcontinue
+MODLOAD "mp3"
+ON ERROR OFF
+ON ERROR PROCcontinue
+STREAM CREATE lead1
+ON ERROR OFF
+ON ERROR PROCcontinue
+SOUND LOAD music, "/system/webserver/media/binary-inferno.mp3"
+ON ERROR OFF
+ON ERROR PROCcontinue
+SOUND PLAY lead1, music
+ON ERROR OFF
+
+DIM VX#,8
+DIM VY#,8
+DIM VZ#,8
+DIM Xr#,8
+DIM Yr#,8
+DIM Zr#,8
+DIM PX#,8
+DIM PY#,8
+
+REM Faces as 4 vertex indices each (6 faces * 4 = 24)
+DIM F,24
+
+REM Back (+Z)
+F(0) = 4
+F(1) = 5
+F(2) = 6
+F(3) = 7
+
+REM Front (-Z)
+F(4) = 0
+F(5) = 1
+F(6) = 2
+F(7) = 3
+
+REM Left (-X)
+F(8) = 0
+F(9) = 3
+F(10) = 7
+F(11) = 4
+
+REM Right (+X)
+F(12) = 1
+F(13) = 2
+F(14) = 6
+F(15) = 5
+
+REM Top (+Y)
+F(16) = 3
+F(17) = 2
+F(18) = 6
+F(19) = 7
+
+REM Bottom (-Y)
+F(20) = 0
+F(21) = 1
+F(22) = 5
+F(23) = 4
+
+DIM DEPTH#,6
+DIM IDX,6
+
+REM Cube vertices
+VX#(0) = -1
+VY#(0) = -1
+VZ#(0) = -1
+
+VX#(1) =  1
+VY#(1) = -1
+VZ#(1) = -1
+
+VX#(2) =  1
+VY#(2) =  1
+VZ#(2) = -1
+
+VX#(3) = -1
+VY#(3) =  1
+VZ#(3) = -1
+
+VX#(4) = -1
+VY#(4) = -1
+VZ#(4) =  1
+
+VX#(5) =  1
+VY#(5) = -1
+VZ#(5) =  1
+
+VX#(6) =  1
+VY#(6) =  1
+VZ#(6) =  1
+
+VX#(7) = -1
+VY#(7) =  1
+VZ#(7) =  1
+
+ANGLE# = 0
+
+AUTOFLIP FALSE
+REM for rectangle cull only
+GCOL RGB(80, 80, 80)
+RECTANGLE 0, 0, GRAPHICS_WIDTH - 1, GRAPHICS_HEIGHT - 1
+
+REPEAT
+
+  min_x# = PX#(0)
+  max_x# = PX#(0)
+  min_y# = PY#(0)
+  max_y# = PY#(0)
+  FOR I = 1 TO 7
+    IF PX#(I) < min_x# THEN min_x# = PX#(I)
+    IF PX#(I) > max_x# THEN max_x# = PX#(I)
+    IF PY#(I) < min_y# THEN min_y# = PY#(I)
+    IF PY#(I) > max_y# THEN max_y# = PY#(I)
+  NEXT
+  RECTANGLE min_x# - 16, min_y# - 16, max_x# + 16, max_y# + 16
+
+  ANGLE# = ANGLE# + 0.07
+  SY# = SIN(ANGLE#)
+  CYR# = COS(ANGLE#)
+  SX# = SIN(ANGLE# * 0.7)
+  CXR# = COS(ANGLE# * 0.7)
+
+  FOR I = 0 TO 7
+    X# = VX#(I)
+    Y# = VY#(I)
+    Z# = VZ#(I)
+
+    X1# = X# * CYR# - Z# * SY#
+    Z1# = X# * SY# + Z# * CYR#
+
+    Y1# = Y# * CXR# - Z1# * SX#
+    Z2# = Y# * SX# + Z1# * CXR#
+
+    Xr#(I) = X1#
+    Yr#(I) = Y1#
+    Zr#(I) = Z2#
+
+    DEN# = Z2# + DIST#
+    IF DEN# = 0 THEN DEN# = 0.000001
+
+    PX#(I) = CX# + (X1# * SCALE# / DEN#)
+    PY#(I) = CY# + (Y1# * SCALE# / DEN#)
+
+  NEXT
+
+  FOR f = 0 TO 5
+    a = F(f * 4 + 0)
+    b = F(f * 4 + 1)
+    c = F(f * 4 + 2)
+    d = F(f * 4 + 3)
+    DEPTH#(f) = (Zr#(a) + Zr#(b) + Zr#(c) + Zr#(d)) / 4
+    IDX(f) = f
+  NEXT
+
+  FOR i = 0 TO 4
+    FOR j = 0 TO 4 - i
+      left = IDX(j)
+      right = IDX(j + 1)
+      IF DEPTH#(left) < DEPTH#(right) THEN temp = IDX(j)
+      IF DEPTH#(left) < DEPTH#(right) THEN IDX(j) = IDX(j + 1)
+      IF DEPTH#(left) < DEPTH#(right) THEN IDX(j + 1) = temp
+    NEXT
+  NEXT
+
+  FOR k = 0 TO 5
+    f = IDX(k)
+
+    a = F(f * 4 + 0)
+    b = F(f * 4 + 1)
+    c = F(f * 4 + 2)
+    d = F(f * 4 + 3)
+
+    PLOTQUAD bad_apple, PX#(a),PY#(a), PX#(b),PY#(b), PX#(c),PY#(c), PX#(d),PY#(d)
+
+  NEXT
+
+  FLIP
+  ANIMATE NEXT bad_apple
+
+UNTIL INKEY$ <> ""
+
+CLS
+
+END
+
+DEF PROCcontinue
+ENDPROC

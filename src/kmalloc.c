@@ -261,6 +261,8 @@ void init_heap(void) {
 	dprintf("heap: total usable RAM for allocator: %lu bytes (%lu MB); remaining bootloader reserved: %lu MB\n", total_usable, total_usable / 1024 / 1024, remaining_blr / 1024 / 1024);
 
 	dprintf_buffer_init(0);
+
+	adopt_cloned_tables();
 }
 
 

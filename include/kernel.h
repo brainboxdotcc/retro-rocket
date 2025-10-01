@@ -29,6 +29,7 @@
 #include <stddef.h>
 #include <limits.h>
 #include <limine.h>
+#include "gdt.h"
 #include "idt.h"
 #include "spinlock.h"
 #include "rwlock.h"

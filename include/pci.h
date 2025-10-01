@@ -243,6 +243,11 @@ uint16_t pci_io_base(uint32_t field);
  */
 uint32_t pci_mem_base(uint32_t field);
 
+/* Parallel to pci_mem_base(), but for 64-bit BARs when you already have both dwords. */
+uint64_t pci_mem_base64(uint32_t lo, uint32_t hi);
+
+bool pci_bar_is_mem64(uint32_t field);
+
 /**
  * @brief Test whether a device descriptor represents 'not found'.
  * @param device PCI device descriptor.

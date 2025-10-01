@@ -208,6 +208,19 @@ uint32_t pci_mem_base(uint32_t field) {
 	return field & (~0xf);
 }
 
+/* Parallel to pci_mem_base(), but for 64-bit BARs when you already have both dwords. */
+uint64_t pci_mem_base64(uint32_t lo, uint32_t hi) {
+	if ((lo & 1) || lo == 0) return 0;        /* I/O BAR or unimplemented */
+	uint32_t type = (lo >> 1) & 3;
+	uint64_t base = (uint64_t)(lo & ~15);
+	if (type == 2) base |= (uint64_t)hi << 32;/* only if 64-bit BAR */
+	return base;
+}
+
+bool pci_bar_is_mem64(uint32_t field) {
+	return ((field & 1) == 0) && (((field >> 1) & 3) == 2);
+}
+
 uint32_t pci_read(pci_dev_t dev, uint32_t field) {
 	dev.field_num = (field & 0xFC) >> 2;
 	dev.enable = 1;
