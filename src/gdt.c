@@ -1,17 +1,11 @@
 #include <kernel.h>
 
-#define PRESENT   (1ULL << 0)
-#define WRITE     (1ULL << 1)
-#define NX        (1ULL << 63)
-#define PS        (1ULL << 7)
-
 static uint64_t limine_gdtr;
 static uint64_t limine_cr3;
+static uint64_t new_cr3;
+gdt_t gdtr;
 
-struct {
-	uint16_t limit;
-	uint64_t base;
-} __attribute__((packed)) gdtr;
+static uint64_t pmm_alloc_page(void);
 
 volatile struct limine_stack_size_request stack_size_request = {
 	.id = LIMINE_STACK_SIZE_REQUEST,
@@ -72,11 +66,11 @@ static uint64_t clone_table_recursive(uint64_t table_phys, int level, alloc_page
 
 	for (int i = 0; i < PT_ENTRIES; i++) {
 		uint64_t e = src[i];
-		if ((e & PTE_P) == 0) {
+		if ((e & PTE_PRESENT) == 0) {
 			continue;
 		}
 
-		if (level < 3 && (e & PTE_PS) == 0) {
+		if (level < 3 && (e & PTE_PAGE_SIZE) == 0) {
 			/* Non-leaf: allocate and clone child */
 			uint64_t child_phys = e & PT_MASK;
 			uint64_t cloned_child = clone_table_recursive(child_phys, level + 1, alloc_page);
@@ -91,14 +85,14 @@ static uint64_t clone_table_recursive(uint64_t table_phys, int level, alloc_page
 	return new_phys;
 }
 
-/* Public entry: clone current CR3 hierarchy and return new CR3 physical. */
+/* Public entry: clone current CR3 hierarchy and return new CR3 physical */
 uint64_t pagetables_clone_deep(alloc_page_cb alloc_page) {
 	uint64_t cr3_phys;
 	__asm__ volatile ("mov %%cr3, %0" : "=r"(cr3_phys));
 	return clone_table_recursive(cr3_phys, 0, alloc_page);
 }
 
-/* Switch to a given PML4 physical page. */
+/* Switch to a given PML4 physical page */
 void pagetables_switch(uint64_t new_cr3_phys) {
 	__asm__ volatile ("mov %0, %%cr3" :: "r"(new_cr3_phys) : "memory");
 }
@@ -108,10 +102,10 @@ static void dump_mapping(uint64_t virt, uint64_t phys, uint64_t flags, int level
 	if (3 - level == 2) {
 		dprintf("VA 0x%lx -> PA 0x%lx [%s%s%s%s] (%s)\n",
 			virt, phys,
-			flags & PRESENT ? "P" : "-",
-			flags & WRITE ? "W" : "-",
-			flags & NX ? "NX" : "-",
-			flags & PS ? "PS" : "--",
+			flags & PTE_PRESENT ? "P" : "-",
+			flags & PTE_WRITE ? "W" : "-",
+			flags & PTE_NO_EXECUTE ? "NX" : "-",
+			flags & PTE_PAGE_SIZE ? "PS" : "--",
 			sizes[3 - level]);
 	}
 }
@@ -125,24 +119,24 @@ static uint64_t ensure_pt_for_va(uint64_t pml4_phys, uint64_t va, alloc_page_cb 
 	uint64_t *pml4 = (uint64_t *)pml4_phys;
 
 	/* PDP level */
-	if ((pml4[idx_pml4] & PTE_P) == 0) {
+	if ((pml4[idx_pml4] & PTE_PRESENT) == 0) {
 		uint64_t new_phys = alloc_page();
 		uint64_t *zero = (uint64_t *)new_phys;
 		memset(zero, 0, 4096);
-		pml4[idx_pml4] = (new_phys & PT_MASK) | PTE_P | PTE_W;
+		pml4[idx_pml4] = (new_phys & PT_MASK) | PTE_PRESENT | PTE_WRITE;
 	}
 
 	uint64_t pdpt_phys = pml4[idx_pml4] & PT_MASK;
 	uint64_t *pdpt = (uint64_t *)pdpt_phys;
 
 	/* PD level */
-	if ((pdpt[idx_pdp] & PTE_P) == 0) {
+	if ((pdpt[idx_pdp] & PTE_PRESENT) == 0) {
 		uint64_t new_phys = alloc_page();
 		uint64_t *zero = (uint64_t *)new_phys;
 		memset(zero, 0, 4096);
-		pdpt[idx_pdp] = (new_phys & PT_MASK) | PTE_P | PTE_W;
-	} else if (pdpt[idx_pdp] & PTE_PS) {
-		/* Do not break an existing 1G mapping here. */
+		pdpt[idx_pdp] = (new_phys & PT_MASK) | PTE_PRESENT | PTE_WRITE;
+	} else if (pdpt[idx_pdp] & PTE_PAGE_SIZE) {
+		/* Do not break an existing 1G mapping here */
 		return 0;
 	}
 
@@ -150,13 +144,13 @@ static uint64_t ensure_pt_for_va(uint64_t pml4_phys, uint64_t va, alloc_page_cb 
 	uint64_t *pd = (uint64_t *)pd_phys;
 
 	/* PT level */
-	if ((pd[idx_pd] & PTE_P) == 0) {
+	if ((pd[idx_pd] & PTE_PRESENT) == 0) {
 		uint64_t new_phys = alloc_page();
 		uint64_t *zero = (uint64_t *)new_phys;
 		memset(zero, 0, 4096);
-		pd[idx_pd] = (new_phys & PT_MASK) | PTE_P | PTE_W;
-	} else if (pd[idx_pd] & PTE_PS) {
-		/* Do not break an existing 2M mapping here. */
+		pd[idx_pd] = (new_phys & PT_MASK) | PTE_PRESENT | PTE_WRITE;
+	} else if (pd[idx_pd] & PTE_PAGE_SIZE) {
+		/* Do not break an existing 2M mapping here */
 		return 0;
 	}
 
@@ -167,27 +161,23 @@ static uint64_t ensure_pt_for_va(uint64_t pml4_phys, uint64_t va, alloc_page_cb 
 
 static inline uint64_t cache_bits(enum cache_mode mode) {
 	if (mode == cache_uc) {
-		return PTE_PWT | PTE_PCD;
+		return PTE_WRITE_THROUGH | PTE_CACHE_DISABLED;
 	}
 	return 0;
 }
 
-static inline void invlpg(void *va) {
-	__asm__ volatile ("invlpg (%0)" :: "r"(va) : "memory");
-}
-
-bool map_range(uint64_t pml4_phys, uint64_t virt, uint64_t phys, uint64_t size, bool writable, bool executable, enum cache_mode cmode, alloc_page_cb alloc_page) {
+bool map_range(uint64_t virt, uint64_t phys, uint64_t size, bool writable, bool executable, enum cache_mode cmode, alloc_page_cb alloc_page) {
 	if ((virt & 0xFFF) != 0 || (phys & 0xFFF) != 0 || size == 0) {
 		return false;
 	}
 
-	uint64_t flags = PTE_P | (writable ? PTE_W : 0) | (executable ? 0 : PTE_NX) | cache_bits(cmode);
+	uint64_t flags = PTE_PRESENT | (writable ? PTE_WRITE : 0) | (executable ? 0 : PTE_NO_EXECUTE) | cache_bits(cmode);
 
 	uint64_t end = virt + size;
 	while (virt < end) {
-		uint64_t pt_phys = ensure_pt_for_va(pml4_phys, virt, alloc_page);
+		uint64_t pt_phys = ensure_pt_for_va(new_cr3, virt, alloc_page);
 		if (pt_phys == 0) {
-			/* Refuse to split existing large pages in this helper. */
+			/* Refuse to split existing large pages in this helper */
 			return false;
 		}
 
@@ -203,13 +193,13 @@ bool map_range(uint64_t pml4_phys, uint64_t virt, uint64_t phys, uint64_t size, 
 	return true;
 }
 
-/* Convenience identity map. */
-bool map_identity(uint64_t pml4_phys, uint64_t base, uint64_t size, bool writable, bool executable, enum cache_mode cmode, alloc_page_cb alloc_page) {
-	return map_range(pml4_phys, base, base, size, writable, executable, cmode, alloc_page);
+/* Convenience identity map */
+bool map_identity(uint64_t base, uint64_t size, bool writable, bool executable, enum cache_mode cmode, alloc_page_cb alloc_page) {
+	return map_range(base, base, size, writable, executable, cmode, alloc_page);
 }
 
-/* Unmap [virt .. virt+size), 4K-granular. Does not tear down empty tables. */
-bool unmap_range(uint64_t pml4_phys, uint64_t virt, uint64_t size) {
+/* Unmap [virt .. virt+size), 4K-granular. Does not tear down empty tables */
+bool unmap_range(uint64_t virt, uint64_t size) {
 	if ((virt & 0xFFF) != 0 || size == 0) {
 		return false;
 	}
@@ -221,16 +211,16 @@ bool unmap_range(uint64_t pml4_phys, uint64_t virt, uint64_t size) {
 		int idx_pd   = (int)((virt >> PD_SHIFT)   & 511);
 		int idx_pt   = (int)((virt >> PT_SHIFT)   & 511);
 
-		uint64_t *pml4 = (uint64_t *)pml4_phys;
-		if ((pml4[idx_pml4] & PTE_P) == 0) {
+		uint64_t *pml4 = (uint64_t *)new_cr3;
+		if ((pml4[idx_pml4] & PTE_PRESENT) == 0) {
 			return false;
 		}
 		uint64_t *pdpt = (uint64_t *)(pml4[idx_pml4] & PT_MASK);
-		if ((pdpt[idx_pdp] & PTE_P) == 0 || (pdpt[idx_pdp] & PTE_PS) != 0) {
+		if ((pdpt[idx_pdp] & PTE_PRESENT) == 0 || (pdpt[idx_pdp] & PTE_PAGE_SIZE) != 0) {
 			return false;
 		}
 		uint64_t *pd = (uint64_t *)(pdpt[idx_pdp] & PT_MASK);
-		if ((pd[idx_pd] & PTE_P) == 0 || (pd[idx_pd] & PTE_PS) != 0) {
+		if ((pd[idx_pd] & PTE_PRESENT) == 0 || (pd[idx_pd] & PTE_PAGE_SIZE) != 0) {
 			return false;
 		}
 		uint64_t *pt = (uint64_t *)(pd[idx_pd] & PT_MASK);
@@ -244,41 +234,80 @@ bool unmap_range(uint64_t pml4_phys, uint64_t virt, uint64_t size) {
 	return true;
 }
 
+/* Panics if the heap can’t supply a 4 KiB page */
 static uint64_t pmm_alloc_page(void) {
-	/* Return a physical address to a zeroed 4K page. */
-	uint64_t phys = kmalloc_aligned(4096, 4096);
-	memset(phys, 0, 4096);
-	return phys;
+	void *p = kmalloc_aligned(4096, 4096);
+	if (p == NULL) {
+		preboot_fail("paging: OOM allocating page-table page");
+	}
+	memset(p, 0, 4096);
+	return (uint64_t)(uintptr_t)p;
 }
 
-static void pmm_free_page(uint64_t phys) {
+[[maybe_unused]] static void pmm_free_page(uint64_t phys) {
 	kfree(phys);
 }
 
-bool mmio_identity_map(uint64_t pml4_phys, uint64_t phys, uint64_t size) {
-	return map_identity(pml4_phys, phys, size, true, false, cache_uc, pmm_alloc_page);
+bool mmio_identity_map(uint64_t phys, uint64_t size) {
+	return map_identity(phys, size, true, false, cache_uc, pmm_alloc_page);
 }
 
-bool ram_identity_map(uint64_t pml4_phys, uint64_t phys, uint64_t size, bool writable, bool executable) {
-	return map_identity(pml4_phys, phys, size, writable, executable, cache_wb, pmm_alloc_page);
+bool ram_identity_map(uint64_t phys, uint64_t size, bool writable, bool executable) {
+	return map_identity(phys, size, writable, executable, cache_wb, pmm_alloc_page);
 }
 
-bool identity_unmap(uint64_t pml4_phys, uint64_t phys, uint64_t size) {
-	return unmap_range(pml4_phys, phys, size);
+bool identity_unmap(uint64_t phys, uint64_t size) {
+	return unmap_range(phys, size);
 }
 
 void adopt_cloned_tables(void) {
-	uint64_t new_cr3 = pagetables_clone_deep(pmm_alloc_page);
-	/* map_range(new_cr3, 0xffff880000000000, 0x0000c00000000000, 0x200000, 1, 1, cache_uc, pmm_alloc_page); */
+	/* Refuse to run with interrupts enabled (IF bit set) */
+	uint64_t rflags;
+	__asm__ volatile ("pushfq; pop %0" : "=r"(rflags));
+	if ((rflags & (1ull << 9)) != 0) {
+		preboot_fail("adopt_cloned_tables: cannot clone with interrupts enabled");
+	} else if (new_cr3) {
+		preboot_fail("adopt_cloned_tables called on already-cloned cr3");
+		return;
+	}
+	new_cr3 = pagetables_clone_deep(pmm_alloc_page);
 	dprintf("Rug-pulling Limine's pagetables; new CR3=%p\n", (void*)new_cr3);
 	pagetables_switch(new_cr3);
 	dprintf("If you are reading this, the world didnt end!\n");
 }
 
+void adopt_cloned_tables_on_ap(void) {
+	/* Refuse to run with interrupts enabled (IF=1) */
+	uint64_t rflags;
+	__asm__ volatile ("pushfq; pop %0" : "=r"(rflags));
+	if ((rflags & (1ull << 9)) != 0) {
+		preboot_fail("adopt_cloned_tables_on_ap: interrupts enabled");
+	}
+
+	if (new_cr3 == 0) {
+		preboot_fail("adopt_cloned_tables_on_ap: new_cr3 not initialised");
+	}
+
+	/* Skip if this AP already uses the target CR3 */
+	uint64_t cur_cr3;
+	__asm__ volatile ("mov %%cr3, %0" : "=r"(cur_cr3));
+	if (cur_cr3 == new_cr3) {
+		dprintf("AP: CR3 already adopted (%p)\n", (void *)new_cr3);
+		return;
+	}
+
+	/* Serialise then flip CR3 */
+	__asm__ volatile ("" ::: "memory");
+	__asm__ volatile ("mov %0, %%cr3" :: "r"(new_cr3) : "memory");
+
+	dprintf("AP: adopted CR3=%p\n", (void *)new_cr3);
+}
+
+
 void walk_page_tables(uint64_t *table, uint64_t base_va, int level) {
 	for (uint64_t i = 0; i < 512; i++) {
 		uint64_t entry = table[i];
-		if (!(entry & PRESENT)) continue;
+		if (!(entry & PTE_PRESENT)) continue;
 
 		uint64_t addr = entry & 0x000ffffffffff000;
 		uint64_t virt = base_va | (i << (39 - level * 9));
@@ -286,8 +315,8 @@ void walk_page_tables(uint64_t *table, uint64_t base_va, int level) {
 		// At PDP level (1), PS means 1GiB page
 		// At PD  level (2), PS means 2MiB page
 		// At PT  level (3), always a 4KiB mapping
-		if ((level == 1 && (entry & PS)) ||
-		    (level == 2 && (entry & PS)) ||
+		if ((level == 1 && (entry & PTE_PAGE_SIZE)) ||
+		    (level == 2 && (entry & PTE_PAGE_SIZE)) ||
 		    (level == 3)) {
 			dump_mapping(virt, addr, entry, level);
 		} else {

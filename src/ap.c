@@ -22,6 +22,7 @@ void wait_for_interpreter_start(struct limine_smp_info *info) {
 }
 
 void kmain_ap(struct limine_smp_info *info) {
+	adopt_cloned_tables_on_ap();
 	load_ap_shared_idt();
 	wait_for_interpreter_start(info);
 	apic_setup_ap();
