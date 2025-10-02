@@ -318,3 +318,15 @@ bool pci_enable_msix(pci_dev_t device, uint32_t vector, uint16_t entry, uint32_t
  *       interrupt mechanism was actually configured.
  */
 uint32_t pci_setup_interrupt(const char* name, pci_dev_t dev, uint8_t logical_cpu_id, isr_t handler, void *context);
+
+uint64_t get_bar_size(pci_dev_t dev, int bar_index);
+
+bool pci_disable_bus_master(pci_dev_t device);
+
+bool pci_enable_iospace(pci_dev_t device);
+
+bool pci_enable_memspace(pci_dev_t device);
+
+bool pci_disable_iospace(pci_dev_t device);
+
+bool pci_disable_memspace(pci_dev_t device);

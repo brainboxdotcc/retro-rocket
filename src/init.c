@@ -8,7 +8,7 @@ spinlock_t debug_console_spinlock = 0;
 init_func_t init_funcs[] = {
 	validate_limine_page_tables_and_gdt, init_heap, init_console,
 	init_acpi, init_idt, boot_aps, init_pci, init_realtime_clock,
-	init_devicenames, init_keyboard, init_ide, init_ahci,
+	init_devicenames, init_keyboard, init_ide, init_ahci, init_nvme,
 	init_filesystem, init_devfs, init_iso9660, init_fat32,
 	init_rfs, init_modules, network_up, audio_init,
 	NULL,
@@ -17,10 +17,10 @@ init_func_t init_funcs[] = {
 char* init_funcs_names[] = {
 	"gdt",		"heap",		"console",	"acpi",
 	"idt",		"cpus",		"pci",		"clock",
-	"devicenames",	"keyboard",	"ide",		"ahci",
-	"filesystem",	"devfs",	"iso9660",	"fat32",
-	"rfs",		"modules",	"network",	"audio",
-	NULL,
+	"devicenames",	"keyboard",	"ide",		"ahci",	
+	"nvme", 	"filesystem",	"devfs",	"iso9660",
+	"fat32",	"rfs",		"modules",	"network",
+	"audio",	NULL,
 };
 
 void init()

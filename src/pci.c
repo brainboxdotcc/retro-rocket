@@ -210,7 +210,7 @@ uint32_t pci_mem_base(uint32_t field) {
 
 /* Parallel to pci_mem_base(), but for 64-bit BARs when you already have both dwords. */
 uint64_t pci_mem_base64(uint32_t lo, uint32_t hi) {
-	if ((lo & 1) || lo == 0) return 0;        /* I/O BAR or unimplemented */
+	if ((lo & 1) || lo == 0) return 0;		/* I/O BAR or unimplemented */
 	uint32_t type = (lo >> 1) & 3;
 	uint64_t base = (uint64_t)(lo & ~15);
 	if (type == 2) base |= (uint64_t)hi << 32;/* only if 64-bit BAR */
@@ -474,14 +474,14 @@ pci_dev_t pci_scan_bus(uint16_t vendor_id, uint16_t device_id, uint32_t bus, int
 
 		// Track if this is the specific device being searched for
 		if (!pci_not_found(dev) &&
-		    (vendor_id != 0 || device_id != 0 || device_type != -1)) {
+			(vendor_id != 0 || device_id != 0 || device_type != -1)) {
 			uint32_t vend = pci_read(dev, PCI_VENDOR_ID);
 			uint32_t devid = pci_read(dev, PCI_DEVICE_ID);
 			uint32_t type = get_device_type(dev);
 
 			if ((vendor_id == 0 || vend == vendor_id) &&
-			    (device_id == 0 || devid == device_id) &&
-			    (device_type == -1 || type == (uint32_t)device_type)) {
+				(device_id == 0 || devid == device_id) &&
+				(device_type == -1 || type == (uint32_t)device_type)) {
 				found = dev;
 			}
 		}
@@ -510,8 +510,8 @@ pci_dev_t pci_get_device(uint16_t vendor_id, uint16_t device_id, int device_type
 		uint32_t type = get_device_type(device_list[i]);
 
 		if ((vendor_id == 0 || vendor_id == vendid) &&
-		    (device_id == 0 || device_id == devid) &&
-		    (device_type == -1 || device_type == (int)type)) {
+			(device_id == 0 || device_id == devid) &&
+			(device_type == -1 || device_type == (int)type)) {
 			return device_list[i];
 		}
 	}
@@ -647,11 +647,11 @@ bool pci_enable_msi(pci_dev_t device, uint32_t vector, uint32_t lapic_id)
 
 		if (id == PCI_CAPABILITY_MSI) {
 			uint16_t control = pci_read16(device, current + 0x02);
-			bool is_64bit    = control & PCI_MSI_64BIT;
+			bool is_64bit	= control & PCI_MSI_64BIT;
 
 			uint32_t addr_low  = 0xFEE00000;
 			uint32_t addr_high = 0;
-			uint16_t data      = (vector & 0xFF);
+			uint16_t data	  = (vector & 0xFF);
 
 			if (!x2apic_enabled()) {
 				addr_low |= (lapic_id << 12);
@@ -710,7 +710,7 @@ bool pci_enable_msix(pci_dev_t device, uint32_t vector, uint16_t entry, uint32_t
 		uint8_t next = pci_read8(device, current + 0x01);
 
 		if (id == PCI_CAPABILITY_MSIX) {
-			uint16_t control    = pci_read16(device, current + 0x02);
+			uint16_t control	= pci_read16(device, current + 0x02);
 			uint16_t table_size = (control & 0x07FF) + 1;
 
 			if (entry >= table_size) {
@@ -720,7 +720,7 @@ bool pci_enable_msix(pci_dev_t device, uint32_t vector, uint16_t entry, uint32_t
 
 			/* Table info (BAR + offset) */
 			uint32_t table  = pci_read32(device, current + 0x04);
-			uint8_t  bir    = table & 0x7;
+			uint8_t  bir	= table & 0x7;
 			uint32_t offset = table & ~0x7;
 
 			uintptr_t bar = pci_read32(device, PCI_BAR0 + bir * 4);
@@ -731,7 +731,7 @@ bool pci_enable_msix(pci_dev_t device, uint32_t vector, uint16_t entry, uint32_t
 
 			uint32_t addr_low  = 0xFEE00000;
 			uint32_t addr_high = 0;
-			uint32_t data      = (vector & 0xFF);
+			uint32_t data	  = (vector & 0xFF);
 
 			if (!x2apic_enabled()) {
 				addr_low |= (lapic_id << 12);
@@ -795,3 +795,77 @@ uint32_t pci_setup_interrupt(const char* name, pci_dev_t dev, uint8_t logical_cp
 	dprintf("%s: MSI not available, using legacy IRQ %d\n", name, irq);
 	return irq;
 }
+
+uint64_t get_bar_size(pci_dev_t dev, int bar_index) {
+	// bar_index is 0 for BAR0/BAR1 pair
+	uint32_t offset = PCI_BAR0 + (bar_index * 4);
+	uint32_t lo_orig = pci_read(dev, offset);
+	uint32_t hi_orig = pci_read(dev, offset + 4);
+
+	// Write all 1s
+	pci_write(dev, offset, 0xFFFFFFFF);
+	pci_write(dev, offset + 4, 0xFFFFFFFF);
+
+	uint32_t lo = pci_read(dev, offset);
+	uint32_t hi = pci_read(dev, offset + 4);
+
+	// Restore
+	pci_write(dev, offset, lo_orig);
+	pci_write(dev, offset + 4, hi_orig);
+
+	uint64_t mask = ((uint64_t)hi << 32) | (lo & ~0xF);
+	uint64_t size = (~mask) + 1;
+
+	return size;
+}
+
+bool pci_disable_bus_master(pci_dev_t device) {
+        uint32_t cmd = pci_read(device, PCI_COMMAND);
+        if ((cmd & PCI_COMMAND_BUS_MASTER) != 0) {
+                cmd &= ~PCI_COMMAND_BUS_MASTER;
+                pci_write(device, PCI_COMMAND, cmd);
+                cmd = pci_read(device, PCI_COMMAND);
+        }
+        return (cmd & PCI_COMMAND_BUS_MASTER) == 0;
+}
+
+bool pci_enable_iospace(pci_dev_t device) {
+        uint32_t cmd = pci_read(device, PCI_COMMAND);
+        if ((cmd & PCI_COMMAND_IOSPACE) == 0) {
+                cmd |= PCI_COMMAND_IOSPACE;
+                pci_write(device, PCI_COMMAND, cmd);
+                cmd = pci_read(device, PCI_COMMAND);
+        }
+        return (cmd & PCI_COMMAND_IOSPACE) != 0;
+}
+
+bool pci_enable_memspace(pci_dev_t device) {
+        uint32_t cmd = pci_read(device, PCI_COMMAND);
+        if ((cmd & PCI_COMMAND_MEMSPACE) == 0) {
+                cmd |= PCI_COMMAND_MEMSPACE;
+                pci_write(device, PCI_COMMAND, cmd);
+                cmd = pci_read(device, PCI_COMMAND);
+        }
+        return (cmd & PCI_COMMAND_MEMSPACE) != 0;
+}
+
+bool pci_disable_iospace(pci_dev_t device) {
+        uint32_t cmd = pci_read(device, PCI_COMMAND);
+        if ((cmd & PCI_COMMAND_IOSPACE) != 0) {
+                cmd &= ~PCI_COMMAND_IOSPACE;
+                pci_write(device, PCI_COMMAND, cmd);
+                cmd = pci_read(device, PCI_COMMAND);
+        }
+        return (cmd & PCI_COMMAND_IOSPACE) == 0;
+}
+
+bool pci_disable_memspace(pci_dev_t device) {
+        uint32_t cmd = pci_read(device, PCI_COMMAND);
+        if ((cmd & PCI_COMMAND_MEMSPACE) != 0) {
+                cmd &= ~PCI_COMMAND_MEMSPACE;
+                pci_write(device, PCI_COMMAND, cmd);
+                cmd = pci_read(device, PCI_COMMAND);
+        }
+        return (cmd & PCI_COMMAND_MEMSPACE) == 0;
+}
+

@@ -54,6 +54,7 @@
 #include "interrupt.h"
 #include "ahci.h"
 #include "ata.h"
+#include "nvme.h"
 #include "filesystem.h"
 #include "partition.h"
 #include "ramdisk.h"
