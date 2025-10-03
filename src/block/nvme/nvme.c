@@ -126,70 +126,77 @@ static nvme_sqe_t* nvme_sqe_alloc(nvme_dev_t* dev, bool admin, uint16_t* cid_out
 		*cid_out = tail;
 		memset(&dev->asq[tail], 0, sizeof(nvme_sqe_t));
 		dev->a_sqt = (uint16_t)((tail + 1) & (dev->a_qd - 1));
-		nvme_db_write(dev->regs, dev->dstrd, 0, false, dev->a_sqt);
+		/* DO NOT ring doorbell here */
 		return &dev->asq[tail];
 	} else {
 		uint16_t tail = dev->io_sqt;
 		*cid_out = tail;
 		memset(&dev->iosq[tail], 0, sizeof(nvme_sqe_t));
 		dev->io_sqt = (uint16_t)((tail + 1) & (dev->io_qd - 1));
-		nvme_db_write(dev->regs, dev->dstrd, 1, false, dev->io_sqt);
+		/* DO NOT ring doorbell here */
 		return &dev->iosq[tail];
 	}
 }
 
 static int nvme_cqe_poll(nvme_dev_t* dev, bool admin, uint16_t want_cid) {
 	if (admin) {
+		/* Ensure SQE stores are visible, then submit by ringing the tail */
+		__asm__ volatile ("sfence" ::: "memory");
+		nvme_db_write(dev->regs, dev->dstrd, 0, false, dev->a_sqt);
+
 		for (;;) {
 			nvme_cqe_t* e = &dev->acq[dev->a_cqh];
 			uint16_t st = e->status;
-			uint8_t ph = (uint8_t)(st & 1); /* phase is bit 0 */
+			uint8_t ph = (uint8_t)(st & 1); /* phase = bit 0 */
 			if (ph != dev->a_phase) {
 				__asm__ volatile("pause");
 				continue;
 			}
+
 			dev->a_cqh = (uint16_t)((dev->a_cqh + 1) & (dev->a_qd - 1));
 			nvme_db_write(dev->regs, dev->dstrd, 0, true, dev->a_cqh);
 			if (dev->a_cqh == 0) {
 				dev->a_phase ^= 1;
 			}
-			/* decode status (exclude phase): SC=bits 8..1, SCT=bits 11..9, DNR=bit 12 */
 			uint8_t sc  = (uint8_t)((st >> 1) & 0xFF);
 			uint8_t sct = (uint8_t)((st >> 9) & 0x7);
-			uint8_t dnr = (uint8_t)((st >> 12) & 0x1);
+			uint8_t dnr = (uint8_t)((st >> 12) & 1);
+			uint8_t m   = (uint8_t)((st >> 11) & 1);
 			if (sc != 0 || sct != 0) {
-				dprintf("NVMe admin error: SCT=%u SC=%u DNR=%u\n", sct, sc, dnr);
+				dprintf("NVMe %s error: SCT=%u SC=%u M=%u DNR=%u\n", admin ? "admin" : "io", sct, sc, m, dnr);
 				return 0;
 			}
-			if (e->cid != want_cid) {
-				/* admin is submitted sync; ignore mismatch */
-			}
+
+			/* admin is sync; CID mismatch ignored */
 			return 1;
 		}
 	} else {
+		__asm__ volatile ("sfence" ::: "memory");
+		nvme_db_write(dev->regs, dev->dstrd, 1, false, dev->io_sqt);
+
 		for (;;) {
 			nvme_cqe_t* e = &dev->iocq[dev->io_cqh];
 			uint16_t st = e->status;
-			uint8_t ph = (uint8_t)(st & 1); /* phase is bit 0 */
+			uint8_t ph = (uint8_t)(st & 1);
 			if (ph != dev->io_phase) {
 				__asm__ volatile("pause");
 				continue;
 			}
+
 			dev->io_cqh = (uint16_t)((dev->io_cqh + 1) & (dev->io_qd - 1));
 			nvme_db_write(dev->regs, dev->dstrd, 1, true, dev->io_cqh);
 			if (dev->io_cqh == 0) {
 				dev->io_phase ^= 1;
 			}
+
 			uint8_t sc  = (uint8_t)((st >> 1) & 0xFF);
 			uint8_t sct = (uint8_t)((st >> 9) & 0x7);
-			uint8_t dnr = (uint8_t)((st >> 12) & 0x1);
+			uint8_t dnr = (uint8_t)((st >> 12) & 1);
 			if (sc != 0 || sct != 0) {
 				dprintf("NVMe io error: SCT=%u SC=%u DNR=%u\n", sct, sc, dnr);
 				return 0;
 			}
-			if (e->cid != want_cid) {
-				/* QD=1 */
-			}
+
 			return 1;
 		}
 	}
@@ -229,12 +236,22 @@ static int nvme_admin_create_cq(nvme_dev_t* dev, uint16_t qid, nvme_cqe_t* cq, u
 	sqe->cid   = cid;
 	sqe->prp1  = (uint64_t)(uintptr_t)cq;
 	sqe->cdw10 = (uint32_t)qid | ((uint32_t)(qd - 1) << 16);
+	//sqe->cdw10 = ((uint32_t)qid << 16) | (uint32_t)(qd - 1);
 
 	/* CDW11 for Create CQ: PC(bit0)=1, IEN=0, IV=0 (polling, physically contiguous) */
 	sqe->cdw11 = 1u;
 
 	dprintf("CreateCQ: CAP.MQES=%u (max_q=%u) qid=%u qd=%u cdw10=0x%08x cdw11=0x%08x\n", mqes, max_q, qid, qd, sqe->cdw10, sqe->cdw11);
+	dprintf("CreateCQ: PRP1=0x%016lx (aligned=%s)\n", sqe->prp1, ((sqe->prp1 & 0xFFF) == 0) ? "yes" : "no");
 
+	const uint32_t *dw = (const uint32_t *)sqe;
+	dprintf("CreateCQ SQE: "
+		"DW0=%08x DW1=%08x DW2=%08x DW3=%08x "
+		"DW4=%08x DW5=%08x DW6=%08x DW7=%08x "
+		"DW8=%08x DW9=%08x DW10=%08x DW11=%08x "
+		"DW12=%08x DW13=%08x DW14=%08x DW15=%08x\n",
+		dw[0],dw[1],dw[2],dw[3],dw[4],dw[5],dw[6],dw[7],
+		dw[8],dw[9],dw[10],dw[11],dw[12],dw[13],dw[14],dw[15]);
 	return nvme_cqe_poll(dev, true, cid);
 }
 
@@ -245,7 +262,9 @@ static int nvme_admin_create_sq(nvme_dev_t* dev, uint16_t qid, nvme_sqe_t* sq, u
 	sqe->cid  = cid;
 	sqe->prp1 = (uint64_t)(uintptr_t)sq;
 	sqe->cdw10 = (uint32_t)qid | ((uint32_t)(qd - 1) << 16);
+	//sqe->cdw10 = ((uint32_t)qid << 16) | (uint32_t)(qd - 1);
 	sqe->cdw11 = (1u << 16) | 1u; /* CQID=1, PC=1 */
+	dprintf("CreateSQ: PRP1=0x%016lx (aligned=%s)\n", sqe->prp1, ((sqe->prp1 & 0xFFF) == 0) ? "yes" : "no");
 	return nvme_cqe_poll(dev, true, cid);
 }
 
@@ -291,6 +310,18 @@ static int nvme_hw_enable(nvme_dev_t* dev) {
 	uint64_t cap = r->cap;
 	dev->dstrd = (uint32_t)((cap >> 32) & 0xF);
 
+	dprintf("NVMe CAP: DSTRD=%u\n", (unsigned)(dev->dstrd & 0xF));
+
+	uint8_t  cqr   = (uint8_t)((cap >> 16) & 0x1);  /* CAP.CQR is bit 16 */
+	uint16_t mqes  = (uint16_t)(cap & 0xFFFF);
+	uint16_t max_q = (uint16_t)(mqes + 1);
+	dprintf("NVMe CAP: MQES=%u, CQR=%u\n", mqes, cqr);
+
+	/* work out required page size/alignment */
+	uint32_t mpsmin = (uint32_t)((cap >> 48) & 0xF);   /* 0 => 4KiB, 1 => 8KiB, etc */
+	uint32_t page_size = 1u << (12 + mpsmin);
+	dprintf("NVMe CAP: MPSMIN=%u -> page_size=%u\n", mpsmin, page_size);
+
 	/* Disable if enabled */
 	if ((r->cc & 1u) != 0u) {
 		r->cc &= ~1u;
@@ -299,18 +330,16 @@ static int nvme_hw_enable(nvme_dev_t* dev) {
 		}
 	}
 
-	/* Admin queues */
-	dev->asq = nvme_page_alloc_4k();
-	dev->acq = nvme_page_alloc_4k();
+	/* Admin queues, aligned to required page size */
+	dev->asq = kmalloc_aligned(page_size, page_size);
+	dev->acq = kmalloc_aligned(page_size, page_size);
 	if (!dev->asq || !dev->acq) {
 		return 0;
 	}
-	memset(dev->asq, 0, 4096);
-	memset(dev->acq, 0, 4096);
+	memset(dev->asq, 0, page_size);
+	memset(dev->acq, 0, page_size);
 
-	/* Clamp admin QD to CAP.MQES+1 (defensive; many allow larger admin but spec ties MQES to “each queue”) */
-	uint16_t mqes  = (uint16_t)(cap & 0xFFFF);
-	uint16_t max_q = (uint16_t)(mqes + 1);
+	/* Admin queue depth: clamp against CAP.MQES+1 */
 	dev->a_qd = 16;
 	if (dev->a_qd > max_q) {
 		dev->a_qd = max_q;
@@ -320,39 +349,75 @@ static int nvme_hw_enable(nvme_dev_t* dev) {
 	r->asq = (uint64_t)(uintptr_t)dev->asq;
 	r->acq = (uint64_t)(uintptr_t)dev->acq;
 
-	/* CC: set IOCQES/IOSQES and MPS = CAP.MPSMIN (bits 7:4) */
+	/* CC:
+	   - EN (bit 0) set last
+	   - CSS (bits 3:1) = 0 (NVM)
+	   - MPS (bits 7:4) = CAP.MPSMIN
+	   - AMS (bits 9:8) = 0 (Round-Robin)
+	   - SHN (bits 11:10) = 0 (No Shutdown)
+	   - IOCQES (bits 19:16) = 4 (16B)
+	   - IOSQES (bits 23:20) = 6 (64B)
+	*/
 	uint32_t cc = 0;
-	uint32_t mpsmin = (uint32_t)((cap >> 48) & 0xF);   /* 2^(12+mpsmin) bytes; 0 => 4KiB */
-	cc |= (6u << 20);  /* IOSQES = 6 (64B) */
-	cc |= (4u << 16);  /* IOCQES = 4 (16B) */
-	cc |= (mpsmin & 0xF) << 4; /* MPS bits 7:4 */
-	cc |= 1u;          /* EN */
+	cc |= (0u  << 1);               /* CSS = 0 (NVM) */
+	cc |= ((mpsmin & 0xF) << 4);    /* MPS in bits 7:4 **(correct placement)** */
+	cc |= (0u  << 8);               /* AMS = 0 */
+	cc |= (0u  << 10);              /* SHN = 0 */
+	cc |= (4u  << 16);              /* IOCQES = 4 (16B) */
+	cc |= (6u  << 20);              /* IOSQES = 6 (64B) */
+	cc |= 1u;                       /* EN = 1 */
 	r->cc = cc;
 
 	while ((r->csts & 1u) == 0u) {
 		__asm__ volatile("pause");
 	}
 
-	dev->a_sqt = 0;
-	dev->a_cqh = 0;
+	dev->a_sqt   = 0;
+	dev->a_cqh   = 0;
 	dev->a_phase = 1;
+
+	/* For sanity, log the latched CC fields exactly as the controller sees them */
+	uint32_t cc_now = r->cc;
+	uint8_t iocqes_cc = (uint8_t)((cc_now >> 16) & 0xF);
+	uint8_t iosqes_cc = (uint8_t)((cc_now >> 20) & 0xF);
+	uint8_t mps_cc    = (uint8_t)((cc_now >> 4) & 0xF);
+	dprintf("CC latched: MPS=%u IOCQES=%u IOSQES=%u  (CC=0x%08x)\n",
+		mps_cc, iocqes_cc, iosqes_cc, cc_now);
+
 	return 1;
 }
 
 /* Set Features: Number of Queues (FID=07h).
-   ncq/nsq are *counts* (not zero-based); we encode zero-based in CDW11. */
+   Requests ncq/nsq (counts, not zero-based). Logs the allocated counts from DW0. */
 static int nvme_admin_set_num_queues(nvme_dev_t* dev, uint16_t ncq, uint16_t nsq) {
 	if (ncq < 1) ncq = 1;
 	if (nsq < 1) nsq = 1;
 
 	uint16_t cid;
 	nvme_sqe_t* sqe = nvme_sqe_alloc(dev, true, &cid);
-	sqe->opc   = 0x09;               /* Set Features */
+	sqe->opc   = 0x09;    /* Set Features */
 	sqe->cid   = cid;
-	sqe->cdw10 = 0x07;               /* FID = Number of Queues */
+	sqe->cdw10 = 0x07;    /* FID = Number of Queues */
 	sqe->cdw11 = ((uint32_t)(ncq - 1) << 16) | (uint32_t)(nsq - 1);  /* NCQR/NSQR are zero-based */
 
-	return nvme_cqe_poll(dev, true, cid);
+	if (!nvme_cqe_poll(dev, true, cid)) {
+		dprintf("SetFeatures(NumQueues) failed\n");
+		return 0;
+	}
+
+	/* Peek last admin completion entry (the one we just consumed) */
+	uint16_t last = (uint16_t)((dev->a_cqh - 1) & (dev->a_qd - 1));
+	const nvme_cqe_t* e = &dev->acq[last];
+	uint32_t dw0 = e->dw0;
+
+	uint16_t ncqr = (uint16_t)((dw0 >> 16) & 0xFFFF); /* zero-based */
+	uint16_t nsqr = (uint16_t)(dw0 & 0xFFFF);         /* zero-based */
+	/* 0xFFFF means "not reported" (per spec); otherwise add 1 to get counts */
+	int ncq_alloc = (ncqr == 0xFFFF) ? -1 : (int)ncqr + 1;
+	int nsq_alloc = (nsqr == 0xFFFF) ? -1 : (int)nsqr + 1;
+
+	dprintf("NumQueues allocated: NCQ=%d NSQ=%d (raw DW0=0x%08x)\n", ncq_alloc, nsq_alloc, dw0);
+	return 1;
 }
 
 static int nvme_identify_and_ioq(nvme_dev_t* dev) {
@@ -381,12 +446,20 @@ static int nvme_identify_and_ioq(nvme_dev_t* dev) {
 	dev->nsid = first;
 	dprintf("dev->nsid = %u\n", dev->nsid);
 
-	/* controller identify: model + ONCS */
+	/* controller identify: model + ONCS + SQES/CQES */
 	memset(page, 0, 4096);
 	if (!nvme_admin_identify(dev, NVME_ID_CNS_CTRL, 0, page)) {
 		nvme_page_free_4k(page);
 		return 0;
 	}
+
+	/* SQES/CQES are at byte offsets 0x103/0x104 in Identify Controller */
+	uint8_t sqes = *(((uint8_t*)page) + 512);
+	uint8_t cqes = *(((uint8_t*)page) + 513);
+	uint8_t cqes_req = cqes & 0x0F, cqes_max = (cqes >> 4) & 0x0F;
+	uint8_t sqes_req = sqes & 0x0F, sqes_max = (sqes >> 4) & 0x0F;
+	dprintf("ID-CTRL: CQES req=%u max=%u  SQES req=%u max=%u\n", cqes_req, cqes_max, sqes_req, sqes_max);
+
 	const char* mn = (const char*)page + 24; /* MN bytes 24..63 */
 	size_t n = 40;
 	if (n > sizeof(dev->model) - 1) {
@@ -408,18 +481,30 @@ static int nvme_identify_and_ioq(nvme_dev_t* dev) {
 		nvme_page_free_4k(page);
 		return 0;
 	}
+
 	uint8_t  flbas = *(((uint8_t*)page) + 26);
 	uint8_t  lbaf  = (uint8_t)(flbas & 0x0F);
-	/* Each LBAF entry: MS (2 bytes), LBADS (1 byte), RP (1 byte). LBADS is at +2. */
+	/* Each LBAF entry: MS (2 bytes), LBADS (1 byte), RP (1 byte). LBADS at +2. */
 	uint8_t  lbads = *(((uint8_t*)page) + 128 + (size_t)lbaf * 4 + 2);
 	uint32_t native = (uint32_t)1u << lbads;
 	dev->ns_is_4k = (native == 4096);
 	uint64_t nsze = *(const uint64_t*)(((const uint8_t*)page) + 0);
 	uint64_t factor = (uint64_t)(native / 512u);
 	dev->size_in_512 = nsze * factor;
-	dprintf("is_4k=%u size_in_512=%lu native=%u lbads=%u\n", dev->ns_is_4k, dev->size_in_512, native, lbads);
+	dprintf("is_4k=%u size_in_512=%lu native=%u lbads=%u\n",
+		dev->ns_is_4k, dev->size_in_512, native, lbads);
+
+	uint32_t cc_now = dev->regs->cc;
+	uint8_t iocqes_cc = (uint8_t)((cc_now >> 16) & 0xF);
+	uint8_t iosqes_cc = (uint8_t)((cc_now >> 20) & 0xF);
+	dprintf("CC latched: IOCQES=%u IOSQES=%u  (CC=0x%08x)\n",
+		iocqes_cc, iosqes_cc, cc_now);
 
 	nvme_page_free_4k(page);
+
+	/* Mask all interrupts during bring-up (polling). */
+	dev->regs->intms = 0xFFFFFFFFu;
+	dev->regs->intmc = 0xFFFFFFFFu;
 
 	/* IO queues QD=2 (minimum safe) */
 	dev->iosq = nvme_page_alloc_4k();
@@ -429,13 +514,30 @@ static int nvme_identify_and_ioq(nvme_dev_t* dev) {
 	}
 	memset(dev->iosq, 0, 4096);
 	memset(dev->iocq, 0, 4096);
-	dev->io_qd = 2;
+	dev->io_qd = 3;
 
-	/* Negotiate number of I/O queues: request 1 CQ and 1 SQ (minimum) */
+	/* Negotiate number of I/O queues: request 1 CQ and 1 SQ */
 	if (!nvme_admin_set_num_queues(dev, 1, 1)) {
 		dprintf("nvme_admin_set_num_queues failed\n");
 		return 0;
 	}
+	/* --- Debug: confirm PRP page size agreement before CreateCQ --- */
+	uint64_t cap_dbg   = dev->regs->cap;
+	uint32_t cc_dbg    = dev->regs->cc;
+	uint32_t aqa_dbg   = dev->regs->aqa;
+	uint64_t asq_dbg   = dev->regs->asq;
+	uint64_t acq_dbg   = dev->regs->acq;
+
+	uint8_t  mpsmin    = (uint8_t)((cap_dbg >> 48) & 0xF);   /* 2^(12+mpsmin) */
+	uint8_t  mps       = (uint8_t)((cc_dbg  >>  4) & 0xF);   /* 2^(12+mps)    */
+	uint64_t cap_psize = 1ULL << (12 + mpsmin);
+	uint64_t cc_psize  = 1ULL << (12 + mps);
+	dprintf("Pre-CreateCQ: CAP.MPSMIN=%u (psize=%llu)  CC.MPS=%u (psize=%llu)  AQA=0x%08x  ASQ=0x%016llx  ACQ=0x%016llx\n",
+		(unsigned)mpsmin, (unsigned long long)cap_psize,
+		(unsigned)mps,    (unsigned long long)cc_psize,
+		aqa_dbg,
+		(unsigned long long)asq_dbg, (unsigned long long)acq_dbg);
+
 	if (!nvme_admin_create_cq(dev, 1, dev->iocq, dev->io_qd)) {
 		dprintf("nvme_admin_create_cq failed\n");
 		return 0;
