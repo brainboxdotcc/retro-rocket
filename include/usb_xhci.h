@@ -104,6 +104,20 @@ void init_usb_xhci(void);
 #define TRB_IDT             (1u << 6)
 #define TRB_DIR             (1u << 16)
 
+/* xHCI PORTSC change bits (RW1C) */
+#define PORTSC_CSC   (1u << 17)  /* Connect Status Change */
+#define PORTSC_PEC   (1u << 18)  /* Port Enable/Disable Change */
+#define PORTSC_WRC   (1u << 19)  /* Warm Reset Change */
+#define PORTSC_OCC   (1u << 20)  /* Over-current Change */
+#define PORTSC_PRC   (1u << 21)  /* Port Reset Change */
+#define PORTSC_PLC   (1u << 22)  /* Port Link State Change */
+#define PORTSC_CEC   (1u << 23)  /* Port Config Error Change */
+#define PORTSC_PED   (1u <<1)    /* Port enable/disable */
+
+#define PORTSC_RW1C_MASK (PORTSC_CSC | PORTSC_PEC | PORTSC_WRC | \
+                          PORTSC_OCC | PORTSC_PRC | PORTSC_PLC | PORTSC_CEC)
+
+
 #define XHCI_DNCTRL 0x14
 
 /* helper macros to build TRB fields */

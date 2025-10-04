@@ -3,7 +3,7 @@
 #include "usb_xhci.h"
 #include "mmio.h"
 
-static struct xhci_hc g_xhci; /* single controller */
+static struct xhci_hc* g_xhci; /* single controller */
 
 /* ring_init with debug */
 static void ring_init(struct xhci_ring *r, size_t bytes, uint64_t phys, void *virt) {
@@ -270,25 +270,41 @@ static void ctx_program_ep1_in(struct ep_ctx *e, uint16_t mps, uint64_t tr_deq_p
 	e->dword4 = ((uint32_t)esit_payload << 16) | (uint32_t)esit_payload;
 }
 
+/* ---- tiny inline control transfer used during enum (debug/verbose) ---- */
 static int xhci_ctrl_build_and_run(struct xhci_hc *hc, uint8_t slot_id,
 				   const uint8_t *setup8, void *data, uint16_t len, int dir_in)
 {
-	dprintf("xhci.dbg: ctrl_xfer slot=%u len=%u dir_in=%d setup=%02x %02x %02x %02x %02x %02x %02x %02x\n",
-		slot_id, len, dir_in,
-		setup8[0], setup8[1], setup8[2], setup8[3], setup8[4], setup8[5], setup8[6], setup8[7]);
+	if (!hc || !setup8 || slot_id == 0) return 0;
 
 	if (!hc->dev.ep0_tr.base) {
 		void *v = kmalloc_aligned(4096, 4096);
 		uint64_t p = (uint64_t)(uintptr_t) v;
+		if (!v) {
+			dprintf("xhci.dbg: ep0_tr alloc failed\n");
+			return 0;
+		}
 		ring_init(&hc->dev.ep0_tr, 4096, p, v);
 	}
 
+	/* Build SETUP TRB with IDT: the 8 bytes must be EMBEDDED, not a pointer. */
 	struct trb *t_setup = ring_push(&hc->dev.ep0_tr);
-	uint64_t sphys = (uint64_t)(uintptr_t) setup8;
-	t_setup->lo = (uint32_t)(sphys & 0xFFFFFFFFu);
-	t_setup->hi = (uint32_t)(sphys >> 32);
-	t_setup->sts = (3u << 16) | 8u;
-	t_setup->ctrl = TRB_SET_TYPE(TRB_SETUP_STAGE) | TRB_IDT | (hc->dev.ep0_tr.cycle ? TRB_CYCLE : 0);
+	/* embed the 8 bytes directly into lo/hi */
+	uint32_t setup_lo = *(const uint32_t *)&setup8[0];
+	uint32_t setup_hi = *(const uint32_t *)&setup8[4];
+	t_setup->lo = setup_lo;
+	t_setup->hi = setup_hi;
+
+	/* TRT field (bits 17:16 of sts): 0=no data, 2=IN data, 3=OUT data */
+	uint32_t trt = 0;
+	if (len) trt = dir_in ? 2u : 3u;
+
+	t_setup->sts  = (trt << 16) | 8u; /* 8 bytes of setup */
+	t_setup->ctrl = TRB_SET_TYPE(TRB_SETUP_STAGE) | TRB_IDT |
+			(hc->dev.ep0_tr.cycle ? TRB_CYCLE : 0);
+
+	dprintf("xhci.dbg:   setup TRB @%08x ctrl=%08x lo=%08x hi=%08x sts=%08x (TRT=%u, len=%u, dir=%s)\n",
+		(uint32_t)(uintptr_t)t_setup, t_setup->ctrl, t_setup->lo, t_setup->hi, t_setup->sts,
+		trt, (unsigned)len, dir_in ? "IN" : "OUT");
 
 	if (len) {
 		struct trb *t_data = ring_push(&hc->dev.ep0_tr);
@@ -299,38 +315,47 @@ static int xhci_ctrl_build_and_run(struct xhci_hc *hc, uint8_t slot_id,
 		t_data->ctrl = TRB_SET_TYPE(TRB_DATA_STAGE) |
 			       (dir_in ? TRB_DIR : 0) |
 			       (hc->dev.ep0_tr.cycle ? TRB_CYCLE : 0);
+		dprintf("xhci.dbg:   data  TRB @%08x ctrl=%08x lo=%08x hi=%08x sts=%08x\n",
+			(uint32_t)(uintptr_t)t_data, t_data->ctrl, t_data->lo, t_data->hi, t_data->sts);
 	}
 
 	struct trb *t_status = ring_push(&hc->dev.ep0_tr);
 	t_status->lo = 0; t_status->hi = 0; t_status->sts = 0;
+	/* Status direction is opposite of data stage (or IN if no data stage). */
+	int status_in = (len == 0) ? 1 : (!dir_in);
 	t_status->ctrl = TRB_SET_TYPE(TRB_STATUS_STAGE) |
-			 (dir_in ? 0 : TRB_DIR) | TRB_IOC |
+			 (status_in ? TRB_DIR : 0) | TRB_IOC |
 			 (hc->dev.ep0_tr.cycle ? TRB_CYCLE : 0);
 
-	dprintf("xhci.dbg:   ring doorbell for EP0 (slot %u)\n", slot_id);
-	mmio_write32(hc->db + 4u * slot_id, EPID_CTRL);
+	dprintf("xhci.dbg:   stat  TRB @%08x ctrl=%08x\n",
+		(uint32_t)(uintptr_t)t_status, t_status->ctrl);
 
-	uint64_t until = get_ticks() + 50;
+	/* Ring doorbell (EP0 = 1) */
+	mmio_write32(hc->db + 4u * slot_id, EPID_CTRL);
+	dprintf("xhci.dbg:   ring doorbell EP0 (slot=%u)\n", slot_id);
+
+	/* Poll event ring for a transfer event */
+	uint64_t until = get_ticks() + 50; /* ~50ms */
 	for (;;) {
 		for (uint32_t i = 0; i < hc->evt.num_trbs; i++) {
 			struct trb *e = &hc->evt.base[i];
 			if (e->ctrl == 0 && e->lo == 0 && e->hi == 0 && e->sts == 0) continue;
 			uint32_t type = (e->ctrl >> 10) & 0x3Fu;
-			dprintf("xhci.dbg:   ctrl evt[%u] type=%u lo=%08x hi=%08x sts=%08x\n",
+			dprintf("xhci.dbg:   evt[%u] type=%u lo=%08x hi=%08x sts=%08x\n",
 				i, type, e->lo, e->hi, e->sts);
+
 			if (type == TRB_TRANSFER_EVENT) {
+				/* Consume event and bump ERDP */
 				memset(e, 0, sizeof(*e));
-				volatile uint8_t *ir0 = hc->rt + XHCI_RT_IR0;
-				uint64_t erdp = mmio_read64(ir0 + IR_ERDP);
-				erdp = (erdp & ~0x7ull) + 16;
-				mmio_write64(ir0 + IR_ERDP, erdp | (1ull << 3));
+				uint64_t erdp = mmio_read64(hc->rt + XHCI_RT_IR0 + IR_ERDP);
+				mmio_write64(hc->rt + XHCI_RT_IR0 + IR_ERDP, erdp);
 				return 1;
 			}
 		}
 		if ((int64_t)(get_ticks() - until) > 0) break;
 		__asm__ volatile("pause");
 	}
-	dprintf("xhci: ctrl xfer timeout\n");
+	dprintf("xhci.dbg:   ctrl xfer timeout/fail\n");
 	return 0;
 }
 
@@ -343,167 +368,166 @@ int xhci_ctrl_xfer(struct usb_dev *ud, const uint8_t *setup,
 	return xhci_ctrl_build_and_run(hc, ud->slot_id, setup, data, len, data_dir_in);
 }
 
+/* ---- minimal enumeration (one device) — debug/verbose, fixed SETUP handling ---- */
 static int xhci_enumerate_first_device(struct xhci_hc *hc, struct usb_dev *out_ud) {
+	if (!hc || !out_ud) return 0;
+
 	dprintf("xhci.dbg: enumerate_first_device ports=%u\n", hc->port_count);
 
+	/* Find a connected port and reset it; remember which port the device is on. */
+	uint8_t attached_port = 0;
 	for (uint8_t p = 0; p < hc->port_count; p++) {
 		volatile uint8_t *pr = hc->op + XHCI_PORTREG_BASE + p * XHCI_PORT_STRIDE;
 		uint32_t sc = mmio_read32(pr + PORTSC);
 		dprintf("xhci.dbg:   PORT%u PORTSC=%08x\n", p + 1, sc);
+
 		if (sc & PORTSC_CCS) {
-			dprintf("xhci.dbg:   reset PORT%u\n", p + 1);
-			mmio_write32(pr + PORTSC, sc | PORTSC_PR | PORTSC_WRC);
+			attached_port = p + 1;
+			dprintf("xhci.dbg:   reset PORT%u\n", attached_port);
+			/* write-1-to-clear + set PR */
+			mmio_write32(pr + PORTSC, (sc & PORTSC_RW1C_MASK) | PORTSC_PR);
 		}
 	}
-	uint64_t end = get_ticks() + 100;
-	while (get_ticks() < end) { __asm__ volatile("pause"); }
+	if (!attached_port) {
+		dprintf("xhci.dbg:   no connected ports\n");
+		return 0;
+	}
+
+	/* ~100ms settle */
+	uint64_t end_wait = get_ticks() + 100;
+	while (get_ticks() < end_wait) { __asm__ volatile("pause"); }
 
 	/* Enable Slot */
 	struct trb *es = xhci_cmd_begin(hc);
 	es->ctrl |= TRB_SET_TYPE(TRB_ENABLE_SLOT);
-	dprintf("xhci.dbg:   submit ENABLE_SLOT trb=%llx ctrl=%08x\n",
-		(unsigned long long)(uintptr_t)es, es->ctrl);
-	if (!xhci_cmd_submit_wait(hc, es, NULL)) {
-		dprintf("xhci.dbg:   ENABLE_SLOT failed\n");
-		return 0;
-	}
+	dprintf("xhci.dbg: ring_push for ENABLE_SLOT trb=%08x ctrl=%08x\n",
+		(uint32_t)(uintptr_t)es, es->ctrl);
+	if (!xhci_cmd_submit_wait(hc, es, NULL)) return 0;
 	dprintf("xhci.dbg:   ENABLE_SLOT ok\n");
 
-	/* assume slot_id 1 in this simple path */
+	/* For simplicity, assume slot 1. */
 	uint8_t slot_id = 1;
-	hc->dev.slot_id = slot_id;
 
-	/* allocate input context */
-	hc->dev.ic = (struct input_ctx *) kmalloc_aligned(4096, 64);
-	memset(hc->dev.ic, 0, sizeof(*hc->dev.ic));
-	hc->dev.ic_phys = (uint64_t)(uintptr_t) hc->dev.ic;
+	/* Allocate and clear Input Context */
+	if (!hc->dev.ic) {
+		hc->dev.ic = (struct input_ctx *) kmalloc_aligned(4096, 64);
+		if (!hc->dev.ic) {
+			dprintf("xhci.dbg:   input ctx alloc failed\n");
+			return 0;
+		}
+		hc->dev.ic_phys = (uint64_t)(uintptr_t) hc->dev.ic;
+	}
+	memset(hc->dev.ic, 0, 4096);
 
-	hc->dcbaa[slot_id] = hc->dev.ic_phys;
+	/* Allocate a separate Device Context page and point DCBAA[slot] at it. */
+	void *devctx = kmalloc_aligned(4096, 64);
+	if (!devctx) {
+		dprintf("xhci.dbg:   device ctx alloc failed\n");
+		return 0;
+	}
+	memset(devctx, 0, 4096);
+	uint64_t devctx_phys = (uint64_t)(uintptr_t)devctx;
+	hc->dcbaa[slot_id] = devctx_phys;
+	dprintf("xhci.dbg:   DCBAA[%u]=%x (device ctx phys)\n", slot_id, (uint32_t)devctx_phys);
 
-	void *tr0 = kmalloc_aligned(4096, 4096);
-	uint64_t tr0p = (uint64_t)(uintptr_t) tr0;
-	ring_init(&hc->dev.ep0_tr, 4096, tr0p, tr0);
+	/* EP0 transfer ring (4K) */
+	if (!hc->dev.ep0_tr.base) {
+		void *tr0 = kmalloc_aligned(4096, 4096);
+		if (!tr0) {
+			dprintf("xhci.dbg:   ep0 ring alloc failed\n");
+			kfree_null(&devctx);
+			return 0;
+		}
+		uint64_t tr0p = (uint64_t)(uintptr_t) tr0;
+		ring_init(&hc->dev.ep0_tr, 4096, tr0p, tr0);
+	}
 
-	hc->dev.ic->add_flags = 0x00000003u;
-	hc->dev.ic->slot.dword0 = (1u << 27);
-	hc->dev.ic->slot.dword1 = (1u << 16);
-	ctx_program_ep0(&hc->dev.ic->ep0, 8u, tr0p);
+	/* Fill Input Context: A0 (slot), A1 (EP0), route=0, root port=attached_port, speed from PORTSC. */
+	volatile uint8_t *pr_att = hc->op + XHCI_PORTREG_BASE + (attached_port - 1u) * XHCI_PORT_STRIDE;
+	uint32_t psc = mmio_read32(pr_att + PORTSC);
+	uint32_t speed = (psc >> 10) & 0xFu; /* 2.0/3.x speed code */
 
-	/* Address Device */
+	hc->dev.ic->add_flags      = 0x00000003u;    /* A0|A1 */
+	hc->dev.ic->slot.dword0    = (1u << 27);     /* 2 contexts => value 1 in CEC (EP0) */
+	hc->dev.ic->slot.dword1    = ((uint32_t)attached_port << 16); /* Root hub port number */
+	hc->dev.ic->slot.dword2    = speed;          /* speed in bits [3:0] */
+	/* Program EP0 with default MPS 8 (per xHCI default address state) */
+	ctx_program_ep0(&hc->dev.ic->ep0, 8u, hc->dev.ep0_tr.phys);
+
+	/* Address Device with BSR=1 (don't assign USB address yet). */
 	struct trb *ad = xhci_cmd_begin(hc);
 	ad->lo = (uint32_t)(hc->dev.ic_phys & 0xFFFFFFFFu);
 	ad->hi = (uint32_t)(hc->dev.ic_phys >> 32);
-	ad->ctrl |= TRB_SET_TYPE(TRB_ADDRESS_DEVICE) | ((uint32_t)slot_id << 24);
-	dprintf("xhci.dbg:   submit ADDRESS_DEVICE ic_phys=%llx trb=%llx\n",
-		(unsigned long long)hc->dev.ic_phys, (unsigned long long)(uintptr_t)ad);
+	ad->ctrl |= TRB_SET_TYPE(TRB_ADDRESS_DEVICE) | ((uint32_t)slot_id << 24) | (1u << 9); /* BSR=1 */
+	dprintf("xhci.dbg: ring_push for ADDRESS_DEVICE trb=%08x ic_phys=%08x\n",
+		(uint32_t)(uintptr_t)ad, (uint32_t)hc->dev.ic_phys);
 	if (!xhci_cmd_submit_wait(hc, ad, NULL)) {
-		dprintf("xhci.dbg:   ADDRESS_DEVICE failed\n");
+		kfree_null(&devctx);
 		return 0;
 	}
 	dprintf("xhci.dbg:   ADDRESS_DEVICE ok\n");
 
-	/* GET_DESCRIPTOR(Device, 8) */
+	/* (Optional) Read PORTSC again to observe state */
+	{
+		uint32_t sc = mmio_read32(pr_att + PORTSC);
+		dprintf("xhci.dbg:   PORTSC after address=%08x\n", sc);
+	}
+
+	/* === GET_DESCRIPTOR(Device, first 8 bytes) === */
 	uint8_t setup_dev8[8] = { 0x80, 0x06, 0x00, 0x01, 0x00, 0x00, 8, 0x00 };
 	static uint8_t dev_desc[256] __attribute__((aligned(64)));
 	memset(dev_desc, 0, sizeof(dev_desc));
 
-	{
-		struct trb *t_setup = ring_push(&hc->dev.ep0_tr);
-		uint64_t sphys = (uint64_t)(uintptr_t) setup_dev8;
-		t_setup->lo = (uint32_t)(sphys & 0xFFFFFFFFu);
-		t_setup->hi = (uint32_t)(sphys >> 32);
-		t_setup->sts = (3u << 16) | 8u;
-		t_setup->ctrl = TRB_SET_TYPE(TRB_SETUP_STAGE) | TRB_IDT | (hc->dev.ep0_tr.cycle ? TRB_CYCLE : 0);
-
-		struct trb *t_data = ring_push(&hc->dev.ep0_tr);
-		uint64_t dphys = (uint64_t)(uintptr_t) dev_desc;
-		t_data->lo = (uint32_t)(dphys & 0xFFFFFFFFu);
-		t_data->hi = (uint32_t)(dphys >> 32);
-		t_data->sts = 8;
-		t_data->ctrl = TRB_SET_TYPE(TRB_DATA_STAGE) | TRB_DIR | (hc->dev.ep0_tr.cycle ? TRB_CYCLE : 0);
-
-		struct trb *t_status = ring_push(&hc->dev.ep0_tr);
-		t_status->lo = 0; t_status->hi = 0; t_status->sts = 0;
-		t_status->ctrl = TRB_SET_TYPE(TRB_STATUS_STAGE) | TRB_IOC | (hc->dev.ep0_tr.cycle ? TRB_CYCLE : 0);
-
-		dprintf("xhci.dbg:   ring doorbell EP0 for dev8\n");
-		mmio_write32(hc->db + 4u * slot_id, EPID_CTRL);
-
-		uint64_t until = get_ticks() + 50;
-		int got = 0;
-		for (;;) {
-			for (uint32_t i = 0; i < hc->evt.num_trbs; i++) {
-				struct trb *e = &hc->evt.base[i];
-				if (e->ctrl == 0 && e->lo == 0 && e->hi == 0 && e->sts == 0) continue;
-				uint32_t type = (e->ctrl >> 10) & 0x3Fu;
-				dprintf("xhci.dbg:   dev8 evt[%u] type=%u lo=%08x hi=%08x sts=%08x\n",
-					i, type, e->lo, e->hi, e->sts);
-				if (type == TRB_TRANSFER_EVENT) {
-					memset(e, 0, sizeof(*e));
-					volatile uint8_t *ir0 = hc->rt + XHCI_RT_IR0;
-					uint64_t erdp = mmio_read64(ir0 + IR_ERDP);
-					erdp = (erdp & ~0x7ull) + 16;
-					mmio_write64(ir0 + IR_ERDP, erdp | (1ull << 3));
-					got = 1;
-					break;
-				}
-			}
-			if (got) break;
-			if ((int64_t)(get_ticks() - until) > 0) break;
-			__asm__ volatile("pause");
-		}
-		if (!got) {
-			dprintf("xhci.dbg:   dev8 transfer timeout\n");
-			return 0;
-		}
+	if (!xhci_ctrl_build_and_run(hc, slot_id, setup_dev8, dev_desc, 8, 1)) {
+		dprintf("xhci.dbg:   dev transfer timeout (GET_DESCRIPTOR 8)\n");
+		kfree_null(&devctx);
+		return 0;
 	}
 
+	/* If MPS != 8, update EP0 to the reported MPS and Evaluate Context. */
 	uint16_t mps = dev_desc[7];
-	dprintf("xhci.dbg:   dev8 mps=%u\n", mps);
-
 	if (mps != 8) {
-		hc->dev.ic->add_flags = 0x00000002u;
-		ctx_program_ep0(&hc->dev.ic->ep0, mps, (uint64_t)(uintptr_t)hc->dev.ep0_tr.base);
+		hc->dev.ic->add_flags = 0x00000002u; /* A1 only */
+		ctx_program_ep0(&hc->dev.ic->ep0, mps, hc->dev.ep0_tr.phys);
 
 		struct trb *ev = xhci_cmd_begin(hc);
 		ev->lo = (uint32_t)(hc->dev.ic_phys & 0xFFFFFFFFu);
 		ev->hi = (uint32_t)(hc->dev.ic_phys >> 32);
 		ev->ctrl |= TRB_SET_TYPE(TRB_EVAL_CONTEXT) | ((uint32_t)slot_id << 24);
-		dprintf("xhci.dbg:   submit EVAL_CONTEXT\n");
+		dprintf("xhci.dbg:   sending EVAL_CONTEXT slot=%u trb=%08x\n",
+			slot_id, (uint32_t)(uintptr_t)ev);
 		if (!xhci_cmd_submit_wait(hc, ev, NULL)) {
-			dprintf("xhci.dbg:   EVAL_CONTEXT failed\n");
+			kfree_null(&devctx);
 			return 0;
 		}
 	}
 
-	/* full device descriptor */
-	memset(dev_desc, 0, sizeof(dev_desc));
+	/* === GET_DESCRIPTOR(Device, full 18) === */
 	uint8_t setup_dev_full[8] = { 0x80, 0x06, 0x00, 0x01, 0x00, 0x00, 18, 0x00 };
-	if (!xhci_ctrl_xfer((struct usb_dev *)&(struct usb_dev){ .hc = hc, .slot_id = slot_id },
-			    setup_dev_full, dev_desc, 18, 1)) {
-		dprintf("xhci.dbg:   dev full descriptor failed\n");
+	if (!xhci_ctrl_build_and_run(hc, slot_id, setup_dev_full, dev_desc, 18, 1)) {
+		kfree_null(&devctx);
 		return 0;
 	}
 
-	/* config short then full */
+	/* === GET_DESCRIPTOR(Configuration) short then full === */
 	static uint8_t cfg_buf[512] __attribute__((aligned(64)));
 	uint8_t setup_cfg9[8] = { 0x80, 0x06, 0x00, 0x02, 0x00, 0x00, 9, 0x00 };
-	if (!xhci_ctrl_xfer((struct usb_dev *)&(struct usb_dev){ .hc = hc, .slot_id = slot_id },
-			    setup_cfg9, cfg_buf, 9, 1)) {
-		dprintf("xhci.dbg:   cfg9 failed\n");
+	if (!xhci_ctrl_build_and_run(hc, slot_id, setup_cfg9, cfg_buf, 9, 1)) {
+		kfree_null(&devctx);
 		return 0;
 	}
 	uint16_t total_len = (uint16_t) cfg_buf[2] | ((uint16_t)cfg_buf[3] << 8);
 	if (total_len > sizeof(cfg_buf)) total_len = sizeof(cfg_buf);
-	uint8_t setup_cfg_full[8] = { 0x80, 0x06, 0x00, 0x02, 0x00, 0x00,
-				      (uint8_t)(total_len & 0xFFu), (uint8_t)(total_len >> 8) };
-	if (!xhci_ctrl_xfer((struct usb_dev *)&(struct usb_dev){ .hc = hc, .slot_id = slot_id },
-			    setup_cfg_full, cfg_buf, total_len, 1)) {
-		dprintf("xhci.dbg:   cfg full failed\n");
+	uint8_t setup_cfg_full[8] = {
+		0x80, 0x06, 0x00, 0x02, 0x00, 0x00,
+		(uint8_t)(total_len & 0xFFu), (uint8_t)(total_len >> 8)
+	};
+	if (!xhci_ctrl_build_and_run(hc, slot_id, setup_cfg_full, cfg_buf, total_len, 1)) {
+		kfree_null(&devctx);
 		return 0;
 	}
 
-	/* parse first interface */
+	/* Parse first interface descriptor */
 	uint8_t dev_class = 0, dev_sub = 0, dev_proto = 0;
 	for (uint16_t off = 9; off + 2 <= total_len; ) {
 		uint8_t len = cfg_buf[off];
@@ -515,25 +539,29 @@ static int xhci_enumerate_first_device(struct xhci_hc *hc, struct usb_dev *out_u
 			dev_proto = cfg_buf[off + 7];
 			break;
 		}
-		off = (uint16_t) (off + len);
+		off = (uint16_t)(off + len);
 	}
 
+	/* Fill out usb_dev */
 	memset(out_ud, 0, sizeof(*out_ud));
-	out_ud->hc = hc;
-	out_ud->slot_id = slot_id;
-	out_ud->address = 1;
-	out_ud->vid = (uint16_t)dev_desc[8] | ((uint16_t)dev_desc[9] << 8);
-	out_ud->pid = (uint16_t)dev_desc[10] | ((uint16_t)dev_desc[11] << 8);
-	out_ud->dev_class = dev_class;
-	out_ud->dev_subclass = dev_sub;
-	out_ud->dev_proto = dev_proto;
-	out_ud->ep0.epid = EPID_CTRL;
-	out_ud->ep0.mps = mps;
-	out_ud->ep0.type = 0;
-	out_ud->ep0.dir_in = 0;
+	out_ud->hc          = hc;
+	out_ud->slot_id     = slot_id;
+	out_ud->address     = 1; /* first address */
+	out_ud->vid         = (uint16_t)dev_desc[8]  | ((uint16_t)dev_desc[9]  << 8);
+	out_ud->pid         = (uint16_t)dev_desc[10] | ((uint16_t)dev_desc[11] << 8);
+	out_ud->dev_class   = dev_class;
+	out_ud->dev_subclass= dev_sub;
+	out_ud->dev_proto   = dev_proto;
+	out_ud->ep0.epid    = EPID_CTRL;
+	out_ud->ep0.mps     = mps;
+	out_ud->ep0.type    = 0;
+	out_ud->ep0.dir_in  = 0;
 
-	dprintf("xhci: device VID:PID=%04x:%04x class=%02x/%02x/%02x mps=%u\n",
-		out_ud->vid, out_ud->pid, dev_class, dev_sub, dev_proto, mps);
+	dprintf("xhci.dbg:   device VID:PID=%04x:%04x class=%02x/%02x/%02x mps=%u (port=%u speed=%u)\n",
+		out_ud->vid, out_ud->pid, dev_class, dev_sub, dev_proto, mps, attached_port, speed);
+
+	/* NOTE: devctx is intentionally not freed here; it’s now owned by HW via DCBAA[slot]. */
+	hc->dev.slot_id = slot_id;
 	return 1;
 }
 
@@ -636,22 +664,30 @@ int xhci_probe_and_init(uint8_t bus, uint8_t dev, uint8_t func) {
 	p.device_num = dev;
 	p.function_num = func;
 
-	memset(&g_xhci, 0, sizeof(g_xhci));
+	g_xhci = kmalloc_aligned(sizeof(*g_xhci), 4096);
 
-	if (!xhci_hw_enable_map(&g_xhci, p)) return 0;
-	if (!xhci_reset_controller(&g_xhci)) return 0;
+	memset(g_xhci, 0, sizeof(*g_xhci));
+
+	if (!xhci_hw_enable_map(g_xhci, p)) {
+		kfree_null(&g_xhci);
+		return 0;
+	}
+	if (!xhci_reset_controller(g_xhci)) {
+		kfree_null(&g_xhci);
+		return 0;
+	}
 
 	/* Legacy INTx (matches your rtl8139 path). MSI/MSI-X can be added later. */
 	uint32_t irq_line = pci_read(p, PCI_INTERRUPT_LINE) & 0xFFu;
 	uint32_t irq_pin  = pci_read(p, PCI_INTERRUPT_PIN) & 0xFFu;
-	g_xhci.irq_line = (uint8_t) irq_line;
-	g_xhci.irq_pin  = (uint8_t) irq_pin;
+	g_xhci->irq_line = (uint8_t) irq_line;
+	g_xhci->irq_pin  = (uint8_t) irq_pin;
 
-	register_interrupt_handler(IRQ_START + irq_line, xhci_isr, p, &g_xhci);
+	register_interrupt_handler(IRQ_START + irq_line, xhci_isr, p, g_xhci);
 	dprintf("xhci: using legacy INTx IRQ=%u (PIN#%c)\n", irq_line, 'A' + (int)irq_pin - 1);
 
 	struct usb_dev ud;
-	if (!xhci_enumerate_first_device(&g_xhci, &ud)) {
+	if (!xhci_enumerate_first_device(g_xhci, &ud)) {
 		dprintf("xhci: controller up, 0 devices present\n");
 		kprintf("USB xHCI: controller ready (interrupts on), published 0 devices\n");
 		return 1; /* host is fine; no device yet */
