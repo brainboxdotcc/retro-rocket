@@ -306,17 +306,43 @@ static int xhci_ctrl_build_and_run(struct xhci_hc *hc, uint8_t slot_id,
 		(uint32_t)(uintptr_t)t_setup, t_setup->ctrl, t_setup->lo, t_setup->hi, t_setup->sts,
 		trt, (unsigned)len, dir_in ? "IN" : "OUT");
 
+	/* ----- DATA STAGE: use ctrl_dma bounce buffer if there is a payload ----- */
+	int used_bounce = 0;
 	if (len) {
+		/* ensure bounce buffer exists & is large enough */
+		if (!hc->dev.ctrl_dma || hc->dev.ctrl_dma_sz < len) {
+			if (hc->dev.ctrl_dma) {
+				kfree_null(&hc->dev.ctrl_dma);
+				hc->dev.ctrl_dma_phys = 0;
+				hc->dev.ctrl_dma_sz = 0;
+			}
+			hc->dev.ctrl_dma_sz = len;
+			hc->dev.ctrl_dma = (uint8_t *) kmalloc_aligned(hc->dev.ctrl_dma_sz, 64);
+			if (!hc->dev.ctrl_dma) {
+				dprintf("xhci.dbg:   ctrl_dma alloc failed (len=%u)\n", (unsigned)len);
+				return 0;
+			}
+			hc->dev.ctrl_dma_phys = (uint64_t)(uintptr_t) hc->dev.ctrl_dma;
+			dprintf("xhci.dbg:   ctrl_dma=%p phys=%llx sz=%u\n",
+				hc->dev.ctrl_dma, (unsigned long long)hc->dev.ctrl_dma_phys, (unsigned)hc->dev.ctrl_dma_sz);
+		}
+
+		/* For OUT: copy caller buffer -> DMA bounce */
+		if (!dir_in) {
+			memcpy(hc->dev.ctrl_dma, data, len);
+		}
+		used_bounce = 1;
+
 		struct trb *t_data = ring_push(&hc->dev.ep0_tr);
-		uint64_t dphys = (uint64_t)(uintptr_t) data;
+		uint64_t dphys = hc->dev.ctrl_dma_phys;
 		t_data->lo = (uint32_t)(dphys & 0xFFFFFFFFu);
 		t_data->hi = (uint32_t)(dphys >> 32);
 		t_data->sts = len;
 		t_data->ctrl = TRB_SET_TYPE(TRB_DATA_STAGE) |
 			       (dir_in ? TRB_DIR : 0) |
 			       (hc->dev.ep0_tr.cycle ? TRB_CYCLE : 0);
-		dprintf("xhci.dbg:   data  TRB @%08x ctrl=%08x lo=%08x hi=%08x sts=%08x\n",
-			(uint32_t)(uintptr_t)t_data, t_data->ctrl, t_data->lo, t_data->hi, t_data->sts);
+		dprintf("xhci.dbg:   data  TRB @%08x ctrl=%08x dphys=%p lo=%08x hi=%08x sts=%08x (bounce=%d)\n",
+			(uint32_t)(uintptr_t)t_data, t_data->ctrl, (void*)dphys, t_data->lo, t_data->hi, t_data->sts, used_bounce);
 	}
 
 	struct trb *t_status = ring_push(&hc->dev.ep0_tr);
@@ -345,6 +371,10 @@ static int xhci_ctrl_build_and_run(struct xhci_hc *hc, uint8_t slot_id,
 				i, type, e->lo, e->hi, e->sts);
 
 			if (type == TRB_TRANSFER_EVENT) {
+				/* If IN transfer and we used bounce, copy back to caller buffer now */
+				if (len && dir_in && used_bounce) {
+					memcpy(data, hc->dev.ctrl_dma, len);
+				}
 				/* Consume event and bump ERDP */
 				memset(e, 0, sizeof(*e));
 				uint64_t erdp = mmio_read64(hc->rt + XHCI_RT_IR0 + IR_ERDP);
@@ -365,6 +395,7 @@ int xhci_ctrl_xfer(struct usb_dev *ud, const uint8_t *setup,
 {
 	if (!ud || !ud->hc || !setup) return 0;
 	struct xhci_hc *hc = (struct xhci_hc *) ud->hc;
+	dprintf("HERE 2\n");
 	return xhci_ctrl_build_and_run(hc, ud->slot_id, setup, data, len, data_dir_in);
 }
 
@@ -474,10 +505,11 @@ static int xhci_enumerate_first_device(struct xhci_hc *hc, struct usb_dev *out_u
 	}
 
 	/* === GET_DESCRIPTOR(Device, first 8 bytes) === */
-	uint8_t setup_dev8[8] = { 0x80, 0x06, 0x00, 0x01, 0x00, 0x00, 8, 0x00 };
-	static uint8_t dev_desc[256] __attribute__((aligned(64)));
+	uint8_t  __attribute__((aligned(64))) setup_dev8[8] = { 0x80, 0x06, 0x00, 0x01, 0x00, 0x00, 8, 0x00 };
+	uint8_t  __attribute__((aligned(64))) dev_desc[256];
 	memset(dev_desc, 0, sizeof(dev_desc));
 
+	dprintf("HERE 1 setup8_dev=%p dev_desc=%p\n", &setup_dev8, &dev_desc);
 	if (!xhci_ctrl_build_and_run(hc, slot_id, setup_dev8, dev_desc, 8, 1)) {
 		dprintf("xhci.dbg:   dev transfer timeout (GET_DESCRIPTOR 8)\n");
 		kfree_null(&devctx);
@@ -503,15 +535,17 @@ static int xhci_enumerate_first_device(struct xhci_hc *hc, struct usb_dev *out_u
 	}
 
 	/* === GET_DESCRIPTOR(Device, full 18) === */
-	uint8_t setup_dev_full[8] = { 0x80, 0x06, 0x00, 0x01, 0x00, 0x00, 18, 0x00 };
+	uint8_t  __attribute__((aligned(64))) setup_dev_full[8] = { 0x80, 0x06, 0x00, 0x01, 0x00, 0x00, 18, 0x00 };
+	dprintf("setup_dev_full=%p HERE 2\n", &setup_dev_full);
 	if (!xhci_ctrl_build_and_run(hc, slot_id, setup_dev_full, dev_desc, 18, 1)) {
 		kfree_null(&devctx);
 		return 0;
 	}
 
 	/* === GET_DESCRIPTOR(Configuration) short then full === */
-	static uint8_t cfg_buf[512] __attribute__((aligned(64)));
-	uint8_t setup_cfg9[8] = { 0x80, 0x06, 0x00, 0x02, 0x00, 0x00, 9, 0x00 };
+	uint8_t cfg_buf[512] __attribute__((aligned(64)));
+	uint8_t  __attribute__((aligned(64))) setup_cfg9[8] = { 0x80, 0x06, 0x00, 0x02, 0x00, 0x00, 9, 0x00 };
+	dprintf("setup_cfg9=%p, cfg_buf=%p HERE 3\n", &setup_cfg9, &cfg_buf);
 	if (!xhci_ctrl_build_and_run(hc, slot_id, setup_cfg9, cfg_buf, 9, 1)) {
 		kfree_null(&devctx);
 		return 0;
@@ -522,6 +556,7 @@ static int xhci_enumerate_first_device(struct xhci_hc *hc, struct usb_dev *out_u
 		0x80, 0x06, 0x00, 0x02, 0x00, 0x00,
 		(uint8_t)(total_len & 0xFFu), (uint8_t)(total_len >> 8)
 	};
+	dprintf("setup_cfg_full=%p HERE 4\n", &setup_cfg_full);
 	if (!xhci_ctrl_build_and_run(hc, slot_id, setup_cfg_full, cfg_buf, total_len, 1)) {
 		kfree_null(&devctx);
 		return 0;
@@ -537,6 +572,7 @@ static int xhci_enumerate_first_device(struct xhci_hc *hc, struct usb_dev *out_u
 			dev_class = cfg_buf[off + 5];
 			dev_sub   = cfg_buf[off + 6];
 			dev_proto = cfg_buf[off + 7];
+			dprintf("GOT HERE\n");
 			break;
 		}
 		off = (uint16_t)(off + len);

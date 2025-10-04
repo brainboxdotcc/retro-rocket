@@ -17,6 +17,7 @@ static void hid_on_device_added(const struct usb_dev *ud) {
 	if (ud->dev_subclass == USB_SUBCLASS_BOOT && ud->dev_proto == USB_PROTO_KEYBOARD) {
 		/* SET_PROTOCOL(0)=Boot, SET_IDLE(0), then arm INT-IN 8 bytes */
 		uint8_t setup[8];
+		dprintf("setup=%p\n", &setup);
 
 		/* SET_PROTOCOL (Class, Interface) bm=0x21, bReq=0x0B, wValue=0, wIndex=interface, wLength=0
 		   We have a single interface in v0; wIndex=0. */
