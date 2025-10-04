@@ -104,6 +104,8 @@ void init_usb_xhci(void);
 #define TRB_IDT             (1u << 6)
 #define TRB_DIR             (1u << 16)
 
+#define XHCI_DNCTRL 0x14
+
 /* helper macros to build TRB fields */
 #define TRB_SET_TYPE(x)     ((uint32_t)((x) & 0x3Fu) << 10)
 
