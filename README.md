@@ -32,7 +32,10 @@ Its userland is completely written in a dialect of BASIC based heavily on BBC BA
 * ✅Multitasking of BASIC programs
 * 📶Network stack with TCP, IP, UDP, and ICMP
   * TLS is supported
-* 📦Full installer to install the OS to SATA drives
+* 📦Full installer to install the OS to:
+  * NVMe
+  * AHCI/SATA
+  * VirtIO
 
 ## 💻 System Requirements
 
