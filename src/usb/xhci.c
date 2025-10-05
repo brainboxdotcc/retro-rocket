@@ -76,17 +76,30 @@ static int xhci_cmd_submit_wait(struct xhci_hc *hc, struct trb *cmd_trb, uint64_
 			uint32_t type = (e->ctrl >> 10) & 0x3Fu;
 			uint64_t evt_ptr = ((uint64_t)e->hi << 32) | e->lo;
 
-			dprintf("xhci.dbg:   evt[%u] type=%u lo=%08x hi=%08x sts=%08x match=%s\n",
-				i, type, e->lo, e->hi, e->sts, (evt_ptr == cmd_phys ? "yes" : "no"));
+			if (type == TRB_CMD_COMPLETION) {
+				uint32_t cc = (e->sts >> 24) & 0xFFu;
+				dprintf("xhci.dbg:   evt[%u] type=%u lo=%08x hi=%08x sts=%08x cc=%02x match=%s\n",
+					i, type, e->lo, e->hi, e->sts, cc, (evt_ptr == cmd_phys ? "yes" : "no"));
 
-			if (type == TRB_CMD_COMPLETION && evt_ptr == cmd_phys) {
-				/* bump ERDP and consume */
-				memset(e, 0, sizeof(*e));
-				uint64_t erdp = mmio_read64(ir0 + IR_ERDP);
-				erdp = (erdp & ~0x7ull) + 16;
-				mmio_write64(ir0 + IR_ERDP, erdp | (1ull << 3));
-				dprintf("xhci.dbg:   cmd complete, ERDP=%llx\n", (unsigned long long)(erdp | (1ull << 3)));
-				return 1;
+				if (evt_ptr == cmd_phys) {
+					/* consume event and bump ERDP */
+					memset(e, 0, sizeof(*e));
+					uint64_t erdp = mmio_read64(ir0 + IR_ERDP);
+					erdp = (erdp & ~0x7ull) + 16;
+					mmio_write64(ir0 + IR_ERDP, erdp | (1ull << 3));
+					dprintf("xhci.dbg:   cmd complete, ERDP=%llx\n",
+						(unsigned long long)(erdp | (1ull << 3)));
+
+					/* success only if CC == 1 */
+					if (cc != 0x01u) {
+						dprintf("xhci.dbg:   command failed, cc=%02x\n", cc);
+						return 0;
+					}
+					return 1;
+				}
+			} else {
+				dprintf("xhci.dbg:   evt[%u] type=%u lo=%08x hi=%08x sts=%08x match=%s\n",
+					i, type, e->lo, e->hi, e->sts, (evt_ptr == cmd_phys ? "yes" : "no"));
 			}
 		}
 		if ((int64_t)(get_ticks() - deadline) > 0) break;
@@ -264,10 +277,41 @@ static void ctx_program_ep0(struct ep_ctx *e, uint16_t mps, uint64_t tr_deq_phys
 	e->dword4 = 8u; /* avg TRB len */
 }
 
-static void ctx_program_ep1_in(struct ep_ctx *e, uint16_t mps, uint64_t tr_deq_phys, uint16_t esit_payload) {
-	e->dword0 = ((uint32_t)mps << 16) | (7u << 3) | (3u << 1); /* Interrupt IN */
-	e->deq = (tr_deq_phys | 1u);
-	e->dword4 = ((uint32_t)esit_payload << 16) | (uint32_t)esit_payload;
+/* ---- EP context helpers ---- */
+static void ctx_program_ep1_in(struct ep_ctx *e,
+			       uint16_t mps,
+			       uint64_t tr_deq_phys,
+			       uint16_t esit_payload /* bytes per interval */)
+{
+	/*
+	 * Dword0:
+	 *  bits 31:16 = Max Packet Size
+	 *  bits 10:8  = EP Type (7 = Interrupt IN)
+	 *  bits 2:1   = CErr (3)
+	 */
+	e->dword0  = ((uint32_t)mps << 16) | (7u << 3) | (3u << 1);
+
+	/*
+	 * Dword1:
+	 *  bits 15:0  = Interval (ESIT interval in microframes/frames encoding).
+	 *  A small non-zero works with QEMU/typical HID; set 1 as a safe default.
+	 *  (If you later parse the endpoint descriptor, use bInterval here.)
+	 */
+	e->dword1  = 1u;         /* Interval = 1 (minimum, valid) */
+
+	/*
+	 * Dword2/Dword3:
+	 *  Transfer Ring Dequeue Pointer (64-bit) with DCS bit set to current ring cycle.
+	 *  You already keep your transfer ring's cycle = 1 initially, so set DCS=1.
+	 */
+	e->deq     = (tr_deq_phys | 1u);  /* DCS=1 */
+
+	/*
+	 * Dword4:
+	 *  bits 31:16 = Average TRB Length (best-effort hint; 8 is fine for 8-byte reports)
+	 *  bits 15:0  = Max ESIT Payload (max bytes per service interval)
+	 */
+	e->dword4  = ((uint32_t)esit_payload << 16) | (uint32_t)esit_payload;
 }
 
 /* ---- tiny inline control transfer used during enum (debug/verbose) ---- */
@@ -505,8 +549,8 @@ static int xhci_enumerate_first_device(struct xhci_hc *hc, struct usb_dev *out_u
 	}
 
 	/* === GET_DESCRIPTOR(Device, first 8 bytes) === */
-	uint8_t  __attribute__((aligned(64))) setup_dev8[8] = { 0x80, 0x06, 0x00, 0x01, 0x00, 0x00, 8, 0x00 };
-	uint8_t  __attribute__((aligned(64))) dev_desc[256];
+	uint8_t __attribute__((aligned(64))) setup_dev8[8] = { 0x80, 0x06, 0x00, 0x01, 0x00, 0x00, 8, 0x00 };
+	uint8_t __attribute__((aligned(64))) dev_desc[256];
 	memset(dev_desc, 0, sizeof(dev_desc));
 
 	dprintf("HERE 1 setup8_dev=%p dev_desc=%p\n", &setup_dev8, &dev_desc);
@@ -603,7 +647,6 @@ static int xhci_enumerate_first_device(struct xhci_hc *hc, struct usb_dev *out_u
 
 static void xhci_isr(uint8_t isr, uint64_t error, uint64_t irq, void *opaque)
 {
-	(void)isr; (void)error; (void)irq;
 	struct xhci_hc *hc = (struct xhci_hc *)opaque;
 	if (!hc || !hc->cap) return;
 
@@ -617,6 +660,8 @@ static void xhci_isr(uint8_t isr, uint64_t error, uint64_t irq, void *opaque)
 		mmio_write32(ir0 + IR_IMAN, iman & ~IR_IMAN_IP);
 	}
 
+	dprintf("xhci int\n");
+
 	for (uint32_t i = 0; i < hc->evt.num_trbs; i++) {
 		struct trb *e = &hc->evt.base[i];
 		if (e->ctrl == 0 && e->lo == 0 && e->hi == 0 && e->sts == 0) continue;
@@ -626,6 +671,7 @@ static void xhci_isr(uint8_t isr, uint64_t error, uint64_t irq, void *opaque)
 			i, type, e->lo, e->hi, e->sts);
 
 		if (type == TRB_TRANSFER_EVENT) {
+			dprintf("xhci transfer event\n");
 			if (hc->dev.int_cb && hc->dev.int_buf && hc->dev.int_pkt_len) {
 				struct usb_dev ud = {0};
 				ud.hc = hc;
@@ -650,7 +696,6 @@ static void xhci_isr(uint8_t isr, uint64_t error, uint64_t irq, void *opaque)
 	}
 }
 
-/* ---- public interrupts-in arming ---- */
 int xhci_arm_int_in(struct usb_dev *ud, uint16_t pkt_len, xhci_int_in_cb cb) {
 	if (!ud || !ud->hc || !pkt_len || !cb) return 0;
 	struct xhci_hc *hc = (struct xhci_hc *) ud->hc;
@@ -658,36 +703,71 @@ int xhci_arm_int_in(struct usb_dev *ud, uint16_t pkt_len, xhci_int_in_cb cb) {
 	if (!hc->dev.int_in_tr.base) {
 		void *v = kmalloc_aligned(4096, 4096);
 		uint64_t p = (uint64_t)(uintptr_t) v;
+		if (!v) { dprintf("xhci.dbg: INT-IN TR alloc fail\n"); return 0; }
 		ring_init(&hc->dev.int_in_tr, 4096, p, v);
 	}
 
 	if (!hc->dev.int_buf) {
 		hc->dev.int_buf = (uint8_t *) kmalloc_aligned(pkt_len, 64);
+		if (!hc->dev.int_buf) { dprintf("xhci.dbg: INT-IN buf alloc fail (%u)\n", pkt_len); return 0; }
 		hc->dev.int_buf_phys = (uint64_t)(uintptr_t) hc->dev.int_buf;
 	}
 	hc->dev.int_cb = cb;
 	hc->dev.int_pkt_len = pkt_len;
 
-	/* Configure EP1 IN via Configure Endpoint */
-	hc->dev.ic->add_flags = 0x00000009u; /* A0(slot) + A3(ep1 in) */
-	ctx_program_ep1_in(&hc->dev.ic->ep1_in, 8u /* default */, hc->dev.int_in_tr.phys, pkt_len);
+	/* Input Control Context */
+	hc->dev.ic->drop_flags = 0;
+	hc->dev.ic->add_flags  = 0x0000000B; /* A0(slot) | A1(ep0) | A3(ep1 IN) */
 
+	/* Ensure Slot Context Context Entries covers EPID=3 (slot+ep0+ep1 IN => CE >= 3) */
+	{
+		uint32_t s0 = hc->dev.ic->slot.dword0;
+		uint32_t ce = (s0 >> 27) & 0x1F;
+		if (ce < 3u) { s0 = (s0 & ~(0x1Fu << 27)) | (3u << 27); hc->dev.ic->slot.dword0 = s0; }
+	}
+
+	/* ICC "config triplet": config=1, interface=0, alt=0 */
+	*(volatile uint32_t *)((uint8_t*)hc->dev.ic + 0x08) = 1;
+	*(volatile uint32_t *)((uint8_t*)hc->dev.ic + 0x0C) = 0;
+	*(volatile uint32_t *)((uint8_t*)hc->dev.ic + 0x10) = 0;
+
+	/* Program EP1 IN context (clear first, then set fields) */
+	memset(&hc->dev.ic->ep1_in, 0, sizeof(hc->dev.ic->ep1_in));
+	ctx_program_ep1_in(&hc->dev.ic->ep1_in,
+			   8u,                       /* MPS for boot kbd int IN */
+			   hc->dev.int_in_tr.phys,   /* TR Dequeue (DCS set inside) */
+			   pkt_len);                 /* Max ESIT payload */
+
+	dprintf("xhci.dbg: CONFIGURE_EP add_flags=%08x slot.dword0=%08x (CE=%u)\n",
+		hc->dev.ic->add_flags,
+		hc->dev.ic->slot.dword0,
+		(hc->dev.ic->slot.dword0 >> 27) & 0x1F);
+
+	/* Issue Configure Endpoint */
 	struct trb *ce = xhci_cmd_begin(hc);
 	ce->lo = (uint32_t)(hc->dev.ic_phys & 0xFFFFFFFFu);
 	ce->hi = (uint32_t)(hc->dev.ic_phys >> 32);
 	ce->ctrl |= TRB_SET_TYPE(TRB_CONFIGURE_EP) | ((uint32_t)ud->slot_id << 24);
+	dprintf("xhci.dbg: ring_push for CONFIGURE_EP trb=%08x ic_phys=%08x\n",
+		(uint32_t)(uintptr_t)ce, (uint32_t)(hc->dev.ic_phys & 0xFFFFFFFFu));
+
 	if (!xhci_cmd_submit_wait(hc, ce, NULL)) {
+		dprintf("xhci.dbg: CONFIGURE_EP timeout/fail\n");
 		return 0;
 	}
 
-	/* Post first Normal TRB; ISR will keep re-arming */
+	/* Post first INT-IN Normal TRB and doorbell EP1 IN */
 	struct trb *n = ring_push(&hc->dev.int_in_tr);
 	n->lo = (uint32_t)(hc->dev.int_buf_phys & 0xFFFFFFFFu);
 	n->hi = (uint32_t)(hc->dev.int_buf_phys >> 32);
 	n->sts = hc->dev.int_pkt_len;
-	n->ctrl = TRB_SET_TYPE(TRB_NORMAL) | TRB_IOC | (hc->dev.int_in_tr.cycle ? TRB_CYCLE : 0);
+	n->ctrl = TRB_SET_TYPE(TRB_NORMAL) | TRB_IOC |
+		  (hc->dev.int_in_tr.cycle ? TRB_CYCLE : 0);
+	dprintf("xhci.dbg:   INT-IN normal TRB @%08x lo=%08x hi=%08x len=%u\n",
+		(uint32_t)(uintptr_t)n, n->lo, n->hi, n->sts);
 
 	mmio_write32(hc->db + 4u * ud->slot_id, EPID_EP1_IN);
+	dprintf("xhci.dbg:   doorbell EP1 IN (slot=%u)\n", ud->slot_id);
 	return 1;
 }
 
@@ -725,12 +805,12 @@ int xhci_probe_and_init(uint8_t bus, uint8_t dev, uint8_t func) {
 	struct usb_dev ud;
 	if (!xhci_enumerate_first_device(g_xhci, &ud)) {
 		dprintf("xhci: controller up, 0 devices present\n");
-		kprintf("USB xHCI: controller ready (interrupts on), published 0 devices\n");
+		dprintf("USB xHCI: controller ready (interrupts on), published 0 devices\n");
 		return 1; /* host is fine; no device yet */
 	}
 
 	usb_core_device_added(&ud);
-	kprintf("USB xHCI: controller ready (interrupts on), published 1 device\n");
+	dprintf("USB xHCI: controller ready (interrupts on), published 1 device\n");
 	return 1;
 }
 

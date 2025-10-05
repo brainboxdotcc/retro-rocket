@@ -214,6 +214,9 @@ struct xhci_hc {
 		uint8_t          *int_buf;         /* dma buffer for reports */
 		uint64_t          int_buf_phys;
 
+		int port;
+		int speed;
+
 		uint8_t  *ctrl_dma;        // low-memory bounce for ctrl DATA stage
 		uint64_t  ctrl_dma_phys;   // same value as virtual in your setup
 		uint16_t  ctrl_dma_sz;     // size of the bounce buffer

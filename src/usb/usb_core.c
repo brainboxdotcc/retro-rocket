@@ -33,8 +33,7 @@ int usb_core_register_class(uint8_t class_code, const struct usb_class_ops *ops)
 		if (g_classes[i].ops == NULL) {
 			g_classes[i].class_code = class_code;
 			g_classes[i].ops = (struct usb_class_ops *)ops;
-			dprintf("usb-core: registered class 0x%02x (%s)\n",
-				class_code, ops && ops->name ? ops->name : "anon");
+			dprintf("usb-core: registered class 0x%02x (%s)\n", class_code, ops && ops->name ? ops->name : "anon");
 			return 1;
 		}
 	}
@@ -45,6 +44,8 @@ int usb_core_register_class(uint8_t class_code, const struct usb_class_ops *ops)
 /* host driver calls this when it has a ready-to-use device */
 void usb_core_device_added(const struct usb_dev *dev) {
 	if (!dev) return;
+
+	dprintf("USB CORE: Device added: slot=%d class=%x subclass=%x\n", dev->slot_id, dev->dev_class, dev->dev_subclass);
 
 	if (g_dev_count < MAX_DEVICES) {
 		g_devices[g_dev_count++] = *dev;
@@ -62,6 +63,8 @@ void usb_core_device_added(const struct usb_dev *dev) {
 
 void usb_core_device_removed(const struct usb_dev *dev) {
 	if (!dev) return;
+
+	dprintf("USB CORE: Device removed: slot=%d class=%x subclass=%x\n", dev->slot_id, dev->dev_class, dev->dev_subclass);
 
 	for (size_t i = 0; i < MAX_CLASS_SLOTS; i++) {
 		if (!g_classes[i].ops) continue;

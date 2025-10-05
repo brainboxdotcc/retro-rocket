@@ -5,42 +5,78 @@ static void hid_keyboard_report_cb(struct usb_dev *ud, const uint8_t *pkt, uint1
 	if (len < 8u) {
 		return;
 	}
+	dprintf("keyboard report cb\n");
 	/* pkt[2..7] are keycodes; translate via simple table, raise input events */
 	/* Minimal: stash last key, push to your input layer. */
 }
 
-static void hid_on_device_added(const struct usb_dev *ud) {
-	if (ud->dev_class != USB_CLASS_HID) {
+static void hid_on_device_added(const struct usb_dev *ud_c)
+{
+	if (!ud_c) return;
+
+	/* Only handle HID Boot Keyboard */
+	if (!(ud_c->dev_class == USB_CLASS_HID &&
+	      ud_c->dev_subclass == USB_SUBCLASS_BOOT &&
+	      ud_c->dev_proto == USB_PROTO_KEYBOARD)) {
+		dprintf("hid: ignore dev class=%02x sub=%02x proto=%02x\n",
+			ud_c->dev_class, ud_c->dev_subclass, ud_c->dev_proto);
 		return;
 	}
-	/* Boot interface path only for v0 */
-	if (ud->dev_subclass == USB_SUBCLASS_BOOT && ud->dev_proto == USB_PROTO_KEYBOARD) {
-		/* SET_PROTOCOL(0)=Boot, SET_IDLE(0), then arm INT-IN 8 bytes */
-		uint8_t setup[8];
-		dprintf("setup=%p\n", &setup);
 
-		/* SET_PROTOCOL (Class, Interface) bm=0x21, bReq=0x0B, wValue=0, wIndex=interface, wLength=0
-		   We have a single interface in v0; wIndex=0. */
-		setup[0] = 0x21u; setup[1] = 0x0Bu;
-		setup[2] = 0u;    setup[3] = 0u;     /* wValue */
-		setup[4] = 0u;    setup[5] = 0u;     /* wIndex */
-		setup[6] = 0u;    setup[7] = 0u;     /* wLength */
-		(void) xhci_ctrl_xfer(ud, setup, 0, 0, 1);
+	/* xhci_ctrl_xfer expects non-const usb_dev* */
+	struct usb_dev *ud = (struct usb_dev *)ud_c;
+	uint8_t __attribute__((aligned(64))) setup[8];
+	uint16_t iface = 0;
 
-		/* SET_IDLE (0) bm=0x21, bReq=0x0A */
-		setup[0] = 0x21u; setup[1] = 0x0Au;
-		setup[2] = 0u;    setup[3] = 0u;
-		setup[4] = 0u;    setup[5] = 0u;
-		setup[6] = 0u;    setup[7] = 0u;
-		(void) xhci_ctrl_xfer(ud, setup, 0, 0, 1);
+	dprintf("hid: attach keyboard VID:PID=%04x:%04x slot=%u\n",
+		ud->vid, ud->pid, ud->slot_id);
 
-		/* Arm 8-byte boot report stream */
-		(void) xhci_arm_int_in(ud, 8u, hid_keyboard_report_cb);
+	/* 1) SET_CONFIGURATION(1) */
+	setup[0] = 0x00; setup[1] = 0x09; /* bm=Std Dev OUT, SET_CONFIGURATION */
+	setup[2] = 0x01; setup[3] = 0x00; /* wValue = 1 */
+	setup[4] = 0x00; setup[5] = 0x00; /* wIndex = 0 (device) */
+	setup[6] = 0x00; setup[7] = 0x00; /* wLength = 0 */
+	if (!xhci_ctrl_xfer(ud, setup, NULL, 0, 0)) {
+		dprintf("hid: SET_CONFIGURATION(1) failed\n");
+		return;
 	}
+	dprintf("hid: set configuration ok\n");
+
+	/* 2) SET_PROTOCOL(BOOT) on interface 0
+	      bmRequestType=0x21 (Class OUT, Interface), bRequest=0x0B, wValue=0 (BOOT) */
+	setup[0] = 0x21; setup[1] = 0x0B;
+	setup[2] = 0x00; setup[3] = 0x00;                /* wValue = 0 (BOOT) */
+	setup[4] = (uint8_t)(iface & 0xFF);              /* wIndex = interface */
+	setup[5] = (uint8_t)(iface >> 8);
+	setup[6] = 0x00; setup[7] = 0x00;                /* wLength = 0 */
+	if (!xhci_ctrl_xfer(ud, setup, NULL, 0, 0)) {
+		dprintf("hid: SET_PROTOCOL(BOOT) failed\n");
+		return;
+	}
+	dprintf("hid: set protocol(boot) ok\n");
+
+	/* 3) SET_IDLE(0) on interface 0
+	      bmRequestType=0x21 (Class OUT, Interface), bRequest=0x0A, wValue=0 (duration=0, reportId=0) */
+	setup[0] = 0x21; setup[1] = 0x0A;
+	setup[2] = 0x00; setup[3] = 0x00;                /* wValue = 0 */
+	setup[4] = (uint8_t)(iface & 0xFF);
+	setup[5] = (uint8_t)(iface >> 8);
+	setup[6] = 0x00; setup[7] = 0x00;
+	if (!xhci_ctrl_xfer(ud, setup, NULL, 0, 0)) {
+		dprintf("hid: SET_IDLE(0) failed\n");
+		return;
+	}
+	dprintf("hid: set idle(0) ok\n");
+
+	/* 4) Arm EP1 IN for 8-byte boot reports */
+	if (!xhci_arm_int_in(ud, 8u, hid_keyboard_report_cb)) {
+		dprintf("hid: arm EP1 IN failed\n");
+		return;
+	}
+	dprintf("hid: keyboard armed (EP1 IN), waiting for interrupts\n");
 }
 
 static void hid_on_device_removed(const struct usb_dev *ud) {
-	(void)ud;
 	/* Tear-down if you keep per-device state */
 }
 
