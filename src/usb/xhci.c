@@ -51,9 +51,9 @@ static int xhci_cmd_submit_wait(struct xhci_hc *hc, struct trb *cmd_trb, uint64_
 	uint64_t cmd_phys = hc->cmd.phys +
 			    (uint64_t)((uintptr_t)cmd_trb - (uintptr_t)hc->cmd.base);
 
-	dprintf("xhci.dbg: cmd_submit dbell0, trb_virt=%llx trb_phys=%llx ctrl=%08x\n",
-		(unsigned long long)(uintptr_t)cmd_trb,
-		(unsigned long long)cmd_phys, cmd_trb->ctrl);
+	dprintf("xhci.dbg: cmd_submit dbell0, trb_virt=%lx trb_phys=%lx ctrl=%08x\n",
+		(uintptr_t)cmd_trb,
+		cmd_phys, cmd_trb->ctrl);
 
 	/* ring doorbell #0 (command) */
 	mmio_write32(hc->db + 0, 0);
@@ -62,9 +62,9 @@ static int xhci_cmd_submit_wait(struct xhci_hc *hc, struct trb *cmd_trb, uint64_
 	volatile uint8_t *ir0 = hc->rt + XHCI_RT_IR0;
 	uint64_t erdp0 = mmio_read64(ir0 + IR_ERDP);
 	mmio_write64(ir0 + IR_ERDP, (erdp0 & ~0x7ull) | (1ull << 3));
-	dprintf("xhci.dbg:   ERDP set, old=%llx new=%llx\n",
-		(unsigned long long)erdp0,
-		(unsigned long long)((erdp0 & ~0x7ull) | (1ull << 3)));
+	dprintf("xhci.dbg:   ERDP set, old=%lx new=%llx\n",
+		erdp0,
+		((erdp0 & ~0x7ull) | (1ull << 3)));
 
 	/* poll event ring up to 50ms */
 	uint64_t deadline = get_ticks() + 50;
@@ -272,46 +272,22 @@ static int xhci_reset_controller(struct xhci_hc *hc) {
 
 /* ---- EP context helpers ---- */
 static void ctx_program_ep0(struct ep_ctx *e, uint16_t mps, uint64_t tr_deq_phys) {
-	e->dword0 = ((uint32_t)mps << 16) | (4u << 3) | (3u << 1); /* Control, CErr=3 */
-	e->deq = (tr_deq_phys | 1u); /* DCS=1 */
-	e->dword4 = 8u; /* avg TRB len */
+	/* CErr=3 in dword0; Type+MPS belong in dword1 */
+	e->dword0 = (3u << 1);                                /* CErr=3 */
+	e->dword1 = ((uint32_t)mps << 16) | (4u << 8);        /* Type=4 (Control) */
+	e->deq    = (tr_deq_phys | 1u);                       /* DCS=1 */
+	e->dword4 = 8u;                                       /* Avg TRB len */
 }
 
-/* ---- EP context helpers ---- */
 static void ctx_program_ep1_in(struct ep_ctx *e,
 			       uint16_t mps,
 			       uint64_t tr_deq_phys,
-			       uint16_t esit_payload /* bytes per interval */)
+			       uint16_t esit_payload)
 {
-	/*
-	 * Dword0:
-	 *  bits 31:16 = Max Packet Size
-	 *  bits 10:8  = EP Type (7 = Interrupt IN)
-	 *  bits 2:1   = CErr (3)
-	 */
-	e->dword0  = ((uint32_t)mps << 16) | (7u << 3) | (3u << 1);
-
-	/*
-	 * Dword1:
-	 *  bits 15:0  = Interval (ESIT interval in microframes/frames encoding).
-	 *  A small non-zero works with QEMU/typical HID; set 1 as a safe default.
-	 *  (If you later parse the endpoint descriptor, use bInterval here.)
-	 */
-	e->dword1  = 1u;         /* Interval = 1 (minimum, valid) */
-
-	/*
-	 * Dword2/Dword3:
-	 *  Transfer Ring Dequeue Pointer (64-bit) with DCS bit set to current ring cycle.
-	 *  You already keep your transfer ring's cycle = 1 initially, so set DCS=1.
-	 */
-	e->deq     = (tr_deq_phys | 1u);  /* DCS=1 */
-
-	/*
-	 * Dword4:
-	 *  bits 31:16 = Average TRB Length (best-effort hint; 8 is fine for 8-byte reports)
-	 *  bits 15:0  = Max ESIT Payload (max bytes per service interval)
-	 */
-	e->dword4  = ((uint32_t)esit_payload << 16) | (uint32_t)esit_payload;
+	e->dword0  = (3u << 1);                                                   /* CErr=3 */
+	e->dword1  = ((uint32_t)mps << 16) | (7u << 8) | 1u;                      /* MPS | Type=7 (Int IN) | Interval=1 */
+	e->deq     = (tr_deq_phys | 1u);                                          /* DCS=1 */
+	e->dword4  = ((uint32_t)esit_payload << 16) | (uint32_t)esit_payload;     /* AvgTRBLen | MaxESIT */
 }
 
 /* ---- tiny inline control transfer used during enum (debug/verbose) ---- */
@@ -443,7 +419,6 @@ int xhci_ctrl_xfer(struct usb_dev *ud, const uint8_t *setup,
 	return xhci_ctrl_build_and_run(hc, ud->slot_id, setup, data, len, data_dir_in);
 }
 
-/* ---- minimal enumeration (one device) — debug/verbose, fixed SETUP handling ---- */
 static int xhci_enumerate_first_device(struct xhci_hc *hc, struct usb_dev *out_ud) {
 	if (!hc || !out_ud) return 0;
 
@@ -578,6 +553,23 @@ static int xhci_enumerate_first_device(struct xhci_hc *hc, struct usb_dev *out_u
 		}
 	}
 
+	/* --- Assign the address now (BSR=0) so the slot moves to Addressed state --- */
+	hc->dev.ic->add_flags  = 0x00000003u;          /* A0 | A1 (slot + ep0) */
+	hc->dev.ic->drop_flags = 0;
+	ctx_program_ep0(&hc->dev.ic->ep0, mps, hc->dev.ep0_tr.phys);
+
+	struct trb *ad2 = xhci_cmd_begin(hc);
+	ad2->lo = (uint32_t)(hc->dev.ic_phys & 0xFFFFFFFFu);
+	ad2->hi = (uint32_t)(hc->dev.ic_phys >> 32);
+	ad2->ctrl |= TRB_SET_TYPE(TRB_ADDRESS_DEVICE) | ((uint32_t)slot_id << 24); /* BSR=0 */
+	dprintf("xhci.dbg:   ADDRESS_DEVICE (assign) slot=%u trb=%08x\n",
+		slot_id, (uint32_t)(uintptr_t)ad2);
+	if (!xhci_cmd_submit_wait(hc, ad2, NULL)) {
+		kfree_null(&devctx);
+		return 0;
+	}
+	dprintf("xhci.dbg:   ADDRESS_DEVICE (assign) ok\n");
+
 	/* === GET_DESCRIPTOR(Device, full 18) === */
 	uint8_t  __attribute__((aligned(64))) setup_dev_full[8] = { 0x80, 0x06, 0x00, 0x01, 0x00, 0x00, 18, 0x00 };
 	dprintf("setup_dev_full=%p HERE 2\n", &setup_dev_full);
@@ -647,6 +639,7 @@ static int xhci_enumerate_first_device(struct xhci_hc *hc, struct usb_dev *out_u
 
 static void xhci_isr(uint8_t isr, uint64_t error, uint64_t irq, void *opaque)
 {
+	dprintf("xhci int(0)\n");
 	struct xhci_hc *hc = (struct xhci_hc *)opaque;
 	if (!hc || !hc->cap) return;
 
@@ -697,64 +690,110 @@ static void xhci_isr(uint8_t isr, uint64_t error, uint64_t irq, void *opaque)
 }
 
 int xhci_arm_int_in(struct usb_dev *ud, uint16_t pkt_len, xhci_int_in_cb cb) {
-	if (!ud || !ud->hc || !pkt_len || !cb) return 0;
+	dprintf("xhci.dbg: ARM INT-IN enter ud=%p hc=%p slot_id=%u pkt_len=%u cb=%p\n",
+		ud, ud ? ud->hc : 0, ud ? ud->slot_id : 0, (unsigned)pkt_len, cb);
+
+	if (!ud || !ud->hc || !pkt_len || !cb) {
+		dprintf("xhci.dbg: ARM INT-IN early-exit (arg check) ud=%p hc=%p pkt_len=%u cb=%p\n",
+			ud, ud ? ud->hc : 0, (unsigned)pkt_len, cb);
+		return 0;
+	}
 	struct xhci_hc *hc = (struct xhci_hc *) ud->hc;
 
+	/* ensure TR for EP1 IN */
 	if (!hc->dev.int_in_tr.base) {
 		void *v = kmalloc_aligned(4096, 4096);
 		uint64_t p = (uint64_t)(uintptr_t) v;
-		if (!v) { dprintf("xhci.dbg: INT-IN TR alloc fail\n"); return 0; }
+		dprintf("xhci.dbg: INT-IN TR alloc v=%p phys=%lx\n", v, p);
+		if (!v) {
+			dprintf("xhci.dbg: INT-IN TR alloc fail\n");
+			return 0;
+		}
 		ring_init(&hc->dev.int_in_tr, 4096, p, v);
+		dprintf("xhci.dbg: INT-IN TR init base=%p phys=%lx cycle=%u\n",
+			hc->dev.int_in_tr.base, hc->dev.int_in_tr.phys,
+			(unsigned)hc->dev.int_in_tr.cycle);
+	} else {
+		dprintf("xhci.dbg: INT-IN TR already init base=%p phys=%lx cycle=%u\n",
+			hc->dev.int_in_tr.base, hc->dev.int_in_tr.phys,
+			(unsigned)hc->dev.int_in_tr.cycle);
 	}
 
+	/* ensure report buffer */
 	if (!hc->dev.int_buf) {
 		hc->dev.int_buf = (uint8_t *) kmalloc_aligned(pkt_len, 64);
-		if (!hc->dev.int_buf) { dprintf("xhci.dbg: INT-IN buf alloc fail (%u)\n", pkt_len); return 0; }
+		if (!hc->dev.int_buf) {
+			dprintf("xhci.dbg: INT-IN buf alloc fail (%u)\n", pkt_len);
+			return 0;
+		}
 		hc->dev.int_buf_phys = (uint64_t)(uintptr_t) hc->dev.int_buf;
+		dprintf("xhci.dbg: INT-IN buf alloc v=%p phys=%lx len=%u\n",
+			hc->dev.int_buf, hc->dev.int_buf_phys, (unsigned)pkt_len);
+	} else {
+		dprintf("xhci.dbg: INT-IN buf reuse v=%p phys=%lx len=%u\n",
+			hc->dev.int_buf, hc->dev.int_buf_phys, (unsigned)pkt_len);
 	}
 	hc->dev.int_cb = cb;
 	hc->dev.int_pkt_len = pkt_len;
 
-	/* Input Control Context */
+	/* Input Control Context: we are adding Slot (A0) and EP1 IN (A3). */
 	hc->dev.ic->drop_flags = 0;
-	hc->dev.ic->add_flags  = 0x0000000B; /* A0(slot) | A1(ep0) | A3(ep1 IN) */
+	hc->dev.ic->add_flags  = 0x00000009; /* A0 | A3 */
+	dprintf("xhci.dbg: ICC flags drop=%08x add=%08x ic=%p ic_phys=%lx\n",
+		hc->dev.ic->drop_flags, hc->dev.ic->add_flags, hc->dev.ic, hc->dev.ic_phys);
 
-	/* Ensure Slot Context Context Entries covers EPID=3 (slot+ep0+ep1 IN => CE >= 3) */
+	/* Copy current Device Slot Context into Input Slot Context, then bump CE to 3. */
 	{
-		uint32_t s0 = hc->dev.ic->slot.dword0;
-		uint32_t ce = (s0 >> 27) & 0x1F;
-		if (ce < 3u) { s0 = (s0 & ~(0x1Fu << 27)) | (3u << 27); hc->dev.ic->slot.dword0 = s0; }
+		uint64_t dphys = hc->dcbaa[ud->slot_id];
+		volatile uint32_t *dcs = (volatile uint32_t *)(uintptr_t)dphys;      /* device slot ctx (8 dwords) */
+		volatile uint32_t *isc = (volatile uint32_t *)&hc->dev.ic->slot;     /* input slot ctx  (8 dwords) */
+		for (int k = 0; k < 8; k++) {
+			isc[k] = dcs[k];
+		}
+		/* CE = highest context ID being configured (3 => up to EP1 IN) */
+		isc[0] = (isc[0] & ~(0x1Fu << 27)) | (3u << 27);
+		dprintf("xhci.dbg: slot.dword0(copy+CE)=%08x (CE=%u)\n",
+			isc[0], (unsigned)((isc[0] >> 27) & 0x1F));
 	}
 
-	/* ICC "config triplet": config=1, interface=0, alt=0 */
-	*(volatile uint32_t *)((uint8_t*)hc->dev.ic + 0x08) = 1;
-	*(volatile uint32_t *)((uint8_t*)hc->dev.ic + 0x0C) = 0;
-	*(volatile uint32_t *)((uint8_t*)hc->dev.ic + 0x10) = 0;
-
-	/* Program EP1 IN context (clear first, then set fields) */
+	/* Program EP1 IN context (clear then set fields) */
 	memset(&hc->dev.ic->ep1_in, 0, sizeof(hc->dev.ic->ep1_in));
-	ctx_program_ep1_in(&hc->dev.ic->ep1_in,
-			   8u,                       /* MPS for boot kbd int IN */
-			   hc->dev.int_in_tr.phys,   /* TR Dequeue (DCS set inside) */
-			   pkt_len);                 /* Max ESIT payload */
+	/* dword0: CErr=3, state=0 (disabled) */
+	hc->dev.ic->ep1_in.dword0 = (3u << 1);
+	/* dword1: MPS (31:16) | Type (10:8 = 7 Int IN) | Interval (7:0) */
+	hc->dev.ic->ep1_in.dword1 = ((uint32_t)8u << 16) | (7u << 8) | 1u;
+	/* TR Dequeue (DCS=1) */
+	hc->dev.ic->ep1_in.deq = (hc->dev.int_in_tr.phys | 1u);
+	/* dword4: Avg TRB Len (31:16) | Max ESIT Payload (15:0) */
+	hc->dev.ic->ep1_in.dword4 = ((uint32_t)pkt_len << 16) | (uint32_t)pkt_len;
+
+	{
+		const uint32_t *epd = (const uint32_t *)&hc->dev.ic->ep1_in;
+		dprintf("xhci.dbg: EP1 IN ctx dwords: %08x %08x %08x %08x | %08x %08x %08x %08x\n",
+			epd[0], epd[1], epd[2], epd[3], epd[4], epd[5], epd[6], epd[7]);
+	}
 
 	dprintf("xhci.dbg: CONFIGURE_EP add_flags=%08x slot.dword0=%08x (CE=%u)\n",
 		hc->dev.ic->add_flags,
 		hc->dev.ic->slot.dword0,
 		(hc->dev.ic->slot.dword0 >> 27) & 0x1F);
 
-	/* Issue Configure Endpoint */
+	/* Issue Configure Endpoint (add EP1 IN) */
 	struct trb *ce = xhci_cmd_begin(hc);
 	ce->lo = (uint32_t)(hc->dev.ic_phys & 0xFFFFFFFFu);
 	ce->hi = (uint32_t)(hc->dev.ic_phys >> 32);
 	ce->ctrl |= TRB_SET_TYPE(TRB_CONFIGURE_EP) | ((uint32_t)ud->slot_id << 24);
-	dprintf("xhci.dbg: ring_push for CONFIGURE_EP trb=%08x ic_phys=%08x\n",
-		(uint32_t)(uintptr_t)ce, (uint32_t)(hc->dev.ic_phys & 0xFFFFFFFFu));
+	dprintf("xhci.dbg: ring_push for CONFIGURE_EP trb=%08x ic_phys_lo=%08x ic_phys_hi=%08x ctrl=%08x slot=%u\n",
+		(uint32_t)(uintptr_t)ce,
+		(uint32_t)(hc->dev.ic_phys & 0xFFFFFFFFu),
+		(uint32_t)(hc->dev.ic_phys >> 32),
+		ce->ctrl, ud->slot_id);
 
 	if (!xhci_cmd_submit_wait(hc, ce, NULL)) {
 		dprintf("xhci.dbg: CONFIGURE_EP timeout/fail\n");
 		return 0;
 	}
+	dprintf("xhci.dbg: CONFIGURE_EP success\n");
 
 	/* Post first INT-IN Normal TRB and doorbell EP1 IN */
 	struct trb *n = ring_push(&hc->dev.int_in_tr);
@@ -763,17 +802,38 @@ int xhci_arm_int_in(struct usb_dev *ud, uint16_t pkt_len, xhci_int_in_cb cb) {
 	n->sts = hc->dev.int_pkt_len;
 	n->ctrl = TRB_SET_TYPE(TRB_NORMAL) | TRB_IOC |
 		  (hc->dev.int_in_tr.cycle ? TRB_CYCLE : 0);
-	dprintf("xhci.dbg:   INT-IN normal TRB @%08x lo=%08x hi=%08x len=%u\n",
-		(uint32_t)(uintptr_t)n, n->lo, n->hi, n->sts);
+	dprintf("xhci.dbg:   INT-IN normal TRB @%08x lo=%08x hi=%08x len=%u ctrl=%08x cycle=%u\n",
+		(uint32_t)(uintptr_t)n, n->lo, n->hi, n->sts, n->ctrl,
+		(unsigned)hc->dev.int_in_tr.cycle);
 
 	mmio_write32(hc->db + 4u * ud->slot_id, EPID_EP1_IN);
-	dprintf("xhci.dbg:   doorbell EP1 IN (slot=%u)\n", ud->slot_id);
+	dprintf("xhci.dbg:   doorbell EP1 IN (slot=%u) tr.phys=%lx buf.phys=%lx\n",
+		ud->slot_id, hc->dev.int_in_tr.phys, hc->dev.int_buf_phys);
+
+	/* Optional debug dump (unchanged) */
+	{
+		volatile uint32_t *icc = (volatile uint32_t *)hc->dev.ic;
+		dprintf("xhci.dbg: ICC dwords: %08x %08x %08x %08x | %08x %08x %08x %08x\n",
+			icc[0], icc[1], icc[2], icc[3], icc[4], icc[5], icc[6], icc[7]);
+
+		volatile uint32_t *isc = (volatile uint32_t *)&hc->dev.ic->slot;
+		dprintf("xhci.dbg: I-SLOT ctx: %08x %08x %08x %08x | %08x %08x %08x %08x\n",
+			isc[0], isc[1], isc[2], isc[3], isc[4], isc[5], isc[6], isc[7]);
+
+		uint64_t dphys = hc->dcbaa[ud->slot_id];
+		volatile uint32_t *dcs  = (volatile uint32_t *)(uintptr_t)dphys; /* Slot ctx */
+		volatile uint32_t *dep0 = dcs + 8;                               /* EP0 ctx  */
+		dprintf("xhci.dbg: DCBAA[%u]=%lx\n", ud->slot_id, (unsigned long)dphys);
+
+		dprintf("xhci.dbg: D-SLOT ctx: %08x %08x %08x %08x | %08x %08x %08x %08x\n",
+			dcs[0], dcs[1], dcs[2], dcs[3], dcs[4], dcs[5], dcs[6], dcs[7]);
+		dprintf("xhci.dbg: D-EP0  ctx: %08x %08x %08x %08x | %08x %08x %08x %08x\n",
+			dep0[0], dep0[1], dep0[2], dep0[3], dep0[4], dep0[5], dep0[6], dep0[7]);
+	}
+
 	return 1;
 }
 
-/* ------------------------------------------------------------
- * Public entry: probe first xHCI controller and enumerate
- * ------------------------------------------------------------ */
 int xhci_probe_and_init(uint8_t bus, uint8_t dev, uint8_t func) {
 	pci_dev_t p = {0};
 	p.bus_num = bus;

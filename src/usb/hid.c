@@ -12,6 +12,7 @@ static void hid_keyboard_report_cb(struct usb_dev *ud, const uint8_t *pkt, uint1
 
 static void hid_on_device_added(const struct usb_dev *ud_c)
 {
+	dprintf("hid_on_device_added ud_c=%p\n", ud_c);
 	if (!ud_c) return;
 
 	/* Only handle HID Boot Keyboard */

@@ -117,6 +117,9 @@ void init_usb_xhci(void);
 #define PORTSC_RW1C_MASK (PORTSC_CSC | PORTSC_PEC | PORTSC_WRC | \
                           PORTSC_OCC | PORTSC_PRC | PORTSC_PLC | PORTSC_CEC)
 
+#define XHCI_OP_USBCMD     0x00
+#define XHCI_OP_USBSTS     0x04
+
 
 #define XHCI_DNCTRL 0x14
 

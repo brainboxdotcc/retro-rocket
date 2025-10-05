@@ -1,6 +1,4 @@
-#ifndef USB_CORE_H
-#define USB_CORE_H
-
+#pragma once
 #include <kernel.h>
 #include <stdint.h>
 #include <stddef.h>
@@ -70,4 +68,4 @@ size_t usb_core_device_count(void);
 /* Optional: textual dump for debugging. */
 void usb_core_dump(void);
 
-#endif /* USB_CORE_H */
+void usb_core_init(void);
