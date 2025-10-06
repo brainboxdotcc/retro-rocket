@@ -264,25 +264,6 @@ typedef struct basic_ctx {
 	void* fn_return;
 
 	/**
-	 * @brief Bracket depth when parsing function or procedure parameter lists.
-	 *
-	 * Keeps track of nested parentheses during parameter parsing.
-	 */
-	int bracket_depth;
-
-	/**
-	 * @brief Item start pointer when parsing function or procedure parameters.
-	 */
-	char const* item_begin;
-
-	/**
-	 * @brief Linked list of parameters for functions and procedures.
-	 *
-	 * This is used when parsing parameter lists in function/procedure calls.
-	 */
-	struct ub_param* param;
-
-	/**
 	 * @brief Current graphics color for graphical operations (e.g., drawing lines, shapes).
 	 */
 	int32_t graphics_colour;

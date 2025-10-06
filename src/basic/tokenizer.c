@@ -129,7 +129,7 @@ int get_next_token(struct basic_ctx* ctx)
 		do {
 			++ctx->nextptr;
 			if (++strl > MAX_STRINGLEN) {
-				tokenizer_error_print(ctx, "String constant too long");
+				tokenizer_error_printf(ctx, "String constant '%s' too long", ctx->ptr);
 				break;
 			}
 		} while(*ctx->nextptr != '"');

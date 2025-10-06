@@ -33,27 +33,28 @@ void proc_statement(struct basic_ctx* ctx);
 void endproc_statement(struct basic_ctx* ctx);
 
 /**
- * @brief Begins parsing a function's comma-separated parameter list.
- *
- * This function initializes the context for parsing a list of parameters, setting up necessary
- * variables to process function arguments passed to a procedure or function.
- *
- * @param def The function definition containing the parameter list.
- * @param ctx The current BASIC program context.
- */
-void begin_comma_list(struct ub_proc_fn_def* def, struct basic_ctx* ctx);
-
-/**
- * @brief Extracts a parameter from a comma-separated list in a function.
+ * @brief Extracts a parameter from a comma-separated list of parameters for a FN/PROC call.
  *
  * This function extracts individual parameters from a function's comma-separated argument list
  * and processes them based on their type.
  *
+ * You should call it in a while loop:
+ *
+ * @code
+ * int bracket_depth = 0;
+ * const char* item_begin = ctx->ptr;
+ * struct ub_param* param = def->params;
+ * while (extract_comma_list(def, ctx, &bracket_depth, &item_begin, &param));
+ * @endcode
+ *
  * @param def The function definition containing the parameter list.
  * @param ctx The current BASIC program context.
+ * @param bracket_depth Temporary variable used to track bracket depth in expressions
+ * @param item_begin A temporary pointer to the next tokenized item
+ * @param param Pointer to the linked list of parameter types and names
  * @return uint8_t 1 if more parameters are present, 0 otherwise.
  */
-uint8_t extract_comma_list(struct ub_proc_fn_def* def, struct basic_ctx* ctx);
+size_t extract_comma_list(struct ub_proc_fn_def* def, struct basic_ctx* ctx, int* bracket_depth, char const** item_begin, struct ub_param** param);
 
 /**
  * @brief Handles the = statement in BASIC, used to return a value from a FN

@@ -7,11 +7,11 @@ PRINT " (IP: "; IP$; ")... ";
 SSLCONNECT FD, IP$, 443, HOST$
 PRINT "Connected! Socket descriptor="; FD
 
-PRINT "Writing..."
 SOCKWRITE FD, "GET / HTTP/1.0"; CHR$(13); CHR$(10); "Host: "; HOST$; CHR$(13); CHR$(10); CHR$(13); CHR$(10);
-PRINT "Reading..."
+
 SOCKREAD FD, TEST$
 PRINT TEST$
+
 PRINT "CLOSING"
 SOCKCLOSE FD
 

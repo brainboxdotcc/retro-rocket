@@ -161,24 +161,17 @@ struct basic_str_fn builtin_str[] =
 	{ NULL,                      NULL            },
 };
 
-void begin_comma_list(struct ub_proc_fn_def* def, struct basic_ctx* ctx) {
-	ctx->bracket_depth = 0;
-	ctx->param = def->params;
-	ctx->item_begin = (char*)ctx->ptr;
-}
 
-
-uint8_t extract_comma_list(struct ub_proc_fn_def* def, struct basic_ctx* ctx) {
+size_t extract_comma_list(struct ub_proc_fn_def* def, struct basic_ctx* ctx, int* bracket_depth, char const** item_begin, struct ub_param** param) {
 	if (*ctx->ptr == '(') {
-		ctx->bracket_depth++;
-		if (ctx->bracket_depth == 1) {
-			ctx->item_begin = ctx->ptr + 1;
+		(*bracket_depth)++;
+		if (*bracket_depth == 1) {
+			*item_begin = ctx->ptr + 1;
 		}
+	} else if (*ctx->ptr == ')') {
+		(*bracket_depth)--;
 	}
-	else if (*ctx->ptr == ')') {
-		ctx->bracket_depth--;
-	}
-	if ((*ctx->ptr == ',' && ctx->bracket_depth == 1) || (*ctx->ptr == ')' && ctx->bracket_depth == 0)) {
+	if ((*ctx->ptr == ',' && *bracket_depth == 1) || (*ctx->ptr == ')' && *bracket_depth == 0)) {
 		// next item
 		// set local vars here
 		// Set ctx to item_begin, call expr(), set ctx back again. Change expr to stop on comma.
@@ -186,41 +179,41 @@ uint8_t extract_comma_list(struct ub_proc_fn_def* def, struct basic_ctx* ctx) {
 		char oldct = ctx->current_token;
 		char* oldptr = (char*)ctx->ptr;
 		char* oldnextptr = (char*)ctx->nextptr;
-		ctx->nextptr = ctx->item_begin;
-		ctx->ptr = ctx->item_begin;
+		ctx->nextptr = *item_begin;
+		ctx->ptr = *item_begin;
 		ctx->current_token = get_next_token(ctx);
 		*oldptr = 0;
-		if (ctx->param) {
-			size_t len = strlen(ctx->param->name);
-			if (ctx->param->name[len - 1] == '$') {
-				basic_set_string_variable(ctx->param->name, str_expr(ctx), ctx, true, false);
-			} else if (ctx->param->name[len - 1] == '#') {
+		if (*param && (*param)->name) {
+			size_t len = strlen((*param)->name);
+			if ((*param)->name[len - 1] == '$') {
+				const char* save_ptr = ctx->ptr;
+				basic_set_string_variable((*param)->name, str_expr(ctx), ctx, true, false);
+				ctx->ptr = save_ptr;
+			} else if ((*param)->name[len - 1] == '#') {
 				double f = 0.0;
 				double_expr(ctx, &f);
-				basic_set_double_variable(ctx->param->name, f, ctx, true, false);
+				basic_set_double_variable((*param)->name, f, ctx, true, false);
 			} else {
 				int64_t e = expr(ctx);
-				basic_set_int_variable(ctx->param->name, e, ctx, true, false);
+				basic_set_int_variable((*param)->name, e, ctx, true, false);
 			}
 
-			ctx->param = ctx->param->next;
+			*param = (*param)->next;
 		}
 		*oldptr = oldval;
 		ctx->ptr = oldptr;
 		ctx->nextptr = oldnextptr;
 		ctx->current_token = oldct;
-		ctx->item_begin = (char*)ctx->ptr + 1;
+		(*item_begin) = (char*)ctx->ptr + 1;
 	}
 
 	ctx->ptr++;
 
-	if (ctx->bracket_depth == 0 || *ctx->ptr == 0) {
+	if ((*bracket_depth) == 0 || *ctx->ptr == 0) {
 		ctx->nextptr = ctx->ptr;
 		return 0;
 	}
-
 	return 1;
-
 }
 
 const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx)
@@ -230,8 +223,12 @@ const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx)
 	if (def) {
 		ctx->call_stack_ptr++;
 		init_local_heap(ctx);
-		begin_comma_list(def, ctx);
-		while (extract_comma_list(def, ctx));
+
+		int bracket_depth = 0;
+		const char* item_begin = ctx->ptr;
+		struct ub_param* param = def->params;
+		while (extract_comma_list(def, ctx, &bracket_depth, &item_begin, &param));
+
 		struct basic_ctx* atomic = basic_clone(ctx);
 		if (!atomic) {
 			return "";
@@ -335,8 +332,12 @@ int64_t basic_eval_int_fn(const char* fn_name, struct basic_ctx* ctx)
 	if (def) {
 		ctx->call_stack_ptr++;
 		init_local_heap(ctx);
-		begin_comma_list(def, ctx);
-		while (extract_comma_list(def, ctx));
+
+		int bracket_depth = 0;
+		const char* item_begin = ctx->ptr;
+		struct ub_param* param = def->params;
+		while (extract_comma_list(def, ctx, &bracket_depth, &item_begin, &param));
+
 		struct basic_ctx* atomic = basic_clone(ctx);
 		if (!atomic) {
 			return 0;
@@ -383,8 +384,12 @@ void basic_eval_double_fn(const char* fn_name, struct basic_ctx* ctx, double* re
 	if (def) {
 		ctx->call_stack_ptr++;
 		init_local_heap(ctx);
-		begin_comma_list(def, ctx);
-		while (extract_comma_list(def, ctx));
+
+		int bracket_depth = 0;
+		const char* item_begin = ctx->ptr;
+		struct ub_param* param = def->params;
+		while (extract_comma_list(def, ctx, &bracket_depth, &item_begin, &param));
+
 		struct basic_ctx* atomic = basic_clone(ctx);
 		if (!atomic) {
 			*res = 0;
@@ -609,8 +614,12 @@ void proc_statement(struct basic_ctx* ctx)
 		if (*ctx->ptr == '(' && *(ctx->ptr + 1) != ')') {
 			ctx->call_stack_ptr++;
 			init_local_heap(ctx);
-			begin_comma_list(def, ctx);
-			while (extract_comma_list(def, ctx));
+
+			int bracket_depth = 0;
+			const char* item_begin = ctx->ptr;
+			struct ub_param* param = def->params;
+			while (extract_comma_list(def, ctx, &bracket_depth, &item_begin, &param));
+
 			ctx->call_stack_ptr--;
 		} else {
 			ctx->call_stack_ptr++;

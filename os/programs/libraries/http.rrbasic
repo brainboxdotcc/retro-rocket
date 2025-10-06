@@ -1,0 +1,234 @@
+DEF PROChttp
+ENDPROC
+
+DEF FN_before$(s$, sep$)
+_http_p = INSTR(s$, sep$)
+IF _http_p = 0 THEN
+  = s$
+ELSE
+  = LEFT$(s$, _http_p - 1)
+ENDIF
+= ""
+
+DEF FN_after$(s$, sep$)
+_http_p = INSTR(s$, sep$)
+IF _http_p = 0 THEN
+  = ""
+ELSE
+  = MID$(s$, _http_p + LEN(sep$))
+ENDIF
+= ""
+
+DEF FN_has_prefix(s$, pre$)
+IF LEFT$(s$, LEN(pre$)) = pre$ THEN
+  = -1
+ELSE
+  = 0
+ENDIF
+= 0
+
+DEF FN_trim_leading$(s$, ch$)
+_http_n = LEN(s$)
+_http_i = 1
+IF _http_n > 0 THEN
+  REPEAT
+    IF MID$(s$, _http_i, 1) <> ch$ THEN
+      EXIT REPEAT
+    ENDIF
+    _http_i = _http_i + 1
+  UNTIL _http_i > _http_n
+ENDIF
+IF _http_i <= _http_n THEN
+  = MID$(s$, _http_i)
+ELSE
+  = ""
+ENDIF
+= ""
+
+REM -------- scheme, anchor, query ----------
+DEF FN_url_scheme$(url$)
+_http_p = INSTR(url$, "://")
+IF _http_p > 0 THEN
+  = LEFT$(url$, _http_p - 1)
+ELSE
+  = ""
+ENDIF
+= ""
+
+DEF FN_url_anchor$(url$)
+_http_p = INSTR(url$, "#")
+IF _http_p > 0 THEN
+  = MID$(url$, _http_p + 1)
+ELSE
+  = ""
+ENDIF
+= ""
+
+DEF FN_url_query$(url$)
+_http_nofrag$ = FN_before$(url$, "#")
+_http_p = INSTR(_http_nofrag$, "?")
+IF _http_p > 0 THEN
+  = MID$(_http_nofrag$, _http_p + 1)
+ELSE
+  = ""
+ENDIF
+= ""
+
+REM ---- authority (userinfo@host:port) helpers ----
+DEF FN__preface_no_scheme$(s$)
+IF FN_has_prefix(s$, "//") THEN
+  = MID$(s$, 3)
+ELSE
+  _http_p = INSTR(s$, "://")
+  IF _http_p > 0 THEN
+    = MID$(s$, _http_p + 3)
+  ELSE
+    = s$
+  ENDIF
+ENDIF
+= ""
+
+DEF FN_url_authority$(url$)
+_http_base$ = FN_before$(FN_before$(url$, "#"), "?")
+_http_base$ = FN__preface_no_scheme$(_http_base$)
+IF FN_has_prefix(_http_base$, "/") THEN
+  = ""
+ENDIF
+_http_slash = INSTR(_http_base$, "/")
+IF _http_slash > 0 THEN
+  _http_head$ = LEFT$(_http_base$, _http_slash - 1)
+ELSE
+  _http_head$ = _http_base$
+ENDIF
+IF INSTR(_http_head$, ".") > 0 OR INSTR(_http_head$, ":") > 0 OR INSTR(_http_head$, "[") > 0 OR INSTR(_http_head$, "@") > 0 THEN
+  = _http_head$
+ELSE
+  = ""
+ENDIF
+= ""
+
+DEF FN__strip_userinfo$(auth$)
+_http_at = INSTR(auth$, "@")
+IF _http_at > 0 THEN
+  = MID$(auth$, _http_at + 1)
+ELSE
+  = auth$
+ENDIF
+= ""
+
+DEF FN_url_host$(url$)
+_http_auth$ = FN_url_authority$(url$)
+IF _http_auth$ = "" THEN
+  = ""
+ENDIF
+_http_hp$ = FN__strip_userinfo$(_http_auth$)
+IF LEFT$(_http_hp$, 1) = "[" THEN
+  _http_rb = INSTR(_http_hp$, "]")
+  IF _http_rb > 0 THEN
+    = MID$(_http_hp$, 1, _http_rb)
+  ENDIF
+ENDIF
+_http_cp = INSTR(_http_hp$, ":")
+IF _http_cp > 0 THEN
+  = LEFT$(_http_hp$, _http_cp - 1)
+ELSE
+  = _http_hp$
+ENDIF
+= ""
+
+DEF FN_url_port(url$)
+_http_port$ = ""
+_http_auth$ = FN_url_authority$(url$)
+IF _http_auth$ <> "" THEN
+  _http_hp$ = FN__strip_userinfo$(_http_auth$)
+  IF LEFT$(_http_hp$, 1) = "[" THEN
+    _http_rb = INSTR(_http_hp$, "]")
+    IF _http_rb > 0 THEN
+      IF LEN(_http_hp$) >= _http_rb + 2 THEN
+        IF MID$(_http_hp$, _http_rb + 1, 1) = ":" THEN
+          _http_port$ = MID$(_http_hp$, _http_rb + 2)
+        ENDIF
+      ENDIF
+    ENDIF
+  ELSE
+    _http_cp = INSTR(_http_hp$, ":")
+    IF _http_cp > 0 THEN
+      _http_port$ = MID$(_http_hp$, _http_cp + 1)
+    ENDIF
+  ENDIF
+ENDIF
+IF _http_port$ <> "" THEN
+  = VAL(_http_port$)
+ENDIF
+_http_scheme$ = FN_url_scheme$(url$)
+IF _http_scheme$ = "http" THEN
+  = 80
+ENDIF
+IF _http_scheme$ = "https" THEN
+  = 443
+ENDIF
+IF _http_scheme$ = "ws" THEN
+  = 80
+ENDIF
+IF _http_scheme$ = "wss" THEN
+  = 443
+ENDIF
+IF _http_scheme$ = "ftp" THEN
+  = 21
+ENDIF
+= 0
+
+REM --------------- path ---------------------
+DEF FN_url_path$(url$)
+_http_nofrag$ = FN_before$(url$, "#")
+_http_nofragq$ = FN_before$(_http_nofrag$, "?")
+IF INSTR(_http_nofrag$, "://") > 0 OR FN_has_prefix(_http_nofrag$, "//") THEN
+  _http_a$ = FN__preface_no_scheme$(_http_nofrag$)
+  _http_p = INSTR(_http_a$, "/")
+  IF _http_p > 0 THEN
+    = MID$(_http_a$, _http_p)
+  ELSE
+    = "/"
+  ENDIF
+ENDIF
+IF FN_has_prefix(_http_nofragq$, "/") THEN
+  = _http_nofragq$
+ENDIF
+_http_p2 = INSTR(_http_nofragq$, "/")
+IF _http_p2 > 0 THEN
+  = MID$(_http_nofragq$, _http_p2)
+ELSE
+  IF INSTR(_http_nofragq$, ".") > 0 OR INSTR(_http_nofragq$, ":") > 0 OR INSTR(_http_nofragq$, "[") > 0 THEN
+    = ""
+  ELSE
+    = _http_nofragq$
+  ENDIF
+ENDIF
+= ""
+
+REM ---- query parameter lookup (simple) -----
+DEF FN_url_param$(url$, key$)
+_http_q$ = FN_url_query$(url$)
+IF _http_q$ = "" THEN
+  = ""
+ENDIF
+_http_work$ = _http_q$
+REPEAT
+  _http_pair$ = TOKENIZE$(_http_work$, "&")
+  IF _http_pair$ = "" THEN
+    EXIT REPEAT
+  ENDIF
+  _http_eq = INSTR(_http_pair$, "=")
+  IF _http_eq > 0 THEN
+    _http_k$ = LEFT$(_http_pair$, _http_eq - 1)
+    _http_v$ = MID$(_http_pair$, _http_eq + 1)
+  ELSE
+    _http_k$ = _http_pair$
+    _http_v$ = ""
+  ENDIF
+  IF _http_k$ = key$ THEN
+    = _http_v$
+  ENDIF
+UNTIL 0
+= ""
+
