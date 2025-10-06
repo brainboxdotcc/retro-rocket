@@ -151,11 +151,15 @@ static void process_mod_changes(uint8_t prev_mod, uint8_t cur_mod)
 
 static void hid_keyboard_report_cb(struct usb_dev *ud, const uint8_t *pkt, uint16_t len)
 {
-	(void)ud;
 	if (len < 8u) return;
 
-	/* drop identical snapshot (disables HID’s built-in key repeat) */
-	if (memcmp(pkt, last_report, 8) == 0) return;
+	dprintf("enter\n");
+
+	/* disable HID’s built-in key repeat */
+	if (memcmp(pkt, last_report, 8) == 0) {
+		dprintf("leave rep\n");
+		return;
+	}
 
 	/* 1) modifiers (byte 0) */
 	process_mod_changes(last_report[0], pkt[0]);
@@ -178,6 +182,8 @@ static void hid_keyboard_report_cb(struct usb_dev *ud, const uint8_t *pkt, uint1
 	}
 
 	memcpy(last_report, pkt, 8);
+
+	dprintf("leave\n");
 }
 
 static void hid_on_device_added(const struct usb_dev *ud_c)

@@ -71,6 +71,11 @@ struct usb_ep {
 #define TRB_TRANSFER_EVENT  32
 #define TRB_CMD_COMPLETION  33
 #define TRB_PORT_STATUS     34
+#define TRB_BANDWIDTH_REQUEST      35
+#define TRB_DOORBELL_EVENT         36
+#define TRB_HOST_CONTROLLER_EVENT  37
+#define TRB_DEVICE_NOTIFICATION    38
+#define TRB_MFINDEX_WRAP_EVENT     39
 
 /* endpoint ids per xHCI: 1=EP0, 2/3=EP1 OUT/IN, ... */
 #define EPID_CTRL           1
@@ -95,6 +100,9 @@ struct usb_ep {
 #define PORTSC_PRC   (1u << 21)  /* Port Reset Change */
 #define PORTSC_PLC   (1u << 22)  /* Port Link State Change */
 #define PORTSC_CEC   (1u << 23)  /* Port Config Error Change */
+
+#define CC_SUCCESS        0x01
+#define CC_SHORT_PACKET   0x0D
 
 #define PORTSC_RW1C_MASK (PORTSC_CSC | PORTSC_PEC | PORTSC_WRC | PORTSC_OCC | PORTSC_PRC | PORTSC_PLC | PORTSC_CEC)
 

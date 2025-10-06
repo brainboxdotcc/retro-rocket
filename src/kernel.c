@@ -23,9 +23,9 @@ void kmain()
 		preboot_fail("Failed to mount boot drive to VFS!");
 	}
 
-	usb_core_init();
+	/*usb_core_init();
 	usb_hid_init();
-	init_usb_xhci();
+	init_usb_xhci()*/
 
 	init_process();
 }

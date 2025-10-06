@@ -5,30 +5,76 @@
 
 static struct xhci_hc* g_xhci; /* single controller */
 
-static void xhci_deliver_ep1in(struct xhci_hc *hc, const struct trb *ev);
+static void xhci_deliver_ep1in(struct xhci_hc *hc, const struct trb *ev, bool deliver_to_driver);
 
-static void xhci_handle_unrelated_transfer_event(struct xhci_hc *hc, const struct trb *e)
+static inline uint8_t trb_get_type(const struct trb *e) {
+	return (uint8_t)((e->ctrl >> 10) & 0x3F);
+}
+
+static inline uint8_t trb_get_epid(const struct trb *e) {
+	return (uint8_t)((e->ctrl >> 16) & 0x1F);
+}
+
+static inline uint32_t trb_get_evtl(const struct trb *e)  {
+	return (e->sts & 0x00FFFFFFu);
+}
+
+static inline uint8_t trb_get_cc(const struct trb *e)
 {
-	if (!hc || !e) {
-		return;
-	}
+	return (uint8_t)((e->sts >> 24) & 0xFF);
+}
 
-	uint8_t type = (uint8_t)((e->ctrl >> 10) & 0x3F);
-	if (type != TRB_TRANSFER_EVENT) {
-		return;
-	}
+static inline uint32_t trb_get_bytes_remaining(const struct trb *e)
+{
+	return (e->sts & 0x00FFFFFFu);
+}
 
-	uint8_t epid = (uint8_t)((e->ctrl >> 16) & 0x1F);
-	if (epid == EPID_EP1_IN) {
-		/* Forward HID report events even during EP0 polling */
-		xhci_deliver_ep1in(hc, e);
+static inline uint8_t trb_get_slotid(const struct trb *e)
+{
+	/* SlotID is bits [7:0] of control dword per xHCI spec */
+	return (uint8_t)(e->ctrl & 0xFF);
+}
+
+static void xhci_handle_unrelated_transfer_event(struct xhci_hc *hc, struct trb *e)
+{
+	if (!hc || !e) return;
+
+	switch (trb_get_type(e)) {
+		case TRB_TRANSFER_EVENT: {
+			/* If this is our INT IN endpoint, deliver to HID and re-arm */
+			uint8_t epid = trb_get_epid(e);
+			if (epid == EPID_EP1_IN &&
+			    hc->dev.int_cb && hc->dev.int_buf && hc->dev.int_pkt_len) {
+				xhci_deliver_ep1in(hc, e, false);
+			}
+			break;
+		}
+
+			/* We don’t act on other event types here; callers still consume & advance ERDP. */
+		case TRB_CMD_COMPLETION:
+		case TRB_PORT_STATUS:
+		case TRB_HOST_CONTROLLER_EVENT:
+		default:
+			break;
 	}
+}
+
+
+/* Decode a Transfer Event TRB -> slot_id, endpoint_id, cc, bytes (EVTL). */
+static inline void xhci_decode_xfer_evt(const struct trb *e, uint8_t *slot_id, uint8_t *ep_id, uint8_t *cc, uint32_t *bytes)
+{
+	/* Dword3: [31:24]=CC, [23:17]=rsvd, [16:8]=EPID, [7:0]=SlotID */
+	uint32_t ctrl  = e->ctrl;
+	uint32_t sts   = e->sts;
+	*cc     = (uint8_t)((sts  >> 24) & 0xFF);
+	*ep_id  = (uint8_t)((ctrl >> 16) & 0x1F);
+	*slot_id= (uint8_t)(ctrl & 0xFF);
+	*bytes  = (sts & 0x00FFFFFFu); /* EVTL: bytes remaining */
 }
 
 /* ring_init with debug — set Toggle Cycle (TC) like libpayload */
 static void ring_init(struct xhci_ring *r, size_t bytes, uint64_t phys, void *virt) {
-	dprintf("xhci.dbg: ring_init bytes=%u phys=%llx virt=%llx\n",
-		(unsigned)bytes, (unsigned long long)phys, (unsigned long long)(uintptr_t)virt);
+	dprintf("xhci.dbg: ring_init bytes=%lu phys=%lx virt=%p\n", bytes, phys, virt);
 
 	r->base = (struct trb *) virt;
 	r->phys = phys;
@@ -44,23 +90,17 @@ static void ring_init(struct xhci_ring *r, size_t bytes, uint64_t phys, void *vi
 	link->sts = 0;
 	link->ctrl = TRB_SET_TYPE(TRB_LINK) | TRB_TOGGLE | TRB_CYCLE;
 
-	dprintf("xhci.dbg:   TRBs=%u link_trb@%u lo=%08x hi=%08x ctrl=%08x\n",
-		r->num_trbs, r->num_trbs - 1, link->lo, link->hi, link->ctrl);
+	dprintf("xhci.dbg:   TRBs=%u link_trb@%u lo=%08x hi=%08x ctrl=%08x\n", r->num_trbs, r->num_trbs - 1, link->lo, link->hi, link->ctrl);
 }
 
 /* ring_push with debug */
 static struct trb *ring_push(struct xhci_ring *r) {
-	uint32_t before = r->enqueue;
 	if (r->enqueue == r->num_trbs - 1) {
-		dprintf("xhci.dbg: ring_push wrap at idx=%u, flip cycle %u->%u\n",
-			r->enqueue, r->cycle, r->cycle ^ 1u);
 		r->enqueue = 0;
 		r->cycle ^= 1u;
 	}
 	struct trb *t = &r->base[r->enqueue++];
 	memset(t, 0, sizeof(*t));
-	dprintf("xhci.dbg: ring_push from %u to %u, cycle=%u trb=%llx\n",
-		before, r->enqueue, r->cycle, (unsigned long long)(uintptr_t)t);
 	return t;
 }
 
@@ -70,8 +110,7 @@ static int xhci_cmd_submit_wait(struct xhci_hc *hc, struct trb *cmd_trb, uint64_
 	uint64_t cmd_phys = hc->cmd.phys +
 			    (uint64_t)((uintptr_t)cmd_trb - (uintptr_t)hc->cmd.base);
 
-	dprintf("xhci.dbg: cmd_submit dbell0, trb_virt=%lx trb_phys=%lx ctrl=%08x\n",
-		(uintptr_t)cmd_trb, cmd_phys, cmd_trb->ctrl);
+	dprintf("xhci.dbg: cmd_submit dbell0, trb_virt=%lx trb_phys=%lx ctrl=%08x\n", (uintptr_t)cmd_trb, cmd_phys, cmd_trb->ctrl);
 
 	volatile uint8_t *ir0 = hc->rt + XHCI_RT_IR0;
 
@@ -147,6 +186,7 @@ static struct trb *xhci_cmd_begin(struct xhci_hc *hc) {
 
 static void xhci_irq_sanity_dump(struct xhci_hc *hc, const char *tag)
 {
+	return;
 	volatile uint8_t *ir0 = hc->rt + XHCI_RT_IR0;
 
 	uint32_t usbcmd = mmio_read32(hc->op + XHCI_USBCMD);
@@ -755,47 +795,55 @@ static int xhci_enumerate_first_device(struct xhci_hc *hc, struct usb_dev *out_u
 	return 1;
 }
 
-static inline uint8_t trb_get_type(const struct trb *e) { return (uint8_t)((e->ctrl >> 10) & 0x3F); }
-/* xHCI Transfer Event fields (dword 3 in 'sts'):
-   bits 24..31: Completion Code (we don't need here)
-   bits 16..20: Endpoint ID      (EPID)
-   bits 24..31 of *lo/hi* are pointer; length remaining is sts & 0x00FFFFFF */
-static inline uint8_t trb_get_epid(const struct trb *e)   { return (uint8_t)((e->ctrl >> 16) & 0x1F); }
-static inline uint32_t trb_get_evtl(const struct trb *e)  { return (e->sts & 0x00FFFFFFu); }
-
-static void xhci_deliver_ep1in(struct xhci_hc *hc, const struct trb *ev)
+static void xhci_deliver_ep1in(struct xhci_hc *hc, const struct trb *e, bool deliver_to_driver)
 {
-	if (!hc->dev.int_cb || !hc->dev.int_buf || !hc->dev.int_pkt_len) return;
+	/* Sanity: must be our current device and EP1 IN (EPID=3). */
+	uint8_t slot_id = trb_get_slotid(e);
+	uint8_t epid    = trb_get_epid(e);
+	if (slot_id != hc->dev.slot_id || epid != EPID_EP1_IN)
+		return;
 
-	/* Posted length was the TRB->sts TL when we queued (hc->dev.int_pkt_len).
-	   Event Transfer Length (EVTL) is "bytes remaining".
-	   For Normal TRB with ISP, a device short (<= posted) is success. */
-	uint32_t remaining = trb_get_evtl(ev);
-	uint32_t posted    = (uint32_t)hc->dev.int_pkt_len;
-	uint32_t actual    = (remaining <= posted) ? (posted - remaining) : 0u;
+	if (!hc->dev.int_cb || !hc->dev.int_buf || !hc->dev.int_pkt_len)
+		return;
 
-	/* Some firmware/hw returns EVTL==0 even on full 8-byte report; treat 0 as "posted". */
-	if (actual == 0 && remaining == 0) actual = posted;
+	uint8_t  cc    = trb_get_cc(e);
+	uint32_t rem   = trb_get_bytes_remaining(e);
+	uint32_t req   = hc->dev.int_pkt_len;
+	uint32_t xfer;
 
-	struct usb_dev ud = {0};
-	ud.hc = hc;
-	ud.slot_id = hc->dev.slot_id;
+	/* Only deliver on Success or Short Packet. Others can be handled if needed. */
+	if (cc == CC_SUCCESS || cc == CC_SHORT_PACKET) {
+		/* Actual bytes = requested - remaining; guard against weird reports. */
+		xfer = (rem <= req) ? (req - rem) : req;
+		if (xfer == 0) xfer = req;         /* many boot keyboards always send 8 */
 
-	/* Deliver (even if actual<8, leave filtering to upper layer) */
-	hc->dev.int_cb(&ud, hc->dev.int_buf, (uint16_t)actual);
+		if (deliver_to_driver) {
+			struct usb_dev ud = {0};
+			ud.hc = hc;
+			ud.slot_id = hc->dev.slot_id;
 
-	/* Re-arm EP1-IN: one Normal TRB (IOC|ISP) with same buffer, posted len again */
-	struct trb *n = ring_push(&hc->dev.int_in_tr);
-	n->lo   = (uint32_t)(hc->dev.int_buf_phys & 0xFFFFFFFFu);
-	n->hi   = (uint32_t)(hc->dev.int_buf_phys >> 32);
-	n->sts  = hc->dev.int_pkt_len; /* TL = posted len */
-	n->ctrl = TRB_SET_TYPE(TRB_NORMAL) | TRB_IOC | TRB_ISP |
-		  (hc->dev.int_in_tr.cycle ? TRB_CYCLE : 0);
-	mmio_write32(hc->db + 4u * hc->dev.slot_id, EPID_EP1_IN);
+			/* Up-call into HID with the bytes we actually got. */
+			hc->dev.int_cb(&ud, hc->dev.int_buf, (uint16_t) xfer);
+		}
+
+		/* Re-arm exactly one new Normal TRB to keep a steady queue depth. */
+		struct trb *n = ring_push(&hc->dev.int_in_tr);
+		n->lo   = (uint32_t)(hc->dev.int_buf_phys & 0xFFFFFFFFu);
+		n->hi   = (uint32_t)(hc->dev.int_buf_phys >> 32);
+		n->sts  = hc->dev.int_pkt_len;
+		n->ctrl = TRB_SET_TYPE(TRB_NORMAL) | TRB_IOC | TRB_ISP | (hc->dev.int_in_tr.cycle ? TRB_CYCLE : 0);
+
+		/* Ring EP1 IN doorbell (per-slot doorbell, target = EPID). */
+		mmio_write32(hc->db + 4u * hc->dev.slot_id, EPID_EP1_IN);
+	} else {
+		/* Optional: recover on errors (stall -> stop/reset EP) */
+		dprintf("xhci.dbg: EP1-IN TE cc=%u rem=%u (ignored)\n", cc, rem);
+	}
 }
 
 static void xhci_isr(uint8_t isr, uint64_t error, uint64_t irq, void *opaque)
 {
+	dprintf("xhci_isr\n");
 	struct xhci_hc *hc = (struct xhci_hc *)opaque;
 	if (!hc || !hc->cap) return;
 
@@ -810,19 +858,21 @@ static void xhci_isr(uint8_t isr, uint64_t error, uint64_t irq, void *opaque)
 	volatile uint8_t *ir0 = hc->rt + XHCI_RT_IR0;
 	uint64_t erdp_cur = mmio_read64(ir0 + IR_ERDP) & ~0x7ull;
 
+	/* IMPORTANT: ensure EHB is CLEAR so future interrupts can retrigger */
+	mmio_write64(ir0 + IR_ERDP, erdp_cur);  /* bit3=0 */
+
 	for (uint32_t i = 0; i < hc->evt.num_trbs; i++) {
 		struct trb *e = &hc->evt.base[i];
 		if ((e->lo | e->hi | e->sts | e->ctrl) == 0u) continue;
 
 		uint8_t type = trb_get_type(e);
-		dprintf("xhci.dbg: ISR evt[%u] type=%u lo=%08x hi=%08x sts=%08x\n",
-			i, type, e->lo, e->hi, e->sts);
+		//dprintf("xhci.dbg: ISR evt[%u] type=%u lo=%08x hi=%08x sts=%08x\n", i, type, e->lo, e->hi, e->sts);
 
 		if (type == TRB_TRANSFER_EVENT) {
 			uint8_t epid = trb_get_epid(e);
 			/* Only deliver to HID for EP1-IN completions */
 			if (epid == EPID_EP1_IN) {
-				xhci_deliver_ep1in(hc, e);
+				xhci_deliver_ep1in(hc, e, true);
 			}
 		}
 
@@ -843,8 +893,7 @@ static void xhci_isr(uint8_t isr, uint64_t error, uint64_t irq, void *opaque)
 }
 
 int xhci_arm_int_in(struct usb_dev *ud, uint16_t pkt_len, xhci_int_in_cb cb) {
-	dprintf("xhci.dbg: ARM INT-IN enter ud=%p hc=%p slot_id=%u pkt_len=%u cb=%p\n",
-		ud, ud ? ud->hc : 0, ud ? ud->slot_id : 0, (unsigned)pkt_len, cb);
+	dprintf("xhci.dbg: ARM INT-IN enter ud=%p hc=%p slot_id=%u pkt_len=%u cb=%p\n", ud, ud ? ud->hc : 0, ud ? ud->slot_id : 0, (unsigned)pkt_len, cb);
 
 	if (!ud || !ud->hc || !pkt_len || !cb) {
 		dprintf("xhci.dbg: ARM INT-IN early-exit (arg check) ud=%p hc=%p pkt_len=%u cb=%p\n",
