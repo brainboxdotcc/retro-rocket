@@ -39,41 +39,6 @@ static inline uint8_t trb_get_slotid(const struct trb *e)
 	return (uint8_t)(e->ctrl & 0xFF);
 }
 
-/* === Event-ring consumer helpers (xHC produces; we only consume) === */
-
-static inline struct trb *evt_cur(struct xhci_hc *hc)
-{
-	return &hc->evt.base[hc->evt.enqueue];
-}
-
-/* Is the next event TRB owned by software? (C-bit matches CCS/consumer cycle) */
-static inline int evt_has_ready(struct xhci_hc *hc)
-{
-	const struct trb *e = evt_cur(hc);
-	const uint32_t cbit = (e->ctrl & TRB_CYCLE) ? 1u : 0u;
-	return (cbit == (hc->evt.cycle & 1u));
-}
-
-/* Consume exactly one TRB and advance consumer cursor/cycle */
-static inline void evt_consume(struct xhci_hc *hc)
-{
-	struct trb *e = evt_cur(hc);
-	memset(e, 0, sizeof(*e));                    /* optional but handy */
-	hc->evt.enqueue++;
-	if (hc->evt.enqueue == hc->evt.num_trbs) {
-		hc->evt.enqueue = 0;
-		hc->evt.cycle ^= 1u;                     /* toggle consumer cycle on wrap */
-	}
-}
-
-/* Program ERDP to the *next-to-consume* TRB, EHB clear (bit3=0) */
-static inline void evt_update_erdp(struct xhci_hc *hc)
-{
-	volatile uint8_t *ir0 = hc->rt + XHCI_RT_IR0;
-	uint64_t erdp = hc->evt.phys + ((uint64_t)hc->evt.enqueue * sizeof(struct trb));
-	mmio_write64(ir0 + IR_ERDP, erdp);           /* keep EHB clear in steady state */
-}
-
 static void xhci_handle_unrelated_transfer_event(struct xhci_hc *hc, struct trb *e)
 {
 	if (!hc || !e) return;
@@ -945,6 +910,7 @@ static void xhci_isr(uint8_t isr, uint64_t error, uint64_t irq, void *opaque)
 		}
 		memset(e, 0, sizeof(*e));
 		erdp_cur = (erdp_cur + 16) & ~0x7ull;
+		dprintf("erdp_cur=%lu\n", erdp_cur);
 		mmio_write64(ir0 + IR_ERDP, erdp_cur);
 	}
 
