@@ -78,6 +78,7 @@ struct usb_ep {
 
 /* bits in TRB dword3 */
 #define TRB_CYCLE           (1u << 0)
+#define TRB_TOGGLE          (1u << 1)
 #define TRB_ENT             (1u << 1)
 #define TRB_ISP             (1u << 2)
 #define TRB_NS              (1u << 3)
@@ -94,18 +95,8 @@ struct usb_ep {
 #define PORTSC_PRC   (1u << 21)  /* Port Reset Change */
 #define PORTSC_PLC   (1u << 22)  /* Port Link State Change */
 #define PORTSC_CEC   (1u << 23)  /* Port Config Error Change */
-#define PORTSC_PED   (1u <<1)    /* Port enable/disable */
 
-#define PORTSC_RW1C_MASK (PORTSC_CSC | PORTSC_PEC | PORTSC_WRC | \
-                          PORTSC_OCC | PORTSC_PRC | PORTSC_PLC | PORTSC_CEC)
-
-#define XHCI_OP_USBCMD     0x00
-#define XHCI_OP_USBSTS     0x04
-
-#define XHCI_DNCTRL 0x14
-
-/* Toggle Cycle (TC) for Link TRBs (matches xHCI spec & libpayload usage) */
-#define TRB_TOGGLE (1u << 1)
+#define PORTSC_RW1C_MASK (PORTSC_CSC | PORTSC_PEC | PORTSC_WRC | PORTSC_OCC | PORTSC_PRC | PORTSC_PLC | PORTSC_CEC)
 
 /* helper macros to build TRB fields */
 #define TRB_SET_TYPE(x)     ((uint32_t)((x) & 0x3Fu) << 10)
@@ -210,7 +201,7 @@ struct xhci_hc {
 		int speed;
 
 		uint8_t  *ctrl_dma;        // low-memory bounce for ctrl DATA stage
-		uint64_t  ctrl_dma_phys;   // same value as virtual in your setup
+		uint64_t  ctrl_dma_phys;   // same value as virtual
 		uint16_t  ctrl_dma_sz;     // size of the bounce buffer
 
 		/* interrupt IN endpoint discovery (from config desc) */

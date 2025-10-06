@@ -312,18 +312,7 @@ static void push_to_buffer(char x) {
 	}
 }
 
-void keyboard_handler(uint8_t isr, uint64_t errorcode, uint64_t irq, void *opaque) {
-
-	uint8_t st = inb(0x64);
-	if ((st & 0x01) == 0) {
-		return; /* no data */
-	}
-	if (st & 0x20) {
-		return; /* AUX (mouse) byte pending: leave it */
-	}
-
-	uint8_t sc = inb(0x60);
-
+void keyboard_process_scancode_input(uint8_t sc) {
 	if (sc == 0xE0) {
 		escaped = true;
 		return; /* wait for the next byte */
@@ -380,6 +369,18 @@ void keyboard_handler(uint8_t isr, uint64_t errorcode, uint64_t irq, void *opaqu
 		}
 			break;
 	}
+}
+
+void keyboard_handler(uint8_t isr, uint64_t errorcode, uint64_t irq, void *opaque) {
+
+	uint8_t st = inb(0x64);
+	if ((st & 0x01) == 0) {
+		return; /* no data */
+	}
+	if (st & 0x20) {
+		return; /* AUX (mouse) byte pending: leave it */
+	}
+	keyboard_process_scancode_input(inb(0x60));
 }
 
 bool key_waiting() {

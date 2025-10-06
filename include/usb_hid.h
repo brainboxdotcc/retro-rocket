@@ -1,4 +1,3 @@
-/* usb_hid.h */
 #pragma once
 #include <kernel.h>
 #include "usb_core.h"

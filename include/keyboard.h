@@ -134,3 +134,13 @@ void load_keymap_from_string(const char* text);
 bool key_waiting();
 
 _Noreturn void reboot(void);
+
+/**
+ * @brief Push a keyboard scan code into the keyboard buffer.
+ *
+ * This is a generic input function that can be fed by the
+ * PS2 keyboard interrupt, XHCI HID, a spool file, or whatever.
+ *
+ * @param sc Scan code
+ */
+void keyboard_process_scancode_input(uint8_t sc);
