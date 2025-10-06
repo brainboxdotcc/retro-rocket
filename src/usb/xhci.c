@@ -35,6 +35,41 @@ static inline uint8_t trb_get_slotid(const struct trb *e)
 	return (uint8_t)(e->ctrl & 0xFF);
 }
 
+/* === Event-ring consumer helpers (xHC produces; we only consume) === */
+
+static inline struct trb *evt_cur(struct xhci_hc *hc)
+{
+	return &hc->evt.base[hc->evt.enqueue];
+}
+
+/* Is the next event TRB owned by software? (C-bit matches CCS/consumer cycle) */
+static inline int evt_has_ready(struct xhci_hc *hc)
+{
+	const struct trb *e = evt_cur(hc);
+	const uint32_t cbit = (e->ctrl & TRB_CYCLE) ? 1u : 0u;
+	return (cbit == (hc->evt.cycle & 1u));
+}
+
+/* Consume exactly one TRB and advance consumer cursor/cycle */
+static inline void evt_consume(struct xhci_hc *hc)
+{
+	struct trb *e = evt_cur(hc);
+	memset(e, 0, sizeof(*e));                    /* optional but handy */
+	hc->evt.enqueue++;
+	if (hc->evt.enqueue == hc->evt.num_trbs) {
+		hc->evt.enqueue = 0;
+		hc->evt.cycle ^= 1u;                     /* toggle consumer cycle on wrap */
+	}
+}
+
+/* Program ERDP to the *next-to-consume* TRB, EHB clear (bit3=0) */
+static inline void evt_update_erdp(struct xhci_hc *hc)
+{
+	volatile uint8_t *ir0 = hc->rt + XHCI_RT_IR0;
+	uint64_t erdp = hc->evt.phys + ((uint64_t)hc->evt.enqueue * sizeof(struct trb));
+	mmio_write64(ir0 + IR_ERDP, erdp);           /* keep EHB clear in steady state */
+}
+
 static void xhci_handle_unrelated_transfer_event(struct xhci_hc *hc, struct trb *e)
 {
 	if (!hc || !e) return;
@@ -43,8 +78,7 @@ static void xhci_handle_unrelated_transfer_event(struct xhci_hc *hc, struct trb 
 		case TRB_TRANSFER_EVENT: {
 			/* If this is our INT IN endpoint, deliver to HID and re-arm */
 			uint8_t epid = trb_get_epid(e);
-			if (epid == EPID_EP1_IN &&
-			    hc->dev.int_cb && hc->dev.int_buf && hc->dev.int_pkt_len) {
+			if (epid == EPID_EP1_IN && hc->dev.int_cb && hc->dev.int_buf && hc->dev.int_pkt_len) {
 				xhci_deliver_ep1in(hc, e, false);
 			}
 			break;
@@ -93,15 +127,45 @@ static void ring_init(struct xhci_ring *r, size_t bytes, uint64_t phys, void *vi
 	dprintf("xhci.dbg:   TRBs=%u link_trb@%u lo=%08x hi=%08x ctrl=%08x\n", r->num_trbs, r->num_trbs - 1, link->lo, link->hi, link->ctrl);
 }
 
-/* ring_push with debug */
-static struct trb *ring_push(struct xhci_ring *r) {
-	if (r->enqueue == r->num_trbs - 1) {
+// assumes: slot (last index) is pre-initialized as LINK TRB:
+//   link->lo = ring_phys;                 // target
+//   link->ctrl = TRB_SET_TYPE(TRB_LINK) | TRB_TOGGLE;  // TC=1
+//   r->cycle = 1; r->enqueue = 0;
+
+static inline struct trb *ring_push(struct xhci_ring *r)
+{
+	struct trb *cur = &r->base[r->enqueue];
+
+	// Ensure caller can set the C bit on the TRB they’re about to fill.
+	// (Caller will set TRB_CYCLE according to r->cycle.)
+	// Do NOT zero a LINK TRB.
+
+	// Advance the producer pointer
+	r->enqueue++;
+	dprintf("enqueue=%u num_trbs=%u\n", r->enqueue, r->num_trbs);
+
+	// If we landed on the LINK TRB, present it to HW and wrap
+	if (r->enqueue == r->num_trbs) {
+		dprintf("wrap LINK\n");
+		struct trb *link = &r->base[r->num_trbs - 1];
+
+		// Set LINK’s C bit to current producer cycle
+		link->ctrl = (link->ctrl & ~TRB_CYCLE) | (r->cycle ? TRB_CYCLE : 0);
+
+		// “Post” the LINK TRB by moving past it
 		r->enqueue = 0;
-		r->cycle ^= 1u;
+
+		// If LINK.TC=1, flip producer cycle bit
+		if (link->ctrl & TRB_TOGGLE)
+			r->cycle ^= 1u;
+
+		// Now cur becomes the first slot of the ring
+		cur = &r->base[r->enqueue];
 	}
-	struct trb *t = &r->base[r->enqueue++];
-	memset(t, 0, sizeof(*t));
-	return t;
+
+	// Hand back the slot to be filled; clear only non-LINK slots
+	memset(cur, 0, sizeof(*cur));
+	return cur;
 }
 
 static int xhci_cmd_submit_wait(struct xhci_hc *hc, struct trb *cmd_trb, uint64_t *out_cc_trb_lohi) {
@@ -340,10 +404,7 @@ static int xhci_reset_controller(struct xhci_hc *hc) {
 	mmio_write32(ir0 + IR_IMOD, 0);
 	mmio_write32(ir0 + IR_IMAN, IR_IMAN_IE);
 
-	dprintf("xhci.dbg:   ERSTSZ=1 ERSTBA=%llx ERDP=%llx IMOD=64 IMAN=%08x\n",
-		(unsigned long long)hc->erst_phys,
-		(unsigned long long)(er_phys | (1ull << 3)),
-		mmio_read32(ir0 + IR_IMAN));
+	dprintf("xhci.dbg:   ERSTSZ=1 ERSTBA=%lx ERDP=%lx IMOD=64 IMAN=%08x\n", hc->erst_phys, (uint64_t)(er_phys | (1ull << 3)), mmio_read32(ir0 + IR_IMAN));
 
 	/* CONFIG, RS+INTE */
 	mmio_write32(hc->op + XHCI_CONFIG, hc->max_slots ? hc->max_slots : 8);
@@ -841,9 +902,11 @@ static void xhci_deliver_ep1in(struct xhci_hc *hc, const struct trb *e, bool del
 	}
 }
 
+static uint64_t xhci_ints;
+
 static void xhci_isr(uint8_t isr, uint64_t error, uint64_t irq, void *opaque)
 {
-	dprintf("xhci_isr\n");
+	dprintf("xhci_isr %lu\n", xhci_ints++);
 	struct xhci_hc *hc = (struct xhci_hc *)opaque;
 	if (!hc || !hc->cap) return;
 
@@ -873,11 +936,15 @@ static void xhci_isr(uint8_t isr, uint64_t error, uint64_t irq, void *opaque)
 			/* Only deliver to HID for EP1-IN completions */
 			if (epid == EPID_EP1_IN) {
 				xhci_deliver_ep1in(hc, e, true);
+			} else {
+				/* Consume and advance ERDP by one TRB (leave EHB clear) */
+				xhci_handle_unrelated_transfer_event(hc, e);
 			}
+		} else {
+			/* Consume and advance ERDP by one TRB (leave EHB clear) */
+			xhci_handle_unrelated_transfer_event(hc, e);
 		}
 
-		/* Consume and advance ERDP by one TRB (leave EHB clear) */
-		xhci_handle_unrelated_transfer_event(hc, e);
 		memset(e, 0, sizeof(*e));
 		erdp_cur = (erdp_cur + 16) & ~0x7ull;
 		mmio_write64(ir0 + IR_ERDP, erdp_cur);
@@ -910,8 +977,7 @@ int xhci_arm_int_in(struct usb_dev *ud, uint16_t pkt_len, xhci_int_in_cb cb) {
 	/* Only EP1 IN is supported in this driver (EPID==3). */
 	if (ep_num != 1) {
 		uint8_t epid = (uint8_t)(2u * ep_num + 1u);
-		dprintf("xhci.dbg: WARNING: device INT-IN at EP%u (EPID=%u), driver only supports EP1 IN; not arming.\n",
-			ep_num, epid);
+		dprintf("xhci.dbg: WARNING: device INT-IN at EP%u (EPID=%u), driver only supports EP1 IN; not arming.\n", ep_num, epid);
 		return 0;
 	}
 
@@ -1059,7 +1125,7 @@ int xhci_arm_int_in(struct usb_dev *ud, uint16_t pkt_len, xhci_int_in_cb cb) {
 	{
 		volatile uint8_t *ir0 = hc->rt + XHCI_RT_IR0;
 
-		mmio_write32(ir0 + IR_IMOD, 0);
+		mmio_write32(ir0 + IR_IMOD, 64);
 
 		uint32_t sts = mmio_read32(hc->op + XHCI_USBSTS);
 		if (sts & USBSTS_EINT) mmio_write32(hc->op + XHCI_USBSTS, USBSTS_EINT);

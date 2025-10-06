@@ -149,11 +149,14 @@ static void process_mod_changes(uint8_t prev_mod, uint8_t cur_mod)
 	}
 }
 
+static uint64_t ints;
+
 static void hid_keyboard_report_cb(struct usb_dev *ud, const uint8_t *pkt, uint16_t len)
 {
 	if (len < 8u) return;
 
-	dprintf("enter\n");
+	dprintf("enter %lu\n", ints++);
+	return;
 
 	/* disable HID’s built-in key repeat */
 	if (memcmp(pkt, last_report, 8) == 0) {
