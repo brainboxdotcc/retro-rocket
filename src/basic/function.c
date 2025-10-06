@@ -221,7 +221,9 @@ const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx)
 	struct ub_proc_fn_def* def = basic_find_fn(fn_name + 2, ctx);
 	const char* rv = "";
 	if (def) {
-		ctx->call_stack_ptr++;
+		if (!new_stack_frame(ctx)) {
+			return "";
+		}
 		init_local_heap(ctx);
 
 		int bracket_depth = 0;
@@ -265,7 +267,7 @@ const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx)
 		buddy_free(ctx->allocator, atomic);
 
 		free_local_heap(ctx);
-		ctx->call_stack_ptr--;
+		pop_stack_frame(ctx);
 
 		return rv;
 	}
@@ -330,7 +332,9 @@ int64_t basic_eval_int_fn(const char* fn_name, struct basic_ctx* ctx)
 	struct ub_proc_fn_def* def = basic_find_fn(fn_name + 2, ctx);
 	int64_t rv = 0;
 	if (def) {
-		ctx->call_stack_ptr++;
+		if (!new_stack_frame(ctx)) {
+			return 0;
+		}
 		init_local_heap(ctx);
 
 		int bracket_depth = 0;
@@ -370,7 +374,7 @@ int64_t basic_eval_int_fn(const char* fn_name, struct basic_ctx* ctx)
 		buddy_free(ctx->allocator, atomic);
 
 		free_local_heap(ctx);
-		ctx->call_stack_ptr--;
+		pop_stack_frame(ctx);
 
 		return rv;
 	}
@@ -382,7 +386,10 @@ void basic_eval_double_fn(const char* fn_name, struct basic_ctx* ctx, double* re
 {
 	struct ub_proc_fn_def* def = basic_find_fn(fn_name + 2, ctx);
 	if (def) {
-		ctx->call_stack_ptr++;
+		if (!new_stack_frame(ctx)) {
+			*res = 0;
+			return;
+		}
 		init_local_heap(ctx);
 
 		int bracket_depth = 0;
@@ -427,7 +434,7 @@ void basic_eval_double_fn(const char* fn_name, struct basic_ctx* ctx, double* re
 		buddy_free(ctx->allocator, atomic);
 
 		free_local_heap(ctx);
-		ctx->call_stack_ptr--;
+		pop_stack_frame(ctx);
 
 		return;
 	}
@@ -612,7 +619,9 @@ void proc_statement(struct basic_ctx* ctx)
 	struct ub_proc_fn_def* def = basic_find_fn(procname, ctx);
 	if (def) {
 		if (*ctx->ptr == '(' && *(ctx->ptr + 1) != ')') {
-			ctx->call_stack_ptr++;
+			if (!new_stack_frame(ctx)) {
+				return;
+			}
 			init_local_heap(ctx);
 
 			int bracket_depth = 0;
@@ -620,11 +629,13 @@ void proc_statement(struct basic_ctx* ctx)
 			struct ub_param* param = def->params;
 			while (extract_comma_list(def, ctx, &bracket_depth, &item_begin, &param));
 
-			ctx->call_stack_ptr--;
+			pop_stack_frame(ctx);
 		} else {
-			ctx->call_stack_ptr++;
+			if (!new_stack_frame(ctx)) {
+				return;
+			}
 			init_local_heap(ctx);
-			ctx->call_stack_ptr--;
+			pop_stack_frame(ctx);
 		}
 
 		ctx->fn_type_stack[ctx->call_stack_ptr] = ctx->fn_type; // save caller’s type
@@ -638,7 +649,9 @@ void proc_statement(struct basic_ctx* ctx)
 		if (ctx->call_stack_ptr < MAX_CALL_STACK_DEPTH) {
 			ctx->call_stack[ctx->call_stack_ptr] = tokenizer_num(ctx, NUMBER);
 			basic_debug("PROC from %lu returning line %lu, PROC %s on line %lu\n", ctx->current_linenum, ctx->call_stack[ctx->call_stack_ptr], procname, def->line);
-			ctx->call_stack_ptr++;
+			if (!new_stack_frame(ctx)) {
+				return;
+			}
 			jump_linenum(def->line, ctx);
 		} else {
 			tokenizer_error_print(ctx, "PROC: stack exhausted");
@@ -699,7 +712,7 @@ void endproc_statement(struct basic_ctx* ctx)
 
 	if (ctx->call_stack_ptr > 0) {
 		free_local_heap(ctx);
-		ctx->call_stack_ptr--;
+		pop_stack_frame(ctx);
 
 		/* Now restore the *caller*'s return type. */
 		ctx->fn_type = ctx->fn_type_stack[ctx->call_stack_ptr];

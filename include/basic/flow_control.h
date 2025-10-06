@@ -215,3 +215,6 @@ void error_statement(struct basic_ctx* ctx);
 
 void continue_statement(struct basic_ctx* ctx);
 
+bool new_stack_frame(struct basic_ctx* ctx);
+
+void pop_stack_frame(struct basic_ctx* ctx);

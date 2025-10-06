@@ -7,6 +7,21 @@
 
 extern bool debug;
 
+bool new_stack_frame(struct basic_ctx* ctx) {
+	if (ctx->call_stack_ptr >= MAX_CALL_STACK_DEPTH) {
+		tokenizer_error_print(ctx, "Call stack depth exceeded");
+		return false;
+	}
+	++ctx->call_stack_ptr;
+	return true;
+}
+
+void pop_stack_frame(struct basic_ctx* ctx) {
+	if (ctx->call_stack_ptr > 0) {
+		--ctx->call_stack_ptr;
+	}
+}
+
 bool conditional(struct basic_ctx* ctx) {
 	basic_debug("line %ld conditional\n", ctx->current_linenum);
 
@@ -184,7 +199,9 @@ void gosub_statement(struct basic_ctx* ctx)
 
 	if (ctx->call_stack_ptr < MAX_CALL_STACK_DEPTH) {
 		ctx->call_stack[ctx->call_stack_ptr] = tokenizer_num(ctx, NUMBER);
-		ctx->call_stack_ptr++;
+		if (!new_stack_frame(ctx)) {
+			return;
+		}
 		init_local_heap(ctx);
 		jump_linenum(linenum, ctx);
 	} else {
@@ -197,7 +214,7 @@ void return_statement(struct basic_ctx* ctx)
 	accept_or_return(RETURN, ctx);
 	if (ctx->call_stack_ptr > 0) {
 		free_local_heap(ctx);
-		ctx->call_stack_ptr--;
+		pop_stack_frame(ctx);
 		jump_linenum(ctx->call_stack[ctx->call_stack_ptr], ctx);
 	} else {
 		tokenizer_error_print(ctx, "RETURN without GOSUB");

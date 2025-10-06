@@ -450,7 +450,9 @@ void library_statement(struct basic_ctx *ctx) {
 		if (ctx->call_stack_ptr < MAX_CALL_STACK_DEPTH) {
 			ctx->call_stack[ctx->call_stack_ptr] = next_line;
 			ctx->fn_type_stack[ctx->call_stack_ptr] = ctx->fn_type; // save caller’s type
-			ctx->call_stack_ptr++;
+			if (!new_stack_frame(ctx)) {
+				return;
+			}
 			init_local_heap(ctx);
 			ctx->fn_type = RT_NONE;
 			jump_linenum(def->line, ctx);
@@ -700,7 +702,9 @@ void eval_statement(struct basic_ctx *ctx) {
 		 */
 		ctx->eval_linenum = ctx->current_linenum;
 		ctx->call_stack[ctx->call_stack_ptr] = ctx->current_linenum;
-		ctx->call_stack_ptr++;
+		if (!new_stack_frame(ctx)) {
+			return;
+		}
 		init_local_heap(ctx);
 
 		jump_linenum(EVAL_LINE, ctx);
@@ -741,7 +745,7 @@ void basic_run(struct basic_ctx *ctx) {
 		ctx->errored = false;
 		if (ctx->call_stack_ptr > 0) {
 			free_local_heap(ctx);
-			ctx->call_stack_ptr--;
+			pop_stack_frame(ctx);
 			if (jump_linenum(ctx->call_stack[ctx->call_stack_ptr], ctx)) {
 				line_statement(ctx);
 			}

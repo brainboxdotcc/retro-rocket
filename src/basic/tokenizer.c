@@ -293,9 +293,11 @@ void tokenizer_error_print(struct basic_ctx* ctx, const char* error)
 				if (def && ctx->call_stack_ptr < MAX_CALL_STACK_DEPTH) {
 					buddy_free(ctx->allocator, ctx->error_handler);
 					ctx->error_handler = NULL;
-					ctx->call_stack_ptr++;
+					if (!new_stack_frame(ctx)) {
+						return;
+					}
 					init_local_heap(ctx);
-					ctx->call_stack_ptr--;
+					pop_stack_frame(ctx);
 					ctx->fn_type_stack[ctx->call_stack_ptr] = ctx->fn_type; // save caller’s type
 					ctx->fn_type = RT_NONE;
 					/*Move to next line */
@@ -305,7 +307,9 @@ void tokenizer_error_print(struct basic_ctx* ctx, const char* error)
 					accept_or_return(NEWLINE, ctx);
 					/* Return point is the line after the error */
 					ctx->call_stack[ctx->call_stack_ptr] = tokenizer_num(ctx, NUMBER);
-					ctx->call_stack_ptr++;
+					if (!new_stack_frame(ctx)) {
+						return;
+					}
 					if (!jump_linenum(def->line, ctx)) {
 						setforeground(COLOUR_LIGHTRED);
 						kprintf("Error on line %ld: Unable to call error handler 'PROC%s', missing line %lu\n", ctx->current_linenum, ctx->error_handler, def->line);
