@@ -5,7 +5,7 @@
 
 static struct xhci_hc* g_xhci; /* single controller */
 
-/* ring_init with debug */
+/* ring_init with debug — set Toggle Cycle (TC) like libpayload */
 static void ring_init(struct xhci_ring *r, size_t bytes, uint64_t phys, void *virt) {
 	dprintf("xhci.dbg: ring_init bytes=%u phys=%llx virt=%llx\n",
 		(unsigned)bytes, (unsigned long long)phys, (unsigned long long)(uintptr_t)virt);
@@ -17,12 +17,12 @@ static void ring_init(struct xhci_ring *r, size_t bytes, uint64_t phys, void *vi
 	r->cycle = 1;
 	memset(r->base, 0, bytes);
 
-	/* terminal link TRB */
+	/* terminal link TRB: point to start, set TC=1, set C=1 (producer PCS) */
 	struct trb *link = &r->base[r->num_trbs - 1];
 	link->lo = (uint32_t) (r->phys & 0xFFFFFFFFu);
 	link->hi = (uint32_t) (r->phys >> 32);
 	link->sts = 0;
-	link->ctrl = TRB_SET_TYPE(TRB_LINK) | TRB_CYCLE;
+	link->ctrl = TRB_SET_TYPE(TRB_LINK) | TRB_TOGGLE | TRB_CYCLE;
 
 	dprintf("xhci.dbg:   TRBs=%u link_trb@%u lo=%08x hi=%08x ctrl=%08x\n",
 		r->num_trbs, r->num_trbs - 1, link->lo, link->hi, link->ctrl);
@@ -765,7 +765,7 @@ static void xhci_isr(uint8_t isr, uint64_t error, uint64_t irq, void *opaque)
 	volatile uint8_t *ir0 = hc->rt + XHCI_RT_IR0;
 	dprintf("xhci int\n");
 
-	/* Service all posted events. DO NOT set EHB here; keep it clear on exit. */
+	/* Service all posted events. Keep EHB clear on exit. */
 	uint64_t erdp_cur = mmio_read64(ir0 + IR_ERDP) & ~0x7ull;
 
 	for (uint32_t i = 0; i < hc->evt.num_trbs; i++) {
@@ -777,19 +777,29 @@ static void xhci_isr(uint8_t isr, uint64_t error, uint64_t irq, void *opaque)
 			i, type, e->lo, e->hi, e->sts);
 
 		if (type == TRB_TRANSFER_EVENT) {
-			/* Asynchronous: INT-IN only in this driver */
-			if (hc->dev.int_cb && hc->dev.int_buf && hc->dev.int_pkt_len) {
+			/* Identify our EP1-IN transfer by TRB pointer range (robust & simple) */
+			uint64_t trb_ptr = ((uint64_t)e->hi << 32) | e->lo;
+			uint64_t ring_lo = hc->dev.int_in_tr.phys;
+			uint64_t ring_hi = ring_lo + 4096; /* one 4K segment */
+
+			if (hc->dev.int_buf && hc->dev.int_pkt_len &&
+			    trb_ptr >= ring_lo && trb_ptr < ring_hi) {
+
+				/* Length actually transferred is in EVTL (DW2[23:0]) */
+				uint32_t evtl = (e->sts & 0x00FFFFFFu);
+
 				struct usb_dev ud = {0};
 				ud.hc = hc;
 				ud.slot_id = hc->dev.slot_id;
-				hc->dev.int_cb(&ud, hc->dev.int_buf, hc->dev.int_pkt_len);
 
-				/* Re-arm EP1 IN (IOC|ISP) */
+				hc->dev.int_cb(&ud, hc->dev.int_buf, (uint16_t)evtl);
+
+				/* Re-arm exactly one INT-IN TRB (IOC|ISP) */
 				struct trb *n = ring_push(&hc->dev.int_in_tr);
-				n->lo = (uint32_t)(hc->dev.int_buf_phys & 0xFFFFFFFFu);
-				n->hi = (uint32_t)(hc->dev.int_buf_phys >> 32);
-				n->sts = hc->dev.int_pkt_len;
-				n->ctrl = TRB_SET_TYPE(TRB_NORMAL) | TRB_IOC | TRB_ISP |
+				n->lo   = (uint32_t)(hc->dev.int_buf_phys & 0xFFFFFFFFu);
+				n->hi   = (uint32_t)(hc->dev.int_buf_phys >> 32);
+				n->sts  = hc->dev.int_pkt_len;
+				n->ctrl = TRB_SET_TYPE(TRB_NORMAL) | TRB_ISP | TRB_IOC |
 					  (hc->dev.int_in_tr.cycle ? TRB_CYCLE : 0);
 
 				mmio_write32(hc->db + 4u * hc->dev.slot_id, EPID_EP1_IN);
@@ -823,13 +833,13 @@ int xhci_arm_int_in(struct usb_dev *ud, uint16_t pkt_len, xhci_int_in_cb cb) {
 	struct xhci_hc *hc = (struct xhci_hc *) ud->hc;
 
 	/* Use discovered INT-IN from config (fallbacks retained). */
-	uint8_t  ep_num      = hc->dev.int_ep_num      ? hc->dev.int_ep_num      : 1;
-	uint16_t ep_mps      = hc->dev.int_ep_mps      ? hc->dev.int_ep_mps      : 8;
-	uint8_t  ep_bInterval= hc->dev.int_ep_interval ? hc->dev.int_ep_interval : 1;
+	uint8_t  ep_num       = hc->dev.int_ep_num      ? hc->dev.int_ep_num      : 1;
+	uint16_t ep_mps       = hc->dev.int_ep_mps      ? hc->dev.int_ep_mps      : 8;
+	uint8_t  ep_bInterval = hc->dev.int_ep_interval ? hc->dev.int_ep_interval : 1;
 
-	/* We currently only carry an input context slot for EP1 IN. Bail if not EP1 IN. */
+	/* Only EP1 IN is supported in this driver (EPID==3). */
 	if (ep_num != 1) {
-		uint8_t epid = (uint8_t)(2u * ep_num + 1u); /* IN => odd EPID */
+		uint8_t epid = (uint8_t)(2u * ep_num + 1u);
 		dprintf("xhci.dbg: WARNING: device INT-IN at EP%u (EPID=%u), driver only supports EP1 IN; not arming.\n",
 			ep_num, epid);
 		return 0;
@@ -838,12 +848,12 @@ int xhci_arm_int_in(struct usb_dev *ud, uint16_t pkt_len, xhci_int_in_cb cb) {
 	/* Ensure TR for EP1 IN */
 	if (!hc->dev.int_in_tr.base) {
 		void *v = kmalloc_aligned(4096, 4096);
-		uint64_t p = (uint64_t)(uintptr_t) v;
-		dprintf("xhci.dbg: INT-IN TR alloc v=%p phys=%lx\n", v, p);
 		if (!v) {
 			dprintf("xhci.dbg: INT-IN TR alloc fail\n");
 			return 0;
 		}
+		uint64_t p = (uint64_t)(uintptr_t)v;
+		dprintf("xhci.dbg: INT-IN TR alloc v=%p phys=%lx\n", v, p);
 		ring_init(&hc->dev.int_in_tr, 4096, p, v);
 		dprintf("xhci.dbg: INT-IN TR init base=%p phys=%lx cycle=%u\n",
 			hc->dev.int_in_tr.base, hc->dev.int_in_tr.phys,
@@ -880,70 +890,75 @@ int xhci_arm_int_in(struct usb_dev *ud, uint16_t pkt_len, xhci_int_in_cb cb) {
 	/* Copy current Device Slot Context -> Input Slot Context; set CE=3. */
 	{
 		uint64_t dphys = hc->dcbaa[ud->slot_id];
-		volatile uint32_t *dcs = (volatile uint32_t *)(uintptr_t)dphys;      /* device slot ctx (8 dwords) */
-		volatile uint32_t *isc = (volatile uint32_t *)&hc->dev.ic->slot;     /* input  slot ctx (8 dwords) */
-		for (int k = 0; k < 8; k++) {
-			isc[k] = dcs[k];
-		}
+		volatile uint32_t *dcs = (volatile uint32_t *)(uintptr_t)dphys;  /* device slot ctx (8 dwords) */
+		volatile uint32_t *isc = (volatile uint32_t *)&hc->dev.ic->slot; /* input  slot ctx (8 dwords) */
+		for (int k = 0; k < 8; k++) isc[k] = dcs[k];
 		/* CE = highest context ID present (3 => EP1 IN included) */
 		isc[0] = (isc[0] & ~(0x1Fu << 27)) | (3u << 27);
 		dprintf("xhci.dbg: slot.dword0(copy+CE)=%08x (CE=%u)\n",
 			isc[0], (unsigned)((isc[0] >> 27) & 0x1F));
 	}
 
-	/* -------- Interval encoding per xHCI --------
-	 * For SS and HS Interrupt endpoints, the Endpoint Context 'Interval' is (bInterval - 1)
-	 * in 125us units (exponent encoding). For FS/LS Interrupt endpoints, 'Interval' is
-	 * the bInterval in frames (no -1).
+	/* -------- Interval encoding per xHCI (libpayload semantics) --------
+	 * HS/SS: INTVAL = bInterval - 1   (units: 125 µs exponent)
+	 * FS/LS: INTVAL = bInterval       (units: frames)
+	 * Bound the value like libpayload for FS/LS interrupt endpoints.
 	 */
-	uint32_t interval_field = 1;
+	uint32_t intval = 1;
 	{
-		/* speed was recorded in Slot Context dword2[3:0] by your enumerate path */
-		uint32_t s0 = hc->dev.ic->slot.dword2 & 0xF;
-		/* 1: Full, 2: Low, 3: High, 4: SuperSpeed (values vary by impl; you logged 'speed=3' earlier for SS) */
-		uint8_t speed_code = (uint8_t)s0;
+		/* speed code was captured in Slot Context dword2[3:0] during enumerate */
+		uint8_t speed_code = (uint8_t)(hc->dev.ic->slot.dword2 & 0xF);
 
 		if (speed_code >= 3) {
-			/* HS/SS: exponent encoding. Guard against bInterval==0. */
-			uint8_t bI = (ep_bInterval ? ep_bInterval : 1);
-			interval_field = (bI > 0 ? (uint32_t)(bI - 1) : 0u);
+			/* High/Super speed */
+			uint8_t bI = ep_bInterval ? ep_bInterval : 1;
+			intval = (bI > 0) ? (uint32_t)(bI - 1) : 0u;
 		} else {
-			/* FS/LS: frames; program as-is (minimum 1). */
-			interval_field = (ep_bInterval ? ep_bInterval : 1);
+			/* Full/Low speed */
+			intval = ep_bInterval ? ep_bInterval : 1;
+			if (intval < 3)      intval = 3;
+			else if (intval > 11) intval = 11;
 		}
+		if (intval > 15) intval = 15;
 	}
 
-	/* Program EP1 IN context */
+	/* Program EP1 IN context — field placement matches libpayload:
+	 * DW0: CErr=3
+	 * DW1: [31:16] MaxPacketSize, [15:8] Interval, [5:3] EPType (=7 Interrupt IN)
+	 * TR Dequeue: ring phys | DCS
+	 * DW4: AvgTRB Length (31:16), Max ESIT Payload (15:0)
+	 */
 	memset(&hc->dev.ic->ep1_in, 0, sizeof(hc->dev.ic->ep1_in));
-
-	/* dword0: EP State=0 (Disabled), CErr=3 */
 	hc->dev.ic->ep1_in.dword0 = (3u << 1);
 
-	/* dword1: Max Packet Size (31:16) | EP Type (10:8 = 7 Interrupt IN) | Interval (7:0) */
-	hc->dev.ic->ep1_in.dword1 = ((uint32_t)ep_mps << 16) | (7u << 8) | (interval_field & 0xFFu);
+	hc->dev.ic->ep1_in.dword1 =
+		((uint32_t)ep_mps << 16) |
+		((intval & 0xFFu) << 8) |
+		(7u << 3); /* EPType = 7 (Interrupt IN) in bits [5:3] */
 
-	/* TR Dequeue (DCS=1) */
-	hc->dev.ic->ep1_in.deq    = (hc->dev.int_in_tr.phys | 1u);
+	hc->dev.ic->ep1_in.deq = (hc->dev.int_in_tr.phys | 1u);
 
-	/* dword4: Avg TRB Len (31:16) | Max ESIT Payload (15:0) — use pkt_len as both (8 for boot kbd) */
-	hc->dev.ic->ep1_in.dword4 = ((uint32_t)pkt_len << 16) | (uint32_t)pkt_len;
+	{
+		uint32_t avg_trb_len = 1024;               /* libpayload uses 1024 for INT */
+		uint32_t max_esit    = ep_mps;             /* MPS * MBS (MBS defaults to 1 for HID) */
+		hc->dev.ic->ep1_in.dword4 = (avg_trb_len << 16) | max_esit;
+	}
 
 	{
 		const uint32_t *epd = (const uint32_t *)&hc->dev.ic->ep1_in;
-		dprintf("xhci.dbg: EP1 IN ctx dwords: %08x %08x %08x %08x | %08x %08x %08x %08x (mps=%u bInterval=%u -> interval=%u)\n",
+		dprintf("xhci.dbg: EP1 IN ctx dwords: %08x %08x %08x %08x | %08x %08x %08x %08x (mps=%u bInterval=%u -> intval=%u)\n",
 			epd[0], epd[1], epd[2], epd[3], epd[4], epd[5], epd[6], epd[7],
-			ep_mps, ep_bInterval, (unsigned)interval_field);
+			ep_mps, ep_bInterval, (unsigned)intval);
 	}
 
 	dprintf("xhci.dbg: CONFIGURE_EP add_flags=%08x slot.dword0=%08x (CE=%u)\n",
-		hc->dev.ic->add_flags,
-		hc->dev.ic->slot.dword0,
+		hc->dev.ic->add_flags, hc->dev.ic->slot.dword0,
 		(hc->dev.ic->slot.dword0 >> 27) & 0x1F);
 
 	/* Issue Configure Endpoint (add EP1 IN) */
 	struct trb *ce = xhci_cmd_begin(hc);
-	ce->lo = (uint32_t)(hc->dev.ic_phys & 0xFFFFFFFFu);
-	ce->hi = (uint32_t)(hc->dev.ic_phys >> 32);
+	ce->lo   = (uint32_t)(hc->dev.ic_phys & 0xFFFFFFFFu);
+	ce->hi   = (uint32_t)(hc->dev.ic_phys >> 32);
 	ce->ctrl |= TRB_SET_TYPE(TRB_CONFIGURE_EP) | ((uint32_t)ud->slot_id << 24);
 	dprintf("xhci.dbg: ring_push for CONFIGURE_EP trb=%08x ic_phys_lo=%08x ic_phys_hi=%08x ctrl=%08x slot=%u\n",
 		(uint32_t)(uintptr_t)ce,
@@ -957,74 +972,25 @@ int xhci_arm_int_in(struct usb_dev *ud, uint16_t pkt_len, xhci_int_in_cb cb) {
 	}
 	dprintf("xhci.dbg: CONFIGURE_EP success\n");
 
-	/* Post first INT-IN Normal TRB and doorbell EP1 IN.
-	   Use TRB_ISP so short reports complete reliably. */
-	struct trb *n = ring_push(&hc->dev.int_in_tr);
-	n->lo = (uint32_t)(hc->dev.int_buf_phys & 0xFFFFFFFFu);
-	n->hi = (uint32_t)(hc->dev.int_buf_phys >> 32);
-	n->sts = hc->dev.int_pkt_len;
-	n->ctrl = TRB_SET_TYPE(TRB_NORMAL) | TRB_IOC | TRB_ISP |
-		  (hc->dev.int_in_tr.cycle ? TRB_CYCLE : 0);
-	dprintf("xhci.dbg:   INT-IN normal TRB @%08x lo=%08x hi=%08x len=%u ctrl=%08x cycle=%u\n",
-		(uint32_t)(uintptr_t)n, n->lo, n->hi, n->sts, n->ctrl,
-		(unsigned)hc->dev.int_in_tr.cycle);
-
+	/* Pre-post two INT-IN TRBs (IOC|ISP) and ring once (libpayload style) */
+	for (int k = 0; k < 2; ++k) {
+		struct trb *n = ring_push(&hc->dev.int_in_tr);
+		n->lo   = (uint32_t)(hc->dev.int_buf_phys & 0xFFFFFFFFu);
+		n->hi   = (uint32_t)(hc->dev.int_buf_phys >> 32);
+		n->sts  = hc->dev.int_pkt_len;
+		n->ctrl = TRB_SET_TYPE(TRB_NORMAL) | TRB_ISP | TRB_IOC |
+			  (hc->dev.int_in_tr.cycle ? TRB_CYCLE : 0);
+	}
 	mmio_write32(hc->db + 4u * ud->slot_id, EPID_EP1_IN);
-	dprintf("xhci.dbg:   doorbell EP1 IN (slot=%u) tr.phys=%lx buf.phys=%lx\n",
+	dprintf("xhci.dbg:   doorbell EP1 IN (slot=%u) tr.phys=%lx buf.phys=%lx (prepost=2)\n",
 		ud->slot_id, hc->dev.int_in_tr.phys, hc->dev.int_buf_phys);
 
-	{
-		uint64_t dphys = hc->dcbaa[ud->slot_id];
-		volatile uint32_t *dc = (volatile uint32_t *)(uintptr_t)dphys;
-
-		/* 32-byte contexts => 8 dwords per context */
-		const size_t stride = 8;
-
-		volatile uint32_t *d_slot   = dc + 0*stride;                  /* Slot Context */
-		volatile uint32_t *d_ep1in  = dc + 3*stride;                  /* EP1 IN  (ID 3) */
-
-		uint32_t ep_state = d_ep1in[0] & 0x7;                         /* Endpoint State */
-		uint32_t ep_type  = (d_ep1in[1] >> 3) & 0x7;                  /* 7 = Intr IN */
-		uint32_t ep_mps   = (d_ep1in[1] >> 16) & 0xFFFF;              /* Max Packet Size */
-		uint32_t ep_intvl =  d_ep1in[1] & 0xFF;                       /* Interval (xHCI-encoded) */
-		uint32_t avg_len  = (d_ep1in[4] >> 16) & 0xFFFF;
-		uint32_t max_esit =  d_ep1in[4] & 0xFFFF;
-
-		dprintf("xhci.dbg: DEV CTX @%lx\n", (unsigned long)dphys);
-		dprintf("xhci.dbg: D-SLOT ctx: %08x %08x %08x %08x | %08x %08x %08x %08x\n",
-			d_slot[0], d_slot[1], d_slot[2], d_slot[3], d_slot[4], d_slot[5], d_slot[6], d_slot[7]);
-		dprintf("xhci.dbg: D-EP1IN ctx: %08x %08x %08x %08x | %08x %08x %08x %08x\n",
-			d_ep1in[0], d_ep1in[1], d_ep1in[2], d_ep1in[3],
-			d_ep1in[4], d_ep1in[5], d_ep1in[6], d_ep1in[7]);
-		dprintf("xhci.dbg: EP1-IN decoded: state=%u (0=Disabled,1=Running,2=Halted,3=Stopped,4=Error) "
-			"type=%u mps=%u interval=%u TRDP=%08x%08x avg=%u max_esit=%u\n",
-			ep_state, ep_type, ep_mps, ep_intvl, d_ep1in[3], (d_ep1in[2] & ~1u), avg_len, max_esit);
-	}
-
-	/* after ringing EP1 IN doorbell */
-	{
-		/* read the EP1-IN dequeue pointer back */
-		uint64_t dphys = hc->dcbaa[ud->slot_id];
-		volatile uint32_t *dc = (volatile uint32_t *)(uintptr_t)dphys;
-		volatile uint32_t *d_ep1in  = dc + 3*8;  /* 32B contexts -> 8 dwords stride */
-
-		dprintf("xhci.dbg: EP1-IN TRDP now=%08x%08x (expect ~%08x%08x while first TD outstanding)\n",
-			d_ep1in[3], (d_ep1in[2] & ~1u),
-			(uint32_t)((hc->dev.int_in_tr.phys + 0) >> 32),
-			(uint32_t)(hc->dev.int_in_tr.phys & ~1u));
-	}
-
-	mmio_write32(hc->db + 4u * ud->slot_id, EPID_EP1_IN);
-	dprintf("xhci.dbg:   doorbell EP1 IN (slot=%u) tr.phys=%lx buf.phys=%lx\n",
-		ud->slot_id, hc->dev.int_in_tr.phys, hc->dev.int_buf_phys);
-
+	/* Steady-state: moderation 0, clear EHB & IP, enable IE and INTE */
 	{
 		volatile uint8_t *ir0 = hc->rt + XHCI_RT_IR0;
 
-		/* 1) Make moderation a non-issue (fire immediately) */
 		mmio_write32(ir0 + IR_IMOD, 0);
 
-		/* 2) Clear any stale summary bit and IP, then (re)enable IE */
 		uint32_t sts = mmio_read32(hc->op + XHCI_USBSTS);
 		if (sts & USBSTS_EINT) mmio_write32(hc->op + XHCI_USBSTS, USBSTS_EINT);
 
@@ -1032,23 +998,14 @@ int xhci_arm_int_in(struct usb_dev *ud, uint16_t pkt_len, xhci_int_in_cb cb) {
 		if (iman & IR_IMAN_IP) mmio_write32(ir0 + IR_IMAN, IR_IMAN_IP); /* W1C IP */
 		mmio_write32(ir0 + IR_IMAN, (mmio_read32(ir0 + IR_IMAN) | IR_IMAN_IE));
 
-		/* 3) Ensure EHB is CLEAR in steady state */
 		uint64_t erdp = mmio_read64(ir0 + IR_ERDP) & ~0x7ull;
-		mmio_write64(ir0 + IR_ERDP, erdp); /* bit3=0 => EHB clear */
+		mmio_write64(ir0 + IR_ERDP, erdp); /* EHB clear */
 
-		/* 4) Also ensure global INTE is on */
 		uint32_t cmd = mmio_read32(hc->op + XHCI_USBCMD) | USBCMD_INTE;
 		mmio_write32(hc->op + XHCI_USBCMD, cmd);
 
 		xhci_irq_sanity_dump(hc, "post-arm");
 	}
-
-	/*
-	mmio_write32(hc->db + 4u * ud->slot_id, EPID_EP1_IN);
-	dprintf("xhci.dbg:   doorbell EP1 IN (slot=%u) tr.phys=%lx buf.phys=%lx\n",
-		ud->slot_id, hc->dev.int_in_tr.phys, hc->dev.int_buf_phys);
-	xhci_wait_for_any_transfer_event(hc, 60000, "ep1-in verify");
-	 */
 
 	return 1;
 }

@@ -9,24 +9,6 @@ struct usb_ep {
 	uint8_t dir_in;        /* 1=in, 0=out (for non-ctrl) */
 };
 
-/* Probe + bring-up a single xHCI controller on a given PCI function. */
-int xhci_probe_and_init(uint8_t bus, uint8_t dev, uint8_t func);
-
-/* Submit a control transfer on EP0.
-   setup must be 8 bytes (bmRequestType,bRequest,wValue,wIndex,wLength).
-   If data_dir_in=1, data points to IN buffer; else it points to OUT buffer.
-   Returns 0 on success; negative on error. */
-int xhci_ctrl_xfer(struct usb_dev *ud, const uint8_t *setup,
-		   void *data, uint16_t len, int data_dir_in);
-
-/* Arm a persistent interrupt-IN transfer for HID (8-byte reports typical).
-   The buffer must be DMA-safe and 64-byte aligned. On each completion,
-   the host driver calls the provided callback with the filled data. */
-typedef void (*xhci_int_in_cb)(struct usb_dev *ud, const uint8_t *pkt, uint16_t len);
-int xhci_arm_int_in(struct usb_dev *ud, uint16_t pkt_len, xhci_int_in_cb cb);
-
-void init_usb_xhci(void);
-
 /* ============================================================
  * xHCI — interrupt-driven (legacy INTx), single-controller v0
  * HID class runs without polling; commands are polled for v0.
@@ -120,8 +102,10 @@ void init_usb_xhci(void);
 #define XHCI_OP_USBCMD     0x00
 #define XHCI_OP_USBSTS     0x04
 
-
 #define XHCI_DNCTRL 0x14
+
+/* Toggle Cycle (TC) for Link TRBs (matches xHCI spec & libpayload usage) */
+#define TRB_TOGGLE (1u << 1)
 
 /* helper macros to build TRB fields */
 #define TRB_SET_TYPE(x)     ((uint32_t)((x) & 0x3Fu) << 10)
@@ -173,6 +157,11 @@ struct input_ctx {
 	struct ep_ctx   ep1_out;
 	struct ep_ctx   ep1_in;
 } __attribute__((packed, aligned(64)));
+
+/* Arm a persistent interrupt-IN transfer for HID (8-byte reports typical).
+   The buffer must be DMA-safe and 64-byte aligned. On each completion,
+   the host driver calls the provided callback with the filled data. */
+typedef void (*xhci_int_in_cb)(struct usb_dev *ud, const uint8_t *pkt, uint16_t len);
 
 struct xhci_hc {
 	/* mmio bases */
@@ -235,3 +224,16 @@ struct xhci_hc {
 	uint8_t irq_pin;
 };
 
+
+/* Probe + bring-up a single xHCI controller on a given PCI function. */
+int xhci_probe_and_init(uint8_t bus, uint8_t dev, uint8_t func);
+
+/* Submit a control transfer on EP0.
+   setup must be 8 bytes (bmRequestType,bRequest,wValue,wIndex,wLength).
+   If data_dir_in=1, data points to IN buffer; else it points to OUT buffer.
+   Returns 0 on success; negative on error. */
+int xhci_ctrl_xfer(struct usb_dev *ud, const uint8_t *setup, void *data, uint16_t len, int data_dir_in);
+
+int xhci_arm_int_in(struct usb_dev *ud, uint16_t pkt_len, xhci_int_in_cb cb);
+
+void init_usb_xhci(void);
