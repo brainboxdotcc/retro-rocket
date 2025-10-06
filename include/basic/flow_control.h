@@ -54,7 +54,7 @@ void endproc_statement(struct basic_ctx* ctx);
  * @param param Pointer to the linked list of parameter types and names
  * @return uint8_t 1 if more parameters are present, 0 otherwise.
  */
-size_t extract_comma_list(struct ub_proc_fn_def* def, struct basic_ctx* ctx, int* bracket_depth, char const** item_begin, struct ub_param** param);
+bool extract_comma_list(struct ub_proc_fn_def* def, struct basic_ctx* ctx, int* bracket_depth, char const** item_begin, struct ub_param** param);
 
 /**
  * @brief Handles the = statement in BASIC, used to return a value from a FN

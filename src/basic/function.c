@@ -162,7 +162,7 @@ struct basic_str_fn builtin_str[] =
 };
 
 
-size_t extract_comma_list(struct ub_proc_fn_def* def, struct basic_ctx* ctx, int* bracket_depth, char const** item_begin, struct ub_param** param) {
+bool extract_comma_list(struct ub_proc_fn_def* def, struct basic_ctx* ctx, int* bracket_depth, char const** item_begin, struct ub_param** param) {
 	if (*ctx->ptr == '(') {
 		(*bracket_depth)++;
 		if (*bracket_depth == 1) {
@@ -211,9 +211,9 @@ size_t extract_comma_list(struct ub_proc_fn_def* def, struct basic_ctx* ctx, int
 
 	if ((*bracket_depth) == 0 || *ctx->ptr == 0) {
 		ctx->nextptr = ctx->ptr;
-		return 0;
+		return false;
 	}
-	return 1;
+	return true;
 }
 
 const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx)
