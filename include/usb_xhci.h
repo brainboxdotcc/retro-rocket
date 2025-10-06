@@ -129,6 +129,8 @@ struct xhci_ring {
 	uint32_t    num_trbs;   /* 256 for a 4K page */
 	uint32_t    enqueue;    /* index */
 	uint32_t    cycle;      /* 0/1 */
+	uint32_t    ccs;
+	uint32_t    dequeue;
 
 };
 

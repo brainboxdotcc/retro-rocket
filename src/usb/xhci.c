@@ -7,6 +7,10 @@ static struct xhci_hc* g_xhci; /* single controller */
 
 static void xhci_deliver_ep1in(struct xhci_hc *hc, const struct trb *ev, bool deliver_to_driver);
 
+static inline uint8_t trb_cycle_bit(const struct trb *t) {
+	return (uint8_t)(t->ctrl & TRB_CYCLE);
+}
+
 static inline uint8_t trb_get_type(const struct trb *e) {
 	return (uint8_t)((e->ctrl >> 10) & 0x3F);
 }
@@ -136,38 +140,32 @@ static inline struct trb *ring_push(struct xhci_ring *r)
 {
 	struct trb *cur = &r->base[r->enqueue];
 
-	// Ensure caller can set the C bit on the TRB they’re about to fill.
-	// (Caller will set TRB_CYCLE according to r->cycle.)
-	// Do NOT zero a LINK TRB.
-
-	// Advance the producer pointer
+	/* advance producer */
 	r->enqueue++;
 	dprintf("enqueue=%u num_trbs=%u\n", r->enqueue, r->num_trbs);
 
-	// If we landed on the LINK TRB, present it to HW and wrap
 	if (r->enqueue == r->num_trbs) {
 		dprintf("wrap LINK\n");
 		struct trb *link = &r->base[r->num_trbs - 1];
 
-		// Set LINK’s C bit to current producer cycle
+		/* present LINK to HW with current producer cycle */
 		link->ctrl = (link->ctrl & ~TRB_CYCLE) | (r->cycle ? TRB_CYCLE : 0);
 
-		// “Post” the LINK TRB by moving past it
+		/* wrap to start */
 		r->enqueue = 0;
 
-		// If LINK.TC=1, flip producer cycle bit
+		/* flip producer cycle if LINK.TC set */
 		if (link->ctrl & TRB_TOGGLE)
 			r->cycle ^= 1u;
 
-		// Now cur becomes the first slot of the ring
-		cur = &r->base[r->enqueue];
+		/* hand back TRB[0] and advance to 1 so next push gets TRB[1] */
+		cur = &r->base[r->enqueue++];
 	}
 
-	// Hand back the slot to be filled; clear only non-LINK slots
+	/* clear only the TRB we’re returning (never the LINK) */
 	memset(cur, 0, sizeof(*cur));
 	return cur;
 }
-
 static int xhci_cmd_submit_wait(struct xhci_hc *hc, struct trb *cmd_trb, uint64_t *out_cc_trb_lohi) {
 	(void)out_cc_trb_lohi;
 
@@ -390,6 +388,8 @@ static int xhci_reset_controller(struct xhci_hc *hc) {
 	hc->evt.num_trbs = (uint32_t)(4096 / sizeof(struct trb));
 	hc->evt.enqueue = 0;
 	hc->evt.cycle = 1;
+	hc->evt.dequeue = 0;   /* software consumer index for the event ring */
+	hc->evt.ccs     = 1;   /* consumer cycle state starts at 1 per xHCI */
 
 	hc->erst = (struct erst_entry *) kmalloc_aligned(64, 64);
 	memset(hc->erst, 0, 64);
@@ -401,6 +401,7 @@ static int xhci_reset_controller(struct xhci_hc *hc) {
 	mmio_write32(ir0 + IR_ERSTSZ, 1);
 	mmio_write64(ir0 + IR_ERSTBA, hc->erst_phys);
 	mmio_write64(ir0 + IR_ERDP, er_phys | (1ull << 3));
+
 	mmio_write32(ir0 + IR_IMOD, 0);
 	mmio_write32(ir0 + IR_IMAN, IR_IMAN_IE);
 
@@ -937,14 +938,11 @@ static void xhci_isr(uint8_t isr, uint64_t error, uint64_t irq, void *opaque)
 			if (epid == EPID_EP1_IN) {
 				xhci_deliver_ep1in(hc, e, true);
 			} else {
-				/* Consume and advance ERDP by one TRB (leave EHB clear) */
 				xhci_handle_unrelated_transfer_event(hc, e);
 			}
 		} else {
-			/* Consume and advance ERDP by one TRB (leave EHB clear) */
 			xhci_handle_unrelated_transfer_event(hc, e);
 		}
-
 		memset(e, 0, sizeof(*e));
 		erdp_cur = (erdp_cur + 16) & ~0x7ull;
 		mmio_write64(ir0 + IR_ERDP, erdp_cur);

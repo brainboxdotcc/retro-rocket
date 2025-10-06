@@ -156,7 +156,6 @@ static void hid_keyboard_report_cb(struct usb_dev *ud, const uint8_t *pkt, uint1
 	if (len < 8u) return;
 
 	dprintf("enter %lu\n", ints++);
-	return;
 
 	/* disable HID’s built-in key repeat */
 	if (memcmp(pkt, last_report, 8) == 0) {
