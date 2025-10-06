@@ -104,6 +104,7 @@ $(function(){initNavTree('FOR.html','',''); });
  In the second form, the loop variable changes by the <span class="tt">STEP</span> amount each time.</p>
 <p>If <span class="tt">STEP</span> evaluates to a negative value, the variable will decrement towards the lower value.</p>
 <p>Loops may be nested. <span class="tt">NEXT</span> closes the nearest unmatched <span class="tt">FOR</span>.</p>
+<dl class="section note"><dt>Note</dt><dd><span class="tt">start</span>, <span class="tt">to</span>, and <span class="tt">step</span> are evaluated once at loop entry. The counter is initialised to <span class="tt">start</span>. The body executes at least once. On <span class="tt">NEXT</span>, the counter is increased by <span class="tt">step</span> and compared to <span class="tt">to</span>. The loop continues while (<span class="tt">step</span> &gt; 0 AND <span class="tt">counter</span> &lt;= <span class="tt">to</span>) or (<span class="tt">step</span> &lt; 0 AND <span class="tt">counter</span> &gt;= <span class="tt">to</span>). If <span class="tt">step</span> evaluates to 0, a runtime error is raised.</dd></dl>
 <hr  />
 <h3 class="doxsection"><a class="anchor" id="examples-130"></a>
 Examples</h3>

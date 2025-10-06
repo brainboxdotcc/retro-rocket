@@ -7,6 +7,53 @@
 struct basic_ctx;
 
 /**
+ * @enum up_kind
+ * @brief Discriminant for a typed value produced by the unified evaluator.
+ *
+ * Enumerates the runtime kind carried by an ::up_value.
+ */
+typedef enum {
+	/** 64-bit signed integer value. */
+	UP_INT,
+	/** IEEE-754 double-precision real value. */
+	UP_REAL,
+	/** NUL-terminated string pointer. */
+	UP_STR
+} up_kind;
+
+/**
+ * @struct up_value
+ * @brief Discriminated union carrying a typed expression result.
+ *
+ * Represents one value returned by the unified expression evaluator.
+ * The active member of the union is indicated by ::up_value::kind.
+ *
+ * @var up_value::kind
+ *   Tag identifying the active member in ::up_value::v.
+ *
+ * @var up_value::v
+ *   Anonymous union holding the underlying value.
+ *
+ * @var up_value::v::i
+ *   64-bit signed integer; valid when ::up_value::kind is ::UP_INT.
+ *
+ * @var up_value::v::r
+ *   Double-precision real; valid when ::up_value::kind is ::UP_REAL.
+ *
+ * @var up_value::v::s
+ *   Pointer to a NUL-terminated string; valid when ::up_value::kind is ::UP_STR.
+ *   Ownership/lifetime is external to this struct (typically GC-managed).
+ */
+typedef struct {
+	up_kind kind;
+	union {
+		int64_t    i;
+		double     r;
+		const char *s;
+	} v;
+} up_value;
+
+/**
  * @brief State for a FOR...NEXT loop
  *
  * This structure stores the necessary state to manage a FOR loop, including
@@ -16,8 +63,9 @@ struct basic_ctx;
 typedef struct for_state {
 	int64_t line_after_for; ///< Line number to jump to after the FOR loop
 	const char *for_variable; ///< The loop variable
-	int64_t to; ///< The "TO" value for the loop
-	int64_t step; ///< The "STEP" value for the loop
+	up_value to; ///< The "TO" value for the loop
+	up_value step; ///< The "STEP" value for the loop
+	bool variable_is_real; ///< The FOR control variable is a real variable not integer
 } for_state;
 
 /**

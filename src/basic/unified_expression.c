@@ -97,13 +97,14 @@ static up_value up_factor(struct basic_ctx *ctx) {
 			return up_make_int(n);
 		}
 		case STRING: {
-			if (!tokenizer_string(ctx->string, sizeof(ctx->string), ctx)) {
+			char string[MAX_STRINGLEN];
+			if (!tokenizer_string(string, sizeof(string), ctx)) {
 				tokenizer_error_print(ctx, "Bad string literal");
 				return up_make_str("");
 			}
 			/* IMPORTANT: do NOT consume a ')' here; that belongs to the caller (e.g., func args). */
 			accept(STRING, ctx);
-			return up_make_str(gc_strdup(ctx, ctx->string));
+			return up_make_str(gc_strdup(ctx, string));
 		}
 		case VARIABLE: {
 			size_t L;

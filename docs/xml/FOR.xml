@@ -16,7 +16,9 @@
  In the second form, the loop variable changes by the <computeroutput>STEP</computeroutput> amount each time.</para>
 <para>If <computeroutput>STEP</computeroutput> evaluates to a negative value, the variable will decrement towards the lower value.</para>
 <para>Loops may be nested. <computeroutput>NEXT</computeroutput> closes the nearest unmatched <computeroutput>FOR</computeroutput>.</para>
-<para><hruler/>
+<para><simplesect kind="note"><para><computeroutput>start</computeroutput>, <computeroutput>to</computeroutput>, and <computeroutput>step</computeroutput> are evaluated once at loop entry. The counter is initialised to <computeroutput>start</computeroutput>. The body executes at least once. On <computeroutput>NEXT</computeroutput>, the counter is increased by <computeroutput>step</computeroutput> and compared to <computeroutput>to</computeroutput>. The loop continues while (<computeroutput>step</computeroutput> &gt; 0 AND <computeroutput>counter</computeroutput> &lt;= <computeroutput>to</computeroutput>) or (<computeroutput>step</computeroutput> &lt; 0 AND <computeroutput>counter</computeroutput> &gt;= <computeroutput>to</computeroutput>). If <computeroutput>step</computeroutput> evaluates to 0, a runtime error is raised.</para>
+</simplesect>
+<hruler/>
 </para>
 <sect1 id="FOR_1examples-130_1s1"><sect2 id="FOR_1examples-130_1s2"><sect3 id="FOR_1examples-130">
 <title>Examples</title><para>Count up by 1 <programlisting filename=".basic"><codeline><highlight class="normal">FOR<sp/>I<sp/>=<sp/>1<sp/>TO<sp/>5</highlight></codeline>

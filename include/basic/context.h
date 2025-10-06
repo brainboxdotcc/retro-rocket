@@ -121,11 +121,6 @@ typedef struct basic_ctx {
 	uint64_t debug_breakpoint_count;
 
 	/**
-	 * @brief Local buffer for parsing function/procedure parameter lists.
-	 */
-	char string[MAX_STRINGLEN];
-
-	/**
 	 * @brief Return types of the call stack
 	 */
 	ub_return_type fn_type_stack[MAX_CALL_STACK_DEPTH];

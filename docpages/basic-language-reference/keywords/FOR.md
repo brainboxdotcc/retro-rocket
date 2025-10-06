@@ -14,6 +14,8 @@ If `STEP` evaluates to a negative value, the variable will decrement towards the
 
 Loops may be nested. `NEXT` closes the nearest unmatched `FOR`.
 
+@note `start`, `to`, and `step` are evaluated once at loop entry. The counter is initialised to `start`. The body executes at least once. On `NEXT`, the counter is increased by `step` and compared to `to`. The loop continues while (`step` > 0 AND `counter` <= `to`) or (`step` < 0 AND `counter` >= `to`). If `step` evaluates to 0, a runtime error is raised.
+
 ---
 
 ### Examples

@@ -226,24 +226,23 @@ void next_statement(struct basic_ctx* ctx)
 	accept_or_return(NEXT, ctx);
 	if (ctx->for_stack_ptr > 0) {
 		bool continue_loop = false;
-		if (strchr(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, '#')) {
+		for_state* state = &ctx->for_stack[ctx->for_stack_ptr - 1];
+		if (state->variable_is_real) {
 			double incr;
-			basic_get_double_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ctx, &incr);
-			incr += ctx->for_stack[ctx->for_stack_ptr - 1].step;
-			basic_set_double_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, incr, ctx, false, false);
-			continue_loop = ((ctx->for_stack[ctx->for_stack_ptr - 1].step > 0 && incr <= ctx->for_stack[ctx->for_stack_ptr - 1].to) ||
-			    (ctx->for_stack[ctx->for_stack_ptr - 1].step < 0 && incr >= ctx->for_stack[ctx->for_stack_ptr - 1].to));
+			basic_get_double_variable(state->for_variable, ctx, &incr);
+			incr += state->step.v.r;
+			basic_set_double_variable(state->for_variable, incr, ctx, false, false);
+			continue_loop = ((state->step.v.r > 0 && incr <= state->to.v.r) || (state->step.v.r < 0 && incr >= state->to.v.r));
 		} else {
-			int64_t incr = basic_get_numeric_int_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ctx);
-			incr += ctx->for_stack[ctx->for_stack_ptr - 1].step;
-			basic_set_int_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, incr, ctx, false, false);
-			continue_loop = ((ctx->for_stack[ctx->for_stack_ptr - 1].step > 0 && incr <= ctx->for_stack[ctx->for_stack_ptr - 1].to) ||
-			    (ctx->for_stack[ctx->for_stack_ptr - 1].step < 0 && incr >= ctx->for_stack[ctx->for_stack_ptr - 1].to));
+			int64_t incr = basic_get_numeric_int_variable(state->for_variable, ctx);
+			incr += state->step.v.i;
+			basic_set_int_variable(state->for_variable, incr, ctx, false, false);
+			continue_loop = ((state->step.v.i > 0 && incr <= state->to.v.i) || (state->step.v.i < 0 && incr >= state->to.v.i));
 		}
 		if (continue_loop) {
-			jump_linenum(ctx->for_stack[ctx->for_stack_ptr - 1].line_after_for, ctx);
+			jump_linenum(state->line_after_for, ctx);
 		} else {
-			buddy_free(ctx->allocator, ctx->for_stack[ctx->for_stack_ptr - 1].for_variable);
+			buddy_free(ctx->allocator, state->for_variable);
 			ctx->for_stack_ptr--;
 			accept_or_return(NEWLINE, ctx);
 		}
@@ -258,15 +257,26 @@ void for_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(FOR, ctx);
 	size_t var_length;
+	bool is_double = false;
+	double double_start = 0, double_end = 0, double_step = 1;
+	int64_t int_start = 0, int_end = 0, int_step = 1;
 	const char* for_variable = buddy_strdup(ctx->allocator, tokenizer_variable_name(ctx, &var_length));
+	if (!for_variable) {
+		tokenizer_error_print(ctx, "FOR: Out of memory");
+		return;
+	}
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(EQUALS, ctx);
-	if (strchr(for_variable, '#')) {
+	if (for_variable[var_length - 1] == '#') {
 		double d;
 		double_expr(ctx, &d);
 		basic_set_double_variable(for_variable, d, ctx, false, false);
+		is_double = true;
+		double_start = d;
 	} else {
-		basic_set_int_variable(for_variable, expr(ctx), ctx, false, false);
+		int64_t i = expr(ctx);
+		basic_set_int_variable(for_variable, i, ctx, false, false);
+		int_start = i;
 	}
 	accept_or_return(TO, ctx);
 	/* STEP needs special treatment, as it happens after an expression and is not separated by a comma */
@@ -278,25 +288,47 @@ void for_statement(struct basic_ctx* ctx)
 			break;
 		}
 	}
-	uint64_t to = expr(ctx), step = 1;
+
+	if (is_double) {
+		double_expr(ctx, &double_end);
+	} else {
+		int_end = expr(ctx);
+	}
 	tokenizer_next(ctx);
 	if (marker) {
 		*marker = ' ';
 	}
 	if (tokenizer_token(ctx) == STEP) {
 		accept_or_return(STEP, ctx);
-		step = expr(ctx);
+		if (is_double) {
+			double_expr(ctx, &double_step);
+		} else {
+			int_step = expr(ctx);
+		}
 		accept_or_return(NEWLINE, ctx);
 	}
 
 	if (ctx->for_stack_ptr < MAX_LOOP_STACK_DEPTH) {
-		ctx->for_stack[ctx->for_stack_ptr].line_after_for = tokenizer_num(ctx, NUMBER);
-		ctx->for_stack[ctx->for_stack_ptr].for_variable = for_variable;
-		ctx->for_stack[ctx->for_stack_ptr].to = to;
-		ctx->for_stack[ctx->for_stack_ptr].step = step;
+		for_state* state = &ctx->for_stack[ctx->for_stack_ptr];
+		state->line_after_for = tokenizer_num(ctx, NUMBER);
+		state->for_variable = for_variable;
+		if (is_double) {
+			state->to = up_make_real(double_end);
+			state->step = up_make_real(double_step);
+		} else {
+			state->to = up_make_int(int_end);
+			state->step = up_make_int(int_step);
+		}
+		if ((is_double && state->step.v.r == 0) || (!is_double && state->step.v.i == 0)) {
+			tokenizer_error_print(ctx, "FOR loop is infinite");
+			buddy_free(ctx->allocator, for_variable);
+			return;
+		}
+		state->variable_is_real = is_double;
 		ctx->for_stack_ptr++;
 	} else {
 		tokenizer_error_print(ctx, "Too many FOR");
+		buddy_free(ctx->allocator, for_variable);
 	}
 }
 
