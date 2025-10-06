@@ -10,6 +10,33 @@ static void hid_keyboard_report_cb(struct usb_dev *ud, const uint8_t *pkt, uint1
 	/* Minimal: stash last key, push to your input layer. */
 }
 
+/* Call this right after you arm EP1-IN (before “waiting for interrupts”). */
+static void hid_try_get_report_snapshot(struct usb_dev *ud) {
+	uint8_t __attribute__((aligned(64))) setup[8] = {
+		0xA1, 0x01,        /* bmReqType=Class|Interface|IN, bRequest=GET_REPORT */
+		0x01, 0x00,        /* wValue = (ReportType=Input=1)<<8 | ReportID=0 */
+		0x00, 0x00,        /* wIndex = interface 0 */
+		0x08, 0x00         /* wLength = 8 */
+	};
+	uint8_t __attribute__((aligned(64))) buf[8] = {0};
+	int ok = xhci_ctrl_xfer(ud, setup, buf, 8, 1);
+	dprintf("hid: GET_REPORT(Input,id=0) %s, data=%02x %02x %02x %02x %02x %02x %02x %02x\n",
+		ok ? "OK" : "FAIL",
+		buf[0],buf[1],buf[2],buf[3],buf[4],buf[5],buf[6],buf[7]);
+}
+
+static void hid_toggle_numlock(struct usb_dev *ud, int on) {
+	uint8_t __attribute__((aligned(64))) setup[8] = {
+		0x21, 0x09,        /* bmReqType=Class|Interface|OUT, bRequest=SET_REPORT */
+		0x02, 0x00,        /* wValue = (ReportType=Output=2)<<8 | ReportID=0 */
+		0x00, 0x00,        /* wIndex = interface 0 */
+		0x01, 0x00         /* wLength = 1 */
+	};
+	uint8_t __attribute__((aligned(64))) led = (on ? 0x01 : 0x00); /* bit0 = NumLock */
+	int ok = xhci_ctrl_xfer(ud, setup, &led, 1, 0);
+	dprintf("hid: SET_REPORT(Output LED NumLock=%d) %s\n", on, ok ? "OK" : "FAIL");
+}
+
 static void hid_on_device_added(const struct usb_dev *ud_c)
 {
 	dprintf("hid_on_device_added ud_c=%p\n", ud_c);
@@ -75,10 +102,12 @@ static void hid_on_device_added(const struct usb_dev *ud_c)
 		return;
 	}
 	dprintf("hid: keyboard armed (EP1 IN), waiting for interrupts\n");
+
+	hid_try_get_report_snapshot(ud);
+	hid_toggle_numlock(ud, 1);
 }
 
 static void hid_on_device_removed(const struct usb_dev *ud) {
-	/* Tear-down if you keep per-device state */
 }
 
 static struct usb_class_ops hid_ops = {

@@ -224,6 +224,10 @@ struct xhci_hc {
 		uint64_t  ctrl_dma_phys;   // same value as virtual in your setup
 		uint16_t  ctrl_dma_sz;     // size of the bounce buffer
 
+		/* interrupt IN endpoint discovery (from config desc) */
+		uint8_t          int_ep_num;      /* endpoint number (1..15) */
+		uint16_t         int_ep_mps;      /* wMaxPacketSize */
+		uint8_t          int_ep_interval; /* bInterval as seen in descriptor */
 	} dev;
 
 	/* irq bookkeeping */
