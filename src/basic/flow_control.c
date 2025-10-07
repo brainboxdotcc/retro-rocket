@@ -272,11 +272,9 @@ void for_statement(struct basic_ctx* ctx)
 		double_expr(ctx, &d);
 		basic_set_double_variable(for_variable, d, ctx, false, false);
 		is_double = true;
-		double_start = d;
 	} else {
 		int64_t i = expr(ctx);
 		basic_set_int_variable(for_variable, i, ctx, false, false);
-		int_start = i;
 	}
 	accept_or_return(TO, ctx);
 	/* STEP needs special treatment, as it happens after an expression and is not separated by a comma */
