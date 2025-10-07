@@ -258,8 +258,8 @@ void for_statement(struct basic_ctx* ctx)
 	accept_or_return(FOR, ctx);
 	size_t var_length;
 	bool is_double = false;
-	double double_start = 0, double_end = 0, double_step = 1;
-	int64_t int_start = 0, int_end = 0, int_step = 1;
+	double double_end = 0.0, double_step = 1.0;
+	int64_t int_end = 0, int_step = 1;
 	const char* for_variable = buddy_strdup(ctx->allocator, tokenizer_variable_name(ctx, &var_length));
 	if (!for_variable) {
 		tokenizer_error_print(ctx, "FOR: Out of memory");
