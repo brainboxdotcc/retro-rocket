@@ -309,7 +309,9 @@ void kfree_low(uint32_t addr) {
 
 void* kcalloc(size_t num, size_t size) {
 	void* p = kmalloc(num * size);
-	memset(p, 0, num * size);
+	if (p) {
+		memset(p, 0, num * size);
+	}
 	return p;
 }
 

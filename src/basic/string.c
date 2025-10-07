@@ -3,10 +3,110 @@
  * @brief BASIC string manipulation functions
  */
 #include <kernel.h>
+#include "regex.h"
+
+struct match_state {
+	struct regex_prog *prog;
+	const uint8_t *hay;
+	size_t hay_len;
+	size_t off;
+	struct regex_match m;
+	int done;          /* 0 running, 1 finished */
+	int matched;       /* 0/1 */
+	size_t next_off;
+	size_t fuel_per_tick;
+};
 
 extern struct basic_int_fn builtin_int[];
 extern struct basic_str_fn builtin_str[];
 extern struct basic_double_fn builtin_double[];
+
+bool match_idle_step(process_t *proc, void *opaque) {
+	struct match_state *st = opaque;
+	if (!st) {
+		return false;
+	}
+
+	size_t next_off = st->off;
+
+	int rc = regex_exec_slice(st->prog, st->hay, st->hay_len, st->off, st->fuel_per_tick, &st->m, &next_off);
+
+	if (rc == RE_AGAIN) {
+		st->off = next_off;
+		return true;                  /* keep idling */
+	}
+
+	/* terminal states */
+	st->off = next_off;
+	st->matched = (rc == RE_OK) ? st->m.matched : 0;
+	st->done = 1;                    /* mark complete for the statement */
+	return false;                    /* stop idling; scheduler will re-enter line */
+}
+
+
+void match_statement(struct basic_ctx *ctx)
+{
+	accept_or_return(MATCH, ctx);
+
+	size_t res_len = 0;
+	const char *res_name = tokenizer_variable_name(ctx, &res_len);
+	accept_or_return(VARIABLE, ctx);
+	accept_or_return(COMMA, ctx);
+
+	const char *pat = str_expr(ctx);
+	size_t pat_len = strlen(pat);
+	accept_or_return(COMMA, ctx);
+
+	const char *hay = str_expr(ctx);
+	size_t hay_len = strlen(hay);
+
+	process_t *proc = proc_cur(logical_cpu_id());
+
+	/* ===== resume path ===== */
+	if (ctx->match_ctx) {
+		struct match_state *st = ctx->match_ctx;
+
+		int matched = st->matched;
+		regex_free(st->prog);
+		buddy_free(ctx->allocator, st);
+		ctx->match_ctx = NULL;
+
+		basic_set_int_variable(res_name, matched ? 1 : 0, ctx, false, false);
+		accept_or_return(NEWLINE, ctx);
+		proc->state = PROC_RUNNING;
+		return;
+	}
+
+	/* ===== first entry ===== */
+	struct regex_opts ropts = { .max_code = 16384, .max_threads = 4096 };
+	struct regex_prog *prog = NULL;
+
+	int rc = regex_compile(ctx->allocator, &prog, (const uint8_t *)pat, pat_len, &ropts);
+	if (rc != RE_OK) {
+		tokenizer_error_printf(ctx, "MATCH: invalid regular expression (%d)", rc);
+		return;
+	}
+
+	struct match_state *st = buddy_malloc(ctx->allocator, sizeof(*st));
+	if (!st) {
+		regex_free(prog);
+		tokenizer_error_printf(ctx, "MATCH: out of memory");
+		return;
+	}
+
+	memset(st, 0, sizeof(*st));
+	st->prog          = prog;
+	st->hay           = (const uint8_t *)hay;
+	st->hay_len       = hay_len;
+	st->off           = 0;
+	st->fuel_per_tick = 5000;
+
+	ctx->match_ctx = st;
+
+	proc_set_idle(proc, match_idle_step, st);
+	jump_linenum(ctx->current_linenum, ctx);
+	proc->state = PROC_IO_BOUND;
+}
 
 char* basic_chr(struct basic_ctx* ctx)
 {

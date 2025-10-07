@@ -155,3 +155,5 @@ char* buddy_strdup(buddy_allocator_t* alloc, const char *s);
  * @return       Pointer to resized block, or NULL on OOM.
  */
 void* buddy_realloc(buddy_allocator_t* alloc, void *ptr, size_t size);
+
+void* buddy_calloc(buddy_allocator_t* alloc, size_t num, size_t size);

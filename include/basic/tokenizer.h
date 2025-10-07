@@ -206,6 +206,7 @@ typedef void (*keyword_handler_t)(struct basic_ctx*);
     T(SSLCONNECT, STMT, sslconnect_statement)		/* 134 */ \
     T(ANIMATE, STMT, animate_statement)			/* 135 */ \
     T(RESET, STMT, NULL)				/* 136 */ \
+    T(MATCH, STMT, match_statement)			/* 137 */ \
 
 GENERATE_ENUM_LIST(TOKEN, token_t)
 

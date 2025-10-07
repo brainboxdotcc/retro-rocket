@@ -321,6 +321,8 @@ typedef struct basic_ctx {
 
 	sound_envelope_ex_t envelopes[64];
 
+	struct match_state *match_ctx;
+
 } basic_ctx;
 
 /**

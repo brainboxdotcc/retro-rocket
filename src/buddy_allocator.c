@@ -79,12 +79,16 @@ static buddy_region_t *buddy_grow(buddy_allocator_t *alloc) {
 }
 
 void *buddy_malloc(buddy_allocator_t *alloc, size_t size) {
-	if (size == 0) return NULL;
+	if (size == 0) {
+		return NULL;
+	}
 
 	buddy_region_t *region = alloc->active_region;
 	if (!region) {
 		region = buddy_grow(alloc);
-		if (!region) return NULL;
+		if (!region) {
+			return NULL;
+		}
 	}
 
 	while (region) {
@@ -217,6 +221,7 @@ char *buddy_strdup(buddy_allocator_t *alloc, const char *s) {
 
 void *buddy_realloc(buddy_allocator_t *alloc, void *ptr, size_t size) {
 	if (!ptr) {
+		dprintf("realloc with null, mallocing %lu\n", size);
 		// realloc(NULL, size): malloc
 		return buddy_malloc(alloc, size);
 	}
@@ -262,4 +267,12 @@ void *buddy_realloc(buddy_allocator_t *alloc, void *ptr, size_t size) {
 		buddy_free(alloc, ptr);
 		return new_ptr;
 	}
+}
+
+void* buddy_calloc(buddy_allocator_t* alloc, size_t num, size_t size) {
+	void* p = buddy_malloc(alloc, num * size);
+	if (p) {
+		memset(p, 0, num * size);
+	}
+	return p;
 }

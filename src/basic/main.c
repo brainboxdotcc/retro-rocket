@@ -251,6 +251,7 @@ struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file
 	}
 	buddy_init(ctx->allocator, 6, 26, 26);
 	ctx->debug_status = 0;
+	ctx->match_ctx = NULL;
 	ctx->debug_breakpoints = NULL;
 	ctx->debug_breakpoint_count = 0;
 	memset(&ctx->last_packet, 0, sizeof(queued_udp_packet));
@@ -483,6 +484,7 @@ struct basic_ctx *basic_clone(struct basic_ctx *old) {
 	ctx->current_token = NO_TOKEN;
 	ctx->error_handler = old->error_handler;
 	ctx->sleep_until = old->sleep_until;
+	ctx->match_ctx = NULL;
 	memset(&ctx->last_packet, 0, sizeof(queued_udp_packet));
 	ctx->int_variables = old->int_variables;
 	ctx->str_variables = old->str_variables;
