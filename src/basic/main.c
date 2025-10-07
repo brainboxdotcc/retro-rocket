@@ -365,7 +365,7 @@ void library_statement(struct basic_ctx *ctx) {
 
 	/* Load the library file from VFS */
 	size_t library_len = file_info->size;
-	char *temp_library = kmalloc(library_len + 1);
+	char *temp_library = kmalloc(library_len + 1 /* NULL terminator */ + 4 /* "END\n" */);
 	if (!temp_library) {
 		tokenizer_error_printf(ctx, "Not enough memory to load library file '%s'", lib_file);
 		return;
@@ -382,7 +382,14 @@ void library_statement(struct basic_ctx *ctx) {
 		kfree_null(&clean_library);
 		return;
 	}
+	/* We prepend an 'END' line to the library as it is appended,
+	 * so if someone leaves it off the end of their main program,
+	 * it won't continue into anything in the library.
+	 */
 	*(temp_library + library_len) = 0;
+	memmove(temp_library + 4, temp_library, library_len + 1);
+	memcpy(temp_library, "END\n", 4);
+	library_len += 4;
 
 	/* Clean the BASIC code and check it is not numbered code */
 	clean_library = clean_basic(temp_library, clean_library);
