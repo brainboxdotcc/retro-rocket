@@ -29,7 +29,7 @@ void line_statement(struct basic_ctx* ctx)
 	int64_t line = tokenizer_num(ctx, NUMBER);
 	basic_debug("line_statement parsed line %ld\n", line);
 	if (line == 0) {
-		return tokenizer_error_printf(ctx, "Missing line number after line %lu", ctx->current_linenum);
+		return tokenizer_error_printf(ctx, "Missing line number after line %lu: %s", ctx->current_linenum, ctx->ptr);
 	}
 	ctx->current_linenum = line;
 	accept_or_return(NUMBER, ctx);

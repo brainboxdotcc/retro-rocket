@@ -74,7 +74,7 @@ void sockread_statement(struct basic_ctx *ctx) {
 	var = tokenizer_variable_name(ctx, &var_length);
 	accept_or_return(VARIABLE, ctx);
 
-	proc = proc_cur(logical_cpu_id());
+	proc = ctx->proc;
 
 	if (tls_get(fd)) {
 		int want;
@@ -154,7 +154,7 @@ void sockbinread_statement(struct basic_ctx *ctx) {
 		return;
 	}
 
-	process_t *proc = proc_cur(logical_cpu_id());
+	process_t* proc = ctx->proc;
 
 	if (tls_get(fd)) {
 		int want;
@@ -720,7 +720,7 @@ void sockflush_statement(struct basic_ctx *ctx) {
 	int64_t fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx, &var_length), ctx);
 	accept_or_return(VARIABLE, ctx);
 
-	process_t *proc = proc_cur(logical_cpu_id());
+	process_t* proc = ctx->proc;
 
 	if (!sock_sent((int) fd)) {
 		/* Not drained yet: park this process and retry the same line later */

@@ -101,7 +101,7 @@ void input_statement(struct basic_ctx* ctx)
 	const char* var = tokenizer_variable_name(ctx, &var_length);
 	accept_or_return(VARIABLE, ctx);
 
-	process_t* proc = proc_cur(logical_cpu_id());
+	process_t* proc = ctx->proc;
 
 	/* Clear buffer */
 	if (kinput(MAX_STRINGLEN) == 0) {
@@ -556,7 +556,7 @@ void kget_statement(struct basic_ctx* ctx)
 	const char* var = tokenizer_variable_name(ctx, &var_length);
 	accept_or_return(VARIABLE, ctx);
 
-	process_t* proc = proc_cur(logical_cpu_id());
+	process_t* proc = ctx->proc;
 
 	if (!key_waiting()) {
 		proc_set_idle(proc, check_key_waiting, NULL);
@@ -602,7 +602,7 @@ void sleep_statement(struct basic_ctx* ctx)
 	accept_or_return(SLEEP, ctx);
 	int64_t sleep_length = expr(ctx);
 
-	process_t* proc = proc_cur(logical_cpu_id());
+	process_t* proc = ctx->proc;
 
 	if (sleep_length < 0 || sleep_length > 604800000) {
 		tokenizer_error_print(ctx, "Invalid SLEEP duration");

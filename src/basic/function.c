@@ -238,7 +238,16 @@ const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx)
 		atomic->fn_type = RT_STRING;
 		jump_linenum(def->line, atomic);
 
+		process_t proc;
+		memcpy(&proc, proc_cur(logical_cpu_id()), sizeof(process_t));
+		proc.code = atomic;
+		atomic->proc = &proc;
 		while (!basic_finished(atomic)) {
+			if (proc.check_idle && proc.check_idle(&proc, proc.idle_context)) {
+				_mm_pause();
+				continue;
+			}
+			proc_set_idle(&proc, NULL, NULL);
 			line_statement(atomic);
 			if (atomic->errored) {
 				ctx->errored = true;
@@ -349,7 +358,16 @@ int64_t basic_eval_int_fn(const char* fn_name, struct basic_ctx* ctx)
 		atomic->fn_type = RT_INT;
 		jump_linenum(def->line, atomic);
 
+		process_t proc;
+		memcpy(&proc, proc_cur(logical_cpu_id()), sizeof(process_t));
+		proc.code = atomic;
+		atomic->proc = &proc;
 		while (!basic_finished(atomic)) {
+			if (proc.check_idle && proc.check_idle(&proc, proc.idle_context)) {
+				_mm_pause();
+				continue;
+			}
+			proc_set_idle(&proc, NULL, NULL);
 			line_statement(atomic);
 			if (atomic->errored) {
 				ctx->errored = true;
@@ -405,7 +423,16 @@ void basic_eval_double_fn(const char* fn_name, struct basic_ctx* ctx, double* re
 		atomic->fn_type = RT_FLOAT;
 		jump_linenum(def->line, atomic);
 
+		process_t proc;
+		memcpy(&proc, proc_cur(logical_cpu_id()), sizeof(process_t));
+		proc.code = atomic;
+		atomic->proc = &proc;
 		while (!basic_finished(atomic)) {
+			if (proc.check_idle && proc.check_idle(&proc, proc.idle_context)) {
+				_mm_pause();
+				continue;
+			}
+			proc_set_idle(&proc, NULL, NULL);
 			line_statement(atomic);
 			if (atomic->errored) {
 				ctx->errored = true;
@@ -451,115 +478,116 @@ bool basic_parse_fn(struct basic_ctx* ctx)
 	while (true) {
 		currentline = atoi(program);
 		char const* linestart = program;
-			while (*program != '\n' && *program != 0) {
-				++program;
+		while (*program != '\n' && *program != 0) {
+			++program;
+		}
+
+		char const* lineend = program;
+
+		char* linetext = buddy_malloc(ctx->allocator, lineend - linestart + 1);
+		if (!linetext) {
+			return false;
+		}
+		strlcpy(linetext, linestart, lineend - linestart + 1);
+
+		char* search = linetext;
+
+		while (*search++ >= '0' && *search <= '9') {
+			search++;
+		}
+		--search;
+
+		while (*search++ == ' ');
+		--search;
+
+		if (!strncmp(search, "DEF ", 4)) {
+			search += 4;
+			ub_fn_type type = FT_FN;
+			if (!strncmp(search, "FN", 2)) {
+				search += 2;
+				while (*search++ == ' ');
+				type = FT_FN;
+			} else if (!strncmp(search, "PROC", 4)) {
+				search += 4;
+				while (*search++ == ' ');
+				type = FT_PROC;
 			}
-			
-			char const* lineend = program;
-			
-			char* linetext = buddy_malloc(ctx->allocator, lineend - linestart + 1);
-			if (!linetext) {
+
+			char name[MAX_STRINGLEN];
+			int ni = 0;
+			--search;
+			while (ni < MAX_STRINGLEN - 2 && *search != '\n' && *search != 0 && *search != '(') {
+				name[ni++] = *search++;
+			}
+			name[ni] = 0;
+			struct ub_proc_fn_def* exist_def = basic_find_fn(name, ctx);
+			if (exist_def) {
+				tokenizer_error_printf(ctx, "Duplicate function name '%s'", name);
+				buddy_free(ctx->allocator, linetext);
 				return false;
 			}
-			strlcpy(linetext, linestart, lineend - linestart + 1);
 
-			char* search = linetext;
+			struct ub_proc_fn_def* def = buddy_malloc(ctx->allocator, sizeof(struct ub_proc_fn_def));
+			if (!def) {
+				return false;
+			}
+			def->name = buddy_strdup(ctx->allocator, name);
+			def->type = type;
+			def->line = currentline;
+			def->next = ctx->defs;
 
-			while (*search++ >= '0' && *search <= '9')
+			/* Parse parameters */
+
+			def->params = NULL;
+
+			if (*search == '(') {
 				search++;
-			--search;
+				// Parse parameters
+				char pname[MAX_STRINGLEN];
+				int pni = 0;
+				while (*search != 0 && *search != '\n') {
+					if (pni < MAX_STRINGLEN - 1 && *search != ',' && *search != ')' && *search != ' ') {
+						pname[pni++] = *search;
+					}
 
-			while (*search++ == ' ');
-			--search;
-
-			if (!strncmp(search, "DEF ", 4)) {
-				search += 4;
-				ub_fn_type type = FT_FN;
-				if (!strncmp(search, "FN", 2)) {
-					search += 2;
-					while (*search++ == ' ');
-					type = FT_FN;
-				} else if (!strncmp(search, "PROC", 4)) {
-					search += 4;
-					while (*search++ == ' ');
-					type = FT_PROC;
-				}
-
-				char name[MAX_STRINGLEN];
-				int ni = 0;
-				--search;
-				while (ni < MAX_STRINGLEN - 2 && *search != '\n' && *search != 0 && *search != '(') {
-					name[ni++] = *search++;
-				}
-				name[ni] = 0;
-				struct ub_proc_fn_def* exist_def = basic_find_fn(name, ctx);
-				if (exist_def) {
-					tokenizer_error_printf(ctx, "Duplicate function name '%s'", name);
-					buddy_free(ctx->allocator, linetext);
-					return false;
-				}
-
-				struct ub_proc_fn_def* def = buddy_malloc(ctx->allocator, sizeof(struct ub_proc_fn_def));
-				if (!def) {
-					return false;
-				}
-				def->name = buddy_strdup(ctx->allocator, name);
-				def->type = type;
-				def->line = currentline;
-				def->next = ctx->defs;
-
-				/* Parse parameters */
-
-				def->params = NULL;
-
-				if (*search == '(') {
-					search++;
-					// Parse parameters
-					char pname[MAX_STRINGLEN];
-					int pni = 0;
-					while (*search != 0 && *search != '\n') {
-						if (pni < MAX_STRINGLEN - 1 && *search != ',' && *search != ')' && *search != ' ') {
-							pname[pni++] = *search;
+					if (*search == ',' || *search == ')') {
+						pname[pni] = 0;
+						struct ub_param* par = buddy_malloc(ctx->allocator, sizeof(struct ub_param));
+						if (!par) {
+							return false;
 						}
+						par->next = NULL;
+						par->name = buddy_strdup(ctx->allocator, pname);
 
-						if (*search == ',' || *search == ')') {
-							pname[pni] = 0;
-							struct ub_param* par = buddy_malloc(ctx->allocator, sizeof(struct ub_param));
-							if (!par) {
-								return false;
-							}
-							par->next = NULL;
-							par->name = buddy_strdup(ctx->allocator, pname);
-
-							if (def->params == NULL) {
-								def->params = par;
-							} else {
-								struct ub_param* cur = def->params;
-								for (; cur; cur = cur->next) {
-									if (cur->next == NULL) {
-										cur->next = par;
-										break;
-									}
+						if (def->params == NULL) {
+							def->params = par;
+						} else {
+							struct ub_param* cur = def->params;
+							for (; cur; cur = cur->next) {
+								if (cur->next == NULL) {
+									cur->next = par;
+									break;
 								}
 							}
-							if (*search == ')') {
-								break;
-							}
-							pni = 0;
 						}
-						search++;
+						if (*search == ')') {
+							break;
+						}
+						pni = 0;
 					}
+					search++;
 				}
-				ctx->defs = def;
 			}
+			ctx->defs = def;
+		}
 
-			if (*program == '\n') {
-				++program;
-			}
-			buddy_free(ctx->allocator, linetext);
-			if (!*program) {
-				break;
-			}
+		while (*program == '\n') {
+			++program;
+		}
+		buddy_free(ctx->allocator, linetext);
+		if (!*program) {
+			break;
+		}
 	}
 
 	ctx->ended = false;

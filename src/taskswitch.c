@@ -98,6 +98,7 @@ process_t* proc_load(const char* fullpath, pid_t parent_pid, const char* csd)
 		kprintf("Fatal error parsing program: %s\n", error);
 		return NULL;
 	}
+	newproc->code->proc = newproc;
 	newproc->waitpid = 0;
 	newproc->name = strdup(fsi->filename);
 	newproc->pid = nextid++;

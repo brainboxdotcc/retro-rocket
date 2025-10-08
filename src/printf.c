@@ -249,10 +249,10 @@ int vprintf(const char *fmt, va_list args)
 
 int dvprintf(const char *fmt, va_list args)
 {
-	char message[MAX_STRINGLEN], formatted[MAX_STRINGLEN];
-	int r = vsnprintf(message, MAX_STRINGLEN - 1, fmt, args);
+	char message[MAX_STRINGLEN * 8], formatted[MAX_STRINGLEN * 8];
+	int r = vsnprintf(message, MAX_STRINGLEN * 8 - 1, fmt, args);
 	uint64_t flags;
-	size_t len = snprintf(formatted, MAX_STRINGLEN, "[%lu]: %s", get_ticks(), message);
+	size_t len = snprintf(formatted, MAX_STRINGLEN * 8, "[%lu]: %s", get_ticks(), message);
 	lock_spinlock_irq(&debug_console_spinlock, &flags);
 	dprintf_buffer_append_line(formatted, len);
 	dputstring(formatted);

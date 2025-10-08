@@ -137,11 +137,13 @@ char *clean_basic(const char *program, char *output_buffer) {
 }
 
 const char *auto_number(const char *program, uint64_t line, uint64_t increment) {
+	const char* orig = program;
 	size_t new_size_max = strlen(program) * 5;
+	basic_debug("new_size_max = %lu\n", new_size_max);
 	char *newprog = kmalloc(new_size_max);
 	char line_buffer[MAX_STRINGLEN];
 	char *line_ptr = line_buffer;
-	bool insert_line = true, ended = false;
+	bool insert_line = true;
 	if (!newprog) {
 		return NULL;
 	}
@@ -149,37 +151,40 @@ const char *auto_number(const char *program, uint64_t line, uint64_t increment) 
 	while (true) {
 		if (insert_line) {
 			if (*program == '\n') {
-				/* Empty line: output REM */
-				snprintf(line_buffer, MAX_STRINGLEN, "%lu REM", line);
+				snprintf(line_buffer, MAX_STRINGLEN, "%lu REM", (unsigned long)line);
 				line += increment;
-				insert_line = true; /* stay in insert mode for next line */
-				program++;          /* consume the newline */
+				program++;
 				strlcat(newprog, line_buffer, new_size_max);
 				strlcat(newprog, "\n", new_size_max);
 				continue;
 			}
-			snprintf(line_buffer, MAX_STRINGLEN, "%lu ", line);
+
+			snprintf(line_buffer, MAX_STRINGLEN, "%lu ", (unsigned long)line);
 			line += increment;
 			insert_line = false;
 			line_ptr = line_buffer + strlen(line_buffer);
-			if (ended) {
-				break;
-			}
 		}
-		if (*program == '\n' || !*program) {
-			if (!*program) {
-				ended = true;
-			}
-			insert_line = true;
+
+		if (*program == '\n' || *program == 0) {
 			*line_ptr = 0;
 			strlcat(newprog, line_buffer, new_size_max);
 			strlcat(newprog, "\n", new_size_max);
+			if (*program == 0) {
+				basic_debug("end program terminator\n");
+				break;              /* only break on real terminator */
+			}
+			insert_line = true;
+			program++;
+			continue;
 		}
+
 		*line_ptr++ = *program++;
 	}
+
 	strlcat(newprog, "\n", new_size_max);
 	const char *corrected = strdup(newprog);
 	kfree_null(&newprog);
+	basic_debug("*** OLD ***\n%s\n***********\n", orig);
 	basic_debug("*** AUTO NUMBERED ***\n%s\n***********\n", corrected);
 	return corrected;
 }
@@ -254,6 +259,7 @@ struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file
 	ctx->match_ctx = NULL;
 	ctx->debug_breakpoints = NULL;
 	ctx->debug_breakpoint_count = 0;
+	ctx->proc = NULL;
 	memset(&ctx->last_packet, 0, sizeof(queued_udp_packet));
 	memset(&ctx->audio_streams, 0, sizeof(ctx->audio_streams));
 	memset(&ctx->envelopes, 0, sizeof(ctx->envelopes));
@@ -408,6 +414,9 @@ void library_statement(struct basic_ctx *ctx) {
 	}
 	library_len = strlen(numbered);
 
+	dprintf("==== numbered: ====\n");
+	dprintf("%s", numbered);
+
 	/* Append the renumbered library to the end of the program (this reallocates
 	 * ctx->program_ptr invalidating ctx->ptr and ctx->next_ptr - the tokeinizer
 	 * must be reinitailised and the line hash rebuilt)
@@ -485,6 +494,7 @@ struct basic_ctx *basic_clone(struct basic_ctx *old) {
 	ctx->error_handler = old->error_handler;
 	ctx->sleep_until = old->sleep_until;
 	ctx->match_ctx = NULL;
+	ctx->proc = old->proc;
 	memset(&ctx->last_packet, 0, sizeof(queued_udp_packet));
 	ctx->int_variables = old->int_variables;
 	ctx->str_variables = old->str_variables;
@@ -729,9 +739,10 @@ void eval_statement(struct basic_ctx *ctx) {
 
 void rem_statement(struct basic_ctx *ctx) {
 	accept_or_return(REM, ctx);
-	while (tokenizer_token(ctx) != NEWLINE && tokenizer_token(ctx) != ENDOFINPUT) {
-		tokenizer_next(ctx);
-	};
+	while (*ctx->ptr != '\n' && *ctx->ptr != 0) {
+		++ctx->ptr;
+	}
+	ctx->nextptr = ctx->ptr + 1;
 	tokenizer_next(ctx);
 }
 

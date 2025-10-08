@@ -15,6 +15,7 @@ struct match_state {
 	int matched;       /* 0/1 */
 	size_t next_off;
 	size_t fuel_per_tick;
+	bool debug;
 };
 
 #ifndef elementsof
@@ -40,6 +41,8 @@ bool match_idle_step(process_t *proc, void *opaque) {
 	if (!st) {
 		return false;
 	}
+
+	if (st->debug) dprintf("in idler for some reason\n");
 
 	size_t next_off = st->off;
 
@@ -76,7 +79,8 @@ void match_statement(struct basic_ctx *ctx)
 	const char *hay = str_expr(ctx);
 	size_t hay_len = strlen(hay);
 
-	/* ===== check for optional capture variables ===== */
+	bool dig_deep = !strcmp(hay, "/rooted/path?only=param");
+
 	const char *cap_names[32];
 	size_t cap_vars = 0;
 
@@ -89,8 +93,7 @@ void match_statement(struct basic_ctx *ctx)
 		accept_or_return(COMMA, ctx);
 
 		if (cap_vars >= elementsof(cap_names)) {
-			tokenizer_error_printf(ctx, "MATCH: too many capture variables (max %u)",
-					       (unsigned)elementsof(cap_names));
+			tokenizer_error_printf(ctx, "MATCH: too many capture variables (max %u)", (unsigned)elementsof(cap_names));
 			return;
 		}
 
@@ -100,9 +103,8 @@ void match_statement(struct basic_ctx *ctx)
 		cap_names[cap_vars++] = vname;
 	}
 
-	process_t *proc = proc_cur(logical_cpu_id());
+	process_t* proc = ctx->proc;
 
-	/* ===== capture-enabled, one-shot path (no regmatch_t here) ===== */
 	if (cap_vars > 0) {
 		struct regex_prog *prog = NULL;
 		int rc = regex_compile_captures(ctx->allocator, &prog, (const uint8_t *)pat, pat_len);
@@ -120,14 +122,11 @@ void match_statement(struct basic_ctx *ctx)
 		}
 
 		/* Run one-shot, copying up to cap_vars captures (1..cap_vars) */
-		char **cap_out = buddy_malloc(ctx->allocator, sizeof(char *) * cap_vars);
+		char **cap_out = buddy_calloc(ctx->allocator, sizeof(char*), cap_vars);
 		if (!cap_out) {
 			regex_free(prog);
 			tokenizer_error_printf(ctx, "MATCH: out of memory");
 			return;
-		}
-		for (size_t i = 0; i < cap_vars; i++) {
-			cap_out[i] = NULL;
 		}
 
 		int mrc = regex_exec_once_copy(
@@ -149,9 +148,7 @@ void match_statement(struct basic_ctx *ctx)
 			set_empty_captures(ctx, cap_names, cap_vars);
 			/* free any partial allocations */
 			for (size_t i = 0; i < cap_vars; i++) {
-				if (cap_out[i]) {
-					buddy_free(ctx->allocator, cap_out[i]);
-				}
+				buddy_free(ctx->allocator, cap_out[i]);
 			}
 			buddy_free(ctx->allocator, cap_out);
 			regex_free(prog);
@@ -188,8 +185,6 @@ void match_statement(struct basic_ctx *ctx)
 		return;
 	}
 
-	/* ===== original co-op scan path (no captures requested) ===== */
-
 	if (ctx->match_ctx) {
 		struct match_state *st = ctx->match_ctx;
 		int matched = st->matched;
@@ -221,6 +216,7 @@ void match_statement(struct basic_ctx *ctx)
 		if (prog != NULL) {
 			regex_free(prog);
 		}
+		proc_set_idle(proc, NULL, NULL);
 		return;
 	}
 
@@ -228,6 +224,7 @@ void match_statement(struct basic_ctx *ctx)
 	if (!st) {
 		regex_free(prog);
 		tokenizer_error_printf(ctx, "MATCH: out of memory");
+		proc_set_idle(proc, NULL, NULL);
 		return;
 	}
 
@@ -237,6 +234,7 @@ void match_statement(struct basic_ctx *ctx)
 	st->hay_len       = hay_len;
 	st->off           = 0;
 	st->fuel_per_tick = 5000;
+	st->debug = dig_deep;
 
 	ctx->match_ctx = st;
 

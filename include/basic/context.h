@@ -34,6 +34,11 @@ typedef struct basic_sound_t {
  */
 typedef struct basic_ctx {
 	/**
+	 * Owning process in cooperative task scheduler
+	 */
+	struct process_t* proc;
+
+	/**
 	 * @brief Pointer to the start of the next token.
 	 *
 	 * This pointer always lies between `program_ptr` and `program_ptr + strlen(program_ptr)`.
