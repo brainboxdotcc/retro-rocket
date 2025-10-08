@@ -89,6 +89,7 @@ var searchData=
   ['expression_86',['Regular expression',['../variables.html#regular-expression',1,'']]],
   ['expression_20engine_3a_20typed_20predictable_87',['The expression engine: typed, predictable',['../basic-intdev.html#the-expression-engine-typed-predictable',1,'']]],
   ['extend_20it_88',['If you want to extend it',['../basic-intdev.html#if-you-want-to-extend-it',1,'']]],
-  ['extended_20keys_89',['Extended keys',['../INKEY.html#extended-keys',1,'']]],
-  ['extents_90',['4.1 Extents',['../retrofs.html#autotoc_md41-extents',1,'']]]
+  ['extended_20high_20leaves_89',['Extended (High) Leaves',['../cpuid.html#extended-high-leaves',1,'']]],
+  ['extended_20keys_90',['Extended keys',['../INKEY.html#extended-keys',1,'']]],
+  ['extents_91',['4.1 Extents',['../retrofs.html#autotoc_md41-extents',1,'']]]
 ];

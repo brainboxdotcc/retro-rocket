@@ -4,6 +4,7 @@
 - \subpage cd
 - \subpage charmap
 - \subpage chdir
+- \subpage cpuid
 - \subpage cpubrand
 - \subpage cpuvendor
 - \subpage cube

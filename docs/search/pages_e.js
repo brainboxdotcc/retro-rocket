@@ -76,6 +76,7 @@ var searchData=
   ['expression_73',['Regular expression',['../variables.html#regular-expression',1,'']]],
   ['expression_20engine_3a_20typed_20predictable_74',['The expression engine: typed, predictable',['../basic-intdev.html#the-expression-engine-typed-predictable',1,'']]],
   ['extend_20it_75',['If you want to extend it',['../basic-intdev.html#if-you-want-to-extend-it',1,'']]],
-  ['extended_20keys_76',['Extended keys',['../INKEY.html#extended-keys',1,'']]],
-  ['extents_77',['4.1 Extents',['../retrofs.html#autotoc_md41-extents',1,'']]]
+  ['extended_20high_20leaves_76',['Extended (High) Leaves',['../cpuid.html#extended-high-leaves',1,'']]],
+  ['extended_20keys_77',['Extended keys',['../INKEY.html#extended-keys',1,'']]],
+  ['extents_78',['4.1 Extents',['../retrofs.html#autotoc_md41-extents',1,'']]]
 ];

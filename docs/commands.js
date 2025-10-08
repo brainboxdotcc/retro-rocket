@@ -4,6 +4,7 @@ var commands =
     [ "cd command", "cd.html", null ],
     [ "charmap program", "charmap.html", null ],
     [ "chdir command", "chdir.html", null ],
+    [ "cpuid command", "cpuid.html", null ],
     [ "cpubrand command", "cpubrand.html", null ],
     [ "cpuvendor command", "cpuvendor.html", null ],
     [ "cube program", "cube.html", null ],

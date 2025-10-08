@@ -247,7 +247,7 @@ var NAVTREEINDEX0 =
 "charmap.html":[0,0,2],
 "chdir.html":[0,0,3],
 "commands.html":[0,0],
-"cpubrand.html":[0,0,4],
-"cpuvendor.html":[0,0,5],
-"cube.html":[0,0,6]
+"cpubrand.html":[0,0,5],
+"cpuid.html":[0,0,4],
+"cpuvendor.html":[0,0,6]
 };
