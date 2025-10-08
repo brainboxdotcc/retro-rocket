@@ -27,7 +27,7 @@
 <hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="SOCKFLUSH_1examples-165_1s1"><sect2 id="SOCKFLUSH_1examples-165_1s2"><sect3 id="SOCKFLUSH_1examples-165">
+<sect1 id="SOCKFLUSH_1examples-166_1s1"><sect2 id="SOCKFLUSH_1examples-166_1s2"><sect3 id="SOCKFLUSH_1examples-166">
 <title>Examples</title><para><bold>Send a line, flush, then close</bold></para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">server<sp/>=<sp/>SOCKLISTEN(NETINFO$(&quot;ip&quot;),<sp/>2000,<sp/>5)</highlight></codeline>
 <codeline><highlight class="normal">client<sp/>=<sp/>SOCKACCEPT(server)</highlight></codeline>
@@ -47,7 +47,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="SOCKFLUSH_1notes-171_1s1"><sect2 id="SOCKFLUSH_1notes-171_1s2"><sect3 id="SOCKFLUSH_1notes-171">
+<sect1 id="SOCKFLUSH_1notes-172_1s1"><sect2 id="SOCKFLUSH_1notes-172_1s2"><sect3 id="SOCKFLUSH_1notes-172">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>If the socket has no pending data, <computeroutput>SOCKFLUSH</computeroutput> returns immediately.</para>
 </listitem><listitem><para>If the connection is no longer valid (e.g. already closed), <computeroutput>SOCKFLUSH</computeroutput> returns without waiting.</para>

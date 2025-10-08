@@ -26,7 +26,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect1 id="RMDIR_1examples-161_1s1"><sect2 id="RMDIR_1examples-161_1s2"><sect3 id="RMDIR_1examples-161">
+<sect1 id="RMDIR_1examples-162_1s1"><sect2 id="RMDIR_1examples-162_1s2"><sect3 id="RMDIR_1examples-162">
 <title>Examples</title><para>Remove a directory in the current folder <programlisting filename=".basic"><codeline><highlight class="normal">RMDIR<sp/>&quot;old_data&quot;</highlight></codeline>
 </programlisting></para>
 <para>Remove a directory by absolute path <programlisting filename=".basic"><codeline><highlight class="normal">RMDIR<sp/>&quot;/projects/archive&quot;</highlight></codeline>
@@ -37,7 +37,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="RMDIR_1notes-166_1s1"><sect2 id="RMDIR_1notes-166_1s2"><sect3 id="RMDIR_1notes-166">
+<sect1 id="RMDIR_1notes-167_1s1"><sect2 id="RMDIR_1notes-167_1s2"><sect3 id="RMDIR_1notes-167">
 <title>Notes</title><para><itemizedlist>
 <listitem><para><computeroutput>RMDIR</computeroutput> removes <bold>directories</bold> only. To delete a <bold>file</bold>, use <ref refid="DELETE" kindref="compound">DELETE</ref>.</para>
 </listitem><listitem><para>Attempting to remove a non-empty directory raises a runtime error.</para>

@@ -9,7 +9,7 @@
 <para>String variables are represented by any variable with the suffix <computeroutput>$</computeroutput>, e.g. <computeroutput>C$</computeroutput> or <computeroutput>MYVAR$</computeroutput>. They are stored as <bold>null-terminated C-style sequences</bold> of <bold>8-bit ASCII characters</bold>.</para>
 <para><hruler/>
 </para>
-<sect1 id="type-string_1examples-180_1s1"><sect2 id="type-string_1examples-180_1s2"><sect3 id="type-string_1examples-180">
+<sect1 id="type-string_1examples-181_1s1"><sect2 id="type-string_1examples-181_1s2"><sect3 id="type-string_1examples-181">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">name$<sp/>=<sp/>&quot;Retro<sp/>Rocket&quot;</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Hello,<sp/>&quot;;<sp/>name$</highlight></codeline>
 </programlisting></para>
@@ -25,7 +25,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="type-string_1notes-188_1s1"><sect2 id="type-string_1notes-188_1s2"><sect3 id="type-string_1notes-188">
+<sect1 id="type-string_1notes-189_1s1"><sect2 id="type-string_1notes-189_1s2"><sect3 id="type-string_1notes-189">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Strings are mutable and can be reassigned at any time.</para>
 </listitem><listitem><para>Maximum length depends on available memory.</para>

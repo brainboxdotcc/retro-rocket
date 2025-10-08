@@ -12,7 +12,7 @@
 <para>Retro Rocket BASIC implements a practical subset of BBC MOS <computeroutput>VDU</computeroutput>. Unsupported commands are no-ops (their arguments are discarded).</para>
 <para><hruler/>
 </para>
-<sect1 id="VDU_1notes-181_1s1"><sect2 id="VDU_1notes-181_1s2"><sect3 id="VDU_1notes-181">
+<sect1 id="VDU_1notes-182_1s1"><sect2 id="VDU_1notes-182_1s2"><sect3 id="VDU_1notes-182">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Coordinates for cursor movement use <bold>text cells</bold>: <computeroutput>x</computeroutput> is the column (0..cols-1), <computeroutput>y</computeroutput> is the row (0..rows-1).</para>
 </listitem><listitem><para><computeroutput>VDU 12</computeroutput> (<bold>CLS</bold>) and <computeroutput>VDU 16</computeroutput> (<bold>CLG</bold>) both clear the <bold>entire</bold> screen.</para>
@@ -138,7 +138,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="VDU_1examples-175_1s1"><sect2 id="VDU_1examples-175_1s2"><sect3 id="VDU_1examples-175">
+<sect1 id="VDU_1examples-176_1s1"><sect2 id="VDU_1examples-176_1s2"><sect3 id="VDU_1examples-176">
 <title>Examples</title><para><bold>Redefine te bitmap for “Z” and print it</bold></para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">VDU<sp/>23,ASC(&apos;Z&apos;),&amp;3C,&amp;7E,&amp;FF,&amp;E7,&amp;FF,&amp;66,&amp;66,&amp;00</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;ALIEN:<sp/>Z&quot;</highlight></codeline>

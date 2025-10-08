@@ -29,7 +29,7 @@ bool match_idle_step(process_t *proc, void *opaque) {
 
 	size_t next_off = st->off;
 
-	int rc = regex_exec_slice(st->prog, st->hay, st->hay_len, st->off, st->fuel_per_tick, &st->m, &next_off);
+	int rc = regex_exec_slice(st->prog, st->hay, st->hay_len, st->off, &st->m, &next_off);
 	dprintf("regex exec slice, next_off=%lu\n", next_off);
 
 	if (rc == RE_AGAIN) {
@@ -65,27 +65,38 @@ void match_statement(struct basic_ctx *ctx)
 
 	process_t *proc = proc_cur(logical_cpu_id());
 
-	/* ===== resume path ===== */
 	if (ctx->match_ctx) {
 		struct match_state *st = ctx->match_ctx;
 		int matched = st->matched;
+
+		const char *emsg = regex_last_error(st->prog);
+		if (emsg != NULL && emsg[0] != '\0') {
+			tokenizer_error_printf(ctx, "MATCH: %s", emsg);
+		}
+
 		regex_free(st->prog);
 		buddy_free(ctx->allocator, st);
 		ctx->match_ctx = NULL;
+
 		basic_set_int_variable(res_name, matched, ctx, false, false);
-		buddy_free(ctx->allocator, st);
 		accept_or_return(NEWLINE, ctx);
 		proc->state = PROC_RUNNING;
 		return;
 	}
 
-	/* ===== first entry ===== */
-	struct regex_opts ropts = { .max_code = 16384, .max_threads = 4096 };
-	struct regex_prog *prog = NULL;
 
-	int rc = regex_compile(ctx->allocator, &prog, (const uint8_t *)pat, pat_len, &ropts);
+	struct regex_prog *prog = NULL;
+	int rc = regex_compile(ctx->allocator, &prog, (const uint8_t *)pat, pat_len);
 	if (rc != RE_OK) {
-		tokenizer_error_printf(ctx, "MATCH: invalid regular expression (%d)", rc);
+		const char *emsg = (prog != NULL) ? regex_last_error(prog) : "";
+		if (emsg != NULL && emsg[0] != '\0') {
+			tokenizer_error_printf(ctx, "MATCH: %s", emsg);
+		} else {
+			tokenizer_error_printf(ctx, "MATCH: invalid regular expression (%d)", rc);
+		}
+		if (prog != NULL) {
+			regex_free(prog);
+		}
 		return;
 	}
 

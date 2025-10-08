@@ -27,7 +27,5 @@ void kmain()
 	usb_hid_init();
 	init_usb_xhci();*/
 
-	regex_selftest();
-
 	init_process();
 }

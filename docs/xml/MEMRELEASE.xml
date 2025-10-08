@@ -11,7 +11,7 @@
 <para>Releases (frees) a block of memory previously obtained via <ref refid="MEMALLOC" kindref="compound">MEMALLOC</ref>.</para>
 <para><hruler/>
 </para>
-<sect1 id="MEMRELEASE_1examples-140_1s1"><sect2 id="MEMRELEASE_1examples-140_1s2"><sect3 id="MEMRELEASE_1examples-140">
+<sect1 id="MEMRELEASE_1examples-141_1s1"><sect2 id="MEMRELEASE_1examples-141_1s2"><sect3 id="MEMRELEASE_1examples-141">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">buf<sp/>=<sp/>MEMALLOC(65536)</highlight></codeline>
 <codeline><highlight class="normal">REM<sp/>...<sp/>use<sp/>buf<sp/>...</highlight></codeline>
 <codeline><highlight class="normal">MEMRELEASE<sp/>buf</highlight></codeline>
@@ -19,7 +19,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="MEMRELEASE_1notes-151_1s1"><sect2 id="MEMRELEASE_1notes-151_1s2"><sect3 id="MEMRELEASE_1notes-151">
+<sect1 id="MEMRELEASE_1notes-152_1s1"><sect2 id="MEMRELEASE_1notes-152_1s2"><sect3 id="MEMRELEASE_1notes-152">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Passing an invalid or already-freed handle raises an error.</para>
 </listitem><listitem><para>After releasing, set your variable to <computeroutput>0</computeroutput> if you want to avoid accidental reuse.</para>

@@ -29,7 +29,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="REPEAT_1examples-160_1s1"><sect2 id="REPEAT_1examples-160_1s2"><sect3 id="REPEAT_1examples-160">
+<sect1 id="REPEAT_1examples-161_1s1"><sect2 id="REPEAT_1examples-161_1s2"><sect3 id="REPEAT_1examples-161">
 <title>Examples</title><para><bold>Count until a limit</bold> <programlisting filename=".basic"><codeline><highlight class="normal">N<sp/>=<sp/>0</highlight></codeline>
 <codeline><highlight class="normal">REPEAT</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;N<sp/>=<sp/>&quot;;<sp/>N</highlight></codeline>
@@ -61,7 +61,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="REPEAT_1notes-165_1s1"><sect2 id="REPEAT_1notes-165_1s2"><sect3 id="REPEAT_1notes-165">
+<sect1 id="REPEAT_1notes-166_1s1"><sect2 id="REPEAT_1notes-166_1s2"><sect3 id="REPEAT_1notes-166">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>The condition on <computeroutput>UNTIL</computeroutput> is a normal boolean <bold>expression</bold>; use comparisons like <computeroutput>=</computeroutput>, <computeroutput>&lt;&gt;</computeroutput>, <computeroutput>&lt;</computeroutput>, <computeroutput>&gt;</computeroutput>, <computeroutput>&lt;=</computeroutput>, <computeroutput>&gt;=</computeroutput>.</para>
 </listitem><listitem><para>Because the test occurs <bold>after</bold> the body, the body runs <bold>once even if the condition is initially true</bold>.</para>

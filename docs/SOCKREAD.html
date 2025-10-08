@@ -111,7 +111,7 @@ Without an error handler, the program <b>terminates</b>. </dd>
 <dd>
 With an <span class="tt">ON ERROR</span> handler, control passes there instead.</dd></dl>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-166"></a>
+<h3 class="doxsection"><a class="anchor" id="examples-167"></a>
 Examples</h3>
 <p><b>Read a text line</b> </p><div class="fragment"><div class="line">CONNECT S, &quot;93.184.216.34&quot;, 80</div>
 <div class="line">REM Ask the server for a line, then read it</div>
@@ -143,7 +143,7 @@ Examples</h3>
 <div class="line">    ON ERROR PROCnet_err</div>
 <div class="line">ENDPROC</div>
 </div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-172"></a>
+<h3 class="doxsection"><a class="anchor" id="notes-173"></a>
 Notes</h3>
 <ul>
 <li>Treat the socket as a <b>byte stream</b>; if you need to read multiple fields on one line, call <span class="tt">SOCKREAD</span> multiple times or define a simple protocol (for example, one value per line).</li>

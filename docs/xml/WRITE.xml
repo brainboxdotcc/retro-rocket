@@ -37,7 +37,7 @@
 <hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="WRITE_1examples-177_1s1"><sect2 id="WRITE_1examples-177_1s2"><sect3 id="WRITE_1examples-177">
+<sect1 id="WRITE_1examples-178_1s1"><sect2 id="WRITE_1examples-178_1s2"><sect3 id="WRITE_1examples-178">
 <title>Examples</title><para><bold>Create a file and write two lines</bold> <programlisting filename=".basic"><codeline><highlight class="normal">FH<sp/>=<sp/>OPENOUT(&quot;log.txt&quot;)</highlight></codeline>
 <codeline><highlight class="normal">WRITE<sp/>FH,<sp/>&quot;Hello&quot;</highlight></codeline>
 <codeline><highlight class="normal">WRITE<sp/>FH,<sp/>&quot;World&quot;</highlight></codeline>
@@ -71,7 +71,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="WRITE_1notes-183_1s1"><sect2 id="WRITE_1notes-183_1s2"><sect3 id="WRITE_1notes-183">
+<sect1 id="WRITE_1notes-184_1s1"><sect2 id="WRITE_1notes-184_1s2"><sect3 id="WRITE_1notes-184">
 <title>Notes</title><para><itemizedlist>
 <listitem><para><computeroutput>integer-variable</computeroutput> must be a <bold>variable</bold> holding a valid handle; do not pass a literal or expression.</para>
 </listitem><listitem><para>After <computeroutput>CLOSE</computeroutput>, the handle is invalid for further <computeroutput>WRITE</computeroutput> calls.</para>

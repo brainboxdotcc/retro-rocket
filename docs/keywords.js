@@ -54,6 +54,7 @@ var keywords =
     [ "LIBRARY Keyword", "LIBRARY.html", null ],
     [ "LINE Keyword", "LINE.html", null ],
     [ "LOCAL Keyword", "LOCAL.html", null ],
+    [ "MATCH Keyword", "MATCH.html", null ],
     [ "MEMRELEASE Function", "MEMRELEASE.html", null ],
     [ "MKDIR Keyword", "MKDIR.html", null ],
     [ "MOUNT Keyword", "MOUNT.html", null ],

@@ -93,6 +93,7 @@ The following parameter types are used throughout this documentation:
 * \subpage LIBRARY
 * \subpage LINE
 * \subpage LOCAL
+* \subpage MATCH
 * \subpage MEMRELEASE
 * \subpage MKDIR
 * \subpage MOUNT

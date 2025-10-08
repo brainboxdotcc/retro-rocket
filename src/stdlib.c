@@ -670,19 +670,31 @@ size_t wcrtomb(char *s, wchar_t wc, mbstate_t *ps)
 int _uc(int c) { return (unsigned char)c; }
 
 int iswalpha(wint_t wc)  { return isalpha(_uc(wc)); }
+
 int iswalnum(wint_t wc)  { return isalnum(_uc(wc)); }
+
 int iswblank(wint_t wc)  { return (_uc(wc) == ' ' || _uc(wc) == '\t'); }
+
 int iswcntrl(wint_t wc)  { return iscntrl(_uc(wc)); }
+
 int iswdigit(wint_t wc)  { return isdigit(_uc(wc)); }
+
 int iswgraph(wint_t wc)  { return isgraph(_uc(wc)); }
+
 int iswlower(wint_t wc)  { return islower(_uc(wc)); }
+
 int iswprint(wint_t wc)  { return isprint(_uc(wc)); }
+
 int iswpunct(wint_t wc)  { return ispunct(_uc(wc)); }
+
 int iswspace(wint_t wc)  { return isspace(_uc(wc)); }
+
 int iswupper(wint_t wc)  { return isupper(_uc(wc)); }
+
 int iswxdigit(wint_t wc) { return isxdigit(_uc(wc)); }
 
 wint_t towupper(wint_t wc) { return (wint_t)toupper(_uc(wc)); }
+
 wint_t towlower(wint_t wc) { return (wint_t)tolower(_uc(wc)); }
 
 int iswctype(wint_t wc, wctype_t t)
