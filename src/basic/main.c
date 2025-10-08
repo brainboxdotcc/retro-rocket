@@ -414,9 +414,6 @@ void library_statement(struct basic_ctx *ctx) {
 	}
 	library_len = strlen(numbered);
 
-	dprintf("==== numbered: ====\n");
-	dprintf("%s", numbered);
-
 	/* Append the renumbered library to the end of the program (this reallocates
 	 * ctx->program_ptr invalidating ctx->ptr and ctx->next_ptr - the tokeinizer
 	 * must be reinitailised and the line hash rebuilt)
