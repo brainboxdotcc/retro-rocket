@@ -96,13 +96,14 @@ PRINT R          ' 1   ' empty match is allowed
 **Handling invalid patterns**
 
 ```basic
-ON ERROR GOTO BAD
+ON ERROR PROCbad
 MATCH R, "(?i)HELLO", "hello"   ' invalid: (?i) not supported
 PRINT "this line is not reached"
+END
 
-BAD:
+DEF PROCbad
 PRINT "Regex error!"
-RESUME NEXT
+END
 ```
 
 ---

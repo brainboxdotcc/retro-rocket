@@ -86,13 +86,14 @@
 <codeline><highlight class="normal">PRINT<sp/>R<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>1<sp/><sp/><sp/>&apos;<sp/>empty<sp/>match<sp/>is<sp/>allowed</highlight></codeline>
 </programlisting></para>
 <para><bold>Handling invalid patterns</bold></para>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">ON<sp/>ERROR<sp/>GOTO<sp/>BAD</highlight></codeline>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">ON<sp/>ERROR<sp/>PROCbad</highlight></codeline>
 <codeline><highlight class="normal">MATCH<sp/>R,<sp/>&quot;(?i)HELLO&quot;,<sp/>&quot;hello&quot;<sp/><sp/><sp/>&apos;<sp/>invalid:<sp/>(?i)<sp/>not<sp/>supported</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;this<sp/>line<sp/>is<sp/>not<sp/>reached&quot;</highlight></codeline>
+<codeline><highlight class="normal">END</highlight></codeline>
 <codeline></codeline>
-<codeline><highlight class="normal">BAD:</highlight></codeline>
+<codeline><highlight class="normal">DEF<sp/>PROCbad</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Regex<sp/>error!&quot;</highlight></codeline>
-<codeline><highlight class="normal">RESUME<sp/>NEXT</highlight></codeline>
+<codeline><highlight class="normal">END</highlight></codeline>
 </programlisting></para>
 <para><hruler/>
 </para>

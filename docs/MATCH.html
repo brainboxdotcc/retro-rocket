@@ -164,13 +164,14 @@ Examples</h3>
 <div class="line">MATCH R, &quot;B*&quot;, &quot;AAAA&quot;</div>
 <div class="line">PRINT R          &#39; 1   &#39; empty match is allowed</div>
 </div><!-- fragment --><p><b>Handling invalid patterns</b></p>
-<div class="fragment"><div class="line">ON ERROR GOTO BAD</div>
+<div class="fragment"><div class="line">ON ERROR PROCbad</div>
 <div class="line">MATCH R, &quot;(?i)HELLO&quot;, &quot;hello&quot;   &#39; invalid: (?i) not supported</div>
 <div class="line">PRINT &quot;this line is not reached&quot;</div>
+<div class="line">END</div>
 <div class="line"> </div>
-<div class="line">BAD:</div>
+<div class="line">DEF PROCbad</div>
 <div class="line">PRINT &quot;Regex error!&quot;</div>
-<div class="line">RESUME NEXT</div>
+<div class="line">END</div>
 </div><!-- fragment --><hr  />
 <h3 class="doxsection"><a class="anchor" id="notes-151"></a>
 Notes</h3>
