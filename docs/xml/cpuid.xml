@@ -1,0 +1,277 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="cpuid" kind="page">
+    <compoundname>cpuid</compoundname>
+    <title>cpuid command</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting><codeline><highlight class="normal">cpuid<sp/>[leaf<sp/>number]</highlight></codeline>
+</programlisting> Retrieve CPUID information from the processor. See The documentation of CPUID for more information.</para>
+<para><image type="html" name="https://github.com/brainboxdotcc/retro-rocket/assets/1556794/523b5f5b-510e-4a91-a210-71eae0021fb4" alt="image" inline="yes"></image>
+</para>
+<sect1 id="cpuid_1cpuid-leaf-values_1s1"><sect2 id="cpuid_1cpuid-leaf-values_1s2"><sect3 id="cpuid_1cpuid-leaf-values">
+<title>CPUID Leaf Values</title><para><table rows="27" cols="4"><row>
+<entry thead="yes"><para>Leaf (EAX)  </para>
+</entry><entry thead="yes"><para>Sub-Leaf (ECX)  </para>
+</entry><entry thead="yes"><para>Purpose / Description  </para>
+</entry><entry thead="yes"><para>Example Outputs or Notes  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>0</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>Highest Standard Function</bold> and <bold>Vendor ID String</bold>. Returns the maximum supported standard leaf in EAX, and the vendor string across EBX, EDX, and ECX.  </para>
+</entry><entry thead="no"><para>Example vendor strings: <computeroutput>&quot;GenuineIntel&quot;</computeroutput>, <computeroutput>&quot;AuthenticAMD&quot;</computeroutput>.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>1</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>Processor Information and Feature Bits.</bold> Reports family, model, stepping, and feature flags such as SSE, AVX, FPU, MMX, etc.  </para>
+</entry><entry thead="no"><para>EAX: version info; EBX: logical cores; ECX/EDX: feature flags.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>2</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>Cache and TLB Descriptor Information.</bold> Legacy format describing cache/TLB layout. Superseded by leaf 4.  </para>
+</entry><entry thead="no"><para>Used on older Intel CPUs.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>3</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>Processor Serial Number.</bold> Deprecated and often disabled for privacy reasons.  </para>
+</entry><entry thead="no"><para>Rarely supported.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>4</bold>  </para>
+</entry><entry thead="no"><para><emphasis>n</emphasis> (0… until type=0)  </para>
+</entry><entry thead="no"><para><bold>Deterministic Cache Parameters.</bold> Reports cache level, type, line size, associativity, and set count.  </para>
+</entry><entry thead="no"><para>Iterate ECX from 0 until EAX[bits 4–0] = 0.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>5</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>MONITOR/MWAIT Parameters.</bold> Reports monitor-line size and power hints.  </para>
+</entry><entry thead="no"><para>Used in power-management routines.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>6</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>Thermal and Power Management.</bold> Indicates turbo boost, energy-performance bias, etc.  </para>
+</entry><entry thead="no"><para>Features vary by generation.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>7</bold>  </para>
+</entry><entry thead="no"><para><emphasis>n</emphasis> (0+)  </para>
+</entry><entry thead="no"><para><bold>Structured Extended Feature Flags.</bold> Lists AVX2, BMI, SMEP, SMAP, SHA, and other extensions.  </para>
+</entry><entry thead="no"><para>ECX = 0 = base feature list.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>8</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>Reserved (Intel).</bold>  </para>
+</entry><entry thead="no"><para>Typically returns zeros.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>9</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>Direct Cache Access (DCA) Capabilities.</bold>  </para>
+</entry><entry thead="no"><para>Rarely used outside servers.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>10</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>Architectural Performance Monitoring.</bold> Gives number and width of performance counters.  </para>
+</entry><entry thead="no"><para>Used for profiling/perf events.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>11</bold>  </para>
+</entry><entry thead="no"><para><emphasis>n</emphasis> (0… until type=0)  </para>
+</entry><entry thead="no"><para><bold>Extended Topology Enumeration.</bold> Replaces legacy APIC ID method for threads/cores.  </para>
+</entry><entry thead="no"><para>Iterate until EAX[4–0] = 0.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>12</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>SGX Capability Reporting.</bold>  </para>
+</entry><entry thead="no"><para>Secure Guard Extensions (if supported).  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>13</bold>  </para>
+</entry><entry thead="no"><para><emphasis>n</emphasis> (0+)  </para>
+</entry><entry thead="no"><para><bold>Extended State Enumeration (XSAVE).</bold> Reports supported CPU state components and save area size.  </para>
+</entry><entry thead="no"><para>Used for AVX and AVX-512.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>14</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>Intel Processor Trace.</bold>  </para>
+</entry><entry thead="no"><para>Reports tracing feature support.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>15</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>Time Stamp Counter and Crystal Clock Relationship.</bold>  </para>
+</entry><entry thead="no"><para>Defines TSC/core crystal frequency ratio.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>16</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>Processor Frequency Information.</bold>  </para>
+</entry><entry thead="no"><para>Base, max, and bus ratio in MHz.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>17</bold>  </para>
+</entry><entry thead="no"><para><emphasis>n</emphasis> (0+)  </para>
+</entry><entry thead="no"><para><bold>System-on-Chip Vendor Attributes.</bold>  </para>
+</entry><entry thead="no"><para>Vendor ID and capabilities.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>18</bold>  </para>
+</entry><entry thead="no"><para><emphasis>n</emphasis> (0+)  </para>
+</entry><entry thead="no"><para><bold>Platform QoS Monitoring.</bold>  </para>
+</entry><entry thead="no"><para>Cache and memory bandwidth monitoring.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>19</bold>  </para>
+</entry><entry thead="no"><para><emphasis>n</emphasis> (0+)  </para>
+</entry><entry thead="no"><para><bold>Platform QoS Enforcement.</bold>  </para>
+</entry><entry thead="no"><para>Cache/memory bandwidth allocation.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>20–23</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>Reserved.</bold>  </para>
+</entry><entry thead="no"><para>May be vendor-specific.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>24</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>AMD SEV / Memory Encryption Capabilities.</bold>  </para>
+</entry><entry thead="no"><para>Only valid on AMD CPUs.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>25</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>AMD Performance and Debug Features.</bold>  </para>
+</entry><entry thead="no"><para>Implementation-specific.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>26–29</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>Reserved.</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>30</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>IA32 Architectural Capabilities.</bold>  </para>
+</entry><entry thead="no"><para>Provides details on RDPID, SGX, etc.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>31</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>AVX10 and Architectural Future Extensions.</bold>  </para>
+</entry><entry thead="no"><para>(Newer CPUs only.)  </para>
+</entry></row>
+</table>
+</para>
+<para><hruler/>
+</para>
+</sect3></sect2></sect1>
+<sect1 id="cpuid_1extended-high-leaves_1s1"><sect2 id="cpuid_1extended-high-leaves_1s2"><sect3 id="cpuid_1extended-high-leaves">
+<title>Extended (High) Leaves</title><para><table rows="13" cols="4"><row>
+<entry thead="yes"><para>Leaf (EAX)  </para>
+</entry><entry thead="yes"><para>Sub-Leaf (ECX)  </para>
+</entry><entry thead="yes"><para>Purpose / Description  </para>
+</entry><entry thead="yes"><para>Example Outputs or Notes  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>2147483648</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>Highest Extended Function Supported.</bold>  </para>
+</entry><entry thead="no"><para>Returns maximum extended leaf.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>2147483649</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>Processor Brand String (part 1).</bold>  </para>
+</entry><entry thead="no"><para>ASCII characters in registers.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>2147483650</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>Processor Brand String (part 2).</bold>  </para>
+</entry><entry thead="no"><para>Concatenate with other parts.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>2147483651</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>Processor Brand String (part 3).</bold>  </para>
+</entry><entry thead="no"><para>Full readable brand string.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>2147483652</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>Extended Features (AMD).</bold>  </para>
+</entry><entry thead="no"><para>Reports long mode (64-bit), NX, etc.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>2147483653</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>AMD Brand ID and Feature Extensions.</bold>  </para>
+</entry><entry thead="no"><para>Reports 3DNow!+, LZCNT, etc.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>2147483654</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>AMD Advanced Power Management Info.</bold>  </para>
+</entry><entry thead="no"><para>Frequency, voltage hints.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>2147483655</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>AMD Lightweight Profiling (LWP).</bold>  </para>
+</entry><entry thead="no"><para>Low-overhead performance monitoring.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>2147483656</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>AMD Cache Topology and Address Translation.</bold>  </para>
+</entry><entry thead="no"><para>Page size and cache info.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>2147483657</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>AMD Processor Capacity / Die Identification.</bold>  </para>
+</entry><entry thead="no"><para>Used for multi-chip packages.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>2147483658</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>AMD Encryption and Secure Memory Features.</bold>  </para>
+</entry><entry thead="no"><para>SME, SEV, SEV-ES flags.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para><bold>2147483659+</bold>  </para>
+</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para><bold>Reserved or Vendor-Specific Extensions.</bold>  </para>
+</entry><entry thead="no"><para>Future-use space.  </para>
+</entry></row>
+</table>
+</para>
+<para><hruler/>
+</para>
+</sect3></sect2></sect1>
+<sect1 id="cpuid_1notes-190_1s1"><sect2 id="cpuid_1notes-190_1s2"><sect3 id="cpuid_1notes-190">
+<title>Notes</title><para><itemizedlist>
+<listitem><para>All <bold>leaf values</bold> are shown in <bold>decimal</bold> form, as used by the <computeroutput>cpuid</computeroutput> command.</para>
+</listitem><listitem><para>Sub-leaves (ECX) are zero unless iterating over hierarchical data like cache or topology.</para>
+</listitem><listitem><para>The command reads <bold>EAX, EBX, ECX, and EDX</bold> and prints their raw 32-bit register values in hexadecimal for analysis.</para>
+</listitem><listitem><para>To reconstruct brand strings, concatenate ASCII bytes from the extended leaves (2147483649–2147483651). </para>
+</listitem></itemizedlist>
+</para>
+</sect3></sect2></sect1>
+    </detaileddescription>
+    <location file="docpages/user-guide/commands/cpuid.md"/>
+  </compounddef>
+</doxygen>
