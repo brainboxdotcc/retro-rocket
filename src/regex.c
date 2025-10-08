@@ -129,7 +129,7 @@ const char *regex_last_error(const struct regex_prog *p) {
 	return p->err;
 }
 
-void regex_selftest(void) {
+[[maybe_unused]] void regex_selftest(void) {
 	dprintf("==== regex_selftest ====\n");
 	struct {
 		const char *pattern;
