@@ -13,6 +13,16 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#ifndef __WCTYPE_T_DEFINED
+typedef int wctype_t;
+#endif
+
+#ifndef __MBSTATE_T_DEFINED
+typedef struct {
+	unsigned int __dummy;
+} mbstate_t;
+#endif
+
 /**
  * @brief Result of integer division
  */
@@ -28,6 +38,15 @@ typedef struct ldiv_t {
 	long int quot; /**< Quotient */
 	long int rem;  /**< Remainder */
 } ldiv_t;
+
+typedef int wctype_t;
+
+enum {
+	_WC_ALPHA=1, _WC_DIGIT, _WC_ALNUM, _WC_SPACE, _WC_UPPER, _WC_LOWER,
+	_WC_XDIGIT, _WC_PUNCT, _WC_CNTRL, _WC_GRAPH, _WC_PRINT, _WC_BLANK
+};
+
+typedef int wint_t;
 
 /**
  * @brief Alias type for signed char (used in stubs)
@@ -226,3 +245,38 @@ size_t wcstombs(char *str, const wchar_t *pwcs, size_t n);
  * @return Number of bytes written (1), or 0 if str is NULL.
  */
 int wctomb(char *str, wchar_t wchar);
+
+int _uc(int c);
+int iscntrl(int c);
+int isgraph(int c);
+int islower(int c);
+int isprint(int c);
+int ispunct(int c);
+
+size_t mbstowcs(wchar_t *dst, const char *src, size_t n);
+
+size_t wcstombs(char *dst, const wchar_t *src, size_t n);
+
+size_t mbrtowc(wchar_t *pwc, const char *s, size_t n, mbstate_t *ps);
+
+size_t wcrtomb(char *s, wchar_t wc, mbstate_t *ps);
+
+int iswalpha(wint_t wc);
+int iswalnum(wint_t wc);
+int iswblank(wint_t wc);
+int iswcntrl(wint_t wc);
+int iswdigit(wint_t wc);
+int iswgraph(wint_t wc);
+int iswlower(wint_t wc);
+int iswprint(wint_t wc);
+int iswpunct(wint_t wc);
+int iswspace(wint_t wc);
+int iswupper(wint_t wc);
+int iswxdigit(wint_t wc);
+
+wint_t towupper(wint_t wc);
+wint_t towlower(wint_t wc);
+
+int iswctype(wint_t wc, wctype_t t);
+
+wctype_t wctype(const char *name);

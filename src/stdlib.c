@@ -590,61 +590,168 @@ int rand(void)
 	return (int)(rand_state >> 1);
 }
 
-int mblen(const char *str, size_t n)
+int mblen(const char *s, size_t n)
 {
-	if (str == NULL || n == 0)
-		return 0;
-	return *str != '\0' ? 1 : 0;
+	if (s == NULL) return 0;          /* no state */
+	if (n == 0) return -1;            /* incomplete sequence */
+	if (*s == '\0') return 0;         /* length of NUL is 0 */
+	return 1;                         /* single byte char */
 }
 
-size_t mbstowcs(wchar_t *pwcs, const char *str, size_t n)
+int mbtowc(wchar_t *pwc, const char *s, size_t n)
 {
-	size_t count = 0;
-	if (!str)
+	if (s == NULL) return 0;          /* no state */
+	if (n == 0) return -1;            /* incomplete */
+	if (*s == '\0') {                 /* NUL char */
+		if (pwc) *pwc = 0;
 		return 0;
-
-	while (*str && count < n) {
-		if (pwcs)
-			pwcs[count] = (unsigned char)*str;
-		str++;
-		count++;
 	}
-
-	return count;
-}
-
-int mbtowc(wchar_t *pwc, const char *str, size_t n)
-{
-	if (!str || n == 0)
-		return 0;
-	if (*str == '\0')
-		return 0;
-
-	if (pwc)
-		*pwc = (unsigned char)*str;
+	if (pwc) *pwc = (wchar_t)(unsigned char)*s;
 	return 1;
 }
 
-size_t wcstombs(char *str, const wchar_t *pwcs, size_t n)
+int wctomb(char *s, wchar_t wc)
+{
+	if (s == NULL) return 0;          /* no state */
+	s[0] = (char)(unsigned char)wc;
+	return 1;
+}
+
+size_t mbstowcs(wchar_t *dst, const char *src, size_t n)
 {
 	size_t count = 0;
-	if (!pwcs)
-		return 0;
+	if (!src) return 0;
 
-	while (*pwcs && count < n) {
-		if (str)
-			str[count] = (char)(*pwcs & 0xff);
-		pwcs++;
+	/* copy up to n wide chars; stop before writing terminator if no room */
+	while (count < n) {
+		unsigned char c = (unsigned char)src[count];
+		if (dst) dst[count] = (wchar_t)c;
+		if (c == '\0') return count;  /* terminator copied; do not count it */
 		count++;
 	}
-
+	/* ran out of space: no terminator written */
 	return count;
 }
 
-int wctomb(char *str, wchar_t wchar)
+size_t wcstombs(char *dst, const wchar_t *src, size_t n)
 {
-	if (!str)
-		return 0;
-	str[0] = (char)(wchar & 0xff);
+	size_t count = 0;
+	if (!src) return 0;
+
+	while (count < n) {
+		wchar_t wc = src[count];
+		if (dst) dst[count] = (char)(unsigned char)wc;
+		if (wc == 0) return count;    /* terminator copied; do not count it */
+		count++;
+	}
+	/* ran out of space: no terminator written */
+	return count;
+}
+
+/* C11 stateful forms — trivial because our "codec" is stateless. */
+size_t mbrtowc(wchar_t *pwc, const char *s, size_t n, mbstate_t *ps)
+{
+	(void)ps;
+	if (s == NULL) return 0;          /* no state */
+	if (n == 0) return (size_t)-2;    /* incomplete */
+	if (*s == '\0') { if (pwc) *pwc = 0; return 0; }
+	if (pwc) *pwc = (wchar_t)(unsigned char)*s;
 	return 1;
+}
+
+size_t wcrtomb(char *s, wchar_t wc, mbstate_t *ps)
+{
+	(void)ps;
+	if (s == NULL) return 1;          /* length of NUL in this encoding */
+	s[0] = (char)(unsigned char)wc;
+	return 1;
+}
+
+int _uc(int c) { return (unsigned char)c; }
+
+int iswalpha(wint_t wc)  { return isalpha(_uc(wc)); }
+int iswalnum(wint_t wc)  { return isalnum(_uc(wc)); }
+int iswblank(wint_t wc)  { return (_uc(wc) == ' ' || _uc(wc) == '\t'); }
+int iswcntrl(wint_t wc)  { return iscntrl(_uc(wc)); }
+int iswdigit(wint_t wc)  { return isdigit(_uc(wc)); }
+int iswgraph(wint_t wc)  { return isgraph(_uc(wc)); }
+int iswlower(wint_t wc)  { return islower(_uc(wc)); }
+int iswprint(wint_t wc)  { return isprint(_uc(wc)); }
+int iswpunct(wint_t wc)  { return ispunct(_uc(wc)); }
+int iswspace(wint_t wc)  { return isspace(_uc(wc)); }
+int iswupper(wint_t wc)  { return isupper(_uc(wc)); }
+int iswxdigit(wint_t wc) { return isxdigit(_uc(wc)); }
+
+wint_t towupper(wint_t wc) { return (wint_t)toupper(_uc(wc)); }
+wint_t towlower(wint_t wc) { return (wint_t)tolower(_uc(wc)); }
+
+int iswctype(wint_t wc, wctype_t t)
+{
+	switch (t) {
+		case _WC_ALPHA:  return iswalpha(wc);
+		case _WC_DIGIT:  return iswdigit(wc);
+		case _WC_ALNUM:  return iswalnum(wc);
+		case _WC_SPACE:  return iswspace(wc);
+		case _WC_UPPER:  return iswupper(wc);
+		case _WC_LOWER:  return iswlower(wc);
+		case _WC_XDIGIT: return iswxdigit(wc);
+		case _WC_PUNCT:  return iswpunct(wc);
+		case _WC_CNTRL:  return iswcntrl(wc);
+		case _WC_GRAPH:  return iswgraph(wc);
+		case _WC_PRINT:  return iswprint(wc);
+		case _WC_BLANK:  return iswblank(wc);
+		default:         return 0;
+	}
+}
+
+wctype_t wctype(const char *name)
+{
+	if (!name) return 0;
+	/* accept canonical POSIX names */
+	if (!strcmp(name,"alpha"))  return _WC_ALPHA;
+	if (!strcmp(name,"digit"))  return _WC_DIGIT;
+	if (!strcmp(name,"alnum"))  return _WC_ALNUM;
+	if (!strcmp(name,"space"))  return _WC_SPACE;
+	if (!strcmp(name,"upper"))  return _WC_UPPER;
+	if (!strcmp(name,"lower"))  return _WC_LOWER;
+	if (!strcmp(name,"xdigit")) return _WC_XDIGIT;
+	if (!strcmp(name,"punct"))  return _WC_PUNCT;
+	if (!strcmp(name,"cntrl"))  return _WC_CNTRL;
+	if (!strcmp(name,"graph"))  return _WC_GRAPH;
+	if (!strcmp(name,"print"))  return _WC_PRINT;
+	if (!strcmp(name,"blank"))  return _WC_BLANK;
+	return 0;
+}
+
+int iscntrl(int c)
+{
+	int u = _uc(c);
+	return (u < 32) || (u == 127);
+}
+
+int isgraph(int c)
+{
+	int u = _uc(c);
+	return (u > 32 && u < 127);
+}
+
+int islower(int c)
+{
+	int u = _uc(c);
+	return (u >= 'a' && u <= 'z');
+}
+
+int isprint(int c)
+{
+	int u = _uc(c);
+	return (u >= 32 && u < 127);
+}
+
+int ispunct(int c)
+{
+	int u = _uc(c);
+	return (u > 32 && u < 127) &&
+	       !(u >= '0' && u <= '9') &&
+	       !(u >= 'A' && u <= 'Z') &&
+	       !(u >= 'a' && u <= 'z');
 }

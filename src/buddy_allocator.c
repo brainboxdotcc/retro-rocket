@@ -221,7 +221,6 @@ char *buddy_strdup(buddy_allocator_t *alloc, const char *s) {
 
 void *buddy_realloc(buddy_allocator_t *alloc, void *ptr, size_t size) {
 	if (!ptr) {
-		dprintf("realloc with null, mallocing %lu\n", size);
 		// realloc(NULL, size): malloc
 		return buddy_malloc(alloc, size);
 	}

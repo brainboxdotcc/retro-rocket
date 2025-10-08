@@ -30,15 +30,18 @@ bool match_idle_step(process_t *proc, void *opaque) {
 	size_t next_off = st->off;
 
 	int rc = regex_exec_slice(st->prog, st->hay, st->hay_len, st->off, st->fuel_per_tick, &st->m, &next_off);
+	dprintf("regex exec slice, next_off=%lu\n", next_off);
 
 	if (rc == RE_AGAIN) {
 		st->off = next_off;
 		return true;                  /* keep idling */
 	}
 
+	dprintf("regex exec slice, done, rc=%d\n", rc);
+
 	/* terminal states */
 	st->off = next_off;
-	st->matched = (rc == RE_OK) ? st->m.matched : 0;
+	st->matched = (rc == RE_OK);
 	st->done = 1;                    /* mark complete for the statement */
 	return false;                    /* stop idling; scheduler will re-enter line */
 }
@@ -65,13 +68,12 @@ void match_statement(struct basic_ctx *ctx)
 	/* ===== resume path ===== */
 	if (ctx->match_ctx) {
 		struct match_state *st = ctx->match_ctx;
-
 		int matched = st->matched;
 		regex_free(st->prog);
 		buddy_free(ctx->allocator, st);
 		ctx->match_ctx = NULL;
-
-		basic_set_int_variable(res_name, matched ? 1 : 0, ctx, false, false);
+		basic_set_int_variable(res_name, matched, ctx, false, false);
+		buddy_free(ctx->allocator, st);
 		accept_or_return(NEWLINE, ctx);
 		proc->state = PROC_RUNNING;
 		return;
