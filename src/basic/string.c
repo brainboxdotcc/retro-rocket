@@ -17,9 +17,23 @@ struct match_state {
 	size_t fuel_per_tick;
 };
 
+#ifndef elementsof
+#define elementsof(x) (sizeof((x)) / sizeof((x)[0]))
+#endif
+
 extern struct basic_int_fn builtin_int[];
 extern struct basic_str_fn builtin_str[];
 extern struct basic_double_fn builtin_double[];
+
+/* small helper: assign "" to any capture variables on failure */
+static void set_empty_captures(struct basic_ctx *ctx,
+			       const char *const *cap_names,
+			       size_t cap_vars)
+{
+	for (size_t i = 0; i < cap_vars; i++) {
+		basic_set_string_variable(cap_names[i], "", ctx, false, false);
+	}
+}
 
 bool match_idle_step(process_t *proc, void *opaque) {
 	struct match_state *st = opaque;
@@ -46,7 +60,6 @@ bool match_idle_step(process_t *proc, void *opaque) {
 	return false;                    /* stop idling; scheduler will re-enter line */
 }
 
-
 void match_statement(struct basic_ctx *ctx)
 {
 	accept_or_return(MATCH, ctx);
@@ -63,7 +76,119 @@ void match_statement(struct basic_ctx *ctx)
 	const char *hay = str_expr(ctx);
 	size_t hay_len = strlen(hay);
 
+	/* ===== check for optional capture variables ===== */
+	const char *cap_names[32];
+	size_t cap_vars = 0;
+
+	for (;;) {
+		enum token_t t = tokenizer_token(ctx);
+		if (t != COMMA) {
+			break;
+		}
+
+		accept_or_return(COMMA, ctx);
+
+		if (cap_vars >= elementsof(cap_names)) {
+			tokenizer_error_printf(ctx, "MATCH: too many capture variables (max %u)",
+					       (unsigned)elementsof(cap_names));
+			return;
+		}
+
+		size_t vlen = 0;
+		const char *vname = tokenizer_variable_name(ctx, &vlen);
+		accept_or_return(VARIABLE, ctx);
+		cap_names[cap_vars++] = vname;
+	}
+
 	process_t *proc = proc_cur(logical_cpu_id());
+
+	/* ===== capture-enabled, one-shot path (no regmatch_t here) ===== */
+	if (cap_vars > 0) {
+		struct regex_prog *prog = NULL;
+		int rc = regex_compile_captures(ctx->allocator, &prog, (const uint8_t *)pat, pat_len);
+		if (rc != RE_OK) {
+			const char *emsg = (prog != NULL) ? regex_last_error(prog) : "";
+			if (emsg != NULL && emsg[0] != '\0') {
+				tokenizer_error_printf(ctx, "MATCH: %s", emsg);
+			} else {
+				tokenizer_error_printf(ctx, "MATCH: invalid regular expression (%d)", rc);
+			}
+			if (prog != NULL) {
+				regex_free(prog);
+			}
+			return;
+		}
+
+		/* Run one-shot, copying up to cap_vars captures (1..cap_vars) */
+		char **cap_out = buddy_malloc(ctx->allocator, sizeof(char *) * cap_vars);
+		if (!cap_out) {
+			regex_free(prog);
+			tokenizer_error_printf(ctx, "MATCH: out of memory");
+			return;
+		}
+		for (size_t i = 0; i < cap_vars; i++) {
+			cap_out[i] = NULL;
+		}
+
+		int mrc = regex_exec_once_copy(
+			prog,
+			(const uint8_t *)hay, hay_len,
+			0,                      /* start offset */
+			cap_vars,               /* how many captures we want copied */
+			ctx->allocator,         /* allocate capture strings here */
+			cap_out                 /* out: pointers to NUL-terminated copies */
+		);
+
+		if (mrc == RE_EINVAL) {
+			const char *emsg = regex_last_error(prog);
+			if (emsg != NULL && emsg[0] != '\0') {
+				tokenizer_error_printf(ctx, "MATCH: %s", emsg);
+			} else {
+				tokenizer_error_printf(ctx, "MATCH: execution error");
+			}
+			set_empty_captures(ctx, cap_names, cap_vars);
+			/* free any partial allocations */
+			for (size_t i = 0; i < cap_vars; i++) {
+				if (cap_out[i]) {
+					buddy_free(ctx->allocator, cap_out[i]);
+				}
+			}
+			buddy_free(ctx->allocator, cap_out);
+			regex_free(prog);
+			return;
+		}
+
+		int matched = (mrc == RE_OK);
+		basic_set_int_variable(res_name, matched, ctx, false, false);
+
+		if (!matched) {
+			set_empty_captures(ctx, cap_names, cap_vars);
+			buddy_free(ctx->allocator, cap_out);
+			regex_free(prog);
+			accept_or_return(NEWLINE, ctx);
+			proc->state = PROC_RUNNING;
+			return;
+		}
+
+		/* Fill user variables from captured text; if missing, "" */
+		for (size_t i = 0; i < cap_vars; i++) {
+			if (cap_out[i]) {
+				basic_set_string_variable(cap_names[i], cap_out[i], ctx, false, false);
+				buddy_free(ctx->allocator, cap_out[i]);
+			} else {
+				basic_set_string_variable(cap_names[i], "", ctx, false, false);
+			}
+		}
+
+		buddy_free(ctx->allocator, cap_out);
+		regex_free(prog);
+
+		accept_or_return(NEWLINE, ctx);
+		proc->state = PROC_RUNNING;
+		return;
+	}
+
+	/* ===== original co-op scan path (no captures requested) ===== */
 
 	if (ctx->match_ctx) {
 		struct match_state *st = ctx->match_ctx;
@@ -83,7 +208,6 @@ void match_statement(struct basic_ctx *ctx)
 		proc->state = PROC_RUNNING;
 		return;
 	}
-
 
 	struct regex_prog *prog = NULL;
 	int rc = regex_compile(ctx->allocator, &prog, (const uint8_t *)pat, pat_len);
@@ -120,6 +244,7 @@ void match_statement(struct basic_ctx *ctx)
 	jump_linenum(ctx->current_linenum, ctx);
 	proc->state = PROC_IO_BOUND;
 }
+
 
 char* basic_chr(struct basic_ctx* ctx)
 {

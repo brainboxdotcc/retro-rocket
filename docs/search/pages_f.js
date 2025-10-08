@@ -35,7 +35,7 @@ var searchData=
   ['for_20retro_20rocket_32',['Writing Kernel Modules for Retro Rocket',['../modules.html',1,'kernel-dev']]],
   ['formats_33',['Supported formats',['../SPRITELOAD.html#supported-formats',1,'']]],
   ['formatting_20semantics_20same_20as_20print_34',['Formatting semantics same as PRINT',['../SOCKWRITE.html#formatting-semantics-same-as-print',1,'Formatting semantics (same as <span class="tt">PRINT</span>)'],['../WRITE.html#formatting-semantics-same-as-print-1',1,'Formatting semantics (same as <span class="tt">PRINT</span>)']]],
-  ['forms_35',['Forms',['../ELSE.html#forms',1,'']]],
+  ['forms_35',['Forms',['../ELSE.html#forms',1,'Forms'],['../MATCH.html#forms-1',1,'Forms']]],
   ['forms_20and_20examples_36',['Forms and examples',['../IF.html#forms-and-examples',1,'']]],
   ['free_20space_20map_20bitmap_37',['3.2 Free-space map (bitmap)',['../retrofs.html#autotoc_md32-free-space-map-bitmap',1,'']]],
   ['from_20a_20file_38',['Example: load newline-separated integers from a file',['../DATA.html#example-load-newline-separated-integers-from-a-file',1,'']]],

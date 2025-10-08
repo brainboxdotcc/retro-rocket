@@ -7,44 +7,46 @@
     </briefdescription>
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">MATCH<sp/>result,<sp/>pattern$,<sp/>haystack$</highlight></codeline>
+<codeline><highlight class="normal">MATCH<sp/>result,<sp/>pattern$,<sp/>haystack$,<sp/>var1$,<sp/>var2$,<sp/>...</highlight></codeline>
 </programlisting></para>
-<para>Evaluates a <bold>POSIX ERE</bold> (extended regular expression) against a string and stores <bold>1</bold> for a match or <bold>0</bold> for no match into <computeroutput>result</computeroutput>.</para>
+<para>Evaluates a <bold>POSIX ERE</bold> (extended regular expression) against a string.</para>
 <para><itemizedlist>
-<listitem><para><computeroutput>result</computeroutput> must be an <bold>integer</bold> variable.</para>
-</listitem><listitem><para><computeroutput>pattern$</computeroutput> and <computeroutput>haystack$</computeroutput> are <bold>strings</bold>.</para>
-</listitem><listitem><para>Matching is <bold>ASCII-only</bold> (no locale/Unicode).</para>
-</listitem><listitem><para>No capture groups or sub-matches are returned; this is a <bold>yes/no</bold> test.</para>
+<listitem><para>In the first form, stores <bold>1</bold> for a match or <bold>0</bold> for no match into <computeroutput>result</computeroutput>.</para>
+</listitem><listitem><para>In the second form, also assigns text captured by <bold>parenthesised sub-expressions</bold> to additional string variables (<computeroutput>var1$</computeroutput>, <computeroutput>var2$</computeroutput>, …).</para>
 </listitem></itemizedlist>
 </para>
-<para><computeroutput>MATCH</computeroutput> runs <bold>cooperatively</bold>: very large or pathological patterns are executed in slices.</para>
-<para><simplesect kind="remark"><para>If the pattern is invalid, an error is raised with a descriptive message from the regex engine. Without an error handler, the program terminates. With an <computeroutput>ON ERROR</computeroutput> handler, control passes there.</para>
+<para><simplesect kind="remark"><para>Matching is <bold>ASCII-only</bold> (no locale or Unicode). </para>
+</simplesect>
+<simplesect kind="remark"><para>All regular expressions follow <bold>POSIX ERE</bold> syntax.</para>
 </simplesect>
 <hruler/>
 </para>
-<sect1 id="MATCH_1supported-syntax-posix-ere-subset_1s1"><sect2 id="MATCH_1supported-syntax-posix-ere-subset_1s2"><sect3 id="MATCH_1supported-syntax-posix-ere-subset">
-<title>Supported syntax (POSIX ERE subset)</title><para><itemizedlist>
-<listitem><para>Literals: <computeroutput>ABC</computeroutput></para>
-</listitem><listitem><para>Any char: <computeroutput>.</computeroutput></para>
-</listitem><listitem><para>Quantifiers: <computeroutput>* + ?</computeroutput> (greedy)</para>
-</listitem><listitem><para>Character classes: <computeroutput>[abc]</computeroutput>, ranges <computeroutput>[a-z]</computeroutput>, negation <computeroutput>[^0-9]</computeroutput></para>
-</listitem><listitem><para>Alternation: <computeroutput>A|B</computeroutput></para>
-</listitem><listitem><para>Anchors: <computeroutput>^</computeroutput> (start of string), <computeroutput>$</computeroutput> (end of string)</para>
+<sect1 id="MATCH_1forms-1_1s1"><sect2 id="MATCH_1forms-1_1s2"><sect3 id="MATCH_1forms-1">
+<title>Forms</title><sect4 id="MATCH_1boolean-match">
+<title>Boolean match</title><para><programlisting filename=".basic"><codeline><highlight class="normal">MATCH<sp/>result,<sp/>pattern$,<sp/>haystack$</highlight></codeline>
+</programlisting></para>
+<para><itemizedlist>
+<listitem><para><computeroutput>result</computeroutput> must be an <bold>integer</bold> variable.</para>
+</listitem><listitem><para><computeroutput>pattern$</computeroutput> and <computeroutput>haystack$</computeroutput> are <bold>strings</bold>.</para>
+</listitem><listitem><para>Returns 1 for a match, 0 for no match.</para>
 </listitem></itemizedlist>
 </para>
-</sect3></sect2></sect1>
-<sect1 id="MATCH_1not-supported_1s1"><sect2 id="MATCH_1not-supported_1s2"><sect3 id="MATCH_1not-supported">
-<title>Not supported</title><para><itemizedlist>
-<listitem><para>Backreferences <computeroutput>\1</computeroutput>, <computeroutput>\2</computeroutput>, …</para>
-</listitem><listitem><para>Inline flags like <computeroutput>(?i)</computeroutput> (use explicit classes instead, or upper/lower where appropriate)</para>
-</listitem><listitem><para>PCRE extensions (<computeroutput>\d</computeroutput>, <computeroutput>\w</computeroutput>, lookaround, etc.)</para>
-</listitem><listitem><para>Multiline mode: <computeroutput>^</computeroutput> and <computeroutput>$</computeroutput> match <bold>string</bold> boundaries only.</para>
+</sect4>
+<sect4 id="MATCH_1match-with-captures">
+<title>Match with captures</title><para><programlisting filename=".basic"><codeline><highlight class="normal">MATCH<sp/>result,<sp/>pattern$,<sp/>haystack$,<sp/>cap1$,<sp/>cap2$,<sp/>...</highlight></codeline>
+</programlisting></para>
+<para><itemizedlist>
+<listitem><para>Each parenthesised group in <computeroutput>pattern$</computeroutput> (e.g. <computeroutput>(abc)</computeroutput>) is captured and copied into successive string variables.</para>
+</listitem><listitem><para>Missing or non-participating groups yield <computeroutput>&quot;&quot;</computeroutput>.</para>
+</listitem><listitem><para>If the pattern contains fewer capture groups than variables, the extras receive empty strings.</para>
 </listitem></itemizedlist>
 </para>
 <para><hruler/>
 </para>
+</sect4>
 </sect3></sect2></sect1>
 <sect1 id="MATCH_1examples-140_1s1"><sect2 id="MATCH_1examples-140_1s2"><sect3 id="MATCH_1examples-140">
-<title>Examples</title><para><bold>Simple literal</bold></para>
+<title>Examples</title><para><bold>Simple match</bold></para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">MATCH<sp/>R,<sp/>&quot;HELLO&quot;,<sp/>&quot;HELLO<sp/>WORLD&quot;</highlight></codeline>
 <codeline><highlight class="normal">IF<sp/>R<sp/>THEN<sp/>PRINT<sp/>&quot;Found&quot;</highlight></codeline>
 </programlisting></para>
@@ -54,38 +56,23 @@
 <codeline></codeline>
 <codeline><highlight class="normal">MATCH<sp/>R,<sp/>&quot;END$&quot;,<sp/>&quot;THE<sp/>END&quot;</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>R<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>1</highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">MATCH<sp/>R,<sp/>&quot;^A&quot;,<sp/>&quot;BA&quot;</highlight></codeline>
-<codeline><highlight class="normal">PRINT<sp/>R<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>0</highlight></codeline>
 </programlisting></para>
-<para><bold>Alternation</bold></para>
+<para><bold>Alternation and character classes</bold></para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">MATCH<sp/>R,<sp/>&quot;CAT|DOG&quot;,<sp/>&quot;HOTDOG&quot;</highlight></codeline>
-<codeline><highlight class="normal">PRINT<sp/>R<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>1</highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">MATCH<sp/>R,<sp/>&quot;RED|GREEN&quot;,<sp/>&quot;BLUE&quot;</highlight></codeline>
-<codeline><highlight class="normal">PRINT<sp/>R<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>0</highlight></codeline>
-</programlisting></para>
-<para><bold>Character classes and ranges</bold></para>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">MATCH<sp/>R,<sp/>&quot;[0-9]+&quot;,<sp/>&quot;foo123bar&quot;</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>R<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>1</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">MATCH<sp/>R,<sp/>&quot;[A-Z][a-z]+&quot;,<sp/>&quot;Title&quot;</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>R<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>1</highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">MATCH<sp/>R,<sp/>&quot;[^x]*z$&quot;,<sp/>&quot;crab<sp/>ballz&quot;</highlight></codeline>
-<codeline><highlight class="normal">PRINT<sp/>R<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>1</highlight></codeline>
 </programlisting></para>
-<para><bold>Wildcard and quantifiers</bold></para>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">MATCH<sp/>R,<sp/>&quot;A.*C&quot;,<sp/>&quot;AXYZC&quot;</highlight></codeline>
-<codeline><highlight class="normal">PRINT<sp/>R<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>1</highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">MATCH<sp/>R,<sp/>&quot;A.+C&quot;,<sp/>&quot;AC&quot;</highlight></codeline>
-<codeline><highlight class="normal">PRINT<sp/>R<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>0</highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">MATCH<sp/>R,<sp/>&quot;B*&quot;,<sp/>&quot;AAAA&quot;</highlight></codeline>
-<codeline><highlight class="normal">PRINT<sp/>R<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>1<sp/><sp/><sp/>&apos;<sp/>empty<sp/>match<sp/>is<sp/>allowed</highlight></codeline>
+<para><bold>Capturing sub-expressions</bold></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">MATCH<sp/>R,<sp/>&quot;([A-Za-z]+),([A-Za-z]+)&quot;,<sp/>&quot;Hello,World&quot;,<sp/>FIRST$,<sp/>SECOND$</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>R,<sp/>FIRST$,<sp/>SECOND$<sp/><sp/><sp/>&apos;<sp/>1<sp/><sp/>Hello<sp/><sp/>World</highlight></codeline>
 </programlisting></para>
-<para><bold>Handling invalid patterns</bold></para>
+<para><bold>No match clears captures</bold></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">MATCH<sp/>R,<sp/>&quot;(\d+)&quot;,<sp/>&quot;No<sp/>digits<sp/>here&quot;,<sp/>NUM$</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>R,<sp/>NUM$<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;<sp/>0<sp/><sp/>&quot;&quot;</highlight></codeline>
+</programlisting></para>
+<para><bold>Invalid pattern handling</bold></para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">ON<sp/>ERROR<sp/>PROCbad</highlight></codeline>
 <codeline><highlight class="normal">MATCH<sp/>R,<sp/>&quot;(?i)HELLO&quot;,<sp/>&quot;hello&quot;<sp/><sp/><sp/>&apos;<sp/>invalid:<sp/>(?i)<sp/>not<sp/>supported</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;this<sp/>line<sp/>is<sp/>not<sp/>reached&quot;</highlight></codeline>
@@ -98,12 +85,77 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
+<sect1 id="MATCH_1supported-syntax-posix-ere-subset_1s1"><sect2 id="MATCH_1supported-syntax-posix-ere-subset_1s2"><sect3 id="MATCH_1supported-syntax-posix-ere-subset">
+<title>Supported syntax (POSIX ERE subset)</title><para><table rows="8" cols="4"><row>
+<entry thead="yes"><para>Feature  </para>
+</entry><entry thead="yes"><para>Example  </para>
+</entry><entry thead="yes"><para>Description  </para>
+</entry><entry thead="yes"><para></para>
+</entry></row>
+<row>
+<entry thead="no"><para>Literals  </para>
+</entry><entry thead="no"><para><computeroutput>ABC</computeroutput>  </para>
+</entry><entry thead="no"><para>exact characters  </para>
+</entry><entry thead="no"><para></para>
+</entry></row>
+<row>
+<entry thead="no"><para>Any char  </para>
+</entry><entry thead="no"><para><computeroutput>.</computeroutput>  </para>
+</entry><entry thead="no"><para>matches any single character  </para>
+</entry><entry thead="no"><para></para>
+</entry></row>
+<row>
+<entry thead="no"><para>Quantifiers  </para>
+</entry><entry thead="no"><para><computeroutput>* + ?</computeroutput>  </para>
+</entry><entry thead="no"><para>greedy repetition  </para>
+</entry><entry thead="no"><para></para>
+</entry></row>
+<row>
+<entry thead="no"><para>Character classes  </para>
+</entry><entry thead="no"><para><computeroutput>[abc]</computeroutput>, <computeroutput>[A-Z]</computeroutput>, <computeroutput>[^0-9]</computeroutput>  </para>
+</entry><entry thead="no"><para>set, range, negation  </para>
+</entry><entry thead="no"><para></para>
+</entry></row>
+<row>
+<entry thead="no"><para>Alternation  </para>
+</entry><entry thead="no"><para><computeroutput>A \ilinebr &lt;/td&gt; &lt;td class=&quot;markdownTableBodyNone&quot;&gt; B</computeroutput>  </para>
+</entry><entry thead="no"><para>match A or B  </para>
+</entry></row>
+<row>
+<entry thead="no"><para>Anchors  </para>
+</entry><entry thead="no"><para><computeroutput>^</computeroutput>, <computeroutput>$</computeroutput>  </para>
+</entry><entry thead="no"><para>start / end of string  </para>
+</entry><entry thead="no"><para></para>
+</entry></row>
+<row>
+<entry thead="no"><para>Capturing groups  </para>
+</entry><entry thead="no"><para><computeroutput>(ABC)</computeroutput>  </para>
+</entry><entry thead="no"><para>capture substring  </para>
+</entry><entry thead="no"><para></para>
+</entry></row>
+</table>
+</para>
+<para><hruler/>
+</para>
+</sect3></sect2></sect1>
+<sect1 id="MATCH_1not-supported_1s1"><sect2 id="MATCH_1not-supported_1s2"><sect3 id="MATCH_1not-supported">
+<title>Not supported</title><para><itemizedlist>
+<listitem><para>Backreferences <computeroutput>\1</computeroutput>, <computeroutput>\2</computeroutput>, …</para>
+</listitem><listitem><para>Inline flags <computeroutput>(?i)</computeroutput> etc.</para>
+</listitem><listitem><para>PCRE-style escapes (<computeroutput>\d</computeroutput>, <computeroutput>\w</computeroutput>, lookaround, …)</para>
+</listitem><listitem><para>Multiline mode (<computeroutput>^</computeroutput> and <computeroutput>$</computeroutput> match string boundaries only)</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3></sect2></sect1>
 <sect1 id="MATCH_1notes-151_1s1"><sect2 id="MATCH_1notes-151_1s2"><sect3 id="MATCH_1notes-151">
 <title>Notes</title><para><itemizedlist>
-<listitem><para>Matching is <bold>case-sensitive</bold> by default. To approximate case-insensitive tests, normalise your data (e.g., convert both strings to upper case before matching) or use character classes (e.g., <computeroutput>[Hh][Ee][Ll][Ll][Oo]</computeroutput>).</para>
-</listitem><listitem><para>Because <computeroutput>MATCH</computeroutput> is cooperative, very large inputs or patterns may take multiple idle ticks to complete. You do not need to poll—control returns to your program automatically once finished.</para>
-</listitem><listitem><para><computeroutput>^</computeroutput> and <computeroutput>$</computeroutput> are <bold>string</bold> anchors, not line anchors; there is no multiline mode.</para>
-</listitem><listitem><para>The engine is compiled with <computeroutput>REG_NOSUB</computeroutput>; capture offsets are not available to BASIC code. </para>
+<listitem><para>Matching is <bold>case-sensitive</bold>. To simulate case-insensitive matching, normalise both strings or use explicit character classes.</para>
+</listitem><listitem><para>With captures, <bold>co-operative execution is disabled</bold> — the operation completes immediately.</para>
+</listitem><listitem><para>Without captures, matching runs <bold>co-operatively</bold> across idle ticks for long inputs.</para>
+</listitem><listitem><para>If the pattern is invalid, the engine reports a descriptive message. Without an error handler, the program terminates; with <computeroutput>ON ERROR PROCname</computeroutput>, control transfers to the handler.</para>
+</listitem><listitem><para>Capture results are always independent copies; modifying the original string has no effect on captured values. </para>
 </listitem></itemizedlist>
 </para>
 </sect3></sect2></sect1>

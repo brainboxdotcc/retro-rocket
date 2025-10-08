@@ -198,3 +198,157 @@ const char *regex_last_error(const struct regex_prog *p) {
 	buddy_destroy(&alloc);
 	dprintf("==== end regex_selftest ====\n");
 }
+
+int regex_compile_captures(buddy_allocator_t *allocator, struct regex_prog **out, const uint8_t *pat, size_t pat_len) {
+	if (!out || !pat) {
+		return RE_EINVAL;
+	}
+	*out = NULL;
+
+	struct regex_prog *P = buddy_malloc(allocator, sizeof(*P));
+	if (!P) {
+		*out = NULL;
+		return RE_EMEM;
+	}
+
+	memset(P, 0, sizeof(*P));
+	P->allocator = allocator;
+	P->err[0] = '\0';
+
+	/* null-terminate pattern copy for regcomp */
+	char *pattern = buddy_malloc(allocator, pat_len + 1);
+	if (!pattern) {
+		re_set_err(P, "out of memory");
+		*out = P; /* let caller fetch error */
+		return RE_EMEM;
+	}
+
+	memcpy(pattern, pat, pat_len);
+	pattern[pat_len] = '\0';
+
+	/* extended ERE; captures enabled (no REG_NOSUB) */
+	int cflags = REG_EXTENDED;
+
+	int rc = regcomp(&P->re, pattern, cflags);
+	buddy_free(allocator, pattern);
+
+	if (rc != 0) {
+		re_set_err_code(P, rc, NULL);
+		*out = P; /* let caller fetch error */
+		return RE_EINVAL;
+	}
+
+	*out = P;
+	return RE_OK;
+}
+
+int regex_exec_once_matches(const struct regex_prog *p, const uint8_t *hay, size_t hay_len, size_t start_off, regmatch_t *pm, size_t want_nmatch) {
+	if (!p || !hay || (!pm && want_nmatch != 0)) {
+		return RE_EINVAL;
+	}
+
+	/* clear any previous error */
+	((struct regex_prog *)p)->err[0] = '\0';
+
+	if (start_off > hay_len) {
+		return RE_NOMATCH;
+	}
+
+	const char *subject = (const char *)hay + start_off;
+
+	int flags = 0;
+	if (start_off > 0) {
+		flags |= REG_NOTBOL; /* keep ^ anchored to true start */
+	}
+
+	int rc = regexec(&p->re, subject, want_nmatch, pm, flags);
+	if (rc == REG_OK) {
+		return RE_OK;
+	}
+	if (rc == REG_NOMATCH) {
+		return RE_NOMATCH;
+	}
+
+	re_set_err_code((struct regex_prog *)p, rc, &p->re);
+	return RE_EINVAL;
+}
+/* Number of capturing groups excluding group 0 */
+size_t regex_capture_count(const struct regex_prog *p) {
+	if (!p) {
+		return 0;
+	}
+	return p->re.re_nsub;
+}
+
+/* One-shot exec with capture copies (ASCII, starting at start_off). */
+int regex_exec_once_copy(const struct regex_prog *p, const uint8_t *hay, size_t hay_len, size_t start_off, size_t want, buddy_allocator_t *allocator, char **out_strings) {
+	if (!p || !hay) {
+		return RE_EINVAL;
+	}
+
+	/* clear last error */
+	((struct regex_prog *)p)->err[0] = '\0';
+
+	if (out_strings && want > 0) {
+		for (size_t i = 0; i < want; i++) {
+			out_strings[i] = NULL;
+		}
+	}
+
+	if (start_off > hay_len) {
+		return RE_NOMATCH;
+	}
+
+	const char *subject = (const char *)hay + start_off;
+
+	/* captures available and requested (exclude group 0) */
+	size_t nsubs = p->re.re_nsub;
+	size_t take = (want < nsubs) ? want : nsubs;
+
+	/* +1 for whole match slot required by regexec */
+	regmatch_t pmatch[(size_t)1 + (size_t)take];
+
+	int flags = 0;
+	if (start_off > 0) {
+		flags |= REG_NOTBOL;
+	}
+
+	int rc = regexec(&p->re, subject, (size_t)1 + take, pmatch, flags);
+
+	if (rc == REG_NOMATCH) {
+		return RE_NOMATCH;
+	}
+	if (rc != REG_OK) {
+		re_set_err_code((struct regex_prog *)p, rc, &p->re);
+		return RE_EINVAL;
+	}
+
+	/* copy captures 1..take into out_strings[0..take-1] */
+	if (out_strings && take > 0) {
+		for (size_t i = 0; i < take; i++) {
+			const regmatch_t *rm = &pmatch[1 + i];
+			if (rm->rm_so >= 0 && rm->rm_eo >= 0 && rm->rm_eo >= rm->rm_so) {
+				size_t len = (size_t)(rm->rm_eo - rm->rm_so);
+				char *dst = buddy_malloc(allocator, len + 1);
+				if (!dst) {
+					re_set_err((struct regex_prog *)p, "out of memory copying capture");
+					/* best-effort cleanup of any prior allocations */
+					for (size_t j = 0; j < i; j++) {
+						if (out_strings[j]) {
+							buddy_free(allocator, out_strings[j]);
+							out_strings[j] = NULL;
+						}
+					}
+					return RE_EMEM;
+				}
+				memcpy(dst, subject + rm->rm_so, len);
+				dst[len] = '\0';
+				out_strings[i] = dst;
+			} else {
+				out_strings[i] = NULL; /* did not participate */
+			}
+		}
+	}
+
+	return RE_OK;
+}

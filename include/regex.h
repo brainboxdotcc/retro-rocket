@@ -17,6 +17,12 @@ enum re_res {
 	RE_EMEM = -10004   /**< Memory allocation failure. */
 };
 
+/* Small POD for spans */
+struct regex_span {
+	size_t so;  /* start offset (bytes) */
+	size_t eo;  /* end offset (bytes, one past) */
+};
+
 /** @brief Opaque compiled regular expression program. */
 struct regex_prog;
 
@@ -88,3 +94,24 @@ void regex_selftest(void);
  * @return Pointer to static string, or empty string if none available.
  */
 const char *regex_last_error(const struct regex_prog *p);
+
+/* Compile with submatches enabled (no REG_NOSUB). */
+int regex_compile_captures(buddy_allocator_t *allocator,
+			   struct regex_prog **out,
+			   const uint8_t *pat,
+			   size_t pat_len);
+
+/* Number of capturing groups in the compiled pattern (excludes group 0). */
+size_t regex_capture_count(const struct regex_prog *p);
+
+/* One-shot exec from start_off.
+   On match, copies capture groups 1..want into newly-allocated NUL strings.
+   For groups that did not participate or are out of range, leaves out[i] = NULL.
+   Returns: RE_OK, RE_NOMATCH, or RE_EINVAL (and sets regex_last_error()).
+*/
+int regex_exec_once_copy(const struct regex_prog *p,
+			 const uint8_t *hay, size_t hay_len,
+			 size_t start_off,
+			 size_t want,
+			 buddy_allocator_t *allocator,
+			 char **out_strings);

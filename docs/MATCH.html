@@ -96,38 +96,38 @@ $(function(){initNavTree('MATCH.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">MATCH result, pattern$, haystack$</div>
-</div><!-- fragment --><p>Evaluates a <b>POSIX ERE</b> (extended regular expression) against a string and stores <b>1</b> for a match or <b>0</b> for no match into <span class="tt">result</span>.</p>
+<div class="line">MATCH result, pattern$, haystack$, var1$, var2$, ...</div>
+</div><!-- fragment --><p>Evaluates a <b>POSIX ERE</b> (extended regular expression) against a string.</p>
 <ul>
+<li>In the first form, stores <b>1</b> for a match or <b>0</b> for no match into <span class="tt">result</span>.</li>
+<li>In the second form, also assigns text captured by <b>parenthesised sub-expressions</b> to additional string variables (<span class="tt">var1$</span>, <span class="tt">var2$</span>, …).</li>
+</ul>
+<dl class="section remark"><dt>Remarks</dt><dd>Matching is <b>ASCII-only</b> (no locale or Unicode). </dd>
+<dd>
+All regular expressions follow <b>POSIX ERE</b> syntax.</dd></dl>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="forms-1"></a>
+Forms</h3>
+<h4 class="doxsection"><a class="anchor" id="boolean-match"></a>
+Boolean match</h4>
+<div class="fragment"><div class="line">MATCH result, pattern$, haystack$</div>
+</div><!-- fragment --><ul>
 <li><span class="tt">result</span> must be an <b>integer</b> variable.</li>
 <li><span class="tt">pattern$</span> and <span class="tt">haystack$</span> are <b>strings</b>.</li>
-<li>Matching is <b>ASCII-only</b> (no locale/Unicode).</li>
-<li>No capture groups or sub-matches are returned; this is a <b>yes/no</b> test.</li>
+<li>Returns 1 for a match, 0 for no match.</li>
 </ul>
-<p><span class="tt">MATCH</span> runs <b>cooperatively</b>: very large or pathological patterns are executed in slices.</p>
-<dl class="section remark"><dt>Remarks</dt><dd>If the pattern is invalid, an error is raised with a descriptive message from the regex engine. Without an error handler, the program terminates. With an <span class="tt">ON ERROR</span> handler, control passes there.</dd></dl>
-<hr  />
-<h3 class="doxsection"><a class="anchor" id="supported-syntax-posix-ere-subset"></a>
-Supported syntax (POSIX ERE subset)</h3>
-<ul>
-<li>Literals: <span class="tt">ABC</span></li>
-<li>Any char: <span class="tt">.</span></li>
-<li>Quantifiers: <span class="tt">* + ?</span> (greedy)</li>
-<li>Character classes: <span class="tt">[abc]</span>, ranges <span class="tt">[a-z]</span>, negation <span class="tt">[^0-9]</span></li>
-<li>Alternation: <span class="tt">A|B</span></li>
-<li>Anchors: <span class="tt">^</span> (start of string), <span class="tt">$</span> (end of string)</li>
-</ul>
-<h3 class="doxsection"><a class="anchor" id="not-supported"></a>
-Not supported</h3>
-<ul>
-<li>Backreferences <span class="tt">\1</span>, <span class="tt">\2</span>, …</li>
-<li>Inline flags like <span class="tt">(?i)</span> (use explicit classes instead, or upper/lower where appropriate)</li>
-<li>PCRE extensions (<span class="tt">\d</span>, <span class="tt">\w</span>, lookaround, etc.)</li>
-<li>Multiline mode: <span class="tt">^</span> and <span class="tt">$</span> match <b>string</b> boundaries only.</li>
+<h4 class="doxsection"><a class="anchor" id="match-with-captures"></a>
+Match with captures</h4>
+<div class="fragment"><div class="line">MATCH result, pattern$, haystack$, cap1$, cap2$, ...</div>
+</div><!-- fragment --><ul>
+<li>Each parenthesised group in <span class="tt">pattern$</span> (e.g. <span class="tt">(abc)</span>) is captured and copied into successive string variables.</li>
+<li>Missing or non-participating groups yield <span class="tt">""</span>.</li>
+<li>If the pattern contains fewer capture groups than variables, the extras receive empty strings.</li>
 </ul>
 <hr  />
 <h3 class="doxsection"><a class="anchor" id="examples-140"></a>
 Examples</h3>
-<p><b>Simple literal</b></p>
+<p><b>Simple match</b></p>
 <div class="fragment"><div class="line">MATCH R, &quot;HELLO&quot;, &quot;HELLO WORLD&quot;</div>
 <div class="line">IF R THEN PRINT &quot;Found&quot;</div>
 </div><!-- fragment --><p><b>Anchors</b></p>
@@ -136,34 +136,19 @@ Examples</h3>
 <div class="line"> </div>
 <div class="line">MATCH R, &quot;END$&quot;, &quot;THE END&quot;</div>
 <div class="line">PRINT R          &#39; 1</div>
-<div class="line"> </div>
-<div class="line">MATCH R, &quot;^A&quot;, &quot;BA&quot;</div>
-<div class="line">PRINT R          &#39; 0</div>
-</div><!-- fragment --><p><b>Alternation</b></p>
+</div><!-- fragment --><p><b>Alternation and character classes</b></p>
 <div class="fragment"><div class="line">MATCH R, &quot;CAT|DOG&quot;, &quot;HOTDOG&quot;</div>
-<div class="line">PRINT R          &#39; 1</div>
-<div class="line"> </div>
-<div class="line">MATCH R, &quot;RED|GREEN&quot;, &quot;BLUE&quot;</div>
-<div class="line">PRINT R          &#39; 0</div>
-</div><!-- fragment --><p><b>Character classes and ranges</b></p>
-<div class="fragment"><div class="line">MATCH R, &quot;[0-9]+&quot;, &quot;foo123bar&quot;</div>
 <div class="line">PRINT R          &#39; 1</div>
 <div class="line"> </div>
 <div class="line">MATCH R, &quot;[A-Z][a-z]+&quot;, &quot;Title&quot;</div>
 <div class="line">PRINT R          &#39; 1</div>
-<div class="line"> </div>
-<div class="line">MATCH R, &quot;[^x]*z$&quot;, &quot;crab ballz&quot;</div>
-<div class="line">PRINT R          &#39; 1</div>
-</div><!-- fragment --><p><b>Wildcard and quantifiers</b></p>
-<div class="fragment"><div class="line">MATCH R, &quot;A.*C&quot;, &quot;AXYZC&quot;</div>
-<div class="line">PRINT R          &#39; 1</div>
-<div class="line"> </div>
-<div class="line">MATCH R, &quot;A.+C&quot;, &quot;AC&quot;</div>
-<div class="line">PRINT R          &#39; 0</div>
-<div class="line"> </div>
-<div class="line">MATCH R, &quot;B*&quot;, &quot;AAAA&quot;</div>
-<div class="line">PRINT R          &#39; 1   &#39; empty match is allowed</div>
-</div><!-- fragment --><p><b>Handling invalid patterns</b></p>
+</div><!-- fragment --><p><b>Capturing sub-expressions</b></p>
+<div class="fragment"><div class="line">MATCH R, &quot;([A-Za-z]+),([A-Za-z]+)&quot;, &quot;Hello,World&quot;, FIRST$, SECOND$</div>
+<div class="line">PRINT R, FIRST$, SECOND$   &#39; 1  Hello  World</div>
+</div><!-- fragment --><p><b>No match clears captures</b></p>
+<div class="fragment"><div class="line">MATCH R, &quot;(\d+)&quot;, &quot;No digits here&quot;, NUM$</div>
+<div class="line">PRINT R, NUM$              &#39; 0  &quot;&quot;</div>
+</div><!-- fragment --><p><b>Invalid pattern handling</b></p>
 <div class="fragment"><div class="line">ON ERROR PROCbad</div>
 <div class="line">MATCH R, &quot;(?i)HELLO&quot;, &quot;hello&quot;   &#39; invalid: (?i) not supported</div>
 <div class="line">PRINT &quot;this line is not reached&quot;</div>
@@ -173,13 +158,44 @@ Examples</h3>
 <div class="line">PRINT &quot;Regex error!&quot;</div>
 <div class="line">END</div>
 </div><!-- fragment --><hr  />
+<h3 class="doxsection"><a class="anchor" id="supported-syntax-posix-ere-subset"></a>
+Supported syntax (POSIX ERE subset)</h3>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Feature  </th><th class="markdownTableHeadNone">Example  </th><th class="markdownTableHeadNone">Description  </th><th class="markdownTableHeadNone"></th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Literals  </td><td class="markdownTableBodyNone"><span class="tt">ABC</span>  </td><td class="markdownTableBodyNone">exact characters  </td><td class="markdownTableBodyNone"></td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Any char  </td><td class="markdownTableBodyNone"><span class="tt">.</span>  </td><td class="markdownTableBodyNone">matches any single character  </td><td class="markdownTableBodyNone"></td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Quantifiers  </td><td class="markdownTableBodyNone"><span class="tt">* + ?</span>  </td><td class="markdownTableBodyNone">greedy repetition  </td><td class="markdownTableBodyNone"></td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Character classes  </td><td class="markdownTableBodyNone"><span class="tt">[abc]</span>, <span class="tt">[A-Z]</span>, <span class="tt">[^0-9]</span>  </td><td class="markdownTableBodyNone">set, range, negation  </td><td class="markdownTableBodyNone"></td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Alternation  </td><td class="markdownTableBodyNone"><span class="tt">A \ilinebr &lt;/td&gt;    &lt;td class="markdownTableBodyNone"&gt; B</span>  </td><td class="markdownTableBodyNone">match A or B  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Anchors  </td><td class="markdownTableBodyNone"><span class="tt">^</span>, <span class="tt">$</span>  </td><td class="markdownTableBodyNone">start / end of string  </td><td class="markdownTableBodyNone"></td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Capturing groups  </td><td class="markdownTableBodyNone"><span class="tt">(ABC)</span>  </td><td class="markdownTableBodyNone">capture substring  </td><td class="markdownTableBodyNone"></td></tr>
+</table>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="not-supported"></a>
+Not supported</h3>
+<ul>
+<li>Backreferences <span class="tt">\1</span>, <span class="tt">\2</span>, …</li>
+<li>Inline flags <span class="tt">(?i)</span> etc.</li>
+<li>PCRE-style escapes (<span class="tt">\d</span>, <span class="tt">\w</span>, lookaround, …)</li>
+<li>Multiline mode (<span class="tt">^</span> and <span class="tt">$</span> match string boundaries only)</li>
+</ul>
+<hr  />
 <h3 class="doxsection"><a class="anchor" id="notes-151"></a>
 Notes</h3>
 <ul>
-<li>Matching is <b>case-sensitive</b> by default. To approximate case-insensitive tests, normalise your data (e.g., convert both strings to upper case before matching) or use character classes (e.g., <span class="tt">[Hh][Ee][Ll][Ll][Oo]</span>).</li>
-<li>Because <span class="tt">MATCH</span> is cooperative, very large inputs or patterns may take multiple idle ticks to complete. You do not need to poll—control returns to your program automatically once finished.</li>
-<li><span class="tt">^</span> and <span class="tt">$</span> are <b>string</b> anchors, not line anchors; there is no multiline mode.</li>
-<li>The engine is compiled with <span class="tt">REG_NOSUB</span>; capture offsets are not available to BASIC code. </li>
+<li>Matching is <b>case-sensitive</b>. To simulate case-insensitive matching, normalise both strings or use explicit character classes.</li>
+<li>With captures, <b>co-operative execution is disabled</b> — the operation completes immediately.</li>
+<li>Without captures, matching runs <b>co-operatively</b> across idle ticks for long inputs.</li>
+<li>If the pattern is invalid, the engine reports a descriptive message. Without an error handler, the program terminates; with <span class="tt">ON ERROR PROCname</span>, control transfers to the handler.</li>
+<li>Capture results are always independent copies; modifying the original string has no effect on captured values. </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

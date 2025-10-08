@@ -41,7 +41,7 @@ var searchData=
   ['for_2emd_38',['FOR.md',['../FOR_8md.html',1,'']]],
   ['formats_39',['Supported formats',['../SPRITELOAD.html#supported-formats',1,'']]],
   ['formatting_20semantics_20same_20as_20print_40',['Formatting semantics same as PRINT',['../SOCKWRITE.html#formatting-semantics-same-as-print',1,'Formatting semantics (same as <span class="tt">PRINT</span>)'],['../WRITE.html#formatting-semantics-same-as-print-1',1,'Formatting semantics (same as <span class="tt">PRINT</span>)']]],
-  ['forms_41',['Forms',['../ELSE.html#forms',1,'']]],
+  ['forms_41',['Forms',['../ELSE.html#forms',1,'Forms'],['../MATCH.html#forms-1',1,'Forms']]],
   ['forms_20and_20examples_42',['Forms and examples',['../IF.html#forms-and-examples',1,'']]],
   ['free_20space_20map_20bitmap_43',['3.2 Free-space map (bitmap)',['../retrofs.html#autotoc_md32-free-space-map-bitmap',1,'']]],
   ['from_20a_20file_44',['Example: load newline-separated integers from a file',['../DATA.html#example-load-newline-separated-integers-from-a-file',1,'']]],
