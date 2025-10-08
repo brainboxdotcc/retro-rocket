@@ -2,6 +2,8 @@
 
 This project includes third-party components. For each we list name, version, licence, and source.
 
+@note Retro Rocket integrates a curated subset of permissively licensed libraries chosen for their freestanding safety, low footprint, and clean legal provenance. Each dependency has been reduced to source-only form and reviewed for direct system-call usage, ensuring compliance with Retro Rocket’s non-POSIX environment.
+
 | Component                | Version        | Licence (SPDX)              | Source / Upstream                                                                                        |
 | ------------------------ | -------------- | ----------------------------| ---------------------------------------------------------------------------------------------------------|
 | Flanterm (fork)          | 1.0.3          | MIT                         | [https://codeberg.org/Mintsuki/Flanterm](https://codeberg.org/Mintsuki/Flanterm)                         |
