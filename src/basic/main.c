@@ -416,7 +416,7 @@ void library_statement(struct basic_ctx *ctx) {
 
 	/* Append the renumbered library to the end of the program (this reallocates
 	 * ctx->program_ptr invalidating ctx->ptr and ctx->next_ptr - the tokeinizer
-	 * must be reinitailised and the line hash rebuilt)
+	 * must be reinitialised and the line hash rebuilt)
 	 */
 	ctx->program_ptr = buddy_realloc(ctx->allocator, ctx->program_ptr, strlen(ctx->program_ptr) + 5000 + library_len);
 	if (!ctx->program_ptr) {

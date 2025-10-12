@@ -206,7 +206,7 @@ bool proc_kill_id(pid_t id)
 void proc_set_idle(process_t* proc, activity_callback_t callback, void* context) {
 	if (callback) {
 		if (proc->check_idle) {
-			dprintf("WARNING: Possible bug; process '%u' already has an idle callback\n", proc->pid);
+			dprintf("WARNING: Possible bug; process '%lu' already has an idle callback\n", proc->pid);
 		}
 		proc->check_idle = callback;
 		proc->idle_context = context;
@@ -239,7 +239,7 @@ const char* proc_set_csd(process_t* proc, const char* csd)
 	if (*csd == '/') {
 		kfree_null(&proc->csd);
 		proc->csd = strdup(csd);
-		dprintf("Process %d CSD set to: '%s'\n", proc->pid, proc->csd);
+		dprintf("Process %lu CSD set to: '%s'\n", proc->pid, proc->csd);
 		return proc->csd;
 	}
 
@@ -248,7 +248,7 @@ const char* proc_set_csd(process_t* proc, const char* csd)
 		strlcat((char*)proc->csd, "/", len + csdlen + 2);
 	}
 	strlcat((char*)proc->csd, csd, len + csdlen + 2);
-	dprintf("Process %d CSD set to: '%s'\n", proc->pid, proc->csd);
+	dprintf("Process %lu CSD set to: '%s'\n", proc->pid, proc->csd);
 	return proc->csd;
 }
 
@@ -263,7 +263,7 @@ const char* proc_get_csd(process_t* proc)
 void proc_kill(process_t* proc)
 {
 	uint8_t cpu = proc->cpu;
-	dprintf("proc_kill id %u on cpu %d\n", proc->pid, cpu);
+	dprintf("proc_kill id %lu on cpu %d\n", proc->pid, cpu);
 	lock_spinlock(&proc_lock[cpu]);
 	lock_spinlock(&combined_proc_lock);
 	for (process_t* cur = proc_list[cpu]; cur; cur = cur->next) {

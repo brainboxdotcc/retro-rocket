@@ -8,12 +8,8 @@ static inline volatile uint32_t *nvme_db_ptr(volatile nvme_regs_t *r, uint32_t d
 }
 
 /* ---------- Tiny 4 KiB page bounce (PRP1) ---------- */
-static void *nvme_page_alloc_4k(void) {
-	uint8_t *raw = kmalloc_aligned(4096, 4096);
-	if (!raw) {
-		return NULL;
-	}
-	return raw;
+static inline void *nvme_page_alloc_4k(void) {
+	return kmalloc_aligned(4096, 4096);
 }
 
 static void nvme_page_free_4k(void *ptr) {
@@ -32,14 +28,12 @@ static nvme_sqe_t *nvme_sqe_alloc(nvme_dev_t *dev, bool admin, uint16_t *cid_out
 		*cid_out = tail;
 		memset(&dev->asq[tail], 0, sizeof(nvme_sqe_t));
 		dev->a_sqt = (uint16_t) ((tail + 1) & (dev->a_qd - 1));
-		/* DO NOT ring doorbell here */
 		return &dev->asq[tail];
 	} else {
 		uint16_t tail = dev->io_sqt;
 		*cid_out = tail;
 		memset(&dev->iosq[tail], 0, sizeof(nvme_sqe_t));
 		dev->io_sqt = (uint16_t) ((tail + 1) & (dev->io_qd - 1));
-		/* DO NOT ring doorbell here */
 		return &dev->iosq[tail];
 	}
 }

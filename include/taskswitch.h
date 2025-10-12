@@ -20,17 +20,17 @@ typedef enum process_state_t {
 /**
  * @brief Process ID type (unique identifier for a process).
  */
-typedef uint32_t pid_t;
+typedef uint64_t pid_t;
 
 /**
  * @brief User ID type (reserved for future use).
  */
-typedef uint32_t uid_t;
+typedef uint64_t uid_t;
 
 /**
  * @brief Group ID type (reserved for future use).
  */
-typedef uint32_t gid_t;
+typedef uint64_t gid_t;
 
 /**
  * @brief Logical CPU ID type.
