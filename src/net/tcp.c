@@ -1413,7 +1413,7 @@ int connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port, bo
 	tcp_conn_t* conn = tcp_find_by_fd(result);
 	time_t start = get_ticks();
 	while (conn && conn->state < TCP_ESTABLISHED) {
-		__asm__ volatile("pause");
+		__builtin_ia32_pause();
 		if (get_ticks() - start > 6000) {
 			dprintf("tcp connect timed out. State=%d\n", conn->state);
 			return TCP_CONNECTION_TIMED_OUT;

@@ -335,7 +335,7 @@ static int virtio_block_rw(virtio_block_dev_t *v, bool write, uint64_t lba512, u
 			(void) e;
 			break;
 		}
-		__asm__ volatile("pause");
+		__builtin_ia32_pause();
 	}
 
 	if (v->st->status != 0) {

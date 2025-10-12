@@ -461,7 +461,7 @@ char *basic_insocket(struct basic_ctx *ctx) {
 	} else if (rv < 0) {
 		tokenizer_error_print(ctx, socket_error(rv));
 	} else {
-		__asm__ volatile("pause");
+		__builtin_ia32_pause();
 	}
 	return "";
 }

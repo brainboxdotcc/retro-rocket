@@ -167,7 +167,7 @@ static bool hda_cmd(uint8_t cad, uint8_t nid, uint16_t verb, uint16_t payload, u
 			if ((int32_t) (now - deadline) >= 0 || ++spins > 1000000) {
 				break; /* timeout → fall back to immediate */
 			}
-			__asm__ __volatile__("pause");
+			__builtin_ia32_pause();
 		}
 	}
 
@@ -186,7 +186,7 @@ static bool hda_cmd(uint8_t cad, uint8_t nid, uint16_t verb, uint16_t payload, u
 			if ((int32_t) (now - deadline) >= 0 || ++spins > 1000000) {
 				break;
 			}
-			__asm__ __volatile__("pause");
+			__builtin_ia32_pause();
 		}
 	}
 
@@ -219,7 +219,7 @@ static bool hda_cmd(uint8_t cad, uint8_t nid, uint16_t verb, uint16_t payload, u
 			if ((int32_t) (now - deadline) >= 0 || ++spins > 1000000) {
 				break;
 			}
-			__asm__ __volatile__("pause");
+			__builtin_ia32_pause();
 		}
 	}
 
@@ -842,7 +842,7 @@ static bool hda_controller_reset_and_start(pci_dev_t dev) {
 		uint32_t deadline = start + (uint32_t) (WALCLK_HZ / 2);
 		uint32_t spins = 0;
 		while ((int32_t) (hda_mmio_r32(HDA_REG_WALCLK) - deadline) < 0 && ++spins < 1000000) {
-			__asm__ __volatile__("pause");
+			__builtin_ia32_pause();
 		}
 	}
 
@@ -859,7 +859,7 @@ static bool hda_controller_reset_and_start(pci_dev_t dev) {
 			if ((int32_t) (hda_mmio_r32(HDA_REG_WALCLK) - deadline) >= 0 || ++spins > 1000000) {
 				break; /* don't hang forever if an odd platform is slow */
 			}
-			__asm__ __volatile__("pause");
+			__builtin_ia32_pause();
 		}
 	}
 
@@ -869,7 +869,7 @@ static bool hda_controller_reset_and_start(pci_dev_t dev) {
 		uint32_t deadline = start + (5 * WALCLK_HZ);
 		uint32_t spins = 0;
 		while ((int32_t) (hda_mmio_r32(HDA_REG_WALCLK) - deadline) < 0 && ++spins < 1000000) {
-			__asm__ __volatile__("pause");
+			__builtin_ia32_pause();
 		}
 	}
 

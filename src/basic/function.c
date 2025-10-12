@@ -244,7 +244,7 @@ const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx)
 		atomic->proc = &proc;
 		while (!basic_finished(atomic)) {
 			if (proc.check_idle && proc.check_idle(&proc, proc.idle_context)) {
-				_mm_pause();
+				__builtin_ia32_pause();
 				continue;
 			}
 			proc_set_idle(&proc, NULL, NULL);
@@ -364,7 +364,7 @@ int64_t basic_eval_int_fn(const char* fn_name, struct basic_ctx* ctx)
 		atomic->proc = &proc;
 		while (!basic_finished(atomic)) {
 			if (proc.check_idle && proc.check_idle(&proc, proc.idle_context)) {
-				_mm_pause();
+				__builtin_ia32_pause();
 				continue;
 			}
 			proc_set_idle(&proc, NULL, NULL);
@@ -429,7 +429,7 @@ void basic_eval_double_fn(const char* fn_name, struct basic_ctx* ctx, double* re
 		atomic->proc = &proc;
 		while (!basic_finished(atomic)) {
 			if (proc.check_idle && proc.check_idle(&proc, proc.idle_context)) {
-				_mm_pause();
+				__builtin_ia32_pause();
 				continue;
 			}
 			proc_set_idle(&proc, NULL, NULL);

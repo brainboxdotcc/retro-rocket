@@ -49,7 +49,7 @@ static int nvme_cqe_poll(nvme_dev_t *dev, bool admin, uint16_t want_cid) {
 			uint16_t st = e->status;
 			uint8_t ph = (uint8_t) (st & 1); /* phase = bit 0 */
 			if (ph != dev->a_phase) {
-				__asm__ volatile("pause");
+				__builtin_ia32_pause();
 				continue;
 			}
 
@@ -79,7 +79,7 @@ static int nvme_cqe_poll(nvme_dev_t *dev, bool admin, uint16_t want_cid) {
 			uint16_t st = e->status;
 			uint8_t ph = (uint8_t) (st & 1);
 			if (ph != dev->io_phase) {
-				__asm__ volatile("pause");
+				__builtin_ia32_pause();
 				continue;
 			}
 
@@ -218,7 +218,7 @@ static int nvme_hw_enable(nvme_dev_t *dev) {
 	/* Disable if enabled */
 	if (r->cc & 1u) {
 		r->cc &= ~1u;
-		while (r->csts & 1u) __asm__ volatile("pause");
+		while (r->csts & 1u) __builtin_ia32_pause();
 	}
 
 	/* Admin queues: 64 entries like the ASM driver (clamp to MQES+1 just in case) */
@@ -249,7 +249,7 @@ static int nvme_hw_enable(nvme_dev_t *dev) {
 			return 0;
 		}
 		if (c & 1u) break;
-		__asm__ volatile("pause");
+		__builtin_ia32_pause();
 	}
 
 	dev->a_sqt = 0;

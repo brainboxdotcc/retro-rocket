@@ -174,7 +174,7 @@ void proc_run(process_t* proc)
 		basic_run(proc->code);
 		return;
 	} else if (proc->check_idle) {
-		_mm_pause();
+		__builtin_ia32_pause();
 		return;
 	}
 	basic_run(proc->code);
@@ -354,7 +354,7 @@ void proc_run_next()
 {
 	process_t* current = proc_current[logical_cpu_id()];
 	if (current == NULL) {
-		_mm_pause();
+		__builtin_ia32_pause();
 		return;
 	}
 	proc_run(current);
@@ -368,13 +368,13 @@ void proc_run_next()
 
 uint64_t process_hash(const void *item, uint64_t seed0, uint64_t seed1) {
 	const process_t *p = item;
-	return p->pid * seed0 ^ seed1;
+	return hashmap_sip(&p->pid, sizeof(uint64_t), seed0, seed1);
 }
 
 int process_compare(const void *a, const void *b, void *udata) {
 	const process_t *pa = a;
 	const process_t *pb = b;
-	return pa->pid == pb->pid ? 0 : (pa->pid < pb->pid ? -1 : 1);
+	return pa->pid - pb->pid;
 }
 
 void wakeup_callback([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t errorcode, [[maybe_unused]] uint64_t irq, [[maybe_unused]] void* opaque)

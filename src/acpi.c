@@ -324,7 +324,7 @@ void boot_aps() {
 			cpu->goto_address = kmain_ap;
 		}
 		while (atomic_load(&aps_online) < limit - 1) {
-			_mm_pause();
+			__builtin_ia32_pause();
 		}
 		kprintf("\n");
 	}

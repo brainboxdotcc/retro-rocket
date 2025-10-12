@@ -195,7 +195,7 @@ static int xhci_cmd_submit_wait(struct xhci_hc *hc, struct trb *cmd_trb, uint64_
 		}
 
 		if ((int64_t)(get_ticks() - deadline) > 0) break;
-		__asm__ volatile("pause");
+		__builtin_ia32_pause();
 	}
 
 	/* timeout: clear EHB and restore IE */
@@ -312,7 +312,7 @@ static int xhci_reset_controller(struct xhci_hc *hc) {
 		mmio_write32(hc->op + XHCI_USBCMD, cmd & ~USBCMD_RS);
 		uint64_t until = get_ticks() + 20;
 		while (((mmio_read32(hc->op + XHCI_USBSTS) & USBSTS_HCH) == 0) && get_ticks() < until) {
-			__asm__ volatile("pause");
+			__builtin_ia32_pause();
 		}
 		dprintf("xhci.dbg:   halted, USBSTS=%08x\n", mmio_read32(hc->op + XHCI_USBSTS));
 	}
@@ -321,7 +321,7 @@ static int xhci_reset_controller(struct xhci_hc *hc) {
 	mmio_write32(hc->op + XHCI_USBCMD, USBCMD_HCRST);
 	uint64_t until = get_ticks() + 100;
 	while ((mmio_read32(hc->op + XHCI_USBCMD) & USBCMD_HCRST) && get_ticks() < until) {
-		__asm__ volatile("pause");
+		__builtin_ia32_pause();
 	}
 	uint32_t sts1 = mmio_read32(hc->op + XHCI_USBSTS);
 	dprintf("xhci.dbg:   post HCRST USBSTS=%08x\n", sts1);
@@ -378,7 +378,7 @@ static int xhci_reset_controller(struct xhci_hc *hc) {
 
 	until = get_ticks() + 20;
 	while ((mmio_read32(hc->op + XHCI_USBSTS) & USBSTS_HCH) && get_ticks() < until) {
-		__asm__ volatile("pause");
+		__builtin_ia32_pause();
 	}
 
 	uint32_t sts2 = mmio_read32(hc->op + XHCI_USBSTS);
@@ -533,7 +533,7 @@ static int xhci_ctrl_build_and_run(struct xhci_hc *hc, uint8_t slot_id,
 
 			if (!progressed) {
 				if ((int64_t)(get_ticks() - deadline) > 0) break;
-				__asm__ volatile("pause");
+				__builtin_ia32_pause();
 			}
 		}
 
@@ -584,7 +584,7 @@ static int xhci_enumerate_first_device(struct xhci_hc *hc, struct usb_dev *out_u
 
 	/* ~100ms settle */
 	uint64_t end_wait = get_ticks() + 100;
-	while (get_ticks() < end_wait) { __asm__ volatile("pause"); }
+	while (get_ticks() < end_wait) { __builtin_ia32_pause(); }
 
 	/* Enable Slot */
 	struct trb *es = xhci_cmd_begin(hc);

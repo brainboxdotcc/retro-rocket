@@ -88,8 +88,8 @@ typedef struct process_t {
  * Used only in the process hash map for quick lookup by ID.
  */
 typedef struct proc_id_t {
-	uint32_t id;       /**< Process ID */
-	process_t* proc;   /**< Pointer to process detail */
+	pid_t id;		/**< Process ID */
+	process_t* proc;	/**< Pointer to process detail */
 } proc_id_t;
 
 /**

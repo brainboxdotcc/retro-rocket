@@ -19,6 +19,7 @@
 #include <io.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <xmmintrin.h>
 
 
 /**
@@ -139,7 +140,7 @@ static inline bool try_lock(spinlock_t *lock) {
  */
 static inline void spin_until_locked(spinlock_t *lock) {
 	while (!try_lock(lock)) {
-		__asm__ volatile("pause"); // reduce contention
+		__builtin_ia32_pause(); // reduce contention
 	}
 }
 

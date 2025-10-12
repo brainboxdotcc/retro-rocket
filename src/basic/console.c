@@ -39,7 +39,7 @@ char* basic_inkey(struct basic_ctx* ctx)
 	const uint8_t key[2] = { kgetc(), 0 };
 	
 	if (*key == 255) {
-		_mm_pause();
+		__builtin_ia32_pause();
 		return "";
 	} else {
 		return gc_strdup(ctx, (const char*)key);

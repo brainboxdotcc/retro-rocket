@@ -482,7 +482,7 @@ int ssl_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 				return TCP_CONNECTION_TIMED_OUT;
 			} else if (rv == MBEDTLS_ERR_SSL_WANT_READ) {
 				while (!sock_ready_to_read(p->fd)) {
-					__asm__ volatile("pause");
+					__builtin_ia32_pause();
 				}
 				continue;
 			} else if (rv != MBEDTLS_ERR_SSL_WANT_WRITE && rv != MBEDTLS_ERR_SSL_ASYNC_IN_PROGRESS && rv != MBEDTLS_ERR_SSL_CRYPTO_IN_PROGRESS) {
@@ -492,7 +492,7 @@ int ssl_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 				closesocket(fd);
 				return TCP_ERROR_SSL_FIRST + rv;
 			}
-			__asm__ volatile("pause");
+			__builtin_ia32_pause();
 		}
 		// TODO: Copy these into the tls_peer so BASIC can use them
 		const char *ver = mbedtls_ssl_get_version(&p->ssl);
@@ -552,7 +552,7 @@ int ssl_accept(int listen_fd, const uint8_t *cert_pem, size_t cert_len, const ui
 			tls_close_fd(fd);
 			return TCP_CONNECTION_TIMED_OUT;
 		}
-		__asm__ volatile("pause");
+		__builtin_ia32_pause();
 	}
 }
 

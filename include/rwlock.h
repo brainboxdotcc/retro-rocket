@@ -46,7 +46,7 @@ static inline void rwlock_read_lock(rwlock_t *lock) {
 				return;
 			}
 		}
-		_mm_pause(); // x86 "pause"
+		__builtin_ia32_pause(); // x86 "pause"
 	}
 }
 
@@ -66,7 +66,7 @@ static inline void rwlock_write_lock(rwlock_t *lock) {
 	while (!__atomic_compare_exchange_n(&lock->state, &expected, -1,
 					    true, __ATOMIC_ACQUIRE, __ATOMIC_RELAXED)) {
 		expected = 0;
-		_mm_pause();
+		__builtin_ia32_pause();
 	}
 }
 
