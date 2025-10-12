@@ -62,7 +62,7 @@ IF _http_ok = 1 THEN
 ENDIF
 _http_ok = 0
 _http_path$ = ""
-MATCH _http_ok, "^((\\[[^]]+\\])|([^/?#:]+(\\.[^/?#:]+)+))(:[0-9]+)?/([^?#]*)", url$, _http_tmp1$, _http_tmp2$, _http_tmp3$, _http_tmp4$, _http_tmp5$, _http_path$
+MATCH _http_ok, "^((\[[^]]+\])|([^/?#:]+(\.[^/?#:]+)+))(:[0-9]+)?/([^?#]*)", url$, _http_tmp1$, _http_tmp2$, _http_tmp3$, _http_tmp4$, _http_tmp5$, _http_path$
 IF _http_ok = 1 THEN
   = "/" + _http_path$
 ENDIF
@@ -96,7 +96,7 @@ ENDIF
 REM bare host (requires dot or bracketed IPv6), optional :port; capture the whole authority
 _http_ok = 0
 _http_auth$ = ""
-MATCH _http_ok, "^((\\[[^]]+\\]|[^/?#:]+(\\.[^/?#:]+)+)(:[0-9]+)?)", url$, _http_auth$
+MATCH _http_ok, "^((\[[^]]+\]|[^/?#:]+(\.[^/?#:]+)+)(:[0-9]+)?)", url$, _http_auth$
 IF _http_ok = 1 THEN
   = _http_auth$
 ENDIF
