@@ -6,9 +6,9 @@ BINWRITE(integer-handle, integer-buffer, integer-length)
 
 Writes **binary data** from memory to an **open file**.
 
-* `integer-handle` — file handle from \ref OPENOUT "OPENOUT" or \ref OPENUP "OPENUP".
-* `integer-buffer` — source memory handle/pointer (from \ref MEMALLOC "MEMALLOC" or other).
-* `integer-length` — number of bytes to write.
+* `integer-handle` - file handle from \ref OPENOUT "OPENOUT" or \ref OPENUP "OPENUP".
+* `integer-buffer` - source memory handle/pointer (from \ref MEMALLOC "MEMALLOC" or other).
+* `integer-length` - number of bytes to write.
 
 ---
 

@@ -242,7 +242,7 @@ int64_t basic_inportw(struct basic_ctx* ctx);
 int64_t basic_inportd(struct basic_ctx* ctx);
 
 /**
- * @brief Implements BITOR(a, b) — bitwise OR.
+ * @brief Implements BITOR(a, b) - bitwise OR.
  *
  * BASIC syntax:
  * @code
@@ -255,7 +255,7 @@ int64_t basic_inportd(struct basic_ctx* ctx);
 int64_t basic_bitor(struct basic_ctx* ctx);
 
 /**
- * @brief Implements BITAND(a, b) — bitwise AND.
+ * @brief Implements BITAND(a, b) - bitwise AND.
  *
  * BASIC syntax:
  * @code
@@ -268,7 +268,7 @@ int64_t basic_bitor(struct basic_ctx* ctx);
 int64_t basic_bitand(struct basic_ctx* ctx);
 
 /**
- * @brief Implements BITNOT(a) — bitwise complement.
+ * @brief Implements BITNOT(a) - bitwise complement.
  *
  * BASIC syntax:
  * @code
@@ -283,7 +283,7 @@ int64_t basic_bitand(struct basic_ctx* ctx);
 int64_t basic_bitnot(struct basic_ctx* ctx);
 
 /**
- * @brief Implements BITEOR(a, b) — bitwise XOR (BBC EOR).
+ * @brief Implements BITEOR(a, b) - bitwise XOR (BBC EOR).
  *
  * BASIC syntax:
  * @code
@@ -296,7 +296,7 @@ int64_t basic_bitnot(struct basic_ctx* ctx);
 int64_t basic_biteor(struct basic_ctx* ctx);
 
 /**
- * @brief Implements BITNAND(a, b) — bitwise NAND.
+ * @brief Implements BITNAND(a, b) - bitwise NAND.
  *
  * BASIC syntax:
  * @code
@@ -309,7 +309,7 @@ int64_t basic_biteor(struct basic_ctx* ctx);
 int64_t basic_bitnand(struct basic_ctx* ctx);
 
 /**
- * @brief Implements BITNOR(a, b) — bitwise NOR.
+ * @brief Implements BITNOR(a, b) - bitwise NOR.
  *
  * BASIC syntax:
  * @code
@@ -322,7 +322,7 @@ int64_t basic_bitnand(struct basic_ctx* ctx);
 int64_t basic_bitnor(struct basic_ctx* ctx);
 
 /**
- * @brief Implements BITXNOR(a, b) — bitwise equivalence.
+ * @brief Implements BITXNOR(a, b) - bitwise equivalence.
  *
  * BASIC syntax:
  * @code
@@ -335,7 +335,7 @@ int64_t basic_bitnor(struct basic_ctx* ctx);
 int64_t basic_bitxnor(struct basic_ctx* ctx);
 
 /**
- * @brief Implements BITSHL(a, n) — logical left shift.
+ * @brief Implements BITSHL(a, n) - logical left shift.
  *
  * BASIC syntax:
  * @code
@@ -350,7 +350,7 @@ int64_t basic_bitxnor(struct basic_ctx* ctx);
 int64_t basic_bitshl(struct basic_ctx* ctx);
 
 /**
- * @brief Implements BITSHR(a, n) — logical right shift.
+ * @brief Implements BITSHR(a, n) - logical right shift.
  *
  * BASIC syntax:
  * @code
@@ -365,7 +365,7 @@ int64_t basic_bitshl(struct basic_ctx* ctx);
 int64_t basic_bitshr(struct basic_ctx* ctx);
 
 /**
- * @brief Implements BITROL(a, n, width) — rotate left within width bits.
+ * @brief Implements BITROL(a, n, width) - rotate left within width bits.
  *
  * BASIC syntax:
  * @code
@@ -380,7 +380,7 @@ int64_t basic_bitshr(struct basic_ctx* ctx);
 int64_t basic_bitrol(struct basic_ctx* ctx);
 
 /**
- * @brief Implements BITROR(a, n, width) — rotate right within width bits.
+ * @brief Implements BITROR(a, n, width) - rotate right within width bits.
  *
  * BASIC syntax:
  * @code

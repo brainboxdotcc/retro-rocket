@@ -1,7 +1,7 @@
 #include <kernel.h>
 
 /* ============================================================
- * Virtio Block (Virtio 1.0+, modern only) — Complete Driver
+ * Virtio Block (Virtio 1.0+, modern only) - Complete Driver
  * BAR4-centric: capability offsets resolved against BAR4 base
  * ============================================================ */
 
@@ -374,7 +374,7 @@ static int storage_device_virtio_block_read(void *dev_ptr, uint64_t start, uint3
 
 	uint32_t sectors = (bytes + 511) / 512;
 	if (sectors == 0) {
-		dprintf("virtio-block: read zero sectors (bytes=%u) — nothing to do\n", bytes);
+		dprintf("virtio-block: read zero sectors (bytes=%u) - nothing to do\n", bytes);
 		return 1;
 	}
 	if (start > v->capacity_512 || sectors > v->capacity_512 - start) {

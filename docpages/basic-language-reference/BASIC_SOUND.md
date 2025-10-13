@@ -58,10 +58,10 @@ If you ever played games on a C64 or BBC Micro, you’ll remember how the same �
 
 Retro Rocket uses the classic **ADSR model** (Attack, Decay, Sustain, Release) found on many vintage synthesisers:
 
-* **Attack** — how quickly the sound rises from silence to full strength when a note begins.
-* **Decay** — once the peak is reached, how fast the sound falls back down to a steady level.
-* **Sustain** — the level held as long as the note continues.
-* **Release** — how long the note takes to fade back to silence after it ends.
+* **Attack** - how quickly the sound rises from silence to full strength when a note begins.
+* **Decay** - once the peak is reached, how fast the sound falls back down to a steady level.
+* **Sustain** - the level held as long as the note continues.
+* **Release** - how long the note takes to fade back to silence after it ends.
 
 ## Flow of audio
 

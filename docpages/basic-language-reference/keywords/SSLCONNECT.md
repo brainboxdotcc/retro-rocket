@@ -14,7 +14,7 @@ Opens a **TLS-encrypted TCP connection** to a remote host.
 * **Second parameter**: a **string** containing the IP address.
   To resolve a hostname into an address string, use \ref DNS "DNS$".
 * **Third parameter**: the **port number** (integer expression).
-* **Optional fourth parameter**: `sni$` — the Server Name Indication string, used when connecting to servers hosting multiple domains on the same IP.
+* **Optional fourth parameter**: `sni$` - the Server Name Indication string, used when connecting to servers hosting multiple domains on the same IP.
 
 On **failure**, an error is raised.
 

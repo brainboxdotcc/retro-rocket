@@ -8,7 +8,7 @@ We draw the line at **2012-era hardware**: if your machine is newer than that, y
 * **CPU:** 64-bit processor from 2012 or later (e.g. AMD FX-4300, Intel Core i5-3570)
 * **Memory:** 4 GB RAM
 * **Storage:** 32 GB SATA or NVMe hard drive/SSD (Retro Rocket itself fits in <1 GB, but smaller disks are impractical)
-* **Graphics:** Built-in/onboard graphics (Intel or AMD) are fine — no special card required
+* **Graphics:** Built-in/onboard graphics (Intel or AMD) are fine - no special card required
 * **Input:** USB keyboard (mouse optional)
 
 ### Recommended

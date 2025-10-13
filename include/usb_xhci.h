@@ -10,7 +10,7 @@ struct usb_ep {
 };
 
 /* ============================================================
- * xHCI — interrupt-driven (legacy INTx), single-controller v0
+ * xHCI - interrupt-driven (legacy INTx), single-controller v0
  * HID class runs without polling; commands are polled for v0.
  * Uses get_ticks() (ms since boot) for timing.
  * ============================================================ */

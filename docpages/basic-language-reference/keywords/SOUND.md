@@ -193,10 +193,10 @@ This does not use a sound handle; the waveform is synthesised directly into the 
 
 Parameters:
 
-* **stream** — Stream to play into.
-* **frequency** — Pitch in Hz (e.g. `440` for concert A).
-* **duration** — Length of the note in centiseconds (1/100th of a second).
-* **envelope** (optional) — Envelope slot (0–63) previously defined with \ref ENVELOPE "ENVELOPE CREATE". If omitted, the tone plays raw with no shaping.
+* **stream** - Stream to play into.
+* **frequency** - Pitch in Hz (e.g. `440` for concert A).
+* **duration** - Length of the note in centiseconds (1/100th of a second).
+* **envelope** (optional) - Envelope slot (0–63) previously defined with \ref ENVELOPE "ENVELOPE CREATE". If omitted, the tone plays raw with no shaping.
 
 **Notes**
 

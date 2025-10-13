@@ -75,7 +75,7 @@ static inline void xhci_decode_xfer_evt(const struct trb *e, uint8_t *slot_id, u
 	*bytes  = (sts & 0x00FFFFFFu); /* EVTL: bytes remaining */
 }
 
-/* ring_init with debug — set Toggle Cycle (TC) like libpayload */
+/* ring_init with debug - set Toggle Cycle (TC) like libpayload */
 static void ring_init(struct xhci_ring *r, size_t bytes, uint64_t phys, void *virt) {
 	dprintf("xhci.dbg: ring_init bytes=%lu phys=%lx virt=%p\n", bytes, phys, virt);
 
@@ -1022,7 +1022,7 @@ int xhci_arm_int_in(struct usb_dev *ud, uint16_t pkt_len, xhci_int_in_cb cb) {
 		if (intval > 15) intval = 15;
 	}
 
-	/* Program EP1 IN context — field placement matches libpayload:
+	/* Program EP1 IN context - field placement matches libpayload:
 	 * DW0: CErr=3
 	 * DW1: [31:16] MaxPacketSize, [15:8] Interval, [5:3] EPType (=7 Interrupt IN)
 	 * TR Dequeue: ring phys | DCS

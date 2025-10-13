@@ -648,7 +648,7 @@ size_t wcstombs(char *dst, const wchar_t *src, size_t n)
 	return count;
 }
 
-/* C11 stateful forms — trivial because our "codec" is stateless. */
+/* C11 stateful forms - trivial because our "codec" is stateless. */
 size_t mbrtowc(wchar_t *pwc, const char *s, size_t n, mbstate_t *ps)
 {
 	(void)ps;

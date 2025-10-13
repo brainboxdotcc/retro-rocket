@@ -7,7 +7,7 @@
 #include <kernel.h>
 #include <stdbool.h>
 
-/* BAR0 = NAM (Native Audio Mixer) — I/O ports */
+/* BAR0 = NAM (Native Audio Mixer) - I/O ports */
 #define AC97_NAM_RESET          0x00 /* write-anything: soft reset; read: caps */
 #define AC97_NAM_MASTER_VOL     0x02 /* word: 0x0000=max, bit15=mute */
 #define AC97_NAM_PCM_OUT_VOL    0x18 /* word: 0x0000=max, bit15=mute */
@@ -15,7 +15,7 @@
 #define AC97_NAM_EXT_CTRL       0x2A /* word: bit0 = enable variable-rate */
 #define AC97_NAM_PCM_FRONT_RATE 0x2C /* word: sample rate when var-rate enabled */
 
-/* BAR1 = NABM (Native Audio Bus Master) — I/O ports */
+/* BAR1 = NABM (Native Audio Bus Master) - I/O ports */
 #define AC97_NABM_PO_BDBAR      0x10 /* dword: phys addr of BDL for PCM OUT */
 #define AC97_NABM_PO_CIV        0x14 /*  u8  : current index (RO) */
 #define AC97_NABM_PO_LVI        0x15 /*  u8  : last valid index (0..31) */

@@ -43,7 +43,7 @@ Produces `0`.
 
 * Returns a 64-bit signed integer.
 * If the string is empty or contains invalid characters, the return value is `0`.
-* Only integer values are supported — fractional values are truncated or treated as invalid.
+* Only integer values are supported - fractional values are truncated or treated as invalid.
 * For parsing hexadecimal or octal strings, see \ref HEXVAL "HEXVAL" and \ref OCTVAL "OCTVAL".
 
 ---

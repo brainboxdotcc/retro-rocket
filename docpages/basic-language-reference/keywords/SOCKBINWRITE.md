@@ -6,9 +6,9 @@ SOCKBINWRITE(integer-socket, integer-buffer, integer-length)
 
 Writes **binary data** from memory to a **connected socket**.
 
-* `integer-socket` — socket file descriptor (e.g. from \ref CONNECT "CONNECT" or \ref SOCKACCEPT "SOCKACCEPT").
-* `integer-buffer` — memory handle/pointer returned by \ref MEMALLOC "MEMALLOC".
-* `integer-length` — number of bytes to write.
+* `integer-socket` - socket file descriptor (e.g. from \ref CONNECT "CONNECT" or \ref SOCKACCEPT "SOCKACCEPT").
+* `integer-buffer` - memory handle/pointer returned by \ref MEMALLOC "MEMALLOC".
+* `integer-length` - number of bytes to write.
 
 ---
 

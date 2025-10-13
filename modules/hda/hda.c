@@ -334,7 +334,7 @@ static size_t hda_pin_label(uint32_t defcfg, char *buf, size_t n) {
 	}
 
 	/* Connector description */
-	/* Connection type (19:16) — keep to the common, recognisable ones. */
+	/* Connection type (19:16) - keep to the common, recognisable ones. */
 	const char *conn_desc = NULL;
 	switch (conn) {
 		case 0x01:

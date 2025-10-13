@@ -9,7 +9,7 @@ ENVELOPE DESTROY n
 
 Defines or removes a stored **sound envelope**.
 
-An *envelope* describes how a generated tone evolves over time — its loudness, pitch, and timbre changes. This allows Retro Rocket to act like a very simple synthesiser, much like the BBC Micro’s classic sound system, but with added flexibility.
+An *envelope* describes how a generated tone evolves over time - its loudness, pitch, and timbre changes. This allows Retro Rocket to act like a very simple synthesiser, much like the BBC Micro’s classic sound system, but with added flexibility.
 
 ---
 
@@ -20,60 +20,60 @@ The envelope can then be used by `SOUND TONE` to shape generated notes.
 
 #### Parameters:
 
-* **n** — Envelope index (0–63).
+* **n** - Envelope index (0–63).
   A slot number that lets you store multiple different sound shapes and pick between them.
 
-* **wave** — Base waveform type: the raw “tone colour.”
+* **wave** - Base waveform type: the raw “tone colour.”
 
-  * `0` = square — harsh and “beepy,” like an old 8-bit computer.
-  * `1` = sine — smooth and pure, like a flute.
-  * `2` = sawtooth — bright and buzzy, common in synth leads.
-  * `3` = triangle — softer, hollow-sounding.
-  * `4` = noise — random hiss, used for percussion and effects.
+  * `0` = square - harsh and “beepy,” like an old 8-bit computer.
+  * `1` = sine - smooth and pure, like a flute.
+  * `2` = sawtooth - bright and buzzy, common in synth leads.
+  * `3` = triangle - softer, hollow-sounding.
+  * `4` = noise - random hiss, used for percussion and effects.
 
-* **volume** — Base loudness (0–255). Higher numbers = louder.
+* **volume** - Base loudness (0–255). Higher numbers = louder.
 
-* **pulse\_width** — For square waves only: controls how long the “on” part of the wave lasts in each cycle.
+* **pulse\_width** - For square waves only: controls how long the “on” part of the wave lasts in each cycle.
 
   * 128 = 50% duty cycle = classic square.
   * Lower values = thinner, “nasal” sound.
   * Ignored for other waveforms.
 
-* **attack** — How fast the sound rises from silence to full volume when a note starts.
+* **attack** - How fast the sound rises from silence to full volume when a note starts.
 
   * Short attack = instant click or pluck.
   * Long attack = gradual swell.
 
-* **decay** — After the peak, how quickly the sound drops down to the sustain level.
+* **decay** - After the peak, how quickly the sound drops down to the sustain level.
 
   * Short decay = sharp, percussive.
   * Long decay = smoother, fading into sustain.
 
-* **sustain** — The level (0–255) held while the key/note is pressed.
+* **sustain** - The level (0–255) held while the key/note is pressed.
 
   * High sustain = sound keeps strong.
   * Low sustain = sound fades to a faint background.
 
-* **release** — How long the note takes to fade back to silence after it ends.
+* **release** - How long the note takes to fade back to silence after it ends.
 
   * Short release = abrupt cut-off.
   * Long release = lingering echo.
 
-* **vibrato\_depth** — How far the pitch wobbles up and down.
+* **vibrato\_depth** - How far the pitch wobbles up and down.
 
   * Measured in cents (100 = one semitone).
   * Small depth = gentle shimmer; large = dramatic warble.
 
-* **vibrato\_rate** — How fast the vibrato wobble happens (Hz = cycles per second).
+* **vibrato\_rate** - How fast the vibrato wobble happens (Hz = cycles per second).
 
-* **glide** — Portamento: how long it takes to slide from one note’s pitch to the next.
+* **glide** - Portamento: how long it takes to slide from one note’s pitch to the next.
 
   * Short glide = nearly instant jump.
   * Long glide = smooth slide between notes.
 
-* **pwm\_rate** — Speed of pulse-width modulation (Hz). Only affects square waves. Creates a “chorus-like” movement.
+* **pwm\_rate** - Speed of pulse-width modulation (Hz). Only affects square waves. Creates a “chorus-like” movement.
 
-* **pwm\_depth** — How much the pulse width is swept back and forth (0–255).
+* **pwm\_depth** - How much the pulse width is swept back and forth (0–255).
 
   * Small depth = subtle shimmer.
   * Large depth = dramatic, hollow sweep.

@@ -17,7 +17,7 @@ The parameter is an index between `0` and `GETPROCCOUNT - 1`.
 | `suspended` | Process is waiting on another process to end before continuing.   |
 | `waiting`   | Process is blocked, waiting on I/O (e.g. disk, console, network). |
 | `ended`     | Process no longer exists.                                         |
-| `unknown`   | Error state — the status of this process cannot be determined.    |
+| `unknown`   | Error state - the status of this process cannot be determined.    |
 
 ---
 

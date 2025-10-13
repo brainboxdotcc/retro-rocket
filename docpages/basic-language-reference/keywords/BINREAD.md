@@ -6,9 +6,9 @@ BINREAD(integer-handle, integer-buffer, integer-length)
 
 Reads **binary data** from an **open file** into memory.
 
-* `integer-handle` — file handle from \ref OPENIN "OPENIN" or \ref OPENUP "OPENUP".
-* `integer-buffer` — destination memory handle/pointer (from \ref MEMALLOC "MEMALLOC").
-* `integer-length` — number of bytes to read.
+* `integer-handle` - file handle from \ref OPENIN "OPENIN" or \ref OPENUP "OPENUP".
+* `integer-buffer` - destination memory handle/pointer (from \ref MEMALLOC "MEMALLOC").
+* `integer-length` - number of bytes to read.
 
 ---
 

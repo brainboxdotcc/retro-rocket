@@ -123,7 +123,7 @@ END
 ### Notes
 
 * Matching is **case-sensitive**. To simulate case-insensitive matching, normalise both strings or use explicit character classes.
-* With captures, **co-operative execution is disabled** — the operation completes immediately.
+* With captures, **co-operative execution is disabled** - the operation completes immediately.
 * Without captures, matching runs **co-operatively** across idle ticks for long inputs.
 * If the pattern is invalid, the engine reports a descriptive message.
   Without an error handler, the program terminates;

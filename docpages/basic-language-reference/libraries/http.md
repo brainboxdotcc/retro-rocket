@@ -83,12 +83,12 @@ the request over HTTP, or HTTPS when the scheme/port implies HTTPS. The full res
 
 Return a specific portion of the most recent response. `part$` must be one of:
 
-* `"body"` — response body only
-* `"headers"` — raw header block (status line + header lines, CRLF-delimited)
-* `"status"` — status line (e.g. `HTTP/1.1 200 OK`)
-* `"code"` — status code as a string (e.g. `200`)
-* `"reason"` — reason phrase (e.g. `OK`)
-* `"header:<name>"` — value of a single header (case-insensitive match on `<name>`). Returns the first occurrence, trimmed of surrounding whitespace.
+* `"body"` - response body only
+* `"headers"` - raw header block (status line + header lines, CRLF-delimited)
+* `"status"` - status line (e.g. `HTTP/1.1 200 OK`)
+* `"code"` - status code as a string (e.g. `200`)
+* `"reason"` - reason phrase (e.g. `OK`)
+* `"header:<name>"` - value of a single header (case-insensitive match on `<name>`). Returns the first occurrence, trimmed of surrounding whitespace.
 
 If no response is available, or the requested part does not exist, an empty string is returned.
 

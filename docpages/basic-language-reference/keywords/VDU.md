@@ -97,7 +97,7 @@ Retro Rocket BASIC implements a practical subset of BBC MOS `VDU`. Unsupported c
 
   * Special sub-codes (< 32):
 
-    * `VDU 23,1,enable` — **show/hide cursor** (0 = hide, non-zero = show).
+    * `VDU 23,1,enable` - **show/hide cursor** (0 = hide, non-zero = show).
 
 #### VDU 25, …
   **Plot line** In Retro Rocket this delegates to the `LINE` statement; supply parameters exactly as for `LINE x1, y1, x2, y2`.

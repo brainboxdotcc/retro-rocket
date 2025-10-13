@@ -449,7 +449,7 @@ void loadsprite_statement(struct basic_ctx* ctx)
 	}
 
 	if (gframes > 1) {
-		/* Animated GIF — streaming path */
+		/* Animated GIF - streaming path */
 
 		if (gw <= 0 || gh <= 0) {
 			tokenizer_error_printf(ctx, "Invalid GIF dimensions");

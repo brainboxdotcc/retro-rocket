@@ -32,7 +32,7 @@ PRINT "First character = "; ch$
 * Strings are mutable and can be reassigned at any time.
 * Maximum length depends on available memory.
 * Operations such as concatenation (`+`), substring (\ref LEFT "LEFT$" / \ref RIGHT "RIGHT$" / \ref MID "MID$"), and trimming (\ref TRIM "TRIM$") are supported.
-* Null termination is internal — it is not visible during normal BASIC operations.
+* Null termination is internal - it is not visible during normal BASIC operations.
 
 ---
 

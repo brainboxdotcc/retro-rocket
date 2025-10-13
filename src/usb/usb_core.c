@@ -2,7 +2,7 @@
 #include "usb_core.h"
 
 /* ============================================================
- * Tiny USB core — class registry + device notifications
+ * Tiny USB core - class registry + device notifications
  * ============================================================ */
 
 #define MAX_CLASS_SLOTS 16

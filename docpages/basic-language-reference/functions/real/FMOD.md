@@ -35,7 +35,7 @@ Produces `5`.
 
 ### Notes
 
-* `y` must not be `0` — this causes an error.
+* `y` must not be `0` - this causes an error.
 * The result has the same sign as the dividend (`x`).
 * Differs from integer modulus (`%`) because it works with reals and preserves fractional parts.
 * Useful for periodic functions, angle wrapping, and floating-point arithmetic.

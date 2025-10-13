@@ -34,7 +34,7 @@ NEXT
 * If the index is outside the valid range, an error is raised.
 * The path may be absolute (starting with `/`) or relative to the current working directory (\ref CSD "CSD\$").
 * The order of entries is determined by the filesystem and may not be sorted alphabetically.
-* Only the name is returned — to distinguish files from directories, use \ref FILETYPE "FILETYPE\$".
+* Only the name is returned - to distinguish files from directories, use \ref FILETYPE "FILETYPE\$".
 
 ---
 

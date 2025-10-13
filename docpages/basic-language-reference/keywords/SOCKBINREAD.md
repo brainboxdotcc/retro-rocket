@@ -6,9 +6,9 @@ SOCKBINREAD(integer-socket, integer-buffer, integer-length)
 
 Reads **binary data** from a **connected socket** into memory.
 
-* `integer-socket` — socket file descriptor.
-* `integer-buffer` — destination memory handle/pointer (from \ref MEMALLOC "MEMALLOC").
-* `integer-length` — maximum number of bytes to read.
+* `integer-socket` - socket file descriptor.
+* `integer-buffer` - destination memory handle/pointer (from \ref MEMALLOC "MEMALLOC").
+* `integer-length` - maximum number of bytes to read.
 
 ---
 

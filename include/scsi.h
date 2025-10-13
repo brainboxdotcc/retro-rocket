@@ -146,7 +146,7 @@ typedef struct __attribute__((packed)) scsi_cdb_rw16 {
 	uint8_t  control;    /* 0 */
 } scsi_cdb_rw16;
 
-/* READ CAPACITY (16) via SERVICE ACTION IN(16) — opcode 0x9E, service action 0x10 */
+/* READ CAPACITY (16) via SERVICE ACTION IN(16) - opcode 0x9E, service action 0x10 */
 typedef struct __attribute__((packed)) scsi_cdb_read_capacity16 {
 	uint8_t  opcode;        /* 0x9E */
 	uint8_t  service;       /* 0x10 (READ CAPACITY(16)) */

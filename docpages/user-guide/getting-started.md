@@ -19,8 +19,8 @@ After a short load you will see some diagnostics and an image of our mascot, *Ro
 This is where you type commands.
 
 ### First commands to try
-- `dir` — lists the contents of the current directory.
-- `about` — loads and runs the BASIC program called `about`
+- `dir` - lists the contents of the current directory.
+- `about` - loads and runs the BASIC program called `about`
 
 ### Saving your work
 When running from the LiveCD, Retro Rocket automatically creates a **1 GB RAM disk**.

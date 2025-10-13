@@ -47,7 +47,7 @@ PRINT o$; " = "; OCTVAL(o$)
 * **Important distinction:**
 
   * In BASIC source code, you can write octal literals with a `&O` prefix (e.g. `&O755`).
-  * In strings passed to `OCTVAL`, only the raw digits are valid — no prefix.
+  * In strings passed to `OCTVAL`, only the raw digits are valid - no prefix.
 
 ---
 

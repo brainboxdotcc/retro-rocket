@@ -45,7 +45,7 @@ ENDIF
 ### Notes
 
 * Returns an integer value ≥ 0.
-* Length is measured in characters, not bytes — since Retro Rocket BASIC strings are ASCII, the two are identical.
+* Length is measured in characters, not bytes - since Retro Rocket BASIC strings are ASCII, the two are identical.
 * Useful together with \ref LEFT "LEFT$", \ref RIGHT "RIGHT$", and \ref MID "MID$" for string slicing.
 
 ---
