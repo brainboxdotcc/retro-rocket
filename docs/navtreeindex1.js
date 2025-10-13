@@ -44,7 +44,7 @@ var NAVTREEINDEX1 =
 "mkdir.html":[0,6,25],
 "modplay.html":[0,6,26],
 "modules.html":[2,3],
-"mount.html":[0,6,27],
+"mount-command.html":[0,6,27],
 "mouse.html":[1,6,2],
 "mousetest.html":[0,6,28],
 "musicdemo.html":[0,6,29],

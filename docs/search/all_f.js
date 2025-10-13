@@ -12,7 +12,7 @@ var searchData=
   ['files_9',['files',['../installation.html#autotoc_md4-copying-files',1,'4. Copying files'],['../DATA.html#example-simple-inline-table-no-files',1,'Example: simple inline table (no files)']]],
   ['filesize_20function_10',['FILESIZE Function',['../FILESIZE.html',1,'int-funcs']]],
   ['filesize_2emd_11',['FILESIZE.md',['../FILESIZE_8md.html',1,'']]],
-  ['filesystem_20type_12',['mount [directory] [storage-device-name] [filesystem-type]',['../mount.html#mount-directory-storage-device-name-filesystem-type',1,'']]],
+  ['filesystem_20type_12',['mount [directory] [storage-device-name] [filesystem-type]',['../mount-command.html#mount-directory-storage-device-name-filesystem-type',1,'']]],
   ['filetype_24_20function_13',['FILETYPE$ Function',['../FILETYPE.html',1,'string-funcs']]],
   ['filetype_2emd_14',['FILETYPE.md',['../FILETYPE_8md.html',1,'']]],
   ['fill_15',['6.2 Zero-fill',['../retrofs.html#autotoc_md62-zero-fill',1,'']]],

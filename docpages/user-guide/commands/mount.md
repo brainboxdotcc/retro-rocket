@@ -1,4 +1,4 @@
-\page mount mount command
+\page mount-command mount command
 
 ## mount [directory] [storage-device-name] [filesystem-type]
 

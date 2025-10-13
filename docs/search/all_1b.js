@@ -141,7 +141,7 @@ var searchData=
   ['stop_138',['SOUND STOP',['../SOUND.html#sound-stop',1,'']]],
   ['stopping_20running_20programs_139',['Stopping running programs',['../rocketsh.html#stopping-running-programs',1,'']]],
   ['stopping_20tasks_140',['Starting and stopping tasks',['../tasks.html#starting-and-stopping-tasks',1,'']]],
-  ['storage_20device_20name_20filesystem_20type_141',['mount [directory] [storage-device-name] [filesystem-type]',['../mount.html#mount-directory-storage-device-name-filesystem-type',1,'']]],
+  ['storage_20device_20name_20filesystem_20type_141',['mount [directory] [storage-device-name] [filesystem-type]',['../mount-command.html#mount-directory-storage-device-name-filesystem-type',1,'']]],
   ['stored_142',['UDP “Doorstep Queue” (how incoming messages are stored)',['../networking.html#udp-doorstep-queue-how-incoming-messages-are-stored',1,'']]],
   ['str_24_20function_143',['STR$ Function',['../STR.html',1,'string-funcs']]],
   ['str_2emd_144',['STR.md',['../STR_8md.html',1,'']]],

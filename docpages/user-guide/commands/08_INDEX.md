@@ -47,7 +47,7 @@ The following pages describe each command in detail:
 - \subpage list
 - \subpage mkdir
 - \subpage modplay
-- \subpage mount
+- \subpage mount-command
 - \subpage mousetest
 - \subpage musicdemo
 - \subpage proclist

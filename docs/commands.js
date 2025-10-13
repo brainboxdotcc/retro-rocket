@@ -38,7 +38,7 @@ var commands =
     [ "list command", "list.html", null ],
     [ "mkdir command", "mkdir.html", null ],
     [ "modplay command", "modplay.html", null ],
-    [ "mount command", "mount.html", null ],
+    [ "mount command", "mount-command.html", null ],
     [ "mousetest command", "mousetest.html", null ],
     [ "musicdemo command", "musicdemo.html", null ],
     [ "proclist command", "proclist.html", null ],

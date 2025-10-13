@@ -87,7 +87,7 @@ var searchData=
   ['truncation_84',['4.4 Truncation',['../retrofs.html#autotoc_md44-truncation',1,'']]],
   ['try_85',['First commands to try',['../getting-started.html#first-commands-to-try',1,'']]],
   ['tutorial_86',['Beginners&apos; Tutorial',['../basic-beginner.html',1,'basic-ref']]],
-  ['type_87',['mount [directory] [storage-device-name] [filesystem-type]',['../mount.html#mount-directory-storage-device-name-filesystem-type',1,'']]],
+  ['type_87',['mount [directory] [storage-device-name] [filesystem-type]',['../mount-command.html#mount-directory-storage-device-name-filesystem-type',1,'']]],
   ['type_20guid_88',['RetroFS Partition Type GUID',['../retrofs.html#retrofs-partition-type-guid',1,'']]],
   ['typed_20predictable_89',['The expression engine: typed, predictable',['../basic-intdev.html#the-expression-engine-typed-predictable',1,'']]],
   ['types_90',['Types',['../keywords.html#parameter-types',1,'Parameter Types'],['../variables.html',1,'Variable Types']]],
