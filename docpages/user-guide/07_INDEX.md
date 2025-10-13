@@ -6,12 +6,12 @@ Welcome to Retro Rocket! This guide is for everyone who wants to use the system,
 - \subpage system-requirements
 - \subpage getting-started
 - \subpage installation
-- \subpage desktop-and-shell
+- \subpage shell
 - \subpage file-system
 - \subpage commands
 - \subpage working-with-programs
 - \subpage sound-and-graphics
-- \subpage networking
+- \subpage user-networking
 - \subpage saving-your-work
 - \subpage troubleshooting
 - \subpage glossary

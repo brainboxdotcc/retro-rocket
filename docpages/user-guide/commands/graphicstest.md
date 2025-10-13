@@ -1,4 +1,4 @@
-\page graphicstest grapicstest program
+\page graphicstest grapicstest command
 
 Demonstrates graphics statements by drawing rectangles, triangles and circles on the screen.
 

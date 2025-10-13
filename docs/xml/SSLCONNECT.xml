@@ -13,7 +13,7 @@
 <listitem><para><bold>First parameter</bold>: an <bold>integer variable</bold> (created if it does not yet exist). On success it will be set to a <bold>non-negative handle</bold> that you then pass to <ref refid="SOCKREAD" kindref="compound">SOCKREAD</ref>, <ref refid="SOCKWRITE" kindref="compound">SOCKWRITE</ref>, and <ref refid="SOCKCLOSE" kindref="compound">SOCKCLOSE</ref>.</para>
 </listitem><listitem><para><bold>Second parameter</bold>: a <bold>string</bold> containing the IP address. To resolve a hostname into an address string, use <ref refid="DNS" kindref="compound">DNS$</ref>.</para>
 </listitem><listitem><para><bold>Third parameter</bold>: the <bold>port number</bold> (integer expression).</para>
-</listitem><listitem><para><bold>Optional fourth parameter</bold>: <computeroutput>sni$</computeroutput> — the Server Name Indication string, used when connecting to servers hosting multiple domains on the same IP.</para>
+</listitem><listitem><para><bold>Optional fourth parameter</bold>: <computeroutput>sni$</computeroutput> - the Server Name Indication string, used when connecting to servers hosting multiple domains on the same IP.</para>
 </listitem></itemizedlist>
 </para>
 <para>On <bold>failure</bold>, an error is raised.</para>

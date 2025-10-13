@@ -4,7 +4,7 @@ cpuid [leaf number]
 ```
 Retrieve CPUID information from the processor. See The documentation of CPUID for more information.
 
-![image](https://github.com/brainboxdotcc/retro-rocket/assets/1556794/523b5f5b-510e-4a91-a210-71eae0021fb4)
+\image html cpuvendor.png
 
 ### CPUID Leaf Values
 

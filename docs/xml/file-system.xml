@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="file-system" kind="page">
+    <compoundname>file-system</compoundname>
+    <title>File system</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Retro Rocket uses a simple, structured file system. Everything is visible under the root (<computeroutput>/</computeroutput>) directory. This section explains what each directory is for and what you can expect to find inside.</para>
+<sect1 id="file-system_1directory-overview_1s1"><sect2 id="file-system_1directory-overview_1s2"><sect3 id="file-system_1directory-overview">
+<title>Directory overview</title><para><itemizedlist>
+<listitem><para><computeroutput>/boot</computeroutput> - The boot partition.<itemizedlist>
+<listitem><para>On LiveCD it points to the EFI boot partition of the install media.</para>
+</listitem><listitem><para>On an installed system it contains the boot files used at startup.</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para><computeroutput>/devices</computeroutput> - The devices tree.<itemizedlist>
+<listitem><para>Device drivers may choose to add files to this directory which you may read or write to depending on the driver.</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para><computeroutput>/images</computeroutput> - Operating system images and graphics used by Retro Rocket and its demos.</para>
+</listitem><listitem><para><computeroutput>/programs</computeroutput> - BASIC programs and software.<itemizedlist>
+<listitem><para><computeroutput>/programs/libraries</computeroutput> - shared BASIC libraries.</para>
+</listitem><listitem><para><computeroutput>/programs/drivers</computeroutput> - drivers written in BASIC.</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para><computeroutput>/system</computeroutput> - Core system files and configuration.<itemizedlist>
+<listitem><para><computeroutput>/system/config</computeroutput> - configuration files such as <computeroutput>network.conf</computeroutput> (used to configure the network interface).</para>
+</listitem><listitem><para><computeroutput>/system/keymaps</computeroutput> - keyboard layouts.</para>
+</listitem><listitem><para><computeroutput>/system/modules</computeroutput> - Kernel modules</para>
+</listitem><listitem><para><computeroutput>/system/ssl</computeroutput> - SSL root certificates.</para>
+</listitem><listitem><para><computeroutput>/system/timezones</computeroutput> - IANA time zone database.</para>
+</listitem><listitem><para><computeroutput>/system/webserver</computeroutput> - root directory for the built-in webserver.<itemizedlist>
+<listitem><para><computeroutput>/system/webserver/media</computeroutput> - media files available to the webserver.</para>
+</listitem></itemizedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para><computeroutput>/ramdisk</computeroutput> - A temporary 1 GB RAM disk created in LiveCD mode.<itemizedlist>
+<listitem><para>Use this as scratch space for creating or editing BASIC programs.</para>
+</listitem><listitem><para>Files here are lost when the system is shut down or restarted.</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para><computeroutput>/harddisk</computeroutput> - Exists only when running from the LiveCD.<itemizedlist>
+<listitem><para>Used by the installer to mount the installation target disk.</para>
+</listitem><listitem><para>Not normally used by end-users.</para>
+</listitem></itemizedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para>Retro Rocket does not attempt to hide or complicate its file system. Everything is in plain view, and you can explore with simple commands like <computeroutput>dir</computeroutput>. </para>
+</sect3></sect2></sect1>
+    </detaileddescription>
+    <location file="docpages/user-guide/file-system.md"/>
+  </compounddef>
+</doxygen>

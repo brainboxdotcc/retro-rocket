@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="shell" kind="page">
+    <compoundname>shell</compoundname>
+    <title>Shell</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>When Retro Rocket finishes booting you arrive at the <bold>command shell</bold> (called <computeroutput>rocketsh</computeroutput>). This is a text-based interface where you type commands at a prompt:</para>
+<para><image type="html" name="shell.png"></image>
+</para>
+<para>The shell is the starting point for everything you do in Retro Rocket. From here you can explore files, run BASIC programs, or start writing your own.</para>
+<sect1 id="shell_1using-the-shell_1s1"><sect2 id="shell_1using-the-shell_1s2"><sect3 id="shell_1using-the-shell">
+<title>Using the shell</title><para><itemizedlist>
+<listitem><para>Type a command at the prompt and press <bold>Enter</bold>.</para>
+</listitem><listitem><para>Commands that start external programs are generally written in <bold>lowercase</bold>, so it is obvious you are running an external program.</para>
+</listitem><listitem><para>External programs are looked for in the <computeroutput>/programs</computeroutput> directory.</para>
+</listitem><listitem><para>BASIC keywords are always in <bold>uppercase</bold>.</para>
+</listitem></itemizedlist>
+</para>
+</sect3></sect2></sect1>
+<sect1 id="shell_1editing-commands_1s1"><sect2 id="shell_1editing-commands_1s2"><sect3 id="shell_1editing-commands">
+<title>Editing commands</title><para><itemizedlist>
+<listitem><para>Use the <bold>arrow keys</bold> to move through the line and edit it.</para>
+</listitem><listitem><para>Use <bold>UP/DOWN</bold> arrows to move through recently entered commands.</para>
+</listitem><listitem><para>Pressing <bold>ESC</bold> clears the current line.</para>
+</listitem></itemizedlist>
+</para>
+<para>These editing features are shared with BASIC programs that use the <computeroutput>ansi</computeroutput> library.</para>
+</sect3></sect2></sect1>
+<sect1 id="shell_1more-about-rocketsh_1s1"><sect2 id="shell_1more-about-rocketsh_1s2"><sect3 id="shell_1more-about-rocketsh">
+<title>More about rocketsh</title><para>The shell has its own variables (<computeroutput>PROMPT$</computeroutput>, <computeroutput>PATH$</computeroutput>, and others) that let you customise it. For details, see the <ref refid="rocketsh" kindref="compound">rocketsh command reference</ref>. </para>
+</sect3></sect2></sect1>
+    </detaileddescription>
+    <location file="docpages/user-guide/desktop-and-shell.md"/>
+  </compounddef>
+</doxygen>

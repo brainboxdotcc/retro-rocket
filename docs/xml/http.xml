@@ -66,12 +66,12 @@
 <title>Response access</title><sect3 id="http_1fnhttp_resultpart">
 <title>FNhttp_result$(part$)</title><para>Return a specific portion of the most recent response. <computeroutput>part$</computeroutput> must be one of:</para>
 <para><itemizedlist>
-<listitem><para><computeroutput>&quot;body&quot;</computeroutput> — response body only</para>
-</listitem><listitem><para><computeroutput>&quot;headers&quot;</computeroutput> — raw header block (status line + header lines, CRLF-delimited)</para>
-</listitem><listitem><para><computeroutput>&quot;status&quot;</computeroutput> — status line (e.g. <computeroutput>HTTP/1.1 200 OK</computeroutput>)</para>
-</listitem><listitem><para><computeroutput>&quot;code&quot;</computeroutput> — status code as a string (e.g. <computeroutput>200</computeroutput>)</para>
-</listitem><listitem><para><computeroutput>&quot;reason&quot;</computeroutput> — reason phrase (e.g. <computeroutput>OK</computeroutput>)</para>
-</listitem><listitem><para><computeroutput>&quot;header:&lt;name&gt;&quot;</computeroutput> — value of a single header (case-insensitive match on <computeroutput>&lt;name&gt;</computeroutput>). Returns the first occurrence, trimmed of surrounding whitespace.</para>
+<listitem><para><computeroutput>&quot;body&quot;</computeroutput> - response body only</para>
+</listitem><listitem><para><computeroutput>&quot;headers&quot;</computeroutput> - raw header block (status line + header lines, CRLF-delimited)</para>
+</listitem><listitem><para><computeroutput>&quot;status&quot;</computeroutput> - status line (e.g. <computeroutput>HTTP/1.1 200 OK</computeroutput>)</para>
+</listitem><listitem><para><computeroutput>&quot;code&quot;</computeroutput> - status code as a string (e.g. <computeroutput>200</computeroutput>)</para>
+</listitem><listitem><para><computeroutput>&quot;reason&quot;</computeroutput> - reason phrase (e.g. <computeroutput>OK</computeroutput>)</para>
+</listitem><listitem><para><computeroutput>&quot;header:&lt;name&gt;&quot;</computeroutput> - value of a single header (case-insensitive match on <computeroutput>&lt;name&gt;</computeroutput>). Returns the first occurrence, trimmed of surrounding whitespace.</para>
 </listitem></itemizedlist>
 </para>
 <para>If no response is available, or the requested part does not exist, an empty string is returned.</para>

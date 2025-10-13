@@ -38,7 +38,7 @@
 </listitem><listitem><para>If the string is empty, or contains any character outside <computeroutput>0–7</computeroutput>, the return value is <computeroutput>0</computeroutput>.</para>
 </listitem><listitem><para><bold>Important distinction:</bold><itemizedlist>
 <listitem><para>In BASIC source code, you can write octal literals with a <computeroutput>&amp;O</computeroutput> prefix (e.g. <computeroutput>&amp;O755</computeroutput>).</para>
-</listitem><listitem><para>In strings passed to <computeroutput>OCTVAL</computeroutput>, only the raw digits are valid — no prefix.</para>
+</listitem><listitem><para>In strings passed to <computeroutput>OCTVAL</computeroutput>, only the raw digits are valid - no prefix.</para>
 </listitem></itemizedlist>
 </para>
 </listitem></itemizedlist>

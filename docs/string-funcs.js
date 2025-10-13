@@ -5,6 +5,7 @@ var string_funcs =
     [ "CSD$ Function", "CSD.html", null ],
     [ "DATE$ Function", "DATE.html", null ],
     [ "DNS$ Function", "DNS.html", null ],
+    [ "EMPTYRAMDISK$ Function", "EMPTYRAMDISK.html", null ],
     [ "FILETYPE$ Function", "FILETYPE.html", null ],
     [ "GETNAME$ Function", "GETNAME.html", null ],
     [ "GETPROCNAME$ Function", "GETPROCNAME.html", null ],

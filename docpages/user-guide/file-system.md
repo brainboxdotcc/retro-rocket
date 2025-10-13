@@ -6,21 +6,20 @@ This section explains what each directory is for and what you can expect to find
 
 ### Directory overview
 
-- **/boot**
-  The boot partition.
+- `/boot` - The boot partition.
   - On LiveCD it points to the EFI boot partition of the install media.
   - On an installed system it contains the boot files used at startup.
 
-- **/images**
-  Operating system images and graphics used by Retro Rocket and its demos.
+- `/devices` - The devices tree.
+  - Device drivers may choose to add files to this directory which you may read or write to depending on the driver.
 
-- **/programs**
-  BASIC programs and software.
+- `/images` - Operating system images and graphics used by Retro Rocket and its demos.
+
+- `/programs` - BASIC programs and software.
   - `/programs/libraries` - shared BASIC libraries.
   - `/programs/drivers` - drivers written in BASIC.
 
-- **/system**
-  Core system files and configuration.
+- `/system` - Core system files and configuration.
   - `/system/config` - configuration files such as `network.conf` (used to configure the network interface).
   - `/system/keymaps` - keyboard layouts.
   - `/system/modules` - Kernel modules
@@ -29,13 +28,11 @@ This section explains what each directory is for and what you can expect to find
   - `/system/webserver` - root directory for the built-in webserver.
     - `/system/webserver/media` - media files available to the webserver.
 
-- **/ramdisk**
-  A temporary 1 GB RAM disk created in LiveCD mode.
+- `/ramdisk` - A temporary 1 GB RAM disk created in LiveCD mode.
   - Use this as scratch space for creating or editing BASIC programs.
   - Files here are lost when the system is shut down or restarted.
 
-- **/harddisk**
-  Exists only when running from the LiveCD.
+- `/harddisk` - Exists only when running from the LiveCD.
   - Used by the installer to mount the installation target disk.
   - Not normally used by end-users.
 

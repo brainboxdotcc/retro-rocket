@@ -37,7 +37,7 @@
 <listitem><para>The result is an <bold>integer</bold> within the inclusive range <computeroutput>[min, max]</computeroutput>.</para>
 </listitem><listitem><para>If <computeroutput>min &gt; max</computeroutput>, behaviour is undefined.</para>
 </listitem><listitem><para>Suitable for general randomness in games, simulations, and sampling.</para>
-</listitem><listitem><para><bold>Not cryptographically secure</bold> — although the kernel provides an unpredictable seed, the Mersenne Twister itself is deterministic and predictable if state is known.</para>
+</listitem><listitem><para><bold>Not cryptographically secure</bold> - although the kernel provides an unpredictable seed, the Mersenne Twister itself is deterministic and predictable if state is known.</para>
 </listitem><listitem><para><bold>Retro Rocket BASIC difference:</bold> BBC BASIC used a 33-bit LFSR (linear feedback shift register). Retro Rocket uses a modern PRNG (Mersenne Twister).</para>
 </listitem></itemizedlist>
 </para>

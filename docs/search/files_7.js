@@ -11,12 +11,14 @@ var searchData=
   ['getprocparent_2emd_8',['GETPROCPARENT.md',['../GETPROCPARENT_8md.html',1,'']]],
   ['getprocstate_2emd_9',['GETPROCSTATE.md',['../GETPROCSTATE_8md.html',1,'']]],
   ['getsize_2emd_10',['GETSIZE.md',['../GETSIZE_8md.html',1,'']]],
-  ['getvari_2emd_11',['GETVARI.md',['../GETVARI_8md.html',1,'']]],
-  ['getvarr_2emd_12',['GETVARR.md',['../GETVARR_8md.html',1,'']]],
-  ['getvarstring_2emd_13',['GETVARSTRING.md',['../GETVARSTRING_8md.html',1,'']]],
-  ['global_2emd_14',['GLOBAL.md',['../GLOBAL_8md.html',1,'']]],
-  ['gosub_2emd_15',['GOSUB.md',['../GOSUB_8md.html',1,'']]],
-  ['goto_2emd_16',['GOTO.md',['../GOTO_8md.html',1,'']]],
-  ['graphicstest_2emd_17',['graphicstest.md',['../graphicstest_8md.html',1,'']]],
-  ['graphprint_2emd_18',['GRAPHPRINT.md',['../GRAPHPRINT_8md.html',1,'']]]
+  ['getting_2dstarted_2emd_11',['getting-started.md',['../getting-started_8md.html',1,'']]],
+  ['getvari_2emd_12',['GETVARI.md',['../GETVARI_8md.html',1,'']]],
+  ['getvarr_2emd_13',['GETVARR.md',['../GETVARR_8md.html',1,'']]],
+  ['getvarstring_2emd_14',['GETVARSTRING.md',['../GETVARSTRING_8md.html',1,'']]],
+  ['global_2emd_15',['GLOBAL.md',['../GLOBAL_8md.html',1,'']]],
+  ['glossary_2emd_16',['glossary.md',['../glossary_8md.html',1,'']]],
+  ['gosub_2emd_17',['GOSUB.md',['../GOSUB_8md.html',1,'']]],
+  ['goto_2emd_18',['GOTO.md',['../GOTO_8md.html',1,'']]],
+  ['graphicstest_2emd_19',['graphicstest.md',['../graphicstest_8md.html',1,'']]],
+  ['graphprint_2emd_20',['GRAPHPRINT.md',['../GRAPHPRINT_8md.html',1,'']]]
 ];

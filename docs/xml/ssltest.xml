@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="ssltest" kind="page">
+    <compoundname>ssltest</compoundname>
+    <title>ssltest</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<sect1 id="ssltest_1ssltest_1s1"><sect2 id="ssltest_1ssltest">
+<title>ssltest</title><para>Demonstrates making a secure HTTPS connection using SSL/TLS. It connects to a test host, sends a simple HTTP request, and prints the server’s reply.</para>
+<sect3 id="ssltest_1what-it-does-2">
+<title>What it does</title><para><itemizedlist>
+<listitem><para>Resolves the hostname <computeroutput>neuron.brainbox.cc</computeroutput>.</para>
+</listitem><listitem><para>Connects to port 443 using <computeroutput>SSLCONNECT</computeroutput>.</para>
+</listitem><listitem><para>Sends a minimal HTTP/1.0 request.</para>
+</listitem><listitem><para>Prints the response to the screen.</para>
+</listitem><listitem><para>Closes the connection.</para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+<sect3 id="ssltest_1usage-2">
+<title>Usage</title><para><programlisting><codeline><highlight class="normal">ssltest</highlight></codeline>
+</programlisting></para>
+<para><image type="html" name="ssltest.png"></image>
+</para>
+</sect3>
+<sect3 id="ssltest_1notes-195">
+<title>Notes</title><para><itemizedlist>
+<listitem><para>This is a demo program, not a full web client.</para>
+</listitem><listitem><para>The output is raw HTTP headers and body.</para>
+</listitem><listitem><para>Useful for checking that SSL support and certificates are working correctly. </para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+</sect2></sect1>
+    </detaileddescription>
+    <location file="docpages/user-guide/commands/ssltest.md"/>
+  </compounddef>
+</doxygen>

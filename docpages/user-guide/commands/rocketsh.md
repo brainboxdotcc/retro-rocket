@@ -1,8 +1,11 @@
-\page rocketsh rocketsh command (shell)
+\page rocketsh rocketsh Command (Shell)
 
-The interactive shell used to execute commands and run programs. Launched by `init`.
+`rocketsh` is the interactive shell used to execute commands and run programs.
+It is launched by `init` at boot and is always available at the system prompt.
 
 \image html rocketsh.png
+
+This page describes `rocketsh` in detail. For a simple overview of using the shell, see @ref desktop-and-shell "The Shell" in the User Guide.
 
 #### Command line entry
 

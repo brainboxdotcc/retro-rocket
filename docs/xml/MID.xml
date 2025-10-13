@@ -11,7 +11,7 @@
 <para>Returns a <bold>substring</bold> of the given string, starting at the position given by the first integer parameter and extending for the length given by the second.</para>
 <para><hruler/>
 </para>
-<sect1 id="MID_1examples-105_1s1"><sect2 id="MID_1examples-105_1s2"><sect3 id="MID_1examples-105">
+<sect1 id="MID_1examples-106_1s1"><sect2 id="MID_1examples-106_1s2"><sect3 id="MID_1examples-106">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>MID$(&quot;RetroRocket&quot;,<sp/>0,<sp/>5)</highlight></codeline>
 </programlisting></para>
 <para>Produces <computeroutput>&quot;Retro&quot;</computeroutput>.</para>
@@ -26,7 +26,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="MID_1notes-104_1s1"><sect2 id="MID_1notes-104_1s2"><sect3 id="MID_1notes-104">
+<sect1 id="MID_1notes-105_1s1"><sect2 id="MID_1notes-105_1s2"><sect3 id="MID_1notes-105">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Positions are <bold>zero-based</bold>: the first character of the string is at index <computeroutput>0</computeroutput>.</para>
 </listitem><listitem><para>If the length extends beyond the end of the string, the substring is truncated.</para>

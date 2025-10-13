@@ -1,4 +1,4 @@
-\page edit edit program
+\page edit edit command
 
 # Text Editor
 

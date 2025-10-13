@@ -28,7 +28,7 @@
 </sect3></sect2></sect1>
 <sect1 id="FMOD_1notes-81_1s1"><sect2 id="FMOD_1notes-81_1s2"><sect3 id="FMOD_1notes-81">
 <title>Notes</title><para><itemizedlist>
-<listitem><para><computeroutput>y</computeroutput> must not be <computeroutput>0</computeroutput> — this causes an error.</para>
+<listitem><para><computeroutput>y</computeroutput> must not be <computeroutput>0</computeroutput> - this causes an error.</para>
 </listitem><listitem><para>The result has the same sign as the dividend (<computeroutput>x</computeroutput>).</para>
 </listitem><listitem><para>Differs from integer modulus (<computeroutput>%</computeroutput>) because it works with reals and preserves fractional parts.</para>
 </listitem><listitem><para>Useful for periodic functions, angle wrapping, and floating-point arithmetic.</para>

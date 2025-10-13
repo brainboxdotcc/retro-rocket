@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="glossary" kind="page">
+    <compoundname>glossary</compoundname>
+    <title>Glossary</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>This glossary explains common terms you will see in the Retro Rocket user guide.</para>
+<para><hruler/>
+</para>
+<sect1 id="glossary_1basic_1s1"><sect2 id="glossary_1basic_1s2"><sect3 id="glossary_1basic">
+<title>BASIC</title><para>A simple programming language that Retro Rocket uses for its programs. BASIC stands for “Beginner’s All-purpose Symbolic Instruction Code.”</para>
+</sect3></sect2></sect1>
+<sect1 id="glossary_1command_1s1"><sect2 id="glossary_1command_1s2"><sect3 id="glossary_1command">
+<title>Command</title><para>A word you type at the shell prompt (for example <computeroutput>dir</computeroutput>, <computeroutput>edit</computeroutput>, <computeroutput>up</computeroutput>). Commands tell Retro Rocket to run a program or do something.</para>
+</sect3></sect2></sect1>
+<sect1 id="glossary_1directory_1s1"><sect2 id="glossary_1directory_1s2"><sect3 id="glossary_1directory">
+<title>Directory</title><para>A folder that contains files or other folders. Example: <computeroutput>/programs</computeroutput> is a directory.</para>
+</sect3></sect2></sect1>
+<sect1 id="glossary_1file-system_1s1"><sect2 id="glossary_1file-system_1s2"><sect3 id="glossary_1file-system">
+<title>File system</title><para>The way files and directories are organised on a disk. Retro Rocket supports its own file system (RetroFS) as well as ISO 9660 and FAT32.</para>
+</sect3></sect2></sect1>
+<sect1 id="glossary_1livecd_1s1"><sect2 id="glossary_1livecd_1s2"><sect3 id="glossary_1livecd">
+<title>LiveCD</title><para>Running Retro Rocket directly from the CD without installing it to a hard disk. The system is read-only, but you get a temporary RAM disk to save your work.</para>
+</sect3></sect2></sect1>
+<sect1 id="glossary_1mount_1s1"><sect2 id="glossary_1mount_1s2"><sect3 id="glossary_1mount">
+<title>Mount</title><para>Attaching a file system to a directory so you can use it. Example: mounting a disk at <computeroutput>/ramdisk</computeroutput> makes it available there.</para>
+</sect3></sect2></sect1>
+<sect1 id="glossary_1program_1s1"><sect2 id="glossary_1program_1s2"><sect3 id="glossary_1program">
+<title>Program</title><para>A file written in BASIC that Retro Rocket can run. Programs live in <computeroutput>/programs</computeroutput>.</para>
+</sect3></sect2></sect1>
+<sect1 id="glossary_1prompt-1_1s1"><sect2 id="glossary_1prompt-1_1s2"><sect3 id="glossary_1prompt-1">
+<title>Prompt</title><para>The <computeroutput>&gt;</computeroutput> symbol you see in the shell where you type commands.</para>
+</sect3></sect2></sect1>
+<sect1 id="glossary_1ram-disk_1s1"><sect2 id="glossary_1ram-disk_1s2"><sect3 id="glossary_1ram-disk">
+<title>RAM disk</title><para>A temporary area of storage in memory, shown as <computeroutput>/ramdisk</computeroutput>. Fast, but everything is lost when you power off. Great for experiments and quick saves, but don’t trust it to keep your secrets after shutdown.</para>
+</sect3></sect2></sect1>
+<sect1 id="glossary_1shell_1s1"><sect2 id="glossary_1shell_1s2"><sect3 id="glossary_1shell">
+<title>Shell</title><para>The text-based interface where you type commands. In Retro Rocket this is called <computeroutput>rocketsh</computeroutput>.</para>
+</sect3></sect2></sect1>
+<sect1 id="glossary_1uefi_1s1"><sect2 id="glossary_1uefi_1s2"><sect3 id="glossary_1uefi">
+<title>UEFI</title><para>Modern PCs use UEFI firmware instead of older BIOS. Retro Rocket boots on UEFI systems with standard graphics support.</para>
+</sect3></sect2></sect1>
+<sect1 id="glossary_1driver_1s1"><sect2 id="glossary_1driver_1s2"><sect3 id="glossary_1driver">
+<title>Driver</title><para>A small program that teaches Retro Rocket how to talk to a piece of hardware (like a network card or sound chip). Drivers are usually loaded during startup.</para>
+</sect3></sect2></sect1>
+<sect1 id="glossary_1dhcp_1s1"><sect2 id="glossary_1dhcp_1s2"><sect3 id="glossary_1dhcp">
+<title>DHCP</title><para>Short for <emphasis>Dynamic Host Configuration Protocol</emphasis>. A way for your computer to ask the network for its settings automatically (IP address, DNS, gateway). Default in Retro Rocket networking.</para>
+</sect3></sect2></sect1>
+<sect1 id="glossary_1dns_1s1"><sect2 id="glossary_1dns_1s2"><sect3 id="glossary_1dns">
+<title>DNS</title><para>Short for <emphasis>Domain Name System</emphasis>. Translates easy names (like <computeroutput>retro-rocket.net</computeroutput>) into the numbers (IP addresses) that computers use to talk to each other.</para>
+</sect3></sect2></sect1>
+<sect1 id="glossary_1error_1s1"><sect2 id="glossary_1error_1s2"><sect3 id="glossary_1error">
+<title>Error</title><para>If something goes wrong, Retro Rocket will print an error message. Errors usually stop the current program, but you can always return to the shell prompt.</para>
+</sect3></sect2></sect1>
+<sect1 id="glossary_1rickroll_1s1"><sect2 id="glossary_1rickroll_1s2"><sect3 id="glossary_1rickroll">
+<title>Rickroll</title><para>When Retro Rocket cheekily reminds you that you’re never gonna give it up. Type <computeroutput>rick</computeroutput> at the shell and enjoy pixel art + chiptune pop.</para>
+</sect3></sect2></sect1>
+<sect1 id="glossary_1pixel-art_1s1"><sect2 id="glossary_1pixel-art_1s2"><sect3 id="glossary_1pixel-art">
+<title>Pixel Art</title><para>Glorious blocky graphics that look like they were drawn with very large crayons. Retro Rocket uses these in demos and Easter eggs - not a bug, a feature.</para>
+</sect3></sect2></sect1>
+<sect1 id="glossary_1loopback_1s1"><sect2 id="glossary_1loopback_1s2"><sect3 id="glossary_1loopback">
+<title>Loopback</title><para>The special network address <computeroutput>127.0.0.1</computeroutput>, which always points to your own machine. Useful for testing network programs locally.</para>
+</sect3></sect2></sect1>
+<sect1 id="glossary_1module_1s1"><sect2 id="glossary_1module_1s2"><sect3 id="glossary_1module">
+<title>Module</title><para>Another word for a loadable program or driver. Modules are often used to add extra features without changing the whole system.</para>
+</sect3></sect2></sect1>
+<sect1 id="glossary_1network-interface_1s1"><sect2 id="glossary_1network-interface_1s2"><sect3 id="glossary_1network-interface">
+<title>Network interface</title><para>The connection point between Retro Rocket and the network (your network card or virtual adapter). Only one is supported at a time.</para>
+</sect3></sect2></sect1>
+<sect1 id="glossary_1prompt-string_1s1"><sect2 id="glossary_1prompt-string_1s2"><sect3 id="glossary_1prompt-string">
+<title>Prompt string</title><para>The text shown before the <computeroutput>&gt;</computeroutput> in the shell. It can be changed by editing the variable <computeroutput>PROMPT$</computeroutput>.</para>
+</sect3></sect2></sect1>
+<sect1 id="glossary_1retrofs_1s1"><sect2 id="glossary_1retrofs_1s2"><sect3 id="glossary_1retrofs">
+<title>RetroFS</title><para>The native Retro Rocket file system, designed for speed and simplicity on modern disks.</para>
+</sect3></sect2></sect1>
+<sect1 id="glossary_1static-ip_1s1"><sect2 id="glossary_1static-ip_1s2"><sect3 id="glossary_1static-ip">
+<title>Static IP</title><para>A fixed network address you type in manually, instead of getting one automatically via DHCP.</para>
+</sect3></sect2></sect1>
+<sect1 id="glossary_1uptime_1s1"><sect2 id="glossary_1uptime_1s2"><sect3 id="glossary_1uptime">
+<title>Uptime</title><para>How long the system has been running since it was last started. </para>
+</sect3></sect2></sect1>
+    </detaileddescription>
+    <location file="docpages/user-guide/glossary.md"/>
+  </compounddef>
+</doxygen>

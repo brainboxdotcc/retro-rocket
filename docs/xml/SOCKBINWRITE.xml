@@ -10,9 +10,9 @@
 </programlisting></para>
 <para>Writes <bold>binary data</bold> from memory to a <bold>connected socket</bold>.</para>
 <para><itemizedlist>
-<listitem><para><computeroutput>integer-socket</computeroutput> — socket file descriptor (e.g. from <ref refid="CONNECT" kindref="compound">CONNECT</ref> or <ref refid="SOCKACCEPT" kindref="compound">SOCKACCEPT</ref>).</para>
-</listitem><listitem><para><computeroutput>integer-buffer</computeroutput> — memory handle/pointer returned by <ref refid="MEMALLOC" kindref="compound">MEMALLOC</ref>.</para>
-</listitem><listitem><para><computeroutput>integer-length</computeroutput> — number of bytes to write.</para>
+<listitem><para><computeroutput>integer-socket</computeroutput> - socket file descriptor (e.g. from <ref refid="CONNECT" kindref="compound">CONNECT</ref> or <ref refid="SOCKACCEPT" kindref="compound">SOCKACCEPT</ref>).</para>
+</listitem><listitem><para><computeroutput>integer-buffer</computeroutput> - memory handle/pointer returned by <ref refid="MEMALLOC" kindref="compound">MEMALLOC</ref>.</para>
+</listitem><listitem><para><computeroutput>integer-length</computeroutput> - number of bytes to write.</para>
 </listitem></itemizedlist>
 </para>
 <para><hruler/>

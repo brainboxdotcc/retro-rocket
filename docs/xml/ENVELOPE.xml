@@ -10,62 +10,62 @@
 <codeline><highlight class="normal">ENVELOPE<sp/>DESTROY<sp/>n</highlight></codeline>
 </programlisting></para>
 <para>Defines or removes a stored <bold>sound envelope</bold>.</para>
-<para>An <emphasis>envelope</emphasis> describes how a generated tone evolves over time — its loudness, pitch, and timbre changes. This allows Retro Rocket to act like a very simple synthesiser, much like the BBC Micro’s classic sound system, but with added flexibility.</para>
+<para>An <emphasis>envelope</emphasis> describes how a generated tone evolves over time - its loudness, pitch, and timbre changes. This allows Retro Rocket to act like a very simple synthesiser, much like the BBC Micro’s classic sound system, but with added flexibility.</para>
 <para><hruler/>
 </para>
 <sect1 id="ENVELOPE_1create_1s1"><sect2 id="ENVELOPE_1create_1s2"><sect3 id="ENVELOPE_1create">
 <title>CREATE</title><para>Creates or replaces an envelope in slot <computeroutput>n</computeroutput> (0–63). The envelope can then be used by <computeroutput>SOUND TONE</computeroutput> to shape generated notes.</para>
 <sect4 id="ENVELOPE_1parameters">
 <title>Parameters:</title><para><itemizedlist>
-<listitem><para><bold>n</bold> — Envelope index (0–63). A slot number that lets you store multiple different sound shapes and pick between them.</para>
-</listitem><listitem><para><bold>wave</bold> — Base waveform type: the raw “tone colour.”<itemizedlist>
-<listitem><para><computeroutput>0</computeroutput> = square — harsh and “beepy,” like an old 8-bit computer.</para>
-</listitem><listitem><para><computeroutput>1</computeroutput> = sine — smooth and pure, like a flute.</para>
-</listitem><listitem><para><computeroutput>2</computeroutput> = sawtooth — bright and buzzy, common in synth leads.</para>
-</listitem><listitem><para><computeroutput>3</computeroutput> = triangle — softer, hollow-sounding.</para>
-</listitem><listitem><para><computeroutput>4</computeroutput> = noise — random hiss, used for percussion and effects.</para>
+<listitem><para><bold>n</bold> - Envelope index (0–63). A slot number that lets you store multiple different sound shapes and pick between them.</para>
+</listitem><listitem><para><bold>wave</bold> - Base waveform type: the raw “tone colour.”<itemizedlist>
+<listitem><para><computeroutput>0</computeroutput> = square - harsh and “beepy,” like an old 8-bit computer.</para>
+</listitem><listitem><para><computeroutput>1</computeroutput> = sine - smooth and pure, like a flute.</para>
+</listitem><listitem><para><computeroutput>2</computeroutput> = sawtooth - bright and buzzy, common in synth leads.</para>
+</listitem><listitem><para><computeroutput>3</computeroutput> = triangle - softer, hollow-sounding.</para>
+</listitem><listitem><para><computeroutput>4</computeroutput> = noise - random hiss, used for percussion and effects.</para>
 </listitem></itemizedlist>
 </para>
-</listitem><listitem><para><bold>volume</bold> — Base loudness (0–255). Higher numbers = louder.</para>
-</listitem><listitem><para><bold>pulse_width</bold> — For square waves only: controls how long the “on” part of the wave lasts in each cycle.<itemizedlist>
+</listitem><listitem><para><bold>volume</bold> - Base loudness (0–255). Higher numbers = louder.</para>
+</listitem><listitem><para><bold>pulse_width</bold> - For square waves only: controls how long the “on” part of the wave lasts in each cycle.<itemizedlist>
 <listitem><para>128 = 50% duty cycle = classic square.</para>
 </listitem><listitem><para>Lower values = thinner, “nasal” sound.</para>
 </listitem><listitem><para>Ignored for other waveforms.</para>
 </listitem></itemizedlist>
 </para>
-</listitem><listitem><para><bold>attack</bold> — How fast the sound rises from silence to full volume when a note starts.<itemizedlist>
+</listitem><listitem><para><bold>attack</bold> - How fast the sound rises from silence to full volume when a note starts.<itemizedlist>
 <listitem><para>Short attack = instant click or pluck.</para>
 </listitem><listitem><para>Long attack = gradual swell.</para>
 </listitem></itemizedlist>
 </para>
-</listitem><listitem><para><bold>decay</bold> — After the peak, how quickly the sound drops down to the sustain level.<itemizedlist>
+</listitem><listitem><para><bold>decay</bold> - After the peak, how quickly the sound drops down to the sustain level.<itemizedlist>
 <listitem><para>Short decay = sharp, percussive.</para>
 </listitem><listitem><para>Long decay = smoother, fading into sustain.</para>
 </listitem></itemizedlist>
 </para>
-</listitem><listitem><para><bold>sustain</bold> — The level (0–255) held while the key/note is pressed.<itemizedlist>
+</listitem><listitem><para><bold>sustain</bold> - The level (0–255) held while the key/note is pressed.<itemizedlist>
 <listitem><para>High sustain = sound keeps strong.</para>
 </listitem><listitem><para>Low sustain = sound fades to a faint background.</para>
 </listitem></itemizedlist>
 </para>
-</listitem><listitem><para><bold>release</bold> — How long the note takes to fade back to silence after it ends.<itemizedlist>
+</listitem><listitem><para><bold>release</bold> - How long the note takes to fade back to silence after it ends.<itemizedlist>
 <listitem><para>Short release = abrupt cut-off.</para>
 </listitem><listitem><para>Long release = lingering echo.</para>
 </listitem></itemizedlist>
 </para>
-</listitem><listitem><para><bold>vibrato_depth</bold> — How far the pitch wobbles up and down.<itemizedlist>
+</listitem><listitem><para><bold>vibrato_depth</bold> - How far the pitch wobbles up and down.<itemizedlist>
 <listitem><para>Measured in cents (100 = one semitone).</para>
 </listitem><listitem><para>Small depth = gentle shimmer; large = dramatic warble.</para>
 </listitem></itemizedlist>
 </para>
-</listitem><listitem><para><bold>vibrato_rate</bold> — How fast the vibrato wobble happens (Hz = cycles per second).</para>
-</listitem><listitem><para><bold>glide</bold> — Portamento: how long it takes to slide from one note’s pitch to the next.<itemizedlist>
+</listitem><listitem><para><bold>vibrato_rate</bold> - How fast the vibrato wobble happens (Hz = cycles per second).</para>
+</listitem><listitem><para><bold>glide</bold> - Portamento: how long it takes to slide from one note’s pitch to the next.<itemizedlist>
 <listitem><para>Short glide = nearly instant jump.</para>
 </listitem><listitem><para>Long glide = smooth slide between notes.</para>
 </listitem></itemizedlist>
 </para>
-</listitem><listitem><para><bold>pwm_rate</bold> — Speed of pulse-width modulation (Hz). Only affects square waves. Creates a “chorus-like” movement.</para>
-</listitem><listitem><para><bold>pwm_depth</bold> — How much the pulse width is swept back and forth (0–255).<itemizedlist>
+</listitem><listitem><para><bold>pwm_rate</bold> - Speed of pulse-width modulation (Hz). Only affects square waves. Creates a “chorus-like” movement.</para>
+</listitem><listitem><para><bold>pwm_depth</bold> - How much the pulse width is swept back and forth (0–255).<itemizedlist>
 <listitem><para>Small depth = subtle shimmer.</para>
 </listitem><listitem><para>Large depth = dramatic, hollow sweep.</para>
 </listitem></itemizedlist>

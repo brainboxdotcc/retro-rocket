@@ -16,12 +16,13 @@ var searchData=
   ['return_2emd_13',['RETURN.md',['../RETURN_8md.html',1,'']]],
   ['reverse_2emd_14',['REVERSE.md',['../REVERSE_8md.html',1,'']]],
   ['rgb_2emd_15',['RGB.md',['../RGB_8md.html',1,'']]],
-  ['right_2emd_16',['RIGHT.md',['../RIGHT_8md.html',1,'']]],
-  ['rjust_2emd_17',['RJUST.md',['../RJUST_8md.html',1,'']]],
-  ['rmdir_2emd_18',['RMDIR.md',['../RMDIR_8md.html',1,'']]],
-  ['rmdir_2emd_19',['rmdir.md',['../rmdir_8md.html',1,'']]],
-  ['rnd_2emd_20',['RND.md',['../RND_8md.html',1,'']]],
-  ['rocketsh_2emd_21',['rocketsh.md',['../rocketsh_8md.html',1,'']]],
-  ['round_2emd_22',['ROUND.md',['../ROUND_8md.html',1,'']]],
-  ['rtrim_2emd_23',['RTRIM.md',['../RTRIM_8md.html',1,'']]]
+  ['rick_2emd_16',['rick.md',['../rick_8md.html',1,'']]],
+  ['right_2emd_17',['RIGHT.md',['../RIGHT_8md.html',1,'']]],
+  ['rjust_2emd_18',['RJUST.md',['../RJUST_8md.html',1,'']]],
+  ['rmdir_2emd_19',['RMDIR.md',['../RMDIR_8md.html',1,'']]],
+  ['rmdir_2emd_20',['rmdir.md',['../rmdir_8md.html',1,'']]],
+  ['rnd_2emd_21',['RND.md',['../RND_8md.html',1,'']]],
+  ['rocketsh_2emd_22',['rocketsh.md',['../rocketsh_8md.html',1,'']]],
+  ['round_2emd_23',['ROUND.md',['../ROUND_8md.html',1,'']]],
+  ['rtrim_2emd_24',['RTRIM.md',['../RTRIM_8md.html',1,'']]]
 ];

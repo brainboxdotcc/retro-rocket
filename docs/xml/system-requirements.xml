@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="system-requirements" kind="page">
+    <compoundname>system-requirements</compoundname>
+    <title>Retro Rocket System Requirements</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Retro Rocket is <emphasis>retro in philosophy, not in hardware</emphasis>. It’s designed to feel like a classic 1980s computer, but it runs on <bold>modern enough PCs</bold> so you don’t have to fight with obscure legacy quirks. We draw the line at <bold>2012-era hardware</bold>: if your machine is newer than that, you’re in safe territory.</para>
+<sect1 id="system-requirements_1minimum_1s1"><sect2 id="system-requirements_1minimum_1s2"><sect3 id="system-requirements_1minimum">
+<title>Minimum</title><para><itemizedlist>
+<listitem><para><bold>CPU:</bold> 64-bit processor from 2012 or later (e.g. AMD FX-4300, Intel Core i5-3570)</para>
+</listitem><listitem><para><bold>Memory:</bold> 4 GB RAM</para>
+</listitem><listitem><para><bold>Storage:</bold> 32 GB SATA or NVMe hard drive/SSD (Retro Rocket itself fits in &lt;1 GB, but smaller disks are impractical)</para>
+</listitem><listitem><para><bold>Graphics:</bold> Built-in/onboard graphics (Intel or AMD) are fine - no special card required</para>
+</listitem><listitem><para><bold>Input:</bold> USB keyboard (mouse optional)</para>
+</listitem></itemizedlist>
+</para>
+</sect3></sect2></sect1>
+<sect1 id="system-requirements_1recommended_1s1"><sect2 id="system-requirements_1recommended_1s2"><sect3 id="system-requirements_1recommended">
+<title>Recommended</title><para><itemizedlist>
+<listitem><para><bold>Memory:</bold> 8 GB RAM or more</para>
+</listitem><listitem><para><bold>Storage:</bold> 120 GB+ SSD</para>
+</listitem><listitem><para><bold>Graphics:</bold> Intel HD 4000 integrated graphics or newer, or any discrete GPU</para>
+</listitem><listitem><para><bold>Network:</bold> Ethernet adapter (Intel e1000, Realtek 8139, Intel 82541PI) for downloads and updates</para>
+</listitem><listitem><para><bold>Sound:</bold> Built-in PC audio (HD Audio or AC’97) for music and sound output</para>
+</listitem></itemizedlist>
+</para>
+<para><simplesect kind="note"><para>IDE/PATA drives and very old BIOS-only PCs are not supported. Anything older than 2012 may still boot, but is outside the target. Retro Rocket doesn’t aim to support vintage hardware - it’s about the <emphasis>retro experience</emphasis> on practical modern machines. </para>
+</simplesect>
+</para>
+</sect3></sect2></sect1>
+    </detaileddescription>
+    <location file="docpages/user-guide/system-requirements.md"/>
+  </compounddef>
+</doxygen>

@@ -192,7 +192,7 @@ Not supported</h3>
 Notes</h3>
 <ul>
 <li>Matching is <b>case-sensitive</b>. To simulate case-insensitive matching, normalise both strings or use explicit character classes.</li>
-<li>With captures, <b>co-operative execution is disabled</b> — the operation completes immediately.</li>
+<li>With captures, <b>co-operative execution is disabled</b> - the operation completes immediately.</li>
 <li>Without captures, matching runs <b>co-operatively</b> across idle ticks for long inputs.</li>
 <li>If the pattern is invalid, the engine reports a descriptive message. Without an error handler, the program terminates; with <span class="tt">ON ERROR PROCname</span>, control transfers to the handler.</li>
 <li>Capture results are always independent copies; modifying the original string has no effect on captured values. </li>

@@ -95,7 +95,33 @@ $(function(){initNavTree('init.html','',''); });
   <div class="headertitle"><div class="title">init program </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>The initialisation script ran on bootup, mounts filesystems and launches <span class="tt">rocketsh</span> </p>
+<div class="textblock"><h2 class="doxsection"><a class="anchor" id="init"></a>
+init</h2>
+<p><span class="tt">init</span> is the first program that runs when Retro Rocket starts. It takes care of the initial setup: mounting filesystems, loading drivers, creating a RAM disk, and finally launching the shell (<span class="tt">rocketsh</span>).</p>
+<h3 class="doxsection"><a class="anchor" id="what-it-does"></a>
+What it does</h3>
+<ul>
+<li>Sets the default library path for BASIC programs.</li>
+<li>Loads drivers (for example, network support).</li>
+<li>Mounts system filesystems such as <span class="tt">/devices</span> and <span class="tt">/boot</span>.</li>
+<li>Sets the keyboard layout.</li>
+<li>Creates a 1 GB RAM disk at <span class="tt">/ramdisk</span> so you have scratch space to save and run programs in LiveCD mode.</li>
+<li>Displays the boot logo and prepares the screen.</li>
+<li>Finally, launches the shell (<span class="tt">rocketsh</span>). If the shell ever exits, <span class="tt">init</span> simply restarts it.</li>
+</ul>
+<h3 class="doxsection"><a class="anchor" id="usage"></a>
+Usage</h3>
+<p>You never need to run <span class="tt">init</span> yourself - it is started automatically at boot.</p>
+<h3 class="doxsection"><a class="anchor" id="installed-systems"></a>
+Installed systems</h3>
+<p>When Retro Rocket is installed to a hard disk, the <span class="tt">init</span> program is just another BASIC program stored under <span class="tt">/programs</span>. This means you can freely edit it, customise it, and even replace parts of the startup process to suit your own needs.</p>
+<h3 class="doxsection"><a class="anchor" id="notes-191"></a>
+Notes</h3>
+<ul>
+<li>On the LiveCD, <span class="tt">init</span> is fixed.</li>
+<li>On an installed system, you are in full control - it’s your startup script.</li>
+<li>Be careful: if you remove or break the call to <span class="tt">rocketsh</span>, you may end up without a shell! </li>
+</ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

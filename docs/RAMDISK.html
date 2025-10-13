@@ -95,49 +95,22 @@ $(function(){initNavTree('RAMDISK.html','',''); });
   <div class="headertitle"><div class="title">RAMDISK$ Function </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h2 class="doxsection"><a class="anchor" id="creating-a-ramdisk-from-another-block-device"></a>
-Creating a ramdisk from another block device</h2>
-<div class="fragment"><div class="line">RAMDISK$(string-expression)</div>
+<div class="textblock"><div class="fragment"><div class="line">RAMDISK$(string-expression)</div>
 </div><!-- fragment --><p>Creates a <b>RAM-backed block device</b> from the content of an existing block device. The parameter is the name of the source device (e.g. <span class="tt">"hd0"</span>). Returns the <b>name of the new RAM disk device</b> as a string.</p>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-108"></a>
+<h3 class="doxsection"><a class="anchor" id="examples-109"></a>
 Examples</h3>
 <div class="fragment"><div class="line">REM Duplicate an existing block device into RAM</div>
 <div class="line">ram$ = RAMDISK$(&quot;hd0&quot;)</div>
 <div class="line">PRINT &quot;Created RAM disk: &quot;; ram$</div>
 </div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-107"></a>
+<h3 class="doxsection"><a class="anchor" id="notes-108"></a>
 Notes</h3>
 <ul>
 <li>The new device is a complete in-memory copy of the original device.</li>
 <li>Useful for testing, running faster I/O, or working on a safe copy.</li>
 <li>RAM disks are volatile: contents are lost when the system is rebooted or the device is discarded.</li>
 </ul>
-<hr  />
-<h2 class="doxsection"><a class="anchor" id="creating-blank-ramdisks"></a>
-Creating blank ramdisks</h2>
-<div class="fragment"><div class="line">RAMDISK(integer-expression, integer-expression)</div>
-</div><!-- fragment --><p>Creates a <b>new RAM-backed block device</b> with the given dimensions.</p>
-<ul>
-<li>First parameter = number of blocks.</li>
-<li>Second parameter = block size in bytes.</li>
-</ul>
-<p>The device is initially <b>unformatted</b> and cannot be mounted until a filesystem is created on it. Returns the <b>name of the new RAM disk device</b> as a string.</p>
-<hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-109"></a>
-Examples</h3>
-<div class="fragment"><div class="line">REM Create a 10 MB RAM disk with 512-byte blocks</div>
-<div class="line">ram$ = RAMDISK(20480, 512)</div>
-<div class="line">PRINT &quot;Created RAM disk: &quot;; ram$</div>
-</div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-108"></a>
-Notes</h3>
-<ul>
-<li>Size = <span class="tt">blocks × blocksize</span>.</li>
-<li>Device names are automatically assigned by the system (e.g. <span class="tt">"ram0"</span>, <span class="tt">"ram1"</span>).</li>
-<li>Contents are volatile and cleared when the system shuts down or discards the device.</li>
-</ul>
-<hr  />
 <p><b>See also:</b> <a class="el" href="MOUNT.html">MOUNT</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

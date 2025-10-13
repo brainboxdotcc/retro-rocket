@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="search" kind="page">
+    <compoundname>search</compoundname>
+    <title>search command</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<sect1 id="search_1scan-filename-text_1s1"><sect2 id="search_1scan-filename-text">
+<title>scan [filename] [text]</title><para>Scan a file for specific text</para>
+<para><image type="html" name="search.png"></image>
+</para>
+<para><itemizedlist>
+<listitem><para>Any lines that contain the text are returned, prefixed by the line number the text is found on.</para>
+</listitem><listitem><para>Searches are case insensitive. </para>
+</listitem></itemizedlist>
+</para>
+</sect2></sect1>
+    </detaileddescription>
+    <location file="docpages/user-guide/commands/search.md"/>
+  </compounddef>
+</doxygen>

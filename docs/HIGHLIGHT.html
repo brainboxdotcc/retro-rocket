@@ -99,22 +99,22 @@ $(function(){initNavTree('HIGHLIGHT.html','',''); });
 </div><!-- fragment --><p>Given a string containing BASIC source, returns a copy with ANSI SGR escape sequences applied for syntax highlighting. Intended for program listings, editors, and tools that render to an ANSI-capable terminal, producing a consistent look-and-feel.</p>
 <p><b>Notes</b></p>
 <ul>
-<li><b>Strings</b> — text between double quotes (<span class="tt">"..."</span>) is highlighted in <b>light yellow</b> from the opening quote to the closing quote. If a closing quote is missing, highlighting continues to the end of the input and is then reset.</li>
+<li><b>Strings</b> - text between double quotes (<span class="tt">"..."</span>) is highlighted in <b>light yellow</b> from the opening quote to the closing quote. If a closing quote is missing, highlighting continues to the end of the input and is then reset.</li>
 <li><b>Comments</b><ul>
 <li>A single quote (') begins a comment that is highlighted in <b>dark green</b> until the end of the input.</li>
 <li>The keyword <span class="tt">REM</span> (when not inside a string) causes the <b>entire line</b> to be treated as a comment and highlighted in <b>dark green</b>.</li>
 </ul>
 </li>
-<li><b>Keywords / tokens</b> — recognised BASIC keywords are highlighted in <b>light blue</b> when they are not part of a longer identifier. Boundary detection prevents colouring inside names like <span class="tt">FORTH</span>. Exceptions: <span class="tt">PROC</span>, <span class="tt">FN</span>, and <span class="tt">=</span> may be adjacent to letters/digits/underscores and will still be highlighted.</li>
+<li><b>Keywords / tokens</b> - recognised BASIC keywords are highlighted in <b>light blue</b> when they are not part of a longer identifier. Boundary detection prevents colouring inside names like <span class="tt">FORTH</span>. Exceptions: <span class="tt">PROC</span>, <span class="tt">FN</span>, and <span class="tt">=</span> may be adjacent to letters/digits/underscores and will still be highlighted.</li>
 <li><b>Built-in functions</b><ul>
 <li>Integer-returning built-ins are <b>light green</b>.</li>
 <li>String-returning built-ins are <b>light magenta</b>.</li>
 <li>Real/float-returning built-ins are <b>light cyan</b>.</li>
 </ul>
 </li>
-<li><b>Numeric literals</b> — digits (and a leading unary <span class="tt">+</span>/<span class="tt">-</span>) are highlighted in <b>orange</b>.</li>
-<li><b>Operators &amp; punctuation</b> — <span class="tt">() + - * / = &lt; &gt; , ;</span> are highlighted in <b>dark red</b>.</li>
-<li><b>Default text</b> — rendered in <b>white</b>. Colours are reset back to white after each coloured span, and a final reset is appended at the end of the result to prevent “colour leakage” in the caller’s terminal.</li>
+<li><b>Numeric literals</b> - digits (and a leading unary <span class="tt">+</span>/<span class="tt">-</span>) are highlighted in <b>orange</b>.</li>
+<li><b>Operators &amp; punctuation</b> - <span class="tt">() + - * / = &lt; &gt; , ;</span> are highlighted in <b>dark red</b>.</li>
+<li><b>Default text</b> - rendered in <b>white</b>. Colours are reset back to white after each coloured span, and a final reset is appended at the end of the result to prevent “colour leakage” in the caller’s terminal.</li>
 </ul>
 <p><b>Errors</b></p>
 <ul>
@@ -135,7 +135,7 @@ $(function(){initNavTree('HIGHLIGHT.html','',''); });
 </div><!-- fragment --><p><b>See also</b></p>
 <ul>
 <li><a class="el" href="PRINT.html">PRINT Keyword</a> - display output on the screen</li>
-<li><a class="el" href="edit.html">edit program</a> - Text editor </li>
+<li><a class="el" href="edit.html">edit command</a> - Text editor </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

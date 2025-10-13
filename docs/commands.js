@@ -1,5 +1,8 @@
 var commands =
 [
+    [ "about command", "about.html", null ],
+    [ "apple command", "apple.html", null ],
+    [ "bach command", "bach.html", null ],
     [ "ball Program", "ball.html", null ],
     [ "cd command", "cd.html", null ],
     [ "charmap program", "charmap.html", null ],
@@ -9,8 +12,9 @@ var commands =
     [ "cpuvendor command", "cpuvendor.html", null ],
     [ "cube program", "cube.html", null ],
     [ "delete program", "delete.html", null ],
+    [ "demo command", "demo.html", null ],
     [ "dir command", "dir-full-pathname.html", null ],
-    [ "edit program", "edit.html", [
+    [ "edit command", "edit.html", [
       [ "Text Editor", "edit.html#text-editor", [
         [ "Starting the editor", "edit.html#starting-the-editor", null ],
         [ "Moving around", "edit.html#moving-around", null ],
@@ -22,23 +26,37 @@ var commands =
         [ "Quick reference", "edit.html#quick-reference", null ]
       ] ]
     ] ],
+    [ "envelope_test command", "envelope_test.html", null ],
     [ "eval command", "eval.html", null ],
-    [ "fstest program", "fstest.html", null ],
-    [ "grapicstest program", "graphicstest.html", null ],
+    [ "free command", "free.html", null ],
+    [ "fstest command", "fstest.html", null ],
+    [ "grapicstest command", "graphicstest.html", null ],
     [ "host command", "host.html", null ],
     [ "ip command", "ip.html", null ],
     [ "init program", "init.html", null ],
     [ "irc program (satellite)", "irc.html", null ],
     [ "list command", "list.html", null ],
     [ "mkdir command", "mkdir.html", null ],
+    [ "modplay command", "modplay.html", null ],
+    [ "mount command", "mount.html", null ],
+    [ "mousetest command", "mousetest.html", null ],
+    [ "musicdemo command", "musicdemo.html", null ],
     [ "proclist command", "proclist.html", null ],
+    [ "rick command", "rick.html", null ],
     [ "rmdir command", "rmdir.html", null ],
-    [ "rocketsh command (shell)", "rocketsh.html", null ],
+    [ "rocketsh Command (Shell)", "rocketsh.html", null ],
+    [ "search command", "search.html", null ],
     [ "sine program", "sine.html", null ],
+    [ "servertest command", "servertest.html", null ],
     [ "socktest program", "socktest.html", null ],
+    [ "ssltest command", "ssltest.html", null ],
     [ "test program", "test.html", null ],
     [ "textcolours program", "textcolours.html", null ],
+    [ "tree command", "tree.html", null ],
     [ "triangle program", "triangle.html", null ],
+    [ "udptest command", "udptest.html", null ],
     [ "up command", "up.html", null ],
-    [ "version command", "version.html", null ]
+    [ "version command", "version.html", null ],
+    [ "webserver command", "webserver.html", null ],
+    [ "xmtest command", "xmtest.html", null ]
 ];

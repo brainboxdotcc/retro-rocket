@@ -2,13 +2,14 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="rocketsh" kind="page">
     <compoundname>rocketsh</compoundname>
-    <title>rocketsh command (shell)</title>
+    <title>rocketsh Command (Shell)</title>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para>The interactive shell used to execute commands and run programs. Launched by <computeroutput>init</computeroutput>.</para>
+<para><computeroutput>rocketsh</computeroutput> is the interactive shell used to execute commands and run programs. It is launched by <computeroutput>init</computeroutput> at boot and is always available at the system prompt.</para>
 <para><image type="html" name="rocketsh.png"></image>
 </para>
+<para>This page describes <computeroutput>rocketsh</computeroutput> in detail. For a simple overview of using the shell, see The Shell in the User Guide.</para>
 <sect1 id="rocketsh_1command-line-entry_1s1"><sect2 id="rocketsh_1command-line-entry_1s2"><sect3 id="rocketsh_1command-line-entry_1s3"><sect4 id="rocketsh_1command-line-entry">
 <title>Command line entry</title><para>The <computeroutput>rocketsh</computeroutput> shell supports command line editing. You may use the cursor <computeroutput>LEFT</computeroutput> and <computeroutput>RIGHT</computeroutput> keys plus <computeroutput>HOME</computeroutput> and <computeroutput>END</computeroutput> to navigate in the current line and edit it, inserting into the line if neccessary.</para>
 <para>Alternately, you can use the cursor <computeroutput>UP</computeroutput> and <computeroutput>DOWN</computeroutput> keys to move through the history of recently entered commands. If you edit one of these commands or send it, it will be inserted into the history again as the latest command.</para>

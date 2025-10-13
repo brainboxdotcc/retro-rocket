@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="user-networking" kind="page">
+    <compoundname>user-networking</compoundname>
+    <title>Networking</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Retro Rocket includes basic networking support so you can connect to the internet and use network-enabled programs.</para>
+<para><hruler/>
+</para>
+<sect1 id="user-networking_1network-drivers_1s1"><sect2 id="user-networking_1network-drivers_1s2"><sect3 id="user-networking_1network-drivers">
+<title>Network Drivers</title><para><itemizedlist>
+<listitem><para>The network driver is loaded in the <bold>boot script</bold> <computeroutput>/programs/init</computeroutput>.</para>
+</listitem><listitem><para>By default, Retro Rocket loads the <bold>e1000</bold> driver, which also supports the Intel 82541PI chipset.</para>
+</listitem><listitem><para>On an installed system, you can freely edit <computeroutput>/programs/init</computeroutput> (using the <computeroutput>edit</computeroutput> command) to change which driver is loaded.</para>
+</listitem></itemizedlist>
+</para>
+<para>For most users the default works automatically.</para>
+<para><hruler/>
+</para>
+</sect3></sect2></sect1>
+<sect1 id="user-networking_1network-configuration_1s1"><sect2 id="user-networking_1network-configuration_1s2"><sect3 id="user-networking_1network-configuration">
+<title>Network Configuration</title><para>Once the network driver has been initialised, the system reads its configuration from:</para>
+<para><programlisting><codeline><highlight class="normal">/system/config/network.conf</highlight></codeline>
+</programlisting></para>
+<para>This file controls how your machine identifies itself and how it connects.</para>
+<sect4 id="user-networking_1example-default-configuration">
+<title>Example: Default configuration</title><para><programlisting><codeline><highlight class="normal">#<sp/>Retro<sp/>Rocket<sp/>Network<sp/>Configuration</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>----------------------------------</highlight></codeline>
+<codeline><highlight class="normal">#</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>This<sp/>file<sp/>is<sp/>read<sp/>by<sp/>the<sp/>network<sp/>system<sp/>once<sp/>a<sp/>network<sp/>interface<sp/>card<sp/>has</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>been<sp/>initialised.</highlight></codeline>
+<codeline><highlight class="normal">#</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>The<sp/>loopback<sp/>interface<sp/>(127.0.0.1)<sp/>is<sp/>always<sp/>available<sp/>and<sp/>does<sp/>not<sp/>need</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>to<sp/>be<sp/>configured<sp/>here.</highlight></codeline>
+<codeline><highlight class="normal">#</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>At<sp/>present<sp/>only<sp/>a<sp/>single<sp/>physical<sp/>network<sp/>card<sp/>is<sp/>supported.<sp/>The<sp/>first</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>kernel<sp/>module<sp/>that<sp/>successfully<sp/>initialises<sp/>a<sp/>NIC<sp/>takes<sp/>precedence.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">#<sp/>Hostname<sp/>of<sp/>the<sp/>machine</highlight></codeline>
+<codeline><highlight class="normal">hostname<sp/>retrorocket</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">#<sp/>IPv4<sp/>address<sp/>of<sp/>the<sp/>machine<sp/>in<sp/>dotted<sp/>notation,<sp/>or<sp/>the<sp/>literal<sp/>value<sp/>&apos;dhcp&apos;</highlight></codeline>
+<codeline><highlight class="normal">ip<sp/>dhcp</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">#<sp/>One<sp/>or<sp/>more<sp/>IPv4<sp/>DNS<sp/>server<sp/>addresses,<sp/>comma-separated,<sp/>or<sp/>&apos;dhcp&apos;</highlight></codeline>
+<codeline><highlight class="normal">dns<sp/>dhcp</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">#<sp/>Default<sp/>gateway<sp/>IPv4<sp/>address<sp/>in<sp/>dotted<sp/>notation,<sp/>or<sp/>&apos;dhcp&apos;</highlight></codeline>
+<codeline><highlight class="normal">gateway<sp/>dhcp</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">#<sp/>IPv4<sp/>network<sp/>mask<sp/>in<sp/>dotted<sp/>notation,<sp/>or<sp/>&apos;dhcp&apos;</highlight></codeline>
+<codeline><highlight class="normal">netmask<sp/>dhcp</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect4>
+</sect3></sect2></sect1>
+<sect1 id="user-networking_1notes-200_1s1"><sect2 id="user-networking_1notes-200_1s2"><sect3 id="user-networking_1notes-200">
+<title>Notes</title><para><itemizedlist>
+<listitem><para>By default, Retro Rocket uses <bold>DHCP</bold> for IP, DNS, gateway, and netmask.</para>
+</listitem><listitem><para>You can replace <computeroutput>dhcp</computeroutput> with fixed values if you want a static configuration.</para>
+</listitem><listitem><para>Only <bold>one network card</bold> is supported. The first successfully initialised driver is used.</para>
+</listitem><listitem><para>The loopback interface <computeroutput>127.0.0.1</computeroutput> is always present for local networking and testing. </para>
+</listitem></itemizedlist>
+</para>
+</sect3></sect2></sect1>
+    </detaileddescription>
+    <location file="docpages/user-guide/networking.md"/>
+  </compounddef>
+</doxygen>

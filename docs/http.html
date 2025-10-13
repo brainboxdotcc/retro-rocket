@@ -153,12 +153,12 @@ Response access</h2>
 FNhttp_result$(part$)</h3>
 <p>Return a specific portion of the most recent response. <span class="tt">part$</span> must be one of:</p>
 <ul>
-<li><span class="tt">"body"</span> — response body only</li>
-<li><span class="tt">"headers"</span> — raw header block (status line + header lines, CRLF-delimited)</li>
-<li><span class="tt">"status"</span> — status line (e.g. <span class="tt">HTTP/1.1 200 OK</span>)</li>
-<li><span class="tt">"code"</span> — status code as a string (e.g. <span class="tt">200</span>)</li>
-<li><span class="tt">"reason"</span> — reason phrase (e.g. <span class="tt">OK</span>)</li>
-<li><span class="tt">"header:&lt;name&gt;"</span> — value of a single header (case-insensitive match on <span class="tt">&lt;name&gt;</span>). Returns the first occurrence, trimmed of surrounding whitespace.</li>
+<li><span class="tt">"body"</span> - response body only</li>
+<li><span class="tt">"headers"</span> - raw header block (status line + header lines, CRLF-delimited)</li>
+<li><span class="tt">"status"</span> - status line (e.g. <span class="tt">HTTP/1.1 200 OK</span>)</li>
+<li><span class="tt">"code"</span> - status code as a string (e.g. <span class="tt">200</span>)</li>
+<li><span class="tt">"reason"</span> - reason phrase (e.g. <span class="tt">OK</span>)</li>
+<li><span class="tt">"header:&lt;name&gt;"</span> - value of a single header (case-insensitive match on <span class="tt">&lt;name&gt;</span>). Returns the first occurrence, trimmed of surrounding whitespace.</li>
 </ul>
 <p>If no response is available, or the requested part does not exist, an empty string is returned.</p>
 <hr  />

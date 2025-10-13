@@ -11,12 +11,13 @@ var searchData=
   ['3_203_20directory_20blocks_20and_20entries_8',['3.3 Directory blocks and entries',['../retrofs.html#autotoc_md33-directory-blocks-and-entries',1,'']]],
   ['3_203_20file_20directory_20flags_20values_9',['3.3.3 File/Directory Flags values',['../retrofs.html#autotoc_md333-filedirectory-flags-values',1,'']]],
   ['3_204_20directory_20walk_10',['3.3.4 Directory walk',['../retrofs.html#autotoc_md334-directory-walk',1,'']]],
-  ['3_20core_20system_20initialisation_3a_20init_11',['3. Core System Initialisation: &lt;span class=&quot;tt&quot;&gt;init()&lt;/span&gt;',['../bootflow.html#autotoc_md3-core-system-initialisation-init',1,'']]],
-  ['3_20directory_20blocks_20and_20entries_12',['3.3 Directory blocks and entries',['../retrofs.html#autotoc_md33-directory-blocks-and-entries',1,'']]],
-  ['3_20file_20directory_20flags_20values_13',['3.3.3 File/Directory Flags values',['../retrofs.html#autotoc_md333-filedirectory-flags-values',1,'']]],
-  ['3_20getting_20input_20and_20using_20strings_14',['3) Getting input and using strings',['../basic-beginner.html#autotoc_md3-getting-input-and-using-strings',1,'']]],
-  ['3_20on_20disk_20structures_20normative_15',['3. On-disk structures (normative)',['../retrofs.html#autotoc_md3-on-disk-structures-normative',1,'']]],
-  ['3_20writing_16',['4.3 Writing',['../retrofs.html#autotoc_md43-writing',1,'']]],
-  ['30_17',['VDU 30',['../VDU.html#vdu-30',1,'']]],
-  ['31_20x_20y_18',['VDU 31, x, y',['../VDU.html#vdu-31-x-y',1,'']]]
+  ['3_20confirm_20your_20choice_11',['3. Confirm your choice',['../installation.html#autotoc_md3-confirm-your-choice',1,'']]],
+  ['3_20core_20system_20initialisation_3a_20init_12',['3. Core System Initialisation: &lt;span class=&quot;tt&quot;&gt;init()&lt;/span&gt;',['../bootflow.html#autotoc_md3-core-system-initialisation-init',1,'']]],
+  ['3_20directory_20blocks_20and_20entries_13',['3.3 Directory blocks and entries',['../retrofs.html#autotoc_md33-directory-blocks-and-entries',1,'']]],
+  ['3_20file_20directory_20flags_20values_14',['3.3.3 File/Directory Flags values',['../retrofs.html#autotoc_md333-filedirectory-flags-values',1,'']]],
+  ['3_20getting_20input_20and_20using_20strings_15',['3) Getting input and using strings',['../basic-beginner.html#autotoc_md3-getting-input-and-using-strings',1,'']]],
+  ['3_20on_20disk_20structures_20normative_16',['3. On-disk structures (normative)',['../retrofs.html#autotoc_md3-on-disk-structures-normative',1,'']]],
+  ['3_20writing_17',['4.3 Writing',['../retrofs.html#autotoc_md43-writing',1,'']]],
+  ['30_18',['VDU 30',['../VDU.html#vdu-30',1,'']]],
+  ['31_20x_20y_19',['VDU 31, x, y',['../VDU.html#vdu-31-x-y',1,'']]]
 ];

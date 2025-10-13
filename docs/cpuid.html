@@ -97,46 +97,48 @@ $(function(){initNavTree('cpuid.html','',''); });
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">cpuid [leaf number]</div>
 </div><!-- fragment --><p> Retrieve CPUID information from the processor. See The documentation of CPUID for more information.</p>
-<p><img src="https://github.com/brainboxdotcc/retro-rocket/assets/1556794/523b5f5b-510e-4a91-a210-71eae0021fb4" alt="image" class="inline"/></p>
+<div class="image">
+<img src="cpuvendor.png" alt=""/>
+</div>
 <h3 class="doxsection"><a class="anchor" id="cpuid-leaf-values"></a>
 CPUID Leaf Values</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Leaf (EAX)  </th><th class="markdownTableHeadNone">Sub-Leaf (ECX)  </th><th class="markdownTableHeadNone">Purpose / Description  </th><th class="markdownTableHeadNone">Example Outputs or Notes  </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>0</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>Highest Standard Function</b> and <b>Vendor ID String</b>. Returns the maximum supported standard leaf in EAX, and the vendor string across EBX, EDX, and ECX.  </td><td class="markdownTableBodyNone">Example vendor strings: <span class="tt">"GenuineIntel"</span>, <span class="tt">"AuthenticAMD"</span>.  </td></tr>
+<td class="markdownTableBodyNone"><b>0</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>Highest Standard Function</b> and <b>Vendor ID String</b>. Returns the maximum supported standard leaf in EAX, and the vendor string across EBX, EDX, and ECX.  </td><td class="markdownTableBodyNone">Example vendor strings: <span class="tt">"GenuineIntel"</span>, <span class="tt">"AuthenticAMD"</span>.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>1</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>Processor Information and Feature Bits.</b> Reports family, model, stepping, and feature flags such as SSE, AVX, FPU, MMX, etc.  </td><td class="markdownTableBodyNone">EAX: version info; EBX: logical cores; ECX/EDX: feature flags.  </td></tr>
+<td class="markdownTableBodyNone"><b>1</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>Processor Information and Feature Bits.</b> Reports family, model, stepping, and feature flags such as SSE, AVX, FPU, MMX, etc.  </td><td class="markdownTableBodyNone">EAX: version info; EBX: logical cores; ECX/EDX: feature flags.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>2</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>Cache and TLB Descriptor Information.</b> Legacy format describing cache/TLB layout. Superseded by leaf 4.  </td><td class="markdownTableBodyNone">Used on older Intel CPUs.  </td></tr>
+<td class="markdownTableBodyNone"><b>2</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>Cache and TLB Descriptor Information.</b> Legacy format describing cache/TLB layout. Superseded by leaf 4.  </td><td class="markdownTableBodyNone">Used on older Intel CPUs.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>3</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>Processor Serial Number.</b> Deprecated and often disabled for privacy reasons.  </td><td class="markdownTableBodyNone">Rarely supported.  </td></tr>
+<td class="markdownTableBodyNone"><b>3</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>Processor Serial Number.</b> Deprecated and often disabled for privacy reasons.  </td><td class="markdownTableBodyNone">Rarely supported.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>4</b>  </td><td class="markdownTableBodyNone"><em>n</em> (0… until type=0)  </td><td class="markdownTableBodyNone"><b>Deterministic Cache Parameters.</b> Reports cache level, type, line size, associativity, and set count.  </td><td class="markdownTableBodyNone">Iterate ECX from 0 until EAX[bits 4–0] = 0.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>5</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>MONITOR/MWAIT Parameters.</b> Reports monitor-line size and power hints.  </td><td class="markdownTableBodyNone">Used in power-management routines.  </td></tr>
+<td class="markdownTableBodyNone"><b>5</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>MONITOR/MWAIT Parameters.</b> Reports monitor-line size and power hints.  </td><td class="markdownTableBodyNone">Used in power-management routines.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>6</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>Thermal and Power Management.</b> Indicates turbo boost, energy-performance bias, etc.  </td><td class="markdownTableBodyNone">Features vary by generation.  </td></tr>
+<td class="markdownTableBodyNone"><b>6</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>Thermal and Power Management.</b> Indicates turbo boost, energy-performance bias, etc.  </td><td class="markdownTableBodyNone">Features vary by generation.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>7</b>  </td><td class="markdownTableBodyNone"><em>n</em> (0+)  </td><td class="markdownTableBodyNone"><b>Structured Extended Feature Flags.</b> Lists AVX2, BMI, SMEP, SMAP, SHA, and other extensions.  </td><td class="markdownTableBodyNone">ECX = 0 = base feature list.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>8</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>Reserved (Intel).</b>  </td><td class="markdownTableBodyNone">Typically returns zeros.  </td></tr>
+<td class="markdownTableBodyNone"><b>8</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>Reserved (Intel).</b>  </td><td class="markdownTableBodyNone">Typically returns zeros.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>9</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>Direct Cache Access (DCA) Capabilities.</b>  </td><td class="markdownTableBodyNone">Rarely used outside servers.  </td></tr>
+<td class="markdownTableBodyNone"><b>9</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>Direct Cache Access (DCA) Capabilities.</b>  </td><td class="markdownTableBodyNone">Rarely used outside servers.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>10</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>Architectural Performance Monitoring.</b> Gives number and width of performance counters.  </td><td class="markdownTableBodyNone">Used for profiling/perf events.  </td></tr>
+<td class="markdownTableBodyNone"><b>10</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>Architectural Performance Monitoring.</b> Gives number and width of performance counters.  </td><td class="markdownTableBodyNone">Used for profiling/perf events.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>11</b>  </td><td class="markdownTableBodyNone"><em>n</em> (0… until type=0)  </td><td class="markdownTableBodyNone"><b>Extended Topology Enumeration.</b> Replaces legacy APIC ID method for threads/cores.  </td><td class="markdownTableBodyNone">Iterate until EAX[4–0] = 0.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>12</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>SGX Capability Reporting.</b>  </td><td class="markdownTableBodyNone">Secure Guard Extensions (if supported).  </td></tr>
+<td class="markdownTableBodyNone"><b>12</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>SGX Capability Reporting.</b>  </td><td class="markdownTableBodyNone">Secure Guard Extensions (if supported).  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>13</b>  </td><td class="markdownTableBodyNone"><em>n</em> (0+)  </td><td class="markdownTableBodyNone"><b>Extended State Enumeration (XSAVE).</b> Reports supported CPU state components and save area size.  </td><td class="markdownTableBodyNone">Used for AVX and AVX-512.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>14</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>Intel Processor Trace.</b>  </td><td class="markdownTableBodyNone">Reports tracing feature support.  </td></tr>
+<td class="markdownTableBodyNone"><b>14</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>Intel Processor Trace.</b>  </td><td class="markdownTableBodyNone">Reports tracing feature support.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>15</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>Time Stamp Counter and Crystal Clock Relationship.</b>  </td><td class="markdownTableBodyNone">Defines TSC/core crystal frequency ratio.  </td></tr>
+<td class="markdownTableBodyNone"><b>15</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>Time Stamp Counter and Crystal Clock Relationship.</b>  </td><td class="markdownTableBodyNone">Defines TSC/core crystal frequency ratio.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>16</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>Processor Frequency Information.</b>  </td><td class="markdownTableBodyNone">Base, max, and bus ratio in MHz.  </td></tr>
+<td class="markdownTableBodyNone"><b>16</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>Processor Frequency Information.</b>  </td><td class="markdownTableBodyNone">Base, max, and bus ratio in MHz.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>17</b>  </td><td class="markdownTableBodyNone"><em>n</em> (0+)  </td><td class="markdownTableBodyNone"><b>System-on-Chip Vendor Attributes.</b>  </td><td class="markdownTableBodyNone">Vendor ID and capabilities.  </td></tr>
 <tr class="markdownTableRowOdd">
@@ -144,17 +146,17 @@ CPUID Leaf Values</h3>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>19</b>  </td><td class="markdownTableBodyNone"><em>n</em> (0+)  </td><td class="markdownTableBodyNone"><b>Platform QoS Enforcement.</b>  </td><td class="markdownTableBodyNone">Cache/memory bandwidth allocation.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>20–23</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>Reserved.</b>  </td><td class="markdownTableBodyNone">May be vendor-specific.  </td></tr>
+<td class="markdownTableBodyNone"><b>20–23</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>Reserved.</b>  </td><td class="markdownTableBodyNone">May be vendor-specific.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>24</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>AMD SEV / Memory Encryption Capabilities.</b>  </td><td class="markdownTableBodyNone">Only valid on AMD CPUs.  </td></tr>
+<td class="markdownTableBodyNone"><b>24</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>AMD SEV / Memory Encryption Capabilities.</b>  </td><td class="markdownTableBodyNone">Only valid on AMD CPUs.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>25</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>AMD Performance and Debug Features.</b>  </td><td class="markdownTableBodyNone">Implementation-specific.  </td></tr>
+<td class="markdownTableBodyNone"><b>25</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>AMD Performance and Debug Features.</b>  </td><td class="markdownTableBodyNone">Implementation-specific.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>26–29</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>Reserved.</b>  </td><td class="markdownTableBodyNone">—  </td></tr>
+<td class="markdownTableBodyNone"><b>26–29</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>Reserved.</b>  </td><td class="markdownTableBodyNone">-  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>30</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>IA32 Architectural Capabilities.</b>  </td><td class="markdownTableBodyNone">Provides details on RDPID, SGX, etc.  </td></tr>
+<td class="markdownTableBodyNone"><b>30</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>IA32 Architectural Capabilities.</b>  </td><td class="markdownTableBodyNone">Provides details on RDPID, SGX, etc.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>31</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>AVX10 and Architectural Future Extensions.</b>  </td><td class="markdownTableBodyNone">(Newer CPUs only.)  </td></tr>
+<td class="markdownTableBodyNone"><b>31</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>AVX10 and Architectural Future Extensions.</b>  </td><td class="markdownTableBodyNone">(Newer CPUs only.)  </td></tr>
 </table>
 <hr  />
 <h3 class="doxsection"><a class="anchor" id="extended-high-leaves"></a>
@@ -163,29 +165,29 @@ Extended (High) Leaves</h3>
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Leaf (EAX)  </th><th class="markdownTableHeadNone">Sub-Leaf (ECX)  </th><th class="markdownTableHeadNone">Purpose / Description  </th><th class="markdownTableHeadNone">Example Outputs or Notes  </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>2147483648</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>Highest Extended Function Supported.</b>  </td><td class="markdownTableBodyNone">Returns maximum extended leaf.  </td></tr>
+<td class="markdownTableBodyNone"><b>2147483648</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>Highest Extended Function Supported.</b>  </td><td class="markdownTableBodyNone">Returns maximum extended leaf.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>2147483649</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>Processor Brand String (part 1).</b>  </td><td class="markdownTableBodyNone">ASCII characters in registers.  </td></tr>
+<td class="markdownTableBodyNone"><b>2147483649</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>Processor Brand String (part 1).</b>  </td><td class="markdownTableBodyNone">ASCII characters in registers.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>2147483650</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>Processor Brand String (part 2).</b>  </td><td class="markdownTableBodyNone">Concatenate with other parts.  </td></tr>
+<td class="markdownTableBodyNone"><b>2147483650</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>Processor Brand String (part 2).</b>  </td><td class="markdownTableBodyNone">Concatenate with other parts.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>2147483651</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>Processor Brand String (part 3).</b>  </td><td class="markdownTableBodyNone">Full readable brand string.  </td></tr>
+<td class="markdownTableBodyNone"><b>2147483651</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>Processor Brand String (part 3).</b>  </td><td class="markdownTableBodyNone">Full readable brand string.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>2147483652</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>Extended Features (AMD).</b>  </td><td class="markdownTableBodyNone">Reports long mode (64-bit), NX, etc.  </td></tr>
+<td class="markdownTableBodyNone"><b>2147483652</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>Extended Features (AMD).</b>  </td><td class="markdownTableBodyNone">Reports long mode (64-bit), NX, etc.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>2147483653</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>AMD Brand ID and Feature Extensions.</b>  </td><td class="markdownTableBodyNone">Reports 3DNow!+, LZCNT, etc.  </td></tr>
+<td class="markdownTableBodyNone"><b>2147483653</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>AMD Brand ID and Feature Extensions.</b>  </td><td class="markdownTableBodyNone">Reports 3DNow!+, LZCNT, etc.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>2147483654</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>AMD Advanced Power Management Info.</b>  </td><td class="markdownTableBodyNone">Frequency, voltage hints.  </td></tr>
+<td class="markdownTableBodyNone"><b>2147483654</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>AMD Advanced Power Management Info.</b>  </td><td class="markdownTableBodyNone">Frequency, voltage hints.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>2147483655</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>AMD Lightweight Profiling (LWP).</b>  </td><td class="markdownTableBodyNone">Low-overhead performance monitoring.  </td></tr>
+<td class="markdownTableBodyNone"><b>2147483655</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>AMD Lightweight Profiling (LWP).</b>  </td><td class="markdownTableBodyNone">Low-overhead performance monitoring.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>2147483656</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>AMD Cache Topology and Address Translation.</b>  </td><td class="markdownTableBodyNone">Page size and cache info.  </td></tr>
+<td class="markdownTableBodyNone"><b>2147483656</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>AMD Cache Topology and Address Translation.</b>  </td><td class="markdownTableBodyNone">Page size and cache info.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>2147483657</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>AMD Processor Capacity / Die Identification.</b>  </td><td class="markdownTableBodyNone">Used for multi-chip packages.  </td></tr>
+<td class="markdownTableBodyNone"><b>2147483657</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>AMD Processor Capacity / Die Identification.</b>  </td><td class="markdownTableBodyNone">Used for multi-chip packages.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>2147483658</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>AMD Encryption and Secure Memory Features.</b>  </td><td class="markdownTableBodyNone">SME, SEV, SEV-ES flags.  </td></tr>
+<td class="markdownTableBodyNone"><b>2147483658</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>AMD Encryption and Secure Memory Features.</b>  </td><td class="markdownTableBodyNone">SME, SEV, SEV-ES flags.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>2147483659+</b>  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone"><b>Reserved or Vendor-Specific Extensions.</b>  </td><td class="markdownTableBodyNone">Future-use space.  </td></tr>
+<td class="markdownTableBodyNone"><b>2147483659+</b>  </td><td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone"><b>Reserved or Vendor-Specific Extensions.</b>  </td><td class="markdownTableBodyNone">Future-use space.  </td></tr>
 </table>
 <hr  />
 <h3 class="doxsection"><a class="anchor" id="notes-190"></a>

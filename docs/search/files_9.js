@@ -10,11 +10,13 @@ var searchData=
   ['inportw_2emd_7',['INPORTW.md',['../INPORTW_8md.html',1,'']]],
   ['input_2emd_8',['INPUT.md',['../INPUT_8md.html',1,'']]],
   ['insocket_2emd_9',['INSOCKET.md',['../INSOCKET_8md.html',1,'']]],
-  ['instr_2emd_10',['INSTR.md',['../INSTR_8md.html',1,'']]],
-  ['int_2emd_11',['INT.md',['../INT_8md.html',1,'']]],
-  ['integer_2emd_12',['Integer.md',['../Integer_8md.html',1,'']]],
-  ['integer_2fread_2emd_13',['READ.md',['../integer_2READ_8md.html',1,'']]],
-  ['interrupts_2emd_14',['INTERRUPTS.md',['../INTERRUPTS_8md.html',1,'']]],
-  ['ip_2emd_15',['ip.md',['../ip_8md.html',1,'']]],
-  ['irc_2emd_16',['irc.md',['../irc_8md.html',1,'']]]
+  ['installation_2emd_10',['installation.md',['../installation_8md.html',1,'']]],
+  ['instr_2emd_11',['INSTR.md',['../INSTR_8md.html',1,'']]],
+  ['int_2emd_12',['INT.md',['../INT_8md.html',1,'']]],
+  ['integer_2emd_13',['Integer.md',['../Integer_8md.html',1,'']]],
+  ['integer_2fread_2emd_14',['READ.md',['../integer_2READ_8md.html',1,'']]],
+  ['interrupts_2emd_15',['INTERRUPTS.md',['../INTERRUPTS_8md.html',1,'']]],
+  ['introduction_2emd_16',['introduction.md',['../introduction_8md.html',1,'']]],
+  ['ip_2emd_17',['ip.md',['../ip_8md.html',1,'']]],
+  ['irc_2emd_18',['irc.md',['../irc_8md.html',1,'']]]
 ];

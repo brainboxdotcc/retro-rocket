@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="EMPTYRAMDISK" kind="page">
+    <compoundname>EMPTYRAMDISK</compoundname>
+    <title>EMPTYRAMDISK$ Function</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">EMPTYRAMDISK$(size-megabytes)</highlight></codeline>
+</programlisting></para>
+<para>Creates a <bold>RAM-backed block device and formats it as RetroFS</bold>. The parameter is the size of the new device in megabytes. Returns the device name on success.</para>
+<para><hruler/>
+</para>
+<sect1 id="EMPTYRAMDISK_1examples-94_1s1"><sect2 id="EMPTYRAMDISK_1examples-94_1s2"><sect3 id="EMPTYRAMDISK_1examples-94">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Create<sp/>a<sp/>1GB<sp/>RetroFS<sp/>ramdisk</highlight></codeline>
+<codeline><highlight class="normal">RD$<sp/>=<sp/>EMPTYRAMDISK$(1024)</highlight></codeline>
+<codeline><highlight class="normal">MOUNT<sp/>&quot;/ramdisk&quot;,<sp/>RD$,<sp/>&quot;rfs&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Created<sp/>RAM<sp/>disk&quot;</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3></sect2></sect1>
+<sect1 id="EMPTYRAMDISK_1notes-93_1s1"><sect2 id="EMPTYRAMDISK_1notes-93_1s2"><sect3 id="EMPTYRAMDISK_1notes-93">
+<title>Notes</title><para><itemizedlist>
+<listitem><para>The ram disk block size is always 512</para>
+</listitem><listitem><para>Device names are automatically assigned by the system (e.g. <computeroutput>&quot;ram0&quot;</computeroutput>, <computeroutput>&quot;ram1&quot;</computeroutput>).</para>
+</listitem><listitem><para>Contents are volatile and cleared when the system shuts down or discards the device.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="MOUNT" kindref="compound">MOUNT</ref> </para>
+</sect3></sect2></sect1>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/string/EMPTYRAMDISK.md"/>
+  </compounddef>
+</doxygen>

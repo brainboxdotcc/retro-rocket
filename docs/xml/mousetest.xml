@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="mousetest" kind="page">
+    <compoundname>mousetest</compoundname>
+    <title>mousetest command</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>To use this program you must first load the BASIC PS/2 mouse driver:</para>
+<para><programlisting><codeline><highlight class="normal">CHAIN<sp/>&quot;/programs/drivers/ps2mouse&quot;,TRUE</highlight></codeline>
+</programlisting></para>
+<para>When running this program, a mouse cursor will be displayed on the screen. Move the mouse to move the cursor position. Press any key on the keyboard to exit.</para>
+<para><image type="html" name="mousetest.png"></image>
+</para>
+<para>This is intended as a demo program to demonstrate mouse functionality. Programmers may build upon it. </para>
+    </detaileddescription>
+    <location file="docpages/user-guide/commands/mousetest.md"/>
+  </compounddef>
+</doxygen>

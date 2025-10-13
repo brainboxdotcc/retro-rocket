@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="working-with-programs" kind="page">
+    <compoundname>working-with-programs</compoundname>
+    <title>Working with Programs</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Retro Rocket is designed around BASIC programs. Most users will simply run existing programs - either the ones included with the system or new ones you download.</para>
+<para><hruler/>
+</para>
+<sect1 id="working-with-programs_1running-programs_1s1"><sect2 id="working-with-programs_1running-programs_1s2"><sect3 id="working-with-programs_1running-programs">
+<title>Running programs</title><para>Programs are stored under the <computeroutput>/programs</computeroutput> directory. To run a program from the shell, type its name in lowercase and press <bold>Enter</bold>:</para>
+<para><programlisting><codeline><highlight class="normal">about</highlight></codeline>
+</programlisting></para>
+<para>This starts the program <computeroutput>about</computeroutput>. When it ends, you return to the shell prompt.</para>
+<para>From inside a BASIC program, the keyword <computeroutput>CHAIN</computeroutput> can also be used to run another program, but this is mainly for programmers.</para>
+<para><hruler/>
+</para>
+</sect3></sect2></sect1>
+<sect1 id="working-with-programs_1where-programs-live_1s1"><sect2 id="working-with-programs_1where-programs-live_1s2"><sect3 id="working-with-programs_1where-programs-live">
+<title>Where programs live</title><para><itemizedlist>
+<listitem><para><computeroutput>/programs</computeroutput> — the main directory for programs.</para>
+</listitem><listitem><para><computeroutput>/programs/libraries</computeroutput> — shared code used by programs.</para>
+</listitem><listitem><para><computeroutput>/programs/drivers</computeroutput> — BASIC drivers used by the system.</para>
+</listitem></itemizedlist>
+</para>
+<para>If you install Retro Rocket to a hard disk, you can add more programs here. When running from the LiveCD, you can temporarily place downloaded programs in <computeroutput>/ramdisk</computeroutput>.</para>
+<para><hruler/>
+</para>
+</sect3></sect2></sect1>
+<sect1 id="working-with-programs_1notes-203_1s1"><sect2 id="working-with-programs_1notes-203_1s2"><sect3 id="working-with-programs_1notes-203">
+<title>Notes</title><para><itemizedlist>
+<listitem><para>In LiveCD mode, anything saved in <computeroutput>/ramdisk</computeroutput> is lost on shutdown or reboot.</para>
+</listitem><listitem><para>On an installed system, programs and files are stored on the hard disk permanently. </para>
+</listitem></itemizedlist>
+</para>
+</sect3></sect2></sect1>
+    </detaileddescription>
+    <location file="docpages/user-guide/working-with-programs.md"/>
+  </compounddef>
+</doxygen>

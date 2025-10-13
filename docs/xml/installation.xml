@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="installation" kind="page">
+    <compoundname>installation</compoundname>
+    <title>Installation</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Retro Rocket can be installed from the LiveCD onto a SATA or NVMe hard disk. Installation is simple and text-based.</para>
+<para><simplesect kind="warning"><para>Installing Retro Rocket will erase all data on the target drive. Dual-boot is not supported!</para>
+</simplesect>
+<hruler/>
+</para>
+<sect1 id="installation_1autotoc_md1-boot-the-livecd_1s1"><sect2 id="installation_1autotoc_md1-boot-the-livecd_1s2"><sect3 id="installation_1autotoc_md1-boot-the-livecd">
+<title>1. Boot the LiveCD</title><para>Insert the Retro Rocket CD and boot from it. On the boot menu, choose <bold>Install Retro Rocket</bold> with the arrow keys and press <bold>Enter</bold>.</para>
+<para><image type="html" name="install-menu.png"></image>
+</para>
+<para><hruler/>
+</para>
+</sect3></sect2></sect1>
+<sect1 id="installation_1autotoc_md2-select-a-drive_1s1"><sect2 id="installation_1autotoc_md2-select-a-drive_1s2"><sect3 id="installation_1autotoc_md2-select-a-drive">
+<title>2. Select a drive</title><para>The installer shows a list of available drives. Each drive is listed with its size and type. Press the number key for the drive you want to install to.</para>
+<para><image type="html" name="install-drive.png"></image>
+</para>
+<para><simplesect kind="warning"><para>All existing data on the chosen drive will be lost.</para>
+</simplesect>
+<hruler/>
+</para>
+</sect3></sect2></sect1>
+<sect1 id="installation_1autotoc_md3-confirm-your-choice_1s1"><sect2 id="installation_1autotoc_md3-confirm-your-choice_1s2"><sect3 id="installation_1autotoc_md3-confirm-your-choice">
+<title>3. Confirm your choice</title><para>You will be asked to confirm. Press <bold>Y</bold> to continue or <bold>N</bold> to go back and choose another drive.</para>
+<para><image type="html" name="install-confirm.png"></image>
+</para>
+<para><hruler/>
+</para>
+</sect3></sect2></sect1>
+<sect1 id="installation_1autotoc_md4-copying-files_1s1"><sect2 id="installation_1autotoc_md4-copying-files_1s2"><sect3 id="installation_1autotoc_md4-copying-files">
+<title>4. Copying files</title><para>The installer will copy the system files from the CD to your hard disk. A progress bar shows the copy process.</para>
+<para><image type="html" name="install-copy.png"></image>
+</para>
+<para><hruler/>
+</para>
+</sect3></sect2></sect1>
+<sect1 id="installation_1autotoc_md5-installation-complete_1s1"><sect2 id="installation_1autotoc_md5-installation-complete_1s2"><sect3 id="installation_1autotoc_md5-installation-complete">
+<title>5. Installation complete</title><para>When finished, the installer will show a success message. Remove the CD and press any key to reboot into your new Retro Rocket installation.</para>
+<para><image type="html" name="install-done.png"></image>
+</para>
+<para><hruler/>
+</para>
+</sect3></sect2></sect1>
+<sect1 id="installation_1notes-199_1s1"><sect2 id="installation_1notes-199_1s2"><sect3 id="installation_1notes-199">
+<title>Notes</title><para><itemizedlist>
+<listitem><para>Only SATA and NVMe drives supporting UEFI boot (modern motherboards from 2012 onwards) are supported.</para>
+</listitem><listitem><para>IDE/PATA and BIOS boot is not supported.</para>
+</listitem><listitem><para>The installer erases the entire target disk. There is no dual-boot support.</para>
+</listitem><listitem><para>The installed system uses the same directory layout as the LiveCD, but <computeroutput>/harddisk</computeroutput> is no longer used.</para>
+</listitem><listitem><para>All directories in the file system will be writeable to you, as Retro Rocket is a single-user system. </para>
+</listitem></itemizedlist>
+</para>
+</sect3></sect2></sect1>
+    </detaileddescription>
+    <location file="docpages/user-guide/installation.md"/>
+  </compounddef>
+</doxygen>

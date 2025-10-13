@@ -152,7 +152,7 @@
 <sect1 id="MATCH_1notes-151_1s1"><sect2 id="MATCH_1notes-151_1s2"><sect3 id="MATCH_1notes-151">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Matching is <bold>case-sensitive</bold>. To simulate case-insensitive matching, normalise both strings or use explicit character classes.</para>
-</listitem><listitem><para>With captures, <bold>co-operative execution is disabled</bold> — the operation completes immediately.</para>
+</listitem><listitem><para>With captures, <bold>co-operative execution is disabled</bold> - the operation completes immediately.</para>
 </listitem><listitem><para>Without captures, matching runs <bold>co-operatively</bold> across idle ticks for long inputs.</para>
 </listitem><listitem><para>If the pattern is invalid, the engine reports a descriptive message. Without an error handler, the program terminates; with <computeroutput>ON ERROR PROCname</computeroutput>, control transfers to the handler.</para>
 </listitem><listitem><para>Capture results are always independent copies; modifying the original string has no effect on captured values. </para>

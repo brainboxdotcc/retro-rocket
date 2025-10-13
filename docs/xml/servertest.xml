@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="servertest" kind="page">
+    <compoundname>servertest</compoundname>
+    <title>servertest</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<sect1 id="servertest_1servertest_1s1"><sect2 id="servertest_1servertest">
+<title>servertest</title><para>Starts a very simple TCP socket server on port <bold>2000</bold>. It accepts connections and replies with a cheerful greeting before closing.</para>
+<sect3 id="servertest_1what-it-does-1">
+<title>What it does</title><para><itemizedlist>
+<listitem><para>Listens for incoming connections on the machine’s IP address, port 2000.</para>
+</listitem><listitem><para>For each connection:<itemizedlist>
+<listitem><para>Prints “Handling connection, HELLORLD!” to the screen.</para>
+</listitem><listitem><para>Sends the string <computeroutput>HELLORLD!</computeroutput> back to the client.</para>
+</listitem><listitem><para>Closes the connection.</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para>Runs in a loop until you press a key.</para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+<sect3 id="servertest_1usage-1">
+<title>Usage</title><para><programlisting><codeline><highlight class="normal">servertest</highlight></codeline>
+</programlisting></para>
+</sect3>
+<sect3 id="servertest_1example-session">
+<title>Example session</title><para><programlisting><codeline><highlight class="normal">servertest</highlight></codeline>
+<codeline><highlight class="normal">Socket<sp/>server<sp/>listening<sp/>on<sp/>port<sp/>2000</highlight></codeline>
+<codeline><highlight class="normal">Handling<sp/>connection,<sp/>HELLORLD!</highlight></codeline>
+<codeline><highlight class="normal">Handling<sp/>connection,<sp/>HELLORLD!</highlight></codeline>
+</programlisting></para>
+<para>(Client side output will just see the text <computeroutput>HELLORLD!</computeroutput> returned.)</para>
+</sect3>
+<sect3 id="servertest_1notes-194">
+<title>Notes</title><para><itemizedlist>
+<listitem><para>Intended as a simple demo of networking in Retro Rocket.</para>
+</listitem><listitem><para>Only one line of text is returned; it’s not an interactive service.</para>
+</listitem><listitem><para>Stops cleanly when any key is pressed. </para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+</sect2></sect1>
+    </detaileddescription>
+    <location file="docpages/user-guide/commands/servertest.md"/>
+  </compounddef>
+</doxygen>

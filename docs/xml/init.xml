@@ -2,11 +2,39 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
   <compounddef id="init" kind="page">
     <compoundname>init</compoundname>
-    <title>init program</title>
+    <title>init</title>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para>The initialisation script ran on bootup, mounts filesystems and launches <computeroutput>rocketsh</computeroutput> </para>
+<sect1 id="init_1init_1s1"><sect2 id="init_1init">
+<title>init</title><para><computeroutput>init</computeroutput> is the first program that runs when Retro Rocket starts. It takes care of the initial setup: mounting filesystems, loading drivers, creating a RAM disk, and finally launching the shell (<computeroutput>rocketsh</computeroutput>).</para>
+<sect3 id="init_1what-it-does">
+<title>What it does</title><para><itemizedlist>
+<listitem><para>Sets the default library path for BASIC programs.</para>
+</listitem><listitem><para>Loads drivers (for example, network support).</para>
+</listitem><listitem><para>Mounts system filesystems such as <computeroutput>/devices</computeroutput> and <computeroutput>/boot</computeroutput>.</para>
+</listitem><listitem><para>Sets the keyboard layout.</para>
+</listitem><listitem><para>Creates a 1 GB RAM disk at <computeroutput>/ramdisk</computeroutput> so you have scratch space to save and run programs in LiveCD mode.</para>
+</listitem><listitem><para>Displays the boot logo and prepares the screen.</para>
+</listitem><listitem><para>Finally, launches the shell (<computeroutput>rocketsh</computeroutput>). If the shell ever exits, <computeroutput>init</computeroutput> simply restarts it.</para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+<sect3 id="init_1usage">
+<title>Usage</title><para>You never need to run <computeroutput>init</computeroutput> yourself - it is started automatically at boot.</para>
+</sect3>
+<sect3 id="init_1installed-systems">
+<title>Installed systems</title><para>When Retro Rocket is installed to a hard disk, the <computeroutput>init</computeroutput> program is just another BASIC program stored under <computeroutput>/programs</computeroutput>. This means you can freely edit it, customise it, and even replace parts of the startup process to suit your own needs.</para>
+</sect3>
+<sect3 id="init_1notes-191">
+<title>Notes</title><para><itemizedlist>
+<listitem><para>On the LiveCD, <computeroutput>init</computeroutput> is fixed.</para>
+</listitem><listitem><para>On an installed system, you are in full control - it’s your startup script.</para>
+</listitem><listitem><para>Be careful: if you remove or break the call to <computeroutput>rocketsh</computeroutput>, you may end up without a shell! </para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+</sect2></sect1>
     </detaileddescription>
     <location file="docpages/user-guide/commands/init.md"/>
   </compounddef>

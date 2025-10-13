@@ -3,6 +3,9 @@
   <compounddef id="commands" kind="page">
     <compoundname>commands</compoundname>
     <title>Commands</title>
+    <innerpage refid="about">about command</innerpage>
+    <innerpage refid="apple">apple command</innerpage>
+    <innerpage refid="bach">bach command</innerpage>
     <innerpage refid="ball">ball Program</innerpage>
     <innerpage refid="cd">cd command</innerpage>
     <innerpage refid="charmap">charmap program</innerpage>
@@ -12,32 +15,66 @@
     <innerpage refid="cpuvendor">cpuvendor command</innerpage>
     <innerpage refid="cube">cube program</innerpage>
     <innerpage refid="delete">delete program</innerpage>
+    <innerpage refid="demo">demo command</innerpage>
     <innerpage refid="dir-full-pathname">dir command</innerpage>
-    <innerpage refid="edit">edit program</innerpage>
+    <innerpage refid="edit">edit command</innerpage>
+    <innerpage refid="envelope_test">envelope_test command</innerpage>
     <innerpage refid="eval">eval command</innerpage>
-    <innerpage refid="fstest">fstest program</innerpage>
-    <innerpage refid="graphicstest">grapicstest program</innerpage>
+    <innerpage refid="free">free command</innerpage>
+    <innerpage refid="fstest">fstest command</innerpage>
+    <innerpage refid="graphicstest">grapicstest command</innerpage>
     <innerpage refid="host">host command</innerpage>
     <innerpage refid="ip">ip command</innerpage>
     <innerpage refid="init">init program</innerpage>
     <innerpage refid="irc">irc program (satellite)</innerpage>
     <innerpage refid="list">list command</innerpage>
     <innerpage refid="mkdir">mkdir command</innerpage>
+    <innerpage refid="modplay">modplay command</innerpage>
+    <innerpage refid="mount">mount command</innerpage>
+    <innerpage refid="mousetest">mousetest command</innerpage>
+    <innerpage refid="musicdemo">musicdemo command</innerpage>
     <innerpage refid="proclist">proclist command</innerpage>
+    <innerpage refid="rick">rick command</innerpage>
     <innerpage refid="rmdir">rmdir command</innerpage>
-    <innerpage refid="rocketsh">rocketsh command (shell)</innerpage>
+    <innerpage refid="rocketsh">rocketsh Command (Shell)</innerpage>
+    <innerpage refid="search">search command</innerpage>
     <innerpage refid="sine">sine program</innerpage>
+    <innerpage refid="servertest">servertest command</innerpage>
     <innerpage refid="socktest">socktest program</innerpage>
+    <innerpage refid="ssltest">ssltest command</innerpage>
     <innerpage refid="test">test program</innerpage>
     <innerpage refid="textcolours">textcolours program</innerpage>
+    <innerpage refid="tree">tree command</innerpage>
     <innerpage refid="triangle">triangle program</innerpage>
+    <innerpage refid="udptest">udptest command</innerpage>
     <innerpage refid="up">up command</innerpage>
     <innerpage refid="version">version command</innerpage>
+    <innerpage refid="webserver">webserver command</innerpage>
+    <innerpage refid="xmtest">xmtest command</innerpage>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
+<para>Retro Rocket includes a set of built-in commands and programs that can be run from the shell prompt. These commands let you explore the system, run demos, manage files, and test hardware features.</para>
+<sect1 id="commands_1using-commands_1s1"><sect2 id="commands_1using-commands_1s2"><sect3 id="commands_1using-commands">
+<title>Using commands</title><para><itemizedlist>
+<listitem><para>At the shell prompt (<computeroutput>&gt;</computeroutput>), type the command name and press <bold>Enter</bold>.</para>
+</listitem><listitem><para>Most commands are lowercase words (e.g. <computeroutput>dir</computeroutput>, <computeroutput>edit</computeroutput>, <computeroutput>ip</computeroutput>).</para>
+</listitem><listitem><para>Some commands run simple demos, others are tools or system utilities.</para>
+</listitem><listitem><para>If a command needs extra information, type it after the command name.</para>
+</listitem></itemizedlist>
+</para>
+<para>Example:</para>
+<para><programlisting><codeline><highlight class="normal">dir</highlight></codeline>
+</programlisting></para>
+<para>This lists the files in the current directory.</para>
+</sect3></sect2></sect1>
+<sect1 id="commands_1command-reference_1s1"><sect2 id="commands_1command-reference_1s2"><sect3 id="commands_1command-reference">
+<title>Command reference</title><para>The following pages describe each command in detail:</para>
 <para><itemizedlist>
-<listitem><para><ref refid="ball" kindref="compound">ball Program</ref></para>
+<listitem><para><ref refid="about" kindref="compound">about command</ref></para>
+</listitem><listitem><para><ref refid="apple" kindref="compound">apple command</ref></para>
+</listitem><listitem><para><ref refid="bach" kindref="compound">bach command</ref></para>
+</listitem><listitem><para><ref refid="ball" kindref="compound">ball Program</ref></para>
 </listitem><listitem><para><ref refid="cd" kindref="compound">cd command</ref></para>
 </listitem><listitem><para><ref refid="charmap" kindref="compound">charmap program</ref></para>
 </listitem><listitem><para><ref refid="chdir" kindref="compound">chdir command</ref></para>
@@ -46,29 +83,45 @@
 </listitem><listitem><para><ref refid="cpuvendor" kindref="compound">cpuvendor command</ref></para>
 </listitem><listitem><para><ref refid="cube" kindref="compound">cube program</ref></para>
 </listitem><listitem><para><ref refid="delete" kindref="compound">delete program</ref></para>
+</listitem><listitem><para><ref refid="demo" kindref="compound">demo command</ref></para>
 </listitem><listitem><para><ref refid="dir-full-pathname" kindref="compound">dir command</ref></para>
-</listitem><listitem><para><ref refid="edit" kindref="compound">edit program</ref></para>
+</listitem><listitem><para><ref refid="edit" kindref="compound">edit command</ref></para>
+</listitem><listitem><para><ref refid="envelope_test" kindref="compound">envelope_test command</ref></para>
 </listitem><listitem><para><ref refid="eval" kindref="compound">eval command</ref></para>
-</listitem><listitem><para><ref refid="fstest" kindref="compound">fstest program</ref></para>
-</listitem><listitem><para><ref refid="graphicstest" kindref="compound">grapicstest program</ref></para>
+</listitem><listitem><para><ref refid="free" kindref="compound">free command</ref></para>
+</listitem><listitem><para><ref refid="fstest" kindref="compound">fstest command</ref></para>
+</listitem><listitem><para><ref refid="graphicstest" kindref="compound">grapicstest command</ref></para>
 </listitem><listitem><para><ref refid="host" kindref="compound">host command</ref></para>
 </listitem><listitem><para><ref refid="ip" kindref="compound">ip command</ref></para>
-</listitem><listitem><para><ref refid="init" kindref="compound">init program</ref></para>
+</listitem><listitem><para><ref refid="init_1init" kindref="member">init</ref></para>
 </listitem><listitem><para><ref refid="irc" kindref="compound">irc program (satellite)</ref></para>
 </listitem><listitem><para><ref refid="list" kindref="compound">list command</ref></para>
 </listitem><listitem><para><ref refid="mkdir" kindref="compound">mkdir command</ref></para>
+</listitem><listitem><para><ref refid="modplay" kindref="compound">modplay command</ref></para>
+</listitem><listitem><para><ref refid="glossary_1mount" kindref="member">Mount</ref></para>
+</listitem><listitem><para><ref refid="mousetest" kindref="compound">mousetest command</ref></para>
+</listitem><listitem><para><ref refid="musicdemo" kindref="compound">musicdemo command</ref></para>
 </listitem><listitem><para><ref refid="proclist" kindref="compound">proclist command</ref></para>
+</listitem><listitem><para><ref refid="rick_1rick" kindref="member">rick</ref></para>
 </listitem><listitem><para><ref refid="rmdir" kindref="compound">rmdir command</ref></para>
-</listitem><listitem><para><ref refid="rocketsh" kindref="compound">rocketsh command (shell)</ref></para>
+</listitem><listitem><para><ref refid="rocketsh" kindref="compound">rocketsh Command (Shell)</ref></para>
+</listitem><listitem><para><ref refid="search" kindref="compound">search command</ref></para>
 </listitem><listitem><para><ref refid="sine" kindref="compound">sine program</ref></para>
+</listitem><listitem><para><ref refid="servertest_1servertest" kindref="member">servertest</ref></para>
 </listitem><listitem><para><ref refid="socktest" kindref="compound">socktest program</ref></para>
+</listitem><listitem><para><ref refid="ssltest_1ssltest" kindref="member">ssltest</ref></para>
 </listitem><listitem><para><ref refid="test" kindref="compound">test program</ref></para>
 </listitem><listitem><para><ref refid="textcolours" kindref="compound">textcolours program</ref></para>
+</listitem><listitem><para><ref refid="tree" kindref="compound">tree command</ref></para>
 </listitem><listitem><para><ref refid="triangle" kindref="compound">triangle program</ref></para>
+</listitem><listitem><para><ref refid="udptest_1udptest" kindref="member">udptest</ref></para>
 </listitem><listitem><para><ref refid="up" kindref="compound">up command</ref></para>
-</listitem><listitem><para><ref refid="version" kindref="compound">version command</ref> </para>
+</listitem><listitem><para><ref refid="version" kindref="compound">version command</ref></para>
+</listitem><listitem><para><ref refid="webserver_1webserver" kindref="member">webserver</ref></para>
+</listitem><listitem><para><ref refid="xmtest" kindref="compound">xmtest command</ref> </para>
 </listitem></itemizedlist>
 </para>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/user-guide/commands/08_INDEX.md"/>
   </compounddef>

@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="tree" kind="page">
+    <compoundname>tree</compoundname>
+    <title>tree command</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<sect1 id="tree_1tree-directory_1s1"><sect2 id="tree_1tree-directory">
+<title>tree [directory]</title><para>Displays a directory and all its subdirectories in a tree-like view. This makes it easy to see the structure of the file system at a glance.</para>
+<sect3 id="tree_1what-it-does-3">
+<title>What it does</title><para><itemizedlist>
+<listitem><para>Starts at the given directory (or the current directory if none is given).</para>
+</listitem><listitem><para>Recursively lists all subdirectories and files.</para>
+</listitem><listitem><para>Uses branches (<computeroutput>├──</computeroutput>, <computeroutput>└──</computeroutput>, <computeroutput>│</computeroutput>) to show hierarchy.</para>
+</listitem><listitem><para>Prints a summary at the end with the total number of directories and files.</para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+<sect3 id="tree_1usage-3">
+<title>Usage</title><para><programlisting><codeline><highlight class="normal">tree</highlight></codeline>
+<codeline><highlight class="normal">tree<sp/>/programs</highlight></codeline>
+<codeline><highlight class="normal">tree<sp/>/system/webserver</highlight></codeline>
+</programlisting></para>
+<para><image type="html" name="tree.png"></image>
+</para>
+</sect3>
+<sect3 id="tree_1notes-196">
+<title>Notes</title><para><itemizedlist>
+<listitem><para>If no directory is specified, <computeroutput>tree</computeroutput> starts at the current working directory.</para>
+</listitem><listitem><para>If the current directory is empty, nothing is printed except the summary.</para>
+</listitem><listitem><para>Works with any mounted filesystem, including <computeroutput>/ramdisk</computeroutput>. </para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+</sect2></sect1>
+    </detaileddescription>
+    <location file="docpages/user-guide/commands/tree.md"/>
+  </compounddef>
+</doxygen>

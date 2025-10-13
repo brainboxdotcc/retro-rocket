@@ -163,10 +163,10 @@
 <para>Generates and plays a tone on the fly. This does not use a sound handle; the waveform is synthesised directly into the stream.</para>
 <para>Parameters:</para>
 <para><itemizedlist>
-<listitem><para><bold>stream</bold> — Stream to play into.</para>
-</listitem><listitem><para><bold>frequency</bold> — Pitch in Hz (e.g. <computeroutput>440</computeroutput> for concert A).</para>
-</listitem><listitem><para><bold>duration</bold> — Length of the note in centiseconds (1/100th of a second).</para>
-</listitem><listitem><para><bold>envelope</bold> (optional) — Envelope slot (0–63) previously defined with <ref refid="ENVELOPE" kindref="compound">ENVELOPE CREATE</ref>. If omitted, the tone plays raw with no shaping.</para>
+<listitem><para><bold>stream</bold> - Stream to play into.</para>
+</listitem><listitem><para><bold>frequency</bold> - Pitch in Hz (e.g. <computeroutput>440</computeroutput> for concert A).</para>
+</listitem><listitem><para><bold>duration</bold> - Length of the note in centiseconds (1/100th of a second).</para>
+</listitem><listitem><para><bold>envelope</bold> (optional) - Envelope slot (0–63) previously defined with <ref refid="ENVELOPE" kindref="compound">ENVELOPE CREATE</ref>. If omitted, the tone plays raw with no shaping.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>Notes</bold></para>

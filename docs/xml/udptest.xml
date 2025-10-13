@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="udptest" kind="page">
+    <compoundname>udptest</compoundname>
+    <title>udptest</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<sect1 id="udptest_1udptest_1s1"><sect2 id="udptest_1udptest">
+<title>udptest</title><para>Demonstrates sending and receiving data using UDP sockets. It binds to a local port, sends a packet, waits for a response, and prints the result.</para>
+<sect3 id="udptest_1what-it-does-4">
+<title>What it does</title><para><itemizedlist>
+<listitem><para>Binds to <computeroutput>127.0.0.1:9999</computeroutput>.</para>
+</listitem><listitem><para>Sends the string <computeroutput>&quot;HI&quot;</computeroutput> to port 9999.</para>
+</listitem><listitem><para>Waits until a packet is received.</para>
+</listitem><listitem><para>Prints the source IP, source port, and the packet contents.</para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+<sect3 id="udptest_1usage-4">
+<title>Usage</title><para><programlisting><codeline><highlight class="normal">udptest</highlight></codeline>
+</programlisting></para>
+</sect3>
+<sect3 id="udptest_1example-output">
+<title>Example output</title><para><programlisting><codeline><highlight class="normal">BIND</highlight></codeline>
+<codeline><highlight class="normal">WRITE</highlight></codeline>
+<codeline><highlight class="normal">READ</highlight></codeline>
+<codeline><highlight class="normal">GET<sp/>IP</highlight></codeline>
+<codeline><highlight class="normal">GET<sp/>PORT</highlight></codeline>
+<codeline><highlight class="normal">9999<sp/>127.0.0.1<sp/>HI</highlight></codeline>
+</programlisting></para>
+</sect3>
+<sect3 id="udptest_1notes-197">
+<title>Notes</title><para><itemizedlist>
+<listitem><para>This is a self-test: it sends to and reads from the same local port.</para>
+</listitem><listitem><para>Useful as a demo of UDP networking functions in Retro Rocket BASIC.</para>
+</listitem><listitem><para>Output will vary if packets are received from other hosts or ports. </para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+</sect2></sect1>
+    </detaileddescription>
+    <location file="docpages/user-guide/commands/udptest.md"/>
+  </compounddef>
+</doxygen>

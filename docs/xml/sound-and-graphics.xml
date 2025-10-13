@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="sound-and-graphics" kind="page">
+    <compoundname>sound-and-graphics</compoundname>
+    <title>Sound and Graphics</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Retro Rocket includes built-in support for both sound and graphics. You don’t need to install drivers or change any settings — everything is automatic.</para>
+<para><hruler/>
+</para>
+<sect1 id="sound-and-graphics_1graphics_1s1"><sect2 id="sound-and-graphics_1graphics_1s2"><sect3 id="sound-and-graphics_1graphics">
+<title>Graphics</title><para><itemizedlist>
+<listitem><para>The system uses your PC’s built-in graphics to display text, colours, and pixel art.</para>
+</listitem><listitem><para>Demos and programs (such as <computeroutput>cube</computeroutput>, <computeroutput>graphicstest</computeroutput>, or <computeroutput>demo</computeroutput>) can draw directly to the screen.</para>
+</listitem><listitem><para>Resolution and colour depth are detected at boot and just work.</para>
+</listitem><listitem><para>There is no need to configure graphics drivers.</para>
+</listitem></itemizedlist>
+</para>
+</sect3></sect2></sect1>
+<sect1 id="sound-and-graphics_1sound_1s1"><sect2 id="sound-and-graphics_1sound_1s2"><sect3 id="sound-and-graphics_1sound">
+<title>Sound</title><para><itemizedlist>
+<listitem><para>If your PC has a supported sound chip (AC’97 or HDA), music and sound effects play automatically.</para>
+</listitem><listitem><para>Programs can use <computeroutput>SOUND</computeroutput>, <computeroutput>ENVELOPE</computeroutput>, and other BASIC keywords to generate tones or play tracker modules.</para>
+</listitem><listitem><para>Demo programs like <computeroutput>bach</computeroutput>, <computeroutput>musicdemo</computeroutput>, and <computeroutput>modplay</computeroutput> show off the audio system.</para>
+</listitem><listitem><para>If no sound device is present, programs still run - you just won’t hear audio output.</para>
+</listitem></itemizedlist>
+</para>
+</sect3></sect2></sect1>
+<sect1 id="sound-and-graphics_1notes-202_1s1"><sect2 id="sound-and-graphics_1notes-202_1s2"><sect3 id="sound-and-graphics_1notes-202">
+<title>Notes</title><para><itemizedlist>
+<listitem><para>Retro Rocket is focused on simplicity: sound and graphics are built-in parts of the system, not add-ons.</para>
+</listitem><listitem><para>Demos and examples are the easiest way to see (and hear) what the system can do.</para>
+</listitem><listitem><para>Advanced users can also explore writing their own audio and graphics programs in BASIC. </para>
+</listitem></itemizedlist>
+</para>
+</sect3></sect2></sect1>
+    </detaileddescription>
+    <location file="docpages/user-guide/sound-and-graphics.md"/>
+  </compounddef>
+</doxygen>

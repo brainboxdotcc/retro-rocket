@@ -8,7 +8,7 @@
     <detaileddescription>
 <para><programlisting><codeline><highlight class="normal">cpuid<sp/>[leaf<sp/>number]</highlight></codeline>
 </programlisting> Retrieve CPUID information from the processor. See The documentation of CPUID for more information.</para>
-<para><image type="html" name="https://github.com/brainboxdotcc/retro-rocket/assets/1556794/523b5f5b-510e-4a91-a210-71eae0021fb4" alt="image" inline="yes"></image>
+<para><image type="html" name="cpuvendor.png"></image>
 </para>
 <sect1 id="cpuid_1cpuid-leaf-values_1s1"><sect2 id="cpuid_1cpuid-leaf-values_1s2"><sect3 id="cpuid_1cpuid-leaf-values">
 <title>CPUID Leaf Values</title><para><table rows="27" cols="4"><row>
@@ -19,25 +19,25 @@
 </entry></row>
 <row>
 <entry thead="no"><para><bold>0</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>Highest Standard Function</bold> and <bold>Vendor ID String</bold>. Returns the maximum supported standard leaf in EAX, and the vendor string across EBX, EDX, and ECX.  </para>
 </entry><entry thead="no"><para>Example vendor strings: <computeroutput>&quot;GenuineIntel&quot;</computeroutput>, <computeroutput>&quot;AuthenticAMD&quot;</computeroutput>.  </para>
 </entry></row>
 <row>
 <entry thead="no"><para><bold>1</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>Processor Information and Feature Bits.</bold> Reports family, model, stepping, and feature flags such as SSE, AVX, FPU, MMX, etc.  </para>
 </entry><entry thead="no"><para>EAX: version info; EBX: logical cores; ECX/EDX: feature flags.  </para>
 </entry></row>
 <row>
 <entry thead="no"><para><bold>2</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>Cache and TLB Descriptor Information.</bold> Legacy format describing cache/TLB layout. Superseded by leaf 4.  </para>
 </entry><entry thead="no"><para>Used on older Intel CPUs.  </para>
 </entry></row>
 <row>
 <entry thead="no"><para><bold>3</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>Processor Serial Number.</bold> Deprecated and often disabled for privacy reasons.  </para>
 </entry><entry thead="no"><para>Rarely supported.  </para>
 </entry></row>
@@ -49,13 +49,13 @@
 </entry></row>
 <row>
 <entry thead="no"><para><bold>5</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>MONITOR/MWAIT Parameters.</bold> Reports monitor-line size and power hints.  </para>
 </entry><entry thead="no"><para>Used in power-management routines.  </para>
 </entry></row>
 <row>
 <entry thead="no"><para><bold>6</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>Thermal and Power Management.</bold> Indicates turbo boost, energy-performance bias, etc.  </para>
 </entry><entry thead="no"><para>Features vary by generation.  </para>
 </entry></row>
@@ -67,19 +67,19 @@
 </entry></row>
 <row>
 <entry thead="no"><para><bold>8</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>Reserved (Intel).</bold>  </para>
 </entry><entry thead="no"><para>Typically returns zeros.  </para>
 </entry></row>
 <row>
 <entry thead="no"><para><bold>9</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>Direct Cache Access (DCA) Capabilities.</bold>  </para>
 </entry><entry thead="no"><para>Rarely used outside servers.  </para>
 </entry></row>
 <row>
 <entry thead="no"><para><bold>10</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>Architectural Performance Monitoring.</bold> Gives number and width of performance counters.  </para>
 </entry><entry thead="no"><para>Used for profiling/perf events.  </para>
 </entry></row>
@@ -91,7 +91,7 @@
 </entry></row>
 <row>
 <entry thead="no"><para><bold>12</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>SGX Capability Reporting.</bold>  </para>
 </entry><entry thead="no"><para>Secure Guard Extensions (if supported).  </para>
 </entry></row>
@@ -103,19 +103,19 @@
 </entry></row>
 <row>
 <entry thead="no"><para><bold>14</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>Intel Processor Trace.</bold>  </para>
 </entry><entry thead="no"><para>Reports tracing feature support.  </para>
 </entry></row>
 <row>
 <entry thead="no"><para><bold>15</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>Time Stamp Counter and Crystal Clock Relationship.</bold>  </para>
 </entry><entry thead="no"><para>Defines TSC/core crystal frequency ratio.  </para>
 </entry></row>
 <row>
 <entry thead="no"><para><bold>16</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>Processor Frequency Information.</bold>  </para>
 </entry><entry thead="no"><para>Base, max, and bus ratio in MHz.  </para>
 </entry></row>
@@ -139,37 +139,37 @@
 </entry></row>
 <row>
 <entry thead="no"><para><bold>20–23</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>Reserved.</bold>  </para>
 </entry><entry thead="no"><para>May be vendor-specific.  </para>
 </entry></row>
 <row>
 <entry thead="no"><para><bold>24</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>AMD SEV / Memory Encryption Capabilities.</bold>  </para>
 </entry><entry thead="no"><para>Only valid on AMD CPUs.  </para>
 </entry></row>
 <row>
 <entry thead="no"><para><bold>25</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>AMD Performance and Debug Features.</bold>  </para>
 </entry><entry thead="no"><para>Implementation-specific.  </para>
 </entry></row>
 <row>
 <entry thead="no"><para><bold>26–29</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>Reserved.</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry></row>
 <row>
 <entry thead="no"><para><bold>30</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>IA32 Architectural Capabilities.</bold>  </para>
 </entry><entry thead="no"><para>Provides details on RDPID, SGX, etc.  </para>
 </entry></row>
 <row>
 <entry thead="no"><para><bold>31</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>AVX10 and Architectural Future Extensions.</bold>  </para>
 </entry><entry thead="no"><para>(Newer CPUs only.)  </para>
 </entry></row>
@@ -187,73 +187,73 @@
 </entry></row>
 <row>
 <entry thead="no"><para><bold>2147483648</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>Highest Extended Function Supported.</bold>  </para>
 </entry><entry thead="no"><para>Returns maximum extended leaf.  </para>
 </entry></row>
 <row>
 <entry thead="no"><para><bold>2147483649</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>Processor Brand String (part 1).</bold>  </para>
 </entry><entry thead="no"><para>ASCII characters in registers.  </para>
 </entry></row>
 <row>
 <entry thead="no"><para><bold>2147483650</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>Processor Brand String (part 2).</bold>  </para>
 </entry><entry thead="no"><para>Concatenate with other parts.  </para>
 </entry></row>
 <row>
 <entry thead="no"><para><bold>2147483651</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>Processor Brand String (part 3).</bold>  </para>
 </entry><entry thead="no"><para>Full readable brand string.  </para>
 </entry></row>
 <row>
 <entry thead="no"><para><bold>2147483652</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>Extended Features (AMD).</bold>  </para>
 </entry><entry thead="no"><para>Reports long mode (64-bit), NX, etc.  </para>
 </entry></row>
 <row>
 <entry thead="no"><para><bold>2147483653</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>AMD Brand ID and Feature Extensions.</bold>  </para>
 </entry><entry thead="no"><para>Reports 3DNow!+, LZCNT, etc.  </para>
 </entry></row>
 <row>
 <entry thead="no"><para><bold>2147483654</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>AMD Advanced Power Management Info.</bold>  </para>
 </entry><entry thead="no"><para>Frequency, voltage hints.  </para>
 </entry></row>
 <row>
 <entry thead="no"><para><bold>2147483655</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>AMD Lightweight Profiling (LWP).</bold>  </para>
 </entry><entry thead="no"><para>Low-overhead performance monitoring.  </para>
 </entry></row>
 <row>
 <entry thead="no"><para><bold>2147483656</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>AMD Cache Topology and Address Translation.</bold>  </para>
 </entry><entry thead="no"><para>Page size and cache info.  </para>
 </entry></row>
 <row>
 <entry thead="no"><para><bold>2147483657</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>AMD Processor Capacity / Die Identification.</bold>  </para>
 </entry><entry thead="no"><para>Used for multi-chip packages.  </para>
 </entry></row>
 <row>
 <entry thead="no"><para><bold>2147483658</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>AMD Encryption and Secure Memory Features.</bold>  </para>
 </entry><entry thead="no"><para>SME, SEV, SEV-ES flags.  </para>
 </entry></row>
 <row>
 <entry thead="no"><para><bold>2147483659+</bold>  </para>
-</entry><entry thead="no"><para>—  </para>
+</entry><entry thead="no"><para>-  </para>
 </entry><entry thead="no"><para><bold>Reserved or Vendor-Specific Extensions.</bold>  </para>
 </entry><entry thead="no"><para>Future-use space.  </para>
 </entry></row>

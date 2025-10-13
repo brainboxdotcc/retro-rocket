@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="saving-your-work" kind="page">
+    <compoundname>saving-your-work</compoundname>
+    <title>Saving your work</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Retro Rocket gives you places to store your own programs, experiments, and files. Where you save depends on whether you are running from the LiveCD or from an installed system.</para>
+<para><hruler/>
+</para>
+<sect1 id="saving-your-work_1livecd-mode_1s1"><sect2 id="saving-your-work_1livecd-mode_1s2"><sect3 id="saving-your-work_1livecd-mode">
+<title>LiveCD mode</title><para>When running from the LiveCD, the main system files are read-only. To give you a place to work, Retro Rocket automatically creates a <bold>RAM disk</bold> at <computeroutput>/ramdisk</computeroutput>.</para>
+<para><itemizedlist>
+<listitem><para>The RAM disk is about <bold>1 GB</bold> in size.</para>
+</listitem><listitem><para>You can save BASIC programs, text files, or other data here.</para>
+</listitem><listitem><para>Anything stored in the RAM disk will be lost when the machine is rebooted or powered off.</para>
+</listitem></itemizedlist>
+</para>
+<para>This makes <computeroutput>/ramdisk</computeroutput> a <bold>scratch area</bold>: safe to play with, without touching your hard disk.</para>
+<para><hruler/>
+</para>
+</sect3></sect2></sect1>
+<sect1 id="saving-your-work_1installed-system_1s1"><sect2 id="saving-your-work_1installed-system_1s2"><sect3 id="saving-your-work_1installed-system">
+<title>Installed system</title><para>When Retro Rocket is installed to a hard disk or SSD:</para>
+<para><itemizedlist>
+<listitem><para>You can save files <bold>anywhere</bold> you like (for example in <computeroutput>/programs</computeroutput> for your own BASIC programs).</para>
+</listitem><listitem><para>The RAM disk <computeroutput>/ramdisk</computeroutput> is still available if you want temporary space.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3></sect2></sect1>
+<sect1 id="saving-your-work_1notes-201_1s1"><sect2 id="saving-your-work_1notes-201_1s2"><sect3 id="saving-your-work_1notes-201">
+<title>Notes</title><para><itemizedlist>
+<listitem><para>If you want to keep your work between reboots on a LiveCD, copy your files to another machine over the network before shutting down.</para>
+</listitem><listitem><para>On an installed system, your changes are permanent and stored on the hard disk automatically. </para>
+</listitem></itemizedlist>
+</para>
+</sect3></sect2></sect1>
+    </detaileddescription>
+    <location file="docpages/user-guide/saving-your-work.md"/>
+  </compounddef>
+</doxygen>
