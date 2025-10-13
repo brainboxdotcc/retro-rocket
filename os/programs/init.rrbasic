@@ -10,6 +10,9 @@ MOUNT "/boot", "hd0", "fat32"
 PROCmessage("Setting", "keymap")
 KEYMAP "qemu"
 
+RD$ = EMPTYRAMDISK$(1024)
+MOUNT "/ramdisk", RD$, "rfs"
+
 SPRITELOAD rocky,"/images/boot.png"
 PLOT rocky, GRAPHICS_WIDTH - 128 - 16, 8
 SCROLLREGION 0, 16
