@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="mount-command" kind="page">
+    <compoundname>mount-command</compoundname>
+    <title>mount command</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<sect1 id="mount-command_1mount-directory-storage-device-name-filesystem-type_1s1"><sect2 id="mount-command_1mount-directory-storage-device-name-filesystem-type">
+<title>mount [directory] [storage-device-name] [filesystem-type]</title><para>Attaches a file system on a storage device to the visible set of directories and files you can see and work with.</para>
+<para>Think of mounting a filesystem like plugging in something to a power outlet. Once you have plugged it in and turned it on, it is available to use. This is basically how file systems work.</para>
+<para><itemizedlist>
+<listitem><para>The first parameter is the directory, this can be any existing empty directory in the file system. For example /harddisk, /ramdisk, etc.</para>
+</listitem><listitem><para>The second parameter is a storage device name. Storage device names are allocated by the system. Hard disks (SATA, NVMe etc) start with <computeroutput>hd</computeroutput> and are suffixed by number starting at 0, so the first found hard disk is <computeroutput>hd0</computeroutput>, the next <computeroutput>hd1</computeroutput> etc. Ram disks start with <computeroutput>ram</computeroutput> amd a number. CD/DVD drives start with <computeroutput>cd</computeroutput> and a number.</para>
+</listitem><listitem><para>The third parameter is a filesystem type, supported file system types are listed below.</para>
+</listitem></itemizedlist>
+</para>
+<para><table rows="6" cols="3"><row>
+<entry thead="yes"><para>File system type  </para>
+</entry><entry thead="yes"><para>Full name  </para>
+</entry><entry thead="yes"><para>Description  </para>
+</entry></row>
+<row>
+<entry thead="no"><para>rfs  </para>
+</entry><entry thead="no"><para>RetroFS, the Retro Rocket native file system  </para>
+</entry><entry thead="no"><para>Readable, writeable file system for large hard disks, e.g. NVMe, SATA. The default file system type for fixed disks and ramdisks  </para>
+</entry></row>
+<row>
+<entry thead="no"><para>iso9660  </para>
+</entry><entry thead="no"><para>ISO 9660 file system for CDs and DVDs  </para>
+</entry><entry thead="no"><para>Read-only file system mainly for CDs and DVDs. The default file system of the Retro Rocket LiveCD  </para>
+</entry></row>
+<row>
+<entry thead="no"><para>fat32  </para>
+</entry><entry thead="no"><para>FAT32 DOS and Windows file system  </para>
+</entry><entry thead="no"><para>Readable, writeable file system used for removable media, and the recovery/boot partition of installed systems  </para>
+</entry></row>
+<row>
+<entry thead="no"><para>devfs  </para>
+</entry><entry thead="no"><para>Device tree file system  </para>
+</entry><entry thead="no"><para>Readable, writeable file system which device drivers may use to expose device-specific information and control surfaces. *  </para>
+</entry></row>
+<row>
+<entry thead="no"><para>dummyfs  </para>
+</entry><entry thead="no"><para>Dummy File System  </para>
+</entry><entry thead="no"><para>The dummy file system does nothing, you cannot read or write to it. It is the placeholder for everything until the system boots  </para>
+</entry></row>
+</table>
+</para>
+<para><itemizedlist>
+<listitem><para>For <computeroutput>devfs</computeroutput>, you cannot create arbitrary files in this file system. Your ability to read from, or write to the files in this directory depends on the behaviour of the driver which places the file there.</para>
+</listitem></itemizedlist>
+</para>
+<sect3 id="mount-command_1example-15">
+<title>Example</title><para><programlisting><codeline><highlight class="normal">mount<sp/>/harddisk<sp/>hd0<sp/>rfs</highlight></codeline>
+</programlisting></para>
+</sect3>
+<sect3 id="mount-command_1notes-192">
+<title>Notes</title><para><itemizedlist>
+<listitem><para>Mounting a storage device with a file system it is not configured for will result in an error</para>
+</listitem><listitem><para>Unmounting file systems is <bold>not yet supported</bold>. To clear a mounting, it is currently required that you reboot the system. </para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+</sect2></sect1>
+    </detaileddescription>
+    <location file="docpages/user-guide/commands/mount.md"/>
+  </compounddef>
+</doxygen>
