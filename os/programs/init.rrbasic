@@ -10,6 +10,10 @@ MOUNT "/boot", "hd0", "fat32"
 PROCmessage("Setting", "keymap")
 KEYMAP "qemu"
 
+SPRITELOAD rocky,"/images/boot.png"
+PLOT rocky, GRAPHICS_WIDTH - 128 - 16, 8
+SCROLLREGION 0, 16
+
 REPEAT
     PROCmessage("Launching", "shell")
 	CHAIN "/programs/rocketsh"

@@ -3,6 +3,7 @@
  * @brief BASIC file functions
  */
 #include <kernel.h>
+#include "installer.h"
 
 const char* make_full_path(struct basic_ctx* ctx, const char* relative)
 {
@@ -356,12 +357,28 @@ char* basic_ramdisk_from_size(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
-	int64_t blocks = intval;
-	PARAMS_GET_ITEM(BIP_INT);
-	int64_t block_size = intval;
-	PARAMS_END("RAMDISK","");
-	const char* rd = init_ramdisk(blocks, block_size);
+	int64_t device_size_mb = intval;
+	PARAMS_END("EMPTYRAMDISK$","");
+
+	/* A RetroFS device of 512kb is actually usable if you only want literally a couple of files, but we make them have more */
+	if (device_size_mb < 2) {
+		tokenizer_error_printf(ctx, "Ramdisk too small for RetroFS (minimum 2mb)");
+		return "";
+	}
+	/* Can't allocate bigger than free memory, or bigger than half the total memory */
+	if ((uint64_t)device_size_mb * 1024 > get_free_memory() || (uint64_t)device_size_mb * 1024 > get_total_memory() / 2) {
+		tokenizer_error_printf(ctx, "Ramdisk too large");
+		return "";
+	}
+
+	const char* rd = init_ramdisk(device_size_mb * 2048, 512);
 	if (!rd) {
+		tokenizer_error_printf(ctx, "Failed to initialise ramdisk of %lu sectors", device_size_mb * 2048);
+		return "";
+	}
+	storage_device_t* block_device = find_storage_device(rd);
+	if (!prepare_rfs_partition(block_device, false)) {
+		tokenizer_error_printf(ctx, "Failed to format ramdisk '%s'", rd);
 		return "";
 	}
 	return gc_strdup(ctx, rd);

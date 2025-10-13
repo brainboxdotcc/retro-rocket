@@ -250,12 +250,12 @@ char* basic_getname(struct basic_ctx* ctx);
 char* basic_ramdisk_from_device(struct basic_ctx* ctx);
 
 /**
- * @brief Creates a RAM disk with a specified size.
+ * @brief Creates a RAM disk with a specified size and formats it RFS.
  *
- * This function creates a RAM disk with the specified number of blocks and block size, and returns a string identifier.
+ * This function creates a RAM disk with the specified number of blocks and block size, and returns 1 on success
  *
  * @param ctx BASIC interpreter context
- * @return The identifier of the created RAM disk
+ * @return True on success, false on failure
  */
 char* basic_ramdisk_from_size(struct basic_ctx* ctx);
 

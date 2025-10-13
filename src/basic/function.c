@@ -142,7 +142,7 @@ struct basic_str_fn builtin_str[] =
 	{ basic_netinfo,             "NETINFO$"      },
 	{ basic_itoa,                "RADIX$"        },
 	{ basic_ramdisk_from_device, "RAMDISK$"      },
-	{ basic_ramdisk_from_size,   "RAMDISK"       },
+	{ basic_ramdisk_from_size,   "EMPTYRAMDISK$" },
 	{ basic_readstring,          "READ$"         },
 	{ basic_repeat,              "REP$"          },
 	{ basic_reverse,             "REVERSE$"      },

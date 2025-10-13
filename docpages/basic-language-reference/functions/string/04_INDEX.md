@@ -7,6 +7,7 @@ The following functions return or manipulate **string values** in Retro Rocket B
 * \subpage CSD
 * \subpage DATE
 * \subpage DNS
+* \subpage EMPTYRAMDISK
 * \subpage FILETYPE
 * \subpage GETNAME
 * \subpage GETPROCNAME

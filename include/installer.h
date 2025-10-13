@@ -265,9 +265,10 @@ void copy_userland(const char* devname);
  * @brief Locate and format the first GPT RetroFS partition
  *
  * @param dev Target storage device
+ * @param noisy Display installer UX
  * @return true on success, false on failure
  */
-bool prepare_rfs_partition(storage_device_t* dev);
+bool prepare_rfs_partition(storage_device_t* dev, bool noisy);
 
 /**
  * @brief Summarise existing content on a device for the installer

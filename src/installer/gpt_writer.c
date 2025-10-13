@@ -286,11 +286,11 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 	/* Optional sanity: ensure we wrote at least esp_bytes (rounded up), but do not error on padding. */
 	/* (omitted for minimalism; GPT already reserves esp_sectors) */
 
-	return prepare_rfs_partition(dev);
+	return prepare_rfs_partition(dev, true);
 }
 
 
-bool prepare_rfs_partition(storage_device_t* dev) {
+bool prepare_rfs_partition(storage_device_t* dev, bool noisy) {
 	bool success = false;
 	uint8_t partitionid = 0;
 	char found_guid[64];
@@ -302,25 +302,36 @@ bool prepare_rfs_partition(storage_device_t* dev) {
 	uint64_t start = 0, length = 0;
 	info->dev = dev;
 
-	display_progress("Formatting RetroFS partition (step 2 of 3)", 33);
-
-	/* Find the RFS partition on the device */
-	if (!find_partition_of_type(dev->name, 0xFF, found_guid, RFS_GPT_GUID, &partitionid, &start, &length)) {
-		error_page("Could not find the created RFS to format it on %s", dev->name);
-	} else {
-		info->start = start;
-		info->length = length;
-		info->total_sectors = length;
-		/* 0xFF means we got a GPT partition not MBR partition; only GPT partitions are supported for RFS. */
-		if (partitionid == 0xFF) {
-			success = rfs_format(info);
-		}
+	if (noisy) {
+		display_progress("Formatting RetroFS partition (step 2 of 3)", 33);
 	}
 
-	if (success) {
-		display_progress("RFS on device %s formatted successfully", 44);
+	/* Find the RFS partition on the device */
+	if (noisy) {
+		if (!find_partition_of_type(dev->name, 0xFF, found_guid, RFS_GPT_GUID, &partitionid, &start, &length)) {
+			error_page("Could not find the created RFS to format it on %s", dev->name);
+		} else {
+			info->start = start;
+			info->length = length;
+			info->total_sectors = length;
+			/* 0xFF means we got a GPT partition not MBR partition; only GPT partitions are supported for RFS. */
+			if (partitionid == 0xFF) {
+				success = rfs_format(info);
+			}
+		}
 	} else {
-		error_page("Failed to format RFS on device %s", dev->name);
+		info->start = 0;
+		info->length = dev->size / dev->block_size;
+		info->total_sectors = dev->size / dev->block_size;
+		success = rfs_format(info);
+	}
+
+	if (noisy) {
+		if (success) {
+			display_progress("RFS on device %s formatted successfully", 44);
+		} else {
+			error_page("Failed to format RFS on device %s", dev->name);
+		}
 	}
 	kfree_null(&info);
 	return success;
