@@ -2,43 +2,9 @@ REM Socket test
 
 LIBRARY LIB$ + "/http"
 
-DIM test$, 6
-test$(0) = "https://user:pass@example.com:8443/some/path/file.txt?x=1&y=2#frag"
-test$(1) = "http://example.org"
-test$(2) = "//cdn.example.net/assets/app.js?v=42"
-test$(3) = "/rooted/path?only=param"
-test$(4) = "example.com:8080/no/scheme"
-test$(5) = "http://[2001:db8::1]:8080/a/b?alpha=A&gamma=C#sec2"
-
-FOR i = 0 TO 5
-    PRINT "URL: "; test$(i)
-    PRINT "scheme= "; FN_url_scheme$(test$(i));
-    PRINT " host= "; FN_url_host$(test$(i));
-    PRINT " port= "; FN_url_port(test$(i));
-    PRINT " path= "; FN_url_path$(test$(i));
-    PRINT " query= "; FN_url_query$(test$(i));
-    PRINT " anchor= "; FN_url_anchor$(test$(i));
-    PRINT " param[x]= "; FN_url_param$(test$(i), "x")
-    PRINT ""
-NEXT
-
-
-HOST$ = "neuron.brainbox.cc"
-PRINT "Connecting to "; HOST$; " ";
-IP$ = DNS$(HOST$)
-PRINT " (IP: "; IP$; ")... ";
-
-CONNECT FD, IP$, 80
-PRINT "Connected! Socket descriptor="; FD
-
-SOCKWRITE FD, "GET /test.txt HTTP/1.1"; CHR$(13); CHR$(10); "Host: "; IP$; CHR$(13); CHR$(10); CHR$(13); CHR$(10);
-
-SOCKREAD FD, TEST$
-PRINT TEST$
-
-PRINT "CLOSING"
-SOCKCLOSE FD
-
-PRINT "CLOSED"
+PROChttp_get("http://neuron.brainbox.cc/test.txt")
+PRINT "HTTP status code: "; FNhttp_result$("code")
+PRINT "Response body:"
+PRINT FNhttp_result$("body")
 
 END

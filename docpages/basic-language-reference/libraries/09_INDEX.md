@@ -11,4 +11,5 @@ To view details of each library, see its dedicated page in the navigation.
 ### Available Libraries
 
 * \subpage ansi
+* \subpage http
 * \subpage mouse

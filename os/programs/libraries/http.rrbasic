@@ -1,175 +1,290 @@
 DEF PROChttp
 ENDPROC
 
-REM ---- scheme --------------------------------
-DEF FN_url_scheme$(url$)
-_http_ok = 0
-_http_s$ = ""
-MATCH _http_ok, "^([A-Za-z][A-Za-z0-9+.-]*)://", url$, _http_s$
-
-IF _http_ok = 1 THEN
-  = _http_s$
-ENDIF
-= ""
-
-REM ---- anchor --------------------------------
-DEF FN_url_anchor$(url$)
-_http_ok = 0
-_http_a$ = ""
-MATCH _http_ok, "#(.*)$", url$, _http_a$
-IF _http_ok = 1 THEN
-  = _http_a$
-ENDIF
-= ""
-
-REM ---- query (raw) ---------------------------
-DEF FN_url_query$(url$)
-_http_ok = 0
-_http_q$ = ""
-REM scheme or protocol-relative or bare host/path
-MATCH _http_ok, "^\w+://[^?#]*\?([^#]*)", url$, _http_q$
-IF _http_ok = 1 THEN
-  = _http_q$
-ENDIF
-MATCH _http_ok, "^//[^?#]*\?([^#]*)", url$, _http_q$
-IF _http_ok = 1 THEN
-  = _http_q$
-ENDIF
-MATCH _http_ok, "^[^?#]*\?([^#]*)", url$, _http_q$
-IF _http_ok = 1 THEN
-  = _http_q$
-ENDIF
-= ""
-
-DEF FN_url_path$(url$)
-_http_ok = 0
-_http_path$ = ""
-MATCH _http_ok, "^[[:alpha:]][[:alnum:]+.-]*://[^/?#]*/([^?#]*)", url$, _http_path$
-IF _http_ok = 1 THEN
-  = "/" + _http_path$
-ENDIF
-_http_ok = 0
-_http_path$ = ""
-MATCH _http_ok, "^//[^/?#]*/([^?#]*)", url$, _http_path$
-IF _http_ok = 1 THEN
-  = "/" + _http_path$
-ENDIF
-_http_ok = 0
-_http_path$ = ""
-MATCH _http_ok, "^(/[^?#]*)", url$, _http_path$
-IF _http_ok = 1 THEN
-  = _http_path$
-ENDIF
-_http_ok = 0
-_http_path$ = ""
-MATCH _http_ok, "^((\[[^]]+\])|([^/?#:]+(\.[^/?#:]+)+))(:[0-9]+)?/([^?#]*)", url$, _http_tmp1$, _http_tmp2$, _http_tmp3$, _http_tmp4$, _http_tmp5$, _http_path$
-IF _http_ok = 1 THEN
-  = "/" + _http_path$
-ENDIF
-_http_ok = 0
-MATCH _http_ok, "^[[:alpha:]][[:alnum:]+.-]*://[^/?#]+$", url$, _http_tmp1$
-IF _http_ok = 1 THEN
-  = "/"
-ENDIF
-_http_ok = 0
-MATCH _http_ok, "^//[^/?#]+$", url$, _http_tmp1$
-IF _http_ok = 1 THEN
-  = "/"
-ENDIF
-= ""
-
-DEF FN__authority$(url$)
-_http_ok = 0
-_http_auth$ = ""
-MATCH _http_ok, "^[[:alpha:]][[:alnum:]+.-]*://([^/?#]*)", url$, _http_auth$
-IF _http_ok = 1 THEN
-  = _http_auth$
-ENDIF
-
-_http_ok = 0
-_http_auth$ = ""
-MATCH _http_ok, "^//([^/?#]*)", url$, _http_auth$
-IF _http_ok = 1 THEN
-  = _http_auth$
-ENDIF
-
-REM bare host (requires dot or bracketed IPv6), optional :port; capture the whole authority
-_http_ok = 0
-_http_auth$ = ""
-MATCH _http_ok, "^((\[[^]]+\]|[^/?#:]+(\.[^/?#:]+)+)(:[0-9]+)?)", url$, _http_auth$
-IF _http_ok = 1 THEN
-  = _http_auth$
-ENDIF
-= ""
-
-REM ---- host ----------------------------------
-DEF FN_url_host$(url$)
-_http_auth$ = FN__authority$(url$)
-IF _http_auth$ = "" THEN
-  = ""
-ENDIF
-_http_ok = 0
-_http_user$ = ""
-_http_host$ = ""
-_http_colon$ = ""
-_http_port$ = ""
-MATCH _http_ok, "^(.*@)?(\[[^]]+\]|[^:]+)(:([0-9]+))?$", _http_auth$, _http_user$, _http_host$, _http_colon$, _http_port$
-IF _http_ok = 1 THEN
-  = _http_host$
-ENDIF
-= ""
-
-REM ---- port (explicit or default) ------------
-DEF FN_url_port(url$)
-_http_auth$ = FN__authority$(url$)
-IF _http_auth$ <> "" THEN
-  _http_ok = 0
-  _http_user$ = ""
-  _http_host$ = ""
-  _http_colon$ = ""
-  _http_port$ = ""
-  MATCH _http_ok, "^(.*@)?(\[[^]]+\]|[^:]+)(:([0-9]+))?$", _http_auth$, _http_user$, _http_host$, _http_colon$, _http_port$
-  IF _http_ok = 1 THEN
-    IF _http_port$ <> "" THEN
-      = VAL(_http_port$)
+DEF FNhttp_url_scheme$(url$)
+    _http_ok = 0
+    _http_s$ = ""
+    MATCH _http_ok, "^([A-Za-z][A-Za-z0-9+.-]*)://", url$, _http_s$
+    
+    IF _http_ok = 1 THEN
+        = _http_s$
     ENDIF
-  ENDIF
-ENDIF
-_http_s$ = FN_url_scheme$(url$)
-IF _http_s$ = "http" THEN
-  = 80
-ENDIF
-IF _http_s$ = "https" THEN
-  = 443
-ENDIF
-IF _http_s$ = "ws" THEN
-  = 80
-ENDIF
-IF _http_s$ = "wss" THEN
-  = 443
-ENDIF
-IF _http_s$ = "ftp" THEN
-  = 21
-ENDIF
+= ""
+
+DEF FNhttp_url_anchor$(url$)
+    _http_ok = 0
+    _http_a$ = ""
+    MATCH _http_ok, "#(.*)$", url$, _http_a$
+    IF _http_ok = 1 THEN
+        = _http_a$
+    ENDIF
+= ""
+
+DEF FNhttp_url_query$(url$)
+    _http_ok = 0
+    _http_q$ = ""
+    REM scheme or protocol-relative or bare host/path
+    MATCH _http_ok, "^\w+://[^?#]*\?([^#]*)", url$, _http_q$
+    IF _http_ok = 1 THEN
+        = _http_q$
+    ENDIF
+    MATCH _http_ok, "^//[^?#]*\?([^#]*)", url$, _http_q$
+    IF _http_ok = 1 THEN
+        = _http_q$
+    ENDIF
+    MATCH _http_ok, "^[^?#]*\?([^#]*)", url$, _http_q$
+    IF _http_ok = 1 THEN
+        = _http_q$
+    ENDIF
+= ""
+
+DEF FNhttp_url_path$(url$)
+    _http_ok = 0
+    _http_path$ = ""
+    MATCH _http_ok, "^[[:alpha:]][[:alnum:]+.-]*://[^/?#]*/([^?#]*)", url$, _http_path$
+    IF _http_ok = 1 THEN
+        = "/" + _http_path$
+    ENDIF
+    _http_ok = 0
+    _http_path$ = ""
+    MATCH _http_ok, "^//[^/?#]*/([^?#]*)", url$, _http_path$
+    IF _http_ok = 1 THEN
+        = "/" + _http_path$
+    ENDIF
+    _http_ok = 0
+    _http_path$ = ""
+    MATCH _http_ok, "^(/[^?#]*)", url$, _http_path$
+    IF _http_ok = 1 THEN
+        = _http_path$
+    ENDIF
+    _http_ok = 0
+    _http_path$ = ""
+    MATCH _http_ok, "^((\[[^]]+\])|([^/?#:]+(\.[^/?#:]+)+))(:[0-9]+)?/([^?#]*)", url$, _http_tmp1$, _http_tmp2$, _http_tmp3$, _http_tmp4$, _http_tmp5$, _http_path$
+    IF _http_ok = 1 THEN
+        = "/" + _http_path$
+    ENDIF
+    _http_ok = 0
+    MATCH _http_ok, "^[[:alpha:]][[:alnum:]+.-]*://[^/?#]+$", url$, _http_tmp1$
+    IF _http_ok = 1 THEN
+        = "/"
+    ENDIF
+    _http_ok = 0
+    MATCH _http_ok, "^//[^/?#]+$", url$, _http_tmp1$
+    IF _http_ok = 1 THEN
+        = "/"
+    ENDIF
+= ""
+
+DEF FNhttp__authority$(url$)
+    _http_ok = 0
+    _http_auth$ = ""
+    MATCH _http_ok, "^[[:alpha:]][[:alnum:]+.-]*://([^/?#]*)", url$, _http_auth$
+    IF _http_ok = 1 THEN
+        = _http_auth$
+    ENDIF
+    
+    _http_ok = 0
+    _http_auth$ = ""
+    MATCH _http_ok, "^//([^/?#]*)", url$, _http_auth$
+    IF _http_ok = 1 THEN
+        = _http_auth$
+    ENDIF
+    
+    REM bare host (requires dot or bracketed IPv6), optional :port; capture the whole authority
+    _http_ok = 0
+    _http_auth$ = ""
+    MATCH _http_ok, "^((\[[^]]+\]|[^/?#:]+(\.[^/?#:]+)+)(:[0-9]+)?)", url$, _http_auth$
+    IF _http_ok = 1 THEN
+        = _http_auth$
+    ENDIF
+= ""
+
+DEF FNhttp_url_host$(url$)
+    _http_auth$ = FNhttp__authority$(url$)
+    IF _http_auth$ = "" THEN
+        = ""
+    ENDIF
+    _http_ok = 0
+    _http_user$ = ""
+    _http_host$ = ""
+    _http_colon$ = ""
+    _http_port$ = ""
+    MATCH _http_ok, "^(.*@)?(\[[^]]+\]|[^:]+)(:([0-9]+))?$", _http_auth$, _http_user$, _http_host$, _http_colon$, _http_port$
+    IF _http_ok = 1 THEN
+        = _http_host$
+    ENDIF
+= ""
+
+DEF FNhttp_url_port(url$)
+    _http_auth$ = FNhttp__authority$(url$)
+    IF _http_auth$ <> "" THEN
+        _http_ok = 0
+        _http_user$ = ""
+        _http_host$ = ""
+        _http_colon$ = ""
+        _http_port$ = ""
+        MATCH _http_ok, "^(.*@)?(\[[^]]+\]|[^:]+)(:([0-9]+))?$", _http_auth$, _http_user$, _http_host$, _http_colon$, _http_port$
+        IF _http_ok = 1 THEN
+            IF _http_port$ <> "" THEN
+                = VAL(_http_port$)
+            ENDIF
+        ENDIF
+    ENDIF
+    _http_s$ = FNhttp_url_scheme$(url$)
+    IF _http_s$ = "http" THEN
+        = 80
+    ENDIF
+    IF _http_s$ = "https" THEN
+        = 443
+    ENDIF
+    IF _http_s$ = "ws" THEN
+       = 80
+    ENDIF
+    IF _http_s$ = "wss" THEN
+        = 443
+    ENDIF
+    IF _http_s$ = "ftp" THEN
+        = 21
+    ENDIF
 = 0
 
-REM ---- query param lookup --------------------
-DEF FN_url_param$(url$, key$)
-_http_q$ = FN_url_query$(url$)
-IF _http_q$ = "" THEN
-  = ""
-ENDIF
-_http_ok = 0
-_http_val$ = ""
-_http_rx$ = "((^|&)" + key$ + "=)([^&]*)(&|$)"
-MATCH _http_ok, _http_rx$, _http_q$, _http_tmp1$, _http_tmp2$, _http_val$, _http_tmp3$
-IF _http_ok = 1 THEN
-  = _http_val$
-ENDIF
-_http_ok = 0
-MATCH _http_ok, "(^|&)" + key$ + "(&|$)", _http_q$, _http_tmp1$, _http_tmp2$
-IF _http_ok = 1 THEN
-  = ""
-ENDIF
+DEF FNhttp_url_param$(url$, key$)
+    _http_q$ = FNhttp_url_query$(url$)
+    IF _http_q$ = "" THEN
+        = ""
+    ENDIF
+    _http_ok = 0
+    _http_val$ = ""
+    _http_rx$ = "((^|&)" + key$ + "=)([^&]*)(&|$)"
+    MATCH _http_ok, _http_rx$, _http_q$, _http_tmp1$, _http_tmp2$, _http_val$, _http_tmp3$
+    IF _http_ok = 1 THEN
+        = _http_val$
+    ENDIF
+    _http_ok = 0
+    MATCH _http_ok, "(^|&)" + key$ + "(&|$)", _http_q$, _http_tmp1$, _http_tmp2$
+    IF _http_ok = 1 THEN
+        = ""
+    ENDIF
 = ""
 
+DEF PROChttp_get(url$)
+    PROChttp_request("GET", url$, "")
+ENDPROC
+
+DEF PROChttp_post(url$, postdata$)
+    PROChttp_request("POST", url$, postdata$)
+ENDPROC
+
+DEF PROChttp_put(url$, putdata$)
+    PROChttp_request("PUT", url$, putdata$)
+ENDPROC
+
+DEF PROChttp_head(url$)
+    PROChttp_request("HEAD", url$, "")
+ENDPROC
+
+DEF PROChttp_delete(url$)
+    PROChttp_request("DELETE", url$, "")
+ENDPROC
+
+DEF PROChttp_patch(url$, patchdata$)
+    PROChttp_request("PATCH", url$, patchdata$)
+ENDPROC
+
+DEF PROChttp_request(method$, url$, postdata$)
+    LOCAL HOST$ = FNhttp_url_host$(url$)
+    LOCAL PORT = FNhttp_url_port(url$)
+    IF PORT = 0 THEN LOCAL PORT = 80
+    LOCAL SCHEME$ = FNhttp_url_scheme$(url$)
+    LOCAL IP$ = DNS$(HOST$)
+    __http_request_response_base$ = ""
+    _path$ = FNhttp_url_path$(url$)
+    _q$ = FNhttp_url_query$(url$)
+    IF _q$ <> "" THEN
+        _path$ = _path$ + "?" + _q$
+    ENDIF
+    IF IP$ <> "0.0.0.0" THEN
+        LOCAL request$ = method$ + " " + _path$ + " HTTP/1.0" + CHR$(13) + CHR$(10) + "Host: " + HOST$ + CHR$(13) + CHR$(10) + "Connection: close" + CHR$(13) + CHR$(10)
+        IF postdata$ <> "" THEN
+            LOCAL request$ = requests$ + "Content-Length: " + STR$(LEN(postdata$)) + CHR$(13) + CHR$(10) + CHR$(13) + CHR$(10) + postdata$
+        ELSE
+            LOCAL request$ = request$ + "Content-Length: 0" + CHR$(13) + CHR$(10) + CHR$(13) + CHR$(10)
+        ENDIF
+        IF SCHEME$ = "https" OR PORT = 443 THEN
+            SSLCONNECT FD, IP$, 443, HOST$
+        ELSE
+            CONNECT FD, IP$, 80
+        ENDIF
+        SOCKWRITE FD, request$;
+        SOCKREAD FD, __http_request_response_base$
+        SOCKCLOSE FD
+    ENDIF
+ENDPROC
+
+DEF FNhttp_result$(part$)
+    __http_request_response$ = __http_request_response_base$
+	part$ = LOWER$(part$)
+	IF __http_request_response$ = "" THEN = ""
+
+	_http_crlfcrlf$ = CHR$(13) + CHR$(10) + CHR$(13) + CHR$(10)
+	_http_head$ = TOKENIZE$(__http_request_response$, _http_crlfcrlf$)
+	_http_body$ = __http_request_response$
+
+	IF part$ = "body" THEN
+		= _http_body$
+	ENDIF
+	IF part$ = "headers" THEN
+		= _http_head$
+	ENDIF
+
+	_http_status$ = TOKENIZE$(_http_head$, CHR$(13) + CHR$(10))
+
+	IF part$ = "status" THEN
+	    = _http_status$
+	ENDIF
+
+	_http_proto$ = ""
+	_http_code$ = ""
+	_http_reason$ = ""
+	_http_ok = 0
+	MATCH _http_ok, "^([A-Za-z]+/[0-9.]+)[ ]+([0-9]{3})[ ]*(.*)$", _http_status$, _http_proto$, _http_code$, _http_reason$
+
+	IF part$ = "code" THEN
+		= _http_code$
+	ENDIF
+	IF part$ = "reason" THEN
+		= _http_reason$
+	ENDIF
+
+	IF LEFT$(part$, 7) = "header:" THEN
+		_http_hname$ = LOWER$(MID$(part$, 8))
+		IF _http_hname$ = "" THEN
+			= ""
+		ENDIF
+
+		_http_delim$ = CHR$(13) + CHR$(10)
+		_http_rest$ = _http_head$
+		_http_found$ = ""
+		_http_done = 0
+
+		REPEAT
+			IF _http_rest$ = "" THEN
+				_http_done = 1
+			ELSE
+				_http_line$ = TOKENIZE$(_http_rest$, _http_delim$)
+				_http_lowline$ = LOWER$(_http_line$)
+				_http_prefix$ = _http_hname$ + ":"
+				_http_plen = LEN(_http_prefix$)
+
+				IF LEN(_http_lowline$) >= _http_plen THEN
+					IF LEFT$(_http_lowline$, _http_plen) = _http_prefix$ THEN
+						_http_found$ = TRIM$(MID$(_http_line$, _http_plen + 1))
+						_http_done = 1
+					ENDIF
+				ENDIF
+			ENDIF
+		UNTIL _http_done = 1
+
+		= _http_found$
+	ENDIF
+= ""
