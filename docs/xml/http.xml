@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="http" kind="page">
+    <compoundname>http</compoundname>
+    <title>HTTP Library</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".BASIC"><codeline><highlight class="normal">LIBRARY<sp/>LIB$<sp/>+<sp/>&quot;/http&quot;</highlight></codeline>
+</programlisting></para>
+<para>The HTTP library provides simple URL parsing helpers and minimal client-side HTTP request routines (HTTP/1.0 with <computeroutput>Connection: close</computeroutput>). Responses are stored in an internal buffer for later inspection.</para>
+<para>The following publicly documented procedures and functions are available via this library.</para>
+<para><hruler/>
+</para>
+<sect1 id="http_1url-helpers_1s1"><sect2 id="http_1url-helpers">
+<title>URL helpers</title><sect3 id="http_1fnhttp_url_schemeurl">
+<title>FNhttp_url_scheme$(url$)</title><para>Return the scheme (e.g. <computeroutput>http</computeroutput>, <computeroutput>https</computeroutput>, <computeroutput>ws</computeroutput>, <computeroutput>wss</computeroutput>, <computeroutput>ftp</computeroutput>) or an empty string if none.</para>
+</sect3>
+<sect3 id="http_1fnhttp_url_anchorurl">
+<title>FNhttp_url_anchor$(url$)</title><para>Return the fragment (text after <computeroutput>#</computeroutput>) or an empty string if none.</para>
+</sect3>
+<sect3 id="http_1fnhttp_url_queryurl">
+<title>FNhttp_url_query$(url$)</title><para>Return the query string (text after <computeroutput>?</computeroutput>, excluding <computeroutput>#…</computeroutput>) or an empty string if none.</para>
+</sect3>
+<sect3 id="http_1fnhttp_url_pathurl">
+<title>FNhttp_url_path$(url$)</title><para>Return the path component beginning with <computeroutput>/</computeroutput>. Returns <computeroutput>/</computeroutput> for bare hosts and an empty string if not applicable.</para>
+</sect3>
+<sect3 id="http_1fnhttp_url_hosturl">
+<title>FNhttp_url_host$(url$)</title><para>Return the host portion of the authority. Supports IPv4/hostnames and bracketed IPv6. Returns an empty string if not present.</para>
+</sect3>
+<sect3 id="http_1fnhttp_url_porturl">
+<title>FNhttp_url_port(url$)</title><para>Return the explicit port if present; otherwise the default for the scheme (<computeroutput>http</computeroutput>/<computeroutput>ws</computeroutput>=80, <computeroutput>https</computeroutput>/<computeroutput>wss</computeroutput>=443, <computeroutput>ftp</computeroutput>=21). Returns <computeroutput>0</computeroutput> if no scheme is recognised and no explicit port is present.</para>
+</sect3>
+<sect3 id="http_1fnhttp_url_paramurl-key">
+<title>FNhttp_url_param$(url$, key$)</title><para>Look up a single query parameter value by name. Returns the value if present, an empty string if the key appears with no value, or an empty string if the key is absent.</para>
+<para><hruler/>
+</para>
+</sect3>
+</sect2></sect1>
+<sect1 id="http_1requests_1s1"><sect2 id="http_1requests">
+<title>Requests</title><sect3 id="http_1prochttp_geturl">
+<title>PROChttp_get(url$)</title><para>Perform a <computeroutput>GET</computeroutput> request to <computeroutput>url$</computeroutput>. The full response (headers + body) is captured internally.</para>
+</sect3>
+<sect3 id="http_1prochttp_headurl">
+<title>PROChttp_head(url$)</title><para>Perform a <computeroutput>HEAD</computeroutput> request. Only headers are expected; body may be empty.</para>
+</sect3>
+<sect3 id="http_1prochttp_posturl-postdata">
+<title>PROChttp_post(url$, postdata$)</title><para>Perform a <computeroutput>POST</computeroutput> with <computeroutput>postdata$</computeroutput> as the raw request body. <computeroutput>Content-Length</computeroutput> is set automatically.</para>
+</sect3>
+<sect3 id="http_1prochttp_puturl-putdata">
+<title>PROChttp_put(url$, putdata$)</title><para>Perform a <computeroutput>PUT</computeroutput> with <computeroutput>putdata$</computeroutput> as the raw request body.</para>
+</sect3>
+<sect3 id="http_1prochttp_patchurl-patchdata">
+<title>PROChttp_patch(url$, patchdata$)</title><para>Perform a <computeroutput>PATCH</computeroutput> with <computeroutput>patchdata$</computeroutput> as the raw request body.</para>
+</sect3>
+<sect3 id="http_1prochttp_deleteurl">
+<title>PROChttp_delete(url$)</title><para>Perform a <computeroutput>DELETE</computeroutput> request.</para>
+</sect3>
+<sect3 id="http_1prochttp_requestmethod-url-body">
+<title>PROChttp_request(method$, url$, body$)</title><para>Low-level entry point used by the above helpers. Builds the request line and minimal headers (<computeroutput>Host</computeroutput>, <computeroutput>Connection: close</computeroutput>, optional <computeroutput>Content-Length</computeroutput>) and sends the request over HTTP, or HTTPS when the scheme/port implies HTTPS. The full response is stored for later retrieval.</para>
+<para><hruler/>
+</para>
+</sect3>
+</sect2></sect1>
+<sect1 id="http_1response-access_1s1"><sect2 id="http_1response-access">
+<title>Response access</title><sect3 id="http_1fnhttp_resultpart">
+<title>FNhttp_result$(part$)</title><para>Return a specific portion of the most recent response. <computeroutput>part$</computeroutput> must be one of:</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>&quot;body&quot;</computeroutput> — response body only</para>
+</listitem><listitem><para><computeroutput>&quot;headers&quot;</computeroutput> — raw header block (status line + header lines, CRLF-delimited)</para>
+</listitem><listitem><para><computeroutput>&quot;status&quot;</computeroutput> — status line (e.g. <computeroutput>HTTP/1.1 200 OK</computeroutput>)</para>
+</listitem><listitem><para><computeroutput>&quot;code&quot;</computeroutput> — status code as a string (e.g. <computeroutput>200</computeroutput>)</para>
+</listitem><listitem><para><computeroutput>&quot;reason&quot;</computeroutput> — reason phrase (e.g. <computeroutput>OK</computeroutput>)</para>
+</listitem><listitem><para><computeroutput>&quot;header:&lt;name&gt;&quot;</computeroutput> — value of a single header (case-insensitive match on <computeroutput>&lt;name&gt;</computeroutput>). Returns the first occurrence, trimmed of surrounding whitespace.</para>
+</listitem></itemizedlist>
+</para>
+<para>If no response is available, or the requested part does not exist, an empty string is returned.</para>
+<para><hruler/>
+</para>
+</sect3>
+</sect2></sect1>
+<sect1 id="http_1example-14_1s1"><sect2 id="http_1example-14">
+<title>Example</title><para><programlisting filename=".BASIC"><codeline><highlight class="normal">LIBRARY<sp/>LIB$<sp/>+<sp/>&quot;/http&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">PROChttp_get(&quot;http://neuron.brainbox.cc/test.txt&quot;)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;HTTP<sp/>status<sp/>code:<sp/>&quot;;<sp/>FNhttp_result$(&quot;code&quot;)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Response<sp/>body:&quot;</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>FNhttp_result$(&quot;body&quot;)</highlight></codeline>
+</programlisting></para>
+<para>This performs a simple <computeroutput>GET</computeroutput>, prints the numeric status code, then prints the body. </para>
+</sect2></sect1>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/libraries/http.md"/>
+  </compounddef>
+</doxygen>

@@ -22,7 +22,7 @@ var searchData=
   ['lgetlastcpuid_2emd_19',['LGETLASTCPUID.md',['../LGETLASTCPUID_8md.html',1,'']]],
   ['lib_24_20',['GLOBAL LIB$',['../rocketsh.html#global-lib',1,'']]],
   ['libraries_21',['Libraries',['../libraries.html#available-libraries',1,'Available Libraries'],['../libraries.html',1,'Libraries']]],
-  ['library_22',['Library',['../ansi.html',1,'ANSI Library'],['../mouse.html',1,'Mouse Library']]],
+  ['library_22',['Library',['../ansi.html',1,'ANSI Library'],['../http.html',1,'HTTP Library'],['../mouse.html',1,'Mouse Library']]],
   ['library_20keyword_23',['LIBRARY Keyword',['../LIBRARY.html',1,'keywords']]],
   ['library_2emd_24',['LIBRARY.md',['../LIBRARY_8md.html',1,'']]],
   ['lifecycle_25',['Module Lifecycle',['../modules.html#module-lifecycle',1,'']]],

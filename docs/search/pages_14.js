@@ -17,7 +17,7 @@ var searchData=
   ['lgetlastcpuid_20function_14',['LGETLASTCPUID Function',['../LGETLASTCPUID.html',1,'int-funcs']]],
   ['lib_24_15',['GLOBAL LIB$',['../rocketsh.html#global-lib',1,'']]],
   ['libraries_16',['Libraries',['../libraries.html#available-libraries',1,'Available Libraries'],['../libraries.html',1,'Libraries']]],
-  ['library_17',['Library',['../ansi.html',1,'ANSI Library'],['../mouse.html',1,'Mouse Library']]],
+  ['library_17',['Library',['../ansi.html',1,'ANSI Library'],['../http.html',1,'HTTP Library'],['../mouse.html',1,'Mouse Library']]],
   ['library_20keyword_18',['LIBRARY Keyword',['../LIBRARY.html',1,'keywords']]],
   ['lifecycle_19',['Module Lifecycle',['../modules.html#module-lifecycle',1,'']]],
   ['lifecycle_20scheduler_20handshake_20',['Program lifecycle &amp;amp; scheduler handshake',['../basic-intdev.html#program-lifecycle--scheduler-handshake',1,'']]],
