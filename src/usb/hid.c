@@ -204,8 +204,7 @@ static void hid_on_device_added(const struct usb_dev *ud_c)
 	uint8_t __attribute__((aligned(64))) setup[8];
 	uint16_t iface = 0;
 
-	dprintf("hid: attach keyboard VID:PID=%04x:%04x slot=%u\n",
-		ud->vid, ud->pid, ud->slot_id);
+	dprintf("hid: attach keyboard VID:PID=%04x:%04x slot=%u\n", ud->vid, ud->pid, ud->slot_id);
 
 	/* 1) SET_CONFIGURATION(1) */
 	setup[0] = 0x00; setup[1] = 0x09; /* bm=Std Dev OUT, SET_CONFIGURATION */

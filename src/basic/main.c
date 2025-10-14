@@ -438,6 +438,7 @@ void library_statement(struct basic_ctx *ctx) {
 	tokenizer_init(ctx->program_ptr, ctx);
 	basic_free_defs(ctx);
 	if (!basic_parse_fn(ctx)) {
+		tokenizer_error_printf(ctx, "Error reading PROC and FN definitons from library file '%s'", lib_file);
 		return;
 	}
 
