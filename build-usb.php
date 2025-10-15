@@ -16,8 +16,9 @@ const VOL_LABEL = 'RETROROCKET';
 const HEADROOM_MB = 64;
 
 chdir(LIMINE_DIR);
-run("make -j1 >/dev/null");
+run('env -u MAKEFLAGS -u MFLAGS -u MAKELEVEL make -j1 CC="gcc -B/usr/bin/" >/dev/null');
 chdir(BUILD_DIR);
+
 if (!is_file(LIMINE_BIN) || !is_executable(LIMINE_BIN)) {
     throw new RuntimeException("limine build failed: missing or non-executable '" . LIMINE_BIN . "'");
 }
