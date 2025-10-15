@@ -70,7 +70,6 @@ bool booted_from_cd(void) {
 	return false;
 }
 
-
 process_t* proc_load(const char* fullpath, pid_t parent_pid, const char* csd)
 {
 	fs_directory_entry_t* fsi = fs_get_file_info(fullpath);

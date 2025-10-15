@@ -16,7 +16,7 @@ const VOL_LABEL = 'RETROROCKET';
 const HEADROOM_MB = 64;
 
 chdir(LIMINE_DIR);
-run('env -u MAKEFLAGS -u MFLAGS -u MAKELEVEL make -j1 CC="gcc -B/usr/bin/" >/dev/null');
+run('env -u MAKEFLAGS -u MFLAGS -u MAKELEVEL make -j1 CC="/usr/bin/gcc -B/usr/bin/" >/dev/null');
 chdir(BUILD_DIR);
 
 if (!is_file(LIMINE_BIN) || !is_executable(LIMINE_BIN)) {
