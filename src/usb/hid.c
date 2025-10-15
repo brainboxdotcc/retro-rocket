@@ -9,14 +9,15 @@ void keyboard_process_scancode_input(uint8_t sc);
 /* last 8-byte HID boot report snapshot */
 static uint8_t last_report[8];
 
-static inline void emit_make(uint8_t code)  {
+static inline void emit_make(uint8_t code) {
 	if (code) {
 		keyboard_process_scancode_input(code);
 	}
 }
+
 static inline void emit_break(uint8_t code) {
 	if (code) {
-		keyboard_process_scancode_input((uint8_t)(code | 0x80u));
+		keyboard_process_scancode_input((uint8_t) (code | 0x80u));
 	}
 }
 
@@ -34,8 +35,8 @@ static const uint8_t hid_to_set1[0xE8] = {
 	[0x1C]=0x15, /* Y */ [0x1D]=0x2C, /* Z */
 
 	/* Number row 1..0 (0x1E..0x27) */
-	[0x1E]=0x02,[0x1F]=0x03,[0x20]=0x04,[0x21]=0x05,[0x22]=0x06,
-	[0x23]=0x07,[0x24]=0x08,[0x25]=0x09,[0x26]=0x0A,[0x27]=0x0B,
+	[0x1E]=0x02, [0x1F]=0x03, [0x20]=0x04, [0x21]=0x05, [0x22]=0x06,
+	[0x23]=0x07, [0x24]=0x08, [0x25]=0x09, [0x26]=0x0A, [0x27]=0x0B,
 
 	/* Control / punctuation (0x28..0x38) */
 	[0x28]=0x1C, /* Enter */
@@ -108,57 +109,63 @@ static const uint8_t hid_to_set1[0xE8] = {
 };
 
 /* Which HID usages should be emitted with an 0xE0 prefix in Set-1? */
-static inline int hid_usage_needs_e0(uint8_t u)
-{
+static inline int hid_usage_needs_e0(uint8_t u) {
 	switch (u) {
 		/* arrows + edit cluster */
-		case 0x49: case 0x4A: case 0x4B: case 0x4C:
-		case 0x4D: case 0x4E: case 0x4F: case 0x50:
-		case 0x51: case 0x52:
+		case 0x49:
+		case 0x4A:
+		case 0x4B:
+		case 0x4C:
+		case 0x4D:
+		case 0x4E:
+		case 0x4F:
+		case 0x50:
+		case 0x51:
+		case 0x52:
 			/* keypad / and Enter */
-		case 0x54: case 0x58:
+		case 0x54:
+		case 0x58:
 			/* right-side modifiers and GUI keys */
-		case 0xE4: case 0xE6: case 0xE3: case 0xE7:
+		case 0xE4:
+		case 0xE6:
+		case 0xE3:
+		case 0xE7:
 			return 1;
 		default:
 			return 0;
 	}
 }
 
-static inline uint8_t hid_usage_to_set1(uint8_t u)
-{
+static inline uint8_t hid_usage_to_set1(uint8_t u) {
 	return (u < sizeof(hid_to_set1)) ? hid_to_set1[u] : 0;
 }
 
-static int usage_present(const uint8_t *rep, uint8_t usage)
-{
+static int usage_present(const uint8_t *rep, uint8_t usage) {
 	for (int i = 2; i < 8; ++i) if (rep[i] == usage) return 1;
 	return 0;
 }
 
 static uint64_t up = 0;
 
-static void process_mod_changes(uint8_t prev_mod, uint8_t cur_mod)
-{
-	uint8_t changed = (uint8_t)(prev_mod ^ cur_mod);
+static void process_mod_changes(uint8_t prev_mod, uint8_t cur_mod) {
+	uint8_t changed = (uint8_t) (prev_mod ^ cur_mod);
 	while (changed) {
-		uint8_t bit = (uint8_t)(changed & (uint8_t)(-((int8_t)changed)));
+		uint8_t bit = (uint8_t) (changed & (uint8_t) (-((int8_t) changed)));
 		int idx = __builtin_ctz(changed);             /* 0..7 */
-		uint8_t usage = (uint8_t)(0xE0u + idx);
-		uint8_t make  = hid_usage_to_set1(usage);
+		uint8_t usage = (uint8_t) (0xE0u + idx);
+		uint8_t make = hid_usage_to_set1(usage);
 		if (cur_mod & bit) {
 			emit_make(make);
 		} else {
 			emit_break(make);
 		}
-		changed = (uint8_t)(changed & (changed - 1));
+		changed = (uint8_t) (changed & (changed - 1));
 	}
 }
 
 static uint64_t ints;
 
-static void hid_keyboard_report_cb(struct usb_dev *ud, const uint8_t *pkt, uint16_t len)
-{
+static void hid_keyboard_report_cb(struct usb_dev *ud, const uint8_t *pkt, uint16_t len) {
 	if (len < 8u) return;
 
 	//dprintf("enter %lu\n", ints++);
@@ -194,8 +201,7 @@ static void hid_keyboard_report_cb(struct usb_dev *ud, const uint8_t *pkt, uint1
 	//dprintf("leave\n");
 }
 
-static void hid_on_device_added(const struct usb_dev *ud_c)
-{
+static void hid_on_device_added(const struct usb_dev *ud_c) {
 	dprintf("hid_on_device_added ud_c=%p\n", ud_c);
 	if (!ud_c) return;
 
@@ -206,17 +212,21 @@ static void hid_on_device_added(const struct usb_dev *ud_c)
 	}
 
 	/* xhci_ctrl_xfer expects non-const usb_dev* */
-	struct usb_dev *ud = (struct usb_dev *)ud_c;
+	struct usb_dev *ud = (struct usb_dev *) ud_c;
 	uint8_t __attribute__((aligned(64))) setup[8];
 	uint16_t iface = 0;
 
 	dprintf("hid: attach keyboard VID:PID=%04x:%04x slot=%u\n", ud->vid, ud->pid, ud->slot_id);
 
 	/* 1) SET_CONFIGURATION(1) */
-	setup[0] = 0x00; setup[1] = 0x09; /* bm=Std Dev OUT, SET_CONFIGURATION */
-	setup[2] = 0x01; setup[3] = 0x00; /* wValue = 1 */
-	setup[4] = 0x00; setup[5] = 0x00; /* wIndex = 0 (device) */
-	setup[6] = 0x00; setup[7] = 0x00; /* wLength = 0 */
+	setup[0] = 0x00;
+	setup[1] = 0x09; /* bm=Std Dev OUT, SET_CONFIGURATION */
+	setup[2] = 0x01;
+	setup[3] = 0x00; /* wValue = 1 */
+	setup[4] = 0x00;
+	setup[5] = 0x00; /* wIndex = 0 (device) */
+	setup[6] = 0x00;
+	setup[7] = 0x00; /* wLength = 0 */
 	if (!xhci_ctrl_xfer(ud, setup, NULL, 0, 0)) {
 		dprintf("hid: SET_CONFIGURATION(1) failed\n");
 		return;
@@ -225,11 +235,14 @@ static void hid_on_device_added(const struct usb_dev *ud_c)
 
 	/* 2) SET_PROTOCOL(BOOT) on interface 0
 	      bmRequestType=0x21 (Class OUT, Interface), bRequest=0x0B, wValue=0 (BOOT) */
-	setup[0] = 0x21; setup[1] = 0x0B;
-	setup[2] = 0x00; setup[3] = 0x00;                /* wValue = 0 (BOOT) */
-	setup[4] = (uint8_t)(iface & 0xFF);              /* wIndex = interface */
-	setup[5] = (uint8_t)(iface >> 8);
-	setup[6] = 0x00; setup[7] = 0x00;                /* wLength = 0 */
+	setup[0] = 0x21;
+	setup[1] = 0x0B;
+	setup[2] = 0x00;
+	setup[3] = 0x00;                /* wValue = 0 (BOOT) */
+	setup[4] = (uint8_t) (iface & 0xFF);              /* wIndex = interface */
+	setup[5] = (uint8_t) (iface >> 8);
+	setup[6] = 0x00;
+	setup[7] = 0x00;                /* wLength = 0 */
 	if (!xhci_ctrl_xfer(ud, setup, NULL, 0, 0)) {
 		dprintf("hid: SET_PROTOCOL(BOOT) failed\n");
 		return;
@@ -238,11 +251,14 @@ static void hid_on_device_added(const struct usb_dev *ud_c)
 
 	/* 3) SET_IDLE(0) on interface 0
 	      bmRequestType=0x21 (Class OUT, Interface), bRequest=0x0A, wValue=0 (duration=0, reportId=0) */
-	setup[0] = 0x21; setup[1] = 0x0A;
-	setup[2] = 0x00; setup[3] = 0x00;                /* wValue = 0 */
-	setup[4] = (uint8_t)(iface & 0xFF);
-	setup[5] = (uint8_t)(iface >> 8);
-	setup[6] = 0x00; setup[7] = 0x00;
+	setup[0] = 0x21;
+	setup[1] = 0x0A;
+	setup[2] = 0x00;
+	setup[3] = 0x00; /* wValue = 0 */
+	setup[4] = (uint8_t) (iface & 0xFF);
+	setup[5] = (uint8_t) (iface >> 8);
+	setup[6] = 0x00;
+	setup[7] = 0x00;
 	if (!xhci_ctrl_xfer(ud, setup, NULL, 0, 0)) {
 		dprintf("hid: SET_IDLE(0) failed\n");
 		return;

@@ -1,4 +1,5 @@
 #pragma once
+
 #include <kernel.h>
 #include <stdint.h>
 #include <stddef.h>
@@ -6,30 +7,30 @@
 /* ---- USB basics ---- */
 
 typedef enum {
-	USB_EP_CONTROL  = 0,
-	USB_EP_ISOCH    = 1,
-	USB_EP_BULK     = 2,
-	USB_EP_INTERRUPT= 3
+	USB_EP_CONTROL = 0,
+	USB_EP_ISOCH = 1,
+	USB_EP_BULK = 2,
+	USB_EP_INTERRUPT = 3
 } usb_ep_type_t;
 
 /* Minimal endpoint model (xHCI uses “EPID” numbering: 1=EP0, 2/3=EP1 OUT/IN, …) */
 typedef struct usb_endpoint {
-	uint8_t  epid;      /* xHCI endpoint ID (1 = EP0) */
+	uint8_t epid;      /* xHCI endpoint ID (1 = EP0) */
 	uint16_t mps;       /* max packet size */
-	uint8_t  type;      /* usb_ep_type_t */
-	uint8_t  dir_in;    /* 1 = IN, 0 = OUT (for control this is 0) */
+	uint8_t type;      /* usb_ep_type_t */
+	uint8_t dir_in;    /* 1 = IN, 0 = OUT (for control this is 0) */
 } usb_endpoint_t;
 
 /* Device record published by HCDs (xhci, ehci, uhci…) */
 typedef struct usb_dev {
-	void    *hc;            /* host controller opaque pointer (xhci_hc*) */
-	uint8_t  slot_id;       /* xHCI slot ID */
-	uint8_t  address;       /* USB address (post-set-address) */
+	void *hc;            /* host controller opaque pointer (xhci_hc*) */
+	uint8_t slot_id;       /* xHCI slot ID */
+	uint8_t address;       /* USB address (post-set-address) */
 
 	uint16_t vid, pid;      /* vendor/product */
-	uint8_t  dev_class;     /* bInterfaceClass (from selected interface) */
-	uint8_t  dev_subclass;  /* bInterfaceSubClass */
-	uint8_t  dev_proto;     /* bInterfaceProtocol */
+	uint8_t dev_class;     /* bInterfaceClass (from selected interface) */
+	uint8_t dev_subclass;  /* bInterfaceSubClass */
+	uint8_t dev_proto;     /* bInterfaceProtocol */
 
 	usb_endpoint_t ep0;     /* default control endpoint */
 } usb_dev_t;
@@ -50,7 +51,9 @@ struct usb_dev; /* forward declaration only */
 
 struct usb_class_ops {
 	const char *name;
+
 	void (*on_device_added)(const struct usb_dev *dev);
+
 	void (*on_device_removed)(const struct usb_dev *dev);
 };
 

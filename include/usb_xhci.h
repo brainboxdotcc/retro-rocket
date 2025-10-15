@@ -1,4 +1,5 @@
 #pragma once
+
 #include <kernel.h>
 #include "usb_core.h"
 
@@ -25,22 +26,22 @@ struct usb_ep {
 
 /* operational (base = cap + caplength) */
 #define XHCI_USBCMD         0x00
-#define   USBCMD_RS         (1u << 0)
-#define   USBCMD_HCRST      (1u << 1)
-#define   USBCMD_INTE       (1u << 2)
+#define USBCMD_RS           (1u << 0)
+#define USBCMD_HCRST        (1u << 1)
+#define USBCMD_INTE         (1u << 2)
 #define XHCI_USBSTS         0x04
-#define   USBSTS_HCH        (1u << 0)
-#define   USBSTS_EINT       (1u << 3)
-#define   USBSTS_CNR        (1u << 11)
+#define USBSTS_HCH          (1u << 0)
+#define USBSTS_EINT         (1u << 3)
+#define USBSTS_CNR          (1u << 11)
 #define XHCI_CRCR           0x18
 #define XHCI_DCBAP          0x30
 #define XHCI_CONFIG         0x38
 #define XHCI_PORTREG_BASE   0x400
 #define XHCI_PORT_STRIDE    0x10
-#define  PORTSC             0x00
-#define    PORTSC_CCS       (1u << 0)
-#define    PORTSC_PR        (1u << 4)
-#define    PORTSC_WRC       (1u << 19)
+#define PORTSC              0x00
+#define PORTSC_CCS          (1u << 0)
+#define PORTSC_PR           (1u << 4)
+#define PORTSC_WRC          (1u << 19)
 
 /* doorbells (db + 4*target) */
 #define XHCI_DOORBELL(off)  (off)
@@ -48,8 +49,8 @@ struct usb_ep {
 /* runtime interrupter regs (per-interrupter, 32 bytes) */
 #define XHCI_RT_IR0         0x20
 #define IR_IMAN             0x00
-#define   IR_IMAN_IP        (1u << 0)
-#define   IR_IMAN_IE        (1u << 1)
+#define IR_IMAN_IP          (1u << 0)
+#define IR_IMAN_IE          (1u << 1)
 #define IR_IMOD             0x04
 #define IR_ERSTSZ           0x08
 #define IR_ERSTBA           0x10
@@ -125,13 +126,12 @@ struct erst_entry {
 
 struct xhci_ring {
 	struct trb *base;
-	uint64_t    phys;
-	uint32_t    num_trbs;   /* 256 for a 4K page */
-	uint32_t    enqueue;    /* index */
-	uint32_t    cycle;      /* 0/1 */
-	uint32_t    ccs;
-	uint32_t    dequeue;
-
+	uint64_t phys;
+	uint32_t num_trbs;   /* 256 for a 4K page */
+	uint32_t enqueue;    /* index */
+	uint32_t cycle;      /* 0/1 */
+	uint32_t ccs;
+	uint32_t dequeue;
 };
 
 struct ep_ctx {
@@ -155,9 +155,9 @@ struct input_ctx {
 	uint32_t add_flags;
 	uint32_t rsvd[6];
 	struct slot_ctx slot;
-	struct ep_ctx   ep0;
-	struct ep_ctx   ep1_out;
-	struct ep_ctx   ep1_in;
+	struct ep_ctx ep0;
+	struct ep_ctx ep1_out;
+	struct ep_ctx ep1_in;
 } __attribute__((packed, aligned(64)));
 
 /* Arm a persistent interrupt-IN transfer for HID (8-byte reports typical).
@@ -167,10 +167,10 @@ typedef void (*xhci_int_in_cb)(struct usb_dev *ud, const uint8_t *pkt, uint16_t 
 
 struct xhci_hc {
 	/* mmio bases */
-	volatile uint8_t  *cap;
-	volatile uint8_t  *op;
-	volatile uint8_t  *db;
-	volatile uint8_t  *rt;
+	volatile uint8_t *cap;
+	volatile uint8_t *op;
+	volatile uint8_t *db;
+	volatile uint8_t *rt;
 
 	/* parameters */
 	uint8_t cap_len;
@@ -188,37 +188,37 @@ struct xhci_hc {
 
 	/* dcbaa + scratchpad */
 	uint64_t *dcbaa;        /* 256 entries */
-	uint64_t  dcbaa_phys;
+	uint64_t dcbaa_phys;
 	uint64_t *scratch_index;/* array of ptrs to pads */
-	uint64_t  scratch_index_phys;
+	uint64_t scratch_index_phys;
 
 	/* per-device (single device for v0) */
 	struct {
 		struct input_ctx *ic;
-		uint64_t          ic_phys;
-		uint8_t           slot_id;
-		uint8_t           dev_addr;
+		uint64_t ic_phys;
+		uint8_t slot_id;
+		uint8_t dev_addr;
 
-		struct xhci_ring  ep0_tr;
-		struct xhci_ring  int_in_tr;
+		struct xhci_ring ep0_tr;
+		struct xhci_ring int_in_tr;
 
 		/* callback for INT-IN */
-		xhci_int_in_cb    int_cb;
-		uint16_t          int_pkt_len;
-		uint8_t          *int_buf;         /* dma buffer for reports */
-		uint64_t          int_buf_phys;
+		xhci_int_in_cb int_cb;
+		uint16_t int_pkt_len;
+		uint8_t *int_buf;         /* dma buffer for reports */
+		uint64_t int_buf_phys;
 
 		int port;
 		int speed;
 
-		uint8_t  *ctrl_dma;        // low-memory bounce for ctrl DATA stage
-		uint64_t  ctrl_dma_phys;   // same value as virtual
-		uint16_t  ctrl_dma_sz;     // size of the bounce buffer
+		uint8_t *ctrl_dma;        // low-memory bounce for ctrl DATA stage
+		uint64_t ctrl_dma_phys;   // same value as virtual
+		uint16_t ctrl_dma_sz;     // size of the bounce buffer
 
 		/* interrupt IN endpoint discovery (from config desc) */
-		uint8_t          int_ep_num;      /* endpoint number (1..15) */
-		uint16_t         int_ep_mps;      /* wMaxPacketSize */
-		uint8_t          int_ep_interval; /* bInterval as seen in descriptor */
+		uint8_t int_ep_num;      /* endpoint number (1..15) */
+		uint16_t int_ep_mps;      /* wMaxPacketSize */
+		uint8_t int_ep_interval; /* bInterval as seen in descriptor */
 	} dev;
 
 	/* irq bookkeeping */

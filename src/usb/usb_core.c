@@ -15,7 +15,7 @@ struct class_slot {
 
 /* CHANGED: statics -> heap pointers */
 static struct class_slot *g_classes = NULL;
-static struct usb_dev    *g_devices = NULL;
+static struct usb_dev *g_devices = NULL;
 static size_t g_dev_count = 0;
 
 
@@ -50,7 +50,7 @@ int usb_core_register_class(uint8_t class_code, const struct usb_class_ops *ops)
 	for (size_t i = 0; i < MAX_CLASS_SLOTS; i++) {
 		if (g_classes[i].ops == NULL) {
 			g_classes[i].class_code = class_code;
-			g_classes[i].ops = (struct usb_class_ops *)ops;
+			g_classes[i].ops = (struct usb_class_ops *) ops;
 			dprintf("usb-core: registered class 0x%02x (%s)\n", class_code, ops && ops->name ? ops->name : "anon");
 			return 1;
 		}
