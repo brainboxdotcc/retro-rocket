@@ -76,35 +76,35 @@ void symbol_fail()
 	setforeground(COLOUR_WHITE);
 }
 
-void init_debug()
-{
+bool find_limine_module(const char* name, uint8_t** content, size_t* size) {
 	struct limine_module_response* mods = module_request.response;
 	if (!mods || module_request.response->module_count == 0) {
-		dprintf("SYMBOLS: No modules\n");
-		symbol_fail();
-		return;
+		return false;
 	}
-	int mod_index = -1;
 	for (size_t n = 0; n < mods->module_count; ++n) {
-		if (!strcmp(mods->modules[n]->path, "/kernel.sym")) {
-			mod_index = n;
+		if (!strcmp(mods->modules[n]->path, name)) {
+			*size = mods->modules[n]->size;
+			*content = mods->modules[n]->address;
+			return true;
 		}
 	}
-	if (mod_index == -1) {
-		dprintf("SYMBOLS: No module found called 'Symbols'\n");
+	return false;
+}
+
+void init_debug()
+{
+	unsigned char* ptr = NULL;
+	size_t filesize = 0;
+	if (!find_limine_module("/kernel.sym", &ptr, &filesize)) {
 		symbol_fail();
 		return;
 	}
-	uint64_t filesize = mods->modules[mod_index]->size;
-	unsigned char* filecontent = mods->modules[mod_index]->address;
-	unsigned char* ptr = filecontent;
 	char symbol_address[32];
 	char type[2];
 	char symbol[1024];
 	uint32_t counter = 0;
 	uint32_t offset = 0;
 	uint32_t symcount = 0;
-	uint32_t sizebytes = 0;
 	symbol_table = kmalloc(sizeof(symbol_t));
 	symbol_t* thisentry = symbol_table;
 	if (!symbol_table) {
@@ -159,7 +159,6 @@ void init_debug()
 			thisentry = thisentry->next;
 		}
 		symcount++;
-		sizebytes += sizeof(symbol_t) + length;
 	}
 
 	kprintf("Read ");

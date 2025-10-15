@@ -95,6 +95,7 @@
 #include "usb_hid.h"
 #include "usb_msc.h"
 #include "regex.h"
+#include "initialisation-functions.h"
 
 #define assert(expr, message) if (!(expr)) { \
 	kprintf("Assertion failure at %s:%d: %s\n", __FILE__, __LINE__, message); \

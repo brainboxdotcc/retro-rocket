@@ -252,3 +252,5 @@ void init_process();
  * @param opaque For use by developer
  */
 void proc_set_idle(process_t* proc, activity_callback_t callback, void* opaque);
+
+bool booted_from_cd(void);

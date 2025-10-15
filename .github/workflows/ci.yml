@@ -27,7 +27,7 @@ jobs:
         run: cd build && make -j4
 
       - name: Prepare for packaging
-        run: cd build && mkdir package && cp -rv *.sh *.iso package/
+        run: cd build && mkdir package && cp -rv *.sh *.iso usb.img package/
 
       - name: Upload Binary (iso)
         uses: actions/upload-artifact@v4

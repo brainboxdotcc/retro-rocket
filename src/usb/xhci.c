@@ -502,7 +502,7 @@ static void xhci_isr(uint8_t isr, uint64_t error, uint64_t irq, void *opaque) {
 }
 
 bool xhci_arm_int_in(const struct usb_dev *ud, uint16_t pkt_len, xhci_int_in_cb cb) {
-	//dprintf("xhci.dbg: ARM INT-IN enter ud=%p hc=%p slot_id=%u pkt_len=%u cb=%p\n", ud, ud ? ud->hc : 0, ud ? ud->slot_id : 0, pkt_len, cb);
+	dprintf("xhci.dbg: ARM INT-IN enter ud=%p hc=%p slot_id=%u pkt_len=%u cb=%p\n", ud, ud ? ud->hc : 0, ud ? ud->slot_id : 0, pkt_len, cb);
 
 	if (!ud || !ud->hc || !pkt_len || !cb) {
 		dprintf("xhci.dbg: ARM INT-IN early-exit (arg check) ud=%p hc=%p pkt_len=%u cb=%p\n", ud, ud ? ud->hc : 0, pkt_len, cb);
@@ -534,9 +534,9 @@ bool xhci_arm_int_in(const struct usb_dev *ud, uint16_t pkt_len, xhci_int_in_cb 
 			return false;
 		}
 		uint64_t p = (uint64_t) (uintptr_t) v;
-		//dprintf("xhci.dbg: INT-IN TR alloc v=%p phys=%lx\n", v, p);
+		dprintf("xhci.dbg: INT-IN TR alloc v=%p phys=%lx\n", v, p);
 		ring_init(&ss->int_in_tr, 4096, p, v);
-		//dprintf("xhci.dbg: INT-IN TR init base=%p phys=%lx cycle=%u\n", ss->int_in_tr.base, ss->int_in_tr.phys, ss->int_in_tr.cycle);
+		dprintf("xhci.dbg: INT-IN TR init base=%p phys=%lx cycle=%u\n", ss->int_in_tr.base, ss->int_in_tr.phys, ss->int_in_tr.cycle);
 	} else {
 		dprintf("xhci.dbg: INT-IN TR already init base=%p phys=%lx cycle=%u\n", ss->int_in_tr.base, ss->int_in_tr.phys, ss->int_in_tr.cycle);
 	}
@@ -549,7 +549,7 @@ bool xhci_arm_int_in(const struct usb_dev *ud, uint16_t pkt_len, xhci_int_in_cb 
 			return false;
 		}
 		ss->int_buf_phys = (uint64_t) (uintptr_t) ss->int_buf;
-		//dprintf("xhci.dbg: INT-IN buf alloc v=%p phys=%lx len=%u\n", ss->int_buf, ss->int_buf_phys, (unsigned) pkt_len);
+		dprintf("xhci.dbg: INT-IN buf alloc v=%p phys=%lx len=%u\n", ss->int_buf, ss->int_buf_phys, (unsigned) pkt_len);
 	} else {
 		dprintf("xhci.dbg: INT-IN buf reuse v=%p phys=%lx len=%u\n", ss->int_buf, ss->int_buf_phys, (unsigned) pkt_len);
 	}
@@ -604,13 +604,13 @@ bool xhci_arm_int_in(const struct usb_dev *ud, uint16_t pkt_len, xhci_int_in_cb 
 	ce->lo = (uint32_t) (ss->ic_phys & 0xFFFFFFFFu);
 	ce->hi = (uint32_t) (ss->ic_phys >> 32);
 	ce->ctrl |= TRB_SET_TYPE(TRB_CONFIGURE_EP) | ((uint32_t) ud->slot_id << 24);
-	//dprintf("xhci.dbg: ring_push for CONFIGURE_EP trb=%08x ic_phys_lo=%08x ic_phys_hi=%08x ctrl=%08x slot=%u\n", (uint32_t) (uintptr_t) ce, (uint32_t) (ss->ic_phys & 0xFFFFFFFFu), (uint32_t) (ss->ic_phys >> 32), ce->ctrl, ud->slot_id);
+	dprintf("xhci.dbg: ring_push for CONFIGURE_EP trb=%08x ic_phys_lo=%08x ic_phys_hi=%08x ctrl=%08x slot=%u\n", (uint32_t) (uintptr_t) ce, (uint32_t) (ss->ic_phys & 0xFFFFFFFFu), (uint32_t) (ss->ic_phys >> 32), ce->ctrl, ud->slot_id);
 
 	if (!xhci_cmd_submit_wait(hc, ce)) {
 		dprintf("xhci.dbg: CONFIGURE_EP timeout/fail\n");
 		return false;
 	}
-	//dprintf("xhci.dbg: CONFIGURE_EP success\n");
+	dprintf("xhci.dbg: CONFIGURE_EP success\n");
 
 	for (int k = 0; k < 2; ++k) {
 		struct trb *n = ring_push(&ss->int_in_tr);
@@ -620,7 +620,7 @@ bool xhci_arm_int_in(const struct usb_dev *ud, uint16_t pkt_len, xhci_int_in_cb 
 		n->ctrl = TRB_SET_TYPE(TRB_NORMAL) | TRB_IOC | (ss->int_in_tr.cycle ? TRB_CYCLE : 0);
 	}
 	mmio_write32(hc->db + 4u * ud->slot_id, EPID_EP1_IN);
-	//dprintf("xhci.dbg:   doorbell EP1 IN (slot=%u) tr.phys=%lx buf.phys=%lx (prepost=2)\n", ud->slot_id, ss->int_in_tr.phys, ss->int_buf_phys);
+	dprintf("xhci.dbg:   doorbell EP1 IN (slot=%u) tr.phys=%lx buf.phys=%lx (prepost=2)\n", ud->slot_id, ss->int_in_tr.phys, ss->int_buf_phys);
 
 	volatile uint8_t *ir0 = hc->rt + XHCI_RT_IR0;
 
@@ -962,7 +962,7 @@ void xhci_poll(void) {
 	/* Drain from current SW dequeue with EHB=1 while we read events. */
 	uint32_t n = hc->evt.num_trbs;
 	uint32_t idx = hc->evt.dequeue;
-	uint8_t ccs = (uint8_t) (hc->evt.ccs ? 1u : 0u);
+	uint8_t ccs = (uint8_t) (hc->evt.ccs ? 1 : 0);
 
 	uint64_t erdp_claim = hc->evt.phys + ((uint64_t) idx << 4);
 	uint64_t erdp_save = mmio_read64(ir0 + IR_ERDP) & ~0x7ull;
@@ -993,12 +993,30 @@ void xhci_poll(void) {
 		uint8_t type = trb_get_type(e);
 
 		if (type == TRB_TRANSFER_EVENT) {
-			uint8_t epid = trb_get_epid(e);
-			/* Only deliver to HID for EP1-IN completions */
-			if (epid == EPID_EP1_IN) {
-				xhci_deliver_ep1in(hc, e, true);
-			} else {
-				xhci_handle_unrelated_transfer_event(hc, e);
+			uint8_t slot_id = trb_get_slotid(e);
+			uint8_t epid    = trb_get_epid(e);
+
+			if (slot_id > 0 && hc->slots[slot_id].in_use) {
+
+				/* Deliver to HID only if this TE is for a slot that has an INT-IN endpoint armed. */
+				struct xhci_slot_state *ss = (slot_id ? xhci_ss(hc, slot_id) : NULL);
+				if (ss && ss->in_use && ss->int_cb) {
+					/* Expected EPID for INT-IN on that slot (default EP1 IN if not discovered). */
+					uint8_t int_ep_num = ss->int_ep_num ? ss->int_ep_num : 1;
+					uint8_t expected_epid = (uint8_t) (2u * int_ep_num + 1u);
+
+					if (epid == expected_epid) {
+						/* This is the armed INT-IN for that slot: up-call + rearm. */
+						dprintf("TE delive to slot id %u\n", slot_id);
+						xhci_deliver_ep1in(hc, e, true);
+					} else {
+						/* Not an INT-IN TE for that slot: consume quietly. */
+						xhci_handle_unrelated_transfer_event(hc, e);
+					}
+				} else {
+					/* Slot has no INT-IN armed (e.g., MSC bulk): not for HID. */
+					xhci_handle_unrelated_transfer_event(hc, e);
+				}
 			}
 		} else {
 			xhci_handle_unrelated_transfer_event(hc, e);

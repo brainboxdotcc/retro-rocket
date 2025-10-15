@@ -62,6 +62,15 @@ extern simple_cv_t boot_condition;
 
 uint64_t basic_lines = 0;
 
+bool booted_from_cd(void) {
+	if (rr_kfile_req.response) {
+		struct limine_kernel_file_response *kernel_info = rr_kfile_req.response;
+		return (kernel_info->kernel_file->media_type == LIMINE_MEDIA_TYPE_OPTICAL);
+	}
+	return false;
+}
+
+
 process_t* proc_load(const char* fullpath, pid_t parent_pid, const char* csd)
 {
 	fs_directory_entry_t* fsi = fs_get_file_info(fullpath);
