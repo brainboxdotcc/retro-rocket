@@ -4,71 +4,166 @@
 #include <stdint.h>
 #include <stddef.h>
 
-/* ---- USB basics ---- */
-
+/**
+ * @enum usb_ep_type_t
+ * @brief USB endpoint transfer type codes.
+ */
 typedef enum {
-	USB_EP_CONTROL = 0,
-	USB_EP_ISOCH = 1,
-	USB_EP_BULK = 2,
-	USB_EP_INTERRUPT = 3
+	/** Control endpoint (EP0, setup/data/status). */
+	USB_EP_CONTROL  = 0,
+	/** Isochronous endpoint (time-sensitive streaming). */
+	USB_EP_ISOCH    = 1,
+	/** Bulk endpoint (large, burst transfers). */
+	USB_EP_BULK     = 2,
+	/** Interrupt endpoint (periodic, low-latency). */
+	USB_EP_INTERRUPT= 3
 } usb_ep_type_t;
 
-/* Minimal endpoint model (xHCI uses “EPID” numbering: 1=EP0, 2/3=EP1 OUT/IN, …) */
+/**
+ * @struct usb_endpoint
+ * @brief Minimal endpoint model for xHCI and class drivers.
+ *
+ * xHCI uses “EPID” numbering:
+ *  - 1 = EP0 (control)
+ *  - 2 = EP1 OUT
+ *  - 3 = EP1 IN
+ *  - ...
+ */
 typedef struct usb_endpoint {
-	uint8_t epid;      /* xHCI endpoint ID (1 = EP0) */
-	uint16_t mps;       /* max packet size */
-	uint8_t type;      /* usb_ep_type_t */
-	uint8_t dir_in;    /* 1 = IN, 0 = OUT (for control this is 0) */
+	/** xHCI endpoint ID. */
+	uint8_t  epid;
+	/** Maximum packet size. */
+	uint16_t mps;
+	/** Endpoint type (see @ref usb_ep_type_t). */
+	uint8_t  type;
+	/** Direction: 1 = IN (device->host), 0 = OUT (host->device). */
+	uint8_t  dir_in;
 } usb_endpoint_t;
 
-/* Device record published by HCDs (xhci, ehci, uhci…) */
+/**
+ * @struct usb_dev
+ * @brief Published record for a USB device enumerated by the HCD.
+ *
+ * Carries class/interface identity and endpoint 0 information.
+ */
 typedef struct usb_dev {
-	void *hc;            /* host controller opaque pointer (xhci_hc*) */
-	uint8_t slot_id;       /* xHCI slot ID */
-	uint8_t address;       /* USB address (post-set-address) */
+	/** Host controller opaque pointer (xhci_hc*). */
+	void    *hc;
+	/** Assigned xHCI Slot ID (1..max_slots). */
+	uint8_t  slot_id;
+	/** Assigned USB device address (after SET_ADDRESS). */
+	uint8_t  address;
 
-	uint16_t vid, pid;      /* vendor/product */
-	uint8_t dev_class;     /* bInterfaceClass (from selected interface) */
-	uint8_t dev_subclass;  /* bInterfaceSubClass */
-	uint8_t dev_proto;     /* bInterfaceProtocol */
+	/** Vendor ID from device descriptor. */
+	uint16_t vid;
+	/** Product ID from device descriptor. */
+	uint16_t pid;
+	/** Interface class code (bInterfaceClass). */
+	uint8_t  dev_class;
+	/** Interface subclass code (bInterfaceSubClass). */
+	uint8_t  dev_subclass;
+	/** Interface protocol code (bInterfaceProtocol). */
+	uint8_t  dev_proto;
+	/** Interface number (bInterfaceNumber). */
+	uint8_t  iface_num;
 
-	usb_endpoint_t ep0;     /* default control endpoint */
+	/** Default control endpoint (EP0). */
+	usb_endpoint_t ep0;
 } usb_dev_t;
 
-/* ------------------------------------------------------------------
- * Core API consumed by HCDs (xHCI) and class drivers (HID, MSC, …)
- * ------------------------------------------------------------------ */
+/* ============================================================
+ * Core USB framework API (shared by HCDs and class drivers)
+ * ============================================================ */
 
-/* Called by the HCD when a new device is successfully enumerated. */
+/**
+ * @brief Notify the core that a new device has been enumerated.
+ *
+ * Called by host controller drivers once device enumeration succeeds.
+ * Dispatches to registered class driver handlers.
+ *
+ * @param dev Pointer to published device record.
+ */
 void usb_core_device_added(const usb_dev_t *dev);
 
-/* Lookup helpers used by class drivers. */
+/** @brief Standard class code for HID devices. */
 #define USB_CLASS_HID   0x03
 
-/* --- USB class driver callbacks --- */
+/**
+ * @typedef device_notify_change_t
+ * @brief Callback type for class drivers on add/remove.
+ *
+ * @param dev Pointer to device being added or removed.
+ */
+typedef void (*device_notify_change_t)(const struct usb_dev *dev);
 
-struct usb_dev; /* forward declaration only */
-
+/**
+ * @struct usb_class_ops
+ * @brief Registration block for a USB class driver.
+ */
 struct usb_class_ops {
+	/** Name string for diagnostics/logging. */
 	const char *name;
-
-	void (*on_device_added)(const struct usb_dev *dev);
-
-	void (*on_device_removed)(const struct usb_dev *dev);
+	/** Called when a matching device is added. */
+	device_notify_change_t on_device_added;
+	/** Called when a matching device is removed. */
+	device_notify_change_t on_device_removed;
 };
 
-int usb_core_register_class(uint8_t class_code, const struct usb_class_ops *ops);
+/**
+ * @brief Register a new class driver.
+ *
+ * @param class_code Class code to match (e.g. @ref USB_CLASS_HID).
+ * @param ops        Operations block with callbacks.
+ * @return true if registered, false if failed (e.g. duplicate).
+ */
+bool usb_core_register_class(uint8_t class_code, const struct usb_class_ops *ops);
 
-/* Return pointer to first device with matching class/subclass/proto (0xFF = don't care). */
+/**
+ * @brief Find the first device matching class/subclass/proto.
+ *
+ * 0xFF can be used as a wildcard (“don’t care”).
+ *
+ * @param cls    Class code.
+ * @param subcls Subclass code.
+ * @param proto  Protocol code.
+ * @return Pointer to matching device, or NULL if none.
+ */
 usb_dev_t *usb_core_find_by_class(uint8_t cls, uint8_t subcls, uint8_t proto);
 
-/* Simple iterator over all devices (index 0..n-1). Returns NULL when out of range. */
+/**
+ * @brief Get device by index.
+ *
+ * @param index Zero-based index of enumerated device.
+ * @return Pointer to device or NULL if out of range.
+ */
 usb_dev_t *usb_core_get_index(size_t index);
 
-/* Count of currently registered devices. */
+/**
+ * @brief Count the number of currently registered devices.
+ * @return Device count.
+ */
 size_t usb_core_device_count(void);
 
-/* Optional: textual dump for debugging. */
+/**
+ * @brief Dump current USB devices and class drivers to log.
+ */
 void usb_core_dump(void);
 
+/**
+ * @brief Initialise USB core subsystem (class driver registry etc).
+ */
 void usb_core_init(void);
+
+/**
+ * @brief Re-scan all enumerated devices against the registered class drivers.
+ *
+ * This function replays class-driver binding for any devices that were
+ * previously enumerated but not yet delivered to a matching driver.
+ * It is typically called after a new class driver is registered
+ * (e.g. usb_hid_init) so that existing devices can be bound
+ * without requiring re-enumeration at the hardware level.
+ *
+ * Devices already marked as bound are skipped, so drivers will not
+ * receive duplicate add-notifications.
+ */
+void usb_core_rescan(void);

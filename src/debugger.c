@@ -1,4 +1,5 @@
 #include <kernel.h>
+#include <cpuid.h>
 
 static symbol_t* symbol_table = NULL;
 static bool debug_signal = false;
@@ -34,10 +35,10 @@ symbol_t* get_sym_table()
 	return symbol_table;
 }
 
-void dump_hex(void* addr, uint64_t length)
+void dump_hex(const void* addr, uint64_t length)
 {
 	char line[MAX_STRINGLEN], part[MAX_STRINGLEN];
-	unsigned char* address = addr;
+	unsigned const char* address = addr;
 	uint64_t index = 0;
 	for(; index < length; index += 16) {
 		*line = 0;
@@ -351,4 +352,26 @@ void gdb_emit() {
 	setforeground(COLOUR_WHITE);
 
 	trace_count++;
+}
+
+bool running_under_qemu(void) {
+	uint32_t eax, ebx, ecx, edx;
+
+	/* Leaf 1: ECX[31] indicates a hypervisor */
+	if (!__get_cpuid(1, &eax, &ebx, &ecx, &edx)) {
+		return false;
+	}
+	if ((ecx & (1u << 31)) == 0) {
+		return false;
+	}
+
+	/* Leaf 0x40000000: hypervisor vendor ID */
+	char hv[13];
+	__cpuid(0x40000000, eax, ebx, ecx, edx);
+	*(uint32_t *)&hv[0] = ebx;
+	*(uint32_t *)&hv[4] = edx;
+	*(uint32_t *)&hv[8] = ecx;
+	hv[12] = 0;
+
+	return (hv[0] == 'K' && hv[1] == 'V' && hv[2] == 'M');
 }

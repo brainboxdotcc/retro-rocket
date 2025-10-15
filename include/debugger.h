@@ -36,7 +36,7 @@ typedef struct stack_frame {
  * @param address a pointer to some memory address
  * @param length represents the number of bytes of memory that should be dumped.
  */
-void dump_hex(void* address, uint64_t length);
+void dump_hex(const void* address, uint64_t length);
 
 // Initialise debugger, read symbols from boot device. These are used for backtraces.
 void init_debug();
@@ -54,3 +54,5 @@ uint32_t gdb_trace(const char* str);
 const char* findsymbol(uint64_t address, uint64_t* offset);
 
 uint64_t findsymbol_addr(const char *name);
+
+bool running_under_qemu(void);

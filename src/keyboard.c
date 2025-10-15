@@ -205,7 +205,6 @@ void keyboard_repeat_tick() {
 	}
 }
 
-
 void init_keyboard() {
 	char devname[16];
 	buffer_write_ptr = 0;
@@ -289,6 +288,7 @@ bool caps_lock_on() {
 
 static void push_to_buffer(char x) {
 #ifdef PROFILE_KERNEL
+	if (ctrl_held() && alt_held() && shift_held() && x == 'P') {
 	if (ctrl_held() && alt_held() && shift_held() && x == 'P') {
 		kprintf("\nDumping callgrind.out to serial port...\n");
 		profile_dump();
@@ -377,12 +377,11 @@ void keyboard_process_scancode_input(uint8_t sc) {
 				key_was_extended[sc & 0x7F] = 0;
 			}
 		}
-			break;
+		break;
 	}
 }
 
 void keyboard_handler(uint8_t isr, uint64_t errorcode, uint64_t irq, void *opaque) {
-
 	uint8_t st = inb(0x64);
 	if ((st & 0x01) == 0) {
 		return; /* no data */
