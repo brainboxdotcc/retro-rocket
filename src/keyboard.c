@@ -302,14 +302,24 @@ static void push_to_buffer(char x) {
 		kfree_null(&log);
 		return;
 	}
-	if (buffer_read_ptr > buffer_write_ptr) {
-		beep(1000); // buffer overflow signal
-	} else {
-		keyboard_buffer[buffer_write_ptr++] = x;
-		if (buffer_write_ptr >= sizeof(keyboard_buffer)) {
-			buffer_write_ptr = 0;
+
+	size_t next = buffer_write_ptr + 1;
+	if (next >= sizeof(keyboard_buffer)) {
+		next = 0;
+	}
+
+	/* buffer full if next write would collide with read */
+	if (next == buffer_read_ptr) {
+		beep(1000); /* buffer overflow signal */
+		/* drop oldest to make room (advance read pointer) */
+		buffer_read_ptr++;
+		if (buffer_read_ptr >= sizeof(keyboard_buffer)) {
+			buffer_read_ptr = 0;
 		}
 	}
+
+	keyboard_buffer[buffer_write_ptr] = x;
+	buffer_write_ptr = next;
 }
 
 void keyboard_process_scancode_input(uint8_t sc) {
@@ -384,23 +394,27 @@ void keyboard_handler(uint8_t isr, uint64_t errorcode, uint64_t irq, void *opaqu
 }
 
 bool key_waiting() {
-	return (buffer_read_ptr < buffer_write_ptr);
+	return (buffer_read_ptr != buffer_write_ptr);
 }
 
 unsigned char kpeek() {
-	if (buffer_read_ptr >= buffer_write_ptr) {
+	if (buffer_read_ptr == buffer_write_ptr) {
 		return 255;
 	}
-
 	return keyboard_buffer[buffer_read_ptr];
 }
 
 unsigned char kgetc() {
-	if (buffer_read_ptr >= buffer_write_ptr) {
+	if (buffer_read_ptr == buffer_write_ptr) {
 		return 255;
 	}
 
-	return keyboard_buffer[buffer_read_ptr++];
+	unsigned char c = keyboard_buffer[buffer_read_ptr];
+	buffer_read_ptr++;
+	if (buffer_read_ptr >= sizeof(keyboard_buffer)) {
+		buffer_read_ptr = 0;
+	}
+	return c;
 }
 
 _Noreturn void reboot(void) {

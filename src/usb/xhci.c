@@ -4,7 +4,8 @@
 #include "mmio.h"
 
 struct xhci_hc *g_xhci = NULL; /* single controller */
-static bool usb_debug = false;
+
+static void xhci_disable_interrupts(struct xhci_hc *hc);
 
 static void xhci_deliver_ep1in(struct xhci_hc *hc, const struct trb *ev, bool deliver_to_driver);
 
@@ -90,9 +91,7 @@ static inline struct trb *ring_push(struct xhci_ring *r) {
 	struct trb *cur = &r->base[r->enqueue];
 
 	r->enqueue++;
-	dprintf("enqueue=%u num_trbs=%u\n", r->enqueue, r->num_trbs);
 	if (r->enqueue == r->num_trbs) {
-		dprintf("wrap LINK\n");
 		struct trb *link = &r->base[r->num_trbs - 1];
 
 		link->ctrl = (link->ctrl & ~TRB_CYCLE) | (r->cycle ? TRB_CYCLE : 0);
@@ -142,9 +141,8 @@ static int xhci_cmd_submit_wait(struct xhci_hc *hc, struct trb *cmd_trb) {
 					erdp_cur = (erdp_cur + 16) & ~0x7ull;
 					mmio_write64(ir0 + IR_ERDP, erdp_cur | (1ull << 3));
 
-					/* leave with EHB CLEARED and IE restored */
-					mmio_write64(ir0 + IR_ERDP, erdp_cur); /* clear EHB */
-					mmio_write32(ir0 + IR_IMAN, (uint32_t) (iman_old | IR_IMAN_IE));
+					/* leave with EHB CLEARED (poll-only: do not restore IE) */
+					mmio_write64(ir0 + IR_ERDP, erdp_cur);
 
 					if (cc != 0x01u) {
 						dprintf("xhci.dbg:   command failed, cc=%02x\n", cc);
@@ -165,9 +163,8 @@ static int xhci_cmd_submit_wait(struct xhci_hc *hc, struct trb *cmd_trb) {
 		__builtin_ia32_pause();
 	}
 
-	/* timeout: clear EHB and restore IE */
+	/* timeout: clear EHB (poll-only: do not restore IE) */
 	mmio_write64(ir0 + IR_ERDP, erdp_cur);
-	mmio_write32(ir0 + IR_IMAN, (uint32_t) (iman_old | IR_IMAN_IE));
 	dprintf("xhci: command timeout\n");
 	return 0;
 }
@@ -325,13 +322,15 @@ static int xhci_reset_controller(struct xhci_hc *hc) {
 	mmio_write64(ir0 + IR_ERDP, er_phys | (1ull << 3));
 
 	mmio_write32(ir0 + IR_IMOD, 0);
-	mmio_write32(ir0 + IR_IMAN, IR_IMAN_IE);
+	/* CHANGED: leave IE=0 for polled mode */
+	mmio_write32(ir0 + IR_IMAN, 0);
 
 	dprintf("xhci.dbg:   ERSTSZ=1 ERSTBA=%lx ERDP=%lx IMOD=64 IMAN=%08x\n", hc->erst_phys, (uint64_t) (er_phys | (1ull << 3)), mmio_read32(ir0 + IR_IMAN));
 
-	/* CONFIG, RS+INTE */
+	/* CONFIG, RS (no USBCMD_INTE in polled mode) */
 	mmio_write32(hc->op + XHCI_CONFIG, hc->max_slots ? hc->max_slots : 8);
-	mmio_write32(hc->op + XHCI_USBCMD, USBCMD_RS | USBCMD_INTE);
+	/* CHANGED: drop INTE */
+	mmio_write32(hc->op + XHCI_USBCMD, USBCMD_RS);
 
 	until = get_ticks() + 20;
 	while ((mmio_read32(hc->op + XHCI_USBSTS) & USBSTS_HCH) && get_ticks() < until) {
@@ -363,8 +362,6 @@ static int xhci_ctrl_build_and_run(struct xhci_hc *hc, uint8_t slot_id, const ui
 	mmio_write32(ir0 + IR_IMAN, (uint32_t) (iman_old & ~IR_IMAN_IE));
 	uint64_t erdp_cur = mmio_read64(ir0 + IR_ERDP) & ~0x7ull;
 	mmio_write64(ir0 + IR_ERDP, erdp_cur | (1ull << 3));
-	const uint64_t er_base = hc->erst[0].ring_base;
-	const uint64_t er_limit = er_base + 4096;
 
 	do {
 		/* Ensure EP0 transfer ring exists */
@@ -377,6 +374,7 @@ static int xhci_ctrl_build_and_run(struct xhci_hc *hc, uint8_t slot_id, const ui
 			ring_init(&hc->dev.ep0_tr, 4096, p, v);
 		}
 
+		/* Use the bounce buffer for BOTH directions; pre-copy only for OUT. */
 		bool used_bounce = false;
 		if (len) {
 			used_bounce = true;
@@ -442,23 +440,21 @@ static int xhci_ctrl_build_and_run(struct xhci_hc *hc, uint8_t slot_id, const ui
 				uint32_t type = (e->ctrl >> 10) & 0x3Fu;
 
 				if (type == TRB_TRANSFER_EVENT) {
-					/* For IN data, copy bounce only on the final TE of the TD */
-					if (len && dir_in && used_bounce && hc->dev.ctrl_dma && (got_events + 1u == target_events)) {
+					/* For IN data, copy bounce once we see first completion */
+					if (len && dir_in && hc->dev.ctrl_dma) {
 						memcpy(data, hc->dev.ctrl_dma, len);
 					}
 
 					xhci_handle_unrelated_transfer_event(hc, e);
 					memset(e, 0, sizeof(*e));
 					erdp_cur = (erdp_cur + 16) & ~0x7ull;
-					if (erdp_cur >= er_limit) erdp_cur = er_base;
 					mmio_write64(ir0 + IR_ERDP, erdp_cur | (1ull << 3));
 
 					got_events++;
 					progressed = 1;
 					if (got_events >= target_events) {
-						/* success path: clear EHB, restore IE, return */
+						/* success path: clear EHB (poll-only: do not restore IE), return */
 						mmio_write64(ir0 + IR_ERDP, erdp_cur);
-						mmio_write32(ir0 + IR_IMAN, (uint32_t) (iman_old | IR_IMAN_IE));
 						return 1;
 					}
 					continue;
@@ -468,7 +464,6 @@ static int xhci_ctrl_build_and_run(struct xhci_hc *hc, uint8_t slot_id, const ui
 				xhci_handle_unrelated_transfer_event(hc, e);
 				memset(e, 0, sizeof(*e));
 				erdp_cur = (erdp_cur + 16) & ~0x7ull;
-				if (erdp_cur >= er_limit) erdp_cur = er_base;
 				mmio_write64(ir0 + IR_ERDP, erdp_cur | (1ull << 3));
 				progressed = 1;
 			}
@@ -485,9 +480,8 @@ static int xhci_ctrl_build_and_run(struct xhci_hc *hc, uint8_t slot_id, const ui
 		break;
 	} while (0);
 
-	/* Common cleanup on failure: clear EHB and restore IE */
+	/* Common cleanup on failure: clear EHB (poll-only: do not restore IE) */
 	mmio_write64(ir0 + IR_ERDP, erdp_cur);
-	mmio_write32(ir0 + IR_IMAN, (uint32_t) (iman_old | IR_IMAN_IE));
 	dprintf("xhci.dbg:   ctrl xfer timeout/fail\n");
 	return 0;
 }
@@ -769,9 +763,9 @@ static void xhci_deliver_ep1in(struct xhci_hc *hc, const struct trb *e, bool del
 	if (cc == CC_SUCCESS || cc == CC_SHORT_PACKET) {
 		/* Actual bytes = requested - remaining; guard against weird reports. */
 		xfer = (rem <= req) ? (req - rem) : req;
-		if (xfer == 0) xfer = req;         /* many boot keyboards always send 8 */
 
-		if (deliver_to_driver) {
+		/* Do not synthesize bytes for zero-length completions on INT-IN. */
+		if (deliver_to_driver && xfer > 0) {
 			struct usb_dev ud = {0};
 			ud.hc = hc;
 			ud.slot_id = hc->dev.slot_id;
@@ -785,7 +779,8 @@ static void xhci_deliver_ep1in(struct xhci_hc *hc, const struct trb *e, bool del
 		n->lo = (uint32_t) (hc->dev.int_buf_phys & 0xFFFFFFFFu);
 		n->hi = (uint32_t) (hc->dev.int_buf_phys >> 32);
 		n->sts = hc->dev.int_pkt_len;
-		n->ctrl = TRB_SET_TYPE(TRB_NORMAL) | TRB_IOC | TRB_ISP | (hc->dev.int_in_tr.cycle ? TRB_CYCLE : 0);
+		/* Drop TRB_ISP on INT-IN to avoid 0-byte completion storms. */
+		n->ctrl = TRB_SET_TYPE(TRB_NORMAL) | TRB_IOC | (hc->dev.int_in_tr.cycle ? TRB_CYCLE : 0);
 
 		/* Ring EP1 IN doorbell (per-slot doorbell, target = EPID). */
 		mmio_write32(hc->db + 4u * hc->dev.slot_id, EPID_EP1_IN);
@@ -811,49 +806,90 @@ static void xhci_isr(uint8_t isr, uint64_t error, uint64_t irq, void *opaque) {
 	}
 
 	volatile uint8_t *ir0 = hc->rt + XHCI_RT_IR0;
-	uint64_t erdp_cur = mmio_read64(ir0 + IR_ERDP) & ~0x7ull;
 
-	/* IMPORTANT: ensure EHB is SET while draining so moderation/IP reset correctly */
-	mmio_write64(ir0 + IR_ERDP, erdp_cur | (1ull<<3));  /* bit3=1 */
+	/* Save HW’s ERDP (for no-op exit), claim at our dequeue with EHB=1 */
+	uint64_t erdp_saved = mmio_read64(ir0 + IR_ERDP) & ~0x7ull;
 
-	const uint64_t er_base = hc->erst[0].ring_base;
-	const uint64_t er_limit = er_base + 4096;
+	uint32_t n    = hc->evt.num_trbs;
+	uint32_t idx0 = hc->evt.dequeue;
+	uint8_t  ccs0 = (uint8_t) (hc->evt.ccs ? 1u : 0u);
 
-	for (uint32_t i = 0; i < hc->evt.num_trbs; i++) {
-		struct trb *e = &hc->evt.base[i];
-		if ((e->lo | e->hi | e->sts | e->ctrl) == 0u) continue;
+	uint64_t erdp_claim = hc->evt.phys + ((uint64_t) idx0 << 4);
+	mmio_write64(ir0 + IR_ERDP, erdp_claim | (1ull << 3));
 
-		uint8_t type = trb_get_type(e);
-		//dprintf("xhci.dbg: ISR evt[%u] type=%u lo=%08x hi=%08x sts=%08x\n", i, type, e->lo, e->hi, e->sts);
+	/* Pass 0: use current CCS. If nothing consumed, Pass 1: flip CCS once and retry. */
+	int pass;
+	int progressed_total = 0;
+	uint32_t idx = idx0;
+	uint8_t  exp = ccs0;
 
-		if (type == TRB_TRANSFER_EVENT) {
-			uint8_t epid = trb_get_epid(e);
-			/* Only deliver to HID for EP1-IN completions */
-			if (epid == EPID_EP1_IN) {
-				xhci_deliver_ep1in(hc, e, true);
+	for (pass = 0; pass < 2; pass++) {
+		int progressed = 0;
+
+		for (;;) {
+			struct trb *e = &hc->evt.base[idx];
+
+			/* stop when producer cycle doesn’t match our CCS (no more fresh events) */
+			if (((e->ctrl & TRB_CYCLE) ? 1u : 0u) != exp)
+				break;
+
+			uint8_t type = trb_get_type(e);
+			//dprintf("xhci.dbg: ISR evt[%u] type=%u lo=%08x hi=%08x sts=%08x\n", idx, type, e->lo, e->hi, e->sts);
+
+			if (type == TRB_TRANSFER_EVENT) {
+				uint8_t epid = trb_get_epid(e);
+				/* Only deliver to HID for EP1-IN completions */
+				if (epid == EPID_EP1_IN) {
+					xhci_deliver_ep1in(hc, e, true);
+				} else {
+					xhci_handle_unrelated_transfer_event(hc, e);
+				}
 			} else {
 				xhci_handle_unrelated_transfer_event(hc, e);
 			}
-		} else {
-			xhci_handle_unrelated_transfer_event(hc, e);
+
+			idx++;
+			progressed = 1;
+			if (idx == n) {
+				idx = 0;
+				exp ^= 1u;
+			}
 		}
-		memset(e, 0, sizeof(*e));
-		erdp_cur = (erdp_cur + 16) & ~0x7ull;
-		dprintf("erdp_cur=%lx\n", erdp_cur);
-		if (erdp_cur >= er_limit) {
-			erdp_cur = er_base;
+
+		progressed_total |= progressed;
+		if (progressed) {
+			/* consumed something: commit dequeue/ccs and finish */
+			hc->evt.dequeue = idx;
+			hc->evt.ccs = exp;
+			break;
 		}
-		mmio_write64(ir0 + IR_ERDP, erdp_cur | (1ull<<3));
+
+		/* No progress on first pass: flip CCS once and retry from original dequeue */
+		if (pass == 0) {
+			idx = idx0;
+			exp = (uint8_t) (ccs0 ^ 1u);
+			erdp_claim = hc->evt.phys + ((uint64_t) idx << 4);
+			mmio_write64(ir0 + IR_ERDP, erdp_claim | (1ull << 3)); /* keep EHB set while retrying */
+		}
+	}
+
+	/* Program ERDP and clear EHB */
+	if (progressed_total) {
+		uint64_t erdp_next = hc->evt.phys + ((uint64_t) hc->evt.dequeue << 4);
+		dprintf("erdp_cur=%lx\n", erdp_next);
+		mmio_write64(ir0 + IR_ERDP, erdp_next);
+	} else {
+		dprintf("erdp_cur=%lx\n", erdp_saved);
+		mmio_write64(ir0 + IR_ERDP, erdp_saved);
 	}
 
 	/* W1C IMAN.IP; keep IE as-is */
-	uint32_t iman = mmio_read32(ir0 + IR_IMAN);
-	if (iman & IR_IMAN_IP) {
-		mmio_write32(ir0 + IR_IMAN, (uint32_t) (iman | IR_IMAN_IP));
+	{
+		uint32_t iman = mmio_read32(ir0 + IR_IMAN);
+		if (iman & IR_IMAN_IP) {
+			mmio_write32(ir0 + IR_IMAN, (uint32_t) (iman | IR_IMAN_IP));
+		}
 	}
-
-	/* Clear EHB once done draining */
-	mmio_write64(ir0 + IR_ERDP, erdp_cur);
 
 	xhci_irq_sanity_dump(hc, "ISR-exit");
 }
@@ -915,15 +951,13 @@ int xhci_arm_int_in(struct usb_dev *ud, uint16_t pkt_len, xhci_int_in_cb cb) {
 	dprintf("xhci.dbg: ICC flags drop=%08x add=%08x ic=%p ic_phys=%lx\n", hc->dev.ic->drop_flags, hc->dev.ic->add_flags, hc->dev.ic, hc->dev.ic_phys);
 
 	/* Copy current Device Slot Context -> Input Slot Context; set CE=3. */
-	{
-		uint64_t dphys = hc->dcbaa[ud->slot_id];
-		volatile uint32_t *dcs = (volatile uint32_t *) (uintptr_t) dphys;  /* device slot ctx (8 dwords) */
-		volatile uint32_t *isc = (volatile uint32_t *) &hc->dev.ic->slot; /* input  slot ctx (8 dwords) */
-		for (int k = 0; k < 8; k++) isc[k] = dcs[k];
-		/* CE = highest context ID present (3 => EP1 IN included) */
-		isc[0] = (isc[0] & ~(0x1Fu << 27)) | (3u << 27);
-		dprintf("xhci.dbg: slot.dword0(copy+CE)=%08x (CE=%u)\n", isc[0], (unsigned) ((isc[0] >> 27) & 0x1F));
-	}
+	uint64_t dphys = hc->dcbaa[ud->slot_id];
+	volatile uint32_t *dcs = (volatile uint32_t *) (uintptr_t) dphys;  /* device slot ctx (8 dwords) */
+	volatile uint32_t *isc = (volatile uint32_t *) &hc->dev.ic->slot; /* input  slot ctx (8 dwords) */
+	for (int k = 0; k < 8; k++) isc[k] = dcs[k];
+	/* CE = highest context ID present (3 => EP1 IN included) */
+	isc[0] = (isc[0] & ~(0x1Fu << 27)) | (3u << 27);
+	dprintf("xhci.dbg: slot.dword0(copy+CE)=%08x (CE=%u)\n", isc[0], (unsigned) ((isc[0] >> 27) & 0x1F));
 
 	/* -------- Interval encoding per xHCI (libpayload semantics) --------
 	 * HS/SS: INTVAL = bInterval - 1   (units: 125 µs exponent)
@@ -931,22 +965,20 @@ int xhci_arm_int_in(struct usb_dev *ud, uint16_t pkt_len, xhci_int_in_cb cb) {
 	 * Bound the value like libpayload for FS/LS interrupt endpoints.
 	 */
 	uint32_t intval = 1;
-	{
-		/* speed code was captured in Slot Context dword2[3:0] during enumerate */
-		uint8_t speed_code = (uint8_t) (hc->dev.ic->slot.dword2 & 0xF);
+	/* speed code was captured in Slot Context dword2[3:0] during enumerate */
+	uint8_t speed_code = (uint8_t) (hc->dev.ic->slot.dword2 & 0xF);
 
-		if (speed_code >= 3) {
-			/* High/Super speed */
-			uint8_t bI = ep_bInterval ? ep_bInterval : 1;
-			intval = (bI > 0) ? (uint32_t) (bI - 1) : 0u;
-		} else {
-			/* Full/Low speed */
-			intval = ep_bInterval ? ep_bInterval : 1;
-			if (intval < 3) intval = 3;
-			else if (intval > 11) intval = 11;
-		}
-		if (intval > 15) intval = 15;
+	if (speed_code >= 3) {
+		/* High/Super speed */
+		uint8_t bI = ep_bInterval ? ep_bInterval : 1;
+		intval = (bI > 0) ? (uint32_t) (bI - 1) : 0u;
+	} else {
+		/* Full/Low speed */
+		intval = ep_bInterval ? ep_bInterval : 1;
+		if (intval < 3) intval = 3;
+		else if (intval > 11) intval = 11;
 	}
+	if (intval > 15) intval = 15;
 
 	/* Program EP1 IN context - field placement matches libpayload:
 	 * DW0: CErr=3
@@ -964,18 +996,14 @@ int xhci_arm_int_in(struct usb_dev *ud, uint16_t pkt_len, xhci_int_in_cb cb) {
 
 	hc->dev.ic->ep1_in.deq = (hc->dev.int_in_tr.phys | 1u);
 
-	{
-		uint32_t avg_trb_len = 1024;               /* libpayload uses 1024 for INT */
-		uint32_t max_esit = ep_mps;             /* MPS * MBS (MBS defaults to 1 for HID) */
-		hc->dev.ic->ep1_in.dword4 = (avg_trb_len << 16) | max_esit;
-	}
+	uint32_t avg_trb_len = 1024;               /* libpayload uses 1024 for INT */
+	uint32_t max_esit = ep_mps;             /* MPS * MBS (MBS defaults to 1 for HID) */
+	hc->dev.ic->ep1_in.dword4 = (avg_trb_len << 16) | max_esit;
 
-	{
-		const uint32_t *epd = (const uint32_t *) &hc->dev.ic->ep1_in;
-		dprintf("xhci.dbg: EP1 IN ctx dwords: %08x %08x %08x %08x | %08x %08x %08x %08x (mps=%u bInterval=%u -> intval=%u)\n",
-			epd[0], epd[1], epd[2], epd[3], epd[4], epd[5], epd[6], epd[7],
-			ep_mps, ep_bInterval, (unsigned) intval);
-	}
+	const uint32_t *epd = (const uint32_t *) &hc->dev.ic->ep1_in;
+	dprintf("xhci.dbg: EP1 IN ctx dwords: %08x %08x %08x %08x | %08x %08x %08x %08x (mps=%u bInterval=%u -> intval=%u)\n",
+		epd[0], epd[1], epd[2], epd[3], epd[4], epd[5], epd[6], epd[7],
+		ep_mps, ep_bInterval, (unsigned) intval);
 
 	dprintf("xhci.dbg: CONFIGURE_EP add_flags=%08x slot.dword0=%08x (CE=%u)\n",
 		hc->dev.ic->add_flags, hc->dev.ic->slot.dword0,
@@ -998,13 +1026,14 @@ int xhci_arm_int_in(struct usb_dev *ud, uint16_t pkt_len, xhci_int_in_cb cb) {
 	}
 	dprintf("xhci.dbg: CONFIGURE_EP success\n");
 
-	/* Pre-post two INT-IN TRBs (IOC|ISP) and ring once (libpayload style) */
+	/* Pre-post two INT-IN TRBs (IOC) and ring once (libpayload style) */
 	for (int k = 0; k < 2; ++k) {
 		struct trb *n = ring_push(&hc->dev.int_in_tr);
 		n->lo = (uint32_t) (hc->dev.int_buf_phys & 0xFFFFFFFFu);
 		n->hi = (uint32_t) (hc->dev.int_buf_phys >> 32);
 		n->sts = hc->dev.int_pkt_len;
-		n->ctrl = TRB_SET_TYPE(TRB_NORMAL) | TRB_ISP | TRB_IOC |
+		/* Drop TRB_ISP to prevent 0-byte short-packet completions from spamming. */
+		n->ctrl = TRB_SET_TYPE(TRB_NORMAL) | TRB_IOC |
 			  (hc->dev.int_in_tr.cycle ? TRB_CYCLE : 0);
 	}
 	mmio_write32(hc->db + 4u * ud->slot_id, EPID_EP1_IN);
@@ -1013,20 +1042,22 @@ int xhci_arm_int_in(struct usb_dev *ud, uint16_t pkt_len, xhci_int_in_cb cb) {
 
 	volatile uint8_t *ir0 = hc->rt + XHCI_RT_IR0;
 
-	mmio_write32(ir0 + IR_IMOD, 64);
+	mmio_write32(ir0 + IR_IMOD, 0);
 
 	uint32_t sts = mmio_read32(hc->op + XHCI_USBSTS);
 	if (sts & USBSTS_EINT) mmio_write32(hc->op + XHCI_USBSTS, USBSTS_EINT);
 
 	uint32_t iman = mmio_read32(ir0 + IR_IMAN);
 	if (iman & IR_IMAN_IP) mmio_write32(ir0 + IR_IMAN, IR_IMAN_IP); /* W1C IP */
-	mmio_write32(ir0 + IR_IMAN, (mmio_read32(ir0 + IR_IMAN) | IR_IMAN_IE));
+	/* CHANGED: do not set IMAN.IE in polled mode */
+	/* mmio_write32(ir0 + IR_IMAN, (mmio_read32(ir0 + IR_IMAN) | IR_IMAN_IE)); */
 
 	uint64_t erdp = mmio_read64(ir0 + IR_ERDP) & ~0x7ull;
 	mmio_write64(ir0 + IR_ERDP, erdp); /* EHB clear */
 
-	uint32_t cmd = mmio_read32(hc->op + XHCI_USBCMD) | USBCMD_INTE;
-	mmio_write32(hc->op + XHCI_USBCMD, cmd);
+	/* CHANGED: do not enable USBCMD_INTE in polled mode */
+	/* uint32_t cmd = mmio_read32(hc->op + XHCI_USBCMD) | USBCMD_INTE;
+	mmio_write32(hc->op + XHCI_USBCMD, cmd); */
 
 	xhci_irq_sanity_dump(hc, "post-arm");
 
@@ -1056,6 +1087,8 @@ int xhci_probe_and_init(uint8_t bus, uint8_t dev, uint8_t func) {
 		return 0;
 	}
 
+	xhci_disable_interrupts(g_xhci);
+
 	uint32_t irq_line = pci_read(p, PCI_INTERRUPT_LINE) & 0xFFu;
 	uint32_t irq_pin = pci_read(p, PCI_INTERRUPT_PIN) & 0xFFu;
 	g_xhci->irq_line = (uint8_t) irq_line;
@@ -1076,6 +1109,120 @@ int xhci_probe_and_init(uint8_t bus, uint8_t dev, uint8_t func) {
 	dprintf("USB xHCI: controller ready (interrupts on), published 1 device\n");
 	return 1;
 }
+
+static void xhci_disable_interrupts(struct xhci_hc *hc) {
+	if (!hc || !hc->rt || !hc->op) return;
+	volatile uint8_t *ir0 = hc->rt + XHCI_RT_IR0;
+
+	/* Mask interrupter 0 */
+	uint32_t iman = mmio_read32(ir0 + IR_IMAN);
+	mmio_write32(ir0 + IR_IMAN, (uint32_t)(iman & ~IR_IMAN_IE));
+
+	/* Clear pending IP (W1C) */
+	iman = mmio_read32(ir0 + IR_IMAN);
+	if (iman & IR_IMAN_IP)
+		mmio_write32(ir0 + IR_IMAN, (uint32_t)(iman | IR_IMAN_IP));
+
+	/* Clear global INTE so HC won’t signal legacy/MSI at all */
+	uint32_t usbcmd = mmio_read32(hc->op + XHCI_USBCMD);
+	mmio_write32(hc->op + XHCI_USBCMD, (uint32_t)(usbcmd & ~USBCMD_INTE));
+}
+
+static void xhci_enable_interrupts(struct xhci_hc *hc) {
+	if (!hc || !hc->rt || !hc->op) return;
+	volatile uint8_t *ir0 = hc->rt + XHCI_RT_IR0;
+
+	/* Clear any stale IP first (W1C), then set IE */
+	uint32_t iman = mmio_read32(ir0 + IR_IMAN);
+	if (iman & IR_IMAN_IP)
+		mmio_write32(ir0 + IR_IMAN, (uint32_t)(iman | IR_IMAN_IP));
+	mmio_write32(ir0 + IR_IMAN, (uint32_t)((mmio_read32(ir0 + IR_IMAN) | IR_IMAN_IE)));
+
+	/* Set global INTE */
+	uint32_t usbcmd = mmio_read32(hc->op + XHCI_USBCMD);
+	mmio_write32(hc->op + XHCI_USBCMD, (uint32_t)(usbcmd | USBCMD_INTE));
+}
+
+void xhci_poll(void) {
+	struct xhci_hc *hc = g_xhci;
+	if (!hc || !hc->cap) return;
+
+	volatile uint8_t *ir0 = hc->rt + XHCI_RT_IR0;
+
+	/* Drain from current SW dequeue with EHB=1 while we read events. */
+	uint32_t n   = hc->evt.num_trbs;
+	uint32_t idx = hc->evt.dequeue;
+	uint8_t  ccs = (uint8_t)(hc->evt.ccs ? 1u : 0u);
+
+	uint64_t erdp_claim = hc->evt.phys + ((uint64_t)idx << 4);
+	uint64_t erdp_save  = mmio_read64(ir0 + IR_ERDP) & ~0x7ull;
+	mmio_write64(ir0 + IR_ERDP, erdp_claim | (1ull << 3));
+
+	int consumed = 0;
+	int resynced = 0;
+
+	for (;;) {
+		struct trb *e = &hc->evt.base[idx];
+
+		/* Stop when producer cycle != our CCS: no new events (or out of phase). */
+		if (((e->ctrl & TRB_CYCLE) ? 1u : 0u) != ccs) {
+			/* One-shot resync: if an interrupt-pending bit says there SHOULD be events,
+			   flip CCS once to match producer and try again. */
+			if (!resynced) {
+				uint32_t iman = mmio_read32(ir0 + IR_IMAN);
+				uint32_t usbsts = mmio_read32(hc->op + XHCI_USBSTS);
+				if ((iman & IR_IMAN_IP) || (usbsts & USBSTS_EINT)) {
+					ccs ^= 1u;
+					resynced = 1;
+					continue;
+				}
+			}
+			break;
+		}
+
+		uint8_t type = trb_get_type(e);
+
+		if (type == TRB_TRANSFER_EVENT) {
+			uint8_t epid = trb_get_epid(e);
+			/* Only deliver to HID for EP1-IN completions */
+			if (epid == EPID_EP1_IN) {
+				xhci_deliver_ep1in(hc, e, true);
+			} else {
+				xhci_handle_unrelated_transfer_event(hc, e);
+			}
+		} else {
+			xhci_handle_unrelated_transfer_event(hc, e);
+		}
+
+		/* Advance SW consumer (do not zero producer-owned TRB). */
+		idx++;
+		consumed++;
+		if (idx == n) {
+			idx = 0;
+			ccs ^= 1u; /* flip Consumer Cycle State on wrap */
+		}
+	}
+
+	/* Commit new dequeue (clears EHB at the committed position). */
+	if (consumed) {
+		hc->evt.dequeue = idx;
+		hc->evt.ccs = ccs;
+
+		uint64_t erdp_next = hc->evt.phys + ((uint64_t)idx << 4);
+		mmio_write64(ir0 + IR_ERDP, erdp_next);
+	} else {
+		/* No events: restore prior ERDP and clear EHB. */
+		mmio_write64(ir0 + IR_ERDP, erdp_save);
+	}
+
+	/* Best-effort W1C for IMAN.IP (safe even with IE/INTE disabled). */
+	{
+		uint32_t iman = mmio_read32(ir0 + IR_IMAN);
+		if (iman & IR_IMAN_IP)
+			mmio_write32(ir0 + IR_IMAN, (uint32_t)(iman | IR_IMAN_IP));
+	}
+}
+
 
 /* find first USB controller by class code 0x0C03 and ensure xHCI (prog-if 0x30) */
 void init_usb_xhci(void) {
@@ -1100,6 +1247,8 @@ void init_usb_xhci(void) {
 		dprintf("USB: xHCI init failed at %u:%u.%u\n", usb.bus_num, usb.device_num, usb.function_num);
 		return;
 	}
+
+	proc_register_idle(xhci_poll, IDLE_BACKGROUND, 1);
 
 	dprintf("USB: xHCI initialised at %u:%u.%u\n", usb.bus_num, usb.device_num, usb.function_num);
 }

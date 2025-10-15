@@ -136,6 +136,8 @@ static int usage_present(const uint8_t *rep, uint8_t usage)
 	return 0;
 }
 
+static uint64_t up = 0;
+
 static void process_mod_changes(uint8_t prev_mod, uint8_t cur_mod)
 {
 	uint8_t changed = (uint8_t)(prev_mod ^ cur_mod);
@@ -144,7 +146,11 @@ static void process_mod_changes(uint8_t prev_mod, uint8_t cur_mod)
 		int idx = __builtin_ctz(changed);             /* 0..7 */
 		uint8_t usage = (uint8_t)(0xE0u + idx);
 		uint8_t make  = hid_usage_to_set1(usage);
-		if (cur_mod & bit) emit_make(make); else emit_break(make);
+		if (cur_mod & bit) {
+			emit_make(make);
+		} else {
+			emit_break(make);
+		}
 		changed = (uint8_t)(changed & (changed - 1));
 	}
 }
@@ -155,18 +161,18 @@ static void hid_keyboard_report_cb(struct usb_dev *ud, const uint8_t *pkt, uint1
 {
 	if (len < 8u) return;
 
-	dprintf("enter %lu\n", ints++);
+	//dprintf("enter %lu\n", ints++);
 
 	/* disable HID’s built-in key repeat */
 	if (memcmp(pkt, last_report, 8) == 0) {
-		dprintf("leave rep\n");
+		//dprintf("leave rep\n");
 		return;
 	}
 
 	/* 1) modifiers (byte 0) */
 	process_mod_changes(last_report[0], pkt[0]);
 
-	/* 2) key array (bytes 2..7): releases first… */
+	/* 2) key array (bytes 2..7): releases first */
 	for (int i = 2; i < 8; ++i) {
 		uint8_t u = last_report[i];
 		if (u && !usage_present(pkt, u)) {
@@ -174,7 +180,7 @@ static void hid_keyboard_report_cb(struct usb_dev *ud, const uint8_t *pkt, uint1
 			emit_break(mk);
 		}
 	}
-	/* …then presses */
+	/* then presses */
 	for (int i = 2; i < 8; ++i) {
 		uint8_t u = pkt[i];
 		if (u && !usage_present(last_report, u)) {
@@ -185,7 +191,7 @@ static void hid_keyboard_report_cb(struct usb_dev *ud, const uint8_t *pkt, uint1
 
 	memcpy(last_report, pkt, 8);
 
-	dprintf("leave\n");
+	//dprintf("leave\n");
 }
 
 static void hid_on_device_added(const struct usb_dev *ud_c)
