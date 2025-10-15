@@ -703,7 +703,7 @@ bool xhci_probe_and_init(uint8_t bus, uint8_t dev, uint8_t func) {
 			break;
 		}
 		memset(ss, 0, sizeof(*ss));
-		ss->in_use = 1;
+		ss->in_use = true;
 		ss->slot_id = slot_id;
 		ss->port = pidx + 1;
 
@@ -1064,4 +1064,211 @@ void init_usb_xhci(void) {
 	proc_register_idle(xhci_poll, IDLE_BACKGROUND, 1);
 
 	dprintf("USB: xHCI initialised at %u:%u.%u\n", usb.bus_num, usb.device_num, usb.function_num);
+}
+
+/* ---- bulk helpers ---- */
+
+static inline uint8_t xhci_epid_from(uint8_t ep_num, int dir_in) {
+	/* EPID: 1=EP0, then pairs 2/3=EP1 OUT/IN, 4/5=EP2 OUT/IN, ... */
+	return (uint8_t)(ep_num == 0 ? 1 : (uint8_t)(2u * ep_num + (dir_in ? 1u : 0u)));
+}
+
+static void xhci_program_bulk_ep_ctx(struct ep_ctx *e, uint16_t mps, uint64_t tr_deq_phys, int dir_in) {
+	uint32_t ep_type = dir_in ? 6u : 2u; /* xHCI EPType: 2=Bulk OUT, 6=Bulk IN (bits [5:3]) */
+	memset(e, 0, sizeof(*e));
+	e->dword0 = (3u << 1); /* CErr = 3 */
+	e->dword1 = ((uint32_t)mps << 16) | (ep_type << 3); /* Interval=0 for bulk */
+	e->deq = (tr_deq_phys | 1u); /* DCS=1 */
+	e->dword4 = (1024u << 16) | mps; /* AvgTRBLen=1024, Max ESIT Payload ~ MPS */
+}
+
+/* Configure (add) a single bulk endpoint using Configure Endpoint */
+static bool xhci_configure_single_ep(struct xhci_hc *hc, uint8_t slot_id, uint8_t epid) {
+	/* Copy current Slot Context from Device Context into Input Context, set CE=max(epid, current) */
+	uint64_t dphys = hc->dcbaa[slot_id];
+	volatile uint32_t *dcs = (volatile uint32_t *)(uintptr_t)dphys;
+	volatile uint32_t *isc = (volatile uint32_t *)&xhci_ss(hc, slot_id)->ic->slot;
+	for (int k = 0; k < 8; k++) isc[k] = dcs[k];
+	uint32_t ce_val = (uint32_t)epid; /* highest context ID present */
+	isc[0] = (isc[0] & ~(0x1Fu << 27)) | (ce_val << 27);
+
+	/* A0 (slot) and A<epid> */
+	struct xhci_slot_state *ss = xhci_ss(hc, slot_id);
+	ss->ic->drop_flags = 0;
+	ss->ic->add_flags = (1u << 0) | (1u << epid);
+
+	/* Configure Endpoint command */
+	struct trb *t = xhci_cmd_begin(hc);
+	t->lo = (uint32_t)(ss->ic_phys & 0xFFFFFFFFu);
+	t->hi = (uint32_t)(ss->ic_phys >> 32);
+	t->ctrl |= TRB_SET_TYPE(TRB_CONFIGURE_EP) | ((uint32_t)slot_id << 24);
+	if (!xhci_cmd_submit_wait(hc, t)) {
+		dprintf("xhci.dbg: CONFIGURE_EP (EPID=%u) timeout/fail\n", epid);
+		return false;
+	}
+	return true;
+}
+
+/* Public: open a bulk pipe (creates TR, programs EP ctx, issues CONFIGURE_EP) */
+bool xhci_open_bulk_pipe(const struct usb_dev *ud, uint8_t ep_num, int dir_in, uint16_t mps) {
+	if (!ud || !ud->hc || ep_num == 0) {
+		dprintf("xhci: bulk open arg check fail ud=%p ep=%u\n", ud, ep_num);
+		return false;
+	}
+	struct xhci_hc *hc = (struct xhci_hc *)ud->hc;
+	struct xhci_slot_state *ss = xhci_ss(hc, ud->slot_id);
+	if (!ss || !ss->ic) {
+		dprintf("xhci: bulk open no slot/ic (slot=%u)\n", ud->slot_id);
+		return false;
+	}
+
+	/* Ensure a TR for this direction */
+	struct xhci_ring *r = dir_in ? &ss->bulk_in_tr : &ss->bulk_out_tr;
+	if (!r->base) {
+		void *v = kmalloc_aligned(4096, 4096);
+		if (!v) {
+			dprintf("xhci: bulk TR alloc fail\n");
+			return false;
+		}
+		uint64_t p = (uint64_t)(uintptr_t)v;
+		ring_init(r, 4096, p, v);
+	}
+
+	/* Program the appropriate ep_ctx in input context */
+	uint8_t epid = xhci_epid_from(ep_num, dir_in);
+	switch (epid) {
+		case 4: xhci_program_bulk_ep_ctx(&ss->ic->ep2_out, mps, ss->bulk_out_tr.phys, 0); ss->bulk_out_mps = mps; break;
+		case 5: xhci_program_bulk_ep_ctx(&ss->ic->ep2_in,  mps, ss->bulk_in_tr.phys,  1); ss->bulk_in_mps  = mps; break;
+			/* For completeness, EP1 bulk case if a device uses EP1 bulk (rare when HID present) */
+		case 2: xhci_program_bulk_ep_ctx(&ss->ic->ep1_out, mps, ss->bulk_out_tr.phys, 0); ss->bulk_out_mps = mps; break;
+		case 3: xhci_program_bulk_ep_ctx(&ss->ic->ep1_in,  mps, ss->bulk_in_tr.phys,  1); ss->bulk_in_mps  = mps; break;
+		default:
+			dprintf("xhci: bulk EPID=%u not mapped in input_ctx\n", epid);
+			return false;
+	}
+
+	/* Configure just this endpoint */
+	if (!xhci_configure_single_ep(hc, ud->slot_id, epid)) {
+		return false;
+	}
+
+	dprintf("xhci: bulk EP%u %s opened (EPID=%u MPS=%u)\n",
+		ep_num, dir_in ? "IN" : "OUT", epid, mps);
+	return true;
+}
+
+/* Split a buffer on 64K boundaries into Normal TRBs, ring EP doorbell, and poll for completion */
+bool xhci_bulk_xfer(const struct usb_dev *ud, int dir_in, void *buf, uint32_t len) {
+	if (!ud || !ud->hc || !buf || len == 0) {
+		return false;
+	}
+	struct xhci_hc *hc = (struct xhci_hc *)ud->hc;
+	struct xhci_slot_state *ss = xhci_ss(hc, ud->slot_id);
+	if (!ss) return false;
+
+	/* Find which EP we’re using by direction. For now, prefer EP2 if its MPS is set, else EP1. */
+	uint8_t ep_num = 2;
+	uint16_t mps = dir_in ? ss->bulk_in_mps : ss->bulk_out_mps;
+	if (mps == 0) {
+		/* fallback to EP1 if that was configured as bulk */
+		ep_num = 1;
+		mps = dir_in ? ss->bulk_in_mps : ss->bulk_out_mps;
+		if (mps == 0) {
+			dprintf("xhci: bulk_xfer no configured bulk EP (slot=%u dir=%d)\n", ud->slot_id, dir_in);
+			return false;
+		}
+	}
+	uint8_t epid = xhci_epid_from(ep_num, dir_in);
+	struct xhci_ring *r = dir_in ? &ss->bulk_in_tr : &ss->bulk_out_tr;
+
+	/* Build Normal TRBs over the buffer, respecting 64K segment boundary rule */
+	uint64_t cur = (uint64_t)(uintptr_t)buf;
+	uint32_t remain = len;
+	int trb_count = 0;
+
+	while (remain) {
+		uint64_t next_boundary = (cur + 0x10000ull) & ~0xFFFFull;
+		uint32_t chunk = (remain < (uint32_t)(next_boundary - cur)) ? remain : (uint32_t)(next_boundary - cur);
+
+		struct trb *t = ring_push(r);
+		t->lo = (uint32_t)(cur & 0xFFFFFFFFu);
+		t->hi = (uint32_t)(cur >> 32);
+		t->sts = chunk;
+		/* For bulk, do not set ISP; set CH for multi-TRB TD, IOC only on the last TRB below */
+		t->ctrl = TRB_SET_TYPE(TRB_NORMAL) | TRB_CH | (r->cycle ? TRB_CYCLE : 0) | (dir_in ? TRB_DIR : 0);
+
+		cur += chunk;
+		remain -= chunk;
+		trb_count++;
+	}
+
+	/* Mark last TRB as IOC and clear CH on it */
+	if (trb_count > 0) {
+		uint32_t idx_last = (r->enqueue == 0) ? (r->num_trbs - 2) : (r->enqueue - 1); /* -1 from current enqueue; avoid link TRB */
+		struct trb *last = &r->base[idx_last];
+		last->ctrl = (last->ctrl & ~TRB_CH) | TRB_IOC | (dir_in ? TRB_DIR : 0);
+	}
+
+	/* Ring doorbell for this slot/EPID */
+	mmio_write32(hc->db + 4u * ud->slot_id, epid);
+
+	/* Poll for the Transfer Event(s) of this TD */
+	volatile uint8_t *ir0 = hc->rt + XHCI_RT_IR0;
+	uint64_t erdp_cur = mmio_read64(ir0 + IR_ERDP) & ~0x7ull;
+	mmio_write64(ir0 + IR_ERDP, erdp_cur | (1ull << 3));
+
+	uint64_t deadline = get_ticks() + 2000; /* up to ~2s for I/O */
+	uint32_t completed = 0;
+	for (;;) {
+		int progressed = 0;
+		for (uint32_t i = 0; i < hc->evt.num_trbs; i++) {
+			struct trb *e = &hc->evt.base[i];
+			if ((e->lo | e->hi | e->sts | e->ctrl) == 0u) {
+				continue;
+			}
+			uint8_t type = (uint8_t)((e->ctrl >> 10) & 0x3F);
+			if (type == TRB_TRANSFER_EVENT) {
+				uint8_t e_slot = (uint8_t)(e->ctrl & 0xFF);
+				uint8_t e_epid = (uint8_t)((e->ctrl >> 16) & 0x1F);
+				if (e_slot == ud->slot_id && e_epid == epid) {
+					uint8_t cc = (uint8_t)((e->sts >> 24) & 0xFF);
+					/* consume */
+					memset(e, 0, sizeof(*e));
+					erdp_cur = (erdp_cur + 16) & ~0x7ull;
+					mmio_write64(ir0 + IR_ERDP, erdp_cur | (1ull << 3));
+					progressed = 1;
+					completed = 1;
+					if (cc == CC_SUCCESS || cc == CC_SHORT_PACKET) {
+						/* success: clear EHB and return */
+						mmio_write64(ir0 + IR_ERDP, erdp_cur);
+						return true;
+					} else {
+						dprintf("xhci: bulk TE cc=%u (slot=%u epid=%u)\n", cc, e_slot, e_epid);
+						mmio_write64(ir0 + IR_ERDP, erdp_cur);
+						return false;
+					}
+				}
+			}
+
+			/* unrelated event: keep ERDP moving */
+			memset(e, 0, sizeof(*e));
+			erdp_cur = (erdp_cur + 16) & ~0x7ull;
+			mmio_write64(ir0 + IR_ERDP, erdp_cur | (1ull << 3));
+			progressed = 1;
+		}
+
+		if (completed) {
+			break;
+		}
+		if (!progressed) {
+			if ((int64_t)(get_ticks() - deadline) > 0) {
+				break;
+			}
+			__builtin_ia32_pause();
+		}
+	}
+
+	mmio_write64(ir0 + IR_ERDP, erdp_cur);
+	dprintf("xhci: bulk_xfer timeout\n");
+	return false;
 }

@@ -93,6 +93,7 @@
 #include "usb_core.h"
 #include "usb_xhci.h"
 #include "usb_hid.h"
+#include "usb_msc.h"
 #include "regex.h"
 
 #define assert(expr, message) if (!(expr)) { \

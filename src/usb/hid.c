@@ -217,7 +217,7 @@ static void hid_on_device_added(const struct usb_dev *ud) {
 		dprintf("hid: SET_IDLE(0) failed\n");
 		return;
 	}
-	if (!xhci_arm_int_in(ud, 8u, hid_keyboard_report_cb)) {
+	if (!xhci_arm_int_in(ud, 8, hid_keyboard_report_cb)) {
 		dprintf("hid: arm EP1 IN failed\n");
 		return;
 	}

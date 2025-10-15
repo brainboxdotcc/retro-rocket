@@ -298,10 +298,14 @@ struct input_ctx {
 	struct slot_ctx slot;
 	/** Default control endpoint (EP0) context. */
 	struct ep_ctx ep0;
-	/** EP1 OUT context (unused for HID boot). */
+	/** EP1 OUT context */
 	struct ep_ctx ep1_out;
-	/** EP1 IN context (HID interrupt IN). */
+	/** EP1 IN context */
 	struct ep_ctx ep1_in;
+	/** EP2 OUT context */
+	struct ep_ctx ep2_out;
+	/** EP2 IN context */
+	struct ep_ctx ep2_in;
 } __attribute__((packed, aligned(64)));
 
 /**
@@ -351,7 +355,7 @@ struct xhci_slot_state {
 	uint8_t int_ep_interval;
 
 	/** Slot allocation flag (1 = active). */
-	uint8_t in_use;
+	bool in_use;
 	/** Assigned USB address (if tracked). */
 	uint8_t dev_addr;
 	/** Root port number (1-based). */
@@ -365,6 +369,14 @@ struct xhci_slot_state {
 	uint64_t ctrl_dma_phys;
 	/** Size of @ref ctrl_dma. */
 	uint16_t ctrl_dma_sz;
+
+	struct xhci_ring bulk_in_tr;
+	struct xhci_ring bulk_out_tr;
+	uint8_t bulk_in_num;
+	uint8_t bulk_out_num;
+	uint16_t bulk_in_mps;
+	uint16_t bulk_out_mps;
+
 };
 
 /**
@@ -516,3 +528,15 @@ static inline bool is_class_and_protocol(const struct usb_dev *ud_c, uint8_t dev
 static inline bool is_class_and_subclass(const struct usb_dev *ud_c, uint8_t dev_class, uint8_t dev_subclass) {
 	return (ud_c->dev_class == dev_class && ud_c->dev_subclass == dev_subclass);
 }
+
+/* Open/configure a BULK endpoint (EP1 OUT or EP1 IN) for the given slot.
+ * Creates a transfer ring if missing and issues CONFIGURE_ENDPOINT.
+ * NOTE: For now we only support ep_num == 1 to match input_ctx layout.
+ */
+bool xhci_open_bulk_pipe(const struct usb_dev *ud, uint8_t ep_num, int dir_in, uint16_t mps);
+
+/* Submit a single BULK transfer (IN or OUT) on the already-opened pipe.
+ * Polled wait for a matching Transfer Event. Accepts SUCCESS and (for IN)
+ * SHORT_PACKET. Buffer must be DMA-safe (kmalloc_aligned).
+ */
+bool xhci_bulk_xfer(const struct usb_dev *ud, int dir_in, void *buf, uint32_t len);
