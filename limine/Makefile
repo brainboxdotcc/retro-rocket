@@ -2,7 +2,7 @@
 
 SHELL=/bin/sh
 
-CC=cc
+CC=gcc
 CFLAGS=-g -O2 -pipe
 CPPFLAGS=
 LDFLAGS=
