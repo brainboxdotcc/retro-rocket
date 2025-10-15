@@ -7,6 +7,7 @@ CFLAGS=-g -O2 -pipe
 CPPFLAGS=
 LDFLAGS=
 LIBS=
+LD=/usr/bin/ld
 
 STRIP=strip
 INSTALL=./install-sh
