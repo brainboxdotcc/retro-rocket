@@ -318,14 +318,7 @@ void block_cache_destroy(block_cache_t **pcache) {
  * @return             Number of sectors covering @p bytes (at least 1).
  */
 static uint32_t sectors_for_len(uint32_t sector_size, uint32_t bytes) {
-	uint32_t n = bytes / sector_size;
-	while (n * sector_size < bytes) {
-		n++;
-	}
-	if (n < 1) {
-		n++;
-	}
-	return n;
+	return (bytes + sector_size - 1) / sector_size + (bytes == 0);
 }
 
 int block_cache_read(block_cache_t *c, uint64_t lba, uint32_t bytes, unsigned char *out)
