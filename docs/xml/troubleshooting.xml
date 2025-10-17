@@ -11,8 +11,17 @@
 </para>
 <sect1 id="troubleshooting_1system-doesnt-boot-from-the-cd_1s1"><sect2 id="troubleshooting_1system-doesnt-boot-from-the-cd_1s2"><sect3 id="troubleshooting_1system-doesnt-boot-from-the-cd">
 <title>System doesn’t boot from the CD</title><para><itemizedlist>
-<listitem><para>Make sure your PC or virtual machine is set to boot from <bold>CD/DVD</bold> first.</para>
-</listitem><listitem><para>USB boot is not supported. Use the provided ISO image as a CD/DVD.</para>
+<listitem><para>Make sure your PC or virtual machine is set to boot from <bold>CD/DVD</bold> first or select it from the boot menu.</para>
+</listitem><listitem><para>Make sure your PC or virtual machine supports BIOS boot for <bold>CD/DVD</bold>. Our ISO image supports BIOS boot (for older machines).</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect3></sect2></sect1>
+<sect1 id="troubleshooting_1system-doesnt-boot-from-the-usb-stick_1s1"><sect2 id="troubleshooting_1system-doesnt-boot-from-the-usb-stick_1s2"><sect3 id="troubleshooting_1system-doesnt-boot-from-the-usb-stick">
+<title>System doesn’t boot from the USB stick</title><para><itemizedlist>
+<listitem><para>Make sure your PC or virtual machine is set to boot from <bold>USB</bold> first or select it from the boot menu.</para>
+</listitem><listitem><para>Make sure your PC or virtual machine supports UEFI boot for <bold>USB</bold>. Our USB stick image supports UEFI boot (for newer machines).</para>
 </listitem></itemizedlist>
 </para>
 <para><hruler/>
@@ -39,7 +48,7 @@
 </sect3></sect2></sect1>
 <sect1 id="troubleshooting_1my-work-disappeared-after-reboot_1s1"><sect2 id="troubleshooting_1my-work-disappeared-after-reboot_1s2"><sect3 id="troubleshooting_1my-work-disappeared-after-reboot">
 <title>My work disappeared after reboot</title><para><itemizedlist>
-<listitem><para>If you are using the <bold>LiveCD</bold>, files saved in <computeroutput>/ramdisk</computeroutput> are temporary and will vanish when you power off.</para>
+<listitem><para>Files saved in <computeroutput>/ramdisk</computeroutput> are temporary and will vanish when you power off.</para>
 </listitem><listitem><para>To keep your work, either:<itemizedlist>
 <listitem><para>Install Retro Rocket to a hard disk, or</para>
 </listitem><listitem><para>Copy your files over the network before shutting down.</para>
@@ -62,7 +71,7 @@
 </sect3></sect2></sect1>
 <sect1 id="troubleshooting_1i-broke-something-in-programsinit_1s1"><sect2 id="troubleshooting_1i-broke-something-in-programsinit_1s2"><sect3 id="troubleshooting_1i-broke-something-in-programsinit">
 <title>I broke something in <computeroutput>/programs/init</computeroutput></title><para><itemizedlist>
-<listitem><para>If Retro Rocket fails to start properly because of changes you made, boot from the LiveCD again.</para>
+<listitem><para>If Retro Rocket fails to start properly because of changes you made, boot from the LiveCD or LiveUSB again.</para>
 </listitem><listitem><para>From there, you can reinstall or edit <computeroutput>/programs/init</computeroutput> on your installed system to fix it. (use <ref refid="glossary_1mount" kindref="member">mount</ref> to mount your installed system to <computeroutput>/harddisk</computeroutput> and make changes using <ref refid="edit" kindref="compound">edit</ref>)</para>
 </listitem></itemizedlist>
 </para>

@@ -5,8 +5,14 @@ This page covers common issues you might encounter while using Retro Rocket, and
 ---
 
 ### System doesn’t boot from the CD
-- Make sure your PC or virtual machine is set to boot from **CD/DVD** first.
-- USB boot is not supported. Use the provided ISO image as a CD/DVD.
+- Make sure your PC or virtual machine is set to boot from **CD/DVD** first or select it from the boot menu.
+- Make sure your PC or virtual machine supports BIOS boot for **CD/DVD**. Our ISO image supports BIOS boot (for older machines).
+
+---
+
+### System doesn’t boot from the USB stick
+- Make sure your PC or virtual machine is set to boot from **USB** first or select it from the boot menu.
+- Make sure your PC or virtual machine supports UEFI boot for **USB**. Our USB stick image supports UEFI boot (for newer machines).
 
 ---
 
@@ -24,7 +30,7 @@ This page covers common issues you might encounter while using Retro Rocket, and
 ---
 
 ### My work disappeared after reboot
-- If you are using the **LiveCD**, files saved in `/ramdisk` are temporary and will vanish when you power off.
+- Files saved in `/ramdisk` are temporary and will vanish when you power off.
 - To keep your work, either:
   - Install Retro Rocket to a hard disk, or
   - Copy your files over the network before shutting down.
@@ -39,7 +45,7 @@ This page covers common issues you might encounter while using Retro Rocket, and
 ---
 
 ### I broke something in `/programs/init`
-- If Retro Rocket fails to start properly because of changes you made, boot from the LiveCD again.
+- If Retro Rocket fails to start properly because of changes you made, boot from the LiveCD or LiveUSB again.
 - From there, you can reinstall or edit `/programs/init` on your installed system to fix it. (use @ref mount "mount" to mount your installed system to `/harddisk` and make changes using @ref edit "edit")
 
 ---

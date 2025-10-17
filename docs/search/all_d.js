@@ -65,7 +65,8 @@ var searchData=
   ['do_20with_20it_62',['What you can do with it',['../introduction.html#what-you-can-do-with-it',1,'']]],
   ['does_63',['does',['../init.html#what-it-does',1,'What it does'],['../servertest.html#what-it-does-1',1,'What it does'],['../ssltest.html#what-it-does-2',1,'What it does'],['../tree.html#what-it-does-3',1,'What it does'],['../udptest.html#what-it-does-4',1,'What it does'],['../webserver.html#what-it-does-5',1,'What it does']]],
   ['doesn’t_20boot_20from_20the_20cd_64',['System doesn’t boot from the CD',['../troubleshooting.html#system-doesnt-boot-from-the-cd',1,'']]],
-  ['drive_65',['2. Select a drive',['../installation.html#autotoc_md2-select-a-drive',1,'']]],
-  ['driver_66',['Driver',['../glossary.html#driver',1,'']]],
-  ['drivers_67',['Drivers',['../audio-basics.html#drivers',1,'Drivers'],['../user-networking.html#network-drivers',1,'Network Drivers']]]
+  ['doesn’t_20boot_20from_20the_20usb_20stick_65',['System doesn’t boot from the USB stick',['../troubleshooting.html#system-doesnt-boot-from-the-usb-stick',1,'']]],
+  ['drive_66',['2. Select a drive',['../installation.html#autotoc_md2-select-a-drive',1,'']]],
+  ['driver_67',['Driver',['../glossary.html#driver',1,'']]],
+  ['drivers_68',['Drivers',['../audio-basics.html#drivers',1,'Drivers'],['../user-networking.html#network-drivers',1,'Network Drivers']]]
 ];

@@ -7,8 +7,8 @@ Installation is simple and text-based.
 
 ---
 
-### 1. Boot the LiveCD
-Insert the Retro Rocket CD and boot from it.
+### 1. Boot the LiveCD or LiveUSB
+Insert the Retro Rocket CD or USB and boot from it.
 On the boot menu, choose **Install Retro Rocket** with the arrow keys and press **Enter**.
 
 \image html install-menu.png

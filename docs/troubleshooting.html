@@ -100,8 +100,15 @@ $(function(){initNavTree('troubleshooting.html','',''); });
 <h3 class="doxsection"><a class="anchor" id="system-doesnt-boot-from-the-cd"></a>
 System doesn’t boot from the CD</h3>
 <ul>
-<li>Make sure your PC or virtual machine is set to boot from <b>CD/DVD</b> first.</li>
-<li>USB boot is not supported. Use the provided ISO image as a CD/DVD.</li>
+<li>Make sure your PC or virtual machine is set to boot from <b>CD/DVD</b> first or select it from the boot menu.</li>
+<li>Make sure your PC or virtual machine supports BIOS boot for <b>CD/DVD</b>. Our ISO image supports BIOS boot (for older machines).</li>
+</ul>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="system-doesnt-boot-from-the-usb-stick"></a>
+System doesn’t boot from the USB stick</h3>
+<ul>
+<li>Make sure your PC or virtual machine is set to boot from <b>USB</b> first or select it from the boot menu.</li>
+<li>Make sure your PC or virtual machine supports UEFI boot for <b>USB</b>. Our USB stick image supports UEFI boot (for newer machines).</li>
 </ul>
 <hr  />
 <h3 class="doxsection"><a class="anchor" id="black-screen-or-nothing-happens-after-boot"></a>
@@ -122,7 +129,7 @@ No network connection</h3>
 <h3 class="doxsection"><a class="anchor" id="my-work-disappeared-after-reboot"></a>
 My work disappeared after reboot</h3>
 <ul>
-<li>If you are using the <b>LiveCD</b>, files saved in <span class="tt">/ramdisk</span> are temporary and will vanish when you power off.</li>
+<li>Files saved in <span class="tt">/ramdisk</span> are temporary and will vanish when you power off.</li>
 <li>To keep your work, either:<ul>
 <li>Install Retro Rocket to a hard disk, or</li>
 <li>Copy your files over the network before shutting down.</li>
@@ -141,7 +148,7 @@ Programs won’t run</h3>
 <h3 class="doxsection"><a class="anchor" id="i-broke-something-in-programsinit"></a>
 I broke something in <span class="tt">/programs/init</span></h3>
 <ul>
-<li>If Retro Rocket fails to start properly because of changes you made, boot from the LiveCD again.</li>
+<li>If Retro Rocket fails to start properly because of changes you made, boot from the LiveCD or LiveUSB again.</li>
 <li>From there, you can reinstall or edit <span class="tt">/programs/init</span> on your installed system to fix it. (use <a class="el" href="glossary.html#mount">mount</a> to mount your installed system to <span class="tt">/harddisk</span> and make changes using <a class="el" href="edit.html">edit</a>)</li>
 </ul>
 <hr  />

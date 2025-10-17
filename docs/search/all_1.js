@@ -1,7 +1,7 @@
 var searchData=
 [
   ['1_20boot_20assembly_3a_20boot_20asm_0',['1. Boot Assembly: &lt;span class=&quot;tt&quot;&gt;boot.asm&lt;/span&gt;',['../bootflow.html#autotoc_md1-boot-assembly-bootasm',1,'']]],
-  ['1_20boot_20the_20livecd_1',['1. Boot the LiveCD',['../installation.html#autotoc_md1-boot-the-livecd',1,'']]],
+  ['1_20boot_20the_20livecd_20or_20liveusb_1',['1. Boot the LiveCD or LiveUSB',['../installation.html#autotoc_md1-boot-the-livecd-or-liveusb',1,'']]],
   ['1_20conventions_20and_20terminology_2',['1. Conventions and terminology',['../retrofs.html#autotoc_md1-conventions-and-terminology',1,'']]],
   ['1_20description_20block_20sector_200_3',['3.1 Description Block (sector 0)',['../retrofs.html#autotoc_md31-description-block-sector-0',1,'']]],
   ['1_20directory_20start_20entry_20first_20half_20sector_20of_20the_20block_4',['3.3.1 Directory Start entry (first half-sector of the block)',['../retrofs.html#autotoc_md331-directory-start-entry-first-half-sector-of-the-block',1,'']]],
