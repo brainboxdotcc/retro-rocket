@@ -57,6 +57,25 @@ const char* init_ramdisk_from_storage(const char* storage);
 const char* init_ramdisk_from_memory(uint8_t* memory, size_t blocks, size_t blocksize);
 
 /**
+ * @brief Decompress a gzip-compressed memory buffer.
+ *
+ * Reads a gzip stream from @p compressed_image of length @p compressed_size
+ * and produces a newly allocated buffer containing the uncompressed data.
+ * On success, @p out and @p out_size are set to the buffer pointer and its
+ * length in bytes.
+ *
+ * @param compressed_image  Pointer to gzip-compressed input data.
+ * @param compressed_size   Size of the compressed input in bytes.
+ * @param out               Address of a pointer updated to the decompressed buffer.
+ * @param out_size          Address of a variable updated with the decompressed size.
+ *
+ * @return true if decompression succeeds, false on error.
+ *
+ * @note The caller is responsible for freeing the buffer assigned to @p out.
+ */
+bool decompress_gzip(uint8_t *compressed_image, size_t compressed_size, uint8_t** out, uint32_t* out_size);
+
+/**
  * @brief Inflate and mount the initial ramdisk supplied by the bootloader
  *
  * @param compressed_image  Pointer to a gzip stream (boot module)

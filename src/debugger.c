@@ -93,12 +93,19 @@ bool find_limine_module(const char* name, uint8_t** content, size_t* size) {
 
 void init_debug()
 {
+	unsigned char* c_ptr = NULL;
+	size_t c_filesize = 0;
 	unsigned char* ptr = NULL;
-	size_t filesize = 0;
-	if (!find_limine_module("/kernel.sym", &ptr, &filesize)) {
+	uint32_t filesize = 0;
+	if (!find_limine_module("/kernel.sym", &c_ptr, &c_filesize)) {
 		symbol_fail();
 		return;
 	}
+	if (!decompress_gzip(c_ptr, c_filesize, &ptr, &filesize)) {
+		symbol_fail();
+		return;
+	}
+
 	char symbol_address[32];
 	char type[2];
 	char symbol[1024];
@@ -169,7 +176,7 @@ void init_debug()
 	setforeground(COLOUR_LIGHTYELLOW);
 	kprintf("/kernel.sym ");
 	setforeground(COLOUR_WHITE);
-	kprintf("(%ld bytes)\n", filesize);
+	kprintf("(%d bytes)\n", filesize);
 }
 
 const char* findsymbol(uint64_t address, uint64_t* offset) {

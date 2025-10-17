@@ -219,33 +219,29 @@ static void zlib_free(voidpf opaque, voidpf addr) {
 	}
 }
 
-bool mount_initial_ramdisk(uint8_t *compressed_image, size_t compressed_size) {
+bool decompress_gzip(uint8_t *compressed_image, size_t compressed_size, uint8_t** out, uint32_t* out_size) {
 	if (compressed_image == NULL) {
-		preboot_fail("Invalid ramdisk argument");
+		return false;
 	}
 
 	if (compressed_size < 18) {
-		preboot_fail("Compressed ramdisk is too small");
+		return false;
 	}
 
 	if (!(compressed_image[0] == 0x1F && compressed_image[1] == 0x8B && compressed_image[2] == 0x08)) {
-		preboot_fail("Compressed ramdisk is not a gzip stream");
+		return false;
 	}
 
 	const uint8_t *tail = compressed_image + compressed_size - 4;
-	const uint32_t isize =
-		(uint32_t) tail[0] |
-		((uint32_t) tail[1] << 8) |
-		((uint32_t) tail[2] << 16) |
-		((uint32_t) tail[3] << 24);
+	*out_size = (uint32_t) tail[0] | ((uint32_t) tail[1] << 8) | ((uint32_t) tail[2] << 16) | ((uint32_t) tail[3] << 24);
 
-	if (isize == 0) {
-		preboot_fail("Compressed ramdisk uncompressed size is zero (corrupt gzip?)");
+	if (*out_size == 0) {
+		return false;
 	}
 
-	void *out = kmalloc((size_t) isize);
-	if (out == NULL) {
-		preboot_fail("Out of memory allocating ramdisk buffer");
+	*out = kmalloc(*out_size);
+	if (*out == NULL) {
+		return false;
 	}
 
 	z_stream zs;
@@ -255,34 +251,43 @@ bool mount_initial_ramdisk(uint8_t *compressed_image, size_t compressed_size) {
 	zs.opaque = Z_NULL;
 	zs.next_in = (Bytef *) compressed_image;
 	zs.avail_in = (uInt) compressed_size;
-	zs.next_out = (Bytef *) out;
-	zs.avail_out = (uInt) isize;
+	zs.next_out = (Bytef *) *out;
+	zs.avail_out = (uInt) *out_size;
 
 	int rc = inflateInit2(&zs, 16 + MAX_WBITS);
 	if (rc != Z_OK) {
-		preboot_fail("inflateInit2 failed when extracting initial ramdisk");
+		kfree(*out);
+		return false;
 	}
-
 	rc = inflate(&zs, Z_FINISH);
 	if (rc != Z_STREAM_END) {
 		inflateEnd(&zs);
-		preboot_fail("inflate failed when extracting initial ramdisk");
+		kfree(*out);
+		return false;
 	}
-
 	const size_t out_len = (size_t) zs.total_out;
 	inflateEnd(&zs);
-
 	if (out_len == 0) {
-		preboot_fail("Decompressed ramdisk length is zero");
+		kfree(*out);
+		return false;
+	}
+	return true;
+}
+
+bool mount_initial_ramdisk(uint8_t *compressed_image, size_t compressed_size) {
+
+	uint32_t isize;
+	uint8_t* out;
+	if (!decompress_gzip(compressed_image, compressed_size, &out, &isize)) {
+		preboot_fail("Failed to decompress initial ramdisk");
 	}
 
 	const size_t block_size = 2048;
-	if ((out_len % block_size) != 0) {
+	if ((isize % block_size) != 0) {
 		preboot_fail("Ramdisk is not an integer multiple of 2048 bytes");
 	}
 
-	const size_t blocks = out_len / block_size;
-
+	const size_t blocks = isize / block_size;
 	const char *rd_name = init_ramdisk_from_memory((uint8_t *) out, blocks, block_size);
 	if (rd_name == NULL) {
 		preboot_fail("Failed to register initial ramdisk device");
