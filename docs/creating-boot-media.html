@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.14.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Retro Rocket OS: Networking</title>
+<title>Retro Rocket OS: Creating Boot Media</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('user-networking.html','',''); });
+$(function(){initNavTree('creating-boot-media.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -92,61 +92,78 @@ $(function(){initNavTree('user-networking.html','',''); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">Networking </div></div>
+  <div class="headertitle"><div class="title">Creating Boot Media </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Retro Rocket includes basic networking support so you can connect to the internet and use network-enabled programs.</p>
-<hr  />
-<h3 class="doxsection"><a class="anchor" id="network-drivers"></a>
-Network Drivers</h3>
+<div class="textblock"><h2 class="doxsection"><a class="anchor" id="creating-boot-media"></a>
+Creating Boot Media</h2>
+<p>Retro Rocket is distributed in two formats:</p>
 <ul>
-<li>The network driver is loaded in the <b>boot script</b> <span class="tt">/programs/init</span>.</li>
-<li>By default, Retro Rocket loads the <b>e1000</b> driver, which also supports the Intel 82541PI chipset.</li>
-<li>On an installed system, you can freely edit <span class="tt">/programs/init</span> (using the <span class="tt">edit</span> command) to change which driver is loaded.</li>
+<li><b>ISO</b> (<span class="tt">rr.iso</span>) – for writing to a CD/DVD.</li>
+<li><b>USB image</b> (<span class="tt">usb.img</span>) – for writing directly to a USB stick.</li>
 </ul>
-<p>For most users the default works automatically.</p>
+<p>You will need to create boot media before you can start Retro Rocket on real hardware.</p>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="network-configuration"></a>
-Network Configuration</h3>
-<p>Once the network driver has been initialised, the system reads its configuration from:</p>
-<div class="fragment"><div class="line">/system/config/network.conf</div>
-</div><!-- fragment --><p>This file controls how your machine identifies itself and how it connects.</p>
-<h4 class="doxsection"><a class="anchor" id="example-default-configuration"></a>
-Example: Default configuration</h4>
-<div class="fragment"><div class="line"># Retro Rocket Network Configuration</div>
-<div class="line"># ----------------------------------</div>
-<div class="line">#</div>
-<div class="line"># This file is read by the network system once a network interface card has</div>
-<div class="line"># been initialised.</div>
-<div class="line">#</div>
-<div class="line"># The loopback interface (127.0.0.1) is always available and does not need</div>
-<div class="line"># to be configured here.</div>
-<div class="line">#</div>
-<div class="line"># At present only a single physical network card is supported. The first</div>
-<div class="line"># kernel module that successfully initialises a NIC takes precedence.</div>
-<div class="line"> </div>
-<div class="line"># Hostname of the machine</div>
-<div class="line">hostname retrorocket</div>
-<div class="line"> </div>
-<div class="line"># IPv4 address of the machine in dotted notation, or the literal value &#39;dhcp&#39;</div>
-<div class="line">ip dhcp</div>
-<div class="line"> </div>
-<div class="line"># One or more IPv4 DNS server addresses, comma-separated, or &#39;dhcp&#39;</div>
-<div class="line">dns dhcp</div>
-<div class="line"> </div>
-<div class="line"># Default gateway IPv4 address in dotted notation, or &#39;dhcp&#39;</div>
-<div class="line">gateway dhcp</div>
-<div class="line"> </div>
-<div class="line"># IPv4 network mask in dotted notation, or &#39;dhcp&#39;</div>
-<div class="line">netmask dhcp</div>
-</div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-201"></a>
+<h3 class="doxsection"><a class="anchor" id="burning-an-iso-cddvd"></a>
+Burning an ISO (CD/DVD)</h3>
+<h4 class="doxsection"><a class="anchor" id="windows"></a>
+Windows</h4>
+<ul>
+<li>Right-click the <span class="tt">.iso</span> file and choose <b>Burn disc image</b>.</li>
+<li>Alternatively, use a tool such as <em>ImgBurn</em>.</li>
+</ul>
+<div class="image">
+<img src="burn-iso.png" alt=""/>
+</div>
+<h4 class="doxsection"><a class="anchor" id="linux"></a>
+Linux</h4>
+<ul>
+<li>Most desktop environments provide a “Write to Disc” option when right-clicking the ISO.</li>
+<li>GUI tools such as <em>Brasero</em> or <em>K3b</em> can also be used.</li>
+<li>Command-line users may use <span class="tt">wodim</span> or <span class="tt">cdrecord</span>.</li>
+</ul>
+<div class="image">
+<img src="k3b-burn.png" alt=""/>
+</div>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="writing-the-usb-image-usb-stick"></a>
+Writing the USB Image (USB stick)</h3>
+<h4 class="doxsection"><a class="anchor" id="windows-1"></a>
+Windows</h4>
+<ul>
+<li>Use <a href="https://rufus.ie">Rufus</a>.</li>
+<li>You may be prompted to run the program as Administrator, be sure to accept the prompt.</li>
+<li>Select your USB stick, choose the <span class="tt">usb.img</span> file, and let Rufus write it in <b>DD mode</b> (this is the default).</li>
+<li>This will erase the contents of the stick.</li>
+</ul>
+<div class="image">
+<img src="rufus.png" alt=""/>
+</div>
+<h4 class="doxsection"><a class="anchor" id="linux-recommended-tools"></a>
+Linux (recommended tools)</h4>
+<ul>
+<li><b>balenaEtcher</b> – Select the <span class="tt">usb.img</span>, select your USB stick, and press <em>Flash</em>. Cross-platform, easy, and safe.</li>
+<li><b>GNOME Disks</b> – Right-click your USB stick</li>
+<li>Click on <em>Restore Disk Image</em> and choose <span class="tt">usb.img</span>.</li>
+</ul>
+<div class="image">
+<img src="etcher.png" alt=""/>
+</div>
+<h4 class="doxsection"><a class="anchor" id="linux-advanced"></a>
+Linux (advanced)</h4>
+<ul>
+<li>Command-line users may use <span class="tt">dd</span>, but <b>be very careful</b>:</li>
+</ul>
+<div class="fragment"><div class="line">sudo dd if=retro-rocket.usb.img of=/dev/sdX bs=4M status=progress</div>
+<div class="line">sync</div>
+</div><!-- fragment --><p>Replace <span class="tt">/dev/sdX</span> with your USB device (not a partition). <b>Warning:</b> Selecting the wrong device will destroy its contents.</p>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="notes-199"></a>
 Notes</h3>
 <ul>
-<li>By default, Retro Rocket uses <b>DHCP</b> for IP, DNS, gateway, and netmask.</li>
-<li>You can replace <span class="tt">dhcp</span> with fixed values if you want a static configuration.</li>
-<li>Only <b>one network card</b> is supported. The first successfully initialised driver is used.</li>
-<li>The loopback interface <span class="tt">127.0.0.1</span> is always present for local networking and testing. </li>
+<li>The ISO and USB image are not interchangeable. Use the correct file for the media you are creating.</li>
+<li>Always double-check which device you are writing to. Writing an image will erase existing data.</li>
+<li>Some machines may require adjusting BIOS/UEFI settings to boot from CD/DVD or USB. </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

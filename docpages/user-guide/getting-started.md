@@ -3,7 +3,7 @@
 This section will guide you through starting Retro Rocket for the first time.
 
 ### Booting Retro Rocket
-- Insert the Retro Rocket CD or USB stick into your PC.
+- Insert the Retro Rocket CD or USB stick into your PC. For details on how to create boot media, see the page @ref creating-boot-media
 - Power on or restart the machine.
 - Enter your system’s boot menu (often F12, F8, or Esc depending on the manufacturer).
 - Select **Boot from CD/DVD** or **Boot from USB** depending upon your boot media choice, and system.

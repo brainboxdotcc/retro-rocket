@@ -68,5 +68,6 @@ var searchData=
   ['doesn’t_20boot_20from_20the_20usb_20stick_65',['System doesn’t boot from the USB stick',['../troubleshooting.html#system-doesnt-boot-from-the-usb-stick',1,'']]],
   ['drive_66',['2. Select a drive',['../installation.html#autotoc_md2-select-a-drive',1,'']]],
   ['driver_67',['Driver',['../glossary.html#driver',1,'']]],
-  ['drivers_68',['Drivers',['../audio-basics.html#drivers',1,'Drivers'],['../user-networking.html#network-drivers',1,'Network Drivers']]]
+  ['drivers_68',['Drivers',['../audio-basics.html#drivers',1,'Drivers'],['../user-networking.html#network-drivers',1,'Network Drivers']]],
+  ['dvd_69',['Burning an ISO (CD/DVD)',['../creating-boot-media.html#burning-an-iso-cddvd',1,'']]]
 ];

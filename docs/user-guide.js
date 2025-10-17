@@ -2,6 +2,7 @@ var user_guide =
 [
     [ "Introduction", "introduction.html", null ],
     [ "Retro Rocket System Requirements", "system-requirements.html", null ],
+    [ "Creating Boot Media", "creating-boot-media.html", null ],
     [ "Getting Started", "getting-started.html", null ],
     [ "Installation", "installation.html", null ],
     [ "The Shell", "shell.html", null ],

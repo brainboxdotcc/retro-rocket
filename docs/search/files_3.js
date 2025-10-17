@@ -19,9 +19,10 @@ var searchData=
   ['cpuid_2emd_16',['CPUID.md',['../CPUID_8md.html',1,'']]],
   ['cpuid_2emd_17',['cpuid.md',['../cpuid_8md.html',1,'']]],
   ['cpuvendor_2emd_18',['cpuvendor.md',['../cpuvendor_8md.html',1,'']]],
-  ['csd_2emd_19',['CSD.md',['../CSD_8md.html',1,'']]],
-  ['cube_2emd_20',['cube.md',['../cube_8md.html',1,'']]],
-  ['currentx_2emd_21',['CURRENTX.md',['../CURRENTX_8md.html',1,'']]],
-  ['currenty_2emd_22',['CURRENTY.md',['../CURRENTY_8md.html',1,'']]],
-  ['cursor_2emd_23',['CURSOR.md',['../CURSOR_8md.html',1,'']]]
+  ['creating_2dboot_2dmedia_2emd_19',['creating-boot-media.md',['../creating-boot-media_8md.html',1,'']]],
+  ['csd_2emd_20',['CSD.md',['../CSD_8md.html',1,'']]],
+  ['cube_2emd_21',['cube.md',['../cube_8md.html',1,'']]],
+  ['currentx_2emd_22',['CURRENTX.md',['../CURRENTX_8md.html',1,'']]],
+  ['currenty_2emd_23',['CURRENTY.md',['../CURRENTY_8md.html',1,'']]],
+  ['cursor_2emd_24',['CURSOR.md',['../CURSOR_8md.html',1,'']]]
 ];

@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="creating-boot-media" kind="page">
+    <compoundname>creating-boot-media</compoundname>
+    <title>Creating Boot Media</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<sect1 id="creating-boot-media_1creating-boot-media_1s1"><sect2 id="creating-boot-media_1creating-boot-media">
+<title>Creating Boot Media</title><para>Retro Rocket is distributed in two formats:</para>
+<para><itemizedlist>
+<listitem><para><bold>ISO</bold> (<computeroutput>rr.iso</computeroutput>) – for writing to a CD/DVD.</para>
+</listitem><listitem><para><bold>USB image</bold> (<computeroutput>usb.img</computeroutput>) – for writing directly to a USB stick.</para>
+</listitem></itemizedlist>
+</para>
+<para>You will need to create boot media before you can start Retro Rocket on real hardware.</para>
+<para><hruler/>
+</para>
+<sect3 id="creating-boot-media_1burning-an-iso-cddvd">
+<title>Burning an ISO (CD/DVD)</title><sect4 id="creating-boot-media_1windows">
+<title>Windows</title><para><itemizedlist>
+<listitem><para>Right-click the <computeroutput>.iso</computeroutput> file and choose <bold>Burn disc image</bold>.</para>
+</listitem><listitem><para>Alternatively, use a tool such as <emphasis>ImgBurn</emphasis>.</para>
+</listitem></itemizedlist>
+</para>
+<para><image type="html" name="burn-iso.png"></image>
+</para>
+</sect4>
+<sect4 id="creating-boot-media_1linux">
+<title>Linux</title><para><itemizedlist>
+<listitem><para>Most desktop environments provide a “Write to Disc” option when right-clicking the ISO.</para>
+</listitem><listitem><para>GUI tools such as <emphasis>Brasero</emphasis> or <emphasis>K3b</emphasis> can also be used.</para>
+</listitem><listitem><para>Command-line users may use <computeroutput>wodim</computeroutput> or <computeroutput>cdrecord</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para><image type="html" name="k3b-burn.png"></image>
+</para>
+<para><hruler/>
+</para>
+</sect4>
+</sect3>
+<sect3 id="creating-boot-media_1writing-the-usb-image-usb-stick">
+<title>Writing the USB Image (USB stick)</title><sect4 id="creating-boot-media_1windows-1">
+<title>Windows</title><para><itemizedlist>
+<listitem><para>Use <ulink url="https://rufus.ie">Rufus</ulink>.</para>
+</listitem><listitem><para>You may be prompted to run the program as Administrator, be sure to accept the prompt.</para>
+</listitem><listitem><para>Select your USB stick, choose the <computeroutput>usb.img</computeroutput> file, and let Rufus write it in <bold>DD mode</bold> (this is the default).</para>
+</listitem><listitem><para>This will erase the contents of the stick.</para>
+</listitem></itemizedlist>
+</para>
+<para><image type="html" name="rufus.png"></image>
+</para>
+</sect4>
+<sect4 id="creating-boot-media_1linux-recommended-tools">
+<title>Linux (recommended tools)</title><para><itemizedlist>
+<listitem><para><bold>balenaEtcher</bold> – Select the <computeroutput>usb.img</computeroutput>, select your USB stick, and press <emphasis>Flash</emphasis>. Cross-platform, easy, and safe.</para>
+</listitem><listitem><para><bold>GNOME Disks</bold> – Right-click your USB stick</para>
+</listitem><listitem><para>Click on <emphasis>Restore Disk Image</emphasis> and choose <computeroutput>usb.img</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para><image type="html" name="etcher.png"></image>
+</para>
+</sect4>
+<sect4 id="creating-boot-media_1linux-advanced">
+<title>Linux (advanced)</title><para><itemizedlist>
+<listitem><para>Command-line users may use <computeroutput>dd</computeroutput>, but <bold>be very careful</bold>:</para>
+</listitem></itemizedlist>
+</para>
+<para><programlisting filename=".bash"><codeline><highlight class="normal">sudo<sp/>dd<sp/>if=retro-rocket.usb.img<sp/>of=/dev/sdX<sp/>bs=4M<sp/>status=progress</highlight></codeline>
+<codeline><highlight class="normal">sync</highlight></codeline>
+</programlisting></para>
+<para>Replace <computeroutput>/dev/sdX</computeroutput> with your USB device (not a partition). <bold>Warning:</bold> Selecting the wrong device will destroy its contents.</para>
+<para><hruler/>
+</para>
+</sect4>
+</sect3>
+<sect3 id="creating-boot-media_1notes-199">
+<title>Notes</title><para><itemizedlist>
+<listitem><para>The ISO and USB image are not interchangeable. Use the correct file for the media you are creating.</para>
+</listitem><listitem><para>Always double-check which device you are writing to. Writing an image will erase existing data.</para>
+</listitem><listitem><para>Some machines may require adjusting BIOS/UEFI settings to boot from CD/DVD or USB. </para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+</sect2></sect1>
+    </detaileddescription>
+    <location file="docpages/user-guide/creating-boot-media.md"/>
+  </compounddef>
+</doxygen>

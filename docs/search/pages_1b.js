@@ -104,7 +104,7 @@ var searchData=
   ['statements_20yield_101',['Cooperative runtime: statements yield',['../basic-intdev.html#cooperative-runtime-statements-yield',1,'']]],
   ['states_102',['Process states',['../GETPROCSTATE.html#process-states',1,'']]],
   ['static_20ip_103',['Static IP',['../glossary.html#static-ip',1,'']]],
-  ['stick_104',['System doesn’t boot from the USB stick',['../troubleshooting.html#system-doesnt-boot-from-the-usb-stick',1,'']]],
+  ['stick_104',['stick',['../troubleshooting.html#system-doesnt-boot-from-the-usb-stick',1,'System doesn’t boot from the USB stick'],['../creating-boot-media.html#writing-the-usb-image-usb-stick',1,'Writing the USB Image (USB stick)']]],
   ['still_20stuck_105',['Still stuck?',['../troubleshooting.html#still-stuck',1,'']]],
   ['stop_106',['SOUND STOP',['../SOUND.html#sound-stop',1,'']]],
   ['stopping_20running_20programs_107',['Stopping running programs',['../rocketsh.html#stopping-running-programs',1,'']]],

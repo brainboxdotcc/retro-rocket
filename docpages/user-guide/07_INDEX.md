@@ -4,6 +4,7 @@ Welcome to Retro Rocket! This guide is for everyone who wants to use the system,
 
 - \subpage introduction
 - \subpage system-requirements
+- \subpage creating-boot-media
 - \subpage getting-started
 - \subpage installation
 - \subpage shell
