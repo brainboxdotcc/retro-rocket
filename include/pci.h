@@ -83,9 +83,7 @@ extern pci_dev_t dev_zero;
 
 #define PCI_CAPABILITY_MSI	 0x05
 #define PCI_MSI_64BIT		 (1 << 7)
-#define PCI_MSI_DEASSERT	 (1 << 14)
-#define PCI_MSI_EDGETRIGGER	 (1 << 15)
-#define PCI_MSI_ENABLE		 (1 << 16)
+#define PCI_MSI_ENABLE		 (1 << 0)
 
 #define PCI_CAPABILITY_MSIX	 0x11
 

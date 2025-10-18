@@ -15,12 +15,15 @@ const OUT_IMG = BUILD_DIR . '/usb.img';
 const VOL_LABEL = 'RETROROCKET';
 const HEADROOM_MB = 64;
 
-chdir(LIMINE_DIR);
-run('env -u MAKEFLAGS -u MFLAGS -u MAKELEVEL make -j1 CC="/usr/bin/gcc -B/usr/bin/" >/dev/null');
-chdir(BUILD_DIR);
+
 
 if (!is_file(LIMINE_BIN) || !is_executable(LIMINE_BIN)) {
-    throw new RuntimeException("limine build failed: missing or non-executable '" . LIMINE_BIN . "'");
+    chdir(LIMINE_DIR);
+    run('env -u MAKEFLAGS -u MFLAGS -u MAKELEVEL make -j1 CC="/usr/bin/gcc -B/usr/bin/" >/dev/null');
+    chdir(BUILD_DIR);
+    if (!is_file(LIMINE_BIN) || !is_executable(LIMINE_BIN)) {
+        throw new RuntimeException("limine build failed: missing or non-executable '" . LIMINE_BIN . "'");
+    }
 }
 function run(string $cmd, array $env = []): void {
     $proc = proc_open($cmd, [1=>['pipe','w'], 2=>['pipe','w']], $pipes, null, $env + $_ENV);

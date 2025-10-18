@@ -414,12 +414,29 @@ void pci_display_device_list()
 			// Don't list bridges
 			continue;
 		}
+		bool msi = false, msix = false;
+		/* Check for MSI/MSI-X capability */
+		uint16_t status = pci_read16(list[n], PCI_STATUS);
+		if (status & PCI_STATUS_CAPABILITIES_LIST) {
+			uint8_t cap = pci_read8(list[n], PCI_CAPABILITY_POINTER);
+			while (cap) {
+				uint8_t id   = pci_read8(list[n], cap + 0x00);
+				uint8_t next = pci_read8(list[n], cap + 0x01);
+				if (id == PCI_CAPABILITY_MSI) {
+					msi = true;
+				} else if (id == PCI_CAPABILITY_MSIX) {
+					msix = true;
+				}
+				cap = next;
+			}
+		}
 		dprintf(
-			"%02x:%02x:%02x: %s (%04x:%04x) [%02x:%02x:%02x]\n",
+			"%02x:%02x:%02x: %s (%04x:%04x) [%02x:%02x:%02x] %s%s\n",
 			list[n].bus_num, list[n].device_num, list[n].function_num,
 			device_description,
 			pci_read(list[n], PCI_VENDOR_ID), pci_read(list[n], PCI_DEVICE_ID),
-			class, subclass, progif
+			class, subclass, progif,
+			msi ? "MSI" : "", msix ? "MSI-X" : ""
 		);
 	}
 }
@@ -820,52 +837,52 @@ uint64_t get_bar_size(pci_dev_t dev, int bar_index) {
 }
 
 bool pci_disable_bus_master(pci_dev_t device) {
-        uint32_t cmd = pci_read(device, PCI_COMMAND);
-        if ((cmd & PCI_COMMAND_BUS_MASTER) != 0) {
-                cmd &= ~PCI_COMMAND_BUS_MASTER;
-                pci_write(device, PCI_COMMAND, cmd);
-                cmd = pci_read(device, PCI_COMMAND);
-        }
-        return (cmd & PCI_COMMAND_BUS_MASTER) == 0;
+	uint32_t cmd = pci_read(device, PCI_COMMAND);
+	if ((cmd & PCI_COMMAND_BUS_MASTER) != 0) {
+		cmd &= ~PCI_COMMAND_BUS_MASTER;
+		pci_write(device, PCI_COMMAND, cmd);
+		cmd = pci_read(device, PCI_COMMAND);
+	}
+	return (cmd & PCI_COMMAND_BUS_MASTER) == 0;
 }
 
 bool pci_enable_iospace(pci_dev_t device) {
-        uint32_t cmd = pci_read(device, PCI_COMMAND);
-        if ((cmd & PCI_COMMAND_IOSPACE) == 0) {
-                cmd |= PCI_COMMAND_IOSPACE;
-                pci_write(device, PCI_COMMAND, cmd);
-                cmd = pci_read(device, PCI_COMMAND);
-        }
-        return (cmd & PCI_COMMAND_IOSPACE) != 0;
+	uint32_t cmd = pci_read(device, PCI_COMMAND);
+	if ((cmd & PCI_COMMAND_IOSPACE) == 0) {
+		cmd |= PCI_COMMAND_IOSPACE;
+		pci_write(device, PCI_COMMAND, cmd);
+		cmd = pci_read(device, PCI_COMMAND);
+	}
+	return (cmd & PCI_COMMAND_IOSPACE) != 0;
 }
 
 bool pci_enable_memspace(pci_dev_t device) {
-        uint32_t cmd = pci_read(device, PCI_COMMAND);
-        if ((cmd & PCI_COMMAND_MEMSPACE) == 0) {
-                cmd |= PCI_COMMAND_MEMSPACE;
-                pci_write(device, PCI_COMMAND, cmd);
-                cmd = pci_read(device, PCI_COMMAND);
-        }
-        return (cmd & PCI_COMMAND_MEMSPACE) != 0;
+	uint32_t cmd = pci_read(device, PCI_COMMAND);
+	if ((cmd & PCI_COMMAND_MEMSPACE) == 0) {
+		cmd |= PCI_COMMAND_MEMSPACE;
+		pci_write(device, PCI_COMMAND, cmd);
+		cmd = pci_read(device, PCI_COMMAND);
+	}
+	return (cmd & PCI_COMMAND_MEMSPACE) != 0;
 }
 
 bool pci_disable_iospace(pci_dev_t device) {
-        uint32_t cmd = pci_read(device, PCI_COMMAND);
-        if ((cmd & PCI_COMMAND_IOSPACE) != 0) {
-                cmd &= ~PCI_COMMAND_IOSPACE;
-                pci_write(device, PCI_COMMAND, cmd);
-                cmd = pci_read(device, PCI_COMMAND);
-        }
-        return (cmd & PCI_COMMAND_IOSPACE) == 0;
+	uint32_t cmd = pci_read(device, PCI_COMMAND);
+	if ((cmd & PCI_COMMAND_IOSPACE) != 0) {
+		cmd &= ~PCI_COMMAND_IOSPACE;
+		pci_write(device, PCI_COMMAND, cmd);
+		cmd = pci_read(device, PCI_COMMAND);
+	}
+	return (cmd & PCI_COMMAND_IOSPACE) == 0;
 }
 
 bool pci_disable_memspace(pci_dev_t device) {
-        uint32_t cmd = pci_read(device, PCI_COMMAND);
-        if ((cmd & PCI_COMMAND_MEMSPACE) != 0) {
-                cmd &= ~PCI_COMMAND_MEMSPACE;
-                pci_write(device, PCI_COMMAND, cmd);
-                cmd = pci_read(device, PCI_COMMAND);
-        }
-        return (cmd & PCI_COMMAND_MEMSPACE) == 0;
+	uint32_t cmd = pci_read(device, PCI_COMMAND);
+	if ((cmd & PCI_COMMAND_MEMSPACE) != 0) {
+		cmd &= ~PCI_COMMAND_MEMSPACE;
+		pci_write(device, PCI_COMMAND, cmd);
+		cmd = pci_read(device, PCI_COMMAND);
+	}
+	return (cmd & PCI_COMMAND_MEMSPACE) == 0;
 }
 
