@@ -206,6 +206,18 @@ pci_dev_t pci_get_device(uint16_t vendor_id, uint16_t device_id, int device_type
  */
 pci_dev_t pci_get_best(uint16_t vendor_id, uint16_t device_id, int device_type, pci_score_fn score, void *ctx);
 
+/**
+ * @brief Get the Nth matching PCI device by vendor/device/type.
+ *
+ * Scans the enumerated device list and returns the Nth match in discovery
+ * order (0-based). Any of the match fields may be wildcarded.
+ *
+ * @param vendor_id   Vendor ID to match (0 = any).
+ * @param device_id   Device ID to match (0 = any).
+ * @param device_type Device class/type to match (-1 = any).
+ * @param nth         Zero-based index into the matching set.
+ * @return            Matching PCI device, or dev_zero if not found.
+ */
 pci_dev_t pci_get_device_nth(uint16_t vendor_id, uint16_t device_id, int device_type, size_t nth);
 
 /**
@@ -317,14 +329,133 @@ bool pci_enable_msix(pci_dev_t device, uint32_t vector, uint16_t entry, uint32_t
  */
 uint32_t pci_setup_interrupt(const char* name, pci_dev_t dev, uint8_t logical_cpu_id, isr_t handler, void *context);
 
+/**
+ * @brief Return the 64-bit MMIO base from a pair of BAR dwords.
+ *
+ * Helper for 64-bit memory BARs where both low and high dwords are available.
+ *
+ * @param lo  Lower 32 bits of the BAR (as read from PCI configuration space).
+ * @param hi  Upper 32 bits of the BAR (as read from PCI configuration space).
+ * @return    64-bit physical base address.
+ */
+uint64_t pci_mem_base64(uint32_t lo, uint32_t hi);
+
+/**
+ * @brief Determine if a BAR field denotes a 64-bit memory BAR.
+ *
+ * @param field Raw BAR field value.
+ * @return      true if the BAR is a 64-bit memory BAR, false otherwise.
+ */
+bool pci_bar_is_mem64(uint32_t field);
+
+/**
+ * @brief Probe and return the size of a BAR mapping.
+ *
+ * Uses the standard PCI size-probe dance on the requested BAR index to
+ * determine the amount of address space the device decodes.
+ *
+ * @param dev        PCI device.
+ * @param bar_index  BAR number (0..5).
+ * @return           Size in bytes (0 on failure or unsupported BAR type).
+ *
+ * @note May temporarily write to the device’s BAR during probing; callers
+ *       must ensure the device is idle and that probing is safe.
+ */
 uint64_t get_bar_size(pci_dev_t dev, int bar_index);
 
+/**
+ * @brief Disable PCI bus mastering on a device.
+ *
+ * Clears @ref PCI_COMMAND_BUS_MASTER in the device’s command register.
+ *
+ * @param device PCI device descriptor.
+ * @return       true if the bit was cleared by this call, false if it was already clear.
+ */
 bool pci_disable_bus_master(pci_dev_t device);
 
+/**
+ * @brief Enable I/O space decoding for a device.
+ *
+ * Sets @ref PCI_COMMAND_IOSPACE in the command register.
+ *
+ * @param device PCI device descriptor.
+ * @return       true if the bit was newly set, false if it was already set.
+ */
 bool pci_enable_iospace(pci_dev_t device);
 
+/**
+ * @brief Enable MMIO space decoding for a device.
+ *
+ * Sets @ref PCI_COMMAND_MEMSPACE in the command register.
+ *
+ * @param device PCI device descriptor.
+ * @return       true if the bit was newly set, false if it was already set.
+ */
 bool pci_enable_memspace(pci_dev_t device);
 
+/**
+ * @brief Disable I/O space decoding for a device.
+ *
+ * Clears @ref PCI_COMMAND_IOSPACE in the command register.
+ *
+ * @param device PCI device descriptor.
+ * @return       true if the bit was cleared by this call, false if it was already clear.
+ */
 bool pci_disable_iospace(pci_dev_t device);
 
+/**
+ * @brief Disable MMIO space decoding for a device.
+ *
+ * Clears @ref PCI_COMMAND_MEMSPACE in the command register.
+ *
+ * @param device PCI device descriptor.
+ * @return       true if the bit was cleared by this call, false if it was already clear.
+ */
 bool pci_disable_memspace(pci_dev_t device);
+
+/**
+ * @brief Configure one or more interrupt vectors for a PCI function.
+ *
+ * For @p requested_count == 1: attempts single-vector MSI and falls back to legacy INTx
+ * if MSI cannot be enabled. On success, writes the assigned vector to @p start and @p end.
+ *
+ * For @p requested_count > 1: attempts to allocate a contiguous run of exactly that many
+ * vectors and then enables plain MSI with Multiple Message Enable (MME) set via
+ * @ref pci_enable_msi_multi. Handlers are installed before arming the device; on failure,
+ * installed handlers are deregistered and the vectors freed. There is no legacy fallback
+ * for multi-vector requests.
+ *
+ * @param name            Human-readable device name (for logs).
+ * @param dev             PCI device handle.
+ * @param logical_cpu_id  Logical CPU that should receive the interrupts.
+ * @param requested_count Number of vectors requested (caller should pass a power of two for MSI).
+ * @param handler         ISR to register on each vector.
+ * @param context         Opaque pointer passed to the ISR.
+ * @param start           [out] First vector in the assigned range.
+ * @param end             [out] Last vector in the assigned range (inclusive).
+ * @return                true on success; false if allocation/programming failed.
+ *
+ * @note This function does not round up non-power-of-two requests; if the device
+ *       cannot support the requested count, it fails. For multi-vector requests,
+ *       alignment and power-of-two constraints are enforced by @ref pci_enable_msi_multi.
+ */
+bool pci_setup_multiple_interrupts(const char *name, pci_dev_t dev, uint8_t logical_cpu_id, uint8_t requested_count, isr_t handler, void *context, uint32_t *start, uint32_t *end);
+
+/**
+ * @brief Enable plain MSI for a contiguous, power-of-two range of vectors.
+ *
+ * Programs the device’s MSI capability with Message Address/Message Data and sets
+ * the Multiple Message Enable (MME) bits to @c log2(count), using @p base_vector
+ * as the first message’s vector. Disables legacy INTx on success.
+ *
+ * @param device       PCI device descriptor.
+ * @param base_vector  First vector in the contiguous block (must be aligned to @p count).
+ * @param count        Number of messages (must be a power of two, e.g., 1,2,4,8,...,128).
+ * @param lapic_id     Local APIC ID to target.
+ * @return             true if MSI was enabled with the requested range; false otherwise.
+ *
+ * @warning This call does not allocate vectors or install handlers. Callers must
+ *          have already reserved a contiguous block and registered handlers for
+ *          all vectors before enabling MSI on the device.
+ */
+bool pci_enable_msi_multi(pci_dev_t device, uint32_t base_vector, uint8_t count, uint32_t lapic_id);

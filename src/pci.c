@@ -712,6 +712,89 @@ bool pci_enable_msi(pci_dev_t device, uint32_t vector, uint32_t lapic_id)
 	return false;
 }
 
+bool pci_enable_msi_multi(pci_dev_t device, uint32_t base_vector, uint8_t count, uint32_t lapic_id) {
+	if (base_vector > 255) {
+		return false;
+	}
+	if (count == 0) {
+		return false;
+	}
+	if ((count & (count - 1)) != 0) {
+		return false; /* not power-of-two */
+	}
+	if ((base_vector & (count - 1)) != 0) {
+		return false; /* not aligned */
+	}
+
+	uint8_t mme = (uint8_t)log2f((double)count);
+
+	uint16_t status = pci_read16(device, PCI_STATUS);
+	if (!(status & PCI_STATUS_CAPABILITIES_LIST)) {
+		return false;
+	}
+
+	uint8_t current = pci_read8(device, PCI_CAPABILITY_POINTER);
+
+	while (current != 0) {
+		uint8_t id = pci_read8(device, current + 0x00);
+		uint8_t next = pci_read8(device, current + 0x01);
+
+		if (id == PCI_CAPABILITY_MSI) {
+			uint16_t control = pci_read16(device, current + 0x02);
+
+			uint8_t mmc = (uint8_t)((control >> 1) & 0x7);
+			if (mme > mmc) {
+				dprintf("MSI multi enable rejected: device MMC=%u < requested MME=%u\n", mmc, mme);
+				return false;
+			}
+
+			bool is_64bit = (control & PCI_MSI_64BIT) != 0;
+
+			uint32_t addr_low = 0xFEE00000;
+			uint32_t addr_high = 0;
+			uint16_t data = (uint16_t)(base_vector & 0xFF);
+
+			if (!x2apic_enabled()) {
+				addr_low |= (lapic_id << 12);
+			} else {
+				addr_high = lapic_id;
+			}
+
+			dprintf("Enable MSI multi for %04x:%04x base=%u count=%u (MME=%u) addr_low=%08x addr_high=%08x\n",
+				pci_read16(device, PCI_VENDOR_ID),
+				pci_read16(device, PCI_DEVICE_ID),
+				base_vector, count, mme, addr_low, addr_high);
+
+			pci_write32(device, current + 0x04, addr_low);
+
+			if (is_64bit) {
+				pci_write32(device, current + 0x08, addr_high);
+				pci_write16(device, current + 0x0C, data);
+			} else {
+				pci_write16(device, current + 0x08, data);
+			}
+
+			control &= ~0x0070;
+			control |= (uint16_t)(mme << 4);
+			control |= PCI_MSI_ENABLE;
+			pci_write16(device, current + 0x02, control);
+
+			uint16_t check = pci_read16(device, current + 0x02);
+			if ((check & PCI_MSI_ENABLE) == 0) {
+				dprintf("MSI multi enable failed: control=%04x\n", check);
+				return false;
+			}
+
+			pci_interrupt_enable(device, false);
+			return true;
+		}
+
+		current = next;
+	}
+
+	return false;
+}
+
 bool pci_enable_msix(pci_dev_t device, uint32_t vector, uint16_t entry, uint32_t lapic_id)
 {
 	uint16_t status = pci_read16(device, PCI_STATUS);
@@ -811,6 +894,190 @@ uint32_t pci_setup_interrupt(const char* name, pci_dev_t dev, uint8_t logical_cp
 	pci_interrupt_enable(dev, true);
 	dprintf("%s: MSI not available, using legacy IRQ %d\n", name, irq);
 	return irq;
+}
+
+bool pci_setup_multiple_interrupts(const char *name, pci_dev_t dev, uint8_t logical_cpu_id, uint8_t requested_count, isr_t handler, void *context, uint32_t *start, uint32_t *end) {
+	if (requested_count < 1 || requested_count > 128) {
+		return false;
+	}
+
+	uint32_t lapic_id = get_lapic_id_from_cpu_id(logical_cpu_id);
+	uint32_t irq_line = pci_read(dev, PCI_INTERRUPT_LINE);
+
+	/* Single vector: prefer MSI, then legacy INTx. */
+	if (requested_count == 1) {
+		int vec = alloc_msi_vector(logical_cpu_id);
+		if (vec >= 0) {
+			uint32_t v = vec;
+
+			if (register_interrupt_handler(v, handler, dev, context)) {
+				if (pci_enable_msi(dev, v, lapic_id)) {
+					*start = v;
+					*end = v;
+
+					kprintf(
+						"%s: MSI enabled for %04x:%04x, vector %u on CPU#%u (ID %u)\n",
+						name,
+						pci_read(dev, PCI_VENDOR_ID),
+						pci_read(dev, PCI_DEVICE_ID),
+						v,
+						logical_cpu_id,
+						lapic_id
+					);
+
+					return true;
+				}
+
+				/* Enable failed: roll back cleanly. */
+				deregister_interrupt_handler((uint8_t) v, handler);
+			}
+
+			free_msi_vector(logical_cpu_id, vec);
+		}
+
+		/* Legacy INTx fallback (single only). */
+		uint32_t irq = IRQ_START + irq_line;
+		if (!register_interrupt_handler(irq, handler, dev, context)) {
+			return false;
+		}
+
+		pci_interrupt_enable(dev, true);
+
+		*start = irq;
+		*end = irq;
+
+		dprintf("%s: MSI not available, using legacy IRQ %u\n", name, irq);
+		return true;
+	}
+
+	/* Multi-MSI path: attempt exactly 'requested_count'. */
+	const int max_attempts = 32;
+
+	for (int attempt = 0; attempt < max_attempts; attempt++) {
+		uint32_t tmp[256];
+		uint8_t got = 0;
+
+		/* Allocate 'requested_count' single vectors. */
+		while (got < requested_count) {
+			int v = alloc_msi_vector(logical_cpu_id);
+			if (v < 0) {
+				break;
+			}
+			tmp[got++] = (uint32_t) v;
+		}
+
+		if (got < requested_count) {
+			/* Not enough; free what we grabbed and retry. */
+			for (uint8_t i = 0; i < got; i++) {
+				free_msi_vector(logical_cpu_id, (int) tmp[i]);
+			}
+			continue;
+		}
+
+		/* Sort (small N) to search for a contiguous run of exactly 'requested_count'. */
+		for (uint8_t i = 1; i < got; i++) {
+			uint32_t key = tmp[i];
+			int j = i - 1;
+			while (j >= 0 && tmp[j] > key) {
+				tmp[j + 1] = tmp[j];
+				j--;
+			}
+			tmp[j + 1] = key;
+		}
+
+		bool have_run = false;
+		uint32_t run_start = 0;
+
+		for (uint8_t i = 0; i + (requested_count - 1) < got; i++) {
+			uint32_t base = tmp[i];
+			bool contiguous = true;
+
+			for (uint8_t k = 1; k < requested_count; k++) {
+				if (tmp[i + k] != base + k) {
+					contiguous = false;
+					break;
+				}
+			}
+
+			if (contiguous) {
+				have_run = true;
+				run_start = base;
+				break;
+			}
+		}
+
+		if (!have_run) {
+			/* Didn’t get a contiguous run; free all and try again. */
+			for (uint8_t i = 0; i < got; i++) {
+				free_msi_vector(logical_cpu_id, (int) tmp[i]);
+			}
+			continue;
+		}
+
+		/* Free any vectors not in the run we’re going to use. */
+		for (uint8_t i = 0; i < got; i++) {
+			uint32_t v = tmp[i];
+			if (v < run_start || v >= run_start + requested_count) {
+				free_msi_vector(logical_cpu_id, (int) v);
+			}
+		}
+
+		/* Register handlers for the whole block BEFORE arming the device. */
+		bool all_ok = true;
+		for (uint8_t i = 0; i < requested_count; i++) {
+			uint32_t vec = run_start + i;
+			if (!register_interrupt_handler(vec, handler, dev, context)) {
+				all_ok = false;
+
+				/* Roll back only those registered so far, then free the block. */
+				for (uint8_t j = 0; j < i; j++) {
+					uint32_t vec2 = run_start + j;
+					deregister_interrupt_handler((uint8_t) vec2, handler);
+				}
+				for (uint8_t j = 0; j < requested_count; j++) {
+					free_msi_vector(logical_cpu_id, (int) (run_start + j));
+				}
+
+				break;
+			}
+		}
+
+		if (!all_ok) {
+			continue;
+		}
+
+		/* Arm the device for the whole range; pci_enable_msi_multi enforces power-of-two + alignment. */
+		if (pci_enable_msi_multi(dev, run_start, requested_count, lapic_id)) {
+			*start = run_start;
+			*end = run_start + requested_count - 1;
+
+			kprintf(
+				"%s: MSI range %u..%u (%u vectors) enabled for %04x:%04x on CPU#%u (ID %u)\n",
+				name,
+				*start,
+				*end,
+				requested_count,
+				pci_read(dev, PCI_VENDOR_ID),
+				pci_read(dev, PCI_DEVICE_ID),
+				logical_cpu_id,
+				lapic_id
+			);
+
+			return true;
+		}
+
+		/* Device rejected multi-MSI; roll back fully and retry. */
+		for (uint8_t i = 0; i < requested_count; i++) {
+			uint32_t vec = run_start + i;
+			deregister_interrupt_handler((uint8_t) vec, handler);
+			free_msi_vector(logical_cpu_id, (int) vec);
+		}
+
+		dprintf("%s: device failed to enable multi-MSI for count=%u; retrying\n", name, requested_count);
+	}
+
+	dprintf("%s: could not allocate contiguous MSI block of size %u after %d attempts\n", name, requested_count, max_attempts);
+	return false;
 }
 
 uint64_t get_bar_size(pci_dev_t dev, int bar_index) {
