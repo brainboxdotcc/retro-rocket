@@ -19,6 +19,8 @@ extern size_t aps_online;
 
 buddy_allocator_t acpi_pool = { 0 };
 
+static bool uacpi_claim_phase = false;
+
 static uint64_t pm_timer_port = 0;
 static bool pm_timer_32bit = 0;
 static bool pm_timer_is_io = 0;
@@ -36,6 +38,18 @@ pci_irq_route_t pci_irq_routes[MAX_PCI_ROUTES] = {};
 uint32_t cpu_id_mapping[MAX_CPUS] = { 0 };
 
 uint64_t mhz = 0, tsc_per_sec = 1;
+
+typedef struct uacpi_irq_req {
+	uint32_t gsi;				/* GSI from uACPI (not a vector). */
+	uacpi_interrupt_handler handler;	/* uACPI handler: handler(ctx). */
+	uacpi_handle ctx;
+	uint8_t vector;				/* Bound vector once claimed. */
+	bool claimed;
+} uacpi_irq_req;
+
+#define UACPI_DEFER_MAX 16
+static uacpi_irq_req *uacpi_deferred[UACPI_DEFER_MAX];
+static size_t uacpi_deferred_count = 0;
 
 void enumerate_all_gsis(void);
 
@@ -496,29 +510,153 @@ void uacpi_kernel_signal_event(uacpi_handle) {}
 
 void uacpi_kernel_reset_event(uacpi_handle) {}
 
-uacpi_thread_id uacpi_kernel_get_thread_id(void) { return 1; }
+uacpi_thread_id uacpi_kernel_get_thread_id(void) {
+	return 1;
+}
 
-// Optional no-op spinlock support
-uacpi_handle uacpi_kernel_create_spinlock(void) { return (uacpi_handle) last_handle++; }
+uacpi_handle uacpi_kernel_create_spinlock(void) {
+	spinlock_t *lock = (spinlock_t *)buddy_malloc(&acpi_pool, sizeof(spinlock_t));
+	if (lock == NULL) {
+		return (uacpi_handle)0;
+	}
+	init_spinlock(lock);
+	return (uacpi_handle)(uintptr_t)lock;
+}
 
-void uacpi_kernel_free_spinlock(uacpi_handle handle) {}
+void uacpi_kernel_free_spinlock(uacpi_handle handle) {
+	spinlock_t *lock = (spinlock_t *)(uintptr_t)handle;
+	if (lock == NULL) {
+		return;
+	}
+	__atomic_store_n(lock, 0, __ATOMIC_RELEASE);
+	buddy_free(&acpi_pool, lock);
+}
 
-uacpi_cpu_flags uacpi_kernel_lock_spinlock(uacpi_handle handle) { return 0; }
+uacpi_cpu_flags uacpi_kernel_lock_spinlock(uacpi_handle handle) {
+	spinlock_t *lock = (spinlock_t *)(uintptr_t)handle;
+	uint64_t saved_flags = 0;
+	if (lock == NULL) {
+		return 0;
+	}
+	lock_spinlock_irq(lock, &saved_flags);
+	return saved_flags;
+}
 
-void uacpi_kernel_unlock_spinlock(uacpi_handle handle, uacpi_cpu_flags flags) {}
+void uacpi_kernel_unlock_spinlock(uacpi_handle handle, uacpi_cpu_flags flags) {
+	spinlock_t *lock = (spinlock_t *)(uintptr_t)handle;
+	if (lock == NULL) {
+		return;
+	}
+	unlock_spinlock_irq(lock, flags);
+}
 
-// RSDP (you already have this)
 uacpi_status uacpi_kernel_get_rsdp(uacpi_phys_addr *out_rsdp_address) {
 	*out_rsdp_address = rsdp_request.response->address;
 	return UACPI_STATUS_OK;
 }
 
+static void uacpi_irq_trampoline(uint8_t isr, uint64_t error, uint64_t vec, void *opaque) {
+	uacpi_irq_req *r = (uacpi_irq_req *)opaque;
+	if (r != NULL) {
+		r->handler(r->ctx);
+	}
+}
+
 uacpi_status uacpi_kernel_install_interrupt_handler(uacpi_u32 irq, uacpi_interrupt_handler handler, uacpi_handle ctx, uacpi_handle *out_irq_handle) {
+
+	if (!out_irq_handle) {
+		return UACPI_STATUS_INVALID_ARGUMENT;
+	}
+	if (uacpi_deferred_count >= UACPI_DEFER_MAX) {
+		return UACPI_STATUS_INTERNAL_ERROR;
+	}
+
+	uacpi_irq_req *r = buddy_malloc(&acpi_pool, sizeof(uacpi_irq_req));
+	if (r == NULL) {
+		return UACPI_STATUS_OUT_OF_MEMORY;
+	}
+
+	r->gsi = irq;
+	r->handler = handler;
+	r->ctx = ctx;
+	r->vector = 0;
+	r->claimed = false;
+
+	/* If claim phase already started, bind immediately using pci_irq_routes[]. */
+	if (uacpi_claim_phase) {
+		for (size_t j = 0; j < MAX_PCI_ROUTES; j++) {
+			pci_irq_route_t *route = &pci_irq_routes[j];
+			if (!route->exists || route->gsi != r->gsi) {
+				continue;
+			}
+			uint8_t vector = (uint8_t)(IRQ_START + (uint32_t)j);
+			dprintf("[uACPI] Attached interrupt on GSI %d (ISR %d)\n", r->gsi, vector);
+			if (register_interrupt_handler(vector, uacpi_irq_trampoline, (pci_dev_t){0}, r)) {
+				r->vector = vector;
+				r->claimed = true;
+			} else {
+				dprintf("acpi: failed to register vector %u for GSI %u\n", vector, route->gsi);
+			}
+			break;
+		}
+	} else {
+		dprintf("[uACPI] Attached interrupt on GSI %d (deferred)\n", r->gsi);
+	}
+
+	uacpi_deferred[uacpi_deferred_count++] = r;
+
+	*out_irq_handle = (uacpi_handle)(uintptr_t)r;
 	return UACPI_STATUS_OK;
 }
 
 uacpi_status uacpi_kernel_uninstall_interrupt_handler(uacpi_interrupt_handler handler, uacpi_handle irq_handle) {
-	return UACPI_STATUS_OK;
+
+	uacpi_irq_req *r = (uacpi_irq_req *)(uintptr_t)irq_handle;
+	if (r == NULL) {
+		return UACPI_STATUS_INVALID_ARGUMENT;
+	}
+
+	for (size_t i = 0; i < uacpi_deferred_count; i++) {
+		if (uacpi_deferred[i] == r) {
+			if (r->claimed) {
+				deregister_interrupt_handler(r->vector, uacpi_irq_trampoline);
+			}
+			uacpi_deferred[i] = uacpi_deferred[uacpi_deferred_count - 1];
+			uacpi_deferred[uacpi_deferred_count - 1] = NULL;
+			uacpi_deferred_count--;
+			buddy_free(&acpi_pool, r);
+			return UACPI_STATUS_OK;
+		}
+	}
+
+	return UACPI_STATUS_INTERNAL_ERROR;
+}
+
+void acpi_claim_deferred_irqs(void) {
+	if (uacpi_claim_phase) {
+		return;
+	}
+	for (size_t i = 0; i < uacpi_deferred_count; i++) {
+		uacpi_irq_req *r = uacpi_deferred[i];
+		if (r == NULL || r->claimed) {
+			continue;
+		}
+		for (size_t j = 0; j < MAX_PCI_ROUTES; j++) {
+			pci_irq_route_t *route = &pci_irq_routes[j];
+			if (!route->exists || route->gsi != r->gsi) {
+				continue;
+			}
+			uint8_t vector = (uint8_t)(IRQ_START + (uint32_t)j);
+			if (register_interrupt_handler(vector, uacpi_irq_trampoline, (pci_dev_t){0}, r)) {
+				r->vector = vector;
+				r->claimed = true;
+			} else {
+				dprintf("acpi: failed to register vector %u for GSI %u\n", vector, route->gsi);
+			}
+			break;
+		}
+	}
+	uacpi_claim_phase = true;
 }
 
 uacpi_status uacpi_kernel_handle_firmware_request(uacpi_firmware_request *req) {

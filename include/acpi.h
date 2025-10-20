@@ -238,3 +238,26 @@ bool pm_timer_available(void);
  * @return true if the PM timer is 32-bit, false if it is 24-bit.
  */
 bool pm_timer_is_32_bit(void);
+
+/**
+ * @brief Claim and register deferred ACPI interrupt handlers.
+ *
+ * ACPI (via uACPI) requests installation of interrupt handlers very
+ * early during initialisation, before Retro Rocket has brought up
+ * its IDT and interrupt routing. At that stage it is not safe to
+ * touch the IDT or unmask lines, so requests are deferred and stored
+ * until interrupts can actually be enabled.
+ *
+ * This function processes the deferred list after the IDT and I/O APIC
+ * setup is complete. It matches each requested GSI against the routing
+ * table (pci_irq_routes[]), determines the correct vector, and binds
+ * the handler into the kernel's ISR table. This ensures that when
+ * interrupts are finally enabled, ACPI events (SCI, GPEs, etc.) are
+ * routed correctly.
+ *
+ * @note This must be called once, immediately before enabling maskable
+ *       interrupts, to finalise ACPI interrupt setup. Without this step,
+ *       uACPI's requests would never become active.
+ */
+void acpi_claim_deferred_irqs(void);
+

@@ -113,6 +113,7 @@ void init_idt() {
 	pic_enable();
 #endif
 
+	acpi_claim_deferred_irqs();
 	interrupts_on();
 
 	dprintf("Interrupts enabled!\n");
