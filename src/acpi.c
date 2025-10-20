@@ -7,6 +7,8 @@
 #include <stdatomic.h>
 #include "uacpi/context.h"
 #include "uacpi/tables.h"
+#include "uacpi/sleep.h"
+#include "uacpi/event.h"
 
 volatile struct limine_rsdp_request rsdp_request = {
 	.id = LIMINE_RSDP_REQUEST,
@@ -657,6 +659,7 @@ void acpi_claim_deferred_irqs(void) {
 		}
 	}
 	uacpi_claim_phase = true;
+	power_button_init();
 }
 
 uacpi_status uacpi_kernel_handle_firmware_request(uacpi_firmware_request *req) {
@@ -677,7 +680,6 @@ uacpi_status uacpi_kernel_handle_firmware_request(uacpi_firmware_request *req) {
 
 
 void async_run_gpe_handler(uacpi_handle gpe) {
-	// No GPE support yet
 }
 
 uacpi_status uacpi_kernel_schedule_work(uacpi_work_type type, uacpi_work_handler handler, uacpi_handle ctx) {
@@ -735,22 +737,53 @@ static uacpi_iteration_decision resource_callback(void *user, uacpi_resource *re
 }
 
 static uacpi_iteration_decision device_callback(void *user, uacpi_namespace_node *node, uacpi_u32 depth) {
-	(void)user;
-	(void)depth;
-
 	uacpi_resources *resources = NULL;
-	if (uacpi_get_current_resources(node, &resources) != UACPI_STATUS_OK || !resources)
+	if (uacpi_get_current_resources(node, &resources) != UACPI_STATUS_OK || !resources) {
 		return UACPI_ITERATION_DECISION_CONTINUE;
-
+	}
 	uacpi_for_each_resource(resources, resource_callback, NULL);
-
 	uacpi_free_resources(resources);
 	return UACPI_ITERATION_DECISION_CONTINUE;
 }
 
 void enumerate_all_gsis(void) {
-	uacpi_namespace_for_each_child(
-		uacpi_namespace_root(), device_callback,
-		NULL, UACPI_OBJECT_DEVICE_BIT, UACPI_MAX_DEPTH_ANY, NULL
-	);
+	uacpi_namespace_for_each_child(uacpi_namespace_root(), device_callback, NULL, UACPI_OBJECT_DEVICE_BIT, UACPI_MAX_DEPTH_ANY, NULL);
+}
+
+bool shutdown(void) {
+	dprintf("uACPI shutdown process started...\n");
+	uacpi_status ret = uacpi_prepare_for_sleep_state(UACPI_SLEEP_STATE_S5);
+	if (uacpi_unlikely_error(ret)) {
+		dprintf("[uACPI] Failed to prepare for sleep: %s", uacpi_status_to_string(ret));
+		return false;
+	}
+
+	dprintf("Entering S5 sleep state...\n");
+	interrupts_off();
+	ret = uacpi_enter_sleep_state(UACPI_SLEEP_STATE_S5);
+	if (uacpi_unlikely_error(ret)) {
+		dprintf("[uACPI] Failed to enter sleep: %s", uacpi_status_to_string(ret));
+		return false;
+	}
+	return true;
+}
+
+/*
+ * This handler will be called by uACPI from an interrupt context,
+ * whenever a power button press is detected.
+ */
+static uacpi_interrupt_ret handle_power_button(uacpi_handle ctx) {
+	dprintf("uACPI power button event triggered\n");
+	shutdown();
+	return UACPI_INTERRUPT_HANDLED;
+}
+
+bool power_button_init(void) {
+	uacpi_status ret = uacpi_install_fixed_event_handler(UACPI_FIXED_EVENT_POWER_BUTTON, handle_power_button, UACPI_NULL);
+	if (uacpi_unlikely_error(ret)) {
+		dprintf("[uACPI] Failed to install power button event callback: %s", uacpi_status_to_string(ret));
+		return false;
+	}
+	dprintf("uACPI power button event installed\n");
+	return true;
 }

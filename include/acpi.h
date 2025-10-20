@@ -261,3 +261,6 @@ bool pm_timer_is_32_bit(void);
  */
 void acpi_claim_deferred_irqs(void);
 
+bool power_button_init(void);
+
+bool shutdown(void);
