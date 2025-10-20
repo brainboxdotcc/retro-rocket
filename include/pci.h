@@ -459,3 +459,75 @@ bool pci_setup_multiple_interrupts(const char *name, pci_dev_t dev, uint8_t logi
  *          all vectors before enabling MSI on the device.
  */
 bool pci_enable_msi_multi(pci_dev_t device, uint32_t base_vector, uint8_t count, uint32_t lapic_id);
+
+/**
+ * @brief Read an 8-bit value from a PCI configuration space field.
+ *
+ * Performs a configuration space read of one byte from the given device
+ * at the specified field offset.
+ *
+ * @param dev    PCI device identifier (bus, device, function tuple).
+ * @param field  Configuration space field offset in bytes.
+ * @return       8-bit value read from the field.
+ */
+uint8_t pci_read8(pci_dev_t dev, uint32_t field);
+
+/**
+ * @brief Read a 16-bit value from a PCI configuration space field.
+ *
+ * Performs a configuration space read of a word from the given device
+ * at the specified field offset.
+ *
+ * @param dev    PCI device identifier (bus, device, function tuple).
+ * @param field  Configuration space field offset in bytes.
+ * @return       16-bit value read from the field.
+ */
+uint16_t pci_read16(pci_dev_t dev, uint32_t field);
+
+/**
+ * @brief Read a 32-bit value from a PCI configuration space field.
+ *
+ * Performs a configuration space read of a double word from the given
+ * device at the specified field offset.
+ *
+ * @param dev    PCI device identifier (bus, device, function tuple).
+ * @param field  Configuration space field offset in bytes.
+ * @return       32-bit value read from the field.
+ */
+uint32_t pci_read32(pci_dev_t dev, uint32_t field);
+
+/**
+ * @brief Write an 8-bit value to a PCI configuration space field.
+ *
+ * Performs a configuration space write of one byte to the given device
+ * at the specified field offset.
+ *
+ * @param dev    PCI device identifier (bus, device, function tuple).
+ * @param field  Configuration space field offset in bytes.
+ * @param value  8-bit value to write.
+ */
+void pci_write8(pci_dev_t dev, uint32_t field, uint8_t value);
+
+/**
+ * @brief Write a 16-bit value to a PCI configuration space field.
+ *
+ * Performs a configuration space write of a word to the given device
+ * at the specified field offset.
+ *
+ * @param dev    PCI device identifier (bus, device, function tuple).
+ * @param field  Configuration space field offset in bytes.
+ * @param value  16-bit value to write.
+ */
+void pci_write16(pci_dev_t dev, uint32_t field, uint16_t value);
+
+/**
+ * @brief Write a 32-bit value to a PCI configuration space field.
+ *
+ * Performs a configuration space write of a double word to the given
+ * device at the specified field offset.
+ *
+ * @param dev    PCI device identifier (bus, device, function tuple).
+ * @param field  Configuration space field offset in bytes.
+ * @param value  32-bit value to write.
+ */
+void pci_write32(pci_dev_t dev, uint32_t field, uint32_t value);

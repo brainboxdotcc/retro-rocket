@@ -328,7 +328,6 @@ void boot_aps() {
 		}
 		kprintf("\n");
 	}
-	buddy_destroy(&acpi_pool);
 }
 
 uint32_t irq_to_gsi(uint8_t irq) {
@@ -366,11 +365,12 @@ void uacpi_kernel_free(void *ptr) {
 
 // Physical memory mapping (flat model)
 void *uacpi_kernel_map(uacpi_phys_addr addr, uacpi_size len) {
-	return (void *) (uintptr_t) addr; // identity-mapped
+	mmio_identity_map(addr, len);
+	return (void *) (uintptr_t) addr;
 }
 
 void uacpi_kernel_unmap(void *addr, uacpi_size len) {
-	// no-op in flat memory
+	identity_unmap(addr, len);
 }
 
 void uacpi_kernel_stall(uacpi_u8 usec) {
@@ -441,37 +441,37 @@ void uacpi_kernel_pci_device_close(uacpi_handle handle) {
 
 uacpi_status uacpi_kernel_pci_read8(uacpi_handle handle, uacpi_size offset, uacpi_u8 *value) {
 	uacpi_pci_dev_wrapper_t *wrapper = (uacpi_pci_dev_wrapper_t *) handle;
-	*value = (uacpi_u8) (pci_read(wrapper->dev, offset));
+	*value = pci_read8(wrapper->dev, offset);
 	return UACPI_STATUS_OK;
 }
 
 uacpi_status uacpi_kernel_pci_read16(uacpi_handle handle, uacpi_size offset, uacpi_u16 *value) {
 	uacpi_pci_dev_wrapper_t *wrapper = (uacpi_pci_dev_wrapper_t *) handle;
-	*value = (uacpi_u16) (pci_read(wrapper->dev, offset));
+	*value = pci_read16(wrapper->dev, offset);
 	return UACPI_STATUS_OK;
 }
 
 uacpi_status uacpi_kernel_pci_read32(uacpi_handle handle, uacpi_size offset, uacpi_u32 *value) {
 	uacpi_pci_dev_wrapper_t *wrapper = (uacpi_pci_dev_wrapper_t *) handle;
-	*value = (uacpi_u32) (pci_read(wrapper->dev, offset));
+	*value = pci_read32(wrapper->dev, offset);
 	return UACPI_STATUS_OK;
 }
 
 uacpi_status uacpi_kernel_pci_write8(uacpi_handle handle, uacpi_size offset, uacpi_u8 value) {
 	uacpi_pci_dev_wrapper_t *wrapper = (uacpi_pci_dev_wrapper_t *) handle;
-	pci_write(wrapper->dev, offset, value);
+	pci_write8(wrapper->dev, offset, value);
 	return UACPI_STATUS_OK;
 }
 
 uacpi_status uacpi_kernel_pci_write16(uacpi_handle handle, uacpi_size offset, uacpi_u16 value) {
 	uacpi_pci_dev_wrapper_t *wrapper = (uacpi_pci_dev_wrapper_t *) handle;
-	pci_write(wrapper->dev, offset, value);
+	pci_write16(wrapper->dev, offset, value);
 	return UACPI_STATUS_OK;
 }
 
 uacpi_status uacpi_kernel_pci_write32(uacpi_handle handle, uacpi_size offset, uacpi_u32 value) {
 	uacpi_pci_dev_wrapper_t *wrapper = (uacpi_pci_dev_wrapper_t *) handle;
-	pci_write(wrapper->dev, offset, value);
+	pci_write32(wrapper->dev, offset, value);
 	return UACPI_STATUS_OK;
 }
 
@@ -501,11 +501,11 @@ uacpi_thread_id uacpi_kernel_get_thread_id(void) { return 1; }
 // Optional no-op spinlock support
 uacpi_handle uacpi_kernel_create_spinlock(void) { return (uacpi_handle) last_handle++; }
 
-void uacpi_kernel_free_spinlock(uacpi_handle) {}
+void uacpi_kernel_free_spinlock(uacpi_handle handle) {}
 
-uacpi_cpu_flags uacpi_kernel_lock_spinlock(uacpi_handle) { return 0; }
+uacpi_cpu_flags uacpi_kernel_lock_spinlock(uacpi_handle handle) { return 0; }
 
-void uacpi_kernel_unlock_spinlock(uacpi_handle, uacpi_cpu_flags) {}
+void uacpi_kernel_unlock_spinlock(uacpi_handle handle, uacpi_cpu_flags flags) {}
 
 // RSDP (you already have this)
 uacpi_status uacpi_kernel_get_rsdp(uacpi_phys_addr *out_rsdp_address) {
@@ -513,25 +513,11 @@ uacpi_status uacpi_kernel_get_rsdp(uacpi_phys_addr *out_rsdp_address) {
 	return UACPI_STATUS_OK;
 }
 
-uacpi_status uacpi_kernel_install_interrupt_handler(
-	uacpi_u32 irq,
-	uacpi_interrupt_handler handler,
-	uacpi_handle ctx,
-	uacpi_handle *out_irq_handle
-) {
-	(void) irq;
-	(void) handler;
-	(void) ctx;
-	*out_irq_handle = last_handle++;
+uacpi_status uacpi_kernel_install_interrupt_handler(uacpi_u32 irq, uacpi_interrupt_handler handler, uacpi_handle ctx, uacpi_handle *out_irq_handle) {
 	return UACPI_STATUS_OK;
 }
 
-uacpi_status uacpi_kernel_uninstall_interrupt_handler(
-	uacpi_interrupt_handler handler,
-	uacpi_handle irq_handle
-) {
-	(void) handler;
-	(void) irq_handle;
+uacpi_status uacpi_kernel_uninstall_interrupt_handler(uacpi_interrupt_handler handler, uacpi_handle irq_handle) {
 	return UACPI_STATUS_OK;
 }
 
@@ -553,19 +539,10 @@ uacpi_status uacpi_kernel_handle_firmware_request(uacpi_firmware_request *req) {
 
 
 void async_run_gpe_handler(uacpi_handle gpe) {
-	(void) gpe;
 	// No GPE support yet
 }
 
-uacpi_status uacpi_kernel_schedule_work(
-	uacpi_work_type type,
-	uacpi_work_handler handler,
-	uacpi_handle ctx
-) {
-	(void) type;
-	(void) ctx;
-
-	// Synchronously call it immediately (not technically correct, but fine for now)
+uacpi_status uacpi_kernel_schedule_work(uacpi_work_type type, uacpi_work_handler handler, uacpi_handle ctx) {
 	handler(ctx);
 	return UACPI_STATUS_OK;
 }
