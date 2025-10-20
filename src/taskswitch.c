@@ -389,9 +389,18 @@ void wakeup_callback([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t err
 {
 }
 
+void halt_callback([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t errorcode, [[maybe_unused]] uint64_t irq, [[maybe_unused]] void* opaque)
+{
+	dprintf("Halting CPU#%d at request of HALT IPI\n", logical_cpu_id());
+	register_shutdown_ap();
+	interrupts_off();
+	while(true) {
+		__asm__ __volatile__("hlt");
+	}
+}
+
 void init_process()
 {
-	register_interrupt_handler(APIC_WAKE_IPI, wakeup_callback, dev_zero, NULL);
 	init_spinlock(&combined_proc_lock);
 	for (size_t x = 0; x < MAX_CPUS; ++x) {
 		init_spinlock(&proc_lock[x]);
@@ -422,6 +431,10 @@ void init_process()
 void proc_loop()
 {
 	uint8_t cpu = logical_cpu_id();
+	register_interrupt_handler(APIC_WAKE_IPI, wakeup_callback, dev_zero, NULL);
+	if (cpu != 0) {
+		register_interrupt_handler(APIC_HALT_IPI, halt_callback, dev_zero, NULL);
+	}
 	if (cpu == 0) {
 		/* BSP signals APs to start their proc_loops too */
 		simple_cv_broadcast(&boot_condition);

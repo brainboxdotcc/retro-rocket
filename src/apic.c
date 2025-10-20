@@ -85,25 +85,32 @@ int x2apic_enabled(void) {
 }
 
 void apic_send_ipi(uint32_t lapic_id, uint8_t vector) {
+	const int broadcast = (lapic_id == 0xFFFFFFFF);
 	if (x2apic_enabled()) {
 		uint64_t icr = 0;
-		icr |= vector;                  // vector
-		icr |= (0ULL << 8);             // delivery mode = fixed
-		icr |= (0ULL << 11);            // physical dest
-		icr |= (1ULL << 14);            // level = assert
-		icr |= ((uint64_t)lapic_id << 32);
+		icr |= (uint64_t)vector;	/* vector */
+		icr |= (0ull << 8);		/* delivery mode = fixed */
+		icr |= (0ull << 11);		/* physical dest */
+		icr |= (1ull << 14);		/* level = assert */
+		icr |= (0ull << 15);		/* trigger = edge */
+		if (broadcast) {
+			icr |= (3ull << 18);	/* dest shorthand = all excl. self */
+		} else {
+			icr |= ((uint64_t)lapic_id << 32);
+		}
 		wrmsr(IA32_X2APIC_ICR, icr);
+		while (rdmsr(IA32_X2APIC_ICR) & (1ull << 12)) {
+			__builtin_ia32_pause();
+		}
 	} else {
-		apic_write(APIC_ICR_HIGH, ((uint32_t) lapic_id) << 24);
-		apic_write(APIC_ICR_LOW,
-			   vector | APIC_DM_FIXED | APIC_DEST_NO_SHORTHAND |
-			   APIC_DEST_PHYSICAL | APIC_LEVEL_ASSERT | APIC_TRIGGER_EDGE);
-		// Wait for delivery to complete (bit 12 = Delivery Status)
-		while (apic_read(APIC_ICR_LOW) & (1 << 12)) {
+		apic_write(APIC_ICR_HIGH, broadcast ? 0 : ((uint32_t)lapic_id) << 24);
+		apic_write(APIC_ICR_LOW, (uint32_t)vector | APIC_DM_FIXED | APIC_DEST_PHYSICAL | APIC_LEVEL_ASSERT | APIC_TRIGGER_EDGE | (broadcast ? (3u << 18) : APIC_DEST_NO_SHORTHAND));
+		while (apic_read(APIC_ICR_LOW) & (1u << 12)) {
 			__builtin_ia32_pause();
 		}
 	}
 }
+
 
 void wake_cpu(uint8_t logical_cpu_id) {
 	apic_send_ipi(get_lapic_id_from_cpu_id(logical_cpu_id), APIC_WAKE_IPI);

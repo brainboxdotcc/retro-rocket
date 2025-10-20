@@ -151,7 +151,6 @@ function(run TARGETFILE)
 	-device ide-hd,drive=disk,bus=ahci.0 \
 	-drive file=rr.iso,media=cdrom,if=none,id=sata-cdrom \
 	-device ide-cd,drive=sata-cdrom,bus=ahci.1 \
-	-no-shutdown \
 	-boot d \
 	-vnc 0.0.0.0:2 \
 	-debugcon file:debug.log \

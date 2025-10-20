@@ -750,14 +750,25 @@ void enumerate_all_gsis(void) {
 	uacpi_namespace_for_each_child(uacpi_namespace_root(), device_callback, NULL, UACPI_OBJECT_DEVICE_BIT, UACPI_MAX_DEPTH_ANY, NULL);
 }
 
+static uint8_t shutdown_cpus = 0;
+
+void register_shutdown_ap(void) {
+	__atomic_add_fetch(&shutdown_cpus, 1, __ATOMIC_SEQ_CST);
+}
+
 bool shutdown(void) {
 	dprintf("uACPI shutdown process started...\n");
+	/* Tell all CPUs to stop. Give them 3 seconds, and then proceed anyway */
+	apic_send_ipi(0xFFFFFFFF, APIC_HALT_IPI);
+	uint64_t tick_start = get_ticks();
+	while (__atomic_load_n(&shutdown_cpus, __ATOMIC_SEQ_CST) < get_cpu_count() - 1 && get_ticks() - tick_start < 3000) {
+		_mm_pause();
+	}
 	uacpi_status ret = uacpi_prepare_for_sleep_state(UACPI_SLEEP_STATE_S5);
 	if (uacpi_unlikely_error(ret)) {
 		dprintf("[uACPI] Failed to prepare for sleep: %s", uacpi_status_to_string(ret));
 		return false;
 	}
-
 	dprintf("Entering S5 sleep state...\n");
 	interrupts_off();
 	ret = uacpi_enter_sleep_state(UACPI_SLEEP_STATE_S5);

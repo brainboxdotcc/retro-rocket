@@ -282,3 +282,5 @@ bool power_button_init(void);
  * @return true if shutdown was initiated, false on failure
  */
 bool shutdown(void);
+
+void register_shutdown_ap(void);

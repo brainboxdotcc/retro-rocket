@@ -78,6 +78,9 @@
 /** @brief Vector number used for custom AP wake-up IPIs. */
 #define APIC_WAKE_IPI       240
 
+/** @brief Vector number used for custom AP halt IPIs. */
+#define APIC_HALT_IPI       241
+
 /** @brief Destination shorthand: no shorthand, use explicit LAPIC ID. */
 #define APIC_DEST_NO_SHORTHAND (0 << 18)
 
