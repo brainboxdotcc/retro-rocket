@@ -261,6 +261,24 @@ bool pm_timer_is_32_bit(void);
  */
 void acpi_claim_deferred_irqs(void);
 
+/**
+ * @brief Install the ACPI fixed event handler for the power button.
+ *
+ * Sets up uACPI to invoke the local callback when a power button
+ * event is signalled via SCI. Returns true if the handler was
+ * installed successfully.
+ *
+ * @return true on success, false on failure
+ */
 bool power_button_init(void);
 
+/**
+ * @brief Transition the system into the ACPI S5 (soft off) state.
+ *
+ * Prepares for and enters the S5 sleep state using uACPI. If the
+ * shutdown succeeds, this call does not return. Returns false if
+ * preparation or entry fails.
+ *
+ * @return true if shutdown was initiated, false on failure
+ */
 bool shutdown(void);
