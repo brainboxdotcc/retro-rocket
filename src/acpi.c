@@ -798,3 +798,22 @@ bool power_button_init(void) {
 	dprintf("uACPI power button event installed\n");
 	return true;
 }
+
+bool acpi_reset(void) {
+	struct acpi_fadt *fadt = NULL;
+	uacpi_status st = uacpi_table_fadt(&fadt);
+	if (st != UACPI_STATUS_OK) {
+		return false;
+	}
+	struct acpi_gas *gas = &fadt->reset_reg;
+	if (gas->address_space_id == 1) {
+		dprintf("ACPI reset via IO port\n");
+		outb(gas->address, fadt->reset_value);
+	} else if (gas->address_space_id == 0) {
+		dprintf("ACPI reset via MMIO\n");
+		*((uint8_t*)(uintptr_t)gas->address) = fadt->reset_value;
+	} else {
+		return false;
+	}
+	return true;
+}

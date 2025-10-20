@@ -419,6 +419,13 @@ unsigned char kgetc() {
 _Noreturn void reboot(void) {
 	__asm__ volatile ("cli");
 
+	if (acpi_reset()) {
+		__builtin_unreachable();
+	}
+
+	outb(0xCF9, 0x02);
+	outb(0xCF9, 0x06);
+
 	/* Flush any pending data in the 8042 output buffer (status bit 0). */
 	for (int i = 0; i < 16; i++) {
 		if ((inb(0x64) & 0x01) == 0) {

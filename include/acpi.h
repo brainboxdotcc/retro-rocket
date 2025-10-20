@@ -283,4 +283,26 @@ bool power_button_init(void);
  */
 bool shutdown(void);
 
+/**
+ * @brief Mark that an application processor has entered shutdown.
+ *
+ * This is called by secondary CPUs in response to a HALT IPI,
+ * incrementing the global shutdown counter. The bootstrap CPU
+ * waits on this counter during system shutdown to ensure all
+ * APs have halted before entering the final ACPI sleep state.
+ */
 void register_shutdown_ap(void);
+
+/**
+ * @brief Reset the system using the ACPI reset register.
+ *
+ * Attempts a platform reset through the FADT-provided reset
+ * register and value. On supported hardware this request does
+ * not return, as control passes back to firmware.
+ *
+ * @return true if a reset request was issued successfully
+ *         (normally this call does not return),
+ *         false if the ACPI reset register is not present
+ *         or the request could not be made.
+ */
+bool acpi_reset(void);
