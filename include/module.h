@@ -143,6 +143,18 @@ typedef bool (*module_init_fn)(void);  /**< Prototype for module initialiser */
 typedef bool (*module_exit_fn)(void);  /**< Prototype for module finaliser */
 
 /**
+ * @brief State for FSM for loadorder.conf
+ */
+enum loadorder_parse_state_t {
+	SEARCH_ALIAS, /**< Searching for alias name in square brackets */
+	READ_ALIAS, /**< Reading alias name in square brackets */
+	READ_VENDOR, /**< Reading vendor ID */
+	READ_DEVICE, /**< Reading device ID */
+	READ_TYPE, /**< Reading class type */
+	READ_MODLIST, /**< Reading module list */
+};
+
+/**
  * @brief Set this prefix on all module_init/module_exit functions in modules
  */
 #define EXPORTED __attribute__((visibility("default")))

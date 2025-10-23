@@ -550,3 +550,53 @@ const char *strstr(const char *haystack, const char *needle)
 	}
 	return NULL;
 }
+
+char *strtok_r(char *s, const char *delim, char **save)
+{
+	char *token_start;
+	if (save == NULL || delim == NULL) {
+		return NULL;
+	}
+	if (s == NULL) {
+		s = *save;
+		if (s == NULL) {
+			return NULL;
+		}
+	}
+	while (*s != '\0') {
+		const char *d = delim;
+		int is_delim = 0;
+		while (*d != '\0') {
+			if (*s == *d) {
+				is_delim = 1;
+				break;
+			}
+			d++;
+		}
+		if (!is_delim) {
+			break;
+		}
+		s++;
+	}
+
+	if (*s == '\0') {
+		*save = NULL;
+		return NULL;
+	}
+
+	token_start = s;
+	while (*s != '\0') {
+		const char *d = delim;
+		while (*d != '\0') {
+			if (*s == *d) {
+				*s = '\0';
+				*save = s + 1;
+				return token_start;
+			}
+			d++;
+		}
+		s++;
+	}
+	*save = NULL;
+	return token_start;
+}

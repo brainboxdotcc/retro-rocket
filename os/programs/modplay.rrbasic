@@ -1,14 +1,8 @@
 ON ERROR PROCcontinue
-MODLOAD "hda"
+MODLOAD "sound"
 ON ERROR OFF
 ON ERROR PROCcontinue
-MODLOAD "mod"
-ON ERROR OFF
-ON ERROR PROCcontinue
-MODLOAD "xm"
-ON ERROR OFF
-ON ERROR PROCcontinue
-MODLOAD "mp3"
+MODLOAD "codecs"
 ON ERROR OFF
 
 REM Streams

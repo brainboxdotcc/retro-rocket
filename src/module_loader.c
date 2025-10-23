@@ -573,6 +573,9 @@ void init_modules(void) {
 bool load_module(const char* name) {
 	module m = {};
 	char path[MAX_STRINGLEN];
+	if (module_parse_alias(name)) {
+		return true;
+	}
 	snprintf(path, MAX_STRINGLEN, "/system/modules/%s.ko", name);
 	m.name = strdup(name);
 	if (!m.name) {
@@ -628,22 +631,18 @@ bool unload_module(const char* name) {
 	return true;
 }
 
-enum loadorder_parse_state_t {
-	SEARCH_ALIAS,
-	READ_ALIAS,
-	READ_VENDOR,
-	READ_DEVICE,
-	READ_TYPE,
-	READ_MODLIST
-};
-
 bool module_parse_alias(const char* alias) {
 	int handle = _open("/system/config/loadorder.conf", _O_RDONLY);
 	if (handle < 0) {
 		return false;
 	}
 	char found_alias[MAX_STRINGLEN], vendor[MAX_STRINGLEN], device[MAX_STRINGLEN], type[MAX_STRINGLEN], modlist[MAX_STRINGLEN];
-	char* alias_ptr = found_alias, *vendor_ptr = vendor, *device_ptr = device, *type_ptr = type, *modlist_ptr = modlist;
+	char* alias_ptr = found_alias;
+	char* vendor_ptr = vendor;
+	char* device_ptr = device;
+	char* type_ptr = type;
+	char* modlist_ptr = modlist;
+
 	bool alias_located = false;
 	enum loadorder_parse_state_t state = SEARCH_ALIAS;
 	while (!_eof(handle)) {
@@ -658,12 +657,12 @@ bool module_parse_alias(const char* alias) {
 					memset(found_alias, 0, sizeof(found_alias));
 					alias_located = false;
 				} else {
-					/* Invalid: [ outside of ALIAS */
 					dprintf("Parse error: [ in wrong state\n");
 					_close(handle);
 					return false;
 				}
 				break;
+
 			case ']':
 				/* End of alias */
 				if (state == READ_ALIAS) {
@@ -680,17 +679,43 @@ bool module_parse_alias(const char* alias) {
 					type_ptr = type;
 					modlist_ptr = modlist;
 				} else {
-					/* Invalid: ] outside of ALIAS */
 					dprintf("Parse error: ] in wrong state\n");
 					_close(handle);
 					return false;
 				}
 				break;
 			case '\n':
-				/* Newline */
 				if (state == READ_MODLIST) {
 					if (alias_located) {
-						dprintf("Read line in alias '%s': vendor: '%s' device: '%s' type: '%s' modlist: '%s'\n", found_alias, vendor, device, type, modlist);
+						int vend_id = strcmp(vendor,"*") ? atoll(vendor, 16) : 0;
+						int dev_id = strcmp(device,"*") ? atoll(device, 16) : 0;
+						int type_id = strcmp(type,"*") ? atoll(type, 16) : -1;
+						pci_dev_t pci_device = pci_get_device(vend_id, dev_id, type_id);
+						if ((vend_id == 0 && dev_id == 0 && type_id == -1) || !pci_not_found(pci_device)) {
+							char *save_ptr = NULL;
+							char *token = strtok_r(modlist, ",", &save_ptr);
+							bool success = true;
+							while (token != NULL) {
+								while (*token == ' ' || *token == '\t') {
+									token++;
+								}
+								char *end = token + strlen(token);
+								while (end > token && (end[-1] == ' ' || end[-1] == '\t')) {
+									*--end = 0;
+								}
+								if (*token) {
+									if (!load_module(token)) {
+										success = false;
+									}
+								}
+								token = strtok_r(NULL, ",", &save_ptr);
+							}
+							if (success) {
+								_close(handle);
+								return true;
+							}
+						}
+
 					}
 					state = READ_VENDOR;
 					memset(vendor, 0, sizeof(vendor));
@@ -712,33 +737,45 @@ bool module_parse_alias(const char* alias) {
 			default:
 				switch (state) {
 					case READ_ALIAS:
-						*alias_ptr++ = c;
+						if ((size_t)(alias_ptr - found_alias) < sizeof(found_alias) - 1) {
+							*alias_ptr++ = c;
+						}
 						break;
 					case READ_VENDOR:
 						if (c == '\t' || c == ' ') {
-							state = READ_DEVICE;
+							if (vendor_ptr != vendor) {
+								state = READ_DEVICE;
+							}
 						} else {
-							*vendor_ptr++ = c;
+							if ((size_t)(vendor_ptr - vendor) < sizeof(vendor) - 1) {
+								*vendor_ptr++ = c;
+							}
 						}
 						break;
 					case READ_DEVICE:
 						if (c == '\t' || c == ' ') {
-							state = READ_TYPE;
+							if (device_ptr != device) {
+								state = READ_TYPE;
+							}
 						} else {
-							*device_ptr++ = c;
+							if ((size_t)(device_ptr - device) < sizeof(device) - 1) {
+								*device_ptr++ = c;
+							}
 						}
 						break;
 					case READ_TYPE:
 						if (c == '\t' || c == ' ') {
-							state = READ_MODLIST;
+							if (type_ptr != type) {
+								state = READ_MODLIST;
+							}
 						} else {
-							*type_ptr++ = c;
+							if ((size_t)(type_ptr - type) < sizeof(type) - 1) {
+								*type_ptr++ = c;
+							}
 						}
 						break;
 					case READ_MODLIST:
-						if (c == '\n') {
-							state = READ_DEVICE;
-						} else {
+						if ((size_t)(modlist_ptr - modlist) < sizeof(modlist) - 1) {
 							*modlist_ptr++ = c;
 						}
 						break;

@@ -6,12 +6,10 @@ MODLOAD "net"
 PROCmessage("Mounting", "filesystems")
 MOUNT "/devices", "", "devfs"
 MOUNT "/boot", "hd0", "fat32"
+MOUNT "/ramdisk", EMPTYRAMDISK$(1024), "rfs"
 
 PROCmessage("Setting", "keymap")
 KEYMAP "qemu"
-
-RD$ = EMPTYRAMDISK$(1024)
-MOUNT "/ramdisk", RD$, "rfs"
 
 SPRITELOAD rocky,"/images/boot.png"
 PLOT rocky, GRAPHICS_WIDTH - 128 - 16, 8

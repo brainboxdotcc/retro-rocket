@@ -8,7 +8,7 @@ SCALE# = 250
 DIST# = 3
 
 ON ERROR PROCcontinue
-MODLOAD "hda"
+MODLOAD "sound"
 ON ERROR OFF
 PRINT "Harvesting apples..."
 SPRITELOAD bad_apple, "/images/bad-apple.gif"

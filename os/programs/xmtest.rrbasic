@@ -1,8 +1,8 @@
 ON ERROR PROCcontinue
-MODLOAD "hda"
+MODLOAD "sound"
 ON ERROR OFF
 ON ERROR PROCcontinue
-MODLOAD "xm"
+MODLOAD "codecs"
 ON ERROR OFF
 
 STREAM CREATE lead1

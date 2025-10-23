@@ -22,8 +22,5 @@ void kmain() {
 		}
 	}
 
-	module_parse_alias("net");
-	wait_forever();
-
 	init_process();
 }

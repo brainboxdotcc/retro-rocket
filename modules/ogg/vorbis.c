@@ -1,6 +1,9 @@
 #define STB_VORBIS_NO_CRT
 #define STB_VORBIS_NO_STDIO
 
+#include <kernel.h>
+#define free(x) kfree(x)
+
 #include "stb_vorbis.h"
 
 /* Stupid stb_vorbis defines these and leaves them defined! */
@@ -18,8 +21,7 @@ typedef struct {
 	int has_last;
 } resample_lin16_t;
 
-static void resample_lin16_init(resample_lin16_t *st,
-				uint32_t in_rate, uint32_t out_rate, uint32_t channels) {
+static void resample_lin16_init(resample_lin16_t *st, uint32_t in_rate, uint32_t out_rate, uint32_t channels) {
 	st->in_rate = in_rate;
 	st->out_rate = out_rate;
 	st->channels = channels;
@@ -100,10 +102,6 @@ static size_t resample_lin16_process(resample_lin16_t *st, const int16_t *in_pcm
 	st->pos_q16 = pos;
 	return out_frames;
 }
-
-/* -------------------------
-   Ogg Vorbis loader: memory → PCM (44.1 kHz, stereo, s16le)
-   ------------------------- */
 
 static bool vorbis_from_memory(const char *filename, const void *data, size_t bytes, void **out_ptr, size_t *out_bytes) {
 	if (!filename || !out_ptr || !out_bytes || !data || bytes == 0) return false;

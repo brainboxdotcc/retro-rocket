@@ -367,3 +367,18 @@ size_t strlen_ansi(const char *s);
  *         or NULL if no match is found.
  */
 const char *strstr(const char *haystack, const char *needle);
+
+/**
+ * Tokenise a string
+ *
+ * @param s     String to tokenize, or NULL to continue previous tokenisation
+ * @param delim String of delimiter characters
+ * @param save  Pointer to a char* variable used internally to maintain context
+ *
+ * Returns the next token, or NULL if there are no more tokens.
+ *
+ * This function splits the input string into tokens separated by any
+ * of the delimiter characters. Unlike strtok(), it is re-entrant and
+ * safe for concurrent use on multiple strings.
+ */
+char *strtok_r(char *s, const char *delim, char **save);
