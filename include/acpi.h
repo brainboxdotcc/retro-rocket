@@ -83,16 +83,6 @@ typedef struct {
 } __attribute__((packed)) madt_override_t;
 
 /**
- * @brief Default polarity: active high
- */
-#define IRQ_DEFAULT_POLARITY 0
-
-/**
- * @brief Default trigger mode: edge-triggered
- */
-#define IRQ_DEFAULT_TRIGGER  0
-
-/**
  * @brief Returned from @ref get_cpu_id_from_lapic_id if the CPUid
  * passed in does not map to a logical CPU id.
  */

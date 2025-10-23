@@ -6,7 +6,7 @@
  * Each ISR may have zero or more handlers attached. a NULL here means an empty list,
  * and no handlers.
  */
-static shared_interrupt_t* shared_interrupt[256];
+static shared_interrupt_t* shared_interrupt[MAX_CPUS][256];
 
 #define IRQ_VECTOR_BASE 0x20 // IDT[32]–IDT[47] for IRQ0–IRQ15
 
@@ -34,21 +34,21 @@ bool register_interrupt_handler(uint8_t n, isr_t handler, pci_dev_t device, void
 	}
 	si->device = device;
 	si->interrupt_handler = handler;
-	si->next = shared_interrupt[n];
+	si->next = shared_interrupt[logical_cpu_id()][n];
 	si->opaque = opaque;
-	shared_interrupt[n] = si;
+	shared_interrupt[logical_cpu_id()][n] = si;
 	if (si->next) {
-		dprintf("NOTE: %s %d is shared!\n", n < IRQ_START ? "ISR" : "IRQ", n < IRQ_START ? n : n - IRQ_START);
+		dprintf("NOTE: %s %d is shared!\n", n < IRQ_START || n > IRQ_START + 16 ? "ISR" : "IRQ", n < IRQ_START || n > IRQ_START + 16 ? n : n - IRQ_START);
 	}
 	if (n >= IRQ_START && !si->next) {
-		dprintf("Unmasking irq %u\n", n - IRQ_START);
+		dprintf("Unmasking irq %u on cpu %d\n", n - IRQ_START, logical_cpu_id());
 		ioapic_mask_set(n - IRQ_START, false); // Unmask
 	}
 	return true;
 }
 
 bool deregister_interrupt_handler(uint8_t n, isr_t handler) {
-	shared_interrupt_t* current = shared_interrupt[n];
+	shared_interrupt_t* current = shared_interrupt[logical_cpu_id()][n];
 	shared_interrupt_t* prev = NULL;
 
 	while (current) {
@@ -56,12 +56,12 @@ bool deregister_interrupt_handler(uint8_t n, isr_t handler) {
 			if (prev) {
 				prev->next = current->next;
 			} else {
-				shared_interrupt[n] = current->next;
+				shared_interrupt[logical_cpu_id()][n] = current->next;
 			}
 			kfree_null(&current);
 
 			/* If this was the last handler, mask the IRQ again */
-			if (!shared_interrupt[n] && n >= IRQ_START) {
+			if (!shared_interrupt[logical_cpu_id()][n] && n >= IRQ_START) {
 				ioapic_mask_set(n - IRQ_START, true);
 			}
 			return true;
@@ -87,7 +87,7 @@ void Interrupt(uint64_t isrnumber, uint64_t errorcode, uint64_t rip) {
 	__attribute__((aligned(16))) uint8_t fx[512];
 	__builtin_ia32_fxsave64(&fx);
 
-	for (shared_interrupt_t *si = shared_interrupt[isrnumber]; si; si = si->next) {
+	for (shared_interrupt_t *si = shared_interrupt[logical_cpu_id()][isrnumber]; si; si = si->next) {
 		/* There is no shared interrupt routing on these interrupts,
 		 * they are purely routed to interested handlers
 		 */
@@ -115,7 +115,7 @@ void IRQ(uint64_t isrnumber, uint64_t irqnum)
 	/* On shared INTx lines, always call all registered handlers.
 	 * Each device ISR must check/clear its own cause registers.
 	 */
-	for (shared_interrupt_t* si = shared_interrupt[isrnumber]; si; si = si->next) {
+	for (shared_interrupt_t* si = shared_interrupt[logical_cpu_id()][isrnumber]; si; si = si->next) {
 		if (si->interrupt_handler) {
 			si->interrupt_handler((uint8_t)isrnumber, 0, irqnum, si->opaque);
 		}

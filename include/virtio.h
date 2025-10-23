@@ -1,20 +1,13 @@
 #pragma once
 
-/* ===== Virtio PCI IDs (modern & legacy) ===== */
 #define VIRTIO_VENDOR_ID          0x1AF4
-#define VIRTIO_DEVICE_BLOCK_LEGACY  0x1001
 #define VIRTIO_DEVICE_BLOCK_MODERN  0x1042
 
-/* ===== Virtio PCI capability types (modern) ===== */
 #define VIRTIO_PCI_CAP_COMMON_CFG  1
 #define VIRTIO_PCI_CAP_NOTIFY_CFG  2
 #define VIRTIO_PCI_CAP_ISR_CFG     3
 #define VIRTIO_PCI_CAP_DEVICE_CFG  4
-#define VIRTIO_PCI_CAP_PCI_CFG     5
 
-/* ===== Virtio common config fields (per spec) =====
-   This is a memory-mapped struct in BAR4 (or other BAR if HW says so).
-   Keep packed; fields are little-endian on x86. */
 typedef struct virtio_pci_common_cfg_t {
 	uint32_t device_feature_select;   /* 0x00 */
 	uint32_t device_feature;          /* 0x04 */
@@ -165,10 +158,10 @@ typedef struct virtio_pci_notify_cap_t {
 	uint32_t notify_off_multiplier;
 } __attribute__((packed)) virtio_pci_notify_cap_t;
 
-#define VIRTIO_STATUS_ACKNOWLEDGE  (1u << 0)
-#define VIRTIO_STATUS_DRIVER       (1u << 1)
-#define VIRTIO_STATUS_FEATURES_OK  (1u << 3)
-#define VIRTIO_STATUS_DRIVER_OK    (1u << 2)
-#define VIRTIO_STATUS_FAILED       (1u << 7)
+#define VIRTIO_STATUS_ACKNOWLEDGE  (1 << 0)
+#define VIRTIO_STATUS_DRIVER       (1 << 1)
+#define VIRTIO_STATUS_DRIVER_OK    (1 << 2)
+#define VIRTIO_STATUS_FEATURES_OK  (1 << 3)
+#define VIRTIO_STATUS_FAILED       (1 << 7)
 
 void init_virtio_block(void);

@@ -251,7 +251,6 @@ bool rfs_mark_extent(rfs_t *info, uint64_t start_sector, uint64_t length_sectors
 
 		if (take == g_size) {
 			// Whole-group fast path: write all 1s (used) or all 0s (free).
-			dprintf("rfs_mark_extent take == g_size, %p %lu\n", sector_buf, sizeof(sector_buf));
 			memset(sector_buf, mark_used ? 0xFF : 0x00, sizeof(sector_buf));
 			if (!rfs_write_device(info, l0_lba, RFS_SECTOR_SIZE, sector_buf)) {
 				dprintf("rfs_mark_extent: write L0 sector %lu failed\n", l0_lba);
@@ -266,7 +265,6 @@ bool rfs_mark_extent(rfs_t *info, uint64_t start_sector, uint64_t length_sectors
 			rfs_update_l2_for_group(info, g);
 		} else {
 			// Partial group: read-modify-write
-			dprintf("rfs_mark_extent take != g_size [RMW], %p %lu\n", sector_buf, sizeof(sector_buf));
 			if (!rfs_read_device(info, l0_lba, RFS_SECTOR_SIZE, sector_buf)) {
 				dprintf("rfs_mark_extent: read L0 sector %lu failed\n", l0_lba);
 				return false;
@@ -297,7 +295,6 @@ bool rfs_mark_extent(rfs_t *info, uint64_t start_sector, uint64_t length_sectors
 			}
 
 			if (transitions) {
-				dprintf("rfs_mark_extent: prep write %lu %u\n", l0_lba, RFS_SECTOR_SIZE);
 				if (!rfs_write_device(info, l0_lba, RFS_SECTOR_SIZE, sector_buf)) {
 					dprintf("rfs_mark_extent: write L0 sector %lu failed\n", l0_lba);
 					return false;
@@ -653,8 +650,6 @@ bool rfs_build_level_caches(rfs_t *info) {
 	}
 
 	/* Geometry */
-	dprintf("RFS build level caches sectors = %lu\n", info->total_sectors);
-
 	const uint64_t G = RFS_L1_GROUP_SECTORS;       /* sectors per L1 group (e.g., 4096) */
 	const uint64_t S = RFS_L2_GROUPS_PER_SUPER;    /* L1 groups per L2 super-group */
 
@@ -711,16 +706,12 @@ bool rfs_build_level_caches(rfs_t *info) {
 	info->l2_all_free = (uint8_t *) ((uint8_t *) block + off_l2_all_free);
 	uint8_t *buf = ((uint8_t *) block + off_buf);
 
-	dprintf("setup l1/l2 cache blocks");
-
 	/* Zero initial state */
 	memset(info->l1_free_count, 0, sz_l1_free_count);
 	memset(info->l1_not_full, 0, sz_l1_not_full);
 	memset(info->l1_all_free, 0, sz_l1_all_free);
 	memset(info->l2_not_full, 0, sz_l2_not_full);
 	memset(info->l2_all_free, 0, sz_l2_all_free);
-
-	dprintf("l1/l2 clear\n");
 
 	/* Stream the Level-0 bitmap (on disk: 1 bit per sector, 1=used, 0=free) */
 	const uint64_t map_start = info->desc->free_space_map_start;
@@ -729,8 +720,6 @@ bool rfs_build_level_caches(rfs_t *info) {
 
 	uint64_t bit_cursor = 0;   /* global sector-index represented by next L0 bit */
 	uint64_t sector_off = 0;   /* offset into L0 map (in sectors) */
-
-	dprintf("l1/l2 start read\n");
 
 	while ((sector_off < map_len) && (bit_cursor < total_bits)) {
 		const uint64_t remaining = map_len - sector_off;
@@ -862,8 +851,6 @@ bool rfs_build_level_caches(rfs_t *info) {
 		sector_off += sectors_this;
 	}
 
-	dprintf("l1/l2 done read\n");
-
 	/* Derive L1 bitsets from counters */
 	for (uint64_t g = 0; g < info->l1_groups; ++g) {
 		const uint16_t fc = info->l1_free_count[g];
@@ -878,8 +865,6 @@ bool rfs_build_level_caches(rfs_t *info) {
 		}
 		bitset_set(info->l1_all_free, g, (fc == (uint16_t) group_size));
 	}
-
-	dprintf("l1 bitset\n");
 
 	/* Build L2 by folding over S children */
 	for (uint64_t sg = 0; sg < info->l2_groups; ++sg) {

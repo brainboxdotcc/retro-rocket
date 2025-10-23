@@ -114,10 +114,7 @@ static int virtio_block_probe_caps(virtio_block_dev_t *v, pci_dev_t device) {
 				}
 				uint64_t base = pci_bar_is_mem64(lo) ? pci_mem_base64(lo, hi) : (uint64_t) (lo & ~0xFu);
 				uint64_t size = get_bar_size(device, h.bar);
-				if (!mmio_identity_map(base, size)) {
-					dprintf("virtio-block: identity map failed for BAR%u\n", h.bar);
-					return 0;
-				}
+				mmio_identity_map(base, size);
 				bar = (volatile uint8_t *) (uintptr_t) base;
 				bar_base_cache[h.bar] = bar;
 			}
