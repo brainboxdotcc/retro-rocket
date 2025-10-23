@@ -5,77 +5,77 @@
 
 /**
  * @def VIRTIO_DEVICE_NET_MODERN
- * @brief PCI device ID for modern (non-transitional) virtio-net.
+ * @brief PCI device ID for modern (non-transitional) virtio-net
  *
- * Transitional virtio-net typically reports 0x1000; modern devices use 0x1041.
+ * Transitional virtio-net typically reports 0x1000; modern devices use 0x1041
  */
 #define VIRTIO_DEVICE_NET_MODERN 0x1041
 
 /**
  * @def VIRTIO_PCI_CAP_COMMON_CFG
- * @brief Vendor capability: common configuration MMIO window selector.
+ * @brief Vendor capability: common configuration MMIO window selector
  */
 #define VIRTIO_PCI_CAP_COMMON_CFG  1
 /**
  * @def VIRTIO_PCI_CAP_NOTIFY_CFG
- * @brief Vendor capability: notify (doorbell) MMIO window selector.
+ * @brief Vendor capability: notify (doorbell) MMIO window selector
  */
 #define VIRTIO_PCI_CAP_NOTIFY_CFG  2
 /**
  * @def VIRTIO_PCI_CAP_ISR_CFG
- * @brief Vendor capability: ISR byte MMIO window selector (legacy/INTx paths).
+ * @brief Vendor capability: ISR byte MMIO window selector (legacy/INTx paths)
  */
 #define VIRTIO_PCI_CAP_ISR_CFG     3
 /**
  * @def VIRTIO_PCI_CAP_DEVICE_CFG
- * @brief Vendor capability: device-specific configuration MMIO window selector.
+ * @brief Vendor capability: device-specific configuration MMIO window selector
  */
 #define VIRTIO_PCI_CAP_DEVICE_CFG  4
 
 /**
  * @def VIRTIO_F_VERSION_1
- * @brief Feature bit indicating the device speaks modern virtio 1.x.
+ * @brief Feature bit indicating the device speaks modern virtio 1.x
  *
- * This lives in the upper 32-bit feature word; keep the constant 64-bit.
+ * This lives in the upper 32-bit feature word; keep the constant 64-bit
  */
 #define VIRTIO_F_VERSION_1         (1ULL << 32)
 /**
  * @def VIRTIO_NET_F_MAC
- * @brief Feature bit: device exposes a fixed MAC address in its config space.
+ * @brief Feature bit: device exposes a fixed MAC address in its config space
  */
 #define VIRTIO_NET_F_MAC           (1 << 5)
 
 /**
  * @def VIRTQ_DESC_F_NEXT
- * @brief Virtqueue descriptor flag: this entry chains to `next`.
+ * @brief Virtqueue descriptor flag: this entry chains to `next`
  */
 #define VIRTQ_DESC_F_NEXT          1
 /**
  * @def VIRTQ_DESC_F_WRITE
- * @brief Virtqueue descriptor flag: device may write to this buffer.
+ * @brief Virtqueue descriptor flag: device may write to this buffer
  */
 #define VIRTQ_DESC_F_WRITE         2
 
 /**
  * @def VNET_QSIZE
- * @brief Driver’s requested queue size (clamped to device’s `queue_size`).
+ * @brief Driver’s requested queue size (clamped to device’s `queue_size`)
  */
 #define VNET_QSIZE                 256
 /**
  * @def VNET_RX_BUF_SIZE
- * @brief Size of each posted RX buffer (must cover virtio header + frame).
+ * @brief Size of each posted RX buffer (must cover virtio header + frame)
  */
 #define VNET_RX_BUF_SIZE           2048
 /**
  * @def VNET_HDR_SIZE
- * @brief Size of the mandatory virtio-net header prepended to each packet.
+ * @brief Size of the mandatory virtio-net header prepended to each packet
  */
 #define VNET_HDR_SIZE              (sizeof(virtio_net_hdr_t))
 
 /**
- * @brief Device-specific configuration for virtio-net.
+ * @brief Device-specific configuration for virtio-net
  *
- * Only the fixed MAC and a status word are consumed by this driver.
+ * Only the fixed MAC and a status word are consumed by this driver
  */
 typedef struct {
 	/** Station MAC address provided by the device when @ref VIRTIO_NET_F_MAC is set */
@@ -85,11 +85,11 @@ typedef struct {
 } __attribute__((packed)) virtio_net_config_t;
 
 /**
- * @brief Minimal virtio-net per-packet header (no offloads negotiated).
+ * @brief Minimal virtio-net per-packet header (no offloads negotiated)
  *
- * This header precedes every TX and RX payload. All fields are little-endian.
+ * This header precedes every TX and RX payload. All fields are little-endian
  * The driver zero-initialises it; the device may fill some fields on RX when
- * certain features are negotiated (not used here).
+ * certain features are negotiated (not used here)
  */
 typedef struct {
 	/** Flags (eg. checksum present); unused in this minimal driver */
@@ -109,7 +109,7 @@ typedef struct {
 } __attribute__((packed)) virtio_net_hdr_t;
 
 /**
- * @brief One-byte ISR window (legacy/INTx ack by read-to-clear).
+ * @brief One-byte ISR window (legacy/INTx ack by read-to-clear)
  */
 typedef struct {
 	/** Interrupt cause byte; reading acknowledges in legacy paths */
@@ -117,7 +117,7 @@ typedef struct {
 } virtio_pci_isr_t;
 
 /**
- * @brief In-memory representation of a single virtqueue.
+ * @brief In-memory representation of a single virtqueue
  */
 typedef struct virtq {
 	/** Queue size (power-of-two), negotiated from device `queue_size` */
@@ -139,7 +139,7 @@ typedef struct virtq {
 } virtq_t;
 
 /**
- * @brief Driver static state for a single virtio-net instance.
+ * @brief Driver static state for a single virtio-net instance
  */
 static struct {
 	/** Pointer to the common configuration MMIO window (from caps) */

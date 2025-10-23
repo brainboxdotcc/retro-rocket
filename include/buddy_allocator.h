@@ -103,6 +103,10 @@ void buddy_init(buddy_allocator_t* alloc, int min_order, int max_order, int grow
  * @param size   Requested size in bytes.
  * @return Pointer to allocated memory, or NULL if out of memory.
  *
+ * @note Alignment of the returned pointer is at least the largest power-of-two
+ *       that divides sizeof(buddy_header_t); effectively 8 bytes with the current
+ *       header layout. The underlying block base is aligned to its block size.
+ *
  * If the active region cannot satisfy the request, a new region is
  * automatically allocated of size (1 << grow_order). Returned blocks
  * are aligned to their block size (power of two).
@@ -138,6 +142,10 @@ void buddy_destroy(buddy_allocator_t *alloc);
  * @param s      NUL-terminated string to duplicate.
  * @return Newly allocated string copy, or NULL on OOM.
  *
+ * @note Alignment of the returned pointer is at least the largest power-of-two
+ *       that divides sizeof(buddy_header_t); effectively 8 bytes with the current
+ *       header layout. The underlying block base is aligned to its block size.
+ *
  * The returned string is allocated from the buddy allocator's
  * private heap and must be freed with @ref buddy_free.
  */
@@ -149,6 +157,10 @@ char* buddy_strdup(buddy_allocator_t* alloc, const char *s);
  * Works like krealloc(): if ptr is NULL, behaves like buddy_malloc().
  * If size == 0, frees the block and returns NULL.
  *
+ * @note Alignment of the returned pointer is at least the largest power-of-two
+ *       that divides sizeof(buddy_header_t); effectively 8 bytes with the current
+ *       header layout. The underlying block base is aligned to its block size.
+ *
  * @param alloc  Buddy allocator to allocate from.
  * @param ptr    Pointer previously returned by buddy_malloc().
  * @param size   New desired size in bytes.
@@ -156,4 +168,28 @@ char* buddy_strdup(buddy_allocator_t* alloc, const char *s);
  */
 void* buddy_realloc(buddy_allocator_t* alloc, void *ptr, size_t size);
 
+/**
+ * @brief Allocate zero-initialised memory from the buddy allocator.
+ *
+ * Behaves like standard calloc(): allocates space for @p num elements of
+ * @p size bytes each, rounds up to the allocator’s block size, and fills
+ * the returned block with zeroes.
+ *
+ * @param alloc Buddy allocator to allocate from.
+ * @param num   Number of elements to allocate.
+ * @param size  Size of each element in bytes.
+ * @return      Pointer to zero-initialised memory, or NULL on OOM.
+ *
+ * @note Alignment of the returned pointer is at least the largest power-of-two
+ *       that divides sizeof(buddy_header_t); effectively 8 bytes with the current
+ *       header layout. The underlying block base is aligned to its block size.
+ *
+ * @see buddy_malloc(), buddy_free(), buddy_realloc(), buddy_destroy()
+ */
 void* buddy_calloc(buddy_allocator_t* alloc, size_t num, size_t size);
+
+/**
+ * Ensure that if we make changes here, pointers returned by the buddy allocator
+ * are still aligned to at least 8 bytes, as some systems assume this.
+ */
+_Static_assert((sizeof(buddy_header_t) % 8) == 0, "Alignment too small");

@@ -1,6 +1,8 @@
 #include <kernel.h>
 #include "virtio_net.h"
 
+buddy_allocator_t tx_buffer_allocator;
+
 static bool virtio_net_hw_enable(pci_dev_t pdev) {
 	uint32_t bar4 = pci_read(pdev, PCI_BAR4);
 	uint32_t bar5 = pci_read(pdev, PCI_BAR5);
@@ -289,7 +291,7 @@ bool virtio_send_packet(void *data, uint16_t len) {
 
 	memset(hdr, 0, VNET_HDR_SIZE);
 
-	void* pay = kmalloc_aligned(len, 16);
+	void *pay = buddy_malloc(&tx_buffer_allocator, len);
 	if (!pay) {
 		virtq_free_desc(tq, (uint16_t) h);
 		virtq_free_desc(tq, (uint16_t) p);
@@ -324,7 +326,7 @@ static void vnet_tx_complete(void) {
 
 		void* paybuf = (void *) (uintptr_t) tq->desc[pay].addr;
 		if (paybuf) {
-			kfree_aligned(paybuf);
+			buddy_free(&tx_buffer_allocator, paybuf);
 		}
 
 		virtq_free_desc(tq, pay);
@@ -442,6 +444,8 @@ bool EXPORTED MOD_INIT_SYM(KMOD_ABI)(void) {
 		dprintf("virtio-net: no modern virtio-net device\n");
 		return false;
 	}
+	/* We use a buddy allocator for TX buffer as it is faster and aligned as standard */
+	buddy_init(&tx_buffer_allocator, 6, 22, 22);
 	if (!virtio_net_start(&dev)) {
 		return false;
 	}
