@@ -1,7 +1,7 @@
 GLOBAL LIB$ = "/programs/libraries" ' Default library path
 
 PROCmessage("Loading", "drivers")
-MODLOAD "e1000"
+MODLOAD "net"
 
 PROCmessage("Mounting", "filesystems")
 MOUNT "/devices", "", "devfs"

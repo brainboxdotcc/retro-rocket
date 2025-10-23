@@ -627,3 +627,127 @@ bool unload_module(const char* name) {
 	hashmap_delete(modules, mod);
 	return true;
 }
+
+enum loadorder_parse_state_t {
+	SEARCH_ALIAS,
+	READ_ALIAS,
+	READ_VENDOR,
+	READ_DEVICE,
+	READ_TYPE,
+	READ_MODLIST
+};
+
+bool module_parse_alias(const char* alias) {
+	int handle = _open("/system/config/loadorder.conf", _O_RDONLY);
+	if (handle < 0) {
+		return false;
+	}
+	char found_alias[MAX_STRINGLEN], vendor[MAX_STRINGLEN], device[MAX_STRINGLEN], type[MAX_STRINGLEN], modlist[MAX_STRINGLEN];
+	char* alias_ptr = found_alias, *vendor_ptr = vendor, *device_ptr = device, *type_ptr = type, *modlist_ptr = modlist;
+	bool alias_located = false;
+	enum loadorder_parse_state_t state = SEARCH_ALIAS;
+	while (!_eof(handle)) {
+		char c;
+		_read(handle, &c, 1);
+		switch (c) {
+			case '[':
+				/* Start of alias */
+				if (state == SEARCH_ALIAS || state == READ_VENDOR) {
+					state = READ_ALIAS;
+					alias_ptr = found_alias;
+					memset(found_alias, 0, sizeof(found_alias));
+					alias_located = false;
+				} else {
+					/* Invalid: [ outside of ALIAS */
+					dprintf("Parse error: [ in wrong state\n");
+					_close(handle);
+					return false;
+				}
+				break;
+			case ']':
+				/* End of alias */
+				if (state == READ_ALIAS) {
+					state = READ_VENDOR;
+					if (!strcasecmp(alias, found_alias)) {
+						alias_located = true;
+					}
+					memset(vendor, 0, sizeof(vendor));
+					memset(device, 0, sizeof(device));
+					memset(type, 0, sizeof(type));
+					memset(modlist, 0, sizeof(modlist));
+					vendor_ptr = vendor;
+					device_ptr = device;
+					type_ptr = type;
+					modlist_ptr = modlist;
+				} else {
+					/* Invalid: ] outside of ALIAS */
+					dprintf("Parse error: ] in wrong state\n");
+					_close(handle);
+					return false;
+				}
+				break;
+			case '\n':
+				/* Newline */
+				if (state == READ_MODLIST) {
+					if (alias_located) {
+						dprintf("Read line in alias '%s': vendor: '%s' device: '%s' type: '%s' modlist: '%s'\n", found_alias, vendor, device, type, modlist);
+					}
+					state = READ_VENDOR;
+					memset(vendor, 0, sizeof(vendor));
+					memset(device, 0, sizeof(device));
+					memset(type, 0, sizeof(type));
+					memset(modlist, 0, sizeof(modlist));
+					vendor_ptr = vendor;
+					device_ptr = device;
+					type_ptr = type;
+					modlist_ptr = modlist;
+				}
+				break;
+			case '#':
+				/* Comment */
+				while (!_eof(handle) && c != '\n') {
+					_read(handle, &c, 1);
+				}
+				break;
+			default:
+				switch (state) {
+					case READ_ALIAS:
+						*alias_ptr++ = c;
+						break;
+					case READ_VENDOR:
+						if (c == '\t' || c == ' ') {
+							state = READ_DEVICE;
+						} else {
+							*vendor_ptr++ = c;
+						}
+						break;
+					case READ_DEVICE:
+						if (c == '\t' || c == ' ') {
+							state = READ_TYPE;
+						} else {
+							*device_ptr++ = c;
+						}
+						break;
+					case READ_TYPE:
+						if (c == '\t' || c == ' ') {
+							state = READ_MODLIST;
+						} else {
+							*type_ptr++ = c;
+						}
+						break;
+					case READ_MODLIST:
+						if (c == '\n') {
+							state = READ_DEVICE;
+						} else {
+							*modlist_ptr++ = c;
+						}
+						break;
+					case SEARCH_ALIAS:
+						break;
+				}
+				break;
+		}
+	}
+	_close(handle);
+	return false;
+}

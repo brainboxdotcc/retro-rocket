@@ -367,3 +367,5 @@ bool load_module(const char *name);
 bool unload_module(const char *name);
 
 bool module_addr_to_symbol(uintptr_t addr, const char **modname_out, const char **symname_out, uint64_t *offset_out);
+
+bool module_parse_alias(const char* alias);
