@@ -70,7 +70,6 @@ static bool virtio_net_probe_caps(pci_dev_t dev) {
 				}
 
 				size_t size = get_bar_size(dev, h.bar);
-
 				mmio_identity_map(base, size);
 
 				bar = (volatile uint8_t *) (uintptr_t) base;
