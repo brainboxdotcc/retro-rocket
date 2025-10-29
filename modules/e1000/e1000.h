@@ -5,14 +5,22 @@
  */
 #pragma once
 
-#include "kernel.h"
+#include <kernel.h>
 
-#define INTEL_VEND     (uint32_t)0x8086  // Vendor ID for Intel
-#define E1000_82540EM  (uint32_t)0x100E  // Device ID for the e1000 Qemu, Bochs, and VirtualBox emulated NICs
-#define E1000_I217     (uint32_t)0x153A  // Device ID for Intel I217
-#define E1000_82577LM  (uint32_t)0x10EA  // Device ID for Intel 82577LM
-#define E1000_82541PI  (uint32_t)0x107C  // Device ID for Intel 82541PI
- 
+#define INTEL_VEND     	(uint32_t)0x8086  /* Vendor ID for Intel */
+#define E1000_82540EM  	(uint32_t)0x100E  /* Device ID for the e1000 Qemu, Bochs, and VirtualBox emulated NICs */
+#define E1000_I217     	(uint32_t)0x153A  /* Device ID for Intel I217 */
+#define E1000_82577LM  	(uint32_t)0x10EA  /* Device ID for Intel 82577LM */
+#define E1000_82541PI  	(uint32_t)0x107C  /* Device ID for Intel 82541PI */
+#define E1000_82567LM	(uint32_t)0x10F5  /* Device ID for Intel 82567LM */
+#define E1000_82567LM_2 (uint32_t)0x10CC  /* Device ID for Intel 82567LM v2 */
+#define E1000_82567LM_3 (uint32_t)0x10DE  /* Device ID for Intel 82567LM v3 */
+#define E1000_82574L    (uint32_t)0x10D3  /* Intel 82574L PCIe Gigabit Controller */
+#define E1000_82579LM   (uint32_t)0x1502  /* Intel 82579LM PCH-LAN Controller */
+#define E1000_82583V    (uint32_t)0x150C  /* Intel 82583V PCIe Gigabit Controller */
+#define E1000_I218LM    (uint32_t)0x15A2  /* Intel I218-LM PCH-LAN Controller */
+#define E1000_I219LM    (uint32_t)0x15E3  /* Intel I219-LM PCH-LAN Controller */
+
  
 #define REG_CTRL        0x0000
 #define REG_STATUS      0x0008
@@ -33,6 +41,7 @@
 #define REG_TXDESCLEN   0x3808
 #define REG_TXDESCHEAD  0x3810
 #define REG_TXDESCTAIL  0x3818
+#define REG_RAL0	0x5400
 
 #define ICR_TXDW	1 << 0)
 #define ICR_TXQE	(1 << 1)

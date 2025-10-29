@@ -50,7 +50,6 @@ bool e1000_detect_eeprom() {
 	return eerprom_exists;
 }
 
-
 uint32_t e1000_read_eeprom(uint8_t addr) {
 	uint16_t data = 0;
 	uint32_t tmp = 0;
@@ -304,23 +303,18 @@ bool e1000_start(pci_dev_t *pci_device) {
 	// Cache actual detected device ID
 	e1000_device_id = pci_read(*pci_device, PCI_DEVICE_ID);
 
-	// Reject unsupported devices
-	if (e1000_device_id != E1000_82540EM && e1000_device_id != E1000_82541PI) {
-		dprintf("e1000: Attempt to start unsupported device ID\n");
-		return false;
-	}
-
-	if (e1000_detect_eeprom()) {
+	if ((e1000_device_id == E1000_82540EM || e1000_device_id == E1000_82541PI) && e1000_detect_eeprom()) {
 		if (!e1000_read_mac_address()) {
 			dprintf("e1000: Failed to read device MAC\n");
 			return false;
 		}
 	} else {
-		uint8_t *mem_base_mac = (uint8_t *) (mem_base + 0x5400);
+		uint8_t *mem_base_mac = (uint8_t *) (mem_base + REG_RAL0);
 		for (int i = 0; i < 6; ++i) {
 			mac[i] = mem_base_mac[i];
 		}
 	}
+	dprintf("e1000: MAC %02x:%02x:%02x:%02x:%02x:%02x\n", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
 
 	interrupts_off();
 	e1000_up();
@@ -411,7 +405,20 @@ void init_e1000() {
 	bool found = false;
 
 	// Try supported devices only
-	const uint16_t supported[] = {E1000_82540EM, E1000_82541PI};
+	const uint16_t supported[] = {
+		E1000_82540EM,
+		E1000_82541PI,
+		E1000_82577LM,
+		E1000_I217,
+		E1000_82567LM,
+		E1000_82567LM_2,
+		E1000_82567LM_3,
+		E1000_82574L,
+		E1000_82579LM,
+		E1000_82583V,
+		E1000_I218LM,
+		E1000_I219LM,
+	};
 	for (size_t i = 0; i < sizeof(supported) / sizeof(supported[0]); i++) {
 		pci_device = pci_get_device(INTEL_VEND, supported[i], -1);
 		if (!pci_not_found(pci_device)) {
