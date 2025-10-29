@@ -323,7 +323,7 @@ bool e1000_start(pci_dev_t *pci_device) {
 		e1000_write_command(0x5200 + i * 4, 0);
 	}
 
-	if (e1000_device_id == E1000_82540EM) {
+	if (e1000_device_id != E1000_82541PI) {
 		/* Attempting MSI setup is safe here */
 		pci_setup_interrupt("e1000", *pci_device, logical_cpu_id(), e1000_handler, NULL);
 	} else {
