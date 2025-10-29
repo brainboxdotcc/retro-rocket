@@ -11,6 +11,7 @@
  *       kernel freestanding. Layout matches the System V ABI for ELF64
  */
 #pragma once
+
 #include <kernel.h>
 #include <stdbool.h>
 
@@ -87,19 +88,19 @@
  */
 typedef struct elf_ehdr {
 	unsigned char e_ident[EI_NIDENT]; /**< ELF identification bytes */
-	uint16_t      e_type;             /**< Object file type (e.g. ET_REL) */
-	uint16_t      e_machine;          /**< Target architecture (e.g. EM_X86_64) */
-	uint32_t      e_version;          /**< Object file version */
-	uint64_t      e_entry;            /**< Entry point (unused for ET_REL) */
-	uint64_t      e_phoff;            /**< Program header table file offset */
-	uint64_t      e_shoff;            /**< Section header table file offset */
-	uint32_t      e_flags;            /**< Processor-specific flags */
-	uint16_t      e_ehsize;           /**< ELF header size in bytes */
-	uint16_t      e_phentsize;        /**< Size of one program header entry */
-	uint16_t      e_phnum;            /**< Number of program header entries */
-	uint16_t      e_shentsize;        /**< Size of one section header entry */
-	uint16_t      e_shnum;            /**< Number of section header entries */
-	uint16_t      e_shstrndx;         /**< Section name string table index */
+	uint16_t e_type;             /**< Object file type (e.g. ET_REL) */
+	uint16_t e_machine;          /**< Target architecture (e.g. EM_X86_64) */
+	uint32_t e_version;          /**< Object file version */
+	uint64_t e_entry;            /**< Entry point (unused for ET_REL) */
+	uint64_t e_phoff;            /**< Program header table file offset */
+	uint64_t e_shoff;            /**< Section header table file offset */
+	uint32_t e_flags;            /**< Processor-specific flags */
+	uint16_t e_ehsize;           /**< ELF header size in bytes */
+	uint16_t e_phentsize;        /**< Size of one program header entry */
+	uint16_t e_phnum;            /**< Number of program header entries */
+	uint16_t e_shentsize;        /**< Size of one section header entry */
+	uint16_t e_shnum;            /**< Number of section header entries */
+	uint16_t e_shstrndx;         /**< Section name string table index */
 } elf_ehdr;
 
 /**
@@ -122,12 +123,12 @@ typedef struct elf_shdr {
  * @brief ELF symbol table entry (ELF64)
  */
 typedef struct elf_sym {
-	uint32_t      st_name;  /**< Offset into the string table */
+	uint32_t st_name;  /**< Offset into the string table */
 	unsigned char st_info;  /**< Binding and type (use ELF64_ST_BIND to extract) */
 	unsigned char st_other; /**< Visibility (not used here) */
-	uint16_t      st_shndx; /**< Section index (SHN_* or real section) */
-	uint64_t      st_value; /**< Value or offset; for ET_REL, offset within section */
-	uint64_t      st_size;  /**< Symbol size in bytes */
+	uint16_t st_shndx; /**< Section index (SHN_* or real section) */
+	uint64_t st_value; /**< Value or offset; for ET_REL, offset within section */
+	uint64_t st_size;  /**< Symbol size in bytes */
 } elf_sym;
 
 /**
@@ -136,7 +137,7 @@ typedef struct elf_sym {
 typedef struct elf_rela {
 	uint64_t r_offset; /**< Offset within the target section */
 	uint64_t r_info;   /**< Packed type and symbol index */
-	int64_t  r_addend; /**< Signed addend */
+	int64_t r_addend; /**< Signed addend */
 } elf_rela;
 
 typedef bool (*module_init_fn)(void);  /**< Prototype for module initialiser */
@@ -162,8 +163,8 @@ enum loadorder_parse_state_t {
 /**
  * @brief helpers to form symbol names
  */
-#define MOD_CAT2(a,b) a##b
-#define MOD_CAT(a,b)  MOD_CAT2(a,b)
+#define MOD_CAT2(a, b) a##b
+#define MOD_CAT(a, b)  MOD_CAT2(a,b)
 #define MOD_INIT_SYM(ver) MOD_CAT(mod_init_v, ver)
 #define MOD_EXIT_SYM(ver) MOD_CAT(mod_exit_v, ver)
 
@@ -185,20 +186,20 @@ enum loadorder_parse_state_t {
  * lookup, and resolves conventional entry points named mod_init and mod_exit
  */
 typedef struct module {
-	const char* name;		/**< Module name */
-	uint8_t *base;			/**< Base of contiguous allocation holding SHF_ALLOC sections */
-	void* raw_bits;			/**< For symbol resolution by other modules */
-	size_t size;			/**< Total size of the contiguous allocation */
-	const elf_sym *symtab;		/**< Pointer to the module's SHT_SYMTAB within the file buffer */
-	size_t sym_count;		/**< Number of entries in symtab */
-	const char *strtab;		/**< Pointer to the module's SHT_STRTAB within the file buffer */
+	const char *name;                /**< Module name */
+	uint8_t *base;                        /**< Base of contiguous allocation holding SHF_ALLOC sections */
+	void *raw_bits;                        /**< For symbol resolution by other modules */
+	size_t size;                        /**< Total size of the contiguous allocation */
+	const elf_sym *symtab;                /**< Pointer to the module's SHT_SYMTAB within the file buffer */
+	size_t sym_count;                /**< Number of entries in symtab */
+	const char *strtab;                /**< Pointer to the module's SHT_STRTAB within the file buffer */
 	struct {
-		uint16_t shndx;		/**< Section index in the module's section table */
-		uint8_t *addr;		/**< Run-time address where this section was placed */
-	} placed[64];			/**< Mapping of placed section indices to run-time addresses */
-	size_t placed_count;		/**< Number of valid entries in placed */
-	module_init_fn init_fn;		/**< Module initialiser (called on load) */
-	module_exit_fn exit_fn;		/**< Module finaliser (called on unload) */
+		uint16_t shndx;                /**< Section index in the module's section table */
+		uint8_t *addr;                /**< Run-time address where this section was placed */
+	} placed[64];                        /**< Mapping of placed section indices to run-time addresses */
+	size_t placed_count;                /**< Number of valid entries in placed */
+	module_init_fn init_fn;                /**< Module initialiser (called on load) */
+	module_exit_fn exit_fn;                /**< Module finaliser (called on unload) */
 } module;
 
 /**
@@ -378,6 +379,61 @@ bool load_module(const char *name);
  */
 bool unload_module(const char *name);
 
+/**
+ * @brief Resolves a code address to module, nearest symbol, and byte offset.
+ *
+ * Scans the registered module list for a text segment containing @p addr.
+ * If found, selects the symbol whose start address is the greatest value
+ * less than or equal to @p addr and reports the module name, symbol name,
+ * and offset from that symbol. If the address lies within a module but no
+ * symbol begins at or before @p addr, the module name is still returned and
+ * the symbol name is set to NULL with a zero offset.
+ *
+ * @param addr         Absolute code address to resolve.
+ * @param modname_out  [out, optional] Receives a pointer to the owning module
+ *                     name (internal storage; do not free). Ignored if NULL.
+ * @param symname_out  [out, optional] Receives a pointer to the resolved
+ *                     symbol name (internal storage; do not free), or NULL if
+ *                     no symbol matched within the module. Ignored if NULL.
+ * @param offset_out   [out, optional] Receives the byte offset
+ *                     (addr - symbol_start) when a symbol is found, or 0 if
+ *                     no symbol matched. Ignored if NULL.
+ *
+ * @return true if @p addr fell within a known module’s text range (whether
+ *         or not a symbol was found); false if no containing module existed.
+ *
+ * @note Returned name pointers remain valid for as long as the underlying
+ *       module remains loaded.
+ */
 bool module_addr_to_symbol(uintptr_t addr, const char **modname_out, const char **symname_out, uint64_t *offset_out);
 
-bool module_parse_alias(const char* alias);
+/**
+ * @brief Parses a load-order alias and loads the first matching module set.
+ *
+ * Opens and parses `/system/config/loadorder.conf`, searching for a section
+ * header matching the given @p alias (e.g., `[net]`). Within that section,
+ * each non-comment line is expected to contain four tab/space-separated
+ * fields:
+ *
+ *     VENDOR  DEVICE  TYPE  MOD1[, MOD2, ...]
+ *
+ * where VENDOR and DEVICE are hexadecimal PCI IDs (or `*` as a wildcard),
+ * TYPE is a hexadecimal PCI class/subclass identifier (or `*` as a wildcard),
+ * and the module list is a comma-separated list of module names. The first
+ * line whose PCI criteria match the current machine (or a full wildcard line)
+ * is selected; each listed module is then loaded in order.
+ *
+ * @param alias  Alias section name to resolve (without brackets).
+ *
+ * @return true if a matching alias section was found and all modules on the
+ *         first matching line were successfully loaded; false otherwise
+ *         (including parse errors, no matching PCI line, I/O failure, or any
+ *         module load failure).
+ *
+ * @remarks
+ *  - Lines beginning with `#` are treated as comments.
+ *  - Whitespace around module names is trimmed; empty tokens are ignored.
+ *  - Only the first matching line within the alias section is acted upon.
+ *  - Wildcards: `*` applies unconditionally.
+ */
+bool module_parse_alias(const char *alias);

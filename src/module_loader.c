@@ -1,15 +1,13 @@
 #include <kernel.h>
 
-static struct hashmap* modules;
-
-/* --- module symbol registry for backtraces -------------------------------- */
+static struct hashmap *modules;
 
 typedef struct modreg {
 	struct modreg *next;
-	module        *m;          /* stored copy in hashmap */
-	const char    *name;       /* m->name (owned by module) */
-	uintptr_t      text_lo;    /* lowest resolved FUNC symbol addr */
-	uintptr_t      text_hi;    /* one-past-highest resolved FUNC symbol addr */
+	module *m;          /* stored copy in hashmap */
+	const char *name;       /* m->name (owned by module) */
+	uintptr_t text_lo;    /* lowest resolved FUNC symbol addr */
+	uintptr_t text_hi;    /* one-past-highest resolved FUNC symbol addr */
 } modreg;
 
 static modreg *modreg_head = NULL;
@@ -37,7 +35,7 @@ static void modreg_build_text_bounds(modreg *r) {
 		if (!b) {
 			continue;
 		}
-		uintptr_t a = (uintptr_t)(b + s->st_value);
+		uintptr_t a = (uintptr_t) (b + s->st_value);
 		if (a < lo) {
 			lo = a;
 		}
@@ -48,7 +46,7 @@ static void modreg_build_text_bounds(modreg *r) {
 
 	if (lo == UINTPTR_MAX || hi == 0 || hi <= lo) {
 		/* Fallback: if no funcs found, cover the whole mapped module */
-		r->text_lo = (uintptr_t)r->m->base;
+		r->text_lo = (uintptr_t) r->m->base;
 		r->text_hi = r->text_lo + r->m->size;
 	} else {
 		/* hi should be one-past; nudge if equal to a symbol addr later */
@@ -111,7 +109,7 @@ bool module_addr_to_symbol(uintptr_t addr, const char **modname_out, const char 
 				continue;
 			}
 
-			uintptr_t sa = (uintptr_t)(b + s->st_value);
+			uintptr_t sa = (uintptr_t) (b + s->st_value);
 			if (sa <= addr && sa >= best_addr) {
 				best_addr = sa;
 				best_name = r->m->strtab + s->st_name;
@@ -126,7 +124,7 @@ bool module_addr_to_symbol(uintptr_t addr, const char **modname_out, const char 
 				*symname_out = best_name;
 			}
 			if (offset_out) {
-				*offset_out = (uint64_t)(addr - best_addr);
+				*offset_out = (uint64_t) (addr - best_addr);
 			}
 			return true;
 		}
@@ -402,7 +400,7 @@ bool module_apply_relocations(const uint8_t *file, const elf_shdr *sh, size_t sh
 					break;
 				}
 
-				/* Compilers often emit PLT32 for extern calls */
+					/* Compilers often emit PLT32 for extern calls */
 				case R_X86_64_PLT32: {
 					int64_t val = (int64_t) S + A - (int64_t) P;
 					if (val < INT_MIN || val > INT_MAX) {
@@ -547,18 +545,18 @@ bool module_internal_unload(module *m) {
 }
 
 static int module_compare(const void *a, const void *b, void *udata) {
-	const module* ma = a;
-	const module* mb = b;
+	const module *ma = a;
+	const module *mb = b;
 	return strcmp(ma->name, mb->name);
 }
 
 static uint64_t module_hash(const void *item, uint64_t seed0, uint64_t seed1) {
-	const module* a = item;
+	const module *a = item;
 	return hashmap_sip(a->name, strlen(a->name), seed0, seed1);
 }
 
-static void module_hash_free(const void* item, void* udata) {
-	const module* m = item;
+static void module_hash_free(const void *item, void *udata) {
+	const module *m = item;
 	kfree(m->raw_bits);
 	kfree(m->name);
 }
@@ -570,7 +568,7 @@ void init_modules(void) {
 	modules = hashmap_new(sizeof(module), 0, 4325874395643634, 4532498232342, module_hash, module_compare, module_hash_free, NULL);
 }
 
-bool load_module(const char* name) {
+bool load_module(const char *name) {
 	module m = {};
 	char path[MAX_STRINGLEN];
 	if (module_parse_alias(name)) {
@@ -587,13 +585,13 @@ bool load_module(const char* name) {
 		kfree_null(&m.name);
 		return false;
 	}
-	fs_directory_entry_t * f = fs_get_file_info(path);
+	fs_directory_entry_t *f = fs_get_file_info(path);
 	if (!f || (f->flags & FS_DIRECTORY) != 0) {
 		kfree_null(&m.name);
 		dprintf("Module %s does not exist or is a directory\n", name);
 		return false;
 	}
-	void* module_content = kmalloc(f->size);
+	void *module_content = kmalloc(f->size);
 	if (!module_content) {
 		kfree_null(&m.name);
 		dprintf("Out of memory loading module %s\n", name);
@@ -612,13 +610,13 @@ bool load_module(const char* name) {
 		return false;
 	}
 	hashmap_set(modules, &m);
-	module* stored = hashmap_get(modules, &(module){ .name = name });
+	module *stored = hashmap_get(modules, &(module) {.name = name});
 	modreg_register(stored);
 	return true;
 }
 
-bool unload_module(const char* name) {
-	module* mod = hashmap_get(modules, &(module){ .name = name });
+bool unload_module(const char *name) {
+	module *mod = hashmap_get(modules, &(module) {.name = name});
 	if (!mod) {
 		dprintf("Module %s is not loaded\n", name);
 		return false;
@@ -631,17 +629,17 @@ bool unload_module(const char* name) {
 	return true;
 }
 
-bool module_parse_alias(const char* alias) {
+bool module_parse_alias(const char *alias) {
 	int handle = _open("/system/config/loadorder.conf", _O_RDONLY);
 	if (handle < 0) {
 		return false;
 	}
 	char found_alias[MAX_STRINGLEN], vendor[MAX_STRINGLEN], device[MAX_STRINGLEN], type[MAX_STRINGLEN], modlist[MAX_STRINGLEN];
-	char* alias_ptr = found_alias;
-	char* vendor_ptr = vendor;
-	char* device_ptr = device;
-	char* type_ptr = type;
-	char* modlist_ptr = modlist;
+	char *alias_ptr = found_alias;
+	char *vendor_ptr = vendor;
+	char *device_ptr = device;
+	char *type_ptr = type;
+	char *modlist_ptr = modlist;
 
 	bool alias_located = false;
 	enum loadorder_parse_state_t state = SEARCH_ALIAS;
@@ -687,9 +685,9 @@ bool module_parse_alias(const char* alias) {
 			case '\n':
 				if (state == READ_MODLIST) {
 					if (alias_located) {
-						int vend_id = strcmp(vendor,"*") ? atoll(vendor, 16) : 0;
-						int dev_id = strcmp(device,"*") ? atoll(device, 16) : 0;
-						int type_id = strcmp(type,"*") ? atoll(type, 16) : -1;
+						int vend_id = strcmp(vendor, "*") ? atoll(vendor, 16) : 0;
+						int dev_id = strcmp(device, "*") ? atoll(device, 16) : 0;
+						int type_id = strcmp(type, "*") ? atoll(type, 16) : -1;
 						pci_dev_t pci_device = pci_get_device(vend_id, dev_id, type_id);
 						if ((vend_id == 0 && dev_id == 0 && type_id == -1) || !pci_not_found(pci_device)) {
 							char *save_ptr = NULL;
@@ -737,7 +735,7 @@ bool module_parse_alias(const char* alias) {
 			default:
 				switch (state) {
 					case READ_ALIAS:
-						if ((size_t)(alias_ptr - found_alias) < sizeof(found_alias) - 1) {
+						if ((size_t) (alias_ptr - found_alias) < sizeof(found_alias) - 1) {
 							*alias_ptr++ = c;
 						}
 						break;
@@ -747,7 +745,7 @@ bool module_parse_alias(const char* alias) {
 								state = READ_DEVICE;
 							}
 						} else {
-							if ((size_t)(vendor_ptr - vendor) < sizeof(vendor) - 1) {
+							if ((size_t) (vendor_ptr - vendor) < sizeof(vendor) - 1) {
 								*vendor_ptr++ = c;
 							}
 						}
@@ -758,7 +756,7 @@ bool module_parse_alias(const char* alias) {
 								state = READ_TYPE;
 							}
 						} else {
-							if ((size_t)(device_ptr - device) < sizeof(device) - 1) {
+							if ((size_t) (device_ptr - device) < sizeof(device) - 1) {
 								*device_ptr++ = c;
 							}
 						}
@@ -769,13 +767,13 @@ bool module_parse_alias(const char* alias) {
 								state = READ_MODLIST;
 							}
 						} else {
-							if ((size_t)(type_ptr - type) < sizeof(type) - 1) {
+							if ((size_t) (type_ptr - type) < sizeof(type) - 1) {
 								*type_ptr++ = c;
 							}
 						}
 						break;
 					case READ_MODLIST:
-						if ((size_t)(modlist_ptr - modlist) < sizeof(modlist) - 1) {
+						if ((size_t) (modlist_ptr - modlist) < sizeof(modlist) - 1) {
 							*modlist_ptr++ = c;
 						}
 						break;
