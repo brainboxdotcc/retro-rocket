@@ -8,18 +8,44 @@
 #include <kernel.h>
 
 #define INTEL_VEND     	(uint32_t)0x8086  /* Vendor ID for Intel */
-#define E1000_82540EM  	(uint32_t)0x100E  /* Device ID for the e1000 Qemu, Bochs, and VirtualBox emulated NICs */
-#define E1000_I217     	(uint32_t)0x153A  /* Device ID for Intel I217 */
-#define E1000_82577LM  	(uint32_t)0x10EA  /* Device ID for Intel 82577LM */
-#define E1000_82541PI  	(uint32_t)0x107C  /* Device ID for Intel 82541PI */
-#define E1000_82567LM	(uint32_t)0x10F5  /* Device ID for Intel 82567LM */
-#define E1000_82567LM_2 (uint32_t)0x10CC  /* Device ID for Intel 82567LM v2 */
-#define E1000_82567LM_3 (uint32_t)0x10DE  /* Device ID for Intel 82567LM v3 */
-#define E1000_82574L    (uint32_t)0x10D3  /* Intel 82574L PCIe Gigabit Controller */
-#define E1000_82579LM   (uint32_t)0x1502  /* Intel 82579LM PCH-LAN Controller */
-#define E1000_82583V    (uint32_t)0x150C  /* Intel 82583V PCIe Gigabit Controller */
-#define E1000_I218LM    (uint32_t)0x15A2  /* Intel I218-LM PCH-LAN Controller */
-#define E1000_I219LM    (uint32_t)0x15E3  /* Intel I219-LM PCH-LAN Controller */
+#define E1000_82542               (uint32_t)0x1000
+#define E1000_82543GC_F           (uint32_t)0x1001
+#define E1000_82543GC_C           (uint32_t)0x1004
+#define E1000_82544EI_C           (uint32_t)0x1008
+#define E1000_82544EI_F           (uint32_t)0x1009
+#define E1000_82544GC_C           (uint32_t)0x100C
+#define E1000_82544GC_L           (uint32_t)0x100D
+#define E1000_82540EM             (uint32_t)0x100E  /* Device ID for the e1000 Qemu, Bochs, and VirtualBox emulated NICs */
+#define E1000_82545EM_C           (uint32_t)0x100F
+#define E1000_82546EB_C           (uint32_t)0x1010
+#define E1000_82545EM_F           (uint32_t)0x1011
+#define E1000_82546EB_F           (uint32_t)0x1012
+#define E1000_82541EI             (uint32_t)0x1013
+#define E1000_82541ER_L           (uint32_t)0x1014
+#define E1000_82540EM_L           (uint32_t)0x1015
+#define E1000_82540EP_L           (uint32_t)0x1016
+#define E1000_82540EP             (uint32_t)0x1017
+#define E1000_82541EI_M           (uint32_t)0x1018
+#define E1000_82547EI             (uint32_t)0x1019
+#define E1000_82547EI_M           (uint32_t)0x101A
+#define E1000_82546EB_QC          (uint32_t)0x101D
+#define E1000_82540EP_L2          (uint32_t)0x101E
+#define E1000_82545GM_C           (uint32_t)0x1026
+#define E1000_82545GM_F           (uint32_t)0x1027
+#define E1000_82545GM_S           (uint32_t)0x1028
+#define E1000_82547GI             (uint32_t)0x1075
+#define E1000_82541GI             (uint32_t)0x1076
+#define E1000_82541GI_M           (uint32_t)0x1077
+#define E1000_82541ER             (uint32_t)0x1078
+#define E1000_82546GB_C           (uint32_t)0x1079
+#define E1000_82546GB_F           (uint32_t)0x107A
+#define E1000_82546GB_S           (uint32_t)0x107B
+#define E1000_82541PI             (uint32_t)0x107C  /* Device ID for Intel 82541PI */
+#define E1000_82546GB_P           (uint32_t)0x108A
+#define E1000_82546GB_QC          (uint32_t)0x1099
+#define E1000_82546GB_QC_3        (uint32_t)0x10B5
+#define E1000_CE4100_GBE          (uint32_t)0x2E6E
+
 
  
 #define REG_CTRL        0x0000

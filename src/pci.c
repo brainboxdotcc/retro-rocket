@@ -473,10 +473,8 @@ pci_dev_t pci_scan_device(uint16_t vendor_id, uint16_t device_id, uint32_t bus, 
 	return dev_zero;
 }
 
-/*
- * Scan bus
- */
 static bool visited_buses[256] = { false };
+static bool pci_scanned_once = false;
 
 pci_dev_t pci_scan_bus(uint16_t vendor_id, uint16_t device_id, uint32_t bus, int device_type) {
 	if (visited_buses[bus]) {
@@ -484,59 +482,54 @@ pci_dev_t pci_scan_bus(uint16_t vendor_id, uint16_t device_id, uint32_t bus, int
 	}
 	visited_buses[bus] = true;
 
-	pci_dev_t found = dev_zero;
-
 	for (int device = 0; device < DEVICE_PER_BUS; device++) {
 		pci_dev_t dev = pci_scan_device(vendor_id, device_id, bus, device, device_type);
 
-		// Track if this is the specific device being searched for
-		if (!pci_not_found(dev) &&
-			(vendor_id != 0 || device_id != 0 || device_type != -1)) {
+		if (!pci_not_found(dev) && (vendor_id != 0 || device_id != 0 || device_type != -1)) {
 			uint32_t vend = pci_read(dev, PCI_VENDOR_ID);
 			uint32_t devid = pci_read(dev, PCI_DEVICE_ID);
-			uint32_t type = get_device_type(dev);
+			uint32_t type  = get_device_type(dev);
 
 			if ((vendor_id == 0 || vend == vendor_id) &&
-				(device_id == 0 || devid == device_id) &&
-				(device_type == -1 || type == (uint32_t)device_type)) {
-				found = dev;
+			    (device_id == 0 || devid == device_id) &&
+			    (device_type == -1 || type == (uint32_t)device_type)) {
+				return dev; /* early hit */
 			}
 		}
 	}
-
-	return found;
+	return dev_zero;
 }
 
+pci_dev_t pci_get_device(uint16_t vendor_id, uint16_t device_id, int device_type) {
+	if (!pci_scanned_once) {
+		memset(visited_buses, 0, sizeof(visited_buses));
+		device_total = 0;
 
-/*
- * Device driver use this function to get its device object(given unique vendor id and device id)
- */
-pci_dev_t pci_get_device(uint16_t vendor_id, uint16_t device_id, int device_type)
-{
-	memset(visited_buses, 0, sizeof(visited_buses));
-	device_total = 0;
-
-	for (int bus = 0; bus < 256; ++bus) {
-		pci_scan_bus(vendor_id, device_id, bus, -1);
+		for (int bus = 0; bus < 256; ++bus) {
+			pci_dev_t cand = pci_scan_bus(vendor_id, device_id, bus, device_type);
+			if (!pci_not_found(cand)) {
+				pci_scanned_once = true;
+				return cand;
+			}
+		}
+		pci_scanned_once = true;
 	}
 
-	// Now loop through and find matching device
 	for (size_t i = 0; i < device_total; ++i) {
 		uint32_t vendid = pci_read(device_list[i], PCI_VENDOR_ID);
-		uint32_t devid = pci_read(device_list[i], PCI_DEVICE_ID);
-		uint32_t type = get_device_type(device_list[i]);
+		uint32_t devid  = pci_read(device_list[i], PCI_DEVICE_ID);
+		uint32_t type   = get_device_type(device_list[i]);
 
 		if ((vendor_id == 0 || vendor_id == vendid) &&
-			(device_id == 0 || device_id == devid) &&
-			(device_type == -1 || device_type == (int)type)) {
+		    (device_id == 0 || device_id == devid) &&
+		    (device_type == -1 || device_type == (int)type)) {
 			return device_list[i];
 		}
 	}
 	return dev_zero;
 }
 
-pci_dev_t pci_get_best(uint16_t vendor_id, uint16_t device_id, int device_type, pci_score_fn score, void *ctx)
-{
+pci_dev_t pci_get_best(uint16_t vendor_id, uint16_t device_id, int device_type, pci_score_fn score, void *ctx) {
 	memset(visited_buses, 0, sizeof(visited_buses));
 	device_total = 0;
 
