@@ -943,9 +943,9 @@ static bool plot_sprite_quad_axis_aligned_int(struct basic_ctx* ctx, int64_t spr
 			vi = CLAMP(vi, 0, h - 1);
 
 			uint32_t src = s->pixels[vi * w + ui];
-			if ((src & 0xff000000) == 0xff000000) {
-				*(volatile uint32_t*)(framebuffer + pixel_address(px, py)) = src;
-			}
+			uint32_t m = s->mask[vi * w + ui];
+			volatile uint32_t* dst = (volatile uint32_t*)(framebuffer + pixel_address(px, py));
+			*dst = (*dst & ~m) | (src & m);
 
 			u_fp += dx_u;
 			v_fp += dx_v;
@@ -1071,6 +1071,7 @@ inline static void draw_strip_projective(dpoint_t L0, dpoint_t L1, dpoint_t S0, 
 
 	/* hoist sprite fields */
 	const uint32_t* spx = s->pixels;
+	const uint32_t* mask = s->mask;
 	const uint64_t sw = s->width;
 	const uint64_t sh = s->height;
 	const double umin = -0.5, vmin = -0.5, umax = (double)sw + 0.5, vmax = (double)sh + 0.5;
@@ -1149,9 +1150,10 @@ inline static void draw_strip_projective(dpoint_t L0, dpoint_t L1, dpoint_t S0, 
 
 				if (ui < sw && vi < sh) {
 					uint32_t src = spx[vi * sw + ui];
-					if ((src & 0xff000000) == 0xff000000) {
-						*(volatile uint32_t*)(framebuffer + pixel_address(x, y)) = src;
-					}
+					uint32_t m = mask[vi * sw + ui];
+
+					volatile uint32_t* dst = (volatile uint32_t*)(framebuffer + pixel_address(x, y));
+					*dst = (*dst & ~m) | (src & m);
 				}
 			}
 
