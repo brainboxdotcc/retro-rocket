@@ -21,6 +21,43 @@ void __assert_fail(const char * assertion, const char * file, unsigned int line,
 	while(true);
 }
 
+static uint32_t rgba_to_fb(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+{
+	/* Framebuffer expects ARGB */
+	return ((uint32_t)a << 24) | ((uint32_t)r << 16) | ((uint32_t)g << 8) | (uint32_t)b;
+}
+
+static int sprite_swizzle_and_mask_rgba(sprite_t* s, const unsigned char* rgba)
+{
+	if (s == NULL || s->pixels == NULL || s->mask == NULL || rgba == NULL) {
+		return 0;
+	}
+	if (s->width <= 0 || s->height <= 0) {
+		return 0;
+	}
+
+	int64_t w = s->width;
+	int64_t h = s->height;
+
+	for (int64_t y = 0; y < h; ++y) {
+		uint32_t* dst = s->pixels + (y * w);
+		uint32_t* m = s->mask + (y * w);
+		const unsigned char* src = rgba + (y * w * 4);
+
+		for (int64_t x = 0; x < w; ++x) {
+			uint8_t r = src[x * 4 + 0];
+			uint8_t g = src[x * 4 + 1];
+			uint8_t b = src[x * 4 + 2];
+			uint8_t a = src[x * 4 + 3];
+
+			dst[x] = rgba_to_fb(r, g, b, a);
+			m[x] = (a == 255) ? 0xffffffff : 0x00000000;
+		}
+	}
+
+	return 1;
+}
+
 /* Cheap GIF container scan: counts frames without decoding LZW. */
 static int gif_count_frames_and_size(const unsigned char *p, size_t len, int *lw, int *lh)
 {
@@ -149,6 +186,7 @@ int64_t alloc_sprite(struct basic_ctx* ctx)
 			s->width = 0;
 			s->height = 0;
 			s->pixels = NULL;
+			s->mask = NULL;
 			return i;
 		}
 	}
@@ -172,6 +210,9 @@ void free_sprite(struct basic_ctx* ctx, int64_t sprite_handle)
 		}
 		if (s->gif_data) {
 			buddy_free(ctx->allocator, s->gif_data);
+		}
+		if (s->mask) {
+			buddy_free(ctx->allocator, s->mask);
 		}
 
 		buddy_free(ctx->allocator, s);
@@ -252,6 +293,8 @@ static int sprite_gif_step_next(sprite_t *s)
 		}
 	}
 
+	sprite_swizzle_and_mask_rgba(s, (unsigned char*)s->pixels);
+
 	return 1;
 }
 
@@ -325,7 +368,7 @@ void sprite_first_frame(struct basic_ctx* ctx, int64_t sprite_handle)
 	}
 }
 
-void plot_sprite(struct basic_ctx* ctx, int64_t sprite_handle, int64_t draw_x, int64_t draw_y)
+/*void plot_sprite(struct basic_ctx* ctx, int64_t sprite_handle, int64_t draw_x, int64_t draw_y)
 {
 	if (sprite_handle >= 0 && sprite_handle < MAX_SPRITES && ctx->sprites[sprite_handle] != NULL && ctx->sprites[sprite_handle]->pixels != NULL) {
 		sprite_t* s = ctx->sprites[sprite_handle];
@@ -342,7 +385,121 @@ void plot_sprite(struct basic_ctx* ctx, int64_t sprite_handle, int64_t draw_x, i
 			}
 		}
 	}
+}*/
+
+void plot_sprite(struct basic_ctx* ctx, int64_t sprite_handle, int64_t draw_x, int64_t draw_y)
+{
+	if (sprite_handle < 0 || sprite_handle >= MAX_SPRITES) {
+		return;
+	}
+	if (ctx->sprites[sprite_handle] == NULL) {
+		return;
+	}
+
+	sprite_t* s = ctx->sprites[sprite_handle];
+
+	if (s->pixels == NULL || s->mask == NULL) {
+		return;
+	}
+
+	int64_t fb_w = screen_get_width();
+	int64_t fb_h = screen_get_height();
+
+	int64_t dst_x0 = draw_x;
+	int64_t dst_y0 = draw_y;
+	int64_t dst_x1 = draw_x + s->width;
+	int64_t dst_y1 = draw_y + s->height;
+
+	if (dst_x1 <= 0 || dst_y1 <= 0 || dst_x0 >= fb_w || dst_y0 >= fb_h) {
+		return;
+	}
+
+	int64_t clip_x0 = dst_x0;
+	int64_t clip_y0 = dst_y0;
+	int64_t clip_x1 = dst_x1;
+	int64_t clip_y1 = dst_y1;
+
+	if (clip_x0 < 0) {
+		clip_x0 = 0;
+	}
+	if (clip_y0 < 0) {
+		clip_y0 = 0;
+	}
+	if (clip_x1 > fb_w) {
+		clip_x1 = fb_w;
+	}
+	if (clip_y1 > fb_h) {
+		clip_y1 = fb_h;
+	}
+
+	int64_t copy_w = clip_x1 - clip_x0;
+	int64_t copy_h = clip_y1 - clip_y0;
+
+	if (copy_w <= 0 || copy_h <= 0) {
+		return;
+	}
+
+	int64_t src_x0 = clip_x0 - draw_x;
+	int64_t src_y0 = clip_y0 - draw_y;
+
+	uint8_t* fb_base = (uint8_t*)framebuffer_address();
+
+	for (int64_t row = 0; row < copy_h; ++row) {
+		int64_t src_y = src_y0 + row;
+		int64_t dst_y = clip_y0 + row;
+
+		const uint32_t* src = s->pixels + ((size_t)src_y * (size_t)s->width) + (size_t)src_x0;
+		const uint32_t* m = s->mask + ((size_t)src_y * (size_t)s->width) + (size_t)src_x0;
+
+		uint32_t* dst = (uint32_t*)(fb_base + pixel_address(clip_x0, dst_y));
+
+		int64_t x = 0;
+
+		/* 64-bit pairs */
+		int64_t pairs = copy_w / 2;
+
+		if ((((uintptr_t)dst | (uintptr_t)src | (uintptr_t)m) & 7) == 0) {
+			uint64_t* d64 = (uint64_t*)dst;
+			const uint64_t* s64 = (const uint64_t*)src;
+			const uint64_t* m64 = (const uint64_t*)m;
+
+			for (int64_t i = 0; i < pairs; ++i) {
+				uint64_t md = m64[i];
+				uint64_t sd = s64[i];
+				uint64_t dd = d64[i];
+
+				d64[i] = (dd & ~md) | (sd & md);
+			}
+		} else {
+			for (int64_t i = 0; i < pairs; ++i) {
+				uint64_t md;
+				uint64_t sd;
+				uint64_t dd;
+
+				memcpy(&md, m + (i * 2), 8);
+				memcpy(&sd, src + (i * 2), 8);
+				memcpy(&dd, dst + (i * 2), 8);
+
+				dd = (dd & ~md) | (sd & md);
+				memcpy(dst + (i * 2), &dd, 8);
+			}
+		}
+
+		x = pairs * 2;
+
+		/* Tail pixel */
+		if (x < copy_w) {
+			uint32_t md = m[x];
+			uint32_t sd = src[x];
+			uint32_t dd = dst[x];
+
+			dst[x] = (dd & ~md) | (sd & md);
+		}
+	}
+
+	set_video_dirty_area(clip_y0, clip_y1 - 1);
 }
+
 
 sprite_t* get_sprite(struct basic_ctx* ctx, int64_t sprite_handle)
 {
@@ -499,6 +656,15 @@ void loadsprite_statement(struct basic_ctx* ctx)
 		}
 		dprintf("Stream reset\n");
 
+		s->mask = buddy_malloc(ctx->allocator, bytes);
+		if (!s->mask) {
+			tokenizer_error_printf(ctx, "Not enough memory for sprite mask '%s'", file);
+			buddy_free(ctx->allocator, canvas);
+			buddy_free(ctx->allocator, buf);
+			free_sprite(ctx, sprite_handle);
+			return;
+		}
+
 		/* Decode first frame into canvas */
 		if (!sprite_gif_step_next(s)) {
 			tokenizer_error_printf(ctx, "Failed to decode first GIF frame '%s'", file);
@@ -538,11 +704,32 @@ void loadsprite_statement(struct basic_ctx* ctx)
 		free_sprite(ctx, sprite_handle);
 		return;
 	}
-	memcpy(pixels, tmp, bytes);
+
+	sprite_t* s = get_sprite(ctx, sprite_handle);
+	s->pixels = pixels;
+	s->width  = w;
+	s->height = h;
+
+	s->mask = buddy_malloc(ctx->allocator, bytes);
+	if (!s->mask) {
+		tokenizer_error_printf(ctx, "Not enough memory for sprite mask '%s'", file);
+		stbi_image_free(tmp);
+		buddy_free(ctx->allocator, buf);
+		free_sprite(ctx, sprite_handle);
+		return;
+	}
+
+	if (!sprite_swizzle_and_mask_rgba(s, tmp)) {
+		tokenizer_error_printf(ctx, "Failed to swizzle sprite '%s'", file);
+		stbi_image_free(tmp);
+		buddy_free(ctx->allocator, buf);
+		free_sprite(ctx, sprite_handle);
+		return;
+	}
+
 	stbi_image_free(tmp);
 
 	/* Store sprite metadata */
-	sprite_t* s = get_sprite(ctx, sprite_handle);
 	s->pixels = pixels;
 	s->width  = w;
 	s->height = h;
@@ -757,12 +944,7 @@ static bool plot_sprite_quad_axis_aligned_int(struct basic_ctx* ctx, int64_t spr
 
 			uint32_t src = s->pixels[vi * w + ui];
 			if ((src & 0xff000000) == 0xff000000) {
-				uint32_t a = (src >> 24) & 0xff;
-				uint32_t r = (src >> 16) & 0xff;
-				uint32_t g = (src >> 8) & 0xff;
-				uint32_t b = (src) & 0xff;
-				volatile uint32_t* addr = (volatile uint32_t*)(framebuffer + pixel_address(px, py));
-				*addr = (a << 24) | (b << 16) | (g << 8) | r;
+				*(volatile uint32_t*)(framebuffer + pixel_address(px, py)) = src;
 			}
 
 			u_fp += dx_u;
@@ -968,12 +1150,7 @@ inline static void draw_strip_projective(dpoint_t L0, dpoint_t L1, dpoint_t S0, 
 				if (ui < sw && vi < sh) {
 					uint32_t src = spx[vi * sw + ui];
 					if ((src & 0xff000000) == 0xff000000) {
-						uint32_t a = (src >> 24) & 0xff;
-						uint32_t r = (src >> 16) & 0xff;
-						uint32_t g = (src >> 8) & 0xff;
-						uint32_t b = src & 0xff;
-						volatile uint32_t* addr = (volatile uint32_t*)(framebuffer + pixel_address(x, y));
-						*addr = (a << 24) | (b << 16) | (g << 8) | r;
+						*(volatile uint32_t*)(framebuffer + pixel_address(x, y)) = src;
 					}
 				}
 			}

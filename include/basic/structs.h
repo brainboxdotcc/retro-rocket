@@ -273,6 +273,7 @@ typedef struct sprite {
 	int64_t gif_size;		/* Gif size */
 	void *gif_state;		/* actually stbi__gif* */
 	void *gif_ctx;			/* actually stbi__context* */
+	uint32_t *mask;
 } sprite_t;
 
 /**
