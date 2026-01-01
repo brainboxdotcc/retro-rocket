@@ -47,3 +47,28 @@ Its userland is completely written in a dialect of BASIC based heavily on BBC BA
 ## 🔨 Documentation
 
 You can learn all about the project via the [official website at http://retrorocket.dev](http://retrorocket.dev) where we document technical details, provide a user guide, and BASIC reference.
+
+## Building
+
+You should not need to build Retro Rocket yourself. Under the releases, and the actions for the project, you will find ready-built
+ISO and USB images you can burn straight to media. If you do want to build it yourself, you will need the following build dependencies:
+
+- gcc-14 or higher
+- cmake
+- make
+- nasm
+- xorriso
+- mtools
+- php 8.4 or higher
+
+To build, make a build directory, e.g. `build`, and then run `cmake` referencing the source directory:
+
+```
+cd retrorocket
+mkdir build
+cd build
+cmake ..
+make -j $NPROC
+```
+
+the ISO and USB images will be written to the build directory.
