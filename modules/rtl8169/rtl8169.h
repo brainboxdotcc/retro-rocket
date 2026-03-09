@@ -84,6 +84,7 @@ typedef struct rtl8169_dev {
 	bool active;
 
 	uint16_t io_base;
+	uint16_t vendor_id;
 	uint16_t device_id;
 
 	uint8_t mac[6];

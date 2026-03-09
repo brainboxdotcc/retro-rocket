@@ -351,6 +351,7 @@ static bool rtl8169_start(pci_dev_t pdev)
 {
 	memset(&rtl8169_dev, 0, sizeof(rtl8169_dev));
 
+	rtl8169_dev.vendor_id = (uint16_t)pci_read(pdev, PCI_VENDOR_ID);
 	rtl8169_dev.device_id = (uint16_t)pci_read(pdev, PCI_DEVICE_ID);
 
 	uint32_t bar0 = pci_read(pdev, PCI_BAR0);
@@ -406,7 +407,7 @@ static bool rtl8169_start(pci_dev_t pdev)
 	}
 
 	net->opaque = &rtl8169_dev;
-	net->deviceid = (RTL8169_VENDOR_ID << 16) | rtl8169_dev.device_id;
+	net->deviceid = (rtl8169_dev.vendor_id << 16) | rtl8169_dev.device_id;
 	strlcpy(net->name, rtl8169_dev.name, sizeof(net->name));
 	net->description = "Realtek RTL8169/8168 Gigabit";
 	net->flags = CONNECTED;
@@ -427,16 +428,20 @@ static bool rtl8169_start(pci_dev_t pdev)
 
 static void init_rtl8169(void)
 {
-	pci_dev_t dev;
-
-	const uint16_t supported[] = {
-		RTL8169_DEVICE_ID,
-		RTL8168_DEVICE_ID,
+	static const struct {
+		uint16_t vendor;
+		uint16_t device;
+	} supported[] = {
+		{ 0x10ec, 0x8161 },
+		{ 0x10ec, 0x8168 },
+		{ 0x10ec, 0x8169 },
+		{ 0x1259, 0xc107 },
+		{ 0x1737, 0x1032 },
+		{ 0x16ec, 0x0116 },
 	};
 
 	for (size_t i = 0; i < sizeof(supported) / sizeof(supported[0]); i++) {
-		dev = pci_get_device(RTL8169_VENDOR_ID, supported[i], -1);
-
+		pci_dev_t dev = pci_get_device(supported[i].vendor, supported[i].device, -1);
 		if (!pci_not_found(dev)) {
 			if (rtl8169_start(dev)) {
 				network_setup();
