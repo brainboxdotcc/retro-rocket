@@ -1,5 +1,9 @@
-// Inspired by the Astral RTL8169 driver: https://github.com/Mathewnd/Astral/blob/rewrite/kernel-src/io/net/rtl8169.c
-
+/**
+ * @file rtl8169.h
+ * @author Craig Edwards (craigedwards@brainbox.cc)
+ * @copyright Copyright (c) 2012-2025
+ * @ref Inspired by the Astral RTL8169 driver: https://github.com/Mathewnd/Astral/blob/rewrite/kernel-src/io/net/rtl8169.c
+ */
 #pragma once
 
 #include <kernel.h>

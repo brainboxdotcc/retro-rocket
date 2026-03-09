@@ -1,42 +1,39 @@
-// Inspired by the Astral RTL8169 driver: https://github.com/Mathewnd/Astral/blob/rewrite/kernel-src/io/net/rtl8169.c
-
+/**
+ * @file rtl8169.c
+ * @author Craig Edwards (craigedwards@brainbox.cc)
+ * @copyright Copyright (c) 2012-2025
+ * @ref Inspired by the Astral RTL8169 driver: https://github.com/Mathewnd/Astral/blob/rewrite/kernel-src/io/net/rtl8169.c
+ */
 #include <kernel.h>
 #include "rtl8169.h"
 
 static rtl8169_dev_t rtl8169_dev;
 
-static inline void rtl8169_outb(uint32_t reg, uint8_t v)
-{
+static inline void rtl8169_outb(uint32_t reg, uint8_t v) {
 	outb(rtl8169_dev.io_base + reg, v);
 }
 
-static inline void rtl8169_outw(uint32_t reg, uint16_t v)
-{
+static inline void rtl8169_outw(uint32_t reg, uint16_t v) {
 	outw(rtl8169_dev.io_base + reg, v);
 }
 
-static inline void rtl8169_outl(uint32_t reg, uint32_t v)
-{
+static inline void rtl8169_outl(uint32_t reg, uint32_t v) {
 	outl(rtl8169_dev.io_base + reg, v);
 }
 
-static inline uint8_t rtl8169_inb(uint32_t reg)
-{
+static inline uint8_t rtl8169_inb(uint32_t reg) {
 	return inb(rtl8169_dev.io_base + reg);
 }
 
-static inline uint16_t rtl8169_inw(uint32_t reg)
-{
+static inline uint16_t rtl8169_inw(uint32_t reg) {
 	return inw(rtl8169_dev.io_base + reg);
 }
 
-static inline uint32_t rtl8169_inl(uint32_t reg)
-{
+static inline uint32_t rtl8169_inl(uint32_t reg) {
 	return inl(rtl8169_dev.io_base + reg);
 }
 
-static bool rtl8169_phy_read(uint8_t reg, uint16_t* value)
-{
+static bool rtl8169_phy_read(uint8_t reg, uint16_t* value) {
 	rtl8169_outl(RTL8169_REG_PHYAR, (uint32_t)reg << 16);
 
 	for (int i = 0; i < 30; i++) {
@@ -52,8 +49,7 @@ static bool rtl8169_phy_read(uint8_t reg, uint16_t* value)
 	return false;
 }
 
-static bool rtl8169_phy_write(uint8_t reg, uint16_t value)
-{
+static bool rtl8169_phy_write(uint8_t reg, uint16_t value) {
 	rtl8169_outl(RTL8169_REG_PHYAR, (uint32_t)value | ((uint32_t)reg << 16) | RTL8169_PHYAR_BUSY);
 
 	for (int i = 0; i < 30; i++) {
@@ -68,8 +64,7 @@ static bool rtl8169_phy_write(uint8_t reg, uint16_t value)
 	return false;
 }
 
-static void rtl8169_read_mac(void)
-{
+static void rtl8169_read_mac(void) {
 	uint32_t word = rtl8169_inl(RTL8169_REG_MAC0);
 	rtl8169_dev.mac[0] = (uint8_t)(word & 0xff);
 	rtl8169_dev.mac[1] = (uint8_t)((word >> 8) & 0xff);
@@ -81,13 +76,11 @@ static void rtl8169_read_mac(void)
 	rtl8169_dev.mac[5] = (uint8_t)((word >> 8) & 0xff);
 }
 
-static void rtl8169_get_mac_addr(uint8_t* dst)
-{
+static void rtl8169_get_mac_addr(uint8_t* dst) {
 	memcpy(dst, rtl8169_dev.mac, 6);
 }
 
-static bool rtl8169_reset(void)
-{
+static bool rtl8169_reset(void) {
 	rtl8169_outw(RTL8169_REG_CCR, 0);
 	rtl8169_outb(RTL8169_REG_COMMAND, RTL8169_COMMAND_RESET);
 
@@ -102,10 +95,9 @@ static bool rtl8169_reset(void)
 	return false;
 }
 
-static void rtl8169_tx_reclaim(void)
-{
+static void rtl8169_tx_reclaim(void) {
 	while (rtl8169_dev.tx_free < RTL8169_TX_DESCRIPTOR_COUNT) {
-		rtl8169_descriptor_t* d = &rtl8169_dev.tx_ring[rtl8169_dev.tx_clean];
+		volatile rtl8169_descriptor_t* d = &rtl8169_dev.tx_ring[rtl8169_dev.tx_clean];
 
 		if (d->flags & RTL8169_DESCRIPTOR_OWN) {
 			break;
@@ -120,10 +112,9 @@ static void rtl8169_tx_reclaim(void)
 	}
 }
 
-static void rtl8169_rx_drain(void)
-{
+static void rtl8169_rx_drain(void) {
 	while ((rtl8169_dev.rx_ring[rtl8169_dev.rx_next].flags & RTL8169_DESCRIPTOR_OWN) == 0) {
-		rtl8169_descriptor_t* d = &rtl8169_dev.rx_ring[rtl8169_dev.rx_next];
+		volatile rtl8169_descriptor_t* d = &rtl8169_dev.rx_ring[rtl8169_dev.rx_next];
 		void* buf = rtl8169_dev.rx_bufs[rtl8169_dev.rx_next];
 
 		uint16_t len = d->length;
@@ -143,8 +134,7 @@ static void rtl8169_rx_drain(void)
 	}
 }
 
-static void rtl8169_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t error, [[maybe_unused]] uint64_t irq, [[maybe_unused]] void* opaque)
-{
+static void rtl8169_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t error, [[maybe_unused]] uint64_t irq, [[maybe_unused]] void* opaque) {
 	uint16_t status = rtl8169_inw(RTL8169_REG_IRQ_STATUS);
 
 	while (status) {
@@ -163,8 +153,7 @@ static void rtl8169_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint6
 	}
 }
 
-static bool rtl8169_send_packet(void* data, uint16_t len)
-{
+static bool rtl8169_send_packet(void* data, uint16_t len) {
 	if (!rtl8169_dev.active) {
 		return false;
 	}
@@ -178,7 +167,7 @@ static bool rtl8169_send_packet(void* data, uint16_t len)
 	}
 
 	uint16_t idx = rtl8169_dev.tx_next;
-	rtl8169_descriptor_t* d = &rtl8169_dev.tx_ring[idx];
+	volatile rtl8169_descriptor_t* d = &rtl8169_dev.tx_ring[idx];
 	void* buf = rtl8169_dev.tx_bufs[idx];
 
 	if (!buf) {
@@ -208,21 +197,19 @@ static bool rtl8169_send_packet(void* data, uint16_t len)
 	return true;
 }
 
-static void rtl8169_free_rings(void)
-{
+static void rtl8169_free_rings(void) {
 	if (rtl8169_dev.tx_ring) {
-		kfree_aligned(rtl8169_dev.tx_ring);
+		kfree_aligned((void*)rtl8169_dev.tx_ring);
 		rtl8169_dev.tx_ring = NULL;
 	}
 
 	if (rtl8169_dev.rx_ring) {
-		kfree_aligned(rtl8169_dev.rx_ring);
+		kfree_aligned((void*)rtl8169_dev.rx_ring);
 		rtl8169_dev.rx_ring = NULL;
 	}
 }
 
-static void rtl8169_free_buffers(void)
-{
+static void rtl8169_free_buffers(void) {
 	for (int i = 0; i < RTL8169_RX_DESCRIPTOR_COUNT; i++) {
 		if (rtl8169_dev.rx_bufs[i]) {
 			kfree_aligned(rtl8169_dev.rx_bufs[i]);
@@ -238,8 +225,7 @@ static void rtl8169_free_buffers(void)
 	}
 }
 
-static bool rtl8169_setup_rings(void)
-{
+static bool rtl8169_setup_rings(void) {
 	size_t tx_bytes = sizeof(rtl8169_descriptor_t) * RTL8169_TX_DESCRIPTOR_COUNT;
 	size_t rx_bytes = sizeof(rtl8169_descriptor_t) * RTL8169_RX_DESCRIPTOR_COUNT;
 
@@ -310,8 +296,7 @@ static bool rtl8169_setup_rings(void)
 	return true;
 }
 
-static void rtl8169_phy_bringup(void)
-{
+static void rtl8169_phy_bring_up(void) {
 	if (!rtl8169_phy_write(RTL8169_PHY_BMCR, RTL8169_PHY_BMCR_RESET)) {
 		return;
 	}
@@ -347,21 +332,19 @@ static void rtl8169_phy_bringup(void)
 	}
 }
 
-static bool rtl8169_start(pci_dev_t pdev)
-{
+static bool rtl8169_start(pci_dev_t pdev) {
 	memset(&rtl8169_dev, 0, sizeof(rtl8169_dev));
 
 	rtl8169_dev.vendor_id = (uint16_t)pci_read(pdev, PCI_VENDOR_ID);
 	rtl8169_dev.device_id = (uint16_t)pci_read(pdev, PCI_DEVICE_ID);
 
 	uint32_t bar0 = pci_read(pdev, PCI_BAR0);
-	if (pci_bar_type(bar0) != 0) {
+	if (pci_bar_type(bar0) != PCI_BAR_TYPE_IOPORT) {
 		dprintf("rtl8169: BAR0 not IO-mapped\n");
 		return false;
 	}
 
 	rtl8169_dev.io_base = pci_io_base(bar0);
-
 	pci_enable_iospace(pdev);
 	pci_bus_master(pdev);
 
@@ -393,7 +376,7 @@ static bool rtl8169_start(pci_dev_t pdev)
 
 	rtl8169_outw(RTL8169_REG_IRQ_MASK, RTL8169_IRQ_MASK_RX_OK | RTL8169_IRQ_MASK_TX_OK | RTL8169_IRQ_MASK_TX_ERROR | RTL8169_IRQ_MASK_RX_ERROR);
 
-	rtl8169_phy_bringup();
+	rtl8169_phy_bring_up();
 
 	rtl8169_outb(RTL8169_REG_COMMAND, RTL8169_COMMAND_TX_ENABLE | RTL8169_COMMAND_RX_ENABLE);
 
@@ -424,8 +407,7 @@ static bool rtl8169_start(pci_dev_t pdev)
 	return true;
 }
 
-static void init_rtl8169(void)
-{
+static void init_rtl8169(void) {
 	static const struct {
 		uint16_t vendor;
 		uint16_t device;
@@ -449,14 +431,12 @@ static void init_rtl8169(void)
 	}
 }
 
-bool EXPORTED MOD_INIT_SYM(KMOD_ABI)(void)
-{
+bool EXPORTED MOD_INIT_SYM(KMOD_ABI)(void) {
 	dprintf("rtl8169: loaded\n");
 	init_rtl8169();
 	return rtl8169_dev.active;
 }
 
-bool EXPORTED MOD_EXIT_SYM(KMOD_ABI)(void)
-{
+bool EXPORTED MOD_EXIT_SYM(KMOD_ABI)(void) {
 	return false;
 }
