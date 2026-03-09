@@ -152,7 +152,7 @@ function(run TARGETFILE)
 	-drive file=rr.iso,media=cdrom,if=none,id=sata-cdrom \
 	-device ide-cd,drive=sata-cdrom,bus=ahci.1 \
 	-boot d \
-	-vnc 0.0.0.0:2 \
+	-vnc 0.0.0.0:10 \
 	-debugcon file:debug.log \
 	-netdev user,id=netuser,hostfwd=tcp::2000-:2000,hostfwd=tcp::2080-:80 \
 	-object filter-dump,id=dump,netdev=netuser,file=dump.dat \
