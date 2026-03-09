@@ -533,7 +533,7 @@ bool module_internal_unload(module *m) {
 		}
 	}
 
-	kfree_aligned(&m->base);
+	kfree_aligned(m->base);
 	m->base = NULL;
 	m->exit_fn = NULL;
 	m->init_fn = NULL;
