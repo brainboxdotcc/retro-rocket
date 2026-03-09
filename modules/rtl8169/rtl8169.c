@@ -374,9 +374,7 @@ static bool rtl8169_start(pci_dev_t pdev)
 	rtl8169_outw(RTL8169_REG_IRQ_STATUS, 0xffff);
 
 	rtl8169_read_mac();
-	kprintf("rtl8169: MAC %02x:%02x:%02x:%02x:%02x:%02x\n",
-		rtl8169_dev.mac[0], rtl8169_dev.mac[1], rtl8169_dev.mac[2],
-		rtl8169_dev.mac[3], rtl8169_dev.mac[4], rtl8169_dev.mac[5]);
+	kprintf("rtl8169: MAC %02x:%02x:%02x:%02x:%02x:%02x\n", rtl8169_dev.mac[0], rtl8169_dev.mac[1], rtl8169_dev.mac[2], rtl8169_dev.mac[3], rtl8169_dev.mac[4], rtl8169_dev.mac[5]);
 
 	if (!rtl8169_setup_rings()) {
 		dprintf("rtl8169: ring setup failed\n");
@@ -432,12 +430,12 @@ static void init_rtl8169(void)
 		uint16_t vendor;
 		uint16_t device;
 	} supported[] = {
-		{ 0x10ec, 0x8161 },
-		{ 0x10ec, 0x8168 },
-		{ 0x10ec, 0x8169 },
-		{ 0x1259, 0xc107 },
-		{ 0x1737, 0x1032 },
-		{ 0x16ec, 0x0116 },
+		{ 0x10ec, 0x8161 }, // Realtek 8161
+		{ 0x10ec, 0x8168 }, // Realtek 8168
+		{ 0x10ec, 0x8169 }, // Realtek 8169
+		{ 0x1259, 0xc107 }, // Allied Telesis?
+		{ 0x1737, 0x1032 }, // Linksys Gigabit Ethernet Adaptor
+		{ 0x16ec, 0x0116 }, // US Robotics USR997902 10/100/1000 Mbps PCI Network Card
 	};
 
 	for (size_t i = 0; i < sizeof(supported) / sizeof(supported[0]); i++) {
