@@ -1,3 +1,11 @@
+/**
+ * @file e1000e.c
+ * @author Craig Edwards (craigedwards@brainbox.cc)
+ * @copyright Copyright (c) 2012-2026
+ * @ref OSDEV wiki
+ * @ref Intel 8254x Gigabit Ethernet Controller Software Developer’s Manual
+ * https://www.intel.com/content/dam/doc/manual/pci-pci-x-family-gbe-controllers-software-dev-manual.pdf
+ */
 #include <kernel.h>
 #include "e1000.h"
 #include <mmio.h>

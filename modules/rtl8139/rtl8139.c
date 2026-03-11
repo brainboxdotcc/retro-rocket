@@ -80,17 +80,9 @@ void receive_packet() {
 				t += 2;
 
 				if (packet_length) {
-					static void* packet = NULL;
-					if (packet == NULL){
-						packet = kmalloc(packet_length);
-						if (packet == NULL) {
-							return;
-						}
-					}
-					memcpy(packet, t, packet_length);
 					netdev_t* dev = get_active_network_device();
 					if (dev && dev->deviceid == ((RTL8139_VENDOR_ID << 16) | RTL8139_DEVICE_ID)) {
-						ethernet_handle_packet(packet, packet_length);
+						ethernet_handle_packet((ethernet_frame_t*)t, packet_length);
 					}
 					memset(t, 0, packet_length);
 				} else {

@@ -4,6 +4,7 @@
  * @copyright Copyright (c) 2012-2026
  * @ref Intel 82574L Gigabit Ethernet Controller Datasheet
  * @ref Intel 8257x/8258x Gigabit Ethernet Controller Software Developer’s Manual
+ * https://docs.rs-online.com/96e8/0900766b81384733.pdf
  * @ref Linux kernel drivers/net/ethernet/intel/e1000e
  */
 
