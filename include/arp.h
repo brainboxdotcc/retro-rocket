@@ -1,7 +1,7 @@
 /**
  * @file arp.h
  * @author Craig Edwards (craigedwards@brainbox.cc)
- * @copyright Copyright (c) 2012-2025
+ * @copyright Copyright (c) 2012-2026
  * @brief ARP (Address Resolution Protocol) implementation for Retro Rocket
  */
 #pragma once

@@ -251,7 +251,7 @@ bool e1000_send_packet(void *p_data, uint16_t p_len) {
 	while (!(tx_descs[old_cur]->status & TX_DD)) {
 		if (time(NULL) - now > 1) {
 			dprintf("e1000: TX timeout\n");
-			break;
+			return false;
 		}
 	}
 
@@ -387,8 +387,6 @@ bool e1000_start(pci_dev_t *pci_device) {
 	net->description = "Intel e1000 Gigabit";
 	net->flags = CONNECTED;
 	net->mtu = 0;
-	net->netproto = NULL;
-	net->num_netprotos = 0;
 	net->speed = 1000;
 	net->get_mac_addr = e1000_get_mac_addr;
 	net->send_packet = e1000_send_packet;

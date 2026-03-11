@@ -69,7 +69,7 @@
 #define REG_TXDESCTAIL  0x3818
 #define REG_RAL0	0x5400
 
-#define ICR_TXDW	1 << 0)
+#define ICR_TXDW	(1 << 0)
 #define ICR_TXQE	(1 << 1)
 #define ICR_LSC		(1 << 2)
 #define ICR_RXSEQ	(1 << 3)

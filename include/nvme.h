@@ -1,3 +1,8 @@
+/**
+ * @file nvme.h
+ * @author Craig Edwards (craigedwards@brainbox.cc)
+ * @copyright (c) Copyright 2012-2026
+ */
 #pragma once
 
 #define NVME_CLASS_CODE 0x0108 /* Mass Storage / NVM Express */

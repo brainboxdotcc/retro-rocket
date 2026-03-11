@@ -425,8 +425,6 @@ static bool virtio_net_start(pci_dev_t *pdev) {
 	net->description = "virtio-net (modern)";
 	net->flags = CONNECTED;
 	net->mtu = 1500;
-	net->netproto = NULL;
-	net->num_netprotos = 0;
 	net->speed = 1000;
 	net->get_mac_addr = virtio_get_mac_addr;
 	net->send_packet = virtio_send_packet;

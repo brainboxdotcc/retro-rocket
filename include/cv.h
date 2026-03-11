@@ -1,3 +1,8 @@
+/**
+ * @file cv.h
+ * @author Craig Edwards (craigedwards@brainbox.cc)
+ * @copyright Copyright (c) 2012-2026
+ */
 #pragma once
 #include <kernel.h>
 #include <stdatomic.h>

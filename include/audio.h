@@ -1,7 +1,7 @@
 /**
  * @file audio.h
  * @author Craig Edwards
- * @copyright Copyright (c) 2012–2025
+ * @copyright Copyright (c) 2012–2026
  * @brief Minimal audio device abstraction for Retro Rocket.
  *
  * Provides a tiny, device-agnostic API for pushing interleaved stereo

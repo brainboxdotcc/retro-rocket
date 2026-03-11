@@ -2,7 +2,7 @@
  * @file gpt_writer.c
  * @author Craig Edwards
  * @brief GPT, ESP and layout writer for installer
- * @copyright Copyright (c) 2012-2025
+ * @copyright Copyright (c) 2012-2026
  */
 #include <installer.h>
 #include <zlib/zlib.h>

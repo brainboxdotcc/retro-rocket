@@ -7,7 +7,7 @@
  * Maps an ISO9660 filesystem to the Retro Rocket VFS layer.
  *
  * @author Craig Edwards
- * @copyright Copyright (c) 2012-2025
+ * @copyright Copyright (c) 2012-2026
  */
 #pragma once
 

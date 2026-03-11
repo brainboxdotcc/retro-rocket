@@ -1,6 +1,7 @@
 /**
  * @file module.h
  * @brief Minimal ELF64 definitions and the run-time module loader interface
+ * @copyright (c) Copyright 2012-2026
  *
  * Provides:
  *  - A compact, libc-free subset of ELF64 constants and structs used by the loader

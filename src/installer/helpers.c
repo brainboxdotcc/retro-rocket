@@ -2,7 +2,7 @@
  * @file helpers.c
  * @author Craig Edwards
  * @brief Installer helper functions
- * @copyright Copyright (c) 2012-2025
+ * @copyright Copyright (c) 2012-2026
  */
 #include <installer.h>
 

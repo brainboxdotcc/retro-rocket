@@ -90,7 +90,7 @@ bool module_addr_to_symbol(uintptr_t addr, const char **modname_out, const char 
 			continue;
 		}
 
-		/* Best ≤ addr */
+		/* Best <= addr */
 		uintptr_t best_addr = 0;
 		const char *best_name = NULL;
 

@@ -1,7 +1,7 @@
 /**
  * @file clock.h
  * @author Craig Edwards (craigedwards@brainbox.cc)
- * @copyright Copyright (c) 2012–2025
+ * @copyright Copyright (c) 2012–2026
  * @brief Interfaces for accessing, converting, and formatting real-time clock (RTC) and timezone values.
  *
  * This header defines types and functions for:

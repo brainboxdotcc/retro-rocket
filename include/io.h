@@ -2,7 +2,7 @@
  * @file io.h
  * @author Craig Edwards (craigedwards@brainbox.cc)
  * @brief Inline helpers for performing privileged I/O port access and interrupt control.
- * @copyright Copyright (c) 2012-2025
+ * @copyright Copyright (c) 2012-2026
  *
  * These functions provide low‑level access to the x86 I/O port space
  * and interrupt enable/disable instructions. They are privileged operations

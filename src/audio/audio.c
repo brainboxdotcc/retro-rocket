@@ -5,6 +5,9 @@ static audio_device_t* audio_devices = NULL;
 static audio_file_loader_t* audio_loaders = NULL;
 
 bool register_audio_device(audio_device_t* newdev) {
+	if (!newdev) {
+		return false;
+	}
 	/* Add the new device to the start of the list */
 	newdev->next = (struct audio_device_t*)audio_devices;
 	audio_devices = newdev;
@@ -12,6 +15,9 @@ bool register_audio_device(audio_device_t* newdev) {
 }
 
 audio_device_t* find_audio_device(const char* name) {
+	if (!name || !*name) {
+		return NULL;
+	}
 	audio_device_t* cur = audio_devices;
 	for(; cur; cur = (audio_device_t*)cur->next) {
 		if (!strcmp(name, cur->name)) {
@@ -43,6 +49,9 @@ bool has_suffix_icase(const char *str, const char *suffix) {
 }
 
 bool register_audio_loader(audio_file_loader_t* loader) {
+	if (!loader) {
+		return false;
+	}
 	loader->next = (struct audio_file_loader_t*)audio_loaders;
 	audio_loaders = loader;
 	return true;

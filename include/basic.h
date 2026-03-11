@@ -1,8 +1,7 @@
 /**
  * @file basic.h
  * @brief Retro Rocket BASIC interpreter
- * 
- * Retro Rocket OS Project (C) Craig Edwards 2012.
+ * @copyrght Retro Rocket OS Project (C) Craig Edwards 2012-2026.
  * @note loosely based on uBASIC (Copyright (c) 2006, Adam Dunkels, All rights reserved).
  * 
  * uBASIC is far more limited than the dialect implemented here. It only allowed

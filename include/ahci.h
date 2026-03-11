@@ -2,7 +2,7 @@
  * @file ahci.h
  * @author Craig Edwards (craigedwards@brainbox.cc)
  * @brief AHCI/SATA register and FIS definitions plus driver-facing prototypes.
- * @copyright Copyright (c) 2012-2025
+ * @copyright Copyright (c) 2012-2026
  *
  * @note Bitfield layout in these structs matches x86_64 GCC/Clang ABI and AHCI 1.3.x diagrams.
  *       Bitfield layout is implementation-defined by C; if porting to other ABIs/endianness,

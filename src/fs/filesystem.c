@@ -295,6 +295,9 @@ uint32_t fs_get_error(void) {
 
 int register_filesystem(filesystem_t* newfs)
 {
+	if (!newfs) {
+		return 0;
+	}
 	/* Add the new filesystem to the start of the list */
 	newfs->next = filesystems;
 	filesystems = newfs;
@@ -303,6 +306,9 @@ int register_filesystem(filesystem_t* newfs)
 
 filesystem_t* find_filesystem(const char* name)
 {
+	if (!name || !*name) {
+		return NULL;
+	}
 	filesystem_t* cur = filesystems;
 	for(; cur; cur = cur->next) {
 		if (!strcmp(name, cur->name)) {

@@ -6,6 +6,9 @@ spinlock_t ethernet_lock = 0;
 #define ETHERNET_MAX_FRAME (65536 + sizeof(ethernet_frame_t))
 
 int ethernet_send_packet(uint8_t* dst_mac_addr, uint8_t* data, uint32_t len, uint16_t protocol) {
+	if (!dst_mac_addr) {
+		return 0;
+	}
 	if (len + sizeof(ethernet_frame_t) > ETHERNET_MAX_FRAME) {
 		return 0;
 	}
@@ -47,6 +50,10 @@ int ethernet_send_packet(uint8_t* dst_mac_addr, uint8_t* data, uint32_t len, uin
 }
 
 void ethernet_handle_packet(ethernet_frame_t* packet, int len) {
+	if (!packet) {
+		return;
+	}
+
 	void * data = (void*) packet + sizeof(ethernet_frame_t);
 	int data_len = len - (int)sizeof(ethernet_frame_t);
 
@@ -74,6 +81,9 @@ void ethernet_handle_packet(ethernet_frame_t* packet, int len) {
 
 bool ethernet_register_iee802_number(uint16_t protocol_number, ethernet_protocol_t handler)
 {
+	if (!handler) {
+		return false;
+	}
 	if (protocol_handlers == NULL) {
 		protocol_handlers = kmalloc(sizeof(void*) * (UINT16_MAX + 1));
 		if (!protocol_handlers) {

@@ -16,7 +16,7 @@
  * directory entries. The in-memory layout is designed for fast lookups
  * and minimal pointer chasing.
  *
- * @copyright (c) 2012–2025 Craig Edwards
+ * @copyright (c) 2012–2026 Craig Edwards
  */
 
 #pragma once

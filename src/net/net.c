@@ -109,6 +109,9 @@ void network_down()
 }
 
 bool register_network_device(netdev_t* newdev) {
+	if (!newdev) {
+		return false;
+	}
 	/* Add the new network device to the start of the list */
 	dprintf("Registered network device '%s'\n", newdev->name);
 	newdev->next = networkdevices;
@@ -122,6 +125,9 @@ netdev_t* get_active_network_device() {
 }
 
 netdev_t* find_network_device(const char* name) {
+	if (!name || !*name) {
+		return NULL;
+	}
 	netdev_t* cur = networkdevices;
 	for(; cur; cur = cur->next) {
 		if (!strcmp(name, cur->name)) {

@@ -1,6 +1,7 @@
 /**
  * @file block_cache.h
  * @brief Per-device write-through block cache.
+ * @copyright (c) Copyright 2012-2026
  *
  * This cache sits above block device drivers. It caches fixed-size sectors,
  * evicting the oldest (by last access) when full. Reads and writes are

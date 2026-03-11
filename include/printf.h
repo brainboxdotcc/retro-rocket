@@ -1,7 +1,7 @@
 /**
  * @file printf.c
  * @author Craig Edwards
- * @copyright 2012–2025
+ * @copyright 2012–2026
  *
  * @brief Minimal printf implementation for Retro Rocket
  *

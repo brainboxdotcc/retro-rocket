@@ -2,7 +2,7 @@
  * @file os_detection.c
  * @author Craig Edwards
  * @brief Detects what OS is currently installed on a device
- * @copyright Copyright (c) 2012-2025
+ * @copyright Copyright (c) 2012-2026
  */
 #include <installer.h>
 

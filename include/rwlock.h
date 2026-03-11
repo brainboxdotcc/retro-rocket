@@ -2,7 +2,7 @@
  * @file rwlock.h
  * @author Craig Edwards
  * @brief Simple readers–writer lock implementation for SMP safety
- * @copyright Copyright (c) 2012-2025
+ * @copyright Copyright (c) 2012-2026
  *
  * Readers–writer locks allow multiple concurrent readers, but
  * exclusive access for a single writer.

@@ -1,6 +1,8 @@
 /**
  * @file tls.h
  * @brief TLS wrapper for Retro Rocket using mbedTLS.
+ * @copyright (c) Copyright 2012-2026
+ * @author Craig Edwards
  *
  * Provides initialisation, configuration, and non-blocking I/O
  * functions for client and server TLS connections.

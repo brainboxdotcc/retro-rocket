@@ -1,7 +1,7 @@
 /**
  * @file rtl8169.c
  * @author Craig Edwards (craigedwards@brainbox.cc)
- * @copyright Copyright (c) 2012-2025
+ * @copyright Copyright (c) 2012-2026
  * @ref Inspired by the Astral RTL8169 driver: https://github.com/Mathewnd/Astral/blob/rewrite/kernel-src/io/net/rtl8169.c
  */
 #include <kernel.h>
@@ -393,8 +393,6 @@ static bool rtl8169_start(pci_dev_t pdev) {
 	net->description = "Realtek RTL8169/8168 Gigabit";
 	net->flags = CONNECTED;
 	net->mtu = 1500;
-	net->netproto = NULL;
-	net->num_netprotos = 0;
 	net->speed = 1000;
 	net->get_mac_addr = rtl8169_get_mac_addr;
 	net->send_packet = rtl8169_send_packet;

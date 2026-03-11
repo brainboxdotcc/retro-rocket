@@ -1,7 +1,7 @@
 /**
  * @file apic.h
  * @author Craig Edwards
- * @copyright Copyright (c) 2012-2025
+ * @copyright Copyright (c) 2012-2026
  * @brief Local APIC (Advanced Programmable Interrupt Controller) interface
  *
  * This header provides low-level routines and register definitions to interface with

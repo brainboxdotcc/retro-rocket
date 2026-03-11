@@ -2,7 +2,7 @@
  * @file tui.c
  * @author Craig Edwards
  * @brief Text UI helpers for installer
- * @copyright Copyright (c) 2012-2025
+ * @copyright Copyright (c) 2012-2026
  */
 #include <installer.h>
 

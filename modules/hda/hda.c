@@ -1,7 +1,7 @@
 /**
  * @file modules/hda/hda.c
  * @author Craig Edwards (craigedwards@brainbox.cc)
- * @copyright Copyright (c) 2012-2025
+ * @copyright Copyright (c) 2012-2026
  *
  * Intel High Definition Audio (Azalia) output driver
  *

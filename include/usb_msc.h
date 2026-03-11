@@ -1,3 +1,8 @@
+/**
+ * @file usb_msc.h
+ * @author Craig Edwards (craigedwards@brainbox.cc)
+ * @copyright (c) Copyright 2012-2026
+ */
 #pragma once
 
 #include <kernel.h>

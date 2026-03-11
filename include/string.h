@@ -2,7 +2,7 @@
  * @file string.h
  * @brief Custom string handling functions with GC support for BASIC runtime
  * @author Craig Edwards
- * @copyright Copyright (c) 2012-2025
+ * @copyright Copyright (c) 2012-2026
  */
 #pragma once
 #include "basic.h"

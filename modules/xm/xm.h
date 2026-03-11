@@ -2,7 +2,7 @@
  * @file xm.h
  * @brief FastTracker II (XM) runtime structures and constants.
  * @author Craig Edwards (craigedwards@brainbox.cc)
- * @copyright Copyright (c) 2012-2025
+ * @copyright Copyright (c) 2012-2026
  *
  * Defines immutable limits, parse/runtime data structures, and
  * per-channel/per-song state used by the XM loader and mixer.

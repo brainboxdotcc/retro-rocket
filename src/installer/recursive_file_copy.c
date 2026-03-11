@@ -2,7 +2,7 @@
  * @file recursive_file_copy.c
  * @author Craig Edwards
  * @brief Recursive directory structure copier for installer
- * @copyright Copyright (c) 2012-2025
+ * @copyright Copyright (c) 2012-2026
  */
 #include <installer.h>
 

@@ -1,3 +1,8 @@
+/**
+ * @file virtio.h
+ * @author Craig Edwards (craigedwards@brainbox.cc)
+ * @copyright (c) Copyright 2012-2026
+ */
 #pragma once
 
 #define VIRTIO_VENDOR_ID          0x1AF4

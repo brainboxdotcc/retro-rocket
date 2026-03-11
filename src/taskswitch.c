@@ -484,6 +484,9 @@ int proc_ended(process_t* proc)
 
 void proc_register_idle(proc_idle_timer_t handler, idle_type_t type, uint64_t frequency_ms)
 {
+	if (!handler) {
+		return;
+	}
 	dprintf("Register idler: %d freq %lu\n", type, frequency_ms);
 	idle_timer_t* newidle = kmalloc(sizeof(idle_timer_t));
 	if (!newidle) {

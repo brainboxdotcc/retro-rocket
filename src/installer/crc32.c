@@ -2,7 +2,7 @@
  * @file crc32.c
  * @author Craig Edwards
  * @brief CRC32 (poly 0xEDB88320) for updating GPT
- * @copyright Copyright (c) 2012-2025
+ * @copyright Copyright (c) 2012-2026
  */
 #include <installer.h>
 

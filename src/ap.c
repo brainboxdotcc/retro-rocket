@@ -2,7 +2,7 @@
  * @file ap.c
  * @brief Bring up and enter the process loop for an AP
  * @author Craig Edwards (craigedwards@brainbox.cc)
- * @copyright Copyright (c) 2012-2025
+ * @copyright Copyright (c) 2012-2026
  */
 
 #include <kernel.h>

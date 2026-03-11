@@ -3,7 +3,7 @@
  * @author Craig Edwards
  * @brief Minimal standard library stubs for Retro Rocket
  * @date 2023-05-27
- * @copyright Copyright (c) 2023
+ * @copyright Copyright (c) 2012-2026
  *
  * Provides a reduced subset of C standard library functions.
  * Many functions are provided only as stubs for compatibility.

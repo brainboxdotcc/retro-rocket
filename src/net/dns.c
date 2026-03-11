@@ -59,6 +59,9 @@ static uint64_t dns_cache_hash(const void *item, uint64_t seed0, uint64_t seed1)
  */
 static void packet_to_buffer(unsigned char *output, const dns_header_t *header, const int length)
 {
+	if (!output || !header) {
+		return;
+	}
 	*((uint16_t*)(&output[0])) = htons(header->id);
 	output[2] = header->flags1;
 	output[3] = header->flags2;
@@ -87,6 +90,9 @@ static void packet_to_buffer(unsigned char *output, const dns_header_t *header, 
  */
 static int dns_send_request(const char * const name, uint32_t resolver_ip, dns_request_t* request, dns_header_t *header, const int length, uint8_t query_type)
 {
+	if (!name || !*name || !request || !header) {
+		return 0;
+	}
 	unsigned char payload[length + 12];
 
 	if (dns_query_port == 0 || resolver_ip == 0) {
@@ -131,6 +137,10 @@ static int dns_make_payload(const char * const name, const uint8_t rr, const uns
 	const char* tempchr, *tempchr2 = name;
 	unsigned short length;
 
+	if (!name || !*name || !payload) {
+		return -1;
+	}
+
 	/* split name up into labels, create query */
 	while ((tempchr = strchr(tempchr2, '.')) != NULL) {
 		length = tempchr - tempchr2;
@@ -169,6 +179,9 @@ static int dns_make_payload(const char * const name, const uint8_t rr, const uns
  * @param length length of packet
  */
 void dns_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, void* data, uint32_t length, void* opaque) {
+	if (!data) {
+		return;
+	}
 	dns_header_t* packet = (dns_header_t*)data;
 	uint16_t inbound_id = ntohs(packet->id);
 	dns_request_t findrequest = { .id = inbound_id };
@@ -225,7 +238,11 @@ void dns_result_ready(dns_header_t* header, dns_request_t* request, unsigned len
  	unsigned short ptr;
 	resource_record_t rr;
 
-	error = NULL;
+	if (!res || !request || !header || !outlength || !error) {
+		return;
+	}
+
+	*error = NULL;
 	*res = 0;
 	*outlength = 0;
 
@@ -408,9 +425,9 @@ void dns_result_ready(dns_header_t* header, dns_request_t* request, unsigned len
 	return;
 }
 
-uint8_t dns_collect_request(uint16_t id, char* result, size_t max)
+uint8_t dns_collect_request(uint16_t req_id, char* result, size_t max)
 {
-	dns_request_t findrequest = { .id = id };
+	dns_request_t findrequest = { .id = req_id };
 	dns_request_t* request = (dns_request_t*)hashmap_get(dns_replies, &findrequest);
 	if (request && request->result_length != 0) {
 		uint8_t len = request->result_length;
@@ -433,16 +450,16 @@ uint8_t dns_collect_request(uint16_t id, char* result, size_t max)
 	return 0;
 }
 
-bool dns_request_is_completed(uint16_t id)
+bool dns_request_is_completed(uint16_t req_id)
 {
-	dns_request_t findrequest = { .id = id };
+	dns_request_t findrequest = { .id = req_id };
 	dns_request_t* request = (dns_request_t*)hashmap_get(dns_replies, &findrequest);
 	return (request && request->result_length);
 }
 
-void dns_delete_request(uint16_t id)
+void dns_delete_request(uint16_t req_id)
 {
-	dns_request_t findrequest = { .id = id };
+	dns_request_t findrequest = { .id = req_id };
 	dns_request_t* request = (dns_request_t*)hashmap_get(dns_replies, &findrequest);
 	if (request) {
 		kfree_null(&request->orig);

@@ -2,7 +2,7 @@
  * @file net.h
  * @author Craig Edwards
  * @brief Networking device and protocol definitions.
- * @copyright Copyright (c) 2012-2025
+ * @copyright Copyright (c) 2012-2026
  */
 #pragma once
 #include "kernel.h"
@@ -41,10 +41,10 @@ typedef struct netproto {
 /**
  * @brief Flags for the state of a network device.
  */
-enum netdev_flags_t {
+typedef enum netdev_flags_t {
 	ADMINISTRATIVELY_DOWN = 1, /**< Device marked down by the user. */
-	CONNECTED              = 2 /**< Device has carrier and is connected. */
-};
+	CONNECTED             = 2, /**< Device has carrier and is connected. */
+} netdev_flags_t;
 
 typedef struct {
 	char *hostname;   /* strdup’d, may be NULL if not set */
@@ -71,14 +71,12 @@ typedef bool (*net_send_packet)(void* data, uint16_t len);
  */
 typedef struct netdev {
 	uint32_t deviceid;          /**< Unique device identifier. */
-	char name[16];              /**< Device name (e.g. "rtl0"). */
+	char name[16];              /**< Device name (e.g. "net0"). */
 	char* description;          /**< Human‑readable description of the device. */
 	void* opaque;               /**< Driver‑specific storage pointer. */
 	uint16_t speed;             /**< Speed in megabytes per second. */
-	uint8_t flags;              /**< Flags from ::netdev_flags_t. */
+	netdev_flags_t flags;       /**< Flags from ::netdev_flags_t. */
 	uint16_t mtu;               /**< Maximum transmission unit. */
-	uint8_t num_netprotos;      /**< Number of attached protocols. */
-	netproto_t* netproto;       /**< Array of attached protocols. */
 	net_get_mac get_mac_addr;   /**< Retrieve MAC address. */
 	net_send_packet send_packet;/**< Send a packet via the interface. */
 	struct netdev* next;        /**< Next device in the linked list. */

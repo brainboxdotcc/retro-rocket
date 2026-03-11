@@ -1,7 +1,7 @@
 /**
  * @file rtl8139.h
  * @author Craig Edwards (craigedwards@brainbox.cc)
- * @copyright Copyright (c) 2012-2025
+ * @copyright Copyright (c) 2012-2026
  */
 #pragma once
 

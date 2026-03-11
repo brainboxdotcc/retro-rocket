@@ -2,7 +2,7 @@
  * @file ioapic.h
  * @author Craig Edwards (craigedwards@brainbox.cc)
  * @brief Provides functions for manipulating the I/O APIC redirection table.
- * @copyright Copyright (c) 2012-2025
+ * @copyright Copyright (c) 2012-2026
  */
 #pragma once
 

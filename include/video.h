@@ -7,7 +7,7 @@
  * pixel operations, and Flanterm-backed text rendering. These functions
  * are intended for kernel subsystems and BASIC userland output.
  *
- * @copyright Copyright (c) 2012-2025
+ * @copyright Copyright (c) 2012-2026
  */
 #pragma once
 

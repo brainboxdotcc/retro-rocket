@@ -2,6 +2,7 @@
  * @file input.h
  * @author Craig Edwards (craigedwards@brainbox.cc)
  * @brief Console line input API for Retro Rocket.
+ * @copyright Copyright (c) 2012-2026
  *
  * This interface provides buffered, line-based input for consoles. It handles
  * character input, backspace editing, line completion detection, and safe

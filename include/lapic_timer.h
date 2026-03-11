@@ -7,7 +7,7 @@
  * as well as an initialisation routine for setting up timer ticks.
  *
  * @author Craig Edwards
- * @copyright Copyright (c) 2012-2025
+ * @copyright Copyright (c) 2012-2026
  */
 #pragma once
 

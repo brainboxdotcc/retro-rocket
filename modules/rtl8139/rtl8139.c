@@ -329,9 +329,7 @@ void init_rtl8139() {
 	strlcpy(net->name, rtl8139_device.name, 16);
 	net->description = "RTL8139 10/100";
 	net->flags = CONNECTED;
-	net->mtu = 0;
-	net->netproto = NULL;
-	net->num_netprotos = 0;
+	net->mtu = 1500;
 	net->speed = 100;
 	net->get_mac_addr = rtl8139_get_mac_addr;
 	net->send_packet = rtl8139_send_packet;

@@ -1,6 +1,8 @@
 /**
  * @file serial.h
  * @brief Simple serial output routines for Retro Rocket (QEMU COM1/COM2).
+ * @author Craig Edwards (craigedwards@brainbox.cc)
+ * @copyright (c) Copyright 2012-2026
  *
  * Designed for write-only logging (e.g. profiler dumps).
  * No buffering is needed under QEMU, as it handles UART speed internally.

@@ -2,6 +2,7 @@
  * @file buddy_allocator.h
  * @author Craig Edwards
  * @brief Growable multi-region buddy allocator for Retro Rocket subsystems.
+ * @copyright (c) Copyright 2012-2026
  *
  * A buddy memory allocator that provides malloc/free-like semantics
  * on top of one or more contiguous backing pools. Each allocator

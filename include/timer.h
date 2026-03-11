@@ -12,7 +12,7 @@
  * tone generation for beep().
  *
  * @author Craig Edwards
- * @copyright Copyright (c) 2012-2025
+ * @copyright Copyright (c) 2012-2026
  */
 #pragma once
 

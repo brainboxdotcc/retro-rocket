@@ -1,7 +1,7 @@
 /**
  * @file keyboard.h
  * @author Craig Edwards
- * @copyright Copyright (c) 2012-2025
+ * @copyright Copyright (c) 2012-2026
  *
  * @brief Low-level keyboard input driver for Retro Rocket.
  *
