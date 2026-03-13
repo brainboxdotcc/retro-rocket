@@ -133,9 +133,13 @@ void init_uacpi(void) {
 }
 
 void delay_ns(uint64_t ns) {
-	uint64_t ticks = (tsc_per_sec * ns) / 1e9;
+	uint64_t ticks = (tsc_per_sec * ns) / 1000000000ULL;
 	uint64_t start = rdtsc();
 	while (rdtsc() - start < ticks);
+}
+
+void delay_us(uint64_t us) {
+	delay_ns(us * 1000);
 }
 
 uint64_t uacpi_kernel_get_nanoseconds_since_boot(void) {

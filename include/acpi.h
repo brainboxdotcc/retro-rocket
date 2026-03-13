@@ -296,3 +296,7 @@ void register_shutdown_ap(void);
  *         or the request could not be made.
  */
 bool acpi_reset(void);
+
+void delay_ns(uint64_t ns);
+
+void delay_us(uint64_t us);

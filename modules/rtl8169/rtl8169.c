@@ -43,7 +43,7 @@ static bool rtl8169_phy_read(uint8_t reg, uint16_t* value) {
 			return true;
 		}
 
-		io_wait();
+		delay_us(100);
 	}
 
 	return false;
@@ -58,7 +58,7 @@ static bool rtl8169_phy_write(uint8_t reg, uint16_t value) {
 			return true;
 		}
 
-		io_wait();
+		delay_us(100);
 	}
 
 	return false;
@@ -89,7 +89,7 @@ static bool rtl8169_reset(void) {
 			return true;
 		}
 
-		io_wait();
+		delay_us(100);
 	}
 
 	return false;
@@ -311,7 +311,7 @@ static void rtl8169_phy_bring_up(void) {
 			break;
 		}
 
-		io_wait();
+		delay_us(100);
 	}
 
 	rtl8169_phy_write(RTL8169_PHY_BMCR, RTL8169_PHY_BMCR_AUTO | RTL8169_PHY_BMCR_RESTART_AUTO);
@@ -328,7 +328,7 @@ static void rtl8169_phy_bring_up(void) {
 			return;
 		}
 
-		io_wait();
+		delay_us(100);
 	}
 }
 

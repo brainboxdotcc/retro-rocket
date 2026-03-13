@@ -13,12 +13,6 @@ static size_t s_q_len_fr = 0;      /* total frames in buffer (valid) */
 static size_t s_q_head_fr = 0;      /* consume pointer in frames */
 static bool s_paused = false;
 
-static inline void delay_us(unsigned us) {
-	for (unsigned i = 0; i < us; i++) {
-		io_wait();
-	}
-}
-
 static bool ac97_reset_and_unmute(void) {
 	outl(ac97.nabm + AC97_NABM_GLOB_CNT, 0x00000002);
 	outw(ac97.nam + AC97_NAM_RESET, 0x0000);
