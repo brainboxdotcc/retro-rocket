@@ -206,14 +206,14 @@ DEF PROChttp_request(method$, url$, postdata$)
     IF IP$ <> "0.0.0.0" THEN
         LOCAL request$ = method$ + " " + _path$ + " HTTP/1.0" + CHR$(13) + CHR$(10) + "Host: " + HOST$ + CHR$(13) + CHR$(10) + "Connection: close" + CHR$(13) + CHR$(10)
         IF postdata$ <> "" THEN
-            LOCAL request$ = requests$ + "Content-Length: " + STR$(LEN(postdata$)) + CHR$(13) + CHR$(10) + CHR$(13) + CHR$(10) + postdata$
+            LOCAL request$ = request$ + "Content-Length: " + STR$(LEN(postdata$)) + CHR$(13) + CHR$(10) + CHR$(13) + CHR$(10) + postdata$
         ELSE
             LOCAL request$ = request$ + "Content-Length: 0" + CHR$(13) + CHR$(10) + CHR$(13) + CHR$(10)
         ENDIF
         IF SCHEME$ = "https" OR PORT = 443 THEN
-            SSLCONNECT FD, IP$, 443, HOST$
+            SSLCONNECT FD, IP$, PORT, HOST$
         ELSE
-            CONNECT FD, IP$, 80
+            CONNECT FD, IP$, PORT
         ENDIF
         SOCKWRITE FD, request$;
         SOCKREAD FD, __http_request_response_base$
