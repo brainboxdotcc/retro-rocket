@@ -109,6 +109,22 @@ typedef enum idle_type_t {
 typedef void (*proc_idle_timer_t)(void);
 
 /**
+ * @brief A deferred procedure call.
+ *
+ * A DPC represents a function that will be executed
+ * once during the foreground idle processing phase.
+ *
+ * DPCs are typically queued from interrupt handlers
+ * or other time-critical paths where the work cannot
+ * safely be performed immediately.
+ *
+ * Internally this is implemented using the idle timer
+ * system with a frequency of zero, causing the entry
+ * to be removed after execution.
+ */
+typedef proc_idle_timer_t dpc_t;
+
+/**
  * @brief Represents an idle timer callback.
  */
 typedef struct idle_timer {
@@ -253,4 +269,49 @@ void init_process();
  */
 void proc_set_idle(process_t* proc, activity_callback_t callback, void* opaque);
 
+/**
+ * @brief Returns true if we are booted from Live CD
+ */
 bool booted_from_cd(void);
+
+/**
+ * @brief Queue a one-shot deferred procedure call.
+ *
+ * Schedules a function to be executed during the next
+ * foreground idle processing pass. The handler runs
+ * outside interrupt context on the BSP and is invoked
+ * exactly once.
+ *
+ * This mechanism is intended for deferring work that
+ * originates from interrupt handlers or other timing-
+ * sensitive paths where the work cannot be performed
+ * immediately.
+ *
+ * Internally this is implemented using the idle timer
+ * system with a frequency of zero, causing the callback
+ * to be removed after execution.
+ *
+ * @param handler Function to invoke during the next
+ *                foreground idle processing cycle.
+ */
+void proc_queue_dpc(dpc_t handler);
+
+/**
+ * @brief Execute pending idle callbacks and deferred procedure calls.
+ *
+ * Processes any foreground idle timers whose scheduled tick has elapsed.
+ * One-shot idle timers (frequency == 0) are treated as deferred procedure
+ * calls (DPCs) and are removed after execution.
+ *
+ * Idle processing is restricted to the bootstrap processor (CPU 0). If this
+ * function is invoked on any other logical CPU, it performs no work and
+ * returns immediately.
+ *
+ * This helper allows code paths that require deferred work to be completed
+ * (for example ACPI synchronisation barriers) to explicitly service pending
+ * idle callbacks without waiting for the normal scheduler/idle loop to
+ * reach that point.
+ *
+ * @param cpu Logical CPU identifier of the caller.
+ */
+void run_idles(uint8_t cpu);

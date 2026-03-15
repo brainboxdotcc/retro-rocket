@@ -447,14 +447,28 @@ void proc_loop()
 		}
 		proc_timer();
 		proc_run_next();
-		if (cpu == 0 && task_idles) {
-			/* Idle foreground tasks only run on BSP */
-			for (idle_timer_t *i = task_idles; i; i = i->next) {
-				if (get_ticks() > i->next_tick) {
-					i->func();
-					i->next_tick = i->frequency + get_ticks();
+		run_idles(cpu);
+	}
+}
+
+void run_idles(uint8_t cpu)
+{
+	if (cpu == 0 && task_idles) {
+		/* Idle foreground tasks only run on BSP */
+		idle_timer_t **p = &task_idles;
+		while (*p) {
+			idle_timer_t *i = *p;
+			if (get_ticks() > i->next_tick) {
+				i->func();
+				if (i->frequency == 0) {
+					/* One-shot timer (DPC) */
+					*p = i->next;
+					kfree(i);
+					continue;
 				}
+				i->next_tick = i->frequency + get_ticks();
 			}
+			p = &((*p)->next);
 		}
 	}
 }
@@ -502,4 +516,23 @@ void proc_register_idle(proc_idle_timer_t handler, idle_type_t type, uint64_t fr
 		newidle->next = timer_idles;
 		timer_idles = newidle;
 	}
+}
+
+void proc_queue_dpc(dpc_t handler)
+{
+	if (!handler) {
+		return;
+	}
+
+	idle_timer_t* newidle = kmalloc(sizeof(idle_timer_t));
+	if (!newidle) {
+		return;
+	}
+
+	newidle->func = handler;
+	newidle->next_tick = get_ticks();
+	newidle->frequency = 0;
+	newidle->next = task_idles;
+
+	task_idles = newidle;
 }

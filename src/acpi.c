@@ -686,13 +686,54 @@ uacpi_status uacpi_kernel_handle_firmware_request(uacpi_firmware_request *req) {
 void async_run_gpe_handler(uacpi_handle gpe) {
 }
 
-uacpi_status uacpi_kernel_schedule_work(uacpi_work_type type, uacpi_work_handler handler, uacpi_handle ctx) {
-	handler(ctx);
+typedef struct uacpi_dpc_work {
+	uacpi_work_handler handler;
+	uacpi_handle ctx;
+	struct uacpi_dpc_work *next;
+} uacpi_dpc_work_t;
+
+static uacpi_dpc_work_t *uacpi_dpc_queue = NULL;
+
+static void uacpi_run_dpcs(void)
+{
+	while (uacpi_dpc_queue) {
+		uacpi_dpc_work_t *work = uacpi_dpc_queue;
+
+		uacpi_dpc_queue = work->next;
+		work->handler(work->ctx);
+		kfree(work);
+	}
+}
+
+uacpi_status uacpi_kernel_schedule_work(uacpi_work_type type, uacpi_work_handler handler, uacpi_handle ctx)
+{
+	uacpi_dpc_work_t *work;
+
+	if (!handler) {
+		return UACPI_STATUS_INVALID_ARGUMENT;
+	}
+
+	work = kmalloc(sizeof(uacpi_dpc_work_t));
+	if (!work) {
+		return UACPI_STATUS_OUT_OF_MEMORY;
+	}
+
+	work->handler = handler;
+	work->ctx = ctx;
+	work->next = uacpi_dpc_queue;
+	uacpi_dpc_queue = work;
+
+	proc_queue_dpc(uacpi_run_dpcs);
+
 	return UACPI_STATUS_OK;
 }
 
-uacpi_status uacpi_kernel_wait_for_work_completion(void) {
-	// No deferred work in Retro Rocket yet
+uacpi_status uacpi_kernel_wait_for_work_completion(void)
+{
+	while (uacpi_dpc_queue) {
+		run_idles(logical_cpu_id());
+	}
+
 	return UACPI_STATUS_OK;
 }
 
