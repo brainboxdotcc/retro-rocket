@@ -11,13 +11,13 @@ END
 
 DEF PROCfizzbuzz(n)
 
-    IF (n MOD 15) = 0 THEN
+    IF n % 15 = 0 THEN
         PRINT "FizzBuzz"
     ELSE
-        IF (n MOD 3) = 0 THEN
+        IF n % 3 = 0 THEN
             PRINT "Fizz"
         ELSE
-            IF (n MOD 5) = 0 THEN
+            IF n % 5 = 0 THEN
                 PRINT "Buzz"
             ELSE
                 PRINT n
