@@ -759,19 +759,19 @@ struct flanterm_context *flanterm_fb_init(
 		}
 	}
 
-	if (font_scale_x == 1 && font_scale_y == 1) {
-		if (canvas == NULL) {
-			ctx->plot_char = plot_char_unscaled_uncanvas;
-		} else {
+//	if (font_scale_x == 1 && font_scale_y == 1) {
+//		if (canvas == NULL) {
+//			ctx->plot_char = plot_char_unscaled_uncanvas;
+//		} else {
 			ctx->plot_char = plot_char_unscaled_canvas;
-		}
-	} else {
-		if (canvas == NULL) {
-			ctx->plot_char = plot_char_scaled_uncanvas;
-		} else {
-			ctx->plot_char = plot_char_scaled_canvas;
-		}
-	}
+//		}
+//	} else {
+//		if (canvas == NULL) {
+//			ctx->plot_char = plot_char_scaled_uncanvas;
+//		} else {
+//			ctx->plot_char = plot_char_scaled_canvas;
+//		}
+//	}
 
 	_ctx->raw_putchar = flanterm_fb_raw_putchar;
 	_ctx->clear = flanterm_fb_clear;
