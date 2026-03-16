@@ -218,7 +218,7 @@ ip$ = DNS$("example.org")
 
 ```basic
 ' Connect to a web server
-CONNECT sock, "93.184.216.34, 80
+CONNECT sock, "93.184.216.34", 80
 SOCKWRITE sock, "GET / HTTP/1.0" + CHR$(13) + CHR$(10) + CHR$(13) + CHR$(10)
 SOCKFLUSH sock
 

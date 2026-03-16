@@ -238,7 +238,7 @@
 <sect1 id="networking_1quick-examples_1s1"><sect2 id="networking_1quick-examples_1s2"><sect3 id="networking_1quick-examples">
 <title>Quick Examples</title><sect4 id="networking_1tcp-client">
 <title>TCP Client</title><para><programlisting filename=".basic"><codeline><highlight class="normal">&apos;<sp/>Connect<sp/>to<sp/>a<sp/>web<sp/>server</highlight></codeline>
-<codeline><highlight class="normal">CONNECT<sp/>sock,<sp/>&quot;93.184.216.34,<sp/>80</highlight></codeline>
+<codeline><highlight class="normal">CONNECT<sp/>sock,<sp/>&quot;93.184.216.34&quot;,<sp/>80</highlight></codeline>
 <codeline><highlight class="normal">SOCKWRITE<sp/>sock,<sp/>&quot;GET<sp/>/<sp/>HTTP/1.0&quot;<sp/>+<sp/>CHR$(13)<sp/>+<sp/>CHR$(10)<sp/>+<sp/>CHR$(13)<sp/>+<sp/>CHR$(10)</highlight></codeline>
 <codeline><highlight class="normal">SOCKFLUSH<sp/>sock</highlight></codeline>
 <codeline></codeline>
