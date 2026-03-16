@@ -99,7 +99,7 @@
 <row>
 <entry thead="no"><para>Sending  </para>
 </entry><entry thead="no"><para><computeroutput>SOCKWRITE</computeroutput> queues words; <computeroutput>SOCKFLUSH</computeroutput> waits for “uh-huh”.  </para>
-</entry><entry thead="no"><para><computeroutput>UDPSEND</computeroutput>/<computeroutput>UDPWRITE</computeroutput> posts a parcel immediately. No flush.  </para>
+</entry><entry thead="no"><para><computeroutput>UDPWRITE</computeroutput> posts a parcel immediately. No flush.  </para>
 </entry></row>
 <row>
 <entry thead="no"><para>Receiving  </para>
@@ -125,12 +125,10 @@
 <title>UDP “Doorstep Queue” (how incoming messages are stored)</title><para>When your program <computeroutput>UDPBIND</computeroutput>s a port, Retro Rocket keeps an <bold>in-memory queue</bold> of incoming UDP packets for that port-think <bold>parcels on your doorstep</bold>:</para>
 <para><itemizedlist>
 <listitem><para>Every new packet is placed at the <bold>back</bold> of the queue for that port.</para>
-</listitem><listitem><para>Each call to <ref refid="UDPREAD" kindref="compound">UDPREAD$ pops **one** packet from the **front** of the queue and returns its contents as a string.</ref></para>
-</listitem><listitem><para>After a successful <ref refid="UDPREAD" kindref="compound">UDPREAD$ the “label” values for that packet are available via:</ref><itemizedlist>
-<listitem><para><ref refid="UDPLASTIP" kindref="compound">UDPLASTIP$</ref> - sender’s address (the return address).</para>
+</listitem><listitem><para>Each call to <ref refid="UDPREAD" kindref="compound">UDPREAD$</ref> pops <bold>one</bold> packet from the <bold>front</bold> of the queue and returns its contents as a string.</para>
+</listitem><listitem><para>After a successful <ref refid="UDPREAD" kindref="compound">UDPREAD$</ref> the “label” values for that packet are available via:</para>
+</listitem><listitem><para><ref refid="UDPLASTIP" kindref="compound">UDPLASTIP$</ref> - sender’s address (the return address).</para>
 </listitem><listitem><para><ref refid="UDPLASTSOURCEPORT" kindref="compound">UDPLASTSOURCEPORT</ref> - sender’s source port (their posting office counter). These <bold>do not take parameters</bold>: they always refer to the <bold>most recently read</bold> packet.</para>
-</listitem></itemizedlist>
-</para>
 </listitem></itemizedlist>
 </para>
 <para>This model is simple, predictable, and maps perfectly to the “parcel on the doorstep” intuition.</para>
@@ -138,7 +136,7 @@
 </para>
 </sect3></sect2></sect1>
 <sect1 id="networking_1worked-udp-example---mouse-telemetry_1s1"><sect2 id="networking_1worked-udp-example---mouse-telemetry_1s2"><sect3 id="networking_1worked-udp-example---mouse-telemetry">
-<title>Worked UDP Example - Mouse Telemetry</title><para>Below is your exact module, which binds a per-process port and polls a local mouse server. It showcases <computeroutput>UDPBIND</computeroutput>, <computeroutput>UDPWRITE</computeroutput>, <computeroutput>UDPREAD$</computeroutput>, and consuming one packet at a time:</para>
+<title>Worked UDP Example - Mouse Telemetry</title><para>Below is an example which binds a port and polls a local mouse server. It showcases <computeroutput>UDPBIND</computeroutput>, <computeroutput>UDPWRITE</computeroutput>, <computeroutput>UDPREAD$</computeroutput>, and consuming one packet at a time:</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">DEF<sp/>PROCmouse</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>__MOUSE_X<sp/>=<sp/>GRAPHICS_WIDTH<sp/>/<sp/>2</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>__MOUSE_Y<sp/>=<sp/>GRAPHICS_HEIGHT<sp/>/<sp/>2</highlight></codeline>
@@ -183,7 +181,7 @@
 <codeline><highlight class="normal">DEF<sp/>FNmouse_mmb</highlight></codeline>
 <codeline><highlight class="normal">=__MOUSE_MMB</highlight></codeline>
 </programlisting></para>
-<para><bold>What’s happening here (in parcel terms):</bold></para>
+<para><bold>What’s happening here</bold></para>
 <para><itemizedlist>
 <listitem><para><computeroutput>UDPBIND &quot;127.0.0.1&quot;, 14502 + PID</computeroutput> opens <bold>your doorstep</bold> (unique port per process).</para>
 </listitem><listitem><para><computeroutput>UDPWRITE &quot;127.0.0.1&quot;, 14502 + PID, 14501, &quot;GET&quot;</computeroutput> posts a <bold>parcel</bold> to the mouse server’s port <bold>14501</bold>, marking your doorstep <bold>14502+PID</bold> as the return address.</para>
@@ -204,9 +202,6 @@
 </listitem><listitem><para><bold>Use the labels</bold>: read <computeroutput>UDPLASTIP$</computeroutput> / <computeroutput>UDPLASTSOURCEPORT</computeroutput> <bold>immediately after</bold> <computeroutput>UDPREAD$</computeroutput> if you plan to reply.</para>
 </listitem></itemizedlist>
 </para>
-<para><hruler/>
-</para>
-<para>Right - good catch. For new users, we need to introduce the idea from first principles, <bold>without starting with “DNS”</bold>. Here’s a plain-English version that leads into the concept and only then names it:</para>
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
@@ -243,7 +238,7 @@
 <sect1 id="networking_1quick-examples_1s1"><sect2 id="networking_1quick-examples_1s2"><sect3 id="networking_1quick-examples">
 <title>Quick Examples</title><sect4 id="networking_1tcp-client">
 <title>TCP Client</title><para><programlisting filename=".basic"><codeline><highlight class="normal">&apos;<sp/>Connect<sp/>to<sp/>a<sp/>web<sp/>server</highlight></codeline>
-<codeline><highlight class="normal">sock<sp/>=<sp/>CONNECT(&quot;93.184.216.34&quot;,<sp/>80)</highlight></codeline>
+<codeline><highlight class="normal">CONNECT<sp/>sock,<sp/>&quot;93.184.216.34,<sp/>80</highlight></codeline>
 <codeline><highlight class="normal">SOCKWRITE<sp/>sock,<sp/>&quot;GET<sp/>/<sp/>HTTP/1.0&quot;<sp/>+<sp/>CHR$(13)<sp/>+<sp/>CHR$(10)<sp/>+<sp/>CHR$(13)<sp/>+<sp/>CHR$(10)</highlight></codeline>
 <codeline><highlight class="normal">SOCKFLUSH<sp/>sock</highlight></codeline>
 <codeline></codeline>
@@ -277,10 +272,10 @@
 </sect4>
 <sect4 id="networking_1udp-example">
 <title>UDP Example</title><para><programlisting filename=".basic"><codeline><highlight class="normal">&apos;<sp/>Bind<sp/>to<sp/>port<sp/>5001</highlight></codeline>
-<codeline><highlight class="normal">udp<sp/>=<sp/>UDPBIND(&quot;0.0.0.0&quot;,<sp/>5001)</highlight></codeline>
+<codeline><highlight class="normal">UDPBIND<sp/>&quot;0.0.0.0&quot;,<sp/>5001</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">&apos;<sp/>Send<sp/>a<sp/>packet<sp/>to<sp/>localhost:5001</highlight></codeline>
-<codeline><highlight class="normal">UDPSEND<sp/>udp,<sp/>&quot;127.0.0.1&quot;,<sp/>5001,<sp/>&quot;Ping&quot;</highlight></codeline>
+<codeline><highlight class="normal">UDPWRITE<sp/>&quot;127.0.0.1&quot;,<sp/>5001,<sp/>5001,<sp/>&quot;Ping&quot;</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">&apos;<sp/>Read<sp/>the<sp/>next<sp/>packet<sp/>from<sp/>the<sp/>queue</highlight></codeline>
 <codeline><highlight class="normal">msg$<sp/>=<sp/>UDPREAD$(5001)</highlight></codeline>
@@ -289,13 +284,13 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;From:<sp/>&quot;;<sp/>UDPLASTIP$;<sp/>&quot;<sp/>Port:<sp/>&quot;;<sp/>UDPLASTSOURCEPORT</highlight></codeline>
 <codeline><highlight class="normal">ENDIF</highlight></codeline>
 <codeline></codeline>
-<codeline><highlight class="normal">SOCKCLOSE<sp/>udp</highlight></codeline>
+<codeline><highlight class="normal">UDPUNBIND<sp/>&quot;127.0.0.1&quot;,<sp/>5001</highlight></codeline>
 </programlisting></para>
 </sect4>
 <sect4 id="networking_1connecting-by-name">
 <title>Connecting by Name</title><para><programlisting filename=".basic"><codeline><highlight class="normal">ip$<sp/>=<sp/>DNS$(&quot;example.org&quot;)</highlight></codeline>
 <codeline><highlight class="normal">IF<sp/>ip$<sp/>&lt;&gt;<sp/>&quot;&quot;<sp/>THEN</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>sock<sp/>=<sp/>CONNECT(ip$,<sp/>80)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>CONNECT<sp/>sock,<sp/>ip$,<sp/>80</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>SOCKWRITE<sp/>sock,<sp/>&quot;GET<sp/>/<sp/>HTTP/1.0&quot;<sp/>+<sp/>CHR$(13)<sp/>+<sp/>CHR$(10)<sp/>+<sp/>CHR$(13)<sp/>+<sp/>CHR$(10)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>SOCKFLUSH<sp/>sock</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>SOCKREAD<sp/>sock,<sp/>reply$</highlight></codeline>
@@ -320,7 +315,6 @@
 </listitem><listitem><para><ref refid="SOCKREAD" kindref="compound">SOCKREAD Keyword</ref></para>
 </listitem><listitem><para><ref refid="SOCKCLOSE" kindref="compound">SOCKCLOSE Keyword</ref></para>
 </listitem><listitem><para><ref refid="UDPBIND" kindref="compound">UDPBIND Keyword</ref></para>
-</listitem><listitem><para>UDPSEND</para>
 </listitem><listitem><para><ref refid="UDPWRITE" kindref="compound">UDPWRITE Keyword</ref></para>
 </listitem><listitem><para><ref refid="UDPREAD" kindref="compound">UDPREAD$</ref>&quot;
 * \ref UDPLASTIP &quot;UDPLASTIP$"</para>

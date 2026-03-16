@@ -168,7 +168,7 @@ Side-by-side: Phone Call vs Parcel</h3>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Identity  </td><td class="markdownTableBodyNone">Each accepted TCP socket is a known line between two ends.  </td><td class="markdownTableBodyNone">Each parcel carries its own label; use <span class="tt">UDPLASTIP$</span> / <span class="tt">UDPLASTSOURCEPORT</span> after <span class="tt">UDPREAD$</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Sending  </td><td class="markdownTableBodyNone"><span class="tt">SOCKWRITE</span> queues words; <span class="tt">SOCKFLUSH</span> waits for “uh-huh”.  </td><td class="markdownTableBodyNone"><span class="tt">UDPSEND</span>/<span class="tt">UDPWRITE</span> posts a parcel immediately. No flush.  </td></tr>
+<td class="markdownTableBodyNone">Sending  </td><td class="markdownTableBodyNone"><span class="tt">SOCKWRITE</span> queues words; <span class="tt">SOCKFLUSH</span> waits for “uh-huh”.  </td><td class="markdownTableBodyNone"><span class="tt">UDPWRITE</span> posts a parcel immediately. No flush.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Receiving  </td><td class="markdownTableBodyNone"><span class="tt">SOCKREAD</span> waits for complete data; order guaranteed.  </td><td class="markdownTableBodyNone"><span class="tt">UDPREAD$</span> pops <b>one</b> parcel from the doorstep queue; order not guaranteed.  </td></tr>
 <tr class="markdownTableRowOdd">
@@ -182,18 +182,16 @@ UDP “Doorstep Queue” (how incoming messages are stored)</h3>
 <p>When your program <span class="tt">UDPBIND</span>s a port, Retro Rocket keeps an <b>in-memory queue</b> of incoming UDP packets for that port-think <b>parcels on your doorstep</b>:</p>
 <ul>
 <li>Every new packet is placed at the <b>back</b> of the queue for that port.</li>
-<li>Each call to <a class="el" href="UDPREAD.html">UDPREAD$ pops **one** packet from the **front** of the queue and returns its contents as a string.</a></li>
-<li>After a successful <a class="el" href="UDPREAD.html">UDPREAD$ the “label” values for that packet are available via:</a><ul>
+<li>Each call to <a class="el" href="UDPREAD.html">UDPREAD$</a> pops <b>one</b> packet from the <b>front</b> of the queue and returns its contents as a string.</li>
+<li>After a successful <a class="el" href="UDPREAD.html">UDPREAD$</a> the “label” values for that packet are available via:</li>
 <li><a class="el" href="UDPLASTIP.html">UDPLASTIP$</a> - sender’s address (the return address).</li>
 <li><a class="el" href="UDPLASTSOURCEPORT.html">UDPLASTSOURCEPORT</a> - sender’s source port (their posting office counter). These <b>do not take parameters</b>: they always refer to the <b>most recently read</b> packet.</li>
-</ul>
-</li>
 </ul>
 <p>This model is simple, predictable, and maps perfectly to the “parcel on the doorstep” intuition.</p>
 <hr  />
 <h3 class="doxsection"><a class="anchor" id="worked-udp-example---mouse-telemetry"></a>
 Worked UDP Example - Mouse Telemetry</h3>
-<p>Below is your exact module, which binds a per-process port and polls a local mouse server. It showcases <span class="tt">UDPBIND</span>, <span class="tt">UDPWRITE</span>, <span class="tt">UDPREAD$</span>, and consuming one packet at a time:</p>
+<p>Below is an example which binds a port and polls a local mouse server. It showcases <span class="tt">UDPBIND</span>, <span class="tt">UDPWRITE</span>, <span class="tt">UDPREAD$</span>, and consuming one packet at a time:</p>
 <div class="fragment"><div class="line">DEF PROCmouse</div>
 <div class="line">    __MOUSE_X = GRAPHICS_WIDTH / 2</div>
 <div class="line">    __MOUSE_Y = GRAPHICS_HEIGHT / 2</div>
@@ -237,7 +235,7 @@ Worked UDP Example - Mouse Telemetry</h3>
 <div class="line"> </div>
 <div class="line">DEF FNmouse_mmb</div>
 <div class="line">=__MOUSE_MMB</div>
-</div><!-- fragment --><p><b>What’s happening here (in parcel terms):</b></p>
+</div><!-- fragment --><p><b>What’s happening here</b></p>
 <ul>
 <li><span class="tt">UDPBIND "127.0.0.1", 14502 + PID</span> opens <b>your doorstep</b> (unique port per process).</li>
 <li><span class="tt">UDPWRITE "127.0.0.1", 14502 + PID, 14501, "GET"</span> posts a <b>parcel</b> to the mouse server’s port <b>14501</b>, marking your doorstep <b>14502+PID</b> as the return address.</li>
@@ -255,8 +253,6 @@ Practical Tips (UDP)</h3>
 <li><b>Design for loss</b>: treat every packet as optional; never rely on “the last one must have arrived”.</li>
 <li><b>Use the labels</b>: read <span class="tt">UDPLASTIP$</span> / <span class="tt">UDPLASTSOURCEPORT</span> <b>immediately after</b> <span class="tt">UDPREAD$</span> if you plan to reply.</li>
 </ul>
-<hr  />
-<p>Right - good catch. For new users, we need to introduce the idea from first principles, <b>without starting with “DNS”</b>. Here’s a plain-English version that leads into the concept and only then names it:</p>
 <hr  />
 <h3 class="doxsection"><a class="anchor" id="names-and-addresses"></a>
 Names and Addresses</h3>
@@ -286,7 +282,7 @@ Quick Examples</h3>
 <h4 class="doxsection"><a class="anchor" id="tcp-client"></a>
 TCP Client</h4>
 <div class="fragment"><div class="line">&#39; Connect to a web server</div>
-<div class="line">sock = CONNECT(&quot;93.184.216.34&quot;, 80)</div>
+<div class="line">CONNECT sock, &quot;93.184.216.34, 80</div>
 <div class="line">SOCKWRITE sock, &quot;GET / HTTP/1.0&quot; + CHR$(13) + CHR$(10) + CHR$(13) + CHR$(10)</div>
 <div class="line">SOCKFLUSH sock</div>
 <div class="line"> </div>
@@ -316,10 +312,10 @@ TCP Server</h4>
 <h4 class="doxsection"><a class="anchor" id="udp-example"></a>
 UDP Example</h4>
 <div class="fragment"><div class="line">&#39; Bind to port 5001</div>
-<div class="line">udp = UDPBIND(&quot;0.0.0.0&quot;, 5001)</div>
+<div class="line">UDPBIND &quot;0.0.0.0&quot;, 5001</div>
 <div class="line"> </div>
 <div class="line">&#39; Send a packet to localhost:5001</div>
-<div class="line">UDPSEND udp, &quot;127.0.0.1&quot;, 5001, &quot;Ping&quot;</div>
+<div class="line">UDPWRITE &quot;127.0.0.1&quot;, 5001, 5001, &quot;Ping&quot;</div>
 <div class="line"> </div>
 <div class="line">&#39; Read the next packet from the queue</div>
 <div class="line">msg$ = UDPREAD$(5001)</div>
@@ -328,12 +324,12 @@ UDP Example</h4>
 <div class="line">    PRINT &quot;From: &quot;; UDPLASTIP$; &quot; Port: &quot;; UDPLASTSOURCEPORT</div>
 <div class="line">ENDIF</div>
 <div class="line"> </div>
-<div class="line">SOCKCLOSE udp</div>
+<div class="line">UDPUNBIND &quot;127.0.0.1&quot;, 5001</div>
 </div><!-- fragment --><h4 class="doxsection"><a class="anchor" id="connecting-by-name"></a>
 Connecting by Name</h4>
 <div class="fragment"><div class="line">ip$ = DNS$(&quot;example.org&quot;)</div>
 <div class="line">IF ip$ &lt;&gt; &quot;&quot; THEN</div>
-<div class="line">    sock = CONNECT(ip$, 80)</div>
+<div class="line">    CONNECT sock, ip$, 80</div>
 <div class="line">    SOCKWRITE sock, &quot;GET / HTTP/1.0&quot; + CHR$(13) + CHR$(10) + CHR$(13) + CHR$(10)</div>
 <div class="line">    SOCKFLUSH sock</div>
 <div class="line">    SOCKREAD sock, reply$</div>
@@ -355,7 +351,6 @@ Socket Keywords</h3>
 <li><a class="el" href="SOCKREAD.html">SOCKREAD Keyword</a></li>
 <li><a class="el" href="SOCKCLOSE.html">SOCKCLOSE Keyword</a></li>
 <li><a class="el" href="UDPBIND.html">UDPBIND Keyword</a></li>
-<li>UDPSEND</li>
 <li><a class="el" href="UDPWRITE.html">UDPWRITE Keyword</a></li>
 <li><a class="el" href="UDPREAD.html">UDPREAD$</a>"
 * \ref UDPLASTIP "UDPLASTIP$"</li>

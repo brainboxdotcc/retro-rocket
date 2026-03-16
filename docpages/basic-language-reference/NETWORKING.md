@@ -83,7 +83,7 @@ UDP is fire-and-forget. Each message is its own parcel.
 | ------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
 | How you start | `CONNECT` to call; server `SOCKLISTEN` + `SOCKACCEPT` to answer. | Both sides `UDPBIND` a port (their doorstep). No call setup.                                      |
 | Identity      | Each accepted TCP socket is a known line between two ends.       | Each parcel carries its own label; use `UDPLASTIP$` / `UDPLASTSOURCEPORT` after `UDPREAD$`. |
-| Sending       | `SOCKWRITE` queues words; `SOCKFLUSH` waits for “uh-huh”.        | `UDPSEND`/`UDPWRITE` posts a parcel immediately. No flush.                                        |
+| Sending       | `SOCKWRITE` queues words; `SOCKFLUSH` waits for “uh-huh”.        | `UDPWRITE` posts a parcel immediately. No flush.                                        |
 | Receiving     | `SOCKREAD` waits for complete data; order guaranteed.            | `UDPREAD$` pops **one** parcel from the doorstep queue; order not guaranteed.                     |
 | Delivery      | Guaranteed and ordered.                                          | Best-effort; may be delayed, re-ordered, or lost.                                                 |
 | Ending        | `SOCKCLOSE` hangs up the line.                                   | `SOCKCLOSE`/`UDPUNBIND` stops using that doorstep.                                                |
@@ -95,12 +95,11 @@ UDP is fire-and-forget. Each message is its own parcel.
 When your program `UDPBIND`s a port, Retro Rocket keeps an **in-memory queue** of incoming UDP packets for that port-think **parcels on your doorstep**:
 
 * Every new packet is placed at the **back** of the queue for that port.
-* Each call to \ref UDPREAD "UDPREAD$ pops **one** packet from the **front** of the queue and returns its contents as a string.
-* After a successful \ref UDPREAD "UDPREAD$ the “label” values for that packet are available via:
+* Each call to \ref UDPREAD "UDPREAD$" pops **one** packet from the **front** of the queue and returns its contents as a string.
+* After a successful \ref UDPREAD "UDPREAD$" the “label” values for that packet are available via:
 
-  * \ref UDPLASTIP "UDPLASTIP$" - sender’s address (the return address).
-  * \ref UDPLASTSOURCEPORT "UDPLASTSOURCEPORT" - sender’s source port (their posting office counter).
-    These **do not take parameters**: they always refer to the **most recently read** packet.
+* \ref UDPLASTIP "UDPLASTIP$" - sender’s address (the return address).
+* \ref UDPLASTSOURCEPORT "UDPLASTSOURCEPORT" - sender’s source port (their posting office counter). These **do not take parameters**: they always refer to the **most recently read** packet.
 
 This model is simple, predictable, and maps perfectly to the “parcel on the doorstep” intuition.
 
@@ -108,7 +107,7 @@ This model is simple, predictable, and maps perfectly to the “parcel on the do
 
 ### Worked UDP Example - Mouse Telemetry
 
-Below is your exact module, which binds a per-process port and polls a local mouse server. It showcases `UDPBIND`, `UDPWRITE`, `UDPREAD$`, and consuming one packet at a time:
+Below is an example which binds a port and polls a local mouse server. It showcases `UDPBIND`, `UDPWRITE`, `UDPREAD$`, and consuming one packet at a time:
 
 ```basic
 DEF PROCmouse
@@ -156,7 +155,7 @@ DEF FNmouse_mmb
 =__MOUSE_MMB
 ```
 
-**What’s happening here (in parcel terms):**
+**What’s happening here**
 
 * `UDPBIND "127.0.0.1", 14502 + PID` opens **your doorstep** (unique port per process).
 * `UDPWRITE "127.0.0.1", 14502 + PID, 14501, "GET"` posts a **parcel** to the mouse server’s port **14501**, marking your doorstep **14502+PID** as the return address.
@@ -174,10 +173,6 @@ Because each UDP packet is independent, you can lose one with negligible impact-
 * **Keep messages small**: fit comfortably within your UDP payload limit to avoid IP fragmentation.
 * **Design for loss**: treat every packet as optional; never rely on “the last one must have arrived”.
 * **Use the labels**: read `UDPLASTIP$` / `UDPLASTSOURCEPORT` **immediately after** `UDPREAD$` if you plan to reply.
-
----
-
-Right - good catch. For new users, we need to introduce the idea from first principles, **without starting with “DNS”**. Here’s a plain-English version that leads into the concept and only then names it:
 
 ---
 
@@ -223,7 +218,7 @@ ip$ = DNS$("example.org")
 
 ```basic
 ' Connect to a web server
-sock = CONNECT("93.184.216.34", 80)
+CONNECT sock, "93.184.216.34, 80
 SOCKWRITE sock, "GET / HTTP/1.0" + CHR$(13) + CHR$(10) + CHR$(13) + CHR$(10)
 SOCKFLUSH sock
 
@@ -261,10 +256,10 @@ SOCKCLOSE server
 
 ```basic
 ' Bind to port 5001
-udp = UDPBIND("0.0.0.0", 5001)
+UDPBIND "0.0.0.0", 5001
 
 ' Send a packet to localhost:5001
-UDPSEND udp, "127.0.0.1", 5001, "Ping"
+UDPWRITE "127.0.0.1", 5001, 5001, "Ping"
 
 ' Read the next packet from the queue
 msg$ = UDPREAD$(5001)
@@ -273,7 +268,7 @@ IF msg$ <> "" THEN
     PRINT "From: "; UDPLASTIP$; " Port: "; UDPLASTSOURCEPORT
 ENDIF
 
-SOCKCLOSE udp
+UDPUNBIND "127.0.0.1", 5001
 ```
 
 #### Connecting by Name
@@ -281,7 +276,7 @@ SOCKCLOSE udp
 ```basic
 ip$ = DNS$("example.org")
 IF ip$ <> "" THEN
-    sock = CONNECT(ip$, 80)
+    CONNECT sock, ip$, 80
     SOCKWRITE sock, "GET / HTTP/1.0" + CHR$(13) + CHR$(10) + CHR$(13) + CHR$(10)
     SOCKFLUSH sock
     SOCKREAD sock, reply$
@@ -305,7 +300,6 @@ ENDIF
 * \ref SOCKREAD
 * \ref SOCKCLOSE
 * \ref UDPBIND
-* \ref UDPSEND
 * \ref UDPWRITE
 * \ref UDPREAD "UDPREAD$""
 * \ref UDPLASTIP "UDPLASTIP$"
