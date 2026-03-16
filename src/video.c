@@ -28,8 +28,7 @@ static uint64_t rr_fb_bytes = 0;
 struct flanterm_context *ft_ctx = NULL;
 extern spinlock_t console_spinlock;
 extern spinlock_t debug_console_spinlock;
-static int64_t screen_x = 0, screen_y = 0, current_x = 0, current_y = 0, screen_graphics_x = 0, screen_graphics_y = 0, screen_graphics_stride = 1;
-bool wait_state = false;
+static int64_t screen_x = 0, screen_y = 0, screen_graphics_x = 0, screen_graphics_y = 0, screen_graphics_stride = 1;
 bool video_flip_is_auto = true;
 bool video_dirty = true;
 int64_t video_dirty_start = -1;
@@ -189,22 +188,44 @@ void screenonly(const char* s) {
 }
 
 void get_text_position(uint64_t* x, uint64_t* y) {
-	wait_state = true;
-	putstring("\033[6n");
-	while (wait_state);
-	*x = current_x;
-	*y = current_y;
+	if (!x || !y) {
+		return;
+	}
+	flanterm_get_cursor_pos(ft_ctx, x, y);
 }
 
 void gotoxy(uint64_t x, uint64_t y) {
-	char cursor_command[32];
-	snprintf(cursor_command, 32, "\033[%ld;%ldH", y % (get_text_height() + 1), x % (get_text_width() + 1));
 	uint64_t flags;
+	uint64_t width;
+	uint64_t height;
+
+	width = get_text_width();
+	height = get_text_height();
+
+	if (width == 0 || height == 0) {
+		return;
+	}
+
+	x %= (width + 1);
+	y %= (height + 1);
+
+	if (x != 0) {
+		x--;
+	}
+
+	if (y != 0) {
+		y--;
+	}
+
 	lock_spinlock_irq(&console_spinlock, &flags);
 	lock_spinlock(&debug_console_spinlock);
-	screenonly(cursor_command);
+
+	flanterm_set_cursor_pos(ft_ctx, x, y);
+	flanterm_flush(ft_ctx);
+
 	unlock_spinlock(&debug_console_spinlock);
 	unlock_spinlock_irq(&console_spinlock, flags);
+
 	set_video_dirty_area(0, screen_graphics_y);
 }
 
@@ -220,9 +241,13 @@ uint32_t getpixel(int64_t x, int64_t y) {
 
 /* Clear the screen - note this does not send the ansi to the debug console */
 void clearscreen() {
+	if (!ft_ctx || !rr_fb_back) {
+		return;
+	}
 	scrollable_count = 0;
 	memset(rr_fb_back, 0, rr_fb_bytes);
-	screenonly("\033[2J\033[0;0H");
+	flanterm_clear(ft_ctx, true);
+	flanterm_flush(ft_ctx);
 	set_video_dirty_area(0, screen_graphics_y);
 }
 
@@ -271,8 +296,6 @@ void terminal_callback(struct flanterm_context *ctx, uint64_t type, uint64_t x, 
 			beep(1000);
 			break;
 		case FLANTERM_CB_POS_REPORT:
-			current_x = x - 1;
-			current_y = y - 1;
 			break;
 		case FLANTERM_CB_SCROLL: {
 			int stride   = rr_fb_pitch;
@@ -342,7 +365,6 @@ void terminal_callback(struct flanterm_context *ctx, uint64_t type, uint64_t x, 
 			break;
 		}
 	}
-	wait_state = false;
 }
 
 void flanterm_free(void* ptr, size_t unused) {
@@ -537,25 +559,50 @@ const char* ansi_colour(char *out, size_t out_len, unsigned char vga_colour, boo
 	return out;
 }
 
-
-void setbackground(unsigned char background) {
-	char code[100];
+void setforeground(unsigned char foreground) {
 	uint64_t flags;
-	snprintf(code, 100, "%c[%dm", 27, map_vga_to_ansi_bg(background));
+	unsigned char ansi;
+	size_t base;
+	bool bright;
+
+	ansi = map_vga_to_ansi(foreground);
+
+	if (ansi >= 90) {
+		bright = true;
+		base = ansi - 90;
+	} else {
+		bright = false;
+		base = ansi - 30;
+	}
+
 	lock_spinlock_irq(&console_spinlock, &flags);
 	lock_spinlock(&debug_console_spinlock);
-	putstring(code);
+	flanterm_set_text_fg(ft_ctx, base, bright);
 	unlock_spinlock(&debug_console_spinlock);
 	unlock_spinlock_irq(&console_spinlock, flags);
 }
 
-void setforeground(unsigned char foreground) {
-	char code[100];
+void setbackground(unsigned char background) {
 	uint64_t flags;
-	snprintf(code, 100, "%c[%dm", 27, map_vga_to_ansi(foreground));
+	unsigned char ansi;
+	size_t base;
+	bool bright;
+
+	ansi = map_vga_to_ansi_bg(background);
+
+	if (ansi >= 100) {
+		bright = true;
+		base = ansi - 100;
+	} else {
+		bright = false;
+		base = ansi - 40;
+	}
+
 	lock_spinlock_irq(&console_spinlock, &flags);
 	lock_spinlock(&debug_console_spinlock);
-	putstring(code);
+
+	flanterm_set_text_bg(ft_ctx, base, bright);
+
 	unlock_spinlock(&debug_console_spinlock);
 	unlock_spinlock_irq(&console_spinlock, flags);
 }
@@ -572,19 +619,20 @@ void set_video_auto_flip(bool flip) {
 }
 
 void rr_flip(void) {
-	if (video_dirty) {
-		if (video_dirty_start != -1 && video_dirty_end != -1) {
-			uint64_t lines = video_dirty_end - video_dirty_start;
-			uint64_t start_offset = (video_dirty_start * screen_graphics_stride);
-			uint64_t end_amount = (lines * screen_graphics_stride);
-			memcpy(rr_fb_front + start_offset, rr_fb_back + start_offset, end_amount);
-		} else {
-			memcpy(rr_fb_front, rr_fb_back, rr_fb_bytes);
-		}
-		video_dirty = false;
-		video_dirty_start = -1;
-		video_dirty_end = -1;
+	if (!video_dirty) {
+		return;
 	}
+	if (video_dirty_start != -1 && video_dirty_end != -1) {
+		uint64_t lines = video_dirty_end - video_dirty_start;
+		uint64_t start_offset = (video_dirty_start * screen_graphics_stride);
+		uint64_t end_amount = (lines * screen_graphics_stride);
+		memcpy(rr_fb_front + start_offset, rr_fb_back + start_offset, end_amount);
+	} else {
+		memcpy(rr_fb_front, rr_fb_back, rr_fb_bytes);
+	}
+	video_dirty = false;
+	video_dirty_start = -1;
+	video_dirty_end = -1;
 }
 
 void set_video_dirty_area(int64_t start, int64_t end)

@@ -23,21 +23,32 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef __cplusplus
-#error "Please do not compile Flanterm as C++ code! Flanterm should be compiled as C99 or newer."
-#endif
+/*
+ * Retro Rocket fork notice
+ *
+ * This file is part of the Retro Rocket operating system and contains a
+ * maintained fork of the flanterm terminal implementation originally
+ * written by mintsuki.
+ *
+ * Modified portions (C) Craig Edwards, 2025-2026
+ *
+ * Purpose of fork:
+ *     Integration with the Retro Rocket graphics and terminal subsystem.
+ *     This fork introduces additional functionality required by the Retro
+ *     Rocket console environment, including:
+ *
+ *     - native cursor and colour control interfaces
+ *     - scroll callbacks for synchronising text and graphics
+ *     - dirty region tracking for framebuffer updates
+ *     - glyph redefinition handling
+ *
+ * Because of these extensions, this implementation is not drop-in compatible
+ * with upstream flanterm and should not be replaced with an upstream version
+ * without adapting the Retro Rocket specific interfaces.
+ */
 
-#ifndef __STDC_VERSION__
-#error "Flanterm must be compiled as C99 or newer."
-#endif
 
-#if defined(_MSC_VER)
-#define ALWAYS_INLINE __forceinline
-#elif defined(__GNUC__) || defined(__clang__)
 #define ALWAYS_INLINE __attribute__((always_inline)) inline
-#else
-#define ALWAYS_INLINE inline
-#endif
 
 #include "kernel.h"
 

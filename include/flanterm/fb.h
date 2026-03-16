@@ -23,23 +23,40 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef FLANTERM_FB_H
-#define FLANTERM_FB_H 1
+/*
+ * Retro Rocket fork notice
+ *
+ * This file is part of the Retro Rocket operating system and contains a
+ * maintained fork of the flanterm terminal implementation originally
+ * written by mintsuki.
+ *
+ * Modified portions (C) Craig Edwards, 2025-2026
+ *
+ * Purpose of fork:
+ *     Integration with the Retro Rocket graphics and terminal subsystem.
+ *     This fork introduces additional functionality required by the Retro
+ *     Rocket console environment, including:
+ *
+ *     - native cursor and colour control interfaces
+ *     - scroll callbacks for synchronising text and graphics
+ *     - dirty region tracking for framebuffer updates
+ *     - glyph redefinition handling
+ *
+ * Because of these extensions, this implementation is not drop-in compatible
+ * with upstream flanterm and should not be replaced with an upstream version
+ * without adapting the Retro Rocket specific interfaces.
+ */
+
+
+#pragma once
 
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include "../flanterm.h"
 
 #ifdef FLANTERM_IN_FLANTERM
-
 #include "fb_private.h"
-
 #endif
 
 /**
@@ -151,8 +168,3 @@ void flanterm_fb_update_font(struct flanterm_context *_ctx, int glyph, const uin
  */
 void flanterm_fb_draw_text_px(struct flanterm_context *_ctx, const char *s, int32_t px, int32_t py, uint32_t fg_rgb, uint32_t bg_rgb, bool transparent_bg);
 
-#ifdef __cplusplus
-}
-#endif
-
-#endif

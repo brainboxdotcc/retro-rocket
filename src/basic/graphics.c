@@ -368,42 +368,36 @@ void sprite_first_frame(struct basic_ctx* ctx, int64_t sprite_handle)
 	}
 }
 
-/*void plot_sprite(struct basic_ctx* ctx, int64_t sprite_handle, int64_t draw_x, int64_t draw_y)
-{
-	if (sprite_handle >= 0 && sprite_handle < MAX_SPRITES && ctx->sprites[sprite_handle] != NULL && ctx->sprites[sprite_handle]->pixels != NULL) {
-		sprite_t* s = ctx->sprites[sprite_handle];
-		for (int64_t y = 0; y < s->height; ++y) {
-			for (int64_t x = 0; x < s->width; ++x) {
-				uint32_t pixel = ctx->sprites[sprite_handle]->pixels[y * s->width + x];
-				if ((pixel & 0xff000000) == 0xff000000) {
-					uint32_t a = (pixel & 0xff000000) >> 24;
-					uint32_t r = (pixel & 0xff0000) >> 16;
-					uint32_t g = (pixel & 0xff00) >> 8;
-					uint32_t b = (pixel & 0xff);
-					putpixel(x + draw_x, y + draw_y, (a << 24) | (b << 16) | (g << 8) | (r));
-				}
-			}
-		}
-	}
-}*/
-
 void plot_sprite(struct basic_ctx* ctx, int64_t sprite_handle, int64_t draw_x, int64_t draw_y)
 {
 	if (sprite_handle < 0 || sprite_handle >= MAX_SPRITES) {
 		return;
 	}
+
 	if (ctx->sprites[sprite_handle] == NULL) {
 		return;
 	}
 
-	sprite_t* s = ctx->sprites[sprite_handle];
+	sprite_t *s = ctx->sprites[sprite_handle];
 
 	if (s->pixels == NULL || s->mask == NULL) {
 		return;
 	}
 
+	if (s->width <= 0 || s->height <= 0) {
+		return;
+	}
+
 	int64_t fb_w = screen_get_width();
 	int64_t fb_h = screen_get_height();
+
+	if (fb_w <= 0 || fb_h <= 0) {
+		return;
+	}
+
+	if (draw_x > INT64_MAX - s->width || draw_y > INT64_MAX - s->height) {
+		return;
+	}
 
 	int64_t dst_x0 = draw_x;
 	int64_t dst_y0 = draw_y;
@@ -422,12 +416,15 @@ void plot_sprite(struct basic_ctx* ctx, int64_t sprite_handle, int64_t draw_x, i
 	if (clip_x0 < 0) {
 		clip_x0 = 0;
 	}
+
 	if (clip_y0 < 0) {
 		clip_y0 = 0;
 	}
+
 	if (clip_x1 > fb_w) {
 		clip_x1 = fb_w;
 	}
+
 	if (clip_y1 > fb_h) {
 		clip_y1 = fb_h;
 	}
@@ -442,26 +439,22 @@ void plot_sprite(struct basic_ctx* ctx, int64_t sprite_handle, int64_t draw_x, i
 	int64_t src_x0 = clip_x0 - draw_x;
 	int64_t src_y0 = clip_y0 - draw_y;
 
-	uint8_t* fb_base = (uint8_t*)framebuffer_address();
+	uint8_t *fb_base = (uint8_t *)framebuffer_address();
 
 	for (int64_t row = 0; row < copy_h; ++row) {
 		int64_t src_y = src_y0 + row;
 		int64_t dst_y = clip_y0 + row;
 
-		const uint32_t* src = s->pixels + ((size_t)src_y * (size_t)s->width) + (size_t)src_x0;
-		const uint32_t* m = s->mask + ((size_t)src_y * (size_t)s->width) + (size_t)src_x0;
+		const uint32_t *src = s->pixels + ((size_t)src_y * (size_t)s->width) + (size_t)src_x0;
+		const uint32_t *m = s->mask + ((size_t)src_y * (size_t)s->width) + (size_t)src_x0;
+		uint32_t *dst = (uint32_t *)(fb_base + pixel_address(clip_x0, dst_y));
 
-		uint32_t* dst = (uint32_t*)(fb_base + pixel_address(clip_x0, dst_y));
-
-		int64_t x = 0;
-
-		/* 64-bit pairs */
 		int64_t pairs = copy_w / 2;
 
 		if ((((uintptr_t)dst | (uintptr_t)src | (uintptr_t)m) & 7) == 0) {
-			uint64_t* d64 = (uint64_t*)dst;
-			const uint64_t* s64 = (const uint64_t*)src;
-			const uint64_t* m64 = (const uint64_t*)m;
+			uint64_t *d64 = (uint64_t *)dst;
+			const uint64_t *s64 = (const uint64_t *)src;
+			const uint64_t *m64 = (const uint64_t *)m;
 
 			for (int64_t i = 0; i < pairs; ++i) {
 				uint64_t md = m64[i];
@@ -485,9 +478,8 @@ void plot_sprite(struct basic_ctx* ctx, int64_t sprite_handle, int64_t draw_x, i
 			}
 		}
 
-		x = pairs * 2;
+		int64_t x = pairs * 2;
 
-		/* Tail pixel */
 		if (x < copy_w) {
 			uint32_t md = m[x];
 			uint32_t sd = src[x];
@@ -1201,7 +1193,15 @@ inline static void raster_tri_projective(const dpoint_t q[4], int ib, int ic, co
 }
 
 static void plot_sprite_quad(struct basic_ctx* ctx, int64_t sprite_handle, int64_t x0, int64_t y0, int64_t x1, int64_t y1, int64_t x2, int64_t y2, int64_t x3, int64_t y3) {
-	if (sprite_handle < 0 || sprite_handle >= MAX_SPRITES || ctx->sprites[sprite_handle] == NULL || ctx->sprites[sprite_handle]->pixels == NULL) {
+	if (sprite_handle < 0 || sprite_handle >= MAX_SPRITES) {
+		return;
+	}
+
+	if (ctx->sprites[sprite_handle] == NULL) {
+		return;
+	}
+
+	if (ctx->sprites[sprite_handle]->pixels == NULL || ctx->sprites[sprite_handle]->mask == NULL) {
 		return;
 	}
 

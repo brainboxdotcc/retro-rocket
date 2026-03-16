@@ -53,6 +53,14 @@ typedef struct uacpi_irq_req {
 static uacpi_irq_req *uacpi_deferred[UACPI_DEFER_MAX];
 static size_t uacpi_deferred_count = 0;
 
+typedef struct uacpi_dpc_work {
+	uacpi_work_handler handler;
+	uacpi_handle ctx;
+	struct uacpi_dpc_work *next;
+} uacpi_dpc_work_t;
+
+static uacpi_dpc_work_t *uacpi_dpc_queue = NULL;
+
 void enumerate_all_gsis(void);
 
 uint32_t get_lapic_id_from_cpu_id(uint8_t cpu_id) {
@@ -685,14 +693,6 @@ uacpi_status uacpi_kernel_handle_firmware_request(uacpi_firmware_request *req) {
 
 void async_run_gpe_handler(uacpi_handle gpe) {
 }
-
-typedef struct uacpi_dpc_work {
-	uacpi_work_handler handler;
-	uacpi_handle ctx;
-	struct uacpi_dpc_work *next;
-} uacpi_dpc_work_t;
-
-static uacpi_dpc_work_t *uacpi_dpc_queue = NULL;
 
 static void uacpi_run_dpcs(void)
 {

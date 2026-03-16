@@ -23,13 +23,29 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef __cplusplus
-#error "Please do not compile Flanterm as C++ code! Flanterm should be compiled as C99 or newer."
-#endif
-
-#ifndef __STDC_VERSION__
-#error "Flanterm must be compiled as C99 or newer."
-#endif
+/*
+ * Retro Rocket fork notice
+ *
+ * This file is part of the Retro Rocket operating system and contains a
+ * maintained fork of the flanterm terminal implementation originally
+ * written by mintsuki.
+ *
+ * Modified portions (C) Craig Edwards, 2025-2026
+ *
+ * Purpose of fork:
+ *     Integration with the Retro Rocket graphics and terminal subsystem.
+ *     This fork introduces additional functionality required by the Retro
+ *     Rocket console environment, including:
+ *
+ *     - native cursor and colour control interfaces
+ *     - scroll callbacks for synchronising text and graphics
+ *     - dirty region tracking for framebuffer updates
+ *     - glyph redefinition handling
+ *
+ * Because of these extensions, this implementation is not drop-in compatible
+ * with upstream flanterm and should not be replaced with an upstream version
+ * without adapting the Retro Rocket specific interfaces.
+ */
 
 #include "kernel.h"
 
@@ -1692,4 +1708,96 @@ uint64_t flanterm_get_oob_output(struct flanterm_context *ctx) {
 
 void flanterm_set_oob_output(struct flanterm_context *ctx, uint64_t oob_output) {
 	ctx->oob_output = oob_output;
+}
+
+void flanterm_get_cursor_pos(struct flanterm_context *ctx, size_t *x, size_t *y) {
+	ctx->get_cursor_pos(ctx, x, y);
+}
+
+void flanterm_set_cursor_pos(struct flanterm_context *ctx, size_t x, size_t y) {
+	if (x >= ctx->cols) {
+		x = ctx->cols - 1;
+	}
+
+	if (y >= ctx->rows) {
+		y = ctx->rows - 1;
+	}
+
+	ctx->set_cursor_pos(ctx, x, y);
+}
+
+void flanterm_set_text_fg(struct flanterm_context *ctx, size_t colour, bool bright) {
+	ctx->current_primary = colour;
+
+	if (bright) {
+		if (!ctx->reverse_video) {
+			ctx->set_text_fg_bright(ctx, colour);
+		} else {
+			ctx->set_text_bg_bright(ctx, colour);
+		}
+	} else {
+		if (!ctx->reverse_video) {
+			ctx->set_text_fg(ctx, colour);
+		} else {
+			ctx->set_text_bg(ctx, colour);
+		}
+	}
+}
+
+void flanterm_set_text_bg(struct flanterm_context *ctx, size_t colour, bool bright) {
+	ctx->current_bg = colour;
+
+	if (bright) {
+		if (!ctx->reverse_video) {
+			ctx->set_text_bg_bright(ctx, colour);
+		} else {
+			ctx->set_text_fg_bright(ctx, colour);
+		}
+	} else {
+		if (!ctx->reverse_video) {
+			ctx->set_text_bg(ctx, colour);
+		} else {
+			ctx->set_text_fg(ctx, colour);
+		}
+	}
+}
+
+void flanterm_reset_text_fg(struct flanterm_context *ctx) {
+	ctx->current_primary = (size_t)-1;
+
+	if (!ctx->bold) {
+		if (!ctx->reverse_video) {
+			ctx->set_text_fg_default(ctx);
+		} else {
+			ctx->set_text_bg_default(ctx);
+		}
+	} else {
+		if (!ctx->reverse_video) {
+			ctx->set_text_fg_default_bright(ctx);
+		} else {
+			ctx->set_text_bg_default_bright(ctx);
+		}
+	}
+}
+
+void flanterm_reset_text_bg(struct flanterm_context *ctx) {
+	ctx->current_bg = (size_t)-1;
+
+	if (!ctx->bg_bold) {
+		if (!ctx->reverse_video) {
+			ctx->set_text_bg_default(ctx);
+		} else {
+			ctx->set_text_fg_default(ctx);
+		}
+	} else {
+		if (!ctx->reverse_video) {
+			ctx->set_text_bg_default_bright(ctx);
+		} else {
+			ctx->set_text_fg_default_bright(ctx);
+		}
+	}
+}
+
+void flanterm_clear(struct flanterm_context *ctx, bool move) {
+	ctx->clear(ctx, move);
 }

@@ -27,7 +27,10 @@ void draw_line(int64_t from_x, int64_t from_y, int64_t to_x, int64_t to_y, uint3
 	int64_t e2, error = dx + dy;
 
 	while (true) {
-		putpixel(from_x, from_y, colour);
+		if (from_x >= 0 && from_x < screen_get_width() &&
+		    from_y >= 0 && from_y < screen_get_height()) {
+			putpixel(from_x, from_y, colour);
+		}
 		if (from_x == to_x && from_y == to_y) {
 			break;
 		}
@@ -51,14 +54,29 @@ void draw_line(int64_t from_x, int64_t from_y, int64_t to_x, int64_t to_y, uint3
 
 void draw_horizontal_line(int64_t from_x, int64_t to_x, int64_t y, uint32_t colour)
 {
-	volatile uint32_t* addr = (volatile uint32_t*)(framebuffer_address() + pixel_address(from_x, y));
-	for (; from_x <= to_x; from_x++) {
-		*addr = colour;
-		addr++;
+	if (from_x > to_x) {
+		swap(&from_x, &to_x);
 	}
+
+	if (y < 0 || y >= screen_get_height()) {
+		return;
+	}
+
+	from_x = MAX(0, from_x);
+	to_x = MIN(screen_get_width() - 1, to_x);
+
+	if (from_x > to_x) {
+		return;
+	}
+
+	volatile uint32_t *addr = (volatile uint32_t *)(framebuffer_address() + pixel_address(from_x, y));
+
+	for (; from_x <= to_x; from_x++) {
+		*addr++ = colour;
+	}
+
 	set_video_dirty_area(y, y);
 }
-
 void draw_horizontal_rectangle(int64_t from_x, int64_t from_y, int64_t to_x, int64_t to_y, uint32_t colour)
 {
 	if (from_x > to_x) {
@@ -66,6 +84,13 @@ void draw_horizontal_rectangle(int64_t from_x, int64_t from_y, int64_t to_x, int
 	}
 	if (from_y > to_y) {
 		swap(&from_y, &to_y);
+	}
+	from_y = MAX(0, from_y);
+	to_y = MIN(screen_get_height() - 1, to_y);
+	from_x = MAX(0, from_x);
+	to_x = MIN(screen_get_width() - 1, to_x);
+	if (from_x > to_x || from_y > to_y) {
+		return;
 	}
 	for (; from_y != to_y; ++from_y) {
 		draw_horizontal_line(from_x, to_x, from_y, colour);
@@ -133,18 +158,37 @@ static bool triangle_contains(int64_t ax, int64_t ay, int64_t bx, int64_t by, in
 
 void draw_triangle(int64_t x1, int64_t y1, int64_t x2, int64_t y2, int64_t x3, int64_t y3, uint32_t colour)
 {
-	int64_t bx1 = min3(x1, x2, x3), by1 = min3(y1, y2, y3), bx2 = max3(x1, x2, x3), by2 = max3(y1, y2, y3);
+	int64_t bx1 = min3(x1, x2, x3);
+	int64_t by1 = min3(y1, y2, y3);
+	int64_t bx2 = max3(x1, x2, x3);
+	int64_t by2 = max3(y1, y2, y3);
+
+	bx1 = MAX(0, bx1);
+	by1 = MAX(0, by1);
+	bx2 = MIN(screen_get_width() - 1, bx2);
+	by2 = MIN(screen_get_height() - 1, by2);
+
+	if (bx1 > bx2 || by1 > by2) {
+		return;
+	}
 
 	for (int64_t y = by1; y <= by2; ++y) {
 		for (int64_t x = bx1; x <= bx2; ++x) {
-			if (in_viewport(x, y) && triangle_contains(x1, y1, x2, y2, x3, y3, x, y)) {
+			if (triangle_contains(x1, y1, x2, y2, x3, y3, x, y)) {
 				*((volatile uint32_t*)(framebuffer_address() + pixel_address(x, y))) = colour;
 			}
 		}
 	}
+
 	set_video_dirty_area(by1, by2);
 }
 
+static void putpixel_clamped(int64_t x, int64_t y, uint32_t colour)
+{
+	if (in_viewport(x, y)) {
+		putpixel(x, y, colour);
+	}
+}
 
 /**
  * @brief Draw part of a chord, 1/8th of a circle, and duplicate it eight times
@@ -165,14 +209,15 @@ void draw_chord(int64_t xc, int64_t yc, int64_t x, int64_t y, bool fill, uint32_
 		draw_horizontal_line(xc - y, xc + y, yc - x, colour);
 		return;
 	}
-	putpixel(xc + x, yc + y, colour);
-	putpixel(xc - x, yc + y, colour);
-	putpixel(xc + x, yc - y, colour);
-	putpixel(xc - x, yc - y, colour);
-	putpixel(xc + y, yc + x, colour);
-	putpixel(xc - y, yc + x, colour);
-	putpixel(xc + y, yc - x, colour);
-	putpixel(xc - y, yc - x, colour);
+
+	putpixel_clamped(xc + x, yc + y, colour);
+	putpixel_clamped(xc - x, yc + y, colour);
+	putpixel_clamped(xc + x, yc - y, colour);
+	putpixel_clamped(xc - x, yc - y, colour);
+	putpixel_clamped(xc + y, yc + x, colour);
+	putpixel_clamped(xc - y, yc + x, colour);
+	putpixel_clamped(xc + y, yc - x, colour);
+	putpixel_clamped(xc - y, yc - x, colour);
 }
 
 void draw_circle(int64_t x_centre, int64_t y_centre, int64_t radius, bool fill, uint32_t colour)
