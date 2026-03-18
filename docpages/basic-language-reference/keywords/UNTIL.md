@@ -49,7 +49,7 @@ PRINT "Hello, "; NAME$
 PRINT "Press any key to stop."
 REPEAT
     REM do some periodic work here
-UNTIL INKEY$ <> ""
+UNTIL INKEY$("") <> ""
 ```
 
 **Nested loops**

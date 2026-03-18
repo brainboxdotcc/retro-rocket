@@ -25,7 +25,7 @@ This example produces `82`, the ASCII code for `"R"`.
 
 ```basic
 REM Using ASC to check a keypress
-key$ = INKEY$
+key$ = INKEY$("")
 IF key$ > "" THEN
     code = ASC(key$)
     PRINT "You pressed: "; code

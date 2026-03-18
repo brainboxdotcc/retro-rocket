@@ -194,7 +194,7 @@ REPEAT
   FLIP
   ANIMATE NEXT bad_apple
 
-UNTIL INKEY$ <> ""
+UNTIL INKEY$("") <> ""
 
 CLS
 

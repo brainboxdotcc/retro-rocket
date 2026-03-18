@@ -3,7 +3,7 @@ PRINT "Socket server listening on port 2000"
 REPEAT
     client = SOCKACCEPT(server)
     IF client >= 0 THEN PROChandleConnection(client)
-UNTIL INKEY$ <> ""
+UNTIL INKEY$("") <> ""
 SOCKCLOSE server
 END
 

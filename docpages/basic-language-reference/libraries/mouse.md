@@ -59,7 +59,7 @@ return TRUE if the middle mouse button is pressed, else FALSE.
             Y = NEW_Y
             PLOT cursor, X, Y
         ENDIF
-    UNTIL INKEY$ <> ""
+    UNTIL INKEY$("") <> ""
     PROCmouse_done
     END
 ```

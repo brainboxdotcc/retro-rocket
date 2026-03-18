@@ -61,7 +61,7 @@ UNTIL Y = 2
 PRINT "Press any key to stop."
 REPEAT
     REM do some periodic work here
-UNTIL INKEY$ <> ""
+UNTIL INKEY$("") <> ""
 ```
 
 ---

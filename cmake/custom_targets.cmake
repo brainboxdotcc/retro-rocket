@@ -14,35 +14,53 @@ endfunction()
 function(copy_basic_lib TARGETFILE SOURCEFILE)
     set(FILENAME "${CMAKE_SOURCE_DIR}/os/programs/libraries/${SOURCEFILE}")
     set(OUTNAME "${CMAKE_BINARY_DIR}/iso/programs/libraries/${TARGETFILE}")
-    get_filename_component(basic_name ${TARGETFILE} NAME_WE)
-    set(OUTNAME_WE "${CMAKE_BINARY_DIR}/iso/programs/libraries/${basic_name}")
-    add_custom_command(OUTPUT ${OUTNAME_WE}
-        COMMAND mkdir -p "${CMAKE_BINARY_DIR}/iso/programs/libraries" && cp ${FILENAME} ${OUTNAME_WE}
-        DEPENDS ${FILENAME})
-    add_custom_target(basic_${SOURCEFILE} ALL DEPENDS ${OUTNAME_WE})
-    add_dependencies("kernel.bin" basic_${SOURCEFILE})
-    add_dependencies(ISO basic_${SOURCEFILE})
+
+    get_filename_component(OUTDIR "${OUTNAME}" DIRECTORY)
+
+    add_custom_command(
+            OUTPUT "${OUTNAME}"
+            COMMAND ${CMAKE_COMMAND} -E make_directory "${OUTDIR}"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different "${FILENAME}" "${OUTNAME}"
+            DEPENDS "${FILENAME}"
+            VERBATIM
+    )
+
+    string(REPLACE "/" "_" BASIC_TARGET "${TARGETFILE}")
+
+    add_custom_target(basic_${BASIC_TARGET} ALL DEPENDS "${OUTNAME}")
+    add_dependencies(kernel.bin basic_${BASIC_TARGET})
+    add_dependencies(ISO basic_${BASIC_TARGET})
 endfunction()
 
 function(copy_basic_driver TARGETFILE SOURCEFILE)
     set(FILENAME "${CMAKE_SOURCE_DIR}/os/programs/drivers/${SOURCEFILE}")
     set(OUTNAME "${CMAKE_BINARY_DIR}/iso/programs/drivers/${TARGETFILE}")
-    get_filename_component(basic_name ${TARGETFILE} NAME_WE)
-    set(OUTNAME_WE "${CMAKE_BINARY_DIR}/iso/programs/drivers/${basic_name}")
-    add_custom_command(OUTPUT ${OUTNAME_WE}
-            COMMAND mkdir -p "${CMAKE_BINARY_DIR}/iso/programs/drivers" && cp ${FILENAME} ${OUTNAME_WE}
-            DEPENDS ${FILENAME})
-    add_custom_target(basic_${SOURCEFILE} ALL DEPENDS ${OUTNAME_WE})
-    add_dependencies("kernel.bin" basic_${SOURCEFILE})
-    add_dependencies(ISO basic_${SOURCEFILE})
+
+    get_filename_component(OUTDIR "${OUTNAME}" DIRECTORY)
+
+    add_custom_command(
+            OUTPUT "${OUTNAME}"
+            COMMAND ${CMAKE_COMMAND} -E make_directory "${OUTDIR}"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different "${FILENAME}" "${OUTNAME}"
+            DEPENDS "${FILENAME}"
+            VERBATIM
+    )
+
+    string(REPLACE "/" "_" DRIVER_TARGET "${TARGETFILE}")
+
+    add_custom_target(driver_${DRIVER_TARGET} ALL DEPENDS "${OUTNAME}")
+    add_dependencies(kernel.bin driver_${DRIVER_TARGET})
+    add_dependencies(ISO driver_${DRIVER_TARGET})
 endfunction()
 
 function(copy_system_web SOURCEFILE)
     set(FILENAME "${CMAKE_SOURCE_DIR}/os/system/${SOURCEFILE}")
     set(OUTNAME "${CMAKE_BINARY_DIR}/iso/system/${SOURCEFILE}")
 
+    get_filename_component(OUTDIR "${OUTNAME}" DIRECTORY)
+
     add_custom_command(OUTPUT ${OUTNAME}
-            COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_BINARY_DIR}/iso/system"
+            COMMAND ${CMAKE_COMMAND} -E make_directory "${OUTDIR}"
             COMMAND ${CMAKE_COMMAND} -E copy "${FILENAME}" "${OUTNAME}"
             DEPENDS ${FILENAME})
 
@@ -56,12 +74,22 @@ endfunction()
 function(copy_image TARGETFILE SOURCEFILE)
     set(FILENAME "${CMAKE_SOURCE_DIR}/os/images/${SOURCEFILE}")
     set(OUTNAME "${CMAKE_BINARY_DIR}/iso/images/${TARGETFILE}")
-    add_custom_command(OUTPUT ${OUTNAME}
-        COMMAND mkdir -p "${CMAKE_BINARY_DIR}/iso/images" && cp ${FILENAME} ${OUTNAME}
-        DEPENDS ${FILENAME})
-    add_custom_target(img_${SOURCEFILE} ALL DEPENDS ${OUTNAME})
-    add_dependencies("kernel.bin" img_${SOURCEFILE})
-    add_dependencies(ISO img_${SOURCEFILE})
+
+    get_filename_component(OUTDIR "${OUTNAME}" DIRECTORY)
+
+    add_custom_command(
+            OUTPUT "${OUTNAME}"
+            COMMAND ${CMAKE_COMMAND} -E make_directory "${OUTDIR}"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different "${FILENAME}" "${OUTNAME}"
+            DEPENDS "${FILENAME}"
+            VERBATIM
+    )
+
+    string(REPLACE "/" "_" IMG_TARGET "${TARGETFILE}")
+
+    add_custom_target(img_${IMG_TARGET} ALL DEPENDS "${OUTNAME}")
+    add_dependencies(kernel.bin img_${IMG_TARGET})
+    add_dependencies(ISO img_${IMG_TARGET})
 endfunction()
 
 function(copy_config TARGETFILE SOURCEFILE)

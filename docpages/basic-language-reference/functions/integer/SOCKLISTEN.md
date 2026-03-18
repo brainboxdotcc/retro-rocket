@@ -30,7 +30,7 @@ REPEAT
         SOCKFLUSH cli
         SOCKCLOSE cli
     ENDIF
-UNTIL INKEY$ <> ""
+UNTIL INKEY$("") <> ""
 SOCKCLOSE srv
 ```
 

@@ -8,7 +8,7 @@ PRINT "Web server running. Press any key to terminate."
 REPEAT
     client = SOCKACCEPT(server)
     IF client >= 0 THEN PROCspawnChild(client)
-UNTIL INKEY$ <> ""
+UNTIL INKEY$("") <> ""
 SOCKCLOSE server
 END
 

@@ -51,7 +51,7 @@ static int sprite_swizzle_and_mask_rgba(sprite_t* s, const unsigned char* rgba)
 			uint8_t a = src[x * 4 + 3];
 
 			dst[x] = rgba_to_fb(r, g, b, a);
-			m[x] = (a == 255) ? 0xffffffff : 0x00000000;
+			m[x] = (a > 16) ? 0xffffffff : 0x00000000;
 		}
 	}
 

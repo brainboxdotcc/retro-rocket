@@ -39,7 +39,7 @@ REPEAT
         SOCKWRITE client, "Secure reply"
         SOCKCLOSE client
     END IF
-UNTIL INKEY$ <> ""
+UNTIL INKEY$("") <> ""
 
 SOCKCLOSE server
 ```

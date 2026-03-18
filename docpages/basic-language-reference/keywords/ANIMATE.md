@@ -44,7 +44,7 @@ REPEAT
     FLIP
     SLEEP 66
     ANIMATE NEXT bad_apple
-UNTIL INKEY$ <> ""
+UNTIL INKEY$("") <> ""
 
 AUTOFLIP TRUE
 CLS

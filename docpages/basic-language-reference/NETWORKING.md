@@ -245,7 +245,7 @@ REPEAT
         SOCKFLUSH client
         SOCKCLOSE client
     ENDIF
-UNTIL INKEY$ <> ""
+UNTIL INKEY$("") <> ""
 
 SOCKCLOSE server
 ```

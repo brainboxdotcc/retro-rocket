@@ -36,6 +36,20 @@ int64_t basic_get_text_cur_y(struct basic_ctx* ctx)
 
 char* basic_inkey(struct basic_ctx* ctx)
 {
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	const char* key_ascii = strval;
+	PARAMS_END("INKEY$","");
+
+	if (*key_ascii) {
+		/*Checking for particular key being held */
+		if (key_held(*key_ascii)) {
+			char r_str[2] = {*key_ascii, 0};
+			return gc_strdup(ctx, r_str);
+		}
+		return "";
+	}
+
 	const uint8_t key[2] = { kgetc(), 0 };
 	
 	if (*key == 255) {

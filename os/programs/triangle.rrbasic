@@ -10,7 +10,7 @@ REPEAT
     TRIANGLE X1#, Y1#, X2#, Y2#, X3#, Y3#
     ANGLE# = ANGLE# + 0.05
     FLIP
-UNTIL INKEY$ <> ""
+UNTIL INKEY$("") <> ""
 END
 DEF PROCsetAngle
     X1# = GRAPHICS_CENTRE_X + COS(ANGLE#) * 200

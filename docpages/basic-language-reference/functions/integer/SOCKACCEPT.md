@@ -33,7 +33,7 @@ REPEAT
         SOCKWRITE client, "HELLO!" + CHR$(13) + CHR$(10)
         SOCKCLOSE client
     END IF
-UNTIL INKEY$ <> ""
+UNTIL INKEY$("") <> ""
 
 SOCKCLOSE server
 ```

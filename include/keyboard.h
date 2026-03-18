@@ -144,3 +144,5 @@ _Noreturn void reboot(void);
  * @param sc Scan code
  */
 void keyboard_process_scancode_input(uint8_t sc);
+
+bool key_held(unsigned char ch);

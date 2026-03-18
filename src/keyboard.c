@@ -381,6 +381,67 @@ void keyboard_process_scancode_input(uint8_t sc) {
 	}
 }
 
+static unsigned char key_to_inkey_value(unsigned char key) {
+	switch (key) {
+		case KEY_PAGEUP:
+			return 245;
+		case KEY_PAGEDOWN:
+			return 246;
+		case KEY_DEL:
+			return 247;
+		case KEY_INS:
+			return 248;
+		case KEY_END:
+			return 249;
+		case KEY_UP:
+			return 250;
+		case KEY_DOWN:
+			return 251;
+		case KEY_LEFT:
+			return 252;
+		case KEY_RIGHT:
+			return 253;
+		case KEY_HOME:
+			return 254;
+		default:
+			return key;
+	}
+}
+
+bool key_held(unsigned char ch) {
+	unsigned char want = ch;
+
+	/* normalise requested ASCII to lowercase for case-insensitive compare */
+	if (want >= 'A' && want <= 'Z') {
+		want = (unsigned char)(want - 'A' + 'a');
+	}
+
+	for (int i = 0; i < 256; i++) {
+		if (!key_states[i].down) {
+			continue;
+		}
+
+		unsigned char translated = translate_keycode((unsigned char)i, key_was_extended[i], shift_state, ctrl_state, alt_state);
+
+		if (translated == 0) {
+			continue;
+		}
+
+		unsigned char value = key_to_inkey_value(translated);
+
+		/* only fold case for ASCII letters */
+		if (value >= 'A' && value <= 'Z') {
+			value = (unsigned char)(value - 'A' + 'a');
+		}
+
+		if (value == want) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
 void keyboard_handler(uint8_t isr, uint64_t errorcode, uint64_t irq, void *opaque) {
 	uint8_t st = inb(0x64);
 	if ((st & 0x01) == 0) {

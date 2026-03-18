@@ -32,7 +32,7 @@ Tasks keep running until the system halts or they are killed with the shell’s 
 Because tasks run without a console of their own:
 
 - **Do not print to the console** (`PRINT`, `CLS`, `CURSOR`, etc.). This will disrupt whatever foreground program is running.
-- **Do not assume interactive input.** Tasks should never call `INKEY$`, `INPUT`, or similar.
+- **Do not assume interactive input.** Tasks should never call `INKEY$("")`, `INPUT`, or similar.
 - **Avoid blocking calls** that wait forever on user input. Tasks should loop, sleep, or use nonblocking calls appropriately.
 - **Keep state contained.** Do not overwrite global variables that other programs might depend on.
 - **Be polite.** Use background loops that do real work but do not starve the system by calling busy FNs (e.g. poll at a reasonable interval rather than spinning as fast as possible).

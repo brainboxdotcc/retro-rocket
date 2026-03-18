@@ -20,6 +20,6 @@ REPEAT
     IF Y# > (GRAPHICS_HEIGHT - 50) THEN DY# = -5
     IF Y# < 55 THEN DY# = 5
     FLIP
-UNTIL INKEY$ <> ""
+UNTIL INKEY$("") <> ""
 CLS
 END
