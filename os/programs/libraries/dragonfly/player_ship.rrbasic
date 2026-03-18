@@ -11,7 +11,6 @@ ENDPROC
 DEF PROCmove_player_ship()
     MOVED_X = FALSE
     MOVED_Y = FALSE
-    PLOT background1, 0, 0
     IF (INKEY$("W") <> "") AND (SHIP_Y > VEL_Y + SHIP_HEIGHT) THEN
         SHIP_Y = SHIP_Y - VEL_Y
         MOVED_Y = TRUE

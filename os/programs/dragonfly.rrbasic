@@ -1,17 +1,7 @@
 LIBRARY LIB$ + "/dragonfly/player_bullets"
 LIBRARY LIB$ + "/dragonfly/enemy_bullets"
 LIBRARY LIB$ + "/dragonfly/player_ship"
-
-CLS
-AUDIO = FALSE
-
-ON ERROR PROCcontinue
-MODLOAD "sound"
-MODLOAD "codecs"
-STREAM CREATE player_fire_stream
-SOUND LOAD player_fire_sound, "/system/webserver/media/dragonfly/player_fire.wav"
-AUDIO = TRUE
-ON ERROR OFF
+LIBRARY LIB$ + "/dragonfly/audio"
 
 SPRITELOAD ship1, "/images/dragonfly/ship1.png"
 SPRITELOAD ship2, "/images/dragonfly/ship2.png"
@@ -21,22 +11,19 @@ SPRITELOAD ship_bullet, "/images/dragonfly/ship_bullet.png"
 SPRITELOAD enemy_bullet, "/images/dragonfly/enemy_bullet.png"
 SPRITELOAD background1, "/images/dragonfly/background1.png"
 
+CLS
 GCOL 0
 AUTOFLIP FALSE
 
 REPEAT
+    PLOT background1, 0, 0
     PROCmove_player_ship()
     PROCmove_bullets()
     PROCmove_enemy_bullets()
     PROCdraw_bullets()
     PROCdraw_enemy_bullets()
     PROCdraw_player_ship()
-    SLEEP 16
     FLIP
 UNTIL (INKEY$(CHR$(27)) <> "") OR (INKEY$("") = CHR$(27))
 
 END
-
-DEF PROCcontinue
-    AUDIO = FALSE
-ENDPROC

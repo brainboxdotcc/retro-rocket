@@ -1,0 +1,24 @@
+DEF PROCaudio()
+
+    AUDIO = TRUE
+    ON ERROR PROCaudio_continue
+    MODLOAD "sound"
+
+    IF AUDIO = FALSE THEN ENDPROC
+    ON ERROR PROCaudio_continue
+    MODLOAD "codecs"
+
+    IF AUDIO = FALSE THEN ENDPROC
+    ON ERROR PROCaudio_continue
+    STREAM CREATE player_fire_stream
+
+    IF AUDIO = FALSE THEN ENDPROC
+    ON ERROR PROCaudio_continue
+    SOUND LOAD player_fire_sound, "/system/webserver/media/dragonfly/player_fire.wav"
+
+    ON ERROR OFF
+ENDPROC
+
+DEF PROCaudio_continue
+    AUDIO = FALSE
+ENDPROC
