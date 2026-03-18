@@ -1,232 +1,42 @@
+LIBRARY LIB$ + "/dragonfly/player_bullets"
+LIBRARY LIB$ + "/dragonfly/enemy_bullets"
+LIBRARY LIB$ + "/dragonfly/player_ship"
+
 CLS
-SHIP_WIDTH = 112
-SHIP_HEIGHT = 38
-SHIP_MIDDLE = SHIP_HEIGHT / 2
-SHIP_X = 128
-SHIP_Y = (GRAPHICS_HEIGHT / 2) - SHIP_HEIGHT
+AUDIO = FALSE
+
+ON ERROR PROCcontinue
+MODLOAD "sound"
+MODLOAD "codecs"
+STREAM CREATE player_fire_stream
+SOUND LOAD player_fire_sound, "/system/webserver/media/dragonfly/player_fire.wav"
+AUDIO = TRUE
+ON ERROR OFF
+
 SPRITELOAD ship1, "/images/dragonfly/ship1.png"
 SPRITELOAD ship2, "/images/dragonfly/ship2.png"
 SPRITELOAD ship3, "/images/dragonfly/ship3.png"
 SPRITELOAD ship4, "/images/dragonfly/ship4.png"
 SPRITELOAD ship_bullet, "/images/dragonfly/ship_bullet.png"
 SPRITELOAD enemy_bullet, "/images/dragonfly/enemy_bullet.png"
-player_bullets = 0
-player_bullet_max = 1
-player_fire_cooldown = 1 ' Starts at one so we dont pick up spurious enter key
-player_fire_delay = 6 ' Rapid fire repeat delay in frames
-DIM player_bullet_x, player_bullet_max
-DIM player_bullet_y, player_bullet_max
-DIM player_bullet_type, player_bullet_max
-DIM player_bullet_vel_x, player_bullet_max
-DIM player_bullet_vel_y, player_bullet_max
-enemy_bullets = 0
-enemy_bullet_max = 1
-DIM enemy_bullet_x, enemy_bullet_max
-DIM enemy_bullet_y, enemy_bullet_max
-DIM enemy_bullet_vel_x, enemy_bullet_max
-DIM enemy_bullet_vel_y, enemy_bullet_max
-VEL_X = 2
-VEL_Y = 2
+SPRITELOAD background1, "/images/dragonfly/background1.png"
+
 GCOL 0
 AUTOFLIP FALSE
+
 REPEAT
-    MOVED_X = FALSE
-    MOVED_Y = FALSE
-    RECTANGLE SHIP_X - SHIP_WIDTH - 4, SHIP_Y - SHIP_MIDDLE - 4, SHIP_X + SHIP_WIDTH + 4, SHIP_Y + SHIP_MIDDLE + 4
-    IF (INKEY$("W") <> "") AND (SHIP_Y > VEL_Y + SHIP_HEIGHT) THEN
-        SHIP_Y = SHIP_Y - VEL_Y
-        MOVED_Y = TRUE
-    ENDIF
-    IF (INKEY$("S") <> "") AND (SHIP_Y < GRAPHICS_HEIGHT - SHIP_HEIGHT - VEL_Y) THEN
-        SHIP_Y = SHIP_Y + VEL_Y
-        MOVED_Y = TRUE
-    ENDIF
-    IF (INKEY$("D") <> "") AND (SHIP_X < GRAPHICS_WIDTH - SHIP_WIDTH - VEL_X) THEN
-        SHIP_X = SHIP_X + VEL_X
-        MOVED_X = TRUE
-    ENDIF
-    IF (INKEY$("A") <> "") AND (SHIP_X > VEL_X + SHIP_WIDTH) THEN
-        SHIP_X = SHIP_X - VEL_X
-        MOVED_X = TRUE
-    ENDIF
-    IF player_fire_cooldown > 0 THEN player_fire_cooldown = player_fire_cooldown - 1
-    IF (INKEY$(CHR$(13)) <> "") AND (player_fire_cooldown = 0) THEN
-        PROCalloc_bullet(1, SHIP_X - 8, SHIP_Y, 10, 0)
-        player_fire_cooldown = player_fire_delay
-    ENDIF
-    IF (MOVED_X = TRUE) AND (VEL_X < 4) THEN
-        VEL_X = VEL_X + 2
-    ELSE
-        VEL_X = VEL_X - 2
-    ENDIF
-    IF (MOVED_Y = TRUE) AND (VEL_Y < 4) THEN
-        VEL_Y = VEL_Y + 2
-    ELSE
-        VEL_Y = VEL_Y - 2
-    ENDIF
-    IF VEL_X < 2 THEN VEL_X = 2
-    IF VEL_Y < 2 THEN VEL_Y = 2
-    PROCundraw_bullets()
-    PROCundraw_enemy_bullets()
+    PROCmove_player_ship()
     PROCmove_bullets()
     PROCmove_enemy_bullets()
     PROCdraw_bullets()
     PROCdraw_enemy_bullets()
-    IF (VEL_Y = 2) OR (VEL_X = 2) THEN
-        PLOT ship1, SHIP_X - SHIP_WIDTH, SHIP_Y - SHIP_MIDDLE
-    ENDIF
-    IF (VEL_Y = 4) OR (VEL_X = 4) THEN
-        PLOT ship2, SHIP_X - SHIP_WIDTH, SHIP_Y - SHIP_MIDDLE
-    ENDIF
-    IF (VEL_Y = 6) OR (VEL_X = 6) THEN
-        PLOT ship3, SHIP_X - SHIP_WIDTH, SHIP_Y - SHIP_MIDDLE
-    ENDIF
-    IF (VEL_Y = 8) OR (VEL_X = 8) THEN
-        PLOT ship4, SHIP_X - SHIP_WIDTH, SHIP_Y - SHIP_MIDDLE
-    ENDIF
+    PROCdraw_player_ship()
     SLEEP 16
     FLIP
 UNTIL (INKEY$(CHR$(27)) <> "") OR (INKEY$("") = CHR$(27))
+
 END
 
-DEF PROCalloc_bullet(type, bullet_x, bullet_y, x_vel, y_vel)
-    player_bullets = player_bullets + 1
-    IF player_bullets > player_bullet_max THEN
-        player_bullet_max = player_bullets
-        REDIM player_bullet_x, player_bullet_max
-        REDIM player_bullet_y, player_bullet_max
-        REDIM player_bullet_type, player_bullet_max
-        REDIM player_bullet_vel_x, player_bullet_max
-        REDIM player_bullet_vel_y, player_bullet_max
-    ENDIF
-
-    player_bullet_x(player_bullets - 1) = bullet_x
-    player_bullet_y(player_bullets - 1) = bullet_y
-    player_bullet_type(player_bullets - 1) = type
-    player_bullet_vel_x(player_bullets - 1) = x_vel
-    player_bullet_vel_y(player_bullets - 1) = y_vel
-ENDPROC
-
-DEF PROCfree_bullet(i)
-    POP player_bullet_x, i
-    POP player_bullet_y, i
-    POP player_bullet_type, i
-    POP player_bullet_vel_x, i
-    POP player_bullet_vel_y, i
-
-    player_bullets = player_bullets - 1
-
-    IF player_bullets < 1 THEN
-        player_bullet_max = 1
-    ELSE
-        player_bullet_max = player_bullets
-    ENDIF
-
-    REDIM player_bullet_x, player_bullet_max
-    REDIM player_bullet_y, player_bullet_max
-    REDIM player_bullet_type, player_bullet_max
-    REDIM player_bullet_vel_x, player_bullet_max
-    REDIM player_bullet_vel_y, player_bullet_max
-ENDPROC
-
-DEF PROCmove_bullets()
-    i = 0
-    done = FALSE
-    REPEAT
-        IF i >= player_bullets THEN
-            done = TRUE
-        ELSE
-            player_bullet_x(i) = player_bullet_x(i) + player_bullet_vel_x(i)
-            player_bullet_y(i) = player_bullet_y(i) + player_bullet_vel_y(i)
-
-            IF (player_bullet_x(i) < -48) OR (player_bullet_y(i) < -48) OR (player_bullet_x(i) > GRAPHICS_WIDTH + 48) OR (player_bullet_y(i) > GRAPHICS_HEIGHT + 48) THEN
-                PROCfree_bullet(i)
-            ELSE
-                i = i + 1
-            ENDIF
-        ENDIF
-    UNTIL done = TRUE
-ENDPROC
-
-DEF PROCundraw_bullets()
-    IF player_bullets = 0 THEN ENDPROC
-    FOR i = 0 TO player_bullets - 1
-        RECTANGLE player_bullet_x(i) - 4, player_bullet_y(i) - 4, player_bullet_x(i) + 48, player_bullet_y(i) + 48
-    NEXT
-ENDPROC
-
-DEF PROCdraw_bullets()
-    IF player_bullets = 0 THEN ENDPROC
-    FOR i = 0 TO player_bullets - 1
-        PLOT ship_bullet, player_bullet_x(i), player_bullet_y(i)
-    NEXT
-ENDPROC
-
-DEF PROCalloc_enemy_bullet(bullet_x, bullet_y, x_vel, y_vel)
-    enemy_bullets = enemy_bullets + 1
-    IF enemy_bullets > enemy_bullet_max THEN
-        enemy_bullet_max = enemy_bullets
-        REDIM enemy_bullet_x, enemy_bullet_max
-        REDIM enemy_bullet_y, enemy_bullet_max
-        REDIM enemy_bullet_vel_x, enemy_bullet_max
-        REDIM enemy_bullet_vel_y, enemy_bullet_max
-    ENDIF
-
-    enemy_bullet_x(enemy_bullets - 1) = bullet_x
-    enemy_bullet_y(enemy_bullets - 1) = bullet_y
-    enemy_bullet_vel_x(enemy_bullets - 1) = x_vel
-    enemy_bullet_vel_y(enemy_bullets - 1) = y_vel
-ENDPROC
-
-DEF PROCfree_enemy_bullet(i)
-    POP enemy_bullet_x, i
-    POP enemy_bullet_y, i
-    POP enemy_bullet_vel_x, i
-    POP enemy_bullet_vel_y, i
-
-    enemy_bullets = enemy_bullets - 1
-
-    IF enemy_bullets < 1 THEN
-        enemy_bullet_max = 1
-    ELSE
-        enemy_bullet_max = enemy_bullets
-    ENDIF
-
-    REDIM enemy_bullet_x, enemy_bullet_max
-    REDIM enemy_bullet_y, enemy_bullet_max
-    REDIM enemy_bullet_vel_x, enemy_bullet_max
-    REDIM enemy_bullet_vel_y, enemy_bullet_max
-ENDPROC
-
-DEF PROCmove_enemy_bullets()
-    i = 0
-    done = FALSE
-    REPEAT
-        IF i >= enemy_bullets THEN
-            done = TRUE
-        ELSE
-            enemy_bullet_x(i) = enemy_bullet_x(i) + enemy_bullet_vel_x(i)
-            enemy_bullet_y(i) = enemy_bullet_y(i) + enemy_bullet_vel_y(i)
-
-            IF (enemy_bullet_x(i) < -48) OR (enemy_bullet_y(i) < -48) OR (enemy_bullet_x(i) > GRAPHICS_WIDTH + 48) OR (enemy_bullet_y(i) > GRAPHICS_HEIGHT + 48) THEN
-                PROCfree_enemy_bullet(i)
-            ELSE
-                i = i + 1
-            ENDIF
-        ENDIF
-    UNTIL done = TRUE
-ENDPROC
-
-DEF PROCdraw_enemy_bullets()
-    IF enemy_bullets = 0 THEN ENDPROC
-    FOR i = 0 TO enemy_bullets - 1
-        PLOT enemy_bullet, enemy_bullet_x(i), enemy_bullet_y(i)
-    NEXT
-ENDPROC
-
-DEF PROCundraw_enemy_bullets()
-    IF enemy_bullets = 0 THEN ENDPROC
-    FOR i = 0 TO enemy_bullets - 1
-        RECTANGLE enemy_bullet_x(i) - 4, enemy_bullet_y(i) - 4, enemy_bullet_x(i) + 48, enemy_bullet_y(i) + 48
-    NEXT
+DEF PROCcontinue
+    AUDIO = FALSE
 ENDPROC

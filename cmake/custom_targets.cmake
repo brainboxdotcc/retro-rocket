@@ -13,7 +13,15 @@ endfunction()
 
 function(copy_basic_lib TARGETFILE SOURCEFILE)
     set(FILENAME "${CMAKE_SOURCE_DIR}/os/programs/libraries/${SOURCEFILE}")
-    set(OUTNAME "${CMAKE_BINARY_DIR}/iso/programs/libraries/${TARGETFILE}")
+
+    get_filename_component(TARGETDIR "${TARGETFILE}" DIRECTORY)
+    get_filename_component(TARGETNAME_WE "${TARGETFILE}" NAME_WE)
+
+    if(TARGETDIR)
+        set(OUTNAME "${CMAKE_BINARY_DIR}/iso/programs/libraries/${TARGETDIR}/${TARGETNAME_WE}")
+    else()
+        set(OUTNAME "${CMAKE_BINARY_DIR}/iso/programs/libraries/${TARGETNAME_WE}")
+    endif()
 
     get_filename_component(OUTDIR "${OUTNAME}" DIRECTORY)
 
@@ -34,7 +42,15 @@ endfunction()
 
 function(copy_basic_driver TARGETFILE SOURCEFILE)
     set(FILENAME "${CMAKE_SOURCE_DIR}/os/programs/drivers/${SOURCEFILE}")
-    set(OUTNAME "${CMAKE_BINARY_DIR}/iso/programs/drivers/${TARGETFILE}")
+
+    get_filename_component(TARGETDIR "${TARGETFILE}" DIRECTORY)
+    get_filename_component(TARGETNAME_WE "${TARGETFILE}" NAME_WE)
+
+    if(TARGETDIR)
+        set(OUTNAME "${CMAKE_BINARY_DIR}/iso/programs/drivers/${TARGETDIR}/${TARGETNAME_WE}")
+    else()
+        set(OUTNAME "${CMAKE_BINARY_DIR}/iso/programs/drivers/${TARGETNAME_WE}")
+    endif()
 
     get_filename_component(OUTDIR "${OUTNAME}" DIRECTORY)
 

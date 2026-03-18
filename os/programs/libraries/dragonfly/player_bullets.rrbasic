@@ -1,0 +1,77 @@
+DEF PROCplayer_bullets()
+    player_bullets_count = 0
+    player_bullet_max = 1
+    player_fire_cooldown = 1 ' Starts at one so we dont pick up spurious enter key
+    player_fire_delay = 6 ' Rapid fire repeat delay in frames
+    DIM player_bullet_x, player_bullet_max
+    DIM player_bullet_y, player_bullet_max
+    DIM player_bullet_type, player_bullet_max
+    DIM player_bullet_vel_x, player_bullet_max
+    DIM player_bullet_vel_y, player_bullet_max
+ENDPROC
+
+DEF PROCalloc_bullet(type, bullet_x, bullet_y, x_vel, y_vel)
+    player_bullets_count = player_bullets_count + 1
+    IF player_bullets_count > player_bullet_max THEN
+        player_bullet_max = player_bullets_count
+        REDIM player_bullet_x, player_bullet_max
+        REDIM player_bullet_y, player_bullet_max
+        REDIM player_bullet_type, player_bullet_max
+        REDIM player_bullet_vel_x, player_bullet_max
+        REDIM player_bullet_vel_y, player_bullet_max
+    ENDIF
+
+    player_bullet_x(player_bullets_count - 1) = bullet_x
+    player_bullet_y(player_bullets_count - 1) = bullet_y
+    player_bullet_type(player_bullets_count - 1) = type
+    player_bullet_vel_x(player_bullets_count - 1) = x_vel
+    player_bullet_vel_y(player_bullets_count - 1) = y_vel
+ENDPROC
+
+DEF PROCfree_bullet(i)
+    POP player_bullet_x, i
+    POP player_bullet_y, i
+    POP player_bullet_type, i
+    POP player_bullet_vel_x, i
+    POP player_bullet_vel_y, i
+
+    player_bullets_count = player_bullets_count - 1
+
+    IF player_bullets_count < 1 THEN
+        player_bullet_max = 1
+    ELSE
+        player_bullet_max = player_bullets_count
+    ENDIF
+
+    REDIM player_bullet_x, player_bullet_max
+    REDIM player_bullet_y, player_bullet_max
+    REDIM player_bullet_type, player_bullet_max
+    REDIM player_bullet_vel_x, player_bullet_max
+    REDIM player_bullet_vel_y, player_bullet_max
+ENDPROC
+
+DEF PROCmove_bullets()
+    i = 0
+    done = FALSE
+    REPEAT
+        IF i >= player_bullets_count THEN
+            done = TRUE
+        ELSE
+            player_bullet_x(i) = player_bullet_x(i) + player_bullet_vel_x(i)
+            player_bullet_y(i) = player_bullet_y(i) + player_bullet_vel_y(i)
+
+            IF (player_bullet_x(i) < -48) OR (player_bullet_y(i) < -48) OR (player_bullet_x(i) > GRAPHICS_WIDTH + 48) OR (player_bullet_y(i) > GRAPHICS_HEIGHT + 48) THEN
+                PROCfree_bullet(i)
+            ELSE
+                i = i + 1
+            ENDIF
+        ENDIF
+    UNTIL done = TRUE
+ENDPROC
+
+DEF PROCdraw_bullets()
+    IF player_bullets_count = 0 THEN ENDPROC
+    FOR i = 0 TO player_bullets_count - 1
+        PLOT ship_bullet, player_bullet_x(i), player_bullet_y(i)
+    NEXT
+ENDPROC

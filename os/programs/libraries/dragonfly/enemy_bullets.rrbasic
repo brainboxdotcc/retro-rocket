@@ -1,0 +1,70 @@
+DEF PROCenemy_bullets()
+    enemy_bullets_count = 0
+    enemy_bullet_max = 1
+    DIM enemy_bullet_x, enemy_bullet_max
+    DIM enemy_bullet_y, enemy_bullet_max
+    DIM enemy_bullet_vel_x, enemy_bullet_max
+    DIM enemy_bullet_vel_y, enemy_bullet_max
+ENDPROC
+
+DEF PROCalloc_enemy_bullet(bullet_x, bullet_y, x_vel, y_vel)
+    enemy_bullets_count = enemy_bullets_count + 1
+    IF enemy_bullets_count > enemy_bullet_max THEN
+        enemy_bullet_max = enemy_bullets_count
+        REDIM enemy_bullet_x, enemy_bullet_max
+        REDIM enemy_bullet_y, enemy_bullet_max
+        REDIM enemy_bullet_vel_x, enemy_bullet_max
+        REDIM enemy_bullet_vel_y, enemy_bullet_max
+    ENDIF
+
+    enemy_bullet_x(enemy_bullets_count - 1) = bullet_x
+    enemy_bullet_y(enemy_bullets_count - 1) = bullet_y
+    enemy_bullet_vel_x(enemy_bullets_count - 1) = x_vel
+    enemy_bullet_vel_y(enemy_bullets_count - 1) = y_vel
+ENDPROC
+
+DEF PROCfree_enemy_bullet(i)
+    POP enemy_bullet_x, i
+    POP enemy_bullet_y, i
+    POP enemy_bullet_vel_x, i
+    POP enemy_bullet_vel_y, i
+
+    enemy_bullets_count = enemy_bullets_count - 1
+
+    IF enemy_bullets_count < 1 THEN
+        enemy_bullet_max = 1
+    ELSE
+        enemy_bullet_max = enemy_bullets_count
+    ENDIF
+
+    REDIM enemy_bullet_x, enemy_bullet_max
+    REDIM enemy_bullet_y, enemy_bullet_max
+    REDIM enemy_bullet_vel_x, enemy_bullet_max
+    REDIM enemy_bullet_vel_y, enemy_bullet_max
+ENDPROC
+
+DEF PROCmove_enemy_bullets()
+    i = 0
+    done = FALSE
+    REPEAT
+        IF i >= enemy_bullets_count THEN
+            done = TRUE
+        ELSE
+            enemy_bullet_x(i) = enemy_bullet_x(i) + enemy_bullet_vel_x(i)
+            enemy_bullet_y(i) = enemy_bullet_y(i) + enemy_bullet_vel_y(i)
+
+            IF (enemy_bullet_x(i) < -48) OR (enemy_bullet_y(i) < -48) OR (enemy_bullet_x(i) > GRAPHICS_WIDTH + 48) OR (enemy_bullet_y(i) > GRAPHICS_HEIGHT + 48) THEN
+                PROCfree_enemy_bullet(i)
+            ELSE
+                i = i + 1
+            ENDIF
+        ENDIF
+    UNTIL done = TRUE
+ENDPROC
+
+DEF PROCdraw_enemy_bullets()
+    IF enemy_bullets_count = 0 THEN ENDPROC
+    FOR i = 0 TO enemy_bullets_count - 1
+        PLOT enemy_bullet, enemy_bullet_x(i), enemy_bullet_y(i)
+    NEXT
+ENDPROC
