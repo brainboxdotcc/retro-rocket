@@ -199,6 +199,10 @@ void gosub_statement(struct basic_ctx* ctx)
 
 	if (ctx->call_stack_ptr < MAX_CALL_STACK_DEPTH) {
 		ctx->call_stack[ctx->call_stack_ptr] = tokenizer_num(ctx, NUMBER);
+		ctx->loop_state_stack[ctx->call_stack_ptr].for_stack_ptr = ctx->for_stack_ptr;
+		ctx->loop_state_stack[ctx->call_stack_ptr].while_stack_ptr = ctx->while_stack_ptr;
+		ctx->loop_state_stack[ctx->call_stack_ptr].repeat_stack_ptr = ctx->repeat_stack_ptr;
+
 		if (!new_stack_frame(ctx)) {
 			return;
 		}
@@ -212,9 +216,19 @@ void gosub_statement(struct basic_ctx* ctx)
 void return_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(RETURN, ctx);
+
 	if (ctx->call_stack_ptr > 0) {
 		free_local_heap(ctx);
 		pop_stack_frame(ctx);
+
+		while (ctx->for_stack_ptr > ctx->loop_state_stack[ctx->call_stack_ptr].for_stack_ptr) {
+			ctx->for_stack_ptr--;
+			buddy_free(ctx->allocator, ctx->for_stack[ctx->for_stack_ptr].for_variable);
+		}
+
+		ctx->while_stack_ptr = ctx->loop_state_stack[ctx->call_stack_ptr].while_stack_ptr;
+		ctx->repeat_stack_ptr = ctx->loop_state_stack[ctx->call_stack_ptr].repeat_stack_ptr;
+
 		jump_linenum(ctx->call_stack[ctx->call_stack_ptr], ctx);
 	} else {
 		tokenizer_error_print(ctx, "RETURN without GOSUB");
