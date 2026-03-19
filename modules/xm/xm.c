@@ -1591,7 +1591,7 @@ static bool xm_from_memory(const char *filename, const void *bytes, size_t len, 
  * @return true on success, false on failure.
  */
 bool EXPORTED MOD_INIT_SYM(KMOD_ABI)(void) {
-	dprintf("xm: loaded - this module is experimental. There may be audio artifacts.\n");
+	dprintf("xm: loaded\n");
 
 	audio_file_loader_t *loader = (audio_file_loader_t *) kmalloc(sizeof(audio_file_loader_t));
 	if (!loader) {

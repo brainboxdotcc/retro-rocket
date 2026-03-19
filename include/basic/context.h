@@ -24,6 +24,12 @@ typedef struct basic_sound_t {
 	struct basic_sound_t* next;	/* Next */
 } basic_sound_t;
 
+typedef struct control_stack_state {
+	uint64_t for_stack_ptr;
+	uint64_t while_stack_ptr;
+	uint64_t repeat_stack_ptr;
+} control_stack_state;
+
 /**
  * @brief BASIC program context.
  *
@@ -197,6 +203,11 @@ typedef struct basic_ctx {
 	 * @brief The return line number for an `EVAL` statement.
 	 */
 	int64_t eval_linenum;
+
+	/**
+	 * @brief The saved loop pointer state when entering PROC
+	 */
+	control_stack_state loop_state_stack[MAX_CALL_STACK_DEPTH];
 
 	/**
 	 * @brief FOR loop stack to handle `FOR...NEXT` loops.

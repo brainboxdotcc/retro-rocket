@@ -668,6 +668,9 @@ void proc_statement(struct basic_ctx* ctx)
 
 		ctx->fn_type_stack[ctx->call_stack_ptr] = ctx->fn_type; // save caller’s type
 		ctx->fn_type = RT_NONE;
+		ctx->loop_state_stack[ctx->call_stack_ptr].for_stack_ptr = ctx->for_stack_ptr;
+		ctx->loop_state_stack[ctx->call_stack_ptr].while_stack_ptr = ctx->while_stack_ptr;
+		ctx->loop_state_stack[ctx->call_stack_ptr].repeat_stack_ptr = ctx->repeat_stack_ptr;
 
 		while (tokenizer_token(ctx) != NEWLINE && tokenizer_token(ctx) != ENDOFINPUT) {
 			tokenizer_next(ctx);
@@ -744,6 +747,12 @@ void endproc_statement(struct basic_ctx* ctx)
 
 		/* Now restore the *caller*'s return type. */
 		ctx->fn_type = ctx->fn_type_stack[ctx->call_stack_ptr];
+		while (ctx->for_stack_ptr > ctx->loop_state_stack[ctx->call_stack_ptr].for_stack_ptr) {
+			ctx->for_stack_ptr--;
+			buddy_free(ctx->allocator, ctx->for_stack[ctx->for_stack_ptr].for_variable);
+		}
+		ctx->while_stack_ptr = ctx->loop_state_stack[ctx->call_stack_ptr].while_stack_ptr;
+		ctx->repeat_stack_ptr = ctx->loop_state_stack[ctx->call_stack_ptr].repeat_stack_ptr;
 
 		ctx->if_nest_level = 0; // If we exit a proc, we clear the nest level
 
