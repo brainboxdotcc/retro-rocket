@@ -457,21 +457,40 @@ static up_value up_relation_expr(struct basic_ctx *ctx) {
 
 /* NOT binds tighter than AND/OR */
 static up_value parse_bool_term(struct basic_ctx *ctx) {
-	/* consume one-or-more logical NOTs */
 	int negate = 0;
 	while (tokenizer_token(ctx) == NOT) {
 		tokenizer_next(ctx);
 		negate ^= 1;
 	}
 
-	/* a boolean term is a typed relation that yields UP_INT(0/1) */
-	up_value b = up_relation_expr(ctx);
-	if (b.kind != UP_INT) {
-		b = up_make_int(up_truth(&b)); /* normalise just in case */
+	up_value b;
+
+	if (tokenizer_token(ctx) == OPENBRACKET) {
+		struct basic_ctx save = *ctx;
+
+		accept(OPENBRACKET, ctx);
+
+		if (tokenizer_token(ctx) == OPENBRACKET) {
+			b = up_make_int(up_conditional(ctx));
+			accept(CLOSEBRACKET, ctx);
+		} else {
+			*ctx = save;
+			b = up_relation_expr(ctx);
+			if (b.kind != UP_INT) {
+				b = up_make_int(up_truth(&b));
+			}
+		}
+	} else {
+		b = up_relation_expr(ctx);
+		if (b.kind != UP_INT) {
+			b = up_make_int(up_truth(&b));
+		}
 	}
+
 	if (negate) {
 		b.v.i = !b.v.i;
 	}
+
 	return b;
 }
 
