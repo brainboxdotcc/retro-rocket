@@ -45,6 +45,20 @@
 <para><hruler/>
 </para>
 </sect5></sect4></sect3></sect2></sect1>
+<sect1 id="GOTO_1control-flow-behaviour_1s1"><sect2 id="GOTO_1control-flow-behaviour_1s2"><sect3 id="GOTO_1control-flow-behaviour_1s3"><sect4 id="GOTO_1control-flow-behaviour_1s4"><sect5 id="GOTO_1control-flow-behaviour">
+<title>Control-flow behaviour</title><para><computeroutput>GOTO</computeroutput> performs a direct jump and does <bold>not</bold> unwind or restore any control structures.</para>
+<para>This means you may jump:</para>
+<para><itemizedlist>
+<listitem><para>out of a loop (<computeroutput>FOR</computeroutput>, <computeroutput>WHILE</computeroutput>, <computeroutput>REPEAT</computeroutput>)</para>
+</listitem><listitem><para>into the body of a loop</para>
+</listitem><listitem><para>out of a <computeroutput>GOSUB</computeroutput> or <computeroutput>PROC</computeroutput></para>
+</listitem></itemizedlist>
+</para>
+<para>Retro Rocket BASIC does not crash in these cases, but the program may later raise a runtime error if control structures no longer match the current execution state (for example, <computeroutput>NEXT without FOR</computeroutput> or <computeroutput>RETURN without GOSUB</computeroutput>).</para>
+<para>This behaviour is defined.</para>
+<para><hruler/>
+</para>
+</sect5></sect4></sect3></sect2></sect1>
 <sect1 id="GOTO_1notes-144_1s1"><sect2 id="GOTO_1notes-144_1s2"><sect3 id="GOTO_1notes-144_1s3"><sect4 id="GOTO_1notes-144_1s4"><sect5 id="GOTO_1notes-144">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Jumping to a non-existent line raises a runtime error.</para>

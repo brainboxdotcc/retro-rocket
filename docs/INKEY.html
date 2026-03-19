@@ -95,16 +95,20 @@ $(function(){initNavTree('INKEY.html','',''); });
   <div class="headertitle"><div class="title">INKEY$ Function </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">A$= INKEY$</div>
-</div><!-- fragment --><p>Returns the <b>key that has been pressed</b> as a string. If no key has been pressed since the last call, it returns an <b>empty string</b>.</p>
-<p><span class="tt">INKEY$</span> consumes input from the <b>keyboard buffer</b>. If multiple keys have been pressed between this call and the last call to <span class="tt">INKEY$</span> (or an <span class="tt">INPUT</span> statement), it will take multiple calls to retrieve them all.</p>
+<div class="textblock"><div class="fragment"><div class="line">A$= INKEY$(STRING)</div>
+</div><!-- fragment --><p>INKEY$ checks for key state on the keyboard. It has two modes of operation:</p>
+<ul>
+<li>If the string parameter passed is an empty string, it will check if any key is waiting in the keyboard buffer, consuming it from the buffer and returning it, or returning an empty string if no key is available.</li>
+<li>If the string parameter passed in is a non-empty single-character string, it will check if that key is currently held, and will not consume it from the buffer. Because this form of the function is not consuming from the buffer you may use this form to concurrently check for multiple depressed keys at the same time. Note that you must still drain the buffer. Use a separate INKEY$("") call to drain any pending key presses so the buffer does not fill. <b>US-ASCII values (A-Z) are considered case-insensitive</b> in the parameter when using this form of <span class="tt">INKEY$</span>.</li>
+<li>When <span class="tt">INKEY$</span> consumes input from the <b>keyboard buffer</b> by using an empty parameter, if multiple keys have been pressed between this call and the last call to <span class="tt">INKEY$</span> (or an <span class="tt">INPUT</span> statement), it will take multiple calls to retrieve them all.</li>
+</ul>
 <hr  />
 <h3 class="doxsection"><a class="anchor" id="extended-keys"></a>
 Extended keys</h3>
 <p>Some non-printing keys return special character codes rather than ASCII. These values can be retrieved by wrapping <span class="tt">INKEY$</span> with <span class="tt">ASC()</span>.</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Key  </th><th class="markdownTableHeadNone"><span class="tt">ASC(INKEY$)</span> value  </th></tr>
+<th class="markdownTableHeadNone">Key  </th><th class="markdownTableHeadNone"><span class="tt">ASC(INKEY$(""))</span> value  </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">PAGEUP  </td><td class="markdownTableBodyNone">245  </td></tr>
 <tr class="markdownTableRowEven">
@@ -132,23 +136,29 @@ Examples</h3>
 <div class="fragment"><div class="line">REM Wait for a keypress</div>
 <div class="line">PRINT &quot;Press a key...&quot;</div>
 <div class="line">REPEAT</div>
-<div class="line">    k$ = INKEY$</div>
+<div class="line">    k$ = INKEY$(&quot;&quot;)</div>
 <div class="line">UNTIL k$ &gt; &quot;&quot;</div>
 <div class="line">PRINT &quot;You pressed: &quot;; k$</div>
 </div><!-- fragment --><div class="fragment"><div class="line">REM Handle arrow keys</div>
-<div class="line">k$ = INKEY$</div>
+<div class="line">k$ = INKEY$(&quot;&quot;)</div>
 <div class="line">IF k$ &gt; &quot;&quot; THEN</div>
 <div class="line">    code = ASC(k$)</div>
 <div class="line">    IF code = 250 THEN PRINT &quot;Up arrow pressed&quot;</div>
 <div class="line">    IF code = 251 THEN PRINT &quot;Down arrow pressed&quot;</div>
 <div class="line">ENDIF</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM multiple key example</div>
+<div class="line">PRINT &quot;Press both A and Z together to exit&quot;</div>
+<div class="line">REPEAT</div>
+<div class="line">UNTIL INKEY$(&quot;A&quot;) &lt;&gt; &quot;&quot; AND INKEY$(&quot;Z&quot;) &lt;&gt; &quot;&quot;</div>
+<div class="line">END</div>
 </div><!-- fragment --><hr  />
 <h3 class="doxsection"><a class="anchor" id="notes-99"></a>
 Notes</h3>
 <ul>
 <li>Printable characters return their usual ASCII values (e.g. <span class="tt">"A"</span> → 65).</li>
 <li>Extended keys must be checked via <span class="tt">ASC()</span>.</li>
-<li>If no key is pressed, result is <span class="tt">""</span> (empty string).</li>
+<li>If no key is pressed, the result is <span class="tt">""</span> (empty string).</li>
+<li>If the parameter to <span class="tt">INKEY$</span> contains more than one character, any characters except the first are ignored.</li>
 </ul>
 <hr  />
 <p><b>See also:</b> <a class="el" href="ASC.html">ASC</a> · <a class="el" href="INPUT.html">INPUT</a> </p>

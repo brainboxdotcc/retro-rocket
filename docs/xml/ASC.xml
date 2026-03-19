@@ -20,7 +20,7 @@
 </programlisting></para>
 <para>This example produces <computeroutput>82</computeroutput>, the ASCII code for <computeroutput>&quot;R&quot;</computeroutput>.</para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Using<sp/>ASC<sp/>to<sp/>check<sp/>a<sp/>keypress</highlight></codeline>
-<codeline><highlight class="normal">key$<sp/>=<sp/>INKEY$</highlight></codeline>
+<codeline><highlight class="normal">key$<sp/>=<sp/>INKEY$(&quot;&quot;)</highlight></codeline>
 <codeline><highlight class="normal">IF<sp/>key$<sp/>&gt;<sp/>&quot;&quot;<sp/>THEN</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>code<sp/>=<sp/>ASC(key$)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;You<sp/>pressed:<sp/>&quot;;<sp/>code</highlight></codeline>

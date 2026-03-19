@@ -127,6 +127,11 @@ Rules &amp; behaviour</h5>
 <li>Using <span class="tt">ENDPROC</span> outside a procedure is an error.</li>
 <li>Functions (<span class="tt">DEF FNname</span>) do <b>not</b> use <span class="tt">ENDPROC</span>; a function returns with a final line that <b>begins with <span class="tt">=</span></b>.</li>
 </ul>
+<h5 class="doxsection"><a class="anchor" id="loop-scope"></a>
+Loop scope</h5>
+<p>Loops (<span class="tt">FOR</span>, <span class="tt">WHILE</span>, <span class="tt">REPEAT</span>) are scoped to the current procedure.</p>
+<p>Any active loops created inside a <span class="tt">PROC</span> are discarded when <span class="tt">ENDPROC</span> is reached unless they have already been exited normally.</p>
+<p>If execution continues and a loop-closing statement is encountered with no matching loop, a runtime error is raised (e.g. <span class="tt">NEXT without FOR</span>).</p>
 <p><b>See also:</b> <br  />
  <a class="el" href="DEF.html">DEF</a> · <a class="el" href="PROC.html">PROC</a> · <a class="el" href="FN.html">FN</a> </p>
 </div></div><!-- contents -->

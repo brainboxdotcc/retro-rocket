@@ -127,6 +127,18 @@ Examples</h5>
 <div class="line">40 IF I &lt;= 5 THEN GOTO 20</div>
 <div class="line">50 PRINT &quot;Done&quot;</div>
 </div><!-- fragment --><hr  />
+<h5 class="doxsection"><a class="anchor" id="control-flow-behaviour"></a>
+Control-flow behaviour</h5>
+<p><span class="tt">GOTO</span> performs a direct jump and does <b>not</b> unwind or restore any control structures.</p>
+<p>This means you may jump:</p>
+<ul>
+<li>out of a loop (<span class="tt">FOR</span>, <span class="tt">WHILE</span>, <span class="tt">REPEAT</span>)</li>
+<li>into the body of a loop</li>
+<li>out of a <span class="tt">GOSUB</span> or <span class="tt">PROC</span></li>
+</ul>
+<p>Retro Rocket BASIC does not crash in these cases, but the program may later raise a runtime error if control structures no longer match the current execution state (for example, <span class="tt">NEXT without FOR</span> or <span class="tt">RETURN without GOSUB</span>).</p>
+<p>This behaviour is defined.</p>
+<hr  />
 <h5 class="doxsection"><a class="anchor" id="notes-144"></a>
 Notes</h5>
 <ul>

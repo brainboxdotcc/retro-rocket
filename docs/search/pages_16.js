@@ -33,5 +33,5 @@ var searchData=
   ['number_30',['7) A tiny project: Guess the number',['../basic-beginner.html#autotoc_md7-a-tiny-project-guess-the-number',1,'']]],
   ['number_20and_20execution_31',['Line numbering, auto-number, and execution',['../basic-intdev.html#line-numbering-auto-number-and-execution',1,'']]],
   ['numbering_20auto_20number_20and_20execution_32',['Line numbering, auto-number, and execution',['../basic-intdev.html#line-numbering-auto-number-and-execution',1,'']]],
-  ['numbers_20permitted_33',['numbers permitted',['../GOSUB.html#example-simple-subroutine-line-numbers-permitted',1,'Example: simple subroutine (line numbers permitted)'],['../RETURN.html#examples-line-numbers-permitted',1,'Examples (line numbers permitted)']]]
+  ['numbers_20permitted_33',['Example: simple subroutine (line numbers permitted)',['../GOSUB.html#example-simple-subroutine-line-numbers-permitted',1,'']]]
 ];

@@ -42,6 +42,14 @@ PROCprint_if_positive(0)
 - Using `ENDPROC` outside a procedure is an error.
 - Functions (`DEF FNname`) do **not** use `ENDPROC`; a function returns with a final line that **begins with `=`**.
 
+##### Loop scope
+
+Loops (`FOR`, `WHILE`, `REPEAT`) are scoped to the current procedure.
+
+Any active loops created inside a `PROC` are discarded when `ENDPROC` is reached unless they have already been exited normally.
+
+If execution continues and a loop-closing statement is encountered with no matching loop, a runtime error is raised (e.g. `NEXT without FOR`).
+
 **See also:**  
 \ref DEF "DEF" ·
 \ref PROC "PROC" ·

@@ -32,7 +32,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="UNTIL_1examples-175_1s1"><sect2 id="UNTIL_1examples-175_1s2"><sect3 id="UNTIL_1examples-175">
+<sect1 id="UNTIL_1examples-176_1s1"><sect2 id="UNTIL_1examples-176_1s2"><sect3 id="UNTIL_1examples-176">
 <title>Examples</title><para><bold>Count until a limit</bold> <programlisting filename=".basic"><codeline><highlight class="normal">N<sp/>=<sp/>0</highlight></codeline>
 <codeline><highlight class="normal">REPEAT</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;N<sp/>=<sp/>&quot;;<sp/>N</highlight></codeline>
@@ -49,7 +49,7 @@
 <para><bold>Wait until a key is pressed</bold> <programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;Press<sp/>any<sp/>key<sp/>to<sp/>stop.&quot;</highlight></codeline>
 <codeline><highlight class="normal">REPEAT</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>REM<sp/>do<sp/>some<sp/>periodic<sp/>work<sp/>here</highlight></codeline>
-<codeline><highlight class="normal">UNTIL<sp/>INKEY$<sp/>&lt;&gt;<sp/>&quot;&quot;</highlight></codeline>
+<codeline><highlight class="normal">UNTIL<sp/>INKEY$(&quot;&quot;)<sp/>&lt;&gt;<sp/>&quot;&quot;</highlight></codeline>
 </programlisting></para>
 <para><bold>Nested loops</bold> <programlisting filename=".basic"><codeline><highlight class="normal">Y<sp/>=<sp/>0</highlight></codeline>
 <codeline><highlight class="normal">REPEAT</highlight></codeline>

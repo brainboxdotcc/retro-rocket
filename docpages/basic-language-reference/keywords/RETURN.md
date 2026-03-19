@@ -26,7 +26,7 @@ Execution resumes at the **statement after** the `GOSUB` call.
 
 ---
 
-### Examples (line numbers permitted)
+### Examples
 
 **Simple subroutine**
 ```basic
@@ -59,6 +59,19 @@ Execution resumes at the **statement after** the `GOSUB` call.
 ```basic
 10 RETURN
 ```
+
+Here’s a concise section matching your style:
+
+### Loop scope
+
+Loops (`FOR`, `WHILE`, `REPEAT`) are scoped to the current `GOSUB`.
+
+Any active loops created inside a `GOSUB` are discarded when `RETURN` is executed unless they have already been exited normally.
+
+If execution continues and a loop-closing statement is encountered with no matching loop, a runtime error is raised (e.g. `NEXT without FOR`).
+
+This differs from BBC BASIC, where loops created inside a `GOSUB` could leak into the caller and corrupt the loop stack.
+
 
 ---
 

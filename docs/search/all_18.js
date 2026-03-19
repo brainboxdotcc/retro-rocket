@@ -29,7 +29,7 @@ var searchData=
   ['peekw_2emd_26',['PEEKW.md',['../PEEKW_8md.html',1,'']]],
   ['performance_20hints_27',['Names, keywords, and performance hints',['../basic-intdev.html#names-keywords-and-performance-hints',1,'']]],
   ['performance_20notes_28',['Performance notes',['../PLOTQUAD.html#performance-notes',1,'']]],
-  ['permitted_29',['permitted',['../GOSUB.html#example-simple-subroutine-line-numbers-permitted',1,'Example: simple subroutine (line numbers permitted)'],['../RETURN.html#examples-line-numbers-permitted',1,'Examples (line numbers permitted)']]],
+  ['permitted_29',['Example: simple subroutine (line numbers permitted)',['../GOSUB.html#example-simple-subroutine-line-numbers-permitted',1,'']]],
   ['philosophy_30',['Graphics as a case study in philosophy',['../basic-intdev.html#graphics-as-a-case-study-in-philosophy',1,'']]],
   ['phone_20call_20reliable_20conversation_31',['TCP - Like a Phone Call (reliable conversation)',['../networking.html#tcp---like-a-phone-call-reliable-conversation',1,'']]],
   ['phone_20call_20vs_20parcel_32',['Side-by-side: Phone Call vs Parcel',['../networking.html#side-by-side-phone-call-vs-parcel',1,'']]],

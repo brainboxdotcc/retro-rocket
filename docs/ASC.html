@@ -106,7 +106,7 @@ Examples</h3>
 <div class="line">PRINT ASC(C$)</div>
 </div><!-- fragment --><p>This example produces <span class="tt">82</span>, the ASCII code for <span class="tt">"R"</span>.</p>
 <div class="fragment"><div class="line">REM Using ASC to check a keypress</div>
-<div class="line">key$ = INKEY$</div>
+<div class="line">key$ = INKEY$(&quot;&quot;)</div>
 <div class="line">IF key$ &gt; &quot;&quot; THEN</div>
 <div class="line">    code = ASC(key$)</div>
 <div class="line">    PRINT &quot;You pressed: &quot;; code</div>

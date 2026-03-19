@@ -36,7 +36,7 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SOCKWRITE<sp/>client,<sp/>&quot;HELLO!&quot;<sp/>+<sp/>CHR$(13)<sp/>+<sp/>CHR$(10)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SOCKCLOSE<sp/>client</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>END<sp/>IF</highlight></codeline>
-<codeline><highlight class="normal">UNTIL<sp/>INKEY$<sp/>&lt;&gt;<sp/>&quot;&quot;</highlight></codeline>
+<codeline><highlight class="normal">UNTIL<sp/>INKEY$(&quot;&quot;)<sp/>&lt;&gt;<sp/>&quot;&quot;</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">SOCKCLOSE<sp/>server</highlight></codeline>
 </programlisting></para>

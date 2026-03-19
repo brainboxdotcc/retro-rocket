@@ -33,7 +33,7 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SOCKFLUSH<sp/>cli</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SOCKCLOSE<sp/>cli</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ENDIF</highlight></codeline>
-<codeline><highlight class="normal">UNTIL<sp/>INKEY$<sp/>&lt;&gt;<sp/>&quot;&quot;</highlight></codeline>
+<codeline><highlight class="normal">UNTIL<sp/>INKEY$(&quot;&quot;)<sp/>&lt;&gt;<sp/>&quot;&quot;</highlight></codeline>
 <codeline><highlight class="normal">SOCKCLOSE<sp/>srv</highlight></codeline>
 </programlisting></para>
 <para><hruler/>

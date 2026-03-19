@@ -28,7 +28,7 @@ var searchData=
   ['line_20entry_25',['Command line entry',['../rocketsh.html#command-line-entry',1,'']]],
   ['line_20keyword_26',['LINE Keyword',['../LINE.html',1,'keywords']]],
   ['line_20numbering_20auto_20number_20and_20execution_27',['Line numbering, auto-number, and execution',['../basic-intdev.html#line-numbering-auto-number-and-execution',1,'']]],
-  ['line_20numbers_20permitted_28',['line numbers permitted',['../GOSUB.html#example-simple-subroutine-line-numbers-permitted',1,'Example: simple subroutine (line numbers permitted)'],['../RETURN.html#examples-line-numbers-permitted',1,'Examples (line numbers permitted)']]],
+  ['line_20numbers_20permitted_28',['Example: simple subroutine (line numbers permitted)',['../GOSUB.html#example-simple-subroutine-line-numbers-permitted',1,'']]],
   ['linux_29',['Linux',['../creating-boot-media.html#linux',1,'']]],
   ['linux_20advanced_30',['Linux (advanced)',['../creating-boot-media.html#linux-advanced',1,'']]],
   ['linux_20recommended_20tools_31',['Linux (recommended tools)',['../creating-boot-media.html#linux-recommended-tools',1,'']]],
@@ -48,7 +48,8 @@ var searchData=
   ['locals_20within_20a_20definition_45',['Example: locals within a definition',['../DEF.html#example-locals-within-a-definition',1,'']]],
   ['log_20function_46',['LOG Function',['../LOG.html',1,'real-funcs']]],
   ['logo_20and_20system_20info_20scrolling_20with_20text_47',['Example: Keep a logo and system info scrolling with text',['../SCROLLREGION.html#example-keep-a-logo-and-system-info-scrolling-with-text',1,'']]],
-  ['loopback_48',['Loopback',['../glossary.html#loopback',1,'']]],
-  ['lower_24_20function_49',['LOWER$ Function',['../LOWER.html',1,'string-funcs']]],
-  ['ltrim_24_20function_50',['LTRIM$ Function',['../LTRIM.html',1,'string-funcs']]]
+  ['loop_20scope_48',['Loop scope',['../ENDPROC.html#loop-scope',1,'Loop scope'],['../RETURN.html#loop-scope-1',1,'Loop scope']]],
+  ['loopback_49',['Loopback',['../glossary.html#loopback',1,'']]],
+  ['lower_24_20function_50',['LOWER$ Function',['../LOWER.html',1,'string-funcs']]],
+  ['ltrim_24_20function_51',['LTRIM$ Function',['../LTRIM.html',1,'string-funcs']]]
 ];

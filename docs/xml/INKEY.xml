@@ -6,17 +6,22 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">A$=<sp/>INKEY$</highlight></codeline>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">A$=<sp/>INKEY$(STRING)</highlight></codeline>
 </programlisting></para>
-<para>Returns the <bold>key that has been pressed</bold> as a string. If no key has been pressed since the last call, it returns an <bold>empty string</bold>.</para>
-<para><computeroutput>INKEY$</computeroutput> consumes input from the <bold>keyboard buffer</bold>. If multiple keys have been pressed between this call and the last call to <computeroutput>INKEY$</computeroutput> (or an <computeroutput>INPUT</computeroutput> statement), it will take multiple calls to retrieve them all.</para>
+<para>INKEY$ checks for key state on the keyboard. It has two modes of operation:</para>
+<para><itemizedlist>
+<listitem><para>If the string parameter passed is an empty string, it will check if any key is waiting in the keyboard buffer, consuming it from the buffer and returning it, or returning an empty string if no key is available.</para>
+</listitem><listitem><para>If the string parameter passed in is a non-empty single-character string, it will check if that key is currently held, and will not consume it from the buffer. Because this form of the function is not consuming from the buffer you may use this form to concurrently check for multiple depressed keys at the same time. Note that you must still drain the buffer. Use a separate INKEY$(&quot;&quot;) call to drain any pending key presses so the buffer does not fill. <bold>US-ASCII values (A-Z) are considered case-insensitive</bold> in the parameter when using this form of <computeroutput>INKEY$</computeroutput>.</para>
+</listitem><listitem><para>When <computeroutput>INKEY$</computeroutput> consumes input from the <bold>keyboard buffer</bold> by using an empty parameter, if multiple keys have been pressed between this call and the last call to <computeroutput>INKEY$</computeroutput> (or an <computeroutput>INPUT</computeroutput> statement), it will take multiple calls to retrieve them all.</para>
+</listitem></itemizedlist>
+</para>
 <para><hruler/>
 </para>
 <sect1 id="INKEY_1extended-keys_1s1"><sect2 id="INKEY_1extended-keys_1s2"><sect3 id="INKEY_1extended-keys">
 <title>Extended keys</title><para>Some non-printing keys return special character codes rather than ASCII. These values can be retrieved by wrapping <computeroutput>INKEY$</computeroutput> with <computeroutput>ASC()</computeroutput>.</para>
 <para><table rows="11" cols="2"><row>
 <entry thead="yes"><para>Key  </para>
-</entry><entry thead="yes"><para><computeroutput>ASC(INKEY$)</computeroutput> value  </para>
+</entry><entry thead="yes"><para><computeroutput>ASC(INKEY$(&quot;&quot;))</computeroutput> value  </para>
 </entry></row>
 <row>
 <entry thead="no"><para>PAGEUP  </para>
@@ -67,17 +72,23 @@
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Wait<sp/>for<sp/>a<sp/>keypress</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Press<sp/>a<sp/>key...&quot;</highlight></codeline>
 <codeline><highlight class="normal">REPEAT</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>k$<sp/>=<sp/>INKEY$</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>k$<sp/>=<sp/>INKEY$(&quot;&quot;)</highlight></codeline>
 <codeline><highlight class="normal">UNTIL<sp/>k$<sp/>&gt;<sp/>&quot;&quot;</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;You<sp/>pressed:<sp/>&quot;;<sp/>k$</highlight></codeline>
 </programlisting></para>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Handle<sp/>arrow<sp/>keys</highlight></codeline>
-<codeline><highlight class="normal">k$<sp/>=<sp/>INKEY$</highlight></codeline>
+<codeline><highlight class="normal">k$<sp/>=<sp/>INKEY$(&quot;&quot;)</highlight></codeline>
 <codeline><highlight class="normal">IF<sp/>k$<sp/>&gt;<sp/>&quot;&quot;<sp/>THEN</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>code<sp/>=<sp/>ASC(k$)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>IF<sp/>code<sp/>=<sp/>250<sp/>THEN<sp/>PRINT<sp/>&quot;Up<sp/>arrow<sp/>pressed&quot;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>IF<sp/>code<sp/>=<sp/>251<sp/>THEN<sp/>PRINT<sp/>&quot;Down<sp/>arrow<sp/>pressed&quot;</highlight></codeline>
 <codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>multiple<sp/>key<sp/>example</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Press<sp/>both<sp/>A<sp/>and<sp/>Z<sp/>together<sp/>to<sp/>exit&quot;</highlight></codeline>
+<codeline><highlight class="normal">REPEAT</highlight></codeline>
+<codeline><highlight class="normal">UNTIL<sp/>INKEY$(&quot;A&quot;)<sp/>&lt;&gt;<sp/>&quot;&quot;<sp/>AND<sp/>INKEY$(&quot;Z&quot;)<sp/>&lt;&gt;<sp/>&quot;&quot;</highlight></codeline>
+<codeline><highlight class="normal">END</highlight></codeline>
 </programlisting></para>
 <para><hruler/>
 </para>
@@ -86,7 +97,8 @@
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Printable characters return their usual ASCII values (e.g. <computeroutput>&quot;A&quot;</computeroutput> → 65).</para>
 </listitem><listitem><para>Extended keys must be checked via <computeroutput>ASC()</computeroutput>.</para>
-</listitem><listitem><para>If no key is pressed, result is <computeroutput>&quot;&quot;</computeroutput> (empty string).</para>
+</listitem><listitem><para>If no key is pressed, the result is <computeroutput>&quot;&quot;</computeroutput> (empty string).</para>
+</listitem><listitem><para>If the parameter to <computeroutput>INKEY$</computeroutput> contains more than one character, any characters except the first are ignored.</para>
 </listitem></itemizedlist>
 </para>
 <para><hruler/>

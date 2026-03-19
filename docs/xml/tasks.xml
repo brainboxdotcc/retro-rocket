@@ -32,7 +32,7 @@
 <title>What not to do in a task</title><para>Because tasks run without a console of their own:</para>
 <para><itemizedlist>
 <listitem><para><bold>Do not print to the console</bold> (<computeroutput>PRINT</computeroutput>, <computeroutput>CLS</computeroutput>, <computeroutput>CURSOR</computeroutput>, etc.). This will disrupt whatever foreground program is running.</para>
-</listitem><listitem><para><bold>Do not assume interactive input.</bold> Tasks should never call <computeroutput>INKEY$</computeroutput>, <computeroutput>INPUT</computeroutput>, or similar.</para>
+</listitem><listitem><para><bold>Do not assume interactive input.</bold> Tasks should never call <computeroutput>INKEY$(&quot;&quot;)</computeroutput>, <computeroutput>INPUT</computeroutput>, or similar.</para>
 </listitem><listitem><para><bold>Avoid blocking calls</bold> that wait forever on user input. Tasks should loop, sleep, or use nonblocking calls appropriately.</para>
 </listitem><listitem><para><bold>Keep state contained.</bold> Do not overwrite global variables that other programs might depend on.</para>
 </listitem><listitem><para><bold>Be polite.</bold> Use background loops that do real work but do not starve the system by calling busy FNs (e.g. poll at a reasonable interval rather than spinning as fast as possible).</para>

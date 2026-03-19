@@ -40,6 +40,23 @@ Transfers control unconditionally to the line with the given **constant line num
 
 ---
 
+##### Control-flow behaviour
+
+`GOTO` performs a direct jump and does **not** unwind or restore any control structures.
+
+This means you may jump:
+
+* out of a loop (`FOR`, `WHILE`, `REPEAT`)
+* into the body of a loop
+* out of a `GOSUB` or `PROC`
+
+Retro Rocket BASIC does not crash in these cases, but the program may later raise a runtime error if
+control structures no longer match the current execution state (for example, `NEXT without FOR` or `RETURN without GOSUB`).
+
+This behaviour is defined.
+
+---
+
 ##### Notes
 - Jumping to a non-existent line raises a runtime error.
 - Heavy use of `GOTO` quickly reduces readability; use it only for compatibility with legacy code.
