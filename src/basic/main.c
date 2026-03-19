@@ -105,25 +105,23 @@ char *clean_basic(const char *program, char *output_buffer) {
 		} else if (*p == '(' && !in_quotes) {
 			bracket_depth++;
 		} else if (*p == ')' && !in_quotes) {
-			bracket_depth--;
+			if (bracket_depth > 0) {
+				bracket_depth--;
+			}
 		} else if (*p == '\'' && bracket_depth == 0 && !in_quotes) {
 			/* If we see ' then skip it and anything after it to the end of the line or end of program */
 			while (*p && *p != '\r' && *p != '\n') {
 				p++;
 			}
+			continue;
 		} else if (*p == '\t') {
 			*d++ = ' ';
 			p++;
+			continue;
 		}
-		if (!in_quotes && bracket_depth > 0) {
-			if (*p != ' ') {
-				*d++ = *p++;
-			} else {
-				p++;
-			}
-		} else {
-			*d++ = *p++;
-		}
+
+		*d++ = *p++;
+
 		/* Remove extra newlines */
 		if (*(p - 1) == '\n' || *(p - 1) == '\r') {
 			while (*p == '\r' || *p == '\n') {

@@ -75,6 +75,12 @@ static up_value up_factor(struct basic_ctx *ctx);
 static up_value up_factor(struct basic_ctx *ctx) {
 	enum token_t tok = tokenizer_token(ctx);
 
+	/* Skip space */
+	while (tok == NO_TOKEN) {
+		tokenizer_next(ctx);
+		tok = tokenizer_token(ctx);
+	}
+
 	switch (tok) {
 		case NUMBER: {
 			/* Distinguish 123 vs 1.23 by peeking a dot in the lexeme. */
