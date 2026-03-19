@@ -90,10 +90,19 @@ void varmap_elfree_string(const void *item, void *udata) {
 	buddy_free(a, v->varname);
 	buddy_free(a, v->value);
 }
-
+/**
+ * Normalise BASIC source before parsing.
+ *
+ * Converts all line endings to '\n', collapses repeated newlines,
+ * strips single-quote comments outside quoted strings, and replaces
+ * tabs with spaces. The output is always null-terminated.
+ *
+ * @param program Null-terminated input BASIC source
+ * @param output_buffer Destination buffer for normalised output
+ * @return Pointer to output_buffer
+ */
 char *clean_basic(const char *program, char *output_buffer) {
 	bool in_quotes = false;
-	uint16_t bracket_depth = 0;
 	const char *p = program;
 	char *d = output_buffer;
 	while (*p) {
@@ -102,13 +111,7 @@ char *clean_basic(const char *program, char *output_buffer) {
 		}
 		if (*p == '"') {
 			in_quotes = !in_quotes;
-		} else if (*p == '(' && !in_quotes) {
-			bracket_depth++;
-		} else if (*p == ')' && !in_quotes) {
-			if (bracket_depth > 0) {
-				bracket_depth--;
-			}
-		} else if (*p == '\'' && bracket_depth == 0 && !in_quotes) {
+		} else if (*p == '\'' && !in_quotes) {
 			/* If we see ' then skip it and anything after it to the end of the line or end of program */
 			while (*p && *p != '\r' && *p != '\n') {
 				p++;
