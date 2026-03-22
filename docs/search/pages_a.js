@@ -19,7 +19,7 @@ var searchData=
   ['abi_16',['Module ABI',['../modules.html#module-abi',1,'']]],
   ['about_20command_17',['about command',['../about.html',1,'commands']]],
   ['about_20it_18',['How to think about it',['../UNTIL.html#how-to-think-about-it',1,'']]],
-  ['about_20rocketsh_19',['More about rocketsh',['../shell.html#more-about-rocketsh',1,'']]],
+  ['about_20rocketsh_19',['More about rocketsh',['../desktop-shell.html#more-about-rocketsh',1,'']]],
   ['abs_20function_20',['ABS Function',['../ABS.html',1,'int-funcs']]],
   ['access_21',['Response access',['../http.html#response-access',1,'']]],
   ['accessing_20elements_22',['Accessing elements',['../type-array.html#accessing-elements',1,'']]],

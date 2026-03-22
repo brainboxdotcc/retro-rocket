@@ -7,7 +7,7 @@ Welcome to Retro Rocket! This guide is for everyone who wants to use the system,
 - \subpage creating-boot-media
 - \subpage getting-started
 - \subpage installation
-- \subpage shell
+- \subpage desktop-shell
 - \subpage file-system
 - \subpage commands
 - \subpage working-with-programs

@@ -61,7 +61,7 @@ var searchData=
   ['modules_2emd_58',['MODULES.md',['../MODULES_8md.html',1,'']]],
   ['month_20function_59',['MONTH Function',['../MONTH.html',1,'int-funcs']]],
   ['month_2emd_60',['MONTH.md',['../MONTH_8md.html',1,'']]],
-  ['more_20about_20rocketsh_61',['More about rocketsh',['../shell.html#more-about-rocketsh',1,'']]],
+  ['more_20about_20rocketsh_61',['More about rocketsh',['../desktop-shell.html#more-about-rocketsh',1,'']]],
   ['mount_62',['Mount',['../glossary.html#mount',1,'']]],
   ['mount_20command_63',['mount command',['../mount-command.html',1,'commands']]],
   ['mount_20directory_20storage_20device_20name_20filesystem_20type_64',['mount [directory] [storage-device-name] [filesystem-type]',['../mount-command.html#mount-directory-storage-device-name-filesystem-type',1,'']]],
@@ -75,7 +75,8 @@ var searchData=
   ['mousetest_2emd_72',['mousetest.md',['../mousetest_8md.html',1,'']]],
   ['moving_20around_73',['Moving around',['../edit.html#moving-around',1,'']]],
   ['mp3_20file_74',['Play an MP3 file',['../audio-basics.html#play-an-mp3-file',1,'']]],
-  ['musicdemo_20command_75',['musicdemo command',['../musicdemo.html',1,'commands']]],
-  ['musicdemo_2emd_76',['musicdemo.md',['../musicdemo_8md.html',1,'']]],
-  ['my_20work_20disappeared_20after_20reboot_77',['My work disappeared after reboot',['../troubleshooting.html#my-work-disappeared-after-reboot',1,'']]]
+  ['multi_20line_20program_20entry_75',['Multi-line program entry',['../rocketsh.html#multi-line-program-entry',1,'']]],
+  ['musicdemo_20command_76',['musicdemo command',['../musicdemo.html',1,'commands']]],
+  ['musicdemo_2emd_77',['musicdemo.md',['../musicdemo_8md.html',1,'']]],
+  ['my_20work_20disappeared_20after_20reboot_78',['My work disappeared after reboot',['../troubleshooting.html#my-work-disappeared-after-reboot',1,'']]]
 ];

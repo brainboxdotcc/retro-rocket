@@ -1,4 +1,4 @@
-\page shell The Shell
+\page desktop-shell The Shell
 
 When Retro Rocket finishes booting you arrive at the **command shell** (called `rocketsh`).
 This is a text-based interface where you type commands at a prompt:

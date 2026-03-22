@@ -7,7 +7,7 @@ It is launched by `init` at boot and is always available at the system prompt.
 
 This page describes `rocketsh` in detail. For a simple overview of using the shell, see @ref desktop-and-shell "The Shell" in the User Guide.
 
-#### Command line entry
+### Command line entry
 
 The `rocketsh` shell supports command line editing. You may use the cursor `LEFT` and `RIGHT` keys plus `HOME` and `END` to navigate in the current line and edit it, inserting into the line if neccessary.
 
@@ -19,54 +19,101 @@ Pressing `ESC` will abort the current line entry, clearing its contents and adva
 
 These interactive line editing facilities are also available to any other BASIC programs via the `ansi` library.
 
-#### Rocket Shell Commands
+### Rocket Shell Commands
 
 The `rocketsh` shell supports two forms of input; firstly any command you type is searched for as a program under the `/programs` directory. If it can be found it is executed. The path under which `rocketsh` searches for programs to run can be changed, as shown below.
 
 If no matching program can be found, the line is passed to \ref EVAL "EVAL" instead and any changes to the program state will be inherited by `rocketsh`, including documented variables below.
 
-#### Stopping running programs
+### BASIC execution
 
-Any running program may be stopped by pressing CTRL+ESC at any time. This will raise an error in the program and if it does not trap the error, it will be ended. Errors of this nature in `rocketsh` are gracefully handled, and will end entry of the current command line.
+Any line entered at the prompt which is not resolved to a program is executed using \ref EVAL "EVAL".
 
-#### Shell Variables
+This means the shell accepts full BASIC syntax directly at the prompt, including:
 
-The `rocketsh` shell has several documented variables, which can be set via the command prompt. These are:
+- Variable assignment
+- Expressions
+- Procedure and function calls
+- Control flow (via multi-line entry)
 
-##### PROMPT$
-
-Change `PROMPT$` to change the shell prompt from the default of `ROCKETSH` to the specified value. ANSI escape sequences are supported. You can use `CHR$(27)` to insert the escape chracter:
+All built-in BASIC keywords, operators, and functions are available exactly as they are within a BASIC program.
 
 ```basic
-PROMPT$ = CHR$(27) + "[31mRED PROMPT" + CHR$(27) + "[37m"
+A = 10
+PRINT A * 2
+PROCdemo
 ```
 
-and this will set the shell prompt to dark red:
+Single-line input executes in the current shell context.
 
-\image html redprompt.png
+Multi-line input (see below) executes as an anonymous child program.
 
-##### PATH$
+Changes made by single-line execution persist in the shell environment.
 
-The directory to search in for programs ran at the command prompt. It defaults to `/programs`.
+### Multi-line program entry
 
-```BASIC
-PATH$ = "/harddisk/progs"
+`rocketsh` supports entering and executing multi-line BASIC programs directly at the prompt.
+
+- Enter `[` on a new line to begin multi-line entry mode.
+- The prompt will change to numbered lines (**1**, **2**, **3**, ...).
+- Enter BASIC statements line by line.
+- Enter `]` on a new line to execute the program.
+- To abort entering a multi-line program without running it, press ESC
+- You can use cursor keys to edit and recall previous lines
+- Each line you enter becomes part of the rocketsh command history
+
+\image html repl-entry.png
+
+The entered lines are combined and executed using \ref EVAL "EVAL" as an anonymous program.
+
+### Built-in commands
+
+#### cd / chdir
+
+Change the current working directory.
+
+```basic
+cd /harddisk
+chdir subdir
 ```
 
-##### GLOBAL LIB$
+* Use `/` at the start to go to an absolute location.
+* Without `/`, the path is taken relative to your current location.
 
-The `GLOBAL` variable LIB$ is the path that programs will use to load libraries from within BASIC. It defaults to `/programs/libraries` and is set from within `/programs/init` and passed down to `rocketsh`.
+#### up
 
-You must remember the `GLOBAL` prefix if you wish for this value to be inherited by BASIC programs.
+Move to the parent directory (one level up).
 
-```BASIC
-GLOBAL LIB$ = "/harddisk/progs/lib"
+```basic
+up
 ```
 
-##### EDhist$(x)
+For example, if you are in `/programs/tools`, `up` will take you to `/programs`.
 
-Returns a value from the edit history. Each time a line is typed into `rocketsh` it is stored into the edit history, with the most recent line stored at array index 0.
+#### run
 
-#### EDhistPtr
+Run a program from the directory set in `PATH$`.
 
-Returns the last array index in the edit history array which contains valid data.
+```basic
+run myprog
+```
+
+This runs the program named `myprog` from the current program search path.
+
+#### task
+
+Run a program from `PATH$` in the background.
+
+```basic
+task myprog
+```
+
+The program starts and runs independently, allowing you to continue using the shell.
+
+#### version
+
+Display version and copyright information for the shell.
+
+```basic
+version
+```

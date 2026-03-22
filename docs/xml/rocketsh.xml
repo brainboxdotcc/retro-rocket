@@ -10,48 +10,88 @@
 <para><image type="html" name="rocketsh.png"></image>
 </para>
 <para>This page describes <computeroutput>rocketsh</computeroutput> in detail. For a simple overview of using the shell, see The Shell in the User Guide.</para>
-<sect1 id="rocketsh_1command-line-entry_1s1"><sect2 id="rocketsh_1command-line-entry_1s2"><sect3 id="rocketsh_1command-line-entry_1s3"><sect4 id="rocketsh_1command-line-entry">
+<sect1 id="rocketsh_1command-line-entry_1s1"><sect2 id="rocketsh_1command-line-entry_1s2"><sect3 id="rocketsh_1command-line-entry">
 <title>Command line entry</title><para>The <computeroutput>rocketsh</computeroutput> shell supports command line editing. You may use the cursor <computeroutput>LEFT</computeroutput> and <computeroutput>RIGHT</computeroutput> keys plus <computeroutput>HOME</computeroutput> and <computeroutput>END</computeroutput> to navigate in the current line and edit it, inserting into the line if neccessary.</para>
 <para>Alternately, you can use the cursor <computeroutput>UP</computeroutput> and <computeroutput>DOWN</computeroutput> keys to move through the history of recently entered commands. If you edit one of these commands or send it, it will be inserted into the history again as the latest command.</para>
 <para>The history buffer will grow as needed to accomodate as many history items as you enter.</para>
 <para>Pressing <computeroutput>ESC</computeroutput> will abort the current line entry, clearing its contents and advancing down to the line below.</para>
 <para>These interactive line editing facilities are also available to any other BASIC programs via the <computeroutput>ansi</computeroutput> library.</para>
-</sect4></sect3></sect2></sect1>
-<sect1 id="rocketsh_1rocket-shell-commands_1s1"><sect2 id="rocketsh_1rocket-shell-commands_1s2"><sect3 id="rocketsh_1rocket-shell-commands_1s3"><sect4 id="rocketsh_1rocket-shell-commands">
+</sect3></sect2></sect1>
+<sect1 id="rocketsh_1rocket-shell-commands_1s1"><sect2 id="rocketsh_1rocket-shell-commands_1s2"><sect3 id="rocketsh_1rocket-shell-commands">
 <title>Rocket Shell Commands</title><para>The <computeroutput>rocketsh</computeroutput> shell supports two forms of input; firstly any command you type is searched for as a program under the <computeroutput>/programs</computeroutput> directory. If it can be found it is executed. The path under which <computeroutput>rocketsh</computeroutput> searches for programs to run can be changed, as shown below.</para>
 <para>If no matching program can be found, the line is passed to <ref refid="EVAL" kindref="compound">EVAL</ref> instead and any changes to the program state will be inherited by <computeroutput>rocketsh</computeroutput>, including documented variables below.</para>
-</sect4></sect3></sect2></sect1>
-<sect1 id="rocketsh_1stopping-running-programs_1s1"><sect2 id="rocketsh_1stopping-running-programs_1s2"><sect3 id="rocketsh_1stopping-running-programs_1s3"><sect4 id="rocketsh_1stopping-running-programs">
-<title>Stopping running programs</title><para>Any running program may be stopped by pressing CTRL+ESC at any time. This will raise an error in the program and if it does not trap the error, it will be ended. Errors of this nature in <computeroutput>rocketsh</computeroutput> are gracefully handled, and will end entry of the current command line.</para>
-</sect4></sect3></sect2></sect1>
-<sect1 id="rocketsh_1shell-variables_1s1"><sect2 id="rocketsh_1shell-variables_1s2"><sect3 id="rocketsh_1shell-variables_1s3"><sect4 id="rocketsh_1shell-variables">
-<title>Shell Variables</title><para>The <computeroutput>rocketsh</computeroutput> shell has several documented variables, which can be set via the command prompt. These are:</para>
-<sect5 id="rocketsh_1prompt">
-<title>PROMPT$</title><para>Change <computeroutput>PROMPT$</computeroutput> to change the shell prompt from the default of <computeroutput>ROCKETSH</computeroutput> to the specified value. ANSI escape sequences are supported. You can use <computeroutput>CHR$(27)</computeroutput> to insert the escape chracter:</para>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">PROMPT$<sp/>=<sp/>CHR$(27)<sp/>+<sp/>&quot;[31mRED<sp/>PROMPT&quot;<sp/>+<sp/>CHR$(27)<sp/>+<sp/>&quot;[37m&quot;</highlight></codeline>
-</programlisting></para>
-<para>and this will set the shell prompt to dark red:</para>
-<para><image type="html" name="redprompt.png"></image>
+</sect3></sect2></sect1>
+<sect1 id="rocketsh_1basic-execution_1s1"><sect2 id="rocketsh_1basic-execution_1s2"><sect3 id="rocketsh_1basic-execution">
+<title>BASIC execution</title><para>Any line entered at the prompt which is not resolved to a program is executed using <ref refid="EVAL" kindref="compound">EVAL</ref>.</para>
+<para>This means the shell accepts full BASIC syntax directly at the prompt, including:</para>
+<para><itemizedlist>
+<listitem><para>Variable assignment</para>
+</listitem><listitem><para>Expressions</para>
+</listitem><listitem><para>Procedure and function calls</para>
+</listitem><listitem><para>Control flow (via multi-line entry)</para>
+</listitem></itemizedlist>
 </para>
-</sect5>
-<sect5 id="rocketsh_1path">
-<title>PATH$</title><para>The directory to search in for programs ran at the command prompt. It defaults to <computeroutput>/programs</computeroutput>.</para>
-<para><programlisting filename=".BASIC"><codeline><highlight class="normal">PATH$<sp/>=<sp/>&quot;/harddisk/progs&quot;</highlight></codeline>
+<para>All built-in BASIC keywords, operators, and functions are available exactly as they are within a BASIC program.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">A<sp/>=<sp/>10</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>A<sp/>*<sp/>2</highlight></codeline>
+<codeline><highlight class="normal">PROCdemo</highlight></codeline>
 </programlisting></para>
-</sect5>
-<sect5 id="rocketsh_1global-lib">
-<title>GLOBAL LIB$</title><para>The <computeroutput>GLOBAL</computeroutput> variable LIB$ is the path that programs will use to load libraries from within BASIC. It defaults to <computeroutput>/programs/libraries</computeroutput> and is set from within <computeroutput>/programs/init</computeroutput> and passed down to <computeroutput>rocketsh</computeroutput>.</para>
-<para>You must remember the <computeroutput>GLOBAL</computeroutput> prefix if you wish for this value to be inherited by BASIC programs.</para>
-<para><programlisting filename=".BASIC"><codeline><highlight class="normal">GLOBAL<sp/>LIB$<sp/>=<sp/>&quot;/harddisk/progs/lib&quot;</highlight></codeline>
+<para>Single-line input executes in the current shell context.</para>
+<para>Multi-line input (see below) executes as an anonymous child program.</para>
+<para>Changes made by single-line execution persist in the shell environment.</para>
+</sect3></sect2></sect1>
+<sect1 id="rocketsh_1multi-line-program-entry_1s1"><sect2 id="rocketsh_1multi-line-program-entry_1s2"><sect3 id="rocketsh_1multi-line-program-entry">
+<title>Multi-line program entry</title><para><computeroutput>rocketsh</computeroutput> supports entering and executing multi-line BASIC programs directly at the prompt.</para>
+<para><itemizedlist>
+<listitem><para>Enter <computeroutput>[</computeroutput> on a new line to begin multi-line entry mode.</para>
+</listitem><listitem><para>The prompt will change to numbered lines (<bold>1</bold>, <bold>2</bold>, <bold>3</bold>, ...).</para>
+</listitem><listitem><para>Enter BASIC statements line by line.</para>
+</listitem><listitem><para>Enter <computeroutput>]</computeroutput> on a new line to execute the program.</para>
+</listitem><listitem><para>To abort entering a multi-line program without running it, press ESC</para>
+</listitem><listitem><para>You can use cursor keys to edit and recall previous lines</para>
+</listitem><listitem><para>Each line you enter becomes part of the rocketsh command history</para>
+</listitem></itemizedlist>
+</para>
+<para><image type="html" name="repl-entry.png"></image>
+</para>
+<para>The entered lines are combined and executed using <ref refid="EVAL" kindref="compound">EVAL</ref> as an anonymous program.</para>
+</sect3></sect2></sect1>
+<sect1 id="rocketsh_1built-in-commands_1s1"><sect2 id="rocketsh_1built-in-commands_1s2"><sect3 id="rocketsh_1built-in-commands">
+<title>Built-in commands</title><sect4 id="rocketsh_1cd--chdir">
+<title>cd / chdir</title><para>Change the current working directory.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">cd<sp/>/harddisk</highlight></codeline>
+<codeline><highlight class="normal">chdir<sp/>subdir</highlight></codeline>
 </programlisting></para>
-</sect5>
-<sect5 id="rocketsh_1edhistx">
-<title>EDhist$(x)</title><para>Returns a value from the edit history. Each time a line is typed into <computeroutput>rocketsh</computeroutput> it is stored into the edit history, with the most recent line stored at array index 0.</para>
-</sect5>
-</sect4></sect3></sect2></sect1>
-<sect1 id="rocketsh_1edhistptr_1s1"><sect2 id="rocketsh_1edhistptr_1s2"><sect3 id="rocketsh_1edhistptr_1s3"><sect4 id="rocketsh_1edhistptr">
-<title>EDhistPtr</title><para>Returns the last array index in the edit history array which contains valid data. </para>
-</sect4></sect3></sect2></sect1>
+<para><itemizedlist>
+<listitem><para>Use <computeroutput>/</computeroutput> at the start to go to an absolute location.</para>
+</listitem><listitem><para>Without <computeroutput>/</computeroutput>, the path is taken relative to your current location.</para>
+</listitem></itemizedlist>
+</para>
+</sect4>
+<sect4 id="rocketsh_1up">
+<title>up</title><para>Move to the parent directory (one level up).</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">up</highlight></codeline>
+</programlisting></para>
+<para>For example, if you are in <computeroutput>/programs/tools</computeroutput>, <computeroutput>up</computeroutput> will take you to <computeroutput>/programs</computeroutput>.</para>
+</sect4>
+<sect4 id="rocketsh_1run">
+<title>run</title><para>Run a program from the directory set in <computeroutput>PATH$</computeroutput>.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">run<sp/>myprog</highlight></codeline>
+</programlisting></para>
+<para>This runs the program named <computeroutput>myprog</computeroutput> from the current program search path.</para>
+</sect4>
+<sect4 id="rocketsh_1task">
+<title>task</title><para>Run a program from <computeroutput>PATH$</computeroutput> in the background.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">task<sp/>myprog</highlight></codeline>
+</programlisting></para>
+<para>The program starts and runs independently, allowing you to continue using the shell.</para>
+</sect4>
+<sect4 id="rocketsh_1version">
+<title>version</title><para>Display version and copyright information for the shell.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">version</highlight></codeline>
+</programlisting> </para>
+</sect4>
+</sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/user-guide/commands/rocketsh.md"/>
   </compounddef>

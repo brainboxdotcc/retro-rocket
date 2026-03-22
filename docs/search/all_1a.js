@@ -97,7 +97,7 @@ var searchData=
   ['rocket_20os_94',['Retro Rocket OS',['../index.html',1,'']]],
   ['rocket_20shell_20commands_95',['Rocket Shell Commands',['../rocketsh.html#rocket-shell-commands',1,'']]],
   ['rocket_20system_20requirements_96',['Retro Rocket System Requirements',['../system-requirements.html',1,'user-guide']]],
-  ['rocketsh_97',['More about rocketsh',['../shell.html#more-about-rocketsh',1,'']]],
+  ['rocketsh_97',['More about rocketsh',['../desktop-shell.html#more-about-rocketsh',1,'']]],
   ['rocketsh_20command_20shell_98',['rocketsh Command (Shell)',['../rocketsh.html',1,'commands']]],
   ['rocketsh_2emd_99',['rocketsh.md',['../rocketsh_8md.html',1,'']]],
   ['round_20function_100',['ROUND Function',['../ROUND.html',1,'real-funcs']]],
@@ -107,8 +107,7 @@ var searchData=
   ['rtrim_2emd_104',['RTRIM.md',['../RTRIM_8md.html',1,'']]],
   ['rules_20and_20behaviour_105',['Rules and behaviour',['../DEF.html#rules-and-behaviour',1,'']]],
   ['rules_20behaviour_106',['Rules behaviour',['../ELSE.html#rules--behaviour',1,'Rules &amp; behaviour'],['../ENDPROC.html#rules--behaviour-1',1,'Rules &amp; behaviour']]],
-  ['run_107',['Programs won’t run',['../troubleshooting.html#programs-wont-run',1,'']]],
+  ['run_107',['run',['../troubleshooting.html#programs-wont-run',1,'Programs won’t run'],['../rocketsh.html#run',1,'run']]],
   ['running_20programs_108',['Running programs',['../working-with-programs.html#running-programs',1,'']]],
-  ['running_20programs_109',['Stopping running programs',['../rocketsh.html#stopping-running-programs',1,'']]],
-  ['runtime_3a_20statements_20yield_110',['Cooperative runtime: statements yield',['../basic-intdev.html#cooperative-runtime-statements-yield',1,'']]]
+  ['runtime_3a_20statements_20yield_109',['Cooperative runtime: statements yield',['../basic-intdev.html#cooperative-runtime-statements-yield',1,'']]]
 ];

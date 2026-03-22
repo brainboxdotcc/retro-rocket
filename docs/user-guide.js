@@ -5,7 +5,7 @@ var user_guide =
     [ "Creating Boot Media", "creating-boot-media.html", null ],
     [ "Getting Started", "getting-started.html", null ],
     [ "Installation", "installation.html", null ],
-    [ "The Shell", "shell.html", null ],
+    [ "The Shell", "desktop-shell.html", null ],
     [ "File System", "file-system.html", null ],
     [ "Commands", "commands.html", "commands" ],
     [ "Working with Programs", "working-with-programs.html", null ],
