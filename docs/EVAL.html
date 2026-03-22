@@ -96,44 +96,47 @@ $(function(){initNavTree('EVAL.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">EVAL string-expression</div>
-</div><!-- fragment --><p>Executes a <b>single complete line of BASIC</b> supplied in <span class="tt">string-expression</span> in the <b>current program's context</b>.</p>
-<ul>
-<li>The string must form <b>one valid statement line</b> (for example <span class="tt">PRINT "Hello"</span>, <span class="tt">X = 10</span>, <span class="tt">PROCdemo</span>).</li>
-<li>On <b>error</b>, <span class="tt">ERR$</span> is set to the error message and <span class="tt">ERR</span> is set to <span class="tt">1</span>. Execution then continues at the statement after <span class="tt">EVAL</span>.</li>
-<li><b>Recursive EVAL is not permitted</b> (code running under <span class="tt">EVAL</span> may not call <span class="tt">EVAL</span> again).</li>
-</ul>
-<dl class="section remark"><dt>Remarks</dt><dd>If you need a literal double quote inside the evaluated line, insert it using <span class="tt">CHR$(34)</span>. </dd>
-<dd>
-For example: <span class="tt">EVAL "PRINT " + CHR$(34) + "Hello" + CHR$(34)</span>.</dd></dl>
+<div class="line">````</div>
+<div class="line"> </div>
+<div class="line">Executes BASIC code supplied in `string-expression`.</div>
+<div class="line"> </div>
+<div class="line">* If the string contains a **single line**, it is executed in the **current program&#39;s context**.</div>
+<div class="line">* If the string contains **multiple lines**, it is executed as an **anonymous child program** in a new process context.</div>
+<div class="line"> </div>
+<div class="line">On **error**, `ERR$` is set to the error message and `ERR` is set to `1`. Execution then continues at the statement after `EVAL`.</div>
+<div class="line"> </div>
+<div class="line">* Recursive **single-line EVAL** is not permitted.</div>
+<div class="line"> </div>
+<div class="line">\remark If you need a literal double quote inside the evaluated line, insert it using `CHR$(34)`.</div>
+<div class="line">\remark For example: `EVAL &quot;PRINT &quot; + CHR$(34) + &quot;Hello&quot; + CHR$(34)`.</div>
+<div class="line"> </div>
+<div class="line">---</div>
+<div class="line"> </div>
+<div class="line">### Examples</div>
+<div class="line"> </div>
+<div class="line">**Print from a generated line (single-line)**</div>
+</div><!-- fragment --><p> basic EVAL "PRINT " + CHR$(34) + "Hello from EVAL!" + CHR$(34) </p><div class="fragment"><div class="line">**Set a variable dynamically**</div>
+</div><!-- fragment --><p> basic NAME$ = "COUNT" EVAL NAME$ + " = 42" PRINT COUNT </p><div class="fragment"><div class="line">**Call a procedure**</div>
+</div><!-- fragment --><p> basic DEF PROCgreet PRINT "Greetings" ENDPROC</p>
+<p>EVAL "PROCgreet" </p><div class="fragment"><div class="line">**Multi-line anonymous program**</div>
+</div><!-- fragment --><p> basic EVAL "A=1" + CHR$(10) + "PRINT A" </p><div class="fragment"><div class="line">**Using GLOBAL variables in multi-line EVAL**</div>
+</div><!-- fragment --><p> basic GLOBAL A A = 5</p>
+<p>EVAL "PRINT A" </p><div class="fragment"><div class="line">**Error handling (ERR/ERR$ set, program continues)**</div>
+</div><!-- fragment --><p> basic ERR = 0 ERR$ = ""</p>
+<p>EVAL "A = 1/0"</p>
+<p>IF ERR &lt;&gt; 0 THEN PRINT "EVAL failed: "; ERR$ ENDIF ```</p>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-128"></a>
-Examples</h3>
-<p><b>Print from a generated line</b> </p><div class="fragment"><div class="line">EVAL &quot;PRINT &quot; + CHR$(34) + &quot;Hello from EVAL!&quot; + CHR$(34)</div>
-</div><!-- fragment --><p><b>Set a variable dynamically</b> </p><div class="fragment"><div class="line">NAME$ = &quot;COUNT&quot;</div>
-<div class="line">EVAL NAME$ + &quot; = 42&quot;</div>
-<div class="line">PRINT COUNT</div>
-</div><!-- fragment --><p><b>Call a procedure</b> </p><div class="fragment"><div class="line">DEF PROCgreet</div>
-<div class="line">    PRINT &quot;Greetings&quot;</div>
-<div class="line">ENDPROC</div>
-<div class="line"> </div>
-<div class="line">EVAL &quot;PROCgreet&quot;</div>
-</div><!-- fragment --><p><b>Error handling (ERR/ERR$ set, program continues)</b> </p><div class="fragment"><div class="line">ERR = 0</div>
-<div class="line">ERR$ = &quot;&quot;</div>
-<div class="line"> </div>
-<div class="line">EVAL &quot;A = 1/0&quot;</div>
-<div class="line"> </div>
-<div class="line">IF ERR &lt;&gt; 0 THEN</div>
-<div class="line">    PRINT &quot;EVAL failed: &quot;; ERR$</div>
-<div class="line">ENDIF</div>
-</div><!-- fragment --><hr  />
 <h3 class="doxsection"><a class="anchor" id="notes-139"></a>
 Notes</h3>
 <ul>
-<li>Provide <b>exactly one</b> statement; statement separators are not supported.</li>
-<li>The evaluated line runs with access to the program's current variables, procedures, and functions.</li>
-<li>Use <span class="tt">EVAL</span> for small, dynamic actions. For larger logic, write normal procedures/functions and call them directly.</li>
+<li>A <b>single-line</b> EVAL executes in the current context and has access to all variables, procedures, and functions.</li>
+<li>A <b>multi-line</b> EVAL runs as an anonymous child program.</li>
+<li>Anonymous child programs inherit <span class="tt">GLOBAL</span> variables from the parent.</li>
+<li>Single-line EVAL executes via a temporary injected line; therefore, recursive single-line EVAL is not permitted.</li>
+<li>Provide <b>exactly one statement</b> when using single-line EVAL; statement separators are not supported.</li>
+<li>Use EVAL for dynamic or generated code. For larger logic, prefer normal procedures or separate programs.</li>
 </ul>
-<p><b>See also:</b> <a class="el" href="DEF.html">DEF</a>, <a class="el" href="PROC.html">PROC</a>, <a class="el" href="FN.html">FN</a>, <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/Builtin-Variables"><span class="tt">ERR</span>/<span class="tt">ERR$</span></a> </p>
+<p><b>See also:</b> <a class="el" href="DEF.html">DEF</a>, <a class="el" href="PROC.html">PROC</a>, <a class="el" href="FN.html">FN</a>, <span class="tt">ERR</span>, <span class="tt">ERR$</span> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

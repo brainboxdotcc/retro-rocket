@@ -315,3 +315,5 @@ void proc_queue_dpc(dpc_t handler);
  * @param cpu Logical CPU identifier of the caller.
  */
 void run_idles(uint8_t cpu);
+
+process_t* proc_load_anonymous(const char* source, pid_t parent_pid, const char* csd);

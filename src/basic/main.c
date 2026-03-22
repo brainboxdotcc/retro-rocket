@@ -671,10 +671,105 @@ bool basic_in_eval(struct basic_ctx *ctx) {
 	return (ctx->current_linenum == EVAL_LINE);
 }
 
-void eval_statement(struct basic_ctx *ctx) {
+static bool eval_is_multiline(const char *s)
+{
+	if (!s) {
+		return false;
+	}
+
+	while (*s) {
+		if (*s == '\n' || *s == '\r') {
+			return true;
+		}
+		s++;
+	}
+
+	return false;
+}
+
+void eval_statement(struct basic_ctx *ctx)
+{
 	accept_or_return(EVAL, ctx);
 	const char *v = str_expr(ctx);
 	accept_or_return(NEWLINE, ctx);
+
+	char clean_v[MAX_STRINGLEN];
+	clean_basic(v, clean_v);
+
+	if (strlen(clean_v) == 23 && gdb_trace(clean_v) == GDB_TRIGGER) {
+		gdb_emit();
+		return;
+	}
+
+	if (eval_is_multiline(clean_v)) {
+		process_t *child;
+		process_t *parent;
+
+		basic_set_string_variable("ERR$", "", ctx, false, false);
+		basic_set_int_variable("ERR", 0, ctx, false, false);
+
+		parent = ctx->proc;
+		if (!parent) {
+			basic_set_string_variable("ERR$", "EVAL has no process context", ctx, false, false);
+			basic_set_int_variable("ERR", 1, ctx, false, false);
+			setforeground(COLOUR_LIGHTRED);
+			kprintf("EVAL has no process context\n");
+			setforeground(COLOUR_WHITE);
+			return;
+		}
+
+		child = proc_load_anonymous(clean_v, parent->pid, parent->csd);
+		if (!child) {
+			basic_set_string_variable("ERR$", "Failed to launch anonymous program", ctx, false, false);
+			basic_set_int_variable("ERR", 1, ctx, false, false);
+			setforeground(COLOUR_LIGHTRED);
+			kprintf("Failed to launch anonymous program\n");
+			setforeground(COLOUR_WHITE);
+			return;
+		}
+
+		/* Inherit GLOBAL-propagated variables into the new process by walking the maps */
+		struct basic_ctx *new_proc = child->code;
+
+		/* Integers */
+		if (ctx->int_variables) {
+			size_t i = 0;
+			void *item = NULL;
+			while (hashmap_iter(ctx->int_variables, &i, &item)) {
+				struct ub_var_int *v = (struct ub_var_int *)item;
+				if (v->global) {
+					basic_set_int_variable(v->varname, v->value, new_proc, false, true);
+				}
+			}
+		}
+
+		/* Strings */
+		if (ctx->str_variables) {
+			size_t i = 0;
+			void *item = NULL;
+			while (hashmap_iter(ctx->str_variables, &i, &item)) {
+				struct ub_var_string *v = (struct ub_var_string *)item;
+				if (v->global) {
+					basic_set_string_variable(v->varname, v->value, new_proc, false, true);
+				}
+			}
+		}
+
+		/* Doubles */
+		if (ctx->double_variables) {
+			size_t i = 0;
+			void *item = NULL;
+			while (hashmap_iter(ctx->double_variables, &i, &item)) {
+				struct ub_var_double *v = (struct ub_var_double *)item;
+				if (v->global) {
+					basic_set_double_variable(v->varname, v->value, new_proc, false, true);
+				}
+			}
+		}
+
+		proc_wait(parent, child->pid);
+		return;
+	}
 
 	if (basic_in_eval(ctx)) {
 		ctx->eval_linenum = 0;
@@ -686,23 +781,19 @@ void eval_statement(struct basic_ctx *ctx) {
 		return;
 	}
 
-	char clean_v[MAX_STRINGLEN];
-	clean_basic(v, clean_v);
-
-	if (strlen(clean_v) == 23 && gdb_trace(clean_v) == GDB_TRIGGER) {
-		gdb_emit();
-		return;
-	}
-
 	if (ctx->oldlen == 0) {
 		basic_set_string_variable("ERR$", "", ctx, false, false);
 		basic_set_int_variable("ERR", 0, ctx, false, false);
 		ctx->oldlen = strlen(ctx->program_ptr);
-		/* If program doesn't end in newline, add one */
-		char last = ctx->program_ptr[strlen(ctx->program_ptr) - 2];
-		if (last > 13) {
-			strlcat(ctx->program_ptr, "\n", ctx->oldlen + 5000);
+
+		if (ctx->oldlen >= 2) {
+			/* If line doesn't end in newline, add one */
+			char last = ctx->program_ptr[strlen(ctx->program_ptr) - 2];
+			if (last > 13) {
+				strlcat(ctx->program_ptr, "\n", ctx->oldlen + 5000);
+			}
 		}
+
 		const char *line_eval = (ctx->program_ptr + strlen(ctx->program_ptr));
 		strlcat(ctx->program_ptr, STRINGIFY(EVAL_LINE)" ", ctx->oldlen + 5000);
 		strlcat(ctx->program_ptr, clean_v, ctx->oldlen + 5000);
@@ -712,12 +803,6 @@ void eval_statement(struct basic_ctx *ctx) {
 		hashmap_set(ctx->lines, &(ub_line_ref) {.line_number = EVAL_LINE, .ptr = line_eval});
 		hashmap_set(ctx->lines, &(ub_line_ref) {.line_number = EVAL_END_LINE, .ptr = line_eval_end});
 
-		/**
-		 * @brief An EVAL jumps to the line number at the end of the program
-		 * (EVAL_LINE) where the evaluation is to take place. Once compeleted,
-		 * a RETURN statement is executed at EVAL_END_LINE, which returns back
-		 * to the line where the EVAL statement is.
-		 */
 		ctx->eval_linenum = ctx->current_linenum;
 		ctx->call_stack[ctx->call_stack_ptr] = ctx->current_linenum;
 		if (!new_stack_frame(ctx)) {

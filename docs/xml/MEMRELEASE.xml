@@ -11,7 +11,7 @@
 <para>Releases (frees) a block of memory previously obtained via <ref refid="MEMALLOC" kindref="compound">MEMALLOC</ref>.</para>
 <para><hruler/>
 </para>
-<sect1 id="MEMRELEASE_1examples-141_1s1"><sect2 id="MEMRELEASE_1examples-141_1s2"><sect3 id="MEMRELEASE_1examples-141">
+<sect1 id="MEMRELEASE_1examples-140_1s1"><sect2 id="MEMRELEASE_1examples-140_1s2"><sect3 id="MEMRELEASE_1examples-140">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">buf<sp/>=<sp/>MEMALLOC(65536)</highlight></codeline>
 <codeline><highlight class="normal">REM<sp/>...<sp/>use<sp/>buf<sp/>...</highlight></codeline>
 <codeline><highlight class="normal">MEMRELEASE<sp/>buf</highlight></codeline>

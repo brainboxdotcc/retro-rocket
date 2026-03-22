@@ -70,9 +70,98 @@ bool booted_from_cd(void) {
 	return false;
 }
 
+static process_t* proc_create_common(const char* source, pid_t parent_pid, const char* csd, const char* program_name, const char* directory, size_t size)
+{
+	process_t* newproc;
+	char* error = "Unknown error";
+
+	if (!source || !*source) {
+		kprintf("Cannot start empty program.\n");
+		return NULL;
+	}
+
+	newproc = kmalloc(sizeof(process_t));
+	if (!newproc) {
+		kprintf("Out of memory starting new process.\n");
+		return NULL;
+	}
+
+	newproc->code = basic_init(source, nextid, directory, &error);
+	if (!newproc->code) {
+		kfree_null(&newproc);
+		kprintf("Fatal error parsing program: %s\n", error);
+		return NULL;
+	}
+
+	newproc->code->proc = newproc;
+	newproc->waitpid = 0;
+	newproc->name = strdup(program_name ? program_name : "<anonymous>");
+	newproc->pid = nextid++;
+	newproc->directory = strdup(directory ? directory : "<anonymous>");
+	newproc->csd = strdup(csd ? csd : "/");
+	newproc->size = size;
+	newproc->start_time = time(NULL);
+	newproc->state = PROC_RUNNING;
+	newproc->ppid = parent_pid;
+	newproc->cpu = logical_cpu_id();
+	newproc->check_idle = NULL;
+	newproc->idle_context = NULL;
+
+	if (!newproc->name || !newproc->directory || !newproc->csd) {
+		basic_destroy(newproc->code);
+		kfree_null(&newproc->name);
+		kfree_null(&newproc->directory);
+		kfree_null(&newproc->csd);
+		kfree_null(&newproc);
+		kprintf("Out of memory starting new process.\n");
+		return NULL;
+	}
+
+	lock_spinlock(&combined_proc_lock);
+	lock_spinlock(&proc_lock[newproc->cpu]);
+
+	if (proc_list[newproc->cpu] == NULL) {
+		proc_list[newproc->cpu] = newproc;
+		newproc->next = NULL;
+		newproc->prev = NULL;
+	} else {
+		newproc->next = proc_list[newproc->cpu];
+		newproc->prev = NULL;
+		proc_list[newproc->cpu]->prev = newproc;
+		proc_list[newproc->cpu] = newproc;
+	}
+
+	if (combined_proc_list == NULL) {
+		combined_proc_list = newproc;
+		newproc->next = NULL;
+		newproc->prev = NULL;
+	} else {
+		newproc->next = combined_proc_list;
+		newproc->prev = NULL;
+		combined_proc_list->prev = newproc;
+		combined_proc_list = newproc;
+	}
+
+	if (proc_current[newproc->cpu] == NULL) {
+		proc_current[newproc->cpu] = proc_list[newproc->cpu];
+	}
+
+	process_count++;
+	hashmap_set(process_by_pid, &(proc_id_t){ .id = newproc->pid, .proc = newproc });
+
+	unlock_spinlock(&combined_proc_lock);
+	unlock_spinlock(&proc_lock[newproc->cpu]);
+
+	return newproc;
+}
+
 process_t* proc_load(const char* fullpath, pid_t parent_pid, const char* csd)
 {
-	fs_directory_entry_t* fsi = fs_get_file_info(fullpath);
+	fs_directory_entry_t* fsi;
+	unsigned char* programtext;
+	process_t* newproc;
+
+	fsi = fs_get_file_info(fullpath);
 	if (fsi == NULL || (fsi->flags & FS_DIRECTORY)) {
 		kprintf("File does not exist.\n");
 		return NULL;
@@ -81,82 +170,31 @@ process_t* proc_load(const char* fullpath, pid_t parent_pid, const char* csd)
 		kprintf("Can't execute a directory.\n");
 		return NULL;
 	}
-	unsigned char* programtext = kmalloc(fsi->size + 1);
+
+	programtext = kmalloc(fsi->size + 1);
 	if (!programtext) {
 		kprintf("Out of memory starting new process.\n");
 		return NULL;
 	}
+
 	*(programtext + fsi->size) = 0;
 	if (!fs_read_file(fsi, 0, fsi->size, programtext)) {
 		kfree_null(&programtext);
 		kprintf("Failed to read program file for new process.\n");
 		return NULL;
 	}
-	process_t* newproc = kmalloc(sizeof(process_t));
-	if (!newproc) {
-		kfree_null(&programtext);
-		kprintf("Out of memory starting new process\n");
-		return NULL;
-	}
-	char* error = "Unknown error";
-	newproc->code = basic_init((const char*)programtext, nextid, fullpath, &error);
-	if (!newproc->code) {
-		kfree_null(&newproc);
-		kfree_null(&programtext);
-		kprintf("Fatal error parsing program: %s\n", error);
-		return NULL;
-	}
-	newproc->code->proc = newproc;
-	newproc->waitpid = 0;
-	newproc->name = strdup(fsi->filename);
-	newproc->pid = nextid++;
-	newproc->directory = strdup(fullpath);
-	newproc->csd = strdup(csd);
-	newproc->size = fsi->size;
-	newproc->start_time = time(NULL);
-	newproc->state = PROC_RUNNING;
-	newproc->ppid = parent_pid;
-	newproc->cpu = logical_cpu_id();
-	newproc->check_idle = NULL;
-	newproc->start_time = time(NULL);
+
+	newproc = proc_create_common((const char*)programtext, parent_pid, csd, fsi->filename, fullpath, fsi->size);
 	kfree_null(&programtext);
-	lock_spinlock(&combined_proc_lock);
-	lock_spinlock(&proc_lock[newproc->cpu]);
-	if (proc_list[newproc->cpu] == NULL) {
-		/* First process */
-		proc_list[newproc->cpu] = newproc;
-		newproc->next = NULL;
-		newproc->prev = NULL;
-	} else {
-		/* Any other process */
-		newproc->next = proc_list[newproc->cpu];
-		newproc->prev = NULL;
-		proc_list[newproc->cpu]->prev = newproc;
-		proc_list[newproc->cpu] = newproc;
-	}
-	if (combined_proc_list == NULL) {
-		/* First process */
-		combined_proc_list = newproc;
-		newproc->next = NULL;
-		newproc->prev = NULL;
-	} else {
-		/* Any other process */
-		newproc->next = combined_proc_list;
-		newproc->prev = NULL;
-		combined_proc_list->prev = newproc;
-		combined_proc_list = newproc;
-	}
-	// No current proc? Make it the only proc.
-	if (proc_current[newproc->cpu] == NULL) {
-		proc_current[newproc->cpu] = proc_list[newproc->cpu];
-	}
-
-	process_count++;
-	hashmap_set(process_by_pid, &(proc_id_t){ .id = newproc->pid, .proc = newproc });
-	unlock_spinlock(&combined_proc_lock);
-	unlock_spinlock(&proc_lock[newproc->cpu]);
-
 	return newproc;
+}
+
+process_t* proc_load_anonymous(const char* source, pid_t parent_pid, const char* csd)
+{
+	const char* name = "<anonymous>";
+	const char* directory = "<eval>";
+
+	return proc_create_common(source, parent_pid, csd, name, directory, strlen(source));
 }
 
 process_t* proc_cur(uint8_t logical_cpu)
