@@ -73,6 +73,7 @@ DEF PROCbuiltins
 	IF command$ = "run" THEN PROCbuiltinRun
 	IF command$ = "task" THEN PROCbuiltinTask
 	IF command$ = "version" THEN PROCversion
+	IF command$ = "[" THEN PROCbuiltinMultiLineRepl
 ENDPROC
 
 DEF PROCerrorHandler
@@ -141,4 +142,27 @@ REM run a command within the PATH$
 DEF PROCrunCommand(cmd$)
 	CLOSE FH
 	CHAIN PATH$ + "/" + cmd$
+ENDPROC
+
+DEF PROCbuiltinMultiLineRepl
+    builtin = TRUE
+    MULTI$ = ""
+    multiLine = 1
+    REPEAT
+        COLOR 14
+        PRINT multiLine;
+        COLOR 7
+        PRINT "> ";
+        PROCEdLine
+        PRINT ""
+        in$ = FNEdResult$()
+        PROCEdAddHistory(in$)
+        IF (in$ > "") AND (in$ <> "]") THEN
+            MULTI$ = MULTI$ + in$ + CHR$(10)
+            multiLine = multiLine + 1
+        ENDIF
+    UNTIL (in$ = "") OR (in$ = "]")
+    IF in$ = "]" THEN
+        EVAL MULTI$
+    ENDIF
 ENDPROC
