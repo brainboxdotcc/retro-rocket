@@ -24,18 +24,30 @@ void* memcpy(void *dest, const void *src, uint64_t len)
 	return dest;
 }
 
-void* memmove(void *dest, const void *src, uint64_t n) {
-	uint8_t *pdest = (uint8_t *)dest;
-	const uint8_t *psrc = (const uint8_t *)src;
+static void *memcpy_reverse(void *dest, const void *src, uint64_t len)
+{
+	void *ret = dest;
+	void *d = (uint8_t *) dest + len - 1;
+	const void *s = (const uint8_t *) src + len - 1;
 
+	__asm__ volatile (
+		"std\n\t"
+		"rep movsb\n\t"
+		"cld"
+		: "+D"(d), "+S"(s), "+c"(len)
+		:
+		: "memory"
+		);
+
+	return ret;
+}
+
+void *memmove(void *dest, const void *src, uint64_t n)
+{
 	if (src > dest) {
-		for (uint64_t i = 0; i < n; i++) {
-			pdest[i] = psrc[i];
-		}
+		return memcpy(dest, src, n);
 	} else if (src < dest) {
-		for (uint64_t i = n; i > 0; i--) {
-			pdest[i-1] = psrc[i-1];
-		}
+		return memcpy_reverse(dest, src, n);
 	}
 
 	return dest;
