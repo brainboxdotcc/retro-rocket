@@ -363,12 +363,70 @@ void draw_text_box_cp437(uint64_t x, uint64_t y, uint64_t width, const char *tex
  */
 void draw_text_box_cp437_center(uint64_t x, uint64_t y, uint64_t width, const char *text);
 
+/**
+ * @brief Clear the screen and render a standard installer page header.
+ *
+ * Resets the display and prints the given title centred at the top,
+ * followed by vertical spacing to position subsequent content.
+ *
+ * @param title Page title to display.
+ */
 void new_page(const char* title);
 
+/**
+ * @brief Read a boolean choice from input.
+ *
+ * Waits for a keypress of 'Y' or 'N' (case-insensitive) and echoes
+ * the selection. Blocks until a valid input is received.
+ *
+ * @return true if 'Y' was selected, false if 'N' was selected.
+ */
 bool boolean_choice();
 
+/**
+ * @brief Display a progress screen with a message and progress bar.
+ *
+ * Renders a centred message and a CP437 progress bar indicating
+ * completion percentage.
+ *
+ * @param message Message to display.
+ * @param progress Progress value from 0 to 100.
+ */
 void display_progress(const char* message, int progress);
 
+/**
+ * @brief Insert vertical spacing on the current page.
+ *
+ * Outputs several newline characters to move the cursor down
+ * the screen for layout purposes.
+ */
 void vertical_tab();
 
+/**
+ * @brief Display a fatal error page and reboot.
+ *
+ * Formats and displays an error message, waits for a keypress,
+ * then reboots the system. Does not return.
+ *
+ * @param fmt printf-style format string.
+ * @param ... Arguments for the format string.
+ */
 _Noreturn void error_page(const char* fmt, ...) PRINTF_LIKE(1, 2);
+
+/**
+ * @brief Render a single page of licence text inside a boxed viewport.
+ *
+ * Displays a portion of the licence buffer within the specified box,
+ * handling line wrapping and newlines. Stops when the visible area
+ * is filled and returns the offset of the next unread character.
+ *
+ * @param license Pointer to licence text buffer.
+ * @param len Total length of the buffer.
+ * @param offset Starting offset into the buffer.
+ * @param box_x Left coordinate of the box.
+ * @param box_y Top coordinate of the box.
+ * @param box_w Width of the box.
+ * @param box_h Height of the box.
+ * @return Offset of the next character to render on the following page.
+ */
+size_t render_license_page(const char* license, size_t len, size_t offset, uint64_t box_x, uint64_t box_y, uint64_t box_w, uint64_t box_h);

@@ -362,3 +362,50 @@ void new_page(const char* title) {
 void vertical_tab() {
 	kprintf("\n\n\n\n");
 }
+
+size_t render_license_page(const char* license, size_t len, size_t offset, uint64_t box_x, uint64_t box_y, uint64_t box_w, uint64_t box_h) {
+	uint64_t inner_x = box_x + 22;
+	uint64_t inner_y = box_y + 1;
+	uint64_t inner_w = box_w - 4;
+	uint64_t inner_h = box_h - 2;
+	size_t i = offset;
+	uint64_t x = 0;
+	uint64_t y = 0;
+
+	draw_box_cp437_double(box_x, box_y, box_w, box_h);
+
+	while (i < len && y < inner_h) {
+		char c = license[i];
+
+		if (c == '\r') {
+			i++;
+			continue;
+		}
+
+		if (c == '\n') {
+			if (y + 1 >= inner_h) {
+				break;
+			}
+
+			x = 0;
+			y++;
+			i++;
+			continue;
+		}
+
+		if (x >= inner_w) {
+			x = 0;
+			y++;
+			if (y >= inner_h) {
+				break;
+			}
+		}
+
+		gotoxy(inner_x + x, inner_y + y);
+		put(c);
+		x++;
+		i++;
+	}
+
+	return i;
+}

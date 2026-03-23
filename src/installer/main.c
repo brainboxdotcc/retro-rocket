@@ -50,6 +50,80 @@ bool confirm_install(const char* device) {
 	return boolean_choice();
 }
 
+void confirm_license() {
+	fs_directory_entry_t* fsi = fs_get_file_info("/system/license");
+	if (fsi == NULL || (fsi->flags & FS_DIRECTORY)) {
+		return;
+	}
+
+	char* license = kmalloc(fsi->size + 1);
+	if (license == NULL) {
+		return;
+	}
+
+	license[fsi->size] = 0;
+
+	if (!fs_read_file(fsi, 0, fsi->size, (unsigned char*)license)) {
+		kfree_null(&license);
+		return;
+	}
+
+	size_t offset = 0;
+	uint64_t screen_w = get_text_width();
+	uint64_t screen_h = get_text_height();
+
+	uint64_t box_x = 4;
+	uint64_t box_y = 9;
+	uint64_t box_w = screen_w - 8;
+	uint64_t box_h = screen_h - 19;
+
+	if (box_w < 20) {
+		box_w = 20;
+	}
+	if (box_h < 6) {
+		box_h = 6;
+	}
+
+	for (;;) {
+		new_page("Retro Rocket Installer");
+		centre_text("This software is licensed under the %sApache License 2.0%s\n", VGA_FG_YELLOW, VGA_RESET);
+		centre_text("You must review the license before continuing\n");
+		kprintf("\n");
+
+		size_t next_offset = render_license_page(license, fsi->size, offset, box_x, box_y, box_w, box_h);
+
+		gotoxy(0, box_y + box_h + 2);
+		centre_text("By continuing, you confirm that you are able to accept this agreement\n");
+		centre_text("and agree to the %sApache 2.0 license%s as shown above\n", VGA_FG_YELLOW, VGA_RESET);
+		kprintf("\n");
+
+		if (next_offset < fsi->size) {
+			centre_text("Press %sSPACE%s next page, %sY%s accept, %sN%s abort\n", VGA_FG_YELLOW, VGA_RESET, VGA_FG_YELLOW, VGA_RESET, VGA_FG_YELLOW, VGA_RESET);
+		} else {
+			centre_text("End of license. Press %sY%s accept, %sN%s abort\n", VGA_FG_YELLOW, VGA_RESET, VGA_FG_YELLOW, VGA_RESET);
+		}
+
+		for (;;) {
+			unsigned char selection;
+
+			while ((selection = kgetc()) == 255) {
+				__asm__("hlt");
+			}
+			selection = toupper(selection);
+
+			if (selection == 'Y') {
+				kfree_null(&license);
+				return;
+			} else if (selection == 'N') {
+				reboot();
+			} else if (selection == ' ' && next_offset < fsi->size) {
+				offset = next_offset;
+				break;
+			}
+		}
+	}
+}
+
 void display_progress(const char* message, int progress) {
 	new_page("Retro Rocket Installer");
 	size_t size = strlen_ansi(message), half_size = size / 2;
@@ -85,6 +159,7 @@ _Noreturn void error_page(const char* fmt, ...) {
 
 
 void installer() {
+	confirm_license();
 	const char* device = NULL;
 	do {
 		device = choose_drive();
