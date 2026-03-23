@@ -117,3 +117,28 @@ Display version and copyright information for the shell.
 ```basic
 version
 ```
+
+### Variables
+
+The rocketsh shell allows you to change certain variables that influence how the shell operates. These are:
+
+#### PATH$
+
+The `PATH$` variable is a list of directories that are searched for programs to run them. Each path in PATH$ (separated
+by semicolons, ';') is prepended to the command line to try and match a file. If a match is found by prepending this search
+path, the program is executed. So for example if your program is located at `/programs/tasks/foo` and you type `tasks/foo`,
+with the path containing `/programs`, the program will be found and ran. Note this is slightly different from how paths operate
+in other operating systems. The current directory cannot be included in the path as it has no direct representation.
+
+If you want to run a program that is not in the path, you must provide the full path to the program from the file system root.
+
+#### LIB$
+
+This is the path where system libraries may be found. There can be only one active library path. Programs may optionally
+use this global variable when loading their libraries, but it is not mandatory to do so, for example if a program wishes to
+load its own libraries from some non-standard location.
+
+#### PROMPT$
+
+Changing the `PROMPT$` variable changes the displayed prompt of the shell to whatever you want. By default, `PROMPT$` has
+the value `"ROCKETSH"`. Changing `PROMPT$` to an empty string will cause it to display just `>`, like the BBC Micro.

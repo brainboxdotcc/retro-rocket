@@ -174,7 +174,20 @@ task</h4>
 version</h4>
 <p>Display version and copyright information for the shell.</p>
 <div class="fragment"><div class="line">version</div>
-</div><!-- fragment --> </div></div><!-- contents -->
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="variables"></a>
+Variables</h3>
+<p>The rocketsh shell allows you to change certain variables that influence how the shell operates. These are:</p>
+<h4 class="doxsection"><a class="anchor" id="path"></a>
+PATH$</h4>
+<p>The <span class="tt">PATH$</span> variable is a list of directories that are searched for programs to run them. Each path in PATH$ (separated by semicolons, ';') is prepended to the command line to try and match a file. If a match is found by prepending this search path, the program is executed. So for example if your program is located at <span class="tt">/programs/tasks/foo</span> and you type <span class="tt">tasks/foo</span>, with the path containing <span class="tt">/programs</span>, the program will be found and ran. Note this is slightly different from how paths operate in other operating systems. The current directory cannot be included in the path as it has no direct representation.</p>
+<p>If you want to run a program that is not in the path, you must provide the full path to the program from the file system root.</p>
+<h4 class="doxsection"><a class="anchor" id="lib"></a>
+LIB$</h4>
+<p>This is the path where system libraries may be found. There can be only one active library path. Programs may optionally use this global variable when loading their libraries, but it is not mandatory to do so, for example if a program wishes to load its own libraries from some non-standard location.</p>
+<h4 class="doxsection"><a class="anchor" id="prompt"></a>
+PROMPT$</h4>
+<p>Changing the <span class="tt">PROMPT$</span> variable changes the displayed prompt of the shell to whatever you want. By default, <span class="tt">PROMPT$</span> has the value <span class="tt">"ROCKETSH"</span>. Changing <span class="tt">PROMPT$</span> to an empty string will cause it to display just <span class="tt">&gt;</span>, like the BBC Micro. </p>
+</div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
