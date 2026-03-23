@@ -144,6 +144,30 @@ pop
 * Removes that entry from the stack.
 * If the stack is empty, no change occurs.
 
+#### dirs
+
+Shows all directories pushed to the stack with `push` and `pop`
+
+```basic
+dirs
+```
+
+#### which
+
+Show which program will be executed for any given command using `PATH$` to resolve it.
+`PATH$` is walked from left to right.
+
+```basic
+which edit
+```
+
+#### history
+
+Show all commands stored in the command history, which you may retrieve with the cursor keys.
+
+```basic
+history
+```
 
 ### Variables
 

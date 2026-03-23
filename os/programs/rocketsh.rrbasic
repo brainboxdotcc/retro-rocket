@@ -103,9 +103,16 @@ DEF PROCbuiltins
 	IF command$ = "run" THEN PROCbuiltinRun
 	IF command$ = "push" THEN PROCbuiltinPush
 	IF command$ = "pop" THEN PROCbuiltinPop
+	IF command$ = "dirs" THEN PROCbuiltinDirs
+	IF command$ = "which" THEN PROCbuiltinWhich
 	IF command$ = "task" THEN PROCbuiltinTask
+	IF command$ = "history" THEN PROCbuiltinHistory
 	IF command$ = "version" THEN PROCversion
 	IF command$ = "[" THEN PROCbuiltinMultiLineRepl
+	IF command$ = "]" THEN
+	    builtin = TRUE
+	    PRINT "Start a multi line entry with ] first."
+	ENDIF
 ENDPROC
 
 REM handle errors and return to prompt
@@ -162,6 +169,24 @@ DEF PROCbuiltinPush
 	ENDIF
 
 	builtin = TRUE
+ENDPROC
+
+DEF PROCbuiltinHistory
+    builtin = TRUE
+	IF EDhistPtr < 2 THEN
+	    PRINT "(no history)"
+		ENDPROC
+	ENDIF
+
+	entry = 1
+	FOR i = EDhistPtr - 1 TO 1 STEP -1
+		COLOR 14
+		PRINT entry;
+		COLOR 7
+		PRINT "> ";
+		PRINT EDhist$(i)
+		entry = entry + 1
+	NEXT
 ENDPROC
 
 REM pop directory from stack and change to it
@@ -254,6 +279,27 @@ DEF FNFindProgram$(prog$)
 REM evaluate BASIC statement in context of shell
 DEF PROCevalBasic
 	EVAL inp$
+ENDPROC
+
+DEF PROCbuiltinDirs
+	IF dir_stack_count < 1 THEN
+		PRINT "(empty)"
+	ELSE
+		FOR i = dir_stack_count - 1 TO 0 STEP -1
+			PRINT dir_stack$(i)
+		NEXT
+	ENDIF
+	builtin = TRUE
+ENDPROC
+
+DEF PROCbuiltinWhich
+	found$ = FNFindProgram$(ARGS$)
+	IF found$ = "" THEN
+		PRINT "Not found."
+	ELSE
+		PRINT found$
+	ENDIF
+	builtin = TRUE
 ENDPROC
 
 REM build and execute a multi line anonymous program
