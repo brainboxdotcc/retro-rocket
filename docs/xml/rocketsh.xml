@@ -91,6 +91,30 @@
 <para><programlisting filename=".basic"><codeline><highlight class="normal">version</highlight></codeline>
 </programlisting></para>
 </sect4>
+<sect4 id="rocketsh_1push">
+<title>push</title><para>Save the current working directory on a stack, then optionally change directory.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">push<sp/>/harddisk</highlight></codeline>
+<codeline><highlight class="normal">push<sp/>subdir</highlight></codeline>
+<codeline><highlight class="normal">push</highlight></codeline>
+</programlisting></para>
+<para><itemizedlist>
+<listitem><para>With a path, the current directory is pushed onto the stack and then changed to the given location.</para>
+</listitem><listitem><para>Without a path, the current directory is swapped with the most recently pushed directory.</para>
+</listitem><listitem><para>The stack grows as you use <computeroutput>push</computeroutput>, allowing you to return to earlier locations.</para>
+</listitem></itemizedlist>
+</para>
+</sect4>
+<sect4 id="rocketsh_1pop">
+<title>pop</title><para>Restore the most recently saved directory from the stack.</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">pop</highlight></codeline>
+</programlisting></para>
+<para><itemizedlist>
+<listitem><para>Changes the current directory to the last one saved with <computeroutput>push</computeroutput>.</para>
+</listitem><listitem><para>Removes that entry from the stack.</para>
+</listitem><listitem><para>If the stack is empty, no change occurs.</para>
+</listitem></itemizedlist>
+</para>
+</sect4>
 </sect3></sect2></sect1>
 <sect1 id="rocketsh_1variables_1s1"><sect2 id="rocketsh_1variables_1s2"><sect3 id="rocketsh_1variables">
 <title>Variables</title><para>The rocketsh shell allows you to change certain variables that influence how the shell operates. These are:</para>

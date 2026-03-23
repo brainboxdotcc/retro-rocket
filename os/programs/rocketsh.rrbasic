@@ -4,6 +4,7 @@ LIBRARY LIB$ + "/ansi"
 ON ERROR PROCerrorHandler
 
 PROCEdInit(TRUE)
+PROCdirStackInit
 
 REM System variables
 PROMPT$ = "ROCKETSH"
@@ -45,6 +46,49 @@ DEF PROCextractParameters
 	GLOBAL ARGS$ = MID$(inp$, spaceidx, LEN(inp$))
 ENDPROC
 
+REM initialise directory stack
+DEF PROCdirStackInit
+	dir_stack_count = 0
+	dir_stack_max = 1
+	DIM dir_stack$, dir_stack_max
+ENDPROC
+
+REM push a directory onto the stack
+DEF PROCdirStackPush(path$)
+	dir_stack_count = dir_stack_count + 1
+	IF dir_stack_count > dir_stack_max THEN
+		dir_stack_max = dir_stack_count
+		REDIM dir_stack$, dir_stack_max
+	ENDIF
+	dir_stack$(dir_stack_count - 1) = path$
+ENDPROC
+
+REM return top directory on stack without removing it
+DEF FNDirStackTop$
+	IF dir_stack_count < 1 THEN
+		= ""
+	ENDIF
+	= dir_stack$(dir_stack_count - 1)
+
+REM pop a directory from the stack, returning empty string if none
+DEF FNDirStackPop$
+	IF dir_stack_count < 1 THEN
+		= ""
+	ENDIF
+
+	top$ = dir_stack$(dir_stack_count - 1)
+	POP dir_stack$, dir_stack_count - 1
+	dir_stack_count = dir_stack_count - 1
+
+	IF dir_stack_count < 1 THEN
+		dir_stack_max = 1
+	ELSE
+		dir_stack_max = dir_stack_count
+	ENDIF
+
+	REDIM dir_stack$, dir_stack_max
+= top$
+
 REM commandline with no parameters
 DEF PROCnoParameters
 	command$ = inp$
@@ -57,6 +101,8 @@ DEF PROCbuiltins
 	IF command$ = "cd" THEN PROCbuiltinChdir
 	IF command$ = "up" THEN PROCbuiltinUp
 	IF command$ = "run" THEN PROCbuiltinRun
+	IF command$ = "push" THEN PROCbuiltinPush
+	IF command$ = "pop" THEN PROCbuiltinPop
 	IF command$ = "task" THEN PROCbuiltinTask
 	IF command$ = "version" THEN PROCversion
 	IF command$ = "[" THEN PROCbuiltinMultiLineRepl
@@ -92,6 +138,40 @@ ENDPROC
 REM change directory command
 DEF PROCbuiltinChdir
 	EVAL "CHDIR " + CHR$(34) + ARGS$ + CHR$(34)
+	builtin = TRUE
+ENDPROC
+
+REM push current directory and change to target,
+REM or swap with stack top if no argument supplied
+DEF PROCbuiltinPush
+	current$ = CSD$
+
+	IF ARGS$ = "" THEN
+		IF dir_stack_count < 1 THEN
+			PROCdirStackPush(current$)
+		ELSE
+			top$ = FNDirStackPop$()
+			EVAL "CHDIR " + CHR$(34) + top$ + CHR$(34)
+			PROCdirStackPush(current$)
+		ENDIF
+	ELSE
+		EVAL "CHDIR " + CHR$(34) + ARGS$ + CHR$(34)
+		IF CSD$ <> current$ THEN
+			PROCdirStackPush(current$)
+		ENDIF
+	ENDIF
+
+	builtin = TRUE
+ENDPROC
+
+REM pop directory from stack and change to it
+DEF PROCbuiltinPop
+	target$ = FNDirStackPop$()
+	IF target$ = "" THEN
+		PRINT "Directory stack empty."
+	ELSE
+		EVAL "CHDIR " + CHR$(34) + target$ + CHR$(34)
+	ENDIF
 	builtin = TRUE
 ENDPROC
 

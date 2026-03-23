@@ -118,6 +118,33 @@ Display version and copyright information for the shell.
 version
 ```
 
+#### push
+
+Save the current working directory on a stack, then optionally change directory.
+
+```basic
+push /harddisk
+push subdir
+push
+```
+
+* With a path, the current directory is pushed onto the stack and then changed to the given location.
+* Without a path, the current directory is swapped with the most recently pushed directory.
+* The stack grows as you use `push`, allowing you to return to earlier locations.
+
+#### pop
+
+Restore the most recently saved directory from the stack.
+
+```basic
+pop
+```
+
+* Changes the current directory to the last one saved with `push`.
+* Removes that entry from the stack.
+* If the stack is empty, no change occurs.
+
+
 ### Variables
 
 The rocketsh shell allows you to change certain variables that influence how the shell operates. These are:

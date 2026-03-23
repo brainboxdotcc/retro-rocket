@@ -174,7 +174,27 @@ task</h4>
 version</h4>
 <p>Display version and copyright information for the shell.</p>
 <div class="fragment"><div class="line">version</div>
-</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="variables"></a>
+</div><!-- fragment --><h4 class="doxsection"><a class="anchor" id="push"></a>
+push</h4>
+<p>Save the current working directory on a stack, then optionally change directory.</p>
+<div class="fragment"><div class="line">push /harddisk</div>
+<div class="line">push subdir</div>
+<div class="line">push</div>
+</div><!-- fragment --><ul>
+<li>With a path, the current directory is pushed onto the stack and then changed to the given location.</li>
+<li>Without a path, the current directory is swapped with the most recently pushed directory.</li>
+<li>The stack grows as you use <span class="tt">push</span>, allowing you to return to earlier locations.</li>
+</ul>
+<h4 class="doxsection"><a class="anchor" id="pop"></a>
+pop</h4>
+<p>Restore the most recently saved directory from the stack.</p>
+<div class="fragment"><div class="line">pop</div>
+</div><!-- fragment --><ul>
+<li>Changes the current directory to the last one saved with <span class="tt">push</span>.</li>
+<li>Removes that entry from the stack.</li>
+<li>If the stack is empty, no change occurs.</li>
+</ul>
+<h3 class="doxsection"><a class="anchor" id="variables"></a>
 Variables</h3>
 <p>The rocketsh shell allows you to change certain variables that influence how the shell operates. These are:</p>
 <h4 class="doxsection"><a class="anchor" id="path"></a>
