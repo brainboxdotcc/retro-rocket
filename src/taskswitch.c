@@ -70,6 +70,18 @@ bool booted_from_cd(void) {
 	return false;
 }
 
+static bool is_basic(const char* buf, size_t size)
+{
+	while (size) {
+		uint8_t c = *buf++;
+		if (c < 32 && c != '\t' && c != '\r' && c != '\n' && c != 27) {
+			return false;
+		}
+		size--;
+	}
+	return true;
+}
+
 static process_t* proc_create_common(const char* source, pid_t parent_pid, const char* csd, const char* program_name, const char* directory, size_t size)
 {
 	process_t* newproc;
@@ -77,6 +89,9 @@ static process_t* proc_create_common(const char* source, pid_t parent_pid, const
 
 	if (!source || !*source) {
 		kprintf("Cannot start empty program.\n");
+		return NULL;
+	} else if (!is_basic(source, size)) {
+		kprintf("This does not look like a BASIC program.\n");
 		return NULL;
 	}
 
@@ -106,6 +121,10 @@ static process_t* proc_create_common(const char* source, pid_t parent_pid, const
 	newproc->cpu = logical_cpu_id();
 	newproc->check_idle = NULL;
 	newproc->idle_context = NULL;
+	newproc->sched_next = NULL;
+	newproc->sched_prev = NULL;
+	newproc->global_next = NULL;
+	newproc->global_prev = NULL;
 
 	if (!newproc->name || !newproc->directory || !newproc->csd) {
 		basic_destroy(newproc->code);
@@ -122,23 +141,23 @@ static process_t* proc_create_common(const char* source, pid_t parent_pid, const
 
 	if (proc_list[newproc->cpu] == NULL) {
 		proc_list[newproc->cpu] = newproc;
-		newproc->next = NULL;
-		newproc->prev = NULL;
+		newproc->sched_next = NULL;
+		newproc->sched_prev = NULL;
 	} else {
-		newproc->next = proc_list[newproc->cpu];
-		newproc->prev = NULL;
-		proc_list[newproc->cpu]->prev = newproc;
+		newproc->sched_next = proc_list[newproc->cpu];
+		newproc->sched_prev = NULL;
+		proc_list[newproc->cpu]->sched_prev = newproc;
 		proc_list[newproc->cpu] = newproc;
 	}
 
 	if (combined_proc_list == NULL) {
 		combined_proc_list = newproc;
-		newproc->next = NULL;
-		newproc->prev = NULL;
+		newproc->global_next = NULL;
+		newproc->global_prev = NULL;
 	} else {
-		newproc->next = combined_proc_list;
-		newproc->prev = NULL;
-		combined_proc_list->prev = newproc;
+		newproc->global_next = combined_proc_list;
+		newproc->global_prev = NULL;
+		combined_proc_list->global_prev = newproc;
 		combined_proc_list = newproc;
 	}
 
@@ -229,10 +248,14 @@ void proc_run(process_t* proc)
 
 process_t* proc_find(pid_t pid)
 {
+	process_t* proc = NULL;
 	lock_spinlock(&combined_proc_lock);
 	proc_id_t* id = hashmap_get(process_by_pid, &(proc_id_t){ .id = pid });
+	if (id) {
+		proc = id->proc;
+	}
 	unlock_spinlock(&combined_proc_lock);
-	return id ? id->proc : NULL;
+	return proc;
 }
 
 bool proc_kill_id(pid_t id)
@@ -312,50 +335,28 @@ void proc_kill(process_t* proc)
 	dprintf("proc_kill id %lu on cpu %d\n", proc->pid, cpu);
 	lock_spinlock(&proc_lock[cpu]);
 	lock_spinlock(&combined_proc_lock);
-	for (process_t* cur = proc_list[cpu]; cur; cur = cur->next) {
-		if (cur->pid == proc->pid) {
-			if (proc->next == NULL && proc->prev == NULL) {
-				// the only process!
-				proc_list[cpu] = NULL;
-			} else if (proc->prev == NULL && proc->next != NULL) {
-				// first item
-				proc_list[cpu] = proc->next;
-				proc_list[cpu]->prev = NULL;
-			} else if (proc->prev != NULL && proc->next == NULL) {
-				// last item
-				proc->prev->next = NULL;
-			} else {
-				// middle item
-				proc->prev->next = proc->next;
-				proc->next->prev = proc->prev;
-			}
 
-			break;
-		}
+	if (proc->sched_prev == NULL) {
+		proc_list[cpu] = proc->sched_next;
+	} else {
+		proc->sched_prev->sched_next = proc->sched_next;
 	}
-	for (process_t* cur = combined_proc_list; cur; cur = cur->next) {
-		if (cur->pid == proc->pid) {
-			if (proc->next == NULL && proc->prev == NULL) {
-				// the only process!
-				combined_proc_list = NULL;
-			} else if (proc->prev == NULL && proc->next != NULL) {
-				// first item
-				combined_proc_list = proc->next;
-				combined_proc_list->prev = NULL;
-			} else if (proc->prev != NULL && proc->next == NULL) {
-				// last item
-				proc->prev->next = NULL;
-			} else {
-				// middle item
-				proc->prev->next = proc->next;
-				proc->next->prev = proc->prev;
-			}
-
-			break;
-		}
+	if (proc->sched_next != NULL) {
+		proc->sched_next->sched_prev = proc->sched_prev;
 	}
 
-	proc_current[cpu] = proc_list[cpu];
+	if (proc->global_prev == NULL) {
+		combined_proc_list = proc->global_next;
+	} else {
+		proc->global_prev->global_next = proc->global_next;
+	}
+	if (proc->global_next != NULL) {
+		proc->global_next->global_prev = proc->global_prev;
+	}
+
+	if (proc_current[cpu] == proc) {
+		proc_current[cpu] = proc->sched_next ? proc->sched_next : proc_list[cpu];
+	}
 
 	basic_destroy(proc->code);
 	kfree_null(&proc->name);
@@ -385,7 +386,7 @@ pid_t proc_id(int64_t index)
 {
 	int64_t tot = 0;
 	lock_spinlock(&combined_proc_lock);
-	for (process_t* cur = combined_proc_list; cur; cur = cur->next) {
+	for (process_t* cur = combined_proc_list; cur; cur = cur->global_next) {
 		if (tot == index) {
 			unlock_spinlock(&combined_proc_lock);
 			return cur->pid;
@@ -432,7 +433,7 @@ void halt_callback([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t error
 	dprintf("Halting CPU#%d at request of HALT IPI\n", logical_cpu_id());
 	register_shutdown_ap();
 	interrupts_off();
-	while(true) {
+	while (true) {
 		__asm__ __volatile__("hlt");
 	}
 }
@@ -520,10 +521,10 @@ void proc_timer()
 		return;
 	}
 
-	if (proc_current[cpu]->next == NULL) {
+	if (proc_current[cpu]->sched_next == NULL) {
 		proc_current[cpu] = proc_list[cpu];
 	} else {
-		proc_current[cpu] = proc_current[cpu]->next;
+		proc_current[cpu] = proc_current[cpu]->sched_next;
 	}
 
 	unlock_spinlock(&proc_lock[cpu]);

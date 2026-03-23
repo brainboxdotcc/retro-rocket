@@ -23,16 +23,6 @@ typedef enum process_state_t {
 typedef uint64_t pid_t;
 
 /**
- * @brief User ID type (reserved for future use).
- */
-typedef uint64_t uid_t;
-
-/**
- * @brief Group ID type (reserved for future use).
- */
-typedef uint64_t gid_t;
-
-/**
  * @brief Logical CPU ID type.
  */
 typedef uint8_t cpu_id_t;
@@ -65,19 +55,19 @@ typedef bool (*activity_callback_t)(struct process_t* proc, void* opaque);
 typedef struct process_t {
 	pid_t			pid;        /**< Unique process ID */
 	pid_t			ppid;       /**< Parent process ID */
-	uid_t			uid;        /**< User ID (future use) */
-	gid_t			gid;        /**< Group ID (future use) */
 	process_state_t		state;      /**< Running state */
 	time_t			start_time; /**< Start time (UNIX epoch) */
 	pid_t			waitpid;    /**< PID being waited on */
 	cpu_id_t		cpu;        /**< Logical CPU this process is assigned to */
 	const char*		directory;  /**< Directory of program */
 	const char*		name;       /**< Filename of program */
-	uint64_t		size;       /**< Size of program in bytes */
+	size_t			size;       /**< Size of program in bytes */
 	const char*		csd;        /**< Current selected directory */
 	struct basic_ctx*	code;       /**< BASIC interpreter context */
-	struct process_t*	prev;       /**< Previous process in doubly linked list */
-	struct process_t*	next;       /**< Next process in doubly linked list */
+	struct process_t*	sched_next; /**< Next process in doubly linked list */
+	struct process_t*	sched_prev; /**< Previous process in doubly linked list */
+	struct process_t*	global_next; /**< Next process in doubly linked list */
+	struct process_t*	global_prev; /**< Previous process in doubly linked list */
 	activity_callback_t	check_idle; /**< If non-null, called to check if the process should remain idle */
 	void*			idle_context; /**< Opaque context passed to the check_idle callback */
 } process_t;
@@ -138,7 +128,6 @@ typedef struct idle_timer {
  * @brief Load and start a new BASIC process.
  *
  * @param fullpath Fully qualified path to file
- * @param cons Associated console
  * @param parent_pid Parent PID, or 0 for none
  * @param csd Current selected directory
  * @return process_t* Pointer to new process details
