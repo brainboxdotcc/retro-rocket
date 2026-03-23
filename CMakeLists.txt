@@ -158,4 +158,16 @@ add_custom_command(OUTPUT ${MODULES_STAMP}
 )
 list(APPEND IMAGE_TARGETS ${MODULES_STAMP})
 
+set(LICENSE_DST ${CMAKE_BINARY_DIR}/iso/system/license)
+
+add_custom_command(
+        OUTPUT ${LICENSE_DST}
+        COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/iso/system
+        COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/LICENSE ${LICENSE_DST}
+        DEPENDS ${CMAKE_SOURCE_DIR}/LICENSE
+        VERBATIM
+)
+
+list(APPEND IMAGE_TARGETS ${LICENSE_DST})
+
 iso("rr.iso" "kernel.sym")
