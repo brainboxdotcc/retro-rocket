@@ -8,7 +8,7 @@ PROCEdInit(TRUE)
 REM System variables
 PROMPT$ = "ROCKETSH"
 PATH$ = "/programs"
-VERSION$ = "3.0"
+VERSION$ = "3.1"
 
 REM Welcome message
 PRINT ""
@@ -39,20 +39,6 @@ DEF PROCdisplayPrompt
 	PRINT "> ";
 ENDPROC
 
-REM Command Processor
-DEF PROCprocessCommand(inp$)
-	spaceidx = INSTR(inp$, " ")
-	command$ = ""
-	IF spaceidx > 0 THEN PROCextractParameters
-	IF spaceidx < 1 THEN PROCnoParameters
-	builtin = FALSE
-	PROCbuiltins
-	IF builtin = TRUE THEN ENDPROC
-	FH = OPENIN(PATH$ + "/" + command$)
-	IF FH < 0 THEN PROCevalBasic
-	IF FH > -1 THEN PROCrunCommand(command$)
-ENDPROC
-
 REM extract parameters from commandline
 DEF PROCextractParameters
 	command$ = LEFT$(inp$, spaceidx - 1)
@@ -76,6 +62,7 @@ DEF PROCbuiltins
 	IF command$ = "[" THEN PROCbuiltinMultiLineRepl
 ENDPROC
 
+REM handle errors and return to prompt
 DEF PROCerrorHandler
     COLOUR 12
     PRINT ""
@@ -102,12 +89,13 @@ DEF PROCversion
 	builtin = TRUE
 ENDPROC
 
-REM change directory
+REM change directory command
 DEF PROCbuiltinChdir
 	EVAL "CHDIR " + CHR$(34) + ARGS$ + CHR$(34)
 	builtin = TRUE
 ENDPROC
 
+REM 'up' command, goes up one directory
 DEF PROCbuiltinUp
     dir$ = CSD$
     up$ = ""
@@ -121,29 +109,74 @@ DEF PROCbuiltinUp
 	builtin = TRUE
 ENDPROC
 
+REM Command Processor
+DEF PROCprocessCommand(inp$)
+	spaceidx = INSTR(inp$, " ")
+	command$ = ""
+	IF spaceidx > 0 THEN PROCextractParameters
+	IF spaceidx < 1 THEN PROCnoParameters
+	builtin = FALSE
+	PROCbuiltins
+	IF builtin = TRUE THEN ENDPROC
+	found$ = FNFindProgram$(command$)
+	IF found$ = "" THEN PROCevalBasic
+	IF found$ <> "" THEN PROCrunCommand(found$)
+ENDPROC
+
 REM run command without awareness of shell (no ARGS$)
 DEF PROCbuiltinRun
-	EVAL "CHAIN " + CHR$(34) + PATH$ + "/" + ARGS$ + CHR$(34)
+	found$ = FNFindProgram$(ARGS$)
+	IF found$ <> "" THEN
+		EVAL "CHAIN " + CHR$(34) + found$ + CHR$(34)
+	ENDIF
 	builtin = TRUE
 ENDPROC
 
 REM run command without awareness of shell (no ARGS$) in background
 DEF PROCbuiltinTask
-	EVAL "CHAIN " + CHR$(34) + PATH$ + "/" + ARGS$ + CHR$(34) +",TRUE"
+	found$ = FNFindProgram$(ARGS$)
+	IF found$ <> "" THEN
+		EVAL "CHAIN " + CHR$(34) + found$ + CHR$(34) + ",TRUE"
+	ENDIF
 	builtin = TRUE
 ENDPROC
+
+REM run a command within PATH$
+DEF PROCrunCommand(fullpath$)
+	CHAIN fullpath$
+ENDPROC
+
+REM search PATH$ for a program, returning the fully qualified
+REM pathname to the program if it is found, else an empty string
+DEF FNFindProgram$(prog$)
+    IF LEFT$(prog$, 1) = "/" THEN
+        FH = OPENIN(prog$) ' Fallthrough for fully qualified path
+        IF FH > -1 THEN
+            CLOSE FH
+            = prog$
+        ENDIF
+    ELSE
+        pathlist$ = PATH$
+        REPEAT
+            part$ = TOKENIZE$(pathlist$, ";")
+            IF part$ <> "" THEN
+                full$ = part$ + "/" + prog$
+                FH = OPENIN(full$)
+                IF FH > -1 THEN
+                    CLOSE FH
+                    = full$
+                ENDIF
+            ENDIF
+        UNTIL pathlist$ = ""
+	ENDIF
+= ""
 
 REM evaluate BASIC statement in context of shell
 DEF PROCevalBasic
 	EVAL inp$
 ENDPROC
 
-REM run a command within the PATH$
-DEF PROCrunCommand(cmd$)
-	CLOSE FH
-	CHAIN PATH$ + "/" + cmd$
-ENDPROC
-
+REM build and execute a multi line anonymous program
 DEF PROCbuiltinMultiLineRepl
     builtin = TRUE
     MULTI$ = ""
