@@ -17,6 +17,22 @@
 #error "Unsupported byte order: x86_64 is expected to be little-endian."
 #endif
 
+#ifndef __STDC_HOSTED__
+#error "Retro Rocket must be built in a freestanding environment."
+#endif
+
+#if __STDC_HOSTED__ != 0
+#error "Retro Rocket must be compiled with -ffreestanding."
+#endif
+
+#if __SIZEOF_POINTER__ != 8
+#error "Pointer size must be 64-bit."
+#endif
+
+#if __SIZEOF_LONG__ != 8
+#error "Retro Rocket assumes LP64 (sizeof(long) == 8)."
+#endif
+
 #define KSTACK_SIZE  (1 * 1024 * 1024)   /* 1 MB */
 #define KSTACK_MASK  (~(KSTACK_SIZE - 1ULL))
 
