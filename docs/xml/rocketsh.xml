@@ -126,7 +126,10 @@
 <title>LIB$</title><para>This is the path where system libraries may be found. There can be only one active library path. Programs may optionally use this global variable when loading their libraries, but it is not mandatory to do so, for example if a program wishes to load its own libraries from some non-standard location.</para>
 </sect4>
 <sect4 id="rocketsh_1prompt">
-<title>PROMPT$</title><para>Changing the <computeroutput>PROMPT$</computeroutput> variable changes the displayed prompt of the shell to whatever you want. By default, <computeroutput>PROMPT$</computeroutput> has the value <computeroutput>&quot;ROCKETSH&quot;</computeroutput>. Changing <computeroutput>PROMPT$</computeroutput> to an empty string will cause it to display just <computeroutput>&gt;</computeroutput>, like the BBC Micro. </para>
+<title>PROMPT$</title><para>Changing the <computeroutput>PROMPT$</computeroutput> variable changes the displayed prompt of the shell to whatever you want. By default, <computeroutput>PROMPT$</computeroutput> has the value <computeroutput>&quot;ROCKETSH&quot;</computeroutput>. Changing <computeroutput>PROMPT$</computeroutput> to an empty string will cause it to display just <computeroutput>&gt;</computeroutput>, like the BBC Micro.</para>
+</sect4>
+<sect4 id="rocketsh_1csd">
+<title>CSD$</title><para>You should not directly change the <computeroutput>CSD$</computeroutput> variable. This shows the <computeroutput>CSD</computeroutput>, or &apos;Currently Selected Directory&apos;. </para>
 </sect4>
 </sect3></sect2></sect1>
     </detaileddescription>

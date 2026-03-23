@@ -169,3 +169,7 @@ load its own libraries from some non-standard location.
 
 Changing the `PROMPT$` variable changes the displayed prompt of the shell to whatever you want. By default, `PROMPT$` has
 the value `"ROCKETSH"`. Changing `PROMPT$` to an empty string will cause it to display just `>`, like the BBC Micro.
+
+#### CSD$
+
+You should not directly change the `CSD$` variable. This shows the `CSD`, or 'Currently Selected Directory'.

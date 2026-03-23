@@ -81,10 +81,11 @@ var searchData=
   ['create_78',['CREATE',['../ENVELOPE.html#create',1,'CREATE'],['../STREAM.html#stream-create',1,'STREAM CREATE']]],
   ['creating_20boot_20media_79',['Creating Boot Media',['../creating-boot-media.html',1,'Creating Boot Media'],['../creating-boot-media.html#creating-boot-media',1,'Creating Boot Media']]],
   ['creation_80',['4.2 Creation',['../retrofs.html#autotoc_md42-creation',1,'']]],
-  ['csd_24_20function_81',['CSD$ Function',['../CSD.html',1,'string-funcs']]],
-  ['ctrl_20esc_20“escape”_20semantics_82',['Ctrl+Esc (“Escape”) semantics',['../basic-intdev.html#ctrlesc-escape-semantics',1,'']]],
-  ['cube_20program_83',['cube program',['../cube.html',1,'commands']]],
-  ['currentx_20function_84',['CURRENTX Function',['../CURRENTX.html',1,'int-funcs']]],
-  ['currenty_20function_85',['CURRENTY Function',['../CURRENTY.html',1,'int-funcs']]],
-  ['cursor_20keyword_86',['CURSOR Keyword',['../CURSOR.html',1,'keywords']]]
+  ['csd_24_81',['CSD$',['../rocketsh.html#csd',1,'']]],
+  ['csd_24_20function_82',['CSD$ Function',['../CSD.html',1,'string-funcs']]],
+  ['ctrl_20esc_20“escape”_20semantics_83',['Ctrl+Esc (“Escape”) semantics',['../basic-intdev.html#ctrlesc-escape-semantics',1,'']]],
+  ['cube_20program_84',['cube program',['../cube.html',1,'commands']]],
+  ['currentx_20function_85',['CURRENTX Function',['../CURRENTX.html',1,'int-funcs']]],
+  ['currenty_20function_86',['CURRENTY Function',['../CURRENTY.html',1,'int-funcs']]],
+  ['cursor_20keyword_87',['CURSOR Keyword',['../CURSOR.html',1,'keywords']]]
 ];
