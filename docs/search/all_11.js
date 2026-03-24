@@ -23,7 +23,7 @@ var searchData=
   ['highlighting_20',['Syntax highlighting',['../edit.html#syntax-highlighting',1,'']]],
   ['hints_21',['Names, keywords, and performance hints',['../basic-intdev.html#names-keywords-and-performance-hints',1,'']]],
   ['hist_24_22',['PROCEdAddHistory(hist$)',['../ansi.html#procedaddhistoryhist',1,'']]],
-  ['history_23',['PROCEdInit(history)',['../ansi.html#procedinithistory',1,'']]],
+  ['history_23',['history',['../rocketsh.html#history',1,'history'],['../ansi.html#procedinithistory',1,'PROCEdInit(history)']]],
   ['host_20command_24',['host command',['../host.html',1,'commands']]],
   ['host_20hostname_2emd_25',['host hostname.md',['../host_01hostname_8md.html',1,'']]],
   ['hour_20function_26',['HOUR Function',['../HOUR.html',1,'int-funcs']]],

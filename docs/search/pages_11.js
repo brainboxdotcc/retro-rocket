@@ -21,7 +21,7 @@ var searchData=
   ['highlighting_18',['Syntax highlighting',['../edit.html#syntax-highlighting',1,'']]],
   ['hints_19',['Names, keywords, and performance hints',['../basic-intdev.html#names-keywords-and-performance-hints',1,'']]],
   ['hist_24_20',['PROCEdAddHistory(hist$)',['../ansi.html#procedaddhistoryhist',1,'']]],
-  ['history_21',['PROCEdInit(history)',['../ansi.html#procedinithistory',1,'']]],
+  ['history_21',['history',['../rocketsh.html#history',1,'history'],['../ansi.html#procedinithistory',1,'PROCEdInit(history)']]],
   ['host_20command_22',['host command',['../host.html',1,'commands']]],
   ['hour_20function_23',['HOUR Function',['../HOUR.html',1,'int-funcs']]],
   ['how_20incoming_20messages_20are_20stored_24',['UDP “Doorstep Queue” (how incoming messages are stored)',['../networking.html#udp-doorstep-queue-how-incoming-messages-are-stored',1,'']]],
