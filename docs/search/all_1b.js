@@ -171,7 +171,7 @@ var searchData=
   ['symbols_168',['Using Kernel Symbols',['../modules.html#using-kernel-symbols',1,'']]],
   ['syntax_20highlighting_169',['Syntax highlighting',['../edit.html#syntax-highlighting',1,'']]],
   ['syntax_20posix_20ere_20subset_170',['Supported syntax (POSIX ERE subset)',['../MATCH.html#supported-syntax-posix-ere-subset',1,'']]],
-  ['system_171',['System',['../modules.html#build-system',1,'Build System'],['../file-system.html',1,'File System']]],
+  ['system_171',['System',['../modules.html#build-system',1,'Build System'],['../file-system.html',1,'File System'],['../index.html',1,'Retro Rocket - The BASIC Powered Operating System']]],
   ['system_172',['system',['../glossary.html#file-system',1,'File system'],['../saving-your-work.html#installed-system',1,'Installed system']]],
   ['system_20doesn’t_20boot_20from_20the_20cd_173',['System doesn’t boot from the CD',['../troubleshooting.html#system-doesnt-boot-from-the-cd',1,'']]],
   ['system_20doesn’t_20boot_20from_20the_20usb_20stick_174',['System doesn’t boot from the USB stick',['../troubleshooting.html#system-doesnt-boot-from-the-usb-stick',1,'']]],

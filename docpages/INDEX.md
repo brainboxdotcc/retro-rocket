@@ -1,11 +1,14 @@
-Retro Rocket is a modern hobbyist operating system built in the spirit of the 1980s micros; approachable, transparent, and designed for learning.
+**Retro Rocket** is a small operating system in the spirit of the 1980s micros. Something you can actually understand, not just use.
 
-\image html leader3.png
+\image html leader4.png
 
-It boots on real x86-64 hardware, has its own BASIC dialect for programming and shell work, and exposes the nuts and bolts of how an OS really runs:
-memory management, filesystems, multitasking, device drivers and more.
+It runs on real x86-64 hardware, has its own programming language for the shell and for writing programs, and doesn’t hide much. Everything is there for you to play with if you want to dig into it.
 
-Unlike diving into C kernels or dense textbooks, Retro Rocket lets you explore these concepts in a hands-on way through BASIC and clear documentation, making low-level development feel fun and accessible without needing to be a systems programmer first.
+You can sit down with it, try things, break things, and see what happens. The idea is that you’re always close to what the system is actually doing, not several layers removed from it.
+
+Getting into low-level stuff can usually be a bit of a wall. You usually end up fighting tools, languages, and systems that assume you already know the answer. This is a more direct way in.
+
+*Retro Rocket meets you in the middle, letting you dive into to the guts of your computer.*
 
 * \subpage user-guide
 * \subpage basic-ref

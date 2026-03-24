@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxyfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="doxyfile.xsd" version="1.14.0" xml:lang="en-US">
   <option  id='DOXYFILE_ENCODING' default='yes' type='string'><value><![CDATA[UTF-8]]></value></option>
-  <option  id='PROJECT_NAME' default='no' type='string'><value><![CDATA["Retro Rocket OS"]]></value></option>
+  <option  id='PROJECT_NAME' default='no' type='string'><value><![CDATA["Retro Rocket - The BASIC Powered Operating System"]]></value></option>
   <option  id='PROJECT_NUMBER' default='yes' type='string'><value><![CDATA[]]></value></option>
   <option  id='PROJECT_BRIEF' default='no' type='string'><value><![CDATA["BASIC-Powered Operating System"]]></value></option>
   <option  id='PROJECT_LOGO' default='no' type='string'><value><![CDATA[docpages/images/rr.png]]></value></option>
@@ -222,8 +222,8 @@
   <option  id='GENERATE_HTML' default='yes' type='bool'><value>YES</value></option>
   <option  id='HTML_OUTPUT' default='no' type='string'><value><![CDATA[.]]></value></option>
   <option  id='HTML_FILE_EXTENSION' default='yes' type='string'><value><![CDATA[.html]]></value></option>
-  <option  id='HTML_HEADER' default='yes' type='string'><value><![CDATA[]]></value></option>
-  <option  id='HTML_FOOTER' default='yes' type='string'><value><![CDATA[]]></value></option>
+  <option  id='HTML_HEADER' default='no' type='string'><value><![CDATA[docpages/header.html]]></value></option>
+  <option  id='HTML_FOOTER' default='no' type='string'><value><![CDATA[docpages/footer.html]]></value></option>
   <option  id='HTML_STYLESHEET' default='yes' type='string'><value><![CDATA[]]></value></option>
   <option  id='HTML_EXTRA_STYLESHEET' default='no' type='stringlist'>
     <value><![CDATA[doxygen-awesome-css/doxygen-awesome.css]]></value>

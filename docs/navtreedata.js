@@ -24,7 +24,7 @@
 */
 var NAVTREE =
 [
-  [ "Retro Rocket OS", "index.html", [
+  [ "Retro Rocket - The BASIC Powered Operating System", "index.html", [
     [ "User Guide", "user-guide.html", "user-guide" ],
     [ "BASIC Language Reference", "basic-ref.html", "basic-ref" ],
     [ "Kernel Development", "kernel-dev.html", "kernel-dev" ],
