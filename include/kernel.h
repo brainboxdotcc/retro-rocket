@@ -6,10 +6,31 @@
 #pragma once
 
 #if !defined(__GNUC__)
-	#error "Retro Rocket is built with GCC only."
+#error "Unsupported compiler: Retro Rocket must be built with GCC."
 #endif
-#if !defined(__x86_64__) || (__BYTE_ORDER__ != __ORDER_LITTLE_ENDIAN__)
-	#error "Bit-field layout assumed: x86_64 little-endian."
+
+#if !defined(__x86_64__)
+#error "Unsupported architecture: Retro Rocket requires x86_64 (64-bit)."
+#endif
+
+#if (__BYTE_ORDER__ != __ORDER_LITTLE_ENDIAN__)
+#error "Unsupported byte order: x86_64 is expected to be little-endian."
+#endif
+
+#ifndef __STDC_HOSTED__
+#error "Retro Rocket must be built in a freestanding environment."
+#endif
+
+#if __STDC_HOSTED__ != 0
+#error "Retro Rocket must be compiled with -ffreestanding."
+#endif
+
+#if __SIZEOF_POINTER__ != 8
+#error "Pointer size must be 64-bit."
+#endif
+
+#if __SIZEOF_LONG__ != 8
+#error "Retro Rocket assumes LP64 (sizeof(long) == 8)."
 #endif
 
 #define KSTACK_SIZE  (1 * 1024 * 1024)   /* 1 MB */
