@@ -414,3 +414,29 @@ tt {
     border-radius: 8px;
     border: 1px solid black;
 }
+
+/* Base box */
+dl.note,
+dl.remark {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin: 16px 0;
+}
+
+/* Title (Note / Remarks label) */
+dl.note dt,
+dl.remark dt {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #6ec3ff; /* subtle accent */
+    margin-bottom: 6px;
+}
+
+/* Content */
+dl.note dd,
+dl.remark dd {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.85);
+}
