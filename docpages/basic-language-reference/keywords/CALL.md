@@ -17,7 +17,7 @@ This allows BASIC programs to interface directly with the Retro Rocket kernel or
 - The called routine will execute with the same privileges as the BASIC interpreter.  
 - No automatic argument passing or stack frame is provided - users are responsible for adhering to the calling convention.
 - Returning from the routine will resume BASIC execution at the next statement.  
-- Invalid addresses will raise a runtime error (caught by [`ON ERROR`](https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR) if present).
+- Invalid addresses will raise a runtime error (caught by `ON ERROR` if present).
 
 ---
 

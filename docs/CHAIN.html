@@ -152,8 +152,7 @@ Notes</h5>
 <li>Chained programs run in a <b>new interpreter instance</b> within a new process. The parent remains suspended until the child exits, unless the child is launched as a background task.</li>
 <li>A chained program may itself issue <span class="tt">CHAIN</span> statements, nesting as required. <br  />
 </li>
-<li>If the file specified in <span class="tt">string-expression</span> cannot be found, an error is raised (and can be caught with <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><span class="tt">ON ERROR</span></a>). <br  />
-</li>
+<li>If the file specified in <span class="tt">string-expression</span> cannot be found, an error is raised (and can be caught with <span class="tt">ON ERROR</span>).</li>
 <li>Unlike BBC BASIC, Retro Rocket’s <span class="tt">CHAIN</span> does <b>not</b> discard the caller - the parent program continues afterwards.</li>
 </ul>
 <p><b>See also:</b> <a class="el" href="GLOBAL.html">GLOBAL</a>, <a class="el" href="LIBRARY.html">LIBRARY</a> </p>

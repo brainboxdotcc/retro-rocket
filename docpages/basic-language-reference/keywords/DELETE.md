@@ -13,7 +13,7 @@ Deletes the specified **file** from the filesystem.
 
 @note This is a **destructive** operation (no undo).
 @note If the file does not exist, or cannot be removed (for example because it is currently **open**),
-@note a runtime error is raised (catchable with [`ON ERROR`](https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR)).
+@note a runtime error is raised (catchable with `ON ERROR`
 
 
 @note `DELETE` removes **files** only. To remove a directory, use \ref RMDIR "RMDIR".

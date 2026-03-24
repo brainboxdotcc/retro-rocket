@@ -25,7 +25,7 @@
 </listitem><listitem><para>No automatic argument passing or stack frame is provided - users are responsible for adhering to the calling convention.</para>
 </listitem><listitem><para>Returning from the routine will resume BASIC execution at the next statement. <linebreak/>
 </para>
-</listitem><listitem><para>Invalid addresses will raise a runtime error (caught by <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink> if present).</para>
+</listitem><listitem><para>Invalid addresses will raise a runtime error (caught by <computeroutput>ON ERROR</computeroutput> if present).</para>
 </listitem></itemizedlist>
 </para>
 <para><hruler/>

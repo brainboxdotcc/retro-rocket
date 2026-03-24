@@ -20,7 +20,7 @@
 </simplesect>
 <simplesect kind="note"><para>If the file does not exist, or cannot be removed (for example because it is currently <bold>open</bold>), </para>
 </simplesect>
-<simplesect kind="note"><para>a runtime error is raised (catchable with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink>).</para>
+<simplesect kind="note"><para>a runtime error is raised (catchable with <computeroutput>ON ERROR</computeroutput></para>
 </simplesect>
 <simplesect kind="note"><para><computeroutput>DELETE</computeroutput> removes <bold>files</bold> only. To remove a directory, use <ref refid="RMDIR" kindref="compound">RMDIR</ref>.</para>
 </simplesect>

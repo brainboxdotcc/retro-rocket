@@ -29,5 +29,6 @@ END IF
 ### Notes
 - The value updates only when `UDPREAD$` dequeues a packet.
 
-**See also:**  
-[UDPREAD$](https://github.com/brainboxdotcc/retro-rocket/wiki/UDPREAD%24) · [UDPLASTIP$](https://github.com/brainboxdotcc/retro-rocket/wiki/UDPLASTIP%24)
+**See also:**
+\ref UDPREAD "UDPREAD$" ·
+\ref UDPLASTIP "UDPLASTIP$"

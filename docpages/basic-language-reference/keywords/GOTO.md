@@ -9,9 +9,9 @@ Transfers control unconditionally to the line with the given **constant line num
 \remark **Deprecated / discouraged.**
 \remark Prefer structured flow control and procedures:
 \remark \ref IF "IF",
-\remark [`WHILE`/`ENDWHILE`](https://github.com/brainboxdotcc/retro-rocket/wiki/WHILE),
-\remark [`REPEAT`/`UNTIL`](https://github.com/brainboxdotcc/retro-rocket/wiki/REPEAT),
-\remark [`FOR`/`NEXT`](https://github.com/brainboxdotcc/retro-rocket/wiki/FOR),
+\remark \ref WHILE "WHILE" / \ref ENDWHILE "ENDWHILE",
+\remark \ref REPEAT "REPEAT" / \ref UNTIL "UNTIL",
+\remark \ref FOR "FOR" / \ref NEXT "NEXT",
 \remark and `DEF PROC...`/`ENDPROC` with `PROC` calls.
 
 - The target must be a **numeric constant**; variables or expressions are not allowed.

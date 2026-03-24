@@ -40,8 +40,7 @@
 <listitem><para>Chained programs run in a <bold>new interpreter instance</bold> within a new process. The parent remains suspended until the child exits, unless the child is launched as a background task.</para>
 </listitem><listitem><para>A chained program may itself issue <computeroutput>CHAIN</computeroutput> statements, nesting as required. <linebreak/>
 </para>
-</listitem><listitem><para>If the file specified in <computeroutput>string-expression</computeroutput> cannot be found, an error is raised (and can be caught with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink>). <linebreak/>
-</para>
+</listitem><listitem><para>If the file specified in <computeroutput>string-expression</computeroutput> cannot be found, an error is raised (and can be caught with <computeroutput>ON ERROR</computeroutput>).</para>
 </listitem><listitem><para>Unlike BBC BASIC, Retro Rocket’s <computeroutput>CHAIN</computeroutput> does <bold>not</bold> discard the caller - the parent program continues afterwards.</para>
 </listitem></itemizedlist>
 </para>

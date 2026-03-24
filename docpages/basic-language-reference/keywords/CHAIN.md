@@ -34,7 +34,7 @@ After `childprog` ends, execution resumes.
 ##### Notes
 - Chained programs run in a **new interpreter instance** within a new process. The parent remains suspended until the child exits, unless the child is launched as a background task.
 - A chained program may itself issue `CHAIN` statements, nesting as required.  
-- If the file specified in `string-expression` cannot be found, an error is raised (and can be caught with [`ON ERROR`](https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR)).  
+- If the file specified in `string-expression` cannot be found, an error is raised (and can be caught with `ON ERROR`).
 - Unlike BBC BASIC, Retro Rocket’s `CHAIN` does **not** discard the caller - the parent program continues afterwards.
 
 **See also:**

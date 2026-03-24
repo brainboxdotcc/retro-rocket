@@ -39,4 +39,5 @@ PRINT UDPREAD$(8080)
 - Ensure the destination host and port are reachable on your network.
 
 **See also:**  
-\ref UDPBIND "UDPBIND" · [UDPREAD$](https://github.com/brainboxdotcc/retro-rocket/wiki/UDPREAD)
+\ref UDPBIND "UDPBIND" ·
+\ref UDPREAD "UDPREAD$"

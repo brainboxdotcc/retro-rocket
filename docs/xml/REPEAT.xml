@@ -23,7 +23,7 @@
 <sect1 id="REPEAT_1how-to-read-it-31_1s1"><sect2 id="REPEAT_1how-to-read-it-31_1s2"><sect3 id="REPEAT_1how-to-read-it-31">
 <title>How to read it</title><para><itemizedlist>
 <listitem><para>Think of it as <bold>“do these statements **until</bold> the condition becomes true”** (exit-on-true).</para>
-</listitem><listitem><para>If you prefer an <bold>entry-test</bold> loop (continue-on-true), use <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/WHILE"><computeroutput>WHILE … ENDWHILE</computeroutput></ulink>.</para>
+</listitem><listitem><para>If you prefer an <bold>entry-test</bold> loop (continue-on-true), use <ref refid="WHILE" kindref="compound">WHILE</ref> / <ref refid="ENDWHILE" kindref="compound">ENDWHILE</ref>.</para>
 </listitem></itemizedlist>
 </para>
 <para><hruler/>

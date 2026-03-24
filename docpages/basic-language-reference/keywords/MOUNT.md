@@ -25,7 +25,7 @@ Mounts a filesystem of the specified type at the given **mount point**.
 @note (`OPENIN`, `OPENOUT`, `OPENUP`, `DELETE`, `MKDIR`, `RMDIR`, etc.). Use `CHDIR` to switch into the mounted path.
 
 If the mount fails (for example, unsupported `fstype` or unavailable device), a runtime error is raised (catchable with
-[`ON ERROR`](https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR)).
+`ON ERROR`).
 
 ---
 

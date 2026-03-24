@@ -12,7 +12,7 @@
 <para><itemizedlist>
 <listitem><para>Sets the built-in variables <bold>ERR$</bold> (to the message) and <bold>ERR</bold> (to <computeroutput>1</computeroutput>) <bold>when</bold>:<itemizedlist>
 <listitem><para>the error is raised <bold>inside</bold> an <ref refid="EVAL" kindref="compound">EVAL</ref>, <bold>or</bold></para>
-</listitem><listitem><para>an error handler has been installed with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink>.</para>
+</listitem><listitem><para>an error handler has been installed with <computeroutput>ON ERROR</computeroutput>.</para>
 </listitem></itemizedlist>
 </para>
 </listitem><listitem><para>If <bold>no</bold> handler is installed and you are not inside <computeroutput>EVAL</computeroutput>, the program <bold>terminates</bold>.</para>
@@ -56,7 +56,7 @@
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink> · <ref refid="EVAL" kindref="compound">EVAL</ref> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Builtin-Variables">Builtin Variables</ulink> </para>
+ <computeroutput>ON ERROR</computeroutput> · <ref refid="EVAL" kindref="compound">EVAL</ref> </para>
 </sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/ERROR.md"/>

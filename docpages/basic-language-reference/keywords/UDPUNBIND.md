@@ -30,4 +30,5 @@ UDPUNBIND "0.0.0.0", 8080
 - Unbinding while packets are still queued discards them from further reads.
 
 **See also:**  
-\ref UDPBIND "UDPBIND" · [UDPREAD$](https://github.com/brainboxdotcc/retro-rocket/wiki/UDPREAD%24)
+\ref UDPBIND "UDPBIND" ·
+\ref UDPREAD "UDPREAD$"

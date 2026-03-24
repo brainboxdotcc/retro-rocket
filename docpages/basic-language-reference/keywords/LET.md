@@ -54,7 +54,6 @@ TOTAL = PRICE * QUANTITY
 - `GLOBAL` is unrelated to `LET`: use \ref GLOBAL "GLOBAL" when you want the value copied into child programs started with `CHAIN`.
 
 **See also:**  
-[`Variable Naming`](https://github.com/brainboxdotcc/retro-rocket/wiki/Variable-Naming) ·
-[`Variable Types`](https://github.com/brainboxdotcc/retro-rocket/wiki/Variable-Types) ·
+\ref variables ·
 \ref DIM "DIM" ·
 \ref GLOBAL "GLOBAL"

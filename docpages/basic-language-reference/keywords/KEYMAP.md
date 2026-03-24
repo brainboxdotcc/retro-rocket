@@ -17,7 +17,7 @@ Loads a **keyboard mapping** by name from the `/system/keymaps` directory.
 
 
 @note If a keymap cannot be found or loaded, a runtime error is raised (catchable with
-@note [`ON ERROR`](https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR)).
+@note `ON ERROR`).
 
 ---
 

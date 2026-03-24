@@ -36,4 +36,7 @@ UDPBIND "127.0.0.1", 9000
 - To stop receiving on a port, use `UDPUNBIND`.
 
 **See also:**  
-\ref UDPUNBIND "UDPUNBIND" · [UDPREAD$](https://github.com/brainboxdotcc/retro-rocket/wiki/UDPREAD%24) · [UDPLASTIP$](https://github.com/brainboxdotcc/retro-rocket/wiki/UDPLASTIP%24) · \ref UDPLASTSOURCEPORT "UDPLASTSOURCEPORT"
+\ref UDPUNBIND "UDPUNBIND" ·
+\ref UDPREAD "UDPREAD$" ·
+\ref UDPLASTIP "UDPLASTIP$" ·
+\ref UDPLASTSOURCEPORT "UDPLASTSOURCEPORT"

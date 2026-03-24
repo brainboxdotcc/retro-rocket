@@ -13,7 +13,7 @@ Creates a new **directory** in the filesystem.
 
 
 \remark If the directory already exists, or the path refers to an existing **file**, an error is raised
-\remark (catchable with [`ON ERROR`](https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR)).
+\remark (catchable with `ON ERROR`).
 
 ---
 

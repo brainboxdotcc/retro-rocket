@@ -145,7 +145,7 @@ Example</h5>
 Notes</h5>
 <ul>
 <li>After <span class="tt">CLOSE</span>, the handle becomes invalid and must not be reused unless re-opened.</li>
-<li>Closing an already-closed or never-opened handle raises a runtime error (trap with <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><span class="tt">ON ERROR</span></a> if needed).</li>
+<li>Closing an already-closed or never-opened handle raises a runtime error (trap with <span class="tt">ON ERROR</span> if needed).</li>
 <li>All buffered data is written to storage before the handle is released.</li>
 <li>Reading from or writing to a handle is only valid while it is open (see <a class="el" href="EOF.html">EOF</a> for end-of-file checks).</li>
 </ul>

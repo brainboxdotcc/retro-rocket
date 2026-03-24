@@ -89,4 +89,4 @@ PRINT NAMES$(2)
 \ref DIM "DIM" ·
 \ref PUSH "PUSH" ·
 \ref POP "POP" ·
-[`Array`](https://github.com/brainboxdotcc/retro-rocket/wiki/Array)
+\ref array

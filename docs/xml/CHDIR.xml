@@ -34,8 +34,7 @@
 </para>
 <sect5 id="CHDIR_1notes-127">
 <title>Notes</title><para><itemizedlist>
-<listitem><para>Paths must exist; if the target directory is invalid, an error occurs (catchable with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink>). <linebreak/>
-</para>
+<listitem><para>Paths must exist; if the target directory is invalid, an error occurs (catchable with <computeroutput>ON ERROR</computeroutput>).</para>
 </listitem><listitem><para>Paths are <bold>case-insensitive</bold>. <linebreak/>
 </para>
 </listitem><listitem><para><computeroutput>rocketsh</computeroutput> provides a built-in command <computeroutput>chdir</computeroutput> (or short form <computeroutput>cd</computeroutput>) which performs the same action directly from the shell. <linebreak/>

@@ -26,7 +26,7 @@
 <sect1 id="UNTIL_1how-to-think-about-it_1s1"><sect2 id="UNTIL_1how-to-think-about-it_1s2"><sect3 id="UNTIL_1how-to-think-about-it">
 <title>How to think about it</title><para><itemizedlist>
 <listitem><para>Read it as <bold>“do these statements until the condition becomes true”</bold> (exit-on-true).</para>
-</listitem><listitem><para>If you want an <bold>entry-test</bold> loop instead, use <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/WHILE"><computeroutput>WHILE … ENDWHILE</computeroutput></ulink>.</para>
+</listitem><listitem><para>If you want an <bold>entry-test</bold> loop instead, use <ref refid="WHILE" kindref="compound">WHILE</ref> / <ref refid="ENDWHILE" kindref="compound">ENDWHILE</ref></para>
 </listitem></itemizedlist>
 </para>
 <para><hruler/>

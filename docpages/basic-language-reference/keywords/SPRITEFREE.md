@@ -12,7 +12,7 @@ After `SPRITEFREE`, the handle is no longer valid for drawing.
 
 
 @note Passing an invalid handle (or one that has already been freed) raises a runtime error
-@note that you can catch with [`ON ERROR`](https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR).
+@note that you can catch with `ON ERROR`.
 
 ---
 

@@ -11,7 +11,7 @@ Immediately after `LIBRARY`, any procedures or functions from that file are avai
 
 
 @note A library file **must not contain line numbers**.
-@note If a line-numbered program loads a library, the library is **auto-numbered** on load so its lines come **after** the program’s existing lines (using increments of 10). See [Automatic line numbering](https://github.com/brainboxdotcc/retro-rocket/wiki/Automatic-line-numbering).
+@note If a line-numbered program loads a library, the library is **auto-numbered** on load so its lines come **after** the program’s existing lines (using increments of 1).
 
 
 @note On load, Retro Rocket looks for a procedure with the **same name as the library filename** and **calls it** if found.
@@ -62,7 +62,7 @@ ENDPROC
 ---
 
 ### Errors and behaviour
-- If the library file **cannot be found or loaded**, a runtime error is raised (catch with [`ON ERROR`](https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR) if needed).
+- If the library file **cannot be found or loaded**, a runtime error is raised (catch with `ON ERROR` if needed).
 - After loading, all `PROC`/`FN` names from the library become available in the current program.
 - The constructor call (procedure named after the file) is **optional**. If absent, nothing extra is called.
 
@@ -70,5 +70,4 @@ ENDPROC
 \ref DEF "DEF" ·
 \ref PROC "PROC" ·
 \ref FN "FN" ·
-[`Automatic line numbering`](https://github.com/brainboxdotcc/retro-rocket/wiki/Automatic-line-numbering) ·
-[`ansi`](https://github.com/brainboxdotcc/retro-rocket/wiki/ansi)
+\ref ansi

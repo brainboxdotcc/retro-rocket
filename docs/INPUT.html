@@ -130,7 +130,7 @@ $(function(){initNavTree('INPUT.html','',''); });
 <li>If the input is <b>not valid</b> for the requested type (for example, letters when an integer is expected), the variable is set to <b>0</b>.</li>
 <li><span class="tt">INPUT</span> is <b>blocking</b>: execution does not continue until the user presses Enter.</li>
 </ul>
-<p>The <span class="tt">INPUT</span> statement is intentionally simple. For richer line-editing (cursor keys, history, etc.) see the <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ansi">ansi</a> library, which also lets you manage your own I/O loop.</p>
+<p>The <span class="tt">INPUT</span> statement is intentionally simple. For richer line-editing (cursor keys, history, etc.) see the <a class="el" href="ansi.html">ANSI</a> library, which also lets you manage your own I/O loop.</p>
 <dl class="section remark"><dt>Remarks</dt><dd>Press <span class="tt">CTRL+ESC</span> at any time to cancel waiting for input. </dd>
 <dd>
 Without an error handler, the program terminates. </dd>
@@ -163,7 +163,7 @@ Notes</h3>
 <ul>
 <li>The entered line is stored <b>as-is</b> for string variables (without the trailing newline).</li>
 <li>For numeric variables, parsing is strict; invalid input yields <b>0</b>.</li>
-<li><span class="tt">INPUT</span> echoes characters to the terminal. For full-screen UI or advanced editing, prefer the <a href="https://github.com/brainboxdotcc/retro-rocket/wiki/ansi">ansi</a> library. </li>
+<li><span class="tt">INPUT</span> echoes characters to the terminal. For full-screen UI or advanced editing, prefer the <a class="el" href="ansi.html">ANSI</a> library. </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

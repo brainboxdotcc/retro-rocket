@@ -27,7 +27,7 @@ CLOSE FH
 ##### Notes
 - After `CLOSE`, the handle becomes invalid and must not be reused unless re-opened.
 - Closing an already-closed or never-opened handle raises a runtime error
-  (trap with [`ON ERROR`](https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR) if needed).
+  (trap with `ON ERROR` if needed).
 - All buffered data is written to storage before the handle is released.
 - Reading from or writing to a handle is only valid while it is open (see \ref EOF "EOF" for end-of-file checks).
 

@@ -15,7 +15,7 @@
 </listitem><listitem><para><computeroutput>INPUT</computeroutput> is <bold>blocking</bold>: execution does not continue until the user presses Enter.</para>
 </listitem></itemizedlist>
 </para>
-<para>The <computeroutput>INPUT</computeroutput> statement is intentionally simple. For richer line-editing (cursor keys, history, etc.) see the <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ansi">ansi</ulink> library, which also lets you manage your own I/O loop.</para>
+<para>The <computeroutput>INPUT</computeroutput> statement is intentionally simple. For richer line-editing (cursor keys, history, etc.) see the <ref refid="ansi" kindref="compound">ANSI</ref> library, which also lets you manage your own I/O loop.</para>
 <para><simplesect kind="remark"><para>Press <computeroutput>CTRL+ESC</computeroutput> at any time to cancel waiting for input. </para>
 </simplesect>
 <simplesect kind="remark"><para>Without an error handler, the program terminates. </para>
@@ -54,7 +54,7 @@
 <title>Notes</title><para><itemizedlist>
 <listitem><para>The entered line is stored <bold>as-is</bold> for string variables (without the trailing newline).</para>
 </listitem><listitem><para>For numeric variables, parsing is strict; invalid input yields <bold>0</bold>.</para>
-</listitem><listitem><para><computeroutput>INPUT</computeroutput> echoes characters to the terminal. For full-screen UI or advanced editing, prefer the <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ansi">ansi</ulink> library. </para>
+</listitem><listitem><para><computeroutput>INPUT</computeroutput> echoes characters to the terminal. For full-screen UI or advanced editing, prefer the <ref refid="ansi" kindref="compound">ANSI</ref> library. </para>
 </listitem></itemizedlist>
 </para>
 </sect3></sect2></sect1>

@@ -18,7 +18,7 @@ After the block runs, `expression` is evaluated; if it is **true**, the loop **e
 ### How to read it
 
 - Think of it as **“do these statements **until** the condition becomes true”** (exit-on-true).
-- If you prefer an **entry-test** loop (continue-on-true), use [`WHILE … ENDWHILE`](https://github.com/brainboxdotcc/retro-rocket/wiki/WHILE).
+- If you prefer an **entry-test** loop (continue-on-true), use \ref WHILE "WHILE" / \ref ENDWHILE "ENDWHILE".
 
 ---
 

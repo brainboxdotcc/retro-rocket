@@ -19,7 +19,7 @@ The block between `REPEAT` and `UNTIL` always runs **at least once**. After it r
 
 ### How to think about it
 - Read it as **“do these statements until the condition becomes true”** (exit-on-true).
-- If you want an **entry-test** loop instead, use [`WHILE … ENDWHILE`](https://github.com/brainboxdotcc/retro-rocket/wiki/WHILE).
+- If you want an **entry-test** loop instead, use \ref WHILE "WHILE" / \ref ENDWHILE "ENDWHILE"
 
 ---
 

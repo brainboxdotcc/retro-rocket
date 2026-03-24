@@ -17,7 +17,7 @@ Removes the specified **directory** from the filesystem.
 @note Change directory with \ref CHDIR "CHDIR".
 
 
-@note If removal fails, you can catch it with [`ON ERROR`](https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR).
+@note If removal fails, you can catch it with `ON ERROR`.
 
 ---
 

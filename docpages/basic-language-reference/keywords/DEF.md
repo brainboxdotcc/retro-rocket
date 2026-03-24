@@ -94,7 +94,7 @@ DEF FNhypot(X, Y)
 
 - **Errors**  
   Calling an undefined `FN`/`PROC`, or passing the wrong number of arguments, raises a runtime error  
-  (catchable with [`ON ERROR`](https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR)).
+  (catchable with `ON ERROR`)
 
 **See also:**  
 \ref FN "FN" ·
@@ -102,5 +102,4 @@ DEF FNhypot(X, Y)
 \ref ENDPROC "ENDPROC" ·
 \ref LOCAL "LOCAL" ·
 \ref CHAIN "CHAIN" ·
-[`Variable Naming`](https://github.com/brainboxdotcc/retro-rocket/wiki/Variable-Naming) ·
-[`Parameter types`](https://github.com/brainboxdotcc/retro-rocket/wiki/Parameter-types)
+\ref variables

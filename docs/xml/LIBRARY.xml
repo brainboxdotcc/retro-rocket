@@ -17,7 +17,7 @@
 </para>
 <para><simplesect kind="note"><para>A library file <bold>must not contain line numbers</bold>. </para>
 </simplesect>
-<simplesect kind="note"><para>If a line-numbered program loads a library, the library is <bold>auto-numbered</bold> on load so its lines come <bold>after</bold> the program’s existing lines (using increments of 10). See <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Automatic-line-numbering">Automatic line numbering</ulink>.</para>
+<simplesect kind="note"><para>If a line-numbered program loads a library, the library is <bold>auto-numbered</bold> on load so its lines come <bold>after</bold> the program’s existing lines (using increments of 1).</para>
 </simplesect>
 <simplesect kind="note"><para>On load, Retro Rocket looks for a procedure with the <bold>same name as the library filename</bold> and <bold>calls it</bold> if found. </para>
 </simplesect>
@@ -58,13 +58,13 @@
 </sect3></sect2></sect1>
 <sect1 id="LIBRARY_1errors-and-behaviour_1s1"><sect2 id="LIBRARY_1errors-and-behaviour_1s2"><sect3 id="LIBRARY_1errors-and-behaviour">
 <title>Errors and behaviour</title><para><itemizedlist>
-<listitem><para>If the library file <bold>cannot be found or loaded</bold>, a runtime error is raised (catch with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink> if needed).</para>
+<listitem><para>If the library file <bold>cannot be found or loaded</bold>, a runtime error is raised (catch with <computeroutput>ON ERROR</computeroutput> if needed).</para>
 </listitem><listitem><para>After loading, all <computeroutput>PROC</computeroutput>/<computeroutput>FN</computeroutput> names from the library become available in the current program.</para>
 </listitem><listitem><para>The constructor call (procedure named after the file) is <bold>optional</bold>. If absent, nothing extra is called.</para>
 </listitem></itemizedlist>
 </para>
 <para><bold>See also:</bold> <linebreak/>
- <ref refid="DEF" kindref="compound">DEF</ref> · <ref refid="PROC" kindref="compound">PROC</ref> · <ref refid="FN" kindref="compound">FN</ref> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/Automatic-line-numbering"><computeroutput>Automatic line numbering</computeroutput></ulink> · <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ansi"><computeroutput>ansi</computeroutput></ulink> </para>
+ <ref refid="DEF" kindref="compound">DEF</ref> · <ref refid="PROC" kindref="compound">PROC</ref> · <ref refid="FN" kindref="compound">FN</ref> · <ref refid="ansi" kindref="compound">ANSI Library</ref> </para>
 </sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/LIBRARY.md"/>

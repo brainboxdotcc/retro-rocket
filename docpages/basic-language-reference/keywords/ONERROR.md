@@ -74,5 +74,4 @@ ENDPROC
 **See also:**  
 \ref ERROR "ERROR" ·
 \ref DEF "DEF" ·
-\ref PROC "PROC" ·
-[Builtin Variables](https://github.com/brainboxdotcc/retro-rocket/wiki/Builtin-Variables)
+\ref PROC "PROC"

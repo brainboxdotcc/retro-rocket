@@ -56,4 +56,3 @@ PRINT FNgreet$("WORLD")
 \ref DEF "DEF"
 \ref PROC "PROC"
 \ref ENDPROC "ENDPROC"
-[`Parameter types`](https://github.com/brainboxdotcc/retro-rocket/wiki/Parameter-types)

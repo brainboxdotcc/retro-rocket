@@ -33,7 +33,7 @@
 </simplesect>
 <simplesect kind="note"><para>(<computeroutput>OPENIN</computeroutput>, <computeroutput>OPENOUT</computeroutput>, <computeroutput>OPENUP</computeroutput>, <computeroutput>DELETE</computeroutput>, <computeroutput>MKDIR</computeroutput>, <computeroutput>RMDIR</computeroutput>, etc.). Use <computeroutput>CHDIR</computeroutput> to switch into the mounted path.</para>
 </simplesect>
-If the mount fails (for example, unsupported <computeroutput>fstype</computeroutput> or unavailable device), a runtime error is raised (catchable with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink>).</para>
+If the mount fails (for example, unsupported <computeroutput>fstype</computeroutput> or unavailable device), a runtime error is raised (catchable with <computeroutput>ON ERROR</computeroutput>).</para>
 <para><hruler/>
 </para>
 <sect1 id="MOUNT_1examples-142_1s1"><sect2 id="MOUNT_1examples-142_1s2"><sect3 id="MOUNT_1examples-142">

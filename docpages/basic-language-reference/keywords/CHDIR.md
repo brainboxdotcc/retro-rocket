@@ -28,7 +28,7 @@ This changes the current directory to `/programs`, then launches `demo` from tha
 ---
 
 ##### Notes
-- Paths must exist; if the target directory is invalid, an error occurs (catchable with [`ON ERROR`](https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR)).  
+- Paths must exist; if the target directory is invalid, an error occurs (catchable with `ON ERROR`).
 - Paths are **case-insensitive**.  
 - `rocketsh` provides a built-in command `chdir` (or short form `cd`) which performs the same action directly from the shell.  
 - Changing the current directory affects file lookups for `OPENIN`, `CHAIN`, `LIBRARY`, and similar statements.

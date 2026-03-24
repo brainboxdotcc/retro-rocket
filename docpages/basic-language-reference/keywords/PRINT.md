@@ -88,7 +88,7 @@ PRINT ESC$ + "?25h"   REM show
 
 
 @note For higher-level helpers and key handling, consider the
-@note [`ansi`](https://github.com/brainboxdotcc/retro-rocket/wiki/ansi) system library.
+@note \ref ansi "ANSI" system library.
 
 ---
 
@@ -130,4 +130,4 @@ PRINT ESC$ + "32m" + "OK> " + ESC$ + "0m";
 \ref CURSOR "CURSOR" ·
 \ref COLOUR "COLOUR" ·
 \ref BACKGROUND "BACKGROUND" ·
-[`ansi`](https://github.com/brainboxdotcc/retro-rocket/wiki/ansi)
+\ref ansi

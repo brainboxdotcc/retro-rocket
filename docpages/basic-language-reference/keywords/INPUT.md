@@ -10,7 +10,7 @@ Pauses the program and waits for **keyboard input**. The entered text is echoed 
 - `INPUT` is **blocking**: execution does not continue until the user presses Enter.
 
 The `INPUT` statement is intentionally simple. For richer line-editing (cursor keys, history, etc.) see the
-[ansi](https://github.com/brainboxdotcc/retro-rocket/wiki/ansi) library, which also lets you manage your own I/O loop.
+\ref ansi "ANSI" library, which also lets you manage your own I/O loop.
 
 
 \remark Press `CTRL+ESC` at any time to cancel waiting for input.
@@ -60,5 +60,4 @@ PRINT "Thanks: "; X
 ### Notes
 - The entered line is stored **as-is** for string variables (without the trailing newline).
 - For numeric variables, parsing is strict; invalid input yields **0**.
-- `INPUT` echoes characters to the terminal. For full-screen UI or advanced editing, prefer the
-  [ansi](https://github.com/brainboxdotcc/retro-rocket/wiki/ansi) library.
+- `INPUT` echoes characters to the terminal. For full-screen UI or advanced editing, prefer the \ref ansi "ANSI" library.

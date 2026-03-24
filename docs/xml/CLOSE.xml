@@ -32,7 +32,7 @@
 <sect1 id="CLOSE_1notes-129_1s1"><sect2 id="CLOSE_1notes-129_1s2"><sect3 id="CLOSE_1notes-129_1s3"><sect4 id="CLOSE_1notes-129_1s4"><sect5 id="CLOSE_1notes-129">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>After <computeroutput>CLOSE</computeroutput>, the handle becomes invalid and must not be reused unless re-opened.</para>
-</listitem><listitem><para>Closing an already-closed or never-opened handle raises a runtime error (trap with <ulink url="https://github.com/brainboxdotcc/retro-rocket/wiki/ONERROR"><computeroutput>ON ERROR</computeroutput></ulink> if needed).</para>
+</listitem><listitem><para>Closing an already-closed or never-opened handle raises a runtime error (trap with <computeroutput>ON ERROR</computeroutput> if needed).</para>
 </listitem><listitem><para>All buffered data is written to storage before the handle is released.</para>
 </listitem><listitem><para>Reading from or writing to a handle is only valid while it is open (see <ref refid="EOF" kindref="compound">EOF</ref> for end-of-file checks).</para>
 </listitem></itemizedlist>
