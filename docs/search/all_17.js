@@ -24,7 +24,7 @@ var searchData=
   ['or_20liveusb_21',['1. Boot the LiveCD or LiveUSB',['../installation.html#autotoc_md1-boot-the-livecd-or-liveusb',1,'']]],
   ['or_20nothing_20happens_20after_20boot_22',['Black screen or nothing happens after boot',['../troubleshooting.html#black-screen-or-nothing-happens-after-boot',1,'']]],
   ['order_23',['Initialisation Order',['../bootflow.html#initialisation-order',1,'']]],
-  ['os_24',['Retro Rocket OS',['../index.html',1,'']]],
+  ['os_20documentation_24',['Retro Rocket OS Documentation',['../index.html',1,'']]],
   ['other_20approaches_25',['How this differs from other approaches',['../basic-intdev.html#how-this-differs-from-other-approaches',1,'']]],
   ['other_20half_20sectors_26',['3.3.2 File/Directory entry (other half-sectors)',['../retrofs.html#autotoc_md332-filedirectory-entry-other-half-sectors',1,'']]],
   ['outline_27',['Example: Outline',['../CIRCLE.html#example-outline',1,'']]],

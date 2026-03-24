@@ -51,11 +51,12 @@ var searchData=
   ['dns_24_20function_48',['DNS$ Function',['../DNS.html',1,'DNS$ Function'],['../networking.html#the-dns-function',1,'The DNS$ Function']]],
   ['do_20in_20a_20task_49',['What not to do in a task',['../tasks.html#what-not-to-do-in-a-task',1,'']]],
   ['do_20with_20it_50',['What you can do with it',['../introduction.html#what-you-can-do-with-it',1,'']]],
-  ['does_51',['does',['../init.html#what-it-does',1,'What it does'],['../servertest.html#what-it-does-1',1,'What it does'],['../ssltest.html#what-it-does-2',1,'What it does'],['../tree.html#what-it-does-3',1,'What it does'],['../udptest.html#what-it-does-4',1,'What it does'],['../webserver.html#what-it-does-5',1,'What it does']]],
-  ['doesn’t_20boot_20from_20the_20cd_52',['System doesn’t boot from the CD',['../troubleshooting.html#system-doesnt-boot-from-the-cd',1,'']]],
-  ['doesn’t_20boot_20from_20the_20usb_20stick_53',['System doesn’t boot from the USB stick',['../troubleshooting.html#system-doesnt-boot-from-the-usb-stick',1,'']]],
-  ['drive_54',['2. Select a drive',['../installation.html#autotoc_md2-select-a-drive',1,'']]],
-  ['driver_55',['Driver',['../glossary.html#driver',1,'']]],
-  ['drivers_56',['Drivers',['../audio-basics.html#drivers',1,'Drivers'],['../user-networking.html#network-drivers',1,'Network Drivers']]],
-  ['dvd_57',['Burning an ISO (CD/DVD)',['../creating-boot-media.html#burning-an-iso-cddvd',1,'']]]
+  ['documentation_51',['Retro Rocket OS Documentation',['../index.html',1,'']]],
+  ['does_52',['does',['../init.html#what-it-does',1,'What it does'],['../servertest.html#what-it-does-1',1,'What it does'],['../ssltest.html#what-it-does-2',1,'What it does'],['../tree.html#what-it-does-3',1,'What it does'],['../udptest.html#what-it-does-4',1,'What it does'],['../webserver.html#what-it-does-5',1,'What it does']]],
+  ['doesn’t_20boot_20from_20the_20cd_53',['System doesn’t boot from the CD',['../troubleshooting.html#system-doesnt-boot-from-the-cd',1,'']]],
+  ['doesn’t_20boot_20from_20the_20usb_20stick_54',['System doesn’t boot from the USB stick',['../troubleshooting.html#system-doesnt-boot-from-the-usb-stick',1,'']]],
+  ['drive_55',['2. Select a drive',['../installation.html#autotoc_md2-select-a-drive',1,'']]],
+  ['driver_56',['Driver',['../glossary.html#driver',1,'']]],
+  ['drivers_57',['Drivers',['../audio-basics.html#drivers',1,'Drivers'],['../user-networking.html#network-drivers',1,'Network Drivers']]],
+  ['dvd_58',['Burning an ISO (CD/DVD)',['../creating-boot-media.html#burning-an-iso-cddvd',1,'']]]
 ];

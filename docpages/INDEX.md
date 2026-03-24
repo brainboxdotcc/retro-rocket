@@ -1,3 +1,5 @@
+\mainpage Retro Rocket OS Documentation
+
 **Retro Rocket** is a small operating system in the spirit of the 1980s micros. Something you can actually understand, not just use.
 
 \image html leader4.png
