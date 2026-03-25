@@ -4,8 +4,8 @@ DEF PROCplayer_ship()
     SHIP_MIDDLE = SHIP_HEIGHT / 2
     SHIP_X = 128
     SHIP_Y = (GRAPHICS_HEIGHT / 2) - SHIP_HEIGHT
-    VEL_X = 2
-    VEL_Y = 2
+    VEL_X = 4
+    VEL_Y = 4
 ENDPROC
 
 DEF PROCmove_player_ship()
@@ -29,38 +29,38 @@ DEF PROCmove_player_ship()
     ENDIF
     IF player_fire_cooldown > 0 THEN player_fire_cooldown = player_fire_cooldown - 1
     IF (INKEY$(CHR$(13)) <> "") AND (player_fire_cooldown = 0) THEN
-        PROCalloc_bullet(1, SHIP_X - 8, SHIP_Y, 10, 0)
+        PROCalloc_bullet(1, SHIP_X - 8, SHIP_Y, 14, 0)
         player_fire_cooldown = player_fire_delay
         IF AUDIO THEN
             SOUND STOP player_fire_stream
             SOUND PLAY player_fire_stream, player_fire_sound
         ENDIF
     ENDIF
-    IF (MOVED_X = TRUE) AND (VEL_X < 4) THEN
+    IF (MOVED_X = TRUE) AND (VEL_X < 10) THEN
         VEL_X = VEL_X + 2
     ELSE
         VEL_X = VEL_X - 2
     ENDIF
-    IF (MOVED_Y = TRUE) AND (VEL_Y < 4) THEN
+    IF (MOVED_Y = TRUE) AND (VEL_Y < 10) THEN
         VEL_Y = VEL_Y + 2
     ELSE
         VEL_Y = VEL_Y - 2
     ENDIF
-    IF VEL_X < 2 THEN VEL_X = 2
-    IF VEL_Y < 2 THEN VEL_Y = 2
+    IF VEL_X < 4 THEN VEL_X = 4
+    IF VEL_Y < 4 THEN VEL_Y = 4
 ENDPROC
 
 DEF PROCdraw_player_ship()
-    IF (VEL_Y = 2) OR (VEL_X = 2) THEN
+    IF (VEL_Y = 4) OR (VEL_X = 4) THEN
         PLOT ship1, SHIP_X - SHIP_WIDTH, SHIP_Y - SHIP_MIDDLE
     ENDIF
-    IF (VEL_Y = 4) OR (VEL_X = 4) THEN
+    IF (VEL_Y = 6) OR (VEL_X = 6) THEN
         PLOT ship2, SHIP_X - SHIP_WIDTH, SHIP_Y - SHIP_MIDDLE
     ENDIF
-    IF (VEL_Y = 6) OR (VEL_X = 6) THEN
+    IF (VEL_Y = 8) OR (VEL_X = 8) THEN
         PLOT ship3, SHIP_X - SHIP_WIDTH, SHIP_Y - SHIP_MIDDLE
     ENDIF
-    IF (VEL_Y = 8) OR (VEL_X = 8) THEN
+    IF (VEL_Y = 10) OR (VEL_X = 10) THEN
         PLOT ship4, SHIP_X - SHIP_WIDTH, SHIP_Y - SHIP_MIDDLE
     ENDIF
 ENDPROC

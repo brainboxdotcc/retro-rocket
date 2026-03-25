@@ -14,9 +14,53 @@ DEF PROCaudio()
 
     IF AUDIO = FALSE THEN ENDPROC
     ON ERROR PROCaudio_continue
+    STREAM CREATE music_stream
+
+    IF AUDIO = FALSE THEN ENDPROC
+    ON ERROR PROCaudio_continue
     SOUND LOAD player_fire_sound, "/system/webserver/media/dragonfly/player_fire.wav"
 
+    IF AUDIO = FALSE THEN ENDPROC
+    ON ERROR PROCaudio_continue
+    SOUND LOAD level1_music, "/system/webserver/media/dragonfly/music_level1.mp3"
+
+    IF AUDIO = TRUE THEN
+        ' Load explosions
+        STREAM CREATE explosions
+        SOUND LOAD explode1, "/system/webserver/media/dragonfly/explosion01.wav"
+        SOUND LOAD explode2, "/system/webserver/media/dragonfly/explosion02.wav"
+        SOUND LOAD explode3, "/system/webserver/media/dragonfly/explosion03.wav"
+        SOUND LOAD explode4, "/system/webserver/media/dragonfly/explosion04.wav"
+        SOUND LOAD explode5, "/system/webserver/media/dragonfly/explosion05.wav"
+        SOUND LOAD explode6, "/system/webserver/media/dragonfly/explosion06.wav"
+        SOUND LOAD explode7, "/system/webserver/media/dragonfly/explosion07.wav"
+        SOUND LOAD explode8, "/system/webserver/media/dragonfly/explosion08.wav"
+        SOUND LOAD explode9, "/system/webserver/media/dragonfly/explosion09.wav"
+    ENDIF
+
     ON ERROR OFF
+ENDPROC
+
+DEF PROCexplosion_sound
+    IF AUDIO = FALSE THEN ENDPROC
+    explode_sound = RND(1, 9)
+    IF explode_sound = 1 THEN SOUND PLAY explosions, explode1
+    IF explode_sound = 2 THEN SOUND PLAY explosions, explode2
+    IF explode_sound = 3 THEN SOUND PLAY explosions, explode3
+    IF explode_sound = 4 THEN SOUND PLAY explosions, explode4
+    IF explode_sound = 5 THEN SOUND PLAY explosions, explode5
+    IF explode_sound = 6 THEN SOUND PLAY explosions, explode6
+    IF explode_sound = 7 THEN SOUND PLAY explosions, explode7
+    IF explode_sound = 8 THEN SOUND PLAY explosions, explode8
+    IF explode_sound = 9 THEN SOUND PLAY explosions, explode9
+ENDPROC
+
+DEF PROCmusic_start
+    IF AUDIO = TRUE THEN SOUND PLAY music_stream, level1_music
+ENDPROC
+
+DEF PROCmusic_stop
+    IF AUDIO = TRUE THEN SOUND STOP music_stream
 ENDPROC
 
 DEF PROCaudio_continue

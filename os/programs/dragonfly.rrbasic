@@ -1,8 +1,9 @@
+LIBRARY LIB$ + "/dragonfly/loading"
 LIBRARY LIB$ + "/dragonfly/player_bullets"
 LIBRARY LIB$ + "/dragonfly/enemy_bullets"
 LIBRARY LIB$ + "/dragonfly/player_ship"
-LIBRARY LIB$ + "/dragonfly/audio"
 LIBRARY LIB$ + "/dragonfly/enemies"
+LIBRARY LIB$ + "/dragonfly/audio"
 
 SPRITELOAD ship1, "/images/dragonfly/ship1.png"
 SPRITELOAD ship2, "/images/dragonfly/ship2.png"
@@ -16,6 +17,8 @@ CLS
 GCOL 0
 AUTOFLIP FALSE
 
+ticks = 0
+PROCmusic_start()
 REPEAT
     PLOT background1, 0, 0
     PROCmove_player_ship()
@@ -26,7 +29,7 @@ REPEAT
     PROCdraw_enemy_bullets()
     PROCdraw_enemies()
     PROCdraw_player_ship()
+    ticks = ticks + 1
     FLIP
 UNTIL (INKEY$(CHR$(27)) <> "") OR (INKEY$("") = CHR$(27))
-
 END

@@ -74,9 +74,9 @@ DEF PROCfree_enemy(enemy_index)
 ENDPROC
 
 DEF PROCmove_enemies()
-    IF (INKEY$("1") <> "") AND (player_fire_cooldown = 0) THEN PROCalloc_enemy(1, GRAPHICS_WIDTH, GRAPHICS_HEIGHT / 2)
-    IF (INKEY$("2") <> "") AND (player_fire_cooldown = 0) THEN PROCalloc_enemy(2, GRAPHICS_WIDTH, GRAPHICS_HEIGHT / 2)
-    IF (INKEY$("3") <> "") AND (player_fire_cooldown = 0) THEN PROCalloc_enemy(3, GRAPHICS_WIDTH, GRAPHICS_HEIGHT / 2)
+    IF (INKEY$("1") <> "") AND (ticks % 10 = 0) THEN PROCalloc_enemy(1, GRAPHICS_WIDTH, GRAPHICS_HEIGHT / 2)
+    IF (INKEY$("2") <> "") AND (ticks % 10 = 0) THEN PROCalloc_enemy(2, GRAPHICS_WIDTH, GRAPHICS_HEIGHT / 2)
+    IF (INKEY$("3") <> "") AND (ticks % 10 = 0) THEN PROCalloc_enemy(3, GRAPHICS_WIDTH, GRAPHICS_HEIGHT / 2)
     IF enemies_count = 0 THEN ENDPROC
     FOR enemy_index = enemies_count - 1 TO 0 STEP -1
         PROCmove_enemy(enemy_index)
@@ -106,21 +106,44 @@ DEF PROCmove_enemy(enemy_index)
     enemy_move_timer(enemy_index) = enemy_move_timer(enemy_index) + 1
 ENDPROC
 
+' Fire a bullet from the enemy centre towards the player at constant speed
+DEF PROCbullet_to_player(enemy_index, bullet_speed)
+    IF enemy_state(enemy_index) <> ENEMY_STATE_ALIVE THEN ENDPROC
+    s_type = enemy_type(enemy_index)
+    ex = enemy_x(enemy_index) + (enemy_width(s_type) / 2)
+    ey = enemy_y(enemy_index) + (enemy_height(s_type) / 2)
+    dx = SHIP_X - enemy_x(enemy_index)
+    dy = SHIP_Y - enemy_y(enemy_index)
+    dist = SQR(dx * dx + dy * dy)
+    IF dist = 0 THEN dist = 1
+    px = (dx * bullet_speed) / dist
+    py = (dy * bullet_speed) / dist
+    PROCalloc_enemy_bullet(ex, ey, px, py)
+ENDPROC
+
 DEF PROCmove_enemy_type_1(enemy_index)
     enemy_x(enemy_index) = enemy_x(enemy_index) - 5
+    IF ticks % 80 = 0 THEN PROCbullet_to_player(enemy_index, 4)
 ENDPROC
 
 DEF PROCmove_enemy_type_2(enemy_index)
     enemy_x(enemy_index) = enemy_x(enemy_index) - 4
-    enemy_y(enemy_index) = enemy_move_data(enemy_index) + SIN(enemy_move_timer(enemy_index) / 32.0) * 48.0
+    enemy_y(enemy_index) = enemy_move_data(enemy_index) + SIN(enemy_move_timer(enemy_index) / 32.0) * 64.0
+    IF ticks % 50 = 0 THEN PROCbullet_to_player(enemy_index, 6)
 ENDPROC
 
 DEF PROCmove_enemy_type_3(enemy_index)
-    IF enemy_y(enemy_index) > SHIP_Y - 128 THEN
+    IF (enemy_y(enemy_index) > SHIP_Y - 128) AND (enemy_y(enemy_index) > 64) THEN
         enemy_y(enemy_index) = enemy_y(enemy_index) - 4
         enemy_x(enemy_index) = enemy_x(enemy_index) - 6
     ELSE
         enemy_x(enemy_index) = enemy_x(enemy_index) - 2
+        IF (ticks % 20 = 0) AND (enemy_x(enemy_index) <= SHIP_X) AND (enemy_state(enemy_index) = ENEMY_STATE_ALIVE) THEN
+            e_type = enemy_type(enemy_index)
+            bx = enemy_x(enemy_index) + (enemy_width(e_type) / 2)
+            by = enemy_y(enemy_index) + (enemy_height(e_type) / 2)
+            PROCalloc_enemy_bullet(bx, by, 0, 8)
+        ENDIF
     ENDIF
 ENDPROC
 
@@ -137,6 +160,7 @@ DEF PROCcheck_enemy_collision_with_player_bullets(enemy_index)
                 enemy_state(enemy_index) = ENEMY_STATE_DEAD
                 collision_done = TRUE
                 PROCfree_bullet(bullet_index)
+                PROCexplosion_sound
             ELSE
                 bullet_index = bullet_index + 1
             ENDIF
