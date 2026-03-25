@@ -19,7 +19,7 @@ DEF PROCmove_player_ship()
         SHIP_Y = SHIP_Y + VEL_Y
         MOVED_Y = TRUE
     ENDIF
-    IF (INKEY$("D") <> "") AND (SHIP_X < GRAPHICS_WIDTH - SHIP_WIDTH - VEL_X) THEN
+    IF (INKEY$("D") <> "") AND (SHIP_X < GRAPHICS_WIDTH - VEL_X) THEN
         SHIP_X = SHIP_X + VEL_X
         MOVED_X = TRUE
     ENDIF

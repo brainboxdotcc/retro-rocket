@@ -3,6 +3,7 @@ LIBRARY LIB$ + "/dragonfly/player_bullets"
 LIBRARY LIB$ + "/dragonfly/enemy_bullets"
 LIBRARY LIB$ + "/dragonfly/player_ship"
 LIBRARY LIB$ + "/dragonfly/enemies"
+LIBRARY LIB$ + "/dragonfly/parallax"
 LIBRARY LIB$ + "/dragonfly/audio"
 
 SPRITELOAD ship1, "/images/dragonfly/ship1.png"
@@ -18,9 +19,12 @@ GCOL 0
 AUTOFLIP FALSE
 
 ticks = 0
+PROCl1_parallax()
 PROCmusic_start()
 REPEAT
+    PROCl1_scroll_parallax()
     PLOT background1, 0, 0
+    PROCl1_draw_parallax_rear()
     PROCmove_player_ship()
     PROCmove_bullets()
     PROCmove_enemies()
@@ -29,7 +33,9 @@ REPEAT
     PROCdraw_enemy_bullets()
     PROCdraw_enemies()
     PROCdraw_player_ship()
+    PROCl1_draw_parallax_front()
     ticks = ticks + 1
     FLIP
 UNTIL (INKEY$(CHR$(27)) <> "") OR (INKEY$("") = CHR$(27))
+CLS
 END

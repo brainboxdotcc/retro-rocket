@@ -1,0 +1,52 @@
+DEF PROCparallax()
+ENDPROC
+
+DEF PROCl1_parallax()
+    L1_PARALLAX_WIDTH = 1014
+    L1_PARALLAX_HEIGHT = 180
+
+    L1_PARALLAX_Y = GRAPHICS_HEIGHT - L1_PARALLAX_HEIGHT
+
+    l1_lower_x = 0
+    l1_middle_x = 0
+    l1_front_x = 0
+
+    l1_lower_speed = 1
+    l1_middle_speed = 2
+    l1_front_speed = 3
+
+    SPRITELOAD l1_parallax_lower, "/images/dragonfly/level1_parallax_lower.png"
+    SPRITELOAD l1_parallax_middle, "/images/dragonfly/level1_parallax_middle.png"
+    SPRITELOAD l1_parallax_front, "/images/dragonfly/level1_parallax_front.png"
+ENDPROC
+
+DEF PROCl1_scroll_parallax()
+    l1_lower_x = l1_lower_x - l1_lower_speed
+    l1_middle_x = l1_middle_x - l1_middle_speed
+    l1_front_x = l1_front_x - l1_front_speed
+
+    IF l1_lower_x <= -L1_PARALLAX_WIDTH THEN l1_lower_x = l1_lower_x + L1_PARALLAX_WIDTH
+    IF l1_middle_x <= -L1_PARALLAX_WIDTH THEN l1_middle_x = l1_middle_x + L1_PARALLAX_WIDTH
+    IF l1_front_x <= -L1_PARALLAX_WIDTH THEN l1_front_x = l1_front_x + L1_PARALLAX_WIDTH
+
+    l1_lower_speed = 1 + (VEL_X / 4)
+    l1_middle_speed = 2 + (VEL_X / 4)
+    l1_front_speed = 3 + (VEL_X / 4)
+
+ENDPROC
+
+DEF PROCl1_draw_parallax_rear()
+    PLOT l1_parallax_lower, l1_lower_x, L1_PARALLAX_Y
+    PLOT l1_parallax_lower, l1_lower_x + L1_PARALLAX_WIDTH, L1_PARALLAX_Y
+
+    PLOT l1_parallax_middle, l1_middle_x, L1_PARALLAX_Y
+    PLOT l1_parallax_middle, l1_middle_x + L1_PARALLAX_WIDTH, L1_PARALLAX_Y
+
+    PLOT l1_parallax_front, l1_front_x, L1_PARALLAX_Y
+    PLOT l1_parallax_front, l1_front_x + L1_PARALLAX_WIDTH, L1_PARALLAX_Y
+ENDPROC
+
+DEF PROCl1_draw_parallax_front()
+    PLOT l1_parallax_front, l1_front_x, L1_PARALLAX_Y
+    PLOT l1_parallax_front, l1_front_x + L1_PARALLAX_WIDTH, L1_PARALLAX_Y
+ENDPROC
