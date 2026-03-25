@@ -139,6 +139,7 @@ Drivers</h3>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">HDA  </td><td class="markdownTableBodyNone">High Definition Audio; Azalia (successor to AC’97)  </td><td class="markdownTableBodyNone"><span class="tt">MODLOAD "hda"</span>  </td></tr>
 </table>
+<p>You may automatically load the correct sound driver for your hardware with: <span class="tt">MODLOAD "sound"</span></p>
 <h3 class="doxsection"><a class="anchor" id="codecs"></a>
 Codecs</h3>
 <p>A codec is a small specialised program that knows how to <b>decode audio files</b> into the raw data format used by Retro Rocket. Codecs are provided as kernel modules, just like drivers, and must be loaded before you can use them.</p>
@@ -155,7 +156,10 @@ Codecs</h3>
 <td class="markdownTableBodyNone">OGG  </td><td class="markdownTableBodyNone">Ogg Vorbis compressed audio  </td><td class="markdownTableBodyNone"><span class="tt">MODLOAD "ogg"</span>  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">MOD  </td><td class="markdownTableBodyNone">Amiga-style tracker modules (ProTracker, etc.)  </td><td class="markdownTableBodyNone"><span class="tt">MODLOAD "mod"</span>  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">XM  </td><td class="markdownTableBodyNone">PC Extended tracker modules (FastTracker II etc.)  </td><td class="markdownTableBodyNone"><span class="tt">MODLOAD "xm"</span>  </td></tr>
 </table>
+<p>You may load all the codecs at once with: <span class="tt">MODLOAD "codecs"</span></p>
 <p>If you try to load any file type except WAV without first loading the corresponding codec module, you will receive an error as the file type will be unrecognised.</p>
 <h3 class="doxsection"><a class="anchor" id="streams"></a>
 Streams</h3>

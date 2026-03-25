@@ -29,10 +29,11 @@
 </entry></row>
 </table>
 </para>
+<para>You may automatically load the correct sound driver for your hardware with: <computeroutput>MODLOAD &quot;sound&quot;</computeroutput></para>
 </sect3>
 <sect3 id="audio-basics_1codecs">
 <title>Codecs</title><para>A codec is a small specialised program that knows how to <bold>decode audio files</bold> into the raw data format used by Retro Rocket. Codecs are provided as kernel modules, just like drivers, and must be loaded before you can use them.</para>
-<para><table rows="6" cols="3"><row>
+<para><table rows="7" cols="3"><row>
 <entry thead="yes"><para>Format  </para>
 </entry><entry thead="yes"><para>Description  </para>
 </entry><entry thead="yes"><para>Command  </para>
@@ -62,8 +63,14 @@
 </entry><entry thead="no"><para>Amiga-style tracker modules (ProTracker, etc.)  </para>
 </entry><entry thead="no"><para><computeroutput>MODLOAD &quot;mod&quot;</computeroutput>  </para>
 </entry></row>
+<row>
+<entry thead="no"><para>XM  </para>
+</entry><entry thead="no"><para>PC Extended tracker modules (FastTracker II etc.)  </para>
+</entry><entry thead="no"><para><computeroutput>MODLOAD &quot;xm&quot;</computeroutput>  </para>
+</entry></row>
 </table>
 </para>
+<para>You may load all the codecs at once with: <computeroutput>MODLOAD &quot;codecs&quot;</computeroutput></para>
 <para>If you try to load any file type except WAV without first loading the corresponding codec module, you will receive an error as the file type will be unrecognised.</para>
 </sect3>
 <sect3 id="audio-basics_1streams">

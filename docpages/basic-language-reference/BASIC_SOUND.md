@@ -18,6 +18,8 @@ Currently supported sound cards:
 | AC'97  | Audio Codec ’97; legacy PCI audio standard         | `MODLOAD "ac97"` |
 | HDA    | High Definition Audio; Azalia (successor to AC’97) | `MODLOAD "hda"`  |
 
+You may automatically load the correct sound driver for your hardware with: `MODLOAD "sound"`
+
 ### Codecs
 
 A codec is a small specialised program that knows how to **decode audio files** into the raw data format used by Retro Rocket.
@@ -30,6 +32,9 @@ Codecs are provided as kernel modules, just like drivers, and must be loaded bef
 | FLAC   | Free Lossless Audio Codec                           | `MODLOAD "flac"`       |
 | OGG    | Ogg Vorbis compressed audio                         | `MODLOAD "ogg"`        |
 | MOD    | Amiga-style tracker modules (ProTracker, etc.)      | `MODLOAD "mod"`        |
+| XM     | PC Extended tracker modules (FastTracker II etc.)   | `MODLOAD "xm"`         |
+
+You may load all the codecs at once with: `MODLOAD "codecs"`
 
 If you try to load any file type except WAV without first loading the corresponding codec module, you will receive an error as the file type will be unrecognised.
 
