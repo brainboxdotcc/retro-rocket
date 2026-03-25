@@ -448,3 +448,15 @@ dl.note dt, dl.remark dt {
 #nav-sync {
     display: none;
 }
+
+.contents hr {
+    box-shadow: none !important;
+}
+
+hr {
+    margin-top: var(--spacing-large);
+    margin-bottom: var(--spacing-large);
+    height: 1px;
+    background-color: var(--separator-color);
+    border: 0;
+}
