@@ -4,5 +4,6 @@ var searchData=
   ['5_20installation_20complete_1',['5. Installation complete',['../installation.html#autotoc_md5-installation-complete',1,'']]],
   ['5_20name_20handling_2',['5. Name handling',['../retrofs.html#autotoc_md5-name-handling',1,'']]],
   ['5_20repeating_20work_20for_20and_20while_3',['5) Repeating work (FOR and WHILE)',['../basic-beginner.html#autotoc_md5-repeating-work-for-and-while',1,'']]],
-  ['5_20userland_20bootstrap_3a_20programs_20init_4',['5. Userland Bootstrap: &lt;span class=&quot;tt&quot;&gt;/programs/init&lt;/span&gt;',['../bootflow.html#autotoc_md5-userland-bootstrap-programsinit',1,'']]]
+  ['5_20submission_20of_20contributions_4',['5. Submission of Contributions',['../third-party-notices.html#autotoc_md5-submission-of-contributions',1,'']]],
+  ['5_20userland_20bootstrap_3a_20programs_20init_5',['5. Userland Bootstrap: &lt;span class=&quot;tt&quot;&gt;/programs/init&lt;/span&gt;',['../bootflow.html#autotoc_md5-userland-bootstrap-programsinit',1,'']]]
 ];

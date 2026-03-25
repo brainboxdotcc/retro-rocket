@@ -10,5 +10,6 @@ var searchData=
   ['4_20directory_20walk_7',['3.3.4 Directory walk',['../retrofs.html#autotoc_md334-directory-walk',1,'']]],
   ['4_20making_20decisions_20if_20else_8',['4) Making decisions (IF / ELSE)',['../basic-beginner.html#autotoc_md4-making-decisions-if--else',1,'']]],
   ['4_20process_20management_20and_20shell_20launch_9',['4. Process Management and Shell Launch',['../bootflow.html#autotoc_md4-process-management-and-shell-launch',1,'']]],
-  ['4_20truncation_10',['4.4 Truncation',['../retrofs.html#autotoc_md44-truncation',1,'']]]
+  ['4_20redistribution_10',['4. Redistribution',['../third-party-notices.html#autotoc_md4-redistribution',1,'']]],
+  ['4_20truncation_11',['4.4 Truncation',['../retrofs.html#autotoc_md44-truncation',1,'']]]
 ];

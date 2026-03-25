@@ -24,7 +24,7 @@ var searchData=
   ['in_20variables_21',['Built-In Variables',['../type-bi.html',1,'variables']]],
   ['incoming_20messages_20are_20stored_22',['UDP “Doorstep Queue” (how incoming messages are stored)',['../networking.html#udp-doorstep-queue-how-incoming-messages-are-stored',1,'']]],
   ['independent_20messages_23',['UDP - Like Sending a Parcel (quick, independent messages)',['../networking.html#udp---like-sending-a-parcel-quick-independent-messages',1,'']]],
-  ['index_24',['Keyword Index',['../keywords.html#keyword-index',1,'']]],
+  ['index_24',['Index',['../third-party-notices.html#component-index',1,'Component Index'],['../keywords.html#keyword-index',1,'Keyword Index']]],
   ['indices_25',['Indices',['../BACKGROUND.html#vga-colour-indices',1,'VGA Colour Indices'],['../COLOUR.html#vga-colour-indices-1',1,'VGA Colour Indices']]],
   ['inerpreter_20development_20guide_26',['BASIC Inerpreter Development Guide',['../basic-intdev.html',1,'basic-ref']]],
   ['info_20scrolling_20with_20text_27',['Example: Keep a logo and system info scrolling with text',['../SCROLLREGION.html#example-keep-a-logo-and-system-info-scrolling-with-text',1,'']]],

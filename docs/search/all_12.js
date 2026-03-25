@@ -25,7 +25,7 @@ var searchData=
   ['in_20variables_22',['Built-In Variables',['../type-bi.html',1,'variables']]],
   ['incoming_20messages_20are_20stored_23',['UDP “Doorstep Queue” (how incoming messages are stored)',['../networking.html#udp-doorstep-queue-how-incoming-messages-are-stored',1,'']]],
   ['independent_20messages_24',['UDP - Like Sending a Parcel (quick, independent messages)',['../networking.html#udp---like-sending-a-parcel-quick-independent-messages',1,'']]],
-  ['index_25',['Keyword Index',['../keywords.html#keyword-index',1,'']]],
+  ['index_25',['Index',['../third-party-notices.html#component-index',1,'Component Index'],['../keywords.html#keyword-index',1,'Keyword Index']]],
   ['index_2emd_26',['INDEX.md',['../INDEX_8md.html',1,'']]],
   ['indices_27',['Indices',['../BACKGROUND.html#vga-colour-indices',1,'VGA Colour Indices'],['../COLOUR.html#vga-colour-indices-1',1,'VGA Colour Indices']]],
   ['inerpreter_20development_20guide_28',['BASIC Inerpreter Development Guide',['../basic-intdev.html',1,'basic-ref']]],

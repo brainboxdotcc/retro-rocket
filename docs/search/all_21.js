@@ -15,5 +15,5 @@ var searchData=
   ['your_20choice_12',['3. Confirm your choice',['../installation.html#autotoc_md3-confirm-your-choice',1,'']]],
   ['your_20first_20program_3a_20printing_20text_13',['1) Your first program: printing text',['../basic-beginner.html#autotoc_md1-your-first-program-printing-text',1,'']]],
   ['your_20work_14',['Saving Your Work',['../saving-your-work.html',1,'user-guide']]],
-  ['your_20work_15',['your work',['../edit.html#saving-your-work',1,'Saving your work'],['../getting-started.html#saving-your-work-1',1,'Saving your work']]]
+  ['your_20work_15',['your work',['../third-party-notices.html#appendix-how-to-apply-the-apache-license-to-your-work',1,'APPENDIX: How to apply the Apache License to your work'],['../edit.html#saving-your-work',1,'Saving your work'],['../getting-started.html#saving-your-work-1',1,'Saving your work']]]
 ];
