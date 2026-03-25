@@ -11,9 +11,9 @@ DEF PROCl1_parallax()
     l1_middle_x = 0
     l1_front_x = 0
 
-    l1_lower_speed = 1
-    l1_middle_speed = 2
-    l1_front_speed = 3
+    l1_lower_speed = 3
+    l1_middle_speed = 6
+    l1_front_speed = 9
 
     SPRITELOAD l1_parallax_lower, "/images/dragonfly/level1_parallax_lower.png"
     SPRITELOAD l1_parallax_middle, "/images/dragonfly/level1_parallax_middle.png"
@@ -28,10 +28,6 @@ DEF PROCl1_scroll_parallax()
     IF l1_lower_x <= -L1_PARALLAX_WIDTH THEN l1_lower_x = l1_lower_x + L1_PARALLAX_WIDTH
     IF l1_middle_x <= -L1_PARALLAX_WIDTH THEN l1_middle_x = l1_middle_x + L1_PARALLAX_WIDTH
     IF l1_front_x <= -L1_PARALLAX_WIDTH THEN l1_front_x = l1_front_x + L1_PARALLAX_WIDTH
-
-    l1_lower_speed = 1 + (VEL_X / 4)
-    l1_middle_speed = 2 + (VEL_X / 4)
-    l1_front_speed = 3 + (VEL_X / 4)
 
 ENDPROC
 
