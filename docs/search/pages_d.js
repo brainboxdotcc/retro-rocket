@@ -23,7 +23,7 @@ var searchData=
   ['deprecated_20',['Legacy PIC Support (Deprecated)',['../interrupts.html#legacy-pic-support-deprecated',1,'']]],
   ['description_20block_20sector_200_21',['3.1 Description Block (sector 0)',['../retrofs.html#autotoc_md31-description-block-sector-0',1,'']]],
   ['design_20buys_20you_22',['What this design buys you',['../basic-intdev.html#what-this-design-buys-you',1,'']]],
-  ['design_20works_23',['✨ Why This Design Works',['../bootflow.html#autotoc_md-why-this-design-works',1,'']]],
+  ['design_20works_23',['Why This Design Works',['../bootflow.html#why-this-design-works',1,'']]],
   ['destroy_24',['DESTROY',['../ENVELOPE.html#destroy',1,'DESTROY'],['../STREAM.html#stream-destroy',1,'STREAM DESTROY']]],
   ['development_25',['Kernel Development',['../kernel-dev.html',1,'index']]],
   ['development_20guide_26',['BASIC Inerpreter Development Guide',['../basic-intdev.html',1,'basic-ref']]],

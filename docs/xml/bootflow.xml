@@ -263,8 +263,8 @@
 <para><hruler/>
 </para>
 </sect2></sect1>
-<sect1 id="bootflow_1autotoc_md-full-boot-timeline_1s1"><sect2 id="bootflow_1autotoc_md-full-boot-timeline">
-<title>🔚 Full Boot Timeline</title><para><programlisting><codeline><highlight class="normal">boot.asm</highlight></codeline>
+<sect1 id="bootflow_1full-boot-timeline_1s1"><sect2 id="bootflow_1full-boot-timeline">
+<title>Full Boot Timeline</title><para><programlisting><codeline><highlight class="normal">boot.asm</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>↓</highlight></codeline>
 <codeline><highlight class="normal">enable_fpu<sp/>/<sp/>enable_sse</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>↓</highlight></codeline>
@@ -287,8 +287,8 @@
 <para><hruler/>
 </para>
 </sect2></sect1>
-<sect1 id="bootflow_1autotoc_md-why-this-design-works_1s1"><sect2 id="bootflow_1autotoc_md-why-this-design-works">
-<title>✨ Why This Design Works</title><para>Retro Rocket&apos;s boot process is:</para>
+<sect1 id="bootflow_1why-this-design-works_1s1"><sect2 id="bootflow_1why-this-design-works">
+<title>Why This Design Works</title><para>Retro Rocket&apos;s boot process is:</para>
 <para><itemizedlist>
 <listitem><para><bold>Transparent</bold>: Fully traceable from boot to shell</para>
 </listitem><listitem><para><bold>Modular</bold>: Replace shell or init without kernel changes</para>

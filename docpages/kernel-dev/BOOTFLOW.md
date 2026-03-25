@@ -171,7 +171,7 @@ UNTIL FALSE
 
 ---
 
-## 🔚 Full Boot Timeline
+## Full Boot Timeline
 
 ```
 boot.asm
@@ -197,7 +197,7 @@ proc_load("/programs/init")
 
 ---
 
-## ✨ Why This Design Works
+## Why This Design Works
 
 Retro Rocket's boot process is:
 

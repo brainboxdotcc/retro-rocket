@@ -69,7 +69,7 @@ var searchData=
   ['boot_20from_20the_20usb_20stick_66',['System doesn’t boot from the USB stick',['../troubleshooting.html#system-doesnt-boot-from-the-usb-stick',1,'']]],
   ['boot_20media_67',['Boot Media',['../creating-boot-media.html',1,'Creating Boot Media'],['../creating-boot-media.html#creating-boot-media',1,'Creating Boot Media']]],
   ['boot_20the_20livecd_20or_20liveusb_68',['1. Boot the LiveCD or LiveUSB',['../installation.html#autotoc_md1-boot-the-livecd-or-liveusb',1,'']]],
-  ['boot_20timeline_69',['🔚 Full Boot Timeline',['../bootflow.html#autotoc_md-full-boot-timeline',1,'']]],
+  ['boot_20timeline_69',['Full Boot Timeline',['../bootflow.html#full-boot-timeline',1,'']]],
   ['bootflow_2emd_70',['BOOTFLOW.md',['../BOOTFLOW_8md.html',1,'']]],
   ['booting_20retro_20rocket_71',['Booting Retro Rocket',['../getting-started.html#booting-retro-rocket',1,'']]],
   ['bootstrap_3a_20programs_20init_72',['5. Userland Bootstrap: &lt;span class=&quot;tt&quot;&gt;/programs/init&lt;/span&gt;',['../bootflow.html#autotoc_md5-userland-bootstrap-programsinit',1,'']]],

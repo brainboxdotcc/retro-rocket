@@ -47,7 +47,7 @@ var searchData=
   ['boot_20from_20the_20usb_20stick_44',['System doesn’t boot from the USB stick',['../troubleshooting.html#system-doesnt-boot-from-the-usb-stick',1,'']]],
   ['boot_20media_45',['Boot Media',['../creating-boot-media.html',1,'Creating Boot Media'],['../creating-boot-media.html#creating-boot-media',1,'Creating Boot Media']]],
   ['boot_20the_20livecd_20or_20liveusb_46',['1. Boot the LiveCD or LiveUSB',['../installation.html#autotoc_md1-boot-the-livecd-or-liveusb',1,'']]],
-  ['boot_20timeline_47',['🔚 Full Boot Timeline',['../bootflow.html#autotoc_md-full-boot-timeline',1,'']]],
+  ['boot_20timeline_47',['Full Boot Timeline',['../bootflow.html#full-boot-timeline',1,'']]],
   ['booting_20retro_20rocket_48',['Booting Retro Rocket',['../getting-started.html#booting-retro-rocket',1,'']]],
   ['bootstrap_3a_20programs_20init_49',['5. Userland Bootstrap: &lt;span class=&quot;tt&quot;&gt;/programs/init&lt;/span&gt;',['../bootflow.html#autotoc_md5-userland-bootstrap-programsinit',1,'']]],
   ['breaking_20code_20into_20procedures_20and_20functions_50',['6) Breaking code into procedures and functions',['../basic-beginner.html#autotoc_md6-breaking-code-into-procedures-and-functions',1,'']]],
