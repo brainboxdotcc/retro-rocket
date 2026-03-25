@@ -9,7 +9,7 @@ var searchData=
   ['call_2emd_6',['CALL.md',['../CALL_8md.html',1,'']]],
   ['calling_20functions_20and_20procedures_7',['Calling functions and procedures',['../DEF.html#calling-functions-and-procedures',1,'']]],
   ['calls_20vs_20parcels_8',['Understanding Sockets (Phone Calls vs Parcels)',['../networking.html#understanding-sockets-phone-calls-vs-parcels',1,'']]],
-  ['can_20do_20with_20it_9',['What you can do with it',['../introduction.html#what-you-can-do-with-it',1,'']]],
+  ['can_20do_20with_20it_9',['can do with it',['../index.html#what-you-can-do-with-it',1,'What you can do with it'],['../introduction.html#what-you-can-do-with-it-1',1,'What you can do with it']]],
   ['can_20script_10',['Error handling you can script',['../basic-intdev.html#error-handling-you-can-script',1,'']]],
   ['captures_11',['Match with captures',['../MATCH.html#match-with-captures',1,'']]],
   ['case_20study_20in_20philosophy_12',['Graphics as a case study in philosophy',['../basic-intdev.html#graphics-as-a-case-study-in-philosophy',1,'']]],
