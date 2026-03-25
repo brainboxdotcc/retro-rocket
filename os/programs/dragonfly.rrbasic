@@ -2,6 +2,7 @@ LIBRARY LIB$ + "/dragonfly/player_bullets"
 LIBRARY LIB$ + "/dragonfly/enemy_bullets"
 LIBRARY LIB$ + "/dragonfly/player_ship"
 LIBRARY LIB$ + "/dragonfly/audio"
+LIBRARY LIB$ + "/dragonfly/enemies"
 
 SPRITELOAD ship1, "/images/dragonfly/ship1.png"
 SPRITELOAD ship2, "/images/dragonfly/ship2.png"
@@ -19,9 +20,11 @@ REPEAT
     PLOT background1, 0, 0
     PROCmove_player_ship()
     PROCmove_bullets()
+    PROCmove_enemies()
     PROCmove_enemy_bullets()
     PROCdraw_bullets()
     PROCdraw_enemy_bullets()
+    PROCdraw_enemies()
     PROCdraw_player_ship()
     FLIP
 UNTIL (INKEY$(CHR$(27)) <> "") OR (INKEY$("") = CHR$(27))

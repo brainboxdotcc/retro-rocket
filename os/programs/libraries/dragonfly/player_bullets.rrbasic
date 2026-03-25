@@ -20,7 +20,6 @@ DEF PROCalloc_bullet(type, bullet_x, bullet_y, x_vel, y_vel)
         REDIM player_bullet_vel_x, player_bullet_max
         REDIM player_bullet_vel_y, player_bullet_max
     ENDIF
-
     player_bullet_x(player_bullets_count - 1) = bullet_x
     player_bullet_y(player_bullets_count - 1) = bullet_y
     player_bullet_type(player_bullets_count - 1) = type
@@ -34,15 +33,12 @@ DEF PROCfree_bullet(i)
     POP player_bullet_type, i
     POP player_bullet_vel_x, i
     POP player_bullet_vel_y, i
-
     player_bullets_count = player_bullets_count - 1
-
     IF player_bullets_count < 1 THEN
         player_bullet_max = 1
     ELSE
         player_bullet_max = player_bullets_count
     ENDIF
-
     REDIM player_bullet_x, player_bullet_max
     REDIM player_bullet_y, player_bullet_max
     REDIM player_bullet_type, player_bullet_max

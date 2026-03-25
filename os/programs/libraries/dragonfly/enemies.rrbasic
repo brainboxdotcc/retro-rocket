@@ -1,0 +1,163 @@
+DEF PROCenemies()
+    enemies_count = 0
+    enemy_max = 1
+
+    ENEMY_STATE_ALIVE = 1
+    ENEMY_STATE_DEAD = 2
+
+    DIM enemy_x, enemy_max
+    DIM enemy_y, enemy_max
+    DIM enemy_type, enemy_max
+    DIM enemy_state, enemy_max
+    DIM enemy_move_timer, enemy_max
+    DIM enemy_move_data, enemy_max
+
+    DIM enemy_width, 4
+    DIM enemy_height, 4
+
+    enemy_width(1) = 112
+    enemy_height(1) = 51
+
+    enemy_width(2) = 130
+    enemy_height(2) = 48
+
+    enemy_width(3) = 256
+    enemy_height(3) = 53
+
+    SPRITELOAD enemy1, "/images/dragonfly/enemy1.png"
+    SPRITELOAD enemy2, "/images/dragonfly/enemy2.png"
+    SPRITELOAD enemy3, "/images/dragonfly/enemy3.png"
+ENDPROC
+
+DEF PROCalloc_enemy(type, enemy_x_pos, enemy_y_pos)
+    enemies_count = enemies_count + 1
+    IF enemies_count > enemy_max THEN
+        enemy_max = enemies_count + 1
+        REDIM enemy_x, enemy_max
+        REDIM enemy_y, enemy_max
+        REDIM enemy_type, enemy_max
+        REDIM enemy_state, enemy_max
+        REDIM enemy_move_timer, enemy_max
+        REDIM enemy_move_data, enemy_max
+    ENDIF
+
+    enemy_x(enemies_count - 1) = enemy_x_pos
+    enemy_y(enemies_count - 1) = enemy_y_pos
+    enemy_type(enemies_count - 1) = type
+    enemy_state(enemies_count - 1) = ENEMY_STATE_ALIVE
+    enemy_move_timer(enemies_count - 1) = 0
+    enemy_move_data(enemies_count - 1) = enemy_y_pos
+ENDPROC
+
+DEF PROCfree_enemy(enemy_index)
+    POP enemy_x, enemy_index
+    POP enemy_y, enemy_index
+    POP enemy_type, enemy_index
+    POP enemy_state, enemy_index
+    POP enemy_move_timer, enemy_index
+    POP enemy_move_data, enemy_index
+
+    enemies_count = enemies_count - 1
+
+    IF enemies_count < 1 THEN
+        enemy_max = 1
+    ELSE
+        enemy_max = enemies_count
+    ENDIF
+
+    REDIM enemy_x, enemy_max
+    REDIM enemy_y, enemy_max
+    REDIM enemy_type, enemy_max
+    REDIM enemy_state, enemy_max
+    REDIM enemy_move_timer, enemy_max
+    REDIM enemy_move_data, enemy_max
+ENDPROC
+
+DEF PROCmove_enemies()
+    IF (INKEY$("1") <> "") AND (player_fire_cooldown = 0) THEN PROCalloc_enemy(1, GRAPHICS_WIDTH, GRAPHICS_HEIGHT / 2)
+    IF (INKEY$("2") <> "") AND (player_fire_cooldown = 0) THEN PROCalloc_enemy(2, GRAPHICS_WIDTH, GRAPHICS_HEIGHT / 2)
+    IF (INKEY$("3") <> "") AND (player_fire_cooldown = 0) THEN PROCalloc_enemy(3, GRAPHICS_WIDTH, GRAPHICS_HEIGHT / 2)
+    IF enemies_count = 0 THEN ENDPROC
+    FOR enemy_index = enemies_count - 1 TO 0 STEP -1
+        PROCmove_enemy(enemy_index)
+        IF enemy_state(enemy_index) = ENEMY_STATE_ALIVE THEN
+            PROCcheck_enemy_collision_with_player_bullets(enemy_index)
+        ENDIF
+        enemy_type_index = enemy_type(enemy_index)
+        enemy_width_i = enemy_width(enemy_type_index)
+        enemy_height_i = enemy_height(enemy_type_index)
+        IF (enemy_x(enemy_index) < -enemy_width_i) OR (enemy_y(enemy_index) < -enemy_height_i) OR (enemy_x(enemy_index) > GRAPHICS_WIDTH + enemy_width_i) OR (enemy_y(enemy_index) > GRAPHICS_HEIGHT + enemy_height_i) THEN
+            PROCfree_enemy(enemy_index)
+        ENDIF
+    NEXT
+ENDPROC
+
+DEF PROCmove_enemy(enemy_index)
+    IF enemy_type(enemy_index) = 1 THEN
+        PROCmove_enemy_type_1(enemy_index)
+    ENDIF
+    IF enemy_type(enemy_index) = 2 THEN
+        PROCmove_enemy_type_2(enemy_index)
+    ENDIF
+    IF enemy_type(enemy_index) = 3 THEN
+        PROCmove_enemy_type_3(enemy_index)
+    ENDIF
+
+    enemy_move_timer(enemy_index) = enemy_move_timer(enemy_index) + 1
+ENDPROC
+
+DEF PROCmove_enemy_type_1(enemy_index)
+    enemy_x(enemy_index) = enemy_x(enemy_index) - 5
+ENDPROC
+
+DEF PROCmove_enemy_type_2(enemy_index)
+    enemy_x(enemy_index) = enemy_x(enemy_index) - 4
+    enemy_y(enemy_index) = enemy_move_data(enemy_index) + SIN(enemy_move_timer(enemy_index) / 32.0) * 48.0
+ENDPROC
+
+DEF PROCmove_enemy_type_3(enemy_index)
+    IF enemy_y(enemy_index) > SHIP_Y - 128 THEN
+        enemy_y(enemy_index) = enemy_y(enemy_index) - 4
+        enemy_x(enemy_index) = enemy_x(enemy_index) - 6
+    ELSE
+        enemy_x(enemy_index) = enemy_x(enemy_index) - 2
+    ENDIF
+ENDPROC
+
+DEF PROCcheck_enemy_collision_with_player_bullets(enemy_index)
+    enemy_width_i1 = enemy_width(enemy_type(enemy_index))
+    enemy_height_i1 = enemy_height(enemy_type(enemy_index))
+    bullet_index = 0
+    collision_done = FALSE
+    REPEAT
+        IF bullet_index >= player_bullets_count THEN
+            collision_done = TRUE
+        ELSE
+            IF (player_bullet_x(bullet_index) >= enemy_x(enemy_index)) AND (player_bullet_x(bullet_index) <= enemy_x(enemy_index) + enemy_width_i1) AND (player_bullet_y(bullet_index) >= enemy_y(enemy_index)) AND (player_bullet_y(bullet_index) <= enemy_y(enemy_index) + enemy_height_i1) THEN
+                enemy_state(enemy_index) = ENEMY_STATE_DEAD
+                collision_done = TRUE
+                PROCfree_bullet(bullet_index)
+            ELSE
+                bullet_index = bullet_index + 1
+            ENDIF
+        ENDIF
+    UNTIL collision_done = TRUE
+ENDPROC
+
+DEF PROCdraw_enemies()
+    IF enemies_count = 0 THEN ENDPROC
+
+    FOR i = 0 TO enemies_count - 1
+        IF enemy_state(i) = ENEMY_STATE_ALIVE THEN
+            IF enemy_type(i) = 1 THEN
+                PLOT enemy1, enemy_x(i), enemy_y(i)
+            ENDIF
+            IF enemy_type(i) = 2 THEN
+                PLOT enemy2, enemy_x(i), enemy_y(i)
+            ENDIF
+            IF enemy_type(i) = 3 THEN
+                PLOT enemy3, enemy_x(i), enemy_y(i)
+            ENDIF
+        ENDIF
+    NEXT
+ENDPROC
