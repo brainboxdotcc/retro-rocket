@@ -7,7 +7,7 @@ var searchData=
   ['values_4',['CPUID Leaf Values',['../cpuid.html#cpuid-leaf-values',1,'']]],
   ['values_5',['3.3.3 File/Directory Flags values',['../retrofs.html#autotoc_md333-filedirectory-flags-values',1,'']]],
   ['variable_20types_6',['Variable Types',['../variables.html',1,'basic-ref']]],
-  ['variables_7',['Variables',['../type-array.html',1,'Array Variables'],['../type-bi.html',1,'Built-In Variables'],['../type-integer.html',1,'Integer Variables'],['../type-real.html',1,'Real Variables'],['../type-string.html',1,'String Variables'],['../variables.html#types-of-variables',1,'Types of Variables'],['../rocketsh.html#variables',1,'Variables']]],
+  ['variables_7',['Variables',['../type-array.html',1,'Array Variables'],['../type-bi.html',1,'Built-In Variables'],['../type-integer.html',1,'Integer Variables'],['../type-real.html',1,'Real Variables'],['../rocketsh.html#rocketsh-variables',1,'Rocketsh Variables'],['../type-string.html',1,'String Variables'],['../variables.html#types-of-variables',1,'Types of Variables']]],
   ['variables_20and_20simple_20maths_8',['2) Variables and simple maths',['../basic-beginner.html#autotoc_md2-variables-and-simple-maths',1,'']]],
   ['variables_20with_20a_20subroutine_9',['Example: using variables with a subroutine',['../GOSUB.html#example-using-variables-with-a-subroutine',1,'']]],
   ['vdu_2010_10',['VDU 10',['../VDU.html#vdu-10',1,'']]],

@@ -169,7 +169,7 @@ Show all commands stored in the command history, which you may retrieve with the
 history
 ```
 
-### Variables
+### Rocketsh Variables
 
 The rocketsh shell allows you to change certain variables that influence how the shell operates. These are:
 

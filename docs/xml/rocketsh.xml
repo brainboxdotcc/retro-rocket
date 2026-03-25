@@ -131,8 +131,8 @@
 </programlisting></para>
 </sect4>
 </sect3></sect2></sect1>
-<sect1 id="rocketsh_1variables_1s1"><sect2 id="rocketsh_1variables_1s2"><sect3 id="rocketsh_1variables">
-<title>Variables</title><para>The rocketsh shell allows you to change certain variables that influence how the shell operates. These are:</para>
+<sect1 id="rocketsh_1rocketsh-variables_1s1"><sect2 id="rocketsh_1rocketsh-variables_1s2"><sect3 id="rocketsh_1rocketsh-variables">
+<title>Rocketsh Variables</title><para>The rocketsh shell allows you to change certain variables that influence how the shell operates. These are:</para>
 <sect4 id="rocketsh_1path">
 <title>PATH$</title><para>The <computeroutput>PATH$</computeroutput> variable is a list of directories that are searched for programs to run them. Each path in PATH$ (separated by semicolons, &apos;;&apos;) is prepended to the command line to try and match a file. If a match is found by prepending this search path, the program is executed. So for example if your program is located at <computeroutput>/programs/tasks/foo</computeroutput> and you type <computeroutput>tasks/foo</computeroutput>, with the path containing <computeroutput>/programs</computeroutput>, the program will be found and ran. Note this is slightly different from how paths operate in other operating systems. The current directory cannot be included in the path as it has no direct representation.</para>
 <para>If you want to run a program that is not in the path, you must provide the full path to the program from the file system root.</para>
