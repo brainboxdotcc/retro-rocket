@@ -1462,7 +1462,7 @@ bool EXPORTED MOD_INIT_SYM(KMOD_ABI)(void) {
 		dprintf("hda: mixer init failed\n");
 		return false;
 	}
-	kprintf("hda: started\n");
+	dprintf("hda: started\n");
 	dprintf("hda: started (cad=%u, afg=0x%02x, dac=0x%02x, pin=0x%02x)\n", hda.cad, hda.afg_nid, hda.dac_nid, hda.pin_nid);
 	return true;
 }

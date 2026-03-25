@@ -91,7 +91,7 @@ static audio_device_t *init_ac97(void) {
 		return NULL;
 	}
 	if (ac97_start(dev)) {
-		kprintf("ac97: started\n");
+		dprintf("ac97: started\n");
 		ac97_stream_prepare(4096, 44100); /* 44.1khz stereo LE 16 bit */
 	} else {
 		dprintf("ac97: start failed\n");
