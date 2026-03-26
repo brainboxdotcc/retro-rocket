@@ -4,15 +4,8 @@ LIBRARY LIB$ + "/dragonfly/enemy_bullets"
 LIBRARY LIB$ + "/dragonfly/player_ship"
 LIBRARY LIB$ + "/dragonfly/enemies"
 LIBRARY LIB$ + "/dragonfly/parallax"
+LIBRARY LIB$ + "/dragonfly/explosions"
 LIBRARY LIB$ + "/dragonfly/audio"
-
-SPRITELOAD ship1, "/images/dragonfly/ship1.png"
-SPRITELOAD ship2, "/images/dragonfly/ship2.png"
-SPRITELOAD ship3, "/images/dragonfly/ship3.png"
-SPRITELOAD ship4, "/images/dragonfly/ship4.png"
-SPRITELOAD ship_bullet, "/images/dragonfly/ship_bullet.png"
-SPRITELOAD enemy_bullet, "/images/dragonfly/enemy_bullet.png"
-SPRITELOAD background1, "/images/dragonfly/background1.png"
 
 CLS
 GCOL 0
@@ -23,16 +16,17 @@ PROCl1_parallax()
 PROCmusic_start()
 REPEAT
     PROCl1_scroll_parallax()
-    PLOT background1, 0, 0
     PROCl1_draw_parallax_rear()
     PROCmove_player_ship()
     PROCmove_bullets()
     PROCmove_enemies()
     PROCmove_enemy_bullets()
+    PROCmove_explosions()
     PROCdraw_bullets()
     PROCdraw_enemy_bullets()
     PROCdraw_enemies()
     PROCdraw_player_ship()
+    PROCdraw_explosions()
     PROCl1_draw_parallax_front()
     ticks = ticks + 1
     FLIP

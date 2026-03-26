@@ -5,6 +5,8 @@ DEF PROCenemy_bullets()
     DIM enemy_bullet_y, enemy_bullet_max
     DIM enemy_bullet_vel_x, enemy_bullet_max
     DIM enemy_bullet_vel_y, enemy_bullet_max
+
+    SPRITELOAD enemy_bullet, "/images/dragonfly/enemy_bullet.png"
 ENDPROC
 
 DEF PROCalloc_enemy_bullet(bullet_x, bullet_y, x_vel, y_vel)

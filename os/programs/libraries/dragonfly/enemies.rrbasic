@@ -161,6 +161,7 @@ DEF PROCcheck_enemy_collision_with_player_bullets(enemy_index)
                 collision_done = TRUE
                 PROCfree_bullet(bullet_index)
                 PROCexplosion_sound
+                PROCalloc_explosion(enemy_x(enemy_index) + (enemy_width_i1 / 2), enemy_y(enemy_index) + (enemy_height_i1 / 2))
             ELSE
                 bullet_index = bullet_index + 1
             ENDIF

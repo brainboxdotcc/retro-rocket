@@ -6,6 +6,13 @@ DEF PROCplayer_ship()
     SHIP_Y = (GRAPHICS_HEIGHT / 2) - SHIP_HEIGHT
     VEL_X = 4
     VEL_Y = 4
+
+    SPRITELOAD ship1, "/images/dragonfly/ship1.png"
+    SPRITELOAD ship2, "/images/dragonfly/ship2.png"
+    SPRITELOAD ship3, "/images/dragonfly/ship3.png"
+    SPRITELOAD ship4, "/images/dragonfly/ship4.png"
+    SPRITELOAD ship_bullet, "/images/dragonfly/ship_bullet.png"
+
 ENDPROC
 
 DEF PROCmove_player_ship()

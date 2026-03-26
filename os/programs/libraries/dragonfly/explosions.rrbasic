@@ -1,0 +1,115 @@
+DEF PROCexplosions()
+    explosions_count = 0
+    explosion_max = 1
+
+    DIM explosion_x, explosion_max
+    DIM explosion_y, explosion_max
+    DIM explosion_state, explosion_max
+    DIM explosion_frame, explosion_max
+
+    DIM explosion_width, 5
+    DIM explosion_height, 5
+
+    explosion_width(1) = 86
+    explosion_height(1) = 76
+
+    explosion_width(2) = 125
+    explosion_height(2) = 106
+
+    explosion_width(3) = 144
+    explosion_height(3) = 128
+
+    explosion_width(4) = 141
+    explosion_height(4) = 120
+
+    SPRITELOAD s_explosion1, "/images/dragonfly/explosion1.png"
+    SPRITELOAD s_explosion2, "/images/dragonfly/explosion2.png"
+    SPRITELOAD s_explosion3, "/images/dragonfly/explosion3.png"
+    SPRITELOAD s_explosion4, "/images/dragonfly/explosion4.png"
+ENDPROC
+
+DEF PROCalloc_explosion(explosion_spawn_x, explosion_spawn_y)
+    explosions_count = explosions_count + 1
+    IF explosions_count > explosion_max THEN
+        explosion_max = explosions_count
+        REDIM explosion_x, explosion_max
+        REDIM explosion_y, explosion_max
+        REDIM explosion_state, explosion_max
+        REDIM explosion_frame, explosion_max
+    ENDIF
+
+    explosion_x(explosions_count - 1) = explosion_spawn_x
+    explosion_y(explosions_count - 1) = explosion_spawn_y
+    explosion_state(explosions_count - 1) = 1
+    explosion_frame(explosions_count - 1) = 0
+ENDPROC
+
+DEF PROCfree_explosion(explosion_index)
+    POP explosion_x, explosion_index
+    POP explosion_y, explosion_index
+    POP explosion_state, explosion_index
+    POP explosion_frame, explosion_index
+
+    explosions_count = explosions_count - 1
+
+    IF explosions_count < 1 THEN
+        explosion_max = 1
+    ELSE
+        explosion_max = explosions_count
+    ENDIF
+
+    REDIM explosion_x, explosion_max
+    REDIM explosion_y, explosion_max
+    REDIM explosion_state, explosion_max
+    REDIM explosion_frame, explosion_max
+ENDPROC
+
+DEF PROCmove_explosions()
+    IF explosions_count = 0 THEN ENDPROC
+
+    FOR explosion_move_index = explosions_count - 1 TO 0 STEP -1
+        explosion_frame(explosion_move_index) = explosion_frame(explosion_move_index) + 1
+
+        IF explosion_frame(explosion_move_index) >= 3 THEN
+            explosion_frame(explosion_move_index) = 0
+            explosion_state(explosion_move_index) = explosion_state(explosion_move_index) + 1
+
+            IF explosion_state(explosion_move_index) > 4 THEN
+                PROCfree_explosion(explosion_move_index)
+            ENDIF
+        ENDIF
+    NEXT
+ENDPROC
+
+DEF PROCdraw_explosions()
+    IF explosions_count = 0 THEN ENDPROC
+
+    FOR explosion_draw_index = 0 TO explosions_count - 1
+        explosion_draw_state = explosion_state(explosion_draw_index)
+        explosion_draw_progress = explosion_frame(explosion_draw_index) / 5.0
+        explosion_draw_scale = 1.0 + ((explosion_draw_state - 1) * 0.25) + (explosion_draw_progress * 0.25)
+        explosion_draw_width = explosion_width(explosion_draw_state) * explosion_draw_scale
+        explosion_draw_height = explosion_height(explosion_draw_state) * explosion_draw_scale
+
+        explosion_draw_left = explosion_x(explosion_draw_index) - (explosion_draw_width / 2)
+        explosion_draw_top = explosion_y(explosion_draw_index) - (explosion_draw_height / 2)
+        explosion_draw_right = explosion_draw_left + explosion_draw_width
+        explosion_draw_bottom = explosion_draw_top + explosion_draw_height
+
+        IF explosion_draw_state = 1 THEN
+            PLOTQUAD s_explosion1, explosion_draw_left, explosion_draw_top, explosion_draw_right, explosion_draw_top, explosion_draw_right, explosion_draw_bottom, explosion_draw_left, explosion_draw_bottom
+        ENDIF
+
+        IF explosion_draw_state = 2 THEN
+            PLOTQUAD s_explosion2, explosion_draw_left, explosion_draw_top, explosion_draw_right, explosion_draw_top, explosion_draw_right, explosion_draw_bottom, explosion_draw_left, explosion_draw_bottom
+        ENDIF
+
+        IF explosion_draw_state = 3 THEN
+            PLOTQUAD s_explosion3, explosion_draw_left, explosion_draw_top, explosion_draw_right, explosion_draw_top, explosion_draw_right, explosion_draw_bottom, explosion_draw_left, explosion_draw_bottom
+        ENDIF
+
+        IF explosion_draw_state = 4 THEN
+            PLOTQUAD s_explosion4, explosion_draw_left, explosion_draw_top, explosion_draw_right, explosion_draw_top, explosion_draw_right, explosion_draw_bottom, explosion_draw_left, explosion_draw_bottom
+        ENDIF
+    NEXT
+ENDPROC
