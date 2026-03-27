@@ -1,0 +1,51 @@
+DEF PROChud()
+    SPRITELOAD digit0, "/images/dragonfly/digit0.png"
+    SPRITELOAD digit1, "/images/dragonfly/digit1.png"
+    SPRITELOAD digit2, "/images/dragonfly/digit2.png"
+    SPRITELOAD digit3, "/images/dragonfly/digit3.png"
+    SPRITELOAD digit4, "/images/dragonfly/digit4.png"
+    SPRITELOAD digit5, "/images/dragonfly/digit5.png"
+    SPRITELOAD digit6, "/images/dragonfly/digit6.png"
+    SPRITELOAD digit7, "/images/dragonfly/digit7.png"
+    SPRITELOAD digit8, "/images/dragonfly/digit8.png"
+    SPRITELOAD digit9, "/images/dragonfly/digit9.png"
+    SPRITELOAD statusbar, "/images/dragonfly/status.png"
+    SPRITELOAD shield_pip, "/images/dragonfly/shield-pip.png"
+ENDPROC
+
+DEF PROCdigit(digit_x, digit_y, number)
+    IF number = 0 THEN PLOT digit0, digit_x, digit_y
+    IF number = 1 THEN PLOT digit1, digit_x, digit_y
+    IF number = 2 THEN PLOT digit2, digit_x, digit_y
+    IF number = 3 THEN PLOT digit3, digit_x, digit_y
+    IF number = 4 THEN PLOT digit4, digit_x, digit_y
+    IF number = 5 THEN PLOT digit5, digit_x, digit_y
+    IF number = 6 THEN PLOT digit6, digit_x, digit_y
+    IF number = 7 THEN PLOT digit7, digit_x, digit_y
+    IF number = 8 THEN PLOT digit8, digit_x, digit_y
+    IF number = 9 THEN PLOT digit9, digit_x, digit_y
+ENDPROC
+
+DEF PROCdraw_hud()
+    PLOT statusbar, 0, 0
+    PROCdraw_shield_pips()
+    PROCdraw_score()
+ENDPROC
+
+DEF PROCdraw_shield_pips()
+    IF SHIELDS = 0 THEN ENDPROC
+    FOR pip_count = 0 TO SHIELDS - 1
+        PLOT shield_pip, 220 + (pip_count * 39), 14
+    NEXT
+ENDPROC
+
+DEF PROCdraw_score()
+    divisor = 1000000
+    digits = 0
+    REPEAT
+        this_digit = (SCORE / divisor) % 10
+        PROCdigit(710 + (digits * 24), 14, this_digit)
+        digits = digits + 1
+        divisor = divisor / 10
+    UNTIL divisor = 0
+ENDPROC
