@@ -11,6 +11,7 @@ DEF PROCenemies()
     DIM enemy_state, enemy_max
     DIM enemy_move_timer, enemy_max
     DIM enemy_move_data, enemy_max
+    DIM enemy_sprite, enemy_max
 
     DIM enemy_width, 4
     DIM enemy_height, 4
@@ -39,6 +40,7 @@ DEF PROCalloc_enemy(type, enemy_x_pos, enemy_y_pos)
         REDIM enemy_state, enemy_max
         REDIM enemy_move_timer, enemy_max
         REDIM enemy_move_data, enemy_max
+        REDIM enemy_sprite, enemy_max
     ENDIF
 
     enemy_x(enemies_count - 1) = enemy_x_pos
@@ -47,6 +49,16 @@ DEF PROCalloc_enemy(type, enemy_x_pos, enemy_y_pos)
     enemy_state(enemies_count - 1) = ENEMY_STATE_ALIVE
     enemy_move_timer(enemies_count - 1) = 0
     enemy_move_data(enemies_count - 1) = enemy_y_pos
+
+    IF type = 1 THEN
+        enemy_sprite(enemies_count - 1) = enemy1
+    ENDIF
+    IF type = 2 THEN
+        enemy_sprite(enemies_count - 1) = enemy2
+    ENDIF
+    IF type = 3 THEN
+        enemy_sprite(enemies_count - 1) = enemy3
+    ENDIF
 ENDPROC
 
 DEF PROCfree_enemy(enemy_index)
@@ -56,6 +68,7 @@ DEF PROCfree_enemy(enemy_index)
     POP enemy_state, enemy_index
     POP enemy_move_timer, enemy_index
     POP enemy_move_data, enemy_index
+    POP enemy_sprite, enemy_index
 
     enemies_count = enemies_count - 1
 
@@ -71,6 +84,7 @@ DEF PROCfree_enemy(enemy_index)
     REDIM enemy_state, enemy_max
     REDIM enemy_move_timer, enemy_max
     REDIM enemy_move_data, enemy_max
+    REDIM enemy_sprite, enemy_max
 ENDPROC
 
 DEF PROCmove_enemies()
@@ -156,7 +170,7 @@ DEF PROCcheck_enemy_collision_with_player_bullets(enemy_index)
         IF bullet_index >= player_bullets_count THEN
             collision_done = TRUE
         ELSE
-            IF (player_bullet_x(bullet_index) >= enemy_x(enemy_index)) AND (player_bullet_x(bullet_index) <= enemy_x(enemy_index) + enemy_width_i1) AND (player_bullet_y(bullet_index) >= enemy_y(enemy_index)) AND (player_bullet_y(bullet_index) <= enemy_y(enemy_index) + enemy_height_i1) THEN
+            IF SPRITECOLLIDE(ship_bullet, player_bullet_x(bullet_index), player_bullet_y(bullet_index), enemy_sprite(enemy_index), enemy_x(enemy_index), enemy_y(enemy_index)) THEN
                 enemy_state(enemy_index) = ENEMY_STATE_DEAD
                 collision_done = TRUE
                 PROCfree_bullet(bullet_index)
