@@ -64,6 +64,7 @@ var int_funcs =
     [ "SGN Function", "SGN.html", null ],
     [ "SHL Function", "SHL.html", null ],
     [ "SHR Function", "SHR.html", null ],
+    [ "SPRITECOLLIDE Function", "SPRITECOLLIDE.html", null ],
     [ "SSLSOCKACCEPT Function", "SSLSOCKACCEPT.html", null ],
     [ "SOCKACCEPT Function", "SOCKACCEPT.html", null ],
     [ "SOCKLISTEN Function", "SOCKLISTEN.html", null ],

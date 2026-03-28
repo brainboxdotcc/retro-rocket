@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"chdir.html":[0,0,12,6],
 "commands.html":[0,0,12],
 "cpubrand.html":[0,0,12,8],
 "cpuid.html":[0,0,12,7],

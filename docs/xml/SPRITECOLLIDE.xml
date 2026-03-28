@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="SPRITECOLLIDE" kind="page">
+    <compoundname>SPRITECOLLIDE</compoundname>
+    <title>SPRITECOLLIDE Function</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>SPRITECOLLIDE(sprite_a, ax, ay, sprite_b, bx, by)</para>
+<para>Checks whether two sprites collide using pixel-perfect collision detection.</para>
+<para>Returns TRUE if any opaque pixels overlap, or FALSE if they do not.</para>
+<para><hruler/>
+</para>
+<para>Examples</para>
+<para>REM Simple collision check IF SPRITECOLLIDE(player, px, py, enemy, ex, ey) THEN PRINT &quot;Hit!&quot; ENDIF</para>
+<para>REM Bullet collision FOR i = 0 TO bullet_count - 1 IF SPRITECOLLIDE(bullet(i), bx(i), by(i), enemy, ex, ey) THEN PRINT &quot;Enemy hit&quot; ENDIF NEXT</para>
+<para><hruler/>
+</para>
+<para>Notes</para>
+<para>Uses sprite transparency for collision.</para>
+<para>Sprites must be loaded with <ref refid="SPRITELOAD" kindref="compound">SPRITELOAD</ref>.</para>
+<para><hruler/>
+</para>
+<para>See also: <ref refid="SPRITELOAD" kindref="compound">SPRITELOAD</ref> · <ref refid="PLOT" kindref="compound">PLOT</ref> · <ref refid="ANIMATE" kindref="compound">ANIMATE</ref> </para>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/integer/SPRITECOLLIDE.md"/>
+  </compounddef>
+</doxygen>
