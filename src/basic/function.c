@@ -90,6 +90,7 @@ struct basic_int_fn builtin_int[] =
 	{ basic_memalloc,            "MEMALLOC"          },
 	{ basic_filesize,            "FILESIZE"          },
 	{ basic_decibels,            "DECIBELS"          },
+	{ basic_spritecollide,       "SPRITECOLLIDE"     },
 	{ NULL,                      NULL                },
 };
 
