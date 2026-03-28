@@ -1342,3 +1342,30 @@ static bool sprites_collide(const sprite_t *a, int64_t ax, int64_t ay, const spr
 
 	return false;
 }
+
+int64_t basic_spritecollide(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t sprite_a = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t ax = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t ay = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t sprite_b = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t bx = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t by = intval;
+	PARAMS_END("SPRITECOLLIDE", 0);
+
+	sprite_t *a = get_sprite(ctx, sprite_a);
+	sprite_t *b = get_sprite(ctx, sprite_b);
+
+	if (a == NULL || b == NULL) {
+		return 0;
+	}
+
+	return sprites_collide(a, ax, ay, b, bx, by) ? 1 : 0;
+}
