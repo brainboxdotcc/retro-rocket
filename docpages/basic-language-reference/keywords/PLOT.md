@@ -4,7 +4,7 @@ PLOT integer-variable, integer-expression, integer-expression
 ```
 
 Draws a previously loaded **sprite** at the given **X,Y** position.  
-The first parameter must be an **integer variable** holding the **sprite handle** returned by \ref SPRITELOAD "SPRITELOAD".
+The first parameter must be a **sprite handle** returned by \ref SPRITELOAD "SPRITELOAD".
 The sprite is positioned with its **top-left corner** at `(X, Y)` in screen pixels.
 
 

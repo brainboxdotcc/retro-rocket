@@ -4,7 +4,7 @@ PLOTQUAD integer-variable, x0, y0, x1, y1, x2, y2, x3, y3
 ```
 
 Maps a previously loaded **sprite** onto the **quadrilateral** defined by four X,Y coordinate pairs.  
-The first parameter must be an **integer variable** containing the sprite handle returned by \ref SPRITELOAD "SPRITELOAD".
+The first parameter must be a **sprite handle** returned by \ref SPRITELOAD "SPRITELOAD".
 The sprite’s full image is used, positioned by its four destination corners.
 
 ![example](https://github.com/user-attachments/assets/d6ae6888-46db-42ee-be95-d96c888dc1b5)

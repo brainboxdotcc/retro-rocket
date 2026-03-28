@@ -8,7 +8,7 @@ ANIMATE OFF integer-variable
 ```
 
 Advances or controls playback of an **animated sprite** (such as a GIF loaded with \ref SPRITELOAD "SPRITELOAD").
-The first parameter must be an **integer variable** holding the **sprite handle** returned by \ref SPRITELOAD "SPRITELOAD".
+The first parameter must be a **sprite handle** returned by \ref SPRITELOAD "SPRITELOAD".
 
 * `ANIMATE NEXT`
   Moves the sprite forward to its next frame. If the sprite has reached the final frame, behaviour depends on its loop setting (see below).

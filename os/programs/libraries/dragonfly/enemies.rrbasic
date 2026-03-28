@@ -15,6 +15,7 @@ DEF PROCenemies()
 
     DIM enemy_width, 4
     DIM enemy_height, 4
+    DIM enemy_graphic, 4
 
     enemy_width(1) = 112
     enemy_height(1) = 51
@@ -28,6 +29,10 @@ DEF PROCenemies()
     SPRITELOAD enemy1, "/images/dragonfly/enemy1.png"
     SPRITELOAD enemy2, "/images/dragonfly/enemy2.png"
     SPRITELOAD enemy3, "/images/dragonfly/enemy3.png"
+
+    enemy_graphic(1) = enemy1
+    enemy_graphic(2) = enemy2
+    enemy_graphic(3) = enemy3
 ENDPROC
 
 DEF PROCalloc_enemy(type, enemy_x_pos, enemy_y_pos)
@@ -49,16 +54,7 @@ DEF PROCalloc_enemy(type, enemy_x_pos, enemy_y_pos)
     enemy_state(enemies_count - 1) = ENEMY_STATE_ALIVE
     enemy_move_timer(enemies_count - 1) = 0
     enemy_move_data(enemies_count - 1) = enemy_y_pos
-
-    IF type = 1 THEN
-        enemy_sprite(enemies_count - 1) = enemy1
-    ENDIF
-    IF type = 2 THEN
-        enemy_sprite(enemies_count - 1) = enemy2
-    ENDIF
-    IF type = 3 THEN
-        enemy_sprite(enemies_count - 1) = enemy3
-    ENDIF
+    enemy_sprite(enemies_count - 1) = enemy_graphic(type)
 ENDPROC
 
 DEF PROCfree_enemy(enemy_index)
@@ -188,15 +184,7 @@ DEF PROCdraw_enemies()
 
     FOR i = 0 TO enemies_count - 1
         IF enemy_state(i) = ENEMY_STATE_ALIVE THEN
-            IF enemy_type(i) = 1 THEN
-                PLOT enemy1, enemy_x(i), enemy_y(i)
-            ENDIF
-            IF enemy_type(i) = 2 THEN
-                PLOT enemy2, enemy_x(i), enemy_y(i)
-            ENDIF
-            IF enemy_type(i) = 3 THEN
-                PLOT enemy3, enemy_x(i), enemy_y(i)
-            ENDIF
+            PLOT enemy_sprite(i), enemy_x(i), enemy_y(i)
         ENDIF
     NEXT
 ENDPROC

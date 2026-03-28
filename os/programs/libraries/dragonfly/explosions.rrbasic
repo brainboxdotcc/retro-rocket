@@ -9,6 +9,7 @@ DEF PROCexplosions()
 
     DIM explosion_width, 5
     DIM explosion_height, 5
+    DIM explosion_sprite, 5
 
     explosion_width(1) = 86
     explosion_height(1) = 76
@@ -26,6 +27,11 @@ DEF PROCexplosions()
     SPRITELOAD s_explosion2, "/images/dragonfly/explosion2.png"
     SPRITELOAD s_explosion3, "/images/dragonfly/explosion3.png"
     SPRITELOAD s_explosion4, "/images/dragonfly/explosion4.png"
+
+    explosion_sprite(1) = s_explosion1
+    explosion_sprite(2) = s_explosion2
+    explosion_sprite(3) = s_explosion3
+    explosion_sprite(4) = s_explosion4
 ENDPROC
 
 DEF PROCalloc_explosion(explosion_spawn_x, explosion_spawn_y)
@@ -96,20 +102,6 @@ DEF PROCdraw_explosions()
         explosion_draw_right = explosion_draw_left + explosion_draw_width
         explosion_draw_bottom = explosion_draw_top + explosion_draw_height
 
-        IF explosion_draw_state = 1 THEN
-            PLOTQUAD s_explosion1, explosion_draw_left, explosion_draw_top, explosion_draw_right, explosion_draw_top, explosion_draw_right, explosion_draw_bottom, explosion_draw_left, explosion_draw_bottom
-        ENDIF
-
-        IF explosion_draw_state = 2 THEN
-            PLOTQUAD s_explosion2, explosion_draw_left, explosion_draw_top, explosion_draw_right, explosion_draw_top, explosion_draw_right, explosion_draw_bottom, explosion_draw_left, explosion_draw_bottom
-        ENDIF
-
-        IF explosion_draw_state = 3 THEN
-            PLOTQUAD s_explosion3, explosion_draw_left, explosion_draw_top, explosion_draw_right, explosion_draw_top, explosion_draw_right, explosion_draw_bottom, explosion_draw_left, explosion_draw_bottom
-        ENDIF
-
-        IF explosion_draw_state = 4 THEN
-            PLOTQUAD s_explosion4, explosion_draw_left, explosion_draw_top, explosion_draw_right, explosion_draw_top, explosion_draw_right, explosion_draw_bottom, explosion_draw_left, explosion_draw_bottom
-        ENDIF
+        PLOTQUAD explosion_sprite(explosion_draw_state), explosion_draw_left, explosion_draw_top, explosion_draw_right, explosion_draw_top, explosion_draw_right, explosion_draw_bottom, explosion_draw_left, explosion_draw_bottom
     NEXT
 ENDPROC

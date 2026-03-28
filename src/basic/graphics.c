@@ -539,19 +539,16 @@ void animate_statement(struct basic_ctx* ctx) {
 	} else {
 		accept_or_return(RESET, ctx);
 	}
-	size_t var_length;
-	const char* variable = tokenizer_variable_name(ctx, &var_length);
-	accept_or_return(VARIABLE, ctx);
+	int64_t sprite_handle = expr(ctx);
 	accept_or_return(NEWLINE, ctx);
 	if (advance_next) {
-		sprite_next_frame(ctx, basic_get_int_variable(variable, ctx));
+		sprite_next_frame(ctx, sprite_handle);
 	} else if (loop_configure) {
-		sprite_set_repeat(ctx, basic_get_int_variable(variable, ctx), loop_enable);
+		sprite_set_repeat(ctx, sprite_handle, loop_enable);
 	} else {
-		sprite_first_frame(ctx, basic_get_int_variable(variable, ctx));
+		sprite_first_frame(ctx, sprite_handle);
 	}
 }
-
 
 void loadsprite_statement(struct basic_ctx* ctx)
 {
@@ -737,25 +734,21 @@ void loadsprite_statement(struct basic_ctx* ctx)
 void freesprite_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(SPRITEFREE, ctx);
-	size_t var_length;
-	const char* variable = tokenizer_variable_name(ctx, &var_length);
-	accept_or_return(VARIABLE, ctx);
+	int64_t sprite_handle = expr(ctx);
 	accept_or_return(NEWLINE, ctx);
-	free_sprite(ctx, basic_get_int_variable(variable, ctx));
+	free_sprite(ctx, sprite_handle);
 }
 
 void plot_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(PLOT, ctx);
-	size_t var_length;
-	const char* variable = tokenizer_variable_name(ctx, &var_length);
-	accept_or_return(VARIABLE, ctx);
+	int64_t sprite_handle = expr(ctx);
 	accept_or_return(COMMA, ctx);
 	int64_t x1 = expr(ctx);
 	accept_or_return(COMMA, ctx);
 	int64_t y1 = expr(ctx);
 	accept_or_return(NEWLINE, ctx);
-	plot_sprite(ctx, basic_get_int_variable(variable, ctx), x1, y1);
+	plot_sprite(ctx, sprite_handle, x1, y1);
 }
 
 void gcol_statement(struct basic_ctx* ctx)
@@ -1257,9 +1250,7 @@ static void plot_sprite_quad(struct basic_ctx* ctx, int64_t sprite_handle, int64
 
 void plotquad_statement(struct basic_ctx* ctx) {
 	accept_or_return(PLOTQUAD, ctx);
-	size_t var_length;
-	const char* variable = tokenizer_variable_name(ctx, &var_length);
-	accept_or_return(VARIABLE, ctx);
+	int64_t sprite_handle = expr(ctx);
 	accept_or_return(COMMA, ctx);
 	int64_t x0 = expr(ctx);
 	accept_or_return(COMMA, ctx);
@@ -1277,7 +1268,7 @@ void plotquad_statement(struct basic_ctx* ctx) {
 	accept_or_return(COMMA, ctx);
 	int64_t y3 = expr(ctx);
 	accept_or_return(NEWLINE, ctx);
-	plot_sprite_quad(ctx, basic_get_int_variable(variable, ctx), x0, y0, x1, y1, x2, y2, x3, y3);
+	plot_sprite_quad(ctx, sprite_handle, x0, y0, x1, y1, x2, y2, x3, y3);
 }
 
 static bool sprites_collide(const sprite_t *a, int64_t ax, int64_t ay, const sprite_t *b, int64_t bx, int64_t by)
