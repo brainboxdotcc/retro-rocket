@@ -13,6 +13,9 @@
 #define STBI_REALLOC(p,newsz)     krealloc(p,newsz)
 #define STBI_FREE(p)              kfree(p)
 #include <stb_image.h>
+#include <stddef.h>
+#include <limits.h>
+#include <emmintrin.h>
 
 void __assert_fail(const char * assertion, const char * file, unsigned int line, const char * function)
 {
@@ -1277,3 +1280,65 @@ void plotquad_statement(struct basic_ctx* ctx) {
 	plot_sprite_quad(ctx, basic_get_int_variable(variable, ctx), x0, y0, x1, y1, x2, y2, x3, y3);
 }
 
+static bool sprites_collide(const sprite_t *a, int64_t ax, int64_t ay, const sprite_t *b, int64_t bx, int64_t by)
+{
+	if (a == NULL || b == NULL) {
+		return false;
+	}
+
+	if (a->mask == NULL || b->mask == NULL) {
+		return false;
+	}
+
+	if (!(ax < bx + b->width &&
+		ax + a->width > bx &&
+		ay < by + b->height &&
+		ay + a->height > by)) {
+		return false;
+	}
+
+	int64_t overlap_x0 = MAX(ax, bx);
+	int64_t overlap_y0 = MAX(ay, by);
+	int64_t overlap_x1 = MIN(ax + a->width, bx + b->width);
+	int64_t overlap_y1 = MIN(ay + a->height, by + b->height);
+
+	int64_t overlap_w = overlap_x1 - overlap_x0;
+	int64_t overlap_h = overlap_y1 - overlap_y0;
+
+	int64_t a_src_x0 = overlap_x0 - ax;
+	int64_t a_src_y0 = overlap_y0 - ay;
+	int64_t b_src_x0 = overlap_x0 - bx;
+	int64_t b_src_y0 = overlap_y0 - by;
+
+	const __m128i zero = _mm_setzero_si128();
+
+	for (int64_t row = 0; row < overlap_h; ++row) {
+		const uint32_t *a_mask = a->mask
+			+ ((size_t)(a_src_y0 + row) * (size_t)a->width)
+			+ (size_t)a_src_x0;
+		const uint32_t *b_mask = b->mask
+			+ ((size_t)(b_src_y0 + row) * (size_t)b->width)
+			+ (size_t)b_src_x0;
+
+		int64_t simd_pixels = overlap_w & ~3;
+
+		for (int64_t col = 0; col < simd_pixels; col += 4) {
+			__m128i va = _mm_loadu_si128((const __m128i *)(a_mask + col));
+			__m128i vb = _mm_loadu_si128((const __m128i *)(b_mask + col));
+			__m128i vand = _mm_and_si128(va, vb);
+			__m128i eq = _mm_cmpeq_epi8(vand, zero);
+
+			if (_mm_movemask_epi8(eq) != 0xffff) {
+				return true;
+			}
+		}
+
+		for (int64_t col = simd_pixels; col < overlap_w; ++col) {
+			if ((a_mask[col] & b_mask[col]) != 0) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
