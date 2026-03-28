@@ -128,3 +128,18 @@ void flip_statement(struct basic_ctx* ctx);
  *            sprite table, and current program environment.
  */
 void plotquad_statement(struct basic_ctx* ctx);
+
+/**
+ * @brief Check for pixel-perfect collision between two sprites
+ *
+ * Performs an axis-aligned bounding box (AABB) test followed by a
+ * per-pixel mask intersection test to determine whether two sprites
+ * overlap on any opaque pixels.
+ *
+ * BASIC usage:
+ *   result = SPRITECOLLIDE(sprite_a, ax, ay, sprite_b, bx, by)
+ *
+ * @param ctx BASIC execution context
+ * @return 1 if the sprites collide, 0 otherwise
+ */
+int64_t basic_spritecollide(struct basic_ctx* ctx);
