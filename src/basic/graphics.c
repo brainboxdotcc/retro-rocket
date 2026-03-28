@@ -458,37 +458,22 @@ void plot_sprite(struct basic_ctx* ctx, int64_t sprite_handle, int64_t draw_x, i
 			uint64_t *d64 = (uint64_t *)dst;
 			const uint64_t *s64 = (const uint64_t *)src;
 			const uint64_t *m64 = (const uint64_t *)m;
-
 			for (int64_t i = 0; i < pairs; ++i) {
-				uint64_t md = m64[i];
-				uint64_t sd = s64[i];
-				uint64_t dd = d64[i];
-
-				d64[i] = (dd & ~md) | (sd & md);
+				d64[i] = (d64[i] & ~m64[i]) | (s64[i] & m64[i]);
 			}
 		} else {
 			for (int64_t i = 0; i < pairs; ++i) {
-				uint64_t md;
-				uint64_t sd;
-				uint64_t dd;
-
-				memcpy(&md, m + (i * 2), 8);
-				memcpy(&sd, src + (i * 2), 8);
-				memcpy(&dd, dst + (i * 2), 8);
-
-				dd = (dd & ~md) | (sd & md);
-				memcpy(dst + (i * 2), &dd, 8);
+				const uint64_t *m64 = (const uint64_t *)(m + (i * 2));
+				const uint64_t *s64 = (const uint64_t *)(src + (i * 2));
+				uint64_t *d64 = (uint64_t *)(dst + (i * 2));
+				*d64 = (*d64 & ~*m64) | (*s64 & *m64);
 			}
 		}
 
 		int64_t x = pairs * 2;
 
 		if (x < copy_w) {
-			uint32_t md = m[x];
-			uint32_t sd = src[x];
-			uint32_t dd = dst[x];
-
-			dst[x] = (dd & ~md) | (sd & md);
+			dst[x] = (dst[x] & ~m[x]) | (src[x] & m[x]);
 		}
 	}
 
