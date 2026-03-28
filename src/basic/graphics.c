@@ -1360,3 +1360,33 @@ int64_t basic_spritecollide(struct basic_ctx* ctx)
 
 	return sprites_collide(a, ax, ay, b, bx, by) ? 1 : 0;
 }
+
+int64_t basic_spritewidth(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("SPRITEWIDTH", 0);
+
+	sprite_t* s = get_sprite(ctx, intval);
+	if (s == NULL) {
+		tokenizer_error_print(ctx, "Invalid sprite handle");
+		return 0;
+	}
+
+	return s->width;
+}
+
+int64_t basic_spriteheight(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("SPRITEHEIGHT", 0);
+
+	sprite_t* s = get_sprite(ctx, intval);
+	if (s == NULL) {
+		tokenizer_error_print(ctx, "Invalid sprite handle");
+		return 0;
+	}
+
+	return s->height;
+}

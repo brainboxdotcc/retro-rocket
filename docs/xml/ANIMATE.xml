@@ -11,7 +11,7 @@
 <codeline><highlight class="normal">ANIMATE<sp/>ON<sp/>integer-variable</highlight></codeline>
 <codeline><highlight class="normal">ANIMATE<sp/>OFF<sp/>integer-variable</highlight></codeline>
 </programlisting></para>
-<para>Advances or controls playback of an <bold>animated sprite</bold> (such as a GIF loaded with <ref refid="SPRITELOAD" kindref="compound">SPRITELOAD</ref>). The first parameter must be an <bold>integer variable</bold> holding the <bold>sprite handle</bold> returned by <ref refid="SPRITELOAD" kindref="compound">SPRITELOAD</ref>.</para>
+<para>Advances or controls playback of an <bold>animated sprite</bold> (such as a GIF loaded with <ref refid="SPRITELOAD" kindref="compound">SPRITELOAD</ref>). The first parameter must be a <bold>sprite handle</bold> returned by <ref refid="SPRITELOAD" kindref="compound">SPRITELOAD</ref>.</para>
 <para><itemizedlist>
 <listitem><para><computeroutput>ANIMATE NEXT</computeroutput> Moves the sprite forward to its next frame. If the sprite has reached the final frame, behaviour depends on its loop setting (see below).</para>
 </listitem><listitem><para><computeroutput>ANIMATE RESET</computeroutput> Rewinds the sprite back to its first frame.</para>

@@ -143,3 +143,23 @@ void plotquad_statement(struct basic_ctx* ctx);
  * @return 1 if the sprites collide, 0 otherwise
  */
 int64_t basic_spritecollide(struct basic_ctx* ctx);
+
+/**
+ * @brief BASIC binding for SPRITEWIDTH.
+ *
+ * Returns the width of the specified sprite in pixels.
+ *
+ * @param ctx BASIC execution context.
+ * @return Sprite width in pixels, or 0 on error.
+ */
+int64_t basic_spritewidth(struct basic_ctx* ctx);
+
+/**
+ * @brief BASIC binding for SPRITEHEIGHT.
+ *
+ * Returns the height of the specified sprite in pixels.
+ *
+ * @param ctx BASIC execution context.
+ * @return Sprite height in pixels, or 0 on error.
+ */
+int64_t basic_spriteheight(struct basic_ctx* ctx);

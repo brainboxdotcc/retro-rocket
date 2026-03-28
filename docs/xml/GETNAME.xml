@@ -11,7 +11,7 @@
 <para>Returns the <bold>file name</bold> for an entry in a directory. The first parameter is a <bold>directory path</bold>, and the second parameter is an <bold>index</bold> between <computeroutput>0</computeroutput> and <computeroutput>GETNAMECOUNT(path$) - 1</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect1 id="GETNAME_1examples-96_1s1"><sect2 id="GETNAME_1examples-96_1s2"><sect3 id="GETNAME_1examples-96">
+<sect1 id="GETNAME_1examples-98_1s1"><sect2 id="GETNAME_1examples-98_1s2"><sect3 id="GETNAME_1examples-98">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>List<sp/>all<sp/>files<sp/>in<sp/>the<sp/>current<sp/>directory</highlight></codeline>
 <codeline><highlight class="normal">dir$<sp/>=<sp/>CSD$</highlight></codeline>
 <codeline><highlight class="normal">count<sp/>=<sp/>GETNAMECOUNT(dir$)</highlight></codeline>

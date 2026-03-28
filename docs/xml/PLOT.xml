@@ -9,7 +9,7 @@
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PLOT<sp/>integer-variable,<sp/>integer-expression,<sp/>integer-expression</highlight></codeline>
 </programlisting></para>
 <para>Draws a previously loaded <bold>sprite</bold> at the given <bold>X,Y</bold> position. <linebreak/>
- The first parameter must be an <bold>integer variable</bold> holding the <bold>sprite handle</bold> returned by <ref refid="SPRITELOAD" kindref="compound">SPRITELOAD</ref>. The sprite is positioned with its <bold>top-left corner</bold> at <computeroutput>(X, Y)</computeroutput> in screen pixels.</para>
+ The first parameter must be a <bold>sprite handle</bold> returned by <ref refid="SPRITELOAD" kindref="compound">SPRITELOAD</ref>. The sprite is positioned with its <bold>top-left corner</bold> at <computeroutput>(X, Y)</computeroutput> in screen pixels.</para>
 <para><simplesect kind="remark"><para>The first argument must be a <bold>variable</bold> containing a valid sprite handle, not a literal value or expression.</para>
 </simplesect>
 <simplesect kind="remark"><para>Use the built-in <computeroutput>GRAPHICS_WIDTH</computeroutput> and <computeroutput>GRAPHICS_HEIGHT</computeroutput> to place sprites relative to the current screen size.</para>

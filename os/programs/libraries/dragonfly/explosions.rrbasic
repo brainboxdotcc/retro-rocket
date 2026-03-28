@@ -7,21 +7,7 @@ DEF PROCexplosions()
     DIM explosion_state, explosion_max
     DIM explosion_frame, explosion_max
 
-    DIM explosion_width, 5
-    DIM explosion_height, 5
     DIM explosion_sprite, 5
-
-    explosion_width(1) = 86
-    explosion_height(1) = 76
-
-    explosion_width(2) = 125
-    explosion_height(2) = 106
-
-    explosion_width(3) = 144
-    explosion_height(3) = 128
-
-    explosion_width(4) = 141
-    explosion_height(4) = 120
 
     SPRITELOAD s_explosion1, "/images/dragonfly/explosion1.png"
     SPRITELOAD s_explosion2, "/images/dragonfly/explosion2.png"
@@ -91,17 +77,12 @@ DEF PROCdraw_explosions()
     IF explosions_count = 0 THEN ENDPROC
 
     FOR explosion_draw_index = 0 TO explosions_count - 1
-        explosion_draw_state = explosion_state(explosion_draw_index)
-        explosion_draw_progress = explosion_frame(explosion_draw_index) / 5.0
-        explosion_draw_scale = 1.0 + ((explosion_draw_state - 1) * 0.25) + (explosion_draw_progress * 0.25)
-        explosion_draw_width = explosion_width(explosion_draw_state) * explosion_draw_scale
-        explosion_draw_height = explosion_height(explosion_draw_state) * explosion_draw_scale
-
-        explosion_draw_left = explosion_x(explosion_draw_index) - (explosion_draw_width / 2)
-        explosion_draw_top = explosion_y(explosion_draw_index) - (explosion_draw_height / 2)
-        explosion_draw_right = explosion_draw_left + explosion_draw_width
-        explosion_draw_bottom = explosion_draw_top + explosion_draw_height
-
-        PLOTQUAD explosion_sprite(explosion_draw_state), explosion_draw_left, explosion_draw_top, explosion_draw_right, explosion_draw_top, explosion_draw_right, explosion_draw_bottom, explosion_draw_left, explosion_draw_bottom
+        es = explosion_sprite(explosion_state(explosion_draw_index))
+        escale = 1.0 + ((explosion_state(explosion_draw_index) - 1) * 0.25) + ((explosion_frame(explosion_draw_index) / 5.0) * 0.25)
+        ew = SPRITEWIDTH(es) * escale
+        eh = SPRITEHEIGHT(es) * escale
+        exx = explosion_x(explosion_draw_index) - (ew / 2)
+        exy = explosion_y(explosion_draw_index) - (eh / 2)
+        PLOTQUAD es, exx, exy, exx + ew, exy, exx + ew, exy + eh, exx, exy + eh
     NEXT
 ENDPROC

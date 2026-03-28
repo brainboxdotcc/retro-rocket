@@ -9,7 +9,7 @@
 <para><programlisting filename=".basic"><codeline><highlight class="normal">PLOTQUAD<sp/>integer-variable,<sp/>x0,<sp/>y0,<sp/>x1,<sp/>y1,<sp/>x2,<sp/>y2,<sp/>x3,<sp/>y3</highlight></codeline>
 </programlisting></para>
 <para>Maps a previously loaded <bold>sprite</bold> onto the <bold>quadrilateral</bold> defined by four X,Y coordinate pairs. <linebreak/>
- The first parameter must be an <bold>integer variable</bold> containing the sprite handle returned by <ref refid="SPRITELOAD" kindref="compound">SPRITELOAD</ref>. The sprite’s full image is used, positioned by its four destination corners.</para>
+ The first parameter must be a <bold>sprite handle</bold> returned by <ref refid="SPRITELOAD" kindref="compound">SPRITELOAD</ref>. The sprite’s full image is used, positioned by its four destination corners.</para>
 <para><image type="html" name="https://github.com/user-attachments/assets/d6ae6888-46db-42ee-be95-d96c888dc1b5" alt="example" inline="yes"></image>
 </para>
 <para><hruler/>
@@ -54,7 +54,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="PLOTQUAD_1examples-148_1s1"><sect2 id="PLOTQUAD_1examples-148_1s2"><sect3 id="PLOTQUAD_1examples-148">
+<sect1 id="PLOTQUAD_1examples-150_1s1"><sect2 id="PLOTQUAD_1examples-150_1s2"><sect3 id="PLOTQUAD_1examples-150">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Upright<sp/>billboard</highlight></codeline>
 <codeline><highlight class="normal">PLOTQUAD<sp/>s,<sp/>100,60,<sp/>220,60,<sp/>220,220,<sp/>100,220</highlight></codeline>
 <codeline></codeline>

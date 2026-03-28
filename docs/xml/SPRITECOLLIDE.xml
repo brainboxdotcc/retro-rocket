@@ -12,8 +12,18 @@
 <para><hruler/>
 </para>
 <para>Examples</para>
-<para>REM Simple collision check IF SPRITECOLLIDE(player, px, py, enemy, ex, ey) THEN PRINT &quot;Hit!&quot; ENDIF</para>
-<para>REM Bullet collision FOR i = 0 TO bullet_count - 1 IF SPRITECOLLIDE(bullet(i), bx(i), by(i), enemy, ex, ey) THEN PRINT &quot;Enemy hit&quot; ENDIF NEXT</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Simple<sp/>collision<sp/>check</highlight></codeline>
+<codeline><highlight class="normal">IF<sp/>SPRITECOLLIDE(player,<sp/>px,<sp/>py,<sp/>enemy,<sp/>ex,<sp/>ey)<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Hit!&quot;</highlight></codeline>
+<codeline><highlight class="normal">ENDIF</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Bullet<sp/>collision</highlight></codeline>
+<codeline><highlight class="normal">FOR<sp/>i<sp/>=<sp/>0<sp/>TO<sp/>bullet_count<sp/>-<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>IF<sp/>SPRITECOLLIDE(bullet(i),<sp/>bx(i),<sp/>by(i),<sp/>enemy,<sp/>ex,<sp/>ey)<sp/>THEN</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PRINT<sp/>&quot;Enemy<sp/>hit&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ENDIF</highlight></codeline>
+<codeline><highlight class="normal">NEXT</highlight></codeline>
+</programlisting></para>
 <para><hruler/>
 </para>
 <para>Notes</para>

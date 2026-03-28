@@ -23,7 +23,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="UDPLASTIP_1examples-119_1s1"><sect2 id="UDPLASTIP_1examples-119_1s2"><sect3 id="UDPLASTIP_1examples-119">
+<sect1 id="UDPLASTIP_1examples-121_1s1"><sect2 id="UDPLASTIP_1examples-121_1s2"><sect3 id="UDPLASTIP_1examples-121">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">UDPBIND<sp/>&quot;0.0.0.0&quot;,<sp/>8080</highlight></codeline>
 <codeline><highlight class="normal">S$<sp/>=<sp/>UDPREAD$(8080)</highlight></codeline>
 <codeline><highlight class="normal">IF<sp/>LEN(S$)<sp/>&gt;<sp/>0<sp/>THEN</highlight></codeline>

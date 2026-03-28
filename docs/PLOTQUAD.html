@@ -125,7 +125,7 @@ $(function(){initNavTree('PLOTQUAD.html','',''); });
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">PLOTQUAD integer-variable, x0, y0, x1, y1, x2, y2, x3, y3</div>
 </div><!-- fragment --><p>Maps a previously loaded <b>sprite</b> onto the <b>quadrilateral</b> defined by four X,Y coordinate pairs. <br  />
- The first parameter must be an <b>integer variable</b> containing the sprite handle returned by <a class="el" href="SPRITELOAD.html">SPRITELOAD</a>. The sprite’s full image is used, positioned by its four destination corners.</p>
+ The first parameter must be a <b>sprite handle</b> returned by <a class="el" href="SPRITELOAD.html">SPRITELOAD</a>. The sprite’s full image is used, positioned by its four destination corners.</p>
 <p><img src="https://github.com/user-attachments/assets/d6ae6888-46db-42ee-be95-d96c888dc1b5" alt="example" class="inline"/></p>
 <hr  />
 <h3 class="doxsection"><a class="anchor" id="key-behaviour"></a>
@@ -159,7 +159,7 @@ Sampling</h3>
 <li>Uses <b>nearest-neighbour</b> sampling. Large upscales will look blocky; use higher-resolution sprites if you need crisper results.</li>
 </ul>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-148"></a>
+<h3 class="doxsection"><a class="anchor" id="examples-150"></a>
 Examples</h3>
 <div class="fragment"><div class="line">REM Upright billboard</div>
 <div class="line">PLOTQUAD s, 100,60, 220,60, 220,220, 100,220</div>

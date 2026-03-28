@@ -11,7 +11,7 @@
 <para>Returns the <bold>name of a running process</bold>. The parameter is an index between <computeroutput>0</computeroutput> and <computeroutput>GETPROCCOUNT - 1</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect1 id="GETPROCNAME_1examples-97_1s1"><sect2 id="GETPROCNAME_1examples-97_1s2"><sect3 id="GETPROCNAME_1examples-97">
+<sect1 id="GETPROCNAME_1examples-99_1s1"><sect2 id="GETPROCNAME_1examples-99_1s2"><sect3 id="GETPROCNAME_1examples-99">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>all<sp/>running<sp/>process<sp/>names</highlight></codeline>
 <codeline><highlight class="normal">FOR<sp/>i<sp/>=<sp/>0<sp/>TO<sp/>GETPROCCOUNT<sp/>-<sp/>1</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PRINT<sp/>GETPROCNAME$(i)</highlight></codeline>

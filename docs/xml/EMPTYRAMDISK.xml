@@ -11,7 +11,7 @@
 <para>Creates a <bold>RAM-backed block device and formats it as RetroFS</bold>. The parameter is the size of the new device in megabytes. Returns the device name on success.</para>
 <para><hruler/>
 </para>
-<sect1 id="EMPTYRAMDISK_1examples-94_1s1"><sect2 id="EMPTYRAMDISK_1examples-94_1s2"><sect3 id="EMPTYRAMDISK_1examples-94">
+<sect1 id="EMPTYRAMDISK_1examples-96_1s1"><sect2 id="EMPTYRAMDISK_1examples-96_1s2"><sect3 id="EMPTYRAMDISK_1examples-96">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Create<sp/>a<sp/>1GB<sp/>RetroFS<sp/>ramdisk</highlight></codeline>
 <codeline><highlight class="normal">RD$<sp/>=<sp/>EMPTYRAMDISK$(1024)</highlight></codeline>
 <codeline><highlight class="normal">MOUNT<sp/>&quot;/ramdisk&quot;,<sp/>RD$,<sp/>&quot;rfs&quot;</highlight></codeline>

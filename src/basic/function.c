@@ -91,6 +91,8 @@ struct basic_int_fn builtin_int[] =
 	{ basic_filesize,            "FILESIZE"          },
 	{ basic_decibels,            "DECIBELS"          },
 	{ basic_spritecollide,       "SPRITECOLLIDE"     },
+	{ basic_spritewidth,         "SPRITEWIDTH"       },
+	{ basic_spriteheight,        "SPRITEHEIGHT"      },
 	{ NULL,                      NULL                },
 };
 

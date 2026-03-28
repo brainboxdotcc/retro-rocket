@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"cd.html":[0,0,12,4],
+"charmap.html":[0,0,12,5],
 "chdir.html":[0,0,12,6],
 "commands.html":[0,0,12],
 "cpubrand.html":[0,0,12,8],

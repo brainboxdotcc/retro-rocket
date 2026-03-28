@@ -13,18 +13,7 @@ DEF PROCenemies()
     DIM enemy_move_data, enemy_max
     DIM enemy_sprite, enemy_max
 
-    DIM enemy_width, 4
-    DIM enemy_height, 4
     DIM enemy_graphic, 4
-
-    enemy_width(1) = 112
-    enemy_height(1) = 51
-
-    enemy_width(2) = 130
-    enemy_height(2) = 48
-
-    enemy_width(3) = 256
-    enemy_height(3) = 53
 
     SPRITELOAD enemy1, "/images/dragonfly/enemy1.png"
     SPRITELOAD enemy2, "/images/dragonfly/enemy2.png"
@@ -93,9 +82,9 @@ DEF PROCmove_enemies()
         IF enemy_state(enemy_index) = ENEMY_STATE_ALIVE THEN
             PROCcheck_enemy_collision_with_player_bullets(enemy_index)
         ENDIF
-        enemy_type_index = enemy_type(enemy_index)
-        enemy_width_i = enemy_width(enemy_type_index)
-        enemy_height_i = enemy_height(enemy_type_index)
+        enemy_sprite_i = enemy_sprite(enemy_index)
+        enemy_width_i = SPRITEWIDTH(enemy_sprite_i)
+        enemy_height_i = SPRITEHEIGHT(enemy_sprite_i)
         IF (enemy_x(enemy_index) < -enemy_width_i) OR (enemy_y(enemy_index) < -enemy_height_i) OR (enemy_x(enemy_index) > GRAPHICS_WIDTH + enemy_width_i) OR (enemy_y(enemy_index) > GRAPHICS_HEIGHT + enemy_height_i) THEN
             PROCfree_enemy(enemy_index)
         ENDIF
@@ -119,9 +108,9 @@ ENDPROC
 ' Fire a bullet from the enemy centre towards the player at constant speed
 DEF PROCbullet_to_player(enemy_index, bullet_speed)
     IF enemy_state(enemy_index) <> ENEMY_STATE_ALIVE THEN ENDPROC
-    s_type = enemy_type(enemy_index)
-    ex = enemy_x(enemy_index) + (enemy_width(s_type) / 2)
-    ey = enemy_y(enemy_index) + (enemy_height(s_type) / 2)
+    s = enemy_sprite(enemy_index)
+    ex = enemy_x(enemy_index) + (SPRITEWIDTH(s) / 2)
+    ey = enemy_y(enemy_index) + (SPRITEHEIGHT(s) / 2)
     dx = SHIP_X - enemy_x(enemy_index)
     dy = SHIP_Y - enemy_y(enemy_index)
     dist = SQR(dx * dx + dy * dy)
@@ -149,29 +138,28 @@ DEF PROCmove_enemy_type_3(enemy_index)
     ELSE
         enemy_x(enemy_index) = enemy_x(enemy_index) - 2
         IF (ticks % 20 = 0) AND (enemy_x(enemy_index) <= SHIP_X) AND (enemy_state(enemy_index) = ENEMY_STATE_ALIVE) THEN
-            e_type = enemy_type(enemy_index)
-            bx = enemy_x(enemy_index) + (enemy_width(e_type) / 2)
-            by = enemy_y(enemy_index) + (enemy_height(e_type) / 2)
+            s = enemy_sprite(enemy_index)
+            bx = enemy_x(enemy_index) + (SPRITEWIDTH(s) / 2)
+            by = enemy_y(enemy_index) + (SPRITEHEIGHT(s) / 2)
             PROCalloc_enemy_bullet(bx, by, 0, 8)
         ENDIF
     ENDIF
 ENDPROC
 
 DEF PROCcheck_enemy_collision_with_player_bullets(enemy_index)
-    enemy_width_i1 = enemy_width(enemy_type(enemy_index))
-    enemy_height_i1 = enemy_height(enemy_type(enemy_index))
+    s = enemy_sprite(enemy_index)
     bullet_index = 0
     collision_done = FALSE
     REPEAT
         IF bullet_index >= player_bullets_count THEN
             collision_done = TRUE
         ELSE
-            IF SPRITECOLLIDE(ship_bullet, player_bullet_x(bullet_index), player_bullet_y(bullet_index), enemy_sprite(enemy_index), enemy_x(enemy_index), enemy_y(enemy_index)) THEN
+            IF SPRITECOLLIDE(ship_bullet, player_bullet_x(bullet_index), player_bullet_y(bullet_index), s, enemy_x(enemy_index), enemy_y(enemy_index)) THEN
                 enemy_state(enemy_index) = ENEMY_STATE_DEAD
                 collision_done = TRUE
                 PROCfree_bullet(bullet_index)
                 PROCexplosion_sound
-                PROCalloc_explosion(enemy_x(enemy_index) + (enemy_width_i1 / 2), enemy_y(enemy_index) + (enemy_height_i1 / 2))
+                PROCalloc_explosion(enemy_x(enemy_index) + (SPRITEWIDTH(s) / 2), enemy_y(enemy_index) + (SPRITEHEIGHT(s) / 2))
             ELSE
                 bullet_index = bullet_index + 1
             ENDIF

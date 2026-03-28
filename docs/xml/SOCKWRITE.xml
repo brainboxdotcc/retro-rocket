@@ -36,7 +36,7 @@
 <hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="SOCKWRITE_1examples-168_1s1"><sect2 id="SOCKWRITE_1examples-168_1s2"><sect3 id="SOCKWRITE_1examples-168">
+<sect1 id="SOCKWRITE_1examples-170_1s1"><sect2 id="SOCKWRITE_1examples-170_1s2"><sect3 id="SOCKWRITE_1examples-170">
 <title>Examples</title><para><bold>Build a line without the implicit newline, then add CRLF</bold> <programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Assume<sp/>S<sp/>is<sp/>a<sp/>valid<sp/>socket<sp/>handle</highlight></codeline>
 <codeline><highlight class="normal">SOCKWRITE<sp/>S,<sp/>&quot;USER<sp/>&quot;;</highlight></codeline>
 <codeline><highlight class="normal">SOCKWRITE<sp/>S,<sp/>&quot;guest&quot;;</highlight></codeline>

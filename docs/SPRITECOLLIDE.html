@@ -128,9 +128,17 @@ $(function(){initNavTree('SPRITECOLLIDE.html','',''); });
 <p>Returns TRUE if any opaque pixels overlap, or FALSE if they do not.</p>
 <hr  />
 <p>Examples</p>
-<p>REM Simple collision check IF SPRITECOLLIDE(player, px, py, enemy, ex, ey) THEN PRINT "Hit!" ENDIF</p>
-<p>REM Bullet collision FOR i = 0 TO bullet_count - 1 IF SPRITECOLLIDE(bullet(i), bx(i), by(i), enemy, ex, ey) THEN PRINT "Enemy hit" ENDIF NEXT</p>
-<hr  />
+<div class="fragment"><div class="line">REM Simple collision check</div>
+<div class="line">IF SPRITECOLLIDE(player, px, py, enemy, ex, ey) THEN</div>
+<div class="line">    PRINT &quot;Hit!&quot;</div>
+<div class="line">ENDIF</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Bullet collision</div>
+<div class="line">FOR i = 0 TO bullet_count - 1</div>
+<div class="line">    IF SPRITECOLLIDE(bullet(i), bx(i), by(i), enemy, ex, ey) THEN</div>
+<div class="line">        PRINT &quot;Enemy hit&quot;</div>
+<div class="line">    ENDIF</div>
+<div class="line">NEXT</div>
+</div><!-- fragment --><hr  />
 <p>Notes</p>
 <p>Uses sprite transparency for collision.</p>
 <p>Sprites must be loaded with <a class="el" href="SPRITELOAD.html">SPRITELOAD</a>.</p>

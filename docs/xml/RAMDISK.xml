@@ -11,7 +11,7 @@
 <para>Creates a <bold>RAM-backed block device</bold> from the content of an existing block device. The parameter is the name of the source device (e.g. <computeroutput>&quot;hd0&quot;</computeroutput>). Returns the <bold>name of the new RAM disk device</bold> as a string.</para>
 <para><hruler/>
 </para>
-<sect1 id="RAMDISK_1examples-109_1s1"><sect2 id="RAMDISK_1examples-109_1s2"><sect3 id="RAMDISK_1examples-109">
+<sect1 id="RAMDISK_1examples-111_1s1"><sect2 id="RAMDISK_1examples-111_1s2"><sect3 id="RAMDISK_1examples-111">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Duplicate<sp/>an<sp/>existing<sp/>block<sp/>device<sp/>into<sp/>RAM</highlight></codeline>
 <codeline><highlight class="normal">ram$<sp/>=<sp/>RAMDISK$(&quot;hd0&quot;)</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Created<sp/>RAM<sp/>disk:<sp/>&quot;;<sp/>ram$</highlight></codeline>
