@@ -460,3 +460,8 @@ hr {
     background-color: var(--separator-color);
     border: 0;
 }
+
+/* Hide bogus search results */
+div[id^="SR_"][id*="_2emd_"] {
+    display: none !important;
+}
