@@ -346,6 +346,7 @@ Why This Design Works</h2>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/base16/dracula.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<script src="rrbasic.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100&display=swap" rel="stylesheet">
@@ -354,13 +355,16 @@ Why This Design Works</h2>
     $(".fragment").each(function(i,node) {
       var $node = $(node);
       $node.children(":not(.line)").remove();
-      $node.html("<pre><code class='stan'>" +
-              $node.text().trim()
+      var text = $node.text().trim();
+      var lang = detect_language(text);
+      $node.html("<pre><code class='" + lang + "'>" +
+              text
+                      .replaceAll("&", "&amp;")
                       .replaceAll("<", "&lt;")
                       .replaceAll(">", "&gt;") +
               "</code></pre>");
       hljs.configure({
-        languages: ['cpp','diff','basic','bash','sh','text'],
+        languages: ['c', 'cpp', 'diff', 'basic', 'rrbasic', 'bash', 'sh', 'text'],
         ignoreUnescapedHTML: true
       });
       hljs.highlightAll(node);
@@ -374,8 +378,7 @@ Why This Design Works</h2>
     });
     $(".fragment").parent().parent().parent().parent().removeClass('doxtable');
   });
-</script>
-<style>
+</script><style>
   .hljs-ln-code, code, code a, pre.fragment, div.fragment, div.fragment .line, div.fragment span, div.fragment .line a, div.fragment .line span {
     font-family: 'JetBrains Mono', monospace !important;
     font-size: 0.8rem !important;
@@ -406,6 +409,9 @@ Why This Design Works</h2>
   }
   .hljs-ln-n {
     color: #2D4068;
+  }
+  .hljs-comment {
+    color: var(--primary-color) !important;
   }
 </style>
 </body>
