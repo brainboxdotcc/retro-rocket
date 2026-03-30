@@ -17,7 +17,7 @@ var searchData=
   ['decibels_14',['What are decibels?',['../DECIBELS.html#what-are-decibels',1,'']]],
   ['decibels_20function_15',['DECIBELS Function',['../DECIBELS.html',1,'int-funcs']]],
   ['decibels_2emd_16',['DECIBELS.md',['../DECIBELS_8md.html',1,'']]],
-  ['decisions_20if_20else_17',['4) Making decisions (IF / ELSE)',['../basic-beginner.html#autotoc_md4-making-decisions-if--else',1,'']]],
+  ['decisions_20if_17',['6) Decisions (IF)',['../basic-beginner.html#autotoc_md6-decisions-if',1,'']]],
   ['declaring_20arrays_18',['Declaring arrays',['../type-array.html#declaring-arrays',1,'']]],
   ['def_20keyword_19',['DEF Keyword',['../DEF.html',1,'keywords']]],
   ['def_2emd_20',['DEF.md',['../DEF_8md.html',1,'']]],

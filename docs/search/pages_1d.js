@@ -44,7 +44,6 @@ var searchData=
   ['using_20ansi_20escape_20sequences_20advanced_41',['Using ANSI escape sequences (advanced)',['../PRINT.html#using-ansi-escape-sequences-advanced',1,'']]],
   ['using_20commands_42',['Using commands',['../commands.html#using-commands',1,'']]],
   ['using_20kernel_20symbols_43',['Using Kernel Symbols',['../modules.html#using-kernel-symbols',1,'']]],
-  ['using_20strings_44',['3) Getting input and using strings',['../basic-beginner.html#autotoc_md3-getting-input-and-using-strings',1,'']]],
-  ['using_20the_20shell_45',['Using the shell',['../desktop-shell.html#using-the-shell',1,'']]],
-  ['using_20variables_20with_20a_20subroutine_46',['Example: using variables with a subroutine',['../GOSUB.html#example-using-variables-with-a-subroutine',1,'']]]
+  ['using_20the_20shell_44',['Using the shell',['../desktop-shell.html#using-the-shell',1,'']]],
+  ['using_20variables_20with_20a_20subroutine_45',['Example: using variables with a subroutine',['../GOSUB.html#example-using-variables-with-a-subroutine',1,'']]]
 ];

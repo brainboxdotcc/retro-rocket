@@ -13,7 +13,6 @@ var searchData=
   ['you_20can_20script_10',['Error handling you can script',['../basic-intdev.html#error-handling-you-can-script',1,'']]],
   ['you_20want_20to_20extend_20it_11',['If you want to extend it',['../basic-intdev.html#if-you-want-to-extend-it',1,'']]],
   ['your_20choice_12',['3. Confirm your choice',['../installation.html#autotoc_md3-confirm-your-choice',1,'']]],
-  ['your_20first_20program_3a_20printing_20text_13',['1) Your first program: printing text',['../basic-beginner.html#autotoc_md1-your-first-program-printing-text',1,'']]],
-  ['your_20work_14',['Saving Your Work',['../saving-your-work.html',1,'user-guide']]],
-  ['your_20work_15',['your work',['../third-party-notices.html#appendix-how-to-apply-the-apache-license-to-your-work',1,'APPENDIX: How to apply the Apache License to your work'],['../edit.html#saving-your-work',1,'Saving your work'],['../getting-started.html#saving-your-work-1',1,'Saving your work']]]
+  ['your_20work_13',['Saving Your Work',['../saving-your-work.html',1,'user-guide']]],
+  ['your_20work_14',['your work',['../third-party-notices.html#appendix-how-to-apply-the-apache-license-to-your-work',1,'APPENDIX: How to apply the Apache License to your work'],['../edit.html#saving-your-work',1,'Saving your work'],['../getting-started.html#saving-your-work-1',1,'Saving your work']]]
 ];

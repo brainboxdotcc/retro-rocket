@@ -9,7 +9,7 @@ var searchData=
   ['day_20function_6',['DAY Function',['../DAY.html',1,'int-funcs']]],
   ['decibels_7',['What are decibels?',['../DECIBELS.html#what-are-decibels',1,'']]],
   ['decibels_20function_8',['DECIBELS Function',['../DECIBELS.html',1,'int-funcs']]],
-  ['decisions_20if_20else_9',['4) Making decisions (IF / ELSE)',['../basic-beginner.html#autotoc_md4-making-decisions-if--else',1,'']]],
+  ['decisions_20if_9',['6) Decisions (IF)',['../basic-beginner.html#autotoc_md6-decisions-if',1,'']]],
   ['declaring_20arrays_10',['Declaring arrays',['../type-array.html#declaring-arrays',1,'']]],
   ['def_20keyword_11',['DEF Keyword',['../DEF.html',1,'keywords']]],
   ['default_20configuration_12',['Example: Default configuration',['../user-networking.html#example-default-configuration',1,'']]],

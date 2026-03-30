@@ -15,9 +15,9 @@ var searchData=
   ['3_20core_20system_20initialisation_3a_20init_12',['3. Core System Initialisation: &lt;span class=&quot;tt&quot;&gt;init()&lt;/span&gt;',['../bootflow.html#autotoc_md3-core-system-initialisation-init',1,'']]],
   ['3_20directory_20blocks_20and_20entries_13',['3.3 Directory blocks and entries',['../retrofs.html#autotoc_md33-directory-blocks-and-entries',1,'']]],
   ['3_20file_20directory_20flags_20values_14',['3.3.3 File/Directory Flags values',['../retrofs.html#autotoc_md333-filedirectory-flags-values',1,'']]],
-  ['3_20getting_20input_20and_20using_20strings_15',['3) Getting input and using strings',['../basic-beginner.html#autotoc_md3-getting-input-and-using-strings',1,'']]],
-  ['3_20grant_20of_20patent_20license_16',['3. Grant of Patent License',['../third-party-notices.html#autotoc_md3-grant-of-patent-license',1,'']]],
-  ['3_20on_20disk_20structures_20normative_17',['3. On-disk structures (normative)',['../retrofs.html#autotoc_md3-on-disk-structures-normative',1,'']]],
+  ['3_20grant_20of_20patent_20license_15',['3. Grant of Patent License',['../third-party-notices.html#autotoc_md3-grant-of-patent-license',1,'']]],
+  ['3_20on_20disk_20structures_20normative_16',['3. On-disk structures (normative)',['../retrofs.html#autotoc_md3-on-disk-structures-normative',1,'']]],
+  ['3_20printing_20words_20and_20values_20together_17',['3) Printing words and values together',['../basic-beginner.html#autotoc_md3-printing-words-and-values-together',1,'']]],
   ['3_20writing_18',['4.3 Writing',['../retrofs.html#autotoc_md43-writing',1,'']]],
   ['30_19',['VDU 30',['../VDU.html#vdu-30',1,'']]],
   ['31_20x_20y_20',['VDU 31, x, y',['../VDU.html#vdu-31-x-y',1,'']]]

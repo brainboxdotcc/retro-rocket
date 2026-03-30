@@ -66,8 +66,9 @@ var searchData=
   ['logo_20and_20system_20info_20scrolling_20with_20text_63',['Example: Keep a logo and system info scrolling with text',['../SCROLLREGION.html#example-keep-a-logo-and-system-info-scrolling-with-text',1,'']]],
   ['loop_20scope_64',['Loop scope',['../ENDPROC.html#loop-scope',1,'Loop scope'],['../RETURN.html#loop-scope-1',1,'Loop scope']]],
   ['loopback_65',['Loopback',['../glossary.html#loopback',1,'']]],
-  ['lower_24_20function_66',['LOWER$ Function',['../LOWER.html',1,'string-funcs']]],
-  ['lower_2emd_67',['LOWER.md',['../LOWER_8md.html',1,'']]],
-  ['ltrim_24_20function_68',['LTRIM$ Function',['../LTRIM.html',1,'string-funcs']]],
-  ['ltrim_2emd_69',['LTRIM.md',['../LTRIM_8md.html',1,'']]]
+  ['loops_20repeating_20things_66',['7) Loops (repeating things)',['../basic-beginner.html#autotoc_md7-loops-repeating-things',1,'']]],
+  ['lower_24_20function_67',['LOWER$ Function',['../LOWER.html',1,'string-funcs']]],
+  ['lower_2emd_68',['LOWER.md',['../LOWER_8md.html',1,'']]],
+  ['ltrim_24_20function_69',['LTRIM$ Function',['../LTRIM.html',1,'string-funcs']]],
+  ['ltrim_2emd_70',['LTRIM.md',['../LTRIM_8md.html',1,'']]]
 ];

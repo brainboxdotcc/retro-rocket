@@ -123,149 +123,198 @@ $(function(){initNavTree('basic-beginner.html','',''); });
   <div class="headertitle"><div class="title">Beginners' Tutorial </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Welcome! This hands‑on guide is for absolute beginners. You’ll learn the basics by writing and running tiny programs inside Retro Rocket. No prior programming experience needed.</p>
-<dl class="section remark"><dt>Remarks</dt><dd><b>How this works</b> • Open the built‑in editor with <span class="tt">edit &lt;name&gt;</span>• Save with <b>Ctrl+S</b>. • Run from the shell by typing its name you saved it as.\ </dd>
-<dd>
-• Press <b>CTRL+ESC</b> while a program is running to stop it.</dd></dl>
-<p>We’ll start simple and build up.</p>
-<hr  />
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1-your-first-program-printing-text"></a>
-1) Your first program: printing text</h2>
-<p>Open the editor:</p>
-<div class="fragment"><div class="line">edit</div>
-</div><!-- fragment --><p>Type this and save (Ctrl+S) with the name: <span class="tt">hello</span></p>
-<div class="fragment"><div class="line">PRINT &quot;Hello, Retro Rocket!&quot;</div>
-</div><!-- fragment --><p>Leave the editor, then run it:</p>
-<div class="fragment"><div class="line">hello</div>
-</div><!-- fragment --><p>You should see the message appear. That’s your first program!</p>
-<p><b>Notes</b></p>
-<ul>
-<li><span class="tt">PRINT</span> writes text to the screen.</li>
-<li>Quotes surround literal text (called a <em>string</em>).</li>
+<div class="textblock"><h2 class="doxsection"><a class="anchor" id="getting-started"></a>
+Getting started</h2>
+<p>When Retro Rocket is running, you’ll see a place where you can type commands. This is called the <b>prompt</b>.</p>
+<p>Think of the prompt like a calculator that understands full programs instead of just sums. You type something in, press Enter, and it runs straight away.</p>
+<p>You can type BASIC code directly here and see what it does immediately.</p>
+<p><b>Single line</b></p>
+<div class="fragment"><div class="line">PRINT &quot;Hello&quot;</div>
+</div><!-- fragment --><p><b>Multiple lines</b></p>
+<p>Use <span class="tt">[</span> and <span class="tt">]</span>:</p>
+<div class="fragment"><div class="line">[</div>
+<div class="line">PRINT &quot;Hello&quot;</div>
+<div class="line">PRINT &quot;World&quot;</div>
+<div class="line">]</div>
+</div><!-- fragment --><p>Press Enter after <span class="tt">]</span> and it will run.</p>
+<p>The square brackets are like telling the computer “here’s a whole block of instructions - run all of this together”.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1-printing-text"></a>
+1) Printing text</h2>
+<div class="fragment"><div class="line">[</div>
+<div class="line">PRINT &quot;Hello, Retro Rocket!&quot;</div>
+<div class="line">]</div>
+</div><!-- fragment --><ul>
+<li><span class="tt">PRINT</span> shows text on the screen</li>
+<li>Text goes inside quotes <span class="tt">"like this"</span></li>
 </ul>
-<hr  />
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2-variables-and-simple-maths"></a>
-2) Variables and simple maths</h2>
-<p>Open a new file:</p>
-<div class="fragment"><div class="line">edit</div>
-</div><!-- fragment --><p>Type and save (Ctrl+S) as <span class="tt">mathsdemo</span>:</p>
-<div class="fragment"><div class="line">A = 2</div>
+<p>Think of <span class="tt">PRINT</span> like speaking out loud. Whatever you put after it is what the computer “says” back to you.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2-numbers-and-variables"></a>
+2) Numbers and variables</h2>
+<div class="fragment"><div class="line">[</div>
+<div class="line">A = 2</div>
 <div class="line">B = 3</div>
 <div class="line">SUM = A + B</div>
-<div class="line">PRINT &quot;2 + 3 = &quot;; SUM</div>
-</div><!-- fragment --><p>Run it:</p>
-<div class="fragment"><div class="line">mathsdemo</div>
-</div><!-- fragment --><p><b>What’s happening</b></p>
-<ul>
-<li>You create <em>variables</em> with <span class="tt">=</span>. Names like <span class="tt">A</span>, <span class="tt">B</span>, <span class="tt">SUM</span> hold numbers.</li>
-<li><span class="tt">PRINT ...; ...</span> prints items on one line (the semicolon avoids an automatic newline between parts).</li>
+<div class="line">PRINT SUM</div>
+<div class="line">]</div>
+</div><!-- fragment --><ul>
+<li><span class="tt">A = 2</span> stores a value in a variable called <span class="tt">A</span></li>
+<li><span class="tt">SUM = A + B</span> adds them together</li>
+<li><span class="tt">PRINT SUM</span> shows the result</li>
 </ul>
-<p><b>Three value types you’ll meet</b></p>
+<p>A variable is like a labelled box. You put a value in the box, and later you can open it and use what’s inside.</p>
+<p>Here:</p>
 <ul>
-<li><b>Integers</b> (whole numbers) - default: <span class="tt">AGE = 12</span></li>
-<li><b>Reals</b> (decimals) - suffix <span class="tt">#</span>: <span class="tt">PI# = 3.14159</span></li>
-<li><b>Strings</b> (text) - suffix <span class="tt">$</span>: <span class="tt">NAME$ = "Ada"</span></li>
+<li>Box <span class="tt">A</span> contains <span class="tt">2</span></li>
+<li>Box <span class="tt">B</span> contains <span class="tt">3</span></li>
+<li>Box <span class="tt">SUM</span> contains the result of adding them</li>
 </ul>
-<p>Use the right suffix when you want a real or string. Integers have no suffix.</p>
-<hr  />
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3-getting-input-and-using-strings"></a>
-3) Getting input and using strings</h2>
-<p>Open:</p>
-<div class="fragment"><div class="line">edit</div>
-</div><!-- fragment --><p>Type and save (Ctrl+S) as <span class="tt">hello_you</span>:</p>
-<div class="fragment"><div class="line">PRINT &quot;What is your name?&quot;</div>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3-printing-words-and-values-together"></a>
+3) Printing words and values together</h2>
+<div class="fragment"><div class="line">[</div>
+<div class="line">A = 2</div>
+<div class="line">B = 3</div>
+<div class="line">PRINT &quot;2 + 3 = &quot;; A + B</div>
+<div class="line">]</div>
+</div><!-- fragment --><ul>
+<li><span class="tt">;</span> joins things on one line</li>
+</ul>
+<p>The semicolon is like saying “keep talking”. It lets you mix words and values in one sentence instead of printing them separately.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4-types-of-values"></a>
+4) Types of values</h2>
+<p><b>Whole numbers</b></p>
+<div class="fragment"><div class="line">COUNT = 10</div>
+</div><!-- fragment --><p><b>Decimal numbers</b></p>
+<div class="fragment"><div class="line">VALUE# = 3.14159</div>
+</div><!-- fragment --><p><b>Text</b></p>
+<div class="fragment"><div class="line">NAME$ = &quot;Ada&quot;</div>
+</div><!-- fragment --><p>Think of these like different kinds of items you can put in boxes:</p>
+<ul>
+<li>Whole numbers are like counting objects (1, 2, 3…)</li>
+<li>Decimal numbers are like measurements (3.5 metres, 1.2 litres)</li>
+<li>Text is like labels or names</li>
+</ul>
+<p>The symbols help you tell them apart:</p>
+<ul>
+<li><span class="tt">$</span> means the box holds text</li>
+<li><span class="tt">#</span> means the box holds a decimal number</li>
+<li>no symbol means a whole number</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md5-getting-input"></a>
+5) Getting input</h2>
+<div class="fragment"><div class="line">[</div>
+<div class="line">PRINT &quot;What is your name?&quot;</div>
 <div class="line">INPUT NAME$</div>
-<div class="line">PRINT &quot;Nice to meet you, &quot;; NAME$</div>
-</div><!-- fragment --><p>Run:</p>
-<div class="fragment"><div class="line">hello_you</div>
-</div><!-- fragment --><p><b>What’s happening</b></p>
-<ul>
-<li><span class="tt">INPUT</span> waits for you to type a line and press Enter, then stores it in a variable.</li>
-<li>String variables end with <span class="tt">$</span>.</li>
+<div class="line">PRINT &quot;Hello &quot;; NAME$</div>
+<div class="line">]</div>
+</div><!-- fragment --><ul>
+<li><span class="tt">INPUT</span> waits for you to type something</li>
 </ul>
-<hr  />
-<h2 class="doxsection"><a class="anchor" id="autotoc_md4-making-decisions-if--else"></a>
-4) Making decisions (IF / ELSE)</h2>
-<p>Open:</p>
-<div class="fragment"><div class="line">edit</div>
-</div><!-- fragment --><p>Type and save (Ctrl+S) as <span class="tt">agegate</span>:</p>
-<div class="fragment"><div class="line">PRINT &quot;How old are you?&quot;</div>
-<div class="line">INPUT AGE</div>
-<div class="line">IF AGE &lt; 13 THEN</div>
-<div class="line">  PRINT &quot;Hi there!&quot;</div>
+<p><span class="tt">INPUT</span> is like asking a question and waiting for an answer. Whatever you type gets placed into a variable so the program can use it.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md6-decisions-if"></a>
+6) Decisions (IF)</h2>
+<div class="fragment"><div class="line">[</div>
+<div class="line">PRINT &quot;Enter a number&quot;</div>
+<div class="line">INPUT N</div>
+<div class="line"> </div>
+<div class="line">IF N &lt; 10 THEN</div>
+<div class="line">  PRINT &quot;Less than ten&quot;</div>
 <div class="line">ELSE</div>
-<div class="line">  PRINT &quot;Welcome.&quot;</div>
+<div class="line">  PRINT &quot;Ten or more&quot;</div>
 <div class="line">ENDIF</div>
-</div><!-- fragment --><p>Run it and try different ages.\ <span class="tt">IF ... THEN</span> chooses a path; <span class="tt">ELSE</span> is optional; <span class="tt">ENDIF</span> closes the block.</p>
-<hr  />
-<h2 class="doxsection"><a class="anchor" id="autotoc_md5-repeating-work-for-and-while"></a>
-5) Repeating work (FOR and WHILE)</h2>
-<p><b>A counting loop</b></p>
-<div class="fragment"><div class="line">FOR I = 1 TO 5</div>
-<div class="line">  PRINT &quot;Number &quot;; I</div>
+<div class="line">]</div>
+</div><!-- fragment --><p>An <span class="tt">IF</span> statement is like a fork in the road.</p>
+<p>The program looks at a condition:</p>
+<ul>
+<li>if it’s true, it goes one way</li>
+<li>otherwise, it goes the other</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md7-loops-repeating-things"></a>
+7) Loops (repeating things)</h2>
+<p><b>Counting</b></p>
+<div class="fragment"><div class="line">[</div>
+<div class="line">FOR I = 1 TO 5</div>
+<div class="line">  PRINT I</div>
 <div class="line">NEXT</div>
-</div><!-- fragment --><p><b>A condition‑driven loop</b></p>
-<div class="fragment"><div class="line">N = 5</div>
+<div class="line">]</div>
+</div><!-- fragment --><p>A <span class="tt">FOR</span> loop is like counting steps out loud: “1, 2, 3, 4, 5”</p>
+<p>The computer repeats the same instruction for each number.</p>
+<p><b>Countdown</b></p>
+<div class="fragment"><div class="line">[</div>
+<div class="line">N = 5</div>
 <div class="line">WHILE N &gt; 0</div>
 <div class="line">  PRINT N</div>
 <div class="line">  N = N - 1</div>
 <div class="line">ENDWHILE</div>
-<div class="line">PRINT &quot;Lift‑off!&quot;</div>
-</div><!-- fragment --><hr  />
-<h2 class="doxsection"><a class="anchor" id="autotoc_md6-breaking-code-into-procedures-and-functions"></a>
-6) Breaking code into procedures and functions</h2>
-<p>Procedures are reusable blocks that don’t return a value. Functions return a value.</p>
-<p><b>Procedure example</b></p>
-<div class="fragment"><div class="line">DEF PROCGreet(NAME$)</div>
-<div class="line">  PRINT &quot;Hello, &quot;; NAME$</div>
+<div class="line">PRINT &quot;Lift off&quot;</div>
+<div class="line">]</div>
+</div><!-- fragment --><p>A <span class="tt">WHILE</span> loop is like saying “keep going while this is still true”.</p>
+<p>It checks the condition each time, and stops when it no longer holds.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md8-reusable-code"></a>
+8) Reusable code</h2>
+<p><b>Procedure</b></p>
+<div class="fragment"><div class="line">[</div>
+<div class="line">DEF PROCgreet(NAME$)</div>
+<div class="line">  PRINT &quot;Hello &quot;; NAME$</div>
 <div class="line">ENDPROC</div>
 <div class="line"> </div>
-<div class="line">PROCGreet(&quot;Ada&quot;)</div>
-<div class="line">PROCGreet(&quot;Grace&quot;)</div>
-</div><!-- fragment --><p><b>Function example</b></p>
-<div class="fragment"><div class="line">DEF FNAdd(A, B)</div>
-<div class="line"> = A + B</div>
+<div class="line">PROCgreet(&quot;Ada&quot;)</div>
+<div class="line">PROCgreet(&quot;Grace&quot;)</div>
+<div class="line">]</div>
+</div><!-- fragment --><p>A procedure is like writing down a set of instructions you can reuse.</p>
+<p>Instead of repeating the same lines over and over, you give them a name and call them when needed.</p>
+<p><b>Function</b></p>
+<div class="fragment"><div class="line">[</div>
+<div class="line">DEF FNadd(A, B)</div>
+<div class="line">= A + B</div>
 <div class="line"> </div>
-<div class="line">PRINT &quot;2 + 3 = &quot;; FNAdd(2, 3)</div>
-</div><!-- fragment --><p><b>Notes</b></p>
+<div class="line">PRINT FNadd(2, 3)</div>
+<div class="line">]</div>
+</div><!-- fragment --><p>A function is like a small machine: you put values in, and it gives you a result back.</p>
+<p>Here:</p>
 <ul>
-<li>Call a procedure with <span class="tt">PROCName(...)</span>.</li>
-<li>Call a function with <span class="tt">FNName(...)</span>. The line starting with <span class="tt">=</span> returns the value.</li>
+<li>inputs: <span class="tt">2</span> and <span class="tt">3</span></li>
+<li>output: <span class="tt">5</span></li>
 </ul>
-<hr  />
-<h2 class="doxsection"><a class="anchor" id="autotoc_md7-a-tiny-project-guess-the-number"></a>
-7) A tiny project: Guess the number</h2>
-<div class="fragment"><div class="line">edit</div>
-</div><!-- fragment --><p>Type and save (Ctrl+S) as <span class="tt">guess</span>:</p>
-<div class="fragment"><div class="line">PRINT &quot;I am thinking of a number between 1 and 10.&quot;</div>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md9-saving-a-program"></a>
+9) Saving a program</h2>
+<p>Open the editor:</p>
+<div class="fragment"><div class="line">edit hello</div>
+</div><!-- fragment --><p>Type:</p>
+<div class="fragment"><div class="line">PRINT &quot;Hello from a file&quot;</div>
+</div><!-- fragment --><p>Press <b>Ctrl+S</b>, save the file as <span class="tt">/ramdisk/hello</span> then leave the editor.</p>
+<p>Run it from the prompt:</p>
+<div class="fragment"><div class="line">/ramdisk/hello</div>
+</div><!-- fragment --><p>Saving is like writing your instructions down on paper so you can run them again later without retyping them.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md10-small-project"></a>
+10) Small project</h2>
+<div class="fragment"><div class="line">[</div>
 <div class="line">SECRET = 7</div>
-<div class="line">PRINT &quot;Your guess?&quot;</div>
+<div class="line"> </div>
+<div class="line">PRINT &quot;Guess a number from 1 to 10&quot;</div>
 <div class="line">INPUT GUESS</div>
+<div class="line"> </div>
 <div class="line">IF GUESS = SECRET THEN</div>
-<div class="line">  PRINT &quot;Correct!&quot;</div>
+<div class="line">  PRINT &quot;Correct&quot;</div>
 <div class="line">ELSE</div>
-<div class="line">  PRINT &quot;Not this time.&quot;</div>
+<div class="line">  PRINT &quot;Nope&quot;</div>
 <div class="line">ENDIF</div>
-</div><!-- fragment --><p>Run with <span class="tt">guess</span>. Improve it by looping until correct, counting attempts, or giving hints (<span class="tt">IF GUESS &lt; SECRET THEN ...</span>).</p>
-<hr  />
-<h2 class="doxsection"><a class="anchor" id="autotoc_md8-tips-and-troubleshooting"></a>
-8) Tips and troubleshooting</h2>
+<div class="line">]</div>
+</div><!-- fragment --><p>This combines:</p>
 <ul>
-<li><b>Stopping a program:</b> press <b>ESC</b>. (Advanced: you can catch this with <span class="tt">ON ERROR PROC ...</span> and check <span class="tt">ERR$</span>.)</li>
-<li><b>Saving:</b> remember <b>Ctrl+S</b> in the editor.</li>
-<li><b>Printing tricks:</b><ul>
-<li>Use a comma to tab‑separate: <span class="tt">PRINT A, B, C</span></li>
-<li>Use semicolon to join on one line: <span class="tt">PRINT "X="; X; " Y="; Y</span></li>
+<li>variables (the secret number)</li>
+<li>input (your guess)</li>
+<li>a decision (checking if you’re right)</li>
 </ul>
-</li>
-</ul>
-<hr  />
-<h2 class="doxsection"><a class="anchor" id="autotoc_md9-where-to-go-next"></a>
-9) Where to go next</h2>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md11-stopping-a-program"></a>
+11) Stopping a program</h2>
+<p>Press <b>ESC</b> to stop a running program.</p>
+<p>Think of this like pulling the plug if something keeps running longer than you expected.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md12-next-steps"></a>
+12) Next steps</h2>
 <ul>
-<li>Try combining <span class="tt">INPUT</span>, <span class="tt">IF</span>, and loops to make simple text games.</li>
-<li>Learn about arrays and sprites when you’re comfortable with the basics.</li>
-<li>Browse the separate “BASIC.md” internals doc if you’re curious how the interpreter works under the hood.</li>
+<li>Combine <span class="tt">INPUT</span>, <span class="tt">IF</span>, and loops</li>
+<li>Try small text games</li>
+<li>Change things and see what happens</li>
 </ul>
 <p>You’ve got this-keep experimenting! </p>
 </div></div><!-- contents -->

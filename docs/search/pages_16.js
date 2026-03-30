@@ -12,8 +12,8 @@ var searchData=
   ['network_20drivers_9',['Network Drivers',['../user-networking.html#network-drivers',1,'']]],
   ['network_20interface_10',['Network interface',['../glossary.html#network-interface',1,'']]],
   ['networking_11',['Networking',['../networking.html',1,'BASIC Networking'],['../user-networking.html',1,'Networking']]],
-  ['next_12',['9) Where to go next',['../basic-beginner.html#autotoc_md9-where-to-go-next',1,'']]],
-  ['next_20keyword_13',['NEXT Keyword',['../NEXT.html',1,'keywords']]],
+  ['next_20keyword_12',['NEXT Keyword',['../NEXT.html',1,'keywords']]],
+  ['next_20steps_13',['12) Next steps',['../basic-beginner.html#autotoc_md12-next-steps',1,'']]],
   ['no_20ast_14',['Parsing model: hand-written, no AST',['../basic-intdev.html#parsing-model-hand-written-no-ast',1,'']]],
   ['no_20network_20connection_15',['No network connection',['../troubleshooting.html#no-network-connection',1,'']]],
   ['no_20return_20value_16',['Example: procedure (no return value)',['../DEF.html#example-procedure-no-return-value',1,'']]],
@@ -28,8 +28,8 @@ var searchData=
   ['notes_20non_20normative_20but_20recommended_25',['6. Policy notes (non-normative but recommended)',['../retrofs.html#autotoc_md6-policy-notes-non-normative-but-recommended',1,'']]],
   ['nothing_20happens_20after_20boot_26',['Black screen or nothing happens after boot',['../troubleshooting.html#black-screen-or-nothing-happens-after-boot',1,'']]],
   ['notices_27',['Third Party Notices',['../third-party-notices.html',1,'index']]],
-  ['number_28',['7) A tiny project: Guess the number',['../basic-beginner.html#autotoc_md7-a-tiny-project-guess-the-number',1,'']]],
-  ['number_20and_20execution_29',['Line numbering, auto-number, and execution',['../basic-intdev.html#line-numbering-auto-number-and-execution',1,'']]],
-  ['numbering_20auto_20number_20and_20execution_30',['Line numbering, auto-number, and execution',['../basic-intdev.html#line-numbering-auto-number-and-execution',1,'']]],
+  ['number_20and_20execution_28',['Line numbering, auto-number, and execution',['../basic-intdev.html#line-numbering-auto-number-and-execution',1,'']]],
+  ['numbering_20auto_20number_20and_20execution_29',['Line numbering, auto-number, and execution',['../basic-intdev.html#line-numbering-auto-number-and-execution',1,'']]],
+  ['numbers_20and_20variables_30',['2) Numbers and variables',['../basic-beginner.html#autotoc_md2-numbers-and-variables',1,'']]],
   ['numbers_20permitted_31',['Example: simple subroutine (line numbers permitted)',['../GOSUB.html#example-simple-subroutine-line-numbers-permitted',1,'']]]
 ];

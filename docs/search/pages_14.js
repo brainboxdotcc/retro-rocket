@@ -55,6 +55,7 @@ var searchData=
   ['logo_20and_20system_20info_20scrolling_20with_20text_52',['Example: Keep a logo and system info scrolling with text',['../SCROLLREGION.html#example-keep-a-logo-and-system-info-scrolling-with-text',1,'']]],
   ['loop_20scope_53',['Loop scope',['../ENDPROC.html#loop-scope',1,'Loop scope'],['../RETURN.html#loop-scope-1',1,'Loop scope']]],
   ['loopback_54',['Loopback',['../glossary.html#loopback',1,'']]],
-  ['lower_24_20function_55',['LOWER$ Function',['../LOWER.html',1,'string-funcs']]],
-  ['ltrim_24_20function_56',['LTRIM$ Function',['../LTRIM.html',1,'string-funcs']]]
+  ['loops_20repeating_20things_55',['7) Loops (repeating things)',['../basic-beginner.html#autotoc_md7-loops-repeating-things',1,'']]],
+  ['lower_24_20function_56',['LOWER$ Function',['../LOWER.html',1,'string-funcs']]],
+  ['ltrim_24_20function_57',['LTRIM$ Function',['../LTRIM.html',1,'string-funcs']]]
 ];

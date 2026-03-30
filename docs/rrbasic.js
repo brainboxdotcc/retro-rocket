@@ -1,5 +1,7 @@
 hljs.registerLanguage('rrbasic', function(hljs) {
     const keyword_list = [
+        '[',
+        ']',
         'REM',
         'LET',
         'PRINT',
@@ -333,8 +335,8 @@ function detect_language(text) {
     var c_score = 0;
 
     const tokens = new Set([
-        // Core tokens (from your enum)
-        "PRINT","IF","THEN","ELSE","CHAIN","FOR","STEP","TO","NEXT",
+        // Core tokens
+        "[", "]", "PRINT","IF","THEN","ELSE","CHAIN","FOR","STEP","TO","NEXT",
         "CURSOR","GOTO","GOSUB","RETURN","INPUT","COLOUR","COLOR",
         "BACKGROUND","EVAL","CLOSE","DEF","PROC","ENDPROC","FN","END",
         "REM","AND","OR","NOT","EOR","MOD","GLOBAL","CLS","GCOL",
@@ -378,6 +380,7 @@ function detect_language(text) {
     });
 
     // Strong RR BASIC structure
+    if (/^\s*\[/im.test(text)) rrbasic_score += 8;
     if (/^\s*REM\b/im.test(text)) rrbasic_score += 6;
     if (/\bDEF\s+(PROC|FN)\b/i.test(text)) rrbasic_score += 8;
     if (/\bENDPROC\b/i.test(text)) rrbasic_score += 6;
