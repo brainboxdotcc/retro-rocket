@@ -4,7 +4,7 @@
 DATA value, value, value
 ```
 
-Defines a sequence of constant values embedded in the programme.
+Defines a sequence of constant values embedded in the program.
 
 Values may be:
 
@@ -12,7 +12,7 @@ Values may be:
 * real numbers
 * strings (in double quotes)
 
-Values are stored at programme load time and are not re-parsed during execution.
+Values are stored at program load time and are not re-parsed during execution.
 
 Multiple `DATA` statements are concatenated into a single continuous data stream.
 
@@ -32,7 +32,7 @@ DATA "ok"
 
 * Values are stored in the order they appear across all `DATA` statements.
 * The data stream is shared across the entire program.
-* `DATA` statements are not executed; they are processed during programme load.
+* `DATA` statements are not executed; they are processed during program load.
 * Values are consumed sequentially by data-reading functions.
 * Attempting to read beyond the available data results in a runtime error.
 * Values are strongly typed; no implicit conversion occurs during reading.

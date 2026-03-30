@@ -7,7 +7,7 @@ RESTORE offset
 
 Resets or repositions the current `DATA` read pointer.
 
-With no argument, `RESTORE` resets the read position to the start of the programme's data stream.
+With no argument, `RESTORE` resets the read position to the start of the program's data stream.
 
 With an argument, `RESTORE` sets the read position to a specific zero-based `DATA` offset.
 

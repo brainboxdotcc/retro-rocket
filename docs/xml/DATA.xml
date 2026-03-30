@@ -8,7 +8,7 @@
     <detaileddescription>
 <para><programlisting filename=".basic"><codeline><highlight class="normal">DATA<sp/>value,<sp/>value,<sp/>value</highlight></codeline>
 </programlisting></para>
-<para>Defines a sequence of constant values embedded in the programme.</para>
+<para>Defines a sequence of constant values embedded in the program.</para>
 <para>Values may be:</para>
 <para><itemizedlist>
 <listitem><para>integers</para>
@@ -16,7 +16,7 @@
 </listitem><listitem><para>strings (in double quotes)</para>
 </listitem></itemizedlist>
 </para>
-<para>Values are stored at programme load time and are not re-parsed during execution.</para>
+<para>Values are stored at program load time and are not re-parsed during execution.</para>
 <para>Multiple <computeroutput>DATA</computeroutput> statements are concatenated into a single continuous data stream.</para>
 <para><hruler/>
 </para>
@@ -32,7 +32,7 @@
 <title>Behaviour</title><para><itemizedlist>
 <listitem><para>Values are stored in the order they appear across all <computeroutput>DATA</computeroutput> statements.</para>
 </listitem><listitem><para>The data stream is shared across the entire program.</para>
-</listitem><listitem><para><computeroutput>DATA</computeroutput> statements are not executed; they are processed during programme load.</para>
+</listitem><listitem><para><computeroutput>DATA</computeroutput> statements are not executed; they are processed during program load.</para>
 </listitem><listitem><para>Values are consumed sequentially by data-reading functions.</para>
 </listitem><listitem><para>Attempting to read beyond the available data results in a runtime error.</para>
 </listitem><listitem><para>Values are strongly typed; no implicit conversion occurs during reading.</para>
