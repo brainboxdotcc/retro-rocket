@@ -12,7 +12,7 @@ Getting into low-level stuff can usually be a bit of a wall. You usually end up 
 
 *Retro Rocket meets you in the middle, letting you dive into to the guts of your computer.*
 
-## Where to start
+__Where to start__
 
 If you just want to see it running:
 
@@ -26,22 +26,22 @@ If you're not sure what you're looking at yet, start here:
 
 * \subpage user-guide
 
-## What you can do with it
+__What you can do with it__
 
 - Explore how memory, filesystems, and multitasking actually work
 - Write programs directly in the system’s built-in language
 - Dig into the kernel and see how everything fits together
 - Treat it like a playground, or a learning tool, or both
 
-## Documentation
+__Documentation__
 
 * \subpage basic-ref
 * \subpage kernel-dev
 
-## Source
+__Source__
 
 * [Source code for kernel developers](https://github.com/brainboxdotcc/retro-rocket)
 
-## Other
+__Other__
 
 * \subpage third-party-notices

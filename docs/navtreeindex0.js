@@ -243,11 +243,11 @@ var NAVTREEINDEX0 =
 "YDAY.html":[0,1,3,0,77],
 "YEAR.html":[0,1,3,0,78],
 "YIELD.html":[0,1,2,108],
-"about.html":[0,0,12,0],
+"about.html":[0,0,7,0],
 "ansi.html":[0,1,6,0],
-"apple.html":[0,0,12,1],
+"apple.html":[0,0,7,1],
 "audio-basics.html":[0,1,4],
-"bach.html":[0,0,12,2],
-"ball.html":[0,0,12,3],
+"bach.html":[0,0,7,2],
+"ball.html":[0,0,7,3],
 "basic-beginner.html":[0,1,0]
 };
