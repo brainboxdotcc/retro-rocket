@@ -41,6 +41,7 @@ ENDPROC
 DEF PROCexplosion_sound
     IF AUDIO = FALSE THEN ENDPROC
     explode_sound = RND(1, 9)
+    SOUND STOP explosions
     IF explode_sound = 1 THEN SOUND PLAY explosions, explode1
     IF explode_sound = 2 THEN SOUND PLAY explosions, explode2
     IF explode_sound = 3 THEN SOUND PLAY explosions, explode3
@@ -54,6 +55,7 @@ ENDPROC
 
 DEF PROCplayer_hit_sound
     IF AUDIO = FALSE THEN ENDPROC
+    SOUND STOP player_hit_stream
     SOUND PLAY player_hit_stream, player_hit
 ENDPROC
 
