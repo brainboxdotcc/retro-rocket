@@ -223,6 +223,10 @@ void dataset_statement(struct basic_ctx* ctx)
 void restore_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(RESTORE, ctx);
+	if (ctx->datastore.length == 0) {
+		tokenizer_error_printf(ctx, "No DATA");
+		return;
+	}
 	if (tokenizer_token(ctx) == NEWLINE) {
 		ctx->data_offset = 0;
 		return;
