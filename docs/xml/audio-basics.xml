@@ -12,7 +12,7 @@
 <title>Drivers</title><para>The driver is the low-level hardware backend (e.g. <computeroutput>MODLOAD &quot;ac97&quot;</computeroutput>). <linebreak/>
  It is specific to your sound card in your PC. Without a driver, <bold>no audio commands will work</bold>.</para>
 <para>Currently supported sound cards:</para>
-<para><table rows="3" cols="3"><row>
+<para><table rows="4" cols="3"><row>
 <entry thead="yes"><para>Device  </para>
 </entry><entry thead="yes"><para>Description  </para>
 </entry><entry thead="yes"><para>Command  </para>
@@ -26,6 +26,11 @@
 <entry thead="no"><para>HDA  </para>
 </entry><entry thead="no"><para>High Definition Audio; Azalia (successor to AC’97)  </para>
 </entry><entry thead="no"><para><computeroutput>MODLOAD &quot;hda&quot;</computeroutput>  </para>
+</entry></row>
+<row>
+<entry thead="no"><para>Xonar D1  </para>
+</entry><entry thead="no"><para>ASUS Xonar D1/A  </para>
+</entry><entry thead="no"><para><computeroutput>MODLOAD &quot;xonar_d1&quot;</computeroutput>  </para>
 </entry></row>
 </table>
 </para>

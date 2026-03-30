@@ -13,10 +13,11 @@ It is specific to your sound card in your PC. Without a driver, **no audio comma
 
 Currently supported sound cards:
 
-| Device | Description                                        | Command          |
-|--------|----------------------------------------------------|------------------|
-| AC'97  | Audio Codec ’97; legacy PCI audio standard         | `MODLOAD "ac97"` |
-| HDA    | High Definition Audio; Azalia (successor to AC’97) | `MODLOAD "hda"`  |
+| Device      | Description                                        | Command               |
+|-------------|----------------------------------------------------|-----------------------|
+| AC'97       | Audio Codec ’97; legacy PCI audio standard         | `MODLOAD "ac97"`      |
+| HDA         | High Definition Audio; Azalia (successor to AC’97) | `MODLOAD "hda"`       |
+| Xonar D1    | ASUS Xonar D1/A                                    | `MODLOAD "xonar_d1"`  |
 
 You may automatically load the correct sound driver for your hardware with: `MODLOAD "sound"`
 
