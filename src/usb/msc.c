@@ -231,7 +231,7 @@ static void msc_on_device_added(const struct usb_dev *ud)
 	/* Basic BOT bring-up */
 	if (!msc_inquiry(ud)) return;
 
-	/* TUR may fail until media ready — do a few retries. */
+	/* TUR may fail until media ready - do a few retries. */
 	bool ready = false;
 	for (int i = 0; i < 5; i++) {
 		if (msc_test_unit_ready(ud)) { ready = true; break; }

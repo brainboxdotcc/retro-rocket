@@ -1,7 +1,7 @@
 \page sound-and-graphics Sound and Graphics
 
 Retro Rocket includes built-in support for both sound and graphics.
-You don’t need to install drivers or change any settings — everything is automatic.
+You don’t need to install drivers or change any settings - everything is automatic.
 
 ---
 

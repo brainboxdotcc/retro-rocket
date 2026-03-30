@@ -156,7 +156,7 @@ struct usb_ep {
 #define TRB_CYCLE           (1u << 0)
 /** @brief Toggle Cycle on Link TRB. */
 #define TRB_TOGGLE          (1u << 1)
-/** @brief Evaluate Next TRB (a.k.a. ENT) — alias of TOGGLE per spec bit position. */
+/** @brief Evaluate Next TRB (a.k.a. ENT) - alias of TOGGLE per spec bit position. */
 #define TRB_ENT             (1u << 1)
 /** @brief Interrupt on Short Packet. */
 #define TRB_ISP             (1u << 2)
