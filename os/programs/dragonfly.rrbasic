@@ -16,6 +16,13 @@ ticks = 0
 PROCl1_parallax()
 PROCmusic_start()
 REPEAT
+    ticks = FNframe(ticks)
+    SLEEP 16 ' 60fps
+UNTIL (INKEY$(CHR$(27)) <> "") OR (INKEY$("") = CHR$(27))
+CLS
+END
+
+DEF FNframe(ticks)
     PROCl1_scroll_parallax()
     PROCl1_draw_parallax_rear()
     PROCmove_player_ship()
@@ -30,8 +37,5 @@ REPEAT
     PROCdraw_explosions()
     PROCl1_draw_parallax_front()
     PROCdraw_hud()
-    ticks = ticks + 1
     FLIP
-UNTIL (INKEY$(CHR$(27)) <> "") OR (INKEY$("") = CHR$(27))
-CLS
-END
+= ticks + 1
