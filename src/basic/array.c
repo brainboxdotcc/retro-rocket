@@ -44,6 +44,9 @@ int64_t arr_variable_index(struct basic_ctx* ctx)
 
 const char* basic_get_string_array_variable(const char* var, int64_t index, struct basic_ctx* ctx)
 {
+	if (!var) {
+		return "";
+	}
 	if (index < 0) {
 		tokenizer_error_printf(ctx, "Array index %ld out of bounds", index);
 		return "";
@@ -137,8 +140,13 @@ bool basic_dim_int_array(const char* var, int64_t size, struct basic_ctx* ctx)
 	new->itemcount = size;
 	new->next = ctx->int_array_variables;
 	new->varname = buddy_strdup(ctx->allocator, var);
+	if (!new->varname) {
+		tokenizer_error_printf(ctx, "Array '%s': Out of memory", var);
+		return false;
+	}
 	new->values = buddy_malloc(ctx->allocator, sizeof(int64_t) * size);
 	if (!new->values) {
+		tokenizer_error_printf(ctx, "Array '%s': Out of memory", var);
 		return false;
 	}
 	for (int64_t v = 0; v < size; ++v) {
@@ -177,8 +185,13 @@ bool basic_dim_string_array(const char* var, int64_t size, struct basic_ctx* ctx
 	new->itemcount = size;
 	new->next = ctx->string_array_variables;
 	new->varname = buddy_strdup(ctx->allocator, var);
+	if (!new->varname) {
+		tokenizer_error_printf(ctx, "Array '%s': Out of memory", var);
+		return false;
+	}
 	new->values = buddy_malloc(ctx->allocator, sizeof(char*) * size);
 	if (!new->values) {
+		tokenizer_error_printf(ctx, "Array '%s': Out of memory", var);
 		return false;
 	}
 	for (int64_t v = 0; v < size; ++v) {
@@ -217,8 +230,13 @@ bool basic_dim_double_array(const char* var, int64_t size, struct basic_ctx* ctx
 	new->itemcount = size;
 	new->next = ctx->double_array_variables;
 	new->varname = buddy_strdup(ctx->allocator, var);
+	if (!new->varname) {
+		tokenizer_error_printf(ctx, "Array '%s': Out of memory", var);
+		return false;
+	}
 	new->values = buddy_malloc(ctx->allocator, sizeof(double) * size);
 	if (!new->values) {
+		tokenizer_error_printf(ctx, "Array '%s': Out of memory", var);
 		return false;
 	}
 	for (int64_t v = 0; v < size; ++v) {
@@ -333,8 +351,13 @@ void basic_set_string_array_variable(const char* var, int64_t index, const char*
 				tokenizer_error_printf(ctx, "Array index %ld out of bounds [0..%ld]", index, cur->itemcount - 1);
 				return;
 			}
+			char* newval = buddy_strdup(ctx->allocator, value);
+			if (!newval) {
+				tokenizer_error_printf(ctx, "Array '%s': Out of memory", var);
+				return;
+			}
 			buddy_free(ctx->allocator, cur->values[index]);
-			cur->values[index] = buddy_strdup(ctx->allocator, value);
+			cur->values[index] = newval;
 			return;
 		}
 	}
@@ -351,8 +374,13 @@ void basic_set_string_array(const char* var, const char* value, struct basic_ctx
 	for (; cur; cur = cur->next) {
 		if (!strcmp(var, cur->varname)) {
 			for (uint64_t x = 0; x < cur->itemcount; ++x) {
+				char* newval = buddy_strdup(ctx->allocator, value);
+				if (!newval) {
+					tokenizer_error_printf(ctx, "Array '%s': Out of memory", var);
+					return;
+				}
 				buddy_free(ctx->allocator, cur->values[x]);
-				cur->values[x] = buddy_strdup(ctx->allocator, value);
+				cur->values[x] = newval;
 			}
 		}
 	}

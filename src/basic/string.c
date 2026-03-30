@@ -311,7 +311,7 @@ char* basic_upper(struct basic_ctx* ctx)
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_END("UPPER$","");
 	char* modified = gc_strdup(ctx, strval);
-	for (char* m = modified; *m; ++m) {
+	for (char* m = modified; m && *m; ++m) {
 		*m = toupper(*m);
 	}
 	return modified;
@@ -323,7 +323,7 @@ char* basic_lower(struct basic_ctx* ctx)
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_END("LOWER$","");
 	char* modified = gc_strdup(ctx, strval);
-	for (char* m = modified; *m; ++m) {
+	for (char* m = modified; m && *m; ++m) {
 		*m = tolower(*m);
 	}
 	return modified;
@@ -448,7 +448,7 @@ char* basic_tokenize(struct basic_ctx* ctx)
 			strlcpy(return_value, old_value, ofs + split_len);
 			strlcpy(new_value, old_value + ofs + split_len, MAX_STRINGLEN);
 			basic_set_string_variable(varname, new_value, ctx, false, false);
-			return gc_strdup(ctx, return_value);
+			return (char*)gc_strdup(ctx, return_value);
 		}
 		current_value++;
 		ofs++;
@@ -456,7 +456,7 @@ char* basic_tokenize(struct basic_ctx* ctx)
 	char return_value[MAX_STRINGLEN];
 	strlcpy(return_value, old_value, MAX_STRINGLEN);
 	basic_set_string_variable(varname, "", ctx, false, false);
-	return gc_strdup(ctx, return_value);
+	return (char*)gc_strdup(ctx, return_value);
 }
 
 
@@ -476,7 +476,10 @@ char* basic_left(struct basic_ctx* ctx)
 	if (intval > len) {
 		intval = len;
 	}
-	char* cut = gc_strdup(ctx, strval);
+	char* cut = (char*)gc_strdup(ctx, strval);
+	if (!cut) {
+		return "";
+	}
 	*(cut + intval) = 0;
 	return cut;
 }
@@ -497,7 +500,7 @@ char* basic_right(struct basic_ctx* ctx)
 	if (intval > len) {
 		intval = len;
 	}
-	return gc_strdup(ctx, strval + len - intval);
+	return (char*)gc_strdup(ctx, strval + len - intval);
 }
 
 char* basic_mid(struct basic_ctx* ctx)
@@ -526,7 +529,10 @@ char* basic_mid(struct basic_ctx* ctx)
 	if (end > len) {
 		end = len;
 	}
-	char* cut = gc_strdup(ctx, strval);
+	char* cut = (char*)gc_strdup(ctx, strval);
+	if (!cut) {
+		return "";
+	}
 	*(cut + end) = 0;
 	return cut + start;
 }
@@ -652,7 +658,10 @@ char* basic_rtrim(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
-	char* target = gc_strdup(ctx, strval);
+	char* target = (char*)gc_strdup(ctx, strval);
+	if (!target) {
+		return "";
+	}
 	PARAMS_END("RTRIM$", "");
 	int64_t lastIndex;
 	while (isspace(target[lastIndex = strlen(target) - 1])) {
@@ -665,7 +674,10 @@ char* basic_trim(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
-	char* target = gc_strdup(ctx, strval);
+	char* target = (char*)gc_strdup(ctx, strval);
+	if (!target) {
+		return "";
+	}
 	PARAMS_END("TRIM$", "");
 	while (isspace(*target)) {
 		++target;

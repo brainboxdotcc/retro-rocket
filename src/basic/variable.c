@@ -89,6 +89,9 @@ void assignment_statement(struct basic_ctx* ctx, bool global, bool local) {
 	size_t var_length;
 
 	var = tokenizer_variable_name(ctx, &var_length);
+	if (!var) {
+		return;
+	}
 
 	if (varname_is_int_array_access(ctx, var)) {
 		int64_t index = arr_expr_set_index(ctx, var);
@@ -149,6 +152,9 @@ void assignment_statement(struct basic_ctx* ctx, bool global, bool local) {
 }
 
 bool valid_suffix_var(const char* name, char suffix) {
+	if (!name) {
+		return false;
+	}
 	const char* i;
 	unsigned int var_length = strlen(name);
 	if (suffix != '\0') {
@@ -208,6 +214,9 @@ bool valid_int_var(const char* name)
 }
 
 static void update_string(struct basic_ctx* ctx, ub_var_string* str, size_t len, bool propagate_global, const char* varname, const char* value) {
+	if (!str || !varname || !value) {
+		return;
+	}
 	str->name_length = len;
 	str->global = propagate_global;
 	str->varname = buddy_strdup(ctx->allocator, varname);
@@ -215,6 +224,10 @@ static void update_string(struct basic_ctx* ctx, ub_var_string* str, size_t len,
 }
 
 void basic_set_string_variable(const char* var, const char* value, struct basic_ctx* ctx, bool local, bool propagate_global) {
+	if (!var || !value) {
+		return;
+	}
+
 	struct hashmap* locals = ctx->local_string_variables[ctx->call_stack_ptr];
 	struct hashmap* globals = ctx->str_variables;
 
@@ -249,6 +262,9 @@ void basic_set_string_variable(const char* var, const char* value, struct basic_
 }
 
 static void update_int(struct basic_ctx* ctx, ub_var_int* integer, size_t len, bool propagate_global, const char* varname, int64_t value) {
+	if (!integer || !varname) {
+		return;
+	}
 	integer->name_length = len;
 	integer->global = propagate_global;
 	integer->varname = buddy_strdup(ctx->allocator, varname);
@@ -256,6 +272,10 @@ static void update_int(struct basic_ctx* ctx, ub_var_int* integer, size_t len, b
 }
 
 void basic_set_int_variable(const char* var, int64_t value, struct basic_ctx* ctx, bool local, bool propagate_global) {
+	if (!var) {
+		return;
+	}
+
 	struct hashmap* locals = ctx->local_int_variables[ctx->call_stack_ptr];
 	struct hashmap* globals = ctx->int_variables;
 
@@ -292,14 +312,20 @@ void basic_set_int_variable(const char* var, int64_t value, struct basic_ctx* ct
 }
 
 static void update_double(struct basic_ctx* ctx, ub_var_double* dbl, size_t len, bool propagate_global, const char* varname, double value) {
+	if (!dbl || !varname) {
+		return;
+	}
 	dbl->name_length = len;
 	dbl->global = propagate_global;
 	dbl->varname = buddy_strdup(ctx->allocator, varname);
 	dbl->value = value;
 }
 
-void basic_set_double_variable(const char* var, double value, struct basic_ctx* ctx, bool local, bool propagate_global)
-{
+void basic_set_double_variable(const char* var, double value, struct basic_ctx* ctx, bool local, bool propagate_global) {
+	if (!var) {
+		return;
+	}
+
 	struct hashmap* locals = ctx->local_double_variables[ctx->call_stack_ptr];
 	struct hashmap* globals = ctx->double_variables;
 
@@ -339,19 +365,21 @@ void basic_set_double_variable(const char* var, double value, struct basic_ctx* 
  * @return char 1 if variable name is a function call, 0 if it is not
  */
 char varname_is_function(const char* varname) {
-	return (*varname == 'F' && *(varname + 1) == 'N' && !strchr(varname, '#') && !strchr(varname, '$'));
+	return varname && (*varname == 'F' && *(varname + 1) == 'N' && !strchr(varname, '#') && !strchr(varname, '$'));
 }
 
 char varname_is_string_function(const char* varname) {
-	return (*varname == 'F' && *(varname + 1) == 'N' && strchr(varname, '$') && !strchr(varname, '#'));
+	return varname && (*varname == 'F' && *(varname + 1) == 'N' && strchr(varname, '$') && !strchr(varname, '#'));
 }
 
 char varname_is_double_function(const char* varname) {
-	return (*varname == 'F' && *(varname + 1) == 'N' && strchr(varname, '#') && !strchr(varname, '$'));
+	return varname && (*varname == 'F' && *(varname + 1) == 'N' && strchr(varname, '#') && !strchr(varname, '$'));
 }
 
-const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx)
-{
+const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx) {
+	if (!var) {
+		return "";
+	}
 	char* retv;
 	if (basic_builtin_str_fn(var, ctx, &retv)) {
 		return retv;
@@ -377,8 +405,10 @@ const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx)
 	return "";
 }
 
-bool basic_double_variable_exists(const char* var, struct basic_ctx* ctx)
-{
+bool basic_double_variable_exists(const char* var, struct basic_ctx* ctx) {
+	if (!var) {
+		return false;
+	}
 	ub_var_double* found = NULL;
 	for (size_t j = ctx->call_stack_ptr; j > 0; --j) {
 		struct hashmap* list = ctx->local_double_variables[j];
@@ -392,8 +422,10 @@ bool basic_double_variable_exists(const char* var, struct basic_ctx* ctx)
 	return false;
 }
 
-bool basic_string_variable_exists(const char* var, struct basic_ctx* ctx)
-{
+bool basic_string_variable_exists(const char* var, struct basic_ctx* ctx) {
+	if (!var) {
+		return false;
+	}
 	ub_var_string* found = NULL;
 	for (size_t j = ctx->call_stack_ptr; j > 0; --j) {
 		struct hashmap* list = ctx->local_string_variables[j];
@@ -407,8 +439,10 @@ bool basic_string_variable_exists(const char* var, struct basic_ctx* ctx)
 	return false;
 }
 
-bool basic_int_variable_exists(const char* var, struct basic_ctx* ctx)
-{
+bool basic_int_variable_exists(const char* var, struct basic_ctx* ctx) {
+	if (!var) {
+		return false;
+	}
 	ub_var_int* found = NULL;
 	for (size_t j = ctx->call_stack_ptr; j > 0; --j) {
 		struct hashmap* list = ctx->local_int_variables[j];
@@ -422,8 +456,10 @@ bool basic_int_variable_exists(const char* var, struct basic_ctx* ctx)
 	return false;
 }
 
-int64_t basic_get_int_variable(const char* var, struct basic_ctx* ctx)
-{
+int64_t basic_get_int_variable(const char* var, struct basic_ctx* ctx) {
+	if (!var) {
+		return 0;
+	}
 	int64_t retv = 0;
 	if (basic_builtin_int_fn(var, ctx, &retv)) {
 		return retv;
@@ -448,8 +484,10 @@ int64_t basic_get_int_variable(const char* var, struct basic_ctx* ctx)
 	return 0; /* No such variable */
 }
 
-bool basic_get_double_variable(const char* var, struct basic_ctx* ctx, double* res)
-{
+bool basic_get_double_variable(const char* var, struct basic_ctx* ctx, double* res) {
+	if (!var || !res) {
+		return false;
+	}
 	if (basic_builtin_double_fn(var, ctx, res)) {
 		return true;
 	} else if (varname_is_double_function(var)) {
@@ -480,8 +518,10 @@ bool basic_get_double_variable(const char* var, struct basic_ctx* ctx, double* r
 	return false;
 }
 
-ub_return_type basic_get_numeric_variable(const char* var, struct basic_ctx* ctx, double* res)
-{
+ub_return_type basic_get_numeric_variable(const char* var, struct basic_ctx* ctx, double* res) {
+	if (!res) {
+		return RT_NONE;
+	}
 	if (basic_get_double_variable(var, ctx, res)) {
 		return RT_INT;
 	}
@@ -489,8 +529,7 @@ ub_return_type basic_get_numeric_variable(const char* var, struct basic_ctx* ctx
 	return RT_FLOAT;
 }
 
-int64_t basic_get_numeric_int_variable(const char* var, struct basic_ctx* ctx)
-{
+int64_t basic_get_numeric_int_variable(const char* var, struct basic_ctx* ctx) {
 	double res;
 	if (basic_get_double_variable(var, ctx, &res)) {
 		return (int64_t)res;

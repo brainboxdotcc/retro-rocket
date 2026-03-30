@@ -45,7 +45,7 @@ char* basic_inkey(struct basic_ctx* ctx)
 		/*Checking for particular key being held */
 		if (key_held(*key_ascii)) {
 			char r_str[2] = {*key_ascii, 0};
-			return gc_strdup(ctx, r_str);
+			return (char*)gc_strdup(ctx, r_str);
 		}
 		return "";
 	}
@@ -56,7 +56,7 @@ char* basic_inkey(struct basic_ctx* ctx)
 		__builtin_ia32_pause();
 		return "";
 	} else {
-		return gc_strdup(ctx, (const char*)key);
+		return (char*)gc_strdup(ctx, (const char*)key);
 	}
 }
 
@@ -506,7 +506,7 @@ char* printable_syntax(struct basic_ctx* ctx)
 	if (ctx->errored) {
 		return NULL;
 	}
-	return gc_strdup(ctx, out);
+	return (char*)gc_strdup(ctx, out);
 }
 
 void keymap_statement(struct basic_ctx* ctx)

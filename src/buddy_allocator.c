@@ -10,10 +10,16 @@ static inline size_t order_size(int order) {
 }
 
 static inline size_t block_offset(buddy_region_t *region, void *ptr) {
+	if (!region) {
+		return 0;
+	}
 	return (uintptr_t)ptr - (uintptr_t)region->pool;
 }
 
 static inline void *buddy_of(buddy_region_t *region, void *ptr, int order) {
+	if (!region) {
+		return 0;
+	}
 	size_t off = block_offset(region, ptr);
 	size_t size = order_size(order);
 	return (uint8_t *)region->pool + (off ^ size);
@@ -24,6 +30,9 @@ static inline size_t align_up(size_t x, size_t align) {
 }
 
 static inline int size_to_order(buddy_region_t *region, size_t size) {
+	if (!region) {
+		return 0;
+	}
 	size = align_up(size, 1 << region->min_order);
 	int order = region->min_order;
 	while ((1UL << order) < size) {
@@ -33,6 +42,9 @@ static inline int size_to_order(buddy_region_t *region, size_t size) {
 }
 
 void buddy_init(buddy_allocator_t *alloc, int min_order, int max_order, int grow_order) {
+	if (!alloc) {
+		return;
+	}
 	alloc->regions = NULL;
 	alloc->active_region = NULL;
 	alloc->min_order = min_order;
@@ -43,9 +55,15 @@ void buddy_init(buddy_allocator_t *alloc, int min_order, int max_order, int grow
 }
 
 static buddy_region_t *buddy_grow(buddy_allocator_t *alloc) {
+	if (!alloc) {
+		return NULL;
+
+	}
 	size_t size = 1UL << alloc->grow_order;
 	void *pool = kmalloc(size);
-	if (!pool) return NULL;
+	if (!pool) {
+		return NULL;
+	}
 
 	buddy_region_t *region = (buddy_region_t *)kmalloc(sizeof(buddy_region_t));
 	if (!region) {
@@ -79,7 +97,7 @@ static buddy_region_t *buddy_grow(buddy_allocator_t *alloc) {
 }
 
 void *buddy_malloc(buddy_allocator_t *alloc, size_t size) {
-	if (size == 0) {
+	if (!alloc || size == 0) {
 		return NULL;
 	}
 
@@ -141,7 +159,7 @@ void *buddy_malloc(buddy_allocator_t *alloc, size_t size) {
 }
 
 void buddy_free(buddy_allocator_t *alloc, const void *ptr) {
-	if (!ptr) {
+	if (!ptr || !alloc) {
 		return;
 	}
 
@@ -195,6 +213,9 @@ void buddy_free(buddy_allocator_t *alloc, const void *ptr) {
 }
 
 void buddy_destroy(buddy_allocator_t *alloc) {
+	if (!alloc) {
+		return;
+	}
 	buddy_region_t *r = alloc->regions;
 	while (r) {
 		buddy_region_t *next = r->next;
@@ -211,15 +232,21 @@ void buddy_destroy(buddy_allocator_t *alloc) {
 }
 
 char *buddy_strdup(buddy_allocator_t *alloc, const char *s) {
-	if (!s) return NULL;
+	if (!s || !alloc) {
+		return NULL;
+	}
 	size_t len = strlen(s) + 1; // include NUL
 	char *copy = (char *)buddy_malloc(alloc, len);
-	if (!copy) return NULL;
-	memcpy(copy, s, len);
-	return copy;
+	if (!copy) {
+		return NULL;
+	}
+	return memcpy(copy, s, len);
 }
 
 void *buddy_realloc(buddy_allocator_t *alloc, void *ptr, size_t size) {
+	if (!alloc) {
+		return NULL;
+	}
 	if (!ptr) {
 		// realloc(NULL, size): malloc
 		return buddy_malloc(alloc, size);
@@ -269,6 +296,9 @@ void *buddy_realloc(buddy_allocator_t *alloc, void *ptr, size_t size) {
 }
 
 void* buddy_calloc(buddy_allocator_t* alloc, size_t num, size_t size) {
+	if (!alloc) {
+		return NULL;
+	}
 	void* p = buddy_malloc(alloc, num * size);
 	if (p) {
 		memset(p, 0, num * size);

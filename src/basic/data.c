@@ -92,7 +92,12 @@ void extract_data_from_line(struct basic_ctx* ctx, char* search)
 				++search;
 			}
 
-			data_store_append(ctx, &ctx->datastore, up_make_str(buddy_strdup(ctx->allocator, data_str)));
+			const char* duplicated = buddy_strdup(ctx->allocator, data_str);
+			if (!duplicated) {
+				tokenizer_error_print(ctx, "Out of memory storing DATA");
+				return;
+			}
+			data_store_append(ctx, &ctx->datastore, up_make_str(duplicated));
 		} else {
 			char* start = search;
 

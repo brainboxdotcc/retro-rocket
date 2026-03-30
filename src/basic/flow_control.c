@@ -71,6 +71,10 @@ void on_statement(struct basic_ctx* ctx)
 		}
 		accept_or_return(VARIABLE, ctx);
 		ctx->error_handler = buddy_strdup(ctx->allocator, procname);
+		if (!ctx->error_handler) {
+			tokenizer_error_printf(ctx, "ON ERROR: Out of memory");
+			return;
+		}
 	} else if (tokenizer_token(ctx) == GOTO || tokenizer_token(ctx) == GOSUB) {
 		tokenizer_error_print(ctx, "ON ERROR GOTO and ON ERROR GOSUB are deprecated. Use ON ERROR PROC");
 	} else {

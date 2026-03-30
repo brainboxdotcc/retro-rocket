@@ -52,7 +52,7 @@ char* basic_readstring(struct basic_ctx* ctx)
 		}
 	}
 	*(res+ofs) = 0;
-	char* ret = gc_strdup(ctx, res);
+	char* ret = (char*)gc_strdup(ctx, res);
 	buddy_free(ctx->allocator, res);
 	return ret;
 }
@@ -174,7 +174,7 @@ char* basic_getname(struct basic_ctx* ctx)
 	int count = 0;
 	while (fsl) {
 		if (count++ == intval) {
-			return gc_strdup(ctx, fsl->filename);
+			return (char*)gc_strdup(ctx, fsl->filename);
 		}
 		fsl = fsl->next;
 	}
@@ -340,7 +340,7 @@ char* basic_ramdisk_from_device(struct basic_ctx* ctx)
 	if (!rd) {
 		return "";
 	}
-	return gc_strdup(ctx, rd);
+	return (char*)gc_strdup(ctx, rd);
 }
 
 char* basic_ramdisk_from_size(struct basic_ctx* ctx)
@@ -371,13 +371,13 @@ char* basic_ramdisk_from_size(struct basic_ctx* ctx)
 		tokenizer_error_printf(ctx, "Failed to format ramdisk '%s'", rd);
 		return "";
 	}
-	return gc_strdup(ctx, rd);
+	return (char*)gc_strdup(ctx, rd);
 }
 
 
 char* basic_csd(struct basic_ctx* ctx)
 {
-	return gc_strdup(ctx, proc_cur(logical_cpu_id())->csd);
+	return (char*)gc_strdup(ctx, proc_cur(logical_cpu_id())->csd);
 }
 
 void chdir_statement(struct basic_ctx* ctx)

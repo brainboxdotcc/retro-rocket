@@ -39,10 +39,16 @@ static inline long long fetch_number(va_list args, unsigned flags)
 /* Helper: emit string with padding/flags */
 static size_t emit_string(const unsigned char *s, unsigned flags, unsigned given_wd, fnptr_t fn, void **ptr, const char *end)
 {
+	if (!s) {
+		s = (const unsigned char *)"(NULL)";
+	}
+
 	size_t count = 0;
 	size_t actual_wd = strlen((const char *)s);
 
-	if (flags & PR_WAS_NEG) actual_wd++;
+	if (flags & PR_WAS_NEG) {
+		actual_wd++;
+	}
 
 	if ((flags & (PR_WAS_NEG | PR_LEFT_ZEROES)) == (PR_WAS_NEG | PR_LEFT_ZEROES)) {
 		if (fn('-', ptr, end)) return count;

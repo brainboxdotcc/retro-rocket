@@ -30,7 +30,7 @@ up_value up_make_real(double x) {
 up_value up_make_str(const char *s) {
 	up_value v;
 	v.kind = UP_STR;
-	v.v.s = s;
+	v.v.s = s ? s : "";
 	return v;
 }
 
@@ -194,7 +194,7 @@ static up_value up_unary(struct basic_ctx *ctx) {
 	int negate = 0;
 	bool saw_sign = false;
 
-	while (1) {
+	while (true) {
 		enum token_t t = tokenizer_token(ctx);
 		if (t == PLUS) {
 			saw_sign = true;

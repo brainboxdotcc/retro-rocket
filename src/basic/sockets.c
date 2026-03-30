@@ -457,7 +457,7 @@ char *basic_insocket(struct basic_ctx *ctx) {
 
 	if (rv > 0) {
 		input[1] = 0;
-		return gc_strdup(ctx, (const char *) input);
+		return (char*)gc_strdup(ctx, (const char *) input);
 	} else if (rv < 0) {
 		tokenizer_error_print(ctx, socket_error(rv));
 	} else {
@@ -488,26 +488,26 @@ char *basic_netinfo(struct basic_ctx *ctx) {
 		unsigned char raw[4];
 		if (gethostaddr(raw)) {
 			get_ip_str(ip, (uint8_t *) &raw);
-			return gc_strdup(ctx, ip);
+			return (char*)gc_strdup(ctx, ip);
 		}
-		return gc_strdup(ctx, "0.0.0.0");
+		return (char*)gc_strdup(ctx, "0.0.0.0");
 	}
 	if (!stricmp(strval, "gw")) {
 		uint32_t raw = getgatewayaddr();
 		get_ip_str(ip, (uint8_t *) &raw);
-		return gc_strdup(ctx, ip);
+		return (char*)gc_strdup(ctx, ip);
 	}
 	if (!stricmp(strval, "mask")) {
 		uint32_t raw = getnetmask();
 		get_ip_str(ip, (uint8_t *) &raw);
-		return gc_strdup(ctx, ip);
+		return (char*)gc_strdup(ctx, ip);
 	}
 	if (!stricmp(strval, "dns")) {
 		uint32_t raw = getdnsaddr();
 		get_ip_str(ip, (uint8_t *) &raw);
-		return gc_strdup(ctx, ip);
+		return (char*)gc_strdup(ctx, ip);
 	}
-	return gc_strdup(ctx, "0.0.0.0");
+	return (char*)gc_strdup(ctx, "0.0.0.0");
 }
 
 char *basic_dns(struct basic_ctx *ctx) {
@@ -517,7 +517,7 @@ char *basic_dns(struct basic_ctx *ctx) {
 	char ip[16] = {0};
 	uint32_t addr = dns_lookup_host(getdnsaddr(), strval, 2000);
 	get_ip_str(ip, (uint8_t *) &addr);
-	return gc_strdup(ctx, ip);
+	return (char*)gc_strdup(ctx, ip);
 }
 
 void sockwrite_statement(struct basic_ctx *ctx) {
@@ -586,6 +586,10 @@ static void basic_udp_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t
 	packet->length = length;
 	packet->data = buddy_strdup(ctx->allocator, data);
 	packet->ip = buddy_strdup(ctx->allocator, ip);
+	if (!packet->data || !packet->ip) {
+		tokenizer_error_print(ctx, "UDP: Out of memory");
+		return;
+	}
 	packet->source_port = src_port;
 	packet->next = NULL;
 	uint64_t flags;
@@ -691,6 +695,10 @@ char *basic_udpread(struct basic_ctx *ctx) {
 	} else {
 		ctx->last_packet.ip = buddy_strdup(ctx->allocator, "0.0.0.0");
 		ctx->last_packet.data = buddy_strdup(ctx->allocator, "");
+		if (!ctx->last_packet.data || !ctx->last_packet.ip) {
+			tokenizer_error_print(ctx, "UDP: Out of memory");
+			return "";
+		}
 		ctx->last_packet.length = 0;
 		ctx->last_packet.source_port = 0;
 	}

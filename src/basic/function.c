@@ -264,6 +264,9 @@ const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx)
 			tokenizer_error_print(ctx, "End of function without returning value");
 		} else {
 			rv = gc_strdup(ctx, (const char*)atomic->fn_return);
+			if (!rv) {
+				return "";
+			}
 		}
 
 		/* Copy list heads back (int/str/double).
@@ -336,7 +339,7 @@ char basic_builtin_str_fn(const char* fn_name, struct basic_ctx* ctx, char** res
 	for (i = 0; builtin_str[i].name; ++i) {
 		if (!strcmp(fn_name, builtin_str[i].name)) {
 			*res = builtin_str[i].handler(ctx);
-			return 1;
+			return *res ? 1 : 0;
 		}
 	}
 	return 0;
@@ -538,9 +541,14 @@ bool basic_parse_fn(struct basic_ctx* ctx)
 
 			struct ub_proc_fn_def* def = buddy_malloc(ctx->allocator, sizeof(struct ub_proc_fn_def));
 			if (!def) {
+				tokenizer_error_printf(ctx, "Out of memory parsing functions");
 				return false;
 			}
 			def->name = buddy_strdup(ctx->allocator, name);
+			if (!def->name) {
+				tokenizer_error_printf(ctx, "Out of memory parsing functions");
+				return false;
+			}
 			def->type = type;
 			def->line = currentline;
 			def->next = ctx->defs;
@@ -567,6 +575,10 @@ bool basic_parse_fn(struct basic_ctx* ctx)
 						}
 						par->next = NULL;
 						par->name = buddy_strdup(ctx->allocator, pname);
+						if (!par->name) {
+							tokenizer_error_printf(ctx, "Out of memory parsing function parameters");
+							return false;
+						}
 
 						if (def->params == NULL) {
 							def->params = par;
