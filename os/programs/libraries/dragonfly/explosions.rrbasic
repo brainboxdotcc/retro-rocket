@@ -6,6 +6,7 @@ DEF PROCexplosions()
     DIM explosion_y, explosion_max
     DIM explosion_state, explosion_max
     DIM explosion_frame, explosion_max
+    DIM explosion_scale#, explosion_max
 
     DIM explosion_sprite, 5
 
@@ -20,7 +21,8 @@ DEF PROCexplosions()
     explosion_sprite(4) = s_explosion4
 ENDPROC
 
-DEF PROCalloc_explosion(explosion_spawn_x, explosion_spawn_y)
+DEF PROCalloc_explosion(explosion_spawn_x, explosion_spawn_y, scale#)
+    IF scale# = 0 THEN scale# = 1.0
     explosions_count = explosions_count + 1
     IF explosions_count > explosion_max THEN
         explosion_max = explosions_count
@@ -28,12 +30,14 @@ DEF PROCalloc_explosion(explosion_spawn_x, explosion_spawn_y)
         REDIM explosion_y, explosion_max
         REDIM explosion_state, explosion_max
         REDIM explosion_frame, explosion_max
+        REDIM explosion_scale#, explosion_max
     ENDIF
 
     explosion_x(explosions_count - 1) = explosion_spawn_x
     explosion_y(explosions_count - 1) = explosion_spawn_y
     explosion_state(explosions_count - 1) = 1
     explosion_frame(explosions_count - 1) = 0
+    explosion_scale#(explosions_count - 1) = scale#
 ENDPROC
 
 DEF PROCfree_explosion(explosion_index)
@@ -41,6 +45,7 @@ DEF PROCfree_explosion(explosion_index)
     POP explosion_y, explosion_index
     POP explosion_state, explosion_index
     POP explosion_frame, explosion_index
+    POP explosion_scale#, explosion_index
 
     explosions_count = explosions_count - 1
 
@@ -54,6 +59,7 @@ DEF PROCfree_explosion(explosion_index)
     REDIM explosion_y, explosion_max
     REDIM explosion_state, explosion_max
     REDIM explosion_frame, explosion_max
+    REDIM explosion_scale#, explosion_max
 ENDPROC
 
 DEF PROCmove_explosions()
@@ -78,11 +84,11 @@ DEF PROCdraw_explosions()
 
     FOR explosion_draw_index = 0 TO explosions_count - 1
         es = explosion_sprite(explosion_state(explosion_draw_index))
-        escale = 1.0 + ((explosion_state(explosion_draw_index) - 1) * 0.25) + ((explosion_frame(explosion_draw_index) / 5.0) * 0.25)
-        ew = SPRITEWIDTH(es) * escale
-        eh = SPRITEHEIGHT(es) * escale
-        exx = explosion_x(explosion_draw_index) - (ew / 2)
-        exy = explosion_y(explosion_draw_index) - (eh / 2)
-        PLOTQUAD es, exx, exy, exx + ew, exy, exx + ew, exy + eh, exx, exy + eh
+        escale# = (1.0 + ((explosion_state(explosion_draw_index) - 1.0) * 0.25) + ((explosion_frame(explosion_draw_index) / 5.0) * 0.25)) * explosion_scale#(explosion_draw_index)
+        ew# = SPRITEWIDTH(es) * escale#
+        eh# = SPRITEHEIGHT(es) * escale#
+        exx# = explosion_x(explosion_draw_index) - (ew# / 2.0)
+        exy# = explosion_y(explosion_draw_index) - (eh# / 2.0)
+        PLOTQUAD es, exx#, exy#, exx# + ew#, exy#, exx# + ew#, exy# + eh#, exx#, exy# + eh#
     NEXT
 ENDPROC

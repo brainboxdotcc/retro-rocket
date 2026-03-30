@@ -159,13 +159,21 @@ DEF PROCcheck_enemy_collision_with_player_bullets(enemy_index)
                 collision_done = TRUE
                 PROCfree_bullet(bullet_index)
                 PROCexplosion_sound
-                PROCalloc_explosion(enemy_x(enemy_index) + (SPRITEWIDTH(s) / 2), enemy_y(enemy_index) + (SPRITEHEIGHT(s) / 2))
+                PROCalloc_explosion(enemy_x(enemy_index) + (SPRITEWIDTH(s) / 2), enemy_y(enemy_index) + (SPRITEHEIGHT(s) / 2), 1.0)
+                SCORE = SCORE + FNenemy_value(enemy_index)
             ELSE
                 bullet_index = bullet_index + 1
             ENDIF
         ENDIF
     UNTIL collision_done = TRUE
 ENDPROC
+
+DEF FNenemy_value(enemy_index)
+    en_type = enemy_type(enemy_index)
+    IF en_type = 1 THEN = 10
+    IF en_type = 2 THEN = 25
+    IF en_type = 3 THEN = 75
+= 10
 
 DEF PROCdraw_enemies()
     IF enemies_count = 0 THEN ENDPROC

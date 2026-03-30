@@ -1,44 +1,41 @@
 DEF PROCaudio()
 
+    ' First test if sound module and codecs are already loaded
     AUDIO = TRUE
-    ON ERROR PROCaudio_continue
-    MODLOAD "sound"
+    ON ERROR PROCno_sound_driver
+    STREAM CREATE test
 
-    IF AUDIO = FALSE THEN ENDPROC
-    ON ERROR PROCaudio_continue
-    MODLOAD "codecs"
-
-    IF AUDIO = FALSE THEN ENDPROC
-    ON ERROR PROCaudio_continue
-    STREAM CREATE player_fire_stream
-
-    IF AUDIO = FALSE THEN ENDPROC
-    ON ERROR PROCaudio_continue
-    STREAM CREATE music_stream
-
-    IF AUDIO = FALSE THEN ENDPROC
-    ON ERROR PROCaudio_continue
-    SOUND LOAD player_fire_sound, "/system/webserver/media/dragonfly/player_fire.wav"
-
-    IF AUDIO = FALSE THEN ENDPROC
-    ON ERROR PROCaudio_continue
-    SOUND LOAD level1_music, "/system/webserver/media/dragonfly/music_level1.mp3"
-
-    IF AUDIO = TRUE THEN
-        ' Load explosions
-        STREAM CREATE explosions
-        SOUND LOAD explode1, "/system/webserver/media/dragonfly/explosion01.wav"
-        SOUND LOAD explode2, "/system/webserver/media/dragonfly/explosion02.wav"
-        SOUND LOAD explode3, "/system/webserver/media/dragonfly/explosion03.wav"
-        SOUND LOAD explode4, "/system/webserver/media/dragonfly/explosion04.wav"
-        SOUND LOAD explode5, "/system/webserver/media/dragonfly/explosion05.wav"
-        SOUND LOAD explode6, "/system/webserver/media/dragonfly/explosion06.wav"
-        SOUND LOAD explode7, "/system/webserver/media/dragonfly/explosion07.wav"
-        SOUND LOAD explode8, "/system/webserver/media/dragonfly/explosion08.wav"
-        SOUND LOAD explode9, "/system/webserver/media/dragonfly/explosion09.wav"
+    IF AUDIO = FALSE THEN
+        AUDIO = TRUE
+        ON ERROR PROCaudio_continue
+        MODLOAD "sound"
+        IF AUDIO = FALSE THEN ENDPROC
+        ON ERROR PROCaudio_continue
+        MODLOAD "codecs"
     ENDIF
 
+    IF AUDIO = FALSE THEN ENDPROC
     ON ERROR OFF
+
+    STREAM CREATE player_fire_stream
+    STREAM CREATE player_hit_stream
+    STREAM CREATE explosions
+    STREAM CREATE music_stream
+
+    SOUND LOAD player_fire_sound, "/system/webserver/media/dragonfly/player_fire.wav"
+    SOUND LOAD level1_music, "/system/webserver/media/dragonfly/music_level1.mp3"
+    SOUND LOAD player_hit, "/system/webserver/media/dragonfly/player_hit.wav"
+
+    ' Load explosions
+    SOUND LOAD explode1, "/system/webserver/media/dragonfly/explosion01.wav"
+    SOUND LOAD explode2, "/system/webserver/media/dragonfly/explosion02.wav"
+    SOUND LOAD explode3, "/system/webserver/media/dragonfly/explosion03.wav"
+    SOUND LOAD explode4, "/system/webserver/media/dragonfly/explosion04.wav"
+    SOUND LOAD explode5, "/system/webserver/media/dragonfly/explosion05.wav"
+    SOUND LOAD explode6, "/system/webserver/media/dragonfly/explosion06.wav"
+    SOUND LOAD explode7, "/system/webserver/media/dragonfly/explosion07.wav"
+    SOUND LOAD explode8, "/system/webserver/media/dragonfly/explosion08.wav"
+    SOUND LOAD explode9, "/system/webserver/media/dragonfly/explosion09.wav"
 ENDPROC
 
 DEF PROCexplosion_sound
@@ -55,6 +52,11 @@ DEF PROCexplosion_sound
     IF explode_sound = 9 THEN SOUND PLAY explosions, explode9
 ENDPROC
 
+DEF PROCplayer_hit_sound
+    IF AUDIO = FALSE THEN ENDPROC
+    SOUND PLAY player_hit_stream, player_hit
+ENDPROC
+
 DEF PROCmusic_start
     IF AUDIO = TRUE THEN SOUND PLAY music_stream, level1_music
 ENDPROC
@@ -64,5 +66,9 @@ DEF PROCmusic_stop
 ENDPROC
 
 DEF PROCaudio_continue
+    AUDIO = FALSE
+ENDPROC
+
+DEF PROCno_sound_driver
     AUDIO = FALSE
 ENDPROC
