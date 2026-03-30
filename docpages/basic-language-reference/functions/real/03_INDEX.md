@@ -8,6 +8,7 @@ The following functions operate on or return **real (floating-point) values** in
 * \subpage ATAN
 * \subpage CEIL
 * \subpage COS
+* \subpage DATAREADR
 * \subpage DEG
 * \subpage EXP
 * \subpage FMOD

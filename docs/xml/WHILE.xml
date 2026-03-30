@@ -18,7 +18,7 @@
 </simplesect>
 <hruler/>
 </para>
-<sect1 id="WHILE_1behaviour-8_1s1"><sect2 id="WHILE_1behaviour-8_1s2"><sect3 id="WHILE_1behaviour-8">
+<sect1 id="WHILE_1behaviour-14_1s1"><sect2 id="WHILE_1behaviour-14_1s2"><sect3 id="WHILE_1behaviour-14">
 <title>Behaviour</title><para><itemizedlist>
 <listitem><para><computeroutput>ENDWHILE</computeroutput> matches the <bold>nearest unmatched</bold> <computeroutput>WHILE</computeroutput>.</para>
 </listitem><listitem><para>Loops may be <bold>nested</bold> freely.</para>
@@ -61,7 +61,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="WHILE_1notes-183_1s1"><sect2 id="WHILE_1notes-183_1s2"><sect3 id="WHILE_1notes-183">
+<sect1 id="WHILE_1notes-184_1s1"><sect2 id="WHILE_1notes-184_1s2"><sect3 id="WHILE_1notes-184">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Use <computeroutput>REPEAT ... UNTIL</computeroutput> if you need a <bold>post-test</bold> loop that runs the body at least once.</para>
 </listitem><listitem><para>The condition is a normal boolean <bold>expression</bold>; use comparisons like <computeroutput>=</computeroutput>, <computeroutput>&lt;&gt;</computeroutput>, <computeroutput>&lt;</computeroutput>, <computeroutput>&gt;</computeroutput>, <computeroutput>&lt;=</computeroutput>, <computeroutput>&gt;=</computeroutput> and combine them with your available operators.</para>

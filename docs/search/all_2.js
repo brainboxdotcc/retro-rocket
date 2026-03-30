@@ -14,6 +14,5 @@ var searchData=
   ['25_20…_11',['VDU 25, …',['../VDU.html#vdu-25-',1,'']]],
   ['26_12',['VDU 26',['../VDU.html#vdu-26',1,'']]],
   ['27_20n_13',['VDU 27, n',['../VDU.html#vdu-27-n',1,'']]],
-  ['28_20…_14',['VDU 28, …',['../VDU.html#vdu-28-',1,'']]],
-  ['2_3a_20cache_20once_20reuse_20many_20times_15',['Pattern 2: cache once, reuse many times',['../RESTORE.html#pattern-2-cache-once-reuse-many-times',1,'']]]
+  ['28_20…_14',['VDU 28, …',['../VDU.html#vdu-28-',1,'']]]
 ];

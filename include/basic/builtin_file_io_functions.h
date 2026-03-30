@@ -138,26 +138,6 @@ void chdir_statement(struct basic_ctx* ctx);
 char* basic_filetype(struct basic_ctx* ctx);
 
 /**
- * @brief Handles the DATA statement in BASIC.
- *
- * The DATA statement is not supported in Retro Rocket BASIC. This function raises an error, suggesting
- * to use files instead.
- *
- * @param ctx BASIC interpreter context
- */
-void data_statement(struct basic_ctx* ctx);
-
-/**
- * @brief Handles the RESTORE statement in BASIC.
- *
- * Since DATA statements are not supported in Retro Rocket BASIC, this function raises an error indicating
- * there is nothing to restore.
- *
- * @param ctx BASIC interpreter context
- */
-void restore_statement(struct basic_ctx* ctx);
-
-/**
  * @brief Opens a file for reading.
  *
  * This function opens a file in read-only mode and returns the file descriptor.

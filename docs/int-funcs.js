@@ -16,6 +16,7 @@ var int_funcs =
     [ "CPUID Function", "CPUID.html", null ],
     [ "CURRENTX Function", "CURRENTX.html", null ],
     [ "CURRENTY Function", "CURRENTY.html", null ],
+    [ "DATAREAD Function", "DATAREAD.html", null ],
     [ "DAY Function", "DAY.html", null ],
     [ "DECIBELS Function", "DECIBELS.html", null ],
     [ "EOF Function", "EOF.html", null ],

@@ -316,12 +316,16 @@ struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file
 
 	ctx->graphics_colour = 0xFFFFFF;
 
+
+
 	// Scan the program for functions and procedures
 	tokenizer_init(ctx->program_ptr, ctx);
 	if (!basic_parse_fn(ctx)) {
 		*error = "Duplicate function name";
 		return NULL;
 	}
+
+	fill_datastores(ctx);
 
 	tokenizer_init(ctx->program_ptr, ctx);
 	set_system_variables(ctx, pid);
@@ -331,6 +335,8 @@ struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file
 		dprintf("Failed to hash lines\n");
 		return NULL;
 	}
+
+	ctx->data_offset = 0;
 
 	return ctx;
 }
@@ -454,6 +460,9 @@ void library_statement(struct basic_ctx *ctx) {
 		return;
 	}
 
+	free_datastores(ctx);
+	fill_datastores(ctx);
+
 	/* Reset tokenizer again, and jump back to the line number after the LIBRARY
 	 * statement that we recorded at the top of the function.
 	 */
@@ -510,6 +519,7 @@ struct basic_ctx *basic_clone(struct basic_ctx *old) {
 	ctx->debug_breakpoints = old->debug_breakpoints;
 	ctx->debug_breakpoint_count = old->debug_breakpoint_count;
 	ctx->allocator = old->allocator;
+	ctx->data_offset = 0;
 
 	memcpy(ctx->sprites, old->sprites, sizeof(ctx->sprites));
 	memcpy(ctx->fn_type_stack, old->fn_type_stack, sizeof(ctx->fn_type_stack));

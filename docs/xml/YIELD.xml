@@ -16,7 +16,7 @@
  A BASIC program <bold>cannot monopolise the CPU</bold>, so inserting <computeroutput>YIELD</computeroutput> calls has <bold>no scheduling benefit</bold>.</para>
 <para><hruler/>
 </para>
-<sect1 id="YIELD_1behaviour-9_1s1"><sect2 id="YIELD_1behaviour-9_1s2"><sect3 id="YIELD_1behaviour-9">
+<sect1 id="YIELD_1behaviour-15_1s1"><sect2 id="YIELD_1behaviour-15_1s2"><sect3 id="YIELD_1behaviour-15">
 <title>Behaviour</title><para><itemizedlist>
 <listitem><para>Executes as a <bold>no-op</bold> for control flow and timing; it does not pause or advance timers.</para>
 </listitem><listitem><para>Does <bold>not</bold> improve responsiveness; the interpreter yields naturally after each completed line.</para>

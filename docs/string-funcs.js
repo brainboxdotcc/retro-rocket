@@ -3,6 +3,7 @@ var string_funcs =
     [ "BOOL$ Function", "BOOL.html", null ],
     [ "CHR$ Function", "CHR.html", null ],
     [ "CSD$ Function", "CSD.html", null ],
+    [ "DATAREAD$ Function", "DATAREADS.html", null ],
     [ "DATE$ Function", "DATE.html", null ],
     [ "DNS$ Function", "DNS.html", null ],
     [ "EMPTYRAMDISK$ Function", "EMPTYRAMDISK.html", null ],

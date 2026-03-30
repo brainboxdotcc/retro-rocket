@@ -1,5 +1,9 @@
 var NAVTREEINDEX1 =
 {
+"basic-intdev.html":[0,1,8],
+"basic-ref.html":[0,1],
+"bootflow.html":[0,2,0],
+"builtin-functions.html":[0,1,3],
 "cd.html":[0,0,12,4],
 "charmap.html":[0,0,12,5],
 "chdir.html":[0,0,12,6],

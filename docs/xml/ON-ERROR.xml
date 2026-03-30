@@ -71,7 +71,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="ON-ERROR_1behaviour-3_1s1"><sect2 id="ON-ERROR_1behaviour-3_1s2"><sect3 id="ON-ERROR_1behaviour-3">
+<sect1 id="ON-ERROR_1behaviour-8_1s1"><sect2 id="ON-ERROR_1behaviour-8_1s2"><sect3 id="ON-ERROR_1behaviour-8">
 <title>Behaviour</title><para><itemizedlist>
 <listitem><para>If another error occurs <bold>while calling</bold> your handler, the built-ins <bold>ERR$</bold>, <bold>ERR</bold>, and <bold>ERRLINE</bold> are set for that error, and normal error handling rules apply.</para>
 </listitem><listitem><para>Handlers are ordinary procedures: they can call other <computeroutput>PROC</computeroutput>s or <computeroutput>FN</computeroutput>s, examine variables, and decide whether to <computeroutput>END</computeroutput> or to reinstall and continue.</para>

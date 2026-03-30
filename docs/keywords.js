@@ -27,6 +27,7 @@ var keywords =
     [ "CONTINUE Keyword", "CONTINUE.html", null ],
     [ "CURSOR Keyword", "CURSOR.html", null ],
     [ "DATA Keyword", "DATA.html", null ],
+    [ "DATASET Keyword", "DATASET.html", null ],
     [ "DEF Keyword", "DEF.html", null ],
     [ "DELETE Keyword", "DELETE.html", null ],
     [ "DIM Keyword", "DIM.html", null ],

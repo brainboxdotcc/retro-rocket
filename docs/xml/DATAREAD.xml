@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="DATAREAD" kind="page">
+    <compoundname>DATAREAD</compoundname>
+    <title>DATAREAD Function</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">value<sp/>=<sp/>DATAREAD</highlight></codeline>
+</programlisting></para>
+<para>Reads the next integer value from the <computeroutput>DATA</computeroutput> stream.</para>
+<para>Each call returns the next value and advances the read position.</para>
+<para><hruler/>
+</para>
+<sect1 id="DATAREAD_1example_1s1"><sect2 id="DATAREAD_1example_1s2"><sect3 id="DATAREAD_1example_1s3"><sect4 id="DATAREAD_1example_1s4"><sect5 id="DATAREAD_1example">
+<title>Example</title><para><programlisting filename=".basic"><codeline><highlight class="normal">DATA<sp/>10,<sp/>20,<sp/>30</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">PRINT<sp/>DATAREAD</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>DATAREAD</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>DATAREAD</highlight></codeline>
+</programlisting></para>
+<para>This prints:</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">10</highlight></codeline>
+<codeline><highlight class="normal">20</highlight></codeline>
+<codeline><highlight class="normal">30</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect5></sect4></sect3></sect2></sect1>
+<sect1 id="DATAREAD_1behaviour_1s1"><sect2 id="DATAREAD_1behaviour_1s2"><sect3 id="DATAREAD_1behaviour_1s3"><sect4 id="DATAREAD_1behaviour_1s4"><sect5 id="DATAREAD_1behaviour">
+<title>Behaviour</title><para><itemizedlist>
+<listitem><para>Returns the next value from the <computeroutput>DATA</computeroutput> stream.</para>
+</listitem><listitem><para>The value must be an integer.</para>
+</listitem><listitem><para>The read position advances after each call.</para>
+</listitem><listitem><para>Values are read in the order they appear in <computeroutput>DATA</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect5></sect4></sect3></sect2></sect1>
+<sect1 id="DATAREAD_1errors_1s1"><sect2 id="DATAREAD_1errors_1s2"><sect3 id="DATAREAD_1errors_1s3"><sect4 id="DATAREAD_1errors_1s4"><sect5 id="DATAREAD_1errors">
+<title>Errors</title><para><itemizedlist>
+<listitem><para>Reading past the end of available data produces an error.</para>
+</listitem><listitem><para>If the next value is not an integer, a runtime error is raised.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect5></sect4></sect3></sect2></sect1>
+<sect1 id="DATAREAD_1see-also_1s1"><sect2 id="DATAREAD_1see-also_1s2"><sect3 id="DATAREAD_1see-also_1s3"><sect4 id="DATAREAD_1see-also_1s4"><sect5 id="DATAREAD_1see-also">
+<title>See also</title><para><itemizedlist>
+<listitem><para><ref refid="DATA" kindref="compound">DATA</ref></para>
+</listitem><listitem><para><ref refid="DATAREADR" kindref="compound">DATAREADR</ref></para>
+</listitem><listitem><para><ref refid="DATAREADS" kindref="compound">DATAREAD$</ref></para>
+</listitem><listitem><para><ref refid="RESTORE" kindref="compound">RESTORE</ref></para>
+</listitem><listitem><para><ref refid="DATASET" kindref="compound">DATASET</ref> </para>
+</listitem></itemizedlist>
+</para>
+</sect5></sect4></sect3></sect2></sect1>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/integer/DATAREAD.md"/>
+  </compounddef>
+</doxygen>

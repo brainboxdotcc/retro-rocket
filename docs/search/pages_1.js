@@ -19,6 +19,5 @@ var searchData=
   ['13_16',['VDU 13',['../VDU.html#vdu-13',1,'']]],
   ['16_17',['VDU 16',['../VDU.html#vdu-16',1,'']]],
   ['17_20colour_18',['VDU 17, colour',['../VDU.html#vdu-17-colour',1,'']]],
-  ['18_20colour_19',['VDU 18, colour',['../VDU.html#vdu-18-colour',1,'']]],
-  ['1_3a_20reopen_20to_20start_20reading_20again_20',['Pattern 1: reopen to start reading again',['../RESTORE.html#pattern-1-reopen-to-start-reading-again',1,'']]]
+  ['18_20colour_19',['VDU 18, colour',['../VDU.html#vdu-18-colour',1,'']]]
 ];

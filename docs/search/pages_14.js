@@ -48,14 +48,13 @@ var searchData=
   ['liveusb_45',['1. Boot the LiveCD or LiveUSB',['../installation.html#autotoc_md1-boot-the-livecd-or-liveusb',1,'']]],
   ['ljust_24_20function_46',['LJUST$ Function',['../LJUST.html',1,'string-funcs']]],
   ['load_47',['SOUND LOAD',['../SOUND.html#sound-load',1,'']]],
-  ['load_20newline_20separated_20integers_20from_20a_20file_48',['Example: load newline-separated integers from a file',['../DATA.html#example-load-newline-separated-integers-from-a-file',1,'']]],
-  ['loader_20pipeline_49',['Loader Pipeline',['../modules.html#loader-pipeline',1,'']]],
-  ['local_20keyword_50',['LOCAL Keyword',['../LOCAL.html',1,'keywords']]],
-  ['locals_20within_20a_20definition_51',['Example: locals within a definition',['../DEF.html#example-locals-within-a-definition',1,'']]],
-  ['log_20function_52',['LOG Function',['../LOG.html',1,'real-funcs']]],
-  ['logo_20and_20system_20info_20scrolling_20with_20text_53',['Example: Keep a logo and system info scrolling with text',['../SCROLLREGION.html#example-keep-a-logo-and-system-info-scrolling-with-text',1,'']]],
-  ['loop_20scope_54',['Loop scope',['../ENDPROC.html#loop-scope',1,'Loop scope'],['../RETURN.html#loop-scope-1',1,'Loop scope']]],
-  ['loopback_55',['Loopback',['../glossary.html#loopback',1,'']]],
-  ['lower_24_20function_56',['LOWER$ Function',['../LOWER.html',1,'string-funcs']]],
-  ['ltrim_24_20function_57',['LTRIM$ Function',['../LTRIM.html',1,'string-funcs']]]
+  ['loader_20pipeline_48',['Loader Pipeline',['../modules.html#loader-pipeline',1,'']]],
+  ['local_20keyword_49',['LOCAL Keyword',['../LOCAL.html',1,'keywords']]],
+  ['locals_20within_20a_20definition_50',['Example: locals within a definition',['../DEF.html#example-locals-within-a-definition',1,'']]],
+  ['log_20function_51',['LOG Function',['../LOG.html',1,'real-funcs']]],
+  ['logo_20and_20system_20info_20scrolling_20with_20text_52',['Example: Keep a logo and system info scrolling with text',['../SCROLLREGION.html#example-keep-a-logo-and-system-info-scrolling-with-text',1,'']]],
+  ['loop_20scope_53',['Loop scope',['../ENDPROC.html#loop-scope',1,'Loop scope'],['../RETURN.html#loop-scope-1',1,'Loop scope']]],
+  ['loopback_54',['Loopback',['../glossary.html#loopback',1,'']]],
+  ['lower_24_20function_55',['LOWER$ Function',['../LOWER.html',1,'string-funcs']]],
+  ['ltrim_24_20function_56',['LTRIM$ Function',['../LTRIM.html',1,'string-funcs']]]
 ];

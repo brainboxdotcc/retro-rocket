@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="DATAREADS" kind="page">
+    <compoundname>DATAREADS</compoundname>
+    <title>DATAREAD$ Function</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">value$<sp/>=<sp/>DATAREAD$</highlight></codeline>
+</programlisting></para>
+<para>Reads the next string value from the <computeroutput>DATA</computeroutput> stream.</para>
+<para>Each call returns the next value and advances the read position.</para>
+<para><hruler/>
+</para>
+<sect1 id="DATAREADS_1example-2_1s1"><sect2 id="DATAREADS_1example-2_1s2"><sect3 id="DATAREADS_1example-2_1s3"><sect4 id="DATAREADS_1example-2_1s4"><sect5 id="DATAREADS_1example-2">
+<title>Example</title><para><programlisting filename=".basic"><codeline><highlight class="normal">DATA<sp/>&quot;hello&quot;,<sp/>&quot;world&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">A$<sp/>=<sp/>DATAREAD$</highlight></codeline>
+<codeline><highlight class="normal">B$<sp/>=<sp/>DATAREAD$</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">PRINT<sp/>A$</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>B$</highlight></codeline>
+</programlisting></para>
+<para>This prints:</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">hello</highlight></codeline>
+<codeline><highlight class="normal">world</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect5></sect4></sect3></sect2></sect1>
+<sect1 id="DATAREADS_1behaviour-2_1s1"><sect2 id="DATAREADS_1behaviour-2_1s2"><sect3 id="DATAREADS_1behaviour-2_1s3"><sect4 id="DATAREADS_1behaviour-2_1s4"><sect5 id="DATAREADS_1behaviour-2">
+<title>Behaviour</title><para><itemizedlist>
+<listitem><para>Returns the next value from the <computeroutput>DATA</computeroutput> stream.</para>
+</listitem><listitem><para>The value must be a string.</para>
+</listitem><listitem><para>The read position advances after each call.</para>
+</listitem><listitem><para>Values are read in the order they appear in <computeroutput>DATA</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect5></sect4></sect3></sect2></sect1>
+<sect1 id="DATAREADS_1errors-2_1s1"><sect2 id="DATAREADS_1errors-2_1s2"><sect3 id="DATAREADS_1errors-2_1s3"><sect4 id="DATAREADS_1errors-2_1s4"><sect5 id="DATAREADS_1errors-2">
+<title>Errors</title><para><itemizedlist>
+<listitem><para>Reading past the end of available data produces an error.</para>
+</listitem><listitem><para>If the next value is not a string, a runtime error is raised.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect5></sect4></sect3></sect2></sect1>
+<sect1 id="DATAREADS_1see-also-2_1s1"><sect2 id="DATAREADS_1see-also-2_1s2"><sect3 id="DATAREADS_1see-also-2_1s3"><sect4 id="DATAREADS_1see-also-2_1s4"><sect5 id="DATAREADS_1see-also-2">
+<title>See also</title><para><itemizedlist>
+<listitem><para><ref refid="DATA" kindref="compound">DATA</ref></para>
+</listitem><listitem><para><ref refid="DATAREAD" kindref="compound">DATAREAD</ref></para>
+</listitem><listitem><para><ref refid="DATAREADR" kindref="compound">DATAREADR</ref></para>
+</listitem><listitem><para><ref refid="RESTORE" kindref="compound">RESTORE</ref></para>
+</listitem><listitem><para><ref refid="DATASET" kindref="compound">DATASET</ref> </para>
+</listitem></itemizedlist>
+</para>
+</sect5></sect4></sect3></sect2></sect1>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/string/DATAREADS.md"/>
+  </compounddef>
+</doxygen>

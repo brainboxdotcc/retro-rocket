@@ -28,14 +28,14 @@
 <title>Usage</title><para><programlisting><codeline><highlight class="normal">webserver</highlight></codeline>
 </programlisting></para>
 </sect3>
-<sect3 id="webserver_1example-17">
+<sect3 id="webserver_1example-23">
 <title>Example</title><para><programlisting><codeline><highlight class="normal">webserver</highlight></codeline>
 <codeline><highlight class="normal">Web<sp/>server<sp/>running.<sp/>Press<sp/>any<sp/>key<sp/>to<sp/>terminate.</highlight></codeline>
 </programlisting></para>
 <para>Now open a web browser on another machine and navigate to: <ulink url="http://">http://</ulink>&lt;retro-rocket-ip&gt;/</para>
 <para>You will see the contents of <computeroutput>/system/webserver/index.html</computeroutput>.</para>
 </sect3>
-<sect3 id="webserver_1notes-198">
+<sect3 id="webserver_1notes-199">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Files are served directly from <computeroutput>/system/webserver</computeroutput> and its subdirectories.</para>
 </listitem><listitem><para>Only static files are supported (HTML, images, plain text, etc.).</para>

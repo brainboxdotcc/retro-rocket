@@ -1,79 +1,48 @@
 \page DATA DATA Keyword
-```
+
+```basic
 DATA value, value, value
 ```
 
-The `DATA` statement is **not supported** in Retro Rocket BASIC.
+Defines a sequence of constant values embedded in the programme.
 
-In BBC BASIC IV, `DATA` embedded constants directly in the source and they were consumed with `READ` (and rewound with `RESTORE`). Retro Rocket BASIC replaces this pattern with **file-based I/O** and simple initialisers.
+Values may be:
 
+* integers
+* real numbers
+* strings (in double quotes)
 
-\remark `READ$` in Retro Rocket BASIC returns **one character at a time** from an open
-\remark file handle. It does **not** read a whole line. If you need to parse lines or
-\remark comma-separated values, build them yourself from characters and then convert
-\remark with functions like \ref VAL "VAL".
+Values are stored at programme load time and are not re-parsed during execution.
 
----
-
-##### Example: load newline-separated integers from a file
-
-Suppose `values.txt` contains:
-```
-10
-20
-30
-```
-
-Programme:
-
-```basic
-DIM A, 100
-I = 0
-LINE$ = ""
-
-FH = OPENIN("values.txt")
-
-WHILE NOT EOF(FH)
-    C$ = READ$(FH)
-
-    IF C$ = CHR(10) OR C$ = CHR(13) THEN
-        IF LEN(LINE$) > 0 THEN
-            I = I + 1
-            A(I) = VAL(LINE$)
-            LINE$ = ""
-        ENDIF
-    ELSE
-        LINE$ = LINE$ + C$
-    ENDIF
-ENDWHILE
-
-IF LEN(LINE$) > 0 THEN
-    I = I + 1
-    A(I) = VAL(LINE$)
-ENDIF
-
-CLOSE FH
-```
-
-This accumulates characters until a line break (`CHR(10)` or `CHR(13)`), then converts the buffered text into a number with `VAL`.
+Multiple `DATA` statements are concatenated into a single continuous data stream.
 
 ---
 
-##### Example: simple inline table (no files)
+##### Example
 
 ```basic
-DIM A, 3
-A(1) = 10
-A(2) = 20
-A(3) = 30
+DATA 10, 20
+DATA 1.5
+DATA "ok"
 ```
+
+---
+
+##### Behaviour
+
+* Values are stored in the order they appear across all `DATA` statements.
+* The data stream is shared across the entire program.
+* `DATA` statements are not executed; they are processed during programme load.
+* Values are consumed sequentially by data-reading functions.
+* Attempting to read beyond the available data results in a runtime error.
+* Values are strongly typed; no implicit conversion occurs during reading.
 
 ---
 
 ##### See also
-- \ref OPENIN "OPENIN" – open a file for reading
-- \ref OPENOUT "OPENOUT" – open a file for writing (truncate)
-- \ref OPENUP "OPENUP" – open a file for update (read/write)
-- \ref READ "READ$" – read one character from a file handle
-- \ref EOF "EOF" – end-of-file check
-- \ref VAL "VAL", \ref LEN "LEN", \ref CHR "CHR"
+
+* \ref DATAREAD "DATAREAD"
+* \ref DATAREADR "DATAREADR"
+* \ref DATAREADS "DATAREAD$"
+* \ref RESTORE "RESTORE"
+* \ref DATASET "DATASET"

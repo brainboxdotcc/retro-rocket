@@ -93,30 +93,32 @@ struct basic_int_fn builtin_int[] =
 	{ basic_spritecollide,       "SPRITECOLLIDE"     },
 	{ basic_spritewidth,         "SPRITEWIDTH"       },
 	{ basic_spriteheight,        "SPRITEHEIGHT"      },
+	{ basic_dataread,            "DATAREAD"          },
 	{ NULL,                      NULL                },
 };
 
 struct basic_double_fn builtin_double[] = {
-	{ basic_cos,         "COS"     },
-	{ basic_getvar_real, "GETVARR" },
-	{ basic_pow,         "POW"     },
-	{ basic_realval,     "REALVAL" },
-	{ basic_sin,         "SIN"     },
-	{ basic_tan,         "TAN"     },
-	{ basic_sqrt,        "SQRT"    },
-	{ basic_sqrt,        "SQR"     },
-	{ basic_atan,        "ATAN"    },
-	{ basic_atan2,       "ATAN2"   },
-	{ basic_ceil,        "CEIL"    },
-	{ basic_round,       "ROUND"   },
-	{ basic_fmod,        "FMOD"    },
-	{ basic_asn,         "ASN"     },
-	{ basic_acs,         "ACS"     },
-	{ basic_exp,         "EXP"     },
-	{ basic_log,         "LOG"     },
-	{ basic_deg,         "DEG"     },
-	{ basic_rad,         "RAD"     },
-	{ NULL,              NULL      },
+	{ basic_cos,           "COS"       },
+	{ basic_getvar_real,   "GETVARR"   },
+	{ basic_pow,           "POW"       },
+	{ basic_realval,       "REALVAL"   },
+	{ basic_sin,           "SIN"       },
+	{ basic_tan,           "TAN"       },
+	{ basic_sqrt,          "SQRT"      },
+	{ basic_sqrt,          "SQR"       },
+	{ basic_atan,          "ATAN"      },
+	{ basic_atan2,         "ATAN2"     },
+	{ basic_ceil,          "CEIL"      },
+	{ basic_round,         "ROUND"     },
+	{ basic_fmod,          "FMOD"      },
+	{ basic_asn,           "ASN"       },
+	{ basic_acs,           "ACS"       },
+	{ basic_exp,           "EXP"       },
+	{ basic_log,           "LOG"       },
+	{ basic_deg,           "DEG"       },
+	{ basic_rad,           "RAD"       },
+	{ basic_dataread_real, "DATAREADR" },
+	{ NULL,                NULL        },
 };
 
 struct basic_str_fn builtin_str[] =
@@ -161,6 +163,7 @@ struct basic_str_fn builtin_str[] =
 	{ basic_get_upstr,           "UPTIME$"       },
 	{ basic_udpread,             "UDPREAD$"      },
 	{ basic_udplastip,           "UDPLASTIP$"    },
+	{ basic_dataread_string,     "DATAREAD$"     },
 	{ NULL,                      NULL            },
 };
 
@@ -271,6 +274,7 @@ const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx)
 		ctx->str_variables    = atomic->str_variables;
 		ctx->double_variables = atomic->double_variables;
 		ctx->sounds           = atomic->sounds;
+		ctx->data_offset      = atomic->data_offset;
 
 		memcpy(ctx->audio_streams, atomic->audio_streams, sizeof(ctx->audio_streams));
 		memcpy(ctx->envelopes, atomic->envelopes, sizeof(ctx->envelopes));
@@ -387,6 +391,7 @@ int64_t basic_eval_int_fn(const char* fn_name, struct basic_ctx* ctx)
 		ctx->str_variables    = atomic->str_variables;
 		ctx->double_variables = atomic->double_variables;
 		ctx->sounds           = atomic->sounds;
+		ctx->data_offset      = atomic->data_offset;
 
 		memcpy(ctx->audio_streams, atomic->audio_streams, sizeof(ctx->audio_streams));
 		memcpy(ctx->envelopes, atomic->envelopes, sizeof(ctx->envelopes));
@@ -456,6 +461,7 @@ void basic_eval_double_fn(const char* fn_name, struct basic_ctx* ctx, double* re
 		ctx->str_variables    = atomic->str_variables;
 		ctx->double_variables = atomic->double_variables;
 		ctx->sounds           = atomic->sounds;
+		ctx->data_offset      = atomic->data_offset;
 
 		memcpy(ctx->audio_streams, atomic->audio_streams, sizeof(ctx->audio_streams));
 		memcpy(ctx->envelopes, atomic->envelopes, sizeof(ctx->envelopes));

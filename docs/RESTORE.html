@@ -124,91 +124,58 @@ $(function(){initNavTree('RESTORE.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">RESTORE</div>
-</div><!-- fragment --><p>The <span class="tt">RESTORE</span> statement is <b>not supported in Retro Rocket BASIC</b>.</p>
-<p>In BBC BASIC IV, <span class="tt">RESTORE</span> reset the pointer for <span class="tt">READ</span> so embedded <span class="tt">DATA</span> could be re-read. <br  />
- Retro Rocket BASIC replaces this with <b>file-based I/O</b>.</p>
-<dl class="section note"><dt>Note</dt><dd>Use files to hold your constants and reopen them when you need to read again. </dd>
-<dd>
-<span class="tt">READ$</span> returns <b>one character at a time</b>, so build lines or tokens yourself if required.</dd></dl>
+<div class="line">RESTORE offset</div>
+</div><!-- fragment --><p>Resets or repositions the current <span class="tt">DATA</span> read pointer.</p>
+<p>With no argument, <span class="tt">RESTORE</span> resets the read position to the start of the programme's data stream.</p>
+<p>With an argument, <span class="tt">RESTORE</span> sets the read position to a specific zero-based <span class="tt">DATA</span> offset.</p>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="pattern-1-reopen-to-start-reading-again"></a>
-Pattern 1: reopen to start reading again</h3>
-<p><b>values.txt</b> </p><div class="fragment"><div class="line">10</div>
+<h5 class="doxsection"><a class="anchor" id="example-18"></a>
+Example</h5>
+<div class="fragment"><div class="line">DATA 10, 20</div>
+<div class="line">DATA 30</div>
+<div class="line"> </div>
+<div class="line">PRINT DATAREAD</div>
+<div class="line">PRINT DATAREAD</div>
+<div class="line"> </div>
+<div class="line">RESTORE</div>
+<div class="line"> </div>
+<div class="line">PRINT DATAREAD</div>
+</div><!-- fragment --><p>This prints:</p>
+<div class="fragment"><div class="line">10</div>
 <div class="line">20</div>
+<div class="line">10</div>
+</div><!-- fragment --><hr  />
+<h5 class="doxsection"><a class="anchor" id="example-with-offset"></a>
+Example with offset</h5>
+<div class="fragment"><div class="line">DATA 10, 20, 30</div>
+<div class="line"> </div>
+<div class="line">RESTORE 1</div>
+<div class="line">PRINT DATAREAD</div>
+<div class="line">PRINT DATAREAD</div>
+</div><!-- fragment --><p>This prints:</p>
+<div class="fragment"><div class="line">20</div>
 <div class="line">30</div>
-</div><!-- fragment --><p><b>Program</b> </p><div class="fragment"><div class="line">DIM A,100</div>
-<div class="line">I = 0</div>
-<div class="line">LINE$ = &quot;&quot;</div>
-<div class="line"> </div>
-<div class="line">REM First pass: read all numbers</div>
-<div class="line">FH = OPENIN(&quot;values.txt&quot;)</div>
-<div class="line">WHILE NOT EOF(FH)</div>
-<div class="line">    C$ = READ$(FH)</div>
-<div class="line">    IF C$ = CHR(10) OR C$ = CHR(13) THEN</div>
-<div class="line">        IF LEN(LINE$) &gt; 0 THEN</div>
-<div class="line">            I = I + 1</div>
-<div class="line">            A(I) = VAL(LINE$)</div>
-<div class="line">            LINE$ = &quot;&quot;</div>
-<div class="line">        ENDIF</div>
-<div class="line">    ELSE</div>
-<div class="line">        LINE$ = LINE$ + C$</div>
-<div class="line">    ENDIF</div>
-<div class="line">ENDWHILE</div>
-<div class="line">IF LEN(LINE$) &gt; 0 THEN</div>
-<div class="line">    I = I + 1</div>
-<div class="line">    A(I) = VAL(LINE$)</div>
-<div class="line">ENDIF</div>
-<div class="line">CLOSE FH</div>
-<div class="line"> </div>
-<div class="line">REM Second pass: simply reopen and read again</div>
-<div class="line">FH = OPENIN(&quot;values.txt&quot;)</div>
-<div class="line">REM ... do another read as above ...</div>
-<div class="line">CLOSE FH</div>
 </div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="pattern-2-cache-once-reuse-many-times"></a>
-Pattern 2: cache once, reuse many times</h3>
-<p>Instead of re-reading the file, store values in an array on the first pass and reuse the array.</p>
-<div class="fragment"><div class="line">DIM A,100</div>
-<div class="line">COUNT = 0</div>
-<div class="line"> </div>
-<div class="line">REM Load once</div>
-<div class="line">FH = OPENIN(&quot;values.txt&quot;)</div>
-<div class="line">LINE$ = &quot;&quot;</div>
-<div class="line">WHILE NOT EOF(FH)</div>
-<div class="line">    C$ = READ$(FH)</div>
-<div class="line">    IF C$ = CHR(10) OR C$ = CHR(13) THEN</div>
-<div class="line">        IF LEN(LINE$) &gt; 0 THEN</div>
-<div class="line">            COUNT = COUNT + 1</div>
-<div class="line">            A(COUNT) = VAL(LINE$)</div>
-<div class="line">            LINE$ = &quot;&quot;</div>
-<div class="line">        ENDIF</div>
-<div class="line">    ELSE</div>
-<div class="line">        LINE$ = LINE$ + C$</div>
-<div class="line">    ENDIF</div>
-<div class="line">ENDWHILE</div>
-<div class="line">IF LEN(LINE$) &gt; 0 THEN</div>
-<div class="line">    COUNT = COUNT + 1</div>
-<div class="line">    A(COUNT) = VAL(LINE$)</div>
-<div class="line">ENDIF</div>
-<div class="line">CLOSE FH</div>
-<div class="line"> </div>
-<div class="line">REM Use many times without touching the file</div>
-<div class="line">SUM = 0</div>
-<div class="line">I = 1</div>
-<div class="line">WHILE I &lt;= COUNT</div>
-<div class="line">    SUM = SUM + A(I)</div>
-<div class="line">    I = I + 1</div>
-<div class="line">ENDWHILE</div>
-<div class="line">PRINT &quot;SUM = &quot;; SUM</div>
-</div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="tips-1"></a>
-Tips</h3>
+<h5 class="doxsection"><a class="anchor" id="behaviour-11"></a>
+Behaviour</h5>
 <ul>
-<li>Store one value per line for simple parsing, or define your own separators and split by looking for those characters.</li>
-<li>When you only need to go back to the <b>start</b> of a file, the simplest approach is <b>close and reopen</b> it.</li>
+<li><span class="tt">RESTORE</span> with no argument resets the data pointer to offset <span class="tt">0</span>.</li>
+<li><span class="tt">RESTORE N</span> moves the data pointer to offset <span class="tt">N</span>.</li>
+<li>Offsets are zero-based.</li>
+<li>The offset refers to the internal position within the combined <span class="tt">DATA</span> stream, not to a line number.</li>
+<li>An invalid offset produces a runtime error.</li>
+<li><span class="tt">RESTORE</span> affects subsequent calls to <a class="el" href="DATAREAD.html">DATAREAD</a>, <a class="el" href="DATAREADR.html">DATAREADR</a>, and <a class="el" href="DATAREADS.html">DATAREAD$</a>.</li>
 </ul>
-<p><b>See also:</b> <br  />
- <a class="el" href="OPENIN.html">OPENIN</a> · <a class="el" href="OPENOUT.html">OPENOUT</a> · <a class="el" href="OPENUP.html">OPENUP</a> · <a class="el" href="READ.html">READ$</a> · <a class="el" href="EOF.html">EOF</a> · <a class="el" href="VAL.html">VAL</a> · <a class="el" href="LEN.html">LEN</a> · <a class="el" href="CHR.html">CHR</a> </p>
+<hr  />
+<h5 class="doxsection"><a class="anchor" id="see-also-8"></a>
+See also</h5>
+<ul>
+<li><a class="el" href="DATA.html">DATA</a></li>
+<li><a class="el" href="DATASET.html">DATASET</a></li>
+<li><a class="el" href="DATAREAD.html">DATAREAD</a></li>
+<li><a class="el" href="DATAREADR.html">DATAREADR</a></li>
+<li><a class="el" href="DATAREADS.html">DATAREAD$</a> </li>
+</ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

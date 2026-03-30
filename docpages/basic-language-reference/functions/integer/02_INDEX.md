@@ -18,6 +18,7 @@ The following functions operate on or return **integer values** in Retro Rocket 
 * \subpage CPUID
 * \subpage CURRENTX
 * \subpage CURRENTY
+* \subpage DATAREAD
 * \subpage DAY
 * \subpage DECIBELS
 * \subpage EOF

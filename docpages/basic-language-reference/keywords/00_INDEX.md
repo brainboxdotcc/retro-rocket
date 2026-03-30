@@ -66,6 +66,7 @@ The following parameter types are used throughout this documentation:
 * \subpage CONTINUE
 * \subpage CURSOR
 * \subpage DATA
+* \subpage DATASET
 * \subpage DEF
 * \subpage DELETE
 * \subpage DIM

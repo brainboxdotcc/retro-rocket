@@ -51,3 +51,5 @@
 #include "basic/reflection.h"
 #include "basic/datetime.h"
 #include "basic/peekpoke.h"
+#include "basic/audio.h"
+#include "basic/data.h"

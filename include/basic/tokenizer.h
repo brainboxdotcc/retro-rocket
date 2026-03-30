@@ -207,6 +207,7 @@ typedef void (*keyword_handler_t)(struct basic_ctx*);
     T(ANIMATE, STMT, animate_statement)			/* 135 */ \
     T(RESET, STMT, NULL)				/* 136 */ \
     T(MATCH, STMT, match_statement)			/* 137 */ \
+    T(DATASET, STMT, dataset_statement)			/* 138 */ \
 
 GENERATE_ENUM_LIST(TOKEN, token_t)
 

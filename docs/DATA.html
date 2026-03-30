@@ -124,66 +124,41 @@ $(function(){initNavTree('DATA.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">DATA value, value, value</div>
-</div><!-- fragment --><p>The <span class="tt">DATA</span> statement is <b>not supported</b> in Retro Rocket BASIC.</p>
-<p>In BBC BASIC IV, <span class="tt">DATA</span> embedded constants directly in the source and they were consumed with <span class="tt">READ</span> (and rewound with <span class="tt">RESTORE</span>). Retro Rocket BASIC replaces this pattern with <b>file-based I/O</b> and simple initialisers.</p>
-<dl class="section remark"><dt>Remarks</dt><dd><span class="tt">READ$</span> in Retro Rocket BASIC returns <b>one character at a time</b> from an open </dd>
-<dd>
-file handle. It does <b>not</b> read a whole line. If you need to parse lines or </dd>
-<dd>
-comma-separated values, build them yourself from characters and then convert </dd>
-<dd>
-with functions like <a class="el" href="VAL.html">VAL</a>.</dd></dl>
+</div><!-- fragment --><p>Defines a sequence of constant values embedded in the programme.</p>
+<p>Values may be:</p>
+<ul>
+<li>integers</li>
+<li>real numbers</li>
+<li>strings (in double quotes)</li>
+</ul>
+<p>Values are stored at programme load time and are not re-parsed during execution.</p>
+<p>Multiple <span class="tt">DATA</span> statements are concatenated into a single continuous data stream.</p>
 <hr  />
-<h5 class="doxsection"><a class="anchor" id="example-load-newline-separated-integers-from-a-file"></a>
-Example: load newline-separated integers from a file</h5>
-<p>Suppose <span class="tt">values.txt</span> contains: </p><div class="fragment"><div class="line">10</div>
-<div class="line">20</div>
-<div class="line">30</div>
-</div><!-- fragment --><p>Programme:</p>
-<div class="fragment"><div class="line">DIM A, 100</div>
-<div class="line">I = 0</div>
-<div class="line">LINE$ = &quot;&quot;</div>
-<div class="line"> </div>
-<div class="line">FH = OPENIN(&quot;values.txt&quot;)</div>
-<div class="line"> </div>
-<div class="line">WHILE NOT EOF(FH)</div>
-<div class="line">    C$ = READ$(FH)</div>
-<div class="line"> </div>
-<div class="line">    IF C$ = CHR(10) OR C$ = CHR(13) THEN</div>
-<div class="line">        IF LEN(LINE$) &gt; 0 THEN</div>
-<div class="line">            I = I + 1</div>
-<div class="line">            A(I) = VAL(LINE$)</div>
-<div class="line">            LINE$ = &quot;&quot;</div>
-<div class="line">        ENDIF</div>
-<div class="line">    ELSE</div>
-<div class="line">        LINE$ = LINE$ + C$</div>
-<div class="line">    ENDIF</div>
-<div class="line">ENDWHILE</div>
-<div class="line"> </div>
-<div class="line">IF LEN(LINE$) &gt; 0 THEN</div>
-<div class="line">    I = I + 1</div>
-<div class="line">    A(I) = VAL(LINE$)</div>
-<div class="line">ENDIF</div>
-<div class="line"> </div>
-<div class="line">CLOSE FH</div>
-</div><!-- fragment --><p>This accumulates characters until a line break (<span class="tt">CHR(10)</span> or <span class="tt">CHR(13)</span>), then converts the buffered text into a number with <span class="tt">VAL</span>.</p>
-<hr  />
-<h5 class="doxsection"><a class="anchor" id="example-simple-inline-table-no-files"></a>
-Example: simple inline table (no files)</h5>
-<div class="fragment"><div class="line">DIM A, 3</div>
-<div class="line">A(1) = 10</div>
-<div class="line">A(2) = 20</div>
-<div class="line">A(3) = 30</div>
+<h5 class="doxsection"><a class="anchor" id="example-11"></a>
+Example</h5>
+<div class="fragment"><div class="line">DATA 10, 20</div>
+<div class="line">DATA 1.5</div>
+<div class="line">DATA &quot;ok&quot;</div>
 </div><!-- fragment --><hr  />
-<h5 class="doxsection"><a class="anchor" id="see-also"></a>
+<h5 class="doxsection"><a class="anchor" id="behaviour-3"></a>
+Behaviour</h5>
+<ul>
+<li>Values are stored in the order they appear across all <span class="tt">DATA</span> statements.</li>
+<li>The data stream is shared across the entire program.</li>
+<li><span class="tt">DATA</span> statements are not executed; they are processed during programme load.</li>
+<li>Values are consumed sequentially by data-reading functions.</li>
+<li>Attempting to read beyond the available data results in a runtime error.</li>
+<li>Values are strongly typed; no implicit conversion occurs during reading.</li>
+</ul>
+<hr  />
+<h5 class="doxsection"><a class="anchor" id="see-also-3"></a>
 See also</h5>
 <ul>
-<li><a class="el" href="OPENIN.html">OPENIN</a> – open a file for reading</li>
-<li><a class="el" href="OPENOUT.html">OPENOUT</a> – open a file for writing (truncate)</li>
-<li><a class="el" href="OPENUP.html">OPENUP</a> – open a file for update (read/write)</li>
-<li><a class="el" href="READ.html">READ$</a> – read one character from a file handle</li>
-<li><a class="el" href="EOF.html">EOF</a> – end-of-file check</li>
-<li><a class="el" href="VAL.html">VAL</a>, <a class="el" href="LEN.html">LEN</a>, <a class="el" href="CHR.html">CHR</a> </li>
+<li><a class="el" href="DATAREAD.html">DATAREAD</a></li>
+<li><a class="el" href="DATAREADR.html">DATAREADR</a></li>
+<li><a class="el" href="DATAREADS.html">DATAREAD$</a></li>
+<li><a class="el" href="RESTORE.html">RESTORE</a></li>
+<li><a class="el" href="DATASET.html">DATASET</a> </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

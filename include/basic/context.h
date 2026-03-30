@@ -8,6 +8,7 @@
 #include "tokenizer.h"
 #include "buddy_allocator.h"
 #include "audio.h"
+#include "data.h"
 
 typedef struct {
 	uint16_t source_port;
@@ -338,6 +339,10 @@ typedef struct basic_ctx {
 	sound_envelope_ex_t envelopes[64];
 
 	struct match_state *match_ctx;
+
+	struct data_store datastore;
+	struct data_sets datasets;
+	size_t data_offset;
 
 } basic_ctx;
 

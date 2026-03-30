@@ -6,101 +6,70 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting><codeline><highlight class="normal">RESTORE</highlight></codeline>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">RESTORE</highlight></codeline>
+<codeline><highlight class="normal">RESTORE<sp/>offset</highlight></codeline>
 </programlisting></para>
-<para>The <computeroutput>RESTORE</computeroutput> statement is <bold>not supported in Retro Rocket BASIC</bold>.</para>
-<para>In BBC BASIC IV, <computeroutput>RESTORE</computeroutput> reset the pointer for <computeroutput>READ</computeroutput> so embedded <computeroutput>DATA</computeroutput> could be re-read. <linebreak/>
- Retro Rocket BASIC replaces this with <bold>file-based I/O</bold>.</para>
-<para><simplesect kind="note"><para>Use files to hold your constants and reopen them when you need to read again. </para>
-</simplesect>
-<simplesect kind="note"><para><computeroutput>READ$</computeroutput> returns <bold>one character at a time</bold>, so build lines or tokens yourself if required.</para>
-</simplesect>
-<hruler/>
+<para>Resets or repositions the current <computeroutput>DATA</computeroutput> read pointer.</para>
+<para>With no argument, <computeroutput>RESTORE</computeroutput> resets the read position to the start of the programme&apos;s data stream.</para>
+<para>With an argument, <computeroutput>RESTORE</computeroutput> sets the read position to a specific zero-based <computeroutput>DATA</computeroutput> offset.</para>
+<para><hruler/>
 </para>
-<sect1 id="RESTORE_1pattern-1-reopen-to-start-reading-again_1s1"><sect2 id="RESTORE_1pattern-1-reopen-to-start-reading-again_1s2"><sect3 id="RESTORE_1pattern-1-reopen-to-start-reading-again">
-<title>Pattern 1: reopen to start reading again</title><para><bold>values.txt</bold> <programlisting><codeline><highlight class="normal">10</highlight></codeline>
+<sect1 id="RESTORE_1example-18_1s1"><sect2 id="RESTORE_1example-18_1s2"><sect3 id="RESTORE_1example-18_1s3"><sect4 id="RESTORE_1example-18_1s4"><sect5 id="RESTORE_1example-18">
+<title>Example</title><para><programlisting filename=".basic"><codeline><highlight class="normal">DATA<sp/>10,<sp/>20</highlight></codeline>
+<codeline><highlight class="normal">DATA<sp/>30</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">PRINT<sp/>DATAREAD</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>DATAREAD</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">RESTORE</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">PRINT<sp/>DATAREAD</highlight></codeline>
+</programlisting></para>
+<para>This prints:</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">10</highlight></codeline>
 <codeline><highlight class="normal">20</highlight></codeline>
+<codeline><highlight class="normal">10</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect5></sect4></sect3></sect2></sect1>
+<sect1 id="RESTORE_1example-with-offset_1s1"><sect2 id="RESTORE_1example-with-offset_1s2"><sect3 id="RESTORE_1example-with-offset_1s3"><sect4 id="RESTORE_1example-with-offset_1s4"><sect5 id="RESTORE_1example-with-offset">
+<title>Example with offset</title><para><programlisting filename=".basic"><codeline><highlight class="normal">DATA<sp/>10,<sp/>20,<sp/>30</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">RESTORE<sp/>1</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>DATAREAD</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>DATAREAD</highlight></codeline>
+</programlisting></para>
+<para>This prints:</para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">20</highlight></codeline>
 <codeline><highlight class="normal">30</highlight></codeline>
 </programlisting></para>
-<para><bold>Program</bold> <programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>A,100</highlight></codeline>
-<codeline><highlight class="normal">I<sp/>=<sp/>0</highlight></codeline>
-<codeline><highlight class="normal">LINE$<sp/>=<sp/>&quot;&quot;</highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">REM<sp/>First<sp/>pass:<sp/>read<sp/>all<sp/>numbers</highlight></codeline>
-<codeline><highlight class="normal">FH<sp/>=<sp/>OPENIN(&quot;values.txt&quot;)</highlight></codeline>
-<codeline><highlight class="normal">WHILE<sp/>NOT<sp/>EOF(FH)</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>C$<sp/>=<sp/>READ$(FH)</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>IF<sp/>C$<sp/>=<sp/>CHR(10)<sp/>OR<sp/>C$<sp/>=<sp/>CHR(13)<sp/>THEN</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IF<sp/>LEN(LINE$)<sp/>&gt;<sp/>0<sp/>THEN</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I<sp/>=<sp/>I<sp/>+<sp/>1</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>A(I)<sp/>=<sp/>VAL(LINE$)</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LINE$<sp/>=<sp/>&quot;&quot;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ENDIF</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ELSE</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LINE$<sp/>=<sp/>LINE$<sp/>+<sp/>C$</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ENDIF</highlight></codeline>
-<codeline><highlight class="normal">ENDWHILE</highlight></codeline>
-<codeline><highlight class="normal">IF<sp/>LEN(LINE$)<sp/>&gt;<sp/>0<sp/>THEN</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>I<sp/>=<sp/>I<sp/>+<sp/>1</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>A(I)<sp/>=<sp/>VAL(LINE$)</highlight></codeline>
-<codeline><highlight class="normal">ENDIF</highlight></codeline>
-<codeline><highlight class="normal">CLOSE<sp/>FH</highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">REM<sp/>Second<sp/>pass:<sp/>simply<sp/>reopen<sp/>and<sp/>read<sp/>again</highlight></codeline>
-<codeline><highlight class="normal">FH<sp/>=<sp/>OPENIN(&quot;values.txt&quot;)</highlight></codeline>
-<codeline><highlight class="normal">REM<sp/>...<sp/>do<sp/>another<sp/>read<sp/>as<sp/>above<sp/>...</highlight></codeline>
-<codeline><highlight class="normal">CLOSE<sp/>FH</highlight></codeline>
-</programlisting></para>
 <para><hruler/>
 </para>
-</sect3></sect2></sect1>
-<sect1 id="RESTORE_1pattern-2-cache-once-reuse-many-times_1s1"><sect2 id="RESTORE_1pattern-2-cache-once-reuse-many-times_1s2"><sect3 id="RESTORE_1pattern-2-cache-once-reuse-many-times">
-<title>Pattern 2: cache once, reuse many times</title><para>Instead of re-reading the file, store values in an array on the first pass and reuse the array.</para>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>A,100</highlight></codeline>
-<codeline><highlight class="normal">COUNT<sp/>=<sp/>0</highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">REM<sp/>Load<sp/>once</highlight></codeline>
-<codeline><highlight class="normal">FH<sp/>=<sp/>OPENIN(&quot;values.txt&quot;)</highlight></codeline>
-<codeline><highlight class="normal">LINE$<sp/>=<sp/>&quot;&quot;</highlight></codeline>
-<codeline><highlight class="normal">WHILE<sp/>NOT<sp/>EOF(FH)</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>C$<sp/>=<sp/>READ$(FH)</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>IF<sp/>C$<sp/>=<sp/>CHR(10)<sp/>OR<sp/>C$<sp/>=<sp/>CHR(13)<sp/>THEN</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IF<sp/>LEN(LINE$)<sp/>&gt;<sp/>0<sp/>THEN</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>COUNT<sp/>=<sp/>COUNT<sp/>+<sp/>1</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>A(COUNT)<sp/>=<sp/>VAL(LINE$)</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LINE$<sp/>=<sp/>&quot;&quot;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ENDIF</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ELSE</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LINE$<sp/>=<sp/>LINE$<sp/>+<sp/>C$</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ENDIF</highlight></codeline>
-<codeline><highlight class="normal">ENDWHILE</highlight></codeline>
-<codeline><highlight class="normal">IF<sp/>LEN(LINE$)<sp/>&gt;<sp/>0<sp/>THEN</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>COUNT<sp/>=<sp/>COUNT<sp/>+<sp/>1</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>A(COUNT)<sp/>=<sp/>VAL(LINE$)</highlight></codeline>
-<codeline><highlight class="normal">ENDIF</highlight></codeline>
-<codeline><highlight class="normal">CLOSE<sp/>FH</highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">REM<sp/>Use<sp/>many<sp/>times<sp/>without<sp/>touching<sp/>the<sp/>file</highlight></codeline>
-<codeline><highlight class="normal">SUM<sp/>=<sp/>0</highlight></codeline>
-<codeline><highlight class="normal">I<sp/>=<sp/>1</highlight></codeline>
-<codeline><highlight class="normal">WHILE<sp/>I<sp/>&lt;=<sp/>COUNT</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>SUM<sp/>=<sp/>SUM<sp/>+<sp/>A(I)</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>I<sp/>=<sp/>I<sp/>+<sp/>1</highlight></codeline>
-<codeline><highlight class="normal">ENDWHILE</highlight></codeline>
-<codeline><highlight class="normal">PRINT<sp/>&quot;SUM<sp/>=<sp/>&quot;;<sp/>SUM</highlight></codeline>
-</programlisting></para>
-<para><hruler/>
-</para>
-</sect3></sect2></sect1>
-<sect1 id="RESTORE_1tips-1_1s1"><sect2 id="RESTORE_1tips-1_1s2"><sect3 id="RESTORE_1tips-1">
-<title>Tips</title><para><itemizedlist>
-<listitem><para>Store one value per line for simple parsing, or define your own separators and split by looking for those characters.</para>
-</listitem><listitem><para>When you only need to go back to the <bold>start</bold> of a file, the simplest approach is <bold>close and reopen</bold> it.</para>
+</sect5></sect4></sect3></sect2></sect1>
+<sect1 id="RESTORE_1behaviour-11_1s1"><sect2 id="RESTORE_1behaviour-11_1s2"><sect3 id="RESTORE_1behaviour-11_1s3"><sect4 id="RESTORE_1behaviour-11_1s4"><sect5 id="RESTORE_1behaviour-11">
+<title>Behaviour</title><para><itemizedlist>
+<listitem><para><computeroutput>RESTORE</computeroutput> with no argument resets the data pointer to offset <computeroutput>0</computeroutput>.</para>
+</listitem><listitem><para><computeroutput>RESTORE N</computeroutput> moves the data pointer to offset <computeroutput>N</computeroutput>.</para>
+</listitem><listitem><para>Offsets are zero-based.</para>
+</listitem><listitem><para>The offset refers to the internal position within the combined <computeroutput>DATA</computeroutput> stream, not to a line number.</para>
+</listitem><listitem><para>An invalid offset produces a runtime error.</para>
+</listitem><listitem><para><computeroutput>RESTORE</computeroutput> affects subsequent calls to <ref refid="DATAREAD" kindref="compound">DATAREAD</ref>, <ref refid="DATAREADR" kindref="compound">DATAREADR</ref>, and <ref refid="DATAREADS" kindref="compound">DATAREAD$</ref>.</para>
 </listitem></itemizedlist>
 </para>
-<para><bold>See also:</bold> <linebreak/>
- <ref refid="OPENIN" kindref="compound">OPENIN</ref> · <ref refid="OPENOUT" kindref="compound">OPENOUT</ref> · <ref refid="OPENUP" kindref="compound">OPENUP</ref> · <ref refid="READ" kindref="compound">READ$</ref> · <ref refid="EOF" kindref="compound">EOF</ref> · <ref refid="VAL" kindref="compound">VAL</ref> · <ref refid="LEN" kindref="compound">LEN</ref> · <ref refid="CHR" kindref="compound">CHR</ref> </para>
-</sect3></sect2></sect1>
+<para><hruler/>
+</para>
+</sect5></sect4></sect3></sect2></sect1>
+<sect1 id="RESTORE_1see-also-8_1s1"><sect2 id="RESTORE_1see-also-8_1s2"><sect3 id="RESTORE_1see-also-8_1s3"><sect4 id="RESTORE_1see-also-8_1s4"><sect5 id="RESTORE_1see-also-8">
+<title>See also</title><para><itemizedlist>
+<listitem><para><ref refid="DATA" kindref="compound">DATA</ref></para>
+</listitem><listitem><para><ref refid="DATASET" kindref="compound">DATASET</ref></para>
+</listitem><listitem><para><ref refid="DATAREAD" kindref="compound">DATAREAD</ref></para>
+</listitem><listitem><para><ref refid="DATAREADR" kindref="compound">DATAREADR</ref></para>
+</listitem><listitem><para><ref refid="DATAREADS" kindref="compound">DATAREAD$</ref> </para>
+</listitem></itemizedlist>
+</para>
+</sect5></sect4></sect3></sect2></sect1>
     </detaileddescription>
     <location file="docpages/basic-language-reference/keywords/RESTORE.md"/>
   </compounddef>

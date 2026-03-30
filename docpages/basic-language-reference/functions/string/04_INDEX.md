@@ -5,6 +5,7 @@ The following functions return or manipulate **string values** in Retro Rocket B
 * \subpage BOOL
 * \subpage CHR
 * \subpage CSD
+* \subpage DATAREADS
 * \subpage DATE
 * \subpage DNS
 * \subpage EMPTYRAMDISK

@@ -1,0 +1,19 @@
+PRINT "DATA test"
+
+DATASET numbers
+DATA 10, 20
+DATA 1.5
+DATA "ok"
+
+PRINT "numbers="; numbers
+
+RESTORE numbers
+PRINT "expect 10: "; DATAREAD
+PRINT "expect 20: "; DATAREAD
+PRINT "expect 1.5 "; DATAREADR
+PRINT "expect ok "; DATAREAD$
+
+RESTORE numbers
+PRINT "expect 10 "; DATAREAD
+
+PRINT "done"

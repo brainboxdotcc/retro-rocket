@@ -51,11 +51,11 @@
 <listitem><para>For <computeroutput>devfs</computeroutput>, you cannot create arbitrary files in this file system. Your ability to read from, or write to the files in this directory depends on the behaviour of the driver which places the file there.</para>
 </listitem></itemizedlist>
 </para>
-<sect3 id="mount-command_1example-15">
+<sect3 id="mount-command_1example-21">
 <title>Example</title><para><programlisting><codeline><highlight class="normal">mount<sp/>/harddisk<sp/>hd0<sp/>rfs</highlight></codeline>
 </programlisting></para>
 </sect3>
-<sect3 id="mount-command_1notes-192">
+<sect3 id="mount-command_1notes-193">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Mounting a storage device with a file system it is not configured for will result in an error</para>
 </listitem><listitem><para>Unmounting file systems is <bold>not yet supported</bold>. To clear a mounting, it is currently required that you reboot the system. </para>

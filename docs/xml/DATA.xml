@@ -6,74 +6,48 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><programlisting><codeline><highlight class="normal">DATA<sp/>value,<sp/>value,<sp/>value</highlight></codeline>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">DATA<sp/>value,<sp/>value,<sp/>value</highlight></codeline>
 </programlisting></para>
-<para>The <computeroutput>DATA</computeroutput> statement is <bold>not supported</bold> in Retro Rocket BASIC.</para>
-<para>In BBC BASIC IV, <computeroutput>DATA</computeroutput> embedded constants directly in the source and they were consumed with <computeroutput>READ</computeroutput> (and rewound with <computeroutput>RESTORE</computeroutput>). Retro Rocket BASIC replaces this pattern with <bold>file-based I/O</bold> and simple initialisers.</para>
-<para><simplesect kind="remark"><para><computeroutput>READ$</computeroutput> in Retro Rocket BASIC returns <bold>one character at a time</bold> from an open </para>
-</simplesect>
-<simplesect kind="remark"><para>file handle. It does <bold>not</bold> read a whole line. If you need to parse lines or </para>
-</simplesect>
-<simplesect kind="remark"><para>comma-separated values, build them yourself from characters and then convert </para>
-</simplesect>
-<simplesect kind="remark"><para>with functions like <ref refid="VAL" kindref="compound">VAL</ref>.</para>
-</simplesect>
-<hruler/>
+<para>Defines a sequence of constant values embedded in the programme.</para>
+<para>Values may be:</para>
+<para><itemizedlist>
+<listitem><para>integers</para>
+</listitem><listitem><para>real numbers</para>
+</listitem><listitem><para>strings (in double quotes)</para>
+</listitem></itemizedlist>
 </para>
-<sect1 id="DATA_1example-load-newline-separated-integers-from-a-file_1s1"><sect2 id="DATA_1example-load-newline-separated-integers-from-a-file_1s2"><sect3 id="DATA_1example-load-newline-separated-integers-from-a-file_1s3"><sect4 id="DATA_1example-load-newline-separated-integers-from-a-file_1s4"><sect5 id="DATA_1example-load-newline-separated-integers-from-a-file">
-<title>Example: load newline-separated integers from a file</title><para>Suppose <computeroutput>values.txt</computeroutput> contains: <programlisting><codeline><highlight class="normal">10</highlight></codeline>
-<codeline><highlight class="normal">20</highlight></codeline>
-<codeline><highlight class="normal">30</highlight></codeline>
-</programlisting></para>
-<para>Programme:</para>
-<para><programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>A,<sp/>100</highlight></codeline>
-<codeline><highlight class="normal">I<sp/>=<sp/>0</highlight></codeline>
-<codeline><highlight class="normal">LINE$<sp/>=<sp/>&quot;&quot;</highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">FH<sp/>=<sp/>OPENIN(&quot;values.txt&quot;)</highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">WHILE<sp/>NOT<sp/>EOF(FH)</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>C$<sp/>=<sp/>READ$(FH)</highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>IF<sp/>C$<sp/>=<sp/>CHR(10)<sp/>OR<sp/>C$<sp/>=<sp/>CHR(13)<sp/>THEN</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IF<sp/>LEN(LINE$)<sp/>&gt;<sp/>0<sp/>THEN</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I<sp/>=<sp/>I<sp/>+<sp/>1</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>A(I)<sp/>=<sp/>VAL(LINE$)</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LINE$<sp/>=<sp/>&quot;&quot;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ENDIF</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ELSE</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LINE$<sp/>=<sp/>LINE$<sp/>+<sp/>C$</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ENDIF</highlight></codeline>
-<codeline><highlight class="normal">ENDWHILE</highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">IF<sp/>LEN(LINE$)<sp/>&gt;<sp/>0<sp/>THEN</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>I<sp/>=<sp/>I<sp/>+<sp/>1</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>A(I)<sp/>=<sp/>VAL(LINE$)</highlight></codeline>
-<codeline><highlight class="normal">ENDIF</highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">CLOSE<sp/>FH</highlight></codeline>
-</programlisting></para>
-<para>This accumulates characters until a line break (<computeroutput>CHR(10)</computeroutput> or <computeroutput>CHR(13)</computeroutput>), then converts the buffered text into a number with <computeroutput>VAL</computeroutput>.</para>
+<para>Values are stored at programme load time and are not re-parsed during execution.</para>
+<para>Multiple <computeroutput>DATA</computeroutput> statements are concatenated into a single continuous data stream.</para>
 <para><hruler/>
 </para>
-</sect5></sect4></sect3></sect2></sect1>
-<sect1 id="DATA_1example-simple-inline-table-no-files_1s1"><sect2 id="DATA_1example-simple-inline-table-no-files_1s2"><sect3 id="DATA_1example-simple-inline-table-no-files_1s3"><sect4 id="DATA_1example-simple-inline-table-no-files_1s4"><sect5 id="DATA_1example-simple-inline-table-no-files">
-<title>Example: simple inline table (no files)</title><para><programlisting filename=".basic"><codeline><highlight class="normal">DIM<sp/>A,<sp/>3</highlight></codeline>
-<codeline><highlight class="normal">A(1)<sp/>=<sp/>10</highlight></codeline>
-<codeline><highlight class="normal">A(2)<sp/>=<sp/>20</highlight></codeline>
-<codeline><highlight class="normal">A(3)<sp/>=<sp/>30</highlight></codeline>
+<sect1 id="DATA_1example-11_1s1"><sect2 id="DATA_1example-11_1s2"><sect3 id="DATA_1example-11_1s3"><sect4 id="DATA_1example-11_1s4"><sect5 id="DATA_1example-11">
+<title>Example</title><para><programlisting filename=".basic"><codeline><highlight class="normal">DATA<sp/>10,<sp/>20</highlight></codeline>
+<codeline><highlight class="normal">DATA<sp/>1.5</highlight></codeline>
+<codeline><highlight class="normal">DATA<sp/>&quot;ok&quot;</highlight></codeline>
 </programlisting></para>
 <para><hruler/>
 </para>
 </sect5></sect4></sect3></sect2></sect1>
-<sect1 id="DATA_1see-also_1s1"><sect2 id="DATA_1see-also_1s2"><sect3 id="DATA_1see-also_1s3"><sect4 id="DATA_1see-also_1s4"><sect5 id="DATA_1see-also">
+<sect1 id="DATA_1behaviour-3_1s1"><sect2 id="DATA_1behaviour-3_1s2"><sect3 id="DATA_1behaviour-3_1s3"><sect4 id="DATA_1behaviour-3_1s4"><sect5 id="DATA_1behaviour-3">
+<title>Behaviour</title><para><itemizedlist>
+<listitem><para>Values are stored in the order they appear across all <computeroutput>DATA</computeroutput> statements.</para>
+</listitem><listitem><para>The data stream is shared across the entire program.</para>
+</listitem><listitem><para><computeroutput>DATA</computeroutput> statements are not executed; they are processed during programme load.</para>
+</listitem><listitem><para>Values are consumed sequentially by data-reading functions.</para>
+</listitem><listitem><para>Attempting to read beyond the available data results in a runtime error.</para>
+</listitem><listitem><para>Values are strongly typed; no implicit conversion occurs during reading.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect5></sect4></sect3></sect2></sect1>
+<sect1 id="DATA_1see-also-3_1s1"><sect2 id="DATA_1see-also-3_1s2"><sect3 id="DATA_1see-also-3_1s3"><sect4 id="DATA_1see-also-3_1s4"><sect5 id="DATA_1see-also-3">
 <title>See also</title><para><itemizedlist>
-<listitem><para><ref refid="OPENIN" kindref="compound">OPENIN</ref> – open a file for reading</para>
-</listitem><listitem><para><ref refid="OPENOUT" kindref="compound">OPENOUT</ref> – open a file for writing (truncate)</para>
-</listitem><listitem><para><ref refid="OPENUP" kindref="compound">OPENUP</ref> – open a file for update (read/write)</para>
-</listitem><listitem><para><ref refid="READ" kindref="compound">READ$</ref> – read one character from a file handle</para>
-</listitem><listitem><para><ref refid="EOF" kindref="compound">EOF</ref> – end-of-file check</para>
-</listitem><listitem><para><ref refid="VAL" kindref="compound">VAL</ref>, <ref refid="LEN" kindref="compound">LEN</ref>, <ref refid="CHR" kindref="compound">CHR</ref> </para>
+<listitem><para><ref refid="DATAREAD" kindref="compound">DATAREAD</ref></para>
+</listitem><listitem><para><ref refid="DATAREADR" kindref="compound">DATAREADR</ref></para>
+</listitem><listitem><para><ref refid="DATAREADS" kindref="compound">DATAREAD$</ref></para>
+</listitem><listitem><para><ref refid="RESTORE" kindref="compound">RESTORE</ref></para>
+</listitem><listitem><para><ref refid="DATASET" kindref="compound">DATASET</ref> </para>
 </listitem></itemizedlist>
 </para>
 </sect5></sect4></sect3></sect2></sect1>
