@@ -189,4 +189,4 @@ This page lists BASIC error messages and what they mean.
 | up_value_expr: Out of memory!                                                 | Expression evaluation failed because memory could not be allocated.          |
 
 **See also:**
-\ref BASIC_BEGINNER "Beginners' Tutorial" · \ref ON_ERROR "ON ERROR"
+\ref BASIC_BEGINNER "Beginners' Tutorial" · \ref ON-ERROR "ON ERROR"
