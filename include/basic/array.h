@@ -287,3 +287,5 @@ bool basic_push_int_array(const char* var, int64_t push_pos, struct basic_ctx* c
  * @return True if successful, false otherwise.
  */
 bool basic_push_double_array(const char* var, int64_t push_pos, struct basic_ctx* ctx);
+
+void arrayfind_statement(struct basic_ctx* ctx);

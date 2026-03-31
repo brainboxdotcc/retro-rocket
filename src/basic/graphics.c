@@ -61,6 +61,72 @@ static int sprite_swizzle_and_mask_rgba(sprite_t* s, const unsigned char* rgba)
 	return 1;
 }
 
+static bool sprite_rotate_90_clockwise(struct basic_ctx* ctx, sprite_t* s)
+{
+	if (ctx == NULL || s == NULL) {
+		return false;
+	}
+
+	if (s->pixels == NULL || s->mask == NULL) {
+		return false;
+	}
+
+	if (s->width <= 0 || s->height <= 0) {
+		return false;
+	}
+
+	if (s->gif_data != NULL || s->frame_count > 1) {
+		return false;
+	}
+
+	int64_t old_w = s->width;
+	int64_t old_h = s->height;
+	int64_t new_w = old_h;
+	int64_t new_h = old_w;
+
+	uint64_t count64 = (uint64_t)new_w * (uint64_t)new_h;
+	if (count64 == 0) {
+		return false;
+	}
+
+	if (count64 > ((uint64_t)~(size_t)0 / sizeof(uint32_t))) {
+		return false;
+	}
+
+	size_t bytes = (size_t)count64 * sizeof(uint32_t);
+
+	uint32_t* new_pixels = buddy_malloc(ctx->allocator, bytes);
+	if (new_pixels == NULL) {
+		return false;
+	}
+
+	uint32_t* new_mask = buddy_malloc(ctx->allocator, bytes);
+	if (new_mask == NULL) {
+		buddy_free(ctx->allocator, new_pixels);
+		return false;
+	}
+
+	for (int64_t y = 0; y < old_h; ++y) {
+		for (int64_t x = 0; x < old_w; ++x) {
+			int64_t new_x = old_h - 1 - y;
+			int64_t new_y = x;
+
+			new_pixels[new_y * new_w + new_x] = s->pixels[y * old_w + x];
+			new_mask[new_y * new_w + new_x] = s->mask[y * old_w + x];
+		}
+	}
+
+	buddy_free(ctx->allocator, s->pixels);
+	buddy_free(ctx->allocator, s->mask);
+
+	s->pixels = new_pixels;
+	s->mask = new_mask;
+	s->width = new_w;
+	s->height = new_h;
+
+	return true;
+}
+
 /* Cheap GIF container scan: counts frames without decoding LZW. */
 static int gif_count_frames_and_size(const unsigned char *p, size_t len, int *lw, int *lh)
 {
@@ -1375,3 +1441,101 @@ int64_t basic_spriteheight(struct basic_ctx* ctx)
 
 	return s->height;
 }
+
+void rotate_statement(struct basic_ctx* ctx)
+{
+	accept_or_return(ROTATE, ctx);
+	int64_t sprite_handle = expr(ctx);
+	accept_or_return(NEWLINE, ctx);
+
+	sprite_t* s = get_sprite(ctx, sprite_handle);
+	if (s == NULL) {
+		tokenizer_error_print(ctx, "Invalid sprite handle");
+		return;
+	}
+
+	if (s->gif_data != NULL || s->frame_count > 1) {
+		tokenizer_error_print(ctx, "ROTATE does not support animated sprites");
+		return;
+	}
+
+	if (!sprite_rotate_90_clockwise(ctx, s)) {
+		tokenizer_error_print(ctx, "Unable to rotate sprite");
+	}
+}
+
+static bool sprite_row_to_int_array(struct basic_ctx* ctx, sprite_t* s, int64_t y, const char* varname)
+{
+	if (ctx == NULL || s == NULL || varname == NULL) {
+		return false;
+	}
+
+	if (!valid_int_var(varname)) {
+		tokenizer_error_printf(ctx, "Malformed variable name '%s'", varname);
+		return false;
+	}
+
+	if (s->pixels == NULL) {
+		tokenizer_error_print(ctx, "Sprite has no pixel data");
+		return false;
+	}
+
+	if (s->width <= 0 || s->height <= 0) {
+		tokenizer_error_print(ctx, "Sprite has invalid dimensions");
+		return false;
+	}
+
+	if (y < 0 || y >= s->height) {
+		tokenizer_error_printf(ctx, "Sprite row %ld out of bounds [0..%ld]", y, s->height - 1);
+		return false;
+	}
+
+	if (varname_is_string_array_access(ctx, varname) || varname_is_double_array_access(ctx, varname)) {
+		tokenizer_error_printf(ctx, "Variable '%s' already exists as non-integer array type", varname);
+		return false;
+	}
+
+	if (!varname_is_int_array_access(ctx, varname)) {
+		if (!basic_dim_int_array(varname, s->width, ctx)) {
+			return false;
+		}
+	} else {
+		if (!basic_redim_int_array(varname, s->width, ctx)) {
+			return false;
+		}
+	}
+
+	const uint32_t* src = s->pixels + ((size_t)y * (size_t)s->width);
+
+	for (int64_t x = 0; x < s->width; ++x) {
+		basic_set_int_array_variable(varname, x, src[x], ctx);
+		if (ctx->errored) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
+void spriterow_statement(struct basic_ctx* ctx)
+{
+	accept_or_return(SPRITEROW, ctx);
+	int64_t sprite_handle = expr(ctx);
+	accept_or_return(COMMA, ctx);
+	int64_t y = expr(ctx);
+	accept_or_return(COMMA, ctx);
+
+	size_t var_length;
+	const char* varname = tokenizer_variable_name(ctx, &var_length);
+	accept_or_return(VARIABLE, ctx);
+	accept_or_return(NEWLINE, ctx);
+
+	sprite_t* s = get_sprite(ctx, sprite_handle);
+	if (s == NULL) {
+		tokenizer_error_print(ctx, "Invalid sprite handle");
+		return;
+	}
+
+	sprite_row_to_int_array(ctx, s, y, varname);
+}
+

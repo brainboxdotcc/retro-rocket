@@ -23,6 +23,7 @@ var searchData=
   ['rmdir_2emd_20',['rmdir.md',['../rmdir_8md.html',1,'']]],
   ['rnd_2emd_21',['RND.md',['../RND_8md.html',1,'']]],
   ['rocketsh_2emd_22',['rocketsh.md',['../rocketsh_8md.html',1,'']]],
-  ['round_2emd_23',['ROUND.md',['../ROUND_8md.html',1,'']]],
-  ['rtrim_2emd_24',['RTRIM.md',['../RTRIM_8md.html',1,'']]]
+  ['rotate_2emd_23',['ROTATE.md',['../ROTATE_8md.html',1,'']]],
+  ['round_2emd_24',['ROUND.md',['../ROUND_8md.html',1,'']]],
+  ['rtrim_2emd_25',['RTRIM.md',['../RTRIM_8md.html',1,'']]]
 ];

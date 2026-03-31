@@ -40,6 +40,7 @@ The following parameter types are used throughout this documentation:
 ### Keyword Index
 
 * \subpage ANIMATE
+* \subpage ARRAYFIND
 * \subpage AUTOFLIP
 * \subpage BACKGROUND
 * \subpage BINREAD
@@ -122,6 +123,7 @@ The following parameter types are used throughout this documentation:
 * \subpage RESTORE
 * \subpage RETURN
 * \subpage RMDIR
+* \subpage ROTATE
 * \subpage SCROLLREGION
 * \subpage SETTIMEZONE
 * \subpage SETVARI
@@ -138,6 +140,7 @@ The following parameter types are used throughout this documentation:
 * \subpage SOUND
 * \subpage SPRITEFREE
 * \subpage SPRITELOAD
+* \subpage SPRITEROW
 * \subpage STREAM
 * \subpage TRIANGLE
 * \subpage UDPBIND

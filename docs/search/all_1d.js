@@ -45,7 +45,7 @@ var searchData=
   ['url_24_20postdata_24_42',['PROChttp_post(url$, postdata$)',['../http.html#prochttp_posturl-postdata',1,'']]],
   ['url_24_20putdata_24_43',['PROChttp_put(url$, putdata$)',['../http.html#prochttp_puturl-putdata',1,'']]],
   ['usage_44',['Usage',['../init.html#usage',1,'Usage'],['../servertest.html#usage-1',1,'Usage'],['../ssltest.html#usage-2',1,'Usage'],['../tree.html#usage-3',1,'Usage'],['../udptest.html#usage-4',1,'Usage'],['../webserver.html#usage-5',1,'Usage']]],
-  ['usage_45',['Typical usage',['../STREAM.html#typical-usage',1,'']]],
+  ['usage_45',['usage',['../ARRAYFIND.html#typical-usage',1,'Typical usage'],['../STREAM.html#typical-usage-1',1,'Typical usage']]],
   ['usage_20example_46',['Usage example',['../SOUND.html#usage-example',1,'']]],
   ['usage_20notes_47',['Behaviour and usage notes',['../SPRITELOAD.html#behaviour-and-usage-notes',1,'']]],
   ['usb_20image_20usb_20stick_48',['Writing the USB Image (USB stick)',['../creating-boot-media.html#writing-the-usb-image-usb-stick',1,'']]],

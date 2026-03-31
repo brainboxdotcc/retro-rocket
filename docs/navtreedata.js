@@ -32,7 +32,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "ABS.html",
-"about.html"
+"YDAY.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

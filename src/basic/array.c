@@ -738,3 +738,269 @@ void pop_statement(struct basic_ctx* ctx)
 	}
 }
 
+static bool ensure_int_result_array(const char* varname, int64_t size, struct basic_ctx* ctx)
+{
+	if (varname_is_string_array_access(ctx, varname) || varname_is_double_array_access(ctx, varname)) {
+		tokenizer_error_printf(ctx, "Variable '%s' already exists as non-integer array type", varname);
+		return false;
+	}
+
+	if (!varname_is_int_array_access(ctx, varname)) {
+		return basic_dim_int_array(varname, size, ctx);
+	}
+
+	return basic_redim_int_array(varname, size, ctx);
+}
+
+static bool basic_arrayfind_int(const char* source, int64_t needle, const char* dest, const char* count_var, struct basic_ctx* ctx)
+{
+	struct ub_var_int_array* cur = ctx->int_array_variables;
+
+	for (; cur; cur = cur->next) {
+		if (!strcmp(source, cur->varname)) {
+			int64_t matches = 0;
+
+			for (uint64_t i = 0; i < cur->itemcount; ++i) {
+				if (cur->values[i] == needle) {
+					matches++;
+				}
+			}
+
+			basic_set_int_variable(count_var, matches, ctx, false, false);
+			if (ctx->errored) {
+				return false;
+			}
+
+			if (matches < 1) {
+				if (!ensure_int_result_array(dest, 1, ctx)) {
+					return false;
+				}
+				basic_set_int_array_variable(dest, 0, -1, ctx);
+				return !ctx->errored;
+			}
+
+			if (!ensure_int_result_array(dest, matches, ctx)) {
+				return false;
+			}
+
+			int64_t out = 0;
+
+			for (uint64_t i = 0; i < cur->itemcount; ++i) {
+				if (cur->values[i] == needle) {
+					basic_set_int_array_variable(dest, out, i, ctx);
+					if (ctx->errored) {
+						return false;
+					}
+					out++;
+				}
+			}
+
+			return true;
+		}
+	}
+
+	tokenizer_error_printf(ctx, "No such array variable '%s'", source);
+	return false;
+}
+
+static bool basic_arrayfind_double(const char* source, double needle, const char* dest, const char* count_var, struct basic_ctx* ctx)
+{
+	struct ub_var_double_array* cur = ctx->double_array_variables;
+
+	for (; cur; cur = cur->next) {
+		if (!strcmp(source, cur->varname)) {
+			int64_t matches = 0;
+
+			for (uint64_t i = 0; i < cur->itemcount; ++i) {
+				if (cur->values[i] == needle) {
+					matches++;
+				}
+			}
+
+			basic_set_int_variable(count_var, matches, ctx, false, false);
+			if (ctx->errored) {
+				return false;
+			}
+
+			if (matches < 1) {
+				if (!ensure_int_result_array(dest, 1, ctx)) {
+					return false;
+				}
+				basic_set_int_array_variable(dest, 0, -1, ctx);
+				return !ctx->errored;
+			}
+
+			if (!ensure_int_result_array(dest, matches, ctx)) {
+				return false;
+			}
+
+			int64_t out = 0;
+
+			for (uint64_t i = 0; i < cur->itemcount; ++i) {
+				if (cur->values[i] == needle) {
+					basic_set_int_array_variable(dest, out, i, ctx);
+					if (ctx->errored) {
+						return false;
+					}
+					out++;
+				}
+			}
+
+			return true;
+		}
+	}
+
+	tokenizer_error_printf(ctx, "No such array variable '%s'", source);
+	return false;
+}
+
+static bool basic_arrayfind_string(const char* source, const char* needle, const char* dest, const char* count_var, struct basic_ctx* ctx)
+{
+	struct ub_var_string_array* cur = ctx->string_array_variables;
+
+	for (; cur; cur = cur->next) {
+		if (!strcmp(source, cur->varname)) {
+			int64_t matches = 0;
+
+			for (uint64_t i = 0; i < cur->itemcount; ++i) {
+				const char* value = cur->values[i] ? cur->values[i] : "";
+				if (!strcmp(value, needle)) {
+					matches++;
+				}
+			}
+
+			basic_set_int_variable(count_var, matches, ctx, false, false);
+			if (ctx->errored) {
+				return false;
+			}
+
+			if (matches < 1) {
+				if (!ensure_int_result_array(dest, 1, ctx)) {
+					return false;
+				}
+				basic_set_int_array_variable(dest, 0, -1, ctx);
+				return !ctx->errored;
+			}
+
+			if (!ensure_int_result_array(dest, matches, ctx)) {
+				return false;
+			}
+
+			int64_t out = 0;
+
+			for (uint64_t i = 0; i < cur->itemcount; ++i) {
+				const char* value = cur->values[i] ? cur->values[i] : "";
+				if (!strcmp(value, needle)) {
+					basic_set_int_array_variable(dest, out, i, ctx);
+					if (ctx->errored) {
+						return false;
+					}
+					out++;
+				}
+			}
+
+			return true;
+		}
+	}
+
+	tokenizer_error_printf(ctx, "No such array variable '%s'", source);
+	return false;
+}
+
+void arrayfind_statement(struct basic_ctx* ctx)
+{
+	accept_or_return(ARRAYFIND, ctx);
+
+	size_t src_length;
+	const char* source = tokenizer_variable_name(ctx, &src_length);
+	accept_or_return(VARIABLE, ctx);
+	accept_or_return(COMMA, ctx);
+
+	if (varname_is_int_array_access(ctx, source)) {
+		int64_t needle = expr(ctx);
+		accept_or_return(COMMA, ctx);
+
+		size_t dest_length;
+		const char* dest = tokenizer_variable_name(ctx, &dest_length);
+		accept_or_return(VARIABLE, ctx);
+		accept_or_return(COMMA, ctx);
+
+		size_t count_length;
+		const char* count_var = tokenizer_variable_name(ctx, &count_length);
+		accept_or_return(VARIABLE, ctx);
+		accept_or_return(NEWLINE, ctx);
+
+		if (!strcmp(source, dest)) {
+			tokenizer_error_print(ctx, "Source and destination arrays must differ");
+			return;
+		}
+
+		if (!strcmp(source, count_var) || !strcmp(dest, count_var)) {
+			tokenizer_error_print(ctx, "Count variable must differ from source and destination");
+			return;
+		}
+
+		basic_arrayfind_int(source, needle, dest, count_var, ctx);
+		return;
+	}
+
+	if (varname_is_double_array_access(ctx, source)) {
+		double needle = 0;
+		double_expr(ctx, &needle);
+
+		accept_or_return(COMMA, ctx);
+
+		size_t dest_length;
+		const char* dest = tokenizer_variable_name(ctx, &dest_length);
+		accept_or_return(VARIABLE, ctx);
+		accept_or_return(COMMA, ctx);
+
+		size_t count_length;
+		const char* count_var = tokenizer_variable_name(ctx, &count_length);
+		accept_or_return(VARIABLE, ctx);
+		accept_or_return(NEWLINE, ctx);
+
+		if (!strcmp(source, dest)) {
+			tokenizer_error_print(ctx, "Source and destination arrays must differ");
+			return;
+		}
+
+		if (!strcmp(source, count_var) || !strcmp(dest, count_var)) {
+			tokenizer_error_print(ctx, "Count variable must differ from source and destination");
+			return;
+		}
+
+		basic_arrayfind_double(source, needle, dest, count_var, ctx);
+		return;
+	}
+
+	if (varname_is_string_array_access(ctx, source)) {
+		const char* needle = str_expr(ctx);
+		accept_or_return(COMMA, ctx);
+
+		size_t dest_length;
+		const char* dest = tokenizer_variable_name(ctx, &dest_length);
+		accept_or_return(VARIABLE, ctx);
+		accept_or_return(COMMA, ctx);
+
+		size_t count_length;
+		const char* count_var = tokenizer_variable_name(ctx, &count_length);
+		accept_or_return(VARIABLE, ctx);
+		accept_or_return(NEWLINE, ctx);
+
+		if (!strcmp(source, dest)) {
+			tokenizer_error_print(ctx, "Source and destination arrays must differ");
+			return;
+		}
+
+		if (!strcmp(source, count_var) || !strcmp(dest, count_var)) {
+			tokenizer_error_print(ctx, "Count variable must differ from source and destination");
+			return;
+		}
+
+		basic_arrayfind_string(source, needle, dest, count_var, ctx);
+		return;
+	}
+
+	tokenizer_error_printf(ctx, "No such array variable '%s'", source);
+}

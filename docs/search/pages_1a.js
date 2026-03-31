@@ -80,12 +80,13 @@ var searchData=
   ['rocketsh_77',['More about rocketsh',['../desktop-shell.html#more-about-rocketsh',1,'']]],
   ['rocketsh_20command_20shell_78',['rocketsh Command (Shell)',['../rocketsh.html',1,'commands']]],
   ['rocketsh_20variables_79',['Rocketsh Variables',['../rocketsh.html#rocketsh-variables',1,'']]],
-  ['round_20function_80',['ROUND Function',['../ROUND.html',1,'real-funcs']]],
-  ['routing_81',['IRQ to GSI Routing',['../interrupts.html#irq-to-gsi-routing',1,'']]],
-  ['rtrim_24_20function_82',['RTRIM$ Function',['../RTRIM.html',1,'string-funcs']]],
-  ['rules_20and_20behaviour_83',['Rules and behaviour',['../DEF.html#rules-and-behaviour',1,'']]],
-  ['rules_20behaviour_84',['Rules behaviour',['../ELSE.html#rules--behaviour',1,'Rules &amp; behaviour'],['../ENDPROC.html#rules--behaviour-1',1,'Rules &amp; behaviour']]],
-  ['run_85',['run',['../troubleshooting.html#programs-wont-run',1,'Programs won’t run'],['../rocketsh.html#run',1,'run']]],
-  ['running_20programs_86',['Running programs',['../working-with-programs.html#running-programs',1,'']]],
-  ['runtime_3a_20statements_20yield_87',['Cooperative runtime: statements yield',['../basic-intdev.html#cooperative-runtime-statements-yield',1,'']]]
+  ['rotate_20keyword_80',['ROTATE Keyword',['../ROTATE.html',1,'keywords']]],
+  ['round_20function_81',['ROUND Function',['../ROUND.html',1,'real-funcs']]],
+  ['routing_82',['IRQ to GSI Routing',['../interrupts.html#irq-to-gsi-routing',1,'']]],
+  ['rtrim_24_20function_83',['RTRIM$ Function',['../RTRIM.html',1,'string-funcs']]],
+  ['rules_20and_20behaviour_84',['Rules and behaviour',['../DEF.html#rules-and-behaviour',1,'']]],
+  ['rules_20behaviour_85',['Rules behaviour',['../ELSE.html#rules--behaviour',1,'Rules &amp; behaviour'],['../ENDPROC.html#rules--behaviour-1',1,'Rules &amp; behaviour']]],
+  ['run_86',['run',['../troubleshooting.html#programs-wont-run',1,'Programs won’t run'],['../rocketsh.html#run',1,'run']]],
+  ['running_20programs_87',['Running programs',['../working-with-programs.html#running-programs',1,'']]],
+  ['runtime_3a_20statements_20yield_88',['Cooperative runtime: statements yield',['../basic-intdev.html#cooperative-runtime-statements-yield',1,'']]]
 ];

@@ -1,6 +1,7 @@
 var keywords =
 [
     [ "ANIMATE Keyword", "ANIMATE.html", null ],
+    [ "ARRAYFIND Keyword", "ARRAYFIND.html", null ],
     [ "AUTOFLIP Keyword", "AUTOFLIP.html", null ],
     [ "BACKGROUND Keyword", "BACKGROUND.html", null ],
     [ "BINREAD Statement", "BINREAD.html", null ],
@@ -83,6 +84,7 @@ var keywords =
     [ "RESTORE Keyword", "RESTORE.html", null ],
     [ "RETURN Keyword", "RETURN.html", null ],
     [ "RMDIR Keyword", "RMDIR.html", null ],
+    [ "ROTATE Keyword", "ROTATE.html", null ],
     [ "SCROLLREGION Keyword", "SCROLLREGION.html", null ],
     [ "SETTIMEZONE Keyword", "SETTIMEZONE.html", null ],
     [ "SETVARI Keyword", "SETVARI.html", null ],
@@ -99,6 +101,7 @@ var keywords =
     [ "SOUND Keyword", "SOUND.html", null ],
     [ "SPRITEFREE Keyword", "SPRITEFREE.html", null ],
     [ "SPRITELOAD Keyword", "SPRITELOAD.html", null ],
+    [ "SPRITEROW Keyword", "SPRITEROW.html", null ],
     [ "STREAM Keyword", "STREAM.html", null ],
     [ "TRIANGLE Keyword", "TRIANGLE.html", null ],
     [ "UDPBIND Keyword", "UDPBIND.html", null ],

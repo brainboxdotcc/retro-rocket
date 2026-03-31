@@ -163,3 +163,7 @@ int64_t basic_spritewidth(struct basic_ctx* ctx);
  * @return Sprite height in pixels, or 0 on error.
  */
 int64_t basic_spriteheight(struct basic_ctx* ctx);
+
+void rotate_statement(struct basic_ctx* ctx);
+
+void spriterow_statement(struct basic_ctx* ctx);

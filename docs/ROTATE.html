@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=11">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Retro Rocket OS: ENVELOPE Keyword</title>
+    <title>Retro Rocket OS: ROTATE Keyword</title>
     <link href="tabs.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -16,7 +16,7 @@
     <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-    <meta name="title" content="ENVELOPE Keyword - Retro Rocket OS">
+    <meta name="title" content="ROTATE Keyword - Retro Rocket OS">
     <meta name="description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="author" content="Retro Rocket Developers">
     <meta name="robots" content="index, follow">
@@ -24,7 +24,7 @@
     <meta name="theme-color" content="#0b0f14">
     <link rel="icon" href="rr.png">
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="ENVELOPE Keyword - Retro Rocket OS">
+    <meta property="og:title" content="ROTATE Keyword - Retro Rocket OS">
     <meta property="og:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://retrorocket.dev/">
@@ -32,7 +32,7 @@
     <meta property="og:image:alt" content="Retro Rocket OS running on a retro-style desktop">
     <meta property="og:site_name" content="Retro Rocket OS">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="ENVELOPE Keyword - Retro Rocket OS">
+    <meta name="twitter:title" content="ROTATE Keyword - Retro Rocket OS">
     <meta name="twitter:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="twitter:image" content="https://retrorocket.dev/leader4.png">
     <link rel="preload" as="image" href="https://retrorocket.dev/leader4.png">
@@ -94,7 +94,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('ENVELOPE.html','',''); });
+$(function(){initNavTree('ROTATE.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -120,110 +120,65 @@ $(function(){initNavTree('ENVELOPE.html','',''); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">ENVELOPE Keyword </div></div>
+  <div class="headertitle"><div class="title">ROTATE Keyword </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">ENVELOPE CREATE n,wave,volume,pulse_width,attack,decay,sustain,release,vibrato_depth,vibrato_rate,glide,pwm_rate,pwm_depth</div>
-<div class="line">ENVELOPE DESTROY n</div>
-</div><!-- fragment --><p>Defines or removes a stored <b>sound envelope</b>.</p>
-<p>An <em>envelope</em> describes how a generated tone evolves over time - its loudness, pitch, and timbre changes. This allows Retro Rocket to act like a very simple synthesiser, much like the BBC Micro’s classic sound system, but with added flexibility.</p>
+<div class="textblock"><div class="fragment"><div class="line">ROTATE sprite-handle</div>
+</div><!-- fragment --><p>Rotates a sprite <b>90 degrees clockwise in-place</b>.</p>
+<p>The sprite’s <b>pixel data and mask</b> are rotated, and its <b>width and height are updated accordingly</b>.</p>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="create"></a>
-CREATE</h3>
-<p>Creates or replaces an envelope in slot <span class="tt">n</span> (0–63). The envelope can then be used by <span class="tt">SOUND TONE</span> to shape generated notes.</p>
-<h4 class="doxsection"><a class="anchor" id="parameters"></a>
-Parameters:</h4>
-<ul>
-<li><b>n</b> - Envelope index (0–63). A slot number that lets you store multiple different sound shapes and pick between them.</li>
-<li><b>wave</b> - Base waveform type: the raw “tone colour.”<ul>
-<li><span class="tt">0</span> = square - harsh and “beepy,” like an old 8-bit computer.</li>
-<li><span class="tt">1</span> = sine - smooth and pure, like a flute.</li>
-<li><span class="tt">2</span> = sawtooth - bright and buzzy, common in synth leads.</li>
-<li><span class="tt">3</span> = triangle - softer, hollow-sounding.</li>
-<li><span class="tt">4</span> = noise - random hiss, used for percussion and effects.</li>
-</ul>
-</li>
-<li><b>volume</b> - Base loudness (0–255). Higher numbers = louder.</li>
-<li><b>pulse_width</b> - For square waves only: controls how long the “on” part of the wave lasts in each cycle.<ul>
-<li>128 = 50% duty cycle = classic square.</li>
-<li>Lower values = thinner, “nasal” sound.</li>
-<li>Ignored for other waveforms.</li>
-</ul>
-</li>
-<li><b>attack</b> - How fast the sound rises from silence to full volume when a note starts.<ul>
-<li>Short attack = instant click or pluck.</li>
-<li>Long attack = gradual swell.</li>
-</ul>
-</li>
-<li><b>decay</b> - After the peak, how quickly the sound drops down to the sustain level.<ul>
-<li>Short decay = sharp, percussive.</li>
-<li>Long decay = smoother, fading into sustain.</li>
-</ul>
-</li>
-<li><b>sustain</b> - The level (0–255) held while the key/note is pressed.<ul>
-<li>High sustain = sound keeps strong.</li>
-<li>Low sustain = sound fades to a faint background.</li>
-</ul>
-</li>
-<li><b>release</b> - How long the note takes to fade back to silence after it ends.<ul>
-<li>Short release = abrupt cut-off.</li>
-<li>Long release = lingering echo.</li>
-</ul>
-</li>
-<li><b>vibrato_depth</b> - How far the pitch wobbles up and down.<ul>
-<li>Measured in cents (100 = one semitone).</li>
-<li>Small depth = gentle shimmer; large = dramatic warble.</li>
-</ul>
-</li>
-<li><b>vibrato_rate</b> - How fast the vibrato wobble happens (Hz = cycles per second).</li>
-<li><b>glide</b> - Portamento: how long it takes to slide from one note’s pitch to the next.<ul>
-<li>Short glide = nearly instant jump.</li>
-<li>Long glide = smooth slide between notes.</li>
-</ul>
-</li>
-<li><b>pwm_rate</b> - Speed of pulse-width modulation (Hz). Only affects square waves. Creates a “chorus-like” movement.</li>
-<li><b>pwm_depth</b> - How much the pulse width is swept back and forth (0–255).<ul>
-<li>Small depth = subtle shimmer.</li>
-<li>Large depth = dramatic, hollow sweep.</li>
-</ul>
-</li>
-</ul>
-<p>Together, these controls let you create sounds ranging from short plucks to smooth pads, or classic “SID-style” chiptune effects.</p>
-<h4 class="doxsection"><a class="anchor" id="visual-example"></a>
-Visual example</h4>
-<p>The blue line shows the amplitude (the technical term for volume, the height of the waveform) of the sound over time, with time being the X axis the Y being the volume (amplitude)</p>
-<div class="dotgraph">
-<iframe scrolling="no" loading="lazy" frameborder="0" src="dot_inline_dotgraph_1.svg" width="966" height="323"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-<hr  />
-<h3 class="doxsection"><a class="anchor" id="destroy"></a>
-DESTROY</h3>
-<p>Removes an envelope from slot <span class="tt">n</span> (0–63), freeing it for reuse.</p>
-<hr  />
-<h3 class="doxsection"><a class="anchor" id="example-15"></a>
-Example</h3>
-<div class="fragment"><div class="line">&#39; Envelope 0: simple organ tone</div>
-<div class="line">ENVELOPE CREATE 0,0,255,128,5,50,200,200,0,0,0,0,0</div>
+<h5 class="doxsection"><a class="anchor" id="examples-173"></a>
+Examples</h5>
+<p><b>Basic usage</b></p>
+<div class="fragment"><div class="line">SPRITELOAD S,&quot;/images/ship.gif&quot;</div>
+<div class="line">PRINT SPRITEWIDTH(S),SPRITEHEIGHT(S)</div>
 <div class="line"> </div>
-<div class="line">&#39; Envelope 1: slow sine pad</div>
-<div class="line">ENVELOPE CREATE 1,1,200,0,500,300,180,800,0,0,0,0,0</div>
+<div class="line">ROTATE S</div>
 <div class="line"> </div>
-<div class="line">&#39; Play notes with the defined envelopes</div>
-<div class="line">STREAM CREATE s</div>
-<div class="line">SOUND TONE s,440,100,0   &#39; A4 with organ</div>
-<div class="line">SOUND TONE s,220,200,1   &#39; A3 with sine pad</div>
+<div class="line">PRINT SPRITEWIDTH(S),SPRITEHEIGHT(S)</div>
 </div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-146"></a>
-Notes</h3>
+<p><b>Multiple rotations</b></p>
+<div class="fragment"><div class="line">SPRITELOAD S,&quot;/images/enemy.gif&quot;</div>
+<div class="line"> </div>
+<div class="line">ROTATE S    &#39; 90 degrees</div>
+<div class="line">ROTATE S    &#39; 180 degrees</div>
+<div class="line">ROTATE S    &#39; 270 degrees</div>
+<div class="line">ROTATE S    &#39; back to original orientation</div>
+</div><!-- fragment --><hr  />
+<p><b>Preparing a level image</b></p>
+<div class="fragment"><div class="line">SPRITELOAD LEVEL,&quot;/levels/level1.gif&quot;</div>
+<div class="line"> </div>
+<div class="line">ROTATE LEVEL</div>
+</div><!-- fragment --><p>After rotation, rows of the sprite can be treated as <b>time slices</b> using <a class="el" href="SPRITEROW.html">SPRITEROW</a>.</p>
+<hr  />
+<h5 class="doxsection"><a class="anchor" id="notes-177"></a>
+Notes</h5>
 <ul>
-<li>Envelopes are stored in slots, numbered 0–63. Each BASIC program has its own 63 slots.</li>
-<li>Each <a class="el" href="SOUND.html">SOUND</a> TONE` may optionally use an envelope, or omit te envelope number to play a raw, simple square wave.</li>
-<li>Unlike sampled sounds (<a class="el" href="SOUND.html">SOUND</a> LOAD, SOUND PLAY), tones are generated on the fly and do not consume memory.</li>
-<li>You can create expressive, evolving sounds by experimenting with different waveforms and envelope timings.</li>
+<li>Rotation is <b>clockwise only</b></li>
+<li>Each call rotates the sprite by <b>90 degrees</b></li>
+<li>The sprite’s dimensions are updated:<ul>
+<li>new width = previous height</li>
+<li>new height = previous width</li>
+</ul>
+</li>
+<li>Rotation modifies the sprite <b>permanently</b> (until reloaded)</li>
+<li>Both <b>pixel data and transparency mask</b> are rotated</li>
+<li><b>Animated sprites are not supported</b> and will raise a runtime error</li>
+<li>Works on any loaded sprite with valid pixel data</li>
 </ul>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="see-also-5"></a>
-See also</h3>
-<p><a class="el" href="SOUND.html">SOUND</a> · <a class="el" href="STREAM.html">STREAM</a> </p>
+<h5 class="doxsection"><a class="anchor" id="behaviour-summary"></a>
+Behaviour summary</h5>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Before  </th><th class="markdownTableHeadNone">After ROTATE  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">width = W  </td><td class="markdownTableBodyNone">width = H  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">height = H  </td><td class="markdownTableBodyNone">height = W  </td></tr>
+</table>
+<hr  />
+<p><b>See also:</b> <a class="el" href="SPRITELOAD.html">SPRITELOAD</a> <a class="el" href="SPRITEROW.html">SPRITEROW</a> <a class="el" href="SPRITEWIDTH.html">SPRITEWIDTH</a> <a class="el" href="SPRITEHEIGHT.html">SPRITEHEIGHT</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

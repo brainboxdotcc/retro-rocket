@@ -120,6 +120,9 @@ hljs.registerLanguage('rrbasic', function(hljs) {
         'RESET',
         'MATCH',
         'DATASET',
+        'ROTATE',
+        'SPRITEROW',
+        'ARRAYFIND',
     ];
 
     const literal_list = [
@@ -346,7 +349,8 @@ function detect_language(text) {
         "SETVARR","SETVARS","SPRITELOAD","SPRITEFREE","PLOT","AUTOFLIP",
         "FLIP","KEYMAP","MOUNT","SETTIMEZONE","ENDIF","PLOTQUAD","ON",
         "OFF","WHILE","ENDWHILE","SLEEP","CONTINUE","MODLOAD","MODUNLOAD",
-        "STREAM","CREATE","DESTROY","SOUND","PLAY","STOP","LOAD","UNLOAD"
+        "STREAM","CREATE","DESTROY","SOUND","PLAY","STOP","LOAD","UNLOAD",
+        "ROTATE", "SPRITEROW", "ARRAYFIND"
     ]);
 
     const builtins = new Set([
