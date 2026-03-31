@@ -275,7 +275,7 @@ This combines:
 
 ## 11) Stopping a program
 
-Press **ESC** to stop a running program.
+Press **CTRL+ESC** to stop a running program.
 
 Think of this like pulling the plug if something keeps running longer than you expected.
 
