@@ -231,7 +231,7 @@ Here:
 Open the editor:
 
 ```basic
-edit hello
+edit
 ```
 
 Type:
