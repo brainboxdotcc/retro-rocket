@@ -240,7 +240,7 @@ Type:
 PRINT "Hello from a file"
 ```
 
-Press **Ctrl+S**, save the file as `/ramdisk/hello` then leave the editor.
+Press **Ctrl+S**, save the file as `/ramdisk/hello` then leave the editor by pressing `ESC`.
 
 Run it from the prompt:
 
@@ -248,7 +248,7 @@ Run it from the prompt:
 /ramdisk/hello
 ```
 
-Saving is like writing your instructions down on paper so you can run them again later without retyping them.
+This example saves to the __ramdisk__, and will remain there until you reboot your computer.
 
 ## 10) Small project
 
