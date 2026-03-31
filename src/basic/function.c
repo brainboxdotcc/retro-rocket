@@ -6,6 +6,27 @@
 
 extern bool debug;
 
+/**
+ * @brief Maximum time an atomic FN evaluation may run for.
+ *
+ * BASIC is only pre-empted between lines. An expression containing one or more
+ * FN calls must therefore be evaluated as a single atomic unit, because an FN
+ * may execute arbitrary BASIC before returning a value.
+ *
+ * For example, in:
+ *
+ * A = FNfoo(1, C, 3) + FNbar(4, 5, B)
+ *
+ * the whole expression, including any code executed inside FNfoo() and FNbar(),
+ * must complete without yielding. Splitting evaluation partway through a line
+ * would require substantially more complex interpreter state management.
+ *
+ * This limit is a safety fuse for pathological cases such as accidental infinite
+ * loops or unexpectedly expensive FN bodies. It is not a normal runtime budget,
+ * and well-behaved code should complete far faster than this.
+ */
+#define ATOMIC_MAX_MS 250
+
 struct basic_int_fn builtin_int[] =
 {
 	{ basic_abs,                 "ABS"               },
@@ -253,6 +274,7 @@ const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx)
 		memcpy(&proc, proc_cur(logical_cpu_id()), sizeof(process_t));
 		proc.code = atomic;
 		atomic->proc = &proc;
+		uint64_t start = get_ticks();
 		while (!basic_finished(atomic)) {
 			if (proc.check_idle && proc.check_idle(&proc, proc.idle_context)) {
 				__builtin_ia32_pause();
@@ -263,6 +285,10 @@ const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx)
 			if (atomic->errored) {
 				ctx->errored = true;
 				ctx->ended = atomic->ended;
+				break;
+			}
+			if (get_ticks() - start > ATOMIC_MAX_MS) {
+				tokenizer_error_printf(ctx, "FN%s: atomic function timed out", fn_name);
 				break;
 			}
 		}
@@ -378,6 +404,7 @@ int64_t basic_eval_int_fn(const char* fn_name, struct basic_ctx* ctx)
 		memcpy(&proc, proc_cur(logical_cpu_id()), sizeof(process_t));
 		proc.code = atomic;
 		atomic->proc = &proc;
+		uint64_t start = get_ticks();
 		while (!basic_finished(atomic)) {
 			if (proc.check_idle && proc.check_idle(&proc, proc.idle_context)) {
 				__builtin_ia32_pause();
@@ -389,6 +416,10 @@ int64_t basic_eval_int_fn(const char* fn_name, struct basic_ctx* ctx)
 				ctx->errored = true;
 				ctx->ended = atomic->ended;
 				dprintf("Function errored, atomic->ended=%d\n", atomic->ended);
+				break;
+			}
+			if (get_ticks() - start > ATOMIC_MAX_MS) {
+				tokenizer_error_printf(ctx, "FN%s: atomic function timed out", fn_name);
 				break;
 			}
 		}
@@ -446,6 +477,7 @@ void basic_eval_double_fn(const char* fn_name, struct basic_ctx* ctx, double* re
 		memcpy(&proc, proc_cur(logical_cpu_id()), sizeof(process_t));
 		proc.code = atomic;
 		atomic->proc = &proc;
+		uint64_t start = get_ticks();
 		while (!basic_finished(atomic)) {
 			if (proc.check_idle && proc.check_idle(&proc, proc.idle_context)) {
 				__builtin_ia32_pause();
@@ -456,6 +488,10 @@ void basic_eval_double_fn(const char* fn_name, struct basic_ctx* ctx, double* re
 			if (atomic->errored) {
 				ctx->errored = true;
 				ctx->ended = atomic->ended;
+				break;
+			}
+			if (get_ticks() - start > ATOMIC_MAX_MS) {
+				tokenizer_error_printf(ctx, "FN%s: atomic function timed out", fn_name);
 				break;
 			}
 		}

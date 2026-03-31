@@ -1,6 +1,6 @@
 /**
  * @file timer.h
- * @brief Timer and delay functions (APIC-driven, 100 Hz tick rate).
+ * @brief Timer and delay functions (APIC-driven, 1000 Hz tick rate).
  *
  * Timers are based on the Local APIC timer, running at a fixed
  * resolution of 1/100th of a second (10 ms). A global tick counter
@@ -36,7 +36,7 @@ static inline uint64_t rdtsc(void) {
  * @brief Sleep until the next timer tick.
  *
  * Returns once the global tick counter advances by at least one.
- * This is approximately a 10 ms delay at 100 Hz.
+ * This is approximately a 10 ms delay at 1000 Hz.
  */
 void sleep_one_tick(void);
 
@@ -76,7 +76,7 @@ void sleep(uint64_t milliseconds);
 /**
  * @brief Get the current global tick count.
  *
- * Incremented by the Local APIC timer interrupt at 100 Hz.
+ * Incremented by the Local APIC timer interrupt at 1000 Hz.
  *
  * @return Number of ticks since timer initialisation.
  */
@@ -85,7 +85,7 @@ uint64_t get_ticks(void);
 /**
  * @brief Timer interrupt callback.
  *
- * Invoked by the Local APIC (or PIT fallback) at 100 Hz. Increments
+ * Invoked by the Local APIC (or PIT fallback) at 1000 Hz. Increments
  * the global tick counter, executes registered idle timer callbacks,
  * auto-flips the framebuffer if enabled, and handles PC speaker timeouts.
  *
