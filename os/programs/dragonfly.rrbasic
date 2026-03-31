@@ -7,6 +7,7 @@ LIBRARY LIB$ + "/dragonfly/parallax"
 LIBRARY LIB$ + "/dragonfly/explosions"
 LIBRARY LIB$ + "/dragonfly/hud"
 LIBRARY LIB$ + "/dragonfly/audio"
+LIBRARY LIB$ + "/dragonfly/levels"
 
 CLS
 GCOL 0
@@ -14,7 +15,8 @@ AUTOFLIP FALSE
 
 game_ticks = 0
 frame_len = 0
-PROCl1_parallax()
+PROCload_level(1)
+PROCload_parallax(1)
 PROCmusic_start()
 REPEAT
     game_ticks = FNframe(game_ticks)
@@ -24,8 +26,8 @@ END
 
 DEF FNframe(game_ticks)
     start = TICKS
-    PROCl1_scroll_parallax()
-    PROCl1_draw_parallax_rear()
+    PROCscroll_parallax()
+    PROCdraw_parallax_rear()
     PROCmove_player_ship()
     PROCmove_bullets()
     PROCmove_enemies()
@@ -38,7 +40,7 @@ DEF FNframe(game_ticks)
     PROCdraw_enemies()
     PROCdraw_player_ship()
     PROCdraw_explosions()
-    PROCl1_draw_parallax_front()
+    PROCdraw_parallax_front()
     PROCdraw_hud()
     frame_len = TICKS - start
     FLIP

@@ -14,6 +14,8 @@ DEF PROCenemies()
     DIM enemy_sprite, enemy_max
 
     DIM enemy_graphic, 4
+    DIM enemy_colours, 4
+    ENEMY_TYPE_COUNT = 3
 
     SPRITELOAD enemy1, "/images/dragonfly/enemy1.png"
     SPRITELOAD enemy2, "/images/dragonfly/enemy2.png"
@@ -22,6 +24,10 @@ DEF PROCenemies()
     enemy_graphic(1) = enemy1
     enemy_graphic(2) = enemy2
     enemy_graphic(3) = enemy3
+
+    enemy_colours(1) = &FFFF0000 ' Red
+    enemy_colours(2) = &FF00FF00 ' Green
+    enemy_colours(3) = &FF0000FF ' Blue
 ENDPROC
 
 DEF PROCalloc_enemy(type, enemy_x_pos, enemy_y_pos)
@@ -73,9 +79,7 @@ DEF PROCfree_enemy(enemy_index)
 ENDPROC
 
 DEF PROCmove_enemies()
-    IF (INKEY$("1") <> "") AND (game_ticks % 10 = 0) THEN PROCalloc_enemy(1, GRAPHICS_WIDTH, GRAPHICS_HEIGHT / 2)
-    IF (INKEY$("2") <> "") AND (game_ticks % 10 = 0) THEN PROCalloc_enemy(2, GRAPHICS_WIDTH, GRAPHICS_HEIGHT / 2)
-    IF (INKEY$("3") <> "") AND (game_ticks % 10 = 0) THEN PROCalloc_enemy(3, GRAPHICS_WIDTH, GRAPHICS_HEIGHT / 2)
+    PROCdo_spawns(game_ticks)
     IF enemies_count = 0 THEN ENDPROC
     FOR enemy_index = enemies_count - 1 TO 0 STEP -1
         PROCmove_enemy(enemy_index)

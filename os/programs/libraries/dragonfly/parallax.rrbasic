@@ -1,9 +1,14 @@
 DEF PROCparallax()
 ENDPROC
 
-DEF PROCl1_parallax()
-    L1_PARALLAX_WIDTH = 1014
-    L1_PARALLAX_HEIGHT = 180
+DEF PROCload_parallax(level)
+    SPRITELOAD background1, "/images/dragonfly/background" + STR$(level) + ".png"
+    SPRITELOAD l1_parallax_lower, "/images/dragonfly/level" + STR$(level) + "_parallax_lower.png"
+    SPRITELOAD l1_parallax_middle, "/images/dragonfly/level" + STR$(level) + "_parallax_middle.png"
+    SPRITELOAD l1_parallax_front, "/images/dragonfly/level" + STR$(level) + "_parallax_front.png"
+
+    L1_PARALLAX_WIDTH = SPRITEWIDTH(l1_parallax_lower)
+    L1_PARALLAX_HEIGHT = SPRITEHEIGHT(l1_parallax_lower)
 
     L1_PARALLAX_Y = GRAPHICS_HEIGHT - L1_PARALLAX_HEIGHT
 
@@ -15,13 +20,9 @@ DEF PROCl1_parallax()
     l1_middle_speed = 6
     l1_front_speed = 9
 
-    SPRITELOAD background1, "/images/dragonfly/background1.png"
-    SPRITELOAD l1_parallax_lower, "/images/dragonfly/level1_parallax_lower.png"
-    SPRITELOAD l1_parallax_middle, "/images/dragonfly/level1_parallax_middle.png"
-    SPRITELOAD l1_parallax_front, "/images/dragonfly/level1_parallax_front.png"
 ENDPROC
 
-DEF PROCl1_scroll_parallax()
+DEF PROCscroll_parallax()
     l1_lower_x = l1_lower_x - l1_lower_speed
     l1_middle_x = l1_middle_x - l1_middle_speed
     l1_front_x = l1_front_x - l1_front_speed
@@ -33,7 +34,7 @@ DEF PROCl1_scroll_parallax()
     PLOT background1, 0, 0
 ENDPROC
 
-DEF PROCl1_draw_parallax_rear()
+DEF PROCdraw_parallax_rear()
     PLOT l1_parallax_lower, l1_lower_x, L1_PARALLAX_Y
     PLOT l1_parallax_lower, l1_lower_x + L1_PARALLAX_WIDTH, L1_PARALLAX_Y
 
@@ -44,7 +45,7 @@ DEF PROCl1_draw_parallax_rear()
     PLOT l1_parallax_front, l1_front_x + L1_PARALLAX_WIDTH, L1_PARALLAX_Y
 ENDPROC
 
-DEF PROCl1_draw_parallax_front()
+DEF PROCdraw_parallax_front()
     PLOT l1_parallax_front, l1_front_x, L1_PARALLAX_Y
     PLOT l1_parallax_front, l1_front_x + L1_PARALLAX_WIDTH, L1_PARALLAX_Y
 ENDPROC

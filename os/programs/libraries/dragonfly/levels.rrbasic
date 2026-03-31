@@ -1,0 +1,31 @@
+DEF PROClevels()
+ENDPROC
+
+DEF PROCload_level(level_number)
+    SPRITELOAD level_data, "/images/dragonfly/level" + STR$(level_number) + ".png"
+    ROTATE level_data
+    last_moment = 0
+ENDPROC
+
+DEF PROCunload_level()
+    SPRITEFREE level_data
+ENDPROC
+
+DEF FNlevel_ended(moment)
+= moment >= SPRITEHEIGHT(level_data)
+
+DEF PROCdo_spawns(moment)
+    row = moment / 4
+    IF row <= last_moment THEN ENDPROC
+    IF row >= SPRITEHEIGHT(level_data) THEN ENDPROC
+    SPRITEROW level_data, row, rowdata
+    last_moment = row
+    FOR e_type = 1 TO ENEMY_TYPE_COUNT
+        ARRAYFIND rowdata, enemy_colours(e_type), found_spawns, spawn_count
+        IF spawn_count > 0 THEN
+            FOR I = 0 TO spawn_count - 1
+                PROCalloc_enemy(e_type, GRAPHICS_WIDTH, found_spawns(I))
+            NEXT
+        ENDIF
+    NEXT
+ENDPROC
