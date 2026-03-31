@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="UPSECS" kind="page">
+    <compoundname>UPSECS</compoundname>
+    <title>UPSECS Function</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">UPSECS</highlight></codeline>
+</programlisting></para>
+<para>Returns the system <bold>uptime in seconds</bold>.</para>
+<para>The value represents how long the system has been running since it was started.</para>
+<para><hruler/>
+</para>
+<sect1 id="UPSECS_1examples-76_1s1"><sect2 id="UPSECS_1examples-76_1s2"><sect3 id="UPSECS_1examples-76">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Print<sp/>uptime<sp/>in<sp/>seconds</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Uptime<sp/>(seconds):<sp/>&quot;;<sp/>UPSECS</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Convert<sp/>uptime<sp/>to<sp/>minutes<sp/>and<sp/>seconds</highlight></codeline>
+<codeline><highlight class="normal">SECONDS<sp/>=<sp/>UPSECS</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Uptime:<sp/>&quot;;<sp/>SECONDS<sp/>/<sp/>60;<sp/>&quot;<sp/>minutes&quot;</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3></sect2></sect1>
+<sect1 id="UPSECS_1notes-73_1s1"><sect2 id="UPSECS_1notes-73_1s2"><sect3 id="UPSECS_1notes-73">
+<title>Notes</title><para><itemizedlist>
+<listitem><para>Returns a steadily increasing integer value starting from <bold>0</bold> at system boot.</para>
+</listitem><listitem><para>Resolution is <bold>seconds</bold>; sub-second precision is not provided.</para>
+</listitem><listitem><para>Suitable for simple timing, delays, and measuring elapsed time.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="TIME" kindref="compound">TIME</ref> · <ref refid="SLEEP" kindref="compound">SLEEP</ref> </para>
+</sect3></sect2></sect1>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/integer/UPSECS.md"/>
+  </compounddef>
+</doxygen>

@@ -11,7 +11,7 @@
 <para>Creates a <bold>RAM-backed block device and formats it as RetroFS</bold>. The parameter is the size of the new device in megabytes. Returns the device name on success.</para>
 <para><hruler/>
 </para>
-<sect1 id="EMPTYRAMDISK_1examples-96_1s1"><sect2 id="EMPTYRAMDISK_1examples-96_1s2"><sect3 id="EMPTYRAMDISK_1examples-96">
+<sect1 id="EMPTYRAMDISK_1examples-102_1s1"><sect2 id="EMPTYRAMDISK_1examples-102_1s2"><sect3 id="EMPTYRAMDISK_1examples-102">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Create<sp/>a<sp/>1GB<sp/>RetroFS<sp/>ramdisk</highlight></codeline>
 <codeline><highlight class="normal">RD$<sp/>=<sp/>EMPTYRAMDISK$(1024)</highlight></codeline>
 <codeline><highlight class="normal">MOUNT<sp/>&quot;/ramdisk&quot;,<sp/>RD$,<sp/>&quot;rfs&quot;</highlight></codeline>
@@ -20,7 +20,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="EMPTYRAMDISK_1notes-93_1s1"><sect2 id="EMPTYRAMDISK_1notes-93_1s2"><sect3 id="EMPTYRAMDISK_1notes-93">
+<sect1 id="EMPTYRAMDISK_1notes-99_1s1"><sect2 id="EMPTYRAMDISK_1notes-99_1s2"><sect3 id="EMPTYRAMDISK_1notes-99">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>The ram disk block size is always 512</para>
 </listitem><listitem><para>Device names are automatically assigned by the system (e.g. <computeroutput>&quot;ram0&quot;</computeroutput>, <computeroutput>&quot;ram1&quot;</computeroutput>).</para>

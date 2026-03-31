@@ -94,6 +94,9 @@ struct basic_int_fn builtin_int[] =
 	{ basic_spritewidth,         "SPRITEWIDTH"       },
 	{ basic_spriteheight,        "SPRITEHEIGHT"      },
 	{ basic_dataread,            "DATAREAD"          },
+	{ basic_ticks,               "TICKS"             },
+	{ basic_min,                 "MIN"               },
+	{ basic_max,                 "MAX"               },
 	{ NULL,                      NULL                },
 };
 
@@ -118,6 +121,8 @@ struct basic_double_fn builtin_double[] = {
 	{ basic_deg,           "DEG"       },
 	{ basic_rad,           "RAD"       },
 	{ basic_dataread_real, "DATAREADR" },
+	{ basic_minr,          "MINR"      },
+	{ basic_maxr,          "MAXR"      },
 	{ NULL,                NULL        },
 };
 
@@ -257,6 +262,7 @@ const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx)
 			line_statement(atomic);
 			if (atomic->errored) {
 				ctx->errored = true;
+				ctx->ended = atomic->ended;
 				break;
 			}
 		}
@@ -381,6 +387,8 @@ int64_t basic_eval_int_fn(const char* fn_name, struct basic_ctx* ctx)
 			line_statement(atomic);
 			if (atomic->errored) {
 				ctx->errored = true;
+				ctx->ended = atomic->ended;
+				dprintf("Function errored, atomic->ended=%d\n", atomic->ended);
 				break;
 			}
 		}
@@ -447,6 +455,7 @@ void basic_eval_double_fn(const char* fn_name, struct basic_ctx* ctx, double* re
 			line_statement(atomic);
 			if (atomic->errored) {
 				ctx->errored = true;
+				ctx->ended = atomic->ended;
 				break;
 			}
 		}

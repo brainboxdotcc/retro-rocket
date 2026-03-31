@@ -38,3 +38,4 @@ The following functions return or manipulate **string values** in Retro Rocket B
 * \subpage UDPLASTIP
 * \subpage UDPREAD
 * \subpage UPPER
+* \subpage UPTIMES

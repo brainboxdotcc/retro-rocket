@@ -16,7 +16,7 @@
 </para>
 <para><hruler/>
 </para>
-<sect1 id="YDAY_1examples-75_1s1"><sect2 id="YDAY_1examples-75_1s2"><sect3 id="YDAY_1examples-75">
+<sect1 id="YDAY_1examples-79_1s1"><sect2 id="YDAY_1examples-79_1s2"><sect3 id="YDAY_1examples-79">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>&quot;Local<sp/>day<sp/>of<sp/>year<sp/>=<sp/>&quot;;<sp/>YDAY(TRUE)</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;UTC<sp/>day<sp/>of<sp/>year<sp/><sp/><sp/>=<sp/>&quot;;<sp/>YDAY(FALSE)</highlight></codeline>
 </programlisting></para>
@@ -33,7 +33,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="YDAY_1notes-72_1s1"><sect2 id="YDAY_1notes-72_1s2"><sect3 id="YDAY_1notes-72">
+<sect1 id="YDAY_1notes-76_1s1"><sect2 id="YDAY_1notes-76_1s2"><sect3 id="YDAY_1notes-76">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Valid range is <bold>1–365</bold> for common years, <bold>1–366</bold> for leap years.</para>
 </listitem><listitem><para>Local time depends on system configuration. Without time zone setup, local and UTC values are the same.</para>

@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="MIN" kind="page">
+    <compoundname>MIN</compoundname>
+    <title>MIN Function</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">MIN(a,<sp/>b)</highlight></codeline>
+</programlisting></para>
+<para>Returns the <bold>smaller</bold> of two integer values.</para>
+<para><hruler/>
+</para>
+<sect1 id="MIN_1examples-47_1s1"><sect2 id="MIN_1examples-47_1s2"><sect3 id="MIN_1examples-47">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Simple<sp/>comparison</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>MIN(10,<sp/>5)</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Clamp<sp/>a<sp/>value<sp/>to<sp/>a<sp/>maximum</highlight></codeline>
+<codeline><highlight class="normal">VALUE<sp/>=<sp/>120</highlight></codeline>
+<codeline><highlight class="normal">VALUE<sp/>=<sp/>MIN(VALUE,<sp/>100)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>VALUE</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Use<sp/>in<sp/>an<sp/>expression</highlight></codeline>
+<codeline><highlight class="normal">A<sp/>=<sp/>42</highlight></codeline>
+<codeline><highlight class="normal">B<sp/>=<sp/>17</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Smallest<sp/>is<sp/>&quot;;<sp/>MIN(A,<sp/>B)</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3></sect2></sect1>
+<sect1 id="MIN_1notes-46_1s1"><sect2 id="MIN_1notes-46_1s2"><sect3 id="MIN_1notes-46">
+<title>Notes</title><para><itemizedlist>
+<listitem><para>Both parameters must be <bold>integer expressions</bold>.</para>
+</listitem><listitem><para>Returns whichever value is lower.</para>
+</listitem><listitem><para>Commonly used for clamping values or enforcing limits.</para>
+</listitem><listitem><para>For real values, use <ref refid="MINR" kindref="compound">MINR</ref></para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="MAX" kindref="compound">MAX</ref> · <ref refid="ABS" kindref="compound">ABS</ref> </para>
+</sect3></sect2></sect1>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/integer/MIN.md"/>
+  </compounddef>
+</doxygen>

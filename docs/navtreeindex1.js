@@ -1,5 +1,12 @@
 var NAVTREEINDEX1 =
 {
+"about.html":[0,0,7,0],
+"ansi.html":[0,1,6,0],
+"apple.html":[0,0,7,1],
+"audio-basics.html":[0,1,4],
+"bach.html":[0,0,7,2],
+"ball.html":[0,0,7,3],
+"basic-beginner.html":[0,1,0],
 "basic-intdev.html":[0,1,8],
 "basic-ref.html":[0,1],
 "bootflow.html":[0,2,0],

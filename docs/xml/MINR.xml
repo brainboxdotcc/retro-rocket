@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="MINR" kind="page">
+    <compoundname>MINR</compoundname>
+    <title>MINR Function</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">MINR(a,<sp/>b)</highlight></codeline>
+</programlisting></para>
+<para>Returns the <bold>smaller</bold> of two real values.</para>
+<para><hruler/>
+</para>
+<sect1 id="MINR_1examples-92_1s1"><sect2 id="MINR_1examples-92_1s2"><sect3 id="MINR_1examples-92">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Simple<sp/>comparison</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>MINR(3.5,<sp/>7.2)</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Clamp<sp/>a<sp/>value<sp/>to<sp/>a<sp/>maximum</highlight></codeline>
+<codeline><highlight class="normal">VALUE#<sp/>=<sp/>5.75</highlight></codeline>
+<codeline><highlight class="normal">VALUE#<sp/>=<sp/>MINR(VALUE#,<sp/>3.0)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>VALUE#</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Use<sp/>in<sp/>an<sp/>expression</highlight></codeline>
+<codeline><highlight class="normal">A#<sp/>=<sp/>2.75</highlight></codeline>
+<codeline><highlight class="normal">B#<sp/>=<sp/>2.80</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Smallest<sp/>is<sp/>&quot;;<sp/>MINR(A#,<sp/>B#)</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3></sect2></sect1>
+<sect1 id="MINR_1notes-89_1s1"><sect2 id="MINR_1notes-89_1s2"><sect3 id="MINR_1notes-89">
+<title>Notes</title><para><itemizedlist>
+<listitem><para>Both parameters must be <bold>real expressions</bold>.</para>
+</listitem><listitem><para>Returns whichever value is lower.</para>
+</listitem><listitem><para>Commonly used for clamping values or enforcing upper bounds with real numbers.</para>
+</listitem><listitem><para>For integer values, use <ref refid="MIN" kindref="compound">MIN</ref>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="MIN" kindref="compound">MIN</ref> · <ref refid="MAXR" kindref="compound">MAXR</ref> · <ref refid="ABS" kindref="compound">ABS</ref> </para>
+</sect3></sect2></sect1>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/real/MINR.md"/>
+  </compounddef>
+</doxygen>

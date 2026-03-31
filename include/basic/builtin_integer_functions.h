@@ -164,3 +164,7 @@ int64_t basic_hexval(struct basic_ctx* ctx);
  * @return The integer equivalent of the octal string
  */
 int64_t basic_octval(struct basic_ctx* ctx);
+
+int64_t basic_min(struct basic_ctx* ctx);
+
+int64_t basic_max(struct basic_ctx* ctx);

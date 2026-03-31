@@ -330,6 +330,7 @@ void tokenizer_error_print(struct basic_ctx* ctx, const char* error)
 				set_video_auto_flip(true);
 			}
 			ctx->ended = true;
+			ctx->errored = true;
 			setforeground(COLOUR_LIGHTRED);
 			kprintf("Error on line %ld: %s\n", ctx->current_linenum, error);
 			setforeground(COLOUR_DARKRED);

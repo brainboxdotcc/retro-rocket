@@ -11,7 +11,7 @@
 <para>Performs a <bold>bitwise shift left</bold> operation on an integer. The first parameter is the value to shift, the second is the number of bit positions.</para>
 <para><hruler/>
 </para>
-<sect1 id="SHL_1examples-62_1s1"><sect2 id="SHL_1examples-62_1s2"><sect3 id="SHL_1examples-62">
+<sect1 id="SHL_1examples-64_1s1"><sect2 id="SHL_1examples-64_1s2"><sect3 id="SHL_1examples-64">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>SHL(1,<sp/>1)</highlight></codeline>
 </programlisting></para>
 <para>Produces <computeroutput>2</computeroutput> (<computeroutput>0001</computeroutput> → <computeroutput>0010</computeroutput>).</para>
@@ -25,7 +25,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="SHL_1notes-61_1s1"><sect2 id="SHL_1notes-61_1s2"><sect3 id="SHL_1notes-61">
+<sect1 id="SHL_1notes-63_1s1"><sect2 id="SHL_1notes-63_1s2"><sect3 id="SHL_1notes-63">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Operates on 64-bit integers.</para>
 </listitem><listitem><para>Shifting left by <computeroutput>n</computeroutput> positions is equivalent to multiplying by <computeroutput>2^n</computeroutput>.</para>

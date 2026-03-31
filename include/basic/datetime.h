@@ -103,6 +103,23 @@ char* basic_time(struct basic_ctx* ctx);
  */
 void settimezone_statement(struct basic_ctx* ctx);
 
+/**
+ * Get uptime as a string
+ * @param ctx
+ * @return
+ */
 char* basic_get_upstr(struct basic_ctx* ctx);
 
+/**
+ * @brief Get seconds since boot
+ * @param ctx
+ * @return
+ */
 int64_t basic_getupsecs(struct basic_ctx* ctx);
+
+/**
+ * @brief Get milliseconds since boot
+ * @param ctx
+ * @return
+ */
+int64_t basic_ticks(struct basic_ctx* ctx);

@@ -623,6 +623,10 @@ void sleep_statement(struct basic_ctx* ctx)
 		return;
 	}
 
+	if (sleep_length == 0) {
+		return;
+	}
+
 	if (ctx->sleep_until == 0) {
 		ctx->sleep_until = get_ticks() + sleep_length;
 		proc_set_idle(proc, check_sleep_in_progress, NULL);

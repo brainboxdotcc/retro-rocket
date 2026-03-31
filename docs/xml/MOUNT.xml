@@ -36,7 +36,7 @@
 If the mount fails (for example, unsupported <computeroutput>fstype</computeroutput> or unavailable device), a runtime error is raised (catchable with <computeroutput>ON ERROR</computeroutput>).</para>
 <para><hruler/>
 </para>
-<sect1 id="MOUNT_1examples-144_1s1"><sect2 id="MOUNT_1examples-144_1s2"><sect3 id="MOUNT_1examples-144">
+<sect1 id="MOUNT_1examples-151_1s1"><sect2 id="MOUNT_1examples-151_1s2"><sect3 id="MOUNT_1examples-151">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">MOUNT<sp/>&quot;/devices&quot;,<sp/>&quot;&quot;,<sp/>&quot;devfs&quot;</highlight></codeline>
 <codeline><highlight class="normal">MOUNT<sp/>&quot;/harddisk&quot;,<sp/>&quot;hd0&quot;,<sp/>&quot;fat32&quot;</highlight></codeline>
 </programlisting></para>

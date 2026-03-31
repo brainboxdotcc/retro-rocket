@@ -12,7 +12,7 @@
 <para>Note that a socket which is still in the process of connecting may return <computeroutput>FALSE</computeroutput>.</para>
 <para><hruler/>
 </para>
-<sect1 id="SOCKSTATUS_1examples-66_1s1"><sect2 id="SOCKSTATUS_1examples-66_1s2"><sect3 id="SOCKSTATUS_1examples-66">
+<sect1 id="SOCKSTATUS_1examples-68_1s1"><sect2 id="SOCKSTATUS_1examples-68_1s2"><sect3 id="SOCKSTATUS_1examples-68">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Attempt<sp/>to<sp/>connect<sp/>and<sp/>wait<sp/>until<sp/>established</highlight></codeline>
 <codeline><highlight class="normal">CONNECT<sp/>fd,<sp/>&quot;example.com&quot;,<sp/>80</highlight></codeline>
 <codeline><highlight class="normal">REPEAT</highlight></codeline>
@@ -29,7 +29,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="SOCKSTATUS_1notes-65_1s1"><sect2 id="SOCKSTATUS_1notes-65_1s2"><sect3 id="SOCKSTATUS_1notes-65">
+<sect1 id="SOCKSTATUS_1notes-67_1s1"><sect2 id="SOCKSTATUS_1notes-67_1s2"><sect3 id="SOCKSTATUS_1notes-67">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Returns a boolean value: <computeroutput>TRUE</computeroutput> (connected) or <computeroutput>FALSE</computeroutput> (not connected).</para>
 </listitem><listitem><para>A return of <computeroutput>FALSE</computeroutput> may indicate either “not yet connected” or “disconnected”.</para>

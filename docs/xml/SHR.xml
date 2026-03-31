@@ -11,7 +11,7 @@
 <para>Performs a <bold>bitwise shift right</bold> operation on an integer. The first parameter is the value to shift, the second is the number of bit positions.</para>
 <para><hruler/>
 </para>
-<sect1 id="SHR_1examples-63_1s1"><sect2 id="SHR_1examples-63_1s2"><sect3 id="SHR_1examples-63">
+<sect1 id="SHR_1examples-65_1s1"><sect2 id="SHR_1examples-65_1s2"><sect3 id="SHR_1examples-65">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>SHR(4,<sp/>1)</highlight></codeline>
 </programlisting></para>
 <para>Produces <computeroutput>2</computeroutput> (<computeroutput>0100</computeroutput> → <computeroutput>0010</computeroutput>).</para>
@@ -25,7 +25,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="SHR_1notes-62_1s1"><sect2 id="SHR_1notes-62_1s2"><sect3 id="SHR_1notes-62">
+<sect1 id="SHR_1notes-64_1s1"><sect2 id="SHR_1notes-64_1s2"><sect3 id="SHR_1notes-64">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Operates on 64-bit integers.</para>
 </listitem><listitem><para>Shifting right by <computeroutput>n</computeroutput> positions is equivalent to integer division by <computeroutput>2^n</computeroutput>.</para>

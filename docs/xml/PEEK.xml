@@ -23,7 +23,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="PEEK_1examples-52_1s1"><sect2 id="PEEK_1examples-52_1s2"><sect3 id="PEEK_1examples-52">
+<sect1 id="PEEK_1examples-54_1s1"><sect2 id="PEEK_1examples-54_1s2"><sect3 id="PEEK_1examples-54">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Read<sp/>three<sp/>consecutive<sp/>bytes</highlight></codeline>
 <codeline><highlight class="normal">BASE<sp/>=<sp/>&amp;100000</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>PEEK(BASE)</highlight></codeline>
@@ -37,7 +37,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="PEEK_1notes-51_1s1"><sect2 id="PEEK_1notes-51_1s2"><sect3 id="PEEK_1notes-51">
+<sect1 id="PEEK_1notes-53_1s1"><sect2 id="PEEK_1notes-53_1s2"><sect3 id="PEEK_1notes-53">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>The accessed range must be valid according to the boot-time memory map.</para>
 </listitem><listitem><para>Accessing device MMIO may have <bold>side effects</bold>.</para>

@@ -35,5 +35,6 @@ var string_funcs =
     [ "TRIM$ Function", "TRIM.html", null ],
     [ "UDPLASTIP$ Function", "UDPLASTIP.html", null ],
     [ "UDPREAD$ Function", "UDPREAD.html", null ],
-    [ "UPPER$ Function", "UPPER.html", null ]
+    [ "UPPER$ Function", "UPPER.html", null ],
+    [ "UPTIME$ Function", "UPTIMES.html", null ]
 ];

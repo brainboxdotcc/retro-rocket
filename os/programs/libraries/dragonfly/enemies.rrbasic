@@ -73,9 +73,9 @@ DEF PROCfree_enemy(enemy_index)
 ENDPROC
 
 DEF PROCmove_enemies()
-    IF (INKEY$("1") <> "") AND (ticks % 10 = 0) THEN PROCalloc_enemy(1, GRAPHICS_WIDTH, GRAPHICS_HEIGHT / 2)
-    IF (INKEY$("2") <> "") AND (ticks % 10 = 0) THEN PROCalloc_enemy(2, GRAPHICS_WIDTH, GRAPHICS_HEIGHT / 2)
-    IF (INKEY$("3") <> "") AND (ticks % 10 = 0) THEN PROCalloc_enemy(3, GRAPHICS_WIDTH, GRAPHICS_HEIGHT / 2)
+    IF (INKEY$("1") <> "") AND (game_ticks % 10 = 0) THEN PROCalloc_enemy(1, GRAPHICS_WIDTH, GRAPHICS_HEIGHT / 2)
+    IF (INKEY$("2") <> "") AND (game_ticks % 10 = 0) THEN PROCalloc_enemy(2, GRAPHICS_WIDTH, GRAPHICS_HEIGHT / 2)
+    IF (INKEY$("3") <> "") AND (game_ticks % 10 = 0) THEN PROCalloc_enemy(3, GRAPHICS_WIDTH, GRAPHICS_HEIGHT / 2)
     IF enemies_count = 0 THEN ENDPROC
     FOR enemy_index = enemies_count - 1 TO 0 STEP -1
         PROCmove_enemy(enemy_index)
@@ -122,13 +122,13 @@ ENDPROC
 
 DEF PROCmove_enemy_type_1(enemy_index)
     enemy_x(enemy_index) = enemy_x(enemy_index) - 5
-    IF ticks % 80 = 0 THEN PROCbullet_to_player(enemy_index, 4)
+    IF game_ticks % 80 = 0 THEN PROCbullet_to_player(enemy_index, 4)
 ENDPROC
 
 DEF PROCmove_enemy_type_2(enemy_index)
     enemy_x(enemy_index) = enemy_x(enemy_index) - 4
     enemy_y(enemy_index) = enemy_move_data(enemy_index) + SIN(enemy_move_timer(enemy_index) / 32.0) * 64.0
-    IF ticks % 50 = 0 THEN PROCbullet_to_player(enemy_index, 6)
+    IF game_ticks % 50 = 0 THEN PROCbullet_to_player(enemy_index, 6)
 ENDPROC
 
 DEF PROCmove_enemy_type_3(enemy_index)
@@ -137,7 +137,7 @@ DEF PROCmove_enemy_type_3(enemy_index)
         enemy_x(enemy_index) = enemy_x(enemy_index) - 6
     ELSE
         enemy_x(enemy_index) = enemy_x(enemy_index) - 2
-        IF (ticks % 20 = 0) AND (enemy_x(enemy_index) <= SHIP_X) AND (enemy_state(enemy_index) = ENEMY_STATE_ALIVE) THEN
+        IF (game_ticks % 20 = 0) AND (enemy_x(enemy_index) <= SHIP_X) AND (enemy_state(enemy_index) = ENEMY_STATE_ALIVE) THEN
             s = enemy_sprite(enemy_index)
             bx = enemy_x(enemy_index) + (SPRITEWIDTH(s) / 2)
             by = enemy_y(enemy_index) + (SPRITEHEIGHT(s) / 2)

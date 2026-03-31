@@ -12,6 +12,8 @@ var real_funcs =
     [ "FMOD Function", "FMOD.html", null ],
     [ "GETVARR Function", "GETVARR.html", null ],
     [ "LOG Function", "LOG.html", null ],
+    [ "MAXR Function", "MAXR.html", null ],
+    [ "MINR Function", "MINR.html", null ],
     [ "POW Function", "POW.html", null ],
     [ "RAD Function", "RAD.html", null ],
     [ "REALVAL Function", "REALVAL.html", null ],

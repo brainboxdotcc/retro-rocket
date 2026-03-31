@@ -22,7 +22,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="SOCKLISTEN_1examples-65_1s1"><sect2 id="SOCKLISTEN_1examples-65_1s2"><sect3 id="SOCKLISTEN_1examples-65">
+<sect1 id="SOCKLISTEN_1examples-67_1s1"><sect2 id="SOCKLISTEN_1examples-67_1s2"><sect3 id="SOCKLISTEN_1examples-67">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Listen<sp/>and<sp/>handle<sp/>one<sp/>connection</highlight></codeline>
 <codeline><highlight class="normal">srv<sp/>=<sp/>SOCKLISTEN(NETINFO$(&quot;ip&quot;),<sp/>2000,<sp/>5)</highlight></codeline>
 <codeline><highlight class="normal">PRINT<sp/>&quot;Socket<sp/>server<sp/>listening<sp/>on<sp/>port<sp/>2000&quot;</highlight></codeline>
@@ -39,7 +39,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="SOCKLISTEN_1notes-64_1s1"><sect2 id="SOCKLISTEN_1notes-64_1s2"><sect3 id="SOCKLISTEN_1notes-64">
+<sect1 id="SOCKLISTEN_1notes-66_1s1"><sect2 id="SOCKLISTEN_1notes-66_1s2"><sect3 id="SOCKLISTEN_1notes-66">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Binding to <computeroutput>&quot;0.0.0.0&quot;</computeroutput> (if supported) listens on all local interfaces.</para>
 </listitem><listitem><para><computeroutput>SOCKACCEPT</computeroutput> returns a new FD for each established connection; call repeatedly to drain the queue.</para>

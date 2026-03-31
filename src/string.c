@@ -201,7 +201,7 @@ const char* gc_strdup(basic_ctx* ctx, const char* string)
 	uint32_t len = strlen(string);
 	if (ctx->string_gc_storage_next + len + 1 > ctx->string_gc_storage + STRING_GC_AREA_SIZE) {
 		tokenizer_error_printf(ctx, "Out of string area allocator space storing '%s'", string);
-		return NULL;
+		return ctx->string_gc_storage; /* Always returns a sane value with sane input */
 	}
 	const char* result = ctx->string_gc_storage_next;
 	memcpy(ctx->string_gc_storage_next, string, len);

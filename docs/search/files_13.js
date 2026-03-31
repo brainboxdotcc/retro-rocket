@@ -9,5 +9,7 @@ var searchData=
   ['udpwrite_2emd_6',['UDPWRITE.md',['../UDPWRITE_8md.html',1,'']]],
   ['until_2emd_7',['UNTIL.md',['../UNTIL_8md.html',1,'']]],
   ['up_2emd_8',['up.md',['../up_8md.html',1,'']]],
-  ['upper_2emd_9',['UPPER.md',['../UPPER_8md.html',1,'']]]
+  ['upper_2emd_9',['UPPER.md',['../UPPER_8md.html',1,'']]],
+  ['upsecs_2emd_10',['UPSECS.md',['../UPSECS_8md.html',1,'']]],
+  ['uptimes_2emd_11',['UPTIMES.md',['../UPTIMES_8md.html',1,'']]]
 ];

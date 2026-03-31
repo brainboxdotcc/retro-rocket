@@ -204,3 +204,7 @@ void basic_rad(struct basic_ctx* ctx, double* res);
  * @param res Pointer to the result of the conversion.
  */
 void basic_realval(struct basic_ctx* ctx, double* res);
+
+void basic_minr(struct basic_ctx* ctx, double* res);
+
+void basic_maxr(struct basic_ctx* ctx, double* res);

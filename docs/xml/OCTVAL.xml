@@ -11,7 +11,7 @@
 <para>Returns the <bold>integer value</bold> of a string containing an <bold>octal number</bold>. The string must consist only of valid octal digits (<computeroutput>0–7</computeroutput>).</para>
 <para><hruler/>
 </para>
-<sect1 id="OCTVAL_1examples-48_1s1"><sect2 id="OCTVAL_1examples-48_1s2"><sect3 id="OCTVAL_1examples-48">
+<sect1 id="OCTVAL_1examples-50_1s1"><sect2 id="OCTVAL_1examples-50_1s2"><sect3 id="OCTVAL_1examples-50">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">PRINT<sp/>OCTVAL(&quot;10&quot;)</highlight></codeline>
 </programlisting></para>
 <para>Produces <computeroutput>8</computeroutput>.</para>
@@ -31,7 +31,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="OCTVAL_1notes-47_1s1"><sect2 id="OCTVAL_1notes-47_1s2"><sect3 id="OCTVAL_1notes-47">
+<sect1 id="OCTVAL_1notes-49_1s1"><sect2 id="OCTVAL_1notes-49_1s2"><sect3 id="OCTVAL_1notes-49">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Parsing is strict: only digits <computeroutput>0–7</computeroutput> are allowed.</para>
 </listitem><listitem><para>Returns a <bold>64-bit integer</bold>.</para>

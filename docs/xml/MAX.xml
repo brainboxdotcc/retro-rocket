@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="MAX" kind="page">
+    <compoundname>MAX</compoundname>
+    <title>MAX Function</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">MAX(a,<sp/>b)</highlight></codeline>
+</programlisting></para>
+<para>Returns the <bold>larger</bold> of two integer values.</para>
+<para><hruler/>
+</para>
+<sect1 id="MAX_1examples-40_1s1"><sect2 id="MAX_1examples-40_1s2"><sect3 id="MAX_1examples-40">
+<title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Simple<sp/>comparison</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>MAX(10,<sp/>5)</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Clamp<sp/>a<sp/>value<sp/>to<sp/>a<sp/>minimum</highlight></codeline>
+<codeline><highlight class="normal">VALUE<sp/>=<sp/>-10</highlight></codeline>
+<codeline><highlight class="normal">VALUE<sp/>=<sp/>MAX(VALUE,<sp/>0)</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>VALUE</highlight></codeline>
+</programlisting></para>
+<para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Use<sp/>in<sp/>an<sp/>expression</highlight></codeline>
+<codeline><highlight class="normal">A<sp/>=<sp/>42</highlight></codeline>
+<codeline><highlight class="normal">B<sp/>=<sp/>17</highlight></codeline>
+<codeline><highlight class="normal">PRINT<sp/>&quot;Largest<sp/>is<sp/>&quot;;<sp/>MAX(A,<sp/>B)</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect3></sect2></sect1>
+<sect1 id="MAX_1notes-39_1s1"><sect2 id="MAX_1notes-39_1s2"><sect3 id="MAX_1notes-39">
+<title>Notes</title><para><itemizedlist>
+<listitem><para>Both parameters must be <bold>integer expressions</bold>.</para>
+</listitem><listitem><para>Returns whichever value is higher.</para>
+</listitem><listitem><para>Commonly used for clamping values or enforcing lower bounds.</para>
+</listitem><listitem><para>For real values, use <ref refid="MAXR" kindref="compound">MAXR</ref>.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<para><bold>See also:</bold> <ref refid="MIN" kindref="compound">MIN</ref> · <ref refid="ABS" kindref="compound">ABS</ref> </para>
+</sect3></sect2></sect1>
+    </detaileddescription>
+    <location file="docpages/basic-language-reference/functions/integer/MAX.md"/>
+  </compounddef>
+</doxygen>

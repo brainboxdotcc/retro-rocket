@@ -43,12 +43,14 @@ The following functions operate on or return **integer values** in Retro Rocket 
 * \subpage LCPUID
 * \subpage LEN
 * \subpage LGETLASTCPUID
+* \subpage MAX
 * \subpage MEMALLOC
 * \subpage MEMFREE
 * \subpage MEMORY
 * \subpage MEMPEAK
 * \subpage MEMPROGRAM
 * \subpage MEMUSED
+* \subpage MIN
 * \subpage MINUTE
 * \subpage MONTH
 * \subpage OCTVAL
@@ -76,7 +78,9 @@ The following functions operate on or return **integer values** in Retro Rocket 
 * \subpage SOCKSTATUS
 * \subpage TERMHEIGHT
 * \subpage TERMWIDTH
+* \subpage TICKS
 * \subpage UDPLASTSOURCEPORT
+* \subpage UPSECS
 * \subpage VAL
 * \subpage WEEKDAY
 * \subpage YDAY

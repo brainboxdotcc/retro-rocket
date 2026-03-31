@@ -110,7 +110,12 @@ static up_value up_factor(struct basic_ctx *ctx) {
 			}
 			/* IMPORTANT: do NOT consume a ')' here; that belongs to the caller (e.g., func args). */
 			accept(STRING, ctx);
-			return up_make_str(gc_strdup(ctx, string));
+			const char* sv = gc_strdup(ctx, string);
+			if (!sv) {
+				tokenizer_error_print(ctx, "up_factor: Out of memory!");
+				return up_make_str("");
+			}
+			return up_make_str(sv);
 		}
 		case VARIABLE: {
 			size_t L;
@@ -344,7 +349,12 @@ static up_value up_value_expr(struct basic_ctx *ctx) {
 			if (rhs.v.s) {
 				strlcat(tmp, rhs.v.s, sizeof(tmp));
 			}
-			acc = up_make_str(gc_strdup(ctx, tmp));
+			const char* sv = gc_strdup(ctx, tmp);
+			if (!sv) {
+				tokenizer_error_print(ctx, "up_value_expr: Out of memory!");
+				return acc;
+			}
+			acc = up_make_str(sv);
 			continue;
 		}
 

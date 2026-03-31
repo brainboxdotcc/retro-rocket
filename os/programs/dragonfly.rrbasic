@@ -12,17 +12,18 @@ CLS
 GCOL 0
 AUTOFLIP FALSE
 
-ticks = 0
+game_ticks = 0
+frame_len = 0
 PROCl1_parallax()
 PROCmusic_start()
 REPEAT
-    ticks = FNframe(ticks)
-    SLEEP 16 ' 60fps
+    game_ticks = FNframe(game_ticks)
 UNTIL (INKEY$(CHR$(27)) <> "") OR (INKEY$("") = CHR$(27))
 CLS
 END
 
-DEF FNframe(ticks)
+DEF FNframe(game_ticks)
+    start = TICKS
     PROCl1_scroll_parallax()
     PROCl1_draw_parallax_rear()
     PROCmove_player_ship()
@@ -39,5 +40,7 @@ DEF FNframe(ticks)
     PROCdraw_explosions()
     PROCl1_draw_parallax_front()
     PROCdraw_hud()
+    frame_len = TICKS - start
     FLIP
-= ticks + 1
+    SLEEP MAX(0, 16 - frame_len)
+= game_ticks + 1

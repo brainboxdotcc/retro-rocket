@@ -37,6 +37,50 @@ void basic_realval(struct basic_ctx* ctx, double* res)
 	return;
 }
 
+void basic_minr(struct basic_ctx* ctx, double* res)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_DOUBLE);
+	double m1 = doubleval;
+	PARAMS_GET_ITEM(BIP_DOUBLE);
+	double m2 = doubleval;
+	PARAMS_END_VOID("MINR");
+	*res = MIN(m1, m2);
+}
+
+void basic_maxr(struct basic_ctx* ctx, double* res)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_DOUBLE);
+	double m1 = doubleval;
+	PARAMS_GET_ITEM(BIP_DOUBLE);
+	double m2 = doubleval;
+	PARAMS_END_VOID("MAXR");
+	*res = MAX(m1, m2);
+}
+
+int64_t basic_min(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_DOUBLE);
+	double m1 = doubleval;
+	PARAMS_GET_ITEM(BIP_DOUBLE);
+	double m2 = doubleval;
+	PARAMS_END("MIN", 0);
+	return MIN(m1, m2);
+}
+
+int64_t basic_max(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_DOUBLE);
+	double m1 = doubleval;
+	PARAMS_GET_ITEM(BIP_DOUBLE);
+	double m2 = doubleval;
+	PARAMS_END("MAX", 0);
+	return MAX(m1, m2);
+}
+
 void basic_tan(struct basic_ctx* ctx, double* res)
 {
 	PARAMS_START;

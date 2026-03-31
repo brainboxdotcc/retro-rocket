@@ -24,7 +24,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="SOCKACCEPT_1examples-64_1s1"><sect2 id="SOCKACCEPT_1examples-64_1s2"><sect3 id="SOCKACCEPT_1examples-64">
+<sect1 id="SOCKACCEPT_1examples-66_1s1"><sect2 id="SOCKACCEPT_1examples-66_1s2"><sect3 id="SOCKACCEPT_1examples-66">
 <title>Examples</title><para><programlisting filename=".basic"><codeline><highlight class="normal">REM<sp/>Minimal<sp/>accept<sp/>loop</highlight></codeline>
 <codeline><highlight class="normal">server<sp/>=<sp/>SOCKLISTEN(NETINFO$(&quot;ip&quot;),<sp/>2000,<sp/>5)</highlight></codeline>
 <codeline><highlight class="normal">IF<sp/>server<sp/>&lt;<sp/>0<sp/>THEN<sp/>PRINT<sp/>&quot;Listen<sp/>failed&quot;:<sp/>END</highlight></codeline>
@@ -43,7 +43,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="SOCKACCEPT_1notes-63_1s1"><sect2 id="SOCKACCEPT_1notes-63_1s2"><sect3 id="SOCKACCEPT_1notes-63">
+<sect1 id="SOCKACCEPT_1notes-65_1s1"><sect2 id="SOCKACCEPT_1notes-65_1s2"><sect3 id="SOCKACCEPT_1notes-65">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Returns <computeroutput>-1</computeroutput> when no established connection is available; try again later.</para>
 </listitem><listitem><para>Each successful call returns a <bold>new</bold> client descriptor; the server remains listening.</para>
