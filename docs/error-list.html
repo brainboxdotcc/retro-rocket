@@ -130,21 +130,21 @@ $(function(){initNavTree('error-list.html','',''); });
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">ACS argument out of range (-1..1)  </td><td class="markdownTableBodyNone">ACS was given a value outside its valid range.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Array '%s' already dimensioned  </td><td class="markdownTableBodyNone">The array has already been created with DIM.  </td></tr>
+<td class="markdownTableBodyNone">Array 'array_name' already dimensioned  </td><td class="markdownTableBodyNone">The array has already been created with DIM.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Array '%s': Out of memory  </td><td class="markdownTableBodyNone">There was not enough memory to create or resize the array.  </td></tr>
+<td class="markdownTableBodyNone">Array 'array_name': Out of memory  </td><td class="markdownTableBodyNone">There was not enough memory to create or resize the array.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Array index %ld out of bounds  </td><td class="markdownTableBodyNone">An array index was outside the valid range.  </td></tr>
+<td class="markdownTableBodyNone">Array index index_value out of bounds  </td><td class="markdownTableBodyNone">An array index was outside the valid range.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Array index %ld out of bounds [0..%ld]  </td><td class="markdownTableBodyNone">An array index was outside the valid range shown.  </td></tr>
+<td class="markdownTableBodyNone">Array index index_value out of bounds [0..max_index]  </td><td class="markdownTableBodyNone">An array index was outside the valid range shown.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Array subscripts cannot be negative  </td><td class="markdownTableBodyNone">An array index below zero was used.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Array too small for PUSH [0..%ld]  </td><td class="markdownTableBodyNone">PUSH needs more room than the array has.  </td></tr>
+<td class="markdownTableBodyNone">Array too small for PUSH [0..max_index]  </td><td class="markdownTableBodyNone">PUSH needs more room than the array has.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">ASN argument out of range (-1..1)  </td><td class="markdownTableBodyNone">ASN was given a value outside its valid range.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Bad Address at &amp;%016lx  </td><td class="markdownTableBodyNone">A memory access used an invalid address.  </td></tr>
+<td class="markdownTableBodyNone">Bad Address at &amp;hex_address  </td><td class="markdownTableBodyNone">A memory access used an invalid address.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Bad string literal  </td><td class="markdownTableBodyNone">A string constant is malformed.  </td></tr>
 <tr class="markdownTableRowOdd">
@@ -162,7 +162,7 @@ $(function(){initNavTree('error-list.html','',''); });
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Call stack depth exceeded  </td><td class="markdownTableBodyNone">Too many nested calls were made.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Call stack exhausted when calling constructor PROC for library '%s'  </td><td class="markdownTableBodyNone">The library constructor could not be called because the call stack was full.  </td></tr>
+<td class="markdownTableBodyNone">Call stack exhausted when calling constructor PROC for library 'library_file'  </td><td class="markdownTableBodyNone">The library constructor could not be called because the call stack was full.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Can't ENDPROC from a FN  </td><td class="markdownTableBodyNone">ENDPROC was used inside a function.  </td></tr>
 <tr class="markdownTableRowEven">
@@ -182,7 +182,7 @@ $(function(){initNavTree('error-list.html','',''); });
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Division by zero  </td><td class="markdownTableBodyNone">A division or modulus used zero as the divisor.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Duplicate function name '%s'  </td><td class="markdownTableBodyNone">A DEF FN or DEF PROC name was defined more than once.  </td></tr>
+<td class="markdownTableBodyNone">Duplicate function name 'function_name'  </td><td class="markdownTableBodyNone">A DEF FN or DEF PROC name was defined more than once.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">EMPTYRAMDISK$ / RAMDISK$ formatting errors  </td><td class="markdownTableBodyNone">The ramdisk could not be created or formatted.  </td></tr>
 <tr class="markdownTableRowEven">
@@ -200,21 +200,21 @@ $(function(){initNavTree('error-list.html','',''); });
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Error allocating string buffer  </td><td class="markdownTableBodyNone">Memory could not be allocated for a string buffer.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Error reading PROC and FN definitons from library file '%s'  </td><td class="markdownTableBodyNone">Function or procedure definitions could not be read from the library.  </td></tr>
+<td class="markdownTableBodyNone">Error reading PROC and FN definitions from library file 'library_file'  </td><td class="markdownTableBodyNone">Function or procedure definitions could not be read from the library.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Error reading from file: %s  </td><td class="markdownTableBodyNone">A file read failed.  </td></tr>
+<td class="markdownTableBodyNone">Error reading from file: file_error_message  </td><td class="markdownTableBodyNone">A file read failed.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Error reading library file '%s'  </td><td class="markdownTableBodyNone">The library file could not be read.  </td></tr>
+<td class="markdownTableBodyNone">Error reading library file 'library_file'  </td><td class="markdownTableBodyNone">The library file could not be read.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Error retrieving directory items: %s  </td><td class="markdownTableBodyNone">A directory listing could not be read.  </td></tr>
+<td class="markdownTableBodyNone">Error retrieving directory items: error_message  </td><td class="markdownTableBodyNone">A directory listing could not be read.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Error retrieving size: %s  </td><td class="markdownTableBodyNone">The size of a file or directory entry could not be read.  </td></tr>
+<td class="markdownTableBodyNone">Error retrieving size: error_message  </td><td class="markdownTableBodyNone">The size of a file or directory entry could not be read.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Error writing to file: %s  </td><td class="markdownTableBodyNone">A file write failed.  </td></tr>
+<td class="markdownTableBodyNone">Error writing to file: error_message  </td><td class="markdownTableBodyNone">A file write failed.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Escape  </td><td class="markdownTableBodyNone">Execution was interrupted by Escape.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Expected %s got %s  </td><td class="markdownTableBodyNone">The parser found a different token than expected.  </td></tr>
+<td class="markdownTableBodyNone">Expected expected_token got actual_token  </td><td class="markdownTableBodyNone">The parser found a different token than expected.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Expected CREATE or DESTROY after ENVELOPE  </td><td class="markdownTableBodyNone">ENVELOPE must be followed by CREATE or DESTROY.  </td></tr>
 <tr class="markdownTableRowEven">
@@ -238,21 +238,21 @@ $(function(){initNavTree('error-list.html','',''); });
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">FOR: Out of memory  </td><td class="markdownTableBodyNone">There was not enough memory to create the FOR loop state.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">FN%s: atomic function timed out  </td><td class="markdownTableBodyNone">A user-defined function ran too long without finishing.  </td></tr>
+<td class="markdownTableBodyNone">FNfunction_name: atomic function timed out  </td><td class="markdownTableBodyNone">A user-defined function ran too long without finishing.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Failed to decode first GIF frame '%s'  </td><td class="markdownTableBodyNone">The first frame of a GIF sprite could not be decoded.  </td></tr>
+<td class="markdownTableBodyNone">Failed to decode first GIF frame 'sprite_file'  </td><td class="markdownTableBodyNone">The first frame of a GIF sprite could not be decoded.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Failed to format ramdisk '%s'  </td><td class="markdownTableBodyNone">The ramdisk filesystem could not be created.  </td></tr>
+<td class="markdownTableBodyNone">Failed to format ramdisk 'disk_name'  </td><td class="markdownTableBodyNone">The ramdisk filesystem could not be created.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Failed to initialise GIF stream '%s'  </td><td class="markdownTableBodyNone">The GIF decoder could not be initialised.  </td></tr>
+<td class="markdownTableBodyNone">Failed to initialise GIF stream 'sprite_file'  </td><td class="markdownTableBodyNone">The GIF decoder could not be initialised.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Failed to initialise ramdisk of %lu sectors  </td><td class="markdownTableBodyNone">The ramdisk backing store could not be set up.  </td></tr>
+<td class="markdownTableBodyNone">Failed to initialise ramdisk of sector_count sectors  </td><td class="markdownTableBodyNone">The ramdisk backing store could not be set up.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Failed to load timezone '%s'  </td><td class="markdownTableBodyNone">The requested timezone data could not be loaded.  </td></tr>
+<td class="markdownTableBodyNone">Failed to load timezone 'timezone_name'  </td><td class="markdownTableBodyNone">The requested timezone data could not be loaded.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Failed to read keymap file '%s'  </td><td class="markdownTableBodyNone">The keymap file could not be read.  </td></tr>
+<td class="markdownTableBodyNone">Failed to read keymap file 'keymap_file'  </td><td class="markdownTableBodyNone">The keymap file could not be read.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Failed to swizzle sprite '%s'  </td><td class="markdownTableBodyNone">Sprite pixel data could not be converted into internal format.  </td></tr>
+<td class="markdownTableBodyNone">Failed to swizzle sprite 'sprite_file'  </td><td class="markdownTableBodyNone">Sprite pixel data could not be converted into internal format.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">GOSUB: stack exhausted  </td><td class="markdownTableBodyNone">The GOSUB stack is full.  </td></tr>
 <tr class="markdownTableRowOdd">
@@ -270,15 +270,15 @@ $(function(){initNavTree('error-list.html','',''); });
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Invalid UDP port number  </td><td class="markdownTableBodyNone">The UDP port number is invalid.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Invalid address: %016lx  </td><td class="markdownTableBodyNone">A pointer or memory address argument was invalid.  </td></tr>
+<td class="markdownTableBodyNone">Invalid address: hex_address  </td><td class="markdownTableBodyNone">A pointer or memory address argument was invalid.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Invalid array size %ld  </td><td class="markdownTableBodyNone">The requested array size is invalid.  </td></tr>
+<td class="markdownTableBodyNone">Invalid array size size_value  </td><td class="markdownTableBodyNone">The requested array size is invalid.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Invalid character  </td><td class="markdownTableBodyNone">The input contains a character that is not valid here.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Invalid directory '%s'  </td><td class="markdownTableBodyNone">The supplied directory path is malformed or invalid.  </td></tr>
+<td class="markdownTableBodyNone">Invalid directory 'directory_path'  </td><td class="markdownTableBodyNone">The supplied directory path is malformed or invalid.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Invalid integer variable for DATASET '%s'  </td><td class="markdownTableBodyNone">DATASET expected a valid integer variable name.  </td></tr>
+<td class="markdownTableBodyNone">Invalid integer variable for DATASET 'variable_name'  </td><td class="markdownTableBodyNone">DATASET expected a valid integer variable name.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Invalid length  </td><td class="markdownTableBodyNone">A length parameter was invalid.  </td></tr>
 <tr class="markdownTableRowEven">
@@ -294,13 +294,13 @@ $(function(){initNavTree('error-list.html','',''); });
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Invalid sprite handle  </td><td class="markdownTableBodyNone">The sprite handle does not refer to a valid sprite.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Invalid variable name '%s'  </td><td class="markdownTableBodyNone">The variable name is not valid.  </td></tr>
+<td class="markdownTableBodyNone">Invalid variable name 'variable_name'  </td><td class="markdownTableBodyNone">The variable name is not valid.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Keymap file '%s' not found  </td><td class="markdownTableBodyNone">The requested keymap file does not exist.  </td></tr>
+<td class="markdownTableBodyNone">Keymap file 'keymap_file' not found  </td><td class="markdownTableBodyNone">The requested keymap file does not exist.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">LOG argument must be &gt; 0  </td><td class="markdownTableBodyNone">LOG was given zero or a negative value.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Library '%s': Library files cannot contain line numbers  </td><td class="markdownTableBodyNone">A library file included numbered BASIC lines, which are not allowed.  </td></tr>
+<td class="markdownTableBodyNone">Library 'library_file': Library files cannot contain line numbers  </td><td class="markdownTableBodyNone">A library file included numbered BASIC lines, which are not allowed.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Loading libraries from EVAL is not allowed  </td><td class="markdownTableBodyNone">LIBRARY cannot be used inside EVAL.  </td></tr>
 <tr class="markdownTableRowOdd">
@@ -308,19 +308,19 @@ $(function(){initNavTree('error-list.html','',''); });
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Malformed number  </td><td class="markdownTableBodyNone">A numeric constant is malformed.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Malformed variable name '%s'  </td><td class="markdownTableBodyNone">The variable name is syntactically invalid.  </td></tr>
+<td class="markdownTableBodyNone">Malformed variable name 'variable_name'  </td><td class="markdownTableBodyNone">The variable name is syntactically invalid.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">MATCH: %s  </td><td class="markdownTableBodyNone">A regular expression operation failed with the message shown.  </td></tr>
+<td class="markdownTableBodyNone">MATCH: error_message  </td><td class="markdownTableBodyNone">A regular expression operation failed with the message shown.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">MATCH: execution error  </td><td class="markdownTableBodyNone">The regular expression engine failed while matching.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">MATCH: invalid regular expression (%d)  </td><td class="markdownTableBodyNone">The regular expression pattern is invalid.  </td></tr>
+<td class="markdownTableBodyNone">MATCH: invalid regular expression (error_code)  </td><td class="markdownTableBodyNone">The regular expression pattern is invalid.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">MATCH: out of memory  </td><td class="markdownTableBodyNone">There was not enough memory for the regular expression operation.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">MATCH: too many capture variables (max %u)  </td><td class="markdownTableBodyNone">Too many capture variables were requested for MATCH.  </td></tr>
+<td class="markdownTableBodyNone">MATCH: too many capture variables (max max_count)  </td><td class="markdownTableBodyNone">Too many capture variables were requested for MATCH.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Missing line number after line %lu: %s  </td><td class="markdownTableBodyNone">A numbered BASIC program line was malformed or missing its next line number.  </td></tr>
+<td class="markdownTableBodyNone">Missing line number after line line_number: line_text  </td><td class="markdownTableBodyNone">A numbered BASIC program line was malformed or missing its next line number.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">NEXT without FOR  </td><td class="markdownTableBodyNone">NEXT was used without a matching FOR.  </td></tr>
 <tr class="markdownTableRowOdd">
@@ -330,45 +330,45 @@ $(function(){initNavTree('error-list.html','',''); });
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">No more sprites available  </td><td class="markdownTableBodyNone">No free sprite slots remain.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">No such PROC %s  </td><td class="markdownTableBodyNone">The named procedure does not exist.  </td></tr>
+<td class="markdownTableBodyNone">No such PROC procedure_name  </td><td class="markdownTableBodyNone">The named procedure does not exist.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">No such array variable '%s'  </td><td class="markdownTableBodyNone">The named array does not exist.  </td></tr>
+<td class="markdownTableBodyNone">No such array variable 'array_name'  </td><td class="markdownTableBodyNone">The named array does not exist.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">No such integer FN  </td><td class="markdownTableBodyNone">The named integer function does not exist.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">No such integer variable '%s'  </td><td class="markdownTableBodyNone">The named integer variable does not exist.  </td></tr>
+<td class="markdownTableBodyNone">No such integer variable 'variable_name'  </td><td class="markdownTableBodyNone">The named integer variable does not exist.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">No such line %ld  </td><td class="markdownTableBodyNone">The requested line number does not exist.  </td></tr>
+<td class="markdownTableBodyNone">No such line line_number  </td><td class="markdownTableBodyNone">The requested line number does not exist.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">No such real FN  </td><td class="markdownTableBodyNone">The named real function does not exist.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">No such real variable '%s'  </td><td class="markdownTableBodyNone">The named real variable does not exist.  </td></tr>
+<td class="markdownTableBodyNone">No such real variable 'variable_name'  </td><td class="markdownTableBodyNone">The named real variable does not exist.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">No such string FN  </td><td class="markdownTableBodyNone">The named string function does not exist.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">No such string variable '%s'  </td><td class="markdownTableBodyNone">The named string variable does not exist.  </td></tr>
+<td class="markdownTableBodyNone">No such string variable 'variable_name'  </td><td class="markdownTableBodyNone">The named string variable does not exist.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Not a directory '%s'  </td><td class="markdownTableBodyNone">The path exists but is not a directory.  </td></tr>
+<td class="markdownTableBodyNone">Not a directory 'path'  </td><td class="markdownTableBodyNone">The path exists but is not a directory.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Not a directory: '%s'  </td><td class="markdownTableBodyNone">The path exists but is not a directory.  </td></tr>
+<td class="markdownTableBodyNone">Not a directory: 'path'  </td><td class="markdownTableBodyNone">The path exists but is not a directory.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Not a file: '%s'  </td><td class="markdownTableBodyNone">The path exists but is not a file.  </td></tr>
+<td class="markdownTableBodyNone">Not a file: 'path'  </td><td class="markdownTableBodyNone">The path exists but is not a file.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Not a library file: '%s'  </td><td class="markdownTableBodyNone">The file is not a valid BASIC library file.  </td></tr>
+<td class="markdownTableBodyNone">Not a library file: 'file_path'  </td><td class="markdownTableBodyNone">The file is not a valid BASIC library file.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Not enough memory for SOUND TONE  </td><td class="markdownTableBodyNone">There was not enough memory to generate a tone.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Not enough memory for pitch shift  </td><td class="markdownTableBodyNone">There was not enough memory to adjust pitch.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Not enough memory for sprite canvas '%s'  </td><td class="markdownTableBodyNone">There was not enough memory for the sprite canvas.  </td></tr>
+<td class="markdownTableBodyNone">Not enough memory for sprite canvas 'sprite_name'  </td><td class="markdownTableBodyNone">There was not enough memory for the sprite canvas.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Not enough memory for sprite mask '%s'  </td><td class="markdownTableBodyNone">There was not enough memory for the sprite mask.  </td></tr>
+<td class="markdownTableBodyNone">Not enough memory for sprite mask 'sprite_name'  </td><td class="markdownTableBodyNone">There was not enough memory for the sprite mask.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Not enough memory for sprite pixels '%s'  </td><td class="markdownTableBodyNone">There was not enough memory for the sprite pixel data.  </td></tr>
+<td class="markdownTableBodyNone">Not enough memory for sprite pixels 'sprite_name'  </td><td class="markdownTableBodyNone">There was not enough memory for the sprite pixel data.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Not enough memory to load library file '%s'  </td><td class="markdownTableBodyNone">There was not enough memory to load the library file.  </td></tr>
+<td class="markdownTableBodyNone">Not enough memory to load library file 'library_file'  </td><td class="markdownTableBodyNone">There was not enough memory to load the library file.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Not enough memory to load sprite file '%s'  </td><td class="markdownTableBodyNone">There was not enough memory to load the sprite file.  </td></tr>
+<td class="markdownTableBodyNone">Not enough memory to load sprite file 'sprite_file'  </td><td class="markdownTableBodyNone">There was not enough memory to load the sprite file.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Number too long  </td><td class="markdownTableBodyNone">A numeric constant is too long.  </td></tr>
 <tr class="markdownTableRowOdd">
@@ -382,7 +382,7 @@ $(function(){initNavTree('error-list.html','',''); });
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">ON ERROR GOTO and ON ERROR GOSUB are deprecated. Use ON ERROR PROC  </td><td class="markdownTableBodyNone">Older ON ERROR forms are no longer supported.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">ON ERROR: No such procedure PROC%s  </td><td class="markdownTableBodyNone">The procedure named in ON ERROR PROC does not exist.  </td></tr>
+<td class="markdownTableBodyNone">ON ERROR: No such procedure PROCprocedure_name  </td><td class="markdownTableBodyNone">The procedure named in ON ERROR PROC does not exist.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">ON ERROR: Out of memory  </td><td class="markdownTableBodyNone">There was not enough memory to install the ON ERROR handler.  </td></tr>
 <tr class="markdownTableRowEven">
@@ -400,7 +400,7 @@ $(function(){initNavTree('error-list.html','',''); });
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Out of memory for CA cert bundle  </td><td class="markdownTableBodyNone">There was not enough memory to load the CA certificate bundle.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Out of memory loading audio file '%s'  </td><td class="markdownTableBodyNone">There was not enough memory to load the audio file.  </td></tr>
+<td class="markdownTableBodyNone">Out of memory loading audio file 'audio_file'  </td><td class="markdownTableBodyNone">There was not enough memory to load the audio file.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Out of memory parsing function parameters  </td><td class="markdownTableBodyNone">There was not enough memory to parse function parameters.  </td></tr>
 <tr class="markdownTableRowOdd">
@@ -408,7 +408,7 @@ $(function(){initNavTree('error-list.html','',''); });
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Out of memory storing DATA  </td><td class="markdownTableBodyNone">There was not enough memory to store DATA items.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Out of string area allocator space storing '%s'  </td><td class="markdownTableBodyNone">The string allocator ran out of space.  </td></tr>
+<td class="markdownTableBodyNone">Out of string area allocator space storing 'string_value'  </td><td class="markdownTableBodyNone">The string allocator ran out of space.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">PROC: stack exhausted  </td><td class="markdownTableBodyNone">The procedure call stack is full.  </td></tr>
 <tr class="markdownTableRowOdd">
@@ -430,9 +430,9 @@ $(function(){initNavTree('error-list.html','',''); });
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Sprite file too large  </td><td class="markdownTableBodyNone">The sprite file is too large to load.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Sprite too large: %dx%d  </td><td class="markdownTableBodyNone">The sprite dimensions exceed the allowed size.  </td></tr>
+<td class="markdownTableBodyNone">Sprite too large: widthxheight  </td><td class="markdownTableBodyNone">The sprite dimensions exceed the allowed size.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">String constant '%s' too long  </td><td class="markdownTableBodyNone">A string constant exceeds the maximum length.  </td></tr>
+<td class="markdownTableBodyNone">String constant 'string_value' too long  </td><td class="markdownTableBodyNone">A string constant exceeds the maximum length.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">String in numeric expression  </td><td class="markdownTableBodyNone">A string value was used where a numeric expression was required.  </td></tr>
 <tr class="markdownTableRowOdd">
@@ -446,43 +446,43 @@ $(function(){initNavTree('error-list.html','',''); });
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Unary +/- on string  </td><td class="markdownTableBodyNone">Unary + or - was applied to a string.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Unable to create directory '%s': %s  </td><td class="markdownTableBodyNone">The directory could not be created.  </td></tr>
+<td class="markdownTableBodyNone">Unable to create directory 'directory_path': error_message  </td><td class="markdownTableBodyNone">The directory could not be created.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Unable to delete directory '%s': %s  </td><td class="markdownTableBodyNone">The directory could not be deleted.  </td></tr>
+<td class="markdownTableBodyNone">Unable to delete directory 'directory_path': error_message  </td><td class="markdownTableBodyNone">The directory could not be deleted.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Unable to delete file '%s': %s  </td><td class="markdownTableBodyNone">The file could not be deleted.  </td></tr>
+<td class="markdownTableBodyNone">Unable to delete file 'file_path': error_message  </td><td class="markdownTableBodyNone">The file could not be deleted.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Unable to load CA cert bundle from /system/ssl/cacert.pem  </td><td class="markdownTableBodyNone">The CA certificate bundle could not be loaded.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Unable to load audio file '%s'  </td><td class="markdownTableBodyNone">The audio file could not be opened or decoded.  </td></tr>
+<td class="markdownTableBodyNone">Unable to load audio file 'audio_file'  </td><td class="markdownTableBodyNone">The audio file could not be opened or decoded.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Unable to load cert %s: %s  </td><td class="markdownTableBodyNone">The certificate file could not be loaded.  </td></tr>
+<td class="markdownTableBodyNone">Unable to load cert certificate_file: error_message  </td><td class="markdownTableBodyNone">The certificate file could not be loaded.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Unable to load cert: %s  </td><td class="markdownTableBodyNone">The certificate file could not be opened or parsed.  </td></tr>
+<td class="markdownTableBodyNone">Unable to load cert: error_message  </td><td class="markdownTableBodyNone">The certificate file could not be opened or parsed.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Unable to load key %s: %s  </td><td class="markdownTableBodyNone">The key file could not be loaded.  </td></tr>
+<td class="markdownTableBodyNone">Unable to load key key_file: error_message  </td><td class="markdownTableBodyNone">The key file could not be loaded.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Unable to load key: %s  </td><td class="markdownTableBodyNone">The key file could not be opened or parsed.  </td></tr>
+<td class="markdownTableBodyNone">Unable to load key: error_message  </td><td class="markdownTableBodyNone">The key file could not be opened or parsed.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Unable to load module '%s'  </td><td class="markdownTableBodyNone">The module could not be loaded.  </td></tr>
+<td class="markdownTableBodyNone">Unable to load module 'module_name'  </td><td class="markdownTableBodyNone">The module could not be loaded.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Unable to open cert: %s  </td><td class="markdownTableBodyNone">The certificate file could not be opened.  </td></tr>
+<td class="markdownTableBodyNone">Unable to open cert: error_message  </td><td class="markdownTableBodyNone">The certificate file could not be opened.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Unable to open key: %s  </td><td class="markdownTableBodyNone">The key file could not be opened.  </td></tr>
+<td class="markdownTableBodyNone">Unable to open key: error_message  </td><td class="markdownTableBodyNone">The key file could not be opened.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Unable to open sprite file '%s'  </td><td class="markdownTableBodyNone">The sprite file could not be opened.  </td></tr>
+<td class="markdownTableBodyNone">Unable to open sprite file 'sprite_file'  </td><td class="markdownTableBodyNone">The sprite file could not be opened.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Unable to unload module '%s'  </td><td class="markdownTableBodyNone">The module could not be unloaded.  </td></tr>
+<td class="markdownTableBodyNone">Unable to unload module 'module_name'  </td><td class="markdownTableBodyNone">The module could not be unloaded.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Unclosed %s  </td><td class="markdownTableBodyNone">A block or construct was not properly closed.  </td></tr>
+<td class="markdownTableBodyNone">Unclosed construct  </td><td class="markdownTableBodyNone">A block or construct was not properly closed.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Unknown \do_itoa error: %d  </td><td class="markdownTableBodyNone">Integer-to-string conversion failed with an unexpected internal error.  </td></tr>
+<td class="markdownTableBodyNone">Unknown do_itoa error: error_code  </td><td class="markdownTableBodyNone">Integer-to-string conversion failed with an unexpected internal error.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Unknown keyword  </td><td class="markdownTableBodyNone">The parser found a keyword it does not recognise.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Unterminated "  </td><td class="markdownTableBodyNone">A string literal was not closed.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Variable '%s' already exists as non-array type  </td><td class="markdownTableBodyNone">A scalar variable already exists with that name.  </td></tr>
+<td class="markdownTableBodyNone">Variable 'variable_name' already exists as non-array type  </td><td class="markdownTableBodyNone">A scalar variable already exists with that name.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Variable name too long  </td><td class="markdownTableBodyNone">The variable name exceeds the maximum length.  </td></tr>
 <tr class="markdownTableRowEven">
@@ -494,13 +494,6 @@ $(function(){initNavTree('error-list.html','',''); });
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">up_value_expr: Out of memory!  </td><td class="markdownTableBodyNone">Expression evaluation failed because memory could not be allocated.  </td></tr>
 </table>
-<h3 class="doxsection"><a class="anchor" id="notes"></a>
-Notes</h3>
-<ul>
-<li>Messages containing %s, %ld, %lx, %d, or similar placeholders include extra runtime details.</li>
-<li>Some low-level socket and regex errors are passed through from the underlying subsystem and may vary.</li>
-<li>A few messages are very similar because they come from related parts of the interpreter.</li>
-</ul>
 <p><b>See also:</b> Beginners' Tutorial · ON ERROR </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
