@@ -49,7 +49,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="EOF_1notes-18_1s1"><sect2 id="EOF_1notes-18_1s2"><sect3 id="EOF_1notes-18">
+<sect1 id="EOF_1notes-19_1s1"><sect2 id="EOF_1notes-19_1s2"><sect3 id="EOF_1notes-19">
 <title>Notes</title><para><itemizedlist>
 <listitem><para><computeroutput>EOF</computeroutput> reports whether the <bold>next read would be past the end</bold>. After a final <computeroutput>READ$</computeroutput>, it becomes <computeroutput>TRUE</computeroutput>.</para>
 </listitem><listitem><para>Typical pattern: read with <computeroutput>READ$</computeroutput>, process if <computeroutput>EOF(FH)=0</computeroutput>, loop <bold>until</bold> <computeroutput>EOF(FH)=1</computeroutput>.</para>

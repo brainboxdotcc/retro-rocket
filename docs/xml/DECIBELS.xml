@@ -42,7 +42,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="DECIBELS_1notes-17_1s1"><sect2 id="DECIBELS_1notes-17_1s2"><sect3 id="DECIBELS_1notes-17">
+<sect1 id="DECIBELS_1notes-18_1s1"><sect2 id="DECIBELS_1notes-18_1s2"><sect3 id="DECIBELS_1notes-18">
 <title>Notes</title><para><itemizedlist>
 <listitem><para>Use <computeroutput>DECIBELS()</computeroutput> when you want to set volume in familiar dB terms instead of raw 0–255 values.</para>
 </listitem><listitem><para>The mapping is not linear: small changes near 0 dB make a noticeable difference, while changes at very low levels fade smoothly towards silence.</para>

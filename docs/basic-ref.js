@@ -4,6 +4,8 @@ var basic_ref =
     [ "Variable Types", "variables.html", "variables" ],
     [ "Keywords", "keywords.html", "keywords" ],
     [ "Built-In Functions", "builtin-functions.html", "builtin-functions" ],
+    [ "BASIC Error Messages", "error-list.html", null ],
+    [ "Differences Between Retro Rocket BASIC and other BASIC dialects", "basic-differences.html", null ],
     [ "Audio Introduction", "audio-basics.html", null ],
     [ "BASIC Networking", "networking.html", null ],
     [ "Libraries", "libraries.html", "libraries" ],

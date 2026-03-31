@@ -7,6 +7,8 @@
     <innerpage refid="variables">Variable Types</innerpage>
     <innerpage refid="keywords">Keywords</innerpage>
     <innerpage refid="builtin-functions">Built-In Functions</innerpage>
+    <innerpage refid="error-list">BASIC Error Messages</innerpage>
+    <innerpage refid="basic-differences">Differences Between Retro Rocket BASIC and other BASIC dialects</innerpage>
     <innerpage refid="audio-basics">Audio Introduction</innerpage>
     <innerpage refid="networking">BASIC Networking</innerpage>
     <innerpage refid="libraries">Libraries</innerpage>
@@ -15,33 +17,19 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><bold>Creating BASIC programs</bold></para>
-<para>Programs in Retro Rocket BASIC are similar in structure to other BASIC dialects, with some important differences:</para>
-<para><itemizedlist>
-<listitem><para><bold>Line numbers are optional.</bold><itemizedlist>
-<listitem><para>If used, each must be greater than the one before it.</para>
-</listitem><listitem><para>Gaps in numbering are allowed.</para>
-</listitem><listitem><para>If the first character of the file is not a digit (<computeroutput>0–9</computeroutput>), the program is assumed to have <bold>no line numbers</bold>.</para>
-</listitem></itemizedlist>
-</para>
-</listitem><listitem><para><bold>Sequential execution.</bold> Programs execute line by line, top to bottom, unless redirected with control statements (e.g. <computeroutput>GOTO</computeroutput>, <computeroutput>IF</computeroutput>, <computeroutput>PROC</computeroutput>, <computeroutput>FUNCTION</computeroutput>).</para>
-</listitem><listitem><para><bold>Statements.</bold> Each line must contain at least one valid statement, with any required parameters.</para>
-</listitem><listitem><para><bold>Variables.</bold> Four types of variables are available (see <ref refid="variables" kindref="compound">Variable Types</ref>). Variables may be:<itemizedlist>
-<listitem><para><bold>Local</bold> to the current program, or</para>
-</listitem><listitem><para><bold>Inherited</bold> by other programs run with <computeroutput>CHAIN</computeroutput> or similar mechanisms.</para>
-</listitem></itemizedlist>
-</para>
-</listitem></itemizedlist>
-</para>
-<para>For real-world examples of programs in the operating system, see the <ulink url="https://github.com/brainboxdotcc/retro-rocket/tree/master/os/programs">os/programs</ulink> directory in the source tree.</para>
+<para>This section teaches you how to write programs in Retro Rocket BASIC.</para>
+<para>Programs are written as plain text and run from the prompt. You write instructions line by line, and the system executes them in order.</para>
+<para>Retro Rocket BASIC is designed to be straightforward to learn, while still powerful enough to build complete applications, games, and system tools.</para>
+<para>If you are new to BASIC, start with the beginner tutorial. If you already have some experience, you can jump straight into the language reference and examples.</para>
 <para><hruler/>
 </para>
-<para><bold>Further Reference</bold></para>
 <para><itemizedlist>
 <listitem><para><ref refid="basic-beginner" kindref="compound">Beginners&apos; Tutorial</ref></para>
 </listitem><listitem><para><ref refid="variables" kindref="compound">Variable Types</ref></para>
 </listitem><listitem><para><ref refid="keywords" kindref="compound">Keywords</ref></para>
 </listitem><listitem><para><ref refid="builtin-functions" kindref="compound">Built-In Functions</ref></para>
+</listitem><listitem><para><ref refid="error-list" kindref="compound">BASIC Error Messages</ref></para>
+</listitem><listitem><para><ref refid="basic-differences" kindref="compound">Differences Between Retro Rocket BASIC and other BASIC dialects</ref></para>
 </listitem><listitem><para><ref refid="audio-basics" kindref="compound">Audio Introduction</ref></para>
 </listitem><listitem><para><ref refid="networking" kindref="compound">BASIC Networking</ref></para>
 </listitem><listitem><para><ref refid="libraries" kindref="compound">Libraries</ref></para>

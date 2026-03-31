@@ -1,37 +1,21 @@
 \page basic-ref BASIC Language Reference
 
-**Creating BASIC programs**
+This section teaches you how to write programs in Retro Rocket BASIC.
 
-Programs in Retro Rocket BASIC are similar in structure to other BASIC dialects, with some important differences:
+Programs are written as plain text and run from the prompt. You write instructions line by line, and the system executes them in order.
 
-* **Line numbers are optional.**
+Retro Rocket BASIC is designed to be straightforward to learn, while still powerful enough to build complete applications, games, and system tools.
 
-  * If used, each must be greater than the one before it.
-  * Gaps in numbering are allowed.
-  * If the first character of the file is not a digit (`0–9`), the program is assumed to have **no line numbers**.
-
-* **Sequential execution.**
-  Programs execute line by line, top to bottom, unless redirected with control statements (e.g. `GOTO`, `IF`, `PROC`, `FUNCTION`).
-
-* **Statements.**
-  Each line must contain at least one valid statement, with any required parameters.
-
-* **Variables.**
-  Four types of variables are available (see \ref variables). Variables may be:
-
-  * **Local** to the current program, or
-  * **Inherited** by other programs run with `CHAIN` or similar mechanisms.
-
-For real-world examples of programs in the operating system, see the [os/programs](https://github.com/brainboxdotcc/retro-rocket/tree/master/os/programs) directory in the source tree.
+If you are new to BASIC, start with the beginner tutorial. If you already have some experience, you can jump straight into the language reference and examples.
 
 ---
-
-**Further Reference**
 
 * \subpage basic-beginner
 * \subpage variables
 * \subpage keywords
 * \subpage builtin-functions
+* \subpage error-list
+* \subpage basic-differences
 * \subpage audio-basics
 * \subpage networking
 * \subpage libraries

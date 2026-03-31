@@ -123,31 +123,18 @@ $(function(){initNavTree('basic-ref.html','',''); });
   <div class="headertitle"><div class="title">BASIC Language Reference </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><b>Creating BASIC programs</b></p>
-<p>Programs in Retro Rocket BASIC are similar in structure to other BASIC dialects, with some important differences:</p>
-<ul>
-<li><b>Line numbers are optional.</b><ul>
-<li>If used, each must be greater than the one before it.</li>
-<li>Gaps in numbering are allowed.</li>
-<li>If the first character of the file is not a digit (<span class="tt">0–9</span>), the program is assumed to have <b>no line numbers</b>.</li>
-</ul>
-</li>
-<li><b>Sequential execution.</b> Programs execute line by line, top to bottom, unless redirected with control statements (e.g. <span class="tt">GOTO</span>, <span class="tt">IF</span>, <span class="tt">PROC</span>, <span class="tt">FUNCTION</span>).</li>
-<li><b>Statements.</b> Each line must contain at least one valid statement, with any required parameters.</li>
-<li><b>Variables.</b> Four types of variables are available (see <a class="el" href="variables.html">Variable Types</a>). Variables may be:<ul>
-<li><b>Local</b> to the current program, or</li>
-<li><b>Inherited</b> by other programs run with <span class="tt">CHAIN</span> or similar mechanisms.</li>
-</ul>
-</li>
-</ul>
-<p>For real-world examples of programs in the operating system, see the <a href="https://github.com/brainboxdotcc/retro-rocket/tree/master/os/programs">os/programs</a> directory in the source tree.</p>
+<div class="textblock"><p>This section teaches you how to write programs in Retro Rocket BASIC.</p>
+<p>Programs are written as plain text and run from the prompt. You write instructions line by line, and the system executes them in order.</p>
+<p>Retro Rocket BASIC is designed to be straightforward to learn, while still powerful enough to build complete applications, games, and system tools.</p>
+<p>If you are new to BASIC, start with the beginner tutorial. If you already have some experience, you can jump straight into the language reference and examples.</p>
 <hr  />
-<p><b>Further Reference</b></p>
 <ul>
 <li><a class="el" href="basic-beginner.html">Beginners' Tutorial</a></li>
 <li><a class="el" href="variables.html">Variable Types</a></li>
 <li><a class="el" href="keywords.html">Keywords</a></li>
 <li><a class="el" href="builtin-functions.html">Built-In Functions</a></li>
+<li><a class="el" href="error-list.html">BASIC Error Messages</a></li>
+<li><a class="el" href="basic-differences.html">Differences Between Retro Rocket BASIC and other BASIC dialects</a></li>
 <li><a class="el" href="audio-basics.html">Audio Introduction</a></li>
 <li><a class="el" href="networking.html">BASIC Networking</a></li>
 <li><a class="el" href="libraries.html">Libraries</a></li>

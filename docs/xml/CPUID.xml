@@ -83,7 +83,7 @@
 <para><hruler/>
 </para>
 </sect3></sect2></sect1>
-<sect1 id="CPUID_1notes-13_1s1"><sect2 id="CPUID_1notes-13_1s2"><sect3 id="CPUID_1notes-13">
+<sect1 id="CPUID_1notes-14_1s1"><sect2 id="CPUID_1notes-14_1s2"><sect3 id="CPUID_1notes-14">
 <title>Notes</title><para><itemizedlist>
 <listitem><para><bold>Return width:</bold> The function returns a Retro Rocket <bold>integer</bold> (64-bit signed), but only the <bold>low 32 bits</bold> are meaningful; the result is the raw register value.</para>
 </listitem><listitem><para><bold>Signed vs unsigned:</bold> Some feature bits set the high bit; if you print the value as a signed decimal it may appear negative. Use <bold>hex masks</bold> (e.g., <computeroutput>&amp;10000000</computeroutput>) with <computeroutput>BITAND</computeroutput> in tests, as shown in the examples.</para>
