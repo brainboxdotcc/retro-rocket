@@ -247,19 +247,19 @@ typedef struct basic_ctx {
 	struct hashmap* double_variables; // ub_var_double*
 
 	/**
-	 * @brief Global integer array variable list.
+	 * @brief Global integer array variable map.
 	 */
-	struct ub_var_int_array* int_array_variables;
+	struct hashmap* int_array_variables;
 
 	/**
-	 * @brief Global string array variable list.
+	 * @brief Global string array variable map.
 	 */
-	struct ub_var_string_array* string_array_variables;
+	struct hashmap* string_array_variables;
 
 	/**
-	 * @brief Global double array variable list.
+	 * @brief Global double array variable map.
 	 */
-	struct ub_var_double_array* double_array_variables;
+	struct hashmap* double_array_variables;
 
 	/**
 	 * @brief Expected return type of the function being executed.

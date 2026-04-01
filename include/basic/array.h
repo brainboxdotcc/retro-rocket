@@ -288,4 +288,49 @@ bool basic_push_int_array(const char* var, int64_t push_pos, struct basic_ctx* c
  */
 bool basic_push_double_array(const char* var, int64_t push_pos, struct basic_ctx* ctx);
 
+/**
+ * @brief Execute the ARRAYFIND statement.
+ *
+ * Searches the source array for all occurrences of a value and writes the
+ * matching indexes into a destination integer array. Also writes the number
+ * of matches found to the supplied count variable.
+ *
+ * @param ctx BASIC context
+ */
 void arrayfind_statement(struct basic_ctx* ctx);
+
+/**
+ * @brief Look up an integer array by name.
+ *
+ * Returns the integer array descriptor for the given variable name, or NULL
+ * if no such array exists.
+ *
+ * @param var Array variable name
+ * @param ctx BASIC context
+ * @return Pointer to integer array descriptor, or NULL if not found
+ */
+ub_var_int_array* find_int_array(const char* var, struct basic_ctx* ctx);
+
+/**
+ * @brief Look up a string array by name.
+ *
+ * Returns the string array descriptor for the given variable name, or NULL
+ * if no such array exists.
+ *
+ * @param var Array variable name
+ * @param ctx BASIC context
+ * @return Pointer to string array descriptor, or NULL if not found
+ */
+ub_var_string_array* find_string_array(const char* var, struct basic_ctx* ctx);
+
+/**
+ * @brief Look up a real array by name.
+ *
+ * Returns the real array descriptor for the given variable name, or NULL
+ * if no such array exists.
+ *
+ * @param var Array variable name
+ * @param ctx BASIC context
+ * @return Pointer to real array descriptor, or NULL if not found
+ */
+ub_var_double_array* find_double_array(const char* var, struct basic_ctx* ctx);

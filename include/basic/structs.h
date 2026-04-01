@@ -168,8 +168,9 @@ typedef struct ub_proc_fn_def {
  * supports chaining for handling multiple arrays.
  */
 typedef struct ub_var_int_array {
-	uint64_t itemcount; ///< Number of items in the array
 	const char *varname; ///< Name of the integer array variable
+	size_t name_length; ///< Cached length of varname
+	uint64_t itemcount; ///< Number of items in the array
 	int64_t *values; ///< Array of integer values
 	struct ub_var_int_array *next; ///< Pointer to the next integer array (for chaining)
 } ub_var_int_array;
@@ -182,8 +183,9 @@ typedef struct ub_var_int_array {
  * supports chaining for handling multiple arrays.
  */
 typedef struct ub_var_string_array {
-	uint64_t itemcount; ///< Number of items in the array
 	const char *varname; ///< Name of the string array variable
+	size_t name_length; ///< Cached length of varname
+	uint64_t itemcount; ///< Number of items in the array
 	const char **values; ///< Array of string values
 	struct ub_var_string_array *next; ///< Pointer to the next string array (for chaining)
 } ub_var_string_array;
@@ -196,8 +198,9 @@ typedef struct ub_var_string_array {
  * supports chaining for handling multiple arrays.
  */
 typedef struct ub_var_double_array {
-	uint64_t itemcount; ///< Number of items in the array
 	const char *varname; ///< Name of the double array variable
+	size_t name_length; ///< Cached length of varname
+	uint64_t itemcount; ///< Number of items in the array
 	double *values; ///< Array of double values
 	struct ub_var_double_array *next; ///< Pointer to the next double array (for chaining)
 } ub_var_double_array;
@@ -212,6 +215,7 @@ typedef struct ub_var_double_array {
  */
 typedef struct ub_var_generic_array {
 	uint64_t itemcount; ///< Number of items in the array
+	size_t name_length; ///< Cached length of varname
 	const char *varname; ///< Name of the generic array variable
 	void *values_inaccesible; ///< A generic pointer to the array values
 	struct ub_var_generic_array *next; ///< Pointer to the next generic array (for chaining)

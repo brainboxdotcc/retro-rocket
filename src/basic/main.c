@@ -39,6 +39,41 @@ void varmap_free(const void *ptr, void *udata) {
 	buddy_free(a, ptr);
 }
 
+void varmap_elfree_int_array(const void *item, void *udata) {
+	const ub_var_int_array *v = item;
+	if (!v) {
+		return;
+	}
+	struct buddy_allocator *a = udata;
+	buddy_free(a, v->varname);
+	buddy_free(a, v->values);
+}
+
+void varmap_elfree_double_array(const void *item, void *udata) {
+	const ub_var_double_array *v = item;
+	if (!v) {
+		return;
+	}
+	struct buddy_allocator *a = udata;
+	buddy_free(a, v->varname);
+	buddy_free(a, v->values);
+}
+
+void varmap_elfree_string_array(const void *item, void *udata) {
+	const ub_var_string_array *v = item;
+	if (!v) {
+		return;
+	}
+	struct buddy_allocator *a = udata;
+	buddy_free(a, v->varname);
+	if (v->values) {
+		for (uint64_t i = 0; i < v->itemcount; ++i) {
+			buddy_free(a, v->values[i]);
+		}
+	}
+	buddy_free(a, v->values);
+}
+
 /* Assumes each ub_var_* has: char *varname; size_t name_length; */
 uint64_t varmap_hash(const void *item, uint64_t seed0, uint64_t seed1) {
 	const ub_var_int *v = item; /* name fields layout-compatible */
@@ -279,9 +314,9 @@ struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file
 
 	ctx->fn_type = RT_MAIN;
 	ctx->eval_linenum = 0;
-	ctx->int_array_variables = NULL;
-	ctx->string_array_variables = NULL;
-	ctx->double_array_variables = NULL;
+	ctx->int_array_variables = hashmap_new_with_allocator(varmap_malloc, varmap_realloc, varmap_free, sizeof(struct ub_var_int_array), 0, SEED0, SEED1, varmap_hash, varmap_compare, varmap_elfree_int_array, ctx->allocator);
+	ctx->string_array_variables = hashmap_new_with_allocator(varmap_malloc, varmap_realloc, varmap_free, sizeof(struct ub_var_string_array), 0, SEED0, SEED1, varmap_hash, varmap_compare, varmap_elfree_string_array, ctx->allocator);
+	ctx->double_array_variables = hashmap_new_with_allocator(varmap_malloc, varmap_realloc, varmap_free, sizeof(struct ub_var_double_array), 0, SEED0, SEED1, varmap_hash, varmap_compare, varmap_elfree_double_array, ctx->allocator);
 	ctx->oldlen = 0;
 	ctx->fn_return = NULL;
 	memset(ctx->fn_type_stack, 0, sizeof(ctx->fn_type_stack));
