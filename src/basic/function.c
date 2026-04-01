@@ -118,6 +118,8 @@ struct basic_int_fn builtin_int[] =
 	{ basic_ticks,               "TICKS"             },
 	{ basic_min,                 "MIN"               },
 	{ basic_max,                 "MAX"               },
+	{ basic_spritepixel,         "SPRITEPIXEL"       },
+	{ basic_spritemask,          "SPRITEMASK"        },
 	{ NULL,                      NULL                },
 };
 

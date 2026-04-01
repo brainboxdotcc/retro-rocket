@@ -141,6 +141,9 @@ typedef enum ub_return_type {
 	RT_STRING, ///< String return value
 	RT_INT, ///< Integer return value
 	RT_FLOAT, ///< Double return value
+	RT_INT_ARRAY, ///< Integer array (reserved for future use)
+	RT_STRING_ARRAY, ///< String array (reserved for future use)
+	RT_FLOAT_ARRAY, ///< Real array (reserved for future use)
 } ub_return_type;
 
 /**

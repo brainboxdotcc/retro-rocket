@@ -71,6 +71,8 @@ The following functions operate on or return **integer values** in Retro Rocket 
 * \subpage SHR
 * \subpage SPRITECOLLIDE
 * \subpage SPRITEHEIGHT
+* \subpage SPRITEMASK
+* \subpage SPRITEPIXEL
 * \subpage SPRITEWIDTH
 * \subpage SSLSOCKACCEPT
 * \subpage SOCKACCEPT

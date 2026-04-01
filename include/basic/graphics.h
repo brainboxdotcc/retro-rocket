@@ -167,3 +167,7 @@ int64_t basic_spriteheight(struct basic_ctx* ctx);
 void rotate_statement(struct basic_ctx* ctx);
 
 void spriterow_statement(struct basic_ctx* ctx);
+
+int64_t basic_spritepixel(struct basic_ctx* ctx);
+
+int64_t basic_spritemask(struct basic_ctx* ctx);

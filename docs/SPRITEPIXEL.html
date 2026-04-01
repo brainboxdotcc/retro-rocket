@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=11">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Retro Rocket OS: UPPER$ Function</title>
+    <title>Retro Rocket OS: SPRITEPIXEL Function</title>
     <link href="tabs.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -16,7 +16,7 @@
     <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-    <meta name="title" content="UPPER$ Function - Retro Rocket OS">
+    <meta name="title" content="SPRITEPIXEL Function - Retro Rocket OS">
     <meta name="description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="author" content="Retro Rocket Developers">
     <meta name="robots" content="index, follow">
@@ -24,7 +24,7 @@
     <meta name="theme-color" content="#0b0f14">
     <link rel="icon" href="rr.png">
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="UPPER$ Function - Retro Rocket OS">
+    <meta property="og:title" content="SPRITEPIXEL Function - Retro Rocket OS">
     <meta property="og:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://retrorocket.dev/">
@@ -32,7 +32,7 @@
     <meta property="og:image:alt" content="Retro Rocket OS running on a retro-style desktop">
     <meta property="og:site_name" content="Retro Rocket OS">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="UPPER$ Function - Retro Rocket OS">
+    <meta name="twitter:title" content="SPRITEPIXEL Function - Retro Rocket OS">
     <meta name="twitter:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="twitter:image" content="https://retrorocket.dev/leader4.png">
     <link rel="preload" as="image" href="https://retrorocket.dev/leader4.png">
@@ -94,7 +94,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('UPPER.html','',''); });
+$(function(){initNavTree('SPRITEPIXEL.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -120,34 +120,22 @@ $(function(){initNavTree('UPPER.html','',''); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">UPPER$ Function </div></div>
+  <div class="headertitle"><div class="title">SPRITEPIXEL Function </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">UPPER$(string-expression)</div>
-</div><!-- fragment --><p>Converts a string expression to <b>upper case</b>, using standard ASCII case folding rules.</p>
+<div class="textblock"><div class="fragment"><div class="line">SPRITEPIXEL(sprite-handle, x, y)</div>
+</div><!-- fragment --><p>Returns the <b>colour value</b> of the pixel at the given coordinates within a sprite.</p>
+<p>The top-left pixel of the sprite is <span class="tt">(0, 0)</span>. The <span class="tt">x</span> value moves across from left to right, and the <span class="tt">y</span> value moves down from top to bottom.</p>
+<p>If the sprite handle is invalid, or the coordinates are outside the sprite's dimensions, an error is raised.</p>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-131"></a>
+<h3 class="doxsection"><a class="anchor" id="examples-71"></a>
 Examples</h3>
-<div class="fragment"><div class="line">PRINT UPPER$(&quot;hello&quot;)</div>
-</div><!-- fragment --><p>Produces <span class="tt">"HELLO"</span>.</p>
-<div class="fragment"><div class="line">PRINT UPPER$(&quot;Retro Rocket 123!&quot;)</div>
-</div><!-- fragment --><p>Produces <span class="tt">"RETRO ROCKET 123!"</span>.</p>
-<div class="fragment"><div class="line">REM Normalise case for comparison</div>
-<div class="line">a$ = &quot;yes&quot;</div>
-<div class="line">b$ = &quot;YES&quot;</div>
-<div class="line">IF UPPER$(a$) = UPPER$(b$) THEN</div>
-<div class="line">    PRINT &quot;They match!&quot;</div>
+<div class="fragment"><div class="line">c = SPRITEPIXEL(player_sprite, 10, 5)</div>
+<div class="line">PRINT &quot;Pixel colour: &quot;; c</div>
+</div><!-- fragment --><div class="fragment"><div class="line">IF SPRITEPIXEL(enemy_sprite, 0, 0) = 0 THEN</div>
+<div class="line">    PRINT &quot;Top-left pixel is transparent or black&quot;</div>
 <div class="line">ENDIF</div>
-</div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-126"></a>
-Notes</h3>
-<ul>
-<li>Only affects ASCII letters <span class="tt">a–z</span> (97–122), converting them to <span class="tt">A–Z</span> (65–90).</li>
-<li>Non-alphabetic characters are unchanged.</li>
-<li>Useful for case-insensitive comparisons, normalisation, and text processing.</li>
-</ul>
-<hr  />
-<p><b>See also:</b> <a class="el" href="LOWER.html">LOWER$</a> · <a class="el" href="LEN.html">LEN</a> · <a class="el" href="MID.html">MID$</a> </p>
+</div><!-- fragment --><p><b>See also:</b> <a class="el" href="SPRITEWIDTH.html">SPRITEWIDTH</a>, <a class="el" href="SPRITEHEIGHT.html">SPRITEHEIGHT</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -163,7 +151,7 @@ Notes</h3>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="index.html">Retro Rocket OS Documentation</a></li><li class="navelem"><a href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a href="string-funcs.html">String Functions</a></li>
+    <li class="navelem"><a href="index.html">Retro Rocket OS Documentation</a></li><li class="navelem"><a href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a href="int-funcs.html">Integer Functions</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.14.0 </li>
   </ul>
 </div>

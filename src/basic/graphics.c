@@ -1440,6 +1440,50 @@ int64_t basic_spriteheight(struct basic_ctx* ctx)
 	return s->height;
 }
 
+int64_t basic_spritepixel(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t s = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t x = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t y = intval;
+	PARAMS_END("SPRITEPIXEL", 0);
+	sprite_t* spr = get_sprite(ctx, s);
+	if (!spr || !spr->pixels) {
+		tokenizer_error_print(ctx, "Invalid sprite handle");
+		return 0;
+	}
+	if (x < 0 || y < 0 || x >= spr->width || y >= spr->height) {
+		tokenizer_error_print(ctx, "Sprite coordinates outside dimensions");
+		return 0;
+	}
+	return spr->pixels[y * spr->width + x];
+}
+
+int64_t basic_spritemask(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t s = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t x = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t y = intval;
+	PARAMS_END("SPRITEMASK", 0);
+	sprite_t* spr = get_sprite(ctx, s);
+	if (!spr || !spr->mask) {
+		tokenizer_error_print(ctx, "Invalid sprite handle");
+		return 0;
+	}
+	if (x < 0 || y < 0 || x >= spr->width || y >= spr->height) {
+		tokenizer_error_print(ctx, "Sprite coordinates outside dimensions");
+		return 0;
+	}
+	return spr->mask[y * spr->width + x];
+}
+
 void rotate_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(ROTATE, ctx);
