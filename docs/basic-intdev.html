@@ -326,14 +326,14 @@ Reflection and scope</h2>
 <hr  />
 <h2 class="doxsection"><a class="anchor" id="graphics-subsystem"></a>
 Graphics subsystem</h2>
-<p>The graphics path shows the general approach: a <b>simple fast path</b> for the common case and a <b>precise slow path</b> for the interesting one.</p>
+<p>The graphics path shows the general approach: a <b>simple fast path</b> for the common simple case and a <b>precise slower path</b> for the uncommon complex ones.</p>
 <ul>
-<li>Axis-aligned blits use fixed-point stepping.</li>
+<li>Where possible, sprite operations use SSE or 64 bit wide read/writes</li>
+<li>Axis-aligned scaled blits use fixed-point stepping.</li>
 <li>Arbitrary quads use a homography and rasterize with incremental numerators (perspective-correct).</li>
 <li>Only fully opaque source pixels are drawn (avoids blending complexity).</li>
 <li>Auto-flip or manual <span class="tt">FLIP</span> is available; pick control or convenience.</li>
 </ul>
-<p>This is the theme throughout: keep the core obvious, add precision where it buys visible quality, and skip frameworks that add weight.</p>
 <hr  />
 <h2 class="doxsection"><a class="anchor" id="how-this-differs-from-other-approaches"></a>
 How this differs from other approaches</h2>
