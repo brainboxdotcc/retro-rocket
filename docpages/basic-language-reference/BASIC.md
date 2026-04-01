@@ -283,14 +283,13 @@ It’s a tiny model, but it covers parameters, locals, globals, and reflective t
 
 ## Graphics subsystem
 
-The graphics path shows the general approach: a **simple fast path** for the common case and a **precise slow path** for the interesting one.
+The graphics path shows the general approach: a **simple fast path** for the common simple case and a **precise slower path** for the uncommon complex ones.
 
-* Axis-aligned blits use fixed-point stepping.
+* Where possible, sprite operations use SSE or 64 bit wide read/writes
+* Axis-aligned scaled blits use fixed-point stepping.
 * Arbitrary quads use a homography and rasterize with incremental numerators (perspective-correct).
 * Only fully opaque source pixels are drawn (avoids blending complexity).
 * Auto-flip or manual `FLIP` is available; pick control or convenience.
-
-This is the theme throughout: keep the core obvious, add precision where it buys visible quality, and skip frameworks that add weight.
 
 ---
 
