@@ -1504,11 +1504,12 @@ static bool sprite_row_to_int_array(struct basic_ctx* ctx, sprite_t* s, int64_t 
 	}
 
 	const uint32_t* src = s->pixels + ((size_t)y * (size_t)s->width);
-
-	for (int64_t x = 0; x < s->width; ++x) {
-		basic_set_int_array_variable(varname, x, src[x], ctx);
-		if (ctx->errored) {
-			return false;
+	for (struct ub_var_int_array* cur = ctx->int_array_variables; cur; cur = cur->next) {
+		if (!strcmp(varname, cur->varname)) {
+			for (int64_t x = 0; x < s->width; ++x) {
+				cur->values[x] = src[x];
+			}
+			break;
 		}
 	}
 
