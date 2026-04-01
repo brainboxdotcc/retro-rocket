@@ -3,13 +3,12 @@ var searchData=
   ['y_0',['VDU 31, x, y',['../VDU.html#vdu-31-x-y',1,'']]],
   ['yday_20function_1',['YDAY Function',['../YDAY.html',1,'int-funcs']]],
   ['year_20function_2',['YEAR Function',['../YEAR.html',1,'int-funcs']]],
-  ['yield_3',['Cooperative runtime: statements yield',['../basic-intdev.html#cooperative-runtime-statements-yield',1,'']]],
-  ['yield_20keyword_4',['YIELD Keyword',['../YIELD.html',1,'keywords']]],
-  ['you_5',['What this design buys you',['../basic-intdev.html#what-this-design-buys-you',1,'']]],
-  ['you_20can_20do_20with_20it_6',['What you can do with it',['../introduction.html#what-you-can-do-with-it',1,'']]],
-  ['you_20can_20script_7',['Error handling you can script',['../basic-intdev.html#error-handling-you-can-script',1,'']]],
-  ['you_20want_20to_20extend_20it_8',['If you want to extend it',['../basic-intdev.html#if-you-want-to-extend-it',1,'']]],
-  ['your_20choice_9',['3. Confirm your choice',['../installation.html#autotoc_md3-confirm-your-choice',1,'']]],
-  ['your_20work_10',['Saving Your Work',['../saving-your-work.html',1,'user-guide']]],
-  ['your_20work_11',['your work',['../third-party-notices.html#appendix-how-to-apply-the-apache-license-to-your-work',1,'APPENDIX: How to apply the Apache License to your work'],['../edit.html#saving-your-work',1,'Saving your work'],['../getting-started.html#saving-your-work-1',1,'Saving your work']]]
+  ['yield_20keyword_3',['YIELD Keyword',['../YIELD.html',1,'keywords']]],
+  ['you_4',['What this design buys you',['../basic-intdev.html#what-this-design-buys-you',1,'']]],
+  ['you_20can_20do_20with_20it_5',['What you can do with it',['../introduction.html#what-you-can-do-with-it',1,'']]],
+  ['you_20can_20script_6',['Error handling you can script',['../basic-intdev.html#error-handling-you-can-script',1,'']]],
+  ['you_20want_20to_20extend_20it_7',['If you want to extend it',['../basic-intdev.html#if-you-want-to-extend-it',1,'']]],
+  ['your_20choice_8',['3. Confirm your choice',['../installation.html#autotoc_md3-confirm-your-choice',1,'']]],
+  ['your_20work_9',['Saving Your Work',['../saving-your-work.html',1,'user-guide']]],
+  ['your_20work_10',['your work',['../third-party-notices.html#appendix-how-to-apply-the-apache-license-to-your-work',1,'APPENDIX: How to apply the Apache License to your work'],['../edit.html#saving-your-work',1,'Saving your work'],['../getting-started.html#saving-your-work-1',1,'Saving your work']]]
 ];

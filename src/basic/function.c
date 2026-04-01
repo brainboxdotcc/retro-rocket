@@ -301,10 +301,6 @@ const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx)
 			}
 		}
 
-		/* Copy list heads back (int/str/double).
-		 * Move-to-front inside atomic may change them,
-		 * so resync here. Do not free: caller owns.
-		 */
 		ctx->int_variables    = atomic->int_variables;
 		ctx->str_variables    = atomic->str_variables;
 		ctx->double_variables = atomic->double_variables;
@@ -360,7 +356,7 @@ char basic_builtin_double_fn(const char* fn_name, struct basic_ctx* ctx, double*
 /**
  * @brief Check if a function name is a builtin function returning a string,
  * if it is, call its handler and set its return value.
- * 
+ *
  * @param fn_name function name to look for
  * @param ctx interpreter context
  * @param res pointer to return value of function
@@ -425,10 +421,6 @@ int64_t basic_eval_int_fn(const char* fn_name, struct basic_ctx* ctx)
 		}
 		rv = (int64_t)atomic->fn_return;
 
-		/* Copy list heads back (int/str/double).
-		 * Move-to-front inside atomic may change them,
-		 * so resync here. Do not free: caller owns.
-		 */
 		ctx->int_variables    = atomic->int_variables;
 		ctx->str_variables    = atomic->str_variables;
 		ctx->double_variables = atomic->double_variables;
@@ -501,10 +493,6 @@ void basic_eval_double_fn(const char* fn_name, struct basic_ctx* ctx, double* re
 			*res = *((double*)atomic->fn_return);
 		}
 
-		/* Copy list heads back (int/str/double).
-		 * Move-to-front inside atomic may change them,
-		 * so resync here. Do not free: caller owns.
-		 */
 		ctx->int_variables    = atomic->int_variables;
 		ctx->str_variables    = atomic->str_variables;
 		ctx->double_variables = atomic->double_variables;
@@ -584,23 +572,16 @@ bool basic_parse_fn(struct basic_ctx* ctx)
 				return false;
 			}
 
-			struct ub_proc_fn_def* def = buddy_malloc(ctx->allocator, sizeof(struct ub_proc_fn_def));
-			if (!def) {
+			struct ub_proc_fn_def def = { 0 };
+			def.name = buddy_strdup(ctx->allocator, name);
+			if (!def.name) {
 				tokenizer_error_printf(ctx, "Out of memory parsing functions");
 				return false;
 			}
-			def->name = buddy_strdup(ctx->allocator, name);
-			if (!def->name) {
-				tokenizer_error_printf(ctx, "Out of memory parsing functions");
-				return false;
-			}
-			def->type = type;
-			def->line = currentline;
-			def->next = ctx->defs;
-
-			/* Parse parameters */
-
-			def->params = NULL;
+			def.name_length = strlen(name);
+			def.type = type;
+			def.line = currentline;
+			def.params = NULL;
 
 			if (*search == '(') {
 				search++;
@@ -616,6 +597,7 @@ bool basic_parse_fn(struct basic_ctx* ctx)
 						pname[pni] = 0;
 						struct ub_param* par = buddy_malloc(ctx->allocator, sizeof(struct ub_param));
 						if (!par) {
+							tokenizer_error_printf(ctx, "Out of memory parsing function parameters");
 							return false;
 						}
 						par->next = NULL;
@@ -625,10 +607,10 @@ bool basic_parse_fn(struct basic_ctx* ctx)
 							return false;
 						}
 
-						if (def->params == NULL) {
-							def->params = par;
+						if (def.params == NULL) {
+							def.params = par;
 						} else {
-							struct ub_param* cur = def->params;
+							struct ub_param* cur = def.params;
 							for (; cur; cur = cur->next) {
 								if (cur->next == NULL) {
 									cur->next = par;
@@ -644,7 +626,19 @@ bool basic_parse_fn(struct basic_ctx* ctx)
 					search++;
 				}
 			}
-			ctx->defs = def;
+
+			if (!hashmap_set(ctx->defs, &def) && hashmap_oom(ctx->defs)) {
+				tokenizer_error_printf(ctx, "Out of memory parsing functions");
+				for (; def.params; ) {
+					void* next = def.params->next;
+					buddy_free(ctx->allocator, def.params->name);
+					buddy_free(ctx->allocator, def.params);
+					def.params = next;
+				}
+				buddy_free(ctx->allocator, (void*)def.name);
+				buddy_free(ctx->allocator, linetext);
+				return false;
+			}
 		}
 
 		while (*program == '\n') {
@@ -662,29 +656,32 @@ bool basic_parse_fn(struct basic_ctx* ctx)
 
 struct ub_proc_fn_def* basic_find_fn(const char* name, struct basic_ctx* ctx)
 {
-	struct ub_proc_fn_def* cur = ctx->defs;
-	for (; cur; cur = cur->next) {
-		if (!strcmp(name, cur->name)) {
-			return cur;
-		}
+	if (!name) {
+		return NULL;
 	}
-	return NULL;
+	return hashmap_get(ctx->defs, &(ub_proc_fn_def) { .name = name });
 }
 
 void basic_free_defs(struct basic_ctx* ctx)
 {
-	for (; ctx->defs; ) {
-		for (; ctx->defs->params; ) {
-			void* next = ctx->defs->params->next;
-			buddy_free(ctx->allocator, ctx->defs->params->name);
-			buddy_free(ctx->allocator, ctx->defs->params);
-			ctx->defs->params = next;
-		}
-		void* next = ctx->defs->next;
-		buddy_free(ctx->allocator, ctx->defs->name);
-		buddy_free(ctx->allocator, ctx->defs);
-		ctx->defs = next;
+	if (!ctx->defs) {
+		return;
 	}
+
+	size_t i = 0;
+	void* item = NULL;
+	while (hashmap_iter(ctx->defs, &i, &item)) {
+		struct ub_proc_fn_def* def = item;
+		for (; def->params; ) {
+			void* next = def->params->next;
+			buddy_free(ctx->allocator, def->params->name);
+			buddy_free(ctx->allocator, def->params);
+			def->params = next;
+		}
+		buddy_free(ctx->allocator, def->name);
+	}
+
+	hashmap_free(ctx->defs);
 	ctx->defs = NULL;
 }
 
@@ -765,7 +762,9 @@ void def_statement(struct basic_ctx* ctx)
 	// in the future we should check if the interpreter is actually calling a FN,
 	// to check we don't fall through into a function.
 	accept_or_return(DEF, ctx);
-	while (*ctx->nextptr && *ctx->nextptr != '\n') ctx->nextptr++;
+	while (*ctx->nextptr && *ctx->nextptr != '\n') {
+		ctx->nextptr++;
+	}
 	tokenizer_next(ctx);
 	accept_or_return(NEWLINE, ctx);
 }
@@ -828,5 +827,3 @@ void endproc_statement(struct basic_ctx* ctx)
 		tokenizer_error_print(ctx, "ENDPROC when not inside PROC");
 	}
 }
-
-

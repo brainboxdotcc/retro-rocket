@@ -29,7 +29,7 @@ var searchData=
   ['redistribution_26',['4. Redistribution',['../third-party-notices.html#autotoc_md4-redistribution',1,'']]],
   ['reference_27',['BASIC Language Reference',['../basic-ref.html',1,'index']]],
   ['reference_28',['reference',['../commands.html#command-reference',1,'Command reference'],['../edit.html#quick-reference',1,'Quick reference']]],
-  ['reflection_20and_20scope_20in_20one_20paragraph_29',['Reflection and scope in one paragraph',['../basic-intdev.html#reflection-and-scope-in-one-paragraph',1,'']]],
+  ['reflection_20and_20scope_29',['Reflection and scope',['../basic-intdev.html#reflection-and-scope',1,'']]],
   ['registering_20a_20handler_30',['Registering a Handler',['../interrupts.html#registering-a-handler',1,'']]],
   ['regular_20expression_31',['Regular expression',['../variables.html#regular-expression',1,'']]],
   ['relationship_20to_20sound_32',['Relationship to SOUND',['../STREAM.html#relationship-to-sound',1,'']]],
@@ -113,6 +113,5 @@ var searchData=
   ['rules_20and_20behaviour_110',['Rules and behaviour',['../DEF.html#rules-and-behaviour',1,'']]],
   ['rules_20behaviour_111',['Rules behaviour',['../ELSE.html#rules--behaviour',1,'Rules &amp; behaviour'],['../ENDPROC.html#rules--behaviour-1',1,'Rules &amp; behaviour']]],
   ['run_112',['run',['../troubleshooting.html#programs-wont-run',1,'Programs won’t run'],['../rocketsh.html#run',1,'run']]],
-  ['running_20programs_113',['Running programs',['../working-with-programs.html#running-programs',1,'']]],
-  ['runtime_3a_20statements_20yield_114',['Cooperative runtime: statements yield',['../basic-intdev.html#cooperative-runtime-statements-yield',1,'']]]
+  ['running_20programs_113',['Running programs',['../working-with-programs.html#running-programs',1,'']]]
 ];

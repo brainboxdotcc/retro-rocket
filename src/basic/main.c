@@ -347,7 +347,7 @@ struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file
 	ctx->program_ptr = clean_basic(program, ctx->program_ptr);
 
 	ctx->for_stack_ptr = ctx->call_stack_ptr = ctx->repeat_stack_ptr = ctx->while_stack_ptr = 0;
-	ctx->defs = NULL;
+	ctx->defs = hashmap_new_with_allocator(varmap_malloc, varmap_realloc, varmap_free, sizeof(struct ub_proc_fn_def), 0, SEED0, SEED1, varmap_hash, varmap_compare, NULL, ctx->allocator);
 
 	ctx->graphics_colour = 0xFFFFFF;
 
@@ -479,6 +479,7 @@ void library_statement(struct basic_ctx *ctx) {
 	 */
 	tokenizer_init(ctx->program_ptr, ctx);
 	basic_free_defs(ctx);
+	ctx->defs = hashmap_new_with_allocator(varmap_malloc, varmap_realloc, varmap_free, sizeof(struct ub_proc_fn_def), 0, SEED0, SEED1, varmap_hash, varmap_compare, NULL, ctx->allocator);
 	if (!basic_parse_fn(ctx)) {
 		tokenizer_error_printf(ctx, "Error reading PROC and FN definitons from library file '%s'", lib_file);
 		return;

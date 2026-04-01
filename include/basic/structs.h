@@ -4,6 +4,14 @@
 #include <stdbool.h>
 #include <stddef.h>
 
+#include <stddef.h>
+
+#define ASSERT_NAMED_LAYOUT(type, first_field, second_field) \
+	_Static_assert(offsetof(type, first_field) == 0, #type " must have string field first"); \
+	_Static_assert(offsetof(type, second_field) == sizeof(const char *), #type " must have size_t field second"); \
+	_Static_assert(__builtin_types_compatible_p(__typeof__(((type *)0)->first_field), const char *), #type " first field must be const char *"); \
+	_Static_assert(__builtin_types_compatible_p(__typeof__(((type *)0)->second_field), size_t), #type " second field must be size_t")
+
 struct basic_ctx;
 
 /**
@@ -154,10 +162,10 @@ typedef struct ub_param {
  */
 typedef struct ub_proc_fn_def {
 	const char *name; ///< Name of the function or procedure
+	size_t name_length; ///< Length of function or procedure name
 	ub_fn_type type; ///< Type of function or procedure (FN/PROC)
 	int64_t line; ///< Starting line number of the function or procedure
 	struct ub_param *params; ///< Linked list of function parameters
-	struct ub_proc_fn_def *next; ///< Pointer to the next function or procedure definition
 } ub_proc_fn_def;
 
 /**
@@ -346,3 +354,15 @@ typedef enum parameter_type_t {
 	BIP_DOUBLE, ///< Double parameter
 	BIP_VARIABLE, ///< Variable parameter
 } parameter_type_t;
+
+/**
+ * Compile-time validation of shaped structs used by varmap_*
+ * hashmap helper functions
+ */
+ASSERT_NAMED_LAYOUT(ub_proc_fn_def, name, name_length);
+ASSERT_NAMED_LAYOUT(ub_var_int, varname, name_length);
+ASSERT_NAMED_LAYOUT(ub_var_string, varname, name_length);
+ASSERT_NAMED_LAYOUT(ub_var_double, varname, name_length);
+ASSERT_NAMED_LAYOUT(ub_var_int_array, varname, name_length);
+ASSERT_NAMED_LAYOUT(ub_var_string_array, varname, name_length);
+ASSERT_NAMED_LAYOUT(ub_var_double_array, varname, name_length);

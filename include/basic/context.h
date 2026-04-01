@@ -10,24 +10,86 @@
 #include "audio.h"
 #include "data.h"
 
-typedef struct {
+/**
+ * @brief Represents a queued UDP packet.
+ *
+ * This structure is used to store incoming UDP packet data in a linked list,
+ * allowing the interpreter to process packets asynchronously.
+ */
+typedef struct queued_udp_packet {
+	/**
+	 * @brief Source port of the UDP packet
+	 */
 	uint16_t source_port;
+
+	/**
+	 * @brief Source IP address as a string
+	 */
 	const char* ip;
+
+	/**
+	 * @brief Pointer to packet payload data
+	 */
 	const char* data;
+
+	/**
+	 * @brief Length of the payload in bytes
+	 */
 	uint64_t length;
+
+	/**
+	 * @brief Previous packet in the queue
+	 */
 	struct queued_udp_packet* prev;
+
+	/**
+	 * @brief Next packet in the queue
+	 */
 	struct queued_udp_packet* next;
 } queued_udp_packet;
 
+/**
+ * @brief Represents a loaded sound buffer.
+ *
+ * Stores raw PCM audio data and links to other sounds in a list.
+ * Audio is stored as interleaved signed 16-bit little-endian samples.
+ */
 typedef struct basic_sound_t {
-	int16_t *pcm;			/* interleaved S16LE */
-	size_t frames;			/* stereo frames */
-	struct basic_sound_t* next;	/* Next */
+	/**
+	 * @brief Pointer to PCM audio data (interleaved S16LE)
+	 */
+	int16_t *pcm;
+
+	/**
+	 * @brief Number of stereo frames in the buffer
+	 */
+	size_t frames;
+
+	/**
+	 * @brief Next sound buffer in the linked list
+	 */
+	struct basic_sound_t* next;
 } basic_sound_t;
 
+/**
+ * @brief Stores loop stack state for control flow restoration.
+ *
+ * Used when entering and exiting procedures to preserve loop execution state.
+ */
 typedef struct control_stack_state {
+	/**
+	 * @brief FOR loop stack pointer
+	 */
 	uint64_t for_stack_ptr;
+
+	/**
+	 * @brief WHILE loop stack pointer
+	 */
 	uint64_t while_stack_ptr;
+
+	/**
+	 * @brief REPEAT loop stack pointer
+	 */
 	uint64_t repeat_stack_ptr;
 } control_stack_state;
 
@@ -41,7 +103,7 @@ typedef struct control_stack_state {
  */
 typedef struct basic_ctx {
 	/**
-	 * Owning process in cooperative task scheduler
+	 * Owning process in task scheduler
 	 */
 	struct process_t* proc;
 
@@ -142,17 +204,17 @@ typedef struct basic_ctx {
 	 *
 	 * Each index in this array corresponds to a specific depth in the call stack.
 	 */
-	struct hashmap* local_int_variables[MAX_CALL_STACK_DEPTH]; // ub_var_int*
+	struct hashmap* local_int_variables[MAX_CALL_STACK_DEPTH];
 
 	/**
 	 * @brief Local string variable stack for function/procedure scopes.
 	 */
-	struct hashmap* local_string_variables[MAX_CALL_STACK_DEPTH]; // ub_var_string*
+	struct hashmap* local_string_variables[MAX_CALL_STACK_DEPTH];
 
 	/**
 	 * @brief Local double (real) variable stack for function/procedure scopes.
 	 */
-	struct hashmap* local_double_variables[MAX_CALL_STACK_DEPTH]; // ub_var_double*
+	struct hashmap* local_double_variables[MAX_CALL_STACK_DEPTH];
 
 	/**
 	 * @brief Call stack for return line numbers during function, procedure, or `GOSUB` calls.
@@ -225,26 +287,26 @@ typedef struct basic_ctx {
 	/**
 	 * @brief Definitions of procedures and functions in the program.
 	 *
-	 * Linked list of all function and procedure definitions.
+	 * Hashmap of all function and procedure definitions.
 	 */
-	struct ub_proc_fn_def* defs;
+	struct hashmap* defs;
 
 	/**
-	 * @brief Global integer variable list.
+	 * @brief Global integer variable hashmap.
 	 *
 	 * Stores all globally scoped integer variables in the program.
 	 */
-	struct hashmap* int_variables; // ub_var_int*
+	struct hashmap* int_variables;
 
 	/**
-	 * @brief Global string variable list.
+	 * @brief Global string variable hashmap.
 	 */
-	struct hashmap* str_variables; // ub_var_string*
+	struct hashmap* str_variables;
 
 	/**
-	 * @brief Global double variable list.
+	 * @brief Global double variable hashmap.
 	 */
-	struct hashmap* double_variables; // ub_var_double*
+	struct hashmap* double_variables;
 
 	/**
 	 * @brief Global integer array variable map.
@@ -330,18 +392,59 @@ typedef struct basic_ctx {
 	 */
 	buddy_allocator_t* allocator;
 
+	/**
+	 * @brief Last received UDP packet.
+	 *
+	 * Used for networking features such as UDPREAD$ and related functions.
+	 */
 	queued_udp_packet last_packet;
 
+	/**
+	 * @brief Active audio streams associated with this context.
+	 *
+	 * Indexed array of mixer streams currently in use.
+	 */
 	mixer_stream_t* audio_streams[64];
 
+	/**
+	 * @brief Linked list of loaded sound buffers.
+	 *
+	 * Stores PCM audio data used by SOUND and related commands.
+	 */
 	basic_sound_t* sounds;
 
+	/**
+	 * @brief Sound envelope definitions.
+	 *
+	 * Used for shaping audio playback characteristics.
+	 */
 	sound_envelope_ex_t envelopes[64];
 
+	/**
+	 * @brief Current TRE regex pattern matching state.
+	 *
+	 */
 	struct match_state *match_ctx;
 
+	/**
+	 * @brief DATA statement storage.
+	 *
+	 * Holds parsed DATA values available to READ operations.
+	 */
 	struct data_store datastore;
+
+	/**
+	 * @brief DATA set metadata.
+	 *
+	 * Tracks multiple DATA blocks and their organisation.
+	 */
 	struct data_sets datasets;
+
+	/**
+	 * @brief Current read offset into DATA storage.
+	 *
+	 * Indicates the next DATA item to be read by READ.
+	 */
 	size_t data_offset;
 
 } basic_ctx;
