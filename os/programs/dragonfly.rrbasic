@@ -9,15 +9,17 @@ LIBRARY LIB$ + "/dragonfly/hud"
 LIBRARY LIB$ + "/dragonfly/audio"
 LIBRARY LIB$ + "/dragonfly/levels"
 
+CURRENT_LEVEL = 2
+
 CLS
 GCOL 0
 AUTOFLIP FALSE
 
 game_ticks = 0
 frame_len = 0
-PROCload_level(1)
-PROCload_parallax(1)
-PROCmusic_start()
+PROCload_level(CURRENT_LEVEL)
+PROCload_parallax(CURRENT_LEVEL)
+PROCmusic_start(CURRENT_LEVEL)
 REPEAT
     game_ticks = FNframe(game_ticks)
 UNTIL (INKEY$(CHR$(27)) <> "") OR (INKEY$("") = CHR$(27))

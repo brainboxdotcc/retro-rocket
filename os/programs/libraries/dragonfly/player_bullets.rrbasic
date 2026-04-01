@@ -2,7 +2,7 @@ DEF PROCplayer_bullets()
     player_bullets_count = 0
     player_bullet_max = 1
     player_fire_cooldown = 1 ' Starts at one so we dont pick up spurious enter key
-    player_fire_delay = 6 ' Rapid fire repeat delay in frames
+    player_fire_delay = 30 ' Rapid fire repeat delay in frames, powerups can lower this
     DIM player_bullet_x, player_bullet_max
     DIM player_bullet_y, player_bullet_max
     DIM player_bullet_type, player_bullet_max

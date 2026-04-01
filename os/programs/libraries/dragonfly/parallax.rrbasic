@@ -2,17 +2,37 @@ DEF PROCparallax()
 ENDPROC
 
 DEF PROCunload_parallax()
-    SPRITEFREE background1
-    SPRITEFREE l1_parallax_lower
-    SPRITEFREE l1_parallax_middle
-    SPRITEFREE l1_parallax_front
+    IF background1 <> -1 THEN SPRITEFREE background1
+    IF l1_parallax_top <> -1 THEN SPRITEFREE l1_parallax_top
+    IF l1_parallax_lower <> -1 THEN SPRITEFREE l1_parallax_lower
+    IF l1_parallax_middle <> -1 THEN SPRITEFREE l1_parallax_middle
+    IF l1_parallax_front <> -1 THEN SPRITEFREE l1_parallax_front
 ENDPROC
 
 DEF PROCload_parallax(level)
+
+    background1 = -1
+    l1_parallax_top = -1
+    l1_parallax_lower = -1
+    l1_parallax_middle = -1
+    l1_parallax_front = -1
+
+    ON ERROR PROChandle_not_found
     SPRITELOAD background1, "/images/dragonfly/background" + STR$(level) + ".png"
+
+    ON ERROR PROChandle_not_found
+    SPRITELOAD l1_parallax_top, "/images/dragonfly/level" + STR$(level) + "_parallax_top.png"
+
+    ON ERROR PROChandle_not_found
     SPRITELOAD l1_parallax_lower, "/images/dragonfly/level" + STR$(level) + "_parallax_lower.png"
+
+    ON ERROR PROChandle_not_found
     SPRITELOAD l1_parallax_middle, "/images/dragonfly/level" + STR$(level) + "_parallax_middle.png"
+
+    ON ERROR PROChandle_not_found
     SPRITELOAD l1_parallax_front, "/images/dragonfly/level" + STR$(level) + "_parallax_front.png"
+
+    ON ERROR OFF
 
     L1_PARALLAX_WIDTH = SPRITEWIDTH(l1_parallax_lower)
     L1_PARALLAX_HEIGHT = SPRITEHEIGHT(l1_parallax_lower)
@@ -22,37 +42,51 @@ DEF PROCload_parallax(level)
     l1_lower_x = 0
     l1_middle_x = 0
     l1_front_x = 0
+    l1_top_x = 0
 
     l1_lower_speed = 3
     l1_middle_speed = 6
     l1_front_speed = 9
+    l1_top_speed = 9
 
+ENDPROC
+
+DEF PROChandle_not_found
 ENDPROC
 
 DEF PROCscroll_parallax()
     l1_lower_x = l1_lower_x - l1_lower_speed
     l1_middle_x = l1_middle_x - l1_middle_speed
     l1_front_x = l1_front_x - l1_front_speed
+    l1_top_x = l1_top_x - l1_front_speed
 
     IF l1_lower_x <= -L1_PARALLAX_WIDTH THEN l1_lower_x = l1_lower_x + L1_PARALLAX_WIDTH
     IF l1_middle_x <= -L1_PARALLAX_WIDTH THEN l1_middle_x = l1_middle_x + L1_PARALLAX_WIDTH
     IF l1_front_x <= -L1_PARALLAX_WIDTH THEN l1_front_x = l1_front_x + L1_PARALLAX_WIDTH
+    IF l1_top_x <= -L1_PARALLAX_WIDTH THEN l1_top_x = l1_top_x + L1_PARALLAX_WIDTH
 
     PLOT background1, 0, 0
 ENDPROC
 
 DEF PROCdraw_parallax_rear()
-    PLOT l1_parallax_lower, l1_lower_x, L1_PARALLAX_Y
-    PLOT l1_parallax_lower, l1_lower_x + L1_PARALLAX_WIDTH, L1_PARALLAX_Y
+    IF l1_parallax_lower <> -1 THEN
+        PLOT l1_parallax_lower, l1_lower_x, L1_PARALLAX_Y
+        PLOT l1_parallax_lower, l1_lower_x + L1_PARALLAX_WIDTH, L1_PARALLAX_Y
+    ENDIF
 
-    PLOT l1_parallax_middle, l1_middle_x, L1_PARALLAX_Y
-    PLOT l1_parallax_middle, l1_middle_x + L1_PARALLAX_WIDTH, L1_PARALLAX_Y
-
-    PLOT l1_parallax_front, l1_front_x, L1_PARALLAX_Y
-    PLOT l1_parallax_front, l1_front_x + L1_PARALLAX_WIDTH, L1_PARALLAX_Y
+    IF l1_parallax_middle <> -1 THEN
+        PLOT l1_parallax_middle, l1_middle_x, L1_PARALLAX_Y
+        PLOT l1_parallax_middle, l1_middle_x + L1_PARALLAX_WIDTH, L1_PARALLAX_Y
+    ENDIF
 ENDPROC
 
 DEF PROCdraw_parallax_front()
-    PLOT l1_parallax_front, l1_front_x, L1_PARALLAX_Y
-    PLOT l1_parallax_front, l1_front_x + L1_PARALLAX_WIDTH, L1_PARALLAX_Y
+    IF l1_parallax_front <> -1 THEN
+        PLOT l1_parallax_front, l1_front_x, L1_PARALLAX_Y
+        PLOT l1_parallax_front, l1_front_x + L1_PARALLAX_WIDTH, L1_PARALLAX_Y
+    ENDIF
+    IF l1_parallax_top <> -1 THEN
+        PLOT l1_parallax_top, l1_top_x, SPRITEHEIGHT(statusbar) - 4
+        PLOT l1_parallax_top, l1_top_x + L1_PARALLAX_WIDTH, SPRITEHEIGHT(statusbar) - 4
+    ENDIF
 ENDPROC

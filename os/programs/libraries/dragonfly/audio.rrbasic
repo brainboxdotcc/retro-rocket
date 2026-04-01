@@ -23,7 +23,6 @@ DEF PROCaudio()
     STREAM CREATE music_stream
 
     SOUND LOAD player_fire_sound, "/system/webserver/media/dragonfly/player_fire.wav"
-    SOUND LOAD level1_music, "/system/webserver/media/dragonfly/music_level1.mp3"
     SOUND LOAD player_hit, "/system/webserver/media/dragonfly/player_hit.wav"
 
     ' Load explosions
@@ -59,8 +58,10 @@ DEF PROCplayer_hit_sound
     SOUND PLAY player_hit_stream, player_hit
 ENDPROC
 
-DEF PROCmusic_start
-    IF AUDIO = TRUE THEN SOUND PLAY music_stream, level1_music
+DEF PROCmusic_start(level_number)
+    IF AUDIO = FALSE THEN ENDPROC
+    SOUND LOAD level_music, "/system/webserver/media/dragonfly/music_level" + STR$(level_number) + ".mp3"
+    SOUND PLAY music_stream, level_music
 ENDPROC
 
 DEF PROCmusic_stop
