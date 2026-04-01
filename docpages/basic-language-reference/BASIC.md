@@ -108,7 +108,7 @@ Insertion replaces existing entries with matching names (no duplicates). Lookup 
 
 This keeps lookup predictable, avoids per-access structural changes, and keeps all name-based storage uniform across the runtime.
 
-### Memory & allocator model
+## Memory & allocator model
 
 Retro Rocket BASIC keeps memory management **deterministic** on purpose. There’s no tracing GC, no background compaction, and no “surprise” pauses. Instead, the interpreter uses a small set of arenas
  backed by a buddy allocator and ties lifetime directly to program structure (globals vs. call frames).
