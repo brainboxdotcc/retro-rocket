@@ -245,7 +245,7 @@ Retro Rocket BASIC treats **Ctrl+Esc** as a **user-initiated error**, exactly li
 * Do **not** swallow or “handle” the escape inside a built-in; let it bubble to the run loop so `ERR/ERR$/ERRLINE` and `ON ERROR PROC` behave consistently.
 * Remember: `ERR$` is **sticky**. Once set non-empty it won’t be overwritten by subsequent errors until explicitly cleared to the empty string.
 
-### Arrays & list-like operations
+## Arrays & list-like operations
 
 Arrays in Retro Rocket BASIC are deliberately **simple, typed vectors**. One dimension, fixed length, and the same `$/#/int` suffix rules as scalars. You create them with `DIM`, you can change their length with `REDIM`,
 and you index them with an integer expression. That’s it. No hidden growth, no iterators, no surprises.
