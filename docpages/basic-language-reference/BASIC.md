@@ -251,8 +251,7 @@ Arrays in Retro Rocket BASIC are deliberately **simple, typed vectors**. One dim
 and you index them with an integer expression. That’s it. No hidden growth, no iterators, no surprises.
 
 An array’s **type is part of its name**: `A()` holds integers, `R#()` holds reals, `S$()` holds strings. Index expressions are evaluated by the expression engine and treated as integers; out-of-range indices raise a normal
-runtime error (which you can catch with `ON ERROR PROC …`). Because arrays are first-class variables, they obey the same **scope and lifetime** rules: locals live for the duration of the current `PROC`/`FN` frame; globals
-persist for the program’s life.
+runtime error (which you can catch with `ON ERROR PROC …`). Arrays are always global to the program and persist for the program’s whole lifetime.
 
 `DIM` allocates a contiguous block sized for the declared length. `REDIM` replaces that storage with a new block for the new length; elements that fit in the new size are retained, anything beyond the new end is discarded,
 and newly created slots are reset to the type’s default (numeric zero or empty string). The intent is **predictable memory and time**: you pay for resizing at the moment you ask for it, not piecemeal while your program runs.
