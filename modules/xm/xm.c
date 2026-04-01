@@ -1527,7 +1527,6 @@ static bool xm_from_memory(const char *filename, const void *bytes, size_t len, 
 
 	xm_state_t st;
 	if (!parse_xm_and_build(filename, (const uint8_t *) bytes, len, &st)) {
-		dprintf("Couldn't parse as xm\n");
 		free_xm(&st);
 		return false;
 	}

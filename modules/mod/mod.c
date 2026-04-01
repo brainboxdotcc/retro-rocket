@@ -790,7 +790,6 @@ static bool mod_from_memory(const char *filename, const void *bytes, size_t len,
 
 	mod_state_t st;
 	if (!parse_and_init(filename, (const uint8_t *) bytes, len, &st)) {
-		dprintf("Couldn't parse as mod\n");
 		return false;
 	}
 

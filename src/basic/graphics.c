@@ -634,8 +634,6 @@ void loadsprite_statement(struct basic_ctx* ctx)
 	}
 	fs_read_file(f, 0, f->size, buf);
 
-	dprintf("Analysing image file");
-
 	int gw = 0, gh = 0;
 	/* Parse container only: no massive allocations. */
 	int gframes = gif_count_frames_and_size(buf, (size_t)f->size, &gw, &gh);
