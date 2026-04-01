@@ -324,8 +324,8 @@ Reflection and scope</h2>
 <p>The interpreter lets code ask for or set variables by name (<span class="tt">GETVAR*</span>, <span class="tt">SETVAR*</span>, <span class="tt">EXISTSVAR*</span>). This is implemented atop the same per-type <b>hashmaps</b> used for normal access. <span class="tt">LOCAL</span> and <span class="tt">GLOBAL</span> on assignments pick the destination map; lookups search the local stack from the current frame outward and then globals.</p>
 <p>It’s a tiny model, but it covers parameters, locals, globals, and reflective tools consistently.</p>
 <hr  />
-<h2 class="doxsection"><a class="anchor" id="graphics-as-a-case-study-in-philosophy"></a>
-Graphics as a case study in philosophy</h2>
+<h2 class="doxsection"><a class="anchor" id="graphics-subsystem"></a>
+Graphics subsystem</h2>
 <p>The graphics path shows the general approach: a <b>simple fast path</b> for the common case and a <b>precise slow path</b> for the interesting one.</p>
 <ul>
 <li>Axis-aligned blits use fixed-point stepping.</li>
@@ -354,7 +354,6 @@ What this design buys you</h2>
 <ul>
 <li>No whole-program optimizations or constant folding across lines.</li>
 <li>Boolean operators don’t short-circuit.</li>
-<li>If you write a compute-heavy loop that never touches a yielding primitive, you can hog the CPU. (By design: the runtime won’t preempt you.)</li>
 </ul>
 <hr  />
 <h2 class="doxsection"><a class="anchor" id="if-you-want-to-extend-it"></a>

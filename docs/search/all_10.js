@@ -46,7 +46,7 @@ var searchData=
   ['grant_20of_20copyright_20license_43',['2. Grant of Copyright License',['../third-party-notices.html#autotoc_md2-grant-of-copyright-license',1,'']]],
   ['grant_20of_20patent_20license_44',['3. Grant of Patent License',['../third-party-notices.html#autotoc_md3-grant-of-patent-license',1,'']]],
   ['graphics_45',['Graphics',['../sound-and-graphics.html#graphics',1,'Graphics'],['../sound-and-graphics.html',1,'Sound and Graphics']]],
-  ['graphics_20as_20a_20case_20study_20in_20philosophy_46',['Graphics as a case study in philosophy',['../basic-intdev.html#graphics-as-a-case-study-in-philosophy',1,'']]],
+  ['graphics_20subsystem_46',['Graphics subsystem',['../basic-intdev.html#graphics-subsystem',1,'']]],
   ['graphicstest_2emd_47',['graphicstest.md',['../graphicstest_8md.html',1,'']]],
   ['graphprint_20keyword_48',['GRAPHPRINT Keyword',['../GRAPHPRINT.html',1,'keywords']]],
   ['graphprint_2emd_49',['GRAPHPRINT.md',['../GRAPHPRINT_8md.html',1,'']]],

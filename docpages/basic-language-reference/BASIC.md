@@ -282,7 +282,7 @@ It’s a tiny model, but it covers parameters, locals, globals, and reflective t
 
 ---
 
-## Graphics as a case study in philosophy
+## Graphics subsystem
 
 The graphics path shows the general approach: a **simple fast path** for the common case and a **precise slow path** for the interesting one.
 
@@ -318,7 +318,6 @@ And yes, there are boundaries:
 
 * No whole-program optimizations or constant folding across lines.
 * Boolean operators don’t short-circuit.
-* If you write a compute-heavy loop that never touches a yielding primitive, you can hog the CPU. (By design: the runtime won’t preempt you.)
 
 ---
 
