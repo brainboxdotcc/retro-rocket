@@ -264,8 +264,8 @@ Mutation is direct (`arr(i) = value`) and **stable**. Indexes mean fixed positio
 Both are intentionally **O(n) moves** on the single backing array. There’s no hidden capacity or amortized growth; if you need more room, say so with `REDIM`. This keeps execution time obvious and avoids allocator churn
 mid-loop. For string arrays, each slot owns its buffer: compaction frees/retains those buffers as needed so you don’t leak when popping or churn needlessly when pushing.
 
-Design-wise, arrays are kept this spartan for three reasons. First, **determinism**: fixed size and explicit compaction make worst-case costs obvious when you’re inside a tight frame that must finish before yielding
-back to the scheduler. Second, **memory hygiene**: one contiguous block per array (plus per-element string buffers) reduces fragmentation and makes lifetime clear. Locals are torn down with their frame, globals only
+Design-wise, arrays are kept this spartan for three reasons. First, **determinism**: fixed size and explicit compaction make worst-case costs obvious when you’re inside a tight frame.
+Second, **memory hygiene**: one contiguous block per array (plus per-element string buffers) reduces fragmentation and makes lifetime clear. Locals are torn down with their frame, globals only
 when the program ends. Third, **ergonomics without magic**: `PUSH`/`POP` cover the common “insert/remove while preserving order” use case without inventing a second container type or background reallocation policy.
 
 If you’re writing a library on top of this model, the guidance is simple: choose array lengths deliberately, `REDIM` at known boundaries (not per-iteration), prefer `POP`/`PUSH` near the end of the array when you
