@@ -1,6 +1,13 @@
 DEF PROCparallax()
 ENDPROC
 
+DEF PROCunload_parallax()
+    SPRITEFREE background1
+    SPRITEFREE l1_parallax_lower
+    SPRITEFREE l1_parallax_middle
+    SPRITEFREE l1_parallax_front
+ENDPROC
+
 DEF PROCload_parallax(level)
     SPRITELOAD background1, "/images/dragonfly/background" + STR$(level) + ".png"
     SPRITELOAD l1_parallax_lower, "/images/dragonfly/level" + STR$(level) + "_parallax_lower.png"

@@ -4,7 +4,7 @@ ENDPROC
 DEF PROCload_level(level_number)
     SPRITELOAD level_data, "/images/dragonfly/level" + STR$(level_number) + ".png"
     ROTATE level_data
-    last_moment = 0
+    last_moment = -1
 ENDPROC
 
 DEF PROCunload_level()

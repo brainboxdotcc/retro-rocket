@@ -7,8 +7,14 @@
     <inspection_tool class="ConstantParameter" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="Deprecations" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="EndlessLoop" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="GrazieInspection" enabled="true" level="GRAMMAR_ERROR" enabled_by_default="true">
+      <scope name="RRBASIC" level="GRAMMAR_ERROR" enabled="false" />
+    </inspection_tool>
     <inspection_tool class="HashLoopInspection" enabled="false" level="ERROR" enabled_by_default="false" />
     <inspection_tool class="IdentifierInspection" enabled="false" level="ERROR" enabled_by_default="false" />
+    <inspection_tool class="LanguageDetectionInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <scope name="RRBASIC" level="INFORMATION" enabled="false" editorAttributes="INFORMATION_ATTRIBUTES" />
+    </inspection_tool>
     <inspection_tool class="LoopControlInspection" enabled="false" level="ERROR" enabled_by_default="false" />
     <inspection_tool class="MooseAttributeAccessors" enabled="false" level="ERROR" enabled_by_default="false" />
     <inspection_tool class="NamespaceClashes" enabled="false" level="WARNING" enabled_by_default="false" />
@@ -20,6 +26,16 @@
     <inspection_tool class="PerlSwitch" enabled="false" level="ERROR" enabled_by_default="false" />
     <inspection_tool class="PerlSyntax" enabled="false" level="ERROR" enabled_by_default="false" />
     <inspection_tool class="RedundantNamespace" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="SpellCheckingInspection" enabled="true" level="TYPO" enabled_by_default="true">
+      <scope name="RRBASIC" level="TYPO" enabled="false">
+        <option name="processCode" value="true" />
+        <option name="processLiterals" value="true" />
+        <option name="processComments" value="true" />
+      </scope>
+      <option name="processCode" value="true" />
+      <option name="processLiterals" value="true" />
+      <option name="processComments" value="true" />
+    </inspection_tool>
     <inspection_tool class="SubMultipleDeclarations" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="SubMultipleDefinitions" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="SubUnresolvable" enabled="false" level="WARNING" enabled_by_default="false" />
