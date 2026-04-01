@@ -331,4 +331,4 @@ Follow those three rules and your feature will feel native to the interpreter.
 
 ---
 
-*Retro Rocket BASIC chooses *clarity over cleverness*. It’s a line-oriented, typed, cooperative interpreter whose behavior is easy to predict and easy to step through. If you enjoy understanding the system you’re using, and bending it a little, this design is intentionally friendly to you.*
+Retro Rocket BASIC chooses *clarity over cleverness*. It’s a line-oriented, typed, cooperative interpreter whose behavior is easy to predict and easy to step through. If you enjoy understanding the system you’re using, and bending it a little, this design is intentionally friendly to you.
