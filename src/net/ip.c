@@ -431,7 +431,8 @@ ip_packet_frag_t* frag_list_insert(ip_packet_frag_t *insert, ip_packet_frag_t *l
  * @param udata user data
  * @return int 0 for equal, -1 for less than, 1 for greater than; like strcmp()
  */
-int ip_frag_compare(const void *a, const void *b, [[maybe_unused]] void *udata) {
+int ip_frag_compare(const void *a, const void *b, [[maybe_unused]]
+__attribute__((unused)) void *udata) {
 	const ip_fragmented_packet_parts_t* fa = a;
 	const ip_fragmented_packet_parts_t* fb = b;
 	return fa->id == fb->id ? 0 : (fa->id < fb->id ? -1 : 1);

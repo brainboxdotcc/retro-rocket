@@ -110,7 +110,8 @@ static buddy_allocator_t cache_allocator = {};   /**< Buddy allocator for conten
  * @param udata  Unused user data pointer.
  * @return       <0 if @p a < @p b, 0 if equal, >0 if @p a > @p b.
  */
-static int cache_compare(const void *a, const void *b, [[maybe_unused]] void *udata) {
+static int cache_compare(const void *a, const void *b, [[maybe_unused]]
+__attribute__((unused)) void *udata) {
 	const block_cache_entry_t *ea = a;
 	const block_cache_entry_t *eb = b;
 	if (ea->lba < eb->lba) {

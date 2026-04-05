@@ -2,8 +2,9 @@
 
 static struct hashmap* tcb = NULL;
 
-static uint32_t isn_rand_base = 0;
 static uint32_t isn_tick_base = 0;
+static uint32_t isn_hash_seed0 = 0;
+static uint32_t isn_hash_seed1= 0;
 static int isn_init = 0;
 static spinlock_t lock = 0;
 
@@ -48,21 +49,6 @@ const char* socket_error(int error_code) {
 	return error_messages[error_code];
 }
 
-uint32_t get_isn() {
-	if (!isn_init) {
-		isn_rand_base = (uint32_t)(mt_rand() & 0xffffffffULL);
-		isn_tick_base = get_ticks();
-		isn_init = 1;
-	}
-
-	// delta since init
-	uint32_t delta = (get_ticks() - isn_tick_base) * 250; // 250k/sec
-
-	return isn_rand_base + delta;
-}
-
-
-
 bool seq_lt(uint32_t x, uint32_t y) {
 	return ((int32_t)(x - y) < 0);
 }
@@ -80,11 +66,61 @@ bool seq_gte(uint32_t x, uint32_t y) {
 }
 
 /**
+ * @brief Generate a TCP Initial Sequence Number (ISN)
+ *
+ * Produces a 32-bit TCP Initial Sequence Number following the guidance of
+ * RFC 6528 (Defending Against Sequence Number Attacks).
+ *
+ * The generated ISN is composed of two components:
+ *
+ *  - A time-based incrementing value derived from system ticks, ensuring
+ *    monotonically increasing sequence numbers over time.
+ *  - A per-connection pseudo-random offset derived from a SipHash of the
+ *    connection tuple (local/remote address and port), keyed with a secret
+ *    initialised from the kernel CSPRNG.
+ *
+ * This implementation uses:
+ *
+ *  - Millisecond-resolution tick source scaled to approximately 250k increments/sec
+ *  - SipHash-based mixing of the connection tuple
+ *  - One-time CSPRNG seeding of hash keys
+ *
+ * @param local_addr  Local IPv4 address (host byte order)
+ * @param remote_addr Remote IPv4 address (host byte order)
+ * @param local_port  Local TCP port
+ * @param remote_port Remote TCP port
+ * @return 32-bit Initial Sequence Number
+ */
+uint32_t get_isn(uint32_t local_addr, uint32_t remote_addr, uint16_t local_port, uint16_t remote_port) {
+	if (!isn_init) {
+		uint64_t seeds[2];
+
+		if (!csprng_fill(seeds, sizeof(seeds))) {
+			preboot_fail("Unable to initialise TCP ISN generator");
+		}
+
+		isn_hash_seed0 = seeds[0];
+		isn_hash_seed1 = seeds[1];
+		isn_tick_base = get_ticks();
+		isn_init = 1;
+	}
+
+	uint64_t tuple[2] = {
+		((uint64_t)local_addr << 32) | (uint64_t)remote_addr,
+		((uint64_t)local_port << 48) | ((uint64_t)remote_port << 32),
+	};
+
+	uint32_t delta = (get_ticks() - isn_tick_base) * 250; /* 250k/sec */
+	uint32_t base = (uint32_t)hashmap_sip(tuple, sizeof(tuple), isn_hash_seed0, isn_hash_seed1);
+
+	return base + delta;
+}
+
+/**
  * @brief Comparison function for hash table of tcp connections
  * 
  * @param a first object to compare
  * @param b second object to compare
- * @param udata user data
  * @return int 0 for equal, 1 for not equal
  */
 int tcp_conn_compare(const void *a, const void *b, void *udata) {
@@ -598,7 +634,7 @@ bool tcp_state_listen(ip_packet_t *encap_packet, tcp_segment_t *segment, tcp_con
 	/* Only accept a bare SYN in LISTEN. Drop others. */
 	if (!segment->flags.syn || segment->flags.ack || segment->flags.fin || segment->flags.rst) {
 		dprintf("Invalid listen state\n");
-		return true;
+		return false;
 	}
 
 	/* Build a child PCB from the incoming SYN. */
@@ -613,7 +649,7 @@ bool tcp_state_listen(ip_packet_t *encap_packet, tcp_segment_t *segment, tcp_con
 	dprintf("Allocated child remote addr %08x\n", child.remote_addr);
 
 	/* Initial sequencing: passive open. */
-	child.iss     = get_isn();
+	child.iss = get_isn(child.local_addr, child.remote_addr, child.local_port, child.remote_port);
 	child.snd_una = child.iss;
 	child.snd_nxt = child.iss;          /* tcp_send_segment will advance by 1 for SYN */
 	child.snd_lst = 0;
@@ -658,7 +694,7 @@ bool tcp_state_listen(ip_packet_t *encap_packet, tcp_segment_t *segment, tcp_con
 	if (!new_conn) {
 		unlock_spinlock_irq(&lock, flags);
 		dprintf("Cant find newly created child connection\n");
-		return true;
+		return false;
 	}
 
 	/* Queue and send from the CHILD */
@@ -732,7 +768,7 @@ bool tcp_state_syn_sent(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_c
 				tcp_send_segment(conn, segment->ack, TCP_RST, NULL, 0);
 			}
 			dprintf("unacceptable ACK, dropping connection: iss=%u snd_nxt=%u seg.ack=%u\n", conn->iss, conn->snd_nxt, segment->ack);
-			return true; // unacceptable ACK, drop/abort
+			return false; // unacceptable ACK, drop/abort
 		}
 	}
 
@@ -1138,7 +1174,7 @@ void tcp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, tcp_segment_t
 	tcp_conn_t* conn = tcp_find(*((uint32_t*)(&encap_packet->dst_ip)), *((uint32_t*)(&encap_packet->src_ip)), segment->dst_port, segment->src_port);
 	tcp_dump_segment(true, conn, encap_packet, segment, &options, len, our_checksum);
 	if (!conn) {
-		dprintf("Segment for unknown connection dropped\n");
+		dprintf("Segment for unknown connection dropped: %08x:%04d -> %08x:%04d\n", *(uint32_t*)(&encap_packet->src_ip), segment->src_port, *(uint32_t*)(&encap_packet->dst_ip), segment->dst_port);
 		return;
 	}
 	if (our_checksum == segment->checksum) {
@@ -1188,7 +1224,8 @@ void tcp_idle()
 					conn->send_buffer_len = new_len;
 				}
 			}
-		} else if (conn && conn->state == TCP_TIME_WAIT && seq_gte(get_isn(), conn->msl_time)) {
+		} else if (conn && conn->state == TCP_TIME_WAIT &&
+			   seq_gte(get_isn(conn->local_addr, conn->remote_addr, conn->local_port, conn->remote_port), conn->msl_time)) {
 			tcp_free(conn, false);
 			break;
 		}
@@ -1264,7 +1301,6 @@ uint16_t tcp_alloc_port(uint32_t source_addr, uint16_t port, tcp_port_type_t typ
 int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port)
 {
 	tcp_conn_t conn;
-	uint32_t isn = get_isn();
 	unsigned char ip[4] = { 0 };
 
 	gethostaddr(ip);
@@ -1284,6 +1320,7 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 	}
 
 	conn.local_port = tcp_alloc_port(conn.local_addr, source_port, TCP_PORT_LOCAL);
+	uint32_t isn = get_isn(conn.local_addr, conn.remote_addr, conn.local_port, conn.remote_port);
 	dprintf("connect: allocated local port: %u local addr %08x\n", conn.local_port, conn.local_addr);
 	conn.snd_una = isn;
 	conn.snd_nxt = isn + 1;

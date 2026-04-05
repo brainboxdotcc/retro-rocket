@@ -141,7 +141,8 @@ const mountpoint_t* vfs_get_mountpoint_for(const char* normalised_path) {
 	return NULL;
 }
 
-int path_compare(const void *a, const void *b, [[maybe_unused]] void *udata) {
+int path_compare(const void *a, const void *b, [[maybe_unused]]
+__attribute__((unused)) void *udata) {
 	const vfs_tree_t* ua = a;
 	const vfs_tree_t* ub = b;
 	return strcasecmp(ua->path, ub->path);

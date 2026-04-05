@@ -16,13 +16,15 @@ uint8_t dns_collect_request(uint16_t id, char* result, size_t max);
  * @param udata user data
  * @return int 0 for equal, -1 for less than, 1 for greater than; like strcmp()
  */
-static int dns_request_compare(const void *a, const void *b, [[maybe_unused]] void *udata) {
+static int dns_request_compare(const void *a, const void *b, [[maybe_unused]]
+__attribute__((unused)) void *udata) {
     const dns_request_t* fa = a;
     const dns_request_t* fb = b;
     return fa->id == fb->id ? 0 : (fa->id < fb->id ? -1 : 1);
 }
 
-static int dns_cache_compare(const void *a, const void *b, [[maybe_unused]] void *udata) {
+static int dns_cache_compare(const void *a, const void *b, [[maybe_unused]]
+__attribute__((unused)) void *udata) {
 	const dns_cache_entry_t* fa = a;
 	const dns_cache_entry_t* fb = b;
 	return strcmp(fa->host, fb->host);

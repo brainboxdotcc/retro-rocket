@@ -174,16 +174,36 @@ div_t div(int numer, int denom);
 ldiv_t ldiv(long int numer, long int denom);
 
 /**
- * @brief Generate a pseudo-random number
+ * @brief Generate a pseudo-random number (legacy libc implementation)
  *
- * @return int Pseudo-random number
+ * This function implements a linear congruential generator (LCG) for
+ * compatibility with standard C library expectations.
+ *
+ * The generator is deterministic, has poor statistical quality, and
+ * produces biased results when used with modulo operations.
+ *
+ * This function must not be used for:
+ * - security-sensitive purposes
+ * - statistical sampling requiring uniformity
+ * - gameplay or simulation logic
+ *
+ * Prefer mt_rand_range() for non-secure uniform randomness, or
+ * csprng_range() for cryptographically secure randomness.
+ *
+ * @return int Pseudo-random value.
  */
 int rand(void);
 
 /**
- * @brief Seed the random number generator
+ * @brief Seed the legacy libc pseudo-random number generator
  *
- * @param seed Seed value
+ * Seeds the internal state of the LCG used by rand().
+ *
+ * This only affects the behaviour of rand() and does not influence
+ * mt_rand(), csprng_range(), or any other Retro Rocket random facilities.
+ *
+ * @param seed Seed value. A value of 0 is internally adjusted to avoid
+ * a degenerate state.
  */
 void srand(unsigned int seed);
 

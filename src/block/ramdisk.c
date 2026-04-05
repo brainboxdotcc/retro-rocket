@@ -13,7 +13,7 @@ static struct hashmap *disks = NULL;
 int rd_compare(const void *a, const void *b,[[maybe_unused]
 
 ]
-void *udata
+__attribute__((unused)) void *udata
 ) {
 const ramdisk_t *rd1 = a;
 const ramdisk_t *rd2 = b;

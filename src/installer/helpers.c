@@ -27,10 +27,12 @@ void make_utf16le_name(const char *ascii, uint16_t out36[36]) {
 }
 
 void random_guid_v4(uint8_t out16[16]) {
-	for (int i = 0; i < 16; i += 4) {
-		uint32_t r = rand();
-		memcpy(out16 + i, &r, 4);
-	}
+	uint64_t r1 = mt_rand();
+	uint64_t r2 = mt_rand();
+
+	memcpy(out16, &r1, 8);
+	memcpy(out16 + 8, &r2, 8);
+
 	out16[6] = (out16[6] & 0x0F) | 0x40; /* version 4 */
 	out16[8] = (out16[8] & 0x3F) | 0x80; /* variant 10 */
 }

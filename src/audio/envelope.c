@@ -100,9 +100,12 @@ static bool generate_tone_44100_stereo(struct basic_ctx *ctx, uint32_t freq_hz, 
 			case TONE_SAW:
 				s = (int32_t) ((2.0 * t - 1.0) * 32767);
 				break;
-			case TONE_NOISE:
-				s = (rand() % 65536) - 32768;
+			case TONE_NOISE: {
+				int64_t r;
+				(void)mt_rand_range(-32768, 32767, &r);
+				s = (int32_t)r;
 				break;
+			}
 		}
 
 		/* apply envelope + volume scaling */
