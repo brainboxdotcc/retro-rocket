@@ -1165,7 +1165,7 @@ bool tcp_state_machine(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_co
  * @param segment TCP segment
  * @param len length of segment
  */
-void tcp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, tcp_segment_t* segment, size_t len)
+void tcp_handle_packet(ip_packet_t* encap_packet, tcp_segment_t* segment, size_t len)
 {
 	tcp_options_t options;
 	uint16_t our_checksum = tcp_calculate_checksum(encap_packet, segment, len);
