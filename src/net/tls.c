@@ -127,16 +127,11 @@ bool tls_close_fd(int fd) {
 }
 
 void mbedtls_platform_zeroize(void *buf, size_t len) {
-	volatile unsigned char *p = (volatile unsigned char *) buf;
-	while (len > 0) {
-		*p++ = 0;
-		len--;
-	}
+	memset(buf, 0, len);
 }
 
 void entropy_irq_event(void) {
-	unsigned long long tsc;
-	__asm__ volatile("rdtsc" : "=A"(tsc));
+	uint64_t tsc = rdtsc();
 	unsigned char sample = (unsigned char) (tsc & 0xFF);
 	size_t pos = entropy_head % ENTROPY_POOL_SIZE;
 	entropy_pool[pos] = sample;
