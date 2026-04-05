@@ -31,6 +31,7 @@ The following functions return or manipulate **string values** in Retro Rocket B
 * \subpage RIGHT
 * \subpage RJUST
 * \subpage RTRIM
+* \subpage SECSTR
 * \subpage STR
 * \subpage TIME
 * \subpage TOKENIZE

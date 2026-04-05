@@ -66,6 +66,7 @@ The following functions operate on or return **integer values** in Retro Rocket 
 * \subpage RGB
 * \subpage RND
 * \subpage SECOND
+* \subpage SECRND
 * \subpage SGN
 * \subpage SHL
 * \subpage SHR

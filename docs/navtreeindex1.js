@@ -1,9 +1,11 @@
 var NAVTREEINDEX1 =
 {
+"VDU.html":[0,1,2,108],
+"WEEKDAY.html":[0,1,3,0,83],
 "WHILE.html":[0,1,2,109],
 "WRITE.html":[0,1,2,110],
-"YDAY.html":[0,1,3,0,83],
-"YEAR.html":[0,1,3,0,84],
+"YDAY.html":[0,1,3,0,84],
+"YEAR.html":[0,1,3,0,85],
 "YIELD.html":[0,1,2,111],
 "about.html":[0,0,7,0],
 "ansi.html":[0,1,8,0],

@@ -64,6 +64,7 @@ var int_funcs =
     [ "RGB Function", "RGB.html", null ],
     [ "RND Function", "RND.html", null ],
     [ "SECOND Function", "SECOND.html", null ],
+    [ "SECRND Function", "SECRND.html", null ],
     [ "SGN Function", "SGN.html", null ],
     [ "SHL Function", "SHL.html", null ],
     [ "SHR Function", "SHR.html", null ],

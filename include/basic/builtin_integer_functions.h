@@ -168,3 +168,5 @@ int64_t basic_octval(struct basic_ctx* ctx);
 int64_t basic_min(struct basic_ctx* ctx);
 
 int64_t basic_max(struct basic_ctx* ctx);
+
+int64_t basic_secure_random(struct basic_ctx* ctx);

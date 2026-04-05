@@ -124,8 +124,9 @@ $(function(){initNavTree('RND.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">RND(min, max)</div>
-</div><!-- fragment --><p>Returns a <b>pseudo-random integer</b> between <span class="tt">min</span> and <span class="tt">max</span> (inclusive). Both parameters must be integers, and the first must be less than or equal to the second.</p>
-<p>The generator uses the <b>Mersenne Twister (mt19937)</b> algorithm, seeded from entropy provided by the operating system kernel.</p>
+</div><!-- fragment --><p>Returns a <b>pseudo-random integer</b> between <span class="tt">min</span> and <span class="tt">max</span> (inclusive).</p>
+<p>Both parameters must be integers.</p>
+<p>The generator uses the <b>Mersenne Twister (MT19937)</b> algorithm, seeded from entropy provided by the operating system kernel.</p>
 <div class="image">
 <img src="rnd.png" alt=""/>
 </div>
@@ -147,13 +148,25 @@ Examples</h3>
 Notes</h3>
 <ul>
 <li>The result is an <b>integer</b> within the inclusive range <span class="tt">[min, max]</span>.</li>
-<li>If <span class="tt">min &gt; max</span>, behaviour is undefined.</li>
-<li>Suitable for general randomness in games, simulations, and sampling.</li>
-<li><b>Not cryptographically secure</b> - although the kernel provides an unpredictable seed, the Mersenne Twister itself is deterministic and predictable if state is known.</li>
-<li><b>Retro Rocket BASIC difference:</b> BBC BASIC used a 33-bit LFSR (linear feedback shift register). Retro Rocket uses a modern PRNG (Mersenne Twister).</li>
+<li>The distribution is <b>uniform</b> — every value in the range is equally likely.<ul>
+<li>Internally, rejection sampling is used to eliminate modulo bias.</li>
+</ul>
+</li>
+<li>If <span class="tt">min &gt; max</span>, the range is handled automatically (values are swapped internally).</li>
+<li>Suitable for games, simulations, procedural generation, and general-purpose randomness.</li>
+<li><b>Not cryptographically secure</b>:<ul>
+<li>MT19937 is deterministic and predictable if its internal state is known.</li>
+<li>For security-sensitive uses (tokens, keys, authentication), use <a class="el" href="SECRND.html">SECRND</a> instead.</li>
+</ul>
+</li>
+<li><b>Retro Rocket BASIC difference:</b><ul>
+<li>BBC BASIC used a 33-bit LFSR (linear feedback shift register).</li>
+<li>Retro Rocket uses MT19937, providing higher-quality statistical randomness.</li>
+</ul>
+</li>
 </ul>
 <hr  />
-<p><b>See also:</b> <a class="el" href="INT.html">INT</a> · <a class="el" href="ABS.html">ABS</a> </p>
+<p><b>See also:</b> <a class="el" href="SECRND.html">SECRND</a> · <a class="el" href="INT.html">INT</a> · <a class="el" href="ABS.html">ABS</a> · <a class="el" href="SECSTR.html">SECSTR$</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

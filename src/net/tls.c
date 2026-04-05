@@ -126,9 +126,7 @@ bool tls_close_fd(int fd) {
 	return true;
 }
 
-void mbedtls_platform_zeroize(void *buf, size_t len) {
-	memset(buf, 0, len);
-}
+void mbedtls_platform_zeroize(void *buf, size_t len) __attribute__((alias("memzero")));
 
 void entropy_irq_event(void) {
 	uint64_t tsc = rdtsc();
@@ -565,4 +563,8 @@ bool tls_ready_fd(int fd) {
 	}
 
 	return false;
+}
+
+mbedtls_ctr_drbg_context* get_random_context() {
+	return &drbg;
 }

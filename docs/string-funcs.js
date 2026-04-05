@@ -29,6 +29,7 @@ var string_funcs =
     [ "RIGHT$ Function", "RIGHT.html", null ],
     [ "RJUST$ Function", "RJUST.html", null ],
     [ "RTRIM$ Function", "RTRIM.html", null ],
+    [ "SECSTR$ Function", "SECSTR.html", null ],
     [ "STR$ Function", "STR.html", null ],
     [ "TIME$ Function", "TIME.html", null ],
     [ "TOKENIZE$ Function", "TOKENIZE.html", null ],

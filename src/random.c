@@ -1,4 +1,5 @@
 #include <kernel.h>
+#include "mbedtls/ctr_drbg.h"
 
 /* An implementation of the MT19937 Algorithm for the Mersenne Twister
  * by Evan Sultanik.  Based upon the pseudocode in: M. Matsumoto and
@@ -84,6 +85,54 @@ uint64_t mt_rand()
 	return gen_rand_64(&random_device);
 }
 
+bool mt_rand_range(int64_t x, int64_t y, int64_t *out) {
+	uint64_t r;
+	uint64_t ux;
+	uint64_t uy;
+	uint64_t lo;
+	uint64_t hi;
+	uint64_t span;
+	uint64_t count;
+	uint64_t threshold;
+	const uint64_t sign_bit = (uint64_t) 1 << 63;
+
+	if (out == NULL) {
+		return false;
+	}
+
+	ux = ((uint64_t) x) ^ sign_bit;
+	uy = ((uint64_t) y) ^ sign_bit;
+
+	if (ux <= uy) {
+		lo = ux;
+		hi = uy;
+	} else {
+		lo = uy;
+		hi = ux;
+	}
+
+	span = hi - lo;
+	count = span + 1;
+
+	if (count == 0) {
+		r = mt_rand();
+		*out = (int64_t) (r ^ sign_bit);
+		return true;
+	}
+
+	threshold = ((uint64_t) 0 - count) % count;
+
+	for (;;) {
+		r = mt_rand();
+
+		if (r >= threshold) {
+			uint64_t mapped = lo + (r % count);
+			*out = (int64_t) (mapped ^ sign_bit);
+			return true;
+		}
+	}
+}
+
 /**
  * Generates a pseudo-randomly generated double in the range [0..1].
  */
@@ -103,4 +152,67 @@ void add_random_entropy(uint64_t bytes)
 		random_device = seed_rand(entropy[entropy[0] % RAND_MAX_ENTROPY]);
 	}
 	entropy_offset %= RAND_MAX_ENTROPY;
+}
+
+bool csprng_fill(void *buf, size_t len) {
+	if (buf == NULL) {
+		return false;
+	}
+	return mbedtls_ctr_drbg_random(get_random_context(), buf, len) == 0;
+}
+
+bool csprng_range(int64_t x, int64_t y, int64_t *out) {
+	uint64_t r;
+	uint64_t ux = ((uint64_t) x) ^ (1ULL << 63);
+	uint64_t uy = ((uint64_t) y) ^ (1ULL << 63);
+	uint64_t lo = (ux < uy) ? ux : uy;
+	uint64_t hi = (ux < uy) ? uy : ux;
+	uint64_t span = hi - lo;
+	uint64_t count = span + 1;
+
+	if (out == NULL) {
+		return false;
+	}
+
+	if (count == 0) {
+		if (mbedtls_ctr_drbg_random(get_random_context(), (unsigned char *) &r, sizeof(r)) != 0) {
+			return false;
+		}
+		*out = (int64_t) (r ^ (1ULL << 63));
+		return true;
+	}
+
+	uint64_t threshold = ((uint64_t) 0 - count) % count;
+
+	for (;;) {
+		if (mbedtls_ctr_drbg_random(get_random_context(), (unsigned char *) &r, sizeof(r)) != 0) {
+			return false;
+		}
+		if (r >= threshold) {
+			uint64_t mapped = lo + (r % count);
+			*out = (int64_t) (mapped ^ (1ULL << 63));
+			return true;
+		}
+	}
+}
+
+bool csprng_string_from_alphabet(char *out, size_t len, const char *alphabet, size_t alphabet_len) {
+	size_t i;
+	int64_t idx;
+
+	if (out == NULL || alphabet == NULL || alphabet_len == 0) {
+		return false;
+	}
+
+	for (i = 0; i < len; i++) {
+		if (!csprng_range(0, (int64_t) alphabet_len - 1, &idx)) {
+			out[i] = '\0';
+			return false;
+		}
+
+		out[i] = alphabet[idx];
+	}
+
+	out[len] = '\0';
+	return true;
 }

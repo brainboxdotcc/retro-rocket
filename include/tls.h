@@ -12,6 +12,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
+typedef struct mbedtls_ctr_drbg_context mbedtls_ctr_drbg_context;
 typedef struct mbedtls_ssl_context mbedtls_ssl_context;
 typedef struct mbedtls_ssl_config mbedtls_ssl_config;
 
@@ -227,3 +228,5 @@ struct tls_peer *tls_get(int fd);
 bool tls_ready_fd(int fd);
 
 const char* tls_error_get(int err, char* buffer, size_t size);
+
+mbedtls_ctr_drbg_context* get_random_context();

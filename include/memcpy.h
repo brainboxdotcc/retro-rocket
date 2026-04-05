@@ -28,7 +28,7 @@
  * @param len Number of bytes to copy.
  * @return Pointer to @p dest.
  */
-void* memcpy(void* dest, const void* src, uint64_t len);
+void* memcpy(void* dest, const void* src, size_t len);
 
 /**
  * @brief Move a block of memory.
@@ -41,7 +41,7 @@ void* memcpy(void* dest, const void* src, uint64_t len);
  * @param n Number of bytes to copy.
  * @return Pointer to @p dest.
  */
-void* memmove(void* dest, const void* src, uint64_t n);
+void* memmove(void* dest, const void* src, size_t n);
 
 /**
  * @brief Compare two memory blocks.
@@ -56,19 +56,43 @@ void* memmove(void* dest, const void* src, uint64_t n);
  *         than the corresponding byte in @p s2. Returns zero if all compared
  *         bytes are equal.
  */
-int memcmp(const void* s1, const void* s2, uint64_t n);
+int memcmp(const void* s1, const void* s2, size_t n);
 
 /**
  * @brief Fill a block of memory with a constant value.
  *
  * Sets the first @p len bytes of the buffer @p dest to the value @p val.
  *
+ * This implementation is performed using inline assembly (`rep stosb`) and is
+ * not replaced by compiler builtins. The write is always emitted as an explicit
+ * memory operation and will not be optimised away as a dead store.
+ *
+ * This makes it suitable for deterministic memory clearing in low-level code.
+ * However, it does not guarantee complete removal of sensitive data from all
+ * intermediate locations (e.g. registers or temporary copies).
+ *
  * @param dest Destination buffer.
  * @param val Value to set.
  * @param len Number of bytes to set.
  * @return Pointer to @p dest.
  */
-void* memset(void* dest, char val, uint64_t len);
+void* memset(void* dest, char val, size_t len);
+
+/**
+ * @brief Zero a block of memory.
+ *
+ * Sets the first @p len bytes of the buffer @p dest to zero.
+ *
+ * This is a thin wrapper around memset(). In Retro Rocket, memset is
+ * implemented in assembly and is not elided or replaced by the compiler,
+ * ensuring the write is always performed.
+ *
+ * @param dest Destination buffer.
+ * @param len Number of bytes to clear.
+ */
+static inline __attribute__((always_inline)) void memzero(void* dest, size_t len) {
+	memset(dest, 0, len);
+}
 
 /* ------------------------------------------------------------------------- */
 /* Additional helpers                                                         */

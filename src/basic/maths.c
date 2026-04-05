@@ -161,14 +161,55 @@ void basic_fmod(struct basic_ctx* ctx, double* res)
 
 int64_t basic_random(struct basic_ctx* ctx)
 {
-	int64_t low, high;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
-	low = intval;
+	int64_t low = intval;
 	PARAMS_GET_ITEM(BIP_INT);
-	high = intval;
+	int64_t high = intval;
 	PARAMS_END("RND", 0);
-	return (mt_rand() % (high - low + 1)) + low;
+	int64_t out;
+	mt_rand_range(low, high, &out);
+	return out;
+}
+
+int64_t basic_secure_random(struct basic_ctx* ctx)
+{
+	int64_t out;
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t low = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t high = intval;
+	PARAMS_END("SECRND", 0);
+	if (!csprng_range(low, high, &out)) {
+		tokenizer_error_print(ctx, "Unable to generate secure random number, try again later");
+		return 0;
+	}
+	return out;
+}
+
+char* basic_secure_random_string(struct basic_ctx* ctx)
+{
+	char out_str[MAX_STRINGLEN];
+	static const char* default_alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t generate_len = intval;
+	if (generate_len < 1 || generate_len >= MAX_STRINGLEN) {
+		tokenizer_error_print(ctx, "Invalid length of secure random string to generate");
+		return "";
+	}
+	PARAMS_GET_ITEM(BIP_STRING);
+	const char* alphabet = strval;
+	PARAMS_END("SECSTR$", "");
+	if (!*alphabet) {
+		alphabet = default_alphabet;
+	}
+	if (!csprng_string_from_alphabet(out_str, generate_len, alphabet, strlen(alphabet))) {
+		tokenizer_error_print(ctx, "Unable to generate secure random string, try again later");
+		return "";
+	}
+	return (char*)gc_strdup(ctx, out_str);
 }
 
 int64_t basic_asc(struct basic_ctx* ctx)

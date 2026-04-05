@@ -247,3 +247,5 @@ char* basic_replace(struct basic_ctx* ctx);
 char* basic_highlight(struct basic_ctx* ctx);
 
 void match_statement(struct basic_ctx *ctx);
+
+char* basic_secure_random_string(struct basic_ctx* ctx);

@@ -5,9 +5,10 @@ RND(min, max)
 ```
 
 Returns a **pseudo-random integer** between `min` and `max` (inclusive).
-Both parameters must be integers, and the first must be less than or equal to the second.
 
-The generator uses the **Mersenne Twister (mt19937)** algorithm, seeded from entropy provided by the operating system kernel.
+Both parameters must be integers.
+
+The generator uses the **Mersenne Twister (MT19937)** algorithm, seeded from entropy provided by the operating system kernel.
 
 \image html rnd.png
 
@@ -42,12 +43,18 @@ NEXT
 ### Notes
 
 * The result is an **integer** within the inclusive range `[min, max]`.
-* If `min > max`, behaviour is undefined.
-* Suitable for general randomness in games, simulations, and sampling.
-* **Not cryptographically secure** - although the kernel provides an unpredictable seed, the Mersenne Twister itself is deterministic and predictable if state is known.
-* **Retro Rocket BASIC difference:** BBC BASIC used a 33-bit LFSR (linear feedback shift register). Retro Rocket uses a modern PRNG (Mersenne Twister).
+* The distribution is **uniform** — every value in the range is equally likely.
+  * Internally, rejection sampling is used to eliminate modulo bias.
+* If `min > max`, the range is handled automatically (values are swapped internally).
+* Suitable for games, simulations, procedural generation, and general-purpose randomness.
+* **Not cryptographically secure**:
+  * MT19937 is deterministic and predictable if its internal state is known.
+  * For security-sensitive uses (tokens, keys, authentication), use \ref SECRND "SECRND" instead.
+* **Retro Rocket BASIC difference:**
+  * BBC BASIC used a 33-bit LFSR (linear feedback shift register).
+  * Retro Rocket uses MT19937, providing higher-quality statistical randomness.
 
 ---
 
 **See also:**
-\ref INT "INT" · \ref ABS "ABS"
+\ref SECRND "SECRND" · \ref INT "INT" · \ref ABS "ABS" · \ref SECSTR "SECSTR$"

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=11">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Retro Rocket OS: ELSE Keyword</title>
+    <title>Retro Rocket OS: SECSTR$ Function</title>
     <link href="tabs.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -16,7 +16,7 @@
     <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-    <meta name="title" content="ELSE Keyword - Retro Rocket OS">
+    <meta name="title" content="SECSTR$ Function - Retro Rocket OS">
     <meta name="description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="author" content="Retro Rocket Developers">
     <meta name="robots" content="index, follow">
@@ -24,7 +24,7 @@
     <meta name="theme-color" content="#0b0f14">
     <link rel="icon" href="rr.png">
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="ELSE Keyword - Retro Rocket OS">
+    <meta property="og:title" content="SECSTR$ Function - Retro Rocket OS">
     <meta property="og:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://retrorocket.dev/">
@@ -32,7 +32,7 @@
     <meta property="og:image:alt" content="Retro Rocket OS running on a retro-style desktop">
     <meta property="og:site_name" content="Retro Rocket OS">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="ELSE Keyword - Retro Rocket OS">
+    <meta name="twitter:title" content="SECSTR$ Function - Retro Rocket OS">
     <meta name="twitter:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="twitter:image" content="https://retrorocket.dev/leader4.png">
     <link rel="preload" as="image" href="https://retrorocket.dev/leader4.png">
@@ -94,7 +94,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('ELSE.html','',''); });
+$(function(){initNavTree('SECSTR.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -120,73 +120,47 @@ $(function(){initNavTree('ELSE.html','',''); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">ELSE Keyword </div></div>
+  <div class="headertitle"><div class="title">SECSTR$ Function </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">IF expression THEN statement ELSE statement</div>
-<div class="line"> </div>
-<div class="line">IF expression THEN</div>
-<div class="line">    statements</div>
-<div class="line">ENDIF</div>
-<div class="line"> </div>
-<div class="line">IF expression THEN</div>
-<div class="line">    statements</div>
-<div class="line">ELSE</div>
-<div class="line">    statements</div>
-<div class="line">ENDIF</div>
-</div><!-- fragment --><p><span class="tt">ELSE</span> provides the <b>false branch</b> of an <span class="tt">IF</span> decision. <br  />
- When the <span class="tt">expression</span> evaluates to <b>true</b>, the <span class="tt">THEN</span> part runs; otherwise the <span class="tt">ELSE</span> part runs.</p>
-<dl class="section remark"><dt>Remarks</dt><dd><span class="tt">ELSE</span> is used <b>with</b> <span class="tt">IF</span> and, in multi-line forms, must be paired with a matching <a class="el" href="ENDIF.html">ENDIF</a>. </dd>
-<dd>
-<span class="tt">ELSE</span> on its own is not a valid statement.</dd></dl>
+<div class="textblock"><div class="fragment"><div class="line">SECSTR$(length, alphabet$)</div>
+</div><!-- fragment --><p>Returns a <b>cryptographically secure random string</b> of the specified length.</p>
+<p>Each character is selected independently from the supplied <span class="tt">alphabet$</span>, using a uniform distribution.</p>
+<p>The generator uses a <b>CTR-DRBG (counter-mode deterministic random bit generator)</b> provided by mbedTLS, seeded from entropy gathered by the kernel.</p>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="forms"></a>
-Forms</h3>
-<ul>
-<li><b>Single-line</b> <br  />
- <span class="tt">IF expression THEN statement ELSE statement</span> <br  />
- Both the <span class="tt">THEN</span> and <span class="tt">ELSE</span> parts must be <b>single statements</b> on the same line.</li>
-<li><b>Multi-line without ELSE</b> <br  />
- <div class="fragment"><div class="line">IF expression THEN</div>
-<div class="line">    statements</div>
-<div class="line">ENDIF</div>
-</div><!-- fragment --> The <span class="tt">statements</span> run only if <span class="tt">expression</span> is true.</li>
-<li><b>Multi-line with ELSE</b> <br  />
- <div class="fragment"><div class="line">IF expression THEN</div>
-<div class="line">    statements-when-true</div>
-<div class="line">ELSE</div>
-<div class="line">    statements-when-false</div>
-<div class="line">ENDIF</div>
-</div><!-- fragment --></li>
-</ul>
-<hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-139"></a>
+<h3 class="doxsection"><a class="anchor" id="examples-126"></a>
 Examples</h3>
-<p><b>Single-line selection</b> </p><div class="fragment"><div class="line">PRINT IF X &gt; 0 THEN &quot;POSITIVE&quot; ELSE &quot;NON-POSITIVE&quot;</div>
-</div><!-- fragment --><p><b>Multi-line with ELSE</b> </p><div class="fragment"><div class="line">IF SCORE &gt;= 100 THEN</div>
-<div class="line">    PRINT &quot;WELL DONE!&quot;</div>
-<div class="line">ELSE</div>
-<div class="line">    PRINT &quot;KEEP GOING...&quot;</div>
-<div class="line">ENDIF</div>
-</div><!-- fragment --><p><b>Nested <span class="tt">IF</span>/<span class="tt">ELSE</span></b> </p><div class="fragment"><div class="line">IF A &gt; B THEN</div>
-<div class="line">    PRINT &quot;A &gt; B&quot;</div>
-<div class="line">ELSE</div>
-<div class="line">    IF A = B THEN</div>
-<div class="line">        PRINT &quot;A = B&quot;</div>
-<div class="line">    ELSE</div>
-<div class="line">        PRINT &quot;A &lt; B&quot;</div>
-<div class="line">    ENDIF</div>
-<div class="line">ENDIF</div>
+<div class="fragment"><div class="line">REM Generate a 16-character random string using letters and digits</div>
+<div class="line">PRINT SECSTR$(16, &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz&quot;)</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Generate an 8-digit numeric code</div>
+<div class="line">PRINT SECSTR$(8, &quot;0123456789&quot;)</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Generate a random hexadecimal string</div>
+<div class="line">PRINT SECSTR$(32, &quot;0123456789abcdef&quot;)</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Use default alphabet (letters and digits)</div>
+<div class="line">PRINT SECSTR$(12, &quot;&quot;)</div>
 </div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="rules--behaviour"></a>
-Rules &amp; behaviour</h3>
+<h3 class="doxsection"><a class="anchor" id="notes-121"></a>
+Notes</h3>
 <ul>
-<li><b>Pairing:</b> In multi-line form, <span class="tt">ELSE</span> pairs with the <b>nearest unmatched</b> <span class="tt">IF</span>. Always terminate the block with <a class="el" href="ENDIF.html">ENDIF</a>.</li>
-<li><b>Single statement on one line:</b> The one-line form allows exactly <b>one</b> statement after <span class="tt">THEN</span> and <b>one</b> after <span class="tt">ELSE</span>. To perform multiple actions, use the multi-line form.</li>
-<li><b>Nesting:</b> <span class="tt">IF … THEN … ELSE … ENDIF</span> blocks may be nested freely.</li>
-<li><b>Whitespace:</b> Keywords may be separated by spaces as shown; keep them on their own lines in multi-line form for clarity.</li>
+<li>The result is a <b>string</b> of exactly <span class="tt">length</span> characters.</li>
+<li>Each character is chosen with a <b>uniform distribution</b> from the provided alphabet.<ul>
+<li>Rejection sampling is used internally to eliminate modulo bias.</li>
 </ul>
-<p><b>See also:</b> <a class="el" href="IF.html">IF</a>, <a class="el" href="ENDIF.html">ENDIF</a> </p>
+</li>
+<li>If <span class="tt">alphabet$</span> is empty, a default alphabet of uppercase letters, lowercase letters, and digits is used.</li>
+<li>Suitable for:<ul>
+<li>tokens</li>
+<li>passwords</li>
+<li>identifiers</li>
+<li>session keys (text form)</li>
+</ul>
+</li>
+<li>Slower than non-secure alternatives due to cryptographic guarantees.</li>
+<li>May fail if the secure random generator is unavailable or not yet initialised.</li>
+<li>The caller is responsible for choosing an appropriate alphabet for the intended use.</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="SECRND.html">SECRND</a> · <a class="el" href="RND.html">RND</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -202,7 +176,7 @@ Rules &amp; behaviour</h3>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="index.html">Retro Rocket OS Documentation</a></li><li class="navelem"><a href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a href="keywords.html">Keywords</a></li>
+    <li class="navelem"><a href="index.html">Retro Rocket OS Documentation</a></li><li class="navelem"><a href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a href="string-funcs.html">String Functions</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.14.0 </li>
   </ul>
 </div>
