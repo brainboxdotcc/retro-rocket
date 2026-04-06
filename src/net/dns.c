@@ -1,6 +1,5 @@
 #include <kernel.h>
 
-static uint16_t id = 1;
 uint16_t dns_query_port = 0;
 static struct hashmap* dns_replies = NULL;
 static struct hashmap* dns_cache = NULL;
@@ -106,15 +105,12 @@ static int dns_send_request(const char * const name, uint32_t resolver_ip, dns_r
 	request->rr_class = 1;
 	request->orig = (unsigned char*)strdup(name);
 	request->type = query_type;
-	request->id = id++;
+	int64_t random_id;
+	mt_rand_range(1, 65535, &random_id);
+	request->id = (uint16_t)random_id;
 	header->id = request->id;
 	*(request->result) = 0;
 	request->result_length = 0;
-
-	/* ID 0 has special significance for errors */
-	if (id == 0) {
-		id = 1;
-	}
 
 	packet_to_buffer(payload, header, length);
 	hashmap_set(dns_replies, request);
@@ -190,6 +186,13 @@ void dns_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, vo
 	dns_request_t* request = (dns_request_t*)hashmap_get(dns_replies, &findrequest);
 	dprintf("dns inbound packet of size %d\n", length);
 	if (request) {
+		if (src_ip != request->resolver_ip) {
+			dprintf("DNS reply id=%d came from unexpected resolver %08x, expected %08x\n", inbound_id, src_ip, request->resolver_ip);
+			return;
+		} else if (src_port != DNS_DST_PORT) {
+			dprintf("DNS reply id=%d is not from port %u\n", inbound_id, DNS_DST_PORT);
+			return;
+		}
 		add_random_entropy(*(uint64_t*)packet);
 		if (request->result_length == 0) {
 			dprintf("No processed result yet\n");
@@ -508,6 +511,7 @@ uint32_t dns_lookup_host_async(uint32_t resolver_ip, const char* hostname, uint3
 	request.callback_a = callback;
 	request.callback_aaaa = NULL;
 	request.callback_ptr = NULL;
+	request.resolver_ip = htonl(resolver_ip);
 
 	dns_send_request(hostname, resolver_ip, &request, &h, length, DNS_QUERY_A);
 

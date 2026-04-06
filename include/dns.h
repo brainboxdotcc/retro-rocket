@@ -74,6 +74,7 @@ typedef struct dns_request {
 	dns_reply_callback_a callback_a; /* For later */
 	dns_reply_callback_aaaa callback_aaaa; /* For later */
 	dns_reply_callback_ptr callback_ptr; /* For later */
+	uint32_t resolver_ip; /* Resolver IP address */
 } dns_request_t;
 
 typedef struct dns_cache_entry_t {
