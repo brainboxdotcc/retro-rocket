@@ -37,7 +37,7 @@ var searchData=
   ['chr_2emd_34',['CHR.md',['../CHR_8md.html',1,'']]],
   ['circle_20keyword_35',['CIRCLE Keyword',['../CIRCLE.html',1,'keywords']]],
   ['circle_2emd_36',['CIRCLE.md',['../CIRCLE_8md.html',1,'']]],
-  ['client_37',['Client',['../networking.html#tcp-client',1,'TCP Client'],['../telnet.html#telnet-client',1,'Telnet Client']]],
+  ['client_37',['TCP Client',['../networking.html#tcp-client',1,'']]],
   ['close_38',['Example: connect, send, receive, close',['../CONNECT.html#example-connect-send-receive-close',1,'']]],
   ['close_20keyword_39',['CLOSE Keyword',['../CLOSE.html',1,'keywords']]],
   ['close_2emd_40',['CLOSE.md',['../CLOSE_8md.html',1,'']]],

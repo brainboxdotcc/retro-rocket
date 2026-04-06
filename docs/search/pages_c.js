@@ -28,7 +28,7 @@ var searchData=
   ['choice_25',['3. Confirm your choice',['../installation.html#autotoc_md3-confirm-your-choice',1,'']]],
   ['chr_24_20function_26',['CHR$ Function',['../CHR.html',1,'string-funcs']]],
   ['circle_20keyword_27',['CIRCLE Keyword',['../CIRCLE.html',1,'keywords']]],
-  ['client_28',['Client',['../networking.html#tcp-client',1,'TCP Client'],['../telnet.html#telnet-client',1,'Telnet Client']]],
+  ['client_28',['TCP Client',['../networking.html#tcp-client',1,'']]],
   ['close_29',['Example: connect, send, receive, close',['../CONNECT.html#example-connect-send-receive-close',1,'']]],
   ['close_20keyword_30',['CLOSE Keyword',['../CLOSE.html',1,'keywords']]],
   ['cls_20keyword_31',['CLS Keyword',['../CLS.html',1,'keywords']]],

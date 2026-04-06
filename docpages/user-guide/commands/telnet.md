@@ -1,7 +1,5 @@
 \page telnet telnet command
 
-# Telnet Client
-
 ```
 telnet <hostname> [port]
 ```
@@ -10,6 +8,6 @@ The telnet client allows you to connect to telnet servers. If you do not specify
 
 \image html telnet.png
 
-## Exiting telnet
+### Exiting telnet
 
 To exit gracefully, press `ESC`. To force the program to exit, you may press `CTRL+ESC` as with all BASIC programs.

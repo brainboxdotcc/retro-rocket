@@ -50,11 +50,7 @@ var commands =
     [ "servertest command", "servertest.html", null ],
     [ "socktest program", "socktest.html", null ],
     [ "ssltest command", "ssltest.html", null ],
-    [ "telnet command", "telnet.html", [
-      [ "Telnet Client", "telnet.html#telnet-client", [
-        [ "Exiting telnet", "telnet.html#exiting-telnet", null ]
-      ] ]
-    ] ],
+    [ "telnet command", "telnet.html", null ],
     [ "test program", "test.html", null ],
     [ "textcolours program", "textcolours.html", null ],
     [ "tree command", "tree.html", null ],

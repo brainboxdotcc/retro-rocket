@@ -93,8 +93,6 @@ var NAVTREEINDEX1 =
 "system-requirements.html":[0,0,1],
 "tasks.html":[0,1,9],
 "telnet.html":[0,0,7,39],
-"telnet.html#exiting-telnet":[0,0,7,39,0,0],
-"telnet.html#telnet-client":[0,0,7,39,0],
 "test.html":[0,0,7,40],
 "textcolours.html":[0,0,7,41],
 "third-party-notices.html":[0,3],
