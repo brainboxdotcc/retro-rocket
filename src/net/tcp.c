@@ -600,7 +600,7 @@ size_t tcp_header_size(tcp_segment_t* s)
  */
 int tcp_write(tcp_conn_t* conn, const void* data, size_t count)
 {
-	dprintf("tcp_write %lu bytes\n", count);
+	//dprintf("tcp_write %lu bytes\n", count);
 	if (conn == NULL) {
 		return TCP_ERROR_INVALID_CONNECTION;
 	} else if (count > TCP_WINDOW_SIZE) {
@@ -943,8 +943,6 @@ bool tcp_state_syn_sent(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_c
 
 			tcp_set_state(conn, TCP_ESTABLISHED);
 			tcp_send_ack(conn);
-
-			// TODO - If there is data in the segment, continue processing at the URG phase.
 		} else {
 			tcp_set_state(conn, TCP_SYN_RECEIVED);
 
@@ -1378,7 +1376,7 @@ void tcp_idle()
 		}
 		if (conn && conn->state == TCP_ESTABLISHED) {
 			if (conn->send_buffer_len > 0 && conn->send_buffer != NULL) {
-				dprintf("socket has %lu to send\n", conn->send_buffer_len);
+				//dprintf("socket has %lu to send\n", conn->send_buffer_len);
 				/* There is buffered data to send from high level functions */
 				size_t amount_to_send = conn->send_buffer_len > 1460 ? 1460 : conn->send_buffer_len;
 				if (tcp_write(conn, conn->send_buffer, amount_to_send) < 0) {
@@ -1618,7 +1616,7 @@ int send(int socket, const void* buffer, uint32_t length)
 	memcpy(conn->send_buffer + conn->send_buffer_len, buffer, length);
 	conn->send_buffer_len += length;
 	unlock_spinlock_irq(&lock, flags);
-	dprintf("buffer wrote length %u\n", length);
+	//dprintf("buffer wrote length %u\n", length);
 	tcp_idle(); // kick buffer drain
 	return (int)length;
 }

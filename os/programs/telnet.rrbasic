@@ -1,0 +1,140 @@
+HOST$ = ARGS$
+IF HOST$ = "" THEN
+    INPUT "Host: ", HOST$
+ENDIF
+
+IP$ = DNS$(HOST$)
+IF IP$ = "0.0.0.0" THEN
+    PRINT "DNS failed"
+    END
+ENDIF
+
+PRINT "Connecting to "; HOST$; " (IP: "; IP$; ")..."
+CONNECT FD, IP$, 23
+PRINT "Connected (ESC to quit)"
+PRINT ""
+
+telnet_state = 0
+telnet_cmd = 0
+telnet_sb_option = 0
+telnet_sb_iac = FALSE
+telnet_reply$ = ""
+
+REPEAT
+    char$ = INSOCKET$(FD)
+    IF char$ > "" THEN
+        PROCtelnet_process
+    ENDIF
+    IF char$ = "" THEN
+        key$ = INKEY$("")
+        IF key$ > "" THEN
+            IF ASC(key$) = 27 THEN
+                SOCKCLOSE FD
+                PRINT ""
+                PRINT "Closed"
+                END
+            ENDIF
+            SOCKWRITE FD, key$;
+        ENDIF
+    ENDIF
+UNTIL SOCKSTATUS(FD) = 0
+
+PRINT ""
+PRINT "Connection closed"
+
+DEF PROCtelnet_process
+    c = ASC(char$)
+
+    IF telnet_state = 0 THEN
+        IF c = 255 THEN
+            telnet_state = 1
+        ELSE
+            PRINT char$;
+        ENDIF
+        ENDPROC
+    ENDIF
+
+    IF telnet_state = 1 THEN
+        IF c = 255 THEN
+            PRINT CHR$(255);
+            telnet_state = 0
+            ENDPROC
+        ENDIF
+
+        telnet_cmd = c
+
+        IF (telnet_cmd = 251) OR (telnet_cmd = 252) OR (telnet_cmd = 253) OR (telnet_cmd = 254) THEN
+            telnet_state = 2
+            ENDPROC
+        ENDIF
+
+        IF telnet_cmd = 250 THEN
+            telnet_sb_option = -1
+            telnet_sb_iac = FALSE
+            telnet_state = 3
+            ENDPROC
+        ENDIF
+
+        telnet_state = 0
+        ENDPROC
+    ENDIF
+
+    IF telnet_state = 2 THEN
+        opt = c
+
+        REM WILL/WONT -> reply DONT, except SGA and ECHO
+        IF (telnet_cmd = 251) OR (telnet_cmd = 252) THEN
+            IF (opt = 1) OR (opt = 3) THEN
+                telnet_reply$ = CHR$(255) + CHR$(253) + CHR$(opt)
+            ELSE
+                telnet_reply$ = CHR$(255) + CHR$(254) + CHR$(opt)
+            ENDIF
+        ENDIF
+
+        REM DO/DONT -> reply WONT, except TERMINAL-TYPE
+        IF (telnet_cmd = 253) OR (telnet_cmd = 254) THEN
+            IF (opt = 24) AND (telnet_cmd = 253) THEN
+                telnet_reply$ = CHR$(255) + CHR$(251) + CHR$(24)
+            ELSE
+                telnet_reply$ = CHR$(255) + CHR$(252) + CHR$(opt)
+            ENDIF
+        ENDIF
+
+        IF telnet_reply$ <> "" THEN
+            SOCKWRITE FD, telnet_reply$;
+            telnet_reply$ = ""
+        ENDIF
+
+        telnet_state = 0
+        ENDPROC
+    ENDIF
+
+    IF telnet_state = 3 THEN
+        IF telnet_sb_option = -1 THEN
+            telnet_sb_option = c
+            ENDPROC
+        ENDIF
+
+        IF telnet_sb_iac = TRUE THEN
+            IF c = 240 THEN
+                IF telnet_sb_option = 24 THEN
+                    telnet_reply$ = CHR$(255) + CHR$(250) + CHR$(24) + CHR$(0) + "ANSI" + CHR$(255) + CHR$(240)
+                    SOCKWRITE FD, telnet_reply$;
+                    telnet_reply$ = ""
+                ENDIF
+                telnet_state = 0
+                telnet_sb_option = 0
+                telnet_sb_iac = FALSE
+                ENDPROC
+            ELSE
+                telnet_sb_iac = FALSE
+            ENDIF
+        ENDIF
+
+        IF c = 255 THEN
+            telnet_sb_iac = TRUE
+        ENDIF
+
+        ENDPROC
+    ENDIF
+ENDPROC

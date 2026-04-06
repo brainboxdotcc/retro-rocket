@@ -41,9 +41,9 @@ int ethernet_send_packet(uint8_t* dst_mac_addr, uint8_t* data, uint32_t len, uin
 	memcpy(frame->dst_mac_addr, dst_mac_addr, 6);
 	memcpy(frame_data, data, len);
 	frame->type = htons(protocol);
-	dprintf("ethernet_send_packet dest=%02x:%02x:%02x:%02x:%02x:%02x src=%02x:%02x:%02x:%02x:%02x:%02x len=%u\n",
-		dst_mac_addr[0], dst_mac_addr[1], dst_mac_addr[2], dst_mac_addr[3], dst_mac_addr[4], dst_mac_addr[5],
-		src_mac_addr[0], src_mac_addr[1], src_mac_addr[2], src_mac_addr[3], src_mac_addr[4], src_mac_addr[5], len);
+	//dprintf("ethernet_send_packet dest=%02x:%02x:%02x:%02x:%02x:%02x src=%02x:%02x:%02x:%02x:%02x:%02x len=%u\n",
+	//	dst_mac_addr[0], dst_mac_addr[1], dst_mac_addr[2], dst_mac_addr[3], dst_mac_addr[4], dst_mac_addr[5],
+	//	src_mac_addr[0], src_mac_addr[1], src_mac_addr[2], src_mac_addr[3], src_mac_addr[4], src_mac_addr[5], len);
 	dev->send_packet(frame, sizeof(ethernet_frame_t) + len);
 	unlock_spinlock_irq(&ethernet_lock, flags);
 	return len;
