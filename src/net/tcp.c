@@ -1,11 +1,23 @@
 #include <kernel.h>
 
+/* Active TCBs hashed by ip/port pairs */
 static struct hashmap* tcb = NULL;
 
+/* Time base for tick based part of the ISN */
 static uint32_t isn_tick_base = 0;
+
+/* siphash seed from csprng for ISN */
 static uint32_t isn_hash_seed0 = 0;
 static uint32_t isn_hash_seed1 = 0;
+
+/* TCP spinlock */
 static spinlock_t lock = 0;
+
+/* Initial retransmission timeout in milliseconds for SYN, FIN and data segments. */
+static const uint32_t tcp_retx_initial_rto = 1000;
+
+/* Maximum retransmission attempts before abandoning the connection. */
+static const uint8_t tcp_retx_max_retries = 5;
 
 /* Must match up with order and amount of error messages in tcp_error_code_t */
 static const char* error_messages[] = {
@@ -154,6 +166,21 @@ uint64_t tcp_conn_hash(const void *item, uint64_t seed0, uint64_t seed1) {
 	return hashmap_sip(buf, sizeof buf, seed0, seed1);
 }
 
+static void tcp_retx_free_all(tcp_conn_t* conn)
+{
+	tcp_retx_entry_t* cur = conn->retx_head;
+
+	while (cur) {
+		tcp_retx_entry_t* next = cur->next;
+		kfree_null(&cur->segment_copy);
+		kfree_null(&cur);
+		cur = next;
+	}
+
+	conn->retx_head = NULL;
+	conn->retx_tail = NULL;
+}
+
 void tcp_free(tcp_conn_t* conn, bool with_lock)
 {
 	uint64_t flags;
@@ -169,6 +196,8 @@ void tcp_free(tcp_conn_t* conn, bool with_lock)
 		t = next;
 	}
 	conn->segment_list = NULL;
+
+	tcp_retx_free_all(conn);
 
 	// Free pending queue if it exists
 	if (conn->pending) {
@@ -212,6 +241,137 @@ uint16_t tcp_calculate_checksum(ip_packet_t* packet, tcp_segment_t* segment, siz
 
 	add_random_entropy(sum ^ (uint64_t)pseudo);
 	return ~sum;
+}
+
+static uint32_t tcp_segment_end_seq(uint32_t seq, uint8_t flags, size_t count)
+{
+	uint32_t end = seq + count;
+
+	if (flags & TCP_SYN) {
+		++end;
+	}
+	if (flags & TCP_FIN) {
+		++end;
+	}
+
+	return end;
+}
+
+static bool tcp_segment_needs_retx(uint8_t flags, size_t count)
+{
+	if (count > 0) {
+		return true;
+	}
+	if (flags & TCP_SYN) {
+		return true;
+	}
+	if (flags & TCP_FIN) {
+		return true;
+	}
+	return false;
+}
+
+static bool tcp_retx_enqueue(tcp_conn_t* conn, uint32_t seq, uint8_t flags, const void* segment, size_t len, size_t count)
+{
+	tcp_retx_entry_t* entry;
+
+	if (!tcp_segment_needs_retx(flags, count)) {
+		return true;
+	}
+
+	entry = kmalloc(sizeof(tcp_retx_entry_t));
+	if (!entry) {
+		return false;
+	}
+
+	memset(entry, 0, sizeof(tcp_retx_entry_t));
+	entry->segment_copy = kmalloc(len);
+	if (!entry->segment_copy) {
+		kfree_null(&entry);
+		return false;
+	}
+
+	memcpy(entry->segment_copy, segment, len);
+	entry->seq = seq;
+	entry->end_seq = tcp_segment_end_seq(seq, flags, count);
+	entry->flags = flags;
+	entry->sent_at = get_ticks();
+	entry->rto_ms = tcp_retx_initial_rto;
+	entry->retries = 0;
+	entry->len = len;
+	entry->next = NULL;
+
+	if (conn->retx_tail) {
+		conn->retx_tail->next = entry;
+	} else {
+		conn->retx_head = entry;
+	}
+	conn->retx_tail = entry;
+
+	return true;
+}
+
+static void tcp_retx_acknowledge(tcp_conn_t* conn, uint32_t ack)
+{
+	if (!seq_gt(ack, conn->snd_una)) {
+		return;
+	}
+
+	conn->snd_una = ack;
+
+	while (conn->retx_head && seq_gte(ack, conn->retx_head->end_seq)) {
+		tcp_retx_entry_t* old = conn->retx_head;
+
+		conn->retx_head = old->next;
+		if (!conn->retx_head) {
+			conn->retx_tail = NULL;
+		}
+
+		kfree_null(&old->segment_copy);
+		kfree_null(&old);
+	}
+}
+
+static void tcp_process_ack(tcp_conn_t* conn, tcp_segment_t* segment)
+{
+	if (!segment->flags.ack) {
+		return;
+	}
+	if (!(seq_gt(segment->ack, conn->snd_una) && seq_lte(segment->ack, conn->snd_nxt))) {
+		return;
+	}
+
+	tcp_retx_acknowledge(conn, segment->ack);
+	conn->snd_wnd = segment->window_size;
+	conn->snd_wl1 = segment->seq;
+	conn->snd_wl2 = segment->ack;
+}
+
+static bool tcp_retx_resend_head(tcp_conn_t* conn)
+{
+	ip_packet_t encap;
+	tcp_retx_entry_t* entry = conn->retx_head;
+
+	if (!entry || !entry->segment_copy) {
+		return false;
+	}
+
+	memcpy(&encap.src_ip, &conn->local_addr, 4);
+	memcpy(&encap.dst_ip, &conn->remote_addr, 4);
+	ip_send_packet(encap.dst_ip, entry->segment_copy, entry->len, PROTOCOL_TCP);
+
+	entry->sent_at = get_ticks();
+	if (entry->rto_ms < 8000) {
+		entry->rto_ms <<= 1;
+		if (entry->rto_ms > 8000) {
+			entry->rto_ms = 8000;
+		}
+	}
+	if (entry->retries < 255) {
+		++entry->retries;
+	}
+
+	return true;
 }
 
 /**
@@ -404,6 +564,10 @@ tcp_conn_t* tcp_send_segment(tcp_conn_t *conn, uint32_t seq, uint8_t flags, cons
 	tcp_dump_segment(false, conn, &encap, packet, &options, length, packet->checksum);
 	tcp_byte_order_out(packet);
 #endif
+
+	if (!tcp_retx_enqueue(conn, seq, flags, packet, length, count)) {
+		dprintf("TCP: Failed to enqueue retransmit segment\n");
+	}
 
 	ip_send_packet(encap.dst_ip, packet, length, PROTOCOL_TCP);
 
@@ -777,12 +941,9 @@ bool tcp_state_syn_sent(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_c
 			conn->snd_wl1 = segment->seq;
 			conn->snd_wl2 = segment->ack;
 
-			// TODO - Segments on the retransmission queue which are ack'd should be removed
-
 			tcp_set_state(conn, TCP_ESTABLISHED);
 			tcp_send_ack(conn);
 
-			// TODO - Data queued for transmission may be included with the ACK.
 			// TODO - If there is data in the segment, continue processing at the URG phase.
 		} else {
 			tcp_set_state(conn, TCP_SYN_RECEIVED);
@@ -820,7 +981,7 @@ bool tcp_state_syn_received(ip_packet_t* encap_packet, tcp_segment_t* segment, t
 	if (segment->flags.ack) {
 		/* Acceptable if our SYN was acked: ISS < SEG.ACK <= SND.NXT */
 		if (seq_gt(segment->ack, conn->iss) && seq_lte(segment->ack, conn->snd_nxt + 1)) {
-			conn->snd_una = segment->ack;
+			tcp_retx_acknowledge(conn, segment->ack);
 			conn->snd_wnd = segment->window_size;
 			conn->snd_wl1 = segment->seq;
 			conn->snd_wl2 = segment->ack;
@@ -841,7 +1002,6 @@ bool tcp_state_syn_received(ip_packet_t* encap_packet, tcp_segment_t* segment, t
 	}
 	return true;
 }
-
 
 /**
  * @brief Called when we receive RST
@@ -986,6 +1146,7 @@ bool tcp_state_receive_fin(ip_packet_t* encap_packet, tcp_segment_t* segment, tc
  */
 bool tcp_state_established(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
+	tcp_process_ack(conn, segment);
 	const size_t header_len = tcp_header_size(segment);
 	if (len > header_len) {
 		tcp_handle_data_in(encap_packet, segment, conn, options, len);
@@ -1008,6 +1169,10 @@ bool tcp_state_established(ip_packet_t* encap_packet, tcp_segment_t* segment, tc
  */
 bool tcp_state_fin_wait_1(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
+	tcp_process_ack(conn, segment);
+	if (seq_gte(conn->snd_una, conn->snd_nxt)) {
+		tcp_set_state(conn, TCP_FIN_WAIT_2);
+	}
 	tcp_handle_data_in(encap_packet, segment, conn, options, len);
 	// Did we get a FIN?
 	if (segment->flags.fin) {
@@ -1038,10 +1203,10 @@ bool tcp_state_fin_wait_1(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp
  */
 bool tcp_state_fin_wait_2(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
+	tcp_process_ack(conn, segment);
 	tcp_handle_data_in(encap_packet, segment, conn, options, len);
 	return true;
 }
-
 /**
  * @brief Called when state is CLOSE-WAIT
  * 
@@ -1054,8 +1219,9 @@ bool tcp_state_fin_wait_2(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp
  */
 bool tcp_state_close_wait(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
+	tcp_process_ack(conn, segment);
 	tcp_send_segment(conn, conn->snd_nxt, TCP_FIN | TCP_ACK, 0, 0);
-        tcp_set_state(conn, TCP_LAST_ACK);
+	tcp_set_state(conn, TCP_LAST_ACK);
 	return true;
 }
 
@@ -1071,6 +1237,11 @@ bool tcp_state_close_wait(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp
  */
 bool tcp_state_closing(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
+	tcp_process_ack(conn, segment);
+	if (seq_gte(conn->snd_una, conn->snd_nxt)) {
+		tcp_set_state(conn, TCP_TIME_WAIT);
+		tcp_set_conn_msl_time(conn);
+	}
 	return true;
 }
 
@@ -1086,6 +1257,11 @@ bool tcp_state_closing(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_co
  */
 bool tcp_state_last_ack(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
+	tcp_process_ack(conn, segment);
+	if (seq_gte(conn->snd_una, conn->snd_nxt)) {
+		tcp_free(conn, true);
+		return false;
+	}
 	return true;
 }
 
@@ -1188,6 +1364,18 @@ void tcp_idle()
 	lock_spinlock_irq(&lock, &flags);
 	while (hashmap_iter(tcb, &iter, &item)) {
 		tcp_conn_t *conn = item;
+		if (conn && conn->retx_head) {
+			tcp_retx_entry_t* entry = conn->retx_head;
+
+			if ((uint32_t)(get_ticks() - entry->sent_at) >= entry->rto_ms) {
+				if (entry->retries >= tcp_retx_max_retries) {
+					dprintf("TCP retransmit exhausted\n");
+					tcp_free(conn, false);
+					break;
+				}
+				tcp_retx_resend_head(conn);
+			}
+		}
 		if (conn && conn->state == TCP_ESTABLISHED) {
 			if (conn->send_buffer_len > 0 && conn->send_buffer != NULL) {
 				dprintf("socket has %lu to send\n", conn->send_buffer_len);
@@ -1341,6 +1529,8 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 	conn.send_buffer_spinlock = 0;
 	conn.pending = NULL;
 	conn.backlog = 0;
+	conn.retx_head = NULL;
+	conn.retx_tail = NULL;
 
 	tcp_set_state(&conn, TCP_SYN_SENT);
 
@@ -1566,6 +1756,8 @@ int tcp_listen(uint32_t addr, uint16_t port, int backlog)
 		dprintf("listen: Out of memory\n");
 		return TCP_ERROR_OUT_OF_MEMORY;
 	}
+	conn.retx_head = NULL;
+	conn.retx_tail = NULL;
 
 	uint64_t flags;
 	lock_spinlock_irq(&lock, &flags);

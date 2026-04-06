@@ -158,6 +158,18 @@ typedef struct {
 	pending_node_t *tail;          /**< Newest pending connection */
 } queue_t;
 
+typedef struct tcp_retx_entry {
+	struct tcp_retx_entry *next;
+	uint32_t seq;
+	uint32_t end_seq;
+	uint8_t flags;
+	uint32_t sent_at;
+	uint32_t rto_ms;
+	uint8_t retries;
+	size_t len;
+	void *segment_copy; /* full TCP segment in host byte order, header + payload/options */
+} tcp_retx_entry_t;
+
 /**
  * @brief TCP connection control block (TCB).
  *
@@ -215,7 +227,8 @@ typedef struct tcp_conn_t
 
 	queue_t* pending;              /**< Pending inbound connections for LISTEN sockets */
 
-
+	tcp_retx_entry_t *retx_head;
+	tcp_retx_entry_t *retx_tail;
 } tcp_conn_t;
 
 /**
