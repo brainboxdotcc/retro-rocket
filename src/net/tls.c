@@ -13,6 +13,7 @@ static mbedtls_entropy_context entropy;
 static mbedtls_ctr_drbg_context drbg;
 static volatile unsigned char entropy_pool[ENTROPY_POOL_SIZE];
 static volatile size_t entropy_head = 0;
+static bool global_mbedtls_init = false;
 
 struct tls_peer {
 	mbedtls_ssl_context ssl;
@@ -194,9 +195,10 @@ int tls_global_init(void) {
 	mbedtls_entropy_add_source(&entropy, entropy_poll, NULL, 32, MBEDTLS_ENTROPY_SOURCE_STRONG);
 
 	if (mbedtls_ctr_drbg_seed(&drbg, mbedtls_entropy_func, &entropy, (const unsigned char *) "retro-rocket", 12) != 0) {
-		return -1;
+		return false;
 	}
-	return 0;
+	global_mbedtls_init = true;
+	return true;
 }
 
 void tls_global_free(void) {
@@ -566,5 +568,8 @@ bool tls_ready_fd(int fd) {
 }
 
 mbedtls_ctr_drbg_context* get_random_context() {
+	if (!global_mbedtls_init) {
+		return NULL;
+	}
 	return &drbg;
 }

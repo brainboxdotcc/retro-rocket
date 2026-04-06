@@ -94,14 +94,15 @@ uint32_t ntohl(uint32_t netlong) {
 
 void network_up()
 {
+	/* NOTE: tls must be initialised first, TCP depends on it for ISN generation */
+	if (!tls_global_init()) {
+		dprintf("TLS initialisation error: TLS will be unavailable!\n");
+	}
 	arp_init();
 	ip_init();
 	tcp_init();
 	dhcp_init();
 	init_dns();
-	if (tls_global_init() == -1) {
-		dprintf("TLS initialisation error: TLS will be unavailable!\n");
-	}
 }
 
 void network_down()

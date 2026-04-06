@@ -4,8 +4,7 @@ static struct hashmap* tcb = NULL;
 
 static uint32_t isn_tick_base = 0;
 static uint32_t isn_hash_seed0 = 0;
-static uint32_t isn_hash_seed1= 0;
-static int isn_init = 0;
+static uint32_t isn_hash_seed1 = 0;
 static spinlock_t lock = 0;
 
 /* Must match up with order and amount of error messages in tcp_error_code_t */
@@ -92,19 +91,6 @@ bool seq_gte(uint32_t x, uint32_t y) {
  * @return 32-bit Initial Sequence Number
  */
 uint32_t get_isn(uint32_t local_addr, uint32_t remote_addr, uint16_t local_port, uint16_t remote_port) {
-	if (!isn_init) {
-		uint64_t seeds[2];
-
-		if (!csprng_fill(seeds, sizeof(seeds))) {
-			preboot_fail("Unable to initialise TCP ISN generator");
-		}
-
-		isn_hash_seed0 = seeds[0];
-		isn_hash_seed1 = seeds[1];
-		isn_tick_base = get_ticks();
-		isn_init = 1;
-	}
-
 	uint64_t tuple[2] = {
 		((uint64_t)local_addr << 32) | (uint64_t)remote_addr,
 		((uint64_t)local_port << 48) | ((uint64_t)remote_port << 32),
@@ -841,8 +827,9 @@ bool tcp_state_syn_received(ip_packet_t* encap_packet, tcp_segment_t* segment, t
 
 			tcp_set_state(conn, TCP_ESTABLISHED);
 
-			/* If any payload, process; otherwise send an ACK (idempotent). */
-			if (len - tcp_header_size(segment) > 0) {
+			/* If any payload, process; otherwise send an ACK */
+			const size_t header_len = tcp_header_size(segment);
+			if (len > header_len) {
 				tcp_handle_data_in(encap_packet, segment, conn, options, len);
 			} else {
 				tcp_send_ack(conn);
@@ -999,7 +986,8 @@ bool tcp_state_receive_fin(ip_packet_t* encap_packet, tcp_segment_t* segment, tc
  */
 bool tcp_state_established(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
-	if (len - tcp_header_size(segment) > 0) {
+	const size_t header_len = tcp_header_size(segment);
+	if (len > header_len) {
 		tcp_handle_data_in(encap_packet, segment, conn, options, len);
 	}
  	if (segment->flags.fin) {
@@ -1237,8 +1225,15 @@ void tcp_idle()
  * @brief Initialise TCP
  */
 void tcp_init() {
+	uint64_t seeds[2];
 	tcb = hashmap_new(sizeof(tcp_conn_t), 0, 6, 28, tcp_conn_hash, tcp_conn_compare, NULL, NULL);
 	tls_fd_table_init(FD_MAX);
+	if (!csprng_fill(seeds, sizeof(seeds))) {
+		preboot_fail("Unable to initialise TCP ISN generator");
+	}
+	isn_hash_seed0 = seeds[0];
+	isn_hash_seed1 = seeds[1];
+	isn_tick_base = get_ticks();
 	proc_register_idle(tcp_idle, IDLE_BACKGROUND, 1);
 }
 

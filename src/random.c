@@ -158,7 +158,11 @@ bool csprng_fill(void *buf, size_t len) {
 	if (buf == NULL) {
 		return false;
 	}
-	return mbedtls_ctr_drbg_random(get_random_context(), buf, len) == 0;
+	void* rng = get_random_context();
+	if (rng == NULL) {
+		return false;
+	}
+	return mbedtls_ctr_drbg_random(rng, buf, len) == 0;
 }
 
 bool csprng_range(int64_t x, int64_t y, int64_t *out) {
@@ -173,9 +177,13 @@ bool csprng_range(int64_t x, int64_t y, int64_t *out) {
 	if (out == NULL) {
 		return false;
 	}
+	void* rng = get_random_context();
+	if (rng == NULL) {
+		return false;
+	}
 
 	if (count == 0) {
-		if (mbedtls_ctr_drbg_random(get_random_context(), (unsigned char *) &r, sizeof(r)) != 0) {
+		if (mbedtls_ctr_drbg_random(rng, (unsigned char *) &r, sizeof(r)) != 0) {
 			return false;
 		}
 		*out = (int64_t) (r ^ (1ULL << 63));
@@ -185,7 +193,7 @@ bool csprng_range(int64_t x, int64_t y, int64_t *out) {
 	uint64_t threshold = ((uint64_t) 0 - count) % count;
 
 	for (;;) {
-		if (mbedtls_ctr_drbg_random(get_random_context(), (unsigned char *) &r, sizeof(r)) != 0) {
+		if (mbedtls_ctr_drbg_random(rng, (unsigned char *) &r, sizeof(r)) != 0) {
 			return false;
 		}
 		if (r >= threshold) {
