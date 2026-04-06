@@ -76,12 +76,13 @@ var searchData=
   ['existsvari_20existsvarr_20existsvars_20functions_73',['EXISTSVARI / EXISTSVARR / EXISTSVARS Functions',['../EXISTSVARI.html',1,'int-funcs']]],
   ['existsvarr_20existsvars_20functions_74',['EXISTSVARI / EXISTSVARR / EXISTSVARS Functions',['../EXISTSVARI.html',1,'int-funcs']]],
   ['existsvars_20functions_75',['EXISTSVARI / EXISTSVARR / EXISTSVARS Functions',['../EXISTSVARI.html',1,'int-funcs']]],
-  ['exiting_20the_20editor_76',['Exiting the editor',['../edit.html#exiting-the-editor',1,'']]],
-  ['exp_20function_77',['EXP Function',['../EXP.html',1,'real-funcs']]],
-  ['expression_78',['Regular expression',['../variables.html#regular-expression',1,'']]],
-  ['expression_20engine_3a_20typed_20predictable_79',['The expression engine: typed, predictable',['../basic-intdev.html#the-expression-engine-typed-predictable',1,'']]],
-  ['extend_20it_80',['If you want to extend it',['../basic-intdev.html#if-you-want-to-extend-it',1,'']]],
-  ['extended_20high_20leaves_81',['Extended (High) Leaves',['../cpuid.html#extended-high-leaves',1,'']]],
-  ['extended_20keys_82',['Extended keys',['../INKEY.html#extended-keys',1,'']]],
-  ['extents_83',['4.1 Extents',['../retrofs.html#autotoc_md41-extents',1,'']]]
+  ['exiting_20telnet_76',['Exiting telnet',['../telnet.html#exiting-telnet',1,'']]],
+  ['exiting_20the_20editor_77',['Exiting the editor',['../edit.html#exiting-the-editor',1,'']]],
+  ['exp_20function_78',['EXP Function',['../EXP.html',1,'real-funcs']]],
+  ['expression_79',['Regular expression',['../variables.html#regular-expression',1,'']]],
+  ['expression_20engine_3a_20typed_20predictable_80',['The expression engine: typed, predictable',['../basic-intdev.html#the-expression-engine-typed-predictable',1,'']]],
+  ['extend_20it_81',['If you want to extend it',['../basic-intdev.html#if-you-want-to-extend-it',1,'']]],
+  ['extended_20high_20leaves_82',['Extended (High) Leaves',['../cpuid.html#extended-high-leaves',1,'']]],
+  ['extended_20keys_83',['Extended keys',['../INKEY.html#extended-keys',1,'']]],
+  ['extents_84',['4.1 Extents',['../retrofs.html#autotoc_md41-extents',1,'']]]
 ];

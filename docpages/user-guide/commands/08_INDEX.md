@@ -59,6 +59,7 @@ The following pages describe each command in detail:
 - \subpage servertest
 - \subpage socktest
 - \subpage ssltest
+- \subpage telnet
 - \subpage test
 - \subpage textcolours
 - \subpage tree
