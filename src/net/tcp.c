@@ -752,10 +752,14 @@ void tcp_process_queue(tcp_conn_t* conn, tcp_segment_t* segment, size_t len)
 
 		// Append to recv buffer
 		if (payload_len > 0) {
-			dprintf("Resize recv buffer %p from %lu to %lu\n", conn->recv_buffer, conn->recv_buffer_len, conn->recv_buffer_len + payload_len);
-			conn->recv_buffer = krealloc(conn->recv_buffer, conn->recv_buffer_len + payload_len);
-			memcpy(conn->recv_buffer + conn->recv_buffer_len, payload, payload_len);
-			conn->recv_buffer_len += payload_len;
+			uint8_t* new_buffer = krealloc(conn->recv_buffer, conn->recv_buffer_len + payload_len);
+			if (!new_buffer) {
+				dprintf("Error: resize of recv buffer to %lu failed!\n", conn->recv_buffer_len + payload_len);
+			} else {
+				conn->recv_buffer = new_buffer;
+				memcpy(conn->recv_buffer + conn->recv_buffer_len, payload, payload_len);
+				conn->recv_buffer_len += payload_len;
+			}
 		}
 
 		// Save next before freeing
@@ -1612,11 +1616,16 @@ int send(int socket, const void* buffer, uint32_t length)
 		unlock_spinlock_irq(&lock, flags);
 		return TCP_ERROR_INVALID_SOCKET;
 	}
-	conn->send_buffer = krealloc(conn->send_buffer, length + conn->send_buffer_len);
+	uint8_t* new_buffer = krealloc(conn->send_buffer, length + conn->send_buffer_len);
+	if (!new_buffer) {
+		dprintf("send(): out of memory on socket %d!\n", socket);
+		unlock_spinlock_irq(&lock, flags);
+		return TCP_ERROR_OUT_OF_MEMORY;
+	}
+	conn->send_buffer = new_buffer;
 	memcpy(conn->send_buffer + conn->send_buffer_len, buffer, length);
 	conn->send_buffer_len += length;
 	unlock_spinlock_irq(&lock, flags);
-	//dprintf("buffer wrote length %u\n", length);
 	tcp_idle(); // kick buffer drain
 	return (int)length;
 }

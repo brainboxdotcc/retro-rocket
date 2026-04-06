@@ -1,16 +1,22 @@
-HOST$ = ARGS$
+HOST$ = TOKENIZE$(ARGS$, " ")
+PORT = 23
+
+IF ARGS$ <> "" THEN
+    tmp$ = TOKENIZE$(ARGS$, " ")
+    IF tmp$ <> "" THEN
+        PORT = VAL(tmp$)
+    ENDIF
+ENDIF
+
 IF HOST$ = "" THEN
     INPUT "Host: ", HOST$
 ENDIF
 
 IP$ = DNS$(HOST$)
-IF IP$ = "0.0.0.0" THEN
-    PRINT "DNS failed"
-    END
-ENDIF
+IF IP$ = "0.0.0.0" THEN IP$ = HOST$
 
-PRINT "Connecting to "; HOST$; " (IP: "; IP$; ")..."
-CONNECT FD, IP$, 23
+PRINT "Connecting to "; HOST$; ":"; PORT; " (IP: "; IP$; ")..."
+CONNECT FD, IP$, PORT
 PRINT "Connected (ESC to quit)"
 PRINT ""
 
@@ -91,10 +97,11 @@ DEF PROCtelnet_process
             ENDIF
         ENDIF
 
-        REM DO/DONT -> reply WONT, except TERMINAL-TYPE
+        REM DO/DONT -> reply WONT, except TERMINAL-TYPE and NAWS
         IF (telnet_cmd = 253) OR (telnet_cmd = 254) THEN
-            IF (opt = 24) AND (telnet_cmd = 253) THEN
+            IF ((opt = 24) OR (opt = 31)) AND (telnet_cmd = 253) THEN
                 telnet_reply$ = CHR$(255) + CHR$(251) + CHR$(24)
+                PROCsend_naws
             ELSE
                 telnet_reply$ = CHR$(255) + CHR$(252) + CHR$(opt)
             ENDIF
@@ -137,4 +144,15 @@ DEF PROCtelnet_process
 
         ENDPROC
     ENDIF
+ENDPROC
+
+DEF PROCsend_naws
+    w = TERMWIDTH
+    h = TERMHEIGHT
+    wh = w / 256
+    wl = w % 256
+    hh = h / 256
+    hl = h % 256
+    naws$ = CHR$(255) + CHR$(250) + CHR$(31) + CHR$(wh) + CHR$(wl) + CHR$(hh) + CHR$(hl) + CHR$(255) + CHR$(240)
+    SOCKWRITE FD, naws$;
 ENDPROC

@@ -320,6 +320,9 @@ void* krealloc(void* ptr, size_t new_size) {
 		return kmalloc(new_size);
 	}
 	void* new_ptr = kmalloc(new_size);
+	if (!new_ptr) {
+		return NULL;
+	}
 	memcpy(new_ptr, ptr, new_size);
 	kfree(ptr);
 	return new_ptr;
