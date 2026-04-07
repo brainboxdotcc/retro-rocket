@@ -123,18 +123,19 @@ $(function(){initNavTree('INSOCKET.html','',''); });
   <div class="headertitle"><div class="title">INSOCKET$ Function </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">INSOCKET$(integer-expression)</div>
-</div><!-- fragment --><p>Reads and returns a <b>single character</b> from the socket identified by the given socket descriptor.</p>
+<div class="textblock"><div class="fragment"><div class="line">INSOCKET$(integer-expression, integer-expression)</div>
+</div><!-- fragment --><p>Reads and returns <b>characters</b> from the socket identified by the given socket descriptor.</p>
 <ul>
 <li>If there is no data available to read, an <b>empty string</b> is returned.</li>
 <li>If the socket has closed or encountered an error, an error is raised describing the socket failure.</li>
+<li>The maximum number of characters to read is specified by the 2nd parameter</li>
 </ul>
 <hr  />
 <h3 class="doxsection"><a class="anchor" id="examples-112"></a>
 Examples</h3>
 <div class="fragment"><div class="line">REM Read characters from a connected socket</div>
 <div class="line">REPEAT</div>
-<div class="line">    c$ = INSOCKET$(fd)</div>
+<div class="line">    c$ = INSOCKET$(fd,1)</div>
 <div class="line">    IF c$ &gt; &quot;&quot; THEN</div>
 <div class="line">        PRINT &quot;Received: &quot;; c$</div>
 <div class="line">    ENDIF</div>
@@ -142,7 +143,7 @@ Examples</h3>
 </div><!-- fragment --><div class="fragment"><div class="line">REM Assemble incoming data into a string</div>
 <div class="line">line$ = &quot;&quot;</div>
 <div class="line">REPEAT</div>
-<div class="line">    c$ = INSOCKET$(fd)</div>
+<div class="line">    c$ = INSOCKET$(fd,1)</div>
 <div class="line">    IF c$ &gt; &quot;&quot; THEN line$ = line$ + c$</div>
 <div class="line">UNTIL c$ = &quot;&quot; OR SOCKSTATUS(fd) = FALSE</div>
 <div class="line">PRINT &quot;Line: &quot;; line$</div>
