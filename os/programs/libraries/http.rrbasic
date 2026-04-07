@@ -216,7 +216,10 @@ DEF PROChttp_request(method$, url$, postdata$)
             CONNECT FD, IP$, PORT
         ENDIF
         SOCKWRITE FD, request$;
-        SOCKREAD FD, __http_request_response_base$
+        __http_request_response_base$ = ""
+        REPEAT
+            __http_request_response_base$ = __http_request_response_base$ + INSOCKET$(FD, 1024)
+        UNTIL SOCKSTATUS(FD) = 0
         SOCKCLOSE FD
     ENDIF
 ENDPROC
