@@ -1,0 +1,90 @@
+REM MASTERMIND
+REM WRITTEN BY H. CHARDMATH123
+REM PORTED TO RETRO ROCKET BY CRAIG EDWARDS
+REM G(3) = GUESS ARRAY
+REM R(3) = RANDOM ARRAY
+REM B = BLACK HITS
+REM W = WHITE HITS
+
+M = 0
+
+DIM G, 4
+DIM R, 4
+
+R(0) = RND(0, 9)
+R(1) = RND(0, 9)
+R(2) = RND(0, 9)
+R(3) = RND(0, 9)
+
+PRINT ""
+PRINT "*************** MASTERMIND ***************"
+PRINT ""
+PRINT "ZOLTAR IS THINKING OF A 4 DIGIT NUMBER. HE"
+PRINT "GRADES YOUR GUESSES. IF A TWO DIGITS ARE"
+PRINT "YOU GET A BLACK. IF FOR EACH DIGIT"
+PRINT "THE CORRECT PLACE."
+PRINT "YOU GET A WHITE HIT FOR EACH DIGIT"
+PRINT "THAT IS IN ZOLTAR'S NUMBER, BUT IN THE"
+PRINT "WRONG PLACE."
+PRINT "CAN YOU GUESS HIS NUMBER?"
+
+REPEAT
+    PRINT "Enter your guess (4 numbers)"
+    PRINT "Moves: "; M + 1
+
+    PRINT "First number? ";
+    INPUT G(0)
+    PRINT "Second number? ";
+    INPUT G(1)
+    PRINT "Third number? ";
+    INPUT G(2)
+    PRINT "Fourth number? ";
+    INPUT G(3)
+
+    B = 0
+
+    IF G(0) = R(0) THEN B = B + 1
+    IF G(1) = R(1) THEN B = B + 1
+    IF G(2) = R(2) THEN B = B + 1
+    IF G(3) = R(3) THEN B = B + 1
+
+    IF B < 1 THEN PRINT "YOU HAVE NO BLACK HITS."
+    IF B = 1 THEN PRINT "YOU HAVE 1 BLACK HIT."
+    IF B > 1 THEN PRINT "YOU HAVE "; B; " BLACK HITS."
+
+    W = 0
+
+    IF G(0) <> R(0) THEN
+        IF G(0) = R(1) THEN W = W + 1
+        IF G(0) = R(2) THEN W = W + 1
+        IF G(0) = R(3) THEN W = W + 1
+    ENDIF
+
+    IF G(1) <> R(1) THEN
+        IF G(1) = R(0) THEN W = W + 1
+        IF G(1) = R(2) THEN W = W + 1
+        IF G(1) = R(3) THEN W = W + 1
+    ENDIF
+
+    IF G(2) <> R(2) THEN
+        IF G(2) = R(0) THEN W = W + 1
+        IF G(2) = R(1) THEN W = W + 1
+        IF G(2) = R(3) THEN W = W + 1
+    ENDIF
+
+    IF G(3) <> R(3) THEN
+        IF G(3) = R(0) THEN W = W + 1
+        IF G(3) = R(1) THEN W = W + 1
+        IF G(3) = R(2) THEN W = W + 1
+    ENDIF
+
+    IF W < 1 THEN PRINT "YOU HAVE NO WHITE HITS."
+    IF W = 1 THEN PRINT "YOU HAVE 1 WHITE HIT."
+    IF W > 1 THEN PRINT "YOU HAVE "; W; " WHITE HITS."
+
+    IF B = 4 THEN
+        PRINT "YOU WIN! IT ONLY TOOK YOU"; M; "MOVES."
+    ELSE
+        M = M + 1
+    ENDIF
+UNTIL B = 4
