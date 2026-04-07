@@ -7,7 +7,8 @@ IF ARGS$ <> "" THEN
     ENDIF
 ENDIF
 IF HOST$ = "" THEN
-    INPUT "Host: ", HOST$
+    PRINT "Host: ";
+    INPUT HOST$
 ENDIF
 IP$ = DNS$(HOST$)
 IF IP$ = "0.0.0.0" THEN IP$ = HOST$

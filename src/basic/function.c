@@ -419,8 +419,8 @@ int64_t basic_eval_int_fn(const char* fn_name, struct basic_ctx* ctx)
 				break;
 			}
 			if (get_ticks() - start > ATOMIC_MAX_MS) {
-				//tokenizer_error_printf(ctx, "FN%s: atomic function timed out", fn_name);
-				//break;
+				tokenizer_error_printf(ctx, "FN%s: atomic function timed out", fn_name);
+				break;
 			}
 		}
 		rv = (int64_t)atomic->fn_return;
