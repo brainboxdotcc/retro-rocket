@@ -1,13 +1,14 @@
 \page INSOCKET INSOCKET$ Function
 
 ```basic
-INSOCKET$(integer-expression)
+INSOCKET$(integer-expression, integer-expression)
 ```
 
-Reads and returns a **single character** from the socket identified by the given socket descriptor.
+Reads and returns **characters** from the socket identified by the given socket descriptor.
 
 * If there is no data available to read, an **empty string** is returned.
 * If the socket has closed or encountered an error, an error is raised describing the socket failure.
+* The maximum number of characters to read is specified by the 2nd parameter
 
 ---
 
@@ -16,7 +17,7 @@ Reads and returns a **single character** from the socket identified by the given
 ```basic
 REM Read characters from a connected socket
 REPEAT
-    c$ = INSOCKET$(fd)
+    c$ = INSOCKET$(fd,1)
     IF c$ > "" THEN
         PRINT "Received: "; c$
     ENDIF
@@ -27,7 +28,7 @@ UNTIL SOCKSTATUS(fd) = FALSE
 REM Assemble incoming data into a string
 line$ = ""
 REPEAT
-    c$ = INSOCKET$(fd)
+    c$ = INSOCKET$(fd,1)
     IF c$ > "" THEN line$ = line$ + c$
 UNTIL c$ = "" OR SOCKSTATUS(fd) = FALSE
 PRINT "Line: "; line$

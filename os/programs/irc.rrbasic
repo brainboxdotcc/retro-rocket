@@ -27,7 +27,7 @@ DEF PROCmainLoop
 	PROCdraw
 	REPEAT
 		IF registered = FALSE THEN PROCregister
-		char$ = INSOCKET$(FD)
+		char$ = INSOCKET$(FD, 1)
 		IF char$ > "" THEN PROCprocess(char$)
 		IF char$ = "" THEN PROCkeyScan
 	UNTIL SOCKSTATUS(FD) = 0

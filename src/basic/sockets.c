@@ -418,12 +418,19 @@ int64_t basic_sslsockaccept(struct basic_ctx *ctx) {
 }
 
 char *basic_insocket(struct basic_ctx *ctx) {
-	uint8_t input[2] = {0, 0};
+	uint8_t input[MAX_STRINGLEN];
 
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t fd = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t max = intval;
 	PARAMS_END("INSOCKET$", "");
+	if (max < 1) {
+		max = 1;
+	} else if (max > MAX_STRINGLEN) {
+		max = MAX_STRINGLEN - 1;
+	}
 
 	if (fd < 0) {
 		tokenizer_error_print(ctx, "Invalid socket descriptor");
@@ -441,7 +448,7 @@ char *basic_insocket(struct basic_ctx *ctx) {
 		out_n = 0;
 		err = 0;
 
-		ok = tls_read_fd(fd, input, 1, &want, &out_n, &err);
+		ok = tls_read_fd(fd, input, max, &want, &out_n, &err);
 		if (ok) {
 			rv = out_n;
 		} else {
@@ -452,16 +459,14 @@ char *basic_insocket(struct basic_ctx *ctx) {
 			}
 		}
 	} else {
-		rv = recv(fd, input, 1, false, 0);
+		rv = recv(fd, input, max, false, 0);
 	}
 
 	if (rv > 0) {
-		input[1] = 0;
+		input[rv] = 0;
 		return (char*)gc_strdup(ctx, (const char *) input);
 	} else if (rv < 0) {
 		tokenizer_error_print(ctx, socket_error(rv));
-	} else {
-		__builtin_ia32_pause();
 	}
 	return "";
 }
