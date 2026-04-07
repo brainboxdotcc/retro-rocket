@@ -9,7 +9,7 @@ The first parameter must be an **integer variable** containing the socket handle
 The **semantics match** \ref INPUT "INPUT":
 
 - The call is **blocking**: it waits until there is **enough data** to parse a valid value for the destination type.
-- `variable` may be **string**, **integer**, or **real**.
+- `variable` may be **string**, **integer**, **real** or an **array** subscript or **whole array**.
 - If the incoming data does **not** form a valid number when an integer or real is expected, the destination is set to **0**.
 - Unlike `INPUT`, there is **no echo** (data comes from the socket, not the keyboard).
 

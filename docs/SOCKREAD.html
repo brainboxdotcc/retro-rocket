@@ -129,7 +129,7 @@ $(function(){initNavTree('SOCKREAD.html','',''); });
 <p>The <b>semantics match</b> <a class="el" href="INPUT.html">INPUT</a>:</p>
 <ul>
 <li>The call is <b>blocking</b>: it waits until there is <b>enough data</b> to parse a valid value for the destination type.</li>
-<li><span class="tt">variable</span> may be <b>string</b>, <b>integer</b>, or <b>real</b>.</li>
+<li><span class="tt">variable</span> may be <b>string</b>, <b>integer</b>, <b>real</b> or an <b>array</b> subscript or <b>whole array</b>.</li>
 <li>If the incoming data does <b>not</b> form a valid number when an integer or real is expected, the destination is set to <b>0</b>.</li>
 <li>Unlike <span class="tt">INPUT</span>, there is <b>no echo</b> (data comes from the socket, not the keyboard).</li>
 </ul>

@@ -72,7 +72,9 @@ void sockread_statement(struct basic_ctx *ctx) {
 	accept_or_return(COMMA, ctx);
 
 	var = tokenizer_variable_name(ctx, &var_length);
-	accept_or_return(VARIABLE, ctx);
+	if (!var) {
+		return;
+	}
 
 	proc = ctx->proc;
 
@@ -101,7 +103,7 @@ void sockread_statement(struct basic_ctx *ctx) {
 	}
 
 	if (rv == 0) {
-		// Not ready yet, yield and retry later
+		/* Not ready yet, yield and retry later */
 		proc_set_idle(proc, check_sockread_ready, (void *) (uintptr_t) fd);
 		jump_linenum(ctx->current_linenum, ctx);
 		proc->state = PROC_IO_BOUND;
@@ -120,6 +122,49 @@ void sockread_statement(struct basic_ctx *ctx) {
 		rv = (int) (sizeof(input) - 1);
 	}
 	input[rv] = 0; // Null-terminate string
+
+	if (varname_is_int_array_access(ctx, var)) {
+		int64_t index = arr_target_index(ctx);
+		int64_t value = atoll(input, 10);
+
+		if (index == -1) {
+			basic_set_int_array(var, value, ctx);
+		} else {
+			basic_set_int_array_variable(var, index, value, ctx);
+		}
+
+		accept_or_return(NEWLINE, ctx);
+		proc->state = PROC_RUNNING;
+		return;
+	} else if (varname_is_string_array_access(ctx, var)) {
+		int64_t index = arr_target_index(ctx);
+
+		if (index == -1) {
+			basic_set_string_array(var, input, ctx);
+		} else {
+			basic_set_string_array_variable(var, index, input, ctx);
+		}
+
+		accept_or_return(NEWLINE, ctx);
+		proc->state = PROC_RUNNING;
+		return;
+	} else if (varname_is_double_array_access(ctx, var)) {
+		int64_t index = arr_target_index(ctx);
+		double value = 0;
+		atof(input, &value);
+
+		if (index == -1) {
+			basic_set_double_array(var, value, ctx);
+		} else {
+			basic_set_double_array_variable(var, index, value, ctx);
+		}
+
+		accept_or_return(NEWLINE, ctx);
+		proc->state = PROC_RUNNING;
+		return;
+	}
+
+	accept_or_return(VARIABLE, ctx);
 
 	switch (var[var_length - 1]) {
 		case '$':

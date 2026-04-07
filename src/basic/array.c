@@ -1,5 +1,3 @@
-// array.c
-
 /**
  * @file basic/array.c
  * @brief BASIC console IO functions
@@ -558,24 +556,33 @@ void redim_statement(struct basic_ctx* ctx)
 	}
 }
 
-int64_t arr_expr_set_index(struct basic_ctx* ctx, const char* varname)
+int64_t arr_target_index(struct basic_ctx* ctx)
 {
 	while (*ctx->ptr != '(' && *ctx->ptr != '\n' && *ctx->ptr) {
 		ctx->ptr++;
 	}
+
 	if (*ctx->ptr != '(') {
 		accept(VARIABLE, ctx);
-		accept(EQUALS, ctx);
 		return -1;
 	}
+
 	ctx->ptr++;
 	ctx->current_token = get_next_token(ctx);
+
 	if (*ctx->ptr == '-') {
 		tokenizer_error_print(ctx, "Array subscripts cannot be negative");
 		return 0;
 	}
+
 	int64_t index = expr(ctx);
 	accept(CLOSEBRACKET, ctx);
+	return index;
+}
+
+int64_t arr_expr_set_index(struct basic_ctx* ctx, [[maybe_unused]] const char* varname)
+{
+	int64_t index = arr_target_index(ctx);
 	accept(EQUALS, ctx);
 	return index;
 }

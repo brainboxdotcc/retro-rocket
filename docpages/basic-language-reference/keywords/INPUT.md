@@ -5,7 +5,7 @@ INPUT variable
 
 Pauses the program and waits for **keyboard input**. The entered text is echoed to the terminal and then stored in `variable`.
 
-- `variable` may be **string**, **integer**, or **real**.
+- `variable` may be **string**, **integer**, **real** or an **array** subscript or **whole array**.
 - If the input is **not valid** for the requested type (for example, letters when an integer is expected), the variable is set to **0**.
 - `INPUT` is **blocking**: execution does not continue until the user presses Enter.
 

@@ -111,9 +111,12 @@ bool check_input_in_progress(process_t* proc, void* opaque)
 void input_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(INPUT, ctx);
+
 	size_t var_length;
 	const char* var = tokenizer_variable_name(ctx, &var_length);
-	accept_or_return(VARIABLE, ctx);
+	if (!var) {
+		return;
+	}
 
 	process_t* proc = ctx->proc;
 
@@ -127,19 +130,68 @@ void input_statement(struct basic_ctx* ctx)
 
 	proc_set_idle(proc, NULL, NULL);
 
+	if (varname_is_int_array_access(ctx, var)) {
+		int64_t index = arr_target_index(ctx);
+		int64_t value = atoll(kgetinput(), 10);
+
+		if (index == -1) {
+			basic_set_int_array(var, value, ctx);
+		} else {
+			basic_set_int_array_variable(var, index, value, ctx);
+		}
+
+		kfreeinput();
+		accept_or_return(NEWLINE, ctx);
+		proc->state = PROC_RUNNING;
+		return;
+	} else if (varname_is_string_array_access(ctx, var)) {
+		int64_t index = arr_target_index(ctx);
+		const char* value = kgetinput();
+
+		if (index == -1) {
+			basic_set_string_array(var, value, ctx);
+		} else {
+			basic_set_string_array_variable(var, index, value, ctx);
+		}
+
+		kfreeinput();
+		accept_or_return(NEWLINE, ctx);
+		proc->state = PROC_RUNNING;
+		return;
+	} else if (varname_is_double_array_access(ctx, var)) {
+		int64_t index = arr_target_index(ctx);
+		double value = 0;
+		atof(kgetinput(), &value);
+
+		if (index == -1) {
+			basic_set_double_array(var, value, ctx);
+		} else {
+			basic_set_double_array_variable(var, index, value, ctx);
+		}
+
+		kfreeinput();
+		accept_or_return(NEWLINE, ctx);
+		proc->state = PROC_RUNNING;
+		return;
+	}
+
+	accept_or_return(VARIABLE, ctx);
+
 	switch (var[var_length - 1]) {
 		case '$':
 			basic_set_string_variable(var, kgetinput(), ctx, false, false);
-		break;
+			break;
+
 		case '#': {
 			double f = 0;
 			atof(kgetinput(), &f);
 			basic_set_double_variable(var, f, ctx, false, false);
+			break;
 		}
-		break;
+
 		default:
 			basic_set_int_variable(var, atoll(kgetinput(), 10), ctx, false, false);
-		break;
+			break;
 	}
 	kfreeinput();
 	accept_or_return(NEWLINE, ctx);

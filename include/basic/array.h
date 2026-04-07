@@ -334,3 +334,5 @@ ub_var_string_array* find_string_array(const char* var, struct basic_ctx* ctx);
  * @return Pointer to real array descriptor, or NULL if not found
  */
 ub_var_double_array* find_double_array(const char* var, struct basic_ctx* ctx);
+
+int64_t arr_target_index(struct basic_ctx* ctx);
