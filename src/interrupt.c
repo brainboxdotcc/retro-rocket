@@ -87,7 +87,7 @@ void Interrupt(uint64_t isrnumber, uint64_t errorcode, uint64_t rip) {
 	__attribute__((aligned(16))) uint8_t fx[512];
 	__builtin_ia32_fxsave64(&fx);
 
-	for (shared_interrupt_t *si = shared_interrupt[logical_cpu_id()][isrnumber]; si; si = si->next) {
+	for (shared_interrupt_t *si = shared_interrupt[0][isrnumber]; si; si = si->next) {
 		/* There is no shared interrupt routing on these interrupts,
 		 * they are purely routed to interested handlers
 		 */
@@ -98,7 +98,7 @@ void Interrupt(uint64_t isrnumber, uint64_t errorcode, uint64_t rip) {
 
 	if (isrnumber < 32) {
 		/* This simple error handler is replaced by a more complex debugger once the system is up */
-		kprintf("CPU %d halted with exception %016lx, error code %016lx: %s.\n", logical_cpu_id(), isrnumber, errorcode, error_table[isrnumber]);
+		aprintf("CPU %d halted with exception %016lx, error code %016lx: %s at rip 0x%lx.\n", logical_cpu_id(), isrnumber, errorcode, error_table[isrnumber], rip);
 		wait_forever();
 	}
 

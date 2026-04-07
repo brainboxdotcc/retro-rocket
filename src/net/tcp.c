@@ -114,6 +114,21 @@ uint32_t get_isn(uint32_t local_addr, uint32_t remote_addr, uint16_t local_port,
 	return base + delta;
 }
 
+uint16_t tcp_recv_window(const tcp_conn_t* conn)
+{
+	if (conn->recv_buffer_len >= TCP_RECV_BUFFER_LIMIT) {
+		dprintf("Zero limit\n");
+		return 0;
+	}
+
+	size_t space = TCP_RECV_BUFFER_LIMIT - conn->recv_buffer_len;
+	if (space > TCP_WINDOW_SIZE) {
+		space = TCP_WINDOW_SIZE;
+	}
+
+	return (uint16_t)space;
+}
+
 /**
  * @brief Comparison function for hash table of tcp connections
  * 
@@ -546,7 +561,7 @@ tcp_conn_t* tcp_send_segment(tcp_conn_t *conn, uint32_t seq, uint8_t flags, cons
 	packet->flags.ece = (flags & TCP_ECE) ? 1 : 0;
 	packet->flags.cwr = (flags & TCP_CWR) ? 1 : 0;
 
-	packet->window_size = TCP_WINDOW_SIZE;
+	packet->window_size = tcp_recv_window(conn);
 	packet->checksum = 0;
 	packet->urgent = 0;
 	memcpy(&encap.src_ip, &conn->local_addr, 4);
@@ -670,6 +685,8 @@ tcp_segment_t* tcp_ord_list_insert(tcp_conn_t* conn, tcp_segment_t* segment, siz
 		if (seq_gt(new_end, cur->segment->seq)) {
 			// partial overlap -> shrink cur from the left
 			size_t overlap = new_end - cur->segment->seq;
+			// Move payload forward to match new sequence start
+			memmove(cur->segment->payload, cur->segment->payload + overlap, cur->len - overlap);
 			cur->segment->seq += overlap;
 			cur->len -= overlap;
 		}
@@ -743,8 +760,12 @@ void tcp_process_queue(tcp_conn_t* conn, tcp_segment_t* segment, size_t len)
 				payload += options_len;
 				payload_len -= options_len;
 			} else {
-				payload_len = 0; // corrupt options length safeguard
+				payload_len = 0;
 			}
+		}
+
+		if ((payload_len > 0) && (conn->recv_buffer_len + payload_len > TCP_RECV_BUFFER_LIMIT)) {
+			break;
 		}
 
 		// increment what we have received in our connection state
@@ -752,14 +773,18 @@ void tcp_process_queue(tcp_conn_t* conn, tcp_segment_t* segment, size_t len)
 
 		// Append to recv buffer
 		if (payload_len > 0) {
+			uint64_t flags;
+			lock_spinlock_irq(&lock, &flags);
 			uint8_t* new_buffer = krealloc(conn->recv_buffer, conn->recv_buffer_len + payload_len);
 			if (!new_buffer) {
 				dprintf("Error: resize of recv buffer to %lu failed!\n", conn->recv_buffer_len + payload_len);
-			} else {
-				conn->recv_buffer = new_buffer;
-				memcpy(conn->recv_buffer + conn->recv_buffer_len, payload, payload_len);
-				conn->recv_buffer_len += payload_len;
+				break;
 			}
+
+			conn->recv_buffer = new_buffer;
+			memcpy(conn->recv_buffer + conn->recv_buffer_len, payload, payload_len);
+			conn->recv_buffer_len += payload_len;
+			unlock_spinlock_irq(&lock, flags);
 		}
 
 		// Save next before freeing
@@ -1056,8 +1081,9 @@ bool tcp_state_receive_rst(ip_packet_t* encap_packet, tcp_segment_t* segment, tc
  */
 bool tcp_handle_data_in(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len) {
 	size_t payload_len = len - tcp_header_size(segment);
+	uint16_t rcv_wnd = tcp_recv_window(conn);
 
-	if (!(seq_lte(conn->rcv_nxt, segment->seq) && seq_lte(segment->seq + payload_len, conn->rcv_nxt + conn->rcv_wnd))) {
+	if (!(seq_lte(conn->rcv_nxt, segment->seq) && seq_lte(segment->seq + payload_len, conn->rcv_nxt + rcv_wnd))) {
 		// Unacceptable segment
 		if (segment->flags.rst == 0) {
 			return tcp_send_ack(conn);
@@ -1074,7 +1100,7 @@ bool tcp_handle_data_in(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_c
 	tcp_ord_list_insert(conn, segment, payload_len);
 	// check ordered list is complete (no seq gaps), if it is delivered queued data to client
 	tcp_process_queue(conn, segment, payload_len);
-	// acknowlege receipt
+	// acknowledge receipt
 	tcp_send_ack(conn);
 	return true;
 }
@@ -1299,7 +1325,6 @@ bool tcp_state_machine(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_co
 {
 	switch (conn->state) {
 		case TCP_LISTEN:
-			dprintf("state machine; listen\n");
 			return tcp_state_listen(encap_packet, segment, conn, options, len);
 		case TCP_SYN_SENT:
 			return tcp_state_syn_sent(encap_packet, segment, conn, options, len);
@@ -1402,8 +1427,7 @@ void tcp_idle()
 					conn->send_buffer_len = new_len;
 				}
 			}
-		} else if (conn && conn->state == TCP_TIME_WAIT &&
-			   seq_gte(get_isn(conn->local_addr, conn->remote_addr, conn->local_port, conn->remote_port), conn->msl_time)) {
+		} else if (conn && conn->state == TCP_TIME_WAIT && seq_gte(get_isn(conn->local_addr, conn->remote_addr, conn->local_port, conn->remote_port), conn->msl_time)) {
 			tcp_free(conn, false);
 			break;
 		}

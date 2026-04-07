@@ -1,52 +1,51 @@
 HOST$ = TOKENIZE$(ARGS$, " ")
 PORT = 23
-
 IF ARGS$ <> "" THEN
     tmp$ = TOKENIZE$(ARGS$, " ")
     IF tmp$ <> "" THEN
         PORT = VAL(tmp$)
     ENDIF
 ENDIF
-
 IF HOST$ = "" THEN
     INPUT "Host: ", HOST$
 ENDIF
-
 IP$ = DNS$(HOST$)
 IF IP$ = "0.0.0.0" THEN IP$ = HOST$
-
 PRINT "Connecting to "; HOST$; ":"; PORT; " (IP: "; IP$; ")..."
 CONNECT FD, IP$, PORT
 PRINT "Connected (ESC to quit)"
 PRINT ""
-
 telnet_state = 0
 telnet_cmd = 0
 telnet_sb_option = 0
 telnet_sb_iac = FALSE
 telnet_reply$ = ""
-
 REPEAT
-    char$ = INSOCKET$(FD)
-    IF char$ > "" THEN
-        PROCtelnet_process
-    ENDIF
-    IF char$ = "" THEN
-        key$ = INKEY$("")
-        IF key$ > "" THEN
-            IF ASC(key$) = 27 THEN
-                SOCKCLOSE FD
-                PRINT ""
-                PRINT "Closed"
-                END
-            ENDIF
-            SOCKWRITE FD, key$;
-        ENDIF
-    ENDIF
+    IF FNloop = FALSE THEN END
 UNTIL SOCKSTATUS(FD) = 0
-
 PRINT ""
 PRINT "Connection closed"
+END
+DEF FNloop
+    b = 0
+    REPEAT
+        char$ = INSOCKET$(FD)
+        IF char$ > "" THEN
+            PROCtelnet_process
+            b = b + 1
+        ENDIF
+    UNTIL (char$ = "") OR (b > 384)
+    key$ = INKEY$("")
+    IF key$ > "" THEN
+        IF ASC(key$) = 27 THEN
+            ' SOCKCLOSE FD
+            PRINT ""
+            PRINT "Closed"
+            = FALSE
+        ENDIF
+        SOCKWRITE FD, key$;
+    ENDIF
+= TRUE
 
 DEF PROCtelnet_process
     c = ASC(char$)

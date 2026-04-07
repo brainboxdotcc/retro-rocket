@@ -118,10 +118,11 @@ static inline const char* print_error_code_detail(uint64_t vec, uint64_t ec) {
 
 void error_handler(uint8_t int_no, uint64_t errorcode, uint64_t rip, void* opaque) {
 	interrupts_off();
+	dputstring("OOF!\n");
 	setforeground(COLOUR_LIGHTRED);
 	setbackground(COLOUR_BLACK);
-	const char* log = tail_last_lines(dprintf_buffer_snapshot(), 15);
 	aprintf("\nFatal exception %02X (Error code %016lx): %s (%s)\n", int_no, errorcode, error_table[int_no], print_error_code_detail(int_no, errorcode));
+	rr_flip();
 	if (rip) {
 		uint64_t offset = 0;
 		const char *mname = NULL, *sname = NULL;
@@ -133,10 +134,11 @@ void error_handler(uint8_t int_no, uint64_t errorcode, uint64_t rip, void* opaqu
 			aprintf("\tfault @ %s()+0%08lx [0x%lx]\n", name ? name : "[???]", offset, (uint64_t) rip);
 		}
 	}
-	setforeground(COLOUR_WHITE);
-	kprintf("------------------------------------[ DEBUG LOG ]-----------------------------------\n");
-	setforeground(COLOUR_GREY);
+	const char* log = tail_last_lines(dprintf_buffer_snapshot(), 15);
 	if (log) {
+		setforeground(COLOUR_WHITE);
+		kprintf("------------------------------------[ DEBUG LOG ]-----------------------------------\n");
+		setforeground(COLOUR_GREY);
 		kprintf("%s\n", log);
 	}
 	setforeground(COLOUR_WHITE);

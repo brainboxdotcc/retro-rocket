@@ -4,6 +4,11 @@
 #define IA32_APIC_BASE_MSR 0x1B
 #define APIC_BASE_X2APIC_ENABLE (1ULL << 10)
 
+static bool is_x2_enabled = false;
+static bool is_x2_supported = false;
+static bool done_x2_support_check = false;
+static bool done_x2_enable_check = false;
+
 uint64_t get_lapic_address() {
 	uint32_t eax, edx;
 	__asm__ volatile (
@@ -67,21 +72,35 @@ uint64_t rdmsr(uint32_t msr) {
 
 int x2apic_supported(void) {
 	unsigned int eax, ebx, ecx, edx;
+	if (done_x2_support_check) {
+		return is_x2_supported;
+	}
 
 	if (!__get_cpuid(1, &eax, &ebx, &ecx, &edx)) {
+		is_x2_supported = false;
+		done_x2_support_check = true;
 		return 0;
 	}
 
-	return (ecx & (1u << 21)) != 0; // Bit 21 of ECX = x2APIC support
+	is_x2_supported = (ecx & (1u << 21)) != 0; // Bit 21 of ECX = x2APIC support
+	done_x2_support_check = true;
+	return is_x2_supported;
 }
 
 int x2apic_enabled(void) {
+	if (done_x2_enable_check) {
+		return is_x2_enabled;
+	}
 	if (!x2apic_supported()) {
+		done_x2_enable_check = true;
+		is_x2_enabled = false;
 		return 0; // CPU doesn't even support x2APIC
 	}
 	// Read APIC base MSR to see if x2APIC mode is active
 	uint64_t apic_base = rdmsr(IA32_APIC_BASE_MSR);
-	return (apic_base & APIC_BASE_X2APIC_ENABLE) != 0;
+	is_x2_enabled = (apic_base & APIC_BASE_X2APIC_ENABLE) != 0;
+	done_x2_enable_check = true;
+	return is_x2_enabled;
 }
 
 void apic_send_ipi(uint32_t lapic_id, uint8_t vector) {

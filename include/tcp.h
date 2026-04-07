@@ -9,6 +9,7 @@
 
 #define TCP_WINDOW_SIZE		65535
 #define TCP_PACKET_SIZE_OFF	5
+#define TCP_RECV_BUFFER_LIMIT	196608
 
 /* Set this to output or record a trace of the TCP I/O. This is very noisy! */
 #undef TCP_TRACE

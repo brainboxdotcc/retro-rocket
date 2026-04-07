@@ -7,7 +7,7 @@
 #pragma once
 #include "basic.h"
 
-#define STRING_GC_AREA_SIZE (256 * 1024)
+#define STRING_GC_AREA_SIZE (1024 * 1024 * 4)
 
 /**
  * @brief Linked list node for garbage-collected strings.

@@ -98,6 +98,7 @@ static buddy_region_t *buddy_grow(buddy_allocator_t *alloc) {
 
 void *buddy_malloc(buddy_allocator_t *alloc, size_t size) {
 	if (!alloc || size == 0) {
+		dprintf("buddy_malloc: failed to allocate %lu bytes (bad parameters)\n", size);
 		return NULL;
 	}
 
@@ -105,6 +106,7 @@ void *buddy_malloc(buddy_allocator_t *alloc, size_t size) {
 	if (!region) {
 		region = buddy_grow(alloc);
 		if (!region) {
+			dprintf("buddy_malloc: failed to allocate %lu bytes (unable to grow)\n", size);
 			return NULL;
 		}
 	}
@@ -155,6 +157,7 @@ void *buddy_malloc(buddy_allocator_t *alloc, size_t size) {
 		}
 	}
 
+	dprintf("buddy_malloc: failed to allocate %lu bytes (full)\n", size);
 	return NULL; // completely out of memory
 }
 

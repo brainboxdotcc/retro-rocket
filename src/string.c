@@ -191,10 +191,10 @@ char* strdup(const char* string)
 
 const char* gc_strdup(basic_ctx* ctx, const char* string)
 {
-	if (!string || !ctx) {
+	if (!ctx) {
 		return NULL;
 	}
-	if (!*string) {
+	if (!string || !*string) {
 		/* For empty strings, the string_gc_storage ptr always starts with a single NULL char */
 		return ctx->string_gc_storage;
 	}
