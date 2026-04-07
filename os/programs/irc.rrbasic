@@ -26,13 +26,24 @@ DEF PROCmainLoop
 	CLS
 	PROCdraw
 	REPEAT
-		IF registered = FALSE THEN PROCregister
-		char$ = INSOCKET$(FD, 1)
-		IF char$ > "" THEN PROCprocess(char$)
-		IF char$ = "" THEN PROCkeyScan
+	    d = FNloop(0)
 	UNTIL SOCKSTATUS(FD) = 0
 	CLS
 ENDPROC
+
+DEF FNloop(n)
+    IF registered = FALSE THEN PROCregister
+    REPEAT
+        char$ = INSOCKET$(FD, 256)
+        IF char$ > "" THEN
+            REPEAT
+                PROCprocess(LEFT$(char$, 1))
+                char$ = RIGHT$(char$, LEN(char$) - 1)
+            UNTIL char$ = ""
+        ENDIF
+    UNTIL char$ = ""
+    PROCkeyScan
+= 0
 
 DEF PROCkeyScan
 	key$ = INKEY$("")
