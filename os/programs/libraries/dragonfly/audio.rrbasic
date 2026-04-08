@@ -61,11 +61,14 @@ ENDPROC
 DEF PROCmusic_start(level_number)
     IF AUDIO = FALSE THEN ENDPROC
     SOUND LOAD level_music, "/system/webserver/media/dragonfly/music_level" + STR$(level_number) + ".mp3"
+    SOUND REPEAT ON level_music
     SOUND PLAY music_stream, level_music
 ENDPROC
 
 DEF PROCmusic_stop
-    IF AUDIO = TRUE THEN SOUND STOP music_stream
+    IF AUDIO = FALSE THEN ENDPROC
+    SOUND REPEAT OFF level_music
+    SOUND STOP music_stream
 ENDPROC
 
 DEF PROCaudio_continue

@@ -23,6 +23,9 @@ ON ERROR PROCcontinue
 SOUND LOAD music, "/system/webserver/media/binary-inferno.mp3"
 ON ERROR OFF
 ON ERROR PROCcontinue
+SOUND REPEAT ON music
+ON ERROR OFF
+ON ERROR PROCcontinue
 SOUND PLAY lead1, music
 ON ERROR OFF
 
