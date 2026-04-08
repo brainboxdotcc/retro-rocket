@@ -117,7 +117,6 @@ uint32_t get_isn(uint32_t local_addr, uint32_t remote_addr, uint16_t local_port,
 uint16_t tcp_recv_window(const tcp_conn_t* conn)
 {
 	if (conn->recv_buffer_len >= TCP_RECV_BUFFER_LIMIT) {
-		dprintf("Zero limit\n");
 		return 0;
 	}
 
