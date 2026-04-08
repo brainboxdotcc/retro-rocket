@@ -269,7 +269,13 @@ static inline uint8_t stdc_count_ones(uint32_t x) {
  * @param hi Upper bound.
  * @return v limited to the range [lo, hi].
  */
-#define CLAMP(v, lo, hi)  (((v) <= (lo)) ? (lo) : (((v) >= (hi)) ? (hi) : (v)))
+#define CLAMP(v, lo, hi) \
+	({ \
+		__auto_type _v = (v); \
+		__auto_type _lo = (lo); \
+		__auto_type _hi = (hi); \
+		(_v <= _lo) ? _lo : (_v >= _hi) ? _hi : _v; \
+	})
 
 /**
  * @brief Positive infinity constant for double.

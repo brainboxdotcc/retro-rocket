@@ -34,7 +34,7 @@ var searchData=
   ['url_24_20putdata_24_31',['PROChttp_put(url$, putdata$)',['../http.html#prochttp_puturl-putdata',1,'']]],
   ['usage_32',['Usage',['../init.html#usage',1,'Usage'],['../servertest.html#usage-1',1,'Usage'],['../ssltest.html#usage-2',1,'Usage'],['../tree.html#usage-3',1,'Usage'],['../udptest.html#usage-4',1,'Usage'],['../webserver.html#usage-5',1,'Usage']]],
   ['usage_33',['usage',['../ARRAYFIND.html#typical-usage',1,'Typical usage'],['../STREAM.html#typical-usage-1',1,'Typical usage']]],
-  ['usage_20example_34',['Usage example',['../SOUND.html#usage-example',1,'']]],
+  ['usage_20examples_34',['Usage examples',['../SOUND.html#usage-examples',1,'']]],
   ['usage_20notes_35',['Behaviour and usage notes',['../SPRITELOAD.html#behaviour-and-usage-notes',1,'']]],
   ['usb_20image_20usb_20stick_36',['Writing the USB Image (USB stick)',['../creating-boot-media.html#writing-the-usb-image-usb-stick',1,'']]],
   ['usb_20stick_37',['USB stick',['../troubleshooting.html#system-doesnt-boot-from-the-usb-stick',1,'System doesn’t boot from the USB stick'],['../creating-boot-media.html#writing-the-usb-image-usb-stick',1,'Writing the USB Image (USB stick)']]],

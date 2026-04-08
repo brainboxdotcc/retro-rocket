@@ -281,11 +281,11 @@ void sound_statement(struct basic_ctx* ctx) {
 			enum token_t tok = tokenizer_token(ctx);
 			bool loop = false;
 			if (tok == ON) {
-				loop = true;
 				accept_or_return(ON, ctx);
+				loop = true;
 			} else if (tok == OFF) {
-				loop = false;
 				accept_or_return(OFF, ctx);
+				loop = false;
 			} else {
 				tokenizer_error_print(ctx, "SOUND REPEAT expects ON or OFF");
 				return;
@@ -335,6 +335,23 @@ void sound_statement(struct basic_ctx* ctx) {
 				gain = 256; /* True 100% volume */
 			}
 			mixer_set_gain(stream, gain);
+			break;
+		}
+		case FADE: {
+			/* Fade stream volume to silence */
+			accept_or_return(FADE, ctx);
+			mixer_stream_t* stream = get_stream(ctx, expr(ctx));
+			if (!stream) {
+				tokenizer_error_print(ctx, "Invalid STREAM handle");
+				return;
+			}
+			accept_or_return(COMMA, ctx);
+			int64_t milliseconds = expr(ctx);
+			if (milliseconds < 0) {
+				tokenizer_error_print(ctx, "SOUND FADE: Invalid duration");
+				return;
+			}
+			mixer_fade_stream(stream, (uint32_t)milliseconds);
 			break;
 		}
 		case PLAY: {
@@ -423,22 +440,11 @@ void sound_statement(struct basic_ctx* ctx) {
 			break;
 		}
 		default:
-			tokenizer_error_print(ctx, "Expected PLAY, STOP, PAUSE or VOLUME after SOUND");
+			tokenizer_error_print(ctx, "Expected PLAY, STOP, PAUSE, VOLUME or FADE after SOUND");
 			return;
 	}
 	accept_or_return(NEWLINE, ctx);
 }
-
-/* Log table mapping dB [-60..0] to [0..255], index 0 == -60 dB, index 60 == 0 dB. */
-static const uint8_t db_to_255[61] = {
-	0, 0, 0, 0, 0, 0, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 2, 2, 2, 2,
-	3, 3, 3, 4, 4, 5, 5, 6, 6, 7,
-	8, 9, 10, 11, 13, 14, 16, 18, 20, 23,
-	26, 29, 32, 36, 40, 45, 51, 57, 64, 72,
-	81, 90, 102, 114, 128, 143, 161, 181, 203, 227,
-	255
-};
 
 int64_t basic_decibels(struct basic_ctx* ctx) {
 	PARAMS_START;
@@ -454,7 +460,6 @@ int64_t basic_decibels(struct basic_ctx* ctx) {
 		return 0;
 	}
 
-	/* Map -60..0 dB to 0..255 via lookup */
-	return (int64_t)db_to_255[(int)(dB + 60)];
+	return (int64_t)db_to_gain_q8_8(dB);
 }
 

@@ -128,6 +128,7 @@ $(function(){initNavTree('SOUND.html','',''); });
 <div class="line">SOUND PLAY stream, sound[, pitch]</div>
 <div class="line">SOUND PLAY stream</div>
 <div class="line">SOUND STOP stream</div>
+<div class="line">SOUND FADE stream, milliseconds</div>
 <div class="line">SOUND PAUSE stream</div>
 <div class="line">SOUND LOAD variable, &quot;filename&quot;</div>
 <div class="line">SOUND REPEAT [ON|OFF] sound</div>
@@ -296,8 +297,31 @@ SOUND TONE</h3>
 <div class="line">ENVELOPE CREATE 0,0,255,128,5,50,200,200,0,0,0,0,0</div>
 <div class="line">SOUND TONE music, 220, 100, 0</div>
 </div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="usage-example"></a>
-Usage example</h3>
+<h3 class="doxsection"><a class="anchor" id="sound-fade"></a>
+SOUND FADE</h3>
+<div class="fragment"><div class="line">SOUND FADE stream, milliseconds</div>
+</div><!-- fragment --><p>Gradually reduces the <b>volume of a stream</b> to silence over the specified duration.</p>
+<ul>
+<li>The fade is applied to the stream’s current volume and progresses over time.</li>
+<li>Playback continues during the fade; queued sounds are not interrupted.</li>
+<li>When the fade completes, the stream remains active but silent.</li>
+<li>Calling <span class="tt">SOUND VOLUME</span> on the stream cancels any active fade.</li>
+</ul>
+<p><b>Notes</b></p>
+<ul>
+<li>The fade uses a logarithmic (decibel-based) curve for a natural-sounding reduction in volume.</li>
+<li>Only affects audio mixed after the command is issued; audio already buffered for playback is not altered.</li>
+</ul>
+<p><b>Errors</b></p>
+<ul>
+<li><span class="tt">Invalid STREAM handle</span> if the stream does not exist.</li>
+</ul>
+<p><b>Examples</b></p>
+<div class="fragment"><div class="line">SOUND FADE music, 2000   &#39; Fade out over 2 seconds</div>
+<div class="line">SOUND FADE music, 0      &#39; Immediate silence</div>
+</div><!-- fragment --><hr  />
+<h3 class="doxsection"><a class="anchor" id="usage-examples"></a>
+Usage examples</h3>
 <div class="fragment"><div class="line">STREAM CREATE music</div>
 <div class="line">SOUND LOAD song, &quot;/system/webserver/media/retro-revival.wav&quot;</div>
 <div class="line">SOUND VOLUME music, DECIBELS(-6)</div>

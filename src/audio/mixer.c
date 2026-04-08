@@ -29,6 +29,10 @@ struct mixer_stream {
 	bool paused;
 	bool in_use;
 	bool looping;
+	bool fade_active;
+	uint16_t fade_base_gain_q8_8;
+	uint32_t fade_total_ms;
+	uint32_t fade_remaining_ms;
 	uint32_t chunk_frames;    /* preferred chunk allocation size (frames) */
 	int16_t *loop_frames;
 	uint32_t loop_frame_count;
@@ -51,6 +55,27 @@ typedef struct {
 } mixer_state_t;
 
 static mixer_state_t mix;
+
+uint16_t db_to_gain_q8_8(int32_t dB) {
+	static const uint8_t db_to_255[61] = {
+		0, 0, 0, 0, 0, 0, 1, 1, 1, 1,
+		1, 1, 1, 1, 1, 1, 2, 2, 2, 2,
+		3, 3, 3, 4, 4, 5, 5, 6, 6, 7,
+		8, 9, 10, 11, 13, 14, 16, 18, 20, 23,
+		26, 29, 32, 36, 40, 45, 51, 57, 64, 72,
+		81, 90, 102, 114, 128, 143, 161, 181, 203, 227,
+		255
+	};
+
+	if (dB >= 0) {
+		return 256;
+	}
+	if (dB <= -60) {
+		return 0;
+	}
+
+	return db_to_255[dB + 60];
+}
 
 static inline uint32_t min_u32(uint32_t a, uint32_t b) {
 	if (a < b) {
@@ -201,6 +226,10 @@ mixer_stream_t *mixer_create_stream(void) {
 			ch->paused = false;
 			ch->in_use = true;
 			ch->looping = false;
+			ch->fade_active = false;
+			ch->fade_base_gain_q8_8 = 256u;
+			ch->fade_total_ms = 0;
+			ch->fade_remaining_ms = 0;
 			ch->chunk_frames = 2048u; /* ~42.7 ms @ 48 kHz */
 			ch->loop_frames = NULL;
 			ch->loop_frame_count = 0;
@@ -210,7 +239,6 @@ mixer_stream_t *mixer_create_stream(void) {
 
 	return NULL;
 }
-
 void mixer_pause_stream(mixer_stream_t *ch) {
 	if (!ch) {
 		return;
@@ -247,6 +275,9 @@ void mixer_stop_stream(mixer_stream_t* ch) {
 	ch->tail = NULL;
 	ch->queued_frames = 0;
 	ch->looping = false;
+	ch->fade_active = false;
+	ch->fade_total_ms = 0;
+	ch->fade_remaining_ms = 0;
 	kfree_null(&ch->loop_frames);
 	ch->loop_frame_count = 0;
 }
@@ -311,6 +342,29 @@ void mixer_set_gain(mixer_stream_t *ch, uint16_t q8_8_gain)
 		return;
 	}
 	ch->gain_q8_8 = q8_8_gain;
+	ch->fade_active = false;
+	ch->fade_total_ms = 0;
+	ch->fade_remaining_ms = 0;
+}
+
+void mixer_fade_stream(mixer_stream_t *ch, uint32_t milliseconds)
+{
+	if (!ch) {
+		return;
+	}
+
+	if (milliseconds == 0) {
+		ch->gain_q8_8 = 0;
+		ch->fade_active = false;
+		ch->fade_total_ms = 0;
+		ch->fade_remaining_ms = 0;
+		return;
+	}
+
+	ch->fade_active = true;
+	ch->fade_base_gain_q8_8 = ch->gain_q8_8;
+	ch->fade_total_ms = milliseconds;
+	ch->fade_remaining_ms = milliseconds;
 }
 
 void mixer_set_mute(mixer_stream_t *ch, bool mute)
@@ -382,6 +436,25 @@ void mixer_idle(void)
 			uint32_t frames_left = batch;
 			uint32_t out_idx     = 0;
 			uint16_t gain        = ch->gain_q8_8;
+
+			if (ch->fade_active) {
+				int32_t dB;
+				uint16_t fade_gain;
+				uint64_t scaled;
+
+				if (ch->fade_total_ms == 0 || ch->fade_remaining_ms == 0) {
+					ch->gain_q8_8 = 0;
+					ch->fade_active = false;
+					ch->fade_total_ms = 0;
+					ch->fade_remaining_ms = 0;
+					gain = 0;
+				} else {
+					scaled = ((uint64_t)(ch->fade_total_ms - ch->fade_remaining_ms) * 60) / ch->fade_total_ms;
+					dB = -(int32_t)scaled;
+					fade_gain = db_to_gain_q8_8(dB);
+					gain = (uint16_t)(((uint32_t)ch->fade_base_gain_q8_8 * (uint32_t)fade_gain) >> 8);
+				}
+			}
 
 			if (!ch->head && ch->looping) {
 				stream_requeue_loop(ch);
@@ -483,6 +556,30 @@ void mixer_idle(void)
 
 		/* push block to device */
 		mix.dev->play(mix.mix_scratch, batch);
+
+		/* advance fades after this block has been mixed */
+		{
+			uint32_t batch_ms = (uint32_t)(((uint64_t)batch * 1000) / rate);
+			if (batch_ms == 0) {
+				batch_ms = 1;
+			}
+
+			for (uint32_t c = 0; c < mix.streams_cap; c++) {
+				struct mixer_stream *ch = &mix.streams[c];
+				if (!ch->in_use || !ch->fade_active) {
+					continue;
+				}
+
+				if (batch_ms >= ch->fade_remaining_ms) {
+					ch->fade_remaining_ms = 0;
+					ch->fade_total_ms = 0;
+					ch->fade_active = false;
+					ch->gain_q8_8 = 0;
+				} else {
+					ch->fade_remaining_ms -= batch_ms;
+				}
+			}
+		}
 
 		/* we just delivered 'batch' frames this tick */
 		if (need_frames > batch) {

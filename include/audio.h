@@ -429,3 +429,42 @@ bool sound_cmd_tone(struct basic_ctx *ctx, mixer_stream_t *stream, uint32_t freq
  */
 bool envelope_define(struct basic_ctx *ctx, int idx, tone_wave_t wave, uint8_t volume, uint8_t pulse_width, uint32_t attack_ms, uint32_t decay_ms, uint8_t sustain,
 	uint32_t release_ms, int32_t vibrato_cents, uint32_t vibrato_hz, uint32_t glide_ms, uint32_t pwm_hz, uint8_t pwm_depth);
+
+/**
+ * @brief Convert a decibel value to a fixed-point gain.
+ *
+ * Converts a decibel (dB) attenuation value into a Q8.8 fixed-point gain
+ * suitable for use by the audio mixer.
+ *
+ * The conversion follows the same perceptual mapping as the BASIC
+ * DECIBELS() function, producing a logarithmic response.
+ *
+ * @param dB Decibel value. Typically in the range 0 (no attenuation)
+ *           down to -60 (effectively silent). Values outside this range
+ *           are clamped internally.
+ *
+ * @return Gain in Q8.8 format:
+ *         - 256 represents unity gain (0 dB)
+ *         - 0 represents silence
+ */
+uint16_t db_to_gain_q8_8(int32_t dB);
+
+/**
+ * @brief Begin a fade-out on a mixer stream.
+ *
+ * Initiates a gradual reduction of the stream's volume to silence over
+ * the specified duration. The fade is applied during mixing and does
+ * not modify queued audio data.
+ *
+ * The stream remains active after the fade completes, but its gain is
+ * reduced to zero. Playback continues silently until the volume is
+ * changed or the stream is stopped.
+ *
+ * If a fade is already in progress, it is replaced by the new one.
+ *
+ * @param ch Pointer to the mixer stream.
+ * @param milliseconds Duration of the fade in milliseconds.
+ *                     A value of 0 results in an immediate transition
+ *                     to silence.
+ */
+void mixer_fade_stream(mixer_stream_t *ch, uint32_t milliseconds);

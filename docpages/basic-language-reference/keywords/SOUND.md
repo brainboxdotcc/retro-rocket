@@ -7,6 +7,7 @@ SOUND VOLUME stream, gain
 SOUND PLAY stream, sound[, pitch]
 SOUND PLAY stream
 SOUND STOP stream
+SOUND FADE stream, milliseconds
 SOUND PAUSE stream
 SOUND LOAD variable, "filename"
 SOUND REPEAT [ON|OFF] sound
@@ -253,7 +254,39 @@ SOUND TONE music, 220, 100, 0
 
 ---
 
-### Usage example
+### SOUND FADE
+
+```basic
+SOUND FADE stream, milliseconds
+```
+
+Gradually reduces the **volume of a stream** to silence over the specified duration.
+
+* The fade is applied to the stream’s current volume and progresses over time.
+* Playback continues during the fade; queued sounds are not interrupted.
+* When the fade completes, the stream remains active but silent.
+* Calling `SOUND VOLUME` on the stream cancels any active fade.
+
+**Notes**
+
+* The fade uses a logarithmic (decibel-based) curve for a natural-sounding reduction in volume.
+* Only affects audio mixed after the command is issued; audio already buffered for playback is not altered.
+
+**Errors**
+
+* `Invalid STREAM handle` if the stream does not exist.
+
+**Examples**
+
+```basic
+SOUND FADE music, 2000   ' Fade out over 2 seconds
+SOUND FADE music, 0      ' Immediate silence
+```
+
+---
+
+
+### Usage examples
 
 ```basic
 STREAM CREATE music

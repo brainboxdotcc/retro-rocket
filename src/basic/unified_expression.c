@@ -183,11 +183,13 @@ static up_value up_factor(struct basic_ctx *ctx) {
 			accept(CLOSEBRACKET, ctx);
 			return v;
 		}
-		default:
+		default: {
+			GENERATE_ENUM_STRING_NAMES(TOKEN, token_names);
 			dprintf("Expected expression, current token: %d line %lu\n", tok, ctx->current_linenum);
-			tokenizer_error_print(ctx, "Expected expression");
+			tokenizer_error_printf(ctx, "Expected expression, got %s", token_names[tok]);
 			/* Do not advance; return a benign zero to recover */
 			return up_make_int(0);
+		}
 	}
 }
 
