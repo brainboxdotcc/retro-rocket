@@ -138,6 +138,24 @@ Why this interpreter exists</h2>
 Big picture</h2>
 <p>The program is kept as a single text buffer of numbered lines. The tokenizer reads directly from that buffer and yields tokens. Each line is executed by a <b>statement dispatcher</b> that switches on the current token and performs the action immediately. Expressions are evaluated by a <b>hand-written precedence parser</b> that returns a <em>typed</em> value (int, real, or string). Control flow is implemented by moving pointers back and forth in the original text rather than running bytecode.</p>
 <p>That single-pass feel is the core of the design: <b>parse just enough to do the work now</b>, then move the pointer and carry on.</p>
+<h3 class="doxsection"><a class="anchor" id="keyword-lookup"></a>
+Keyword lookup</h3>
+<p>Statement keywords are stored as a linker-sorted array of token IDs. To avoid scanning the full list on every token, the tokenizer builds a two-character prefix index at startup.</p>
+<p>Conceptually:</p>
+<div class="fragment"><div class="line">keywords[] (sorted):</div>
+<div class="line">[ AND ][ ANIMATE ][ ARRAYFIND ][ AUTOFLIP ] ...</div>
+<div class="line"> </div>
+<div class="line">prefix buckets:</div>
+<div class="line">&quot;AN&quot; -&gt; [ AND ][ ANIMATE ]</div>
+<div class="line">&quot;AR&quot; -&gt; [ ARRAYFIND ]</div>
+<div class="line">&quot;AU&quot; -&gt; [ AUTOFLIP ]</div>
+<div class="line"> </div>
+<div class="line">offset table:</div>
+<div class="line">offsets[&quot;AN&quot;] = 0</div>
+<div class="line">offsets[&quot;AR&quot;] = 2</div>
+<div class="line">offsets[&quot;AU&quot;] = 3</div>
+</div><!-- fragment --><p>At runtime, the tokenizer reads the first two characters of the input and uses this table to jump directly to the relevant subrange of <span class="tt">keywords[]</span>, reducing lookup from a full linear scan to a small bounded search (typically 1–3 entries).</p>
+<p>This preserves the simplicity of a flat sorted array while providing near constant-time dispatch in practice.</p>
 <h2 class="doxsection"><a class="anchor" id="parsing-model-hand-written-no-ast"></a>
 Parsing model: hand-written, no AST</h2>
 <p>The interpreter uses a hand-written tokenizer and a recursive-descent expression parser. There is <b>no parse tree</b> and <b>no intermediate representation</b>. The advantages are practical:</p>

@@ -23,6 +23,38 @@ immediately. Expressions are evaluated by a **hand-written precedence parser** t
 
 That single-pass feel is the core of the design: **parse just enough to do the work now**, then move the pointer and carry on.
 
+### Keyword lookup
+
+Statement keywords are stored as a linker-sorted array of token IDs. To avoid
+scanning the full list on every token, the tokenizer builds a two-character
+prefix index at startup.
+
+Conceptually:
+
+```
+
+keywords[] (sorted):
+[ AND ][ ANIMATE ][ ARRAYFIND ][ AUTOFLIP ] ...
+
+prefix buckets:
+"AN" -> [ AND ][ ANIMATE ]
+"AR" -> [ ARRAYFIND ]
+"AU" -> [ AUTOFLIP ]
+
+offset table:
+offsets["AN"] = 0
+offsets["AR"] = 2
+offsets["AU"] = 3
+
+```
+
+At runtime, the tokenizer reads the first two characters of the input and uses
+this table to jump directly to the relevant subrange of `keywords[]`, reducing
+lookup from a full linear scan to a small bounded search (typically 1–3 entries).
+
+This preserves the simplicity of a flat sorted array while providing near
+constant-time dispatch in practice.
+
 ## Parsing model: hand-written, no AST
 
 The interpreter uses a hand-written tokenizer and a recursive-descent expression parser. There is **no parse tree** and **no intermediate representation**. The advantages are practical:

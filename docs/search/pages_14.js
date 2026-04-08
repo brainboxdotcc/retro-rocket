@@ -56,9 +56,10 @@ var searchData=
   ['locals_20within_20a_20definition_53',['Example: locals within a definition',['../DEF.html#example-locals-within-a-definition',1,'']]],
   ['log_20function_54',['LOG Function',['../LOG.html',1,'real-funcs']]],
   ['logo_20and_20system_20info_20scrolling_20with_20text_55',['Example: Keep a logo and system info scrolling with text',['../SCROLLREGION.html#example-keep-a-logo-and-system-info-scrolling-with-text',1,'']]],
-  ['loop_20scope_56',['Loop scope',['../ENDPROC.html#loop-scope',1,'Loop scope'],['../RETURN.html#loop-scope-1',1,'Loop scope']]],
-  ['loopback_57',['Loopback',['../glossary.html#loopback',1,'']]],
-  ['loops_20repeating_20things_58',['7) Loops (repeating things)',['../basic-beginner.html#autotoc_md7-loops-repeating-things',1,'']]],
-  ['lower_24_20function_59',['LOWER$ Function',['../LOWER.html',1,'string-funcs']]],
-  ['ltrim_24_20function_60',['LTRIM$ Function',['../LTRIM.html',1,'string-funcs']]]
+  ['lookup_56',['Keyword lookup',['../basic-intdev.html#keyword-lookup',1,'']]],
+  ['loop_20scope_57',['Loop scope',['../ENDPROC.html#loop-scope',1,'Loop scope'],['../RETURN.html#loop-scope-1',1,'Loop scope']]],
+  ['loopback_58',['Loopback',['../glossary.html#loopback',1,'']]],
+  ['loops_20repeating_20things_59',['7) Loops (repeating things)',['../basic-beginner.html#autotoc_md7-loops-repeating-things',1,'']]],
+  ['lower_24_20function_60',['LOWER$ Function',['../LOWER.html',1,'string-funcs']]],
+  ['ltrim_24_20function_61',['LTRIM$ Function',['../LTRIM.html',1,'string-funcs']]]
 ];

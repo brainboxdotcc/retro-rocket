@@ -343,12 +343,37 @@ int get_next_token(struct basic_ctx* ctx);
 bool tokenizer_decimal_number(struct basic_ctx* ctx);
 
 /**
- * @brief Build the first-character index for keyword lookup.
+ * @brief Build the two-character prefix index for keyword lookup.
  *
- * Populates `keyword_offsets[]` from the sorted `keywords[]` table so the
- * tokenizer can jump directly to the subset of keywords matching the first
- * character, rather than scanning the entire list.
+ * Constructs `keyword_prefix_offsets[]` from the sorted `keywords[]` table,
+ * grouping keywords by their 16-bit prefix (first two characters).
+ *
+ * Conceptually:
+ *
+ *   keywords[] (sorted):
+ *     [ AND ][ ANIMATE ][ ARRAYFIND ][ AUTOFLIP ][ BACKGROUND ] ...
+ *
+ *   prefix buckets:
+ *     "AN" -> [ AND ][ ANIMATE ]
+ *     "AR" -> [ ARRAYFIND ]
+ *     "AU" -> [ AUTOFLIP ]
+ *     "BA" -> [ BACKGROUND ]
+ *
+ *   offsets table:
+ *     offsets["AN"] = 0
+ *     offsets["AR"] = 2
+ *     offsets["AU"] = 3
+ *     offsets["BA"] = 4
+ *     ...
+ *
+ * Lookup becomes:
+ *
+ *   key = prefix16(input)
+ *   scan keywords[offsets[key] ... offsets[key+1])
+ *
+ * This reduces lookup from scanning the full keyword list to scanning only
+ * a small contiguous bucket (typically 1–3 entries).
  *
  * Called once during interpreter initialisation.
  */
-void build_keyword_offsets(void);
+void build_keyword_prefix_offsets(void);

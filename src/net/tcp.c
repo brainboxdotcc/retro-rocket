@@ -171,13 +171,13 @@ uint64_t tcp_conn_hash(const void *item, uint64_t seed0, uint64_t seed1) {
 		uint64_t w0 = ((uint64_t)c->local_addr << 32);
 		uint64_t w1 = ((uint64_t)c->local_port << 48);
 		uint64_t buf[2] = { w0, w1 };
-		return hashmap_sip(buf, sizeof buf, seed0, seed1);
+		return hashmap_sip(buf, sizeof(buf), seed0, seed1);
 	}
 
 	uint64_t w0 = ((uint64_t)c->local_addr << 32) | (uint64_t)c->remote_addr;
 	uint64_t w1 = ((uint64_t)c->local_port << 48) | ((uint64_t)c->remote_port << 32);
 	uint64_t buf[2] = { w0, w1 };
-	return hashmap_sip(buf, sizeof buf, seed0, seed1);
+	return hashmap_sip(buf, sizeof(buf), seed0, seed1);
 }
 
 static void tcp_retx_free_all(tcp_conn_t* conn)

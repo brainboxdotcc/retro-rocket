@@ -67,11 +67,12 @@ var searchData=
   ['log_20function_64',['LOG Function',['../LOG.html',1,'real-funcs']]],
   ['log_2emd_65',['LOG.md',['../LOG_8md.html',1,'']]],
   ['logo_20and_20system_20info_20scrolling_20with_20text_66',['Example: Keep a logo and system info scrolling with text',['../SCROLLREGION.html#example-keep-a-logo-and-system-info-scrolling-with-text',1,'']]],
-  ['loop_20scope_67',['Loop scope',['../ENDPROC.html#loop-scope',1,'Loop scope'],['../RETURN.html#loop-scope-1',1,'Loop scope']]],
-  ['loopback_68',['Loopback',['../glossary.html#loopback',1,'']]],
-  ['loops_20repeating_20things_69',['7) Loops (repeating things)',['../basic-beginner.html#autotoc_md7-loops-repeating-things',1,'']]],
-  ['lower_24_20function_70',['LOWER$ Function',['../LOWER.html',1,'string-funcs']]],
-  ['lower_2emd_71',['LOWER.md',['../LOWER_8md.html',1,'']]],
-  ['ltrim_24_20function_72',['LTRIM$ Function',['../LTRIM.html',1,'string-funcs']]],
-  ['ltrim_2emd_73',['LTRIM.md',['../LTRIM_8md.html',1,'']]]
+  ['lookup_67',['Keyword lookup',['../basic-intdev.html#keyword-lookup',1,'']]],
+  ['loop_20scope_68',['Loop scope',['../ENDPROC.html#loop-scope',1,'Loop scope'],['../RETURN.html#loop-scope-1',1,'Loop scope']]],
+  ['loopback_69',['Loopback',['../glossary.html#loopback',1,'']]],
+  ['loops_20repeating_20things_70',['7) Loops (repeating things)',['../basic-beginner.html#autotoc_md7-loops-repeating-things',1,'']]],
+  ['lower_24_20function_71',['LOWER$ Function',['../LOWER.html',1,'string-funcs']]],
+  ['lower_2emd_72',['LOWER.md',['../LOWER_8md.html',1,'']]],
+  ['ltrim_24_20function_73',['LTRIM$ Function',['../LTRIM.html',1,'string-funcs']]],
+  ['ltrim_2emd_74',['LTRIM.md',['../LTRIM_8md.html',1,'']]]
 ];

@@ -39,66 +39,115 @@ static const int kw_sentinel __attribute__((section(".kw.~zzzzzz"), used)) = -1;
 extern const int __start_kw_array[];
 extern const int __stop_kw_array[];
 static const int *keywords = __start_kw_array;
-static bool keyword_offsets_ready = false;
+static bool keyword_prefix_ready = false;
 
-#define ASCII_MIN 32
-#define ASCII_MAX 126
-#define ASCII_BUCKETS (ASCII_MAX - ASCII_MIN + 1)
+#define PREFIX_BUCKETS 65536
 
 /**
- * @brief First-character index into the sorted keyword table.
+ * @brief Two-character prefix index into the sorted keyword table.
  *
- * Maps ASCII 32–126 to offsets in `keywords[]`, allowing lookup to scan only
- * the relevant subset for a given starting character. Each entry defines the
- * start of a bucket; the next entry defines its end (half-open range).
+ * Maps 16-bit prefixes (derived from the first two characters of each keyword)
+ * to offsets in `keywords[]`, allowing lookup to scan only the relevant subset
+ * for a given prefix. Each entry defines the start of a bucket; the next entry
+ * defines its end (half-open range).
+ *
+ * The prefix encoding preserves lexicographic ordering, so the linker-sorted
+ * keyword table forms contiguous ranges per prefix.
  *
  * The final entry is a sentinel containing the total keyword count.
  */
-static int keyword_offsets[ASCII_BUCKETS + 1];
+static int keyword_prefix_offsets[PREFIX_BUCKETS + 1];
 
-void build_keyword_offsets(void)
+
+/**
+ * @brief Return a 16-bit lexicographic prefix for a string.
+ *
+ * Encodes the first two characters as (c0 << 8) | c1 so that the numeric
+ * ordering of the key matches the alphabetical ordering of the keyword table.
+ *
+ * Assumptions:
+ * - Strings are at least one character long (second byte may be '\0')
+ * - Direct byte access is safe (x86-64, no alignment restrictions of concern)
+ * - Endianness is known and controlled (explicit shift/or avoids host order)
+ *
+ * Portability is not a goal; this is tuned specifically for x86-64.
+ */
+static inline __attribute__((always_inline)) uint16_t prefix16(const char *p)
 {
-	int keyword_count = 0;
-	GENERATE_ENUM_STRING_NAMES(TOKEN, token_names)
+	return ((uint16_t)(unsigned char)p[0] << 8) | (uint16_t)(unsigned char)p[1];
+}
 
-	if (keyword_offsets_ready) {
+void build_keyword_prefix_offsets(void)
+{
+	GENERATE_ENUM_STRING_NAMES(TOKEN, token_names)
+	int keyword_count = 0;
+
+	if (keyword_prefix_ready) {
 		return;
 	}
+
+	dprintf("Building keyword buckets...\n");
 
 	while (keywords[keyword_count] != -1) {
 		keyword_count++;
 	}
 
-	/* Initialise all buckets to sentinel */
-	for (int i = 0; i < ASCII_BUCKETS + 1; i++) {
-		keyword_offsets[i] = keyword_count;
+	/* Initialise all to sentinel */
+	for (int i = 0; i <= PREFIX_BUCKETS; i++) {
+		keyword_prefix_offsets[i] = keyword_count;
 	}
 
-	/* Record first occurrence per leading character */
+	/* Record first occurrence */
 	for (int i = 0; i < keyword_count; i++) {
 		int tok = keywords[i];
-		unsigned char c = (unsigned char)token_names[tok][0];
+		const char *name = token_names[tok];
 
-		if (c >= ASCII_MIN && c <= ASCII_MAX) {
-			int idx = c - ASCII_MIN;
+		uint16_t key = prefix16(name);
 
-			if (keyword_offsets[idx] == keyword_count) {
-				keyword_offsets[idx] = i;
-			}
+		if (keyword_prefix_offsets[key] == keyword_count) {
+			keyword_prefix_offsets[key] = i;
 		}
 	}
 
-	/* Fill gaps by propagating forward */
-	for (int i = ASCII_BUCKETS - 1; i >= 0; i--) {
-		if (keyword_offsets[i] == keyword_count) {
-			keyword_offsets[i] = keyword_offsets[i + 1];
+	/* Fill gaps */
+	for (int i = PREFIX_BUCKETS - 1; i >= 0; i--) {
+		if (keyword_prefix_offsets[i] == keyword_count) {
+			keyword_prefix_offsets[i] = keyword_prefix_offsets[i + 1];
 		}
 	}
 
-	/* Final sentinel */
-	keyword_offsets[ASCII_BUCKETS] = keyword_count;
+	int populated = 0;
+	int max_bucket = 0;
+	int max_key = 0;
+	int total_entries = 0;
 
-	keyword_offsets_ready = true;
+	for (int k = 0; k < PREFIX_BUCKETS; k++) {
+	    int start = keyword_prefix_offsets[k];
+	    int end   = keyword_prefix_offsets[k + 1];
+	    int size  = end - start;
+
+	    if (size > 0) {
+		populated++;
+		total_entries += size;
+
+		if (size > max_bucket) {
+		    max_bucket = size;
+		    max_key = k;
+		}
+	    }
+	}
+
+	double mean = populated ? (double)total_entries / (double)populated : 0.0;
+	char mean_s[128];
+	double_to_string(mean, mean_s, sizeof(mean_s), 3);
+	dprintf("Keyword bucket summary:\n");
+	dprintf("  keywords        : %d\n", keyword_count);
+	dprintf("  buckets used    : %d / %d\n", populated, PREFIX_BUCKETS);
+	dprintf("  empty buckets   : %d\n", PREFIX_BUCKETS - populated);
+	dprintf("  avg bucket size : %s\n", mean_s);
+	dprintf("  max bucket size : %d (key=%04x '%c%c')\n", max_bucket, max_key, (char)(max_key >> 8), (char)(max_key & 0xff));
+
+	keyword_prefix_ready = true;
 }
 
 static int singlechar(struct basic_ctx* ctx)
@@ -166,7 +215,7 @@ int get_next_token(struct basic_ctx* ctx)
 		} else {
 			/* Scan forwards up to MAX_NUMLEN characters */
 			for (int i = 0; i < MAX_NUMLEN; ++i) {
-				/* Until we find a character that isnt part of a number */
+				/* Until we find a character that isn't part of a number */
 				if (!isdigit(ctx->ptr[i]) && ctx->ptr[i] != '.') {
 					if (i > 0) {
 						ctx->nextptr = ctx->ptr + i;
@@ -206,33 +255,35 @@ int get_next_token(struct basic_ctx* ctx)
 	} else {
 		GENERATE_ENUM_STRING_NAMES(TOKEN, token_names)
 		GENERATE_ENUM_STRING_LENGTHS(TOKEN, token_name_lengths)
-		unsigned char c = (unsigned char)*ctx->ptr;
-		if (c >= ASCII_MIN && c <= ASCII_MAX) {
-			int idx = c - ASCII_MIN;
-			int start = keyword_offsets[idx];
-			int end   = keyword_offsets[idx + 1];
-			for (int kt = start; kt < end; ++kt) {
-				size_t len = token_name_lengths[keywords[kt]];
-				int comparison = strncmp(ctx->ptr, token_names[keywords[kt]], len);
-				if (comparison == 0) {
-					const char *backup = ctx->nextptr;
-					ctx->nextptr = ctx->ptr + len;
-					bool next_is_varlike = ((*ctx->nextptr >= '0' && *ctx->nextptr <= '9') || (toupper(*ctx->nextptr) >= 'A' && toupper(*ctx->nextptr) <= 'Z') || *ctx->nextptr == '_');
-					if (!next_is_varlike || keywords[kt] == PROC || keywords[kt] == FN || keywords[kt] == EQUALS) {
-						/* Only return the token if what follows the token is not continuation of a variable-name or keyword-name like sequence, e.g. "END -> ENDING"
-						 * Special case for PROC, FN, =, as PROC and FN can be immediately followed by the name of their subroutine. e.g. PROCfoo
-						 */
-						return keywords[kt];
-					} else {
-						ctx->nextptr = backup;
-					}
-				} else if (comparison < 0) {
-					/* We depend upon keyword_tokens being alphabetically sorted,
-					 * so that we can bail early if we go too far down the list
-					 * and still haven't found the keyword.
+		uint16_t key = prefix16(ctx->ptr);
+		int start = keyword_prefix_offsets[key];
+		int end = keyword_prefix_offsets[key + 1];
+		for (int kt = start; kt < end; ++kt) {
+			int tok = keywords[kt];
+			size_t len = token_name_lengths[tok];
+			/* First two characters already matched by prefix16 bucket.
+			 * Compare from byte 2 onwards; <=2 length is already a full match.
+			 * Ordering is preserved within the bucket, so early-exit still works.
+			 */
+			int comparison = len > 2 ? strncmp(ctx->ptr + 2, token_names[tok] + 2, len - 2) : 0;
+			if (comparison == 0) {
+				const char *backup = ctx->nextptr;
+				ctx->nextptr = ctx->ptr + len;
+				bool next_is_varlike = (*ctx->nextptr == '_' || isalnum(*ctx->nextptr));
+				if (!next_is_varlike || keywords[kt] == PROC || keywords[kt] == FN || keywords[kt] == EQUALS) {
+					/* Only return the token if what follows the token is not continuation of a variable-name or keyword-name like sequence, e.g. "END -> ENDING"
+					 * Special case for PROC, FN, =, as PROC and FN can be immediately followed by the name of their subroutine. e.g. PROCfoo
 					 */
-					break;
+					return tok;
+				} else {
+					ctx->nextptr = backup;
 				}
+			} else if (comparison < 0) {
+				/* We depend upon keyword_tokens being alphabetically sorted,
+				 * so that we can bail early if we go too far down the list
+				 * and still haven't found the keyword.
+				 */
+				break;
 			}
 		}
 	}

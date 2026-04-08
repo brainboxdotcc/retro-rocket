@@ -545,7 +545,7 @@ char* printable_syntax(struct basic_ctx* ctx)
 				} else if (v.kind == UP_REAL) {
 					/* Reals: standard formatter */
 					char dbuf[32];
-					strlcat(buffer, double_to_string(v.v.r, dbuf, sizeof dbuf, 0), MAX_STRINGLEN);
+					strlcat(buffer, double_to_string(v.v.r, dbuf, sizeof(dbuf), 0), MAX_STRINGLEN);
 					strlcat(out, buffer, MAX_STRINGLEN);
 				} else { /* UP_INT */
 					/* Integers: optional hex via ~, otherwise decimal */
