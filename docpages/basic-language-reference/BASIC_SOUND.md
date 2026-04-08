@@ -66,7 +66,7 @@ Retro Rocket uses the classic **ADSR model** (Attack, Decay, Sustain, Release) f
 
 * **Attack** - how quickly the sound rises from silence to full strength when a note begins.
 * **Decay** - once the peak is reached, how fast the sound falls back down to a steady level.
-* **Sustain** - the level held as long as the note continues.
+* **Sustain** - the level held while the note is active.
 * **Release** - how long the note takes to fade back to silence after it ends.
 
 ## Flow of audio
@@ -138,6 +138,6 @@ SOUND TONE s, 750, 100, 4
 ## Audio Keywords/Functions
 
 * \ref STREAM "STREAM"
-* \ref STREAM "SOUND"
+* \ref SOUND "SOUND"
 * \ref DECIBELS "DECIBELS"
 * \ref ENVELOPE "ENVELOPE"
