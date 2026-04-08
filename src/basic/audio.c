@@ -66,6 +66,7 @@ static basic_sound_t *load_sound_from_path(struct basic_ctx* ctx, const char *pa
 	sound->pcm = bits;
 	sound->frames = wav_size_to_samples(size);
 	sound->next = NULL;
+	sound->looping = false;
 	return sound;
 }
 
@@ -191,12 +192,11 @@ void envelope_statement(struct basic_ctx* ctx) {
    - Output: interleaved S16LE stereo at 44.1 kHz
    - maths:  L = (L0*inv + L1*frac) >> 15, same for R (Q15 weights)
 */
-static size_t sound_push_with_pitch(struct basic_ctx *ctx, mixer_stream_t *stream, const int16_t *pcm_in, size_t frames_in, int64_t pitch_offset_hz) {
+static size_t sound_push_with_pitch(struct basic_ctx *ctx, mixer_stream_t *stream, const int16_t *pcm_in, size_t frames_in, int64_t pitch_offset_hz, bool looping) {
 	if (!pitch_offset_hz) {
-		return mixer_push(stream, pcm_in, frames_in);
+		return mixer_push(stream, pcm_in, frames_in, looping);
 	}
 
-	size_t rv = 0;
 	const double base_rate = 44100.0;
 	const double new_rate  = base_rate + (double)pitch_offset_hz;
 	if (new_rate <= 100.0) {
@@ -213,70 +213,58 @@ static size_t sound_push_with_pitch(struct basic_ctx *ctx, mixer_stream_t *strea
 	}
 
 	const size_t last_valid = frames_in - 2; /* we read idx and idx+1 */
-	uint64_t pos_q16 = 0;
-
-	enum { BLOCK_FRAMES = 32768 }; /* ~128 KiB scratch (stereo S16) */
-	int16_t *scratch = buddy_malloc(ctx->allocator, (size_t)BLOCK_FRAMES * 2u * sizeof(int16_t));
-	if (!scratch) {
+	const size_t frames_out = (((uint64_t)last_valid << 16) / STEP_Q16) + 1;
+	int16_t *rendered = buddy_malloc(ctx->allocator, frames_out * 2u * sizeof(int16_t));
+	if (!rendered) {
 		tokenizer_error_print(ctx, "Out of memory for pitch shift");
 		return 0;
 	}
 
-	while (1) {
-		size_t produced = 0;
+	uint64_t pos_q16 = 0;
+	size_t produced = 0;
 
-		while (produced < (size_t)BLOCK_FRAMES) {
-			const uint32_t frac_q16 = (uint32_t)(pos_q16 & 0xFFFFu);
-			const size_t   idx      = (size_t)(pos_q16 >> 16);
-			if (idx > last_valid) {
-				break;
-			}
-
-			/* Convert Q16.16 -> Q15 for SSE2 signed 16-bit weights. */
-			const uint16_t frac_q15 = (uint16_t)(frac_q16 >> 1);          /* 0..32767 */
-			const uint16_t inv_q15  = (uint16_t)(32767u - frac_q15);      /* 0..32767 */
-
-			/* Neighbour samples */
-			const int16_t L0 = pcm_in[(idx    )*2 + 0];
-			const int16_t R0 = pcm_in[(idx    )*2 + 1];
-			const int16_t L1 = pcm_in[(idx + 1)*2 + 0];
-			const int16_t R1 = pcm_in[(idx + 1)*2 + 1];
-
-			/* vals = [ R1, R0, L1, L0, 0,0,0,0 ] (int16)
-			   wts  = [  f,  i,  f,  i, 0,0,0,0 ] (int16, Q15)
-			   madd: [ R1*f + R0*i, L1*f + L0*i, 0, 0 ] (int32) */
-			const __m128i vals = _mm_set_epi16(0,0,0,0, R1, R0, L1, L0);
-			const __m128i wts  = _mm_set_epi16(0,0,0,0, (short)frac_q15, (short)inv_q15,
-							   (short)frac_q15, (short)inv_q15);
-			__m128i acc = _mm_madd_epi16(vals, wts);    /* two 32-bit sums in low lanes */
-			acc = _mm_srai_epi32(acc, 15);              /* >>15 to undo Q15 */
-
-			/* Extract the two 32-bit results via a store (portable SSE2) */
-			int32_t tmp[4];
-			_mm_storeu_si128((__m128i*)tmp, acc);
-			const int32_t R = tmp[0];
-			const int32_t L = tmp[1];
-
-			/* Store clamped */
-			scratch[produced*2 + 0] = (int16_t)((L > 32767) ? 32767 : (L < -32768 ? -32768 : L));
-			scratch[produced*2 + 1] = (int16_t)((R > 32767) ? 32767 : (R < -32768 ? -32768 : R));
-
-			produced++;
-			pos_q16 += STEP_Q16;
-		}
-
-		if (!produced) {
+	while (produced < frames_out) {
+		const uint32_t frac_q16 = (uint32_t)(pos_q16 & 0xFFFFu);
+		const size_t   idx      = (size_t)(pos_q16 >> 16);
+		if (idx > last_valid) {
 			break;
 		}
 
-		rv = mixer_push(stream, scratch, produced);
+		/* Convert Q16.16 -> Q15 for SSE2 signed 16-bit weights. */
+		const uint16_t frac_q15 = (uint16_t)(frac_q16 >> 1);          /* 0..32767 */
+		const uint16_t inv_q15  = (uint16_t)(32767u - frac_q15);      /* 0..32767 */
 
-		if ((size_t)(pos_q16 >> 16) > last_valid) {
-			break; /* source consumed */
-		}
+		/* Neighbour samples */
+		const int16_t L0 = pcm_in[(idx    )*2 + 0];
+		const int16_t R0 = pcm_in[(idx    )*2 + 1];
+		const int16_t L1 = pcm_in[(idx + 1)*2 + 0];
+		const int16_t R1 = pcm_in[(idx + 1)*2 + 1];
+
+		/* vals = [ R1, R0, L1, L0, 0,0,0,0 ] (int16)
+		   wts  = [  f,  i,  f,  i, 0,0,0,0 ] (int16, Q15)
+		   madd: [ R1*f + R0*i, L1*f + L0*i, 0, 0 ] (int32) */
+		const __m128i vals = _mm_set_epi16(0,0,0,0, R1, R0, L1, L0);
+		const __m128i wts  = _mm_set_epi16(0,0,0,0, (short)frac_q15, (short)inv_q15,
+						   (short)frac_q15, (short)inv_q15);
+		__m128i acc = _mm_madd_epi16(vals, wts);    /* two 32-bit sums in low lanes */
+		acc = _mm_srai_epi32(acc, 15);              /* >>15 to undo Q15 */
+
+		/* Extract the two 32-bit results via a store (portable SSE2) */
+		int32_t tmp[4];
+		_mm_storeu_si128((__m128i*)tmp, acc);
+		const int32_t R = tmp[0];
+		const int32_t L = tmp[1];
+
+		/* Store clamped */
+		rendered[produced*2 + 0] = (int16_t)((L > 32767) ? 32767 : (L < -32768 ? -32768 : L));
+		rendered[produced*2 + 1] = (int16_t)((R > 32767) ? 32767 : (R < -32768 ? -32768 : R));
+
+		produced++;
+		pos_q16 += STEP_Q16;
 	}
 
-	buddy_free(ctx->allocator, scratch);
+	size_t rv = mixer_push(stream, rendered, produced, looping);
+	buddy_free(ctx->allocator, rendered);
 	return rv;
 }
 
@@ -287,6 +275,30 @@ void sound_statement(struct basic_ctx* ctx) {
 	}
 	accept_or_return(SOUND, ctx);
 	switch (tokenizer_token(ctx)) {
+		case REPEAT: {
+			/* Set volume for stream */
+			accept_or_return(REPEAT, ctx);
+			enum token_t tok = tokenizer_token(ctx);
+			bool loop = false;
+			if (tok == ON) {
+				loop = true;
+				accept_or_return(ON, ctx);
+			} else if (tok == OFF) {
+				loop = false;
+				accept_or_return(OFF, ctx);
+			} else {
+				tokenizer_error_print(ctx, "SOUND REPEAT expects ON or OFF");
+				return;
+			}
+			int64_t handle = expr(ctx);
+			basic_sound_t *s = (basic_sound_t *)(uintptr_t)handle;
+			if (!s || !sound_list_validate(ctx, s)) {
+				tokenizer_error_print(ctx, "SOUND REPEAT: Invalid sound handle");
+				return;
+			}
+			s->looping = loop;
+			break;
+		}
 		case TONE: {
 			/* Set volume for stream */
 			accept_or_return(TONE, ctx);
@@ -353,9 +365,9 @@ void sound_statement(struct basic_ctx* ctx) {
 				}
 
 				if (pitch_offset_hz == 0) {
-					mixer_push(stream, s->pcm, s->frames);
+					mixer_push(stream, s->pcm, s->frames, s->looping);
 				} else {
-					sound_push_with_pitch(ctx, stream, s->pcm, s->frames, pitch_offset_hz);
+					sound_push_with_pitch(ctx, stream, s->pcm, s->frames, pitch_offset_hz, s->looping);
 				}
 			}
 			break;

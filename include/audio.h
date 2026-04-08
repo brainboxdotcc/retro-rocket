@@ -221,7 +221,7 @@ void mixer_free_stream(mixer_stream_t *ch);
  *
  * Identical signature and semantics to audio_push_t; returns frames accepted
  */
-size_t mixer_push(mixer_stream_t *ch, const int16_t *frames, size_t total_frames);
+size_t mixer_push(mixer_stream_t *ch, const int16_t *frames, size_t total_frames, bool looping);
 
 /**
  * @brief Set per-stream gain (Q8.8; 256 == 1.0).

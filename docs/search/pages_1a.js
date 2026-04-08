@@ -27,7 +27,7 @@ var searchData=
   ['relationship_20to_20sound_24',['Relationship to SOUND',['../STREAM.html#relationship-to-sound',1,'']]],
   ['reliable_20conversation_25',['TCP - Like a Phone Call (reliable conversation)',['../networking.html#tcp---like-a-phone-call-reliable-conversation',1,'']]],
   ['rem_20keyword_26',['REM Keyword',['../REM.html',1,'keywords']]],
-  ['repeat_27',['Example: CONTINUE REPEAT',['../CONTINUE.html#example-continue-repeat',1,'']]],
+  ['repeat_27',['REPEAT',['../CONTINUE.html#example-continue-repeat',1,'Example: CONTINUE REPEAT'],['../SOUND.html#sound-repeat',1,'SOUND REPEAT']]],
   ['repeat_20keyword_28',['REPEAT Keyword',['../REPEAT.html',1,'keywords']]],
   ['repeating_20things_29',['7) Loops (repeating things)',['../basic-beginner.html#autotoc_md7-loops-repeating-things',1,'']]],
   ['replace_24_20function_30',['REPLACE$ Function',['../REPLACE.html',1,'string-funcs']]],

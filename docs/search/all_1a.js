@@ -36,7 +36,7 @@ var searchData=
   ['reliable_20conversation_33',['TCP - Like a Phone Call (reliable conversation)',['../networking.html#tcp---like-a-phone-call-reliable-conversation',1,'']]],
   ['rem_20keyword_34',['REM Keyword',['../REM.html',1,'keywords']]],
   ['rem_2emd_35',['REM.md',['../REM_8md.html',1,'']]],
-  ['repeat_36',['Example: CONTINUE REPEAT',['../CONTINUE.html#example-continue-repeat',1,'']]],
+  ['repeat_36',['REPEAT',['../CONTINUE.html#example-continue-repeat',1,'Example: CONTINUE REPEAT'],['../SOUND.html#sound-repeat',1,'SOUND REPEAT']]],
   ['repeat_20keyword_37',['REPEAT Keyword',['../REPEAT.html',1,'keywords']]],
   ['repeat_2emd_38',['REPEAT.md',['../REPEAT_8md.html',1,'']]],
   ['repeating_20things_39',['7) Loops (repeating things)',['../basic-beginner.html#autotoc_md7-loops-repeating-things',1,'']]],

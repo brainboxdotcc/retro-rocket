@@ -66,6 +66,11 @@ typedef struct basic_sound_t {
 	size_t frames;
 
 	/**
+	 * @brief If true, the sound repeats constantly when it reaches the end
+	 */
+	bool looping;
+
+	/**
 	 * @brief Next sound buffer in the linked list
 	 */
 	struct basic_sound_t* next;

@@ -130,6 +130,7 @@ $(function(){initNavTree('SOUND.html','',''); });
 <div class="line">SOUND STOP stream</div>
 <div class="line">SOUND PAUSE stream</div>
 <div class="line">SOUND LOAD variable, &quot;filename&quot;</div>
+<div class="line">SOUND REPEAT [ON|OFF] sound</div>
 <div class="line">SOUND UNLOAD sound</div>
 <div class="line">SOUND TONE stream, frequency, duration[, envelope]</div>
 </div><!-- fragment --><p>Provides control over <b>sound playback</b>. Sounds may come from loaded audio files (e.g. WAV, MP3, FLAC, Ogg/Vorbis, MOD) or be generated on the fly as <b>tones</b> using simple synthesiser-style envelopes.</p>
@@ -225,12 +226,33 @@ SOUND LOAD</h3>
 </ul>
 <p><b>Errors</b></p>
 <ul>
-<li>&lsquo;Unable to load file 'filename&rsquo;<span class="tt"> if the file could not be opened or decoded.</span></li>
-<li><span class="tt"></span>Out of memory loading 'filename'` if allocation fails.</li>
+<li>&lsquo;Unable to load audio file 'filename&rsquo;<span class="tt"> if the file could not be opened or decoded.</span></li>
+<li><span class="tt"></span>Out of memory loading audio file 'filename'` if allocation fails.</li>
 </ul>
 <p><b>Examples</b></p>
 <div class="fragment"><div class="line">SOUND LOAD song, &quot;/system/webserver/media/retro-revival.mp3&quot;</div>
 <div class="line">PRINT song</div>
+</div><!-- fragment --><hr  />
+<h3 class="doxsection"><a class="anchor" id="sound-repeat"></a>
+SOUND REPEAT</h3>
+<div class="fragment"><div class="line">SOUND REPEAT [ON|OFF] sound</div>
+</div><!-- fragment --><p>Sets whether a sound should loop when played on a stream.</p>
+<ul>
+<li>If repeat is on, the sound will loop on that stream until <span class="tt">SOUND STOP stream</span> is used.</li>
+<li>The loop state is applied when the sound is queued with <span class="tt">SOUND PLAY</span>.</li>
+<li>The audio will also stop if the program ends.</li>
+<li><span class="tt">SOUND REPEAT</span> only affects future playback. Sounds already playing will continue looping until <span class="tt">SOUND STOP stream</span> is used.</li>
+</ul>
+<p><b>Errors</b></p>
+<ul>
+<li><span class="tt">SOUND REPEAT expects ON or OFF</span> if any other keyword than <span class="tt">ON</span> or <span class="tt">OFF</span> immediately follows <span class="tt">SOUND REPEAT</span></li>
+<li><span class="tt">SOUND REPEAT: Invalid sound handle</span> if the sound handle is invalid</li>
+</ul>
+<p><b>Example</b></p>
+<div class="fragment"><div class="line">STREAM CREATE stream</div>
+<div class="line">SOUND LOAD song, &quot;/system/webserver/media/retro-revival.mp3&quot;</div>
+<div class="line">SOUND REPEAT ON song</div>
+<div class="line">SOUND PLAY stream, song     &#39; Loop until explicitly stopped</div>
 </div><!-- fragment --><hr  />
 <h3 class="doxsection"><a class="anchor" id="sound-unload"></a>
 SOUND UNLOAD</h3>

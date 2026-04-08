@@ -28,7 +28,10 @@ struct mixer_stream {
 	bool muted;
 	bool paused;
 	bool in_use;
+	bool looping;
 	uint32_t chunk_frames;    /* preferred chunk allocation size (frames) */
+	int16_t *loop_frames;
+	uint32_t loop_frame_count;
 };
 
 typedef struct {
@@ -91,6 +94,36 @@ static bool stream_append_chunk(struct mixer_stream *ch, const int16_t *src_fram
 
 	ch->queued_frames += frames;
 	return true;
+}
+
+static bool stream_requeue_loop(struct mixer_stream *ch) {
+	uint32_t preferred;
+	uint32_t remaining;
+	uint32_t accepted;
+
+	if (!ch || !ch->looping || !ch->loop_frames || ch->loop_frame_count == 0) {
+		return false;
+	}
+
+	preferred = ch->chunk_frames ? ch->chunk_frames : 2048u;
+	remaining = ch->loop_frame_count;
+	accepted = 0;
+
+	while (remaining > 0) {
+		uint32_t batch = remaining > preferred ? preferred : remaining;
+		if (!stream_append_chunk(ch, ch->loop_frames + 2u * accepted, batch)) {
+			break;
+		}
+		accepted += batch;
+		remaining -= batch;
+
+		if (preferred < 8192 && accepted >= (preferred * 4)) {
+			preferred <<= 1;
+			ch->chunk_frames = preferred;
+		}
+	}
+
+	return accepted != 0;
 }
 
 bool mixer_init(audio_device_t* dev, uint32_t target_latency_ms, uint32_t idle_period_ms, uint32_t max_streams) {
@@ -167,7 +200,10 @@ mixer_stream_t *mixer_create_stream(void) {
 			ch->muted = false;
 			ch->paused = false;
 			ch->in_use = true;
+			ch->looping = false;
 			ch->chunk_frames = 2048u; /* ~42.7 ms @ 48 kHz */
+			ch->loop_frames = NULL;
+			ch->loop_frame_count = 0;
 			return ch;
 		}
 	}
@@ -210,6 +246,9 @@ void mixer_stop_stream(mixer_stream_t* ch) {
 	ch->head = NULL;
 	ch->tail = NULL;
 	ch->queued_frames = 0;
+	ch->looping = false;
+	kfree_null(&ch->loop_frames);
+	ch->loop_frame_count = 0;
 }
 
 void mixer_free_stream(mixer_stream_t *ch) {
@@ -221,9 +260,27 @@ void mixer_free_stream(mixer_stream_t *ch) {
 	ch->in_use = false;
 }
 
-size_t mixer_push(mixer_stream_t *ch, const int16_t *frames, size_t total_frames) {
+size_t mixer_push(mixer_stream_t *ch, const int16_t *frames, size_t total_frames, bool looping) {
 	if (!ch || !ch->in_use || !frames || total_frames == 0) {
 		return 0;
+	}
+
+	if (ch->loop_frames) {
+		kfree(ch->loop_frames);
+		ch->loop_frames = NULL;
+		ch->loop_frame_count = 0;
+	}
+	ch->looping = looping;
+
+	if (looping) {
+		size_t loop_bytes = sizeof(int16_t) * 2u * total_frames;
+		ch->loop_frames = (int16_t *)kmalloc(loop_bytes);
+		if (ch->loop_frames) {
+			memcpy(ch->loop_frames, frames, loop_bytes);
+			ch->loop_frame_count = (uint32_t)total_frames;
+		} else {
+			ch->looping = false;
+		}
 	}
 
 	uint32_t preferred = ch->chunk_frames ? ch->chunk_frames : 2048u;
@@ -318,7 +375,7 @@ void mixer_idle(void)
 		/* mix stream into this block */
 		for (uint32_t c = 0; c < mix.streams_cap; c++) {
 			struct mixer_stream *ch = &mix.streams[c];
-			if (!ch->in_use || ch->muted || !ch->head || ch->paused) {
+			if (!ch->in_use || ch->muted || ch->paused) {
 				continue;
 			}
 
@@ -326,8 +383,29 @@ void mixer_idle(void)
 			uint32_t out_idx     = 0;
 			uint16_t gain        = ch->gain_q8_8;
 
+			if (!ch->head && ch->looping) {
+				stream_requeue_loop(ch);
+			}
+			if (!ch->head) {
+				continue;
+			}
+
 			chunk_t *ck = ch->head;
-			while (frames_left > 0 && ck) {
+			while (frames_left > 0) {
+				if (!ck) {
+					if (ch->looping) {
+						if (!stream_requeue_loop(ch)) {
+							break;
+						}
+						ck = ch->head;
+						if (!ck) {
+							break;
+						}
+					} else {
+						break;
+					}
+				}
+
 				/* drop exhausted chunks */
 				if (ck->rpos >= ck->frames) {
 					ch->head = ck->next;

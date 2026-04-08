@@ -9,6 +9,7 @@ SOUND PLAY stream
 SOUND STOP stream
 SOUND PAUSE stream
 SOUND LOAD variable, "filename"
+SOUND REPEAT [ON|OFF] sound
 SOUND UNLOAD sound
 SOUND TONE stream, frequency, duration[, envelope]
 ```
@@ -149,14 +150,43 @@ Loads an audio file into memory and assigns a **sound handle** to `variable`.
 
 **Errors**
 
-* `Unable to load file 'filename'` if the file could not be opened or decoded.
-* `Out of memory loading 'filename'` if allocation fails.
+* `Unable to load audio file 'filename'` if the file could not be opened or decoded.
+* `Out of memory loading audio file 'filename'` if allocation fails.
 
 **Examples**
 
 ```basic
 SOUND LOAD song, "/system/webserver/media/retro-revival.mp3"
 PRINT song
+```
+
+---
+
+### SOUND REPEAT
+
+```basic
+SOUND REPEAT [ON|OFF] sound
+```
+
+Sets whether a sound should loop when played on a stream.
+
+* If repeat is on, the sound will loop on that stream until `SOUND STOP stream` is used.
+* The loop state is applied when the sound is queued with `SOUND PLAY`.
+* The audio will also stop if the program ends.
+* `SOUND REPEAT` only affects future playback. Sounds already playing will continue looping until `SOUND STOP stream` is used.
+
+**Errors**
+
+* `SOUND REPEAT expects ON or OFF` if any other keyword than `ON` or `OFF` immediately follows `SOUND REPEAT`
+* `SOUND REPEAT: Invalid sound handle` if the sound handle is invalid
+
+**Example**
+
+```basic
+STREAM CREATE stream
+SOUND LOAD song, "/system/webserver/media/retro-revival.mp3"
+SOUND REPEAT ON song
+SOUND PLAY stream, song     ' Loop until explicitly stopped
 ```
 
 ---

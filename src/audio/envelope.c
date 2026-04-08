@@ -125,12 +125,12 @@ static bool generate_tone_44100_stereo(struct basic_ctx *ctx, uint32_t freq_hz, 
 }
 
 bool sound_cmd_tone(struct basic_ctx *ctx, mixer_stream_t *stream, uint32_t freq_hz, uint32_t dur_cs, int env_idx_opt) {
-	if (!stream || freq_hz == 0 || dur_cs == 0) {
+	if (!ctx || !stream || freq_hz == 0 || dur_cs == 0) {
 		return false;
 	}
 
 	const sound_envelope_ex_t *env = NULL;
-	if (env_idx_opt >= 0 && env_idx_opt < 64 && ctx) {
+	if (env_idx_opt >= 0 && env_idx_opt < 64) {
 		sound_envelope_ex_t *e = &ctx->envelopes[env_idx_opt];
 		if (e->in_use) {
 			env = e;
@@ -144,7 +144,7 @@ bool sound_cmd_tone(struct basic_ctx *ctx, mixer_stream_t *stream, uint32_t freq
 	}
 
 	size_t frames_total = bytes / (2 * sizeof(int16_t));
-	size_t taken = mixer_push(stream, pcm, frames_total);
+	size_t taken = mixer_push(stream, pcm, frames_total, false);
 	buddy_free(ctx->allocator, pcm);
 
 	return taken == frames_total;
