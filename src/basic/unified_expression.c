@@ -76,7 +76,7 @@ static up_value up_factor(struct basic_ctx *ctx) {
 	enum token_t tok = tokenizer_token(ctx);
 
 	/* Skip space */
-	while (tok == NO_TOKEN) {
+	while (tok == SPACE) {
 		tokenizer_next(ctx);
 		tok = tokenizer_token(ctx);
 	}

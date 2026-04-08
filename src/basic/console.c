@@ -479,6 +479,20 @@ void background_statement(struct basic_ctx* ctx)
 	accept_or_return(NEWLINE, ctx);
 }
 
+static bool is_expression_start(int token)
+{
+	switch (token) {
+		case VARIABLE:
+		case NUMBER:
+		case STRING:
+		case OPENBRACKET:
+		case MINUS:
+		case PLUS:
+			return true;
+	}
+	return false;
+}
+
 char* printable_syntax(struct basic_ctx* ctx)
 {
 	int numprints = 0;
@@ -492,6 +506,10 @@ char* printable_syntax(struct basic_ctx* ctx)
 		bool handled = false;
 		no_newline = false;
 		*buffer = 0;
+
+		if (tokenizer_token(ctx) == NEWLINE || tokenizer_token(ctx) == ENDOFINPUT) {
+			break;
+		}
 
 		switch (tokenizer_token(ctx)) {
 			case COMMA:
@@ -513,6 +531,10 @@ char* printable_syntax(struct basic_ctx* ctx)
 				break;
 
 			default: {
+				if (!is_expression_start(tokenizer_token(ctx))) {
+					tokenizer_error_print(ctx, "Syntax error");
+					break;
+				}
 				/* Expression (string or numeric) - let the unified parser decide. */
 				up_value v = up_make_int(0);
 				up_eval_value(ctx, &v);  /* <- unified typed evaluator */

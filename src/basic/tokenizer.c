@@ -71,6 +71,9 @@ static int singlechar(struct basic_ctx* ctx)
 			return EQUALS;
 		case '~':
 			return TILDE;
+		case ' ':
+		case '\t':
+			return SPACE;
 	}
 	return 0;
 }
@@ -128,6 +131,10 @@ int get_next_token(struct basic_ctx* ctx)
 		int strl = 0;
 		do {
 			++ctx->nextptr;
+			if (*ctx->nextptr == 0 || *ctx->nextptr == 13) {
+				tokenizer_error_printf(ctx, "Unterminated string constant");
+				break;
+			}
 			if (++strl > MAX_STRINGLEN) {
 				tokenizer_error_printf(ctx, "String constant '%s' too long", ctx->ptr);
 				break;
@@ -199,7 +206,7 @@ int get_next_token(struct basic_ctx* ctx)
 		return VARIABLE;
 	}
 
-	
+	ctx->nextptr++;
 	return NO_TOKEN;
 }
 

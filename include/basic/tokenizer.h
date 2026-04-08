@@ -211,6 +211,7 @@ typedef void (*keyword_handler_t)(struct basic_ctx*);
     T(ROTATE, STMT, rotate_statement)			/* 139 */ \
     T(SPRITEROW, STMT, spriterow_statement)		/* 140 */ \
     T(ARRAYFIND, STMT, arrayfind_statement)		/* 141 */ \
+    T(SPACE, NONSTMT, NULL) 				/* 142 */ \
 
 GENERATE_ENUM_LIST(TOKEN, token_t)
 
