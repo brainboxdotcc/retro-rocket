@@ -39,6 +39,67 @@ static const int kw_sentinel __attribute__((section(".kw.~zzzzzz"), used)) = -1;
 extern const int __start_kw_array[];
 extern const int __stop_kw_array[];
 static const int *keywords = __start_kw_array;
+static bool keyword_offsets_ready = false;
+
+#define ASCII_MIN 32
+#define ASCII_MAX 126
+#define ASCII_BUCKETS (ASCII_MAX - ASCII_MIN + 1)
+
+/**
+ * @brief First-character index into the sorted keyword table.
+ *
+ * Maps ASCII 32–126 to offsets in `keywords[]`, allowing lookup to scan only
+ * the relevant subset for a given starting character. Each entry defines the
+ * start of a bucket; the next entry defines its end (half-open range).
+ *
+ * The final entry is a sentinel containing the total keyword count.
+ */
+static int keyword_offsets[ASCII_BUCKETS + 1];
+
+void build_keyword_offsets(void)
+{
+	int keyword_count = 0;
+	GENERATE_ENUM_STRING_NAMES(TOKEN, token_names)
+
+	if (keyword_offsets_ready) {
+		return;
+	}
+
+	while (keywords[keyword_count] != -1) {
+		keyword_count++;
+	}
+
+	/* Initialise all buckets to sentinel */
+	for (int i = 0; i < ASCII_BUCKETS + 1; i++) {
+		keyword_offsets[i] = keyword_count;
+	}
+
+	/* Record first occurrence per leading character */
+	for (int i = 0; i < keyword_count; i++) {
+		int tok = keywords[i];
+		unsigned char c = (unsigned char)token_names[tok][0];
+
+		if (c >= ASCII_MIN && c <= ASCII_MAX) {
+			int idx = c - ASCII_MIN;
+
+			if (keyword_offsets[idx] == keyword_count) {
+				keyword_offsets[idx] = i;
+			}
+		}
+	}
+
+	/* Fill gaps by propagating forward */
+	for (int i = ASCII_BUCKETS - 1; i >= 0; i--) {
+		if (keyword_offsets[i] == keyword_count) {
+			keyword_offsets[i] = keyword_offsets[i + 1];
+		}
+	}
+
+	/* Final sentinel */
+	keyword_offsets[ASCII_BUCKETS] = keyword_count;
+
+	keyword_offsets_ready = true;
+}
 
 static int singlechar(struct basic_ctx* ctx)
 {
@@ -80,7 +141,7 @@ static int singlechar(struct basic_ctx* ctx)
 
 int get_next_token(struct basic_ctx* ctx)
 {
-	if(*ctx->ptr == 0) {
+	if (*ctx->ptr == 0) {
 		return ENDOFINPUT;
 	}
 	
@@ -139,33 +200,39 @@ int get_next_token(struct basic_ctx* ctx)
 				tokenizer_error_printf(ctx, "String constant '%s' too long", ctx->ptr);
 				break;
 			}
-		} while(*ctx->nextptr != '"');
+		} while (*ctx->nextptr != '"');
 		++ctx->nextptr;
 		return STRING;
 	} else {
 		GENERATE_ENUM_STRING_NAMES(TOKEN, token_names)
 		GENERATE_ENUM_STRING_LENGTHS(TOKEN, token_name_lengths)
-		for(int kt = 0; keywords[kt] != -1; ++kt) {
-			size_t len = token_name_lengths[keywords[kt]];
-			int comparison = strncmp(ctx->ptr, token_names[keywords[kt]], len);
-			if (comparison == 0) {
-				const char* backup = ctx->nextptr;
-				ctx->nextptr = ctx->ptr + len;
-				bool next_is_varlike = ((*ctx->nextptr >= '0' && *ctx->nextptr <= '9') || (toupper(*ctx->nextptr) >= 'A' && toupper(*ctx->nextptr) <= 'Z') || *ctx->nextptr == '_');
-				if (!next_is_varlike || keywords[kt] == PROC || keywords[kt] == FN || keywords[kt] == EQUALS) {
-					/* Only return the token if what follows the token is not continuation of a variable-name or keyword-name like sequence, e.g. "END -> ENDING"
-					 * Special case for PROC, FN, =, as PROC and FN can be immediately followed by the name of their subroutine. e.g. PROCfoo
+		unsigned char c = (unsigned char)*ctx->ptr;
+		if (c >= ASCII_MIN && c <= ASCII_MAX) {
+			int idx = c - ASCII_MIN;
+			int start = keyword_offsets[idx];
+			int end   = keyword_offsets[idx + 1];
+			for (int kt = start; kt < end; ++kt) {
+				size_t len = token_name_lengths[keywords[kt]];
+				int comparison = strncmp(ctx->ptr, token_names[keywords[kt]], len);
+				if (comparison == 0) {
+					const char *backup = ctx->nextptr;
+					ctx->nextptr = ctx->ptr + len;
+					bool next_is_varlike = ((*ctx->nextptr >= '0' && *ctx->nextptr <= '9') || (toupper(*ctx->nextptr) >= 'A' && toupper(*ctx->nextptr) <= 'Z') || *ctx->nextptr == '_');
+					if (!next_is_varlike || keywords[kt] == PROC || keywords[kt] == FN || keywords[kt] == EQUALS) {
+						/* Only return the token if what follows the token is not continuation of a variable-name or keyword-name like sequence, e.g. "END -> ENDING"
+						 * Special case for PROC, FN, =, as PROC and FN can be immediately followed by the name of their subroutine. e.g. PROCfoo
+						 */
+						return keywords[kt];
+					} else {
+						ctx->nextptr = backup;
+					}
+				} else if (comparison < 0) {
+					/* We depend upon keyword_tokens being alphabetically sorted,
+					 * so that we can bail early if we go too far down the list
+					 * and still haven't found the keyword.
 					 */
-					return keywords[kt];
-				} else {
-					ctx->nextptr = backup;
+					break;
 				}
-			} else if (comparison < 0) {
-				/* We depend upon keyword_tokens being alphabetically sorted,
-				* so that we can bail early if we go too far down the list
-				* and still haven't found the keyword.
-				*/
-				break;
 			}
 		}
 	}
@@ -223,13 +290,12 @@ enum token_t tokenizer_token(struct basic_ctx* ctx)
 
 void tokenizer_next(struct basic_ctx* ctx)
 {
-
-	if(tokenizer_finished(ctx)) {
+	if (tokenizer_finished(ctx)) {
 		return;
 	}
 
 	ctx->ptr = ctx->nextptr;
-	while(*ctx->ptr == ' ' || *ctx->ptr == '\t') {
+	while (*ctx->ptr == ' ' || *ctx->ptr == '\t') {
 		++ctx->ptr;
 	}
 	ctx->current_token = get_next_token(ctx);
@@ -250,17 +316,17 @@ bool tokenizer_string(char *dest, int len, struct basic_ctx* ctx)
 	char *string_end;
 	int string_len;
 	
-	if(tokenizer_token(ctx) != STRING) {
+	if (tokenizer_token(ctx) != STRING) {
 		return true;
 	}
 	string_end = strchr(ctx->ptr + 1, '"');
-	if(string_end == NULL) {
+	if (string_end == NULL) {
 		tokenizer_error_print(ctx, "Unterminated \"");
 		*dest = 0;
 		return false;
 	}
 	string_len = string_end - ctx->ptr - 1;
-	if(len < string_len) {
+	if (len < string_len) {
 		string_len = len;
 	}
 	if (ctx->ptr == ctx->program_ptr) {

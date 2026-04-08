@@ -266,6 +266,7 @@ bool basic_hash_lines(struct basic_ctx *ctx, char **error) {
 }
 
 struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file, char **error) {
+	build_keyword_offsets();
 	if (!isdigit(*program)) {
 		/* Program is not line numbered! Auto-number it. */
 		const char *numbered = auto_number(program, 1, 1);

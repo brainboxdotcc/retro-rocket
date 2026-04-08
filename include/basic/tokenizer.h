@@ -342,3 +342,13 @@ int get_next_token(struct basic_ctx* ctx);
  */
 bool tokenizer_decimal_number(struct basic_ctx* ctx);
 
+/**
+ * @brief Build the first-character index for keyword lookup.
+ *
+ * Populates `keyword_offsets[]` from the sorted `keywords[]` table so the
+ * tokenizer can jump directly to the subset of keywords matching the first
+ * character, rather than scanning the entire list.
+ *
+ * Called once during interpreter initialisation.
+ */
+void build_keyword_offsets(void);
