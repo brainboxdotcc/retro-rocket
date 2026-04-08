@@ -1,6 +1,6 @@
 \page SOUND SOUND Keyword
 
-\[TOC]
+[TOC]
 
 ```basic
 SOUND VOLUME stream, gain
