@@ -58,6 +58,123 @@ static bool keyword_prefix_ready = false;
  */
 static int keyword_prefix_offsets[PREFIX_BUCKETS + 1];
 
+struct interned_name {
+	const char *name;
+	size_t name_length;
+};
+
+static struct hashmap *interned_variable_names = NULL;
+static buddy_allocator_t interned_variable_name_allocator;
+static bool interned_variable_name_allocator_ready = false;
+
+static void *interned_name_map_malloc(size_t size, void *udata)
+{
+	[[maybe_unused]] void *unused = udata;
+	return buddy_malloc(&interned_variable_name_allocator, size);
+}
+
+static void *interned_name_map_realloc(void *ptr, size_t size, void *udata)
+{
+	return buddy_realloc(&interned_variable_name_allocator, ptr, size);
+}
+
+static void interned_name_map_free(const void *ptr, void *udata)
+{
+	buddy_free(&interned_variable_name_allocator, ptr);
+}
+
+static uint64_t interned_name_hash(const void *item, uint64_t seed0, uint64_t seed1)
+{
+	const struct interned_name *entry = item;
+	size_t len = entry->name_length ? entry->name_length : strlen(entry->name);
+
+	return hashmap_sip(entry->name, len, seed0, seed1);
+}
+
+static int interned_name_compare(const void *a, const void *b, void *udata)
+{
+	const struct interned_name *ea = a;
+	const struct interned_name *eb = b;
+	size_t la = ea->name_length ? ea->name_length : strlen(ea->name);
+	size_t lb = eb->name_length ? eb->name_length : strlen(eb->name);
+
+	if (la < lb) {
+		return -1;
+	}
+	if (la > lb) {
+		return 1;
+	}
+	return strcmp(ea->name, eb->name);
+}
+
+static bool ensure_interned_variable_names(void)
+{
+	if (!interned_variable_name_allocator_ready) {
+		buddy_init(&interned_variable_name_allocator, 6, 22, 22);
+		interned_variable_name_allocator_ready = true;
+	}
+
+	if (interned_variable_names) {
+		return true;
+	}
+
+	interned_variable_names = hashmap_new_with_allocator(
+		interned_name_map_malloc,
+		interned_name_map_realloc,
+		interned_name_map_free,
+		sizeof(struct interned_name),
+		1024,
+		0x9e3779b97f4a7c15ULL,
+		0xc2b2ae3d27d4eb4fULL,
+		interned_name_hash,
+		interned_name_compare,
+		NULL,
+		NULL
+	);
+
+	return interned_variable_names != NULL;
+}
+
+static const char *intern_variable_name(const char *name, size_t len)
+{
+	struct interned_name *existing;
+	struct interned_name entry;
+	char *copy;
+
+	if (!ensure_interned_variable_names()) {
+		return NULL;
+	}
+
+	existing = hashmap_get(
+		interned_variable_names,
+		&(struct interned_name) { .name = name }
+	);
+
+	if (existing) {
+		return existing->name;
+	}
+
+	copy = buddy_strdup(&interned_variable_name_allocator, name);
+	if (!copy) {
+		return NULL;
+	}
+
+	entry.name = copy;
+	entry.name_length = len;
+
+	hashmap_set(interned_variable_names, &entry);
+	if (hashmap_oom(interned_variable_names)) {
+		buddy_free(&interned_variable_name_allocator, copy);
+		return NULL;
+	}
+
+	existing = hashmap_get(
+		interned_variable_names,
+		&(struct interned_name) { .name = name }
+	);
+
+	return existing ? existing->name : copy;
+}
 
 /**
  * @brief Return a 16-bit lexicographic prefix for a string.
@@ -496,19 +613,26 @@ const char* tokenizer_variable_name(struct basic_ctx* ctx, size_t* count)
 {
 	char varname[MAX_VARNAME];
 	*count = 0;
-	while (
-		(
-			(*ctx->ptr >= 'a' && *ctx->ptr <= 'z') ||
-			(*ctx->ptr >= 'A' && *ctx->ptr <= 'Z') ||
-			(*count > 0 && *ctx->ptr == '$') ||
-			(*count > 0 && *ctx->ptr == '#') ||
-			(*ctx->ptr == '_') ||
-			(*count > 0 && isdigit(*ctx->ptr))
-		) && *count < MAX_VARNAME
-	) {
-		varname[(*count)++] = *(ctx->ptr++);
+
+	while (*count < MAX_VARNAME && *ctx->ptr != 0) {
+		char c = *ctx->ptr;
+
+		if (*count == 0) {
+			if (!(isalpha(c) || c == '_')) {
+				break;
+			}
+		} else {
+			if (!(isalnum(c) || c == '_' || c == '$' || c == '#')) {
+				break;
+			}
+		}
+
+		varname[(*count)++] = c;
+		ctx->ptr++;
 	}
+
 	varname[*count] = 0;
+
 	for (size_t n = 0; n < *count - 1; ++n) {
 		if (varname[n] == '$' || varname[n] == '#') {
 			tokenizer_error_printf(ctx, "Invalid variable name '%s'", varname);
@@ -516,8 +640,14 @@ const char* tokenizer_variable_name(struct basic_ctx* ctx, size_t* count)
 			return "";
 		}
 	}
-	/* TODO: Validate variable name, weed out e.g. TEST$$ or $TEST$ which are not valid. */
-	return gc_strdup(ctx, varname);
+
+	const char *interned = intern_variable_name(varname, *count);
+	if (!interned) {
+		tokenizer_error_printf(ctx, "Out of memory interning variable name '%s'", varname);
+		*count = 0;
+		return "";
+	}
+	return interned;
 }
 
 bool tokenizer_decimal_number(struct basic_ctx* ctx)
