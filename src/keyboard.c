@@ -289,7 +289,6 @@ bool caps_lock_on() {
 static void push_to_buffer(char x) {
 #ifdef PROFILE_KERNEL
 	if (ctrl_held() && alt_held() && shift_held() && x == 'P') {
-	if (ctrl_held() && alt_held() && shift_held() && x == 'P') {
 		kprintf("\nDumping callgrind.out to serial port...\n");
 		profile_dump();
 		kprintf("Profile written.\n");
@@ -502,4 +501,3 @@ _Noreturn void reboot(void) {
 		__asm__ volatile ("hlt");
 	}
 }
-

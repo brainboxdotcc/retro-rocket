@@ -254,7 +254,7 @@ ENDPROC
 REM search PATH$ for a program, returning the fully qualified
 REM pathname to the program if it is found, else an empty string
 DEF FNFindProgram$(prog$)
-    IF LEFT$(prog$, 1) = "/" THEN
+    IF (LEFT$(prog$, 1) = "/") AND (FILETYPE$(prog$) = "file") THEN
         FH = OPENIN(prog$) ' Fallthrough for fully qualified path
         IF FH > -1 THEN
             CLOSE FH
