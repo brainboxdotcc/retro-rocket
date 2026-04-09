@@ -10,17 +10,6 @@
 #define STRING_GC_AREA_SIZE (1024 * 1024 * 4)
 
 /**
- * @brief Linked list node for garbage-collected strings.
- *
- * Used internally by gc_strdup() and gc() to track
- * dynamically allocated strings for temporary BASIC execution.
- */
-typedef struct gc_str_t {
-	const char* ptr;           /**< Pointer to allocated string */
-	struct gc_str_t* next;     /**< Next entry in linked list */
-} gc_str_t;
-
-/**
  * @brief Return the length of a string.
  *
  * @param str Null-terminated string
@@ -110,11 +99,23 @@ static inline bool __attribute__((always_inline)) isalpha(const char x)
 	return (unsigned)(c - 'a') <= ('z' - 'a');
 }
 
+/**
+ * @brief Check if a character is a decimal digit.
+ *
+ * @param x Character to check
+ * @return unsigned char Non-zero if digit, 0 otherwise
+ */
 static inline unsigned char __attribute__((always_inline)) isdigit(const char x)
 {
 	return (unsigned)(x - '0') <= 9;
 }
 
+/**
+ * @brief Check if a character is a hexadecimal digit.
+ *
+ * @param x Character to check
+ * @return unsigned char Non-zero if hex digit, 0 otherwise
+ */
 static inline unsigned char __attribute__((always_inline)) isxdigit(const char x)
 {
 	return (x >= '0' && x <= '9') || (x >= 'A' && x <= 'F');
@@ -216,22 +217,6 @@ const char* gc_strdup(basic_ctx* ctx, const char* string);
  * @return int Always returns 1.
  */
 int gc(basic_ctx* ctx);
-
-/**
- * @brief Check if a character is a decimal digit.
- *
- * @param x Character to check
- * @return unsigned char Non-zero if digit, 0 otherwise
- */
-unsigned char isdigit(const char x);
-
-/**
- * @brief Check if a character is a hexadecimal digit.
- *
- * @param x Character to check
- * @return unsigned char Non-zero if hex digit, 0 otherwise
- */
-unsigned char isxdigit(const char x);
 
 /**
  * @brief Convert string to integer.

@@ -1,7 +1,5 @@
 #include <kernel.h>
 
-gc_str_t* gc_list = NULL;
-
 unsigned int strlen(const char* str) {
 	if (!str) {
 		return 0;
