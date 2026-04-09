@@ -270,7 +270,7 @@ int get_next_token(struct basic_ctx* ctx)
 				const char *backup = ctx->nextptr;
 				ctx->nextptr = ctx->ptr + len;
 				bool next_is_varlike = (*ctx->nextptr == '_' || isalnum(*ctx->nextptr));
-				if (!next_is_varlike || keywords[kt] == PROC || keywords[kt] == FN || keywords[kt] == EQUALS) {
+				if (!next_is_varlike || tok == PROC || tok == FN || tok == EQUALS) {
 					/* Only return the token if what follows the token is not continuation of a variable-name or keyword-name like sequence, e.g. "END -> ENDING"
 					 * Special case for PROC, FN, =, as PROC and FN can be immediately followed by the name of their subroutine. e.g. PROCfoo
 					 */
