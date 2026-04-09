@@ -612,6 +612,8 @@ bool tokenizer_finished(struct basic_ctx* ctx)
 const char* tokenizer_variable_name(struct basic_ctx* ctx, size_t* count)
 {
 	char varname[MAX_VARNAME];
+	const char *interned;
+
 	*count = 0;
 
 	while (*count < MAX_VARNAME && *ctx->ptr != 0) {
@@ -622,7 +624,20 @@ const char* tokenizer_variable_name(struct basic_ctx* ctx, size_t* count)
 				break;
 			}
 		} else {
-			if (!(isalnum(c) || c == '_' || c == '$' || c == '#')) {
+			if (c == '$' || c == '#') {
+				varname[(*count)++] = c;
+				ctx->ptr++;
+
+				if (*ctx->ptr != 0 && (isalnum(*ctx->ptr) || *ctx->ptr == '_' || *ctx->ptr == '$' || *ctx->ptr == '#')) {
+					varname[*count] = 0;
+					tokenizer_error_printf(ctx, "Invalid variable name '%s'", varname);
+					*count = 0;
+					return "";
+				}
+				break;
+			}
+
+			if (!(isalnum(c) || c == '_')) {
 				break;
 			}
 		}
@@ -633,20 +648,13 @@ const char* tokenizer_variable_name(struct basic_ctx* ctx, size_t* count)
 
 	varname[*count] = 0;
 
-	for (size_t n = 0; n < *count - 1; ++n) {
-		if (varname[n] == '$' || varname[n] == '#') {
-			tokenizer_error_printf(ctx, "Invalid variable name '%s'", varname);
-			*count = 0;
-			return "";
-		}
-	}
-
-	const char *interned = intern_variable_name(varname, *count);
+	interned = intern_variable_name(varname, *count);
 	if (!interned) {
 		tokenizer_error_printf(ctx, "Out of memory interning variable name '%s'", varname);
 		*count = 0;
 		return "";
 	}
+
 	return interned;
 }
 
