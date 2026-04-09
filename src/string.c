@@ -198,16 +198,15 @@ const char* gc_strdup(basic_ctx* ctx, const char* string)
 		/* For empty strings, the string_gc_storage ptr always starts with a single NULL char */
 		return ctx->string_gc_storage;
 	}
-	uint32_t len = strlen(string);
-	if (ctx->string_gc_storage_next + len + 1 > ctx->string_gc_storage + STRING_GC_AREA_SIZE) {
+	char* dest = ctx->string_gc_storage_next;
+	size_t remaining = (size_t)((ctx->string_gc_storage + STRING_GC_AREA_SIZE) - dest);
+	size_t len = strlcpy(dest, string, remaining);
+	if (len >= remaining) {
 		tokenizer_error_printf(ctx, "Out of string area allocator space storing '%s'", string);
 		return ctx->string_gc_storage; /* Always returns a sane value with sane input */
 	}
-	const char* result = ctx->string_gc_storage_next;
-	memcpy(ctx->string_gc_storage_next, string, len);
-	ctx->string_gc_storage_next[len] = '\0';
 	ctx->string_gc_storage_next += len + 1;
-	return result;
+	return dest;
 }
 
 int gc(basic_ctx* ctx)
