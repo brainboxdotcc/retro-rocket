@@ -4,7 +4,59 @@
  */
 #include <kernel.h>
 
+#define BUILTIN_HASH_SEED0 0x9e3779b97f4a7c15ULL
+#define BUILTIN_HASH_SEED1 0xc2b2ae3d27d4eb4fULL
+
 extern bool debug;
+
+/* Add near the top of basic/function.c, after extern bool debug */
+
+struct builtin_int_entry {
+	const char *name;
+	size_t name_length;
+	int64_t (*handler)(struct basic_ctx *ctx);
+};
+
+struct builtin_double_entry {
+	const char *name;
+	size_t name_length;
+	void (*handler)(struct basic_ctx *ctx, double *res);
+};
+
+struct builtin_str_entry {
+	const char *name;
+	size_t name_length;
+	char *(*handler)(struct basic_ctx *ctx);
+};
+
+static struct hashmap *builtin_int_map = NULL;
+static struct hashmap *builtin_double_map = NULL;
+static struct hashmap *builtin_str_map = NULL;
+
+static uint64_t builtin_name_hash(const void *item, uint64_t seed0, uint64_t seed1)
+{
+	const struct builtin_int_entry *entry = item;
+	size_t len = entry->name_length ? entry->name_length : strlen(entry->name);
+
+	return hashmap_sip(entry->name, len, seed0, seed1);
+}
+
+static int builtin_name_compare(const void *a, const void *b, void *udata)
+{
+	[[maybe_unused]] void *unused = udata;
+	const struct builtin_int_entry *ea = a;
+	const struct builtin_int_entry *eb = b;
+	size_t la = ea->name_length ? ea->name_length : strlen(ea->name);
+	size_t lb = eb->name_length ? eb->name_length : strlen(eb->name);
+
+	if (la < lb) {
+		return -1;
+	}
+	if (la > lb) {
+		return 1;
+	}
+	return strcmp(ea->name, eb->name);
+}
 
 /**
  * @brief Maximum time an atomic FN evaluation may run for.
@@ -197,6 +249,90 @@ struct basic_str_fn builtin_str[] =
 	{ NULL,                       NULL            },
 };
 
+void build_builtin_fn_maps(void)
+{
+	if (builtin_int_map || builtin_double_map || builtin_str_map) {
+		return;
+	}
+
+	dprintf("Building function hashmaps...\n");
+
+	builtin_int_map = hashmap_new(
+		sizeof(struct builtin_int_entry),
+		128,
+		BUILTIN_HASH_SEED0,
+		BUILTIN_HASH_SEED1,
+		builtin_name_hash,
+		builtin_name_compare,
+		NULL,
+		NULL
+	);
+
+	builtin_double_map = hashmap_new(
+		sizeof(struct builtin_double_entry),
+		32,
+		BUILTIN_HASH_SEED0,
+		BUILTIN_HASH_SEED1,
+		builtin_name_hash,
+		builtin_name_compare,
+		NULL,
+		NULL
+	);
+
+	builtin_str_map = hashmap_new(
+		sizeof(struct builtin_str_entry),
+		64,
+		BUILTIN_HASH_SEED0,
+		BUILTIN_HASH_SEED1,
+		builtin_name_hash,
+		builtin_name_compare,
+		NULL,
+		NULL
+	);
+
+	if (!builtin_int_map || !builtin_double_map || !builtin_str_map) {
+		preboot_fail("Out of memory building builtin function maps");
+	}
+
+	for (int i = 0; builtin_int[i].name; ++i) {
+		struct builtin_int_entry entry = {
+			.name = builtin_int[i].name,
+			.name_length = strlen(builtin_int[i].name),
+			.handler = builtin_int[i].handler
+		};
+
+		hashmap_set(builtin_int_map, &entry);
+		if (hashmap_oom(builtin_int_map)) {
+			preboot_fail("Out of memory building integer builtin function map");
+		}
+	}
+
+	for (int i = 0; builtin_double[i].name; ++i) {
+		struct builtin_double_entry entry = {
+			.name = builtin_double[i].name,
+			.name_length = strlen(builtin_double[i].name),
+			.handler = builtin_double[i].handler
+		};
+
+		hashmap_set(builtin_double_map, &entry);
+		if (hashmap_oom(builtin_double_map)) {
+			preboot_fail("Out of memory building real builtin function map");
+		}
+	}
+
+	for (int i = 0; builtin_str[i].name; ++i) {
+		struct builtin_str_entry entry = {
+			.name = builtin_str[i].name,
+			.name_length = strlen(builtin_str[i].name),
+			.handler = builtin_str[i].handler
+		};
+
+		hashmap_set(builtin_str_map, &entry);
+		if (hashmap_oom(builtin_str_map)) {
+			preboot_fail("Out of memory building string builtin function map");
+		}
+	}
+}
 
 bool extract_comma_list(struct ub_proc_fn_def* def, struct basic_ctx* ctx, int* bracket_depth, char const** item_begin, struct ub_param** param) {
 	if (*ctx->ptr == '(') {
@@ -335,26 +471,34 @@ const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx)
  * @param res pointer to return value of function
  * @return uint64_t true/false return
  */
-char basic_builtin_int_fn(const char* fn_name, struct basic_ctx* ctx, int64_t* res) {
-	int i;
-	for (i = 0; builtin_int[i].name; ++i) {
-		if (!strcmp(fn_name, builtin_int[i].name)) {
-			*res = builtin_int[i].handler(ctx);
-			return 1;
-		}
+char basic_builtin_int_fn(const char* fn_name, struct basic_ctx* ctx, int64_t* res)
+{
+	struct builtin_int_entry key = {
+		.name = fn_name,
+	};
+	struct builtin_int_entry *entry = hashmap_get(builtin_int_map, &key);
+
+	if (!entry) {
+		return 0;
 	}
-	return 0;
+
+	*res = entry->handler(ctx);
+	return 1;
 }
 
-char basic_builtin_double_fn(const char* fn_name, struct basic_ctx* ctx, double* res) {
-	int i;
-	for (i = 0; builtin_double[i].name; ++i) {
-		if (!strcmp(fn_name, builtin_double[i].name)) {
-			builtin_double[i].handler(ctx, res);
-			return 1;
-		}
+char basic_builtin_double_fn(const char* fn_name, struct basic_ctx* ctx, double* res)
+{
+	struct builtin_double_entry key = {
+		.name = fn_name,
+	};
+	struct builtin_double_entry *entry = hashmap_get(builtin_double_map, &key);
+
+	if (!entry) {
+		return 0;
 	}
-	return 0;
+
+	entry->handler(ctx, res);
+	return 1;
 }
 
 /**
@@ -366,17 +510,20 @@ char basic_builtin_double_fn(const char* fn_name, struct basic_ctx* ctx, double*
  * @param res pointer to return value of function
  * @return uint64_t true/false return
  */
-char basic_builtin_str_fn(const char* fn_name, struct basic_ctx* ctx, char** res) {
-	int i;
-	for (i = 0; builtin_str[i].name; ++i) {
-		if (!strcmp(fn_name, builtin_str[i].name)) {
-			*res = builtin_str[i].handler(ctx);
-			return *res ? 1 : 0;
-		}
-	}
-	return 0;
-}
+char basic_builtin_str_fn(const char* fn_name, struct basic_ctx* ctx, char** res)
+{
+	struct builtin_str_entry key = {
+		.name = fn_name,
+	};
+	struct builtin_str_entry *entry = hashmap_get(builtin_str_map, &key);
 
+	if (!entry) {
+		return 0;
+	}
+
+	*res = entry->handler(ctx);
+	return *res ? 1 : 0;
+}
 
 int64_t basic_eval_int_fn(const char* fn_name, struct basic_ctx* ctx)
 {
@@ -689,13 +836,15 @@ void basic_free_defs(struct basic_ctx* ctx)
 	ctx->defs = NULL;
 }
 
-bool is_builtin_double_fn(const char* fn_name) {
-	for (int i = 0; builtin_double[i].name; ++i) {
-		if (!strcmp(fn_name, builtin_double[i].name)) {
-			return true;
-		}
-	}
-	return false;
+bool is_builtin_double_fn(const char* fn_name)
+{
+	struct builtin_double_entry key = {
+		.name = fn_name,
+		.name_length = strlen(fn_name),
+		.handler = NULL
+	};
+
+	return hashmap_get(builtin_double_map, &key) != NULL;
 }
 
 void proc_statement(struct basic_ctx* ctx)

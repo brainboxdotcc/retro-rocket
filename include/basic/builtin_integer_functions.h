@@ -170,3 +170,19 @@ int64_t basic_min(struct basic_ctx* ctx);
 int64_t basic_max(struct basic_ctx* ctx);
 
 int64_t basic_secure_random(struct basic_ctx* ctx);
+
+/**
+ * @brief Initialise lookup maps for builtin BASIC functions.
+ *
+ * Builds hashmap-based lookup tables for integer, real, and string
+ * builtin functions from their static definition arrays.
+ *
+ * The maps are constructed once at interpreter initialisation and
+ * reused for the lifetime of the BASIC context.
+ *
+ * @note
+ * This function is idempotent; repeated calls have no effect once
+ * the maps have been built.
+ */
+void build_builtin_fn_maps(void);
+
