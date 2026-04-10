@@ -7,7 +7,7 @@ ON ERROR OFF
 
 STREAM CREATE music
 PRINT "Loading demon.mod"
-SOUND LOAD audio, "/system/webserver/media/demon.mod"
+SOUND LOAD audio, "/system/media/demon.mod"
 PRINT "Playing..."
 SOUND PLAY music, audio
 

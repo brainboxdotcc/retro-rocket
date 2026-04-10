@@ -20,7 +20,7 @@ ON ERROR PROCcontinue
 STREAM CREATE lead1
 ON ERROR OFF
 ON ERROR PROCcontinue
-SOUND LOAD music, "/system/webserver/media/binary-inferno.mp3"
+SOUND LOAD music, "/system/media/binary-inferno.mp3"
 ON ERROR OFF
 ON ERROR PROCcontinue
 SOUND REPEAT ON music

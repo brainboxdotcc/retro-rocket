@@ -22,19 +22,19 @@ DEF PROCaudio()
     STREAM CREATE explosions
     STREAM CREATE music_stream
 
-    SOUND LOAD player_fire_sound, "/system/webserver/media/dragonfly/player_fire.wav"
-    SOUND LOAD player_hit, "/system/webserver/media/dragonfly/player_hit.wav"
+    SOUND LOAD player_fire_sound, "/system/media/dragonfly/player_fire.wav"
+    SOUND LOAD player_hit, "/system/media/dragonfly/player_hit.wav"
 
     ' Load explosions
-    SOUND LOAD explode1, "/system/webserver/media/dragonfly/explosion01.wav"
-    SOUND LOAD explode2, "/system/webserver/media/dragonfly/explosion02.wav"
-    SOUND LOAD explode3, "/system/webserver/media/dragonfly/explosion03.wav"
-    SOUND LOAD explode4, "/system/webserver/media/dragonfly/explosion04.wav"
-    SOUND LOAD explode5, "/system/webserver/media/dragonfly/explosion05.wav"
-    SOUND LOAD explode6, "/system/webserver/media/dragonfly/explosion06.wav"
-    SOUND LOAD explode7, "/system/webserver/media/dragonfly/explosion07.wav"
-    SOUND LOAD explode8, "/system/webserver/media/dragonfly/explosion08.wav"
-    SOUND LOAD explode9, "/system/webserver/media/dragonfly/explosion09.wav"
+    SOUND LOAD explode1, "/system/media/dragonfly/explosion01.wav"
+    SOUND LOAD explode2, "/system/media/dragonfly/explosion02.wav"
+    SOUND LOAD explode3, "/system/media/dragonfly/explosion03.wav"
+    SOUND LOAD explode4, "/system/media/dragonfly/explosion04.wav"
+    SOUND LOAD explode5, "/system/media/dragonfly/explosion05.wav"
+    SOUND LOAD explode6, "/system/media/dragonfly/explosion06.wav"
+    SOUND LOAD explode7, "/system/media/dragonfly/explosion07.wav"
+    SOUND LOAD explode8, "/system/media/dragonfly/explosion08.wav"
+    SOUND LOAD explode9, "/system/media/dragonfly/explosion09.wav"
 ENDPROC
 
 DEF PROCexplosion_sound
@@ -60,7 +60,7 @@ ENDPROC
 
 DEF PROCmusic_start(level_number)
     IF AUDIO = FALSE THEN ENDPROC
-    SOUND LOAD level_music, "/system/webserver/media/dragonfly/music_level" + STR$(level_number) + ".mp3"
+    SOUND LOAD level_music, "/system/media/dragonfly/music_level" + STR$(level_number) + ".mp3"
     SOUND REPEAT ON level_music
     SOUND PLAY music_stream, level_music
 ENDPROC

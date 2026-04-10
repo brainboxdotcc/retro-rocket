@@ -8,7 +8,7 @@ ON ERROR OFF
 REM Streams
 STREAM CREATE lead1
 PRINT "Loading..."
-SOUND LOAD mod, "/system/webserver/media/" + ARGS$
+SOUND LOAD mod, "/system/media/" + ARGS$
 SOUND PLAY lead1, mod
 
 PRINT "Playing, press any key to end..."
