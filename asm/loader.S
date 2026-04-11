@@ -464,13 +464,26 @@ gate_count = (. - exception_handlers) / 8
 .global gate_count
 
 .align 4096
+.align 4096
 fred_entry_page:
-    .rept 256
-        .quad fred_unused_entry
-    .endr
-    .rept 256
-        .quad fred_common_entry
-    .endr
+    /* FRED SPEC:
+     * ----------
+     * FRED event delivery uses two entry points, depending on the CPL at the time the event
+     * occurred. This allows an event handler to identify the appropriate return instruction
+     * (ERETU or ERETS).
+     * Specifically, the new RIP value that FRED event delivery establishes is
+     * IA32_FRED_CONFIG & ~FFFH for events that occur in ring 3 and
+     * (IA32_FRED_CONFIG & ~FFFH) + 256 for events that occur in ring 0.
+     */
+
+    /* CPL3 entry (unused in this kernel) */
+    jmp fred_unused_entry
+
+    /* pad to exactly 256 bytes */
+    .fill 256 - (. - fred_entry_page), 1, 0x90
+
+    /* CPL0 entry (all kernel interrupts arrive here) */
+    jmp fred_common_entry
 
 .global fred_common_entry
 .type fred_common_entry, @function
