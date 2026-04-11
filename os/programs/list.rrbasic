@@ -1,10 +1,28 @@
-IF ARGS$ = "" THEN PRINT "File name not specified"
-IF ARGS$ = "" THEN END
+IF ARGS$ = "" THEN
+    PRINT "File name not specified"
+    END
+ENDIF
 FILE$ = ARGS$
 FH = OPENIN(FILE$)
+IF FH < 0 THEN
+    PRINT "Unable to open: " + FILE$
+    END
+ENDIF
+LAST = -1
 REPEAT
 	BYTE = READ(FH)
-	PRINT CHR$(BYTE);
+	IF BYTE = 13 THEN
+		PRINT ""
+	ELSE
+		IF BYTE = 10 THEN
+			IF LAST <> 13 THEN
+				PRINT ""
+			ENDIF
+		ELSE
+			PRINT CHR$(BYTE);
+		ENDIF
+	ENDIF
+	LAST = BYTE
 UNTIL EOF(FH) = 1
 PRINT ""
 CLOSE FH
