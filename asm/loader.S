@@ -488,10 +488,9 @@ fred_entry_page:
 .global fred_common_entry
 .type fred_common_entry, @function
 fred_common_entry:
-    mov %rsp, %r8
     MPUSHA
-    mov 0x28(%r8), %rsi
-    mov 0x08(%r8), %rdx
+    mov 0x98(%rsp), %rsi /* 120 + 0x28 = 0x98 */
+    mov 0x80(%rsp), %rdx /* 120 + 0x08 = 0x80 */
     PUSH_SENTINEL
     call Interrupt
     POP_SENTINEL
