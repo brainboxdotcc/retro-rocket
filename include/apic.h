@@ -284,3 +284,12 @@ static inline void cpu_serialise(void)
 	__asm__ volatile("mfence; cpuid"
 		::: "eax", "ebx", "ecx", "edx");
 }
+
+static inline void wrmsr(uint32_t msr, uint64_t value) {
+	uint32_t lo = (uint32_t)value;
+	uint32_t hi = (uint32_t)(value >> 32);
+	__asm__ volatile ("wrmsr"
+		:
+		: "c"(msr), "a"(lo), "d"(hi));
+}
+

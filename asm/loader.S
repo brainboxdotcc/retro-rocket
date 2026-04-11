@@ -3,8 +3,13 @@
 .extern IRQ
 .global idt_init
 .extern idt64
+.global fred_entry_page
 
 .set BT_IRQ_MARKER, 0xffffffffffffff01
+
+.macro ERETS
+    .byte 0xF2, 0x0F, 0x01, 0xCA
+.endm
 
 #define SELECTOR 40
 
@@ -457,5 +462,35 @@ exception_handlers:
 // Total count
 gate_count = (. - exception_handlers) / 8
 .global gate_count
+
+.align 4096
+fred_entry_page:
+    .rept 256
+        .quad fred_unused_entry
+    .endr
+    .rept 256
+        .quad fred_common_entry
+    .endr
+
+.global fred_common_entry
+.type fred_common_entry, @function
+fred_common_entry:
+    mov %rsp, %r8
+    MPUSHA
+    mov 0x28(%r8), %rsi
+    mov 0x08(%r8), %rdx
+    PUSH_SENTINEL
+    call Interrupt
+    POP_SENTINEL
+    MPOPA
+    ERETS
+
+.global fred_unused_entry
+.type fred_unused_entry, @function
+fred_unused_entry:
+    cli
+1:
+    hlt
+    jmp 1b
 
 .section .note.GNU-stack

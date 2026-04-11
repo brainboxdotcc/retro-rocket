@@ -21,15 +21,6 @@ uint64_t get_lapic_address() {
 	return result;
 }
 
-static inline void wrmsr(uint32_t msr, uint64_t value) {
-	uint32_t lo = (uint32_t)value;
-	uint32_t hi = (uint32_t)(value >> 32);
-	__asm__ volatile ("wrmsr"
-		:
-		: "c"(msr), "a"(lo), "d"(hi));
-}
-
-
 void apic_write(uint64_t reg, uint32_t val) {
 	if (x2apic_enabled()) {
 		wrmsr(0x800 + (reg >> 4), val);
