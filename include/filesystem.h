@@ -97,6 +97,7 @@ typedef enum fs_error_t {
 	FS_ERR_DEVICE_UNSUPPORTED,
 	FS_ERR_HW_ERROR,
 	FS_ERR_DATA_ERROR,
+	FS_ERR_SPACE_MAP_CHECKSUM,
 } fs_error_t;
 
 /**

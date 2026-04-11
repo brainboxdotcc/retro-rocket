@@ -66,6 +66,7 @@ static const char *fs_error_strings[] = {
 	"Unsupported for device",
 	"Hardware error",
 	"Uncorrectable data error",
+	"Bad free space map",
 };
 
 static struct hashmap* vfs_hash = NULL;

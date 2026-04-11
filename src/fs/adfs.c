@@ -1,40 +1,33 @@
 #include <adfs.h>
 
 static filesystem_t *adfs_fs = NULL;
-static adfs_t *adfs_volumes = NULL;
 static char empty_string[] = "";
+
+static bool adfs_validate_map_sector(const unsigned char *sector)
+{
+	uint32_t sum = 0;
+	for (int i = 0; i < 255; ++i) {
+		sum += sector[i];
+
+		if (sum > 0xff) {
+			sum = (sum & 0xff) + 1;
+		}
+	}
+
+	return (uint8_t)sum == sector[255];
+}
 
 static bool adfs_read_sector(adfs_t *fs, uint32_t lba, unsigned char *buffer)
 {
 	uint32_t side = 0;
-	uint32_t track;
-	uint32_t sector;
-	uint32_t physical_sector;
-
 	if (lba >= 0x500) {
 		side = 1;
 		lba -= 0x500;
 	}
-
-	track = lba >> 4;
-	sector = lba & 0x0f;
-
-	physical_sector = (track * 32) + (side * 16) + sector;
-
+	uint32_t track = lba >> 4;
+	uint32_t sector = lba & 0x0f;
+	uint32_t physical_sector = (track * 32) + (side * 16) + sector;
 	return read_storage_device(fs->device->name, physical_sector, ADFS_SECTOR_SIZE, buffer);
-}
-
-static adfs_t *adfs_find_volume(const char *device_name)
-{
-	adfs_t *walk = adfs_volumes;
-
-	for (; walk; walk = walk->next) {
-		if (!strcmp(walk->device->name, device_name)) {
-			return walk;
-		}
-	}
-
-	return NULL;
 }
 
 static char *adfs_decode_name(const char *src)
@@ -81,10 +74,18 @@ static bool adfs_build_extent_map(adfs_t *fs)
 	unsigned char sector0[ADFS_SECTOR_SIZE];
 	unsigned char sector1[ADFS_SECTOR_SIZE];
 
-	if (!adfs_read_sector(fs, 0, sector0) ||
-	    !adfs_read_sector(fs, 1, sector1)) {
+	if (!adfs_read_sector(fs, 0, sector0) || !adfs_read_sector(fs, 1, sector1)) {
 		dprintf("ADFS: Failed to read map sectors\n");
 		return false;
+	}
+	bool map0_ok = adfs_validate_map_sector(sector0);
+	bool map1_ok = adfs_validate_map_sector(sector1);
+	if (!map0_ok || !map1_ok) {
+		fs_set_error(FS_ERR_SPACE_MAP_CHECKSUM);
+		dprintf("ADFS: Free space map checksums invalid\n");
+		return false;
+	} else {
+		dprintf("ADFS: Free space map checksum OK\n");
 	}
 
 	fs->extent_count = 1;
@@ -97,8 +98,7 @@ static bool adfs_build_extent_map(adfs_t *fs)
 	fs->extents[0].start = 2;
 	fs->extents[0].length = fs->total_sectors > 2 ? fs->total_sectors - 2 : 0;
 
-	dprintf("ADFS: Using simple extent map start=%u len=%u\n",
-		fs->extents[0].start, fs->extents[0].length);
+	dprintf("ADFS: Using simple extent map start=%u len=%u\n", fs->extents[0].start, fs->extents[0].length);
 
 	return true;
 }
@@ -106,12 +106,7 @@ static bool adfs_build_extent_map(adfs_t *fs)
 /* ------------------------------------------------------------------------- */
 /* file read */
 
-static bool adfs_read_file_data(adfs_t *fs,
-				uint32_t start_sector,
-				uint64_t start,
-				uint32_t length,
-				unsigned char *buffer,
-				uint32_t file_length)
+static bool adfs_read_file_data(adfs_t *fs, uint32_t start_sector, uint64_t start, uint32_t length, unsigned char *buffer, uint32_t file_length)
 {
 	if (start >= file_length) {
 		return true;
@@ -207,10 +202,7 @@ static fs_directory_entry_t *adfs_parse_directory(fs_tree_t *node, adfs_t *fs, u
 			return NULL;
 		}
 
-		uint32_t start =
-			((uint32_t)e->start[0]) |
-			((uint32_t)e->start[1] << 8) |
-			((uint32_t)e->start[2] << 16);
+		uint32_t start = ((uint32_t)e->start[0]) | ((uint32_t)e->start[1] << 8) | ((uint32_t)e->start[2] << 16);
 
 		fs_directory_entry_t *entry = kcalloc(1, sizeof(fs_directory_entry_t));
 		if (!entry) {
@@ -232,12 +224,7 @@ static fs_directory_entry_t *adfs_parse_directory(fs_tree_t *node, adfs_t *fs, u
 			entry->flags |= FS_DIRECTORY;
 		}
 
-		dprintf("ADFS: Entry %u '%s' start=%u len=%u\n",
-			i,
-			name,
-			entry->lbapos,
-			entry->size,
-			(entry->flags & FS_DIRECTORY) ? " dir" : "");
+		dprintf("ADFS: Entry %u '%s' start=%lu len=%lu\n", i, name, entry->lbapos, entry->size);
 
 		entry->next = list;
 		list = entry;
@@ -258,8 +245,7 @@ static adfs_t *adfs_mount_volume(const char *name)
 		return NULL;
 	}
 
-	dprintf("ADFS: Mounting '%s' block_size=%u blocks=%u\n",
-		dev->name, dev->block_size, dev->size);
+	dprintf("ADFS: Mounting '%s' block_size=%u blocks=%lu\n", dev->name, dev->block_size, dev->size);
 
 	adfs_t *fs = kcalloc(1, sizeof(adfs_t));
 	if (!fs) {
@@ -354,11 +340,12 @@ bool adfs_read_file(void *f, uint64_t start, uint32_t length, unsigned char *buf
 		return false;
 	}
 
-	adfs_t *fs = adfs_find_volume(file->device_name);
-	if (!fs) {
+	if (!file->directory || !file->directory->opaque) {
 		fs_set_error(FS_ERR_VFS_DATA);
 		return false;
 	}
+
+	adfs_t *fs = (adfs_t *)file->directory->opaque;
 
 	return adfs_read_file_data(fs, file->lbapos, start, length, buffer, file->size);
 }
@@ -369,10 +356,6 @@ int adfs_attach(const char *device, const char *path)
 	if (!vol) {
 		return 0;
 	}
-
-	vol->next = adfs_volumes;
-	adfs_volumes = vol;
-
 	return attach_filesystem(path, adfs_fs, vol);
 }
 
