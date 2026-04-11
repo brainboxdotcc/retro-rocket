@@ -47,6 +47,14 @@ uint32_t ntohl(uint32_t netlong) {
 	return flip_long(netlong);
 }
 
+uint64_t htonll(uint64_t host) {
+	return __builtin_bswap64(host);
+}
+
+uint64_t ntohll(uint64_t host) {
+	return __builtin_bswap64(host);
+}
+
 #else
 
 /* Big endian machines like motorola, DEC, MIPS, Sparc are Big-Endian.

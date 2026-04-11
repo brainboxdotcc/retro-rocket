@@ -122,6 +122,17 @@ uint16_t ntohs(uint16_t netshort);
  */
 uint32_t ntohl(uint32_t netlong);
 
+/**
+ * @brief Convert 64‑bit value from host to network byte order.
+ */
+uint64_t htonll(uint64_t host);
+
+/**
+ * @brief Convert 64‑bit value from network to host byte order.
+ */
+uint64_t ntohll(uint64_t host);
+
+
 /* ------------------------------------------------------------------------- */
 /* Network stack control                                                      */
 /* ------------------------------------------------------------------------- */

@@ -2,47 +2,58 @@
 
 ![image](https://retrorocket.dev/leader3.png)
 
-Imagine an alterate present time, where the [BBC Micro](https://en.wikipedia.org/wiki/BBC_Micro) had continued to thrive and develop to the present day. In this alternate present this operating system exists alongside Windows and Linux but stands apart.
+Retro Rocket is a small operating system in the spirit of the 1980s micros. Something you can actually understand, not just use.
 
-This is an alternative operating system inspired by [Acorn MOS 3.20](https://en.wikipedia.org/wiki/Acorn_MOS), but modernised for current hardware as a thought experiment and a bit of a toy to have fun with.
+It runs on real x86-64 hardware, has its own programming language for the shell and for writing programs inspired by BASIC, and doesn’t hide much. Everything is there for you to play with
+if you want to dig into it, and you can just start writing programs immediately, right from the command prompt, without waiting for programs to compile. You can write games, internet utilities,
+or anything you like.
 
-Its userland is completely written in a dialect of BASIC based heavily on BBC BASIC, with full access to hardware (just like the old days), SMP, multi-tasking, modern filesystem support, internet utilities and more as well as planned backwards compatibility with Acorn features such as ADFS via disk images.
+You can sit down with it, try things, break things, and see what happens. The idea is that you’re always close to what the system is actually doing, not several layers removed from it.
+
+Getting into low-level stuff can usually be a bit of a wall. You usually end up fighting tools, languages, and systems that assume you already know the answer. This is a more direct way in.
+
+Retro Rocket meets you in the middle, letting you dive into the guts of your computer.
 
 ## 🌟 Features
 
-* 💻Command line shell powered by BASIC
-* 🧰A bunch of useful command line tools, including:
-  * 📜A fully featured WYSIWYG editor
-  * 💬A simple IRC client
-  * 🌐A web server!
-* ✏️Graphics drawing commands
-  * Image loading of PNG, GIF, BMP, TGA
-* 🔊Sound support for AC'97 and HD Audio cards with:
+* Command line shell powered by BASIC
+* A bunch of useful command line tools, including:
+  * A fully featured WYSIWYG editor
+  * A simple IRC client
+  * Telnet client
+  * A web server!
+* ️Graphics drawing commands
+  * Image loading of JPG, PNG, GIF, BMP, TGA, PSD (and support for animated GIF with animation control)
+  * Software rendered advanced sprite blitting
+* 🔊Sound support for **AC'97**, **HD Audio** and **Xonar D1** cards with:
   * 64 channel polyphonic mixer
-  * wav support
-  * mp3 support
-  * flac support
-  * ogg vorbis support
-  * tracker mod and xm support
+  * WAV support
+  * MP3 support
+  * FLAC support
+  * OGG vorbis support
+  * tracker MOD and XM support
   * ADSR envelopes and waveform synthesis
-* 💽Virtual File System with support for:
+* Supports the following file systems:
   * RetroFS (*read/write*)
   * FAT32 (*read/write*)
   * ISO9660 (*read only*)
-* ✅Multitasking of BASIC programs
-* 📶Network stack with TCP, IP, UDP, and ICMP
+  * UDF (*read only*)
+* Multitasking of BASIC programs
+* Network stack with TCP, IP, UDP, and ICMP
   * TLS is supported
-* 📦Full installer to install the OS to:
+* Full installer to install the OS to:
   * NVMe
   * AHCI/SATA
   * VirtIO
 
 ## 💻 System Requirements
 
-* An `x86_64` system; CD/DVD or USB boot, or installation from hard disk
+* Any `x86_64` system from 2012 onwards
 * Or run under emulation via [QEMU](https://www.qemu.org/)
-* Optionally: RTL8139 or e1000 network card - tested on real hardware!
-* SATA AHCI compatible optical drive and hard drive/SSD, NVMe or VirtIO (as supported by QEMU) - IDE is not supported!
+* Optionally: RTL8139, e1000, or RTL8169 network card - tested on real hardware!
+* SATA AHCI compatible optical drive and hard drive/SSD, NVMe or VirtIO (as supported by QEMU)
+* For installation and hard disk boot, UEFI is required
+* UEFI required for USB boot, CSM required for CD-ROM boot
 
 ## 🔨 Documentation
 
@@ -68,7 +79,7 @@ cd retrorocket
 mkdir build
 cd build
 cmake ..
-make -j $NPROC
+make -j ${NPROC}
 ```
 
 the ISO and USB images will be written to the build directory.
