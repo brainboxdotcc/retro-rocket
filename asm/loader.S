@@ -477,13 +477,13 @@ fred_entry_page:
      */
 
     /* CPL3 entry (unused in this kernel) */
-    jmp fred_unused_entry
+    .quad fred_unused_entry
 
     /* pad to exactly 256 bytes */
-    .fill 256 - (. - fred_entry_page), 1, 0x90
+    .fill 0x100 - 8, 1, 0
 
     /* CPL0 entry (all kernel interrupts arrive here) */
-    jmp fred_common_entry
+    .quad fred_common_entry
 
 .global fred_common_entry
 .type fred_common_entry, @function
