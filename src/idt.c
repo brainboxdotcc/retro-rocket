@@ -67,13 +67,13 @@ static inline void write_cr4(uint64_t cr4)
 
 static bool fred_supported(void)
 {
-	unsigned int eax, ebx, ecx, edx;
-
-	if (!__get_cpuid_count(7, 1, &eax, &ebx, &ecx, &edx)) {
-		return false;
-	}
-
-	return (eax & (1u << 17)) != 0;
+	uint32_t eax = 7, ebx = 0, ecx = 1, edx = 0;
+	__asm__ volatile (
+		"cpuid"
+		: "=a"(eax), "=b"(ebx), "=c"(ecx), "=d"(edx)
+		: "a"(eax), "c"(ecx)
+		);
+	return (eax >> 17) & 1u;
 }
 
 static void interrupt_bsp_common_early_init(void)
