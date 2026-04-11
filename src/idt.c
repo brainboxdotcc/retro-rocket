@@ -1,5 +1,9 @@
-// idt.c - fixed and safe version for up to 256 entries
-
+/**
+ * @file idt.c
+ * @brief Select from IDT or FRED for kernel interrupt delivery
+ * @author Craig Edwards (craigedwards@brainbox.cc)
+ * @copyright Copyright (c) 2012-2026
+ */
 #include <kernel.h>
 #include <cpuid.h>
 
@@ -72,6 +76,55 @@ static bool fred_supported(void)
 	return (eax & (1u << 17)) != 0;
 }
 
+static void interrupt_bsp_common_early_init(void)
+{
+	init_error_handler();
+#ifndef USE_IOAPIC
+	register_interrupt_handler(IRQ0, timer_callback, dev_zero, NULL);
+#endif
+}
+
+static void interrupt_bsp_program_pit(void)
+{
+	uint32_t frequency = 50;
+	uint32_t divisor = 1193180 / frequency;
+
+	outb(0x43, 0x36);
+	outb(0x40, divisor & 0xFF);
+	outb(0x40, divisor >> 8);
+}
+
+static void interrupt_bsp_route_irqs(void)
+{
+	pic_remap(0x20, 0x28);
+#ifdef USE_IOAPIC
+	pic_disable();
+	cpu_serialise();
+	remap_irqs_to_ioapic();
+	cpu_serialise();
+	init_lapic_timer(1000);
+	cpu_serialise();
+	apic_setup_ap();
+#else
+	pic_enable();
+#endif
+}
+
+static void output_interrupt_mechanism(const char* mechanism)
+{
+	kprintf("Interrupt delivery method: ");
+	setforeground(COLOUR_LIGHTYELLOW);
+	kprintf("%s\n", mechanism);
+	setforeground(COLOUR_WHITE);
+}
+
+static void interrupt_bsp_common_late_init(void)
+{
+	acpi_claim_deferred_irqs();
+	interrupts_on();
+	dprintf("Interrupts enabled!\n");
+}
+
 static bool enable_fred_for_this_cpu(void)
 {
 	uint64_t config;
@@ -102,38 +155,18 @@ static bool enable_fred_for_this_cpu(void)
 
 static bool init_fred(void)
 {
-	init_error_handler();
-#ifndef USE_IOAPIC
-	register_interrupt_handler(IRQ0, timer_callback, dev_zero, NULL);
-#endif
-
-	uint32_t frequency = 50;
-	uint32_t divisor = 1193180 / frequency;
-	outb(0x43, 0x36);
-	outb(0x40, divisor & 0xFF);
-	outb(0x40, divisor >> 8);
-
-	pic_remap(0x20, 0x28);
-#ifdef USE_IOAPIC
-	pic_disable();
-	cpu_serialise();
-	remap_irqs_to_ioapic();
-	cpu_serialise();
-	init_lapic_timer(1000);
-	cpu_serialise();
-	apic_setup_ap();
-#else
-	pic_enable();
-#endif
+	interrupt_bsp_common_early_init();
+	interrupt_bsp_program_pit();
+	interrupt_bsp_route_irqs();
 
 	if (!enable_fred_for_this_cpu()) {
 		return false;
 	}
 
-	acpi_claim_deferred_irqs();
-	interrupts_on();
+	output_interrupt_mechanism("FRED");
+	setforeground(VGA_FG_WHITE);
+	interrupt_bsp_common_late_init();
 
-	dprintf("Interrupts enabled!\n");
 	return true;
 }
 
@@ -186,40 +219,16 @@ void pic_eoi(int irq) {
 void init_idt() {
 	memset(idt_entries, 0, sizeof(idt_entries));
 
-	init_error_handler();
-#ifndef USE_IOAPIC
-	// We only care about IRQ0 for timer if we aren't using APIC
-	register_interrupt_handler(IRQ0, timer_callback, dev_zero, NULL);
-#endif
+	interrupt_bsp_common_early_init();
 
-	// Fill the IDT with handler pointers (in loader.S)
 	idt_init(idt_entries);
 
 	__asm__ volatile("lidtq (%0)" :: "r"(&idt64));
 
-	uint32_t frequency = 50;
-	uint32_t divisor = 1193180 / frequency;
-	outb(0x43, 0x36);
-	outb(0x40, divisor & 0xFF);
-	outb(0x40, divisor >> 8);
-
-	pic_remap(0x20, 0x28);
-#ifdef USE_IOAPIC
-	pic_disable();
-	cpu_serialise();
-	remap_irqs_to_ioapic();
-	cpu_serialise();
-	init_lapic_timer(1000);
-	cpu_serialise();
-	apic_setup_ap();
-#else
-	pic_enable();
-#endif
-
-	acpi_claim_deferred_irqs();
-	interrupts_on();
-
-	dprintf("Interrupts enabled!\n");
+	interrupt_bsp_program_pit();
+	interrupt_bsp_route_irqs();
+	output_interrupt_mechanism("IDT");
+	interrupt_bsp_common_late_init();
 }
 
 void init_interrupts() {
