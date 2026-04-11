@@ -166,3 +166,5 @@ void free_msi_vector(uint8_t cpu, int vec);
 void load_ap_shared_idt();
 
 void load_ap_shared_interrupts();
+
+void init_interrupts();
