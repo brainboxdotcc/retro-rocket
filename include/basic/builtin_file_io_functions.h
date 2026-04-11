@@ -242,3 +242,5 @@ char* basic_ramdisk_from_size(struct basic_ctx* ctx);
 void readbinary_statement(struct basic_ctx* ctx);
 
 void writebinary_statement(struct basic_ctx* ctx);
+
+char* basic_ramdisk_from_image(struct basic_ctx* ctx);

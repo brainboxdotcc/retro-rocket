@@ -92,3 +92,4 @@ bool decompress_gzip(uint8_t *compressed_image, size_t compressed_size, uint8_t*
  *   read-only as ISO-9660. This path is used by live USB boot.
  */
 bool mount_initial_ramdisk(uint8_t* compressed_image, size_t compressed_size);
+

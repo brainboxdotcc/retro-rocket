@@ -343,6 +343,35 @@ char* basic_ramdisk_from_device(struct basic_ctx* ctx)
 	return (char*)gc_strdup(ctx, rd);
 }
 
+char* basic_ramdisk_from_image(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	PARAMS_END("ADFSIMAGE$","");
+	const char* imagefile = make_full_path(ctx, strval);
+	fs_directory_entry_t *info = fs_get_file_info(imagefile);
+	if (!info || (info->flags & FS_DIRECTORY) != 0) {
+		tokenizer_error_printf(ctx, "ADFS Image %s not found or is a directory", imagefile);
+		return "";
+	}
+	uint8_t* image = kmalloc(info->size);
+	if (!image) {
+		tokenizer_error_print(ctx, "Out of memory for ADFS disk image");
+		return "";
+	}
+	if (!fs_read_file(info, 0, info->size, image)) {
+		kfree_null(&image);
+		tokenizer_error_printf(ctx, "Unable to load ADFS disk image from %s", imagefile);
+		return "";
+	}
+	const char* rd = init_ramdisk_from_adfs_image(image, info->size);
+	if (!rd) {
+		kfree_null(&image);
+		return "";
+	}
+	return (char*)gc_strdup(ctx, rd);
+}
+
 char* basic_ramdisk_from_size(struct basic_ctx* ctx)
 {
 	PARAMS_START;

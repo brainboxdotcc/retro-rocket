@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"VAL.html":[0,1,3,0,82],
 "VDU.html":[0,1,2,108],
 "WEEKDAY.html":[0,1,3,0,83],
 "WHILE.html":[0,1,2,109],

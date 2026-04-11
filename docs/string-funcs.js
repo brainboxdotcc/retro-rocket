@@ -1,5 +1,6 @@
 var string_funcs =
 [
+    [ "ADFSIMAGE$ Function", "ADFSIMAGE.html", null ],
     [ "BOOL$ Function", "BOOL.html", null ],
     [ "CHR$ Function", "CHR.html", null ],
     [ "CSD$ Function", "CSD.html", null ],

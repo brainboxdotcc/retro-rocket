@@ -10,16 +10,10 @@ typedef struct ramdisk_t {
 
 static struct hashmap *disks = NULL;
 
-int rd_compare(const void *a, const void *b,[[maybe_unused]
-
-]
-__attribute__((unused)) void *udata
-) {
-const ramdisk_t *rd1 = a;
-const ramdisk_t *rd2 = b;
-return
-strcmp(rd1
-->name, rd2->name);
+int rd_compare(const void *a, const void *b,[[maybe_unused]] __attribute__((unused)) void *udata) {
+	const ramdisk_t *rd1 = a;
+	const ramdisk_t *rd2 = b;
+	return strcmp(rd1->name, rd2->name);
 }
 
 uint64_t rd_hash(const void *item, uint64_t seed0, uint64_t seed1) {

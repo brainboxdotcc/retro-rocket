@@ -204,6 +204,7 @@ struct basic_double_fn builtin_double[] = {
 
 struct basic_str_fn builtin_str[] =
 {
+	{ basic_ramdisk_from_image,   "ADFSIMAGE$"    },
 	{ basic_bool,                 "BOOL$"         },
 	{ basic_chr,                  "CHR$"          },
 	{ basic_cpugetbrand,          "CPUGETBRAND$"  },

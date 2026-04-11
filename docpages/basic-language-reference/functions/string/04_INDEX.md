@@ -2,6 +2,7 @@
 
 The following functions return or manipulate **string values** in Retro Rocket BASIC.
 
+* \subpage ADFSIMAGE
 * \subpage BOOL
 * \subpage CHR
 * \subpage CSD
