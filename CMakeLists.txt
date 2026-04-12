@@ -9,7 +9,7 @@ option(PROFILE_KERNEL "Profile the kernel, and output callgrind compatible file 
 
 set(HARD_DISK_IMAGE "../../harddisk0" CACHE STRING "Path to hard disk image when running QEMU")
 
-add_compile_definitions(Z_SOLO Z_PREFIX=z_)
+add_compile_definitions(Z_SOLO)
 
 set(CMAKE_VERBOSE_MAKEFILE OFF)
 set(CMAKE_C_COMPILER gcc)
