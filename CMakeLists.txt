@@ -14,7 +14,7 @@ add_compile_definitions(Z_SOLO Z_PREFIX=z_)
 set(CMAKE_VERBOSE_MAKEFILE OFF)
 set(CMAKE_C_COMPILER gcc)
 set(CMAKE_C_LINK_EXECUTABLE "ld -m elf_x86_64 -nostdlib -no-pie --export-dynamic -T ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/linker.ld <OBJECTS> -o <TARGET> <LINK_LIBRARIES>")
-set(CMAKE_ASM_FLAGS "-pipe -g -fno-PIC -Wall -Wextra -Wl,--export-dynamic -Wno-unused-parameter -Wno-int-to-pointer-cast -nostdlib -ffreestanding -nostartfiles -nodefaultlibs -mcmodel=large -mno-red-zone")
+set(CMAKE_ASM_FLAGS "-pipe -g -fno-PIC -Wall -Wextra -Wl,--export-dynamic -Wno-unused-parameter -Wno-int-to-pointer-cast -nostdlib -ffreestanding -nostartfiles -nodefaultlibs -mcmodel=large -mno-red-zone -fno-stack-protector -fno-stack-check")
 
 set(CMAKE_ASM_NASM_OBJECT_FORMAT elf64)
 
