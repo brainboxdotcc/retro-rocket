@@ -99,12 +99,12 @@ DEF FNdecode_line_ref$(A, B, C)
     X = A * 4
     X = X - (X / 256) * 256
 
-    Y = B XOR (X AND 192)
+    Y = BITEOR(B,(BITAND(X,192)))
 
     X = X * 4
     X = X - (X / 256) * 256
 
-    Z = C XOR X
+    Z = BITEOR(C,X)
 
     = STR$(Z * 256 + Y)
 
