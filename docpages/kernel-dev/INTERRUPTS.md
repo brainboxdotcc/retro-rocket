@@ -39,7 +39,7 @@ Retro Rocket supports two interrupt delivery mechanisms on AMD64:
 
 The kernel attempts to enable FRED first:
 
-```c
+```cpp
 if (fred_enabled && init_fred()) {
 ```
 
@@ -78,7 +78,7 @@ Retro Rocket sets up a full 256-entry Interrupt Descriptor Table, aligned on a 1
 
 The legacy PIC is briefly remapped to avoid IRQ overlaps with CPU exceptions, and then **disabled entirely** if APIC is enabled.
 
-```c
+```cpp
 __asm__ volatile("lidtq (%0)" :: "r"(&idt64));
 ```
 
@@ -86,7 +86,7 @@ __asm__ volatile("lidtq (%0)" :: "r"(&idt64));
 
 Each IRQ is masked until a handler is explicitly registered using:
 
-```c
+```cpp
 register_interrupt_handler(irqnum, handler, dev, ctx);
 ```
 
@@ -194,7 +194,7 @@ Interrupt sources are discovered from:
 
 This routing is queried using:
 
-```c
+```cpp
 uint32_t irq_to_gsi(uint8_t irq);
 uint8_t get_irq_polarity(uint8_t irq);
 ```
@@ -205,7 +205,7 @@ uint8_t get_irq_polarity(uint8_t irq);
 
 Drivers register handlers with:
 
-```c
+```cpp
 register_interrupt_handler(uint8_t irq, handler_t fn, device_t dev, void *ctx);
 ```
 
