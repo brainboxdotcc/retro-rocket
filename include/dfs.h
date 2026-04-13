@@ -64,10 +64,7 @@ typedef struct __attribute__((packed)) dfs_catalogue_meta {
 	uint8_t exec_mid;      /**< Exec address mid byte */
 	uint8_t length_lo;     /**< File length low byte */
 	uint8_t length_mid;    /**< File length mid byte */
-	unsigned int start_hi : 2;   /**< Start sector high bits */
-	unsigned int load_hi : 2;    /**< Load address high bits */
-	unsigned int exec_hi : 2;    /**< Exec address high bits */
-	unsigned int length_hi : 2;  /**< File length high bits */
+	uint8_t hi_bits;
 	uint8_t start_lo;      /**< Start sector low byte */
 } dfs_catalogue_meta_t;
 

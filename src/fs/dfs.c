@@ -49,14 +49,12 @@ static uint32_t dfs_catalogue_sector_count(const dfs_catalogue_sector1_t *cat1)
 
 static uint32_t dfs_file_length(const dfs_catalogue_meta_t *meta)
 {
-	return ((uint32_t)meta->length_hi << 16) |
-	       ((uint32_t)meta->length_mid << 8) |
-	       meta->length_lo;
+	return ((uint32_t)(meta->hi_bits & 0x30) << 12) | ((uint32_t)meta->length_mid << 8) | meta->length_lo;
 }
 
 static uint32_t dfs_file_start(const dfs_catalogue_meta_t *meta)
 {
-	return ((uint32_t)meta->start_hi << 8) | meta->start_lo;
+	return ((uint32_t)(meta->hi_bits & 0x03) << 8) | meta->start_lo;
 }
 
 static bool dfs_side_is_formatted(dfs_t *fs, uint32_t side)
@@ -211,8 +209,6 @@ static fs_directory_entry_t *dfs_parse_side(fs_tree_t *node, dfs_t *fs, uint32_t
 		entry->lbapos = side == 1 ? (DFS_LBAPOS_SIDE_FLAG | start_sector) : start_sector;
 
 		strlcpy(entry->device_name, fs->device->name, 16);
-
-		dprintf("DFS: side=%u '%s' start=%u len=%u\n", side, name, start_sector, file_length);
 
 		entry->next = list;
 		list = entry;

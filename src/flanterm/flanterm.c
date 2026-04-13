@@ -1638,14 +1638,6 @@ static void flanterm_putchar(struct flanterm_context *ctx, uint8_t c) {
 				ctx->callback(ctx, FLANTERM_CB_BELL, 0, 0, 0);
 			}
 			return;
-		case 14:
-			// Move to G1 set
-			ctx->current_charset = 1;
-			return;
-		case 15:
-			// Move to G0 set
-			ctx->current_charset = 0;
-			return;
 	}
 
 	if (ctx->insert_mode == true) {
