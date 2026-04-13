@@ -87,7 +87,7 @@ void Interrupt(uint64_t isrnumber, uint64_t errorcode, uint64_t rip) {
 	__attribute__((aligned(64))) uint8_t fx[512]; /* 64 byte alignment is mandatory for FRED */
 	__builtin_ia32_fxsave64(&fx);
 
-	for (shared_interrupt_t *si = shared_interrupt[0][isrnumber]; si; si = si->next) {
+	for (shared_interrupt_t *si = shared_interrupt[logical_cpu_id()][isrnumber]; si; si = si->next) {
 		/* There is no shared interrupt routing on these interrupts,
 		 * they are purely routed to interested handlers
 		 */

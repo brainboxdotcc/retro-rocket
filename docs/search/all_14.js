@@ -49,7 +49,7 @@ var searchData=
   ['linux_20advanced_46',['Linux (advanced)',['../creating-boot-media.html#linux-advanced',1,'']]],
   ['linux_20recommended_20tools_47',['Linux (recommended tools)',['../creating-boot-media.html#linux-recommended-tools',1,'']]],
   ['list_20command_48',['list command',['../list.html',1,'commands']]],
-  ['list_20full_20pathname_49',['list [full pathname]',['../list.html#list-full-pathname',1,'']]],
+  ['list_20filename_49',['list [filename]',['../list.html#list-filename',1,'']]],
   ['list_20like_20operations_50',['Arrays &amp;amp; list-like operations',['../basic-intdev.html#arrays--list-like-operations',1,'']]],
   ['list_2emd_51',['list.md',['../list_8md.html',1,'']]],
   ['live_52',['Where programs live',['../working-with-programs.html#where-programs-live',1,'']]],

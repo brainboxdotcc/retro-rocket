@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=11">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Retro Rocket OS: list command</title>
+    <title>Retro Rocket OS: dump command</title>
     <link href="tabs.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -16,7 +16,7 @@
     <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-    <meta name="title" content="list command - Retro Rocket OS">
+    <meta name="title" content="dump command - Retro Rocket OS">
     <meta name="description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="author" content="Retro Rocket Developers">
     <meta name="robots" content="index, follow">
@@ -24,7 +24,7 @@
     <meta name="theme-color" content="#0b0f14">
     <link rel="icon" href="rr.png">
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="list command - Retro Rocket OS">
+    <meta property="og:title" content="dump command - Retro Rocket OS">
     <meta property="og:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://retrorocket.dev/">
@@ -32,7 +32,7 @@
     <meta property="og:image:alt" content="Retro Rocket OS running on a retro-style desktop">
     <meta property="og:site_name" content="Retro Rocket OS">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="list command - Retro Rocket OS">
+    <meta name="twitter:title" content="dump command - Retro Rocket OS">
     <meta name="twitter:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="twitter:image" content="https://retrorocket.dev/leader4.png">
     <link rel="preload" as="image" href="https://retrorocket.dev/leader4.png">
@@ -94,7 +94,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('list.html','',''); });
+$(function(){initNavTree('dump.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -120,16 +120,17 @@ $(function(){initNavTree('list.html','',''); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">list command </div></div>
+  <div class="headertitle"><div class="title">dump command </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h3 class="doxsection"><a class="anchor" id="list-filename"></a>
-list [filename]</h3>
-<p>Outputs the ASCII contents of a file, mainly useful for BASIC programs.</p>
+<div class="textblock"><h3 class="doxsection"><a class="anchor" id="dump-filename"></a>
+dump [filename]</h3>
+<p>Outputs a hex dump of the provided file. The command will show 16 bytes of data per line, with the hex values on the left and the ASCII values on the right:</p>
 <div class="image">
-<img src="list.png" alt=""/>
+<img src="dump.png" alt=""/>
 </div>
- </div></div><!-- contents -->
+<p>Unprintable characters will be shown as <span class="tt">.</span> </p>
+</div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

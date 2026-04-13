@@ -34,6 +34,7 @@ The following pages describe each command in detail:
 - \subpage delete
 - \subpage demo
 - \subpage dir-full-pathname
+- \subpage dump
 - \subpage edit
 - \subpage envelope_test
 - \subpage eval

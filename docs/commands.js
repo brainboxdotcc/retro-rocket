@@ -14,6 +14,7 @@ var commands =
     [ "delete program", "delete.html", null ],
     [ "demo command", "demo.html", null ],
     [ "dir command", "dir-full-pathname.html", null ],
+    [ "dump command", "dump.html", null ],
     [ "edit command", "edit.html", [
       [ "Text Editor", "edit.html#text-editor", [
         [ "Starting the editor", "edit.html#starting-the-editor", null ],

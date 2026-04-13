@@ -14,7 +14,7 @@ var searchData=
   ['patchdata_24_11',['PROChttp_patch(url$, patchdata$)',['../http.html#prochttp_patchurl-patchdata',1,'']]],
   ['patent_20license_12',['3. Grant of Patent License',['../third-party-notices.html#autotoc_md3-grant-of-patent-license',1,'']]],
   ['path_24_13',['PATH$',['../rocketsh.html#path',1,'']]],
-  ['pathname_14',['pathname',['../delete.html#delete-full-pathname',1,'delete [full pathname]'],['../list.html#list-full-pathname',1,'list [full pathname]'],['../mkdir.html#mkdir-full-pathname',1,'mkdir [full pathname]'],['../rmdir.html#rmdir-full-pathname',1,'rmdir [full pathname]']]],
+  ['pathname_14',['pathname',['../delete.html#delete-full-pathname',1,'delete [full pathname]'],['../mkdir.html#mkdir-full-pathname',1,'mkdir [full pathname]'],['../rmdir.html#rmdir-full-pathname',1,'rmdir [full pathname]']]],
   ['patterns_15',['Common patterns',['../PUSH.html#common-patterns',1,'']]],
   ['pause_16',['SOUND PAUSE',['../SOUND.html#sound-pause',1,'']]],
   ['peek_20function_17',['PEEK Function',['../PEEK.html',1,'int-funcs']]],

@@ -1,0 +1,66 @@
+IF ARGS$ = "" THEN
+    PRINT "File name not specified"
+    END
+ENDIF
+
+FILE$ = ARGS$
+FH = OPENIN(FILE$)
+IF FH < 0 THEN
+    PRINT "Unable to open: " + FILE$
+    END
+ENDIF
+
+OFFSET = 0
+
+REPEAT
+    COUNT = 0
+    ASCII$ = ""
+
+    IF EOF(FH) = 1 THEN
+        END
+    ENDIF
+
+    ADDR$ = RADIX$(OFFSET, 16)
+    REPEAT
+        IF LEN(ADDR$) < 8 THEN
+            ADDR$ = "0" + ADDR$
+        ENDIF
+    UNTIL LEN(ADDR$) >= 8
+
+    PRINT ADDR$; "    ";
+
+    REPEAT
+        IF (COUNT < 16) AND (EOF(FH) = 0) THEN
+            BYTE = READ(FH)
+
+            HEX$ = RADIX$(BYTE, 16)
+            IF LEN(HEX$) = 1 THEN
+                HEX$ = "0" + HEX$
+            ENDIF
+
+            PRINT HEX$; " ";
+
+            IF (BYTE >= 32) AND (BYTE <= 126) THEN
+                ASCII$ = ASCII$ + CHR$(BYTE)
+            ELSE
+                ASCII$ = ASCII$ + "."
+            ENDIF
+
+            COUNT = COUNT + 1
+        ENDIF
+    UNTIL (COUNT = 16) OR (EOF(FH) = 1)
+
+    REPEAT
+        IF COUNT < 16 THEN
+            PRINT "   ";
+            ASCII$ = ASCII$ + " "
+            COUNT = COUNT + 1
+        ENDIF
+    UNTIL COUNT = 16
+
+    PRINT "   "; ASCII$
+
+    OFFSET = OFFSET + 16
+UNTIL 0
+
+CLOSE FH

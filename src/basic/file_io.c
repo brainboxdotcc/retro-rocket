@@ -59,7 +59,7 @@ char* basic_readstring(struct basic_ctx* ctx)
 
 int64_t basic_read(struct basic_ctx* ctx)
 {
-	char res;
+	uint8_t res;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	PARAMS_END("READ", 0);
