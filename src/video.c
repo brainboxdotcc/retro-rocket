@@ -259,10 +259,9 @@ void dput(const char n) {
  * trigger scrolling if the character would be off-screen.
  */
 void put(const char n) {
-	/*if (n != 27) {
-		dput(n);
-	}*/
-	ft_write(ft_ctx, &n, 1);
+	if (ft_ctx) {
+		ft_write(ft_ctx, &n, 1);
+	}
 }
 
 void dputstring(const char* message)
@@ -619,7 +618,7 @@ void set_video_auto_flip(bool flip) {
 }
 
 void rr_flip(void) {
-	if (!video_dirty) {
+	if (!video_dirty || !rr_fb_front) {
 		return;
 	}
 	if (video_dirty_start != -1 && video_dirty_end != -1) {

@@ -7,6 +7,7 @@
 
 .set BT_IRQ_MARKER, 0xffffffffffffff01
 
+/* Needed for versions of GAS that don't support erets natively */
 .macro ERETS
     .byte 0xF2, 0x0F, 0x01, 0xCA
 .endm
@@ -463,46 +464,33 @@ exception_handlers:
 gate_count = (. - exception_handlers) / 8
 .global gate_count
 
+.global fred_ring3_entry_asm_stub
+.global fred_ring0_entry_asm_stub
+.global fred_ring3_entry_asm
+.global fred_ring0_entry_asm
+
+.extern fred_ring3_entry
+.extern fred_ring0_entry
+
+.section .text
 .align 4096
-.align 4096
-fred_entry_page:
-    /* FRED SPEC:
-     * ----------
-     * FRED event delivery uses two entry points, depending on the CPL at the time the event
-     * occurred. This allows an event handler to identify the appropriate return instruction
-     * (ERETU or ERETS).
-     * Specifically, the new RIP value that FRED event delivery establishes is
-     * IA32_FRED_CONFIG & ~FFFH for events that occur in ring 3 and
-     * (IA32_FRED_CONFIG & ~FFFH) + 256 for events that occur in ring 0.
-     */
 
-    /* CPL3 entry (unused in this kernel) */
-    jmp fred_unused_entry
+# kernel does not use ring3 but fred needs IA32_FRED_CONFIG set to
+# the start of the page containing both stubs with each at a 256 byte offset
+fred_ring3_entry_asm_stub:
+    hlt
+    jmp fred_ring3_entry_asm_stub
 
-    /* pad to exactly 256 bytes */
-    .fill 0x100 - (. - fred_entry_page), 1, 0
+.fill 256 - (. - fred_ring3_entry_asm_stub), 1, 0
 
-    /* CPL0 entry (all kernel interrupts arrive here) */
-    jmp fred_common_entry
+fred_ring0_entry_asm_stub:
+    jmp fred_ring0_entry_asm
 
-.global fred_common_entry
-.type fred_common_entry, @function
-fred_common_entry:
+fred_ring0_entry_asm:
     MPUSHA
-    mov 0x98(%rsp), %rsi /* 120 + 0x28 = 0x98 */
-    mov 0x80(%rsp), %rdx /* 120 + 0x08 = 0x80 */
-    PUSH_SENTINEL
-    call Interrupt
-    POP_SENTINEL
+    movq %rsp, %rdi
+    call fred_ring0_entry
     MPOPA
     ERETS
-
-.global fred_unused_entry
-.type fred_unused_entry, @function
-fred_unused_entry:
-    cli
-1:
-    hlt
-    jmp 1b
 
 .section .note.GNU-stack

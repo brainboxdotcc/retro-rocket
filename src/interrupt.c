@@ -84,7 +84,7 @@ void local_apic_clear_interrupt()
 /* Both the Interrupt() and ISR() functions are dispatched from the assembly code trampoline via a pre-set IDT */
 
 void Interrupt(uint64_t isrnumber, uint64_t errorcode, uint64_t rip) {
-	__attribute__((aligned(16))) uint8_t fx[512];
+	__attribute__((aligned(64))) uint8_t fx[512]; /* 64 byte alignment is mandatory for FRED */
 	__builtin_ia32_fxsave64(&fx);
 
 	for (shared_interrupt_t *si = shared_interrupt[0][isrnumber]; si; si = si->next) {
@@ -107,9 +107,8 @@ void Interrupt(uint64_t isrnumber, uint64_t errorcode, uint64_t rip) {
 	__builtin_ia32_fxrstor64(&fx);
 }
 
-void IRQ(uint64_t isrnumber, uint64_t irqnum)
-{
-	__attribute__((aligned(16))) uint8_t fx[512];
+void IRQ(uint64_t isrnumber, uint64_t irqnum) {
+	__attribute__((aligned(64))) uint8_t fx[512]; /* 64 byte alignment is mandatory for FRED */
 	__builtin_ia32_fxsave64(&fx);
 
 	/* On shared INTx lines, always call all registered handlers.

@@ -272,6 +272,9 @@ int printf(const char *fmt, ...)
 	va_start(args, fmt);
 	int rv = vprintf(fmt, args);
 	va_end(args);
+	if (!are_interrupts_enabled()) {
+		rr_flip();
+	}
 	return rv;
 }
 

@@ -1,7 +1,9 @@
 GLOBAL LIB$ = "/programs/libraries" ' Default library path
 
 PROCmessage("Loading", "drivers")
+ON ERROR PROCno_net
 MODLOAD "net"
+ON ERROR OFF
 
 PROCmessage("Mounting", "filesystems")
 MOUNT "/devices", "", "devfs"
@@ -27,4 +29,10 @@ DEF PROCmessage(white$, yellow$)
 	PRINT yellow$;
 	COLOR 7
 	PRINT "..."
+ENDPROC
+
+END
+
+DEF PROCno_net
+    PRINT "Compatible network cards not found."
 ENDPROC

@@ -1,11 +1,13 @@
 /**
  * @file idt.c
- * @brief Select from IDT or FRED for kernel interrupt delivery
+ * @brief IDT and low level interrupt setup
  * @author Craig Edwards (craigedwards@brainbox.cc)
  * @copyright Copyright (c) 2012-2026
  */
+#include "interrupt.h"
+#include "printf.h"
 #include <kernel.h>
-#include <cpuid.h>
+#include <fred.h>
 
 void pic_disable();
 void pic_remap(int offset1, int offset2);
@@ -27,56 +29,20 @@ void pic_remap(int offset1, int offset2);
 
 #define MSI_RESERVED_MASK ((FIRST_MSI_VECTOR == 64) ? ~0ULL : ((1ULL << FIRST_MSI_VECTOR) - 1ULL))
 
-#define IA32_FRED_RSP0   0x1CC
-#define IA32_FRED_RSP1   0x1CD
-#define IA32_FRED_RSP2   0x1CE
-#define IA32_FRED_RSP3   0x1CF
-#define IA32_FRED_STKLVLS 0x1D0
-#define IA32_FRED_CONFIG 0x1D4
-
-#define CR4_FRED (1ULL << 32)
-
 static uint64_t msi_bitmap[MAX_CPUS][MSI_WORDS] = {
 	[0 ... MAX_CPUS-1] = { MSI_RESERVED_MASK, 0, 0, 0 }
 };
 
-static bool fred_enabled = true;
+bool fred_enabled = true;
 
-extern char fred_entry_page[];
-
-__attribute__((aligned(16)))
-idt_entry_t idt_entries[256];
+__attribute__((aligned(16))) idt_entry_t idt_entries[256];
 
 volatile idt_ptr_t idt64 = {
 	.limit = sizeof(idt_entries) - 1,
 	.base = idt_entries
 };
 
-static inline uint64_t read_cr4(void)
-{
-	uint64_t cr4;
-
-	__asm__ volatile("mov %%cr4, %0" : "=r"(cr4));
-	return cr4;
-}
-
-static inline void write_cr4(uint64_t cr4)
-{
-	__asm__ volatile("mov %0, %%cr4" :: "r"(cr4) : "memory");
-}
-
-static bool fred_supported(void)
-{
-	uint32_t eax = 7, ebx = 0, ecx = 1, edx = 0;
-	__asm__ volatile (
-		"cpuid"
-		: "=a"(eax), "=b"(ebx), "=c"(ecx), "=d"(edx)
-		: "a"(eax), "c"(ecx)
-		);
-	return (eax >> 17) & 1u;
-}
-
-static void interrupt_bsp_common_early_init(void)
+void interrupt_bsp_common_early_init(void)
 {
 	init_error_handler();
 #ifndef USE_IOAPIC
@@ -84,7 +50,7 @@ static void interrupt_bsp_common_early_init(void)
 #endif
 }
 
-static void interrupt_bsp_program_pit(void)
+void interrupt_bsp_program_pit(void)
 {
 	uint32_t frequency = 50;
 	uint32_t divisor = 1193180 / frequency;
@@ -94,7 +60,7 @@ static void interrupt_bsp_program_pit(void)
 	outb(0x40, divisor >> 8);
 }
 
-static void interrupt_bsp_route_irqs(void)
+void interrupt_bsp_route_irqs(void)
 {
 	pic_remap(0x20, 0x28);
 #ifdef USE_IOAPIC
@@ -110,7 +76,7 @@ static void interrupt_bsp_route_irqs(void)
 #endif
 }
 
-static void output_interrupt_mechanism(const char* mechanism)
+void output_interrupt_mechanism(const char* mechanism)
 {
 	kprintf("Interrupt delivery method: ");
 	setforeground(COLOUR_LIGHTYELLOW);
@@ -118,56 +84,11 @@ static void output_interrupt_mechanism(const char* mechanism)
 	setforeground(COLOUR_WHITE);
 }
 
-static void interrupt_bsp_common_late_init(void)
+void interrupt_bsp_common_late_init(void)
 {
 	acpi_claim_deferred_irqs();
 	interrupts_on();
 	dprintf("Interrupts enabled!\n");
-}
-
-static bool enable_fred_for_this_cpu(void)
-{
-	uint64_t config;
-	uint64_t base;
-
-	if (!fred_supported()) {
-		return false;
-	}
-
-	base = (uint64_t)fred_entry_page;
-	if (base & 0xFFF) {
-		dprintf("FRED entry page is not page aligned\n");
-		return false;
-	}
-
-	config = rdmsr(IA32_FRED_CONFIG) & 3;
-	config |= base;
-	config |= (1ULL << 6);
-
-	wrmsr(IA32_FRED_STKLVLS, 0);
-	wrmsr(IA32_FRED_CONFIG, config);
-
-	write_cr4(read_cr4() | CR4_FRED);
-	cpu_serialise();
-
-	return (read_cr4() & CR4_FRED) != 0;
-}
-
-static bool init_fred(void)
-{
-	interrupt_bsp_common_early_init();
-	interrupt_bsp_program_pit();
-	interrupt_bsp_route_irqs();
-
-	if (!enable_fred_for_this_cpu()) {
-		return false;
-	}
-
-	output_interrupt_mechanism("FRED");
-	setforeground(VGA_FG_WHITE);
-	interrupt_bsp_common_late_init();
-
-	return true;
 }
 
 void io_wait() {

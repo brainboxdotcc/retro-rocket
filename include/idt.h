@@ -5,23 +5,50 @@
  */
 #pragma once
 
+/**
+ * @note IOAPIC support is mandatory
+ *
+ * Legacy PIC-only configurations are not supported. Interrupt routing
+ * must be performed via IOAPIC and LAPIC.
+ */
 #define USE_IOAPIC
 
+/**
+ * @brief IDT descriptor (IDTR)
+ *
+ * Structure used by the lidt instruction to load the Interrupt Descriptor Table.
+ *
+ * @note Packed to match hardware-defined layout
+ */
 typedef struct idt_ptr_t {
-	uint16_t limit;
-	void* base;
+	uint16_t limit; /**< Size of the IDT in bytes minus one */
+	void* base;     /**< Linear address of the first IDT entry */
 } __attribute__((packed)) idt_ptr_t;
 
+/**
+ * @brief IDT entry (64-bit gate descriptor)
+ *
+ * Describes a single interrupt or exception handler entry in the IDT.
+ * Used in 64-bit mode for interrupt, trap, and task gates.
+ *
+ * Layout must match the x86-64 hardware-defined descriptor format.
+ */
 typedef struct idt_entry_t {
-   uint16_t offset_1;        // offset bits 0..15
-   uint16_t selector;        // a code segment selector in GDT or LDT
-   uint8_t  ist;             // bits 0..2 holds Interrupt Stack Table offset, rest of bits zero.
-   uint8_t  type_attributes; // gate type, dpl, and p fields
-   uint16_t offset_2;        // offset bits 16..31
-   uint32_t offset_3;        // offset bits 32..63
-   uint32_t zero;            // reserved
+	uint16_t offset_1;        /**< Handler address bits 0..15 */
+	uint16_t selector;        /**< Code segment selector in GDT or LDT */
+	uint8_t  ist;             /**< Interrupt Stack Table index (bits 0..2), remaining bits zero */
+	uint8_t  type_attributes; /**< Gate type, descriptor privilege level, and present flag */
+	uint16_t offset_2;        /**< Handler address bits 16..31 */
+	uint32_t offset_3;        /**< Handler address bits 32..63 */
+	uint32_t zero;            /**< Reserved, must be zero */
 } __attribute__((packed)) idt_entry_t;
 
+/**
+ * @brief Active 64-bit IDT descriptor
+ *
+ * Points to the currently loaded IDT used for interrupt dispatch.
+ * Loaded via lidt during initialisation and reused by application processors.
+ */
 extern volatile idt_ptr_t idt64;
 
 /**
@@ -165,6 +192,60 @@ void free_msi_vector(uint8_t cpu, int vec);
  */
 void load_ap_shared_idt();
 
+/**
+ * @brief Load interrupt handling for an application processor (AP)
+ *
+ * Initialises interrupt handling on a secondary CPU. If FRED is enabled,
+ * configures FRED for this CPU. Otherwise, loads the shared IDT.
+ */
 void load_ap_shared_interrupts();
 
+/**
+ * @brief Initialise interrupt subsystem
+ *
+ * Selects the interrupt delivery mechanism. Attempts to initialise FRED
+ * if enabled, otherwise falls back to IDT-based interrupt handling.
+ */
 void init_interrupts();
+
+/**
+ * @brief Early BSP interrupt initialisation
+ *
+ * Performs early setup of interrupt handlers on the bootstrap processor.
+ * Registers core handlers required before full interrupt routing is configured.
+ */
+void interrupt_bsp_common_early_init(void);
+
+/**
+ * @brief Program the PIT timer
+ *
+ * Configures the Programmable Interval Timer (PIT) to generate periodic
+ * interrupts at a fixed frequency.
+ */
+void interrupt_bsp_program_pit(void);
+
+/**
+ * @brief Route hardware IRQs on the BSP
+ *
+ * Configures interrupt routing for hardware IRQs. Depending on configuration,
+ * this either remaps and enables the legacy PIC or disables it and sets up
+ * IOAPIC and LAPIC-based routing.
+ */
+void interrupt_bsp_route_irqs(void);
+
+/**
+ * @brief Output active interrupt mechanism
+ *
+ * Prints the currently selected interrupt delivery mechanism to the screen
+ *
+ * @param mechanism Human-readable name of the mechanism (e.g. "IDT", "FRED")
+ */
+void output_interrupt_mechanism(const char* mechanism);
+
+/**
+ * @brief Late BSP interrupt initialisation
+ *
+ * Finalises interrupt setup on the bootstrap processor. Claims deferred IRQs
+ * and enables interrupts globally.
+ */
+void interrupt_bsp_common_late_init(void);
