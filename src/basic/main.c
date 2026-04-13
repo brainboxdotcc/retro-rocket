@@ -536,6 +536,9 @@ struct basic_ctx *basic_clone(struct basic_ctx *old) {
 		return NULL;
 	}
 	ctx->if_nest_level = 0;
+	ctx->data_offset = old->data_offset;
+	ctx->datastore = old->datastore;
+	ctx->datasets = old->datasets;
 	ctx->current_token = NO_TOKEN;
 	ctx->error_handler = old->error_handler;
 	ctx->sleep_until = old->sleep_until;
@@ -557,7 +560,6 @@ struct basic_ctx *basic_clone(struct basic_ctx *old) {
 	ctx->debug_breakpoints = old->debug_breakpoints;
 	ctx->debug_breakpoint_count = old->debug_breakpoint_count;
 	ctx->allocator = old->allocator;
-	ctx->data_offset = 0;
 
 	memcpy(ctx->sprites, old->sprites, sizeof(ctx->sprites));
 	memcpy(ctx->fn_type_stack, old->fn_type_stack, sizeof(ctx->fn_type_stack));

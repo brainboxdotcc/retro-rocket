@@ -13,6 +13,7 @@ var commands =
     [ "cube program", "cube.html", null ],
     [ "delete program", "delete.html", null ],
     [ "demo command", "demo.html", null ],
+    [ "detok command", "detok.html", null ],
     [ "dir command", "dir-full-pathname.html", null ],
     [ "dump command", "dump.html", null ],
     [ "edit command", "edit.html", [

@@ -1,0 +1,271 @@
+REM BBC BASIC IV Detokeniser
+REM Converts BBC BASIC tokenised programs into plain text
+
+IF ARGS$ = "" THEN
+    PRINT "Missing filename"
+    END
+ENDIF
+
+FILE$ = ARGS$
+FH = OPENIN(FILE$)
+IF FH < 0 THEN
+    PRINT "Unable to open: " + FILE$
+    END
+ENDIF
+
+FINISHED = 0
+
+REPEAT
+    MARK = FNSAFEREAD(FH)
+
+    IF MARK = 255 THEN
+        FINISHED = 1
+    ELSE
+        IF MARK <> 13 THEN
+            IF MARK = 0 THEN END
+            PRINT
+            PRINT "Bad BBC BASIC file format"
+            PRINT "Expected CR at start of line, got &" + FNhex2$(MARK)
+            END
+        ENDIF
+
+        HI = FNSAFEREAD(FH)
+        LO = FNSAFEREAD(FH)
+        LENGTH = FNSAFEREAD(FH)
+
+        LINE_NO = HI * 256 + LO
+        IF LINE_NO <> &FF00 THEN PRINT LINE_NO; " "; ' Line 65280/&FF00 is an end of file sentinel, dont print it
+
+        REMAINING = LENGTH - 4
+        IN_STRING = 0
+        RAW_MODE = 0
+
+        REPEAT
+            B = FNSAFEREAD(FH)
+            REMAINING = REMAINING - 1
+
+            IF RAW_MODE = 1 THEN
+                PRINT CHR$(B);
+            ELSE
+                IF IN_STRING = 1 THEN
+                    PRINT CHR$(B);
+                    IF B = 34 THEN
+                        IN_STRING = 0
+                    ENDIF
+                ELSE
+                    IF B = 34 THEN
+                        PRINT CHR$(34);
+                        IN_STRING = 1
+                    ELSE
+                        IF B = 141 THEN
+                            IF REMAINING < 3 THEN
+                                PRINT "{&8D}";
+                            ELSE
+                                B1 = FNSAFEREAD(FH)
+                                B2 = FNSAFEREAD(FH)
+                                B3 = FNSAFEREAD(FH)
+                                REMAINING = REMAINING - 3
+                                PRINT FNdecode_line_ref$(B1, B2, B3);
+                            ENDIF
+                        ELSE
+                            IF B >= 128 THEN
+                                TOK$ = FNtoken$(B)
+
+                                IF TOK$ = "" THEN
+                                    PRINT "{&" + FNhex2$(B) + "}";
+                                ELSE
+                                    PRINT TOK$;
+                                    IF TOK$ = "REM" OR TOK$ = "DATA" THEN
+                                        RAW_MODE = 1
+                                    ENDIF
+                                ENDIF
+                            ELSE
+                                PRINT CHR$(B);
+                            ENDIF
+                        ENDIF
+                    ENDIF
+                ENDIF
+            ENDIF
+        UNTIL REMAINING <= 0
+
+        PRINT
+    ENDIF
+UNTIL FINISHED = 1
+
+CLOSE(FH)
+END
+
+DEF FNdecode_line_ref$(A, B, C)
+    X = A * 4
+    X = X - (X / 256) * 256
+
+    Y = B XOR (X AND 192)
+
+    X = X * 4
+    X = X - (X / 256) * 256
+
+    Z = C XOR X
+
+    = STR$(Z * 256 + Y)
+
+DEF FNhex2$(N)
+    HEX$ = RADIX$(N, 16)
+    IF LEN(HEX$) < 2 THEN
+        HEX$ = "0" + HEX$
+    ENDIF
+    = HEX$
+
+DEF FNSAFEREAD(FH)
+    IF EOF(FH) THEN END
+    = READ(FH)
+
+DEF FNtoken$(T)
+    RESTORE TOKENS
+
+    FOUND = 0
+    RESULT$ = ""
+
+    REPEAT
+        ID = DATAREAD
+        IF ID = -1 THEN
+            FOUND = 1
+        ELSE
+            WORD$ = DATAREAD$
+            IF ID = T THEN
+                RESULT$ = WORD$
+                FOUND = 1
+            ENDIF
+        ENDIF
+    UNTIL FOUND = 1
+
+    = RESULT$
+
+DATASET TOKENS
+DATA 128,"AND"
+DATA 129,"DIV"
+DATA 130,"EOR"
+DATA 131,"MOD"
+DATA 132,"OR"
+DATA 133,"ERROR"
+DATA 134,"LINE"
+DATA 135,"OFF"
+DATA 136,"STEP"
+DATA 137,"SPC"
+DATA 138,"TAB("
+DATA 139,"ELSE"
+DATA 140,"THEN"
+DATA 142,"OPENIN"
+DATA 143,"PTR"
+DATA 144,"PAGE"
+DATA 145,"TIME"
+DATA 146,"LOMEM"
+DATA 147,"HIMEM"
+DATA 148,"ABS"
+DATA 149,"ACS"
+DATA 150,"ADVAL"
+DATA 151,"ASC"
+DATA 152,"ASN"
+DATA 153,"ATN"
+DATA 154,"BGET"
+DATA 155,"COS"
+DATA 156,"COUNT"
+DATA 157,"DEG"
+DATA 158,"ERL"
+DATA 159,"ERR"
+DATA 160,"EVAL"
+DATA 161,"EXP"
+DATA 162,"EXT"
+DATA 163,"FALSE"
+DATA 164,"FN"
+DATA 165,"GET"
+DATA 166,"INKEY"
+DATA 167,"INSTR("
+DATA 168,"INT"
+DATA 169,"LEN"
+DATA 170,"LN"
+DATA 171,"LOG"
+DATA 172,"NOT"
+DATA 173,"OPENUP"
+DATA 174,"OPENOUT"
+DATA 175,"PI"
+DATA 176,"POINT("
+DATA 177,"POS"
+DATA 178,"RAD"
+DATA 179,"RND"
+DATA 180,"SGN"
+DATA 181,"SIN"
+DATA 182,"SQR"
+DATA 183,"TAN"
+DATA 184,"TO"
+DATA 185,"TRUE"
+DATA 186,"USR"
+DATA 187,"VAL"
+DATA 188,"VPOS"
+DATA 189,"CHR$"
+DATA 190,"GET$"
+DATA 191,"INKEY$"
+DATA 192,"LEFT$("
+DATA 193,"MID$("
+DATA 194,"RIGHT$("
+DATA 195,"STR$"
+DATA 196,"STRING$("
+DATA 197,"EOF"
+DATA 198,"AUTO"
+DATA 199,"DELETE"
+DATA 200,"LOAD"
+DATA 201,"LIST"
+DATA 202,"NEW"
+DATA 203,"OLD"
+DATA 204,"RENUMBER"
+DATA 205,"SAVE"
+DATA 206,"PUT"
+DATA 207,"PTR"
+DATA 208,"PAGE"
+DATA 209,"TIME"
+DATA 210,"LOMEM"
+DATA 211,"HIMEM"
+DATA 212,"SOUND"
+DATA 213,"BPUT"
+DATA 214,"CALL"
+DATA 215,"CHAIN"
+DATA 216,"CLEAR"
+DATA 217,"CLOSE"
+DATA 218,"CLG"
+DATA 219,"CLS"
+DATA 220,"DATA"
+DATA 221,"DEF"
+DATA 222,"DIM"
+DATA 223,"DRAW"
+DATA 224,"END"
+DATA 225,"ENDPROC"
+DATA 226,"ENVELOPE"
+DATA 227,"FOR"
+DATA 228,"GOSUB"
+DATA 229,"GOTO"
+DATA 230,"GCOL"
+DATA 231,"IF"
+DATA 232,"INPUT"
+DATA 233,"LET"
+DATA 234,"LOCAL"
+DATA 235,"MODE"
+DATA 236,"MOVE"
+DATA 237,"NEXT"
+DATA 238,"ON"
+DATA 239,"VDU"
+DATA 240,"PLOT"
+DATA 241,"PRINT"
+DATA 242,"PROC"
+DATA 243,"READ"
+DATA 244,"REM"
+DATA 245,"REPEAT"
+DATA 246,"REPORT"
+DATA 247,"RESTORE"
+DATA 248,"RETURN"
+DATA 249,"RUN"
+DATA 250,"STOP"
+DATA 251,"COLOUR"
+DATA 252,"TRACE"
+DATA 253,"UNTIL"
+DATA 254,"WIDTH"
+DATA 255,"OSCLI"
+DATA -1,""

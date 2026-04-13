@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=11">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Retro Rocket OS: Commands</title>
+    <title>Retro Rocket OS: detok command</title>
     <link href="tabs.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -16,7 +16,7 @@
     <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-    <meta name="title" content="Commands - Retro Rocket OS">
+    <meta name="title" content="detok command - Retro Rocket OS">
     <meta name="description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="author" content="Retro Rocket Developers">
     <meta name="robots" content="index, follow">
@@ -24,7 +24,7 @@
     <meta name="theme-color" content="#0b0f14">
     <link rel="icon" href="rr.png">
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="Commands - Retro Rocket OS">
+    <meta property="og:title" content="detok command - Retro Rocket OS">
     <meta property="og:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://retrorocket.dev/">
@@ -32,7 +32,7 @@
     <meta property="og:image:alt" content="Retro Rocket OS running on a retro-style desktop">
     <meta property="og:site_name" content="Retro Rocket OS">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Commands - Retro Rocket OS">
+    <meta name="twitter:title" content="detok command - Retro Rocket OS">
     <meta name="twitter:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="twitter:image" content="https://retrorocket.dev/leader4.png">
     <link rel="preload" as="image" href="https://retrorocket.dev/leader4.png">
@@ -94,7 +94,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('commands.html','',''); });
+$(function(){initNavTree('detok.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -120,78 +120,17 @@ $(function(){initNavTree('commands.html','',''); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">Commands </div></div>
+  <div class="headertitle"><div class="title">detok command </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Retro Rocket includes a set of built-in commands and programs that can be run from the shell prompt. These commands let you explore the system, run demos, manage files, and test hardware features.</p>
-<h3 class="doxsection"><a class="anchor" id="using-commands"></a>
-Using commands</h3>
-<ul>
-<li>At the shell prompt (<span class="tt">&gt;</span>), type the command name and press <b>Enter</b>.</li>
-<li>Most commands are lowercase words (e.g. <span class="tt">dir</span>, <span class="tt">edit</span>, <span class="tt">ip</span>).</li>
-<li>Some commands run simple demos, others are tools or system utilities.</li>
-<li>If a command needs extra information, type it after the command name.</li>
-</ul>
-<p>Example:</p>
-<div class="fragment"><div class="line">dir</div>
-</div><!-- fragment --><p>This lists the files in the current directory.</p>
-<h3 class="doxsection"><a class="anchor" id="command-reference"></a>
-Command reference</h3>
-<p>The following pages describe each command in detail:</p>
-<ul>
-<li><a class="el" href="about.html">about command</a></li>
-<li><a class="el" href="apple.html">apple command</a></li>
-<li><a class="el" href="bach.html">bach command</a></li>
-<li><a class="el" href="ball.html">ball Program</a></li>
-<li><a class="el" href="cd.html">cd command</a></li>
-<li><a class="el" href="charmap.html">charmap program</a></li>
-<li><a class="el" href="chdir.html">chdir command</a></li>
-<li><a class="el" href="cpuid.html">cpuid command</a></li>
-<li><a class="el" href="cpubrand.html">cpubrand command</a></li>
-<li><a class="el" href="cpuvendor.html">cpuvendor command</a></li>
-<li><a class="el" href="cube.html">cube program</a></li>
-<li><a class="el" href="delete.html">delete program</a></li>
-<li><a class="el" href="demo.html">demo command</a></li>
-<li><a class="el" href="detok.html">detok command</a></li>
-<li><a class="el" href="dir-full-pathname.html">dir command</a></li>
-<li><a class="el" href="dump.html">dump command</a></li>
-<li><a class="el" href="edit.html">edit command</a></li>
-<li><a class="el" href="envelope_test.html">envelope_test command</a></li>
-<li><a class="el" href="eval.html">eval command</a></li>
-<li><a class="el" href="free.html">free command</a></li>
-<li><a class="el" href="fstest.html">fstest command</a></li>
-<li><a class="el" href="graphicstest.html">grapicstest command</a></li>
-<li><a class="el" href="host.html">host command</a></li>
-<li><a class="el" href="ip.html">ip command</a></li>
-<li><a class="el" href="init.html#init">init</a></li>
-<li><a class="el" href="irc.html">irc program (satellite)</a></li>
-<li><a class="el" href="list.html">list command</a></li>
-<li><a class="el" href="mkdir.html">mkdir command</a></li>
-<li><a class="el" href="modplay.html">modplay command</a></li>
-<li><a class="el" href="mount-command.html">mount command</a></li>
-<li><a class="el" href="mousetest.html">mousetest command</a></li>
-<li><a class="el" href="musicdemo.html">musicdemo command</a></li>
-<li><a class="el" href="proclist.html">proclist command</a></li>
-<li><a class="el" href="rick.html#rick">rick</a></li>
-<li><a class="el" href="rmdir.html">rmdir command</a></li>
-<li><a class="el" href="rocketsh.html">rocketsh Command (Shell)</a></li>
-<li><a class="el" href="search.html">search command</a></li>
-<li><a class="el" href="sine.html">sine program</a></li>
-<li><a class="el" href="servertest.html#servertest">servertest</a></li>
-<li><a class="el" href="socktest.html">socktest program</a></li>
-<li><a class="el" href="ssltest.html#ssltest">ssltest</a></li>
-<li><a class="el" href="telnet.html">telnet command</a></li>
-<li><a class="el" href="test.html">test program</a></li>
-<li><a class="el" href="textcolours.html">textcolours program</a></li>
-<li><a class="el" href="tree.html">tree command</a></li>
-<li><a class="el" href="triangle.html">triangle program</a></li>
-<li><a class="el" href="udptest.html#udptest">udptest</a></li>
-<li><a class="el" href="rocketsh.html#up">up</a></li>
-<li><a class="el" href="rocketsh.html#version">version</a></li>
-<li><a class="el" href="webserver.html#webserver">webserver</a></li>
-<li><a class="el" href="xmtest.html">xmtest command</a> </li>
-</ul>
-</div></div><!-- contents -->
+<div class="textblock"><h2 class="doxsection"><a class="anchor" id="detok-filename"></a>
+detok [filename]</h2>
+<p>Detokenises a BBC BASIC IV program (BBC model B, B+, Master 128) into plain text.</p>
+<p>Note that you will need to review and adjust BBC BASIC programs for them to run on Retro Rocket. Certain BBC BASIC features such as graphics modes, raw memory access, etc will need updating to the new dialect.</p>
+<div class="image">
+<img src="detok.png" alt=""/>
+</div>
+ </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -206,7 +145,7 @@ Command reference</h3>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="index.html">Retro Rocket OS Documentation</a></li><li class="navelem"><a href="user-guide.html">User Guide</a></li>
+    <li class="navelem"><a href="index.html">Retro Rocket OS Documentation</a></li><li class="navelem"><a href="user-guide.html">User Guide</a></li><li class="navelem"><a href="commands.html">Commands</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.14.0 </li>
   </ul>
 </div>

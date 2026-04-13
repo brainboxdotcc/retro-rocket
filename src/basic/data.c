@@ -16,7 +16,6 @@ int data_store_append(struct basic_ctx* ctx, struct data_store* ds, up_value val
 	ds->values = new_values;
 	ds->values[ds->length] = value;
 	ds->length++;
-
 	return 0;
 }
 
