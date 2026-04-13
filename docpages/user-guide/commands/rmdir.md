@@ -1,5 +1,7 @@
 \page rmdir rmdir command
 
-### rmdir [full pathname]
+```
+rmdir <pathname>
+```
 Remove a directory from the filesystem
 

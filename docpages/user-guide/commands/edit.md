@@ -2,6 +2,10 @@
 
 # Text Editor
 
+```
+edit [filename]
+```
+
 The text editor provides a simple, full-screen way to create and modify text files. It behaves similarly to GNU `nano` or MS-DOS `edit`, with clear on-screen prompts and keyboard shortcuts.
 
 \image html edit.png

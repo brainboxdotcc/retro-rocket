@@ -43,7 +43,7 @@ var searchData=
   ['close_2emd_40',['CLOSE.md',['../CLOSE_8md.html',1,'']]],
   ['cls_20keyword_41',['CLS Keyword',['../CLS.html',1,'keywords']]],
   ['cls_2emd_42',['CLS.md',['../CLS_8md.html',1,'']]],
-  ['code_43',['code',['../basic-beginner.html#autotoc_md8-reusable-code',1,'8) Reusable code'],['../eval.html#eval-basic-code',1,'eval [basic code]'],['../VDU.html#vdu-23-code',1,'VDU 23, code']]],
+  ['code_43',['code',['../basic-beginner.html#autotoc_md8-reusable-code',1,'8) Reusable code'],['../VDU.html#vdu-23-code',1,'VDU 23, code']]],
   ['codecs_44',['Codecs',['../audio-basics.html#codecs',1,'']]],
   ['color_20keyword_45',['COLOUR / COLOR Keyword',['../COLOUR.html',1,'keywords']]],
   ['colour_46',['colour',['../VDU.html#vdu-17-colour',1,'VDU 17, colour'],['../VDU.html#vdu-18-colour',1,'VDU 18, colour']]],

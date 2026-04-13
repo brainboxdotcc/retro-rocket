@@ -123,9 +123,8 @@ $(function(){initNavTree('mount-command.html','',''); });
   <div class="headertitle"><div class="title">mount command </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h2 class="doxsection"><a class="anchor" id="mount-directory-storage-device-name-filesystem-type"></a>
-mount [directory] [storage-device-name] [filesystem-type]</h2>
-<p>Attaches a file system on a storage device to the visible set of directories and files you can see and work with.</p>
+<div class="textblock"><div class="fragment"><div class="line">mount &lt;directory&gt; &lt;storage-device-name&gt; &lt;filesystem-type&gt;</div>
+</div><!-- fragment --><p>Attaches a file system on a storage device to the visible set of directories and files you can see and work with.</p>
 <p>Think of mounting a filesystem like plugging in something to a power outlet. Once you have plugged it in and turned it on, it is available to use. This is basically how file systems work.</p>
 <ul>
 <li>The first parameter is the directory, this can be any existing empty directory in the file system. For example /harddisk, /ramdisk, etc.</li>
@@ -139,6 +138,10 @@ mount [directory] [storage-device-name] [filesystem-type]</h2>
 <td class="markdownTableBodyNone">rfs  </td><td class="markdownTableBodyNone">RetroFS, the Retro Rocket native file system  </td><td class="markdownTableBodyNone">Readable, writeable file system for large hard disks, e.g. NVMe, SATA. The default file system type for fixed disks and ramdisks  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">iso9660  </td><td class="markdownTableBodyNone">ISO 9660 file system for CDs and DVDs  </td><td class="markdownTableBodyNone">Read-only file system mainly for CDs and DVDs. The default file system of the Retro Rocket LiveCD  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">adfs  </td><td class="markdownTableBodyNone">Acorn ADFS "L" Format  </td><td class="markdownTableBodyNone">Read-only file system for Acorn BBC Micro Floppy disks - The Advanced Disk Filing System  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">dfs  </td><td class="markdownTableBodyNone">Acorn DFS DS/DD 80T Format  </td><td class="markdownTableBodyNone">Read-only file system for Acorn BBC Micro Floppy disks - The Disk Filing System  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">fat32  </td><td class="markdownTableBodyNone">FAT32 DOS and Windows file system  </td><td class="markdownTableBodyNone">Readable, writeable file system used for removable media, and the recovery/boot partition of installed systems  </td></tr>
 <tr class="markdownTableRowEven">

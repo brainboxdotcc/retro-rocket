@@ -123,17 +123,8 @@ $(function(){initNavTree('tree.html','',''); });
   <div class="headertitle"><div class="title">tree command </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h2 class="doxsection"><a class="anchor" id="tree-directory"></a>
-tree [directory]</h2>
-<p>Displays a directory and all its subdirectories in a tree-like view. This makes it easy to see the structure of the file system at a glance.</p>
-<h3 class="doxsection"><a class="anchor" id="what-it-does-3"></a>
-What it does</h3>
-<ul>
-<li>Starts at the given directory (or the current directory if none is given).</li>
-<li>Recursively lists all subdirectories and files.</li>
-<li>Uses branches (<span class="tt">├──</span>, <span class="tt">└──</span>, <span class="tt">│</span>) to show hierarchy.</li>
-<li>Prints a summary at the end with the total number of directories and files.</li>
-</ul>
+<div class="textblock"><div class="fragment"><div class="line">tree [directory]</div>
+</div><!-- fragment --><p>Displays a directory and all its subdirectories in a tree-like view. This makes it easy to see the structure of the file system at a glance.</p>
 <h3 class="doxsection"><a class="anchor" id="usage-3"></a>
 Usage</h3>
 <div class="fragment"><div class="line">tree</div>
@@ -146,8 +137,7 @@ Usage</h3>
 Notes</h3>
 <ul>
 <li>If no directory is specified, <span class="tt">tree</span> starts at the current working directory.</li>
-<li>If the current directory is empty, nothing is printed except the summary.</li>
-<li>Works with any mounted filesystem, including <span class="tt">/ramdisk</span>. </li>
+<li>If the current directory is empty, nothing is printed except the summary. </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

@@ -1,6 +1,8 @@
 \page search search command
 
-## scan [filename] [text]
+```
+search <filename> <text>
+```
 
 Scan a file for specific text
 

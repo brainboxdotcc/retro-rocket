@@ -1,6 +1,9 @@
 \page eval eval command
 
-### eval [basic code]
+```
+eval <expression>
+```
+
 Evaluates some BASIC code
 
 \image html eval.png

@@ -1,5 +1,7 @@
 \page mkdir mkdir command
 
-### mkdir [full pathname]
+```
+mkdir <pathname>
+```
 Create a new directory in the filesystem
 

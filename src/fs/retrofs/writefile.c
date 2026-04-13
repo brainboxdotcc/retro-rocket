@@ -187,15 +187,12 @@ bool rfs_write_file(void *f, uint64_t start, uint32_t length, unsigned char *buf
 		return false;
 	}
 
-	dprintf("Found at extent pos %lu len %lu\n", ent.sector_start, ent.sector_length);
-
 	/* End position of the write in bytes */
 	uint64_t end_pos = start + (uint64_t) length;
 
 	/* Ensure capacity: move if we exceed reserved bytes */
 	uint64_t reserved_bytes = ent.sector_length * (uint64_t) RFS_SECTOR_SIZE;
 	if (end_pos > reserved_bytes) {
-		dprintf("Running extend-and-move, end_pos = %lu reserved_bytes = %lu\n", end_pos, reserved_bytes);
 		/* Extend + move to at least end_pos bytes */
 		if (!rfs_extend_and_move(tree, info, file, end_pos)) {
 			return false;
@@ -221,7 +218,6 @@ bool rfs_write_file(void *f, uint64_t start, uint32_t length, unsigned char *buf
 
 	/* Single-sector write */
 	if (first_sector == last_sector) {
-		dprintf("Single sector write: %lu\n", first_sector);
 		if (!rfs_read_device(info, first_sector, RFS_SECTOR_SIZE, sector_buf)) {
 			kfree(sector_buf);
 			return false;

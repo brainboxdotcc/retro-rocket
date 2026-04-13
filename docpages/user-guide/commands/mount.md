@@ -1,6 +1,8 @@
 \page mount-command mount command
 
-## mount [directory] [storage-device-name] [filesystem-type]
+```
+mount <directory> <storage-device-name> <filesystem-type>
+```
 
 Attaches a file system on a storage device to the visible set of directories and files you can see and work with.
 
@@ -14,6 +16,8 @@ Think of mounting a filesystem like plugging in something to a power outlet. Onc
 |------------------|----------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
 | rfs              | RetroFS, the Retro Rocket native file system | Readable, writeable file system for large hard disks, e.g. NVMe, SATA. The default file system type for fixed disks and ramdisks |
 | iso9660          | ISO 9660 file system for CDs and DVDs        | Read-only file system mainly for CDs and DVDs. The default file system of the Retro Rocket LiveCD                                |
+| adfs             | Acorn ADFS "L" Format                        | Read-only file system for Acorn BBC Micro Floppy disks - The Advanced Disk Filing System                                         |
+| dfs              | Acorn DFS DS/DD 80T Format                   | Read-only file system for Acorn BBC Micro Floppy disks - The Disk Filing System                                                  |
 | fat32            | FAT32 DOS and Windows file system            | Readable, writeable file system used for removable media, and the recovery/boot partition of installed systems                   |
 | devfs            | Device tree file system                      | Readable, writeable file system which device drivers may use to expose device-specific information and control surfaces. *       |
 | dummyfs          | Dummy File System                            | The dummy file system does nothing, you cannot read or write to it. It is the placeholder for everything until the system boots  |

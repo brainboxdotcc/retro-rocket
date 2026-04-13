@@ -2,15 +2,25 @@ REM BBC BASIC IV Detokeniser
 REM Converts BBC BASIC tokenised programs into plain text
 
 IF ARGS$ = "" THEN
-    PRINT "Missing filename"
+    PRINT "Missing filename(s)"
     END
 ENDIF
 
-FILE$ = ARGS$
+FILE$ = TOKENIZE$(ARGS$, " ")
+OUTPUT$ = TOKENIZE$(ARGS$, " ")
+
 FH = OPENIN(FILE$)
 IF FH < 0 THEN
     PRINT "Unable to open: " + FILE$
     END
+ENDIF
+OUTF = -1
+IF OUTPUT$ <> "" THEN
+    OUTF = OPENOUT(OUTPUT$)
+    IF OUTF < 0 THEN
+        PRINT "Unable to create: " + OUTPUT$
+        END
+    ENDIF
 ENDIF
 
 FINISHED = 0
@@ -34,7 +44,11 @@ REPEAT
         LENGTH = FNSAFEREAD(FH)
 
         LINE_NO = HI * 256 + LO
-        IF LINE_NO <> &FF00 THEN PRINT LINE_NO; " "; ' Line 65280/&FF00 is an end of file sentinel, dont print it
+        IF LINE_NO <> &FF00 THEN
+            ' Line 65280/&FF00 is an end of file sentinel, dont print it
+            PRINT LINE_NO; " ";
+            IF OUTF >= 0 THEN WRITE OUTF, LINE_NO; " ";
+        ENDIF
 
         REMAINING = LENGTH - 4
         IN_STRING = 0
@@ -46,6 +60,7 @@ REPEAT
 
             IF RAW_MODE = 1 THEN
                 PRINT CHR$(B);
+                IF OUTF >= 0 THEN WRITE OUTF, CHR$(B);
             ELSE
                 IF IN_STRING = 1 THEN
                     PRINT CHR$(B);
@@ -55,17 +70,20 @@ REPEAT
                 ELSE
                     IF B = 34 THEN
                         PRINT CHR$(34);
+                        IF OUTF >= 0 THEN WRITE OUTF, CHR$(34);
                         IN_STRING = 1
                     ELSE
                         IF B = 141 THEN
                             IF REMAINING < 3 THEN
                                 PRINT "{&8D}";
+                                IF OUTF >= 0 THEN WRITE OUTF, "{&8D}";
                             ELSE
                                 B1 = FNSAFEREAD(FH)
                                 B2 = FNSAFEREAD(FH)
                                 B3 = FNSAFEREAD(FH)
                                 REMAINING = REMAINING - 3
                                 PRINT FNdecode_line_ref$(B1, B2, B3);
+                                IF OUTF >= 0 THEN WRITE OUTF, FNdecode_line_ref$(B1, B2, B3);
                             ENDIF
                         ELSE
                             IF B >= 128 THEN
@@ -73,14 +91,17 @@ REPEAT
 
                                 IF TOK$ = "" THEN
                                     PRINT "{&" + FNhex2$(B) + "}";
+                                    IF OUTF >= 0 THEN WRITE OUTF, "{&" + FNhex2$(B) + "}";
                                 ELSE
                                     PRINT TOK$;
+                                    IF OUTF >= 0 THEN WRITE OUTF, TOK$;
                                     IF TOK$ = "REM" OR TOK$ = "DATA" THEN
                                         RAW_MODE = 1
                                     ENDIF
                                 ENDIF
                             ELSE
                                 PRINT CHR$(B);
+                                IF OUTF >= 0 THEN WRITE OUTF, CHR$(B);
                             ENDIF
                         ENDIF
                     ENDIF
@@ -89,10 +110,12 @@ REPEAT
         UNTIL REMAINING <= 0
 
         PRINT
+        IF OUTF >= 0 THEN WRITE OUTF, ""
     ENDIF
 UNTIL FINISHED = 1
 
 CLOSE(FH)
+IF OUTF >= 0 THEN CLOSE(OUTF)
 END
 
 DEF FNdecode_line_ref$(A, B, C)
@@ -116,7 +139,13 @@ DEF FNhex2$(N)
     = HEX$
 
 DEF FNSAFEREAD(FH)
-    IF EOF(FH) THEN END
+    IF EOF(FH) THEN
+        IF OUTF >= 0 THEN
+            CLOSE(OUTF)
+            OUTF = -1
+        ENDIF
+        END
+    ENDIF
     = READ(FH)
 
 DEF FNtoken$(T)

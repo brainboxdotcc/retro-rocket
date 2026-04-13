@@ -123,8 +123,9 @@ $(function(){initNavTree('detok.html','',''); });
   <div class="headertitle"><div class="title">detok command </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">detok [filename]</div>
-</div><!-- fragment --><p>Detokenises a BBC BASIC IV program (BBC model B, B+, Master 128) into plain text.</p>
+<div class="textblock"><div class="fragment"><div class="line">detok &lt;input filename&gt; [output filename]</div>
+</div><!-- fragment --><p>Detokenises a BBC BASIC IV program (BBC model B, B+, Master 128) into plain text. By default, this command will output the detokenised source code to the screen.</p>
+<p>The output filename is optional, if it is specified, then the command will also output the detokenised program to the output file.</p>
 <p>Note that you will need to review and adjust BBC BASIC programs for them to run on Retro Rocket. Certain BBC BASIC features such as graphics modes, raw memory access, etc will need updating to the new dialect.</p>
 <div class="image">
 <img src="detok.png" alt=""/>

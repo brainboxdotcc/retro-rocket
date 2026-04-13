@@ -32,7 +32,7 @@ var searchData=
   ['close_29',['Example: connect, send, receive, close',['../CONNECT.html#example-connect-send-receive-close',1,'']]],
   ['close_20keyword_30',['CLOSE Keyword',['../CLOSE.html',1,'keywords']]],
   ['cls_20keyword_31',['CLS Keyword',['../CLS.html',1,'keywords']]],
-  ['code_32',['code',['../basic-beginner.html#autotoc_md8-reusable-code',1,'8) Reusable code'],['../eval.html#eval-basic-code',1,'eval [basic code]'],['../VDU.html#vdu-23-code',1,'VDU 23, code']]],
+  ['code_32',['code',['../basic-beginner.html#autotoc_md8-reusable-code',1,'8) Reusable code'],['../VDU.html#vdu-23-code',1,'VDU 23, code']]],
   ['codecs_33',['Codecs',['../audio-basics.html#codecs',1,'']]],
   ['color_20keyword_34',['COLOUR / COLOR Keyword',['../COLOUR.html',1,'keywords']]],
   ['colour_35',['colour',['../VDU.html#vdu-17-colour',1,'VDU 17, colour'],['../VDU.html#vdu-18-colour',1,'VDU 18, colour']]],

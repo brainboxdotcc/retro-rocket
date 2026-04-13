@@ -13,7 +13,7 @@ var searchData=
   ['weekday_2emd_10',['WEEKDAY.md',['../WEEKDAY_8md.html',1,'']]],
   ['what_20are_20decibels_11',['What are decibels?',['../DECIBELS.html#what-are-decibels',1,'']]],
   ['what_20happens_12',['What happens',['../rick.html#what-happens',1,'']]],
-  ['what_20it_20does_13',['What it does',['../init.html#what-it-does',1,'What it does'],['../servertest.html#what-it-does-1',1,'What it does'],['../ssltest.html#what-it-does-2',1,'What it does'],['../tree.html#what-it-does-3',1,'What it does'],['../udptest.html#what-it-does-4',1,'What it does'],['../webserver.html#what-it-does-5',1,'What it does']]],
+  ['what_20it_20does_13',['What it does',['../init.html#what-it-does',1,'What it does'],['../servertest.html#what-it-does-1',1,'What it does'],['../ssltest.html#what-it-does-2',1,'What it does'],['../udptest.html#what-it-does-3',1,'What it does'],['../webserver.html#what-it-does-4',1,'What it does']]],
   ['what_20not_20to_20do_20in_20a_20task_14',['What not to do in a task',['../tasks.html#what-not-to-do-in-a-task',1,'']]],
   ['what_20retro_20rocket_20is_15',['What Retro Rocket is',['../introduction.html#what-retro-rocket-is',1,'']]],
   ['what_20retro_20rocket_20is_20not_16',['What Retro Rocket is not',['../introduction.html#what-retro-rocket-is-not',1,'']]],
