@@ -124,20 +124,62 @@ $(function(){initNavTree('interrupts.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>Retro Rocket uses a modern, APIC-based interrupt system suitable for 64-bit long mode. It fully supports Symmetric Multiprocessing (SMP) and I/O APICs via ACPI detection, with legacy PIC support deprecated and disabled after boot.</p>
+<p>Retro Rocket supports two interrupt delivery mechanisms:</p>
+<ul>
+<li><b>IDT</b>: traditional x86 interrupt delivery via the Interrupt Descriptor Table</li>
+<li><b>FRED</b>: Flexible Return and Event Delivery, using MSR-configured entry points and hardware-defined event frames</li>
+</ul>
+<p>At boot, the kernel attempts to initialise FRED first. If FRED is unavailable or disabled, it falls back to the IDT path.</p>
 <hr  />
 <h2 class="doxsection"><a class="anchor" id="overview-1"></a>
 Overview</h2>
-<p>Interrupts in Retro Rocket are composed of three tightly integrated layers:</p>
+<p>Interrupts in Retro Rocket are composed of four tightly integrated layers:</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Layer  </th><th class="markdownTableHeadNone">Component  </th><th class="markdownTableHeadNone">Role  </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">IDT  </td><td class="markdownTableBodyNone"><span class="tt">idt.c</span>  </td><td class="markdownTableBodyNone">Sets up the Interrupt Descriptor Table (IDT) and traps  </td></tr>
+<td class="markdownTableBodyNone">Delivery  </td><td class="markdownTableBodyNone"><span class="tt">idt.c</span>, <span class="tt">fred.c</span>  </td><td class="markdownTableBodyNone">Sets up the CPU interrupt delivery mechanism  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">APIC  </td><td class="markdownTableBodyNone"><span class="tt">apic.c</span>  </td><td class="markdownTableBodyNone">Local APIC timer, EOI, spurious interrupt handling  </td></tr>
+<td class="markdownTableBodyNone">Routing  </td><td class="markdownTableBodyNone"><span class="tt">apic.c</span>  </td><td class="markdownTableBodyNone">Local APIC timer, EOI, spurious interrupt handling  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">ACPI / MADT  </td><td class="markdownTableBodyNone"><span class="tt">acpi.c</span>  </td><td class="markdownTableBodyNone">Enumerates Local APICs, IOAPICs, IRQ/GSI mappings  </td></tr>
+<td class="markdownTableBodyNone">Discovery  </td><td class="markdownTableBodyNone"><span class="tt">acpi.c</span>  </td><td class="markdownTableBodyNone">Enumerates Local APICs, IOAPICs, IRQ/GSI mappings  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Dispatch  </td><td class="markdownTableBodyNone"><span class="tt">interrupt.c</span>  </td><td class="markdownTableBodyNone">Dispatches exceptions and IRQs to registered handlers  </td></tr>
 </table>
+<p>The delivery mechanism determines how the CPU enters the kernel on an interrupt or exception. The routing layer determines how external interrupt sources reach the CPU. Both delivery mechanisms ultimately dispatch into the same higher-level interrupt handling code.</p>
+<hr  />
+<h2 class="doxsection"><a class="anchor" id="interrupt-delivery-mechanisms"></a>
+Interrupt Delivery Mechanisms</h2>
+<p>Retro Rocket supports two interrupt delivery mechanisms on AMD64:</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Mechanism  </th><th class="markdownTableHeadNone">Component  </th><th class="markdownTableHeadNone">Role  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">IDT  </td><td class="markdownTableBodyNone"><span class="tt">idt.c</span>  </td><td class="markdownTableBodyNone">Traditional descriptor-table-based interrupt delivery  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">FRED  </td><td class="markdownTableBodyNone"><span class="tt">fred.c</span>  </td><td class="markdownTableBodyNone">Modern MSR-configured interrupt and exception delivery  </td></tr>
+</table>
+<p>The kernel attempts to enable FRED first:</p>
+<div class="fragment"><div class="line"><span class="keywordflow">if</span> (fred_enabled &amp;&amp; init_fred()) {</div>
+</div><!-- fragment --><p>If this fails, it falls back to IDT initialisation.</p>
+<h3 class="doxsection"><a class="anchor" id="shared-bsp-interrupt-setup"></a>
+Shared BSP Interrupt Setup</h3>
+<p>Both delivery mechanisms share common BSP setup for interrupt handling. This includes:</p>
+<ol type="1">
+<li>Early interrupt subsystem initialisation</li>
+<li>PIT programming</li>
+<li>IRQ routing setup</li>
+<li>Final interrupt enablement</li>
+</ol>
+<p>This avoids duplicating platform interrupt setup while allowing the CPU entry mechanism to differ.</p>
+<h3 class="doxsection"><a class="anchor" id="shared-high-level-dispatch"></a>
+Shared High-Level Dispatch</h3>
+<p>Both IDT and FRED ultimately dispatch into the same higher-level interrupt handling functions in <span class="tt">interrupt.c</span>:</p>
+<ul>
+<li><span class="tt">Interrupt()</span> for CPU exceptions and software interrupts</li>
+<li><span class="tt">IRQ()</span> for hardware interrupt delivery</li>
+</ul>
+<p>This keeps IRQ routing, handler registration, entropy collection, FPU state save/restore, and end-of-interrupt handling consistent regardless of delivery mechanism.</p>
 <hr  />
 <h2 class="doxsection"><a class="anchor" id="idt-initialisation-idtc"></a>
 IDT Initialisation (<span class="tt">idt.c</span>)</h2>
@@ -156,6 +198,49 @@ All Interrupts Are Initially Masked</h3>
 <div class="fragment"><div class="line">register_interrupt_handler(irqnum, handler, dev, ctx);</div>
 </div><!-- fragment --><p>This design guarantees no spurious IRQs during boot and enforces strict control of enabled sources.</p>
 <hr  />
+<h2 class="doxsection"><a class="anchor" id="fred-initialisation-fredc"></a>
+FRED Initialisation (<span class="tt">fred.c</span>)</h2>
+<p>Retro Rocket can use Intel FRED as an alternative to IDT-based interrupt delivery on supported CPUs.</p>
+<p>FRED uses:</p>
+<ul>
+<li>MSR-configured entry points instead of IDT gates</li>
+<li>Hardware-defined event frames instead of the traditional interrupt stack frame</li>
+<li><span class="tt">erets</span> instead of <span class="tt">iretq</span> on return from the low-level entry path</li>
+</ul>
+<p>The <span class="tt">init_fred()</span> function performs the same BSP interrupt setup as the IDT path, then enables FRED for the current CPU and completes late interrupt initialisation.</p>
+<p>FRED support is detected via CPUID before being enabled. FRED is enabled per CPU, and application processors enable it separately during AP startup.</p>
+<h3 class="doxsection"><a class="anchor" id="per-cpu-enablement"></a>
+Per-CPU Enablement</h3>
+<p>FRED state is not global. Each CPU must enable it independently. The BSP does this during <span class="tt">init_fred()</span>, and APs do so during shared interrupt loading.</p>
+<h3 class="doxsection"><a class="anchor" id="fred-entry-stubs-loaders"></a>
+FRED Entry Stubs (<span class="tt">loader.S</span>)</h3>
+<p>The low-level FRED entry stubs live in <span class="tt">loader.S</span>.</p>
+<p>Retro Rocket provides:</p>
+<ul>
+<li>a ring 3 stub at the start of the configured FRED entry page</li>
+<li>a ring 0 stub at the required offset within that same page</li>
+</ul>
+<p>The ring 0 entry stub saves general-purpose registers, passes a pointer to the hardware-constructed FRED frame into C, and returns using <span class="tt">erets</span>.</p>
+<p>The FRED entry page must be laid out exactly as required by the architecture. The configured entry address must point at the start of the page containing the stubs.</p>
+<h3 class="doxsection"><a class="anchor" id="fred-frame-handling"></a>
+FRED Frame Handling</h3>
+<p>On entry, FRED provides a hardware-defined event frame containing saved architectural state and event metadata. Retro Rocket decodes the delivered vector from the FRED frame and dispatches either to <span class="tt">Interrupt()</span> or <span class="tt">IRQ()</span>.</p>
+<p>This allows FRED to reuse the same higher-level interrupt and exception handling logic as the IDT path.</p>
+<hr  />
+<h2 class="doxsection"><a class="anchor" id="assembly-stubs-loaders"></a>
+Assembly Stubs (<span class="tt">loader.S</span>)</h2>
+<p>The low-level interrupt and exception entry stubs are implemented in <span class="tt">loader.S</span>.</p>
+<p>For the IDT path, <span class="tt">loader.S</span> provides:</p>
+<ul>
+<li>the code that populates the IDT entries</li>
+<li>exception stubs for CPU exceptions</li>
+<li>IRQ stubs for hardware interrupt vectors</li>
+<li>common dispatch trampolines for exceptions and IRQs</li>
+</ul>
+<p>These stubs save register state, prepare arguments for the C dispatch layer, call into <span class="tt">Interrupt()</span> or <span class="tt">IRQ()</span>, restore register state, and return with <span class="tt">iretq</span>.</p>
+<p>For the FRED path, <span class="tt">loader.S</span> also provides the FRED entry-page stubs used by <span class="tt">fred.c</span>.</p>
+<p>This means <span class="tt">loader.S</span> contains the low-level entry machinery for both interrupt delivery mechanisms.</p>
+<hr  />
 <h2 class="doxsection"><a class="anchor" id="apic-handling-apicc"></a>
 APIC Handling (<span class="tt">apic.c</span>)</h2>
 <p>Retro Rocket assumes all hardware conforms to the AMD64 specification. This includes mandatory support for:</p>
@@ -171,6 +256,7 @@ Key APIC Features</h3>
 <li><b>End-of-Interrupt (EOI)</b>: Sent with <span class="tt">apic_write(APIC_EOI, 0)</span> after each interrupt.</li>
 <li><b>Spurious IRQ Handling</b>: IRQ 7 is handled explicitly and does not send EOI.</li>
 </ul>
+<p>APIC is responsible for interrupt routing and delivery to a CPU. It is not responsible for the CPU-side interrupt entry mechanism itself. That role is handled by either the IDT or FRED.</p>
 <hr  />
 <h2 class="doxsection"><a class="anchor" id="acpi--madt-processing-acpic"></a>
 ACPI &amp; MADT Processing (<span class="tt">acpi.c</span>)</h2>
@@ -197,7 +283,6 @@ IRQ to GSI Routing</h3>
 <p>This routing is queried using:</p>
 <div class="fragment"><div class="line">uint32_t irq_to_gsi(uint8_t irq);</div>
 <div class="line">uint8_t get_irq_polarity(uint8_t irq);</div>
-<div class="line">uint8_t get_irq_trigger_mode(uint8_t irq);</div>
 </div><!-- fragment --><hr  />
 <h2 class="doxsection"><a class="anchor" id="registering-a-handler"></a>
 Registering a Handler</h2>
@@ -210,6 +295,7 @@ Registering a Handler</h2>
 <li>Ensures the handler will be called on interrupt.</li>
 </ul>
 <p>If not registered, the line remains masked and ignored.</p>
+<p>Handlers are ultimately invoked by the common dispatch layer in <span class="tt">interrupt.c</span>, regardless of whether the interrupt reached the kernel through IDT or FRED.</p>
 <hr  />
 <h2 class="doxsection"><a class="anchor" id="legacy-pic-support-deprecated"></a>
 Legacy PIC Support (Deprecated)</h2>
@@ -237,6 +323,12 @@ Terminology</h2>
 <td class="markdownTableBodyNone">MADT  </td><td class="markdownTableBodyNone">Multiple APIC Description Table (ACPI)  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">PIC  </td><td class="markdownTableBodyNone">Legacy 8259 Programmable Interrupt Controller  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">IDT  </td><td class="markdownTableBodyNone">Interrupt Descriptor Table  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">FRED  </td><td class="markdownTableBodyNone">Flexible Return and Event Delivery  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">ERETS  </td><td class="markdownTableBodyNone">FRED return instruction  </td></tr>
 </table>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
