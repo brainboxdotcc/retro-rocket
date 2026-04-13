@@ -35,7 +35,8 @@ Retro Rocket meets you in the middle, letting you dive into the guts of your com
   * ADSR envelopes and waveform synthesis
 * Supports the following file systems:
   * RetroFS (*read/write*)
-  * ADFS "L" format adl disk images (*read only*)
+  * Acorn ADFS "L" format adl disk images (*read only*)
+  * Acorn DFS single sided/double sided images (*read only*)
   * FAT32 (*read/write*)
   * ISO9660 (*read only*)
   * UDF (*read only*)

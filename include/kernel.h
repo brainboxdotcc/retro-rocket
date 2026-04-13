@@ -83,6 +83,7 @@
 #include "iso9660.h"
 #include "udf.h"
 #include "adfs.h"
+#include "dfs.h"
 #include "devfs.h"
 #include "fat32.h"
 #include "debugger.h"

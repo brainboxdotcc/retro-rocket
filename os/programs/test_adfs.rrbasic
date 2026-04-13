@@ -1,2 +1,5 @@
 MKDIR "/ramdisk/essays"
 MOUNT "/ramdisk/essays", ADFSIMAGE$("/system/diskimages/essays.adl"), "adfs"
+MKDIR "/ramdisk/bbc140"
+MOUNT "/ramdisk/bbc140", ADFSIMAGE$("/system/diskimages/bbc140.dsd"), "dfs"
+PRINT "Done."
