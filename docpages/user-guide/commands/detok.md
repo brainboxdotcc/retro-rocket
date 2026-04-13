@@ -1,6 +1,8 @@
 \page detok detok command
 
-## detok [filename]
+```
+detok [filename]
+```
 
 Detokenises a BBC BASIC IV program (BBC model B, B+, Master 128) into plain text.
 

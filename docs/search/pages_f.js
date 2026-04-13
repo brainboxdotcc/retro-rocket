@@ -8,7 +8,7 @@ var searchData=
   ['file_20directory_20flags_20values_5',['3.3.3 File/Directory Flags values',['../retrofs.html#autotoc_md333-filedirectory-flags-values',1,'']]],
   ['file_20system_6',['File System',['../file-system.html',1,'user-guide']]],
   ['file_20system_7',['File system',['../glossary.html#file-system',1,'']]],
-  ['filename_8',['filename',['../detok.html#detok-filename',1,'detok [filename]'],['../dump.html#dump-filename',1,'dump [filename]'],['../list.html#list-filename',1,'list [filename]']]],
+  ['filename_8',['filename',['../dump.html#dump-filename',1,'dump [filename]'],['../list.html#list-filename',1,'list [filename]']]],
   ['filename_20text_9',['scan [filename] [text]',['../search.html#scan-filename-text',1,'']]],
   ['files_10',['4. Copying files',['../installation.html#autotoc_md4-copying-files',1,'']]],
   ['filesize_20function_11',['FILESIZE Function',['../FILESIZE.html',1,'int-funcs']]],
