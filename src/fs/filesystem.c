@@ -1054,28 +1054,6 @@ fs_tree_t* walk_to_node_internal(fs_tree_t* current_node, dirstack_t* dir_stack)
 		return NULL;
 	}
 
-	/*if (current_node->dirty != 0) {
-		retrieve_node_from_driver(current_node);
-	}
-
-	if (dir_stack && current_node->name != NULL && dir_stack->name != NULL && !strcmp(current_node->name, dir_stack->name)) {
-		dir_stack = dir_stack->next;
-		if (!dir_stack) {
-			return current_node;
-		}
-	}
-
-	fs_tree_t* dirs = current_node->child_dirs;
-	for (; dirs; dirs = dirs->next) {
-		fs_tree_t* result = walk_to_node_internal(dirs, dir_stack);
-		if (result != NULL) {
-			return result;
-		}
-	}
-
-	return NULL;*/
-
-
 	/* Materialise this node before inspecting children */
 	if (current_node->dirty != 0) {
 		retrieve_node_from_driver(current_node);
@@ -1091,7 +1069,7 @@ fs_tree_t* walk_to_node_internal(fs_tree_t* current_node, dirstack_t* dir_stack)
 	   Do NOT recurse into non-matching branches (prevents /a from
 	   “finding” /x/.../a by DFS). */
 	for (fs_tree_t *child = current_node->child_dirs; child; child = child->next) {
-		if (child->name && dir_stack->name && strcmp(child->name, dir_stack->name) == 0) {
+		if (child->name && dir_stack->name && strcasecmp(child->name, dir_stack->name) == 0) {
 			/* consume exactly one segment and descend */
 			return walk_to_node_internal(child, dir_stack->next);
 		}
@@ -1171,7 +1149,7 @@ fs_directory_entry_t* find_file_in_dir(fs_tree_t* directory, const char* filenam
 	fs_directory_entry_t* entry = (fs_directory_entry_t*)directory->files;
 	for (; entry; entry = entry->next) {
 		/* Don't find directories, only files */
-		if (((entry->flags & FS_DIRECTORY) == 0) && (!strcmp(filename, entry->filename))) {
+		if (((entry->flags & FS_DIRECTORY) == 0) && (!strcasecmp(filename, entry->filename))) {
 			return entry;
 		}
 	}
@@ -1188,7 +1166,7 @@ fs_directory_entry_t* find_dir_in_dir(fs_tree_t* directory, const char* filename
 	fs_directory_entry_t* entry = (fs_directory_entry_t*)directory->files;
 	for (; entry; entry = entry->next) {
 		/* Don't find directories, only files */
-		if ((entry->flags & FS_DIRECTORY) && (!strcmp(filename, entry->filename)))
+		if ((entry->flags & FS_DIRECTORY) && (!strcasecmp(filename, entry->filename)))
 			return entry;
 	}
 	return NULL;
@@ -1234,13 +1212,13 @@ void delete_tree_node(fs_tree_t** head_ref, const char* name)
 
 	fs_tree_t *temp = *head_ref, *prev = NULL;
 
-	if (temp != NULL && !strcmp(temp->name, name)) {
+	if (temp != NULL && !strcasecmp(temp->name, name)) {
 		*head_ref = temp->next;
 		kfree_null(&temp);
 		return;
 	}
 
-	while (temp != NULL && strcmp(temp->name, name) != 0) {
+	while (temp != NULL && strcasecmp(temp->name, name) != 0) {
 		prev = temp;
 		temp = temp->next;
 	}
@@ -1262,13 +1240,13 @@ void delete_file_node(fs_directory_entry_t** head_ref, const char* name)
 
 	fs_directory_entry_t *temp = *head_ref, *prev = NULL;
 
-	if (temp != NULL && !strcmp(temp->filename, name)) {
+	if (temp != NULL && !strcasecmp(temp->filename, name)) {
 		*head_ref = temp->next;
 		kfree_null(&temp);
 		return;
 	}
 
-	while (temp != NULL && strcmp(temp->filename, name) != 0) {
+	while (temp != NULL && strcasecmp(temp->filename, name) != 0) {
 		prev = temp;
 		temp = temp->next;
 	}
