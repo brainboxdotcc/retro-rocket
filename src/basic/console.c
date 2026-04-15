@@ -256,7 +256,7 @@ void page_statement(struct basic_ctx* ctx) {
 	} else if (state == OFF) {
 		set_console_paging_enabled(false);
 	} else {
-		tokenizer_error_print("PAGE: Unexpected token, expected ON or OFF");
+		tokenizer_error_print(ctx, "PAGE: Unexpected token, expected ON or OFF");
 	}
 }
 
