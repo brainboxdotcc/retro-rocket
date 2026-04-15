@@ -259,3 +259,11 @@ void redefine_character(unsigned char c, uint8_t bitmap[8]);
 void graphics_putstring(const char *s, int64_t x, int64_t y, int32_t colour);
 
 int add_scrollable(int64_t start, int64_t end);
+
+void console_paging_reset(void);
+
+void console_paging_wait(void);
+
+void set_console_paging_enabled(bool enabled);
+
+bool get_console_paging_enabled(void);

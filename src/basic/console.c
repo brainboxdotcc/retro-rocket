@@ -248,6 +248,18 @@ void graphprint_statement(struct basic_ctx* ctx) {
 	}
 }
 
+void page_statement(struct basic_ctx* ctx) {
+	accept_or_return(PAGE, ctx);
+	enum token_t state = tokenizer_token(ctx);
+	if (state == ON) {
+		set_console_paging_enabled(true);
+	} else if (state == OFF) {
+		set_console_paging_enabled(false);
+	} else {
+		tokenizer_error_print("PAGE: Unexpected token, expected ON or OFF");
+	}
+}
+
 void vdu_statement(struct basic_ctx* ctx) {
 	uint64_t current_x, current_y;
 	get_text_position(&current_x, &current_y);
@@ -330,10 +342,10 @@ void vdu_statement(struct basic_ctx* ctx) {
 			gotoxy(current_x, current_y);
 			break;
 		case 14:
-			/* Auto paging mode on - unsupported */
+			set_console_paging_enabled(true);
 			break;
 		case 15:
-			/* Auto paging mode off - unsupported */
+			set_console_paging_enabled(false);
 			break;
 		case 18: {
 			/* Set graphics colour */

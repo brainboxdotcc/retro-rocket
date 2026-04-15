@@ -48,6 +48,12 @@ Retro Rocket BASIC implements a practical subset of BBC MOS `VDU`. Unsupported c
 #### VDU 13
   Carriage return (move to column 0 of current line).
 
+#### VDU 14
+  Enable paged mode. While paged mode is enabled every page of screen output requires a keypress to continue.
+
+#### VDU 15
+  Disable paged mode if it is enabled, else do nothing.
+
 #### VDU 16
   Clear screen (CLG in BBC terms, but acts as CLS in Retro Rocket).
 

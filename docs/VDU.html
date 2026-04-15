@@ -127,7 +127,7 @@ $(function(){initNavTree('VDU.html','',''); });
 </div><!-- fragment --><p>Issues a <b>screen control</b> command. <span class="tt">n</span> selects the command. Arguments (if any) follow as comma-separated integers. Unused trailing numbers are accepted and ignored.</p>
 <p>Retro Rocket BASIC implements a practical subset of BBC MOS <span class="tt">VDU</span>. Unsupported commands are no-ops (their arguments are discarded).</p>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-196"></a>
+<h3 class="doxsection"><a class="anchor" id="notes-197"></a>
 Notes</h3>
 <ul>
 <li>Coordinates for cursor movement use <b>text cells</b>: <span class="tt">x</span> is the column (0..cols-1), <span class="tt">y</span> is the row (0..rows-1).</li>
@@ -164,6 +164,12 @@ VDU 12</h4>
 <h4 class="doxsection"><a class="anchor" id="vdu-13"></a>
 VDU 13</h4>
 <p>Carriage return (move to column 0 of current line).</p>
+<h4 class="doxsection"><a class="anchor" id="vdu-14"></a>
+VDU 14</h4>
+<p>Enable paged mode. While paged mode is enabled every page of screen output requires a keypress to continue.</p>
+<h4 class="doxsection"><a class="anchor" id="vdu-15"></a>
+VDU 15</h4>
+<p>Disable paged mode if it is enabled, else do nothing.</p>
 <h4 class="doxsection"><a class="anchor" id="vdu-16"></a>
 VDU 16</h4>
 <p>Clear screen (CLG in BBC terms, but acts as CLS in Retro Rocket).</p>

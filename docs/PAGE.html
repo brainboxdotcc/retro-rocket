@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=11">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Retro Rocket OS: SOCKREAD Keyword</title>
+    <title>Retro Rocket OS: PAGE Keyword</title>
     <link href="tabs.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -16,7 +16,7 @@
     <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-    <meta name="title" content="SOCKREAD Keyword - Retro Rocket OS">
+    <meta name="title" content="PAGE Keyword - Retro Rocket OS">
     <meta name="description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="author" content="Retro Rocket Developers">
     <meta name="robots" content="index, follow">
@@ -24,7 +24,7 @@
     <meta name="theme-color" content="#0b0f14">
     <link rel="icon" href="rr.png">
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="SOCKREAD Keyword - Retro Rocket OS">
+    <meta property="og:title" content="PAGE Keyword - Retro Rocket OS">
     <meta property="og:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://retrorocket.dev/">
@@ -32,7 +32,7 @@
     <meta property="og:image:alt" content="Retro Rocket OS running on a retro-style desktop">
     <meta property="og:site_name" content="Retro Rocket OS">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="SOCKREAD Keyword - Retro Rocket OS">
+    <meta name="twitter:title" content="PAGE Keyword - Retro Rocket OS">
     <meta name="twitter:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="twitter:image" content="https://retrorocket.dev/leader4.png">
     <link rel="preload" as="image" href="https://retrorocket.dev/leader4.png">
@@ -94,7 +94,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('SOCKREAD.html','',''); });
+$(function(){initNavTree('PAGE.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -120,66 +120,45 @@ $(function(){initNavTree('SOCKREAD.html','',''); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">SOCKREAD Keyword </div></div>
+  <div class="headertitle"><div class="title">PAGE Keyword </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">SOCKREAD integer-variable, variable</div>
-</div><!-- fragment --><p>Reads a value from an <b>open TCP socket</b> into <span class="tt">variable</span>. <br  />
- The first parameter must be an <b>integer variable</b> containing the socket handle returned by <a class="el" href="CONNECT.html">CONNECT</a>.</p>
-<p>The <b>semantics match</b> <a class="el" href="INPUT.html">INPUT</a>:</p>
-<ul>
-<li>The call is <b>blocking</b>: it waits until there is <b>enough data</b> to parse a valid value for the destination type.</li>
-<li><span class="tt">variable</span> may be <b>string</b>, <b>integer</b>, <b>real</b> or an <b>array</b> subscript or <b>whole array</b>.</li>
-<li>If the incoming data does <b>not</b> form a valid number when an integer or real is expected, the destination is set to <b>0</b>.</li>
-<li>Unlike <span class="tt">INPUT</span>, there is <b>no echo</b> (data comes from the socket, not the keyboard).</li>
-</ul>
-<dl class="section note"><dt>Note</dt><dd>Press <span class="tt">CTRL+ESC</span> at any time to <b>cancel</b> waiting for socket input. </dd>
-<dd>
-Without an error handler, the program <b>terminates</b>. </dd>
-<dd>
-With an <span class="tt">ON ERROR</span> handler, control passes there instead.</dd></dl>
+<div class="textblock"><div class="fragment"><div class="line">PAGE ON</div>
+<div class="line">PAGE OFF</div>
+</div><!-- fragment --><p>Enable or disable paged output. When enabled, the system pauses after each full screen of text and waits for a keypress before continuing.</p>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-183"></a>
-Examples</h3>
-<p><b>Read a text line</b> </p><div class="fragment"><div class="line">CONNECT S, &quot;93.184.216.34&quot;, 80</div>
-<div class="line">REM Ask the server for a line, then read it</div>
-<div class="line">SOCKWRITE S, &quot;HEAD / HTTP/1.0&quot; + CHR$(13) + CHR$(10) + CHR$(13) + CHR$(10)</div>
-<div class="line">SOCKREAD S, LINE$</div>
-<div class="line">PRINT LINE$</div>
-<div class="line">SOCKCLOSE S</div>
-</div><!-- fragment --><p><b>Read a number</b> </p><div class="fragment"><div class="line">CONNECT S, &quot;192.0.2.10&quot;, 1234</div>
-<div class="line">REM Peer will send an integer in ASCII, e.g. 42 followed by newline</div>
-<div class="line">SOCKREAD S, N</div>
-<div class="line">IF N = 0 THEN</div>
-<div class="line">    PRINT &quot;Invalid or zero value received&quot;</div>
-<div class="line">ELSE</div>
-<div class="line">    PRINT &quot;Got: &quot;; N</div>
-<div class="line">ENDIF</div>
-</div><!-- fragment --><p><b>Handle cancellation and errors</b> </p><div class="fragment"><div class="line">ON ERROR PROCnet_err</div>
-<div class="line"> </div>
-<div class="line">CONNECT S, &quot;203.0.113.5&quot;, 7000</div>
-<div class="line">IF S &gt;= 0 THEN</div>
-<div class="line">    PRINT &quot;Waiting for data (CTRL+ESC to cancel)...&quot;</div>
-<div class="line">    SOCKREAD S, DATA$</div>
-<div class="line">    PRINT &quot;Received: &quot;; DATA$</div>
-<div class="line">    SOCKCLOSE S</div>
-<div class="line">ENDIF</div>
-<div class="line">END</div>
-<div class="line"> </div>
-<div class="line">DEF PROCnet_err</div>
-<div class="line">    PRINT &quot;Socket error: &quot;; ERR$</div>
-<div class="line">    ON ERROR PROCnet_err</div>
-<div class="line">ENDPROC</div>
-</div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-187"></a>
-Notes</h3>
 <ul>
-<li>Treat the socket as a <b>byte stream</b>; if you need to read multiple fields on one line, call <span class="tt">SOCKREAD</span> multiple times or define a simple protocol (for example, one value per line).</li>
-<li>After <span class="tt">SOCKCLOSE</span>, the handle is invalid for further <span class="tt">SOCKREAD</span>/<span class="tt">SOCKWRITE</span>.</li>
-<li>Use <a class="el" href="DNS.html">DNS$</a> to resolve hostnames to IP strings for <span class="tt">CONNECT</span>.</li>
+<li><b>PAGE ON</b><ul>
+<li>Enables paged mode (equivalent to <span class="tt">VDU 14</span>).</li>
+<li>Output pauses after each full screen.</li>
+<li>A prompt is shown on the last line.</li>
 </ul>
-<p><b>See also:</b> <br  />
- <a class="el" href="CONNECT.html">CONNECT</a> · <a class="el" href="SOCKWRITE.html">SOCKWRITE</a> · <a class="el" href="SOCKCLOSE.html">SOCKCLOSE</a> · <a class="el" href="INPUT.html">INPUT</a> </p>
+</li>
+<li><b>PAGE OFF</b><ul>
+<li>Disables paged mode (equivalent to <span class="tt">VDU 15</span>).</li>
+<li>Output continues without interruption.</li>
+</ul>
+</li>
+</ul>
+<hr  />
+<h5 class="doxsection"><a class="anchor" id="example-17"></a>
+Example</h5>
+<div class="fragment"><div class="line">PAGE ON</div>
+<div class="line"> </div>
+<div class="line">FOR I = 1 TO 100</div>
+<div class="line">    PRINT &quot;Line &quot;; I</div>
+<div class="line">NEXT</div>
+<div class="line"> </div>
+<div class="line">PAGE OFF</div>
+<div class="line">PRINT &quot;No more pauses&quot;</div>
+</div><!-- fragment --><hr  />
+<h5 class="doxsection"><a class="anchor" id="notes-169"></a>
+Notes</h5>
+<ul>
+<li>Paged mode affects all subsequent text output until disabled.</li>
+<li>Any keypress resumes output when paused.</li>
+<li><span class="tt">PAGE</span> only affects console output; it does not alter program flow. </li>
+</ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

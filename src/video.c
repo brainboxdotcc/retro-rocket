@@ -101,6 +101,79 @@ static uint8_t font_data[]  = { // 8x8
 	0x00, 0x2e, 0x33, 0x33, 0x33, 0x00, 0x00, 0x00, 0x38, 0x08, 0x38, 0x20, 0x38, 0x00, 0x00, 0x00, 0x00, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 
+static bool console_paging_enabled = true;
+static int64_t console_page_lines_left = 0;
+
+void set_console_paging_enabled(bool enabled) {
+	console_paging_enabled = enabled;
+	console_paging_reset();
+}
+
+bool get_console_paging_enabled(void) {
+	return console_paging_enabled;
+}
+
+void console_paging_reset(void) {
+	console_page_lines_left = screen_y;
+}
+
+void console_paging_wait(void) {
+	static const char prompt[] = "  Press any key for next page  ";
+
+	if (!ft_ctx || !rr_fb_back || !console_paging_enabled) {
+		return;
+	}
+
+	int64_t row_y = (screen_y - 1) * 8;
+	if (row_y < 0) {
+		return;
+	}
+
+	size_t row_bytes = rr_fb_pitch * 8;
+	uint8_t *saved_row = kmalloc(row_bytes);
+	if (!saved_row) {
+		return;
+	}
+
+	memcpy(saved_row, (uint8_t *)rr_fb_back + (row_y * rr_fb_pitch), row_bytes);
+
+	uint64_t cursor_x = 0;
+	uint64_t cursor_y = 0;
+	get_text_position(&cursor_x, &cursor_y);
+
+	size_t prompt_len = strlen(prompt);
+	int64_t prompt_x;
+	if ((int64_t)screen_x > (int64_t)prompt_len) {
+		prompt_x = screen_x - prompt_len + 1;
+	} else {
+		prompt_x = 1;
+	}
+
+	int64_t prompt_px = (prompt_x - 1) * 8;
+	int64_t prompt_py = row_y;
+	int64_t prompt_w = (int64_t)prompt_len * 8;
+
+	draw_horizontal_rectangle(prompt_px, prompt_py, prompt_px + prompt_w, prompt_py + 8, 0xffffff);
+	graphics_putstring(prompt, prompt_px, prompt_py, 0x000000);
+
+	set_video_dirty_area(row_y, row_y + 8);
+	rr_flip();
+
+	interrupts_on();
+	while (kgetc() == 255) {
+		__asm__ volatile("hlt");
+	}
+	interrupts_off();
+
+	memcpy((uint8_t *)rr_fb_back + (row_y * rr_fb_pitch), saved_row, row_bytes);
+	flanterm_set_cursor_pos(ft_ctx, cursor_x, cursor_y);
+	flanterm_flush(ft_ctx);
+
+	set_video_dirty_area(row_y, row_y + 8);
+	rr_flip();
+
+	kfree(saved_row);
+}
 
 /* Insert a band [start, end), keeping the list sorted by start */
 int add_scrollable(int64_t start, int64_t end) {
@@ -249,6 +322,7 @@ void clearscreen() {
 	flanterm_clear(ft_ctx, true);
 	flanterm_flush(ft_ctx);
 	set_video_dirty_area(0, screen_graphics_y);
+	console_paging_reset();
 }
 
 void dput(const char n) {
@@ -259,8 +333,23 @@ void dput(const char n) {
  * trigger scrolling if the character would be off-screen.
  */
 void put(const char n) {
-	if (ft_ctx) {
-		ft_write(ft_ctx, &n, 1);
+	if (!ft_ctx) {
+		return;
+	}
+
+	ft_write(ft_ctx, &n, 1);
+
+	if (!console_paging_enabled) {
+		return;
+	}
+
+	if (n == '\n') {
+		console_page_lines_left--;
+
+		if (console_page_lines_left <= 0) {
+			console_paging_wait();
+			console_paging_reset();
+		}
 	}
 }
 
@@ -285,7 +374,9 @@ void dputstring(const char* message)
  */
 void putstring(const char* message)
 {
-	ft_write(ft_ctx, message, strlen(message));
+	while (*message) {
+		put(*message++);
+	}
 }
 
 void terminal_callback(struct flanterm_context *ctx, uint64_t type, uint64_t x, uint64_t y, uint64_t z)
@@ -417,6 +508,7 @@ void init_console()
 	flanterm_get_dimensions(ft_ctx, &x, &y);
 	screen_x = x;
 	screen_y = y;
+	console_paging_reset();
 	dprintf("Framebuffer address: %lx x resolution=%d y resolution=%d\n", framebuffer_address(), screen_get_width(), screen_get_height());
 
 	setforeground(COLOUR_LIGHTYELLOW);

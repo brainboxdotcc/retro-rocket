@@ -263,3 +263,5 @@ bool basic_esc();
 void graphprint_statement(struct basic_ctx* ctx);
 
 void vdu_statement(struct basic_ctx* ctx);
+
+void page_statement(struct basic_ctx* ctx);

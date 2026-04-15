@@ -20,7 +20,9 @@ var searchData=
   ['12_20next_20steps_17',['12) Next steps',['../basic-beginner.html#autotoc_md12-next-steps',1,'']]],
   ['127_18',['VDU 127',['../VDU.html#vdu-127',1,'']]],
   ['13_19',['VDU 13',['../VDU.html#vdu-13',1,'']]],
-  ['16_20',['VDU 16',['../VDU.html#vdu-16',1,'']]],
-  ['17_20colour_21',['VDU 17, colour',['../VDU.html#vdu-17-colour',1,'']]],
-  ['18_20colour_22',['VDU 18, colour',['../VDU.html#vdu-18-colour',1,'']]]
+  ['14_20',['VDU 14',['../VDU.html#vdu-14',1,'']]],
+  ['15_21',['VDU 15',['../VDU.html#vdu-15',1,'']]],
+  ['16_22',['VDU 16',['../VDU.html#vdu-16',1,'']]],
+  ['17_20colour_23',['VDU 17, colour',['../VDU.html#vdu-17-colour',1,'']]],
+  ['18_20colour_24',['VDU 18, colour',['../VDU.html#vdu-18-colour',1,'']]]
 ];

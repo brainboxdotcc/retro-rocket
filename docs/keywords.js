@@ -66,6 +66,7 @@ var keywords =
     [ "OUTPORT Keyword", "OUTPORT.html", null ],
     [ "OUTPORTQ Keyword", "OUTPORTQ.html", null ],
     [ "OUTPORTW Keyword", "OUTPORTW.html", null ],
+    [ "PAGE Keyword", "PAGE.html", null ],
     [ "PLOT Keyword", "PLOT.html", null ],
     [ "PLOTQUAD Keyword", "PLOTQUAD.html", null ],
     [ "POINT Keyword", "POINT.html", null ],

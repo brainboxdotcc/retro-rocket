@@ -105,6 +105,7 @@ The following parameter types are used throughout this documentation:
 * \subpage OUTPORT
 * \subpage OUTPORTQ
 * \subpage OUTPORTW
+* \subpage PAGE
 * \subpage PLOT
 * \subpage PLOTQUAD
 * \subpage POINT
