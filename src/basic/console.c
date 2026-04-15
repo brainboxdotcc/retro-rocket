@@ -253,8 +253,10 @@ void page_statement(struct basic_ctx* ctx) {
 	enum token_t state = tokenizer_token(ctx);
 	if (state == ON) {
 		set_console_paging_enabled(true);
+		accept_or_return(ON, ctx);
 	} else if (state == OFF) {
 		set_console_paging_enabled(false);
+		accept_or_return(OFF, ctx);
 	} else {
 		tokenizer_error_print(ctx, "PAGE: Unexpected token, expected ON or OFF");
 	}
