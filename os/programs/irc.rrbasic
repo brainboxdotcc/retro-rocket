@@ -169,15 +169,15 @@ DEF PROCrawCommand(raw$)
 ENDPROC
 
 
-DEF FNfindChannel(channel$)
+DEF FNfindChannel(cchannel$)
 	FOR i = 0 TO joinedCount - 1
-		IF joinedChannels$(i) = channel$ THEN = i
+		IF joinedChannels$(i) = cchannel$ THEN = i
 	NEXT
 = -1
 
-DEF PROCaddChannel(channel$)
-	IF channel$ = "" THEN ENDPROC
-	IF FNfindChannel(channel$) >= 0 THEN ENDPROC
+DEF PROCaddChannel(cchannel$)
+	IF cchannel$ = "" THEN ENDPROC
+	IF FNfindChannel(cchannel$) >= 0 THEN ENDPROC
 	IF joinedCount >= MAXCHANNELS THEN
 		PROCout(4, "* Channel list full")
 		ENDPROC

@@ -6,7 +6,7 @@ var searchData=
   ['handle_20and_20continue_3',['Example: handle and continue',['../ON-ERROR.html#example-handle-and-continue',1,'']]],
   ['handler_4',['Registering a Handler',['../interrupts.html#registering-a-handler',1,'']]],
   ['handling_5',['FRED Frame Handling',['../interrupts.html#fred-frame-handling',1,'']]],
-  ['handling_6',['handling',['../retrofs.html#autotoc_md5-name-handling',1,'5. Name handling'],['../retrofs.html#autotoc_md8-validation--error-handling',1,'8. Validation &amp; error handling'],['../ON-ERROR.html#example-temporarily-disable-handling',1,'Example: temporarily disable handling']]],
+  ['handling_6',['handling',['../retrofs.html#autotoc_md5-name-handling',1,'5. Name handling'],['../retrofs.html#autotoc_md8-validation--error-handling',1,'8. Validation &amp; error handling'],['../irc.html#channel-handling',1,'Channel handling'],['../ON-ERROR.html#example-temporarily-disable-handling',1,'Example: temporarily disable handling']]],
   ['handling_20apic_20c_7',['APIC Handling (&lt;span class=&quot;tt&quot;&gt;apic.c&lt;/span&gt;)',['../interrupts.html#apic-handling-apicc',1,'']]],
   ['handling_20in_20retro_20rocket_20amd64_8',['Interrupt Handling in Retro Rocket (AMD64)',['../interrupts.html',1,'kernel-dev']]],
   ['handling_20you_20can_20script_9',['Error handling you can script',['../basic-intdev.html#error-handling-you-can-script',1,'']]],

@@ -123,11 +123,117 @@ $(function(){initNavTree('irc.html','',''); });
   <div class="headertitle"><div class="title">irc program (satellite) </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>The Satellite IRC client. This is a simple IRC client specifically made for Retro Rocket OS. It is still in development, and command line parameters will follow soon.</p>
+<div class="textblock"><div class="fragment"><div class="line">irc [nickname] [hostname[:port]] [GECOS]</div>
+</div><!-- fragment --><p>The Satellite IRC client. This is a simple IRC client specifically made for Retro Rocket OS.</p>
 <div class="image">
 <img src="irc.png" alt=""/>
 </div>
- </div></div><!-- contents -->
+<p>If you do not specify a nickname, a random nickname will be allocated. This random nickname will be <span class="tt">Rocketeer</span> followed by 3 digits.</p>
+<p>If you do not specify a hostname to connect to, the program will connect to <span class="tt">irc.chatspike.net</span>.</p>
+<p>If the GECOS field is left empty, then the default <span class="tt">Satellite IRC Client</span> will be used.</p>
+<p>If a port is not specified, the default IRC port <span class="tt">6667</span> will be used.</p>
+<p>If DNS resolution fails, Satellite will attempt to connect using the hostname as an IP address.</p>
+<h2 class="doxsection"><a class="anchor" id="basic-usage"></a>
+Basic usage</h2>
+<p>After connecting, Satellite shows incoming server messages, channel messages, notices, joins, parts, quits, kicks, topics, user lists, and other IRC numerics.</p>
+<p>The current target channel is shown in square brackets on the input line at the bottom of the screen.</p>
+<p>Type a line and press Enter to send it to the current channel.</p>
+<p>If the input begins with <span class="tt">/</span>, it is treated as a command instead of a message.</p>
+<h2 class="doxsection"><a class="anchor" id="keyboard-controls"></a>
+Keyboard controls</h2>
+<ul>
+<li><b>Enter</b> sends the current line or runs a slash command</li>
+<li><b>Esc</b> quits the client</li>
+<li><b>Left / Right</b> move the input cursor</li>
+<li><b>Home / End</b> move to the start or end of the input line</li>
+<li><b>Backspace</b> deletes the character to the left of the cursor</li>
+<li><b>Delete</b> deletes the character to the right of the cursor</li>
+<li><b>Page Up / Page Down</b> scroll through scrollback</li>
+<li><b>Tab</b> inserts <span class="tt">#</span></li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="channel-handling"></a>
+Channel handling</h2>
+<p>Satellite keeps track of the channels you have joined.</p>
+<p>When you join a channel yourself, it becomes the current channel automatically.</p>
+<p>When you leave or are kicked from the current channel, Satellite selects another joined channel if one is available. If not, it falls back to the network name or <span class="tt">-</span>.</p>
+<h2 class="doxsection"><a class="anchor" id="commands"></a>
+Commands</h2>
+<h3 class="doxsection"><a class="anchor" id="join"></a>
+/join</h3>
+<p>Join a channel.</p>
+<div class="fragment"><div class="line">/join #channel</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="part"></a>
+/part</h3>
+<p>Leave a channel.</p>
+<div class="fragment"><div class="line">/part #channel</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="channel"></a>
+/channel</h3>
+<p>Switch the current input target to a channel you have already joined.</p>
+<div class="fragment"><div class="line">/channel #channel</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="channels"></a>
+/channels</h3>
+<p>Show the list of joined channels.</p>
+<div class="fragment"><div class="line">/channels</div>
+</div><!-- fragment --><p>The currently selected channel is marked with <span class="tt">*</span>.</p>
+<h3 class="doxsection"><a class="anchor" id="msg"></a>
+/msg</h3>
+<p>Send a private message or message a channel without switching the current channel.</p>
+<div class="fragment"><div class="line">/msg target message text</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="privmsg"></a>
+/privmsg</h3>
+<p>Alias of <span class="tt">/msg</span>.</p>
+<div class="fragment"><div class="line">/privmsg target message text</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="notice"></a>
+/notice</h3>
+<p>Send an IRC NOTICE.</p>
+<div class="fragment"><div class="line">/notice target message text</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="nick"></a>
+/nick</h3>
+<p>Change nickname.</p>
+<div class="fragment"><div class="line">/nick newnick</div>
+</div><!-- fragment --><p>If the nickname is already in use during connection, Satellite will automatically try the same nickname with an underscore appended.</p>
+<h3 class="doxsection"><a class="anchor" id="raw"></a>
+/raw</h3>
+<p>Send a raw IRC line exactly as typed after the command.</p>
+<div class="fragment"><div class="line">/raw WHOIS someuser</div>
+<div class="line">/raw MODE #channel +b</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="rawlog"></a>
+/rawlog</h3>
+<p>Turn raw server line logging on or off.</p>
+<div class="fragment"><div class="line">/rawlog on</div>
+<div class="line">/rawlog off</div>
+</div><!-- fragment --><p>When enabled, incoming raw IRC lines are shown in the scrollback prefixed with <span class="tt">RAWLOG:</span>.</p>
+<h3 class="doxsection"><a class="anchor" id="quit"></a>
+/quit</h3>
+<p>Disconnect from the server.</p>
+<div class="fragment"><div class="line">/quit</div>
+<div class="line">/quit Gone for tea</div>
+</div><!-- fragment --><p>If no quit message is given, Satellite uses <span class="tt">Satellite IRC Client</span>.</p>
+<h2 class="doxsection"><a class="anchor" id="what-satellite-shows"></a>
+What Satellite shows</h2>
+<p>Satellite shows the following directly in the chat window:</p>
+<ul>
+<li>channel messages</li>
+<li>notices</li>
+<li>joins</li>
+<li>parts</li>
+<li>quits</li>
+<li>kicks</li>
+<li>topic text</li>
+<li>topic setter and time</li>
+<li>NAMES replies</li>
+<li>MOTD</li>
+<li>visible host changes</li>
+<li>common IRC errors such as no such nick, no such channel, cannot send to channel, nickname in use, and not enough parameters</li>
+<li>many standard IRC numerics such as WHOIS, LIST, WHO, INFO, LINKS, ban lists, LUSERS, STATS, ADMIN, TIME and related replies</li>
+</ul>
+<p>Unknown numerics are still shown, so important server replies are not silently lost.</p>
+<h2 class="doxsection"><a class="anchor" id="notes-206"></a>
+Notes</h2>
+<p>Satellite uses a single shared scrollback buffer for all output.</p>
+<p><span class="tt">/channel</span> changes the current input target. It does not create separate per-channel windows.</p>
+<p>The client currently uses plaintext IRC connection and does not support TLS. </p>
+</div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

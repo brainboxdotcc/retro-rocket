@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['“doorstep_20queue”_20how_20incoming_20messages_20are_20stored_0',['UDP “Doorstep Queue” (how incoming messages are stored)',['../networking.html#udp-doorstep-queue-how-incoming-messages-are-stored',1,'']]],
-  ['“escape”_20semantics_1',['Ctrl+Esc (“Escape”) semantics',['../basic-intdev.html#ctrlesc-escape-semantics',1,'']]]
+  ['zero_20fill_0',['6.2 Zero-fill',['../retrofs.html#autotoc_md62-zero-fill',1,'']]],
+  ['zlib_20license_1',['Zlib License',['../third-party-notices.html#zlib-license',1,'']]]
 ];
