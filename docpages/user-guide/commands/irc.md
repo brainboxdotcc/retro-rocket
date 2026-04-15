@@ -148,6 +148,8 @@ Disconnect from the server.
 
 If no quit message is given, Satellite uses `Satellite IRC Client`.
 
+
+
 ## What Satellite shows
 
 Satellite shows the following directly in the chat window:

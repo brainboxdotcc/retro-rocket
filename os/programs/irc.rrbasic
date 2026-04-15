@@ -42,7 +42,7 @@ END
 DEF PROCmainLoop
 	PROCdraw
 	REPEAT
-	    d = FNloop(0)
+	    n = FNloop(0)
 	UNTIL SOCKSTATUS(FD) = 0
 	CLS
 ENDPROC
@@ -59,7 +59,7 @@ DEF FNloop(n)
         ENDIF
     UNTIL char$ = ""
     PROCkeyScan
-= 0
+=0
 
 DEF PROCkeyScan
 	key$ = INKEY$("")
@@ -160,14 +160,152 @@ DEF PROCslash(slash$)
 	IF slashCommand$ = "RAWLOG" THEN PROCrawLogCommand(slashParams$)
 	IF slashCommand$ = "RAW" THEN PROCrawCommand(slashParams$)
 	IF slashCommand$ = "QUIT" THEN PROCquitCommand(slashParams$)
+    IF slashCommand$ = "WHOIS" THEN PROCwhoisCommand(slashParams$)
+    IF slashCommand$ = "WHO" THEN PROCwhoCommand(slashParams$)
+    IF slashCommand$ = "WHOWAS" THEN PROCwhowasCommand(slashParams$)
+    IF slashCommand$ = "LIST" THEN PROClistCommand(slashParams$)
+    IF slashCommand$ = "NAMES" THEN PROCnamesCommand(slashParams$)
+    IF slashCommand$ = "TOPIC" THEN PROCtopicCommand(slashParams$)
+    IF slashCommand$ = "MODE" THEN PROCmodeCommand(slashParams$)
+    IF slashCommand$ = "BANLIST" THEN PROCbanListCommand(slashParams$)
+    IF slashCommand$ = "INFO" THEN PROCinfoCommand
+    IF slashCommand$ = "ADMIN" THEN PROCadminCommand
+    IF slashCommand$ = "TIME" THEN PROCtimeCommand
+    IF slashCommand$ = "LINKS" THEN PROClinksCommand(slashParams$)
+    IF slashCommand$ = "MAP" THEN PROCmapCommand
+    IF slashCommand$ = "ME" THEN PROCmeCommand(slashParams$)
+    IF slashCommand$ = "CTCP" THEN PROCctcpCommand(slashParams$)
 	in$ = ""
 	currentx = 0
+ENDPROC
+
+DEF PROCmeCommand(action$)
+	msg$ = LTRIM$(action$)
+	IF msg$ = "" THEN ENDPROC
+	IF curChannel$ = "-" THEN ENDPROC
+	PROCsend("PRIVMSG " + curChannel$ + " :" + CHR$(1) + "ACTION " + msg$ + CHR$(1))
+	PROCout(15, "* " + NICK$ + " " + msg$)
+ENDPROC
+
+DEF PROCctcpCommand(params$)
+	msg$ = LTRIM$(params$)
+	space = INSTR(msg$, " ")
+	IF space = 0 THEN ENDPROC
+
+	target$ = LEFT$(msg$, space - 1)
+	payload$ = MID$(msg$, space, LEN(msg$))
+	payload$ = LTRIM$(payload$)
+
+	IF target$ = "" THEN ENDPROC
+	IF payload$ = "" THEN ENDPROC
+
+	PROCsend("PRIVMSG " + target$ + " :" + CHR$(1) + payload$ + CHR$(1))
+ENDPROC
+
+DEF PROCwhoisCommand(params$)
+	target$ = LTRIM$(params$)
+	IF target$ = "" THEN ENDPROC
+	PROCsend("WHOIS " + target$ + " :" + target$)
+ENDPROC
+
+DEF PROCwhoCommand(params$)
+	target$ = LTRIM$(params$)
+	IF target$ = "" THEN
+		PROCsend("WHO")
+		ENDPROC
+	ENDIF
+	PROCsend("WHO " + target$)
+ENDPROC
+
+DEF PROCwhowasCommand(params$)
+	target$ = LTRIM$(params$)
+	IF target$ = "" THEN ENDPROC
+	PROCsend("WHOWAS " + target$)
+ENDPROC
+
+DEF PROClistCommand(params$)
+	target$ = LTRIM$(params$)
+	IF target$ = "" THEN
+		PROCsend("LIST")
+		ENDPROC
+	ENDIF
+	PROCsend("LIST " + target$)
+ENDPROC
+
+DEF PROCnamesCommand(params$)
+	target$ = LTRIM$(params$)
+	IF target$ = "" THEN
+		IF curChannel$ <> "-" THEN
+			PROCsend("NAMES " + curChannel$)
+		ELSE
+			PROCout(8, "* No channel joined")
+		ENDIF
+		ENDPROC
+	ENDIF
+	PROCsend("NAMES " + target$)
+ENDPROC
+
+DEF PROCtopicCommand(params$)
+	target$ = LTRIM$(params$)
+	IF target$ = "" THEN
+		IF curChannel$ <> "-" THEN
+			PROCsend("TOPIC " + curChannel$)
+		ENDIF
+		ENDPROC
+	ENDIF
+	PROCsend("TOPIC " + target$)
+ENDPROC
+
+DEF PROCmodeCommand(params$)
+	target$ = LTRIM$(params$)
+	IF target$ = "" THEN
+		IF curChannel$ <> "-" THEN
+			PROCsend("MODE " + curChannel$)
+		ENDIF
+		ENDPROC
+	ENDIF
+	PROCsend("MODE " + target$)
+ENDPROC
+
+DEF PROCbanListCommand(params$)
+	target$ = LTRIM$(params$)
+	IF target$ = "" THEN
+		IF curChannel$ <> "-" THEN
+			PROCsend("MODE " + curChannel$ + " +b")
+		ENDIF
+		ENDPROC
+	ENDIF
+	PROCsend("MODE " + target$ + " +b")
+ENDPROC
+
+DEF PROCinfoCommand
+	PROCsend("INFO")
+ENDPROC
+
+DEF PROCadminCommand
+	PROCsend("ADMIN")
+ENDPROC
+
+DEF PROCtimeCommand
+	PROCsend("TIME")
+ENDPROC
+
+DEF PROClinksCommand(params$)
+	target$ = LTRIM$(params$)
+	IF target$ = "" THEN
+		PROCsend("LINKS")
+		ENDPROC
+	ENDIF
+	PROCsend("LINKS " + target$)
+ENDPROC
+
+DEF PROCmapCommand
+    PROCsend("MAP")
 ENDPROC
 
 DEF PROCrawCommand(raw$)
 	PROCsend(raw$)
 ENDPROC
-
 
 DEF FNfindChannel(cchannel$)
 	FOR i = 0 TO joinedCount - 1
@@ -759,14 +897,65 @@ DEF PROCping
 ENDPROC
 
 DEF PROCnotice
-REM IF INSTR(lineParts$(2), "Found your hostname ") > 0 THEN ENDPROC
-	PROCout(12, "-" + userNick$ + "- " + lineParts$(2))
+	text$ = lineParts$(2)
+	IF LEFT$(text$, 1) = CHR$(1) THEN
+		PROCctcpReply(text$)
+		ENDPROC
+	ENDIF
+	PROCout(12, "-" + userNick$ + "- " + text$)
+ENDPROC
+
+DEF PROCctcpReply(text$)
+	ctcp$ = MID$(text$, 1, LEN(text$))
+	IF RIGHT$(ctcp$, 1) = CHR$(1) THEN
+		ctcp$ = LEFT$(ctcp$, LEN(ctcp$) - 1)
+	ENDIF
+	PROCout(11, "* CTCP reply from " + userNick$ + ": " + ctcp$)
 ENDPROC
 
 DEF PROCprivmsg
-	COLOR 15
-	channel$ = lineParts$(1)
-	PROCout(15, "<" + userNick$ + "/" + channel$ + "> " + lineParts$(2))
+	IF LEFT$(lineParts$(2), 1) = CHR$(1) THEN
+		PROCctcpReceive(lineParts$(1),lineParts$(2))
+		ENDPROC
+	ENDIF
+	PROCout(15, "<" + userNick$ + "/" + channel$ + "> " + text$)
+ENDPROC
+
+DEF PROCctcpReceive(channel$,t$)
+	ctcp$ = MID$(t$,1,LEN(t$))
+	IF RIGHT$(ctcp$,1) = CHR$(1) THEN
+		ctcp$ = LEFT$(ctcp$,LEN(ctcp$) - 1)
+	ENDIF
+
+	IF LEFT$(ctcp$, 7) = "ACTION " THEN
+		PROCout(15, "* " + userNick$ + " " + MID$(ctcp$, 7, LEN(ctcp$)))
+		ENDPROC
+	ENDIF
+
+    IF ctcp$ = "VERSION" THEN
+        PROCsend("NOTICE " + userNick$ + " :" + CHR$(1) + "VERSION Satellite IRC Client for Retro Rocket OS" + CHR$(1))
+        PROCout(11, "* CTCP VERSION request from " + userNick$)
+        ENDPROC
+    ENDIF
+
+    IF ctcp$ = "FINGER" THEN
+        PROCsend("NOTICE " + userNick$ + " :" + CHR$(1) + "FINGER go do that someplace else" + CHR$(1))
+        PROCout(11, "* CTCP VERSION request from " + userNick$)
+        ENDPROC
+    ENDIF
+
+	IF ctcp$ = "PING" THEN
+        payload$ = MID$(ctcp$, 4, LEN(ctcp$))
+        payload$ = LTRIM$(payload$)
+    	IF payload$ = "" THEN
+            PROCsend("NOTICE " + userNick$ + " :" + CHR$(1) + "PING" + CHR$(1))
+        ELSE
+            PROCsend("NOTICE " + userNick$ + " :" + CHR$(1) + "PING " + payload$ + CHR$(1))
+        ENDIF
+	    ENDPROC
+	ENDIF
+
+	PROCout(11, "* CTCP from " + userNick$ + ": " + ctcp$)
 ENDPROC
 
 DEF PROCmotdLine

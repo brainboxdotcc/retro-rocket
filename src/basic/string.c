@@ -42,19 +42,14 @@ bool match_idle_step(process_t *proc, void *opaque) {
 		return false;
 	}
 
-	if (st->debug) dprintf("in idler for some reason\n");
-
 	size_t next_off = st->off;
 
 	int rc = regex_exec_slice(st->prog, st->hay, st->hay_len, st->off, &st->m, &next_off);
-	dprintf("regex exec slice, next_off=%lu\n", next_off);
 
 	if (rc == RE_AGAIN) {
 		st->off = next_off;
 		return true;                  /* keep idling */
 	}
-
-	dprintf("regex exec slice, done, rc=%d\n", rc);
 
 	/* terminal states */
 	st->off = next_off;
@@ -78,8 +73,6 @@ void match_statement(struct basic_ctx *ctx)
 
 	const char *hay = str_expr(ctx);
 	size_t hay_len = strlen(hay);
-
-	bool dig_deep = !strcmp(hay, "/rooted/path?only=param");
 
 	const char *cap_names[32];
 	size_t cap_vars = 0;
@@ -234,7 +227,7 @@ void match_statement(struct basic_ctx *ctx)
 	st->hay_len       = hay_len;
 	st->off           = 0;
 	st->fuel_per_tick = 5000;
-	st->debug = dig_deep;
+	st->debug         = false;
 
 	ctx->match_ctx = st;
 
