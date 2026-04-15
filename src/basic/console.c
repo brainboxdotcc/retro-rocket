@@ -300,7 +300,7 @@ void vdu_statement(struct basic_ctx* ctx) {
 			break;
 		}
 		case 9: {
-			/* Move back one character */
+			/* Move forward one character */
 			if (current_x == get_text_width() - 1) {
 				put(' '); // Forces scrolling
 				current_x = 0;
