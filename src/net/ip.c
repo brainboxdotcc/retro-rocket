@@ -37,15 +37,15 @@ static inline bool ip_is_loopback(const uint8_t *ip) {
 }
 
 void get_ip_str(char* ip_str, const uint8_t* ip) {
-	snprintf(ip_str, 16, "%d.%d.%d.%d", ip[0], ip[1], ip[2], ip[3]);
+	snprintf(ip_str, IP_BUF_LEN, "%d.%d.%d.%d", ip[0], ip[1], ip[2], ip[3]);
 }
 
 uint32_t str_to_ip(const char* ip_str)
 {
-	char ip[15];
+	char ip[IP_BUF_LEN];
 	char* dot = NULL, *last_dot = ip;
 	uint32_t shift = 0, out = 0, dot_count = 0;
-	strlcpy(ip, ip_str, 14);
+	strlcpy(ip, ip_str, IP_BUF_LEN);
 	while ((dot = strchr(last_dot, '.')) != NULL) {
 		*dot = 0;
 		out |= (atoi(last_dot) << shift);
@@ -459,7 +459,7 @@ uint64_t ip_frag_hash(const void *item, uint64_t seed0, uint64_t seed1) {
  * @param n_len Packet length
  */
 void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
-	char src_ip[20];
+	char src_ip[IP_BUF_LEN];
 	*((uint8_t*)(&packet->version_ihl_ptr)) = ntohb(*((uint8_t*)(&packet->version_ihl_ptr)), 4);
 	*((uint8_t*)(packet->flags_fragment_ptr)) = ntohb(*((uint8_t*)(packet->flags_fragment_ptr)), 3);
 	add_random_entropy(packet->header_checksum ^ (*(uint32_t*)packet->src_ip));

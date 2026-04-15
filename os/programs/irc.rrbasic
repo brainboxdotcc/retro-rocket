@@ -1,11 +1,27 @@
+LIBRARY LIB$ + "/datetime"
+
+MAXCHANNELS = 64
+DIM joinedChannels$, MAXCHANNELS
+joinedCount = 0
 registered = FALSE
 rawlog = FALSE
-REM HOST$ = ARGS$
-HOST$ = "ip222.ip-141-95-6.eu"
-NICK$ = "Test0001"
-GECOS$ = "Retro Rocket OS IRC Client"
-IDENT$ = "test"
-PORT = 6667
+NICK$ = TOKENIZE$(ARGS$, " ")
+H$ = TOKENIZE$(ARGS$, " ")
+GECOS$ = ARGS$
+IF H$ = "" THEN
+    HOST$ = "irc.chatspike.net"
+    PORT = 6667
+ELSE
+    HOST$ = TOKENIZE$(H$, ":")
+    IF H$ = "" THEN
+        PORT = 6667
+    ELSE
+        PORT = VAL(TOKENIZE$(H$, ":"))
+    ENDIF
+ENDIF
+IF NICK$ = "" THEN NICK$ = "Rocketeer" + STR$(RND(100,999))
+IF GECOS$ = "" THEN GECOS$ = "Retro Rocket OS IRC Client"
+IDENT$ = NICK$
 SCROLLBACK = 512
 currentLine$ = ""
 DIM lineParts$, 255
@@ -18,12 +34,12 @@ top = 0
 currentx = 0
 in$ = ""
 
+CLS
 PROCconnect
 PROCmainLoop
 END
 
 DEF PROCmainLoop
-	CLS
 	PROCdraw
 	REPEAT
 	    d = FNloop(0)
@@ -67,8 +83,14 @@ DEF PROCprocessKey(in)
 	IF in = 246 THEN PROCpageDown
 	IF in = 247 THEN PROCdelete
 	IF in = 8 THEN PROCbackSpace
+	IF in = 9 THEN PROCtabComplete
 	IF (in < 128) AND (in > 31) THEN PROCinsertChar(in)
 	PROCdisplayInput
+ENDPROC
+
+DEF PROCtabComplete
+	REM naive: just insert "#"
+	PROCinsertChar(ASC("#"))
 ENDPROC
 
 DEF PROCdisplayInput
@@ -102,34 +124,125 @@ DEF PROCquit
 ENDPROC
 
 DEF PROCenter
-	IF LEFT$(in$, 1) = "/" THEN PROCslash(MID$(in$, 1, LEN(in$)))
-	IF LEFT$(in$, 1) = "/" THEN ENDPROC
-	PROCmessageCurrent(in$)
+	entered$ = in$
+	IF LEFT$(entered$, 1) = "/" THEN
+		PROCslash(MID$(entered$, 1, LEN(entered$)))
+	    ENDPROC
+	ENDIF
+	PROCmessageCurrent(entered$)
 ENDPROC
 
 DEF PROCmessageCurrent(message$)
+	IF curChannel$ = "-" THEN ENDPROC
+	PROCsend("PRIVMSG " + curChannel$ + " :" + message$)
+	PROCout(15, "<" + NICK$ + "/" + curChannel$ + "> " + message$)
 	in$ = ""
 	currentx = 0
 ENDPROC
 
 DEF PROCslash(slash$)
 	slashSpace = INSTR(slash$, " ")
-	slashCommand$ = UPPER$(LEFT$(slash$, slashSpace - 1))
-	slashParams$ = MID$(slash$, slashSpace, LEN(slash$))
+    IF slashSpace = 0 THEN
+        slashCommand$ = UPPER$(slash$)
+        slashParams$ = ""
+    ELSE
+        slashCommand$ = UPPER$(LEFT$(slash$, slashSpace - 1))
+        slashParams$ = MID$(slash$, slashSpace, LEN(slash$))
+    ENDIF
+    IF slashCommand$ = "CHANNELS" THEN PROCchannelsCommand
+    IF slashCommand$ = "CHANNEL" THEN PROCchannelCommand(slashParams$)
+    IF slashCommand$ = "NICK" THEN PROCnickCommand(slashParams$)
 	IF slashCommand$ = "JOIN" THEN PROCjoinCommand(slashParams$)
 	IF slashCommand$ = "PART" THEN PROCpartCommand(slashParams$)
 	IF slashCommand$ = "MSG" THEN PROCmessageCommand(slashParams$)
 	IF slashCommand$ = "PRIVMSG" THEN PROCmessageCommand(slashParams$)
 	IF slashCommand$ = "NOTICE" THEN PROCnoticeCommand(slashParams$)
 	IF slashCommand$ = "RAWLOG" THEN PROCrawLogCommand(slashParams$)
+	IF slashCommand$ = "RAW" THEN PROCrawCommand(slashParams$)
 	IF slashCommand$ = "QUIT" THEN PROCquitCommand(slashParams$)
 	in$ = ""
 	currentx = 0
 ENDPROC
 
+DEF PROCrawCommand(raw$)
+	PROCsend(raw$)
+ENDPROC
+
+
+DEF FNfindChannel(channel$)
+	FOR i = 0 TO joinedCount - 1
+		IF joinedChannels$(i) = channel$ THEN = i
+	NEXT
+= -1
+
+DEF PROCaddChannel(channel$)
+	IF channel$ = "" THEN ENDPROC
+	IF FNfindChannel(channel$) >= 0 THEN ENDPROC
+	IF joinedCount >= MAXCHANNELS THEN
+		PROCout(4, "* Channel list full")
+		ENDPROC
+	ENDIF
+
+	joinedChannels$(joinedCount) = channel$
+	joinedCount = joinedCount + 1
+ENDPROC
+
+DEF PROCremoveChannel(channel$)
+	idx = FNfindChannel(channel$)
+	IF idx < 0 THEN ENDPROC
+
+	FOR i = idx TO joinedCount - 2
+		joinedChannels$(i) = joinedChannels$(i + 1)
+	NEXT
+
+	joinedChannels$(joinedCount - 1) = ""
+	joinedCount = joinedCount - 1
+
+	IF curChannel$ = channel$ THEN PROCselectFallbackChannel
+ENDPROC
+
+DEF PROCselectFallbackChannel
+	IF joinedCount > 0 THEN
+		curChannel$ = joinedChannels$(0)
+	ENDPROC
+	ENDIF
+
+	IF networkName$ > "" THEN
+		curChannel$ = networkName$
+	ENDPROC
+	ENDIF
+
+	curChannel$ = "-"
+ENDPROC
+
+DEF PROCchannelCommand(channel$)
+	c$ = channel$
+	IF c$ = "" THEN
+		PROCout(4, "* Usage: /channel #channel")
+		ENDPROC
+	ENDIF
+
+	IF FNfindChannel(c$) < 0 THEN
+		PROCout(4, "* Not on channel " + c$)
+		ENDPROC
+	ENDIF
+
+	curChannel$ = c$
+	PROCout(10, "* Switched to " + c$)
+ENDPROC
+
+DEF PROCnickCommand(newNick$)
+	IF newNick$ = "" THEN ENDPROC
+	NICK$ = newNick$
+	PROCsend("NICK :" + newNick$)
+ENDPROC
+
 DEF PROCquitCommand(quitMessage$)
-	IF quitMessage$ = "" THEN PROCsend("QUIT :Satellite IRC Client");
-	IF quitMessage$ > "" THEN PROCsend("QUIT :" + quitMessage$)
+	msg$ = LTRIM$(quitMessage$)
+	IF msg$ = "" THEN
+		msg$ = "Satellite IRC Client"
+	ENDIF
+	PROCsend("QUIT :" + msg$)
 	CLS
 	SOCKCLOSE FD
 ENDPROC
@@ -141,7 +254,9 @@ ENDPROC
 
 DEF PROCjoinCommand(channel$)
 	c$ = channel$
+	IF c$ = "" THEN ENDPROC
 	PROCsend("JOIN " + c$)
+	curChannel$ = c$
 ENDPROC
 
 DEF PROCpartCommand(channel$)
@@ -177,7 +292,7 @@ ENDPROC
 
 DEF PROCright
 	currentx = currentx + 1
-	IF currentx < 0 THEN currentx = 0
+	IF currentx > LEN(in$) THEN currentx = LEN(in$)
 ENDPROC
 
 DEF PROCend
@@ -301,11 +416,16 @@ DEF PROCdiscard
 ENDPROC
 
 DEF PROCconnect
-	PRINT "Connecting to "; HOST$; " ";
 	IP$ = DNS$(HOST$)
-	PRINT " (IP: "; IP$; ")... ";
+	PROCdraw
+	IF IP$ = "0.0.0.0" THEN
+	    IP$ = HOST$
+	    PROCout(3, "Connecting to " + IP$ + "...")
+	ELSE
+	    PROCout(3, "Connecting to " + HOST$ + " (" + IP$ + ")...")
+	ENDIF
 	CONNECT FD, IP$, PORT
-	PRINT "Connected!"
+	PROCout(3, "Connected!");
 ENDPROC
 
 DEF PROCregister
@@ -345,6 +465,7 @@ DEF PROCprocessLine
 		IF lastToken = TRUE THEN currentLine$ = ""
 	UNTIL currentLine$ = ""
 	IF LEFT$(lineParts$(tokenIndex - 1), 1) = ":" THEN lineParts$(tokenIndex - 1) = MID$(lineParts$(tokenIndex - 1), 1, LEN(lineParts$(tokenIndex - 1)))
+    linePartsCount = tokenIndex - 1
 	prefix$ = ""
 	IF LEFT$(lineParts$(0),1) = ":" THEN PROChandlePrefix
 	commands$ = lineParts$(0)
@@ -375,12 +496,239 @@ DEF PROCparsePrefixNUH
 ENDPROC
 
 DEF PROCprocessCommand
+    handled = FALSE
+    IF commands$ = "JOIN" THEN PROCjoined
 	IF commands$ = "PING" THEN PROCping
 	IF commands$ = "NOTICE" THEN PROCnotice
 	IF commands$ = "PRIVMSG" THEN PROCprivmsg
+	IF commands$ = "KICK" THEN PROCkicked
+    IF commands$ = "001" THEN PROCwelcome
+    IF commands$ = "433" THEN PROCNickInUse
 	IF commands$ = "005" THEN PROCiSupport
 	IF commands$ = "372" THEN PROCmotdLine
 	IF commands$ = "376" THEN PROCmotdEnd
+	IF commands$ = "353" THEN PROCnamesLine
+	IF commands$ = "366" THEN PROCnamesEnd
+    IF commands$ = "332" THEN PROCtopicNumeric
+    IF commands$ = "333" THEN PROCtopicWhoTime
+	IF commands$ = "200" THEN PROCtraceLink
+	IF commands$ = "201" THEN PROCtraceConnecting
+	IF commands$ = "202" THEN PROCtraceHandshake
+	IF commands$ = "203" THEN PROCtraceUnknown
+	IF commands$ = "204" THEN PROCtraceOperator
+	IF commands$ = "205" THEN PROCtraceUser
+	IF commands$ = "206" THEN PROCtraceServer
+	IF commands$ = "208" THEN PROCtraceNewType
+	IF commands$ = "211" THEN PROCstatsLinkInfo
+	IF commands$ = "212" THEN PROCstatsCommands
+	IF commands$ = "213" THEN PROCstatsCLine
+	IF commands$ = "214" THEN PROCstatsNLine
+	IF commands$ = "215" THEN PROCstatsILine
+	IF commands$ = "216" THEN PROCstatsKLine
+	IF commands$ = "218" THEN PROCstatsYLine
+	IF commands$ = "219" THEN PROCendOfStats
+	IF commands$ = "221" THEN PROCuserModeIs
+	IF commands$ = "241" THEN PROCstatsLLine
+	IF commands$ = "242" THEN PROCstatsUptime
+	IF commands$ = "243" THEN PROCstatsOLine
+	IF commands$ = "244" THEN PROCstatsHLine
+	IF commands$ = "251" THEN PROCluserClient
+	IF commands$ = "252" THEN PROCluserOp
+	IF commands$ = "253" THEN PROCluserUnknown
+	IF commands$ = "254" THEN PROCluserChannels
+	IF commands$ = "255" THEN PROCluserMe
+	IF commands$ = "256" THEN PROCadminMe
+	IF commands$ = "257" THEN PROCadminLoc1
+	IF commands$ = "258" THEN PROCadminLoc2
+	IF commands$ = "259" THEN PROCadminEmail
+	IF commands$ = "261" THEN PROCtraceLog
+	IF commands$ = "300" THEN PROCnoneReply
+	IF commands$ = "301" THEN PROCaway
+	IF commands$ = "302" THEN PROCuserHost
+	IF commands$ = "303" THEN PROCison
+	IF commands$ = "305" THEN PROCunAway
+	IF commands$ = "306" THEN PROCnowAway
+	IF commands$ = "311" THEN PROCwhoisUser
+	IF commands$ = "312" THEN PROCwhoisServer
+	IF commands$ = "313" THEN PROCwhoisOperator
+	IF commands$ = "314" THEN PROCwhoWasUser
+	IF commands$ = "315" THEN PROCendOfWho
+	IF commands$ = "317" THEN PROCwhoisIdle
+	IF commands$ = "318" THEN PROCendOfWhois
+	IF commands$ = "319" THEN PROCwhoisChannels
+	IF commands$ = "321" THEN PROClistStart
+	IF commands$ = "322" THEN PROClistLine
+	IF commands$ = "323" THEN PROClistEnd
+	IF commands$ = "324" THEN PROCchannelModeIs
+	IF commands$ = "331" THEN PROCnoTopic
+	IF commands$ = "341" THEN PROCinviting
+	IF commands$ = "342" THEN PROCsummoning
+	IF commands$ = "351" THEN PROCversion
+	IF commands$ = "352" THEN PROCwhoReply
+	IF commands$ = "364" THEN PROClinksLine
+	IF commands$ = "365" THEN PROCendOfLinks
+	IF commands$ = "367" THEN PROCbanList
+	IF commands$ = "368" THEN PROCendOfBanList
+	IF commands$ = "369" THEN PROCendOfWhoWas
+	IF commands$ = "371" THEN PROCinfoLine
+	IF commands$ = "374" THEN PROCendOfInfo
+	IF commands$ = "375" THEN PROCmotdStart
+	IF commands$ = "381" THEN PROCyoureOper
+	IF commands$ = "382" THEN PROCrehashing
+	IF commands$ = "391" THEN PROCtimeReply
+	IF commands$ = "392" THEN PROCusersStart
+	IF commands$ = "393" THEN PROCusersLine
+	IF commands$ = "394" THEN PROCendOfUsers
+	IF commands$ = "395" THEN PROCnoUsers
+
+	IF commands$ = "401" THEN PROCnoSuchNick
+	IF commands$ = "402" THEN PROCnoSuchServer
+	IF commands$ = "403" THEN PROCnoSuchChannel
+	IF commands$ = "404" THEN PROCcannotSendToChan
+	IF commands$ = "405" THEN PROCtooManyChannels
+	IF commands$ = "406" THEN PROCwasNoSuchNick
+	IF commands$ = "407" THEN PROCtooManyTargets
+	IF commands$ = "409" THEN PROCnoOrigin
+	IF commands$ = "411" THEN PROCnoRecipient
+	IF commands$ = "412" THEN PROCnoTextToSend
+	IF commands$ = "413" THEN PROCnoTopLevel
+	IF commands$ = "414" THEN PROCwildTopLevel
+	IF commands$ = "421" THEN PROCunknownCommand
+	IF commands$ = "422" THEN PROCnoMotd
+	IF commands$ = "423" THEN PROCnoAdminInfo
+	IF commands$ = "424" THEN PROCfileError
+	IF commands$ = "431" THEN PROCnoNicknameGiven
+	IF commands$ = "432" THEN PROCerroneousNickname
+	IF commands$ = "433" THEN PROCnicknameInUse
+	IF commands$ = "436" THEN PROCnickCollision
+	IF commands$ = "441" THEN PROCuserNotInChannel
+	IF commands$ = "442" THEN PROCnotOnChannel
+	IF commands$ = "443" THEN PROCuserOnChannel
+	IF commands$ = "444" THEN PROCnoLogin
+	IF commands$ = "445" THEN PROCsummonDisabled
+	IF commands$ = "446" THEN PROCusersDisabled
+	IF commands$ = "451" THEN PROCnotRegistered
+	IF commands$ = "461" THEN PROCneedMoreParams
+	IF commands$ = "462" THEN PROCalreadyRegistered
+	IF commands$ = "463" THEN PROCnoPermForHost
+	IF commands$ = "464" THEN PROCpasswordMismatch
+	IF commands$ = "465" THEN PROCyoureBannedCreep
+	IF commands$ = "467" THEN PROCkeySet
+	IF commands$ = "471" THEN PROCchannelIsFull
+	IF commands$ = "472" THEN PROCunknownMode
+	IF commands$ = "473" THEN PROCinviteOnlyChan
+	IF commands$ = "474" THEN PROCbannedFromChan
+	IF commands$ = "475" THEN PROCbadChannelKey
+	IF commands$ = "481" THEN PROCnoPrivileges
+	IF commands$ = "482" THEN PROCchanOpPrivsNeeded
+	IF commands$ = "483" THEN PROCcantKillServer
+	IF commands$ = "491" THEN PROCnoOperHost
+	IF commands$ = "501" THEN PROCuModeUnknownFlag
+	IF commands$ = "502" THEN PROCusersDontMatch
+	IF commands$ = "PART" THEN PROCparted
+    IF commands$ = "QUIT" THEN PROCquitmsg
+    IF commands$ = "396" THEN PROCvisibleHost
+    IF handled = FALSE THEN PROCshowNumeric(commands$)
+ENDPROC
+
+DEF FNisNumeric3(s$)
+	MATCH result, "^[0-9][0-9][0-9]$", s$
+= result
+
+DEF PROCshowNumeric(command$)
+    IF FNisNumeric3(command$) THEN PROCout(14, "- " + lineParts$(linePartsCount - 1))
+ENDPROC
+
+DEF PROCtopicNumeric
+	channel$ = lineParts$(2)
+	topic$ = lineParts$(3)
+	PROCout(10, "* Topic for " + channel$ + ": " + topic$)
+	handled = TRUE
+ENDPROC
+
+DEF PROCtopicWhoTime
+	channel$ = lineParts$(2)
+	setter$ = lineParts$(3)
+	time$ = FNunixtime$(VAL(lineParts$(4)))
+	PROCout(10, "* Topic set by " + setter$ + " on " + channel$ + " at " + time$)
+	handled = TRUE
+ENDPROC
+
+DEF PROCnamesLine
+	channel$ = lineParts$(3)
+	names$ = lineParts$(4)
+	PROCout(11, "* Users on " + channel$)
+	PROCout(11, names$)
+	handled = TRUE
+ENDPROC
+
+DEF PROCnamesEnd
+	channel$ = lineParts$(2)
+	PROCout(11, "* End of NAMES for " + channel$)
+	handled = TRUE
+ENDPROC
+
+DEF PROCparted
+	channel$ = lineParts$(1)
+	IF userNick$ = NICK$ THEN
+		PROCremoveChannel(channel$)
+		PROCout(14, "* Left " + channel$)
+    	ENDPROC
+	ENDIF
+	PROCout(14, "* " + userNick$ + " left " + channel$)
+ENDPROC
+
+DEF PROCchannelsCommand
+	IF joinedCount = 0 THEN
+		PROCout(4, "* Not on any channels")
+		ENDPROC
+	ENDIF
+	PROCout(10, "* Joined channels:")
+	FOR i = 0 TO joinedCount - 1
+		marker$ = " "
+		IF joinedChannels$(i) = curChannel$ THEN marker$ = "*"
+		PROCout(10, marker$ + " " + joinedChannels$(i))
+	NEXT
+ENDPROC
+
+DEF PROCkicked
+	channel$ = lineParts$(1)
+	target$ = lineParts$(2)
+	reason$ = lineParts$(3)
+	IF target$ = NICK$ THEN
+		PROCremoveChannel(channel$)
+		PROCout(4, "* You were kicked from " + channel$ + " by " + userNick$ + " (" + reason$ + ")")
+	ENDPROC
+	ENDIF
+	PROCout(14, "* " + target$ + " was kicked from " + channel$ + " by " + userNick$ + " (" + reason$ + ")")
+ENDPROC
+
+DEF PROCquitmsg
+	PROCout(14, "* " + userNick$ + " quit (" + lineParts$(1) + ")")
+ENDPROC
+
+DEF PROCwelcome
+	PROCout(10, "* Connected to network")
+	handled = TRUE
+ENDPROC
+
+DEF PROCNickInUse
+	NICK$ = NICK$ + "_"
+	PROCsend("NICK :" + NICK$)
+	PROCout(4, "* Nick in use, trying " + NICK$)
+	handled = TRUE
+ENDPROC
+
+DEF PROCjoined
+	channel$ = lineParts$(1)
+	IF LEFT$(channel$, 1) = ":" THEN channel$ = MID$(channel$, 1, LEN(channel$))
+	IF userNick$ = NICK$ THEN
+		curChannel$ = channel$
+		PROCaddChannel(curChannel$)
+		PROCout(10, "* You have joined " + curChannel$)
+		ENDPROC
+	ENDIF
+	PROCout(10, "* " + userNick$ + " joined " + channel$)
 ENDPROC
 
 DEF PROCiSupport
@@ -388,6 +736,7 @@ DEF PROCiSupport
 		st$ = lineParts$(x)
 		IF st$ > "" THEN PROCprocessSupportToken(st$)
 	NEXT
+	handled = TRUE
 ENDPROC
 
 DEF PROCprocessSupportToken(supportToken$)
@@ -422,8 +771,580 @@ ENDPROC
 
 DEF PROCmotdLine
 	PROCout(2, "-MOTD- " + lineParts$(2))
+	handled = TRUE
 ENDPROC
 
 DEF PROCmotdEnd
 	PROCout(2, "-MOTD ENDS-")
+	handled = TRUE
+ENDPROC
+
+DEF PROCnoSuchNick
+	handled = TRUE
+	PROCout(4, "* No such nick/channel: " + lineParts$(2))
+ENDPROC
+
+DEF PROCnoSuchServer
+	handled = TRUE
+	PROCout(4, "* No such server: " + lineParts$(2))
+ENDPROC
+
+DEF PROCnoSuchChannel
+	handled = TRUE
+	PROCout(4, "* No such channel: " + lineParts$(2))
+ENDPROC
+
+DEF PROCcannotSendToChan
+	handled = TRUE
+	PROCout(4, "* Cannot send to channel: " + lineParts$(2))
+ENDPROC
+
+DEF PROCtooManyChannels
+	handled = TRUE
+	PROCout(4, "* Too many channels: " + lineParts$(2))
+ENDPROC
+
+DEF PROCwasNoSuchNick
+	handled = TRUE
+	PROCout(4, "* No history for nick: " + lineParts$(2))
+ENDPROC
+
+DEF PROCtooManyTargets
+	handled = TRUE
+	PROCout(4, "* Too many targets: " + lineParts$(2))
+ENDPROC
+
+DEF PROCnoOrigin
+	handled = TRUE
+	PROCout(4, "* No origin specified")
+ENDPROC
+
+DEF PROCnoRecipient
+	handled = TRUE
+	PROCout(4, "* No recipient given")
+ENDPROC
+
+DEF PROCnoTextToSend
+	handled = TRUE
+	PROCout(4, "* No text to send")
+ENDPROC
+
+DEF PROCnoTopLevel
+	handled = TRUE
+	PROCout(4, "* No toplevel domain: " + lineParts$(2))
+ENDPROC
+
+DEF PROCwildTopLevel
+	handled = TRUE
+	PROCout(4, "* Wildcard in toplevel domain: " + lineParts$(2))
+ENDPROC
+
+DEF PROCunknownCommand
+	handled = TRUE
+	PROCout(4, "* Unknown command: " + lineParts$(2))
+ENDPROC
+
+DEF PROCnoMotd
+	handled = TRUE
+	PROCout(4, "* MOTD file is missing")
+ENDPROC
+
+DEF PROCnoAdminInfo
+	handled = TRUE
+	PROCout(4, "* No administrative info for " + lineParts$(2))
+ENDPROC
+
+DEF PROCfileError
+	handled = TRUE
+	PROCout(4, "* File error: " + lineParts$(2))
+ENDPROC
+
+DEF PROCnoNicknameGiven
+	handled = TRUE
+	PROCout(4, "* No nickname given")
+ENDPROC
+
+DEF PROCerroneousNickname
+	handled = TRUE
+	PROCout(4, "* Erroneous nickname: " + lineParts$(2))
+ENDPROC
+
+DEF PROCnicknameInUse
+	handled = TRUE
+	PROCout(4, "* Nickname already in use: " + lineParts$(2))
+ENDPROC
+
+DEF PROCnickCollision
+	handled = TRUE
+	PROCout(4, "* Nick collision: " + lineParts$(2))
+ENDPROC
+
+DEF PROCuserNotInChannel
+	handled = TRUE
+	PROCout(4, "* " + lineParts$(2) + " is not on " + lineParts$(3))
+ENDPROC
+
+DEF PROCnotOnChannel
+	handled = TRUE
+	PROCout(4, "* Not on channel: " + lineParts$(2))
+ENDPROC
+
+DEF PROCuserOnChannel
+	handled = TRUE
+	PROCout(4, "* " + lineParts$(2) + " is already on " + lineParts$(3))
+ENDPROC
+
+DEF PROCnoLogin
+	handled = TRUE
+	PROCout(4, "* User not logged in: " + lineParts$(2))
+ENDPROC
+
+DEF PROCsummonDisabled
+	handled = TRUE
+	PROCout(4, "* SUMMON is disabled")
+ENDPROC
+
+DEF PROCusersDisabled
+	handled = TRUE
+	PROCout(4, "* USERS is disabled")
+ENDPROC
+
+DEF PROCnotRegistered
+	handled = TRUE
+	PROCout(4, "* You have not registered")
+ENDPROC
+
+DEF PROCneedMoreParams
+	handled = TRUE
+	PROCout(4, "* Not enough parameters for " + lineParts$(2))
+ENDPROC
+
+DEF PROCalreadyRegistered
+	handled = TRUE
+	PROCout(4, "* You may not reregister")
+ENDPROC
+
+DEF PROCnoPermForHost
+	handled = TRUE
+	PROCout(4, "* No permission for this host")
+ENDPROC
+
+DEF PROCpasswordMismatch
+	handled = TRUE
+	PROCout(4, "* Password incorrect")
+ENDPROC
+
+DEF PROCyoureBannedCreep
+	handled = TRUE
+	PROCout(4, "* You are banned from this server")
+ENDPROC
+
+DEF PROCkeySet
+	handled = TRUE
+	PROCout(4, "* Channel key already set: " + lineParts$(2))
+ENDPROC
+
+DEF PROCchannelIsFull
+	handled = TRUE
+	PROCout(4, "* Channel is full: " + lineParts$(2))
+ENDPROC
+
+DEF PROCunknownMode
+	handled = TRUE
+	PROCout(4, "* Unknown mode char: " + lineParts$(2))
+ENDPROC
+
+DEF PROCinviteOnlyChan
+	handled = TRUE
+	PROCout(4, "* Invite only channel: " + lineParts$(2))
+ENDPROC
+
+DEF PROCbannedFromChan
+	handled = TRUE
+	PROCout(4, "* Banned from channel: " + lineParts$(2))
+ENDPROC
+
+DEF PROCbadChannelKey
+	handled = TRUE
+	PROCout(4, "* Bad channel key: " + lineParts$(2))
+ENDPROC
+
+DEF PROCnoPrivileges
+	handled = TRUE
+	PROCout(4, "* Permission denied: not an IRC operator")
+ENDPROC
+
+DEF PROCchanOpPrivsNeeded
+	handled = TRUE
+	PROCout(4, "* Channel operator privileges needed for " + lineParts$(2))
+ENDPROC
+
+DEF PROCcantKillServer
+	handled = TRUE
+	PROCout(4, "* Can't kill a server")
+ENDPROC
+
+DEF PROCnoOperHost
+	handled = TRUE
+	PROCout(4, "* No O-lines for your host")
+ENDPROC
+
+DEF PROCuModeUnknownFlag
+	handled = TRUE
+	PROCout(4, "* Unknown MODE flag")
+ENDPROC
+
+DEF PROCusersDontMatch
+	handled = TRUE
+	PROCout(4, "* Can't change mode for other users")
+ENDPROC
+
+DEF PROCaway
+	handled = TRUE
+	PROCout(11, "* " + lineParts$(2) + " is away: " + lineParts$(3))
+ENDPROC
+
+DEF PROCunAway
+	handled = TRUE
+	PROCout(11, "* You are no longer marked as away")
+ENDPROC
+
+DEF PROCnowAway
+	handled = TRUE
+	PROCout(11, "* You have been marked as away")
+ENDPROC
+
+DEF PROCwhoisUser
+	handled = TRUE
+	PROCout(11, "* WHOIS " + lineParts$(2) + ": " + lineParts$(3) + "@" + lineParts$(4) + " " + lineParts$(6))
+ENDPROC
+
+DEF PROCwhoisServer
+	handled = TRUE
+	PROCout(11, "* WHOIS " + lineParts$(2) + ": server " + lineParts$(3) + " " + lineParts$(4))
+ENDPROC
+
+DEF PROCwhoisOperator
+	handled = TRUE
+	PROCout(11, "* " + lineParts$(2) + " is an IRC operator")
+ENDPROC
+
+DEF PROCwhoisIdle
+	handled = TRUE
+	PROCout(11, "* WHOIS " + lineParts$(2) + ": idle " + lineParts$(3) + " seconds")
+ENDPROC
+
+DEF PROCendOfWhois
+	handled = TRUE
+	PROCout(11, "* End of WHOIS for " + lineParts$(2))
+ENDPROC
+
+DEF PROCwhoisChannels
+	handled = TRUE
+	PROCout(11, "* WHOIS " + lineParts$(2) + ": channels " + lineParts$(3))
+ENDPROC
+
+DEF PROCwhoWasUser
+	handled = TRUE
+	PROCout(11, "* WHOWAS " + lineParts$(2) + ": " + lineParts$(3) + "@" + lineParts$(4) + " " + lineParts$(6))
+ENDPROC
+
+DEF PROCendOfWhoWas
+	handled = TRUE
+	PROCout(11, "* End of WHOWAS for " + lineParts$(2))
+ENDPROC
+
+DEF PROClistStart
+	handled = TRUE
+	PROCout(10, "* Channel list")
+ENDPROC
+
+DEF PROClistLine
+	handled = TRUE
+	PROCout(10, "* " + lineParts$(2) + " (" + lineParts$(3) + ") " + lineParts$(4))
+ENDPROC
+
+DEF PROClistEnd
+	handled = TRUE
+	PROCout(10, "* End of /LIST")
+ENDPROC
+
+DEF PROCchannelModeIs
+	handled = TRUE
+	PROCout(10, "* Mode for " + lineParts$(2) + ": " + lineParts$(3))
+ENDPROC
+
+DEF PROCnoTopic
+	handled = TRUE
+	PROCout(10, "* No topic is set for " + lineParts$(2))
+ENDPROC
+
+DEF PROCinviting
+	handled = TRUE
+	PROCout(10, "* Inviting " + lineParts$(3) + " to " + lineParts$(2))
+ENDPROC
+
+DEF PROCsummoning
+	handled = TRUE
+	PROCout(10, "* Summoning " + lineParts$(2))
+ENDPROC
+
+DEF PROCversion
+	handled = TRUE
+	PROCout(10, "* Server version: " + lineParts$(2) + " " + lineParts$(3) + " " + lineParts$(4))
+ENDPROC
+
+DEF PROCwhoReply
+	handled = TRUE
+	PROCout(10, "* WHO " + lineParts$(2) + " " + lineParts$(6) + " " + lineParts$(8))
+ENDPROC
+
+DEF PROCendOfWho
+	handled = TRUE
+	PROCout(10, "* End of WHO for " + lineParts$(2))
+ENDPROC
+
+DEF PROCmotdStart
+	handled = TRUE
+	PROCout(2, "-MOTD- " + lineParts$(2))
+ENDPROC
+
+DEF PROCinfoLine
+	handled = TRUE
+	PROCout(10, "* INFO " + lineParts$(2))
+ENDPROC
+
+DEF PROCendOfInfo
+	handled = TRUE
+	PROCout(10, "* End of /INFO")
+ENDPROC
+
+DEF PROClinksLine
+	handled = TRUE
+	PROCout(10, "* LINK " + lineParts$(2) + " " + lineParts$(3) + " " + lineParts$(4))
+ENDPROC
+
+DEF PROCendOfLinks
+	handled = TRUE
+	PROCout(10, "* End of /LINKS for " + lineParts$(2))
+ENDPROC
+
+DEF PROCbanList
+	handled = TRUE
+	PROCout(10, "* Ban on " + lineParts$(2) + ": " + lineParts$(3))
+ENDPROC
+
+DEF PROCendOfBanList
+	handled = TRUE
+	PROCout(10, "* End of ban list for " + lineParts$(2))
+ENDPROC
+
+DEF PROCluserClient
+	handled = TRUE
+	PROCout(10, "* " + lineParts$(2))
+ENDPROC
+
+DEF PROCluserOp
+	handled = TRUE
+	PROCout(10, "* " + lineParts$(2) + " operator(s) online")
+ENDPROC
+
+DEF PROCluserUnknown
+	handled = TRUE
+	PROCout(10, "* " + lineParts$(2) + " unknown connection(s)")
+ENDPROC
+
+DEF PROCluserChannels
+	handled = TRUE
+	PROCout(10, "* " + lineParts$(2) + " channels formed")
+ENDPROC
+
+DEF PROCluserMe
+	handled = TRUE
+	PROCout(10, "* " + lineParts$(2))
+ENDPROC
+
+DEF PROCadminMe
+	handled = TRUE
+	PROCout(10, "* Administrative info for " + lineParts$(2))
+ENDPROC
+
+DEF PROCadminLoc1
+	handled = TRUE
+	PROCout(10, "* " + lineParts$(2))
+ENDPROC
+
+DEF PROCadminLoc2
+	handled = TRUE
+	PROCout(10, "* " + lineParts$(2))
+ENDPROC
+
+DEF PROCadminEmail
+	handled = TRUE
+	PROCout(10, "* Admin email: " + lineParts$(2))
+ENDPROC
+
+DEF PROCtimeReply
+	handled = TRUE
+	PROCout(10, "* Server time on " + lineParts$(2) + ": " + lineParts$(3))
+ENDPROC
+
+DEF PROCusersStart
+	handled = TRUE
+	PROCout(10, "* Users")
+ENDPROC
+
+DEF PROCusersLine
+	handled = TRUE
+	PROCout(10, "* " + lineParts$(2))
+ENDPROC
+
+DEF PROCendOfUsers
+	handled = TRUE
+	PROCout(10, "* End of users")
+ENDPROC
+
+DEF PROCnoUsers
+	handled = TRUE
+	PROCout(10, "* Nobody logged in")
+ENDPROC
+
+DEF PROCyoureOper
+	handled = TRUE
+	PROCout(10, "* You are now an IRC operator")
+ENDPROC
+
+DEF PROCrehashing
+	handled = TRUE
+	PROCout(10, "* Rehashing " + lineParts$(2))
+ENDPROC
+
+DEF PROCuserModeIs
+	handled = TRUE
+	PROCout(10, "* User mode: " + lineParts$(2))
+ENDPROC
+
+DEF PROCtraceLink
+	handled = TRUE
+	PROCout(10, "* TRACE " + lineParts$(2))
+ENDPROC
+
+DEF PROCtraceConnecting
+	handled = TRUE
+	PROCout(10, "* TRACE " + lineParts$(2))
+ENDPROC
+
+DEF PROCtraceHandshake
+	handled = TRUE
+	PROCout(10, "* TRACE " + lineParts$(2))
+ENDPROC
+
+DEF PROCtraceUnknown
+	handled = TRUE
+	PROCout(10, "* TRACE " + lineParts$(2))
+ENDPROC
+
+DEF PROCtraceOperator
+	handled = TRUE
+	PROCout(10, "* TRACE " + lineParts$(2))
+ENDPROC
+
+DEF PROCtraceUser
+	handled = TRUE
+	PROCout(10, "* TRACE " + lineParts$(2))
+ENDPROC
+
+DEF PROCtraceServer
+	handled = TRUE
+	PROCout(10, "* TRACE " + lineParts$(2))
+ENDPROC
+
+DEF PROCtraceNewType
+	handled = TRUE
+	PROCout(10, "* TRACE " + lineParts$(2))
+ENDPROC
+
+DEF PROCtraceLog
+	handled = TRUE
+	PROCout(10, "* TRACE " + lineParts$(2))
+ENDPROC
+
+DEF PROCstatsLinkInfo
+	handled = TRUE
+	PROCout(10, "* STATS " + lineParts$(2))
+ENDPROC
+
+DEF PROCstatsCommands
+	handled = TRUE
+	PROCout(10, "* STATS " + lineParts$(2) + " " + lineParts$(3))
+ENDPROC
+
+DEF PROCstatsCLine
+	handled = TRUE
+	PROCout(10, "* STATS C " + lineParts$(2))
+ENDPROC
+
+DEF PROCstatsNLine
+	handled = TRUE
+	PROCout(10, "* STATS N " + lineParts$(2))
+ENDPROC
+
+DEF PROCstatsILine
+	handled = TRUE
+	PROCout(10, "* STATS I " + lineParts$(2))
+ENDPROC
+
+DEF PROCstatsKLine
+	handled = TRUE
+	PROCout(10, "* STATS K " + lineParts$(2))
+ENDPROC
+
+DEF PROCstatsYLine
+	handled = TRUE
+	PROCout(10, "* STATS Y " + lineParts$(2))
+ENDPROC
+
+DEF PROCstatsLLine
+	handled = TRUE
+	PROCout(10, "* STATS L " + lineParts$(2))
+ENDPROC
+
+DEF PROCstatsUptime
+	handled = TRUE
+	PROCout(10, "* " + lineParts$(2))
+ENDPROC
+
+DEF PROCstatsOLine
+	handled = TRUE
+	PROCout(10, "* STATS O " + lineParts$(2))
+ENDPROC
+
+DEF PROCstatsHLine
+	handled = TRUE
+	PROCout(10, "* STATS H " + lineParts$(2))
+ENDPROC
+
+DEF PROCendOfStats
+	handled = TRUE
+	PROCout(10, "* End of /STATS for " + lineParts$(2))
+ENDPROC
+
+DEF PROCnoneReply
+	handled = TRUE
+ENDPROC
+
+DEF PROCuserHost
+	handled = TRUE
+	PROCout(10, "* USERHOST " + lineParts$(2))
+ENDPROC
+
+DEF PROCison
+	handled = TRUE
+	PROCout(10, "* ISON " + lineParts$(2))
+ENDPROC
+
+DEF PROCvisibleHost
+	handled = TRUE
+	host$ = lineParts$(2)
+	PROCout(10, "* Your visible host is now " + host$)
 ENDPROC

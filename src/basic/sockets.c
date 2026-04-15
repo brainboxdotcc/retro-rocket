@@ -533,7 +533,7 @@ char *basic_netinfo(struct basic_ctx *ctx) {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_END("NETINFO$", "");
-	char ip[16] = {0};
+	char ip[IP_BUF_LEN] = {0};
 	if (!stricmp(strval, "ip")) {
 		unsigned char raw[4];
 		if (gethostaddr(raw)) {
@@ -564,9 +564,11 @@ char *basic_dns(struct basic_ctx *ctx) {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_END("DNS$", "");
-	char ip[16] = {0};
+	char ip[IP_BUF_LEN] = {0};
 	uint32_t addr = dns_lookup_host(getdnsaddr(), strval, 2000);
+	dprintf("Resolver got: %08x\n", addr);
 	get_ip_str(ip, (uint8_t *) &addr);
+	dprintf("Resolver got: %s\n", ip);
 	return (char*)gc_strdup(ctx, ip);
 }
 

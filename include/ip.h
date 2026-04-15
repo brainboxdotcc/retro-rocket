@@ -10,6 +10,8 @@
 #define ETHERNET_TYPE_IP 0x0800
 #define ETHERNET_TYPE_IP6 0x86DD
 
+#define IP_BUF_LEN 20
+
 /**
  * @brief IP protocol types
  */
@@ -103,7 +105,7 @@ typedef struct packet_queue_item {
 /**
  * @brief Convert network byte order IP to a string form for display
  * 
- * @param ip_str character buffer to fill, should be at least 13 bytes
+ * @param ip_str character buffer to fill, should be at least 20 bytes
  * @param ip raw 4 byte IP
  */
 void get_ip_str(char* ip_str, const uint8_t* ip);

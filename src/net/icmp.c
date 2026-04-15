@@ -114,7 +114,7 @@ void icmp_send_echo_reply(ip_packet_t* encap_packet, icmp_echo_packet_t* req, si
 	uint16_t sum = icmp_calculate_checksum(reply_buf, len);
 	reply->checksum = htons(sum);
 
-	char src_ip[20];
+	char src_ip[IP_BUF_LEN];
 	get_ip_str(src_ip, encap_packet->src_ip);
 	icmp_send(encap_packet->src_ip, reply_buf, (uint16_t)len);
 }
@@ -126,7 +126,7 @@ void icmp_handle_echo_packet(ip_packet_t* encap_packet, icmp_echo_packet_t* pack
 
 void icmp_handle_echo_reply_packet(ip_packet_t* encap_packet, icmp_echo_packet_t* packet, size_t len)
 {
-	char ip[14];
+	char ip[IP_BUF_LEN];
 	get_ip_str(ip, encap_packet->src_ip);
 	dprintf("ECHO echo ECHO! Got ICMP reply FROM %s, seq=%d id=%d (len=%zu)\n", ip, ntohs(packet->seq), ntohs(packet->id), len);
 }
@@ -145,14 +145,14 @@ void icmp_handle_destination_unreachable_packet(ip_packet_t* encap_packet, icmp_
 		case ICMP_SOURCE_ROUTE_FAILED: reason = "Source route failed"; break;
 	}
 
-	char ip[14];
+	char ip[IP_BUF_LEN];
 	get_ip_str(ip, encap_packet->src_ip);
 	dprintf("ICMP Destination Unreachable from %s: %s\n", ip, reason);
 }
 
 void icmp_handle_source_quench_packet(ip_packet_t* encap_packet, icmp_packet_t* packet, size_t len)
 {
-	char ip[14];
+	char ip[IP_BUF_LEN];
 	get_ip_str(ip, encap_packet->src_ip);
 	dprintf("ICMP Source Quench from %s - deprecated, ignoring\n", ip);
 }
@@ -171,7 +171,7 @@ void icmp_handle_redirect_packet(ip_packet_t* encap_packet, icmp_packet_t* packe
 		case ICMP_REDIRECT_TOS_HOST: target = "TOS/host"; break;
 	}
 
-	char src[14], new_gateway[14];
+	char src[IP_BUF_LEN], new_gateway[IP_BUF_LEN];
 	get_ip_str(src, encap_packet->src_ip);
 	get_ip_str(new_gateway, redirect->gateway);
 
@@ -185,7 +185,7 @@ void icmp_handle_time_exceeded_packet(ip_packet_t* encap_packet, icmp_packet_t* 
 	const char* reason = packet->code == ICMP_FRAGMENT_REASSEMBLY_TIME_EXCEEDED ?
 			     "Fragment reassembly time exceeded" : "TTL expired";
 
-	char ip[14];
+	char ip[IP_BUF_LEN];
 	get_ip_str(ip, encap_packet->src_ip);
 	dprintf("ICMP Time Exceeded from %s: %s\n", ip, reason);
 }
@@ -196,7 +196,7 @@ void icmp_handle_parameter_problem_packet(ip_packet_t* encap_packet, icmp_packet
 
 	icmp_parameter_problem_packet_t* prob = (icmp_parameter_problem_packet_t*)packet;
 
-	char ip[14];
+	char ip[IP_BUF_LEN];
 	get_ip_str(ip, encap_packet->src_ip);
 	dprintf("ICMP Parameter Problem from %s: byte %u is invalid in header\n", ip, prob->problem_ptr);
 }
@@ -207,7 +207,7 @@ void icmp_handle_timestamp_packet(ip_packet_t* encap_packet, icmp_packet_t* pack
 
 	icmp_timestamp_packet_t* ts = (icmp_timestamp_packet_t*)packet;
 
-	char ip[14];
+	char ip[IP_BUF_LEN];
 	get_ip_str(ip, encap_packet->src_ip);
 	dprintf("ICMP Timestamp Request from %s: id=%u, seq=%u\n", ip, ntohs(ts->id), ntohs(ts->seq));
 
@@ -220,7 +220,7 @@ void icmp_handle_timestamp_reply_packet(ip_packet_t* encap_packet, icmp_packet_t
 
 	icmp_timestamp_packet_t* ts = (icmp_timestamp_packet_t*)packet;
 
-	char ip[14];
+	char ip[IP_BUF_LEN];
 	get_ip_str(ip, encap_packet->src_ip);
 	dprintf("ICMP Timestamp Reply from %s: id=%u, seq=%u, time=%u\n",
 		ip, ntohs(ts->id), ntohs(ts->seq), ntohl(ts->receive_timestamp));
@@ -232,7 +232,7 @@ void icmp_handle_information_request_packet(ip_packet_t* encap_packet, icmp_pack
 
 	icmp_information_t* info = (icmp_information_t*)packet;
 
-	char ip[14];
+	char ip[IP_BUF_LEN];
 	get_ip_str(ip, encap_packet->src_ip);
 	dprintf("ICMP Information Request from %s: id=%u, seq=%u\n", ip, ntohs(info->id), ntohs(info->seq));
 }
@@ -243,7 +243,7 @@ void icmp_handle_information_reply_packet(ip_packet_t* encap_packet, icmp_packet
 
 	icmp_information_t* info = (icmp_information_t*)packet;
 
-	char ip[14];
+	char ip[IP_BUF_LEN];
 	get_ip_str(ip, encap_packet->src_ip);
 	dprintf("ICMP Information Reply from %s: id=%u, seq=%u\n", ip, ntohs(info->id), ntohs(info->seq));
 }

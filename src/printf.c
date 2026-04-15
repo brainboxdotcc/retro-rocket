@@ -99,8 +99,7 @@ static size_t emit_number(long long num, unsigned radix, unsigned flags, unsigne
 
 	do {
 		unsigned long temp = (unsigned long)num % radix;
-		*--where = (temp < 10) ? temp + '0'
-			: (flags & PR_UPPER_HEX) ? temp - 10 + 'A' : temp - 10 + 'a';
+		*--where = (temp < 10) ? temp + '0' : (flags & PR_UPPER_HEX) ? temp - 10 + 'A' : temp - 10 + 'a';
 		num = (unsigned long)num / radix;
 	} while (num != 0);
 
@@ -118,7 +117,9 @@ static int do_printf(const char *fmt, size_t max, va_list args, fnptr_t fn, void
 		switch (state) {
 			case STATE_NORMAL:
 				if (*fmt != '%') {
-					if (fn(*fmt, &ptr, end)) return count;
+					if (fn(*fmt, &ptr, end)) {
+						return count;
+					}
 					count++;
 					break;
 				}
@@ -127,14 +128,20 @@ static int do_printf(const char *fmt, size_t max, va_list args, fnptr_t fn, void
 
 			case STATE_FLAGS:
 				if (*fmt == '%') {
-					if (fn('%', &ptr, end)) return count;
+					if (fn('%', &ptr, end)) {
+						return count;
+					}
 					count++;
 					state = STATE_NORMAL;
 					flags = given_wd = 0;
 					break;
 				}
-				if (*fmt == '-') { flags |= PR_LEFT_JUSTIFY; break; }
-				if (*fmt == '0') { flags |= PR_LEFT_ZEROES; break; }
+				if (*fmt == '-') {
+					flags |= PR_LEFT_JUSTIFY; break;
+				}
+				if (*fmt == '0') {
+					flags |= PR_LEFT_ZEROES; break;
+				}
 				state = STATE_WIDTH;
 				[[fallthrough]];
 

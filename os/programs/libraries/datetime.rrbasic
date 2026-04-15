@@ -1,0 +1,75 @@
+DEF PROCdatetime
+	SECS_PER_MIN = 60
+	SECS_PER_HOUR = 3600
+	SECS_PER_DAY = 86400
+	DIM monthLen, 12 ' Month lengths
+	monthLen(0) = 31
+	monthLen(1) = 28
+	monthLen(2) = 31
+	monthLen(3) = 30
+	monthLen(4) = 31
+	monthLen(5) = 30
+	monthLen(6) = 31
+	monthLen(7) = 31
+	monthLen(8) = 30
+	monthLen(9) = 31
+	monthLen(10) = 30
+	monthLen(11) = 31
+ENDPROC
+
+DEF FNpad$(n, width)
+	s$ = STR$(n)
+	WHILE LEN(s$) < width
+		s$ = "0" + s$
+	ENDWHILE
+= s$
+
+DEF FNisLeap(y)
+	IF (y % 400) = 0 THEN = TRUE
+	IF (y % 100) = 0 THEN = FALSE
+	IF (y % 4) = 0 THEN = TRUE
+= FALSE
+
+DEF FNunixtime$(ts)
+
+	secs = ts % SECS_PER_DAY
+	hour = secs / SECS_PER_HOUR
+	secs = secs % SECS_PER_HOUR
+	minute = secs / SECS_PER_MIN
+	second = secs % SECS_PER_MIN
+	days = ts / SECS_PER_DAY
+	year = 1970
+
+	done = FALSE
+	REPEAT
+		IF FNisLeap(year) THEN
+			daysInYear = 366
+		ELSE
+			daysInYear = 365
+		ENDIF
+		IF days < daysInYear THEN done = TRUE
+		IF done = FALSE THEN
+			days = days - daysInYear
+			year = year + 1
+		ENDIF
+	UNTIL done = TRUE
+
+	IF FNisLeap(year) THEN
+	    monthLen(1) = 29
+	ELSE
+	    monthLen(1) = 28
+	ENDIF
+
+	done = FALSE
+	month = 0
+	REPEAT
+		IF days < monthLen(month) THEN done = TRUE
+		IF done = FALSE THEN
+			days = days - monthLen(month)
+			month = month + 1
+		ENDIF
+	UNTIL done = TRUE
+
+	day = days + 1
+
+= FNpad$(year,4) + "-" + FNpad$(month+1,2) + "-" + FNpad$(day,2) + " " + FNpad$(hour,2) + ":" + FNpad$(minute,2) + ":" + FNpad$(second,2)

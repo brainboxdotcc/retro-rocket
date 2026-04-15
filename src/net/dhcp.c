@@ -97,7 +97,7 @@ void dhcp_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, v
 		uint32_t* subnet = get_dhcp_options(packet, OPT_SUBNET);
 		uint32_t* lease = get_dhcp_options(packet, OPT_LEASE_TIME); /* 51 */
 
-		char ip[16];
+		char ip[IP_BUF_LEN];
 
 		if (subnet != NULL) {
 			if (!is_mask_allocated) {

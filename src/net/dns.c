@@ -439,7 +439,7 @@ uint8_t dns_collect_request(uint16_t req_id, char* result, size_t max)
 		memcpy(result, request->result, max > request->result_length ? max : request->result_length);
 
 		if (request->type == DNS_QUERY_A) {
-			char ip[16] = { 0 };
+			char ip[IP_BUF_LEN] = { 0 };
 			get_ip_str(ip, (const uint8_t*)result);
 			dprintf("Cached result '%s' -> '%s'\n", request->orig, ip);
 			dns_cache_entry_t cache_entry = {
