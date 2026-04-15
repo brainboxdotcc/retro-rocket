@@ -138,7 +138,7 @@ Basic usage</h2>
 <p>After connecting, Satellite shows incoming server messages, channel messages, notices, joins, parts, quits, kicks, topics, user lists, and other IRC numerics.</p>
 <p>The current target channel is shown in square brackets on the input line at the bottom of the screen.</p>
 <p>Type a line and press Enter to send it to the current channel.</p>
-<p>If the input begins with <span class="tt">/</span>, it is treated as a command instead of a message.</p>
+<p>If a line begins with <span class="tt">/</span>, it is treated as a command and will not be sent as a message.</p>
 <h2 class="doxsection"><a class="anchor" id="keyboard-controls"></a>
 Keyboard controls</h2>
 <ul>
@@ -155,6 +155,7 @@ Keyboard controls</h2>
 Channel handling</h2>
 <p>Satellite keeps track of the channels you have joined.</p>
 <p>When you join a channel yourself, it becomes the current channel automatically.</p>
+<p>Joining a channel automatically selects it as the current channel.</p>
 <p>When you leave or are kicked from the current channel, Satellite selects another joined channel if one is available. If not, it falls back to the network name or <span class="tt">-</span>.</p>
 <h2 class="doxsection"><a class="anchor" id="commands"></a>
 Commands</h2>
@@ -162,7 +163,8 @@ Commands</h2>
 /join</h3>
 <p>Join a channel.</p>
 <div class="fragment"><div class="line">/join #channel</div>
-</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="part"></a>
+</div><!-- fragment --><p>Joining a channel automatically selects it as the current channel.</p>
+<h3 class="doxsection"><a class="anchor" id="part"></a>
 /part</h3>
 <p>Leave a channel.</p>
 <div class="fragment"><div class="line">/part #channel</div>
@@ -209,6 +211,86 @@ Commands</h2>
 <div class="fragment"><div class="line">/quit</div>
 <div class="line">/quit Gone for tea</div>
 </div><!-- fragment --><p>If no quit message is given, Satellite uses <span class="tt">Satellite IRC Client</span>.</p>
+<h3 class="doxsection"><a class="anchor" id="whois"></a>
+/whois</h3>
+<p>Query information about a user.</p>
+<div class="fragment"><div class="line">/whois nickname</div>
+</div><!-- fragment --><p>Shows user info, server, idle time, channels, and end of WHOIS.</p>
+<h3 class="doxsection"><a class="anchor" id="who"></a>
+/who</h3>
+<p>Query users matching a mask or channel.</p>
+<div class="fragment"><div class="line">/who #channel</div>
+<div class="line">/who nickname</div>
+</div><!-- fragment --><p>Displays WHO replies and end of WHO.</p>
+<h3 class="doxsection"><a class="anchor" id="whowas"></a>
+/whowas</h3>
+<p>Query historical information about a nickname.</p>
+<div class="fragment"><div class="line">/whowas nickname</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="list"></a>
+/list</h3>
+<p>List channels on the server.</p>
+<div class="fragment"><div class="line">/list</div>
+</div><!-- fragment --><p>Shows channel names, user counts, and topics.</p>
+<h3 class="doxsection"><a class="anchor" id="names"></a>
+/names</h3>
+<p>List users in a channel.</p>
+<div class="fragment"><div class="line">/names #channel</div>
+</div><!-- fragment --><p>Displays the NAMES list for the channel.</p>
+<h3 class="doxsection"><a class="anchor" id="topic"></a>
+/topic</h3>
+<p>View or set a channel topic.</p>
+<div class="fragment"><div class="line">/topic #channel</div>
+<div class="line">/topic #channel New topic text</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="mode"></a>
+/mode</h3>
+<p>View or change modes.</p>
+<div class="fragment"><div class="line">/mode #channel</div>
+<div class="line">/mode #channel +b</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="banlist"></a>
+/banlist</h3>
+<p>Show bans on a channel.</p>
+<div class="fragment"><div class="line">/banlist #channel</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="info"></a>
+/info</h3>
+<p>Show server information.</p>
+<div class="fragment"><div class="line">/info</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="admin"></a>
+/admin</h3>
+<p>Show server administrative information.</p>
+<div class="fragment"><div class="line">/admin</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="time"></a>
+/time</h3>
+<p>Show server time.</p>
+<div class="fragment"><div class="line">/time</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="links"></a>
+/links</h3>
+<p>Show server links.</p>
+<div class="fragment"><div class="line">/links</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="map"></a>
+/map</h3>
+<p>Request a server map (if supported).</p>
+<div class="fragment"><div class="line">/map</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="ctcp-support"></a>
+CTCP support</h2>
+<p>Satellite supports basic CTCP (Client-to-Client Protocol) messages.</p>
+<h3 class="doxsection"><a class="anchor" id="me"></a>
+/me</h3>
+<p>Send an action message.</p>
+<div class="fragment"><div class="line">/me waves</div>
+</div><!-- fragment --><p>Displays as:</p>
+<div class="fragment"><div class="line">* nickname waves</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="ctcp"></a>
+/ctcp</h3>
+<p>Send a CTCP request manually.</p>
+<div class="fragment"><div class="line">/ctcp nickname VERSION</div>
+<div class="line">/ctcp nickname PING 123456</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="automatic-ctcp-handling"></a>
+Automatic CTCP handling</h3>
+<p>Satellite automatically handles:</p>
+<ul>
+<li>CTCP VERSION — replies with client version information</li>
+<li>CTCP PING — replies with the same payload (used for latency checks)</li>
+</ul>
 <h2 class="doxsection"><a class="anchor" id="what-satellite-shows"></a>
 What Satellite shows</h2>
 <p>Satellite shows the following directly in the chat window:</p>
@@ -224,6 +306,8 @@ What Satellite shows</h2>
 <li>NAMES replies</li>
 <li>MOTD</li>
 <li>visible host changes</li>
+<li>CTCP requests (e.g. VERSION, PING)</li>
+<li>CTCP replies</li>
 <li>common IRC errors such as no such nick, no such channel, cannot send to channel, nickname in use, and not enough parameters</li>
 <li>many standard IRC numerics such as WHOIS, LIST, WHO, INFO, LINKS, ban lists, LUSERS, STATS, ADMIN, TIME and related replies</li>
 </ul>
@@ -232,6 +316,7 @@ What Satellite shows</h2>
 Notes</h2>
 <p>Satellite uses a single shared scrollback buffer for all output.</p>
 <p><span class="tt">/channel</span> changes the current input target. It does not create separate per-channel windows.</p>
+<p>Satellite replies to CTCP requests using NOTICE as required by IRC conventions.</p>
 <p>The client currently uses plaintext IRC connection and does not support TLS. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

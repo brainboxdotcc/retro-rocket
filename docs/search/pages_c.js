@@ -90,9 +90,12 @@ var searchData=
   ['creation_87',['4.2 Creation',['../retrofs.html#autotoc_md42-creation',1,'']]],
   ['csd_24_88',['CSD$',['../rocketsh.html#csd',1,'']]],
   ['csd_24_20function_89',['CSD$ Function',['../CSD.html',1,'string-funcs']]],
-  ['ctrl_20esc_20“escape”_20semantics_90',['Ctrl+Esc (“Escape”) semantics',['../basic-intdev.html#ctrlesc-escape-semantics',1,'']]],
-  ['cube_20program_91',['cube program',['../cube.html',1,'commands']]],
-  ['currentx_20function_92',['CURRENTX Function',['../CURRENTX.html',1,'int-funcs']]],
-  ['currenty_20function_93',['CURRENTY Function',['../CURRENTY.html',1,'int-funcs']]],
-  ['cursor_20keyword_94',['CURSOR Keyword',['../CURSOR.html',1,'keywords']]]
+  ['ctcp_90',['/ctcp',['../irc.html#ctcp',1,'']]],
+  ['ctcp_20handling_91',['Automatic CTCP handling',['../irc.html#automatic-ctcp-handling',1,'']]],
+  ['ctcp_20support_92',['CTCP support',['../irc.html#ctcp-support',1,'']]],
+  ['ctrl_20esc_20“escape”_20semantics_93',['Ctrl+Esc (“Escape”) semantics',['../basic-intdev.html#ctrlesc-escape-semantics',1,'']]],
+  ['cube_20program_94',['cube program',['../cube.html',1,'commands']]],
+  ['currentx_20function_95',['CURRENTX Function',['../CURRENTX.html',1,'int-funcs']]],
+  ['currenty_20function_96',['CURRENTY Function',['../CURRENTY.html',1,'int-funcs']]],
+  ['cursor_20keyword_97',['CURSOR Keyword',['../CURSOR.html',1,'keywords']]]
 ];

@@ -26,7 +26,7 @@ The current target channel is shown in square brackets on the input line at the 
 
 Type a line and press Enter to send it to the current channel.
 
-If the input begins with `/`, it is treated as a command instead of a message.
+If a line begins with `/`, it is treated as a command and will not be sent as a message.
 
 ## Keyboard controls
 
@@ -45,6 +45,8 @@ Satellite keeps track of the channels you have joined.
 
 When you join a channel yourself, it becomes the current channel automatically.
 
+Joining a channel automatically selects it as the current channel.
+
 When you leave or are kicked from the current channel, Satellite selects another joined channel if one is available. If not, it falls back to the network name or `-`.
 
 ## Commands
@@ -56,6 +58,8 @@ Join a channel.
 ```basic
 /join #channel
 ```
+
+Joining a channel automatically selects it as the current channel.
 
 ### /part
 
@@ -148,7 +152,154 @@ Disconnect from the server.
 
 If no quit message is given, Satellite uses `Satellite IRC Client`.
 
+### /whois
 
+Query information about a user.
+
+```basic
+/whois nickname
+```
+
+Shows user info, server, idle time, channels, and end of WHOIS.
+
+### /who
+
+Query users matching a mask or channel.
+
+```basic
+/who #channel
+/who nickname
+```
+
+Displays WHO replies and end of WHO.
+
+### /whowas
+
+Query historical information about a nickname.
+
+```basic
+/whowas nickname
+```
+
+### /list
+
+List channels on the server.
+
+```basic
+/list
+```
+
+Shows channel names, user counts, and topics.
+
+### /names
+
+List users in a channel.
+
+```basic
+/names #channel
+```
+
+Displays the NAMES list for the channel.
+
+### /topic
+
+View or set a channel topic.
+
+```basic
+/topic #channel
+/topic #channel New topic text
+```
+
+### /mode
+
+View or change modes.
+
+```basic
+/mode #channel
+/mode #channel +b
+```
+
+### /banlist
+
+Show bans on a channel.
+
+```basic
+/banlist #channel
+```
+
+### /info
+
+Show server information.
+
+```basic
+/info
+```
+
+### /admin
+
+Show server administrative information.
+
+```basic
+/admin
+```
+
+### /time
+
+Show server time.
+
+```basic
+/time
+```
+
+### /links
+
+Show server links.
+
+```basic
+/links
+```
+
+### /map
+
+Request a server map (if supported).
+
+```basic
+/map
+```
+
+## CTCP support
+
+Satellite supports basic CTCP (Client-to-Client Protocol) messages.
+
+### /me
+
+Send an action message.
+
+```basic
+/me waves
+```
+
+Displays as:
+
+```
+* nickname waves
+```
+
+### /ctcp
+
+Send a CTCP request manually.
+
+```basic
+/ctcp nickname VERSION
+/ctcp nickname PING 123456
+```
+
+### Automatic CTCP handling
+
+Satellite automatically handles:
+
+* CTCP VERSION — replies with client version information
+* CTCP PING — replies with the same payload (used for latency checks)
 
 ## What Satellite shows
 
@@ -165,6 +316,8 @@ Satellite shows the following directly in the chat window:
 * NAMES replies
 * MOTD
 * visible host changes
+* CTCP requests (e.g. VERSION, PING)
+* CTCP replies
 * common IRC errors such as no such nick, no such channel, cannot send to channel, nickname in use, and not enough parameters
 * many standard IRC numerics such as WHOIS, LIST, WHO, INFO, LINKS, ban lists, LUSERS, STATS, ADMIN, TIME and related replies
 
@@ -176,5 +329,6 @@ Satellite uses a single shared scrollback buffer for all output.
 
 `/channel` changes the current input target. It does not create separate per-channel windows.
 
-The client currently uses plaintext IRC connection and does not support TLS.
+Satellite replies to CTCP requests using NOTICE as required by IRC conventions.
 
+The client currently uses plaintext IRC connection and does not support TLS.
