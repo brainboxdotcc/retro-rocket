@@ -85,7 +85,7 @@ static inline uint32_t min_u32(uint32_t a, uint32_t b) {
 }
 
 static inline int16_t clamp_s16(int32_t x) {
-	x = CLAMP(x, -326768, 32767);
+	x = CLAMP(x, -32768, 32767);
 	return (int16_t)x;
 }
 
