@@ -56,6 +56,11 @@ char* double_to_string(double x, char *p, int64_t len, uint8_t precision)
 	if (!p) {
 		return NULL;
 	}
+	if (x > 9e18 || x < -9e18) {
+		strlcpy(p, "OVERFLOW", len);
+		return p;
+	}
+
 	bool neg = x < 0.0;
 	char buffer[64], buffer_part[64];
 	char* index = buffer, *start = p, *decimal_pos = NULL;
