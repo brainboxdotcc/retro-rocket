@@ -32,7 +32,13 @@ typedef enum {
 	tag_noscript,
 	tag_link,
 	tag_meta,
-	tag_title
+	tag_title,
+	tag_form,
+	tag_input,
+	tag_textarea,
+	tag_select,
+	tag_option,
+	tag_button
 } tag_t;
 
 typedef struct {
@@ -77,7 +83,12 @@ typedef struct {
 	char *anchor_title;
 
 	html2md_options_t opt;
+
+	int suppress_text_depth;
 } html2md_ctx_t;
+
+static void md_append_char(html2md_ctx_t *ctx, char ch);
+static char md_prev_char(const html2md_ctx_t *ctx);
 
 static void html2md_set_default_options(html2md_options_t *opt)
 {
@@ -93,6 +104,13 @@ static void html2md_set_default_options(html2md_options_t *opt)
 	opt->compress_whitespace = false;
 	opt->escape_numbered_list = true;
 	opt->keep_html_entities = false;
+}
+
+static void ensure_line_start(html2md_ctx_t *ctx)
+{
+	if (ctx->md_len != 0 && md_prev_char(ctx) != '\n') {
+		md_append_char(ctx, '\n');
+	}
 }
 
 static void md_reserve(html2md_ctx_t *ctx, size_t extra)
@@ -286,8 +304,88 @@ static tag_t tag_from_name(const char *name)
 	if (streq(name, "title")) {
 		return tag_title;
 	}
-
+	if (streq(name, "form")) {
+		return tag_form;
+	}
+	if (streq(name, "input")) {
+		return tag_input;
+	}
+	if (streq(name, "textarea")) {
+		return tag_textarea;
+	}
+	if (streq(name, "select")) {
+		return tag_select;
+	}
+	if (streq(name, "option")) {
+		return tag_option;
+	}
+	if (streq(name, "button")) {
+		return tag_button;
+	}
 	return tag_unknown;
+}
+
+static void md_append_attr_quoted(html2md_ctx_t *ctx, const char *key, const char *value)
+{
+	if (!value || !*value) {
+		return;
+	}
+
+	md_append_char(ctx, ' ');
+	md_append_str(ctx, key);
+	md_append_str(ctx, "=\"");
+	md_append_str(ctx, value);
+	md_append_char(ctx, '"');
+}
+
+static void md_append_attr_plain(html2md_ctx_t *ctx, const char *key, const char *value)
+{
+	if (!value || !*value) {
+		return;
+	}
+
+	md_append_char(ctx, ' ');
+	md_append_str(ctx, key);
+	md_append_char(ctx, '=');
+	md_append_str(ctx, value);
+}
+
+static void md_append_flag(html2md_ctx_t *ctx, const char *flag, int enabled)
+{
+	if (!enabled) {
+		return;
+	}
+
+	md_append_char(ctx, ' ');
+	md_append_str(ctx, flag);
+}
+
+static int has_attr(html2md_ctx_t *ctx, const char *name)
+{
+	const char *p = ctx->tag_buf;
+	size_t name_len = strlen(name);
+
+	while (*p) {
+		while (*p && isspace((unsigned char)*p)) {
+			p++;
+		}
+
+		if (!*p) {
+			break;
+		}
+
+		if (starts_with(p, name)) {
+			const char *q = p + name_len;
+
+			if (*q == 0 || isspace((unsigned char)*q) || *q == '=' || *q == '/' || *q == '>') {
+				return 1;
+			}
+		}
+
+		p++;
+	}
+
+	return 0;
 }
 
 static int tag_is_ignored(tag_t tag, const html2md_options_t *opt)
@@ -685,6 +783,153 @@ static void open_tag(html2md_ctx_t *ctx, tag_t tag)
 		append_blockquote_prefix(ctx);
 		break;
 
+	case tag_form: {
+		char *method = extract_attr(ctx, "method");
+		char *action = extract_attr(ctx, "action");
+
+		ensure_blank_line(ctx);
+		md_append_str(ctx, "#form begin");
+
+		if (method && *method) {
+			md_append_attr_plain(ctx, "method", method);
+		} else {
+			md_append_str(ctx, " method=get");
+		}
+
+		if (action && *action) {
+			md_append_attr_quoted(ctx, "action", action);
+		}
+
+		md_append_char(ctx, '\n');
+
+		if (method) {
+			kfree(method);
+		}
+		if (action) {
+			kfree(action);
+		}
+		break;
+	}
+	case tag_input: {
+		char *name = extract_attr(ctx, "name");
+		char *type = extract_attr(ctx, "type");
+		char *value = extract_attr(ctx, "value");
+		char *placeholder = extract_attr(ctx, "placeholder");
+
+		ensure_line_start(ctx);
+		md_append_str(ctx, "#form input");
+		md_append_attr_plain(ctx, "name", name);
+
+		if (type && *type) {
+			md_append_attr_plain(ctx, "type", type);
+		} else {
+			md_append_str(ctx, " type=text");
+		}
+
+		md_append_attr_quoted(ctx, "value", value);
+		md_append_attr_quoted(ctx, "placeholder", placeholder);
+		md_append_flag(ctx, "checked", has_attr(ctx, "checked"));
+		md_append_flag(ctx, "selected", has_attr(ctx, "selected"));
+		md_append_flag(ctx, "disabled", has_attr(ctx, "disabled"));
+		md_append_flag(ctx, "readonly", has_attr(ctx, "readonly"));
+		md_append_char(ctx, '\n');
+
+		if (name) {
+			kfree(name);
+		}
+		if (type) {
+			kfree(type);
+		}
+		if (value) {
+			kfree(value);
+		}
+		if (placeholder) {
+			kfree(placeholder);
+		}
+		break;
+	}
+	case tag_textarea: {
+		char *name = extract_attr(ctx, "name");
+		char *rows = extract_attr(ctx, "rows");
+		char *cols = extract_attr(ctx, "cols");
+		ctx->suppress_text_depth++;
+		ensure_line_start(ctx);
+		md_append_str(ctx, "#form textarea");
+		md_append_attr_plain(ctx, "name", name);
+		md_append_attr_plain(ctx, "rows", rows);
+		md_append_attr_plain(ctx, "cols", cols);
+		md_append_char(ctx, '\n');
+
+		if (name) {
+			kfree(name);
+		}
+		if (rows) {
+			kfree(rows);
+		}
+		if (cols) {
+			kfree(cols);
+		}
+		break;
+	}
+	case tag_select: {
+		char *name = extract_attr(ctx, "name");
+		ensure_line_start(ctx);
+		md_append_str(ctx, "#form select");
+		md_append_attr_plain(ctx, "name", name);
+		md_append_flag(ctx, "disabled", has_attr(ctx, "disabled"));
+		md_append_char(ctx, '\n');
+
+		if (name) {
+			kfree(name);
+		}
+		break;
+	}
+	case tag_option: {
+		char *value = extract_attr(ctx, "value");
+		ctx->suppress_text_depth++;
+		ensure_line_start(ctx);
+		md_append_str(ctx, "#form option");
+		md_append_attr_plain(ctx, "value", value);
+		md_append_flag(ctx, "selected", has_attr(ctx, "selected"));
+		md_append_flag(ctx, "disabled", has_attr(ctx, "disabled"));
+		md_append_char(ctx, '\n');
+
+		if (value) {
+			kfree(value);
+		}
+		break;
+	}
+	case tag_button: {
+		ctx->suppress_text_depth++;
+		char *type = extract_attr(ctx, "type");
+		char *name = extract_attr(ctx, "name");
+		char *value = extract_attr(ctx, "value");
+
+		ensure_line_start(ctx);
+		md_append_str(ctx, "#form button");
+
+		if (type && *type) {
+			md_append_attr_plain(ctx, "type", type);
+		} else {
+			md_append_str(ctx, " type=submit");
+		}
+
+		md_append_attr_plain(ctx, "name", name);
+		md_append_attr_quoted(ctx, "value", value);
+		md_append_flag(ctx, "disabled", has_attr(ctx, "disabled"));
+		md_append_char(ctx, '\n');
+
+		if (type) {
+			kfree(type);
+		}
+		if (name) {
+			kfree(name);
+		}
+		if (value) {
+			kfree(value);
+		}
+		break;
+	}
 	default:
 		break;
 	}
@@ -795,6 +1040,24 @@ static void close_tag(html2md_ctx_t *ctx, tag_t tag)
 		ctx->row_col_count = 0;
 		ctx->th_count = 0;
 		ctx->current_row_is_header = 0;
+		break;
+
+	case tag_form:
+		ensure_line_start(ctx);
+		md_append_str(ctx, "#form end\n");
+		break;
+
+	case tag_select:
+		ensure_line_start(ctx);
+		md_append_str(ctx, "#form endselect\n");
+		break;
+
+	case tag_textarea:
+	case tag_option:
+	case tag_button:
+		if (ctx->suppress_text_depth != 0) {
+			ctx->suppress_text_depth--;
+		}
 		break;
 
 	default:
