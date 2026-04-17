@@ -119,6 +119,7 @@
 #include "usb_hid.h"
 #include "usb_msc.h"
 #include "regex.h"
+#include "html_md.h"
 #include "initialisation-functions.h"
 
 #define assert(expr, message) if (!(expr)) { \
