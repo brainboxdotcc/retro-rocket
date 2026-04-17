@@ -194,10 +194,7 @@ static char md_prev_prev_char(const html2md_ctx_t *ctx)
 	return ctx->md[ctx->md_len - 2];
 }
 
-static int streq(const char *a, const char *b)
-{
-	return strcmp(a, b) == 0;
-}
+#define streq(a, b) (strcmp((a), (b)) == 0)
 
 static int starts_with(const char *a, const char *b)
 {
@@ -434,69 +431,71 @@ static char *extract_attr(html2md_ctx_t *ctx, const char *name)
 			break;
 		}
 
-		if (*p == '/' || *p == '>') {
-			break;
-		}
+		if (strncmp(p, name, name_len) == 0) {
+			char next = p[name_len];
 
-		if (starts_with(p, name)) {
-			const char *q = p + name_len;
+			if (next == '=' || isspace((unsigned char)next)) {
+				const char *q = p + name_len;
 
-			while (*q && isspace((unsigned char)*q)) {
-				q++;
-			}
-
-			if (*q != '=') {
-				p++;
-				continue;
-			}
-
-			q++;
-
-			while (*q && isspace((unsigned char)*q)) {
-				q++;
-			}
-
-			if (*q == '"' || *q == '\'') {
-				char quote = *q++;
-				const char *start = q;
-
-				while (*q && *q != quote) {
+				while (*q && isspace((unsigned char)*q)) {
 					q++;
 				}
 
-				size_t len = (size_t)(q - start);
-				char *out = kmalloc(len + 1);
-
-				if (!out) {
-					return NULL;
+				if (*q != '=') {
+					p++;
+					continue;
 				}
 
-				memcpy(out, start, len);
-				out[len] = 0;
-				return out;
-			}
+				q++;
 
-			{
-				const char *start = q;
-
-				while (*q && !isspace((unsigned char)*q) && *q != '/' && *q != '>') {
+				while (*q && isspace((unsigned char)*q)) {
 					q++;
 				}
 
-				size_t len = (size_t)(q - start);
-				char *out = kmalloc(len + 1);
+				if (*q == '"' || *q == '\'') {
+					char quote = *q++;
+					const char *start = q;
 
-				if (!out) {
-					return NULL;
+					while (*q && *q != quote) {
+						q++;
+					}
+
+					size_t len = (size_t)(q - start);
+					char *out = kmalloc(len + 1);
+
+					if (!out) {
+						return NULL;
+					}
+
+					memcpy(out, start, len);
+					out[len] = 0;
+					return out;
 				}
 
-				memcpy(out, start, len);
-				out[len] = 0;
-				return out;
+				{
+					const char *start = q;
+
+					while (*q && !isspace((unsigned char)*q) && *q != '/' && *q != '>') {
+						q++;
+					}
+
+					size_t len = (size_t)(q - start);
+					char *out = kmalloc(len + 1);
+
+					if (!out) {
+						return NULL;
+					}
+
+					memcpy(out, start, len);
+					out[len] = 0;
+					return out;
+				}
 			}
 		}
 
-		p++;
+		while (*p && !isspace((unsigned char)*p)) {
+			p++;
+		}
 	}
 
 	return NULL;
@@ -740,7 +739,6 @@ static void open_tag(html2md_ctx_t *ctx, tag_t tag)
 		ctx->in_blockquote = 1;
 		ctx->blockquote_depth++;
 		ensure_blank_line(ctx);
-		append_blockquote_prefix(ctx);
 		break;
 
 	case tag_table:
@@ -949,23 +947,31 @@ static void close_tag(html2md_ctx_t *ctx, tag_t tag)
 	}
 
 	switch (tag) {
+
 	case tag_a:
 		md_append_str(ctx, "](");
+
 		if (ctx->anchor_href) {
 			md_append_str(ctx, ctx->anchor_href);
-			kfree(ctx->anchor_href);
-			ctx->anchor_href = NULL;
 		}
+
 		if (ctx->anchor_title && *ctx->anchor_title) {
 			md_append_str(ctx, " \"");
 			md_append_str(ctx, ctx->anchor_title);
 			md_append_char(ctx, '"');
 		}
+
+		md_append_char(ctx, ')');
+
+		if (ctx->anchor_href) {
+			kfree(ctx->anchor_href);
+			ctx->anchor_href = NULL;
+		}
+
 		if (ctx->anchor_title) {
 			kfree(ctx->anchor_title);
 			ctx->anchor_title = NULL;
 		}
-		md_append_char(ctx, ')');
 		break;
 
 	case tag_p:
@@ -1204,8 +1210,7 @@ static void tidy_markdown(html2md_ctx_t *ctx)
 	ctx->md[ctx->md_len] = 0;
 }
 
-bool html2md_convert(const char *html, const html2md_options_t *options,
-	html2md_result_t *out)
+bool html2md_convert(const char *html, const html2md_options_t *options, html2md_result_t *out)
 {
 	html2md_ctx_t ctx;
 
@@ -1322,7 +1327,7 @@ bool html2md_self_test(void)
 		"Hello [world](https://example.com \"site\")  \n"
 		"next line\n"
 		"\n"
-		"> Quoted → text\n"
+		"> Quoted " GLYPH_RARR " text\n"
 		"\n"
 		"- One\n"
 		"- Two\n"
