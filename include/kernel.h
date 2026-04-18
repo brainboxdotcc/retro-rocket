@@ -50,6 +50,7 @@
 #include <stddef.h>
 #include <limits.h>
 #include <limine.h>
+#include "rr-cpuid.h"
 #include "gdt.h"
 #include "idt.h"
 #include "spinlock.h"

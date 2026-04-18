@@ -29,6 +29,7 @@ void init()
 {
 	init_spinlock(&debug_console_spinlock);
 	init_spinlock(&console_spinlock);
+	cpu_caps_init();
 	uint32_t n = 0;
 	for (init_func_t* func = init_funcs; *func; ++func) {
 		dprintf("Bringing up %s...\n", init_funcs_names[n]);

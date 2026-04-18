@@ -33,6 +33,7 @@ bool video_flip_is_auto = true;
 bool video_dirty = true;
 int64_t video_dirty_start = -1;
 int64_t video_dirty_end = -1;
+static void* (*backbuffer_copy_fn)(void *dest, const void *src, uint64_t len) = memcpy;
 
 static uint8_t font_data[]  = { // 8x8
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3e, 0x41, 0x55, 0x41, 0x55, 0x5d, 0x41, 0x3e, 0x3e, 0x7f, 0x6b, 0x7f, 0x6b, 0x63, 0x7f, 0x3e, 0x00, 0x36, 0x7f, 0x7f, 0x7f, 0x3e, 0x1c, 0x08,
@@ -103,6 +104,54 @@ static uint8_t font_data[]  = { // 8x8
 
 static bool console_paging_enabled = false;
 static int64_t console_page_lines_left = 0;
+
+void* backbuffer_copy_sse2(void *dest, const void *src, uint64_t len)
+{
+	uint32_t *d32 = dest;
+	const uint32_t *s32 = src;
+
+	while (((uintptr_t)d32 & 15) && len >= 4) {
+		*d32++ = *s32++;
+		len -= 4;
+	}
+
+	uint8_t *d = (uint8_t *)d32;
+	const uint8_t *s = (const uint8_t *)s32;
+	uint64_t blocks = len / 64;
+
+	len %= 64;
+
+	if (blocks) {
+		__asm__ volatile(
+			"1:\n"
+			"movdqu   (%[s]), %%xmm0\n"
+			"movdqu 16(%[s]), %%xmm1\n"
+			"movdqu 32(%[s]), %%xmm2\n"
+			"movdqu 48(%[s]), %%xmm3\n"
+			"movdqa %%xmm0,   (%[d])\n"
+			"movdqa %%xmm1, 16(%[d])\n"
+			"movdqa %%xmm2, 32(%[d])\n"
+			"movdqa %%xmm3, 48(%[d])\n"
+			"add $64, %[s]\n"
+			"add $64, %[d]\n"
+			"dec %[blocks]\n"
+			"jnz 1b\n"
+			: [d] "+r"(d), [s] "+r"(s), [blocks] "+r"(blocks)
+		:
+		: "xmm0", "xmm1", "xmm2", "xmm3", "memory"
+		);
+	}
+
+	d32 = (uint32_t *)d;
+	s32 = (const uint32_t *)s;
+
+	while (len >= 4) {
+		*d32++ = *s32++;
+		len -= 4;
+	}
+
+	return dest;
+}
 
 void set_console_paging_enabled(bool enabled) {
 	console_paging_enabled = enabled;
@@ -467,6 +516,12 @@ void init_console()
 		dprintf("No framebuffer offered\n");
 		wait_forever();
 	}
+
+	if (!cpu_caps.erms) {
+		dprintf("No ERMS CPU caps: using SSE2 backbuffer copy.\n");
+		backbuffer_copy_fn = backbuffer_copy_sse2;
+	}
+
 	rr_console_init_from_limine();
 
 	screen_graphics_x = fb->width;

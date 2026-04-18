@@ -3,12 +3,13 @@
  * @author Craig Edwards (craigedwards@brainbox.cc)
  * @copyright Copyright (c) 2012-2026
  */
-#ifndef __CPUID_H__
-#define __CPUID_H__
+#pragma once
 
 #include <stdint.h>
+#include <stdbool.h>
+#include <cpuid.h>
 
-enum cpuid_flags : uint32_t
+enum cpuid_flags
 {
 	CPUID_FEAT_ECX_SSE3		= 1 << 0, 
 	CPUID_FEAT_ECX_PCLMUL		= 1 << 1,
@@ -67,7 +68,7 @@ enum cpuid_flags : uint32_t
 	CPUID_FEAT_EDX_PBE		= (uint32_t)(1 << 31)
 };
 
-enum cpuid_requests : uint32_t
+enum cpuid_requests
 {
 	CPUID_GETVENDORSTRING=0x00000000,
 	CPUID_GETFEATURES,
@@ -83,15 +84,51 @@ enum cpuid_requests : uint32_t
 
 static inline void cpuid(int code, uint32_t *a, uint32_t *d)
 {
-	asm volatile("cpuid":"=a"(*a),"=d"(*d):"0"(code):"ecx","ebx");
+	__asm__ volatile("cpuid":"=a"(*a),"=d"(*d):"0"(code):"ecx","ebx");
 }
 
 static inline int cpuid_string(int code, uint32_t where[4])
 {
 	int highest;
-	asm volatile("cpuid":"=a"(*where),"=b"(*(where+1)),
+	__asm__ volatile("cpuid":"=a"(*where),"=b"(*(where+1)),
 		"=c"(*(where+2)),"=d"(*(where+3)):"0"(code));
 	return highest;
 }
 
-#endif
+typedef struct cpu_caps {
+	char vendor[13];
+	char brand[49];
+
+	uint32_t max_basic_leaf;
+	uint32_t max_extended_leaf;
+
+	bool erms;
+	bool fsgsbase;
+	bool smep;
+	bool invpcid;
+	bool rdseed;
+	bool adx;
+	bool smap;
+	bool clflushopt;
+	bool clwb;
+	bool sha;
+	bool umip;
+	bool pku;
+	bool ospke;
+	bool waitpkg;
+	bool rdpid;
+	bool la57;
+	bool serialize;
+	bool movdiri;
+	bool movdir64b;
+	bool cet_ss;
+	bool ibt;
+	bool fred;
+	bool lkgs;
+	bool hreset;
+} cpu_caps_t;
+
+extern cpu_caps_t cpu_caps;
+
+void cpu_caps_init(void);
+
