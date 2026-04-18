@@ -293,6 +293,7 @@ struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file
 		return NULL;
 	}
 	buddy_init(ctx->allocator, 6, 26, 26);
+	ctx->maps = hashmap_new_with_allocator(varmap_malloc, varmap_realloc, varmap_free, sizeof(basic_map_handle_entry), 0, SEED0, SEED1, int64_hash, int64_compare, elfree_map_handle_entry, ctx->allocator);
 	ctx->debug_status = 0;
 	ctx->match_ctx = NULL;
 	ctx->debug_breakpoints = NULL;
@@ -535,6 +536,7 @@ struct basic_ctx *basic_clone(struct basic_ctx *old) {
 		tokenizer_error_printf(old, "Out of memory");
 		return NULL;
 	}
+	ctx->maps = old->maps;
 	ctx->if_nest_level = 0;
 	ctx->graphics_colour = old->graphics_colour;
 	ctx->data_offset = old->data_offset;

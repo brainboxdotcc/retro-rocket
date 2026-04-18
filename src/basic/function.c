@@ -173,6 +173,9 @@ struct basic_int_fn builtin_int[] =
 	{ basic_spritepixel,         "SPRITEPIXEL"       },
 	{ basic_spritemask,          "SPRITEMASK"        },
 	{ basic_secure_random,       "SECRND"            },
+	{ basic_mapget,              "MAPGET"            },
+	{ basic_maphas,              "MAPHAS"            },
+	{ basic_map,                 "MAP"               },
 	{ NULL,                      NULL                },
 };
 
@@ -199,6 +202,7 @@ struct basic_double_fn builtin_double[] = {
 	{ basic_dataread_real, "DATAREADR" },
 	{ basic_minr,          "MINR"      },
 	{ basic_maxr,          "MAXR"      },
+	{ basic_mapgetr,       "MAPGETR"   },
 	{ NULL,                NULL        },
 };
 
@@ -247,6 +251,7 @@ struct basic_str_fn builtin_str[] =
 	{ basic_udplastip,            "UDPLASTIP$"    },
 	{ basic_dataread_string,      "DATAREAD$"     },
 	{ basic_secure_random_string, "SECSTR$"       },
+	{ basic_mapgets,              "MAPGET$"       },
 	{ NULL,                       NULL            },
 };
 

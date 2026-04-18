@@ -452,6 +452,11 @@ typedef struct basic_ctx {
 	 */
 	size_t data_offset;
 
+	/**
+	 * @brief Map of map structures by handle
+	 */
+	struct hashmap* maps;
+
 } basic_ctx;
 
 /**

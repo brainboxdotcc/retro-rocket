@@ -98,6 +98,8 @@ The following parameter types are used throughout this documentation:
 * \subpage LINE
 * \subpage LOCAL
 * \subpage MATCH
+* \subpage MAPFREE
+* \subpage MAPSET
 * \subpage MEMRELEASE
 * \subpage MKDIR
 * \subpage MOUNT

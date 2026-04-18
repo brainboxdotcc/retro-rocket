@@ -20,6 +20,7 @@ var string_funcs =
     [ "LJUST$ Function", "LJUST.html", null ],
     [ "LOWER$ Function", "LOWER.html", null ],
     [ "LTRIM$ Function", "LTRIM.html", null ],
+    [ "MAPGET$ Function", "MAPGETS.html", null ],
     [ "MID$ Function", "MID.html", null ],
     [ "NETINFO$ Function", "NETINFO.html", null ],
     [ "RADIX$ Function", "RADIXS.html", null ],

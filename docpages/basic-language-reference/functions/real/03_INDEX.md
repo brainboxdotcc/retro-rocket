@@ -14,6 +14,7 @@ The following functions operate on or return **real (floating-point) values** in
 * \subpage FMOD
 * \subpage GETVARR
 * \subpage LOG
+* \subpage MAPGETR
 * \subpage MAXR
 * \subpage MINR
 * \subpage POW

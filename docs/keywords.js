@@ -59,6 +59,8 @@ var keywords =
     [ "LINE Keyword", "LINE.html", null ],
     [ "LOCAL Keyword", "LOCAL.html", null ],
     [ "MATCH Keyword", "MATCH.html", null ],
+    [ "MAPFREE Keyword", "MAPFREE.html", null ],
+    [ "MAPSET Keyword", "MAPSET.html", null ],
     [ "MEMRELEASE Function", "MEMRELEASE.html", null ],
     [ "MKDIR Keyword", "MKDIR.html", null ],
     [ "MOUNT Keyword", "MOUNT.html", null ],

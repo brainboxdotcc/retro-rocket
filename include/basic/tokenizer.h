@@ -216,6 +216,9 @@ typedef void (*keyword_handler_t)(struct basic_ctx*);
     T(PAGE, STMT, page_statement) 			/* 144 */ \
     T(ARRSORT, STMT, arrsort_statement)			/* 145 */ \
     T(ARRSORTBY, STMT, arrsortby_statement)		/* 146 */ \
+    T(MAPSET, STMT, mapset_statement)			/* 147 */ \
+    T(MAPFREE, STMT, mapfree_statement)			/* 148 */ \
+    T(MAPKEYS, STMT, mapkeys_statement)			/* 149 */ \
 
 GENERATE_ENUM_LIST(TOKEN, token_t)
 

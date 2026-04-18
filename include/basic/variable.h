@@ -4,6 +4,12 @@
 
 struct basic_ctx;
 
+void *varmap_malloc(size_t size, void *udata);
+
+void *varmap_realloc(void *ptr, size_t size, void *udata);
+
+void varmap_free(const void *ptr, void *udata);
+
 /**
  * @brief Get the value of an integer variable.
  *
