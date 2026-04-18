@@ -1,4 +1,5 @@
 \page MAPGETR MAPGETR Function
+
 ```basic
 X# = MAPGETR(handle, key$)
 ````
