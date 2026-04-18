@@ -360,24 +360,13 @@ void gdb_emit() {
 	trace_count++;
 }
 
-bool running_under_qemu(void) {
-	uint32_t eax, ebx, ecx, edx;
-
-	/* Leaf 1: ECX[31] indicates a hypervisor */
-	if (!__get_cpuid(1, &eax, &ebx, &ecx, &edx)) {
-		return false;
-	}
-	if ((ecx & (1u << 31)) == 0) {
+bool running_under_qemu(void)
+{
+	if (!cpu_caps.hypervisor_present) {
 		return false;
 	}
 
-	/* Leaf 0x40000000: hypervisor vendor ID */
-	char hv[13];
-	__cpuid(0x40000000, eax, ebx, ecx, edx);
-	*(uint32_t *)&hv[0] = ebx;
-	*(uint32_t *)&hv[4] = edx;
-	*(uint32_t *)&hv[8] = ecx;
-	hv[12] = 0;
-
-	return (hv[0] == 'K' && hv[1] == 'V' && hv[2] == 'M');
+	return cpu_caps.hypervisor_vendor[0] == 'K'
+	       && cpu_caps.hypervisor_vendor[1] == 'V'
+	       && cpu_caps.hypervisor_vendor[2] == 'M';
 }

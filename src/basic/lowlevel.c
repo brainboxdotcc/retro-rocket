@@ -82,58 +82,25 @@ int64_t basic_memalloc(struct basic_ctx* ctx)
 
 char* basic_cpugetbrand(struct basic_ctx* ctx)
 {
-
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	bool trim = intval;
 	PARAMS_END("CPUGETBRAND$", "");
-	char buffer[50] = {0};
-	unsigned int* tmp = (unsigned int*) buffer;
-	__cpuid(
-		0x80000002,
-		tmp[0],
-		tmp[1],
-		tmp[2],
-		tmp[3]
-	);
-	__cpuid(
-		0x80000003,
-		tmp[4],
-		tmp[5],
-		tmp[6],
-		tmp[7]
-	);
-	__cpuid(
-		0x80000004,
-		tmp[8],
-		tmp[9],
-		tmp[10],
-		tmp[11]
-	);
-	buffer[48] = 0;
-	char* bufferp = (char*) buffer;
+
+	const char *bufferp = cpu_caps.brand;
+
 	if (trim) {
 		while (*bufferp == ' ') {
-			++bufferp;
+			bufferp++;
 		}
 	}
-	return (char*)gc_strdup(ctx, bufferp);
+
+	return (char *)gc_strdup(ctx, bufferp);
 }
 
 char* basic_cpugetvendor(struct basic_ctx* ctx)
 {
-	__cpuid(
-		0,
-		ctx->last_cpuid_result.eax,
-		ctx->last_cpuid_result.ebx,
-		ctx->last_cpuid_result.ecx,
-		ctx->last_cpuid_result.edx);
-	char buffer[13];
-	((unsigned int*) buffer)[0] = ctx->last_cpuid_result.ebx;
-	((unsigned int*) buffer)[1] = ctx->last_cpuid_result.edx;
-	((unsigned int*) buffer)[2] = ctx->last_cpuid_result.ecx;
-	buffer[12] = '\0';
-	return (char*)gc_strdup(ctx, buffer);
+	return (char *)gc_strdup(ctx, cpu_caps.vendor);
 }
 
 char* basic_intoasc(struct basic_ctx* ctx)

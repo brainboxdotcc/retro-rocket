@@ -25,13 +25,7 @@ extern void fred_ring3_entry_asm_stub();
 
 bool fred_supported(void)
 {
-	uint32_t eax = 7, ebx = 0, ecx = 1, edx = 0;
-	__asm__ volatile (
-		"cpuid"
-		: "=a"(eax), "=b"(ebx), "=c"(ecx), "=d"(edx)
-		: "a"(eax), "c"(ecx)
-		);
-	return (eax >> CPUID_FEAT_FRED) & 1u;
+	return cpu_caps.fred;
 }
 
 /**
