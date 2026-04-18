@@ -127,20 +127,20 @@ $(function(){initNavTree('PEEKW.html','',''); });
 </div><!-- fragment --><p>Reads a <b>16-bit word</b> from <span class="tt">address</span> and returns it as an integer (0–65535).</p>
 <dl class="section note"><dt>Note</dt><dd>The full 2-byte span must be valid and mapped, or <span class="tt">Bad Address at &lt;address&gt;</span> is raised.</dd></dl>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="how-to-read-it-19"></a>
+<h3 class="doxsection"><a class="anchor" id="how-to-read-it-22"></a>
 How to read it</h3>
 <ul>
 <li>Loads 2 bytes, <b>little-endian</b> (<span class="tt">low</span> at <span class="tt">address</span>, <span class="tt">high</span> at <span class="tt">address+1</span>).</li>
 <li>Unaligned reads are allowed.</li>
 </ul>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-57"></a>
+<h3 class="doxsection"><a class="anchor" id="examples-60"></a>
 Examples</h3>
 <div class="fragment"><div class="line">REM Read a 16-bit word</div>
 <div class="line">W = PEEKW(&amp;100020)</div>
 <div class="line">PRINT W</div>
 </div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-58"></a>
+<h3 class="doxsection"><a class="anchor" id="notes-59"></a>
 Notes</h3>
 <ul>
 <li>Match the width to the device register size for MMIO.</li>

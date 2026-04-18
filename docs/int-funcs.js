@@ -41,6 +41,7 @@ var int_funcs =
     [ "LCPUID Function", "LCPUID.html", null ],
     [ "LEN Function", "LEN.html", null ],
     [ "LGETLASTCPUID Function", "LGETLASTCPUID.html", null ],
+    [ "MAP Function", "MAP.html", null ],
     [ "MAPGET Function", "MAPGET.html", null ],
     [ "MAPHAS Function", "MAPHAS.html", null ],
     [ "MAX Function", "MAX.html", null ],

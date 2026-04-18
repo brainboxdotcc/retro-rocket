@@ -127,19 +127,19 @@ $(function(){initNavTree('POKEQ.html','',''); });
 </div><!-- fragment --><p>Stores a <b>64-bit quad-word</b> at <span class="tt">address</span> in <b>little-endian</b> order.</p>
 <dl class="section remark"><dt>Remarks</dt><dd>The 8-byte span must be writable or <span class="tt">Bad Address at &lt;address&gt;</span> is raised.</dd></dl>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="how-to-read-it-29"></a>
+<h3 class="doxsection"><a class="anchor" id="how-to-read-it-34"></a>
 How to read it</h3>
 <ul>
 <li>Use for 64-bit pointers, descriptors, or counters.</li>
 </ul>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-169"></a>
+<h3 class="doxsection"><a class="anchor" id="examples-176"></a>
 Examples</h3>
 <div class="fragment"><div class="line">REM Store a 64-bit value</div>
 <div class="line">POKEQ &amp;100400, &amp;0123456789ABCDEF</div>
 <div class="line">PRINT PEEKQ(&amp;100400)</div>
 </div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-180"></a>
+<h3 class="doxsection"><a class="anchor" id="notes-183"></a>
 Notes</h3>
 <ul>
 <li>Unaligned 64-bit writes may tear if observed concurrently.</li>

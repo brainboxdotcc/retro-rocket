@@ -124,42 +124,49 @@ $(function(){initNavTree('MAPFREE.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">MAPFREE handle</div>
-<div class="line">````</div>
-<div class="line"> </div>
-<div class="line">Releases a MAP previously created with `MAP`.</div>
-<div class="line"> </div>
-<div class="line">After calling `MAPFREE`, the `handle` becomes **invalid** and must not be used again.</div>
-<div class="line"> </div>
-<div class="line">---</div>
-<div class="line"> </div>
-<div class="line">##### Example</div>
-</div><!-- fragment --><p> basic M = MAP</p>
-<p>MAPSET M, "a", 123 PRINT MAPGET(M, "a")</p>
-<p>MAPFREE M</p>
-<p>PRINT MAPGET(M, "a") </p><div class="fragment"><div class="line">Output:</div>
-</div><!-- fragment --><p> 123 Invalid MAP </p><div class="fragment"><div class="line">---</div>
-<div class="line"> </div>
-<div class="line">##### Notes</div>
-<div class="line"> </div>
-<div class="line">* Frees all memory associated with the MAP:</div>
-<div class="line"> </div>
-<div class="line">  * all keys</div>
-<div class="line">  * all stored values</div>
-<div class="line">  * the underlying hashmap</div>
-<div class="line">* The handle is removed from the internal handle table</div>
-<div class="line">* Using a freed or unknown handle results in **&quot;Invalid MAP&quot;**</div>
-<div class="line">* Calling `MAPFREE` does **not** clear the variable holding the handle value</div>
-<div class="line">* Passing `0` is always invalid</div>
-<div class="line"> </div>
-<div class="line">---</div>
-<div class="line"> </div>
-<div class="line">##### Typical usage</div>
-</div><!-- fragment --><p> basic M = MAP</p>
-<p>MAPSET M, "score", 100</p>
-<p>REM ... use map ...</p>
-<p>MAPFREE M ```</p>
+</div><!-- fragment --><p>Releases a MAP previously created with <span class="tt">MAP</span>.</p>
+<p>After calling <span class="tt">MAPFREE</span>, the <span class="tt">handle</span> becomes <b>invalid</b> and must not be used again.</p>
 <hr  />
-<p><b>See also:</b> MAP <a class="el" href="MAPSET.html">MAPSET</a> <a class="el" href="MAPGET.html">MAPGET</a> <a class="el" href="MAPHAS.html">MAPHAS</a> MAPKEYS </p>
+<h5 class="doxsection"><a class="anchor" id="example-17"></a>
+Example</h5>
+<div class="fragment"><div class="line">M = MAP</div>
+<div class="line"> </div>
+<div class="line">MAPSET M, &quot;a&quot;, 123</div>
+<div class="line">PRINT MAPGET(M, &quot;a&quot;)</div>
+<div class="line"> </div>
+<div class="line">MAPFREE M</div>
+<div class="line"> </div>
+<div class="line">PRINT MAPGET(M, &quot;a&quot;)</div>
+</div><!-- fragment --><p>Output:</p>
+<div class="fragment"><div class="line">123</div>
+<div class="line">Invalid MAP</div>
+</div><!-- fragment --><hr  />
+<h5 class="doxsection"><a class="anchor" id="notes-170"></a>
+Notes</h5>
+<ul>
+<li>Frees all memory associated with the MAP:<ul>
+<li>all keys</li>
+<li>all stored values</li>
+<li>the underlying hashmap</li>
+</ul>
+</li>
+<li>The handle is removed from the internal handle table</li>
+<li>Using a freed or unknown handle results in <b>"Invalid MAP"</b></li>
+<li>Calling <span class="tt">MAPFREE</span> does <b>not</b> clear the variable holding the handle value</li>
+<li>Passing <span class="tt">0</span> is always invalid</li>
+</ul>
+<hr  />
+<h5 class="doxsection"><a class="anchor" id="typical-usage-4"></a>
+Typical usage</h5>
+<div class="fragment"><div class="line">M = MAP</div>
+<div class="line"> </div>
+<div class="line">MAPSET M, &quot;score&quot;, 100</div>
+<div class="line"> </div>
+<div class="line">REM ... use map ...</div>
+<div class="line"> </div>
+<div class="line">MAPFREE M</div>
+</div><!-- fragment --><hr  />
+<p><b>See also:</b> <a class="el" href="MAP.html">MAP</a> <a class="el" href="MAPSET.html">MAPSET</a> <a class="el" href="MAPGET.html">MAPGET</a> <a class="el" href="MAPHAS.html">MAPHAS</a> MAPKEYS </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

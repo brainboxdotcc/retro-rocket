@@ -43,6 +43,7 @@ The following functions operate on or return **integer values** in Retro Rocket 
 * \subpage LCPUID
 * \subpage LEN
 * \subpage LGETLASTCPUID
+* \subpage MAP
 * \subpage MAPGET
 * \subpage MAPHAS
 * \subpage MAX

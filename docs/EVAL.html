@@ -124,37 +124,51 @@ $(function(){initNavTree('EVAL.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">EVAL string-expression</div>
-<div class="line">````</div>
-<div class="line"> </div>
-<div class="line">Executes BASIC code supplied in `string-expression`.</div>
-<div class="line"> </div>
-<div class="line">* If the string contains a **single line**, it is executed in the **current program&#39;s context**.</div>
-<div class="line">* If the string contains **multiple lines**, it is executed as an **anonymous child program** in a new process context.</div>
-<div class="line"> </div>
-<div class="line">On **error**, `ERR$` is set to the error message and `ERR` is set to `1`. Execution then continues at the statement after `EVAL`.</div>
-<div class="line"> </div>
-<div class="line">* Recursive **single-line EVAL** is not permitted.</div>
-<div class="line"> </div>
-<div class="line">\remark If you need a literal double quote inside the evaluated line, insert it using `CHR$(34)`.</div>
-<div class="line">\remark For example: `EVAL &quot;PRINT &quot; + CHR$(34) + &quot;Hello&quot; + CHR$(34)`.</div>
-<div class="line"> </div>
-<div class="line">---</div>
-<div class="line"> </div>
-<div class="line">### Examples</div>
-<div class="line"> </div>
-<div class="line">**Print from a generated line (single-line)**</div>
-</div><!-- fragment --><p> basic EVAL "PRINT " + CHR$(34) + "Hello from EVAL!" + CHR$(34) </p><div class="fragment"><div class="line">**Set a variable dynamically**</div>
-</div><!-- fragment --><p> basic NAME$ = "COUNT" EVAL NAME$ + " = 42" PRINT COUNT </p><div class="fragment"><div class="line">**Call a procedure**</div>
-</div><!-- fragment --><p> basic DEF PROCgreet PRINT "Greetings" ENDPROC</p>
-<p>EVAL "PROCgreet" </p><div class="fragment"><div class="line">**Multi-line anonymous program**</div>
-</div><!-- fragment --><p> basic EVAL "A=1" + CHR$(10) + "PRINT A" </p><div class="fragment"><div class="line">**Using GLOBAL variables in multi-line EVAL**</div>
-</div><!-- fragment --><p> basic GLOBAL A A = 5</p>
-<p>EVAL "PRINT A" </p><div class="fragment"><div class="line">**Error handling (ERR/ERR$ set, program continues)**</div>
-</div><!-- fragment --><p> basic ERR = 0 ERR$ = ""</p>
-<p>EVAL "A = 1/0"</p>
-<p>IF ERR &lt;&gt; 0 THEN PRINT "EVAL failed: "; ERR$ ENDIF ```</p>
+</div><!-- fragment --><p>Executes BASIC code supplied in <span class="tt">string-expression</span>.</p>
+<ul>
+<li>If the string contains a <b>single line</b>, it is executed in the <b>current program's context</b>.</li>
+<li>If the string contains <b>multiple lines</b>, it is executed as an <b>anonymous child program</b> in a new process context.</li>
+</ul>
+<p>On <b>error</b>, <span class="tt">ERR$</span> is set to the error message and <span class="tt">ERR</span> is set to <span class="tt">1</span>. Execution then continues at the statement after <span class="tt">EVAL</span>.</p>
+<ul>
+<li>Recursive <b>single-line EVAL</b> is not permitted.</li>
+</ul>
+<dl class="section remark"><dt>Remarks</dt><dd>If you need a literal double quote inside the evaluated line, insert it using <span class="tt">CHR$(34)</span>. </dd>
+<dd>
+For example: <span class="tt">EVAL "PRINT " + CHR$(34) + "Hello" + CHR$(34)</span>.</dd></dl>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-157"></a>
+<h3 class="doxsection"><a class="anchor" id="examples-150"></a>
+Examples</h3>
+<p><b>Print from a generated line (single-line)</b></p>
+<div class="fragment"><div class="line">EVAL &quot;PRINT &quot; + CHR$(34) + &quot;Hello from EVAL!&quot; + CHR$(34)</div>
+</div><!-- fragment --><p><b>Set a variable dynamically</b></p>
+<div class="fragment"><div class="line">NAME$ = &quot;COUNT&quot;</div>
+<div class="line">EVAL NAME$ + &quot; = 42&quot;</div>
+<div class="line">PRINT COUNT</div>
+</div><!-- fragment --><p><b>Call a procedure</b></p>
+<div class="fragment"><div class="line">DEF PROCgreet</div>
+<div class="line">    PRINT &quot;Greetings&quot;</div>
+<div class="line">ENDPROC</div>
+<div class="line"> </div>
+<div class="line">EVAL &quot;PROCgreet&quot;</div>
+</div><!-- fragment --><p><b>Multi-line anonymous program</b></p>
+<div class="fragment"><div class="line">EVAL &quot;A=1&quot; + CHR$(10) + &quot;PRINT A&quot;</div>
+</div><!-- fragment --><p><b>Using GLOBAL variables in multi-line EVAL</b></p>
+<div class="fragment"><div class="line">GLOBAL A</div>
+<div class="line">A = 5</div>
+<div class="line"> </div>
+<div class="line">EVAL &quot;PRINT A&quot;</div>
+</div><!-- fragment --><p><b>Error handling (ERR/ERR$ set, program continues)</b></p>
+<div class="fragment"><div class="line">ERR = 0</div>
+<div class="line">ERR$ = &quot;&quot;</div>
+<div class="line"> </div>
+<div class="line">EVAL &quot;A = 1/0&quot;</div>
+<div class="line"> </div>
+<div class="line">IF ERR &lt;&gt; 0 THEN</div>
+<div class="line">    PRINT &quot;EVAL failed: &quot;; ERR$</div>
+<div class="line">ENDIF</div>
+</div><!-- fragment --><hr  />
+<h3 class="doxsection"><a class="anchor" id="notes-158"></a>
 Notes</h3>
 <ul>
 <li>A <b>single-line</b> EVAL executes in the current context and has access to all variables, procedures, and functions.</li>

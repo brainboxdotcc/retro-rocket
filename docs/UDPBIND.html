@@ -131,19 +131,19 @@ $(function(){initNavTree('UDPBIND.html','',''); });
 </ul>
 <dl class="section note"><dt>Note</dt><dd>If <span class="tt">port</span> is outside the valid range, an error is raised: <span class="tt">Invalid UDP port number</span>.</dd></dl>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="how-to-read-it-32"></a>
+<h3 class="doxsection"><a class="anchor" id="how-to-read-it-37"></a>
 How to read it</h3>
 <ul>
 <li>Use <span class="tt">UDPBIND</span> before attempting to read with <span class="tt">UDPREAD$</span>.</li>
 <li>Each port has its own queue; packets are delivered in <b>first-in, first-out</b> order.</li>
 </ul>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-191"></a>
+<h3 class="doxsection"><a class="anchor" id="examples-198"></a>
 Examples</h3>
 <div class="fragment"><div class="line">UDPBIND &quot;0.0.0.0&quot;, 8080</div>
 </div><!-- fragment --><div class="fragment"><div class="line">UDPBIND &quot;127.0.0.1&quot;, 9000</div>
 </div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-199"></a>
+<h3 class="doxsection"><a class="anchor" id="notes-202"></a>
 Notes</h3>
 <ul>
 <li>Binding the same port more than once is not required; bind once, then read.</li>

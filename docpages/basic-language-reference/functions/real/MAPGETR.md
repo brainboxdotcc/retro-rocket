@@ -2,7 +2,7 @@
 
 ```basic
 X# = MAPGETR(handle, key$)
-````
+```
 
 Returns the **real value** stored at `key$` in a MAP.
 

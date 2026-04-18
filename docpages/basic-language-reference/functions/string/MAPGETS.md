@@ -1,7 +1,7 @@
 \page MAPGETS MAPGET$ Function
 ```basic
 S$ = MAPGET$(handle, key$)
-````
+```
 
 Returns the **string value** stored at `key$` in a MAP.
 

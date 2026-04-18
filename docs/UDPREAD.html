@@ -131,14 +131,14 @@ $(function(){initNavTree('UDPREAD.html','',''); });
 </ul>
 <dl class="section note"><dt>Note</dt><dd>If <span class="tt">port</span> is outside <span class="tt">0</span> to <span class="tt">65535</span>, an error is raised: <span class="tt">Invalid UDP port number</span>.</dd></dl>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="how-to-read-it-22"></a>
+<h3 class="doxsection"><a class="anchor" id="how-to-read-it-27"></a>
 How to read it</h3>
 <ul>
 <li>Call after <span class="tt">UDPBIND</span>.</li>
 <li>Each call removes <b>one</b> packet from the queue (FIFO).</li>
 </ul>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-133"></a>
+<h3 class="doxsection"><a class="anchor" id="examples-138"></a>
 Examples</h3>
 <div class="fragment"><div class="line">UDPBIND &quot;0.0.0.0&quot;, 8080</div>
 <div class="line">S$ = UDPREAD$(8080)</div>
@@ -150,7 +150,7 @@ Examples</h3>
 <div class="line">S$ = UDPREAD$(9000)</div>
 <div class="line">PRINT S$</div>
 </div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-132"></a>
+<h3 class="doxsection"><a class="anchor" id="notes-133"></a>
 Notes</h3>
 <ul>
 <li>The returned string is the exact payload that was sent.</li>

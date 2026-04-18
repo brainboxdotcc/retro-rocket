@@ -133,21 +133,21 @@ $(function(){initNavTree('UDPWRITE.html','',''); });
 <dd>
 Invalid payload size raises: <span class="tt">Invalid UDP packet length</span>.</dd></dl>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="how-to-read-it-34"></a>
+<h3 class="doxsection"><a class="anchor" id="how-to-read-it-39"></a>
 How to read it</h3>
 <ul>
 <li>Provide a dotted-quad destination IP (e.g. <span class="tt">"127.0.0.1"</span>).</li>
 <li>Use together with <span class="tt">UDPBIND</span>/<span class="tt">UDPREAD$</span> for simple local tests.</li>
 </ul>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-193"></a>
+<h3 class="doxsection"><a class="anchor" id="examples-200"></a>
 Examples</h3>
 <div class="fragment"><div class="line">UDPWRITE &quot;127.0.0.1&quot;, 1234, 8080, &quot;hello&quot;</div>
 </div><!-- fragment --><div class="fragment"><div class="line">UDPBIND &quot;0.0.0.0&quot;, 8080</div>
 <div class="line">UDPWRITE &quot;127.0.0.1&quot;, 1234, 8080, &quot;ping&quot;</div>
 <div class="line">PRINT UDPREAD$(8080)</div>
 </div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-201"></a>
+<h3 class="doxsection"><a class="anchor" id="notes-204"></a>
 Notes</h3>
 <ul>
 <li>The payload is transmitted exactly as provided in <span class="tt">data$</span>.</li>

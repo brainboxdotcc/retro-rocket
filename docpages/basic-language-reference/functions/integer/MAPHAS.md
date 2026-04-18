@@ -1,7 +1,7 @@
 \page MAPHAS MAPHAS Function
 ```basic
 X = MAPHAS(handle, key$)
-````
+```
 
 Returns whether a key exists in a MAP.
 

@@ -124,26 +124,28 @@ $(function(){initNavTree('MAPHAS.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">X = MAPHAS(handle, key$)</div>
-<div class="line">````</div>
-<div class="line"> </div>
-<div class="line">Returns whether a key exists in a MAP.</div>
-<div class="line"> </div>
-<div class="line">---</div>
-<div class="line"> </div>
-<div class="line">### How to read it</div>
-<div class="line"> </div>
-<div class="line">* Looks up `key$` in the MAP identified by `handle`</div>
-<div class="line">* Returns `1` if the key exists, otherwise `0`</div>
-<div class="line"> </div>
-<div class="line">---</div>
-<div class="line"> </div>
-<div class="line">### Examples</div>
-</div><!-- fragment --><p> basic M = MAP</p>
-<p>MAPSET M, "score", 100</p>
-<p>PRINT MAPHAS(M, "score") PRINT MAPHAS(M, "missing") </p><div class="fragment"><div class="line">Output:</div>
-</div><!-- fragment --><p> 1 0 ```</p>
+</div><!-- fragment --><p>Returns whether a key exists in a MAP.</p>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-40"></a>
+<h3 class="doxsection"><a class="anchor" id="how-to-read-it-18"></a>
+How to read it</h3>
+<ul>
+<li>Looks up <span class="tt">key$</span> in the MAP identified by <span class="tt">handle</span></li>
+<li>Returns <span class="tt">1</span> if the key exists, otherwise <span class="tt">0</span></li>
+</ul>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="examples-42"></a>
+Examples</h3>
+<div class="fragment"><div class="line">M = MAP</div>
+<div class="line"> </div>
+<div class="line">MAPSET M, &quot;score&quot;, 100</div>
+<div class="line"> </div>
+<div class="line">PRINT MAPHAS(M, &quot;score&quot;)</div>
+<div class="line">PRINT MAPHAS(M, &quot;missing&quot;)</div>
+</div><!-- fragment --><p>Output:</p>
+<div class="fragment"><div class="line">1</div>
+<div class="line">0</div>
+</div><!-- fragment --><hr  />
+<h3 class="doxsection"><a class="anchor" id="notes-41"></a>
 Notes</h3>
 <ul>
 <li>The MAP must be valid</li>

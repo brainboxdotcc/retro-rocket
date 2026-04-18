@@ -124,66 +124,80 @@ $(function(){initNavTree('MAPSET.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">MAPSET handle, key$, value</div>
-<div class="line">````</div>
-<div class="line"> </div>
-<div class="line">Sets or replaces a key/value pair in a MAP.</div>
-<div class="line"> </div>
-<div class="line">* `handle` must be a valid MAP handle</div>
-<div class="line">* `key$` is a string key</div>
-<div class="line">* `value` may be:</div>
-<div class="line"> </div>
-<div class="line">  * integer</div>
-<div class="line">  * real</div>
-<div class="line">  * string</div>
-<div class="line"> </div>
-<div class="line">---</div>
-<div class="line"> </div>
-<div class="line">##### Examples</div>
-<div class="line"> </div>
-<div class="line">**Set integer value**</div>
-</div><!-- fragment --><p> basic M = MAP MAPSET M, "score", 100</p>
-<p>PRINT MAPGET(M, "score") </p><div class="fragment"><div class="line">Output:</div>
-</div><!-- fragment --><p> 100 </p><div class="fragment"><div class="line">---</div>
-<div class="line"> </div>
-<div class="line">**Set string value**</div>
-</div><!-- fragment --><p> basic MAPSET M, "name", "ALPHA"</p>
-<p>PRINT MAPGET$(M, "name") </p><div class="fragment"><div class="line">---</div>
-<div class="line"> </div>
-<div class="line">**Replace existing value**</div>
-</div><!-- fragment --><p> basic MAPSET M, "score", 100 MAPSET M, "score", 250</p>
-<p>PRINT MAPGET(M, "score") </p><div class="fragment"><div class="line">Output:</div>
-</div><!-- fragment --><p> 250 </p><div class="fragment"><div class="line">---</div>
-<div class="line"> </div>
-<div class="line">**Integer ↔ real compatibility**</div>
-</div><!-- fragment --><p> basic MAPSET M, "value", 10 MAPSET M, "value", 3.5</p>
-<p>PRINT MAPGETR(M, "value") </p><div class="fragment"><div class="line">---</div>
-<div class="line"> </div>
-<div class="line">##### Notes</div>
-<div class="line"> </div>
-<div class="line">* Keys are **case-sensitive**</div>
-<div class="line">* Keys are stored as copies; modifying the original string has no effect</div>
-<div class="line">* Values are **deep-copied** into the MAP</div>
-<div class="line">* Setting an existing key:</div>
-<div class="line"> </div>
-<div class="line">  * replaces the previous value</div>
-<div class="line">  * frees the previous stored value</div>
-<div class="line">* Type rules:</div>
-<div class="line"> </div>
-<div class="line">  * integer and real are interchangeable</div>
-<div class="line">  * string is **not interchangeable** with numeric types</div>
-<div class="line">  * other type changes result in **&quot;Type mismatch for MAP key&quot;**</div>
-<div class="line">* Using an invalid handle results in **&quot;Invalid MAP&quot;**</div>
-<div class="line">* Memory allocation failure results in **&quot;Out of memory&quot;**</div>
-<div class="line"> </div>
-<div class="line">---</div>
-<div class="line"> </div>
-<div class="line">##### Typical usage</div>
-</div><!-- fragment --><p> basic M = MAP</p>
-<p>MAPSET M, "name", "PLAYER" MAPSET M, "score", 0</p>
-<p>MAPSET M, "score", MAPGET(M, "score") + 10</p>
-<p>PRINT MAPGET$(M, "name"), MAPGET(M, "score") ```</p>
+</div><!-- fragment --><p>Sets or replaces a key/value pair in a MAP.</p>
+<ul>
+<li><span class="tt">handle</span> must be a valid MAP handle</li>
+<li><span class="tt">key$</span> is a string key</li>
+<li><span class="tt">value</span> may be:<ul>
+<li>integer</li>
+<li>real</li>
+<li>string</li>
+</ul>
+</li>
+</ul>
 <hr  />
-<p><b>See also:</b> MAP <a class="el" href="MAPGET.html">MAPGET</a> MAPGET$ <a class="el" href="MAPGETR.html">MAPGETR</a> <a class="el" href="MAPHAS.html">MAPHAS</a> <a class="el" href="MAPFREE.html">MAPFREE</a> MAPKEYS </p>
+<h5 class="doxsection"><a class="anchor" id="examples-162"></a>
+Examples</h5>
+<p><b>Set integer value</b></p>
+<div class="fragment"><div class="line">M = MAP</div>
+<div class="line">MAPSET M, &quot;score&quot;, 100</div>
+<div class="line"> </div>
+<div class="line">PRINT MAPGET(M, &quot;score&quot;)</div>
+</div><!-- fragment --><p>Output:</p>
+<div class="fragment"><div class="line">100</div>
+</div><!-- fragment --><hr  />
+<p><b>Set string value</b></p>
+<div class="fragment"><div class="line">MAPSET M, &quot;name&quot;, &quot;ALPHA&quot;</div>
+<div class="line"> </div>
+<div class="line">PRINT MAPGET$(M, &quot;name&quot;)</div>
+</div><!-- fragment --><hr  />
+<p><b>Replace existing value</b></p>
+<div class="fragment"><div class="line">MAPSET M, &quot;score&quot;, 100</div>
+<div class="line">MAPSET M, &quot;score&quot;, 250</div>
+<div class="line"> </div>
+<div class="line">PRINT MAPGET(M, &quot;score&quot;)</div>
+</div><!-- fragment --><p>Output:</p>
+<div class="fragment"><div class="line">250</div>
+</div><!-- fragment --><hr  />
+<p><b>Integer ↔ real compatibility</b></p>
+<div class="fragment"><div class="line">MAPSET M, &quot;value&quot;, 10</div>
+<div class="line">MAPSET M, &quot;value&quot;, 3.5</div>
+<div class="line"> </div>
+<div class="line">PRINT MAPGETR(M, &quot;value&quot;)</div>
+</div><!-- fragment --><hr  />
+<h5 class="doxsection"><a class="anchor" id="notes-171"></a>
+Notes</h5>
+<ul>
+<li>Keys are <b>case-sensitive</b></li>
+<li>Keys are stored as copies; modifying the original string has no effect</li>
+<li>Values are <b>deep-copied</b> into the MAP</li>
+<li>Setting an existing key:<ul>
+<li>replaces the previous value</li>
+<li>frees the previous stored value</li>
+</ul>
+</li>
+<li>Type rules:<ul>
+<li>integer and real are interchangeable</li>
+<li>string is <b>not interchangeable</b> with numeric types</li>
+<li>other type changes result in <b>"Type mismatch for MAP key"</b></li>
+</ul>
+</li>
+<li>Using an invalid handle results in <b>"Invalid MAP"</b></li>
+<li>Memory allocation failure results in <b>"Out of memory"</b></li>
+</ul>
+<hr  />
+<h5 class="doxsection"><a class="anchor" id="typical-usage-5"></a>
+Typical usage</h5>
+<div class="fragment"><div class="line">M = MAP</div>
+<div class="line"> </div>
+<div class="line">MAPSET M, &quot;name&quot;, &quot;PLAYER&quot;</div>
+<div class="line">MAPSET M, &quot;score&quot;, 0</div>
+<div class="line"> </div>
+<div class="line">MAPSET M, &quot;score&quot;, MAPGET(M, &quot;score&quot;) + 10</div>
+<div class="line"> </div>
+<div class="line">PRINT MAPGET$(M, &quot;name&quot;), MAPGET(M, &quot;score&quot;)</div>
+</div><!-- fragment --><hr  />
+<p><b>See also:</b> <a class="el" href="MAP.html">MAP</a> <a class="el" href="MAPGET.html">MAPGET</a> MAPGET$ <a class="el" href="MAPGETR.html">MAPGETR</a> <a class="el" href="MAPHAS.html">MAPHAS</a> <a class="el" href="MAPFREE.html">MAPFREE</a> MAPKEYS </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

@@ -124,36 +124,39 @@ $(function(){initNavTree('MAPGET.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">X = MAPGET(handle, key$)</div>
-<div class="line">````</div>
-<div class="line"> </div>
-<div class="line">Returns the **integer value** stored at `key$` in a MAP.</div>
-<div class="line"> </div>
-<div class="line">---</div>
-<div class="line"> </div>
-<div class="line">### How to read it</div>
-<div class="line"> </div>
-<div class="line">* Looks up `key$` in the MAP identified by `handle`</div>
-<div class="line">* Returns the stored value if it is an integer</div>
-<div class="line"> </div>
-<div class="line">---</div>
-<div class="line"> </div>
-<div class="line">### Examples</div>
-</div><!-- fragment --><p> basic M = MAP</p>
-<p>MAPSET M, "score", 100</p>
-<p>PRINT MAPGET(M, "score") </p><div class="fragment"><div class="line">This example produces `100`.</div>
-<div class="line"> </div>
-<div class="line">---</div>
-<div class="line"> </div>
-<div class="line">### Missing key</div>
-</div><!-- fragment --><p> basic PRINT MAPGET(M, "unknown") </p><div class="fragment"><div class="line">Produces:</div>
-</div><!-- fragment --><p> No such MAP key 'unknown' </p><div class="fragment"><div class="line">---</div>
-<div class="line"> </div>
-<div class="line">### Type mismatch</div>
-</div><!-- fragment --><p> basic MAPSET M, "name", "ALPHA"</p>
-<p>PRINT MAPGET(M, "name") </p><div class="fragment"><div class="line">Produces:</div>
-</div><!-- fragment --><p> MAP key 'name' is not INTEGER ```</p>
+</div><!-- fragment --><p>Returns the <b>integer value</b> stored at <span class="tt">key$</span> in a MAP.</p>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-39"></a>
+<h3 class="doxsection"><a class="anchor" id="how-to-read-it-17"></a>
+How to read it</h3>
+<ul>
+<li>Looks up <span class="tt">key$</span> in the MAP identified by <span class="tt">handle</span></li>
+<li>Returns the stored value if it is an integer</li>
+</ul>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="examples-41"></a>
+Examples</h3>
+<div class="fragment"><div class="line">M = MAP</div>
+<div class="line"> </div>
+<div class="line">MAPSET M, &quot;score&quot;, 100</div>
+<div class="line"> </div>
+<div class="line">PRINT MAPGET(M, &quot;score&quot;)</div>
+</div><!-- fragment --><p>This example produces <span class="tt">100</span>.</p>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="missing-key"></a>
+Missing key</h3>
+<div class="fragment"><div class="line">PRINT MAPGET(M, &quot;unknown&quot;)</div>
+</div><!-- fragment --><p>Produces:</p>
+<div class="fragment"><div class="line">No such MAP key &#39;unknown&#39;</div>
+</div><!-- fragment --><hr  />
+<h3 class="doxsection"><a class="anchor" id="type-mismatch"></a>
+Type mismatch</h3>
+<div class="fragment"><div class="line">MAPSET M, &quot;name&quot;, &quot;ALPHA&quot;</div>
+<div class="line"> </div>
+<div class="line">PRINT MAPGET(M, &quot;name&quot;)</div>
+</div><!-- fragment --><p>Produces:</p>
+<div class="fragment"><div class="line">MAP key &#39;name&#39; is not INTEGER</div>
+</div><!-- fragment --><hr  />
+<h3 class="doxsection"><a class="anchor" id="notes-40"></a>
 Notes</h3>
 <ul>
 <li>The MAP must be valid</li>

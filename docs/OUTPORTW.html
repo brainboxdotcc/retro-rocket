@@ -126,19 +126,19 @@ $(function(){initNavTree('OUTPORTW.html','',''); });
 <div class="textblock"><div class="fragment"><div class="line">OUTPORTW port, value</div>
 </div><!-- fragment --><p>Writes the low <b>16 bits</b> of <span class="tt">value</span> to <span class="tt">port</span>.</p>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="how-to-read-it-26"></a>
+<h3 class="doxsection"><a class="anchor" id="how-to-read-it-31"></a>
 How to read it</h3>
 <ul>
 <li>Writes two bytes as a word to the port.</li>
 <li>Used for devices like ATA data registers.</li>
 </ul>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-164"></a>
+<h3 class="doxsection"><a class="anchor" id="examples-171"></a>
 Examples</h3>
 <div class="fragment"><div class="line">REM Write a word to ATA data port</div>
 <div class="line">OUTPORTW &amp;1F0, &amp;1234</div>
 </div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-174"></a>
+<h3 class="doxsection"><a class="anchor" id="notes-177"></a>
 Notes</h3>
 <ul>
 <li>Only use when the port supports 16-bit writes.</li>

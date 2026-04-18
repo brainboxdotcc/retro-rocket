@@ -127,19 +127,19 @@ $(function(){initNavTree('POKED.html','',''); });
 </div><!-- fragment --><p>Stores a <b>32-bit double-word</b> (low 32 bits of <span class="tt">value</span>) at <span class="tt">address</span> in <b>little-endian</b> order.</p>
 <dl class="section remark"><dt>Remarks</dt><dd>The 4-byte span must be writable or <span class="tt">Bad Address at &lt;address&gt;</span> is raised.</dd></dl>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="how-to-read-it-28"></a>
+<h3 class="doxsection"><a class="anchor" id="how-to-read-it-33"></a>
 How to read it</h3>
 <ul>
 <li>Typical width for device registers and descriptors.</li>
 </ul>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-168"></a>
+<h3 class="doxsection"><a class="anchor" id="examples-175"></a>
 Examples</h3>
 <div class="fragment"><div class="line">REM Store a 32-bit value</div>
 <div class="line">POKED &amp;100300, &amp;89ABCDEF</div>
 <div class="line">PRINT PEEKD(&amp;100300)</div>
 </div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-179"></a>
+<h3 class="doxsection"><a class="anchor" id="notes-182"></a>
 Notes</h3>
 <ul>
 <li>Some devices use write-one-to-clear or posted writes; check the datasheet.</li>

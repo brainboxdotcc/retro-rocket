@@ -2,7 +2,7 @@
 
 ```basic
 MAPFREE handle
-````
+```
 
 Releases a MAP previously created with `MAP`.
 

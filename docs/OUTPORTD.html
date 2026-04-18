@@ -126,19 +126,19 @@ $(function(){initNavTree('OUTPORTD.html','',''); });
 <div class="textblock"><div class="fragment"><div class="line">OUTPORTD port, value</div>
 </div><!-- fragment --><p>Writes the low <b>32 bits</b> of <span class="tt">value</span> to <span class="tt">port</span>.</p>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="how-to-read-it-24"></a>
+<h3 class="doxsection"><a class="anchor" id="how-to-read-it-29"></a>
 How to read it</h3>
 <ul>
 <li>Writes four bytes as a 32-bit value to the port.</li>
 <li>Used for PCI configuration space.</li>
 </ul>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-162"></a>
+<h3 class="doxsection"><a class="anchor" id="examples-169"></a>
 Examples</h3>
 <div class="fragment"><div class="line">REM Write PCI config address</div>
 <div class="line">OUTPORTD &amp;CF8, &amp;80000000</div>
 </div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-172"></a>
+<h3 class="doxsection"><a class="anchor" id="notes-175"></a>
 Notes</h3>
 <ul>
 <li>Only use where the hardware expects a 32-bit port write.</li>

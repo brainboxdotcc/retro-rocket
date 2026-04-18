@@ -127,20 +127,20 @@ $(function(){initNavTree('PEEKQ.html','',''); });
 </div><!-- fragment --><p>Reads a <b>64-bit quad-word</b> from <span class="tt">address</span> and returns it as an integer.</p>
 <dl class="section note"><dt>Note</dt><dd>The full 8-byte span must be valid; otherwise <span class="tt">Bad Address at &lt;address&gt;</span> is raised.</dd></dl>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="how-to-read-it-18"></a>
+<h3 class="doxsection"><a class="anchor" id="how-to-read-it-21"></a>
 How to read it</h3>
 <ul>
 <li>Loads 8 bytes, <b>little-endian</b>.</li>
 <li>Unaligned 64-bit reads may <b>tear</b> if another agent is concurrently writing.</li>
 </ul>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-56"></a>
+<h3 class="doxsection"><a class="anchor" id="examples-59"></a>
 Examples</h3>
 <div class="fragment"><div class="line">REM Read a 64-bit value</div>
 <div class="line">Q = PEEKQ(&amp;100080)</div>
 <div class="line">PRINT Q</div>
 </div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-57"></a>
+<h3 class="doxsection"><a class="anchor" id="notes-58"></a>
 Notes</h3>
 <ul>
 <li>Use for 64-bit fields or counters; don’t assume atomicity for unaligned addresses.</li>

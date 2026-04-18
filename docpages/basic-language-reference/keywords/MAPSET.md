@@ -2,7 +2,7 @@
 
 ```basic
 MAPSET handle, key$, value
-````
+```
 
 Sets or replaces a key/value pair in a MAP.
 

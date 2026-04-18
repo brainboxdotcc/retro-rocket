@@ -127,18 +127,18 @@ $(function(){initNavTree('OUTPORT.html','',''); });
 </div><!-- fragment --><p>Writes the low <b>8 bits</b> of <span class="tt">value</span> to an I/O <span class="tt">port</span>.</p>
 <dl class="section note"><dt>Note</dt><dd>Use the correct width for the target device; wrong widths can cause faults or misconfiguration.</dd></dl>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="how-to-read-it-23"></a>
+<h3 class="doxsection"><a class="anchor" id="how-to-read-it-28"></a>
 How to read it</h3>
 <ul>
 <li>Sends one byte via port-mapped I/O.</li>
 </ul>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-161"></a>
+<h3 class="doxsection"><a class="anchor" id="examples-168"></a>
 Examples</h3>
 <div class="fragment"><div class="line">REM Reset the keyboard controller</div>
 <div class="line">OUTPORT &amp;64, &amp;FE</div>
 </div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-171"></a>
+<h3 class="doxsection"><a class="anchor" id="notes-174"></a>
 Notes</h3>
 <ul>
 <li>Some ports require delays or status checks between writes.</li>
