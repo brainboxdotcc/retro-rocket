@@ -133,10 +133,10 @@ DEF FNloop(q)
   min_y# = PY#(0)
   max_y# = PY#(0)
   FOR I = 1 TO 7
-    IF PX#(I) < min_x# THEN min_x# = PX#(I)
-    IF PX#(I) > max_x# THEN max_x# = PX#(I)
-    IF PY#(I) < min_y# THEN min_y# = PY#(I)
-    IF PY#(I) > max_y# THEN max_y# = PY#(I)
+    min_x# = MINR(min_x#, PX#(I))
+    max_x# = MAXR(max_x#, PX#(I))
+    min_y# = MINR(min_y#, PY#(I))
+    max_y# = MAXR(max_y#, PY#(I))
   NEXT
   RECTANGLE min_x# - 16, min_y# - 16, max_x# + 16, max_y# + 16
 
@@ -161,8 +161,7 @@ DEF FNloop(q)
     Yr#(I) = Y1#
     Zr#(I) = Z2#
 
-    DEN# = Z2# + DIST#
-    IF DEN# = 0 THEN DEN# = 0.000001
+    DEN# = Z2# + DIST# + 0.00000000001
 
     PX#(I) = CX# + (X1# * SCALE# / DEN#)
     PY#(I) = CY# + (Y1# * SCALE# / DEN#)
