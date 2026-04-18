@@ -536,6 +536,7 @@ struct basic_ctx *basic_clone(struct basic_ctx *old) {
 		return NULL;
 	}
 	ctx->if_nest_level = 0;
+	ctx->graphics_colour = old->graphics_colour;
 	ctx->data_offset = old->data_offset;
 	ctx->datastore = old->datastore;
 	ctx->datasets = old->datasets;

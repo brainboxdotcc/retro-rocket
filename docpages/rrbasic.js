@@ -2,6 +2,8 @@ hljs.registerLanguage('rrbasic', function(hljs) {
     const keyword_list = [
         '[',
         ']',
+        'ARRSORT',
+        'ARRSORTBY',
         'REM',
         'LET',
         'PRINT',
@@ -355,7 +357,7 @@ function detect_language(text) {
         "FLIP","KEYMAP","MOUNT","SETTIMEZONE","ENDIF","PLOTQUAD","ON",
         "OFF","WHILE","ENDWHILE","SLEEP","CONTINUE","MODLOAD","MODUNLOAD",
         "STREAM","CREATE","DESTROY","SOUND","PLAY","STOP","LOAD","UNLOAD",
-        "ROTATE", "SPRITEROW", "ARRAYFIND"
+        "ROTATE", "SPRITEROW", "ARRAYFIND", "ARRSORT", "ARRSORTBY",
     ]);
 
     const builtins = new Set([

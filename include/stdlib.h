@@ -13,6 +13,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#define QSORT_STACK_TMP_SIZE (MAX_STRINGLEN + 1)
+
 #ifndef __WCTYPE_T_DEFINED
 typedef int wctype_t;
 #endif

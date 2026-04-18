@@ -102,7 +102,13 @@ REM for rectangle cull only
 GCOL RGB(0,0,0)
 
 REPEAT
+  n = FNloop(0)
+UNTIL INKEY$("") <> ""
+CLS
+END
 
+DEF FNloop(q)
+  start = TICKS
   min_x# = PX#(0)
   max_x# = PX#(0)
   min_y# = PY#(0)
@@ -153,15 +159,7 @@ REPEAT
     IDX(f) = f
   NEXT
 
-  FOR i = 0 TO 4
-    FOR j = 0 TO 4 - i
-      left = IDX(j)
-      right = IDX(j + 1)
-      IF DEPTH#(left) < DEPTH#(right) THEN temp = IDX(j)
-      IF DEPTH#(left) < DEPTH#(right) THEN IDX(j) = IDX(j + 1)
-      IF DEPTH#(left) < DEPTH#(right) THEN IDX(j + 1) = temp
-    NEXT
-  NEXT
+  ARRSORTBY IDX, DEPTH#, TRUE
 
   FOR k = 0 TO 5
     f = IDX(k)
@@ -175,8 +173,7 @@ REPEAT
 
   NEXT
 
+  frame_len = TICKS - start
   FLIP
-
-UNTIL INKEY$("") <> ""
-
-CLS
+  SLEEP MAX(0, 16 - frame_len)
+= 0

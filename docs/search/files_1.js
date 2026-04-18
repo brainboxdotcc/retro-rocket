@@ -9,9 +9,11 @@ var searchData=
   ['apple_2emd_6',['apple.md',['../apple_8md.html',1,'']]],
   ['array_2emd_7',['Array.md',['../Array_8md.html',1,'']]],
   ['arrayfind_2emd_8',['ARRAYFIND.md',['../ARRAYFIND_8md.html',1,'']]],
-  ['asc_2emd_9',['ASC.md',['../ASC_8md.html',1,'']]],
-  ['asn_2emd_10',['ASN.md',['../ASN_8md.html',1,'']]],
-  ['atan_2emd_11',['ATAN.md',['../ATAN_8md.html',1,'']]],
-  ['atan2_2emd_12',['ATAN2.md',['../ATAN2_8md.html',1,'']]],
-  ['autoflip_2emd_13',['AUTOFLIP.md',['../AUTOFLIP_8md.html',1,'']]]
+  ['arrsort_2emd_9',['ARRSORT.md',['../ARRSORT_8md.html',1,'']]],
+  ['arrsortby_2emd_10',['ARRSORTBY.md',['../ARRSORTBY_8md.html',1,'']]],
+  ['asc_2emd_11',['ASC.md',['../ASC_8md.html',1,'']]],
+  ['asn_2emd_12',['ASN.md',['../ASN_8md.html',1,'']]],
+  ['atan_2emd_13',['ATAN.md',['../ATAN_8md.html',1,'']]],
+  ['atan2_2emd_14',['ATAN2.md',['../ATAN2_8md.html',1,'']]],
+  ['autoflip_2emd_15',['AUTOFLIP.md',['../AUTOFLIP_8md.html',1,'']]]
 ];

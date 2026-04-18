@@ -41,6 +41,8 @@ The following parameter types are used throughout this documentation:
 
 * \subpage ANIMATE
 * \subpage ARRAYFIND
+* \subpage ARRSORT
+* \subpage ARRSORTBY
 * \subpage AUTOFLIP
 * \subpage BACKGROUND
 * \subpage BINREAD

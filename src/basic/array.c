@@ -1051,3 +1051,497 @@ void arrayfind_statement(struct basic_ctx* ctx)
 
 	tokenizer_error_printf(ctx, "No such array variable '%s'", source);
 }
+
+static int compare_int_array_asc(const void* a, const void* b)
+{
+	int64_t left = *(const int64_t*)a;
+	int64_t right = *(const int64_t*)b;
+
+	if (left < right) {
+		return -1;
+	}
+	if (left > right) {
+		return 1;
+	}
+
+	return 0;
+}
+
+static int compare_int_array_desc(const void* a, const void* b)
+{
+	int64_t left = *(const int64_t*)a;
+	int64_t right = *(const int64_t*)b;
+
+	if (left > right) {
+		return -1;
+	}
+	if (left < right) {
+		return 1;
+	}
+
+	return 0;
+}
+
+static int compare_double_array_asc(const void* a, const void* b)
+{
+	double left = *(const double*)a;
+	double right = *(const double*)b;
+
+	if (left < right) {
+		return -1;
+	}
+	if (left > right) {
+		return 1;
+	}
+
+	return 0;
+}
+
+static int compare_double_array_desc(const void* a, const void* b)
+{
+	double left = *(const double*)a;
+	double right = *(const double*)b;
+
+	if (left > right) {
+		return -1;
+	}
+	if (left < right) {
+		return 1;
+	}
+
+	return 0;
+}
+
+static int compare_string_array_asc(const void* a, const void* b)
+{
+	const char* left = *(char* const*)a;
+	const char* right = *(char* const*)b;
+
+	if (!left) {
+		left = "";
+	}
+	if (!right) {
+		right = "";
+	}
+
+	return strcmp(left, right);
+}
+
+static int compare_string_array_desc(const void* a, const void* b)
+{
+	const char* left = *(char* const*)a;
+	const char* right = *(char* const*)b;
+
+	if (!left) {
+		left = "";
+	}
+	if (!right) {
+		right = "";
+	}
+
+	return strcmp(right, left);
+}
+
+static void basic_sort_int_array(const char* var, bool descending, struct basic_ctx* ctx)
+{
+	struct ub_var_int_array* cur = find_int_array(var, ctx);
+	if (!cur) {
+		tokenizer_error_printf(ctx, "No such array variable '%s'", var);
+		return;
+	}
+
+	if (cur->itemcount < 2) {
+		return;
+	}
+
+	qsort(
+		cur->values,
+		cur->itemcount,
+		sizeof(int64_t),
+		descending ? compare_int_array_desc : compare_int_array_asc
+	);
+}
+
+static void basic_sort_double_array(const char* var, bool descending, struct basic_ctx* ctx)
+{
+	struct ub_var_double_array* cur = find_double_array(var, ctx);
+	if (!cur) {
+		tokenizer_error_printf(ctx, "No such array variable '%s'", var);
+		return;
+	}
+
+	if (cur->itemcount < 2) {
+		return;
+	}
+
+	qsort(
+		cur->values,
+		cur->itemcount,
+		sizeof(double),
+		descending ? compare_double_array_desc : compare_double_array_asc
+	);
+}
+
+static void basic_sort_string_array(const char* var, bool descending, struct basic_ctx* ctx)
+{
+	struct ub_var_string_array* cur = find_string_array(var, ctx);
+	if (!cur) {
+		tokenizer_error_printf(ctx, "No such array variable '%s'", var);
+		return;
+	}
+
+	if (cur->itemcount < 2) {
+		return;
+	}
+
+	qsort(
+		cur->values,
+		cur->itemcount,
+		sizeof(char*),
+		descending ? compare_string_array_desc : compare_string_array_asc
+	);
+}
+
+void arrsort_statement(struct basic_ctx* ctx)
+{
+	accept_or_return(ARRSORT, ctx);
+
+	size_t var_length;
+	const char* array_name = tokenizer_variable_name(ctx, &var_length);
+	accept_or_return(VARIABLE, ctx);
+
+	bool descending = false;
+
+	if (ctx->current_token == COMMA) {
+		accept_or_return(COMMA, ctx);
+		descending = expr(ctx) != 0;
+	}
+
+	accept_or_return(NEWLINE, ctx);
+
+	char last = array_name[var_length - 1];
+	switch (last) {
+		case '#':
+			basic_sort_double_array(array_name, descending, ctx);
+			break;
+		case '$':
+			basic_sort_string_array(array_name, descending, ctx);
+			break;
+		default:
+			basic_sort_int_array(array_name, descending, ctx);
+			break;
+	}
+}
+
+static void swap_int64(int64_t* a, int64_t* b)
+{
+	int64_t tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+static bool int_key_out_of_order(int64_t left_index, int64_t right_index, const int64_t* keys, bool descending)
+{
+	int64_t left_key = keys[left_index];
+	int64_t right_key = keys[right_index];
+
+	if (descending) {
+		return left_key < right_key;
+	}
+
+	return left_key > right_key;
+}
+
+static bool double_key_out_of_order(int64_t left_index, int64_t right_index, const double* keys, bool descending)
+{
+	double left_key = keys[left_index];
+	double right_key = keys[right_index];
+
+	if (descending) {
+		return left_key < right_key;
+	}
+
+	return left_key > right_key;
+}
+
+static bool string_key_out_of_order(int64_t left_index, int64_t right_index, const char* const* keys, bool descending)
+{
+	const char* left_key = keys[left_index] ? keys[left_index] : "";
+	const char* right_key = keys[right_index] ? keys[right_index] : "";
+	int cmp = strcmp(left_key, right_key);
+
+	if (descending) {
+		return cmp < 0;
+	}
+
+	return cmp > 0;
+}
+
+static void quicksort_indices_by_string_keys(int64_t* values, int64_t low, int64_t high, const char* const* keys, bool descending)
+{
+	while (low < high) {
+		int64_t i = low;
+		int64_t j = high;
+		int64_t pivot_index = values[low + (high - low) / 2];
+
+		for (;;) {
+			while (string_key_out_of_order(pivot_index, values[i], keys, descending)) {
+				i++;
+			}
+
+			while (string_key_out_of_order(values[j], pivot_index, keys, descending)) {
+				j--;
+			}
+
+			if (i >= j) {
+				break;
+			}
+
+			swap_int64(&values[i], &values[j]);
+			i++;
+			j--;
+		}
+
+		if (j - low < high - j) {
+			if (low < j) {
+				quicksort_indices_by_string_keys(values, low, j, keys, descending);
+			}
+			low = j + 1;
+		} else {
+			if (j + 1 < high) {
+				quicksort_indices_by_string_keys(values, j + 1, high, keys, descending);
+			}
+			high = j;
+		}
+	}
+}
+
+static void quicksort_indices_by_int_keys(int64_t* values, int64_t low, int64_t high, const int64_t* keys, bool descending)
+{
+	while (low < high) {
+		int64_t i = low;
+		int64_t j = high;
+		int64_t pivot_index = values[low + (high - low) / 2];
+
+		for (;;) {
+			while (int_key_out_of_order(pivot_index, values[i], keys, descending)) {
+				i++;
+			}
+
+			while (int_key_out_of_order(values[j], pivot_index, keys, descending)) {
+				j--;
+			}
+
+			if (i >= j) {
+				break;
+			}
+
+			swap_int64(&values[i], &values[j]);
+			i++;
+			j--;
+		}
+
+		if (j - low < high - j) {
+			if (low < j) {
+				quicksort_indices_by_int_keys(values, low, j, keys, descending);
+			}
+			low = j + 1;
+		} else {
+			if (j + 1 < high) {
+				quicksort_indices_by_int_keys(values, j + 1, high, keys, descending);
+			}
+			high = j;
+		}
+	}
+}
+
+static void quicksort_indices_by_double_keys(int64_t* values, int64_t low, int64_t high, const double* keys, bool descending)
+{
+	while (low < high) {
+		int64_t i = low;
+		int64_t j = high;
+		int64_t pivot_index = values[low + (high - low) / 2];
+
+		for (;;) {
+			while (double_key_out_of_order(pivot_index, values[i], keys, descending)) {
+				i++;
+			}
+
+			while (double_key_out_of_order(values[j], pivot_index, keys, descending)) {
+				j--;
+			}
+
+			if (i >= j) {
+				break;
+			}
+
+			swap_int64(&values[i], &values[j]);
+			i++;
+			j--;
+		}
+
+		if (j - low < high - j) {
+			if (low < j) {
+				quicksort_indices_by_double_keys(values, low, j, keys, descending);
+			}
+			low = j + 1;
+		} else {
+			if (j + 1 < high) {
+				quicksort_indices_by_double_keys(values, j + 1, high, keys, descending);
+			}
+			high = j;
+		}
+	}
+}
+
+static bool basic_arrsortby_int_keys(const char* index_var, const char* key_var, bool descending, struct basic_ctx* ctx)
+{
+	struct ub_var_int_array* indices = find_int_array(index_var, ctx);
+	if (!indices) {
+		tokenizer_error_printf(ctx, "No such array variable '%s'", index_var);
+		return false;
+	}
+
+	struct ub_var_int_array* keys = find_int_array(key_var, ctx);
+	if (!keys) {
+		tokenizer_error_printf(ctx, "No such array variable '%s'", key_var);
+		return false;
+	}
+
+	if (indices->itemcount != keys->itemcount) {
+		tokenizer_error_printf(ctx, "Index array '%s' and key array '%s' differ in size", index_var, key_var);
+		return false;
+	}
+
+	for (uint64_t i = 0; i < indices->itemcount; ++i) {
+		if (indices->values[i] < 0 || (uint64_t)indices->values[i] >= keys->itemcount) {
+			tokenizer_error_printf(ctx, "Index value %ld out of bounds for key array '%s' [0..%ld]", indices->values[i], key_var, keys->itemcount - 1);
+			return false;
+		}
+	}
+
+	if (indices->itemcount < 2) {
+		return true;
+	}
+
+	quicksort_indices_by_int_keys(indices->values, 0, (int64_t)indices->itemcount - 1, keys->values, descending);
+	return true;
+}
+
+static bool basic_arrsortby_double_keys(const char* index_var, const char* key_var, bool descending, struct basic_ctx* ctx)
+{
+	struct ub_var_int_array* indices = find_int_array(index_var, ctx);
+	if (!indices) {
+		tokenizer_error_printf(ctx, "No such array variable '%s'", index_var);
+		return false;
+	}
+
+	struct ub_var_double_array* keys = find_double_array(key_var, ctx);
+	if (!keys) {
+		tokenizer_error_printf(ctx, "No such array variable '%s'", key_var);
+		return false;
+	}
+
+	if (indices->itemcount != keys->itemcount) {
+		tokenizer_error_printf(ctx, "Index array '%s' and key array '%s' differ in size", index_var, key_var);
+		return false;
+	}
+
+	for (uint64_t i = 0; i < indices->itemcount; ++i) {
+		if (indices->values[i] < 0 || (uint64_t)indices->values[i] >= keys->itemcount) {
+			tokenizer_error_printf(ctx, "Index value %ld out of bounds for key array '%s' [0..%ld]", indices->values[i], key_var, keys->itemcount - 1);
+			return false;
+		}
+	}
+
+	if (indices->itemcount < 2) {
+		return true;
+	}
+
+	quicksort_indices_by_double_keys(indices->values, 0, (int64_t)indices->itemcount - 1, keys->values, descending);
+	return true;
+}
+
+static bool basic_arrsortby_string_keys(const char* index_var, const char* key_var, bool descending, struct basic_ctx* ctx)
+{
+	struct ub_var_int_array* indices = find_int_array(index_var, ctx);
+	if (!indices) {
+		tokenizer_error_printf(ctx, "No such array variable '%s'", index_var);
+		return false;
+	}
+
+	struct ub_var_string_array* keys = find_string_array(key_var, ctx);
+	if (!keys) {
+		tokenizer_error_printf(ctx, "No such array variable '%s'", key_var);
+		return false;
+	}
+
+	if (indices->itemcount != keys->itemcount) {
+		tokenizer_error_printf(ctx, "Index array '%s' and key array '%s' differ in size", index_var, key_var);
+		return false;
+	}
+
+	for (uint64_t i = 0; i < indices->itemcount; ++i) {
+		if (indices->values[i] < 0 || (uint64_t)indices->values[i] >= keys->itemcount) {
+			tokenizer_error_printf(ctx, "Index value %ld out of bounds for key array '%s' [0..%ld]", indices->values[i], key_var, keys->itemcount - 1);
+			return false;
+		}
+	}
+
+	if (indices->itemcount < 2) {
+		return true;
+	}
+
+	quicksort_indices_by_string_keys(indices->values, 0, (int64_t)indices->itemcount - 1, keys->values, descending);
+	return true;
+}
+
+void arrsortby_statement(struct basic_ctx* ctx)
+{
+	accept_or_return(ARRSORTBY, ctx);
+
+	size_t index_length;
+	const char* index_var = tokenizer_variable_name(ctx, &index_length);
+	accept_or_return(VARIABLE, ctx);
+	accept_or_return(COMMA, ctx);
+
+	size_t key_length;
+	const char* key_var = tokenizer_variable_name(ctx, &key_length);
+	accept_or_return(VARIABLE, ctx);
+
+	bool descending = false;
+
+	if (ctx->current_token == COMMA) {
+		accept_or_return(COMMA, ctx);
+		descending = expr(ctx) != 0;
+	}
+
+	accept_or_return(NEWLINE, ctx);
+
+	if (!varname_is_int_array_access(ctx, index_var)) {
+		tokenizer_error_printf(ctx, "Index array '%s' must be an integer array", index_var);
+		return;
+	}
+
+	if (!strcmp(index_var, key_var)) {
+		tokenizer_error_print(ctx, "Index and key arrays must differ");
+		return;
+	}
+
+	if (varname_is_int_array_access(ctx, key_var)) {
+		basic_arrsortby_int_keys(index_var, key_var, descending, ctx);
+		return;
+	}
+
+	if (varname_is_double_array_access(ctx, key_var)) {
+		basic_arrsortby_double_keys(index_var, key_var, descending, ctx);
+		return;
+	}
+
+	if (varname_is_string_array_access(ctx, key_var)) {
+		basic_arrsortby_string_keys(index_var, key_var, descending, ctx);
+		return;
+	}
+
+	tokenizer_error_printf(ctx, "No such array variable '%s'", key_var);
+}

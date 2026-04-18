@@ -447,6 +447,7 @@ const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx)
 		ctx->double_variables = atomic->double_variables;
 		ctx->sounds           = atomic->sounds;
 		ctx->data_offset      = atomic->data_offset;
+		ctx->graphics_colour  = atomic->graphics_colour;
 
 		memcpy(ctx->audio_streams, atomic->audio_streams, sizeof(ctx->audio_streams));
 		memcpy(ctx->envelopes, atomic->envelopes, sizeof(ctx->envelopes));
@@ -578,6 +579,7 @@ int64_t basic_eval_int_fn(const char* fn_name, struct basic_ctx* ctx)
 		ctx->double_variables = atomic->double_variables;
 		ctx->sounds           = atomic->sounds;
 		ctx->data_offset      = atomic->data_offset;
+		ctx->graphics_colour  = atomic->graphics_colour;
 
 		memcpy(ctx->audio_streams, atomic->audio_streams, sizeof(ctx->audio_streams));
 		memcpy(ctx->envelopes, atomic->envelopes, sizeof(ctx->envelopes));
@@ -650,6 +652,7 @@ void basic_eval_double_fn(const char* fn_name, struct basic_ctx* ctx, double* re
 		ctx->double_variables = atomic->double_variables;
 		ctx->sounds           = atomic->sounds;
 		ctx->data_offset      = atomic->data_offset;
+		ctx->graphics_colour  = atomic->graphics_colour;
 
 		memcpy(ctx->audio_streams, atomic->audio_streams, sizeof(ctx->audio_streams));
 		memcpy(ctx->envelopes, atomic->envelopes, sizeof(ctx->envelopes));

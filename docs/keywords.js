@@ -2,6 +2,8 @@ var keywords =
 [
     [ "ANIMATE Keyword", "ANIMATE.html", null ],
     [ "ARRAYFIND Keyword", "ARRAYFIND.html", null ],
+    [ "ARRSORT Keyword", "ARRSORT.html", null ],
+    [ "ARRSORTBY Keyword", "ARRSORTBY.html", null ],
     [ "AUTOFLIP Keyword", "AUTOFLIP.html", null ],
     [ "BACKGROUND Keyword", "BACKGROUND.html", null ],
     [ "BINREAD Statement", "BINREAD.html", null ],

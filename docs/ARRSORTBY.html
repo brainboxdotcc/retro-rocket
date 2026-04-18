@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=11">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Retro Rocket OS: REM Keyword</title>
+    <title>Retro Rocket OS: ARRSORTBY Keyword</title>
     <link href="tabs.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -16,7 +16,7 @@
     <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-    <meta name="title" content="REM Keyword - Retro Rocket OS">
+    <meta name="title" content="ARRSORTBY Keyword - Retro Rocket OS">
     <meta name="description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="author" content="Retro Rocket Developers">
     <meta name="robots" content="index, follow">
@@ -24,7 +24,7 @@
     <meta name="theme-color" content="#0b0f14">
     <link rel="icon" href="rr.png">
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="REM Keyword - Retro Rocket OS">
+    <meta property="og:title" content="ARRSORTBY Keyword - Retro Rocket OS">
     <meta property="og:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://retrorocket.dev/">
@@ -32,7 +32,7 @@
     <meta property="og:image:alt" content="Retro Rocket OS running on a retro-style desktop">
     <meta property="og:site_name" content="Retro Rocket OS">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="REM Keyword - Retro Rocket OS">
+    <meta name="twitter:title" content="ARRSORTBY Keyword - Retro Rocket OS">
     <meta name="twitter:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="twitter:image" content="https://retrorocket.dev/leader4.png">
     <link rel="preload" as="image" href="https://retrorocket.dev/leader4.png">
@@ -94,7 +94,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('REM.html','',''); });
+$(function(){initNavTree('ARRSORTBY.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -120,56 +120,112 @@ $(function(){initNavTree('REM.html','',''); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">REM Keyword </div></div>
+  <div class="headertitle"><div class="title">ARRSORTBY Keyword </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">REM any-text</div>
-</div><!-- fragment --><p>Adds a remark (comment) to your program. The interpreter <b>ignores the rest of the line</b> after <span class="tt">REM</span>.</p>
-<dl class="section remark"><dt>Remarks</dt><dd></dd>
-<dd>
-You can use the ' symbol in any line as a shorthand to place a comment on the end of that line. e.g. </dd>
-<dd>
-</dd>
-<dd>
-<span class="tt">basic
-\remark PRINT "owls" ' Show my favourite bird
-\remark </span> </dd>
-<dd>
-You do not need to use any special separator, the ' on its own is enough to indicate where the comment begins. </dd>
-<dd>
-Inside a <b>string literal</b> (delimited by double quotes), an apostrophe is just a character: </dd>
-<dd>
-it does <b>not</b> start a comment. </dd>
-<dd>
-Example: </dd>
-<dd>
-<span class="tt">basic
-@note PRINT "It's fine"` ' Prints the apostrophe
-@note </span></dd></dl>
-<hr  />
-<h3 class="doxsection"><a class="anchor" id="behaviour-10"></a>
-Behaviour</h3>
+<div class="textblock"><div class="fragment"><div class="line">ARRSORTBY index-array,key-array[,descending]</div>
+</div><!-- fragment --><p>Sorts <span class="tt">index-array</span> <b>in place</b>, ordering its values according to the corresponding values in <span class="tt">key-array</span>.</p>
 <ul>
-<li>Everything from <span class="tt">REM</span> to the end of the line is treated as a comment.</li>
-<li><span class="tt">REM</span> has <b>no runtime effect</b> and produces no output.</li>
-<li>You can place <span class="tt">REM</span> anywhere a statement is allowed (for example between executable lines).</li>
+<li><span class="tt">index-array</span> must be an <b>integer array</b></li>
+<li><span class="tt">key-array</span> may be:<ul>
+<li>integer array</li>
+<li>real array</li>
+<li>string array</li>
 </ul>
+</li>
+<li>Sorting is <b>ascending by default</b></li>
+<li>If <span class="tt">descending</span> is non-zero, sorting is <b>descending</b></li>
+</ul>
+<p>The values in <span class="tt">key-array</span> are <b>not modified</b>.</p>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-176"></a>
-Examples</h3>
-<p><b>Simple comment</b> </p><div class="fragment"><div class="line">REM This program draws a box</div>
-<div class="line">GCOL RGB(0,255,0)</div>
-<div class="line">RECTANGLE 50, 50, 200, 120</div>
-</div><!-- fragment --><p><b>Temporarily disable a line</b> </p><div class="fragment"><div class="line">REM PRINT &quot;Debug: entering main loop&quot;</div>
-</div><!-- fragment --><p><b>Empty remark (acts like a labelled blank line)</b> </p><div class="fragment"><div class="line">REM</div>
-<div class="line">PRINT &quot;Hello&quot;</div>
+<h5 class="doxsection"><a class="anchor" id="examples-138"></a>
+Examples</h5>
+<p><b>Sort indices by real key (depth sort)</b></p>
+<div class="fragment"><div class="line">DIM DEPTH#,6</div>
+<div class="line">DIM IDX,6</div>
+<div class="line"> </div>
+<div class="line">FOR I = 0 TO 5</div>
+<div class="line">    DEPTH#(I) = RND(1)</div>
+<div class="line">    IDX(I) = I</div>
+<div class="line">NEXT</div>
+<div class="line"> </div>
+<div class="line">ARRSORTBY IDX,DEPTH#,TRUE</div>
+<div class="line"> </div>
+<div class="line">FOR I = 0 TO 5</div>
+<div class="line">    PRINT IDX(I), DEPTH#(IDX(I))</div>
+<div class="line">NEXT</div>
 </div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="tips"></a>
-Tips</h3>
+<p><b>Sort indices by integer key</b></p>
+<div class="fragment"><div class="line">DIM VALUES,5</div>
+<div class="line">DIM ORDER,5</div>
+<div class="line"> </div>
+<div class="line">VALUES(0)=10</div>
+<div class="line">VALUES(1)=3</div>
+<div class="line">VALUES(2)=7</div>
+<div class="line">VALUES(3)=1</div>
+<div class="line">VALUES(4)=5</div>
+<div class="line"> </div>
+<div class="line">FOR I = 0 TO 4</div>
+<div class="line">    ORDER(I) = I</div>
+<div class="line">NEXT</div>
+<div class="line"> </div>
+<div class="line">ARRSORTBY ORDER,VALUES</div>
+<div class="line"> </div>
+<div class="line">FOR I = 0 TO 4</div>
+<div class="line">    PRINT ORDER(I), VALUES(ORDER(I))</div>
+<div class="line">NEXT</div>
+</div><!-- fragment --><hr  />
+<p><b>Sort indices by string key</b></p>
+<div class="fragment"><div class="line">DIM NAMES$,4</div>
+<div class="line">DIM IDX,4</div>
+<div class="line"> </div>
+<div class="line">NAMES$(0)=&quot;BETA&quot;</div>
+<div class="line">NAMES$(1)=&quot;ALPHA&quot;</div>
+<div class="line">NAMES$(2)=&quot;DELTA&quot;</div>
+<div class="line">NAMES$(3)=&quot;GAMMA&quot;</div>
+<div class="line"> </div>
+<div class="line">FOR I = 0 TO 3</div>
+<div class="line">    IDX(I) = I</div>
+<div class="line">NEXT</div>
+<div class="line"> </div>
+<div class="line">ARRSORTBY IDX,NAMES$</div>
+<div class="line"> </div>
+<div class="line">FOR I = 0 TO 3</div>
+<div class="line">    PRINT IDX(I), NAMES$(IDX(I))</div>
+<div class="line">NEXT</div>
+</div><!-- fragment --><hr  />
+<h5 class="doxsection"><a class="anchor" id="notes-134"></a>
+Notes</h5>
 <ul>
-<li>Use consistent prefixes in your comments (e.g. <span class="tt">REM TODO:</span> or <span class="tt">REM NOTE:</span>) to make them easy to search for.</li>
-<li>Keep comments adjacent to the code they describe so they stay in sync as the program evolves. </li>
+<li>Only <span class="tt">index-array</span> is reordered; <span class="tt">key-array</span> remains unchanged</li>
+<li>Each value in <span class="tt">index-array</span> is treated as an <b>index into <span class="tt">key-array</span></b></li>
+<li>All values in <span class="tt">index-array</span> must be within the bounds of <span class="tt">key-array</span></li>
+<li><span class="tt">index-array</span> and <span class="tt">key-array</span> must have the <b>same length</b></li>
+<li>Arrays of length <span class="tt">0</span> or <span class="tt">1</span> are unchanged</li>
+<li>Sorting uses the type of <span class="tt">key-array</span>:<ul>
+<li>integer keys → numeric comparison</li>
+<li>real keys → numeric comparison</li>
+<li>string keys → lexicographic comparison</li>
 </ul>
+</li>
+<li>String keys treat <span class="tt">NULL</span> entries as empty strings</li>
+<li>The relative order of equal keys is <b>not guaranteed to be preserved</b></li>
+</ul>
+<hr  />
+<h5 class="doxsection"><a class="anchor" id="typical-usage-2"></a>
+Typical usage</h5>
+<div class="fragment"><div class="line">FOR F = 0 TO FACE_COUNT-1</div>
+<div class="line">    DEPTH#(F) = FNface_depth(F)</div>
+<div class="line">    IDX(F) = F</div>
+<div class="line">NEXT</div>
+<div class="line"> </div>
+<div class="line">ARRSORTBY IDX,DEPTH#,TRUE</div>
+<div class="line"> </div>
+<div class="line">FOR I = 0 TO FACE_COUNT-1</div>
+<div class="line">    PROCdraw_face(IDX(I))</div>
+<div class="line">NEXT</div>
+</div><!-- fragment --><hr  />
+<p><b>See also:</b> <a class="el" href="ARRSORT.html">ARRSORT</a> <a class="el" href="DIM.html">DIM</a> <a class="el" href="REDIM.html">REDIM</a> <a class="el" href="type-array.html">Array Variables</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

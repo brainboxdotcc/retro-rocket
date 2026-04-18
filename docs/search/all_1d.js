@@ -103,5 +103,5 @@ var searchData=
   ['types_20of_20values_100',['4) Types of values',['../basic-beginner.html#autotoc_md4-types-of-values',1,'']]],
   ['types_20of_20variables_101',['Types of Variables',['../variables.html#types-of-variables',1,'']]],
   ['typical_20task_102',['Structure of a typical task',['../tasks.html#structure-of-a-typical-task',1,'']]],
-  ['typical_20usage_103',['Typical usage',['../ARRAYFIND.html#typical-usage',1,'Typical usage'],['../STREAM.html#typical-usage-1',1,'Typical usage']]]
+  ['typical_20usage_103',['Typical usage',['../ARRAYFIND.html#typical-usage',1,'Typical usage'],['../ARRSORT.html#typical-usage-1',1,'Typical usage'],['../ARRSORTBY.html#typical-usage-2',1,'Typical usage'],['../STREAM.html#typical-usage-3',1,'Typical usage']]]
 ];

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=11">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Retro Rocket OS: REM Keyword</title>
+    <title>Retro Rocket OS: ARRSORT Keyword</title>
     <link href="tabs.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -16,7 +16,7 @@
     <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-    <meta name="title" content="REM Keyword - Retro Rocket OS">
+    <meta name="title" content="ARRSORT Keyword - Retro Rocket OS">
     <meta name="description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="author" content="Retro Rocket Developers">
     <meta name="robots" content="index, follow">
@@ -24,7 +24,7 @@
     <meta name="theme-color" content="#0b0f14">
     <link rel="icon" href="rr.png">
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="REM Keyword - Retro Rocket OS">
+    <meta property="og:title" content="ARRSORT Keyword - Retro Rocket OS">
     <meta property="og:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://retrorocket.dev/">
@@ -32,7 +32,7 @@
     <meta property="og:image:alt" content="Retro Rocket OS running on a retro-style desktop">
     <meta property="og:site_name" content="Retro Rocket OS">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="REM Keyword - Retro Rocket OS">
+    <meta name="twitter:title" content="ARRSORT Keyword - Retro Rocket OS">
     <meta name="twitter:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="twitter:image" content="https://retrorocket.dev/leader4.png">
     <link rel="preload" as="image" href="https://retrorocket.dev/leader4.png">
@@ -94,7 +94,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('REM.html','',''); });
+$(function(){initNavTree('ARRSORT.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -120,56 +120,100 @@ $(function(){initNavTree('REM.html','',''); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">REM Keyword </div></div>
+  <div class="headertitle"><div class="title">ARRSORT Keyword </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">REM any-text</div>
-</div><!-- fragment --><p>Adds a remark (comment) to your program. The interpreter <b>ignores the rest of the line</b> after <span class="tt">REM</span>.</p>
-<dl class="section remark"><dt>Remarks</dt><dd></dd>
-<dd>
-You can use the ' symbol in any line as a shorthand to place a comment on the end of that line. e.g. </dd>
-<dd>
-</dd>
-<dd>
-<span class="tt">basic
-\remark PRINT "owls" ' Show my favourite bird
-\remark </span> </dd>
-<dd>
-You do not need to use any special separator, the ' on its own is enough to indicate where the comment begins. </dd>
-<dd>
-Inside a <b>string literal</b> (delimited by double quotes), an apostrophe is just a character: </dd>
-<dd>
-it does <b>not</b> start a comment. </dd>
-<dd>
-Example: </dd>
-<dd>
-<span class="tt">basic
-@note PRINT "It's fine"` ' Prints the apostrophe
-@note </span></dd></dl>
-<hr  />
-<h3 class="doxsection"><a class="anchor" id="behaviour-10"></a>
-Behaviour</h3>
+<div class="textblock"><div class="fragment"><div class="line">ARRSORT array[,descending]</div>
+</div><!-- fragment --><p>Sorts the contents of <span class="tt">array</span> <b>in place</b>.</p>
 <ul>
-<li>Everything from <span class="tt">REM</span> to the end of the line is treated as a comment.</li>
-<li><span class="tt">REM</span> has <b>no runtime effect</b> and produces no output.</li>
-<li>You can place <span class="tt">REM</span> anywhere a statement is allowed (for example between executable lines).</li>
+<li>Sorting is <b>ascending by default</b></li>
+<li>If <span class="tt">descending</span> is non-zero, sorting is <b>descending</b></li>
+<li>Works with:<ul>
+<li>integer arrays</li>
+<li>real arrays</li>
+<li>string arrays</li>
+</ul>
+</li>
 </ul>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-176"></a>
-Examples</h3>
-<p><b>Simple comment</b> </p><div class="fragment"><div class="line">REM This program draws a box</div>
-<div class="line">GCOL RGB(0,255,0)</div>
-<div class="line">RECTANGLE 50, 50, 200, 120</div>
-</div><!-- fragment --><p><b>Temporarily disable a line</b> </p><div class="fragment"><div class="line">REM PRINT &quot;Debug: entering main loop&quot;</div>
-</div><!-- fragment --><p><b>Empty remark (acts like a labelled blank line)</b> </p><div class="fragment"><div class="line">REM</div>
-<div class="line">PRINT &quot;Hello&quot;</div>
+<h5 class="doxsection"><a class="anchor" id="examples-137"></a>
+Examples</h5>
+<p><b>Integer array (ascending)</b></p>
+<div class="fragment"><div class="line">DIM N,5</div>
+<div class="line">N(0)=5</div>
+<div class="line">N(1)=2</div>
+<div class="line">N(2)=4</div>
+<div class="line">N(3)=1</div>
+<div class="line">N(4)=3</div>
+<div class="line"> </div>
+<div class="line">ARRSORT N</div>
+<div class="line"> </div>
+<div class="line">FOR I = 0 TO 4</div>
+<div class="line">    PRINT N(I)</div>
+<div class="line">NEXT</div>
+</div><!-- fragment --><p>Output:</p>
+<div class="fragment"><div class="line">1</div>
+<div class="line">2</div>
+<div class="line">3</div>
+<div class="line">4</div>
+<div class="line">5</div>
 </div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="tips"></a>
-Tips</h3>
+<p><b>Integer array (descending)</b></p>
+<div class="fragment"><div class="line">ARRSORT N,TRUE</div>
+</div><!-- fragment --><p>Output:</p>
+<div class="fragment"><div class="line">5</div>
+<div class="line">4</div>
+<div class="line">3</div>
+<div class="line">2</div>
+<div class="line">1</div>
+</div><!-- fragment --><hr  />
+<p><b>String array</b></p>
+<div class="fragment"><div class="line">DIM NAMES$,4</div>
+<div class="line">NAMES$(0)=&quot;BETA&quot;</div>
+<div class="line">NAMES$(1)=&quot;ALPHA&quot;</div>
+<div class="line">NAMES$(2)=&quot;DELTA&quot;</div>
+<div class="line">NAMES$(3)=&quot;GAMMA&quot;</div>
+<div class="line"> </div>
+<div class="line">ARRSORT NAMES$</div>
+<div class="line"> </div>
+<div class="line">FOR I = 0 TO 3</div>
+<div class="line">    PRINT NAMES$(I)</div>
+<div class="line">NEXT</div>
+</div><!-- fragment --><hr  />
+<p><b>Real array</b></p>
+<div class="fragment"><div class="line">DIM D#,4</div>
+<div class="line">D#(0)=3.5</div>
+<div class="line">D#(1)=1.2</div>
+<div class="line">D#(2)=4.8</div>
+<div class="line">D#(3)=2.0</div>
+<div class="line"> </div>
+<div class="line">ARRSORT D#</div>
+</div><!-- fragment --><hr  />
+<h5 class="doxsection"><a class="anchor" id="notes-133"></a>
+Notes</h5>
 <ul>
-<li>Use consistent prefixes in your comments (e.g. <span class="tt">REM TODO:</span> or <span class="tt">REM NOTE:</span>) to make them easy to search for.</li>
-<li>Keep comments adjacent to the code they describe so they stay in sync as the program evolves. </li>
+<li>Sorting is <b>in place</b>; the original order is replaced</li>
+<li>The array must already exist</li>
+<li>Arrays of length <span class="tt">0</span> or <span class="tt">1</span> are unchanged</li>
+<li>Sorting uses a <b>general-purpose comparison</b> appropriate to the array type:<ul>
+<li>integers → numeric comparison</li>
+<li>reals → numeric comparison</li>
+<li>strings → lexicographic comparison</li>
 </ul>
+</li>
+<li>String sorting compares values using standard string comparison rules</li>
+<li>The relative order of equal elements is <b>not guaranteed to be preserved</b></li>
+</ul>
+<hr  />
+<h5 class="doxsection"><a class="anchor" id="typical-usage-1"></a>
+Typical usage</h5>
+<div class="fragment"><div class="line">ARRSORT SCORES,TRUE</div>
+<div class="line"> </div>
+<div class="line">FOR I = 0 TO 9</div>
+<div class="line">    PRINT SCORES(I)</div>
+<div class="line">NEXT</div>
+</div><!-- fragment --><hr  />
+<p><b>See also:</b> <a class="el" href="ARRSORTBY.html">ARRSORTBY</a> <a class="el" href="DIM.html">DIM</a> <a class="el" href="REDIM.html">REDIM</a> <a class="el" href="type-array.html">Array Variables</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

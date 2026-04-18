@@ -324,43 +324,47 @@ int heapsort(void *vbase, size_t nmemb, size_t size, int (*compar)(const void *,
 	size_t cnt, i, j, l;
 	char tmp, *tmp1, *tmp2;
 	char *base, *k, *p, *t;
+	char stack_k[QSORT_STACK_TMP_SIZE];
 
-	if (nmemb <= 1)
-		return (0);
-
-	if (!size) {
-		return (-1);
+	if (nmemb <= 1) {
+		return 0;
 	}
 
-	if ((k = kmalloc(size)) == NULL)
-		return (-1);
+	if (!size) {
+		return -1;
+	}
 
-	/*
-	 * Items are numbered from 1 to nmemb, so offset from size bytes
-	 * below the starting address.
-	 */
+	if (size <= sizeof(stack_k)) {
+		k = stack_k;
+	} else {
+		k = kmalloc(size);
+		if (!k) {
+			return -1;
+		}
+	}
+
 	base = (char *)vbase - size;
 
-	for (l = nmemb / 2 + 1; --l;)
+	for (l = nmemb / 2 + 1; --l;) {
 		CREATE(l, nmemb, i, j, t, p, size, cnt, tmp);
+	}
 
-	/*
-	 * For each element of the heap, save the largest element into its
-	 * final slot, save the displaced element (k), then recreate the
-	 * heap.
-	 */
 	while (nmemb > 1) {
 		COPY(k, base + nmemb * size, cnt, size, tmp1, tmp2);
 		COPY(base + nmemb * size, base + size, cnt, size, tmp1, tmp2);
 		--nmemb;
 		SELECT(i, j, nmemb, t, p, size, k, cnt, tmp1, tmp2);
 	}
-	kfree_null(&k);
+
+	if (k != stack_k) {
+		kfree(k);
+	}
+
 	return 0;
 }
 
-static inline char	*med3(char *, char *, char *, int (*)(const void *, const void *));
-static inline void	 swapfunc(char *, char *, size_t, int);
+static inline char* med3(char *, char *, char *, int (*)(const void *, const void *));
+static inline void swapfunc(char *, char *, size_t, int);
 
 /*
  * Qsort routine from Bentley & McIlroy's "Engineering a Sort Function".
@@ -387,7 +391,7 @@ static inline void	 swapfunc(char *, char *, size_t, int);
 #define SWAPTYPE_LONG	5
 
 #define TYPE_ALIGNED(TYPE, a, es)			\
-	(((char *)a - (char *)0) % sizeof(TYPE) == 0 && es % sizeof(TYPE) == 0)
+	(((uintptr_t)(a) % sizeof(TYPE) == 0) && ((es) % sizeof(TYPE) == 0))
 
 #define swapcode(TYPE, parmi, parmj, n) { 		\
 	size_t i = (n) / sizeof (TYPE); 		\
