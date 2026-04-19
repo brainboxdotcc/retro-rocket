@@ -130,6 +130,7 @@ The following parameter types are used throughout this documentation:
 * \subpage RMDIR
 * \subpage ROTATE
 * \subpage SCROLLREGION
+* \subpage SEEK
 * \subpage SETTIMEZONE
 * \subpage SETVARI
 * \subpage SETVARR

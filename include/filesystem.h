@@ -400,14 +400,14 @@ typedef enum fs_handle_type_t {
  */
 typedef struct fs_handle_t {
 	fs_handle_type_t type;		/* Filehandle type */
-	unsigned char* inbuf;		/* Input buffer */
-	unsigned char* outbuf;		/* Output buffer */
-	uint64_t inbufpos;		/* Input buffer position */
-	uint64_t outbufpos;		/* Input buffer position */
-	uint64_t outbufsize;		/* Output buffer size */
-	uint64_t inbufsize;		/* Input buffer size */
+	uint8_t* inbuf;			/* Input buffer */
+	uint8_t* outbuf;		/* Output buffer */
+	size_t inbufpos;		/* Input buffer position */
+	size_t outbufpos;		/* Output buffer position */
+	size_t outbufsize;		/* Output buffer size */
+	size_t inbufsize;		/* Input buffer size */
 	fs_directory_entry_t* file;	/* File which is open */
-	uint64_t seekpos;		/* Seek position within file */
+	size_t seekpos;			/* Seek position within file */
 	bool cached;			/* Entire file is cached to ram */
 } fs_handle_t;
 
@@ -709,9 +709,30 @@ bool fs_delete_file(const char* pathandfile);
  */
 bool fs_delete_directory(const char* pathandfile);
 
-void fs_set_error(uint32_t error);
+/**
+ * @brief Set the last filesystem error for the current logical CPU.
+ *
+ * Stores the provided error code in a per-CPU slot. This allows filesystem
+ * operations to report detailed failure information without requiring every
+ * API to return an error code directly.
+ *
+ * The stored error remains valid until it is overwritten by a subsequent
+ * filesystem operation on the same CPU.
+ *
+ * @param error Filesystem error code to record.
+ */
+void fs_set_error(fs_error_t error);
 
-uint32_t fs_get_error(void);
+/**
+ * @brief Retrieve the last filesystem error for the current logical CPU.
+ *
+ * Returns the most recent filesystem error recorded via fs_set_error() on
+ * this CPU. If no error has been set since boot or since the last successful
+ * operation, the value may be FS_ERR_NO_ERROR or an older value.
+ *
+ * @return fs_error_t Last recorded filesystem error.
+ */
+fs_error_t fs_get_error(void);
 
 /**
  * @brief Flatten a device, write GPT with ESP + RFS, then write a prebuilt ESP image.

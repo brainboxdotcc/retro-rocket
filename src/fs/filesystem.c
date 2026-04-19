@@ -8,7 +8,7 @@ static fs_tree_t* fs_tree;
 static uint32_t fd_last = 0;
 static uint32_t fd_alloc = 0;
 static fs_handle_t* filehandles[FD_MAX] = { NULL };
-static uint32_t fs_last_error[MAX_CPUS] = { FS_ERR_NO_ERROR };
+static fs_error_t fs_last_error[MAX_CPUS] = { FS_ERR_NO_ERROR };
 
 uint8_t verify_path(const char* path);
 fs_tree_t* walk_to_node(fs_tree_t* current_node, const char* path);
@@ -287,11 +287,11 @@ char* fs_get_name_part(const char* path) {
 	return strdup(start + 1);
 }
 
-void fs_set_error(uint32_t error) {
+void fs_set_error(fs_error_t error) {
 	fs_last_error[logical_cpu_id()] = error;
 }
 
-uint32_t fs_get_error(void) {
+fs_error_t fs_get_error(void) {
 	return fs_last_error[logical_cpu_id()];
 }
 
@@ -801,12 +801,12 @@ int _close(uint32_t descriptor)
 	return destroy_filehandle(descriptor) ? 0 : -1;
 }
 
-long _lseek(int fd, uint64_t offset, uint64_t origin)
+int64_t _lseek(int fd, uint64_t offset, uint64_t origin)
 {
 	if (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL) {
 		return -1;
 	} else {
-		if (offset + origin > filehandles[fd]->file->size) {
+		if (origin > filehandles[fd]->file->size || offset > filehandles[fd]->file->size - origin) {
 			/* Do not allow seeking past end */
 			fs_set_error(FS_ERR_SEEK_PAST_END);
 			return -1;
@@ -831,7 +831,7 @@ int64_t _tell(int fd)
 	if (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL) {
 		fs_set_error(FS_ERR_INVALID_FD);
 	}
-	return (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL) ? (int64_t)-1 : (int64_t)filehandles[fd]->seekpos; 
+	return (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL) ? -1 : (int64_t)filehandles[fd]->seekpos;
 }
 
 /* Read bytes from an open file */

@@ -82,6 +82,7 @@ The following functions operate on or return **integer values** in Retro Rocket 
 * \subpage SOCKACCEPT
 * \subpage SOCKLISTEN
 * \subpage SOCKSTATUS
+* \subpage TELL
 * \subpage TERMHEIGHT
 * \subpage TERMWIDTH
 * \subpage TICKS

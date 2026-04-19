@@ -91,6 +91,7 @@ var keywords =
     [ "RMDIR Keyword", "RMDIR.html", null ],
     [ "ROTATE Keyword", "ROTATE.html", null ],
     [ "SCROLLREGION Keyword", "SCROLLREGION.html", null ],
+    [ "SEEK Keyword", "SEEK.html", null ],
     [ "SETTIMEZONE Keyword", "SETTIMEZONE.html", null ],
     [ "SETVARI Keyword", "SETVARI.html", null ],
     [ "SETVARR Keyword", "SETVARR.html", null ],

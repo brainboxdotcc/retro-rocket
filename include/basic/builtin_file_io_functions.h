@@ -17,43 +17,6 @@ struct basic_ctx;
 const char* make_full_path(struct basic_ctx* ctx, const char* relative);
 
 /**
- * @brief Handles the OPENIN statement in BASIC.
- *
- * Since OPENIN is a function in Retro Rocket BASIC, this statement is not supported and raises an error.
- *
- * @param ctx BASIC interpreter context
- */
-void openin_statement(struct basic_ctx* ctx);
-
-/**
- * @brief Handles the OPENUP statement in BASIC.
- *
- * Since OPENUP is a function in Retro Rocket BASIC, this statement is not supported and raises an error.
- *
- * @param ctx BASIC interpreter context
- */
-void openup_statement(struct basic_ctx* ctx);
-
-/**
- * @brief Handles the OPENOUT statement in BASIC.
- *
- * Since OPENOUT is a function in Retro Rocket BASIC, this statement is not supported and raises an error.
- *
- * @param ctx BASIC interpreter context
- */
-void openout_statement(struct basic_ctx* ctx);
-
-/**
- * @brief Handles the READ statement in BASIC.
- *
- * Since the READ statement is not supported in Retro Rocket BASIC (as it relies on DATA statements),
- * this function raises an error.
- *
- * @param ctx BASIC interpreter context
- */
-void read_statement(struct basic_ctx* ctx);
-
-/**
  * @brief Handles the CLOSE statement in BASIC.
  *
  * This function closes the file associated with the file descriptor returned by the OPEN statement.
@@ -61,16 +24,6 @@ void read_statement(struct basic_ctx* ctx);
  * @param ctx BASIC interpreter context
  */
 void close_statement(struct basic_ctx* ctx);
-
-/**
- * @brief Handles the EOF function in BASIC.
- *
- * The EOF function checks whether the end of file has been reached. It is not supported in Retro Rocket BASIC.
- * This function raises an error.
- *
- * @param ctx BASIC interpreter context
- */
-void eof_statement(struct basic_ctx* ctx);
 
 /**
  * @brief Handles the DELETE statement in BASIC.
@@ -177,6 +130,10 @@ int64_t basic_openup(struct basic_ctx* ctx);
  */
 int64_t basic_eof(struct basic_ctx* ctx);
 
+void seek_statement(struct basic_ctx* ctx);
+
+int64_t basic_tell(struct basic_ctx* ctx);
+
 /**
  * @brief Reads a single byte from the file.
  *
@@ -244,3 +201,4 @@ void readbinary_statement(struct basic_ctx* ctx);
 void writebinary_statement(struct basic_ctx* ctx);
 
 char* basic_ramdisk_from_image(struct basic_ctx* ctx);
+

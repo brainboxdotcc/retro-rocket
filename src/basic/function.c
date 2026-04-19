@@ -176,6 +176,7 @@ struct basic_int_fn builtin_int[] =
 	{ basic_mapget,              "MAPGET"            },
 	{ basic_maphas,              "MAPHAS"            },
 	{ basic_map,                 "MAP"               },
+	{ basic_tell,                "TELL"              },
 	{ NULL,                      NULL                },
 };
 

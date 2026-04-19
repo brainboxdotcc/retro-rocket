@@ -80,6 +80,7 @@ var int_funcs =
     [ "SOCKACCEPT Function", "SOCKACCEPT.html", null ],
     [ "SOCKLISTEN Function", "SOCKLISTEN.html", null ],
     [ "SOCKSTATUS Function", "SOCKSTATUS.html", null ],
+    [ "TELLFunction", "TELL.html", null ],
     [ "TERMHEIGHT Function", "TERMHEIGHT.html", null ],
     [ "TERMWIDTH Function", "TERMWIDTH.html", null ],
     [ "TICKS Function", "TICKS.html", null ],

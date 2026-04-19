@@ -69,26 +69,6 @@ int64_t basic_read(struct basic_ctx* ctx)
 	return res;
 }
 
-void openin_statement(struct basic_ctx* ctx)
-{
-	tokenizer_error_print(ctx, "OPENIN is a function");
-}
-
-void openup_statement(struct basic_ctx* ctx)
-{
-	tokenizer_error_print(ctx, "OPENUP is a function");
-}
-
-void openout_statement(struct basic_ctx* ctx)
-{
-	tokenizer_error_print(ctx, "OPENOUT is a function");
-}
-
-void read_statement(struct basic_ctx* ctx)
-{
-	tokenizer_error_print(ctx, "READ is a function");
-}
-
 void close_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(CLOSE, ctx);
@@ -96,11 +76,6 @@ void close_statement(struct basic_ctx* ctx)
 		tokenizer_error_printf(ctx, "Error closing file: %s", fs_strerror(fs_get_error()));
 	}
 	accept_or_return(NEWLINE, ctx);
-}
-
-void eof_statement(struct basic_ctx* ctx)
-{
-	tokenizer_error_print(ctx, "EOF is a function");
 }
 
 int64_t basic_open_func(struct basic_ctx* ctx, int oflag)
@@ -231,6 +206,32 @@ int64_t basic_eof(struct basic_ctx* ctx)
 	PARAMS_GET_ITEM(BIP_INT);
 	PARAMS_END("EOF", 0);
 	return _eof(intval);
+}
+
+int64_t basic_tell(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("TELL", 0);
+	int64_t where = _tell(intval);
+	if (where == -1) {
+		tokenizer_error_printf(ctx, "TELL: %s", fs_strerror(fs_get_error()));
+		return 0;
+	}
+	return where;
+}
+
+void seek_statement(struct basic_ctx* ctx)
+{
+	accept_or_return(SEEK, ctx);
+	int64_t fd = expr(ctx);
+	accept_or_return(COMMA, ctx);
+	int64_t pos = expr(ctx);
+	accept_or_return(NEWLINE, ctx);
+	if (_lseek(fd, pos, 0) == -1) {
+		tokenizer_error_printf(ctx, "SEEK: %s", fs_strerror(fs_get_error()));
+		return;
+	}
 }
 
 void mkdir_statement(struct basic_ctx* ctx)
