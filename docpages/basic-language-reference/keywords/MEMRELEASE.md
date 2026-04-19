@@ -1,7 +1,7 @@
-\page MEMRELEASE MEMRELEASE Function
+\page MEMRELEASE MEMRELEASE Keyword
 
 ```basic
-MEMRELEASE(integer-expression)
+MEMRELEASE integer-expression
 ```
 
 Releases (frees) a block of memory previously obtained via \ref MEMALLOC "MEMALLOC".

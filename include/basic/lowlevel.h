@@ -397,3 +397,11 @@ int64_t basic_bitror(struct basic_ctx* ctx);
 void memrelease_statement(struct basic_ctx* ctx);
 
 int64_t basic_memalloc(struct basic_ctx* ctx);
+
+int64_t basic_memrealloc(struct basic_ctx* ctx);
+
+void memmove_statement(struct basic_ctx* ctx);
+
+void memcopy_statement(struct basic_ctx* ctx);
+
+void memset_statement(struct basic_ctx* ctx);

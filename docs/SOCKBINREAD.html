@@ -123,22 +123,23 @@ $(function(){initNavTree('SOCKBINREAD.html','',''); });
   <div class="headertitle"><div class="title">SOCKBINREAD Statement </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">SOCKBINREAD(integer-socket, integer-buffer, integer-length)</div>
+<div class="textblock"><div class="fragment"><div class="line">SOCKBINREAD integer-socket, integer-buffer, integer-length [, length-read-variable]</div>
 </div><!-- fragment --><p>Reads <b>binary data</b> from a <b>connected socket</b> into memory.</p>
 <ul>
 <li><span class="tt">integer-socket</span> - socket file descriptor.</li>
 <li><span class="tt">integer-buffer</span> - destination memory handle/pointer (from <a class="el" href="MEMALLOC.html">MEMALLOC</a>).</li>
 <li><span class="tt">integer-length</span> - maximum number of bytes to read.</li>
+<li><span class="tt">length-read-variable</span> - optional. If included, must be an integer variable, and will receive the actual bytes read. This will always be a positibe non-zero value, as the keyword does not return until something is read or there is an error.</li>
 </ul>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-190"></a>
+<h3 class="doxsection"><a class="anchor" id="examples-194"></a>
 Examples</h3>
 <div class="fragment"><div class="line">buf = MEMALLOC(4096)</div>
-<div class="line">SOCKBINREAD client, buf, 4096</div>
+<div class="line">SOCKBINREAD client, buf, 4096, amount_read</div>
 <div class="line">REM ... process buffer ...</div>
 <div class="line">MEMRELEASE buf</div>
 </div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-192"></a>
+<h3 class="doxsection"><a class="anchor" id="notes-193"></a>
 Notes</h3>
 <ul>
 <li>Reads up to the specified number of bytes into the buffer.</li>

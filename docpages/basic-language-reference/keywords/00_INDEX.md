@@ -100,7 +100,10 @@ The following parameter types are used throughout this documentation:
 * \subpage MATCH
 * \subpage MAPFREE
 * \subpage MAPSET
+* \subpage MEMCOPY
+* \subpage MEMMOVE
 * \subpage MEMRELEASE
+* \subpage MEMSET
 * \subpage MKDIR
 * \subpage MOUNT
 * \subpage NEXT

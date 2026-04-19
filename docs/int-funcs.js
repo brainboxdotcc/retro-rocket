@@ -50,6 +50,7 @@ var int_funcs =
     [ "MEMORY Function", "MEMORY.html", null ],
     [ "MEMPEAK Function", "MEMPEAK.html", null ],
     [ "MEMPROGRAM Function", "MEMPROGRAM.html", null ],
+    [ "MEMREALLOC Function", "MEMREALLOC.html", null ],
     [ "MEMUSED Function", "MEMUSED.html", null ],
     [ "MIN Function", "MIN.html", null ],
     [ "MINUTE Function", "MINUTE.html", null ],

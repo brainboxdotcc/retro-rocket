@@ -126,13 +126,13 @@ $(function(){initNavTree('RAMDISK.html','',''); });
 <div class="textblock"><div class="fragment"><div class="line">RAMDISK$(string-expression)</div>
 </div><!-- fragment --><p>Creates a <b>RAM-backed block device</b> from the content of an existing block device. The parameter is the name of the source device (e.g. <span class="tt">"hd0"</span>). Returns the <b>name of the new RAM disk device</b> as a string.</p>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-127"></a>
+<h3 class="doxsection"><a class="anchor" id="examples-128"></a>
 Examples</h3>
 <div class="fragment"><div class="line">REM Duplicate an existing block device into RAM</div>
 <div class="line">ram$ = RAMDISK$(&quot;hd0&quot;)</div>
 <div class="line">PRINT &quot;Created RAM disk: &quot;; ram$</div>
 </div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-121"></a>
+<h3 class="doxsection"><a class="anchor" id="notes-122"></a>
 Notes</h3>
 <ul>
 <li>The new device is a complete in-memory copy of the original device.</li>

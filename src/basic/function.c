@@ -177,6 +177,7 @@ struct basic_int_fn builtin_int[] =
 	{ basic_maphas,              "MAPHAS"            },
 	{ basic_map,                 "MAP"               },
 	{ basic_tell,                "TELL"              },
+	{ basic_memrealloc,          "MEMREALLOC"        },
 	{ NULL,                      NULL                },
 };
 

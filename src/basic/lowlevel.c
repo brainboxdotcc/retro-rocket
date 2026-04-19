@@ -80,6 +80,75 @@ int64_t basic_memalloc(struct basic_ctx* ctx)
 	return (int64_t)p;
 }
 
+int64_t basic_memrealloc(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t handle = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t new_size = intval;
+	PARAMS_END("MEMREALLOC", 0);
+	void* p = buddy_realloc(ctx->allocator, handle, new_size);
+	if (!p) {
+		tokenizer_error_print(ctx, "Out of memory");
+		return 0;
+	}
+	return (int64_t)p;
+}
+
+void memmove_statement(struct basic_ctx* ctx)
+{
+	accept_or_return(MEMMOVE, ctx);
+	int64_t source = expr(ctx);
+	accept_or_return(COMMA, ctx);
+	int64_t dest = expr(ctx);
+	accept_or_return(COMMA, ctx);
+	int64_t size = expr(ctx);
+	accept_or_return(NEWLINE, ctx);
+	if (!address_valid_read(source, size) || !address_valid_write(dest, size)) {
+		tokenizer_error_printf(ctx, "Bad Address at &%016lx of size &%016lx or &%016lx of size &%016lx", source, size, dest, size);
+		return;
+	}
+	memmove(dest, source, size);
+}
+
+void memcopy_statement(struct basic_ctx* ctx)
+{
+	accept_or_return(MEMCOPY, ctx);
+	int64_t source = expr(ctx);
+	accept_or_return(COMMA, ctx);
+	int64_t dest = expr(ctx);
+	accept_or_return(COMMA, ctx);
+	int64_t size = expr(ctx);
+	accept_or_return(NEWLINE, ctx);
+	if (!address_valid_read(source, size) || !address_valid_write(dest, size)) {
+		tokenizer_error_printf(ctx, "Bad Address at &%016lx of size &%016lx or &%016lx of size &%016lx", source, size, dest, size);
+		return;
+	}
+	memcpy(dest, source, size);
+}
+
+void memset_statement(struct basic_ctx* ctx)
+{
+	accept_or_return(MEMSET, ctx);
+	int64_t dest = expr(ctx);
+	accept_or_return(COMMA, ctx);
+	int64_t value = expr(ctx);
+	accept_or_return(COMMA, ctx);
+	int64_t size = expr(ctx);
+	accept_or_return(NEWLINE, ctx);
+	if (value < 0 || value > 255) {
+		tokenizer_error_printf(ctx, "MEMSET: Invalid byte value %ld", value);
+		return;
+	}
+	if (!address_valid_write(dest, size)) {
+		tokenizer_error_printf(ctx, "Bad Address at &%016lx of size &%016lx", dest, size);
+		return;
+	}
+	memset(dest, (uint8_t)value, size);
+}
+
+
 char* basic_cpugetbrand(struct basic_ctx* ctx)
 {
 	PARAMS_START;

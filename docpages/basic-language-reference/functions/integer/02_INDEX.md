@@ -52,6 +52,7 @@ The following functions operate on or return **integer values** in Retro Rocket 
 * \subpage MEMORY
 * \subpage MEMPEAK
 * \subpage MEMPROGRAM
+* \subpage MEMREALLOC
 * \subpage MEMUSED
 * \subpage MIN
 * \subpage MINUTE

@@ -202,16 +202,10 @@ void sockbinread_statement(struct basic_ctx *ctx) {
 	process_t* proc = ctx->proc;
 
 	if (tls_get(fd)) {
-		int want;
-		int out_n;
-		bool ok;
-		int err;
-
-		want = 0;
-		out_n = 0;
-		err = 0;
-
-		ok = tls_read_fd(fd, address, length, &want, &out_n, &err);
+		int want = 0;
+		int out_n = 0;
+		int err = 0;
+		bool ok = tls_read_fd(fd, address, length, &want, &out_n, &err);
 		if (ok) {
 			rv = out_n;
 		} else {
@@ -241,7 +235,16 @@ void sockbinread_statement(struct basic_ctx *ctx) {
 		return;
 	}
 
-	accept_or_return(NEWLINE, ctx);
+	enum token_t tok = tokenizer_token(ctx);
+	if (tok == NEWLINE) {
+		accept_or_return(NEWLINE, ctx);
+	} else {
+		/* Optional return length */
+		accept_or_return(COMMA, ctx);
+		const char* return_value = tokenizer_variable_name(ctx, &var_length);
+		accept_or_return(VARIABLE, ctx);
+		basic_set_int_variable(return_value, rv, ctx, false, false);
+	}
 	proc->state = PROC_RUNNING;
 }
 

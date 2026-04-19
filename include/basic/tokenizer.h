@@ -220,6 +220,9 @@ typedef void (*keyword_handler_t)(struct basic_ctx*);
     T(MAPFREE, STMT, mapfree_statement)			/* 148 */ \
     T(MAPKEYS, STMT, mapkeys_statement)			/* 149 */ \
     T(SEEK, STMT, seek_statement)			/* 150 */ \
+    T(MEMCOPY, STMT, memcopy_statement)			/* 151 */ \
+    T(MEMSET, STMT, memset_statement)			/* 152 */ \
+    T(MEMMOVE, STMT, memmove_statement)			/* 153 */ \
 
 GENERATE_ENUM_LIST(TOKEN, token_t)
 
