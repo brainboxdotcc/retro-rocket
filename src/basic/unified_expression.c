@@ -593,3 +593,15 @@ void up_eval_value(struct basic_ctx *ctx, up_value *out) {
 	}
 	*out = up_value_expr(ctx);
 }
+
+int64_t expr(struct basic_ctx* ctx) {
+	return up_int_expr_strict(ctx);
+}
+
+const char* str_expr(struct basic_ctx* ctx) {
+	return up_str_expr_strict(ctx);
+}
+
+void double_expr(struct basic_ctx* ctx, double* res) {
+	up_double_expr_strict(ctx, res);
+}
