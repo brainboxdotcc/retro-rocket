@@ -127,6 +127,7 @@ $(function(){initNavTree('MEMREALLOC.html','',''); });
 </div><!-- fragment --><p>Extends or shrinks an existing block of <b>heap memory</b> allocated by this function or <a class="el" href="MEMALLOC.html">MEMALLOC</a> to the new given size (in bytes) and returns a <b>pointer/integer handle</b> to the new area.</p>
 <p>Contents in the existing area will be copied to the new area. It is not guaranteed that the new area will start at the same location as the old area or even overlap with it.</p>
 <p>The old handle does not need to be manually freed with <a class="el" href="MEMRELEASE.html">MEMRELEASE</a>, as the new handle takes its place.</p>
+<p>Upon failure, the original existing-handle will still be valid. An error will still be raised, which you will have to capture with <span class="tt">ON ERROR</span>.</p>
 <hr  />
 <h3 class="doxsection"><a class="anchor" id="examples-49"></a>
 Examples</h3>
@@ -138,9 +139,10 @@ Examples</h3>
 <h3 class="doxsection"><a class="anchor" id="notes-48"></a>
 Notes</h3>
 <ul>
-<li>Contents are unspecified on allocation.</li>
+<li>Contents of any newly extended portions are unspecified on allocation.</li>
+<li>Contents of any portions outside of a shrunken area are lost</li>
 <li>Always pair with <a class="el" href="MEMRELEASE.html">MEMRELEASE</a> to avoid leaks.</li>
-<li>The allocated memory is only valid while the program that requested it is running. The returned value ma be passed to other programs, however be aware of this restriction.</li>
+<li>The allocated memory is only valid while the program that requested it is running. The returned value may be passed to other programs, however be aware of this restriction.</li>
 <li>Returned handle is suitable for binary I/O (<a class="el" href="BINREAD.html">BINREAD</a>, <a class="el" href="BINWRITE.html">BINWRITE</a>, <a class="el" href="SOCKBINWRITE.html">SOCKBINWRITE</a>, <a class="el" href="SOCKBINREAD.html">SOCKBINREAD</a>).</li>
 <li>Once the program ends, all memory requested by MEMALLOC is automatically freed.</li>
 </ul>

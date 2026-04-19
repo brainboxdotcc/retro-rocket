@@ -10,6 +10,8 @@ Contents in the existing area will be copied to the new area. It is not guarante
 
 The old handle does not need to be manually freed with \ref MEMRELEASE "MEMRELEASE", as the new handle takes its place.
 
+Upon failure, the original existing-handle will still be valid. An error will still be raised, which you will have to capture with `ON ERROR`.
+
 ---
 
 ### Examples
@@ -25,9 +27,10 @@ MEMRELEASE buf
 
 ### Notes
 
-* Contents are unspecified on allocation.
+* Contents of any newly extended portions are unspecified on allocation.
+* Contents of any portions outside of a shrunken area are lost
 * Always pair with \ref MEMRELEASE "MEMRELEASE" to avoid leaks.
-* The allocated memory is only valid while the program that requested it is running. The returned value ma be passed to other programs, however be aware of this restriction.
+* The allocated memory is only valid while the program that requested it is running. The returned value may be passed to other programs, however be aware of this restriction.
 * Returned handle is suitable for binary I/O (\ref BINREAD "BINREAD", \ref BINWRITE "BINWRITE", \ref SOCKBINWRITE "SOCKBINWRITE", \ref SOCKBINREAD "SOCKBINREAD").
 * Once the program ends, all memory requested by MEMALLOC is automatically freed.
 
