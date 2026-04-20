@@ -9,20 +9,34 @@ IF FH < 0 THEN
     END
 ENDIF
 LAST = -1
+L$ = ""
 REPEAT
 	BYTE = READ(FH)
 	IF BYTE = 13 THEN
-		PRINT ""
+        PROCout(L$)
 	ELSE
 		IF BYTE = 10 THEN
 			IF LAST <> 13 THEN
-				PRINT ""
+			    PROCout(L$)
 			ENDIF
 		ELSE
-			PRINT CHR$(BYTE);
+		    L$ = L$ + CHR$(BYTE)
 		ENDIF
 	ENDIF
-	LAST = BYTE
 UNTIL EOF(FH) = 1
-PRINT ""
+IF L$ <> "" THEN
+    PROCout(L$)
+ENDIF
 CLOSE FH
+
+END
+
+DEF PROCout(lin$)
+    HL$ = HIGHLIGHT$(lin$)
+    IF HL$ <> lin$ THEN
+        PRINT HL$
+    ELSE
+        PRINT lin$
+    ENDIF
+    L$ = ""
+ENDPROC

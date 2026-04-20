@@ -37,6 +37,8 @@ The following functions return or manipulate **string values** in Retro Rocket B
 * \subpage SECSTR
 * \subpage STR
 * \subpage TIME
+* \subpage TLSCIPHER
+* \subpage TLSVERSION
 * \subpage TOKENIZE
 * \subpage TRIM
 * \subpage UDPLASTIP

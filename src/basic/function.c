@@ -256,6 +256,8 @@ struct basic_str_fn builtin_str[] =
 	{ basic_secure_random_string, "SECSTR$"         },
 	{ basic_mapgets,              "MAPGET$"         },
 	{ basic_buffer_to_string,     "BUFFERTOSTRING$" },
+	{ basic_tlscipher,            "TLSCIPHER$"      },
+	{ basic_tlsversion,           "TLSVERSION$"     },
 	{ NULL,                       NULL              },
 };
 

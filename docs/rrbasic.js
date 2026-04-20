@@ -128,6 +128,7 @@ hljs.registerLanguage('rrbasic', function(hljs) {
         'ROTATE',
         'SPRITEROW',
         'ARRAYFIND',
+        'MAPSET',
     ];
 
     const literal_list = [
@@ -135,6 +136,8 @@ hljs.registerLanguage('rrbasic', function(hljs) {
         'FALSE',
         'PI#',
         'E#',
+        'ARGS$',
+        'PID',
     ];
 
     const built_in_list = [
@@ -171,6 +174,8 @@ hljs.registerLanguage('rrbasic', function(hljs) {
         'DECIBELS',
         'DEG',
         'DNS$',
+        'MAPGET',
+        'MAPGET$',
         'EMPTYRAMDISK$',
         'EOF',
         'EPOCH',
@@ -288,10 +293,13 @@ hljs.registerLanguage('rrbasic', function(hljs) {
         'VAL',
         'WEEKDAY',
         'YDAY',
+        'MAPHAS',
         'YEAR',
         'ARGS$',
         'ERR$',
-        'LIB$'
+        'LIB$',
+        'TLSCIPHER$',
+        'TLSVERSION$',
     ];
 
     return {
@@ -357,7 +365,7 @@ function detect_language(text) {
         "FLIP","KEYMAP","MOUNT","SETTIMEZONE","ENDIF","PLOTQUAD","ON",
         "OFF","WHILE","ENDWHILE","SLEEP","CONTINUE","MODLOAD","MODUNLOAD",
         "STREAM","CREATE","DESTROY","SOUND","PLAY","STOP","LOAD","UNLOAD",
-        "ROTATE", "SPRITEROW", "ARRAYFIND", "ARRSORT", "ARRSORTBY",
+        "ROTATE", "SPRITEROW", "ARRAYFIND", "ARRSORT", "ARRSORTBY", "MAPSET",
     ]);
 
     const builtins = new Set([
@@ -365,14 +373,15 @@ function detect_language(text) {
         "ABS","ASC","CTRLKEY","EOF","EXISTSVARI","GETVARI","LEN","RND",
         "SOCKACCEPT","SOCKLISTEN","SOCKSTATUS","TERMHEIGHT","TERMWIDTH",
         "YEAR","INPORT","INPORTW","INPORTD","MEMFREE","FILESIZE",
-        "SPRITEWIDTH","SPRITEHEIGHT","DATAREAD",
+        "SPRITEWIDTH","SPRITEHEIGHT","DATAREAD", "MAPGET", "MAPHAS",
 
         // double
         "COS","SIN","TAN","SQRT","SQR","ATAN","EXP","LOG",
 
         // string
         "CHR$","INKEY$","LEFT$","RIGHT$","MID$","REPLACE$","LOWER$",
-        "UPPER$","READ$","STR$","TIME$","DATE$","DNS$","NETINFO$"
+        "UPPER$","READ$","STR$","TIME$","DATE$","DNS$","NETINFO$",
+        "MAPGET$","TLSVERSION$","TLSCIPHER$"
     ]);
 
     // Tokenise

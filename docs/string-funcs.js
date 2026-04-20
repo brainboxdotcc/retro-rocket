@@ -35,6 +35,8 @@ var string_funcs =
     [ "SECSTR$ Function", "SECSTR.html", null ],
     [ "STR$ Function", "STR.html", null ],
     [ "TIME$ Function", "TIME.html", null ],
+    [ "TLSCIPHER$ Function", "TLSCIPHER.html", null ],
+    [ "TLSVERSION$ Function", "TLSVERSION.html", null ],
     [ "TOKENIZE$ Function", "TOKENIZE.html", null ],
     [ "TRIM$ Function", "TRIM.html", null ],
     [ "UDPLASTIP$ Function", "UDPLASTIP.html", null ],

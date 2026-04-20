@@ -1,4 +1,6 @@
 DEF PROChttp
+    __http_tls_version$ = "unknown"
+    __http_tls_cipher$ = "unknown"
 ENDPROC
 
 DEF FNhttp_url_scheme$(url$)
@@ -318,9 +320,12 @@ DEF FN__http_loop$(nn$)
     ENDIF
 =nn$
 
+
 DEF PROChttp_request(method$, url$, postdata$)
     HOST$ = FNhttp_url_host$(url$)
     PORT = FNhttp_url_port(url$)
+    __http_tls_version$ = "unknown"
+    __http_tls_cipher$ = "unknown"
     IF PORT = 0 THEN PORT = 80
     SCHEME$ = FNhttp_url_scheme$(url$)
     IP$ = DNS$(HOST$)
@@ -355,6 +360,8 @@ DEF PROChttp_request(method$, url$, postdata$)
             MAPSET __http_response, "size", 0
             IF SCHEME$ = "https" OR PORT = 443 THEN
                 SSLCONNECT FD, IP$, PORT, HOST$
+                __http_tls_version$ = TLSVERSION$(FD)
+                __http_tls_cipher$ = TLSCIPHER$(FD)
             ELSE
                 CONNECT FD, IP$, PORT
             ENDIF
@@ -404,6 +411,9 @@ DEF FNhttp_result(part$)
 
 DEF FNhttp_result$(part$)
     part$ = LOWER$(part$)
+
+    IF part$ = "tlsversion" THEN = __http_tls_version$
+    IF part$ = "tlscipher" THEN = __http_tls_cipher$
 
     IF __http_n = 0 THEN
         = ""

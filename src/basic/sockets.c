@@ -525,6 +525,24 @@ int64_t basic_sockstatus(struct basic_ctx *ctx) {
 	return is_connected(fd);
 }
 
+char* basic_tlsversion(struct basic_ctx *ctx) {
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t fd = intval;
+	PARAMS_END("TLSVERSION$", 0);
+
+	return (char*)(gc_strdup(ctx, tls_version(fd)));
+}
+
+char* basic_tlscipher(struct basic_ctx *ctx) {
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t fd = intval;
+	PARAMS_END("TLSCIPHER$", 0);
+
+	return (char*)(gc_strdup(ctx, tls_cipher(fd)));
+}
+
 char *basic_netinfo(struct basic_ctx *ctx) {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);

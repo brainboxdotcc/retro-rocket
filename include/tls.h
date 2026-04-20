@@ -230,3 +230,7 @@ bool tls_ready_fd(int fd);
 const char* tls_error_get(int err, char* buffer, size_t size);
 
 mbedtls_ctr_drbg_context* get_random_context();
+
+const char* tls_version(int fd);
+
+const char* tls_cipher(int fd);

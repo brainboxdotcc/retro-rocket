@@ -12,6 +12,8 @@ IF (FNhttp_has_body = FALSE) OR (FNhttp_has_response = FALSE) THEN
 ENDIF
 
 REM Output HTTP status code and body
+PRINT "TLS Version: "; FNhttp_result$("tlsversion")
+PRINT "TLS Cipher: "; FNhttp_result$("tlscipher")
 PRINT "HTTP status code: "; FNhttp_result$("code")
 PRINT "Response body:"
 

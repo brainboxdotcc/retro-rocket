@@ -8,6 +8,8 @@
 #include <mbedtls/debug.h>
 
 #define ENTROPY_POOL_SIZE 256
+#define MAX_ALGO_STR 256
+#define MAX_TLS_VERSION 16
 
 static mbedtls_entropy_context entropy;
 static mbedtls_ctr_drbg_context drbg;
@@ -18,6 +20,8 @@ static bool global_mbedtls_init = false;
 struct tls_peer {
 	mbedtls_ssl_context ssl;
 	mbedtls_ssl_config conf;
+	char cipher[MAX_ALGO_STR];
+	char version[MAX_TLS_VERSION];
 	struct tls_io io;
 	int fd;
 	int error;
@@ -459,6 +463,8 @@ int ssl_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 	p->fd = fd;
 	p->io.send_fn = tcp_send_nb;
 	p->io.recv_fn = tcp_recv_nb;
+	p->cipher[0] = '\0';
+	p->version[0] = '\0';
 	p->io.ctx = (uintptr_t) p->fd;
 
 	if (!tls_attach(fd, p)) {
@@ -501,7 +507,9 @@ int ssl_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 		// TODO: Copy these into the tls_peer so BASIC can use them
 		const char *ver = mbedtls_ssl_get_version(&p->ssl);
 		const char *cipher = mbedtls_ssl_get_ciphersuite(&p->ssl);
-		dprintf("tls on socket %u: negotiated %s: %s\n", fd, ver ? ver : "unknown", cipher ? cipher : "unknown");
+		strlcpy(p->cipher, cipher ? cipher : "unknown", MAX_ALGO_STR);
+		strlcpy(p->version, ver ? ver : "unknown", MAX_TLS_VERSION);
+		dprintf("tls on outbound socket %u: negotiated %s: %s\n", fd, ver ? ver : "unknown", cipher ? cipher : "unknown");
 		return fd;
 	}
 }
@@ -525,6 +533,8 @@ int ssl_accept(int listen_fd, const uint8_t *cert_pem, size_t cert_len, const ui
 	p->fd = fd;
 	p->io.send_fn = tcp_send_nb;   /* always-enqueue TX */
 	p->io.recv_fn = tcp_recv_nb;   /* 0 = WANT_READ */
+	p->cipher[0] = '\0';
+	p->version[0] = '\0';
 	p->io.ctx = p->fd;
 
 	if (!tls_attach(fd, p)) {
@@ -546,6 +556,11 @@ int ssl_accept(int listen_fd, const uint8_t *cert_pem, size_t cert_len, const ui
 	for (;;) {
 		int step = tls_handshake_step_nb(&p->ssl);
 		if (step == 1) {
+			const char *ver = mbedtls_ssl_get_version(&p->ssl);
+			const char *cipher = mbedtls_ssl_get_ciphersuite(&p->ssl);
+			strlcpy(p->cipher, cipher ? cipher : "unknown", MAX_ALGO_STR);
+			strlcpy(p->version, ver ? ver : "unknown", MAX_TLS_VERSION);
+			dprintf("tls on inbound socket %u: negotiated %s: %s\n", fd, ver ? ver : "unknown", cipher ? cipher : "unknown");
 			return fd; /* TLS established */
 		}
 		if (step < 0) {
@@ -558,6 +573,22 @@ int ssl_accept(int listen_fd, const uint8_t *cert_pem, size_t cert_len, const ui
 		}
 		__builtin_ia32_pause();
 	}
+}
+
+const char* tls_version(int fd) {
+	struct tls_peer *p = tls_get(fd);
+	if (p == NULL) {
+		return "unknown";
+	}
+	return p->version;
+}
+
+const char* tls_cipher(int fd) {
+	struct tls_peer *p = tls_get(fd);
+	if (p == NULL) {
+		return "unknown";
+	}
+	return p->cipher;
 }
 
 bool tls_ready_fd(int fd) {

@@ -197,3 +197,7 @@ void sockflush_statement(struct basic_ctx* ctx);
 int64_t basic_sslsockaccept(struct basic_ctx* ctx);
 
 void sslconnect_statement(struct basic_ctx* ctx);
+
+char* basic_tlsversion(struct basic_ctx *ctx);
+
+char* basic_tlscipher(struct basic_ctx *ctx);
