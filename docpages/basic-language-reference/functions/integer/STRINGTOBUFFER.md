@@ -87,6 +87,5 @@ This reads data from a socket into a string, decodes it into a raw buffer, and p
 
 * The source string is not modified.
 * The destination buffer must be valid and writable.
-* This function does not append a null terminator to the output buffer.
 * Escape sequences are processed transparently; invalid or partial sequences may produce undefined results.
 * Intended for binary data handling; not required for normal text strings.
