@@ -334,3 +334,5 @@ process_t* proc_load_anonymous(const char* source, pid_t parent_pid, const char*
  * @return CPU usage percentage for the process, or 0 if the PID is invalid
  */
 uint32_t proc_cpu_percent(pid_t pid);
+
+bool is_basic(const char* buf, size_t size);

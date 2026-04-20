@@ -8,9 +8,20 @@ IF FH < 0 THEN
     PRINT "Unable to open: " + FILE$
     END
 ENDIF
+ISPROG = ISPROGRAM(FILE$)
 LAST = -1
 L$ = ""
 REPEAT
+    n = FNloop(0)
+UNTIL EOF(FH) = 1
+IF L$ <> "" THEN
+    PROCout(L$)
+ENDIF
+CLOSE FH
+
+END
+
+DEF FNloop(n)
 	BYTE = READ(FH)
 	IF BYTE = 13 THEN
         PROCout(L$)
@@ -23,18 +34,11 @@ REPEAT
 		    L$ = L$ + CHR$(BYTE)
 		ENDIF
 	ENDIF
-UNTIL EOF(FH) = 1
-IF L$ <> "" THEN
-    PROCout(L$)
-ENDIF
-CLOSE FH
-
-END
+=0
 
 DEF PROCout(lin$)
-    HL$ = HIGHLIGHT$(lin$)
-    IF HL$ <> lin$ THEN
-        PRINT HL$
+    IF ISPROG THEN
+        PRINT HIGHLIGHT$(lin$)
     ELSE
         PRINT lin$
     ENDIF

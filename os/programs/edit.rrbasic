@@ -120,6 +120,7 @@ DEF PROCload(file$)
 	UNTIL EOF(FH) = 1
 	PRINT ""
 	CLOSE FH
+	hl_on = ISPROGRAM(file$) ' Programs that look like BASIC enable highlighting by default
 ENDPROC
 
 REM increase array used to store text

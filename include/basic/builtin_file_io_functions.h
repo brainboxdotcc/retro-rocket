@@ -90,6 +90,8 @@ void chdir_statement(struct basic_ctx* ctx);
  */
 char* basic_filetype(struct basic_ctx* ctx);
 
+int64_t basic_is_program(struct basic_ctx* ctx);
+
 /**
  * @brief Opens a file for reading.
  *

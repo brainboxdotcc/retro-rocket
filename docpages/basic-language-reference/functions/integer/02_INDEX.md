@@ -26,6 +26,7 @@ The following functions operate on or return **integer values** in Retro Rocket 
 * \subpage FILESIZE
 * \subpage GETNAMECOUNT
 * \subpage GETPROCCOUNT
+* \subpage GETPROCCPU
 * \subpage GETPROCCPUID
 * \subpage GETPROCID
 * \subpage GETPROCMEM
@@ -40,6 +41,7 @@ The following functions operate on or return **integer values** in Retro Rocket 
 * \subpage INPORTW
 * \subpage INSTR
 * \subpage INT
+* \subpage ISPROGRAM
 * \subpage LCPUID
 * \subpage LEN
 * \subpage LGETLASTCPUID

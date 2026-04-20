@@ -135,7 +135,7 @@ How to use it</h3>
 <li>Accept connections with <span class="tt">SOCKACCEPT(FD)</span>; write with <span class="tt">SOCKWRITE</span>, read with <span class="tt">SOCKREAD</span>/<span class="tt">INSOCKET$</span>, and close with <span class="tt">SOCKCLOSE</span>.</li>
 </ul>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-72"></a>
+<h3 class="doxsection"><a class="anchor" id="examples-74"></a>
 Examples</h3>
 <div class="fragment"><div class="line">REM Listen and handle one connection</div>
 <div class="line">srv = SOCKLISTEN(NETINFO$(&quot;ip&quot;), 2000, 5)</div>
@@ -150,7 +150,7 @@ Examples</h3>
 <div class="line">UNTIL INKEY$(&quot;&quot;) &lt;&gt; &quot;&quot;</div>
 <div class="line">SOCKCLOSE srv</div>
 </div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-71"></a>
+<h3 class="doxsection"><a class="anchor" id="notes-73"></a>
 Notes</h3>
 <ul>
 <li>Binding to <span class="tt">"0.0.0.0"</span> (if supported) listens on all local interfaces.</li>

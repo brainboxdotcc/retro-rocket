@@ -566,7 +566,7 @@ int fs_truncate_file(fs_directory_entry_t* file, uint32_t length);
  * @param start starting byte position
  * @param length length of data to read, starting at the starting position
  * @param buffer Buffer to receive read data
- * @return int nonzero on error
+ * @return int zero on error
  */
 int fs_read_file(fs_directory_entry_t* file, uint32_t start, uint32_t length, unsigned char* buffer);
 

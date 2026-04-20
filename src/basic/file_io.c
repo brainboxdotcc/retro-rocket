@@ -165,12 +165,41 @@ char* basic_filetype(struct basic_ctx* ctx)
 	return fs_is_directory(dir) ? "directory" : "file";
 }
 
+int64_t basic_is_program(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	const char* fileinfo = make_full_path(ctx, strval);
+	PARAMS_END("ISPROGRAM", 0);
+	fs_directory_entry_t* file = fs_get_file_info(fileinfo);
+	if (!file) {
+		tokenizer_error_printf(ctx, "Error retrieving file information: %s", fs_strerror(fs_get_error()));
+		return 0;
+	}
+	/* We only care about the first two kilobytes */
+	size_t size = file->size;
+	size = MIN(size, 2048);
+	const char* data = buddy_malloc(ctx->allocator, size);
+	if (!data) {
+		tokenizer_error_printf(ctx, "Out of memory reading file: %s", fs_strerror(fs_get_error()));
+		return 0;
+	}
+	if (!fs_read_file(file, 0, size, (unsigned char*)data)) {
+		tokenizer_error_printf(ctx, "Error reading file: %s", fs_strerror(fs_get_error()));
+		return 0;
+	}
+	bool is_program = is_basic(data, size);
+	buddy_free(ctx->allocator, data);
+	return is_program;
+}
+
 int64_t basic_filesize(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_END("FILESIZE", 0);
-	fs_directory_entry_t* file = fs_get_file_info(strval);
+	const char* fileinfo = make_full_path(ctx, strval);
+	fs_directory_entry_t* file = fs_get_file_info(fileinfo);
 	if (file) {
 		return file->size;
 	}

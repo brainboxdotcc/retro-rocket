@@ -72,16 +72,38 @@ bool booted_from_cd(void) {
 	return false;
 }
 
-static bool is_basic(const char* buf, size_t size)
-{
-	while (size) {
-		uint8_t c = *buf++;
+bool is_basic(const char* buf, size_t size) {
+	GENERATE_ENUM_STRING_NAMES(TOKEN, token_names)
+	GENERATE_ENUM_STRING_LENGTHS(TOKEN, token_name_lengths)
+
+	const char* p = buf;
+	size_t remaining = size;
+	const size_t token_count = sizeof(token_names) / sizeof(*token_names);
+
+	while (remaining) {
+		uint8_t c = *p++;
 		if (c < 32 && c != '\t' && c != '\r' && c != '\n' && c != 27) {
 			return false;
 		}
-		size--;
+		remaining--;
 	}
-	return true;
+
+	for (size_t i = 0; i < token_count; i++) {
+		const char* kw = token_names[i];
+		size_t kw_len = token_name_lengths[i];
+
+		if (kw_len == 0 || kw_len > size) {
+			continue;
+		}
+
+		for (size_t off = 0; off <= size - kw_len; off++) {
+			if (memcmp(buf + off, kw, kw_len) == 0) {
+				return true;
+			}
+		}
+	}
+
+	return false;
 }
 
 static process_t* proc_create_common(const char* source, pid_t parent_pid, const char* csd, const char* program_name, const char* directory, size_t size)
@@ -586,7 +608,6 @@ static void proc_update_cpu_usage(void) {
 
 	uint32_t runnable = 0;
 	const uint8_t cpu = logical_cpu_id();
-	uint64_t flags;
 
 	for (process_t* cur = proc_list[cpu]; cur; cur = cur->sched_next) {
 		if (cur->state == PROC_RUNNING) {
