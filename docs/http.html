@@ -204,6 +204,10 @@ FNhttp_result$(part$)</h3>
 </ul>
 <p>Returns an empty string if no response is available or the requested value does not exist.</p>
 <hr  />
+<h3 class="doxsection"><a class="anchor" id="procfree_http_result"></a>
+PROCfree_http_result</h3>
+<p>Frees MAPs used by the result. You should call this after you are finished with any result.</p>
+<hr  />
 <h2 class="doxsection"><a class="anchor" id="body-access-pattern"></a>
 Body access pattern</h2>
 <p>The response body is not returned as a single string. Instead, iterate over chunks:</p>
@@ -212,6 +216,8 @@ Body access pattern</h2>
 <div class="line">FOR i = 0 TO MAPGET(body, &quot;size&quot;) - 1</div>
 <div class="line">    PRINT MAPGET$(body, STR$(i));</div>
 <div class="line">NEXT</div>
+<div class="line"> </div>
+<div class="line">PROCfree_http_result</div>
 </div><!-- fragment --><p>This allows handling arbitrarily large responses without exceeding string limits.</p>
 <hr  />
 <h2 class="doxsection"><a class="anchor" id="example-23"></a>

@@ -111,6 +111,12 @@ Returns an empty string if no response is available or the requested value does 
 
 ---
 
+### PROCfree_http_result
+
+Frees MAPs used by the result. You should call this after you are finished with any result.
+
+---
+
 ## Body access pattern
 
 The response body is not returned as a single string. Instead, iterate over chunks:
@@ -121,6 +127,8 @@ body = FNhttp_result("body")
 FOR i = 0 TO MAPGET(body, "size") - 1
     PRINT MAPGET$(body, STR$(i));
 NEXT
+
+PROCfree_http_result
 ```
 
 This allows handling arbitrarily large responses without exceeding string limits.

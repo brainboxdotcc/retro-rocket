@@ -344,28 +344,39 @@ DEF PROChttp_request(method$, url$, postdata$)
         ELSE
             request$ = request$ + "Content-Length: 0" + CHR$(13) + CHR$(10) + CHR$(13) + CHR$(10)
         ENDIF
-
-        IF SCHEME$ = "https" OR PORT = 443 THEN
-            SSLCONNECT FD, IP$, PORT, HOST$
-        ELSE
-            CONNECT FD, IP$, PORT
-        ENDIF
-
-        SOCKWRITE FD, request$;
-        __http_request_response_base$ = ""
+        __retry = 0
+        __retries = 1
+        IF (method$ = "GET") OR (method$ = "HEAD") THEN __retries = 3
         REPEAT
-            __http_request_response_base$ = FN__http_loop$(__http_request_response_base$)
-        UNTIL SOCKSTATUS(FD) = 0
-        IF __http_request_response_base$ <> "" THEN
-            MAPSET __http_response, STR$(__http_n), __http_request_response_base$
-            __http_n = __http_n + 1
+            __http_n = 0
+            MAPSET __http_response, "size", 0
+            IF SCHEME$ = "https" OR PORT = 443 THEN
+                SSLCONNECT FD, IP$, PORT, HOST$
+            ELSE
+                CONNECT FD, IP$, PORT
+            ENDIF
+            SOCKWRITE FD, request$;
             __http_request_response_base$ = ""
-        ENDIF
-        MAPSET __http_response, "size", __http_n
-        SOCKCLOSE FD
-
+            REPEAT
+                __http_request_response_base$ = FN__http_loop$(__http_request_response_base$)
+            UNTIL SOCKSTATUS(FD) = 0
+            IF __http_request_response_base$ <> "" THEN
+                MAPSET __http_response, STR$(__http_n), __http_request_response_base$
+                __http_n = __http_n + 1
+                __http_request_response_base$ = ""
+            ENDIF
+            MAPSET __http_response, "size", __http_n
+            SOCKCLOSE FD
+            __retry = __retry + 1
+        UNTIL __http_n > 0 OR __retry = __retries
         PROChttp__split_response
+        MAPFREE __http_response
     ENDIF
+ENDPROC
+
+DEF PROCfree_http_result
+    MAPFREE __http_headers
+    MAPFREE __http_body
 ENDPROC
 
 DEF FNhttp_result(part$)

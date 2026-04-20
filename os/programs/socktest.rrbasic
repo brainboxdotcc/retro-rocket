@@ -9,12 +9,12 @@ PRINT "Response body:"
 body = FNhttp_result("body")
 n = MAPGET(body, "size")
 
-PRINT n
-
 FOR i = 0 TO n - 1
     PRINT MAPGET$(body, STR$(i));
 NEXT
 
 PRINT
+
+PROCfree_http_result
 
 END
