@@ -230,6 +230,29 @@ const char* gc_strdup(basic_ctx* ctx, const char* string);
 const char* gc_try_concat(struct basic_ctx *ctx, const char* s1, const char* s2);
 
 /**
+ * @brief Stream a string literal directly from the tokenizer into the GC arena.
+ *
+ * This function optimizes the parsing of string literals by bypassing the
+ * intermediate stack buffer. It reads characters directly from the source
+ * pointer, performing a single-pass copy into the BASIC string arena.
+ *
+ * Like gc_try_concat(), this operation is atomic: if the literal length
+ * exceeds MAX_STRINGLEN or available arena space, the allocator pointer
+ * is not advanced, and NULL is returned.
+ *
+ * @note
+ * - This function handles the advancing of the internal tokenizer pointer
+ * as it consumes characters.
+ * - The resulting string is NUL-terminated and committed to the arena
+ * only upon successful completion of the parse.
+ *
+ * @param ctx BASIC interpreter context.
+ * @return const char* Pointer to the arena-allocated string literal,
+ * or NULL on overflow/error.
+ */
+const char* gc_from_tokenizer_string(struct basic_ctx *ctx);
+
+/**
  * @brief Reset the BASIC temporary string arena.
  *
  * Reclaims all strings allocated with gc_strdup() by resetting the arena

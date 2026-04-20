@@ -357,23 +357,39 @@ void basic_set_double_variable(const char* var, double value, struct basic_ctx* 
 	}
 }
 
+static inline char get_sigil(const char *v) {
+	if (!v || !*v) {
+		return 0;
+	}
+	// Walk to the null terminator
+	while (*v) {
+		v++;
+	}
+	// Look at the character immediately preceding the null
+	return *(v - 1);
+}
+
 /**
  * @brief Returns true if 'varname' starts with FN
  * (is a function call)
- * 
+ *
  * @param varname variable name to check
  * @return char 1 if variable name is a function call, 0 if it is not
  */
 char varname_is_function(const char* varname) {
-	return varname && (*varname == 'F' && *(varname + 1) == 'N' && !strchr(varname, '#') && !strchr(varname, '$'));
+	if (!varname || varname[0] != 'F' || varname[1] != 'N') {
+		return 0;
+	}
+	char s = get_sigil(varname);
+	return (s != '$' && s != '#');
 }
 
 char varname_is_string_function(const char* varname) {
-	return varname && (*varname == 'F' && *(varname + 1) == 'N' && strchr(varname, '$') && !strchr(varname, '#'));
+	return varname && varname[0] == 'F' && varname[1] == 'N' && get_sigil(varname) == '$';
 }
 
 char varname_is_double_function(const char* varname) {
-	return varname && (*varname == 'F' && *(varname + 1) == 'N' && strchr(varname, '#') && !strchr(varname, '$'));
+	return varname && varname[0] == 'F' && varname[1] == 'N' && get_sigil(varname) == '#';
 }
 
 const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx) {

@@ -231,8 +231,32 @@ const char* gc_strdup(basic_ctx* ctx, const char* string)
 	return dest;
 }
 
-int gc(basic_ctx* ctx)
-{
+const char* gc_from_tokenizer_string(struct basic_ctx *ctx) {
+	char* dest = ctx->string_gc_storage_next;
+	char* end = ctx->string_gc_storage + STRING_GC_AREA_SIZE;
+	char* out = dest;
+	size_t cur = 0;
+
+	if (*ctx->ptr == '"') {
+		ctx->ptr++;
+	}
+
+	while (*ctx->ptr && *ctx->ptr != '"') {
+		if (out >= end - 1 || ++cur >= MAX_STRINGLEN) {
+			return NULL;
+		}
+		*out++ = *ctx->ptr++;
+	}
+
+	if (*ctx->ptr == '"') {
+		ctx->ptr++; // Skip closing quote
+	}
+	*out = '\0';
+	ctx->string_gc_storage_next = out + 1;
+	return dest;
+}
+
+int gc(basic_ctx* ctx) {
 	if (ctx->string_gc_storage && ctx->string_gc_storage_next) {
 		/* Strings start at +1 as the base ptr is for empties */
 		ctx->string_gc_storage_next = ctx->string_gc_storage + 1;

@@ -103,18 +103,19 @@ static up_value up_factor(struct basic_ctx *ctx) {
 			return up_make_int(n);
 		}
 		case STRING: {
-			char string[MAX_STRINGLEN];
-			if (!tokenizer_string(string, sizeof(string), ctx)) {
-				tokenizer_error_print(ctx, "Bad string literal");
-				return up_make_str("");
-			}
-			/* IMPORTANT: do NOT consume a ')' here; that belongs to the caller (e.g., func args). */
-			accept(STRING, ctx);
-			const char* sv = gc_strdup(ctx, string);
+			const char* sv = gc_from_tokenizer_string(ctx);
+
 			if (!sv) {
-				tokenizer_error_print(ctx, "up_factor: Out of memory!");
+				tokenizer_error_print(ctx, "String literal too long");
 				return up_make_str("");
 			}
+
+			/* * We don't use 'accept(STRING)' here because gc_from_tokenizer_string
+			 * has already advanced the internal pointer past the literal.
+			 * We just need to update the cached token.
+			 */
+			tokenizer_next(ctx);
+
 			return up_make_str(sv);
 		}
 		case VARIABLE: {
@@ -418,7 +419,11 @@ static up_value up_relation_expr(struct basic_ctx *ctx) {
 				tokenizer_error_print(ctx, "Cannot compare string with number");
 				result = 0;
 			} else {
-				int cmp = strcmp(lhs.v.s ? lhs.v.s : "", rhs.v.s ? rhs.v.s : "");
+				/* Because empties are interned, identical ptrs match without strcmp */
+				int cmp = 0;
+				if (lhs.v.s != rhs.v.s) {
+					cmp = strcmp(lhs.v.s, rhs.v.s);
+				}
 				if (op == LESSTHAN) {
 					result = (mode == 1) ? (cmp <= 0) : (cmp < 0);
 				} else if (op == GREATERTHAN) {
