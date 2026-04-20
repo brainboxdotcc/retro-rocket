@@ -53,23 +53,24 @@ typedef bool (*activity_callback_t)(struct process_t* proc, void* opaque);
  * in a global doubly-linked list for scheduling.
  */
 typedef struct process_t {
-	pid_t			pid;        /**< Unique process ID */
-	pid_t			ppid;       /**< Parent process ID */
-	process_state_t		state;      /**< Running state */
-	time_t			start_time; /**< Start time (UNIX epoch) */
-	pid_t			waitpid;    /**< PID being waited on */
-	cpu_id_t		cpu;        /**< Logical CPU this process is assigned to */
-	const char*		directory;  /**< Directory of program */
-	const char*		name;       /**< Filename of program */
-	size_t			size;       /**< Size of program in bytes */
-	const char*		csd;        /**< Current selected directory */
-	struct basic_ctx*	code;       /**< BASIC interpreter context */
-	struct process_t*	sched_next; /**< Next process in doubly linked list */
-	struct process_t*	sched_prev; /**< Previous process in doubly linked list */
-	struct process_t*	global_next; /**< Next process in doubly linked list */
-	struct process_t*	global_prev; /**< Previous process in doubly linked list */
-	activity_callback_t	check_idle; /**< If non-null, called to check if the process should remain idle */
-	void*			idle_context; /**< Opaque context passed to the check_idle callback */
+	pid_t			pid;		/**< Unique process ID */
+	pid_t			ppid;		/**< Parent process ID */
+	process_state_t		state;		/**< Running state */
+	time_t			start_time;	/**< Start time (UNIX epoch) */
+	pid_t			waitpid;	/**< PID being waited on */
+	cpu_id_t		cpu;		/**< Logical CPU this process is assigned to */
+	const char*		directory;	/**< Directory of program */
+	const char*		name;		/**< Filename of program */
+	size_t			size;		/**< Size of program in bytes */
+	const char*		csd;		/**< Current selected directory */
+	struct basic_ctx*	code;		/**< BASIC interpreter context */
+	struct process_t*	sched_next;	/**< Next process in doubly linked list */
+	struct process_t*	sched_prev;	/**< Previous process in doubly linked list */
+	struct process_t*	global_next;	/**< Next process in doubly linked list */
+	struct process_t*	global_prev;	/**< Previous process in doubly linked list */
+	activity_callback_t	check_idle;	/**< If non-null, called to check if the process should remain idle */
+	void*			idle_context;	/**< Opaque context passed to the check_idle callback */
+	uint32_t		cpu_percent;	/**< Rolling average CPU usage percentage */
 } process_t;
 
 /**
@@ -305,4 +306,31 @@ void proc_queue_dpc(dpc_t handler);
  */
 void run_idles(uint8_t cpu);
 
+/**
+ * @brief Create and start an anonymous BASIC process from a source string
+ *
+ * This function creates a new process using the provided BASIC source code
+ * rather than loading it from the filesystem. The process is initialised
+ * and scheduled in the same way as one created via proc_load().
+ *
+ * @param source The BASIC program source code (must be valid and non-empty)
+ * @param parent_pid The PID of the parent process
+ * @param csd The current working directory to assign to the process
+ *
+ * @return Pointer to the newly created process on success, or NULL on failure
+ */
 process_t* proc_load_anonymous(const char* source, pid_t parent_pid, const char* csd);
+
+/**
+ * @brief Get the averaged CPU usage percentage for a process
+ *
+ * Returns the rolling average CPU usage for the specified process as an
+ * integer percentage in the range 0–100. A value of 0 indicates the process
+ * is idle or waiting, while higher values indicate a greater share of CPU
+ * time over the recent sampling window.
+ *
+ * @param pid The process ID to query
+ *
+ * @return CPU usage percentage for the process, or 0 if the PID is invalid
+ */
+uint32_t proc_cpu_percent(pid_t pid);

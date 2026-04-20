@@ -1,5 +1,7 @@
 #include <kernel.h>
 
+static void proc_update_cpu_usage(void);
+
 volatile struct limine_kernel_file_request rr_kfile_req = {
 	.id = LIMINE_KERNEL_FILE_REQUEST,
 	.revision = 0
@@ -125,6 +127,7 @@ static process_t* proc_create_common(const char* source, pid_t parent_pid, const
 	newproc->sched_prev = NULL;
 	newproc->global_next = NULL;
 	newproc->global_prev = NULL;
+	newproc->cpu_percent = 0;
 
 	if (!newproc->name || !newproc->directory || !newproc->csd) {
 		basic_destroy(newproc->code);
@@ -167,6 +170,8 @@ static process_t* proc_create_common(const char* source, pid_t parent_pid, const
 
 	process_count++;
 	hashmap_set(process_by_pid, &(proc_id_t){ .id = newproc->pid, .proc = newproc });
+
+	proc_update_cpu_usage();
 
 	unlock_spinlock(&combined_proc_lock);
 	unlock_spinlock(&proc_lock[newproc->cpu]);
@@ -478,6 +483,7 @@ void proc_loop()
 		/* BSP signals APs to start their proc_loops too */
 		simple_cv_broadcast(&boot_condition);
 	}
+	proc_register_idle(proc_update_cpu_usage, IDLE_BACKGROUND, 150);
 	while (true) {
 		if (proc_list[cpu] == NULL) {
 			/* This CPU has nothing to do; prevent busy spin */
@@ -574,4 +580,43 @@ void proc_queue_dpc(dpc_t handler)
 	newidle->next = task_idles;
 
 	task_idles = newidle;
+}
+
+static void proc_update_cpu_usage(void) {
+
+	uint32_t runnable = 0;
+	const uint8_t cpu = logical_cpu_id();
+	uint64_t flags;
+
+	for (process_t* cur = proc_list[cpu]; cur; cur = cur->sched_next) {
+		if (cur->state == PROC_RUNNING) {
+			runnable++;
+		}
+	}
+
+	for (process_t* cur = proc_list[cpu]; cur; cur = cur->sched_next) {
+		uint32_t sample = 0;
+
+		if (runnable && cur->state == PROC_RUNNING) {
+			sample = 100 / runnable;
+		}
+
+		cur->cpu_percent = ((cur->cpu_percent * 31) + sample) / 32;
+	}
+}
+
+uint32_t proc_cpu_percent(pid_t pid)
+{
+	uint32_t perc = 0;
+	process_t* proc = NULL;
+	lock_spinlock(&combined_proc_lock);
+	proc_id_t* id = hashmap_get(process_by_pid, &(proc_id_t){ .id = pid });
+	if (id) {
+		proc = id->proc;
+	}
+	if (proc) {
+		perc = proc->cpu_percent;
+	}
+	unlock_spinlock(&combined_proc_lock);
+	return perc;
 }

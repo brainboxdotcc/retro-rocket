@@ -97,7 +97,7 @@ ENDPROC
 DEF PROCdisplayInput
 	PROChideCursor
 	CURSOR 2, TERMHEIGHT
-	COLOR 15
+	COLOUR 15
 	BACKGROUND 1
 	leftX = LEN(curChannel$) + 5
 	PRINT "["; curChannel$; "] ";

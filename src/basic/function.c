@@ -179,6 +179,7 @@ struct basic_int_fn builtin_int[] =
 	{ basic_tell,                "TELL"              },
 	{ basic_memrealloc,          "MEMREALLOC"        },
 	{ basic_string_to_buffer,    "STRINGTOBUFFER"    },
+	{ basic_getproccpu,          "GETPROCCPU"        },
 	{ NULL,                      NULL                },
 };
 

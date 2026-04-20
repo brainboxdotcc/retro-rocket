@@ -42,6 +42,14 @@ int64_t basic_getprocid(struct basic_ctx* ctx)
 	return proc_id(intval);
 }
 
+int64_t basic_getproccpu(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("GETPROCCPU", 0);
+	return proc_cpu_percent(intval);
+}
+
 char* basic_getprocname(struct basic_ctx* ctx)
 {
 	PARAMS_START;

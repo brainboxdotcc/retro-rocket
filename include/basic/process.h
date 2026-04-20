@@ -133,3 +133,5 @@ void eval_statement(struct basic_ctx* ctx);
 void goto_statement(struct basic_ctx* ctx);
 
 void yield_statement(struct basic_ctx* ctx);
+
+int64_t basic_getproccpu(struct basic_ctx* ctx);

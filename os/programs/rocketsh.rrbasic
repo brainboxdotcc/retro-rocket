@@ -14,9 +14,9 @@ VERSION$ = "3.1"
 REM Welcome message
 PRINT ""
 PRINT "Welcome to ";
-COLOR 14
+COLOUR 14
 PRINT "Retro Rocket ";
-COLOR 7
+COLOUR 7
 PRINT "BASIC shell."
 PRINT MEMFREE; " bytes free."
 PRINT ""
@@ -34,9 +34,9 @@ END
 
 REM Prompt display
 DEF PROCdisplayPrompt
-	COLOR 14
+	COLOUR 14
 	PRINT PROMPT$;
-	COLOR 7
+	COLOUR 7
 	PRINT "> ";
 ENDPROC
 
@@ -131,9 +131,9 @@ REM display version information
 DEF PROCversion
 	PRINT "┌─────────────────────────────────────────────────────┐"
 	PRINT "│ ";
-	COLOR 14
+	COLOUR 14
 	PRINT "rocketsh ";
-	COLOR 7
+	COLOUR 7
 	PRINT "Retro Rocket Shell version "; VERSION$; "             │"
 	PRINT "├─────────────────────────────────────────────────────┤"
 	PRINT "│ Licensed under the Apache 2.0 License.              │"
@@ -180,9 +180,9 @@ DEF PROCbuiltinHistory
 
 	entry = 1
 	FOR i = EDhistPtr - 1 TO 1 STEP -1
-		COLOR 14
+		COLOUR 14
 		PRINT entry;
-		COLOR 7
+		COLOUR 7
 		PRINT "> ";
 		PRINT EDhist$(i)
 		entry = entry + 1
@@ -308,9 +308,9 @@ DEF PROCbuiltinMultiLineRepl
     MULTI$ = ""
     multiLine = 1
     REPEAT
-        COLOR 14
+        COLOUR 14
         PRINT multiLine;
-        COLOR 7
+        COLOUR 7
         PRINT "> ";
         PROCEdLine
         PRINT ""
