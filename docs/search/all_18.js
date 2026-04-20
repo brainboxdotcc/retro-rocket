@@ -25,7 +25,7 @@ var searchData=
   ['openout_2emd_22',['OPENOUT.md',['../OPENOUT_8md.html',1,'']]],
   ['openup_20function_23',['OPENUP Function',['../OPENUP.html',1,'int-funcs']]],
   ['openup_2emd_24',['OPENUP.md',['../OPENUP_8md.html',1,'']]],
-  ['operations_25',['Arrays &amp;amp; list-like operations',['../basic-intdev.html#arrays--list-like-operations',1,'']]],
+  ['operations_25',['operations',['../basic-intdev.html#arrays--list-like-operations',1,'Arrays &amp; list-like operations'],['../longstring.html#substring-operations',1,'Substring operations']]],
   ['operators_26',['Comparison operators',['../IF.html#comparison-operators',1,'']]],
   ['optional_27',['Line numbers are optional',['../basic-differences.html#line-numbers-are-optional',1,'']]],
   ['or_20additional_20liability_28',['9. Accepting Warranty or Additional Liability',['../third-party-notices.html#autotoc_md9-accepting-warranty-or-additional-liability',1,'']]],
@@ -47,7 +47,7 @@ var searchData=
   ['outportq_2emd_44',['OUTPORTQ.md',['../OUTPORTQ_8md.html',1,'']]],
   ['outportw_20keyword_45',['OUTPORTW Keyword',['../OUTPORTW.html',1,'keywords']]],
   ['outportw_2emd_46',['OUTPORTW.md',['../OUTPORTW_8md.html',1,'']]],
-  ['output_47',['Example output',['../udptest.html#example-output',1,'']]],
+  ['output_47',['output',['../udptest.html#example-output',1,'Example output'],['../longstring.html#streaming-output',1,'Streaming output']]],
   ['overview_48',['Overview',['../bootflow.html#overview',1,'Overview'],['../interrupts.html#overview-1',1,'Overview']]],
   ['overview_49',['Directory overview',['../file-system.html#directory-overview',1,'']]]
 ];

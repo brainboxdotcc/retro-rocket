@@ -5,6 +5,16 @@ LIBRARY LIB$ + "/http"
 PROChttp_get("http://neuron.brainbox.cc/test.txt")
 PRINT "HTTP status code: "; FNhttp_result$("code")
 PRINT "Response body:"
-PRINT FNhttp_result$("body")
+
+body = FNhttp_result("body")
+n = MAPGET(body, "size")
+
+PRINT n
+
+FOR i = 0 TO n - 1
+    PRINT MAPGET$(body, STR$(i));
+NEXT
+
+PRINT
 
 END

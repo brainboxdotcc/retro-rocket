@@ -191,103 +191,224 @@ DEF PROChttp_patch(url$, patchdata$)
     PROChttp_request("PATCH", url$, patchdata$)
 ENDPROC
 
+DEF FNhttp__find_crlf(s$)
+    _http_i = 0
+    IF LEN(s$) < 2 THEN
+        = 0
+    ENDIF
+    FOR _http_i = 1 TO LEN(s$) - 1
+        IF MID$(s$, _http_i, 2) = CHR$(13) + CHR$(10) THEN
+            = _http_i
+        ENDIF
+    NEXT
+= 0
+
+DEF PROChttp__split_response
+    __http_headers = MAP
+    __http_body = MAP
+
+    __http_headers_n = 0
+    __http_body_n = 0
+    __http_in_body = 0
+    __http_carry$ = ""
+
+    __http_crlf$ = CHR$(13) + CHR$(10)
+    __http_sep$ = __http_crlf$ + __http_crlf$
+
+    FOR i = 0 TO __http_n - 1
+        __http_chunk$ = MAPGET$(__http_response, STR$(i))
+
+        IF __http_in_body = 1 THEN
+            IF __http_chunk$ <> "" THEN
+                MAPSET __http_body, STR$(__http_body_n), __http_chunk$
+                __http_body_n = __http_body_n + 1
+            ENDIF
+        ELSE
+            __http_scan$ = __http_carry$ + __http_chunk$
+
+            _http_ok = 0
+            __http_headblob$ = ""
+            __http_bodyblob$ = ""
+
+            MATCH _http_ok, "^(.*?)" + __http_sep$ + "(.*)$", __http_scan$, __http_headblob$, __http_bodyblob$
+
+            IF _http_ok = 1 THEN
+                __http_in_body = 1
+                __http_carry$ = ""
+
+                __http_rest$ = __http_headblob$
+
+                REPEAT
+                    _http_ok = 0
+                    __http_line$ = ""
+                    __http_next$ = ""
+
+                    MATCH _http_ok, "^(.*?)" + __http_crlf$ + "(.*)$", __http_rest$, __http_line$, __http_next$
+
+                    IF _http_ok = 1 THEN
+                        MAPSET __http_headers, STR$(__http_headers_n), __http_line$
+                        __http_headers_n = __http_headers_n + 1
+                        __http_rest$ = __http_next$
+                    ELSE
+                        IF __http_rest$ <> "" THEN
+                            MAPSET __http_headers, STR$(__http_headers_n), __http_rest$
+                            __http_headers_n = __http_headers_n + 1
+                        ENDIF
+                        __http_rest$ = ""
+                    ENDIF
+                UNTIL __http_rest$ = ""
+
+                IF __http_bodyblob$ <> "" THEN
+                    MAPSET __http_body, STR$(__http_body_n), __http_bodyblob$
+                    __http_body_n = __http_body_n + 1
+                ENDIF
+            ELSE
+                __http_carry$ = __http_scan$
+            ENDIF
+        ENDIF
+    NEXT
+
+    IF __http_in_body = 0 THEN
+        IF __http_carry$ <> "" THEN
+            MAPSET __http_headers, STR$(__http_headers_n), __http_carry$
+            __http_headers_n = __http_headers_n + 1
+        ENDIF
+    ELSE
+        IF __http_carry$ <> "" THEN
+            MAPSET __http_body, STR$(__http_body_n), __http_carry$
+            __http_body_n = __http_body_n + 1
+        ENDIF
+    ENDIF
+
+    MAPSET __http_headers, "size", __http_headers_n
+    MAPSET __http_body, "size", __http_body_n
+ENDPROC
+
+DEF FNhttp__header_line$(wanted_line)
+    IF wanted_line < 0 THEN
+        = ""
+    ENDIF
+    IF wanted_line >= MAPGET(__http_headers, "size") THEN
+        = ""
+    ENDIF
+= MAPGET$(__http_headers, STR$(wanted_line))
+
+DEF FNhttp__header_value$(header_name$)
+    __http_prefix$ = LOWER$(header_name$) + ":"
+    __http_plen = LEN(__http_prefix$)
+
+    FOR i = 0 TO MAPGET(__http_headers, "size") - 1
+        __http_line$ = MAPGET$(__http_headers, STR$(i))
+        IF LEN(__http_line$) >= __http_plen THEN
+            IF LEFT$(LOWER$(__http_line$), __http_plen) = __http_prefix$ THEN
+                = TRIM$(MID$(__http_line$, __http_plen + 1))
+            ENDIF
+        ENDIF
+    NEXT
+= ""
+
+DEF FN__http_loop$(nn$)
+    nn$ = nn$ + INSOCKET$(FD, 1024)
+    IF LEN(nn$) > 4096 THEN
+        MAPSET __http_response, STR$(__http_n), nn$
+        __http_n = __http_n + 1
+        = ""
+    ENDIF
+=nn$
+
 DEF PROChttp_request(method$, url$, postdata$)
-    LOCAL HOST$ = FNhttp_url_host$(url$)
-    LOCAL PORT = FNhttp_url_port(url$)
-    IF PORT = 0 THEN LOCAL PORT = 80
-    LOCAL SCHEME$ = FNhttp_url_scheme$(url$)
-    LOCAL IP$ = DNS$(HOST$)
+    HOST$ = FNhttp_url_host$(url$)
+    PORT = FNhttp_url_port(url$)
+    IF PORT = 0 THEN PORT = 80
+    SCHEME$ = FNhttp_url_scheme$(url$)
+    IP$ = DNS$(HOST$)
     __http_request_response_base$ = ""
     _path$ = FNhttp_url_path$(url$)
     _q$ = FNhttp_url_query$(url$)
     IF _q$ <> "" THEN
         _path$ = _path$ + "?" + _q$
     ENDIF
+
+    __http_response = MAP
+    __http_headers = MAP
+    __http_body = MAP
+    __http_n = 0
+    MAPSET __http_response, "size", 0
+    MAPSET __http_headers, "size", 0
+    MAPSET __http_body, "size", 0
+
     IF IP$ <> "0.0.0.0" THEN
-        LOCAL request$ = method$ + " " + _path$ + " HTTP/1.0" + CHR$(13) + CHR$(10) + "Host: " + HOST$ + CHR$(13) + CHR$(10) + "Connection: close" + CHR$(13) + CHR$(10)
+        request$ = method$ + " " + _path$ + " HTTP/1.0" + CHR$(13) + CHR$(10) + "Host: " + HOST$ + CHR$(13) + CHR$(10) + "Connection: close" + CHR$(13) + CHR$(10)
         IF postdata$ <> "" THEN
-            LOCAL request$ = request$ + "Content-Length: " + STR$(LEN(postdata$)) + CHR$(13) + CHR$(10) + CHR$(13) + CHR$(10) + postdata$
+            request$ = request$ + "Content-Length: " + STR$(LEN(postdata$)) + CHR$(13) + CHR$(10) + CHR$(13) + CHR$(10) + postdata$
         ELSE
-            LOCAL request$ = request$ + "Content-Length: 0" + CHR$(13) + CHR$(10) + CHR$(13) + CHR$(10)
+            request$ = request$ + "Content-Length: 0" + CHR$(13) + CHR$(10) + CHR$(13) + CHR$(10)
         ENDIF
+
         IF SCHEME$ = "https" OR PORT = 443 THEN
             SSLCONNECT FD, IP$, PORT, HOST$
         ELSE
             CONNECT FD, IP$, PORT
         ENDIF
+
         SOCKWRITE FD, request$;
         __http_request_response_base$ = ""
         REPEAT
-            __http_request_response_base$ = __http_request_response_base$ + INSOCKET$(FD, 1024)
+            __http_request_response_base$ = FN__http_loop$(__http_request_response_base$)
         UNTIL SOCKSTATUS(FD) = 0
+        IF __http_request_response_base$ <> "" THEN
+            MAPSET __http_response, STR$(__http_n), __http_request_response_base$
+            __http_n = __http_n + 1
+            __http_request_response_base$ = ""
+        ENDIF
+        MAPSET __http_response, "size", __http_n
         SOCKCLOSE FD
+
+        PROChttp__split_response
     ENDIF
 ENDPROC
 
+DEF FNhttp_result(part$)
+    part$ = LOWER$(part$)
+    IF part$ = "headers" THEN
+        = __http_headers
+    ENDIF
+    IF part$ = "body" THEN
+        = __http_body
+    ENDIF
+= 0
+
 DEF FNhttp_result$(part$)
-    __http_request_response$ = __http_request_response_base$
-	part$ = LOWER$(part$)
-	IF __http_request_response$ = "" THEN = ""
+    part$ = LOWER$(part$)
 
-	_http_crlfcrlf$ = CHR$(13) + CHR$(10) + CHR$(13) + CHR$(10)
-	_http_head$ = TOKENIZE$(__http_request_response$, _http_crlfcrlf$)
-	_http_body$ = __http_request_response$
+    IF __http_n = 0 THEN
+        = ""
+    ENDIF
 
-	IF part$ = "body" THEN
-		= _http_body$
-	ENDIF
-	IF part$ = "headers" THEN
-		= _http_head$
-	ENDIF
+    IF part$ = "status" THEN
+        = FNhttp__header_line$(0)
+    ENDIF
 
-	_http_status$ = TOKENIZE$(_http_head$, CHR$(13) + CHR$(10))
+    __http_status$ = FNhttp__header_line$(0)
+    __http_proto$ = ""
+    __http_code$ = ""
+    __http_reason$ = ""
+    _http_ok = 0
+    MATCH _http_ok, "^([A-Za-z]+/[0-9.]+)[ ]+([0-9]{3})[ ]*(.*)$", __http_status$, __http_proto$, __http_code$, __http_reason$
 
-	IF part$ = "status" THEN
-	    = _http_status$
-	ENDIF
+    IF part$ = "code" THEN
+        = __http_code$
+    ENDIF
 
-	_http_proto$ = ""
-	_http_code$ = ""
-	_http_reason$ = ""
-	_http_ok = 0
-	MATCH _http_ok, "^([A-Za-z]+/[0-9.]+)[ ]+([0-9]{3})[ ]*(.*)$", _http_status$, _http_proto$, _http_code$, _http_reason$
+    IF part$ = "reason" THEN
+        = __http_reason$
+    ENDIF
 
-	IF part$ = "code" THEN
-		= _http_code$
-	ENDIF
-	IF part$ = "reason" THEN
-		= _http_reason$
-	ENDIF
-
-	IF LEFT$(part$, 7) = "header:" THEN
-		_http_hname$ = LOWER$(MID$(part$, 8))
-		IF _http_hname$ = "" THEN
-			= ""
-		ENDIF
-
-		_http_delim$ = CHR$(13) + CHR$(10)
-		_http_rest$ = _http_head$
-		_http_found$ = ""
-		_http_done = 0
-
-		REPEAT
-			IF _http_rest$ = "" THEN
-				_http_done = 1
-			ELSE
-				_http_line$ = TOKENIZE$(_http_rest$, _http_delim$)
-				_http_lowline$ = LOWER$(_http_line$)
-				_http_prefix$ = _http_hname$ + ":"
-				_http_plen = LEN(_http_prefix$)
-
-				IF LEN(_http_lowline$) >= _http_plen THEN
-					IF LEFT$(_http_lowline$, _http_plen) = _http_prefix$ THEN
-						_http_found$ = TRIM$(MID$(_http_line$, _http_plen + 1))
-						_http_done = 1
-					ENDIF
-				ENDIF
-			ENDIF
-		UNTIL _http_done = 1
-
-		= _http_found$
-	ENDIF
+    IF LEFT$(part$, 7) = "header:" THEN
+        __http_hname$ = MID$(part$, 8)
+        IF __http_hname$ = "" THEN
+            = ""
+        ENDIF
+        = FNhttp__header_value$(__http_hname$)
+    ENDIF
 = ""

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['y_0',['VDU 31, x, y',['../VDU.html#vdu-31-x-y',1,'']]],
+  ['y_0',['y',['../datetime.html#fnisleapy',1,'FNisLeap(y)'],['../VDU.html#vdu-31-x-y',1,'VDU 31, x, y']]],
   ['yday_20function_1',['YDAY Function',['../YDAY.html',1,'int-funcs']]],
   ['yday_2emd_2',['YDAY.md',['../YDAY_8md.html',1,'']]],
   ['year_20function_3',['YEAR Function',['../YEAR.html',1,'int-funcs']]],

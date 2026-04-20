@@ -124,7 +124,8 @@ $(function(){initNavTree('http.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">LIBRARY LIB$ + &quot;/http&quot;</div>
-</div><!-- fragment --><p>The HTTP library provides simple URL parsing helpers and minimal client-side HTTP request routines (HTTP/1.0 with <span class="tt">Connection: close</span>). Responses are stored in an internal buffer for later inspection.</p>
+</div><!-- fragment --><p>The HTTP library provides simple URL parsing helpers and minimal client-side HTTP request routines (HTTP/1.0 with <span class="tt">Connection: close</span>).</p>
+<p>Responses are stored internally as <b>chunked data</b> to avoid string size limits. The response is split into headers and body after receipt. The body is exposed as a sequence of chunks rather than a single concatenated string.</p>
 <p>The following publicly documented procedures and functions are available via this library.</p>
 <hr  />
 <h2 class="doxsection"><a class="anchor" id="url-helpers"></a>
@@ -155,7 +156,7 @@ FNhttp_url_param$(url$, key$)</h3>
 Requests</h2>
 <h3 class="doxsection"><a class="anchor" id="prochttp_geturl"></a>
 PROChttp_get(url$)</h3>
-<p>Perform a <span class="tt">GET</span> request to <span class="tt">url$</span>. The full response (headers + body) is captured internally.</p>
+<p>Perform a <span class="tt">GET</span> request to <span class="tt">url$</span>.</p>
 <h3 class="doxsection"><a class="anchor" id="prochttp_headurl"></a>
 PROChttp_head(url$)</h3>
 <p>Perform a <span class="tt">HEAD</span> request. Only headers are expected; body may be empty.</p>
@@ -173,24 +174,47 @@ PROChttp_delete(url$)</h3>
 <p>Perform a <span class="tt">DELETE</span> request.</p>
 <h3 class="doxsection"><a class="anchor" id="prochttp_requestmethod-url-body"></a>
 PROChttp_request(method$, url$, body$)</h3>
-<p>Low-level entry point used by the above helpers. Builds the request line and minimal headers (<span class="tt">Host</span>, <span class="tt">Connection: close</span>, optional <span class="tt">Content-Length</span>) and sends the request over HTTP, or HTTPS when the scheme/port implies HTTPS. The full response is stored for later retrieval.</p>
+<p>Low-level entry point used by the above helpers. Builds the request line and minimal headers (<span class="tt">Host</span>, <span class="tt">Connection: close</span>, optional <span class="tt">Content-Length</span>) and sends the request over HTTP, or HTTPS when the scheme/port implies HTTPS.</p>
+<p>The full response is received in chunks and internally split into headers and body.</p>
 <hr  />
 <h2 class="doxsection"><a class="anchor" id="response-access"></a>
 Response access</h2>
 <h3 class="doxsection"><a class="anchor" id="fnhttp_resultpart"></a>
-FNhttp_result$(part$)</h3>
-<p>Return a specific portion of the most recent response. <span class="tt">part$</span> must be one of:</p>
+FNhttp_result(part$)</h3>
+<p>Return a structured portion of the most recent response.</p>
 <ul>
-<li><span class="tt">"body"</span> - response body only</li>
-<li><span class="tt">"headers"</span> - raw header block (status line + header lines, CRLF-delimited)</li>
+<li><span class="tt">"headers"</span> - returns the header map</li>
+<li><span class="tt">"body"</span> - returns the body map</li>
+</ul>
+<p>Both are MAP-backed collections:</p>
+<ul>
+<li>numeric keys <span class="tt">"0"</span> … <span class="tt">"n-1"</span> contain chunks</li>
+<li><span class="tt">"size"</span> contains the number of chunks</li>
+</ul>
+<p>These maps should be treated as read-only.</p>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="fnhttp_resultpart-1"></a>
+FNhttp_result$(part$)</h3>
+<p>Return string-based response data. <span class="tt">part$</span> must be one of:</p>
+<ul>
 <li><span class="tt">"status"</span> - status line (e.g. <span class="tt">HTTP/1.1 200 OK</span>)</li>
 <li><span class="tt">"code"</span> - status code as a string (e.g. <span class="tt">200</span>)</li>
 <li><span class="tt">"reason"</span> - reason phrase (e.g. <span class="tt">OK</span>)</li>
-<li><span class="tt">"header:&lt;name&gt;"</span> - value of a single header (case-insensitive match on <span class="tt">&lt;name&gt;</span>). Returns the first occurrence, trimmed of surrounding whitespace.</li>
+<li><span class="tt">"header:&lt;name&gt;"</span> - value of a single header (case-insensitive match on <span class="tt">&lt;name&gt;</span>)</li>
 </ul>
-<p>If no response is available, or the requested part does not exist, an empty string is returned.</p>
+<p>Returns an empty string if no response is available or the requested value does not exist.</p>
 <hr  />
-<h2 class="doxsection"><a class="anchor" id="example-22"></a>
+<h2 class="doxsection"><a class="anchor" id="body-access-pattern"></a>
+Body access pattern</h2>
+<p>The response body is not returned as a single string. Instead, iterate over chunks:</p>
+<div class="fragment"><div class="line">body = FNhttp_result(&quot;body&quot;)</div>
+<div class="line"> </div>
+<div class="line">FOR i = 0 TO MAPGET(body, &quot;size&quot;) - 1</div>
+<div class="line">    PRINT MAPGET$(body, STR$(i));</div>
+<div class="line">NEXT</div>
+</div><!-- fragment --><p>This allows handling arbitrarily large responses without exceeding string limits.</p>
+<hr  />
+<h2 class="doxsection"><a class="anchor" id="example-23"></a>
 Example</h2>
 <div class="fragment"><div class="line">LIBRARY LIB$ + &quot;/http&quot;</div>
 <div class="line"> </div>
@@ -198,8 +222,22 @@ Example</h2>
 <div class="line"> </div>
 <div class="line">PRINT &quot;HTTP status code: &quot;; FNhttp_result$(&quot;code&quot;)</div>
 <div class="line">PRINT &quot;Response body:&quot;</div>
-<div class="line">PRINT FNhttp_result$(&quot;body&quot;)</div>
-</div><!-- fragment --><p>This performs a simple <span class="tt">GET</span>, prints the numeric status code, then prints the body. </p>
+<div class="line"> </div>
+<div class="line">body = FNhttp_result(&quot;body&quot;)</div>
+<div class="line"> </div>
+<div class="line">FOR i = 0 TO MAPGET(body, &quot;size&quot;) - 1</div>
+<div class="line">    PRINT MAPGET$(body, STR$(i));</div>
+<div class="line">NEXT</div>
+</div><!-- fragment --><p>This performs a simple <span class="tt">GET</span>, prints the numeric status code, then streams the body safely.</p>
+<hr  />
+<h2 class="doxsection"><a class="anchor" id="notes-210"></a>
+Notes</h2>
+<ul>
+<li>Responses are processed in a streaming-friendly manner; large bodies are never concatenated automatically.</li>
+<li>Header parsing is performed once after the response is fully received.</li>
+<li>HTTP/1.0 with <span class="tt">Connection: close</span> is used to simplify response handling (no chunked transfer decoding).</li>
+<li>The returned MAP structures should not be modified by user code. </li>
+</ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

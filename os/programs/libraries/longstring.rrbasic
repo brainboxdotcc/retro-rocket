@@ -1,0 +1,132 @@
+REM Long String Library
+REM Opaque MAP-backed chunked string
+
+DEF PROClongstring
+ENDPROC
+
+DEF FNnew_long_string
+    __ls = MAP
+    MAPSET __ls, "size", 0
+    MAPSET __ls, "len", 0
+= __ls
+
+
+DEF PROClong_string_append(ls, s$)
+    __n = MAPGET(ls, "size")
+    MAPSET ls, STR$(__n), s$
+    MAPSET ls, "size", __n + 1
+    MAPSET ls, "len", MAPGET(ls, "len") + LEN(s$)
+ENDPROC
+
+
+DEF FNlong_string_len(ls)
+= MAPGET(ls, "len")
+
+
+DEF FNlong_string_chunks(ls)
+= MAPGET(ls, "size")
+
+
+DEF FNlong_string_chunk$(ls, idx)
+    IF idx < 0 THEN
+        = ""
+    ENDIF
+    IF idx >= MAPGET(ls, "size") THEN
+        = ""
+    ENDIF
+= MAPGET$(ls, STR$(idx))
+
+REM Core substring (0-based)
+DEF FNlong_string_mid$(ls, start, length)
+    IF length <= 0 THEN
+        = ""
+    ENDIF
+
+    IF start < 0 THEN
+        start = 0
+    ENDIF
+
+    __pos = 0
+    __out$ = ""
+
+    FOR __i = 0 TO MAPGET(ls, "size") - 1
+        __chunk$ = MAPGET$(ls, STR$(__i))
+        __clen = LEN(__chunk$)
+
+        IF start < __pos + __clen THEN
+            __off = start - __pos
+            IF __off < 0 THEN
+                __off = 0
+            ENDIF
+
+            __take = __clen - __off
+            IF __take > length - LEN(__out$) THEN
+                __take = length - LEN(__out$)
+            ENDIF
+
+            __out$ = __out$ + MID$(__chunk$, __off + 1, __take)
+
+            IF LEN(__out$) >= length THEN
+                = __out$
+            ENDIF
+        ENDIF
+
+        __pos = __pos + __clen
+    NEXT
+
+= __out$
+
+
+DEF FNlong_string_left$(ls, n)
+    IF n <= 0 THEN
+        = ""
+    ENDIF
+= FNlong_string_mid$(ls, 0, n)
+
+
+DEF FNlong_string_right$(ls, n)
+    IF n <= 0 THEN
+        = ""
+    ENDIF
+
+    __len = MAPGET(ls, "len")
+    __start = __len - n
+
+    IF __start < 0 THEN
+        __start = 0
+    ENDIF
+
+= FNlong_string_mid$(ls, __start, n)
+
+
+DEF FNlong_string_substr$(ls, start, length)
+= FNlong_string_mid$(ls, start, length)
+
+
+REM Find substring (returns 1-based position, 0 if not found)
+DEF FNlong_string_instr(ls, needle$)
+    __buf$ = ""
+    __nlen = LEN(needle$)
+
+    IF __nlen = 0 THEN
+        = 1
+    ENDIF
+
+    __pos = 1
+
+    FOR __i = 0 TO MAPGET(ls, "size") - 1
+        __chunk$ = MAPGET$(ls, STR$(__i))
+        __buf$ = __buf$ + __chunk$
+
+        __p = INSTR(__buf$, needle$)
+        IF __p > 0 THEN
+            = __pos + __p - 1
+        ENDIF
+
+        IF LEN(__buf$) > __nlen THEN
+            __pos = __pos + LEN(__buf$) - __nlen
+            __buf$ = RIGHT$(__buf$, __nlen)
+        ENDIF
+    NEXT
+
+= 0

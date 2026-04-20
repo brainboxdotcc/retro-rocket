@@ -5,7 +5,8 @@ LIBRARY LIB$ + "/http"
 ```
 
 The HTTP library provides simple URL parsing helpers and minimal client-side HTTP request routines (HTTP/1.0 with `Connection: close`).
-Responses are stored in an internal buffer for later inspection.
+
+Responses are stored internally as **chunked data** to avoid string size limits. The response is split into headers and body after receipt. The body is exposed as a sequence of chunks rather than a single concatenated string.
 
 The following publicly documented procedures and functions are available via this library.
 
@@ -48,7 +49,7 @@ Look up a single query parameter value by name. Returns the value if present, an
 
 ### PROChttp_get(url$)
 
-Perform a `GET` request to `url$`. The full response (headers + body) is captured internally.
+Perform a `GET` request to `url$`.
 
 ### PROChttp_head(url$)
 
@@ -73,24 +74,56 @@ Perform a `DELETE` request.
 ### PROChttp_request(method$, url$, body$)
 
 Low-level entry point used by the above helpers. Builds the request line and minimal headers (`Host`, `Connection: close`, optional `Content-Length`) and sends
-the request over HTTP, or HTTPS when the scheme/port implies HTTPS. The full response is stored for later retrieval.
+the request over HTTP, or HTTPS when the scheme/port implies HTTPS.
+
+The full response is received in chunks and internally split into headers and body.
 
 ---
 
 ## Response access
 
+### FNhttp_result(part$)
+
+Return a structured portion of the most recent response.
+
+* `"headers"` - returns the header map
+* `"body"` - returns the body map
+
+Both are MAP-backed collections:
+
+* numeric keys `"0"` … `"n-1"` contain chunks
+* `"size"` contains the number of chunks
+
+These maps should be treated as read-only.
+
+---
+
 ### FNhttp_result$(part$)
 
-Return a specific portion of the most recent response. `part$` must be one of:
+Return string-based response data. `part$` must be one of:
 
-* `"body"` - response body only
-* `"headers"` - raw header block (status line + header lines, CRLF-delimited)
 * `"status"` - status line (e.g. `HTTP/1.1 200 OK`)
 * `"code"` - status code as a string (e.g. `200`)
 * `"reason"` - reason phrase (e.g. `OK`)
-* `"header:<name>"` - value of a single header (case-insensitive match on `<name>`). Returns the first occurrence, trimmed of surrounding whitespace.
+* `"header:<name>"` - value of a single header (case-insensitive match on `<name>`)
 
-If no response is available, or the requested part does not exist, an empty string is returned.
+Returns an empty string if no response is available or the requested value does not exist.
+
+---
+
+## Body access pattern
+
+The response body is not returned as a single string. Instead, iterate over chunks:
+
+```BASIC
+body = FNhttp_result("body")
+
+FOR i = 0 TO MAPGET(body, "size") - 1
+    PRINT MAPGET$(body, STR$(i));
+NEXT
+```
+
+This allows handling arbitrarily large responses without exceeding string limits.
 
 ---
 
@@ -103,7 +136,21 @@ PROChttp_get("http://neuron.brainbox.cc/test.txt")
 
 PRINT "HTTP status code: "; FNhttp_result$("code")
 PRINT "Response body:"
-PRINT FNhttp_result$("body")
+
+body = FNhttp_result("body")
+
+FOR i = 0 TO MAPGET(body, "size") - 1
+    PRINT MAPGET$(body, STR$(i));
+NEXT
 ```
 
-This performs a simple `GET`, prints the numeric status code, then prints the body.
+This performs a simple `GET`, prints the numeric status code, then streams the body safely.
+
+---
+
+## Notes
+
+* Responses are processed in a streaming-friendly manner; large bodies are never concatenated automatically.
+* Header parsing is performed once after the response is fully received.
+* HTTP/1.0 with `Connection: close` is used to simplify response handling (no chunked transfer decoding).
+* The returned MAP structures should not be modified by user code.

@@ -5,7 +5,7 @@
  *
  * This defines the maximum number of characters allowed for string variables in the program.
  */
-#define MAX_STRINGLEN 1024
+#define MAX_STRINGLEN 10240
 
 /**
  * @brief Maximum stack depth for GOSUB, PROC, and FN calls.

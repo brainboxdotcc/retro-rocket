@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=11">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Retro Rocket OS: Libraries</title>
+    <title>Retro Rocket OS: Long String Library</title>
     <link href="tabs.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -16,7 +16,7 @@
     <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-    <meta name="title" content="Libraries - Retro Rocket OS">
+    <meta name="title" content="Long String Library - Retro Rocket OS">
     <meta name="description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="author" content="Retro Rocket Developers">
     <meta name="robots" content="index, follow">
@@ -24,7 +24,7 @@
     <meta name="theme-color" content="#0b0f14">
     <link rel="icon" href="rr.png">
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="Libraries - Retro Rocket OS">
+    <meta property="og:title" content="Long String Library - Retro Rocket OS">
     <meta property="og:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://retrorocket.dev/">
@@ -32,7 +32,7 @@
     <meta property="og:image:alt" content="Retro Rocket OS running on a retro-style desktop">
     <meta property="og:site_name" content="Retro Rocket OS">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Libraries - Retro Rocket OS">
+    <meta name="twitter:title" content="Long String Library - Retro Rocket OS">
     <meta name="twitter:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="twitter:image" content="https://retrorocket.dev/leader4.png">
     <link rel="preload" as="image" href="https://retrorocket.dev/leader4.png">
@@ -94,7 +94,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('libraries.html','',''); });
+$(function(){initNavTree('longstring.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -120,21 +120,109 @@ $(function(){initNavTree('libraries.html','',''); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">Libraries </div></div>
+  <div class="headertitle"><div class="title">Long String Library </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>System libraries are collections of procedures and functions that can be included in any BASIC program by means of the <a class="el" href="LIBRARY.html">LIBRARY Keyword</a> statement.</p>
-<p>Each library groups related functionality into a common set, allowing programs to extend their capabilities without redefining standard routines.</p>
-<p>To view details of each library, see its dedicated page in the navigation.</p>
+<div class="textblock"><div class="fragment"><div class="line">LIBRARY LIB$ + &quot;/longstring&quot;</div>
+</div><!-- fragment --><p>The longstring library provides a MAP-backed representation of strings that may exceed the normal string size limit.</p>
+<p>A long string is treated as an opaque handle and must only be accessed through the provided functions and procedures. Internally, data is stored as a sequence of chunks, allowing safe handling of arbitrarily large data without concatenation.</p>
+<p>The following publicly documented procedures and functions are available via this library.</p>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="available-libraries"></a>
-Available Libraries</h3>
+<h2 class="doxsection"><a class="anchor" id="creation-and-modification"></a>
+Creation and modification</h2>
+<h3 class="doxsection"><a class="anchor" id="fnnew_long_string"></a>
+FNnew_long_string</h3>
+<p>Create and return a new empty long string.</p>
+<div class="fragment"><div class="line">ls = FNnew_long_string</div>
+</div><!-- fragment --><hr  />
+<h3 class="doxsection"><a class="anchor" id="proclong_string_appendls-s"></a>
+PROClong_string_append(ls, s$)</h3>
+<p>Append a normal string <span class="tt">s$</span> to the end of the long string.</p>
+<p>Data is stored as an additional chunk. No concatenation is performed.</p>
+<hr  />
+<h2 class="doxsection"><a class="anchor" id="inspection"></a>
+Inspection</h2>
+<h3 class="doxsection"><a class="anchor" id="fnlong_string_lenls"></a>
+FNlong_string_len(ls)</h3>
+<p>Return the total length of the long string in characters.</p>
+<p>This value is maintained incrementally and does not require scanning the data.</p>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="fnlong_string_chunksls"></a>
+FNlong_string_chunks(ls)</h3>
+<p>Return the number of chunks stored internally.</p>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="fnlong_string_chunkls-idx"></a>
+FNlong_string_chunk$(ls, idx)</h3>
+<p>Return the chunk at index <span class="tt">idx</span>.</p>
+<p>Returns an empty string if <span class="tt">idx</span> is out of range.</p>
+<p>This function is primarily intended for streaming or debugging.</p>
+<hr  />
+<h2 class="doxsection"><a class="anchor" id="substring-operations"></a>
+Substring operations</h2>
+<p>All substring operations use <b>0-based indexing</b>.</p>
+<p>These functions do not concatenate the full string; only the requested portion is constructed.</p>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="fnlong_string_midls-start-length"></a>
+FNlong_string_mid$(ls, start, length)</h3>
+<p>Return a substring beginning at <span class="tt">start</span> with maximum length <span class="tt">length</span>.</p>
 <ul>
-<li><a class="el" href="ansi.html">ANSI Library</a></li>
-<li><a class="el" href="datetime.html">Date and Time Library</a></li>
-<li><a class="el" href="http.html">HTTP Library</a></li>
-<li><a class="el" href="longstring.html">Long String Library</a></li>
-<li><a class="el" href="mouse.html">Mouse Library</a> </li>
+<li><span class="tt">start</span> is 0-based</li>
+<li>returns an empty string if <span class="tt">length &lt;= 0</span></li>
+<li>safely handles out-of-range values</li>
+</ul>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="fnlong_string_leftls-n"></a>
+FNlong_string_left$(ls, n)</h3>
+<p>Return the first <span class="tt">n</span> characters of the long string.</p>
+<p>Equivalent to:</p>
+<div class="fragment"><div class="line">FNlong_string_mid$(ls, 0, n)</div>
+</div><!-- fragment --><hr  />
+<h3 class="doxsection"><a class="anchor" id="fnlong_string_rightls-n"></a>
+FNlong_string_right$(ls, n)</h3>
+<p>Return the last <span class="tt">n</span> characters of the long string.</p>
+<p>If <span class="tt">n</span> exceeds the total length, the entire string is returned.</p>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="fnlong_string_substrls-start-length"></a>
+FNlong_string_substr$(ls, start, length)</h3>
+<p>Alias of <span class="tt">FNlong_string_mid$</span>.</p>
+<p>Provided for naming consistency with other environments.</p>
+<hr  />
+<h2 class="doxsection"><a class="anchor" id="search"></a>
+Search</h2>
+<h3 class="doxsection"><a class="anchor" id="fnlong_string_instrls-needle"></a>
+FNlong_string_instr(ls, needle$)</h3>
+<p>Search for the first occurrence of <span class="tt">needle$</span> within the long string.</p>
+<ul>
+<li>returns a <b>1-based position</b> if found</li>
+<li>returns <span class="tt">0</span> if not found</li>
+</ul>
+<p>The search is performed safely across chunk boundaries.</p>
+<hr  />
+<h2 class="doxsection"><a class="anchor" id="usage-patterns"></a>
+Usage patterns</h2>
+<p>Long strings are designed for <b>streaming and partial access</b>, not full concatenation.</p>
+<p>Typical usage:</p>
+<div class="fragment"><div class="line">ls = FNnew_long_string</div>
+<div class="line"> </div>
+<div class="line">PROClong_string_append(ls, &quot;Hello &quot;)</div>
+<div class="line">PROClong_string_append(ls, &quot;world&quot;)</div>
+<div class="line"> </div>
+<div class="line">PRINT FNlong_string_mid$(ls, 0, 5)</div>
+</div><!-- fragment --><hr  />
+<h3 class="doxsection"><a class="anchor" id="streaming-output"></a>
+Streaming output</h3>
+<div class="fragment"><div class="line">FOR i = 0 TO FNlong_string_chunks(ls) - 1</div>
+<div class="line">    PRINT FNlong_string_chunk$(ls, i);</div>
+<div class="line">NEXT</div>
+</div><!-- fragment --><hr  />
+<h2 class="doxsection"><a class="anchor" id="notes-211"></a>
+Notes</h2>
+<ul>
+<li>Long strings are internally MAP-backed and should be treated as opaque.</li>
+<li>Data is stored as discrete chunks; no automatic joining is performed.</li>
+<li>Substring operations only construct the requested portion, making them safe for large data.</li>
+<li>The library is designed for use with streaming inputs such as sockets, files, and protocol parsers.</li>
+<li>Avoid constructing full strings unless you are certain the result will not exceed normal string limits. </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
@@ -151,7 +239,7 @@ Available Libraries</h3>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="index.html">Retro Rocket OS Documentation</a></li><li class="navelem"><a href="basic-ref.html">BASIC Language Reference</a></li>
+    <li class="navelem"><a href="index.html">Retro Rocket OS Documentation</a></li><li class="navelem"><a href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a href="libraries.html">Libraries</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.14.0 </li>
   </ul>
 </div>

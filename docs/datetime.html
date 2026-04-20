@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=11">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Retro Rocket OS: Libraries</title>
+    <title>Retro Rocket OS: Date and Time Library</title>
     <link href="tabs.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -16,7 +16,7 @@
     <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-    <meta name="title" content="Libraries - Retro Rocket OS">
+    <meta name="title" content="Date and Time Library - Retro Rocket OS">
     <meta name="description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="author" content="Retro Rocket Developers">
     <meta name="robots" content="index, follow">
@@ -24,7 +24,7 @@
     <meta name="theme-color" content="#0b0f14">
     <link rel="icon" href="rr.png">
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="Libraries - Retro Rocket OS">
+    <meta property="og:title" content="Date and Time Library - Retro Rocket OS">
     <meta property="og:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://retrorocket.dev/">
@@ -32,7 +32,7 @@
     <meta property="og:image:alt" content="Retro Rocket OS running on a retro-style desktop">
     <meta property="og:site_name" content="Retro Rocket OS">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Libraries - Retro Rocket OS">
+    <meta name="twitter:title" content="Date and Time Library - Retro Rocket OS">
     <meta name="twitter:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="twitter:image" content="https://retrorocket.dev/leader4.png">
     <link rel="preload" as="image" href="https://retrorocket.dev/leader4.png">
@@ -94,7 +94,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('libraries.html','',''); });
+$(function(){initNavTree('datetime.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -120,21 +120,75 @@ $(function(){initNavTree('libraries.html','',''); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">Libraries </div></div>
+  <div class="headertitle"><div class="title">Date and Time Library </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>System libraries are collections of procedures and functions that can be included in any BASIC program by means of the <a class="el" href="LIBRARY.html">LIBRARY Keyword</a> statement.</p>
-<p>Each library groups related functionality into a common set, allowing programs to extend their capabilities without redefining standard routines.</p>
-<p>To view details of each library, see its dedicated page in the navigation.</p>
+<div class="textblock"><div class="fragment"><div class="line"> id=&quot;m7q1ts&quot;</div>
+<div class="line">LIBRARY LIB$ + &quot;/datetime&quot;</div>
+</div><!-- fragment --><p>The datetime library provides simple utilities for working with Unix timestamps.</p>
+<p>It supports conversion from a Unix timestamp (seconds since 1 January 1970 UTC) into a human-readable date/time string. The implementation is lightweight and does not rely on external systems.</p>
+<p>The following publicly documented procedures and functions are available via this library.</p>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="available-libraries"></a>
-Available Libraries</h3>
+<h2 class="doxsection"><a class="anchor" id="utility-functions"></a>
+Utility functions</h2>
+<h3 class="doxsection"><a class="anchor" id="fnpadn-width"></a>
+FNpad$(n, width)</h3>
+<p>Return a zero-padded string representation of integer <span class="tt">n</span> with minimum width <span class="tt">width</span>.</p>
+<p>Example:</p>
+<div class="fragment"><div class="line"> id=&quot;0y8t6u&quot;</div>
+<div class="line">PRINT FNpad$(5, 2)</div>
+</div><!-- fragment --><p>Outputs:</p>
+<div class="fragment"><div class="line">05</div>
+</div><!-- fragment --><hr  />
+<h3 class="doxsection"><a class="anchor" id="fnisleapy"></a>
+FNisLeap(y)</h3>
+<p>Return <span class="tt">TRUE</span> if year <span class="tt">y</span> is a leap year, otherwise <span class="tt">FALSE</span>.</p>
+<p>Leap year rules follow the Gregorian calendar:</p>
 <ul>
-<li><a class="el" href="ansi.html">ANSI Library</a></li>
-<li><a class="el" href="datetime.html">Date and Time Library</a></li>
-<li><a class="el" href="http.html">HTTP Library</a></li>
-<li><a class="el" href="longstring.html">Long String Library</a></li>
-<li><a class="el" href="mouse.html">Mouse Library</a> </li>
+<li>divisible by 400 → leap year</li>
+<li>divisible by 100 → not a leap year</li>
+<li>divisible by 4 → leap year</li>
+</ul>
+<hr  />
+<h2 class="doxsection"><a class="anchor" id="time-conversion"></a>
+Time conversion</h2>
+<h3 class="doxsection"><a class="anchor" id="fnunixtimets"></a>
+FNunixtime$(ts)</h3>
+<p>Convert a Unix timestamp <span class="tt">ts</span> (seconds since 1970-01-01 00:00:00 UTC) into a formatted date/time string.</p>
+<p>The returned format is:</p>
+<div class="fragment"><div class="line">YYYY-MM-DD HH:MM:SS</div>
+</div><!-- fragment --><p>Example:</p>
+<div class="fragment"><div class="line"> id=&quot;w1j5k2&quot;</div>
+<div class="line">PRINT FNunixtime$(0)</div>
+</div><!-- fragment --><p>Outputs:</p>
+<div class="fragment"><div class="line">1970-01-01 00:00:00</div>
+</div><!-- fragment --><hr  />
+<h2 class="doxsection"><a class="anchor" id="behaviour-16"></a>
+Behaviour</h2>
+<ul>
+<li>Time is interpreted as <b>UTC</b></li>
+<li>Leap years are correctly handled</li>
+<li>Month lengths are adjusted dynamically for leap years</li>
+<li>No timezone or locale support is provided</li>
+</ul>
+<hr  />
+<h2 class="doxsection"><a class="anchor" id="example-22"></a>
+Example</h2>
+<div class="fragment"><div class="line"> id=&quot;7l2fqp&quot;</div>
+<div class="line">LIBRARY LIB$ + &quot;/datetime&quot;</div>
+<div class="line"> </div>
+<div class="line">PROCdatetime</div>
+<div class="line"> </div>
+<div class="line">ts = 1713550000</div>
+<div class="line">PRINT FNunixtime$(ts)</div>
+</div><!-- fragment --><hr  />
+<h2 class="doxsection"><a class="anchor" id="notes-209"></a>
+Notes</h2>
+<ul>
+<li>The library performs calculations using integer arithmetic only</li>
+<li>It is suitable for formatting timestamps received from external systems (e.g. HTTP headers, APIs)</li>
+<li>Negative timestamps (dates before 1970) are not explicitly handled</li>
+<li>No parsing functions (string → timestamp) are currently provided </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
@@ -151,7 +205,7 @@ Available Libraries</h3>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="index.html">Retro Rocket OS Documentation</a></li><li class="navelem"><a href="basic-ref.html">BASIC Language Reference</a></li>
+    <li class="navelem"><a href="index.html">Retro Rocket OS Documentation</a></li><li class="navelem"><a href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a href="libraries.html">Libraries</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.14.0 </li>
   </ul>
 </div>

@@ -11,6 +11,7 @@ var searchData=
   ['ljust_2emd_8',['LJUST.md',['../LJUST_8md.html',1,'']]],
   ['local_2emd_9',['LOCAL.md',['../LOCAL_8md.html',1,'']]],
   ['log_2emd_10',['LOG.md',['../LOG_8md.html',1,'']]],
-  ['lower_2emd_11',['LOWER.md',['../LOWER_8md.html',1,'']]],
-  ['ltrim_2emd_12',['LTRIM.md',['../LTRIM_8md.html',1,'']]]
+  ['longstring_2emd_11',['longstring.md',['../longstring_8md.html',1,'']]],
+  ['lower_2emd_12',['LOWER.md',['../LOWER_8md.html',1,'']]],
+  ['ltrim_2emd_13',['LTRIM.md',['../LTRIM_8md.html',1,'']]]
 ];
