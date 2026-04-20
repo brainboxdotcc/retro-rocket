@@ -4,6 +4,7 @@ The following functions return or manipulate **string values** in Retro Rocket B
 
 * \subpage ADFSIMAGE
 * \subpage BOOL
+* \subpage BUFFERTOSTRINGS
 * \subpage CHR
 * \subpage CSD
 * \subpage DATAREADS

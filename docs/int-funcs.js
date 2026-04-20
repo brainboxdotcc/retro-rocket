@@ -78,6 +78,7 @@ var int_funcs =
     [ "SPRITEPIXEL Function", "SPRITEPIXEL.html", null ],
     [ "SPRITEWIDTH Function", "SPRITEWIDTH.html", null ],
     [ "SSLSOCKACCEPT Function", "SSLSOCKACCEPT.html", null ],
+    [ "STRINGTOBUFFER Function", "STRINGTOBUFFER.html", null ],
     [ "SOCKACCEPT Function", "SOCKACCEPT.html", null ],
     [ "SOCKLISTEN Function", "SOCKLISTEN.html", null ],
     [ "SOCKSTATUS Function", "SOCKSTATUS.html", null ],

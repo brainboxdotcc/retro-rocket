@@ -736,3 +736,112 @@ char* basic_repeat(struct basic_ctx* ctx)
 	*ptr = '\0';
 	return (char*)gc_strdup(ctx, tmp);
 }
+
+int64_t basic_string_to_buffer(struct basic_ctx *ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	const char *in = strval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t address = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t max = intval;
+	PARAMS_END("STRINGTOBUFFER", 0);
+
+	if (max < 0) {
+		tokenizer_error_print(ctx, "Invalid buffer length");
+		return 0;
+	}
+
+	if (max > 0 && !address_valid_write(address, max)) {
+		tokenizer_error_printf(ctx, "Invalid address: %016lx", (uint64_t) address);
+		return 0;
+	}
+
+	if (!in || !address || max == 0) {
+		return 0;
+	}
+
+	const uint8_t *src = (const uint8_t *) in;
+	uint8_t *dst = (uint8_t *) address;
+	size_t written = 0;
+
+	while (*src && written < (size_t) max) {
+		uint8_t b = *src++;
+
+		if (b == STRING_ESCAPE_BYTE && *src) {
+			uint8_t e = *src++;
+
+			if (e == STRING_ESCAPED_NUL) {
+				dst[written++] = 0;
+			} else if (e == STRING_ESCAPED_ESC) {
+				dst[written++] = STRING_ESCAPE_BYTE;
+			} else {
+				dst[written++] = e;
+			}
+		} else {
+			dst[written++] = b;
+		}
+	}
+
+	return (int64_t) written;
+}
+
+char *basic_buffer_to_string(struct basic_ctx *ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t address = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t length = intval;
+	PARAMS_END("BUFFERTOSTRING$", "");
+
+	if (length < 0) {
+		tokenizer_error_print(ctx, "Invalid buffer length");
+		return "";
+	}
+
+	if (length > 0 && !address_valid_read(address, length)) {
+		tokenizer_error_printf(ctx, "Invalid address: %016lx", (uint64_t) address);
+		return "";
+	}
+
+	if (!address || length == 0) {
+		return (char *)gc_strdup(ctx, "");
+	}
+
+	const uint8_t *src = (const uint8_t *)address;
+	size_t out_len = 0;
+	int64_t i;
+
+	for (i = 0; i < length; ++i) {
+		if (src[i] == 0 || src[i] == STRING_ESCAPE_BYTE) {
+			out_len += 2;
+		} else {
+			out_len += 1;
+		}
+	}
+
+	if (out_len >= MAX_STRINGLEN) {
+		tokenizer_error_print(ctx, "Encoded string exceeds MAX_STRINGLEN");
+		return "";
+	}
+
+	char out[MAX_STRINGLEN];
+	size_t j = 0;
+
+	for (i = 0; i < length; ++i) {
+		if (src[i] == 0) {
+			out[j++] = STRING_ESCAPE_BYTE;
+			out[j++] = STRING_ESCAPED_NUL;
+		} else if (src[i] == STRING_ESCAPE_BYTE) {
+			out[j++] = STRING_ESCAPE_BYTE;
+			out[j++] = STRING_ESCAPED_ESC;
+		} else {
+			out[j++] = (char)src[i];
+		}
+	}
+
+	out[j] = 0;
+	return (char*)gc_strdup(ctx, out);
+}

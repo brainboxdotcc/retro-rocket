@@ -25,5 +25,6 @@ var searchData=
   ['bitxnor_2emd_22',['BITXNOR.md',['../BITXNOR_8md.html',1,'']]],
   ['bool_2emd_23',['BOOL.md',['../BOOL_8md.html',1,'']]],
   ['bootflow_2emd_24',['BOOTFLOW.md',['../BOOTFLOW_8md.html',1,'']]],
-  ['builtin_2dvariables_2emd_25',['Builtin-Variables.md',['../Builtin-Variables_8md.html',1,'']]]
+  ['buffertostrings_2emd_25',['BUFFERTOSTRINGS.md',['../BUFFERTOSTRINGS_8md.html',1,'']]],
+  ['builtin_2dvariables_2emd_26',['Builtin-Variables.md',['../Builtin-Variables_8md.html',1,'']]]
 ];

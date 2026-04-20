@@ -2,6 +2,7 @@ var string_funcs =
 [
     [ "ADFSIMAGE$ Function", "ADFSIMAGE.html", null ],
     [ "BOOL$ Function", "BOOL.html", null ],
+    [ "BUFFERTOSTRING$ Function", "BUFFERTOSTRINGS.html", null ],
     [ "CHR$ Function", "CHR.html", null ],
     [ "CSD$ Function", "CSD.html", null ],
     [ "DATAREAD$ Function", "DATAREADS.html", null ],

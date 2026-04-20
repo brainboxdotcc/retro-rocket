@@ -79,16 +79,10 @@ void sockread_statement(struct basic_ctx *ctx) {
 	proc = ctx->proc;
 
 	if (tls_get(fd)) {
-		int want;
-		int out_n;
-		int err;
-		bool ok;
-
-		want = 0;
-		out_n = 0;
-		err = 0;
-
-		ok = tls_read_fd(fd, input, MAX_STRINGLEN, &want, &out_n, &err);
+		int want = 0;
+		int out_n = 0;
+		int err = 0;
+		bool ok = tls_read_fd(fd, input, MAX_STRINGLEN, &want, &out_n, &err);
 		if (ok) {
 			rv = out_n;
 		} else {
@@ -122,6 +116,7 @@ void sockread_statement(struct basic_ctx *ctx) {
 		rv = (int) (sizeof(input) - 1);
 	}
 	input[rv] = 0; // Null-terminate string
+	STRING_ESCAPE_INPLACE(input, rv, MAX_STRINGLEN);
 
 	if (varname_is_int_array_access(ctx, var)) {
 		int64_t index = arr_target_index(ctx);
@@ -487,16 +482,10 @@ char *basic_insocket(struct basic_ctx *ctx) {
 
 	int rv;
 	if (tls_get(fd)) {
-		int want;
-		int out_n;
-		int err;
-		bool ok;
-
-		want = 0;
-		out_n = 0;
-		err = 0;
-
-		ok = tls_read_fd(fd, input, max, &want, &out_n, &err);
+		int want = 0;
+		int out_n = 0;
+		int err = 0;
+		bool ok = tls_read_fd(fd, input, max, &want, &out_n, &err);
 		if (ok) {
 			rv = out_n;
 		} else {
@@ -512,6 +501,7 @@ char *basic_insocket(struct basic_ctx *ctx) {
 
 	if (rv > 0) {
 		input[rv] = 0;
+		STRING_ESCAPE_INPLACE(input, rv, MAX_STRINGLEN);
 		return (char*)gc_strdup(ctx, (const char *) input);
 	} else if (rv < 0) {
 		tokenizer_error_print(ctx, socket_error(rv));
@@ -569,9 +559,7 @@ char *basic_dns(struct basic_ctx *ctx) {
 	PARAMS_END("DNS$", "");
 	char ip[IP_BUF_LEN] = {0};
 	uint32_t addr = dns_lookup_host(getdnsaddr(), strval, 2000);
-	dprintf("Resolver got: %08x\n", addr);
 	get_ip_str(ip, (uint8_t *) &addr);
-	dprintf("Resolver got: %s\n", ip);
 	return (char*)gc_strdup(ctx, ip);
 }
 
@@ -581,18 +569,16 @@ void sockwrite_statement(struct basic_ctx *ctx) {
 	int fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx, &var_length), ctx);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
-	const char *out = printable_syntax(ctx);
+	char *out = printable_syntax(ctx);
 	if (out) {
+		size_t binsize = strlen(out);
+		STRING_UNESCAPE_INPLACE(out, binsize);
 		if (tls_get(fd)) {
-			int want;
-			int out_n;
-
-			want = 0;
-			out_n = 0;
-			dprintf("sockwrite ssl\n");
-			tls_write_fd(fd, out, strlen(out), &want, &out_n);
+			int want = 0;
+			int out_n = 0;
+			tls_write_fd(fd, out, binsize, &want, &out_n);
 		} else {
-			send(fd, out, strlen(out));
+			send(fd, out, binsize);
 		}
 	}
 }

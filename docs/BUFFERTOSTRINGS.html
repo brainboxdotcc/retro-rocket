@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=11">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Retro Rocket OS: CHAIN Keyword</title>
+    <title>Retro Rocket OS: BUFFERTOSTRING$ Function</title>
     <link href="tabs.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -16,7 +16,7 @@
     <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-    <meta name="title" content="CHAIN Keyword - Retro Rocket OS">
+    <meta name="title" content="BUFFERTOSTRING$ Function - Retro Rocket OS">
     <meta name="description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="author" content="Retro Rocket Developers">
     <meta name="robots" content="index, follow">
@@ -24,7 +24,7 @@
     <meta name="theme-color" content="#0b0f14">
     <link rel="icon" href="rr.png">
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="CHAIN Keyword - Retro Rocket OS">
+    <meta property="og:title" content="BUFFERTOSTRING$ Function - Retro Rocket OS">
     <meta property="og:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://retrorocket.dev/">
@@ -32,7 +32,7 @@
     <meta property="og:image:alt" content="Retro Rocket OS running on a retro-style desktop">
     <meta property="og:site_name" content="Retro Rocket OS">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="CHAIN Keyword - Retro Rocket OS">
+    <meta name="twitter:title" content="BUFFERTOSTRING$ Function - Retro Rocket OS">
     <meta name="twitter:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="twitter:image" content="https://retrorocket.dev/leader4.png">
     <link rel="preload" as="image" href="https://retrorocket.dev/leader4.png">
@@ -94,7 +94,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('CHAIN.html','',''); });
+$(function(){initNavTree('BUFFERTOSTRINGS.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -120,42 +120,77 @@ $(function(){initNavTree('CHAIN.html','',''); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">CHAIN Keyword </div></div>
+  <div class="headertitle"><div class="title">BUFFERTOSTRING$ Function </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">CHAIN string-expression[,boolean-expression]</div>
-</div><!-- fragment --><p>Starts a new BASIC program, pausing the current program until the new one finishes. <br  />
- The string expression must evaluate to the <b>filename</b> of a program accessible from the filesystem.</p>
-<ul>
-<li>Any variables marked as <a class="el" href="GLOBAL.html">GLOBAL</a> will be shared with the child program.</li>
-<li>When the chained program terminates, control returns to the line immediately following the <span class="tt">CHAIN</span> statement in the calling program. <br  />
-</li>
-<li>Variables not marked as global are not visible to the chained program.</li>
-<li>If the optional boolean expression is included and evaluates to true, the program will be launched as a task in the background and the caller will resume immediately.</li>
-</ul>
-<dl class="section remark"><dt>Remarks</dt><dd><span class="tt">CHAIN</span> resolves relative paths from the <b>current working directory</b>. </dd>
-<dd>
-Use absolute paths (e.g. <span class="tt">/programs/login</span>) if you don’t want this to depend on <span class="tt">CHDIR</span>.</dd></dl>
+<div class="textblock"><div class="fragment"><div class="line">string$ = BUFFERTOSTRING$(address, length)</div>
+</div><!-- fragment --><p>The <span class="tt">BUFFERTOSTRING$</span> function converts a raw memory buffer into a BASIC string, escaping any bytes that are not representable in normal strings.</p>
+<p>It is primarily used to bring binary data (e.g. from <span class="tt">SOCKBINREAD</span>, files, or memory processing) into BASIC string form so it can be stored, passed around, or processed further.</p>
 <hr  />
-<h5 class="doxsection"><a class="anchor" id="example-7"></a>
-Example</h5>
-<div class="fragment"><div class="line">PRINT &quot;Before chain&quot;</div>
-<div class="line">GLOBAL X = 42</div>
-<div class="line">CHAIN &quot;childprog&quot;</div>
-<div class="line">PRINT &quot;Back again, X = &quot;; X</div>
-</div><!-- fragment --><p>If <span class="tt">childprog</span> uses the global variable <span class="tt">X</span>, it will see the value <span class="tt">42</span>. <br  />
- After <span class="tt">childprog</span> ends, execution resumes.</p>
-<hr  />
-<h5 class="doxsection"><a class="anchor" id="notes-146"></a>
-Notes</h5>
+<h2 class="doxsection"><a class="anchor" id="parameters-1"></a>
+Parameters</h2>
 <ul>
-<li>Chained programs run in a <b>new interpreter instance</b> within a new process. The parent remains suspended until the child exits, unless the child is launched as a background task.</li>
-<li>A chained program may itself issue <span class="tt">CHAIN</span> statements, nesting as required. <br  />
-</li>
-<li>If the file specified in <span class="tt">string-expression</span> cannot be found, an error is raised (and can be caught with <span class="tt">ON ERROR</span>).</li>
-<li>Unlike BBC BASIC, Retro Rocket’s <span class="tt">CHAIN</span> does <b>not</b> discard the caller - the parent program continues afterwards.</li>
+<li><span class="tt">address</span> Source memory address to read bytes from.</li>
+<li><span class="tt">length</span> Number of bytes to read.</li>
 </ul>
-<p><b>See also:</b> <a class="el" href="GLOBAL.html">GLOBAL</a>, <a class="el" href="LIBRARY.html">LIBRARY</a> </p>
+<hr  />
+<h2 class="doxsection"><a class="anchor" id="return-value-1"></a>
+Return value</h2>
+<p>Returns a BASIC string containing the encoded data.</p>
+<p>Returns an empty string if:</p>
+<ul>
+<li><span class="tt">length</span> is <span class="tt">0</span></li>
+<li>an error occurs</li>
+</ul>
+<hr  />
+<h2 class="doxsection"><a class="anchor" id="behaviour-3"></a>
+Behaviour</h2>
+<ul>
+<li>Reads <span class="tt">length</span> bytes from memory starting at <span class="tt">address</span></li>
+<li>Encodes binary data into a safe string representation</li>
+<li>Returns the resulting string</li>
+</ul>
+<hr  />
+<h2 class="doxsection"><a class="anchor" id="encoding-format-1"></a>
+Encoding format</h2>
+<p>The following escape scheme is used:</p>
+<ul>
+<li>logical byte <span class="tt">0</span> → <span class="tt">CHR$(255), CHR$(1)</span></li>
+<li>logical byte <span class="tt">255</span> → <span class="tt">CHR$(255), CHR$(2)</span></li>
+</ul>
+<p>All other bytes are copied as-is.</p>
+<p>This ensures the resulting string contains no embedded null bytes.</p>
+<hr  />
+<h2 class="doxsection"><a class="anchor" id="errors-3"></a>
+Errors</h2>
+<ul>
+<li>Invalid memory address → error</li>
+<li>Negative <span class="tt">length</span> → error</li>
+<li>Encoded result exceeds <span class="tt">MAX_STRINGLEN</span> → error</li>
+</ul>
+<hr  />
+<h2 class="doxsection"><a class="anchor" id="example-3"></a>
+Example</h2>
+<div class="fragment"><div class="line">LIBRARY LIB$ + &quot;/sockets&quot;</div>
+<div class="line"> </div>
+<div class="line">buf = MEMALLOC(1024)</div>
+<div class="line"> </div>
+<div class="line">SOCKBINREAD fd, buf, 1024</div>
+<div class="line"> </div>
+<div class="line">data$ = BUFFERTOSTRING$(buf, 1024)</div>
+<div class="line"> </div>
+<div class="line">PRINT &quot;Received encoded string of length &quot;; LEN(data$)</div>
+</div><!-- fragment --><p>This reads raw binary data into a buffer, converts it into a BASIC string, and prints its length.</p>
+<hr  />
+<h2 class="doxsection"><a class="anchor" id="notes-105"></a>
+Notes</h2>
+<ul>
+<li>The returned string is safe for storage and transmission within BASIC.</li>
+<li>The string may be longer than the input buffer due to escaping.</li>
+<li>The original binary data can be recovered using <span class="tt">STRINGTOBUFFER</span>.</li>
+<li>This function does not interpret the data; it only encodes it.</li>
+<li>Intended for binary data handling; not required for normal text strings. </li>
+</ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -171,7 +206,7 @@ Notes</h5>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="index.html">Retro Rocket OS Documentation</a></li><li class="navelem"><a href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a href="keywords.html">Keywords</a></li>
+    <li class="navelem"><a href="index.html">Retro Rocket OS Documentation</a></li><li class="navelem"><a href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a href="string-funcs.html">String Functions</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.14.0 </li>
   </ul>
 </div>

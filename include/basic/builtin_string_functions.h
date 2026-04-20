@@ -249,3 +249,7 @@ char* basic_highlight(struct basic_ctx* ctx);
 void match_statement(struct basic_ctx *ctx);
 
 char* basic_secure_random_string(struct basic_ctx* ctx);
+
+int64_t basic_string_to_buffer(struct basic_ctx *ctx);
+
+char *basic_buffer_to_string(struct basic_ctx *ctx);

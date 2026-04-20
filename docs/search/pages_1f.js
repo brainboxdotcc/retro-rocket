@@ -3,7 +3,7 @@ var searchData=
   ['v1_20technical_20specification_0',['RetroFS v1 Technical Specification',['../retrofs.html',1,'kernel-dev']]],
   ['val_20function_1',['VAL Function',['../VAL.html',1,'int-funcs']]],
   ['validation_20error_20handling_2',['8. Validation &amp;amp; error handling',['../retrofs.html#autotoc_md8-validation--error-handling',1,'']]],
-  ['value_3',['value',['../DEF.html#example-function-returns-a-value',1,'Example: function (returns a value)'],['../DEF.html#example-procedure-no-return-value',1,'Example: procedure (no return value)']]],
+  ['value_3',['value',['../DEF.html#example-function-returns-a-value',1,'Example: function (returns a value)'],['../DEF.html#example-procedure-no-return-value',1,'Example: procedure (no return value)'],['../STRINGTOBUFFER.html#return-value',1,'Return value'],['../BUFFERTOSTRINGS.html#return-value-1',1,'Return value']]],
   ['values_4',['CPUID Leaf Values',['../cpuid.html#cpuid-leaf-values',1,'']]],
   ['values_5',['values',['../retrofs.html#autotoc_md333-filedirectory-flags-values',1,'3.3.3 File/Directory Flags values'],['../basic-beginner.html#autotoc_md4-types-of-values',1,'4) Types of values'],['../MAPGETR.html#integer-values',1,'Integer values']]],
   ['values_20together_6',['3) Printing words and values together',['../basic-beginner.html#autotoc_md3-printing-words-and-values-together',1,'']]],

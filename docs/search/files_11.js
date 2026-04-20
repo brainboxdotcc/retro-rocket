@@ -46,5 +46,6 @@ var searchData=
   ['stream_2emd_43',['STREAM.md',['../STREAM_8md.html',1,'']]],
   ['string_2emd_44',['String.md',['../String_8md.html',1,'']]],
   ['string_2fread_2emd_45',['READ.md',['../string_2READ_8md.html',1,'']]],
-  ['system_2drequirements_2emd_46',['system-requirements.md',['../system-requirements_8md.html',1,'']]]
+  ['stringtobuffer_2emd_46',['STRINGTOBUFFER.md',['../STRINGTOBUFFER_8md.html',1,'']]],
+  ['system_2drequirements_2emd_47',['system-requirements.md',['../system-requirements_8md.html',1,'']]]
 ];

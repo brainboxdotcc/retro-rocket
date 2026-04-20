@@ -2,8 +2,8 @@ var searchData=
 [
   ['page_20keyword_0',['PAGE Keyword',['../PAGE.html',1,'keywords']]],
   ['parameter_20types_1',['Parameter Types',['../keywords.html#parameter-types',1,'']]],
-  ['parameters_2',['Parameters',['../PLOTQUAD.html#parameters-1',1,'']]],
-  ['parameters_3a_3',['Parameters:',['../ENVELOPE.html#parameters',1,'']]],
+  ['parameters_2',['Parameters',['../STRINGTOBUFFER.html#parameters',1,'Parameters'],['../BUFFERTOSTRINGS.html#parameters-1',1,'Parameters'],['../PLOTQUAD.html#parameters-3',1,'Parameters']]],
+  ['parameters_3a_3',['Parameters:',['../ENVELOPE.html#parameters-2',1,'']]],
   ['parcel_4',['Side-by-side: Phone Call vs Parcel',['../networking.html#side-by-side-phone-call-vs-parcel',1,'']]],
   ['parcel_20quick_20independent_20messages_5',['UDP - Like Sending a Parcel (quick, independent messages)',['../networking.html#udp---like-sending-a-parcel-quick-independent-messages',1,'']]],
   ['parcels_6',['Understanding Sockets (Phone Calls vs Parcels)',['../networking.html#understanding-sockets-phone-calls-vs-parcels',1,'']]],

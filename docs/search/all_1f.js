@@ -4,7 +4,7 @@ var searchData=
   ['val_20function_1',['VAL Function',['../VAL.html',1,'int-funcs']]],
   ['val_2emd_2',['VAL.md',['../VAL_8md.html',1,'']]],
   ['validation_20error_20handling_3',['8. Validation &amp;amp; error handling',['../retrofs.html#autotoc_md8-validation--error-handling',1,'']]],
-  ['value_4',['value',['../DEF.html#example-function-returns-a-value',1,'Example: function (returns a value)'],['../DEF.html#example-procedure-no-return-value',1,'Example: procedure (no return value)']]],
+  ['value_4',['value',['../DEF.html#example-function-returns-a-value',1,'Example: function (returns a value)'],['../DEF.html#example-procedure-no-return-value',1,'Example: procedure (no return value)'],['../STRINGTOBUFFER.html#return-value',1,'Return value'],['../BUFFERTOSTRINGS.html#return-value-1',1,'Return value']]],
   ['values_5',['CPUID Leaf Values',['../cpuid.html#cpuid-leaf-values',1,'']]],
   ['values_6',['values',['../retrofs.html#autotoc_md333-filedirectory-flags-values',1,'3.3.3 File/Directory Flags values'],['../basic-beginner.html#autotoc_md4-types-of-values',1,'4) Types of values'],['../MAPGETR.html#integer-values',1,'Integer values']]],
   ['values_20together_7',['3) Printing words and values together',['../basic-beginner.html#autotoc_md3-printing-words-and-values-together',1,'']]],

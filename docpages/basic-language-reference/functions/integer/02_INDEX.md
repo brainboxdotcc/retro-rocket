@@ -80,6 +80,7 @@ The following functions operate on or return **integer values** in Retro Rocket 
 * \subpage SPRITEPIXEL
 * \subpage SPRITEWIDTH
 * \subpage SSLSOCKACCEPT
+* \subpage STRINGTOBUFFER
 * \subpage SOCKACCEPT
 * \subpage SOCKLISTEN
 * \subpage SOCKSTATUS
