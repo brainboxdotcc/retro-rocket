@@ -68,7 +68,7 @@ All other bytes are copied as-is.
 
 ## Example
 
-```BASICBRARY LIB$ + "/sockets"
+```BASIC
 
 body$ = INSOCKET$(fd, 1024)
 

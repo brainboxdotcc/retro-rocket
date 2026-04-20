@@ -63,8 +63,6 @@ This ensures the resulting string contains no embedded null bytes.
 ## Example
 
 ```BASIC
-LIBRARY LIB$ + "/sockets"
-
 buf = MEMALLOC(1024)
 
 SOCKBINREAD fd, buf, 1024
