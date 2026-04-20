@@ -117,6 +117,18 @@ Frees MAPs used by the result. You should call this after you are finished with 
 
 ---
 
+### FNhttp_has_response
+
+Returns TRUE if the last HTTP request returned a valid response
+
+---
+
+### FNhttp_has_body
+
+Returns TRUE if the last HTTP request had a body part
+
+---
+
 ## Body access pattern
 
 The response body is not returned as a single string. Instead, iterate over chunks:

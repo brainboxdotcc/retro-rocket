@@ -215,6 +215,8 @@ DEF PROChttp__split_response
     __http_crlf$ = CHR$(13) + CHR$(10)
     __http_sep$ = __http_crlf$ + __http_crlf$
 
+    IF (MAPHAS(__http_response, "0") = FALSE) THEN ENDPROC
+
     FOR i = 0 TO __http_n - 1
         __http_chunk$ = MAPGET$(__http_response, STR$(i))
 
@@ -308,7 +310,7 @@ DEF FNhttp__header_value$(header_name$)
 = ""
 
 DEF FN__http_loop$(nn$)
-    nn$ = nn$ + INSOCKET$(FD, 1024)
+    nn$ = nn$ + INSOCKET$(FD,1024)
     IF LEN(nn$) > 4096 THEN
         MAPSET __http_response, STR$(__http_n), nn$
         __http_n = __http_n + 1
@@ -339,6 +341,7 @@ DEF PROChttp_request(method$, url$, postdata$)
 
     IF IP$ <> "0.0.0.0" THEN
         request$ = method$ + " " + _path$ + " HTTP/1.0" + CHR$(13) + CHR$(10) + "Host: " + HOST$ + CHR$(13) + CHR$(10) + "Connection: close" + CHR$(13) + CHR$(10)
+        request$ = request$ + "User-Agent: Voyager/0.1 (RetroRocket; x86_64) TextMode/ANSI" + CHR$(13) + CHR$(10)
         IF postdata$ <> "" THEN
             request$ = request$ + "Content-Length: " + STR$(LEN(postdata$)) + CHR$(13) + CHR$(10) + CHR$(13) + CHR$(10) + postdata$
         ELSE
@@ -374,9 +377,19 @@ DEF PROChttp_request(method$, url$, postdata$)
     ENDIF
 ENDPROC
 
+DEF FNhttp_has_response
+    IF __http_headers = 0 THEN = FALSE
+=MAPHAS(__http_headers, "0")
+
+DEF FNhttp_has_body
+    IF __http_body = 0 THEN = FALSE
+=MAPHAS(__http_body, "0")
+
 DEF PROCfree_http_result
     MAPFREE __http_headers
     MAPFREE __http_body
+    __http_headers = 0
+    __http_body = 0
 ENDPROC
 
 DEF FNhttp_result(part$)

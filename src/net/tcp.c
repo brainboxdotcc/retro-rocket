@@ -1082,6 +1082,13 @@ bool tcp_handle_data_in(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_c
 	size_t payload_len = len - tcp_header_size(segment);
 	uint16_t rcv_wnd = tcp_recv_window(conn);
 
+	if (payload_len > 0 && seq_lte(segment->seq + payload_len, conn->rcv_nxt)) {
+		// Segment is entirely below rcv_nxt (already received and acknowledged),
+		// so just ACK it to suppress further retransmissions
+		tcp_send_ack(conn);
+		return true;
+	}
+
 	if (!(seq_lte(conn->rcv_nxt, segment->seq) && seq_lte(segment->seq + payload_len, conn->rcv_nxt + rcv_wnd))) {
 		// Unacceptable segment
 		if (segment->flags.rst == 0) {
@@ -1103,7 +1110,6 @@ bool tcp_handle_data_in(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_c
 	tcp_send_ack(conn);
 	return true;
 }
-
 /**
  * @brief Set connection timeout (12 seconds)
  * 
@@ -1126,7 +1132,10 @@ void tcp_set_conn_msl_time(tcp_conn_t* conn)
  */
 bool tcp_state_receive_fin(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
-	conn->rcv_nxt = segment->seq + 1;
+	if (segment->seq == conn->rcv_nxt) {
+		++conn->rcv_nxt;
+	}
+
 	tcp_send_ack(conn);
 
 	switch (conn->state) {
@@ -1695,15 +1704,20 @@ bool is_connected(int socket)
 	tcp_conn_t* conn = tcp_find_by_fd(socket);
 	if (conn == NULL) {
 		return false;
-	} else if (conn->state != TCP_ESTABLISHED) {
-		return false;
 	}
+
+	if (conn->recv_buffer != NULL && conn->recv_buffer_len > 0) {
+		return true;
+	}
+
 	return conn->state == TCP_ESTABLISHED;
 }
 
 int recv(int socket, void* buffer, uint32_t maxlen, bool blocking, uint32_t timeout)
 {
 	tcp_conn_t* conn = tcp_find_by_fd(socket);
+	uint64_t flags;
+
 	if (conn == NULL) {
 		dprintf("recv(): invalid socket\n");
 		return TCP_ERROR_INVALID_SOCKET;
@@ -1721,9 +1735,10 @@ int recv(int socket, void* buffer, uint32_t maxlen, bool blocking, uint32_t time
 			}
 		}
 	}
+
+	lock_spinlock_irq(&lock, &flags);
+
 	if (conn->recv_buffer_len > 0 && conn->recv_buffer != NULL) {
-		uint64_t flags;
-		lock_spinlock_irq(&lock, &flags);
 		/* There is buffered data to receive  */
 		size_t amount_to_recv = conn->recv_buffer_len > maxlen ? maxlen : conn->recv_buffer_len;
 		memcpy(buffer, conn->recv_buffer, amount_to_recv);
@@ -1744,6 +1759,8 @@ int recv(int socket, void* buffer, uint32_t maxlen, bool blocking, uint32_t time
 		unlock_spinlock_irq(&lock, flags);
 		return amount_to_recv;
 	}
+
+	unlock_spinlock_irq(&lock, flags);
 	return 0;
 }
 
@@ -1752,9 +1769,6 @@ bool sock_ready_to_read(int socket) {
 	if (!conn) {
 		dprintf("sock_ready_to_read on non-established sock\n");
 		return false;
-	}
-	if (conn->recv_buffer && conn->recv_buffer_len > 0) {
-		dprintf("sock_ready_to_read is ready\n");
 	}
 	return conn->recv_buffer && conn->recv_buffer_len > 0;
 }

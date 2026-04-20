@@ -2,17 +2,26 @@ REM Socket test
 
 LIBRARY LIB$ + "/http"
 
-PROChttp_get("http://neuron.brainbox.cc/test.txt")
+REM Issue GET request to fetch a HTTPS URL
+PROChttp_get("https://brainbox.cc/tmp/test.txt")
+
+REM Validate connection succeeded
+IF (FNhttp_has_body = FALSE) OR (FNhttp_has_response = FALSE) THEN
+    PRINT "Failed to request URL"
+    END
+ENDIF
+
+REM Output HTTP status code and body
 PRINT "HTTP status code: "; FNhttp_result$("code")
 PRINT "Response body:"
 
 body = FNhttp_result("body")
 n = MAPGET(body, "size")
 
+REM Body is stored as a MAP, which represents a streamed, chunked long string
 FOR i = 0 TO n - 1
     PRINT MAPGET$(body, STR$(i));
 NEXT
-
 PRINT
 
 PROCfree_http_result

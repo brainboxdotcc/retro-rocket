@@ -208,6 +208,14 @@ FNhttp_result$(part$)</h3>
 PROCfree_http_result</h3>
 <p>Frees MAPs used by the result. You should call this after you are finished with any result.</p>
 <hr  />
+<h3 class="doxsection"><a class="anchor" id="fnhttp_has_response"></a>
+FNhttp_has_response</h3>
+<p>Returns TRUE if the last HTTP request returned a valid response</p>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="fnhttp_has_body"></a>
+FNhttp_has_body</h3>
+<p>Returns TRUE if the last HTTP request had a body part</p>
+<hr  />
 <h2 class="doxsection"><a class="anchor" id="body-access-pattern"></a>
 Body access pattern</h2>
 <p>The response body is not returned as a single string. Instead, iterate over chunks:</p>

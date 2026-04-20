@@ -217,12 +217,13 @@ static int send_shim(void *p, const unsigned char *buf, size_t len) {
 static int recv_shim(void *p, unsigned char *buf, size_t len) {
 	const struct tls_io *io = (const struct tls_io *) p;
 	int n = io->recv_fn(io->ctx, buf, len);
-	if (n > 0) return n;
-	//dprintf("recv_shim n=%d\n", n);
-	if (n < 0 && n != MBEDTLS_ERR_SSL_WANT_READ) {
-		return MBEDTLS_ERR_SSL_CONN_EOF;
+	if (n >= 0) {
+		return n;
 	}
-	return MBEDTLS_ERR_SSL_WANT_READ;
+	if (n == MBEDTLS_ERR_SSL_WANT_READ) {
+		return MBEDTLS_ERR_SSL_WANT_READ;
+	}
+	return MBEDTLS_ERR_SSL_CONN_EOF;
 }
 
 static void tls_debug(void *ctx, int level, const char *file, int line, const char *str) {
@@ -396,7 +397,11 @@ int tls_handshake_step_nb(mbedtls_ssl_context *ssl) {
 /* reads/writes return negative error */
 int tls_read_nb(mbedtls_ssl_context *ssl, void *buf, size_t len, int *want) {
 	int n = mbedtls_ssl_read(ssl, buf, len);
-	if (n >= 0) return n;
+	if (n == 0) {
+		return MBEDTLS_ERR_SSL_CONN_EOF;
+	} else if (n > 0) {
+		return n;
+	}
 	*want = (n == MBEDTLS_ERR_SSL_WANT_READ) ? 1 : (n == MBEDTLS_ERR_SSL_WANT_WRITE) ? 2 : -1;
 	if (n != MBEDTLS_ERR_SSL_WANT_READ && n != MBEDTLS_ERR_SSL_WANT_WRITE) {
 		char e[128];
@@ -419,6 +424,7 @@ static int tcp_send_nb(void *ctx, const unsigned char *buf, size_t len) {
 static int tcp_recv_nb(void *ctx, unsigned char *buf, size_t len) {
 	int fd = (int) (uintptr_t) ctx;
 	int n = recv(fd, buf, (uint32_t) len, false, 0); // non-blocking
+	tcp_conn_t* conn = tcp_find_by_fd(fd);
 
 	tcp_idle(); // kick buffer drain
 	//dprintf("BIO recv ask=%lu -> rc=%d\n", len, n);
@@ -426,10 +432,13 @@ static int tcp_recv_nb(void *ctx, unsigned char *buf, size_t len) {
 	if (n > 0) {
 		return n;
 	}
-	if (n == 0) {
-		return MBEDTLS_ERR_SSL_WANT_READ;  /* no data yet */
+	if (n < 0) {
+		return -1;
 	}
-	return -1;  /* hard fail */
+	if (conn != NULL && conn->state != TCP_ESTABLISHED && (!conn->recv_buffer || conn->recv_buffer_len == 0)) {
+		return 0;
+	}
+	return MBEDTLS_ERR_SSL_WANT_READ;
 }
 
 int ssl_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port, const char *sni, const char *alpn_csv, const uint8_t *ca_pem, size_t ca_len) {
@@ -560,7 +569,6 @@ bool tls_ready_fd(int fd) {
 	}
 
 	if (mbedtls_ssl_get_bytes_avail(&p->ssl) > 0) {
-		dprintf("tls_ready_fd is ready");
 		return true;
 	}
 
