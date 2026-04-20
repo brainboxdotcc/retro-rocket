@@ -82,7 +82,8 @@ void sockread_statement(struct basic_ctx *ctx) {
 		int want = 0;
 		int out_n = 0;
 		int err = 0;
-		bool ok = tls_read_fd(fd, input, MAX_STRINGLEN, &want, &out_n, &err);
+		/* Limit raw read size so worst-case escaping still fits in MAX_STRINGLEN */
+		bool ok = tls_read_fd(fd, input, MAX_STRINGLEN / 2, &want, &out_n, &err);
 		if (ok) {
 			rv = out_n;
 		} else {
@@ -93,7 +94,7 @@ void sockread_statement(struct basic_ctx *ctx) {
 			}
 		}
 	} else {
-		rv = recv(fd, input, MAX_STRINGLEN, false, 100);
+		rv = recv(fd, input, MAX_STRINGLEN / 2, false, 100);
 	}
 
 	if (rv == 0) {
@@ -469,10 +470,11 @@ char *basic_insocket(struct basic_ctx *ctx) {
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t max = intval;
 	PARAMS_END("INSOCKET$", "");
+	/* Limit raw read size so worst-case escaping still fits in MAX_STRINGLEN */
 	if (max < 1) {
 		max = 1;
-	} else if (max > MAX_STRINGLEN) {
-		max = MAX_STRINGLEN - 1;
+	} else if (max > MAX_STRINGLEN / 2) {
+		max = (MAX_STRINGLEN / 2) - 1;
 	}
 
 	if (fd < 0) {
