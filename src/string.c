@@ -187,6 +187,30 @@ char* strdup(const char* string)
 	return result;
 }
 
+const char* gc_try_concat(struct basic_ctx *ctx, const char* s1, const char* s2) {
+	char* dest = ctx->string_gc_storage_next;
+	char* end = ctx->string_gc_storage + STRING_GC_AREA_SIZE;
+	char* out = dest;
+	size_t cur = 0;
+
+	while (*s1) {
+		if (out >= end - 1 || ++cur >= MAX_STRINGLEN) {
+			return NULL;
+		}
+		*out++ = *s1++;
+	}
+	while (*s2) {
+		if (out >= end - 1 || ++cur >= MAX_STRINGLEN) {
+			return NULL;
+		}
+		*out++ = *s2++;
+	}
+
+	*out = '\0';
+	ctx->string_gc_storage_next = out + 1;
+	return dest;
+}
+
 const char* gc_strdup(basic_ctx* ctx, const char* string)
 {
 	if (!ctx) {

@@ -204,6 +204,32 @@ char* strdup(const char* string);
 const char* gc_strdup(basic_ctx* ctx, const char* string);
 
 /**
+ * @brief Concatenate two strings directly into the BASIC temporary string arena.
+ *
+ * Performs a zero-copy concatenation (writing directly to the arena) to avoid
+ * the overhead of stack-based temporary buffers and redundant string copies.
+ * The operation is atomic: if the combined length exceeds MAX_STRINGLEN or
+ * arena capacity, no memory is committed and NULL is returned.
+ *
+ * The returned pointer remains valid until the next call to gc(), typically
+ * invoked at the end of the current line execution.
+ *
+ * @warning
+ * - The returned string is immutable.
+ * - If concatenation fails, the arena pointer is not advanced, effectively
+ * rolling back any partial writes.
+ * - This function does not intern empty results; if both s1 and s2 are empty,
+ * a new (or existing) pointer to a NUL terminator is returned.
+ *
+ * @param ctx BASIC interpreter context containing arena state.
+ * @param s1  NUL-terminated prefix string.
+ * @param s2  NUL-terminated suffix string.
+ * @return const char* Pointer to the concatenated string in the arena,
+ * or NULL if the result is too long or space is exhausted.
+ */
+const char* gc_try_concat(struct basic_ctx *ctx, const char* s1, const char* s2);
+
+/**
  * @brief Reset the BASIC temporary string arena.
  *
  * Reclaims all strings allocated with gc_strdup() by resetting the arena

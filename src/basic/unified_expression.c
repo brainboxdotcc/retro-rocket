@@ -343,20 +343,12 @@ static up_value up_value_expr(struct basic_ctx *ctx) {
 
 		if (op == PLUS && acc.kind == UP_STR && rhs.kind == UP_STR) {
 			/* String concatenation */
-			char tmp[MAX_STRINGLEN];
-			tmp[0] = '\0';
-			if (acc.v.s) {
-				strlcpy(tmp, acc.v.s, sizeof(tmp));
-			}
-			if (rhs.v.s) {
-				strlcat(tmp, rhs.v.s, sizeof(tmp));
-			}
-			const char* sv = gc_strdup(ctx, tmp);
-			if (!sv) {
-				tokenizer_error_print(ctx, "up_value_expr: Out of memory!");
+			const char* combined = gc_try_concat(ctx, acc.v.s, rhs.v.s);
+			if (!combined) {
+				tokenizer_error_print(ctx, "String too long");
 				return acc;
 			}
-			acc = up_make_str(sv);
+			acc = up_make_str(combined);
 			continue;
 		}
 
