@@ -1,6 +1,6 @@
 \page datetime Date and Time Library
 
-```BASIC id="m7q1ts"
+```BASIC
 LIBRARY LIB$ + "/datetime"
 ```
 
@@ -20,7 +20,7 @@ Return a zero-padded string representation of integer `n` with minimum width `wi
 
 Example:
 
-```BASIC id="0y8t6u"
+```BASIC
 PRINT FNpad$(5, 2)
 ```
 
@@ -58,7 +58,7 @@ YYYY-MM-DD HH:MM:SS
 
 Example:
 
-```BASIC id="w1j5k2"
+```BASIC
 PRINT FNunixtime$(0)
 ```
 
@@ -81,7 +81,7 @@ Outputs:
 
 ## Example
 
-```BASIC id="7l2fqp"
+```BASIC
 LIBRARY LIB$ + "/datetime"
 
 PROCdatetime
