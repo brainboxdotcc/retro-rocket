@@ -119,7 +119,7 @@ uint32_t get_isn(uint32_t local_addr, uint32_t remote_addr, uint16_t local_port,
 
 static uint8_t tcp_default_window_scale(void)
 {
-	uint32_t max_window = TCP_RECV_BUFFER_LIMIT;
+	uint32_t max_window = TCP_ADVERTISED_WINDOW;
 	uint8_t scale = 0;
 
 	while (scale < 14 && max_window > 65535) {
