@@ -230,6 +230,8 @@ typedef struct tcp_conn_t
 
 	tcp_retx_entry_t *retx_head;
 	tcp_retx_entry_t *retx_tail;
+
+	uint16_t peer_mss;
 } tcp_conn_t;
 
 /**

@@ -823,6 +823,7 @@ bool tcp_state_listen(ip_packet_t *encap_packet, tcp_segment_t *segment, tcp_con
 	child.local_port  = segment->dst_port;
 	child.remote_addr = *((uint32_t *)&encap_packet->src_ip);
 	child.remote_port = segment->src_port;
+	child.peer_mss = options && options->mss ? options->mss : 1460;
 
 	dprintf("Allocated child remote addr %08x\n", child.remote_addr);
 
@@ -960,6 +961,11 @@ bool tcp_state_syn_sent(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_c
 	}
 
 	if (segment->flags.syn) {
+
+		if (options && options->mss) {
+			conn->peer_mss = options->mss;
+		}
+
 		conn->irs = segment->seq;
 		conn->rcv_nxt = segment->seq + 1;
 
@@ -1413,9 +1419,10 @@ void tcp_idle()
 		}
 		if (conn && conn->state == TCP_ESTABLISHED) {
 			if (conn->send_buffer_len > 0 && conn->send_buffer != NULL) {
-				//dprintf("socket has %lu to send\n", conn->send_buffer_len);
 				/* There is buffered data to send from high level functions */
-				size_t amount_to_send = conn->send_buffer_len > 1460 ? 1460 : conn->send_buffer_len;
+				size_t max_segment = conn->peer_mss ? conn->peer_mss : 1460;
+				size_t amount_to_send = conn->send_buffer_len > max_segment ? max_segment : conn->send_buffer_len;
+				//dprintf("socket has %lu to send\n", conn->send_buffer_len);
 				if (tcp_write(conn, conn->send_buffer, amount_to_send) < 0) {
 					dprintf("tcp_write returned error\n");
 				}
@@ -1525,6 +1532,7 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 	conn.remote_addr = target_addr;
 	conn.remote_port = target_port;
 	conn.local_addr = *((uint32_t*)&ip);
+	conn.peer_mss = 1460;
 
 	if (tcp_port_in_use(conn.local_addr, source_port, TCP_PORT_LOCAL)) {
 		dprintf("tcp_connect() port in use\n");
