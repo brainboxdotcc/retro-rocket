@@ -231,7 +231,10 @@ typedef struct tcp_conn_t
 	tcp_retx_entry_t *retx_head;
 	tcp_retx_entry_t *retx_tail;
 
-	uint16_t peer_mss;
+	uint16_t peer_mss;             /**< Peer MSS */
+
+	uint32_t last_dup_ack;         /**< Last duplicate ack'd SEQ id */
+	uint8_t dup_ack_count;         /**< Number of times we've seen the same SEQ id repeated */
 } tcp_conn_t;
 
 /**
@@ -500,3 +503,5 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
  * @return true when fully drained, false otherwise
  */
 bool sock_sent(int fd);
+
+size_t tcp_header_size(tcp_segment_t* s);

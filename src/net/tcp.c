@@ -43,6 +43,7 @@ static const char* error_messages[] = {
 
 bool tcp_state_receive_fin(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len);
 bool tcp_handle_data_in(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len);
+static bool tcp_retx_resend_head(tcp_conn_t* conn);
 
 const char* socket_error(int error_code) {
 	if (error_code <= TCP_ERROR_SSL_FIRST) {
@@ -332,6 +333,8 @@ static void tcp_retx_acknowledge(tcp_conn_t* conn, uint32_t ack)
 	}
 
 	conn->snd_una = ack;
+	conn->last_dup_ack = 0;
+	conn->dup_ack_count = 0;
 
 	while (conn->retx_head && seq_gte(ack, conn->retx_head->end_seq)) {
 		tcp_retx_entry_t* old = conn->retx_head;
@@ -346,19 +349,56 @@ static void tcp_retx_acknowledge(tcp_conn_t* conn, uint32_t ack)
 	}
 }
 
-static void tcp_process_ack(tcp_conn_t* conn, tcp_segment_t* segment)
+static void tcp_process_ack(tcp_conn_t* conn, tcp_segment_t* segment, size_t len)
 {
+	size_t header_len = tcp_header_size(segment);
+
 	if (!segment->flags.ack) {
 		return;
 	}
-	if (!(seq_gt(segment->ack, conn->snd_una) && seq_lte(segment->ack, conn->snd_nxt))) {
+
+	if (seq_gt(segment->ack, conn->snd_una) && seq_lte(segment->ack, conn->snd_nxt)) {
+		tcp_retx_acknowledge(conn, segment->ack);
+		conn->snd_wnd = segment->window_size;
+		conn->snd_wl1 = segment->seq;
+		conn->snd_wl2 = segment->ack;
 		return;
 	}
 
-	tcp_retx_acknowledge(conn, segment->ack);
-	conn->snd_wnd = segment->window_size;
-	conn->snd_wl1 = segment->seq;
-	conn->snd_wl2 = segment->ack;
+	if (segment->ack != conn->snd_una) {
+		return;
+	}
+
+	if (len != header_len) {
+		return;
+	}
+
+	if (segment->flags.syn || segment->flags.fin || segment->flags.rst) {
+		return;
+	}
+
+	if (!conn->retx_head) {
+		return;
+	}
+
+	if (!seq_lt(segment->ack, conn->retx_head->end_seq)) {
+		return;
+	}
+
+	if (conn->last_dup_ack != segment->ack) {
+		conn->last_dup_ack = segment->ack;
+		conn->dup_ack_count = 1;
+		return;
+	}
+
+	if (conn->dup_ack_count < 255) {
+		++conn->dup_ack_count;
+	}
+
+	if (conn->dup_ack_count == 3) {
+		dprintf("TCP fast retransmit\n");
+		tcp_retx_resend_head(conn);
+	}
 }
 
 static bool tcp_retx_resend_head(tcp_conn_t* conn)
@@ -1188,12 +1228,12 @@ bool tcp_state_receive_fin(ip_packet_t* encap_packet, tcp_segment_t* segment, tc
  */
 bool tcp_state_established(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
-	tcp_process_ack(conn, segment);
+	tcp_process_ack(conn, segment, len);
 	const size_t header_len = tcp_header_size(segment);
 	if (len > header_len) {
 		tcp_handle_data_in(encap_packet, segment, conn, options, len);
 	}
- 	if (segment->flags.fin) {
+	if (segment->flags.fin) {
 		tcp_state_receive_fin(encap_packet, segment, conn, options, len);
 	}
 	return true;
@@ -1211,7 +1251,7 @@ bool tcp_state_established(ip_packet_t* encap_packet, tcp_segment_t* segment, tc
  */
 bool tcp_state_fin_wait_1(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
-	tcp_process_ack(conn, segment);
+	tcp_process_ack(conn, segment, len);
 	if (seq_gte(conn->snd_una, conn->snd_nxt)) {
 		tcp_set_state(conn, TCP_FIN_WAIT_2);
 	}
@@ -1245,7 +1285,7 @@ bool tcp_state_fin_wait_1(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp
  */
 bool tcp_state_fin_wait_2(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
-	tcp_process_ack(conn, segment);
+	tcp_process_ack(conn, segment, len);
 	tcp_handle_data_in(encap_packet, segment, conn, options, len);
 	return true;
 }
@@ -1261,7 +1301,7 @@ bool tcp_state_fin_wait_2(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp
  */
 bool tcp_state_close_wait(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
-	tcp_process_ack(conn, segment);
+	tcp_process_ack(conn, segment, len);
 	tcp_send_segment(conn, conn->snd_nxt, TCP_FIN | TCP_ACK, 0, 0);
 	tcp_set_state(conn, TCP_LAST_ACK);
 	return true;
@@ -1279,7 +1319,7 @@ bool tcp_state_close_wait(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp
  */
 bool tcp_state_closing(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
-	tcp_process_ack(conn, segment);
+	tcp_process_ack(conn, segment, len);
 	if (seq_gte(conn->snd_una, conn->snd_nxt)) {
 		tcp_set_state(conn, TCP_TIME_WAIT);
 		tcp_set_conn_msl_time(conn);
@@ -1299,7 +1339,7 @@ bool tcp_state_closing(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_co
  */
 bool tcp_state_last_ack(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
-	tcp_process_ack(conn, segment);
+	tcp_process_ack(conn, segment, len);
 	if (seq_gte(conn->snd_una, conn->snd_nxt)) {
 		tcp_free(conn, true);
 		return false;
@@ -1533,6 +1573,8 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 	conn.remote_port = target_port;
 	conn.local_addr = *((uint32_t*)&ip);
 	conn.peer_mss = 1460;
+	conn.last_dup_ack = 0;
+	conn.dup_ack_count = 0;
 
 	if (tcp_port_in_use(conn.local_addr, source_port, TCP_PORT_LOCAL)) {
 		dprintf("tcp_connect() port in use\n");
