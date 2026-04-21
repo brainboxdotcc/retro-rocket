@@ -8,6 +8,7 @@
 #include "kernel.h"
 
 #define TCP_WINDOW_SIZE		65535
+#define TCP_ADVERTISED_WINDOW	16384
 #define TCP_PACKET_SIZE_OFF	5
 #define TCP_RECV_BUFFER_LIMIT	196608
 
@@ -94,6 +95,7 @@ enum tcp_opt_t {
 	TCP_OPT_END = 0,               /**< End of option list */
 	TCP_OPT_NOP = 1,               /**< No operation (padding) */
 	TCP_OPT_MSS = 2,               /**< Maximum Segment Size (MSS) */
+	TCP_OPT_WINDOW_SCALE = 3,      /**< Window scaling */
 };
 
 /**
@@ -101,6 +103,8 @@ enum tcp_opt_t {
  */
 typedef struct tcp_options_t {
 	uint16_t mss;                  /**< Maximum Segment Size, or 0 if not present */
+	uint8_t window_scale;
+	bool window_scale_present;
 } tcp_options_t;
 
 /**
@@ -235,6 +239,10 @@ typedef struct tcp_conn_t
 
 	uint32_t last_dup_ack;         /**< Last duplicate ack'd SEQ id */
 	uint8_t dup_ack_count;         /**< Number of times we've seen the same SEQ id repeated */
+
+	uint8_t snd_wscale;            /**< Sending window scale */
+	uint8_t rcv_wscale;            /**< Receiving window scale */
+	bool window_scaling;           /**< Window scaling enabled */
 } tcp_conn_t;
 
 /**
@@ -503,5 +511,3 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
  * @return true when fully drained, false otherwise
  */
 bool sock_sent(int fd);
-
-size_t tcp_header_size(tcp_segment_t* s);

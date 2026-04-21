@@ -44,6 +44,7 @@ static const char* error_messages[] = {
 bool tcp_state_receive_fin(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len);
 bool tcp_handle_data_in(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len);
 static bool tcp_retx_resend_head(tcp_conn_t* conn);
+size_t tcp_header_size(tcp_segment_t* s);
 
 const char* socket_error(int error_code) {
 	if (error_code <= TCP_ERROR_SSL_FIRST) {
@@ -115,15 +116,56 @@ uint32_t get_isn(uint32_t local_addr, uint32_t remote_addr, uint16_t local_port,
 	return base + delta;
 }
 
+
+static uint8_t tcp_default_window_scale(void)
+{
+	uint32_t max_window = TCP_RECV_BUFFER_LIMIT;
+	uint8_t scale = 0;
+
+	while (scale < 14 && max_window > 65535) {
+		max_window >>= 1;
+		++scale;
+	}
+
+	return scale;
+}
+
+static uint32_t tcp_segment_window(const tcp_conn_t* conn, const tcp_segment_t* segment)
+{
+	uint32_t window = segment->window_size;
+
+	if (conn->window_scaling && !segment->flags.syn) {
+		window <<= conn->snd_wscale;
+	}
+
+	return window;
+}
+
 uint16_t tcp_recv_window(const tcp_conn_t* conn)
 {
-	if (conn->recv_buffer_len >= TCP_RECV_BUFFER_LIMIT) {
+	uint32_t space;
+	uint32_t max_window = 65535;
+
+	if (conn->recv_buffer_len >= TCP_ADVERTISED_WINDOW) {
 		return 0;
 	}
 
-	size_t space = TCP_RECV_BUFFER_LIMIT - conn->recv_buffer_len;
-	if (space > TCP_WINDOW_SIZE) {
-		space = TCP_WINDOW_SIZE;
+	space = TCP_ADVERTISED_WINDOW - conn->recv_buffer_len;
+
+	if (conn->window_scaling) {
+		max_window <<= conn->rcv_wscale;
+	}
+
+	if (space > max_window) {
+		space = max_window;
+	}
+
+	if (conn->window_scaling && conn->rcv_wscale > 0) {
+		space >>= conn->rcv_wscale;
+	}
+
+	if (space > 65535) {
+		space = 65535;
 	}
 
 	return (uint16_t)space;
@@ -359,7 +401,7 @@ static void tcp_process_ack(tcp_conn_t* conn, tcp_segment_t* segment, size_t len
 
 	if (seq_gt(segment->ack, conn->snd_una) && seq_lte(segment->ack, conn->snd_nxt)) {
 		tcp_retx_acknowledge(conn, segment->ack);
-		conn->snd_wnd = segment->window_size;
+		conn->snd_wnd = tcp_segment_window(conn, segment);
 		conn->snd_wl1 = segment->seq;
 		conn->snd_wl2 = segment->ack;
 		return;
@@ -471,24 +513,60 @@ void tcp_byte_order_out(tcp_segment_t* const segment)
 uint8_t tcp_parse_options(tcp_segment_t* const segment, tcp_options_t* options)
 {
 	uint8_t* opt_ptr = segment->options;
+	uint8_t* opt_end = (uint8_t*)segment + (segment->flags.off * 4);
 	uint8_t n_opts = 0;
-	options->mss = 0;
 
-	while (opt_ptr < (uint8_t*)segment + (segment->flags.off * 4) && *opt_ptr != TCP_OPT_END) {
-		uint8_t opt_size = *(opt_ptr + 1);
-		switch (*opt_ptr) {
-			case TCP_OPT_MSS:
-				n_opts++;
-				options->mss = ntohs(*((uint16_t*)(opt_ptr + 2)));
-			break;
-			default:
+	options->mss = 0;
+	options->window_scale = 0;
+	options->window_scale_present = false;
+
+	while (opt_ptr < opt_end) {
+		uint8_t kind = *opt_ptr;
+
+		if (kind == TCP_OPT_END) {
 			break;
 		}
-		opt_ptr += (opt_size ? opt_size : 1);
+
+		if (kind == TCP_OPT_NOP) {
+			++opt_ptr;
+			continue;
+		}
+
+		if (opt_ptr + 1 >= opt_end) {
+			break;
+		}
+
+		uint8_t opt_size = *(opt_ptr + 1);
+
+		if (opt_size < 2 || opt_ptr + opt_size > opt_end) {
+			break;
+		}
+
+		switch (kind) {
+			case TCP_OPT_MSS:
+				if (opt_size == 4) {
+					++n_opts;
+					options->mss = ntohs(*((uint16_t*)(opt_ptr + 2)));
+				}
+				break;
+
+			case TCP_OPT_WINDOW_SCALE:
+				if (opt_size == 3) {
+					++n_opts;
+					options->window_scale = *(opt_ptr + 2);
+					options->window_scale_present = true;
+				}
+				break;
+
+			default:
+				break;
+		}
+
+		opt_ptr += opt_size;
 	}
+
 	return n_opts;
 }
-
 /**
  * @brief Find a TCP TCB by source and destination address/port pairs
  * 
@@ -541,6 +619,21 @@ tcp_conn_t* tcp_set_state(tcp_conn_t* conn, tcp_state_t new_state)
 	return conn;
 }
 
+static uint8_t tcp_options_len(const tcp_options_t* opt)
+{
+	uint8_t len = 0;
+
+	if (opt->mss) {
+		len += 4;
+	}
+
+	if (opt->window_scale_present) {
+		len += 4; /* NOP + WS(3) */
+	}
+
+	return len;
+}
+
 /**
  * @brief Build the options for a segment before sending
  * 
@@ -551,12 +644,21 @@ tcp_conn_t* tcp_set_state(tcp_conn_t* conn, tcp_state_t new_state)
 uint8_t tcp_build_options(uint8_t* options, const tcp_options_t* opt)
 {
 	uint8_t index = 0;
+
 	if (opt->mss) {
 		options[index++] = TCP_OPT_MSS;
 		options[index++] = 4;
-		options[index++] = opt->mss / 0xFF; // network order, MSB
-		options[index++] = opt->mss % 0xFF; // network order, LSB
+		options[index++] = (uint8_t)(opt->mss >> 8); // network order, MSB
+		options[index++] = (uint8_t)(opt->mss & 0xff); // network order, LSB
 	}
+
+	if (opt->window_scale_present) {
+		options[index++] = TCP_OPT_NOP;
+		options[index++] = TCP_OPT_WINDOW_SCALE;
+		options[index++] = 3;
+		options[index++] = opt->window_scale;
+	}
+
 	return index;
 }
 
@@ -578,8 +680,18 @@ tcp_conn_t* tcp_send_segment(tcp_conn_t *conn, uint32_t seq, uint8_t flags, cons
 	}
 
 	ip_packet_t encap;
-	tcp_options_t options = { .mss = flags & TCP_SYN ? 1460 : 0 };
-	uint16_t length = sizeof(tcp_segment_t) + count + (flags & TCP_SYN ? 4 : 0);
+	tcp_options_t options = { .mss = 0, .window_scale = 0, .window_scale_present = false };
+
+	if (flags & TCP_SYN) {
+		options.mss = 1460;
+		if (conn->rcv_wscale > 0) {
+			options.window_scale = conn->rcv_wscale;
+			options.window_scale_present = true;
+		}
+	}
+
+	uint8_t opt_len = (flags & TCP_SYN) ? tcp_options_len(&options) : 0;
+	uint16_t length = sizeof(tcp_segment_t) + count + opt_len;
 	tcp_segment_t packet[length];
 	memset(&packet, 0, length);
 	packet->src_port = conn->local_port;
@@ -589,7 +701,7 @@ tcp_conn_t* tcp_send_segment(tcp_conn_t *conn, uint32_t seq, uint8_t flags, cons
 	packet->flags.bits2 = 0;
 	packet->flags.bits1 = 0;
 	// Account for options sent with SYN
-	packet->flags.off = (flags & TCP_SYN) ? TCP_PACKET_SIZE_OFF + 1 : TCP_PACKET_SIZE_OFF;
+	packet->flags.off = TCP_PACKET_SIZE_OFF + (opt_len / 4);
 	// Set flags
 	packet->flags.syn = (flags & TCP_SYN) ? 1 : 0;
 	packet->flags.fin = (flags & TCP_FIN) ? 1 : 0;
@@ -606,10 +718,13 @@ tcp_conn_t* tcp_send_segment(tcp_conn_t *conn, uint32_t seq, uint8_t flags, cons
 	memcpy(&encap.src_ip, &conn->local_addr, 4);
 	memcpy(&encap.dst_ip, &conn->remote_addr, 4);
 	tcp_byte_order_out(packet);
-	tcp_build_options(packet->options, &options);
+
+	if (opt_len > 0) {
+		tcp_build_options(packet->options, &options);
+	}
 
 	// Copy data over
-	memcpy((void*)packet->payload + (flags & TCP_SYN ? 4 : 0), data, count);
+	memcpy((void*)packet->payload + opt_len, data, count);
 
 	packet->checksum = htons(tcp_calculate_checksum(&encap, packet, length));
 
@@ -864,6 +979,13 @@ bool tcp_state_listen(ip_packet_t *encap_packet, tcp_segment_t *segment, tcp_con
 	child.remote_addr = *((uint32_t *)&encap_packet->src_ip);
 	child.remote_port = segment->src_port;
 	child.peer_mss = options && options->mss ? options->mss : 1460;
+	child.rcv_wscale = tcp_default_window_scale();
+	child.snd_wscale = 0;
+	child.window_scaling = options && options->window_scale_present && child.rcv_wscale > 0;
+
+	if (options && child.window_scaling) {
+		child.snd_wscale = options->window_scale;
+	}
 
 	dprintf("Allocated child remote addr %08x\n", child.remote_addr);
 
@@ -1006,12 +1128,17 @@ bool tcp_state_syn_sent(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_c
 			conn->peer_mss = options->mss;
 		}
 
+		if (options && options->window_scale_present && conn->rcv_wscale > 0) {
+			conn->window_scaling = true;
+			conn->snd_wscale = options->window_scale;
+		}
+
 		conn->irs = segment->seq;
 		conn->rcv_nxt = segment->seq + 1;
 
 		if (segment->flags.ack) {
 			conn->snd_una = segment->ack;
-			conn->snd_wnd = segment->window_size;
+			conn->snd_wnd = tcp_segment_window(conn, segment);
 			conn->snd_wl1 = segment->seq;
 			conn->snd_wl2 = segment->ack;
 
@@ -1054,7 +1181,7 @@ bool tcp_state_syn_received(ip_packet_t* encap_packet, tcp_segment_t* segment, t
 		/* Acceptable if our SYN was acked: ISS < SEG.ACK <= SND.NXT */
 		if (seq_gt(segment->ack, conn->iss) && seq_lte(segment->ack, conn->snd_nxt + 1)) {
 			tcp_retx_acknowledge(conn, segment->ack);
-			conn->snd_wnd = segment->window_size;
+			conn->snd_wnd = tcp_segment_window(conn, segment);
 			conn->snd_wl1 = segment->seq;
 			conn->snd_wl2 = segment->ack;
 
@@ -1289,6 +1416,7 @@ bool tcp_state_fin_wait_2(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp
 	tcp_handle_data_in(encap_packet, segment, conn, options, len);
 	return true;
 }
+
 /**
  * @brief Called when state is CLOSE-WAIT
  * 
@@ -1575,6 +1703,9 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 	conn.peer_mss = 1460;
 	conn.last_dup_ack = 0;
 	conn.dup_ack_count = 0;
+	conn.snd_wscale = 0;
+	conn.rcv_wscale = tcp_default_window_scale();
+	conn.window_scaling = false;
 
 	if (tcp_port_in_use(conn.local_addr, source_port, TCP_PORT_LOCAL)) {
 		dprintf("tcp_connect() port in use\n");
