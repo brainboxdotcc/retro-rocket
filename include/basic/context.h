@@ -457,6 +457,16 @@ typedef struct basic_ctx {
 	 */
 	struct hashmap* maps;
 
+	/**
+	 * @brief Security restrictions applied to this program
+	 */
+	struct hashmap* active_restrictions;
+
+	/**
+	 * @brief Security restrictions applied to child programs
+	 */
+	struct hashmap* child_restrictions;
+
 } basic_ctx;
 
 /**

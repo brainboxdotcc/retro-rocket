@@ -456,12 +456,15 @@ const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx)
 			}
 		}
 
-		ctx->int_variables    = atomic->int_variables;
-		ctx->str_variables    = atomic->str_variables;
-		ctx->double_variables = atomic->double_variables;
-		ctx->sounds           = atomic->sounds;
-		ctx->data_offset      = atomic->data_offset;
-		ctx->graphics_colour  = atomic->graphics_colour;
+		ctx->int_variables       = atomic->int_variables;
+		ctx->str_variables       = atomic->str_variables;
+		ctx->double_variables    = atomic->double_variables;
+		ctx->sounds              = atomic->sounds;
+		ctx->data_offset         = atomic->data_offset;
+		ctx->graphics_colour     = atomic->graphics_colour;
+		ctx->active_restrictions = atomic->active_restrictions;
+		ctx->child_restrictions  = atomic->child_restrictions;
+
 
 		memcpy(ctx->audio_streams, atomic->audio_streams, sizeof(ctx->audio_streams));
 		memcpy(ctx->envelopes, atomic->envelopes, sizeof(ctx->envelopes));
@@ -498,6 +501,12 @@ char basic_builtin_int_fn(const char* fn_name, struct basic_ctx* ctx, int64_t* r
 		return 0;
 	}
 
+	if (is_restricted(ctx, fn_name)) {
+		tokenizer_error_printf(ctx, "Function '%s' is restricted by parent program", fn_name);
+		*res = 0;
+		return 0;
+	}
+
 	*res = entry->handler(ctx);
 	return 1;
 }
@@ -510,6 +519,12 @@ char basic_builtin_double_fn(const char* fn_name, struct basic_ctx* ctx, double*
 	struct builtin_double_entry *entry = hashmap_get(builtin_double_map, &key);
 
 	if (!entry) {
+		return 0;
+	}
+
+	if (is_restricted(ctx, fn_name)) {
+		tokenizer_error_printf(ctx, "Function '%s' is restricted by parent program", fn_name);
+		*res = 0;
 		return 0;
 	}
 
@@ -534,6 +549,12 @@ char basic_builtin_str_fn(const char* fn_name, struct basic_ctx* ctx, char** res
 	struct builtin_str_entry *entry = hashmap_get(builtin_str_map, &key);
 
 	if (!entry) {
+		return 0;
+	}
+
+	if (is_restricted(ctx, fn_name)) {
+		tokenizer_error_printf(ctx, "Function '%s' is restricted by parent program", fn_name);
+		*res = "";
 		return 0;
 	}
 
@@ -588,12 +609,14 @@ int64_t basic_eval_int_fn(const char* fn_name, struct basic_ctx* ctx)
 		}
 		rv = (int64_t)atomic->fn_return;
 
-		ctx->int_variables    = atomic->int_variables;
-		ctx->str_variables    = atomic->str_variables;
-		ctx->double_variables = atomic->double_variables;
-		ctx->sounds           = atomic->sounds;
-		ctx->data_offset      = atomic->data_offset;
-		ctx->graphics_colour  = atomic->graphics_colour;
+		ctx->int_variables       = atomic->int_variables;
+		ctx->str_variables       = atomic->str_variables;
+		ctx->double_variables    = atomic->double_variables;
+		ctx->sounds              = atomic->sounds;
+		ctx->data_offset         = atomic->data_offset;
+		ctx->graphics_colour     = atomic->graphics_colour;
+		ctx->active_restrictions = atomic->active_restrictions;
+		ctx->child_restrictions  = atomic->child_restrictions;
 
 		memcpy(ctx->audio_streams, atomic->audio_streams, sizeof(ctx->audio_streams));
 		memcpy(ctx->envelopes, atomic->envelopes, sizeof(ctx->envelopes));
@@ -661,12 +684,14 @@ void basic_eval_double_fn(const char* fn_name, struct basic_ctx* ctx, double* re
 			*res = *((double*)atomic->fn_return);
 		}
 
-		ctx->int_variables    = atomic->int_variables;
-		ctx->str_variables    = atomic->str_variables;
-		ctx->double_variables = atomic->double_variables;
-		ctx->sounds           = atomic->sounds;
-		ctx->data_offset      = atomic->data_offset;
-		ctx->graphics_colour  = atomic->graphics_colour;
+		ctx->int_variables       = atomic->int_variables;
+		ctx->str_variables       = atomic->str_variables;
+		ctx->double_variables    = atomic->double_variables;
+		ctx->sounds              = atomic->sounds;
+		ctx->data_offset         = atomic->data_offset;
+		ctx->graphics_colour     = atomic->graphics_colour;
+		ctx->active_restrictions = atomic->active_restrictions;
+		ctx->child_restrictions  = atomic->child_restrictions;
 
 		memcpy(ctx->audio_streams, atomic->audio_streams, sizeof(ctx->audio_streams));
 		memcpy(ctx->envelopes, atomic->envelopes, sizeof(ctx->envelopes));

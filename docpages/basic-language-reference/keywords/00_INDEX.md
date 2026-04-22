@@ -72,6 +72,7 @@ The following parameter types are used throughout this documentation:
 * \subpage DATASET
 * \subpage DEF
 * \subpage DELETE
+* \subpage DERESTRICT
 * \subpage DIM
 * \subpage ELSE
 * \subpage ENDIF
@@ -127,6 +128,7 @@ The following parameter types are used throughout this documentation:
 * \subpage RECTANGLE
 * \subpage REDIM
 * \subpage REM
+* \subpage RESTRICT
 * \subpage REPEAT
 * \subpage RESTORE
 * \subpage RETURN

@@ -14,10 +14,11 @@ var searchData=
   ['delete_2emd_11',['DELETE.md',['../DELETE_8md.html',1,'']]],
   ['delete_2emd_12',['delete.md',['../delete_8md.html',1,'']]],
   ['demo_2emd_13',['demo.md',['../demo_8md.html',1,'']]],
-  ['desktop_2dand_2dshell_2emd_14',['desktop-and-shell.md',['../desktop-and-shell_8md.html',1,'']]],
-  ['detok_2emd_15',['detok.md',['../detok_8md.html',1,'']]],
-  ['dim_2emd_16',['DIM.md',['../DIM_8md.html',1,'']]],
-  ['dir_2dfull_2dpathname_2emd_17',['dir-full-pathname.md',['../dir-full-pathname_8md.html',1,'']]],
-  ['dns_2emd_18',['DNS.md',['../DNS_8md.html',1,'']]],
-  ['dump_2emd_19',['dump.md',['../dump_8md.html',1,'']]]
+  ['derestrict_2emd_14',['DERESTRICT.md',['../DERESTRICT_8md.html',1,'']]],
+  ['desktop_2dand_2dshell_2emd_15',['desktop-and-shell.md',['../desktop-and-shell_8md.html',1,'']]],
+  ['detok_2emd_16',['detok.md',['../detok_8md.html',1,'']]],
+  ['dim_2emd_17',['DIM.md',['../DIM_8md.html',1,'']]],
+  ['dir_2dfull_2dpathname_2emd_18',['dir-full-pathname.md',['../dir-full-pathname_8md.html',1,'']]],
+  ['dns_2emd_19',['DNS.md',['../DNS_8md.html',1,'']]],
+  ['dump_2emd_20',['dump.md',['../dump_8md.html',1,'']]]
 ];

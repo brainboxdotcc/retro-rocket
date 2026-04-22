@@ -32,6 +32,7 @@
 
 #include "basic/defines.h"
 #include "basic/structs.h"
+#include "basic/security.h"
 #include "basic/context.h"
 #include "basic/expression.h"
 #include "basic/validation.h"

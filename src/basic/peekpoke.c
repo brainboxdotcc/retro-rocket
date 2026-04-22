@@ -1,5 +1,4 @@
 #include <kernel.h>
-#include <stdint.h>
 #include <stdbool.h>
 
 extern volatile struct limine_memmap_request memory_map_request;
@@ -76,8 +75,6 @@ bool address_valid_read(uint64_t addr, size_t width) {
 bool address_valid_write(uint64_t addr, size_t width) {
 	return address_valid_span(addr, width, true);
 }
-
-/* ---- BASIC PEEK wrappers (error message unchanged) ---- */
 
 int64_t basic_peek(struct basic_ctx *ctx)
 {

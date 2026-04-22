@@ -537,6 +537,8 @@ struct basic_ctx *basic_clone(struct basic_ctx *old) {
 		return NULL;
 	}
 	ctx->maps = old->maps;
+	ctx->active_restrictions = old->active_restrictions;
+	ctx->child_restrictions = old->child_restrictions;
 	ctx->if_nest_level = 0;
 	ctx->graphics_colour = old->graphics_colour;
 	ctx->data_offset = old->data_offset;
@@ -713,6 +715,7 @@ void chain_statement(struct basic_ctx *ctx) {
 		}
 	}
 
+	basic_pass_restrictions_to_child(ctx, p->code);
 
 	if (!background) {
 		proc_wait(proc, p->pid);
@@ -819,6 +822,8 @@ void eval_statement(struct basic_ctx *ctx)
 				}
 			}
 		}
+
+		basic_pass_restrictions_to_child(ctx, child->code);
 
 		proc_wait(parent, child->pid);
 		return;

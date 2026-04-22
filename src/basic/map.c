@@ -61,14 +61,14 @@ int map_value_compare(const void *a, const void *b, void *udata)
 void elfree_map_value(const void *item, void *udata)
 {
 	const map_value_t *entry = item;
-	struct basic_ctx *ctx = udata;
+	struct buddy_allocator *a = udata;
 
 	if (entry->name) {
-		buddy_free(ctx->allocator, (void *)entry->name);
+		buddy_free(a, (void *)entry->name);
 	}
 
 	if (entry->value.kind == UP_STR && entry->value.v.s) {
-		buddy_free(ctx->allocator, (void *)entry->value.v.s);
+		buddy_free(a, (void *)entry->value.v.s);
 	}
 }
 

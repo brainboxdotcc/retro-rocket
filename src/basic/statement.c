@@ -6,9 +6,15 @@ GENERATE_HANDLER_TABLE(dispatch_by_token)
 
 void statement(struct basic_ctx* ctx)
 {
+	GENERATE_ENUM_STRING_NAMES(TOKEN, token_names)
+	GENERATE_ENUM_STRING_LENGTHS(TOKEN, token_name_lengths)
 	enum token_t token = tokenizer_token(ctx);
 	if (token < DISPATCH_TABLE_COUNT(dispatch_by_token)) {
 		if (dispatch_by_token[token] != NULL) {
+			if (is_restricted_len(ctx, token_names[token], token_name_lengths[token])) {
+				tokenizer_error_printf(ctx, "Keyword '%s' is restricted by parent program", token_names[token]);
+				return;
+			}
 			dispatch_by_token[token](ctx);
 			return;
 		}

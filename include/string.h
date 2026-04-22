@@ -158,9 +158,9 @@ char* strchr(const char *s, int c);
  * @param dst Destination buffer
  * @param src Source string
  * @param siz Size of destination buffer
- * @return uint32_t Length of string attempted to create (may exceed siz)
+ * @return size_t Length of string attempted to create (may exceed siz)
  */
-uint32_t strlcat(char *dst, const char *src, uint32_t siz);
+size_t strlcat(char *dst, const char *src, size_t siz);
 
 /**
  * @brief Copy string with length check.
@@ -168,9 +168,9 @@ uint32_t strlcat(char *dst, const char *src, uint32_t siz);
  * @param dst Destination buffer
  * @param src Source string
  * @param siz Size of destination buffer
- * @return uint32_t Length of source string
+ * @return size_t Length of source string
  */
-uint32_t strlcpy(char *dst, const char *src, uint32_t siz);
+size_t strlcpy(char *dst, const char *src, size_t siz);
 
 /**
  * @brief Duplicate a string.

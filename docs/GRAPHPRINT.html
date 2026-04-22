@@ -126,7 +126,7 @@ $(function(){initNavTree('GRAPHPRINT.html','',''); });
 <div class="textblock"><div class="fragment"><div class="line">GRAPHPRINT x, y, printable</div>
 </div><!-- fragment --><p>Draws text directly onto the graphics framebuffer at <b>pixel coordinates</b>. Unlike <span class="tt">PRINT</span>, <span class="tt">GRAPHPRINT</span> does not use or update the text cursor. Each call is independent.</p>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-168"></a>
+<h3 class="doxsection"><a class="anchor" id="notes-169"></a>
 Notes</h3>
 <ul>
 <li><span class="tt">(x, y)</span> are <b>pixel coordinates</b> measured from the top-left corner of the screen.</li>
@@ -144,14 +144,14 @@ Notes</h3>
 <li>Each call draws at the specified location only. There is no graphics cursor or scrolling.</li>
 </ul>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="errors-8"></a>
+<h3 class="doxsection"><a class="anchor" id="errors-9"></a>
 Errors</h3>
 <ul>
 <li>An error occurs if <span class="tt">x</span> or <span class="tt">y</span> are not numeric.</li>
 <li>An error occurs if <span class="tt">printable</span> is omitted.</li>
 </ul>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-160"></a>
+<h3 class="doxsection"><a class="anchor" id="examples-161"></a>
 Examples</h3>
 <p><b>Draw a label in magenta</b></p>
 <div class="fragment"><div class="line">GCOL &amp;FF00FF</div>
@@ -163,7 +163,7 @@ Examples</h3>
 <div class="fragment"><div class="line">VDU 23,65,&amp;3C,&amp;7E,&amp;FF,&amp;E7,&amp;FF,&amp;66,&amp;66,&amp;00</div>
 <div class="line">GRAPHPRINT 120, 100, &quot;AAAAAAAAAAA&quot;</div>
 </div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="see-also-6"></a>
+<h3 class="doxsection"><a class="anchor" id="see-also-7"></a>
 See also</h3>
 <ul>
 <li><a class="el" href="PRINT.html">PRINT</a> - text output in the scrolling text grid.</li>

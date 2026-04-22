@@ -110,14 +110,14 @@ __attribute__((hot)) int strncmp(const char *s1, const char *s2, uint32_t n) {
 	return 0;
 }
 
-uint32_t strlcat(char *dst, const char *src, uint32_t siz) {
+size_t strlcat(char *dst, const char *src, size_t siz) {
 	if (!src || !dst) {
 		return 0;
 	}
 
 	char *d = dst;
 	const char *s = src;
-	uint32_t n = siz, dlen;
+	size_t n = siz, dlen;
 
 	while (n-- != 0 && *d != '\0') {
 		d++;
@@ -143,7 +143,7 @@ uint32_t strlcat(char *dst, const char *src, uint32_t siz) {
 	return(dlen + (s - src)); /* count does not include NUL */
 }
 
-uint32_t strlcpy(char *dst, const char *src, uint32_t siz)
+size_t strlcpy(char *dst, const char *src, size_t siz)
 {
 	if (!src || !dst) {
 		return 0;
@@ -151,7 +151,7 @@ uint32_t strlcpy(char *dst, const char *src, uint32_t siz)
 
 	char *d = dst;
 	const char *s = src;
-	uint32_t n = siz;
+	size_t n = siz;
 
 	/* Copy as many bytes as will fit */
 	if (n != 0 && --n != 0) {

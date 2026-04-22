@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=11">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Retro Rocket OS: MEMCOPY Keyword</title>
+    <title>Retro Rocket OS: RESTRICT Keyword</title>
     <link href="tabs.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -16,7 +16,7 @@
     <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-    <meta name="title" content="MEMCOPY Keyword - Retro Rocket OS">
+    <meta name="title" content="RESTRICT Keyword - Retro Rocket OS">
     <meta name="description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="author" content="Retro Rocket Developers">
     <meta name="robots" content="index, follow">
@@ -24,7 +24,7 @@
     <meta name="theme-color" content="#0b0f14">
     <link rel="icon" href="rr.png">
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="MEMCOPY Keyword - Retro Rocket OS">
+    <meta property="og:title" content="RESTRICT Keyword - Retro Rocket OS">
     <meta property="og:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://retrorocket.dev/">
@@ -32,7 +32,7 @@
     <meta property="og:image:alt" content="Retro Rocket OS running on a retro-style desktop">
     <meta property="og:site_name" content="Retro Rocket OS">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="MEMCOPY Keyword - Retro Rocket OS">
+    <meta name="twitter:title" content="RESTRICT Keyword - Retro Rocket OS">
     <meta name="twitter:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="twitter:image" content="https://retrorocket.dev/leader4.png">
     <link rel="preload" as="image" href="https://retrorocket.dev/leader4.png">
@@ -94,7 +94,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('MEMCOPY.html','',''); });
+$(function(){initNavTree('RESTRICT.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -120,22 +120,38 @@ $(function(){initNavTree('MEMCOPY.html','',''); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">MEMCOPY Keyword </div></div>
+  <div class="headertitle"><div class="title">RESTRICT Keyword </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">MEMCOPY source-integer-expression, dest-integer-expression, length-integer-expression</div>
-</div><!-- fragment --><p>Copies a block of memory from the source address (usually allocated by <a class="el" href="MEMALLOC.html">MEMALLOC</a> or <a class="el" href="MEMREALLOC.html">MEMREALLOC</a>) to a destination address (also usually allocated the same way). Exactly <span class="tt">length-integer-expression</span> will be copied.</p>
-<dl class="section warning"><dt>Warning</dt><dd>This keyword does not allow for overlapping memory regions. For overlapping memory regions, use <a class="el" href="MEMMOVE.html">MEMMOVE</a></dd></dl>
-<hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-169"></a>
+<div class="textblock"><div class="fragment"><div class="line">RESTRICT keyword-or-function[, keyword-or-function...]</div>
+</div><!-- fragment --><p>Restricts one or more BASIC keywords or built-in functions for any child program created from the current interpreter context.</p>
+<p>Once restricted, those keywords or built-in functions cannot be used by child programs inheriting the restriction set. If a child program attempts to use one, execution stops with an error.</p>
+<h3 class="doxsection"><a class="anchor" id="notes-194"></a>
+Notes</h3>
+<p><span class="tt">RESTRICT</span> affects child interpreter contexts, not the current program.</p>
+<p>Each item must be the name of a valid BASIC keyword or built-in function.</p>
+<p>Multiple items may be restricted in a single statement by separating them with commas.</p>
+<p>Restrictions are inherited when passed to a child context. A child may also apply further restrictions to its own descendants.</p>
+<p>To remove a restriction from the child restriction set, use <span class="tt">DERESTRICT</span>.</p>
+<h3 class="doxsection"><a class="anchor" id="errors-10"></a>
+Errors</h3>
+<p>An error is raised if:</p>
+<ul>
+<li>no keyword or built-in function is provided</li>
+<li>a named item is not a valid keyword or built-in function</li>
+<li>memory allocation fails while storing the restriction</li>
+</ul>
+<p>A child program that attempts to use a restricted keyword or built-in function will also raise an error.</p>
+<h3 class="doxsection"><a class="anchor" id="examples-193"></a>
 Examples</h3>
-<div class="fragment"><div class="line">buf = MEMALLOC(65536)</div>
-<div class="line">buf2 = MEMALLOC(65536)</div>
-<div class="line">MEMCOPY buf, buf2, 65536</div>
-<div class="line">MEMRELEASE buf</div>
-<div class="line">MEMRELEASE buf2</div>
-</div><!-- fragment --><hr  />
-<p><b>See also:</b> <a class="el" href="MEMALLOC.html">MEMALLOC</a> </p>
+<div class="fragment"><div class="line">RESTRICT IF</div>
+</div><!-- fragment --><div class="fragment"><div class="line">RESTRICT OPENIN, GETNAMECOUNT, VDU</div>
+</div><!-- fragment --><div class="fragment"><div class="line">RESTRICT PRINT</div>
+<div class="line"> </div>
+<div class="line">CHAIN &quot;/programs/untrusted&quot;</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="see-also-10"></a>
+See also</h3>
+<p><a class="el" href="DERESTRICT.html">DERESTRICT</a>, <a class="el" href="CHAIN.html">CHAIN</a>, <a class="el" href="PROC.html">PROC</a>, <a class="el" href="FN.html">FN</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
