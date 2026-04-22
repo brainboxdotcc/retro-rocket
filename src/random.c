@@ -145,12 +145,21 @@ void add_random_entropy(uint64_t bytes)
 	if (bytes == 0) {
 		return;
 	}
+
+	/* Preserve original jitter/timestamp collection */
 	entropy[entropy_offset] = (bytes ^ rdtsc()) | ((rdtsc() << 32) * entropy_offset);
+
 	if (++entropy_offset >= RAND_MAX_ENTROPY && !random_ready) {
 		random_ready = true;
 		dprintf("RANDOM: Entropy filled\n");
+
+		/* * Use a value from the pool to seed the PRNG.
+		 * Using the value at index (entropy[0] % MAX) adds a small
+		 * layer of non-determinism to the seed selection.
+		 */
 		random_device = seed_rand(entropy[entropy[0] % RAND_MAX_ENTROPY]);
 	}
+
 	entropy_offset %= RAND_MAX_ENTROPY;
 }
 

@@ -135,10 +135,22 @@ void mbedtls_platform_zeroize(void *buf, size_t len) __attribute__((alias("memze
 
 void entropy_irq_event(void) {
 	uint64_t tsc = rdtsc();
-	unsigned char sample = (unsigned char) (tsc & 0xFF);
-	size_t pos = entropy_head % ENTROPY_POOL_SIZE;
-	entropy_pool[pos] = sample;
-	entropy_head++;
+	uint64_t hw_seed = 0;
+	if (cpu_caps.rdseed && get_rdseed(&hw_seed)) {
+		/* We got 64-bits of hardware gold. Let's use all of it. */
+		uint8_t *bytes = (uint8_t *)&hw_seed;
+		for (int i = 0; i < 8; i++) {
+			size_t pos = entropy_head % ENTROPY_POOL_SIZE;
+			entropy_pool[pos] = bytes[i];
+			entropy_head++;
+		}
+	} else {
+		/* Fallback: Standard 1-byte jitter sample */
+		unsigned char sample = (unsigned char)(tsc & 0xFF);
+		size_t pos = entropy_head % ENTROPY_POOL_SIZE;
+		entropy_pool[pos] = sample;
+		entropy_head++;
+	}
 }
 
 int entropy_poll(void *data, unsigned char *output, size_t len, size_t *olen) {

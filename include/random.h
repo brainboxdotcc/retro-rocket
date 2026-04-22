@@ -147,3 +147,27 @@ bool csprng_string_from_alphabet(char *out, size_t len, const char *alphabet, si
  * @return true on success, false on failure.
  */
 bool mt_rand_range(int64_t x, int64_t y, int64_t *out);
+
+/**
+ * @brief Attempts to read a 64-bit hardware-generated random seed.
+ *
+ * Wraps the x86 RDSEED instruction. Uses the Carry Flag (CF) to determine
+ * if the thermal noise source successfully provided a non-deterministic value.
+ *
+ * @param[out] val Pointer to store the 64-bit seed.
+ * @return true if CF was set (success), false if the source was exhausted.
+ * @note Requires cpu_caps.rdseed
+ */
+static inline __attribute__((always_inline)) bool get_rdseed(uint64_t *val) {
+	uint64_t seed;
+	unsigned char ok;
+	__asm__ volatile (
+		"rdseed %0\n\t"
+		"setc %1"
+		: "=r"(seed), "=qm"(ok)
+		:
+		: "cc"
+	);
+	*val = seed;
+	return ok;
+}
