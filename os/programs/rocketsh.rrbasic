@@ -101,6 +101,7 @@ DEF PROCbuiltins
 	IF command$ = "cd" THEN PROCbuiltinChdir
 	IF command$ = "up" THEN PROCbuiltinUp
 	IF command$ = "run" THEN PROCbuiltinRun
+	IF command$ = "sandbox" THEN PROCbuiltinSandbox
 	IF command$ = "push" THEN PROCbuiltinPush
 	IF command$ = "pop" THEN PROCbuiltinPop
 	IF command$ = "dirs" THEN PROCbuiltinDirs
@@ -216,6 +217,7 @@ ENDPROC
 
 REM Command Processor
 DEF PROCprocessCommand(inp$)
+    whole$ = inp$
 	spaceidx = INSTR(inp$, " ")
 	command$ = ""
 	IF spaceidx > 0 THEN PROCextractParameters
@@ -233,6 +235,24 @@ DEF PROCbuiltinRun
 	found$ = FNFindProgram$(ARGS$)
 	IF found$ <> "" THEN
 		EVAL "CHAIN " + CHR$(34) + found$ + CHR$(34)
+	ENDIF
+	builtin = TRUE
+ENDPROC
+
+REM run command in sandbox (no destructive commands)
+DEF PROCbuiltinSandbox
+    sandbox$ = TOKENIZE$(whole$, " ") ' Thrown away
+    cmd$ = TOKENIZE$(whole$, " ")
+    GLOBAL ARGS$ = whole$
+	found$ = FNFindProgram$(cmd$)
+	IF found$ <> "" THEN
+	    RESTRICT INPORT, INPORTD, INPORTW, OUTPORT, OUTPORTD, OUTPORTW, PEEK, PEEKD, PEEKW, PEEKQ, POKE, OUTPORTQ, BUFFERTOSTRING$, MKDIR, MODLOAD, MODUNLOAD
+	    RESTRICT POKED, POKEQ, POKEW, MEMCOPY, MEMRELEASE, MEMALLOC, MEMSET, MEMMOVE, DELETE, RMDIR, INPORTQ, STRINGTOBUFFER, OPENUP, OPENOUT, BINWRITE, WRITE
+		PROCrunCommand(found$)
+		DERESTRICT INPORT, INPORTD, INPORTW, OUTPORT, OUTPORTD, OUTPORTW, PEEK, PEEKD, PEEKW, PEEKQ, POKE, OUTPORTQ, BUFFERTOSTRING$, MKDIR, MODLOAD, MODUNLOAD
+		DERESTRICT POKED, POKEQ, POKEW, MEMCOPY, MEMRELEASE, MEMALLOC, MEMSET, MEMMOVE, DELETE, RMDIR, INPORTQ, STRINGTOBUFFER, OPENUP, OPENOUT, BINWRITE, WRITE
+	ELSE
+	    PRINT "Can't find that program to run in sandbox"
 	ENDIF
 	builtin = TRUE
 ENDPROC

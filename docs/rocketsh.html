@@ -234,7 +234,18 @@ which</h4>
 history</h4>
 <p>Show all commands stored in the command history, which you may retrieve with the cursor keys.</p>
 <div class="fragment"><div class="line">history</div>
-</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="rocketsh-variables"></a>
+</div><!-- fragment --><h4 class="doxsection"><a class="anchor" id="sandbox"></a>
+sandbox</h4>
+<p>Launches a command in a sandboxed environment. The sandboxed environment cannot run various unsafe BASIC functions. All children of the sandboxed process also inherit the same restrictions.</p>
+<div class="fragment"><div class="line">sandbox dir /programs</div>
+</div><!-- fragment --><p><b>While sandboxed, a BASIC program cannot:</b></p>
+<ul>
+<li>Write to or delete files or directories</li>
+<li>Load or unload kernel modules</li>
+<li>Write to or read from raw memory (including buffers)</li>
+<li>Perform raw hardware I/O</li>
+</ul>
+<h3 class="doxsection"><a class="anchor" id="rocketsh-variables"></a>
 Rocketsh Variables</h3>
 <p>The rocketsh shell allows you to change certain variables that influence how the shell operates. These are:</p>
 <h4 class="doxsection"><a class="anchor" id="path"></a>

@@ -169,6 +169,22 @@ Show all commands stored in the command history, which you may retrieve with the
 history
 ```
 
+#### sandbox
+
+Launches a command in a sandboxed environment. The sandboxed environment cannot run various unsafe BASIC functions. All children
+of the sandboxed process also inherit the same restrictions.
+
+```basic
+sandbox dir /programs
+```
+
+**While sandboxed, a BASIC program cannot:**
+
+- Write to or delete files or directories
+- Load or unload kernel modules
+- Write to or read from raw memory (including buffers)
+- Perform raw hardware I/O
+
 ### Rocketsh Variables
 
 The rocketsh shell allows you to change certain variables that influence how the shell operates. These are:
