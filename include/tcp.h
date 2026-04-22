@@ -168,98 +168,18 @@ typedef struct tcp_retx_entry {
 	uint32_t seq;
 	uint32_t end_seq;
 	uint8_t flags;
-	uint32_t sent_at;
-	uint32_t rto_ms;
+	uint64_t sent_at;
+	uint64_t rto_ms;
 	uint8_t retries;
 	size_t len;
 	void *segment_copy; /* full TCP segment in host byte order, header + payload/options */
 } tcp_retx_entry_t;
 
 /**
- * @brief TCP connection control block (TCB).
- *
- * Holds the 4-tuple addressing, current TCP state, send/receive sequencers, negotiated windows,
- * high-level buffers for the POSIX-style wrapper, a reassembly list for out-of-order segments,
- * and bookkeeping for the pending-connection queue (LISTEN sockets).
- *
- * @note IP addresses are stored as host-order uint32_t within the TCB; conversion to/from network byte order happens at the protocol boundary.
- * @note Access to mutable fields is synchronised by @ref spinlock_t instances in the implementation where required.
- */
-typedef struct tcp_conn_t
-{
-	tcp_state_t state;             /**< TCP FSM state */
-
-	uint32_t local_addr;           /**< Local IPv4 address (host order) */
-	uint32_t remote_addr;          /**< Remote IPv4 address (host order) */
-	uint16_t local_port;           /**< Local TCP port (host order) */
-	uint16_t remote_port;          /**< Remote TCP port (host order) */
-
-	/* send state */
-	uint32_t snd_una;              /**< Oldest unacknowledged sequence number */
-	uint32_t snd_nxt;              /**< Next sequence number to send */
-	uint32_t snd_wnd;              /**< Send window (peer’s advertised receive window) */
-	uint32_t snd_up;               /**< Send urgent pointer */
-	uint32_t snd_wl1;              /**< Segment.seq used for last window update */
-	uint32_t snd_wl2;              /**< Segment.ack used for last window update */
-	uint32_t iss;                  /**< Initial send sequence number */
-
-	uint32_t snd_lst;              /**< Last sequence we ACKed (duplicate-ACK suppression) */
-	uint32_t rcv_lst;              /**< Last rcv_nxt we ACKed (duplicate-ACK suppression) */
-
-	/* receive state */
-	uint32_t rcv_nxt;              /**< Next sequence number expected */
-	uint32_t rcv_wnd;              /**< Receive window we are advertising */
-	uint32_t rcv_up;               /**< Receive urgent pointer */
-	uint32_t irs;                  /**< Initial receive sequence number */
-
-	/* high level wrappers for POSIX style interface */
-	int fd;                        /**< File descriptor (or -1 if none) */
-	int recv_eof_pos;              /**< Position of EOF in recv buffer, or -1 if not seen */
-	int send_eof_pos;              /**< Position of EOF in send buffer, or -1 if not set */
-	uint8_t* recv_buffer;          /**< High-level receive buffer (owned) */
-	size_t recv_buffer_len;        /**< Length of data in receive buffer (bytes) */
-	uint8_t* send_buffer;          /**< High-level send buffer (owned) */
-	size_t send_buffer_len;        /**< Length of data in send buffer (bytes) */
-
-	spinlock_t recv_buffer_spinlock;/**< Lock guarding recv_buffer and length */
-	spinlock_t send_buffer_spinlock;/**< Lock guarding send_buffer and length */
-
-	uint32_t msl_time;             /**< TIME-WAIT expiry tick or 0 when not armed */
-
-	tcp_ordered_list_t* segment_list; /**< Head of out-of-order reassembly list (may be NULL) */
-
-	int backlog;                   /**< Backlog limit for LISTEN sockets (advisory) */
-
-	queue_t* pending;              /**< Pending inbound connections for LISTEN sockets */
-
-	tcp_retx_entry_t *retx_head;
-	tcp_retx_entry_t *retx_tail;
-
-	uint16_t peer_mss;             /**< Peer MSS */
-
-	uint32_t last_dup_ack;         /**< Last duplicate ack'd SEQ id */
-	uint8_t dup_ack_count;         /**< Number of times we've seen the same SEQ id repeated */
-
-	uint8_t snd_wscale;            /**< Sending window scale */
-	uint8_t rcv_wscale;            /**< Receiving window scale */
-	bool window_scaling;           /**< Window scaling enabled */
-} tcp_conn_t;
-
-/**
- * @brief Port types, either a local or remote port
- */
-typedef enum tcp_port_type_t {
-	TCP_PORT_LOCAL,                /**< Local (bind) port */
-	TCP_PORT_REMOTE,               /**< Remote (peer) port */
-} tcp_port_type_t;
-
-
-#define TCP_ERROR_SSL_FIRST -1000
-
-/**
  * @brief Error codes which can be returned by socket functions
  */
 typedef enum tcp_error_code_t {
+	TCP_ERROR_NONE = 0,
 	TCP_ERROR_ALREADY_CLOSING = -1,
 	TCP_ERROR_PORT_IN_USE = -2,
 	TCP_ERROR_NETWORK_DOWN = -3,
@@ -278,8 +198,80 @@ typedef enum tcp_error_code_t {
 	TCP_SSL_INVALID_ALPN = -16,
 	TCP_SSL_CLIENT_SETUP_FAILED = -17,
 	TCP_SSL_INVALID_SNI = -18,
-	TCP_LAST_ERROR = -19,
+	TCP_CONNECTION_CLOSED = -19,
+	TCP_CONNECTION_RESET = -20,
+	TCP_CONNECTION_REFUSED = -21,
+	TCP_CONNECTION_ABORTED = -22,
+	TCP_CONNECTION_LOST = -23,
+	TCP_SSL_SERVER_SETUP_FAILED = -24,
+	TCP_SSL_CANT_LOAD_SERVER_CERT = -25,
+	TCP_SSL_CANT_LOAD_SERVER_KEY = -26,
+	TCP_LAST_ERROR = -27,
 } tcp_error_code_t;
+
+/**
+ * @brief TCP connection control block (TCB).
+ *
+ * Holds the 4-tuple addressing, current TCP state, send/receive sequencers, negotiated windows,
+ * high-level buffers for the POSIX-style wrapper, a reassembly list for out-of-order segments,
+ * and bookkeeping for the pending-connection queue (LISTEN sockets).
+ *
+ * @note IP addresses are stored as host-order uint32_t within the TCB; conversion to/from network byte order happens at the protocol boundary.
+ * @note Access to mutable fields is synchronised by @ref spinlock_t instances in the implementation where required.
+ */
+typedef struct tcp_conn_t {
+	tcp_state_t state;             /**< TCP FSM state */
+	uint32_t local_addr;           /**< Local IPv4 address (host order) */
+	uint32_t remote_addr;          /**< Remote IPv4 address (host order) */
+	uint16_t local_port;           /**< Local TCP port (host order) */
+	uint16_t remote_port;          /**< Remote TCP port (host order) */
+	uint32_t snd_una;              /**< Oldest unacknowledged sequence number */
+	uint32_t snd_nxt;              /**< Next sequence number to send */
+	uint32_t snd_wnd;              /**< Send window (peer’s advertised receive window) */
+	uint32_t snd_up;               /**< Send urgent pointer */
+	uint32_t snd_wl1;              /**< Segment.seq used for last window update */
+	uint32_t snd_wl2;              /**< Segment.ack used for last window update */
+	uint32_t iss;                  /**< Initial send sequence number */
+	uint32_t snd_lst;              /**< Last sequence we ACKed (duplicate-ACK suppression) */
+	uint32_t rcv_lst;              /**< Last rcv_nxt we ACKed (duplicate-ACK suppression) */
+	uint32_t rcv_nxt;              /**< Next sequence number expected */
+	uint32_t rcv_wnd;              /**< Receive window we are advertising */
+	uint32_t rcv_up;               /**< Receive urgent pointer */
+	uint32_t irs;                  /**< Initial receive sequence number */
+	int fd;                        /**< File descriptor (or -1 if none) */
+	int recv_eof_pos;              /**< Position of EOF in recv buffer, or -1 if not seen */
+	int send_eof_pos;              /**< Position of EOF in send buffer, or -1 if not set */
+	uint8_t* recv_buffer;          /**< High-level receive buffer (owned) */
+	size_t recv_buffer_len;        /**< Length of data in receive buffer (bytes) */
+	uint8_t* send_buffer;          /**< High-level send buffer (owned) */
+	size_t send_buffer_len;        /**< Length of data in send buffer (bytes) */
+	spinlock_t recv_buffer_spinlock;/**< Lock guarding recv_buffer and length */
+	spinlock_t send_buffer_spinlock;/**< Lock guarding send_buffer and length */
+	uint32_t msl_time;             /**< TIME-WAIT expiry tick or 0 when not armed */
+	tcp_ordered_list_t* segment_list; /**< Head of out-of-order reassembly list (may be NULL) */
+	int backlog;                   /**< Backlog limit for LISTEN sockets (advisory) */
+	queue_t* pending;              /**< Pending inbound connections for LISTEN sockets */
+	tcp_retx_entry_t *retx_head;   /**< Retry queue head pointer */
+	tcp_retx_entry_t *retx_tail;   /**< Retry queue tail pointer */
+	uint16_t peer_mss;             /**< Peer MSS */
+	uint32_t last_dup_ack;         /**< Last duplicate ack'd SEQ id */
+	uint8_t dup_ack_count;         /**< Number of times we've seen the same SEQ id repeated */
+	uint8_t snd_wscale;            /**< Sending window scale */
+	uint8_t rcv_wscale;            /**< Receiving window scale */
+	bool window_scaling;           /**< Window scaling enabled */
+	tcp_error_code_t close_code;   /**< Socket close reason. This is mirrored to state outside the TCB */
+} tcp_conn_t;
+
+/**
+ * @brief Port types, either a local or remote port
+ */
+typedef enum tcp_port_type_t {
+	TCP_PORT_LOCAL,                /**< Local (bind) port */
+	TCP_PORT_REMOTE,               /**< Remote (peer) port */
+} tcp_port_type_t;
+
+
+#define TCP_ERROR_SSL_FIRST -1000
 
 /**
  * @brief TCP handler called by the IP layer
@@ -511,3 +503,8 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
  * @return true when fully drained, false otherwise
  */
 bool sock_sent(int fd);
+
+void tcp_set_close_code(tcp_conn_t* conn, tcp_error_code_t code);
+void tcp_set_close_code_by_fd(int this_fd, tcp_error_code_t code);
+
+tcp_error_code_t tcp_get_close_code(int this_fd);

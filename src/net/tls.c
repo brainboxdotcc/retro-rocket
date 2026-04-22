@@ -324,21 +324,25 @@ int tls_server_init(mbedtls_ssl_context *ssl, mbedtls_ssl_config *conf, const st
 		mbedtls_x509_crt_init(&cert);
 		mbedtls_pk_init(&key);
 		if (mbedtls_x509_crt_parse(&cert, cert_pem, cert_len) != 0) {
-			return -1;
+			return TCP_SSL_CANT_LOAD_SERVER_CERT;
 		}
 		if (mbedtls_pk_parse_key(&key, key_pem, key_len, NULL, 0) != 0) {
-			return -1;
+			return TCP_SSL_CANT_LOAD_SERVER_KEY;
 		}
 		cred_loaded = 1;
 	}
-	mbedtls_ssl_conf_own_cert(conf, &cert, &key);
+	if (mbedtls_ssl_conf_own_cert(conf, &cert, &key) != 0) {
+		return TCP_ERROR_OUT_OF_MEMORY;
+	}
 
 	if (alpn_csv) {
 		static const char *alpn_list[] = {"h2", "http/1.1", NULL};
 		mbedtls_ssl_conf_alpn_protocols(conf, alpn_list);
 	}
 
-	if (mbedtls_ssl_setup(ssl, conf) != 0) return -1;
+	if (mbedtls_ssl_setup(ssl, conf) != 0) {
+		return TCP_SSL_SERVER_SETUP_FAILED;
+	}
 	mbedtls_ssl_set_bio(ssl, io, send_shim, recv_shim, NULL);
 	return 0;
 }
@@ -476,6 +480,7 @@ int ssl_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 	int status = tls_client_init(&p->ssl, &p->conf, &p->io, sni, alpn_csv, ca_pem, ca_len);
 	if (status != 0) {
 		tls_detach(fd);
+		tcp_set_close_code_by_fd(fd, status);
 		kfree(p);
 		dprintf("tls_client_init failed\n");
 		return status;
@@ -489,6 +494,7 @@ int ssl_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 				tls_detach(fd);
 				kfree(p);
 				closesocket(fd);
+				tcp_set_close_code_by_fd(fd, TCP_CONNECTION_TIMED_OUT);
 				return TCP_CONNECTION_TIMED_OUT;
 			} else if (rv == MBEDTLS_ERR_SSL_WANT_READ) {
 				while (!sock_ready_to_read(p->fd)) {
@@ -542,8 +548,10 @@ int ssl_accept(int listen_fd, const uint8_t *cert_pem, size_t cert_len, const ui
 		return TCP_ERROR_OUT_OF_DESCRIPTORS;
 	}
 
-	if (tls_server_init(&p->ssl, &p->conf, &p->io, cert_pem, cert_len, key_pem, key_len, alpn_csv) == -1) {
+	int status;
+	if ((status = tls_server_init(&p->ssl, &p->conf, &p->io, cert_pem, cert_len, key_pem, key_len, alpn_csv)) != 0) {
 		tls_detach(fd);
+		tcp_set_close_code_by_fd(fd, status);
 		kfree(p);
 		return TCP_ERROR_CONNECTION_FAILED;
 	}
@@ -569,6 +577,7 @@ int ssl_accept(int listen_fd, const uint8_t *cert_pem, size_t cert_len, const ui
 		}
 		if ((get_ticks() - start) > 6000) {
 			tls_close_fd(fd);
+			tcp_set_close_code_by_fd(fd, TCP_CONNECTION_TIMED_OUT);
 			return TCP_CONNECTION_TIMED_OUT;
 		}
 		__builtin_ia32_pause();

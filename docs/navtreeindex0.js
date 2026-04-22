@@ -231,6 +231,7 @@ var NAVTREEINDEX0 =
 "SOCKBINREAD.html":[0,1,2,101],
 "SOCKBINWRITE.html":[0,1,2,102],
 "SOCKCLOSE.html":[0,1,2,103],
+"SOCKERRORS.html":[0,1,3,2,33],
 "SOCKFLUSH.html":[0,1,2,104],
 "SOCKLISTEN.html":[0,1,3,0,82],
 "SOCKREAD.html":[0,1,2,105],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "SQR.html":[0,1,3,1,20],
 "SSLCONNECT.html":[0,1,2,100],
 "SSLSOCKACCEPT.html":[0,1,3,0,79],
-"STR.html":[0,1,3,2,33],
-"STREAM.html":[0,1,2,111]
+"STR.html":[0,1,3,2,34]
 };

@@ -14,13 +14,14 @@ static uint32_t isn_hash_seed1 = 0;
 static spinlock_t lock = 0;
 
 /* Initial retransmission timeout in milliseconds for SYN, FIN and data segments. */
-static const uint32_t tcp_retx_initial_rto = 1000;
+static const uint64_t tcp_retx_initial_rto = 1000;
 
 /* Maximum retransmission attempts before abandoning the connection. */
 static const uint8_t tcp_retx_max_retries = 5;
 
 /* Must match up with order and amount of error messages in tcp_error_code_t */
 static const char* error_messages[] = {
+	"No error",
 	"Socket is already closing",
 	"Port in use",
 	"Network is down",
@@ -39,6 +40,14 @@ static const char* error_messages[] = {
 	"Invalid TLS ALPN",
 	"TLS client setup failed",
 	"Invalid TLS server name identifier (SNI)",
+	"Connection closed",
+	"Connection reset by peer",
+	"Connection refused",
+	"Connection aborted",
+	"Connection lost",
+	"TLS server setup failed",
+	"TLS server failed to parse certificate",
+	"TLS server failed to parse private key",
 };
 
 bool tcp_state_receive_fin(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len);
@@ -338,12 +347,14 @@ static bool tcp_retx_enqueue(tcp_conn_t* conn, uint32_t seq, uint8_t flags, cons
 
 	entry = kmalloc(sizeof(tcp_retx_entry_t));
 	if (!entry) {
+		tcp_set_close_code(conn, TCP_ERROR_OUT_OF_MEMORY);
 		return false;
 	}
 
 	memset(entry, 0, sizeof(tcp_retx_entry_t));
 	entry->segment_copy = kmalloc(len);
 	if (!entry->segment_copy) {
+		tcp_set_close_code(conn, TCP_ERROR_OUT_OF_MEMORY);
 		kfree_null(&entry);
 		return false;
 	}
@@ -773,8 +784,10 @@ int tcp_write(tcp_conn_t* conn, const void* data, size_t count)
 	if (conn == NULL) {
 		return TCP_ERROR_INVALID_CONNECTION;
 	} else if (count > TCP_WINDOW_SIZE) {
+		tcp_set_close_code(conn, TCP_ERROR_WRITE_TOO_LARGE);
 		return TCP_ERROR_WRITE_TOO_LARGE;
 	} else if (conn->state != TCP_ESTABLISHED) {
+		tcp_set_close_code(conn, TCP_ERROR_NOT_CONNECTED);
 		return TCP_ERROR_NOT_CONNECTED;
 	}
 	tcp_send_segment(conn, conn->snd_nxt, TCP_ACK | TCP_PSH, data, count);
@@ -851,10 +864,12 @@ tcp_segment_t* tcp_ord_list_insert(tcp_conn_t* conn, tcp_segment_t* segment, siz
 	// allocate new node
 	tcp_ordered_list_t *new = kmalloc(sizeof(tcp_ordered_list_t));
 	if (!new) {
+		tcp_set_close_code(conn, TCP_ERROR_OUT_OF_MEMORY);
 		return NULL;
 	}
 	new->segment = kmalloc(len + tcp_header_size(segment));
 	if (!new->segment) {
+		tcp_set_close_code(conn, TCP_ERROR_OUT_OF_MEMORY);
 		kfree_null(&new);
 		return NULL;
 	}
@@ -1116,8 +1131,7 @@ bool tcp_state_syn_sent(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_c
 
 	if (segment->flags.rst) {
 		if (segment->flags.ack) {
-			// TODO: Connection reset (propagate upwards)
-			dprintf("TODO: Connection reset, propagate into conn_t\n");
+			tcp_set_close_code(conn, TCP_CONNECTION_RESET);
 		}
 		return true;
 	}
@@ -1218,6 +1232,7 @@ bool tcp_state_receive_rst(ip_packet_t* encap_packet, tcp_segment_t* segment, tc
 		case TCP_SYN_RECEIVED:
 			// Connection refused
 			dprintf("*** TCP *** Connection refused\n");
+			tcp_set_close_code(conn, TCP_CONNECTION_REFUSED);
 			tcp_free(conn, true);
 			break;
 		case TCP_ESTABLISHED:
@@ -1226,6 +1241,7 @@ bool tcp_state_receive_rst(ip_packet_t* encap_packet, tcp_segment_t* segment, tc
 		case TCP_CLOSE_WAIT:
 			// Connection reset by peer
 			dprintf("*** TCP *** Connection reset by peer\n");
+			tcp_set_close_code(conn, TCP_CONNECTION_RESET);
 			tcp_free(conn, true);
 			break;
 		case TCP_CLOSING:
@@ -1233,6 +1249,7 @@ bool tcp_state_receive_rst(ip_packet_t* encap_packet, tcp_segment_t* segment, tc
 		case TCP_TIME_WAIT:
 			// Connection closed
 			dprintf("*** TCP *** Connection gracefully closed\n");
+			tcp_set_close_code(conn, TCP_CONNECTION_CLOSED);
 			tcp_free(conn, true);
 			break;
 		default:
@@ -1315,8 +1332,8 @@ bool tcp_state_receive_fin(ip_packet_t* encap_packet, tcp_segment_t* segment, tc
 		case TCP_SYN_RECEIVED:
 		case TCP_ESTABLISHED:
 			conn->recv_eof_pos = conn->recv_buffer_len;
-			//dump_hex(conn->recv_buffer, conn->recv_buffer_len);
 			tcp_set_state(conn, TCP_CLOSE_WAIT);
+			tcp_set_close_code(conn, TCP_CONNECTION_CLOSED);
 			break;
 		case TCP_FIN_WAIT_1:
 			if (seq_gte(segment->ack, conn->snd_nxt)) {
@@ -1576,9 +1593,10 @@ void tcp_idle()
 		if (conn && conn->retx_head) {
 			tcp_retx_entry_t* entry = conn->retx_head;
 
-			if ((uint32_t)(get_ticks() - entry->sent_at) >= entry->rto_ms) {
+			if ((get_ticks() - entry->sent_at) >= entry->rto_ms) {
 				if (entry->retries >= tcp_retx_max_retries) {
 					dprintf("TCP retransmit exhausted\n");
+					tcp_set_close_code(conn, TCP_CONNECTION_LOST);
 					tcp_free(conn, false);
 					break;
 				}
@@ -1604,10 +1622,12 @@ void tcp_idle()
 					void *new_buf = kmalloc(new_len);
 					if (new_buf) {
 						memcpy(new_buf, (uint8_t *)conn->send_buffer + amount_to_send, new_len);
+						kfree_null(&conn->send_buffer);
+						conn->send_buffer = new_buf;
+						conn->send_buffer_len = new_len;
+					} else {
+						tcp_set_close_code(conn, TCP_ERROR_OUT_OF_MEMORY);
 					}
-					kfree_null(&conn->send_buffer);
-					conn->send_buffer = new_buf;
-					conn->send_buffer_len = new_len;
 				}
 			}
 		} else if (conn && conn->state == TCP_TIME_WAIT && seq_gte(get_isn(conn->local_addr, conn->remote_addr, conn->local_port, conn->remote_port), conn->msl_time)) {
@@ -1697,6 +1717,8 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 
 	gethostaddr(ip);
 
+	memset(&conn, 0, sizeof(tcp_conn_t));
+
 	conn.remote_addr = target_addr;
 	conn.remote_port = target_port;
 	conn.local_addr = *((uint32_t*)&ip);
@@ -1766,6 +1788,8 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 		unlock_spinlock_irq(&lock, flags);
 		return TCP_ERROR_OUT_OF_DESCRIPTORS;
 	}
+
+	tcp_set_close_code(new_conn, TCP_ERROR_NONE);
 
 	tcp_send_segment(new_conn, new_conn->snd_nxt, TCP_SYN, NULL, 0);
 	unlock_spinlock_irq(&lock, flags);
@@ -1858,6 +1882,7 @@ int connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port, bo
 		__builtin_ia32_pause();
 		if (get_ticks() - start > 6000) {
 			dprintf("tcp connect timed out. State=%d\n", conn->state);
+			tcp_set_close_code(conn, TCP_CONNECTION_TIMED_OUT);
 			return TCP_CONNECTION_TIMED_OUT;
 		}
 	};
@@ -1889,6 +1914,11 @@ bool is_connected(int socket)
 
 	if (conn->recv_buffer != NULL && conn->recv_buffer_len > 0) {
 		return true;
+	}
+
+	if (conn->close_code < TCP_ERROR_NONE && conn->close_code != TCP_CONNECTION_CLOSED) {
+		dprintf("sockstatus: %s (%d) [%s %d]\n", socket_error(tcp_get_close_code(socket)), tcp_get_close_code(socket), socket_error(conn->close_code), conn->close_code);
+		return false;
 	}
 
 	return conn->state == TCP_ESTABLISHED;
@@ -1932,10 +1962,12 @@ int recv(int socket, void* buffer, uint32_t maxlen, bool blocking, uint32_t time
 			void *new_buf = kmalloc(new_len);
 			if (new_buf) {
 				memcpy(new_buf, conn->recv_buffer + amount_to_recv, new_len);
+				kfree_null(&conn->recv_buffer);
+				conn->recv_buffer = new_buf;
+				conn->recv_buffer_len = new_len;
+			} else {
+				tcp_set_close_code(conn, TCP_ERROR_OUT_OF_MEMORY);
 			}
-			kfree_null(&conn->recv_buffer);
-			conn->recv_buffer = new_buf;
-			conn->recv_buffer_len = new_len;
 		}
 		unlock_spinlock_irq(&lock, flags);
 		return amount_to_recv;
@@ -2005,6 +2037,8 @@ int tcp_listen(uint32_t addr, uint16_t port, int backlog)
 		return TCP_ERROR_OUT_OF_DESCRIPTORS;
 	}
 
+	tcp_set_close_code(new_conn, TCP_ERROR_NONE);
+
 	unlock_spinlock_irq(&lock, flags);
 	dprintf("listen: listening on %d\n", port);
 	return new_conn->fd;
@@ -2018,6 +2052,7 @@ int tcp_accept(int socket) {
 	}
 	if (listener->state != TCP_LISTEN) {
 		dprintf("accept: Not listening: %d\n", socket);
+		tcp_set_close_code(listener, TCP_ERROR_NOT_LISTENING);
 		return TCP_ERROR_NOT_LISTENING;
 	}
 
@@ -2026,6 +2061,7 @@ int tcp_accept(int socket) {
 
 	if (queue_empty(listener->pending)) {
 		unlock_spinlock_irq(&lock, flags);
+		tcp_set_close_code(listener, TCP_ERROR_WOULD_BLOCK);
 		return TCP_ERROR_WOULD_BLOCK;
 	}
 
@@ -2042,6 +2078,7 @@ int tcp_accept(int socket) {
 	if (!conn) {
 		unlock_spinlock_irq(&lock, flags);
 		dprintf("accept: Connection failed: %d\n", socket);
+		tcp_set_close_code(listener, TCP_ERROR_CONNECTION_FAILED);
 		return TCP_ERROR_CONNECTION_FAILED;
 	}
 
@@ -2049,8 +2086,11 @@ int tcp_accept(int socket) {
 	if (conn->fd == -1) {
 		unlock_spinlock_irq(&lock, flags);
 		dprintf("accept: Out of descriptors: %d\n", socket);
+		tcp_set_close_code(listener, TCP_ERROR_OUT_OF_DESCRIPTORS);
 		return TCP_ERROR_OUT_OF_DESCRIPTORS;
 	}
+
+	tcp_set_close_code(conn, TCP_ERROR_NONE);
 
 	unlock_spinlock_irq(&lock, flags);
 	dprintf("accept: New inbound: %d\n", conn->fd);

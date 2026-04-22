@@ -543,6 +543,16 @@ char* basic_tlscipher(struct basic_ctx *ctx) {
 	return (char*)(gc_strdup(ctx, tls_cipher(fd)));
 }
 
+char* basic_sockerror(struct basic_ctx *ctx) {
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t fd = intval;
+	PARAMS_END("SOCKERROR$", 0);
+
+	return (char*)(gc_strdup(ctx, socket_error(tcp_get_close_code(fd))));
+}
+
+
 char *basic_netinfo(struct basic_ctx *ctx) {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);

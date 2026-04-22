@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=11">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Retro Rocket OS: String Functions</title>
+    <title>Retro Rocket OS: SOCKERROR$ Function</title>
     <link href="tabs.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -16,7 +16,7 @@
     <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-    <meta name="title" content="String Functions - Retro Rocket OS">
+    <meta name="title" content="SOCKERROR$ Function - Retro Rocket OS">
     <meta name="description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="author" content="Retro Rocket Developers">
     <meta name="robots" content="index, follow">
@@ -24,7 +24,7 @@
     <meta name="theme-color" content="#0b0f14">
     <link rel="icon" href="rr.png">
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="String Functions - Retro Rocket OS">
+    <meta property="og:title" content="SOCKERROR$ Function - Retro Rocket OS">
     <meta property="og:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://retrorocket.dev/">
@@ -32,7 +32,7 @@
     <meta property="og:image:alt" content="Retro Rocket OS running on a retro-style desktop">
     <meta property="og:site_name" content="Retro Rocket OS">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="String Functions - Retro Rocket OS">
+    <meta name="twitter:title" content="SOCKERROR$ Function - Retro Rocket OS">
     <meta name="twitter:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="twitter:image" content="https://retrorocket.dev/leader4.png">
     <link rel="preload" as="image" href="https://retrorocket.dev/leader4.png">
@@ -94,7 +94,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('string-funcs.html','',''); });
+$(function(){initNavTree('SOCKERRORS.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -120,56 +120,38 @@ $(function(){initNavTree('string-funcs.html','',''); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">String Functions </div></div>
+  <div class="headertitle"><div class="title">SOCKERROR$ Function </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>The following functions return or manipulate <b>string values</b> in Retro Rocket BASIC.</p>
+<div class="textblock"><div class="fragment"><div class="line">V$ = SOCKERROR$(socket-handle)</div>
+</div><!-- fragment --><p>Returns a human-readable description of the last socket error associated with the given <span class="tt">socket-handle</span>.</p>
+<p>If the socket has encountered an error or has been closed, the corresponding error string will be returned (for example, <span class="tt">"connection reset"</span>, <span class="tt">"aborted"</span>, <span class="tt">"timed out"</span>).</p>
+<p>If no error has occurred, the string <span class="tt">"No error"</span> is returned.</p>
+<p><b>Notes</b></p>
 <ul>
-<li><a class="el" href="ADFSIMAGE.html">ADFSIMAGE$ Function</a></li>
-<li><a class="el" href="BOOL.html">BOOL$ Function</a></li>
-<li><a class="el" href="BUFFERTOSTRINGS.html">BUFFERTOSTRING$ Function</a></li>
-<li><a class="el" href="CHR.html">CHR$ Function</a></li>
-<li><a class="el" href="CSD.html">CSD$ Function</a></li>
-<li><a class="el" href="DATAREADS.html">DATAREAD$ Function</a></li>
-<li><a class="el" href="DATE.html">DATE$ Function</a></li>
-<li><a class="el" href="DNS.html">DNS$ Function</a></li>
-<li><a class="el" href="EMPTYRAMDISK.html">EMPTYRAMDISK$ Function</a></li>
-<li><a class="el" href="FILETYPE.html">FILETYPE$ Function</a></li>
-<li><a class="el" href="GETNAME.html">GETNAME$ Function</a></li>
-<li><a class="el" href="GETPROCNAME.html">GETPROCNAME$ Function</a></li>
-<li><a class="el" href="GETPROCSTATE.html">GETPROCSTATE$ Function</a></li>
-<li><a class="el" href="GETVAR.html">GETVAR$ Function</a></li>
-<li><a class="el" href="HIGHLIGHT.html">HIGHLIGHT$ Function</a></li>
-<li><a class="el" href="INKEY.html">INKEY$ Function</a></li>
-<li><a class="el" href="INSOCKET.html">INSOCKET$ Function</a></li>
-<li><a class="el" href="LEFT.html">LEFT$ Function</a></li>
-<li><a class="el" href="LJUST.html">LJUST$ Function</a></li>
-<li><a class="el" href="LOWER.html">LOWER$ Function</a></li>
-<li><a class="el" href="LTRIM.html">LTRIM$ Function</a></li>
-<li><a class="el" href="MAPGETS.html">MAPGET$ Function</a></li>
-<li><a class="el" href="MID.html">MID$ Function</a></li>
-<li><a class="el" href="NETINFO.html">NETINFO$ Function</a></li>
-<li><a class="el" href="RADIXS.html">RADIX$ Function</a></li>
-<li><a class="el" href="RAMDISK.html">RAMDISK$ Function</a></li>
-<li><a class="el" href="READ.html">READ$ Function</a></li>
-<li><a class="el" href="REPLACE.html">REPLACE$ Function</a></li>
-<li><a class="el" href="REVERSE.html">REVERSE$ Function</a></li>
-<li><a class="el" href="RIGHT.html">RIGHT$ Function</a></li>
-<li><a class="el" href="RJUST.html">RJUST$ Function</a></li>
-<li><a class="el" href="RTRIM.html">RTRIM$ Function</a></li>
-<li><a class="el" href="SECSTR.html">SECSTR$ Function</a></li>
-<li><a class="el" href="SOCKERRORS.html">SOCKERROR$ Function</a></li>
-<li><a class="el" href="STR.html">STR$ Function</a></li>
-<li><a class="el" href="TIME.html">TIME$ Function</a></li>
-<li><a class="el" href="TLSCIPHER.html">TLSCIPHER$ Function</a></li>
-<li><a class="el" href="TLSVERSION.html">TLSVERSION$ Function</a></li>
-<li><a class="el" href="TOKENIZE.html">TOKENIZE$ Function</a></li>
-<li><a class="el" href="TRIM.html">TRIM$ Function</a></li>
-<li><a class="el" href="UDPLASTIP.html">UDPLASTIP$ Function</a></li>
-<li><a class="el" href="UDPREAD.html">UDPREAD$ Function</a></li>
-<li><a class="el" href="UPPER.html">UPPER$ Function</a></li>
-<li><a class="el" href="UPTIMES.html">UPTIME$ Function</a> </li>
+<li>The error code is stored per file descriptor and remains available even after the connection has been closed.</li>
+<li>This allows error inspection after operations such as <span class="tt">CLOSE</span> or remote disconnection.</li>
+<li>The returned string is derived from the internal TCP error code.</li>
 </ul>
+<p><b>Errors</b></p>
+<ul>
+<li>Returns <span class="tt">"invalid socket"</span> if the handle is out of range or not recognised.</li>
+</ul>
+<p><b>Examples</b></p>
+<div class="fragment"><div class="line">CONNECT s, &quot;example.com&quot;, 23</div>
+<div class="line"> </div>
+<div class="line">&#39; ... use the socket ...</div>
+<div class="line"> </div>
+<div class="line">CLOSE s</div>
+<div class="line"> </div>
+<div class="line">PRINT SOCKERROR$(s)</div>
+</div><!-- fragment --><div class="fragment"><div class="line">CONNECT s, &quot;example.com&quot;, 23</div>
+<div class="line"> </div>
+<div class="line">IF SOCKSTATUS(s) = FALSE THEN</div>
+<div class="line">    PRINT &quot;Socket error: &quot;; SOCKERROR$(s)</div>
+<div class="line">ENDIF</div>
+</div><!-- fragment --><p><b>See also:</b></p>
+<p><a class="el" href="CONNECT.html">CONNECT</a> · <a class="el" href="CLOSE.html">CLOSE</a> · <a class="el" href="SOCKSTATUS.html">SOCKSTATUS</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -185,7 +167,7 @@ $(function(){initNavTree('string-funcs.html','',''); });
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="index.html">Retro Rocket OS Documentation</a></li><li class="navelem"><a href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a href="builtin-functions.html">Built-In Functions</a></li>
+    <li class="navelem"><a href="index.html">Retro Rocket OS Documentation</a></li><li class="navelem"><a href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a href="string-funcs.html">String Functions</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.14.0 </li>
   </ul>
 </div>

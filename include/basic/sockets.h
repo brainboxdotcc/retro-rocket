@@ -201,3 +201,5 @@ void sslconnect_statement(struct basic_ctx* ctx);
 char* basic_tlsversion(struct basic_ctx *ctx);
 
 char* basic_tlscipher(struct basic_ctx *ctx);
+
+char* basic_sockerror(struct basic_ctx *ctx);
