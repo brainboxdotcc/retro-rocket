@@ -175,9 +175,7 @@ bool basic_dim_int_array(const char* var, int64_t size, struct basic_ctx* ctx)
 		return false;
 	}
 
-	for (int64_t v = 0; v < size; ++v) {
-		new.values[v] = 0;
-	}
+	memset(new.values, 0, (uint64_t)size * sizeof(new.values[0]));
 
 	if (!hashmap_set(ctx->int_array_variables, &new) && hashmap_oom(ctx->int_array_variables)) {
 		tokenizer_error_printf(ctx, "Array '%s': Out of memory", var);
@@ -214,9 +212,7 @@ bool basic_dim_string_array(const char* var, int64_t size, struct basic_ctx* ctx
 		return false;
 	}
 
-	for (int64_t v = 0; v < size; ++v) {
-		new.values[v] = NULL;
-	}
+	memset(new.values, 0, (uint64_t)size * sizeof(new.values[0]));
 
 	if (!hashmap_set(ctx->string_array_variables, &new) && hashmap_oom(ctx->string_array_variables)) {
 		tokenizer_error_printf(ctx, "Array '%s': Out of memory", var);
@@ -253,9 +249,7 @@ bool basic_dim_double_array(const char* var, int64_t size, struct basic_ctx* ctx
 		return false;
 	}
 
-	for (int64_t v = 0; v < size; ++v) {
-		new.values[v] = 0.0;
-	}
+	memset(new.values, 0, (uint64_t)size * sizeof(new.values[0]));
 
 	if (!hashmap_set(ctx->double_array_variables, &new) && hashmap_oom(ctx->double_array_variables)) {
 		tokenizer_error_printf(ctx, "Array '%s': Out of memory", var);
@@ -290,9 +284,7 @@ bool basic_redim_int_array(const char* var, int64_t size, struct basic_ctx* ctx)
 	cur->values = new_values;
 
 	if ((uint64_t)size > cur->itemcount) {
-		for (int64_t i = cur->itemcount; i < size; ++i) {
-			cur->values[i] = 0;
-		}
+		memset(&cur->values[cur->itemcount], 0, ((uint64_t)size - cur->itemcount) * sizeof(cur->values[0]));
 	}
 
 	cur->itemcount = size;
@@ -330,9 +322,7 @@ bool basic_redim_string_array(const char* var, int64_t size, struct basic_ctx* c
 	cur->values = new_values;
 
 	if ((uint64_t)size > cur->itemcount) {
-		for (int64_t i = cur->itemcount; i < size; ++i) {
-			cur->values[i] = NULL;
-		}
+		memset(&cur->values[cur->itemcount], 0, ((uint64_t)size - cur->itemcount) * sizeof(cur->values[0]));
 	}
 
 	cur->itemcount = size;
@@ -364,9 +354,7 @@ bool basic_redim_double_array(const char* var, int64_t size, struct basic_ctx* c
 	cur->values = new_values;
 
 	if ((uint64_t)size > cur->itemcount) {
-		for (int64_t i = cur->itemcount; i < size; ++i) {
-			cur->values[i] = 0;
-		}
+		memset(&cur->values[cur->itemcount], 0, ((uint64_t)size - cur->itemcount) * sizeof(cur->values[0]));
 	}
 
 	cur->itemcount = size;
@@ -606,9 +594,7 @@ bool basic_pop_string_array(const char* var, int64_t pop_pos, struct basic_ctx* 
 	}
 
 	buddy_free(ctx->allocator, cur->values[pop_pos]);
-	for (uint64_t i = (uint64_t)pop_pos; i < cur->itemcount - 1; ++i) {
-		cur->values[i] = cur->values[i + 1];
-	}
+	memmove(&cur->values[pop_pos], &cur->values[pop_pos + 1], (cur->itemcount - (uint64_t)pop_pos - 1) * sizeof(cur->values[0]));
 	cur->values[cur->itemcount - 1] = NULL;
 	return true;
 }
@@ -631,9 +617,7 @@ bool basic_pop_int_array(const char* var, int64_t pop_pos, struct basic_ctx* ctx
 		return false;
 	}
 
-	for (uint64_t i = (uint64_t)pop_pos; i < cur->itemcount - 1; ++i) {
-		cur->values[i] = cur->values[i + 1];
-	}
+	memmove(&cur->values[pop_pos], &cur->values[pop_pos + 1], (cur->itemcount - (uint64_t)pop_pos - 1) * sizeof(cur->values[0]));
 	cur->values[cur->itemcount - 1] = 0;
 	return true;
 }
@@ -656,9 +640,7 @@ bool basic_pop_double_array(const char* var, int64_t pop_pos, struct basic_ctx* 
 		return false;
 	}
 
-	for (uint64_t i = (uint64_t)pop_pos; i < cur->itemcount - 1; ++i) {
-		cur->values[i] = cur->values[i + 1];
-	}
+	memmove(&cur->values[pop_pos], &cur->values[pop_pos + 1], (cur->itemcount - (uint64_t)pop_pos - 1) * sizeof(cur->values[0]));
 	cur->values[cur->itemcount - 1] = 0;
 	return true;
 }
@@ -687,9 +669,7 @@ bool basic_push_string_array(const char* var, int64_t push_pos, struct basic_ctx
 	if (cur->values[cur->itemcount - 1]) {
 		buddy_free(ctx->allocator, cur->values[cur->itemcount - 1]);
 	}
-	for (int64_t i = (int64_t)cur->itemcount - 2; i >= push_pos; --i) {
-		cur->values[i + 1] = cur->values[i];
-	}
+	memmove(&cur->values[push_pos + 1], &cur->values[push_pos], (cur->itemcount - (uint64_t)push_pos - 1) * sizeof(cur->values[0]));
 	cur->values[push_pos] = NULL;
 	return true;
 }
@@ -715,9 +695,7 @@ bool basic_push_int_array(const char* var, int64_t push_pos, struct basic_ctx* c
 		tokenizer_error_printf(ctx, "Array too small for PUSH [0..%ld]", cur->itemcount - 1);
 		return false;
 	}
-	for (int64_t i = (int64_t)cur->itemcount - 2; i >= push_pos; --i) {
-		cur->values[i + 1] = cur->values[i];
-	}
+	memmove(&cur->values[push_pos + 1], &cur->values[push_pos], (cur->itemcount - (uint64_t)push_pos - 1) * sizeof(cur->values[0]));
 	cur->values[push_pos] = 0;
 	return true;
 }
@@ -743,9 +721,7 @@ bool basic_push_double_array(const char* var, int64_t push_pos, struct basic_ctx
 		tokenizer_error_printf(ctx, "Array too small for PUSH [0..%ld]", cur->itemcount - 1);
 		return false;
 	}
-	for (int64_t i = (int64_t)cur->itemcount - 2; i >= push_pos; --i) {
-		cur->values[i + 1] = cur->values[i];
-	}
+	memmove(&cur->values[push_pos + 1], &cur->values[push_pos], (cur->itemcount - (uint64_t)push_pos - 1) * sizeof(cur->values[0]));
 	cur->values[push_pos] = 0;
 	return true;
 }
