@@ -823,7 +823,7 @@ char *basic_buffer_to_string(struct basic_ctx *ctx)
 	}
 
 	if (out_len >= MAX_STRINGLEN) {
-		tokenizer_error_print(ctx, "Encoded string exceeds MAX_STRINGLEN");
+		tokenizer_error_print(ctx, "String too long");
 		return "";
 	}
 
