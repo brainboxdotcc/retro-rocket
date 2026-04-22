@@ -279,7 +279,7 @@ struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file
 		kfree_null(&numbered);
 		return c;
 	}
-	struct basic_ctx *ctx = kmalloc(sizeof(struct basic_ctx));
+	struct basic_ctx *ctx = kcalloc(1, sizeof(struct basic_ctx));
 	if (ctx == NULL) {
 		*error = "Out of memory";
 		return NULL;
@@ -294,6 +294,8 @@ struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file
 	}
 	buddy_init(ctx->allocator, 6, 26, 26);
 	ctx->maps = hashmap_new_with_allocator(varmap_malloc, varmap_realloc, varmap_free, sizeof(basic_map_handle_entry), 0, SEED0, SEED1, int64_hash, int64_compare, elfree_map_handle_entry, ctx->allocator);
+	ctx->active_restrictions = NULL;
+	ctx->child_restrictions = NULL;
 	ctx->debug_status = 0;
 	ctx->match_ctx = NULL;
 	ctx->debug_breakpoints = NULL;
