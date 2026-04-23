@@ -47,24 +47,32 @@ static void e1000e_write_flush(void) {
 	(void)flush;
 }
 
-static bool e1000e_wait(uint32_t reg, uint32_t mask, bool expect_nonzero, time_t timeout_seconds) {
-	time_t start = time(NULL);
+static bool e1000e_wait(uint32_t reg, uint32_t mask, bool expect_nonzero, uint32_t timeout_us)
+{
+	uint32_t waited = 0;
 
-	while (((e1000e_read_command(reg) & mask) != 0) != expect_nonzero) {
-		if (time(NULL) - start > timeout_seconds) {
+	while (1) {
+		bool set = (e1000e_read_command(reg) & mask) != 0;
+
+		if (set == expect_nonzero) {
+			return true;
+		}
+
+		if (waited >= timeout_us) {
 			return false;
 		}
+
+		delay_us(1);
+		waited++;
 	}
-
-	return true;
 }
 
-static bool e1000e_wait_clear(uint32_t reg, uint32_t mask, time_t timeout_seconds) {
-	return e1000e_wait(reg, mask, false, timeout_seconds);
+static bool e1000e_wait_clear(uint32_t reg, uint32_t mask, uint32_t timeout_us) {
+	return e1000e_wait(reg, mask, false, timeout_us);
 }
 
-static bool e1000e_wait_set(uint32_t reg, uint32_t mask, time_t timeout_seconds) {
-	return e1000e_wait(reg, mask, true, timeout_seconds);
+static bool e1000e_wait_set(uint32_t reg, uint32_t mask, uint32_t timeout_us) {
+	return e1000e_wait(reg, mask, true, timeout_us);
 }
 
 static bool e1000e_detect_eeprom(void) {
@@ -168,7 +176,7 @@ static bool e1000e_reset_hw(void) {
 		io_wait();
 	}
 
-	if (!e1000e_wait_clear(REG_CTRL, E1000_CTRL_RST, 1)) {
+	if (!e1000e_wait_clear(REG_CTRL, E1000_CTRL_RST, 100000)) {
 		dprintf("e1000e: reset timed out\n");
 		return false;
 	}
@@ -515,6 +523,7 @@ void init_e1000e(void) {
 		E1000E_82574L,
 		E1000E_82574LA,
 		E1000E_82583V,
+		E1000E_I217LM,
 	};
 
 	for (size_t i = 0; i < sizeof(supported) / sizeof(supported[0]); i++) {

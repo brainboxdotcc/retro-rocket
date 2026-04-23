@@ -27,6 +27,7 @@
 #define E1000E_82574L (uint32_t)0x10D3
 #define E1000E_82574LA (uint32_t)0x10F6
 #define E1000E_82583V (uint32_t)0x150C
+#define E1000E_I217LM (uint32_t)0x153A
 
 /* Common register offsets */
 #define REG_CTRL 0x0000
