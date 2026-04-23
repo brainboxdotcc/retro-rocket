@@ -204,7 +204,14 @@ static void e1000e_receive_init(void) {
 	e1000e_write_command(REG_RDTR, 0);
 	e1000e_write_command(REG_RADV, 0);
 
-	e1000e_write_command(REG_RXDCTL, E1000_RXDCTL_QUEUE_ENABLE);
+	//e1000e_write_command(REG_RXDCTL, E1000_RXDCTL_QUEUE_ENABLE);
+	uint32_t rxdctl =
+		(1 << 25) | // ENABLE
+		(8 << 0)  | // PTHRESH
+		(1 << 8)  | // HTHRESH
+		(1 << 16);  // WTHRESH
+	e1000e_write_command(REG_RXDCTL, rxdctl);
+	e1000e_write_flush();
 
 	rx_cur = 0;
 
@@ -252,7 +259,14 @@ static void e1000e_transmit_init(void) {
 	e1000e_write_command(REG_TIDV, 0);
 	e1000e_write_command(REG_TADV, 0);
 
-	e1000e_write_command(REG_TXDCTL, E1000_TXDCTL_QUEUE_ENABLE);
+	//e1000e_write_command(REG_TXDCTL, E1000_TXDCTL_QUEUE_ENABLE);
+	uint32_t txdctl = 
+		(1 << 25) | // ENABLE
+		(8 << 0)  | // PTHRESH
+		(1 << 8)  | // HTHRESH
+		(1 << 16);  // WTHRESH
+	e1000e_write_command(REG_TXDCTL, txdctl);
+	e1000e_write_flush();
 
 	tx_cur = 0;
 
@@ -266,6 +280,9 @@ static void e1000e_transmit_init(void) {
 	);
 
 	e1000e_write_command(REG_TIPG, E1000E_TIPG_DEFAULT);
+	e1000e_write_flush();
+
+	e1000e_write_command(REG_TXDESCTAIL, 0);
 	e1000e_write_flush();
 }
 
