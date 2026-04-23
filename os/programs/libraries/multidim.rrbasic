@@ -1,0 +1,293 @@
+DEF PROCmultidim
+ENDPROC
+
+DEF FNmulti_meta$(name$)
+= "__dimension_" + name$
+
+DEF PROCdim2(name$, x, y)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "DIM " + name$ + ", " + STR$(x * y)
+    EVAL meta$ + "_x = " + STR$(x)
+    EVAL meta$ + "_y = " + STR$(y)
+ENDPROC
+
+DEF PROCdim2$(name$, x, y)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "DIM " + name$ + "$, " + STR$(x * y)
+    EVAL meta$ + "_x = " + STR$(x)
+    EVAL meta$ + "_y = " + STR$(y)
+ENDPROC
+
+DEF PROCdim2#(name$, x, y)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "DIM " + name$ + "#, " + STR$(x * y)
+    EVAL meta$ + "_x = " + STR$(x)
+    EVAL meta$ + "_y = " + STR$(y)
+ENDPROC
+
+DEF PROCredim2(name$, x, y)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "REDIM " + name$ + ", " + STR$(x * y)
+    EVAL meta$ + "_x = " + STR$(x)
+    EVAL meta$ + "_y = " + STR$(y)
+ENDPROC
+
+DEF PROCredim2$(name$, x, y)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "REDIM " + name$ + "$, " + STR$(x * y)
+    EVAL meta$ + "_x = " + STR$(x)
+    EVAL meta$ + "_y = " + STR$(y)
+ENDPROC
+
+DEF PROCredim2#(name$, x, y)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "REDIM " + name$ + "#, " + STR$(x * y)
+    EVAL meta$ + "_x = " + STR$(x)
+    EVAL meta$ + "_y = " + STR$(y)
+ENDPROC
+
+DEF FNmulti_get2(name$, x, y)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "__multi_sx = " + meta$ + "_x"
+    idx = x + y * __multi_sx
+    EVAL "__multi_tmp = " + name$ + "(" + STR$(idx) + ")"
+= __multi_tmp
+
+DEF FNmulti_get2$(name$, x, y)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "__multi_sx = " + meta$ + "_x"
+    idx = x + y * __multi_sx
+    EVAL "__multi_tmp$ = " + name$ + "$(" + STR$(idx) + ")"
+= __multi_tmp$
+
+DEF FNmulti_get2#(name$, x, y)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "__multi_sx = " + meta$ + "_x"
+    idx = x + y * __multi_sx
+    EVAL "__multi_tmp# = " + name$ + "#(" + STR$(idx) + ")"
+= __multi_tmp#
+
+DEF PROCmulti_set2(name$, x, y, value)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "__multi_sx = " + meta$ + "_x"
+    idx = x + y * __multi_sx
+    EVAL name$ + "(" + STR$(idx) + ") = " + STR$(value)
+ENDPROC
+
+DEF PROCmulti_set2$(name$, x, y, value$)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "__multi_sx = " + meta$ + "_x"
+    idx = x + y * __multi_sx
+    EVAL name$ + "$(" + STR$(idx) + ") = " + CHR$(34) + value$ + CHR$(34)
+ENDPROC
+
+DEF PROCmulti_set2#(name$, x, y, value#)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "__multi_sx = " + meta$ + "_x"
+    idx = x + y * __multi_sx
+    EVAL name$ + "#(" + STR$(idx) + ") = " + STR$(value#)
+ENDPROC
+
+DEF PROCdim3(name$, x, y, z)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "DIM " + name$ + ", " + STR$(x * y * z)
+    EVAL meta$ + "_x = " + STR$(x)
+    EVAL meta$ + "_y = " + STR$(y)
+    EVAL meta$ + "_z = " + STR$(z)
+ENDPROC
+
+DEF PROCdim3$(name$, x, y, z)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "DIM " + name$ + "$, " + STR$(x * y * z)
+    EVAL meta$ + "_x = " + STR$(x)
+    EVAL meta$ + "_y = " + STR$(y)
+    EVAL meta$ + "_z = " + STR$(z)
+ENDPROC
+
+DEF PROCdim3#(name$, x, y, z)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "DIM " + name$ + "#, " + STR$(x * y * z)
+    EVAL meta$ + "_x = " + STR$(x)
+    EVAL meta$ + "_y = " + STR$(y)
+    EVAL meta$ + "_z = " + STR$(z)
+ENDPROC
+
+DEF PROCredim3(name$, x, y, z)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "REDIM " + name$ + ", " + STR$(x * y * z)
+    EVAL meta$ + "_x = " + STR$(x)
+    EVAL meta$ + "_y = " + STR$(y)
+    EVAL meta$ + "_z = " + STR$(z)
+ENDPROC
+
+DEF PROCredim3$(name$, x, y, z)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "REDIM " + name$ + "$, " + STR$(x * y * z)
+    EVAL meta$ + "_x = " + STR$(x)
+    EVAL meta$ + "_y = " + STR$(y)
+    EVAL meta$ + "_z = " + STR$(z)
+ENDPROC
+
+DEF PROCredim3#(name$, x, y, z)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "REDIM " + name$ + "#, " + STR$(x * y * z)
+    EVAL meta$ + "_x = " + STR$(x)
+    EVAL meta$ + "_y = " + STR$(y)
+    EVAL meta$ + "_z = " + STR$(z)
+ENDPROC
+
+DEF FNmulti_get3(name$, x, y, z)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "__multi_sx = " + meta$ + "_x"
+    EVAL "__multi_sy = " + meta$ + "_y"
+    idx = x + y * __multi_sx + z * __multi_sx * __multi_sy
+    EVAL "__multi_tmp = " + name$ + "(" + STR$(idx) + ")"
+= __multi_tmp
+
+DEF FNmulti_get3$(name$, x, y, z)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "__multi_sx = " + meta$ + "_x"
+    EVAL "__multi_sy = " + meta$ + "_y"
+    idx = x + y * __multi_sx + z * __multi_sx * __multi_sy
+    EVAL "__multi_tmp$ = " + name$ + "$(" + STR$(idx) + ")"
+= __multi_tmp$
+
+DEF FNmulti_get3#(name$, x, y, z)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "__multi_sx = " + meta$ + "_x"
+    EVAL "__multi_sy = " + meta$ + "_y"
+    idx = x + y * __multi_sx + z * __multi_sx * __multi_sy
+    EVAL "__multi_tmp# = " + name$ + "#(" + STR$(idx) + ")"
+= __multi_tmp#
+
+DEF PROCmulti_set3(name$, x, y, z, value)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "__multi_sx = " + meta$ + "_x"
+    EVAL "__multi_sy = " + meta$ + "_y"
+    idx = x + y * __multi_sx + z * __multi_sx * __multi_sy
+    EVAL name$ + "(" + STR$(idx) + ") = " + STR$(value)
+ENDPROC
+
+DEF PROCmulti_set3$(name$, x, y, z, value$)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "__multi_sx = " + meta$ + "_x"
+    EVAL "__multi_sy = " + meta$ + "_y"
+    idx = x + y * __multi_sx + z * __multi_sx * __multi_sy
+    EVAL name$ + "$(" + STR$(idx) + ") = " + CHR$(34) + value$ + CHR$(34)
+ENDPROC
+
+DEF PROCmulti_set3#(name$, x, y, z, value#)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "__multi_sx = " + meta$ + "_x"
+    EVAL "__multi_sy = " + meta$ + "_y"
+    idx = x + y * __multi_sx + z * __multi_sx * __multi_sy
+    EVAL name$ + "#(" + STR$(idx) + ") = " + STR$(value#)
+ENDPROC
+
+DEF PROCdim4(name$, x, y, z, w)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "DIM " + name$ + ", " + STR$(x * y * z * w)
+    EVAL meta$ + "_x = " + STR$(x)
+    EVAL meta$ + "_y = " + STR$(y)
+    EVAL meta$ + "_z = " + STR$(z)
+    EVAL meta$ + "_w = " + STR$(w)
+ENDPROC
+
+DEF PROCdim4$(name$, x, y, z, w)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "DIM " + name$ + "$, " + STR$(x * y * z * w)
+    EVAL meta$ + "_x = " + STR$(x)
+    EVAL meta$ + "_y = " + STR$(y)
+    EVAL meta$ + "_z = " + STR$(z)
+    EVAL meta$ + "_w = " + STR$(w)
+ENDPROC
+
+DEF PROCdim4#(name$, x, y, z, w)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "DIM " + name$ + "#, " + STR$(x * y * z * w)
+    EVAL meta$ + "_x = " + STR$(x)
+    EVAL meta$ + "_y = " + STR$(y)
+    EVAL meta$ + "_z = " + STR$(z)
+    EVAL meta$ + "_w = " + STR$(w)
+ENDPROC
+
+DEF PROCredim4(name$, x, y, z, w)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "REDIM " + name$ + ", " + STR$(x * y * z * w)
+    EVAL meta$ + "_x = " + STR$(x)
+    EVAL meta$ + "_y = " + STR$(y)
+    EVAL meta$ + "_z = " + STR$(z)
+    EVAL meta$ + "_w = " + STR$(w)
+ENDPROC
+
+DEF PROCredim4$(name$, x, y, z, w)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "REDIM " + name$ + "$, " + STR$(x * y * z * w)
+    EVAL meta$ + "_x = " + STR$(x)
+    EVAL meta$ + "_y = " + STR$(y)
+    EVAL meta$ + "_z = " + STR$(z)
+    EVAL meta$ + "_w = " + STR$(w)
+ENDPROC
+
+DEF PROCredim4#(name$, x, y, z, w)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "REDIM " + name$ + "#, " + STR$(x * y * z * w)
+    EVAL meta$ + "_x = " + STR$(x)
+    EVAL meta$ + "_y = " + STR$(y)
+    EVAL meta$ + "_z = " + STR$(z)
+    EVAL meta$ + "_w = " + STR$(w)
+ENDPROC
+
+DEF FNmulti_get4(name$, x, y, z, w)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "__multi_sx = " + meta$ + "_x"
+    EVAL "__multi_sy = " + meta$ + "_y"
+    EVAL "__multi_sz = " + meta$ + "_z"
+    idx = x + y * __multi_sx + z * __multi_sx * __multi_sy + w * __multi_sx * __multi_sy * __multi_sz
+    EVAL "__multi_tmp = " + name$ + "(" + STR$(idx) + ")"
+= __multi_tmp
+
+DEF FNmulti_get4$(name$, x, y, z, w)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "__multi_sx = " + meta$ + "_x"
+    EVAL "__multi_sy = " + meta$ + "_y"
+    EVAL "__multi_sz = " + meta$ + "_z"
+    idx = x + y * __multi_sx + z * __multi_sx * __multi_sy + w * __multi_sx * __multi_sy * __multi_sz
+    EVAL "__multi_tmp$ = " + name$ + "$(" + STR$(idx) + ")"
+= __multi_tmp$
+
+DEF FNmulti_get4#(name$, x, y, z, w)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "__multi_sx = " + meta$ + "_x"
+    EVAL "__multi_sy = " + meta$ + "_y"
+    EVAL "__multi_sz = " + meta$ + "_z"
+    idx = x + y * __multi_sx + z * __multi_sx * __multi_sy + w * __multi_sx * __multi_sy * __multi_sz
+    EVAL "__multi_tmp# = " + name$ + "#(" + STR$(idx) + ")"
+= __multi_tmp#
+
+DEF PROCmulti_set4(name$, x, y, z, w, value)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "__multi_sx = " + meta$ + "_x"
+    EVAL "__multi_sy = " + meta$ + "_y"
+    EVAL "__multi_sz = " + meta$ + "_z"
+    idx = x + y * __multi_sx + z * __multi_sx * __multi_sy + w * __multi_sx * __multi_sy * __multi_sz
+    EVAL name$ + "(" + STR$(idx) + ") = " + STR$(value)
+ENDPROC
+
+DEF PROCmulti_set4$(name$, x, y, z, w, value$)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "__multi_sx = " + meta$ + "_x"
+    EVAL "__multi_sy = " + meta$ + "_y"
+    EVAL "__multi_sz = " + meta$ + "_z"
+    idx = x + y * __multi_sx + z * __multi_sx * __multi_sy + w * __multi_sx * __multi_sy * __multi_sz
+    EVAL name$ + "$(" + STR$(idx) + ") = " + CHR$(34) + value$ + CHR$(34)
+ENDPROC
+
+DEF PROCmulti_set4#(name$, x, y, z, w, value#)
+    meta$ = FNmulti_meta$(name$)
+    EVAL "__multi_sx = " + meta$ + "_x"
+    EVAL "__multi_sy = " + meta$ + "_y"
+    EVAL "__multi_sz = " + meta$ + "_z"
+    idx = x + y * __multi_sx + z * __multi_sx * __multi_sy + w * __multi_sx * __multi_sy * __multi_sz
+    EVAL name$ + "#(" + STR$(idx) + ") = " + STR$(value#)
+ENDPROC

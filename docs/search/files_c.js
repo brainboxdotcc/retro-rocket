@@ -33,5 +33,6 @@ var searchData=
   ['mount_2emd_30',['mount.md',['../mount_8md.html',1,'']]],
   ['mouse_2emd_31',['mouse.md',['../mouse_8md.html',1,'']]],
   ['mousetest_2emd_32',['mousetest.md',['../mousetest_8md.html',1,'']]],
-  ['musicdemo_2emd_33',['musicdemo.md',['../musicdemo_8md.html',1,'']]]
+  ['multidim_2emd_33',['multidim.md',['../multidim_8md.html',1,'']]],
+  ['musicdemo_2emd_34',['musicdemo.md',['../musicdemo_8md.html',1,'']]]
 ];

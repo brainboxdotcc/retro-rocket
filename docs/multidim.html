@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=11">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Retro Rocket OS: mount command</title>
+    <title>Retro Rocket OS: Multidimensional Array Library</title>
     <link href="tabs.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -16,7 +16,7 @@
     <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-    <meta name="title" content="mount command - Retro Rocket OS">
+    <meta name="title" content="Multidimensional Array Library - Retro Rocket OS">
     <meta name="description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="author" content="Retro Rocket Developers">
     <meta name="robots" content="index, follow">
@@ -24,7 +24,7 @@
     <meta name="theme-color" content="#0b0f14">
     <link rel="icon" href="rr.png">
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="mount command - Retro Rocket OS">
+    <meta property="og:title" content="Multidimensional Array Library - Retro Rocket OS">
     <meta property="og:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://retrorocket.dev/">
@@ -32,7 +32,7 @@
     <meta property="og:image:alt" content="Retro Rocket OS running on a retro-style desktop">
     <meta property="og:site_name" content="Retro Rocket OS">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="mount command - Retro Rocket OS">
+    <meta name="twitter:title" content="Multidimensional Array Library - Retro Rocket OS">
     <meta name="twitter:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="twitter:image" content="https://retrorocket.dev/leader4.png">
     <link rel="preload" as="image" href="https://retrorocket.dev/leader4.png">
@@ -94,7 +94,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('mount-command.html','',''); });
+$(function(){initNavTree('multidim.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -120,47 +120,148 @@ $(function(){initNavTree('mount-command.html','',''); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">mount command </div></div>
+  <div class="headertitle"><div class="title">Multidimensional Array Library </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">mount &lt;directory&gt; &lt;storage-device-name&gt; &lt;filesystem-type&gt;</div>
-</div><!-- fragment --><p>Attaches a file system on a storage device to the visible set of directories and files you can see and work with.</p>
-<p>Think of mounting a filesystem like plugging in something to a power outlet. Once you have plugged it in and turned it on, it is available to use. This is basically how file systems work.</p>
-<ul>
-<li>The first parameter is the directory, this can be any existing empty directory in the file system. For example /harddisk, /ramdisk, etc.</li>
-<li>The second parameter is a storage device name. Storage device names are allocated by the system. Hard disks (SATA, NVMe etc) start with <span class="tt">hd</span> and are suffixed by number starting at 0, so the first found hard disk is <span class="tt">hd0</span>, the next <span class="tt">hd1</span> etc. Ram disks start with <span class="tt">ram</span> amd a number. CD/DVD drives start with <span class="tt">cd</span> and a number.</li>
-<li>The third parameter is a filesystem type, supported file system types are listed below.</li>
-</ul>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">File system type  </th><th class="markdownTableHeadNone">Full name  </th><th class="markdownTableHeadNone">Description  </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">rfs  </td><td class="markdownTableBodyNone">RetroFS, the Retro Rocket native file system  </td><td class="markdownTableBodyNone">Readable, writeable file system for large hard disks, e.g. NVMe, SATA. The default file system type for fixed disks and ramdisks  </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">iso9660  </td><td class="markdownTableBodyNone">ISO 9660 file system for CDs and DVDs  </td><td class="markdownTableBodyNone">Read-only file system mainly for CDs and DVDs. The default file system of the Retro Rocket LiveCD  </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">adfs  </td><td class="markdownTableBodyNone">Acorn ADFS "L" Format  </td><td class="markdownTableBodyNone">Read-only file system for Acorn BBC Micro Floppy disks - The Advanced Disk Filing System  </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">dfs  </td><td class="markdownTableBodyNone">Acorn DFS DS/DD 80T Format  </td><td class="markdownTableBodyNone">Read-only file system for Acorn BBC Micro Floppy disks - The Disk Filing System  </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">fat32  </td><td class="markdownTableBodyNone">FAT32 DOS and Windows file system  </td><td class="markdownTableBodyNone">Readable, writeable file system used for removable media, and the recovery/boot partition of installed systems  </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">devfs  </td><td class="markdownTableBodyNone">Device tree file system  </td><td class="markdownTableBodyNone">Readable, writeable file system which device drivers may use to expose device-specific information and control surfaces. *  </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">dummyfs  </td><td class="markdownTableBodyNone">Dummy File System  </td><td class="markdownTableBodyNone">The dummy file system does nothing, you cannot read or write to it. It is the placeholder for everything until the system boots  </td></tr>
-</table>
-<ul>
-<li>For <span class="tt">devfs</span>, you cannot create arbitrary files in this file system. Your ability to read from, or write to the files in this directory depends on the behaviour of the driver which places the file there.</li>
-</ul>
-<h3 class="doxsection"><a class="anchor" id="example-27"></a>
+<div class="textblock"><div class="fragment"><div class="line">LIBRARY LIB$ + &quot;/multidim&quot;</div>
+</div><!-- fragment --><p>The multidim library provides a way to work with two, three and four dimensional arrays using Retro Rocket’s native single-dimensional arrays. It transparently handles indexing and storage layout, allowing access via coordinates rather than manual stride calculations.</p>
+<p>The library internally stores dimension metadata alongside arrays and uses reflection to access elements.</p>
+<p>The following publicly documented procedures and functions are available via this library.</p>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="procdim2name-x-y"></a>
+PROCdim2(name$, x, y)</h3>
+<p>Create a two-dimensional integer array.</p>
+<h3 class="doxsection"><a class="anchor" id="procdim2name-x-y-1"></a>
+PROCdim2$(name$, x, y)</h3>
+<p>Create a two-dimensional string array.</p>
+<h3 class="doxsection"><a class="anchor" id="procdim2name-x-y-2"></a>
+PROCdim2#(name$, x, y)</h3>
+<p>Create a two-dimensional real array.</p>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="procredim2name-x-y"></a>
+PROCredim2(name$, x, y)</h3>
+<p>Resize a two-dimensional integer array.</p>
+<h3 class="doxsection"><a class="anchor" id="procredim2name-x-y-1"></a>
+PROCredim2$(name$, x, y)</h3>
+<p>Resize a two-dimensional string array.</p>
+<h3 class="doxsection"><a class="anchor" id="procredim2name-x-y-2"></a>
+PROCredim2#(name$, x, y)</h3>
+<p>Resize a two-dimensional real array.</p>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="fnmulti_get2name-x-y"></a>
+FNmulti_get2(name$, x, y)</h3>
+<p>Get a value from a two-dimensional integer array.</p>
+<h3 class="doxsection"><a class="anchor" id="fnmulti_get2name-x-y-1"></a>
+FNmulti_get2$(name$, x, y)</h3>
+<p>Get a value from a two-dimensional string array.</p>
+<h3 class="doxsection"><a class="anchor" id="fnmulti_get2name-x-y-2"></a>
+FNmulti_get2#(name$, x, y)</h3>
+<p>Get a value from a two-dimensional real array.</p>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="procmulti_set2name-x-y-value"></a>
+PROCmulti_set2(name$, x, y, value)</h3>
+<p>Set a value in a two-dimensional integer array.</p>
+<h3 class="doxsection"><a class="anchor" id="procmulti_set2name-x-y-value-1"></a>
+PROCmulti_set2$(name$, x, y, value$)</h3>
+<p>Set a value in a two-dimensional string array.</p>
+<h3 class="doxsection"><a class="anchor" id="procmulti_set2name-x-y-value-2"></a>
+PROCmulti_set2#(name$, x, y, value#)</h3>
+<p>Set a value in a two-dimensional real array.</p>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="procdim3name-x-y-z"></a>
+PROCdim3(name$, x, y, z)</h3>
+<p>Create a three-dimensional integer array.</p>
+<h3 class="doxsection"><a class="anchor" id="procdim3name-x-y-z-1"></a>
+PROCdim3$(name$, x, y, z)</h3>
+<p>Create a three-dimensional string array.</p>
+<h3 class="doxsection"><a class="anchor" id="procdim3name-x-y-z-2"></a>
+PROCdim3#(name$, x, y, z)</h3>
+<p>Create a three-dimensional real array.</p>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="procredim3name-x-y-z"></a>
+PROCredim3(name$, x, y, z)</h3>
+<p>Resize a three-dimensional integer array.</p>
+<h3 class="doxsection"><a class="anchor" id="procredim3name-x-y-z-1"></a>
+PROCredim3$(name$, x, y, z)</h3>
+<p>Resize a three-dimensional string array.</p>
+<h3 class="doxsection"><a class="anchor" id="procredim3name-x-y-z-2"></a>
+PROCredim3#(name$, x, y, z)</h3>
+<p>Resize a three-dimensional real array.</p>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="fnmulti_get3name-x-y-z"></a>
+FNmulti_get3(name$, x, y, z)</h3>
+<p>Get a value from a three-dimensional integer array.</p>
+<h3 class="doxsection"><a class="anchor" id="fnmulti_get3name-x-y-z-1"></a>
+FNmulti_get3$(name$, x, y, z)</h3>
+<p>Get a value from a three-dimensional string array.</p>
+<h3 class="doxsection"><a class="anchor" id="fnmulti_get3name-x-y-z-2"></a>
+FNmulti_get3#(name$, x, y, z)</h3>
+<p>Get a value from a three-dimensional real array.</p>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="procmulti_set3name-x-y-z-value"></a>
+PROCmulti_set3(name$, x, y, z, value)</h3>
+<p>Set a value in a three-dimensional integer array.</p>
+<h3 class="doxsection"><a class="anchor" id="procmulti_set3name-x-y-z-value-1"></a>
+PROCmulti_set3$(name$, x, y, z, value$)</h3>
+<p>Set a value in a three-dimensional string array.</p>
+<h3 class="doxsection"><a class="anchor" id="procmulti_set3name-x-y-z-value-2"></a>
+PROCmulti_set3#(name$, x, y, z, value#)</h3>
+<p>Set a value in a three-dimensional real array.</p>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="procdim4name-x-y-z-w"></a>
+PROCdim4(name$, x, y, z, w)</h3>
+<p>Create a four-dimensional integer array.</p>
+<h3 class="doxsection"><a class="anchor" id="procdim4name-x-y-z-w-1"></a>
+PROCdim4$(name$, x, y, z, w)</h3>
+<p>Create a four-dimensional string array.</p>
+<h3 class="doxsection"><a class="anchor" id="procdim4name-x-y-z-w-2"></a>
+PROCdim4#(name$, x, y, z, w)</h3>
+<p>Create a four-dimensional real array.</p>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="procredim4name-x-y-z-w"></a>
+PROCredim4(name$, x, y, z, w)</h3>
+<p>Resize a four-dimensional integer array.</p>
+<h3 class="doxsection"><a class="anchor" id="procredim4name-x-y-z-w-1"></a>
+PROCredim4$(name$, x, y, z, w)</h3>
+<p>Resize a four-dimensional string array.</p>
+<h3 class="doxsection"><a class="anchor" id="procredim4name-x-y-z-w-2"></a>
+PROCredim4#(name$, x, y, z, w)</h3>
+<p>Resize a four-dimensional real array.</p>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="fnmulti_get4name-x-y-z-w"></a>
+FNmulti_get4(name$, x, y, z, w)</h3>
+<p>Get a value from a four-dimensional integer array.</p>
+<h3 class="doxsection"><a class="anchor" id="fnmulti_get4name-x-y-z-w-1"></a>
+FNmulti_get4$(name$, x, y, z, w)</h3>
+<p>Get a value from a four-dimensional string array.</p>
+<h3 class="doxsection"><a class="anchor" id="fnmulti_get4name-x-y-z-w-2"></a>
+FNmulti_get4#(name$, x, y, z, w)</h3>
+<p>Get a value from a four-dimensional real array.</p>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="procmulti_set4name-x-y-z-w-value"></a>
+PROCmulti_set4(name$, x, y, z, w, value)</h3>
+<p>Set a value in a four-dimensional integer array.</p>
+<h3 class="doxsection"><a class="anchor" id="procmulti_set4name-x-y-z-w-value-1"></a>
+PROCmulti_set4$(name$, x, y, z, w, value$)</h3>
+<p>Set a value in a four-dimensional string array.</p>
+<h3 class="doxsection"><a class="anchor" id="procmulti_set4name-x-y-z-w-value-2"></a>
+PROCmulti_set4#(name$, x, y, z, w, value#)</h3>
+<p>Set a value in a four-dimensional real array.</p>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="example-26"></a>
 Example</h3>
-<div class="fragment"><div class="line">mount /harddisk hd0 rfs</div>
-</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="notes-226"></a>
-Notes</h3>
-<ul>
-<li>Mounting a storage device with a file system it is not configured for will result in an error</li>
-<li>Unmounting file systems is <b>not yet supported</b>. To clear a mounting, it is currently required that you reboot the system. </li>
-</ul>
+<div class="fragment"><div class="line">PROCdim2(&quot;screen&quot;, 80, 25)</div>
+<div class="line">PROCmulti_set2(&quot;screen&quot;, 10, 5, 42)</div>
+<div class="line">PRINT FNmulti_get2(&quot;screen&quot;, 10, 5)</div>
+<div class="line"> </div>
+<div class="line">PROCdim2$(&quot;names&quot;, 10, 10)</div>
+<div class="line">PROCmulti_set2$(&quot;names&quot;, 3, 4, &quot;Craig&quot;)</div>
+<div class="line">PRINT FNmulti_get2$(&quot;names&quot;, 3, 4)</div>
+<div class="line"> </div>
+<div class="line">PROCdim3#(&quot;points&quot;, 8, 8, 8)</div>
+<div class="line">PROCmulti_set3#(&quot;points&quot;, 1, 2, 3, 3.14159)</div>
+<div class="line">PRINT FNmulti_get3#(&quot;points&quot;, 1, 2, 3)</div>
+</div><!-- fragment --><p>Coordinates are zero-based. Values outside the defined dimensions will result in access to unintended elements, or errors being thrown. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -176,7 +277,7 @@ Notes</h3>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="index.html">Retro Rocket OS Documentation</a></li><li class="navelem"><a href="user-guide.html">User Guide</a></li><li class="navelem"><a href="commands.html">Commands</a></li>
+    <li class="navelem"><a href="index.html">Retro Rocket OS Documentation</a></li><li class="navelem"><a href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a href="libraries.html">Libraries</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.14.0 </li>
   </ul>
 </div>

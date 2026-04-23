@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-echo "Building USB image...\n";
+echo ">> Building USB image...\n";
 
 define('BUILD_DIR', getcwd());
 const ISO_DIR = BUILD_DIR . '/iso';
@@ -25,6 +25,7 @@ if (!is_file(LIMINE_BIN) || !is_executable(LIMINE_BIN)) {
 }
 
 function run(string $cmd, array $env = []): void {
+    echo ">> RUN: $cmd\n";
     $proc = proc_open($cmd, [1=>['pipe','w'], 2=>['pipe','w']], $pipes, null, $env + $_ENV);
     if (!is_resource($proc)) {
         throw new RuntimeException("failed to start: $cmd");
@@ -97,7 +98,6 @@ run(sprintf("mcopy -i %s %s ::/root.iso.gz", $img_spec, escapeshellarg($root_gz)
 run(sprintf("mcopy -i %s %s ::/limine.conf", $img_spec, escapeshellarg(LIMINE_CONF)), $env);
 
 // Install BIOS bootloader
-//run(sprintf("%s bios-install %s", escapeshellarg(LIMINE_BIN), escapeshellarg(OUT_IMG)));
 run(sprintf("%s bios-install %s 1", escapeshellarg(LIMINE_BIN), escapeshellarg(OUT_IMG)));
 
 $fp = fopen(OUT_IMG, 'r+b');
@@ -115,4 +115,4 @@ if (fwrite($fp, "\x80") !== 1) {
 fclose($fp);
 
 $mb = (int) round($img_bytes / (1024 * 1024));
-echo "USB image created: " . OUT_IMG . " (" . $mb . " MB)\n";
+echo ">> USB image created: " . OUT_IMG . " (" . $mb . " MB)\n";

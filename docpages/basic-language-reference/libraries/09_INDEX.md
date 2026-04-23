@@ -15,3 +15,4 @@ To view details of each library, see its dedicated page in the navigation.
 * \subpage http
 * \subpage longstring
 * \subpage mouse
+* \subpage multidim

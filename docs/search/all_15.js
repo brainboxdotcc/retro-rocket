@@ -27,7 +27,7 @@ var searchData=
   ['lib_24_24',['LIB$',['../rocketsh.html#lib',1,'']]],
   ['libraries_25',['Libraries',['../libraries.html#available-libraries',1,'Available Libraries'],['../libraries.html',1,'Libraries']]],
   ['libraries_20are_20built_20in_26',['Libraries are built-in',['../basic-differences.html#libraries-are-built-in',1,'']]],
-  ['library_27',['Library',['../ansi.html',1,'ANSI Library'],['../datetime.html',1,'Date and Time Library'],['../http.html',1,'HTTP Library'],['../longstring.html',1,'Long String Library'],['../mouse.html',1,'Mouse Library']]],
+  ['library_27',['Library',['../ansi.html',1,'ANSI Library'],['../datetime.html',1,'Date and Time Library'],['../http.html',1,'HTTP Library'],['../longstring.html',1,'Long String Library'],['../mouse.html',1,'Mouse Library'],['../multidim.html',1,'Multidimensional Array Library']]],
   ['library_20keyword_28',['LIBRARY Keyword',['../LIBRARY.html',1,'keywords']]],
   ['library_2emd_29',['LIBRARY.md',['../LIBRARY_8md.html',1,'']]],
   ['license_30',['License',['../third-party-notices.html#autotoc_md2-grant-of-copyright-license',1,'2. Grant of Copyright License'],['../third-party-notices.html#autotoc_md3-grant-of-patent-license',1,'3. Grant of Patent License'],['../third-party-notices.html#apache-license',1,'Apache License'],['../third-party-notices.html#simplified-bsd-license',1,'Simplified BSD License'],['../third-party-notices.html#zlib-license',1,'Zlib License']]],

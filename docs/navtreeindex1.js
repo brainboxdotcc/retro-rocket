@@ -103,6 +103,7 @@ var NAVTREEINDEX1 =
 "mount-command.html":[0,0,7,29],
 "mouse.html":[0,1,8,4],
 "mousetest.html":[0,0,7,30],
+"multidim.html":[0,1,8,5],
 "musicdemo.html":[0,0,7,31],
 "networking.html":[0,1,7],
 "pages.html":[],

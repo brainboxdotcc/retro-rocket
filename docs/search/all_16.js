@@ -112,8 +112,10 @@ var searchData=
   ['mp3_20file_109',['Play an MP3 file',['../audio-basics.html#play-an-mp3-file',1,'']]],
   ['msg_110',['/msg',['../irc.html#msg',1,'']]],
   ['multi_20line_20program_20entry_111',['Multi-line program entry',['../rocketsh.html#multi-line-program-entry',1,'']]],
-  ['multitasking_20behaviour_112',['Multitasking behaviour',['../basic-differences.html#multitasking-behaviour',1,'Multitasking behaviour'],['../basic-differences.html#multitasking-behaviour-1',1,'Multitasking behaviour']]],
-  ['musicdemo_20command_113',['musicdemo command',['../musicdemo.html',1,'commands']]],
-  ['musicdemo_2emd_114',['musicdemo.md',['../musicdemo_8md.html',1,'']]],
-  ['my_20work_20disappeared_20after_20reboot_115',['My work disappeared after reboot',['../troubleshooting.html#my-work-disappeared-after-reboot',1,'']]]
+  ['multidim_2emd_112',['multidim.md',['../multidim_8md.html',1,'']]],
+  ['multidimensional_20array_20library_113',['Multidimensional Array Library',['../multidim.html',1,'libraries']]],
+  ['multitasking_20behaviour_114',['Multitasking behaviour',['../basic-differences.html#multitasking-behaviour',1,'Multitasking behaviour'],['../basic-differences.html#multitasking-behaviour-1',1,'Multitasking behaviour']]],
+  ['musicdemo_20command_115',['musicdemo command',['../musicdemo.html',1,'commands']]],
+  ['musicdemo_2emd_116',['musicdemo.md',['../musicdemo_8md.html',1,'']]],
+  ['my_20work_20disappeared_20after_20reboot_117',['My work disappeared after reboot',['../troubleshooting.html#my-work-disappeared-after-reboot',1,'']]]
 ];

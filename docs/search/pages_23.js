@@ -1,5 +1,11 @@
 var searchData=
 [
-  ['zero_20fill_0',['6.2 Zero-fill',['../retrofs.html#autotoc_md62-zero-fill',1,'']]],
-  ['zlib_20license_1',['Zlib License',['../third-party-notices.html#zlib-license',1,'']]]
+  ['z_0',['z',['../multidim.html#fnmulti_get3name-x-y-z-2',1,'FNmulti_get3#(name$, x, y, z)'],['../multidim.html#fnmulti_get3name-x-y-z-1',1,'FNmulti_get3$(name$, x, y, z)'],['../multidim.html#fnmulti_get3name-x-y-z',1,'FNmulti_get3(name$, x, y, z)'],['../multidim.html#procdim3name-x-y-z-2',1,'PROCdim3#(name$, x, y, z)'],['../multidim.html#procdim3name-x-y-z-1',1,'PROCdim3$(name$, x, y, z)'],['../multidim.html#procdim3name-x-y-z',1,'PROCdim3(name$, x, y, z)'],['../multidim.html#procredim3name-x-y-z-2',1,'PROCredim3#(name$, x, y, z)'],['../multidim.html#procredim3name-x-y-z-1',1,'PROCredim3$(name$, x, y, z)'],['../multidim.html#procredim3name-x-y-z',1,'PROCredim3(name$, x, y, z)']]],
+  ['z_20value_1',['z value',['../multidim.html#procmulti_set3name-x-y-z-value-2',1,'PROCmulti_set3#(name$, x, y, z, value#)'],['../multidim.html#procmulti_set3name-x-y-z-value',1,'PROCmulti_set3(name$, x, y, z, value)']]],
+  ['z_20value_24_2',['PROCmulti_set3$(name$, x, y, z, value$)',['../multidim.html#procmulti_set3name-x-y-z-value-1',1,'']]],
+  ['z_20w_3',['z w',['../multidim.html#fnmulti_get4name-x-y-z-w-2',1,'FNmulti_get4#(name$, x, y, z, w)'],['../multidim.html#fnmulti_get4name-x-y-z-w-1',1,'FNmulti_get4$(name$, x, y, z, w)'],['../multidim.html#fnmulti_get4name-x-y-z-w',1,'FNmulti_get4(name$, x, y, z, w)'],['../multidim.html#procdim4name-x-y-z-w-2',1,'PROCdim4#(name$, x, y, z, w)'],['../multidim.html#procdim4name-x-y-z-w-1',1,'PROCdim4$(name$, x, y, z, w)'],['../multidim.html#procdim4name-x-y-z-w',1,'PROCdim4(name$, x, y, z, w)'],['../multidim.html#procredim4name-x-y-z-w-2',1,'PROCredim4#(name$, x, y, z, w)'],['../multidim.html#procredim4name-x-y-z-w-1',1,'PROCredim4$(name$, x, y, z, w)'],['../multidim.html#procredim4name-x-y-z-w',1,'PROCredim4(name$, x, y, z, w)']]],
+  ['z_20w_20value_4',['z w value',['../multidim.html#procmulti_set4name-x-y-z-w-value-2',1,'PROCmulti_set4#(name$, x, y, z, w, value#)'],['../multidim.html#procmulti_set4name-x-y-z-w-value',1,'PROCmulti_set4(name$, x, y, z, w, value)']]],
+  ['z_20w_20value_24_5',['PROCmulti_set4$(name$, x, y, z, w, value$)',['../multidim.html#procmulti_set4name-x-y-z-w-value-1',1,'']]],
+  ['zero_20fill_6',['6.2 Zero-fill',['../retrofs.html#autotoc_md62-zero-fill',1,'']]],
+  ['zlib_20license_7',['Zlib License',['../third-party-notices.html#zlib-license',1,'']]]
 ];
