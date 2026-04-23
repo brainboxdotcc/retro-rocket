@@ -160,13 +160,20 @@ static bool e1000e_reset_hw(void) {
 	e1000e_write_command(REG_TCTRL, 0);
 	e1000e_write_flush();
 
+	/* Disable Master and wait for DMA to stop before reset */
+	ctrl = e1000e_read_command(REG_CTRL);
+	e1000e_write_command(REG_CTRL, ctrl | E1000_CTRL_GIO_MASTER_DISABLE);
+	e1000e_wait_clear(REG_STATUS, E1000_STATUS_GIO_MASTER_ENABLE, 1);
+
+	/* Acquire SWSM Semaphore to prevent Management Engine interference */
+	uint32_t swsm = e1000e_read_command(0x05B50);
+	e1000e_write_command(0x05B50, swsm | 0x1);
+
 	ctrl = e1000e_read_command(REG_CTRL);
 	ctrl |= E1000_CTRL_RST;
 	e1000e_write_command(REG_CTRL, ctrl);
 
-	for (int i = 0; i < 100000; i++) {
-		io_wait();
-	}
+	delay_ns(1000000);
 
 	if (!e1000e_wait_clear(REG_CTRL, E1000_CTRL_RST, 1)) {
 		dprintf("e1000e: reset timed out\n");
@@ -180,6 +187,20 @@ static bool e1000e_reset_hw(void) {
 	ctrl_ext |= E1000_CTRL_EXT_DRV_LOAD;
 	e1000e_write_command(REG_CTRL_EXT, ctrl_ext);
 
+	/* * MERGE: Scoped I217-LM Hardware Fixes
+	 * This must happen AFTER CTRL_RST is cleared but BEFORE
+	 * the Transmit/Receive engines are initialized.
+	 */
+	if (e1000e_device_id == E1000E_I217LM) {
+		// Disable DMA Coalescing (offset 0x05B14)
+		// This ensures the Head register moves as soon as Tail is updated
+		e1000e_write_command(0x05B14, 0);
+	}
+
+	uint32_t status = e1000e_read_command(REG_STATUS);
+	ctrl = e1000e_read_command(REG_CTRL);
+	dprintf("e1000e: reset done. STATUS: %08x, CTRL: %08x\n", status, ctrl);
+
 	return true;
 }
 
@@ -192,9 +213,12 @@ static void e1000e_receive_init(void) {
 		rx_descs[i] = (e1000e_rx_desc_t *) ((uint8_t *) descs + i * sizeof(e1000e_rx_desc_t));
 		uint8_t *raw_buf = kmalloc_aligned(E1000E_RX_BUFFER_SIZE, E1000E_RX_ALIGN);
 		memset(raw_buf, 0, E1000E_RX_BUFFER_SIZE);
+		dprintf("e1000e: rx desc buffer raw[%u]: %p, rx_descs[%u] = %p\n", i, raw_buf, i, rx_descs[i]);
 		rx_descs[i]->addr = (uint64_t) raw_buf;
 		rx_descs[i]->status = 0;
 	}
+
+	dprintf("e1000e: rx desc buffer addr: %p\n", descs);
 
 	e1000e_write_command(REG_RXDESCLO, (uint32_t) ((uintptr_t)descs & 0xFFFFFFFF));
 	e1000e_write_command(REG_RXDESCHI, (uint32_t) ((uintptr_t)descs >> 32));
@@ -204,23 +228,23 @@ static void e1000e_receive_init(void) {
 	e1000e_write_command(REG_RDTR, 0);
 	e1000e_write_command(REG_RADV, 0);
 
+	// Scoped I217-LM Packet Latency fix
+	// This ensures the RX DMA engine doesn't "stall" waiting for internal FIFO thresholds
+	if (e1000e_device_id == E1000E_I217LM) {
+		e1000e_write_command(0x02110, 0); // REG_RXCSUM - Disable Checksum Offload initially
+	}
+
 	e1000e_write_command(REG_RXDCTL, E1000_RXDCTL_QUEUE_ENABLE);
 
 	rx_cur = 0;
 
-	e1000e_write_command(
-		REG_RCTRL,
-		RCTL_EN |
-		RCTL_SBP |
-		RCTL_UPE |
-		RCTL_MPE |
-		RCTL_LBM_NONE |
-		RTCL_RDMTS_HALF |
-		RCTL_BAM |
-		RCTL_SECRC |
-		RCTL_BSIZE_8192
-	);
+	// MERGE: Ensure RCTL flags are safe for I217-LM
+	uint32_t rctl = RCTL_EN | RCTL_SBP | RCTL_BAM | RCTL_SECRC | RCTL_BSIZE_2048;
 
+	/* NOTE: On I217-LM, if you use RCTL_LPE (Long Packet Enable) without
+	 * proper SWSM handling, RX can hang. Sticking to 2048 is correct.
+	 */
+	e1000e_write_command(REG_RCTRL, rctl);
 	e1000e_write_flush();
 }
 
@@ -234,6 +258,7 @@ static void e1000e_transmit_init(void) {
 		tx_descs[i] = (e1000e_tx_desc_t *) ((uint8_t *) descs + i * sizeof(e1000e_tx_desc_t));
 		raw = kmalloc_aligned(E1000E_MAX_PKT_SIZE, E1000E_TX_ALIGN);
 		memset(raw, 0, E1000E_MAX_PKT_SIZE);
+		dprintf("e1000e: tx desc buffer raw[%u]: %p, tx_descs[%u] = %p\n", i, raw, i, tx_descs[i]);
 		tx_buffers[i] = raw;
 		tx_descs[i]->addr = (uint64_t) raw;
 		tx_descs[i]->cmd = 0;
@@ -244,6 +269,8 @@ static void e1000e_transmit_init(void) {
 		tx_descs[i]->special = 0;
 	}
 
+	dprintf("e1000e: rx desc buffer addr: %p\n", descs);
+
 	e1000e_write_command(REG_TXDESCLO, (uint32_t) ((uintptr_t)descs & 0xFFFFFFFF));
 	e1000e_write_command(REG_TXDESCHI, (uint32_t) ((uintptr_t)descs >> 32));
 	e1000e_write_command(REG_TXDESCLEN, E1000E_NUM_TX_DESC * sizeof(e1000e_tx_desc_t));
@@ -252,21 +279,40 @@ static void e1000e_transmit_init(void) {
 	e1000e_write_command(REG_TIDV, 0);
 	e1000e_write_command(REG_TADV, 0);
 
-	e1000e_write_command(REG_TXDCTL, E1000_TXDCTL_QUEUE_ENABLE);
+	// TIPG must be set before TCTRL is enabled
+	e1000e_write_command(REG_TIPG, E1000E_TIPG_DEFAULT);
 
 	tx_cur = 0;
 
-	e1000e_write_command(
-		REG_TCTRL,
-		TCTL_EN |
-		TCTL_PSP |
-		(15 << TCTL_CT_SHIFT) |
-		(64 << TCTL_COLD_SHIFT) |
-		TCTL_RTLC
-	);
+	if (e1000e_device_id == E1000E_I217LM) {
+		/*
+		 * TXDCTL (0x03828) for I217-LM:
+		 * PTHRESH=31, HTHRESH=1, WTHRESH=1
+		 * This forces the DMA engine to be extremely aggressive.
+		 * Without these, Head often stays 0 because the internal FIFO
+		 * is waiting for a 'batch' that never comes.
+		 */
+		e1000e_write_command(REG_TXDCTL, (31 | (1 << 8) | (1 << 16) | E1000_TXDCTL_QUEUE_ENABLE));
+		e1000e_write_command(REG_TCTRL, 0x3003F0FA);
+	} else {
+		e1000e_write_command(REG_TXDCTL, E1000_TXDCTL_QUEUE_ENABLE);
+		e1000e_write_command(
+			REG_TCTRL,
+			TCTL_EN |
+			TCTL_PSP |
+			(15 << TCTL_CT_SHIFT) |
+			(64 << TCTL_COLD_SHIFT) |
+			TCTL_RTLC
+		);
+	}
 
-	e1000e_write_command(REG_TIPG, E1000E_TIPG_DEFAULT);
+
 	e1000e_write_flush();
+
+	uint32_t tdblo = e1000e_read_command(REG_TXDESCLO);
+	uint32_t tlen = e1000e_read_command(REG_TXDESCLEN);
+	uint32_t tctl = e1000e_read_command(REG_TCTRL);
+	dprintf("e1000e: tx init. TDBLO: %08x, TLEN: %u, TCTL: %08x\n", tdblo, tlen, tctl);
 }
 
 static void e1000e_handle_receive(void) {
@@ -361,15 +407,30 @@ bool e1000e_send_packet(void *p_data, uint16_t p_len) {
 	tx_descs[tx_cur]->cmd = CMD_EOP | CMD_IFCS | CMD_RS;
 	tx_descs[tx_cur]->status = 0;
 
+	__asm__ volatile("sfence" ::: "memory");
+
 	old_cur = tx_cur;
 	tx_cur = (tx_cur + 1) % E1000E_NUM_TX_DESC;
+
 	e1000e_write_command(REG_TXDESCTAIL, tx_cur);
 	e1000e_write_flush();
 
+	/* * DEBUG: Capture state immediately after the kick.
+	 * Check if STATUS bit 19 (GIO Master Enable) is actually set.
+	 */
+	uint32_t h = e1000e_read_command(REG_TXDESCHEAD);
+	uint32_t status = e1000e_read_command(REG_STATUS);
+	dprintf("e1000e: kick! TDT:%u TDH:%u STAT:%08x\n", tx_cur, h, status);
+
 	time_t start = time(NULL);
 	while ((tx_descs[old_cur]->status & TX_DD) == 0) {
+		__asm__ volatile("pause" ::: "memory");
 		if (time(NULL) - start > 1) {
-			dprintf("e1000e: tx timeout\n");
+			/* * Keep your existing timeout logic!
+			 * Add these to your log to see IF the NIC moved:
+			 */
+			uint32_t head = e1000e_read_command(REG_TXDESCHEAD);
+			dprintf("e1000e: tx timeout (Head: %u, Tail: %u)\n", head, tx_cur);
 			return false;
 		}
 	}
@@ -498,6 +559,7 @@ void init_e1000e(void) {
 		E1000E_82574L,
 		E1000E_82574LA,
 		E1000E_82583V,
+		E1000E_I217LM,
 	};
 
 	for (size_t i = 0; i < sizeof(supported) / sizeof(supported[0]); i++) {

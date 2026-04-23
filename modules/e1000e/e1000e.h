@@ -27,6 +27,10 @@
 #define E1000E_82574L (uint32_t)0x10D3
 #define E1000E_82574LA (uint32_t)0x10F6
 #define E1000E_82583V (uint32_t)0x150C
+#define E1000E_I217LM (uint32_t)0x153A
+
+#define E1000_CTRL_GIO_MASTER_DISABLE  0x00000004  // Bit 2 of CTRL
+#define E1000_STATUS_GIO_MASTER_ENABLE 0x00080000  // Bit 19 of STATUS
 
 /* Common register offsets */
 #define REG_CTRL 0x0000
@@ -36,7 +40,8 @@
 #define REG_ICR 0x00C0
 #define REG_IMASK 0x00D0
 #define REG_IMC 0x00D8
-
+#define REG_SWSM 0x05B50
+#define SWSM_SWFLAG (1 << 0)
 #define REG_RCTRL 0x0100
 
 #define REG_TCTRL 0x0400
@@ -183,8 +188,8 @@
 #define E1000E_MAX_PKT_SIZE 16384
 #define E1000E_RX_BUFFER_SIZE 8192
 
-#define E1000E_TX_ALIGN 16
-#define E1000E_RX_ALIGN 16
+#define E1000E_TX_ALIGN 128
+#define E1000E_RX_ALIGN 128
 
 #define E1000E_ICR_LSC (1 << 2)
 #define E1000E_ICR_RXDMT0 (1 << 4)
