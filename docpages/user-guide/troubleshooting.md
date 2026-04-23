@@ -6,13 +6,11 @@ This page covers common issues you might encounter while using Retro Rocket, and
 
 ### System doesn’t boot from the CD
 - Make sure your PC or virtual machine is set to boot from **CD/DVD** first or select it from the boot menu.
-- Make sure your PC or virtual machine supports BIOS boot for **CD/DVD**. Our ISO image supports BIOS boot (for older machines).
 
 ---
 
 ### System doesn’t boot from the USB stick
 - Make sure your PC or virtual machine is set to boot from **USB** first or select it from the boot menu.
-- Make sure your PC or virtual machine supports UEFI boot for **USB**. Our USB stick image supports UEFI boot (for newer machines).
 
 ---
 
@@ -24,8 +22,6 @@ This page covers common issues you might encounter while using Retro Rocket, and
 
 ### No network connection
 - Retro Rocket only supports **one network card** at a time.
-- By default, the **e1000 driver** is loaded, which works for most virtual machines and many real NICs.
-- To try a different driver, edit `/programs/init` on an installed system.
 
 ---
 

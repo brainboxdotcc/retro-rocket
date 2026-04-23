@@ -129,14 +129,12 @@ $(function(){initNavTree('troubleshooting.html','',''); });
 System doesn’t boot from the CD</h3>
 <ul>
 <li>Make sure your PC or virtual machine is set to boot from <b>CD/DVD</b> first or select it from the boot menu.</li>
-<li>Make sure your PC or virtual machine supports BIOS boot for <b>CD/DVD</b>. Our ISO image supports BIOS boot (for older machines).</li>
 </ul>
 <hr  />
 <h3 class="doxsection"><a class="anchor" id="system-doesnt-boot-from-the-usb-stick"></a>
 System doesn’t boot from the USB stick</h3>
 <ul>
 <li>Make sure your PC or virtual machine is set to boot from <b>USB</b> first or select it from the boot menu.</li>
-<li>Make sure your PC or virtual machine supports UEFI boot for <b>USB</b>. Our USB stick image supports UEFI boot (for newer machines).</li>
 </ul>
 <hr  />
 <h3 class="doxsection"><a class="anchor" id="black-screen-or-nothing-happens-after-boot"></a>
@@ -150,8 +148,6 @@ Black screen or nothing happens after boot</h3>
 No network connection</h3>
 <ul>
 <li>Retro Rocket only supports <b>one network card</b> at a time.</li>
-<li>By default, the <b>e1000 driver</b> is loaded, which works for most virtual machines and many real NICs.</li>
-<li>To try a different driver, edit <span class="tt">/programs/init</span> on an installed system.</li>
 </ul>
 <hr  />
 <h3 class="doxsection"><a class="anchor" id="my-work-disappeared-after-reboot"></a>
