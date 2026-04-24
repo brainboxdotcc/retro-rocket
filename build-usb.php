@@ -25,7 +25,6 @@ if (!is_file(LIMINE_BIN) || !is_executable(LIMINE_BIN)) {
 }
 
 function run(string $cmd, array $env = []): void {
-    echo ">> RUN: $cmd\n";
     $proc = proc_open($cmd, [1=>['pipe','w'], 2=>['pipe','w']], $pipes, null, $env + $_ENV);
     if (!is_resource($proc)) {
         throw new RuntimeException("failed to start: $cmd");
@@ -56,6 +55,8 @@ ensure_file(LIMINE_DIR . '/limine-bios.sys');
 ensure_file(LIMINE_BIN);
 ensure_file(LIMINE_CONF);
 
+echo ">> Compressing root.iso.gz\n";
+
 $root_gz = BUILD_DIR . '/root.iso.gz';
 run(sprintf("gzip -9 -n -c %s > %s", escapeshellarg(RR_ISO), escapeshellarg($root_gz)));
 
@@ -75,7 +76,11 @@ if (is_file(OUT_IMG)) {
     unlink(OUT_IMG);
 }
 
+echo ">> Truncating " . OUT_IMG . "\n";
+
 run(sprintf("truncate -s %d %s", $img_bytes, escapeshellarg(OUT_IMG)));
+
+echo ">> Partitioning " . OUT_IMG . "\n";
 
 run(sprintf("sgdisk -o -a 1 -n 1:34:2047 -t 1:ef02 -n 2:%d:0 -t 2:ef00 %s", $start_lba, escapeshellarg(OUT_IMG)));
 run(sprintf("sgdisk --hybrid 2:EE %s", escapeshellarg(OUT_IMG)));
@@ -83,7 +88,11 @@ run(sprintf("printf 'a\n1\nw\n' | fdisk %s", escapeshellarg(OUT_IMG)));
 
 $env = ['MTOOLS_SKIP_CHECK' => '1'];
 
+echo ">> Formatting " . OUT_IMG . "\n";
+
 run(sprintf("mformat -i %s@@%d -F -v %s ::", escapeshellarg(OUT_IMG), $offset_bytes, escapeshellarg(VOL_LABEL)), $env);
+
+echo ">> Copying files to " . OUT_IMG . "\n";
 
 $img_spec = escapeshellarg(OUT_IMG . '@@' . (string)$offset_bytes);
 
@@ -97,8 +106,12 @@ run(sprintf("mcopy -i %s %s ::/kernel.sym", $img_spec, escapeshellarg(KERNEL_SYM
 run(sprintf("mcopy -i %s %s ::/root.iso.gz", $img_spec, escapeshellarg($root_gz)), $env);
 run(sprintf("mcopy -i %s %s ::/limine.conf", $img_spec, escapeshellarg(LIMINE_CONF)), $env);
 
+echo ">> Installing bootloader to " . OUT_IMG . "\n";
+
 // Install BIOS bootloader
 run(sprintf("%s bios-install %s 1", escapeshellarg(LIMINE_BIN), escapeshellarg(OUT_IMG)));
+
+echo ">> Fixup\n";
 
 $fp = fopen(OUT_IMG, 'r+b');
 if ($fp === false) {

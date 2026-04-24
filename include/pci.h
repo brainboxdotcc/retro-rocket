@@ -6,26 +6,47 @@
 #pragma once
 #include <kernel.h>
 
+/**
+ * @brief PCI subclass descriptor
+ *
+ * Represents a PCI subclass entry, including the subclass ID,
+ * programming interface, and a human-readable description.
+ */
 typedef struct {
-       uint8_t id;
-       uint8_t subclass;
-       uint8_t progif;
-       const char* description;
+	uint8_t id;               /**< Subclass ID */
+	uint8_t subclass;         /**< Subclass code */
+	uint8_t progif;           /**< Programming interface */
+	const char* description;  /**< Human-readable description */
 } pci_subclass;
 
+/**
+ * @brief Encoded PCI device address for configuration access
+ *
+ * This union represents the 32-bit value written to the PCI
+ * configuration address port (0xCF8). It encodes bus, device,
+ * function, and register offset fields.
+ *
+ * The layout matches the standard PCI configuration mechanism #1.
+ */
 typedef union pci_dev {
-    uint32_t bits;
-    struct {
-        uint32_t always_zero    : 2;
-        uint32_t field_num      : 6;
-        uint32_t function_num   : 3;
-        uint32_t device_num     : 5;
-        uint32_t bus_num        : 8;
-        uint32_t reserved       : 7;
-        uint32_t enable         : 1;
-    };
+	uint32_t bits;            /**< Raw 32-bit encoded value */
+	struct {
+		uint32_t always_zero    : 2; /**< Must be zero */
+		uint32_t field_num      : 6; /**< Register offset (DWORD aligned) */
+		uint32_t function_num   : 3; /**< Function number */
+		uint32_t device_num     : 5; /**< Device number */
+		uint32_t bus_num        : 8; /**< Bus number */
+		uint32_t reserved       : 7; /**< Reserved, must be zero */
+		uint32_t enable         : 1; /**< Enable bit (must be set to 1) */
+	};
 } pci_dev_t;
 
+/**
+ * @brief Zero-initialised PCI device descriptor
+ *
+ * Used as a default or sentinel value when no valid PCI device
+ * is selected.
+ */
 extern pci_dev_t dev_zero;
 
 #define PCI_CONFIG_ADDRESS       0xCF8

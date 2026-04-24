@@ -2,17 +2,42 @@ REM ======================
 REM Rotating Textured Cube
 REM ======================
 
-CX# = GRAPHICS_WIDTH / 2
-CY# = GRAPHICS_HEIGHT / 2
+SCROLL$ = "  WELCOME TO RETRO ROCKET  -  THIS IS A DEMONSTRATION OF A FULLY OPERATIONAL BATTLE STATION... ERR... OPERATING SYSTEM  -  POWERED BY BASIC!  -  MULTITASKING, MULTIMEDIA, AND MINIMAL PATIENCE FOR MODERN BLOAT  -  WATCH AS SPRITES, SOUND, AND MATHEMATICS COLLIDE IN REAL TIME  -  NO FRAMEWORKS, NO RUNTIME, JUST PURE CONTROL  -  THE CUBE SPINS, THE MUSIC PLAYS, AND THE MACHINE OBEYS  -  ALL SYSTEMS NOMINAL  -  ENJOY THE SHOW  -  "
+SCROLL$ = SCROLL$ + "  GREETINGS TO ALL WHO STILL CARE ABOUT HOW THINGS ACTUALLY WORK  -  "
+SCROLLX# = GRAPHICS_WIDTH
+SCROLLPHASE# = 0
+
+CX# = GRAPHICS_CENTRE_X
+CY# = GRAPHICS_CENTRE_Y
+DX# = 5
+DY# = 4
+
 SCALE# = 250
 DIST# = 3
+SPEED# = 0.06
+BOUNCE# = 12
+
+R = 255
+G = 0
+B = 0
+X = 0
+
+DIM s, 6
 
 PAGE OFF
 ON ERROR PROCcontinue
 MODLOAD "sound"
 ON ERROR OFF
 PRINT "Harvesting apples..."
-SPRITELOAD bad_apple, "/images/bad-apple.gif"
+SPRITELOAD S, "/images/bad-apple.gif"
+s(0) = S
+SPRITELOAD S, "/images/cat.gif"
+s(1) = S
+SPRITELOAD S, "/images/dance.gif"
+s(2) = S
+s(3) = s(0)
+s(4) = s(1)
+s(5) = s(2)
 PRINT "Bringing the noise..."
 ON ERROR PROCcontinue
 MODLOAD "mp3"
@@ -21,7 +46,7 @@ ON ERROR PROCcontinue
 STREAM CREATE lead1
 ON ERROR OFF
 ON ERROR PROCcontinue
-SOUND LOAD music, "/system/media/binary-inferno.mp3"
+SOUND LOAD music, "/system/media/demo.mp3"
 ON ERROR OFF
 ON ERROR PROCcontinue
 SOUND REPEAT ON music
@@ -29,6 +54,25 @@ ON ERROR OFF
 ON ERROR PROCcontinue
 SOUND PLAY lead1, music
 ON ERROR OFF
+
+CLS
+CURSOR TERMWIDTH / 2 - (78 / 2), TERMHEIGHT / 2
+COLOR 1
+PRINT "YEAH. SO... ";
+SLEEP 4000
+COLOR 2
+PRINT "I MADE AN OPERATING SYSTEM ...";
+SLEEP 6000
+COLOR 3
+PRINT "IN BASIC! ";
+SLEEP 4000
+COLOR 4
+PRINT "AND.... ";
+SLEEP 4000
+COLOR 5
+PRINT "THIS IS THE DEMO!"
+COLOR 15
+SLEEP 10000
 
 DIM VX#,8
 DIM VY#,8
@@ -116,7 +160,6 @@ VZ#(7) =  1
 
 ANGLE# = 0
 
-GCOL RGB(80,80,80)
 AUTOFLIP FALSE
 
 REPEAT
@@ -127,53 +170,70 @@ END
 
 DEF FNloop(q)
   start = TICKS
-  RECTANGLE 0, 0, GRAPHICS_WIDTH - 1, GRAPHICS_HEIGHT - 1
-  min_x# = PX#(0)
-  max_x# = PX#(0)
-  min_y# = PY#(0)
-  max_y# = PY#(0)
-  FOR I = 1 TO 7
-    min_x# = MINR(min_x#, PX#(I))
-    max_x# = MAXR(max_x#, PX#(I))
-    min_y# = MINR(min_y#, PY#(I))
-    max_y# = MAXR(max_y#, PY#(I))
-  NEXT
-  RECTANGLE min_x# - 16, min_y# - 16, max_x# + 16, max_y# + 16
 
-  ANGLE# = ANGLE# + 0.07
+  P = (X * 1530) / 500
+  SEG = P / 255
+  T = P - (SEG * 255)
+  IF SEG = 0 THEN
+    R = 255
+    G = T
+    B = 0
+  ENDIF
+  IF SEG = 1 THEN
+    R = 255 - T
+    G = 255
+    B = 0
+  ENDIF
+  IF SEG = 2 THEN
+    R = 0
+    G = 255
+    B = T
+  ENDIF
+  IF SEG = 3 THEN
+    R = 0
+    G = 255 - T
+    B = 255
+  ENDIF
+  IF SEG = 4 THEN
+    R = T
+    G = 0
+    B = 255
+  ENDIF
+  IF SEG = 5 THEN
+    R = 255
+    G = 0
+    B = 255 - T
+  ENDIF
+  X = X + 1
+  IF X >= 500 THEN X = 0
+
+  GCOL RGB(40, 40, 40)
+  RECTANGLE 0, 0, GRAPHICS_WIDTH - 1, 80
+  RECTANGLE 0, GRAPHICS_HEIGHT - 80, GRAPHICS_WIDTH - 1, GRAPHICS_HEIGHT - 1
+  GCOL RGB(80, 80, 80)
+  RECTANGLE 0, 80, GRAPHICS_WIDTH - 1, GRAPHICS_HEIGHT - 80
+
+  ANGLE# = ANGLE# + SPEED#
   SY# = SIN(ANGLE#)
   CYR# = COS(ANGLE#)
-  SX# = SIN(ANGLE# * 0.7)
-  CXR# = COS(ANGLE# * 0.7)
+  SX# = SIN(ANGLE# * SPEED# * 3)
+  CXR# = COS(ANGLE# * SPEED# * 3)
 
   FOR I = 0 TO 7
-    X# = VX#(I)
-    Y# = VY#(I)
-    Z# = VZ#(I)
-
-    X1# = X# * CYR# - Z# * SY#
-    Z1# = X# * SY# + Z# * CYR#
-
-    Y1# = Y# * CXR# - Z1# * SX#
-    Z2# = Y# * SX# + Z1# * CXR#
-
+    X1# = VX#(I) * CYR# - VZ#(I) * SY#
+    Z1# = VX#(I) * SY# + VZ#(I) * CYR#
+    Y1# = VY#(I) * CXR# - Z1# * SX#
+    Z2# = VY#(I) * SX# + Z1# * CXR#
     Xr#(I) = X1#
     Yr#(I) = Y1#
     Zr#(I) = Z2#
-
     DEN# = Z2# + DIST# + 0.00000000001
-
     PX#(I) = CX# + (X1# * SCALE# / DEN#)
     PY#(I) = CY# + (Y1# * SCALE# / DEN#)
-
   NEXT
 
   FOR f = 0 TO 5
-    a = F(f * 4 + 0)
-    b = F(f * 4 + 1)
-    c = F(f * 4 + 2)
-    d = F(f * 4 + 3)
-    DEPTH#(f) = (Zr#(a) + Zr#(b) + Zr#(c) + Zr#(d)) / 4
+    DEPTH#(f) = (Zr#(F(f * 4 + 0)) + Zr#(F(f * 4 + 1)) + Zr#(F(f * 4 + 2)) + Zr#(F(f * 4 + 3))) / 4
     IDX(f) = f
   NEXT
 
@@ -181,21 +241,57 @@ DEF FNloop(q)
 
   FOR k = 0 TO 5
     f = IDX(k)
-
     a = F(f * 4 + 0)
     b = F(f * 4 + 1)
     c = F(f * 4 + 2)
     d = F(f * 4 + 3)
-
-    PLOTQUAD bad_apple, PX#(a),PY#(a), PX#(b),PY#(b), PX#(c),PY#(c), PX#(d),PY#(d)
-
+    PLOTQUAD s(f), PX#(a),PY#(a), PX#(b),PY#(b), PX#(c),PY#(c), PX#(d),PY#(d)
   NEXT
+
+  CX# = CX# + DX#
+  CY# = CY# + DY#
+  IF CX# > (GRAPHICS_WIDTH - SCALE#) THEN DX# = -BOUNCE#
+  IF CX# < SCALE# THEN DX# = BOUNCE#
+  IF CY# > (GRAPHICS_HEIGHT - SCALE#) THEN DY# = -BOUNCE#
+  IF CY# < SCALE# THEN DY# = BOUNCE#
+
+  FOR x = 0 TO 2
+    ANIMATE NEXT s(x)
+  NEXT
+
+  PROCscrollText
 
   frame_len = TICKS - start
   FLIP
-  ANIMATE NEXT bad_apple
   SLEEP MAX(0, 16 - frame_len)
 = 0
 
 DEF PROCcontinue
+ENDPROC
+
+DEF PROCscrollText
+  GCOL RGB(R,G,B)
+  top# = GRAPHICS_HEIGHT - 80
+  height# = 64
+  half# = height# / 2
+  amp# = half# - 8
+  spacing# = 8
+
+  FOR i = 0 TO LEN(SCROLL$) - 1
+    ch$ = MID$(SCROLL$, i, 1)
+    gx# = SCROLLX# + i * spacing#
+    gy# = top# + half# + SIN(gx# / 48) * amp#
+    IF gx# > -8 THEN
+      IF gx# < GRAPHICS_WIDTH THEN
+        GRAPHPRINT gx#, gy# - top#, ch$;
+        GRAPHPRINT gx#, gy#, ch$;
+      ENDIF
+    ENDIF
+  NEXT
+
+  SCROLLX# = SCROLLX# - 3
+
+  IF SCROLLX# < -(LEN(SCROLL$) * spacing#) THEN
+    SCROLLX# = GRAPHICS_WIDTH
+  ENDIF
 ENDPROC

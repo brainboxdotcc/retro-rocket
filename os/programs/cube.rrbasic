@@ -6,6 +6,7 @@ CX# = GRAPHICS_WIDTH / 2
 CY# = GRAPHICS_HEIGHT / 2
 SCALE# = 250
 DIST# = 3
+SPEED# = 0.03
 
 PAGE OFF
 SPRITELOAD s1, "/images/s1.png"
@@ -121,40 +122,27 @@ DEF FNloop(q)
   NEXT
   RECTANGLE min_x# - 16, min_y# - 16, max_x# + 16, max_y# + 16
 
-  ANGLE# = ANGLE# + 0.07
+  ANGLE# = ANGLE# + SPEED#
   SY# = SIN(ANGLE#)
   CYR# = COS(ANGLE#)
-  SX# = SIN(ANGLE# * 0.7)
-  CXR# = COS(ANGLE# * 0.7)
+  SX# = SIN(ANGLE# * SPEED# * 3)
+  CXR# = COS(ANGLE# * SPEED# * 3)
 
   FOR I = 0 TO 7
-    X# = VX#(I)
-    Y# = VY#(I)
-    Z# = VZ#(I)
-
-    X1# = X# * CYR# - Z# * SY#
-    Z1# = X# * SY# + Z# * CYR#
-
-    Y1# = Y# * CXR# - Z1# * SX#
-    Z2# = Y# * SX# + Z1# * CXR#
-
+    X1# = VX#(I) * CYR# - VZ#(I) * SY#
+    Z1# = VX#(I) * SY# + VZ#(I) * CYR#
+    Y1# = VY#(I) * CXR# - Z1# * SX#
+    Z2# = VY#(I) * SX# + Z1# * CXR#
     Xr#(I) = X1#
     Yr#(I) = Y1#
     Zr#(I) = Z2#
-
     DEN# = Z2# + DIST# + 0.00000000001
-
     PX#(I) = CX# + (X1# * SCALE# / DEN#)
     PY#(I) = CY# + (Y1# * SCALE# / DEN#)
-
   NEXT
 
   FOR f = 0 TO 5
-    a = F(f * 4 + 0)
-    b = F(f * 4 + 1)
-    c = F(f * 4 + 2)
-    d = F(f * 4 + 3)
-    DEPTH#(f) = (Zr#(a) + Zr#(b) + Zr#(c) + Zr#(d)) / 4
+    DEPTH#(f) = (Zr#(F(f * 4 + 0)) + Zr#(F(f * 4 + 1)) + Zr#(F(f * 4 + 2)) + Zr#(F(f * 4 + 3))) / 4
     IDX(f) = f
   NEXT
 
@@ -162,14 +150,11 @@ DEF FNloop(q)
 
   FOR k = 0 TO 5
     f = IDX(k)
-
     a = F(f * 4 + 0)
     b = F(f * 4 + 1)
     c = F(f * 4 + 2)
     d = F(f * 4 + 3)
-
     PLOTQUAD s1, PX#(a),PY#(a), PX#(b),PY#(b), PX#(c),PY#(c), PX#(d),PY#(d)
-
   NEXT
 
   frame_len = TICKS - start

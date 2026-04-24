@@ -802,5 +802,5 @@ void graphics_putstring(const char *s, int64_t x, int64_t y, int32_t colour) {
 		return;
 	}
 	flanterm_fb_draw_text_px(ft_ctx, s, x, y, colour, 0, true);
-	set_video_dirty_area(flanterm_ex_get_bounding_min_y(), flanterm_ex_get_bounding_max_y());
+	set_video_dirty_area(y, y + 8);
 }

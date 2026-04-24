@@ -500,34 +500,34 @@ char* basic_mid(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
+	const char* source = strval;
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t start = intval;
-	intval = 0;
 	PARAMS_GET_ITEM(BIP_INT);
-	int64_t end = intval;
-	PARAMS_END("MID$","");
-	int64_t len = strlen(strval);
-	if (len == 0) {
+	int64_t count = intval;
+	PARAMS_END("MID$", "");
+
+	int64_t len = strlen(source);
+	if (len == 0 || count <= 0) {
 		return "";
-	}
-	if (start > len) {
-		start = len;
 	}
 	if (start < 0) {
 		start = 0;
 	}
-	if (end < start) {
-		end = start;
+	if (start >= len) {
+		return "";
 	}
-	if (end > len) {
-		end = len;
+	if (count > len - start) {
+		count = len - start;
 	}
-	char* cut = (char*)gc_strdup(ctx, strval);
+
+	char* cut = gc_strdup(ctx, source + start);
 	if (!cut) {
 		return "";
 	}
-	*(cut + end) = 0;
-	return cut + start;
+
+	cut[count] = 0;
+	return cut;
 }
 
 char* basic_replace(struct basic_ctx* ctx)
