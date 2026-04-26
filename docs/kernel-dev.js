@@ -4,5 +4,6 @@ var kernel_dev =
     [ "Interrupt Handling in Retro Rocket (AMD64)", "interrupts.html", null ],
     [ "Retro Rocket Memory Model", "memory.html", null ],
     [ "Writing Kernel Modules for Retro Rocket", "modules.html", null ],
-    [ "RetroFS v1 Technical Specification", "retrofs.html", null ]
+    [ "RetroFS v1 Technical Specification", "retrofs.html", null ],
+    [ "Kernel Profiling in Retro Rocket", "kernel-profiling-osdev.html", null ]
 ];

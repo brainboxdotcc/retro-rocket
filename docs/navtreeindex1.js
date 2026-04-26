@@ -92,6 +92,7 @@ var NAVTREEINDEX1 =
 "ip.html":[0,0,7,23],
 "irc.html":[0,0,7,25],
 "kernel-dev.html":[0,2],
+"kernel-profiling-osdev.html":[0,2,5],
 "keywords.html":[0,1,2],
 "libraries.html":[0,1,8],
 "list.html":[0,0,7,26],

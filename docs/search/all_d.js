@@ -89,7 +89,8 @@ var searchData=
   ['drive_86',['2. Select a drive',['../installation.html#autotoc_md2-select-a-drive',1,'']]],
   ['driver_87',['Driver',['../glossary.html#driver',1,'']]],
   ['drivers_88',['Drivers',['../audio-basics.html#drivers',1,'Drivers'],['../user-networking.html#network-drivers',1,'Network Drivers']]],
-  ['dump_20command_89',['dump command',['../dump.html',1,'commands']]],
-  ['dump_2emd_90',['dump.md',['../dump_8md.html',1,'']]],
-  ['dvd_91',['Burning an ISO (CD/DVD)',['../creating-boot-media.html#burning-an-iso-cddvd',1,'']]]
+  ['dump_89',['Triggering a Profile Dump',['../kernel-profiling-osdev.html#triggering-a-profile-dump',1,'']]],
+  ['dump_20command_90',['dump command',['../dump.html',1,'commands']]],
+  ['dump_2emd_91',['dump.md',['../dump_8md.html',1,'']]],
+  ['dvd_92',['Burning an ISO (CD/DVD)',['../creating-boot-media.html#burning-an-iso-cddvd',1,'']]]
 ];

@@ -21,7 +21,7 @@ var searchData=
   ['in_20commands_18',['Built-in commands',['../rocketsh.html#built-in-commands',1,'']]],
   ['in_20functions_19',['Built-In Functions',['../builtin-functions.html',1,'basic-ref']]],
   ['in_20programs_20init_20',['I broke something in &lt;span class=&quot;tt&quot;&gt;/programs/init&lt;/span&gt;',['../troubleshooting.html#i-broke-something-in-programsinit',1,'']]],
-  ['in_20retro_20rocket_21',['Behaviour in Retro Rocket',['../DECIBELS.html#behaviour-in-retro-rocket',1,'']]],
+  ['in_20retro_20rocket_21',['in Retro Rocket',['../DECIBELS.html#behaviour-in-retro-rocket',1,'Behaviour in Retro Rocket'],['../kernel-profiling-osdev.html',1,'Kernel Profiling in Retro Rocket']]],
   ['in_20retro_20rocket_20amd64_22',['Interrupt Handling in Retro Rocket (AMD64)',['../interrupts.html',1,'kernel-dev']]],
   ['in_20variables_23',['Built-In Variables',['../type-bi.html',1,'variables']]],
   ['incoming_20messages_20are_20stored_24',['UDP “Doorstep Queue” (how incoming messages are stored)',['../networking.html#udp-doorstep-queue-how-incoming-messages-are-stored',1,'']]],

@@ -55,7 +55,7 @@ var searchData=
   ['restore_2emd_52',['RESTORE.md',['../RESTORE_8md.html',1,'']]],
   ['restrict_20keyword_53',['RESTRICT Keyword',['../RESTRICT.html',1,'keywords']]],
   ['restrict_2emd_54',['RESTRICT.md',['../RESTRICT_8md.html',1,'']]],
-  ['retro_20rocket_55',['Retro Rocket',['../DECIBELS.html#behaviour-in-retro-rocket',1,'Behaviour in Retro Rocket'],['../getting-started.html#booting-retro-rocket',1,'Booting Retro Rocket'],['../modules.html',1,'Writing Kernel Modules for Retro Rocket']]],
+  ['retro_20rocket_55',['Retro Rocket',['../DECIBELS.html#behaviour-in-retro-rocket',1,'Behaviour in Retro Rocket'],['../getting-started.html#booting-retro-rocket',1,'Booting Retro Rocket'],['../kernel-profiling-osdev.html',1,'Kernel Profiling in Retro Rocket'],['../modules.html',1,'Writing Kernel Modules for Retro Rocket']]],
   ['retro_20rocket_20amd64_56',['Interrupt Handling in Retro Rocket (AMD64)',['../interrupts.html',1,'kernel-dev']]],
   ['retro_20rocket_20basic_20and_20other_20basic_20dialects_57',['Differences Between Retro Rocket BASIC and other BASIC dialects',['../basic-differences.html',1,'basic-ref']]],
   ['retro_20rocket_20boot_20flow_58',['Retro Rocket Boot Flow',['../bootflow.html',1,'kernel-dev']]],
@@ -93,7 +93,7 @@ var searchData=
   ['rmdir_2emd_90',['rmdir.md',['../rmdir_8md.html',1,'']]],
   ['rnd_20function_91',['RND Function',['../RND.html',1,'int-funcs']]],
   ['rnd_2emd_92',['RND.md',['../RND_8md.html',1,'']]],
-  ['rocket_93',['Rocket',['../DECIBELS.html#behaviour-in-retro-rocket',1,'Behaviour in Retro Rocket'],['../getting-started.html#booting-retro-rocket',1,'Booting Retro Rocket'],['../modules.html',1,'Writing Kernel Modules for Retro Rocket']]],
+  ['rocket_93',['Rocket',['../DECIBELS.html#behaviour-in-retro-rocket',1,'Behaviour in Retro Rocket'],['../getting-started.html#booting-retro-rocket',1,'Booting Retro Rocket'],['../kernel-profiling-osdev.html',1,'Kernel Profiling in Retro Rocket'],['../modules.html',1,'Writing Kernel Modules for Retro Rocket']]],
   ['rocket_20amd64_94',['Interrupt Handling in Retro Rocket (AMD64)',['../interrupts.html',1,'kernel-dev']]],
   ['rocket_20basic_20and_20other_20basic_20dialects_95',['Differences Between Retro Rocket BASIC and other BASIC dialects',['../basic-differences.html',1,'basic-ref']]],
   ['rocket_20boot_20flow_96',['Retro Rocket Boot Flow',['../bootflow.html',1,'kernel-dev']]],
@@ -117,5 +117,6 @@ var searchData=
   ['rules_20and_20behaviour_114',['Rules and behaviour',['../DEF.html#rules-and-behaviour',1,'']]],
   ['rules_20behaviour_115',['Rules behaviour',['../ELSE.html#rules--behaviour',1,'Rules &amp; behaviour'],['../ENDPROC.html#rules--behaviour-1',1,'Rules &amp; behaviour']]],
   ['run_116',['run',['../troubleshooting.html#programs-wont-run',1,'Programs won’t run'],['../rocketsh.html#run',1,'run']]],
-  ['running_20programs_117',['Running programs',['../working-with-programs.html#running-programs',1,'']]]
+  ['running_20programs_117',['Running programs',['../working-with-programs.html#running-programs',1,'']]],
+  ['running_20with_20profiling_20enabled_118',['Running with Profiling Enabled',['../kernel-profiling-osdev.html#running-with-profiling-enabled',1,'']]]
 ];

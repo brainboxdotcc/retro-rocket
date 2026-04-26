@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=11">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Retro Rocket OS: Kernel Development</title>
+    <title>Retro Rocket OS: Kernel Profiling in Retro Rocket</title>
     <link href="tabs.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -16,7 +16,7 @@
     <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-    <meta name="title" content="Kernel Development - Retro Rocket OS">
+    <meta name="title" content="Kernel Profiling in Retro Rocket - Retro Rocket OS">
     <meta name="description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="author" content="Retro Rocket Developers">
     <meta name="robots" content="index, follow">
@@ -24,7 +24,7 @@
     <meta name="theme-color" content="#0b0f14">
     <link rel="icon" href="rr.png">
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="Kernel Development - Retro Rocket OS">
+    <meta property="og:title" content="Kernel Profiling in Retro Rocket - Retro Rocket OS">
     <meta property="og:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://retrorocket.dev/">
@@ -32,7 +32,7 @@
     <meta property="og:image:alt" content="Retro Rocket OS running on a retro-style desktop">
     <meta property="og:site_name" content="Retro Rocket OS">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Kernel Development - Retro Rocket OS">
+    <meta name="twitter:title" content="Kernel Profiling in Retro Rocket - Retro Rocket OS">
     <meta name="twitter:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="twitter:image" content="https://retrorocket.dev/leader4.png">
     <link rel="preload" as="image" href="https://retrorocket.dev/leader4.png">
@@ -94,7 +94,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('kernel-dev.html','',''); });
+$(function(){initNavTree('kernel-profiling-osdev.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -120,16 +120,49 @@ $(function(){initNavTree('kernel-dev.html','',''); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">Kernel Development </div></div>
+  <div class="headertitle"><div class="title">Kernel Profiling in Retro Rocket </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><ul>
-<li><a class="el" href="bootflow.html">Retro Rocket Boot Flow</a></li>
-<li><a class="el" href="interrupts.html">Interrupt Handling in Retro Rocket (AMD64)</a></li>
-<li><a class="el" href="memory.html">Retro Rocket Memory Model</a></li>
-<li><a class="el" href="modules.html">Writing Kernel Modules for Retro Rocket</a></li>
-<li><a class="el" href="glossary.html#retrofs">RetroFS</a></li>
-<li><a class="el" href="kernel-profiling-osdev.html">Kernel Profiling in Retro Rocket</a> </li>
+<div class="textblock"><p>This page describes how to enable and use the built-in kernel profiler in Retro Rocket. It is intended for OS developers working on the kernel and low-level subsystems.</p>
+<h2 class="doxsection"><a class="anchor" id="overview-2"></a>
+Overview</h2>
+<p>Retro Rocket includes a lightweight profiling system based on GCC’s function instrumentation hooks:</p>
+<div class="fragment"><div class="line">-finstrument-functions</div>
+</div><!-- fragment --><p>When enabled, the compiler injects calls on every function entry and exit. The kernel collects total cycles per function, call counts, and parent to child call relationships.</p>
+<p>The output is written in <b>Callgrind format</b>, which can be opened in tools such as KCachegrind or QCachegrind.</p>
+<h2 class="doxsection"><a class="anchor" id="enabling-profiling"></a>
+Enabling Profiling</h2>
+<p>Profiling is disabled by default. To enable it, build the kernel with the <span class="tt">PROFILE_KERNEL</span> CMake flag:</p>
+<div class="fragment"><div class="line">cmake -DPROFILE_KERNEL=ON -S source-dir -B build-dir</div>
+<div class="line">cmake --build build-dir</div>
+</div><!-- fragment --><p>This will include the profiler subsystem in the kernel and significantly slow down execution (this is expected)</p>
+<h2 class="doxsection"><a class="anchor" id="running-with-profiling-enabled"></a>
+Running with Profiling Enabled</h2>
+<p>Boot the kernel as usual. Profiling is active immediately.</p>
+<dl class="section warning"><dt>Warning</dt><dd>Profiling introduces heavy overhead. Expect the system to run <b>2-5× slower</b>. Timing-sensitive code may behave differently. Only use profiling for analysis, not normal operation.</dd></dl>
+<h2 class="doxsection"><a class="anchor" id="triggering-a-profile-dump"></a>
+Triggering a Profile Dump</h2>
+<p>Press:</p>
+<div class="fragment"><div class="line">CTRL + ALT + SHIFT + P</div>
+</div><!-- fragment --><p>This will disable interrupts, freeze profiling data, dump the profile to the first serial port, and resume execution.</p>
+<h2 class="doxsection"><a class="anchor" id="capturing-output-qemu"></a>
+Capturing Output (QEMU)</h2>
+<p>Run QEMU with serial output redirected:</p>
+<div class="fragment"><div class="line">qemu-system-x86_64 ... -serial file:callgrind.out</div>
+</div><!-- fragment --><p>After triggering a dump, the file <span class="tt">callgrind.out</span> will contain the profile. Running the dump twice in the same session will append both dumps together. Doing so is not recommended, as KCachegrind and similar programs are not designed for this and may crash.</p>
+<p>If you need multiple profiles, clear or rename the output file between runs.</p>
+<h2 class="doxsection"><a class="anchor" id="viewing-the-profile"></a>
+Viewing the Profile</h2>
+<p>Open the output with:</p>
+<div class="fragment"><div class="line">kcachegrind callgrind.out</div>
+</div><!-- fragment --><p>Further documentation on KCachegrind can be found on the <a href="https://kcachegrind.github.io/html/Documentation.html">official website for the project</a>.</p>
+<h2 class="doxsection"><a class="anchor" id="limitations"></a>
+Limitations</h2>
+<ul>
+<li>Profiling is global and always-on when enabled</li>
+<li>High overhead makes real-time behaviour unreliable</li>
+<li>Intended for development, not production use</li>
+<li>The profiler will not and cannot profile itself </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
@@ -146,7 +179,7 @@ $(function(){initNavTree('kernel-dev.html','',''); });
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="index.html">Retro Rocket OS Documentation</a></li>
+    <li class="navelem"><a href="index.html">Retro Rocket OS Documentation</a></li><li class="navelem"><a href="kernel-dev.html">Kernel Development</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.14.0 </li>
   </ul>
 </div>

@@ -39,6 +39,7 @@ var searchData=
   ['outportq_20keyword_36',['OUTPORTQ Keyword',['../OUTPORTQ.html',1,'keywords']]],
   ['outportw_20keyword_37',['OUTPORTW Keyword',['../OUTPORTW.html',1,'keywords']]],
   ['output_38',['output',['../udptest.html#example-output',1,'Example output'],['../longstring.html#streaming-output',1,'Streaming output']]],
-  ['overview_39',['Overview',['../bootflow.html#overview',1,'Overview'],['../interrupts.html#overview-1',1,'Overview']]],
-  ['overview_40',['Directory overview',['../file-system.html#directory-overview',1,'']]]
+  ['output_20qemu_39',['Capturing Output (QEMU)',['../kernel-profiling-osdev.html#capturing-output-qemu',1,'']]],
+  ['overview_40',['Overview',['../bootflow.html#overview',1,'Overview'],['../interrupts.html#overview-1',1,'Overview'],['../kernel-profiling-osdev.html#overview-2',1,'Overview']]],
+  ['overview_41',['Directory overview',['../file-system.html#directory-overview',1,'']]]
 ];

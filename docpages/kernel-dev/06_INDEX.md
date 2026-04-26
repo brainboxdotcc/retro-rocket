@@ -5,3 +5,4 @@
 * \subpage memory
 * \subpage modules
 * \subpage retrofs
+* \subpage kernel-profiling-osdev
