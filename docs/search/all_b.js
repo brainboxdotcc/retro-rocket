@@ -42,7 +42,7 @@ var searchData=
   ['bitand_2emd_39',['BITAND.md',['../BITAND_8md.html',1,'']]],
   ['biteor_20function_40',['BITEOR Function',['../BITEOR.html',1,'keywords']]],
   ['biteor_2emd_41',['BITEOR.md',['../BITEOR_8md.html',1,'']]],
-  ['bitmap_42',['3.2 Free-space map (bitmap)',['../retrofs.html#autotoc_md32-free-space-map-bitmap',1,'']]],
+  ['bitmap_42',['3.2 Free-space map (bitmap)',['../retrofs-kernel-docs.html#autotoc_md32-free-space-map-bitmap',1,'']]],
   ['bitnand_20function_43',['BITNAND Function',['../BITNAND.html',1,'keywords']]],
   ['bitnand_2emd_44',['BITNAND.md',['../BITNAND_8md.html',1,'']]],
   ['bitnor_20function_45',['BITNOR Function',['../BITNOR.html',1,'keywords']]],
@@ -62,9 +62,9 @@ var searchData=
   ['bitxnor_20function_59',['BITXNOR Function',['../BITXNOR.html',1,'keywords']]],
   ['bitxnor_2emd_60',['BITXNOR.md',['../BITXNOR_8md.html',1,'']]],
   ['black_20screen_20or_20nothing_20happens_20after_20boot_61',['Black screen or nothing happens after boot',['../troubleshooting.html#black-screen-or-nothing-happens-after-boot',1,'']]],
-  ['block_62',['3.3.1 Directory Start entry (first half-sector of the block)',['../retrofs.html#autotoc_md331-directory-start-entry-first-half-sector-of-the-block',1,'']]],
-  ['block_20sector_200_63',['3.1 Description Block (sector 0)',['../retrofs.html#autotoc_md31-description-block-sector-0',1,'']]],
-  ['blocks_20and_20entries_64',['3.3 Directory blocks and entries',['../retrofs.html#autotoc_md33-directory-blocks-and-entries',1,'']]],
+  ['block_62',['3.3.1 Directory Start entry (first half-sector of the block)',['../retrofs-kernel-docs.html#autotoc_md331-directory-start-entry-first-half-sector-of-the-block',1,'']]],
+  ['block_20sector_200_63',['3.1 Description Block (sector 0)',['../retrofs-kernel-docs.html#autotoc_md31-description-block-sector-0',1,'']]],
+  ['blocks_20and_20entries_64',['3.3 Directory blocks and entries',['../retrofs-kernel-docs.html#autotoc_md33-directory-blocks-and-entries',1,'']]],
   ['body_20access_20pattern_65',['Body access pattern',['../http.html#body-access-pattern',1,'']]],
   ['body_24_66',['PROChttp_request(method$, url$, body$)',['../http.html#prochttp_requestmethod-url-body',1,'']]],
   ['bool_24_20function_67',['BOOL$ Function',['../BOOL.html',1,'string-funcs']]],
@@ -96,9 +96,9 @@ var searchData=
   ['bundle_93',['SSL Certificate Bundle',['../SSLCONNECT.html#ssl-certificate-bundle',1,'']]],
   ['bundle_94',['Managing the bundle',['../SSLCONNECT.html#managing-the-bundle',1,'']]],
   ['burning_20an_20iso_20cd_20dvd_95',['Burning an ISO (CD/DVD)',['../creating-boot-media.html#burning-an-iso-cddvd',1,'']]],
-  ['but_20recommended_96',['6. Policy notes (non-normative but recommended)',['../retrofs.html#autotoc_md6-policy-notes-non-normative-but-recommended',1,'']]],
+  ['but_20recommended_96',['6. Policy notes (non-normative but recommended)',['../retrofs-kernel-docs.html#autotoc_md6-policy-notes-non-normative-but-recommended',1,'']]],
   ['buys_20you_97',['What this design buys you',['../basic-intdev.html#what-this-design-buys-you',1,'']]],
   ['by_20name_98',['Connecting by Name',['../networking.html#connecting-by-name',1,'']]],
   ['by_20side_3a_20phone_20call_20vs_20parcel_99',['Side-by-side: Phone Call vs Parcel',['../networking.html#side-by-side-phone-call-vs-parcel',1,'']]],
-  ['byte_20layout_20sketch_100',['Byte layout sketch',['../retrofs.html#byte-layout-sketch',1,'']]]
+  ['byte_20layout_20sketch_100',['Byte layout sketch',['../retrofs-kernel-docs.html#byte-layout-sketch',1,'']]]
 ];

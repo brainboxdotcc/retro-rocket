@@ -44,7 +44,7 @@ var searchData=
   ['gosub_2emd_41',['GOSUB.md',['../GOSUB_8md.html',1,'']]],
   ['goto_20keyword_42',['GOTO Keyword',['../GOTO.html',1,'keywords']]],
   ['goto_2emd_43',['GOTO.md',['../GOTO_8md.html',1,'']]],
-  ['gpt_44',['9. Partition identification (GPT)',['../retrofs.html#autotoc_md9-partition-identification-gpt',1,'']]],
+  ['gpt_44',['9. Partition identification (GPT)',['../retrofs-kernel-docs.html#autotoc_md9-partition-identification-gpt',1,'']]],
   ['grant_20of_20copyright_20license_45',['2. Grant of Copyright License',['../third-party-notices.html#autotoc_md2-grant-of-copyright-license',1,'']]],
   ['grant_20of_20patent_20license_46',['3. Grant of Patent License',['../third-party-notices.html#autotoc_md3-grant-of-patent-license',1,'']]],
   ['graphics_47',['Graphics',['../sound-and-graphics.html#graphics',1,'Graphics'],['../sound-and-graphics.html',1,'Sound and Graphics']]],
@@ -53,10 +53,10 @@ var searchData=
   ['graphprint_20keyword_50',['GRAPHPRINT Keyword',['../GRAPHPRINT.html',1,'keywords']]],
   ['graphprint_2emd_51',['GRAPHPRINT.md',['../GRAPHPRINT_8md.html',1,'']]],
   ['grapicstest_20command_52',['grapicstest command',['../graphicstest.html',1,'commands']]],
-  ['growth_20semantics_20normative_53',['4. Allocation &amp;amp; growth semantics (normative)',['../retrofs.html#autotoc_md4-allocation--growth-semantics-normative',1,'']]],
+  ['growth_20semantics_20normative_53',['4. Allocation &amp;amp; growth semantics (normative)',['../retrofs-kernel-docs.html#autotoc_md4-allocation--growth-semantics-normative',1,'']]],
   ['gsi_20routing_54',['IRQ to GSI Routing',['../interrupts.html#irq-to-gsi-routing',1,'']]],
-  ['guid_55',['RetroFS Partition Type GUID',['../retrofs.html#retrofs-partition-type-guid',1,'']]],
-  ['guidance_3a_20l1_20l2_20allocation_20caches_56',['7. Implementation guidance: L1/L2 allocation caches',['../retrofs.html#autotoc_md7-implementation-guidance-l1l2-allocation-caches',1,'']]],
+  ['guid_55',['RetroFS Partition Type GUID',['../retrofs-kernel-docs.html#retrofs-partition-type-guid',1,'']]],
+  ['guidance_3a_20l1_20l2_20allocation_20caches_56',['7. Implementation guidance: L1/L2 allocation caches',['../retrofs-kernel-docs.html#autotoc_md7-implementation-guidance-l1l2-allocation-caches',1,'']]],
   ['guide_57',['Guide',['../basic-intdev.html',1,'BASIC Inerpreter Development Guide'],['../user-guide.html',1,'User Guide']]],
   ['guide_20is_20for_58',['Who this guide is for',['../introduction.html#who-this-guide-is-for',1,'']]]
 ];

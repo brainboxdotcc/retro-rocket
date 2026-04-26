@@ -1,4 +1,4 @@
-\page retrofs RetroFS v1 Technical Specification
+\page retrofs-kernel-docs RetroFS v1 Technical Specification
 
 [TOC]
 

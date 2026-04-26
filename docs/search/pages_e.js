@@ -20,10 +20,10 @@ var searchData=
   ['endproc_20keyword_17',['ENDPROC Keyword',['../ENDPROC.html',1,'keywords']]],
   ['endwhile_20keyword_18',['ENDWHILE Keyword',['../ENDWHILE.html',1,'keywords']]],
   ['engine_3a_20typed_20predictable_19',['The expression engine: typed, predictable',['../basic-intdev.html#the-expression-engine-typed-predictable',1,'']]],
-  ['entries_20',['3.3 Directory blocks and entries',['../retrofs.html#autotoc_md33-directory-blocks-and-entries',1,'']]],
+  ['entries_20',['3.3 Directory blocks and entries',['../retrofs-kernel-docs.html#autotoc_md33-directory-blocks-and-entries',1,'']]],
   ['entry_21',['entry',['../rocketsh.html#command-line-entry',1,'Command line entry'],['../rocketsh.html#multi-line-program-entry',1,'Multi-line program entry']]],
-  ['entry_20first_20half_20sector_20of_20the_20block_22',['3.3.1 Directory Start entry (first half-sector of the block)',['../retrofs.html#autotoc_md331-directory-start-entry-first-half-sector-of-the-block',1,'']]],
-  ['entry_20other_20half_20sectors_23',['3.3.2 File/Directory entry (other half-sectors)',['../retrofs.html#autotoc_md332-filedirectory-entry-other-half-sectors',1,'']]],
+  ['entry_20first_20half_20sector_20of_20the_20block_22',['3.3.1 Directory Start entry (first half-sector of the block)',['../retrofs-kernel-docs.html#autotoc_md331-directory-start-entry-first-half-sector-of-the-block',1,'']]],
+  ['entry_20other_20half_20sectors_23',['3.3.2 File/Directory entry (other half-sectors)',['../retrofs-kernel-docs.html#autotoc_md332-filedirectory-entry-other-half-sectors',1,'']]],
   ['entry_20point_3a_20kmain_24',['2. Kernel Entry Point: &lt;span class=&quot;tt&quot;&gt;kmain()&lt;/span&gt;',['../bootflow.html#autotoc_md2-kernel-entry-point-kmain',1,'']]],
   ['entry_20stubs_20loader_20s_25',['FRED Entry Stubs (&lt;span class=&quot;tt&quot;&gt;loader.S&lt;/span&gt;)',['../interrupts.html#fred-entry-stubs-loaders',1,'']]],
   ['envelope_20keyword_26',['ENVELOPE Keyword',['../ENVELOPE.html',1,'keywords']]],
@@ -33,7 +33,7 @@ var searchData=
   ['eof_20function_30',['EOF Function',['../EOF.html',1,'int-funcs']]],
   ['ere_20subset_31',['Supported syntax (POSIX ERE subset)',['../MATCH.html#supported-syntax-posix-ere-subset',1,'']]],
   ['error_32',['Error',['../glossary.html#error',1,'']]],
-  ['error_20handling_33',['8. Validation &amp;amp; error handling',['../retrofs.html#autotoc_md8-validation--error-handling',1,'']]],
+  ['error_20handling_33',['8. Validation &amp;amp; error handling',['../retrofs-kernel-docs.html#autotoc_md8-validation--error-handling',1,'']]],
   ['error_20handling_20you_20can_20script_34',['Error handling you can script',['../basic-intdev.html#error-handling-you-can-script',1,'']]],
   ['error_20keyword_35',['ERROR Keyword',['../ERROR.html',1,'ERROR Keyword'],['../ON-ERROR.html',1,'ON ERROR Keyword']]],
   ['error_20messages_36',['BASIC Error Messages',['../error-list.html',1,'basic-ref']]],
@@ -88,5 +88,5 @@ var searchData=
   ['extend_20it_85',['If you want to extend it',['../basic-intdev.html#if-you-want-to-extend-it',1,'']]],
   ['extended_20high_20leaves_86',['Extended (High) Leaves',['../cpuid.html#extended-high-leaves',1,'']]],
   ['extended_20keys_87',['Extended keys',['../INKEY.html#extended-keys',1,'']]],
-  ['extents_88',['4.1 Extents',['../retrofs.html#autotoc_md41-extents',1,'']]]
+  ['extents_88',['4.1 Extents',['../retrofs-kernel-docs.html#autotoc_md41-extents',1,'']]]
 ];

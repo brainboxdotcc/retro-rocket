@@ -5,7 +5,7 @@ var searchData=
   ['managing_20the_20bundle_2',['Managing the bundle',['../SSLCONNECT.html#managing-the-bundle',1,'']]],
   ['manual_20presentation_3',['Example: manual presentation',['../FLIP.html#example-manual-presentation',1,'']]],
   ['map_4',['/map',['../irc.html#map',1,'']]],
-  ['map_20bitmap_5',['3.2 Free-space map (bitmap)',['../retrofs.html#autotoc_md32-free-space-map-bitmap',1,'']]],
+  ['map_20bitmap_5',['3.2 Free-space map (bitmap)',['../retrofs-kernel-docs.html#autotoc_md32-free-space-map-bitmap',1,'']]],
   ['map_20function_6',['MAP Function',['../MAP.html',1,'int-funcs']]],
   ['map_2emd_7',['MAP.md',['../MAP_8md.html',1,'']]],
   ['mapfree_20keyword_8',['MAPFREE Keyword',['../MAPFREE.html',1,'keywords']]],

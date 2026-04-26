@@ -4,5 +4,5 @@
 * \subpage interrupts
 * \subpage memory
 * \subpage modules
-* \subpage retrofs
+* \subpage retrofs-kernel-docs
 * \subpage kernel-profiling-osdev
