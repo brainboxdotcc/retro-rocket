@@ -1,6 +1,18 @@
 #include <kernel.h>
 
 static void proc_update_cpu_usage(void);
+static void proc_destroy_owned(process_t* proc);
+static void proc_reap_killed(void);
+static void proc_attach_pending(void);
+static bool proc_queue_start(process_t* proc);
+static uint8_t proc_choose_cpu(void);
+
+static uint32_t proc_cpu_count = 1;
+
+typedef struct proc_start_request {
+	process_t* proc;
+	struct proc_start_request* next;
+} proc_start_request_t;
 
 volatile struct limine_kernel_file_request rr_kfile_req = {
 	.id = LIMINE_KERNEL_FILE_REQUEST,
@@ -58,7 +70,10 @@ uint32_t process_count = 0;
  * timer idles on the other hand are inserted into the LAPIC timer,
  * and need to be written to be friendly within an interrupt context.
  */
-idle_timer_t* task_idles = NULL, *timer_idles = NULL;
+idle_timer_t* task_idles[MAX_CPUS] = { NULL }, *timer_idles[MAX_CPUS] = { NULL };
+
+proc_start_request_t* proc_start_queue[MAX_CPUS] = { NULL };
+spinlock_t proc_start_lock[MAX_CPUS] = { 0 };
 
 extern simple_cv_t boot_condition;
 
@@ -106,6 +121,18 @@ bool is_basic(const char* buf, size_t size) {
 	return false;
 }
 
+static uint8_t proc_choose_cpu(void)
+{
+	static uint8_t next_cpu = 0;
+
+	uint8_t cpu = next_cpu++;
+	if (next_cpu >= proc_cpu_count) {
+		next_cpu = 0;
+	}
+
+	return cpu;
+}
+
 static process_t* proc_create_common(const char* source, pid_t parent_pid, const char* csd, const char* program_name, const char* directory, size_t size)
 {
 	process_t* newproc;
@@ -142,7 +169,7 @@ static process_t* proc_create_common(const char* source, pid_t parent_pid, const
 	newproc->start_time = time(NULL);
 	newproc->state = PROC_RUNNING;
 	newproc->ppid = parent_pid;
-	newproc->cpu = logical_cpu_id();
+	newproc->cpu = proc_choose_cpu();
 	newproc->check_idle = NULL;
 	newproc->idle_context = NULL;
 	newproc->sched_next = NULL;
@@ -150,6 +177,7 @@ static process_t* proc_create_common(const char* source, pid_t parent_pid, const
 	newproc->global_next = NULL;
 	newproc->global_prev = NULL;
 	newproc->cpu_percent = 0;
+	newproc->kill_requested = false;
 
 	if (!newproc->name || !newproc->directory || !newproc->csd) {
 		basic_destroy(newproc->code);
@@ -162,18 +190,6 @@ static process_t* proc_create_common(const char* source, pid_t parent_pid, const
 	}
 
 	lock_spinlock(&combined_proc_lock);
-	lock_spinlock(&proc_lock[newproc->cpu]);
-
-	if (proc_list[newproc->cpu] == NULL) {
-		proc_list[newproc->cpu] = newproc;
-		newproc->sched_next = NULL;
-		newproc->sched_prev = NULL;
-	} else {
-		newproc->sched_next = proc_list[newproc->cpu];
-		newproc->sched_prev = NULL;
-		proc_list[newproc->cpu]->sched_prev = newproc;
-		proc_list[newproc->cpu] = newproc;
-	}
 
 	if (combined_proc_list == NULL) {
 		combined_proc_list = newproc;
@@ -186,17 +202,38 @@ static process_t* proc_create_common(const char* source, pid_t parent_pid, const
 		combined_proc_list = newproc;
 	}
 
-	if (proc_current[newproc->cpu] == NULL) {
-		proc_current[newproc->cpu] = proc_list[newproc->cpu];
-	}
-
 	process_count++;
 	hashmap_set(process_by_pid, &(proc_id_t){ .id = newproc->pid, .proc = newproc });
 
 	proc_update_cpu_usage();
 
 	unlock_spinlock(&combined_proc_lock);
-	unlock_spinlock(&proc_lock[newproc->cpu]);
+
+	if (!proc_queue_start(newproc)) {
+		lock_spinlock(&combined_proc_lock);
+
+		if (newproc->global_prev == NULL) {
+			combined_proc_list = newproc->global_next;
+		} else {
+			newproc->global_prev->global_next = newproc->global_next;
+		}
+		if (newproc->global_next != NULL) {
+			newproc->global_next->global_prev = newproc->global_prev;
+		}
+
+		hashmap_delete(process_by_pid, &(proc_id_t){ .id = newproc->pid });
+		process_count--;
+
+		unlock_spinlock(&combined_proc_lock);
+
+		basic_destroy(newproc->code);
+		kfree_null(&newproc->name);
+		kfree_null(&newproc->directory);
+		kfree_null(&newproc->csd);
+		kfree_null(&newproc);
+		kprintf("Out of memory starting new process.\n");
+		return NULL;
+	}
 
 	return newproc;
 }
@@ -245,10 +282,7 @@ process_t* proc_load_anonymous(const char* source, pid_t parent_pid, const char*
 
 process_t* proc_cur(uint8_t logical_cpu)
 {
-	lock_spinlock(&proc_lock[logical_cpu]);
-	process_t* cur = proc_current[logical_cpu];
-	unlock_spinlock(&proc_lock[logical_cpu]);
-	return cur;
+	return proc_current[logical_cpu];
 }
 
 bool check_wait_pid(process_t* proc, void* opaque) {
@@ -287,16 +321,22 @@ process_t* proc_find(pid_t pid)
 
 bool proc_kill_id(pid_t id)
 {
-	process_t* proc = proc_find(id);
-	if (!proc) {
-		return false;
+	bool result = false;
+
+	lock_spinlock(&combined_proc_lock);
+	proc_id_t* proc_id = hashmap_get(process_by_pid, &(proc_id_t){ .id = id });
+	if (proc_id) {
+		process_t* proc = proc_id->proc;
+		process_t* cur = proc_cur(proc->cpu);
+		if (cur->pid != id) {
+			proc->kill_requested = true;
+			apic_send_ipi(get_lapic_id_from_cpu_id(proc->cpu), APIC_KILL_IPI);
+			result = true;
+		}
 	}
-	process_t* cur = proc_cur(proc->cpu);
-	if (cur->pid == id) {
-		return false;
-	}
-	proc_kill(proc);
-	return true;
+	unlock_spinlock(&combined_proc_lock);
+
+	return result;
 }
 
 void proc_set_idle(process_t* proc, activity_callback_t callback, void* context) {
@@ -316,10 +356,6 @@ void proc_set_idle(process_t* proc, activity_callback_t callback, void* context)
 
 void proc_wait(process_t* proc, pid_t otherpid)
 {
-	if (!proc_find(otherpid)) {
-		/* Process would wait forever */
-		return;
-	}
 	proc->waitpid = otherpid;
 	proc_set_idle(proc, check_wait_pid, NULL);
 }
@@ -358,10 +394,14 @@ const char* proc_get_csd(process_t* proc)
 
 void proc_kill(process_t* proc)
 {
+	proc->kill_requested = true;
+	apic_send_ipi(get_lapic_id_from_cpu_id(proc->cpu), APIC_KILL_IPI);
+}
+
+static void proc_destroy_owned(process_t* proc)
+{
 	uint8_t cpu = proc->cpu;
 	dprintf("proc_kill id %lu on cpu %d\n", proc->pid, cpu);
-	lock_spinlock(&proc_lock[cpu]);
-	lock_spinlock(&combined_proc_lock);
 
 	if (proc->sched_prev == NULL) {
 		proc_list[cpu] = proc->sched_next;
@@ -372,6 +412,12 @@ void proc_kill(process_t* proc)
 		proc->sched_next->sched_prev = proc->sched_prev;
 	}
 
+	if (proc_current[cpu] == proc) {
+		proc_current[cpu] = proc->sched_next ? proc->sched_next : proc_list[cpu];
+	}
+
+	lock_spinlock(&combined_proc_lock);
+
 	if (proc->global_prev == NULL) {
 		combined_proc_list = proc->global_next;
 	} else {
@@ -379,10 +425,6 @@ void proc_kill(process_t* proc)
 	}
 	if (proc->global_next != NULL) {
 		proc->global_next->global_prev = proc->global_prev;
-	}
-
-	if (proc_current[cpu] == proc) {
-		proc_current[cpu] = proc->sched_next ? proc->sched_next : proc_list[cpu];
 	}
 
 	basic_destroy(proc->code);
@@ -400,13 +442,100 @@ void proc_kill(process_t* proc)
 		interrupts_off();
 		wait_forever();
 	}
-	unlock_spinlock(&proc_lock[cpu]);
 	unlock_spinlock(&combined_proc_lock);
+}
+
+static void proc_reap_killed(void)
+{
+	uint8_t cpu = logical_cpu_id();
+
+	for (process_t* cur = proc_list[cpu]; cur;) {
+		process_t* next = cur->sched_next;
+
+		if (cur->kill_requested) {
+			proc_destroy_owned(cur);
+		}
+
+		cur = next;
+	}
+}
+
+static bool proc_queue_start(process_t* proc)
+{
+	dprintf("proc_queue_start\n");
+	proc_start_request_t* request = kmalloc(sizeof(proc_start_request_t));
+	if (!request) {
+		return false;
+	}
+
+	request->proc = proc;
+	request->next = NULL;
+
+	lock_spinlock(&proc_start_lock[proc->cpu]);
+	request->next = proc_start_queue[proc->cpu];
+	proc_start_queue[proc->cpu] = request;
+	unlock_spinlock(&proc_start_lock[proc->cpu]);
+
+	dprintf("preparing to send proc IPI to %u\n", get_lapic_id_from_cpu_id(proc->cpu));
+	apic_send_ipi(get_lapic_id_from_cpu_id(proc->cpu), APIC_PROC_IPI);
+	dprintf("IPI sent\n");
+	return true;
+}
+
+static void proc_attach_pending(void)
+{
+	dprintf("proc_attach_pending\n");
+	uint8_t cpu = logical_cpu_id();
+
+	while (true) {
+		lock_spinlock(&proc_start_lock[cpu]);
+		proc_start_request_t* request = proc_start_queue[cpu];
+		if (request) {
+			proc_start_queue[cpu] = request->next;
+		}
+		unlock_spinlock(&proc_start_lock[cpu]);
+
+		if (!request) {
+			dprintf("done\n");
+			return;
+		}
+
+		dprintf("request: %p\n", request);
+
+		process_t* proc = request->proc;
+		kfree(request);
+
+		dprintf("step\n");
+
+		if (proc_list[cpu] == NULL) {
+			proc_list[cpu] = proc;
+			proc->sched_next = NULL;
+			proc->sched_prev = NULL;
+			dprintf("to empty list\n");
+		} else {
+			proc->sched_next = proc_list[cpu];
+			proc->sched_prev = NULL;
+			proc_list[cpu]->sched_prev = proc;
+			proc_list[cpu] = proc;
+			dprintf("to non-empty list\n");
+		}
+
+		if (proc_current[cpu] == NULL) {
+			dprintf("set current\n");
+			proc_current[cpu] = proc_list[cpu];
+		}
+	}
 }
 
 int64_t proc_total()
 {
-	return process_count;
+	int64_t total;
+
+	lock_spinlock(&combined_proc_lock);
+	total = process_count;
+	unlock_spinlock(&combined_proc_lock);
+
+	return total;
 }
 
 pid_t proc_id(int64_t index)
@@ -424,35 +553,55 @@ pid_t proc_id(int64_t index)
 	return 0;
 }
 
-void proc_run_next()
+void proc_run_next(uint8_t cpu)
 {
-	process_t* current = proc_current[logical_cpu_id()];
+	process_t* current = proc_current[cpu];
 	if (current == NULL) {
 		__builtin_ia32_pause();
 		return;
 	}
+
+	proc_current[cpu] = current->sched_next ? current->sched_next : proc_list[cpu];
+
+	current = proc_current[cpu];
+
+	if (current->kill_requested) {
+		return;
+	}
+
 	proc_run(current);
 	if (proc_ended(current)) {
 		if (current->code->claimed_flip) {
 			set_video_auto_flip(true);
 		}
-		proc_kill(current);
+		proc_destroy_owned(current);
 	}
 }
 
 uint64_t process_hash(const void *item, uint64_t seed0, uint64_t seed1) {
-	const process_t *p = item;
-	return hashmap_sip(&p->pid, sizeof(uint64_t), seed0, seed1);
+	const proc_id_t *p = item;
+	return hashmap_sip(&p->id, sizeof(p->id), seed0, seed1);
 }
 
 int process_compare(const void *a, const void *b, void *udata) {
-	const process_t *pa = a;
-	const process_t *pb = b;
-	return pa->pid - pb->pid;
+	const proc_id_t *pa = a;
+	const proc_id_t *pb = b;
+	return pa->id - pb->id;
 }
 
 void wakeup_callback([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t errorcode, [[maybe_unused]] uint64_t irq, [[maybe_unused]] void* opaque)
 {
+}
+
+void proc_callback([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t errorcode, [[maybe_unused]] uint64_t irq, [[maybe_unused]] void* opaque)
+{
+	dprintf("proc_callback on cpu %u\n", logical_cpu_id());
+	proc_queue_dpc(proc_attach_pending);
+}
+
+void kill_callback([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t errorcode, [[maybe_unused]] uint64_t irq, [[maybe_unused]] void* opaque)
+{
+	proc_queue_dpc(proc_reap_killed);
 }
 
 void halt_callback([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t errorcode, [[maybe_unused]] uint64_t irq, [[maybe_unused]] void* opaque)
@@ -470,6 +619,7 @@ void init_process()
 	init_spinlock(&combined_proc_lock);
 	for (size_t x = 0; x < MAX_CPUS; ++x) {
 		init_spinlock(&proc_lock[x]);
+		init_spinlock(&proc_start_lock[x]);
 	}
 	process_by_pid = hashmap_new(sizeof(proc_id_t), 0, 704830503, 487304583058, process_hash, process_compare, NULL, NULL);
 
@@ -485,6 +635,12 @@ void init_process()
 		}
 	}
 
+	if (logical_cpu_id() == 0) {
+		register_interrupt_handler(APIC_WAKE_IPI, wakeup_callback, dev_zero, NULL);
+		register_interrupt_handler(APIC_PROC_IPI, proc_callback, dev_zero, NULL);
+		register_interrupt_handler(APIC_KILL_IPI, kill_callback, dev_zero, NULL);
+		register_interrupt_handler(APIC_HALT_IPI, halt_callback, dev_zero, NULL);
+	}
 	dprintf("Spawning /programs/init\n");
 	process_t* init = proc_load("/programs/init", 0, "/");
 	if (!init) {
@@ -496,33 +652,38 @@ void init_process()
 
 void proc_loop()
 {
+	__atomic_fetch_add(&proc_cpu_count, 1, __ATOMIC_SEQ_CST);
 	uint8_t cpu = logical_cpu_id();
-	register_interrupt_handler(APIC_WAKE_IPI, wakeup_callback, dev_zero, NULL);
-	if (cpu != 0) {
-		register_interrupt_handler(APIC_HALT_IPI, halt_callback, dev_zero, NULL);
-	}
+
 	if (cpu == 0) {
 		/* BSP signals APs to start their proc_loops too */
 		simple_cv_broadcast(&boot_condition);
+	} else {
+		register_interrupt_handler(APIC_WAKE_IPI, wakeup_callback, dev_zero, NULL);
+		register_interrupt_handler(APIC_PROC_IPI, proc_callback, dev_zero, NULL);
+		register_interrupt_handler(APIC_KILL_IPI, kill_callback, dev_zero, NULL);
+		register_interrupt_handler(APIC_HALT_IPI, halt_callback, dev_zero, NULL);
 	}
-	proc_register_idle(proc_update_cpu_usage, IDLE_BACKGROUND, 150);
+	//proc_register_idle(proc_update_cpu_usage, IDLE_BACKGROUND, 150);
 	while (true) {
+		run_idles(cpu);
 		if (proc_list[cpu] == NULL) {
 			/* This CPU has nothing to do; prevent busy spin */
 			__asm__("hlt");
 			continue;
 		}
-		proc_timer();
-		proc_run_next();
-		run_idles(cpu);
+		proc_run_next(cpu);
 	}
 }
 
 void run_idles(uint8_t cpu)
 {
-	if (cpu == 0 && task_idles) {
+	if (cpu != 0) {
+		dprintf("idles on %u\n", cpu);
+	}
+	if (task_idles[cpu]) {
 		/* Idle foreground tasks only run on BSP */
-		idle_timer_t **p = &task_idles;
+		idle_timer_t **p = &task_idles[cpu];
 		while (*p) {
 			idle_timer_t *i = *p;
 			if (get_ticks() > i->next_tick) {
@@ -543,9 +704,7 @@ void run_idles(uint8_t cpu)
 void proc_timer()
 {
 	uint8_t cpu = logical_cpu_id();
-	lock_spinlock(&proc_lock[cpu]);
 	if (proc_list[cpu] == NULL || proc_current[cpu] == NULL) {
-		unlock_spinlock(&proc_lock[cpu]);
 		return;
 	}
 
@@ -554,8 +713,6 @@ void proc_timer()
 	} else {
 		proc_current[cpu] = proc_current[cpu]->sched_next;
 	}
-
-	unlock_spinlock(&proc_lock[cpu]);
 }
 
 int proc_ended(process_t* proc)
@@ -573,20 +730,22 @@ void proc_register_idle(proc_idle_timer_t handler, idle_type_t type, uint64_t fr
 	if (!newidle) {
 		return;
 	}
+	uint8_t cpu = logical_cpu_id();
 	newidle->func = handler;
 	newidle->next_tick = get_ticks() + frequency_ms;
 	newidle->frequency = frequency_ms;
-	if (type == IDLE_FOREGROUND) {	
-		newidle->next = task_idles;
-		task_idles = newidle;
+	if (type == IDLE_FOREGROUND) {
+		newidle->next = task_idles[cpu];
+		task_idles[cpu] = newidle;
 	} else {
-		newidle->next = timer_idles;
-		timer_idles = newidle;
+		newidle->next = timer_idles[cpu];
+		timer_idles[cpu] = newidle;
 	}
 }
 
 void proc_queue_dpc(dpc_t handler)
 {
+	dprintf("Queue DPC\n");
 	if (!handler) {
 		return;
 	}
@@ -596,12 +755,14 @@ void proc_queue_dpc(dpc_t handler)
 		return;
 	}
 
+	uint8_t cpu = logical_cpu_id();
+
 	newidle->func = handler;
 	newidle->next_tick = get_ticks();
 	newidle->frequency = 0;
-	newidle->next = task_idles;
+	newidle->next = task_idles[cpu];
 
-	task_idles = newidle;
+	task_idles[cpu] = newidle;
 }
 
 static void proc_update_cpu_usage(void) {

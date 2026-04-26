@@ -81,6 +81,10 @@
 /** @brief Vector number used for custom AP halt IPIs. */
 #define APIC_HALT_IPI       241
 
+#define APIC_PROC_IPI       242
+#define APIC_KILL_IPI       243
+
+
 /** @brief Destination shorthand: no shorthand, use explicit LAPIC ID. */
 #define APIC_DEST_NO_SHORTHAND (0 << 18)
 

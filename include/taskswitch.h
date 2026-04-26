@@ -71,6 +71,7 @@ typedef struct process_t {
 	activity_callback_t	check_idle;	/**< If non-null, called to check if the process should remain idle */
 	void*			idle_context;	/**< Opaque context passed to the check_idle callback */
 	uint32_t		cpu_percent;	/**< Rolling average CPU usage percentage */
+	bool			kill_requested;
 } process_t;
 
 /**
