@@ -220,7 +220,7 @@ function(symbols TARGETFILE SOURCEFILE)
     set(FILENAME "${CMAKE_BINARY_DIR}/iso/kernel.bin")
     set(OUTNAME "${CMAKE_BINARY_DIR}/iso/${TARGETFILE}")
     add_custom_command(OUTPUT ${OUTNAME}
-        COMMAND /bin/nm -a "${CMAKE_BINARY_DIR}/iso/kernel.bin" | sort -d | gzip -c > "${CMAKE_BINARY_DIR}/iso/kernel.sym"
+        COMMAND /bin/nm -a -n "${CMAKE_BINARY_DIR}/iso/kernel.bin" | grep -E "^[0-9a-fA-F]+ T [^[:space:]]+$" | gzip -c > "${CMAKE_BINARY_DIR}/iso/kernel.sym"
         DEPENDS ${FILENAME})
     add_custom_target(SYMBOLS ALL DEPENDS ${OUTNAME})
     add_dependencies(SYMBOLS "kernel.bin")

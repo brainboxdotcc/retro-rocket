@@ -118,8 +118,7 @@ const char* up_str_expr_strict(struct basic_ctx *ctx);
  *
  * @note No allocation is performed.
  */
-up_value up_make_int(int64_t x);
-
+#define up_make_int(x) ((up_value){ .kind = UP_INT, .v.i = (x) })
 /**
  * @brief Construct a typed value holding a real (double).
  *
@@ -128,19 +127,22 @@ up_value up_make_int(int64_t x);
  *
  * @note No allocation is performed.
  */
-up_value up_make_real(double x);
+#define up_make_real(x) ((up_value){ .kind = UP_REAL, .v.r = (x) })
 
 /**
  * @brief Construct a typed value holding a string pointer.
  *
- * @param s  Pointer to NUL-terminated string to store (may be NULL).
+ * @param x  Pointer to NUL-terminated string to store (may be NULL).
  * @return   up_value tagged as UP_STR with @p s in the string field.
  *
  * @note The pointer is stored as-is; lifetime/ownership of @p s must be
  *       managed by the caller (typically GC-allocated in this interpreter).
  *       No copy is made here.
  */
-up_value up_make_str(const char *s);
+#define up_make_str(x) ({ \
+	const char *up_make_str_s = (x); \
+	(up_value){ .kind = UP_STR, .v.s = up_make_str_s ? up_make_str_s : "" }; \
+})
 
 /**
  * @brief Evaluate a single value expression and return its typed result.

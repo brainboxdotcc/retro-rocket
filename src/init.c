@@ -37,7 +37,7 @@ void init()
 		dprintf("Initialisation of %s done!\n", init_funcs_names[n++]);
 	}
 #ifdef PROFILE_KERNEL
-	setforeground(COLOUR_ORANGE);
+	setforeground(COLOUR_LIGHTGREEN);
 	kprintf("THIS IS A PROFILING BUILD - Expect things to run slower!\n");
 	setforeground(COLOUR_WHITE);
 	serial_init(COM1);

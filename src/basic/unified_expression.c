@@ -12,28 +12,6 @@
 
 /* ---------- Typed value ---------- */
 
-/* Constructors */
-up_value up_make_int(int64_t x) {
-	up_value v;
-	v.kind = UP_INT;
-	v.v.i = x;
-	return v;
-}
-
-up_value up_make_real(double x) {
-	up_value v;
-	v.kind = UP_REAL;
-	v.v.r = x;
-	return v;
-}
-
-up_value up_make_str(const char *s) {
-	up_value v;
-	v.kind = UP_STR;
-	v.v.s = s ? s : "";
-	return v;
-}
-
 /* Promote INT -> REAL when needed */
 static inline void up_promote_pair(up_value *a, up_value *b) {
 	if (a->kind == UP_REAL || b->kind == UP_REAL) {

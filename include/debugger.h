@@ -9,10 +9,10 @@
 
 typedef struct symbol
 {
-	char* name;
 	uint64_t address;
 	uint8_t type;
 	struct symbol* next;
+	char name[];
 } symbol_t;
 
 typedef struct stack_frame {

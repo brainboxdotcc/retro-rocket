@@ -290,8 +290,10 @@ static void push_to_buffer(char x) {
 #ifdef PROFILE_KERNEL
 	if (ctrl_held() && alt_held() && shift_held() && x == 'P') {
 		kprintf("\nDumping callgrind.out to serial port...\n");
+		rr_flip();
 		profile_dump();
 		kprintf("Profile written.\n");
+		rr_flip();
 		return;
 	}
 #endif

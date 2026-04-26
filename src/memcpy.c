@@ -77,3 +77,18 @@ size_t memrev(char* buf, size_t n)
 	}
 	return i;
 }
+
+void* memchr(const void *ptr, int c, uint64_t len)
+{
+	const uint8_t *p = ptr;
+	uint8_t val = c;
+
+	while (len--) {
+		if (*p == val) {
+			return (void*)p;
+		}
+		p++;
+	}
+
+	return NULL;
+}

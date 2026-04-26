@@ -94,10 +94,6 @@ static inline __attribute__((always_inline)) void memzero(void* dest, size_t len
 	memset(dest, 0, len);
 }
 
-/* ------------------------------------------------------------------------- */
-/* Additional helpers                                                         */
-/* ------------------------------------------------------------------------- */
-
 /**
  * @brief Reverse a block of memory in place.
  *
@@ -108,3 +104,5 @@ static inline __attribute__((always_inline)) void memzero(void* dest, size_t len
  * @return Number of bytes reversed (same as @p n).
  */
 size_t memrev(char* buf, size_t n);
+
+void* memchr(const void *ptr, int c, uint64_t len);

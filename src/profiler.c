@@ -44,6 +44,10 @@
 #include <kernel.h>
 
 #define PROFILE_STACK_DEPTH 256
+#define PROFILE_FUNC_HASH_SIZE (PROFILE_MAX_FUNCS * 2)
+#define PROFILE_EDGE_HASH_SIZE (PROFILE_MAX_EDGES * 2)
+
+static spinlock_t profile_lock;
 
 /**
  * @brief Look up a symbol name from an address.
@@ -61,21 +65,43 @@ const char* findsymbol(uint64_t address, uint64_t* offset) __attribute__((no_ins
 static profile_entry* profile_table = NULL;
 /** @brief Count of functions stored in the profile table. */
 static size_t profile_entry_count = 0;
+/** @brief Hash table of profiled functions. */
+static profile_entry* profile_hash[PROFILE_FUNC_HASH_SIZE];
 
 /** @brief Global table of call edges between functions. */
 static profile_edge* edge_table = NULL;
 /** @brief Count of edges stored in the edge table. */
 static size_t edge_count = 0;
+/** @brief Hash table of call edges between functions. */
+static profile_edge* edge_hash[PROFILE_EDGE_HASH_SIZE];
 
 /**
  * @brief Call stack frame used to measure function entry/exit.
  */
 struct call_frame {
-	void *fn;              /**< Function pointer. */
-	uint64_t enter_time;   /**< Timestamp (TSC) at function entry. */
+	void *fn;                    /**< Function pointer. */
+	uint64_t enter_time;         /**< Timestamp (TSC) at function entry. */
+	profile_edge *parent_edge;   /**< Edge from the parent to this frame. */
 };
 static struct call_frame call_stack[PROFILE_STACK_DEPTH];
 static int call_sp = 0;
+
+/**
+ * @brief Hash a function pointer for the profile table.
+ *
+ * @param fn Function pointer.
+ * @return size_t Hash table index.
+ */
+static size_t profile_hash_fn(void *fn) __attribute__((no_instrument_function));
+
+/**
+ * @brief Hash a parent->child edge for the edge table.
+ *
+ * @param parent Parent function pointer.
+ * @param child  Child function pointer.
+ * @return size_t Hash table index.
+ */
+static size_t edge_hash_fn(void *parent, void *child) __attribute__((no_instrument_function));
 
 /**
  * @brief Find or add a function entry in the profile table.
@@ -95,9 +121,32 @@ static profile_entry *profile_find_or_add(void *fn) __attribute__((no_instrument
 static profile_edge *edge_find_or_add(void *parent, void *child) __attribute__((no_instrument_function));
 
 /**
+ * @brief Hash a function pointer for the profile table.
+ *
+ * @param fn Function pointer.
+ * @return size_t Hash table index.
+ */
+static size_t profile_hash_fn(void *fn) {
+	return ((uintptr_t)fn >> 4) % PROFILE_FUNC_HASH_SIZE;
+}
+
+/**
+ * @brief Hash a parent->child edge for the edge table.
+ *
+ * @param parent Parent function pointer.
+ * @param child  Child function pointer.
+ * @return size_t Hash table index.
+ */
+static size_t edge_hash_fn(void *parent, void *child) {
+	uintptr_t p = (uintptr_t)parent;
+	uintptr_t c = (uintptr_t)child;
+	return ((p >> 4) ^ (c >> 4)) % PROFILE_EDGE_HASH_SIZE;
+}
+
+/**
  * @brief Find an existing function entry or create a new one.
  *
- * Iterates the function profile table to look for an existing entry
+ * Uses the function profile hash table to look for an existing entry
  * matching the given function pointer. If not found and space remains,
  * a new entry is allocated and initialised with zero counters.
  *
@@ -105,25 +154,42 @@ static profile_edge *edge_find_or_add(void *parent, void *child) __attribute__((
  * @return profile_entry* Pointer to the entry, or NULL if the table is full.
  */
 static profile_entry *profile_find_or_add(void *fn) {
-	for (size_t i = 0; i < profile_entry_count; i++) {
-		if (profile_table[i].fn == fn) {
-			return &profile_table[i];
+	size_t idx = profile_hash_fn(fn);
+
+	for (size_t n = 0; n < PROFILE_FUNC_HASH_SIZE; n++) {
+		profile_entry *e = profile_hash[idx];
+
+		if (!e) {
+			if (profile_entry_count >= PROFILE_MAX_FUNCS) {
+				return NULL;
+			}
+
+			e = &profile_table[profile_entry_count++];
+			e->fn = fn;
+			e->total_cycles = 0;
+			e->calls = 0;
+
+			profile_hash[idx] = e;
+			return e;
+		}
+
+		if (e->fn == fn) {
+			return e;
+		}
+
+		idx++;
+		if (idx == PROFILE_FUNC_HASH_SIZE) {
+			idx = 0;
 		}
 	}
-	if (profile_entry_count < PROFILE_MAX_FUNCS) {
-		profile_entry *e = &profile_table[profile_entry_count++];
-		e->fn = fn;
-		e->total_cycles = 0;
-		e->calls = 0;
-		return e;
-	}
-	return NULL; // out of slots
+
+	return NULL;
 }
 
 /**
  * @brief Find an existing edge entry or create a new one.
  *
- * Searches the edge table for a parent->child relationship. If not found
+ * Searches the edge hash table for a parent->child relationship. If not found
  * and space remains, a new edge is allocated and initialised with zero
  * counters. Each edge represents calls and cycles from one function
  * (parent) into another (child).
@@ -133,19 +199,36 @@ static profile_entry *profile_find_or_add(void *fn) {
  * @return profile_edge* Pointer to the edge, or NULL if the table is full.
  */
 static profile_edge *edge_find_or_add(void *parent, void *child) {
-	for (size_t i = 0; i < edge_count; i++) {
-		if (edge_table[i].parent == parent && edge_table[i].child == child) {
-			return &edge_table[i];
+	size_t idx = edge_hash_fn(parent, child);
+
+	for (size_t n = 0; n < PROFILE_EDGE_HASH_SIZE; n++) {
+		profile_edge *e = edge_hash[idx];
+
+		if (!e) {
+			if (edge_count >= PROFILE_MAX_EDGES) {
+				return NULL;
+			}
+
+			e = &edge_table[edge_count++];
+			e->parent = parent;
+			e->child = child;
+			e->calls = 0;
+			e->total_cycles = 0;
+
+			edge_hash[idx] = e;
+			return e;
+		}
+
+		if (e->parent == parent && e->child == child) {
+			return e;
+		}
+
+		idx++;
+		if (idx == PROFILE_EDGE_HASH_SIZE) {
+			idx = 0;
 		}
 	}
-	if (edge_count < PROFILE_MAX_EDGES) {
-		profile_edge *e = &edge_table[edge_count++];
-		e->parent = parent;
-		e->child = child;
-		e->calls = 0;
-		e->total_cycles = 0;
-		return e;
-	}
+
 	return NULL;
 }
 
@@ -166,11 +249,17 @@ __attribute__((no_instrument_function)) void profile_init(uint8_t* pre_allocated
 		for (uint64_t n = 0; n < sizeof(profile_entry) * PROFILE_MAX_FUNCS; ++n) {
 			pre_allocated_funcs[n] = 0;
 		}
+		for (size_t n = 0; n < PROFILE_FUNC_HASH_SIZE; n++) {
+			profile_hash[n] = NULL;
+		}
 		profile_entry_count = 0;
 	}
 	if (edge_table) {
 		for (uint64_t n = 0; n < sizeof(profile_edge) * PROFILE_MAX_EDGES; ++n) {
 			pre_allocated_edges[n] = 0;
+		}
+		for (size_t n = 0; n < PROFILE_EDGE_HASH_SIZE; n++) {
+			edge_hash[n] = NULL;
 		}
 		edge_count = 0;
 	}
@@ -189,20 +278,29 @@ __attribute__((no_instrument_function)) void __cyg_profile_func_enter(void *this
 	if (!profile_table) {
 		return;
 	}
+
+	uint64_t flags;
+	lock_spinlock_irq(&profile_lock, &flags);
+
 	uint64_t t = rdtsc();
 	if (call_sp < PROFILE_STACK_DEPTH) {
+		profile_edge *parent_edge = NULL;
+
 		/* record edge from parent -> this_fn */
 		if (call_sp > 0) {
 			void *parent = call_stack[call_sp - 1].fn;
-			profile_edge *edge = edge_find_or_add(parent, this_fn);
-			if (edge) {
-				edge->calls++;
+			parent_edge = edge_find_or_add(parent, this_fn);
+			if (parent_edge) {
+				parent_edge->calls++;
 			}
 		}
 		call_stack[call_sp].fn = this_fn;
 		call_stack[call_sp].enter_time = t;
+		call_stack[call_sp].parent_edge = parent_edge;
 		call_sp++;
 	}
+
+	unlock_spinlock_irq(&profile_lock, flags);
 }
 
 /**
@@ -218,26 +316,29 @@ __attribute__((no_instrument_function)) void __cyg_profile_func_exit(void *this_
 	if (!profile_table) {
 		return;
 	}
+
+	uint64_t flags;
+	lock_spinlock_irq(&profile_lock, &flags);
+
 	uint64_t t = rdtsc();
 	if (call_sp > 0) {
 		call_sp--;
 		void *fn = call_stack[call_sp].fn;
 		uint64_t enter = call_stack[call_sp].enter_time;
+		profile_edge *parent_edge = call_stack[call_sp].parent_edge;
 		profile_entry *e = profile_find_or_add(fn);
 		if (e) {
 			uint64_t delta = (t - enter);
 			e->total_cycles += delta;
 			e->calls++;
 			/* attribute to parent edge as well */
-			if (call_sp > 0) {
-				void *parent = call_stack[call_sp - 1].fn;
-				profile_edge *edge = edge_find_or_add(parent, fn);
-				if (edge) {
-					edge->total_cycles += delta;
-				}
+			if (parent_edge) {
+				parent_edge->total_cycles += delta;
 			}
 		}
 	}
+
+	unlock_spinlock_irq(&profile_lock, flags);
 }
 
 /**

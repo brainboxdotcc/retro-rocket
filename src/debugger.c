@@ -3,8 +3,77 @@
 
 static symbol_t* symbol_table = NULL;
 static bool debug_signal = false;
+static symbol_t** symbol_address_index = NULL;
+static size_t symbol_address_count = 0;
+static symbol_t** symbol_name_hash = NULL;
+static size_t symbol_name_hash_size = 0;
 
-#define BT_IRQ_MARKER ((void*)0xFFFFffffFFFFff01ull)
+#define BT_IRQ_MARKER ((void*)0xFFFFffffFFFFff01)
+#define SYMBOL_HASH_SEED0 0x736f6d6570736575
+#define SYMBOL_HASH_SEED1 0x646f72616e646f6d
+
+static size_t symbol_next_pow2(size_t v)
+{
+	if (v <= 1) {
+		return 1;
+	}
+	return 1ull << (64 - __builtin_clzll(v - 1));
+}
+
+static size_t symbol_hash_index(const char *name)
+{
+	return hashmap_sip(name, strlen(name), SYMBOL_HASH_SEED0, SYMBOL_HASH_SEED1) & (symbol_name_hash_size - 1);
+}
+
+static void symbol_build_indexes(size_t count)
+{
+	symbol_address_index = NULL;
+	symbol_address_count = 0;
+	symbol_name_hash = NULL;
+	symbol_name_hash_size = 0;
+
+	if (!symbol_table || count == 0) {
+		return;
+	}
+
+	symbol_address_index = kmalloc(sizeof(symbol_t*) * count);
+	if (!symbol_address_index) {
+		return;
+	}
+
+	symbol_name_hash_size = symbol_next_pow2(count * 2);
+	symbol_name_hash = kmalloc(sizeof(symbol_t*) * symbol_name_hash_size);
+	if (!symbol_name_hash) {
+		kfree_null(&symbol_address_index);
+		symbol_name_hash_size = 0;
+		return;
+	}
+
+	for (size_t n = 0; n < count; n++) {
+		symbol_name_hash[n] = NULL;
+	}
+
+	for (size_t n = count; n < symbol_name_hash_size; n++) {
+		symbol_name_hash[n] = NULL;
+	}
+
+	for (symbol_t *s = symbol_table; s && s->name; s = s->next) {
+		symbol_address_index[symbol_address_count++] = s;
+
+		size_t idx = symbol_hash_index(s->name);
+		for (size_t probe = 0; probe < symbol_name_hash_size; probe++) {
+			if (!symbol_name_hash[idx]) {
+				symbol_name_hash[idx] = s;
+				break;
+			}
+
+			idx++;
+			if (idx == symbol_name_hash_size) {
+				idx = 0;
+			}
+		}
+	}
+}
 
 volatile struct limine_module_request module_request = {
 	.id = LIMINE_MODULE_REQUEST,
@@ -106,133 +175,138 @@ void init_debug()
 		return;
 	}
 
-	char symbol_address[32];
-	char type[2];
-	char symbol[1024];
-	uint32_t counter = 0;
+	char type;
 	uint32_t offset = 0;
-	uint32_t symcount = 0;
-	symbol_table = kmalloc(sizeof(symbol_t));
-	symbol_t* thisentry = symbol_table;
-	if (!symbol_table) {
-		return;
-	}
+	size_t text_symbol_count = 0;
+	symbol_t* tail = NULL;
+	uint8_t* file_end = ptr + filesize;
+	symbol_table = NULL;
 
 	while (offset < filesize) {
-		counter = 0;
-		while (offset < filesize && *ptr != ' ' && counter < sizeof(symbol_address) - 1) {
-			symbol_address[counter++] = *ptr++;
+		uintptr_t addr = 0;
+		while (*ptr != ' ' || ptr > file_end) {
+			uint8_t c = tolower(*ptr++);
+			addr <<= 4;
+			if (c >= '0' && c <= '9') {
+				addr |= (c - '0');
+			} else if (c >= 'a' && c <= 'f') {
+				addr |= (c - 'a' + 10);
+			}
 			offset++;
 		}
-		symbol_address[counter] = 0;
 		ptr++;
 		offset++;
 
-		counter = 0;
-		while (offset < filesize && *ptr != ' ' && counter < 2) {
-			type[counter++] = *ptr++;
-			offset++;
+		type = *ptr;
+		ptr += 2;
+		offset += 2;
+
+		uint8_t* end = memchr(ptr, 0x0A, filesize - offset);
+		if (!end) {
+			break;
 		}
-		type[1] = 0;
-		ptr++;
-		offset++;
+		size_t symbol_len = (size_t)(end - ptr);
 
-		counter = 0;
-		while (offset < filesize && *ptr != 0x0A && counter < sizeof(symbol) - 1) {
-			symbol[counter++] = *ptr++;
-			offset++;
-		}
-		symbol[counter] = 0;
-		ptr++;
-		offset++;
-
-		uint32_t length = strlen(symbol) + 1;
-
-		if (*type == 'T') {
-			thisentry->name = kmalloc(length);
-			if (!thisentry->name) {
+		if (type == 'T') {
+			symbol_t* entry = kmalloc(sizeof(symbol_t) + symbol_len + 1);
+			if (!entry) {
 				break;
 			}
-			memcpy(thisentry->name, symbol, length);
-			thisentry->address = (uint64_t)atoll(symbol_address, 16);
-			thisentry->type = *type;
-			symbol_t* next = kmalloc(sizeof(symbol_t));
-			if (!next) {
-				kfree_null(&thisentry->name);
-				break;
+			memcpy(entry->name, ptr, symbol_len);
+			entry->name[symbol_len] = 0;
+			entry->address = addr;
+			entry->type = type;
+			entry->next = NULL;
+
+			if (!tail) {
+				symbol_table = entry;
+			} else {
+				tail->next = entry;
 			}
-			next->next = NULL;
-			thisentry->next = next;
-			thisentry = thisentry->next;
+
+			tail = entry;
+			text_symbol_count++;
 		}
-		symcount++;
+		ptr = end + 1;
+		offset += symbol_len + 1;
 	}
 
-	kprintf("Read ");
-	setforeground(COLOUR_LIGHTYELLOW);
-	kprintf("%d ", symcount);
-	setforeground(COLOUR_WHITE);
-	kprintf("symbols from ");
-	setforeground(COLOUR_LIGHTYELLOW);
-	kprintf("/kernel.sym ");
-	setforeground(COLOUR_WHITE);
-	kprintf("(%d bytes)\n", filesize);
+	symbol_build_indexes(text_symbol_count);
+	kprintf("Read \x1b[93m%lu\x1b[37m symbols from \x1b[93m/kernel.sym\x1b[37m (%u bytes)\n", text_symbol_count, filesize);
 }
 
 const char* findsymbol(uint64_t address, uint64_t* offset) {
-	if (!symbol_table) {
+	if (!symbol_address_index || symbol_address_count == 0) {
 		return NULL;
 	}
 	/* Only the bottom 32 bits of any address is respected here, because the symbol in the
 	 * sym file might be relocated (higher half) from what is the real address.
 	 */
 	address = address & 0xffffffff;
-	symbol_t* walksyms = symbol_table;
-	uint64_t lastsymaddr = symbol_table->address;
-	symbol_t* lastsym = symbol_table;
-	for (; walksyms->next; walksyms = walksyms->next) {
-		/* This check between the last address and this address works because the
-		 * symbol list in /kernel.sym is sorted by address, lowest first. This makes
-		 * it simpler to load and process the list at runtime by doing the donkey-
-		 * work at compile-time.
-		 */
-		if (address >= lastsymaddr && address <= (walksyms->address & 0xffffffff)) {
-			*offset = address - lastsymaddr;
-			return lastsym->name;
+
+	size_t lo = 0;
+	size_t hi = symbol_address_count;
+
+	while (lo < hi) {
+		size_t mid = lo + ((hi - lo) / 2);
+		uint64_t midaddr = symbol_address_index[mid]->address & 0xffffffff;
+
+		if (midaddr <= address) {
+			lo = mid + 1;
+		} else {
+			hi = mid;
 		}
-		lastsym = walksyms;
-		lastsymaddr = walksyms->address & 0xffffffff;
 	}
-	return NULL;
+
+	if (lo == 0) {
+		return NULL;
+	}
+
+	symbol_t *s = symbol_address_index[lo - 1];
+	uint64_t symaddr = s->address & 0xffffffff;
+
+	if (offset) {
+		*offset = address - symaddr;
+	}
+
+	return s->name;
 }
 
 /* reverse lookup: name -> address (64-bit kernel VA)
  * returns 0 if not found
  */
 uint64_t findsymbol_addr(const char *name) {
-	if (!symbol_table || !name) {
+	if (!symbol_name_hash || symbol_name_hash_size == 0 || !name) {
 		return 0;
 	}
 
 	/* derive the current kernel high-half from any known kernel code pointer */
-	const uint64_t kernel_hi = ((uint64_t)(uintptr_t)&findsymbol_addr) & 0xffffffff00000000ull;
+	const uint64_t kernel_hi = ((uint64_t)(uintptr_t)&findsymbol_addr) & 0xffffffff00000000;
 
-	for (symbol_t *s = symbol_table; s; s = s->next) {
-		if (!s->name) {
-			continue;
-		}
-		if (strcmp(s->name, name) != 0) {
-			continue;
-		}
+	size_t idx = symbol_hash_index(name);
 
-		uint64_t a = s->address;
+	for (size_t probe = 0; probe < symbol_name_hash_size; probe++) {
+		symbol_t *s = symbol_name_hash[idx];
 
-		/* if the sym file only carried low 32 bits, graft on the current high half */
-		if ((a & 0xffffffff00000000ull) == 0) {
-			a = kernel_hi | (a & 0xffffffffull);
+		if (!s) {
+			return 0;
 		}
 
-		return a;
+		if (strcmp(s->name, name) == 0) {
+			uint64_t a = s->address;
+
+			/* if the sym file only carried low 32 bits, graft on the current high half */
+			if ((a & 0xffffffff00000000) == 0) {
+				a = kernel_hi | (a & 0xffffffff);
+			}
+
+			return a;
+		}
+
+		idx++;
+		if (idx == symbol_name_hash_size) {
+			idx = 0;
+		}
 	}
 
 	return 0;
