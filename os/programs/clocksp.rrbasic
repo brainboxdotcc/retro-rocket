@@ -1,0 +1,173 @@
+REM > ClockSp
+REM Retro Rocket BASIC CPU timing benchmark
+REM Based on the BBC BASIC ClockSp program used for Tube co-processor comparison.
+REM The reported MHz values are relative, not physical CPU frequencies.
+REM Results are only meaningful when compared with other BASIC implementations.
+
+PRINT "BBC BASIC CPU Timing Program"
+
+t# = TICKS
+REPEAT
+UNTIL TICKS > t# + 50
+
+b# = 1
+bi = 1
+c# = 1000
+ci = 1000
+d# = 5100
+di = 5100
+z# = 0
+zi = 0
+
+PRINT "Real REPEAT loop    ";
+t# = TICKS
+a# = z#
+REPEAT
+    a# = a# + b#
+UNTIL a# > c#
+t# = TICKS - t#
+PROCp(40800 / t#)
+
+PRINT "Integer REPEAT loop ";
+t# = TICKS
+ai = zi
+REPEAT
+    ai = ai + bi
+UNTIL ai > ci
+t# = TICKS - t#
+PROCp(24000 / t#)
+
+PRINT "Real FOR loop       ";
+t# = TICKS
+FOR a# = z# TO d# STEP b#
+NEXT
+t# = TICKS - t#
+PROCp(51000 / t#)
+
+PRINT "Integer FOR loop    ";
+t# = TICKS
+FOR ai = zi TO di STEP bi
+NEXT
+t# = TICKS - t#
+PROCp(17800 / t#)
+
+PRINT "Floating-Point Test ";
+a# = 1
+t# = 0
+reps = 1
+
+REPEAT
+    t0# = TICKS
+    FOR r = 1 TO reps
+        FOR j = 1 TO 29
+            a# = TAN(ATAN(EXP(LOG(SQR(a# * a#))))) + 1
+        NEXT
+    NEXT
+    t# = TICKS - t0#
+    reps = reps * 2
+UNTIL t# > 0
+PROCp((66500 * reps) / t#)
+
+PRINT "Ackermann Recursion ";
+m = 3
+ackreps = 1
+t# = 0
+REPEAT
+    t0# = TICKS
+    FOR ackr = 1 TO ackreps
+        FOR n = 1 TO 3
+            z = FNAck(m, n)
+        NEXT
+    NEXT
+    t# = TICKS - t0#
+    IF t# = 0 THEN
+        ackreps = ackreps * 2
+    ENDIF
+UNTIL t# > 0
+PROCp((254500 * ackreps) / t#)
+
+PRINT "Combined Average    ";
+PROCp(FNspeed)
+
+PRINT
+PRINT "Compared to a BBC B running at 2.00MHz"
+
+END
+
+DEF FNAck(m, n)
+IF m = 0 THEN
+    = n + 1
+ENDIF
+
+IF n = 0 THEN
+    = FNAck(m - 1, 1)
+ENDIF
+
+= FNAck(m - 1, FNAck(m, n - 1))
+
+DEF PROCp(speed#)
+PRINT "Speed: "; speed#; "MHz"
+ENDPROC
+
+DEF FNspeed
+REM use separate variable names instead of LOCAL
+
+tb# = TICKS
+REPEAT
+UNTIL TICKS > tb# + 50
+
+bb# = 1
+bbi = 1
+cc# = 1000
+cci = 1000
+dd# = 5100
+ddi = 5100
+zz# = 0
+zzi = 0
+
+tb# = TICKS
+aa# = zz#
+REPEAT
+    aa# = aa# + bb#
+UNTIL aa# > cc#
+tb# = TICKS - tb#
+u# = 40800 / tb#
+
+tb# = TICKS
+aai = zzi
+REPEAT
+    aai = aai + bbi
+UNTIL aai > cci
+tb# = TICKS - tb#
+v# = 24000 / tb#
+
+tb# = TICKS
+FOR aa# = zz# TO dd# STEP bb#
+NEXT
+tb# = TICKS - tb#
+w# = 51000 / tb#
+
+tb# = TICKS
+FOR aai = zzi TO ddi STEP bbi
+NEXT
+tb# = TICKS - tb#
+x# = 17800 / tb#
+qq# = 1
+reps = 1
+tb# = 0
+
+REPEAT
+    t0# = TICKS
+    FOR rr = 1 TO reps
+        FOR jj = 1 TO 29
+            qq# = TAN(ATAN(EXP(LOG(SQR(qq# * qq#))))) + 1
+        NEXT
+    NEXT
+    tb# = TICKS - t0#
+    IF tb# = 0 THEN
+        reps = reps * 2
+    ENDIF
+UNTIL tb# > 0
+y# = (66500 * reps) / tb#
+
+= (u# + v# + w# + x# + y#) / 5

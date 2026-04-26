@@ -259,20 +259,6 @@ bool check_wait_pid(process_t* proc, void* opaque) {
 	return true;
 }
 
-void proc_run(process_t* proc)
-{
-	if (proc->check_idle && !proc->check_idle(proc, proc->idle_context)) {
-		proc_set_idle(proc, NULL, NULL);
-		basic_run(proc->code);
-		return;
-	} else if (proc->check_idle) {
-		__builtin_ia32_pause();
-		return;
-	}
-	basic_run(proc->code);
-	basic_lines++;
-}
-
 process_t* proc_find(pid_t pid)
 {
 	process_t* proc = NULL;
@@ -424,20 +410,45 @@ pid_t proc_id(int64_t index)
 	return 0;
 }
 
-void proc_run_next()
+void proc_run_next(uint8_t cpu)
 {
-	process_t* current = proc_current[logical_cpu_id()];
+	lock_spinlock(&proc_lock[cpu]);
+	if (proc_list[cpu] == NULL || proc_current[cpu] == NULL) {
+		unlock_spinlock(&proc_lock[cpu]);
+		return;
+	}
+
+	if (proc_current[cpu]->sched_next == NULL) {
+		proc_current[cpu] = proc_list[cpu];
+	} else {
+		proc_current[cpu] = proc_current[cpu]->sched_next;
+	}
+
+	unlock_spinlock(&proc_lock[cpu]);
+
+	process_t* current = proc_current[cpu];
 	if (current == NULL) {
 		__builtin_ia32_pause();
 		return;
 	}
-	proc_run(current);
+
+	if (current->check_idle && !current->check_idle(current, current->idle_context)) {
+		proc_set_idle(current, NULL, NULL);
+		basic_run(current->code);
+	} else if (current->check_idle) {
+		__builtin_ia32_pause();
+	} else {
+		basic_run(current->code);
+		basic_lines++;
+	}
+
 	if (proc_ended(current)) {
 		if (current->code->claimed_flip) {
 			set_video_auto_flip(true);
 		}
 		proc_kill(current);
 	}
+
 }
 
 uint64_t process_hash(const void *item, uint64_t seed0, uint64_t seed1) {
@@ -500,11 +511,11 @@ void proc_loop()
 	register_interrupt_handler(APIC_WAKE_IPI, wakeup_callback, dev_zero, NULL);
 	if (cpu != 0) {
 		register_interrupt_handler(APIC_HALT_IPI, halt_callback, dev_zero, NULL);
-	}
-	if (cpu == 0) {
+	} else {
 		/* BSP signals APs to start their proc_loops too */
 		simple_cv_broadcast(&boot_condition);
 	}
+	uint32_t last = get_ticks();
 	proc_register_idle(proc_update_cpu_usage, IDLE_BACKGROUND, 150);
 	while (true) {
 		if (proc_list[cpu] == NULL) {
@@ -512,9 +523,11 @@ void proc_loop()
 			__asm__("hlt");
 			continue;
 		}
-		proc_timer();
-		proc_run_next();
-		run_idles(cpu);
+		proc_run_next(cpu);
+		if (get_ticks() != last) {
+			run_idles(cpu);
+			last = get_ticks();
+		}
 	}
 }
 
@@ -538,24 +551,6 @@ void run_idles(uint8_t cpu)
 			p = &((*p)->next);
 		}
 	}
-}
-
-void proc_timer()
-{
-	uint8_t cpu = logical_cpu_id();
-	lock_spinlock(&proc_lock[cpu]);
-	if (proc_list[cpu] == NULL || proc_current[cpu] == NULL) {
-		unlock_spinlock(&proc_lock[cpu]);
-		return;
-	}
-
-	if (proc_current[cpu]->sched_next == NULL) {
-		proc_current[cpu] = proc_list[cpu];
-	} else {
-		proc_current[cpu] = proc_current[cpu]->sched_next;
-	}
-
-	unlock_spinlock(&proc_lock[cpu]);
 }
 
 int proc_ended(process_t* proc)

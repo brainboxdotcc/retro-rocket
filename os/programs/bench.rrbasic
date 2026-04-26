@@ -1,0 +1,62 @@
+REM --- simple retro rocket benchmark ---
+
+DIM results#, 6
+
+total# = 0
+minv# = 0
+maxv# = 0
+
+FOR run = 1 TO 5
+    PRINT "Run "; run; " of 5"
+
+    start# = TICKS
+
+    PRINT "Testing integer operations"
+    sumi = 0
+    FOR i = 1 TO 10000
+        sumi = sumi + i
+        sumi = sumi - 1
+        sumi = sumi * 2
+        sumi = sumi / 2
+    NEXT
+
+    PRINT "Testing real operations"
+    sumf# = 0.0
+    FOR i = 1 TO 5000
+        sumf# = sumf# + 1.1
+        sumf# = sumf# * 1.0001
+        sumf# = sumf# / 1.0001
+    NEXT
+
+    PRINT "Tesing string operations"
+    s$ = "abcdefghijklmnopqrstuvwxyz012345"
+    FOR i = 1 TO 5000
+        s$ = MID$(s$, 2, 31) + "x"
+    NEXT
+
+    PRINT "Testing REPEAT/UNTIL"
+    r = 0
+    REPEAT
+        r = r + 1
+    UNTIL r = 10000
+
+    elapsed# = TICKS - start#
+
+    results#(run) = elapsed#
+    total# = total# + elapsed#
+
+    IF run = 1 THEN
+        minv# = elapsed#
+        maxv# = elapsed#
+    ELSE
+        minv# = MINR(minv#, elapsed#)
+        maxv# = MAXR(maxv#, elapsed#)
+    ENDIF
+NEXT
+
+avg# = total# / 5
+
+PRINT
+PRINT "min: "; minv#
+PRINT "avg: "; avg#
+PRINT "max: "; maxv#

@@ -160,13 +160,6 @@ process_t* proc_cur(uint8_t logical_cpu);
 void proc_wait(process_t* proc, pid_t otherpid);
 
 /**
- * @brief Execute one atomic BASIC cycle for a process.
- *
- * @param proc Process to run
- */
-void proc_run(process_t* proc);
-
-/**
  * @brief Determine if a program has ended.
  *
  * @param proc Process to check
@@ -197,13 +190,6 @@ bool proc_kill_id(pid_t id);
  * @note This function does not return.
  */
 _Noreturn void proc_loop();
-
-/**
- * @brief Switch to the next scheduled process.
- *
- * Implements a round-robin scheduling algorithm.
- */
-void proc_timer();
 
 /**
  * @brief Get total number of running processes.
