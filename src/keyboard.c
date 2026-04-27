@@ -16,8 +16,9 @@ static bool alt_state = false;
 static struct key_state key_states[256] = {0};
 static uint8_t key_was_extended[256] = {0};
 
-/* UK mappings of scan codes to characters, based in part off http://www.ee.bgu.ac.il/~microlab/MicroLab/Labs/ScanCodes.htm */
-
+/* UK mappings of scan codes to characters, based in part off http://www.ee.bgu.ac.il/~microlab/MicroLab/Labs/ScanCodes.htm
+ * These are DEFAULTS. They can be replaced by the KEYMAP BASIC keyword.
+ */
 static char keyboard_scan_map_lower[MAX_SCANCODE] = {0, 27, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=',
 						     8, 9, 'q', 'w', 'e',
 						     'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', 13, 0 /* CTRL */, 'a',
@@ -317,8 +318,7 @@ void init_keyboard() {
 	proc_register_idle(keyboard_repeat_tick, IDLE_BACKGROUND, 1);
 }
 
-
-// Map a keyboard scan code to an ASCII value
+// Map a keyboard scan code to a keymap value
 unsigned char translate_keycode(unsigned char scancode, uint8_t _escaped, uint8_t _shift_state, uint8_t _ctrl_state, uint8_t _alt_state) {
 	if (_escaped) {
 		switch (scancode) {
