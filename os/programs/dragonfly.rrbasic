@@ -11,7 +11,6 @@ LIBRARY LIB$ + "/dragonfly/levels"
 
 CURRENT_LEVEL = 2
 
-CLS
 GCOL 0
 AUTOFLIP FALSE
 PAGE OFF
@@ -21,6 +20,7 @@ frame_len = 0
 PROCload_level(CURRENT_LEVEL)
 PROCload_parallax(CURRENT_LEVEL)
 PROCmusic_start(CURRENT_LEVEL)
+CLS
 REPEAT
     game_ticks = FNframe(game_ticks)
 UNTIL (INKEY$(CHR$(27)) <> "") OR (INKEY$("") = CHR$(27))

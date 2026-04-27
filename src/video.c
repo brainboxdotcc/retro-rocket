@@ -772,9 +772,9 @@ void rr_flip(void) {
 		uint64_t lines = video_dirty_end - video_dirty_start;
 		uint64_t start_offset = (video_dirty_start * screen_graphics_stride);
 		uint64_t end_amount = (lines * screen_graphics_stride);
-		memcpy(rr_fb_front + start_offset, rr_fb_back + start_offset, end_amount);
+		backbuffer_copy_fn(rr_fb_front + start_offset, rr_fb_back + start_offset, end_amount);
 	} else {
-		memcpy(rr_fb_front, rr_fb_back, rr_fb_bytes);
+		backbuffer_copy_fn(rr_fb_front, rr_fb_back, rr_fb_bytes);
 	}
 	video_dirty = false;
 	video_dirty_start = -1;
