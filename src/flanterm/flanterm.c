@@ -1531,8 +1531,8 @@ static void flanterm_putchar(struct flanterm_context *ctx, uint8_t c) {
 		return;
 	}
 
-	/* If this byte’s glyph was redefined, never treat it as UTF-8. */
-	if (ft_is_redefined(c)) {
+	/* If this byte’s glyph was redefined, never treat it as UTF-8. Don't trigger on escape sequences. */
+	if (!ctx->escape && !ctx->control_sequence && !ctx->osc && c >= 0x20 && c != 0x7f && ft_is_redefined(c)) {
 		goto literal_single_byte;
 	}
 
@@ -1661,11 +1661,11 @@ static void flanterm_putchar(struct flanterm_context *ctx, uint8_t c) {
 	}
 
 literal_single_byte:
-	/* Character set translation already handled above. */
+	/* Character set translation already handled above */
 	if (c >= 0x20) {
 		ctx->raw_putchar(ctx, c);
 		return;
-	}
+	} 
 	ctx->raw_putchar(ctx, 0xfe);
 }
 

@@ -189,7 +189,7 @@ char* basic_date(struct basic_ctx* ctx)
 	char tm[32];
 	datetime_t date;
 	local_or_not(local, &date);
-	snprintf(tm, 32, "%04d-%02d-%02d", ((date.century - 1) * 100) + date.year, date.month, date.day);
+	snprintf(tm, sizeof(tm), "%04d-%02d-%02d", ((date.century - 1) * 100) + date.year, date.month, date.day);
 	return (char*)gc_strdup(ctx, tm);
 }
 
@@ -202,7 +202,7 @@ char* basic_time(struct basic_ctx* ctx)
 	char tm[32];
 	datetime_t date;
 	local_or_not(local, &date);
-	snprintf(tm, 32, "%02d:%02d:%02d", date.hour, date.minute, date.second);
+	snprintf(tm, sizeof(tm), "%02d:%02d:%02d", date.hour, date.minute, date.second);
 	return (char*)gc_strdup(ctx, tm);
 }
 

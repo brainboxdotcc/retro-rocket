@@ -1,0 +1,85 @@
+# Greek (el-GR) keymap
+
+# Top row (Alpha to Iota-ish)
+&10 &A4 &C4  # epsilon
+&11 &B1 &D1  # rho
+&12 &B4 &D4  # tau
+&13 &B5 &D5  # ypsilon
+&14 &A8 &C8  # theta
+&15 &A9 &C9  # iota
+&16 &AA &CA  # kappa
+&17 &AB &CB  # lambda
+&18 &AC &CC  # mu
+&19 &AD &CD  # ni
+
+# Middle row
+&1E &A0 &C0  # alpha
+&1F &B2 &D2  # sigma
+&20 &A3 &C3  # delta
+&21 &B0 &D0  # pi
+&22 &A2 &C2  # gamma
+&23 &A7 &C7  # eta
+&24 &AE &CE  # xi
+&25 &AF &CF  # omicron
+&26 &B3 &D3  # tau (duplicate pos/zeta)
+
+# Bottom row
+&2C &A6 &C6  # zeta
+&2D &B7 &D7  # chi
+&2E &B9 &D9  # psi
+&2F &B8 &D8  # omega
+&30 &A1 &C1  # beta
+&31 &AD &CD  # ni (duplicate)
+&32 &BC &DC  # phi
+
+# Greek glyphs (lowercase)
+SYM &A0 &00 &3C &02 &3E &42 &42 &3E &00  # alpha
+SYM &A1 &00 &40 &40 &7C &42 &42 &7C &00  # beta
+SYM &A2 &00 &7E &40 &40 &40 &40 &40 &00  # gamma
+SYM &A3 &00 &1C &22 &41 &41 &7F &00 &00  # delta
+SYM &A4 &00 &3C &42 &7E &40 &40 &3C &00  # epsilon
+SYM &A6 &00 &7E &04 &08 &10 &20 &7E &00  # zeta
+SYM &A7 &00 &42 &42 &7E &42 &42 &42 &00  # eta
+SYM &A8 &00 &3C &42 &5A &42 &42 &3C &00  # theta
+SYM &A9 &00 &18 &18 &18 &18 &18 &18 &00  # iota
+SYM &AA &00 &42 &44 &38 &44 &42 &42 &00  # kappa
+SYM &AB &00 &18 &24 &42 &42 &42 &42 &00  # lambda
+SYM &AC &00 &42 &66 &5A &42 &42 &42 &00  # mu
+SYM &AD &00 &42 &62 &52 &4A &46 &42 &00  # ni
+SYM &AE &00 &7E &00 &7E &00 &7E &00 &00  # xi
+SYM &AF &00 &3C &42 &42 &42 &42 &3C &00  # omicron
+SYM &B0 &00 &7E &42 &42 &42 &42 &42 &00  # pi
+SYM &B1 &00 &7C &42 &7C &40 &40 &40 &00  # rho
+SYM &B2 &00 &3E &40 &3C &02 &02 &3C &00  # sigma
+SYM &B4 &00 &7E &18 &18 &18 &18 &18 &00  # tau
+SYM &B5 &00 &42 &42 &42 &42 &24 &18 &00  # ypsilon
+SYM &BC &00 &18 &3C &5A &5A &3C &18 &00  # phi
+SYM &B7 &00 &42 &24 &18 &18 &24 &42 &00  # chi
+SYM &B9 &00 &42 &42 &5A &24 &18 &18 &00  # psi
+SYM &B8 &00 &42 &42 &42 &42 &42 &3C &42  # omega
+
+# Greek glyphs (uppercase)
+SYM &C0 &18 &24 &42 &7E &42 &42 &42 &00  # Alpha
+SYM &C1 &7C &42 &42 &7C &42 &42 &7C &00  # Beta
+SYM &C2 &7E &40 &40 &40 &40 &40 &40 &00  # Gamma
+SYM &C3 &1C &22 &41 &41 &41 &7F &00 &00  # Delta
+SYM &C4 &7E &40 &40 &7C &40 &40 &7E &00  # Epsilon
+SYM &C6 &7E &04 &08 &10 &20 &40 &7E &00  # Zeta
+SYM &C7 &42 &42 &42 &7E &42 &42 &42 &00  # Eta
+SYM &C8 &3C &42 &42 &7E &42 &42 &3C &00  # Theta
+SYM &C9 &3C &18 &18 &18 &18 &18 &3C &00  # Iota
+SYM &CA &42 &44 &48 &70 &48 &44 &42 &00  # Kappa
+SYM &CB &08 &14 &22 &41 &41 &41 &41 &00  # Lambda
+SYM &CC &42 &66 &5A &42 &42 &42 &42 &00  # Mu
+SYM &CD &42 &62 &52 &4A &46 &42 &42 &00  # Ni
+SYM &CE &7E &00 &7E &00 &7E &00 &00 &00  # Xi
+SYM &CF &3C &42 &42 &42 &42 &42 &3C &00  # Omicron
+SYM &D0 &7F &41 &41 &41 &41 &41 &41 &00  # Pi
+SYM &D1 &7C &42 &42 &7C &40 &40 &40 &00  # Rho
+SYM &D2 &7E &40 &40 &78 &40 &40 &7E &00  # Sigma
+SYM &D4 &7E &18 &18 &18 &18 &18 &18 &00  # Tau
+SYM &D5 &42 &42 &42 &42 &42 &24 &18 &00  # Ypsilon
+SYM &DC &10 &10 &38 &54 &54 &38 &10 &10  # Phi
+SYM &D7 &42 &24 &18 &18 &18 &24 &42 &00  # Chi
+SYM &D9 &42 &42 &42 &5A &24 &18 &18 &00  # Psi
+SYM &D8 &3C &42 &42 &42 &42 &42 &42 &00  # Omega
