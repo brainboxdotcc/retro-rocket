@@ -15,4 +15,5 @@ Welcome to Retro Rocket! This guide is for everyone who wants to use the system,
 - \subpage user-networking
 - \subpage saving-your-work
 - \subpage troubleshooting
+- \subpage customisation
 - \subpage glossary

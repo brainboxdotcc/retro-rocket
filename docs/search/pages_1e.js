@@ -41,7 +41,7 @@ var searchData=
   ['usb_20stick_38',['USB stick',['../troubleshooting.html#system-doesnt-boot-from-the-usb-stick',1,'System doesn’t boot from the USB stick'],['../creating-boot-media.html#writing-the-usb-image-usb-stick',1,'Writing the USB Image (USB stick)']]],
   ['use_20it_39',['use it',['../SOCKACCEPT.html#how-to-use-it',1,'How to use it'],['../SOCKLISTEN.html#how-to-use-it-1',1,'How to use it'],['../SSLSOCKACCEPT.html#how-to-use-it-2',1,'How to use it'],['../SOCKFLUSH.html#how-to-use-it-3',1,'How to use it']]],
   ['use_20reproduction_20and_20distribution_40',['Terms and Conditions for use, reproduction, and distribution',['../third-party-notices.html#terms-and-conditions-for-use-reproduction-and-distribution',1,'']]],
-  ['used_41',['How it is used',['../SSLCONNECT.html#how-it-is-used',1,'']]],
+  ['used_41',['used',['../SSLCONNECT.html#how-it-is-used',1,'How it is used'],['../keymaps.html#how-it-is-used-1',1,'How it is used']]],
   ['user_20guide_42',['User Guide',['../user-guide.html',1,'index']]],
   ['userland_20bootstrap_3a_20programs_20init_43',['5. Userland Bootstrap: &lt;span class=&quot;tt&quot;&gt;/programs/init&lt;/span&gt;',['../bootflow.html#autotoc_md5-userland-bootstrap-programsinit',1,'']]],
   ['using_20ansi_20escape_20sequences_20advanced_44',['Using ANSI escape sequences (advanced)',['../PRINT.html#using-ansi-escape-sequences-advanced',1,'']]],

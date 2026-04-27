@@ -13,5 +13,6 @@ var user_guide =
     [ "Networking", "user-networking.html", null ],
     [ "Saving Your Work", "saving-your-work.html", null ],
     [ "Troubleshooting", "troubleshooting.html", null ],
+    [ "Customising Retro Rocket", "customisation.html", "customisation" ],
     [ "Glossary", "glossary.html", null ]
 ];

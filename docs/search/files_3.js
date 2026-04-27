@@ -24,5 +24,6 @@ var searchData=
   ['cube_2emd_21',['cube.md',['../cube_8md.html',1,'']]],
   ['currentx_2emd_22',['CURRENTX.md',['../CURRENTX_8md.html',1,'']]],
   ['currenty_2emd_23',['CURRENTY.md',['../CURRENTY_8md.html',1,'']]],
-  ['cursor_2emd_24',['CURSOR.md',['../CURSOR_8md.html',1,'']]]
+  ['cursor_2emd_24',['CURSOR.md',['../CURSOR_8md.html',1,'']]],
+  ['customisation_2dindex_2emd_25',['customisation-index.md',['../customisation-index_8md.html',1,'']]]
 ];

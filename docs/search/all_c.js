@@ -125,5 +125,7 @@ var searchData=
   ['currenty_20function_122',['CURRENTY Function',['../CURRENTY.html',1,'int-funcs']]],
   ['currenty_2emd_123',['CURRENTY.md',['../CURRENTY_8md.html',1,'']]],
   ['cursor_20keyword_124',['CURSOR Keyword',['../CURSOR.html',1,'keywords']]],
-  ['cursor_2emd_125',['CURSOR.md',['../CURSOR_8md.html',1,'']]]
+  ['cursor_2emd_125',['CURSOR.md',['../CURSOR_8md.html',1,'']]],
+  ['customisation_2dindex_2emd_126',['customisation-index.md',['../customisation-index_8md.html',1,'']]],
+  ['customising_20retro_20rocket_127',['Customising Retro Rocket',['../customisation.html',1,'user-guide']]]
 ];

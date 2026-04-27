@@ -24,6 +24,7 @@ DEF PROCEDup
 	IF EDPos = EDhistSize THEN EDPos = EDhistSize - 1
 	EDin$ = EDhist$(EDPos)
 	EDcurrentx = LEN(EDin$)
+	intercept = TRUE
 ENDPROC
 
 REM handle down key to recall through history
@@ -33,6 +34,7 @@ DEF PROCEDdown
 	IF EDPos < 0 THEN EDPos = 0
 	EDin$ = EDhist$(EDPos)
 	EDcurrentx = LEN(EDin$)
+	intercept = TRUE
 ENDPROC
 
 REM add a line to the history (this is not automatic)
@@ -54,34 +56,40 @@ REM handle left edit key
 DEF PROCEDleft
 	EDcurrentx = EDcurrentx - 1
 	IF EDcurrentx < 0 THEN EDcurrentx = 0
+	intercept = TRUE
 ENDPROC
 
 REM handle right edit key
 DEF PROCEDright
 	EDcurrentx = EDcurrentx + 1
 	IF EDcurrentx < 0 THEN EDcurrentx = 0
+	intercept = TRUE
 ENDPROC
 
 REM handle end edit key
 DEF PROCEDend
 	EDcurrentx = LEN(EDin$)
+	intercept = TRUE
 ENDPROC
 
 REM handle home edit key
 DEF PROCEDhome
 	EDcurrentx = 0
+	intercept = TRUE
 ENDPROC
 
 REM handle delete edit key
 DEF PROCEDdelete
 	EDlen = LEN(EDin$)
 	IF EDcurrentx < EDlen THEN PROCEDdeleteRight
+	intercept = TRUE
 ENDPROC
 
 REM handle backspace edit key
 DEF PROCEDbackSpace
 	cx = EDcurrentx
 	IF cx > 0 THEN PROCEDdeleteLeft
+	intercept = TRUE
 ENDPROC
 
 REM delete character to left of cursor, advance left
@@ -149,6 +157,7 @@ ENDPROC
 
 REM handle line enter
 DEF PROCEDenter
+	intercept = TRUE
 	EdComplete = TRUE
 ENDPROC
 
@@ -159,6 +168,7 @@ DEF PROCEDabort
 	PROCclearLineFromCursor
 	EdComplete = TRUE
 	EdEsc = TRUE
+	intercept = TRUE
 ENDPROC
 
 REM get the line edit result
@@ -180,6 +190,7 @@ ENDPROC
 
 REM handle line edit keypress
 DEF PROCEDprocessKey(in)
+    intercept = FALSE
 	IF in = 13 THEN PROCEDenter
 	IF in = 27 THEN PROCEDabort
 	IF in = 250 THEN PROCEDup
@@ -190,7 +201,7 @@ DEF PROCEDprocessKey(in)
 	IF in = 254 THEN PROCEDhome
 	IF in = 247 THEN PROCEDdelete
 	IF in = 8 THEN PROCEDbackSpace
-	IF (in < 128) AND (in > 31) THEN PROCEDinsertChar(in)
+	IF (intercept = FALSE) AND (in > 31) THEN PROCEDinsertChar(in)
 	PROChideCursor
 	CURSOR EDStartInputX, EDStartInputY
 	PROCclearLineFromCursor

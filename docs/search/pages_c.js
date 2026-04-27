@@ -100,5 +100,6 @@ var searchData=
   ['cube_20program_97',['cube program',['../cube.html',1,'commands']]],
   ['currentx_20function_98',['CURRENTX Function',['../CURRENTX.html',1,'int-funcs']]],
   ['currenty_20function_99',['CURRENTY Function',['../CURRENTY.html',1,'int-funcs']]],
-  ['cursor_20keyword_100',['CURSOR Keyword',['../CURSOR.html',1,'keywords']]]
+  ['cursor_20keyword_100',['CURSOR Keyword',['../CURSOR.html',1,'keywords']]],
+  ['customising_20retro_20rocket_101',['Customising Retro Rocket',['../customisation.html',1,'user-guide']]]
 ];

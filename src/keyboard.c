@@ -46,6 +46,27 @@ static char keyboard_scan_map_upper[MAX_SCANCODE] = {0, 27, '!', '@', '~', '$', 
 						     0 /* UP */, 0 /* PGUP */,
 						     '-', '4', '5', '6', '+', '1', '2', '3', '0', '.'};
 
+static bool keymap_loaded_scancodes[MAX_SCANCODE] = {0};
+
+static void skip_keymap_whitespace(const char **p)
+{
+	while (**p == ' ' || **p == '\t') {
+		(*p)++;
+	}
+}
+
+static const char *skip_keymap_line(const char *p)
+{
+	while (*p && *p != '\n') {
+		p++;
+	}
+
+	if (*p == '\n') {
+		p++;
+	}
+
+	return p;
+}
 
 /**
  * @brief Parse one token (hex or literal) from keymap text
@@ -56,7 +77,8 @@ static char keyboard_scan_map_upper[MAX_SCANCODE] = {0, 27, '!', '@', '~', '$', 
  *
  * Advances *p to the end of the token.
  */
-static char parse_token(const char **p) {
+static char parse_token(const char **p)
+{
 	const char *s = *p;
 	char c = 0;
 
@@ -69,17 +91,28 @@ static char parse_token(const char **p) {
 			s++;
 		}
 		char buf[16];
-		size_t len = (size_t) (s - start);
-		if (len >= sizeof(buf)) len = sizeof(buf) - 1;
-		for (size_t i = 0; i < len; i++) buf[i] = start[i];
+		size_t len = (size_t)(s - start);
+		if (len == 0) {
+			kprintf("Empty hex token in keymap\n");
+			*p = s;
+			return 0;
+		}
+		if (len >= sizeof(buf)) {
+			len = sizeof(buf) - 1;
+		}
+		for (size_t i = 0; i < len; i++) {
+			buf[i] = start[i];
+		}
 		buf[len] = 0;
-		c = (char) atoll(buf, 16);
+		c = (char)atoll(buf, 16);
 	} else {             /* bare character literal */
 		c = *s++;
 	}
 
 	/* skip trailing non-token chars (up to whitespace/newline) */
-	while (*s && *s != ' ' && *s != '\t' && *s != '\n' && *s != '\r') s++;
+	while (*s && *s != ' ' && *s != '\t' && *s != '\n' && *s != '\r') {
+		s++;
+	}
 	*p = s;
 	return c;
 }
@@ -91,14 +124,19 @@ static char parse_token(const char **p) {
  *   &1E a A     # scancode &1E produces 'a' and 'A'
  *   &02 1 !     # scancode &02 produces '1' and '!'
  *   &1C &0D     # scancode &1C is Enter (hex 0D)
+ *   SYM &A3 &18 &24 &20 &78 &20 &20 &7E &00
  *
  * - Lines starting with '#' are comments.
- * - First field must be scancode prefixed with & (hexadecimal).
+ * - First field must be scancode prefixed with & (hexadecimal), or SYM.
  * - Two tokens may follow: normal (unshifted) and shifted.
  * - If only one token is given, shifted = normal.
+ * - SYM defines an 8-byte glyph for a character code.
  */
-void load_keymap_from_string(const char *text) {
+void load_keymap_from_string(const char *text)
+{
 	const char *p = text;
+
+	memset(keymap_loaded_scancodes, 0, sizeof(keymap_loaded_scancodes));
 
 	while (*p) {
 		/* skip leading whitespace and carriage returns */
@@ -109,6 +147,12 @@ void load_keymap_from_string(const char *text) {
 			break;
 		}
 
+		/* skip blank lines */
+		if (*p == '\n') {
+			p++;
+			continue;
+		}
+
 		/* skip comment lines */
 		if (*p == '#') {
 			while (*p && *p != '\n') {
@@ -117,9 +161,45 @@ void load_keymap_from_string(const char *text) {
 			continue;
 		}
 
+		/* optional character symbol definition */
+		if (strncmp(p, "SYM", 3) == 0 && isspace(p[3])) {
+			p += 3;
+			skip_keymap_whitespace(&p);
+
+			char character = parse_token(&p);
+			if (character == 0) {
+				kprintf("Invalid SYM character code in keymap\n");
+				p = skip_keymap_line(p);
+				continue;
+			}
+
+			uint8_t definition[8];
+			bool valid = true;
+
+			for (int i = 0; i < 8; i++) {
+				skip_keymap_whitespace(&p);
+
+				if (*p == 0 || *p == '\n' || *p == '\r' || *p == '#') {
+					kprintf("Incomplete SYM definition for character %02x\n", (unsigned char)character);
+					valid = false;
+					break;
+				}
+
+				definition[i] = (uint8_t)parse_token(&p);
+			}
+
+			if (valid) {
+				redefine_character((unsigned char)character, definition);
+			}
+
+			p = skip_keymap_line(p);
+			continue;
+		}
+
 		/* expect scancode starting with & */
 		if (*p != '&') {
 			/* invalid line: skip until next line */
+			kprintf("Invalid keymap line\n");
 			while (*p && *p != '\n') {
 				p++;
 			}
@@ -137,7 +217,12 @@ void load_keymap_from_string(const char *text) {
 		}
 
 		char buf[16];
-		size_t len = (size_t) (p - start);
+		size_t len = (size_t)(p - start);
+		if (len == 0) {
+			kprintf("Missing scancode in keymap\n");
+			p = skip_keymap_line(p);
+			continue;
+		}
 		if (len >= sizeof(buf)) {
 			len = sizeof(buf) - 1;
 		}
@@ -146,7 +231,7 @@ void load_keymap_from_string(const char *text) {
 		}
 		buf[len] = 0;
 
-		unsigned int scancode = (unsigned int) atoll(buf, 16);
+		unsigned int scancode = (unsigned int)atoll(buf, 16);
 
 		/* parse up to 2 tokens (normal + shift) */
 		char normal = 0, shift = 0;
@@ -156,7 +241,7 @@ void load_keymap_from_string(const char *text) {
 			while (*p == ' ' || *p == '\t') {
 				p++;
 			}
-			if (*p == 0 || *p == '\n') {
+			if (*p == 0 || *p == '\n' || *p == '\r' || *p == '#') {
 				break;
 			}
 
@@ -175,11 +260,29 @@ void load_keymap_from_string(const char *text) {
 			shift = normal;
 		}
 
-		/* store mapping if valid */
-		if (scancode < MAX_SCANCODE) {
-			keyboard_scan_map_lower[scancode] = normal;
-			keyboard_scan_map_upper[scancode] = shift;
+		if (field == 0) {
+			kprintf("Missing keymap mapping for scancode %02x\n", scancode);
+			p = skip_keymap_line(p);
+			continue;
 		}
+
+		if (scancode >= MAX_SCANCODE) {
+			kprintf("Scancode out of range in keymap: %02x\n", scancode);
+			p = skip_keymap_line(p);
+			continue;
+		}
+
+		if (keymap_loaded_scancodes[scancode]) {
+			kprintf("Duplicate scancode in keymap: %02x\n", scancode);
+			p = skip_keymap_line(p);
+			continue;
+		}
+
+		keymap_loaded_scancodes[scancode] = true;
+
+		/* store mapping if valid */
+		keyboard_scan_map_lower[scancode] = normal;
+		keyboard_scan_map_upper[scancode] = shift;
 
 		/* consume newline if present */
 		if (*p == '\n') {

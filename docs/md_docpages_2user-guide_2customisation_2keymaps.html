@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=11">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Retro Rocket OS: Sound and Graphics</title>
+    <title>Retro Rocket OS: Keymaps</title>
     <link href="tabs.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -16,7 +16,7 @@
     <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-    <meta name="title" content="Sound and Graphics - Retro Rocket OS">
+    <meta name="title" content="Keymaps - Retro Rocket OS">
     <meta name="description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="author" content="Retro Rocket Developers">
     <meta name="robots" content="index, follow">
@@ -24,7 +24,7 @@
     <meta name="theme-color" content="#0b0f14">
     <link rel="icon" href="rr.png">
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="Sound and Graphics - Retro Rocket OS">
+    <meta property="og:title" content="Keymaps - Retro Rocket OS">
     <meta property="og:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://retrorocket.dev/">
@@ -32,7 +32,7 @@
     <meta property="og:image:alt" content="Retro Rocket OS running on a retro-style desktop">
     <meta property="og:site_name" content="Retro Rocket OS">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Sound and Graphics - Retro Rocket OS">
+    <meta name="twitter:title" content="Keymaps - Retro Rocket OS">
     <meta name="twitter:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="twitter:image" content="https://retrorocket.dev/leader4.png">
     <link rel="preload" as="image" href="https://retrorocket.dev/leader4.png">
@@ -94,7 +94,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('sound-and-graphics.html','',''); });
+$(function(){initNavTree('md_docpages_2user-guide_2customisation_2keymaps.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -120,33 +120,82 @@ $(function(){initNavTree('sound-and-graphics.html','',''); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">Sound and Graphics </div></div>
+  <div class="headertitle"><div class="title">Keymaps </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Retro Rocket includes built-in support for both sound and graphics. You don’t need to install drivers or change any settings - everything is automatic.</p>
+<div class="textblock"><p><a class="anchor" id="keymaps"></a></p>
+<p>Keymaps control what characters appear when you press keys.</p>
+<p>They are used to change the keyboard layout or add characters that are not on your keyboard, such as <span class="tt">£</span>.</p>
+<p>Keymaps are stored in:</p>
+<div class="fragment"><div class="line">/system/keymaps/</div>
+</div><!-- fragment --><p>For example:</p>
+<div class="fragment"><div class="line">/system/keymaps/en-GB.keymap</div>
+</div><!-- fragment --><p>A keymap can be loaded at runtime.</p>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="graphics"></a>
-Graphics</h3>
+<h2 class="doxsection"><a class="anchor" id="format"></a>
+Format</h2>
+<p>Each line is one of:</p>
 <ul>
-<li>The system uses your PC’s built-in graphics to display text, colours, and pixel art.</li>
-<li>Demos and programs (such as <span class="tt">cube</span>, <span class="tt">graphicstest</span>, or <span class="tt">demo</span>) can draw directly to the screen.</li>
-<li>Resolution and colour depth are detected at boot and just work.</li>
-<li>There is no need to configure graphics drivers.</li>
+<li>a key mapping</li>
+<li>a symbol definition</li>
+<li>a comment (<span class="tt"># ...</span>)</li>
 </ul>
-<h3 class="doxsection"><a class="anchor" id="sound"></a>
-Sound</h3>
+<hr  />
+<h2 class="doxsection"><a class="anchor" id="key-mappings"></a>
+Key mappings</h2>
+<div class="fragment"><div class="line">&amp;SCANCODE normal shifted</div>
+</div><!-- fragment --><p>This defines what a key produces:</p>
 <ul>
-<li>If your PC has a supported sound chip (AC’97 or HDA), music and sound effects play automatically.</li>
-<li>Programs can use <span class="tt">SOUND</span>, <span class="tt">ENVELOPE</span>, and other BASIC keywords to generate tones or play tracker modules.</li>
-<li>Demo programs like <span class="tt">bach</span>, <span class="tt">musicdemo</span>, and <span class="tt">modplay</span> show off the audio system.</li>
-<li>If no sound device is present, programs still run - you just won’t hear audio output.</li>
+<li><span class="tt">normal</span> is the character without Shift</li>
+<li><span class="tt">shifted</span> is the character with Shift</li>
 </ul>
-<h3 class="doxsection"><a class="anchor" id="notes-238"></a>
-Notes</h3>
+<p>Example:</p>
+<div class="fragment"><div class="line">&amp;02 1 !</div>
+<div class="line">&amp;04 3 &amp;A3</div>
+</div><!-- fragment --><p>This makes the <span class="tt">3</span> key produce <span class="tt">£</span> when Shift is held.</p>
+<hr  />
+<h2 class="doxsection"><a class="anchor" id="symbol-definitions"></a>
+Symbol definitions</h2>
+<div class="fragment"><div class="line">SYM &amp;XX &amp;b0 &amp;b1 &amp;b2 &amp;b3 &amp;b4 &amp;b5 &amp;b6 &amp;b7</div>
+</div><!-- fragment --><p>Defines how a character looks on screen.</p>
 <ul>
-<li>Retro Rocket is focused on simplicity: sound and graphics are built-in parts of the system, not add-ons.</li>
-<li>Demos and examples are the easiest way to see (and hear) what the system can do.</li>
-<li>Advanced users can also explore writing their own audio and graphics programs in BASIC. </li>
+<li><span class="tt">&amp;XX</span> is the character number (the <span class="tt">&amp;</span> means the number is written in hex)</li>
+<li>the eight values that follow are the 8 rows of the character</li>
+<li>each value is a number from 0 to 255</li>
+<li>each bit in that number controls one pixel (1 = on, 0 = off)</li>
+<li>the character is 8 pixels high and 8 pixels wide</li>
+</ul>
+<p>Example (<span class="tt">£</span>):</p>
+<div class="fragment"><div class="line">SYM &amp;A3 &amp;1C &amp;36 &amp;30 &amp;7C &amp;30 &amp;30 &amp;7E &amp;00</div>
+</div><!-- fragment --><p>This defines the shape used whenever character <span class="tt">&amp;A3</span> is printed.</p>
+<hr  />
+<h2 class="doxsection"><a class="anchor" id="how-to-read-a-row"></a>
+How to read a row</h2>
+<p>Take this value:</p>
+<div class="fragment"><div class="line">&amp;1C</div>
+</div><!-- fragment --><p>In binary, this is:</p>
+<div class="fragment"><div class="line">00011100</div>
+</div><!-- fragment --><p>This means:</p>
+<div class="fragment"><div class="line">...###..</div>
+</div><!-- fragment --><p>Each <span class="tt">#</span> is a lit pixel, each <span class="tt">.</span> is empty.</p>
+<hr  />
+<h2 class="doxsection"><a class="anchor" id="how-it-is-used-1"></a>
+How it is used</h2>
+<p>If a key is mapped to a character number, and that character has a symbol definition, that symbol will be shown when the key is pressed.</p>
+<p>Example:</p>
+<div class="fragment"><div class="line">&amp;04 3 &amp;A3</div>
+<div class="line">SYM &amp;A3 &amp;1C &amp;36 &amp;30 &amp;7C &amp;30 &amp;30 &amp;7E &amp;00</div>
+</div><!-- fragment --><p>Pressing <span class="tt">Shift+3</span> will produce <span class="tt">£</span>.</p>
+<hr  />
+<h2 class="doxsection"><a class="anchor" id="notes-234"></a>
+Notes</h2>
+<ul>
+<li>symbol definitions only affect how a character looks</li>
+<li>redefining a character replaces any previous definition</li>
+<li>characters without a definition use the default font</li>
+<li>keymaps override the built-in layout</li>
+<li>only keys that are listed are changed</li>
+<li>duplicate entries are ignored </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
@@ -163,7 +212,6 @@ Notes</h3>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="index.html">Retro Rocket OS Documentation</a></li><li class="navelem"><a href="user-guide.html">User Guide</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.14.0 </li>
   </ul>
 </div>
