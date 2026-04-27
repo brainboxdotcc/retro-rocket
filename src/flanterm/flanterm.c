@@ -1665,7 +1665,7 @@ literal_single_byte:
 	if (c >= 0x20) {
 		ctx->raw_putchar(ctx, c);
 		return;
-	} 
+	}
 	ctx->raw_putchar(ctx, 0xfe);
 }
 
