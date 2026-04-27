@@ -10,8 +10,8 @@
  * ### Tokeniser interaction
  * - **Parentheses**: content inside `(` .. `)` is parsed as a relation-aware
  *   expression, so forms such as `(in<128)` are valid in IF/WHILE.
- * - **String literals**: obtained via `tokenizer_string(...)` and then
- *   `accept(STRING)`; the tokeniser produces the literal and we consume it.
+ * - **String literals**: obtained via `gc_from_tokenizer_string(...)`.
+ *   This advances the tokenizer, we then call `tokenizer_next()` to update the token.
  * - **Variables and built-ins**:
  *   - Names ending with `$` - STRING.
  *   - Names ending with `#` - REAL.

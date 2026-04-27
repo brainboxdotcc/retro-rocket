@@ -71,7 +71,7 @@ static inline char __attribute__((always_inline)) toupper(char low) {
  * @param x Character to check
  * @return int Non-zero if uppercase, 0 otherwise
  */
-static inline int __attribute__((always_inline)) isupper(const char x)
+static inline bool __attribute__((always_inline)) isupper(const char x)
 {
 	return (unsigned)(x - 'A') <= ('Z' - 'A');
 }
@@ -105,7 +105,7 @@ static inline bool __attribute__((always_inline)) isalpha(const char x)
  * @param x Character to check
  * @return unsigned char Non-zero if digit, 0 otherwise
  */
-static inline unsigned char __attribute__((always_inline)) isdigit(const char x)
+static inline bool __attribute__((always_inline)) isdigit(const char x)
 {
 	return (unsigned)(x - '0') <= 9;
 }
@@ -116,9 +116,9 @@ static inline unsigned char __attribute__((always_inline)) isdigit(const char x)
  * @param x Character to check
  * @return unsigned char Non-zero if hex digit, 0 otherwise
  */
-static inline unsigned char __attribute__((always_inline)) isxdigit(const char x)
+static inline bool __attribute__((always_inline)) isxdigit(const char x)
 {
-	return (x >= '0' && x <= '9') || (x >= 'A' && x <= 'F');
+	return isdigit(x) || (unsigned)(((unsigned const char)x | 0x20) - 'a') <= ('f' - 'a');
 }
 
 /**
@@ -127,7 +127,7 @@ static inline unsigned char __attribute__((always_inline)) isxdigit(const char x
  * @param x Character to check
  * @return int Non-zero if alphanumeric, 0 otherwise
  */
-static inline int __attribute__((always_inline)) isalnum(const char x)
+static inline bool __attribute__((always_inline)) isalnum(const char x)
 {
 	return isdigit(x) || isalpha(x);
 }

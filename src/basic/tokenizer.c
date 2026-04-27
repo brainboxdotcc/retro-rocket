@@ -147,7 +147,7 @@ static const char *intern_variable_name(const char *name, size_t len)
 
 	existing = hashmap_get(
 		interned_variable_names,
-		&(struct interned_name) { .name = name }
+		&(struct interned_name) { .name = name, .name_length = len }
 	);
 
 	if (existing) {
@@ -170,7 +170,7 @@ static const char *intern_variable_name(const char *name, size_t len)
 
 	existing = hashmap_get(
 		interned_variable_names,
-		&(struct interned_name) { .name = name }
+		&(struct interned_name) { .name = name, .name_length = len }
 	);
 
 	return existing ? existing->name : copy;
@@ -267,46 +267,33 @@ void build_keyword_prefix_offsets(void)
 	keyword_prefix_ready = true;
 }
 
-static int singlechar(struct basic_ctx* ctx)
-{
-	switch (*ctx->ptr) {
-		case '\n':
-			return NEWLINE;
-		case ',':
-			return COMMA;
-		case ';':
-			return SEMICOLON;
-		case '+':
-			return PLUS;
-		case '-':
-			return MINUS;
-		case '*':
-			return ASTERISK;
-		case '/':
-			return SLASH;
-		case '%':
-			return MOD;
-		case '(':
-			return OPENBRACKET;
-		case ')':
-			return CLOSEBRACKET;
-		case '<':
-			return LESSTHAN;
-		case '>':
-			return GREATERTHAN;
-		case '=':
-			return EQUALS;
-		case '~':
-			return TILDE;
-		case ' ':
-		case '\t':
-			return SPACE;
-	}
-	return 0;
+static const enum token_t singlechar_tokens[256] = {
+	['\n'] = NEWLINE,
+	[','] = COMMA,
+	[';'] = SEMICOLON,
+	['+'] = PLUS,
+	['-'] = MINUS,
+	['*'] = ASTERISK,
+	['/'] = SLASH,
+	['%'] = MOD,
+	['('] = OPENBRACKET,
+	[')'] = CLOSEBRACKET,
+	['<'] = LESSTHAN,
+	['>'] = GREATERTHAN,
+	['='] = EQUALS,
+	['~'] = TILDE,
+	[' '] = SPACE,
+	['\t'] = SPACE,
+};
+
+static inline __attribute__((always_inline)) enum token_t singlechar(const char *p) {
+	return singlechar_tokens[(unsigned char)*p];
 }
 
 int get_next_token(struct basic_ctx* ctx)
 {
+	enum token_t tok;
+
 	if (*ctx->ptr == 0) {
 		return ENDOFINPUT;
 	}
@@ -324,10 +311,6 @@ int get_next_token(struct basic_ctx* ctx)
 						return NO_TOKEN;
 					}
 				}
-				if (!isxdigit(ctx->ptr[i])) {
-					tokenizer_error_print(ctx, "Malformed hexadecimal number");
-					return NO_TOKEN;
-				}
 			}
 		} else {
 			/* Scan forwards up to MAX_NUMLEN characters */
@@ -342,17 +325,13 @@ int get_next_token(struct basic_ctx* ctx)
 						return NO_TOKEN;
 					}
 				}
-				if (!isdigit(ctx->ptr[i]) && ctx->ptr[i] != '.') {
-					tokenizer_error_print(ctx, "Malformed number");
-					return NO_TOKEN;
-				}
 			}
 		}
 		tokenizer_error_print(ctx, "Number too long");
 		return NO_TOKEN;
-	} else if (singlechar(ctx)) {
+	} else if ((tok = singlechar(ctx->ptr)) != NO_TOKEN) {
 		ctx->nextptr = ctx->ptr + 1;
-		return singlechar(ctx);
+		return tok;
 	} else if (*ctx->ptr == '"') {
 		ctx->nextptr = ctx->ptr;
 		int strl = 0;
@@ -376,7 +355,7 @@ int get_next_token(struct basic_ctx* ctx)
 		int start = keyword_prefix_offsets[key];
 		int end = keyword_prefix_offsets[key + 1];
 		for (int kt = start; kt < end; ++kt) {
-			int tok = keywords[kt];
+			tok = keywords[kt];
 			size_t len = token_name_lengths[tok];
 			/* First two characters already matched by prefix16 bucket.
 			 * Compare from byte 2 onwards; <=2 length is already a full match.
@@ -479,35 +458,6 @@ void tokenizer_fnum(struct basic_ctx* ctx, enum token_t token, double* f)
 	atof(ctx->ptr, f);
 }
 
-bool tokenizer_string(char *dest, int len, struct basic_ctx* ctx)
-{
-	char *string_end;
-	int string_len;
-	
-	if (tokenizer_token(ctx) != STRING) {
-		return true;
-	}
-	string_end = strchr(ctx->ptr + 1, '"');
-	if (string_end == NULL) {
-		tokenizer_error_print(ctx, "Unterminated \"");
-		*dest = 0;
-		return false;
-	}
-	string_len = string_end - ctx->ptr - 1;
-	if (len < string_len) {
-		string_len = len;
-	}
-	if (ctx->ptr == ctx->program_ptr) {
-		tokenizer_error_print(ctx, "Unterminated \"");
-		*dest = 0;
-		return false;
-	}
-	memcpy(dest, ctx->ptr + 1, string_len);
-	dest[string_len] = 0;
-	return true;
-}
-
-
 void tokenizer_error_printf(struct basic_ctx* ctx, const char* fmt, ...)
 {
 	char error[MAX_STRINGLEN];
@@ -517,7 +467,6 @@ void tokenizer_error_printf(struct basic_ctx* ctx, const char* fmt, ...)
 	va_end(args);
 	tokenizer_error_print(ctx, error);
 }
-
 
 void tokenizer_error_print(struct basic_ctx* ctx, const char* error)
 {
@@ -612,8 +561,6 @@ bool tokenizer_finished(struct basic_ctx* ctx)
 const char* tokenizer_variable_name(struct basic_ctx* ctx, size_t* count)
 {
 	char varname[MAX_VARNAME];
-	const char *interned;
-
 	*count = 0;
 
 	while (*count < MAX_VARNAME && *ctx->ptr != 0) {
@@ -648,7 +595,7 @@ const char* tokenizer_variable_name(struct basic_ctx* ctx, size_t* count)
 
 	varname[*count] = 0;
 
-	interned = intern_variable_name(varname, *count);
+	const char* interned = intern_variable_name(varname, *count);
 	if (!interned) {
 		tokenizer_error_printf(ctx, "Out of memory interning variable name '%s'", varname);
 		*count = 0;

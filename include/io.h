@@ -150,7 +150,7 @@ static inline void interrupts_off()
  * Loops indefinitely, executing the `hlt` instruction on each iteration.
  * Used to stop execution in unrecoverable conditions.
  */
-static inline void wait_forever()
+_Noreturn static inline void wait_forever()
 {
 	for (;;) __asm__ volatile("hlt");
 }

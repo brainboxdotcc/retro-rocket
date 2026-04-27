@@ -296,17 +296,6 @@ void tokenizer_fnum(struct basic_ctx* ctx, enum token_t token, double* f);
 const char* tokenizer_variable_name(struct basic_ctx* ctx, size_t* count);
 
 /**
- * @brief Get a string constant as the next token
- * (do not advance the pointer)
- *
- * @param dest destination string buffer
- * @param len length of destination buffer
- * @param ctx context
- * @return true if succesfully found a string constant
- */
-bool tokenizer_string(char *dest, int len, struct basic_ctx* ctx);
-
-/**
  * @brief Returns true if the program is finished
  * (does not advance the pointer)
  *
