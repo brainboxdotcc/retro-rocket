@@ -1,5 +1,7 @@
 #include <kernel.h>
 
+#define INIT_PROGRAM "/programs/init"
+
 static void proc_update_cpu_usage(void);
 
 volatile struct limine_kernel_file_request rr_kfile_req = {
@@ -108,7 +110,6 @@ bool is_basic(const char* buf, size_t size) {
 
 static process_t* proc_create_common(const char* source, pid_t parent_pid, const char* csd, const char* program_name, const char* directory, size_t size)
 {
-	process_t* newproc;
 	char* error = "Unknown error";
 
 	if (!source || !*source) {
@@ -119,7 +120,7 @@ static process_t* proc_create_common(const char* source, pid_t parent_pid, const
 		return NULL;
 	}
 
-	newproc = kmalloc(sizeof(process_t));
+	process_t* newproc = kcalloc(1, sizeof(process_t));
 	if (!newproc) {
 		kprintf("Out of memory starting new process.\n");
 		return NULL;
@@ -133,7 +134,6 @@ static process_t* proc_create_common(const char* source, pid_t parent_pid, const
 	}
 
 	newproc->code->proc = newproc;
-	newproc->waitpid = 0;
 	newproc->name = strdup(program_name ? program_name : "<anonymous>");
 	newproc->pid = nextid++;
 	newproc->directory = strdup(directory ? directory : "<anonymous>");
@@ -143,13 +143,6 @@ static process_t* proc_create_common(const char* source, pid_t parent_pid, const
 	newproc->state = PROC_RUNNING;
 	newproc->ppid = parent_pid;
 	newproc->cpu = logical_cpu_id();
-	newproc->check_idle = NULL;
-	newproc->idle_context = NULL;
-	newproc->sched_next = NULL;
-	newproc->sched_prev = NULL;
-	newproc->global_next = NULL;
-	newproc->global_prev = NULL;
-	newproc->cpu_percent = 0;
 
 	if (!newproc->name || !newproc->directory || !newproc->csd) {
 		basic_destroy(newproc->code);
@@ -163,6 +156,18 @@ static process_t* proc_create_common(const char* source, pid_t parent_pid, const
 
 	lock_spinlock(&combined_proc_lock);
 	lock_spinlock(&proc_lock[newproc->cpu]);
+
+	if (!hashmap_set(process_by_pid, &(proc_id_t){ .id = newproc->pid, .proc = newproc }) && hashmap_oom(process_by_pid)) {
+		basic_destroy(newproc->code);
+		kfree_null(&newproc->name);
+		kfree_null(&newproc->directory);
+		kfree_null(&newproc->csd);
+		kfree_null(&newproc);
+		unlock_spinlock(&combined_proc_lock);
+		unlock_spinlock(&proc_lock[newproc->cpu]);
+		kprintf("Out of memory starting new process.\n");
+		return NULL;
+	}
 
 	if (proc_list[newproc->cpu] == NULL) {
 		proc_list[newproc->cpu] = newproc;
@@ -191,8 +196,6 @@ static process_t* proc_create_common(const char* source, pid_t parent_pid, const
 	}
 
 	process_count++;
-	hashmap_set(process_by_pid, &(proc_id_t){ .id = newproc->pid, .proc = newproc });
-
 	proc_update_cpu_usage();
 
 	unlock_spinlock(&combined_proc_lock);
@@ -203,11 +206,7 @@ static process_t* proc_create_common(const char* source, pid_t parent_pid, const
 
 process_t* proc_load(const char* fullpath, pid_t parent_pid, const char* csd)
 {
-	fs_directory_entry_t* fsi;
-	unsigned char* programtext;
-	process_t* newproc;
-
-	fsi = fs_get_file_info(fullpath);
+	fs_directory_entry_t* fsi = fs_get_file_info(fullpath);
 	if (fsi == NULL || (fsi->flags & FS_DIRECTORY)) {
 		kprintf("File does not exist.\n");
 		return NULL;
@@ -217,7 +216,7 @@ process_t* proc_load(const char* fullpath, pid_t parent_pid, const char* csd)
 		return NULL;
 	}
 
-	programtext = kmalloc(fsi->size + 1);
+	unsigned char* programtext = kmalloc(fsi->size + 1);
 	if (!programtext) {
 		kprintf("Out of memory starting new process.\n");
 		return NULL;
@@ -230,7 +229,7 @@ process_t* proc_load(const char* fullpath, pid_t parent_pid, const char* csd)
 		return NULL;
 	}
 
-	newproc = proc_create_common((const char*)programtext, parent_pid, csd, fsi->filename, fullpath, fsi->size);
+	process_t* newproc = proc_create_common((const char*)programtext, parent_pid, csd, fsi->filename, fullpath, fsi->size);
 	kfree_null(&programtext);
 	return newproc;
 }
@@ -483,6 +482,9 @@ void init_process()
 		init_spinlock(&proc_lock[x]);
 	}
 	process_by_pid = hashmap_new(sizeof(proc_id_t), 0, 704830503, 487304583058, process_hash, process_compare, NULL, NULL);
+	if (!process_by_pid) {
+		preboot_fail("Failed to allocate memory for process list");
+	}
 
 	if (logical_cpu_id() == 0) {
 		/* Check for kernel commandline to start the installer stub */
@@ -496,16 +498,16 @@ void init_process()
 		}
 	}
 
-	dprintf("Spawning /programs/init\n");
-	process_t* init = proc_load("/programs/init", 0, "/");
+	dprintf("Spawning " INIT_PROGRAM "\n");
+	process_t* init = proc_load(INIT_PROGRAM, 0, "/");
 	if (!init) {
-		preboot_fail("/programs/init missing or invalid!\n");
+		preboot_fail(INIT_PROGRAM " missing or invalid!\n");
 	}
 	dprintf("Entering proc_loop\n");
 	proc_loop();
 }
 
-void proc_loop()
+_Noreturn void proc_loop()
 {
 	uint8_t cpu = logical_cpu_id();
 	register_interrupt_handler(APIC_WAKE_IPI, wakeup_callback, dev_zero, NULL);
@@ -515,18 +517,19 @@ void proc_loop()
 		/* BSP signals APs to start their proc_loops too */
 		simple_cv_broadcast(&boot_condition);
 	}
-	uint32_t last = get_ticks();
+	uint64_t last = get_ticks();
 	proc_register_idle(proc_update_cpu_usage, IDLE_BACKGROUND, 150);
 	while (true) {
-		if (proc_list[cpu] == NULL) {
+		if (likely(proc_list[cpu] != NULL)) {
+			proc_run_next(cpu);
+		} else {
 			/* This CPU has nothing to do; prevent busy spin */
 			__asm__("hlt");
-			continue;
 		}
-		proc_run_next(cpu);
-		if (get_ticks() != last) {
+		uint64_t ticks = get_ticks();
+		if (unlikely(ticks != last)) {
 			run_idles(cpu);
-			last = get_ticks();
+			last = ticks;
 		}
 	}
 }

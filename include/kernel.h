@@ -45,6 +45,9 @@
         dprintf(fmt, ##__VA_ARGS__); \
     } while (0)
 
+#define likely(x) __builtin_expect(!!(x), 1)
+#define unlikely(x) __builtin_expect(!!(x), 0)
+
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>

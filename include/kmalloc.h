@@ -152,7 +152,7 @@ uint64_t get_total_memory(void);
  *
  * @param msg Null-terminated string describing the failure.
  */
-void preboot_fail(const char* msg);
+_Noreturn void preboot_fail(const char* msg);
 
 void* kmalloc_aligned(uint64_t size, uint64_t align);
 

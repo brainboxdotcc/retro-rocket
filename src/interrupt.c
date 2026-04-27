@@ -91,9 +91,7 @@ void Interrupt(uint64_t isrnumber, uint64_t errorcode, uint64_t rip) {
 		/* There is no shared interrupt routing on these interrupts,
 		 * they are purely routed to interested handlers
 		 */
-		if (si->interrupt_handler) {
-			si->interrupt_handler((uint8_t) isrnumber, errorcode, rip, si->opaque);
-		}
+		si->interrupt_handler((uint8_t) isrnumber, errorcode, rip, si->opaque);
 	}
 
 	if (isrnumber < 32) {
@@ -115,9 +113,7 @@ void IRQ(uint64_t isrnumber, uint64_t irqnum) {
 	 * Each device ISR must check/clear its own cause registers.
 	 */
 	for (shared_interrupt_t* si = shared_interrupt[logical_cpu_id()][isrnumber]; si; si = si->next) {
-		if (si->interrupt_handler) {
-			si->interrupt_handler((uint8_t)isrnumber, 0, irqnum, si->opaque);
-		}
+		si->interrupt_handler((uint8_t)isrnumber, 0, irqnum, si->opaque);
 	}
 
 	entropy_irq_event();
