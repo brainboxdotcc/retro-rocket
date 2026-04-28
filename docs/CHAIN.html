@@ -123,38 +123,53 @@ $(function(){initNavTree('CHAIN.html','',''); });
   <div class="headertitle"><div class="title">CHAIN Keyword </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">CHAIN string-expression[,boolean-expression]</div>
-</div><!-- fragment --><p>Starts a new BASIC program, pausing the current program until the new one finishes. <br  />
- The string expression must evaluate to the <b>filename</b> of a program accessible from the filesystem.</p>
+<div class="textblock"><div class="fragment"><div class="line">CHAIN string-expression[,boolean-expression] [MEMORY SMALL|MEDIUM|LARGE|HUGE]</div>
+</div><!-- fragment --><p>Starts a new BASIC program, pausing the current program until the new one finishes. The string expression must evaluate to the <b>filename</b> of a program accessible from the filesystem.</p>
 <ul>
 <li>Any variables marked as <a class="el" href="GLOBAL.html">GLOBAL</a> will be shared with the child program.</li>
-<li>When the chained program terminates, control returns to the line immediately following the <span class="tt">CHAIN</span> statement in the calling program. <br  />
-</li>
+<li>When the chained program terminates, control returns to the line immediately following the <span class="tt">CHAIN</span> statement in the calling program.</li>
 <li>Variables not marked as global are not visible to the chained program.</li>
 <li>If the optional boolean expression is included and evaluates to true, the program will be launched as a task in the background and the caller will resume immediately.</li>
+<li>The optional <span class="tt">MEMORY</span> clause selects the memory model used by the new program.</li>
 </ul>
+<hr  />
+<h5 class="doxsection"><a class="anchor" id="memory-models"></a>
+Memory Models</h5>
+<p>The <span class="tt">MEMORY</span> option controls the size of the allocator used by the child program:</p>
+<ul>
+<li><span class="tt">SMALL</span> — up to 32 MiB per allocation</li>
+<li><span class="tt">MEDIUM</span> — up to 64 MiB per allocation <em>(default)</em></li>
+<li><span class="tt">LARGE</span> — up to 128 MiB per allocation</li>
+<li><span class="tt">HUGE</span> — up to 256 MiB per allocation</li>
+</ul>
+<p>If not specified, the child program uses the <b>same memory model as the caller</b>, or <span class="tt">MEDIUM</span> if no parent model applies.</p>
+<p>If the requested memory model cannot be allocated, the <span class="tt">CHAIN</span> will fail with an out-of-memory error.</p>
+<dl class="section remark"><dt>Remarks</dt><dd>The memory model does not limit the total memory a program may use.It limits the size of any single contiguous allocation (for example, a string or buffer), and programs may use more memory overall but individual allocations cannot exceed the selected model.</dd></dl>
+<hr  />
 <dl class="section remark"><dt>Remarks</dt><dd><span class="tt">CHAIN</span> resolves relative paths from the <b>current working directory</b>. </dd>
 <dd>
 Use absolute paths (e.g. <span class="tt">/programs/login</span>) if you don’t want this to depend on <span class="tt">CHDIR</span>.</dd></dl>
 <hr  />
-<h5 class="doxsection"><a class="anchor" id="example-7"></a>
-Example</h5>
+<h5 class="doxsection"><a class="anchor" id="examples-150"></a>
+Examples</h5>
 <div class="fragment"><div class="line">PRINT &quot;Before chain&quot;</div>
 <div class="line">GLOBAL X = 42</div>
 <div class="line">CHAIN &quot;childprog&quot;</div>
 <div class="line">PRINT &quot;Back again, X = &quot;; X</div>
-</div><!-- fragment --><p>If <span class="tt">childprog</span> uses the global variable <span class="tt">X</span>, it will see the value <span class="tt">42</span>. <br  />
- After <span class="tt">childprog</span> ends, execution resumes.</p>
-<hr  />
+</div><!-- fragment --><div class="fragment"><div class="line">CHAIN &quot;worker&quot;, TRUE MEMORY SMALL</div>
+</div><!-- fragment --><div class="fragment"><div class="line">CHAIN &quot;bigdata&quot; MEMORY LARGE</div>
+</div><!-- fragment --><div class="fragment"><div class="line">CHAIN &quot;analysis&quot; MEMORY HUGE</div>
+</div><!-- fragment --><hr  />
 <h5 class="doxsection"><a class="anchor" id="notes-148"></a>
 Notes</h5>
 <ul>
 <li>Chained programs run in a <b>new interpreter instance</b> within a new process. The parent remains suspended until the child exits, unless the child is launched as a background task.</li>
-<li>A chained program may itself issue <span class="tt">CHAIN</span> statements, nesting as required. <br  />
-</li>
+<li>A chained program may itself issue <span class="tt">CHAIN</span> statements, nesting as required.</li>
 <li>If the file specified in <span class="tt">string-expression</span> cannot be found, an error is raised (and can be caught with <span class="tt">ON ERROR</span>).</li>
+<li>The memory model determines the <b>maximum size of any single allocation</b>, not the total memory usage of the program.</li>
 <li>Unlike BBC BASIC, Retro Rocket’s <span class="tt">CHAIN</span> does <b>not</b> discard the caller - the parent program continues afterwards.</li>
 </ul>
+<hr  />
 <p><b>See also:</b> <a class="el" href="GLOBAL.html">GLOBAL</a>, <a class="el" href="LIBRARY.html">LIBRARY</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
