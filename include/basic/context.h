@@ -10,6 +10,13 @@
 #include "audio.h"
 #include "data.h"
 
+typedef enum memory_model_t {
+	mm_small = 25,
+	mm_medium = 26,
+	mm_large = 27,
+	mm_huge = 28,
+} memory_model_t;
+
 /**
  * @brief Represents a queued UDP packet.
  *
@@ -486,7 +493,7 @@ typedef struct basic_ctx {
  * @param error Pointer to store any error messages.
  * @return A pointer to the initialized `basic_ctx` context.
  */
-struct basic_ctx* basic_init(const char *program, uint32_t pid, const char* file, char** error);
+struct basic_ctx* basic_init(const char *program, uint32_t pid, const char* file, char** error, enum memory_model_t model);
 
 /**
  * @brief Destroy the BASIC context and free associated resources.

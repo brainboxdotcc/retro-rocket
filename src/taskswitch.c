@@ -108,7 +108,7 @@ bool is_basic(const char* buf, size_t size) {
 	return false;
 }
 
-static process_t* proc_create_common(const char* source, pid_t parent_pid, const char* csd, const char* program_name, const char* directory, size_t size)
+static process_t* proc_create_common(const char* source, pid_t parent_pid, const char* csd, const char* program_name, const char* directory, size_t size, enum memory_model_t model)
 {
 	char* error = "Unknown error";
 
@@ -126,7 +126,7 @@ static process_t* proc_create_common(const char* source, pid_t parent_pid, const
 		return NULL;
 	}
 
-	newproc->code = basic_init(source, nextid, directory, &error);
+	newproc->code = basic_init(source, nextid, directory, &error, model);
 	if (!newproc->code) {
 		kfree_null(&newproc);
 		kprintf("Fatal error parsing program: %s\n", error);
@@ -204,7 +204,7 @@ static process_t* proc_create_common(const char* source, pid_t parent_pid, const
 	return newproc;
 }
 
-process_t* proc_load(const char* fullpath, pid_t parent_pid, const char* csd)
+process_t* proc_load(const char* fullpath, pid_t parent_pid, const char* csd, enum memory_model_t model)
 {
 	fs_directory_entry_t* fsi = fs_get_file_info(fullpath);
 	if (fsi == NULL || (fsi->flags & FS_DIRECTORY)) {
@@ -229,7 +229,7 @@ process_t* proc_load(const char* fullpath, pid_t parent_pid, const char* csd)
 		return NULL;
 	}
 
-	process_t* newproc = proc_create_common((const char*)programtext, parent_pid, csd, fsi->filename, fullpath, fsi->size);
+	process_t* newproc = proc_create_common((const char*)programtext, parent_pid, csd, fsi->filename, fullpath, fsi->size, model);
 	kfree_null(&programtext);
 	return newproc;
 }
@@ -239,7 +239,7 @@ process_t* proc_load_anonymous(const char* source, pid_t parent_pid, const char*
 	const char* name = "<anonymous>";
 	const char* directory = "<eval>";
 
-	return proc_create_common(source, parent_pid, csd, name, directory, strlen(source));
+	return proc_create_common(source, parent_pid, csd, name, directory, strlen(source), mm_medium);
 }
 
 process_t* proc_cur(uint8_t logical_cpu)
@@ -499,7 +499,7 @@ void init_process()
 	}
 
 	dprintf("Spawning " INIT_PROGRAM "\n");
-	process_t* init = proc_load(INIT_PROGRAM, 0, "/");
+	process_t* init = proc_load(INIT_PROGRAM, 0, "/", mm_medium);
 	if (!init) {
 		preboot_fail(INIT_PROGRAM " missing or invalid!\n");
 	}

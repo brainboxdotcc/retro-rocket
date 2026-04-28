@@ -265,7 +265,7 @@ bool basic_hash_lines(struct basic_ctx *ctx, char **error) {
 	return true;
 }
 
-struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file, char **error) {
+struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file, char **error, enum memory_model_t model) {
 	build_keyword_prefix_offsets();
 	build_builtin_fn_maps();
 	if (!isdigit(*program)) {
@@ -275,7 +275,7 @@ struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file
 			*error = "Out of memory";
 			return NULL;
 		}
-		struct basic_ctx *c = basic_init(numbered, pid, file, error);
+		struct basic_ctx *c = basic_init(numbered, pid, file, error, model);
 		kfree_null(&numbered);
 		return c;
 	}
@@ -292,7 +292,7 @@ struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file
 		*error = "Out of memory";
 		return NULL;
 	}
-	buddy_init(ctx->allocator, 6, 26, 26);
+	buddy_init(ctx->allocator, 6, (int)model, (int)model);
 	ctx->maps = hashmap_new_with_allocator(varmap_malloc, varmap_realloc, varmap_free, sizeof(basic_map_handle_entry), 0, SEED0, SEED1, int64_hash, int64_compare, elfree_map_handle_entry, ctx->allocator);
 	ctx->active_restrictions = NULL;
 	ctx->child_restrictions = NULL;
@@ -669,13 +669,49 @@ void chain_statement(struct basic_ctx *ctx) {
 	uint32_t cpu = logical_cpu_id();
 	process_t *proc = proc_cur(cpu);
 	accept_or_return(CHAIN, ctx);
+
 	const char *pn = str_expr(ctx);
-	process_t *p = proc_load(pn, proc->pid, proc->csd);
+
 	bool background = false;
+	memory_model_t memory_model = mm_medium;
+
+	/* Optional: , TRUE|FALSE */
 	if (tokenizer_token(ctx) == COMMA) {
 		tokenizer_next(ctx);
 		background = expr(ctx);
 	}
+
+	/* Optional: MEMORY SMALL|MEDIUM|LARGE|HUGE */
+	if (tokenizer_token(ctx) == MEMORY) {
+		tokenizer_next(ctx);
+
+		switch (tokenizer_token(ctx)) {
+			case SMALL:
+				memory_model = mm_small;
+				break;
+
+			case MEDIUM:
+				memory_model = mm_medium;
+				break;
+
+			case LARGE:
+				memory_model = mm_large;
+				break;
+
+			case HUGE:
+				memory_model = mm_huge;
+				break;
+
+			default:
+				tokenizer_error_print(ctx, "Expected SMALL, MEDIUM, LARGE or HUGE");
+				accept_or_return(NEWLINE, ctx);
+				return;
+		}
+
+		tokenizer_next(ctx);
+	}
+
+	process_t *p = proc_load(pn, proc->pid, proc->csd, memory_model);
 	if (p == NULL) {
 		accept_or_return(NEWLINE, ctx);
 		return;
@@ -725,6 +761,7 @@ void chain_statement(struct basic_ctx *ctx) {
 	if (!background) {
 		proc_wait(proc, p->pid);
 	}
+
 	accept_or_return(NEWLINE, ctx);
 }
 

@@ -8,6 +8,8 @@
 
 #include <kernel.h>
 
+enum memory_model_t;
+
 /**
  * @brief Represents the current state of a process.
  */
@@ -133,7 +135,7 @@ typedef struct idle_timer {
  * @param csd Current selected directory
  * @return process_t* Pointer to new process details
  */
-process_t* proc_load(const char* fullpath, pid_t parent_pid, const char* csd);
+process_t* proc_load(const char* fullpath, pid_t parent_pid, const char* csd, enum memory_model_t model);
 
 /**
  * @brief Find a process by PID.

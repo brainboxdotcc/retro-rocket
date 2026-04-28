@@ -225,6 +225,11 @@ typedef void (*keyword_handler_t)(struct basic_ctx*);
     T(MEMMOVE, STMT, memmove_statement)			/* 153 */ \
     T(RESTRICT, STMT, restrict_statement)		/* 154 */ \
     T(DERESTRICT, STMT, derestrict_statement)		/* 155 */ \
+    T(MEMORY, STMT, NULL)				/* 156 */ \
+    T(SMALL, STMT, NULL)				/* 157 */ \
+    T(MEDIUM, STMT, NULL)				/* 158 */ \
+    T(LARGE, STMT, NULL)				/* 159 */ \
+    T(HUGE, STMT, NULL)					/* 160 */ \
 
 GENERATE_ENUM_LIST(TOKEN, token_t)
 
