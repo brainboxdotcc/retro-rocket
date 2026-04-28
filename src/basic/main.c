@@ -94,7 +94,7 @@ int varmap_compare(const void *a, const void *b, void *udata) {
 	if (la == 0) {
 		return 0;
 	}
-	return strcmp(va->varname, vb->varname);
+	return memcmp(va->varname, vb->varname, la);
 }
 
 /* ===== Element free (udata = struct buddy_allocator*) ===== */
@@ -576,6 +576,7 @@ struct basic_ctx *basic_clone(struct basic_ctx *old) {
 	memcpy(ctx->for_stack, old->for_stack, sizeof(ctx->for_stack));
 	memcpy(ctx->repeat_stack, old->repeat_stack, sizeof(ctx->repeat_stack));
 	memcpy(ctx->while_stack, old->while_stack, sizeof(ctx->while_stack));
+	memcpy(ctx->loop_state_stack, old->loop_state_stack, sizeof(ctx->loop_state_stack));
 	memcpy(ctx->audio_streams, old->audio_streams, sizeof(ctx->audio_streams));
 	memcpy(ctx->envelopes, old->envelopes, sizeof(ctx->envelopes));
 

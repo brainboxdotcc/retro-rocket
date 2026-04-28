@@ -190,12 +190,12 @@ int64_t basic_secure_random(struct basic_ctx* ctx)
 
 char* basic_secure_random_string(struct basic_ctx* ctx)
 {
-	char out_str[MAX_STRINGLEN];
 	static const char* default_alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t generate_len = intval;
-	if (generate_len < 1 || generate_len >= MAX_STRINGLEN) {
+	char* out_str = buddy_malloc(ctx->allocator, generate_len);
+	if (generate_len < 1 || !out_str) {
 		tokenizer_error_print(ctx, "Invalid length of secure random string to generate");
 		return "";
 	}
@@ -206,10 +206,13 @@ char* basic_secure_random_string(struct basic_ctx* ctx)
 		alphabet = default_alphabet;
 	}
 	if (!csprng_string_from_alphabet(out_str, generate_len, alphabet, strlen(alphabet))) {
+		buddy_free(ctx->allocator, out_str);
 		tokenizer_error_print(ctx, "Unable to generate secure random string, try again later");
 		return "";
 	}
-	return (char*)gc_strdup(ctx, out_str);
+	char* out = (char*)gc_strdup(ctx, out_str);
+	buddy_free(ctx->allocator, out_str);
+	return out;
 }
 
 int64_t basic_asc(struct basic_ctx* ctx)

@@ -29,17 +29,29 @@ const char* make_full_path(struct basic_ctx* ctx, const char* relative)
 
 char* basic_readstring(struct basic_ctx* ctx)
 {
-	int ofs = 0;
+	size_t ofs = 0;
+	size_t cap = MAX_STRINGLEN;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	PARAMS_END("READ$", "");
-	char* res = buddy_malloc(ctx->allocator, MAX_STRINGLEN);
+	char* res = buddy_malloc(ctx->allocator, cap);
 	if (!res) {
 		tokenizer_error_print(ctx, "Error allocating string buffer");
 		return "";
 	}
 	*res = 0;
-	while (!_eof(intval) && ofs < MAX_STRINGLEN) {
+	while (!_eof(intval)) {
+		if (ofs + 1 >= cap) {
+			cap *= 2;
+			char* new_res = buddy_realloc(ctx->allocator, res, cap);
+			if (!new_res) {
+				tokenizer_error_print(ctx, "Error allocating string buffer");
+				buddy_free(ctx->allocator, res);
+				return "";
+			}
+			res = new_res;
+		}
+
 		if (_read(intval, res + ofs, 1) != 1) {
 			tokenizer_error_printf(ctx, "Error reading from file: %s", fs_strerror(fs_get_error()));
 			buddy_free(ctx->allocator, res);
@@ -51,7 +63,7 @@ char* basic_readstring(struct basic_ctx* ctx)
 			ofs++;
 		}
 	}
-	*(res+ofs) = 0;
+	*(res + ofs) = 0;
 	char* ret = (char*)gc_strdup(ctx, res);
 	buddy_free(ctx->allocator, res);
 	return ret;

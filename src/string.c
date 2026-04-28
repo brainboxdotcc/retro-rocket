@@ -191,16 +191,15 @@ const char* gc_try_concat(struct basic_ctx *ctx, const char* s1, const char* s2)
 	char* dest = ctx->string_gc_storage_next;
 	char* end = ctx->string_gc_storage + STRING_GC_AREA_SIZE;
 	char* out = dest;
-	size_t cur = 0;
 
 	while (*s1) {
-		if (out >= end - 1 || ++cur >= MAX_STRINGLEN) {
+		if (out >= end - 1) {
 			return NULL;
 		}
 		*out++ = *s1++;
 	}
 	while (*s2) {
-		if (out >= end - 1 || ++cur >= MAX_STRINGLEN) {
+		if (out >= end - 1) {
 			return NULL;
 		}
 		*out++ = *s2++;
@@ -235,14 +234,13 @@ const char* gc_from_tokenizer_string(struct basic_ctx *ctx) {
 	char* dest = ctx->string_gc_storage_next;
 	char* end = ctx->string_gc_storage + STRING_GC_AREA_SIZE;
 	char* out = dest;
-	size_t cur = 0;
 
 	if (*ctx->ptr == '"') {
 		ctx->ptr++;
 	}
 
 	while (*ctx->ptr && *ctx->ptr != '"') {
-		if (out >= end - 1 || ++cur >= MAX_STRINGLEN) {
+		if (out >= end - 1) {
 			return NULL;
 		}
 		*out++ = *ctx->ptr++;

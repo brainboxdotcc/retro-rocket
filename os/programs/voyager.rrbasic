@@ -1,0 +1,363 @@
+LIBRARY LIB$ + "/http"
+LIBRARY LIB$ + "/ansi"
+
+REM globals
+max = 100
+lines = 0
+top = 0
+currentx = 0
+currenty = 0
+dirty = FALSE
+hl_on = TRUE
+DIM content$, max
+lastfind$ = ""
+
+lastrepl$ = ""
+hit_line = 0
+hit_pos = 0
+
+PAGE OFF
+
+REM load file, draw UI, start editor input loop
+PROCload(ARGS$)
+CLS
+PROCtext
+PROCedit
+END
+
+REM draw UI around editor window
+DEF PROCdraw
+	BACKGROUND 1
+	COLOUR 15
+	CURSOR 1, TERMHEIGHT
+	PROCclearLineFromCursor
+	CURSOR 2, TERMHEIGHT
+	GCOL &AA
+    RECTANGLE 0, GRAPHICS_HEIGHT - 8, GRAPHICS_WIDTH - 1, GRAPHICS_HEIGHT - 1
+	PRINT "ESC EXIT", "^S SAVE", "^W WHEREIS", "^R REPLACE", "^T ";
+	CURSOR TERMWIDTH - 9, TERMHEIGHT
+	PRINT currentx; ","; top + currenty; " ";
+	CURSOR 1, 0
+	PROCclearLineFromCursor
+	RECTANGLE 0, 0, GRAPHICS_WIDTH - 1, 7
+	CURSOR TERMWIDTH / 2 - 4, 0
+	PRINT "VOYAGER";
+	COLOUR 7
+	BACKGROUND 0
+	CURSOR 1, 2
+ENDPROC
+
+REM Display prompt in bottom section of screen
+DEF PROCprompt(prompt$)
+	PROCdraw
+	BACKGROUND 1
+	COLOUR 15
+	CURSOR 1, TERMHEIGHT
+	PROCclearLineFromCursor
+	CURSOR 2, TERMHEIGHT
+	PRINT prompt$; ": ";
+	AUTOFLIP FALSE
+	FLIP
+ENDPROC
+
+REM clear prompt
+DEF PROCendPrompt
+	CLS
+	PROCtext
+ENDPROC
+
+REM display scrollable text in window
+DEF PROCtext
+	PROChideCursor
+	CLS
+	PROCdraw
+	AUTOFLIP FALSE
+	CURSOR 1, 2
+	FOR l = top TO top + TERMHEIGHT - 3
+		PROCclearLineFromCursor
+		IF l < max THEN
+            PRINT LEFT$(content$(l), TERMWIDTH)
+		ENDIF
+	NEXT
+	FLIP
+	PROCshowCursor
+ENDPROC
+
+REM load a file into the array, translating TAB to four spaces
+DEF PROCload(file$)
+    PROChttp_get("https://brainbox.cc/")
+    body = FNhttp_result("body")
+    n = MAPGET(body, "size")
+    lines = 0
+    FOR i = 0 TO n - 1
+        PART$ = MAPGET$(body, STR$(i))
+        PART$ = REPLACE$(PART$, CHR$(13) + CHR$(10), CHR$(13))
+        PART$ = REPLACE$(PART$, CHR$(10) + CHR$(13), CHR$(13))
+        PART$ = REPLACE$(PART$, CHR$(10), CHR$(13))
+        REPEAT
+            CONT$ = TOKENIZE$(PART$, CHR$(13))
+            IF LEN(CONT$) > TERMWIDTH - 2 THEN
+                REPEAT
+                    L$ = LEFT$(CONT$, TERMWIDTH - 2)
+                    CONT$ = MID$(CONT$, TERMWIDTH - 2, LEN(CONT$))
+                    content$(lines) = L$
+                    lines = lines + 1
+                    IF lines = max THEN
+                        PROCgrow
+                    ENDIF
+                UNTIL LEN(CONT$) <= TERMWIDTH - 2
+            ENDIF
+            content$(lines) = CONT$
+            lines = lines + 1
+            IF lines = max THEN
+                PROCgrow
+            ENDIF
+        UNTIL PART$ = ""
+    NEXT
+ENDPROC
+
+REM increase array used to store text
+DEF PROCgrow
+	max = max + 100
+	REDIM content$, max
+ENDPROC
+
+REM error handler
+DEF PROCfail
+	PRINT "Could not open file: "; ARGS$
+	END
+ENDPROC
+
+REM handle editor input loop
+DEF PROCedit
+	REPEAT
+		CURSOR currentx + 1, currenty + 2
+    	AUTOFLIP FALSE
+		FLIP
+		KGET key$
+		PROCprocessKey(ASC(key$))
+	UNTIL FALSE
+ENDPROC
+
+REM handle keypress
+DEF PROCprocessKey(in)
+	incopy = in
+	ctrl = CTRLKEY
+	IF ctrl = TRUE THEN PROCctrl(CHR$(incopy))
+	IF ctrl = TRUE THEN ENDPROC
+	IF in = 27 THEN PROCquit
+	IF in = 250 THEN PROCup
+	IF in = 251 THEN PROCdown
+	IF in = 252 THEN PROCleft
+	IF in = 253 THEN PROCright
+	IF in = 249 THEN PROCend
+	IF in = 254 THEN PROChome
+	IF in = 245 THEN PROCpageUp
+	IF in = 246 THEN PROCpageDown
+	cx = LEN(content$(top + currenty))
+	IF currentx > cx THEN currentx = cx
+	IF (currenty + top) > (lines - 1) THEN currenty = lines - top - 1
+ENDPROC
+
+REM handle CTRL+key
+DEF PROCctrl(ctrlkey$)
+	IF UPPER$(ctrlkey$) = "S" THEN PROCsave
+	IF UPPER$(ctrlkey$) = "W" THEN PROCsearch
+	PROCtext
+ENDPROC
+
+REM handle save
+DEF PROCsave
+	IF ARGS$ = "" THEN PROCsaveNew
+	IF ARGS$ = "" THEN ENDPROC
+	PROCsaveAs
+ENDPROC
+
+REM handle save over existing file
+DEF PROCsaveAs
+	PROCprompt("Save as [" + ARGS$ + "]")
+	AUTOFLIP TRUE
+	INPUT file$
+	AUTOFLIP FALSE
+	IF file$ = "" THEN file$ = ARGS$
+	PROCdoSave(file$)
+ENDPROC
+
+REM handle save to new file
+DEF PROCsaveNew
+	PROCprompt("Save as")
+	AUTOFLIP TRUE
+	INPUT file$
+	AUTOFLIP FALSE
+	PROCdoSave(file$)
+ENDPROC
+
+REM save file
+DEF PROCdoSave(saveFileName$)
+	FH = OPENOUT(saveFileName$)
+	IF FH < 0 THEN PROCsaveError(saveFileName$)
+	IF FH < 0 THEN ENDPROC
+	REM write file line by line
+	FOR X = 0 TO lines - 1
+		WRITE FH, content$(X)
+	NEXT
+	CLOSE FH
+	dirty = FALSE
+ENDPROC
+
+REM display save error
+DEF PROCsaveError
+	PROCprompt("Unable to save file! Press any key to continue")
+	KGET dummy$
+ENDPROC
+
+DEF PROCsearch
+	PROCprompt("Search text")
+	AUTOFLIP TRUE
+	INPUT find$
+	AUTOFLIP FALSE
+	IF find$ <> "" THEN lastfind$ = find$
+	IF lastfind$ = "" THEN
+		PROCendPrompt
+		ENDPROC
+	ENDIF
+	PROCdoFind(lastfind$)
+ENDPROC
+
+REM forward find from cursor, wraps once
+DEF PROCdoFind(needle$)
+	start_line = top + currenty
+	start_col = currentx + 1
+
+	IF FNscanFrom(start_line, start_col, needle$) = TRUE THEN
+	    PROCendPrompt
+	    ENDPROC
+	ENDIF
+
+	IF FNscanFrom(0, 0, needle$) = TRUE THEN
+	    PROCendPrompt
+	    ENDPROC
+	ENDIF
+
+    PROCtext
+	PROCprompt("Not found. Press any key")
+	KGET dummy$
+	PROCendPrompt
+ENDPROC
+
+REM scan lines using INSTR; positions are 1-based
+DEF FNscanFrom(line_from, col_from, needle$)
+	FOR L = line_from TO lines - 1
+		hay$ = content$(L)
+		pos = INSTR(hay$, needle$)
+		IF pos > 0 THEN
+		    PROCmoveCursorToHit(L, pos - 1)
+            =TRUE
+        ENDIF
+	NEXT
+=FALSE
+
+REM place cursor on L,pos and bring into view
+DEF PROCmoveCursorToHit(L, pos)
+	REM set top so that L is visible
+	win_top = top
+	win_bot = top + TERMHEIGHT - 3
+	IF L < win_top THEN top = L
+	IF L > win_bot THEN top = L - (TERMHEIGHT - 3)
+	IF top < 0 THEN top = 0
+	currenty = L - top
+	currentx = pos
+	IF currentx > (TERMWIDTH - 1) THEN currentx = TERMWIDTH - 1
+    PROCtext
+	PROCprompt("Replace this occurrence? (Y)es/(N)o/(A)ll/(Q)uit")
+    CURSOR currentx + 1, currenty + 2
+ENDPROC
+
+REM handle escape key
+DEF PROCquit
+	IF dirty = TRUE THEN PROCconfirm
+	IF dirty = TRUE THEN ENDPROC
+	CLS
+	END
+ENDPROC
+
+REM confirm exit if file contents changed
+DEF PROCconfirm
+	PROCprompt("Contents changed. Are you sure?")
+	KGET input$
+	PROCtext
+	IF UPPER$(input$) = "N" THEN ENDPROC
+	CLS
+	END
+ENDPROC
+
+REM handle cursor left key
+DEF PROCleft
+	currentx = currentx - 1
+	IF currentx < 0 THEN currentx = 0
+	PROCtext
+ENDPROC
+
+REM handle cursor up key
+DEF PROCup
+	currenty = currenty - 1
+	IF currenty < 0 THEN PROCscrollUp
+	PROCtext
+ENDPROC
+
+REM handle cursor down key
+DEF PROCdown
+	currenty = currenty + 1
+	IF currenty > (TERMHEIGHT - 3) THEN PROCscrollDown
+	PROCtext
+ENDPROC
+
+REM scroll screen down one line
+DEF PROCscrollDown
+	currenty = TERMHEIGHT - 3
+	top = top + 1
+	IF top > (TERMHEIGHT - 2 + lines) THEN top = TERMHEIGHT - 2 + lines
+	PROCtext
+ENDPROC
+
+REM Scroll screen up one line
+DEF PROCscrollUp
+	currenty = 0
+	top = top - 1
+	IF top < 0 THEN top = 0
+ENDPROC
+
+REM handle cursor right key
+DEF PROCright
+	currentx = currentx + 1
+	IF currentx > (TERMWIDTH - 1) THEN currentx = TERMWIDTH - 1
+	PROCtext
+ENDPROC
+
+REM handle end key
+DEF PROCend
+	currentx = LEN(content$(top + currenty))
+	IF currentx > (TERMWIDTH - 1) THEN currentx = TERMWIDTH - 1
+	PROCtext
+ENDPROC
+
+REM handle home key
+DEF PROChome
+	currentx = 0
+	PROCtext
+ENDPROC
+
+REM handle page up key
+DEF PROCpageUp
+	top = top - TERMHEIGHT - 2
+	IF top < 0 THEN top = 0
+	PROCtext
+ENDPROC
+
+REM handle page down key
+DEF PROCpageDown
+	IF (top + currenty + TERMHEIGHT - 2) > (lines - 1) THEN ENDPROC
+	top = top + TERMHEIGHT - 2
+	IF top > (TERMHEIGHT - 2 + lines) THEN top = TERMHEIGHT - 2 + lines
+	PROCtext
+ENDPROC

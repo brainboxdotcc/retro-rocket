@@ -467,9 +467,12 @@ const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx)
 		ctx->active_restrictions = atomic->active_restrictions;
 		ctx->child_restrictions  = atomic->child_restrictions;
 
-
 		memcpy(ctx->audio_streams, atomic->audio_streams, sizeof(ctx->audio_streams));
 		memcpy(ctx->envelopes, atomic->envelopes, sizeof(ctx->envelopes));
+		memcpy(ctx->loop_state_stack, atomic->loop_state_stack, sizeof(ctx->loop_state_stack));
+		memcpy(ctx->for_stack, atomic->for_stack, sizeof(ctx->for_stack));
+		memcpy(ctx->repeat_stack, atomic->repeat_stack, sizeof(ctx->repeat_stack));
+		memcpy(ctx->while_stack, atomic->while_stack, sizeof(ctx->while_stack));
 
 		/* Only free the base struct! */
 		buddy_free(ctx->allocator, atomic);
@@ -622,6 +625,10 @@ int64_t basic_eval_int_fn(const char* fn_name, struct basic_ctx* ctx)
 
 		memcpy(ctx->audio_streams, atomic->audio_streams, sizeof(ctx->audio_streams));
 		memcpy(ctx->envelopes, atomic->envelopes, sizeof(ctx->envelopes));
+		memcpy(ctx->loop_state_stack, atomic->loop_state_stack, sizeof(ctx->loop_state_stack));
+		memcpy(ctx->for_stack, atomic->for_stack, sizeof(ctx->for_stack));
+		memcpy(ctx->repeat_stack, atomic->repeat_stack, sizeof(ctx->repeat_stack));
+		memcpy(ctx->while_stack, atomic->while_stack, sizeof(ctx->while_stack));
 
 		/* Only free the base struct! */
 		buddy_free(ctx->allocator, atomic);
@@ -697,6 +704,10 @@ void basic_eval_double_fn(const char* fn_name, struct basic_ctx* ctx, double* re
 
 		memcpy(ctx->audio_streams, atomic->audio_streams, sizeof(ctx->audio_streams));
 		memcpy(ctx->envelopes, atomic->envelopes, sizeof(ctx->envelopes));
+		memcpy(ctx->loop_state_stack, atomic->loop_state_stack, sizeof(ctx->loop_state_stack));
+		memcpy(ctx->for_stack, atomic->for_stack, sizeof(ctx->for_stack));
+		memcpy(ctx->repeat_stack, atomic->repeat_stack, sizeof(ctx->repeat_stack));
+		memcpy(ctx->while_stack, atomic->while_stack, sizeof(ctx->while_stack));
 
 		/* Only free the base struct! */
 		buddy_free(ctx->allocator, atomic);

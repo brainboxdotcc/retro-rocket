@@ -507,18 +507,52 @@ static bool is_expression_start(int token)
 	return false;
 }
 
+static bool printable_append(struct basic_ctx* ctx, char** out, size_t* used, size_t* cap, const char* text)
+{
+	size_t len = strlen(text);
+
+	if (*used + len + 1 > *cap) {
+		size_t new_cap = *cap;
+
+		while (*used + len + 1 > new_cap) {
+			new_cap *= 2;
+		}
+
+		char* new_out = buddy_realloc(ctx->allocator, *out, new_cap);
+		if (!new_out) {
+			tokenizer_error_print(ctx, "Out of memory");
+			return false;
+		}
+
+		*out = new_out;
+		*cap = new_cap;
+	}
+
+	memcpy(*out + *used, text, len + 1);
+	*used += len;
+
+	return true;
+}
+
 char* printable_syntax(struct basic_ctx* ctx)
 {
 	int numprints = 0;
 	bool no_newline = false;
 	bool next_hex = false;
-	char buffer[MAX_STRINGLEN], out[MAX_STRINGLEN];
+	char buffer[64];
+
+	size_t out_cap = MAX_STRINGLEN;
+	size_t out_used = 0;
+	char* out = buddy_malloc(ctx->allocator, out_cap);
+	if (!out) {
+		tokenizer_error_print(ctx, "Out of memory");
+		return NULL;
+	}
 
 	*out = 0;
 
-	do {
+	while (true) {
 		bool handled = false;
-		no_newline = false;
 		*buffer = 0;
 
 		if (tokenizer_token(ctx) == NEWLINE || tokenizer_token(ctx) == ENDOFINPUT) {
@@ -527,19 +561,24 @@ char* printable_syntax(struct basic_ctx* ctx)
 
 		switch (tokenizer_token(ctx)) {
 			case COMMA:
-				strlcat(out, "\t", MAX_STRINGLEN);
+				if (!printable_append(ctx, &out, &out_used, &out_cap, "\t")) {
+					buddy_free(ctx->allocator, out);
+					return NULL;
+				}
 				tokenizer_next(ctx);
 				handled = true;
 				break;
 
 			case SEMICOLON:
-				no_newline = 1;
 				tokenizer_next(ctx);
+				if (tokenizer_token(ctx) == NEWLINE || tokenizer_token(ctx) == ENDOFINPUT) {
+					no_newline = true;
+				}
 				handled = true;
 				break;
 
-			case TILDE: /* next value in hex */
-				next_hex = 1;
+			case TILDE:
+				next_hex = true;
 				tokenizer_next(ctx);
 				handled = true;
 				break;
@@ -549,52 +588,68 @@ char* printable_syntax(struct basic_ctx* ctx)
 					tokenizer_error_print(ctx, "Syntax error");
 					break;
 				}
-				/* Expression (string or numeric) - let the unified parser decide. */
+
 				up_value v = up_make_int(0);
-				up_eval_value(ctx, &v);  /* <- unified typed evaluator */
+				up_eval_value(ctx, &v);
 
 				if (v.kind == UP_STR) {
-					/* Strings: append as-is */
-					strlcat(out, v.v.s ? v.v.s : "", MAX_STRINGLEN);
-				} else if (v.kind == UP_REAL) {
-					/* Reals: standard formatter */
-					char dbuf[32];
-					strlcat(buffer, double_to_string(v.v.r, dbuf, sizeof(dbuf), 0), MAX_STRINGLEN);
-					strlcat(out, buffer, MAX_STRINGLEN);
-				} else { /* UP_INT */
-					/* Integers: optional hex via ~, otherwise decimal */
-					if (next_hex) {
-						snprintf(buffer, MAX_STRINGLEN, "%lX", (long)v.v.i);
-					} else {
-						snprintf(buffer, MAX_STRINGLEN, "%ld", (long)v.v.i);
+					if (!printable_append(ctx, &out, &out_used, &out_cap, v.v.s ? v.v.s : "")) {
+						buddy_free(ctx->allocator, out);
+						return NULL;
 					}
-					strlcat(out, buffer, MAX_STRINGLEN);
+				} else if (v.kind == UP_REAL) {
+					char dbuf[32];
+					if (!printable_append(ctx, &out, &out_used, &out_cap,
+							      double_to_string(v.v.r, dbuf, sizeof(dbuf), 0))) {
+						buddy_free(ctx->allocator, out);
+						return NULL;
+					}
+				} else {
+					if (next_hex) {
+						snprintf(buffer, sizeof(buffer), "%lX", (long)v.v.i);
+					} else {
+						snprintf(buffer, sizeof(buffer), "%ld", (long)v.v.i);
+					}
+
+					if (!printable_append(ctx, &out, &out_used, &out_cap, buffer)) {
+						buddy_free(ctx->allocator, out);
+						return NULL;
+					}
 				}
+
 				next_hex = false;
 				handled = true;
 			}
-			break;
+				break;
 		}
 
 		if (!handled) {
-			/* No valid argument/token to process. */
 			break;
 		}
 
 		numprints++;
-	} while (tokenizer_token(ctx) != NEWLINE && tokenizer_token(ctx) != ENDOFINPUT && numprints < 255);
-
-	if (!no_newline) {
-		strlcat(out, "\n", MAX_STRINGLEN);
+		if (numprints >= 255) {
+			break;
+		}
 	}
 
-	/* consume line end or EOF sentinel */
+	if (!no_newline) {
+		if (!printable_append(ctx, &out, &out_used, &out_cap, "\n")) {
+			buddy_free(ctx->allocator, out);
+			return NULL;
+		}
+	}
+
 	tokenizer_next(ctx);
 
 	if (ctx->errored) {
+		buddy_free(ctx->allocator, out);
 		return NULL;
 	}
-	return (char*)gc_strdup(ctx, out);
+
+	char* result = gc_strdup(ctx, out);
+	buddy_free(ctx->allocator, out);
+	return result;
 }
 
 void keymap_statement(struct basic_ctx* ctx)

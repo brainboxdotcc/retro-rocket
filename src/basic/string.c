@@ -251,9 +251,9 @@ char* basic_str(struct basic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	PARAMS_END("STR$","");
-	char res[MAX_STRINGLEN];
-	snprintf(res, MAX_STRINGLEN, "%ld", intval);
-	return gc_strdup(ctx, res);
+	char res[64];
+	snprintf(res, 64, "%ld", intval);
+	return (char*)gc_strdup(ctx, res);
 }
 
 char* basic_bool(struct basic_ctx* ctx)
@@ -261,9 +261,7 @@ char* basic_bool(struct basic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	PARAMS_END("BOOL$","");
-	char res[MAX_STRINGLEN];
-	snprintf(res, MAX_STRINGLEN, "%s", intval ? "TRUE" : "FALSE");
-	return gc_strdup(ctx, res);
+	return (char*)gc_strdup(ctx, intval ? "TRUE" : "FALSE");
 }
 
 int64_t basic_instr(struct basic_ctx* ctx)
@@ -329,32 +327,50 @@ char* basic_highlight(struct basic_ctx* ctx) {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* in = strval;
-	char out[MAX_STRINGLEN] = {};
+	size_t out_cap = MAX_STRINGLEN;
+	char* out = buddy_malloc(ctx->allocator, out_cap);
+	if (!out) {
+		tokenizer_error_print(ctx, "Error allocating string buffer");
+		return "";
+	}
+	*out = 0;
 	PARAMS_END("HIGHLIGHT$","");
 	bool in_quotes = false, in_comment = false;
 	const char* end = in + strlen(in);
 	for (const char* pos = in; *pos; ++pos) {
 		size_t current_len = strlen(out);
 		bool found = false, reset_colour = false;
-		if (in_comment && current_len < MAX_STRINGLEN - 1) {
+		if (out_cap - current_len < 128) {
+			out_cap *= 2;
+			char* new_out = buddy_realloc(ctx->allocator, out, out_cap);
+			if (!new_out) {
+				tokenizer_error_print(ctx, "Error allocating string buffer");
+				buddy_free(ctx->allocator, out);
+				return "";
+			}
+			out = new_out;
+		}
+
+		if (in_comment) {
 			*(out + current_len) = *pos;
+			*(out + current_len + 1) = 0;
 			continue;
 		} else if (!in_quotes && *pos == '"') {
-			current_len += snprintf(out + current_len, MAX_STRINGLEN - current_len, "\x1b[%um", map_vga_to_ansi(COLOUR_LIGHTYELLOW));
+			current_len += snprintf(out + current_len, out_cap - current_len, "\x1b[%um", map_vga_to_ansi(COLOUR_LIGHTYELLOW));
 			in_quotes = true;
 		} else if (in_quotes && *pos == '"') {
 			in_quotes = false;
 			reset_colour = true;
 		} else if (!in_quotes && *pos == '\'') {
 			in_comment = true;
-			current_len += snprintf(out + current_len, MAX_STRINGLEN - current_len, "\x1b[%um", map_vga_to_ansi(COLOUR_DARKGREEN));
+			current_len += snprintf(out + current_len, out_cap - current_len, "\x1b[%um", map_vga_to_ansi(COLOUR_DARKGREEN));
 		}
 		if (!in_quotes && !in_comment) {
 			for (size_t v = 0; builtin_int[v].name; ++v) {
 				size_t fn_len = strlen(builtin_int[v].name);
 				if (pos + fn_len <= end && !memcmp(pos, builtin_int[v].name, fn_len)) {
 					/* Is a builtin integer function */
-					snprintf(out + current_len, MAX_STRINGLEN - current_len, "\x1b[%um%s\x1b[%um", map_vga_to_ansi(COLOUR_LIGHTGREEN), builtin_int[v].name, map_vga_to_ansi(COLOUR_WHITE));
+					snprintf(out + current_len, out_cap - current_len, "\x1b[%um%s\x1b[%um", map_vga_to_ansi(COLOUR_LIGHTGREEN), builtin_int[v].name, map_vga_to_ansi(COLOUR_WHITE));
 					found = true;
 					pos += fn_len - 1;
 				}
@@ -363,7 +379,7 @@ char* basic_highlight(struct basic_ctx* ctx) {
 				size_t fn_len = strlen(builtin_str[v].name);
 				if (pos + fn_len <= end && !memcmp(pos, builtin_str[v].name, fn_len)) {
 					/* Is a builtin string function */
-					snprintf(out + current_len, MAX_STRINGLEN - current_len, "\x1b[%um%s\x1b[%um", map_vga_to_ansi(COLOUR_LIGHTMAGENTA), builtin_str[v].name, map_vga_to_ansi(COLOUR_WHITE));
+					snprintf(out + current_len, out_cap - current_len, "\x1b[%um%s\x1b[%um", map_vga_to_ansi(COLOUR_LIGHTMAGENTA), builtin_str[v].name, map_vga_to_ansi(COLOUR_WHITE));
 					found = true;
 					pos += fn_len - 1;
 				}
@@ -372,7 +388,7 @@ char* basic_highlight(struct basic_ctx* ctx) {
 				size_t fn_len = strlen(builtin_double[v].name);
 				if (pos + fn_len <= end && !memcmp(pos, builtin_double[v].name, fn_len)) {
 					/* Is a builtin real function */
-					snprintf(out + current_len, MAX_STRINGLEN - current_len, "\x1b[%um%s\x1b[%um", map_vga_to_ansi(COLOUR_LIGHTCYAN), builtin_double[v].name, map_vga_to_ansi(COLOUR_WHITE));
+					snprintf(out + current_len, out_cap - current_len, "\x1b[%um%s\x1b[%um", map_vga_to_ansi(COLOUR_LIGHTCYAN), builtin_double[v].name, map_vga_to_ansi(COLOUR_WHITE));
 					found = true;
 					pos += fn_len - 1;
 				}
@@ -385,11 +401,12 @@ char* basic_highlight(struct basic_ctx* ctx) {
 					if (!next_is_varlike || v == PROC || v == FN || v == EQUALS) {
 						/* Is a token */
 						if (v == REM) {
-							in_comment = true;
-							snprintf(out, MAX_STRINGLEN, "\x1b[%um%s\x1b[%um", map_vga_to_ansi(COLOUR_DARKGREEN), in, map_vga_to_ansi(COLOUR_WHITE));
-							return (char*)gc_strdup(ctx, out);
+							snprintf(out, out_cap, "\x1b[%um%s\x1b[%um", map_vga_to_ansi(COLOUR_DARKGREEN), in, map_vga_to_ansi(COLOUR_WHITE));
+							char* ret = (char*)gc_strdup(ctx, out);
+							buddy_free(ctx->allocator, out);
+							return ret;
 						} else {
-							snprintf(out + current_len, MAX_STRINGLEN - current_len, "\x1b[%um%s\x1b[%um", map_vga_to_ansi(COLOUR_LIGHTBLUE), token_names[v], map_vga_to_ansi(COLOUR_WHITE));
+							snprintf(out + current_len, out_cap - current_len, "\x1b[%um%s\x1b[%um", map_vga_to_ansi(COLOUR_LIGHTBLUE), token_names[v], map_vga_to_ansi(COLOUR_WHITE));
 							found = true;
 						}
 						pos += kw_len - 1;
@@ -401,21 +418,34 @@ char* basic_highlight(struct basic_ctx* ctx) {
 		if (!found) {
 			if (!in_quotes && !in_comment && ((*pos >= '0' && *pos <= '9') || ((*pos == '-' || *pos == '+') && (*(pos+1) >= '0' && *(pos+1) <= '9')))) {
 				/* Numeric colour */
-				snprintf(out + current_len, MAX_STRINGLEN - current_len, "\x1b[%um%c\x1b[%um", map_vga_to_ansi(COLOUR_ORANGE), *pos, map_vga_to_ansi(COLOUR_WHITE));
+				snprintf(out + current_len, out_cap - current_len, "\x1b[%um%c\x1b[%um", map_vga_to_ansi(COLOUR_ORANGE), *pos, map_vga_to_ansi(COLOUR_WHITE));
 			} else if (!in_quotes && !in_comment && (*pos == '(' || *pos == ')' || *pos == '+' || *pos == '-' || *pos == '/' || *pos == '=' ||  *pos == '*' || *pos == '<' || *pos == '>' || *pos == ',' || *pos == ';')) {
 				/* Symbolic maths colour */
-				snprintf(out + current_len, MAX_STRINGLEN - current_len, "\x1b[%um%c\x1b[%um", map_vga_to_ansi(COLOUR_DARKRED), *pos, map_vga_to_ansi(COLOUR_WHITE));
-			} else if (current_len < MAX_STRINGLEN - 1) {
+				snprintf(out + current_len, out_cap - current_len, "\x1b[%um%c\x1b[%um", map_vga_to_ansi(COLOUR_DARKRED), *pos, map_vga_to_ansi(COLOUR_WHITE));
+			} else {
 				*(out + current_len) = *pos;
+				*(out + current_len + 1) = 0;
 			}
 		}
 		if (reset_colour) {
-			snprintf(out + current_len, MAX_STRINGLEN - current_len, "\"\x1b[%um", map_vga_to_ansi(COLOUR_WHITE));
+			snprintf(out + current_len, out_cap - current_len, "\"\x1b[%um", map_vga_to_ansi(COLOUR_WHITE));
 		}
 	}
-	char buf[MAX_STRINGLEN];
-	snprintf(buf, MAX_STRINGLEN, "%s\x1b[%um", out, map_vga_to_ansi(COLOUR_WHITE));
-	return (char*)gc_strdup(ctx, buf);
+	size_t current_len = strlen(out);
+	if (out_cap - current_len < 32) {
+		out_cap += 32;
+		char* new_out = buddy_realloc(ctx->allocator, out, out_cap);
+		if (!new_out) {
+			tokenizer_error_print(ctx, "Error allocating string buffer");
+			buddy_free(ctx->allocator, out);
+			return "";
+		}
+		out = new_out;
+	}
+	snprintf(out + current_len, out_cap - current_len, "\x1b[%um", map_vga_to_ansi(COLOUR_WHITE));
+	char* ret = (char*)gc_strdup(ctx, out);
+	buddy_free(ctx->allocator, out);
+	return ret;
 }
 
 char* basic_tokenize(struct basic_ctx* ctx)
@@ -432,24 +462,61 @@ char* basic_tokenize(struct basic_ctx* ctx)
 	size_t len = strlen(current_value);
 	size_t split_len = strlen(split);
 	size_t ofs = 0;
+
 	while (*current_value) {
 		if (ofs + split_len > len) {
 			break;
 		} else if (!strncmp(current_value, split, split_len)) {
-			char return_value[MAX_STRINGLEN];
-			char new_value[MAX_STRINGLEN];
-			strlcpy(return_value, old_value, ofs + split_len);
-			strlcpy(new_value, old_value + ofs + split_len, MAX_STRINGLEN);
+
+			size_t ret_len = ofs + split_len;
+			size_t new_len = len - ret_len;
+
+			char* return_value = buddy_malloc(ctx->allocator, ret_len + 1);
+			if (!return_value) {
+				tokenizer_error_print(ctx, "Error allocating string buffer");
+				return "";
+			}
+
+			char* new_value = buddy_malloc(ctx->allocator, new_len + 1);
+			if (!new_value) {
+				tokenizer_error_print(ctx, "Error allocating string buffer");
+				buddy_free(ctx->allocator, return_value);
+				return "";
+			}
+
+			memcpy(return_value, old_value, ret_len);
+			return_value[ret_len] = 0;
+
+			memcpy(new_value, old_value + ret_len, new_len);
+			new_value[new_len] = 0;
+
 			basic_set_string_variable(varname, new_value, ctx, false, false);
-			return (char*)gc_strdup(ctx, return_value);
+
+			char* ret = (char*)gc_strdup(ctx, return_value);
+			buddy_free(ctx->allocator, return_value);
+			buddy_free(ctx->allocator, new_value);
+			return ret;
 		}
 		current_value++;
 		ofs++;
 	}
-	char return_value[MAX_STRINGLEN];
-	strlcpy(return_value, old_value, MAX_STRINGLEN);
+
+	size_t ret_len = len;
+
+	char* return_value = buddy_malloc(ctx->allocator, ret_len + 1);
+	if (!return_value) {
+		tokenizer_error_print(ctx, "Error allocating string buffer");
+		return "";
+	}
+
+	memcpy(return_value, old_value, ret_len);
+	return_value[ret_len] = 0;
+
 	basic_set_string_variable(varname, "", ctx, false, false);
-	return (char*)gc_strdup(ctx, return_value);
+
+	char* ret = (char*)gc_strdup(ctx, return_value);
+	buddy_free(ctx->allocator, return_value);
+	return ret;
 }
 
 
@@ -552,28 +619,54 @@ char* basic_replace(struct basic_ctx* ctx)
 		return (char*)gc_strdup(ctx, haystack);
 	}
 
-	char out[MAX_STRINGLEN];
+	size_t out_cap = MAX_STRINGLEN;
 	size_t w = 0;
+	char* out = buddy_malloc(ctx->allocator, out_cap);
+	if (!out) {
+		tokenizer_error_print(ctx, "Error allocating string buffer");
+		return "";
+	}
+
 	const char* p = haystack;
 
-	while (*p && w < (MAX_STRINGLEN - 1)) {
+	while (*p) {
 		if (strncmp(p, needle, needle_len) == 0) {
 			if (with_len != 0) {
-				size_t space = (MAX_STRINGLEN - 1) - w;
-				size_t ncopy = with_len <= space ? with_len : space;
-				if (ncopy != 0) {
-					memcpy(out + w, with, ncopy);
-					w += ncopy;
+				while (w + with_len + 1 > out_cap) {
+					out_cap *= 2;
+					char* new_out = buddy_realloc(ctx->allocator, out, out_cap);
+					if (!new_out) {
+						tokenizer_error_print(ctx, "Error allocating string buffer");
+						buddy_free(ctx->allocator, out);
+						return "";
+					}
+					out = new_out;
 				}
+
+				memcpy(out + w, with, with_len);
+				w += with_len;
 			}
 			p += needle_len;
 		} else {
+			if (w + 2 > out_cap) {
+				out_cap *= 2;
+				char* new_out = buddy_realloc(ctx->allocator, out, out_cap);
+				if (!new_out) {
+					tokenizer_error_print(ctx, "Error allocating string buffer");
+					buddy_free(ctx->allocator, out);
+					return "";
+				}
+				out = new_out;
+			}
+
 			out[w++] = *p++;
 		}
 	}
 
 	out[w] = '\0';
-	return (char*)gc_strdup(ctx, out);
+	char* ret = (char*)gc_strdup(ctx, out);
+	buddy_free(ctx->allocator, out);
+	return ret;
 }
 
 int64_t basic_len(struct basic_ctx* ctx)
@@ -822,12 +915,12 @@ char *basic_buffer_to_string(struct basic_ctx *ctx)
 		}
 	}
 
-	if (out_len >= MAX_STRINGLEN) {
-		tokenizer_error_print(ctx, "String too long");
+	char *out = buddy_malloc(ctx->allocator, out_len + 1);
+	if (!out) {
+		tokenizer_error_print(ctx, "Error allocating string buffer");
 		return "";
 	}
 
-	char out[MAX_STRINGLEN];
 	size_t j = 0;
 
 	for (i = 0; i < length; ++i) {
@@ -843,5 +936,7 @@ char *basic_buffer_to_string(struct basic_ctx *ctx)
 	}
 
 	out[j] = 0;
-	return (char*)gc_strdup(ctx, out);
+	char *ret = (char *)gc_strdup(ctx, out);
+	buddy_free(ctx->allocator, out);
+	return ret;
 }

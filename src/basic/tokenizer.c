@@ -341,10 +341,6 @@ int get_next_token(struct basic_ctx* ctx)
 				tokenizer_error_printf(ctx, "Unterminated string constant");
 				break;
 			}
-			if (++strl > MAX_STRINGLEN) {
-				tokenizer_error_printf(ctx, "String constant '%s' too long", ctx->ptr);
-				break;
-			}
 		} while (*ctx->nextptr != '"');
 		++ctx->nextptr;
 		return STRING;
