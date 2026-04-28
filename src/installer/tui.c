@@ -27,10 +27,18 @@ bool boolean_choice() {
 }
 
 void centre_text(const char* format, ...) {
-	static char buffer[MAX_STRINGLEN];
 	va_list args;
 	va_start(args, format);
-	vsnprintf(buffer, MAX_STRINGLEN, format, args);
+	va_list args_copy;
+	__builtin_va_copy(args_copy, args);
+	int needed = vsnprintf(NULL, 0, format, args_copy);
+	va_end(args_copy);
+	if (needed < 0) {
+		va_end(args);
+		return;
+	}
+	char buffer[needed + 1];
+	vsnprintf(buffer, needed + 1, format, args);
 	va_end(args);
 	size_t len = strlen_ansi(buffer);
 	uint64_t centre = get_text_width() / 2;
@@ -40,8 +48,6 @@ void centre_text(const char* format, ...) {
 	}
 	kprintf("%s", buffer);
 }
-
-#include <string.h>
 
 void warning(const char *warning_message, const char *subtitle, const char* colours) {
 	size_t l1 = strlen_ansi(warning_message);
@@ -338,7 +344,7 @@ void draw_text_box_cp437_center(uint64_t x, uint64_t y, uint64_t width, const ch
 	uint64_t pad_left = (inner_w - text_len) / 2;
 
 	/* create a padded buffer */
-	static char buf[MAX_STRINGLEN];
+	char buf[inner_w + 1];
 	uint64_t pos = 0;
 
 	for (uint64_t i = 0; i < pad_left && pos < sizeof(buf) - 1; i++) {

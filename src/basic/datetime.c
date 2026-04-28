@@ -62,7 +62,7 @@ char* basic_get_upstr(struct basic_ctx* ctx)
 		{ sec, "sec" }
 	};
 
-	char buffer[MAX_STRINGLEN];
+	char buffer[256];
 	size_t pos = 0;
 	int started = 0;
 

@@ -185,7 +185,7 @@ void init_realtime_clock() {
 }
 
 bool load_timezone(const char* timezone) {
-	char path[MAX_STRINGLEN];
+	char path[MAX_PATH_LEN];
 	snprintf(path, sizeof(path), "/system/timezones/%s", timezone);
 	void* new_tzdata = NULL;
 

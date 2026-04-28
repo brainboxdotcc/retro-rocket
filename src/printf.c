@@ -12,6 +12,11 @@ typedef enum {
 	STATE_CONVERSION  /* final conversion character */
 } printf_state_t;
 
+static int vcount_help(unsigned c, [[maybe_unused]] void **ptr, [[maybe_unused]] const void* max)
+{
+	return 0;   /* always accept, just count */
+}
+
 /* Helper: fetch integer argument according to size/signedness flags */
 static inline long long fetch_number(va_list args, unsigned flags)
 {
@@ -223,8 +228,16 @@ static int vsprintf_help(unsigned c, void **ptr, const void* max)
 
 int vsnprintf(char *buf, size_t max, const char *fmt, va_list args)
 {
+	if (!buf || max == 0) {
+		return do_printf(fmt, SIZE_MAX, args, vcount_help, NULL);
+	}
+
 	int rv = do_printf(fmt, max, args, vsprintf_help, (void *)buf);
-	buf[rv] = '\0';
+	if (rv >= (int)max) {
+		buf[max - 1] = '\0';
+	} else {
+		buf[rv] = '\0';
+	}
 	return rv;
 }
 
@@ -262,15 +275,27 @@ int vprintf(const char *fmt, va_list args)
 
 int dvprintf(const char *fmt, va_list args)
 {
-	char message[MAX_STRINGLEN * 8], formatted[MAX_STRINGLEN * 8];
-	int r = vsnprintf(message, MAX_STRINGLEN * 8 - 1, fmt, args);
+	uint64_t ticks = get_ticks();
+	va_list args_copy;
+	__builtin_va_copy(args_copy, args);
+	int message_len = vsnprintf(NULL, 0, fmt, args_copy);
+	va_end(args_copy);
+
+	if (message_len < 0) {
+		return message_len;
+	}
+	int prefix_len = snprintf(NULL, 0, "[%lu]: ", ticks);
+	size_t len = prefix_len + message_len;
+	char formatted[len + 1];
+	snprintf(formatted, prefix_len + 1, "[%lu]: ", ticks);
+	vsnprintf(formatted + prefix_len, message_len + 1, fmt, args);
 	uint64_t flags;
-	size_t len = snprintf(formatted, MAX_STRINGLEN * 8, "[%lu]: %s", get_ticks(), message);
 	lock_spinlock_irq(&debug_console_spinlock, &flags);
 	dprintf_buffer_append_line(formatted, len);
 	dputstring(formatted);
 	unlock_spinlock_irq(&debug_console_spinlock, flags);
-	return r;
+
+	return message_len;
 }
 
 int printf(const char *fmt, ...)

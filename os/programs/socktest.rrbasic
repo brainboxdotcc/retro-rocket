@@ -16,15 +16,8 @@ PRINT "TLS Version: "; FNhttp_result$("tlsversion")
 PRINT "TLS Cipher: "; FNhttp_result$("tlscipher")
 PRINT "HTTP status code: "; FNhttp_result$("code")
 PRINT "Response body:"
-
-body = FNhttp_result("body")
-n = MAPGET(body, "size")
-
-REM Body is stored as a MAP, which represents a streamed, chunked long string
-FOR i = 0 TO n - 1
-    PRINT MAPGET$(body, STR$(i));
-NEXT
-PRINT
+body$ = FNhttp_result$("body")
+PRINT body$
 
 PROCfree_http_result
 

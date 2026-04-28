@@ -783,7 +783,7 @@ char* basic_itoa(struct basic_ctx* ctx)
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t radix = intval;
 	PARAMS_END("RADIX$", "");
-	char buffer[MAX_STRINGLEN] = {0};
+	char buffer[66] = {0};
 	int err;
 	if ((err = do_itoa(target, buffer, radix)) >= 0) {
 		return (char*)gc_strdup(ctx, buffer);

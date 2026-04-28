@@ -355,7 +355,6 @@ void repeat_statement(struct basic_ctx* ctx)
 	if (ctx->repeat_stack_ptr < MAX_LOOP_STACK_DEPTH) {
 		ctx->repeat_stack[ctx->repeat_stack_ptr] = tokenizer_num(ctx, NUMBER);
 		ctx->repeat_stack_ptr++;
-		dprintf("repeat up to %lu return to %lu\n", ctx->repeat_stack_ptr, ctx->repeat_stack[ctx->repeat_stack_ptr - 1]);
 	} else {
 		tokenizer_error_print(ctx, "REPEAT stack exhausted");
 	}
@@ -374,7 +373,6 @@ void until_statement(struct basic_ctx* ctx)
 		} else {
 			ctx->repeat_stack_ptr--;
 			ctx->repeat_stack[ctx->repeat_stack_ptr] = 0; // clear to aid debugging
-			dprintf("repeat down to %lu\n", ctx->repeat_stack_ptr);
 		}
 	} else {
 		tokenizer_error_print(ctx, "UNTIL without REPEAT");

@@ -765,10 +765,10 @@ bool basic_parse_fn(struct basic_ctx* ctx)
 				type = FT_PROC;
 			}
 
-			char name[MAX_STRINGLEN];
+			char name[MAX_VARNAME];
 			int ni = 0;
 			--search;
-			while (ni < MAX_STRINGLEN - 2 && *search != '\n' && *search != 0 && *search != '(') {
+			while (ni < MAX_VARNAME - 2 && *search != '\n' && *search != 0 && *search != '(') {
 				name[ni++] = *search++;
 			}
 			name[ni] = 0;
@@ -905,11 +905,11 @@ bool is_builtin_double_fn(const char* fn_name)
 
 void proc_statement(struct basic_ctx* ctx)
 {
-	char procname[MAX_STRINGLEN];
+	char procname[MAX_VARNAME];
 	char* p = procname;
 	size_t procnamelen = 0;
 	accept_or_return(PROC, ctx);
-	while (*ctx->ptr != '\n' && *ctx->ptr != 0  && *ctx->ptr != '(' && procnamelen < MAX_STRINGLEN - 1) {
+	while (*ctx->ptr != '\n' && *ctx->ptr != 0  && *ctx->ptr != '(' && procnamelen < MAX_VARNAME - 1) {
 		if (*ctx->ptr != ' ') {
 			*(p++) = *(ctx->ptr++);
 		}

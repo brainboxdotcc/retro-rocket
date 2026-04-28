@@ -3,9 +3,9 @@
 #include "musl_regex/musl_regex.h"
 
 struct regex_prog {
-	regex_t re;                    /* compiled TRE/musl pattern */
+	regex_t re;	/* compiled TRE/musl pattern */
 	buddy_allocator_t *allocator;
-	char err[MAX_STRINGLEN];       /* last error (compile/exec) */
+	char err[512];	/* last error (compile/exec) */
 };
 
 static inline void re_set_err(struct regex_prog *P, const char *msg) {

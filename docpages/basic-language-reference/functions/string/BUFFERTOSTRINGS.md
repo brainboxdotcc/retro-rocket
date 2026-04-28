@@ -54,9 +54,9 @@ This ensures the resulting string contains no embedded null bytes.
 
 ## Errors
 
-* Invalid memory address → error
-* Negative `length` → error
-* Encoded result exceeds `MAX_STRINGLEN` → error
+* Invalid memory address
+* Negative `length`
+* Encoded result is too large to allocate a string variable
 
 ---
 

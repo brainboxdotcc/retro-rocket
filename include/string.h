@@ -208,8 +208,8 @@ const char* gc_strdup(basic_ctx* ctx, const char* string);
  *
  * Performs a zero-copy concatenation (writing directly to the arena) to avoid
  * the overhead of stack-based temporary buffers and redundant string copies.
- * The operation is atomic: if the combined length exceeds MAX_STRINGLEN or
- * arena capacity, no memory is committed and NULL is returned.
+ * The operation is atomic: if the combined length exceeds arena capacity,
+ * no memory is committed and NULL is returned.
  *
  * The returned pointer remains valid until the next call to gc(), typically
  * invoked at the end of the current line execution.
@@ -237,8 +237,8 @@ const char* gc_try_concat(struct basic_ctx *ctx, const char* s1, const char* s2)
  * pointer, performing a single-pass copy into the BASIC string arena.
  *
  * Like gc_try_concat(), this operation is atomic: if the literal length
- * exceeds MAX_STRINGLEN or available arena space, the allocator pointer
- * is not advanced, and NULL is returned.
+ * exceeds available arena space, the allocator pointer is not advanced,
+ * and NULL is returned.
  *
  * @note
  * - This function handles the advancing of the internal tokenizer pointer

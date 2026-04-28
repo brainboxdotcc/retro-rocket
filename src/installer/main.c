@@ -41,9 +41,9 @@ const char* choose_drive() {
 
 bool confirm_install(const char* device) {
 	new_page("Retro Rocket Installer");
-	char prompt[MAX_STRINGLEN];
+	char prompt[256];
 	vertical_tab();
-	snprintf(prompt, MAX_STRINGLEN, "Are you sure you want to install Retro Rocket to %s?", device);
+	snprintf(prompt, sizeof(prompt), "Are you sure you want to install Retro Rocket to %s?", device);
 	warning(prompt, "The drive will be cleared, and any existing data will be lost!", VGA_FG_LIGHTWHITE VGA_BG_LIGHTRED);
 	vertical_tab();
 	kprintf("\n   Press %sY%s to continue or %sN%s to return to device selection: ", VGA_FG_YELLOW, VGA_RESET, VGA_FG_YELLOW, VGA_RESET);
@@ -143,11 +143,11 @@ _Noreturn void reboot_page() {
 }
 
 _Noreturn void error_page(const char* fmt, ...) {
-	char error[MAX_STRINGLEN];
+	char error[MAX_PATH_LEN];
 	set_video_auto_flip(true);
 	va_list args;
 	va_start(args, fmt);
-	vsnprintf(error, MAX_STRINGLEN - 1, fmt, args);
+	vsnprintf(error, MAX_PATH_LEN - 1, fmt, args);
 	va_end(args);
 	new_page("Retro Rocket Installer");
 	vertical_tab();

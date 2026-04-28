@@ -1,42 +1,24 @@
 DEF PROChttp
     __http_tls_version$ = "unknown"
     __http_tls_cipher$ = "unknown"
+    __http_response$ = ""
+    __http_headers$ = ""
+    __http_body$ = ""
 ENDPROC
 
-DEF FNhttp_url_scheme$(url$)
+DEF FNhttp_url_host$(url$)
+    _http_auth$ = FNhttp__authority$(url$)
+    IF _http_auth$ = "" THEN
+        = ""
+    ENDIF
     _http_ok = 0
-    _http_s$ = ""
-    MATCH _http_ok, "^([A-Za-z][A-Za-z0-9+.-]*)://", url$, _http_s$
-    
+    _http_user$ = ""
+    _http_host$ = ""
+    _http_colon$ = ""
+    _http_port$ = ""
+    MATCH _http_ok, "^(.*@)?(\[[^]]+\]|[^:]+)(:([0-9]+))?$", _http_auth$, _http_user$, _http_host$, _http_colon$, _http_port$
     IF _http_ok = 1 THEN
-        = _http_s$
-    ENDIF
-= ""
-
-DEF FNhttp_url_anchor$(url$)
-    _http_ok = 0
-    _http_a$ = ""
-    MATCH _http_ok, "#(.*)$", url$, _http_a$
-    IF _http_ok = 1 THEN
-        = _http_a$
-    ENDIF
-= ""
-
-DEF FNhttp_url_query$(url$)
-    _http_ok = 0
-    _http_q$ = ""
-    REM scheme or protocol-relative or bare host/path
-    MATCH _http_ok, "^\w+://[^?#]*\?([^#]*)", url$, _http_q$
-    IF _http_ok = 1 THEN
-        = _http_q$
-    ENDIF
-    MATCH _http_ok, "^//[^?#]*\?([^#]*)", url$, _http_q$
-    IF _http_ok = 1 THEN
-        = _http_q$
-    ENDIF
-    MATCH _http_ok, "^[^?#]*\?([^#]*)", url$, _http_q$
-    IF _http_ok = 1 THEN
-        = _http_q$
+        = _http_host$
     ENDIF
 = ""
 
@@ -77,6 +59,23 @@ DEF FNhttp_url_path$(url$)
     ENDIF
 = ""
 
+DEF FNhttp_url_query$(url$)
+    _http_ok = 0
+    _http_q$ = ""
+    MATCH _http_ok, "^\w+://[^?#]*\?([^#]*)", url$, _http_q$
+    IF _http_ok = 1 THEN
+        = _http_q$
+    ENDIF
+    MATCH _http_ok, "^//[^?#]*\?([^#]*)", url$, _http_q$
+    IF _http_ok = 1 THEN
+        = _http_q$
+    ENDIF
+    MATCH _http_ok, "^[^?#]*\?([^#]*)", url$, _http_q$
+    IF _http_ok = 1 THEN
+        = _http_q$
+    ENDIF
+= ""
+
 DEF FNhttp__authority$(url$)
     _http_ok = 0
     _http_auth$ = ""
@@ -84,14 +83,14 @@ DEF FNhttp__authority$(url$)
     IF _http_ok = 1 THEN
         = _http_auth$
     ENDIF
-    
+
     _http_ok = 0
     _http_auth$ = ""
     MATCH _http_ok, "^//([^/?#]*)", url$, _http_auth$
     IF _http_ok = 1 THEN
         = _http_auth$
     ENDIF
-    
+
     REM bare host (requires dot or bracketed IPv6), optional :port; capture the whole authority
     _http_ok = 0
     _http_auth$ = ""
@@ -101,19 +100,13 @@ DEF FNhttp__authority$(url$)
     ENDIF
 = ""
 
-DEF FNhttp_url_host$(url$)
-    _http_auth$ = FNhttp__authority$(url$)
-    IF _http_auth$ = "" THEN
-        = ""
-    ENDIF
+DEF FNhttp_url_scheme$(url$)
     _http_ok = 0
-    _http_user$ = ""
-    _http_host$ = ""
-    _http_colon$ = ""
-    _http_port$ = ""
-    MATCH _http_ok, "^(.*@)?(\[[^]]+\]|[^:]+)(:([0-9]+))?$", _http_auth$, _http_user$, _http_host$, _http_colon$, _http_port$
+    _http_s$ = ""
+    MATCH _http_ok, "^([A-Za-z][A-Za-z0-9+.-]*)://", url$, _http_s$
+
     IF _http_ok = 1 THEN
-        = _http_host$
+        = _http_s$
     ENDIF
 = ""
 
@@ -132,7 +125,9 @@ DEF FNhttp_url_port(url$)
             ENDIF
         ENDIF
     ENDIF
+
     _http_s$ = FNhttp_url_scheme$(url$)
+
     IF _http_s$ = "http" THEN
         = 80
     ENDIF
@@ -140,7 +135,7 @@ DEF FNhttp_url_port(url$)
         = 443
     ENDIF
     IF _http_s$ = "ws" THEN
-       = 80
+        = 80
     ENDIF
     IF _http_s$ = "wss" THEN
         = 443
@@ -150,273 +145,22 @@ DEF FNhttp_url_port(url$)
     ENDIF
 = 0
 
-DEF FNhttp_url_param$(url$, key$)
-    _http_q$ = FNhttp_url_query$(url$)
-    IF _http_q$ = "" THEN
-        = ""
-    ENDIF
-    _http_ok = 0
-    _http_val$ = ""
-    _http_rx$ = "((^|&)" + key$ + "=)([^&]*)(&|$)"
-    MATCH _http_ok, _http_rx$, _http_q$, _http_tmp1$, _http_tmp2$, _http_val$, _http_tmp3$
-    IF _http_ok = 1 THEN
-        = _http_val$
-    ENDIF
-    _http_ok = 0
-    MATCH _http_ok, "(^|&)" + key$ + "(&|$)", _http_q$, _http_tmp1$, _http_tmp2$
-    IF _http_ok = 1 THEN
-        = ""
-    ENDIF
-= ""
-
-DEF PROChttp_get(url$)
-    PROChttp_request("GET", url$, "")
-ENDPROC
-
-DEF PROChttp_post(url$, postdata$)
-    PROChttp_request("POST", url$, postdata$)
-ENDPROC
-
-DEF PROChttp_put(url$, putdata$)
-    PROChttp_request("PUT", url$, putdata$)
-ENDPROC
-
-DEF PROChttp_head(url$)
-    PROChttp_request("HEAD", url$, "")
-ENDPROC
-
-DEF PROChttp_delete(url$)
-    PROChttp_request("DELETE", url$, "")
-ENDPROC
-
-DEF PROChttp_patch(url$, patchdata$)
-    PROChttp_request("PATCH", url$, patchdata$)
-ENDPROC
-
-DEF FNhttp__find_crlf(s$)
-    _http_i = 0
-    IF LEN(s$) < 2 THEN
-        = 0
-    ENDIF
-    FOR _http_i = 1 TO LEN(s$) - 1
-        IF MID$(s$, _http_i, 2) = CHR$(13) + CHR$(10) THEN
-            = _http_i
-        ENDIF
-    NEXT
-= 0
-
-DEF PROChttp__split_response
-    __http_headers = MAP
-    __http_body = MAP
-
-    __http_headers_n = 0
-    __http_body_n = 0
-    __http_in_body = 0
-    __http_carry$ = ""
-
-    __http_crlf$ = CHR$(13) + CHR$(10)
-    __http_sep$ = __http_crlf$ + __http_crlf$
-
-    IF (MAPHAS(__http_response, "0") = FALSE) THEN ENDPROC
-
-    FOR i = 0 TO __http_n - 1
-        __http_chunk$ = MAPGET$(__http_response, STR$(i))
-
-        IF __http_in_body = 1 THEN
-            IF __http_chunk$ <> "" THEN
-                MAPSET __http_body, STR$(__http_body_n), __http_chunk$
-                __http_body_n = __http_body_n + 1
-            ENDIF
-        ELSE
-            __http_scan$ = __http_carry$ + __http_chunk$
-
-            _http_ok = 0
-            __http_headblob$ = ""
-            __http_bodyblob$ = ""
-
-            MATCH _http_ok, "^(.*?)" + __http_sep$ + "(.*)$", __http_scan$, __http_headblob$, __http_bodyblob$
-
-            IF _http_ok = 1 THEN
-                __http_in_body = 1
-                __http_carry$ = ""
-
-                __http_rest$ = __http_headblob$
-
-                REPEAT
-                    _http_ok = 0
-                    __http_line$ = ""
-                    __http_next$ = ""
-
-                    MATCH _http_ok, "^(.*?)" + __http_crlf$ + "(.*)$", __http_rest$, __http_line$, __http_next$
-
-                    IF _http_ok = 1 THEN
-                        MAPSET __http_headers, STR$(__http_headers_n), __http_line$
-                        __http_headers_n = __http_headers_n + 1
-                        __http_rest$ = __http_next$
-                    ELSE
-                        IF __http_rest$ <> "" THEN
-                            MAPSET __http_headers, STR$(__http_headers_n), __http_rest$
-                            __http_headers_n = __http_headers_n + 1
-                        ENDIF
-                        __http_rest$ = ""
-                    ENDIF
-                UNTIL __http_rest$ = ""
-
-                IF __http_bodyblob$ <> "" THEN
-                    MAPSET __http_body, STR$(__http_body_n), __http_bodyblob$
-                    __http_body_n = __http_body_n + 1
-                ENDIF
-            ELSE
-                __http_carry$ = __http_scan$
-            ENDIF
-        ENDIF
-    NEXT
-
-    IF __http_in_body = 0 THEN
-        IF __http_carry$ <> "" THEN
-            MAPSET __http_headers, STR$(__http_headers_n), __http_carry$
-            __http_headers_n = __http_headers_n + 1
-        ENDIF
-    ELSE
-        IF __http_carry$ <> "" THEN
-            MAPSET __http_body, STR$(__http_body_n), __http_carry$
-            __http_body_n = __http_body_n + 1
-        ENDIF
-    ENDIF
-
-    MAPSET __http_headers, "size", __http_headers_n
-    MAPSET __http_body, "size", __http_body_n
-ENDPROC
-
-DEF FNhttp__header_line$(wanted_line)
-    IF wanted_line < 0 THEN
-        = ""
-    ENDIF
-    IF wanted_line >= MAPGET(__http_headers, "size") THEN
-        = ""
-    ENDIF
-= MAPGET$(__http_headers, STR$(wanted_line))
-
-DEF FNhttp__header_value$(header_name$)
-    __http_prefix$ = LOWER$(header_name$) + ":"
-    __http_plen = LEN(__http_prefix$)
-
-    FOR i = 0 TO MAPGET(__http_headers, "size") - 1
-        __http_line$ = MAPGET$(__http_headers, STR$(i))
-        IF LEN(__http_line$) >= __http_plen THEN
-            IF LEFT$(LOWER$(__http_line$), __http_plen) = __http_prefix$ THEN
-                = TRIM$(MID$(__http_line$, __http_plen + 1))
-            ENDIF
-        ENDIF
-    NEXT
-= ""
-
-DEF FN__http_loop$(nn$)
-    nn$ = nn$ + INSOCKET$(FD,1024)
-    IF LEN(nn$) > 4096 THEN
-        MAPSET __http_response, STR$(__http_n), nn$
-        __http_n = __http_n + 1
-        = ""
-    ENDIF
-=nn$
-
-
-DEF PROChttp_request(method$, url$, postdata$)
-    HOST$ = FNhttp_url_host$(url$)
-    PORT = FNhttp_url_port(url$)
-    __http_tls_version$ = "unknown"
-    __http_tls_cipher$ = "unknown"
-    IF PORT = 0 THEN PORT = 80
-    SCHEME$ = FNhttp_url_scheme$(url$)
-    IP$ = DNS$(HOST$)
-    __http_request_response_base$ = ""
-    _path$ = FNhttp_url_path$(url$)
-    _q$ = FNhttp_url_query$(url$)
-    IF _q$ <> "" THEN
-        _path$ = _path$ + "?" + _q$
-    ENDIF
-
-    __http_response = MAP
-    __http_headers = MAP
-    __http_body = MAP
-    __http_n = 0
-    MAPSET __http_response, "size", 0
-    MAPSET __http_headers, "size", 0
-    MAPSET __http_body, "size", 0
-
-    IF IP$ <> "0.0.0.0" THEN
-        request$ = method$ + " " + _path$ + " HTTP/1.0" + CHR$(13) + CHR$(10) + "Host: " + HOST$ + CHR$(13) + CHR$(10) + "Connection: close" + CHR$(13) + CHR$(10)
-        request$ = request$ + "User-Agent: Voyager/0.1 (RetroRocket; x86_64) TextMode/ANSI" + CHR$(13) + CHR$(10)
-        IF postdata$ <> "" THEN
-            request$ = request$ + "Content-Length: " + STR$(LEN(postdata$)) + CHR$(13) + CHR$(10) + CHR$(13) + CHR$(10) + postdata$
-        ELSE
-            request$ = request$ + "Content-Length: 0" + CHR$(13) + CHR$(10) + CHR$(13) + CHR$(10)
-        ENDIF
-        __retry = 0
-        __retries = 1
-        IF (method$ = "GET") OR (method$ = "HEAD") THEN __retries = 3
-        REPEAT
-            __http_n = 0
-            MAPSET __http_response, "size", 0
-            IF SCHEME$ = "https" OR PORT = 443 THEN
-                SSLCONNECT FD, IP$, PORT, HOST$
-                __http_tls_version$ = TLSVERSION$(FD)
-                __http_tls_cipher$ = TLSCIPHER$(FD)
-            ELSE
-                CONNECT FD, IP$, PORT
-            ENDIF
-            SOCKWRITE FD, request$;
-            __http_request_response_base$ = ""
-            REPEAT
-                __http_request_response_base$ = FN__http_loop$(__http_request_response_base$)
-            UNTIL SOCKSTATUS(FD) = 0
-            IF __http_request_response_base$ <> "" THEN
-                MAPSET __http_response, STR$(__http_n), __http_request_response_base$
-                __http_n = __http_n + 1
-                __http_request_response_base$ = ""
-            ENDIF
-            MAPSET __http_response, "size", __http_n
-            SOCKCLOSE FD
-            __retry = __retry + 1
-        UNTIL __http_n > 0 OR __retry = __retries
-        PROChttp__split_response
-        MAPFREE __http_response
-    ENDIF
-ENDPROC
-
-DEF FNhttp_has_response
-    IF __http_headers = 0 THEN = FALSE
-=MAPHAS(__http_headers, "0")
-
-DEF FNhttp_has_body
-    IF __http_body = 0 THEN = FALSE
-=MAPHAS(__http_body, "0")
-
-DEF PROCfree_http_result
-    MAPFREE __http_headers
-    MAPFREE __http_body
-    __http_headers = 0
-    __http_body = 0
-ENDPROC
-
-DEF FNhttp_result(part$)
-    part$ = LOWER$(part$)
-    IF part$ = "headers" THEN
-        = __http_headers
-    ENDIF
-    IF part$ = "body" THEN
-        = __http_body
-    ENDIF
-= 0
-
 DEF FNhttp_result$(part$)
     part$ = LOWER$(part$)
 
     IF part$ = "tlsversion" THEN = __http_tls_version$
     IF part$ = "tlscipher" THEN = __http_tls_cipher$
 
-    IF __http_n = 0 THEN
+    IF __http_headers$ = "" THEN
         = ""
+    ENDIF
+
+    IF part$ = "headers" THEN
+        = __http_headers$
+    ENDIF
+
+    IF part$ = "body" THEN
+        = __http_body$
     ENDIF
 
     IF part$ = "status" THEN
@@ -446,3 +190,179 @@ DEF FNhttp_result$(part$)
         = FNhttp__header_value$(__http_hname$)
     ENDIF
 = ""
+
+DEF FNhttp_has_response
+= LEN(__http_headers$)
+
+DEF FNhttp_has_body
+= LEN(__http_body$)
+
+DEF PROCfree_http_result
+    __http_response$ = ""
+    __http_headers$ = ""
+    __http_body$ = ""
+ENDPROC
+
+DEF PROChttp__split_response
+    __http_headers$ = ""
+    __http_body$ = ""
+
+    __http_crlf$ = CHR$(13) + CHR$(10)
+    __http_sep$ = __http_crlf$ + __http_crlf$
+
+    _http_ok = 0
+    MATCH _http_ok, "^(.*?)" + __http_sep$ + "(.*)$", __http_response$, __http_headers$, __http_body$
+
+    IF _http_ok = 0 THEN
+        __http_headers$ = __http_response$
+        __http_body$ = ""
+    ENDIF
+ENDPROC
+
+DEF FNhttp__header_line$(wanted_line)
+    IF wanted_line < 0 THEN
+        = ""
+    ENDIF
+
+    __http_crlf$ = CHR$(13) + CHR$(10)
+    __http_rest$ = __http_headers$
+    __http_line_no = 0
+
+    REPEAT
+        _http_ok = 0
+        __http_line$ = ""
+        __http_next$ = ""
+
+        MATCH _http_ok, "^(.*?)" + __http_crlf$ + "(.*)$", __http_rest$, __http_line$, __http_next$
+
+        IF _http_ok = 1 THEN
+            IF __http_line_no = wanted_line THEN
+                = __http_line$
+            ENDIF
+            __http_line_no = __http_line_no + 1
+            __http_rest$ = __http_next$
+        ELSE
+            IF __http_line_no = wanted_line THEN
+                = __http_rest$
+            ENDIF
+            __http_rest$ = ""
+        ENDIF
+    UNTIL __http_rest$ = ""
+= ""
+
+DEF FNhttp__header_value$(header_name$)
+    __http_prefix$ = LOWER$(header_name$) + ":"
+    __http_plen = LEN(__http_prefix$)
+    __http_crlf$ = CHR$(13) + CHR$(10)
+    __http_rest$ = __http_headers$
+    __http_result$ = ""
+
+    REPEAT
+        _http_ok = 0
+        __http_line$ = ""
+        __http_next$ = ""
+
+        MATCH _http_ok, "^(.*?)" + __http_crlf$ + "(.*)$", __http_rest$, __http_line$, __http_next$
+
+        IF _http_ok = 0 THEN
+            __http_line$ = __http_rest$
+            __http_rest$ = ""
+        ELSE
+            __http_rest$ = __http_next$
+        ENDIF
+
+        IF __http_result$ = "" THEN
+            IF LEN(__http_line$) >= __http_plen THEN
+                IF LEFT$(LOWER$(__http_line$), __http_plen) = __http_prefix$ THEN
+                    __http_result$ = TRIM$(MID$(__http_line$, __http_plen + 1))
+                ENDIF
+            ENDIF
+        ENDIF
+    UNTIL __http_rest$ = ""
+= __http_result$
+
+DEF PROChttp_request(method$, url$, postdata$)
+    HOST$ = FNhttp_url_host$(url$)
+    PORT = FNhttp_url_port(url$)
+    __http_tls_version$ = "unknown"
+    __http_tls_cipher$ = "unknown"
+    __http_response$ = ""
+    __http_headers$ = ""
+    __http_body$ = ""
+
+    IF PORT = 0 THEN PORT = 80
+    SCHEME$ = FNhttp_url_scheme$(url$)
+    IP$ = DNS$(HOST$)
+    _path$ = FNhttp_url_path$(url$)
+    _q$ = FNhttp_url_query$(url$)
+
+    IF _path$ = "" THEN
+        _path$ = "/"
+    ENDIF
+
+    IF _q$ <> "" THEN
+        _path$ = _path$ + "?" + _q$
+    ENDIF
+
+    IF IP$ <> "0.0.0.0" THEN
+        request$ = method$ + " " + _path$ + " HTTP/1.0" + CHR$(13) + CHR$(10) + "Host: " + HOST$ + CHR$(13) + CHR$(10) + "Connection: close" + CHR$(13) + CHR$(10)
+        request$ = request$ + "User-Agent: Voyager/0.1 (RetroRocket; x86_64) TextMode/ANSI" + CHR$(13) + CHR$(10)
+
+        IF postdata$ <> "" THEN
+            request$ = request$ + "Content-Length: " + STR$(LEN(postdata$)) + CHR$(13) + CHR$(10) + CHR$(13) + CHR$(10) + postdata$
+        ELSE
+            request$ = request$ + "Content-Length: 0" + CHR$(13) + CHR$(10) + CHR$(13) + CHR$(10)
+        ENDIF
+
+        __retry = 0
+        __retries = 1
+        IF (method$ = "GET") OR (method$ = "HEAD") THEN __retries = 3
+
+        REPEAT
+            __http_response$ = ""
+
+            IF SCHEME$ = "https" OR PORT = 443 THEN
+                SSLCONNECT FD, IP$, PORT, HOST$
+                __http_tls_version$ = TLSVERSION$(FD)
+                __http_tls_cipher$ = TLSCIPHER$(FD)
+            ELSE
+                CONNECT FD, IP$, PORT
+            ENDIF
+
+            SOCKWRITE FD, request$;
+
+            REPEAT
+                __http_response$ = __http_response$ + INSOCKET$(FD, 4096)
+            UNTIL SOCKSTATUS(FD) = 0
+
+            SOCKCLOSE FD
+            __retry = __retry + 1
+        UNTIL __http_response$ <> "" OR __retry = __retries
+
+        PROChttp__split_response
+    ENDIF
+ENDPROC
+
+DEF PROChttp_get(url$)
+    PROChttp_request("GET", url$, "")
+ENDPROC
+
+DEF PROChttp_post(url$, postdata$)
+    PROChttp_request("POST", url$, postdata$)
+ENDPROC
+
+DEF PROChttp_put(url$, putdata$)
+    PROChttp_request("PUT", url$, putdata$)
+ENDPROC
+
+DEF PROChttp_head(url$)
+    PROChttp_request("HEAD", url$, "")
+ENDPROC
+
+DEF PROChttp_delete(url$)
+    PROChttp_request("DELETE", url$, "")
+ENDPROC
+
+DEF PROChttp_patch(url$, patchdata$)
+    PROChttp_request("PATCH", url$, patchdata$)
+ENDPROC

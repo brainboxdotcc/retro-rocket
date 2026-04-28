@@ -570,11 +570,11 @@ void init_modules(void) {
 
 bool load_module(const char *name) {
 	module m = {};
-	char path[MAX_STRINGLEN];
+	char path[MAX_PATH_LEN];
 	if (module_parse_alias(name)) {
 		return true;
 	}
-	snprintf(path, MAX_STRINGLEN, "/system/modules/%s.ko", name);
+	snprintf(path, MAX_PATH_LEN, "/system/modules/%s.ko", name);
 	m.name = strdup(name);
 	if (!m.name) {
 		dprintf("Out of memory\n");
@@ -634,7 +634,7 @@ bool module_parse_alias(const char *alias) {
 	if (handle < 0) {
 		return false;
 	}
-	char found_alias[MAX_STRINGLEN], vendor[MAX_STRINGLEN], device[MAX_STRINGLEN], type[MAX_STRINGLEN], modlist[MAX_STRINGLEN];
+	char found_alias[MAX_PATH_LEN], vendor[MAX_PATH_LEN], device[MAX_PATH_LEN], type[MAX_PATH_LEN], modlist[MAX_PATH_LEN];
 	char *alias_ptr = found_alias;
 	char *vendor_ptr = vendor;
 	char *device_ptr = device;

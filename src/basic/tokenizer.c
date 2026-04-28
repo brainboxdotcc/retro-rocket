@@ -334,7 +334,6 @@ int get_next_token(struct basic_ctx* ctx)
 		return tok;
 	} else if (*ctx->ptr == '"') {
 		ctx->nextptr = ctx->ptr;
-		int strl = 0;
 		do {
 			++ctx->nextptr;
 			if (*ctx->nextptr == 0 || *ctx->nextptr == 13) {
@@ -456,10 +455,19 @@ void tokenizer_fnum(struct basic_ctx* ctx, enum token_t token, double* f)
 
 void tokenizer_error_printf(struct basic_ctx* ctx, const char* fmt, ...)
 {
-	char error[MAX_STRINGLEN];
 	va_list args;
 	va_start(args, fmt);
-	vsnprintf(error, MAX_STRINGLEN - 1, fmt, args);
+	va_list args_copy;
+	__builtin_va_copy(args_copy, args);
+	int needed = vsnprintf(NULL, 0, fmt, args_copy);
+	va_end(args_copy);
+	if (needed < 0) {
+		va_end(args);
+		tokenizer_error_print(ctx, "Error formatting error message");
+		return;
+	}
+	char error[needed + 1];
+	vsnprintf(error, needed + 1, fmt, args);
 	va_end(args);
 	tokenizer_error_print(ctx, error);
 }

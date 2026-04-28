@@ -74,7 +74,7 @@ const char* tail_last_lines(const char *s, size_t n) {
 
 /* Tiny decoder for exceptions that carry an error code */
 static inline const char* print_error_code_detail(uint64_t vec, uint64_t ec) {
-	static char message[MAX_STRINGLEN];
+	static char message[MAX_PATH_LEN];
 	switch (vec) {
 		case 10: /* #TS */
 		case 11: /* #NP */
@@ -86,7 +86,7 @@ static inline const char* print_error_code_detail(uint64_t vec, uint64_t ec) {
 			const unsigned idx = (unsigned)((ec >> 3) & 0x1FFF); /* selector index */
 
 			const char *table = idt ? "IDT" : (ti ? "LDT" : "GDT");
-			snprintf(message, MAX_STRINGLEN, "idx=%u, table=%s%s", idx, table, ext ? ", ext" : "");
+			snprintf(message, MAX_PATH_LEN, "idx=%u, table=%s%s", idx, table, ext ? ", ext" : "");
 			break;
 		}
 		case 14: { /* #PF: Page Fault */
@@ -99,7 +99,7 @@ static inline const char* print_error_code_detail(uint64_t vec, uint64_t ec) {
 			const int sstk= (ec >> 6) & 1; /* CET shadow stack (if enabled) */
 			/* bit 7 (HLAT) exists on some parts; ignore silently if 0 */
 
-			snprintf(message, MAX_STRINGLEN, "%s, %s, %s%s%s%s%s",
+			snprintf(message, MAX_PATH_LEN, "%s, %s, %s%s%s%s%s",
 				p ? "protection" : "not-present",
 				wr ? "write" : "read",
 				us ? "user" : "kernel",
@@ -110,7 +110,7 @@ static inline const char* print_error_code_detail(uint64_t vec, uint64_t ec) {
 			break;
 		}
 		default:
-			snprintf(message, MAX_STRINGLEN, "no error detail");
+			snprintf(message, MAX_PATH_LEN, "no error detail");
 			break;
 	}
 	return message;

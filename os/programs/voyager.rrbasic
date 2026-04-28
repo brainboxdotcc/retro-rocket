@@ -86,34 +86,30 @@ ENDPROC
 REM load a file into the array, translating TAB to four spaces
 DEF PROCload(file$)
     PROChttp_get("https://brainbox.cc/")
-    body = FNhttp_result("body")
-    n = MAPGET(body, "size")
+    body$ = FNhttp_result$("body")
+    body$ = REPLACE$(body$, CHR$(13) + CHR$(10), CHR$(13))
+    body$ = REPLACE$(body$, CHR$(10) + CHR$(13), CHR$(13))
+    body$ = REPLACE$(body$, CHR$(10), CHR$(13))
     lines = 0
-    FOR i = 0 TO n - 1
-        PART$ = MAPGET$(body, STR$(i))
-        PART$ = REPLACE$(PART$, CHR$(13) + CHR$(10), CHR$(13))
-        PART$ = REPLACE$(PART$, CHR$(10) + CHR$(13), CHR$(13))
-        PART$ = REPLACE$(PART$, CHR$(10), CHR$(13))
-        REPEAT
-            CONT$ = TOKENIZE$(PART$, CHR$(13))
-            IF LEN(CONT$) > TERMWIDTH - 2 THEN
-                REPEAT
-                    L$ = LEFT$(CONT$, TERMWIDTH - 2)
-                    CONT$ = MID$(CONT$, TERMWIDTH - 2, LEN(CONT$))
-                    content$(lines) = L$
-                    lines = lines + 1
-                    IF lines = max THEN
-                        PROCgrow
-                    ENDIF
-                UNTIL LEN(CONT$) <= TERMWIDTH - 2
-            ENDIF
-            content$(lines) = CONT$
-            lines = lines + 1
-            IF lines = max THEN
-                PROCgrow
-            ENDIF
-        UNTIL PART$ = ""
-    NEXT
+    REPEAT
+        CONT$ = TOKENIZE$(body$, CHR$(13))
+        IF LEN(CONT$) > TERMWIDTH - 2 THEN
+            REPEAT
+                L$ = LEFT$(CONT$, TERMWIDTH - 2)
+                CONT$ = MID$(CONT$, TERMWIDTH - 2, LEN(CONT$))
+                content$(lines) = L$
+                lines = lines + 1
+                IF lines = max THEN
+                    PROCgrow
+                ENDIF
+            UNTIL LEN(CONT$) <= TERMWIDTH - 2
+        ENDIF
+        content$(lines) = CONT$
+        lines = lines + 1
+        IF lines = max THEN
+            PROCgrow
+        ENDIF
+    UNTIL body$ = ""
 ENDPROC
 
 REM increase array used to store text

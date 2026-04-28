@@ -7,6 +7,8 @@
  */
 #define MAX_STRINGLEN 10240
 
+#define MAX_PATH_LEN 1024
+
 /**
  * @brief Maximum stack depth for GOSUB, PROC, and FN calls.
  *

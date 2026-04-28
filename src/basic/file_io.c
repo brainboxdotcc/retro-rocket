@@ -13,17 +13,17 @@ const char* make_full_path(struct basic_ctx* ctx, const char* relative)
 	}
 
 	const char* csd = proc_cur(cpu)->csd;
-	char qualified_path[MAX_STRINGLEN];
+	char qualified_path[MAX_PATH_LEN];
 
 	if (*relative == 0) {
 		return csd;
 	}
 
 	if (*csd == '/' && *(csd+1) == 0) {
-		snprintf(qualified_path, MAX_STRINGLEN, "%s%s", csd, relative);
+		snprintf(qualified_path, MAX_PATH_LEN, "%s%s", csd, relative);
 		return gc_strdup(ctx, qualified_path);
 	}
-	snprintf(qualified_path, MAX_STRINGLEN, "%s/%s", csd, relative);
+	snprintf(qualified_path, MAX_PATH_LEN, "%s/%s", csd, relative);
 	return gc_strdup(ctx, qualified_path);
 }
 

@@ -106,31 +106,31 @@ symbol_t* get_sym_table()
 
 void dump_hex(const void* addr, uint64_t length)
 {
-	char line[MAX_STRINGLEN], part[MAX_STRINGLEN];
+	char line[MAX_PATH_LEN], part[MAX_PATH_LEN];
 	unsigned const char* address = addr;
 	uint64_t index = 0;
 	for(; index < length; index += 16) {
 		*line = 0;
-		snprintf(part, MAX_STRINGLEN, "%04lx: ", index);
-		strlcat(line, part, MAX_STRINGLEN);
+		snprintf(part, MAX_PATH_LEN, "%04lx: ", index);
+		strlcat(line, part, MAX_PATH_LEN);
 		size_t hex = 0;
 		for (; hex < 16; ++hex) {
 			if (index + hex < length) {
-				snprintf(part, MAX_STRINGLEN, "%02X ", address[index + hex]);
+				snprintf(part, MAX_PATH_LEN, "%02X ", address[index + hex]);
 			} else {
-				snprintf(part, MAX_STRINGLEN, "   ");
+				snprintf(part, MAX_PATH_LEN, "   ");
 			}
-			strlcat(line, part, MAX_STRINGLEN);
+			strlcat(line, part, MAX_PATH_LEN);
 		}
-		snprintf(part, MAX_STRINGLEN, " | ");
-		strlcat(line, part, MAX_STRINGLEN);
+		snprintf(part, MAX_PATH_LEN, " | ");
+		strlcat(line, part, MAX_PATH_LEN);
 		for (hex = 0; hex < 16; ++hex) {
 			if (index + hex < length) {
-				snprintf(part, MAX_STRINGLEN, "%c", (address[index + hex] < 32 || address[index + hex] > 126) ? '.' : address[index + hex]);
+				snprintf(part, MAX_PATH_LEN, "%c", (address[index + hex] < 32 || address[index + hex] > 126) ? '.' : address[index + hex]);
 			} else {
-				snprintf(part, MAX_STRINGLEN, " ");
+				snprintf(part, MAX_PATH_LEN, " ");
 			}
-			strlcat(line, part, MAX_STRINGLEN);
+			strlcat(line, part, MAX_PATH_LEN);
 		}
 
 		dprintf("%s\n", line);

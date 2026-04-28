@@ -33,17 +33,18 @@ void serial_write(uint16_t port, const char *s) {
 }
 
 void serial_printf(uint16_t port, const char *fmt, ...) {
-	char buf[MAX_STRINGLEN]; // temporary buffer per call
 	va_list ap;
 	va_start(ap, fmt);
-	int len = vsnprintf(buf, sizeof(buf), fmt, ap);
-	va_end(ap);
-
-	if (len > 0) {
-		if (len >= (int)sizeof(buf)) {
-			len = sizeof(buf) - 1;
-		}
-		buf[len] = '\0';
-		serial_write(port, buf);
+	va_list ap_copy;
+	__builtin_va_copy(ap_copy, ap);
+	int len = vsnprintf(NULL, 0, fmt, ap_copy);
+	va_end(ap_copy);
+	if (len <= 0) {
+		va_end(ap);
+		return;
 	}
+	char buf[len + 1];
+	vsnprintf(buf, len + 1, fmt, ap);
+	va_end(ap);
+	serial_write(port, buf);
 }
