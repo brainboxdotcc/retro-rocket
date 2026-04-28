@@ -2,7 +2,7 @@
 #include <stddef.h>
 #include <kernel.h>
 
-#define BUDDY_MAX_ORDER 24
+#define BUDDY_MAX_ORDER 28
 #define BUDDY_MIN_ORDER 6
 
 static inline size_t order_size(int order) {
