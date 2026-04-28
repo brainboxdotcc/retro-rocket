@@ -7,6 +7,10 @@
 #pragma once
 #include "basic.h"
 
+/**
+ * Initial string bump allocator area size for storing temporary
+ * strings used in expressions.
+ */
 #define STRING_GC_AREA_SIZE (1024 * 1024 * 4)
 
 /**

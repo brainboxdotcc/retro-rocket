@@ -386,6 +386,13 @@ typedef struct basic_ctx {
 	char* string_gc_storage;
 
 	/**
+	 * @brief Size of string_gc_storage bump allocation.
+	 * This grows when a previous run hits a high water mark when
+	 * the gc() function runs
+	 */
+	size_t string_gc_storage_size;
+
+	/**
 	 * @brief Pointer to the next free position in the garbage-collected string storage.
 	 */
 	char* string_gc_storage_next;

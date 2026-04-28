@@ -189,7 +189,7 @@ char* strdup(const char* string)
 
 const char* gc_try_concat(struct basic_ctx *ctx, const char* s1, const char* s2) {
 	char* dest = ctx->string_gc_storage_next;
-	char* end = ctx->string_gc_storage + STRING_GC_AREA_SIZE;
+	char* end = ctx->string_gc_storage + ctx->string_gc_storage_size;
 	char* out = dest;
 
 	while (*s1) {
@@ -220,7 +220,7 @@ const char* gc_strdup(basic_ctx* ctx, const char* string)
 		return ctx->string_gc_storage;
 	}
 	char* dest = ctx->string_gc_storage_next;
-	size_t remaining = (size_t)((ctx->string_gc_storage + STRING_GC_AREA_SIZE) - dest);
+	size_t remaining = (size_t)((ctx->string_gc_storage + ctx->string_gc_storage_size) - dest);
 	size_t len = strlcpy(dest, string, remaining);
 	if (len >= remaining) {
 		tokenizer_error_printf(ctx, "Out of string area allocator space storing '%s'", string);
@@ -232,7 +232,7 @@ const char* gc_strdup(basic_ctx* ctx, const char* string)
 
 const char* gc_from_tokenizer_string(struct basic_ctx *ctx) {
 	char* dest = ctx->string_gc_storage_next;
-	char* end = ctx->string_gc_storage + STRING_GC_AREA_SIZE;
+	char* end = ctx->string_gc_storage + ctx->string_gc_storage_size;
 	char* out = dest;
 
 	if (*ctx->ptr == '"') {
@@ -255,10 +255,19 @@ const char* gc_from_tokenizer_string(struct basic_ctx *ctx) {
 }
 
 int gc(basic_ctx* ctx) {
-	if (ctx->string_gc_storage && ctx->string_gc_storage_next) {
-		/* Strings start at +1 as the base ptr is for empties */
-		ctx->string_gc_storage_next = ctx->string_gc_storage + 1;
+	size_t used = ctx->string_gc_storage_next - ctx->string_gc_storage;
+	if (used >= (ctx->string_gc_storage_size * 75) / 100 && !ctx->errored && !ctx->ended) {
+		size_t new_size = ctx->string_gc_storage_size * 2;
+		char* new_storage = buddy_realloc(ctx->allocator, ctx->string_gc_storage, new_size);
+		if (new_storage) {
+			ctx->string_gc_storage = new_storage;
+			ctx->string_gc_storage_size = new_size;
+			*ctx->string_gc_storage = 0;
+		} else {
+			tokenizer_error_printf(ctx, "Out of memory growing string area to %lu MB", new_size / 1024 / 1024);
+		}
 	}
+	ctx->string_gc_storage_next = ctx->string_gc_storage + 1;
 	return 1;
 }
 

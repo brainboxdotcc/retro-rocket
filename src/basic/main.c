@@ -336,7 +336,8 @@ struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file
 		*error = "Out of memory";
 		return NULL;
 	}
-	ctx->string_gc_storage = buddy_malloc(ctx->allocator, STRING_GC_AREA_SIZE);
+	ctx->string_gc_storage_size = STRING_GC_AREA_SIZE;
+	ctx->string_gc_storage = buddy_malloc(ctx->allocator, ctx->string_gc_storage_size);
 	if (!ctx->string_gc_storage) {
 		buddy_free(ctx->allocator, ctx->program_ptr);
 		kfree_null(&ctx);
@@ -560,6 +561,7 @@ struct basic_ctx *basic_clone(struct basic_ctx *old) {
 	ctx->string_array_variables = old->string_array_variables;
 	ctx->double_array_variables = old->double_array_variables;
 	ctx->string_gc_storage = old->string_gc_storage;
+	ctx->string_gc_storage_size = old->string_gc_storage_size;
 	ctx->string_gc_storage_next = old->string_gc_storage_next;
 	ctx->lines = old->lines;
 	ctx->highest_line = old->highest_line;
