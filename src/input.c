@@ -2,38 +2,58 @@
 
 extern spinlock_t console_spinlock;
 extern spinlock_t debug_console_spinlock;
-static bool stopped = false;
-uint8_t last = 0;		/**< Last character written. */
-char* internalbuffer = NULL;	/**< Optional backing buffer for console text. */
-char* buffer = NULL;		/**< External buffer, if used. */
-size_t bufcnt = 0;		/**< Buffer size or counter. */
 
-size_t kinput(size_t maxlen) {
-	last = kgetc();
+bool kinput(struct basic_ctx* basic, struct buffered_input_context_t* ctx) {
+	
+	ctx->last = kgetc();
 
-	if (stopped && buffer != NULL) {
-		return 1;
+	if (ctx->stopped && ctx->buffer != NULL) {
+		return true;
 	}
 
-	if (last == 255) {
+	if (ctx->last == 255) {
 		__asm__ volatile("hlt");
-		return 0;
+		return false;
 	}
 
-	if (buffer == NULL) {
-		stopped = false;
-		internalbuffer = kmalloc(maxlen + 1);
-		if (!internalbuffer) {
-			return 0;
+	if (ctx->internalbuffer == NULL) {
+		ctx->stopped = false;
+		ctx->buflen = 256;
+		ctx->internalbuffer = buddy_malloc(basic->allocator, ctx->buflen);
+		if (!ctx->internalbuffer) {
+			return false;
 		}
-		buffer = internalbuffer;
-		bufcnt = 0;
+		ctx->buffer = ctx->internalbuffer;
+		ctx->bufcnt = 0;
+		ctx->internalbuffer[0] = 0;
+	}
+
+	bool need_grow = false;
+	if (ctx->last != '\r' && ctx->last != 8 && ctx->last != KEY_UP && ctx->last != KEY_DOWN && ctx->last != KEY_LEFT && ctx->last != KEY_RIGHT) {
+		need_grow = ctx->bufcnt + 1 >= ctx->buflen;
+	}
+
+	if (need_grow) {
+		if (ctx->buflen > SIZE_MAX / 2) {
+			beep(1000);
+			return false;
+		}
+
+		size_t new_len = ctx->buflen * 2;
+		char *new_buffer = buddy_realloc(basic->allocator, ctx->internalbuffer, new_len);
+		if (!new_buffer) {
+			beep(1000);
+			return false;
+		}
+		ctx->internalbuffer = new_buffer;
+		ctx->buffer = ctx->internalbuffer + ctx->bufcnt;
+		ctx->buflen = new_len;
 	}
 
 	uint64_t flags;
 	lock_spinlock_irq(&console_spinlock, &flags);
 	lock_spinlock(&debug_console_spinlock);
-	switch (last) {
+	switch (ctx->last) {
 		case KEY_UP:
 		case KEY_DOWN:
 		case KEY_LEFT:
@@ -43,9 +63,9 @@ size_t kinput(size_t maxlen) {
 			put('\n');
 		break;
 		case 8:
-			if (bufcnt != 0) {
-				buffer--;
-				bufcnt--;
+			if (ctx->bufcnt != 0) {
+				ctx->buffer--;
+				ctx->bufcnt--;
 				/* Advance text cursor back one space, if we are at x=0, move to x=79, y--.
 				 * If we are at y=0, scroll up?
 				 */
@@ -57,34 +77,32 @@ size_t kinput(size_t maxlen) {
 			}
 		break;
 		default:
-			if (bufcnt == maxlen) {
-				beep(1000);
-			} else {
-				*(buffer++) = last;
-				bufcnt++;
-				put(last);
-			}
+			*(ctx->buffer++) = ctx->last;
+			ctx->bufcnt++;
+			put(ctx->last);
 		break;
 	}
 	unlock_spinlock(&debug_console_spinlock);
 	unlock_spinlock_irq(&console_spinlock, flags);
 	/* Terminate string */
-	*buffer = 0;
+	*ctx->buffer = 0;
 
-	if (last == '\r') {
-		stopped = true;
+	if (ctx->last == '\r') {
+		ctx->stopped = true;
 	}
 
-	return last == '\r';
+	return ctx->last == '\r';
 }
 
-void kfreeinput() {
-	kfree_null(&internalbuffer);
-	buffer = NULL;
-	bufcnt = 0;
-	stopped = false;
+void kinitinput(struct buffered_input_context_t* ctx) {
+	memset(ctx, 0, sizeof(buffered_input_context_t));
 }
 
-char* kgetinput() {
-	return internalbuffer;
+void kfreeinput(struct basic_ctx* basic, struct buffered_input_context_t* ctx) {
+	buddy_free(basic->allocator, ctx->internalbuffer);
+	kinitinput(ctx);
+}
+
+const char* kgetinput(struct buffered_input_context_t* ctx) {
+	return ctx->internalbuffer;
 }

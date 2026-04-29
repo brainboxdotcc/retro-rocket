@@ -83,21 +83,23 @@ int64_t basic_capslock(struct basic_ctx* ctx)
 /**
  * Check if input is complete yet
  * @param proc process
+ * @param opaque BASIC context
  * @return true if input is still waiting for completion, false if done
  */
 bool check_input_in_progress(process_t* proc, void* opaque)
 {
+	basic_ctx* ctx = opaque;
 	if (basic_esc()) {
 		return false;
 	}
-	return kinput(MAX_STRINGLEN) == 0;
+	return kinput(ctx, &ctx->input) == 0;
 }
 
 /**
  * @brief Deferred cooperative input via idle process callback.
  *
  * When a BASIC `INPUT` statement is encountered, the interpreter checks whether
- * a complete line of user input is available via `kinput()`. If not, the process
+ * a complete line of user input is available via `kinput(ctx, )`. If not, the process
  * voluntarily yields using `proc_set_idle()` and assigns a custom callback
  * (`check_input_in_progress`) to periodically test for input readiness.
  *
@@ -120,9 +122,9 @@ void input_statement(struct basic_ctx* ctx)
 
 	process_t* proc = ctx->proc;
 
-	/* Clear buffer */
-	if (kinput(MAX_STRINGLEN) == 0) {
-		proc_set_idle(proc, check_input_in_progress, NULL);
+	/* Poll for pending input */
+	if (kinput(ctx, &ctx->input) == 0) {
+		proc_set_idle(proc, check_input_in_progress, ctx);
 		jump_linenum(ctx->current_linenum, ctx);
 		proc->state = PROC_IO_BOUND;
 		return;
@@ -132,7 +134,7 @@ void input_statement(struct basic_ctx* ctx)
 
 	if (varname_is_int_array_access(ctx, var)) {
 		int64_t index = arr_target_index(ctx);
-		int64_t value = atoll(kgetinput(), 10);
+		int64_t value = atoll(kgetinput(&ctx->input), 10);
 
 		if (index == -1) {
 			basic_set_int_array(var, value, ctx);
@@ -140,13 +142,13 @@ void input_statement(struct basic_ctx* ctx)
 			basic_set_int_array_variable(var, index, value, ctx);
 		}
 
-		kfreeinput();
+		kfreeinput(ctx, &ctx->input);
 		accept_or_return(NEWLINE, ctx);
 		proc->state = PROC_RUNNING;
 		return;
 	} else if (varname_is_string_array_access(ctx, var)) {
 		int64_t index = arr_target_index(ctx);
-		const char* value = kgetinput();
+		const char* value = kgetinput(&ctx->input);
 
 		if (index == -1) {
 			basic_set_string_array(var, value, ctx);
@@ -154,14 +156,14 @@ void input_statement(struct basic_ctx* ctx)
 			basic_set_string_array_variable(var, index, value, ctx);
 		}
 
-		kfreeinput();
+		kfreeinput(ctx, &ctx->input);
 		accept_or_return(NEWLINE, ctx);
 		proc->state = PROC_RUNNING;
 		return;
 	} else if (varname_is_double_array_access(ctx, var)) {
 		int64_t index = arr_target_index(ctx);
 		double value = 0;
-		atof(kgetinput(), &value);
+		atof(kgetinput(&ctx->input), &value);
 
 		if (index == -1) {
 			basic_set_double_array(var, value, ctx);
@@ -169,7 +171,7 @@ void input_statement(struct basic_ctx* ctx)
 			basic_set_double_array_variable(var, index, value, ctx);
 		}
 
-		kfreeinput();
+		kfreeinput(ctx, &ctx->input);
 		accept_or_return(NEWLINE, ctx);
 		proc->state = PROC_RUNNING;
 		return;
@@ -179,21 +181,21 @@ void input_statement(struct basic_ctx* ctx)
 
 	switch (var[var_length - 1]) {
 		case '$':
-			basic_set_string_variable(var, kgetinput(), ctx, false, false);
+			basic_set_string_variable(var, kgetinput(&ctx->input), ctx, false, false);
 			break;
 
 		case '#': {
 			double f = 0;
-			atof(kgetinput(), &f);
+			atof(kgetinput(&ctx->input), &f);
 			basic_set_double_variable(var, f, ctx, false, false);
 			break;
 		}
 
 		default:
-			basic_set_int_variable(var, atoll(kgetinput(), 10), ctx, false, false);
+			basic_set_int_variable(var, atoll(kgetinput(&ctx->input), 10), ctx, false, false);
 			break;
 	}
-	kfreeinput();
+	kfreeinput(ctx, &ctx->input);
 	accept_or_return(NEWLINE, ctx);
 	proc->state = PROC_RUNNING;
 }
@@ -647,9 +649,9 @@ char* printable_syntax(struct basic_ctx* ctx)
 		return NULL;
 	}
 
-	char* result = gc_strdup(ctx, out);
+	const char* result = gc_strdup(ctx, out);
 	buddy_free(ctx->allocator, out);
-	return result;
+	return (char*)result;
 }
 
 void keymap_statement(struct basic_ctx* ctx)

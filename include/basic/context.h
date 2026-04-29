@@ -9,6 +9,7 @@
 #include "buddy_allocator.h"
 #include "audio.h"
 #include "data.h"
+#include <input.h>
 
 typedef enum memory_model_t {
 	mm_small = 25,
@@ -167,6 +168,11 @@ typedef struct basic_ctx {
 	 * the line after the error is executed.
 	 */
 	const char* error_handler;
+
+	/**
+	 * @brief Context for INPUT statement
+	 */
+	buffered_input_context_t input;
 
 	/**
 	 * @brief True if the program has "claimed flipping".

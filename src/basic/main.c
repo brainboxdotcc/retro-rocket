@@ -304,6 +304,7 @@ struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file
 	memset(&ctx->last_packet, 0, sizeof(queued_udp_packet));
 	memset(&ctx->audio_streams, 0, sizeof(ctx->audio_streams));
 	memset(&ctx->envelopes, 0, sizeof(ctx->envelopes));
+	kinitinput(&ctx->input);
 	ctx->sounds = NULL;
 	ctx->if_nest_level = 0;
 	ctx->errored = false;
@@ -552,6 +553,7 @@ struct basic_ctx *basic_clone(struct basic_ctx *old) {
 	ctx->sleep_until = old->sleep_until;
 	ctx->match_ctx = NULL;
 	ctx->proc = old->proc;
+	kinitinput(&ctx->input);
 	memset(&ctx->last_packet, 0, sizeof(queued_udp_packet));
 	ctx->int_variables = old->int_variables;
 	ctx->str_variables = old->str_variables;
