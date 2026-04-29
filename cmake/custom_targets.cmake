@@ -1,30 +1,13 @@
 function(copy_basic TARGETFILE SOURCEFILE)
     set(FILENAME "${CMAKE_SOURCE_DIR}/os/programs/${SOURCEFILE}")
-    set(OUTNAME "${CMAKE_BINARY_DIR}/iso/programs/${TARGETFILE}")
-    get_filename_component(basic_name ${TARGETFILE} NAME_WE)
-    set(OUTNAME_WE "${CMAKE_BINARY_DIR}/iso/programs/${basic_name}")
-    add_custom_command(OUTPUT ${OUTNAME_WE}
-        COMMAND mkdir -p "${CMAKE_BINARY_DIR}/iso/programs" && cp ${FILENAME} ${OUTNAME_WE}
-        DEPENDS ${FILENAME})
-    add_custom_target(basic_${SOURCEFILE} ALL DEPENDS ${OUTNAME_WE})
-    add_dependencies("kernel.bin" basic_${SOURCEFILE})
-    add_dependencies(ISO basic_${SOURCEFILE})
-endfunction()
-
-function(copy_basic_lib TARGETFILE SOURCEFILE)
-    set(FILENAME "${CMAKE_SOURCE_DIR}/os/programs/libraries/${SOURCEFILE}")
-
     get_filename_component(TARGETDIR "${TARGETFILE}" DIRECTORY)
     get_filename_component(TARGETNAME_WE "${TARGETFILE}" NAME_WE)
-
     if(TARGETDIR)
-        set(OUTNAME "${CMAKE_BINARY_DIR}/iso/programs/libraries/${TARGETDIR}/${TARGETNAME_WE}")
+        set(OUTNAME "${CMAKE_BINARY_DIR}/iso/programs/${TARGETDIR}/${TARGETNAME_WE}")
     else()
-        set(OUTNAME "${CMAKE_BINARY_DIR}/iso/programs/libraries/${TARGETNAME_WE}")
+        set(OUTNAME "${CMAKE_BINARY_DIR}/iso/programs/${TARGETNAME_WE}")
     endif()
-
     get_filename_component(OUTDIR "${OUTNAME}" DIRECTORY)
-
     add_custom_command(
             OUTPUT "${OUTNAME}"
             COMMAND ${CMAKE_COMMAND} -E make_directory "${OUTDIR}"
@@ -32,41 +15,14 @@ function(copy_basic_lib TARGETFILE SOURCEFILE)
             DEPENDS "${FILENAME}"
             VERBATIM
     )
-
     string(REPLACE "/" "_" BASIC_TARGET "${TARGETFILE}")
-
     add_custom_target(basic_${BASIC_TARGET} ALL DEPENDS "${OUTNAME}")
     add_dependencies(kernel.bin basic_${BASIC_TARGET})
     add_dependencies(ISO basic_${BASIC_TARGET})
-endfunction()
-
-function(copy_basic_driver TARGETFILE SOURCEFILE)
-    set(FILENAME "${CMAKE_SOURCE_DIR}/os/programs/drivers/${SOURCEFILE}")
-
-    get_filename_component(TARGETDIR "${TARGETFILE}" DIRECTORY)
-    get_filename_component(TARGETNAME_WE "${TARGETFILE}" NAME_WE)
-
-    if(TARGETDIR)
-        set(OUTNAME "${CMAKE_BINARY_DIR}/iso/programs/drivers/${TARGETDIR}/${TARGETNAME_WE}")
-    else()
-        set(OUTNAME "${CMAKE_BINARY_DIR}/iso/programs/drivers/${TARGETNAME_WE}")
-    endif()
-
-    get_filename_component(OUTDIR "${OUTNAME}" DIRECTORY)
-
-    add_custom_command(
-            OUTPUT "${OUTNAME}"
-            COMMAND ${CMAKE_COMMAND} -E make_directory "${OUTDIR}"
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different "${FILENAME}" "${OUTNAME}"
-            DEPENDS "${FILENAME}"
-            VERBATIM
-    )
-
-    string(REPLACE "/" "_" DRIVER_TARGET "${TARGETFILE}")
-
-    add_custom_target(driver_${DRIVER_TARGET} ALL DEPENDS "${OUTNAME}")
-    add_dependencies(kernel.bin driver_${DRIVER_TARGET})
-    add_dependencies(ISO driver_${DRIVER_TARGET})
+    list(APPEND BASIC_PROGRAM_TARGETS basic_${BASIC_TARGET})
+    list(APPEND BASIC_PROGRAM_OUTPUTS "${OUTNAME}")
+    set(BASIC_PROGRAM_TARGETS "${BASIC_PROGRAM_TARGETS}" PARENT_SCOPE)
+    set(BASIC_PROGRAM_OUTPUTS "${BASIC_PROGRAM_OUTPUTS}" PARENT_SCOPE)
 endfunction()
 
 function(copy_system_web SOURCEFILE)
@@ -230,6 +186,6 @@ function(iso TARGETFILE SOURCEFILE)
     set(OUTNAME "${CMAKE_BINARY_DIR}/${TARGETFILE}")
     add_custom_command(OUTPUT ${OUTNAME}
         COMMAND php ../build-boot-image.php && xorriso -as mkisofs --quiet -b limine-bios-cd.bin -no-emul-boot -boot-load-size 4 -boot-info-table -eltorito-alt-boot -e limine-uefi-cd.bin -no-emul-boot -joliet -R -V "RETROROCKET" --protective-msdos-label "${CMAKE_BINARY_DIR}/iso" -o "${CMAKE_BINARY_DIR}/rr.iso" && php ../build-usb.php
-        DEPENDS SYMBOLS "kernel.bin" "RUN_run.sh" "DEBUG_debug.sh" ${basic_program_list} ${basic_library_list} ${basic_driver_list} ${WEB_TARGETS} ${CONFIG_TARGETS} ${IMAGE_TARGETS} ${MODULE_TARGETS})
+        DEPENDS SYMBOLS "kernel.bin" "RUN_run.sh" "DEBUG_debug.sh" ${BASIC_PROGRAM_OUTPUTS} ${WEB_TARGETS} ${CONFIG_TARGETS} ${IMAGE_TARGETS} ${MODULE_TARGETS})
     add_dependencies(ISO SYMBOLS "kernel.bin" "RUN_run.sh" "DEBUG_debug.sh" "config_limine.conf")
 endfunction()

@@ -1,0 +1,28 @@
+REM This is supposed to crash.
+A$ = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+A$ = A$ + A$
+A$ = A$ + A$
+A$ = A$ + A$
+A$ = A$ + A$
+A$ = A$ + A$
+A$ = A$ + A$
+A$ = A$ + A$
+A$ = A$ + A$
+A$ = A$ + A$
+A$ = A$ + A$
+A$ = A$ + A$
+A$ = A$ + A$
+B$ = A$
+MB = 0
+ON ERROR PROCfail
+REPEAT
+    B$ = B$ + A$
+UNTIL FALSE
+END
+
+DEF PROCfail
+    PRINT "Grow reached its limit at a "; LEN(B$) / 1024 / 1024; " MB string"
+    PRINT "Memory use: "; MEMPROGRAM
+    PRINT "Memory peak: "; MEMPEAK
+    END
+ENDPROC

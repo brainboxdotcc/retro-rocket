@@ -258,6 +258,7 @@ int gc(basic_ctx* ctx) {
 	size_t used = ctx->string_gc_storage_next - ctx->string_gc_storage;
 	if (used >= (ctx->string_gc_storage_size * 75) / 100 && !ctx->errored && !ctx->ended) {
 		size_t new_size = ctx->string_gc_storage_size * 2;
+		dprintf("Growing string area from %lu MB to %lu MB\n", ctx->string_gc_storage_size / 1024 / 1024, new_size / 1024 / 1024);
 		char* new_storage = buddy_realloc(ctx->allocator, ctx->string_gc_storage, new_size);
 		if (new_storage) {
 			ctx->string_gc_storage = new_storage;
