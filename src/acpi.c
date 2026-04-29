@@ -93,7 +93,7 @@ void init_uacpi(void) {
 	mhz = tsc_per_sec / 1000000;
 	dprintf("mhz = %lu, tsc_per_sec = %lu\n", mhz, tsc_per_sec);
 
-	buddy_init(&acpi_pool, 6, 22, 22);
+	buddy_init(&acpi_pool, buddy_64b, buddy_4mb, buddy_4mb);
 
 	uacpi_context_set_log_level(UACPI_LOG_INFO);
 	st = uacpi_initialize(0);

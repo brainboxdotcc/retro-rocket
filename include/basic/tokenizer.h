@@ -268,7 +268,7 @@ void tokenizer_next(struct basic_ctx* ctx);
  * @param ctx context
  * @return int token
  */
-enum token_t tokenizer_token(struct basic_ctx* ctx);
+#define tokenizer_token(ctx) ((enum token_t)ctx->current_token)
 
 /**
  * @brief Get integer number as next token
@@ -307,7 +307,7 @@ const char* tokenizer_variable_name(struct basic_ctx* ctx, size_t* count);
  * @param ctx context
  * @return int true if the program has finished
  */
-bool tokenizer_finished(struct basic_ctx* ctx);
+#define tokenizer_finished(ctx) (*ctx->ptr == 0 || ctx->current_token == ENDOFINPUT)
 
 /**
  * @brief display an error to the terminal and end the program

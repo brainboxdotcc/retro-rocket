@@ -110,7 +110,7 @@ static int interned_name_compare(const void *a, const void *b, void *udata)
 static bool ensure_interned_variable_names(void)
 {
 	if (!interned_variable_name_allocator_ready) {
-		buddy_init(&interned_variable_name_allocator, 6, 22, 22);
+		buddy_init(&interned_variable_name_allocator, buddy_64b, buddy_4mb, buddy_4mb);
 		interned_variable_name_allocator_ready = true;
 	}
 
@@ -379,12 +379,11 @@ int get_next_token(struct basic_ctx* ctx)
 		}
 	}
 
-	if ((*ctx->ptr >= 'a' && *ctx->ptr <= 'z') || (*ctx->ptr >= 'A' && *ctx->ptr <= 'Z') || *ctx->ptr == '_') {
+	if (isalpha(*ctx->ptr) || *ctx->ptr == '_') {
 		ctx->nextptr = ctx->ptr;
 		int varl = 0;
 		while (
-			(*ctx->nextptr >= 'a' && *ctx->nextptr <= 'z') ||
-			(*ctx->nextptr >= 'A' && *ctx->nextptr <= 'Z') ||
+			isalpha(*ctx->nextptr) ||
 			(*ctx->nextptr == '_') ||
 			(varl > 0 && *ctx->nextptr == '$') ||
 			(varl > 0 && *ctx->nextptr == '#') ||
@@ -423,11 +422,6 @@ void tokenizer_init(const char *program, struct basic_ctx* ctx)
 {
 	ctx->ptr = program;
 	ctx->current_token = get_next_token(ctx);
-}
-
-enum token_t tokenizer_token(struct basic_ctx* ctx)
-{
-	return ctx->current_token;
 }
 
 void tokenizer_next(struct basic_ctx* ctx)
@@ -555,11 +549,6 @@ void tokenizer_error_print(struct basic_ctx* ctx, const char* error)
 			jump_linenum(ctx->eval_linenum, ctx);
 		}
 	}
-}
-
-bool tokenizer_finished(struct basic_ctx* ctx)
-{
-	return *ctx->ptr == 0 || ctx->current_token == ENDOFINPUT;
 }
 
 const char* tokenizer_variable_name(struct basic_ctx* ctx, size_t* count)

@@ -291,7 +291,7 @@ bool virtio_send_packet(void *data, uint16_t len) {
 
 	memset(hdr, 0, VNET_HDR_SIZE);
 
-	void *pay = buddy_malloc(&tx_buffer_allocator, len);
+	void *pay = buddy_malloc_aligned(&tx_buffer_allocator, len, 16);
 	if (!pay) {
 		virtq_free_desc(tq, (uint16_t) h);
 		virtq_free_desc(tq, (uint16_t) p);
@@ -326,7 +326,7 @@ static void vnet_tx_complete(void) {
 
 		void* paybuf = (void *) (uintptr_t) tq->desc[pay].addr;
 		if (paybuf) {
-			buddy_free(&tx_buffer_allocator, paybuf);
+			buddy_free_aligned(&tx_buffer_allocator, paybuf, 16);
 		}
 
 		virtq_free_desc(tq, pay);
@@ -443,7 +443,7 @@ bool EXPORTED MOD_INIT_SYM(KMOD_ABI)(void) {
 		return false;
 	}
 	/* We use a buddy allocator for TX buffer as it is faster and aligned as standard */
-	buddy_init(&tx_buffer_allocator, 6, 22, 22);
+	buddy_init(&tx_buffer_allocator, buddy_64b, buddy_4mb, buddy_4mb);
 	if (!virtio_net_start(&dev)) {
 		return false;
 	}

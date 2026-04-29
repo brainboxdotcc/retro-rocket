@@ -941,7 +941,7 @@ void basic_run(struct basic_ctx *ctx) {
 		return;
 	}
 	/* TODO Make sure this only runs for foreground processes! */
-	if (basic_esc() && !ctx->errored) {
+	if (!ctx->errored && basic_esc()) {
 		kgetc();
 		tokenizer_error_print(ctx, "Escape");
 		return;

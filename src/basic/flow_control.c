@@ -97,14 +97,11 @@ void error_statement(struct basic_ctx* ctx)
 
 void if_statement(struct basic_ctx* ctx)
 {
-	basic_debug("line %ld if_statement\n", ctx->current_linenum);
-
 	accept_or_return(IF, ctx);
 	bool r = conditional(ctx);
 	accept_or_return(THEN, ctx);
 
 	if (r) {
-		basic_debug("conditional is true\n");
 		if (tokenizer_token(ctx) == NEWLINE) {
 			/* Multi-statement block IF */
 			accept_or_return(NEWLINE, ctx);
@@ -112,8 +109,6 @@ void if_statement(struct basic_ctx* ctx)
 		}
 		statement(ctx);
 	} else {
-		basic_debug("conditional is false\n");
-
 		if (tokenizer_token(ctx) == NEWLINE) {
 			/* --- multiline false-branch with nesting --- */
 			/* Enter the block and scan forward once, respecting nested multiline IFs */

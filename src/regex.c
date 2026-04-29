@@ -163,7 +163,7 @@ const char *regex_last_error(const struct regex_prog *p) {
 	};
 
 	buddy_allocator_t alloc;
-	buddy_init(&alloc, 5, 23, 23);
+	buddy_init(&alloc, buddy_32b, buddy_8mb, buddy_8mb);
 
 	for (int i = 0; cases[i].pattern; i++) {
 		struct regex_prog *prog = NULL;

@@ -31,6 +31,36 @@
 #include <stddef.h>
 #include <stdint.h>
 
+typedef enum buddy_order {
+	buddy_32b   = 5,
+	buddy_64b   = 6,
+	buddy_128b  = 7,
+	buddy_256b  = 8,
+	buddy_512b  = 9,
+	buddy_1kb   = 10,
+	buddy_2kb   = 11,
+	buddy_4kb   = 12,
+	buddy_8kb   = 13,
+	buddy_16kb  = 14,
+	buddy_32kb  = 15,
+	buddy_64kb  = 16,
+	buddy_128kb = 17,
+	buddy_256kb = 18,
+	buddy_512kb = 19,
+	buddy_1mb   = 20,
+	buddy_2mb   = 21,
+	buddy_4mb   = 22,
+	buddy_8mb   = 23,
+	buddy_16mb  = 24,
+	buddy_32mb  = 25,
+	buddy_64mb  = 26,
+	buddy_128mb = 27,
+	buddy_256mb = 28,
+	buddy_512mb = 29
+} buddy_order_t;
+
+#define BUDDY_MAX_ORDER buddy_512mb
+#define BUDDY_MIN_ORDER buddy_32b
 
 /**
  * @brief Block header used for both free list nodes and allocated blocks.
@@ -126,6 +156,45 @@ void* buddy_malloc(buddy_allocator_t* alloc, size_t size);
  * is identified via a back-pointer stored in the block header.
  */
 void buddy_free(buddy_allocator_t* alloc, const void *ptr);
+
+/**
+ * @brief Allocate an aligned block of memory from the buddy allocator.
+ *
+ * @param alloc  Allocator instance to allocate from.
+ * @param size   Requested size in bytes.
+ * @param align  Required alignment in bytes (power of two).
+ * @return Pointer to aligned memory, or NULL if out of memory.
+ *
+ * @note If align <= 8, this function behaves identically to buddy_malloc()
+ *       and returns a pointer aligned to at least 8 bytes.
+ *
+ * @note For align > 8, additional space is allocated and the returned pointer
+ *       is adjusted to satisfy the requested alignment. The original allocation
+ *       pointer is stored internally and must be released using
+ *       buddy_free_aligned().
+ *
+ * @note The minimum guaranteed alignment of all allocations from the buddy
+ *       allocator is 8 bytes, determined by sizeof(buddy_header_t).
+ */
+void* buddy_malloc_aligned(buddy_allocator_t* alloc, size_t size, size_t align);
+
+/**
+ * @brief Free memory allocated by buddy_malloc_aligned().
+ *
+ * @param alloc  Allocator instance.
+ * @param ptr    Pointer previously returned by buddy_malloc_aligned().
+ * @param align  Alignment value originally passed to buddy_malloc_aligned().
+ *
+ * @note The align argument must match the value used for allocation.
+ *
+ * @note If align <= 8, this function behaves identically to buddy_free(),
+ *       because buddy_malloc_aligned() does not adjust the returned pointer
+ *       for alignments already guaranteed by the allocator.
+ *
+ * @note Passing a different alignment value from the one used at allocation
+ *       time results in undefined behaviour.
+ */
+void buddy_free_aligned(buddy_allocator_t* alloc, void* ptr, size_t align);
 
 /**
  * @brief Destroy a buddy allocator and free all regions.

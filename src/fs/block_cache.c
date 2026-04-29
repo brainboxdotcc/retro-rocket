@@ -272,7 +272,7 @@ block_cache_t *block_cache_create(storage_device_t *dev) {
 	init_spinlock(&c->lock);
 
 	if (!cache_allocator.regions) {
-		buddy_init(&cache_allocator, 6, 22, 22);
+		buddy_init(&cache_allocator, buddy_64b, buddy_4mb, buddy_4mb);
 	}
 
 	c->map = hashmap_new_with_allocator(cache_malloc, cache_realloc, cache_free, sizeof(block_cache_entry_t), 0, CACHE_HASH_SEED0, CACHE_HASH_SEED1, cache_hash, cache_compare, NULL, c);

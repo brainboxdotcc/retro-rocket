@@ -2,9 +2,6 @@
 #include <stddef.h>
 #include <kernel.h>
 
-#define BUDDY_MAX_ORDER 29
-#define BUDDY_MIN_ORDER 6
-
 static inline size_t order_size(int order) {
 	return (size_t)1 << order;
 }
@@ -87,14 +84,15 @@ static buddy_region_t *buddy_grow(buddy_allocator_t *alloc) {
 	}
 
 	size_t size = 1UL << grow;
-	void *pool = kmalloc(size);
+	void *pool = kmalloc_aligned(size, 8);
 	if (!pool) {
 		return NULL;
 	}
 
-	buddy_region_t *region = (buddy_region_t *)kmalloc(sizeof(buddy_region_t));
+	buddy_region_t *region = (buddy_region_t *)kmalloc_aligned(sizeof(buddy_region_t), 8);
 	if (!region) {
-		kfree_null(&pool);
+		kfree_aligned(pool);
+		pool = NULL;
 		return NULL;
 	}
 
@@ -200,6 +198,62 @@ void *buddy_malloc(buddy_allocator_t *alloc, size_t size) {
 	return NULL; // completely out of memory
 }
 
+void* buddy_malloc_aligned(buddy_allocator_t* alloc, size_t size, size_t align)
+{
+	if (!alloc || size == 0) {
+		return NULL;
+	}
+
+	if (align <= 8) {
+		return buddy_malloc(alloc, size);
+	}
+
+	if ((align & (align - 1)) != 0) {
+		dprintf("buddy_malloc_aligned: alignment must be power of two (got %lu)\n", align);
+		return NULL;
+	}
+
+	/* allocate extra space for alignment slack + pointer storage */
+	size_t total = size + align - 1 + sizeof(void*);
+	uint8_t* raw = (uint8_t*)buddy_malloc(alloc, total);
+	if (!raw) {
+		return NULL;
+	}
+
+	uintptr_t aligned = ((uintptr_t)(raw + sizeof(void*) + (align - 1))) & ~(uintptr_t)(align - 1);
+
+	/* store original pointer just before aligned block */
+	void** save = (void**)aligned;
+	save[-1] = raw;
+
+	return (void*)aligned;
+}
+
+void buddy_free_aligned(buddy_allocator_t* alloc, void* ptr, size_t align)
+{
+	if (!alloc || !ptr) {
+		return;
+	}
+
+	if (align <= 8) {
+		buddy_free(alloc, ptr);
+		return;
+	}
+
+	if ((align & (align - 1)) != 0) {
+		dprintf("buddy_free_aligned: alignment must be power of two (got %lu)\n", align);
+		return;
+	}
+
+	void** save = (void**)ptr;
+	if (!save[-1]) {
+		dprintf("buddy_free_aligned: missing backing pointer\n");
+		return;
+	}
+
+	buddy_free(alloc, save[-1]);
+}
+
 void buddy_free(buddy_allocator_t *alloc, const void *ptr) {
 	if (!ptr || !alloc) {
 		return;
@@ -270,8 +324,10 @@ void buddy_destroy(buddy_allocator_t *alloc) {
 	while (r) {
 		buddy_region_t *next = r->next;
 
-		kfree_null(&r->pool);  // free the pool and null it
-		kfree_null(&r);        // free the region struct itself and null that pointer
+		kfree_aligned(r->pool);  // free the pool and null it
+		kfree_aligned(r);        // free the region struct itself and null that pointer
+		r->pool = NULL;
+		r = NULL;
 
 		r = next;              // use the saved "next" to continue traversal
 	}
