@@ -25,7 +25,7 @@ static inline size_t block_offset(buddy_region_t *region, void *ptr) {
 	return off;
 }
 
-static inline void *buddy_of(buddy_region_t *region, void *ptr, int order) {
+static inline __attribute((always_inline)) void *buddy_of(buddy_region_t *region, void *ptr, int order) {
 	if (!region) {
 		return 0;
 	}
@@ -41,11 +41,11 @@ static inline void *buddy_of(buddy_region_t *region, void *ptr, int order) {
 	return (uint8_t *)region->pool + buddy_off;
 }
 
-static inline size_t align_up(size_t x, size_t align) {
+static inline __attribute((always_inline)) size_t align_up(size_t x, size_t align) {
 	return (x + align - 1) & ~(align - 1);
 }
 
-static inline int size_to_order(buddy_region_t *region, size_t size) {
+static inline __attribute((always_inline)) int size_to_order(buddy_region_t *region, size_t size) {
 	if (!region) {
 		return 0;
 	}
@@ -57,7 +57,7 @@ static inline int size_to_order(buddy_region_t *region, size_t size) {
 	return order;
 }
 
-void buddy_init(buddy_allocator_t *alloc, int min_order, int max_order, int grow_order) {
+void buddy_init(buddy_allocator_t *alloc, uint8_t min_order, uint8_t max_order, uint8_t grow_order) {
 	if (!alloc) {
 		dprintf("buddy_init: called with a null struct\n");
 		return;

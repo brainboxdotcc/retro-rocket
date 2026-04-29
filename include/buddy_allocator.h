@@ -63,8 +63,8 @@ typedef struct buddy_region {
 	uint8_t *pool;			/**< Base pointer to backing memory pool */
 	size_t size;			/**< Size of this region in bytes */
 	buddy_block_t *free_lists[32];	/**< Array of free lists, indexed by order */
-	int min_order;			/**< Minimum order (smallest block size) */
-	int max_order;			/**< Maximum order (largest block size) */
+	uint8_t min_order;		/**< Minimum order (smallest block size) */
+	uint8_t max_order;		/**< Maximum order (largest block size) */
 	struct buddy_region *next;	/**< Next region in linked list */
 } buddy_region_t;
 
@@ -77,9 +77,9 @@ typedef struct buddy_region {
 typedef struct buddy_allocator {
 	buddy_region_t *regions;	/**< Linked list of regions */
 	buddy_region_t *active_region;	/**< Current target region for allocations */
-	int grow_order;			/**< Size of each new region in orders (1 << grow_order) */
-	int min_order;			/**< Minimum order (smallest block size) */
-	int max_order;			/**< Maximum order (largest block size) */
+	uint8_t grow_order;		/**< Size of each new region in orders (1 << grow_order) */
+	uint8_t min_order;		/**< Minimum order (smallest block size) */
+	uint8_t max_order;		/**< Maximum order (largest block size) */
 	size_t current_bytes;		/**< Current allocated bytes in this region */
 	size_t peak_bytes;		/**< Peak allocated bytes in this region */
 } buddy_allocator_t;
@@ -96,7 +96,7 @@ typedef struct buddy_allocator {
  * automatically on the first call to @ref buddy_malloc, or may be added
  * eagerly by growing manually.
  */
-void buddy_init(buddy_allocator_t* alloc, int min_order, int max_order, int grow_order);
+void buddy_init(buddy_allocator_t* alloc, uint8_t min_order, uint8_t max_order, uint8_t grow_order);
 
 /**
  * @brief Allocate a block of memory from the buddy allocator.
