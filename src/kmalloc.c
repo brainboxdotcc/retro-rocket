@@ -272,6 +272,7 @@ void* kmalloc(uint64_t size) {
 	void* p = allocator_alloc(size);
 	allocated += allocator_usable_size((void *) p);
 	unlock_spinlock_irq(&allocator_lock, flags);
+	KMALLOC_TRACE_ALLOC(p, size);
 	return p;
 }
 
@@ -288,6 +289,7 @@ void kfree(const void* ptr) {
 	allocated -= allocator_usable_size((void *) ptr);
 	allocator_free((void *) ptr);
 	unlock_spinlock_irq(&allocator_lock, flags);
+	KMALLOC_TRACE_FREE(ptr);
 }
 
 uint32_t kmalloc_low(uint32_t size) {

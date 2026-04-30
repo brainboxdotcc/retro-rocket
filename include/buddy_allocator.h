@@ -62,6 +62,7 @@ typedef enum buddy_order {
 #define BUDDY_MAX_ORDER buddy_512mb
 #define BUDDY_MIN_ORDER buddy_32b
 
+
 /**
  * @brief Block header used for both free list nodes and allocated blocks.
  *

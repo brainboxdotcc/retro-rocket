@@ -58,3 +58,5 @@ uint64_t findsymbol_addr(const char *name);
 bool running_under_qemu(void);
 
 bool find_limine_module(const char* filename , uint8_t** content, size_t* size);
+
+void backtrace_collect(uintptr_t *trace_addresses, size_t trace_limit, size_t *trace_count);

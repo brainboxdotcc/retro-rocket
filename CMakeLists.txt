@@ -6,6 +6,7 @@ set_property(GLOBAL PROPERTY TARGET_MESSAGES OFF)
 
 option(USE_E1000 "Use the e1000 NIC driver in QEMU instead of rtl8139" ON)
 option(PROFILE_KERNEL "Profile the kernel, and output callgrind compatible file via COM1" OFF)
+option(MEMORY_TRACE "Trace memory allocations and track leaks" OFF)
 
 set(HARD_DISK_IMAGE "../../harddisk0" CACHE STRING "Path to hard disk image when running QEMU")
 
@@ -29,9 +30,13 @@ if(PROFILE_KERNEL)
     add_compile_definitions(PROFILE_KERNEL)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -finstrument-functions")
     set_source_files_properties(
-            src/profiler.c src/serial.c
+            src/profiler.c src/serial.c src/memory_trace.c
             PROPERTIES COMPILE_FLAGS "-fno-instrument-functions"
     )
+endif()
+
+if(MEMORY_TRACE)
+    add_compile_definitions(MEMORY_TRACE)
 endif()
 
 include_directories("include")

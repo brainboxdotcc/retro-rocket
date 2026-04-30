@@ -183,6 +183,7 @@ void *buddy_malloc(buddy_allocator_t *alloc, size_t size) {
 			if (alloc->current_bytes > alloc->peak_bytes) {
 				alloc->peak_bytes = alloc->current_bytes;
 			}
+			BUDDY_TRACE_ALLOC(ret, size);
 			return ret;
 		}
 
@@ -313,6 +314,7 @@ void buddy_free(buddy_allocator_t *alloc, const void *ptr) {
 	// insert final (possibly merged) block
 	block->next = region->free_lists[order];
 	region->free_lists[order] = block;
+	BUDDY_TRACE_FREE(ptr);
 }
 
 

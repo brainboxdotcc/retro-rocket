@@ -12,6 +12,8 @@ static size_t symbol_name_hash_size = 0;
 #define SYMBOL_HASH_SEED0 0x736f6d6570736575
 #define SYMBOL_HASH_SEED1 0x646f72616e646f6d
 
+static inline void get_kstack_bounds(uintptr_t *lo, uintptr_t *hi);
+
 static size_t symbol_next_pow2(size_t v)
 {
 	if (v <= 1) {
@@ -102,6 +104,51 @@ bool get_debug_signal()
 symbol_t* get_sym_table()
 {
 	return symbol_table;
+}
+
+
+void backtrace_collect(uintptr_t *trace_addresses, size_t trace_limit, size_t *trace_count)
+{
+	stack_frame_t *frame;
+	__asm__ volatile("movq %%rbp,%0" : "=r"(frame));
+
+	uintptr_t lo;
+	uintptr_t hi;
+	size_t depth = 0;
+	size_t count = 0;
+	uint32_t skip = 0;
+
+	get_kstack_bounds(&lo, &hi);
+
+	while (frame && CANONICAL_ADDRESS(frame) && (uintptr_t)frame >= lo && (uintptr_t)frame <= (hi - sizeof(*frame)) && depth++ < 1024) {
+		stack_frame_t *next = frame->next;
+
+		if (skip++ < 3) {
+			frame = next;
+			continue;
+		}
+
+		if (next && (uintptr_t)next <= (uintptr_t)frame) {
+			break;
+		}
+
+		if (frame->addr == BT_IRQ_MARKER) {
+			frame = next;
+			continue;
+		}
+
+		if (count < trace_limit) {
+			trace_addresses[count++] = frame->addr;
+		} else {
+			break;
+		}
+
+		frame = next;
+	}
+
+	if (trace_count) {
+		*trace_count = count;
+	}
 }
 
 void dump_hex(const void* addr, uint64_t length)

@@ -67,6 +67,7 @@
 #include "video.h"
 #include "string.h"
 #include "io.h"
+#include "memory_trace.h"
 #include "memcpy.h"
 #include "apic.h"
 #include "ioapic.h"

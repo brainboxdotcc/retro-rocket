@@ -400,6 +400,12 @@ static void push_to_buffer(char x) {
 		return;
 	}
 #endif
+#ifdef MEMORY_TRACE
+	if (ctrl_held() && alt_held() && shift_held() && x == 'M') {
+		memory_trace_dump_leaks(memory_trace_owner_buddy, NULL);
+		memory_trace_dump_leaks(memory_trace_owner_kmalloc, NULL);
+	}
+#endif
 	if (ctrl_held() && shift_held() && x == 'D') {
 		const char *log = dprintf_buffer_snapshot();
 		kprintf("\n%s\n", log);
