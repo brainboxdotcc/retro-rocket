@@ -93,12 +93,44 @@ void memory_trace_remove(void *ptr)
 	unlock_spinlock_irq(&trace_lock, flags);
 }
 
+static int memory_trace_group_compare(const void *a, const void *b)
+{
+	const memory_trace_leak_group_t *ga = a;
+	const memory_trace_leak_group_t *gb = b;
+
+	if (ga->total_allocated < gb->total_allocated) {
+		return 1;
+	}
+
+	if (ga->total_allocated > gb->total_allocated) {
+		return -1;
+	}
+
+	return 0;
+}
+
+static bool memory_trace_same_group(memory_trace_leak_group_t *g, memory_trace_entry_t *e)
+{
+	if (g->trace_count != e->trace_count) {
+		return false;
+	}
+
+	return memcmp(g->trace_addresses, e->trace_addresses, e->trace_count * sizeof(uintptr_t)) == 0;
+}
+
 void memory_trace_dump_leaks(memory_trace_owner_type_t owner_type, void *owner)
 {
-	uint64_t leaks = 0;
-	uint64_t bytes = 0;
-	uint64_t now = get_ticks();
+	static memory_trace_leak_group_t groups[MEMORY_TRACE_MAX_LEAK_GROUPS];
+
 	uint64_t flags;
+	uint64_t total_leaks = 0;
+	uint64_t total_requested = 0;
+	uint64_t total_allocated = 0;
+	uint64_t dropped_groups = 0;
+	size_t group_count = 0;
+	uint64_t now = get_ticks();
+
+	memset(groups, 0, sizeof(groups));
 
 	lock_spinlock_irq(&trace_lock, &flags);
 
@@ -118,32 +150,81 @@ void memory_trace_dump_leaks(memory_trace_owner_type_t owner_type, void *owner)
 				continue;
 			}
 
-			leaks++;
-			bytes += e->allocated_size;
+			total_leaks++;
+			total_requested += e->requested_size;
+			total_allocated += e->allocated_size;
 
-			dprintf("memory_trace: leak type=%s owner=%p ptr=%p req=%lu alloc=%lu age=%lu ticks\n", owner_type == memory_trace_owner_buddy ? "buddy" : "kmalloc", e->owner, e->ptr, e->requested_size, e->allocated_size, now - e->ticks);
+			bool found = false;
 
-			for (size_t f = 0; f < e->trace_count; f++) {
-				uint64_t offset = 0;
-				const char *mname = NULL;
-				const char *sname = NULL;
-				uintptr_t addr = e->trace_addresses[f];
+			for (size_t g = 0; g < group_count; g++) {
+				if (memory_trace_same_group(&groups[g], e)) {
+					groups[g].count++;
+					groups[g].total_requested += e->requested_size;
+					groups[g].total_allocated += e->allocated_size;
 
-				if (module_addr_to_symbol(addr, &mname, &sname, &offset)) {
-					dprintf("memory_trace:   #%lu %s:%s()+0x%08lx [0x%lx]\n", f, mname, sname, offset, addr);
-				} else {
-					const char *name = findsymbol(addr, &offset);
-					dprintf("memory_trace:   #%lu %s()+0x%08lx [0x%lx]\n", f, name ? name : "[???]", offset, addr);
+					if (e->ticks < groups[g].oldest_ticks) {
+						groups[g].oldest_ticks = e->ticks;
+					}
+
+					found = true;
+					break;
 				}
+			}
+
+			if (found) {
+				continue;
+			}
+
+			if (group_count >= MEMORY_TRACE_MAX_LEAK_GROUPS) {
+				dropped_groups++;
+				continue;
+			}
+
+			memory_trace_leak_group_t *g = &groups[group_count++];
+
+			g->count = 1;
+			g->requested_size = e->requested_size;
+			g->allocated_size = e->allocated_size;
+			g->total_requested = e->requested_size;
+			g->total_allocated = e->allocated_size;
+			g->oldest_ticks = e->ticks;
+			g->trace_count = e->trace_count;
+
+			if (e->trace_count) {
+				memcpy(g->trace_addresses, e->trace_addresses, e->trace_count * sizeof(uintptr_t));
 			}
 		}
 	}
 
-	if (leaks) {
-		dprintf("memory_trace: type=%s owner=%p leaked %lu allocation(s), %lu bytes\n", owner_type == memory_trace_owner_buddy ? "buddy" : "kmalloc", owner, leaks, bytes);
+	unlock_spinlock_irq(&trace_lock, flags);
+
+	if (!total_leaks) {
+		return;
 	}
 
-	unlock_spinlock_irq(&trace_lock, flags);
+	qsort(groups, group_count, sizeof(memory_trace_leak_group_t), memory_trace_group_compare);
+
+	dprintf("memory_trace: %s owner=%p leaked %lu allocation(s), req=%lu alloc=%lu groups=%lu dropped_groups=%lu\n", owner_type == memory_trace_owner_buddy ? "buddy" : "kmalloc", owner, total_leaks, total_requested, total_allocated, group_count, dropped_groups);
+
+	for (size_t g = 0; g < group_count; g++) {
+		memory_trace_leak_group_t *group = &groups[g];
+
+		dprintf("memory_trace: group #%lu count=%lu req_each=%lu alloc_each=%lu req_total=%lu alloc_total=%lu oldest_age=%lu ticks\n", g, group->count, group->requested_size, group->allocated_size, group->total_requested, group->total_allocated, now - group->oldest_ticks);
+
+		for (size_t f = 0; f < group->trace_count; f++) {
+			uint64_t offset = 0;
+			const char *mname = NULL;
+			const char *sname = NULL;
+			uintptr_t addr = group->trace_addresses[f];
+
+			if (module_addr_to_symbol(addr, &mname, &sname, &offset)) {
+				dprintf("memory_trace:   #%lu %s:%s()+0%08lx [0x%lx]\n", f, mname, sname, offset, addr);
+			} else {
+				const char *name = findsymbol(addr, &offset);
+				dprintf("memory_trace:   #%lu %s()+0%08lx [0x%lx]\n", f, name ? name : "[???]", offset, addr);
+			}
+		}
+	}
 }
 
 #endif

@@ -123,7 +123,7 @@ void backtrace_collect(uintptr_t *trace_addresses, size_t trace_limit, size_t *t
 	while (frame && CANONICAL_ADDRESS(frame) && (uintptr_t)frame >= lo && (uintptr_t)frame <= (hi - sizeof(*frame)) && depth++ < 1024) {
 		stack_frame_t *next = frame->next;
 
-		if (skip++ < 3) {
+		if (skip++ < 1) {
 			frame = next;
 			continue;
 		}

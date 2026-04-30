@@ -8,6 +8,7 @@
 #define MEMORY_TRACE_BUCKETS 32768
 #define MEMORY_TRACE_BUCKET_DEPTH 4
 #define MEMORY_TRACE_MAX_STACK 16
+#define MEMORY_TRACE_MAX_LEAK_GROUPS 2048
 
 typedef enum memory_trace_owner_type {
 	memory_trace_owner_buddy,
@@ -18,20 +19,30 @@ typedef struct memory_trace_entry {
 	void *ptr;
 	void *owner;
 	memory_trace_owner_type_t owner_type;
-
 	size_t requested_size;
 	size_t allocated_size;
 	uint64_t ticks;
-
 	size_t trace_count;
 	uint64_t trace_addresses[MEMORY_TRACE_MAX_STACK];
-
 	bool used;
 } memory_trace_entry_t;
+
+typedef struct memory_trace_leak_group {
+	uint64_t count;
+	uint64_t total_requested;
+	uint64_t total_allocated;
+	uint64_t oldest_ticks;
+	size_t requested_size;
+	size_t allocated_size;
+	size_t trace_count;
+	uintptr_t trace_addresses[MEMORY_TRACE_MAX_STACK];
+} memory_trace_leak_group_t;
 
 void memory_trace_add(void *ptr, void *owner, memory_trace_owner_type_t owner_type, size_t requested_size, size_t allocated_size, const uint64_t *trace_addresses, size_t trace_count);
 
 void memory_trace_remove(void *ptr);
+
+void memory_trace_dump_leaks(memory_trace_owner_type_t owner_type, void *owner);
 
 #define BUDDY_TRACE_ALLOC(ptr, req_size)						\
 	do {										\
@@ -62,8 +73,6 @@ void memory_trace_remove(void *ptr);
 	do {					\
 		memory_trace_remove((ptr));	\
 	} while (0)
-
-void memory_trace_dump_leaks(memory_trace_owner_type_t owner_type, void *owner);
 
 #else
 
