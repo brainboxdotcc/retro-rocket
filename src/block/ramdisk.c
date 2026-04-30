@@ -213,6 +213,60 @@ static void zlib_free(voidpf opaque, voidpf addr) {
 	}
 }
 
+bool compress_gzip(uint8_t *data, size_t data_size, uint8_t **out, uint32_t *out_size, int level) {
+	if (data == NULL || out == NULL || out_size == NULL) {
+		return false;
+	}
+
+	if (data_size == 0) {
+		return false;
+	}
+
+	if (level < Z_BEST_SPEED || level > Z_BEST_COMPRESSION) {
+		level = Z_BEST_SPEED;
+	}
+
+	z_stream zs;
+	memset(&zs, 0, sizeof(zs));
+	zs.zalloc = zlib_alloc;
+	zs.zfree = zlib_free;
+	zs.opaque = Z_NULL;
+
+	size_t bound = deflateBound(&zs, data_size);
+	if (bound > UINT32_MAX) {
+		return false;
+	}
+
+	*out = kmalloc(bound);
+	if (*out == NULL) {
+		return false;
+	}
+
+	zs.next_in = (Bytef *)data;
+	zs.avail_in = (uInt)data_size;
+	zs.next_out = (Bytef *)*out;
+	zs.avail_out = (uInt)bound;
+
+	int rc = deflateInit2(&zs, level, Z_DEFLATED, 16 + MAX_WBITS, 8, Z_DEFAULT_STRATEGY);
+	if (rc != Z_OK) {
+		kfree(*out);
+		*out = NULL;
+		return false;
+	}
+
+	rc = deflate(&zs, Z_FINISH);
+	if (rc != Z_STREAM_END) {
+		deflateEnd(&zs);
+		kfree(*out);
+		*out = NULL;
+		return false;
+	}
+
+	*out_size = (uint32_t)zs.total_out;
+	deflateEnd(&zs);
+	return true;
+}
+
 bool decompress_gzip(uint8_t *compressed_image, size_t compressed_size, uint8_t** out, uint32_t* out_size) {
 	if (compressed_image == NULL) {
 		return false;

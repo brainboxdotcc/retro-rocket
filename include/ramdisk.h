@@ -75,6 +75,8 @@ const char* init_ramdisk_from_memory(uint8_t* memory, size_t blocks, size_t bloc
  */
 bool decompress_gzip(uint8_t *compressed_image, size_t compressed_size, uint8_t** out, uint32_t* out_size);
 
+bool compress_gzip(uint8_t *data, size_t data_size, uint8_t **out, uint32_t *out_size, int level);
+
 /**
  * @brief Inflate and mount the initial ramdisk supplied by the bootloader
  *
