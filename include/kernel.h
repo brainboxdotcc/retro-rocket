@@ -201,3 +201,5 @@ struct reqset request_addresses(void);
 #endif
 
 void entropy_irq_event(void);
+
+void init_profiler(void);

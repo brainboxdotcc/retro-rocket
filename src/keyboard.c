@@ -16,6 +16,8 @@ static bool alt_state = false;
 static struct key_state key_states[256] = {0};
 static uint8_t key_was_extended[256] = {0};
 
+static debugkey_handler_t debugkeys[256];
+
 /* UK mappings of scan codes to characters, based in part off http://www.ee.bgu.ac.il/~microlab/MicroLab/Labs/ScanCodes.htm
  * These are DEFAULTS. They can be replaced by the KEYMAP BASIC keyword.
  */
@@ -106,7 +108,7 @@ static char parse_token(const char **p)
 		}
 		buf[len] = 0;
 		c = (char)atoll(buf, 16);
-	} else {             /* bare character literal */
+	} else {	     /* bare character literal */
 		c = *s++;
 	}
 
@@ -309,6 +311,13 @@ void keyboard_repeat_tick() {
 	}
 }
 
+static void debugkey_dprintf_dump(void) {
+	const char *log = dprintf_buffer_snapshot();
+	kprintf("\n%s\n", log);
+	kfree_null(&log);
+	return;
+}
+
 void init_keyboard() {
 	char devname[16];
 	buffer_write_ptr = 0;
@@ -316,6 +325,7 @@ void init_keyboard() {
 	make_unique_device_name("kb", devname, sizeof(devname));
 	register_interrupt_handler(IRQ1, keyboard_handler, dev_zero, NULL);
 	proc_register_idle(keyboard_repeat_tick, IDLE_BACKGROUND, 1);
+	debugkey_register('D', true, false, true, debugkey_dprintf_dump);
 }
 
 // Map a keyboard scan code to a keymap value
@@ -389,27 +399,57 @@ bool caps_lock_on() {
 	return caps_lock;
 }
 
+static size_t debugkey_index(char key, bool ctrl, bool alt, bool shift) {
+    if (key < 'A' || key > 'Z') {
+	return DEBUGKEY_INVALID;
+    }
+
+    size_t mods =
+	(ctrl  ? 0x20 : 0) |
+	(alt   ? 0x40 : 0) |
+	(shift ? 0x80 : 0);
+
+    return mods | (key - 'A');
+}
+
+bool debugkey_register(char key, bool ctrl, bool alt, bool shift, debugkey_handler_t handler) {
+    size_t idx = debugkey_index(key, ctrl, alt, shift);
+
+    if (idx == DEBUGKEY_INVALID || !handler) {
+	return false;
+    }
+
+    debugkeys[idx] = handler;
+    return true;
+}
+
+void debugkey_unregister(char key, bool ctrl, bool alt, bool shift) {
+    size_t idx = debugkey_index(key, ctrl, alt, shift);
+
+    if (idx != DEBUGKEY_INVALID) {
+	debugkeys[idx] = NULL;
+    }
+}
+
+static bool debugkey_dispatch(char key) {
+    size_t idx = debugkey_index(key, ctrl_held(), alt_held(), shift_held());
+
+    if (idx == DEBUGKEY_INVALID) {
+	return false;
+    }
+
+    debugkey_handler_t handler = debugkeys[idx];
+
+    if (!handler) {
+	return false;
+    }
+
+    handler();
+    return true;
+}
+
 static void push_to_buffer(char x) {
-#ifdef PROFILE_KERNEL
-	if (ctrl_held() && alt_held() && shift_held() && x == 'P') {
-		kprintf("\nDumping callgrind.out to serial port...\n");
-		rr_flip();
-		profile_dump();
-		kprintf("Profile written.\n");
-		rr_flip();
-		return;
-	}
-#endif
-#ifdef MEMORY_TRACE
-	if (ctrl_held() && alt_held() && shift_held() && x == 'M') {
-		memory_trace_dump_leaks(memory_trace_owner_buddy, NULL);
-		memory_trace_dump_leaks(memory_trace_owner_kmalloc, NULL);
-	}
-#endif
-	if (ctrl_held() && shift_held() && x == 'D') {
-		const char *log = dprintf_buffer_snapshot();
-		kprintf("\n%s\n", log);
-		kfree_null(&log);
+	if (debugkey_dispatch(x)) {
 		return;
 	}
 
@@ -439,7 +479,7 @@ void keyboard_process_scancode_input(uint8_t sc) {
 	}
 
 	uint8_t was_escaped = escaped;   /* one-shot */
-	escaped = false;                 /* consume E0 regardless of outcome */
+	escaped = false;		 /* consume E0 regardless of outcome */
 
 	switch (sc) {
 		case 0x2A:

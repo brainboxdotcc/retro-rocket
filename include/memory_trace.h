@@ -83,3 +83,5 @@ void memory_trace_dump_leaks(memory_trace_owner_type_t owner_type, void *owner);
 
 #endif
 
+void init_memtrace(void);
+

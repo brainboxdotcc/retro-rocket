@@ -6,6 +6,7 @@ spinlock_t console_spinlock = 0;
 spinlock_t debug_console_spinlock = 0;
 
 init_func_t init_funcs[] = {
+	init_memtrace, init_profiler,
 	validate_limine_page_tables_and_gdt, init_heap, init_console,
 	init_acpi, init_interrupts, boot_aps, init_pci, init_realtime_clock,
 	init_devicenames, init_keyboard, init_ide, init_ahci, init_nvme,
@@ -15,6 +16,7 @@ init_func_t init_funcs[] = {
 };
 
 char* init_funcs_names[] = {
+	"memtrace",	"profiler",
 	"gdt",		"heap",		"console",	"acpi",
 	"interrupts",	"cpus",		"pci",		"clock",
 	"devicenames",	"keyboard",	"ide",		"ahci",	

@@ -74,6 +74,37 @@ struct key_state {
 	uint16_t ticks_held; ///< Number of ticks the key has been held
 };
 
+#define DEBUGKEY_COUNT 256
+#define DEBUGKEY_INVALID 256
+
+/**
+ * @brief Debug key handler
+ */
+typedef void (*debugkey_handler_t)(void);
+
+/**
+ * @brief Register a debug key combination
+ *
+ * @param key Key ('A'-'Z')
+ * @param ctrl Ctrl modifier
+ * @param alt Alt modifier
+ * @param shift Shift modifier
+ * @param handler Handler to invoke
+ *
+ * @return true on success, false on invalid key or NULL handler
+ */
+bool debugkey_register(char key, bool ctrl, bool alt, bool shift, debugkey_handler_t handler);
+
+/**
+ * @brief Unregister a debug key combination
+ *
+ * @param key Key ('A'-'Z')
+ * @param ctrl Ctrl modifier
+ * @param alt Alt modifier
+ * @param shift Shift modifier
+ */
+void debugkey_unregister(char key, bool ctrl, bool alt, bool shift);
+
 /**
  * @brief Initialises the keyboard driver.
  *

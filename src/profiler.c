@@ -79,8 +79,8 @@ static profile_edge* edge_hash[PROFILE_EDGE_HASH_SIZE];
  * @brief Call stack frame used to measure function entry/exit.
  */
 struct call_frame {
-	void *fn;                    /**< Function pointer. */
-	uint64_t enter_time;         /**< Timestamp (TSC) at function entry. */
+	void *fn;		    /**< Function pointer. */
+	uint64_t enter_time;	 /**< Timestamp (TSC) at function entry. */
 	profile_edge *parent_edge;   /**< Edge from the parent to this frame. */
 };
 static struct call_frame call_stack[PROFILE_STACK_DEPTH];
@@ -393,4 +393,19 @@ __attribute__((no_instrument_function)) void profile_dump(void) {
 	}
 }
 
+void debugkey_profile_dump(void) {
+	kprintf("\nDumping callgrind.out to serial port...\n");
+	rr_flip();
+	profile_dump();
+	kprintf("Profile written.\n");
+	rr_flip();
+	return;		
+}
+
 #endif /* PROFILE_KERNEL */
+
+void init_profiler(void) {
+#ifdef PROFILE_KERNEL
+	debugkey_register('P', true, true, true, debugkey_profile_dump);
+#endif
+}

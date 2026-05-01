@@ -227,5 +227,15 @@ void memory_trace_dump_leaks(memory_trace_owner_type_t owner_type, void *owner)
 	}
 }
 
+static void debugkey_memory_trace_dump(void) {
+	memory_trace_dump_leaks(memory_trace_owner_kmalloc, NULL);
+}
+
 #endif
+
+void init_memtrace(void) {
+#ifdef MEMORY_TRACE
+	debugkey_register('M', true, true, true, debugkey_memory_trace_dump);
+#endif
+}
 
