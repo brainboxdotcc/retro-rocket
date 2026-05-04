@@ -6,22 +6,19 @@ typedef int (*basic_big_unary_func)(mbedtls_mpi* result, const mbedtls_mpi* a);
 
 static void basic_big_error(struct basic_ctx* ctx, const char* name, int rc)
 {
-	if (rc == MBEDTLS_ERR_MPI_INVALID_CHARACTER) {
-		tokenizer_error_printf(ctx, "%s invalid character", name);
-		return;
+	switch (rc) {
+		case MBEDTLS_ERR_MPI_INVALID_CHARACTER:
+			tokenizer_error_printf(ctx, "%s invalid character", name);
+			break;
+		case MBEDTLS_ERR_MPI_DIVISION_BY_ZERO:
+			tokenizer_error_printf(ctx, "%s divide by zero", name);
+			break;
+		case MBEDTLS_ERR_MPI_NEGATIVE_VALUE:
+			tokenizer_error_printf(ctx, "%s negative value", name);
+			break;
+		default:
+			tokenizer_error_printf(ctx, "%s failed", name);
 	}
-
-	if (rc == MBEDTLS_ERR_MPI_DIVISION_BY_ZERO) {
-		tokenizer_error_printf(ctx, "%s divide by zero", name);
-		return;
-	}
-
-	if (rc == MBEDTLS_ERR_MPI_NEGATIVE_VALUE) {
-		tokenizer_error_printf(ctx, "%s negative value", name);
-		return;
-	}
-
-	tokenizer_error_printf(ctx, "%s failed", name);
 }
 
 static int basic_big_read(struct basic_ctx* ctx, const char* name, mbedtls_mpi* value, const char* text)
@@ -38,31 +35,32 @@ static int basic_big_read(struct basic_ctx* ctx, const char* name, mbedtls_mpi* 
 static char* basic_big_write(struct basic_ctx* ctx, const char* name, mbedtls_mpi* value)
 {
 	size_t size = 32;
-
-	for (;;) {
-		char* buffer = buddy_malloc(ctx->allocator, size);
-		if (!buffer) {
+	char* buffer = buddy_malloc(ctx->allocator, size);
+	if (!buffer) {
+		tokenizer_error_printf(ctx, "%s out of memory", name);
+		return "";
+	}
+	size_t written = 0;
+	int rc = mbedtls_mpi_write_string(value, 10, buffer, size, &written);
+	if (rc == MBEDTLS_ERR_MPI_BUFFER_TOO_SMALL) {
+		size = written;
+		char* newbuf = buddy_realloc(ctx->allocator, buffer, size);
+		if (!newbuf) {
+			buddy_free(ctx->allocator, buffer);
 			tokenizer_error_printf(ctx, "%s out of memory", name);
 			return "";
 		}
-
-		size_t written = 0;
-		int rc = mbedtls_mpi_write_string(value, 10, buffer, size, &written);
-		if (rc == 0) {
-			char* out = (char*)gc_strdup(ctx, buffer);
-			buddy_free(ctx->allocator, buffer);
-			return out;
-		}
-
-		buddy_free(ctx->allocator, buffer);
-
-		if (rc != MBEDTLS_ERR_MPI_BUFFER_TOO_SMALL) {
-			basic_big_error(ctx, name, rc);
-			return "";
-		}
-
-		size *= 2;
+		buffer = newbuf;
+		rc = mbedtls_mpi_write_string(value, 10, buffer, size, &written);
 	}
+	if (rc != 0) {
+		buddy_free(ctx->allocator, buffer);
+		basic_big_error(ctx, name, rc);
+		return "";
+	}
+	char* out = (char*)gc_strdup(ctx, buffer);
+	buddy_free(ctx->allocator, buffer);
+	return out;
 }
 
 static char* basic_big_binary(struct basic_ctx* ctx, const char* name, const char* a_text, const char* b_text, basic_big_binary_func func)
