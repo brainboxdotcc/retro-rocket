@@ -126,7 +126,7 @@ $(function(){initNavTree('ISPROGRAM.html','',''); });
 <div class="textblock"><div class="fragment"><div class="line">V = ISPROGRAM(file$)</div>
 </div><!-- fragment --><p>Returns <span class="tt">TRUE</span> if the specified file appears to contain a BASIC program, otherwise returns <span class="tt">FALSE</span>.</p>
 <p>The file is inspected by reading up to the first 2048 bytes and checking for valid BASIC text and the presence of at least one recognised keyword.</p>
-<h3 class="doxsection"><a class="anchor" id="notes-37"></a>
+<h3 class="doxsection"><a class="anchor" id="notes-38"></a>
 Notes</h3>
 <p><span class="tt">ISPROGRAM</span> is a heuristic check and does not fully parse the file.</p>
 <p>Only the first 2048 bytes are examined, so unusually structured programs with no keywords in this region may be reported as not being BASIC.</p>
@@ -135,7 +135,7 @@ Notes</h3>
 <h3 class="doxsection"><a class="anchor" id="errors-2"></a>
 Errors</h3>
 <p>If the file cannot be accessed or read, an error is raised.</p>
-<h3 class="doxsection"><a class="anchor" id="examples-38"></a>
+<h3 class="doxsection"><a class="anchor" id="examples-39"></a>
 Examples</h3>
 <div class="fragment"><div class="line">IF ISPROGRAM(&quot;test&quot;) THEN</div>
 <div class="line">    PRINT &quot;Looks like a BASIC program&quot;</div>

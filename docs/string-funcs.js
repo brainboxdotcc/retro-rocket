@@ -1,6 +1,17 @@
 var string_funcs =
 [
     [ "ADFSIMAGE$ Function", "ADFSIMAGE.html", null ],
+    [ "BIGABS$ Function", "BIGABSS.html", null ],
+    [ "BIGADD$ Function", "BIGADDS.html", null ],
+    [ "BIGDIV$ Function", "BIGDIVS.html", null ],
+    [ "BIGGCD$ Function", "BIGGCDS.html", null ],
+    [ "BIGMODINV$ Function", "BIGMODINVS.html", null ],
+    [ "BIGMODPOW$ Function", "BIGMODPOWS.html", null ],
+    [ "BIGMOD$ Function", "BIGMODS.html", null ],
+    [ "BIGMUL$ Function", "BIGMULS.html", null ],
+    [ "BIGSHL$ Function", "BIGSHLS.html", null ],
+    [ "BIGSHR$ Function", "BIGSHRS.html", null ],
+    [ "BIGSUB$ Function", "BIGSUBS.html", null ],
     [ "BOOL$ Function", "BOOL.html", null ],
     [ "BUFFERTOSTRING$ Function", "BUFFERTOSTRINGS.html", null ],
     [ "CHR$ Function", "CHR.html", null ],

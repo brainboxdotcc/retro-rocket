@@ -4,6 +4,7 @@ The following functions operate on or return **integer values** in Retro Rocket 
 
 * \subpage ABS
 * \subpage ASC
+* \subpage BIGCMP
 * \subpage BITAND
 * \subpage BITEOR
 * \subpage BITNAND

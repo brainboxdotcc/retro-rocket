@@ -145,7 +145,7 @@ $(function(){initNavTree('CPUID.html','',''); });
 <p>If <span class="tt">register-index</span> is outside <span class="tt">0–3</span>, an <b>error</b> is raised.</p>
 <p>For a survey of leaves/subleaves and their meanings, see the <b>cpuid</b> command’s reference.</p>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-14"></a>
+<h3 class="doxsection"><a class="anchor" id="examples-15"></a>
 Examples</h3>
 <div class="fragment"><div class="line">REM Print the highest supported standard leaf</div>
 <div class="line">max_leaf = CPUID(&amp;00000000, 0, 0)  REM EAX</div>
@@ -181,7 +181,7 @@ Examples</h3>
 <div class="line">max_ext = CPUID(&amp;80000000, 0, 0)  REM EAX</div>
 <div class="line">PRINT &quot;Max extended leaf = &quot;; max_ext</div>
 </div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-13"></a>
+<h3 class="doxsection"><a class="anchor" id="notes-14"></a>
 Notes</h3>
 <ul>
 <li><b>Return width:</b> The function returns a Retro Rocket <b>integer</b> (64-bit signed), but only the <b>low 32 bits</b> are meaningful; the result is the raw register value.</li>

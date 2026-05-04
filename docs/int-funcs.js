@@ -2,6 +2,7 @@ var int_funcs =
 [
     [ "ABS Function", "ABS.html", null ],
     [ "ASC Function", "ASC.html", null ],
+    [ "BIGCMP Function", "BIGCMP.html", null ],
     [ "BITAND Function", "BITAND.html", null ],
     [ "BITEOR Function", "BITEOR.html", null ],
     [ "BITNAND Function", "BITNAND.html", null ],

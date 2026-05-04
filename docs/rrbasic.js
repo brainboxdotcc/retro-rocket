@@ -142,6 +142,18 @@ hljs.registerLanguage('rrbasic', function(hljs) {
 
     const built_in_list = [
         'ABS',
+        'BIGABS$',
+        'BIGADD$',
+        'BIGDIV$',
+        'BIGGCD$',
+        'BIGMOD$',
+        'BIGMODINV$',
+        'BIGMODPOW$',
+        'BIGMUL$',
+        'BIGNEG$',
+        'BIGSHL$',
+        'BIGSHR$',
+        'BIGSUB$',
         'ALTKEY',
         'ASC',
         'BOOL$',
@@ -349,8 +361,8 @@ hljs.registerLanguage('rrbasic', function(hljs) {
 });
 
 function detect_language(text) {
-    var rrbasic_score = 0;
-    var c_score = 0;
+    let rrbasic_score = 0;
+    let c_score = 0;
 
     const tokens = new Set([
         // Core tokens
@@ -381,11 +393,13 @@ function detect_language(text) {
         // string
         "CHR$","INKEY$","LEFT$","RIGHT$","MID$","REPLACE$","LOWER$",
         "UPPER$","READ$","STR$","TIME$","DATE$","DNS$","NETINFO$",
-        "MAPGET$","TLSVERSION$","TLSCIPHER$"
+        "MAPGET$","TLSVERSION$","TLSCIPHER$", "BIGABS$","BIGADD$",
+        "BIGDIV$", "BIGGCD$", "BIGMOD$", "BIGMODINV$", "BIGMODPOW$",
+        "BIGMUL$","BIGNEG$","BIGSHL$","BIGSHR$","BIGSUB$",
     ]);
 
     // Tokenise
-    var words = text.toUpperCase().match(/[A-Z_][A-Z0-9_$]*/g) || [];
+    const words = text.toUpperCase().match(/[A-Z_][A-Z0-9_$]*/g) || [];
 
     words.forEach(function(w) {
         if (tokens.has(w)) {

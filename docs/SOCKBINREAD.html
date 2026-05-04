@@ -132,14 +132,14 @@ $(function(){initNavTree('SOCKBINREAD.html','',''); });
 <li><span class="tt">length-read-variable</span> - optional. If included, must be an integer variable, and will receive the actual bytes read. This will always be a positibe non-zero value, as the keyword does not return until something is read or there is an error.</li>
 </ul>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-199"></a>
+<h3 class="doxsection"><a class="anchor" id="examples-211"></a>
 Examples</h3>
 <div class="fragment"><div class="line">buf = MEMALLOC(4096)</div>
 <div class="line">SOCKBINREAD client, buf, 4096, amount_read</div>
 <div class="line">REM ... process buffer ...</div>
 <div class="line">MEMRELEASE buf</div>
 </div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-199"></a>
+<h3 class="doxsection"><a class="anchor" id="notes-211"></a>
 Notes</h3>
 <ul>
 <li>Reads up to the specified number of bytes into the buffer.</li>

@@ -3,6 +3,18 @@
 The following functions return or manipulate **string values** in Retro Rocket BASIC.
 
 * \subpage ADFSIMAGE
+* \subpage BIGABSS
+* \subpage BIGADDS
+* \subpage BIGDIVS
+* \subpage BIGGCDS
+* \subpage BIGMODINVS
+* \subpage BIGMODPOWS
+* \subpage BIGMODS
+* \subpage BIGMULS
+* \subpage BIGNEGS
+* \subpage BIGSHLS
+* \subpage BIGSHRS
+* \subpage BIGSUBS
 * \subpage BOOL
 * \subpage BUFFERTOSTRINGS
 * \subpage CHR

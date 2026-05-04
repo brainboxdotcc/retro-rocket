@@ -263,6 +263,18 @@ struct basic_str_fn builtin_str[] =
 	{ basic_tlscipher,            "TLSCIPHER$"      },
 	{ basic_tlsversion,           "TLSVERSION$"     },
 	{ basic_sockerror,            "SOCKERROR$"      },
+	{ basic_bigadd,               "BIGADD$"         },
+	{ basic_bigsub,               "BIGSUB$"         },
+	{ basic_bigmul,               "BIGMUL$"         },
+	{ basic_bigdiv,               "BIGDIV$"         },
+	{ basic_bigmod,               "BIGMOD$"         },
+	{ basic_biggcd,               "BIGGCD$"         },
+	{ basic_bigabs,               "BIGABS$"         },
+	{ basic_bigneg,               "BIGNEG$"         },
+	{ basic_bigshl,               "BIGSHL$"         },
+	{ basic_bigshr,               "BIGSHR$"         },
+	{ basic_bigmodpow,            "BIGMODPOW$"      },
+	{ basic_bigmodinv,            "BIGMODINV$"      },
 	{ NULL,                       NULL              },
 };
 
