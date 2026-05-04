@@ -6,10 +6,10 @@ static char empty_string[] = "";
 static bool adfs_validate_map_sector(const unsigned char *sector)
 {
 	uint32_t sum = 0;
-	for (int i = 0; i < 255; ++i) {
+	for (int i = 254; i >= 0; --i) {
 		sum += sector[i];
 
-		if (sum > 0xff) {
+		if (sum > 0xff && i > 0) {
 			sum = (sum & 0xff) + 1;
 		}
 	}
