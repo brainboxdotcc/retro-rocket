@@ -242,14 +242,77 @@ char* basic_str(struct basic_ctx* ctx);
  */
 char* basic_bool(struct basic_ctx* ctx);
 
+/**
+ * @brief Replaces all occurrences of a substring.
+ *
+ * This function searches a string for every occurrence of a target substring and replaces it
+ * with another string.
+ *
+ * @param ctx BASIC interpreter context
+ * @return The string with matching substrings replaced
+ */
 char* basic_replace(struct basic_ctx* ctx);
 
+/**
+ * @brief Applies BASIC syntax highlighting to a string.
+ *
+ * This function returns a copy of the supplied BASIC source string with ANSI colour escape
+ * sequences inserted for keywords, functions, strings, comments, numbers, and operators.
+ *
+ * @param ctx BASIC interpreter context
+ * @return The syntax-highlighted string
+ */
 char* basic_highlight(struct basic_ctx* ctx);
 
+/**
+ * @brief Executes the BASIC MATCH statement.
+ *
+ * This statement evaluates a regular expression against a string and stores the match result
+ * in the requested BASIC variable. Optional capture variables receive captured substrings.
+ *
+ * @param ctx BASIC interpreter context
+ */
 void match_statement(struct basic_ctx *ctx);
 
+/**
+ * @brief Returns a secure random string.
+ *
+ * This function generates a string using the system secure random source.
+ *
+ * @param ctx BASIC interpreter context
+ * @return A secure random string
+ */
 char* basic_secure_random_string(struct basic_ctx* ctx);
 
+/**
+ * @brief Copies a BASIC string into a memory buffer.
+ *
+ * This function writes the contents of a BASIC string to a raw memory buffer, translating escaped
+ * NUL and escape bytes back to their original byte values.
+ *
+ * @param ctx BASIC interpreter context
+ * @return The number of bytes written to the buffer
+ */
 int64_t basic_string_to_buffer(struct basic_ctx *ctx);
 
+/**
+ * @brief Converts a memory buffer to a BASIC string.
+ *
+ * This function reads bytes from a raw memory buffer and returns a BASIC string, escaping embedded
+ * NUL and escape bytes so they can be stored safely.
+ *
+ * @param ctx BASIC interpreter context
+ * @return The encoded BASIC string
+ */
 char *basic_buffer_to_string(struct basic_ctx *ctx);
+
+/**
+ * @brief Converts HTML to Markdown.
+ *
+ * This function converts an HTML string into Markdown text using the built-in HTML to Markdown
+ * converter.
+ *
+ * @param ctx BASIC interpreter context
+ * @return The converted Markdown string
+ */
+char* basic_markdown(struct basic_ctx* ctx);

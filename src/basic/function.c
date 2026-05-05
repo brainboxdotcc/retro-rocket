@@ -275,6 +275,7 @@ struct basic_str_fn builtin_str[] =
 	{ basic_bigshr,               "BIGSHR$"         },
 	{ basic_bigmodpow,            "BIGMODPOW$"      },
 	{ basic_bigmodinv,            "BIGMODINV$"      },
+	{ basic_markdown,             "MARKDOWN$"       },
 	{ NULL,                       NULL              },
 };
 

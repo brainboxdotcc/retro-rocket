@@ -85,10 +85,26 @@ typedef struct {
 	html2md_options_t opt;
 
 	int suppress_text_depth;
+	int form_depth;
 } html2md_ctx_t;
 
 static void md_append_char(html2md_ctx_t *ctx, char ch);
 static char md_prev_char(const html2md_ctx_t *ctx);
+
+static int tag_is_void(tag_t tag)
+{
+	switch (tag) {
+		case tag_br:
+		case tag_img:
+		case tag_hr:
+		case tag_link:
+		case tag_meta:
+		case tag_input:
+			return 1;
+		default:
+			return 0;
+	}
+}
 
 static void html2md_set_default_options(html2md_options_t *opt)
 {
@@ -577,6 +593,9 @@ static int decode_entity(const char *s, size_t *consumed, const char **replaceme
 static void open_tag(html2md_ctx_t *ctx, tag_t tag)
 {
 	if (tag_is_ignored(tag, &ctx->opt)) {
+		if (!tag_is_void(tag)) {
+			ctx->ignore_depth++;
+		}
 		ctx->ignore_depth++;
 		return;
 	}
@@ -1082,8 +1101,38 @@ static void finish_tag(html2md_ctx_t *ctx)
 
 	tag_t tag = tag_from_name(ctx->tag_name);
 
+	if (tag == tag_form) {
+		if (!ctx->closing_tag) {
+			ctx->form_depth++;
+		} else {
+			if (ctx->form_depth == 0) {
+				return;
+			}
+
+			ctx->form_depth--;
+		}
+	}
+
+	if (tag_is_ignored(tag, &ctx->opt)) {
+		if (!ctx->closing_tag) {
+			if (!tag_is_void(tag)) {
+				ctx->ignore_depth++;
+			}
+		} else {
+			if (ctx->ignore_depth != 0) {
+				ctx->ignore_depth--;
+			}
+		}
+
+		return;
+	}
+
 	if (!ctx->closing_tag) {
 		open_tag(ctx, tag);
+
+		if (tag_is_void(tag)) {
+			close_tag(ctx, tag);
+		}
 	} else {
 		close_tag(ctx, tag);
 	}

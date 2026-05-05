@@ -320,6 +320,20 @@ char* basic_lower(struct basic_ctx* ctx)
 	return modified;
 }
 
+char* basic_markdown(struct basic_ctx* ctx) {
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	PARAMS_END("MARKDOWN$", "");
+	html2md_result_t out = {};
+	if (html2md_convert(strval, NULL, &out)) {
+		char* out_md = (char*)gc_strdup(ctx, out.markdown);
+		html2md_free(&out);
+		html2md_define_glyphs();
+		return out_md;
+	}
+	return "";
+}
+
 char* basic_highlight(struct basic_ctx* ctx) {
 	GENERATE_ENUM_STRING_NAMES(TOKEN, token_names)
 	GENERATE_ENUM_STRING_LENGTHS(TOKEN, token_name_lengths)

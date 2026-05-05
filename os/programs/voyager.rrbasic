@@ -83,32 +83,77 @@ DEF PROCtext
 	PROCshowCursor
 ENDPROC
 
+DEF FNmarkdown_header$(L$)
+    R$ = ""
+    IF LEFT$(L$, 7) = "###### " THEN R$ = "###### "
+    IF LEFT$(L$, 6) = "##### " THEN R$ = "##### "
+    IF LEFT$(L$, 5) = "#### " THEN R$ = "#### "
+    IF LEFT$(L$, 4) = "### " THEN R$ = "### "
+    IF LEFT$(L$, 3) = "## " THEN R$ = "## "
+    IF LEFT$(L$, 2) = "# " THEN R$ = "# "
+= R$
+
+DEF FNmarkdown_wrap_pos(L$, width)
+    depth = 0
+    last_space = 0
+    i = 1
+    result = 0
+
+    IF LEN(L$) <= width THEN
+        result = LEN(L$)
+    ELSE
+        REPEAT
+            C$ = MID$(L$, i, 1)
+            IF C$ = "[" THEN depth = depth + 1
+            IF C$ = "(" AND depth > 0 THEN depth = depth + 1
+            IF C$ = ")" AND depth > 0 THEN depth = depth - 1
+            IF C$ = "]" AND depth > 0 THEN depth = depth - 1
+            IF C$ = " " AND depth = 0 THEN last_space = i
+            i = i + 1
+        UNTIL i > width
+        IF last_space > 0 THEN
+            result = last_space
+        ELSE
+            i = width + 1
+            REPEAT
+                C$ = MID$(L$, i, 1)
+                IF C$ = "]" THEN depth = 0
+                IF C$ = ")" THEN depth = 0
+                IF C$ = " " AND depth = 0 AND result = 0 THEN result = i
+                i = i + 1
+            UNTIL i > LEN(L$) OR result <> 0
+            IF result = 0 THEN result = LEN(L$)
+        ENDIF
+    ENDIF
+= result
+
 REM load a file into the array, translating TAB to four spaces
 DEF PROCload(file$)
-    PROChttp_get("https://brainbox.cc/")
+    PROChttp_get("http://frogfind.com/")
     body$ = FNhttp_result$("body")
+    body$ = MARKDOWN$(body$)
     body$ = REPLACE$(body$, CHR$(13) + CHR$(10), CHR$(13))
     body$ = REPLACE$(body$, CHR$(10) + CHR$(13), CHR$(13))
     body$ = REPLACE$(body$, CHR$(10), CHR$(13))
     lines = 0
     REPEAT
         CONT$ = TOKENIZE$(body$, CHR$(13))
-        IF LEN(CONT$) > TERMWIDTH - 2 THEN
-            REPEAT
-                L$ = LEFT$(CONT$, TERMWIDTH - 2)
-                CONT$ = MID$(CONT$, TERMWIDTH - 2, LEN(CONT$))
+        header$ = FNmarkdown_header$(CONT$)
+        REPEAT
+            cut = FNmarkdown_wrap_pos(CONT$, TERMWIDTH - 2)
+            IF cut < LEN(CONT$) THEN
+                L$ = LEFT$(CONT$, cut)
                 content$(lines) = L$
                 lines = lines + 1
-                IF lines = max THEN
-                    PROCgrow
-                ENDIF
-            UNTIL LEN(CONT$) <= TERMWIDTH - 2
-        ENDIF
+                IF lines >= max THEN PROCgrow
+                CONT$ = MID$(CONT$, cut + 1, LEN(CONT$))
+                IF LEFT$(CONT$, 1) = " " THEN CONT$ = MID$(CONT$, 2, LEN(CONT$))
+                IF header$ <> "" THEN CONT$ = header$ + CONT$
+            ENDIF
+        UNTIL cut >= LEN(CONT$)
         content$(lines) = CONT$
         lines = lines + 1
-        IF lines = max THEN
-            PROCgrow
-        ENDIF
+        IF lines >= max THEN PROCgrow
     UNTIL body$ = ""
 ENDPROC
 
