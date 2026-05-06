@@ -292,6 +292,7 @@ DEF PROCload(uri$)
     body$ = REPLACE$(body$, CHR$(13) + CHR$(10), CHR$(13))
     body$ = REPLACE$(body$, CHR$(10) + CHR$(13), CHR$(13))
     body$ = REPLACE$(body$, CHR$(10), CHR$(13))
+    body$ = REPLACE$(body$, CHR$(9), " ")
     lines = 0
     REPEAT
         CONT$ = TOKENIZE$(body$, CHR$(13))
