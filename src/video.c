@@ -203,7 +203,7 @@ void console_paging_wait(void) {
 	int64_t prompt_w = (int64_t)prompt_len * 8;
 
 	draw_horizontal_rectangle(prompt_px, prompt_py, prompt_px + prompt_w, prompt_py + 8, 0xffffff);
-	graphics_putstring(prompt, prompt_px, prompt_py, 0x000000);
+	graphics_putstring(prompt, prompt_px, prompt_py, 0x000000, 1, 1);
 
 	set_video_dirty_area(row_y, row_y + 8);
 	rr_flip();
@@ -797,10 +797,16 @@ void redefine_character(unsigned char c, uint8_t bitmap[8]) {
 	flanterm_fb_update_font(ft_ctx, c, bitmap);
 }
 
-void graphics_putstring(const char *s, int64_t x, int64_t y, int32_t colour) {
+void graphics_putstring(const char *s, int64_t x, int64_t y, int32_t colour, double scale_x, double scale_y) {
 	if (!s) {
 		return;
 	}
-	flanterm_fb_draw_text_px(ft_ctx, s, x, y, colour, 0, true);
-	set_video_dirty_area(y, y + 8);
+	flanterm_fb_draw_text_px(ft_ctx, s, x, y, colour, 0, true, scale_x, scale_y);
+	double sy = scale_y != 0.0 ? scale_y : 1.0;
+	int64_t dirty_height = (int64_t)((double)8 * fabs(sy)) + 1;
+	if (sy > 0.0) {
+		set_video_dirty_area(y, y + dirty_height);
+	} else {
+		set_video_dirty_area(y - dirty_height, y);
+	}
 }

@@ -244,9 +244,15 @@ void graphprint_statement(struct basic_ctx* ctx) {
 	accept_or_return(COMMA, ctx);
 	int64_t y = expr(ctx);
 	accept_or_return(COMMA, ctx);
+	double scale_x;
+	double_expr(ctx, &scale_x);
+	accept_or_return(COMMA, ctx);
+	double scale_y;
+	double_expr(ctx, &scale_y);
+	accept_or_return(COMMA, ctx);
 	const char* out = printable_syntax(ctx);
 	if (out) {
-		graphics_putstring(out, x, y, ctx->graphics_colour);
+		graphics_putstring(out, x, y, ctx->graphics_colour, scale_x, scale_y);
 	}
 }
 

@@ -274,17 +274,17 @@ DEF PROCscrollText
   top# = GRAPHICS_HEIGHT - 80
   height# = 64
   half# = height# / 2
-  amp# = half# - 8
-  spacing# = 8
+  amp# = half# - 16
+  spacing# = 16
 
   FOR i = 0 TO LEN(SCROLL$) - 1
     ch$ = MID$(SCROLL$, i, 1)
     gx# = SCROLLX# + i * spacing#
     gy# = top# + half# + SIN(gx# / 48) * amp#
-    IF gx# > -8 THEN
+    IF gx# > -16 THEN
       IF gx# < GRAPHICS_WIDTH THEN
-        GRAPHPRINT gx#, gy# - top#, ch$;
-        GRAPHPRINT gx#, gy#, ch$;
+        GRAPHPRINT gx#, gy# - top#, 2, 2, ch$;
+        GRAPHPRINT gx#, gy#, 2, 2, ch$;
       ENDIF
     ENDIF
   NEXT

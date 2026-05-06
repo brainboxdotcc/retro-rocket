@@ -246,24 +246,94 @@ bool video_flip_auto(void);
  */
 void set_video_auto_flip(bool flip);
 
+/**
+ * @brief Mark a vertical framebuffer region as needing to be copied to the frontbuffer.
+ *
+ * The range is expressed in pixel rows. The end row is exclusive.
+ *
+ * @param start First dirty pixel row.
+ * @param end One past the final dirty pixel row.
+ */
 void set_video_dirty_area(int64_t start, int64_t end);
 
+/**
+ * @brief Convert a VGA colour index to an ANSI escape sequence.
+ *
+ * @param out Destination buffer.
+ * @param out_len Destination buffer size.
+ * @param vga_colour VGA colour index.
+ * @param background true for background colour, false for foreground colour.
+ * @return Pointer to out.
+ */
 const char* ansi_colour(char *out, size_t out_len, unsigned char vga_colour, bool background);
 
+/**
+ * @brief Map a VGA colour index to an ANSI foreground colour code.
+ * @param colour VGA colour index.
+ * @return ANSI foreground colour code.
+ */
 unsigned char map_vga_to_ansi(unsigned char colour);
 
+/**
+ * @brief Map a VGA colour index to an ANSI background colour code.
+ * @param colour VGA colour index.
+ * @return ANSI background colour code.
+ */
 unsigned char map_vga_to_ansi_bg(unsigned char colour);
 
+/**
+ * @brief Replace a character bitmap in the active Flanterm font.
+ *
+ * @param c Character code to redefine.
+ * @param bitmap 8-byte bitmap, one byte per row.
+ */
 void redefine_character(unsigned char c, uint8_t bitmap[8]);
 
-void graphics_putstring(const char *s, int64_t x, int64_t y, int32_t colour);
+/**
+ * @brief Draw a string at an arbitrary pixel position.
+ *
+ * This bypasses the text grid and renders directly into the backbuffer.
+ * Integer scale factors use the fast integer glyph path. Fractional scale
+ * factors use the fractional glyph path.
+ *
+ * @param s Null-terminated string to draw.
+ * @param x Pixel X coordinate.
+ * @param y Pixel Y coordinate.
+ * @param colour 32-bit RGB text colour.
+ * @param scale_x Horizontal scale factor. Values less than or equal to zero use the default scale.
+ * @param scale_y Vertical scale factor. Values less than or equal to zero use the default scale.
+ */
+void graphics_putstring(const char *s, int64_t x, int64_t y, int32_t colour, double scale_x, double scale_y);
 
+/**
+ * @brief Add a graphics band that should scroll with terminal output.
+ *
+ * The range is expressed in pixel rows. The end row is exclusive.
+ *
+ * @param start First pixel row in the scrollable band.
+ * @param end One past the final pixel row in the scrollable band.
+ * @return 0 on success, -1 if the scrollable list is full.
+ */
 int add_scrollable(int64_t start, int64_t end);
 
+/**
+ * @brief Reset the console paging line counter.
+ */
 void console_paging_reset(void);
 
+/**
+ * @brief Display the paging prompt and wait for a key press.
+ */
 void console_paging_wait(void);
 
+/**
+ * @brief Enable or disable console paging.
+ * @param enabled true to enable paging, false to disable it.
+ */
 void set_console_paging_enabled(bool enabled);
 
+/**
+ * @brief Query whether console paging is enabled.
+ * @return true if paging is enabled, false otherwise.
+ */
 bool get_console_paging_enabled(void);

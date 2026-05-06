@@ -126,14 +126,14 @@ $(function(){initNavTree('RESTRICT.html','',''); });
 <div class="textblock"><div class="fragment"><div class="line">RESTRICT keyword-or-function[, keyword-or-function...]</div>
 </div><!-- fragment --><p>Restricts one or more BASIC keywords or built-in functions for any child program created from the current interpreter context.</p>
 <p>Once restricted, those keywords or built-in functions cannot be used by child programs inheriting the restriction set. If a child program attempts to use one, execution stops with an error.</p>
-<h3 class="doxsection"><a class="anchor" id="notes-206"></a>
+<h3 class="doxsection"><a class="anchor" id="notes-205"></a>
 Notes</h3>
 <p><span class="tt">RESTRICT</span> affects child interpreter contexts, not the current program.</p>
 <p>Each item must be the name of a valid BASIC keyword or built-in function.</p>
 <p>Multiple items may be restricted in a single statement by separating them with commas.</p>
 <p>Restrictions are inherited when passed to a child context. A child may also apply further restrictions to its own descendants.</p>
 <p>To remove a restriction from the child restriction set, use <span class="tt">DERESTRICT</span>.</p>
-<h3 class="doxsection"><a class="anchor" id="errors-10"></a>
+<h3 class="doxsection"><a class="anchor" id="errors-9"></a>
 Errors</h3>
 <p>An error is raised if:</p>
 <ul>

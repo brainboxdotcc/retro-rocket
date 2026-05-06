@@ -123,53 +123,28 @@ $(function(){initNavTree('GRAPHPRINT.html','',''); });
   <div class="headertitle"><div class="title">GRAPHPRINT Keyword </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">GRAPHPRINT x, y, printable</div>
+<div class="textblock"><div class="fragment"><div class="line">GRAPHPRINT x, y, scale_x, scale_y, printable</div>
 </div><!-- fragment --><p>Draws text directly onto the graphics framebuffer at <b>pixel coordinates</b>. Unlike <span class="tt">PRINT</span>, <span class="tt">GRAPHPRINT</span> does not use or update the text cursor. Each call is independent.</p>
-<hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-181"></a>
-Notes</h3>
-<ul>
-<li><span class="tt">(x, y)</span> are <b>pixel coordinates</b> measured from the top-left corner of the screen.</li>
-<li><span class="tt">printable</span> is the same syntax accepted by <span class="tt">PRINT</span>: a list of values separated by commas or semicolons.<ul>
-<li><b>Strings</b> are rendered literally.</li>
-<li><b>Numeric values</b> are converted to their string form.</li>
-<li><span class="tt">;</span> continues text without spacing.</li>
-<li><span class="tt">,</span> advances to the next tab stop (multiple of text column width).</li>
-</ul>
-</li>
-<li>Text is rendered using the current <b>graphics colour</b> (<span class="tt">GCOL</span>) for the foreground.</li>
-<li>The background is always <b>transparent</b>; existing pixels are left unchanged.</li>
-<li>The function clips safely against screen edges; partially visible text is drawn correctly.</li>
-<li>All 8-bit codes <span class="tt">0x00–0xFF</span> map directly to glyphs, including those redefined with <span class="tt">VDU 23</span>. No UTF-8 decoding is applied.</li>
-<li>Each call draws at the specified location only. There is no graphics cursor or scrolling.</li>
-</ul>
-<hr  />
-<h3 class="doxsection"><a class="anchor" id="errors-9"></a>
-Errors</h3>
-<ul>
-<li>An error occurs if <span class="tt">x</span> or <span class="tt">y</span> are not numeric.</li>
-<li>An error occurs if <span class="tt">printable</span> is omitted.</li>
-</ul>
-<hr  />
+<p><span class="tt">x</span> and <span class="tt">y</span> are integer <b>pixel coordinates</b> measured from the top-left corner of the screen. scale_x and scale_y can be an integer or a real number. If you specify 0 for either dimension, the default scale of 1 will be used. <span class="tt">printable</span> is the same syntax accepted by <a class="el" href="PRINT.html">PRINT</a>, a list of values separated by commas or semicolons. * Text is rendered using the current <b>graphics colour</b> (<span class="tt">GCOL</span>) for the foreground. The background is always <b>transparent</b>, existing pixels are left unchanged. Each call draws at the specified location only, there is no graphics cursor or scrolling.</p>
+<p>You can use negative scale values to flip the text. Note that if you flip the scale values, it will render right to left or bottom to top accordingly.</p>
 <h3 class="doxsection"><a class="anchor" id="examples-174"></a>
 Examples</h3>
-<p><b>Draw a label in magenta</b></p>
+<p><b>Draw a label upside down in magenta</b></p>
 <div class="fragment"><div class="line">GCOL &amp;FF00FF</div>
-<div class="line">GRAPHPRINT 100, 40, &quot;SCORE:&quot;, SCORE</div>
-</div><!-- fragment --><p><b>Overlay transparent HUD text</b></p>
+<div class="line">GRAPHPRINT 100, 40, 1, -1, &quot;SCORE:&quot;, SCORE</div>
+</div><!-- fragment --><p><b>Overlay transparent HUD text at 5x scale</b></p>
 <div class="fragment"><div class="line">GCOL &amp;FFFFFF</div>
-<div class="line">GRAPHPRINT 8, 8, &quot;READY!&quot;;</div>
+<div class="line">GRAPHPRINT 8, 8, 5, 5, &quot;READY!&quot;;</div>
 </div><!-- fragment --><p><b>Use a redefined glyph</b></p>
 <div class="fragment"><div class="line">VDU 23,65,&amp;3C,&amp;7E,&amp;FF,&amp;E7,&amp;FF,&amp;66,&amp;66,&amp;00</div>
-<div class="line">GRAPHPRINT 120, 100, &quot;AAAAAAAAAAA&quot;</div>
-</div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="see-also-7"></a>
+<div class="line">GRAPHPRINT 120, 100, 10, 10, &quot;AAA&quot;</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="see-also-7"></a>
 See also</h3>
 <ul>
-<li><a class="el" href="PRINT.html">PRINT</a> - text output in the scrolling text grid.</li>
-<li><a class="el" href="GCOL.html">GCOL</a> - set graphics colour (0xRetro RocketGGBB).</li>
-<li><a class="el" href="LINE.html">LINE</a> - draw lines (used by <span class="tt">VDU 25</span> in Retro Rocket).</li>
-<li><a class="el" href="VDU.html">VDU</a> 23 - redefine character bitmaps used by both <span class="tt">PRINT</span> and <span class="tt">GRAPHPRINT</span>. </li>
+<li><a class="el" href="PRINT.html">PRINT</a> ·</li>
+<li><a class="el" href="GCOL.html">GCOL</a> ·</li>
+<li><a class="el" href="LINE.html">LINE</a> ·</li>
+<li><a class="el" href="VDU.html">VDU 23</a> </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

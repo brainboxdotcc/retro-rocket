@@ -821,10 +821,35 @@ void flanterm_fb_update_font(struct flanterm_context *_ctx, int glyph, const uin
 	ft_mark_redefined(glyph);
 }
 
-/* Draw a single glyph at an arbitrary pixel position, bypassing grid/queue.
- * Fully clipped for negative x/y and partial visibility.
- */
-void flanterm_fb_draw_glyph_px(struct flanterm_context *_ctx, uint8_t glyph, int32_t px, int32_t py, uint32_t fg_rgb, uint32_t bg_rgb, bool transparent_bg) {
+static bool flanterm_scale_is_int(double scale)
+{
+	return scale != 0.0 && scale == (double)(int32_t)scale;
+}
+
+static int32_t flanterm_ifloor(double v)
+{
+	int32_t i = (int32_t)v;
+
+	if ((double)i > v) {
+		return i - 1;
+	}
+
+	return i;
+}
+
+static int32_t flanterm_iceil(double v)
+{
+	int32_t i = (int32_t)v;
+
+	if ((double)i < v) {
+		return i + 1;
+	}
+
+	return i;
+}
+
+static void flanterm_fb_draw_glyph_px_int(struct flanterm_context *_ctx, uint8_t glyph, int32_t px, int32_t py, uint32_t fg_rgb, uint32_t bg_rgb, bool transparent_bg, int32_t scale_x, int32_t scale_y)
+{
 	struct flanterm_fb_context *ctx = (void *)_ctx;
 
 	uint32_t fg = convert_colour(_ctx, fg_rgb);
@@ -832,11 +857,11 @@ void flanterm_fb_draw_glyph_px(struct flanterm_context *_ctx, uint8_t glyph, int
 
 	int32_t fw = (int32_t)ctx->font_width;
 	int32_t fh = (int32_t)ctx->font_height;
-	int32_t sx = (int32_t)ctx->font_scale_x;
-	int32_t sy = (int32_t)ctx->font_scale_y;
+	int32_t sx = scale_x;
+	int32_t sy = scale_y;
 
-	int32_t gw = fw * sx;  /* glyph width in pixels */
-	int32_t gh = fh * sy;  /* glyph height in pixels */
+	int32_t gw = fw * sx;
+	int32_t gh = fh * sy;
 
 	if (py < ft_min_y) {
 		ft_min_y = py;
@@ -848,7 +873,6 @@ void flanterm_fb_draw_glyph_px(struct flanterm_context *_ctx, uint8_t glyph, int
 	int32_t max_x = (int32_t)ctx->width;
 	int32_t max_y = (int32_t)ctx->height;
 
-	/* Trivial reject if entirely off-screen. Use 64-bit to avoid mul overflow paranoia. */
 	if ((int64_t)px >= (int64_t)max_x || (int64_t)py >= (int64_t)max_y) {
 		return;
 	}
@@ -860,6 +884,7 @@ void flanterm_fb_draw_glyph_px(struct flanterm_context *_ctx, uint8_t glyph, int
 
 	for (int32_t gy = 0; gy < gh; gy++) {
 		int32_t y = py + gy;
+
 		if (y < 0) {
 			continue;
 		}
@@ -873,16 +898,18 @@ void flanterm_fb_draw_glyph_px(struct flanterm_context *_ctx, uint8_t glyph, int
 		for (int32_t fx = 0; fx < fw; fx++) {
 			bool bit = glyph_bits[fy * fw + fx];
 
-			/* Horizontal scaling with full left/right clipping */
 			int32_t x0 = px + fx * sx;
+
 			for (int32_t rep = 0; rep < sx; rep++) {
 				int32_t x = x0 + rep;
+
 				if (x < 0) {
 					continue;
 				}
 				if (x >= max_x) {
 					break;
 				}
+
 				if (bit) {
 					fb_line[x] = fg;
 				} else if (!transparent_bg) {
@@ -893,31 +920,158 @@ void flanterm_fb_draw_glyph_px(struct flanterm_context *_ctx, uint8_t glyph, int
 	}
 }
 
-void flanterm_fb_draw_text_px(struct flanterm_context *_ctx, const char *s, int32_t px, int32_t py, uint32_t fg_rgb, uint32_t bg_rgb, bool transparent_bg) {
+static void flanterm_fb_draw_glyph_px_double(struct flanterm_context *_ctx, uint8_t glyph, int32_t px, int32_t py, uint32_t fg_rgb, uint32_t bg_rgb, bool transparent_bg, double scale_x, double scale_y)
+{
 	struct flanterm_fb_context *ctx = (void *)_ctx;
 
-	int32_t pen_x = px;
-	int32_t pen_y = py;
+	uint32_t fg = convert_colour(_ctx, fg_rgb);
+	uint32_t bg = convert_colour(_ctx, bg_rgb);
 
-	int32_t adv_x = (int32_t)ctx->font_width * (int32_t)ctx->font_scale_x;
-	int32_t adv_y = (int32_t)ctx->font_height * (int32_t)ctx->font_scale_y;
+	int32_t fw = (int32_t)ctx->font_width;
+	int32_t fh = (int32_t)ctx->font_height;
+
+	double glyph_left = scale_x < 0.0 ? (double)fw * scale_x : 0.0;
+	double glyph_right = scale_x < 0.0 ? 0.0 : (double)fw * scale_x;
+	double glyph_top = scale_y < 0.0 ? (double)fh * scale_y : 0.0;
+	double glyph_bottom = scale_y < 0.0 ? 0.0 : (double)fh * scale_y;
+
+	int32_t gx0 = px + flanterm_ifloor(glyph_left);
+	int32_t gx1 = px + flanterm_iceil(glyph_right);
+	int32_t gy0 = py + flanterm_ifloor(glyph_top);
+	int32_t gy1 = py + flanterm_iceil(glyph_bottom);
+
+	if (gy0 < ft_min_y) {
+		ft_min_y = gy0;
+	}
+	if (gy1 > ft_max_y) {
+		ft_max_y = gy1;
+	}
+
+	int32_t max_x = (int32_t)ctx->width;
+	int32_t max_y = (int32_t)ctx->height;
+
+	if (gx0 >= max_x || gy0 >= max_y) {
+		return;
+	}
+	if (gx1 <= 0 || gy1 <= 0) {
+		return;
+	}
+
+	bool *glyph_bits = &ctx->font_bool[(size_t)glyph * (size_t)fh * (size_t)fw];
+
+	for (int32_t fy = 0; fy < fh; fy++) {
+		double sy0 = (double)fy * scale_y;
+		double sy1 = (double)(fy + 1) * scale_y;
+
+		int32_t y0 = py + flanterm_ifloor(sy0 < sy1 ? sy0 : sy1);
+		int32_t y1 = py + flanterm_iceil(sy0 > sy1 ? sy0 : sy1);
+
+		if (y1 <= 0) {
+			continue;
+		}
+		if (y0 >= max_y) {
+			continue;
+		}
+		if (y0 < 0) {
+			y0 = 0;
+		}
+		if (y1 > max_y) {
+			y1 = max_y;
+		}
+
+		for (int32_t fx = 0; fx < fw; fx++) {
+			bool bit = glyph_bits[fy * fw + fx];
+
+			if (!bit && transparent_bg) {
+				continue;
+			}
+
+			double sx0 = (double)fx * scale_x;
+			double sx1 = (double)(fx + 1) * scale_x;
+
+			int32_t x0 = px + flanterm_ifloor(sx0 < sx1 ? sx0 : sx1);
+			int32_t x1 = px + flanterm_iceil(sx0 > sx1 ? sx0 : sx1);
+
+			if (x1 <= 0) {
+				continue;
+			}
+			if (x0 >= max_x) {
+				continue;
+			}
+			if (x0 < 0) {
+				x0 = 0;
+			}
+			if (x1 > max_x) {
+				x1 = max_x;
+			}
+
+			uint32_t colour = bit ? fg : bg;
+
+			for (int32_t y = y0; y < y1; y++) {
+				volatile uint32_t *fb_line = ctx->framebuffer + (size_t)y * (ctx->pitch / sizeof(uint32_t));
+
+				for (int32_t x = x0; x < x1; x++) {
+					fb_line[x] = colour;
+				}
+			}
+		}
+	}
+}
+
+void flanterm_fb_draw_glyph_px(struct flanterm_context *_ctx, uint8_t glyph, int32_t px, int32_t py, uint32_t fg_rgb, uint32_t bg_rgb, bool transparent_bg, double scale_x, double scale_y)
+{
+	struct flanterm_fb_context *ctx = (void *)_ctx;
+
+	if (scale_x == 0.0) {
+		scale_x = (double)ctx->font_scale_x;
+	}
+
+	if (scale_y == 0.0) {
+		scale_y = (double)ctx->font_scale_y;
+	}
+
+	if (flanterm_scale_is_int(scale_x) &&
+	    flanterm_scale_is_int(scale_y) &&
+	    scale_x > 0.0 &&
+	    scale_y > 0.0) {
+		flanterm_fb_draw_glyph_px_int(_ctx, glyph, px, py, fg_rgb, bg_rgb, transparent_bg, (int32_t)scale_x, (int32_t)scale_y);
+		return;
+	}
+
+	flanterm_fb_draw_glyph_px_double(_ctx, glyph, px, py, fg_rgb, bg_rgb, transparent_bg, scale_x, scale_y);
+}
+
+void flanterm_fb_draw_text_px(struct flanterm_context *_ctx, const char *s, int32_t px, int32_t py, uint32_t fg_rgb, uint32_t bg_rgb, bool transparent_bg, double scale_x, double scale_y)
+{
+	struct flanterm_fb_context *ctx = (void *)_ctx;
+	if (scale_x == 0.0) {
+		scale_x = (double)ctx->font_scale_x;
+	}
+	if (scale_y == 0.0) {
+		scale_y = (double)ctx->font_scale_y;
+	}
+
+	double pen_x = (double)px;
+	double pen_y = (double)py;
+	double adv_x = (double)ctx->font_width * scale_x;
+	double adv_y = (double)ctx->font_height * scale_y;
 
 	for (const unsigned char *p = (const unsigned char *)s; *p != '\0'; p++) {
 		unsigned char ch = *p;
 
 		if (ch == '\n') {
-			pen_x = px;
+			pen_x = (double)px;
 			pen_y += adv_y;
 			continue;
 		}
 
-		flanterm_fb_draw_glyph_px(_ctx, ch, pen_x, pen_y, fg_rgb, bg_rgb, transparent_bg);
+		flanterm_fb_draw_glyph_px(_ctx, ch, (int32_t)pen_x, (int32_t)pen_y, fg_rgb, bg_rgb, transparent_bg, scale_x, scale_y);
 
 		/* Advance; safe even if we just drew off-screen thanks to per-glyph clipping */
 		pen_x += adv_x;
 
-		/* Optional early-stop if we have moved past the right edge by a full glyph */
-		if ((int64_t)pen_x >= (int64_t)ctx->width && pen_y >= (int32_t)ctx->height) {
+		/* Optional early-stop if we have moved fully off-screen */
+		if (((scale_x > 0.0 && pen_x >= (double)ctx->width) || (scale_x < 0.0 && pen_x < 0.0)) && ((scale_y > 0.0 && pen_y >= (double)ctx->height) || (scale_y < 0.0 && pen_y < 0.0))) {
 			break;
 		}
 	}

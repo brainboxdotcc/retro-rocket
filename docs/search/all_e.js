@@ -48,7 +48,7 @@ var searchData=
   ['error_20keyword_45',['ERROR Keyword',['../ERROR.html',1,'ERROR Keyword'],['../ON-ERROR.html',1,'ON ERROR Keyword']]],
   ['error_20messages_46',['BASIC Error Messages',['../error-list.html',1,'basic-ref']]],
   ['error_2emd_47',['ERROR.md',['../ERROR_8md.html',1,'']]],
-  ['errors_48',['Errors',['../DATAREAD.html#errors',1,'Errors'],['../GETPROCCPU.html#errors-1',1,'Errors'],['../ISPROGRAM.html#errors-2',1,'Errors'],['../STRINGTOBUFFER.html#errors-3',1,'Errors'],['../DATAREADR.html#errors-4',1,'Errors'],['../BUFFERTOSTRINGS.html#errors-5',1,'Errors'],['../DATAREADS.html#errors-6',1,'Errors'],['../DERESTRICT.html#errors-7',1,'Errors'],['../FN.html#errors-8',1,'Errors'],['../GRAPHPRINT.html#errors-9',1,'Errors'],['../RESTRICT.html#errors-10',1,'Errors']]],
+  ['errors_48',['Errors',['../DATAREAD.html#errors',1,'Errors'],['../GETPROCCPU.html#errors-1',1,'Errors'],['../ISPROGRAM.html#errors-2',1,'Errors'],['../STRINGTOBUFFER.html#errors-3',1,'Errors'],['../DATAREADR.html#errors-4',1,'Errors'],['../BUFFERTOSTRINGS.html#errors-5',1,'Errors'],['../DATAREADS.html#errors-6',1,'Errors'],['../DERESTRICT.html#errors-7',1,'Errors'],['../FN.html#errors-8',1,'Errors'],['../RESTRICT.html#errors-9',1,'Errors']]],
   ['errors_20and_20behaviour_49',['Errors and behaviour',['../LIBRARY.html#errors-and-behaviour',1,'Errors and behaviour'],['../PROC.html#errors-and-behaviour-1',1,'Errors and behaviour']]],
   ['esc_20“escape”_20semantics_50',['Ctrl+Esc (“Escape”) semantics',['../basic-intdev.html#ctrlesc-escape-semantics',1,'']]],
   ['escape_51',['How to escape',['../rick.html#how-to-escape',1,'']]],

@@ -161,10 +161,12 @@ void flanterm_fb_update_font(struct flanterm_context *_ctx, int glyph, const uin
  * @param fg_rgb         Foreground colour in 0x00RRGGBB format.
  * @param bg_rgb         Background colour in 0x00RRGGBB format.
  * @param transparent_bg When true, background pixels are left unchanged.
+ * @param scale_x        X scale of font, 0 to use the default
+ * @param scale_y        Y scale of font, 0 to use the default
  *
  * The function clips drawing safely against framebuffer bounds. The pen
  * advances horizontally by the scaled glyph width per character, and moves
  * to the start of the next text row when encountering '\n'.
  */
-void flanterm_fb_draw_text_px(struct flanterm_context *_ctx, const char *s, int32_t px, int32_t py, uint32_t fg_rgb, uint32_t bg_rgb, bool transparent_bg);
+void flanterm_fb_draw_text_px(struct flanterm_context *_ctx, const char *s, int32_t px, int32_t py, uint32_t fg_rgb, uint32_t bg_rgb, bool transparent_bg, double scale_x, double scale_y);
 
