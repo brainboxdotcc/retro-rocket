@@ -77,7 +77,6 @@ DEF PROCtext
 	AUTOFLIP FALSE
 	start = 16
 	l = top
-	CURSOR 1, start
 	GCOL &FFFFFF
 	REPEAT
 		PROCclearLineFromCursor
@@ -102,13 +101,139 @@ DEF PROCtext
 		        GRAPHPRINT 0, start, 1.4, 1, MID$(l$, 5, LEN(l$))
 		        handled = TRUE
 		    ENDIF
-		    IF handled = FALSE THEN GRAPHPRINT 0, start, 1, 1, l$
+		    IF handled = FALSE THEN PROCmarkdownLine(l$, 0, start)
 		ENDIF
         l = l + 1
         start = start + 8
 	UNTIL l > top + TERMHEIGHT - 3
 	FLIP
 	PROCshowCursor
+ENDPROC
+
+REM render one markdown line with inline formatting
+DEF PROCmarkdownLine(mdline$, mdstartx, mdstarty)
+	mdx = mdstartx
+	mdy = mdstarty
+	mdbold = FALSE
+	mdunderline = FALSE
+	mdbuf$ = ""
+	mdpos = 0
+
+	REPEAT
+		mdtwo$ = ""
+		IF mdpos < LEN(mdline$) - 1 THEN mdtwo$ = MID$(mdline$, mdpos, 2)
+
+		IF mdtwo$ = "**" THEN
+			IF mdbuf$ <> "" THEN
+				GRAPHPRINT mdx, mdy, 1, 1, mdbuf$
+				IF mdbold = TRUE THEN GRAPHPRINT mdx + 1, mdy, 1, 1, mdbuf$
+				IF mdunderline = TRUE THEN LINE mdx, mdy + 7, mdx + LEN(mdbuf$) * 8 - 1, mdy + 7
+				mdx = mdx + LEN(mdbuf$) * 8
+				mdbuf$ = ""
+			ENDIF
+			mdbold = BITNOT(mdbold)
+			mdpos = mdpos + 2
+		ELSE
+			IF mdtwo$ = "__" THEN
+				IF mdbuf$ <> "" THEN
+					GRAPHPRINT mdx, mdy, 1, 1, mdbuf$
+					IF mdbold = TRUE THEN GRAPHPRINT mdx + 1, mdy, 1, 1, mdbuf$
+					IF mdunderline = TRUE THEN LINE mdx, mdy + 7, mdx + LEN(mdbuf$) * 8 - 1, mdy + 7
+					mdx = mdx + LEN(mdbuf$) * 8
+					mdbuf$ = ""
+				ENDIF
+				mdunderline = BITNOT(mdunderline)
+				mdpos = mdpos + 2
+			ELSE
+				IF mdtwo$ = "![" THEN
+					IF mdbuf$ <> "" THEN
+						GRAPHPRINT mdx, mdy, 1, 1, mdbuf$
+						IF mdbold = TRUE THEN GRAPHPRINT mdx + 1, mdy, 1, 1, mdbuf$
+						IF mdunderline = TRUE THEN LINE mdx, mdy + 7, mdx + LEN(mdbuf$) * 8 - 1, mdy + 7
+						mdx = mdx + LEN(mdbuf$) * 8
+						mdbuf$ = ""
+					ENDIF
+
+					img_ok = FALSE
+					img_end_square = 0
+					img_end_paren = 0
+					img_quote = FALSE
+					imgscan = mdpos + 2
+
+					REPEAT
+						IF MID$(mdline$, imgscan, 1) = "]" THEN img_end_square = imgscan
+						imgscan = imgscan + 1
+					UNTIL imgscan > LEN(mdline$) OR img_end_square > 0
+
+					IF img_end_square > 0 THEN
+						IF MID$(mdline$, img_end_square + 1, 1) = "(" THEN
+							imgscan = img_end_square + 2
+							REPEAT
+								imgchar$ = MID$(mdline$, imgscan, 1)
+								IF imgchar$ = CHR$(34) THEN img_quote = BITNOT(img_quote)
+								IF imgchar$ = ")" AND img_quote = FALSE THEN img_end_paren = imgscan
+								imgscan = imgscan + 1
+							UNTIL imgscan > LEN(mdline$) OR img_end_paren > 0
+						ENDIF
+					ENDIF
+
+					IF img_end_paren > 0 THEN
+						img_alt$ = MID$(mdline$, mdpos + 2, img_end_square - mdpos - 2)
+						img_dest$ = MID$(mdline$, img_end_square + 2, img_end_paren - img_end_square - 2)
+						img_url$ = img_dest$
+						img_title$ = ""
+						img_split = INSTR(img_dest$, " ")
+
+						IF img_split > 0 THEN
+							img_url$ = LEFT$(img_dest$, img_split - 1)
+							img_title$ = MID$(img_dest$, img_split + 1, LEN(img_dest$))
+							IF LEFT$(img_title$, 1) = CHR$(34) THEN img_title$ = MID$(img_title$, 2, LEN(img_title$))
+							IF RIGHT$(img_title$, 1) = CHR$(34) THEN img_title$ = LEFT$(img_title$, LEN(img_title$) - 1)
+						ENDIF
+
+						PROCmarkdownImage(img_alt$, img_url$, img_title$, mdx, mdy)
+						mdpos = img_end_paren + 1
+						img_ok = TRUE
+					ENDIF
+
+					IF img_ok = FALSE THEN
+						mdbuf$ = mdbuf$ + MID$(mdline$, mdpos, 1)
+						mdpos = mdpos + 1
+					ENDIF
+				ELSE
+					mdbuf$ = mdbuf$ + MID$(mdline$, mdpos, 1)
+					mdpos = mdpos + 1
+				ENDIF
+			ENDIF
+		ENDIF
+	UNTIL mdpos >= LEN(mdline$)
+
+	IF mdbuf$ <> "" THEN
+		GRAPHPRINT mdx, mdy, 1, 1, mdbuf$
+		IF mdbold = TRUE THEN GRAPHPRINT mdx + 1, mdy, 1, 1, mdbuf$
+		IF mdunderline = TRUE THEN LINE mdx, mdy + 7, mdx + LEN(mdbuf$) * 8 - 1, mdy + 7
+	ENDIF
+ENDPROC
+
+REM placeholder for inline images
+DEF PROCmarkdownImage(img_alt_text$, img_url_text$, img_title_text$, img_x, img_y)
+	boxw = 32
+	boxh = 32
+
+    GCOL &888888
+	LINE img_x, img_y, img_x + boxw, img_y
+	LINE img_x + boxw, img_y, img_x + boxw, img_y + boxh
+	LINE img_x + boxw, img_y + boxh, img_x, img_y + boxh
+	LINE img_x, img_y + boxh, img_x, img_y
+
+	LINE img_x, img_y, img_x + boxw, img_y + boxh
+	LINE img_x + boxw, img_y, img_x, img_y + boxh
+
+	GRAPHPRINT img_x + boxw + 4, img_y + 10, 0.75, 0.75, img_alt_text$
+	GCOL &FFFFFF
+
+	start = start + (boxh - 8)
+	mdx = mdx + boxw + 4 + (LEN(img_alt_text$) * 4)
 ENDPROC
 
 DEF FNmarkdown_header$(L$)
