@@ -20,11 +20,11 @@ ENDPROC
 
 DEF PROCprocessRequest
     SOCKREAD client_socket, REQUEST$
-    VERB$ = TOKENIZE$(REQUEST$, " ") ' Get the request details
-    FILEPATH$ = TOKENIZE$(REQUEST$, " ")
+    VERB$ = TRIM$(TOKENIZE$(REQUEST$, " ")) ' Get the request details
+    FILEPATH$ = TRIM$(TOKENIZE$(REQUEST$, " "))
     IF FILEPATH$ = "/" THEN FILEPATH$ = "/index.html"
-    PRINT FILEPATH$
-    VERSION$ = REQUEST$
+    VERSION$ = TRIM$(REQUEST$)
+    PRINT VERB$; " -> "; FILEPATH$
     FILEPATH$ = "/system/webserver" + FILEPATH$
 	FH = OPENIN(FILEPATH$)
 	IF FH > -1 THEN

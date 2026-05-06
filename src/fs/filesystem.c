@@ -723,7 +723,6 @@ int _open(const char* filename, int oflag)
 {
 	fs_handle_type_t type = file_input;
 	fs_directory_entry_t* file = NULL;
-	/* First check if we can find the file in the filesystem */
 
 	if ((oflag & _O_APPEND) == _O_APPEND) {
 		type = file_random;
@@ -737,9 +736,11 @@ int _open(const char* filename, int oflag)
 		type = file_input;
 	}
 
+	/* First check if we can find the file in the filesystem */
 	file = fs_get_file_info(filename);
 	if (file == NULL && type == file_input) {
 		fs_set_error(FS_ERR_INVALID_FILEPATH);
+		dprintf("_open: non-existent file %s\n", filename);
 		return -1;
 	} else if (file == NULL && type != file_input) {
 		file = fs_create_file(filename, 0);
@@ -747,6 +748,7 @@ int _open(const char* filename, int oflag)
 		fs_truncate_file(file, 0);
 	}
 	if (file == NULL) {
+		dprintf("_open: null file info for %s\n", filename);
 		return -1;
 	}
 
@@ -755,6 +757,7 @@ int _open(const char* filename, int oflag)
 	int fd = alloc_filehandle(type, file, IOBUFSZ, 0);
 	if (fd == -1) {
 		fs_set_error(FS_ERR_NO_MORE_FDS);
+		dprintf("_open: out of descriptors opening %s\n", filename);
 		return -1;
 	}
 
@@ -766,6 +769,7 @@ int _open(const char* filename, int oflag)
 			* Give up the filehandle and return error.
 			*/
 			destroy_filehandle(fd);
+			dprintf("_open: failed to read initial buffer for %s\n", filename);
 			return -1;
 		} else {
 			if (file->size <= filehandles[fd]->inbufsize) {

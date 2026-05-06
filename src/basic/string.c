@@ -481,9 +481,9 @@ char* basic_tokenize(struct basic_ctx* ctx)
 		if (ofs + split_len > len) {
 			break;
 		} else if (!strncmp(current_value, split, split_len)) {
-
-			size_t ret_len = ofs + split_len;
-			size_t new_len = len - ret_len;
+			size_t ret_len = ofs;
+			size_t new_ofs = ofs + split_len;
+			size_t new_len = len - new_ofs;
 
 			char* return_value = buddy_malloc(ctx->allocator, ret_len + 1);
 			if (!return_value) {
@@ -501,7 +501,7 @@ char* basic_tokenize(struct basic_ctx* ctx)
 			memcpy(return_value, old_value, ret_len);
 			return_value[ret_len] = 0;
 
-			memcpy(new_value, old_value + ret_len, new_len);
+			memcpy(new_value, old_value + new_ofs, new_len);
 			new_value[new_len] = 0;
 
 			basic_set_string_variable(varname, new_value, ctx, false, false);
