@@ -127,14 +127,14 @@ $(function(){initNavTree('BUFFERTOSTRINGS.html','',''); });
 </div><!-- fragment --><p>The <span class="tt">BUFFERTOSTRING$</span> function converts a raw memory buffer into a BASIC string, escaping any bytes that are not representable in normal strings.</p>
 <p>It is primarily used to bring binary data (e.g. from <span class="tt">SOCKBINREAD</span>, files, or memory processing) into BASIC string form so it can be stored, passed around, or processed further.</p>
 <hr  />
-<h2 class="doxsection"><a class="anchor" id="parameters-1"></a>
+<h2 class="doxsection"><a class="anchor" id="parameters-2"></a>
 Parameters</h2>
 <ul>
 <li><span class="tt">address</span> Source memory address to read bytes from.</li>
 <li><span class="tt">length</span> Number of bytes to read.</li>
 </ul>
 <hr  />
-<h2 class="doxsection"><a class="anchor" id="return-value-1"></a>
+<h2 class="doxsection"><a class="anchor" id="return-value-2"></a>
 Return value</h2>
 <p>Returns a BASIC string containing the encoded data.</p>
 <p>Returns an empty string if:</p>
@@ -169,7 +169,7 @@ Errors</h2>
 <li>Encoded result is too large to allocate a string variable</li>
 </ul>
 <hr  />
-<h2 class="doxsection"><a class="anchor" id="example-3"></a>
+<h2 class="doxsection"><a class="anchor" id="example-4"></a>
 Example</h2>
 <div class="fragment"><div class="line">buf = MEMALLOC(1024)</div>
 <div class="line"> </div>
@@ -180,7 +180,7 @@ Example</h2>
 <div class="line">PRINT &quot;Received encoded string of length &quot;; LEN(data$)</div>
 </div><!-- fragment --><p>This reads raw binary data into a buffer, converts it into a BASIC string, and prints its length.</p>
 <hr  />
-<h2 class="doxsection"><a class="anchor" id="notes-119"></a>
+<h2 class="doxsection"><a class="anchor" id="notes-120"></a>
 Notes</h2>
 <ul>
 <li>The returned string is safe for storage and transmission within BASIC.</li>

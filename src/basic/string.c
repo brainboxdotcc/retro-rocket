@@ -4,6 +4,7 @@
  */
 #include <kernel.h>
 #include "regex.h"
+#include <mbedtls/base64.h>
 
 struct match_state {
 	struct regex_prog *prog;
@@ -953,4 +954,99 @@ char *basic_buffer_to_string(struct basic_ctx *ctx)
 	char *ret = (char *)gc_strdup(ctx, out);
 	buddy_free(ctx->allocator, out);
 	return ret;
+}
+
+char* basic_tobase64(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t address = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t length = intval;
+	PARAMS_END("TOBASE64$", "");
+
+	if (length < 0) {
+		tokenizer_error_print(ctx, "Invalid buffer length");
+		return "";
+	}
+	if (length > 0 && !address_valid_read(address, length)) {
+		tokenizer_error_printf(ctx, "Invalid address: %016lx", address);
+		return "";
+	}
+	if (!address || length == 0) {
+		return "";
+	}
+
+	size_t out_len = (((size_t)length + 2) / 3) * 4;
+	char* out = buddy_malloc(ctx->allocator, out_len + 1);
+	if (!out) {
+		tokenizer_error_print(ctx, "Error allocating string buffer");
+		return "";
+	}
+
+	size_t actual_len = 0;
+	int rc = mbedtls_base64_encode((unsigned char*)out, out_len + 1, &actual_len, (const unsigned char*)address, (size_t)length);
+
+	if (rc == MBEDTLS_ERR_BASE64_BUFFER_TOO_SMALL) {
+		buddy_free(ctx->allocator, out);
+		tokenizer_error_print(ctx, "Base64 buffer too small");
+		return "";
+	}
+
+	if (rc != 0) {
+		buddy_free(ctx->allocator, out);
+		tokenizer_error_printf(ctx, "Base64 encode failed: %d", rc);
+		return "";
+	}
+
+	out[actual_len] = 0;
+	char* ret = (char*)gc_strdup(ctx, out);
+	buddy_free(ctx->allocator, out);
+	return ret;
+}
+
+int64_t basic_frombase64(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	const char* input = strval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t address = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t max = intval;
+	PARAMS_END("FROMBASE64", 0);
+
+	if (max < 0) {
+		tokenizer_error_print(ctx, "Invalid buffer length");
+		return 0;
+	}
+
+	if (max > 0 && !address_valid_write(address, max)) {
+		tokenizer_error_printf(ctx, "Invalid address: %016lx", address);
+		return 0;
+	}
+
+	if (!input || *input == 0 || !address || max == 0) {
+		return 0;
+	}
+
+	size_t out_len = 0;
+
+	int rc = mbedtls_base64_decode((unsigned char*)address, (size_t)max, &out_len, (const unsigned char*)input, strlen(input));
+
+	if (rc == MBEDTLS_ERR_BASE64_BUFFER_TOO_SMALL) {
+		tokenizer_error_print(ctx, "Buffer too small");
+		return 0;
+	}
+
+	if (rc == MBEDTLS_ERR_BASE64_INVALID_CHARACTER) {
+		tokenizer_error_print(ctx, "Invalid base64 data");
+		return 0;
+	}
+
+	if (rc != 0) {
+		tokenizer_error_printf(ctx, "Base64 decode failed: %d", rc);
+		return 0;
+	}
+	return address;
 }

@@ -23,6 +23,7 @@ var int_funcs =
     [ "EOF Function", "EOF.html", null ],
     [ "EXISTSVARI / EXISTSVARR / EXISTSVARS Functions", "EXISTSVARI.html", null ],
     [ "FILESIZE Function", "FILESIZE.html", null ],
+    [ "FROMBASE64 Function", "FROMBASE64.html", null ],
     [ "GETNAMECOUNT Function", "GETNAMECOUNT.html", null ],
     [ "GETPROCCOUNT Function", "GETPROCCOUNT.html", null ],
     [ "GETPROCCPU Function", "GETPROCCPU.html", null ],

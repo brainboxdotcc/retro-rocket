@@ -25,6 +25,7 @@ The following functions operate on or return **integer values** in Retro Rocket 
 * \subpage EOF
 * \subpage EXISTSVARI
 * \subpage FILESIZE
+* \subpage FROMBASE64
 * \subpage GETNAMECOUNT
 * \subpage GETPROCCOUNT
 * \subpage GETPROCCPU

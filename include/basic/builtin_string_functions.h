@@ -316,3 +316,19 @@ char *basic_buffer_to_string(struct basic_ctx *ctx);
  * @return The converted Markdown string
  */
 char* basic_markdown(struct basic_ctx* ctx);
+
+/**
+ * @brief Encodes a buffer as Base64.
+ *
+ * @param ctx BASIC interpreter context
+ * @return Base64 encoded string
+ */
+char* basic_tobase64(struct basic_ctx* ctx);
+
+/**
+ * @brief Decodes Base64 into a buffer.
+ *
+ * @param ctx BASIC interpreter context
+ * @return Buffer address or 0 on failure
+ */
+int64_t basic_frombase64(struct basic_ctx* ctx);

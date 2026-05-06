@@ -181,6 +181,7 @@ struct basic_int_fn builtin_int[] =
 	{ basic_string_to_buffer,    "STRINGTOBUFFER"    },
 	{ basic_getproccpu,          "GETPROCCPU"        },
 	{ basic_is_program,          "ISPROGRAM"         },
+	{ basic_frombase64,          "FROMBASE64"        },
 	{ NULL,                      NULL                },
 };
 
@@ -276,6 +277,7 @@ struct basic_str_fn builtin_str[] =
 	{ basic_bigmodpow,            "BIGMODPOW$"      },
 	{ basic_bigmodinv,            "BIGMODINV$"      },
 	{ basic_markdown,             "MARKDOWN$"       },
+	{ basic_tobase64,             "TOBASE64$"       },
 	{ NULL,                       NULL              },
 };
 

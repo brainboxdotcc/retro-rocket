@@ -126,7 +126,7 @@ $(function(){initNavTree('GETPROCCPU.html','',''); });
 <div class="textblock"><div class="fragment"><div class="line">V = GETPROCCPU(pid)</div>
 </div><!-- fragment --><p>Returns the rolling average CPU usage of the process identified by <span class="tt">pid</span> as an integer percentage from <span class="tt">0</span> to <span class="tt">100</span>.</p>
 <p>A process that is waiting or suspended reports <span class="tt">0</span>. A runnable process reports its recent share of CPU time, averaged over a rolling window, so the value may take a short time to rise or fall.</p>
-<h3 class="doxsection"><a class="anchor" id="notes-24"></a>
+<h3 class="doxsection"><a class="anchor" id="notes-25"></a>
 Notes</h3>
 <p><span class="tt">GETPROCCPU</span> returns a recent average, not an instant reading.</p>
 <p>The value is based on the scheduler's view of the process and is intended for status displays such as task managers or monitoring tools.</p>

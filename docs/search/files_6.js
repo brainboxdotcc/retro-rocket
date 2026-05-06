@@ -8,5 +8,6 @@ var searchData=
   ['fn_2emd_5',['FN.md',['../FN_8md.html',1,'']]],
   ['for_2emd_6',['FOR.md',['../FOR_8md.html',1,'']]],
   ['free_2emd_7',['free.md',['../free_8md.html',1,'']]],
-  ['fstest_2emd_8',['fstest.md',['../fstest_8md.html',1,'']]]
+  ['frombase64_2emd_8',['FROMBASE64.md',['../FROMBASE64_8md.html',1,'']]],
+  ['fstest_2emd_9',['fstest.md',['../fstest_8md.html',1,'']]]
 ];

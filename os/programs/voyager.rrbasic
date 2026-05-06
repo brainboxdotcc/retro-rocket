@@ -2,6 +2,9 @@ LIBRARY LIB$ + "/http"
 LIBRARY LIB$ + "/ansi"
 
 REM globals
+HOME$ = "http://frogfind.com/"
+URL$ = HOME$
+IF (ARGS$ <> "") THEN URL$ = ARGS$
 max = 100
 lines = 0
 top = 0
@@ -19,7 +22,7 @@ hit_pos = 0
 PAGE OFF
 
 REM load file, draw UI, start editor input loop
-PROCload(ARGS$)
+PROCload(URL$)
 CLS
 PROCtext
 PROCedit
@@ -72,13 +75,38 @@ DEF PROCtext
 	CLS
 	PROCdraw
 	AUTOFLIP FALSE
-	CURSOR 1, 2
-	FOR l = top TO top + TERMHEIGHT - 3
+	start = 16
+	l = top
+	CURSOR 1, start
+	GCOL &FFFFFF
+	REPEAT
 		PROCclearLineFromCursor
 		IF l < max THEN
-            PRINT LEFT$(content$(l), TERMWIDTH)
+		    l$ = content$(l)
+		    handled = FALSE
+		    IF (LEFT$(l$, 2) = "# ") THEN
+		        GRAPHPRINT 0, start, 2, 2, MID$(l$, 2, LEN(l$))
+		        l = l + 2 ' Additional spacing
+		        start = start + 16
+		        handled = TRUE
+		    ENDIF
+		    IF (LEFT$(l$, 3) = "## ") THEN
+		        GRAPHPRINT 0, start, 2, 1, MID$(l$, 3, LEN(l$))
+		        handled = TRUE
+		    ENDIF
+		    IF (LEFT$(l$, 4) = "### ") THEN
+		        GRAPHPRINT 0, start, 1.6, 1, MID$(l$, 4, LEN(l$))
+		        handled = TRUE
+		    ENDIF
+		    IF (LEFT$(l$, 5) = "#### ") THEN
+		        GRAPHPRINT 0, start, 1.4, 1, MID$(l$, 5, LEN(l$))
+		        handled = TRUE
+		    ENDIF
+		    IF handled = FALSE THEN GRAPHPRINT 0, start, 1, 1, l$
 		ENDIF
-	NEXT
+        l = l + 1
+        start = start + 8
+	UNTIL l > top + TERMHEIGHT - 3
 	FLIP
 	PROCshowCursor
 ENDPROC
@@ -94,32 +122,36 @@ DEF FNmarkdown_header$(L$)
 = R$
 
 DEF FNmarkdown_wrap_pos(L$, width)
-    depth = 0
+    in_square = FALSE
+    in_paren = FALSE
+    in_quote = FALSE
     last_space = 0
     i = 1
     result = 0
-
     IF LEN(L$) <= width THEN
         result = LEN(L$)
     ELSE
         REPEAT
             C$ = MID$(L$, i, 1)
-            IF C$ = "[" THEN depth = depth + 1
-            IF C$ = "(" AND depth > 0 THEN depth = depth + 1
-            IF C$ = ")" AND depth > 0 THEN depth = depth - 1
-            IF C$ = "]" AND depth > 0 THEN depth = depth - 1
-            IF C$ = " " AND depth = 0 THEN last_space = i
+            IF C$ = "[" AND in_paren = FALSE THEN in_square = TRUE
+            IF C$ = "]" AND in_paren = FALSE THEN in_square = FALSE
+            IF C$ = "(" AND in_square = FALSE THEN in_paren = TRUE
+            IF C$ = ")" AND in_paren = TRUE AND in_quote = FALSE THEN in_paren = FALSE
+            IF C$ = CHR$(34) AND in_paren = TRUE THEN in_quote = BITNOT(in_quote)
+            IF C$ = " " AND in_square = FALSE AND in_paren = FALSE THEN last_space = i
             i = i + 1
         UNTIL i > width
         IF last_space > 0 THEN
             result = last_space
         ELSE
-            i = width + 1
             REPEAT
                 C$ = MID$(L$, i, 1)
-                IF C$ = "]" THEN depth = 0
-                IF C$ = ")" THEN depth = 0
-                IF C$ = " " AND depth = 0 AND result = 0 THEN result = i
+                IF C$ = "[" AND in_paren = FALSE THEN in_square = TRUE
+                IF C$ = "]" AND in_paren = FALSE THEN in_square = FALSE
+                IF C$ = "(" AND in_square = FALSE THEN in_paren = TRUE
+                IF C$ = ")" AND in_paren = TRUE AND in_quote = FALSE THEN in_paren = FALSE
+                IF C$ = CHR$(34) AND in_paren = TRUE THEN in_quote = BITNOT(in_quote)
+                IF C$ = " " AND in_square = FALSE AND in_paren = FALSE THEN result = i
                 i = i + 1
             UNTIL i > LEN(L$) OR result <> 0
             IF result = 0 THEN result = LEN(L$)
@@ -128,8 +160,8 @@ DEF FNmarkdown_wrap_pos(L$, width)
 = result
 
 REM load a file into the array, translating TAB to four spaces
-DEF PROCload(file$)
-    PROChttp_get("http://frogfind.com/")
+DEF PROCload(uri$)
+    PROChttp_get(uri$)
     body$ = FNhttp_result$("body")
     body$ = MARKDOWN$(body$)
     body$ = REPLACE$(body$, CHR$(13) + CHR$(10), CHR$(13))

@@ -49,6 +49,7 @@ var string_funcs =
     [ "TIME$ Function", "TIME.html", null ],
     [ "TLSCIPHER$ Function", "TLSCIPHER.html", null ],
     [ "TLSVERSION$ Function", "TLSVERSION.html", null ],
+    [ "TOBASE64$ Function", "TOBASE64S.html", null ],
     [ "TOKENIZE$ Function", "TOKENIZE.html", null ],
     [ "TRIM$ Function", "TRIM.html", null ],
     [ "UDPLASTIP$ Function", "UDPLASTIP.html", null ],

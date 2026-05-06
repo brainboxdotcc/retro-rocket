@@ -131,7 +131,7 @@ $(function(){initNavTree('ENVELOPE.html','',''); });
 <h3 class="doxsection"><a class="anchor" id="create"></a>
 CREATE</h3>
 <p>Creates or replaces an envelope in slot <span class="tt">n</span> (0–63). The envelope can then be used by <span class="tt">SOUND TONE</span> to shape generated notes.</p>
-<h4 class="doxsection"><a class="anchor" id="parameters-2"></a>
+<h4 class="doxsection"><a class="anchor" id="parameters-4"></a>
 Parameters:</h4>
 <ul>
 <li><b>n</b> - Envelope index (0–63). A slot number that lets you store multiple different sound shapes and pick between them.</li>
@@ -199,7 +199,7 @@ Visual example</h4>
 DESTROY</h3>
 <p>Removes an envelope from slot <span class="tt">n</span> (0–63), freeing it for reuse.</p>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="example-16"></a>
+<h3 class="doxsection"><a class="anchor" id="example-18"></a>
 Example</h3>
 <div class="fragment"><div class="line">&#39; Envelope 0: simple organ tone</div>
 <div class="line">ENVELOPE CREATE 0,0,255,128,5,50,200,200,0,0,0,0,0</div>
@@ -212,7 +212,7 @@ Example</h3>
 <div class="line">SOUND TONE s,440,100,0   &#39; A4 with organ</div>
 <div class="line">SOUND TONE s,220,200,1   &#39; A3 with sine pad</div>
 </div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-173"></a>
+<h3 class="doxsection"><a class="anchor" id="notes-175"></a>
 Notes</h3>
 <ul>
 <li>Envelopes are stored in slots, numbered 0–63. Each BASIC program has its own 63 slots.</li>

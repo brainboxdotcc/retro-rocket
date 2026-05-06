@@ -57,7 +57,7 @@ var searchData=
   ['retrofs_20v1_20technical_20specification_54',['RetroFS v1 Technical Specification',['../retrofs-kernel-docs.html',1,'kernel-dev']]],
   ['return_55',['Example: conditional early return',['../ENDPROC.html#example-conditional-early-return',1,'']]],
   ['return_20keyword_56',['RETURN Keyword',['../RETURN.html',1,'keywords']]],
-  ['return_20value_57',['Return value',['../STRINGTOBUFFER.html#return-value',1,'Return value'],['../BUFFERTOSTRINGS.html#return-value-1',1,'Return value']]],
+  ['return_20value_57',['Return value',['../FROMBASE64.html#return-value',1,'Return value'],['../STRINGTOBUFFER.html#return-value-1',1,'Return value'],['../BUFFERTOSTRINGS.html#return-value-2',1,'Return value'],['../TOBASE64S.html#return-value-3',1,'Return value']]],
   ['return_20value_58',['Example: procedure (no return value)',['../DEF.html#example-procedure-no-return-value',1,'']]],
   ['returns_20a_20value_59',['Example: function (returns a value)',['../DEF.html#example-function-returns-a-value',1,'']]],
   ['reusable_20code_60',['8) Reusable code',['../basic-beginner.html#autotoc_md8-reusable-code',1,'']]],

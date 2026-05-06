@@ -128,7 +128,7 @@ $(function(){initNavTree('STRINGTOBUFFER.html','',''); });
 <p>It is primarily used to convert strings received from binary-safe sources (e.g. <span class="tt">INSOCKET$</span>) into a form suitable for low-level operations such as <span class="tt">SOCKBINWRITE</span>, file I/O, or direct memory processing.</p>
 <p>The function returns the number of bytes written to the destination buffer.</p>
 <hr  />
-<h2 class="doxsection"><a class="anchor" id="parameters"></a>
+<h2 class="doxsection"><a class="anchor" id="parameters-1"></a>
 Parameters</h2>
 <ul>
 <li><span class="tt">string$</span> Source string. May contain escaped binary data.</li>
@@ -136,7 +136,7 @@ Parameters</h2>
 <li><span class="tt">maxlen</span> Maximum number of bytes to write.</li>
 </ul>
 <hr  />
-<h2 class="doxsection"><a class="anchor" id="return-value"></a>
+<h2 class="doxsection"><a class="anchor" id="return-value-1"></a>
 Return value</h2>
 <p>Returns the number of bytes written to the buffer.</p>
 <p>Returns <span class="tt">0</span> if:</p>
@@ -174,7 +174,7 @@ Errors</h2>
 <li>Negative <span class="tt">maxlen</span> → error</li>
 </ul>
 <hr  />
-<h2 class="doxsection"><a class="anchor" id="example-1"></a>
+<h2 class="doxsection"><a class="anchor" id="example-2"></a>
 Example</h2>
 <div class="fragment"><div class="line">body$ = INSOCKET$(fd, 1024)</div>
 <div class="line"> </div>
@@ -185,7 +185,7 @@ Example</h2>
 <div class="line">PRINT &quot;Bytes decoded: &quot;; n</div>
 </div><!-- fragment --><p>This reads data from a socket into a string, decodes it into a raw buffer, and prints the number of bytes written.</p>
 <hr  />
-<h2 class="doxsection"><a class="anchor" id="notes-77"></a>
+<h2 class="doxsection"><a class="anchor" id="notes-78"></a>
 Notes</h2>
 <ul>
 <li>The source string is not modified.</li>

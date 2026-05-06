@@ -71,7 +71,7 @@ var searchData=
   ['retrofs_2emd_68',['RETROFS.md',['../RETROFS_8md.html',1,'']]],
   ['return_69',['Example: conditional early return',['../ENDPROC.html#example-conditional-early-return',1,'']]],
   ['return_20keyword_70',['RETURN Keyword',['../RETURN.html',1,'keywords']]],
-  ['return_20value_71',['Return value',['../STRINGTOBUFFER.html#return-value',1,'Return value'],['../BUFFERTOSTRINGS.html#return-value-1',1,'Return value']]],
+  ['return_20value_71',['Return value',['../FROMBASE64.html#return-value',1,'Return value'],['../STRINGTOBUFFER.html#return-value-1',1,'Return value'],['../BUFFERTOSTRINGS.html#return-value-2',1,'Return value'],['../TOBASE64S.html#return-value-3',1,'Return value']]],
   ['return_20value_72',['Example: procedure (no return value)',['../DEF.html#example-procedure-no-return-value',1,'']]],
   ['return_2emd_73',['RETURN.md',['../RETURN_8md.html',1,'']]],
   ['returns_20a_20value_74',['Example: function (returns a value)',['../DEF.html#example-function-returns-a-value',1,'']]],
