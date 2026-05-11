@@ -108,6 +108,8 @@ void network_up()
 	}
 	arp_init();
 	ip_init();
+	icmp_init();
+	udp_init();
 	tcp_init();
 	dhcp_init();
 	init_dns();

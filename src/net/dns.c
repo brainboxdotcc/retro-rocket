@@ -74,7 +74,7 @@ static void packet_to_buffer(unsigned char *output, const dns_header_t *header, 
 	output[9] = header->nscount & 0xFF;
 	output[10] = header->arcount >> 8;
 	output[11] = header->arcount & 0xFF;
-	memcpy(&output[12],header->payload,length);
+	memcpy(&output[DNS_HEADER_SIZE],header->payload,length);
 }
 
 /**
@@ -94,7 +94,7 @@ static int dns_send_request(const char * const name, uint32_t resolver_ip, dns_r
 	if (!name || !*name || !request || !header) {
 		return 0;
 	}
-	unsigned char payload[length + 12];
+	unsigned char payload[length + DNS_HEADER_SIZE];
 
 	if (dns_query_port == 0 || resolver_ip == 0) {
 		return 0;
@@ -115,7 +115,7 @@ static int dns_send_request(const char * const name, uint32_t resolver_ip, dns_r
 	packet_to_buffer(payload, header, length);
 	hashmap_set(dns_replies, request);
 
-	udp_send_packet((uint8_t*)&resolver_ip, dns_query_port, DNS_DST_PORT, payload, length + 12);
+	udp_send_packet((uint8_t*)&resolver_ip, dns_query_port, DNS_DST_PORT, payload, length + DNS_HEADER_SIZE);
 
 	return 1;
 }
@@ -142,15 +142,22 @@ static int dns_make_payload(const char * const name, const uint8_t rr, const uns
 	/* split name up into labels, create query */
 	while ((tempchr = strchr(tempchr2, '.')) != NULL) {
 		length = tempchr - tempchr2;
-		if (payloadpos + length + 1 > 507)
+		if (length > 63) {
 			return -1;
+		}
+		if (payloadpos + length + 1 > 507) {
+			return -1;
+		}
 		payload[payloadpos++] = length;
-		memcpy(&payload[payloadpos],tempchr2,length);
+		memcpy(&payload[payloadpos], tempchr2, length);
 		payloadpos += length;
 		tempchr2 = &tempchr[1];
 	}
 	length = strlen(tempchr2);
 	if (length) {
+		if (length > 63) {
+			return -1;
+		}
 		if (payloadpos + length + 2 > 507) {
 			return -1;
 		}
@@ -169,6 +176,39 @@ static int dns_make_payload(const char * const name, const uint8_t rr, const uns
 	return payloadpos + 4;
 }
 
+static int dns_follow_cname(dns_request_t* request, const char* cname)
+{
+	dns_header_t h;
+	int length;
+	uint32_t resolver_ip;
+
+	if (!request || !cname || !*cname) {
+		return 0;
+	}
+
+	if ((length = dns_make_payload(cname, DNS_QUERY_A, 1, (unsigned char*)&h.payload)) == -1) {
+		return 0;
+	}
+
+	h.id = request->id;
+	h.flags1 = FLAGS_MASK_RD;
+	h.flags2 = 0;
+	h.qdcount = 1;
+	h.ancount = h.nscount = h.arcount = 0;
+
+	unsigned char payload[length + DNS_HEADER_SIZE];
+
+	packet_to_buffer(payload, &h, length);
+
+	*(request->result) = 0;
+	request->result_length = 0;
+
+	resolver_ip = ntohl(request->resolver_ip);
+	udp_send_packet((uint8_t*)&resolver_ip, dns_query_port, DNS_DST_PORT, payload, length + DNS_HEADER_SIZE);
+
+	return 1;
+}
+
 /**
  * @brief Handle inbound packet from the IP stack
  * 
@@ -177,13 +217,12 @@ static int dns_make_payload(const char * const name, const uint8_t rr, const uns
  * @param length length of packet
  */
 void dns_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, void* data, uint32_t length, void* opaque) {
-	if (!data) {
+	if (!data || length < DNS_HEADER_SIZE) {
 		return;
 	}
 	dns_header_t* packet = (dns_header_t*)data;
 	uint16_t inbound_id = ntohs(packet->id);
-	dns_request_t findrequest = { .id = inbound_id };
-	dns_request_t* request = (dns_request_t*)hashmap_get(dns_replies, &findrequest);
+	dns_request_t* request = hashmap_get(dns_replies, &(dns_request_t){ .id = inbound_id });
 	dprintf("dns inbound packet of size %d\n", length);
 	if (request) {
 		if (src_ip != request->resolver_ip) {
@@ -199,6 +238,12 @@ void dns_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, vo
 			char* error = NULL;
 			dns_result_ready(packet, request, length, &error, request->result, &request->result_length);
 			dprintf("DNS result ready done\n");
+			if (request->type == DNS_QUERY_CNAME) {
+				dprintf("Following CNAME %s -> %s\n", request->orig, request->result);
+				request->type = DNS_QUERY_A;
+				dns_follow_cname(request, request->result);
+				return;
+			}
 			if (request->callback_a && request->type == DNS_QUERY_A) {
 				dprintf("Query result A\n");
 				uint32_t result = 0;
@@ -240,8 +285,12 @@ void dns_result_ready(dns_header_t* header, dns_request_t* request, unsigned len
 	unsigned i = 0, o;
 	int q = 0;
 	int curanswer;
- 	unsigned short ptr;
+	unsigned short ptr;
 	resource_record_t rr;
+	unsigned cname_i = 0;
+	uint16_t cname_rdlength = 0;
+	uint32_t cname_ttl = 0;
+	bool cname_found = false;
 
 	if (!res || !request || !header || !outlength || !error) {
 		return;
@@ -255,6 +304,11 @@ void dns_result_ready(dns_header_t* header, dns_request_t* request, unsigned len
 	rr.rdlength = 0;
 	rr.ttl = 1;
 	rr.rr_class = 0;
+
+	if (length < DNS_HEADER_SIZE) {
+		*error = "DNS packet shorter than header";
+		return;
+	}
 
 	header->ancount = ntohs(header->ancount);
 	header->qdcount = ntohs(header->qdcount);
@@ -273,8 +327,13 @@ void dns_result_ready(dns_header_t* header, dns_request_t* request, unsigned len
 		return;
 	}
 
+	if (length < DNS_HEADER_SIZE) {
+		*error = "DNS packet shorter than header";
+		return;
+	}
+
 	/* Subtract the length of the header from the length of the packet */
-	length -= 12;
+	length -= DNS_HEADER_SIZE;
 
 	while ((unsigned int)q < header->qdcount && i < length) {
 		if (header->payload[i] > 63) {
@@ -302,26 +361,49 @@ void dns_result_ready(dns_header_t* header, dns_request_t* request, unsigned len
 					i++;
 					q = 1;
 				} else {
-					 /* skip length and label */
+					/* skip length and label */
 					i += header->payload[i] + 1;
 				}
 			}
 		}
-		if ((int)(length - i) < 10) {
+		if ((int)(length - i) < DNS_RR_FIXED_SIZE) {
 			*error = "Incorrectly sized DNS reply";
 			return;
 		}
 
 		fill_resource_record(&rr, (const unsigned char*)&header->payload[i]);
 
-		i += 10;
+		i += DNS_RR_FIXED_SIZE;
+		if (rr.type == DNS_QUERY_CNAME && request->type == DNS_QUERY_A && rr.rr_class == request->rr_class) {
+			if (i + rr.rdlength > length) {
+				*error = "Resource record larger than stated";
+				return;
+			}
+			if (!cname_found) {
+				cname_i = i;
+				cname_rdlength = rr.rdlength;
+				cname_ttl = rr.ttl;
+				cname_found = true;
+			}
+			curanswer++;
+			i += rr.rdlength;
+			continue;
+		}
 		if (rr.type != request->type) {
 			curanswer++;
+			if (i + rr.rdlength > length) {
+				*error = "Resource record larger than stated";
+				return;
+			}
 			i += rr.rdlength;
 			continue;
 		}
 		if (rr.rr_class != request->rr_class) {
 			curanswer++;
+			if (i + rr.rdlength > length) {
+				*error = "Resource record larger than stated";
+				return;
+			}
 			i += rr.rdlength;
 			continue;
 		}
@@ -329,8 +411,17 @@ void dns_result_ready(dns_header_t* header, dns_request_t* request, unsigned len
 	}
 
 	if ((unsigned int)curanswer == header->ancount) {
-		*error = "No A, AAAA or PTR type answers";
-		return;
+		if (cname_found) {
+			i = cname_i;
+			rr.type = DNS_QUERY_CNAME;
+			request->type = DNS_QUERY_CNAME;
+			rr.rr_class = request->rr_class;
+			rr.ttl = cname_ttl;
+			rr.rdlength = cname_rdlength;
+		} else {
+			*error = "No A, AAAA or PTR type answers";
+			return;
+		}
 	}
 
 	if (i + rr.rdlength > (unsigned int)length) {
@@ -338,7 +429,7 @@ void dns_result_ready(dns_header_t* header, dns_request_t* request, unsigned len
 		return;
 	}
 
-	if (rr.rdlength > 1023) {
+	if (rr.rdlength > DNS_RESULT_MAX) {
 		*error = "Resource record too large";
 		return;
 	}
@@ -354,7 +445,7 @@ void dns_result_ready(dns_header_t* header, dns_request_t* request, unsigned len
 			unsigned short lowest_pos = length;
 			o = 0;
 			q = 0;
-			while (q == 0 && i < length && o + 256 < 1023) {
+			while (q == 0 && i < length && o + 256 < DNS_RESULT_MAX) {
 				/* DN label found (byte over 63) */
 				if (header->payload[i] > 63) {
 					memcpy(&ptr,&header->payload[i],2);
@@ -370,8 +461,13 @@ void dns_result_ready(dns_header_t* header, dns_request_t* request, unsigned len
 					/* mask away the two highest bits. */
 					i &= ~DN_COMP_BITMASK;
 
-					/* and decrease length by 12 bytes. */
-					i -= 12;
+					if (i < DNS_HEADER_SIZE) {
+						*error = "Invalid decompression pointer";
+						return;
+					}
+
+					/* and decrease length by DNS_HEADER_SIZE bytes. */
+					i -= DNS_HEADER_SIZE;
 
 					if (i >= lowest_pos) {
 						*error = "Invalid decompression pointer";
@@ -432,11 +528,13 @@ void dns_result_ready(dns_header_t* header, dns_request_t* request, unsigned len
 
 uint8_t dns_collect_request(uint16_t req_id, char* result, size_t max)
 {
-	dns_request_t findrequest = { .id = req_id };
-	dns_request_t* request = (dns_request_t*)hashmap_get(dns_replies, &findrequest);
+	dns_request_t* request = hashmap_get(dns_replies, &(dns_request_t){ .id = req_id });
 	if (request && request->result_length != 0) {
 		uint8_t len = request->result_length;
-		memcpy(result, request->result, max > request->result_length ? max : request->result_length);
+		if (request->result_length > max) {
+			return 0;
+		}
+		memcpy(result, request->result, request->result_length);
 
 		if (request->type == DNS_QUERY_A) {
 			char ip[IP_BUF_LEN] = { 0 };
@@ -457,15 +555,13 @@ uint8_t dns_collect_request(uint16_t req_id, char* result, size_t max)
 
 bool dns_request_is_completed(uint16_t req_id)
 {
-	dns_request_t findrequest = { .id = req_id };
-	dns_request_t* request = (dns_request_t*)hashmap_get(dns_replies, &findrequest);
+	dns_request_t* request = hashmap_get(dns_replies, &(dns_request_t){ .id = req_id });
 	return (request && request->result_length);
 }
 
 void dns_delete_request(uint16_t req_id)
 {
-	dns_request_t findrequest = { .id = req_id };
-	dns_request_t* request = (dns_request_t*)hashmap_get(dns_replies, &findrequest);
+	dns_request_t* request = hashmap_get(dns_replies,&(dns_request_t){ .id = req_id });
 	if (request) {
 		kfree_null(&request->orig);
 		hashmap_delete(dns_replies, request);
@@ -477,10 +573,7 @@ bool is_cached(uint32_t* ip, const char* hostname)
 	if (!ip) {
 		return false;
 	}
-	dns_cache_entry_t find_cache = {
-		.host = hostname,
-	};
-	dns_cache_entry_t* cached = (dns_cache_entry_t*)hashmap_get(dns_cache, &find_cache);
+	dns_cache_entry_t* cached = hashmap_get(dns_cache, &(dns_cache_entry_t){ .host = hostname });
 	if (cached) {
 		dprintf("Returned cached DNS %s -> %s\n", hostname, cached->result);
 		*ip = str_to_ip(cached->result);

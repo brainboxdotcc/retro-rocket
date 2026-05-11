@@ -919,7 +919,7 @@ DEF PROCprivmsg
 		PROCctcpReceive(lineParts$(1),lineParts$(2))
 		ENDPROC
 	ENDIF
-	PROCout(15, "<" + userNick$ + "/" + channel$ + "> " + text$)
+	PROCout(15, "<" + userNick$ + "/" + channel$ + "> " + lineParts$(2))
 ENDPROC
 
 DEF PROCctcpReceive(channel$,t$)

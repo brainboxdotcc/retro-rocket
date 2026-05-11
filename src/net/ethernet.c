@@ -3,9 +3,9 @@
 ethernet_protocol_t* protocol_handlers = NULL;
 spinlock_t ethernet_lock = 0;
 
-#define ETHERNET_MAX_FRAME (65536 + sizeof(ethernet_frame_t))
+#define ETHERNET_MAX_FRAME (65536 - sizeof(ethernet_frame_t))
 
-int ethernet_send_packet(uint8_t* dst_mac_addr, uint8_t* data, uint32_t len, uint16_t protocol) {
+int ethernet_send_packet(const uint8_t* dst_mac_addr, const uint8_t* data, size_t len, uint16_t protocol) {
 	if (!dst_mac_addr) {
 		return 0;
 	}
@@ -29,38 +29,30 @@ int ethernet_send_packet(uint8_t* dst_mac_addr, uint8_t* data, uint32_t len, uin
 		unlock_spinlock_irq(&ethernet_lock, flags);
 		return 0;
 	}
-	if (len > 65536) {
-		dprintf("Ethernet frame too large\n");
-		unlock_spinlock_irq(&ethernet_lock, flags);
-		return 0;
-	}
-	void * frame_data = (void*)frame + sizeof(ethernet_frame_t);
 
+	void * frame_data = (void*)frame + sizeof(ethernet_frame_t);
 	dev->get_mac_addr(src_mac_addr);
 	memcpy(frame->src_mac_addr, src_mac_addr, 6);
 	memcpy(frame->dst_mac_addr, dst_mac_addr, 6);
 	memcpy(frame_data, data, len);
 	frame->type = htons(protocol);
-	//dprintf("ethernet_send_packet dest=%02x:%02x:%02x:%02x:%02x:%02x src=%02x:%02x:%02x:%02x:%02x:%02x len=%u\n",
-	//	dst_mac_addr[0], dst_mac_addr[1], dst_mac_addr[2], dst_mac_addr[3], dst_mac_addr[4], dst_mac_addr[5],
-	//	src_mac_addr[0], src_mac_addr[1], src_mac_addr[2], src_mac_addr[3], src_mac_addr[4], src_mac_addr[5], len);
 	dev->send_packet(frame, sizeof(ethernet_frame_t) + len);
 	unlock_spinlock_irq(&ethernet_lock, flags);
 	return len;
 }
 
-void ethernet_handle_packet(ethernet_frame_t* packet, int len) {
+void ethernet_handle_packet(ethernet_frame_t* packet, size_t len) {
 	if (!packet) {
 		return;
 	}
 
-	void * data = (void*) packet + sizeof(ethernet_frame_t);
-	int data_len = len - (int)sizeof(ethernet_frame_t);
-
-	if (len < 0) {
-		dprintf("Ethernet handler got packet of <0 size");
+	if (len < sizeof(ethernet_frame_t) || len > ETHERNET_MAX_FRAME) {
+		dprintf("Ethernet handler got runt frame\n");
 		return;
 	}
+
+	void *data = (void*)packet + sizeof(ethernet_frame_t);
+	int data_len = len - (int)sizeof(ethernet_frame_t);
 
 	if (!protocol_handlers) {
 		dprintf("No handlers yet but received a packet\n");
@@ -85,17 +77,16 @@ bool ethernet_register_iee802_number(uint16_t protocol_number, ethernet_protocol
 		return false;
 	}
 	if (protocol_handlers == NULL) {
-		protocol_handlers = kmalloc(sizeof(void*) * (UINT16_MAX + 1));
+		protocol_handlers = kcalloc(UINT16_MAX + 1, sizeof(void*));
 		if (!protocol_handlers) {
 			return false;
 		}
-		memset(protocol_handlers, 0, sizeof(void*) * (UINT16_MAX + 1));
 	}
 	if (protocol_handlers[protocol_number] == NULL) {
 		protocol_handlers[protocol_number] = handler;
-		dprintf("Protocol %04X registered\n", protocol_number);
+		dprintf("Ethernet protocol %04X registered\n", protocol_number);
 		return true;
 	}
-	dprintf("Protocol %04X already registered!\n", protocol_number);
+	dprintf("Ethernet protocol %04X already registered!\n", protocol_number);
 	return false;
 }

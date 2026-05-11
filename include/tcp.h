@@ -274,18 +274,6 @@ typedef enum tcp_port_type_t {
 #define TCP_ERROR_SSL_FIRST -1000
 
 /**
- * @brief TCP handler called by the IP layer
- *
- * Entry point for inbound TCP segments from the IP layer. Performs checksum verification,
- * byte-order conversion, option parsing, TCB lookup, and dispatches to the TCP state machine.
- *
- * @param encap_packet Encapsulating IP packet (addresses in network order)
- * @param segment TCP segment buffer (will be converted to host order on entry)
- * @param len Length of TCP segment including header and options
- */
-void tcp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, tcp_segment_t* segment, size_t len);
-
-/**
  * @brief Initialise TCP protocol, must happen after IP
  *
  * Creates the global TCB hashmap and registers the TCP idle handler with the scheduler/ISR layer.

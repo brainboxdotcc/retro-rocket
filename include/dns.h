@@ -46,6 +46,12 @@ enum query_type_t {
 	DNS_QUERY_PTR6	= 0xFFFE
 };
 
+#define DNS_HEADER_SIZE 12
+
+#define DNS_RR_FIXED_SIZE 10
+
+#define DNS_RESULT_MAX 1023
+
 /** Represents a dns request/reply header, and its payload as opaque data.
  */
 typedef struct dns_header {

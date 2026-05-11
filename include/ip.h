@@ -102,6 +102,20 @@ typedef struct packet_queue_item {
 	struct packet_queue_item* next;
 } packet_queue_item_t;
 
+typedef void (*ip_protocol_handler_t)(ip_packet_t*, void*, size_t);
+
+typedef enum {
+	IP_ERROR_PROTOCOL_UNREACHABLE,
+} ip_error_t;
+
+typedef void (*ip_error_handler_t)(ip_packet_t *packet, ip_error_t error);
+
+bool ip_register_protocol(uint8_t protocol_number, ip_protocol_handler_t handler);
+
+bool ip_unregister_protocol(uint8_t protocol_number);
+
+void ip_register_error_handler(ip_error_handler_t handler);
+
 /**
  * @brief Convert network byte order IP to a string form for display
  * 

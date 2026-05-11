@@ -1638,6 +1638,45 @@ void tcp_idle()
 	unlock_spinlock_irq(&lock, flags);
 }
 
+void tcp_handle_icmp_unreachable(ip_packet_t *quoted_ip, uint8_t code, uint16_t mtu)
+{
+	tcp_segment_t *quoted_tcp = (tcp_segment_t *)((uint8_t *)quoted_ip + quoted_ip->ihl * 4);
+	tcp_byte_order_in(quoted_tcp);
+
+	tcp_conn_t *conn = tcp_find(*((uint32_t *)&quoted_ip->src_ip), *((uint32_t *)&quoted_ip->dst_ip), quoted_tcp->src_port, quoted_tcp->dst_port);
+	if (!conn) {
+		return;
+	}
+
+	switch (code) {
+		case ICMP_NET_UNREACHABLE:
+		case ICMP_HOST_UNREACHABLE:
+			tcp_set_close_code(conn, TCP_CONNECTION_LOST);
+			break;
+
+		case ICMP_PROTOCOL_UNREACHABLE:
+			tcp_set_close_code(conn, TCP_CONNECTION_ABORTED);
+			break;
+
+		case ICMP_PORT_UNREACHABLE:
+			tcp_set_close_code(conn, TCP_CONNECTION_REFUSED);
+			break;
+
+		case ICMP_FRAGMENTATION_NEEDED:
+			if (mtu > sizeof(ip_packet_t) + sizeof(tcp_segment_t)) {
+				uint16_t path_mss = mtu - sizeof(ip_packet_t) - sizeof(tcp_segment_t);
+
+				if (path_mss < conn->peer_mss) {
+					conn->peer_mss = path_mss;
+				}
+			}
+			break;
+
+		default:
+			break;
+	}
+}
+
 /**
  * @brief Initialise TCP
  */
@@ -1651,6 +1690,8 @@ void tcp_init() {
 	isn_hash_seed0 = seeds[0];
 	isn_hash_seed1 = seeds[1];
 	isn_tick_base = get_ticks();
+	ip_register_protocol(PROTOCOL_TCP, (ip_protocol_handler_t)tcp_handle_packet);
+	icmp_register_unreachable_handler(PROTOCOL_TCP, tcp_handle_icmp_unreachable);
 	proc_register_idle(tcp_idle, IDLE_BACKGROUND, 1);
 }
 

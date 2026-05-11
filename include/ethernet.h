@@ -16,15 +16,25 @@ typedef void (*ethernet_protocol_t)(void*, int);
 #define HARDWARE_TYPE_ETHERNET 0x01
 
 /**
- * @brief There is actually more to an ethernet frame than this
- * (see the STD documents!) but we don't have access to it from the
- * software.
+ * @brief Ethernet II frame header visible to the network stack
+ *
+ * Real Ethernet frames also contain a preamble, start frame delimiter,
+ * frame check sequence and inter-frame gap. Those fields are handled by
+ * the NIC/MAC layer and are not normally present in the packet buffer
+ * delivered to software.
  */
 typedef struct ethernet_frame {
-	uint8_t dst_mac_addr[6]; // Destination MAC address
-	uint8_t src_mac_addr[6]; // Source MAC address
-	uint16_t type; // Packet type
-	uint8_t data[]; // Raw data
+	/** Destination MAC address */
+	uint8_t dst_mac_addr[6];
+
+	/** Source MAC address */
+	uint8_t src_mac_addr[6];
+
+	/** EtherType field */
+	uint16_t type;
+
+	/** Ethernet payload */
+	uint8_t data[];
 } __attribute__((packed)) ethernet_frame_t;
 
 /**
@@ -36,7 +46,7 @@ typedef struct ethernet_frame {
  * @param protocol protocol type
  * @return int nonzero on successful queue of packet
  */
-int ethernet_send_packet(uint8_t* dst_mac_addr, uint8_t* data, uint32_t len, uint16_t protocol);
+int ethernet_send_packet(const uint8_t* dst_mac_addr, const uint8_t* data, size_t len, uint16_t protocol);
 
 /**
  * @brief Handle inbound packet via interrupt from network card driver
@@ -44,7 +54,7 @@ int ethernet_send_packet(uint8_t* dst_mac_addr, uint8_t* data, uint32_t len, uin
  * @param packet raw packet data
  * @param len packet data length
  */
-void ethernet_handle_packet(ethernet_frame_t * packet, int len);
+void ethernet_handle_packet(ethernet_frame_t * packet, size_t len);
 
 /**
  * @brief Register a protocol with the ethernet layer

@@ -1,5 +1,8 @@
 #include <kernel.h>
 
+static uint64_t last_icmp_error = 0;
+static icmp_unreachable_handler_t icmp_unreachable_handlers[256];
+
 uint16_t icmp_calculate_checksum(void* packet, size_t len)
 {
 	int array_size = len / 2;
@@ -148,6 +151,11 @@ void icmp_handle_destination_unreachable_packet(ip_packet_t* encap_packet, icmp_
 	char ip[IP_BUF_LEN];
 	get_ip_str(ip, encap_packet->src_ip);
 	dprintf("ICMP Destination Unreachable from %s: %s\n", ip, reason);
+
+	ip_packet_t *quoted_ip = &packet->original_datagram;
+	if (icmp_unreachable_handlers[quoted_ip->protocol]) {
+		icmp_unreachable_handlers[quoted_ip->protocol](quoted_ip, packet->code, (uint16_t)ntohl(packet->unused));
+	}
 }
 
 void icmp_handle_source_quench_packet(ip_packet_t* encap_packet, icmp_packet_t* packet, size_t len)
@@ -339,4 +347,33 @@ void icmp_handle_packet(ip_packet_t* encap_packet, icmp_packet_t* packet, size_t
 			dprintf("*** WARN *** Unknown ICMP type %d on inbound packet\n", packet->type);
 			break;
 	}
+}
+
+static bool icmp_error_allowed(void) {
+	uint64_t ticks = get_ticks();
+	if (ticks - last_icmp_error < 100) {
+		return false;
+	}
+	last_icmp_error = ticks;
+	return true;
+}
+
+void icmp_handle_ip_error(ip_packet_t *packet, ip_error_t error) {
+	if (!icmp_error_allowed()) {
+		return;
+	}
+	switch (error) {
+		case IP_ERROR_PROTOCOL_UNREACHABLE:
+			icmp_send_destination_unreachable(packet, ICMP_PROTOCOL_UNREACHABLE);
+			break;
+	}
+}
+
+void icmp_register_unreachable_handler(uint8_t protocol, icmp_unreachable_handler_t handler) {
+	icmp_unreachable_handlers[protocol] = handler;
+}
+
+void icmp_init() {
+	ip_register_protocol(PROTOCOL_ICMP, (ip_protocol_handler_t)icmp_handle_packet);
+	ip_register_error_handler(icmp_handle_ip_error);
 }

@@ -4,7 +4,9 @@
  * Reference: https://datatracker.ietf.org/doc/html/rfc791
  */
 
-#define MAX_REASSEMBLIES 64
+ip_protocol_handler_t* ip_handlers = NULL;
+ip_error_handler_t ip_error_handler = NULL;
+
 #define FRAG_TIMEOUT_TICKS 3000 // ~30s at 1000Hz
 #define FRAG_GC_INTERVAL 1500 // ~15s at 1000Hz
 #define FRAG_MEM_LIMIT (2 * 1024 * 1024)
@@ -458,8 +460,18 @@ uint64_t ip_frag_hash(const void *item, uint64_t seed0, uint64_t seed1) {
  * @param packet IP packet to parse
  * @param n_len Packet length
  */
-void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
+void ip_handle_packet(ip_packet_t* packet, int n_len) {
 	char src_ip[IP_BUF_LEN];
+
+	uint16_t received_checksum = packet->header_checksum;
+	packet->header_checksum = 0;
+	uint16_t calculated_checksum = htons(ip_calculate_checksum(packet));
+	packet->header_checksum = received_checksum;
+	if (received_checksum != calculated_checksum) {
+		dprintf("Dropped inbound packet with invalid ipv4 checksum, received %04x expected %04x\n", received_checksum, calculated_checksum);
+		return;
+	}
+
 	*((uint8_t*)(&packet->version_ihl_ptr)) = ntohb(*((uint8_t*)(&packet->version_ihl_ptr)), 4);
 	*((uint8_t*)(packet->flags_fragment_ptr)) = ntohb(*((uint8_t*)(packet->flags_fragment_ptr)), 3);
 	add_random_entropy(packet->header_checksum ^ (*(uint32_t*)packet->src_ip));
@@ -487,6 +499,9 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 		 *
 		 * This closes the long‑standing DoS hole where attackers could leak
 		 * memory by sending endless partial fragment sets.
+		 *
+		 * frag_offset is already the payload byte offset after flags_fragment_ptr
+		 * has been converted from network bit order above. Do not scale by 8 here.
 		 */
 		uint16_t frag_offset = ((uint16_t)packet->frag.fragment_offset_low | ((uint16_t)packet->frag.fragment_offset_high << 8));
 		if (!packet->frag.dont_fragment) {
@@ -510,12 +525,11 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 						return;
 					}
 					memcpy(fragment->packet, packet, ntohs(packet->length));
-					frag_list_insert(fragment, fragmented.ordered_list);
+					fragmented.ordered_list = frag_list_insert(fragment, fragmented.ordered_list);
 					hashmap_set(frag_map, &fragmented);
 				} else {
 					/* Middle fragment */
-					ip_packet_t findpacket = { .id = packet->id };
-					ip_fragmented_packet_parts_t* fragmented = (ip_fragmented_packet_parts_t*)hashmap_get(frag_map, &findpacket);
+					ip_fragmented_packet_parts_t* fragmented = hashmap_get(frag_map, &(ip_packet_t){ .id = packet->id });
 					if (fragmented == NULL) {
 						dprintf("*** WARN *** Fragmented packet id %u has no entry in hash map", packet->id);
 						return;
@@ -533,15 +547,14 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 						return;
 					}
 					memcpy(fragment->packet, packet, ntohs(packet->length));
-					frag_list_insert(fragment, fragmented->ordered_list);
+					fragmented->ordered_list = frag_list_insert(fragment, fragmented->ordered_list);
 				}
 				return;
 			} else if (packet->frag.more_fragments_follow == 0 && (frag_offset != 0)) {
 				/* Final fragment of fragmented set.
 				 * Once we get this fragment, we can deliver the reassembled packet.
 				 */
-				ip_packet_t findpacket = { .id = packet->id };
-				ip_fragmented_packet_parts_t* fragmented = (ip_fragmented_packet_parts_t*)hashmap_get(frag_map, &findpacket);
+				ip_fragmented_packet_parts_t* fragmented = hashmap_get(frag_map, &(ip_packet_t){ .id = packet->id });
 				if (fragmented == NULL) {
 					dprintf("*** WARN *** Fragmented packet id %u has no entry in hash map", packet->id);
 					return;
@@ -559,7 +572,7 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 					return;
 				}
 				memcpy(fragment->packet, packet, ntohs(packet->length));
-				frag_list_insert(fragment, fragmented->ordered_list);
+				fragmented->ordered_list = frag_list_insert(fragment, fragmented->ordered_list);
 
 				/* We have complete packet, all fragments - reassemble the data part and free everything */
 				ip_packet_frag_t* cur = fragmented->ordered_list;
@@ -586,17 +599,16 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 					cur = next;
 				}
 
-				hashmap_delete(frag_map, &findpacket);
+				hashmap_delete(frag_map, &(ip_packet_t){ .id = packet->id });
 				/* Now we have reassembled the data portion, we can fall through and let the packet be handled... */
 			}
 		}
 
-		if (packet->protocol == PROTOCOL_ICMP) {
-			icmp_handle_packet(packet, data_ptr, data_len);
-		} else if (packet->protocol == PROTOCOL_UDP) {
-			udp_handle_packet(packet, data_ptr, data_len);
-		} else if (packet->protocol == PROTOCOL_TCP) {
-			tcp_handle_packet(packet, data_ptr, data_len);
+		/* Route contained packet to handler, if there is one else drop it */
+		if (ip_handlers && ip_handlers[packet->protocol]) {
+			ip_handlers[packet->protocol](packet, data_ptr, data_len);
+		} else if (ip_error_handler) {
+			ip_error_handler(packet, IP_ERROR_PROTOCOL_UNREACHABLE);
 		}
 
 		if (fragment_to_free) {
@@ -607,7 +619,38 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 	}
 }
 
-void ip6_handle_packet([[maybe_unused]] void* packet, [[maybe_unused]] int n_len)
+bool ip_register_protocol(uint8_t protocol_number, ip_protocol_handler_t handler)
+{
+	if (!handler) {
+		return false;
+	}
+	if (ip_handlers == NULL) {
+		ip_handlers = kcalloc(256, sizeof(void*));
+		if (!ip_handlers) {
+			return false;
+		}
+	}
+	if (ip_handlers[protocol_number] == NULL) {
+		ip_handlers[protocol_number] = handler;
+		dprintf("IP protocol %04X registered\n", protocol_number);
+		return true;
+	}
+	dprintf("IP protocol %04X already registered!\n", protocol_number);
+	return false;
+}
+
+bool ip_unregister_protocol(uint8_t protocol_number) {
+	bool rv = ip_handlers[protocol_number];
+	ip_handlers[protocol_number] = NULL;
+	return rv;
+}
+
+void ip_register_error_handler(ip_error_handler_t handler)
+{
+	ip_error_handler = handler;
+}
+
+void ip6_handle_packet(void* packet, int n_len)
 {
 }
 

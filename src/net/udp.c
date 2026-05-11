@@ -76,3 +76,7 @@ uint16_t udp_register_daemon(uint16_t dst_port, udp_daemon_handler handler, void
 	daemons[dst_port].opaque = opaque;
 	return dst_port;
 }
+
+void udp_init() {
+	ip_register_protocol(PROTOCOL_UDP, (ip_protocol_handler_t)udp_handle_packet);
+}
