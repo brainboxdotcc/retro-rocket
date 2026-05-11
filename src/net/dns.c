@@ -103,6 +103,7 @@ static int dns_send_request(const char * const name, uint32_t resolver_ip, dns_r
 	dprintf("dns_send_request(%s, %08x, %d)\n", name, resolver_ip, query_type);
 
 	request->rr_class = 1;
+	request->cname_depth = 0;
 	request->orig = (unsigned char*)strdup(name);
 	request->type = query_type;
 	int64_t random_id;
@@ -176,18 +177,24 @@ static int dns_make_payload(const char * const name, const uint8_t rr, const uns
 	return payloadpos + 4;
 }
 
-static int dns_follow_cname(dns_request_t* request, const char* cname)
+static bool dns_follow_cname(dns_request_t* request, const char* cname)
 {
 	dns_header_t h;
 	int length;
 	uint32_t resolver_ip;
 
 	if (!request || !cname || !*cname) {
-		return 0;
+		return false;
 	}
 
+	if (request->cname_depth >= DNS_MAX_CNAME_DEPTH) {
+		return false;
+	}
+
+	request->cname_depth++;
+
 	if ((length = dns_make_payload(cname, DNS_QUERY_A, 1, (unsigned char*)&h.payload)) == -1) {
-		return 0;
+		return false;
 	}
 
 	h.id = request->id;
@@ -206,7 +213,7 @@ static int dns_follow_cname(dns_request_t* request, const char* cname)
 	resolver_ip = ntohl(request->resolver_ip);
 	udp_send_packet((uint8_t*)&resolver_ip, dns_query_port, DNS_DST_PORT, payload, length + DNS_HEADER_SIZE);
 
-	return 1;
+	return true;
 }
 
 /**
