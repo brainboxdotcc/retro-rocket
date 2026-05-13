@@ -13,7 +13,7 @@ Supported file types include:
 * MOD
 * XM
 
-Tracker music formats such as MOD and XM loop automatically.
+Music will loop automatically.
 
 \image html modplay.png
 
@@ -33,7 +33,7 @@ modplay song.mp3
 
 This plays:
 
-```text id="6wq8ij"
+```text
 /system/media/song.mp3
 ```
 
