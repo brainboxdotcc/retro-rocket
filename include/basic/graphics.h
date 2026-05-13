@@ -171,3 +171,5 @@ void spriterow_statement(struct basic_ctx* ctx);
 int64_t basic_spritepixel(struct basic_ctx* ctx);
 
 int64_t basic_spritemask(struct basic_ctx* ctx);
+
+int64_t basic_sprite_from_buffer(struct basic_ctx* ctx);

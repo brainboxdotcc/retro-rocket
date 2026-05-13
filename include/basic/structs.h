@@ -181,9 +181,8 @@ typedef struct ub_proc_fn_def {
 typedef struct ub_var_int_array {
 	const char *varname; ///< Name of the integer array variable
 	size_t name_length; ///< Cached length of varname
-	uint64_t itemcount; ///< Number of items in the array
+	size_t itemcount; ///< Number of items in the array
 	int64_t *values; ///< Array of integer values
-	struct ub_var_int_array *next; ///< Pointer to the next integer array (for chaining)
 } ub_var_int_array;
 
 /**
@@ -196,9 +195,8 @@ typedef struct ub_var_int_array {
 typedef struct ub_var_string_array {
 	const char *varname; ///< Name of the string array variable
 	size_t name_length; ///< Cached length of varname
-	uint64_t itemcount; ///< Number of items in the array
+	size_t itemcount; ///< Number of items in the array
 	const char **values; ///< Array of string values
-	struct ub_var_string_array *next; ///< Pointer to the next string array (for chaining)
 } ub_var_string_array;
 
 /**
@@ -211,9 +209,8 @@ typedef struct ub_var_string_array {
 typedef struct ub_var_double_array {
 	const char *varname; ///< Name of the double array variable
 	size_t name_length; ///< Cached length of varname
-	uint64_t itemcount; ///< Number of items in the array
+	size_t itemcount; ///< Number of items in the array
 	double *values; ///< Array of double values
-	struct ub_var_double_array *next; ///< Pointer to the next double array (for chaining)
 } ub_var_double_array;
 
 /**
@@ -225,11 +222,10 @@ typedef struct ub_var_double_array {
  * in handling various types of arrays.
  */
 typedef struct ub_var_generic_array {
-	uint64_t itemcount; ///< Number of items in the array
+	size_t itemcount; ///< Number of items in the array
 	size_t name_length; ///< Cached length of varname
 	const char *varname; ///< Name of the generic array variable
 	void *values_inaccesible; ///< A generic pointer to the array values
-	struct ub_var_generic_array *next; ///< Pointer to the next generic array (for chaining)
 } ub_var_generic_array;
 
 /**
@@ -243,19 +239,6 @@ typedef struct ub_line_ref {
 	uint32_t line_number; ///< Line number in the program
 	const char *ptr; ///< Pointer to the start of the line in the program text
 } ub_line_ref;
-
-/**
- * @brief CPUID instruction result
- *
- * This structure holds the result of a CPUID instruction, which provides
- * detailed information about the CPU, such as supported features and capabilities.
- */
-typedef struct cpuid_result {
-	unsigned int eax; ///< The EAX register value from the CPUID instruction
-	unsigned int ebx; ///< The EBX register value from the CPUID instruction
-	unsigned int ecx; ///< The ECX register value from the CPUID instruction
-	unsigned int edx; ///< The EDX register value from the CPUID instruction
-} cpuid_result_t;
 
 /**
  * @brief CPUID vendor information
@@ -281,14 +264,14 @@ typedef struct sprite {
 	int64_t width;			/** Width of the sprite in pixels */
 	int64_t height;			/** Height of the sprite in pixels */
 	uint32_t *pixels;		/** Pointer to the pixel data of the sprite (current frame only on animated gif) */
-	int32_t frame_count;		/* >=1 if known; 1 for static */
-	int32_t current_frame;		/* 0..frame_count-1 */
+	size_t frame_count;		/* >=1 if known; 1 for static */
+	size_t current_frame;		/* 0..frame_count-1 */
 	bool loop;			/* false = clamp, true = wrap */
 	unsigned char *gif_data;	/* compressed bytes (buddy-allocated) */
-	int64_t gif_size;		/* Gif size */
+	size_t gif_size;		/* Gif size */
 	void *gif_state;		/* actually stbi__gif* */
 	void *gif_ctx;			/* actually stbi__context* */
-	uint32_t *mask;
+	uint32_t *mask;			/* Transparency mask */
 } sprite_t;
 
 /**

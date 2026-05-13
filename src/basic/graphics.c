@@ -128,7 +128,7 @@ static bool sprite_rotate_90_clockwise(struct basic_ctx* ctx, sprite_t* s)
 }
 
 /* Cheap GIF container scan: counts frames without decoding LZW. */
-static int gif_count_frames_and_size(const unsigned char *p, size_t len, int *lw, int *lh)
+static size_t gif_count_frames_and_size(const unsigned char *p, size_t len, int *lw, int *lh)
 {
 	if (!p || len < 13) {
 		return 0;
@@ -158,7 +158,7 @@ static int gif_count_frames_and_size(const unsigned char *p, size_t len, int *lw
 		i += gct;
 	}
 
-	int frames = 0;
+	size_t frames = 0;
 
 	while (i < len) {
 		unsigned char b = p[i++];
@@ -601,6 +601,149 @@ void animate_statement(struct basic_ctx* ctx) {
 	}
 }
 
+bool load_into_sprite(struct basic_ctx* ctx, int64_t sprite_handle, void* buf, size_t size, const char* name)
+{
+	int gw = 0, gh = 0;
+	/* Parse container only: no massive allocations. */
+	size_t gframes = gif_count_frames_and_size(buf, size, &gw, &gh);
+
+	/* Guard sizes before any allocs or int casts */
+	if (size > INT_MAX) {
+		tokenizer_error_printf(ctx, "Sprite file too large");
+		free_sprite(ctx, sprite_handle);
+		return false;
+	}
+
+	if (gframes > 1) {
+		/* Animated GIF - streaming path */
+
+		if (gw <= 0 || gh <= 0) {
+			tokenizer_error_printf(ctx, "Invalid GIF dimensions");
+			free_sprite(ctx, sprite_handle);
+			return false;
+		}
+
+		/* Overflow check: w*h*4 must fit size_t */
+		uint64_t pixels64 = (uint64_t)gw * (uint64_t)gh;
+		uint64_t bytes64  = pixels64 * 4u;
+		if (pixels64 == 0 || bytes64 > (uint64_t)~(size_t)0) {
+			tokenizer_error_printf(ctx, "Sprite too large: %dx%d", gw, gh);
+			free_sprite(ctx, sprite_handle);
+			return false;
+		}
+
+		size_t bytes = (size_t)bytes64;
+		uint32_t *canvas = buddy_malloc(ctx->allocator, bytes);
+		if (!canvas) {
+			tokenizer_error_printf(ctx, "Not enough memory for sprite canvas '%s'", name);
+			free_sprite(ctx, sprite_handle);
+			return false;
+		}
+		dprintf("Allocated single frame canvas\n");
+
+		sprite_t *s = get_sprite(ctx, sprite_handle);
+		if (!s) {
+			return false;
+		}
+		s->width  = gw;
+		s->height = gh;
+		s->pixels = canvas;
+		s->frame_count = gframes;
+		s->current_frame = 0;
+		s->loop = 1;
+
+		/* Keep compressed bytes so we can rewind cheaply */
+		s->gif_data = buf;           /* ownership transferred */
+		s->gif_size = size;
+
+		if (!sprite_gif_stream_reset(s)) {
+			tokenizer_error_printf(ctx, "Failed to initialise GIF stream '%s'", name);
+			buddy_free(ctx->allocator, canvas);
+			free_sprite(ctx, sprite_handle);
+			return false;
+		}
+		dprintf("Stream reset\n");
+
+		s->mask = buddy_malloc(ctx->allocator, bytes);
+		if (!s->mask) {
+			tokenizer_error_printf(ctx, "Not enough memory for sprite mask '%s'", name);
+			buddy_free(ctx->allocator, canvas);
+			free_sprite(ctx, sprite_handle);
+			return false;
+		}
+
+		/* Decode first frame into canvas */
+		if (!sprite_gif_step_next(s)) {
+			tokenizer_error_printf(ctx, "Failed to decode first GIF frame '%s'", name);
+			free_sprite(ctx, sprite_handle);
+			return false;
+		}
+
+		dprintf("GIF(stream): %d x %d, frames=%lu\n", gw, gh, gframes);
+		return true;
+	}
+
+	/* Query dimensions and components without full decode */
+	int w = 0, h = 0, n = 0;
+	if (!stbi_info_from_memory(buf, (int)size, &w, &h, &n)) {
+		tokenizer_error_printf(ctx, "Error reading sprite info for '%s': %s", name, stbi_failure_reason());
+		free_sprite(ctx, sprite_handle);
+		return false;
+	}
+
+	/* Allocate final pixel buffer from the BASIC context */
+	size_t bytes = (size_t)w * (size_t)h * 4; /* STBI_rgb_alpha = 4 channels */
+	uint32_t* pixels = buddy_malloc(ctx->allocator, bytes);
+	if (!pixels) {
+		tokenizer_error_printf(ctx, "Not enough memory for sprite pixels '%s'", name);
+		free_sprite(ctx, sprite_handle);
+		return false;
+	}
+
+	/* Decode with stb_image into its own buffer, then copy */
+	int dw = 0, dh = 0, dn = 0;
+	unsigned char* tmp = stbi_load_from_memory(buf, (int)size, &dw, &dh, &dn, STBI_rgb_alpha);
+	if (!tmp) {
+		tokenizer_error_printf(ctx, "Error loading sprite file '%s': %s", name, stbi_failure_reason());
+		free_sprite(ctx, sprite_handle);
+		return false;
+	}
+
+	sprite_t* s = get_sprite(ctx, sprite_handle);
+	if (!s) {
+		stbi_image_free(tmp);
+		return false;
+	}
+	s->pixels = pixels;
+	s->width  = w;
+	s->height = h;
+
+	s->mask = buddy_malloc(ctx->allocator, bytes);
+	if (!s->mask) {
+		tokenizer_error_printf(ctx, "Not enough memory for sprite mask '%s'", name);
+		stbi_image_free(tmp);
+		free_sprite(ctx, sprite_handle);
+		return false;
+	}
+
+	if (!sprite_swizzle_and_mask_rgba(s, tmp)) {
+		tokenizer_error_printf(ctx, "Failed to swizzle sprite '%s'", name);
+		stbi_image_free(tmp);
+		free_sprite(ctx, sprite_handle);
+		return false;
+	}
+
+	stbi_image_free(tmp);
+
+	/* Store sprite metadata */
+	s->pixels = pixels;
+	s->width  = w;
+	s->height = h;
+
+	dprintf("Width: %d Height: %d Comp: %d\n", w, h, n);
+	return true;
+}
+
 void loadsprite_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(SPRITELOAD, ctx);
@@ -634,148 +777,7 @@ void loadsprite_statement(struct basic_ctx* ctx)
 	}
 	fs_read_file(f, 0, f->size, buf);
 
-	int gw = 0, gh = 0;
-	/* Parse container only: no massive allocations. */
-	int gframes = gif_count_frames_and_size(buf, (size_t)f->size, &gw, &gh);
-
-	/* Guard sizes before any allocs or int casts */
-	if (f->size > INT_MAX) {
-		tokenizer_error_printf(ctx, "Sprite file too large");
-		buddy_free(ctx->allocator, buf);
-		free_sprite(ctx, sprite_handle);
-		return;
-	}
-
-	if (gframes > 1) {
-		/* Animated GIF - streaming path */
-
-		if (gw <= 0 || gh <= 0) {
-			tokenizer_error_printf(ctx, "Invalid GIF dimensions");
-			buddy_free(ctx->allocator, buf);
-			free_sprite(ctx, sprite_handle);
-			return;
-		}
-
-		/* Overflow check: w*h*4 must fit size_t */
-		uint64_t pixels64 = (uint64_t)gw * (uint64_t)gh;
-		uint64_t bytes64  = pixels64 * 4u;
-		if (pixels64 == 0 || bytes64 > (uint64_t)~(size_t)0) {
-			tokenizer_error_printf(ctx, "Sprite too large: %dx%d", gw, gh);
-			buddy_free(ctx->allocator, buf);
-			free_sprite(ctx, sprite_handle);
-			return;
-		}
-
-		size_t bytes = (size_t)bytes64;
-		uint32_t *canvas = buddy_malloc(ctx->allocator, bytes);
-		if (!canvas) {
-			tokenizer_error_printf(ctx, "Not enough memory for sprite canvas '%s'", file);
-			buddy_free(ctx->allocator, buf);
-			free_sprite(ctx, sprite_handle);
-			return;
-		}
-		dprintf("Allocated single frame canvas\n");
-
-		sprite_t *s = get_sprite(ctx, sprite_handle);
-		s->width  = gw;
-		s->height = gh;
-		s->pixels = canvas;
-		s->frame_count = gframes;
-		s->current_frame = 0;
-		s->loop = 1;
-
-		/* Keep compressed bytes so we can rewind cheaply */
-		s->gif_data = buf;           /* ownership transferred */
-		s->gif_size = (int)f->size;
-
-		if (!sprite_gif_stream_reset(s)) {
-			tokenizer_error_printf(ctx, "Failed to initialise GIF stream '%s'", file);
-			buddy_free(ctx->allocator, canvas);
-			buddy_free(ctx->allocator, buf);
-			free_sprite(ctx, sprite_handle);
-			return;
-		}
-		dprintf("Stream reset\n");
-
-		s->mask = buddy_malloc(ctx->allocator, bytes);
-		if (!s->mask) {
-			tokenizer_error_printf(ctx, "Not enough memory for sprite mask '%s'", file);
-			buddy_free(ctx->allocator, canvas);
-			buddy_free(ctx->allocator, buf);
-			free_sprite(ctx, sprite_handle);
-			return;
-		}
-
-		/* Decode first frame into canvas */
-		if (!sprite_gif_step_next(s)) {
-			tokenizer_error_printf(ctx, "Failed to decode first GIF frame '%s'", file);
-			free_sprite(ctx, sprite_handle);
-			return;
-		}
-
-		dprintf("GIF(stream): %d x %d, frames=%d\n", gw, gh, gframes);
-		return;
-	}
-
-	/* Query dimensions and components without full decode */
-	int w = 0, h = 0, n = 0;
-	if (!stbi_info_from_memory(buf, (int)f->size, &w, &h, &n)) {
-		tokenizer_error_printf(ctx, "Error reading sprite info for '%s': %s", file, stbi_failure_reason());
-		buddy_free(ctx->allocator, buf);
-		free_sprite(ctx, sprite_handle);
-		return;
-	}
-
-	/* Allocate final pixel buffer from the BASIC context */
-	size_t bytes = (size_t)w * (size_t)h * 4; /* STBI_rgb_alpha = 4 channels */
-	uint32_t* pixels = buddy_malloc(ctx->allocator, bytes);
-	if (!pixels) {
-		tokenizer_error_printf(ctx, "Not enough memory for sprite pixels '%s'", file);
-		buddy_free(ctx->allocator, buf);
-		free_sprite(ctx, sprite_handle);
-		return;
-	}
-
-	/* Decode with stb_image into its own buffer, then copy */
-	int dw = 0, dh = 0, dn = 0;
-	unsigned char* tmp = stbi_load_from_memory(buf, (int)f->size, &dw, &dh, &dn, STBI_rgb_alpha);
-	if (!tmp) {
-		tokenizer_error_printf(ctx, "Error loading sprite file '%s': %s", file, stbi_failure_reason());
-		buddy_free(ctx->allocator, buf);
-		free_sprite(ctx, sprite_handle);
-		return;
-	}
-
-	sprite_t* s = get_sprite(ctx, sprite_handle);
-	s->pixels = pixels;
-	s->width  = w;
-	s->height = h;
-
-	s->mask = buddy_malloc(ctx->allocator, bytes);
-	if (!s->mask) {
-		tokenizer_error_printf(ctx, "Not enough memory for sprite mask '%s'", file);
-		stbi_image_free(tmp);
-		buddy_free(ctx->allocator, buf);
-		free_sprite(ctx, sprite_handle);
-		return;
-	}
-
-	if (!sprite_swizzle_and_mask_rgba(s, tmp)) {
-		tokenizer_error_printf(ctx, "Failed to swizzle sprite '%s'", file);
-		stbi_image_free(tmp);
-		buddy_free(ctx->allocator, buf);
-		free_sprite(ctx, sprite_handle);
-		return;
-	}
-
-	stbi_image_free(tmp);
-
-	/* Store sprite metadata */
-	s->pixels = pixels;
-	s->width  = w;
-	s->height = h;
-
-	dprintf("Width: %d Height: %d Comp: %d\n", w, h, n);
+	load_into_sprite(ctx, sprite_handle, buf, f->size, f->filename);
 
 	buddy_free(ctx->allocator, buf);
 }
@@ -879,16 +881,40 @@ void circle_statement(struct basic_ctx* ctx)
 }
 
 int64_t basic_rgb(struct basic_ctx* ctx) {
-	int64_t r, g, b;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
-	r = intval;
+	int64_t r = intval;
 	PARAMS_GET_ITEM(BIP_INT);
-	g = intval;
+	int64_t g = intval;
 	PARAMS_GET_ITEM(BIP_INT);
-	b = intval;
+	int64_t b = intval;
 	PARAMS_END("RGB", 0);
 	return (uint32_t)(r << 16 | g << 8 | b);
+}
+
+int64_t basic_sprite_from_buffer(struct basic_ctx* ctx) {
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t start = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t size = intval;
+	PARAMS_END("MAKESPRITE", 0);
+
+	if (!address_valid_read(start, size)) {
+		tokenizer_error_printf(ctx, "Bad Address at &%016lx", start);
+		return 0;
+	}
+
+	int64_t sprite_handle = alloc_sprite(ctx);
+	if (sprite_handle == -1) {
+		tokenizer_error_print(ctx, "No more sprites available");
+		return 0;
+	}
+	if (!load_into_sprite(ctx, sprite_handle, (void*)start, (size_t)size, "(memory)")) {
+		return 0;
+	}
+
+	return sprite_handle;
 }
 
 /* Projective textured-quad blitter for Retro Rocket BASIC sprites.

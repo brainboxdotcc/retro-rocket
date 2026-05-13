@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=11">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Retro Rocket OS: SIN Function</title>
+    <title>Retro Rocket OS: MAKESPRITE Function</title>
     <link href="tabs.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -16,7 +16,7 @@
     <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-    <meta name="title" content="SIN Function - Retro Rocket OS">
+    <meta name="title" content="MAKESPRITE Function - Retro Rocket OS">
     <meta name="description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="author" content="Retro Rocket Developers">
     <meta name="robots" content="index, follow">
@@ -24,7 +24,7 @@
     <meta name="theme-color" content="#0b0f14">
     <link rel="icon" href="rr.png">
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="SIN Function - Retro Rocket OS">
+    <meta property="og:title" content="MAKESPRITE Function - Retro Rocket OS">
     <meta property="og:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://retrorocket.dev/">
@@ -32,7 +32,7 @@
     <meta property="og:image:alt" content="Retro Rocket OS running on a retro-style desktop">
     <meta property="og:site_name" content="Retro Rocket OS">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="SIN Function - Retro Rocket OS">
+    <meta name="twitter:title" content="MAKESPRITE Function - Retro Rocket OS">
     <meta name="twitter:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="twitter:image" content="https://retrorocket.dev/leader4.png">
     <link rel="preload" as="image" href="https://retrorocket.dev/leader4.png">
@@ -94,7 +94,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('SIN.html','',''); });
+$(function(){initNavTree('MAKESPRITE.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -120,37 +120,28 @@ $(function(){initNavTree('SIN.html','',''); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">SIN Function </div></div>
+  <div class="headertitle"><div class="title">MAKESPRITE Function </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">SIN(real-expression)</div>
-</div><!-- fragment --><p>Returns the <b>sine</b> of the given angle, where the angle is expressed in <b>radians</b>.</p>
+<div class="textblock"><div class="fragment"><div class="line">handle = MAKESPRITE(buffer, length)</div>
+</div><!-- fragment --><p>Allocate and initialise a new sprite from image data loaded into a memory buffer</p>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-108"></a>
+<h3 class="doxsection"><a class="anchor" id="examples-41"></a>
 Examples</h3>
-<div class="fragment"><div class="line">PRINT SIN(0)</div>
-</div><!-- fragment --><p>Produces <span class="tt">0</span>.</p>
-<div class="fragment"><div class="line">PRINT SIN(PI# / 2)</div>
-</div><!-- fragment --><p>Produces <span class="tt">1</span>.</p>
-<div class="fragment"><div class="line">PRINT SIN(PI#)</div>
-</div><!-- fragment --><p>Produces approximately <span class="tt">0</span>.</p>
-<div class="fragment"><div class="line">REM Compute vertical component of a vector</div>
-<div class="line">length# = 10</div>
-<div class="line">angle# = RAD(30)</div>
-<div class="line">dy# = length# * SIN(angle#)</div>
-<div class="line">PRINT &quot;Vertical component = &quot;; dy#</div>
+<div class="fragment"><div class="line">sm = MEMALLOC(4096)</div>
+<div class="line">f = OPENIN(&quot;/images/owl.png&quot;)</div>
+<div class="line">BINREAD f, sm, 4096</div>
+<div class="line">spr = MAKESPRITE(sm, 4096)</div>
+<div class="line">MEMRELEASE sm</div>
+<div class="line">PLOT spr, 600, 400</div>
 </div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-104"></a>
+<h3 class="doxsection"><a class="anchor" id="notes-41"></a>
 Notes</h3>
 <ul>
-<li><p class="startli">Argument must be in <b>radians</b>. Convert from degrees with:</p>
-<div class="fragment"><div class="line">radians# = degrees * PI# / 180</div>
-</div><!-- fragment --></li>
-<li>Result is a real number between <span class="tt">-1</span> and <span class="tt">1</span>.</li>
-<li>Inverse function: <a class="el" href="ASN.html">ASN</a>.</li>
+<li>An error will be raised if the memory does not contain valid image data, or is unable to be read</li>
 </ul>
 <hr  />
-<p><b>See also:</b> <a class="el" href="COS.html">COS</a> · <a class="el" href="TAN.html">TAN</a> · <a class="el" href="ASN.html">ASN</a> · <a class="el" href="ATAN.html">ATAN</a> </p>
+<p><b>See also:</b> <a class="el" href="SPRITELOAD.html">SPRITELOAD</a> · <a class="el" href="PLOT.html">PLOT</a> · <a class="el" href="PLOTQUAD.html">PLOTQUAD</a> · <a class="el" href="MEMALLOC.html">MEMALLOC</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -166,7 +157,7 @@ Notes</h3>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="index.html">Retro Rocket OS Documentation</a></li><li class="navelem"><a href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a href="real-funcs.html">Real Functions</a></li>
+    <li class="navelem"><a href="index.html">Retro Rocket OS Documentation</a></li><li class="navelem"><a href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a href="int-funcs.html">Integer Functions</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.14.0 </li>
   </ul>
 </div>

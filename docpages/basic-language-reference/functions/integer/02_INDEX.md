@@ -44,9 +44,8 @@ The following functions operate on or return **integer values** in Retro Rocket 
 * \subpage INSTR
 * \subpage INT
 * \subpage ISPROGRAM
-* \subpage LCPUID
 * \subpage LEN
-* \subpage LGETLASTCPUID
+* \subpage MAKESPRITE
 * \subpage MAP
 * \subpage MAPGET
 * \subpage MAPHAS

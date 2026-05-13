@@ -5,66 +5,43 @@
 #include <kernel.h>
 #include <cpuid.h>
 
-void write_cpuid(struct basic_ctx* ctx, int leaf)
+/**
+ * @brief CPUID instruction result
+ *
+ * This structure holds the result of a CPUID instruction, which provides
+ * detailed information about the CPU, such as supported features and capabilities.
+ */
+typedef struct cpuid_result {
+	unsigned int eax; ///< The EAX register value from the CPUID instruction
+	unsigned int ebx; ///< The EBX register value from the CPUID instruction
+	unsigned int ecx; ///< The ECX register value from the CPUID instruction
+	unsigned int edx; ///< The EDX register value from the CPUID instruction
+} cpuid_result_t;
+
+void write_cpuid(int leaf, cpuid_result_t* res)
 {
-	__cpuid(
-		leaf,
-		ctx->last_cpuid_result.eax,
-		ctx->last_cpuid_result.ebx,
-		ctx->last_cpuid_result.ecx,
-		ctx->last_cpuid_result.edx);
+	__cpuid(leaf, res->eax, res->ebx, res->ecx, res->edx);
 }
 
-void write_cpuidex(struct basic_ctx* ctx, int leaf, int subleaf)
+void write_cpuidex(int leaf, int subleaf, cpuid_result_t* res)
 {
-	__cpuid_count(
-		leaf,
-		subleaf,
-		ctx->last_cpuid_result.eax,
-		ctx->last_cpuid_result.ebx,
-		ctx->last_cpuid_result.ecx,
-		ctx->last_cpuid_result.edx);
+	__cpuid_count(leaf, subleaf, res->eax, res->ebx, res->ecx, res->edx);
 }
 
-int64_t get_cpuid_reg(struct basic_ctx* ctx, int64_t reg)
+int64_t get_cpuid_reg(struct basic_ctx* ctx, int64_t reg, cpuid_result_t* res)
 {
-	cpuid_result_t* res = &ctx->last_cpuid_result;
 	switch (reg) {
-	case 0:
-		return res->eax;
-	case 1:
-		return res->ebx;
-	case 2:
-		return res->ecx;
-	case 3:
-		return res->edx;
+		case 0:
+			return res->eax;
+		case 1:
+			return res->ebx;
+		case 2:
+			return res->ecx;
+		case 3:
+			return res->edx;
 	}
 	tokenizer_error_print(ctx, "Invalid register");
 	return 0;
-}
-
-int64_t basic_legacy_cpuid(struct basic_ctx* ctx)
-{
-	PARAMS_START;
-	PARAMS_GET_ITEM(BIP_INT);
-	int64_t leaf = intval;
-	PARAMS_GET_ITEM(BIP_INT);
-	int64_t subleaf = intval;
-	PARAMS_END("LEGACYCPUID", -1);
-	if (subleaf != -1) {
-		write_cpuidex(ctx, leaf, subleaf);
-		return 1;
-	}
-	write_cpuid(ctx, leaf);
-	return 0;
-}
-
-int64_t basic_legacy_getlastcpuid(struct basic_ctx* ctx)
-{
-	PARAMS_START;
-	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("LEGACYGETLASTCPUID", -1);
-	return get_cpuid_reg(ctx, intval);
 }
 
 int64_t basic_memalloc(struct basic_ctx* ctx)
@@ -192,6 +169,7 @@ char* basic_intoasc(struct basic_ctx* ctx)
 
 int64_t basic_cpuid(struct basic_ctx* ctx)
 {
+	cpuid_result_t res;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t leaf = intval;
@@ -201,11 +179,11 @@ int64_t basic_cpuid(struct basic_ctx* ctx)
 	int64_t reg = intval;
 	PARAMS_END("CPUID", -1);
 	if (subleaf != -1) {
-		write_cpuidex(ctx, leaf, subleaf);
+		write_cpuidex(leaf, subleaf, &res);
 	} else {
-		write_cpuid(ctx, leaf);
+		write_cpuid(leaf, &res);
 	}
-	return get_cpuid_reg(ctx, reg);
+	return get_cpuid_reg(ctx, reg, &res);
 }
 
 int64_t basic_inport(struct basic_ctx* ctx)

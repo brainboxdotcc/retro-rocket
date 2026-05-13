@@ -233,10 +233,10 @@ static int send_shim(void *p, const unsigned char *buf, size_t len) {
 static int recv_shim(void *p, unsigned char *buf, size_t len) {
 	const struct tls_io *io = (const struct tls_io *) p;
 	int n = io->recv_fn(io->ctx, buf, len);
-	if (n >= 0) {
+	if (n > 0) {
 		return n;
 	}
-	if (n == MBEDTLS_ERR_SSL_WANT_READ) {
+	if (n == MBEDTLS_ERR_SSL_WANT_READ || n == 0) {
 		return MBEDTLS_ERR_SSL_WANT_READ;
 	}
 	return MBEDTLS_ERR_SSL_CONN_EOF;
@@ -435,6 +435,8 @@ static int tcp_send_nb(void *ctx, const unsigned char *buf, size_t len) {
 	int fd = (int) (uintptr_t) ctx;
 	int n = send(fd, buf, (uint32_t) len);
 
+	tcp_idle(); // kick buffer
+
 	if (n < 0) {
 		return -1;  /* hard fail */
 	}
@@ -522,7 +524,6 @@ int ssl_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 			}
 			__builtin_ia32_pause();
 		}
-		// TODO: Copy these into the tls_peer so BASIC can use them
 		const char *ver = mbedtls_ssl_get_version(&p->ssl);
 		const char *cipher = mbedtls_ssl_get_ciphersuite(&p->ssl);
 		strlcpy(p->cipher, cipher ? cipher : "unknown", MAX_ALGO_STR);

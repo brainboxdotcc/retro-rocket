@@ -125,27 +125,24 @@ $(function(){initNavTree('MEMUSED.html','',''); });
 <div class="contents">
 <div class="textblock"><div class="fragment"><div class="line">MEMUSED</div>
 </div><!-- fragment --><p>Returns the total <b>memory in use</b> (bytes) by <b>all BASIC programs and the OS</b>.</p>
-<div class="image">
-<img src="memory.png" alt=""/>
-</div>
-<h3 class="doxsection"><a class="anchor" id="examples-53"></a>
+<h3 class="doxsection"><a class="anchor" id="examples-52"></a>
 Examples</h3>
 <div class="fragment"><div class="line">PRINT MEMUSED</div>
 <div class="line">PRINT &quot;Used  = &quot;; MEMUSED / (1024 * 1024); &quot; MB&quot;</div>
-<div class="line">PRINT &quot;Free  = &quot;; (MEMORY - MEMUSED) / (1024 * 1024); &quot; MB&quot;</div>
+<div class="line">PRINT &quot;Free  = &quot;; (MEMTOTAL - MEMUSED) / (1024 * 1024); &quot; MB&quot;</div>
 <div class="line">PRINT &quot;Used % = &quot;; (MEMUSED * 100) / MEMORY</div>
 </div><!-- fragment --><p>Example on a 4 GB machine with 200 MB used:</p>
 <div class="fragment"><div class="line">Used  = 200 MB</div>
 <div class="line">Free  = 3896 MB</div>
 <div class="line">Used % = 4</div>
-</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="notes-53"></a>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="notes-52"></a>
 Notes</h3>
 <ul>
 <li>Bytes, 64-bit integer.</li>
 <li>Includes kernel, caches (block cache, framebuffers, network buffers), plus all BASIC programs.</li>
 <li>Identity: <span class="tt">MEMFREE + MEMUSED = MEMORY</span>.</li>
 </ul>
-<p><b>See also:</b> <a class="el" href="MEMORY.html">MEMORY</a> · <a class="el" href="MEMFREE.html">MEMFREE</a> · <a class="el" href="MEMPEAK.html">MEMPEAK</a> · <a class="el" href="MEMPROGRAM.html">MEMPROGRAM</a> · <a class="el" href="MEMORY.html">MEMRELEASE</a> · <a class="el" href="MEMORY.html">MEMALLOC</a> </p>
+<p><b>See also:</b> <a class="el" href="MEMORY.html">MEMTOTAL</a> · <a class="el" href="MEMFREE.html">MEMFREE</a> · <a class="el" href="MEMPEAK.html">MEMPEAK</a> · <a class="el" href="MEMPROGRAM.html">MEMPROGRAM</a> · <a class="el" href="MEMORY.html">MEMRELEASE</a> · <a class="el" href="MEMORY.html">MEMALLOC</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

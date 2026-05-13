@@ -6,14 +6,12 @@ MEMUSED
 
 Returns the total **memory in use** (bytes) by **all BASIC programs and the OS**.
 
-\image html memory.png
-
 ### Examples
 
 ```basic
 PRINT MEMUSED
 PRINT "Used  = "; MEMUSED / (1024 * 1024); " MB"
-PRINT "Free  = "; (MEMORY - MEMUSED) / (1024 * 1024); " MB"
+PRINT "Free  = "; (MEMTOTAL - MEMUSED) / (1024 * 1024); " MB"
 PRINT "Used % = "; (MEMUSED * 100) / MEMORY
 ```
 
@@ -32,4 +30,4 @@ Used % = 4
 * Identity: `MEMFREE + MEMUSED = MEMORY`.
 
 **See also:**
-\ref MEMORY "MEMORY" · \ref MEMFREE "MEMFREE" · \ref MEMPEAK "MEMPEAK" · \ref MEMPROGRAM "MEMPROGRAM" · \ref MEMORY "MEMRELEASE" · \ref MEMORY "MEMALLOC"
+\ref MEMORY "MEMTOTAL" · \ref MEMFREE "MEMFREE" · \ref MEMPEAK "MEMPEAK" · \ref MEMPROGRAM "MEMPROGRAM" · \ref MEMORY "MEMRELEASE" · \ref MEMORY "MEMALLOC"

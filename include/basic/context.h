@@ -361,11 +361,6 @@ typedef struct basic_ctx {
 	int32_t graphics_colour;
 
 	/**
-	 * @brief The last CPUID instruction result, used for system information.
-	 */
-	cpuid_result_t last_cpuid_result;
-
-	/**
 	 * @brief Hashmap for quick lookup of line numbers in the program.
 	 *
 	 * Provides efficient access to the program's lines for execution.

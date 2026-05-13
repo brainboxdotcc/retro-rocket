@@ -103,12 +103,10 @@ struct basic_int_fn builtin_int[] =
 	{ basic_getsize,             "GETSIZE"           },
 	{ basic_hexval,              "HEXVAL"            },
 	{ basic_instr,               "INSTR"             },
-	{ basic_legacy_cpuid,        "LCPUID"            },
 	{ basic_len,                 "LEN"               },
-	{ basic_legacy_getlastcpuid, "LGETLASTCPUID"     },
 	{ basic_get_free_mem,        "MEMFREE"           },
 	{ basic_get_used_mem,        "MEMUSED"           },
-	{ basic_get_total_mem,       "MEMORY"            },
+	{ basic_get_total_mem,       "MEMTOTAL"          },
 	{ basic_get_program_peak_mem,"MEMPEAK"           },
 	{ basic_get_program_cur_mem, "MEMPROGRAM"        },
 	{ basic_octval,              "OCTVAL"            },
@@ -182,6 +180,7 @@ struct basic_int_fn builtin_int[] =
 	{ basic_getproccpu,          "GETPROCCPU"        },
 	{ basic_is_program,          "ISPROGRAM"         },
 	{ basic_frombase64,          "FROMBASE64"        },
+	{ basic_sprite_from_buffer,  "MAKESPRITE"        },
 	{ NULL,                      NULL                },
 };
 
