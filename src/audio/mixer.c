@@ -3,6 +3,7 @@
  * @brief Software mixer implementation for Retro Rocket.
  */
 #include <kernel.h>
+#include <visualiser.h>
 #include <emmintrin.h>
 
 /* Batch size tuned for fewer device calls and good cache behaviour */
@@ -12,6 +13,7 @@
 
 /* 32-bit accumulator (interleaved L/R) allocated in mixer_init */
 static int32_t *mix_accum = NULL;
+
 
 typedef struct chunk_t {
 	struct chunk_t *next;
@@ -170,6 +172,8 @@ bool mixer_init(audio_device_t* dev, uint32_t target_latency_ms, uint32_t idle_p
 	mix.streams_cap      = max_streams;
 	mix.target_latency_ms = target_latency_ms ? target_latency_ms : 60u;  /* safe cushion */
 	mix.idle_period_ms    = (idle_period_ms >= 1u) ? idle_period_ms : 1u; /* drive mixer hard */
+
+	fft_init();
 
 	/* Channel table */
 	size_t table_bytes = sizeof(struct mixer_stream) * mix.streams_cap;
@@ -554,6 +558,7 @@ void mixer_idle(void)
 			mix.mix_scratch[i] = (int16_t)x;
 		}
 
+		visualiser_process(mix.mix_scratch, batch);
 		/* push block to device */
 		mix.dev->play(mix.mix_scratch, batch);
 

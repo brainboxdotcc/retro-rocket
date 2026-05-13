@@ -1,5 +1,6 @@
 #include <kernel.h>
 #include <emmintrin.h>
+#include "visualiser.h"
 
 
 static inline void sound_list_add(struct basic_ctx *ctx, basic_sound_t *s) {
@@ -463,3 +464,13 @@ int64_t basic_decibels(struct basic_ctx* ctx) {
 	return (int64_t)db_to_gain_q8_8(dB);
 }
 
+int64_t basic_audio_band(struct basic_ctx* ctx) {
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("SPECTRUM", 0);
+	if (intval < 0 || intval >= VISUALISER_BANDS) {
+		tokenizer_error_print(ctx, "Visualiser band out of range");
+		return 0;
+	}
+	return visualiser_get_band(intval);
+}

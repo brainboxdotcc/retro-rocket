@@ -19,3 +19,5 @@ void sound_list_free_all(struct basic_ctx *ctx);
 void stream_list_free_all(struct basic_ctx *ctx);
 
 void envelope_statement(struct basic_ctx* ctx);
+
+int64_t basic_audio_band(struct basic_ctx* ctx);

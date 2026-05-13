@@ -191,6 +191,34 @@ Envelopes</h3>
 <li><b>Sustain</b> - the level held while the note is active.</li>
 <li><b>Release</b> - how long the note takes to fade back to silence after it ends.</li>
 </ul>
+<h3 class="doxsection"><a class="anchor" id="spectrum-analyser"></a>
+Spectrum analyser</h3>
+<p>Retro Rocket includes a built-in real-time spectrum analyser which monitors the final mixed audio output.</p>
+<p>The analyser splits audio into 32 frequency bands ranging from low bass to high treble. BASIC programs may read these bands using the <span class="tt">SPECTRUM()</span> function to create:</p>
+<ul>
+<li>Music visualisers</li>
+<li>VU meters</li>
+<li>Audio-reactive graphics</li>
+<li>Rhythm effects</li>
+<li>Animated backgrounds</li>
+</ul>
+<p>The analyser operates automatically whenever audio is playing. No special setup is required beyond loading a sound driver.</p>
+<p>Band numbers range from <span class="tt">0</span> to <span class="tt">31</span>:</p>
+<ul>
+<li>Lower bands represent bass frequencies.</li>
+<li>Higher bands represent treble frequencies.</li>
+</ul>
+<p>Returned values are scaled for visualisation purposes:</p>
+<ul>
+<li><span class="tt">0</span> means no detected activity.</li>
+<li>Approximately <span class="tt">1023</span> represents very strong frequency energy.</li>
+</ul>
+<p>Example:</p>
+<div class="fragment"><div class="line">FOR B = 0 TO 31</div>
+<div class="line">    H = SPECTRUM(B) / 8</div>
+<div class="line">    LINE B * 10, 200, B * 10, 200 - H</div>
+<div class="line">NEXT</div>
+</div><!-- fragment --><p>The analyser reads the final mixed output of the audio system, not individual streams.</p>
 <h2 class="doxsection"><a class="anchor" id="flow-of-audio"></a>
 Flow of audio</h2>
 <div class="fragment"><div class="line">File on disk (WAV/MP3/other) → Codec module decodes → SOUND LOAD → Sound handle</div>
@@ -250,7 +278,8 @@ Audio Keywords/Functions</h2>
 <li><a class="el" href="STREAM.html">STREAM</a></li>
 <li><a class="el" href="SOUND.html">SOUND</a></li>
 <li><a class="el" href="DECIBELS.html">DECIBELS</a></li>
-<li><a class="el" href="ENVELOPE.html">ENVELOPE</a> </li>
+<li><a class="el" href="ENVELOPE.html">ENVELOPE</a></li>
+<li><a class="el" href="SPECTRUM.html">SPECTRUM</a> </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

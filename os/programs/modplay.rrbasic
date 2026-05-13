@@ -1,21 +1,78 @@
 PAGE OFF
+DIM LASTH, 32
+
 ON ERROR PROCcontinue
 MODLOAD "sound"
 ON ERROR OFF
+
 ON ERROR PROCcontinue
 MODLOAD "codecs"
 ON ERROR OFF
 
-REM Streams
 STREAM CREATE lead1
-PRINT "Loading..."
+
+PRINT "Loading "; ARGS$ ; "..."
 SOUND LOAD mod, "/system/media/" + ARGS$
+SOUND REPEAT ON mod
+
+CLS
+
 SOUND PLAY lead1, mod
 
-PRINT "Playing, press any key to end..."
-KGET A$
+VISHEIGHT = 48
+VISTOP = GRAPHICS_HEIGHT - VISHEIGHT - 8
+
+SPACING = GRAPHICS_WIDTH / 32
+BARWIDTH = SPACING / 2
+
+AUTOFLIP FALSE
+
+REPEAT
+	f = FNframe(0)
+UNTIL INKEY$("") <> ""
+
+CLS
 
 END
 
 DEF PROCcontinue
 ENDPROC
+
+DEF FNframe(x)
+	start = TICKS
+
+	FOR B = 0 TO 31
+
+		X1 = (B * SPACING) + ((SPACING - BARWIDTH) / 2)
+		X2 = X1 + BARWIDTH
+
+		LEVEL = SPECTRUM(B)
+
+		H = LEVEL
+
+		GCOL RGB(0, 0, 0)
+
+		RECTANGLE X1, VISTOP + VISHEIGHT - LASTH(B), X2, VISTOP + VISHEIGHT
+
+		R = B * 8
+		G = 255 - (B * 4)
+		BV = 128 + (LEVEL / 2)
+
+		IF BV > 255 THEN
+			BV = 255
+		ENDIF
+
+		GCOL RGB(R, G, BV)
+
+		RECTANGLE X1, VISTOP + VISHEIGHT - H, X2, VISTOP + VISHEIGHT
+
+		LASTH(B) = H
+
+	NEXT
+
+	frame_len = TICKS - start
+
+	FLIP
+
+	SLEEP MAX(0, 16 - frame_len)
+=0

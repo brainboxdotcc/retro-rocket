@@ -75,6 +75,7 @@ var int_funcs =
     [ "SGN Function", "SGN.html", null ],
     [ "SHL Function", "SHL.html", null ],
     [ "SHR Function", "SHR.html", null ],
+    [ "SPECTRUM Function", "SPECTRUM.html", null ],
     [ "SPRITECOLLIDE Function", "SPRITECOLLIDE.html", null ],
     [ "SPRITEHEIGHT Function", "SPRITEHEIGHT.html", null ],
     [ "SPRITEMASK Function", "SPRITEMASK.html", null ],

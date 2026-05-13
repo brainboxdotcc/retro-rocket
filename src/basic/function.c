@@ -181,6 +181,7 @@ struct basic_int_fn builtin_int[] =
 	{ basic_is_program,          "ISPROGRAM"         },
 	{ basic_frombase64,          "FROMBASE64"        },
 	{ basic_sprite_from_buffer,  "MAKESPRITE"        },
+	{ basic_audio_band,          "SPECTRUM"          },
 	{ NULL,                      NULL                },
 };
 

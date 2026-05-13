@@ -123,9 +123,57 @@ $(function(){initNavTree('modplay.html','',''); });
   <div class="headertitle"><div class="title">modplay command </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Plays a .mod, .xm, .mp3 or .wav file from the <span class="tt">/system/webserver/media</span> directory.</p>
-<p>A sound card must be available. If no sound card is available, an error will occur. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p><span class="tt">modplay</span> is a simple music player for Retro Rocket.</p>
+<p>It plays music files from the <span class="tt">/system/media</span> directory and displays a colourful real-time music visualiser while the track is playing.</p>
+<p>Supported file types include:</p>
+<ul>
+<li>WAV</li>
+<li>MP3</li>
+<li>FLAC</li>
+<li>OGG</li>
+<li>MOD</li>
+<li>XM</li>
+</ul>
+<p>Tracker music formats such as MOD and XM loop automatically.</p>
+<div class="image">
+<img src="modplay.png" alt=""/>
+</div>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="usage-1"></a>
+Usage</h3>
+<div class="fragment"><div class="line">modplay filename</div>
+</div><!-- fragment --><p>Example:</p>
+<div class="fragment"><div class="line">modplay song.mp3</div>
+</div><!-- fragment --><p>This plays:</p>
+<div class="fragment"><div class="line"> id=&quot;6wq8ij&quot;</div>
+<div class="line">/system/media/song.mp3</div>
+</div><!-- fragment --><hr  />
+<h3 class="doxsection"><a class="anchor" id="features"></a>
+Features</h3>
+<ul>
+<li>Plays music files from <span class="tt">/system/media</span></li>
+<li>Real-time animated spectrum visualiser</li>
+<li>Automatic loading of audio support</li>
+<li>Supports both modern audio formats and classic tracker music</li>
+</ul>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="notes-239"></a>
+Notes</h3>
+<ul>
+<li>A sound card must be available.</li>
+<li>Playback continues until a key is pressed.</li>
+<li>If the file cannot be recognised or loaded, an error will occur.</li>
+</ul>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="examples-230"></a>
+Examples</h3>
+<p>Play an MP3:</p>
+<div class="fragment"><div class="line">modplay demo.mp3</div>
+</div><!-- fragment --><p>Play a tracker module:</p>
+<div class="fragment"><div class="line">modplay gate.xm</div>
+</div><!-- fragment --><p>Play a FLAC file:</p>
+<div class="fragment"><div class="line">modplay ambient.flac</div>
+</div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

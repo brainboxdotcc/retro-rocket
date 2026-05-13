@@ -258,6 +258,8 @@ static inline uint8_t stdc_count_ones(uint32_t x) {
  */
 #define MAX(a,b) (((a) > (b)) ? (a) : (b))
 
+#define M_PI ((double)3.141592653589793238)
+
 /**
  * @brief Clamp a value to a closed interval [lo, hi] (macro).
  *

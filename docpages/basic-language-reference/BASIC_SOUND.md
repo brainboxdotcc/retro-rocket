@@ -69,6 +69,41 @@ Retro Rocket uses the classic **ADSR model** (Attack, Decay, Sustain, Release) f
 * **Sustain** - the level held while the note is active.
 * **Release** - how long the note takes to fade back to silence after it ends.
 
+### Spectrum analyser
+
+Retro Rocket includes a built-in real-time spectrum analyser which monitors the final mixed audio output.
+
+The analyser splits audio into 32 frequency bands ranging from low bass to high treble. BASIC programs may read these bands using the `SPECTRUM()` function to create:
+
+* Music visualisers
+* VU meters
+* Audio-reactive graphics
+* Rhythm effects
+* Animated backgrounds
+
+The analyser operates automatically whenever audio is playing. No special setup is required beyond loading a sound driver.
+
+Band numbers range from `0` to `31`:
+
+* Lower bands represent bass frequencies.
+* Higher bands represent treble frequencies.
+
+Returned values are scaled for visualisation purposes:
+
+* `0` means no detected activity.
+* Approximately `1023` represents very strong frequency energy.
+
+Example:
+
+```basic
+FOR B = 0 TO 31
+	H = SPECTRUM(B) / 8
+	LINE B * 10, 200, B * 10, 200 - H
+NEXT
+```
+
+The analyser reads the final mixed output of the audio system, not individual streams.
+
 ## Flow of audio
 
 ```
@@ -141,3 +176,4 @@ SOUND TONE s, 750, 100, 4
 * \ref SOUND "SOUND"
 * \ref DECIBELS "DECIBELS"
 * \ref ENVELOPE "ENVELOPE"
+* \ref SPECTRUM "SPECTRUM"
