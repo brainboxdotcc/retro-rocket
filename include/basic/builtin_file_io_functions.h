@@ -204,3 +204,26 @@ void writebinary_statement(struct basic_ctx* ctx);
 
 char* basic_ramdisk_from_image(struct basic_ctx* ctx);
 
+/**
+ * Compress a memory buffer using gzip compression
+ *
+ * BASIC syntax:
+ *
+ * COMPRESS(input, input_len, output, output_max_len, level)
+ *
+ * @param ctx BASIC context
+ * @return Size of compressed data written to the output buffer, or 0 on error
+ */
+int64_t basic_compress(struct basic_ctx* ctx);
+
+/**
+ * Decompress a gzip-compressed memory buffer
+ *
+ * BASIC syntax:
+ *
+ * DECOMPRESS(input, input_len, output, output_max_len)
+ *
+ * @param ctx BASIC context
+ * @return Size of decompressed data written to the output buffer, or 0 on error
+ */
+int64_t basic_decompress(struct basic_ctx* ctx);

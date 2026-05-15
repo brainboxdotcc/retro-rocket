@@ -183,6 +183,8 @@ struct basic_int_fn builtin_int[] =
 	{ basic_sprite_from_buffer,  "MAKESPRITE"        },
 	{ basic_audio_band,          "SPECTRUM"          },
 	{ basic_verify,              "VERIFY"            },
+	{ basic_compress,            "COMPRESS"          },
+	{ basic_decompress,          "DECOMPRESS"        },
 	{ NULL,                      NULL                },
 };
 

@@ -16,12 +16,14 @@ The following functions operate on or return **integer values** in Retro Rocket 
 * \subpage BITSHL
 * \subpage BITSHR
 * \subpage BITXNOR
+* \subpage COMPRESS
 * \subpage CPUID
 * \subpage CURRENTX
 * \subpage CURRENTY
 * \subpage DATAREAD
 * \subpage DAY
 * \subpage DECIBELS
+* \subpage DECOMPRESS
 * \subpage EOF
 * \subpage EXISTSVARI
 * \subpage FILESIZE

@@ -685,3 +685,82 @@ char* basic_sign(struct basic_ctx* ctx)
 	return (char*)gc_strdup(ctx, (const char*)sig);
 }
 
+int64_t basic_compress(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	uint8_t* input = (uint8_t*)intval;
+
+	PARAMS_GET_ITEM(BIP_INT);
+	size_t input_len = intval;
+
+	PARAMS_GET_ITEM(BIP_INT);
+	uint8_t* output = (uint8_t*)intval;
+
+	PARAMS_GET_ITEM(BIP_INT);
+	size_t output_max = intval;
+
+	PARAMS_GET_ITEM(BIP_INT);
+	int level = intval;
+
+	PARAMS_END("COMPRESS", 0);
+
+	uint8_t* compressed = NULL;
+	uint32_t compressed_size = 0;
+
+	if (!compress_gzip(input, input_len, &compressed, &compressed_size, level)) {
+		tokenizer_error_printf(ctx, "Compression failed");
+		return 0;
+	}
+
+	if (compressed_size > output_max) {
+		free(compressed);
+		tokenizer_error_printf(ctx, "Output buffer too small");
+		return 0;
+	}
+
+	memcpy(output, compressed, compressed_size);
+
+	free(compressed);
+
+	return compressed_size;
+}
+
+int64_t basic_decompress(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	uint8_t* input = (uint8_t*)intval;
+
+	PARAMS_GET_ITEM(BIP_INT);
+	size_t input_len = intval;
+
+	PARAMS_GET_ITEM(BIP_INT);
+	uint8_t* output = (uint8_t*)intval;
+
+	PARAMS_GET_ITEM(BIP_INT);
+	size_t output_max = intval;
+
+	PARAMS_END("DECOMPRESS", 0);
+
+	uint8_t* decompressed = NULL;
+	uint32_t decompressed_size = 0;
+
+	if (!decompress_gzip(input, input_len, &decompressed, &decompressed_size)) {
+		tokenizer_error_printf(ctx, "Decompression failed");
+		return 0;
+	}
+
+	if (decompressed_size > output_max) {
+		free(decompressed);
+		tokenizer_error_printf(ctx, "Output buffer too small");
+		return 0;
+	}
+
+	memcpy(output, decompressed, decompressed_size);
+
+	free(decompressed);
+
+	return decompressed_size;
+}
+
