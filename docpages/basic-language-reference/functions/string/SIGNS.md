@@ -1,6 +1,6 @@
 \page SIGNS SIGN$ Function
 
-```basic id="5m0q0q"
+```basic
 SIGN$(file$, privatekey$)
 ```
 
@@ -12,7 +12,7 @@ The returned signature may be written to disk using \ref BINWRITE "BINWRITE" and
 
 ### Examples
 
-```basic id="m7z8v2"
+```basic
 REM Sign a package
 
 SIG$ = SIGN$("editor.gz", "packages.key")
@@ -22,7 +22,7 @@ BINWRITE F, SIG$
 CLOSE #F
 ```
 
-```basic id="yv9m2q"
+```basic
 REM Sign and immediately verify a package
 
 SIG$ = SIGN$("game.gz", "packages.key")

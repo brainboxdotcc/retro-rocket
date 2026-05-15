@@ -123,23 +123,20 @@ $(function(){initNavTree('SIGNS.html','',''); });
   <div class="headertitle"><div class="title">SIGN$ Function </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line"> id=&quot;5m0q0q&quot;</div>
-<div class="line">SIGN$(file$, privatekey$)</div>
+<div class="textblock"><div class="fragment"><div class="line">SIGN$(file$, privatekey$)</div>
 </div><!-- fragment --><p>Signs a file using a PEM private key and returns a detached escaped binary signature string.</p>
 <p>The returned signature may be written to disk using <a class="el" href="BINWRITE.html">BINWRITE</a> and later verified using <a class="el" href="VERIFY.html">VERIFY</a>.</p>
 <hr  />
 <h3 class="doxsection"><a class="anchor" id="examples-152"></a>
 Examples</h3>
-<div class="fragment"><div class="line"> id=&quot;m7z8v2&quot;</div>
-<div class="line">REM Sign a package</div>
+<div class="fragment"><div class="line">REM Sign a package</div>
 <div class="line"> </div>
 <div class="line">SIG$ = SIGN$(&quot;editor.gz&quot;, &quot;packages.key&quot;)</div>
 <div class="line"> </div>
 <div class="line">F = OPENOUT(&quot;editor.gz.sig&quot;)</div>
 <div class="line">BINWRITE F, SIG$</div>
 <div class="line">CLOSE #F</div>
-</div><!-- fragment --><div class="fragment"><div class="line"> id=&quot;yv9m2q&quot;</div>
-<div class="line">REM Sign and immediately verify a package</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Sign and immediately verify a package</div>
 <div class="line"> </div>
 <div class="line">SIG$ = SIGN$(&quot;game.gz&quot;, &quot;packages.key&quot;)</div>
 <div class="line"> </div>

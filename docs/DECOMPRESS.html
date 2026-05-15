@@ -123,16 +123,14 @@ $(function(){initNavTree('DECOMPRESS.html','',''); });
   <div class="headertitle"><div class="title">DECOMPRESS Function </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line"> id=&quot;w4kp6f&quot;</div>
-<div class="line">DECOMPRESS(input, input_len, output, output_max_len)</div>
+<div class="textblock"><div class="fragment"><div class="line">DECOMPRESS(input, input_len, output, output_max_len)</div>
 </div><!-- fragment --><p>Decompresses a gzip-compressed memory buffer.</p>
 <p>Decompressed data is written to the output buffer and the function returns the decompressed size in bytes.</p>
 <p>Returns zero on error.</p>
 <hr  />
 <h3 class="doxsection"><a class="anchor" id="examples-21"></a>
 Examples</h3>
-<div class="fragment"><div class="line"> id=&quot;m7qz6a&quot;</div>
-<div class="line">REM Decompress a gzip-compressed memory buffer</div>
+<div class="fragment"><div class="line">REM Decompress a gzip-compressed memory buffer</div>
 <div class="line"> </div>
 <div class="line">INPUT_BUFFER = MEMALLOC(1024)</div>
 <div class="line">OUTPUT_BUFFER = MEMALLOC(8192)</div>
@@ -142,8 +140,7 @@ Examples</h3>
 <div class="line">SIZE = DECOMPRESS(INPUT_BUFFER, 1024, OUTPUT_BUFFER, 8192)</div>
 <div class="line"> </div>
 <div class="line">PRINT &quot;Decompressed size: &quot;; SIZE</div>
-</div><!-- fragment --><div class="fragment"><div class="line"> id=&quot;j0x2vq&quot;</div>
-<div class="line">REM Load and decompress a gzip file</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Load and decompress a gzip file</div>
 <div class="line"> </div>
 <div class="line">F = OPENIN(&quot;archive.gz&quot;)</div>
 <div class="line"> </div>

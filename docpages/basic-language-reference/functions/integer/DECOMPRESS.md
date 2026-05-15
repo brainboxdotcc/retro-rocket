@@ -1,6 +1,6 @@
 \page DECOMPRESS DECOMPRESS Function
 
-```basic id="w4kp6f"
+```basic
 DECOMPRESS(input, input_len, output, output_max_len)
 ```
 
@@ -14,7 +14,7 @@ Returns zero on error.
 
 ### Examples
 
-```basic id="m7qz6a"
+```basic
 REM Decompress a gzip-compressed memory buffer
 
 INPUT_BUFFER = MEMALLOC(1024)
@@ -27,7 +27,7 @@ SIZE = DECOMPRESS(INPUT_BUFFER, 1024, OUTPUT_BUFFER, 8192)
 PRINT "Decompressed size: "; SIZE
 ```
 
-```basic id="j0x2vq"
+```basic
 REM Load and decompress a gzip file
 
 F = OPENIN("archive.gz")
