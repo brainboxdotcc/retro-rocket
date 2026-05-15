@@ -182,6 +182,7 @@ struct basic_int_fn builtin_int[] =
 	{ basic_frombase64,          "FROMBASE64"        },
 	{ basic_sprite_from_buffer,  "MAKESPRITE"        },
 	{ basic_audio_band,          "SPECTRUM"          },
+	{ basic_verify,              "VERIFY"            },
 	{ NULL,                      NULL                },
 };
 
@@ -278,6 +279,7 @@ struct basic_str_fn builtin_str[] =
 	{ basic_bigmodinv,            "BIGMODINV$"      },
 	{ basic_markdown,             "MARKDOWN$"       },
 	{ basic_tobase64,             "TOBASE64$"       },
+	{ basic_sign,                 "SIGN$"           },
 	{ NULL,                       NULL              },
 };
 

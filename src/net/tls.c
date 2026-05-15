@@ -634,3 +634,60 @@ mbedtls_ctr_drbg_context* get_random_context() {
 	}
 	return &drbg;
 }
+
+bool verify_package(const uint8_t* file_data, size_t file_size, const uint8_t* sig_data, size_t sig_size, const uint8_t* package_cert_pem, size_t package_cert_pem_size, const uint8_t* root_cert_pem, size_t root_cert_pem_size)
+{
+	mbedtls_x509_crt root_cert;
+	mbedtls_x509_crt package_cert;
+	uint32_t verify_flags = 0;
+
+	if (sig_size != 64) {
+		return false;
+	}
+
+	mbedtls_x509_crt_init(&root_cert);
+	mbedtls_x509_crt_init(&package_cert);
+
+	int ret = mbedtls_x509_crt_parse(&root_cert, root_cert_pem, root_cert_pem_size);
+	if (ret != 0) {
+		mbedtls_x509_crt_free(&package_cert);
+		mbedtls_x509_crt_free(&root_cert);
+		return false;
+	}
+
+	ret = mbedtls_x509_crt_parse(&package_cert, package_cert_pem, package_cert_pem_size);
+	if (ret != 0) {
+		mbedtls_x509_crt_free(&package_cert);
+		mbedtls_x509_crt_free(&root_cert);
+		return false;
+	}
+
+	ret = mbedtls_x509_crt_verify(&package_cert, &root_cert, NULL, NULL, &verify_flags, NULL, NULL);
+	if (ret != 0 || verify_flags != 0 || mbedtls_x509_time_is_past(&package_cert.valid_to) != 1 || mbedtls_x509_time_is_future(&package_cert.valid_from) != 0) {
+		mbedtls_x509_crt_free(&package_cert);
+		mbedtls_x509_crt_free(&root_cert);
+		return false;
+	}
+
+	ret = mbedtls_pk_verify(&package_cert.pk, MBEDTLS_MD_NONE, file_data, file_size, sig_data, sig_size);
+	
+	mbedtls_x509_crt_free(&package_cert);
+	mbedtls_x509_crt_free(&root_cert);
+
+	return ret == 0;
+}
+
+bool sign_package(const uint8_t* file_data, size_t file_size, const uint8_t* private_key_pem, size_t private_key_pem_size, uint8_t* sig_buffer, size_t* sig_size)
+{
+	mbedtls_pk_context pk;
+	mbedtls_pk_init(&pk);
+	int ret = mbedtls_pk_parse_key(&pk, private_key_pem, private_key_pem_size, NULL, 0);
+	if (ret != 0) {
+		mbedtls_pk_free(&pk);
+		return false;
+	}
+	ret = mbedtls_pk_sign(&pk, MBEDTLS_MD_NONE, file_data, file_size, sig_buffer, sig_size, mbedtls_ctr_drbg_random, get_random_context());
+	mbedtls_pk_free(&pk);
+	return ret == 0;
+}
+

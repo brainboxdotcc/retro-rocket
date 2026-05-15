@@ -480,3 +480,208 @@ void chdir_statement(struct basic_ctx* ctx)
 	kfree_null(&old);
 }
 
+int64_t basic_verify(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	char* file = strval;
+	PARAMS_GET_ITEM(BIP_STRING);
+	char* sig = strval;
+	PARAMS_GET_ITEM(BIP_STRING);
+	char* cert = strval;
+	PARAMS_END("VERIFY", 0);
+
+	const char* full_file = make_full_path(ctx, file);
+	const char* full_sig = make_full_path(ctx, sig);
+	const char* full_cert = make_full_path(ctx, cert);
+
+	fs_directory_entry_t* file_entry = fs_get_file_info(full_file);
+
+	if (!file_entry) {
+		tokenizer_error_printf(ctx, "Error retrieving file information: %s", fs_strerror(fs_get_error()));
+		return 0;
+	}
+
+	fs_directory_entry_t* sig_entry = fs_get_file_info(full_sig);
+
+	if (!sig_entry) {
+		tokenizer_error_printf(ctx, "Error retrieving signature information: %s", fs_strerror(fs_get_error()));
+		return 0;
+	}
+
+	fs_directory_entry_t* cert_entry = fs_get_file_info(full_cert);
+
+	if (!cert_entry) {
+		tokenizer_error_printf(ctx, "Error retrieving certificate information: %s", fs_strerror(fs_get_error()));
+		return 0;
+	}
+
+	fs_directory_entry_t* root_entry = fs_get_file_info("/system/ssl/package_root_ca.pem");
+
+	if (!root_entry) {
+		tokenizer_error_printf(ctx, "Error retrieving root certificate information: %s", fs_strerror(fs_get_error()));
+		return 0;
+	}
+
+	size_t file_size = file_entry->size;
+	size_t sig_size = sig_entry->size;
+	size_t cert_size = cert_entry->size;
+	size_t root_size = root_entry->size;
+
+	uint8_t* file_data = buddy_malloc(ctx->allocator, file_size);
+
+	if (!file_data) {
+		tokenizer_error_printf(ctx, "Out of memory reading file");
+		return 0;
+	}
+
+	uint8_t* sig_data = buddy_malloc(ctx->allocator, sig_size);
+
+	if (!sig_data) {
+		buddy_free(ctx->allocator, file_data);
+		tokenizer_error_printf(ctx, "Out of memory reading signature");
+		return 0;
+	}
+
+	uint8_t* cert_data = buddy_malloc(ctx->allocator, cert_size);
+
+	if (!cert_data) {
+		buddy_free(ctx->allocator, sig_data);
+		buddy_free(ctx->allocator, file_data);
+		tokenizer_error_printf(ctx, "Out of memory reading certificate");
+		return 0;
+	}
+
+	uint8_t* root_data = buddy_malloc(ctx->allocator, root_size);
+
+	if (!root_data) {
+		buddy_free(ctx->allocator, cert_data);
+		buddy_free(ctx->allocator, sig_data);
+		buddy_free(ctx->allocator, file_data);
+		tokenizer_error_printf(ctx, "Out of memory reading root certificate");
+		return 0;
+	}
+
+	if (!fs_read_file(file_entry, 0, file_size, file_data)) {
+		buddy_free(ctx->allocator, root_data);
+		buddy_free(ctx->allocator, cert_data);
+		buddy_free(ctx->allocator, sig_data);
+		buddy_free(ctx->allocator, file_data);
+		tokenizer_error_printf(ctx, "Error reading file: %s", fs_strerror(fs_get_error()));
+		return 0;
+	}
+
+	if (!fs_read_file(sig_entry, 0, sig_size, sig_data)) {
+		buddy_free(ctx->allocator, root_data);
+		buddy_free(ctx->allocator, cert_data);
+		buddy_free(ctx->allocator, sig_data);
+		buddy_free(ctx->allocator, file_data);
+		tokenizer_error_printf(ctx, "Error reading signature: %s", fs_strerror(fs_get_error()));
+		return 0;
+	}
+
+	if (!fs_read_file(cert_entry, 0, cert_size, cert_data)) {
+		buddy_free(ctx->allocator, root_data);
+		buddy_free(ctx->allocator, cert_data);
+		buddy_free(ctx->allocator, sig_data);
+		buddy_free(ctx->allocator, file_data);
+		tokenizer_error_printf(ctx, "Error reading certificate: %s", fs_strerror(fs_get_error()));
+		return 0;
+	}
+
+	if (!fs_read_file(root_entry, 0, root_size, root_data)) {
+		buddy_free(ctx->allocator, root_data);
+		buddy_free(ctx->allocator, cert_data);
+		buddy_free(ctx->allocator, sig_data);
+		buddy_free(ctx->allocator, file_data);
+		tokenizer_error_printf(ctx, "Error reading root certificate: %s", fs_strerror(fs_get_error()));
+		return 0;
+	}
+
+	int64_t valid = verify_package(file_data, file_size, sig_data, sig_size, cert_data, cert_size, root_data, root_size);
+
+	buddy_free(ctx->allocator, root_data);
+	buddy_free(ctx->allocator, cert_data);
+	buddy_free(ctx->allocator, sig_data);
+	buddy_free(ctx->allocator, file_data);
+
+	return valid;
+}
+
+char* basic_sign(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	char* file = strval;
+	PARAMS_GET_ITEM(BIP_STRING);
+	char* key = strval;
+	PARAMS_END("SIGN$", "");
+
+	const char* full_file = make_full_path(ctx, file);
+	const char* full_key = make_full_path(ctx, key);
+
+	fs_directory_entry_t* file_entry = fs_get_file_info(full_file);
+
+	if (!file_entry) {
+		tokenizer_error_printf(ctx, "Error retrieving file information: %s", fs_strerror(fs_get_error()));
+		return "";
+	}
+
+	fs_directory_entry_t* key_entry = fs_get_file_info(full_key);
+
+	if (!key_entry) {
+		tokenizer_error_printf(ctx, "Error retrieving private key information: %s", fs_strerror(fs_get_error()));
+		return "";
+	}
+
+	size_t file_size = file_entry->size;
+	size_t key_size = key_entry->size;
+
+	uint8_t* file_data = buddy_malloc(ctx->allocator, file_size);
+
+	if (!file_data) {
+		tokenizer_error_printf(ctx, "Out of memory reading file");
+		return "";
+	}
+
+	uint8_t* key_data = buddy_malloc(ctx->allocator, key_size);
+
+	if (!key_data) {
+		buddy_free(ctx->allocator, file_data);
+		tokenizer_error_printf(ctx, "Out of memory reading private key");
+		return "";
+	}
+
+	if (!fs_read_file(file_entry, 0, file_size, file_data)) {
+		buddy_free(ctx->allocator, key_data);
+		buddy_free(ctx->allocator, file_data);
+		tokenizer_error_printf(ctx, "Error reading file: %s", fs_strerror(fs_get_error()));
+		return "";
+	}
+
+	if (!fs_read_file(key_entry, 0, key_size, key_data)) {
+		buddy_free(ctx->allocator, key_data);
+		buddy_free(ctx->allocator, file_data);
+		tokenizer_error_printf(ctx, "Error reading private key: %s", fs_strerror(fs_get_error()));
+		return "";
+	}
+
+	uint8_t sig[256];
+	size_t sig_size = 0;
+
+	if (!sign_package(file_data, file_size, key_data, key_size, sig, &sig_size)) {
+		buddy_free(ctx->allocator, key_data);
+		buddy_free(ctx->allocator, file_data);
+		tokenizer_error_printf(ctx, "Error signing package");
+		return "";
+	}
+
+	sig[sig_size] = 0;
+	STRING_ESCAPE_INPLACE(sig, sig_size, sizeof(sig));
+
+	buddy_free(ctx->allocator, key_data);
+	buddy_free(ctx->allocator, file_data);
+
+	return (char*)gc_strdup(ctx, (const char*)sig);
+}
+

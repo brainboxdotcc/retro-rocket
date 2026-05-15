@@ -25,14 +25,15 @@
 var NAVTREE =
 [
   [ "Retro Rocket OS", "index.html", [
-    [ "Retro Rocket OS Documentation", "index.html", "index" ]
+    [ "Retro Rocket OS Documentation", "index.html", "index" ],
+    [ "VERIFY Function", "VERIFY.html", null ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
 "ABS.html",
-"SOCKWRITE.html"
+"SOCKSTATUS.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

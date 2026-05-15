@@ -225,12 +225,78 @@ int ssl_accept(int listen_fd, const uint8_t *cert_pem, size_t cert_len, const ui
  */
 struct tls_peer *tls_get(int fd);
 
+/**
+ * Verify a signed package against a trusted root certificate
+ *
+ * The package signing certificate is validated against the supplied
+ * root certificate before the detached Ed25519 signature is checked.
+ *
+ * @param file_data Package contents
+ * @param file_size Package size in bytes
+ * @param sig_data Detached package signature
+ * @param sig_size Signature size in bytes, must be 64
+ * @param package_cert_pem Package signing certificate PEM buffer
+ * @param package_cert_pem_size Package signing certificate PEM size
+ * @param root_cert_pem Trusted root certificate PEM buffer
+ * @param root_cert_pem_size Trusted root certificate PEM size
+ * @return true if the package and certificate chain are valid
+ */
+bool verify_package(const uint8_t* file_data, size_t file_size, const uint8_t* sig_data, size_t sig_size, const uint8_t* package_cert_pem, size_t package_cert_pem_size, const uint8_t* root_cert_pem, size_t root_cert_pem_size);
+
+/**
+ * Sign a package buffer using an Ed25519 private key
+ *
+ * Produces a raw 64-byte detached Ed25519 signature.
+ *
+ * @param file_data Package contents
+ * @param file_size Package size in bytes
+ * @param private_key_pem PEM private key buffer
+ * @param private_key_pem_size PEM private key buffer size
+ * @param sig_buffer Receives the generated signature
+ * @param sig_size Receives the generated signature size
+ * @return true on success
+ */
+bool sign_package(const uint8_t* file_data, size_t file_size, const uint8_t* private_key_pem, size_t private_key_pem_size, uint8_t* sig_buffer, size_t* sig_size);
+
+/**
+ * Check if a TLS socket has completed negotiation and is ready
+ * for encrypted reads and writes
+ *
+ * @param fd File descriptor
+ * @return true if the TLS session is established
+ */
 bool tls_ready_fd(int fd);
 
+/**
+ * Convert an mbedTLS error code into a human-readable string
+ *
+ * @param err mbedTLS error code
+ * @param buffer Output buffer
+ * @param size Output buffer size
+ * @return Pointer to the supplied buffer
+ */
 const char* tls_error_get(int err, char* buffer, size_t size);
 
+/**
+ * Get the global CTR-DRBG random context
+ *
+ * @return Pointer to the global DRBG context, or NULL if TLS is not initialised
+ */
 mbedtls_ctr_drbg_context* get_random_context();
 
+/**
+ * Get the negotiated TLS protocol version for a connection
+ *
+ * @param fd File descriptor
+ * @return TLS version string, or NULL if unavailable
+ */
 const char* tls_version(int fd);
 
+/**
+ * Get the negotiated cipher suite for a connection
+ *
+ * @param fd File descriptor
+ * @return Cipher suite string, or NULL if unavailable
+ */
 const char* tls_cipher(int fd);
+

@@ -77,6 +77,7 @@ The following functions operate on or return **integer values** in Retro Rocket 
 * \subpage SGN
 * \subpage SHL
 * \subpage SHR
+* \subpage SIGN
 * \subpage SPECTRUM
 * \subpage SPRITECOLLIDE
 * \subpage SPRITEHEIGHT

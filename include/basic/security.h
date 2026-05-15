@@ -104,3 +104,34 @@ void restrict_statement(struct basic_ctx *ctx);
  * @param ctx Current BASIC context
  */
 void derestrict_statement(struct basic_ctx *ctx);
+
+/**
+ * Verify a signed package against the trusted Retro Rocket package root
+ *
+ * The supplied package certificate is validated against the built-in
+ * package root certificate before the detached package signature is
+ * verified.
+ *
+ * BASIC syntax:
+ *
+ * VERIFY(file$, sig$, cert$)
+ *
+ * @param ctx BASIC context
+ * @return Non-zero if the package signature and certificate chain are valid
+ */
+int64_t basic_verify(struct basic_ctx* ctx);
+
+/**
+ * Sign a file using a PEM private key and return the detached signature
+ *
+ * The returned string contains the raw binary Ed25519 signature.
+ *
+ * BASIC syntax:
+ *
+ * SIGN$(file$, privatekey$)
+ *
+ * @param ctx BASIC context
+ * @return Raw binary signature string, or empty string on error
+ */
+char* basic_sign(struct basic_ctx* ctx);
+

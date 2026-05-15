@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=11">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Retro Rocket OS: SPRITEROW Keyword</title>
+    <title>Retro Rocket OS: VERIFY Function</title>
     <link href="tabs.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -16,7 +16,7 @@
     <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-    <meta name="title" content="SPRITEROW Keyword - Retro Rocket OS">
+    <meta name="title" content="VERIFY Function - Retro Rocket OS">
     <meta name="description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="author" content="Retro Rocket Developers">
     <meta name="robots" content="index, follow">
@@ -24,7 +24,7 @@
     <meta name="theme-color" content="#0b0f14">
     <link rel="icon" href="rr.png">
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="SPRITEROW Keyword - Retro Rocket OS">
+    <meta property="og:title" content="VERIFY Function - Retro Rocket OS">
     <meta property="og:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://retrorocket.dev/">
@@ -32,7 +32,7 @@
     <meta property="og:image:alt" content="Retro Rocket OS running on a retro-style desktop">
     <meta property="og:site_name" content="Retro Rocket OS">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="SPRITEROW Keyword - Retro Rocket OS">
+    <meta name="twitter:title" content="VERIFY Function - Retro Rocket OS">
     <meta name="twitter:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="twitter:image" content="https://retrorocket.dev/leader4.png">
     <link rel="preload" as="image" href="https://retrorocket.dev/leader4.png">
@@ -94,7 +94,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('SPRITEROW.html','',''); });
+$(function(){initNavTree('VERIFY.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -120,72 +120,62 @@ $(function(){initNavTree('SPRITEROW.html','',''); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">SPRITEROW Keyword </div></div>
+  <div class="headertitle"><div class="title">VERIFY Function </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">SPRITEROW sprite-handle,y,array-name</div>
-</div><!-- fragment --><p>Copies a single <b>row of pixel data</b> from a sprite into an <b>integer array</b>.</p>
+<div class="textblock"><div class="fragment"><div class="line">check = VERIFY(file$, sig$, cert$)</div>
+</div><!-- fragment --><p>Verifies a signed file against a detached signature and package signing certificate.</p>
+<p>The package certificate is validated against the built-in Retro Rocket package root certificate before the file signature is checked.</p>
+<p>Returns non-zero if the signature and certificate chain are valid, otherwise returns zero.</p>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="examples-89"></a>
+Examples</h3>
+<div class="fragment"><div class="line">REM Verify a downloaded package</div>
+<div class="line"> </div>
+<div class="line">IF VERIFY(&quot;/ramdisk/editor.gz&quot;, &quot;/ramdisk/editor.gz.sig&quot;, &quot;/ramdisk/packages.pem&quot;) = TRUE THEN</div>
+<div class="line">    PRINT &quot;Package verified&quot;</div>
+<div class="line">ELSE</div>
+<div class="line">    PRINT &quot;Package verification failed&quot;</div>
+<div class="line">ENDIF</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Refuse to install invalid packages</div>
+<div class="line"> </div>
+<div class="line">IF VERIFY(PKG$, SIG$, CERT$) THEN</div>
+<div class="line">    PRINT &quot;Package is not trusted&quot;</div>
+<div class="line">    END</div>
+<div class="line">ENDIF</div>
+</div><!-- fragment --><hr  />
+<h3 class="doxsection"><a class="anchor" id="notes-85"></a>
+Notes</h3>
 <ul>
-<li><span class="tt">y</span> is the <b>row index</b> (0-based)</li>
-<li><span class="tt">array-name</span> is created or resized to the sprite’s width</li>
-<li>Each element in the array contains the <b>pixel value</b> at that X position</li>
+<li><span class="tt">file$</span> is the file to verify.</li>
+<li><span class="tt">sig$</span> is the detached package signature file.</li>
+<li><span class="tt">cert$</span> is the PEM package signing certificate.</li>
+<li>Detached signatures are generated using <a class="el" href="SIGNS.html">SIGN$</a>.</li>
+<li>The trusted package root certificate is loaded automatically from <span class="tt">/system/ssl/package_root_ca.pem</span>.</li>
+<li>Detached signatures are expected to contain escaped binary signature data.</li>
+<li>Verification checks:<ul>
+<li>certificate chain validity</li>
+<li>certificate validity dates</li>
+<li>detached Ed25519 signature validity</li>
+</ul>
+</li>
 </ul>
 <hr  />
-<h5 class="doxsection"><a class="anchor" id="examples-220"></a>
-Examples</h5>
-<p><b>Basic usage</b></p>
-<div class="fragment"><div class="line">SPRITELOAD S,&quot;/images/maze.gif&quot;</div>
-<div class="line"> </div>
-<div class="line">SPRITEROW S,10,ROW</div>
-<div class="line"> </div>
-<div class="line">FOR I = 0 TO SPRITEWIDTH(S)-1</div>
-<div class="line">    PRINT ROW(I)</div>
-<div class="line">NEXT</div>
-</div><!-- fragment --><hr  />
-<p><b>Using with ARRAYFIND</b></p>
-<div class="fragment"><div class="line">SPRITELOAD LEVEL,&quot;/levels/level1.gif&quot;</div>
-<div class="line">ROTATE LEVEL</div>
-<div class="line"> </div>
-<div class="line">SPRITEROW LEVEL,tick,ROW</div>
-<div class="line">ARRAYFIND ROW,RGB(255,0,0),ENEMIES,COUNT</div>
-<div class="line"> </div>
-<div class="line">FOR I = 0 TO COUNT-1</div>
-<div class="line">    PROCspawn_enemy(ENEMIES(I))</div>
-<div class="line">NEXT</div>
-</div><!-- fragment --><hr  />
-<p><b>Reading multiple rows</b></p>
-<div class="fragment"><div class="line">SPRITELOAD S,&quot;/images/data.gif&quot;</div>
-<div class="line"> </div>
-<div class="line">FOR Y = 0 TO SPRITEHEIGHT(S)-1</div>
-<div class="line">    SPRITEROW S,Y,ROW</div>
-<div class="line">    PRINT ROW(0)</div>
-<div class="line">NEXT</div>
-</div><!-- fragment --><hr  />
-<h5 class="doxsection"><a class="anchor" id="notes-220"></a>
-Notes</h5>
+<h3 class="doxsection"><a class="anchor" id="errors-4"></a>
+Errors</h3>
 <ul>
-<li><span class="tt">array-name</span> is always an <b>integer array</b></li>
-<li>If the array does not exist, it is created using <span class="tt">DIM</span></li>
-<li>If it already exists, it is resized using <span class="tt">REDIM</span></li>
-<li>Array size is always <span class="tt">SPRITEWIDTH(sprite-handle)</span></li>
-<li>Pixel values are returned in the system’s <b>internal colour format</b></li>
-<li>Rows are <b>0-based</b> (<span class="tt">0 .. SPRITEHEIGHT-1</span>)</li>
-<li>Accessing a row outside this range raises a runtime error</li>
-<li>Works with any sprite containing valid pixel data</li>
-<li><b>Animated sprites are not supported</b></li>
+<li>File not found</li>
+<li>Error reading file</li>
+<li>Error reading signature</li>
+<li>Error reading certificate</li>
+<li>Error reading root certificate</li>
+<li>Out of memory reading file</li>
+<li>Out of memory reading signature</li>
+<li>Out of memory reading certificate</li>
+<li>Out of memory reading root certificate</li>
 </ul>
 <hr  />
-<h5 class="doxsection"><a class="anchor" id="behaviour-summary-1"></a>
-Behaviour summary</h5>
-<p>For a sprite of width <span class="tt">W</span>:</p>
-<div class="fragment"><div class="line">SPRITEROW S,Y,ROW</div>
-</div><!-- fragment --><p>Produces:</p>
-<div class="fragment"><div class="line">ROW(0)   = pixel at (0,Y)</div>
-<div class="line">ROW(1)   = pixel at (1,Y)</div>
-<div class="line">...</div>
-<div class="line">ROW(W-1) = pixel at (W-1,Y)</div>
-</div><!-- fragment --><hr  />
-<p><b>See also:</b> <a class="el" href="SPRITELOAD.html">SPRITELOAD</a> <a class="el" href="ROTATE.html">ROTATE</a> <a class="el" href="ARRAYFIND.html">ARRAYFIND</a> <a class="el" href="SPRITEWIDTH.html">SPRITEWIDTH</a> <a class="el" href="SPRITEHEIGHT.html">SPRITEHEIGHT</a> </p>
+<p><b>See also:</b> <a class="el" href="SIGNS.html">SIGN$</a> · <a class="el" href="BINWRITE.html">BINWRITE</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -201,7 +191,6 @@ Behaviour summary</h5>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="index.html">Retro Rocket OS Documentation</a></li><li class="navelem"><a href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a href="keywords.html">Keywords</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.14.0 </li>
   </ul>
 </div>
