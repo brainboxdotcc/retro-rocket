@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=11">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Retro Rocket OS: Working with Programs</title>
+    <title>Retro Rocket OS: MEMFIND Function</title>
     <link href="tabs.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -16,7 +16,7 @@
     <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-    <meta name="title" content="Working with Programs - Retro Rocket OS">
+    <meta name="title" content="MEMFIND Function - Retro Rocket OS">
     <meta name="description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="author" content="Retro Rocket Developers">
     <meta name="robots" content="index, follow">
@@ -24,7 +24,7 @@
     <meta name="theme-color" content="#0b0f14">
     <link rel="icon" href="rr.png">
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="Working with Programs - Retro Rocket OS">
+    <meta property="og:title" content="MEMFIND Function - Retro Rocket OS">
     <meta property="og:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://retrorocket.dev/">
@@ -32,7 +32,7 @@
     <meta property="og:image:alt" content="Retro Rocket OS running on a retro-style desktop">
     <meta property="og:site_name" content="Retro Rocket OS">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Working with Programs - Retro Rocket OS">
+    <meta name="twitter:title" content="MEMFIND Function - Retro Rocket OS">
     <meta name="twitter:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="twitter:image" content="https://retrorocket.dev/leader4.png">
     <link rel="preload" as="image" href="https://retrorocket.dev/leader4.png">
@@ -94,7 +94,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('working-with-programs.html','',''); });
+$(function(){initNavTree('MEMFIND.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -120,33 +120,60 @@ $(function(){initNavTree('working-with-programs.html','',''); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">Working with Programs </div></div>
+  <div class="headertitle"><div class="title">MEMFIND Function </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Retro Rocket is designed around BASIC programs. Most users will simply run existing programs - either the ones included with the system or new ones you download.</p>
+<div class="textblock"><div class="fragment"><div class="line">MEMFIND(start, length, value)</div>
+</div><!-- fragment --><p>Searches a memory region for the first occurrence of a byte value.</p>
+<p>Returns the address of the matching byte, or zero if the value is not found.</p>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="running-programs"></a>
-Running programs</h3>
-<p>Programs are stored under the <span class="tt">/programs</span> directory. To run a program from the shell, type its name in lowercase and press <b>Enter</b>:</p>
-<div class="fragment"><div class="line">about</div>
-</div><!-- fragment --><p>This starts the program <span class="tt">about</span>. When it ends, you return to the shell prompt.</p>
-<p>From inside a BASIC program, the keyword <span class="tt">CHAIN</span> can also be used to run another program, but this is mainly for programmers.</p>
-<hr  />
-<h3 class="doxsection"><a class="anchor" id="where-programs-live"></a>
-Where programs live</h3>
-<ul>
-<li><span class="tt">/programs</span> - the main directory for programs.</li>
-<li><span class="tt">/programs/libraries</span> - shared code used by programs.</li>
-<li><span class="tt">/programs/drivers</span> - BASIC drivers used by the system.</li>
-</ul>
-<p>If you install Retro Rocket to a hard disk, you can add more programs here. When running from the LiveCD, you can temporarily place downloaded programs in <span class="tt">/ramdisk</span>.</p>
-<hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-258"></a>
+<h3 class="doxsection"><a class="anchor" id="examples-49"></a>
+Examples</h3>
+<div class="fragment"><div class="line">REM Find the first NUL byte in a buffer</div>
+<div class="line"> </div>
+<div class="line">P = MEMFIND(BUFFER, 100, 0)</div>
+<div class="line"> </div>
+<div class="line">IF P THEN</div>
+<div class="line">    PRINT &quot;Found at &quot;; P</div>
+<div class="line">ENDIF</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Extract a NUL-terminated tar filename</div>
+<div class="line"> </div>
+<div class="line">ENDPOS = MEMFIND(HEADER, 100, 0)</div>
+<div class="line"> </div>
+<div class="line">IF ENDPOS = 0 THEN</div>
+<div class="line">    ENDPOS = HEADER + 100</div>
+<div class="line">ENDIF</div>
+<div class="line"> </div>
+<div class="line">NAME$ = BUFFERTOSTRING$(HEADER, ENDPOS - HEADER)</div>
+<div class="line"> </div>
+<div class="line">PRINT NAME$</div>
+</div><!-- fragment --><div class="fragment"><div class="line">REM Search for a marker byte</div>
+<div class="line"> </div>
+<div class="line">POS = MEMFIND(DATA, SIZE, &amp;FF)</div>
+<div class="line"> </div>
+<div class="line">IF POS THEN</div>
+<div class="line">    PRINT &quot;Escape byte found at &quot;; POS</div>
+<div class="line">ENDIF</div>
+</div><!-- fragment --><hr  />
+<h3 class="doxsection"><a class="anchor" id="notes-49"></a>
 Notes</h3>
 <ul>
-<li>In LiveCD mode, anything saved in <span class="tt">/ramdisk</span> is lost on shutdown or reboot.</li>
-<li>On an installed system, programs and files are stored on the hard disk permanently. </li>
+<li><span class="tt">start</span> is the starting memory address to search.</li>
+<li><span class="tt">length</span> is the number of bytes to scan.</li>
+<li><span class="tt">value</span> must be between 0 and 255.</li>
+<li>Returns the address of the first matching byte.</li>
+<li>Returns zero if the value is not found.</li>
+<li>The search is performed using a forward linear scan.</li>
 </ul>
+<hr  />
+<h3 class="doxsection"><a class="anchor" id="errors-5"></a>
+Errors</h3>
+<ul>
+<li>MEMFIND: Invalid byte value</li>
+<li>Bad Address</li>
+</ul>
+<hr  />
+<p><b>See also:</b> <a class="el" href="PEEK.html">PEEK</a> · <a class="el" href="POKE.html">POKE</a> · <a class="el" href="BUFFERTOSTRINGS.html">BUFFERTOSTRING$</a> · <a class="el" href="STRINGTOBUFFER.html">STRINGTOBUFFER</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -162,7 +189,7 @@ Notes</h3>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="index.html">Retro Rocket OS Documentation</a></li><li class="navelem"><a href="user-guide.html">User Guide</a></li>
+    <li class="navelem"><a href="index.html">Retro Rocket OS Documentation</a></li><li class="navelem"><a href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a href="int-funcs.html">Integer Functions</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.14.0 </li>
   </ul>
 </div>

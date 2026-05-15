@@ -185,6 +185,7 @@ struct basic_int_fn builtin_int[] =
 	{ basic_verify,              "VERIFY"            },
 	{ basic_compress,            "COMPRESS"          },
 	{ basic_decompress,          "DECOMPRESS"        },
+	{ basic_memfind,             "MEMFIND"           },
 	{ NULL,                      NULL                },
 };
 

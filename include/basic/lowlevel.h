@@ -348,3 +348,5 @@ void memmove_statement(struct basic_ctx* ctx);
 void memcopy_statement(struct basic_ctx* ctx);
 
 void memset_statement(struct basic_ctx* ctx);
+
+int64_t basic_memfind(struct basic_ctx* ctx);

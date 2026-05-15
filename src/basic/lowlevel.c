@@ -125,6 +125,30 @@ void memset_statement(struct basic_ctx* ctx)
 	memset(dest, (uint8_t)value, size);
 }
 
+int64_t basic_memfind(struct basic_ctx* ctx)
+{
+        PARAMS_START;
+        PARAMS_GET_ITEM(BIP_INT);
+        int64_t start = intval;
+        PARAMS_GET_ITEM(BIP_INT);
+        int64_t size = intval;
+        PARAMS_GET_ITEM(BIP_INT);
+        int64_t value = intval;
+
+        PARAMS_END("MEMFIND", 0);
+
+        if (value < 0 || value > 255) {
+                tokenizer_error_printf(ctx, "MEMFIND: Invalid byte value %ld", value);
+                return 0;
+        }
+
+        if (!address_valid_read(start, size)) {
+                tokenizer_error_printf(ctx, "Bad Address at &%016lx of size &%016lx", start, size);
+                return 0;
+        }
+
+        return (int64_t)memchr((void*)start, (uint8_t)value, size);
+}
 
 char* basic_cpugetbrand(struct basic_ctx* ctx)
 {

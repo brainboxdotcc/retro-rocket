@@ -51,6 +51,7 @@ var int_funcs =
     [ "MAPHAS Function", "MAPHAS.html", null ],
     [ "MAX Function", "MAX.html", null ],
     [ "MEMALLOC Function", "MEMALLOC.html", null ],
+    [ "MEMFIND Function", "MEMFIND.html", null ],
     [ "MEMFREE Function", "MEMFREE.html", null ],
     [ "MEMTOTAL Function", "MEMORY.html", null ],
     [ "MEMPEAK Function", "MEMPEAK.html", null ],

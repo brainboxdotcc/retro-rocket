@@ -53,6 +53,7 @@ The following functions operate on or return **integer values** in Retro Rocket 
 * \subpage MAPHAS
 * \subpage MAX
 * \subpage MEMALLOC
+* \subpage MEMFIND
 * \subpage MEMFREE
 * \subpage MEMORY
 * \subpage MEMPEAK
