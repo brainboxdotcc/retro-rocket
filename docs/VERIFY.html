@@ -139,7 +139,7 @@ Examples</h3>
 <div class="line">ENDIF</div>
 </div><!-- fragment --><div class="fragment"><div class="line">REM Refuse to install invalid packages</div>
 <div class="line"> </div>
-<div class="line">IF VERIFY(PKG$, SIG$, CERT$) THEN</div>
+<div class="line">IF VERIFY(PKG$, SIG$, CERT$) = FALSE THEN</div>
 <div class="line">    PRINT &quot;Package is not trusted&quot;</div>
 <div class="line">    END</div>
 <div class="line">ENDIF</div>

@@ -27,7 +27,7 @@ ENDIF
 ```basic
 REM Refuse to install invalid packages
 
-IF VERIFY(PKG$, SIG$, CERT$) THEN
+IF VERIFY(PKG$, SIG$, CERT$) = FALSE THEN
 	PRINT "Package is not trusted"
 	END
 ENDIF
