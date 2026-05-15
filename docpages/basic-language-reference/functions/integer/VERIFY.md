@@ -42,7 +42,7 @@ ENDIF
 * `cert$` is the PEM package signing certificate.
 * Detached signatures are generated using \ref SIGNS "SIGN$".
 * The trusted package root certificate is loaded automatically from `/system/ssl/package_root_ca.pem`.
-* Detached signatures are expected to contain escaped binary signature data.
+* Detached signatures are expected to be 64 bytes of raw binary signature data.
 * Verification checks:
 
   * certificate chain validity

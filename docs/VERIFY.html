@@ -152,7 +152,7 @@ Notes</h3>
 <li><span class="tt">cert$</span> is the PEM package signing certificate.</li>
 <li>Detached signatures are generated using <a class="el" href="SIGNS.html">SIGN$</a>.</li>
 <li>The trusted package root certificate is loaded automatically from <span class="tt">/system/ssl/package_root_ca.pem</span>.</li>
-<li>Detached signatures are expected to contain escaped binary signature data.</li>
+<li>Detached signatures are expected to be 64 bytes of raw binary signature data.</li>
 <li>Verification checks:<ul>
 <li>certificate chain validity</li>
 <li>certificate validity dates</li>
