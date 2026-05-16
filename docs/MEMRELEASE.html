@@ -131,13 +131,25 @@ Examples</h3>
 <div class="fragment"><div class="line">buf = MEMALLOC(65536)</div>
 <div class="line">REM ... use buf ...</div>
 <div class="line">MEMRELEASE buf</div>
+<div class="line">buf = 0</div>
+</div><!-- fragment --><p>Attempting to release the same allocation twice raises an error:</p>
+<div class="fragment"><div class="line">buf = MEMALLOC(1024)</div>
+<div class="line">MEMRELEASE buf</div>
+<div class="line">MEMRELEASE buf</div>
+</div><!-- fragment --><p>Attempting to release an address that was not returned directly by <a class="el" href="MEMALLOC.html">MEMALLOC</a> also raises an error:</p>
+<div class="fragment"><div class="line">buf = MEMALLOC(1024)</div>
+<div class="line">REM Invalid: interior pointer</div>
+<div class="line">MEMRELEASE buf + 100</div>
 </div><!-- fragment --><hr  />
 <h3 class="doxsection"><a class="anchor" id="notes-196"></a>
 Notes</h3>
 <ul>
-<li>Passing an invalid or already-freed handle raises an error.</li>
+<li>Passing an invalid, already-freed, or non-allocated address raises an error.</li>
+<li><span class="tt">MEMRELEASE</span> only accepts addresses returned directly by <a class="el" href="MEMALLOC.html">MEMALLOC</a>.</li>
+<li>Interior pointers such as <span class="tt">buf + 1</span> are rejected.</li>
+<li>Double-free attempts are detected and rejected safely.</li>
 <li>After releasing, set your variable to <span class="tt">0</span> if you want to avoid accidental reuse.</li>
-<li>Your program ending releases all memory it requested using <a class="el" href="MEMALLOC.html">MEMALLOC Function</a> - be aware of this if you pass reference of this memory to a child program!</li>
+<li>Your program ending releases all memory it requested using <a class="el" href="MEMALLOC.html">MEMALLOC</a> - be aware of this if you pass references to this memory to a child program.</li>
 </ul>
 <hr  />
 <p><b>See also:</b> <a class="el" href="MEMALLOC.html">MEMALLOC</a> </p>

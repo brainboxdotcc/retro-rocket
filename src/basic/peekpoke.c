@@ -87,6 +87,10 @@ int64_t basic_peek(struct basic_ctx *ctx)
 		tokenizer_error_printf(ctx, "Bad Address at &%016lx", addr);
 		return 0;
 	}
+	if (is_restricted_len(ctx, "MEMORY", 6) && !memory_grants_contains(&ctx->memory_grants, addr, 1)) {
+		tokenizer_error_printf(ctx, "Bad address &%016lx", addr);
+		return 0;
+	}
 	uint8_t v = *(volatile uint8_t *)(uintptr_t)addr;
 	return (int64_t)v;
 }
@@ -100,6 +104,10 @@ int64_t basic_peekw(struct basic_ctx *ctx)
 
 	if (!address_valid_read(addr, 2)) {
 		tokenizer_error_printf(ctx, "Bad Address at &%016lx", addr);
+		return 0;
+	}
+	if (is_restricted_len(ctx, "MEMORY", 6) && !memory_grants_contains(&ctx->memory_grants, addr, 2)) {
+		tokenizer_error_printf(ctx, "Bad address &%016lx", addr);
 		return 0;
 	}
 	uint16_t v = *(volatile uint16_t *)(uintptr_t)addr;
@@ -117,6 +125,10 @@ int64_t basic_peekd(struct basic_ctx *ctx)
 		tokenizer_error_printf(ctx, "Bad Address at &%016lx", addr);
 		return 0;
 	}
+	if (is_restricted_len(ctx, "MEMORY", 6) && !memory_grants_contains(&ctx->memory_grants, addr, 4)) {
+		tokenizer_error_printf(ctx, "Bad address &%016lx", addr);
+		return 0;
+	}
 	uint32_t v = *(volatile uint32_t *)(uintptr_t)addr;
 	return (int64_t)v;
 }
@@ -130,6 +142,10 @@ int64_t basic_peekq(struct basic_ctx *ctx)
 
 	if (!address_valid_read(addr, 8)) {
 		tokenizer_error_printf(ctx, "Bad Address at &%016lx", addr);
+		return 0;
+	}
+	if (is_restricted_len(ctx, "MEMORY", 6) && !memory_grants_contains(&ctx->memory_grants, addr, 8)) {
+		tokenizer_error_printf(ctx, "Bad address &%016lx", addr);
 		return 0;
 	}
 	uint64_t v = *(volatile uint64_t *)(uintptr_t)addr;
@@ -147,6 +163,10 @@ void poke_statement(struct basic_ctx* ctx) {
 		tokenizer_error_printf(ctx, "Bad Address at &%016lx", (uint64_t)addr);
 		return;
 	}
+	if (is_restricted_len(ctx, "MEMORY", 6) && !memory_grants_contains(&ctx->memory_grants, addr, 1)) {
+		tokenizer_error_printf(ctx, "Bad address &%016lx", addr);
+		return;
+	}
 	*(volatile uint8_t *)(uintptr_t)addr = (uint8_t)val;
 }
 
@@ -161,6 +181,11 @@ void pokew_statement(struct basic_ctx* ctx) {
 		tokenizer_error_printf(ctx, "Bad Address at &%016lx", (uint64_t)addr);
 		return;
 	}
+	if (is_restricted_len(ctx, "MEMORY", 6) && !memory_grants_contains(&ctx->memory_grants, addr, 2)) {
+		tokenizer_error_printf(ctx, "Bad address &%016lx", addr);
+		return;
+	}
+
 	*(volatile uint16_t *)(uintptr_t)addr = (uint16_t)val;
 }
 
@@ -175,6 +200,10 @@ void poked_statement(struct basic_ctx* ctx) {
 		tokenizer_error_printf(ctx, "Bad Address at &%016lx", (uint64_t)addr);
 		return;
 	}
+	if (is_restricted_len(ctx, "MEMORY", 6) && !memory_grants_contains(&ctx->memory_grants, addr, 4)) {
+		tokenizer_error_printf(ctx, "Bad address &%016lx", addr);
+		return;
+	}
 	*(volatile uint32_t *)(uintptr_t)addr = (uint32_t)val;
 }
 
@@ -187,6 +216,10 @@ void pokeq_statement(struct basic_ctx* ctx) {
 
 	if (!address_valid_write((uint64_t)addr, 8)) {
 		tokenizer_error_printf(ctx, "Bad Address at &%016lx", (uint64_t)addr);
+		return;
+	}
+	if (is_restricted_len(ctx, "MEMORY", 6) && !memory_grants_contains(&ctx->memory_grants, addr, 8)) {
+		tokenizer_error_printf(ctx, "Bad address &%016lx", addr);
 		return;
 	}
 	*(volatile uint64_t *)(uintptr_t)addr = (uint64_t)val;

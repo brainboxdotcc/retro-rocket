@@ -195,6 +195,10 @@ void sockbinread_statement(struct basic_ctx *ctx) {
 		tokenizer_error_printf(ctx, "Invalid address: %016lx", (uint64_t) address);
 		return;
 	}
+	if (length && is_restricted_len(ctx, "MEMORY", 6) &&  !memory_grants_contains(&ctx->memory_grants, address, length)) {
+		tokenizer_error_printf(ctx, "Bad address &%016lx", address);
+		return;
+	}
 
 	process_t* proc = ctx->proc;
 
@@ -625,6 +629,10 @@ void sockbinwrite_statement(struct basic_ctx *ctx) {
 	int64_t length = expr(ctx);
 	if (length && !address_valid_read(buffer_pointer, length)) {
 		tokenizer_error_printf(ctx, "Invalid address: %016lx", buffer_pointer);
+		return;
+	}
+	if (is_restricted_len(ctx, "MEMORY", 6) && !memory_grants_contains(&ctx->memory_grants, buffer_pointer, length)) {
+		tokenizer_error_printf(ctx, "Bad address &%016lx", buffer_pointer);
 		return;
 	}
 

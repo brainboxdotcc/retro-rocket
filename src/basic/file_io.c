@@ -320,6 +320,10 @@ void readbinary_statement(struct basic_ctx* ctx)
 		tokenizer_error_printf(ctx, "Invalid address: %016lx", (uint64_t)buffer);
 		return;
 	}
+	if (size && is_restricted_len(ctx, "MEMORY", 6) && !memory_grants_contains(&ctx->memory_grants, buffer, size)) {
+		tokenizer_error_printf(ctx, "Bad address &%016lx", buffer);
+		return;
+	}
 	if (size && _read(fd, buffer, size) == -1) {
 		tokenizer_error_printf(ctx, "Error reading from file: %s", fs_strerror(fs_get_error()));
 	}
@@ -336,6 +340,10 @@ void writebinary_statement(struct basic_ctx* ctx)
 	int64_t size = expr(ctx);
 	if (size && !address_valid_read(buffer, size)) {
 		tokenizer_error_printf(ctx, "Invalid address: %016lx", (uint64_t)buffer);
+		return;
+	}
+	if (size && is_restricted_len(ctx, "MEMORY", 6) && !memory_grants_contains(&ctx->memory_grants, buffer, size)) {
+		tokenizer_error_printf(ctx, "Bad address &%016lx", buffer);
 		return;
 	}
 	if (size && _write(fd, buffer, size) == -1) {
@@ -714,14 +722,14 @@ int64_t basic_compress(struct basic_ctx* ctx)
 	}
 
 	if (compressed_size > output_max) {
-		free(compressed);
+		kfree(compressed);
 		tokenizer_error_printf(ctx, "Output buffer too small");
 		return 0;
 	}
 
 	memcpy(output, compressed, compressed_size);
 
-	free(compressed);
+	kfree(compressed);
 
 	return compressed_size;
 }
@@ -752,14 +760,14 @@ int64_t basic_decompress(struct basic_ctx* ctx)
 	}
 
 	if (decompressed_size > output_max) {
-		free(decompressed);
+		kfree(decompressed);
 		tokenizer_error_printf(ctx, "Output buffer too small");
 		return 0;
 	}
 
 	memcpy(output, decompressed, decompressed_size);
 
-	free(decompressed);
+	kfree(decompressed);
 
 	return decompressed_size;
 }

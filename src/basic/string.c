@@ -865,6 +865,10 @@ int64_t basic_string_to_buffer(struct basic_ctx *ctx)
 		tokenizer_error_printf(ctx, "Invalid address: %016lx", (uint64_t) address);
 		return 0;
 	}
+	if (max && is_restricted_len(ctx, "MEMORY", 6) && !memory_grants_contains(&ctx->memory_grants, address, max)) {
+		tokenizer_error_printf(ctx, "Bad address &%016lx", address);
+		return 0;
+	}
 
 	if (!in || !address || max == 0) {
 		return 0;
@@ -911,6 +915,10 @@ char *basic_buffer_to_string(struct basic_ctx *ctx)
 
 	if (length > 0 && !address_valid_read(address, length)) {
 		tokenizer_error_printf(ctx, "Invalid address: %016lx", (uint64_t) address);
+		return "";
+	}
+	if (is_restricted_len(ctx, "MEMORY", 6) && !memory_grants_contains(&ctx->memory_grants, address, length)) {
+		tokenizer_error_printf(ctx, "Bad address &%016lx", address);
 		return "";
 	}
 
@@ -965,15 +973,19 @@ char* basic_tobase64(struct basic_ctx* ctx)
 	int64_t length = intval;
 	PARAMS_END("TOBASE64$", "");
 
+	if (!address || length == 0) {
+		return "";
+	}
 	if (length < 0) {
 		tokenizer_error_print(ctx, "Invalid buffer length");
 		return "";
 	}
-	if (length > 0 && !address_valid_read(address, length)) {
+	if (!address_valid_read(address, length)) {
 		tokenizer_error_printf(ctx, "Invalid address: %016lx", address);
 		return "";
 	}
-	if (!address || length == 0) {
+	if (is_restricted_len(ctx, "MEMORY", 6) && !memory_grants_contains(&ctx->memory_grants, address, length)) {
+		tokenizer_error_printf(ctx, "Bad address &%016lx", address);
 		return "";
 	}
 
@@ -1023,6 +1035,10 @@ int64_t basic_frombase64(struct basic_ctx* ctx)
 
 	if (max > 0 && !address_valid_write(address, max)) {
 		tokenizer_error_printf(ctx, "Invalid address: %016lx", address);
+		return 0;
+	}
+	if (max && is_restricted_len(ctx, "MEMORY", 6) && !memory_grants_contains(&ctx->memory_grants, address, max)) {
+		tokenizer_error_printf(ctx, "Bad address &%016lx", address);
 		return 0;
 	}
 

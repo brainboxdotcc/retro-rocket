@@ -904,6 +904,10 @@ int64_t basic_sprite_from_buffer(struct basic_ctx* ctx) {
 		tokenizer_error_printf(ctx, "Bad Address at &%016lx", start);
 		return 0;
 	}
+	if (size && is_restricted_len(ctx, "MEMORY", 6) && !memory_grants_contains(&ctx->memory_grants, start, size)) {
+		tokenizer_error_printf(ctx, "Bad address &%016lx", start);
+		return 0;
+	}
 
 	int64_t sprite_handle = alloc_sprite(ctx);
 	if (sprite_handle == -1) {

@@ -54,6 +54,7 @@ int64_t basic_memalloc(struct basic_ctx* ctx)
 		tokenizer_error_print(ctx, "Out of memory");
 		return 0;
 	}
+	memory_grants_add(&ctx->memory_grants, ctx->allocator, p, intval);
 	return (int64_t)p;
 }
 
@@ -70,6 +71,8 @@ int64_t basic_memrealloc(struct basic_ctx* ctx)
 		tokenizer_error_print(ctx, "Out of memory");
 		return 0;
 	}
+	memory_grants_remove(&ctx->memory_grants, ctx->allocator, handle);
+	memory_grants_add(&ctx->memory_grants, ctx->allocator, p, new_size);
 	return (int64_t)p;
 }
 
@@ -86,6 +89,10 @@ void memmove_statement(struct basic_ctx* ctx)
 		tokenizer_error_printf(ctx, "Bad Address at &%016lx of size &%016lx or &%016lx of size &%016lx", source, size, dest, size);
 		return;
 	}
+	if (size && is_restricted_len(ctx, "MEMORY", 6) && (!memory_grants_contains(&ctx->memory_grants, source, size) || !memory_grants_contains(&ctx->memory_grants, dest, size))) {
+		tokenizer_error_printf(ctx, "Bad Address at &%016lx of size &%016lx or &%016lx of size &%016lx", source, size, dest, size);
+		return;
+	}
 	memmove(dest, source, size);
 }
 
@@ -99,6 +106,10 @@ void memcopy_statement(struct basic_ctx* ctx)
 	int64_t size = expr(ctx);
 	accept_or_return(NEWLINE, ctx);
 	if (!address_valid_read(source, size) || !address_valid_write(dest, size)) {
+		tokenizer_error_printf(ctx, "Bad Address at &%016lx of size &%016lx or &%016lx of size &%016lx", source, size, dest, size);
+		return;
+	}
+	if (size && is_restricted_len(ctx, "MEMORY", 6) && (!memory_grants_contains(&ctx->memory_grants, source, size) || !memory_grants_contains(&ctx->memory_grants, dest, size))) {
 		tokenizer_error_printf(ctx, "Bad Address at &%016lx of size &%016lx or &%016lx of size &%016lx", source, size, dest, size);
 		return;
 	}
@@ -120,6 +131,10 @@ void memset_statement(struct basic_ctx* ctx)
 	}
 	if (!address_valid_write(dest, size)) {
 		tokenizer_error_printf(ctx, "Bad Address at &%016lx of size &%016lx", dest, size);
+		return;
+	}
+	if (size && is_restricted_len(ctx, "MEMORY", 6) && !memory_grants_contains(&ctx->memory_grants, dest, size)) {
+		tokenizer_error_printf(ctx, "Bad address &%016lx", dest);
 		return;
 	}
 	memset(dest, (uint8_t)value, size);
@@ -146,6 +161,11 @@ int64_t basic_memfind(struct basic_ctx* ctx)
                 tokenizer_error_printf(ctx, "Bad Address at &%016lx of size &%016lx", start, size);
                 return 0;
         }
+	if (size && is_restricted_len(ctx, "MEMORY", 6) && !memory_grants_contains(&ctx->memory_grants, start, size)) {
+		tokenizer_error_printf(ctx, "Bad address &%016lx", start);
+		return 0;
+	}
+
 
         return (int64_t)memchr((void*)start, (uint8_t)value, size);
 }
@@ -259,7 +279,12 @@ void memrelease_statement(struct basic_ctx* ctx) {
 	accept_or_return(MEMRELEASE, ctx);
 	int64_t ptr = expr(ctx);
 	accept_or_return(NEWLINE, ctx);
+	if (!memory_grants_valid_base(&ctx->memory_grants, ptr)) {
+		tokenizer_error_printf(ctx, "Bad address &%016lx", ptr);
+		return;
+	}
 	buddy_free(ctx->allocator, ptr);
+	memory_grants_remove(&ctx->memory_grants, ctx->allocator, ptr);
 }
 
 void outportd_statement(struct basic_ctx* ctx) {

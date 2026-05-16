@@ -487,6 +487,7 @@ const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx)
 		ctx->active_restrictions     = atomic->active_restrictions;
 		ctx->child_restrictions      = atomic->child_restrictions;
 		ctx->string_gc_storage_size  = atomic->string_gc_storage_size;
+		ctx->memory_grants.root      = atomic->memory_grants.root;
 
 		memcpy(ctx->audio_streams, atomic->audio_streams, sizeof(ctx->audio_streams));
 		memcpy(ctx->envelopes, atomic->envelopes, sizeof(ctx->envelopes));
@@ -644,6 +645,7 @@ int64_t basic_eval_int_fn(const char* fn_name, struct basic_ctx* ctx)
 		ctx->active_restrictions    = atomic->active_restrictions;
 		ctx->child_restrictions     = atomic->child_restrictions;
 		ctx->string_gc_storage_size = atomic->string_gc_storage_size;
+		ctx->memory_grants.root     = atomic->memory_grants.root;
 
 		memcpy(ctx->audio_streams, atomic->audio_streams, sizeof(ctx->audio_streams));
 		memcpy(ctx->envelopes, atomic->envelopes, sizeof(ctx->envelopes));
@@ -724,6 +726,7 @@ void basic_eval_double_fn(const char* fn_name, struct basic_ctx* ctx, double* re
 		ctx->active_restrictions    = atomic->active_restrictions;
 		ctx->child_restrictions     = atomic->child_restrictions;
 		ctx->string_gc_storage_size = atomic->string_gc_storage_size;
+		ctx->memory_grants.root     = atomic->memory_grants.root;
 
 		memcpy(ctx->audio_streams, atomic->audio_streams, sizeof(ctx->audio_streams));
 		memcpy(ctx->envelopes, atomic->envelopes, sizeof(ctx->envelopes));

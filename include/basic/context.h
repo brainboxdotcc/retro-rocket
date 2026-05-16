@@ -9,6 +9,7 @@
 #include "buddy_allocator.h"
 #include "audio.h"
 #include "data.h"
+#include "memory_grants.h"
 #include <input.h>
 
 typedef enum memory_model_t {
@@ -411,6 +412,11 @@ typedef struct basic_ctx {
 	 * The allocator is used to manage dynamic memory for the program's variables and data structures.
 	 */
 	buddy_allocator_t* allocator;
+
+	/**
+	 * @brief Tracking of what memory regions are in use by MEMALLOC and MEMRELEASE
+	 */
+	memory_grants_t memory_grants;
 
 	/**
 	 * @brief Last received UDP packet.

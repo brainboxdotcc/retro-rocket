@@ -133,6 +133,15 @@ Notes</h3>
 <p>Multiple items may be restricted in a single statement by separating them with commas.</p>
 <p>Restrictions are inherited when passed to a child context. A child may also apply further restrictions to its own descendants.</p>
 <p>To remove a restriction from the child restriction set, use <span class="tt">DERESTRICT</span>.</p>
+<p><span class="tt">MEMORY</span> is a special restriction keyword. Unlike its normal use with <a class="el" href="CHAIN.html">CHAIN</a> to select a child program memory model, restricting <span class="tt">MEMORY</span> enables memory access validation for the child context.</p>
+<p>When <span class="tt">MEMORY</span> is restricted:</p>
+<ul>
+<li>memory reads and writes are limited to regions allocated via <a class="el" href="MEMALLOC.html">MEMALLOC</a></li>
+<li>arbitrary memory access outside granted regions raises an error</li>
+<li>accessing valid pointers allocated by other BASIC programs raises an error</li>
+<li>this restriction applies to (amongst other keywords) <a class="el" href="PEEK.html">PEEK</a>, <a class="el" href="POKE.html">POKE</a> and word, double-word and quad-word variants, <a class="el" href="BINREAD.html">BINREAD</a>, <a class="el" href="BINWRITE.html">BINWRITE</a>, <a class="el" href="SOCKBINREAD.html">SOCKBINREAD</a>, <a class="el" href="SOCKBINWRITE.html">SOCKBINWRITE</a>, buffer-to-string conversion, and any other function that directly accesses memory buffers</li>
+</ul>
+<p>This allows a parent program to run child programs with restricted direct memory access while still permitting controlled use of dynamically allocated buffers.</p>
 <h3 class="doxsection"><a class="anchor" id="errors-14"></a>
 Errors</h3>
 <p>An error is raised if:</p>
@@ -149,9 +158,12 @@ Examples</h3>
 </div><!-- fragment --><div class="fragment"><div class="line">RESTRICT PRINT</div>
 <div class="line"> </div>
 <div class="line">CHAIN &quot;/programs/untrusted&quot;</div>
+</div><!-- fragment --><div class="fragment"><div class="line">RESTRICT MEMORY</div>
+<div class="line"> </div>
+<div class="line">CHAIN &quot;/programs/sandbox&quot;</div>
 </div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="see-also-10"></a>
 See also</h3>
-<p><a class="el" href="DERESTRICT.html">DERESTRICT</a>, <a class="el" href="CHAIN.html">CHAIN</a>, <a class="el" href="PROC.html">PROC</a>, <a class="el" href="FN.html">FN</a> </p>
+<p><a class="el" href="DERESTRICT.html">DERESTRICT</a>, <a class="el" href="CHAIN.html">CHAIN</a>, <a class="el" href="PROC.html">PROC</a>, <a class="el" href="FN.html">FN</a>, <a class="el" href="MEMALLOC.html">MEMALLOC</a>, <a class="el" href="MEMRELEASE.html">MEMRELEASE</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
