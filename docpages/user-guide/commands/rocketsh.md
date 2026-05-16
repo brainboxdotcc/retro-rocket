@@ -182,7 +182,7 @@ sandbox dir /programs
 
 - Write to or delete files or directories
 - Load or unload kernel modules
-- Write to or read from raw memory (including buffers)
+- Write to or read from raw memory that is not directly allocated by \ref MEMALLOC "MEMALLOC" (including buffers)
 - Perform raw hardware I/O
 
 ### Rocketsh Variables
