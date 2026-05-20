@@ -123,13 +123,13 @@ $(function(){initNavTree('mount-command.html','',''); });
   <div class="headertitle"><div class="title">mount command </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">mount &lt;directory&gt; &lt;storage-device-name&gt; &lt;filesystem-type&gt;</div>
+<div class="textblock"><div class="fragment"><div class="line">mount &lt;directory&gt; &lt;storage-device-name&gt; &lt;file-system-type&gt;</div>
 </div><!-- fragment --><p>Attaches a file system on a storage device to the visible set of directories and files you can see and work with.</p>
-<p>Think of mounting a filesystem like plugging in something to a power outlet. Once you have plugged it in and turned it on, it is available to use. This is basically how file systems work.</p>
+<p>Think of mounting a file system like plugging in something to a power outlet. Once you have plugged it in and turned it on, it is available to use. This is basically how file systems work.</p>
 <ul>
 <li>The first parameter is the directory, this can be any existing empty directory in the file system. For example /harddisk, /ramdisk, etc.</li>
 <li>The second parameter is a storage device name. Storage device names are allocated by the system. Hard disks (SATA, NVMe etc) start with <span class="tt">hd</span> and are suffixed by number starting at 0, so the first found hard disk is <span class="tt">hd0</span>, the next <span class="tt">hd1</span> etc. Ram disks start with <span class="tt">ram</span> amd a number. CD/DVD drives start with <span class="tt">cd</span> and a number.</li>
-<li>The third parameter is a filesystem type, supported file system types are listed below.</li>
+<li>The third parameter is a file system type, supported file system types are listed below.</li>
 </ul>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -144,6 +144,10 @@ $(function(){initNavTree('mount-command.html','',''); });
 <td class="markdownTableBodyNone">dfs  </td><td class="markdownTableBodyNone">Acorn DFS DS/DD 80T Format  </td><td class="markdownTableBodyNone">Read-only file system for Acorn BBC Micro Floppy disks - The Disk Filing System  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">fat32  </td><td class="markdownTableBodyNone">FAT32 DOS and Windows file system  </td><td class="markdownTableBodyNone">Readable, writeable file system used for removable media, and the recovery/boot partition of installed systems  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">ext2  </td><td class="markdownTableBodyNone">Linux Extended File system (ext2, ext3)  </td><td class="markdownTableBodyNone">Read-only file system used on Linux systems. Can be read from to move data into Retro Rocket. Will not mount volumes needing recovery  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">udf  </td><td class="markdownTableBodyNone">UDF (Universal Disk Format)  </td><td class="markdownTableBodyNone">Read-only file system used for removable media such as CD/DVD/Blu-Ray. Often seen on rewritable or multi-session media.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">devfs  </td><td class="markdownTableBodyNone">Device tree file system  </td><td class="markdownTableBodyNone">Readable, writeable file system which device drivers may use to expose device-specific information and control surfaces. *  </td></tr>
 <tr class="markdownTableRowOdd">

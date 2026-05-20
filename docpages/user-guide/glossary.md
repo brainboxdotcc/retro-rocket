@@ -16,7 +16,7 @@ Commands tell Retro Rocket to run a program or do something.
 A folder that contains files or other folders. Example: `/programs` is a directory.
 
 ### File system
-The way files and directories are organised on a disk. Retro Rocket supports its own file system (RetroFS) as well as ISO 9660 and FAT32.
+The way files and directories are organised on a disk. Retro Rocket supports its own file system (RetroFS) as well as ISO 9660, FAT32, EXT2, EXT3, UDF, ADFS and DFS.
 
 ### LiveCD
 Running Retro Rocket directly from the CD without installing it to a hard disk.

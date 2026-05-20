@@ -38,6 +38,7 @@ Retro Rocket meets you in the middle, letting you dive into the guts of your com
   * Acorn ADFS "L" format adl disk images (*read only*)
   * Acorn DFS single sided/double sided images (*read only*)
   * FAT32 (*read/write*)
+  * Linux ext2/ext3 (*read only*)
   * ISO9660 (*read only*)
   * UDF (*read only*)
 * Multitasking of BASIC programs

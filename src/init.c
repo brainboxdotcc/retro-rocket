@@ -11,7 +11,7 @@ init_func_t init_funcs[] = {
 	init_acpi, init_interrupts, boot_aps, init_pci, init_realtime_clock,
 	init_devicenames, init_keyboard, init_ide, init_ahci, init_nvme,
 	init_virtio_block, init_filesystem, init_devfs, init_iso9660, init_udf,
-	init_adfs, init_dfs, init_fat32, init_rfs, init_modules, network_up, audio_init,
+	init_adfs, init_dfs, init_fat32, init_ext2, init_rfs, init_modules, network_up, audio_init,
 	usb_core_init, usb_hid_init, usb_msc_init, /*init_usb_xhci,*/ NULL,
 };
 
@@ -22,9 +22,9 @@ char* init_funcs_names[] = {
 	"devicenames",	"keyboard",	"ide",		"ahci",	
 	"nvme", 	"virtio-block",	"filesystem",	"devfs",
 	"iso9660",	"udf",		"adfs",		"dfs",
-	"fat32",	"rfs",		"modules", 	"network",
-	"audio",	"usb",		"hid",		"msc",
-	/*"xhci",*/	NULL,
+	"fat32",	"ext2",		"rfs",		"modules",
+	"network",	"audio",	"usb",		"hid",
+	"msc",		/*"xhci",*/	NULL,
 };
 
 void init()

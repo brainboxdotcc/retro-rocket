@@ -91,6 +91,7 @@
 #include "dfs.h"
 #include "devfs.h"
 #include "fat32.h"
+#include "ext2.h"
 #include "debugger.h"
 #include "errorhandler.h"
 #include "keyboard.h"
