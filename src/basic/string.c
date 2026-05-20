@@ -764,10 +764,12 @@ char* basic_rtrim(struct basic_ctx* ctx)
 		return "";
 	}
 	PARAMS_END("RTRIM$", "");
-	int64_t lastIndex;
-	while (isspace(target[lastIndex = strlen(target) - 1])) {
-		target[lastIndex] = '\0';
+
+	size_t len = strlen(target);
+	while (len > 0 && isspace(target[len - 1])) {
+		target[--len] = '\0';
 	}
+
 	return target;
 }
 
@@ -783,9 +785,9 @@ char* basic_trim(struct basic_ctx* ctx)
 	while (isspace(*target)) {
 		++target;
 	}
-	int64_t lastIndex;
-	while (isspace(target[lastIndex = strlen(target) - 1])) {
-		target[lastIndex] = '\0';
+	size_t len = strlen(target);
+	while (len > 0 && isspace(target[len - 1])) {
+		target[--len] = '\0';
 	}
 	return target;
 }
