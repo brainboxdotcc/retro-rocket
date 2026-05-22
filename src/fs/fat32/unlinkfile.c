@@ -12,7 +12,7 @@ bool fat32_unlink_file(void* dir, const char* name)
 
 	parsed_dir = iter = parse_fat32_directory(treeitem, info, dir_cluster);
 	for (; iter; iter = iter->next) {
-		if (!strcmp(iter->filename, name)) {
+		if (!strcasecmp(iter->filename, name)) {
 			file_start = cluster = iter->lbapos;
 			break;
 		}

@@ -118,7 +118,7 @@ uint64_t fat32_internal_create_file(void* dir, const char* name, size_t size, ui
 	/* check that a file doesn't already exist with this name */
 	parsed_dir = iter = parse_fat32_directory(treeitem, info, dir_cluster);
 	for (; iter; iter = iter->next) {
-		if (!strcmp(iter->filename, name)) {
+		if (!strcasecmp(iter->filename, name)) {
 			fs_set_error(FS_ERR_FILE_EXISTS);
 			free_fat32_directory(parsed_dir);
 			return 0;
