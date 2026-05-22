@@ -18,11 +18,7 @@ void free_fat32_directory(fs_directory_entry_t* list)
 
 fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint32_t cluster)
 {
-	unsigned char* buffer = kmalloc(info->clustersize);
-	if (!buffer) {
-		fs_set_error(FS_ERR_OUT_OF_MEMORY);
-		return NULL;
-	}
+	unsigned char buffer[info->clustersize];
 	fs_directory_entry_t* list = NULL;
 	lfn_t lfns[256] = { 0 };
 	int16_t highest_lfn_order = -1;
@@ -30,7 +26,6 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 	while (true) {
 		int bufferoffset = 0;
 		if (!read_cluster(info, cluster, buffer)) {
-			kfree_null(&buffer);
 			dprintf("Couldn't read cluster %u\n", cluster);
 			return NULL;
 		}
@@ -84,7 +79,6 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 				fs_directory_entry_t* file = kmalloc(sizeof(fs_directory_entry_t));
 				if (!file) {
 					fs_set_error(FS_ERR_OUT_OF_MEMORY);
-					kfree_null(&buffer);
 					return NULL;
 				}
 
@@ -145,7 +139,6 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 			cluster = nextcluster;
 		}
 	}
-	kfree_null(&buffer);
 	return list;
 }
 
@@ -211,22 +204,16 @@ uint64_t fat32_create_directory(void* dir, const char* name)
 	fs_tree_t* treeitem = (fs_tree_t*)dir;
 	fat32_t* info = (fat32_t*)treeitem->opaque;
 	uint32_t parent_dir_cluster = treeitem->lbapos ? treeitem->lbapos : info->rootdircluster;
-	uint8_t* buffer = kmalloc(info->clustersize);
-	if (!buffer) {
-		fs_set_error(FS_ERR_OUT_OF_MEMORY);
-		return 0;
-	}
+	uint8_t buffer[info->clustersize];
 	int bufferoffset = 0;
 	directory_entry_t* entry = (directory_entry_t*)(buffer + bufferoffset);
 
 	uint64_t cluster = fat32_internal_create_file(dir, name, 0, ATTR_DIRECTORY);
 	if (cluster == 0) {
-		kfree_null(&buffer);
 		return 0;
 	}
 
 	if (!read_cluster(info, cluster, buffer)) {
-		kfree_null(&buffer);
 		return 0;
 	}
 
@@ -246,11 +233,9 @@ uint64_t fat32_create_directory(void* dir, const char* name)
 	entry->first_cluster_hi = (parent_dir_cluster >> 16) & 0xffff;
 	entry->first_cluster_lo = parent_dir_cluster & 0xffff;
 	if (!write_cluster(info, cluster, buffer)) {
-		kfree_null(&buffer);
 		return 0;
 	}
 
-	kfree_null(&buffer);
 	return cluster;
 }
 

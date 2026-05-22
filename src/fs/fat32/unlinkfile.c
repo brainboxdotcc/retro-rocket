@@ -41,17 +41,12 @@ bool fat32_unlink_file(void* dir, const char* name)
 	amend_free_count(info, freed);
 
 	/* Remove related entries from directory */
-	uint8_t* buffer = kmalloc(info->clustersize);
-	if (!buffer) {
-		fs_set_error(FS_ERR_OUT_OF_MEMORY);
-		return false;
-	}
+	uint8_t buffer[info->clustersize];
 	directory_entry_t* entry_lfn_start = NULL;
 	cluster = dir_cluster;
 	while (true) {
 		int bufferoffset = 0;
 		if (!read_cluster(info, cluster, buffer)) {
-			kfree_null(&buffer);
 			free_fat32_directory(parsed_dir);
 			return false;
 		}
@@ -82,7 +77,6 @@ bool fat32_unlink_file(void* dir, const char* name)
 								entry_lfn_start += sizeof(directory_entry_t);
 							}
 							write_cluster(info, cluster, buffer);
-							kfree_null(&buffer);
 							free_fat32_directory(parsed_dir);
 							return true;
 						}
@@ -102,7 +96,6 @@ bool fat32_unlink_file(void* dir, const char* name)
 			cluster = nextcluster;
 		}
 	}
-	kfree_null(&buffer);
 	free_fat32_directory(parsed_dir);
 	return true;
 }

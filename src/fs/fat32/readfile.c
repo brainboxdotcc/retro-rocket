@@ -14,11 +14,7 @@ bool fat32_read_file(void* f, uint64_t start, uint32_t length, unsigned char* bu
 	uint32_t clustercount = 0;
 	uint32_t first = 1;
 	uint32_t amount_read = 0;
-	unsigned char* clbuf = kmalloc(info->clustersize);
-	if (!clbuf) {
-		fs_set_error(FS_ERR_OUT_OF_MEMORY);
-		return false;
-	}
+	unsigned char clbuf[info->clustersize];
 
 	dprintf("fat32_read_file: lbapos=%08x\n", cluster);
 
@@ -34,7 +30,6 @@ bool fat32_read_file(void* f, uint64_t start, uint32_t length, unsigned char* bu
 
 	while (true) {
 		if (!read_cluster(info, cluster, clbuf)) {
-			kfree_null(&clbuf);
 			return false;
 		}
 
@@ -61,7 +56,6 @@ bool fat32_read_file(void* f, uint64_t start, uint32_t length, unsigned char* bu
 	}
 
 
-	kfree_null(&clbuf);
 	return true;
 }
 
