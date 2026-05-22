@@ -337,16 +337,120 @@ int64_t basic_bitrol(struct basic_ctx* ctx);
  */
 int64_t basic_bitror(struct basic_ctx* ctx);
 
-void memrelease_statement(struct basic_ctx* ctx);
-
+/**
+ * @brief Implements the BASIC function MEMALLOC.
+ *
+ * BASIC syntax:
+ * @code
+ *   ptr = MEMALLOC(size)
+ * @endcode
+ *
+ * Allocates a block of memory from the BASIC allocator and registers the
+ * allocation in the memory grants table.
+ *
+ * @param ctx Interpreter context.
+ * @return Pointer to allocated memory, or 0 on failure.
+ */
 int64_t basic_memalloc(struct basic_ctx* ctx);
 
+/**
+ * @brief Implements the BASIC function MEMREALLOC.
+ *
+ * BASIC syntax:
+ * @code
+ *   ptr = MEMREALLOC(ptr, size)
+ * @endcode
+ *
+ * Reallocates a previously allocated memory block and updates memory grants.
+ *
+ * @param ctx Interpreter context.
+ * @return Pointer to reallocated memory, or 0 on failure.
+ */
 int64_t basic_memrealloc(struct basic_ctx* ctx);
 
+/**
+ * @brief Implements the BASIC statement MEMMOVE.
+ *
+ * BASIC syntax:
+ * @code
+ *   MEMMOVE source, dest, size
+ * @endcode
+ *
+ * Performs an overlapping-safe memory copy between two memory regions.
+ *
+ * @param ctx Interpreter context.
+ */
 void memmove_statement(struct basic_ctx* ctx);
 
+/**
+ * @brief Implements the BASIC statement MEMCOPY.
+ *
+ * BASIC syntax:
+ * @code
+ *   MEMCOPY source, dest, size
+ * @endcode
+ *
+ * Copies memory between two non-overlapping memory regions.
+ *
+ * @param ctx Interpreter context.
+ */
 void memcopy_statement(struct basic_ctx* ctx);
 
+/**
+ * @brief Implements the BASIC statement MEMSET.
+ *
+ * BASIC syntax:
+ * @code
+ *   MEMSET dest, value, size
+ * @endcode
+ *
+ * Fills a memory region with a byte value.
+ *
+ * @param ctx Interpreter context.
+ */
 void memset_statement(struct basic_ctx* ctx);
 
+/**
+ * @brief Implements the BASIC function MEMFIND.
+ *
+ * BASIC syntax:
+ * @code
+ *   ptr = MEMFIND(start, size, value)
+ * @endcode
+ *
+ * Searches a memory region for the first occurrence of a byte value.
+ *
+ * @param ctx Interpreter context.
+ * @return Address of matching byte, or 0 if not found.
+ */
 int64_t basic_memfind(struct basic_ctx* ctx);
+
+/**
+ * @brief Implements the BASIC statement MEMRELEASE.
+ *
+ * BASIC syntax:
+ * @code
+ *   MEMRELEASE ptr
+ * @endcode
+ *
+ * Releases a memory allocation previously created with MEMALLOC or
+ * MEMREALLOC and removes its grant entry.
+ *
+ * @param ctx Interpreter context.
+ */
+void memrelease_statement(struct basic_ctx* ctx);
+
+/**
+ * @brief Implements the BASIC statement DEVICES.
+ *
+ * BASIC syntax:
+ * @code
+ *   DEVICES devs$, owners$
+ * @endcode
+ *
+ * Enumerates registered device names and their owning subsystems into two
+ * BASIC string arrays.
+ *
+ * @param ctx Interpreter context.
+ */
+void devices_statement(struct basic_ctx* ctx);

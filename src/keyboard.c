@@ -322,7 +322,7 @@ void init_keyboard() {
 	char devname[16];
 	buffer_write_ptr = 0;
 	buffer_read_ptr = 0;
-	make_unique_device_name("kb", devname, sizeof(devname));
+	make_unique_device_name("kb", "ps/2", devname, sizeof(devname));
 	register_interrupt_handler(IRQ1, keyboard_handler, dev_zero, NULL);
 	proc_register_idle(keyboard_repeat_tick, IDLE_BACKGROUND, 1);
 	debugkey_register('D', true, false, true, debugkey_dprintf_dump);

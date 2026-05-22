@@ -446,3 +446,94 @@ int64_t basic_bitror(struct basic_ctx* ctx)
 	uint64_t out = ((x >> k) | (x << (w - k))) & mask;
 	return (int64_t) out;
 }
+
+static bool devices_to_string_arrays(struct basic_ctx* ctx, const char* dev_array, const char* owner_array, const char* count_var)
+{
+	if (ctx == NULL || dev_array == NULL || owner_array == NULL || count_var == NULL) {
+		return false;
+	}
+
+	if (!valid_string_var(dev_array) || !valid_string_var(owner_array)) {
+		tokenizer_error_print(ctx, "Malformed variable name");
+		return false;
+	}
+
+	if (varname_is_int_array_access(ctx, dev_array) || varname_is_double_array_access(ctx, dev_array)) {
+		tokenizer_error_printf(ctx, "Variable '%s' already exists as non-string array type", dev_array);
+		return false;
+	}
+
+	if (varname_is_int_array_access(ctx, owner_array) || varname_is_double_array_access(ctx, owner_array)) {
+		tokenizer_error_printf(ctx, "Variable '%s' already exists as non-string array type", owner_array);
+		return false;
+	}
+
+	size_t count = get_device_name_count();
+	devname_entry_t entries[count];
+
+	if (!get_device_names(entries, &count)) {
+		tokenizer_error_print(ctx, "Failed to enumerate device names");
+		return false;
+	}
+
+	if (!varname_is_string_array_access(ctx, dev_array)) {
+		if (!basic_dim_string_array(dev_array, count, ctx)) {
+			return false;
+		}
+	} else {
+		if (!basic_redim_string_array(dev_array, count, ctx)) {
+			return false;
+		}
+	}
+
+	if (!varname_is_string_array_access(ctx, owner_array)) {
+		if (!basic_dim_string_array(owner_array, count, ctx)) {
+			return false;
+		}
+	} else {
+		if (!basic_redim_string_array(owner_array, count, ctx)) {
+			return false;
+		}
+	}
+
+	struct ub_var_string_array* devs = find_string_array(dev_array, ctx);
+	struct ub_var_string_array* owners = find_string_array(owner_array, ctx);
+
+	if (devs == NULL || owners == NULL) {
+		return false;
+	}
+
+	for (size_t i = 0; i < count; ++i) {
+		char fullname[32];
+		snprintf(fullname, sizeof(fullname), "%s%d", entries[i].name, entries[i].suffix);
+		kfree_null(&devs->values[i]);
+		kfree_null(&owners->values[i]);
+		devs->values[i] = buddy_strdup(ctx->allocator, fullname);
+		owners->values[i] = buddy_strdup(ctx->allocator, entries[i].owner);
+		if (devs->values[i] == NULL || owners->values[i] == NULL) {
+			tokenizer_error_print(ctx, "Out of memory");
+			return false;
+		}
+	}
+
+	basic_set_int_variable(count_var, count, ctx, false, false);
+	return true;
+}
+
+void devices_statement(struct basic_ctx* ctx)
+{
+	accept_or_return(DEVICES, ctx);
+	size_t dev_var_length;
+	const char* dev_var = tokenizer_variable_name(ctx, &dev_var_length);
+	accept_or_return(VARIABLE, ctx);
+	accept_or_return(COMMA, ctx);
+	size_t owner_var_length;
+	const char* owner_var = tokenizer_variable_name(ctx, &owner_var_length);
+	accept_or_return(VARIABLE, ctx);
+	accept_or_return(COMMA, ctx);
+	size_t count_var_length;
+	const char* count_var = tokenizer_variable_name(ctx, &count_var_length);
+	accept_or_return(VARIABLE, ctx);
+	accept_or_return(NEWLINE, ctx);
+	devices_to_string_arrays(ctx, dev_var, owner_var, count_var);
+}

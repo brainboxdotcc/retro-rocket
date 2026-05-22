@@ -230,6 +230,7 @@ typedef void (*keyword_handler_t)(struct basic_ctx*);
     T(MEDIUM, STMT, NULL)				/* 158 */ \
     T(LARGE, STMT, NULL)				/* 159 */ \
     T(HUGE, STMT, NULL)					/* 160 */ \
+    T(DEVICES, STMT, devices_statement)			/* 161 */ \
 
 GENERATE_ENUM_LIST(TOKEN, token_t)
 

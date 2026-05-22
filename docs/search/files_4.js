@@ -18,8 +18,10 @@ var searchData=
   ['derestrict_2emd_15',['DERESTRICT.md',['../DERESTRICT_8md.html',1,'']]],
   ['desktop_2dand_2dshell_2emd_16',['desktop-and-shell.md',['../desktop-and-shell_8md.html',1,'']]],
   ['detok_2emd_17',['detok.md',['../detok_8md.html',1,'']]],
-  ['dim_2emd_18',['DIM.md',['../DIM_8md.html',1,'']]],
-  ['dir_2dfull_2dpathname_2emd_19',['dir-full-pathname.md',['../dir-full-pathname_8md.html',1,'']]],
-  ['dns_2emd_20',['DNS.md',['../DNS_8md.html',1,'']]],
-  ['dump_2emd_21',['dump.md',['../dump_8md.html',1,'']]]
+  ['devices_2dcommand_2emd_18',['devices-command.md',['../devices-command_8md.html',1,'']]],
+  ['devices_2emd_19',['DEVICES.md',['../DEVICES_8md.html',1,'']]],
+  ['dim_2emd_20',['DIM.md',['../DIM_8md.html',1,'']]],
+  ['dir_2dfull_2dpathname_2emd_21',['dir-full-pathname.md',['../dir-full-pathname_8md.html',1,'']]],
+  ['dns_2emd_22',['DNS.md',['../DNS_8md.html',1,'']]],
+  ['dump_2emd_23',['dump.md',['../dump_8md.html',1,'']]]
 ];

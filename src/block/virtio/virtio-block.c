@@ -505,7 +505,7 @@ void init_virtio_block(void) {
 	memset(sd, 0, sizeof(*sd));
 
 	char name[16];
-	if (!make_unique_device_name("hd", name, sizeof(name))) {
+	if (!make_unique_device_name("hd", "virtio-block", name, sizeof(name))) {
 		kfree(sd);
 		kfree(vb);
 		return;

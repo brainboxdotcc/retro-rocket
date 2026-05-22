@@ -73,6 +73,7 @@ The following parameter types are used throughout this documentation:
 * \subpage DEF
 * \subpage DELETE
 * \subpage DERESTRICT
+* \subpage DEVICES
 * \subpage DIM
 * \subpage ELSE
 * \subpage ENDIF

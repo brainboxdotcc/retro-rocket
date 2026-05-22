@@ -100,7 +100,7 @@ static audio_device_t *init_ac97(void) {
 	proc_register_idle(ac97_idle, IDLE_FOREGROUND, 1);
 
 	audio_device_t *device = kmalloc(sizeof(audio_device_t));
-	make_unique_device_name("audio", device->name, MAX_AUDIO_DEVICE_NAME);
+	make_unique_device_name("audio", "ac97.ko", device->name, MAX_AUDIO_DEVICE_NAME);
 	device->opaque = &ac97;
 	device->next = NULL;
 	device->play = push_all_s16le;

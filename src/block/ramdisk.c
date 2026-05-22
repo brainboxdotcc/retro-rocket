@@ -77,7 +77,7 @@ int rd_block_write(void *dev, uint64_t start, uint32_t bytes, const unsigned cha
 
 const char *init_ramdisk(size_t blocks, size_t blocksize) {
 	char name[16];
-	if (make_unique_device_name("ram", name, sizeof(name))) {
+	if (make_unique_device_name("ram", "ramdisk", name, sizeof(name))) {
 		uint8_t *data = kmalloc(blocks * blocksize);
 		if (data == NULL) {
 			fs_set_error(FS_ERR_OUT_OF_MEMORY);
@@ -121,7 +121,7 @@ const char *init_ramdisk(size_t blocks, size_t blocksize) {
 
 const char *init_ramdisk_from_memory(uint8_t *memory, size_t blocks, size_t blocksize) {
 	char name[16];
-	if (make_unique_device_name("ram", name, sizeof(name))) {
+	if (make_unique_device_name("ram", "ramdisk", name, sizeof(name))) {
 		ramdisk_t rd;
 		rd.data = memory;
 		rd.name = strdup(name);

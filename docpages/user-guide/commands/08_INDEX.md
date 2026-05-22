@@ -34,6 +34,7 @@ The following pages describe each command in detail:
 - \subpage delete
 - \subpage demo
 - \subpage detok
+- \subpage devices-command
 - \subpage dir-full-pathname
 - \subpage dump
 - \subpage edit

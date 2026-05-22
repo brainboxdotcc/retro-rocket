@@ -421,7 +421,7 @@ static bool virtio_net_start(pci_dev_t *pdev) {
 
 	net->opaque = NULL;
 	net->deviceid = (VIRTIO_VENDOR_ID << 16) | vnet.device_id;
-	make_unique_device_name("net", net->name, sizeof(net->name));
+	make_unique_device_name("net", "virtio_net.ko", net->name, sizeof(net->name));
 	net->description = "virtio-net (modern)";
 	net->flags = CONNECTED;
 	net->mtu = 1500;

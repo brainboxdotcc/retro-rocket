@@ -661,7 +661,7 @@ void init_nvme(void) {
 	}
 	memset(sd, 0, sizeof(*sd));
 
-	if (!make_unique_device_name("hd", sd->name, sizeof(sd->name))) {
+	if (!make_unique_device_name("hd", "nvme", sd->name, sizeof(sd->name))) {
 		dprintf("Failed to make unique device name");
 		kfree(sd);
 		kfree(dev);

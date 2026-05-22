@@ -170,7 +170,7 @@ var searchData=
   ['starting_20and_20stopping_20tasks_167',['Starting and stopping tasks',['../tasks.html#starting-and-stopping-tasks',1,'']]],
   ['starting_20the_20editor_168',['Starting the editor',['../edit.html#starting-the-editor',1,'']]],
   ['state_169',['Programs can launch other programs with shared state',['../basic-differences.html#programs-can-launch-other-programs-with-shared-state',1,'']]],
-  ['statement_170',['Statement',['../BINREAD.html',1,'BINREAD Statement'],['../BINWRITE.html',1,'BINWRITE Statement'],['../SOCKBINREAD.html',1,'SOCKBINREAD Statement'],['../SOCKBINWRITE.html',1,'SOCKBINWRITE Statement']]],
+  ['statement_170',['Statement',['../BINREAD.html',1,'BINREAD Statement'],['../BINWRITE.html',1,'BINWRITE Statement'],['../DEVICES.html',1,'DEVICES Statement'],['../SOCKBINREAD.html',1,'SOCKBINREAD Statement'],['../SOCKBINWRITE.html',1,'SOCKBINWRITE Statement']]],
   ['states_171',['Process states',['../GETPROCSTATE.html#process-states',1,'']]],
   ['static_20ip_172',['Static IP',['../glossary.html#static-ip',1,'']]],
   ['steps_173',['12) Next steps',['../basic-beginner.html#autotoc_md12-next-steps',1,'']]],

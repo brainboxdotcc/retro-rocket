@@ -34,6 +34,7 @@ var keywords =
     [ "DEF Keyword", "DEF.html", null ],
     [ "DELETE Keyword", "DELETE.html", null ],
     [ "DERESTRICT Keyword", "DERESTRICT.html", null ],
+    [ "DEVICES Statement", "DEVICES.html", null ],
     [ "DIM Keyword", "DIM.html", null ],
     [ "ELSE Keyword", "ELSE.html", null ],
     [ "ENDIF Keyword", "ENDIF.html", null ],

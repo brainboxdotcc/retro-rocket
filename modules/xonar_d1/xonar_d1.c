@@ -624,7 +624,7 @@ static audio_device_t *init_xonar_d1(void)
 		return NULL;
 	}
 
-	make_unique_device_name("audio", device->name, MAX_AUDIO_DEVICE_NAME);
+	make_unique_device_name("audio", "xonar_d1.ko", device->name, MAX_AUDIO_DEVICE_NAME);
 	device->opaque = &xonar_d1;
 	device->next = NULL;
 	device->play = xonar_push_all_s16le;

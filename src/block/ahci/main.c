@@ -237,7 +237,7 @@ void probe_port(ahci_hba_mem_t *abar)
 				sd->blockwrite = storage_device_ahci_block_write;
 				sd->blockclear = storage_device_ahci_block_clear;
 				sd->size = dt == AHCI_DEV_SATA ? ahci_read_size(&abar->ports[i], abar) : SIZE_MAX;
-				make_unique_device_name(dt == AHCI_DEV_SATA ? "hd" : "cd", sd->name, sizeof(sd->name));
+				make_unique_device_name(dt == AHCI_DEV_SATA ? "hd" : "cd", "ahci", sd->name, sizeof(sd->name));
 				sd->block_size = dt == AHCI_DEV_SATA ? HDD_SECTOR_SIZE : ATAPI_SECTOR_SIZE;
 				/* Build end-user label */
 				sd->ui.label[0] = 0;

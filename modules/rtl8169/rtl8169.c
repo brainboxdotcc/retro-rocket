@@ -380,7 +380,7 @@ static bool rtl8169_start(pci_dev_t pdev) {
 
 	rtl8169_outb(RTL8169_REG_COMMAND, RTL8169_COMMAND_TX_ENABLE | RTL8169_COMMAND_RX_ENABLE);
 
-	make_unique_device_name("net", rtl8169_dev.name, sizeof(rtl8169_dev.name));
+	make_unique_device_name("net", "rtl8169.ko", rtl8169_dev.name, sizeof(rtl8169_dev.name));
 
 	netdev_t* net = kmalloc(sizeof(netdev_t));
 	if (!net) {

@@ -14,6 +14,7 @@ var commands =
     [ "delete program", "delete.html", null ],
     [ "demo command", "demo.html", null ],
     [ "detok command", "detok.html", null ],
+    [ "devices command", "devices-command.html", null ],
     [ "dir command", "dir-full-pathname.html", null ],
     [ "dump command", "dump.html", null ],
     [ "edit command", "edit.html", [
