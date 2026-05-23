@@ -81,7 +81,7 @@ void copy_userland(const char* devname) {
 	progress = 0;
 	block_progress = 0;
 	display_progress("Copying system files (step 3 of 3)", 0);
-	filesystem_mount("/harddisk", devname, "rfs");
+	filesystem_mount("/harddisk", devname, "rfs", PARTITION_FIRST_MATCH);
 	copy_directory("/system", "/harddisk/system");
 	progress = 33;
 	block_progress = 0;

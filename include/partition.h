@@ -28,6 +28,11 @@
 #define GUID_BINARY_LEN 16
 
 /**
+ * @brief Pass this to filesytem_mount to scan for partitions instead of specifying
+ */
+#define PARTITION_FIRST_MATCH (int)-1
+
+/**
  * @brief A disk partition entry within the MBR.
  */
 typedef struct partition_t {
@@ -150,10 +155,12 @@ typedef struct gpt_entry_t {
  * @param partition_id Filled with the MBR partition index, or 0xFF if GPT.
  * @param start Filled with the start LBA if found.
  * @param length Filled with the length in sectors if found.
+ * @param start_index Index to start looking for a partition at (inclusive)
+ * @param end_index Index tp end looking for a partition at (inclusive)
  * @return true if partition found and output parameters are filled.
  * @return false if no matching partition was found.
  */
-bool find_partition_of_type(const char* device_name, uint8_t partition_type, char* found_guid, const char* partition_type_guid, uint8_t* partition_id, uint64_t* start, uint64_t* length);
+bool find_partition_of_type(const char* device_name, uint8_t partition_type, char* found_guid, const char* partition_type_guid, uint8_t* partition_id, uint64_t* start, uint64_t* length, uint8_t start_index, uint8_t end_index);
 
 /**
  * @brief Convert a GUID from ASCII to binary format.

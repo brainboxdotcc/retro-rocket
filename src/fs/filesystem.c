@@ -1558,19 +1558,19 @@ bool fs_is_directory(const char* path)
 	return false;
 }
 
-int filesystem_mount(const char* pathname, const char* device, const char* filesystem_driver)
+int filesystem_mount(const char* pathname, const char* device, const char* filesystem_driver, int partition_index)
 {
-	dprintf("filesystem_mount(%s, %s, %s)\n", pathname, device && *device ? device : "(null)", filesystem_driver);
+	dprintf("filesystem_mount(%s, %s, %s, %d)\n", pathname, device && *device ? device : "(null)", filesystem_driver, partition_index);
 	filesystem_t *driver = find_filesystem(filesystem_driver);
-	int success = (driver && driver->mount(device, pathname));
-	kprintf(
-		"%s %s to %s%s%s\n",
-		success ? "Mounted" : "Failed to mount",
-		pathname,
-		device && *device ? device : "",
-		device && *device ? " as " : "",
-		filesystem_driver
-	);
+	if (driver) {
+		dprintf("Found driver: %s\n", driver->name);
+	}
+	int success = (driver && driver->mount(device, pathname, partition_index));
+	if (partition_index == PARTITION_FIRST_MATCH) {
+		kprintf("%s %s to %s%s%s\n", success ? "Mounted" : "Failed to mount", pathname, device && *device ? device : "", device && *device ? " as " : "", filesystem_driver);
+	} else {
+		kprintf("%s %s to %s,%d%s%s\n", success ? "Mounted" : "Failed to mount", pathname, device && *device ? device : "", partition_index, device && *device ? " as " : "", filesystem_driver);
+	}
 	return success;
 
 }

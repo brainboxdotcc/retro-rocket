@@ -387,7 +387,7 @@ bool dfs_read_file(void *f, uint64_t start, uint32_t length, unsigned char *buff
 	return true;
 }
 
-int dfs_attach(const char *device, const char *path)
+int dfs_attach(const char *device, const char *path, int partition_index)
 {
 	dfs_t *vol = dfs_mount_volume(device);
 	if (!vol) {
@@ -427,18 +427,8 @@ void init_dfs(void)
 	}
 
 	strlcpy(dfs_fs->name, "dfs", 31);
-
 	dfs_fs->mount = dfs_attach;
 	dfs_fs->getdir = dfs_get_directory;
 	dfs_fs->readfile = dfs_read_file;
-
-	dfs_fs->writefile = NULL;
-	dfs_fs->truncatefile = NULL;
-	dfs_fs->createfile = NULL;
-	dfs_fs->createdir = NULL;
-	dfs_fs->rmdir = NULL;
-	dfs_fs->rm = NULL;
-	dfs_fs->freespace = NULL;
-
 	register_filesystem(dfs_fs);
 }

@@ -340,7 +340,7 @@ bool mount_initial_ramdisk(uint8_t *compressed_image, size_t compressed_size) {
 	if (rd_name == NULL) {
 		preboot_fail("Failed to register initial ramdisk device");
 	}
-	if (!filesystem_mount("/", rd_name, "iso9660")) {
+	if (!filesystem_mount("/", rd_name, "iso9660", PARTITION_FIRST_MATCH)) {
 		preboot_fail("Failed to register initial ramdisk device");
 	}
 

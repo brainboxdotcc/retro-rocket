@@ -27,7 +27,7 @@ static bool devfs_read_file(void *file, uint64_t start, uint32_t length, unsigne
 	return n->read_cb(start, length, buffer);
 }
 
-static int devfs_attach([[maybe_unused]] const char *device, const char *path) {
+static int devfs_attach([[maybe_unused]] const char *device, const char *path, [[maybe_unused]] int partition_index) {
 	return attach_filesystem(path, devfs, NULL);
 }
 
@@ -61,7 +61,7 @@ static void devfs_update_sizes(void) {
 }
 
 void init_devfs(void) {
-	devfs = kmalloc(sizeof(filesystem_t));
+	devfs = kcalloc(1, sizeof(filesystem_t));
 	if (!devfs) {
 		fs_set_error(FS_ERR_OUT_OF_MEMORY);
 		return;
@@ -71,14 +71,6 @@ void init_devfs(void) {
 	devfs->mount = devfs_attach;
 	devfs->getdir = devfs_get_directory;
 	devfs->readfile = devfs_read_file;
-	devfs->writefile = NULL;
-	devfs->truncatefile = NULL;
-	devfs->createfile = NULL;
-	devfs->createdir = NULL;
-	devfs->rmdir = NULL;
-	devfs->rm = NULL;
-	devfs->freespace = NULL;
-
 	register_filesystem(devfs);
 
 	/* Built-in /devices/debug device */

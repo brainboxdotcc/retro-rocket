@@ -163,7 +163,7 @@ uint64_t cluster_to_lba(fat32_t* info, uint32_t cluster);
 uint32_t get_fat_entry(fat32_t* info, uint32_t cluster);
 bool set_fat_entry(fat32_t* info, uint32_t cluster, uint32_t value);
 bool fat32_read_file(void* file, uint64_t start, uint32_t length, unsigned char* buffer);
-int fat32_attach(const char* device_name, const char* path);
+int fat32_attach(const char* device_name, const char* path, int partition_index);
 bool fat32_unlink_file(void* dir, const char* name);
 uint32_t find_next_free_fat_entry(fat32_t* info);
 void amend_free_count(fat32_t* info, int adjustment);

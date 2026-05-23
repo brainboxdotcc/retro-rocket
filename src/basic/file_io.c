@@ -286,8 +286,7 @@ void mkdir_statement(struct basic_ctx* ctx)
 	}
 }
 
-void mount_statement(struct basic_ctx* ctx)
-{
+void mount_statement(struct basic_ctx* ctx) {
 	accept_or_return(MOUNT, ctx);
 	const char* path = make_full_path(ctx, str_expr(ctx));
 	accept_or_return(COMMA, ctx);
@@ -295,7 +294,21 @@ void mount_statement(struct basic_ctx* ctx)
 	accept_or_return(COMMA, ctx);
 	const char* fs_type = str_expr(ctx);
 	accept_or_return(NEWLINE, ctx);
-	filesystem_mount(path, device, fs_type);
+	int partition = PARTITION_FIRST_MATCH;
+	char device_name[16];
+	strlcpy(device_name, device, sizeof(device_name));
+	char* comma = strchr(device_name, ',');
+	if (comma != NULL) {
+		*comma = 0;
+		char* endptr;
+		uint64_t value = strtoul(comma + 1, &endptr, 10);
+		if (*endptr || value > 255) {
+			tokenizer_error_print(ctx, "Invalid partition number");
+			return;
+		}
+		partition = value;
+	}
+	filesystem_mount(path, device_name, fs_type, partition);
 }
 
 void rmdir_statement(struct basic_ctx* ctx)

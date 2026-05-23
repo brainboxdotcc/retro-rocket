@@ -350,7 +350,7 @@ bool adfs_read_file(void *f, uint64_t start, uint32_t length, unsigned char *buf
 	return adfs_read_file_data(fs, file->lbapos, start, length, buffer, file->size);
 }
 
-int adfs_attach(const char *device, const char *path)
+int adfs_attach(const char *device, const char *path, int partition_index)
 {
 	adfs_t *vol = adfs_mount_volume(device);
 	if (!vol) {
@@ -384,18 +384,8 @@ void init_adfs()
 	}
 
 	strlcpy(adfs_fs->name, "adfs", 31);
-
 	adfs_fs->mount = adfs_attach;
 	adfs_fs->getdir = adfs_get_directory;
 	adfs_fs->readfile = adfs_read_file;
-
-	adfs_fs->writefile = NULL;
-	adfs_fs->truncatefile = NULL;
-	adfs_fs->createfile = NULL;
-	adfs_fs->createdir = NULL;
-	adfs_fs->rmdir = NULL;
-	adfs_fs->rm = NULL;
-	adfs_fs->freespace = NULL;
-
 	register_filesystem(adfs_fs);
 }

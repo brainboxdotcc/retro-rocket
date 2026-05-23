@@ -182,7 +182,7 @@ kmain()
   ↓
 init() → subsystems (heap, IDT, PCI, FS, etc)
   ↓
-filesystem_mount("/", "cd0", "iso9660")
+filesystem_mount("/", "cd0", "iso9660", PARTITION_FIRST_MATCH)
   ↓
 init_process()
   ↓

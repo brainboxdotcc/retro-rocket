@@ -80,8 +80,10 @@ int read_fat(fat32_t* info)
 	return 1;
 }
 
-fat32_t* fat32_mount_volume(const char* device_name)
+fat32_t* fat32_mount_volume(const char* device_name, int partition_index)
 {
+	uint8_t partition_start = partition_index > 0 ? partition_index : 0;
+	uint8_t partition_end = partition_index > 0 ? partition_index : UINT8_MAX;
 	if (!device_name) {
 		fs_set_error(FS_ERR_INVALID_ARG);
 		return NULL;
@@ -104,11 +106,11 @@ fat32_t* fat32_mount_volume(const char* device_name)
 	int success = 0;
 	if (
 		/* EFI system partition */
-		!find_partition_of_type(device_name, 0x0B, found_guid, GPT_EFI_SYSTEM, &info->partitionid, &start, &length) &&
-		!find_partition_of_type(device_name, 0x0C, found_guid, GPT_EFI_SYSTEM, &info->partitionid, &start, &length) &&
+		!find_partition_of_type(device_name, 0x0B, found_guid, GPT_EFI_SYSTEM, &info->partitionid, &start, &length, partition_start, partition_end) &&
+		!find_partition_of_type(device_name, 0x0C, found_guid, GPT_EFI_SYSTEM, &info->partitionid, &start, &length, partition_start, partition_end) &&
 		/* Microsoft basic data partition */
-		!find_partition_of_type(device_name, 0x0B, found_guid, GPT_MICROSOFT_BASIC_DATA, &info->partitionid, &start, &length) &&
-		!find_partition_of_type(device_name, 0x0C, found_guid, GPT_MICROSOFT_BASIC_DATA, &info->partitionid, &start, &length)
+		!find_partition_of_type(device_name, 0x0B, found_guid, GPT_MICROSOFT_BASIC_DATA, &info->partitionid, &start, &length, partition_start, partition_end) &&
+		!find_partition_of_type(device_name, 0x0C, found_guid, GPT_MICROSOFT_BASIC_DATA, &info->partitionid, &start, &length, partition_start, partition_end)
 	) {
 		/* No partition found, attempt to mount the volume as whole disk */
 		info->start = 0;
@@ -135,9 +137,9 @@ fat32_t* fat32_mount_volume(const char* device_name)
 	return info;
 }
 
-int fat32_attach(const char* device_name, const char* path)
+int fat32_attach(const char* device_name, const char* path, int partition_index)
 {
-	fat32_t* fat32fs = fat32_mount_volume(device_name);
+	fat32_t* fat32fs = fat32_mount_volume(device_name, partition_index);
 	if (fat32fs) {
 		int attached = attach_filesystem(path, fat32_fs, fat32fs);
 		if (attached) {
@@ -150,7 +152,7 @@ int fat32_attach(const char* device_name, const char* path)
 
 void init_fat32()
 {
-	fat32_fs = kmalloc(sizeof(filesystem_t));
+	fat32_fs = kcalloc(1, sizeof(filesystem_t));
 	if (!fat32_fs) {
 		return;
 	}

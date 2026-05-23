@@ -361,7 +361,7 @@ iso9660 *iso_mount_volume(const char *name) {
 	return info;
 }
 
-int iso9660_attach(const char *device, const char *path) {
+int iso9660_attach(const char *device, const char *path, int partition_index) {
 	iso9660 *vol = iso_mount_volume(device);
 	if (!vol) {
 		return 0;
@@ -370,7 +370,7 @@ int iso9660_attach(const char *device, const char *path) {
 }
 
 void init_iso9660() {
-	iso9660_fs = kmalloc(sizeof(filesystem_t));
+	iso9660_fs = kcalloc(1, sizeof(filesystem_t));
 	if (!iso9660_fs) {
 		return;
 	}
@@ -378,12 +378,5 @@ void init_iso9660() {
 	iso9660_fs->mount = iso9660_attach;
 	iso9660_fs->getdir = iso_get_directory;
 	iso9660_fs->readfile = iso_read_file;
-	iso9660_fs->writefile = NULL;
-	iso9660_fs->truncatefile = NULL;
-	iso9660_fs->createfile = NULL;
-	iso9660_fs->createdir = NULL;
-	iso9660_fs->rmdir = NULL;
-	iso9660_fs->rm = NULL;
-	iso9660_fs->freespace = NULL;
 	register_filesystem(iso9660_fs);
 }

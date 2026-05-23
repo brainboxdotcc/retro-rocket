@@ -31,7 +31,7 @@ typedef uint16_t mode_t;
 
 /* Prototypes for filesystem drivers (see filesystem_t) */
 typedef void* (*get_directory)(void*);
-typedef int (*mount_volume)(const char*, const char*);
+typedef int (*mount_volume)(const char*, const char*, int);
 typedef bool (*read_file)(void*, uint64_t, uint32_t, unsigned char*);
 typedef bool (*write_file)(void*, uint64_t, uint32_t, unsigned char*);
 typedef uint64_t (*create_file)(void*, const char*, size_t);
@@ -493,9 +493,13 @@ int attach_filesystem(const char* virtual_path, filesystem_t* fs, void* opaque);
  * @param pathname VFS path to mount device/driver to
  * @param device block device name
  * @param filesystem_driver filesystem driver name
+ * @param partition_index Partition number to attempt to mount. If you pass the value
+ * PARTITION_FIRST_MATCH (-1), then the function will attempt to scan the whole device
+ * for a matching partition, mounting the first it finds. If it finds none it will attempt
+ * to mount the whole device as a un-partitioned raw volume.
  * @return int 1 for success, 0 for failure
  */
-int filesystem_mount(const char* pathname, const char* device, const char* filesystem_driver);
+int filesystem_mount(const char* pathname, const char* device, const char* filesystem_driver, int partition_index);
 
 /**
  * @brief Initialise the filesystem

@@ -597,7 +597,7 @@ bool udf_read_file(void *f, uint64_t start, uint32_t length, unsigned char *buff
 	return udf_read_file_data(fs, UDF_ICB_PART(file->lbapos), UDF_ICB_LBA(file->lbapos), start, length, buffer);
 }
 
-int udf_attach(const char *device, const char *path) {
+int udf_attach(const char *device, const char *path, int partition_index) {
 	udf_t *vol = udf_mount_volume(device);
 	if (!vol) {
 		return 0;

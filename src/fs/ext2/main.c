@@ -285,7 +285,9 @@ static bool ext2_read_file(void *f, uint64_t start, uint32_t length, unsigned ch
 	return true;
 }
 
-static ext2_t *ext2_mount_volume(const char *device) {
+static ext2_t *ext2_mount_volume(const char *device, int partition_index) {
+	uint8_t partition_start = partition_index > 0 ? partition_index : 0;
+	uint8_t partition_end = partition_index > 0 ? partition_index : UINT8_MAX;
 	storage_device_t *dev = find_storage_device(device);
 	if (!dev) {
 		dprintf("ext2: Invalid block device '%s'\n", device);
@@ -304,7 +306,7 @@ static ext2_t *ext2_mount_volume(const char *device) {
 	}
 	fs->device = dev;
 
-	if (!find_partition_of_type(device, PARTITION_LINUX_FILESYSTEM, found_guid, GPT_LINUX_FILESYSTEM, &fs->partitionid, &start, &length)) {
+	if (!find_partition_of_type(device, PARTITION_LINUX_FILESYSTEM, found_guid, GPT_LINUX_FILESYSTEM, &fs->partitionid, &start, &length, partition_start, partition_end)) {
 		fs->start = 0;
 		fs->length = dev->size * dev->block_size;
 	} else {
@@ -315,43 +317,50 @@ static ext2_t *ext2_mount_volume(const char *device) {
 		} else {
 			dprintf("Found ext2 partition, device %s, GPT partition %s\n", device, found_guid);
 		}
-
 	}
+
+	dprintf("ext2 mounting %s...\n", device);
 
 	unsigned char buffer[2048];
 
 	if (!read_storage_device(device, fs->start + (EXT2_SUPERBLOCK_OFFSET / dev->block_size), 2048, buffer)) {
-		kfree_null(&fs);
 		dprintf("ext2: Failed to read superblock at block offset %016lx\n", fs->start + (EXT2_SUPERBLOCK_OFFSET / dev->block_size));
+		kfree_null(&fs);
 		return NULL;
 	}
 
+	dprintf("ext2: Superblock read. fs=%p buffer=%p source=%p\n", fs, buffer, buffer + (EXT2_SUPERBLOCK_OFFSET % dev->block_size));
+
 	memcpy(&fs->superblock, buffer + (EXT2_SUPERBLOCK_OFFSET % dev->block_size), sizeof(ext2_superblock_t));
 
+	dprintf("ext2: Superblock copied. fs->superblock=%p\n", &fs->superblock);
+
 	if (fs->superblock.magic != EXT2_SUPER_MAGIC) {
-		kfree_null(&fs);
 		dprintf("ext2: Invalid magic, expected %08x, got %08x\n", EXT2_SUPER_MAGIC, fs->superblock.magic);
+		kfree_null(&fs);
 		fs_set_error(FS_ERR_UNSUPPORTED);
 		return NULL;
 	}
 
+	dprintf("ext2: Matched magic!\n");
+
 	if (fs->superblock.feature_incompat & EXT2_INCOMPAT_COMPRESSION) {
-		kfree_null(&fs);
 		dprintf("ext2: Unsupported feature (compression)\n");
+		kfree_null(&fs);
 		fs_set_error(FS_ERR_UNSUPPORTED);
 		return NULL;
 	}
 
 	if (fs->superblock.feature_incompat & EXT2_INCOMPAT_RECOVER) {
-		kfree_null(&fs);
 		dprintf("ext2: Unsupported volume (requires fsck; not supported on Retro Rocket)\n");
+		kfree_null(&fs);
 		fs_set_error(FS_ERR_UNSUPPORTED);
 		return NULL;
 	}
 
 	if (fs->superblock.feature_incompat & EXT2_INCOMPAT_META_BG) {
-		kfree_null(&fs);
 		dprintf("ext2: Unsupported volume (meta block groups)\n");
+		kfree_null(&fs);
 		fs_set_error(FS_ERR_UNSUPPORTED);
 		return NULL;
 	}
@@ -361,8 +370,8 @@ static ext2_t *ext2_mount_volume(const char *device) {
 	}
 
 	if (fs->superblock.log_block_size > 4) {
-		kfree_null(&fs);
 		dprintf("ext2: log_block_size is too large (%d)\n", fs->superblock.log_block_size);
+		kfree_null(&fs);
 		fs_set_error(FS_ERR_UNSUPPORTED);
 		return NULL;
 	}
@@ -384,8 +393,8 @@ static ext2_t *ext2_mount_volume(const char *device) {
 
 	fs->groups = kcalloc(gd_blocks, fs->block_size);
 	if (!fs->groups) {
-		kfree_null(&fs);
 		dprintf("ext2: Out of memory allocating blocks\n");
+		kfree_null(&fs);
 		fs_set_error(FS_ERR_OUT_OF_MEMORY);
 		return NULL;
 	}
@@ -411,8 +420,8 @@ static ext2_t *ext2_mount_volume(const char *device) {
 	return fs;
 }
 
-static int ext2_attach(const char *device, const char *path) {
-	ext2_t *vol = ext2_mount_volume(device);
+static int ext2_attach(const char *device, const char *path, int partition_index) {
+	ext2_t *vol = ext2_mount_volume(device, partition_index);
 	if (!vol) {
 		return 0;
 	}

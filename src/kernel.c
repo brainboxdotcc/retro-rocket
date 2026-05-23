@@ -12,10 +12,10 @@ void kmain() {
 	} else {
 		if (live_cd) {
 			kprintf("Booting into live CD mode...\n");
-			root_fs_mounted = filesystem_mount("/", "cd0", "iso9660");
+			root_fs_mounted = filesystem_mount("/", "cd0", "iso9660", PARTITION_FIRST_MATCH);
 		} else {
 			kprintf("Booting from hard disk installation...\n");
-			root_fs_mounted = filesystem_mount("/", "hd0", "rfs");
+			root_fs_mounted = filesystem_mount("/", "hd0", "rfs", PARTITION_FIRST_MATCH);
 		}
 		if (!root_fs_mounted) {
 			preboot_fail("Failed to mount boot drive to VFS!");

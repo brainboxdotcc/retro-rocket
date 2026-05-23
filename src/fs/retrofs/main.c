@@ -32,11 +32,13 @@ bool read_rfs_description_block(rfs_t *info) {
 	return true;
 }
 
-rfs_t *rfs_mount_volume(const char *device_name) {
+rfs_t *rfs_mount_volume(const char *device_name, int partition_index) {
 	if (!device_name) {
 		fs_set_error(FS_ERR_INVALID_ARG);
 		return NULL;
 	}
+	uint8_t partition_start = partition_index > 0 ? partition_index : 0;
+	uint8_t partition_end = partition_index > 0 ? partition_index : UINT8_MAX;
 	dprintf("rfs_mount_volume -> %s\n", device_name);
 	char found_guid[64];
 	rfs_t *info = kmalloc(sizeof(rfs_t));
@@ -57,7 +59,7 @@ rfs_t *rfs_mount_volume(const char *device_name) {
 
 	bool success = false;
 	uint8_t partitionid = 0;
-	if (!find_partition_of_type(device_name, 0xFF, found_guid, RFS_GPT_GUID, &partitionid, &start, &length)) {
+	if (!find_partition_of_type(device_name, 0xFF, found_guid, RFS_GPT_GUID, &partitionid, &start, &length, partition_start, partition_end)) {
 		/* No partition found, attempt to mount the volume as whole disk */
 		info->start = 0;
 		info->length = info->dev->size;
@@ -92,8 +94,8 @@ rfs_t *rfs_mount_volume(const char *device_name) {
 }
 
 
-int rfs_attach(const char *device_name, const char *path) {
-	rfs_t *rfs = rfs_mount_volume(device_name);
+int rfs_attach(const char *device_name, const char *path, int partition_index) {
+	rfs_t *rfs = rfs_mount_volume(device_name, partition_index);
 	if (rfs) {
 		int success = attach_filesystem(path, rfs_fs, rfs);
 		if (success) {
@@ -106,7 +108,7 @@ int rfs_attach(const char *device_name, const char *path) {
 }
 
 void init_rfs() {
-	rfs_fs = kmalloc(sizeof(filesystem_t));
+	rfs_fs = kcalloc(1, sizeof(filesystem_t));
 	if (!rfs_fs) {
 		return;
 	}

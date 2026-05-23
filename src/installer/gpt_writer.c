@@ -308,7 +308,7 @@ bool prepare_rfs_partition(storage_device_t* dev, bool noisy) {
 
 	/* Find the RFS partition on the device */
 	if (noisy) {
-		if (!find_partition_of_type(dev->name, 0xFF, found_guid, RFS_GPT_GUID, &partitionid, &start, &length)) {
+		if (!find_partition_of_type(dev->name, 0xFF, found_guid, RFS_GPT_GUID, &partitionid, &start, &length, 0, UINT8_MAX)) {
 			error_page("Could not find the created RFS to format it on %s", dev->name);
 		} else {
 			info->start = start;
