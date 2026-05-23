@@ -11,15 +11,15 @@ Mounts a filesystem of the specified type at the given **mount point**.
 * **fstype**: one of the supported filesystem types listed below.
 
 @note Supported filesystem types:
-@note - rfs (Retro Rocket Filesystem)
-@note - iso9660 (CD-ROM images and discs)
-@note - fat32
-@note - devfs
-@note - DummyFS
-@note - udf (DVD and Blu-ray media)
-@note - dfs (Acorn DFS floppy images)
-@note - adfs (Acorn ADFS volumes)
-@note - ext2 (read-only)
+@note · rfs (Retro Rocket Filesystem)
+@note · iso9660 (CD-ROM images and discs)
+@note · fat32
+@note · devfs
+@note · DummyFS
+@note · udf (DVD and Blu-ray media)
+@note · dfs (Acorn DFS floppy images)
+@note · adfs (Acorn ADFS volumes)
+@note · ext2 (read-only)
 
 Paths are **case-insensitive**. `.` and `..` are **not supported** in paths. If no partition number is specified, Retro Rocket scans the device for the first matching supported partition type and falls back to mounting the raw device if no partition table is found.
 

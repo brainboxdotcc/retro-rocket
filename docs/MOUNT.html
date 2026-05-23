@@ -132,23 +132,23 @@ $(function(){initNavTree('MOUNT.html','',''); });
 </ul>
 <dl class="section note"><dt>Note</dt><dd>Supported filesystem types: </dd>
 <dd>
-- rfs (Retro Rocket Filesystem) </dd>
+· rfs (Retro Rocket Filesystem) </dd>
 <dd>
-- iso9660 (CD-ROM images and discs) </dd>
+· iso9660 (CD-ROM images and discs) </dd>
 <dd>
-- fat32 </dd>
+· fat32 </dd>
 <dd>
-- devfs </dd>
+· devfs </dd>
 <dd>
-- DummyFS </dd>
+· DummyFS </dd>
 <dd>
-- udf (DVD and Blu-ray media) </dd>
+· udf (DVD and Blu-ray media) </dd>
 <dd>
-- dfs (Acorn DFS floppy images) </dd>
+· dfs (Acorn DFS floppy images) </dd>
 <dd>
-- adfs (Acorn ADFS volumes) </dd>
+· adfs (Acorn ADFS volumes) </dd>
 <dd>
-- ext2 (read-only)</dd></dl>
+· ext2 (read-only)</dd></dl>
 <p>Paths are <b>case-insensitive</b>. <span class="tt">.</span> and <span class="tt">..</span> are <b>not supported</b> in paths. If no partition number is specified, Retro Rocket scans the device for the first matching supported partition type and falls back to mounting the raw device if no partition table is found.</p>
 <p>After mounting, files and directories at the mount point are accessible to normal file I/O (<span class="tt">OPENIN</span>, <span class="tt">OPENOUT</span>, <span class="tt">OPENUP</span>, <span class="tt">DELETE</span>, <span class="tt">MKDIR</span>, <span class="tt">RMDIR</span>, etc.). Use <span class="tt">CHDIR</span> to switch into the mounted path.</p>
 <p>On any mount, successful or unsuccessful, a status message is output to the console. This generates no BASIC error on failure, to allow for graceful failure and continuation behaviour during boot.</p>
