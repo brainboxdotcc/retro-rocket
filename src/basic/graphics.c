@@ -1562,11 +1562,6 @@ static bool sprite_row_to_int_array(struct basic_ctx* ctx, sprite_t* s, int64_t 
 		return false;
 	}
 
-	if (varname_is_string_array_access(ctx, varname) || varname_is_double_array_access(ctx, varname)) {
-		tokenizer_error_printf(ctx, "Variable '%s' already exists as non-integer array type", varname);
-		return false;
-	}
-
 	if (!varname_is_int_array_access(ctx, varname)) {
 		if (!basic_dim_int_array(varname, s->width, ctx)) {
 			return false;

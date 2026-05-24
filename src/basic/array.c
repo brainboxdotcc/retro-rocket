@@ -772,7 +772,7 @@ void pop_statement(struct basic_ctx* ctx)
 
 static bool ensure_int_result_array(const char* varname, int64_t size, struct basic_ctx* ctx)
 {
-	if (varname_is_string_array_access(ctx, varname) || varname_is_double_array_access(ctx, varname)) {
+	if (basic_int_variable_exists(varname, ctx)) {
 		tokenizer_error_printf(ctx, "Variable '%s' already exists as non-integer array type", varname);
 		return false;
 	}

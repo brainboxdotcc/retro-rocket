@@ -458,16 +458,6 @@ static bool devices_to_string_arrays(struct basic_ctx* ctx, const char* dev_arra
 		return false;
 	}
 
-	if (varname_is_int_array_access(ctx, dev_array) || varname_is_double_array_access(ctx, dev_array)) {
-		tokenizer_error_printf(ctx, "Variable '%s' already exists as non-string array type", dev_array);
-		return false;
-	}
-
-	if (varname_is_int_array_access(ctx, owner_array) || varname_is_double_array_access(ctx, owner_array)) {
-		tokenizer_error_printf(ctx, "Variable '%s' already exists as non-string array type", owner_array);
-		return false;
-	}
-
 	size_t count = get_device_name_count();
 	devname_entry_t entries[count];
 
