@@ -33,6 +33,26 @@
 #define PARTITION_FIRST_MATCH (int)-1
 
 /**
+ * @brief MBR partition type used for Linux LVM physical volumes.
+ */
+#define PARTITION_LVM 0x8E
+
+/**
+ * @brief GPT partition type GUID used for Linux LVM physical volumes.
+ */
+#define GPT_LINUX_LVM "E6D6D379-F507-44C2-A23C-238F2A3DF928"
+
+/**
+ * @brief Sector containing the LVM label relative to the start of the physical volume.
+ */
+#define LVM_LABEL_SECTOR 1
+
+/**
+ * @brief Maximum LVM metadata area size accepted by the lightweight parser.
+ */
+#define LVM_MAX_METADATA_SIZE (1024 * 1024)
+
+/**
  * @brief A disk partition entry within the MBR.
  */
 typedef struct partition_t {
@@ -143,22 +163,78 @@ typedef struct gpt_entry_t {
 } __attribute__((packed)) gpt_entry_t;
 
 /**
- * @brief Find a partition of a given type on a device.
+ * @brief LVM label header stored at the label sector of a physical volume.
+ */
+typedef struct lvm_label_header {
+	/** @brief Label identifier, normally "LABELONE". */
+	char id[8];
+
+	/** @brief Sector number where this label was found. */
+	uint64_t sector;
+
+	/** @brief CRC of the label header. */
+	uint32_t crc;
+
+	/** @brief Offset from the start of the sector to the LVM physical volume header. */
+	uint32_t offset;
+
+	/** @brief Label type, normally "LVM2 001". */
+	char type[8];
+} __attribute__((packed)) lvm_label_header_t;
+
+/**
+ * @brief Offset and size pair used by LVM physical volume metadata structures.
+ */
+typedef struct lvm_disk_location {
+	/** @brief Byte offset relative to the start of the physical volume. */
+	uint64_t offset;
+
+	/** @brief Size in bytes. */
+	uint64_t size;
+} __attribute__((packed)) lvm_disk_location_t;
+
+/**
+ * @brief LVM physical volume header referenced by the label header.
+ */
+typedef struct lvm_pv_header {
+	/** @brief LVM physical volume UUID as stored on disk. */
+	char uuid[32];
+
+	/** @brief Size of the physical volume device in bytes. */
+	uint64_t device_size;
+
+	/** @brief Location of the physical extent data area. */
+	lvm_disk_location_t data_area;
+
+	/** @brief Location of the first metadata area. */
+	lvm_disk_location_t metadata_area;
+} __attribute__((packed)) lvm_pv_header_t;
+
+/**
+ * @brief Find a visible volume of a requested partition type on a device.
  *
- * Given a device name and partition type ID, searches for a matching partition
- * and fills the provided output parameters with information about it.
+ * Searches the device for volumes matching the requested MBR partition type or
+ * GPT partition type GUID. On MBR disks, normal partition entries are matched
+ * against @p partition_type. On GPT disks, partition entries are matched against
+ * @p partition_type_guid.
+ *
+ * Linux LVM physical volumes are also scanned. Simple linear LVM logical volumes
+ * are folded into the same visible index sequence as ordinary partitions, but
+ * are only returned when the requested type represents a Linux filesystem
+ * partition. This keeps volume numbering stable while avoiding exposing LVM
+ * contents for unrelated partition searches.
  *
  * @param device_name Name of the device to search.
  * @param partition_type MBR partition type ID to look for.
- * @param found_guid Buffer to store the GUID of the found partition (if GPT).
- * @param partition_type_guid GUID string of the partition type to match (if GPT).
- * @param partition_id Filled with the MBR partition index, or 0xFF if GPT.
- * @param start Filled with the start LBA if found.
- * @param length Filled with the length in sectors if found.
- * @param start_index Index to start looking for a partition at (inclusive)
- * @param end_index Index tp end looking for a partition at (inclusive)
- * @return true if partition found and output parameters are filled.
- * @return false if no matching partition was found.
+ * @param found_guid Buffer to store the unique GPT partition GUID if a GPT partition is found.
+ * @param partition_type_guid GPT partition type GUID string to look for.
+ * @param partition_id Filled with the MBR partition index, 0xFF for GPT, or 0xFE for LVM.
+ * @param start Filled with the start LBA of the matched volume.
+ * @param length Filled with the length of the matched volume in sectors.
+ * @param start_index First visible matching index to consider, inclusive.
+ * @param end_index Last visible matching index to consider, inclusive.
+ * @return true if a matching volume was found and output parameters were filled.
+ * @return false if no matching volume was found.
  */
 bool find_partition_of_type(const char* device_name, uint8_t partition_type, char* found_guid, const char* partition_type_guid, uint8_t* partition_id, uint64_t* start, uint64_t* length, uint8_t start_index, uint8_t end_index);
 

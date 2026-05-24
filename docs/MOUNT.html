@@ -127,7 +127,7 @@ $(function(){initNavTree('MOUNT.html','',''); });
 </div><!-- fragment --><p>Mounts a filesystem of the specified type at the given <b>mount point</b>.</p>
 <ul>
 <li><b>mountpoint</b>: path where the filesystem will appear in the directory tree (for example <span class="tt">"/harddisk"</span>).</li>
-<li><b>device</b>: device identifier (for example <span class="tt">"hd0"</span> for the first hard disk). May be an <b>empty string</b> for virtual filesystems. A partition number may optionally be appended after a comma, for example <span class="tt">"hd0,0"</span> for the first partition on <span class="tt">hd0</span>. Partition numbers always start at 0, same as device numbers, and will work regardless of if the device has a GPT or BIOS partition table.</li>
+<li><b>device</b>: device identifier (for example <span class="tt">"hd0"</span> for the first hard disk). May be an <b>empty string</b> for virtual filesystems. A partition number may optionally be appended after a comma, for example <span class="tt">"hd0,0"</span> for the first partition on <span class="tt">hd0</span>. Partition numbers always start at 0, same as device numbers, and work regardless of whether the device uses an MBR or GPT partition table.</li>
 <li><b>fstype</b>: one of the supported filesystem types listed below.</li>
 </ul>
 <dl class="section note"><dt>Note</dt><dd>Supported filesystem types: </dd>
@@ -149,7 +149,11 @@ $(function(){initNavTree('MOUNT.html','',''); });
 · adfs (Acorn ADFS volumes) </dd>
 <dd>
 · ext2 (read-only)</dd></dl>
-<p>Paths are <b>case-insensitive</b>. <span class="tt">.</span> and <span class="tt">..</span> are <b>not supported</b> in paths. If no partition number is specified, Retro Rocket scans the device for the first matching supported partition type and falls back to mounting the raw device if no partition table is found.</p>
+<p>Paths are <b>case-insensitive</b>. <span class="tt">.</span> and <span class="tt">..</span> are <b>not supported</b> in paths.</p>
+<p>If no partition number is specified, Retro Rocket scans the device for the first partition or logical volume matching the requested filesystem type. This works with both traditional partitions and supported Linux LVM2 logical volumes.</p>
+<p>Simple linear LVM2 logical volumes are exposed as additional partition numbers in the same visible sequence as ordinary partitions. For example, if a disk contains four normal partitions and two supported LVM logical volumes, the logical volumes appear as subsequent partition numbers.</p>
+<p>Retro Rocket currently supports read-only mounting of simple linear LVM2 volumes containing ext2 filesystems. More complex LVM layouts such as striped, mirrored, RAID, thin-provisioned, snapshot, cached or multi-segment logical volumes are not currently supported.</p>
+<p>If no matching partition or logical volume is found, Retro Rocket falls back to attempting to mount the raw device directly.</p>
 <p>After mounting, files and directories at the mount point are accessible to normal file I/O (<span class="tt">OPENIN</span>, <span class="tt">OPENOUT</span>, <span class="tt">OPENUP</span>, <span class="tt">DELETE</span>, <span class="tt">MKDIR</span>, <span class="tt">RMDIR</span>, etc.). Use <span class="tt">CHDIR</span> to switch into the mounted path.</p>
 <p>On any mount, successful or unsuccessful, a status message is output to the console. This generates no BASIC error on failure, to allow for graceful failure and continuation behaviour during boot.</p>
 <hr  />
@@ -158,6 +162,8 @@ Examples</h3>
 <div class="fragment"><div class="line">MOUNT &quot;/devices&quot;, &quot;&quot;, &quot;devfs&quot;</div>
 <div class="line">MOUNT &quot;/harddisk&quot;, &quot;hd0&quot;, &quot;fat32&quot;</div>
 <div class="line">MOUNT &quot;/linux&quot;, &quot;hd1,0&quot;, &quot;ext2&quot;</div>
+</div><!-- fragment --><p>A Linux ext2 filesystem stored inside a supported LVM2 logical volume may also be mounted directly using its visible partition number:</p>
+<div class="fragment"><div class="line">MOUNT &quot;/linux&quot;, &quot;hd0,5&quot;, &quot;ext2&quot;</div>
 </div><!-- fragment --><hr  />
 <p><b>See also:</b> <a class="el" href="CHDIR.html">CHDIR</a> · <a class="el" href="MKDIR.html">MKDIR</a> · <a class="el" href="DELETE.html">DELETE</a> · <a class="el" href="RMDIR.html">RMDIR</a> · <a class="el" href="OPENIN.html">OPENIN</a> · <a class="el" href="OPENOUT.html">OPENOUT</a> · <a class="el" href="OPENUP.html">OPENUP</a> </p>
 </div></div><!-- contents -->

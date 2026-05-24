@@ -7,7 +7,7 @@ MOUNT "mountpoint", "device", "fstype"
 Mounts a filesystem of the specified type at the given **mount point**.
 
 * **mountpoint**: path where the filesystem will appear in the directory tree (for example `"/harddisk"`).
-* **device**: device identifier (for example `"hd0"` for the first hard disk). May be an **empty string** for virtual filesystems. A partition number may optionally be appended after a comma, for example `"hd0,0"` for the first partition on `hd0`. Partition numbers always start at 0, same as device numbers, and will work regardless of if the device has a GPT or BIOS partition table.
+* **device**: device identifier (for example `"hd0"` for the first hard disk). May be an **empty string** for virtual filesystems. A partition number may optionally be appended after a comma, for example `"hd0,0"` for the first partition on `hd0`. Partition numbers always start at 0, same as device numbers, and work regardless of whether the device uses an MBR or GPT partition table.
 * **fstype**: one of the supported filesystem types listed below.
 
 @note Supported filesystem types:
@@ -21,7 +21,15 @@ Mounts a filesystem of the specified type at the given **mount point**.
 @note · adfs (Acorn ADFS volumes)
 @note · ext2 (read-only)
 
-Paths are **case-insensitive**. `.` and `..` are **not supported** in paths. If no partition number is specified, Retro Rocket scans the device for the first matching supported partition type and falls back to mounting the raw device if no partition table is found.
+Paths are **case-insensitive**. `.` and `..` are **not supported** in paths.
+
+If no partition number is specified, Retro Rocket scans the device for the first partition or logical volume matching the requested filesystem type. This works with both traditional partitions and supported Linux LVM2 logical volumes.
+
+Simple linear LVM2 logical volumes are exposed as additional partition numbers in the same visible sequence as ordinary partitions. For example, if a disk contains four normal partitions and two supported LVM logical volumes, the logical volumes appear as subsequent partition numbers.
+
+Retro Rocket currently supports read-only mounting of simple linear LVM2 volumes containing ext2 filesystems. More complex LVM layouts such as striped, mirrored, RAID, thin-provisioned, snapshot, cached or multi-segment logical volumes are not currently supported.
+
+If no matching partition or logical volume is found, Retro Rocket falls back to attempting to mount the raw device directly.
 
 After mounting, files and directories at the mount point are accessible to normal file I/O (`OPENIN`, `OPENOUT`, `OPENUP`, `DELETE`, `MKDIR`, `RMDIR`, etc.). Use `CHDIR` to switch into the mounted path.
 
@@ -35,6 +43,12 @@ On any mount, successful or unsuccessful, a status message is output to the cons
 MOUNT "/devices", "", "devfs"
 MOUNT "/harddisk", "hd0", "fat32"
 MOUNT "/linux", "hd1,0", "ext2"
+```
+
+A Linux ext2 filesystem stored inside a supported LVM2 logical volume may also be mounted directly using its visible partition number:
+
+```basic
+MOUNT "/linux", "hd0,5", "ext2"
 ```
 
 ---

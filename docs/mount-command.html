@@ -133,39 +133,46 @@ $(function(){initNavTree('mount-command.html','',''); });
 </ul>
 <table class="markdownTable">
 <tr class="markdownTableHead">
-<th class="markdownTableHeadNone">File system type  </th><th class="markdownTableHeadNone">Full name  </th><th class="markdownTableHeadNone">Partition support  </th><th class="markdownTableHeadNone">Description  </th></tr>
+<th class="markdownTableHeadNone">File system type  </th><th class="markdownTableHeadNone">Full name  </th><th class="markdownTableHeadNone">Partition support  </th><th class="markdownTableHeadNone">LVM2 support  </th><th class="markdownTableHeadNone">Description  </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">rfs  </td><td class="markdownTableBodyNone">RetroFS, the Retro Rocket native file system  </td><td class="markdownTableBodyNone">Yes  </td><td class="markdownTableBodyNone">Readable, writeable file system for large hard disks, e.g. NVMe, SATA. The default file system type for fixed disks and ramdisks  </td></tr>
+<td class="markdownTableBodyNone">rfs  </td><td class="markdownTableBodyNone">RetroFS, the Retro Rocket native file system  </td><td class="markdownTableBodyNone">Yes  </td><td class="markdownTableBodyNone">No  </td><td class="markdownTableBodyNone">Readable, writeable file system for large hard disks, e.g. NVMe, SATA. The default file system type for fixed disks and ramdisks  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">iso9660  </td><td class="markdownTableBodyNone">ISO 9660 file system for CDs and DVDs  </td><td class="markdownTableBodyNone">No  </td><td class="markdownTableBodyNone">Read-only file system mainly for CDs and DVDs. The default file system of the Retro Rocket LiveCD  </td></tr>
+<td class="markdownTableBodyNone">iso9660  </td><td class="markdownTableBodyNone">ISO 9660 file system for CDs and DVDs  </td><td class="markdownTableBodyNone">No  </td><td class="markdownTableBodyNone">No  </td><td class="markdownTableBodyNone">Read-only file system mainly for CDs and DVDs. The default file system of the Retro Rocket LiveCD  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">adfs  </td><td class="markdownTableBodyNone">Acorn ADFS "L" Format  </td><td class="markdownTableBodyNone">No  </td><td class="markdownTableBodyNone">Read-only file system for Acorn BBC Micro Floppy disks - The Advanced Disk Filing System  </td></tr>
+<td class="markdownTableBodyNone">adfs  </td><td class="markdownTableBodyNone">Acorn ADFS "L" Format  </td><td class="markdownTableBodyNone">No  </td><td class="markdownTableBodyNone">No  </td><td class="markdownTableBodyNone">Read-only file system for Acorn BBC Micro Floppy disks - The Advanced Disk Filing System  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">dfs  </td><td class="markdownTableBodyNone">Acorn DFS DS/DD 80T Format  </td><td class="markdownTableBodyNone">No  </td><td class="markdownTableBodyNone">Read-only file system for Acorn BBC Micro Floppy disks - The Disk Filing System  </td></tr>
+<td class="markdownTableBodyNone">dfs  </td><td class="markdownTableBodyNone">Acorn DFS DS/DD 80T Format  </td><td class="markdownTableBodyNone">No  </td><td class="markdownTableBodyNone">No  </td><td class="markdownTableBodyNone">Read-only file system for Acorn BBC Micro Floppy disks - The Disk Filing System  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">fat32  </td><td class="markdownTableBodyNone">FAT32 DOS and Windows file system  </td><td class="markdownTableBodyNone">Yes  </td><td class="markdownTableBodyNone">Readable, writeable file system used for removable media, and the recovery/boot partition of installed systems  </td></tr>
+<td class="markdownTableBodyNone">fat32  </td><td class="markdownTableBodyNone">FAT32 DOS and Windows file system  </td><td class="markdownTableBodyNone">Yes  </td><td class="markdownTableBodyNone">No  </td><td class="markdownTableBodyNone">Readable, writeable file system used for removable media, and the recovery/boot partition of installed systems  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">ext2  </td><td class="markdownTableBodyNone">Linux Extended File system (ext2, ext3)  </td><td class="markdownTableBodyNone">Yes  </td><td class="markdownTableBodyNone">Read-only file system used on Linux systems. Can be read from to move data into Retro Rocket. Will not mount volumes needing recovery  </td></tr>
+<td class="markdownTableBodyNone">ext2  </td><td class="markdownTableBodyNone">Linux Extended File system (ext2, ext3)  </td><td class="markdownTableBodyNone">Yes  </td><td class="markdownTableBodyNone">Yes  </td><td class="markdownTableBodyNone">Read-only file system used on Linux systems. Supports direct mounting from supported simple linear LVM2 logical volumes  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">udf  </td><td class="markdownTableBodyNone">UDF (Universal Disk Format)  </td><td class="markdownTableBodyNone">No  </td><td class="markdownTableBodyNone">Read-only file system used for removable media such as CD/DVD/Blu-Ray. Often seen on rewritable or multi-session media.  </td></tr>
+<td class="markdownTableBodyNone">udf  </td><td class="markdownTableBodyNone">UDF (Universal Disk Format)  </td><td class="markdownTableBodyNone">No  </td><td class="markdownTableBodyNone">No  </td><td class="markdownTableBodyNone">Read-only file system used for removable media such as CD/DVD/Blu-Ray. Often seen on rewritable or multi-session media.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">devfs  </td><td class="markdownTableBodyNone">Device tree file system  </td><td class="markdownTableBodyNone">No  </td><td class="markdownTableBodyNone">Readable, writeable file system which device drivers may use to expose device-specific information and control surfaces. *  </td></tr>
+<td class="markdownTableBodyNone">devfs  </td><td class="markdownTableBodyNone">Device tree file system  </td><td class="markdownTableBodyNone">No  </td><td class="markdownTableBodyNone">No  </td><td class="markdownTableBodyNone">Readable, writeable file system which device drivers may use to expose device-specific information and control surfaces. *  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">dummyfs  </td><td class="markdownTableBodyNone">Dummy File System  </td><td class="markdownTableBodyNone">No  </td><td class="markdownTableBodyNone">The dummy file system does nothing, you cannot read or write to it. It is the placeholder for everything until the system boots  </td></tr>
+<td class="markdownTableBodyNone">dummyfs  </td><td class="markdownTableBodyNone">Dummy File System  </td><td class="markdownTableBodyNone">No  </td><td class="markdownTableBodyNone">No  </td><td class="markdownTableBodyNone">The dummy file system does nothing, you cannot read or write to it. It is the placeholder for everything until the system boots  </td></tr>
 </table>
-<ul>
-<li>For <span class="tt">devfs</span>, you cannot create arbitrary files in this file system. Your ability to read from, or write to the files in this directory depends on the behaviour of the driver which places the file there.</li>
-</ul>
-<dl class="section note"><dt>Note</dt><dd>For file system types which do not support partitions, any supplied partition number is silently ignored and the entire device is treated as the volume to be mounted.</dd></dl>
-<h3 class="doxsection"><a class="anchor" id="example-28"></a>
-Example</h3>
+<h3 class="doxsection"><a class="anchor" id="devfs-behaviour"></a>
+Devfs Behaviour</h3>
+<p>For <span class="tt">devfs</span>, you cannot create arbitrary files in this file system. Your ability to read from, or write to, files in this directory depends on the behaviour of the driver which places them there.</p>
+<h3 class="doxsection"><a class="anchor" id="lvm2-support"></a>
+LVM2 Support</h3>
+<p>Simple linear LVM2 logical volumes are folded into the same visible partition numbering sequence as ordinary partitions. For example, if a disk contains four ordinary partitions followed by two supported LVM2 logical volumes, the logical volumes appear as partition numbers 4 and 5.</p>
+<p>Retro Rocket currently supports read-only mounting of simple linear LVM2 logical volumes only. Striped, mirrored, RAID, snapshot, thin-provisioned, cached and multi-segment logical volumes are not currently supported.</p>
+<h3 class="doxsection"><a class="anchor" id="whole-volume-filesystems"></a>
+Whole-volume filesystems</h3>
+<p>For file system types which do not support partitions, any supplied partition number is silently ignored and the entire device is treated as the volume to be mounted.</p>
+<h2 class="doxsection"><a class="anchor" id="example-28"></a>
+Example</h2>
 <div class="fragment"><div class="line">mount /harddisk hd0 rfs</div>
 <div class="line">mount /linux hd1,0 ext2</div>
-</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="notes-246"></a>
-Notes</h3>
+<div class="line">mount /linux-lvm hd0,5 ext2</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="notes-246"></a>
+Notes</h2>
 <ul>
-<li>Mounting a storage device with a file system it is not configured for will result in a status message</li>
-<li>If no partition number is specified, the system scans for the first compatible partition and falls back to mounting the raw device if no partition table is found</li>
+<li>Attempting to mount a storage device using the wrong file system type will result in a status message</li>
+<li>If no partition number is specified, the system scans for the first compatible partition or supported logical volume and falls back to mounting the raw device if no partition table is found</li>
 <li>Unmounting file systems is <b>not yet supported</b>. To clear a mounting, it is currently required that you reboot the system. </li>
 </ul>
 </div></div><!-- contents -->
