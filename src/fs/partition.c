@@ -1,51 +1,5 @@
 #include <kernel.h>
-
-static inline uint8_t hexval(char c) {
-	if (c >= '0' && c <= '9') return c - '0';
-	if (c >= 'a' && c <= 'f') return 10 + (c - 'a');
-	if (c >= 'A' && c <= 'F') return 10 + (c - 'A');
-	return 0;
-}
-
-static inline uint8_t parse_byte(const char* s) {
-	return (hexval(s[0]) << 4) | hexval(s[1]);
-}
-
-bool guid_to_binary(const char* guid, void* binary) {
-	uint8_t* out = binary;
-	// field 1: 8 hex digits, little-endian
-	out[3] = parse_byte(guid + 0);
-	out[2] = parse_byte(guid + 2);
-	out[1] = parse_byte(guid + 4);
-	out[0] = parse_byte(guid + 6);
-	guid += 8 + 1; // skip "XXXXXXXX-"
-	// field 2: 4 hex digits, little-endian
-	out[5] = parse_byte(guid + 0);
-	out[4] = parse_byte(guid + 2);
-	guid += 4 + 1; // skip "XXXX-"
-	// field 3: 4 hex digits, little-endian
-	out[7] = parse_byte(guid + 0);
-	out[6] = parse_byte(guid + 2);
-	guid += 4 + 1; // skip "XXXX-"
-	// field 4: 4 hex digits, big-endian (as-is)
-	out[8] = parse_byte(guid + 0);
-	out[9] = parse_byte(guid + 2);
-	guid += 4 + 1; // skip "XXXX-"
-	// field 5: 12 hex digits, big-endian (as-is)
-	for (int i = 0; i < 6; i++) {
-		out[10 + i] = parse_byte(guid + i*2);
-	}
-	return true;
-}
-
-bool binary_to_guid(const void* binary, char* guid) {
-	const uint8_t* in = binary;
-	unsigned int d1 = in[0] | (in[1] << 8) | (in[2] << 16) | (in[3] << 24);
-	unsigned int d2 = in[4] | (in[5] << 8);
-	unsigned int d3 = in[6] | (in[7] << 8);
-	snprintf(guid, GUID_ASCII_LEN + 1, "%08X-%04X-%04X-%02X%02X-%02X%02X%02X%02X%02X%02X", d1, d2, d3, in[8], in[9], in[10], in[11], in[12], in[13], in[14], in[15]);
-	return true;
-}
+#include <guid.h>
 
 /**
  * @brief Read an arbitrary byte range from a block device.
@@ -194,9 +148,10 @@ static bool lvm_read_pv_extent(const char* start, uint64_t* pv_extent) {
  * @param end_index Last visible partition index to consider.
  * @param start Filled with the starting LBA of a matching logical volume.
  * @param length Filled with the length in sectors of a matching logical volume.
+ * @param walk If non-NULL, will be called for each item the function iterates over including any match
  * @return true if a matching logical volume was found, otherwise false.
  */
-static bool scan_lvm_pv(storage_device_t* sd, uint64_t pv_start, uint64_t pv_length, uint8_t partition_type, const char* partition_type_guid, uint8_t* visible_index, uint8_t start_index, uint8_t end_index, uint64_t* start, uint64_t* length) {
+static bool scan_lvm_pv(storage_device_t* sd, uint64_t pv_start, uint64_t pv_length, uint8_t partition_type, const text_guid_t partition_type_guid, uint8_t* visible_index, uint8_t start_index, uint8_t end_index, uint64_t* start, uint64_t* length, volume_enumerator_t walk) {
 	uint8_t sector[sd->block_size];
 
 	if (!read_storage_device(sd->name, pv_start + LVM_LABEL_SECTOR, sd->block_size, sector)) {
@@ -270,7 +225,14 @@ static bool scan_lvm_pv(storage_device_t* sd, uint64_t pv_start, uint64_t pv_len
 		 * LVM2 volumes are Linux-specific, so only ext2/3 style Linux filesystem
 		 * searches are allowed to match against logical volumes
 		 */
-		bool lvm_matches = partition_type == PARTITION_LINUX_FILESYSTEM || !strcmp(partition_type_guid, GPT_LINUX_FILESYSTEM);
+		bool lvm_matches = partition_type == PARTITION_LINUX_FILESYSTEM || match_guid_text(partition_type_guid, GPT_LINUX_FILESYSTEM);
+
+		if (walk) {
+			char description[256];
+			snprintf(description, sizeof(description), "LVM2 Volume #%02u (%lu MB)", *visible_index, (lv_length * sd->block_size) / 1024 / 1024);
+			walk(visible_index, lvm_matches, description);
+		}
+
 		if (*visible_index >= start_index && *visible_index <= end_index && lvm_matches) {
 			*start = lv_start;
 			*length = lv_length;
@@ -299,9 +261,10 @@ static bool scan_lvm_pv(storage_device_t* sd, uint64_t pv_start, uint64_t pv_len
  * @param found_guid Filled with the unique GUID of a matching GPT partition.
  * @param start_index First visible partition index to consider.
  * @param end_index Last visible partition index to consider.
+ * @param walk If non-NULL, will be called for each item the function iterates over including any match
  * @return true if a matching partition or logical volume was found, otherwise false.
  */
-static bool scan_gpt_entries(storage_device_t* sd, const char* partition_type_guid, uint8_t partition_type, uint8_t* partition_id, uint64_t* start, uint64_t* length, char* found_guid, uint8_t start_index, uint8_t end_index) {
+static bool scan_gpt_entries(storage_device_t* sd, const text_guid_t partition_type_guid, uint8_t partition_type, uint8_t* partition_id, uint64_t* start, uint64_t* length, text_guid_t found_guid, uint8_t start_index, uint8_t end_index, volume_enumerator_t walk) {
 	uint8_t buffer[sd->block_size];
 
 	if (!read_storage_device(sd->name, 1, sd->block_size, buffer)) {
@@ -317,8 +280,8 @@ static bool scan_gpt_entries(storage_device_t* sd, const char* partition_type_gu
 
 	dprintf("GPT: Revision: %d, size: %d, number of entries: %d starting at LBA: %ld, entry size: %d\n", header->gpt_revision, header->header_size, header->number_partition_entries, header->lba_of_partition_entries, header->size_of_each_entry);
 
-	uint8_t partition_type_binary[GUID_BINARY_LEN];
-	uint8_t lvm_type[GUID_BINARY_LEN];
+	binary_guid_t partition_type_binary;
+	binary_guid_t lvm_type;
 	guid_to_binary(partition_type_guid, partition_type_binary);
 	guid_to_binary(GPT_LINUX_LVM, lvm_type);
 
@@ -347,12 +310,19 @@ static bool scan_gpt_entries(storage_device_t* sd, const char* partition_type_gu
 		}
 
 		gpt_entry_t* gpt = (gpt_entry_t*)(gptbuf + offset);
-		uint64_t partition_length = (gpt->end_lba - gpt->start_lba) + 1;
+		size_t partition_length = (gpt->end_lba - gpt->start_lba) + 1;
+		bool matched = match_guid_binary(gpt->type_guid, partition_type_binary);
+
+		if (walk) {
+			char description[256];
+			snprintf(description, sizeof(description), "GPT Partition #%02u (%lu MB)", visible_index, (partition_length * sd->block_size) / 1024 / 1024);
+			walk(visible_index, matched, description);
+		}
 
 		/*
 		 * If we match the GUID we are looking for, we can bail here with a match
 		 */
-		if (!memcmp(gpt->type_guid, partition_type_binary, GUID_BINARY_LEN)) {
+		if (matched) {
 			if (visible_index >= start_index && visible_index <= end_index) {
 				dprintf("Found GPT entry %d, start: %ld end: %ld\n", entry_number, gpt->start_lba, gpt->end_lba);
 
@@ -369,10 +339,10 @@ static bool scan_gpt_entries(storage_device_t* sd, const char* partition_type_gu
 		/*
 		 * If we find any LVM2 volumes, we must scan inside them treating them as more potential "partitions" by index
 		 */
-		if (!memcmp(gpt->type_guid, lvm_type, GUID_BINARY_LEN)) {
-			if (scan_lvm_pv(sd, gpt->start_lba, partition_length, partition_type, partition_type_guid, &visible_index, start_index, end_index, start, length)) {
-				*partition_id = 0xFE;
-				*found_guid = 0;
+		if (match_guid_binary(gpt->type_guid, lvm_type)) {
+			if (scan_lvm_pv(sd, gpt->start_lba, partition_length, partition_type, partition_type_guid, &visible_index, start_index, end_index, start, length, walk)) {
+				*partition_id = 0xFF;
+				memcpy(found_guid, partition_type_guid, sizeof(text_guid_t));
 				return true;
 			}
 		}
@@ -382,7 +352,7 @@ static bool scan_gpt_entries(storage_device_t* sd, const char* partition_type_gu
 	return false;
 }
 
-bool find_partition_of_type(const char* device_name, uint8_t partition_type, char* found_guid, const char* partition_type_guid, uint8_t* partition_id, uint64_t* start, uint64_t* length, uint8_t start_index, uint8_t end_index) {
+bool find_partition_of_type(const char* device_name, uint8_t partition_type, text_guid_t found_guid, const text_guid_t partition_type_guid, uint8_t* partition_id, uint64_t* start, uint64_t* length, uint8_t start_index, uint8_t end_index, volume_enumerator_t walk) {
 	if (partition_id == NULL || start == NULL || length == NULL) {
 		return false;
 	}
@@ -404,12 +374,18 @@ bool find_partition_of_type(const char* device_name, uint8_t partition_type, cha
 		 * in the GPT. Do not continue through the legacy MBR path or the fake
 		 * protective entry would pollute the visible partition numbering
 		 */
-		return scan_gpt_entries(sd, partition_type_guid, partition_type, partition_id, start, length, found_guid, start_index, end_index);
+		return scan_gpt_entries(sd, partition_type_guid, partition_type, partition_id, start, length, found_guid, start_index, end_index, walk);
 	}
 
 	uint8_t visible_index = 0;
 	for (int i = 0; i < 4; i++) {
 		partition_t* partition = &(partition_table->p_entry[i]);
+		if (walk) {
+			char description[256];
+			size_t size = ((size_t)partition->length * (size_t)sd->block_size) / 1024 / 1024;
+			snprintf(description, sizeof(description), "BIOS Partition #%02u (%lu MB)", visible_index, size);
+			walk(visible_index, partition->systemid == partition_type, description);
+		}
 		/*
 		 * If we match against a traditional BIOS partition ID, then we can bail here with a positive match
 		 */
@@ -427,8 +403,8 @@ bool find_partition_of_type(const char* device_name, uint8_t partition_type, cha
 		 * If we find any LVM2 volumes, we must scan inside them treating them as more potential "partitions" by index
 		 */
 		if (partition->systemid == PARTITION_LVM) {
-			if (scan_lvm_pv(sd, partition->startlba, partition->length, partition_type, partition_type_guid, &visible_index, start_index, end_index, start, length)) {
-				*partition_id = 0xFE;
+			if (scan_lvm_pv(sd, partition->startlba, partition->length, partition_type, partition_type_guid, &visible_index, start_index, end_index, start, length, walk)) {
+				*partition_id = partition_type;
 				*found_guid = 0;
 				return true;
 			}

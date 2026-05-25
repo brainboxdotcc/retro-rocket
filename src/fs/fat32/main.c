@@ -1,4 +1,5 @@
 #include "kernel.h"
+#include "guid.h"
 
 static filesystem_t* fat32_fs = NULL;
 
@@ -88,7 +89,7 @@ fat32_t* fat32_mount_volume(const char* device_name, int partition_index)
 		fs_set_error(FS_ERR_INVALID_ARG);
 		return NULL;
 	}
-	char found_guid[64];
+	text_guid_t found_guid = {};
 	storage_device_t* sd = find_storage_device(device_name);
 	if (!sd) {
 		fs_set_error(FS_ERR_NO_SUCH_DEVICE);
@@ -106,11 +107,11 @@ fat32_t* fat32_mount_volume(const char* device_name, int partition_index)
 	int success = 0;
 	if (
 		/* EFI system partition */
-		!find_partition_of_type(device_name, 0x0B, found_guid, GPT_EFI_SYSTEM, &info->partitionid, &start, &length, partition_start, partition_end) &&
-		!find_partition_of_type(device_name, 0x0C, found_guid, GPT_EFI_SYSTEM, &info->partitionid, &start, &length, partition_start, partition_end) &&
+		!find_partition_of_type(device_name, 0x0B, found_guid, GPT_EFI_SYSTEM, &info->partitionid, &start, &length, partition_start, partition_end, NULL) &&
+		!find_partition_of_type(device_name, 0x0C, found_guid, GPT_EFI_SYSTEM, &info->partitionid, &start, &length, partition_start, partition_end, NULL) &&
 		/* Microsoft basic data partition */
-		!find_partition_of_type(device_name, 0x0B, found_guid, GPT_MICROSOFT_BASIC_DATA, &info->partitionid, &start, &length, partition_start, partition_end) &&
-		!find_partition_of_type(device_name, 0x0C, found_guid, GPT_MICROSOFT_BASIC_DATA, &info->partitionid, &start, &length, partition_start, partition_end)
+		!find_partition_of_type(device_name, 0x0B, found_guid, GPT_MICROSOFT_BASIC_DATA, &info->partitionid, &start, &length, partition_start, partition_end, NULL) &&
+		!find_partition_of_type(device_name, 0x0C, found_guid, GPT_MICROSOFT_BASIC_DATA, &info->partitionid, &start, &length, partition_start, partition_end, NULL)
 	) {
 		/* No partition found, attempt to mount the volume as whole disk */
 		info->start = 0;

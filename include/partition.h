@@ -6,6 +6,7 @@
  */
 #pragma once
 #include "kernel.h"
+#include "guid.h"
 
 /**
  * @brief Offset of the partition table in the MBR.
@@ -16,16 +17,6 @@
  * @brief ID of a GPT protective partition entry.
  */
 #define PARTITION_GPT_PROTECTIVE 0xEE
-
-/**
- * @brief Length of a GUID in ASCII (including dashes, excluding null terminator).
- */
-#define GUID_ASCII_LEN 36
-
-/**
- * @brief Length of a GUID in binary form.
- */
-#define GUID_BINARY_LEN 16
 
 /**
  * @brief Pass this to filesytem_mount to scan for partitions instead of specifying
@@ -121,7 +112,7 @@ typedef struct gpt_header_t {
 	uint64_t last_usable_block;
 
 	/** @brief Disk GUID in binary form. */
-	uint8_t disk_guid[GUID_BINARY_LEN];
+	binary_guid_t disk_guid;
 
 	/** @brief Starting LBA of the partition entries array. */
 	uint64_t lba_of_partition_entries;
@@ -144,10 +135,10 @@ typedef struct gpt_header_t {
  */
 typedef struct gpt_entry_t {
 	/** @brief Partition type GUID. */
-	uint8_t type_guid[GUID_BINARY_LEN];
+	binary_guid_t type_guid;
 
 	/** @brief Unique GUID for this partition. */
-	uint8_t unique_id[GUID_BINARY_LEN];
+	binary_guid_t unique_id;
 
 	/** @brief Starting LBA of the partition. */
 	uint64_t start_lba;
@@ -211,6 +202,15 @@ typedef struct lvm_pv_header {
 } __attribute__((packed)) lvm_pv_header_t;
 
 /**
+ * @brief Callback invoked while enumerating visible volumes.
+ *
+ * @param index Visible flattened volume index.
+ * @param matched true if this volume matches the requested search criteria.
+ * @param description Human-readable description of the volume.
+ */
+typedef void (*volume_enumerator_t)(int8_t index, bool matched, const char* description);
+
+/**
  * @brief Find a visible volume of a requested partition type on a device.
  *
  * Searches the device for volumes matching the requested MBR partition type or
@@ -233,25 +233,8 @@ typedef struct lvm_pv_header {
  * @param length Filled with the length of the matched volume in sectors.
  * @param start_index First visible matching index to consider, inclusive.
  * @param end_index Last visible matching index to consider, inclusive.
+ * @param walk If non-NULL, will be called for each item the function iterates over including any match
  * @return true if a matching volume was found and output parameters were filled.
  * @return false if no matching volume was found.
  */
-bool find_partition_of_type(const char* device_name, uint8_t partition_type, char* found_guid, const char* partition_type_guid, uint8_t* partition_id, uint64_t* start, uint64_t* length, uint8_t start_index, uint8_t end_index);
-
-/**
- * @brief Convert a GUID from ASCII to binary format.
- *
- * @param guid ASCII string representation of the GUID.
- * @param binary Output buffer for binary GUID (16 bytes).
- * @return true if conversion succeeded, false on error.
- */
-bool guid_to_binary(const char* guid, void* binary);
-
-/**
- * @brief Convert a binary GUID to ASCII format.
- *
- * @param binary Binary GUID (16 bytes).
- * @param guid Output buffer for ASCII GUID (37 bytes including null terminator).
- * @return true if conversion succeeded, false on error.
- */
-bool binary_to_guid(const void* binary, char* guid);
+bool find_partition_of_type(const char* device_name, uint8_t partition_type, text_guid_t found_guid, const text_guid_t partition_type_guid, uint8_t* partition_id, uint64_t* start, uint64_t* length, uint8_t start_index, uint8_t end_index, volume_enumerator_t walk);

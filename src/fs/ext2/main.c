@@ -1,6 +1,7 @@
 #include <kernel.h>
 #include <filesystem.h>
 #include <ext2.h>
+#include "guid.h"
 
 /* Singleton ext2 driver registered with the VFS */
 static filesystem_t *ext2_fs = NULL;
@@ -294,7 +295,7 @@ static ext2_t *ext2_mount_volume(const char *device, int partition_index) {
 		fs_set_error(FS_ERR_NO_SUCH_DEVICE);
 		return NULL;
 	}
-	char found_guid[64] = {};
+	text_guid_t found_guid = {};
 	uint64_t start = 0;
 	uint64_t length = 0;
 
@@ -306,7 +307,7 @@ static ext2_t *ext2_mount_volume(const char *device, int partition_index) {
 	}
 	fs->device = dev;
 
-	if (!find_partition_of_type(device, PARTITION_LINUX_FILESYSTEM, found_guid, GPT_LINUX_FILESYSTEM, &fs->partitionid, &start, &length, partition_start, partition_end)) {
+	if (!find_partition_of_type(device, PARTITION_LINUX_FILESYSTEM, found_guid, GPT_LINUX_FILESYSTEM, &fs->partitionid, &start, &length, partition_start, partition_end, NULL)) {
 		fs->start = 0;
 		fs->length = dev->size * dev->block_size;
 	} else {

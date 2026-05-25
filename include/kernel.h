@@ -69,6 +69,7 @@
 #include "io.h"
 #include "memory_trace.h"
 #include "memcpy.h"
+#include "guid.h"
 #include "apic.h"
 #include "ioapic.h"
 #include "timer.h"

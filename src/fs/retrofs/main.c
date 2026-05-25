@@ -1,5 +1,6 @@
 #include <kernel.h>
 #include <retrofs.h>
+#include "guid.h"
 
 filesystem_t *rfs_fs = NULL;
 
@@ -40,7 +41,7 @@ rfs_t *rfs_mount_volume(const char *device_name, int partition_index) {
 	uint8_t partition_start = partition_index > 0 ? partition_index : 0;
 	uint8_t partition_end = partition_index > 0 ? partition_index : UINT8_MAX;
 	dprintf("rfs_mount_volume -> %s\n", device_name);
-	char found_guid[64];
+	text_guid_t found_guid = {};
 	rfs_t *info = kmalloc(sizeof(rfs_t));
 	if (!info) {
 		fs_set_error(FS_ERR_OUT_OF_MEMORY);
@@ -59,7 +60,7 @@ rfs_t *rfs_mount_volume(const char *device_name, int partition_index) {
 
 	bool success = false;
 	uint8_t partitionid = 0;
-	if (!find_partition_of_type(device_name, 0xFF, found_guid, RFS_GPT_GUID, &partitionid, &start, &length, partition_start, partition_end)) {
+	if (!find_partition_of_type(device_name, 0xFF, found_guid, RFS_GPT_GUID, &partitionid, &start, &length, partition_start, partition_end, NULL)) {
 		/* No partition found, attempt to mount the volume as whole disk */
 		info->start = 0;
 		info->length = info->dev->size;

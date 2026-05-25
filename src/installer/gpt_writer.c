@@ -6,6 +6,7 @@
  */
 #include <installer.h>
 #include <zlib/zlib.h>
+#include "guid.h"
 
 static voidpf zlib_alloc(voidpf opaque, uInt items, uInt size) {
 	size_t n = items * size;
@@ -293,7 +294,7 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 bool prepare_rfs_partition(storage_device_t* dev, bool noisy) {
 	bool success = false;
 	uint8_t partitionid = 0;
-	char found_guid[64];
+	text_guid_t found_guid = {};
 	rfs_t *info = kmalloc(sizeof(rfs_t));
 	if (!info) {
 		return false;
@@ -308,7 +309,7 @@ bool prepare_rfs_partition(storage_device_t* dev, bool noisy) {
 
 	/* Find the RFS partition on the device */
 	if (noisy) {
-		if (!find_partition_of_type(dev->name, 0xFF, found_guid, RFS_GPT_GUID, &partitionid, &start, &length, 0, UINT8_MAX)) {
+		if (!find_partition_of_type(dev->name, 0xFF, found_guid, RFS_GPT_GUID, &partitionid, &start, &length, 0, UINT8_MAX, NULL)) {
 			error_page("Could not find the created RFS to format it on %s", dev->name);
 		} else {
 			info->start = start;
