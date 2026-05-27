@@ -785,3 +785,99 @@ int64_t basic_decompress(struct basic_ctx* ctx)
 	return decompressed_size;
 }
 
+typedef struct volume_name_t {
+	const char* name;
+	struct volume_name_t* next;
+} volume_name_t;
+
+typedef struct volume_details_t {
+	struct basic_ctx* ctx;
+	struct volume_name_t* list;
+	struct volume_name_t* tail;
+	size_t count;
+} volume_details_t;
+
+void get_device_callback(int8_t index, bool matched, const char* description, void* opaque)
+{
+	volume_details_t* details = opaque;
+	volume_name_t* name = buddy_malloc(details->ctx->allocator, sizeof(volume_name_t));
+	name->name = buddy_strdup(details->ctx->allocator, description);
+	name->next = NULL;
+	if (details->tail) {
+		details->tail->next = name;
+	} else {
+		details->list = name;
+	}
+	details->tail = name;
+	details->count++;
+}
+
+volume_details_t get_device_volumes(struct basic_ctx* ctx, const char* device_name)
+{
+	text_guid_t found_guid;
+	uint8_t pid;
+	uint64_t start, len;
+	volume_details_t details = { .ctx = ctx, .list = NULL, .tail = NULL, .count = 0 };
+	volume_enumerator_t volume_enumerator = { .fn = get_device_callback, .opaque = &details };
+	(void)find_partition_of_type(device_name, UINT8_MAX, found_guid, "FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF", &pid, &start, &len, 0, UINT8_MAX, &volume_enumerator);
+	return details;
+}
+
+void free_device_volumes(volume_details_t* details)
+{
+	volume_name_t* curr = details->list;
+	while (curr) {
+		volume_name_t* next = curr->next;
+		buddy_free(details->ctx->allocator, (void*)curr->name);
+		buddy_free(details->ctx->allocator, curr);
+		curr = next;
+	}
+	details->list = NULL;
+	details->tail = NULL;
+}
+
+int64_t basic_volcount(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	const char* device_name = strval;
+	PARAMS_END("VOLCOUNT", 0);
+	if (!find_storage_device(device_name)) {
+		tokenizer_error_printf(ctx, "No such storage device: %s", device_name);
+		return 0;
+	}
+	volume_details_t details = get_device_volumes(ctx, device_name);
+	free_device_volumes(&details);
+	return details.count;
+}
+
+const char* get_device_volume_by_index(const volume_details_t* details, size_t index)
+{
+	if (index >= details->count) {
+		return "";
+	}
+	volume_name_t* curr = details->list;
+	while (index && curr) {
+		curr = curr->next;
+		index--;
+	}
+	return curr ? curr->name : "";
+}
+
+char* basic_voldesc(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	const char* device_name = strval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t index = intval;
+	PARAMS_END("VOL$", "");
+	if (!find_storage_device(device_name)) {
+		tokenizer_error_printf(ctx, "No such storage device: %s", device_name);
+		return "";
+	}
+	volume_details_t details = get_device_volumes(ctx, device_name);
+	const char* desc = gc_strdup(ctx, get_device_volume_by_index(&details, index));
+	free_device_volumes(&details);
+	return (char*)desc;
+}

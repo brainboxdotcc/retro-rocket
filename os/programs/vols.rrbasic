@@ -1,0 +1,15 @@
+dev$ = ARGS$
+IF dev$ = "" THEN
+    PRINT "No device name specified"
+    END
+ENDIF
+vc = VOLCOUNT(dev$)
+PRINT dev$
+FOR x = 0 TO vc - 1
+    IF x <> vc - 1 THEN
+        PRINT " ├── "; VOL$(dev$, x)
+    ELSE
+        PRINT " └── "; VOL$(dev$, x)
+    ENDIF
+NEXT
+PRINT

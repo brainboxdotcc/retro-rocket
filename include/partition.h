@@ -207,8 +207,14 @@ typedef struct lvm_pv_header {
  * @param index Visible flattened volume index.
  * @param matched true if this volume matches the requested search criteria.
  * @param description Human-readable description of the volume.
+ * @param opaque user data
  */
-typedef void (*volume_enumerator_t)(int8_t index, bool matched, const char* description);
+typedef void (*enumerator_fn_t)(int8_t index, bool matched, const char* description, void* opaque);
+
+typedef struct volume_enumerator_t {
+	enumerator_fn_t fn;
+	void* opaque;
+} volume_enumerator_t;
 
 /**
  * @brief Find a visible volume of a requested partition type on a device.
@@ -237,4 +243,4 @@ typedef void (*volume_enumerator_t)(int8_t index, bool matched, const char* desc
  * @return true if a matching volume was found and output parameters were filled.
  * @return false if no matching volume was found.
  */
-bool find_partition_of_type(const char* device_name, uint8_t partition_type, text_guid_t found_guid, const text_guid_t partition_type_guid, uint8_t* partition_id, uint64_t* start, uint64_t* length, uint8_t start_index, uint8_t end_index, volume_enumerator_t walk);
+bool find_partition_of_type(const char* device_name, uint8_t partition_type, text_guid_t found_guid, const text_guid_t partition_type_guid, uint8_t* partition_id, uint64_t* start, uint64_t* length, uint8_t start_index, uint8_t end_index, volume_enumerator_t* walk);

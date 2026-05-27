@@ -227,3 +227,7 @@ int64_t basic_compress(struct basic_ctx* ctx);
  * @return Size of decompressed data written to the output buffer, or 0 on error
  */
 int64_t basic_decompress(struct basic_ctx* ctx);
+
+char* basic_voldesc(struct basic_ctx* ctx);
+
+int64_t basic_volcount(struct basic_ctx* ctx);

@@ -70,5 +70,6 @@ The following pages describe each command in detail:
 - \subpage udptest
 - \subpage up
 - \subpage version
+- \subpage vols
 - \subpage webserver
 - \subpage xmtest

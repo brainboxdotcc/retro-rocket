@@ -186,6 +186,7 @@ struct basic_int_fn builtin_int[] =
 	{ basic_compress,            "COMPRESS"          },
 	{ basic_decompress,          "DECOMPRESS"        },
 	{ basic_memfind,             "MEMFIND"           },
+	{ basic_volcount,            "VOLCOUNT"          },
 	{ NULL,                      NULL                },
 };
 
@@ -283,6 +284,7 @@ struct basic_str_fn builtin_str[] =
 	{ basic_markdown,             "MARKDOWN$"       },
 	{ basic_tobase64,             "TOBASE64$"       },
 	{ basic_sign,                 "SIGN$"           },
+	{ basic_voldesc,              "VOL$"            },
 	{ NULL,                       NULL              },
 };
 

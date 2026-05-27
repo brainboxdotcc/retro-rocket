@@ -96,6 +96,7 @@ var int_funcs =
     [ "UDPLASTSOURCEPORT Keyword", "UDPLASTSOURCEPORT.html", null ],
     [ "UPSECS Function", "UPSECS.html", null ],
     [ "VAL Function", "VAL.html", null ],
+    [ "VOLCOUNT Function", "VOLCOUNT.html", null ],
     [ "WEEKDAY Function", "WEEKDAY.html", null ],
     [ "YDAY Function", "YDAY.html", null ],
     [ "YEAR Function", "YEAR.html", null ]

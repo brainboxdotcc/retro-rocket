@@ -61,6 +61,7 @@ var commands =
     [ "udptest command", "udptest.html", null ],
     [ "up command", "up.html", null ],
     [ "version command", "version.html", null ],
+    [ "vols command", "vols.html", null ],
     [ "webserver command", "webserver.html", null ],
     [ "xmtest command", "xmtest.html", null ]
 ];

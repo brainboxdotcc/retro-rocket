@@ -99,6 +99,7 @@ The following functions operate on or return **integer values** in Retro Rocket 
 * \subpage UDPLASTSOURCEPORT
 * \subpage UPSECS
 * \subpage VAL
+* \subpage VOLCOUNT
 * \subpage WEEKDAY
 * \subpage YDAY
 * \subpage YEAR

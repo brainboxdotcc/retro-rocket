@@ -26,7 +26,8 @@ var NAVTREE =
 [
   [ "Retro Rocket OS", "index.html", [
     [ "Retro Rocket OS Documentation", "index.html", "index" ],
-    [ "VERIFY Function", "VERIFY.html", null ]
+    [ "VERIFY Function", "VERIFY.html", null ],
+    [ "VOL$ Function", "VOL.html", null ]
   ] ]
 ];
 
