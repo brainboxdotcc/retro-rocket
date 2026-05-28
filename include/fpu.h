@@ -14,7 +14,6 @@ extern void enable_fpu();
 
 /**
  * @brief Enable SSE
- * @warning Do not use, this is not stable!
  */
 extern void enable_sse();
 
