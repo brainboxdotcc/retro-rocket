@@ -40,6 +40,7 @@ if(MEMORY_TRACE)
 endif()
 
 include_directories("include")
+include_directories("include/zlib")
 include_directories("limine")
 include_directories("uacpi/include")
 include_directories(${UACPI_INCLUDES})

@@ -160,3 +160,22 @@ typedef struct __attribute__((packed)) scsi_cdb_read_capacity16 {
 	uint8_t  pmi;           /* PMI & misc; usually 0 */
 	uint8_t  control;       /* 0 */
 } scsi_cdb_read_capacity16;
+
+typedef struct __attribute__((packed)) scsi_cdb_read_capacity10 {
+	uint8_t opcode;
+	uint8_t flags;
+	uint32_t lba_be;
+	uint8_t rsv1;
+	uint8_t rsv2;
+	uint8_t pmi;
+	uint8_t control;
+} scsi_cdb_read_capacity10;
+
+typedef struct __attribute__((packed)) scsi_cdb_rw10 {
+	uint8_t opcode;
+	uint8_t flags;
+	uint32_t lba_be;
+	uint8_t group;
+	uint16_t xfer_be;
+	uint8_t control;
+} scsi_cdb_rw10;

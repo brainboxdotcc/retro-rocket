@@ -22,6 +22,8 @@ void wait_for_interpreter_start(struct limine_smp_info *info) {
 }
 
 void kmain_ap(struct limine_smp_info *info) {
+	enable_fpu();
+	enable_sse();
 	adopt_cloned_tables_on_ap();
 	load_ap_shared_interrupts();
 	wait_for_interpreter_start(info);
