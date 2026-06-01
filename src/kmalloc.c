@@ -16,6 +16,7 @@ static uint64_t allocated = 0;
 static uint32_t low_mem_cur = 0;
 static spinlock_t allocator_lock = 0;
 
+// ReSharper disable once CppUseInternalLinkage
 volatile struct limine_memmap_request memory_map_request = {
 	.id = LIMINE_MEMMAP_REQUEST,
 	.revision = 0,

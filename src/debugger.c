@@ -77,6 +77,7 @@ static void symbol_build_indexes(const size_t count)
 	}
 }
 
+// ReSharper disable once CppUseInternalLinkage
 volatile struct limine_module_request module_request = {
 	.id = LIMINE_MODULE_REQUEST,
 	.revision = 0,

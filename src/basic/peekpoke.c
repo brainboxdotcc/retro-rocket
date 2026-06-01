@@ -3,7 +3,7 @@
 
 extern volatile struct limine_memmap_request memory_map_request;
 
-static inline bool span_overflows(uint64_t addr, uint64_t width) {
+static inline bool span_overflows(const uint64_t addr, const uint64_t width) {
 	if (width == 0) {
 		return true;
 	}

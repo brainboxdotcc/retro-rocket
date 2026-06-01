@@ -10,6 +10,7 @@
 #include "uacpi/sleep.h"
 #include "uacpi/event.h"
 
+// ReSharper disable once CppUseInternalLinkage
 volatile struct limine_rsdp_request rsdp_request = {
 	.id = LIMINE_RSDP_REQUEST,
 	.revision = 0,
