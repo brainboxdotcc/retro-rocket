@@ -45,4 +45,4 @@ uint8_t double_determine_decimal_places(double f);
  * display full stored precision of the value.
  * @return char* pointer to value in buffer 
  */
-char* double_to_string(double x, char *p, int64_t len, uint8_t precision);
+char* double_to_string(double x, char *p, size_t len, uint8_t precision);

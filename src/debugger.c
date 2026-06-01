@@ -27,7 +27,7 @@ static size_t symbol_hash_index(const char *name)
 	return hashmap_sip(name, strlen(name), SYMBOL_HASH_SEED0, SYMBOL_HASH_SEED1) & (symbol_name_hash_size - 1);
 }
 
-static void symbol_build_indexes(size_t count)
+static void symbol_build_indexes(const size_t count)
 {
 	symbol_address_index = NULL;
 	symbol_address_count = 0;
@@ -38,7 +38,7 @@ static void symbol_build_indexes(size_t count)
 		return;
 	}
 
-	symbol_address_index = kmalloc(sizeof(symbol_t*) * count);
+	symbol_address_index = kcalloc(count, sizeof(symbol_t*));
 	if (!symbol_address_index) {
 		return;
 	}
@@ -59,7 +59,7 @@ static void symbol_build_indexes(size_t count)
 		symbol_name_hash[n] = NULL;
 	}
 
-	for (symbol_t *s = symbol_table; s && s->name; s = s->next) {
+	for (symbol_t *s = symbol_table; s; s = s->next) {
 		symbol_address_index[symbol_address_count++] = s;
 
 		size_t idx = symbol_hash_index(s->name);

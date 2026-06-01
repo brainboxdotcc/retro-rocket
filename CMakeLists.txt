@@ -26,12 +26,19 @@ file(GLOB ASSEMBLY "asm/*")
 
 set(CMAKE_C_FLAGS "-pipe -g -mpopcnt -fno-PIC -Wno-builtin-macro-redefined -std=c17 -Wall -Wextra -Wno-deprecated-declarations -Wno-unused-parameter -Wno-pointer-to-int-cast -Wno-discarded-qualifiers -Wno-int-conversion -Wno-int-to-pointer-cast -nostdlib -mno-mmx -mno-3dnow -ffreestanding -nostartfiles -nodefaultlibs -mcmodel=kernel -mno-red-zone -Wno-address-of-packed-member -fno-builtin-memcpy -fno-stack-protector -fno-stack-check")
 
+file(GLOB_RECURSE MBEDTLS_SOURCES "src/mbedtls/*.c")
+
+set_source_files_properties(
+    ${MBEDTLS_SOURCES}
+    PROPERTIES COMPILE_FLAGS "-w"
+)
+
 if(PROFILE_KERNEL)
     add_compile_definitions(PROFILE_KERNEL)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -finstrument-functions")
     set_source_files_properties(
-            src/profiler.c src/serial.c src/memory_trace.c
-            PROPERTIES COMPILE_FLAGS "-fno-instrument-functions"
+        src/profiler.c src/serial.c src/memory_trace.c
+        PROPERTIES COMPILE_FLAGS "-fno-instrument-functions"
     )
 endif()
 
@@ -142,21 +149,21 @@ endforeach()
 # make a single stamp that depends on all .ko files and inject it into iso() deps via IMAGE_TARGETS
 set(MODULES_STAMP ${CMAKE_BINARY_DIR}/.modules.stamp)
 add_custom_command(OUTPUT ${MODULES_STAMP}
-        COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/iso/system/modules
-        COMMAND ${CMAKE_COMMAND} -E touch ${MODULES_STAMP}
-        DEPENDS ${MODULE_KO_FILES}
-        VERBATIM
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/iso/system/modules
+    COMMAND ${CMAKE_COMMAND} -E touch ${MODULES_STAMP}
+    DEPENDS ${MODULE_KO_FILES}
+    VERBATIM
 )
 list(APPEND IMAGE_TARGETS ${MODULES_STAMP})
 
 set(LICENSE_DST ${CMAKE_BINARY_DIR}/iso/system/license)
 
 add_custom_command(
-        OUTPUT ${LICENSE_DST}
-        COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/iso/system
-        COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/LICENSE ${LICENSE_DST}
-        DEPENDS ${CMAKE_SOURCE_DIR}/LICENSE
-        VERBATIM
+    OUTPUT ${LICENSE_DST}
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/iso/system
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/LICENSE ${LICENSE_DST}
+    DEPENDS ${CMAKE_SOURCE_DIR}/LICENSE
+    VERBATIM
 )
 
 list(APPEND IMAGE_TARGETS ${LICENSE_DST})

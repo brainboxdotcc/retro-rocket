@@ -26,18 +26,20 @@ static int64_t mul[] = {
  * @brief Convert an unsigned 64-bit integer into a decimal string.
  * Returns a pointer into the provided buffer (writes backwards).
  */
-static char* uint64_to_str(uint64_t val, char *buf, size_t buflen)
+static char* uint64_to_str(uint64_t val, char *buf, size_t buflen, size_t *len)
 {
 	char *end = buf + buflen - 1; // leave room for null
 	*end = '\0';
 	if (val == 0) {
 		*--end = '0';
+		*len = 1;
 		return end;
 	}
 	while (val > 0 && end > buf) {
 		*--end = '0' + (val % 10);
 		val /= 10;
 	}
+	*len = (buf + buflen - 1) - end;
 	return end;
 }
 
@@ -51,7 +53,7 @@ uint8_t double_determine_decimal_places(double f)
         return prec + 1;
 }
 
-char* double_to_string(double x, char *p, int64_t len, uint8_t precision)
+char* double_to_string(double x, char *p, size_t len, uint8_t precision)
 {
 	if (!p) {
 		return NULL;
@@ -74,32 +76,30 @@ char* double_to_string(double x, char *p, int64_t len, uint8_t precision)
 		precision = precision > 10 ? 10 : precision;
 		// Convert the double into an int64 copy of the whole part,
 		// And a copy of the entire number multiplied up to a whole number.
-		int64_t whole = labs((int64_t)x);
+		const int64_t whole = labs((int64_t)x);
 		// We use the mul[] array rather than repeated multiplication,
 		// because it is faster and does not cause a loss of accuracy.
-		int64_t integer_part = labs((int64_t)(x * (double)mul[decimals]));
+		const int64_t integer_part = labs((int64_t)(x * (double)mul[decimals]));
 
 		// replaced snprintf with uint64_to_str
-		char *whole_str = uint64_to_str((uint64_t)whole, buffer, sizeof(buffer));
-		char *part_str  = uint64_to_str((uint64_t)integer_part, buffer_part, sizeof(buffer_part));
-
-		int64_t whole_len = strlen(whole_str);
-		int64_t integer_len = strlen(part_str);
-		bool move_decimal = !whole;
+		size_t whole_len, integer_len;
+		(void)uint64_to_str((uint64_t)whole, buffer, sizeof(buffer), &whole_len);
+		char *part_str = uint64_to_str((uint64_t)integer_part, buffer_part, sizeof(buffer_part), &integer_len);
+		const bool move_decimal = !whole;
 		index = part_str;
 		if (neg) *p++ = '-';
 		if (move_decimal) {
 			*p++ = '0';
 			decimal_pos = p;
 			*p++ = '.';
-			for (int64_t n = 0; n < (decimals - integer_len > 0 ? decimals - integer_len : 0); ++n) {
+			for (size_t n = 0; n < (decimals - integer_len > 0 ? decimals - integer_len : 0); ++n) {
 				*p++ = '0';
 			}
-			for (int64_t n = 0; *index && n < len - 1; ++index, ++n) {
+			for (size_t n = 0; *index && n < len - 1; ++index, ++n) {
 				*p++ = *index;
 			}
 		} else {
-			for (int64_t n = 0; n < integer_len && n < len - 1; ++index, ++n) {
+			for (size_t n = 0; n < integer_len && n < len - 1; ++index, ++n) {
 				*p++ = *index;
 				if (n == whole_len - 1) {
 					decimal_pos = p;
