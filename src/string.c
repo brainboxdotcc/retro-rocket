@@ -230,7 +230,7 @@ const char* gc_strdup(basic_ctx* ctx, const char* string)
 	return dest;
 }
 
-const char* gc_from_tokenizer_string(struct basic_ctx *ctx) {
+const char* gc_from_tokenizer_string(struct basic_ctx *ctx, size_t *out_len) {
 	char* dest = ctx->string_gc_storage_next;
 	char* end = ctx->string_gc_storage + ctx->string_gc_storage_size;
 	char* out = dest;
@@ -241,6 +241,9 @@ const char* gc_from_tokenizer_string(struct basic_ctx *ctx) {
 
 	while (*ctx->ptr && *ctx->ptr != '"') {
 		if (out >= end - 1) {
+			if (out_len) {
+				*out_len = 0;
+			}
 			return NULL;
 		}
 		*out++ = *ctx->ptr++;
@@ -251,9 +254,11 @@ const char* gc_from_tokenizer_string(struct basic_ctx *ctx) {
 	}
 	*out = '\0';
 	ctx->string_gc_storage_next = out + 1;
+	if (out_len) {
+		*out_len = out - dest;
+	}
 	return dest;
 }
-
 int gc(basic_ctx* ctx) {
 	size_t used = ctx->string_gc_storage_next - ctx->string_gc_storage;
 	if (used >= (ctx->string_gc_storage_size * 75) / 100 && !ctx->errored && !ctx->ended) {

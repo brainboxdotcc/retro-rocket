@@ -62,7 +62,7 @@ int64_t basic_existsvar_string(struct basic_ctx* ctx)
 void setvari_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(SETVARI, ctx);
-	const char* var = str_expr(ctx);
+	const char* var = str_expr(ctx, NULL);
 	accept_or_return(COMMA, ctx);
 	int64_t option_global = expr(ctx);
 	accept_or_return(COMMA, ctx);
@@ -77,7 +77,7 @@ void setvarr_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(SETVARR, ctx);
   /* TODO: Insert hash character at end if it missing */
-	const char* var = str_expr(ctx);
+	const char* var = str_expr(ctx, NULL);
 	accept_or_return(COMMA, ctx);
 	int64_t option_global = expr(ctx);
 	accept_or_return(COMMA, ctx);
@@ -93,13 +93,13 @@ void setvars_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(SETVARS, ctx);
   /* TODO: Insert dollar character at end if it missing */
-	const char* var = str_expr(ctx);
+	const char* var = str_expr(ctx, NULL);
 	accept_or_return(COMMA, ctx);
 	int64_t option_global = expr(ctx);
 	accept_or_return(COMMA, ctx);
 	int64_t option_local = expr(ctx);
 	accept_or_return(COMMA, ctx);
-	const char* value = str_expr(ctx);
+	const char* value = str_expr(ctx, NULL);
 	accept_or_return(NEWLINE, ctx);
 	basic_set_string_variable(var, value, ctx, option_local, option_global);	
 }

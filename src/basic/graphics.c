@@ -751,7 +751,7 @@ void loadsprite_statement(struct basic_ctx* ctx)
 	const char* variable = tokenizer_variable_name(ctx, &var_length);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
-	const char* filename = str_expr(ctx);
+	const char* filename = str_expr(ctx, NULL);
 	accept_or_return(NEWLINE, ctx);
 
 	const char* file = make_full_path(ctx, filename);

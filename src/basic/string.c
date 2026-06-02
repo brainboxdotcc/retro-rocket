@@ -68,11 +68,11 @@ void match_statement(struct basic_ctx *ctx)
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
 
-	const char *pat = str_expr(ctx);
+	const char *pat = str_expr(ctx, NULL);
 	size_t pat_len = strlen(pat);
 	accept_or_return(COMMA, ctx);
 
-	const char *hay = str_expr(ctx);
+	const char *hay = str_expr(ctx, NULL);
 	size_t hay_len = strlen(hay);
 
 	const char *cap_names[32];
@@ -689,7 +689,7 @@ int64_t basic_len(struct basic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_END("LEN",0);
-	return strlen(strval);
+	return strlength;
 }
 
 char* basic_ljust(struct basic_ctx* ctx)

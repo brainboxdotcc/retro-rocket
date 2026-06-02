@@ -601,7 +601,7 @@ char* printable_syntax(struct basic_ctx* ctx)
 				up_eval_value(ctx, &v);
 
 				if (v.kind == UP_STR) {
-					if (!printable_append(ctx, &out, &out_used, &out_cap, v.v.s ? v.v.s : "")) {
+					if (!printable_append(ctx, &out, &out_used, &out_cap, v.v.s.ptr ? v.v.s.ptr : "")) {
 						buddy_free(ctx->allocator, out);
 						return NULL;
 					}
@@ -663,7 +663,7 @@ char* printable_syntax(struct basic_ctx* ctx)
 void keymap_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(KEYMAP, ctx);
-	const char* filename = str_expr(ctx);
+	const char* filename = str_expr(ctx, NULL);
 	accept_or_return(NEWLINE, ctx);
 
 	char path[1024];

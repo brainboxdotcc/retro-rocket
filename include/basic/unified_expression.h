@@ -100,15 +100,16 @@ int64_t up_int_expr_strict(struct basic_ctx *ctx);
 void up_double_expr_strict(struct basic_ctx *ctx, double *out);
 
 /**
- * @brief Strict string expression (replacement for `str_expr(ctx)`).
+ * @brief Strict string expression (replacement for `str_expr(ctx, NULL)`).
  *
  * Parses a string expression and returns a GC-managed string pointer. Numeric
  * results produce an error and return the empty string `""`.
  *
  * @param ctx BASIC interpreter context.
+ * @param out_len If non-NULL, returns the length of the evaluated string expression, not including null terminator
  * @return Non-NULL GC-managed string pointer.
  */
-const char* up_str_expr_strict(struct basic_ctx *ctx);
+const char* up_str_expr_strict(struct basic_ctx *ctx, size_t* out_len);
 
 /**
  * @brief Construct a typed value holding an integer.
@@ -129,6 +130,31 @@ const char* up_str_expr_strict(struct basic_ctx *ctx);
  */
 #define up_make_real(x) ((up_value){ .kind = UP_REAL, .v.r = (x) })
 
+#define up_make_str_1(x) ({ \
+	const char *up_make_str_s = (x); \
+	(up_value){ \
+		.kind = UP_STR, \
+		.v.s = { \
+			.ptr = up_make_str_s ? up_make_str_s : "", \
+			.len = up_make_str_s ? strlen(up_make_str_s) : 0 \
+		} \
+	}; \
+})
+
+#define up_make_str_2(x, l) ({ \
+	const char *up_make_str_s = (x); \
+	size_t up_make_str_len = (l); \
+	(up_value){ \
+		.kind = UP_STR, \
+		.v.s = { \
+			.ptr = up_make_str_s ? up_make_str_s : "", \
+			.len = up_make_str_s ? up_make_str_len : 0 \
+		} \
+	}; \
+})
+
+#define up_make_str_select(_1, _2, name, ...) name
+
 /**
  * @brief Construct a typed value holding a string pointer.
  *
@@ -139,10 +165,7 @@ const char* up_str_expr_strict(struct basic_ctx *ctx);
  *       managed by the caller (typically GC-allocated in this interpreter).
  *       No copy is made here.
  */
-#define up_make_str(x) ({ \
-	const char *up_make_str_s = (x); \
-	(up_value){ .kind = UP_STR, .v.s = up_make_str_s ? up_make_str_s : "" }; \
-})
+#define up_make_str(...) up_make_str_select(__VA_ARGS__, up_make_str_2, up_make_str_1)(__VA_ARGS__)
 
 /**
  * @brief Evaluate a single value expression and return its typed result.

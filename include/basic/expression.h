@@ -148,9 +148,10 @@ void double_relation(struct basic_ctx* ctx, double* res);
  * based on the provided context. It supports string concatenation and manipulation.
  *
  * @param ctx A pointer to the current BASIC program context.
+ * @param out_len If non-NULL, returns the length of the evaluated string expression, not including null terminator
  * @return A pointer to the resulting string from the evaluated expression.
  */
-const char* str_expr(struct basic_ctx* ctx);
+const char* str_expr(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Evaluates a relational string expression.

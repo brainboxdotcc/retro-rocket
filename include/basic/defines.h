@@ -138,9 +138,10 @@
 			ctx->ptr = item_begin; \
 			ctx->current_token = get_next_token(ctx); \
 			*oldptr = 0; \
+			strlength = 0; \
 			itemtype = type; \
 			if (itemtype == BIP_STRING) { \
-				strval = (char*)str_expr(ctx); \
+				strval = (char*)str_expr(ctx, &strlength); \
 			} else if (itemtype == BIP_DOUBLE) { \
 				double_expr(ctx, &doubleval); \
 			} else if (itemtype == BIP_VARIABLE) {   \

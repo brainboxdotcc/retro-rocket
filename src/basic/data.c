@@ -285,5 +285,5 @@ char* basic_dataread_string(struct basic_ctx* ctx)
 		tokenizer_error_print(ctx, "Expected string DATA");
 		return "";
 	}
-	return (char*)gc_strdup(ctx, v.v.s);
+	return (char*)gc_strdup(ctx, v.v.s.ptr);
 }

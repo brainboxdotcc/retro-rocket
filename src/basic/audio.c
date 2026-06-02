@@ -397,7 +397,7 @@ void sound_statement(struct basic_ctx* ctx) {
 			const char* variable = tokenizer_variable_name(ctx, &var_length);
 			accept_or_return(VARIABLE, ctx);
 			accept_or_return(COMMA, ctx);
-			const char* filename = str_expr(ctx);
+			const char* filename = str_expr(ctx, NULL);
 			basic_sound_t *s = load_sound_from_path(ctx, filename);
 			if (!s) {
 				return;

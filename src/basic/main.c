@@ -399,7 +399,7 @@ void yield_statement(struct basic_ctx *ctx) {
  */
 void library_statement(struct basic_ctx *ctx) {
 	accept_or_return(LIBRARY, ctx);
-	const char *lib_file = str_expr(ctx);
+	const char *lib_file = str_expr(ctx, NULL);
 
 	/* Validate the file exists and is not a directory */
 	fs_directory_entry_t *file_info = fs_get_file_info(lib_file);
@@ -674,7 +674,7 @@ void chain_statement(struct basic_ctx *ctx) {
 	process_t *proc = proc_cur(cpu);
 	accept_or_return(CHAIN, ctx);
 
-	const char *pn = str_expr(ctx);
+	const char *pn = str_expr(ctx, NULL);
 
 	bool background = false;
 	memory_model_t memory_model = mm_medium;
@@ -792,7 +792,7 @@ static bool eval_is_multiline(const char *s)
 void eval_statement(struct basic_ctx *ctx)
 {
 	accept_or_return(EVAL, ctx);
-	const char *v = str_expr(ctx);
+	const char *v = str_expr(ctx, NULL);
 	accept_or_return(NEWLINE, ctx);
 
 	char clean_v[MAX_STRINGLEN];

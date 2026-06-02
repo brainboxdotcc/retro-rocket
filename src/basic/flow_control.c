@@ -91,7 +91,7 @@ void off_statement(struct basic_ctx* ctx)
 void error_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(ERROR, ctx);
-	const char* message = str_expr(ctx);
+	const char* message = str_expr(ctx, NULL);
 	tokenizer_error_print(ctx, message);
 }
 

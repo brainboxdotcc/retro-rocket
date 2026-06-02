@@ -398,7 +398,7 @@ bool extract_comma_list(struct ub_proc_fn_def* def, struct basic_ctx* ctx, int* 
 			size_t len = strlen((*param)->name);
 			if ((*param)->name[len - 1] == '$') {
 				const char* save_ptr = ctx->ptr;
-				basic_set_string_variable((*param)->name, str_expr(ctx), ctx, true, false);
+				basic_set_string_variable((*param)->name, str_expr(ctx, NULL), ctx, true, false);
 				ctx->ptr = save_ptr;
 			} else if ((*param)->name[len - 1] == '#') {
 				double f = 0.0;
@@ -1013,7 +1013,7 @@ void eq_statement(struct basic_ctx* ctx)
 
 	if (ctx->fn_type == RT_STRING) {
 		basic_debug("eq_statement return string\n");
-		ctx->fn_return = (void*)str_expr(ctx);
+		ctx->fn_return = (void*)str_expr(ctx, NULL);
 	} else if (ctx->fn_type == RT_FLOAT) {
 		basic_debug("eq_statement return double\n");
 		double_expr(ctx, (void*)&ctx->fn_return);

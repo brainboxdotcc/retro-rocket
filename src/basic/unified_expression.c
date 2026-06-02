@@ -34,7 +34,7 @@ static inline int up_truth(const up_value *v) {
 		case UP_REAL:
 			return v->v.r != 0.0;
 		case UP_STR:
-			return v->v.s && v->v.s[0] != '\0';
+			return v->v.s.len != 0;
 	}
 	return 0;
 }
@@ -81,7 +81,8 @@ static up_value up_factor(struct basic_ctx *ctx) {
 			return up_make_int(n);
 		}
 		case STRING: {
-			const char* sv = gc_from_tokenizer_string(ctx);
+			size_t len;
+			const char* sv = gc_from_tokenizer_string(ctx, &len);
 
 			if (!sv) {
 				tokenizer_error_print(ctx, "String literal too long");
@@ -94,7 +95,7 @@ static up_value up_factor(struct basic_ctx *ctx) {
 			 */
 			tokenizer_next(ctx);
 
-			return up_make_str(sv);
+			return up_make_str(sv, len);
 		}
 		case VARIABLE: {
 			size_t L;
@@ -321,13 +322,15 @@ static up_value up_value_expr(struct basic_ctx *ctx) {
 		up_value rhs = up_term(ctx);
 
 		if (op == PLUS && acc.kind == UP_STR && rhs.kind == UP_STR) {
-			/* String concatenation */
-			const char* combined = gc_try_concat(ctx, acc.v.s, rhs.v.s);
+			size_t combined_len = acc.v.s.len + rhs.v.s.len;
+			const char* combined = gc_try_concat(ctx, acc.v.s.ptr, rhs.v.s.ptr);
+
 			if (!combined) {
 				tokenizer_error_print(ctx, "String too long");
 				return acc;
 			}
-			acc = up_make_str(combined);
+
+			acc = up_make_str(combined, combined_len);
 			continue;
 		}
 
@@ -399,8 +402,12 @@ static up_value up_relation_expr(struct basic_ctx *ctx) {
 			} else {
 				/* Because empties are interned, identical ptrs match without strcmp */
 				int cmp = 0;
-				if (lhs.v.s != rhs.v.s) {
-					cmp = strcmp(lhs.v.s, rhs.v.s);
+				if (lhs.v.s.ptr != rhs.v.s.ptr) {
+					if (op == EQUALS && lhs.v.s.len != rhs.v.s.len) {
+						cmp = 1;
+					} else {
+						cmp = strcmp(lhs.v.s.ptr, rhs.v.s.ptr);
+					}
 				}
 				if (op == LESSTHAN) {
 					result = (mode == 1) ? (cmp <= 0) : (cmp < 0);
@@ -545,7 +552,7 @@ void up_double_expr_strict(struct basic_ctx *ctx, double *out)
 	*out = (double) v.v.i;
 }
 
-const char *up_str_expr_strict(struct basic_ctx *ctx)
+const char *up_str_expr_strict(struct basic_ctx *ctx, size_t* out_len)
 /* String expression; errors if it evaluates to a number. */
 {
 	up_value v = up_value_expr(ctx);
@@ -553,7 +560,10 @@ const char *up_str_expr_strict(struct basic_ctx *ctx)
 		tokenizer_error_print(ctx, "Numeric value in string expression");
 		return "";
 	}
-	return v.v.s ? v.v.s : "";
+	if (out_len) {
+		*out_len = v.v.s.len;
+	}
+	return v.v.s.ptr ? v.v.s.ptr : "";
 }
 
 /* For completeness, a typed relation that returns 0/1 (int) */
@@ -573,8 +583,8 @@ int64_t expr(struct basic_ctx* ctx) {
 	return up_int_expr_strict(ctx);
 }
 
-const char* str_expr(struct basic_ctx* ctx) {
-	return up_str_expr_strict(ctx);
+const char* str_expr(struct basic_ctx* ctx, size_t* out_len) {
+	return up_str_expr_strict(ctx, out_len);
 }
 
 void double_expr(struct basic_ctx* ctx, double* res) {

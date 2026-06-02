@@ -67,8 +67,8 @@ void elfree_map_value(const void *item, void *udata)
 		buddy_free(a, (void *)entry->name);
 	}
 
-	if (entry->value.kind == UP_STR && entry->value.v.s) {
-		buddy_free(a, (void *)entry->value.v.s);
+	if (entry->value.kind == UP_STR && entry->value.v.s.ptr) {
+		buddy_free(a, (void *)entry->value.v.s.ptr);
 	}
 }
 
@@ -95,8 +95,8 @@ map_value_t *basic_get_map_value(struct hashmap *map, const char *key)
 
 void basic_free_map_up_value(struct basic_ctx *ctx, up_value *value)
 {
-	if (value->kind == UP_STR && value->v.s) {
-		buddy_free(ctx->allocator, (void *)value->v.s);
+	if (value->kind == UP_STR && value->v.s.ptr) {
+		buddy_free(ctx->allocator, (void *)value->v.s.ptr);
 	}
 
 	memset(value, 0, sizeof(*value));
@@ -114,8 +114,8 @@ bool basic_copy_map_up_value(struct basic_ctx *ctx, up_value *dest, const up_val
 			return true;
 
 		case UP_STR:
-			*dest = up_make_str(buddy_strdup(ctx->allocator, src->v.s ? src->v.s : ""));
-			return dest->v.s != NULL;
+			*dest = up_make_str(buddy_strdup(ctx->allocator, src->v.s.ptr ? src->v.s.ptr : ""), src->v.s.len);
+			return dest->v.s.ptr != NULL;
 	}
 
 	return false;
@@ -262,7 +262,7 @@ char *basic_mapgets(struct basic_ctx *ctx)
 		return "";
 	}
 
-	return (char *)gc_strdup(ctx, entry->value.v.s ? entry->value.v.s : "");
+	return (char *)gc_strdup(ctx, entry->value.v.s.ptr ? entry->value.v.s.ptr : "");
 }
 
 void mapset_statement(struct basic_ctx *ctx)
@@ -277,7 +277,8 @@ void mapset_statement(struct basic_ctx *ctx)
 	accept_or_return(MAPSET, ctx);
 	handle = expr(ctx);
 	accept_or_return(COMMA, ctx);
-	key = str_expr(ctx);
+	size_t elen;
+	key = str_expr(ctx, &elen);
 	accept_or_return(COMMA, ctx);
 	up_eval_value(ctx, &value);
 	accept_or_return(NEWLINE, ctx);
@@ -289,12 +290,12 @@ void mapset_statement(struct basic_ctx *ctx)
 	}
 
 	if (value.kind == UP_STR) {
-		const char *dup = buddy_strdup(ctx->allocator, value.v.s ? value.v.s : "");
+		const char *dup = buddy_strdup(ctx->allocator, value.v.s.ptr ? value.v.s.ptr : "");
 		if (!dup) {
 			tokenizer_error_print(ctx, "Out of memory");
 			return;
 		}
-		value.v.s = dup;
+		value.v.s.ptr = dup;
 	}
 
 	found = basic_get_map_value(map, key);

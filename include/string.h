@@ -254,7 +254,7 @@ const char* gc_try_concat(struct basic_ctx *ctx, const char* s1, const char* s2)
  * @return const char* Pointer to the arena-allocated string literal,
  * or NULL on overflow/error.
  */
-const char* gc_from_tokenizer_string(struct basic_ctx *ctx);
+const char* gc_from_tokenizer_string(struct basic_ctx *ctx, size_t *out_len);
 
 /**
  * @brief Reset the BASIC temporary string arena.

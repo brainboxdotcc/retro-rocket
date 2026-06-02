@@ -209,7 +209,7 @@ char* basic_time(struct basic_ctx* ctx)
 void settimezone_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(SETTIMEZONE, ctx);
-	const char* tz = str_expr(ctx);
+	const char* tz = str_expr(ctx, NULL);
 	accept_or_return(NEWLINE, ctx);
 
 	if (!load_timezone(tz)) {

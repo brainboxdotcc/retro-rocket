@@ -227,7 +227,7 @@ void pokeq_statement(struct basic_ctx* ctx) {
 
 void modload_statement(struct basic_ctx* ctx) {
 	accept_or_return(MODLOAD, ctx);
-	const char* name = str_expr(ctx);
+	const char* name = str_expr(ctx, NULL);
 	accept_or_return(NEWLINE, ctx);
 	if (!load_module(name)) {
 		tokenizer_error_printf(ctx, "Unable to load module '%s'", name);
@@ -237,7 +237,7 @@ void modload_statement(struct basic_ctx* ctx) {
 
 void modunload_statement(struct basic_ctx* ctx) {
 	accept_or_return(MODUNLOAD, ctx);
-	const char* name = str_expr(ctx);
+	const char* name = str_expr(ctx, NULL);
 	accept_or_return(NEWLINE, ctx);
 	if (!unload_module(name)) {
 		tokenizer_error_printf(ctx, "Unable to unload module '%s'", name);

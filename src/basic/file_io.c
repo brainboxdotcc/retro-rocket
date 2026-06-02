@@ -278,7 +278,7 @@ void seek_statement(struct basic_ctx* ctx)
 void mkdir_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(MKDIR, ctx);
-	const char* name = str_expr(ctx);
+	const char* name = str_expr(ctx, NULL);
 	accept_or_return(NEWLINE, ctx);
 	const char* dir = make_full_path(ctx, name);
 	if (!fs_create_directory(dir)) {
@@ -288,11 +288,11 @@ void mkdir_statement(struct basic_ctx* ctx)
 
 void mount_statement(struct basic_ctx* ctx) {
 	accept_or_return(MOUNT, ctx);
-	const char* path = make_full_path(ctx, str_expr(ctx));
+	const char* path = make_full_path(ctx, str_expr(ctx, NULL));
 	accept_or_return(COMMA, ctx);
-	const char* device = str_expr(ctx);
+	const char* device = str_expr(ctx, NULL);
 	accept_or_return(COMMA, ctx);
-	const char* fs_type = str_expr(ctx);
+	const char* fs_type = str_expr(ctx, NULL);
 	accept_or_return(NEWLINE, ctx);
 	int partition = PARTITION_FIRST_MATCH;
 	char device_name[16];
@@ -314,7 +314,7 @@ void mount_statement(struct basic_ctx* ctx) {
 void rmdir_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(RMDIR, ctx);
-	const char* name = make_full_path(ctx, str_expr(ctx));
+	const char* name = make_full_path(ctx, str_expr(ctx, NULL));
 	accept_or_return(NEWLINE, ctx);
 	if (!fs_delete_directory(name)) {
 		tokenizer_error_printf(ctx, "Unable to delete directory '%s': %s", name, fs_strerror(fs_get_error()));
@@ -369,7 +369,7 @@ void writebinary_statement(struct basic_ctx* ctx)
 void delete_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(DELETE, ctx);
-	const char* name = make_full_path(ctx, str_expr(ctx));
+	const char* name = make_full_path(ctx, str_expr(ctx, NULL));
 	accept_or_return(NEWLINE, ctx);
 	if (!fs_delete_file(name)) {
 		tokenizer_error_printf(ctx, "Unable to delete file '%s': %s", name, fs_strerror(fs_get_error()));
@@ -480,7 +480,7 @@ char* basic_csd(struct basic_ctx* ctx)
 void chdir_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(CHDIR, ctx);
-	const char* csd = str_expr(ctx);
+	const char* csd = str_expr(ctx, NULL);
 	accept_or_return(NEWLINE, ctx);
 	uint8_t cpu = logical_cpu_id();
 	process_t* proc = proc_cur(cpu);

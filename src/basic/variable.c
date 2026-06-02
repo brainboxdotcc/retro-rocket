@@ -106,7 +106,7 @@ void assignment_statement(struct basic_ctx* ctx, bool global, bool local) {
 		return;
 	} else if (varname_is_string_array_access(ctx, var)) {
 		int64_t index = arr_expr_set_index(ctx, var);
-		const char* value = str_expr(ctx);
+		const char* value = str_expr(ctx, NULL);
 		if (index == -1) {
 			basic_set_string_array(var, value, ctx);
 			accept_or_return(NEWLINE, ctx);
@@ -134,7 +134,7 @@ void assignment_statement(struct basic_ctx* ctx, bool global, bool local) {
 
 	switch (var[var_length - 1]) {
 		case '$':
-			_expr = str_expr(ctx);
+			_expr = str_expr(ctx, NULL);
 			basic_debug("Setting string variable '%s'\n", var);
 			basic_set_string_variable(var, _expr, ctx, local, global);
 		break;

@@ -57,7 +57,10 @@ typedef struct {
 	union {
 		int64_t    i;
 		double     r;
-		const char *s;
+		struct {
+			const char *ptr;
+			size_t len;
+		} s;
 	} v;
 } up_value;
 

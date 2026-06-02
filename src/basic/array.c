@@ -998,7 +998,7 @@ void arrayfind_statement(struct basic_ctx* ctx)
 	}
 
 	if (varname_is_string_array_access(ctx, source)) {
-		const char* needle = str_expr(ctx);
+		const char* needle = str_expr(ctx, NULL);
 		accept_or_return(COMMA, ctx);
 
 		size_t dest_length;

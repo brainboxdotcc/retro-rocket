@@ -258,7 +258,7 @@ void connect_statement(struct basic_ctx *ctx) {
 	fd_var = tokenizer_variable_name(ctx, &var_length);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
-	ip = str_expr(ctx);
+	ip = str_expr(ctx, NULL);
 	accept_or_return(COMMA, ctx);
 	port = expr(ctx);
 
@@ -294,12 +294,12 @@ void sslconnect_statement(struct basic_ctx *ctx) {
 	fd_var = tokenizer_variable_name(ctx, &var_length);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
-	ip = str_expr(ctx);
+	ip = str_expr(ctx, NULL);
 	accept_or_return(COMMA, ctx);
 	port = expr(ctx);
 	if (tokenizer_token(ctx) == COMMA) {
 		accept_or_return(COMMA, ctx);
-		sni = str_expr(ctx);
+		sni = str_expr(ctx, NULL);
 		if (!*sni) {
 			sni = NULL;
 		}
@@ -687,13 +687,13 @@ static void basic_udp_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t
 
 void udpwrite_statement(struct basic_ctx *ctx) {
 	accept_or_return(UDPWRITE, ctx);
-	const char *dest_ip = str_expr(ctx);
+	const char *dest_ip = str_expr(ctx, NULL);
 	accept_or_return(COMMA, ctx);
 	int64_t source_port = expr(ctx);
 	accept_or_return(COMMA, ctx);
 	int64_t dest_port = expr(ctx);
 	accept_or_return(COMMA, ctx);
-	const char *data = str_expr(ctx);
+	const char *data = str_expr(ctx, NULL);
 	accept_or_return(NEWLINE, ctx);
 	if (source_port > 65535 || source_port < 0 || dest_port > 65535 || dest_port < 0) {
 		tokenizer_error_print(ctx, "Invalid UDP port number");
@@ -708,7 +708,7 @@ void udpwrite_statement(struct basic_ctx *ctx) {
 
 void udpbind_statement(struct basic_ctx *ctx) {
 	accept_or_return(UDPBIND, ctx);
-	const char *bind_ip = str_expr(ctx);
+	const char *bind_ip = str_expr(ctx, NULL);
 	(void) bind_ip;
 	accept_or_return(COMMA, ctx);
 	int64_t port = expr(ctx);
@@ -721,7 +721,7 @@ void udpbind_statement(struct basic_ctx *ctx) {
 
 void udpunbind_statement(struct basic_ctx *ctx) {
 	accept_or_return(UDPUNBIND, ctx);
-	const char *bind_ip = str_expr(ctx);
+	const char *bind_ip = str_expr(ctx, NULL);
 	(void) bind_ip;
 	accept_or_return(COMMA, ctx);
 	int64_t port = expr(ctx);
