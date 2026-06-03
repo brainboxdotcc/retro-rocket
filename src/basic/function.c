@@ -521,7 +521,7 @@ const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx, size_t
  * @param res pointer to return value of function
  * @return uint64_t true/false return
  */
-char basic_builtin_int_fn(const char* fn_name, struct basic_ctx* ctx, int64_t* res)
+char basic_builtin_int_fn(const char* fn_name, struct basic_ctx* ctx, int64_t* res, size_t fn_name_len)
 {
 	struct builtin_int_entry key = {
 		.name = fn_name,
@@ -532,7 +532,7 @@ char basic_builtin_int_fn(const char* fn_name, struct basic_ctx* ctx, int64_t* r
 		return 0;
 	}
 
-	if (is_restricted(ctx, fn_name)) {
+	if (is_restricted_len(ctx, fn_name, fn_name_len)) {
 		tokenizer_error_printf(ctx, "Function '%s' is restricted by parent program", fn_name);
 		*res = 0;
 		return 0;
@@ -542,7 +542,7 @@ char basic_builtin_int_fn(const char* fn_name, struct basic_ctx* ctx, int64_t* r
 	return 1;
 }
 
-char basic_builtin_double_fn(const char* fn_name, struct basic_ctx* ctx, double* res)
+char basic_builtin_double_fn(const char* fn_name, struct basic_ctx* ctx, double* res, size_t fn_name_len)
 {
 	struct builtin_double_entry key = {
 		.name = fn_name,
@@ -553,7 +553,7 @@ char basic_builtin_double_fn(const char* fn_name, struct basic_ctx* ctx, double*
 		return 0;
 	}
 
-	if (is_restricted(ctx, fn_name)) {
+	if (is_restricted_len(ctx, fn_name, fn_name_len)) {
 		tokenizer_error_printf(ctx, "Function '%s' is restricted by parent program", fn_name);
 		*res = 0;
 		return 0;
@@ -572,10 +572,11 @@ char basic_builtin_double_fn(const char* fn_name, struct basic_ctx* ctx, double*
  * @param res pointer to return value of function
  * @return uint64_t true/false return
  */
-bool basic_builtin_str_fn(const char* fn_name, struct basic_ctx* ctx, char** res, size_t* out_len)
+bool basic_builtin_str_fn(const char* fn_name, struct basic_ctx* ctx, char** res, size_t* out_len, size_t fn_name_len)
 {
 	struct builtin_str_entry key = {
 		.name = fn_name,
+		.name_length = fn_name_len,
 	};
 	struct builtin_str_entry *entry = hashmap_get(builtin_str_map, &key);
 
@@ -584,7 +585,7 @@ bool basic_builtin_str_fn(const char* fn_name, struct basic_ctx* ctx, char** res
 		return false;
 	}
 
-	if (is_restricted(ctx, fn_name)) {
+	if (is_restricted_len(ctx, fn_name, fn_name_len)) {
 		tokenizer_error_printf(ctx, "Function '%s' is restricted by parent program", fn_name);
 		*res = "";
 		if (out_len) *out_len = 0;

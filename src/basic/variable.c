@@ -393,14 +393,14 @@ char varname_is_double_function(const char* varname) {
 	return varname && varname[0] == 'F' && varname[1] == 'N' && get_sigil(varname) == '#';
 }
 
-const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx, size_t* out_len) {
+const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx, size_t* out_len, size_t var_name_len) {
 	if (!var) {
 		if (out_len) *out_len = 0;
 		return "";
 	}
 	char* retv;
 	size_t ov;
-	if (basic_builtin_str_fn(var, ctx, &retv, &ov)) {
+	if (basic_builtin_str_fn(var, ctx, &retv, &ov, var_name_len)) {
 		if (out_len) *out_len = ov;
 		return retv;
 	} else if (varname_is_string_function(var)) {
@@ -416,12 +416,12 @@ const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx, si
 	ub_var_string* found = NULL;
 	for (size_t j = ctx->call_stack_ptr; j > 0; --j) {
 		struct hashmap* list = ctx->local_string_variables[j];
-		if (list && (found = hashmap_get(list, &(ub_var_string) { .varname = var }))) {
+		if (list && (found = hashmap_get(list, &(ub_var_string) { .varname = var, .value_length = var_name_len }))) {
 			if (out_len) *out_len = found->value_length;
 			return found->value;
 		}
 	}
-	if ((found = hashmap_get(ctx->str_variables, &(ub_var_string) { .varname = var }))) {
+	if ((found = hashmap_get(ctx->str_variables, &(ub_var_string) { .varname = var, .value_length = var_name_len }))) {
 		if (out_len) *out_len = found->value_length;
 		return found->value;
 	}
@@ -482,12 +482,12 @@ bool basic_int_variable_exists(const char* var, struct basic_ctx* ctx) {
 	return false;
 }
 
-int64_t basic_get_int_variable(const char* var, struct basic_ctx* ctx) {
+int64_t basic_get_int_variable(const char* var, struct basic_ctx* ctx, size_t var_len) {
 	if (!var) {
 		return 0;
 	}
 	int64_t retv = 0;
-	if (basic_builtin_int_fn(var, ctx, &retv)) {
+	if (basic_builtin_int_fn(var, ctx, &retv, var_len)) {
 		return retv;
 	} else if (varname_is_function(var)) {
 		return basic_eval_int_fn(var, ctx);
@@ -514,7 +514,7 @@ bool basic_get_double_variable(const char* var, struct basic_ctx* ctx, double* r
 	if (!var || !res) {
 		return false;
 	}
-	if (basic_builtin_double_fn(var, ctx, res)) {
+	if (basic_builtin_double_fn(var, ctx, res, var_len)) {
 		return true;
 	} else if (varname_is_double_function(var)) {
 		basic_eval_double_fn(var, ctx, res);
@@ -551,7 +551,7 @@ ub_return_type basic_get_numeric_variable(const char* var, struct basic_ctx* ctx
 	if (basic_get_double_variable(var, ctx, res, var_len)) {
 		return RT_INT;
 	}
-	*res = (double)(basic_get_int_variable(var, ctx));
+	*res = (double)(basic_get_int_variable(var, ctx, var_len));
 	return RT_FLOAT;
 }
 
@@ -560,6 +560,6 @@ int64_t basic_get_numeric_int_variable(const char* var, struct basic_ctx* ctx, s
 	if (basic_get_double_variable(var, ctx, &res, var_len)) {
 		return (int64_t)res;
 	}
-	return basic_get_int_variable(var, ctx);
+	return basic_get_int_variable(var, ctx, var_len);
 }
 

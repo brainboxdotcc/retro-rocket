@@ -479,7 +479,7 @@ char* basic_tokenize(struct basic_ctx* ctx, size_t* out_len)
 	char* split = strval;
 	size_t split_len = strlength;
 	PARAMS_END("TOKENIZE$","");
-	const char* current_value = basic_get_string_variable(varname, ctx, out_len);
+	const char* current_value = basic_get_string_variable(varname, ctx, out_len, var_len);
 	const char* old_value = current_value;
 	size_t len = *out_len;
 	size_t ofs = 0;

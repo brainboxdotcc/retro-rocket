@@ -63,17 +63,6 @@ bool basic_derestrict_keyword_or_function_for_child(struct basic_ctx* ctx, const
 bool basic_pass_restrictions_to_child(struct basic_ctx* parent, struct basic_ctx* child);
 
 /**
- * @brief Checks if a keyword or built-in function is restricted.
- *
- * Performs a lookup in the active restriction set of the provided context.
- *
- * @param ctx BASIC context to check
- * @param function_or_keyword Name to test
- * @return true if restricted, false otherwise
- */
-bool is_restricted(struct basic_ctx* ctx, const char* function_or_keyword);
-
-/**
  * @brief Checks if a keyword or built-in function is restricted using a known length.
  *
  * Variant of is_restricted() that avoids recomputing string length.

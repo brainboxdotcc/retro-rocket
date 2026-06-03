@@ -61,13 +61,6 @@ bool basic_restrict_keyword_or_function_for_child(struct basic_ctx* ctx, const c
 	return true;
 }
 
-bool is_restricted(struct basic_ctx* ctx, const char* function_or_keyword) {
-	if (!ctx->active_restrictions) {
-		return false;
-	}
-	return hashmap_get(ctx->active_restrictions, &(restriction_t){ .length = strlen(function_or_keyword), .keyword = function_or_keyword }) != NULL;
-}
-
 bool is_restricted_len(struct basic_ctx* ctx, const char* function_or_keyword, size_t length) {
 	if (!ctx->active_restrictions) {
 		return false;

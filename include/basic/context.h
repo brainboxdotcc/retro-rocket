@@ -595,7 +595,7 @@ void set_system_variables(struct basic_ctx* ctx, uint32_t pid);
  * @param res Pointer to store the result of the function if found.
  * @return 1 if the function is found and executed, 0 otherwise.
  */
-bool basic_builtin_str_fn(const char* fn_name, struct basic_ctx* ctx, char** res, size_t* out_len);
+bool basic_builtin_str_fn(const char* fn_name, struct basic_ctx* ctx, char** res, size_t* out_len, size_t fn_name_len);
 
 /**
  * @brief Evaluate an integer function in the context of BASIC.
@@ -633,7 +633,7 @@ const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx, size_t
  * @param res Pointer to store the result of the function if found.
  * @return 1 if the function is found and executed, 0 otherwise.
  */
-char basic_builtin_double_fn(const char* fn_name, struct basic_ctx* ctx, double* res);
+char basic_builtin_double_fn(const char* fn_name, struct basic_ctx* ctx, double* res, size_t fn_name_len);
 
 /**
  * @brief Check if a function name corresponds to a built-in integer function.
@@ -643,7 +643,7 @@ char basic_builtin_double_fn(const char* fn_name, struct basic_ctx* ctx, double*
  * @param res Pointer to store the result of the function if found.
  * @return 1 if the function is found and executed, 0 otherwise.
  */
-char basic_builtin_int_fn(const char* fn_name, struct basic_ctx* ctx, int64_t* res);
+char basic_builtin_int_fn(const char* fn_name, struct basic_ctx* ctx, int64_t* res, size_t fn_name_len);
 
 /**
  * @brief Find a function definition by name in the BASIC context.

@@ -19,7 +19,7 @@ void varmap_free(const void *ptr, void *udata);
  * @param ctx The current BASIC context.
  * @return The value of the integer variable.
  */
-int64_t basic_get_int_variable(const char* varname, struct basic_ctx* ctx);
+int64_t basic_get_int_variable(const char* varname, struct basic_ctx* ctx, size_t var_len);
 
 /**
  * @brief Get the value of a double (real) variable.
@@ -42,7 +42,7 @@ bool basic_get_double_variable(const char* var, struct basic_ctx* ctx, double* r
  * @param ctx The current BASIC context.
  * @return The value of the string variable.
  */
-const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx, size_t* out_len);
+const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx, size_t* out_len, size_t var_name_len);
 
 /**
  * @brief Set the value of a string variable.
