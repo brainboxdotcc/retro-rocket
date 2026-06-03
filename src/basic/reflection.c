@@ -29,7 +29,8 @@ char* basic_getvar_string(struct basic_ctx* ctx)
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* var = strval;
 	PARAMS_END("GETVARS", 0);
-	return (char*)gc_strdup(ctx, basic_get_string_variable(var, ctx));
+	size_t out_len;
+	return (char*)gc_strdup(ctx, basic_get_string_variable(var, ctx, &out_len));
 }
 
 int64_t basic_existsvar_int(struct basic_ctx* ctx)
@@ -99,7 +100,8 @@ void setvars_statement(struct basic_ctx* ctx)
 	accept_or_return(COMMA, ctx);
 	int64_t option_local = expr(ctx);
 	accept_or_return(COMMA, ctx);
-	const char* value = str_expr(ctx, NULL);
+	size_t v_len;
+	const char* value = str_expr(ctx, &v_len);
 	accept_or_return(NEWLINE, ctx);
-	basic_set_string_variable(var, value, ctx, option_local, option_global);	
+	basic_set_string_variable(var, value, ctx, option_local, option_global, v_len);
 }

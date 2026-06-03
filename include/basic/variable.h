@@ -42,7 +42,7 @@ bool basic_get_double_variable(const char* var, struct basic_ctx* ctx, double* r
  * @param ctx The current BASIC context.
  * @return The value of the string variable.
  */
-const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx);
+const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Set the value of a string variable.
@@ -55,7 +55,7 @@ const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx);
  * @param local Boolean indicating whether the variable is local.
  * @param propagate_global Boolean indicating whether the variable is propagated globally to child programs.
  */
-void basic_set_string_variable(const char* var, const char* value, struct basic_ctx* ctx, bool local, bool propagate_global);
+void basic_set_string_variable(const char* var, const char* value, struct basic_ctx* ctx, bool local, bool propagate_global, size_t value_len);
 
 /**
  * @brief Set the value of a double (real) variable.

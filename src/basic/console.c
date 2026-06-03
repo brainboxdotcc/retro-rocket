@@ -132,9 +132,11 @@ void input_statement(struct basic_ctx* ctx)
 
 	proc_set_idle(proc, NULL, NULL);
 
+	size_t out_len;
+
 	if (varname_is_int_array_access(ctx, var)) {
 		int64_t index = arr_target_index(ctx);
-		int64_t value = atoll(kgetinput(&ctx->input), 10);
+		int64_t value = atoll(kgetinput(&ctx->input, &out_len), 10);
 
 		if (index == -1) {
 			basic_set_int_array(var, value, ctx);
@@ -148,7 +150,7 @@ void input_statement(struct basic_ctx* ctx)
 		return;
 	} else if (varname_is_string_array_access(ctx, var)) {
 		int64_t index = arr_target_index(ctx);
-		const char* value = kgetinput(&ctx->input);
+		const char* value = kgetinput(&ctx->input, &out_len);
 
 		if (index == -1) {
 			basic_set_string_array(var, value, ctx);
@@ -163,7 +165,7 @@ void input_statement(struct basic_ctx* ctx)
 	} else if (varname_is_double_array_access(ctx, var)) {
 		int64_t index = arr_target_index(ctx);
 		double value = 0;
-		atof(kgetinput(&ctx->input), &value);
+		atof(kgetinput(&ctx->input, &out_len), &value);
 
 		if (index == -1) {
 			basic_set_double_array(var, value, ctx);
@@ -180,19 +182,20 @@ void input_statement(struct basic_ctx* ctx)
 	accept_or_return(VARIABLE, ctx);
 
 	switch (var[var_length - 1]) {
-		case '$':
-			basic_set_string_variable(var, kgetinput(&ctx->input), ctx, false, false);
+		case '$': {
+			const char* value = kgetinput(&ctx->input, &out_len);
+			basic_set_string_variable(var, value, ctx, false, false, out_len);
 			break;
-
+		}
 		case '#': {
 			double f = 0;
-			atof(kgetinput(&ctx->input), &f);
+			atof(kgetinput(&ctx->input, &out_len), &f);
 			basic_set_double_variable(var, f, ctx, false, false);
 			break;
 		}
 
 		default:
-			basic_set_int_variable(var, atoll(kgetinput(&ctx->input), 10), ctx, false, false);
+			basic_set_int_variable(var, atoll(kgetinput(&ctx->input, &out_len), 10), ctx, false, false);
 			break;
 	}
 	kfreeinput(ctx, &ctx->input);
@@ -746,7 +749,7 @@ void kget_statement(struct basic_ctx* ctx)
 	switch (var[var_length - 1]) {
 		case '$': {
 			char str[2] = { c, '\0' };
-			basic_set_string_variable(var, str, ctx, false, false);
+			basic_set_string_variable(var, str, ctx, false, false, 1);
 			break;
 		}
 		case '#': {

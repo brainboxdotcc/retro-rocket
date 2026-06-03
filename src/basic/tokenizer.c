@@ -470,7 +470,7 @@ void tokenizer_error_printf(struct basic_ctx* ctx, const char* fmt, ...)
 void tokenizer_error_print(struct basic_ctx* ctx, const char* error)
 {
 	dprintf("tokenizer_error_print: %s\n", error);
-	basic_set_string_variable("ERR$", error, ctx, false, false);
+	basic_set_string_variable("ERR$", error, ctx, false, false, strlen(error));
 	basic_set_int_variable("ERR", 1, ctx, false, false);
 	basic_set_int_variable("ERRLINE", ctx->current_linenum, ctx, false, false);
 	if (ctx->eval_linenum == 0) {

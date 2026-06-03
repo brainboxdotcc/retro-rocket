@@ -121,6 +121,7 @@ typedef struct ub_var_string {
 	size_t name_length; ///< Length of the variable name
 	char *value; ///< The value of the string variable
 	bool global; ///< True if the variable is global, false if local
+	size_t value_length; ///< Length of stored string value
 } ub_var_string;
 
 /**

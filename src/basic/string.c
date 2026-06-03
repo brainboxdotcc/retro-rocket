@@ -28,12 +28,10 @@ extern struct basic_str_fn builtin_str[];
 extern struct basic_double_fn builtin_double[];
 
 /* small helper: assign "" to any capture variables on failure */
-static void set_empty_captures(struct basic_ctx *ctx,
-			       const char *const *cap_names,
-			       size_t cap_vars)
+static void set_empty_captures(struct basic_ctx *ctx, const char *const *cap_names, size_t cap_vars)
 {
 	for (size_t i = 0; i < cap_vars; i++) {
-		basic_set_string_variable(cap_names[i], "", ctx, false, false);
+		basic_set_string_variable(cap_names[i], "", ctx, false, false, 0);
 	}
 }
 
@@ -164,10 +162,10 @@ void match_statement(struct basic_ctx *ctx)
 		/* Fill user variables from captured text; if missing, "" */
 		for (size_t i = 0; i < cap_vars; i++) {
 			if (cap_out[i]) {
-				basic_set_string_variable(cap_names[i], cap_out[i], ctx, false, false);
+				basic_set_string_variable(cap_names[i], cap_out[i], ctx, false, false, strlen(cap_out[i]));
 				buddy_free(ctx->allocator, cap_out[i]);
 			} else {
-				basic_set_string_variable(cap_names[i], "", ctx, false, false);
+				basic_set_string_variable(cap_names[i], "", ctx, false, false, 0);
 			}
 		}
 
@@ -472,7 +470,8 @@ char* basic_tokenize(struct basic_ctx* ctx)
 	PARAMS_GET_ITEM(BIP_STRING);
 	split = strval;
 	PARAMS_END("TOKENIZE$","");
-	const char* current_value = basic_get_string_variable(varname, ctx);
+	size_t out_len;
+	const char* current_value = basic_get_string_variable(varname, ctx, &out_len);
 	const char* old_value = current_value;
 	size_t len = strlen(current_value);
 	size_t split_len = strlen(split);
@@ -505,7 +504,7 @@ char* basic_tokenize(struct basic_ctx* ctx)
 			memcpy(new_value, old_value + new_ofs, new_len);
 			new_value[new_len] = 0;
 
-			basic_set_string_variable(varname, new_value, ctx, false, false);
+			basic_set_string_variable(varname, new_value, ctx, false, false, new_len);
 
 			char* ret = (char*)gc_strdup(ctx, return_value);
 			buddy_free(ctx->allocator, return_value);
@@ -527,7 +526,7 @@ char* basic_tokenize(struct basic_ctx* ctx)
 	memcpy(return_value, old_value, ret_len);
 	return_value[ret_len] = 0;
 
-	basic_set_string_variable(varname, "", ctx, false, false);
+	basic_set_string_variable(varname, "", ctx, false, false, 0);
 
 	char* ret = (char*)gc_strdup(ctx, return_value);
 	buddy_free(ctx->allocator, return_value);

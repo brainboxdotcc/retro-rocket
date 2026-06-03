@@ -103,6 +103,9 @@ void kfreeinput(struct basic_ctx* basic, struct buffered_input_context_t* ctx) {
 	kinitinput(ctx);
 }
 
-const char* kgetinput(struct buffered_input_context_t* ctx) {
+const char* kgetinput(struct buffered_input_context_t* ctx, size_t* out_len) {
+	if (out_len) {
+		*out_len = ctx->bufcnt;
+	}
 	return ctx->internalbuffer;
 }

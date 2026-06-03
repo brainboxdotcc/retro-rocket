@@ -165,7 +165,7 @@ void sockread_statement(struct basic_ctx *ctx) {
 
 	switch (var[var_length - 1]) {
 		case '$':
-			basic_set_string_variable(var, input, ctx, false, false);
+			basic_set_string_variable(var, input, ctx, false, false, rv);
 			break;
 		case '#': {
 			double f = 0;

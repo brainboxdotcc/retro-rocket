@@ -398,7 +398,9 @@ bool extract_comma_list(struct ub_proc_fn_def* def, struct basic_ctx* ctx, int* 
 			size_t len = strlen((*param)->name);
 			if ((*param)->name[len - 1] == '$') {
 				const char* save_ptr = ctx->ptr;
-				basic_set_string_variable((*param)->name, str_expr(ctx, NULL), ctx, true, false);
+				size_t v_len;
+				const char* value = str_expr(ctx, &v_len);
+				basic_set_string_variable((*param)->name, value, ctx, true, false, v_len);
 				ctx->ptr = save_ptr;
 			} else if ((*param)->name[len - 1] == '#') {
 				double f = 0.0;

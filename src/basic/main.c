@@ -372,7 +372,7 @@ struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file
 
 	tokenizer_init(ctx->program_ptr, ctx);
 	set_system_variables(ctx, pid);
-	basic_set_string_variable("PROGRAM$", file, ctx, false, false);
+	basic_set_string_variable("PROGRAM$", file, ctx, false, false, strlen(file));
 
 	if (!basic_hash_lines(ctx, error)) {
 		dprintf("Failed to hash lines\n");
@@ -743,7 +743,7 @@ void chain_statement(struct basic_ctx *ctx) {
 		while (hashmap_iter(ctx->str_variables, &i, &item)) {
 			struct ub_var_string *v = (struct ub_var_string *)item;
 			if (v->global) {
-				basic_set_string_variable(v->varname, v->value, new_proc, false, true);
+				basic_set_string_variable(v->varname, v->value, new_proc, false, true, v->value_length);
 			}
 		}
 	}
@@ -807,12 +807,12 @@ void eval_statement(struct basic_ctx *ctx)
 		process_t *child;
 		process_t *parent;
 
-		basic_set_string_variable("ERR$", "", ctx, false, false);
+		basic_set_string_variable("ERR$", "", ctx, false, false, 0);
 		basic_set_int_variable("ERR", 0, ctx, false, false);
 
 		parent = ctx->proc;
 		if (!parent) {
-			basic_set_string_variable("ERR$", "EVAL has no process context", ctx, false, false);
+			basic_set_string_variable("ERR$", "EVAL has no process context", ctx, false, false, 27);
 			basic_set_int_variable("ERR", 1, ctx, false, false);
 			setforeground(COLOUR_LIGHTRED);
 			kprintf("EVAL has no process context\n");
@@ -822,7 +822,7 @@ void eval_statement(struct basic_ctx *ctx)
 
 		child = proc_load_anonymous(clean_v, parent->pid, parent->csd);
 		if (!child) {
-			basic_set_string_variable("ERR$", "Failed to launch anonymous program", ctx, false, false);
+			basic_set_string_variable("ERR$", "Failed to launch anonymous program", ctx, false, false, 34);
 			basic_set_int_variable("ERR", 1, ctx, false, false);
 			setforeground(COLOUR_LIGHTRED);
 			kprintf("Failed to launch anonymous program\n");
@@ -852,7 +852,7 @@ void eval_statement(struct basic_ctx *ctx)
 			while (hashmap_iter(ctx->str_variables, &i, &item)) {
 				struct ub_var_string *v = (struct ub_var_string *)item;
 				if (v->global) {
-					basic_set_string_variable(v->varname, v->value, new_proc, false, true);
+					basic_set_string_variable(v->varname, v->value, new_proc, false, true, v->value_length);
 				}
 			}
 		}
@@ -877,7 +877,7 @@ void eval_statement(struct basic_ctx *ctx)
 
 	if (basic_in_eval(ctx)) {
 		ctx->eval_linenum = 0;
-		basic_set_string_variable("ERR$", "Recursive EVAL", ctx, false, false);
+		basic_set_string_variable("ERR$", "Recursive EVAL", ctx, false, false,14);
 		basic_set_int_variable("ERR", 1, ctx, false, false);
 		setforeground(COLOUR_LIGHTRED);
 		kprintf("Recursive EVAL\n");
@@ -886,7 +886,7 @@ void eval_statement(struct basic_ctx *ctx)
 	}
 
 	if (ctx->oldlen == 0) {
-		basic_set_string_variable("ERR$", "", ctx, false, false);
+		basic_set_string_variable("ERR$", "", ctx, false, false, 0);
 		basic_set_int_variable("ERR", 0, ctx, false, false);
 		ctx->oldlen = strlen(ctx->program_ptr);
 

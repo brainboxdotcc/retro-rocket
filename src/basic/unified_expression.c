@@ -103,13 +103,14 @@ static up_value up_factor(struct basic_ctx *ctx) {
 
 			if (L && name[L - 1] == '$') {
 				/* String var / string builtin (e.g. MID$) */
-				const char *s = basic_get_string_variable(name, ctx);
+				size_t out_len;
+				const char *s = basic_get_string_variable(name, ctx, &out_len);
 				if (tokenizer_token(ctx) == CLOSEBRACKET) {
 					accept(CLOSEBRACKET, ctx);
 				} else {
 					accept(VARIABLE, ctx);
 				}
-				return up_make_str(s ? s : "");
+				return up_make_str(s ? s : "", out_len);
 			}
 
 			if (L && name[L - 1] == '#') {

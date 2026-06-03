@@ -42,9 +42,8 @@ const struct g_cpuid_vendor cpuid_vendors[] =
 void set_system_variables(struct basic_ctx* ctx, uint32_t pid)
 {
 	const struct g_cpuid_vendor* p = &cpuid_vendors[0];
-	while (p->varname != NULL &&
-		   p->vendor != NULL) {
-		basic_set_string_variable(p->varname, p->vendor, ctx, false, false);
+	while (p->varname != NULL && p->vendor != NULL) {
+		basic_set_string_variable(p->varname, p->vendor, ctx, false, false, 12);
 		++p;
 	}
 	basic_set_int_variable("TRUE", 1, ctx, false, false);
@@ -84,7 +83,6 @@ void newline_statement(struct basic_ctx* ctx) {
 
 void assignment_statement(struct basic_ctx* ctx, bool global, bool local) {
 	const char* var;
-	const char* _expr;
 	double f_expr = 0;
 	size_t var_length;
 
@@ -133,20 +131,22 @@ void assignment_statement(struct basic_ctx* ctx, bool global, bool local) {
 	accept_or_return(EQUALS, ctx);
 
 	switch (var[var_length - 1]) {
-		case '$':
-			_expr = str_expr(ctx, NULL);
+		case '$': {
+			size_t expr_len;
+			const char* _expr = str_expr(ctx, &expr_len);
 			basic_debug("Setting string variable '%s'\n", var);
-			basic_set_string_variable(var, _expr, ctx, local, global);
-		break;
+			basic_set_string_variable(var, _expr, ctx, local, global, expr_len);
+			break;
+		}
 		case '#':
 			basic_debug("Setting double variable '%s'\n", var);
 			double_expr(ctx, &f_expr);
 			basic_set_double_variable(var, f_expr, ctx, local, global);
-		break;
+			break;
 		default:
 			basic_debug("Setting int variable '%s' local=%d global=%d\n", var, local, global);
 			basic_set_int_variable(var, expr(ctx), ctx, local, global);
-		break;
+			break;
 	}
 	accept_or_return(NEWLINE, ctx);
 }
@@ -213,7 +213,7 @@ bool valid_int_var(const char* name)
     return valid_suffix_var(name, '\0');
 }
 
-static void update_string(struct basic_ctx* ctx, ub_var_string* str, size_t len, bool propagate_global, const char* varname, const char* value) {
+static void update_string(struct basic_ctx* ctx, ub_var_string* str, size_t len, bool propagate_global, const char* varname, const char* value, size_t value_len) {
 	if (!str || !varname || !value) {
 		return;
 	}
@@ -221,9 +221,10 @@ static void update_string(struct basic_ctx* ctx, ub_var_string* str, size_t len,
 	str->global = propagate_global;
 	str->varname = buddy_strdup(ctx->allocator, varname);
 	str->value = buddy_strdup(ctx->allocator, value);
+	str->value_length = value_len;
 }
 
-void basic_set_string_variable(const char* var, const char* value, struct basic_ctx* ctx, bool local, bool propagate_global) {
+void basic_set_string_variable(const char* var, const char* value, struct basic_ctx* ctx, bool local, bool propagate_global, size_t value_len) {
 	if (!var || !value) {
 		return;
 	}
@@ -239,20 +240,20 @@ void basic_set_string_variable(const char* var, const char* value, struct basic_
 
 	ub_var_string* found = NULL;
 	bool oom = false;
-	if (local && locals && (found = hashmap_get(locals, &(ub_var_string) { .varname = var }))) {
+	if (local && locals && (found = hashmap_get(locals, &(ub_var_string) { .varname = var, .name_length = len }))) {
 		buddy_free(ctx->allocator, found->varname);
 		buddy_free(ctx->allocator, found->value);
-		update_string(ctx, found, len, propagate_global, var, value);
+		update_string(ctx, found, len, propagate_global, var, value, value_len);
 		oom = !hashmap_set(locals, found) && hashmap_oom(locals);
-	} else if ((found = hashmap_get(globals, &(ub_var_string) { .varname = var }))) {
+	} else if ((found = hashmap_get(globals, &(ub_var_string) { .varname = var, .name_length = len }))) {
 		buddy_free(ctx->allocator, found->varname);
 		buddy_free(ctx->allocator, found->value);
-		update_string(ctx, found, len, propagate_global, var, value);
+		update_string(ctx, found, len, propagate_global, var, value, value_len);
 		oom = !hashmap_set(globals, found) && hashmap_oom(globals);
 	} else {
 		struct hashmap* target = local && locals ? locals : globals;
 		ub_var_string new;
-		update_string(ctx, &new, len, propagate_global, var, value);
+		update_string(ctx, &new, len, propagate_global, var, value, value_len);
 		oom = !hashmap_set(target, &new) && hashmap_oom(target);
 	}
 	if (oom) {
@@ -392,32 +393,40 @@ char varname_is_double_function(const char* varname) {
 	return varname && varname[0] == 'F' && varname[1] == 'N' && get_sigil(varname) == '#';
 }
 
-const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx) {
+const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx, size_t* out_len) {
 	if (!var) {
+		if (out_len) *out_len = 0;
 		return "";
 	}
 	char* retv;
 	if (basic_builtin_str_fn(var, ctx, &retv)) {
+		if (out_len) *out_len = strlen(retv); // TODO FIXME
 		return retv;
 	} else if (varname_is_string_function(var)) {
 		const char* res = basic_eval_str_fn(var, ctx);
+		if (out_len) *out_len = strlen(res); // TODO FIXME
 		return res;
 	} else if (varname_is_string_array_access(ctx, var)) {
-		return basic_get_string_array_variable(var, arr_variable_index(ctx), ctx);
+		const char* res = basic_get_string_array_variable(var, arr_variable_index(ctx), ctx);
+		if (out_len) *out_len = strlen(res); // TODO FIXME
+		return res;
 	}
 
 	ub_var_string* found = NULL;
 	for (size_t j = ctx->call_stack_ptr; j > 0; --j) {
 		struct hashmap* list = ctx->local_string_variables[j];
 		if (list && (found = hashmap_get(list, &(ub_var_string) { .varname = var }))) {
+			if (out_len) *out_len = found->value_length;
 			return found->value;
 		}
 	}
 	if ((found = hashmap_get(ctx->str_variables, &(ub_var_string) { .varname = var }))) {
+		if (out_len) *out_len = found->value_length;
 		return found->value;
 	}
 
 	tokenizer_error_printf(ctx, "No such string variable '%s'", var);
+	if (out_len) *out_len = 0;
 	return "";
 }
 
