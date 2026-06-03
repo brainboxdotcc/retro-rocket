@@ -53,13 +53,19 @@ uint8_t double_determine_decimal_places(double f)
         return prec + 1;
 }
 
-char* double_to_string(double x, char *p, size_t len, uint8_t precision)
+char* double_to_string(double x, char *p, size_t len, uint8_t precision, size_t* out_len)
 {
 	if (!p) {
+		if (out_len) {
+			*out_len = 0;
+		}
 		return NULL;
 	}
 	if (x > 9e18 || x < -9e18) {
 		strlcpy(p, "OVERFLOW", len);
+		if (out_len) {
+			*out_len = 8;
+		}
 		return p;
 	}
 
@@ -139,6 +145,7 @@ char* double_to_string(double x, char *p, size_t len, uint8_t precision)
 			if (number_decimals > precision) {
 				// more decimal than precision, cut it off
 				*(decimal_pos + 1 + precision) = 0;
+				p = decimal_pos + 1 + precision;
 			} else {
 				// Less decomals than precision, add more
 				while (number_decimals < precision) {
@@ -146,8 +153,14 @@ char* double_to_string(double x, char *p, size_t len, uint8_t precision)
 					++number_decimals;
 				}
 				*dec_ptr = 0;
+				p = dec_ptr;
 			}
 		}
 	}
+
+	if (out_len) {
+		*out_len = p - start;
+	}
+
 	return start;
 }

@@ -386,9 +386,10 @@ void write_statement(struct basic_ctx* ctx)
 	fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx, &var_length), ctx);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
-	char* out = printable_syntax(ctx);
+	size_t len;
+	char* out = printable_syntax(ctx, &len);
 	if (out) {
-		if (_write(fd, out, strlen(out)) == -1) {
+		if (_write(fd, out, len) == -1) {
 			tokenizer_error_printf(ctx, "Error writing to file: %s", fs_strerror(fs_get_error()));
 		}
 	}

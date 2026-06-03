@@ -604,9 +604,9 @@ void sockwrite_statement(struct basic_ctx *ctx) {
 	int fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx, &var_length), ctx);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
-	char *out = printable_syntax(ctx);
+	size_t binsize;
+	char *out = printable_syntax(ctx, &binsize);
 	if (out) {
-		size_t binsize = strlen(out);
 		STRING_UNESCAPE_INPLACE(out, binsize);
 		if (tls_get(fd)) {
 			int want = 0;

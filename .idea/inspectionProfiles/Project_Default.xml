@@ -2,12 +2,63 @@
   <profile version="1.0">
     <option name="myName" value="Project Default" />
     <inspection_tool class="ArrayIndexOutOfBounds" enabled="false" level="WARNING" enabled_by_default="false" />
-    <inspection_tool class="ClangTidy" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="Clazy" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="ConstantParameter" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="CppAccessSpecifierWithNoDeclarations" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="CppConditionalExpressionCanBeSimplified" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="CppConstParameterInDeclaration" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="CppConstexprIfDiscardedBranch" enabled="false" level="HINT" enabled_by_default="false" />
+    <inspection_tool class="CppDefinitionsOrder" enabled="false" level="HINT" enabled_by_default="false" />
+    <inspection_tool class="CppDeprecatedRegisterStorageClassSpecifier" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="CppEnforceNestedNamespacesStyle" enabled="false" level="HINT" enabled_by_default="false" />
+    <inspection_tool class="CppEnforceOverridingDestructorStyle" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="CppEnforceOverridingFunctionStyle" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="CppEnumeratorNeverUsed" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="CppFinalFunctionInFinalClass" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="CppFinalNonOverridingVirtualFunction" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="CppFunctionIsNotImplemented" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="CppHeaderHasBeenAlreadyIncluded" enabled="false" level="HINT" enabled_by_default="false" />
     <inspection_tool class="CppLocalVariableMayBeConst" enabled="false" level="HINT" enabled_by_default="false" />
+    <inspection_tool class="CppMemberInitializersOrder" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="CppParameterMayBeConst" enabled="false" level="HINT" enabled_by_default="false" />
+    <inspection_tool class="CppParameterMayBeConstPtrOrRef" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="CppPassValueParameterByConstReference" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="CppRedundantAccessSpecifier" enabled="false" level="HINT" enabled_by_default="false" />
+    <inspection_tool class="CppRedundantBaseClassAccessSpecifier" enabled="false" level="HINT" enabled_by_default="false" />
+    <inspection_tool class="CppRedundantBaseClassInitializer" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="CppRedundantBooleanExpressionArgument" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="CppRedundantCastExpression" enabled="false" level="HINT" enabled_by_default="false" />
+    <inspection_tool class="CppRedundantConditionalExpression" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="CppRedundantConstSpecifier" enabled="false" level="HINT" enabled_by_default="false" />
+    <inspection_tool class="CppRedundantControlFlowJump" enabled="false" level="HINT" enabled_by_default="false" />
+    <inspection_tool class="CppRedundantDereferencingAndTakingAddress" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="CppRedundantElaboratedTypeSpecifier" enabled="false" level="HINT" enabled_by_default="false" />
+    <inspection_tool class="CppRedundantElseKeyword" enabled="false" level="HINT" enabled_by_default="false" />
+    <inspection_tool class="CppRedundantElseKeywordInsideCompoundStatement" enabled="false" level="HINT" enabled_by_default="false" />
+    <inspection_tool class="CppRedundantEmptyDeclaration" enabled="false" level="HINT" enabled_by_default="false" />
+    <inspection_tool class="CppRedundantEmptyStatement" enabled="false" level="HINT" enabled_by_default="false" />
+    <inspection_tool class="CppRedundantExportKeyword" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="CppRedundantFwdClassOrEnumSpecifier" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
     <inspection_tool class="CppRedundantInlineSpecifier" enabled="false" level="HINT" enabled_by_default="false" />
+    <inspection_tool class="CppRedundantLambdaParameterList" enabled="false" level="HINT" enabled_by_default="false" />
+    <inspection_tool class="CppRedundantMemberInitializer" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="CppRedundantParentheses" enabled="false" level="HINT" enabled_by_default="false" />
+    <inspection_tool class="CppRedundantQualifier" enabled="false" level="HINT" enabled_by_default="false" />
+    <inspection_tool class="CppRedundantStaticSpecifierOnMemberAllocationFunction" enabled="false" level="HINT" enabled_by_default="false" />
+    <inspection_tool class="CppRedundantStaticSpecifierOnThreadLocalLocalVariable" enabled="false" level="HINT" enabled_by_default="false" />
+    <inspection_tool class="CppRedundantTemplateArguments" enabled="false" level="HINT" enabled_by_default="false" />
+    <inspection_tool class="CppRedundantTemplateKeyword" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="CppRedundantTypenameKeyword" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="CppRedundantVoidArgumentList" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="CppRedundantZeroInitializerInAggregateInitialization" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="CppStaticSpecifierOnAnonymousNamespaceMember" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="CppTemplateArgumentsCanBeDeduced" enabled="false" level="HINT" enabled_by_default="false" />
+    <inspection_tool class="CppUseAuto" enabled="false" level="HINT" enabled_by_default="false" />
+    <inspection_tool class="CppUseAutoForNumeric" enabled="false" level="HINT" enabled_by_default="false" />
     <inspection_tool class="CppUseInternalLinkage" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="CppVolatileParameterInDeclaration" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="CppWrongIncludesOrder" enabled="false" level="HINT" enabled_by_default="false" />
+    <inspection_tool class="CppWrongSlashesInIncludeDirective" enabled="false" level="HINT" enabled_by_default="false" />
     <inspection_tool class="Deprecations" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="EndlessLoop" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="GrazieInspection" enabled="true" level="GRAMMAR_ERROR" enabled_by_default="true">

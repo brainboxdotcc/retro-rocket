@@ -681,7 +681,7 @@ void basic_free_defs(struct basic_ctx* ctx);
  * @param ctx The BASIC context.
  * @return The printable syntax as a string.
  */
-char* printable_syntax(struct basic_ctx* ctx);
+char* printable_syntax(struct basic_ctx* ctx, size_t* len);
 
 /**
  * @brief Handle the LIBRARY statement, which loads a library into the program.

@@ -227,7 +227,7 @@ void scrollregion_statement(struct basic_ctx* ctx) {
 
 void print_statement(struct basic_ctx* ctx) {
 	accept_or_return(PRINT, ctx);
-	const char* out = printable_syntax(ctx);
+	const char* out = printable_syntax(ctx, NULL);
 	if (out) {
 		uint64_t flags;
 		lock_spinlock_irq(&console_spinlock, &flags);
@@ -250,7 +250,7 @@ void graphprint_statement(struct basic_ctx* ctx) {
 	double scale_y;
 	double_expr(ctx, &scale_y);
 	accept_or_return(COMMA, ctx);
-	const char* out = printable_syntax(ctx);
+	const char* out = printable_syntax(ctx, NULL);
 	if (out) {
 		graphics_putstring(out, x, y, ctx->graphics_colour, scale_x, scale_y);
 	}
@@ -515,10 +515,8 @@ static bool is_expression_start(int token)
 	return false;
 }
 
-static bool printable_append(struct basic_ctx* ctx, char** out, size_t* used, size_t* cap, const char* text)
+static bool printable_append(struct basic_ctx* ctx, char** out, size_t* used, size_t* cap, const char* text, size_t len)
 {
-	size_t len = strlen(text);
-
 	if (*used + len + 1 > *cap) {
 		size_t new_cap = *cap;
 
@@ -542,12 +540,13 @@ static bool printable_append(struct basic_ctx* ctx, char** out, size_t* used, si
 	return true;
 }
 
-char* printable_syntax(struct basic_ctx* ctx)
+char* printable_syntax(struct basic_ctx* ctx, size_t* len)
 {
 	int numprints = 0;
 	bool no_newline = false;
 	bool next_hex = false;
 	char buffer[64];
+	size_t c = 0;
 
 	size_t out_cap = MAX_STRINGLEN;
 	size_t out_used = 0;
@@ -569,10 +568,11 @@ char* printable_syntax(struct basic_ctx* ctx)
 
 		switch (tokenizer_token(ctx)) {
 			case COMMA:
-				if (!printable_append(ctx, &out, &out_used, &out_cap, "\t")) {
+				if (!printable_append(ctx, &out, &out_used, &out_cap, "\t", 1)) {
 					buddy_free(ctx->allocator, out);
 					return NULL;
 				}
+				++c;
 				tokenizer_next(ctx);
 				handled = true;
 				break;
@@ -601,28 +601,32 @@ char* printable_syntax(struct basic_ctx* ctx)
 				up_eval_value(ctx, &v);
 
 				if (v.kind == UP_STR) {
-					if (!printable_append(ctx, &out, &out_used, &out_cap, v.v.s.ptr ? v.v.s.ptr : "")) {
+					if (!printable_append(ctx, &out, &out_used, &out_cap, v.v.s.ptr ? v.v.s.ptr : "", v.v.s.len)) {
 						buddy_free(ctx->allocator, out);
 						return NULL;
 					}
 				} else if (v.kind == UP_REAL) {
 					char dbuf[32];
-					if (!printable_append(ctx, &out, &out_used, &out_cap,
-							      double_to_string(v.v.r, dbuf, sizeof(dbuf), 0))) {
+					size_t n;
+					double_to_string(v.v.r, dbuf, sizeof(dbuf), 0, &n);
+					if (!printable_append(ctx, &out, &out_used, &out_cap, dbuf, n)) {
 						buddy_free(ctx->allocator, out);
 						return NULL;
 					}
+					c += n;
 				} else {
+					size_t l;
 					if (next_hex) {
-						snprintf(buffer, sizeof(buffer), "%lX", (long)v.v.i);
+						l = snprintf(buffer, sizeof(buffer), "%lX", (long)v.v.i);
 					} else {
-						snprintf(buffer, sizeof(buffer), "%ld", (long)v.v.i);
+						l = snprintf(buffer, sizeof(buffer), "%ld", (long)v.v.i);
 					}
 
-					if (!printable_append(ctx, &out, &out_used, &out_cap, buffer)) {
+					if (!printable_append(ctx, &out, &out_used, &out_cap, buffer, l)) {
 						buddy_free(ctx->allocator, out);
 						return NULL;
 					}
+					c += l;
 				}
 
 				next_hex = false;
@@ -642,10 +646,11 @@ char* printable_syntax(struct basic_ctx* ctx)
 	}
 
 	if (!no_newline) {
-		if (!printable_append(ctx, &out, &out_used, &out_cap, "\n")) {
+		if (!printable_append(ctx, &out, &out_used, &out_cap, "\n", 1)) {
 			buddy_free(ctx->allocator, out);
 			return NULL;
 		}
+		++c;
 	}
 
 	tokenizer_next(ctx);
@@ -657,6 +662,9 @@ char* printable_syntax(struct basic_ctx* ctx)
 
 	const char* result = gc_strdup(ctx, out);
 	buddy_free(ctx->allocator, out);
+	if (len) {
+		*len = c;
+	}
 	return (char*)result;
 }
 

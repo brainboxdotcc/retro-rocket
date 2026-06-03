@@ -344,7 +344,7 @@ char *buddy_strdup(buddy_allocator_t *alloc, const char *s) {
 		return NULL;
 	}
 	size_t len = strlen(s) + 1; // include NUL
-	char *copy = (char *)buddy_malloc(alloc, len);
+	char *copy = buddy_malloc(alloc, len);
 	if (!copy) {
 		return NULL;
 	}

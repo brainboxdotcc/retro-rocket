@@ -256,7 +256,8 @@ void build_keyword_prefix_offsets(void)
 
 	double mean = populated ? (double)total_entries / (double)populated : 0.0;
 	char mean_s[128];
-	double_to_string(mean, mean_s, sizeof(mean_s), 3);
+	size_t n;
+	double_to_string(mean, mean_s, sizeof(mean_s), 3, &n);
 	dprintf("Keyword bucket summary:\n");
 	dprintf("  keywords        : %d\n", keyword_count);
 	dprintf("  buckets used    : %d / %d\n", populated, PREFIX_BUCKETS);
