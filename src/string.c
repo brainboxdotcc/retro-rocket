@@ -210,15 +210,21 @@ const char* gc_try_concat(struct basic_ctx *ctx, const char* s1, const char* s2)
 	return dest;
 }
 
-const char* gc_strdup(basic_ctx* ctx, const char* string)
+const char* gc_strdup_with_length(basic_ctx* ctx, const char* string, size_t* out_len)
 {
+	if (out_len) {
+		*out_len = 0;
+	}
+
 	if (!ctx) {
 		return NULL;
 	}
+
 	if (!string || !*string) {
 		/* For empty strings, the string_gc_storage ptr always starts with a single NULL char */
 		return ctx->string_gc_storage;
 	}
+
 	char* dest = ctx->string_gc_storage_next;
 	size_t remaining = (size_t)((ctx->string_gc_storage + ctx->string_gc_storage_size) - dest);
 	size_t len = strlcpy(dest, string, remaining);
@@ -226,8 +232,19 @@ const char* gc_strdup(basic_ctx* ctx, const char* string)
 		tokenizer_error_printf(ctx, "Out of string area allocator space storing '%s'", string);
 		return ctx->string_gc_storage; /* Always returns a sane value with sane input */
 	}
+
 	ctx->string_gc_storage_next += len + 1;
+
+	if (out_len) {
+		*out_len = len;
+	}
+
 	return dest;
+}
+
+const char* gc_strdup(basic_ctx* ctx, const char* string)
+{
+	return gc_strdup_with_length(ctx, string, NULL);
 }
 
 const char* gc_from_tokenizer_string(struct basic_ctx *ctx, size_t *out_len) {

@@ -164,8 +164,7 @@ char* basic_getname(struct basic_ctx* ctx, size_t* out_len)
 	int count = 0;
 	while (fsl) {
 		if (count++ == intval) {
-			*out_len = strlen(fsl->filename);
-			return (char*)gc_strdup(ctx, fsl->filename);
+			return (char*)gc_strdup_with_length(ctx, fsl->filename, out_len);
 		}
 		fsl = fsl->next;
 	}
@@ -412,8 +411,7 @@ char* basic_ramdisk_from_device(struct basic_ctx* ctx, size_t* out_len)
 	if (!rd) {
 		return "";
 	}
-	*out_len = strlen(rd);
-	return (char*)gc_strdup(ctx, rd);
+	return (char*)gc_strdup_with_length(ctx, rd, out_len);
 }
 
 char* basic_ramdisk_from_image(struct basic_ctx* ctx, size_t* out_len)
@@ -448,8 +446,7 @@ char* basic_ramdisk_from_image(struct basic_ctx* ctx, size_t* out_len)
 		kfree_null(&image);
 		return "";
 	}
-	*out_len = strlen(rd);
-	return (char*)gc_strdup(ctx, rd);
+	return (char*)gc_strdup_with_length(ctx, rd, out_len);
 }
 
 char* basic_ramdisk_from_size(struct basic_ctx* ctx, size_t* out_len)
@@ -487,8 +484,7 @@ char* basic_ramdisk_from_size(struct basic_ctx* ctx, size_t* out_len)
 char* basic_csd(struct basic_ctx* ctx, size_t* out_len)
 {
 	const char* csd = proc_cur(logical_cpu_id())->csd;
-	*out_len = strlen(csd);
-	return (char*)gc_strdup(ctx, csd);
+	return (char*)gc_strdup_with_length(ctx, csd, out_len);
 }
 
 void chdir_statement(struct basic_ctx* ctx)
@@ -895,8 +891,7 @@ char* basic_voldesc(struct basic_ctx* ctx, size_t* out_len)
 		return "";
 	}
 	volume_details_t details = get_device_volumes(ctx, device_name);
-	const char* desc = gc_strdup(ctx, get_device_volume_by_index(&details, index));
+	const char* desc = gc_strdup_with_length(ctx, get_device_volume_by_index(&details, index), out_len);
 	free_device_volumes(&details);
-	*out_len = strlen(desc);
 	return (char*)desc;
 }

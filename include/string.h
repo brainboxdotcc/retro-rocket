@@ -207,6 +207,8 @@ char* strdup(const char* string);
  */
 const char* gc_strdup(basic_ctx* ctx, const char* string);
 
+const char* gc_strdup_with_length(basic_ctx* ctx, const char* string, size_t* out_len);
+
 /**
  * @brief Concatenate two strings directly into the BASIC temporary string arena.
  *

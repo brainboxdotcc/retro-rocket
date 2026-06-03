@@ -34,7 +34,7 @@ typedef struct restriction_iter_ctx_t {
  * @param function_or_keyword Name of keyword or built-in function to restrict
  * @return true on success, false on error (e.g. allocation failure)
  */
-bool basic_restrict_keyword_or_function_for_child(struct basic_ctx* ctx, const char* function_or_keyword);
+bool basic_restrict_keyword_or_function_for_child(struct basic_ctx* ctx, const char* function_or_keyword, size_t len);
 
 /**
  * @brief Removes a restriction from the child inheritance set.
@@ -47,7 +47,7 @@ bool basic_restrict_keyword_or_function_for_child(struct basic_ctx* ctx, const c
  * @param function_or_keyword Name of keyword or built-in function to remove
  * @return true on success, false if not found or on error
  */
-bool basic_derestrict_keyword_or_function_for_child(struct basic_ctx* ctx, const char* function_or_keyword);
+bool basic_derestrict_keyword_or_function_for_child(struct basic_ctx* ctx, const char* function_or_keyword, size_t kw_len);
 
 /**
  * @brief Copies restrictions from a parent context into a child context.

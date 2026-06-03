@@ -37,7 +37,7 @@ static void elfree_restriction(const void *item, void *udata)
 	}
 }
 
-bool basic_restrict_keyword_or_function_for_child(struct basic_ctx* ctx, const char* function_or_keyword) {
+bool basic_restrict_keyword_or_function_for_child(struct basic_ctx* ctx, const char* function_or_keyword, size_t len) {
 	if (!ctx->child_restrictions) {
 		ctx->child_restrictions = hashmap_new_with_allocator(varmap_malloc, varmap_realloc, varmap_free, sizeof(restriction_t), 0, SEED0, SEED1, restriction_hash, restriction_compare, elfree_restriction, ctx->allocator);
 		if (!ctx->child_restrictions) {
@@ -46,7 +46,6 @@ bool basic_restrict_keyword_or_function_for_child(struct basic_ctx* ctx, const c
 		}
 	}
 
-	size_t len = strlen(function_or_keyword);
 	const char* kw = buddy_strdup(ctx->allocator, function_or_keyword);
 	if (!kw) {
 		tokenizer_error_print(ctx, "Out of memory setting restriction");
@@ -67,13 +66,13 @@ bool is_restricted_len(struct basic_ctx* ctx, const char* function_or_keyword, s
 	}
 	return hashmap_get(ctx->active_restrictions, &(restriction_t){ .length = length, .keyword = function_or_keyword }) != NULL;
 }
-bool basic_derestrict_keyword_or_function_for_child(struct basic_ctx* ctx, const char* function_or_keyword) {
+bool basic_derestrict_keyword_or_function_for_child(struct basic_ctx* ctx, const char* function_or_keyword, size_t kw_len) {
 	if (!ctx->child_restrictions) {
 		tokenizer_error_print(ctx, "Nothing to derestrict");
 		return false;
 	}
 
-	restriction_t* found = hashmap_delete(ctx->child_restrictions, &(restriction_t){ .length = strlen(function_or_keyword), .keyword = function_or_keyword });
+	restriction_t* found = hashmap_delete(ctx->child_restrictions, &(restriction_t){ .length = kw_len, .keyword = function_or_keyword });
 	if (!found) {
 		tokenizer_error_print(ctx, "Keyword was not restricted");
 		return false;
@@ -124,12 +123,11 @@ bool basic_pass_restrictions_to_child(struct basic_ctx* parent, struct basic_ctx
 	return true;
 }
 
-static bool is_valid_restriction_name(const char *name) {
+static bool is_valid_restriction_name(const char *name, size_t len) {
 	GENERATE_ENUM_STRING_NAMES(TOKEN, token_names)
 	GENERATE_ENUM_STRING_LENGTHS(TOKEN, token_name_lengths)
 
 	const size_t token_count = sizeof(token_names) / sizeof(*token_names);
-	size_t len = strlen(name);
 
 	for (size_t v = 0; v < token_count; ++v) {
 		if (len == token_name_lengths[v] && !strcmp(name, token_names[v])) {
@@ -192,17 +190,17 @@ static void parse_restriction_list(struct basic_ctx *ctx, bool add)
 
 		strlcpy(name, start, len + 1);
 
-		if (!is_valid_restriction_name(name)) {
+		if (!is_valid_restriction_name(name, len)) {
 			tokenizer_error_printf(ctx, "'%s' is not a valid keyword or builtin function", name);
 			return;
 		}
 
 		if (add) {
-			if (!basic_restrict_keyword_or_function_for_child(ctx, name)) {
+			if (!basic_restrict_keyword_or_function_for_child(ctx, name, len)) {
 				return;
 			}
 		} else {
-			if (!basic_derestrict_keyword_or_function_for_child(ctx, name)) {
+			if (!basic_derestrict_keyword_or_function_for_child(ctx, name, len)) {
 				return;
 			}
 		}

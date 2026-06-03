@@ -556,8 +556,7 @@ char* basic_sockerror(struct basic_ctx* ctx, size_t* out_len) {
 	int64_t fd = intval;
 	PARAMS_END("SOCKERROR$", 0);
 	const char* msg = socket_error(tcp_get_close_code(fd));
-	*out_len = strlen(msg);
-	return (char*)(gc_strdup(ctx, msg));
+	return (char*)(gc_strdup_with_length(ctx, msg, out_len));
 }
 
 static size_t ipv4_string_len(uint32_t ip)
@@ -722,12 +721,12 @@ void udpwrite_statement(struct basic_ctx *ctx) {
 	accept_or_return(COMMA, ctx);
 	int64_t dest_port = expr(ctx);
 	accept_or_return(COMMA, ctx);
-	const char *data = str_expr(ctx, NULL);
+	size_t len;
+	const char *data = str_expr(ctx, &len);
 	accept_or_return(NEWLINE, ctx);
 	if (source_port > 65535 || source_port < 0 || dest_port > 65535 || dest_port < 0) {
 		tokenizer_error_print(ctx, "Invalid UDP port number");
 	}
-	size_t len = strlen(data);
 	if (len == 0 || len > 65530) {
 		tokenizer_error_print(ctx, "Invalid UDP packet length");
 	}

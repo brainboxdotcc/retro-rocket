@@ -422,8 +422,7 @@ char* basic_highlight(struct basic_ctx* ctx, size_t* out_len) {
 						/* Is a token */
 						if (v == REM) {
 							snprintf(out, out_cap, "\x1b[%um%s\x1b[%um", map_vga_to_ansi(COLOUR_DARKGREEN), in, map_vga_to_ansi(COLOUR_WHITE));
-							*out_len = strlen(out);
-							char* ret = (char*)gc_strdup(ctx, out);
+							char* ret = (char*)gc_strdup_with_length(ctx, out, out_len);
 							buddy_free(ctx->allocator, out);
 							return ret;
 						} else {
@@ -600,7 +599,7 @@ char* basic_mid(struct basic_ctx* ctx, size_t* out_len)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* source = strval;
-	size_t len = strlength;
+	int64_t len = strlength;
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t start = intval;
 	PARAMS_GET_ITEM(BIP_INT);
@@ -746,7 +745,7 @@ char* basic_rjust(struct basic_ctx* ctx, size_t* out_len)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	char* target = strval;
-	size_t target_length = strlength;
+	int64_t target_length = strlength;
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t width = intval;
 	PARAMS_GET_ITEM(BIP_STRING);
