@@ -605,6 +605,7 @@ char* printable_syntax(struct basic_ctx* ctx, size_t* len)
 						buddy_free(ctx->allocator, out);
 						return NULL;
 					}
+					c += v.v.s.len;
 				} else if (v.kind == UP_REAL) {
 					char dbuf[32];
 					size_t n;

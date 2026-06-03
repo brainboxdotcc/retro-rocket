@@ -86,6 +86,7 @@ void extract_data_from_line(struct basic_ctx* ctx, char* search)
 				++search;
 			}
 
+			size_t data_len = search - data_str;
 			if (*search == '"') {
 				*search = '\0';
 				++search;
@@ -96,7 +97,7 @@ void extract_data_from_line(struct basic_ctx* ctx, char* search)
 				tokenizer_error_print(ctx, "Out of memory storing DATA");
 				return;
 			}
-			data_store_append(ctx, &ctx->datastore, up_make_str(duplicated));
+			data_store_append(ctx, &ctx->datastore, up_make_str(duplicated, data_len));
 		} else {
 			char* start = search;
 

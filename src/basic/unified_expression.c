@@ -86,7 +86,7 @@ static up_value up_factor(struct basic_ctx *ctx) {
 
 			if (!sv) {
 				tokenizer_error_print(ctx, "String literal too long");
-				return up_make_str("");
+				return up_make_str("", 0);
 			}
 
 			/* * We don't use 'accept(STRING)' here because gc_from_tokenizer_string
