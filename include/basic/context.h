@@ -357,6 +357,13 @@ typedef struct basic_ctx {
 	void* fn_return;
 
 	/**
+	 * @brief When the return value in fn_return is RT_STRING, this contains the length of that string.
+	 *
+	 * At all other times it contains 0.
+	 */
+	size_t fn_return_len;
+
+	/**
 	 * @brief Current graphics color for graphical operations (e.g., drawing lines, shapes).
 	 */
 	int32_t graphics_colour;
@@ -613,9 +620,10 @@ void basic_eval_double_fn(const char* fn_name, struct basic_ctx* ctx, double* re
  *
  * @param fn_name The name of the function to evaluate.
  * @param ctx The BASIC context.
+ * @param out_len
  * @return The evaluated string result of the function.
  */
-const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx);
+const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Check if a function name corresponds to a built-in double (floating-point) function.
@@ -664,9 +672,10 @@ void free_local_heap(struct basic_ctx* ctx);
  * @brief Check if a function name corresponds to a built-in double (floating-point) function.
  *
  * @param fn_name The name of the function to check.
+ * @param L
  * @return True if the function is a built-in double function, false otherwise.
  */
-bool is_builtin_double_fn(const char* fn_name);
+bool is_builtin_double_fn(const char* fn_name, size_t L);
 
 /**
  * @brief Free function definitions and associated resources in the BASIC context.

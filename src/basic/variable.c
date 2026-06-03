@@ -405,8 +405,8 @@ const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx, si
 		if (out_len) *out_len = ov;
 		return retv;
 	} else if (varname_is_string_function(var)) {
-		const char* res = basic_eval_str_fn(var, ctx);
-		if (out_len) *out_len = strlen(res); // TODO FIXME
+		const char* res = basic_eval_str_fn(var, ctx, &ov);
+		if (out_len) *out_len = ov;
 		return res;
 	} else if (varname_is_string_array_access(ctx, var)) {
 		const char* res = basic_get_string_array_variable(var, arr_variable_index(ctx), ctx, &ov);

@@ -67,6 +67,7 @@ void cpu_caps_init(void)
 	} else {
 		strlcpy(cpu_caps.brand, "Unknown CPU", 49);
 	}
+	cpu_caps.brand_len = strlen(cpu_caps.brand);
 
 	cpuid_leaf(CPUID_GETFEATURES, &eax, &ebx, &ecx, &edx);
 

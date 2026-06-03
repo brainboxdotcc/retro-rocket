@@ -65,6 +65,7 @@ int64_t basic_get_int_array_variable(const char* var, int64_t index, struct basi
  * @param var The variable name.
  * @param index The index in the array.
  * @param ctx The BASIC context.
+ * @param out_len
  * @return The value at the specified index.
  */
 const char* basic_get_string_array_variable(const char* var, int64_t index, struct basic_ctx* ctx, size_t* out_len);
@@ -75,6 +76,7 @@ const char* basic_get_string_array_variable(const char* var, int64_t index, stru
  * @param var The variable name.
  * @param size The size of the array.
  * @param ctx The BASIC context.
+ * @param var_length
  * @return True if the array was successfully dimensioned, false otherwise.
  */
 bool basic_dim_string_array(const char* var, int64_t size, struct basic_ctx* ctx, size_t var_length);
@@ -85,6 +87,7 @@ bool basic_dim_string_array(const char* var, int64_t size, struct basic_ctx* ctx
  * @param var The variable name.
  * @param size The size of the array.
  * @param ctx The BASIC context.
+ * @param var_length
  * @return True if the array was successfully dimensioned, false otherwise.
  */
 bool basic_dim_int_array(const char* var, int64_t size, struct basic_ctx* ctx, size_t var_length);
@@ -95,6 +98,7 @@ bool basic_dim_int_array(const char* var, int64_t size, struct basic_ctx* ctx, s
  * @param var The variable name.
  * @param size The size of the array.
  * @param ctx The BASIC context.
+ * @param var_length
  * @return True if the array was successfully dimensioned, false otherwise.
  */
 bool basic_dim_double_array(const char* var, int64_t size, struct basic_ctx* ctx, size_t var_length);

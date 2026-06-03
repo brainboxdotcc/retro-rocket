@@ -326,10 +326,11 @@ struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file
 	ctx->double_array_variables = hashmap_new_with_allocator(varmap_malloc, varmap_realloc, varmap_free, sizeof(struct ub_var_double_array), 0, SEED0, SEED1, varmap_hash, varmap_compare, varmap_elfree_double_array, ctx->allocator);
 	ctx->oldlen = 0;
 	ctx->fn_return = NULL;
+	ctx->fn_return_len = 0;
 	memset(ctx->fn_type_stack, 0, sizeof(ctx->fn_type_stack));
-	memset(ctx->local_int_variables, NULL, sizeof(ctx->local_int_variables));
-	memset(ctx->local_string_variables, NULL, sizeof(ctx->local_string_variables));
-	memset(ctx->local_double_variables, NULL, sizeof(ctx->local_double_variables));
+	memset(ctx->local_int_variables, 0, sizeof(ctx->local_int_variables));
+	memset(ctx->local_string_variables, 0, sizeof(ctx->local_string_variables));
+	memset(ctx->local_double_variables, 0, sizeof(ctx->local_double_variables));
 	// We allocate 5000 bytes extra on the end of the program for EVAL space,
 	// as EVAL appends to the program on lines EVAL_LINE and EVAL_LINE + 1.
 	ctx->program_ptr = buddy_malloc(ctx->allocator, strlen(program) + 5000);
@@ -589,6 +590,7 @@ struct basic_ctx *basic_clone(struct basic_ctx *old) {
 	ctx->sounds = old->sounds;
 	ctx->oldlen = old->oldlen;
 	ctx->fn_return = NULL;
+	ctx->fn_return_len = 0;
 	ctx->program_ptr = old->program_ptr;
 	ctx->for_stack_ptr = old->for_stack_ptr;
 	ctx->call_stack_ptr = old->call_stack_ptr;

@@ -157,7 +157,8 @@ typedef enum ub_return_type {
  * containing the name of the parameter and a pointer to the next parameter.
  */
 typedef struct ub_param {
-	const char *name; ///< Name of the parameter
+	const char *name; ///< Name of the parameter variable
+	size_t name_len; ///< Length of parameter variable name
 	struct ub_param *next; ///< Pointer to the next parameter
 } ub_param;
 

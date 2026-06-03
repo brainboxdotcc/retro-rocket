@@ -236,6 +236,8 @@ typedef struct cpu_caps {
 	char vendor[13];
 	/** @brief CPU brand string */
 	char brand[49];
+	/** @brief Length of brand string */
+	size_t brand_len;
 	/** @brief True if a hypervisor is present */
 	bool hypervisor_present;
 	/** @brief Hypervisor vendor string */

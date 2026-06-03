@@ -9,8 +9,6 @@
 
 extern bool debug;
 
-/* Add near the top of basic/function.c, after extern bool debug */
-
 struct builtin_int_entry {
 	const char *name;
 	size_t name_length;
@@ -395,7 +393,7 @@ bool extract_comma_list(struct ub_proc_fn_def* def, struct basic_ctx* ctx, int* 
 		ctx->current_token = get_next_token(ctx);
 		*oldptr = 0;
 		if (*param && (*param)->name) {
-			size_t len = strlen((*param)->name);
+			size_t len = (*param)->name_len;
 			if ((*param)->name[len - 1] == '$') {
 				const char* save_ptr = ctx->ptr;
 				size_t v_len;
@@ -429,10 +427,11 @@ bool extract_comma_list(struct ub_proc_fn_def* def, struct basic_ctx* ctx, int* 
 	return true;
 }
 
-const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx)
+const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx, size_t* out_len)
 {
 	struct ub_proc_fn_def* def = basic_find_fn(fn_name + 2, ctx);
 	const char* rv = "";
+	*out_len = 0;
 	if (def) {
 		if (!new_stack_frame(ctx)) {
 			return "";
@@ -480,6 +479,7 @@ const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx)
 			if (!rv) {
 				return "";
 			}
+			*out_len = atomic->fn_return_len;
 		}
 
 		ctx->int_variables           = atomic->int_variables;
@@ -819,7 +819,7 @@ bool basic_parse_fn(struct basic_ctx* ctx)
 				tokenizer_error_printf(ctx, "Out of memory parsing functions");
 				return false;
 			}
-			def.name_length = strlen(name);
+			def.name_length = ni;
 			def.type = type;
 			def.line = currentline;
 			def.params = NULL;
@@ -842,6 +842,7 @@ bool basic_parse_fn(struct basic_ctx* ctx)
 							return false;
 						}
 						par->next = NULL;
+						par->name_len = pni;
 						par->name = buddy_strdup(ctx->allocator, pname);
 						if (!par->name) {
 							tokenizer_error_printf(ctx, "Out of memory parsing function parameters");
@@ -926,15 +927,9 @@ void basic_free_defs(struct basic_ctx* ctx)
 	ctx->defs = NULL;
 }
 
-bool is_builtin_double_fn(const char* fn_name)
+bool is_builtin_double_fn(const char* fn_name, size_t L)
 {
-	struct builtin_double_entry key = {
-		.name = fn_name,
-		.name_length = strlen(fn_name),
-		.handler = NULL
-	};
-
-	return hashmap_get(builtin_double_map, &key) != NULL;
+	return hashmap_get(builtin_double_map, &(struct builtin_double_entry){ .name = fn_name, .name_length = L, .handler = NULL }) != NULL;
 }
 
 void proc_statement(struct basic_ctx* ctx)
@@ -1017,9 +1012,10 @@ void eq_statement(struct basic_ctx* ctx)
 	basic_debug("eq_statement\n");
 	accept_or_return(EQUALS, ctx);
 
+	ctx->fn_return_len = 0;
 	if (ctx->fn_type == RT_STRING) {
 		basic_debug("eq_statement return string\n");
-		ctx->fn_return = (void*)str_expr(ctx, NULL);
+		ctx->fn_return = (void*)str_expr(ctx, &ctx->fn_return_len);
 	} else if (ctx->fn_type == RT_FLOAT) {
 		basic_debug("eq_statement return double\n");
 		double_expr(ctx, (void*)&ctx->fn_return);
@@ -1032,8 +1028,6 @@ void eq_statement(struct basic_ctx* ctx)
 	} else {
 		dprintf("EQ statement: fn type??? %d\n", ctx->fn_type);
 	}
-
-	//accept_or_return(NEWLINE, ctx);
 
 	ctx->ended = true;
 }

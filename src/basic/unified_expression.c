@@ -129,7 +129,7 @@ static up_value up_factor(struct basic_ctx *ctx) {
 				return up_make_real(d);
 			}
 
-			if (is_builtin_double_fn(name)) {
+			if (is_builtin_double_fn(name, L)) {
 				/* Unsuffixed builtin known to return REAL */
 				double d = 0.0;
 				basic_get_numeric_variable(name, ctx, &d);

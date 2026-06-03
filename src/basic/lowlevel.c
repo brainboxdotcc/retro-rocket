@@ -172,21 +172,8 @@ int64_t basic_memfind(struct basic_ctx* ctx)
 
 char* basic_cpugetbrand(struct basic_ctx* ctx, size_t* out_len)
 {
-	PARAMS_START;
-	PARAMS_GET_ITEM(BIP_INT);
-	bool trim = intval;
-	PARAMS_END("CPUGETBRAND$", "");
-
-	const char *bufferp = cpu_caps.brand;
-
-	if (trim) {
-		while (*bufferp == ' ') {
-			bufferp++;
-		}
-	}
-
-	*out_len = strlen(bufferp);
-	return (char *)gc_strdup(ctx, bufferp);
+	*out_len = cpu_caps.brand_len;
+	return (char *)gc_strdup(ctx, cpu_caps.brand);
 }
 
 char* basic_cpugetvendor(struct basic_ctx* ctx, size_t* out_len)

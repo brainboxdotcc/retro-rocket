@@ -88,9 +88,9 @@ struct hashmap *basic_get_map_by_handle(struct basic_ctx *ctx, int64_t handle)
 	return found->map;
 }
 
-map_value_t *basic_get_map_value(struct hashmap *map, const char *key)
+static map_value_t *basic_get_map_value(struct hashmap *map, const char *key, size_t key_len)
 {
-	return hashmap_get(map, &(map_value_t){ .name = key, .name_length = strlen(key) });
+	return hashmap_get(map, &(map_value_t){ .name = key, .name_length = key_len });
 }
 
 void basic_free_map_up_value(struct basic_ctx *ctx, up_value *value)
@@ -161,7 +161,7 @@ int64_t basic_maphas(struct basic_ctx *ctx)
 		return 0;
 	}
 
-	return basic_get_map_value(map, key) ? 1 : 0;
+	return basic_get_map_value(map, key, strlength) ? 1 : 0;
 }
 
 int64_t basic_mapget(struct basic_ctx *ctx)
@@ -181,7 +181,7 @@ int64_t basic_mapget(struct basic_ctx *ctx)
 		return 0;
 	}
 
-	entry = basic_get_map_value(map, key);
+	entry = basic_get_map_value(map, key, strlength);
 	if (!entry) {
 		tokenizer_error_printf(ctx, "No such MAP key '%s'", key);
 		return 0;
@@ -213,7 +213,7 @@ void basic_mapgetr(struct basic_ctx *ctx, double* rv)
 		return;
 	}
 
-	entry = basic_get_map_value(map, key);
+	entry = basic_get_map_value(map, key, strlength);
 	if (!entry) {
 		tokenizer_error_printf(ctx, "No such MAP key '%s'", key);
 		*rv = 0;
@@ -250,7 +250,7 @@ char *basic_mapgets(struct basic_ctx *ctx, size_t* out_len)
 		return "";
 	}
 
-	map_value_t* entry = basic_get_map_value(map, key);
+	map_value_t* entry = basic_get_map_value(map, key, strlength);
 	if (!entry) {
 		tokenizer_error_printf(ctx, "No such MAP key '%s'", key);
 		return "";
@@ -267,23 +267,19 @@ char *basic_mapgets(struct basic_ctx *ctx, size_t* out_len)
 
 void mapset_statement(struct basic_ctx *ctx)
 {
-	int64_t handle;
-	const char *key;
-	struct hashmap *map;
-	map_value_t *found;
 	map_value_t new_entry;
 	up_value value;
 
 	accept_or_return(MAPSET, ctx);
-	handle = expr(ctx);
+	int64_t handle = expr(ctx);
 	accept_or_return(COMMA, ctx);
 	size_t elen;
-	key = str_expr(ctx, &elen);
+	const char* key = str_expr(ctx, &elen);
 	accept_or_return(COMMA, ctx);
 	up_eval_value(ctx, &value);
 	accept_or_return(NEWLINE, ctx);
 
-	map = basic_get_map_by_handle(ctx, handle);
+	struct hashmap* map = basic_get_map_by_handle(ctx, handle);
 	if (!map) {
 		tokenizer_error_print(ctx, "Invalid MAP");
 		return;
@@ -298,7 +294,7 @@ void mapset_statement(struct basic_ctx *ctx)
 		value.v.s.ptr = dup;
 	}
 
-	found = basic_get_map_value(map, key);
+	map_value_t* found = basic_get_map_value(map, key, elen);
 	if (found) {
 		if (found->value.kind != value.kind) {
 			if (!(found->value.kind == UP_INT && value.kind == UP_REAL)) {
@@ -330,7 +326,7 @@ void mapset_statement(struct basic_ctx *ctx)
 
 	memset(&new_entry, 0, sizeof(new_entry));
 	new_entry.name = buddy_strdup(ctx->allocator, key);
-	new_entry.name_length = strlen(key);
+	new_entry.name_length = elen;
 	if (!new_entry.name) {
 		basic_free_map_up_value(ctx, &value);
 		tokenizer_error_print(ctx, "Out of memory");
@@ -356,7 +352,6 @@ void mapset_statement(struct basic_ctx *ctx)
 
 void mapfree_statement(struct basic_ctx *ctx)
 {
-	basic_map_handle_entry *found;
 
 	accept_or_return(MAPFREE, ctx);
 	int64_t handle = expr(ctx);
@@ -367,7 +362,7 @@ void mapfree_statement(struct basic_ctx *ctx)
 		return;
 	}
 
-	found = hashmap_delete(ctx->maps, &(basic_map_handle_entry){ .id = handle});
+	basic_map_handle_entry* found = hashmap_delete(ctx->maps, &(basic_map_handle_entry){.id = handle});
 	if (!found) {
 		tokenizer_error_print(ctx, "Invalid MAP");
 		return;
