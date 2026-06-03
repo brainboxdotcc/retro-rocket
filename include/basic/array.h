@@ -77,7 +77,7 @@ const char* basic_get_string_array_variable(const char* var, int64_t index, stru
  * @param ctx The BASIC context.
  * @return True if the array was successfully dimensioned, false otherwise.
  */
-bool basic_dim_string_array(const char* var, int64_t size, struct basic_ctx* ctx);
+bool basic_dim_string_array(const char* var, int64_t size, struct basic_ctx* ctx, size_t var_length);
 
 /**
  * @brief Dimension a new integer array with the specified size.
@@ -87,7 +87,7 @@ bool basic_dim_string_array(const char* var, int64_t size, struct basic_ctx* ctx
  * @param ctx The BASIC context.
  * @return True if the array was successfully dimensioned, false otherwise.
  */
-bool basic_dim_int_array(const char* var, int64_t size, struct basic_ctx* ctx);
+bool basic_dim_int_array(const char* var, int64_t size, struct basic_ctx* ctx, size_t var_length);
 
 /**
  * @brief Dimension a new double array with the specified size.
@@ -97,7 +97,7 @@ bool basic_dim_int_array(const char* var, int64_t size, struct basic_ctx* ctx);
  * @param ctx The BASIC context.
  * @return True if the array was successfully dimensioned, false otherwise.
  */
-bool basic_dim_double_array(const char* var, int64_t size, struct basic_ctx* ctx);
+bool basic_dim_double_array(const char* var, int64_t size, struct basic_ctx* ctx, size_t var_length);
 
 /**
  * @brief Resize an existing string array to the specified size.
@@ -107,7 +107,7 @@ bool basic_dim_double_array(const char* var, int64_t size, struct basic_ctx* ctx
  * @param ctx The BASIC context.
  * @return True if the array was successfully resized, false otherwise.
  */
-bool basic_redim_string_array(const char* var, int64_t size, struct basic_ctx* ctx);
+bool basic_redim_string_array(const char* var, int64_t size, struct basic_ctx* ctx, size_t var_length);
 
 /**
  * @brief Resize an existing integer array to the specified size.
@@ -117,7 +117,7 @@ bool basic_redim_string_array(const char* var, int64_t size, struct basic_ctx* c
  * @param ctx The BASIC context.
  * @return True if the array was successfully resized, false otherwise.
  */
-bool basic_redim_int_array(const char* var, int64_t size, struct basic_ctx* ctx);
+bool basic_redim_int_array(const char* var, int64_t size, struct basic_ctx* ctx, size_t var_length);
 
 /**
  * @brief Resize an existing double array to the specified size.
@@ -127,7 +127,7 @@ bool basic_redim_int_array(const char* var, int64_t size, struct basic_ctx* ctx)
  * @param ctx The BASIC context.
  * @return True if the array was successfully resized, false otherwise.
  */
-bool basic_redim_double_array(const char* var, int64_t size, struct basic_ctx* ctx);
+bool basic_redim_double_array(const char* var, int64_t size, struct basic_ctx* ctx, size_t var_length);
 
 /**
  * @brief Check if a variable is an integer array.

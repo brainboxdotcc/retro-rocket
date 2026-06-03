@@ -411,11 +411,11 @@ void mapkeys_statement(struct basic_ctx *ctx)
 	size_t count = hashmap_count(map);
 
 	if (!varname_is_string_array_access(ctx, dest)) {
-		if (!basic_dim_string_array(dest, count ? (int64_t)count : 1, ctx)) {
+		if (!basic_dim_string_array(dest, count ? (int64_t)count : 1, ctx, var_length)) {
 			return;
 		}
 	} else {
-		if (!basic_redim_string_array(dest, count ? (int64_t)count : 1, ctx)) {
+		if (!basic_redim_string_array(dest, count ? (int64_t)count : 1, ctx, var_length)) {
 			return;
 		}
 	}

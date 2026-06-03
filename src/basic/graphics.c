@@ -1545,7 +1545,7 @@ void rotate_statement(struct basic_ctx* ctx)
 	}
 }
 
-static bool sprite_row_to_int_array(struct basic_ctx* ctx, sprite_t* s, int64_t y, const char* varname)
+static bool sprite_row_to_int_array(struct basic_ctx* ctx, sprite_t* s, int64_t y, const char* varname, size_t var_length)
 {
 	if (ctx == NULL || s == NULL || varname == NULL) {
 		return false;
@@ -1572,11 +1572,11 @@ static bool sprite_row_to_int_array(struct basic_ctx* ctx, sprite_t* s, int64_t 
 	}
 
 	if (!varname_is_int_array_access(ctx, varname)) {
-		if (!basic_dim_int_array(varname, s->width, ctx)) {
+		if (!basic_dim_int_array(varname, s->width, ctx, var_length)) {
 			return false;
 		}
 	} else {
-		if (!basic_redim_int_array(varname, s->width, ctx)) {
+		if (!basic_redim_int_array(varname, s->width, ctx, var_length)) {
 			return false;
 		}
 	}
@@ -1611,6 +1611,6 @@ void spriterow_statement(struct basic_ctx* ctx)
 		return;
 	}
 
-	sprite_row_to_int_array(ctx, s, y, varname);
+	sprite_row_to_int_array(ctx, s, y, varname, var_length);
 }
 

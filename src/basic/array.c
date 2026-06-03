@@ -155,7 +155,7 @@ static void init_double_array(struct basic_ctx* ctx, ub_var_double_array* array,
 	array->values = buddy_malloc(ctx->allocator, sizeof(double) * size);
 }
 
-bool basic_dim_int_array(const char* var, int64_t size, struct basic_ctx* ctx)
+bool basic_dim_int_array(const char* var, int64_t size, struct basic_ctx* ctx, size_t var_length)
 {
 	if (basic_int_variable_exists(var, ctx)) {
 		tokenizer_error_printf(ctx, "Variable '%s' already exists as non-array type", var);
@@ -174,9 +174,8 @@ bool basic_dim_int_array(const char* var, int64_t size, struct basic_ctx* ctx)
 		return false;
 	}
 
-	size_t len = strlen(var);
 	ub_var_int_array new;
-	init_int_array(ctx, &new, var, len, size);
+	init_int_array(ctx, &new, var, var_length, size);
 	if (!new.varname || !new.values) {
 		tokenizer_error_printf(ctx, "Array '%s': Out of memory", var);
 		return false;
@@ -192,7 +191,7 @@ bool basic_dim_int_array(const char* var, int64_t size, struct basic_ctx* ctx)
 	return true;
 }
 
-bool basic_dim_string_array(const char* var, int64_t size, struct basic_ctx* ctx)
+bool basic_dim_string_array(const char* var, int64_t size, struct basic_ctx* ctx, size_t var_length)
 {
 	if (basic_string_variable_exists(var, ctx)) {
 		tokenizer_error_printf(ctx, "Variable '%s' already exists as non-array type", var);
@@ -211,9 +210,8 @@ bool basic_dim_string_array(const char* var, int64_t size, struct basic_ctx* ctx
 		return false;
 	}
 
-	size_t len = strlen(var);
 	ub_var_string_array new;
-	init_string_array(ctx, &new, var, len, size);
+	init_string_array(ctx, &new, var, var_length, size);
 	if (!new.varname || !new.values || !new.value_lengths) {
 		tokenizer_error_printf(ctx, "Array '%s': Out of memory", var);
 		return false;
@@ -230,7 +228,7 @@ bool basic_dim_string_array(const char* var, int64_t size, struct basic_ctx* ctx
 	return true;
 }
 
-bool basic_dim_double_array(const char* var, int64_t size, struct basic_ctx* ctx)
+bool basic_dim_double_array(const char* var, int64_t size, struct basic_ctx* ctx, size_t var_length)
 {
 	if (basic_double_variable_exists(var, ctx)) {
 		tokenizer_error_printf(ctx, "Variable '%s' already exists as non-array type", var);
@@ -249,9 +247,8 @@ bool basic_dim_double_array(const char* var, int64_t size, struct basic_ctx* ctx
 		return false;
 	}
 
-	size_t len = strlen(var);
 	ub_var_double_array new;
-	init_double_array(ctx, &new, var, len, size);
+	init_double_array(ctx, &new, var, var_length, size);
 	if (!new.varname || !new.values) {
 		tokenizer_error_printf(ctx, "Array '%s': Out of memory", var);
 		return false;
@@ -267,7 +264,7 @@ bool basic_dim_double_array(const char* var, int64_t size, struct basic_ctx* ctx
 	return true;
 }
 
-bool basic_redim_int_array(const char* var, int64_t size, struct basic_ctx* ctx)
+bool basic_redim_int_array(const char* var, int64_t size, struct basic_ctx* ctx, size_t var_length)
 {
 	if (size < 1) {
 		tokenizer_error_printf(ctx, "Invalid array size %ld", size);
@@ -299,7 +296,7 @@ bool basic_redim_int_array(const char* var, int64_t size, struct basic_ctx* ctx)
 	return true;
 }
 
-bool basic_redim_string_array(const char* var, int64_t size, struct basic_ctx* ctx)
+bool basic_redim_string_array(const char* var, int64_t size, struct basic_ctx* ctx, size_t var_length)
 {
 	if (size < 1) {
 		tokenizer_error_printf(ctx, "Invalid array size %ld", size);
@@ -345,7 +342,7 @@ bool basic_redim_string_array(const char* var, int64_t size, struct basic_ctx* c
 	return true;
 }
 
-bool basic_redim_double_array(const char* var, int64_t size, struct basic_ctx* ctx)
+bool basic_redim_double_array(const char* var, int64_t size, struct basic_ctx* ctx, size_t var_length)
 {
 	if (size < 1) {
 		tokenizer_error_printf(ctx, "Invalid array size %ld", size);
@@ -530,13 +527,13 @@ void dim_statement(struct basic_ctx* ctx)
 	char last = array_name[var_length - 1];
 	switch (last) {
 		case '#':
-			basic_dim_double_array(array_name, array_size, ctx);
+			basic_dim_double_array(array_name, array_size, ctx, var_length);
 			break;
 		case '$':
-			basic_dim_string_array(array_name, array_size, ctx);
+			basic_dim_string_array(array_name, array_size, ctx, var_length);
 			break;
 		default:
-			basic_dim_int_array(array_name, array_size, ctx);
+			basic_dim_int_array(array_name, array_size, ctx, var_length);
 	}
 }
 
@@ -552,13 +549,13 @@ void redim_statement(struct basic_ctx* ctx)
 	char last = array_name[var_length - 1];
 	switch (last) {
 		case '#':
-			basic_redim_double_array(array_name, array_size, ctx);
+			basic_redim_double_array(array_name, array_size, ctx, var_length);
 			break;
 		case '$':
-			basic_redim_string_array(array_name, array_size, ctx);
+			basic_redim_string_array(array_name, array_size, ctx, var_length);
 			break;
 		default:
-			basic_redim_int_array(array_name, array_size, ctx);
+			basic_redim_int_array(array_name, array_size, ctx, var_length);
 	}
 }
 
@@ -792,7 +789,7 @@ void pop_statement(struct basic_ctx* ctx)
 	}
 }
 
-static bool ensure_int_result_array(const char* varname, int64_t size, struct basic_ctx* ctx)
+static bool ensure_int_result_array(const char* varname, int64_t size, struct basic_ctx* ctx, size_t var_length)
 {
 	if (basic_int_variable_exists(varname, ctx)) {
 		tokenizer_error_printf(ctx, "Variable '%s' already exists as non-integer array type", varname);
@@ -800,13 +797,13 @@ static bool ensure_int_result_array(const char* varname, int64_t size, struct ba
 	}
 
 	if (!varname_is_int_array_access(ctx, varname)) {
-		return basic_dim_int_array(varname, size, ctx);
+		return basic_dim_int_array(varname, size, ctx, var_length);
 	}
 
-	return basic_redim_int_array(varname, size, ctx);
+	return basic_redim_int_array(varname, size, ctx, var_length);
 }
 
-static bool basic_arrayfind_int(const char* source, int64_t needle, const char* dest, const char* count_var, struct basic_ctx* ctx)
+static bool basic_arrayfind_int(const char* source, int64_t needle, const char* dest, const char* count_var, struct basic_ctx* ctx, size_t var_length)
 {
 	struct ub_var_int_array* cur = find_int_array(source, ctx);
 	if (!cur) {
@@ -828,14 +825,14 @@ static bool basic_arrayfind_int(const char* source, int64_t needle, const char* 
 	}
 
 	if (matches < 1) {
-		if (!ensure_int_result_array(dest, 1, ctx)) {
+		if (!ensure_int_result_array(dest, 1, ctx, var_length)) {
 			return false;
 		}
 		basic_set_int_array_variable(dest, 0, -1, ctx);
 		return !ctx->errored;
 	}
 
-	if (!ensure_int_result_array(dest, matches, ctx)) {
+	if (!ensure_int_result_array(dest, matches, ctx, var_length)) {
 		return false;
 	}
 
@@ -854,7 +851,7 @@ static bool basic_arrayfind_int(const char* source, int64_t needle, const char* 
 	return true;
 }
 
-static bool basic_arrayfind_double(const char* source, double needle, const char* dest, const char* count_var, struct basic_ctx* ctx)
+static bool basic_arrayfind_double(const char* source, double needle, const char* dest, const char* count_var, struct basic_ctx* ctx, size_t var_length)
 {
 	struct ub_var_double_array* cur = find_double_array(source, ctx);
 	if (!cur) {
@@ -876,14 +873,14 @@ static bool basic_arrayfind_double(const char* source, double needle, const char
 	}
 
 	if (matches < 1) {
-		if (!ensure_int_result_array(dest, 1, ctx)) {
+		if (!ensure_int_result_array(dest, 1, ctx, var_length)) {
 			return false;
 		}
 		basic_set_int_array_variable(dest, 0, -1, ctx);
 		return !ctx->errored;
 	}
 
-	if (!ensure_int_result_array(dest, matches, ctx)) {
+	if (!ensure_int_result_array(dest, matches, ctx, var_length)) {
 		return false;
 	}
 
@@ -902,7 +899,7 @@ static bool basic_arrayfind_double(const char* source, double needle, const char
 	return true;
 }
 
-static bool basic_arrayfind_string(const char* source, const char* needle, const char* dest, const char* count_var, struct basic_ctx* ctx)
+static bool basic_arrayfind_string(const char* source, const char* needle, const char* dest, const char* count_var, struct basic_ctx* ctx, size_t var_length)
 {
 	struct ub_var_string_array* cur = find_string_array(source, ctx);
 	if (!cur) {
@@ -925,14 +922,14 @@ static bool basic_arrayfind_string(const char* source, const char* needle, const
 	}
 
 	if (matches < 1) {
-		if (!ensure_int_result_array(dest, 1, ctx)) {
+		if (!ensure_int_result_array(dest, 1, ctx, var_length)) {
 			return false;
 		}
 		basic_set_int_array_variable(dest, 0, -1, ctx);
 		return !ctx->errored;
 	}
 
-	if (!ensure_int_result_array(dest, matches, ctx)) {
+	if (!ensure_int_result_array(dest, matches, ctx, var_length)) {
 		return false;
 	}
 
@@ -985,7 +982,7 @@ void arrayfind_statement(struct basic_ctx* ctx)
 			return;
 		}
 
-		basic_arrayfind_int(source, needle, dest, count_var, ctx);
+		basic_arrayfind_int(source, needle, dest, count_var, ctx, dest_length);
 		return;
 	}
 
@@ -1015,7 +1012,7 @@ void arrayfind_statement(struct basic_ctx* ctx)
 			return;
 		}
 
-		basic_arrayfind_double(source, needle, dest, count_var, ctx);
+		basic_arrayfind_double(source, needle, dest, count_var, ctx, dest_length);
 		return;
 	}
 
@@ -1043,7 +1040,7 @@ void arrayfind_statement(struct basic_ctx* ctx)
 			return;
 		}
 
-		basic_arrayfind_string(source, needle, dest, count_var, ctx);
+		basic_arrayfind_string(source, needle, dest, count_var, ctx, dest_length);
 		return;
 	}
 

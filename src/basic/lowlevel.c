@@ -451,7 +451,7 @@ int64_t basic_bitror(struct basic_ctx* ctx)
 	return (int64_t) out;
 }
 
-static bool devices_to_string_arrays(struct basic_ctx* ctx, const char* dev_array, const char* owner_array, const char* count_var)
+static bool devices_to_string_arrays(struct basic_ctx* ctx, const char* dev_array, const char* owner_array, const char* count_var, size_t dev_array_name_len, size_t owner_array_name_len, size_t count_var_length)
 {
 	if (ctx == NULL || dev_array == NULL || owner_array == NULL || count_var == NULL) {
 		return false;
@@ -471,21 +471,21 @@ static bool devices_to_string_arrays(struct basic_ctx* ctx, const char* dev_arra
 	}
 
 	if (!varname_is_string_array_access(ctx, dev_array)) {
-		if (!basic_dim_string_array(dev_array, count, ctx)) {
+		if (!basic_dim_string_array(dev_array, count, ctx, dev_array_name_len)) {
 			return false;
 		}
 	} else {
-		if (!basic_redim_string_array(dev_array, count, ctx)) {
+		if (!basic_redim_string_array(dev_array, count, ctx, dev_array_name_len)) {
 			return false;
 		}
 	}
 
 	if (!varname_is_string_array_access(ctx, owner_array)) {
-		if (!basic_dim_string_array(owner_array, count, ctx)) {
+		if (!basic_dim_string_array(owner_array, count, ctx, owner_array_name_len)) {
 			return false;
 		}
 	} else {
-		if (!basic_redim_string_array(owner_array, count, ctx)) {
+		if (!basic_redim_string_array(owner_array, count, ctx, owner_array_name_len)) {
 			return false;
 		}
 	}
@@ -529,5 +529,5 @@ void devices_statement(struct basic_ctx* ctx)
 	const char* count_var = tokenizer_variable_name(ctx, &count_var_length);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(NEWLINE, ctx);
-	devices_to_string_arrays(ctx, dev_var, owner_var, count_var);
+	devices_to_string_arrays(ctx, dev_var, owner_var, count_var, dev_var_length, owner_var_length, count_var_length);
 }
