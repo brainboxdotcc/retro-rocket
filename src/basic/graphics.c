@@ -1551,7 +1551,7 @@ static bool sprite_row_to_int_array(struct basic_ctx* ctx, sprite_t* s, int64_t 
 		return false;
 	}
 
-	if (!valid_int_var(varname)) {
+	if (!valid_int_var(varname, var_length)) {
 		tokenizer_error_printf(ctx, "Malformed variable name '%s'", varname);
 		return false;
 	}

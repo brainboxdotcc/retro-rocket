@@ -16,7 +16,7 @@ struct basic_ctx;
  * @param value The value to set.
  * @param ctx The BASIC context.
  */
-void basic_set_int_array_variable(const char* var, int64_t index, int64_t value, struct basic_ctx* ctx);
+void basic_set_int_array_variable(const char* var, int64_t index, int64_t value, struct basic_ctx* ctx, size_t var_length);
 
 /**
  * @brief Set the value of a specific index in a string array variable.
@@ -26,7 +26,7 @@ void basic_set_int_array_variable(const char* var, int64_t index, int64_t value,
  * @param value The value to set.
  * @param ctx The BASIC context.
  */
-void basic_set_string_array_variable(const char* var, int64_t index, const char* value, struct basic_ctx* ctx, size_t len);
+void basic_set_string_array_variable(const char* var, int64_t index, const char* value, struct basic_ctx* ctx, size_t len, size_t var_length);
 
 /**
  * @brief Set the value of a specific index in a double array variable.
@@ -36,7 +36,7 @@ void basic_set_string_array_variable(const char* var, int64_t index, const char*
  * @param value The value to set.
  * @param ctx The BASIC context.
  */
-void basic_set_double_array_variable(const char* var, int64_t index, double value, struct basic_ctx* ctx);
+void basic_set_double_array_variable(const char* var, int64_t index, double value, struct basic_ctx* ctx, size_t var_length);
 
 /**
  * @brief Retrieve the value of a specific index in a double array variable.
@@ -175,7 +175,7 @@ int64_t arr_variable_index(struct basic_ctx* ctx);
  * @param value The value to set.
  * @param ctx The BASIC context.
  */
-void basic_set_int_array(const char* var, int64_t value, struct basic_ctx* ctx);
+void basic_set_int_array(const char* var, int64_t value, struct basic_ctx* ctx, size_t var_length);
 
 /**
  * @brief Set the value of all elements in a string array to a specified value.
@@ -184,7 +184,7 @@ void basic_set_int_array(const char* var, int64_t value, struct basic_ctx* ctx);
  * @param value The value to set.
  * @param ctx The BASIC context.
  */
-void basic_set_string_array(const char* var, const char* value, struct basic_ctx* ctx, size_t len);
+void basic_set_string_array(const char* var, const char* value, struct basic_ctx* ctx, size_t len, size_t var_length);
 
 /**
  * @brief Set the value of all elements in a double array to a specified value.
@@ -193,7 +193,7 @@ void basic_set_string_array(const char* var, const char* value, struct basic_ctx
  * @param value The value to set.
  * @param ctx The BASIC context.
  */
-void basic_set_double_array(const char* var, double value, struct basic_ctx* ctx);
+void basic_set_double_array(const char* var, double value, struct basic_ctx* ctx, size_t var_length);
 
 /**
  * @brief Handle the `DIM` statement to define the size of an array.

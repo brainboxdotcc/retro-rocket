@@ -161,7 +161,7 @@ bool basic_dim_int_array(const char* var, int64_t size, struct basic_ctx* ctx, s
 		tokenizer_error_printf(ctx, "Variable '%s' already exists as non-array type", var);
 		return false;
 	}
-	if (!valid_int_var(var)) {
+	if (!valid_int_var(var, var_length)) {
 		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return false;
 	}
@@ -197,7 +197,7 @@ bool basic_dim_string_array(const char* var, int64_t size, struct basic_ctx* ctx
 		tokenizer_error_printf(ctx, "Variable '%s' already exists as non-array type", var);
 		return false;
 	}
-	if (!valid_string_var(var)) {
+	if (!valid_string_var(var, var_length)) {
 		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return false;
 	}
@@ -234,7 +234,7 @@ bool basic_dim_double_array(const char* var, int64_t size, struct basic_ctx* ctx
 		tokenizer_error_printf(ctx, "Variable '%s' already exists as non-array type", var);
 		return false;
 	}
-	if (!valid_double_var(var)) {
+	if (!valid_double_var(var, var_length)) {
 		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return false;
 	}
@@ -374,9 +374,9 @@ bool basic_redim_double_array(const char* var, int64_t size, struct basic_ctx* c
 	return true;
 }
 
-void basic_set_string_array_variable(const char* var, int64_t index, const char* value, struct basic_ctx* ctx, size_t len)
+void basic_set_string_array_variable(const char* var, int64_t index, const char* value, struct basic_ctx* ctx, size_t len, size_t var_length)
 {
-	if (!valid_string_var(var)) {
+	if (!valid_string_var(var, var_length)) {
 		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return;
 	}
@@ -407,9 +407,9 @@ void basic_set_string_array_variable(const char* var, int64_t index, const char*
 	cur->value_lengths[index] = len;
 }
 
-void basic_set_string_array(const char* var, const char* value, struct basic_ctx* ctx, size_t len)
+void basic_set_string_array(const char* var, const char* value, struct basic_ctx* ctx, size_t len, size_t var_length)
 {
-	if (!valid_string_var(var)) {
+	if (!valid_string_var(var, var_length)) {
 		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return;
 	}
@@ -431,9 +431,9 @@ void basic_set_string_array(const char* var, const char* value, struct basic_ctx
 	}
 }
 
-void basic_set_int_array(const char* var, int64_t value, struct basic_ctx* ctx)
+void basic_set_int_array(const char* var, int64_t value, struct basic_ctx* ctx, size_t var_length)
 {
-	if (!valid_int_var(var)) {
+	if (!valid_int_var(var, var_length)) {
 		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return;
 	}
@@ -448,9 +448,9 @@ void basic_set_int_array(const char* var, int64_t value, struct basic_ctx* ctx)
 	}
 }
 
-void basic_set_double_array(const char* var, double value, struct basic_ctx* ctx)
+void basic_set_double_array(const char* var, double value, struct basic_ctx* ctx, size_t var_length)
 {
-	if (!valid_double_var(var)) {
+	if (!valid_double_var(var, var_length)) {
 		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return;
 	}
@@ -465,9 +465,9 @@ void basic_set_double_array(const char* var, double value, struct basic_ctx* ctx
 	}
 }
 
-void basic_set_double_array_variable(const char* var, int64_t index, double value, struct basic_ctx* ctx)
+void basic_set_double_array_variable(const char* var, int64_t index, double value, struct basic_ctx* ctx, size_t var_length)
 {
-	if (!valid_double_var(var)) {
+	if (!valid_double_var(var, var_length)) {
 		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return;
 	}
@@ -490,9 +490,9 @@ void basic_set_double_array_variable(const char* var, int64_t index, double valu
 	cur->values[index] = value;
 }
 
-void basic_set_int_array_variable(const char* var, int64_t index, int64_t value, struct basic_ctx* ctx)
+void basic_set_int_array_variable(const char* var, int64_t index, int64_t value, struct basic_ctx* ctx, size_t var_length)
 {
-	if (!valid_int_var(var)) {
+	if (!valid_int_var(var, var_length)) {
 		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return;
 	}
@@ -828,7 +828,7 @@ static bool basic_arrayfind_int(const char* source, int64_t needle, const char* 
 		if (!ensure_int_result_array(dest, 1, ctx, var_length)) {
 			return false;
 		}
-		basic_set_int_array_variable(dest, 0, -1, ctx);
+		basic_set_int_array_variable(dest, 0, -1, ctx, var_length);
 		return !ctx->errored;
 	}
 
@@ -840,7 +840,7 @@ static bool basic_arrayfind_int(const char* source, int64_t needle, const char* 
 
 	for (uint64_t i = 0; i < cur->itemcount; ++i) {
 		if (cur->values[i] == needle) {
-			basic_set_int_array_variable(dest, out, i, ctx);
+			basic_set_int_array_variable(dest, out, i, ctx, var_length);
 			if (ctx->errored) {
 				return false;
 			}
@@ -876,7 +876,7 @@ static bool basic_arrayfind_double(const char* source, double needle, const char
 		if (!ensure_int_result_array(dest, 1, ctx, var_length)) {
 			return false;
 		}
-		basic_set_int_array_variable(dest, 0, -1, ctx);
+		basic_set_int_array_variable(dest, 0, -1, ctx, var_length);
 		return !ctx->errored;
 	}
 
@@ -888,7 +888,7 @@ static bool basic_arrayfind_double(const char* source, double needle, const char
 
 	for (uint64_t i = 0; i < cur->itemcount; ++i) {
 		if (cur->values[i] == needle) {
-			basic_set_int_array_variable(dest, out, i, ctx);
+			basic_set_int_array_variable(dest, out, i, ctx, var_length);
 			if (ctx->errored) {
 				return false;
 			}
@@ -925,7 +925,7 @@ static bool basic_arrayfind_string(const char* source, const char* needle, const
 		if (!ensure_int_result_array(dest, 1, ctx, var_length)) {
 			return false;
 		}
-		basic_set_int_array_variable(dest, 0, -1, ctx);
+		basic_set_int_array_variable(dest, 0, -1, ctx, var_length);
 		return !ctx->errored;
 	}
 
@@ -938,7 +938,7 @@ static bool basic_arrayfind_string(const char* source, const char* needle, const
 	for (uint64_t i = 0; i < cur->itemcount; ++i) {
 		const char* value = cur->values[i] ? cur->values[i] : "";
 		if (!strcmp(value, needle)) {
-			basic_set_int_array_variable(dest, out, i, ctx);
+			basic_set_int_array_variable(dest, out, i, ctx, var_length);
 			if (ctx->errored) {
 				return false;
 			}

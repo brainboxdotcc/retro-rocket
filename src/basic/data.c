@@ -57,7 +57,7 @@ void add_dataset_here(struct basic_ctx* ctx, char* search)
 		*search = '\0';
 	}
 
-	if (!valid_int_var(name)) {
+	if (!valid_int_var(name, name_len)) {
 		tokenizer_error_printf(ctx, "Invalid integer variable for DATASET '%s'", name);
 		return;
 	}

@@ -58,18 +58,15 @@ bool check_sockread_ready(process_t *proc, void *ptr) {
  */
 void sockread_statement(struct basic_ctx *ctx) {
 	char input[MAX_STRINGLEN];
-	const char *var;
 	size_t var_length;
-	int64_t fd;
-	process_t *proc;
 	int rv;
 
-	var = NULL;
+	const char* var = NULL;
 
 	accept_or_return(SOCKREAD, ctx);
 
 	const char* name = tokenizer_variable_name(ctx, &var_length);
-	fd = basic_get_numeric_int_variable(name, ctx, var_length);
+	int64_t fd = basic_get_numeric_int_variable(name, ctx, var_length);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
 
@@ -78,7 +75,7 @@ void sockread_statement(struct basic_ctx *ctx) {
 		return;
 	}
 
-	proc = ctx->proc;
+	process_t* proc = ctx->proc;
 
 	if (tls_get(fd)) {
 		int want = 0;
@@ -126,9 +123,9 @@ void sockread_statement(struct basic_ctx *ctx) {
 		int64_t value = atoll(input, 10);
 
 		if (index == -1) {
-			basic_set_int_array(var, value, ctx);
+			basic_set_int_array(var, value, ctx, var_length);
 		} else {
-			basic_set_int_array_variable(var, index, value, ctx);
+			basic_set_int_array_variable(var, index, value, ctx, var_length);
 		}
 
 		accept_or_return(NEWLINE, ctx);
@@ -138,9 +135,9 @@ void sockread_statement(struct basic_ctx *ctx) {
 		int64_t index = arr_target_index(ctx);
 
 		if (index == -1) {
-			basic_set_string_array(var, input, ctx, rv);
+			basic_set_string_array(var, input, ctx, rv, var_length);
 		} else {
-			basic_set_string_array_variable(var, index, input, ctx, rv);
+			basic_set_string_array_variable(var, index, input, ctx, rv, var_length);
 		}
 
 		accept_or_return(NEWLINE, ctx);
@@ -152,9 +149,9 @@ void sockread_statement(struct basic_ctx *ctx) {
 		atof(input, &value);
 
 		if (index == -1) {
-			basic_set_double_array(var, value, ctx);
+			basic_set_double_array(var, value, ctx, var_length);
 		} else {
-			basic_set_double_array_variable(var, index, value, ctx);
+			basic_set_double_array_variable(var, index, value, ctx, var_length);
 		}
 
 		accept_or_return(NEWLINE, ctx);
@@ -540,8 +537,7 @@ char* basic_tlsversion(struct basic_ctx* ctx, size_t* out_len) {
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t fd = intval;
 	PARAMS_END("TLSVERSION$", 0);
-	const char* ver = tls_version(fd);
-	*out_len = strlen(ver);
+	const char* ver = tls_version(fd, out_len);
 	return (char*)(gc_strdup(ctx, ver));
 }
 
@@ -550,8 +546,7 @@ char* basic_tlscipher(struct basic_ctx* ctx, size_t* out_len) {
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t fd = intval;
 	PARAMS_END("TLSCIPHER$", 0);
-	const char* cipher = tls_cipher(fd);
-	*out_len = strlen(cipher);
+	const char* cipher = tls_cipher(fd, out_len);
 	return (char*)(gc_strdup(ctx, cipher));
 }
 
@@ -563,6 +558,22 @@ char* basic_sockerror(struct basic_ctx* ctx, size_t* out_len) {
 	const char* msg = socket_error(tcp_get_close_code(fd));
 	*out_len = strlen(msg);
 	return (char*)(gc_strdup(ctx, msg));
+}
+
+static size_t ipv4_string_len(uint32_t ip)
+{
+	size_t len = 3;
+	for (int shift = 24; shift >= 0; shift -= 8) {
+		uint8_t octet = (ip >> shift) & 0xff;
+		if (octet >= 100) {
+			len += 3;
+		} else if (octet >= 10) {
+			len += 2;
+		} else {
+			len += 1;
+		}
+	}
+	return len;
 }
 
 
@@ -584,19 +595,19 @@ char *basic_netinfo(struct basic_ctx *ctx, size_t* out_len) {
 	if (!stricmp(strval, "gw")) {
 		uint32_t raw = getgatewayaddr();
 		get_ip_str(ip, (uint8_t *) &raw);
-		*out_len = strlen(ip);
+		*out_len = ipv4_string_len(raw);
 		return (char*)gc_strdup(ctx, ip);
 	}
 	if (!stricmp(strval, "mask")) {
 		uint32_t raw = getnetmask();
 		get_ip_str(ip, (uint8_t *) &raw);
-		*out_len = strlen(ip);
+		*out_len = ipv4_string_len(raw);
 		return (char*)gc_strdup(ctx, ip);
 	}
 	if (!stricmp(strval, "dns")) {
 		uint32_t raw = getdnsaddr();
 		get_ip_str(ip, (uint8_t *) &raw);
-		*out_len = strlen(ip);
+		*out_len = ipv4_string_len(raw);
 		return (char*)gc_strdup(ctx, ip);
 	}
 	*out_len = 7;
@@ -610,7 +621,7 @@ char *basic_dns(struct basic_ctx *ctx, size_t* out_len) {
 	char ip[IP_BUF_LEN] = {0};
 	uint32_t addr = dns_lookup_host(getdnsaddr(), strval, 2000);
 	get_ip_str(ip, (uint8_t *) &addr);
-	*out_len = strlen(ip);
+	*out_len = ipv4_string_len(addr);
 	return (char*)gc_strdup(ctx, ip);
 }
 

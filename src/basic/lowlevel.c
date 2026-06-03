@@ -444,7 +444,7 @@ static bool devices_to_string_arrays(struct basic_ctx* ctx, const char* dev_arra
 		return false;
 	}
 
-	if (!valid_string_var(dev_array) || !valid_string_var(owner_array)) {
+	if (!valid_string_var(dev_array, dev_array_name_len) || !valid_string_var(owner_array, owner_array_name_len)) {
 		tokenizer_error_print(ctx, "Malformed variable name");
 		return false;
 	}

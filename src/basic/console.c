@@ -143,9 +143,9 @@ void input_statement(struct basic_ctx* ctx)
 		int64_t value = atoll(kgetinput(&ctx->input, &out_len), 10);
 
 		if (index == -1) {
-			basic_set_int_array(var, value, ctx);
+			basic_set_int_array(var, value, ctx, var_length);
 		} else {
-			basic_set_int_array_variable(var, index, value, ctx);
+			basic_set_int_array_variable(var, index, value, ctx, var_length);
 		}
 
 		kfreeinput(ctx, &ctx->input);
@@ -157,9 +157,9 @@ void input_statement(struct basic_ctx* ctx)
 		const char* value = kgetinput(&ctx->input, &out_len);
 
 		if (index == -1) {
-			basic_set_string_array(var, value, ctx, out_len);
+			basic_set_string_array(var, value, ctx, out_len, var_length);
 		} else {
-			basic_set_string_array_variable(var, index, value, ctx, out_len);
+			basic_set_string_array_variable(var, index, value, ctx, out_len, var_length);
 		}
 
 		kfreeinput(ctx, &ctx->input);
@@ -172,9 +172,9 @@ void input_statement(struct basic_ctx* ctx)
 		atof(kgetinput(&ctx->input, &out_len), &value);
 
 		if (index == -1) {
-			basic_set_double_array(var, value, ctx);
+			basic_set_double_array(var, value, ctx, var_length);
 		} else {
-			basic_set_double_array_variable(var, index, value, ctx);
+			basic_set_double_array_variable(var, index, value, ctx, var_length);
 		}
 
 		kfreeinput(ctx, &ctx->input);

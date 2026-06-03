@@ -66,12 +66,12 @@ void match_statement(struct basic_ctx *ctx)
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
 
-	const char *pat = str_expr(ctx, NULL);
-	size_t pat_len = strlen(pat);
+	size_t pat_len;
+	const char *pat = str_expr(ctx, &pat_len);
 	accept_or_return(COMMA, ctx);
 
-	const char *hay = str_expr(ctx, NULL);
-	size_t hay_len = strlen(hay);
+	size_t hay_len;
+	const char *hay = str_expr(ctx, &hay_len);
 
 	const char *cap_names[32];
 	size_t cap_vars = 0;
@@ -267,13 +267,14 @@ char* basic_bool(struct basic_ctx* ctx, size_t* out_len)
 
 int64_t basic_instr(struct basic_ctx* ctx)
 {
-	const char *haystack, *needle;
 
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
-	haystack = strval ? strval : "";
+	const char* haystack = strval;
+	size_t hlen = strlength;
 	PARAMS_GET_ITEM(BIP_STRING);
-	needle = strval ? strval : "";
+	const char* needle = strval;
+	size_t nlen = strlength;
 	PARAMS_END("INSTR", 0);
 
 	if (*needle == '\0') {
@@ -281,8 +282,6 @@ int64_t basic_instr(struct basic_ctx* ctx)
 	}
 
 	/* Quick length check avoids calling strstr on impossible matches */
-	size_t hlen = strlen(haystack);
-	size_t nlen = strlen(needle);
 	if (nlen > hlen) {
 		return 0;
 	}
@@ -330,9 +329,9 @@ char* basic_markdown(struct basic_ctx* ctx, size_t* out_len) {
 	html2md_result_t out = {};
 	if (html2md_convert(strval, NULL, &out)) {
 		char* out_md = (char*)gc_strdup(ctx, out.markdown);
+		*out_len = out.length;
 		html2md_free(&out);
 		html2md_define_glyphs();
-		*out_len = strlen(out_md);
 		return out_md;
 	}
 	*out_len = 0;
@@ -354,11 +353,11 @@ char* basic_highlight(struct basic_ctx* ctx, size_t* out_len) {
 		return "";
 	}
 	*out = 0;
+	size_t current_len = 0;
 	PARAMS_END("HIGHLIGHT$","");
 	bool in_quotes = false, in_comment = false;
 	const char* end = in + strlen(in);
 	for (const char* pos = in; *pos; ++pos) {
-		size_t current_len = strlen(out);
 		bool found = false, reset_colour = false;
 		if (out_cap - current_len < 128) {
 			out_cap *= 2;
@@ -374,6 +373,7 @@ char* basic_highlight(struct basic_ctx* ctx, size_t* out_len) {
 		if (in_comment) {
 			*(out + current_len) = *pos;
 			*(out + current_len + 1) = 0;
+			current_len++;
 			continue;
 		} else if (!in_quotes && *pos == '"') {
 			current_len += snprintf(out + current_len, out_cap - current_len, "\x1b[%um", map_vga_to_ansi(COLOUR_LIGHTYELLOW));
@@ -390,7 +390,7 @@ char* basic_highlight(struct basic_ctx* ctx, size_t* out_len) {
 				size_t fn_len = strlen(builtin_int[v].name);
 				if (pos + fn_len <= end && !memcmp(pos, builtin_int[v].name, fn_len)) {
 					/* Is a builtin integer function */
-					snprintf(out + current_len, out_cap - current_len, "\x1b[%um%s\x1b[%um", map_vga_to_ansi(COLOUR_LIGHTGREEN), builtin_int[v].name, map_vga_to_ansi(COLOUR_WHITE));
+					current_len += snprintf(out + current_len, out_cap - current_len, "\x1b[%um%s\x1b[%um", map_vga_to_ansi(COLOUR_LIGHTGREEN), builtin_int[v].name, map_vga_to_ansi(COLOUR_WHITE));
 					found = true;
 					pos += fn_len - 1;
 				}
@@ -399,7 +399,7 @@ char* basic_highlight(struct basic_ctx* ctx, size_t* out_len) {
 				size_t fn_len = strlen(builtin_str[v].name);
 				if (pos + fn_len <= end && !memcmp(pos, builtin_str[v].name, fn_len)) {
 					/* Is a builtin string function */
-					snprintf(out + current_len, out_cap - current_len, "\x1b[%um%s\x1b[%um", map_vga_to_ansi(COLOUR_LIGHTMAGENTA), builtin_str[v].name, map_vga_to_ansi(COLOUR_WHITE));
+					current_len += snprintf(out + current_len, out_cap - current_len, "\x1b[%um%s\x1b[%um", map_vga_to_ansi(COLOUR_LIGHTMAGENTA), builtin_str[v].name, map_vga_to_ansi(COLOUR_WHITE));
 					found = true;
 					pos += fn_len - 1;
 				}
@@ -408,7 +408,7 @@ char* basic_highlight(struct basic_ctx* ctx, size_t* out_len) {
 				size_t fn_len = strlen(builtin_double[v].name);
 				if (pos + fn_len <= end && !memcmp(pos, builtin_double[v].name, fn_len)) {
 					/* Is a builtin real function */
-					snprintf(out + current_len, out_cap - current_len, "\x1b[%um%s\x1b[%um", map_vga_to_ansi(COLOUR_LIGHTCYAN), builtin_double[v].name, map_vga_to_ansi(COLOUR_WHITE));
+					current_len += snprintf(out + current_len, out_cap - current_len, "\x1b[%um%s\x1b[%um", map_vga_to_ansi(COLOUR_LIGHTCYAN), builtin_double[v].name, map_vga_to_ansi(COLOUR_WHITE));
 					found = true;
 					pos += fn_len - 1;
 				}
@@ -422,11 +422,12 @@ char* basic_highlight(struct basic_ctx* ctx, size_t* out_len) {
 						/* Is a token */
 						if (v == REM) {
 							snprintf(out, out_cap, "\x1b[%um%s\x1b[%um", map_vga_to_ansi(COLOUR_DARKGREEN), in, map_vga_to_ansi(COLOUR_WHITE));
+							*out_len = strlen(out);
 							char* ret = (char*)gc_strdup(ctx, out);
 							buddy_free(ctx->allocator, out);
 							return ret;
 						} else {
-							snprintf(out + current_len, out_cap - current_len, "\x1b[%um%s\x1b[%um", map_vga_to_ansi(COLOUR_LIGHTBLUE), token_names[v], map_vga_to_ansi(COLOUR_WHITE));
+							current_len += snprintf(out + current_len, out_cap - current_len, "\x1b[%um%s\x1b[%um", map_vga_to_ansi(COLOUR_LIGHTBLUE), token_names[v], map_vga_to_ansi(COLOUR_WHITE));
 							found = true;
 						}
 						pos += kw_len - 1;
@@ -438,20 +439,20 @@ char* basic_highlight(struct basic_ctx* ctx, size_t* out_len) {
 		if (!found) {
 			if (!in_quotes && !in_comment && ((*pos >= '0' && *pos <= '9') || ((*pos == '-' || *pos == '+') && (*(pos+1) >= '0' && *(pos+1) <= '9')))) {
 				/* Numeric colour */
-				snprintf(out + current_len, out_cap - current_len, "\x1b[%um%c\x1b[%um", map_vga_to_ansi(COLOUR_ORANGE), *pos, map_vga_to_ansi(COLOUR_WHITE));
+				current_len += snprintf(out + current_len, out_cap - current_len, "\x1b[%um%c\x1b[%um", map_vga_to_ansi(COLOUR_ORANGE), *pos, map_vga_to_ansi(COLOUR_WHITE));
 			} else if (!in_quotes && !in_comment && (*pos == '(' || *pos == ')' || *pos == '+' || *pos == '-' || *pos == '/' || *pos == '=' ||  *pos == '*' || *pos == '<' || *pos == '>' || *pos == ',' || *pos == ';')) {
 				/* Symbolic maths colour */
-				snprintf(out + current_len, out_cap - current_len, "\x1b[%um%c\x1b[%um", map_vga_to_ansi(COLOUR_DARKRED), *pos, map_vga_to_ansi(COLOUR_WHITE));
+				current_len += snprintf(out + current_len, out_cap - current_len, "\x1b[%um%c\x1b[%um", map_vga_to_ansi(COLOUR_DARKRED), *pos, map_vga_to_ansi(COLOUR_WHITE));
 			} else {
 				*(out + current_len) = *pos;
 				*(out + current_len + 1) = 0;
+				current_len++;
 			}
 		}
 		if (reset_colour) {
-			snprintf(out + current_len, out_cap - current_len, "\"\x1b[%um", map_vga_to_ansi(COLOUR_WHITE));
+			current_len += snprintf(out + current_len, out_cap - current_len, "\"\x1b[%um", map_vga_to_ansi(COLOUR_WHITE));
 		}
 	}
-	size_t current_len = strlen(out);
 	if (out_cap - current_len < 32) {
 		out_cap += 32;
 		char* new_out = buddy_realloc(ctx->allocator, out, out_cap);
@@ -599,13 +600,13 @@ char* basic_mid(struct basic_ctx* ctx, size_t* out_len)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* source = strval;
+	size_t len = strlength;
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t start = intval;
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t count = intval;
 	PARAMS_END("MID$", "");
 
-	int64_t len = strlen(source);
 	if (len == 0 || count <= 0) {
 		return "";
 	}
@@ -718,17 +719,18 @@ char* basic_ljust(struct basic_ctx* ctx, size_t* out_len)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	char* target = strval;
+	int64_t target_length = strlength;
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t width = intval;
 	PARAMS_GET_ITEM(BIP_STRING);
 	char* fill_string = strval;
+	size_t fill_len = strlength;
 	PARAMS_END("LJUST$", "");
-	if (strlen(fill_string) < 1) {
+	if (fill_len < 1) {
 		tokenizer_error_print(ctx, "No fill character");
 		return "";
 	}
 	char fill_char = fill_string[0];
-	int64_t target_length = strlen(target);
 	int64_t result_length = width > target_length ? width : target_length;
 	char mresult[result_length + 1];
 	memcpy(mresult, target, target_length + 1);
@@ -744,18 +746,20 @@ char* basic_rjust(struct basic_ctx* ctx, size_t* out_len)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	char* target = strval;
+	size_t target_length = strlength;
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t width = intval;
 	PARAMS_GET_ITEM(BIP_STRING);
 	char* fill_string = strval;
+	size_t fill_len = strlength;
 	PARAMS_END("RJUST$", "");
-	if (strlen(fill_string) < 1) {
+	if (fill_len < 1) {
 		tokenizer_error_print(ctx, "No fill character");
 		return "";
 	}
 	char fill_char = fill_string[0];
-	int64_t target_length = strlen(target);
 	if (width <= target_length) {
+		*out_len = target_length;
 		return (char*)gc_strdup(ctx, target);
 	}
 	int64_t result_length = width > target_length ? width : target_length;

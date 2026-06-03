@@ -290,7 +290,7 @@ mbedtls_ctr_drbg_context* get_random_context();
  * @param fd File descriptor
  * @return TLS version string, or NULL if unavailable
  */
-const char* tls_version(int fd);
+const char* tls_version(int fd, size_t* len);
 
 /**
  * Get the negotiated cipher suite for a connection
@@ -298,5 +298,5 @@ const char* tls_version(int fd);
  * @param fd File descriptor
  * @return Cipher suite string, or NULL if unavailable
  */
-const char* tls_cipher(int fd);
+const char* tls_cipher(int fd, size_t* len);
 

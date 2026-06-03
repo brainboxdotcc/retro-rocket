@@ -374,7 +374,8 @@ bool mapkeys_iter(const void *item, void *udata)
 	const map_value_t *entry = item;
 	mapkeys_iter_ctx *iter = udata;
 
-	basic_set_string_array_variable(iter->dest, iter->index, entry->name, iter->ctx, strlen(iter->dest));
+	size_t l = strlen(iter->dest);
+	basic_set_string_array_variable(iter->dest, iter->index, entry->name, iter->ctx, l, l);
 	iter->index++;
 
 	return !iter->ctx->errored;
@@ -419,7 +420,7 @@ void mapkeys_statement(struct basic_ctx *ctx)
 	basic_set_int_variable(count_var, (int64_t)count, ctx, false, false, count_length);
 
 	if (count == 0) {
-		basic_set_string_array_variable(dest, 0, "", ctx, 0);
+		basic_set_string_array_variable(dest, 0, "", ctx, 0, dest_length);
 		return;
 	}
 

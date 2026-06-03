@@ -94,11 +94,11 @@ void assignment_statement(struct basic_ctx* ctx, bool global, bool local) {
 		int64_t index = arr_expr_set_index(ctx, var);
 		int64_t value = expr(ctx);
 		if (index == -1) {
-			basic_set_int_array(var, value, ctx);
+			basic_set_int_array(var, value, ctx, var_length);
 			accept_or_return(NEWLINE, ctx);
 			return;
 		}
-		basic_set_int_array_variable(var, index, value, ctx);
+		basic_set_int_array_variable(var, index, value, ctx, var_length);
 		accept_or_return(NEWLINE, ctx);
 		return;
 	} else if (varname_is_string_array_access(ctx, var)) {
@@ -106,11 +106,11 @@ void assignment_statement(struct basic_ctx* ctx, bool global, bool local) {
 		size_t val_len;
 		const char* value = str_expr(ctx, &val_len);
 		if (index == -1) {
-			basic_set_string_array(var, value, ctx, val_len);
+			basic_set_string_array(var, value, ctx, val_len, var_length);
 			accept_or_return(NEWLINE, ctx);
 			return;
 		}
-		basic_set_string_array_variable(var, index, value, ctx, val_len);
+		basic_set_string_array_variable(var, index, value, ctx, val_len, var_length);
 		accept_or_return(NEWLINE, ctx);
 		return;
 	} else if (varname_is_double_array_access(ctx, var)) {
@@ -118,11 +118,11 @@ void assignment_statement(struct basic_ctx* ctx, bool global, bool local) {
 		double value = 0;
 		double_expr(ctx, &value);
 		if (index == -1) {
-			basic_set_double_array(var, value, ctx);
+			basic_set_double_array(var, value, ctx, var_length);
 			accept_or_return(NEWLINE, ctx);
 			return;
 		}
-		basic_set_double_array_variable(var, index, value, ctx);
+		basic_set_double_array_variable(var, index, value, ctx, var_length);
 		accept_or_return(NEWLINE, ctx);
 		return;
 	}
@@ -151,12 +151,11 @@ void assignment_statement(struct basic_ctx* ctx, bool global, bool local) {
 	accept_or_return(NEWLINE, ctx);
 }
 
-bool valid_suffix_var(const char* name, char suffix) {
+bool valid_suffix_var(const char* name, char suffix, size_t var_length) {
 	if (!name) {
 		return false;
 	}
 	const char* i;
-	unsigned int var_length = strlen(name);
 	if (suffix != '\0') {
 		if (var_length < 2 || name[var_length - 1] != suffix) {
 			return false;
@@ -198,19 +197,19 @@ bool valid_suffix_var(const char* name, char suffix) {
 	return true;
 }
 
-bool valid_string_var(const char* name)
+bool valid_string_var(const char* name, size_t var_length)
 {
-    return valid_suffix_var(name, '$');
+    return valid_suffix_var(name, '$', var_length);
 }
 
-bool valid_double_var(const char* name)
+bool valid_double_var(const char* name, size_t var_length)
 {
-    return valid_suffix_var(name, '#');
+    return valid_suffix_var(name, '#', var_length);
 }
 
-bool valid_int_var(const char* name)
+bool valid_int_var(const char* name, size_t var_length)
 {
-    return valid_suffix_var(name, '\0');
+    return valid_suffix_var(name, '\0', var_length);
 }
 
 static void update_string(struct basic_ctx* ctx, ub_var_string* str, size_t len, bool propagate_global, const char* varname, const char* value, size_t value_len) {
@@ -233,7 +232,7 @@ void basic_set_string_variable(const char* var, const char* value, struct basic_
 	struct hashmap* globals = ctx->str_variables;
 
 	size_t len = var_len;
-	if (!valid_string_var(var)) {
+	if (!valid_string_var(var, var_len)) {
 		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return;
 	}
@@ -281,7 +280,7 @@ void basic_set_int_variable(const char* var, int64_t value, struct basic_ctx* ct
 	struct hashmap* globals = ctx->int_variables;
 
 	size_t len = var_len;
-	if (!valid_int_var(var)) {
+	if (!valid_int_var(var, var_len)) {
 		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return;
 	}
@@ -331,14 +330,14 @@ void basic_set_double_variable(const char* var, double value, struct basic_ctx* 
 	struct hashmap* globals = ctx->double_variables;
 
 	size_t len = var_len;
-	if (!valid_double_var(var)) {
+	if (!valid_double_var(var, var_len)) {
 		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return;
 	}
 
 	ub_var_double* found = NULL;
 	bool oom = false;
-	if (local && locals && (found = hashmap_get(locals, &(ub_var_double) { .varname = var, .name_length = len }))) {
+	if (local && locals && ((found = hashmap_get(locals, &(ub_var_double) { .varname = var, .name_length = len })))) {
 		buddy_free(ctx->allocator, found->varname);
 		update_double(ctx, found, len, propagate_global, var, value);
 		oom = !hashmap_set(locals, found) && hashmap_oom(locals);

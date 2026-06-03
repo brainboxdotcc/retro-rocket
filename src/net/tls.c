@@ -22,6 +22,8 @@ struct tls_peer {
 	mbedtls_ssl_config conf;
 	char cipher[MAX_ALGO_STR];
 	char version[MAX_TLS_VERSION];
+	size_t cipher_len;
+	size_t version_len;
 	struct tls_io io;
 	int fd;
 	int error;
@@ -526,8 +528,8 @@ int ssl_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 		}
 		const char *ver = mbedtls_ssl_get_version(&p->ssl);
 		const char *cipher = mbedtls_ssl_get_ciphersuite(&p->ssl);
-		strlcpy(p->cipher, cipher ? cipher : "unknown", MAX_ALGO_STR);
-		strlcpy(p->version, ver ? ver : "unknown", MAX_TLS_VERSION);
+		p->cipher_len = strlcpy(p->cipher, cipher ? cipher : "unknown", MAX_ALGO_STR);
+		p->version_len = strlcpy(p->version, ver ? ver : "unknown", MAX_TLS_VERSION);
 		dprintf("tls on outbound socket %u: negotiated %s: %s\n", fd, ver ? ver : "unknown", cipher ? cipher : "unknown");
 		return fd;
 	}
@@ -597,19 +599,23 @@ int ssl_accept(int listen_fd, const uint8_t *cert_pem, size_t cert_len, const ui
 	}
 }
 
-const char* tls_version(int fd) {
+const char* tls_version(int fd, size_t* len) {
 	struct tls_peer *p = tls_get(fd);
 	if (p == NULL) {
 		return "unknown";
+		*len = 7;
 	}
+	*len = p->version_len;
 	return p->version;
 }
 
-const char* tls_cipher(int fd) {
+const char* tls_cipher(int fd, size_t* len) {
 	struct tls_peer *p = tls_get(fd);
 	if (p == NULL) {
 		return "unknown";
+		*len = 7;
 	}
+	*len = p->cipher_len;
 	return p->cipher;
 }
 

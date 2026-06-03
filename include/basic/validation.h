@@ -12,7 +12,7 @@ struct basic_ctx;
  * @param name The variable name to check.
  * @return True if the variable name is valid for an integer, false otherwise.
  */
-bool valid_int_var(const char* name);
+bool valid_int_var(const char* name, size_t var_length);
 
 /**
  * @brief Checks if the given variable name is valid for a string variable.
@@ -22,7 +22,7 @@ bool valid_int_var(const char* name);
  * @param name The variable name to check.
  * @return True if the variable name is valid for a string, false otherwise.
  */
-bool valid_string_var(const char* name);
+bool valid_string_var(const char* name, size_t var_length);
 
 /**
  * @brief Checks if the given variable name is valid for a double (real) variable.
@@ -32,4 +32,4 @@ bool valid_string_var(const char* name);
  * @param name The variable name to check.
  * @return True if the variable name is valid for a double, false otherwise.
  */
-bool valid_double_var(const char* name);
+bool valid_double_var(const char* name, size_t var_length);
