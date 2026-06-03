@@ -31,7 +31,7 @@ extern struct basic_double_fn builtin_double[];
 static void set_empty_captures(struct basic_ctx *ctx, const char *const *cap_names, size_t cap_vars)
 {
 	for (size_t i = 0; i < cap_vars; i++) {
-		basic_set_string_variable(cap_names[i], "", ctx, false, false, 0);
+		basic_set_string_variable(cap_names[i], "", ctx, false, false, 0, strlen(cap_names[i]));
 	}
 }
 
@@ -148,7 +148,7 @@ void match_statement(struct basic_ctx *ctx)
 		}
 
 		int matched = (mrc == RE_OK);
-		basic_set_int_variable(res_name, matched, ctx, false, false);
+		basic_set_int_variable(res_name, matched, ctx, false, false, res_len);
 
 		if (!matched) {
 			set_empty_captures(ctx, cap_names, cap_vars);
@@ -162,10 +162,10 @@ void match_statement(struct basic_ctx *ctx)
 		/* Fill user variables from captured text; if missing, "" */
 		for (size_t i = 0; i < cap_vars; i++) {
 			if (cap_out[i]) {
-				basic_set_string_variable(cap_names[i], cap_out[i], ctx, false, false, strlen(cap_out[i]));
+				basic_set_string_variable(cap_names[i], cap_out[i], ctx, false, false, strlen(cap_out[i]), strlen(cap_names[i]));
 				buddy_free(ctx->allocator, cap_out[i]);
 			} else {
-				basic_set_string_variable(cap_names[i], "", ctx, false, false, 0);
+				basic_set_string_variable(cap_names[i], "", ctx, false, false, 0, strlen(cap_names[i]));
 			}
 		}
 
@@ -190,7 +190,7 @@ void match_statement(struct basic_ctx *ctx)
 		buddy_free(ctx->allocator, st);
 		ctx->match_ctx = NULL;
 
-		basic_set_int_variable(res_name, matched, ctx, false, false);
+		basic_set_int_variable(res_name, matched, ctx, false, false, res_len);
 		accept_or_return(NEWLINE, ctx);
 		proc->state = PROC_RUNNING;
 		return;
@@ -471,12 +471,12 @@ char* basic_highlight(struct basic_ctx* ctx, size_t* out_len) {
 
 char* basic_tokenize(struct basic_ctx* ctx, size_t* out_len)
 {
-	char* varname, *split;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_VARIABLE);
-	varname = strval;
+	char* varname = strval;
+	size_t var_len = strlength;
 	PARAMS_GET_ITEM(BIP_STRING);
-	split = strval;
+	char* split = strval;
 	size_t split_len = strlength;
 	PARAMS_END("TOKENIZE$","");
 	const char* current_value = basic_get_string_variable(varname, ctx, out_len);
@@ -513,7 +513,7 @@ char* basic_tokenize(struct basic_ctx* ctx, size_t* out_len)
 			memcpy(new_value, old_value + new_ofs, new_len);
 			new_value[new_len] = 0;
 
-			basic_set_string_variable(varname, new_value, ctx, false, false, new_len);
+			basic_set_string_variable(varname, new_value, ctx, false, false, new_len, var_len);
 
 			char* ret = (char*)gc_strdup(ctx, return_value);
 			buddy_free(ctx->allocator, return_value);
@@ -537,7 +537,7 @@ char* basic_tokenize(struct basic_ctx* ctx, size_t* out_len)
 	memcpy(return_value, old_value, ret_len);
 	return_value[ret_len] = 0;
 
-	basic_set_string_variable(varname, "", ctx, false, false, 0);
+	basic_set_string_variable(varname, "", ctx, false, false, 0, var_len);
 
 	char* ret = (char*)gc_strdup(ctx, return_value);
 	buddy_free(ctx->allocator, return_value);

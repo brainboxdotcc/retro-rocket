@@ -389,7 +389,8 @@ void write_statement(struct basic_ctx* ctx)
 
 	accept_or_return(WRITE, ctx);
 	size_t var_length;
-	fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx, &var_length), ctx);
+	const char* name = tokenizer_variable_name(ctx, &var_length);
+	fd = basic_get_numeric_int_variable(name, ctx, var_length);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
 	size_t len;

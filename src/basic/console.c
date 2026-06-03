@@ -188,18 +188,18 @@ void input_statement(struct basic_ctx* ctx)
 	switch (var[var_length - 1]) {
 		case '$': {
 			const char* value = kgetinput(&ctx->input, &out_len);
-			basic_set_string_variable(var, value, ctx, false, false, out_len);
+			basic_set_string_variable(var, value, ctx, false, false, out_len, var_length);
 			break;
 		}
 		case '#': {
 			double f = 0;
 			atof(kgetinput(&ctx->input, &out_len), &f);
-			basic_set_double_variable(var, f, ctx, false, false);
+			basic_set_double_variable(var, f, ctx, false, false, var_length);
 			break;
 		}
 
 		default:
-			basic_set_int_variable(var, atoll(kgetinput(&ctx->input, &out_len), 10), ctx, false, false);
+			basic_set_int_variable(var, atoll(kgetinput(&ctx->input, &out_len), 10), ctx, false, false, var_length);
 			break;
 	}
 	kfreeinput(ctx, &ctx->input);
@@ -753,16 +753,16 @@ void kget_statement(struct basic_ctx* ctx)
 	switch (var[var_length - 1]) {
 		case '$': {
 			char str[2] = { c, '\0' };
-			basic_set_string_variable(var, str, ctx, false, false, 1);
+			basic_set_string_variable(var, str, ctx, false, false, 1, var_length);
 			break;
 		}
 		case '#': {
 			double f = (double)c;
-			basic_set_double_variable(var, f, ctx, false, false);
+			basic_set_double_variable(var, f, ctx, false, false, var_length);
 			break;
 		}
 		default:
-			basic_set_int_variable(var, (int)c, ctx, false, false);
+			basic_set_int_variable(var, (int64_t)c, ctx, false, false, var_length);
 			break;
 	}
 

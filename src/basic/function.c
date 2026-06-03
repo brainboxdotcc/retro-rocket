@@ -398,15 +398,15 @@ bool extract_comma_list(struct ub_proc_fn_def* def, struct basic_ctx* ctx, int* 
 				const char* save_ptr = ctx->ptr;
 				size_t v_len;
 				const char* value = str_expr(ctx, &v_len);
-				basic_set_string_variable((*param)->name, value, ctx, true, false, v_len);
+				basic_set_string_variable((*param)->name, value, ctx, true, false, v_len, (*param)->name_len);
 				ctx->ptr = save_ptr;
 			} else if ((*param)->name[len - 1] == '#') {
 				double f = 0.0;
 				double_expr(ctx, &f);
-				basic_set_double_variable((*param)->name, f, ctx, true, false);
+				basic_set_double_variable((*param)->name, f, ctx, true, false, (*param)->name_len);
 			} else {
 				int64_t e = expr(ctx);
-				basic_set_int_variable((*param)->name, e, ctx, true, false);
+				basic_set_int_variable((*param)->name, e, ctx, true, false, (*param)->name_len);
 			}
 
 			*param = (*param)->next;

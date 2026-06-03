@@ -497,7 +497,7 @@ static bool devices_to_string_arrays(struct basic_ctx* ctx, const char* dev_arra
 		}
 	}
 
-	basic_set_int_variable(count_var, count, ctx, false, false);
+	basic_set_int_variable(count_var, count, ctx, false, false, count_var_length);
 	return true;
 }
 

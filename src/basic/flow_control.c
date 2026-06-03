@@ -242,14 +242,14 @@ void next_statement(struct basic_ctx* ctx)
 		for_state* state = &ctx->for_stack[ctx->for_stack_ptr - 1];
 		if (state->variable_is_real) {
 			double incr;
-			basic_get_double_variable(state->for_variable, ctx, &incr);
+			basic_get_double_variable(state->for_variable, ctx, &incr, state->for_variable_len);
 			incr += state->step.v.r;
-			basic_set_double_variable(state->for_variable, incr, ctx, false, false);
+			basic_set_double_variable(state->for_variable, incr, ctx, false, false, state->for_variable_len);
 			continue_loop = ((state->step.v.r > 0 && incr <= state->to.v.r) || (state->step.v.r < 0 && incr >= state->to.v.r));
 		} else {
-			int64_t incr = basic_get_numeric_int_variable(state->for_variable, ctx);
+			int64_t incr = basic_get_numeric_int_variable(state->for_variable, ctx, state->for_variable_len);
 			incr += state->step.v.i;
-			basic_set_int_variable(state->for_variable, incr, ctx, false, false);
+			basic_set_int_variable(state->for_variable, incr, ctx, false, false, state->for_variable_len);
 			continue_loop = ((state->step.v.i > 0 && incr <= state->to.v.i) || (state->step.v.i < 0 && incr >= state->to.v.i));
 		}
 		if (continue_loop) {
@@ -283,11 +283,11 @@ void for_statement(struct basic_ctx* ctx)
 	if (for_variable[var_length - 1] == '#') {
 		double d;
 		double_expr(ctx, &d);
-		basic_set_double_variable(for_variable, d, ctx, false, false);
+		basic_set_double_variable(for_variable, d, ctx, false, false, var_length);
 		is_double = true;
 	} else {
 		int64_t i = expr(ctx);
-		basic_set_int_variable(for_variable, i, ctx, false, false);
+		basic_set_int_variable(for_variable, i, ctx, false, false, var_length);
 	}
 	accept_or_return(TO, ctx);
 	/* STEP needs special treatment, as it happens after an expression and is not separated by a comma */
@@ -323,6 +323,7 @@ void for_statement(struct basic_ctx* ctx)
 		for_state* state = &ctx->for_stack[ctx->for_stack_ptr];
 		state->line_after_for = tokenizer_num(ctx, NUMBER);
 		state->for_variable = for_variable;
+		state->for_variable_len = var_length;
 		if (is_double) {
 			state->to = up_make_real(double_end);
 			state->step = up_make_real(double_step);

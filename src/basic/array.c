@@ -803,7 +803,7 @@ static bool ensure_int_result_array(const char* varname, int64_t size, struct ba
 	return basic_redim_int_array(varname, size, ctx, var_length);
 }
 
-static bool basic_arrayfind_int(const char* source, int64_t needle, const char* dest, const char* count_var, struct basic_ctx* ctx, size_t var_length)
+static bool basic_arrayfind_int(const char* source, int64_t needle, const char* dest, const char* count_var, struct basic_ctx* ctx, size_t var_length, size_t count_length)
 {
 	struct ub_var_int_array* cur = find_int_array(source, ctx);
 	if (!cur) {
@@ -819,7 +819,7 @@ static bool basic_arrayfind_int(const char* source, int64_t needle, const char* 
 		}
 	}
 
-	basic_set_int_variable(count_var, matches, ctx, false, false);
+	basic_set_int_variable(count_var, matches, ctx, false, false, count_length);
 	if (ctx->errored) {
 		return false;
 	}
@@ -851,7 +851,7 @@ static bool basic_arrayfind_int(const char* source, int64_t needle, const char* 
 	return true;
 }
 
-static bool basic_arrayfind_double(const char* source, double needle, const char* dest, const char* count_var, struct basic_ctx* ctx, size_t var_length)
+static bool basic_arrayfind_double(const char* source, double needle, const char* dest, const char* count_var, struct basic_ctx* ctx, size_t var_length, size_t count_length)
 {
 	struct ub_var_double_array* cur = find_double_array(source, ctx);
 	if (!cur) {
@@ -867,7 +867,7 @@ static bool basic_arrayfind_double(const char* source, double needle, const char
 		}
 	}
 
-	basic_set_int_variable(count_var, matches, ctx, false, false);
+	basic_set_int_variable(count_var, matches, ctx, false, false, count_length);
 	if (ctx->errored) {
 		return false;
 	}
@@ -899,7 +899,7 @@ static bool basic_arrayfind_double(const char* source, double needle, const char
 	return true;
 }
 
-static bool basic_arrayfind_string(const char* source, const char* needle, const char* dest, const char* count_var, struct basic_ctx* ctx, size_t var_length)
+static bool basic_arrayfind_string(const char* source, const char* needle, const char* dest, const char* count_var, struct basic_ctx* ctx, size_t var_length, size_t count_length)
 {
 	struct ub_var_string_array* cur = find_string_array(source, ctx);
 	if (!cur) {
@@ -916,7 +916,7 @@ static bool basic_arrayfind_string(const char* source, const char* needle, const
 		}
 	}
 
-	basic_set_int_variable(count_var, matches, ctx, false, false);
+	basic_set_int_variable(count_var, matches, ctx, false, false, count_length);
 	if (ctx->errored) {
 		return false;
 	}
@@ -982,7 +982,7 @@ void arrayfind_statement(struct basic_ctx* ctx)
 			return;
 		}
 
-		basic_arrayfind_int(source, needle, dest, count_var, ctx, dest_length);
+		basic_arrayfind_int(source, needle, dest, count_var, ctx, dest_length, count_length);
 		return;
 	}
 
@@ -1012,7 +1012,7 @@ void arrayfind_statement(struct basic_ctx* ctx)
 			return;
 		}
 
-		basic_arrayfind_double(source, needle, dest, count_var, ctx, dest_length);
+		basic_arrayfind_double(source, needle, dest, count_var, ctx, dest_length, count_length);
 		return;
 	}
 
@@ -1040,7 +1040,7 @@ void arrayfind_statement(struct basic_ctx* ctx)
 			return;
 		}
 
-		basic_arrayfind_string(source, needle, dest, count_var, ctx, dest_length);
+		basic_arrayfind_string(source, needle, dest, count_var, ctx, dest_length, count_length);
 		return;
 	}
 

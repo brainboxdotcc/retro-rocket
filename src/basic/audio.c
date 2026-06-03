@@ -124,7 +124,7 @@ void stream_statement(struct basic_ctx* ctx) {
 			if (stream_id < 0) {
 				tokenizer_error_print(ctx, "Out of STREAMs");
 			}
-			basic_set_int_variable(variable, stream_id, ctx, false, false);
+			basic_set_int_variable(variable, stream_id, ctx, false, false, var_length);
 			break;
 		}
 		case DESTROY: {
@@ -404,7 +404,7 @@ void sound_statement(struct basic_ctx* ctx) {
 			}
 			sound_list_add(ctx, s);
 			int64_t handle = (int64_t)(uintptr_t)s;
-			basic_set_int_variable(variable, handle, ctx, false, false);
+			basic_set_int_variable(variable, handle, ctx, false, false, var_length);
 			break;
 		}
 		case UNLOAD: {

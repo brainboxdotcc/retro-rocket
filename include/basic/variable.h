@@ -31,7 +31,7 @@ int64_t basic_get_int_variable(const char* varname, struct basic_ctx* ctx);
  * @param res Pointer to store the result of the double value.
  * @return True if the variable was found and the value was retrieved, false otherwise.
  */
-bool basic_get_double_variable(const char* var, struct basic_ctx* ctx, double* res);
+bool basic_get_double_variable(const char* var, struct basic_ctx* ctx, double* res, size_t var_len);
 
 /**
  * @brief Get the value of a string variable.
@@ -55,7 +55,7 @@ const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx, si
  * @param local Boolean indicating whether the variable is local.
  * @param propagate_global Boolean indicating whether the variable is propagated globally to child programs.
  */
-void basic_set_string_variable(const char* var, const char* value, struct basic_ctx* ctx, bool local, bool propagate_global, size_t value_len);
+void basic_set_string_variable(const char* var, const char* value, struct basic_ctx* ctx, bool local, bool propagate_global, size_t value_len, size_t var_len);
 
 /**
  * @brief Set the value of a double (real) variable.
@@ -68,7 +68,7 @@ void basic_set_string_variable(const char* var, const char* value, struct basic_
  * @param local Boolean indicating whether the variable is local.
  * @param propagate_global Boolean indicating whether the variable is propagated globally to child programs.
  */
-void basic_set_double_variable(const char* var, const double value, struct basic_ctx* ctx, bool local, bool propagate_global);
+void basic_set_double_variable(const char* var, const double value, struct basic_ctx* ctx, bool local, bool propagate_global, size_t var_len);
 
 /**
  * @brief Set the value of an integer variable.
@@ -81,7 +81,7 @@ void basic_set_double_variable(const char* var, const double value, struct basic
  * @param local Boolean indicating whether the variable is local.
  * @param propagate_global Boolean indicating whether the variable is propagated globally to child programs.
  */
-void basic_set_int_variable(const char* var, int64_t value, struct basic_ctx* ctx, bool local, bool propagate_global);
+void basic_set_int_variable(const char* var, int64_t value, struct basic_ctx* ctx, bool local, bool propagate_global, size_t var_len);
 
 /**
  * @brief Get the numeric value of a variable.
@@ -93,7 +93,7 @@ void basic_set_int_variable(const char* var, int64_t value, struct basic_ctx* ct
  * @param res Pointer to store the result of the numeric value.
  * @return The return type for the variable (integer, string, etc.).
  */
-ub_return_type basic_get_numeric_variable(const char* var, struct basic_ctx* ctx, double* res);
+ub_return_type basic_get_numeric_variable(const char* var, struct basic_ctx* ctx, double* res, size_t var_len);
 
 /**
  * @brief Get the numeric value of an integer variable.
@@ -104,7 +104,7 @@ ub_return_type basic_get_numeric_variable(const char* var, struct basic_ctx* ctx
  * @param ctx The current BASIC context.
  * @return The value of the integer variable.
  */
-int64_t basic_get_numeric_int_variable(const char* var, struct basic_ctx* ctx);
+int64_t basic_get_numeric_int_variable(const char* var, struct basic_ctx* ctx, size_t var_len);
 
 /**
  * @brief Handle variable assignment

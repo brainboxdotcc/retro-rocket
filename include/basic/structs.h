@@ -74,6 +74,7 @@ typedef struct {
 typedef struct for_state {
 	int64_t line_after_for; ///< Line number to jump to after the FOR loop
 	const char *for_variable; ///< The loop variable
+	size_t for_variable_len; ///< Length of for variable name
 	up_value to; ///< The "TO" value for the loop
 	up_value step; ///< The "STEP" value for the loop
 	bool variable_is_real; ///< The FOR control variable is a real variable not integer

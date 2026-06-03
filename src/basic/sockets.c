@@ -68,7 +68,8 @@ void sockread_statement(struct basic_ctx *ctx) {
 
 	accept_or_return(SOCKREAD, ctx);
 
-	fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx, &var_length), ctx);
+	const char* name = tokenizer_variable_name(ctx, &var_length);
+	fd = basic_get_numeric_int_variable(name, ctx, var_length);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
 
@@ -165,16 +166,16 @@ void sockread_statement(struct basic_ctx *ctx) {
 
 	switch (var[var_length - 1]) {
 		case '$':
-			basic_set_string_variable(var, input, ctx, false, false, rv);
+			basic_set_string_variable(var, input, ctx, false, false, rv, var_length);
 			break;
 		case '#': {
 			double f = 0;
 			atof(input, &f);
-			basic_set_double_variable(var, f, ctx, false, false);
+			basic_set_double_variable(var, f, ctx, false, false, var_length);
 			break;
 		}
 		default:
-			basic_set_int_variable(var, atoll(input, 10), ctx, false, false);
+			basic_set_int_variable(var, atoll(input, 10), ctx, false, false, var_length);
 			break;
 	}
 
@@ -185,7 +186,8 @@ void sockread_statement(struct basic_ctx *ctx) {
 void sockbinread_statement(struct basic_ctx *ctx) {
 	int rv;
 	size_t var_length;
-	int64_t fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx, &var_length), ctx);
+	const char* name = tokenizer_variable_name(ctx, &var_length);
+	int64_t fd = basic_get_numeric_int_variable(name, ctx, var_length);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
 	int64_t address = expr(ctx);
@@ -244,7 +246,7 @@ void sockbinread_statement(struct basic_ctx *ctx) {
 		accept_or_return(COMMA, ctx);
 		const char* return_value = tokenizer_variable_name(ctx, &var_length);
 		accept_or_return(VARIABLE, ctx);
-		basic_set_int_variable(return_value, rv, ctx, false, false);
+		basic_set_int_variable(return_value, rv, ctx, false, false, var_length);
 	}
 	proc->state = PROC_RUNNING;
 }
@@ -273,7 +275,7 @@ void connect_statement(struct basic_ctx *ctx) {
 				tokenizer_error_print(ctx, "Cannot store socket descriptor in REAL");
 				break;
 			default:
-				basic_set_int_variable(fd_var, rv, ctx, false, false);
+				basic_set_int_variable(fd_var, rv, ctx, false, false, var_length);
 				break;
 		}
 
@@ -337,7 +339,7 @@ void sslconnect_statement(struct basic_ctx *ctx) {
 				tokenizer_error_print(ctx, "Cannot store socket descriptor in REAL");
 				break;
 			default:
-				basic_set_int_variable(fd_var, rv, ctx, false, false);
+				basic_set_int_variable(fd_var, rv, ctx, false, false, var_length);
 				break;
 		}
 
@@ -355,14 +357,14 @@ void sockclose_statement(struct basic_ctx *ctx) {
 	fd_var = tokenizer_variable_name(ctx, &var_length);
 	accept_or_return(VARIABLE, ctx);
 
-	int64_t fd = basic_get_numeric_int_variable(fd_var, ctx);
+	int64_t fd = basic_get_numeric_int_variable(fd_var, ctx, var_length);
 	int rv = closesocket(fd);
 	if (rv == 0) {
 		if (tls_get(fd)) {
 			tls_close_fd(fd);
 		}
 		// Clear variable to -1
-		basic_set_int_variable(fd_var, -1, ctx, false, false);
+		basic_set_int_variable(fd_var, -1, ctx, false, false, var_length);
 		accept_or_return(NEWLINE, ctx);
 	} else {
 		tokenizer_error_print(ctx, socket_error(rv));
@@ -615,7 +617,8 @@ char *basic_dns(struct basic_ctx *ctx, size_t* out_len) {
 void sockwrite_statement(struct basic_ctx *ctx) {
 	accept_or_return(SOCKWRITE, ctx);
 	size_t var_length;
-	int fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx, &var_length), ctx);
+	const char* name = tokenizer_variable_name(ctx, &var_length);
+	int fd = basic_get_numeric_int_variable(name, ctx, var_length);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
 	size_t binsize;
@@ -635,7 +638,8 @@ void sockwrite_statement(struct basic_ctx *ctx) {
 void sockbinwrite_statement(struct basic_ctx *ctx) {
 	accept_or_return(SOCKBINWRITE, ctx);
 	size_t var_length;
-	int fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx, &var_length), ctx);
+	const char* name = tokenizer_variable_name(ctx, &var_length);
+	int fd = basic_get_numeric_int_variable(name, ctx, var_length);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
 	uint64_t buffer_pointer = expr(ctx);
@@ -822,7 +826,8 @@ static bool check_sockflush_ready(process_t *proc, void *ptr) {
 void sockflush_statement(struct basic_ctx *ctx) {
 	size_t var_length;
 	accept_or_return(SOCKFLUSH, ctx);
-	int64_t fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx, &var_length), ctx);
+	const char* name = tokenizer_variable_name(ctx, &var_length);
+	int64_t fd = basic_get_numeric_int_variable(name, ctx, var_length);
 	accept_or_return(VARIABLE, ctx);
 
 	process_t* proc = ctx->proc;

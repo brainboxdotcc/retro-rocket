@@ -770,7 +770,7 @@ void loadsprite_statement(struct basic_ctx* ctx)
 		return;
 	}
 
-	basic_set_int_variable(variable, sprite_handle, ctx, false, false);
+	basic_set_int_variable(variable, sprite_handle, ctx, false, false, var_length);
 
 	fs_directory_entry_t* f = fs_get_file_info(file);
 	if (!f || fs_is_directory(file) || f->size == 0) {

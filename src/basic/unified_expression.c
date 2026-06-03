@@ -116,7 +116,7 @@ static up_value up_factor(struct basic_ctx *ctx) {
 			if (L && name[L - 1] == '#') {
 				/* Explicit real-typed variable/builtin */
 				double d = 0.0;
-				basic_get_numeric_variable(name, ctx, &d);
+				basic_get_numeric_variable(name, ctx, &d, L);
 				if (tokenizer_token(ctx) == COMMA) {
 					tokenizer_error_print(ctx, "Too many parameters for builtin function");
 				} else {
@@ -132,7 +132,7 @@ static up_value up_factor(struct basic_ctx *ctx) {
 			if (is_builtin_double_fn(name, L)) {
 				/* Unsuffixed builtin known to return REAL */
 				double d = 0.0;
-				basic_get_numeric_variable(name, ctx, &d);
+				basic_get_numeric_variable(name, ctx, &d, L);
 				if (tokenizer_token(ctx) == COMMA) {
 					tokenizer_error_print(ctx, "Too many parameters for builtin function");
 				} else {
@@ -146,7 +146,7 @@ static up_value up_factor(struct basic_ctx *ctx) {
 			}
 
 			/* Default: unsuffixed numeric treated as INT (keeps perf for plain vars) */
-			int64_t n = basic_get_numeric_int_variable(name, ctx);
+			int64_t n = basic_get_numeric_int_variable(name, ctx, L);
 			if (tokenizer_token(ctx) == COMMA) {
 				tokenizer_error_print(ctx, "Too many parameters for builtin function");
 			} else {

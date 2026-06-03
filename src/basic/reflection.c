@@ -20,7 +20,7 @@ void basic_getvar_real(struct basic_ctx* ctx, double* res)
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* var = strval;
 	PARAMS_END_VOID("GETVARR");
-	basic_get_double_variable(var, ctx, res);
+	basic_get_double_variable(var, ctx, res, strlength);
 }
 
 char* basic_getvar_string(struct basic_ctx* ctx, size_t* out_len)
@@ -62,7 +62,8 @@ int64_t basic_existsvar_string(struct basic_ctx* ctx)
 void setvari_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(SETVARI, ctx);
-	const char* var = str_expr(ctx, NULL);
+	size_t var_length;
+	const char* var = str_expr(ctx, &var_length);
 	accept_or_return(COMMA, ctx);
 	int64_t option_global = expr(ctx);
 	accept_or_return(COMMA, ctx);
@@ -70,14 +71,14 @@ void setvari_statement(struct basic_ctx* ctx)
 	accept_or_return(COMMA, ctx);
 	int64_t value = expr(ctx);
 	accept_or_return(NEWLINE, ctx);
-	basic_set_int_variable(var, value, ctx, option_local, option_global);	
+	basic_set_int_variable(var, value, ctx, option_local, option_global, var_length);
 }
 
 void setvarr_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(SETVARR, ctx);
-  /* TODO: Insert hash character at end if it missing */
-	const char* var = str_expr(ctx, NULL);
+	size_t var_length;
+	const char* var = str_expr(ctx, &var_length);
 	accept_or_return(COMMA, ctx);
 	int64_t option_global = expr(ctx);
 	accept_or_return(COMMA, ctx);
@@ -86,14 +87,14 @@ void setvarr_statement(struct basic_ctx* ctx)
 	double value;
 	double_expr(ctx, &value);
 	accept_or_return(NEWLINE, ctx);
-	basic_set_double_variable(var, value, ctx, option_local, option_global);
+	basic_set_double_variable(var, value, ctx, option_local, option_global, var_length);
 }
 
 void setvars_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(SETVARS, ctx);
-  /* TODO: Insert dollar character at end if it missing */
-	const char* var = str_expr(ctx, NULL);
+	size_t var_length;
+	const char* var = str_expr(ctx, &var_length);
 	accept_or_return(COMMA, ctx);
 	int64_t option_global = expr(ctx);
 	accept_or_return(COMMA, ctx);
@@ -102,5 +103,5 @@ void setvars_statement(struct basic_ctx* ctx)
 	size_t v_len;
 	const char* value = str_expr(ctx, &v_len);
 	accept_or_return(NEWLINE, ctx);
-	basic_set_string_variable(var, value, ctx, option_local, option_global, v_len);
+	basic_set_string_variable(var, value, ctx, option_local, option_global, v_len, var_length);
 }

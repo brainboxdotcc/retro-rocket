@@ -382,18 +382,19 @@ bool mapkeys_iter(const void *item, void *udata)
 
 void mapkeys_statement(struct basic_ctx *ctx)
 {
-	size_t var_length;
 	mapkeys_iter_ctx iter;
 
 	accept_or_return(MAPKEYS, ctx);
 	int64_t handle = expr(ctx);
 	accept_or_return(COMMA, ctx);
 
-	const char* dest = tokenizer_variable_name(ctx, &var_length);
+	size_t dest_length;
+	const char* dest = tokenizer_variable_name(ctx, &dest_length);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
 
-	const char* count_var = tokenizer_variable_name(ctx, &var_length);
+	size_t count_length;
+	const char* count_var = tokenizer_variable_name(ctx, &count_length);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(NEWLINE, ctx);
 
@@ -406,16 +407,16 @@ void mapkeys_statement(struct basic_ctx *ctx)
 	size_t count = hashmap_count(map);
 
 	if (!varname_is_string_array_access(ctx, dest)) {
-		if (!basic_dim_string_array(dest, count ? (int64_t)count : 1, ctx, var_length)) {
+		if (!basic_dim_string_array(dest, count ? (int64_t)count : 1, ctx, dest_length)) {
 			return;
 		}
 	} else {
-		if (!basic_redim_string_array(dest, count ? (int64_t)count : 1, ctx, var_length)) {
+		if (!basic_redim_string_array(dest, count ? (int64_t)count : 1, ctx, dest_length)) {
 			return;
 		}
 	}
 
-	basic_set_int_variable(count_var, (int64_t)count, ctx, false, false);
+	basic_set_int_variable(count_var, (int64_t)count, ctx, false, false, count_length);
 
 	if (count == 0) {
 		basic_set_string_array_variable(dest, 0, "", ctx, 0);

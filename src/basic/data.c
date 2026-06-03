@@ -51,6 +51,8 @@ void add_dataset_here(struct basic_ctx* ctx, char* search)
 		++search;
 	}
 
+	size_t name_len = search - name;
+
 	if (*search) {
 		*search = '\0';
 	}
@@ -62,7 +64,7 @@ void add_dataset_here(struct basic_ctx* ctx, char* search)
 
 	int64_t offset = ctx->datastore.length;
 	data_sets_append(ctx, &ctx->datasets, offset);
-	basic_set_int_variable(name, offset, ctx, false, false);
+	basic_set_int_variable(name, offset, ctx, false, false, name_len);
 }
 
 void extract_data_from_line(struct basic_ctx* ctx, char* search)
