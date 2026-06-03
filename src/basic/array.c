@@ -1110,34 +1110,21 @@ static int compare_double_array_desc(const void* a, const void* b)
 	return 0;
 }
 
-static int compare_string_array_asc(const void* a, const void* b)
+struct string_array_sort_item {
+	char* value;
+	size_t value_length;
+};
+
+static int compare_string_array_item_asc(const void* a, const void* b)
 {
-	const char* left = *(char* const*)a;
-	const char* right = *(char* const*)b;
-
-	if (!left) {
-		left = "";
-	}
-	if (!right) {
-		right = "";
-	}
-
-	return strcmp(left, right);
+	const struct string_array_sort_item* aa = a;
+	const struct string_array_sort_item* bb = b;
+	return strcmp(aa->value ? aa->value : "", bb->value ? bb->value : "");
 }
 
-static int compare_string_array_desc(const void* a, const void* b)
+static int compare_string_array_item_desc(const void* a, const void* b)
 {
-	const char* left = *(char* const*)a;
-	const char* right = *(char* const*)b;
-
-	if (!left) {
-		left = "";
-	}
-	if (!right) {
-		right = "";
-	}
-
-	return strcmp(right, left);
+	return -compare_string_array_item_asc(a, b);
 }
 
 static void basic_sort_int_array(const char* var, bool descending, struct basic_ctx* ctx)
@@ -1192,12 +1179,30 @@ static void basic_sort_string_array(const char* var, bool descending, struct bas
 		return;
 	}
 
+	struct string_array_sort_item* items = buddy_malloc(ctx->allocator, cur->itemcount * sizeof(struct string_array_sort_item));
+	if (!items) {
+		tokenizer_error_print(ctx, "Out of memory");
+		return;
+	}
+
+	for (uint64_t i = 0; i < cur->itemcount; i++) {
+		items[i].value = cur->values[i];
+		items[i].value_length = cur->value_lengths[i];
+	}
+
 	qsort(
-		cur->values,
+		items,
 		cur->itemcount,
-		sizeof(char*),
-		descending ? compare_string_array_desc : compare_string_array_asc
+		sizeof(items[0]),
+		descending ? compare_string_array_item_desc : compare_string_array_item_asc
 	);
+
+	for (uint64_t i = 0; i < cur->itemcount; i++) {
+		cur->values[i] = items[i].value;
+		cur->value_lengths[i] = items[i].value_length;
+	}
+
+	buddy_free(ctx->allocator, items);
 }
 
 void arrsort_statement(struct basic_ctx* ctx)
