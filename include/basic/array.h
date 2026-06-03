@@ -26,7 +26,7 @@ void basic_set_int_array_variable(const char* var, int64_t index, int64_t value,
  * @param value The value to set.
  * @param ctx The BASIC context.
  */
-void basic_set_string_array_variable(const char* var, int64_t index, const char* value, struct basic_ctx* ctx);
+void basic_set_string_array_variable(const char* var, int64_t index, const char* value, struct basic_ctx* ctx, size_t len);
 
 /**
  * @brief Set the value of a specific index in a double array variable.
@@ -67,7 +67,7 @@ int64_t basic_get_int_array_variable(const char* var, int64_t index, struct basi
  * @param ctx The BASIC context.
  * @return The value at the specified index.
  */
-const char* basic_get_string_array_variable(const char* var, int64_t index, struct basic_ctx* ctx);
+const char* basic_get_string_array_variable(const char* var, int64_t index, struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Dimension a new string array with the specified size.
@@ -180,7 +180,7 @@ void basic_set_int_array(const char* var, int64_t value, struct basic_ctx* ctx);
  * @param value The value to set.
  * @param ctx The BASIC context.
  */
-void basic_set_string_array(const char* var, const char* value, struct basic_ctx* ctx);
+void basic_set_string_array(const char* var, const char* value, struct basic_ctx* ctx, size_t len);
 
 /**
  * @brief Set the value of all elements in a double array to a specified value.

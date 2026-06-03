@@ -201,6 +201,7 @@ typedef struct ub_var_string_array {
 	size_t name_length; ///< Cached length of varname
 	size_t itemcount; ///< Number of items in the array
 	const char **values; ///< Array of string values
+	size_t *value_lengths; ///< Array of string lengths
 } ub_var_string_array;
 
 /**

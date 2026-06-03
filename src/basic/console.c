@@ -153,9 +153,9 @@ void input_statement(struct basic_ctx* ctx)
 		const char* value = kgetinput(&ctx->input, &out_len);
 
 		if (index == -1) {
-			basic_set_string_array(var, value, ctx);
+			basic_set_string_array(var, value, ctx, out_len);
 		} else {
-			basic_set_string_array_variable(var, index, value, ctx);
+			basic_set_string_array_variable(var, index, value, ctx, out_len);
 		}
 
 		kfreeinput(ctx, &ctx->input);

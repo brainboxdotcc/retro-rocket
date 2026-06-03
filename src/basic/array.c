@@ -51,31 +51,37 @@ int64_t arr_variable_index(struct basic_ctx* ctx)
 	return intval;
 }
 
-const char* basic_get_string_array_variable(const char* var, int64_t index, struct basic_ctx* ctx)
+const char* basic_get_string_array_variable(const char* var, int64_t index, struct basic_ctx* ctx, size_t* out_len)
 {
 	if (!var) {
+		if (out_len) *out_len = 0;
 		return "";
 	}
 	if (index < 0) {
 		tokenizer_error_printf(ctx, "Array index %ld out of bounds", index);
+		if (out_len) *out_len = 0;
 		return "";
 	}
 
 	struct ub_var_string_array* cur = find_string_array(var, ctx);
 	if (!cur) {
 		tokenizer_error_printf(ctx, "No such array variable '%s'", var);
+		if (out_len) *out_len = 0;
 		return "";
 	}
 
 	if ((uint64_t)index >= cur->itemcount) {
 		tokenizer_error_printf(ctx, "Array index %ld out of bounds [0..%ld]", index, cur->itemcount - 1);
+		if (out_len) *out_len = 0;
 		return "";
 	}
 
 	if (cur->values[index]) {
+		if (out_len) *out_len = cur->value_lengths[index];
 		return gc_strdup(ctx, cur->values[index]);
 	}
 
+	if (out_len) *out_len = 0;
 	return "";
 }
 
@@ -138,6 +144,7 @@ static void init_string_array(struct basic_ctx* ctx, ub_var_string_array* array,
 	array->varname = buddy_strdup(ctx->allocator, varname);
 	array->itemcount = size;
 	array->values = buddy_malloc(ctx->allocator, sizeof(char*) * size);
+	array->value_lengths = buddy_malloc(ctx->allocator, sizeof(size_t) * size);
 }
 
 static void init_double_array(struct basic_ctx* ctx, ub_var_double_array* array, const char* varname, size_t len, int64_t size)
@@ -207,12 +214,13 @@ bool basic_dim_string_array(const char* var, int64_t size, struct basic_ctx* ctx
 	size_t len = strlen(var);
 	ub_var_string_array new;
 	init_string_array(ctx, &new, var, len, size);
-	if (!new.varname || !new.values) {
+	if (!new.varname || !new.values || !new.value_lengths) {
 		tokenizer_error_printf(ctx, "Array '%s': Out of memory", var);
 		return false;
 	}
 
 	memset(new.values, 0, (uint64_t)size * sizeof(new.values[0]));
+	memset(new.value_lengths, 0, (uint64_t)size * sizeof(new.value_lengths[0]));
 
 	if (!hashmap_set(ctx->string_array_variables, &new) && hashmap_oom(ctx->string_array_variables)) {
 		tokenizer_error_printf(ctx, "Array '%s': Out of memory", var);
@@ -321,8 +329,16 @@ bool basic_redim_string_array(const char* var, int64_t size, struct basic_ctx* c
 	}
 	cur->values = new_values;
 
+	size_t* new_value_lengths = buddy_realloc(ctx->allocator, cur->value_lengths, sizeof(size_t) * size);
+	if (!new_value_lengths) {
+		tokenizer_error_printf(ctx, "Array '%s': Out of memory", var);
+		return false;
+	}
+	cur->value_lengths = new_value_lengths;
+
 	if ((uint64_t)size > cur->itemcount) {
 		memset(&cur->values[cur->itemcount], 0, ((uint64_t)size - cur->itemcount) * sizeof(cur->values[0]));
+		memset(&cur->value_lengths[cur->itemcount], 0, ((uint64_t)size - cur->itemcount) * sizeof(cur->value_lengths[0]));
 	}
 
 	cur->itemcount = size;
@@ -361,7 +377,7 @@ bool basic_redim_double_array(const char* var, int64_t size, struct basic_ctx* c
 	return true;
 }
 
-void basic_set_string_array_variable(const char* var, int64_t index, const char* value, struct basic_ctx* ctx)
+void basic_set_string_array_variable(const char* var, int64_t index, const char* value, struct basic_ctx* ctx, size_t len)
 {
 	if (!valid_string_var(var)) {
 		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
@@ -391,9 +407,10 @@ void basic_set_string_array_variable(const char* var, int64_t index, const char*
 
 	buddy_free(ctx->allocator, cur->values[index]);
 	cur->values[index] = newval;
+	cur->value_lengths[index] = len;
 }
 
-void basic_set_string_array(const char* var, const char* value, struct basic_ctx* ctx)
+void basic_set_string_array(const char* var, const char* value, struct basic_ctx* ctx, size_t len)
 {
 	if (!valid_string_var(var)) {
 		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
@@ -413,6 +430,7 @@ void basic_set_string_array(const char* var, const char* value, struct basic_ctx
 		}
 		buddy_free(ctx->allocator, cur->values[x]);
 		cur->values[x] = newval;
+		cur->value_lengths[x] = len;
 	}
 }
 

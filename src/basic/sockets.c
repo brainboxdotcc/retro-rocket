@@ -137,9 +137,9 @@ void sockread_statement(struct basic_ctx *ctx) {
 		int64_t index = arr_target_index(ctx);
 
 		if (index == -1) {
-			basic_set_string_array(var, input, ctx);
+			basic_set_string_array(var, input, ctx, rv);
 		} else {
-			basic_set_string_array_variable(var, index, input, ctx);
+			basic_set_string_array_variable(var, index, input, ctx, rv);
 		}
 
 		accept_or_return(NEWLINE, ctx);

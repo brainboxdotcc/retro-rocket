@@ -104,13 +104,14 @@ void assignment_statement(struct basic_ctx* ctx, bool global, bool local) {
 		return;
 	} else if (varname_is_string_array_access(ctx, var)) {
 		int64_t index = arr_expr_set_index(ctx, var);
-		const char* value = str_expr(ctx, NULL);
+		size_t val_len;
+		const char* value = str_expr(ctx, &val_len);
 		if (index == -1) {
-			basic_set_string_array(var, value, ctx);
+			basic_set_string_array(var, value, ctx, val_len);
 			accept_or_return(NEWLINE, ctx);
 			return;
 		}
-		basic_set_string_array_variable(var, index, value, ctx);
+		basic_set_string_array_variable(var, index, value, ctx, val_len);
 		accept_or_return(NEWLINE, ctx);
 		return;
 	} else if (varname_is_double_array_access(ctx, var)) {
@@ -407,8 +408,9 @@ const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx, si
 		if (out_len) *out_len = strlen(res); // TODO FIXME
 		return res;
 	} else if (varname_is_string_array_access(ctx, var)) {
-		const char* res = basic_get_string_array_variable(var, arr_variable_index(ctx), ctx);
-		if (out_len) *out_len = strlen(res); // TODO FIXME
+		size_t ov;
+		const char* res = basic_get_string_array_variable(var, arr_variable_index(ctx), ctx, &ov);
+		if (out_len) *out_len = ov;
 		return res;
 	}
 
