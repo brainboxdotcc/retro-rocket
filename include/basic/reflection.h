@@ -32,7 +32,7 @@ void basic_getvar_real(struct basic_ctx* ctx, double* res);
  * @param ctx The current BASIC context.
  * @return The value of the string variable.
  */
-char* basic_getvar_string(struct basic_ctx* ctx);
+char* basic_getvar_string(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Checks if an integer variable exists in the context.

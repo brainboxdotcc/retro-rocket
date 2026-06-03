@@ -85,7 +85,7 @@ void mapkeys_statement(struct basic_ctx *ctx);
  *
  * Returns a string value for a key
  */
-char *basic_mapgets(struct basic_ctx *ctx);
+char *basic_mapgets(struct basic_ctx *ctx, size_t* out_len);
 
 /**
  * @brief MAPGETR function

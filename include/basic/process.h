@@ -62,7 +62,7 @@ int64_t basic_getprocid(struct basic_ctx* ctx);
  * @param ctx The BASIC context.
  * @return The name of the specified process.
  */
-char* basic_getprocname(struct basic_ctx* ctx);
+char* basic_getprocname(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Get the parent process ID of a specified process.
@@ -122,7 +122,7 @@ int64_t basic_get_program_cur_mem(struct basic_ctx* ctx);
  * @param ctx The BASIC context.
  * @return The state of the process (e.g., "running", "suspended", "waiting").
  */
-char* basic_getprocstate(struct basic_ctx* ctx);
+char* basic_getprocstate(struct basic_ctx* ctx, size_t* out_len);
 
 void chain_statement(struct basic_ctx* ctx);
 

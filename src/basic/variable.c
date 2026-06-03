@@ -400,15 +400,15 @@ const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx, si
 		return "";
 	}
 	char* retv;
-	if (basic_builtin_str_fn(var, ctx, &retv)) {
-		if (out_len) *out_len = strlen(retv); // TODO FIXME
+	size_t ov;
+	if (basic_builtin_str_fn(var, ctx, &retv, &ov)) {
+		if (out_len) *out_len = ov;
 		return retv;
 	} else if (varname_is_string_function(var)) {
 		const char* res = basic_eval_str_fn(var, ctx);
 		if (out_len) *out_len = strlen(res); // TODO FIXME
 		return res;
 	} else if (varname_is_string_array_access(ctx, var)) {
-		size_t ov;
 		const char* res = basic_get_string_array_variable(var, arr_variable_index(ctx), ctx, &ov);
 		if (out_len) *out_len = ov;
 		return res;

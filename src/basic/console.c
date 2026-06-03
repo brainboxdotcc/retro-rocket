@@ -34,7 +34,7 @@ int64_t basic_get_text_cur_y(struct basic_ctx* ctx)
 	return y;
 }
 
-char* basic_inkey(struct basic_ctx* ctx)
+char* basic_inkey(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);

@@ -27,7 +27,7 @@ const char* make_full_path(struct basic_ctx* ctx, const char* relative)
 	return gc_strdup(ctx, qualified_path);
 }
 
-char* basic_readstring(struct basic_ctx* ctx)
+char* basic_readstring(struct basic_ctx* ctx, size_t* out_len)
 {
 	size_t ofs = 0;
 	size_t cap = MAX_STRINGLEN;
@@ -142,25 +142,27 @@ int64_t basic_getnamecount(struct basic_ctx* ctx)
 	return count;
 }
 
-char* basic_getname(struct basic_ctx* ctx)
+char* basic_getname(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_GET_ITEM(BIP_INT);
 	PARAMS_END("GETNAME$", "");
 	const char* dir = make_full_path(ctx, strval);
+	*out_len = 0;
 	if (!fs_is_directory(dir)) {
 		tokenizer_error_printf(ctx, "Not a directory: '%s'", dir);
-		return 0;
+		return "";
 	}
 	fs_directory_entry_t* fsl = fs_get_items(dir);
 	if (!fsl && fs_get_error() != FS_ERR_NO_ERROR) {
 		tokenizer_error_printf(ctx, "Error retrieving directory items: %s", fs_strerror(fs_get_error()));
-		return 0;
+		return "";
 	}
 	int count = 0;
 	while (fsl) {
 		if (count++ == intval) {
+			*out_len = strlen(fsl->filename);
 			return (char*)gc_strdup(ctx, fsl->filename);
 		}
 		fsl = fsl->next;
@@ -168,13 +170,15 @@ char* basic_getname(struct basic_ctx* ctx)
 	return "";
 }
 
-char* basic_filetype(struct basic_ctx* ctx)
+char* basic_filetype(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* dir = make_full_path(ctx, strval);
 	PARAMS_END("FILETYPE$", "");
-	return fs_is_directory(dir) ? "directory" : "file";
+	bool is_dir = fs_is_directory(dir);
+	*out_len = is_dir ? 9 : 4;
+	return is_dir ? "directory" : "file";
 }
 
 int64_t basic_is_program(struct basic_ctx* ctx)
@@ -395,7 +399,7 @@ void write_statement(struct basic_ctx* ctx)
 	}
 }
 
-char* basic_ramdisk_from_device(struct basic_ctx* ctx)
+char* basic_ramdisk_from_device(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -407,7 +411,7 @@ char* basic_ramdisk_from_device(struct basic_ctx* ctx)
 	return (char*)gc_strdup(ctx, rd);
 }
 
-char* basic_ramdisk_from_image(struct basic_ctx* ctx)
+char* basic_ramdisk_from_image(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -438,10 +442,11 @@ char* basic_ramdisk_from_image(struct basic_ctx* ctx)
 		kfree_null(&image);
 		return "";
 	}
+	*out_len = strlen(rd);
 	return (char*)gc_strdup(ctx, rd);
 }
 
-char* basic_ramdisk_from_size(struct basic_ctx* ctx)
+char* basic_ramdisk_from_size(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
@@ -473,9 +478,11 @@ char* basic_ramdisk_from_size(struct basic_ctx* ctx)
 }
 
 
-char* basic_csd(struct basic_ctx* ctx)
+char* basic_csd(struct basic_ctx* ctx, size_t* out_len)
 {
-	return (char*)gc_strdup(ctx, proc_cur(logical_cpu_id())->csd);
+	const char* csd = proc_cur(logical_cpu_id())->csd;
+	*out_len = strlen(csd);
+	return (char*)gc_strdup(ctx, csd);
 }
 
 void chdir_statement(struct basic_ctx* ctx)
@@ -630,7 +637,7 @@ int64_t basic_verify(struct basic_ctx* ctx)
 	return valid;
 }
 
-char* basic_sign(struct basic_ctx* ctx)
+char* basic_sign(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -865,7 +872,7 @@ const char* get_device_volume_by_index(const volume_details_t* details, size_t i
 	return curr ? curr->name : "";
 }
 
-char* basic_voldesc(struct basic_ctx* ctx)
+char* basic_voldesc(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);

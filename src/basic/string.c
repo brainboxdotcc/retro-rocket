@@ -236,16 +236,17 @@ void match_statement(struct basic_ctx *ctx)
 }
 
 
-char* basic_chr(struct basic_ctx* ctx)
+char* basic_chr(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	PARAMS_END("CHR$","");
 	char res[2] = {(unsigned char)intval, 0};
+	*out_len = 1;
 	return gc_strdup(ctx, res);
 }
 
-char* basic_str(struct basic_ctx* ctx)
+char* basic_str(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
@@ -255,11 +256,12 @@ char* basic_str(struct basic_ctx* ctx)
 	return (char*)gc_strdup(ctx, res);
 }
 
-char* basic_bool(struct basic_ctx* ctx)
+char* basic_bool(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	PARAMS_END("BOOL$","");
+	*out_len = intval ? 4 : 5;
 	return (char*)gc_strdup(ctx, intval ? "TRUE" : "FALSE");
 }
 
@@ -295,10 +297,11 @@ int64_t basic_instr(struct basic_ctx* ctx)
 }
 
 
-char* basic_upper(struct basic_ctx* ctx)
+char* basic_upper(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
+	*out_len = strlength;
 	PARAMS_END("UPPER$","");
 	char* modified = gc_strdup(ctx, strval);
 	for (char* m = modified; m && *m; ++m) {
@@ -307,10 +310,11 @@ char* basic_upper(struct basic_ctx* ctx)
 	return modified;
 }
 
-char* basic_lower(struct basic_ctx* ctx)
+char* basic_lower(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
+	*out_len = strlength;
 	PARAMS_END("LOWER$","");
 	char* modified = gc_strdup(ctx, strval);
 	for (char* m = modified; m && *m; ++m) {
@@ -319,7 +323,7 @@ char* basic_lower(struct basic_ctx* ctx)
 	return modified;
 }
 
-char* basic_markdown(struct basic_ctx* ctx) {
+char* basic_markdown(struct basic_ctx* ctx, size_t* out_len) {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_END("MARKDOWN$", "");
@@ -333,7 +337,7 @@ char* basic_markdown(struct basic_ctx* ctx) {
 	return "";
 }
 
-char* basic_highlight(struct basic_ctx* ctx) {
+char* basic_highlight(struct basic_ctx* ctx, size_t* out_len) {
 	GENERATE_ENUM_STRING_NAMES(TOKEN, token_names)
 	GENERATE_ENUM_STRING_LENGTHS(TOKEN, token_name_lengths)
 	const size_t token_count = sizeof(token_names) / sizeof(*token_names);
@@ -461,7 +465,7 @@ char* basic_highlight(struct basic_ctx* ctx) {
 	return ret;
 }
 
-char* basic_tokenize(struct basic_ctx* ctx)
+char* basic_tokenize(struct basic_ctx* ctx, size_t* out_len)
 {
 	char* varname, *split;
 	PARAMS_START;
@@ -470,8 +474,7 @@ char* basic_tokenize(struct basic_ctx* ctx)
 	PARAMS_GET_ITEM(BIP_STRING);
 	split = strval;
 	PARAMS_END("TOKENIZE$","");
-	size_t out_len;
-	const char* current_value = basic_get_string_variable(varname, ctx, &out_len);
+	const char* current_value = basic_get_string_variable(varname, ctx, out_len);
 	const char* old_value = current_value;
 	size_t len = strlen(current_value);
 	size_t split_len = strlen(split);
@@ -530,11 +533,12 @@ char* basic_tokenize(struct basic_ctx* ctx)
 
 	char* ret = (char*)gc_strdup(ctx, return_value);
 	buddy_free(ctx->allocator, return_value);
+	*out_len = ret_len;
 	return ret;
 }
 
 
-char* basic_left(struct basic_ctx* ctx)
+char* basic_left(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -558,7 +562,7 @@ char* basic_left(struct basic_ctx* ctx)
 	return cut;
 }
 
-char* basic_right(struct basic_ctx* ctx)
+char* basic_right(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -577,7 +581,7 @@ char* basic_right(struct basic_ctx* ctx)
 	return (char*)gc_strdup(ctx, strval + len - intval);
 }
 
-char* basic_mid(struct basic_ctx* ctx)
+char* basic_mid(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -611,7 +615,7 @@ char* basic_mid(struct basic_ctx* ctx)
 	return cut;
 }
 
-char* basic_replace(struct basic_ctx* ctx)
+char* basic_replace(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -691,7 +695,7 @@ int64_t basic_len(struct basic_ctx* ctx)
 	return strlength;
 }
 
-char* basic_ljust(struct basic_ctx* ctx)
+char* basic_ljust(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -715,7 +719,7 @@ char* basic_ljust(struct basic_ctx* ctx)
 	return (char*)gc_strdup(ctx, mresult);
 }
 
-char* basic_rjust(struct basic_ctx* ctx)
+char* basic_rjust(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -742,7 +746,7 @@ char* basic_rjust(struct basic_ctx* ctx)
 	return (char*)gc_strdup(ctx, mresult);
 }
 
-char* basic_ltrim(struct basic_ctx* ctx)
+char* basic_ltrim(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -754,7 +758,7 @@ char* basic_ltrim(struct basic_ctx* ctx)
 	return (char*)gc_strdup(ctx, target);
 }
 
-char* basic_rtrim(struct basic_ctx* ctx)
+char* basic_rtrim(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -772,7 +776,7 @@ char* basic_rtrim(struct basic_ctx* ctx)
 	return target;
 }
 
-char* basic_trim(struct basic_ctx* ctx)
+char* basic_trim(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -791,7 +795,7 @@ char* basic_trim(struct basic_ctx* ctx)
 	return target;
 }
 
-char* basic_itoa(struct basic_ctx* ctx)
+char* basic_itoa(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
@@ -813,17 +817,18 @@ char* basic_itoa(struct basic_ctx* ctx)
 	return "";
 }
 
-char* basic_reverse(struct basic_ctx* ctx)
+char* basic_reverse(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
+	*out_len = strlength;
 	char* target = (char*)gc_strdup(ctx, strval);
 	PARAMS_END("REVERSE$", "");
 	strrev(target);
 	return target;
 }
 
-char* basic_repeat(struct basic_ctx* ctx)
+char* basic_repeat(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -834,15 +839,15 @@ char* basic_repeat(struct basic_ctx* ctx)
 	if (count < 0) {
 		return (char*)gc_strdup(ctx, "");
 	}
-	int64_t target_length = strlen(target);
+	int64_t target_length = (int64_t)strlength;
 	char tmp[target_length * count + 2];
-	int64_t i;
 	char* ptr = tmp;
-	for (i = 0; i < count; ++i) {
+	for (int64_t i = 0; i < count; ++i) {
 		memcpy(ptr, target, target_length);
 		ptr += target_length;
 	}
 	*ptr = '\0';
+	*out_len = strlength * intval;
 	return (char*)gc_strdup(ctx, tmp);
 }
 
@@ -900,7 +905,7 @@ int64_t basic_string_to_buffer(struct basic_ctx *ctx)
 	return (int64_t) written;
 }
 
-char *basic_buffer_to_string(struct basic_ctx *ctx)
+char *basic_buffer_to_string(struct basic_ctx *ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
@@ -928,18 +933,18 @@ char *basic_buffer_to_string(struct basic_ctx *ctx)
 	}
 
 	const uint8_t *src = (const uint8_t *)address;
-	size_t out_len = 0;
+	*out_len = 0;
 	int64_t i;
 
 	for (i = 0; i < length; ++i) {
 		if (src[i] == 0 || src[i] == STRING_ESCAPE_BYTE) {
-			out_len += 2;
+			*out_len += 2;
 		} else {
-			out_len += 1;
+			*out_len += 1;
 		}
 	}
 
-	char *out = buddy_malloc(ctx->allocator, out_len + 1);
+	char *out = buddy_malloc(ctx->allocator, *out_len + 1);
 	if (!out) {
 		tokenizer_error_print(ctx, "Error allocating string buffer");
 		return "";
@@ -965,7 +970,7 @@ char *basic_buffer_to_string(struct basic_ctx *ctx)
 	return ret;
 }
 
-char* basic_tobase64(struct basic_ctx* ctx)
+char* basic_tobase64(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
@@ -990,15 +995,15 @@ char* basic_tobase64(struct basic_ctx* ctx)
 		return "";
 	}
 
-	size_t out_len = (((size_t)length + 2) / 3) * 4;
-	char* out = buddy_malloc(ctx->allocator, out_len + 1);
+	*out_len = (((size_t)length + 2) / 3) * 4;
+	char* out = buddy_malloc(ctx->allocator, *out_len + 1);
 	if (!out) {
 		tokenizer_error_print(ctx, "Error allocating string buffer");
 		return "";
 	}
 
 	size_t actual_len = 0;
-	int rc = mbedtls_base64_encode((unsigned char*)out, out_len + 1, &actual_len, (const unsigned char*)address, (size_t)length);
+	int rc = mbedtls_base64_encode((unsigned char*)out, *out_len + 1, &actual_len, (const unsigned char*)address, (size_t)length);
 
 	if (rc == MBEDTLS_ERR_BASE64_BUFFER_TOO_SMALL) {
 		buddy_free(ctx->allocator, out);
@@ -1013,6 +1018,7 @@ char* basic_tobase64(struct basic_ctx* ctx)
 	}
 
 	out[actual_len] = 0;
+	*out_len = actual_len;
 	char* ret = (char*)gc_strdup(ctx, out);
 	buddy_free(ctx->allocator, out);
 	return ret;

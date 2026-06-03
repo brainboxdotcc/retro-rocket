@@ -133,5 +133,5 @@ int64_t basic_verify(struct basic_ctx* ctx);
  * @param ctx BASIC context
  * @return Raw binary signature string, or empty string on error
  */
-char* basic_sign(struct basic_ctx* ctx);
+char* basic_sign(struct basic_ctx* ctx, size_t* out_len);
 

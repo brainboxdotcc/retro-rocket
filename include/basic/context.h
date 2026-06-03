@@ -588,7 +588,7 @@ void set_system_variables(struct basic_ctx* ctx, uint32_t pid);
  * @param res Pointer to store the result of the function if found.
  * @return 1 if the function is found and executed, 0 otherwise.
  */
-char basic_builtin_str_fn(const char* fn_name, struct basic_ctx* ctx, char** res);
+bool basic_builtin_str_fn(const char* fn_name, struct basic_ctx* ctx, char** res, size_t* out_len);
 
 /**
  * @brief Evaluate an integer function in the context of BASIC.

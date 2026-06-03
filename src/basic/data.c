@@ -275,7 +275,7 @@ void basic_dataread_real(struct basic_ctx* ctx, double* rv)
 	tokenizer_error_print(ctx, "Expected real DATA");
 }
 
-char* basic_dataread_string(struct basic_ctx* ctx)
+char* basic_dataread_string(struct basic_ctx* ctx, size_t* out_len)
 {
 	if (ctx->data_offset >= ctx->datastore.length) {
 		tokenizer_error_print(ctx, "Out of DATA");

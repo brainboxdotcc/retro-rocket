@@ -23,14 +23,13 @@ void basic_getvar_real(struct basic_ctx* ctx, double* res)
 	basic_get_double_variable(var, ctx, res);
 }
 
-char* basic_getvar_string(struct basic_ctx* ctx)
+char* basic_getvar_string(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* var = strval;
 	PARAMS_END("GETVARS", 0);
-	size_t out_len;
-	return (char*)gc_strdup(ctx, basic_get_string_variable(var, ctx, &out_len));
+	return (char*)gc_strdup(ctx, basic_get_string_variable(var, ctx, out_len));
 }
 
 int64_t basic_existsvar_int(struct basic_ctx* ctx)

@@ -188,11 +188,12 @@ int64_t basic_secure_random(struct basic_ctx* ctx)
 	return out;
 }
 
-char* basic_secure_random_string(struct basic_ctx* ctx)
+char* basic_secure_random_string(struct basic_ctx* ctx, size_t* out_len)
 {
 	static const char* default_alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
+	*out_len = 0;
 	int64_t generate_len = intval;
 	char* out_str = buddy_malloc(ctx->allocator, generate_len);
 	if (generate_len < 1 || !out_str) {
@@ -212,6 +213,7 @@ char* basic_secure_random_string(struct basic_ctx* ctx)
 	}
 	char* out = (char*)gc_strdup(ctx, out_str);
 	buddy_free(ctx->allocator, out_str);
+	*out_len = generate_len;
 	return out;
 }
 

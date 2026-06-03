@@ -32,8 +32,9 @@ static int basic_big_read(struct basic_ctx* ctx, const char* name, mbedtls_mpi* 
 	return true;
 }
 
-static char* basic_big_write(struct basic_ctx* ctx, const char* name, mbedtls_mpi* value)
+static char* basic_big_write(struct basic_ctx* ctx, const char* name, mbedtls_mpi* value, size_t* out_len)
 {
+	*out_len = 0;
 	size_t size = 32;
 	char* buffer = buddy_malloc(ctx->allocator, size);
 	if (!buffer) {
@@ -59,11 +60,12 @@ static char* basic_big_write(struct basic_ctx* ctx, const char* name, mbedtls_mp
 		return "";
 	}
 	char* out = (char*)gc_strdup(ctx, buffer);
+	*out_len = written - 1;
 	buddy_free(ctx->allocator, buffer);
 	return out;
 }
 
-static char* basic_big_binary(struct basic_ctx* ctx, const char* name, const char* a_text, const char* b_text, basic_big_binary_func func)
+static char* basic_big_binary(struct basic_ctx* ctx, const char* name, const char* a_text, const char* b_text, basic_big_binary_func func, size_t* out_len)
 {
 	mbedtls_mpi a;
 	mbedtls_mpi b;
@@ -78,7 +80,7 @@ static char* basic_big_binary(struct basic_ctx* ctx, const char* name, const cha
 	if (basic_big_read(ctx, name, &a, a_text) && basic_big_read(ctx, name, &b, b_text)) {
 		int rc = func(&result, &a, &b);
 		if (rc == 0) {
-			out = basic_big_write(ctx, name, &result);
+			out = basic_big_write(ctx, name, &result, out_len);
 		} else {
 			basic_big_error(ctx, name, rc);
 		}
@@ -91,7 +93,7 @@ static char* basic_big_binary(struct basic_ctx* ctx, const char* name, const cha
 	return out;
 }
 
-static char* basic_big_unary(struct basic_ctx* ctx, const char* name, const char* a_text, basic_big_unary_func func)
+static char* basic_big_unary(struct basic_ctx* ctx, const char* name, const char* a_text, basic_big_unary_func func, size_t* out_len)
 {
 	mbedtls_mpi a;
 	mbedtls_mpi result;
@@ -104,7 +106,7 @@ static char* basic_big_unary(struct basic_ctx* ctx, const char* name, const char
 	if (basic_big_read(ctx, name, &a, a_text)) {
 		int rc = func(&result, &a);
 		if (rc == 0) {
-			out = basic_big_write(ctx, name, &result);
+			out = basic_big_write(ctx, name, &result, out_len);
 		} else {
 			basic_big_error(ctx, name, rc);
 		}
@@ -141,41 +143,45 @@ static int basic_big_neg_func(mbedtls_mpi* result, const mbedtls_mpi* a)
 	return 0;
 }
 
-char* basic_bigadd(struct basic_ctx* ctx)
+char* basic_bigadd(struct basic_ctx* ctx, size_t* out_len)
 {
+	*out_len = 0;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* a = strval;
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* b = strval;
 	PARAMS_END("BIGADD$", "");
-	return basic_big_binary(ctx, "BIGADD$", a, b, mbedtls_mpi_add_mpi);
+	return basic_big_binary(ctx, "BIGADD$", a, b, mbedtls_mpi_add_mpi, out_len);
 }
 
-char* basic_bigsub(struct basic_ctx* ctx)
+char* basic_bigsub(struct basic_ctx* ctx, size_t* out_len)
 {
+	*out_len = 0;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* a = strval;
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* b = strval;
 	PARAMS_END("BIGSUB$", "");
-	return basic_big_binary(ctx, "BIGSUB$", a, b, mbedtls_mpi_sub_mpi);
+	return basic_big_binary(ctx, "BIGSUB$", a, b, mbedtls_mpi_sub_mpi, out_len);
 }
 
-char* basic_bigmul(struct basic_ctx* ctx)
+char* basic_bigmul(struct basic_ctx* ctx, size_t* out_len)
 {
+	*out_len = 0;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* a = strval;
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* b = strval;
 	PARAMS_END("BIGMUL$", "");
-	return basic_big_binary(ctx, "BIGMUL$", a, b, mbedtls_mpi_mul_mpi);
+	return basic_big_binary(ctx, "BIGMUL$", a, b, mbedtls_mpi_mul_mpi, out_len);
 }
 
-char* basic_bigdiv(struct basic_ctx* ctx)
+char* basic_bigdiv(struct basic_ctx* ctx, size_t* out_len)
 {
+	*out_len = 0;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* a_text = strval;
@@ -196,7 +202,7 @@ char* basic_bigdiv(struct basic_ctx* ctx)
 	if (basic_big_read(ctx, "BIGDIV$", &a, a_text) && basic_big_read(ctx, "BIGDIV$", &b, b_text)) {
 		int rc = mbedtls_mpi_div_mpi(&quotient, NULL, &a, &b);
 		if (rc == 0) {
-			out = basic_big_write(ctx, "BIGDIV$", &quotient);
+			out = basic_big_write(ctx, "BIGDIV$", &quotient, out_len);
 		} else {
 			basic_big_error(ctx, "BIGDIV$", rc);
 		}
@@ -209,48 +215,53 @@ char* basic_bigdiv(struct basic_ctx* ctx)
 	return out;
 }
 
-char* basic_bigmod(struct basic_ctx* ctx)
+char* basic_bigmod(struct basic_ctx* ctx, size_t* out_len)
 {
+	*out_len = 0;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* a = strval;
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* b = strval;
 	PARAMS_END("BIGMOD$", "");
-	return basic_big_binary(ctx, "BIGMOD$", a, b, mbedtls_mpi_mod_mpi);
+	return basic_big_binary(ctx, "BIGMOD$", a, b, mbedtls_mpi_mod_mpi, out_len);
 }
 
-char* basic_biggcd(struct basic_ctx* ctx)
+char* basic_biggcd(struct basic_ctx* ctx, size_t* out_len)
 {
+	*out_len = 0;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* a = strval;
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* b = strval;
 	PARAMS_END("BIGGCD$", "");
-	return basic_big_binary(ctx, "BIGGCD$", a, b, mbedtls_mpi_gcd);
+	return basic_big_binary(ctx, "BIGGCD$", a, b, mbedtls_mpi_gcd, out_len);
 }
 
-char* basic_bigabs(struct basic_ctx* ctx)
+char* basic_bigabs(struct basic_ctx* ctx, size_t* out_len)
 {
+	*out_len = 0;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* a = strval;
 	PARAMS_END("BIGABS$", "");
-	return basic_big_unary(ctx, "BIGABS$", a, basic_big_abs_func);
+	return basic_big_unary(ctx, "BIGABS$", a, basic_big_abs_func, out_len);
 }
 
-char* basic_bigneg(struct basic_ctx* ctx)
+char* basic_bigneg(struct basic_ctx* ctx, size_t* out_len)
 {
+	*out_len = 0;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* a = strval;
 	PARAMS_END("BIGNEG$", "");
-	return basic_big_unary(ctx, "BIGNEG$", a, basic_big_neg_func);
+	return basic_big_unary(ctx, "BIGNEG$", a, basic_big_neg_func, out_len);
 }
 
-char* basic_bigshl(struct basic_ctx* ctx)
+char* basic_bigshl(struct basic_ctx* ctx, size_t* out_len)
 {
+	*out_len = 0;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* a_text = strval;
@@ -272,7 +283,7 @@ char* basic_bigshl(struct basic_ctx* ctx)
 	if (basic_big_read(ctx, "BIGSHL$", &a, a_text)) {
 		int rc = mbedtls_mpi_shift_l(&a, count);
 		if (rc == 0) {
-			out = basic_big_write(ctx, "BIGSHL$", &a);
+			out = basic_big_write(ctx, "BIGSHL$", &a, out_len);
 		} else {
 			basic_big_error(ctx, "BIGSHL$", rc);
 		}
@@ -283,8 +294,9 @@ char* basic_bigshl(struct basic_ctx* ctx)
 	return out;
 }
 
-char* basic_bigshr(struct basic_ctx* ctx)
+char* basic_bigshr(struct basic_ctx* ctx, size_t* out_len)
 {
+	*out_len = 0;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* a_text = strval;
@@ -306,7 +318,7 @@ char* basic_bigshr(struct basic_ctx* ctx)
 	if (basic_big_read(ctx, "BIGSHR$", &a, a_text)) {
 		int rc = mbedtls_mpi_shift_r(&a, count);
 		if (rc == 0) {
-			out = basic_big_write(ctx, "BIGSHR$", &a);
+			out = basic_big_write(ctx, "BIGSHR$", &a, out_len);
 		} else {
 			basic_big_error(ctx, "BIGSHR$", rc);
 		}
@@ -317,8 +329,9 @@ char* basic_bigshr(struct basic_ctx* ctx)
 	return out;
 }
 
-char* basic_bigmodpow(struct basic_ctx* ctx)
+char* basic_bigmodpow(struct basic_ctx* ctx, size_t* out_len)
 {
+	*out_len = 0;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* a_text = strval;
@@ -343,7 +356,7 @@ char* basic_bigmodpow(struct basic_ctx* ctx)
 	if (basic_big_read(ctx, "BIGMODPOW$", &a, a_text) && basic_big_read(ctx, "BIGMODPOW$", &e, e_text) && basic_big_read(ctx, "BIGMODPOW$", &m, m_text)) {
 		int rc = mbedtls_mpi_exp_mod(&result, &a, &e, &m, NULL);
 		if (rc == 0) {
-			out = basic_big_write(ctx, "BIGMODPOW$", &result);
+			out = basic_big_write(ctx, "BIGMODPOW$", &result, out_len);
 		} else {
 			basic_big_error(ctx, "BIGMODPOW$", rc);
 		}
@@ -357,15 +370,16 @@ char* basic_bigmodpow(struct basic_ctx* ctx)
 	return out;
 }
 
-char* basic_bigmodinv(struct basic_ctx* ctx)
+char* basic_bigmodinv(struct basic_ctx* ctx, size_t* out_len)
 {
+	*out_len = 0;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* a = strval;
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* m = strval;
 	PARAMS_END("BIGMODINV$", "");
-	return basic_big_binary(ctx, "BIGMODINV$", a, m, mbedtls_mpi_inv_mod);
+	return basic_big_binary(ctx, "BIGMODINV$", a, m, mbedtls_mpi_inv_mod, out_len);
 }
 
 int64_t basic_bigcmp(struct basic_ctx* ctx)

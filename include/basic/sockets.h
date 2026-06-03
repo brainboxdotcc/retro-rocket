@@ -32,7 +32,7 @@ void sockbinread_statement(struct basic_ctx* ctx);
  * @param ctx BASIC context.
  * @return The resolved IP address as a string.
  */
-char* basic_dns(struct basic_ctx* ctx);
+char* basic_dns(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Get network information.
@@ -43,7 +43,7 @@ char* basic_dns(struct basic_ctx* ctx);
  * @param ctx BASIC context.
  * @return The requested network information as a string.
  */
-char* basic_netinfo(struct basic_ctx* ctx);
+char* basic_netinfo(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Get the status of a socket.
@@ -65,7 +65,7 @@ int64_t basic_sockstatus(struct basic_ctx* ctx);
  * @param ctx BASIC context.
  * @return A string containing the data read from the socket.
  */
-char* basic_insocket(struct basic_ctx* ctx);
+char* basic_insocket(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Close a socket in BASIC.
@@ -138,7 +138,7 @@ void udpunbind_statement(struct basic_ctx* ctx);
  * @return Pointer to a NUL-terminated payload string (owned by the BASIC GC), or an empty string if no packet
  * is available.
  */
-char* basic_udpread(struct basic_ctx* ctx);
+char* basic_udpread(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Return the source port of the last UDP packet read.
@@ -158,7 +158,7 @@ int64_t basic_udplastsourceport(struct basic_ctx* ctx);
  * @param ctx BASIC context.
  * @return Source IPv4 address as a dotted-quad string, or an empty string if no packet has been read.
  */
-char* basic_udplastip(struct basic_ctx* ctx);
+char* basic_udplastip(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Create a listening TCP socket from BASIC.
@@ -198,8 +198,8 @@ int64_t basic_sslsockaccept(struct basic_ctx* ctx);
 
 void sslconnect_statement(struct basic_ctx* ctx);
 
-char* basic_tlsversion(struct basic_ctx *ctx);
+char* basic_tlsversion(struct basic_ctx* ctx, size_t* out_len);
 
-char* basic_tlscipher(struct basic_ctx *ctx);
+char* basic_tlscipher(struct basic_ctx* ctx, size_t* out_len);
 
-char* basic_sockerror(struct basic_ctx *ctx);
+char* basic_sockerror(struct basic_ctx* ctx, size_t* out_len);

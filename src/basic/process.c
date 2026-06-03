@@ -50,7 +50,7 @@ int64_t basic_getproccpu(struct basic_ctx* ctx)
 	return proc_cpu_percent(intval);
 }
 
-char* basic_getprocname(struct basic_ctx* ctx)
+char* basic_getprocname(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
@@ -86,7 +86,7 @@ int64_t basic_getprocmem(struct basic_ctx* ctx)
 	return process ? process->code->allocator->current_bytes : 0;
 }
 
-char* basic_getprocstate(struct basic_ctx* ctx)
+char* basic_getprocstate(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);

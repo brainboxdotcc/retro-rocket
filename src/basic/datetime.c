@@ -36,7 +36,7 @@ int64_t basic_getupsecs(struct basic_ctx* ctx)
 	return uptime_secs();
 }
 
-char* basic_get_upstr(struct basic_ctx* ctx)
+char* basic_get_upstr(struct basic_ctx* ctx, size_t* out_len)
 {
 	uint64_t s = uptime_secs();
 	const uint64_t MIN  = 60ULL;
@@ -180,7 +180,7 @@ int64_t basic_get_day_of_year(struct basic_ctx* ctx)
 	return day_of_year(((date.century - 1) * 100) + date.year, date.month, date.day);
 }
 
-char* basic_date(struct basic_ctx* ctx)
+char* basic_date(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
@@ -193,7 +193,7 @@ char* basic_date(struct basic_ctx* ctx)
 	return (char*)gc_strdup(ctx, tm);
 }
 
-char* basic_time(struct basic_ctx* ctx)
+char* basic_time(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);

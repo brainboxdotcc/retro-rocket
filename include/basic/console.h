@@ -201,7 +201,7 @@ void keymap_statement(struct basic_ctx* ctx);
  * @return A string containing the key pressed by the user. Returns an empty
  * string if no valid key is pressed (e.g., key value `255`).
  */
-char* basic_inkey(struct basic_ctx* ctx);
+char* basic_inkey(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Checks if the control (Ctrl) key is currently pressed.

@@ -291,7 +291,7 @@ typedef int64_t (*builtin_int_fn)(struct basic_ctx *ctx);
  *
  * This is a function pointer type for builtin functions that return a string.
  */
-typedef char *(*builtin_str_fn)(struct basic_ctx *ctx);
+typedef char *(*builtin_str_fn)(struct basic_ctx *ctx, size_t* out_len);
 
 /**
  * @brief Real (double) function signature

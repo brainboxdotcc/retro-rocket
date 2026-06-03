@@ -234,7 +234,7 @@ void basic_mapgetr(struct basic_ctx *ctx, double* rv)
 	*rv = entry->value.v.r;
 }
 
-char *basic_mapgets(struct basic_ctx *ctx)
+char *basic_mapgets(struct basic_ctx *ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);

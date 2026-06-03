@@ -88,7 +88,7 @@ void chdir_statement(struct basic_ctx* ctx);
  * @param ctx BASIC interpreter context
  * @return A string indicating whether the path is a "file" or "directory"
  */
-char* basic_filetype(struct basic_ctx* ctx);
+char* basic_filetype(struct basic_ctx* ctx, size_t* out_len);
 
 int64_t basic_is_program(struct basic_ctx* ctx);
 
@@ -176,7 +176,7 @@ int64_t basic_filesize(struct basic_ctx* ctx);
  * @param ctx BASIC interpreter context
  * @return The name of the file or directory at the specified index
  */
-char* basic_getname(struct basic_ctx* ctx);
+char* basic_getname(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Creates a RAM disk from a specified device.
@@ -186,7 +186,7 @@ char* basic_getname(struct basic_ctx* ctx);
  * @param ctx BASIC interpreter context
  * @return The identifier of the created RAM disk
  */
-char* basic_ramdisk_from_device(struct basic_ctx* ctx);
+char* basic_ramdisk_from_device(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Creates a RAM disk with a specified size and formats it RFS.
@@ -196,13 +196,13 @@ char* basic_ramdisk_from_device(struct basic_ctx* ctx);
  * @param ctx BASIC interpreter context
  * @return True on success, false on failure
  */
-char* basic_ramdisk_from_size(struct basic_ctx* ctx);
+char* basic_ramdisk_from_size(struct basic_ctx* ctx, size_t* out_len);
 
 void readbinary_statement(struct basic_ctx* ctx);
 
 void writebinary_statement(struct basic_ctx* ctx);
 
-char* basic_ramdisk_from_image(struct basic_ctx* ctx);
+char* basic_ramdisk_from_image(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * Compress a memory buffer using gzip compression
@@ -228,6 +228,6 @@ int64_t basic_compress(struct basic_ctx* ctx);
  */
 int64_t basic_decompress(struct basic_ctx* ctx);
 
-char* basic_voldesc(struct basic_ctx* ctx);
+char* basic_voldesc(struct basic_ctx* ctx, size_t* out_len);
 
 int64_t basic_volcount(struct basic_ctx* ctx);

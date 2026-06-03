@@ -13,7 +13,7 @@ struct basic_ctx;
  * @param ctx The BASIC context.
  * @return The CPU brand string.
  */
-char* basic_cpugetbrand(struct basic_ctx* ctx);
+char* basic_cpugetbrand(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Retrieves the CPU vendor string.
@@ -24,7 +24,7 @@ char* basic_cpugetbrand(struct basic_ctx* ctx);
  * @param ctx The BASIC context.
  * @return The CPU vendor string.
  */
-char* basic_cpugetvendor(struct basic_ctx* ctx);
+char* basic_cpugetvendor(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Converts an integer value to a string representation.
@@ -35,7 +35,7 @@ char* basic_cpugetvendor(struct basic_ctx* ctx);
  * @param ctx The BASIC context.
  * @return The string representation of the integer value.
  */
-char* basic_intoasc(struct basic_ctx* ctx);
+char* basic_intoasc(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Retrieves the CPUID result for a specific leaf and subleaf.

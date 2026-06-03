@@ -86,7 +86,7 @@ int64_t basic_get_day_of_year(struct basic_ctx* ctx);
  * @param ctx The BASIC context.
  * @return The current date as a string.
  */
-char* basic_date(struct basic_ctx* ctx);
+char* basic_date(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Get the current time in the format "HH:MM:SS".
@@ -94,7 +94,7 @@ char* basic_date(struct basic_ctx* ctx);
  * @param ctx The BASIC context.
  * @return The current time as a string.
  */
-char* basic_time(struct basic_ctx* ctx);
+char* basic_time(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Set the system's timezone.
@@ -108,7 +108,7 @@ void settimezone_statement(struct basic_ctx* ctx);
  * @param ctx
  * @return
  */
-char* basic_get_upstr(struct basic_ctx* ctx);
+char* basic_get_upstr(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Get seconds since boot

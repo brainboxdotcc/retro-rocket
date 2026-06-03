@@ -11,35 +11,35 @@
  * @param ctx BASIC execution context
  * @return Result as string
  */
-char* basic_bigadd(struct basic_ctx* ctx);
+char* basic_bigadd(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Subtract two big integers
  * @param ctx BASIC execution context
  * @return Result as string
  */
-char* basic_bigsub(struct basic_ctx* ctx);
+char* basic_bigsub(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Multiply two big integers
  * @param ctx BASIC execution context
  * @return Result as string
  */
-char* basic_bigmul(struct basic_ctx* ctx);
+char* basic_bigmul(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Divide two big integers (quotient)
  * @param ctx BASIC execution context
  * @return Result as string
  */
-char* basic_bigdiv(struct basic_ctx* ctx);
+char* basic_bigdiv(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Modulo of two big integers
  * @param ctx BASIC execution context
  * @return Result as string
  */
-char* basic_bigmod(struct basic_ctx* ctx);
+char* basic_bigmod(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Compare two big integers
@@ -53,46 +53,46 @@ int64_t basic_bigcmp(struct basic_ctx* ctx);
  * @param ctx BASIC execution context
  * @return Result as string
  */
-char* basic_bigabs(struct basic_ctx* ctx);
+char* basic_bigabs(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Negate big integer
  * @param ctx BASIC execution context
  * @return Result as string
  */
-char* basic_bigneg(struct basic_ctx* ctx);
+char* basic_bigneg(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Left shift big integer
  * @param ctx BASIC execution context
  * @return Result as string
  */
-char* basic_bigshl(struct basic_ctx* ctx);
+char* basic_bigshl(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Right shift big integer
  * @param ctx BASIC execution context
  * @return Result as string
  */
-char* basic_bigshr(struct basic_ctx* ctx);
+char* basic_bigshr(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Greatest common divisor
  * @param ctx BASIC execution context
  * @return Result as string
  */
-char* basic_biggcd(struct basic_ctx* ctx);
+char* basic_biggcd(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Modular exponentiation
  * @param ctx BASIC execution context
  * @return Result as string
  */
-char* basic_bigmodpow(struct basic_ctx* ctx);
+char* basic_bigmodpow(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Modular inverse
  * @param ctx BASIC execution context
  * @return Result as string
  */
-char* basic_bigmodinv(struct basic_ctx* ctx);
+char* basic_bigmodinv(struct basic_ctx* ctx, size_t* out_len);

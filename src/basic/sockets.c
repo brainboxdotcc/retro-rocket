@@ -466,7 +466,7 @@ int64_t basic_sslsockaccept(struct basic_ctx *ctx) {
 	return rv;
 }
 
-char *basic_insocket(struct basic_ctx *ctx) {
+char *basic_insocket(struct basic_ctx *ctx, size_t* out_len) {
 	uint8_t input[MAX_STRINGLEN];
 
 	PARAMS_START;
@@ -506,6 +506,8 @@ char *basic_insocket(struct basic_ctx *ctx) {
 		rv = recv(fd, input, max, false, 0);
 	}
 
+	if (rv >= 0) *out_len = rv;
+
 	if (rv > 0) {
 		input[rv] = 0;
 		STRING_ESCAPE_INPLACE(input, rv, MAX_STRINGLEN);
@@ -513,6 +515,7 @@ char *basic_insocket(struct basic_ctx *ctx) {
 	} else if (rv < 0) {
 		tokenizer_error_print(ctx, socket_error(rv));
 	}
+	*out_len = 0;
 	return "";
 }
 
@@ -529,7 +532,7 @@ int64_t basic_sockstatus(struct basic_ctx *ctx) {
 	return is_connected(fd);
 }
 
-char* basic_tlsversion(struct basic_ctx *ctx) {
+char* basic_tlsversion(struct basic_ctx* ctx, size_t* out_len) {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t fd = intval;
@@ -538,7 +541,7 @@ char* basic_tlsversion(struct basic_ctx *ctx) {
 	return (char*)(gc_strdup(ctx, tls_version(fd)));
 }
 
-char* basic_tlscipher(struct basic_ctx *ctx) {
+char* basic_tlscipher(struct basic_ctx* ctx, size_t* out_len) {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t fd = intval;
@@ -547,7 +550,7 @@ char* basic_tlscipher(struct basic_ctx *ctx) {
 	return (char*)(gc_strdup(ctx, tls_cipher(fd)));
 }
 
-char* basic_sockerror(struct basic_ctx *ctx) {
+char* basic_sockerror(struct basic_ctx* ctx, size_t* out_len) {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t fd = intval;
@@ -557,7 +560,7 @@ char* basic_sockerror(struct basic_ctx *ctx) {
 }
 
 
-char *basic_netinfo(struct basic_ctx *ctx) {
+char *basic_netinfo(struct basic_ctx *ctx, size_t* out_len) {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_END("NETINFO$", "");
@@ -588,13 +591,14 @@ char *basic_netinfo(struct basic_ctx *ctx) {
 	return (char*)gc_strdup(ctx, "0.0.0.0");
 }
 
-char *basic_dns(struct basic_ctx *ctx) {
+char *basic_dns(struct basic_ctx *ctx, size_t* out_len) {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_END("DNS$", "");
 	char ip[IP_BUF_LEN] = {0};
 	uint32_t addr = dns_lookup_host(getdnsaddr(), strval, 2000);
 	get_ip_str(ip, (uint8_t *) &addr);
+	*out_len = strlen(ip);
 	return (char*)gc_strdup(ctx, ip);
 }
 
@@ -736,11 +740,11 @@ int64_t basic_udplastsourceport(struct basic_ctx *ctx) {
 	return ctx->last_packet.source_port;
 }
 
-char *basic_udplastip(struct basic_ctx *ctx) {
+char *basic_udplastip(struct basic_ctx *ctx, size_t* out_len) {
 	return ctx->last_packet.ip ? (char *) ctx->last_packet.ip : "";
 }
 
-char *basic_udpread(struct basic_ctx *ctx) {
+char *basic_udpread(struct basic_ctx *ctx, size_t* out_len) {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	PARAMS_END("UDPREAD$", "");

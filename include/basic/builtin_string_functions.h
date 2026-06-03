@@ -14,7 +14,7 @@ struct basic_ctx;
  * @param ctx BASIC interpreter context
  * @return A substring from the leftmost part of the string
  */
-char* basic_left(struct basic_ctx* ctx);
+char* basic_left(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Returns the rightmost part of a string.
@@ -26,7 +26,7 @@ char* basic_left(struct basic_ctx* ctx);
  * @param ctx BASIC interpreter context
  * @return A substring from the rightmost part of the string
  */
-char* basic_right(struct basic_ctx* ctx);
+char* basic_right(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Returns a substring from the middle of a string.
@@ -37,7 +37,7 @@ char* basic_right(struct basic_ctx* ctx);
  * @param ctx BASIC interpreter context
  * @return A substring from the middle of the string
  */
-char* basic_mid(struct basic_ctx* ctx);
+char* basic_mid(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Returns the ASCII character for a given number.
@@ -48,7 +48,7 @@ char* basic_mid(struct basic_ctx* ctx);
  * @param ctx BASIC interpreter context
  * @return The ASCII character corresponding to the given number
  */
-char* basic_chr(struct basic_ctx* ctx);
+char* basic_chr(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Reads a string from input.
@@ -59,7 +59,7 @@ char* basic_chr(struct basic_ctx* ctx);
  * @param ctx BASIC interpreter context
  * @return The string read from input
  */
-char* basic_readstring(struct basic_ctx* ctx);
+char* basic_readstring(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Converts a string to uppercase.
@@ -70,7 +70,7 @@ char* basic_readstring(struct basic_ctx* ctx);
  * @param ctx BASIC interpreter context
  * @return The uppercase version of the input string
  */
-char* basic_upper(struct basic_ctx* ctx);
+char* basic_upper(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Converts a string to lowercase.
@@ -81,7 +81,7 @@ char* basic_upper(struct basic_ctx* ctx);
  * @param ctx BASIC interpreter context
  * @return The lowercase version of the input string
  */
-char* basic_lower(struct basic_ctx* ctx);
+char* basic_lower(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Tokenizes a string based on a delimiter.
@@ -92,7 +92,7 @@ char* basic_lower(struct basic_ctx* ctx);
  * @param ctx BASIC interpreter context
  * @return The next token from the string
  */
-char* basic_tokenize(struct basic_ctx* ctx);
+char* basic_tokenize(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Gets the current selected directory (like getcwd in C).
@@ -103,7 +103,7 @@ char* basic_tokenize(struct basic_ctx* ctx);
  * @param ctx BASIC interpreter context
  * @return The path of the current working directory
  */
-char* basic_csd(struct basic_ctx* ctx);
+char* basic_csd(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Gets the brand of the CPU.
@@ -114,7 +114,7 @@ char* basic_csd(struct basic_ctx* ctx);
  * @param ctx BASIC interpreter context
  * @return The brand of the CPU
  */
-char* basic_cpugetbrand(struct basic_ctx* ctx);
+char* basic_cpugetbrand(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Gets the vendor of the CPU.
@@ -125,7 +125,7 @@ char* basic_cpugetbrand(struct basic_ctx* ctx);
  * @param ctx BASIC interpreter context
  * @return The vendor of the CPU
  */
-char* basic_cpugetvendor(struct basic_ctx* ctx);
+char* basic_cpugetvendor(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Converts a number to its ASCII string representation.
@@ -136,7 +136,7 @@ char* basic_cpugetvendor(struct basic_ctx* ctx);
  * @param ctx BASIC interpreter context
  * @return The ASCII string representation of the number
  */
-char* basic_intoasc(struct basic_ctx* ctx);
+char* basic_intoasc(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Left-justifies a string.
@@ -147,7 +147,7 @@ char* basic_intoasc(struct basic_ctx* ctx);
  * @param ctx BASIC interpreter context
  * @return The left-justified string
  */
-char* basic_ljust(struct basic_ctx* ctx);
+char* basic_ljust(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Right-justifies a string.
@@ -158,7 +158,7 @@ char* basic_ljust(struct basic_ctx* ctx);
  * @param ctx BASIC interpreter context
  * @return The right-justified string
  */
-char* basic_rjust(struct basic_ctx* ctx);
+char* basic_rjust(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Removes leading whitespace from a string.
@@ -168,7 +168,7 @@ char* basic_rjust(struct basic_ctx* ctx);
  * @param ctx BASIC interpreter context
  * @return The string with leading whitespace removed
  */
-char* basic_ltrim(struct basic_ctx* ctx);
+char* basic_ltrim(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Removes trailing whitespace from a string.
@@ -178,7 +178,7 @@ char* basic_ltrim(struct basic_ctx* ctx);
  * @param ctx BASIC interpreter context
  * @return The string with trailing whitespace removed
  */
-char* basic_rtrim(struct basic_ctx* ctx);
+char* basic_rtrim(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Removes both leading and trailing whitespace from a string.
@@ -189,7 +189,7 @@ char* basic_rtrim(struct basic_ctx* ctx);
  * @param ctx BASIC interpreter context
  * @return The string with both leading and trailing whitespace removed
  */
-char* basic_trim(struct basic_ctx* ctx);
+char* basic_trim(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Converts an integer to a string.
@@ -199,7 +199,7 @@ char* basic_trim(struct basic_ctx* ctx);
  * @param ctx BASIC interpreter context
  * @return The string representation of the integer
  */
-char* basic_itoa(struct basic_ctx* ctx);
+char* basic_itoa(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Repeats a string a specified number of times.
@@ -209,7 +209,7 @@ char* basic_itoa(struct basic_ctx* ctx);
  * @param ctx BASIC interpreter context
  * @return The repeated string
  */
-char* basic_repeat(struct basic_ctx* ctx);
+char* basic_repeat(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Reverses the characters in a string.
@@ -219,7 +219,7 @@ char* basic_repeat(struct basic_ctx* ctx);
  * @param ctx BASIC interpreter context
  * @return The reversed string
  */
-char* basic_reverse(struct basic_ctx* ctx);
+char* basic_reverse(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Returns the string representation of a value.
@@ -230,7 +230,7 @@ char* basic_reverse(struct basic_ctx* ctx);
  * @param ctx BASIC interpreter context
  * @return The string representation of the value
  */
-char* basic_str(struct basic_ctx* ctx);
+char* basic_str(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Converts a boolean value to a string.
@@ -240,7 +240,7 @@ char* basic_str(struct basic_ctx* ctx);
  * @param ctx BASIC interpreter context
  * @return The string representation of the boolean value
  */
-char* basic_bool(struct basic_ctx* ctx);
+char* basic_bool(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Replaces all occurrences of a substring.
@@ -251,7 +251,7 @@ char* basic_bool(struct basic_ctx* ctx);
  * @param ctx BASIC interpreter context
  * @return The string with matching substrings replaced
  */
-char* basic_replace(struct basic_ctx* ctx);
+char* basic_replace(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Applies BASIC syntax highlighting to a string.
@@ -262,7 +262,7 @@ char* basic_replace(struct basic_ctx* ctx);
  * @param ctx BASIC interpreter context
  * @return The syntax-highlighted string
  */
-char* basic_highlight(struct basic_ctx* ctx);
+char* basic_highlight(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Executes the BASIC MATCH statement.
@@ -282,7 +282,7 @@ void match_statement(struct basic_ctx *ctx);
  * @param ctx BASIC interpreter context
  * @return A secure random string
  */
-char* basic_secure_random_string(struct basic_ctx* ctx);
+char* basic_secure_random_string(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Copies a BASIC string into a memory buffer.
@@ -304,7 +304,7 @@ int64_t basic_string_to_buffer(struct basic_ctx *ctx);
  * @param ctx BASIC interpreter context
  * @return The encoded BASIC string
  */
-char *basic_buffer_to_string(struct basic_ctx *ctx);
+char *basic_buffer_to_string(struct basic_ctx *ctx, size_t* out_len);
 
 /**
  * @brief Converts HTML to Markdown.
@@ -315,7 +315,7 @@ char *basic_buffer_to_string(struct basic_ctx *ctx);
  * @param ctx BASIC interpreter context
  * @return The converted Markdown string
  */
-char* basic_markdown(struct basic_ctx* ctx);
+char* basic_markdown(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Encodes a buffer as Base64.
@@ -323,7 +323,7 @@ char* basic_markdown(struct basic_ctx* ctx);
  * @param ctx BASIC interpreter context
  * @return Base64 encoded string
  */
-char* basic_tobase64(struct basic_ctx* ctx);
+char* basic_tobase64(struct basic_ctx* ctx, size_t* out_len);
 
 /**
  * @brief Decodes Base64 into a buffer.

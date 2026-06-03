@@ -170,7 +170,7 @@ int64_t basic_memfind(struct basic_ctx* ctx)
         return (int64_t)memchr((void*)start, (uint8_t)value, size);
 }
 
-char* basic_cpugetbrand(struct basic_ctx* ctx)
+char* basic_cpugetbrand(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
@@ -185,15 +185,17 @@ char* basic_cpugetbrand(struct basic_ctx* ctx)
 		}
 	}
 
+	*out_len = strlen(bufferp);
 	return (char *)gc_strdup(ctx, bufferp);
 }
 
-char* basic_cpugetvendor(struct basic_ctx* ctx)
+char* basic_cpugetvendor(struct basic_ctx* ctx, size_t* out_len)
 {
+	*out_len = 12;
 	return (char *)gc_strdup(ctx, cpu_caps.vendor);
 }
 
-char* basic_intoasc(struct basic_ctx* ctx)
+char* basic_intoasc(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);

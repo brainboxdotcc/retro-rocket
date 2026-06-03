@@ -88,4 +88,4 @@ void basic_dataread_real(struct basic_ctx* ctx, double* rv);
  *
  * @return Newly allocated string (GC-managed).
  */
-char* basic_dataread_string(struct basic_ctx* ctx);
+char* basic_dataread_string(struct basic_ctx* ctx, size_t* out_len);
