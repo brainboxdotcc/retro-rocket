@@ -64,7 +64,7 @@ char* basic_get_upstr(struct basic_ctx* ctx, size_t* out_len)
 
 	char buffer[256];
 	size_t pos = 0;
-	int started = 0;
+	bool started = false;
 
 	for (size_t i = 0; i < sizeof(parts)/sizeof(parts[0]); i++) {
 		if (!parts[i].v) {
@@ -81,15 +81,16 @@ char* basic_get_upstr(struct basic_ctx* ctx, size_t* out_len)
 			break;
 		}
 		pos += n;
-		started = 1;
+		started = true;
 	}
 
 	if (!started) {
-		snprintf(buffer, sizeof(buffer), "0 sec");
+		pos = snprintf(buffer, sizeof(buffer), "0 sec");
 	} else {
 		buffer[pos] = '\0';
 	}
 
+	*out_len = pos;
 	return (char*)gc_strdup(ctx, buffer);
 }
 
@@ -190,6 +191,7 @@ char* basic_date(struct basic_ctx* ctx, size_t* out_len)
 	datetime_t date;
 	local_or_not(local, &date);
 	snprintf(tm, sizeof(tm), "%04d-%02d-%02d", ((date.century - 1) * 100) + date.year, date.month, date.day);
+	*out_len = 10;
 	return (char*)gc_strdup(ctx, tm);
 }
 
@@ -203,6 +205,7 @@ char* basic_time(struct basic_ctx* ctx, size_t* out_len)
 	datetime_t date;
 	local_or_not(local, &date);
 	snprintf(tm, sizeof(tm), "%02d:%02d:%02d", date.hour, date.minute, date.second);
+	*out_len = 8;
 	return (char*)gc_strdup(ctx, tm);
 }
 

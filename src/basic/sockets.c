@@ -475,6 +475,7 @@ char *basic_insocket(struct basic_ctx *ctx, size_t* out_len) {
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t max = intval;
 	PARAMS_END("INSOCKET$", "");
+	*out_len = 0;
 	if (max < 1) {
 		max = 1;
 	} else if (max > MAX_STRINGLEN / 2) {
@@ -537,8 +538,9 @@ char* basic_tlsversion(struct basic_ctx* ctx, size_t* out_len) {
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t fd = intval;
 	PARAMS_END("TLSVERSION$", 0);
-
-	return (char*)(gc_strdup(ctx, tls_version(fd)));
+	const char* ver = tls_version(fd);
+	*out_len = strlen(ver);
+	return (char*)(gc_strdup(ctx, ver));
 }
 
 char* basic_tlscipher(struct basic_ctx* ctx, size_t* out_len) {
@@ -546,8 +548,9 @@ char* basic_tlscipher(struct basic_ctx* ctx, size_t* out_len) {
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t fd = intval;
 	PARAMS_END("TLSCIPHER$", 0);
-
-	return (char*)(gc_strdup(ctx, tls_cipher(fd)));
+	const char* cipher = tls_cipher(fd);
+	*out_len = strlen(cipher);
+	return (char*)(gc_strdup(ctx, cipher));
 }
 
 char* basic_sockerror(struct basic_ctx* ctx, size_t* out_len) {
@@ -555,8 +558,9 @@ char* basic_sockerror(struct basic_ctx* ctx, size_t* out_len) {
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t fd = intval;
 	PARAMS_END("SOCKERROR$", 0);
-
-	return (char*)(gc_strdup(ctx, socket_error(tcp_get_close_code(fd))));
+	const char* msg = socket_error(tcp_get_close_code(fd));
+	*out_len = strlen(msg);
+	return (char*)(gc_strdup(ctx, msg));
 }
 
 
@@ -565,29 +569,35 @@ char *basic_netinfo(struct basic_ctx *ctx, size_t* out_len) {
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_END("NETINFO$", "");
 	char ip[IP_BUF_LEN] = {0};
+	*out_len = 0;
 	if (!stricmp(strval, "ip")) {
 		unsigned char raw[4];
 		if (gethostaddr(raw)) {
 			get_ip_str(ip, (uint8_t *) &raw);
 			return (char*)gc_strdup(ctx, ip);
 		}
+		*out_len = 7;
 		return (char*)gc_strdup(ctx, "0.0.0.0");
 	}
 	if (!stricmp(strval, "gw")) {
 		uint32_t raw = getgatewayaddr();
 		get_ip_str(ip, (uint8_t *) &raw);
+		*out_len = strlen(ip);
 		return (char*)gc_strdup(ctx, ip);
 	}
 	if (!stricmp(strval, "mask")) {
 		uint32_t raw = getnetmask();
 		get_ip_str(ip, (uint8_t *) &raw);
+		*out_len = strlen(ip);
 		return (char*)gc_strdup(ctx, ip);
 	}
 	if (!stricmp(strval, "dns")) {
 		uint32_t raw = getdnsaddr();
 		get_ip_str(ip, (uint8_t *) &raw);
+		*out_len = strlen(ip);
 		return (char*)gc_strdup(ctx, ip);
 	}
+	*out_len = 7;
 	return (char*)gc_strdup(ctx, "0.0.0.0");
 }
 
@@ -741,6 +751,7 @@ int64_t basic_udplastsourceport(struct basic_ctx *ctx) {
 }
 
 char *basic_udplastip(struct basic_ctx *ctx, size_t* out_len) {
+	*out_len = ctx->last_packet.ip ? strlen(ctx->last_packet.ip) : 0;
 	return ctx->last_packet.ip ? (char *) ctx->last_packet.ip : "";
 }
 
@@ -749,6 +760,7 @@ char *basic_udpread(struct basic_ctx *ctx, size_t* out_len) {
 	PARAMS_GET_ITEM(BIP_INT);
 	PARAMS_END("UDPREAD$", "");
 	int64_t port = intval;
+	*out_len = 0;
 	if (port > 65535 || port < 0) {
 		tokenizer_error_print(ctx, "Invalid UDP port number");
 	}
@@ -788,6 +800,7 @@ char *basic_udpread(struct basic_ctx *ctx, size_t* out_len) {
 	}
 
 	unlock_spinlock_irq(&udp_read_lock, flags);
+	*out_len = ctx->last_packet.length;
 	return ctx->last_packet.data ? (char *) ctx->last_packet.data : "";
 }
 

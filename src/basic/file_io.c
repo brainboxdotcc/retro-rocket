@@ -35,6 +35,7 @@ char* basic_readstring(struct basic_ctx* ctx, size_t* out_len)
 	PARAMS_GET_ITEM(BIP_INT);
 	PARAMS_END("READ$", "");
 	char* res = buddy_malloc(ctx->allocator, cap);
+	*out_len = 0;
 	if (!res) {
 		tokenizer_error_print(ctx, "Error allocating string buffer");
 		return "";
@@ -64,6 +65,7 @@ char* basic_readstring(struct basic_ctx* ctx, size_t* out_len)
 		}
 	}
 	*(res + ofs) = 0;
+	*out_len = ofs;
 	char* ret = (char*)gc_strdup(ctx, res);
 	buddy_free(ctx->allocator, res);
 	return ret;
@@ -405,14 +407,17 @@ char* basic_ramdisk_from_device(struct basic_ctx* ctx, size_t* out_len)
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_END("RAMDISK$","");
 	const char* rd = init_ramdisk_from_storage(strval);
+	*out_len = 0;
 	if (!rd) {
 		return "";
 	}
+	*out_len = strlen(rd);
 	return (char*)gc_strdup(ctx, rd);
 }
 
 char* basic_ramdisk_from_image(struct basic_ctx* ctx, size_t* out_len)
 {
+	*out_len = 0;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_END("ADFSIMAGE$","");
@@ -650,6 +655,7 @@ char* basic_sign(struct basic_ctx* ctx, size_t* out_len)
 	const char* full_key = make_full_path(ctx, key);
 
 	fs_directory_entry_t* file_entry = fs_get_file_info(full_file);
+	*out_len = 0;
 
 	if (!file_entry) {
 		tokenizer_error_printf(ctx, "Error retrieving file information: %s", fs_strerror(fs_get_error()));
@@ -710,6 +716,8 @@ char* basic_sign(struct basic_ctx* ctx, size_t* out_len)
 
 	buddy_free(ctx->allocator, key_data);
 	buddy_free(ctx->allocator, file_data);
+
+	*out_len = sig_size;
 
 	return (char*)gc_strdup(ctx, (const char*)sig);
 }
@@ -874,6 +882,7 @@ const char* get_device_volume_by_index(const volume_details_t* details, size_t i
 
 char* basic_voldesc(struct basic_ctx* ctx, size_t* out_len)
 {
+	*out_len = 0;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* device_name = strval;
@@ -887,5 +896,6 @@ char* basic_voldesc(struct basic_ctx* ctx, size_t* out_len)
 	volume_details_t details = get_device_volumes(ctx, device_name);
 	const char* desc = gc_strdup(ctx, get_device_volume_by_index(&details, index));
 	free_device_volumes(&details);
+	*out_len = strlen(desc);
 	return (char*)desc;
 }

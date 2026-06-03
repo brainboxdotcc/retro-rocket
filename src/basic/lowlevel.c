@@ -203,6 +203,7 @@ char* basic_intoasc(struct basic_ctx* ctx, size_t* out_len)
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t length = intval;
 	PARAMS_END("INTOASC$", "");
+	*out_len = 0;
 	if (length < 0 || length > 8) {
 		tokenizer_error_print(ctx, "Invalid length");
 		return (char*)gc_strdup(ctx, "");
@@ -210,6 +211,7 @@ char* basic_intoasc(struct basic_ctx* ctx, size_t* out_len)
 	char result[16] = {0};
 	(*(int64_t*) result) = target;
 	result[length] = '\0';
+	*out_len = length;
 	return (char*)gc_strdup(ctx, result);
 }
 

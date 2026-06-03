@@ -498,8 +498,9 @@ int do_atoi(int64_t* dst, char* target, unsigned radix)
 		: 0;
 }
 
-int do_itoa(int64_t target, char* buf, unsigned radix)
+int do_itoa(int64_t target, char* buf, unsigned radix, size_t* out_len)
 {
+	*out_len = 0;
 	if (!buf) {
 		return -1;
 	}
@@ -515,9 +516,11 @@ int do_itoa(int64_t target, char* buf, unsigned radix)
 	char* low = buf;
 	do {
 		*buf++ = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"[target % radix];
+		(*out_len)++;
 	} while (target /= radix);
 	if (sign) {
 		*buf++ = '-';
+		(*out_len)++;
 	}
 	*buf++ = '\0';
 	strrev(low);

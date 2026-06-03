@@ -347,7 +347,7 @@ int do_atoi(int64_t* dst, char* target, unsigned radix);
  * @param radix Base
  * @return int 0 on success, non-zero on error
  */
-int do_itoa(int64_t target, char* buf, unsigned radix);
+int do_itoa(int64_t target, char* buf, unsigned radix, size_t* out_len);
 
 /**
  * @brief Locate the last occurrence of a character in a string.

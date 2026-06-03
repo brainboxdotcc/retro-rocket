@@ -277,6 +277,7 @@ void basic_dataread_real(struct basic_ctx* ctx, double* rv)
 
 char* basic_dataread_string(struct basic_ctx* ctx, size_t* out_len)
 {
+	*out_len = 0;
 	if (ctx->data_offset >= ctx->datastore.length) {
 		tokenizer_error_print(ctx, "Out of DATA");
 		return "";
@@ -286,5 +287,6 @@ char* basic_dataread_string(struct basic_ctx* ctx, size_t* out_len)
 		tokenizer_error_print(ctx, "Expected string DATA");
 		return "";
 	}
+	*out_len = v.v.s.len;
 	return (char*)gc_strdup(ctx, v.v.s.ptr);
 }

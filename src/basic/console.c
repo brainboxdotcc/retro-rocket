@@ -40,11 +40,13 @@ char* basic_inkey(struct basic_ctx* ctx, size_t* out_len)
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* key_ascii = strval;
 	PARAMS_END("INKEY$","");
+	*out_len = 0;
 
 	if (*key_ascii) {
 		/*Checking for particular key being held */
 		if (key_held(*key_ascii)) {
 			char r_str[2] = {*key_ascii, 0};
+			*out_len = 1;
 			return (char*)gc_strdup(ctx, r_str);
 		}
 		return "";
@@ -54,8 +56,10 @@ char* basic_inkey(struct basic_ctx* ctx, size_t* out_len)
 	
 	if (*key == 255) {
 		__builtin_ia32_pause();
+		*out_len = 0;
 		return "";
 	} else {
+		*out_len = 1;
 		return (char*)gc_strdup(ctx, (const char*)key);
 	}
 }

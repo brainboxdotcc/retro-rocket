@@ -613,7 +613,9 @@ bool basic_pop_string_array(const char* var, int64_t pop_pos, struct basic_ctx* 
 
 	buddy_free(ctx->allocator, cur->values[pop_pos]);
 	memmove(&cur->values[pop_pos], &cur->values[pop_pos + 1], (cur->itemcount - (uint64_t)pop_pos - 1) * sizeof(cur->values[0]));
+	memmove(&cur->value_lengths[pop_pos], &cur->value_lengths[pop_pos + 1], (cur->itemcount - (uint64_t)pop_pos - 1) * sizeof(cur->value_lengths[0]));
 	cur->values[cur->itemcount - 1] = NULL;
+	cur->value_lengths[cur->itemcount - 1] = 0;
 	return true;
 }
 
@@ -688,7 +690,9 @@ bool basic_push_string_array(const char* var, int64_t push_pos, struct basic_ctx
 		buddy_free(ctx->allocator, cur->values[cur->itemcount - 1]);
 	}
 	memmove(&cur->values[push_pos + 1], &cur->values[push_pos], (cur->itemcount - (uint64_t)push_pos - 1) * sizeof(cur->values[0]));
+	memmove(&cur->value_lengths[push_pos + 1], &cur->value_lengths[push_pos], (cur->itemcount - (uint64_t)push_pos - 1) * sizeof(cur->value_lengths[0]));
 	cur->values[push_pos] = NULL;
+	cur->value_lengths[push_pos] = 0;
 	return true;
 }
 

@@ -244,14 +244,13 @@ char *basic_mapgets(struct basic_ctx *ctx, size_t* out_len)
 	PARAMS_END("MAPGET$", "");
 
 	struct hashmap *map = basic_get_map_by_handle(ctx, handle);
-	map_value_t *entry;
 
 	if (!map) {
 		tokenizer_error_print(ctx, "Invalid MAP");
 		return "";
 	}
 
-	entry = basic_get_map_value(map, key);
+	map_value_t* entry = basic_get_map_value(map, key);
 	if (!entry) {
 		tokenizer_error_printf(ctx, "No such MAP key '%s'", key);
 		return "";
@@ -262,6 +261,7 @@ char *basic_mapgets(struct basic_ctx *ctx, size_t* out_len)
 		return "";
 	}
 
+	*out_len = entry->value.v.s.len;
 	return (char *)gc_strdup(ctx, entry->value.v.s.ptr ? entry->value.v.s.ptr : "");
 }
 

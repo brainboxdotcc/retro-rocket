@@ -56,6 +56,7 @@ char* basic_getprocname(struct basic_ctx* ctx, size_t* out_len)
 	PARAMS_GET_ITEM(BIP_INT);
 	PARAMS_END("GETPROCNAME$","");
 	process_t* process = proc_find(proc_id(intval));
+	*out_len = process->name ? strlen(process->name) : 0;
 	return process && process->name ? (char*)gc_strdup(ctx, process->name) : "";
 }
 
@@ -93,16 +94,21 @@ char* basic_getprocstate(struct basic_ctx* ctx, size_t* out_len)
 	PARAMS_END("GETPROCSTATE$", 0);
 	process_t* process = proc_find(proc_id(intval));
 	if (!process) {
+		*out_len = 5;
 		return "ended";
 	}
 	switch (process->state) {
 		case PROC_RUNNING:
+			*out_len = 7;
 			return "running";
 		case PROC_SUSPENDED:
+			*out_len = 9;
 			return "suspended";
 		case PROC_IO_BOUND:
+			*out_len = 7;
 			return "waiting";
 		default:
+			*out_len = 7;
 			return "unknown";
 	}
 }

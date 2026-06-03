@@ -221,25 +221,25 @@ struct basic_double_fn builtin_double[] = {
 
 struct basic_str_fn builtin_str[] =
 {
-	{ basic_ramdisk_from_image,   "ADFSIMAGE$"      }, // x
-	{ basic_bool,                 "BOOL$"           }, // x
-	{ basic_chr,                  "CHR$"            }, // x
-	{ basic_cpugetbrand,          "CPUGETBRAND$"    }, // x
-	{ basic_cpugetvendor,         "CPUGETVENDOR$"   }, // x
-	{ basic_csd,                  "CSD$"            }, // x
-	{ basic_dns,                  "DNS$"            }, // x
-	{ basic_filetype,             "FILETYPE$"       }, // x
-	{ basic_getname,              "GETNAME$"        }, // x
+	{ basic_ramdisk_from_image,   "ADFSIMAGE$"      },
+	{ basic_bool,                 "BOOL$"           },
+	{ basic_chr,                  "CHR$"            },
+	{ basic_cpugetbrand,          "CPUGETBRAND$"    },
+	{ basic_cpugetvendor,         "CPUGETVENDOR$"   },
+	{ basic_csd,                  "CSD$"            },
+	{ basic_dns,                  "DNS$"            },
+	{ basic_filetype,             "FILETYPE$"       },
+	{ basic_getname,              "GETNAME$"        },
 	{ basic_getprocname,          "GETPROCNAME$"    },
 	{ basic_getprocstate,         "GETPROCSTATE$"   },
-	{ basic_getvar_string,        "GETVARS$"        }, // x
+	{ basic_getvar_string,        "GETVARS$"        },
 	{ basic_highlight,            "HIGHLIGHT$"      },
 	{ basic_inkey,                "INKEY$"          },
 	{ basic_insocket,             "INSOCKET$"       },
 	{ basic_intoasc,              "INTOASC$"        },
 	{ basic_left,                 "LEFT$"           },
 	{ basic_ljust,                "LJUST$"          },
-	{ basic_lower,                "LOWER$"          }, // x
+	{ basic_lower,                "LOWER$"          },
 	{ basic_ltrim,                "LTRIM$"          },
 	{ basic_mid,                  "MID$"            },
 	{ basic_replace,              "REPLACE$"        },
@@ -248,39 +248,39 @@ struct basic_str_fn builtin_str[] =
 	{ basic_ramdisk_from_device,  "RAMDISK$"        },
 	{ basic_ramdisk_from_size,    "EMPTYRAMDISK$"   },
 	{ basic_readstring,           "READ$"           },
-	{ basic_repeat,               "REP$"            }, // x
-	{ basic_reverse,              "REVERSE$"        }, // x
+	{ basic_repeat,               "REP$"            },
+	{ basic_reverse,              "REVERSE$"        },
 	{ basic_right,                "RIGHT$"          },
 	{ basic_rjust,                "RJUST$"          },
 	{ basic_rtrim,                "RTRIM$"          },
 	{ basic_str,                  "STR$"            },
 	{ basic_tokenize,             "TOKENIZE$"       },
 	{ basic_trim,                 "TRIM$"           },
-	{ basic_upper,                "UPPER$"          }, // x
+	{ basic_upper,                "UPPER$"          },
 	{ basic_date,                 "DATE$"           },
 	{ basic_time,                 "TIME$"           },
 	{ basic_get_upstr,            "UPTIME$"         },
 	{ basic_udpread,              "UDPREAD$"        },
 	{ basic_udplastip,            "UDPLASTIP$"      },
 	{ basic_dataread_string,      "DATAREAD$"       },
-	{ basic_secure_random_string, "SECSTR$"         }, // x
+	{ basic_secure_random_string, "SECSTR$"         },
 	{ basic_mapgets,              "MAPGET$"         },
 	{ basic_buffer_to_string,     "BUFFERTOSTRING$" },
 	{ basic_tlscipher,            "TLSCIPHER$"      },
 	{ basic_tlsversion,           "TLSVERSION$"     },
 	{ basic_sockerror,            "SOCKERROR$"      },
-	{ basic_bigadd,               "BIGADD$"         }, // x
-	{ basic_bigsub,               "BIGSUB$"         }, // x
-	{ basic_bigmul,               "BIGMUL$"         }, // x
-	{ basic_bigdiv,               "BIGDIV$"         }, // x
-	{ basic_bigmod,               "BIGMOD$"         }, // x
-	{ basic_biggcd,               "BIGGCD$"         }, // x
-	{ basic_bigabs,               "BIGABS$"         }, // x
-	{ basic_bigneg,               "BIGNEG$"         }, // x
-	{ basic_bigshl,               "BIGSHL$"         }, // x
-	{ basic_bigshr,               "BIGSHR$"         }, // x
-	{ basic_bigmodpow,            "BIGMODPOW$"      }, // x
-	{ basic_bigmodinv,            "BIGMODINV$"      }, // x
+	{ basic_bigadd,               "BIGADD$"         },
+	{ basic_bigsub,               "BIGSUB$"         },
+	{ basic_bigmul,               "BIGMUL$"         },
+	{ basic_bigdiv,               "BIGDIV$"         },
+	{ basic_bigmod,               "BIGMOD$"         },
+	{ basic_biggcd,               "BIGGCD$"         },
+	{ basic_bigabs,               "BIGABS$"         },
+	{ basic_bigneg,               "BIGNEG$"         },
+	{ basic_bigshl,               "BIGSHL$"         },
+	{ basic_bigshr,               "BIGSHR$"         },
+	{ basic_bigmodpow,            "BIGMODPOW$"      },
+	{ basic_bigmodinv,            "BIGMODINV$"      },
 	{ basic_markdown,             "MARKDOWN$"       },
 	{ basic_tobase64,             "TOBASE64$"       },
 	{ basic_sign,                 "SIGN$"           },

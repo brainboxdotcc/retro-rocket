@@ -252,7 +252,7 @@ char* basic_str(struct basic_ctx* ctx, size_t* out_len)
 	PARAMS_GET_ITEM(BIP_INT);
 	PARAMS_END("STR$","");
 	char res[64];
-	snprintf(res, 64, "%ld", intval);
+	*out_len = snprintf(res, 64, "%ld", intval);
 	return (char*)gc_strdup(ctx, res);
 }
 
@@ -332,8 +332,10 @@ char* basic_markdown(struct basic_ctx* ctx, size_t* out_len) {
 		char* out_md = (char*)gc_strdup(ctx, out.markdown);
 		html2md_free(&out);
 		html2md_define_glyphs();
+		*out_len = strlen(out_md);
 		return out_md;
 	}
+	*out_len = 0;
 	return "";
 }
 
@@ -346,6 +348,7 @@ char* basic_highlight(struct basic_ctx* ctx, size_t* out_len) {
 	const char* in = strval;
 	size_t out_cap = MAX_STRINGLEN;
 	char* out = buddy_malloc(ctx->allocator, out_cap);
+	*out_len = 0;
 	if (!out) {
 		tokenizer_error_print(ctx, "Error allocating string buffer");
 		return "";
@@ -459,9 +462,10 @@ char* basic_highlight(struct basic_ctx* ctx, size_t* out_len) {
 		}
 		out = new_out;
 	}
-	snprintf(out + current_len, out_cap - current_len, "\x1b[%um", map_vga_to_ansi(COLOUR_WHITE));
+	size_t s_end = snprintf(out + current_len, out_cap - current_len, "\x1b[%um", map_vga_to_ansi(COLOUR_WHITE));
 	char* ret = (char*)gc_strdup(ctx, out);
 	buddy_free(ctx->allocator, out);
+	*out_len = current_len + s_end;
 	return ret;
 }
 
@@ -473,11 +477,11 @@ char* basic_tokenize(struct basic_ctx* ctx, size_t* out_len)
 	varname = strval;
 	PARAMS_GET_ITEM(BIP_STRING);
 	split = strval;
+	size_t split_len = strlength;
 	PARAMS_END("TOKENIZE$","");
 	const char* current_value = basic_get_string_variable(varname, ctx, out_len);
 	const char* old_value = current_value;
-	size_t len = strlen(current_value);
-	size_t split_len = strlen(split);
+	size_t len = *out_len;
 	size_t ofs = 0;
 
 	while (*current_value) {
@@ -491,6 +495,7 @@ char* basic_tokenize(struct basic_ctx* ctx, size_t* out_len)
 			char* return_value = buddy_malloc(ctx->allocator, ret_len + 1);
 			if (!return_value) {
 				tokenizer_error_print(ctx, "Error allocating string buffer");
+				*out_len = 0;
 				return "";
 			}
 
@@ -498,6 +503,7 @@ char* basic_tokenize(struct basic_ctx* ctx, size_t* out_len)
 			if (!new_value) {
 				tokenizer_error_print(ctx, "Error allocating string buffer");
 				buddy_free(ctx->allocator, return_value);
+				*out_len = 0;
 				return "";
 			}
 
@@ -512,6 +518,7 @@ char* basic_tokenize(struct basic_ctx* ctx, size_t* out_len)
 			char* ret = (char*)gc_strdup(ctx, return_value);
 			buddy_free(ctx->allocator, return_value);
 			buddy_free(ctx->allocator, new_value);
+			*out_len = ret_len;
 			return ret;
 		}
 		current_value++;
@@ -523,6 +530,7 @@ char* basic_tokenize(struct basic_ctx* ctx, size_t* out_len)
 	char* return_value = buddy_malloc(ctx->allocator, ret_len + 1);
 	if (!return_value) {
 		tokenizer_error_print(ctx, "Error allocating string buffer");
+		*out_len = 0;
 		return "";
 	}
 
@@ -542,13 +550,14 @@ char* basic_left(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
+	int64_t len = strlength;
 	PARAMS_GET_ITEM(BIP_INT);
 	PARAMS_END("LEFT$","");
-	int64_t len = strlen(strval);
 	if (intval < 0) {
 		intval = 0;
 	}
 	if (len == 0 || intval == 0) {
+		*out_len = 0;
 		return "";
 	}
 	if (intval > len) {
@@ -556,8 +565,10 @@ char* basic_left(struct basic_ctx* ctx, size_t* out_len)
 	}
 	char* cut = (char*)gc_strdup(ctx, strval);
 	if (!cut) {
+		*out_len = 0;
 		return "";
 	}
+	*out_len = intval;
 	*(cut + intval) = 0;
 	return cut;
 }
@@ -566,9 +577,9 @@ char* basic_right(struct basic_ctx* ctx, size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
+	int64_t len = strlength;
 	PARAMS_GET_ITEM(BIP_INT);
 	PARAMS_END("RIGHT$","");
-	int64_t len = strlen(strval);
 	if (intval < 0) {
 		intval = 0;
 	}
@@ -578,11 +589,13 @@ char* basic_right(struct basic_ctx* ctx, size_t* out_len)
 	if (intval > len) {
 		intval = len;
 	}
+	*out_len = intval;
 	return (char*)gc_strdup(ctx, strval + len - intval);
 }
 
 char* basic_mid(struct basic_ctx* ctx, size_t* out_len)
 {
+	*out_len = 0;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* source = strval;
@@ -611,6 +624,7 @@ char* basic_mid(struct basic_ctx* ctx, size_t* out_len)
 		return "";
 	}
 
+	*out_len = count;
 	cut[count] = 0;
 	return cut;
 }
@@ -620,20 +634,22 @@ char* basic_replace(struct basic_ctx* ctx, size_t* out_len)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* haystack = strval;
+	size_t hay_len = strlength;
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* needle = strval;
+	size_t needle_len = strlength;
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* with = strval;
+	size_t with_len = strlength;
 	PARAMS_END("REPLACE$","");
+	*out_len = 0;
 
 	if (!haystack || *haystack == '\0') {
 		return "";
 	}
 
-	size_t needle_len = needle ? strlen(needle) : 0;
-	size_t with_len = with ? strlen(with) : 0;
-
 	if (needle_len == 0) {
+		*out_len = hay_len;
 		return (char*)gc_strdup(ctx, haystack);
 	}
 
@@ -682,6 +698,7 @@ char* basic_replace(struct basic_ctx* ctx, size_t* out_len)
 	}
 
 	out[w] = '\0';
+	*out_len = w;
 	char* ret = (char*)gc_strdup(ctx, out);
 	buddy_free(ctx->allocator, out);
 	return ret;
@@ -697,6 +714,7 @@ int64_t basic_len(struct basic_ctx* ctx)
 
 char* basic_ljust(struct basic_ctx* ctx, size_t* out_len)
 {
+	*out_len = 0;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	char* target = strval;
@@ -716,11 +734,13 @@ char* basic_ljust(struct basic_ctx* ctx, size_t* out_len)
 	memcpy(mresult, target, target_length + 1);
 	memset(mresult + target_length, fill_char, result_length - target_length);
 	mresult[result_length] = '\0';
+	*out_len = result_length;
 	return (char*)gc_strdup(ctx, mresult);
 }
 
 char* basic_rjust(struct basic_ctx* ctx, size_t* out_len)
 {
+	*out_len = 0;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	char* target = strval;
@@ -743,34 +763,40 @@ char* basic_rjust(struct basic_ctx* ctx, size_t* out_len)
 	memset(mresult, fill_char, result_length - target_length);
 	memcpy(mresult + result_length - target_length, target, target_length);
 	mresult[result_length] = '\0';
+	*out_len = result_length;
 	return (char*)gc_strdup(ctx, mresult);
 }
 
-char* basic_ltrim(struct basic_ctx* ctx, size_t* out_len)
+char* basic_ltrim(struct basic_ctx* ctx, [[maybe_unused]] size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	char* target = strval;
+	*out_len = strlength;
 	PARAMS_END("LTRIM$", "");
 	while (isspace(*target)) {
 		++target;
+		(*out_len)--;
 	}
 	return (char*)gc_strdup(ctx, target);
 }
 
-char* basic_rtrim(struct basic_ctx* ctx, size_t* out_len)
+char* basic_rtrim(struct basic_ctx* ctx, [[maybe_unused]] size_t* out_len)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	char* target = (char*)gc_strdup(ctx, strval);
 	if (!target) {
+		*out_len = 0;
 		return "";
 	}
 	PARAMS_END("RTRIM$", "");
 
-	size_t len = strlen(target);
+	size_t len = strlength;
+	*out_len = len;
 	while (len > 0 && isspace(target[len - 1])) {
 		target[--len] = '\0';
+		(*out_len)--;
 	}
 
 	return target;
@@ -781,17 +807,20 @@ char* basic_trim(struct basic_ctx* ctx, size_t* out_len)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	char* target = (char*)gc_strdup(ctx, strval);
+	*out_len = 0;
 	if (!target) {
 		return "";
 	}
 	PARAMS_END("TRIM$", "");
+	size_t len = strlength;
 	while (isspace(*target)) {
 		++target;
+		--len;
 	}
-	size_t len = strlen(target);
 	while (len > 0 && isspace(target[len - 1])) {
 		target[--len] = '\0';
 	}
+	*out_len = len;
 	return target;
 }
 
@@ -805,13 +834,15 @@ char* basic_itoa(struct basic_ctx* ctx, size_t* out_len)
 	PARAMS_END("RADIX$", "");
 	char buffer[66] = {0};
 	int err;
-	if ((err = do_itoa(target, buffer, radix)) >= 0) {
+	if ((err = do_itoa(target, buffer, radix, out_len)) >= 0) {
+
 		return (char*)gc_strdup(ctx, buffer);
 	}
+	*out_len = 0;
 	switch (-err) {
-	case 1:
-		tokenizer_error_print(ctx, "Invalid radix (not in range between 2 and 36)");
-		return "";
+		case 1:
+			tokenizer_error_print(ctx, "Invalid radix (not in range between 2 and 36)");
+			return "";
 	}
 	tokenizer_error_printf(ctx, "Unknown `do_itoa` error: %d", -err);
 	return "";
@@ -913,6 +944,7 @@ char *basic_buffer_to_string(struct basic_ctx *ctx, size_t* out_len)
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t length = intval;
 	PARAMS_END("BUFFERTOSTRING$", "");
+	*out_len = 0;
 
 	if (length < 0) {
 		tokenizer_error_print(ctx, "Invalid buffer length");
@@ -933,7 +965,6 @@ char *basic_buffer_to_string(struct basic_ctx *ctx, size_t* out_len)
 	}
 
 	const uint8_t *src = (const uint8_t *)address;
-	*out_len = 0;
 	int64_t i;
 
 	for (i = 0; i < length; ++i) {
@@ -967,6 +998,7 @@ char *basic_buffer_to_string(struct basic_ctx *ctx, size_t* out_len)
 	out[j] = 0;
 	char *ret = (char *)gc_strdup(ctx, out);
 	buddy_free(ctx->allocator, out);
+	*out_len = j;
 	return ret;
 }
 
@@ -978,6 +1010,7 @@ char* basic_tobase64(struct basic_ctx* ctx, size_t* out_len)
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t length = intval;
 	PARAMS_END("TOBASE64$", "");
+	*out_len = 0;
 
 	if (!address || length == 0) {
 		return "";
@@ -999,6 +1032,7 @@ char* basic_tobase64(struct basic_ctx* ctx, size_t* out_len)
 	char* out = buddy_malloc(ctx->allocator, *out_len + 1);
 	if (!out) {
 		tokenizer_error_print(ctx, "Error allocating string buffer");
+		*out_len = 0;
 		return "";
 	}
 
@@ -1008,12 +1042,14 @@ char* basic_tobase64(struct basic_ctx* ctx, size_t* out_len)
 	if (rc == MBEDTLS_ERR_BASE64_BUFFER_TOO_SMALL) {
 		buddy_free(ctx->allocator, out);
 		tokenizer_error_print(ctx, "Base64 buffer too small");
+		*out_len = 0;
 		return "";
 	}
 
 	if (rc != 0) {
 		buddy_free(ctx->allocator, out);
 		tokenizer_error_printf(ctx, "Base64 encode failed: %d", rc);
+		*out_len = 0;
 		return "";
 	}
 
