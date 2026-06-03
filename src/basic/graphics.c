@@ -652,8 +652,17 @@ bool load_into_sprite(struct basic_ctx* ctx, int64_t sprite_handle, void* buf, s
 		s->current_frame = 0;
 		s->loop = 1;
 
+		unsigned char* gif_data = buddy_malloc(ctx->allocator, size);
+		if (!gif_data) {
+			tokenizer_error_printf(ctx, "Not enough memory for GIF data '%s'", name);
+			buddy_free(ctx->allocator, canvas);
+			free_sprite(ctx, sprite_handle);
+			return false;
+		}
+		memcpy(gif_data, buf, size);
+
 		/* Keep compressed bytes so we can rewind cheaply */
-		s->gif_data = buf;           /* ownership transferred */
+		s->gif_data = gif_data;
 		s->gif_size = size;
 
 		if (!sprite_gif_stream_reset(s)) {
