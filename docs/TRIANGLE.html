@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=11">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Retro Rocket OS: TRIANGLE Keyword</title>
+    <title>Retro Rocket OS: triangle program</title>
     <link href="tabs.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -16,7 +16,7 @@
     <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-    <meta name="title" content="TRIANGLE Keyword - Retro Rocket OS">
+    <meta name="title" content="triangle program - Retro Rocket OS">
     <meta name="description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="author" content="Retro Rocket Developers">
     <meta name="robots" content="index, follow">
@@ -24,7 +24,7 @@
     <meta name="theme-color" content="#0b0f14">
     <link rel="icon" href="rr.png">
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="TRIANGLE Keyword - Retro Rocket OS">
+    <meta property="og:title" content="triangle program - Retro Rocket OS">
     <meta property="og:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://retrorocket.dev/">
@@ -32,7 +32,7 @@
     <meta property="og:image:alt" content="Retro Rocket OS running on a retro-style desktop">
     <meta property="og:site_name" content="Retro Rocket OS">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="TRIANGLE Keyword - Retro Rocket OS">
+    <meta name="twitter:title" content="triangle program - Retro Rocket OS">
     <meta name="twitter:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="twitter:image" content="https://retrorocket.dev/leader4.png">
     <link rel="preload" as="image" href="https://retrorocket.dev/leader4.png">
@@ -94,7 +94,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('TRIANGLE.html','',''); });
+$(function(){initNavTree('triangle.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -120,47 +120,11 @@ $(function(){initNavTree('TRIANGLE.html','',''); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">TRIANGLE Keyword </div></div>
+  <div class="headertitle"><div class="title">triangle program </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">TRIANGLE integer-expression, integer-expression, integer-expression, integer-expression, integer-expression, integer-expression</div>
-</div><!-- fragment --><p>Draws a <b>filled triangle</b> using the current graphics colour (set with <a class="el" href="GCOL.html">GCOL</a>).</p>
-<ul>
-<li>Parameters are: <span class="tt">x1, y1, x2, y2, x3, y3</span> - three vertex positions in screen pixels.</li>
-<li>The triangle is always <b>filled</b>. There is no outline-only mode.</li>
-</ul>
-<hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-225"></a>
-Examples</h3>
-<p>Filled triangle </p><div class="fragment"><div class="line">GCOL RGB(255,0,0)</div>
-<div class="line">TRIANGLE 60, 30, 180, 50, 90, 160</div>
-</div><!-- fragment --><p>Two triangles with different colours </p><div class="fragment"><div class="line">GCOL RGB(0,150,255)</div>
-<div class="line">TRIANGLE 40, 40, 120, 40, 80, 120</div>
-<div class="line"> </div>
-<div class="line">GCOL RGB(0,200,80)</div>
-<div class="line">TRIANGLE 140, 60, 220, 100, 180, 160</div>
-</div><!-- fragment --><p>Outline effect using <span class="tt">LINE</span> </p><div class="fragment"><div class="line">X1 = 60 : Y1 = 30</div>
-<div class="line">X2 = 180 : Y2 = 50</div>
-<div class="line">X3 = 90 : Y3 = 160</div>
-<div class="line"> </div>
-<div class="line">GCOL RGB(255,255,0)</div>
-<div class="line">TRIANGLE X1, Y1, X2, Y2, X3, Y3</div>
-<div class="line"> </div>
-<div class="line">GCOL RGB(0,0,0)</div>
-<div class="line">LINE X1, Y1, X2, Y2</div>
-<div class="line">LINE X2, Y2, X3, Y3</div>
-<div class="line">LINE X3, Y3, X1, Y1</div>
-</div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-226"></a>
-Notes</h3>
-<ul>
-<li>Coordinates are in <b>screen pixels</b>; <span class="tt">(0,0)</span> is the <b>top-left</b> corner.</li>
-<li>Triangles that extend beyond the screen are <b>clipped</b> at the display edge.</li>
-<li>Change the drawing colour with <span class="tt">GCOL RGB(r,g,b)</span> before calling <span class="tt">TRIANGLE</span>.</li>
-<li>When <a class="el" href="AUTOFLIP.html">AUTOFLIP</a> is <span class="tt">FALSE</span>, drawn frames appear only after <a class="el" href="FLIP.html">FLIP</a>.</li>
-</ul>
-<p><b>See also:</b> <br  />
- <a class="el" href="GCOL.html">GCOL</a> · <a class="el" href="LINE.html">LINE</a> · <a class="el" href="RECTANGLE.html">RECTANGLE</a> · <a class="el" href="CIRCLE.html">CIRCLE</a> </p>
+<div class="textblock"><p>Displays a rotating yellow triangle. Press any key to stop.</p>
+<p><img src="https://github.com/user-attachments/assets/4f1f393b-9893-46f8-983c-b47a8f32bce0" alt="rotating triangle" class="inline"/> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -176,7 +140,7 @@ Notes</h3>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="index.html">Retro Rocket OS Documentation</a></li><li class="navelem"><a href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a href="keywords.html">Keywords</a></li>
+    <li class="navelem"><a href="index.html">Retro Rocket OS Documentation</a></li><li class="navelem"><a href="user-guide.html">User Guide</a></li><li class="navelem"><a href="commands.html">Commands</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.14.0 </li>
   </ul>
 </div>

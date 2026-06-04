@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=11">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Retro Rocket OS: MEMTOTAL Function</title>
+    <title>Retro Rocket OS: Retro Rocket Memory Model</title>
     <link href="tabs.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -16,7 +16,7 @@
     <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-    <meta name="title" content="MEMTOTAL Function - Retro Rocket OS">
+    <meta name="title" content="Retro Rocket Memory Model - Retro Rocket OS">
     <meta name="description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="author" content="Retro Rocket Developers">
     <meta name="robots" content="index, follow">
@@ -24,7 +24,7 @@
     <meta name="theme-color" content="#0b0f14">
     <link rel="icon" href="rr.png">
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="MEMTOTAL Function - Retro Rocket OS">
+    <meta property="og:title" content="Retro Rocket Memory Model - Retro Rocket OS">
     <meta property="og:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://retrorocket.dev/">
@@ -32,7 +32,7 @@
     <meta property="og:image:alt" content="Retro Rocket OS running on a retro-style desktop">
     <meta property="og:site_name" content="Retro Rocket OS">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="MEMTOTAL Function - Retro Rocket OS">
+    <meta name="twitter:title" content="Retro Rocket Memory Model - Retro Rocket OS">
     <meta name="twitter:description" content="A small operating system in the spirit of the 1980s micros. A system you can actually understand, not just use.">
     <meta name="twitter:image" content="https://retrorocket.dev/leader4.png">
     <link rel="preload" as="image" href="https://retrorocket.dev/leader4.png">
@@ -94,7 +94,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('MEMORY.html','',''); });
+$(function(){initNavTree('memory.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -120,33 +120,39 @@ $(function(){initNavTree('MEMORY.html','',''); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">MEMTOTAL Function </div></div>
+  <div class="headertitle"><div class="title">Retro Rocket Memory Model </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line">MEMTOTAL</div>
-</div><!-- fragment --><p>Returns the total <b>system memory</b> in bytes, including both <b>used</b> and <b>free</b> portions, for BASIC programs and the operating system.</p>
+<div class="textblock"><p>Retro Rocket handles memory in a way that is both simple for BASIC users and efficient under the hood. This document explains how memory is divided between programs, how it grows, and how it is cleaned up when a program ends.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Area  </th><th class="markdownTableHeadNone">Description  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>Operating System Core</b>  </td><td class="markdownTableBodyNone">Kernel, drivers, and system services. This part is always present and not visible to BASIC programs.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>BASIC Programs</b>  </td><td class="markdownTableBodyNone">Each BASIC program has its <b>own private heap</b>, managed by a <em>buddy allocator</em>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Program Heap  </td><td class="markdownTableBodyNone">- Starts empty<br  />
+- Grows in fixed-size regions (typically 1MB)<br  />
+- Allocations (variables, arrays, strings) come only from this private heap<br  />
+- When the program ends, its heap is destroyed in one call, instantly freeing all program memory and removing any fragmentation  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Memory Reporting  </td><td class="markdownTableBodyNone">- <span class="tt">MEMPROGRAM</span> → shows the program’s current live usage<br  />
+- <span class="tt">MEMPEAK</span> → shows the program’s highest memory use during this run<br  />
+- <span class="tt">MEMUSED</span> → shows the whole system's memory usage<br  />
+- <span class="tt">MEMFREE</span> → shows the whole system's memory free amount  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Other Subsystems  </td><td class="markdownTableBodyNone">Certain subsystems (like ACPI during boot) also get their own heaps, which are discarded when no longer needed. BASIC users usually don’t see these.  </td></tr>
+</table>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="examples-51"></a>
-Examples</h3>
-<div class="fragment"><div class="line">REM Print total system memory</div>
-<div class="line">PRINT MEMTOTAL</div>
-</div><!-- fragment --><p>On a 4 GB machine this will typically print:</p>
-<div class="fragment"><div class="line">4294967296</div>
-</div><!-- fragment --><div class="fragment"><div class="line">REM Derive free percentage</div>
-<div class="line">PRINT &quot;Free % = &quot;; (MEMFREE * 100) / MEMTOTAL</div>
-</div><!-- fragment --><p>If <span class="tt">MEMFREE</span> reports <span class="tt">3758096384</span> on a 4 GB machine, this prints:</p>
-<div class="fragment"><div class="line">Free % = 87</div>
-</div><!-- fragment --><hr  />
-<h3 class="doxsection"><a class="anchor" id="notes-51"></a>
-Notes</h3>
+<h2 class="doxsection"><a class="anchor" id="why-this-matters"></a>
+Why This Matters</h2>
 <ul>
-<li>The value is in <b>bytes</b>, returned as a 64-bit integer.</li>
-<li>Reflects the <b>installed physical RAM</b> available to Retro Rocket OS.</li>
-<li>Together with <a class="el" href="MEMFREE.html">MEMFREE</a> and <a class="el" href="MEMUSED.html">MEMUSED</a>, allows monitoring of system usage.</li>
-<li>On machines marketed as “4 GB”, the total may be slightly less due to reserved space for hardware.</li>
+<li><b>Isolation</b>: Each BASIC program has its own memory pool. Programs cannot interfere with each other’s memory.</li>
+<li><b>Speed</b>: Allocation and free are nearly O(1) operations. Programs can create and destroy variables and arrays extremely quickly.</li>
+<li><b>Simplicity</b>: No long cleanup routines are needed. When a program ends, its heap vanishes in one step.</li>
+<li><b>Transparency</b>: You can measure exactly how much memory your program used at its peak, and how much is live right now, using BASIC functions. </li>
 </ul>
-<hr  />
-<p><b>See also:</b> <a class="el" href="MEMFREE.html">MEMFREE</a> · <a class="el" href="MEMUSED.html">MEMUSED</a> · <a class="el" href="MEMORY.html">MEMRELEASE</a> · <a class="el" href="MEMORY.html">MEMALLOC</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -162,7 +168,7 @@ Notes</h3>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="index.html">Retro Rocket OS Documentation</a></li><li class="navelem"><a href="basic-ref.html">BASIC Language Reference</a></li><li class="navelem"><a href="builtin-functions.html">Built-In Functions</a></li><li class="navelem"><a href="int-funcs.html">Integer Functions</a></li>
+    <li class="navelem"><a href="index.html">Retro Rocket OS Documentation</a></li><li class="navelem"><a href="kernel-dev.html">Kernel Development</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.14.0 </li>
   </ul>
 </div>
