@@ -240,7 +240,7 @@ static void vnet_rx_drain(void) {
 		/* RX buffer layout: [virtio_net_hdr][ethernet frame...] */
 		size_t hdr_sz = sizeof(virtio_net_hdr_t);
 
-		if (buf && len >= hdr_sz) {
+		if (buf && len >= hdr_sz && len <= VNET_RX_BUF_SIZE) {
 			uint8_t *frame = buf + hdr_sz;
 			uint16_t flen = (uint16_t) (len - hdr_sz);
 
