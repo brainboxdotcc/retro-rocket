@@ -54,6 +54,7 @@ bool basic_restrict_keyword_or_function_for_child(struct basic_ctx* ctx, const c
 	hashmap_set(ctx->child_restrictions, &(restriction_t){ .length = len, .keyword = kw });
 	if (hashmap_oom(ctx->child_restrictions)) {
 		tokenizer_error_print(ctx, "Out of memory setting restriction");
+		buddy_free(ctx->allocator, kw);
 		return false;
 	}
 
