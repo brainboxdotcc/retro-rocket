@@ -2,7 +2,7 @@
 
 const double PI = 3.141592653589793238;
 
-bool envelope_define(struct basic_ctx *ctx, int idx, tone_wave_t wave, uint8_t volume,  uint8_t pulse_width, uint32_t attack_ms, uint32_t decay_ms, uint8_t sustain, uint32_t release_ms, int32_t vibrato_cents, uint32_t vibrato_hz, uint32_t glide_ms, uint32_t pwm_hz, uint8_t pwm_depth) {
+bool envelope_define(struct basic_ctx *ctx, int64_t idx, tone_wave_t wave, int64_t volume,  int64_t pulse_width, int64_t attack_ms, int64_t decay_ms, int64_t sustain, int64_t release_ms, int64_t vibrato_cents, int64_t vibrato_hz, int64_t glide_ms, int64_t pwm_hz, int64_t pwm_depth) {
 	if (!ctx || idx < 0 || idx >= 64) {
 		return false;
 	}
@@ -23,7 +23,7 @@ bool envelope_define(struct basic_ctx *ctx, int idx, tone_wave_t wave, uint8_t v
 	e->sustain = sustain;
 	e->release_ms = release_ms;
 
-	e->vibrato_cents = vibrato_cents;
+	e->vibrato_cents = (int32_t)vibrato_cents;
 	e->vibrato_hz = vibrato_hz;
 	e->glide_ms = glide_ms;
 

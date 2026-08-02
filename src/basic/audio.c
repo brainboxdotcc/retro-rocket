@@ -153,19 +153,19 @@ void envelope_statement(struct basic_ctx* ctx) {
 		case CREATE: {
 			/* Create new envelope */
 			accept_or_return(CREATE, ctx);
-			int idx = expr(ctx); accept_or_return(COMMA, ctx);
+			int64_t idx = expr(ctx); accept_or_return(COMMA, ctx);
 			tone_wave_t wave = (tone_wave_t)expr(ctx); accept_or_return(COMMA, ctx);
-			uint8_t volume = expr(ctx); accept_or_return(COMMA, ctx);
-			uint8_t pulse_width = expr(ctx); accept_or_return(COMMA, ctx);
-			uint32_t attack_ms = expr(ctx); accept_or_return(COMMA, ctx);
-			uint32_t decay_ms = expr(ctx); accept_or_return(COMMA, ctx);
-			uint8_t sustain = expr(ctx); accept_or_return(COMMA, ctx);
-			uint32_t release_ms = expr(ctx); accept_or_return(COMMA, ctx);
-			int32_t vibrato_cents = expr(ctx); accept_or_return(COMMA, ctx);
-			uint32_t vibrato_hz = expr(ctx); accept_or_return(COMMA, ctx);
-			uint32_t glide_ms = expr(ctx); accept_or_return(COMMA, ctx);
-			uint32_t pwm_hz = expr(ctx); accept_or_return(COMMA, ctx);
-			uint8_t pwm_depth = expr(ctx);
+			int64_t volume = expr(ctx); accept_or_return(COMMA, ctx);
+			int64_t pulse_width = expr(ctx); accept_or_return(COMMA, ctx);
+			int64_t attack_ms = expr(ctx); accept_or_return(COMMA, ctx);
+			int64_t decay_ms = expr(ctx); accept_or_return(COMMA, ctx);
+			int64_t sustain = expr(ctx); accept_or_return(COMMA, ctx);
+			int64_t release_ms = expr(ctx); accept_or_return(COMMA, ctx);
+			int64_t vibrato_cents = expr(ctx); accept_or_return(COMMA, ctx);
+			int64_t vibrato_hz = expr(ctx); accept_or_return(COMMA, ctx);
+			int64_t glide_ms = expr(ctx); accept_or_return(COMMA, ctx);
+			int64_t pwm_hz = expr(ctx); accept_or_return(COMMA, ctx);
+			int64_t pwm_depth = expr(ctx);
 			if (!envelope_define(ctx, idx, wave, volume, pulse_width, attack_ms, decay_ms, sustain, release_ms, vibrato_cents, vibrato_hz, glide_ms, pwm_hz, pwm_depth)) {
 				tokenizer_error_print(ctx, "ENVELOPE number out of range");
 			}

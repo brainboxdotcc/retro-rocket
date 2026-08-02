@@ -427,8 +427,8 @@ bool sound_cmd_tone(struct basic_ctx *ctx, mixer_stream_t *stream, uint32_t freq
  * @param pwm_depth      Pulse-width modulation depth (0–255)
  * @return true if defined successfully, false on invalid parameters
  */
-bool envelope_define(struct basic_ctx *ctx, int idx, tone_wave_t wave, uint8_t volume, uint8_t pulse_width, uint32_t attack_ms, uint32_t decay_ms, uint8_t sustain,
-	uint32_t release_ms, int32_t vibrato_cents, uint32_t vibrato_hz, uint32_t glide_ms, uint32_t pwm_hz, uint8_t pwm_depth);
+bool envelope_define(struct basic_ctx *ctx, int64_t idx, tone_wave_t wave, int64_t volume, int64_t pulse_width, int64_t attack_ms, int64_t decay_ms, int64_t sustain,
+	int64_t release_ms, int64_t vibrato_cents, int64_t vibrato_hz, int64_t glide_ms, int64_t pwm_hz, int64_t pwm_depth);
 
 /**
  * @brief Convert a decibel value to a fixed-point gain.
