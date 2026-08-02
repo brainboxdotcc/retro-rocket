@@ -98,7 +98,7 @@
 	[[maybe_unused]] double doubleval = 0; \
 	[[maybe_unused]] char* strval = NULL; \
 	[[maybe_unused]] char oldval = 0; \
-	[[maybe_unused]] char oldct = 0; \
+	[[maybe_unused]] enum token_t oldct = (enum token_t)0; \
 	[[maybe_unused]] char* oldptr = 0; \
 	[[maybe_unused]] char const* oldnextptr = NULL; \
 	[[maybe_unused]] int gotone = 0; \
