@@ -267,6 +267,11 @@ void tcp_free(tcp_conn_t* conn, bool with_lock)
 
 	// Free pending queue if it exists
 	if (conn->pending) {
+		while (!queue_empty(conn->pending)) {
+			tcp_conn_t *pending = queue_pop(conn->pending);
+			kfree_null(&pending);
+		}
+
 		queue_free(conn->pending);
 		conn->pending = NULL;
 	}
@@ -1055,7 +1060,21 @@ bool tcp_state_listen(ip_packet_t *encap_packet, tcp_segment_t *segment, tcp_con
 
 	/* Queue and send from the CHILD */
 	if (listener->pending) {
-		queue_push(listener->pending, new_conn);
+		tcp_conn_t *pending = kmalloc(sizeof(tcp_conn_t));
+		if (!pending) {
+			tcp_set_close_code(new_conn, TCP_ERROR_OUT_OF_MEMORY);
+			unlock_spinlock_irq(&lock, flags);
+			return false;
+		}
+
+		memset(pending, 0, sizeof(tcp_conn_t));
+		pending->local_addr = new_conn->local_addr;
+		pending->remote_addr = new_conn->remote_addr;
+		pending->local_port = new_conn->local_port;
+		pending->remote_port = new_conn->remote_port;
+		pending->state = TCP_SYN_RECEIVED;
+
+		queue_push(listener->pending, pending);
 	}
 	dprintf("LISTEN send pcb=%p state=%d %08x:%u -> %08x:%u\n", new_conn, new_conn->state, new_conn->local_addr, new_conn->local_port, new_conn->remote_addr, new_conn->remote_port);
 	tcp_send_segment(new_conn, new_conn->snd_nxt, TCP_SYN | TCP_ACK, NULL, 0);
@@ -2107,7 +2126,9 @@ int tcp_accept(int socket) {
 	}
 
 	/* Look at the oldest pending child without removing it. */
-	tcp_conn_t *head = queue_peek(listener->pending);
+	tcp_conn_t *pending = queue_peek(listener->pending);
+	tcp_conn_t *head = pending ? hashmap_get(tcb, pending) : NULL;
+
 	if (!head || head->state != TCP_ESTABLISHED) {
 		/* Handshake not completed yet; keep strict FIFO by not popping. */
 		unlock_spinlock_irq(&lock, flags);
@@ -2115,8 +2136,18 @@ int tcp_accept(int socket) {
 	}
 
 	/* Now it’s established; remove it from the queue and hand it out. */
-	tcp_conn_t *conn = queue_pop(listener->pending);
-	if (!conn) {
+	pending = queue_pop(listener->pending);
+	if (!pending) {
+		unlock_spinlock_irq(&lock, flags);
+		dprintf("accept: Connection failed: %d\n", socket);
+		tcp_set_close_code(listener, TCP_ERROR_CONNECTION_FAILED);
+		return TCP_ERROR_CONNECTION_FAILED;
+	}
+
+	tcp_conn_t *conn = hashmap_get(tcb, pending);
+	kfree_null(&pending);
+
+	if (!conn || conn->state != TCP_ESTABLISHED) {
 		unlock_spinlock_irq(&lock, flags);
 		dprintf("accept: Connection failed: %d\n", socket);
 		tcp_set_close_code(listener, TCP_ERROR_CONNECTION_FAILED);
