@@ -92,7 +92,6 @@ typedef struct ub_var_int {
 	size_t name_length; ///< Length of the variable name
 	int64_t value; ///< The value of the integer variable
 	bool global; ///< True if the variable is global, false if local
-	struct ub_var_int *next; ///< Pointer to the next integer variable (for chaining)
 } ub_var_int;
 
 /**
@@ -107,7 +106,6 @@ typedef struct ub_var_double {
 	size_t name_length; ///< Length of the variable name
 	double value; ///< The value of the double variable
 	bool global; ///< True if the variable is global, false if local
-	struct ub_var_double *next; ///< Pointer to the next double variable (for chaining)
 } ub_var_double;
 
 /**

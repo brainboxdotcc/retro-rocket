@@ -376,7 +376,7 @@ static inline char get_sigil(const char *v) {
  * @param varname variable name to check
  * @return char 1 if variable name is a function call, 0 if it is not
  */
-char varname_is_function(const char* varname) {
+char varname_is_int_function(const char* varname) {
 	if (!varname || varname[0] != 'F' || varname[1] != 'N') {
 		return 0;
 	}
@@ -415,12 +415,12 @@ const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx, si
 	ub_var_string* found = NULL;
 	for (size_t j = ctx->call_stack_ptr; j > 0; --j) {
 		struct hashmap* list = ctx->local_string_variables[j];
-		if (list && (found = hashmap_get(list, &(ub_var_string) { .varname = var, .value_length = var_name_len }))) {
+		if (list && ((found = hashmap_get(list, &(ub_var_string) { .varname = var, .name_length = var_name_len })))) {
 			if (out_len) *out_len = found->value_length;
 			return found->value;
 		}
 	}
-	if ((found = hashmap_get(ctx->str_variables, &(ub_var_string) { .varname = var, .value_length = var_name_len }))) {
+	if ((found = hashmap_get(ctx->str_variables, &(ub_var_string) { .varname = var, .name_length = var_name_len }))) {
 		if (out_len) *out_len = found->value_length;
 		return found->value;
 	}
@@ -434,14 +434,13 @@ bool basic_double_variable_exists(const char* var, struct basic_ctx* ctx) {
 	if (!var) {
 		return false;
 	}
-	ub_var_double* found = NULL;
 	for (size_t j = ctx->call_stack_ptr; j > 0; --j) {
 		struct hashmap* list = ctx->local_double_variables[j];
-		if (list && (found = hashmap_get(list, &(ub_var_double) { .varname = var }))) {
+		if (list && (hashmap_get(list, &(ub_var_double) { .varname = var }))) {
 			return true;
 		}
 	}
-	if ((found = hashmap_get(ctx->double_variables, &(ub_var_double) { .varname = var }))) {
+	if (hashmap_get(ctx->double_variables, &(ub_var_double) { .varname = var })) {
 		return true;
 	}
 	return false;
@@ -451,14 +450,13 @@ bool basic_string_variable_exists(const char* var, struct basic_ctx* ctx) {
 	if (!var) {
 		return false;
 	}
-	ub_var_string* found = NULL;
 	for (size_t j = ctx->call_stack_ptr; j > 0; --j) {
 		struct hashmap* list = ctx->local_string_variables[j];
-		if (list && (found = hashmap_get(list, &(ub_var_string) { .varname = var }))) {
+		if (list && (hashmap_get(list, &(ub_var_string) { .varname = var }))) {
 			return true;
 		}
 	}
-	if ((found = hashmap_get(ctx->str_variables, &(ub_var_string) { .varname = var }))) {
+	if (hashmap_get(ctx->str_variables, &(ub_var_string) { .varname = var })) {
 		return true;
 	}
 	return false;
@@ -468,14 +466,13 @@ bool basic_int_variable_exists(const char* var, struct basic_ctx* ctx) {
 	if (!var) {
 		return false;
 	}
-	ub_var_int* found = NULL;
 	for (size_t j = ctx->call_stack_ptr; j > 0; --j) {
 		struct hashmap* list = ctx->local_int_variables[j];
-		if (list && (found = hashmap_get(list, &(ub_var_int) { .varname = var }))) {
+		if (list && (hashmap_get(list, &(ub_var_int) { .varname = var }))) {
 			return true;
 		}
 	}
-	if ((found = hashmap_get(ctx->int_variables, &(ub_var_int) { .varname = var }))) {
+	if (hashmap_get(ctx->int_variables, &(ub_var_int) { .varname = var })) {
 		return true;
 	}
 	return false;
@@ -488,7 +485,7 @@ int64_t basic_get_int_variable(const char* var, struct basic_ctx* ctx, size_t va
 	int64_t retv = 0;
 	if (basic_builtin_int_fn(var, ctx, &retv, var_len)) {
 		return retv;
-	} else if (varname_is_function(var)) {
+	} else if (varname_is_int_function(var)) {
 		return basic_eval_int_fn(var, ctx);
 	} else if (varname_is_int_array_access(ctx, var)) {
 		return basic_get_int_array_variable(var, arr_variable_index(ctx), ctx);
@@ -497,11 +494,11 @@ int64_t basic_get_int_variable(const char* var, struct basic_ctx* ctx, size_t va
 	ub_var_int* found = NULL;
 	for (size_t j = ctx->call_stack_ptr; j > 0; --j) {
 		struct hashmap* list = ctx->local_int_variables[j];
-		if (list && (found = hashmap_get(list, &(ub_var_int) { .varname = var }))) {
+		if (list && ((found = hashmap_get(list, &(ub_var_int) { .varname = var, .name_length = var_len })))) {
 			return found->value;
 		}
 	}
-	if ((found = hashmap_get(ctx->int_variables, &(ub_var_int) { .varname = var }))) {
+	if ((found = hashmap_get(ctx->int_variables, &(ub_var_int) { .varname = var, .name_length = var_len }))) {
 		return found->value;
 	}
 
@@ -522,21 +519,20 @@ bool basic_get_double_variable(const char* var, struct basic_ctx* ctx, double* r
 		return basic_get_double_array_variable(var, arr_variable_index(ctx), ctx, res);
 	}
 
-	size_t len = var_len;
 	ub_var_double* found = NULL;
 	for (size_t j = ctx->call_stack_ptr; j > 0; --j) {
 		struct hashmap* list = ctx->local_double_variables[j];
-		if (list && ((found = hashmap_get(list, &(ub_var_double) { .varname = var, .name_length = len })))) {
+		if (list && ((found = hashmap_get(list, &(ub_var_double) { .varname = var, .name_length = var_len })))) {
 			*res = found->value;
 			return true;
 		}
 	}
-	if ((found = hashmap_get(ctx->double_variables, &(ub_var_double) { .varname = var, .name_length = len }))) {
+	if ((found = hashmap_get(ctx->double_variables, &(ub_var_double) { .varname = var, .name_length = var_len }))) {
 		*res = found->value;
 		return true;
 	}
 
-	if (var[len - 1] == '#') {
+	if (var[var_len - 1] == '#') {
 		tokenizer_error_printf(ctx, "No such real variable '%s'", var);
 		*res = 0.0; /* No such variable */
 	}
@@ -548,10 +544,10 @@ ub_return_type basic_get_numeric_variable(const char* var, struct basic_ctx* ctx
 		return RT_NONE;
 	}
 	if (basic_get_double_variable(var, ctx, res, var_len)) {
-		return RT_INT;
+		return RT_FLOAT;
 	}
 	*res = (double)(basic_get_int_variable(var, ctx, var_len));
-	return RT_FLOAT;
+	return RT_INT;
 }
 
 int64_t basic_get_numeric_int_variable(const char* var, struct basic_ctx* ctx, size_t var_len) {

@@ -385,7 +385,7 @@ bool extract_comma_list(struct ub_proc_fn_def* def, struct basic_ctx* ctx, int* 
 		// set local vars here
 		// Set ctx to item_begin, call expr(), set ctx back again. Change expr to stop on comma.
 		char oldval = *ctx->ptr;
-		char oldct = ctx->current_token;
+		enum token_t oldct = ctx->current_token;
 		char* oldptr = (char*)ctx->ptr;
 		char* oldnextptr = (char*)ctx->nextptr;
 		ctx->nextptr = *item_begin;
