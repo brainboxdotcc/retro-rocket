@@ -131,10 +131,12 @@ $(function(){initNavTree('retrofs-kernel-docs.html','',''); });
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>Version:</b>  </td><td class="markdownTableBodyNone">1.0  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>Audience:</b>  </td><td class="markdownTableBodyNone">System implementors / filesystem driver authors  </td></tr>
+<td class="markdownTableBodyNone"><b>Last edited:</b>  </td><td class="markdownTableBodyNone">2026-09-04  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>Scope:</b>  </td><td class="markdownTableBodyNone">On-disk format and required behaviours for RetroFS v1  </td></tr>
+<td class="markdownTableBodyNone"><b>Audience:</b>  </td><td class="markdownTableBodyNone">System implementors / filesystem driver authors  </td></tr>
 <tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>Scope:</b>  </td><td class="markdownTableBodyNone">On-disk format and required behaviours for RetroFS v1  </td></tr>
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td></tr>
 </table>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md1-conventions-and-terminology"></a>
@@ -265,6 +267,7 @@ Byte layout sketch</h4>
 <li>For directories, <span class="tt">flags</span> <b>MUST</b> include <span class="tt">RFS_FLAG_DIRECTORY</span> and <span class="tt">length</span> <b>MUST</b> be 0.</li>
 <li><span class="tt">sector_length</span> is the reserved extent size; <span class="tt">length</span> <b>MUST NOT</b> exceed <span class="tt">sector_length * 512</span>.</li>
 <li><span class="tt">sequence</span> is a human-oriented revision counter: implementations <b>SHOULD</b> increment it on payload-modifying writes and <b>MAY</b> leave it unchanged on metadata-only updates. When to increment the counter is left to the implementor, but it is recommended to do this at the point of close().</li>
+<li><b>Errata (2026-09-04):</b> When creating a new File/Directory entry, implementations <b>MUST</b> zero-fill its <span class="tt">reserved</span> bytes. When modifying an existing entry, implementations <b>MUST preserve</b> its <span class="tt">reserved</span> bytes unchanged. Readers <b>MUST</b> ignore reserved bytes whose semantics are not defined by this version of the specification, and implementations <b>MUST NOT</b> treat non-zero reserved bytes as corruption.</li>
 </ul>
 <h4 class="doxsection"><a class="anchor" id="autotoc_md334-directory-walk"></a>
 3.3.4 Directory walk</h4>
