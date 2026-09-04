@@ -6,6 +6,7 @@
 |------------|-------|
 | **Status:** | Draft |
 | **Version:** | 1.0  |
+| **Last edited:** | 2026-09-04 |
 | **Audience:** | System implementors / filesystem driver authors |
 | **Scope:** | On-disk format and required behaviours for RetroFS v1 |
 | | | 
@@ -143,6 +144,7 @@ Files and directories may set the following bits in their `flags` field:
 * For directories, `flags` **MUST** include `RFS_FLAG_DIRECTORY` and `length` **MUST** be 0.
 * `sector_length` is the reserved extent size; `length` **MUST NOT** exceed `sector_length * 512`.
 * `sequence` is a human-oriented revision counter: implementations **SHOULD** increment it on payload-modifying writes and **MAY** leave it unchanged on metadata-only updates. When to increment the counter is left to the implementor, but it is recommended to do this at the point of close().
+* **Errata (2026-09-04):** When creating a new File/Directory entry, implementations **MUST** zero-fill its `reserved` bytes. When modifying an existing entry, implementations **MUST preserve** its `reserved` bytes unchanged. Readers **MUST** ignore reserved bytes whose semantics are not defined by this version of the specification, and implementations **MUST NOT** treat non-zero reserved bytes as corruption.
 
 #### 3.3.4 Directory walk
 
